@@ -1,16 +1,18 @@
 <?php
 
     /**
-     * Base Idno class
+     * Data management class
      * 
      * @package idno
      * @subpackage core
      */
 
 	namespace Idno\Core {
-
-	    class Idno extends \Idno\Common\Component {
+	
+	    class Data extends \Idno\Common\Component {
+		
+		
 		
 	    }
-
+	    
 	}
