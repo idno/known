@@ -14,11 +14,12 @@
 	
 	    class DataConcierge extends \Idno\Common\Component {
 		
-		private static $client = null;
+		private $client = null;
 		
 		function init() {
-		    self::$client = new \MongoClient();
-		    
+		    $this->client = new \MongoClient();
+		    // We should probably select the database, establish 
+		    // collections, etc, here
 		}
 		
 	    }

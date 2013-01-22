@@ -12,20 +12,40 @@
 	    class Idno extends \Idno\Common\Component {
 		
 		public $db;
-		private static $idno;
+		public $config;
+		public static $site;
 		
 		function init() {
+		    $this->config = new Config();
 		    $this->db = new DataConcierge();
-		    self::site($this);
+		    self::$site = $this;
 		}
 		
 		static function &site($site = null) {
 		    if ($site instanceof Idno) {
-			self::$idno = $site;
+			self::$site = $site;
 		    }
-		    return self::$idno;
+		    return self::$site;
 		}
 		
 	    }
+	    
+	    /**
+	     * Helper function that returns the current configuration object
+	     * for this site
+	     * 
+	     * @return Idno\Core\Config
+	     */
+		function &config() {
+		    return \Idno\Core\Idno::$site->config;
+		}
+		
+	    /**
+	     * Helper function that returns the current site object
+	     * @return Idno\Core\Idno
+	     */
+		function &site() {
+		    return \Idno\Core\Idno::$site;
+		}
 
 	}
