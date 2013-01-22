@@ -1,0 +1,6 @@
+[submodule "bonita"]
+	path = bonita
+	url = https://github.com/benwerd/bonita.git
+[submodule "bootstrap"]
+	path = bootstrap
+	url = https://github.com/twitter/bootstrap.git
