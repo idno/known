@@ -25,6 +25,11 @@
     // Symfony is used for routing, observer design pattern support, and a bunch of other fun stuff
 	$loader->registerNamespace('Symfony\\Components', dirname(dirname(__FILE__)) . '/external/symfony');
 
+    // Register the autoloader
 	$loader->register();
+	
+	
+	
+    // Not sure if this is the way we should be initializing everything yet.
 	
 	$idno = new Idno\Core\Idno();
