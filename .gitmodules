@@ -4,3 +4,15 @@
 [submodule "external/bonita"]
 	path = external/bonita
 	url = https://github.com/benwerd/bonita.git
+[submodule "external/symfony/ClassLoader"]
+	path = external/symfony/ClassLoader
+	url = https://github.com/symfony/ClassLoader.git
+[submodule "external/symfony/EventDispatcher"]
+	path = external/symfony/EventDispatcher
+	url = https://github.com/symfony/EventDispatcher.git
+[submodule "external/symfony/Routing"]
+	path = external/symfony/Routing
+	url = https://github.com/symfony/Routing.git
+[submodule "external/symfony/HttpFoundation"]
+	path = external/symfony/HttpFoundation
+	url = https://github.com/symfony/HttpFoundation.git
