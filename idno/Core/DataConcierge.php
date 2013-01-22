@@ -15,11 +15,33 @@
 	    class DataConcierge extends \Idno\Common\Component {
 		
 		private $client = null;
+		private $database = null;
 		
 		function init() {
 		    $this->client = new \MongoClient();
-		    // We should probably select the database, establish 
-		    // collections, etc, here
+		    $this->database = $this->client->selectDB(config()->dbname);
+		}
+		
+		/**
+		 * Saves an idno entity to the database, returning the _id
+		 * field on success.
+		 * 
+		 * @param Entity $object 
+		 */
+		
+		function saveObject($object) {
+		    if ($object instanceof \Idno\Common\Entity) {
+			if ($collection = $object->getCollection()) {
+			    $collection_obj = $this->database->selectCollection($collection);
+			    $array = $object->saveToArray();
+			    if ($result = $collection_obj->save($array)) {
+				if ($result['ok'] == 1) {
+				    return $array['_id'];
+				}
+			    }
+			}
+		    }
+		    return false;
 		}
 		
 	    }

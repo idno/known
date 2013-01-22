@@ -16,16 +16,9 @@
 		public static $site;
 		
 		function init() {
+		    self::$site = $this;
 		    $this->config = new Config();
 		    $this->db = new DataConcierge();
-		    self::$site = $this;
-		}
-		
-		static function &site($site = null) {
-		    if ($site instanceof Idno) {
-			self::$site = $site;
-		    }
-		    return self::$site;
 		}
 		
 	    }

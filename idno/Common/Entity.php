@@ -44,6 +44,20 @@
 		 */
 		    
 		    function save() {
+			if (empty($this->created)) {
+			    $this->created = time();
+			}
+			$this->updated = time();
+			$result = \Idno\Core\site()->db->saveObject($this);
+			if ($result instanceof MongoId) {
+			    $this->_id = $result->id;
+			    return $this->_id;
+			} else if (!empty($result)) {
+			    $this->_id = $result;
+			    return $this->_id;
+			} else {
+			    return false;
+			}
 		    }
 		    
 		/**
@@ -68,6 +82,44 @@
 		 */
 		    
 		    function canRead($user_id = '') {
+		    }
+		    
+		/**
+		 * Returns the database collection that this object should be 
+		 * saved as part of
+		 * 
+		 * @return type 
+		 */
+		    function getCollection() {
+			return 'entities';
+		    }
+		    
+		/**
+		 * Populate the attributes of this object from an array
+		 * 
+		 * @param array $array 
+		 */
+		    function loadFromArray($array) {
+			if (!empty($array) && is_array($array)) {
+			    foreach($array as $key => $value) {
+				$this->attributes[$key] = $value;
+			    }
+			}
+		    }
+		    
+		/**
+		 * Store this object's attributes and class information as
+		 * an array
+		 * 
+		 * @return array
+		 */
+		    
+		    function saveToArray() {
+			
+			$array = $this->attributes;
+			$array['entity_subtype'] = get_class($this);
+			return $array;
+			
 		    }
 		
 	    }
