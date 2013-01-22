@@ -4,7 +4,7 @@
      * All idno plugins should extend this component.
      * 
      * @package idno
-     * @subpackage common
+     * @subpackage core
      */
 
 	namespace Idno\Common {

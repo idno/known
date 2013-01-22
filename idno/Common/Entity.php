@@ -7,10 +7,10 @@
      * object in the idno system
      * 
      * @package idno
-     * @subpackage entities
+     * @subpackage core
      */
 
-	namespace Idno\Entities {
+	namespace Idno\Common {
 	
 	    class Entity {
 		

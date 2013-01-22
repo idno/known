@@ -4,7 +4,7 @@
      * All idno components inherit this base class
      * 
      * @package idno
-     * @subpackage common
+     * @subpackage core
      */
 
 	 namespace Idno\Common {
