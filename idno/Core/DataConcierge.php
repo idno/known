@@ -12,8 +12,6 @@
 
 	namespace Idno\Core {
 	
-	    echo 'db loaded';
-	    
 	    class DataConcierge extends \Idno\Common\Component {
 		
 		private $client = null;
