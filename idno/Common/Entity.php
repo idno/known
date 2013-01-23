@@ -115,11 +115,9 @@
 		 */
 		    
 		    function saveToArray() {
-			
 			$array = $this->attributes;
 			$array['entity_subtype'] = get_class($this);
 			return $array;
-			
 		    }
 		
 	    }

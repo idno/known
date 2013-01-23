@@ -12,6 +12,8 @@
 
 	namespace Idno\Core {
 	
+	    echo 'db loaded';
+	    
 	    class DataConcierge extends \Idno\Common\Component {
 		
 		private $client = null;
@@ -32,18 +34,72 @@
 		function saveObject($object) {
 		    if ($object instanceof \Idno\Common\Entity) {
 			if ($collection = $object->getCollection()) {
-			    $collection_obj = $this->database->selectCollection($collection);
 			    $array = $object->saveToArray();
-			    if ($result = $collection_obj->save($array)) {
-				if ($result['ok'] == 1) {
-				    return $array['_id'];
-				}
+			    return $this->saveRecord($collection, $array);
+			}
+		    }
+		    return false;
+		}
+		
+		/**
+		 * Retrieves an Idno entity object by ID, casting it to the
+		 * correct class
+		 * 
+		 * @param string $id
+		 * @return Idno\Entity | false
+		 */
+		
+		function getObject($id) {
+		    if ($result = $this->getRecord($id)) {
+			if (!empty($result['entity_subtype']))
+			    if (class_exists($result['entity_subtype'])) {
+				$object = new $result['entity_subtype']();
+				$object->loadFromArray($result);
+				return $object;
 			    }
+		    }
+		    return false;
+		}
+		
+		
+		
+		/**
+		 * Retrieves a record from the database by ID
+		 * 
+		 * @param string $id
+		 * @return array
+		 */
+		
+		function getRecord($id) {
+		    return $this->database->entities->findOne(array("_id" => new \MongoId($id)));
+		}
+		
+		/**
+		 * Saves a record to the specified database collection
+		 * 
+		 * @param string $collection
+		 * @param array $array
+		 * @return MongoID | false
+		 */
+		
+		function saveRecord($collection, $array) {
+		    $collection_obj = $this->database->selectCollection($collection);
+		    if ($result = $collection_obj->save($array)) {
+			if ($result['ok'] == 1) {
+			    return $array['_id'];
 			}
 		    }
 		    return false;
 		}
 		
 	    }
+	    
+	    /**
+	     * Helper function that returns the current database object
+	     * @return Idno\Core\DataConcierge
+	     */
+		function db() {
+		    return \Idno\Core\Idno::$site->db;
+		}
 	    
 	}
