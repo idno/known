@@ -72,6 +72,13 @@
 		    return $this->database->entities->findOne(array("_id" => new \MongoId($id)));
 		}
 		
+		function getRecords($parameters, $limit, $offset) {
+		    if ($result = $this->database->entities->find()->skip($offset)->limit($limit)) {
+			// TODO transform and return this!
+			return $result;
+		    }
+		}
+		
 		/**
 		 * Saves a record to the specified database collection
 		 * 
