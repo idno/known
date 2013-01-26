@@ -61,6 +61,34 @@
 		    }
 		    
 		/**
+		 * Return the user that owns this entity
+		 * 
+		 * @return User
+		 */
+		    
+		    function getOwner() {
+			if (!empty($this->owner)) {
+			    return \Idno\Core\db()->getObject($this->owner);
+			}
+			return false;
+		    }
+		    
+		/**
+		 * Set the owner of this entity to a particular user
+		 * 
+		 * @param User $owner 
+		 * @return true|false
+		 */
+		    
+		    function setOwner($owner) {
+			if ($owner instanceof User) {
+			    $this->owner = $owner->_id;
+			    return true;
+			}
+			return false;
+		    }
+		    
+		/**
 		 * Can a specified user (either an explicitly specified user ID
 		 * or the currently logged-in user if this is left blank) edit
 		 * this entity?
@@ -70,6 +98,7 @@
 		 */
 		    
 		    function canEdit($user_id = '') {
+			return true;	// For now
 		    }
 		    
 		/**
@@ -82,6 +111,30 @@
 		 */
 		    
 		    function canRead($user_id = '') {
+			return true;	// For now
+		    }
+		    
+		/**
+		 * Returns an array of access groups that this entity belongs
+		 * to.
+		 * 
+		 * @return type 
+		 */
+		    
+		    function getAccessGroups() {
+			return array();
+		    }
+		    
+		/**
+		 * Sets the access groups for this object
+		 * 
+		 * @param array $array Array of access groups
+		 * @return $array
+		 */
+		    
+		    function setAccessGroups($array) {
+			if (!is_array($array)) $array = array($array);
+			$this->accessGroups = $array;
 		    }
 		    
 		/**
