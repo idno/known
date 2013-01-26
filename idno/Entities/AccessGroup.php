@@ -11,7 +11,9 @@
 	
 	    class AccessGroup extends \Idno\Common\Entity {
 		
-		
+		function canRead($user_id = '') {
+		    return true;
+		}
 		
 	    }
 	    
