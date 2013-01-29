@@ -13,12 +13,14 @@
 		
 		public $db;
 		public $config;
+		public $session;
 		public static $site;
 		
 		function init() {
 		    self::$site = $this;
 		    $this->config = new Config();
 		    $this->db = new DataConcierge();
+		    $this->session = new Session();
 		}
 		
 	    }

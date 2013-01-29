@@ -89,6 +89,26 @@
 		    }
 		    
 		/**
+		 * Retrieve a short description for this entity
+		 * @return string
+		 */
+		    
+		    function getTitle() {
+			if (!empty($this->title))
+			    return $this->title;
+			return get_class($this) . ' ' . $this->_id;
+		    }
+		    
+		/**
+		 * Set the short description for this entity
+		 * @param string $title 
+		 */
+		    
+		    function setTitle($title) {
+			$this->title = $title;
+		    }
+		    
+		/**
 		 * Can a specified user (either an explicitly specified user ID
 		 * or the currently logged-in user if this is left blank) edit
 		 * this entity?
@@ -176,3 +196,4 @@
 	    }
 	    
 	}
+	

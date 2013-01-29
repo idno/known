@@ -12,7 +12,8 @@
 	    class Config extends \Idno\Common\Component {
 		
 		public $config = array(
-		    'dbname'    => 'idno',	    // Default MongoDB database
+		    'dbname'	    => 'idno',	    // Default MongoDB database
+		    'sessionname'   => 'idno',	    // Default session name
 		);
 		
 		function init() {
