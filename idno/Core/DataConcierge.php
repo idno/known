@@ -59,6 +59,10 @@
 		    return false;
 		}
 		
+		function getObjects($limit = 25, $offset = 0) {
+		    
+		}
+		
 		
 		
 		/**
@@ -72,8 +76,17 @@
 		    return $this->database->entities->findOne(array("_id" => new \MongoId($id)));
 		}
 		
+		/**
+		 * Retrieves a set of records from the database with given parameters
+		 * 
+		 * @param array $parameters
+		 * @param int $limit
+		 * @param int $offset
+		 * @return array
+		 */
+		
 		function getRecords($parameters, $limit, $offset) {
-		    if ($result = $this->database->entities->find()->skip($offset)->limit($limit)) {
+		    if ($result = $this->database->entities->find($parameters)->skip($offset)->limit($limit)) {
 			// TODO transform and return this!
 			return $result;
 		    }
