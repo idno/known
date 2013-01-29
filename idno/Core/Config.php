@@ -19,7 +19,8 @@
 		function init() {
 		    // Load the config.ini file in the root folder, if it exists.
 		    // If not, we'll use default values. No skin off our nose.
-		    $this->path = dirname(dirname(dirname(__FILE__)));
+		    $this->path = dirname(dirname(dirname(__FILE__)));		// Base path
+		    $this->url = 'http://' . $_SERVER['SERVER_NAME'] . '/';	// A naive default base URL
 		    if ($config = @parse_ini_file($this->path . '/config.ini')) {
 			$this->config = array_merge($this->config, $config);
 		    }

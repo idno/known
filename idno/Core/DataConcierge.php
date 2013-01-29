@@ -19,7 +19,7 @@
 		
 		function init() {
 		    $this->client = new \MongoClient();
-		    $this->database = $this->client->selectDB(config()->dbname);
+		    $this->database = $this->client->selectDB(site()->config()->dbname);
 		}
 		
 		/**
@@ -40,15 +40,15 @@
 		}
 		
 		/**
-		 * Retrieves an Idno entity object by ID, casting it to the
+		 * Retrieves an Idno entity object by its UUID, casting it to the
 		 * correct class
 		 * 
 		 * @param string $id
 		 * @return Idno\Entity | false
 		 */
 		
-		function getObject($id) {
-		    if ($result = $this->getRecord($id)) {
+		function getObject($uuid) {
+		    if ($result = $this->getRecordByUUID($uuid)) {
 			if (!empty($result['entity_subtype']))
 			    if (class_exists($result['entity_subtype'])) {
 				$object = new $result['entity_subtype']();
@@ -58,11 +58,6 @@
 		    }
 		    return false;
 		}
-		
-		function getObjects($limit = 25, $offset = 0) {
-		    
-		}
-		
 		
 		
 		/**
@@ -74,6 +69,17 @@
 		
 		function getRecord($id) {
 		    return $this->database->entities->findOne(array("_id" => new \MongoId($id)));
+		}
+		
+		/**
+		 * Retrieves a record from the database by its UUID
+		 * 
+		 * @param string $id
+		 * @return array
+		 */
+		
+		function getRecordByUUID($uuid) {
+		    return $this->database->entities->findOne(array("uuid" => $uuid));
 		}
 		
 		/**
@@ -117,7 +123,7 @@
 	     * @return Idno\Core\DataConcierge
 	     */
 		function db() {
-		    return \Idno\Core\Idno::$site->db;
+		    return \Idno\Core\site()->db();
 		}
 	    
 	}

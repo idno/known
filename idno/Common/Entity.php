@@ -44,16 +44,29 @@
 		 */
 		    
 		    function save() {
+			
+			// Adding when this entity was created (if it's new) & updated
+			
 			if (empty($this->created)) {
 			    $this->created = time();
 			}
 			$this->updated = time();
+			
+			// Adding this entity's owner (if we don't know already)
+			
+			if (\Idno\Core\site()->session()->isLoggedIn()) {
+			    $this->setOwner(\Idno\Core\site()->session()->currentUser());
+			}
+			
+			// Save it to the database
+			
 			$result = \Idno\Core\site()->db->saveObject($this);
-			if ($result instanceof MongoId) {
-			    $this->_id = $result->id;
-			    return $this->_id;
-			} else if (!empty($result)) {
-			    $this->_id = $result;
+			if (!empty($result)) {
+			    if (empty($this->_id)) {
+				$this->_id = $result;
+				$this->uuid = $this->getUUID();
+				\Idno\Core\site()->db->saveObject($this);
+			    }
 			    return $this->_id;
 			} else {
 			    return false;
@@ -81,8 +94,8 @@
 		 */
 		    
 		    function setOwner($owner) {
-			if ($owner instanceof User) {
-			    $this->owner = $owner->_id;
+			if ($owner instanceof \Idno\Entities\User) {
+			    $this->owner = $owner->getUUID();
 			    return true;
 			}
 			return false;
@@ -106,6 +119,19 @@
 		    
 		    function setTitle($title) {
 			$this->title = $title;
+		    }
+		    
+		/**
+		 * Return the Universal Unique IDentifier for this object (which also
+		 * happens to be a URI for it).
+		 * 
+		 * @return type 
+		 */
+		    
+		    function getUUID() {
+			if (!empty($this->uuid))
+			    return $this->uuid;
+			return \Idno\Core\site()->config()->url . 'view/' . $this->_id;
 		    }
 		    
 		/**

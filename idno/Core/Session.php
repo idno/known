@@ -28,6 +28,25 @@
 		    }
 		    
 		/**
+		 * Wrapper function for isLoggedIn()
+		 * @see Idno\Core\Session::isLoggedIn()
+		 * @return true|false
+		 */
+		    
+		    function isLoggedOn() { return $this->isLoggedIn(); }
+		    
+		/**
+		 * Returns the currently logged-in user, if any
+		 * @return Idno\Entities\User
+		 */
+		    
+		    function currentUser() { 
+			if (!empty($_SESSION['user']))
+			    return $_SESSION['user']; 
+			return false;
+		    }
+		    
+		/**
 		 * Log the specified user on (note that this is NOT the same as taking the user's auth credentials)
 		 * 
 		 * @param Idno\Entities\User $user

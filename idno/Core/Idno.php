@@ -23,17 +23,29 @@
 		    $this->session = new Session();
 		}
 		
+		/**
+		 * Return the database layer loaded as part of this site
+		 * @return \Idno\Core\DataConcierge
+		 */
+
+		    function db() { return $this->db; }
+
+		/**
+		 * Helper function that returns the current configuration object
+		 * for this site
+		 * 
+		 * @return \Idno\Core\Config
+		 */
+		    function config() { return $this->config; }
+
+		/**
+		 * Return the session handler associated with this site
+		 * @return \Idno\Core\Session
+		 */
+
+		    function session() { return $this->session; }
+		
 	    }
-	    
-	    /**
-	     * Helper function that returns the current configuration object
-	     * for this site
-	     * 
-	     * @return Idno\Core\Config
-	     */
-		function &config() {
-		    return \Idno\Core\Idno::$site->config;
-		}
 		
 	    /**
 	     * Helper function that returns the current site object
