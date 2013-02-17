@@ -14,6 +14,7 @@
 		public $db;
 		public $config;
 		public $session;
+		public $template;
 		public static $site;
 		
 		function init() {
@@ -29,22 +30,36 @@
 		 * @return \Idno\Core\DataConcierge
 		 */
 
-		    function db() { return $this->db; }
+		    function &db() { return $this->db; }
 
 		/**
 		 * Helper function that returns the current configuration object
-		 * for this site
+		 * for this site (or a configuration setting value)
+		 * 
+		 * @param The configuration setting value to retrieve (optional)
 		 * 
 		 * @return \Idno\Core\Config
 		 */
-		    function config() { return $this->config; }
+		    function &config($setting = false) { 
+			if ($setting === false)
+			    return $this->config; 
+			else
+			    return $this->config->$setting;
+		    }
 
 		/**
 		 * Return the session handler associated with this site
 		 * @return \Idno\Core\Session
 		 */
 
-		    function session() { return $this->session; }
+		    function &session() { return $this->session; }
+		    
+		/** 
+		 * Return the template handler associated with this site
+		 * @return \Idno\Core\Template
+		 */
+		    
+		    function &template() { return $this->template; }
 		
 	    }
 		

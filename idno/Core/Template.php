@@ -9,26 +9,17 @@
 
 	namespace Idno\Core {
 	
-	    class Template extends \Idno\Common\Component {
-		
-		public $theme;
+	    class Template extends \Bonita\Templates {
 		
 		/**
-		 * On initialization, include Bonita template object as $this->theme
+		 * On construction, detect the template type
 		 */
-		function init() {
-		    $this->theme = new \Bonita\Templates();
-		    $this->theme->detectTemplateType();
+		function __construct($template = false) {
+		    if (!($template instanceof Template)) {
+			$this->detectTemplateType();
+		    }
+		    return parent::__construct($template);
 		}
-		
-		/**
-		 * Reference to this template's theme
-		 * @return \Bonita\Templates
-		 */
-		function &theme() {
-		    return $this->theme;
-		}
-		
 	    }
 	    
 	}

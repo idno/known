@@ -21,6 +21,7 @@
 		    // If not, we'll use default values. No skin off our nose.
 		    $this->path = dirname(dirname(dirname(__FILE__)));		// Base path
 		    $this->url = 'http://' . $_SERVER['SERVER_NAME'] . '/';	// A naive default base URL
+		    $this->title = 'New idno site';				// A default name for the site
 		    if ($config = @parse_ini_file($this->path . '/config.ini')) {
 			$this->config = array_merge($this->config, $config);
 		    }
@@ -33,7 +34,9 @@
 		 */
 		
 		function __get($name) {
-		    return $this->config[$name];
+		    if (isset($this->config[$name]))
+			return $this->config[$name];
+		    return false;
 		}
 		
 		/**
