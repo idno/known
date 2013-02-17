@@ -39,6 +39,17 @@
 		    }
 		    
 		/**
+		 * Overloading the entity property isset check, so that
+		 * isset($entity->property) and empty($entity->property)
+		 * work as expected.
+		 */
+		    
+		    function __isset($name) {
+			if (!empty($this->attributes[$name])) return true;
+			return false;
+		    }
+		    
+		/**
 		 * Saves this entity - either creating a new entry, or
 		 * overwriting the existing one.
 		 */

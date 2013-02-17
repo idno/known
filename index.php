@@ -17,3 +17,5 @@
      // Load the idno framework
 
 	require_once(dirname(__FILE__) . '/idno/start.php');
+
+    // We need a front page here
