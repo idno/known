@@ -154,7 +154,7 @@
 		 * @return true|false
 		 */
 		    
-		    function canEdit($user_id = '') {
+		    function canWrite($user_id = '') {
 			return true;	// For now
 		    }
 		    
