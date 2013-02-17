@@ -33,12 +33,9 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#"><?=$vars['title']?></a>
+	    <a class="brand" href="<?=  \Idno\Core\site()->config()->url?>"><?=$vars['title']?></a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
