@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Bootstrap, from Twitter</title>
+    <title><?=$vars['title']?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -21,12 +21,6 @@
       <script src="<?=\Idno\Core\site()->config()->url . 'external/bootstrap/'?>assets/js/html5shiv.js"></script>
     <![endif]-->
 
-    <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?=\Idno\Core\site()->config()->url . 'external/bootstrap/'?>assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?=\Idno\Core\site()->config()->url . 'external/bootstrap/'?>assets/ico/apple-touch-icon-114-precomposed.png">
-      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?=\Idno\Core\site()->config()->url . 'external/bootstrap/'?>assets/ico/apple-touch-icon-72-precomposed.png">
-                    <link rel="apple-touch-icon-precomposed" href="<?=\Idno\Core\site()->config()->url . 'external/bootstrap/'?>assets/ico/apple-touch-icon-57-precomposed.png">
-                                   <link rel="shortcut icon" href="<?=\Idno\Core\site()->config()->url . 'external/bootstrap/'?>assets/ico/favicon.png">
   </head>
 
   <body>
@@ -39,7 +33,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">Project name</a>
+          <a class="brand" href="#"><?=$vars['title']?></a>
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li class="active"><a href="#">Home</a></li>
@@ -53,8 +47,7 @@
 
     <div class="container">
 
-      <h1>Bootstrap starter template</h1>
-      <p>Use this document as a way to quick start any new project.<br> All you get is this message and a barebones HTML document.</p>
+      <?=$vars['body']?>
 
     </div> <!-- /container -->
 
