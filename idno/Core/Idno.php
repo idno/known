@@ -21,6 +21,7 @@
 		    $this->config = new Config();
 		    $this->db = new DataConcierge();
 		    $this->session = new Session();
+		    $this->template = new Template();
 		}
 		
 		/**

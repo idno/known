@@ -21,14 +21,15 @@
     // Register our external namespaces (PSR-0 compliant modules that we love, trust and need)
 
     // Bonita is being used for templating
-	$loader->registerNamespace('Bonita', dirname(dirname(__FILE__)) . '/external/bonita');
+	$loader->registerNamespace('Bonita', dirname(dirname(__FILE__)) . '/external/bonita/includes');
     // Symfony is used for routing, observer design pattern support, and a bunch of other fun stuff
 	$loader->registerNamespace('Symfony\\Components', dirname(dirname(__FILE__)) . '/external/symfony');
 
     // Register the autoloader
 	$loader->register();
 	
-	
+    // Register the idno-templates folder as the place to look for templates in Bonita
+	\Bonita\Main::additionalPath(dirname(dirname(__FILE__)));
 	
     // Not sure if this is the way we should be initializing everything yet.
 	
