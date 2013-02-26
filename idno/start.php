@@ -36,3 +36,4 @@
 	
     // Not sure if this is the way we should be initializing everything yet.
 	$idno = new Idno\Core\Idno();
+	$webfinger = new Idno\Core\Webfinger();
