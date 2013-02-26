@@ -35,23 +35,29 @@
 		 */
 		
 		function getReadAccessGroups() {
-		    $return = array('PUBLIC');
-		    if ($groups = site()->db()->getObjects('Idno\\Entities\\AccessGroup',array('members.read' => $this->getUUID()),MAXINT,0)) {
-			$return = array_merge($return, $groups);
-		    }
-		    return $return;
+		    return $this->getXAccessGroups('read');
 		}
 		
 		/**
 		 * Array of access groups that this user can *write* entities
 		 * to
 		 * 
-		 * @return type 
+		 * @return array
 		 */
 		
 		function getWriteAccessGroups() {
+		    return $this->getXAccessGroups('write');
+		}
+		
+		/**
+		 * Get an array of access groups that this user has arbitrary permissions for
+		 * 
+		 * @param string $permission The type of permission
+		 * @return array
+		 */
+		function getXAccessGroups($permission) {
 		    $return = array('PUBLIC');
-		    if ($groups = site()->db()->getObjects('Idno\\Entities\\AccessGroup',array('members.write' => $this->getUUID()),MAXINT,0)) {
+		    if ($groups = site()->db()->getObjects('Idno\\Entities\\AccessGroup',array('members.' . $permission => $this->getUUID()),null,MAXINT,0)) {
 			$return = array_merge($return, $groups);
 		    }
 		    return $return;
@@ -65,7 +71,7 @@
 		 */
 		
 		function getReadAccessGroupIDs() {
-		    return array('PUBLIC');
+		    return $this->getXAccessGroupIDs('read');
 		}
 		
 		/**
@@ -76,7 +82,28 @@
 		 */
 		
 		function getWriteAccessGroupIDs() {
-		    return array('PUBLIC');
+		    return $this->getXAccessGroupIDs('write');
+		}
+		
+		/**
+		 * Get an array of access group IDs that this user has an arbitrary permission for
+		 * 
+		 * @param string $permission Permission type
+		 * @return array
+		 */
+		function getXAccessGroupIDs($permission) {
+		    $return = array('PUBLIC');
+		    if ($groups = site()->db()->getRecords(	array(	'uuid'=>true), 
+								array(
+									'entity_subtype' => 'Idno\\Entities\\AccessGroup', 
+									'members.' . $permission => $this->getUUID()),
+								MAXINT, 
+								0)) {
+			foreach($groups as $group) {
+			    $return[] = $group->uuid;
+			}
+		    }
+		    return $return;
 		}
 		
 	    }
