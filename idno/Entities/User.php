@@ -15,16 +15,42 @@
 		    
 		}
 		
+		/**
+		 * Sets this user's username handle (and balks if someone's already using it)
+		 * @param string $handle 
+		 * @return true|false True or false depending on success
+		 */
+		
 		function setHandle($handle) {
 		    $handle = trim($handle);
 		    $handle = strtolower($handle);
 		    if (!empty($handle)) {
-			$this->handle = $handle;
+			if (!self::getByHandle($handle)) {
+			    $this->handle = $handle;
+			}
 		    }
+		    return false;
 		}
+		
+		/**
+		 * Retrieve's this user's handle
+		 * @return string
+		 */
 		
 		function getHandle() {
 		    return $this->handle;
+		}
+		
+		/**
+		 * Does this user have everything he or she needs to be a fully-fledged
+		 * idno member? This method checks to make sure the minimum number of
+		 * fields are filled in.
+		 * 
+		 * @return true|false
+		 */
+		
+		function isComplete() {
+		    if (!empty($this->getHandle()) && !empty($this->getTitle())) return true;
 		}
 		
 		/**
@@ -104,6 +130,20 @@
 			}
 		    }
 		    return $return;
+		}
+		
+		/**
+		 * Retrieves user by handle
+		 * @param $handle
+		 * @return User|false Depending on success
+		 */
+		static function getByHandle($handle) {
+		    if ($result = \Idno\Core\site()->db()->getObjects('Idno\\Entities\\User', array('handle' => $handle), null, 1)) {
+			foreach($result as $row) {
+			    return $row;
+			}
+		    }
+		    return false;
 		}
 		
 	    }
