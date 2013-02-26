@@ -14,8 +14,7 @@
 		function init() {}
 		
 		function registerpages() {
-		    site()->addPageHandler('/\.well-known/', '\Idno\Core\WebfingerPageHandler');
-		    site()->addPageHandler('/banana/', '\Idno\Core\WebfingerPageHandler');
+		    site()->addPageHandler('/\.well\-known/webfinger/?', '\Idno\Core\WebfingerPageHandler');
 		}
 		
 	    }
@@ -23,9 +22,7 @@
 	    class WebfingerPageHandler {
 		
 		function get() {
-		    
-		    echo '!';
-		    
+		    echo 'Coming soon ..';
 		}
 		
 	    }
