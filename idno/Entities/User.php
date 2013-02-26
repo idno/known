@@ -57,7 +57,7 @@
 		 */
 		function getXAccessGroups($permission) {
 		    $return = array('PUBLIC');
-		    if ($groups = site()->db()->getObjects('Idno\\Entities\\AccessGroup',array('members.' . $permission => $this->getUUID()),null,MAXINT,0)) {
+		    if ($groups = \Idno\Core\site()->db()->getObjects('Idno\\Entities\\AccessGroup',array('members.' . $permission => $this->getUUID()),null,PHP_INT_MAX,0)) {
 			$return = array_merge($return, $groups);
 		    }
 		    return $return;
@@ -93,11 +93,11 @@
 		 */
 		function getXAccessGroupIDs($permission) {
 		    $return = array('PUBLIC');
-		    if ($groups = site()->db()->getRecords(	array(	'uuid'=>true), 
+		    if ($groups = \Idno\Core\site()->db()->getRecords(	array(	'uuid'=>true), 
 								array(
 									'entity_subtype' => 'Idno\\Entities\\AccessGroup', 
 									'members.' . $permission => $this->getUUID()),
-								MAXINT, 
+								PHP_INT_MAX, 
 								0)) {
 			foreach($groups as $group) {
 			    $return[] = $group->uuid;
