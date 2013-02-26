@@ -11,6 +11,16 @@
 	
 	    class User extends \Idno\Common\Entity {
 		
+		/**
+		 * Overloading the constructor for users to make it explicit that
+		 * they don't have owners
+		 */
+		
+		function __construct() {
+		    parent::__construct();
+		    $this->owner = false;
+		}
+		
 		function getFollowing() {
 		    
 		}
@@ -130,6 +140,15 @@
 			}
 		    }
 		    return $return;
+		}
+		
+		/**
+		 * Users are activity streams objects of type "person".
+		 * 
+		 * @return string
+		 */
+		function getActivityStreamsObjectType() {
+		    return 'person';
 		}
 		
 		/**

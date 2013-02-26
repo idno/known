@@ -52,6 +52,15 @@
 		    }
 		    
 		/**
+		 * Overloading the entity constructor, in order to set the owner
+		 * to be the currently logged-in user if appropriate
+		 */
+		    
+		    function __construct() {
+			$this->setOwner(\Idno\Core\site()->session()->currentUser());
+		    }
+		    
+		/**
 		 * Saves this entity - either creating a new entry, or
 		 * overwriting the existing one.
 		 */
@@ -189,6 +198,28 @@
 			if (!empty($this->uuid))
 			    return $this->uuid;
 			return \Idno\Core\site()->config()->url . 'view/' . $this->_id;
+		    }
+		    
+		/**
+		 * Return a website address to view this object (defaults to the UUID
+		 * of the object)
+		 * 
+		 * @return string
+		 */
+		    
+		    function getURL() {
+			return $this->getUUID();
+		    }
+		    
+		/**
+		 * Retrieve the Activity Streams object type identifier for this entity.
+		 * By default, idno entities are objects of type "article".
+		 * 
+		 * @return string
+		 */
+		    
+		    function getActivityStreamsObjectType() {
+			return 'article';
 		    }
 		    
 		/**
