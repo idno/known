@@ -6,6 +6,10 @@
      * ActivityStreams are the dominant feed format in idno. Posts are created
      * for most actions.
      * 
+     * Note that descriptions for Activity Streams post components are drawn
+     * from the Activity Streams spec.
+     * 
+     * @see http://activitystrea.ms/specs/json/1.0/
      * @package idno
      * @subpackage core
      */
