@@ -35,7 +35,11 @@
 		 */
 		
 		function getReadAccessGroups() {
-		    return array();
+		    $return = array('PUBLIC');
+		    if ($groups = site()->db()->getObjects('Idno\\Entities\\AccessGroup',array('members.read' => $this->getUUID()),MAXINT,0)) {
+			$return = array_merge($return, $groups);
+		    }
+		    return $return;
 		}
 		
 		/**
@@ -46,7 +50,33 @@
 		 */
 		
 		function getWriteAccessGroups() {
-		    return array();
+		    $return = array('PUBLIC');
+		    if ($groups = site()->db()->getObjects('Idno\\Entities\\AccessGroup',array('members.write' => $this->getUUID()),MAXINT,0)) {
+			$return = array_merge($return, $groups);
+		    }
+		    return $return;
+		}
+		
+		/**
+		 * Array of access group IDs that this user can *read* entities
+		 * from
+		 * 
+		 * @return array
+		 */
+		
+		function getReadAccessGroupIDs() {
+		    return array('PUBLIC');
+		}
+		
+		/**
+		 * Array of access group IDs that this user can *write* entities
+		 * to
+		 * 
+		 * @return type 
+		 */
+		
+		function getWriteAccessGroupIDs() {
+		    return array('PUBLIC');
 		}
 		
 	    }

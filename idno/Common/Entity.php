@@ -15,7 +15,9 @@
 	    class Entity {
 		
 		// Store the entity's attributes
-		    private $attributes = array();
+		    private $attributes = array(
+			'access'    =>	    'PUBLIC' // All entites are public by default
+		    );
 		    
 		/**
 		 * Overloading the entity property read function, so we
@@ -98,6 +100,19 @@
 		    }
 		    
 		/**
+		 * Retrieve the UUID of the owner of this object (if one exists)
+		 * 
+		 * @return string | false
+		 */
+		    
+		    function getOwnerID() {
+			if (!empty($this->owner)) {
+			    return $this->owner;
+			}
+			return false;
+		    }
+		    
+		/**
 		 * Set the owner of this entity to a particular user
 		 * 
 		 * @param User $owner 
@@ -109,6 +124,37 @@
 			    $this->owner = $owner->getUUID();
 			    return true;
 			}
+			return false;
+		    }
+		    
+		/**
+		 * Retrieves the access group that this entity belongs to
+		 * @param boolean $idOnly Should we return the ID only? (Default: false)
+		 * @return AccessGroup | string
+		 */
+		    
+		    function getAccess($idOnly = false) {
+			$access = $this->access;
+			if (!$idOnly && $access != 'PUBLIC') {
+			    $access = site()->db()->getObject($access);
+			}
+			return $access;
+		    }
+		    
+		/**
+		 * Set the access group of this object
+		 * @param mixed $access The ID of the access group or an AccessGroup object
+		 * return true|false
+		 */
+		    
+		    function setAccess($access) {
+			if (
+				$access instanceof \Idno\Entities\AccessGroup || 
+				($access = site()->db()->getObject($access) && $access instanceof \Idno\Entities\AccessGroup)
+			    ) {
+				$this->access = $access->getUUID();
+				return true;
+			    }
 			return false;
 		    }
 		    
@@ -154,8 +200,14 @@
 		 * @return true|false
 		 */
 		    
-		    function canWrite($user_id = '') {
-			return true;	// For now
+		    function canEdit($user_id = '') {
+			if (empty($user_id)) {
+			    $user_id = \Idno\Core\site()->session()->currentUserUUID();
+			}
+			
+			if ($this->getOwnerID() == $user_id) return true;
+			
+			return false;
 		    }
 		    
 		/**
@@ -168,30 +220,21 @@
 		 */
 		    
 		    function canRead($user_id = '') {
-			return true;	// For now
-		    }
-		    
-		/**
-		 * Returns an array of access groups that this entity belongs
-		 * to.
-		 * 
-		 * @return type 
-		 */
-		    
-		    function getAccessGroups() {
-			return array();
-		    }
-		    
-		/**
-		 * Sets the access groups for this object
-		 * 
-		 * @param array $array Array of access groups
-		 * @return $array
-		 */
-		    
-		    function setAccessGroups($array) {
-			if (!is_array($array)) $array = array($array);
-			$this->accessGroups = $array;
+			if (empty($user_id)) {
+			    $user_id = \Idno\Core\site()->session()->currentUserUUID();
+			}
+			$access = $this->getAccess();
+			
+			if ($access == 'PUBLIC') return true;
+			if ($this->getOwnerID() == $user_id) return true;
+			
+			if ($access instanceof \Idno\Entities\AccessGroup) {
+			    if ($access->isMember($user_id)) {
+				return true;
+			    }
+			}
+			
+			return false;
 		    }
 		    
 		/**

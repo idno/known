@@ -27,3 +27,4 @@
 		    'body' => $t->draw('pages/home'),
 
 	    ))->drawPage();
+
