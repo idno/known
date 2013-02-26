@@ -15,4 +15,3 @@ idno also contains
  * ClassLoader. Source: https://github.com/symfony/ClassLoader
  * EventDispatcher. Source: https://github.com/symfony/EventDispatcher
  * HttpFoundation. Source: https://github.com/symfony/HttpFoundation
- * Routing. Source: https://github.com/symfony/Routing
