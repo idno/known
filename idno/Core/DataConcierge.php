@@ -101,8 +101,8 @@
 		 * @return iterator|false Iterator or false, depending on success
 		 */
 		
-		function getRecords($parameters, $limit, $offset) {
-		    if ($result = $this->database->entities->find($parameters)->skip($offset)->limit($limit)->sort(array('created' => -1))) {
+		function getRecords($fields, $parameters, $limit, $offset) {
+		    if ($result = $this->database->entities->find($parameters, $fields)->skip($offset)->limit($limit)->sort(array('created' => -1))) {
 			return $result;
 		    }
 		    return false;
@@ -114,12 +114,13 @@
 		 * 
 		 * @param string|array $subtypes String or array of subtypes we're allowed to see
 		 * @param array $search Any extra search terms in array format (eg array('foo' => 'bar')) (default: empty)
+		 * @param array $fields An array of fieldnames to return (leave empty for all; default: all)
 		 * @param int $limit Maximum number of records to return (default: 10)
 		 * @param int $offset Number of records to skip (default: 0)
 		 * @return array|false Array of elements or false, depending on success
 		 */
 		
-		function getObjects($subtypes = '', $search = array(), $limit = 10, $offset = 0) {
+		function getObjects($subtypes = '', $search = array(), $fields = array(), $limit = 10, $offset = 0) {
 		    
 		    // Initialize query parameters to be an empty array
 		    $query_parameters = array();
@@ -140,8 +141,16 @@
 		    // Join the rest of the search query elements to this search
 		    $query_parameters = array_merge($query_parameters, $search);
 		    
+		    // Prepare the fields array for searching, if required
+		    if (!empty($fields) && is_array($fields)) {
+			$fields = array_flip($fields);
+			$fields = array_fill_keys($fields, true);
+		    } else {
+			$fields = array();
+		    }
+		    
 		    // Run the query
-		    if ($results = $this->getRecords($query_parameters, $limit, $offset)) {
+		    if ($results = $this->getRecords($fields, $query_parameters, $limit, $offset)) {
 			$return = array();
 			foreach($results as $row) {
 			    $return[] = $this->rowToEntity($row);
