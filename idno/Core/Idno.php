@@ -15,6 +15,8 @@
 		public $config;
 		public $session;
 		public $template;
+		public $dispatcher;
+		public $pagehandlers;
 		public static $site;
 		
 		function init() {
@@ -23,6 +25,11 @@
 		    $this->db = new DataConcierge();
 		    $this->session = new Session();
 		    $this->template = new Template();
+		    $this->dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
+		}
+		
+		function registerpages() {
+		    $this->addPageHandler('/', '\Idno\Core\IdnoPageHandler');
 		}
 		
 		/**
@@ -60,6 +67,54 @@
 		 */
 		    
 		    function &template() { return $this->template; }
+		    
+		/**
+		 * Tells the system that callable $listener wants to be notified when
+		 * event $event is triggered. $priority is an optional integer
+		 * that specifies order priority; the higher the number, the earlier
+		 * in the chain $listener will be notified.
+		 * 
+		 * @param string $event
+		 * @param callable $listener 
+		 * @param int $priority
+		 */
+		    
+		    function addEventHook($event, $listener, $priority = 0) {
+			if (is_callable($listener))
+			    $this->dispatcher->addListener($event, $listener, $priority);
+		    }
+		    
+		/**
+		 * Registers a page handler for a given pattern, using Toro
+		 * page handling syntax
+		 * 
+		 * @param string $pattern The pattern to match
+		 * @param callable $handler The handler callable that will serve the page
+		 */
+		    
+		    function addPageHandler($pattern, $handler) {
+			if (class_exists($handler))
+			    $this->pagehandlers[$pattern] = $handler;
+		    }
+		
+	    }
+	    
+	    /**
+	     * Default class to serve the homepage
+	     */
+	    class IdnoPageHandler {
+		
+		// Handle GET requests to the homepage
+		
+		function get() {
+		    $t = \Idno\Core\site()->template();
+		    $t->__(array(
+
+				'title' => \Idno\Core\site()->config()->title,
+				'body' => $t->draw('pages/home'),
+
+			))->drawPage();
+		}
 		
 	    }
 		

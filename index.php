@@ -18,13 +18,6 @@
 
 	require_once(dirname(__FILE__) . '/idno/start.php');
 
-    // We need a front page here
+    // Manage routing
 	
-	$t = \Idno\Core\site()->template();
-	$t->__(array(
-		
-		    'title' => \Idno\Core\site()->config()->title,
-		    'body' => $t->draw('pages/home'),
-
-	    ))->drawPage();
-
+	Toro::serve(\Idno\Core\site()->pagehandlers);

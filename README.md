@@ -15,3 +15,4 @@ idno also contains
  * ClassLoader. Source: https://github.com/symfony/ClassLoader
  * EventDispatcher. Source: https://github.com/symfony/EventDispatcher
  * HttpFoundation. Source: https://github.com/symfony/HttpFoundation
+* ToroPHP, which is distributed under the MIT License. Source: https://github.com/anandkunal/ToroPHP/

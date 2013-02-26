@@ -1,12 +1,15 @@
 [submodule "external/bonita"]
 	path = external/bonita
 	url = https://github.com/benwerd/bonita.git
-[submodule "external/symfony/ClassLoader"]
-	path = external/symfony/ClassLoader
+[submodule "external/torophp"]
+	path = external/torophp
+	url = https://github.com/anandkunal/ToroPHP.git
+[submodule "external/Symfony/Component/ClassLoader"]
+	path = external/Symfony/Component/ClassLoader
 	url = https://github.com/symfony/ClassLoader.git
-[submodule "external/symfony/EventDispatcher"]
-	path = external/symfony/EventDispatcher
+[submodule "external/Symfony/Component/EventDispatcher"]
+	path = external/Symfony/Component/EventDispatcher
 	url = https://github.com/symfony/EventDispatcher.git
-[submodule "external/symfony/HttpFoundation"]
-	path = external/symfony/HttpFoundation
+[submodule "external/Symfony/Component/HttpFoundation"]
+	path = external/Symfony/Component/HttpFoundation
 	url = https://github.com/symfony/HttpFoundation.git
