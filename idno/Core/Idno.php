@@ -107,11 +107,14 @@
 		// Handle GET requests to the homepage
 		
 		function get() {
+		    $feed = \Idno\Entities\ActivityStreamPost::get();
 		    $t = \Idno\Core\site()->template();
 		    $t->__(array(
 
 				'title' => \Idno\Core\site()->config()->title,
-				'body' => $t->draw('pages/home'),
+				'body' => $t->__(array(
+						    'feed' => $feed
+						))->draw('pages/home'),
 
 			))->drawPage();
 		}

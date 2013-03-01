@@ -303,6 +303,21 @@
 			$array['entity_subtype'] = get_class($this);
 			return $array;
 		    }
+		    
+		/**
+		 * Simple method to get objects of this class in reverse
+		 * chronological order, using the database getObjects call.
+		 * 
+		 * @param array $search List of filter terms (default: none)
+		 * @param array $fields List of fields to return (default: all)
+		 * @param int $limit Number of items to return (default: 10)
+		 * @param int $offset Number of items to skip (default: 0
+		 * @return array
+		 */
+		    
+		    static function get($search = array(), $fields = array(), $limit = 10, $offset = 0) {
+			return \Idno\Core\site()->db()->getObjects(get_called_class(),$search,$fields,$limit,$offset);
+		    }
 		
 	    }
 	    

@@ -67,7 +67,8 @@
 		function entityToActivityStreamsObject(\Idno\Common\Entity $entity) {
 		    
 		    $object = array();
-		    if (!empty($entity->getOwnerID())) $object['author'] = $this->entityToActivityStreamsObject($entity->getOwner());
+		    $owner = $entity->getOwnerID();
+		    if (!empty($owner)) $object['author'] = $this->entityToActivityStreamsObject($entity->getOwner());
 		    $object['displayName'] = $entity->getTitle();
 		    $object['id'] = $entity->getUUID();
 		    $object['objectType'] = $entity->getActivityStreamsObjectType();
