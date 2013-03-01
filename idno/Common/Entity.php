@@ -318,6 +318,21 @@
 		    static function get($search = array(), $fields = array(), $limit = 10, $offset = 0) {
 			return \Idno\Core\site()->db()->getObjects(get_called_class(),$search,$fields,$limit,$offset);
 		    }
+		    
+		/**
+		 * Retrieve a single record with certain characteristics, using
+		 * the database getObjects call.
+		 * 
+		 * @param array $search List of filter terms (default: none)
+		 * @param array $fields List of fields to return (default: all)
+		 * @return Entity
+		 */
+		    
+		    static function getOne($search = array(), $fields = array()) {
+			if ($records = self::get($search, $fields, 1))
+				foreach($records as $record)
+				    return $record;
+		    }
 		
 	    }
 	    

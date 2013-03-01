@@ -38,6 +38,28 @@
 		 */
 
 		    function &db() { return $this->db; }
+		    
+		/**
+		 * Return the event dispatcher loaded as part of this site
+		 * @return \Symfony\Component\EventDispatcher\EventDispatcher 
+		 */
+		    
+		    function &events() { return $this->dispatcher; }
+		    
+		/**
+		 * Shortcut to trigger an event: supply the event name and 
+		 * (optionally) an array of data, and get a variable back.
+		 * 
+		 * @param string $eventName The name of the event to trigger
+		 * @param array $data Data to pass to the event
+		 * @return mixed 
+		 */
+		    
+		    function triggerEvent($eventName, $data = array()) {
+			$event = new Event($data);
+			$this->events()->dispatch($eventName, $event);
+			return $event->response();
+		    }
 
 		/**
 		 * Helper function that returns the current configuration object

@@ -60,7 +60,9 @@
 		 */
 		
 		function isComplete() {
-		    if (!empty($this->getHandle()) && !empty($this->getTitle())) return true;
+		    $handle = $this->getHandle();
+		    $title = $this->getTitle();
+		    if (!empty($handle) && !empty($title)) return true;
 		}
 		
 		/**
