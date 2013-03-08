@@ -38,7 +38,23 @@
 			<ul class="nav" role="menu">
 			</ul>
 			<ul class="nav pull-right" role="menu">
+<?php
+
+    if (\Idno\Core\site()->session()->isLoggedIn()) {
+
+?>
 			    <li><a href="#">Sign out</a></li>
+<?php
+
+    } else {
+	
+?>
+			    <li><a href="#">Sign in</a></li>
+<?php
+	
+    }
+
+?>
 			</ul>
 		    </div><!--/.nav-collapse -->
 		</div>
