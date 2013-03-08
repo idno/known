@@ -20,6 +20,7 @@
 		    }
 		    return parent::__construct($template);
 		}
+		
 	    }
 	    
 	}
