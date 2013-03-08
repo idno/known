@@ -333,6 +333,26 @@
 				foreach($records as $record)
 				    return $record;
 		    }
+		    
+		/**
+		 * Retrieve a single record by its database ID
+		 * @param string $id
+		 * @return Entity
+		 */
+		    
+		    static function getByID($id) {
+			return self::getOne(array('_id' => $id));
+		    }
+		    
+		/**
+		 * Retrieve a single record by its UUID
+		 * @param string $uuid
+		 * @return Entity
+		 */
+		    
+		    static function getByUUID($uuid) {
+			return self::getOne(array('uuid' => $uuid));
+		    }
 		
 	    }
 	    
