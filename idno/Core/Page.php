@@ -44,7 +44,35 @@
 		}
 		
 		/**
-		 * Automatically matches JSON/XMLHTTPRequest requests.
+		 * Internal function used to handle PUT requests.
+		 * Performs some administration functions, checks for the 
+		 * presence of a form token, and hands off to postContent().
+		 * 
+		 * @param $forward boolean If this is set to true, forward the page; otherwise return data.
+		 */
+		function put($forward = true) {
+		    if (Action::validateToken('', false)) {
+			site()->session()->APIlogin();
+			$this->putContent($forward);
+		    }
+		}
+		
+		/**
+		 * Internal function used to handle DELETE requests.
+		 * Performs some administration functions, checks for the 
+		 * presence of a form token, and hands off to postContent().
+		 * 
+		 * @param $forward boolean If this is set to true, forward the page; otherwise return data.
+		 */
+		function delete($forward = true) {
+		    if (Action::validateToken('', false)) {
+			site()->session()->APIlogin();
+			$this->deleteContent($forward);
+		    }
+		}
+		
+		/**
+		 * Automatically matches JSON/XMLHTTPRequest GET requests.
 		 * Sets the template to JSON and then calls get().
 		 */
 		function get_xhr() {
@@ -53,12 +81,30 @@
 		}
 		
 		/**
-		 * Automatically matches JSON/XMLHTTPRequest requests.
+		 * Automatically matches JSON/XMLHTTPRequest POST requests.
 		 * Sets the template to JSON and then calls post().
 		 */
 		function post_xhr() {
 		    site()->template()->setTemplateType('json');
-		    $this->post();
+		    $this->post(false);
+		}
+		
+		/**
+		 * Automatically matches JSON/XMLHTTPRequest PUT requests.
+		 * Sets the template to JSON and then calls put().
+		 */
+		function put_xhr() {
+		    site()->template()->setTemplateType('json');
+		    $this->put(false);
+		}
+		
+		/**
+		 * Automatically matches JSON/XMLHTTPRequest PUT requests.
+		 * Sets the template to JSON and then calls delete().
+		 */
+		function delete_xhr() {
+		    site()->template()->setTemplateType('json');
+		    $this->delete(false);
 		}
 		
 		/**
@@ -70,6 +116,16 @@
 		 * To be extended by developers
 		 */
 		function postContent($forward = true) {}
+		
+		/**
+		 * To be extended by developers
+		 */
+		function putContent($forward = true) {}
+		
+		/**
+		 * To be extended by developers
+		 */
+		function deleteContent($forward = true) {}
 		
 	    }
 	    
