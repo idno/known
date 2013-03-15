@@ -28,8 +28,14 @@
 		    $this->dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
 		}
 		
+		/**
+		 * Registers some core Idno page URLs
+		 */
 		function registerpages() {
-		    $this->addPageHandler('/', '\Idno\Core\IdnoPageHandler');
+		    
+		    // Homepage
+		    $this->addPageHandler('/', '\Idno\Pages\Homepage');
+
 		}
 		
 		/**
@@ -58,7 +64,12 @@
 		    function triggerEvent($eventName, $data = array()) {
 			$event = new Event($data);
 			$this->events()->dispatch($eventName, $event);
-			return $event->response();
+			if (!$event->forward()) {
+			    return $event->response();
+			} else {
+			    header('Location: ' . $event->forward());
+			    exit;
+			}
 		    }
 
 		/**
@@ -118,28 +129,6 @@
 			if (class_exists($handler))
 			    $this->pagehandlers[$pattern] = $handler;
 		    }
-		
-	    }
-	    
-	    /**
-	     * Default class to serve the homepage
-	     */
-	    class IdnoPageHandler {
-		
-		// Handle GET requests to the homepage
-		
-		function get() {
-		    $feed = \Idno\Entities\ActivityStreamPost::get();
-		    $t = \Idno\Core\site()->template();
-		    $t->__(array(
-
-				'title' => \Idno\Core\site()->config()->title,
-				'body' => $t->__(array(
-						    'feed' => $feed
-						))->draw('pages/home'),
-
-			))->drawPage();
-		}
 		
 	    }
 		

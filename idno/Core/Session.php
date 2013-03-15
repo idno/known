@@ -125,6 +125,18 @@
 			unset($_SESSION['user']);
 			return true;
 		    }
+		    
+		/**
+		 * Checks HTTP request headers to see if the request has been properly
+		 * signed for API access, and if so, log the user on
+		 * @todo make this complete
+		 * 
+		 * @return true|false Whether the user could be logged in
+		 */
+		    
+		    function APIlogin() {
+			return false;
+		    }
 		
 	    }
 	    

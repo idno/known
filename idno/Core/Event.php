@@ -14,10 +14,11 @@
 	     protected $data = array();
 	     protected $dispatcher = null;
 	     protected $response = true;
+	     protected $forward = '';
 	     
 	     function __construct($data = array()) {
 		 $this->data = $data;
-		 $this->dispatcher = site()->dispatcher();
+		 $this->dispatcher = site()->dispatcher;
 	     }
 	     
 	     /**
@@ -35,6 +36,26 @@
 	     function &response() {
 		 return $this->response;
 	     }
+	     
+	     /**
+	      * Retrieve the variable associated with the URL to forward to
+	      * (if any) after this event
+	      * @return type 
+	      */
+	     function &forward() {
+		 return $this->forward;
+	     }
+	     
+	    /**
+	     * Overloading the entity property isset check, so that
+	     * isset($entity->property) and empty($entity->property)
+	     * work as expected.
+	     */
+		    
+	    function __isset($name) {
+		if (!empty($this->attributes[$name])) return true;
+		return false;
+	    }
 	     
 	 }
 	 

@@ -35,5 +35,7 @@
 	\Bonita\Main::additionalPath(dirname(dirname(__FILE__)));
 	
     // Not sure if this is the way we should be initializing everything yet.
+    // TODO: do this more intelligently.
+
 	$idno = new Idno\Core\Idno();
 	$webfinger = new Idno\Core\Webfinger();
