@@ -8,12 +8,12 @@
 	    <form action="/session/login" method="post">
 		<div class="control-group">
 		    <div class="controls">
-			<input type="text" id="inputEmail" placeholder="Your username or email address" class="span4">
+			<input type="email" id="inputEmail" name="email" placeholder="Your username or email address" class="span4">
 		    </div>
 		</div>
 		<div class="control-group">
 		    <div class="controls">
-			<input type="password" id="inputPassword" placeholder="Password" class="span4">
+			<input type="password" id="inputPassword" name="password" placeholder="Password" class="span4">
 		    </div>
 		</div>
 		<div class="control-group">
