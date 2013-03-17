@@ -14,6 +14,10 @@
 		function init() {
 		    session_name(site()->config->sessionname);
 		    session_start();
+		    
+		    // Register log in, log out
+		    site()->addPageHandler('/session/login', '\Idno\Pages\Session\Login');
+		    site()->addPageHandler('/session/logout', '\Idno\Pages\Session\Logout');
 		}
 		
 		/**

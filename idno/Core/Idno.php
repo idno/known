@@ -15,6 +15,7 @@
 		public $config;
 		public $session;
 		public $template;
+		public $actions;
 		public $dispatcher;
 		public $pagehandlers;
 		public static $site;
@@ -24,6 +25,7 @@
 		    $this->config = new Config();
 		    $this->db = new DataConcierge();
 		    $this->session = new Session();
+		    $this->actions = new Actions();
 		    $this->template = new Template();
 		    $this->dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
 		}
@@ -100,6 +102,12 @@
 		 */
 		    
 		    function &template() { return $this->template; }
+		    
+		/** 
+		 * Return the action helper associated with this site
+		 * @return \Idno\Core\Actions
+		 */   
+		    function &actions() { return $this->actions; }
 		    
 		/**
 		 * Tells the system that callable $listener wants to be notified when

@@ -49,7 +49,7 @@
     } else {
 	
 ?>
-			    <li><a href="#">Sign in</a></li>
+			    <li><?=  \Idno\Core\site()->actions()->createLink('session/login', 'Log in');?></li>
 <?php
 	
     }
