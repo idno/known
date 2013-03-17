@@ -14,7 +14,7 @@
 		function init() {}
 		
 		function registerpages() {
-		    site()->addPageHandler('/\.well\-known/webfinger/?', '\Idno\Core\WebfingerPageHandler');
+		    site()->addPageHandler('/\.well\-known/webfinger/?', '\Idno\Pages\Webfinger\Handler');
 		}
 		
 	    }
