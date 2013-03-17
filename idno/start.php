@@ -37,5 +37,6 @@
     // Not sure if this is the way we should be initializing everything yet.
     // TODO: do this more intelligently.
 
-	$idno = new Idno\Core\Idno();
-	$webfinger = new Idno\Core\Webfinger();
+	$idno =		new Idno\Core\Idno();
+	$account =	new Idno\Core\Account();
+	$webfinger =	new Idno\Core\Webfinger();
