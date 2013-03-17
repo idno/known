@@ -15,8 +15,9 @@
 	    }
 	    
 	    function postContent() {
-		$this->forward('/');
-		//\Idno\Core\site()->session()->logUserOn($user);
+		// TODO: change this to actual basic login, of course
+		$user = \Idno\Entities\User::getByHandle('benwerd');
+		\Idno\Core\site()->session()->logUserOn($user);
 	    }
 
 	}

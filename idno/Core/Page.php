@@ -46,12 +46,15 @@
 		 * @param $forward boolean If this is set to true, forward the page; otherwise return data.
 		 */
 		function post($forward = true) {
-		    if (Actions::validateToken('', false)) {
-			$this->forward = $forward;
+		    $this->forward = $forward;
+		    if (site()->actions()->validateToken('', false)) {
 			site()->session()->APIlogin();
 			$this->parseJSONPayload();
 			$this->postContent();
+		    } else {
+
 		    }
+		    $this->forward('/');    // If we haven't forwarded yet, do so (if we can)
 		}
 		
 		/**
@@ -62,12 +65,15 @@
 		 * @param $forward boolean If this is set to true, forward the page; otherwise return data.
 		 */
 		function put($forward = true) {
-		    if (Actions::validateToken('', false)) {
-			$this->forward = $forward;
+		    $this->forward = $forward;
+		    if (site()->actions()->validateToken('', false)) {
 			site()->session()->APIlogin();
 			$this->parseJSONPayload();
-			$this->putContent($forward);
+			$this->putContent();
+		    } else {
+			
 		    }
+		    $this->forward('/');    // If we haven't forwarded yet, do so (if we can)
 		}
 		
 		/**
@@ -78,12 +84,15 @@
 		 * @param $forward boolean If this is set to true, forward the page; otherwise return data.
 		 */
 		function delete($forward = true) {
-		    if (Actions::validateToken('', false)) {
-			$this->forward = $forward;
+		    $this->forward = $forward;
+		    if (site()->actions()->validateToken('', false)) {
 			site()->session()->APIlogin();
 			$this->parseJSONPayload();
-			$this->deleteContent($forward);
+			$this->deleteContent();
+		    } else {
+			
 		    }
+		    $this->forward('/');    // If we haven't forwarded yet, do so (if we can)
 		}
 		
 		/**

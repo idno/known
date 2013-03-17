@@ -43,13 +43,13 @@
     if (\Idno\Core\site()->session()->isLoggedIn()) {
 
 ?>
-			    <li><a href="#">Sign out</a></li>
+			    <li><?=  \Idno\Core\site()->actions()->createLink('session/logout', 'Sign out');?></li>
 <?php
 
     } else {
 	
 ?>
-			    <li><?=  \Idno\Core\site()->actions()->createLink('session/login', 'Log in');?></li>
+			    <li><?=  \Idno\Core\site()->actions()->createLink('session/login', 'Sign in');?></li>
 <?php
 	
     }

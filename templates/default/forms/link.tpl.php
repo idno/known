@@ -7,4 +7,5 @@
 <a href="<?=($vars['url'])?>" onclick="$('#<?=$uniqueID?>').submit(); return false;"><?=htmlspecialchars($vars['label'])?></a>
 <form action="<?=($vars['url'])?>" style="display: none" id="<?=$uniqueID?>" method="post">
     <textarea name="json"><?=htmlspecialchars(json_encode($vars['data']))?></textarea>
+    <?=  \Idno\Core\site()->actions()->signForm($vars['url']);?>
 </form>
