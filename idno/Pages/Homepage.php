@@ -20,7 +20,8 @@
 
 			    'title' => \Idno\Core\site()->config()->title,
 			    'body' => $t->__(array(
-						'feed' => $feed
+						'feed' => $feed,
+						'create' => \Idno\Core\site()->session()->isLoggedIn()
 					    ))->draw('pages/home'),
 
 		    ))->drawPage();

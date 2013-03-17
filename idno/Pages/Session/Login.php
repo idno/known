@@ -12,6 +12,10 @@
 	class Login extends \Idno\Core\Page {
 
 	    function getContent() {
+		$t = \Idno\Core\site()->template();
+		$t->body = $t->draw('session/login');
+		$t->title = 'Sign in';
+		$t->drawPage();
 	    }
 	    
 	    function postContent() {

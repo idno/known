@@ -1,3 +1,9 @@
 <h1>
-    Welcome to this idno site.
+    This is idno.
 </h1>
+
+<?php
+
+    
+
+?>

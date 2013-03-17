@@ -33,7 +33,7 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		    </button>
-		    <a class="brand" href="<?= \Idno\Core\site()->config()->url ?>"><?= $vars['title'] ?></a>
+		    <a class="brand" href="<?= \Idno\Core\site()->config()->url ?>"><?=  \Idno\Core\site()->config()->title?></a>
 		    <div class="nav-collapse collapse">
 			<ul class="nav" role="menu">
 			</ul>
@@ -43,18 +43,19 @@
     if (\Idno\Core\site()->session()->isLoggedIn()) {
 
 ?>
-			    <li><?=  \Idno\Core\site()->actions()->createLink('session/logout', 'Sign out');?></li>
+			    <li><a href="/account/settings">Settings</a></li>
+			    <li><?=  \Idno\Core\site()->actions()->createLink('/session/logout', 'Sign out');?></li>
 <?php
 
     } else {
 	
 ?>
-			    <li><?=  \Idno\Core\site()->actions()->createLink('session/login', 'Sign in');?></li>
+			    <li><a href="/session/login">Sign in</a></li>
 <?php
 	
     }
 
-?>
+?>  
 			</ul>
 		    </div><!--/.nav-collapse -->
 		</div>
@@ -66,7 +67,7 @@
 	    <?= $vars['body'] ?>
 
 	</div> <!-- /container -->
-
+	
 	<!-- Le javascript
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->

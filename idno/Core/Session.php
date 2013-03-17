@@ -15,7 +15,7 @@
 		    session_name(site()->config->sessionname);
 		    session_start();
 		    
-		    // Register log in, log out
+		    // Session login / logout
 		    site()->addPageHandler('/session/login', '\Idno\Pages\Session\Login');
 		    site()->addPageHandler('/session/logout', '\Idno\Pages\Session\Logout');
 		}
