@@ -16,3 +16,4 @@ idno also contains
  * EventDispatcher. Source: https://github.com/symfony/EventDispatcher
  * HttpFoundation. Source: https://github.com/symfony/HttpFoundation
 * ToroPHP, which is distributed under the MIT License. Source: https://github.com/anandkunal/ToroPHP/
+* Anthony Ferrara's PHP 5.5 password API shim, which is distributed under the MIT license. Source: https://github.com/ircmaxell/password_compat

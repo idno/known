@@ -13,3 +13,6 @@
 [submodule "external/Symfony/Component/HttpFoundation"]
 	path = external/Symfony/Component/HttpFoundation
 	url = https://github.com/symfony/HttpFoundation.git
+[submodule "external/password_compat"]
+	path = external/password_compat
+	url = git://github.com/ircmaxell/password_compat.git
