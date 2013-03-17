@@ -65,6 +65,24 @@
 
 	<div class="container">
 
+	    <?php
+	    
+		if ($messages = \Idno\Core\site()->session()->getAndFlushMessages()) {
+		    foreach($messages as $message) {
+			
+	    ?>
+	    
+	    <div class="alert <?=$message['message_type']?>">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<?=$message['message']?>
+	    </div>
+	    
+	    <?php
+			
+		    }
+		}
+	    
+	    ?>
 	    <?= $vars['body'] ?>
 
 	</div> <!-- /container -->

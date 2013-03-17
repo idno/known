@@ -65,6 +65,46 @@
 		    }
 		    
 		/**
+		 * Adds a message to the queue to be delivered to the user as soon as is possible
+		 * @param string $message The text of the message
+		 * @param string $message_type This type of message; this will be added to the displayed message class, or returned as data
+		 */
+		    
+		    function addMessage($message, $message_type = 'alert-info') {
+			if (empty($_SESSION['messages'])) $_SESSION['messages'] = array();
+			$_SESSION['messages'][] = array('message' => $message, 'message_type' => $message_type);
+		    }
+		    
+		/**
+		 * Retrieve any messages waiting for the user in the session
+		 * @return array
+		 */
+		    function getMessages() {
+			if (!empty($_SESSION['messages'])) {
+			    return $_SESSION['messages'];
+			} else {
+			    return array();
+			}
+		    }
+		    
+		/**
+		 * Remove any messages from the session
+		 */
+		    function flushMessages() {
+			$_SESSION['messages'] = array();
+		    }
+		   
+		/**
+		 * Retrieve any messages from the session, remove them from the session, and return them
+		 * @return array
+		 */
+		    function getAndFlushMessages() {
+			$messages = $this->getMessages();
+			$this->flushMessages();
+			return $messages;
+		    }
+		    
+		/**
 		 * Get access groups the current user is allowed to write to
 		 * @return array
 		 */

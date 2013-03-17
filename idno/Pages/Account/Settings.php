@@ -37,7 +37,9 @@
 		    $user->setPassword($password);
 		}
 		
-		$user->save();
+		if ($user->save()) {
+		    \Idno\Core\site()->session()->addMessage("Your details were saved.");
+		}
 		$this->forward($_SERVER['HTTP_REFERER']);
 	    }
 
