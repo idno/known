@@ -9,6 +9,9 @@
 
 	namespace Idno\Entities {
 	
+	    // We need the PHP 5.5 password API
+	    require_once \Idno\Core\site()->config()->path . '/external/password_compat/lib/password.php';
+	    
 	    class User extends \Idno\Common\Entity {
 		
 		/**
@@ -17,6 +20,7 @@
 		 */
 		
 		function __construct() {
+		    
 		    parent::__construct();
 		    $this->owner = false;
 		}
@@ -49,6 +53,31 @@
 		
 		function getHandle() {
 		    return $this->handle;
+		}
+		
+		/**
+		 * Sets the built-in password property to a safe hash (if the
+		 * password is acceptable)
+		 * 
+		 * @param string $password
+		 * @return true|false
+		 */
+		function setPassword($password) {
+		    if (!empty($password)) {
+			$this->password = \password_hash($password, PASSWORD_BCRYPT);
+			return true;
+		    }
+		    return false;
+		}
+		
+		/**
+		 * Verifies that the supplied password matches this user's password
+		 * 
+		 * @param string $password
+		 * @return true|false
+		 */
+		function checkPassword($password) {
+		    return \password_verify($password, $this->password);
 		}
 		
 		/**
@@ -155,11 +184,25 @@
 		
 		/**
 		 * Retrieves user by handle
-		 * @param $handle
+		 * @param string $handle
 		 * @return User|false Depending on success
 		 */
 		static function getByHandle($handle) {
 		    if ($result = \Idno\Core\site()->db()->getObjects('Idno\\Entities\\User', array('handle' => $handle), null, 1)) {
+			foreach($result as $row) {
+			    return $row;
+			}
+		    }
+		    return false;
+		}
+		
+		/**
+		 * Retrieves user by email address
+		 * @param string $email
+		 * @return User|false Depending on success
+		 */
+		static function getByEmail($email) {
+		    if ($result = \Idno\Core\site()->db()->getObjects('Idno\\Entities\\User', array('email' => $email), null, 1)) {
 			foreach($result as $row) {
 			    return $row;
 			}
