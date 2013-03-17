@@ -27,6 +27,10 @@
 		// variable
 		private $data = array();
 		
+		// Stores the response code that we'll be sending back. Can be
+		// changed with setResponse
+		private $response = 200;
+		
 		/**
 		 * Internal function used to handle GET requests.
 		 * Performs some administration functions and hands off to
@@ -36,6 +40,8 @@
 		    site()->session()->APIlogin();
 		    $this->parseJSONPayload();
 		    $this->getContent();
+		    if (http_response_code() != 200)
+			http_response_code($this->response);
 		}
 		
 		/**
@@ -55,6 +61,8 @@
 
 		    }
 		    $this->forward('/');    // If we haven't forwarded yet, do so (if we can)
+		    if (http_response_code() != 200)
+			http_response_code($this->response);
 		}
 		
 		/**
@@ -74,6 +82,8 @@
 			
 		    }
 		    $this->forward('/');    // If we haven't forwarded yet, do so (if we can)
+		    if (http_response_code() != 200)
+			http_response_code($this->response);
 		}
 		
 		/**
@@ -93,6 +103,8 @@
 			
 		    }
 		    $this->forward('/');    // If we haven't forwarded yet, do so (if we can)
+		    if (http_response_code() != 200)
+			http_response_code($this->response);
 		}
 		
 		/**
@@ -157,11 +169,35 @@
 		 * 
 		 * @param string $location Location to forward to (eg "/foo/bar")
 		 */
-		function forward($location) {
+		function forward($location = '') {
+		    if (empty($location)) $location = site()->config()->url;
 		    if (!empty($this->forward)) {
 			header('Location: ' . $location);
 			exit;
 		    }
+		}
+		
+		/**
+		 * Placed in pages to ensure that only logged-in users can
+		 * get at them. Sets response code 401 and tries to forward
+		 * to the front page.
+		 */
+		function gatekeeper() {
+		    if (!site()->session()->isLoggedIn()) {
+			$this->setResponse(401);
+			$this->forward();
+		    }
+		}
+		
+		/**
+		 * Set the response code for the page. Note: this will be overridden
+		 * if the main system response code is already not 200
+		 * 
+		 * @param type $code 
+		 */
+		function setResponse($code) {
+		    $code = (int) $code;
+		    $this->response = $code;
 		}
 		
 		/**
