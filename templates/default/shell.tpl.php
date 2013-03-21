@@ -5,7 +5,7 @@
 	<title><?= $vars['title'] ?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
-	<meta name="author" content="">
+	<meta name="generator" content="idno http://idno.co">
 
 	<!-- Le styles -->
 	<link href="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/css/bootstrap.css" rel="stylesheet">
