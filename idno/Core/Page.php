@@ -209,6 +209,18 @@ namespace Idno\Core {
         }
 
         /**
+         * Placed in pages to ensure that only logged-out users can
+         * get at them. Sets response code 401 and tries to forward
+         * to the front page.
+         */
+        function reverseGatekeeper() {
+            if (site()->session()->isLoggedIn()) {
+                $this->setResponse(401);
+                $this->forward();
+            }
+        }
+
+        /**
          * Set the response code for the page. Note: this will be overridden
          * if the main system response code is already not 200
          *
