@@ -16,3 +16,12 @@
 [submodule "external/password_compat"]
 	path = external/password_compat
 	url = git://github.com/ircmaxell/password_compat.git
+[submodule "external/symfony/Component/ClassLoader"]
+	path = external/symfony/Component/ClassLoader
+	url = https://github.com/symfony/ClassLoader.git
+[submodule "external/symfony/Component/HttpFoundation"]
+	path = external/symfony/Component/HttpFoundation
+	url = https://github.com/symfony/HttpFoundation.git
+[submodule "external/symfony/Component/EventDispatcher"]
+	path = external/symfony/Component/EventDispatcher
+	url = https://github.com/symfony/EventDispatcher.git
