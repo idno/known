@@ -1,18 +1,18 @@
 <?php
 
-    /**
-     * User-created object representation
-     * 
-     * @package idno
-     * @subpackage core
-     */
+/**
+ * User-created object representation
+ *
+ * @package idno
+ * @subpackage core
+ */
 
-	namespace Idno\Entities {
-	
-	    class Object extends \Idno\Common\Entity {
-		
-		
-		
-	    }
-	    
-	}
+namespace Idno\Entities {
+
+    class Object extends \Idno\Common\Entity
+    {
+
+
+    }
+
+}

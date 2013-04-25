@@ -1,32 +1,34 @@
 <?php
 
+/**
+ * Defines the site homepage
+ */
+
+namespace Idno\Pages {
+
     /**
-     * Defines the site homepage
+     * Default class to serve the homepage
      */
+    class Homepage extends \Idno\Core\Page
+    {
 
-    namespace Idno\Pages {
+        // Handle GET requests to the homepage
 
-	/**
-	 * Default class to serve the homepage
-	 */
-	class Homepage extends \Idno\Core\Page {
+        function getContent()
+        {
+            $feed = \Idno\Entities\ActivityStreamPost::get();
+            $t = \Idno\Core\site()->template();
+            $t->__(array(
 
-	    // Handle GET requests to the homepage
+                'title' => \Idno\Core\site()->config()->title,
+                'body' => $t->__(array(
+                    'feed' => $feed,
+                    'create' => \Idno\Core\site()->session()->isLoggedIn()
+                ))->draw('pages/home'),
 
-	    function getContent() {
-		$feed = \Idno\Entities\ActivityStreamPost::get();
-		$t = \Idno\Core\site()->template();
-		$t->__(array(
+            ))->drawPage();
+        }
 
-			    'title' => \Idno\Core\site()->config()->title,
-			    'body' => $t->__(array(
-						'feed' => $feed,
-						'create' => \Idno\Core\site()->session()->isLoggedIn()
-					    ))->draw('pages/home'),
-
-		    ))->drawPage();
-	    }
-
-	}
-    
     }
+
+}

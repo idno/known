@@ -1,25 +1,28 @@
 <?php
 
+/**
+ * Defines built-in log out functionality
+ */
+
+namespace Idno\Pages\Session {
+
     /**
-     * Defines built-in log out functionality
+     * Default class to serve the homepage
      */
+    class Logout extends \Idno\Core\Page
+    {
 
-    namespace Idno\Pages\Session {
+        function getContent()
+        {
+        }
 
-	/**
-	 * Default class to serve the homepage
-	 */
-	class Logout extends \Idno\Core\Page {
+        function postContent()
+        {
+            $result = \Idno\Core\site()->session()->logUserOff();
+            $this->forward($_SERVER['HTTP_REFERER']);
+            return $result;
+        }
 
-	    function getContent() {
-	    }
-	    
-	    function postContent() {
-		$result = \Idno\Core\site()->session()->logUserOff();
-		$this->forward($_SERVER['HTTP_REFERER']);
-		return $result;
-	    }
-
-	}
-    
     }
+
+}

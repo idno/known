@@ -1,18 +1,18 @@
 <?php
 
-    /**
-     * Access permissions class
-     * 
-     * @package idno
-     * @subpackage core
-     */
+/**
+ * Access permissions class
+ *
+ * @package idno
+ * @subpackage core
+ */
 
-	namespace Idno\Core {
-	
-	    class Privacy extends \Idno\Common\Component {
-		
-		
-		
-	    }
-	    
-	}
+namespace Idno\Core {
+
+    class Privacy extends \Idno\Common\Component
+    {
+
+
+    }
+
+}

@@ -1,23 +1,26 @@
 <?php
 
+/**
+ * Webfiiiiinger (da daaaaah dah)
+ */
+
+namespace Idno\Pages\Webfinger {
+
     /**
-     * Webfiiiiinger (da daaaaah dah)
+     * Default class to serve the homepage
      */
+    class Handler extends \Idno\Core\Page
+    {
 
-    namespace Idno\Pages\Webfinger {
+        function getContent()
+        {
+            // TODO: retrieve webfinger content
+        }
 
-	/**
-	 * Default class to serve the homepage
-	 */
-	class Handler extends \Idno\Core\Page {
+        function postContent()
+        {
+        }
 
-	    function getContent() {
-		// TODO: retrieve webfinger content
-	    }
-	    
-	    function postContent() {
-	    }
-
-	}
-    
     }
+
+}
