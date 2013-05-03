@@ -43,6 +43,15 @@
 		  * Choices, people!
 		  */
 		    function registerPages() {}
+
+         /**
+          * A helper method that retrieves the current namespace of this class
+          * (eg, the namespace of a child class).
+          */
+            function getNamespace() {
+                $reflector = new \ReflectionClass(get_class($this));
+                return $reflector->getNamespaceName();
+            }
 		 
 	     }
 	     

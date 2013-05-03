@@ -23,7 +23,7 @@ namespace Idno\Pages\Session {
         function postContent()
         {
             // TODO: change this to actual basic login, of course
-            if ($user = \Idno\Entities\User::getByHandle($this->getInput('handle'))) {
+            if ($user = \Idno\Entities\User::getByHandle($this->getInput('email'))) {
             } else if ($user = \Idno\Entities\User::getByEmail($this->getInput('email'))) {
             } else {
                 $this->setResponse(401);
@@ -33,6 +33,7 @@ namespace Idno\Pages\Session {
             if ($user instanceof \Idno\Entities\User) {
                 if ($user->checkPassword($this->getInput('password'))) {
                     \Idno\Core\site()->session()->logUserOn($user);
+                    \Idno\Core\site()->session()->addMessage("You've signed in as {$user->getTitle()}.");
                     $this->forward();
                 }
             }

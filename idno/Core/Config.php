@@ -13,14 +13,18 @@ namespace Idno\Core {
     {
 
         public $config = array(
-            'dbname' => 'idno', // Default MongoDB database
+            'dbname' => 'idno',      // Default MongoDB database
             'sessionname' => 'idno', // Default session name
+            'plugins' => array(      // Default plugins
+                'Text'
+            )
         );
 
         function init()
         {
             // Load the config.ini file in the root folder, if it exists.
             // If not, we'll use default values. No skin off our nose.
+            // @TODO override settings from the database
             $this->path = dirname(dirname(dirname(__FILE__))); // Base path
             $this->url = 'http://' . $_SERVER['SERVER_NAME'] . '/'; // A naive default base URL
             $this->title = 'New idno site'; // A default name for the site
@@ -39,7 +43,7 @@ namespace Idno\Core {
         {
             if (isset($this->config[$name]))
                 return $this->config[$name];
-            return false;
+            return null;
         }
 
         /**
@@ -51,6 +55,18 @@ namespace Idno\Core {
         function __set($name, $value)
         {
             return $this->config[$name] = $value;
+        }
+
+        /**
+         * Overloading the entity property isset check, so that
+         * isset($entity->property) and empty($entity->property)
+         * work as expected.
+         */
+
+        function __isset($name)
+        {
+            if (!empty($this->config[$name])) return true;
+            return false;
         }
 
     }

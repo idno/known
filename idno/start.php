@@ -15,8 +15,8 @@ $loader = new \Symfony\Component\ClassLoader\UniversalClassLoader();
 
 // idno trunk classes (i.e., the main framework) are in /idno
 $loader->registerNamespace('Idno', dirname(dirname(__FILE__)));
-// idno plugins are located in /idno-plugins and must have their own namespace
-$loader->registerNamespace('Idno\Plugins', dirname(dirname(__FILE__)) . '/idno-plugins');
+// idno plugins are located in /IdnoPlugins and must have their own namespace
+$loader->registerNamespace('IdnoPlugins', dirname(dirname(__FILE__)));
 
 // Register our external namespaces (PSR-0 compliant modules that we love, trust and need)
 

@@ -19,6 +19,7 @@ namespace Idno\Pages\Session {
         function postContent()
         {
             $result = \Idno\Core\site()->session()->logUserOff();
+            \Idno\Core\site()->session()->addMessage("You've signed out. See you soon!");
             $this->forward($_SERVER['HTTP_REFERER']);
             return $result;
         }

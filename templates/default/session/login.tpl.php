@@ -8,7 +8,7 @@
 	    <form action="/session/login" method="post">
 		<div class="control-group">
 		    <div class="controls">
-			<input type="email" id="inputEmail" name="email" placeholder="Your username or email address" class="span4">
+			<input type="text" id="inputEmail" name="email" placeholder="Your username or email address" class="span4">
 		    </div>
 		</div>
 		<div class="control-group">

@@ -17,6 +17,7 @@ namespace Idno\Core {
         public $session;
         public $template;
         public $actions;
+        public $plugins;
         public $dispatcher;
         public $pagehandlers;
         public static $site;
@@ -29,6 +30,7 @@ namespace Idno\Core {
             $this->session = new Session();
             $this->actions = new Actions();
             $this->template = new Template();
+            $this->plugins = new Plugins();
             $this->dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
         }
 
@@ -108,6 +110,11 @@ namespace Idno\Core {
         function &session()
         {
             return $this->session;
+        }
+
+        function &plugins()
+        {
+            return $this->plugins;
         }
 
         /**
