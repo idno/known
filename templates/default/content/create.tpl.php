@@ -1,5 +1,9 @@
 <?php
 
-    // TODO: cycle through available content types and allow the user to toggle between forms
+    if (!empty($vars['contentTypes']) && is_array($vars['contentTypes'])) {
+        foreach($vars['contentTypes'] as $contentType) {
+
+        }
+    }
 
 ?>

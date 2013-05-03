@@ -164,7 +164,7 @@ namespace Idno\Core {
 
     /**
      * Helper function that returns the current site object
-     * @return Idno\Core\Idno
+     * @return \Idno\Core\Idno
      */
     function &site()
     {
