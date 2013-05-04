@@ -4,7 +4,7 @@
 
 <?php
 
-    if (!empty($vars['create'])) {
+    if (!empty($vars['contentTypes'])) {
 
         echo $this->draw('content/create');
 

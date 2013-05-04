@@ -11,6 +11,7 @@
             // Property containing the entity class associated with this content type (default is generic object type)
             public $entity_class = 'Idno\\Entities\\Object';
             public $handler_class = 'Idno\\Common\\ContentType';
+            public $title = 'Content type';
 
             // Static property containing register of all content types
             static public $registered = array();
@@ -33,6 +34,26 @@
                         $entity = new $this->entity_class();
                         return $entity;
                     }
+                    return false;
+                }
+
+            /**
+             * Return the name of this content type
+             * @return string
+             */
+                function getTitle() {
+                    return $this->title;
+                }
+
+            /**
+             * Returns a CamelCase version of the content type suitable for use in element IDs
+             * @return string
+             */
+                function getIDSelector() {
+                    $title = $this->getTitle();
+                    $title = preg_replace('/\s([a-z])/e', 'strtoupper(\'$1\')', strtolower($title));
+                    $title = preg_replace('/\s/','',$title);
+                    return $title;
                 }
 
             /**
@@ -43,8 +64,8 @@
              */
                 static function register($class) {
                     if (class_exists($class)) {
-                        if ($class instanceof ContentType) {
-                            self::$registered[] = $class;
+                        if (is_subclass_of($class,'Idno\\Common\\ContentType')) {
+                            self::$registered[] = new $class();
                             return true;
                         }
                     }
@@ -52,12 +73,12 @@
                 }
 
             /**
-             * Get the names of all classes registered in the system.
+             * Get all ContentType objects registered in the system.
              * @return array
              */
             static function getRegistered() {
-                    return self::$registered;
-                }
+                return self::$registered;
+            }
 
         }
 

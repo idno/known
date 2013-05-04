@@ -53,6 +53,14 @@
                 return false;
             }
 
+            /**
+             * Retrieves the array of loaded plugin objects
+             * @return array
+             */
+            public function getLoaded() {
+                return $this->plugins;
+            }
+
         }
 
     }
