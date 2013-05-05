@@ -1,0 +1,37 @@
+/**
+    Default idno CSS
+*/
+
+/**
+    Content creation
+*/
+
+    .contentTypeButtonBar {
+        padding: 1em;
+        background-color: #eee;
+        border-radius: 5px;
+    }
+
+    a.contentTypeButton {
+        float: left;
+        width: 80px;
+        padding-top: 70px;
+        border: #ccc solid 1px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 0.8em;
+        text-decoration: none;
+        margin-right: 0.5em;
+        margin-bottom: 0.5em;
+        transition: width 0.5s, padding-top 0.5s;
+        color: #666;
+    }
+
+    a.contentTypeButton:hover {
+        text-decoration: none;
+        padding-top: 84px;
+        width: 96px;
+        color: #333;
+        background-color: #fff;
+    }

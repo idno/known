@@ -15,6 +15,7 @@
 	    }
 	</style>
 	<link href="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="<?= \Idno\Core\site()->config()->url ?>css/default.css" rel="stylesheet">
 
 	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
