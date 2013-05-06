@@ -22,6 +22,8 @@
 	  <script src="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/js/html5shiv.js"></script>
 	<![endif]-->
 
+    <script src="<?=\Idno\Core\site()->config()->url . 'js/default.js'?>"></script>
+
     </head>
 
     <body>

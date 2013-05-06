@@ -9,7 +9,7 @@ namespace Idno\Pages\Account {
     /**
      * Default class to serve the homepage
      */
-    class Settings extends \Idno\Core\Page
+    class Settings extends \Idno\Common\Page
     {
 
         function getContent()

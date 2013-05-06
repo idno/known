@@ -9,7 +9,7 @@ namespace Idno\Pages\Webfinger {
     /**
      * Default class to serve the homepage
      */
-    class Handler extends \Idno\Core\Page
+    class Handler extends \Idno\Common\Page
     {
 
         function getContent()

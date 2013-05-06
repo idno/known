@@ -6,7 +6,7 @@
     Content creation
 */
 
-    .contentTypeButtonBar {
+    .buttonBar {
         padding: 1em;
         background-color: #eee;
         border-radius: 5px;
@@ -34,4 +34,9 @@
         width: 96px;
         color: #333;
         background-color: #fff;
+    }
+
+    #contentCreate {
+        display: none;
+        z-index: 9999;
     }

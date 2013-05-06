@@ -9,7 +9,7 @@ namespace Idno\Pages {
     /**
      * Default class to serve the homepage
      */
-    class Homepage extends \Idno\Core\Page
+    class Homepage extends \Idno\Common\Page
     {
 
         // Handle GET requests to the homepage

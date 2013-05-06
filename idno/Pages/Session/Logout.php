@@ -9,7 +9,7 @@ namespace Idno\Pages\Session {
     /**
      * Default class to serve the homepage
      */
-    class Logout extends \Idno\Core\Page
+    class Logout extends \Idno\Common\Page
     {
 
         function getContent()

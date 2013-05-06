@@ -14,6 +14,7 @@
             function init() {
                 $result = parent::init();
                 $this->registerContentTypes();
+                \Bonita\Main::additionalPath(dirname($this->getFilename()));
                 return $result;
             }
 

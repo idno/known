@@ -9,7 +9,7 @@
         /**
          * Default class to serve the registration page
          */
-        class Register extends \Idno\Core\Page {
+        class Register extends \Idno\Common\Page {
 
             function getContent() {
                 $this->reverseGatekeeper();

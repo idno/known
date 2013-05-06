@@ -52,6 +52,16 @@
                 $reflector = new \ReflectionClass(get_class($this));
                 return $reflector->getNamespaceName();
             }
+
+         /**
+          * Helper method to retrieve the filename of the current component
+          * (works with inheritance).
+          * @return string
+          */
+             function getFilename() {
+                 $reflector = new \ReflectionClass(get_class($this));
+                 return $reflector->getFileName();
+             }
 		 
 	     }
 	     
