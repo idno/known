@@ -64,6 +64,15 @@ namespace Idno\Entities {
         }
 
         /**
+         * Activity streams objects don't in themselves have an activity stream object type.
+         * Infinite recursive loops are not our friends.
+         * @return false
+         */
+        function getActivityStreamsObjectType() {
+            return false;
+        }
+
+        /**
          * Converts Idno entities into ActivityStreams objects
          *
          * @param \Idno\Common\Entity $entity
@@ -74,7 +83,7 @@ namespace Idno\Entities {
 
             $object = array();
             $owner = $entity->getOwnerID();
-            if (!empty($owner)) $object['author'] = $this->entityToActivityStreamsObject($entity->getOwner());
+            if (!empty($owner) && $owner != $entity->getUUID()) $object['author'] = $this->entityToActivityStreamsObject($entity->getOwner());
             $object['displayName'] = $entity->getTitle();
             $object['id'] = $entity->getUUID();
             $object['objectType'] = $entity->getActivityStreamsObjectType();

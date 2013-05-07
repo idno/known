@@ -12,6 +12,8 @@
 
 namespace Idno\Common {
 
+    use Idno\Entities\ActivityStreamPost;
+
     class Entity
     {
 
@@ -95,6 +97,15 @@ namespace Idno\Common {
                     $this->uuid = $this->getUUID();
                     \Idno\Core\site()->db->saveObject($this);
                 }
+                if (!empty($this->_id) && $this->getActivityStreamsObjectType() != false) {
+                    $activityStreamPost = new \Idno\Entities\ActivityStreamPost();
+                    $owner = $this->getOwner();
+                    $activityStreamPost->setOwner($owner);
+                    $activityStreamPost->setTitle($owner->getTitle() . ' posted ' . $this->getTitle());
+                    $activityStreamPost->setVerb('post');
+                    $activityStreamPost->setObject($this);
+                    $activityStreamPost->save();
+                }
                 return $this->_id;
             } else {
                 return false;
@@ -141,6 +152,8 @@ namespace Idno\Common {
             if ($owner instanceof \Idno\Entities\User) {
                 $this->owner = $owner->getUUID();
                 return true;
+            } else {
+                $this->owner = $owner;
             }
             return false;
         }
