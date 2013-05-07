@@ -57,6 +57,14 @@
                 }
 
             /**
+             * Retrieves the URL to the form to create a new object related to this content type
+             * @return string
+             */
+            function getEditURL() {
+                    return \Idno\Core\site()->config()->url . $this->getIDSelector() . '/edit';
+                }
+
+            /**
              * Register a content type as being available to create / edit
              *
              * @param $class The string name of a class that extends Idno\Common\ContentType.

@@ -24,6 +24,7 @@
                     $('#contentCreate').html(data);
                     $('#contentCreate').show(200);
                     window.contentCreateType = plugin;
+                    window.contentPage = true;
                 },
                 error: function(error) {
                     $('#contentTypeButtonBar').fadeIn(200);
@@ -34,6 +35,10 @@
     }
 
     function hideContentCreateForm() {
-        $('#contentCreate').hide(200);
-        $('#contentTypeButtonBar').fadeIn(200);
+        if (window.contentPage == true) {
+            $('#contentCreate').hide(200);
+            $('#contentTypeButtonBar').fadeIn(200);
+        } else {
+            window.history.go(-1);
+        }
     }

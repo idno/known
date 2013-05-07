@@ -22,22 +22,22 @@ namespace Idno\Common {
 
         // Property that defines whether this page may forward to
         // other pages. True by default.
-        private $forward = true;
+        public $forward = true;
 
         // Property intended to store parsed data from JSON magic input
         // variable
-        private $data = array();
+        public $data = array();
 
         // Stores the response code that we'll be sending back. Can be
         // changed with setResponse
-        private $response = 200;
+        public $response = 200;
 
         // Stores arguments given to page handlers, for parsing of regular
         // expression matches
-        private $arguments = array();
+        public $arguments = array();
 
         // Is this an XmlHTTPRequest (AJAX) call?
-        private $xhr = false;
+        public $xhr = false;
 
         /**
          * Internal function used to handle GET requests.
@@ -49,7 +49,8 @@ namespace Idno\Common {
             \Idno\Core\site()->session()->APIlogin();
             $this->parseJSONPayload();
 
-            $this->arguments = func_get_args();
+            $arguments = func_get_args();
+            if (!empty($arguments)) $this->arguments = $arguments;
             $this->getContent();
 
             if (http_response_code() != 200)
@@ -63,6 +64,10 @@ namespace Idno\Common {
          */
         function post()
         {
+
+            $arguments = func_get_args();
+            if (!empty($arguments)) $this->arguments = $arguments;
+
             if (\Idno\Core\site()->actions()->validateToken('', false)) {
                 \Idno\Core\site()->session()->APIlogin();
                 $this->parseJSONPayload();
@@ -82,6 +87,10 @@ namespace Idno\Common {
          */
         function put()
         {
+
+            $arguments = func_get_args();
+            if (!empty($arguments)) $this->arguments = $arguments;
+
             if (\Idno\Core\site()->actions()->validateToken('', false)) {
                 \Idno\Core\site()->session()->APIlogin();
                 $this->parseJSONPayload();
@@ -101,6 +110,10 @@ namespace Idno\Common {
          */
         function delete()
         {
+
+            $arguments = func_get_args();
+            if (!empty($arguments)) $this->arguments = $arguments;
+
             if (\Idno\Core\site()->actions()->validateToken('', false)) {
                 \Idno\Core\site()->session()->APIlogin();
                 $this->parseJSONPayload();
@@ -119,7 +132,9 @@ namespace Idno\Common {
          */
         function get_xhr()
         {
-            \Idno\Core\site()->template()->setTemplateType('json');
+            //\Idno\Core\site()->template()->setTemplateType('json');
+            $arguments = func_get_args();
+            if (!empty($arguments)) $this->arguments = $arguments;
             $this->xhr = true;
             $this->get();
         }
@@ -131,6 +146,8 @@ namespace Idno\Common {
         function post_xhr()
         {
             \Idno\Core\site()->template()->setTemplateType('json');
+            $arguments = func_get_args();
+            if (!empty($arguments)) $this->arguments = $arguments;
             $this->xhr = true;
             $this->forward = false;
             $this->post();
@@ -143,6 +160,8 @@ namespace Idno\Common {
         function put_xhr()
         {
             \Idno\Core\site()->template()->setTemplateType('json');
+            $arguments = func_get_args();
+            if (!empty($arguments)) $this->arguments = $arguments;
             $this->xhr = true;
             $this->forward = false;
             $this->put();
@@ -155,6 +174,8 @@ namespace Idno\Common {
         function delete_xhr()
         {
             \Idno\Core\site()->template()->setTemplateType('json');
+            $arguments = func_get_args();
+            if (!empty($arguments)) $this->arguments = $arguments;
             $this->xhr = true;
             $this->forward = false;
             $this->delete();

@@ -40,3 +40,7 @@
         display: none;
         z-index: 9999;
     }
+
+    .bodyInput {
+        height: 15em;
+    }

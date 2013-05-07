@@ -12,7 +12,7 @@
                 ?>
 
                 <a class="contentTypeButton" id="<?= $contentType->getIDSelector() ?>Button"
-                   data-icon="<?= $contentType->getIcon() ?>" href="#"
+                   data-icon="<?= $contentType->getIcon() ?>" href="<?=$contentType->getEditURL()?>"
                    onclick="contentCreateForm('<?=$contentType->getIDSelector()?>'); return false;">
                     <?= $contentType->getTitle() ?>
                 </a>

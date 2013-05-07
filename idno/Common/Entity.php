@@ -170,7 +170,7 @@ namespace Idno\Common {
         {
             if (
                 $access instanceof \Idno\Entities\AccessGroup ||
-                ($access = site()->db()->getObject($access) && $access instanceof \Idno\Entities\AccessGroup)
+                ($access = \Idno\Core\site()->db()->getObject($access) && $access instanceof \Idno\Entities\AccessGroup)
             ) {
                 $this->access = $access->getUUID();
                 return true;
@@ -212,6 +212,14 @@ namespace Idno\Common {
             if (!empty($this->uuid))
                 return $this->uuid;
             return \Idno\Core\site()->config()->url . 'view/' . $this->_id;
+        }
+
+        /**
+         * Returns the ID of this object
+         * @return string
+         */
+        function getID() {
+            return $this->_id;
         }
 
         /**
@@ -365,7 +373,7 @@ namespace Idno\Common {
 
         static function getByID($id)
         {
-            return self::getOne(array('_id' => $id));
+            return self::getOne(array('_id' => new \MongoId($id)));
         }
 
         /**
