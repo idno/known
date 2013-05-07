@@ -16,9 +16,11 @@
 
     }
 
-    if (!empty($feed)) {
+    if (!empty($vars['feed'])) {
 
-        // TODO: draw feed of existing content that the current user can see
+        foreach($vars['feed'] as $entry) {
+            echo '.';
+        }
 
     }
 
