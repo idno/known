@@ -114,6 +114,15 @@ namespace Idno\Common {
         }
 
         /**
+         * Delete this entity
+         * @todo complete this
+         * @return bool
+         */
+        function delete() {
+            return false;
+        }
+
+        /**
          * Return the user that owns this entity
          *
          * @return \Idno\Entities\User

@@ -42,6 +42,7 @@ namespace Idno\Core {
 
             // Homepage
             $this->addPageHandler('/', '\Idno\Pages\Homepage');
+            $this->addPageHandler('/view/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\View');
 
         }
 
