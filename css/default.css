@@ -3,6 +3,25 @@
 */
 
 /**
+    Activity streams
+*/
+
+    .entry {
+        margin-top: 1em;
+    }
+
+    .entry h2 {
+        font-size: 1em;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .entry .owner {
+        margin-top: 1em;
+        font-size: 0.9em;
+    }
+
+/**
     Content creation
 */
 

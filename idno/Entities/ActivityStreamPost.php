@@ -25,7 +25,14 @@ namespace Idno\Entities {
          */
         function setActor(\Idno\Common\Entity $actor)
         {
-            $this->actor = $this->entityToActivityStreamsObject($actor);
+            $this->actor = $actor->getUUID();
+        }
+
+        /**
+         * Get the actor associated with this entity
+         */
+        function getActor() {
+            return \Idno\Common\Entity::getByUUID($this->actor);
         }
 
         /**
@@ -46,7 +53,15 @@ namespace Idno\Entities {
          */
         function setObject(\Idno\Common\Entity $object)
         {
-            $this->object = $this->entityToActivityStreamsObject($object);
+            $this->object = $object->getUUID();
+        }
+
+        /**
+         * Get the object associated with this stream entry
+         * @return \Idno\Common\Entity
+         */
+        function getObject() {
+            return \Idno\Common\Entity::getByUUID($this->object);
         }
 
         /**
@@ -60,7 +75,16 @@ namespace Idno\Entities {
          */
         function setTarget(\Idno\Common\Entity $target)
         {
-            $this->target = $this->entityToActivityStreamsObject($target);
+            $this->target = $target->getUUID();
+        }
+
+        /**
+         * Get the target object associated with this entry
+         * @return \Idno\Common\Entity
+         */
+        function getTarget()
+        {
+            return \Idno\Common\Entity::getByUUID($this->target);
         }
 
         /**

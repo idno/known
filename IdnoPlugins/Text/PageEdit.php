@@ -17,7 +17,7 @@
                 $t = \Idno\Core\site()->template();
                 $body = $t->__(array(
                     'object' => $object
-                ))->draw('plugins/text/edit');
+                ))->draw('text/edit');
 
                 if (empty($object)) {
                     $title = 'Write an entry';

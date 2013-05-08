@@ -14,7 +14,7 @@ namespace Idno\Common {
 
     use Idno\Entities\ActivityStreamPost;
 
-    class Entity
+    class Entity extends Component
     {
 
         // Store the entity's attributes
@@ -101,6 +101,7 @@ namespace Idno\Common {
                     $activityStreamPost = new \Idno\Entities\ActivityStreamPost();
                     $owner = $this->getOwner();
                     $activityStreamPost->setOwner($owner);
+                    $activityStreamPost->setActor($owner);
                     $activityStreamPost->setTitle($owner->getTitle() . ' posted ' . $this->getTitle());
                     $activityStreamPost->setVerb('post');
                     $activityStreamPost->setObject($this);
@@ -115,7 +116,7 @@ namespace Idno\Common {
         /**
          * Return the user that owns this entity
          *
-         * @return User
+         * @return \Idno\Entities\User
          */
 
         function getOwner()
@@ -347,6 +348,19 @@ namespace Idno\Common {
         }
 
         /**
+         * Draws this entity using the generic template entity/EntityClass
+         * (note that the namespace is stripped) and the current default template.
+         *
+         * @return string The rendered entity.
+         */
+        function draw() {
+            $t = \Idno\Core\site()->template();
+            return $t->__(array(
+                'object' => $this
+            ))->draw('entity/' . $this->getClassName());
+        }
+
+        /**
          * Simple method to get objects of this class in reverse
          * chronological order, using the database getObjects call.
          *
@@ -363,8 +377,24 @@ namespace Idno\Common {
         }
 
         /**
-         * Retrieve a single record with certain characteristics, using
-         * the database getObjects call.
+         * Simple method to get objects of ANY class in reverse
+         * chronological order, using the database getObjects call.
+         *
+         * @param array $search List of filter terms (default: none)
+         * @param array $fields List of fields to return (default: all)
+         * @param int $limit Number of items to return (default: 10)
+         * @param int $offset Number of items to skip (default: 0
+         * @return array
+         */
+        static function getFromAll($search = array(), $fields = array(), $limit = 10, $offset = 0)
+        {
+            $result=  \Idno\Core\site()->db()->getObjects('', $search, $fields, $limit, $offset);
+            return $result;
+        }
+
+        /**
+         * Retrieve a single record of the calling class with certain
+         * characteristics, using the database getObjects call.
          *
          * @param array $search List of filter terms (default: none)
          * @param array $fields List of fields to return (default: all)
@@ -379,6 +409,22 @@ namespace Idno\Common {
         }
 
         /**
+         * Retrieve a single record with certain characteristics, using
+         * the database getObjects call.
+         *
+         * @param array $search List of filter terms (default: none)
+         * @param array $fields List of fields to return (default: all)
+         * @return Entity
+         */
+
+        static function getOneFromAll($search = array(), $fields = array())
+        {
+            if ($records = self::getFromAll($search, $fields, 1))
+                foreach ($records as $record)
+                    return $record;
+        }
+
+        /**
          * Retrieve a single record by its database ID
          * @param string $id
          * @return Entity
@@ -386,7 +432,7 @@ namespace Idno\Common {
 
         static function getByID($id)
         {
-            return self::getOne(array('_id' => new \MongoId($id)));
+            return self::getOneFromAll(array('_id' => new \MongoId($id)));
         }
 
         /**
@@ -397,7 +443,7 @@ namespace Idno\Common {
 
         static function getByUUID($uuid)
         {
-            return self::getOne(array('uuid' => $uuid));
+            return self::getOneFromAll(array('uuid' => $uuid));
         }
 
     }

@@ -54,6 +54,14 @@
             }
 
          /**
+          * Get the name of this class without its namespace
+          * @return string
+          */
+             function getClassName() {
+                return str_replace('\\','',str_replace($this->getNamespace(), '', get_class($this)));
+            }
+
+         /**
           * Helper method to retrieve the filename of the current component
           * (works with inheritance).
           * @return string
