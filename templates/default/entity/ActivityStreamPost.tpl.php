@@ -10,7 +10,7 @@
             <a href="<?=$owner->getURL()?>"><?=$owner->getTitle();?></a>
         </p>
     </div>
-    <div class="span9 content">
+    <div class="span8 content">
         <?=$vars['object']->getObject()->draw()?>
     </div>
 
