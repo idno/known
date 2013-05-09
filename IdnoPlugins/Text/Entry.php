@@ -6,6 +6,7 @@
 
             function getTitle() {
                 if (empty($this->title)) return 'Untitled';
+                return $this->title;
             }
 
         }
