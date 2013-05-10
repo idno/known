@@ -9,7 +9,7 @@
         /**
          * Default class to serve the homepage
          */
-        class View extends \Idno\Common\Page
+        class Edit extends \Idno\Common\Page
         {
 
             // Handle GET requests to the homepage
@@ -20,25 +20,15 @@
                     $object = \Idno\Common\Entity::getByID($this->arguments[0]);
                 }
                 if (empty($object)) $this->forward(); // TODO: 404
+                if (!$object->canEdit()) $this->forward($object->getURL());
 
                 $t = \Idno\Core\site()->template();
                 $t->__(array(
 
                     'title' => $object->getTitle(),
-                    'body' => $object->draw()
+                    'body' => $object->drawEdit()
 
                 ))->drawPage();
-            }
-
-            function deleteContent() {
-                if (!empty($this->arguments[0])) {
-                    $object = \Idno\Common\Entity::getByID($this->arguments[0]);
-                }
-                if (empty($object)) $this->forward(); // TODO: 404
-                if ($object->delete()) {
-                    \Idno\Core\site()->session()->addMessage($object->getTitle() . ' was deleted.');
-                }
-                $this->forward($_SERVER['HTTP_REFERER']);
             }
 
         }

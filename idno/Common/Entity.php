@@ -258,6 +258,15 @@ namespace Idno\Common {
         }
 
         /**
+         * Return a website address to edit this object (defaults to a variation of
+         * the UUID of the object)
+         * @return string
+         */
+        function getEditURL() {
+            return \Idno\Core\site()->config()->url . 'edit/' . $this->getID();
+        }
+
+        /**
          * Retrieve the Activity Streams object type identifier for this entity.
          * By default, idno entities are objects of type "article".
          *
@@ -367,6 +376,19 @@ namespace Idno\Common {
             return $t->__(array(
                 'object' => $this
             ))->draw('entity/' . $this->getClassName());
+        }
+
+        /**
+         * Draws the form to edit this entity using the generic template entity/EntityClass/edit
+         * (note that the namespace is stripped) and the current default template.
+         *
+         * @return string The rendered entity.
+         */
+        function drawEdit() {
+            $t = \Idno\Core\site()->template();
+            return $t->__(array(
+                'object' => $this
+            ))->draw('entity/' . $this->getClassName() . '/edit');
         }
 
         /**

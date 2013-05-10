@@ -11,7 +11,12 @@
         </p>
     </div>
     <div class="span8 content">
-        <?=$vars['object']->getObject()->draw()?>
+        <?=$object->getObject()->draw()?>
+        <?php
+            if ($object->canEdit()) {
+                echo $this->draw('content/edit');
+            }
+        ?>
     </div>
 
 </div>

@@ -1,4 +1,4 @@
-<form action="<?=Idno\Core\site()->config()->url?>text/edit/<?php if (!empty($vars['object'])) echo $vars['object']->getID()?>" method="post">
+<form action="<?=Idno\Core\site()->config()->url?>view/<?php if (!empty($vars['object'])) echo $vars['object']->getID()?>" method="post">
 
     <div class="row">
 
@@ -7,7 +7,7 @@
             <p>
                 <label>
                     Body<br />
-                    <textarea name="body" class="span6 bodyInput"></textarea>
+                    <textarea name="body" class="span6 bodyInput"><?=htmlspecialchars($vars['object']->body)?></textarea>
                 </label>
             </p>
 
@@ -17,7 +17,7 @@
             <p>
                 <label>
                     Title<br />
-                    <input type="text" name="title" id="title" value="" class="span4" />
+                    <input type="text" name="title" id="title" value="<?=htmlspecialchars($vars['object']->title)?>" class="span4" />
                 </label>
             </p>
             <p>
