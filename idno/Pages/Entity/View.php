@@ -12,7 +12,7 @@
         class View extends \Idno\Common\Page
         {
 
-            // Handle GET requests to the homepage
+            // Handle GET requests to the entity
 
             function getContent()
             {
@@ -29,6 +29,8 @@
 
                 ))->drawPage();
             }
+
+            // Handle DELETE requests to the entity
 
             function deleteContent() {
                 if (!empty($this->arguments[0])) {
