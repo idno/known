@@ -24,8 +24,9 @@ namespace Idno\Core {
          */
         function createLink($pageurl, $label, $data = array(), $options = array())
         {
-            $data = array_merge($data, $options);
-            return site()->template()->__(array('url' => $pageurl, 'label' => $label, 'data' => $data))->draw('forms/link');
+            $params = array('url' => $pageurl, 'label' => $label, 'data' => $data);
+            $params = array_merge($params, $options);
+            return site()->template()->__($params)->draw('forms/link');
         }
 
         /**

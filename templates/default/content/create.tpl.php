@@ -13,7 +13,7 @@
 
                 <a class="contentTypeButton" id="<?= $contentType->getIDSelector() ?>Button"
                    data-icon="<?= $contentType->getIcon() ?>" href="<?=$contentType->getEditURL()?>"
-                   onclick="contentCreateForm('<?=$contentType->getIDSelector()?>'); return false;">
+                   onclick="contentCreateForm('<?=$contentType->getEntityClassName()?>'); return false;">
                     <?= $contentType->getTitle() ?>
                 </a>
 

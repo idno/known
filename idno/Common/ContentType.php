@@ -26,6 +26,21 @@
                 }
 
             /**
+             * Retrieves the name of the entity class associated with this content type
+             * @return string
+             */
+                function getEntityClass()
+                {
+                    return $this->entity_class;
+                }
+
+                function getEntityClassName()
+                {
+                    $class = $this->getEntityClass();
+                    return substr($class, strrpos($class,'\\'));
+                }
+
+            /**
              * Create an object with the entity class associated with this content type
              * @return mixed
              */

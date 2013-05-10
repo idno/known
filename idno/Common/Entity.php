@@ -84,7 +84,8 @@ namespace Idno\Common {
 
             // Adding this entity's owner (if we don't know already)
 
-            if (\Idno\Core\site()->session()->isLoggedIn()) {
+            $owner_id = $this->getOwnerID();
+            if (\Idno\Core\site()->session()->isLoggedIn() && empty($owner_id)) {
                 $this->setOwner(\Idno\Core\site()->session()->currentUser());
             }
 
@@ -96,16 +97,16 @@ namespace Idno\Common {
                     $this->_id = $result;
                     $this->uuid = $this->getUUID();
                     \Idno\Core\site()->db->saveObject($this);
-                }
-                if (!empty($this->_id) && $this->getActivityStreamsObjectType() != false) {
-                    $activityStreamPost = new \Idno\Entities\ActivityStreamPost();
-                    $owner = $this->getOwner();
-                    $activityStreamPost->setOwner($owner);
-                    $activityStreamPost->setActor($owner);
-                    $activityStreamPost->setTitle($owner->getTitle() . ' posted ' . $this->getTitle());
-                    $activityStreamPost->setVerb('post');
-                    $activityStreamPost->setObject($this);
-                    $activityStreamPost->save();
+                    if (!empty($this->_id) && $this->getActivityStreamsObjectType() != false) {
+                        $activityStreamPost = new \Idno\Entities\ActivityStreamPost();
+                        $owner = $this->getOwner();
+                        $activityStreamPost->setOwner($owner);
+                        $activityStreamPost->setActor($owner);
+                        $activityStreamPost->setTitle($owner->getTitle() . ' posted ' . $this->getTitle());
+                        $activityStreamPost->setVerb('post');
+                        $activityStreamPost->setObject($this);
+                        $activityStreamPost->save();
+                    }
                 }
                 return $this->_id;
             } else {

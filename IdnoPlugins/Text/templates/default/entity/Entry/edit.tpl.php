@@ -1,4 +1,4 @@
-<form action="<?=Idno\Core\site()->config()->url?>view/<?php if (!empty($vars['object'])) echo $vars['object']->getID()?>" method="post">
+<form action="<?=Idno\Core\site()->config()->url?>Entry/edit/<?php if (!empty($vars['object'])) echo $vars['object']->getID()?>" method="post">
 
     <div class="row">
 
