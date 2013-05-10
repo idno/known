@@ -65,6 +65,14 @@ namespace Idno\Entities {
         }
 
         /**
+         * Returns the object UUID associated with this post
+         * @return \Idno\Common\Entity
+         */
+        function getObjectUUID() {
+            return $this->object;
+        }
+
+        /**
          * Describes the target of the activity. The precise meaning of
          * the activity's target is dependent on the activities verb,
          * but will often be the object the English preposition "to".
@@ -116,6 +124,19 @@ namespace Idno\Entities {
             $object['url'] = $entity->getURL();
             return $object;
 
+        }
+
+        /**
+         * Get activity streams posts by object UUID
+         * @param $uuid
+         * @return array|bool
+         */
+        static function getByObjectUUID($uuid)
+        {
+            if ($result = self::get(array(), array('object' => $uuid), 10000)) {
+                return $result;
+            }
+            return false;
         }
 
     }
