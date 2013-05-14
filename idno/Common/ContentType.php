@@ -12,7 +12,6 @@
             public $entity_class = 'Idno\\Entities\\Object';
             public $handler_class = 'Idno\\Common\\ContentType';
             public $title = 'Content type';
-            public $logo = '<i class="icon-spinner"></i>';
 
             // Static property containing register of all content types
             static public $registered = array();
@@ -22,8 +21,8 @@
              * @param int $width The width of the icon to be returned. (Returned icon may not be the exact width.)
              * @return string The public URL to the content type.
              */
-                function getIcon($width = 100) {
-                    return ''; // TODO: create default icon to be returned
+                function getIcon() {
+                    return \Idno\Core\site()->template()->draw('entity/' . $this->getEntityClassName() . '/icon');
                 }
 
             /**
@@ -59,14 +58,6 @@
              */
                 function getTitle() {
                     return $this->title;
-                }
-
-            /**
-             * Return a scrap of HTML to display the logo for this content type
-             * @return string
-             */
-            function getLogo() {
-                    return $this->logo;
                 }
 
             /**

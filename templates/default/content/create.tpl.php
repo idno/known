@@ -12,9 +12,9 @@
                 ?>
 
                 <a class="contentTypeButton" id="<?= $contentType->getClassSelector() ?>Button"
-                   data-icon="<?= $contentType->getIcon() ?>" href="<?=$contentType->getEditURL()?>"
+                   href="<?=$contentType->getEditURL()?>"
                    onclick="contentCreateForm('<?=$contentType->camelCase($contentType->getEntityClassName())?>'); return false;">
-                    <span class="contentTypeLogo"><?= $contentType->getLogo() ?></span>
+                    <span class="contentTypeLogo"><?= $contentType->getIcon() ?></span>
                     <?= $contentType->getTitle() ?>
                 </a>
 
