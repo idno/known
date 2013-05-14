@@ -14,20 +14,21 @@
  */
 
     function contentCreateForm(plugin) {
-        $('#contentTypeButtonBar').fadeOut(200);
         if (window.contentCreateType == plugin) {
-            $('#contentCreate').show(200);
+            $('#contentCreate').slideDown(200);
+            $('#contentTypeButtonBar').slideUp(200);
         } else {
             $.ajax('/' + plugin + '/edit/', {
                 dataType: 'html',
                 success: function(data) {
                     $('#contentCreate').html(data);
-                    $('#contentCreate').show(200);
+                    $('#contentCreate').slideDown(200);
+                    $('#contentTypeButtonBar').slideUp(200);
                     window.contentCreateType = plugin;
                     window.contentPage = true;
                 },
                 error: function(error) {
-                    $('#contentTypeButtonBar').fadeIn(200);
+                    $('#contentTypeButtonBar').slideDown(200);
                 }
 
             });
@@ -36,8 +37,8 @@
 
     function hideContentCreateForm() {
         if (window.contentPage == true) {
-            $('#contentCreate').hide(200);
-            $('#contentTypeButtonBar').fadeIn(200);
+            $('#contentTypeButtonBar').slideDown(200);
+            $('#contentCreate').slideUp(200);
         } else {
             window.history.go(-1);
         }

@@ -14,6 +14,7 @@
                 <a class="contentTypeButton" id="<?= $contentType->getClassSelector() ?>Button"
                    data-icon="<?= $contentType->getIcon() ?>" href="<?=$contentType->getEditURL()?>"
                    onclick="contentCreateForm('<?=$contentType->camelCase($contentType->getEntityClassName())?>'); return false;">
+                    <span class="contentTypeLogo"><?= $contentType->getLogo() ?></span>
                     <?= $contentType->getTitle() ?>
                 </a>
 
@@ -29,5 +30,5 @@
         }
 
     ?>
-    <div id="contentCreate"></div>
 </div>
+<div id="contentCreate"></div>

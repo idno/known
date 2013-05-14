@@ -6,6 +6,7 @@
 
             public $title = 'Text';
             public $entity_class = 'IdnoPlugins\\Text\\Entry';
+            public $logo = '<i class="icon-align-left"></i>';
 
         }
 

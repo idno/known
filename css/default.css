@@ -27,14 +27,15 @@
 
     .buttonBar {
         padding: 1em;
-        background-color: #eee;
+        background-color: #ddd;
         border-radius: 5px;
+        z-index: 9999;
     }
 
     a.contentTypeButton {
         float: left;
         width: 80px;
-        padding-top: 70px;
+
         border: #ccc solid 1px;
         background-color: #f9f9f9;
         border-radius: 5px;
@@ -43,21 +44,32 @@
         text-decoration: none;
         margin-right: 0.5em;
         margin-bottom: 0.5em;
-        transition: width 0.5s, padding-top 0.5s;
+        transition: width 0.25s, padding-top 0.25s, padding-bottom 0.25s;
         color: #666;
     }
 
     a.contentTypeButton:hover {
         text-decoration: none;
-        padding-top: 84px;
-        width: 96px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        width: 90px;
         color: #333;
         background-color: #fff;
     }
 
+    span.contentTypeLogo {
+        display: block;
+        font-size: 40px;
+        padding-top: 15px;
+        padding-bottom: 5px;
+    }
+
     #contentCreate {
         display: none;
-        z-index: 9999;
+        z-index: -10000;
+        padding: 20px;
+        margin-top: -5px;
+        background-color: #eee;
     }
 
     .bodyInput {

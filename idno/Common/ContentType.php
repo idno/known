@@ -12,6 +12,7 @@
             public $entity_class = 'Idno\\Entities\\Object';
             public $handler_class = 'Idno\\Common\\ContentType';
             public $title = 'Content type';
+            public $logo = '<i class="icon-spinner"></i>';
 
             // Static property containing register of all content types
             static public $registered = array();
@@ -58,6 +59,14 @@
              */
                 function getTitle() {
                     return $this->title;
+                }
+
+            /**
+             * Return a scrap of HTML to display the logo for this content type
+             * @return string
+             */
+            function getLogo() {
+                    return $this->logo;
                 }
 
             /**
