@@ -25,6 +25,8 @@
 
     <script src="<?=\Idno\Core\site()->config()->url . 'js/default.js'?>"></script>
 
+        <?=$this->draw('page/head',$vars);?>
+
     </head>
 
     <body>
@@ -96,6 +98,8 @@
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="<?= \Idno\Core\site()->config()->url . 'external/jquery/' ?>jquery.min.js"></script>
 	<script src="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
+
+    <?=$this->draw('page/footer',$vars)?>
 
     </body>
 </html>
