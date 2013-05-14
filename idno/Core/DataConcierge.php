@@ -190,6 +190,15 @@ namespace Idno\Core {
             return false;
         }
 
+        /**
+         * Remove an entity from the database
+         * @param string $id
+         * @return true|false
+         */
+        function deleteRecord($id) {
+            return $this->database->entities->remove(array("_id" => new \MongoId($id)));
+        }
+
     }
 
     /**

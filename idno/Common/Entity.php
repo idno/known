@@ -120,7 +120,7 @@ namespace Idno\Common {
          * @return bool
          */
         function delete() {
-            return false;
+            return \Idno\Core\db()->remove($this->getID());
         }
 
         /**
