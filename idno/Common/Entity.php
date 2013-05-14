@@ -91,7 +91,13 @@ namespace Idno\Common {
 
             // Save it to the database
 
-            $result = \Idno\Core\site()->db->saveObject($this);
+            $event = new \Idno\Core\Event(array('object' => $this));
+            $event->setResponse(true);
+            if (\Idno\Core\site()->events()->dispatch('save', $event)->response()) {
+                $result = \Idno\Core\site()->db->saveObject($this);
+            } else {
+                $result = false;
+            }
             if (!empty($result)) {
                 if (empty($this->_id)) {
                     $this->_id = $result;
@@ -120,7 +126,17 @@ namespace Idno\Common {
          * @return bool
          */
         function delete() {
-            return \Idno\Core\db()->remove($this->getID());
+            $event = new \Idno\Core\Event(array('object' => $this));
+            $event->setResponse(true);
+            if (\Idno\Core\site()->events()->dispatch('delete', $event)->response()) {
+                if ($entries = \Idno\Entities\ActivityStreamPost::getByObjectUUID($this->getUUID())) {
+                    foreach($entries as $entry) {
+                        $entry->delete();
+                    }
+                }
+                return \Idno\Core\db()->deleteRecord($this->getID());
+            }
+            return false;
         }
 
         /**

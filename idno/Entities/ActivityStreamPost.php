@@ -133,7 +133,7 @@ namespace Idno\Entities {
          */
         static function getByObjectUUID($uuid)
         {
-            if ($result = self::get(array(), array('object' => $uuid), 10000)) {
+            if ($result = self::get(array('object'=>$uuid), array(), 10000)) {
                 return $result;
             }
             return false;

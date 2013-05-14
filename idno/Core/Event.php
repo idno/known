@@ -42,6 +42,15 @@ namespace Idno\Core {
         }
 
         /**
+         * Set the response variable associated with this event
+         * @param $value
+         * @return true|false
+         */
+        function setResponse($value) {
+            return $this->response = $value;
+        }
+
+        /**
          * Retrieve the variable associated with the URL to forward to
          * (if any) after this event
          * @return type

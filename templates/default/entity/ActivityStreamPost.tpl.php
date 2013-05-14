@@ -1,6 +1,8 @@
 <?php
     $object = $vars['object'];
     /* @var \Idno\Entities\ActivityStreamPost $object */
+
+    if (!empty($object)) {
 ?>
 <div class="entry row span11">
 
@@ -11,7 +13,7 @@
         </p>
     </div>
     <div class="span8 content">
-        <?=$object->getObject()->draw()?>
+        <?php if ($subObject = $object->getObject()) echo $subObject->draw(); ?>
         <?php
             if ($object->canEdit()) {
                 echo $this->draw('content/edit');
@@ -20,3 +22,7 @@
     </div>
 
 </div>
+
+<?php
+    }
+?>
