@@ -1,0 +1,1 @@
+<p><?=$vars['object']->body?></p>
