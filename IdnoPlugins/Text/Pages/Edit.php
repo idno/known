@@ -1,8 +1,8 @@
 <?php
 
-    namespace IdnoPlugins\Text {
+    namespace IdnoPlugins\Text\Pages {
 
-        class PageEdit extends \Idno\Common\Page {
+        class Edit extends \Idno\Common\Page {
 
             function getContent() {
 
@@ -10,9 +10,9 @@
 
                 // Are we loading an entity?
                 if (!empty($this->arguments)) {
-                    $object = Entry::getByID($this->arguments[0]);
+                    $object = \IdnoPlugins\Text\Entry::getByID($this->arguments[0]);
                 } else {
-                    $object = new Entry();
+                    $object = new \IdnoPlugins\Text\Entry();
                 }
 
                 $t = \Idno\Core\site()->template();
@@ -37,9 +37,9 @@
                 $this->gatekeeper();
 
                 if (!empty($this->arguments)) {
-                    $object = Entry::getByID($this->arguments[0]);
+                    $object = \IdnoPlugins\Text\Entry::getByID($this->arguments[0]);
                 }
-                if (empty($object)) $object = new Entry();
+                if (empty($object)) $object = new \IdnoPlugins\Text\Entry();
 
                 $body = $this->getInput('body');
                 if (!empty($body)) {

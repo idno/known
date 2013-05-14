@@ -278,12 +278,21 @@ namespace Idno\Common {
         }
 
         /**
-         * Return a website address to edit this object (defaults to a variation of
+         * Return a URI endpoint to edit this object (defaults to a variation of
          * the UUID of the object)
          * @return string
          */
         function getEditURL() {
             return \Idno\Core\site()->config()->url . $this->getClassSelector() . '/edit/' . $this->getID();
+        }
+
+        /**
+         * Return a URI endpoint to delete this object (defaults to a variation of
+         * the UUID of the object)
+         * @return string
+         */
+        function getDeleteURL() {
+            return \Idno\Core\site()->config()->url . $this->getClassSelector() . '/delete/' . $this->getID();
         }
 
         /**

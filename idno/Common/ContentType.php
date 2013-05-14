@@ -77,7 +77,8 @@
                 static function register($class) {
                     if (class_exists($class)) {
                         if (is_subclass_of($class,'Idno\\Common\\ContentType')) {
-                            self::$registered[] = new $class();
+                            $contentType = new $class();
+                            self::$registered[] = $contentType;
                             return true;
                         }
                     }
