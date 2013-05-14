@@ -9,6 +9,14 @@
                 return $this->title;
             }
 
+            /**
+             * Entry objects have type 'article'
+             * @return 'article'
+             */
+            function getActivityStreamsObjectType() {
+                return 'article';
+            }
+
         }
 
     }
