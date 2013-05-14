@@ -124,6 +124,17 @@ namespace Idno\Common {
         }
 
         /**
+         * This method is important: it'll be run by the API whenever an entity is updated.
+         * It takes input from the world and saves it to the entity.
+         *
+         * @return true|false
+         */
+        function saveDataFromInput() {
+            // Extend this
+            return true;
+        }
+
+        /**
          * Return the user that owns this entity
          *
          * @return \Idno\Entities\User
@@ -233,9 +244,13 @@ namespace Idno\Common {
 
         function getUUID()
         {
-            if (!empty($this->uuid))
+            if (!empty($this->uuid)) {
                 return $this->uuid;
-            return \Idno\Core\site()->config()->url . 'view/' . $this->_id;
+            }
+            if (!empty($this->_id)) {
+                return \Idno\Core\site()->config()->url . 'view/' . $this->_id;
+            }
+            return false;
         }
 
         /**
@@ -255,7 +270,11 @@ namespace Idno\Common {
 
         function getURL()
         {
-            return $this->getUUID();
+            $uuid = $this->getUUID();
+            if (!empty($uuid)) {
+                return $uuid;
+            }
+            return \Idno\Core\site()->config()->url . $this->getClassName() . '/edit';
         }
 
         /**
@@ -264,7 +283,7 @@ namespace Idno\Common {
          * @return string
          */
         function getEditURL() {
-            return \Idno\Core\site()->config()->url . 'edit/' . $this->getID();
+            return \Idno\Core\site()->config()->url . $this->getClassSelector() . '/edit/' . $this->getID();
         }
 
         /**

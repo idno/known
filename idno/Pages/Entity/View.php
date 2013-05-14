@@ -30,6 +30,19 @@
                 ))->drawPage();
             }
 
+            // Handle POST requests to the entity
+
+            function postContent() {
+                if (!empty($this->arguments[0])) {
+                    $object = \Idno\Common\Entity::getByID($this->arguments[0]);
+                }
+                if (empty($object)) $this->forward(); // TODO: 404
+                if ($object->saveDataFromInput()) {
+                    \Idno\Core\site()->session()->addMessage($object->getTitle() . ' was saved.');
+                }
+                $this->forward($_SERVER['HTTP_REFERER']);
+            }
+
             // Handle DELETE requests to the entity
 
             function deleteContent() {

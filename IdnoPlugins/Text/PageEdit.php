@@ -5,13 +5,14 @@
         class PageEdit extends \Idno\Common\Page {
 
             function getContent() {
+
                 $this->gatekeeper();    // This functionality is for logged-in users only
 
                 // Are we loading an entity?
                 if (!empty($this->arguments)) {
                     $object = Entry::getByID($this->arguments[0]);
                 } else {
-                    $object = false;
+                    $object = new Entry();
                 }
 
                 $t = \Idno\Core\site()->template();

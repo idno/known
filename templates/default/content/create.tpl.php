@@ -11,9 +11,9 @@
                 /* @var Idno\Common\ContentType $contentType */
                 ?>
 
-                <a class="contentTypeButton" id="<?= $contentType->getIDSelector() ?>Button"
+                <a class="contentTypeButton" id="<?= $contentType->getClassSelector() ?>Button"
                    data-icon="<?= $contentType->getIcon() ?>" href="<?=$contentType->getEditURL()?>"
-                   onclick="contentCreateForm('<?=$contentType->getEntityClassName()?>'); return false;">
+                   onclick="contentCreateForm('<?=$contentType->camelCase($contentType->getEntityClassName())?>'); return false;">
                     <?= $contentType->getTitle() ?>
                 </a>
 

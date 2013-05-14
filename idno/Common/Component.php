@@ -70,6 +70,33 @@
                  $reflector = new \ReflectionClass(get_class($this));
                  return $reflector->getFileName();
              }
+
+         /**
+          * Returns the camelCased version of a given string
+          * @param $string
+          * @return $string
+          */
+             function camelCase($string) {
+                 $string = preg_replace('/\s([a-z])/e', 'strtoupper(\'$1\')', strtolower($string));
+                 $string = preg_replace('/\s/','',$string);
+                 return $string;
+             }
+
+         /**
+          * Returns a camelCase version of the object title, suitable for use in element IDs
+          * @return string
+          */
+             function getIDSelector() {
+                 return $this->camelCase($this->getTitle());
+             }
+
+         /**
+          * Returns a camelCase version of the object class, suitable for use in element IDs
+          * @return string
+          */
+             function getClassSelector() {
+                 return $this->camelCase($this->getClassName());
+             }
 		 
 	     }
 	     

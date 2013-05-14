@@ -37,7 +37,7 @@
                 function getEntityClassName()
                 {
                     $class = $this->getEntityClass();
-                    return substr($class, strrpos($class,'\\'));
+                    return substr($class, strrpos($class,'\\') + 1);
                 }
 
             /**
@@ -61,22 +61,11 @@
                 }
 
             /**
-             * Returns a CamelCase version of the content type suitable for use in element IDs
-             * @return string
-             */
-                function getIDSelector() {
-                    $title = $this->getTitle();
-                    $title = preg_replace('/\s([a-z])/e', 'strtoupper(\'$1\')', strtolower($title));
-                    $title = preg_replace('/\s/','',$title);
-                    return $title;
-                }
-
-            /**
              * Retrieves the URL to the form to create a new object related to this content type
              * @return string
              */
-            function getEditURL() {
-                    return \Idno\Core\site()->config()->url . $this->getIDSelector() . '/edit';
+                function getEditURL() {
+                    return \Idno\Core\site()->config()->url . $this->camelCase($this->getEntityClassName()) . '/edit';
                 }
 
             /**
