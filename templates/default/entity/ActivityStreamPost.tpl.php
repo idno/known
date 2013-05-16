@@ -4,9 +4,9 @@
 
     if (!empty($object)) {
 ?>
-<div class="row span11 h-entry">
+<div class="row h-entry">
 
-    <div class="span1 owner">
+    <div class="span owner">
         <p>
             <?php $owner = $object->getActor(); ?>
             <a href="<?=$owner->getURL()?>" class="p-name u-url"><?=$owner->getTitle();?></a>

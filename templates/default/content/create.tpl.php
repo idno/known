@@ -3,7 +3,8 @@
     if (!empty($vars['contentTypes']) && is_array($vars['contentTypes'])) {
 
 ?>
-<div class="buttonBar">
+<div class="row">
+<div class="buttonBar span12">
     <div id="contentTypeButtonBar">
         <?php
 
@@ -30,5 +31,6 @@
         }
 
     ?>
+    </div>
 </div>
-<div id="contentCreate"></div>
+<div class="row"><div id="contentCreate" class="span12"></div></div>
