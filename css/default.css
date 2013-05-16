@@ -2,12 +2,25 @@
     Default idno CSS
 */
 
+    body {
+        background-color: #eee;
+        color: #333;
+        font-weight: lighter;
+    }
+
+    .content {
+        background-color: #fff;
+        padding: 1em;
+        border: #dadada solid 1px;
+    }
+
 /**
     Activity streams
 */
 
     .h-entry {
         margin-top: 1em;
+        display: block;
     }
 
     .h-entry h2 {
@@ -18,6 +31,13 @@
 
     .h-entry .owner {
         font-size: 0.9em;
+        padding-top: 1em;
+    }
+
+    .h-entry .edit {
+        font-size: 0.85em;
+        border-top: #eee solid 1px;
+        padding: 0px; margin: 0px;
     }
 
 /**
@@ -68,7 +88,7 @@
         z-index: -10000;
         padding: 1em;
         margin-top: -5px;
-        background-color: #eee;
+        background-color: #fff;
     }
 
     .bodyInput {

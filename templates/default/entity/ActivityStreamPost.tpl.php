@@ -12,7 +12,7 @@
             <a href="<?=$owner->getURL()?>" class="p-name u-url"><?=$owner->getTitle();?></a>
         </p>
     </div>
-    <div class="span8 content">
+    <div class="span10 content">
         <?php if ($subObject = $object->getObject()) echo $subObject->draw(); ?>
         <?php
             if ($object->canEdit()) {
