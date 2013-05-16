@@ -4,12 +4,12 @@
 
     if (!empty($object)) {
 ?>
-<div class="entry row span11">
+<div class="row span11 h-entry">
 
     <div class="span1 owner">
         <p>
             <?php $owner = $object->getActor(); ?>
-            <a href="<?=$owner->getURL()?>"><?=$owner->getTitle();?></a>
+            <a href="<?=$owner->getURL()?>" class="p-name u-url"><?=$owner->getTitle();?></a>
         </p>
     </div>
     <div class="span8 content">

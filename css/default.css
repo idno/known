@@ -6,18 +6,17 @@
     Activity streams
 */
 
-    .entry {
+    .h-entry {
         margin-top: 1em;
     }
 
-    .entry h2 {
+    .h-entry h2 {
         font-size: 1em;
         margin: 0px;
         padding: 0px;
     }
 
-    .entry .owner {
-        margin-top: 1em;
+    .h-entry .owner {
         font-size: 0.9em;
     }
 

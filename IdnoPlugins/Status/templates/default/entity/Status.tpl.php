@@ -1,1 +1,1 @@
-<p><?=$vars['object']->body?></p>
+<div class="h-as-note"><p><?=$vars['object']->body?></p></div>
