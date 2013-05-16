@@ -12,8 +12,11 @@
             <a href="<?=$owner->getURL()?>" class="p-name u-url"><?=$owner->getTitle();?></a>
         </p>
     </div>
-    <div class="span10 content">
+    <div class="span8 content">
         <?php if ($subObject = $object->getObject()) echo $subObject->draw(); ?>
+        <div class="footer">
+            <?=$this->draw('content/end')?>
+        </div>
         <?php
             if ($object->canEdit()) {
                 echo $this->draw('content/edit');

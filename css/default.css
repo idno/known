@@ -5,7 +5,7 @@
     body {
         background-color: #eee;
         color: #333;
-        font-weight: lighter;
+        font-weight: lighter !important;
     }
 
     .content {
@@ -38,6 +38,11 @@
         font-size: 0.85em;
         border-top: #eee solid 1px;
         padding: 0px; margin: 0px;
+        margin-top: 1em;
+    }
+
+    .h-entry .footer {
+        clear: both;
     }
 
 /**
@@ -45,33 +50,39 @@
 */
 
     .buttonBar {
-        padding: 1em;
-        background-color: #ddd;
+        background-color: #999;
+        color: #fff;
         border-radius: 5px;
         z-index: 9999;
+        margin: 0px;
+        width: 100%;
+    }
+
+    #contentTypeButtonBar {
+        padding: 1em;
     }
 
     a.contentTypeButton {
         float: left;
         width: 80px;
 
-        border: #ccc solid 1px;
+/*        border: #ccc solid 1px;
         background-color: #f9f9f9;
-        border-radius: 5px;
+        border-radius: 5px;*/
         text-align: center;
         font-size: 0.8em;
         text-decoration: none;
         margin-right: 0.5em;
         margin-bottom: 0.5em;
         transition: width 0.25s, padding-top 0.25s, padding-bottom 0.25s;
-        color: #666;
+        color: #fff;
     }
 
     a.contentTypeButton:hover {
         text-decoration: none;
-        padding-top: 5px;
+        /*padding-top: 5px;
         padding-bottom: 5px;
-        width: 90px;
+        width: 90px;*/
         color: #333;
         background-color: #fff;
     }
