@@ -6,7 +6,7 @@
 ?>
 <div class="row h-entry">
 
-    <div class="span owner">
+    <div class="span1 owner">
         <p>
             <?php $owner = $object->getActor(); ?>
             <a href="<?=$owner->getURL()?>" class="p-name u-url"><?=$owner->getTitle();?></a>
