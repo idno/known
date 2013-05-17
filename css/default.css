@@ -14,6 +14,11 @@
         border: #dadada solid 1px;
     }
 
+    .aftercontent {
+        font-size: 0.8em;
+        margin-top: 5em;
+    }
+
 /**
     Activity streams
 */
@@ -50,7 +55,7 @@
 */
 
     .buttonBar {
-        background-color: #999;
+        background-color: #4690d6;
         color: #fff;
         border-radius: 5px;
         z-index: 9999;

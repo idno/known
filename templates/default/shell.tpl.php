@@ -25,7 +25,7 @@
 
     <script src="<?=\Idno\Core\site()->config()->url . 'js/default.js'?>"></script>
 
-        <?=$this->draw('page/head',$vars);?>
+        <?=$this->draw('shell/head',$vars);?>
 
     </head>
 
@@ -89,7 +89,9 @@
 		}
 	    
 	    ?>
+        <?=$this->draw('shell/beforecontent')?>
 	    <?= $vars['body'] ?>
+        <?=$this->draw('shell/aftercontent')?>
 
 	</div> <!-- /container -->
 	
@@ -99,7 +101,7 @@
 	<script src="<?= \Idno\Core\site()->config()->url . 'external/jquery/' ?>jquery.min.js"></script>
 	<script src="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
 
-    <?=$this->draw('page/footer',$vars)?>
+    <?=$this->draw('shell/footer',$vars)?>
 
     </body>
 </html>
