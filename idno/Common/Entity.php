@@ -151,6 +151,25 @@ namespace Idno\Common {
         }
 
         /**
+         * Return the creation date of this entity, relative to now.
+         * @return string
+         */
+        function getRelativePublishDate() {
+            $distance = time() - $this->created;
+            if ($distance < 86400) {
+                if ($distance < 60) {
+                    return $distance . 's';
+                } else if ($distance < 360) {
+                    return round($distance / 60) . 'm';
+                } else {
+                    return round($distance / 60 / 60) . 'h';
+                }
+            } else {
+                return date('M d Y',$this->created);
+            }
+        }
+
+        /**
          * Return the user that owns this entity
          *
          * @return \Idno\Entities\User

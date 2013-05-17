@@ -13,15 +13,17 @@
         </p>
     </div>
     <div class="span8 content">
-        <?php if ($subObject = $object->getObject()) echo $subObject->draw(); ?>
+        <div class="e-content">
+            <?php if ($subObject = $object->getObject()) echo $subObject->draw(); ?>
+        </div>
         <div class="footer">
+            <?php
+                if ($object->canEdit()) {
+                    echo $this->draw('content/edit');
+                }
+            ?>
             <?=$this->draw('content/end')?>
         </div>
-        <?php
-            if ($object->canEdit()) {
-                echo $this->draw('content/edit');
-            }
-        ?>
     </div>
 
 </div>

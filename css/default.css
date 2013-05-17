@@ -19,6 +19,10 @@
         margin-top: 5em;
     }
 
+    .u-platform {
+        color: #880000;
+    }
+
 /**
     Activity streams
 */
@@ -30,8 +34,8 @@
 
     .h-entry h2 {
         font-size: 1em;
-        margin: 0px;
-        padding: 0px;
+        margin: 0;
+        padding: 0;
     }
 
     .h-entry .owner {
@@ -40,14 +44,26 @@
     }
 
     .h-entry .edit {
-        font-size: 0.85em;
-        border-top: #eee solid 1px;
-        padding: 0px; margin: 0px;
-        margin-top: 1em;
+        float: right;
+    }
+
+    .h-entry .e-content {
+        overflow: auto;
     }
 
     .h-entry .footer {
         clear: both;
+        font-size: 0.85em;
+        border-top: #eee solid 1px;
+        padding: 0px; margin: 0px;
+    }
+
+    .h-entry .permalink {
+        float: left;
+    }
+
+    .h-entry .dt-published {
+        color: #999;
     }
 
 /**
