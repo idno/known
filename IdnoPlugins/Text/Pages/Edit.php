@@ -36,10 +36,14 @@
             function postContent() {
                 $this->gatekeeper();
 
+                $new = false;
                 if (!empty($this->arguments)) {
                     $object = \IdnoPlugins\Text\Entry::getByID($this->arguments[0]);
                 }
-                if (empty($object)) $object = new \IdnoPlugins\Text\Entry();
+                if (empty($object)) {
+                    $object = new \IdnoPlugins\Text\Entry();
+                    $new = true;
+                }
 
                 $body = $this->getInput('body');
                 if (!empty($body)) {
@@ -47,7 +51,7 @@
                     $object->title = $this->getInput('title');
                     $object->setAccess('PUBLIC');
                     if ($object->save()) {
-                        $object->addToFeed(); // Add it to the Activity Streams feed
+                        if ($new) $object->addToFeed(); // Add it to the Activity Streams feed
                         \Idno\Core\site()->session()->addMessage('Your entry was successfully saved.');
                         $this->forward($object->getURL());
                     } else {

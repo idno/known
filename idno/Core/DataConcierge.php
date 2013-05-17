@@ -20,7 +20,7 @@ namespace Idno\Core {
 
         function init()
         {
-            $this->client = new \MongoClient();
+            $this->client = new \Mongo();
             $this->database = $this->client->selectDB(site()->config()->dbname);
         }
 
@@ -47,7 +47,7 @@ namespace Idno\Core {
          * correct class
          *
          * @param string $id
-         * @return Idno\Entity | false
+         * @return \Idno\Common\Entity | false
          */
 
         function getObject($uuid)
@@ -62,7 +62,7 @@ namespace Idno\Core {
          * Converts a database row into an Idno entity
          *
          * @param array $row
-         * @return Idno\Common\Entity
+         * @return \Idno\Common\Entity
          */
         function rowToEntity($row)
         {
@@ -182,7 +182,7 @@ namespace Idno\Core {
         function saveRecord($collection, $array)
         {
             $collection_obj = $this->database->selectCollection($collection);
-            if ($result = $collection_obj->save($array)) {
+            if ($result = $collection_obj->save($array,array('w' => 1))) {
                 if ($result['ok'] == 1) {
                     return $array['_id'];
                 }
@@ -197,6 +197,18 @@ namespace Idno\Core {
          */
         function deleteRecord($id) {
             return $this->database->entities->remove(array("_id" => new \MongoId($id)));
+        }
+
+        /**
+         * Retrieve the filesystem associated with the current db, suitable for saving
+         * and retrieving files
+         * @return bool|\MongoGridFS
+         */
+        function getFilesystem() {
+            if ($grid = new \MongoGridFS($this->database)) {
+                return $grid;
+            }
+            return false;
         }
 
     }

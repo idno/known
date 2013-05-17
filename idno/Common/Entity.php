@@ -12,13 +12,11 @@
 
 namespace Idno\Common {
 
-    use Idno\Entities\ActivityStreamPost;
-
     class Entity extends Component
     {
 
         // Store the entity's attributes
-        private $attributes = array(
+        public $attributes = array(
             'access' => 'PUBLIC' // All entites are public by default
         );
 
@@ -94,7 +92,7 @@ namespace Idno\Common {
             $event = new \Idno\Core\Event(array('object' => $this));
             $event->setResponse(true);
             if (\Idno\Core\site()->events()->dispatch('save', $event)->response()) {
-                $result = \Idno\Core\site()->db->saveObject($this);
+                $result = \Idno\Core\site()->db()->saveObject($this);
             } else {
                 $result = false;
             }
@@ -102,7 +100,7 @@ namespace Idno\Common {
                 if (empty($this->_id)) {
                     $this->_id = $result;
                     $this->uuid = $this->getUUID();
-                    \Idno\Core\site()->db->saveObject($this);
+                    \Idno\Core\site()->db()->saveObject($this);
                 }
                 return $this->_id;
             } else {

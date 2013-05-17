@@ -25,10 +25,15 @@ namespace Idno\Pages\Account {
         {
             $this->gatekeeper(); // Logged-in only please
             $user = \Idno\Core\site()->session()->currentUser();
-            $handle = $this->getInput('handle');
+            $name = $this->getInput('name');
+            //$handle = $this->getInput('handle');
             $email = $this->getInput('email');
             $password = $this->getInput('password');
             $password2 = $this->getInput('password2');
+
+            if (!empty($name)) {
+                $user->setTitle($name);
+            }
 
             if (!empty($email) && $email != $user->email && filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 if (!\Idno\Entities\User::getByEmail($email)) {
@@ -38,6 +43,14 @@ namespace Idno\Pages\Account {
 
             if (!empty($password) && $password == $password2) {
                 $user->setPassword($password);
+            }
+
+            if (!empty($_FILES['avatar'])) {
+                if (in_array($_FILES['avatar']['type'], array('image/png','image/jpg','image/jpeg','image/gif'))) {
+                    if ($icon = \Idno\Entities\File::createFromFile($_FILES['avatar']['tmp_name'], $_FILES['avatar']['name'], $_FILES['avatar']['type'])) {
+                        $user->icon = (string) $icon;
+                    }
+                }
             }
 
             if ($user->save()) {

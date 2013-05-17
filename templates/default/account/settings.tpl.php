@@ -11,11 +11,17 @@
 	    <p>
 		Change your basic account settings here.
 	    </p>
-	    <form action="/account/settings" method="post" class="form-horizontal">
+	    <form action="/account/settings" method="post" class="form-horizontal" enctype="multipart/form-data">
+            <div class="control-group">
+                <label class="control-label" for="inputName">Your name</label>
+                <div class="controls">
+                    <input type="text" id="inputName" placeholder="Your name" class="span4" name="name" value="<?=htmlspecialchars($user->getTitle())?>" >
+                </div>
+            </div>
 		<div class="control-group">
-		    <label class="control-label" for="inputEmail">Your username</label>
+		    <label class="control-label" for="inputHandle">Your handle</label>
 		    <div class="controls">
-			<input type="text" id="inputEmail" placeholder="Your username or email address" class="span4" name="handle" value="<?=htmlspecialchars($user->handle)?>" disabled>
+			<input type="text" id="inputHandle" placeholder="Your handle" class="span4" name="handle" value="<?=htmlspecialchars($user->handle)?>" disabled>
 		    </div>
 		</div>
 		<div class="control-group">
@@ -25,17 +31,23 @@
 		    </div>
 		</div>
 		<div class="control-group">
-		    <label class="control-label" for="inputEmail">Your password<br /><small>Leave this blank if you don't want to change it</small></label>
+		    <label class="control-label" for="inputPassword">Your password<br /><small>Leave this blank if you don't want to change it</small></label>
 		    <div class="controls">
 			<input type="password" id="inputPassword" placeholder="Password" class="span4" name="password" >
 		    </div>
 		</div>
 		<div class="control-group">
-		    <label class="control-label" for="inputEmail">Your password again</label>
+		    <label class="control-label" for="inputPassword2">Your password again</label>
 		    <div class="controls">
-			<input type="password" id="inputPassword" placeholder="Your password again" class="span4" name="password2">
+			<input type="password" id="inputPassword2" placeholder="Your password again" class="span4" name="password2">
 		    </div>
 		</div>
+        <div class="control-group">
+            <label class="control-label" for="inputAvatar">Upload a new avatar<br /><small>This is here temporarily.</small></label>
+            <div class="controls">
+                <input type="file" id="inputAvatar" class="span4" name="avatar">
+            </div>
+        </div>
 		<div class="control-group">
 		    <div class="controls">
 			<button type="submit" class="btn-primary">Save</button>

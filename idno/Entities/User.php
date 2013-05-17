@@ -65,6 +65,25 @@ namespace Idno\Entities {
         }
 
         /**
+         * Retrieve the URI to this user's avatar icon image
+         * (if none has been saved, a default is returned)
+         *
+         * @return string
+         */
+        function getIcon() {
+            /*$event = new \Idno\Core\Event(array('object' => $this));
+            $event->setResponse(true);
+            $response = \Idno\Core\site()->events()->dispatch('icon', $event)->response();
+            if (!empty($response)) {
+                return $response;
+            }*/
+            if (!empty($this->icon)) {
+                return \Idno\Core\site()->config()->url . 'file/' . $this->icon;
+            }
+            return \Idno\Core\site()->config()->url . 'gfx/users/default.png';
+        }
+
+        /**
          * Sets the built-in password property to a safe hash (if the
          * password is acceptable)
          *

@@ -66,6 +66,19 @@
         color: #999;
     }
 
+    .h-entry .u-photo {
+        width: 75px;
+    }
+
+    .h-entry .icon-container {
+        border: 0px;
+        width: 75px;
+        height: 75px;
+        overflow: hidden;
+        border-radius: 50%;
+        display: block;
+    }
+
 /**
     Content creation
 */

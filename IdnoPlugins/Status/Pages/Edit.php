@@ -36,17 +36,21 @@
             function postContent() {
                 $this->gatekeeper();
 
+                $new = false;
                 if (!empty($this->arguments)) {
                     $object = \IdnoPlugins\Status\Status::getByID($this->arguments[0]);
                 }
-                if (empty($object)) $object = new \IdnoPlugins\Status\Status();
+                if (empty($object)) {
+                    $object = new \IdnoPlugins\Status\Status();
+                    $new = true;
+                }
 
                 $body = $this->getInput('body');
                 if (!empty($body)) {
                     $object->body = $body;
                     $object->setAccess('PUBLIC');
                     if ($object->save()) {
-                        $object->addToFeed(); // Add it to the Activity Streams feed
+                        if ($new) $object->addToFeed(); // Add it to the Activity Streams feed
                         \Idno\Core\site()->session()->addMessage('Your status update was successfully saved.');
                         $this->forward($object->getURL());
                     } else {

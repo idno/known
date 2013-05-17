@@ -6,9 +6,10 @@
 ?>
 <div class="row h-entry">
 
-    <div class="span1 owner">
+    <div class="span1 owner h-card">
         <p>
             <?php $owner = $object->getActor(); ?>
+            <a href="<?=$owner->getURL()?>" class="u-url icon-container"><img class="u-photo" src="<?=$owner->getIcon()?>" /></a>
             <a href="<?=$owner->getURL()?>" class="p-name u-url"><?=$owner->getTitle();?></a>
         </p>
     </div>
