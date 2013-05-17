@@ -46,6 +46,7 @@
                     $object->body = $body;
                     $object->setAccess('PUBLIC');
                     if ($object->save()) {
+                        $object->addToFeed(); // Add it to the Activity Streams feed
                         \Idno\Core\site()->session()->addMessage('Your status update was successfully saved.');
                         $this->forward($object->getURL());
                     } else {

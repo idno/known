@@ -47,6 +47,7 @@
                     $object->title = $this->getInput('title');
                     $object->setAccess('PUBLIC');
                     if ($object->save()) {
+                        $object->addToFeed(); // Add it to the Activity Streams feed
                         \Idno\Core\site()->session()->addMessage('Your entry was successfully saved.');
                         $this->forward($object->getURL());
                     } else {

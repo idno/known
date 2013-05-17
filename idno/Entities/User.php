@@ -32,6 +32,10 @@ namespace Idno\Entities {
 
         }
 
+        function getOwner() {
+            return $this;
+        }
+
         /**
          * Sets this user's username handle (and balks if someone's already using it)
          * @param string $handle
@@ -195,7 +199,10 @@ namespace Idno\Entities {
          */
         function getActivityStreamsObjectType()
         {
-            return 'person';
+            $uuid = $this->getUUID();
+            if (!empty($uuid))
+                return 'person';
+            return false;
         }
 
         /**

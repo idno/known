@@ -103,21 +103,28 @@ namespace Idno\Common {
                     $this->_id = $result;
                     $this->uuid = $this->getUUID();
                     \Idno\Core\site()->db->saveObject($this);
-                    if (!empty($this->_id) && $this->getActivityStreamsObjectType() != false) {
-                        $activityStreamPost = new \Idno\Entities\ActivityStreamPost();
-                        $owner = $this->getOwner();
-                        $activityStreamPost->setOwner($owner);
-                        $activityStreamPost->setActor($owner);
-                        $activityStreamPost->setTitle($owner->getTitle() . ' posted ' . $this->getTitle());
-                        $activityStreamPost->setVerb('post');
-                        $activityStreamPost->setObject($this);
-                        $activityStreamPost->save();
-                    }
                 }
                 return $this->_id;
             } else {
                 return false;
             }
+        }
+
+        /**
+         * Add this entity to the feed
+         * @param string $verb Verb to use (default: post)
+         * @param string $title Title to use. First variable is always subject; second is always title. Default: '%s posted %s'
+         * @return bool
+         */
+        function addToFeed($verb = 'post', $title = '%s posted %s') {
+            $activityStreamPost = new \Idno\Entities\ActivityStreamPost();
+            $owner = $this->getOwner();
+            $activityStreamPost->setOwner($owner);
+            $activityStreamPost->setActor($owner);
+            $activityStreamPost->setTitle(sprintf($title,$owner->getTitle(),$this->getTitle()));
+            $activityStreamPost->setVerb('post');
+            $activityStreamPost->setObject($this);
+            return $activityStreamPost->save();
         }
 
         /**
