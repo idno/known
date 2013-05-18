@@ -41,6 +41,7 @@
     .h-entry .owner {
         font-size: 0.9em;
         padding-top: 1em;
+        text-align: center;
     }
 
     .h-entry .edit {
@@ -49,6 +50,7 @@
 
     .h-entry .e-content {
         overflow: auto;
+        margin-bottom: 1em;
     }
 
     .h-entry .footer {
@@ -67,16 +69,21 @@
     }
 
     .h-entry .u-photo {
-        width: 75px;
+        width: 50px;
     }
 
     .h-entry .icon-container {
         border: 0px;
-        width: 75px;
-        height: 75px;
+        width: 50px;
+        height: 50px;
         overflow: hidden;
         border-radius: 50%;
-        display: block;
+        display: inline-block;
+    }
+
+    .p-name {
+        font-size: 0.9em;
+        line-height: 0.5em !important;
     }
 
 /**
@@ -98,10 +105,6 @@
     a.contentTypeButton {
         float: left;
         width: 80px;
-
-/*        border: #ccc solid 1px;
-        background-color: #f9f9f9;
-        border-radius: 5px;*/
         text-align: center;
         font-size: 0.8em;
         text-decoration: none;
@@ -113,9 +116,6 @@
 
     a.contentTypeButton:hover {
         text-decoration: none;
-        /*padding-top: 5px;
-        padding-bottom: 5px;
-        width: 90px;*/
         color: #333;
         background-color: #fff;
     }
