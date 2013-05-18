@@ -25,7 +25,7 @@
                 $t->__(array(
 
                     'title' => $object->getTitle(),
-                    'body' => $object->draw()
+                    'body' => $t->__(array('object' => $object->getRelatedFeedItems()))->draw('entity/shell')
 
                 ))->drawPage();
             }

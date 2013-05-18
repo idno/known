@@ -126,6 +126,19 @@ namespace Idno\Common {
         }
 
         /**
+         * Retrieve the "post" activity stream post (if any) associated with this entity
+         * @param string $verb The associated verb - default is post, but may be blank
+         * @return array
+         */
+        function getRelatedFeedItems($verb = 'post') {
+            $search = array('object' => $this->getUUID());
+            if (!empty($verb)) {
+                $search['verb'] = $verb;
+            }
+            return \Idno\Entities\ActivityStreamPost::get($search);
+        }
+
+        /**
          * Delete this entity
          * @todo complete this
          * @return bool
