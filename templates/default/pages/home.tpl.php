@@ -6,13 +6,7 @@
 
     } else {
 
-?>
-
-        <h1>
-            This is idno.
-        </h1>
-
-<?php
+        echo $this->draw('pages/home/blurb');
 
     }
 
