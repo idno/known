@@ -23,6 +23,12 @@ namespace Idno\Core {
             return parent::__construct($template);
         }
 
+        function autop($html) {
+            require_once dirname(dirname(dirname(__FILE__))) . '/external/MrClay_AutoP/AutoP.php';
+            $autop = new \MrClay_AutoP();
+            return $autop->process($html);
+        }
+
     }
 
 }
