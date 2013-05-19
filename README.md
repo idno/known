@@ -1,6 +1,16 @@
-idno
-====
-_n._ I dunno.
+idno: a social publishing engine
+================================
+
+<http://idno.co>
+
+Copyright
+---------
+Except for external projects, idno is (c) Ben Werdmuller
+
+Contributors
+------------
+* Ben Werdmuller <ben@benwerd.com> <http://benwerd.com/>
+* See below for external projects
 
 License
 -------
