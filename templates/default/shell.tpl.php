@@ -100,6 +100,10 @@
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="<?= \Idno\Core\site()->config()->url . 'external/jquery/' ?>jquery.min.js"></script>
 	<script src="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
+    <script src="<?= \Idno\Core\site()->config()->url . 'external/sisyphus/' ?>sisyphus.min.js"></script>
+    <script>
+        $('form').sisyphus();
+    </script>
 
     <?=$this->draw('shell/footer',$vars)?>
 

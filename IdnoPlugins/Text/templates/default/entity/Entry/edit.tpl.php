@@ -7,7 +7,7 @@
             <p>
                 <label>
                     Body<br />
-                    <textarea name="body" class="span6 bodyInput"><?=htmlspecialchars($vars['object']->body)?></textarea>
+                    <textarea name="body" id="body" class="span6 bodyInput"><?=htmlspecialchars($vars['object']->body)?></textarea>
                 </label>
             </p>
 
@@ -22,7 +22,7 @@
             </p>
             <p>
                 <?= \Idno\Core\site()->actions()->signForm('/text/edit') ?>
-                <input type="submit" class="btn btn-primary" value="Save" />
+                <input type="submit" class="btn btn-primary" value="Save" onclick="localstorage.removeItem('Text')" />
                 <input type="button" class="btn" value="Cancel" onclick="hideContentCreateForm();" />
             </p>
         </div>

@@ -26,6 +26,9 @@
                     $('#contentTypeButtonBar').slideUp(200);
                     window.contentCreateType = plugin;
                     window.contentPage = true;
+                    if (jQuery){
+                        $('form').sisyphus();
+                    }
                 },
                 error: function(error) {
                     $('#contentTypeButtonBar').slideDown(200);
