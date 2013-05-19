@@ -1,7 +1,16 @@
-idno: a social publishing engine
-================================
+idno
+====
+idno is a modern social networking engine, which aims to be:
 
-<http://idno.co>
+* Easy to use
+* Easy to customize
+* Easy to build on top of
+* A social website in a box
+
+Project homepage: <http://idno.co>
+Project lead: Ben Werdmuller <http://benwerd.com/>
+
+idno is under active development and an installable package is not available. It requires PHP 5.3+ with the MongoDB extension, Apache Web Server with the mod_rewrite extension, and MongoDB.
 
 Copyright
 ---------
