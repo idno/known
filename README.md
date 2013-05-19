@@ -10,7 +10,7 @@ idno is a modern social networking engine, which aims to be:
 Project homepage: <http://idno.co>
 Project lead: Ben Werdmuller <http://benwerd.com/>
 
-idno is under active development and an installable package is not available. It requires PHP 5.3+ with the MongoDB extension, Apache Web Server with the mod_rewrite extension, and MongoDB.
+idno is under active development and an installable package is not yet available. It requires PHP 5.3+ with the MongoDB extension, Apache Web Server with the mod_rewrite extension, and MongoDB.
 
 Copyright
 ---------
