@@ -72,10 +72,8 @@
         width: 50px;
     }
 
-    .h-entry .icon-container {
+    .icon-container {
         border: 0px;
-        width: 50px;
-        height: 50px;
         overflow: hidden;
         border-radius: 50%;
         display: inline-block;
@@ -84,6 +82,23 @@
     .p-name {
         font-size: 0.9em;
         line-height: 0.5em !important;
+    }
+
+/**
+    Profiles
+*/
+
+    .profile .namebadge {
+        text-align: center;
+    }
+
+    .profile h1 {
+        font-size: 2em;
+        font-weight: lighter;
+    }
+
+    .h-card .u-photo {
+        width: 200px;
     }
 
 /**

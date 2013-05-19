@@ -126,6 +126,14 @@ namespace Idno\Entities {
         }
 
         /**
+         * Get the profile URL for this user
+         * @return string
+         */
+        function getURL() {
+            return \Idno\Core\site()->config()->url . 'profile/' . $this->getHandle();
+        }
+
+        /**
          * Array of access groups that this user can *read* entities
          * from
          *
