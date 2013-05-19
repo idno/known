@@ -89,7 +89,7 @@
 */
 
     .profile .namebadge {
-        text-align: center;
+        text-align: center !important;
     }
 
     .profile h1 {
@@ -97,8 +97,8 @@
         font-weight: lighter;
     }
 
-    .h-card .u-photo {
-        width: 200px;
+    .profile .u-photo {
+        width: 100% !important;
     }
 
 /**
