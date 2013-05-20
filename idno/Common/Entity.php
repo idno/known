@@ -288,6 +288,12 @@ namespace Idno\Common {
             $this->title = $title;
         }
 
+        function getDescription() {
+            if (!empty($this->description))
+                return $this->description;
+            return '';
+        }
+
         /**
          * Return the Universal Unique IDentifier for this object (which also
          * happens to be a URI for it).
