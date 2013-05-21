@@ -34,9 +34,9 @@
         ?>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="span12">
-        <div id="contentCreate" ></div>
+    <div class="row">
+        <div class="span12">
+            <div id="contentCreate" ></div>
+        </div>
     </div>
 </div>

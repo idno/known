@@ -15,15 +15,15 @@
 
     function contentCreateForm(plugin) {
         if (window.contentCreateType == plugin) {
-            $('#contentCreate').slideDown(200);
-            $('#contentTypeButtonBar').slideUp(200);
+            $('#contentCreate').slideDown(400);
+            $('#contentTypeButtonBar').slideUp(400);
         } else {
             $.ajax('/' + plugin + '/edit/', {
                 dataType: 'html',
                 success: function(data) {
                     $('#contentCreate').html(data);
-                    $('#contentCreate').slideDown(200);
-                    $('#contentTypeButtonBar').slideUp(200);
+                    $('#contentCreate').slideDown(400);
+                    $('#contentTypeButtonBar').slideUp(400);
                     window.contentCreateType = plugin;
                     window.contentPage = true;
                     if (jQuery){
@@ -31,7 +31,7 @@
                     }
                 },
                 error: function(error) {
-                    $('#contentTypeButtonBar').slideDown(200);
+                    $('#contentTypeButtonBar').slideDown(400);
                 }
 
             });

@@ -102,7 +102,9 @@
 	<script src="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
     <script src="<?= \Idno\Core\site()->config()->url . 'external/sisyphus/' ?>sisyphus.min.js"></script>
     <script>
-        $('form').sisyphus();
+        $('form').sisyphus({
+            locationBased: true
+        });
     </script>
 
     <?=$this->draw('shell/footer',$vars)?>
