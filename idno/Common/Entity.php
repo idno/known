@@ -340,7 +340,7 @@ namespace Idno\Common {
             if (!empty($uuid)) {
                 return $uuid;
             }
-            return \Idno\Core\site()->config()->url . $this->getClassName() . '/edit';
+            return \Idno\Core\site()->config()->url . $this->getClassSelector() . '/edit';
         }
 
         /**
