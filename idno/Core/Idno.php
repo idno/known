@@ -47,6 +47,7 @@ namespace Idno\Core {
             $this->addPageHandler('/delete/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Delete');
             $this->addPageHandler('/file/([A-Za-z0-9]+)(/.*)?', '\Idno\Pages\File\View');
             $this->addPageHandler('/profile/([A-Za-z0-9]+)/?', '\Idno\Pages\User\View');
+            $this->addPageHandler('/profile/([A-Za-z0-9]+)/edit/?', '\Idno\Pages\User\Edit');
 
         }
 

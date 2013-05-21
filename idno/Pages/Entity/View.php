@@ -37,8 +37,9 @@
                     $object = \Idno\Common\Entity::getByID($this->arguments[0]);
                 }
                 if (empty($object)) $this->forward(); // TODO: 404
-                if ($object->saveDataFromInput()) {
+                if ($object->saveDataFromInput($this)) {
                     \Idno\Core\site()->session()->addMessage($object->getTitle() . ' was saved.');
+                    $this->forward($object->getURL());
                 }
                 $this->forward($_SERVER['HTTP_REFERER']);
             }

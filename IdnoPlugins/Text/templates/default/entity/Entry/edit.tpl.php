@@ -1,8 +1,8 @@
-<form action="<?=$vars['object']->getEditURL()?>" method="post">
+<form action="<?=$vars['object']->getURL()?>" method="post">
 
     <div class="row">
 
-        <div class="span6">
+        <div class="span6 offset1">
 
             <p>
                 <label>
@@ -22,7 +22,7 @@
             </p>
             <p>
                 <?= \Idno\Core\site()->actions()->signForm('/text/edit') ?>
-                <input type="submit" class="btn btn-primary" value="Save" onclick="localstorage.removeItem('Text')" />
+                <input type="submit" class="btn btn-primary" value="Save" />
                 <input type="button" class="btn" value="Cancel" onclick="hideContentCreateForm();" />
             </p>
         </div>

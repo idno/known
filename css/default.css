@@ -8,6 +8,14 @@
         font-weight: lighter !important;
     }
 
+    h1,h2 {
+        font-weight: lighter;
+    }
+
+    .beforecontent {
+        margin-bottom: 5em;
+    }
+
     .content {
         background-color: #fff;
         padding: 1em;
@@ -111,11 +119,11 @@
 
     .buttonBar {
         background-color: #4690d6;
-        color: #fff;
+        color: #333;
         z-index: 9999;
         margin: 0px;
         width: 100%;
-        margin-bottom: 1em;
+        margin-bottom: 2em;
     }
 
     #contentTypeButtonBar {
@@ -153,6 +161,7 @@
         padding: 1em;
         margin-top: -5px;
         background-color: #fff;
+        color: #333;
     }
 
     .bodyInput {

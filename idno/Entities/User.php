@@ -37,6 +37,17 @@ namespace Idno\Entities {
         }
 
         /**
+         * Retrieve a text description of this user
+         * @return string
+         */
+        function getDescription() {
+            if (!empty($this->profile['description'])) {
+                return $this->profile['description'];
+            }
+            return '';
+        }
+
+        /**
          * Sets this user's username handle (and balks if someone's already using it)
          * @param string $handle
          * @return true|false True or false depending on success
@@ -81,6 +92,14 @@ namespace Idno\Entities {
                 return \Idno\Core\site()->config()->url . 'file/' . $this->icon;
             }
             return \Idno\Core\site()->config()->url . 'gfx/users/default.png';
+        }
+
+        /**
+         * Retrieve the URL required to edit this user
+         * @return string
+         */
+        function getEditURL() {
+            return \Idno\Core\site()->config()->url . 'profile/' . $this->getHandle() . '/edit';
         }
 
         /**
@@ -230,6 +249,19 @@ namespace Idno\Entities {
             if (!empty($uuid))
                 return 'person';
             return false;
+        }
+
+        /**
+         * Save form input
+         * @param \Idno\Common\Page $page
+         * @return bool|\Idno\Common\false|\Idno\Common\true|\Idno\Core\false|\Idno\Core\MongoID|null
+         */
+        function saveDataFromInput(\Idno\Common\Page $page) {
+
+            if (!$this->canEdit()) return false;
+            $this->profile = $page->getInput('profile');
+            return $this->save();
+
         }
 
         /**

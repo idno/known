@@ -1,7 +1,7 @@
 <?php
 
     /**
-     * Generic, backup viewer for entities
+     * User profile
      */
 
     namespace Idno\Pages\User {
@@ -36,11 +36,12 @@
 
             function postContent() {
                 if (!empty($this->arguments[0])) {
-                    $object = \Idno\Common\Entity::getByID($this->arguments[0]);
+                    $user = \Idno\Entities\User::getByHandle($this->arguments[0]);
                 }
-                if (empty($object)) $this->forward(); // TODO: 404
-                if ($object->saveDataFromInput()) {
-                    \Idno\Core\site()->session()->addMessage($object->getTitle() . ' was saved.');
+                if (empty($user)) $this->forward(); // TODO: 404
+                if ($user->saveDataFromInput($this)) {
+                    \Idno\Core\site()->session()->addMessage($user->getTitle() . ' was saved.');
+                    $this->forward($user->getURL());
                 }
                 $this->forward($_SERVER['HTTP_REFERER']);
             }
