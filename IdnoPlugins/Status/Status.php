@@ -8,6 +8,10 @@
                 return $this->body;
             }
 
+            function getDescription() {
+                return $this->body;
+            }
+
             /**
              * Status objects have type 'note'
              * @return 'note'

@@ -9,6 +9,11 @@
                 return $this->title;
             }
 
+            function getDescription() {
+                if (!empty($this->body)) return $this->body;
+                return '';
+            }
+
             /**
              * Entry objects have type 'article'
              * @return 'article'
