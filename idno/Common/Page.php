@@ -39,6 +39,10 @@ namespace Idno\Common {
         // Is this an XmlHTTPRequest (AJAX) call?
         public $xhr = false;
 
+        function init() {
+            header('X-Powered-By: http://idno.co');
+        }
+
         /**
          * Internal function used to handle GET requests.
          * Performs some administration functions and hands off to
@@ -46,6 +50,11 @@ namespace Idno\Common {
          */
         function get()
         {
+
+            if ($this->isAcceptedContentType('application/json')) {
+                \Idno\Core\site()->template()->setTemplateType('json');
+            }
+
             \Idno\Core\site()->session()->APIlogin();
             $this->parseJSONPayload();
 
@@ -64,6 +73,10 @@ namespace Idno\Common {
          */
         function post()
         {
+
+            if ($this->isAcceptedContentType('application/json')) {
+                \Idno\Core\site()->template()->setTemplateType('json');
+            }
 
             $arguments = func_get_args();
             if (!empty($arguments)) $this->arguments = $arguments;
@@ -88,6 +101,10 @@ namespace Idno\Common {
         function put()
         {
 
+            if ($this->isAcceptedContentType('application/json')) {
+                \Idno\Core\site()->template()->setTemplateType('json');
+            }
+
             $arguments = func_get_args();
             if (!empty($arguments)) $this->arguments = $arguments;
 
@@ -111,6 +128,10 @@ namespace Idno\Common {
         function delete()
         {
 
+            if ($this->isAcceptedContentType('application/json')) {
+                \Idno\Core\site()->template()->setTemplateType('json');
+            }
+
             $arguments = func_get_args();
             if (!empty($arguments)) $this->arguments = $arguments;
 
@@ -132,7 +153,9 @@ namespace Idno\Common {
          */
         function get_xhr()
         {
-            //\Idno\Core\site()->template()->setTemplateType('json');
+            if ($this->isAcceptedContentType('application/json')) {
+                \Idno\Core\site()->template()->setTemplateType('json');
+            }
             $arguments = func_get_args();
             if (!empty($arguments)) $this->arguments = $arguments;
             $this->xhr = true;
@@ -145,7 +168,9 @@ namespace Idno\Common {
          */
         function post_xhr()
         {
-            \Idno\Core\site()->template()->setTemplateType('json');
+            if ($this->isAcceptedContentType('application/json')) {
+                \Idno\Core\site()->template()->setTemplateType('json');
+            }
             $arguments = func_get_args();
             if (!empty($arguments)) $this->arguments = $arguments;
             $this->xhr = true;
@@ -159,7 +184,9 @@ namespace Idno\Common {
          */
         function put_xhr()
         {
-            \Idno\Core\site()->template()->setTemplateType('json');
+            if ($this->isAcceptedContentType('application/json')) {
+                \Idno\Core\site()->template()->setTemplateType('json');
+            }
             $arguments = func_get_args();
             if (!empty($arguments)) $this->arguments = $arguments;
             $this->xhr = true;
@@ -173,7 +200,9 @@ namespace Idno\Common {
          */
         function delete_xhr()
         {
-            \Idno\Core\site()->template()->setTemplateType('json');
+            if ($this->isAcceptedContentType('application/json')) {
+                \Idno\Core\site()->template()->setTemplateType('json');
+            }
             $arguments = func_get_args();
             if (!empty($arguments)) $this->arguments = $arguments;
             $this->xhr = true;
@@ -318,6 +347,18 @@ namespace Idno\Common {
                     }
                     return $value;
                 }
+            }
+            return false;
+        }
+
+        /**
+         * Detects whether the current web browser accepts the given content type.
+         * @param string $contentType The MIME content type.
+         * @return bool
+         */
+        function isAcceptedContentType($contentType) {
+            if ($headers = getallheaders()) {
+                if (substr_count($headers['Accept'],$contentType)) return true;
             }
             return false;
         }

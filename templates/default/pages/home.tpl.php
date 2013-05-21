@@ -10,9 +10,9 @@
 
     }
 
-    if (!empty($vars['feed'])) {
+    if (!empty($vars['items'])) {
 
-        foreach($vars['feed'] as $entry) {
+        foreach($vars['items'] as $entry) {
             /* @var \Idno\Entities\ActivityStreamPost $entry */
             echo $entry->draw();
         }

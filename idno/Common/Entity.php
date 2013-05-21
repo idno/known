@@ -14,7 +14,7 @@ namespace Idno\Common {
 
     use Idno\Core\Event;
 
-    class Entity extends Component
+    class Entity extends Component implements \JsonSerializable
     {
 
         // Store the entity's attributes
@@ -484,6 +484,22 @@ namespace Idno\Common {
             return $t->__(array(
                 'object' => $this
             ))->draw('entity/' . $this->getClassName() . '/edit');
+        }
+
+        /**
+         * Serialize this entity
+         * @return array|mixed
+         */
+        function jsonSerialize() {
+            $object = array(
+                'id' => $this->getUUID(),
+                'content' => $this->getDescription(),
+                'displayName' => $this->getTitle(),
+                'objectType' => $this->getActivityStreamsObjectType(),
+                'published' => date(\DateTime::RFC3339,$this->created),
+                'url' => $this->getURL()
+            );
+            return $object;
         }
 
         /**

@@ -27,7 +27,7 @@ namespace Idno\Pages {
 
                 'title' => \Idno\Core\site()->config()->title,
                 'body' => $t->__(array(
-                    'feed' => $feed,
+                    'items' => $feed,
                     'contentTypes' => $create
                 ))->draw('pages/home'),
 

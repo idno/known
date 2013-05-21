@@ -27,7 +27,7 @@
                 $t->__(array(
 
                     'title' => $user->getTitle(),
-                    'body' => $t->__(array('user' => $user, 'feed' => $feed))->draw('entity/User/profile')
+                    'body' => $t->__(array('user' => $user, 'items' => $feed))->draw('entity/User/profile')
 
                 ))->drawPage();
             }

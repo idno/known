@@ -48,6 +48,19 @@ namespace Idno\Entities {
         }
 
         /**
+         * Retrieve the verb associated with this activity.
+         * @return string
+         */
+        function getVerb()
+        {
+            if (!empty($this->verb)) {
+                return $this->verb;
+            } else {
+                return 'post';
+            }
+        }
+
+        /**
          * Describes the primary object of the activity.
          * @param \Idno\Common\Entity $object
          */
@@ -137,6 +150,25 @@ namespace Idno\Entities {
                 return $result;
             }
             return false;
+        }
+
+        /**
+         * Serialize this entity
+         * @return array|mixed
+         */
+        function jsonSerialize() {
+            $actor = $this->getActor();
+            $object = $this->getObject();
+            $serialization = array(
+                'id' => $this->getUUID(),
+                'content' => $this->getTitle(),
+                'title' => $this->getTitle(),
+                'verb' => $this->getVerb(),
+                'actor' => $actor->jsonSerialize(),
+                'object' => $object->jsonSerialize(),
+                'published' => date(\DateTime::RFC3339,$this->created),
+            );
+            return $serialization;
         }
 
     }
