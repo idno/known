@@ -1,4 +1,4 @@
-<form action="<?=$vars['object']->getEditURL()?>" method="post">
+<form action="<?=$vars['object']->getURL()?>" method="post">
 
     <div class="row">
 
