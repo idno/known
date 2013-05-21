@@ -12,6 +12,8 @@
 
 namespace Idno\Common {
 
+    use Idno\Core\Event;
+
     class Entity extends Component
     {
 
@@ -101,6 +103,10 @@ namespace Idno\Common {
                     $this->_id = $result;
                     $this->uuid = $this->getUUID();
                     \Idno\Core\site()->db()->saveObject($this);
+                    if ($this->getActivityStreamsObjectType()) {
+                        $event = new \Idno\Core\Event(array('object' => $this));
+                        \Idno\Core\site()->events()->dispatch('post/' . $this->getActivityStreamsObjectType(),$event);
+                    }
                 }
                 return $this->_id;
             } else {
