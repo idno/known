@@ -4,8 +4,8 @@
 
     body {
         background-color: #eee;
-        color: #444;
-        font-weight: light !important;
+        color: #333;
+        font-weight: lighter !important;
     }
 
     .content {
@@ -46,6 +46,10 @@
 
     .h-entry .edit {
         float: right;
+    }
+
+    .h-entry .edit a {
+        margin-left: 1em;
     }
 
     .h-entry .e-content {
@@ -111,6 +115,7 @@
         z-index: 9999;
         margin: 0px;
         width: 100%;
+        margin-bottom: 1em;
     }
 
     #contentTypeButtonBar {
