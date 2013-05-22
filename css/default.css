@@ -18,7 +18,7 @@
 
     .content {
         background-color: #fff;
-        padding: 1em;
+        padding: 1.5em;
         border: #dadada solid 1px;
     }
 
@@ -46,10 +46,15 @@
         padding: 0;
     }
 
-    .h-entry .owner {
+    .h-entry .h-card {
         font-size: 0.9em;
         padding-top: 1em;
         text-align: center;
+        line-height: 1.2em;
+    }
+
+    .h-entry .h-card .icon-container {
+        margin-bottom: 1em;
     }
 
     .h-entry .edit {
@@ -63,6 +68,7 @@
     .h-entry .e-content {
         overflow: auto;
         margin-bottom: 1em;
+        line-height:1.6em;
     }
 
     .h-entry .footer {
@@ -118,7 +124,8 @@
 */
 
     .buttonBar {
-        background-color: #4690d6;
+        /*background-color: #4690d6;*/
+        background-color: #bbb;
         color: #333;
         z-index: 9999;
         margin: 0px;
@@ -150,7 +157,7 @@
 
     span.contentTypeLogo {
         display: block;
-        font-size: 40px;
+        font-size: 30px;
         padding-top: 15px;
         padding-bottom: 5px;
     }
