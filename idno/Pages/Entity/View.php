@@ -38,7 +38,6 @@
                 }
                 if (empty($object)) $this->forward(); // TODO: 404
                 if ($object->saveDataFromInput($this)) {
-                    \Idno\Core\site()->session()->addMessage($object->getTitle() . ' was saved.');
                     $this->forward($object->getURL());
                 }
                 $this->forward($_SERVER['HTTP_REFERER']);

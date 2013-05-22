@@ -42,22 +42,10 @@
                 }
                 if (empty($object)) {
                     $object = new \IdnoPlugins\Status\Status();
-                    $new = true;
                 }
 
-                $body = $this->getInput('body');
-                if (!empty($body)) {
-                    $object->body = $body;
-                    $object->setAccess('PUBLIC');
-                    if ($object->save()) {
-                        if ($new) $object->addToFeed(); // Add it to the Activity Streams feed
-                        \Idno\Core\site()->session()->addMessage('Your status update was successfully saved.');
-                        $this->forward($object->getURL());
-                    } else {
-                        \Idno\Core\site()->session()->addMessage('We couldn\'t save your status update.');
-                    }
-                } else {
-                    \Idno\Core\site()->session()->addMessage('You can\'t save an empty status update.');
+                if ($object->saveDataFromInput($this)) {
+                    $this->forward($object->getURL());
                 }
 
             }
