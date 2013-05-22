@@ -1,7 +1,7 @@
 <form action="<?=$vars['user']->getURL()?>" method="post">
 
     <div class="row beforecontent">
-        <div class="span12">
+        <div class="span11 offset1">
             <h1>Edit your profile</h1>
             <p>
                 Your profile is how other users see you across the site. It's up to you how much or how little information you choose to provide.
@@ -11,7 +11,7 @@
 
     <div class="row">
 
-        <div class="span6">
+        <div class="span6 offset1">
 
             <p>
                 <label>
