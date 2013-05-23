@@ -41,6 +41,11 @@ namespace Idno\Common {
 
         function init() {
             header('X-Powered-By: http://idno.co');
+            if ($template = $this->getInput('_t')) {
+                if (\Idno\Core\site()->template()->templateTypeExists($template)) {
+                    \Idno\Core\site()->template()->setTemplateType($template);
+                }
+            }
         }
 
         /**

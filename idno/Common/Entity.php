@@ -463,14 +463,23 @@ namespace Idno\Common {
         /**
          * Draws this entity using the generic template entity/EntityClass
          * (note that the namespace is stripped) and the current default template.
+         * If entity/EntityClass doesn't exist, the template entity/template
+         * is tried as a fallback.
          *
          * @return string The rendered entity.
          */
         function draw() {
             $t = \Idno\Core\site()->template();
-            return $t->__(array(
+
+            $return = $t->__(array(
                 'object' => $this
-            ))->draw('entity/' . $this->getClassName());
+            ))->draw('entity/' . $this->getClassName(),false);
+            if ($return === false) {
+                $return = $t->__(array(
+                    'object' => $this
+                ))->draw('entity/default');
+            }
+            return $return;
         }
 
         /**
