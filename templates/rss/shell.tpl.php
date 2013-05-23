@@ -13,9 +13,9 @@
     $channel = $page->createElement('channel');
     $channel->appendChild($page->createElement('title',$vars['title']));
     $channel->appendChild($page->createElement('description',$vars['description']));
-    $channel->appendChild($page->createElement('link',str_replace('?_t=rss','',str_replace('&_t=rss','',\Idno\Core\site()->config()->url . substr($_SERVER['REQUEST_URI'],1)))));
+    $channel->appendChild($page->createElement('link',$this->getCurrentURLWithoutVar('_t')));
     $self = $page->createElement('atom:link');
-    $self->setAttribute('href', \Idno\Core\site()->config()->url . substr($_SERVER['REQUEST_URI'],1));
+    $self->setAttribute('href', $this->getCurrentURL());
     $self->setAttribute('rel','self');
     $self->setAttribute('type', 'application/rss+xml');
     $channel->appendChild($self);

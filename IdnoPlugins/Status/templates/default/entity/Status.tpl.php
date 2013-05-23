@@ -1,1 +1,1 @@
-<div class="h-as-note"><p><?=$this->parse_urls($vars['object']->body)?></p></div>
+<div class="h-as-note"><p><?=$this->parseURLs($vars['object']->body)?></p></div>

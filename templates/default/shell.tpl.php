@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
 	<meta charset="utf-8">
-	<title><?= $vars['title'] ?></title>
+	<title><?= htmlspecialchars($vars['title']); ?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
 	<meta name="generator" content="idno http://idno.co">
@@ -23,7 +23,11 @@
 	  <script src="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/js/html5shiv.js"></script>
 	<![endif]-->
 
+    <!-- Default idno JavaScript -->
     <script src="<?=\Idno\Core\site()->config()->url . 'js/default.js'?>"></script>
+
+    <!-- To silo is human, to syndicate divine -->
+    <link rel="alternate" type="application/rss+xml" title="<?=htmlspecialchars($vars['title'])?>" href="<?=$this->getCurrentURLWithVar('_t','rss');?>" />
 
         <?=$this->draw('shell/head',$vars);?>
 
