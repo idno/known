@@ -25,6 +25,32 @@ namespace Idno\Entities {
 
             parent::__construct();
             $this->owner = false;
+
+            // Hook to add user data to webfinger
+            \Idno\Core\site()->addEventHook('webfinger',function(\Idno\Core\Event $event) {
+
+                $user =  $event->data()['object'];
+
+                $links = $event->response();
+                if (empty($links)) $links = array();
+
+                if ($user instanceof User) {
+                    $links = array(
+                        array(
+                            'rel' => 'http://webfinger.net/rel/avatar',
+                            'href' => $user->getIcon()
+                        ),
+                        array(
+                            'rel' => 'http://webfinger.net/rel/profile-page',
+                            'href' => $user->getURL()
+                        )
+                    );
+                }
+
+                $event->setResponse($links);
+
+            });
+
         }
 
         function getFollowing()
@@ -82,12 +108,10 @@ namespace Idno\Entities {
          * @return string
          */
         function getIcon() {
-            /*$event = new \Idno\Core\Event(array('object' => $this));
-            $event->setResponse(true);
-            $response = \Idno\Core\site()->events()->dispatch('icon', $event)->response();
-            if (!empty($response)) {
+            $response = \Idno\Core\site()->triggerEvent('icon', array('object' => $this));
+            if (!empty($response) && $response !== true) {
                 return $response;
-            }*/
+            }
             if (!empty($this->icon)) {
                 return \Idno\Core\site()->config()->url . 'file/' . $this->icon;
             }

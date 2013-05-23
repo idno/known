@@ -29,6 +29,8 @@ namespace Idno\Core {
             $this->url = 'http://' . $_SERVER['SERVER_NAME'] . '/'; // A naive default base URL
             $this->title = 'New idno site'; // A default name for the site
             $this->timezone = 'UTC';
+            $this->host = parse_url($this->url, PHP_URL_HOST); // The site hostname, without parameters etc
+
             if ($config = @parse_ini_file($this->path . '/config.ini')) {
                 $this->config = array_merge($this->config, $config);
             }
