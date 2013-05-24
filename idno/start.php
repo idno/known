@@ -39,4 +39,4 @@ $loader->register();
 
 $idno = new Idno\Core\Idno();
 $account = new Idno\Core\Account();
-$webfinger = new Idno\Core\Webfinger();
+$webfinger = new Idno\Core\Webfinger(); // TODO: do we need this?
