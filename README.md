@@ -14,7 +14,8 @@ idno is under active development and an installable package is not yet available
 
 Copyright
 ---------
-Except for external projects, idno is (c) Ben Werdmuller
+Except for included third-party projects, idno is (c) Ben Werdmuller.
+For included third-party projects, see "idno also contains" below.
 
 Contributors
 ------------
