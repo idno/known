@@ -119,6 +119,11 @@
         width: 100% !important;
     }
 
+    .profile .url-container {
+        display: inline-block;
+        margin-right: 1em;
+    }
+
 /**
     Content creation
 */

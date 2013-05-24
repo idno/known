@@ -24,10 +24,26 @@
 
         <div class="span4">
             <p>
-                <label>
-                    Website<br />
-                    <input type="url" name="profile[url]" id="title" value="<?=htmlspecialchars($vars['user']->profile['url'])?>" placeholder="http://" class="span4" />
-                </label>
+                    Websites<br />
+                    <?php
+
+                        if (!empty($vars['user']->profile['url'])) {
+                            if (!is_array($vars['user']->profile['url'])) {
+                                $urls = array($vars['user']->profile['url']);
+                            } else {
+                                $urls = $vars['user']->profile['url'];
+                            }
+                            foreach($urls as $url) {
+                                if (!empty($url)) {
+?>
+                                <input type="url" name="profile[url][]" id="title" value="<?=htmlspecialchars($url)?>" placeholder="http://" class="span4" />
+<?php
+                                }
+                            }
+                        }
+
+                    ?>
+                    <input type="url" name="profile[url][]" id="title" value="" placeholder="http://" class="span4" />
             </p>
             <p>
                 <?= \Idno\Core\site()->actions()->signForm('/profile/' . $vars['user']->getHandle()) ?>
