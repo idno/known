@@ -1,1 +1,1 @@
-<div class="h-as-note"><p><?=$this->parseURLs($vars['object']->body)?></p></div>
+<div class="h-as-note"><p><?=$this->parseURLs($vars['object']->body, 'rel="in-reply-to"')?></p></div>

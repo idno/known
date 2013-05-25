@@ -36,10 +36,11 @@ namespace Idno\Core {
 
         /**
          * Automatically links URLs embedded in a piece of text
-         * @param $text
+         * @param stirng $text
+         * @param string $code Optionally, code to inject into the anchor tag (eg to add classes). '%URL%' is replaced with the URL. Default: blank.
          * @return string
          */
-        function parseURLs($text) {
+        function parseURLs($text, $code = '') {
             $r = preg_replace_callback('/(?<!=)(?<!["\'])((ht|f)tps?:\/\/[^\s\r\n\t<>"\'\(\)]+)/i',
                 create_function(
                     '$matches',
@@ -52,7 +53,8 @@ namespace Idno\Core {
                             $url = rtrim($url, ".!,");
                         }
                         $urltext = str_replace("/", "/<wbr />", $url);
-                        return "<a href=\"{$url}\" >{$urltext}</a>{$punc}";
+                        $code = str_replace("%URL%",$url,"'.addslashes($code).'");
+                        return "<a href=\"{$url}\" {$code}>{$urltext}</a>{$punc}";
                     '
                 ), $text);
 
