@@ -21,6 +21,7 @@ namespace Idno\Core {
         public $dispatcher;
         public $pagehandlers;
         public static $site;
+        public $currentPage;
 
         function init()
         {
@@ -171,6 +172,23 @@ namespace Idno\Core {
         {
             if (class_exists($handler))
                 $this->pagehandlers[$pattern] = $handler;
+        }
+
+        /**
+         * Sets the current page (if any) for access throughout the system
+         * @param \Idno\Common\Page $page
+         */
+        function setCurrentPage($page) {
+            $this->currentPage = $page;
+        }
+
+        /**
+         * Retrieve the current page
+         * @return bool|\Idno\Common\Page
+         */
+        function currentPage() {
+            if (!empty($this->currentPage)) return $this->currentPage;
+            return false;
         }
 
     }

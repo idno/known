@@ -21,6 +21,7 @@
                 }
                 if (empty($object)) $this->forward(); // TODO: 404
 
+                $this->setPermalink();  // This is a permalink
                 $t = \Idno\Core\site()->template();
                 $t->__(array(
 

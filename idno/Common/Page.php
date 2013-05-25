@@ -36,6 +36,10 @@ namespace Idno\Common {
         // expression matches
         public $arguments = array();
 
+        // Is this the canonical permalink page for an object? Defaults
+        // to no, but you can use $this->setPermalink() to change this
+        public $isPermalinkPage = false;
+
         // Is this an XmlHTTPRequest (AJAX) call?
         public $xhr = false;
 
@@ -46,6 +50,7 @@ namespace Idno\Common {
                     \Idno\Core\site()->template()->setTemplateType($template);
                 }
             }
+            \Idno\Core\site()->setCurrentPage($this);
         }
 
         /**
@@ -293,6 +298,23 @@ namespace Idno\Common {
         {
             $code = (int)$code;
             $this->response = $code;
+        }
+
+        /**
+         * Is this page a permalink for an object? This should be set to 'true'
+         * if it is.
+         * @param bool $status Is this a permalink? Defaults to 'true'
+         */
+        function setPermalink($status = true) {
+            $this->isPermalinkPage = $status;
+        }
+
+        /**
+         * Is this page a permalink for an object?
+         * @return bool
+         */
+        function isPermalink() {
+            return $this->isPermalinkPage;
         }
 
         /**

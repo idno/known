@@ -21,6 +21,7 @@
                 }
                 if (empty($user)) $this->forward(); // TODO: 404
 
+                $this->setPermalink();  // This is a permalink
                 $feed = \Idno\Entities\ActivityStreamPost::get(array('owner' => $user->getUUID()));
 
                 $t = \Idno\Core\site()->template();
