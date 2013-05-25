@@ -23,8 +23,9 @@
         </div>
 
         <div class="span4">
-            <p>
-                    Websites<br />
+            <p id="websitelist">
+                    Your websites<br />
+                    <small>Other places on the web where people can find you.</small>
                     <?php
 
                         if (!empty($vars['user']->profile['url'])) {
@@ -36,14 +37,17 @@
                             foreach($urls as $url) {
                                 if (!empty($url)) {
 ?>
-                                <input type="url" name="profile[url][]" id="title" value="<?=htmlspecialchars($url)?>" placeholder="http://" class="span4" />
+                                <span><input type="url" name="profile[url][]" value="<?=htmlspecialchars($url)?>" placeholder="http://" class="span3" /> <small><a href="#" onclick="$(this).parent().parent().remove(); return false;">Remove</a></small><br /></span>
 <?php
                                 }
                             }
                         }
 
                     ?>
-                    <input type="url" name="profile[url][]" id="title" value="" placeholder="http://" class="span4" />
+                    <span><input type="url" name="profile[url][]" id="title" value="" placeholder="http://" class="span3" /> <small><a href="#" onclick="$(this).parent().parent().remove(); return false;">Remove</a></small><br /></span>
+            </p>
+            <p>
+                <small><a href="#" onclick="$('#websitelist').append('<span><input type=&quot;url&quot; name=&quot;profile[url][]&quot; id=&quot;title&quot; value=&quot;&quot; placeholder=&quot;http://&quot; class=&quot;span3&quot; /> <small><a href=&quot;#&quot; onclick=&quot;$(this).parent().parent().remove(); return false;&quot;>Remove</a></small><br /></span>'); return false;">+ Add more</a></small>
             </p>
             <p>
                 <?= \Idno\Core\site()->actions()->signForm('/profile/' . $vars['user']->getHandle()) ?>
