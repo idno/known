@@ -52,18 +52,12 @@
 
     if (\Idno\Core\site()->session()->isLoggedIn()) {
 
-?>
-			    <li><a href="/account/settings">Settings</a></li>
-			    <li><?=  \Idno\Core\site()->actions()->createLink('/session/logout', 'Sign out');?></li>
-<?php
+            echo $this->draw('shell/toolbar/logged-in');
 
     } else {
-	
-?>
-			    <li><a href="/session/login">Sign in</a></li>
-			    <li><a href="/account/register">Register</a></li>
-<?php
-	
+
+            echo $this->draw('shell/toolbar/logged-out');
+
     }
 
 ?>  
