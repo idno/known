@@ -32,6 +32,19 @@
     }
 
 /**
+    Page shell
+*/
+
+    .nav img {
+        height: 1.5em;
+    }
+
+    .nav .icon-container {
+        margin-top: 0.65em;
+        margin-right: 1em;
+    }
+
+/**
     Activity streams
 */
 
