@@ -62,6 +62,10 @@ namespace Idno\Entities {
             return $this;
         }
 
+        function getOwnerID() {
+            return $this->getUUID();
+        }
+
         /**
          * Retrieve a text description of this user
          * @return string
@@ -304,7 +308,7 @@ namespace Idno\Entities {
         function saveDataFromInput() {
 
             if (!$this->canEdit()) return false;
-            $this->profile = $page->getInput('profile');
+            $this->profile = \Idno\Core\site()->currentPage()->getInput('profile');
             return $this->save();
 
         }

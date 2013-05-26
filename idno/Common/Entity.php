@@ -401,6 +401,9 @@ namespace Idno\Common {
 
         function canEdit($user_id = '')
         {
+
+            if (!\Idno\Core\site()->session()->isLoggedOn()) return false;
+
             if (empty($user_id)) {
                 $user_id = \Idno\Core\site()->session()->currentUserUUID();
             }
