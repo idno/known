@@ -27,6 +27,8 @@
                 $password2 = $this->getInput('password2');
                 $email = $this->getInput('email');
 
+                $user = new \Idno\Entities\User();
+
                 if (!empty($email) && $email != $user->email && filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     if (!\Idno\Entities\User::getByEmail($email) && !\Idno\Entities\User::getByHandle($handle) &&
                         !empty($handle) && $password == $password2 && strlen($password) > 4 && !empty($name)) {
