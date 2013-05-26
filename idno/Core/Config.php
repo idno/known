@@ -73,6 +73,30 @@ namespace Idno\Core {
             return false;
         }
 
+        /**
+         * Retrieves configuration information from the database, if possible.
+         */
+        function load() {
+            if ($config = \Idno\Core\site()->db()->getRecords(array(),array(),0,0,'config')) {
+                if (is_array($config))
+                    $this->config = array_merge($this->config, $config);
+            }
+        }
+
+        /**
+         * Saves configuration information to the database, if possible.
+         * @return true|false
+         */
+        function save() {
+            $array = $this->config;
+            unset($array['dbname']);    // Don't save database access info to the database
+            if (\Idno\Core\site()->db()->saveRecord('config',$this->config)) {
+                $this->load();
+                return true;
+            }
+            return false;
+        }
+
     }
 
 }

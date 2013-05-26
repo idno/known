@@ -28,6 +28,7 @@ namespace Idno\Core {
             self::$site = $this;
             $this->config = new Config();
             $this->db = new DataConcierge();
+            $this->config->load();
             $this->session = new Session();
             $this->actions = new Actions();
             $this->template = new Template();
