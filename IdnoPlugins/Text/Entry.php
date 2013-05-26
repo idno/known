@@ -15,7 +15,11 @@
             }
 
             function getURL() {
-                return \Idno\Core\site()->config()->url . 'entry/' . $this->getID() . '/' . $this->getPrettyURLTitle();
+                if (($this->getID())) {
+                    return \Idno\Core\site()->config()->url . 'entry/' . $this->getID() . '/' . $this->getPrettyURLTitle();
+                } else {
+                    return parent::getURL();
+                }
             }
 
             /**
