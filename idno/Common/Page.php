@@ -289,6 +289,24 @@ namespace Idno\Common {
         }
 
         /**
+         * Placed in pages to ensure that only logged-in site administrators can
+         * get at them. Sets response code 401 and tries to forward
+         * to the front page.
+         */
+        function adminGatekeeper() {
+            $ok = false;
+            if (\Idno\Core\site()->session()->isLoggedIn()) {
+                if (\Idno\Core\site()->session()->currentUser()->isAdmin()) {
+                    $ok = true;
+                }
+            }
+            if (!$ok) {
+                $this->setResponse(401);
+                $this->forward();
+            }
+        }
+
+        /**
          * Set the response code for the page. Note: this will be overridden
          * if the main system response code is already not 200
          *

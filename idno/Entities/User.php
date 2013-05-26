@@ -102,6 +102,27 @@ namespace Idno\Entities {
         }
 
         /**
+         * Is this user an admin?
+         * @return bool
+         */
+        function isAdmin() {
+            if (!empty($this->admin)) return true;
+            return false;
+        }
+
+        /**
+         * Set this user's site administrator status
+         * @param bool $admin
+         */
+        function setAdmin($admin) {
+            if ($admin == true) {
+                $this->admin = true;
+            } else {
+                $this->admin = false;
+            }
+        }
+
+        /**
          * Retrieve the URI to this user's avatar icon image
          * (if none has been saved, a default is returned)
          *
