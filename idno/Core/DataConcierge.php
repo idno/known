@@ -78,24 +78,26 @@ namespace Idno\Core {
          * Retrieves a record from the database by ID
          *
          * @param string $id
+         * @param string $entities The collection name to retrieve from (default: 'entities')
          * @return array
          */
 
-        function getRecord($id)
+        function getRecord($id, $collection = 'entities')
         {
-            return $this->database->entities->findOne(array("_id" => new \MongoId($id)));
+            return $this->database->$collection->findOne(array("_id" => new \MongoId($id)));
         }
 
         /**
          * Retrieves a record from the database by its UUID
          *
          * @param string $id
+         * @param string $collection The collection to retrieve from (default: entities)
          * @return array
          */
 
-        function getRecordByUUID($uuid)
+        function getRecordByUUID($uuid, $collection = 'entities')
         {
-            return $this->database->entities->findOne(array("uuid" => $uuid));
+            return $this->database->$collection->findOne(array("uuid" => $uuid));
         }
 
         /**
@@ -105,12 +107,13 @@ namespace Idno\Core {
          * @param array $parameters Query parameters in MongoDB format
          * @param int $limit Maximum number of records to return
          * @param int $offset Number of records to skip
+         * @param string $collection The collection to interrogate (default: 'entities')
          * @return iterator|false Iterator or false, depending on success
          */
 
-        function getRecords($fields, $parameters, $limit, $offset)
+        function getRecords($fields, $parameters, $limit, $offset, $collection = 'entities')
         {
-            if ($result = $this->database->entities->find($parameters, $fields)->skip($offset)->limit($limit)->sort(array('created' => -1))) {
+            if ($result = $this->database->$collection->find($parameters, $fields)->skip($offset)->limit($limit)->sort(array('created' => -1))) {
                 return $result;
             }
             return false;
@@ -125,10 +128,11 @@ namespace Idno\Core {
          * @param array $fields An array of fieldnames to return (leave empty for all; default: all)
          * @param int $limit Maximum number of records to return (default: 10)
          * @param int $offset Number of records to skip (default: 0)
+         * @param string $collection Collectio to query; default: entities
          * @return array|false Array of elements or false, depending on success
          */
 
-        function getObjects($subtypes = '', $search = array(), $fields = array(), $limit = 10, $offset = 0)
+        function getObjects($subtypes = '', $search = array(), $fields = array(), $limit = 10, $offset = 0, $collection = 'entities')
         {
 
             // Initialize query parameters to be an empty array
@@ -159,7 +163,7 @@ namespace Idno\Core {
             }
 
             // Run the query
-            if ($results = $this->getRecords($fields, $query_parameters, $limit, $offset)) {
+            if ($results = $this->getRecords($fields, $query_parameters, $limit, $offset, $collection)) {
                 $return = array();
                 foreach ($results as $row) {
                     $return[] = $this->rowToEntity($row);

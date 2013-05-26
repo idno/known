@@ -17,6 +17,9 @@ namespace Idno\Common {
     class Entity extends Component implements \JsonSerializable
     {
 
+        // Which collection should this be stored in?
+        public $collection = 'entities';
+
         // Store the entity's attributes
         public $attributes = array(
             'access' => 'PUBLIC' // All entites are public by default
@@ -427,7 +430,7 @@ namespace Idno\Common {
          */
         function getCollection()
         {
-            return 'entities';
+            return $this->collection;
         }
 
         /**
