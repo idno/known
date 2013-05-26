@@ -215,7 +215,7 @@ namespace Idno\Core {
 
     /**
      * Helper function that returns the current database object
-     * @return Idno\Core\DataConcierge
+     * @return \Idno\Core\DataConcierge
      */
     function db()
     {
