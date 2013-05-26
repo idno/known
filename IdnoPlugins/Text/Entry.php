@@ -22,17 +22,17 @@
                 return 'article';
             }
 
-            function saveDataFromInput(\Idno\Common\Page $page) {
+            function saveDataFromInput() {
 
                 if (empty($this->_id)) {
                     $new = true;
                 } else {
                     $new = false;
                 }
-                $body = $page->getInput('body');
+                $body = \Idno\Core\site()->currentPage()->getInput('body');
                 if (!empty($body)) {
                     $this->body = $body;
-                    $this->title = $page->getInput('title');
+                    $this->title = \Idno\Core\site()->currentPage()->getInput('title');
                     $this->setAccess('PUBLIC');
                     if ($this->save()) {
                         if ($new) $this->addToFeed(); // Add it to the Activity Streams feed

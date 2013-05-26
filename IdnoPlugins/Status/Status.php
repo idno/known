@@ -22,22 +22,22 @@
 
             /**
              * Saves changes to this object based on user input
-             * @param \Idno\Common\Page $page
              * @return true|false
              */
-            function saveDataFromInput(\Idno\Common\Page $page) {
+            function saveDataFromInput() {
 
                 if (empty($this->_id)) {
                     $new = true;
                 } else {
                     $new = false;
                 }
-                $body = $page->getInput('body');
+                $body = \Idno\Core\site()->currentPage()->getInput('body');
                 if (!empty($body)) {
                     $this->body = $body;
                     $this->setAccess('PUBLIC');
                     if ($this->save()) {
                         if ($new) $this->addToFeed(); // Add it to the Activity Streams feed
+                        \Idno\Core\Webmention::pingMentions($this->getURL(), $this->getDescription());
                         \Idno\Core\site()->session()->addMessage('Your status update was successfully saved.');
                         return true;
                     }

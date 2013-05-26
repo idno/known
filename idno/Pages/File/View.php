@@ -21,7 +21,11 @@
                 }
                 if (empty($object)) $this->forward(); // TODO: 404
 
-                header('Content-type: ' . $object->mime_type);
+                if (!empty($object->mime_type)) {
+                    header('Content-type: ' . $object->mime_type);
+                } else {
+                    header('Content-type: application/data');
+                }
                 echo $object->getBytes();
 
             }

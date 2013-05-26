@@ -168,10 +168,9 @@ namespace Idno\Common {
          * This method is important: it'll be run by the API whenever an entity is updated.
          * It takes input from the world and saves it to the entity.
          *
-         * @param \Idno\Common\Page $page
          * @return true|false
          */
-        function saveDataFromInput($page) {
+        function saveDataFromInput() {
             // Extend this
             return true;
         }

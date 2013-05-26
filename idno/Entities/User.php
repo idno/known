@@ -301,7 +301,7 @@ namespace Idno\Entities {
          * @param \Idno\Common\Page $page
          * @return bool|\Idno\Common\false|\Idno\Common\true|\Idno\Core\false|\Idno\Core\MongoID|null
          */
-        function saveDataFromInput(\Idno\Common\Page $page) {
+        function saveDataFromInput() {
 
             if (!$this->canEdit()) return false;
             $this->profile = $page->getInput('profile');
