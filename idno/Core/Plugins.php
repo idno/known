@@ -61,6 +61,25 @@
                 return $this->plugins;
             }
 
+            /**
+             * Retrieves a list of stored plugins (but not necessarily loaded ones)
+             * @return array
+             */
+            public function getStored() {
+                $plugins = array();
+                if ($folders = scandir(\Idno\Core\site()->config()->path . '/IdnoPlugins')) {
+                    foreach($folders as $folder) {
+                        if ($folder != '.' && $folder != '..') {
+                            if (file_exists(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $folder . '/plugin.ini')) {
+                                $plugins[$folder] = parse_ini_file(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $folder . '/plugin.ini');
+                            }
+                        }
+                    }
+                }
+                ksort($plugins);
+                return $plugins;
+            }
+
         }
 
     }

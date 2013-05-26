@@ -39,5 +39,6 @@ $loader->register();
 
 $idno = new Idno\Core\Idno();
 $account = new Idno\Core\Account();
+$admin = new Idno\Core\Admin();
 $webfinger = new Idno\Core\Webfinger(); // TODO: do we need this?
 $webmention = new Idno\Core\Webmention();

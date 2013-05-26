@@ -16,7 +16,7 @@ namespace Idno\Core {
             'dbname' => 'idno',      // Default MongoDB database
             'sessionname' => 'idno', // Default session name
             'plugins' => array(      // Default plugins
-                'Status','Text'
+                'Status'
             )
         );
 
