@@ -15,7 +15,7 @@
             }
 
             function getURL() {
-                return \Idno\Core\site()->url . 'entry/' . $this->getID() . '/' . $this->getPrettyURLTitle();
+                return \Idno\Core\site()->config()->url . 'entry/' . $this->getID() . '/' . $this->getPrettyURLTitle();
             }
 
             /**
