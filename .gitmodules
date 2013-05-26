@@ -25,3 +25,6 @@
 [submodule "external/symfony/Component/EventDispatcher"]
 	path = external/symfony/Component/EventDispatcher
 	url = https://github.com/symfony/EventDispatcher.git
+[submodule "external/mention-client"]
+	path = external/mention-client
+	url = https://github.com/aaronpk/mention-client.git
