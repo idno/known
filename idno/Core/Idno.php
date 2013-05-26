@@ -31,10 +31,9 @@ namespace Idno\Core {
             $this->config->load();
             $this->session = new Session();
             $this->actions = new Actions();
-            $this->template = new Template();
             $this->plugins = new Plugins();
             $this->dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
-            $this->config->load();
+            $this->template = new Template();
         }
 
         /**
