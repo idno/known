@@ -14,6 +14,10 @@
                 return '';
             }
 
+            function getURL() {
+                return \Idno\Core\site()->url . 'entry/' . $this->getID() . '/' . $this->getPrettyURLTitle();
+            }
+
             /**
              * Entry objects have type 'article'
              * @return 'article'

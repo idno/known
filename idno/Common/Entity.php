@@ -295,6 +295,23 @@ namespace Idno\Common {
             $this->title = $title;
         }
 
+        /**
+         * Retrieves a version of this entity's title suitable for using in URLs
+         * @return string
+         */
+        function getPrettyURLTitle() {
+            //$clean = iconv('UTF-8', 'ASCII//TRANSLIT', $this->getTitle());
+            $clean = preg_replace("/[^a-zA-Z0-9\/_| -]/", '', $this->getTitle());
+            $clean = strtolower(trim($clean, '_'));
+            $clean = preg_replace("/[\/_| -]+/", '-', $clean);
+            return urlencode($clean);
+        }
+
+        /**
+         * Retrieve a text description of this entity
+         * @return string
+         */
+
         function getDescription() {
             if (!empty($this->description))
                 return $this->description;
