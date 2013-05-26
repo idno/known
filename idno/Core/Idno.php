@@ -34,6 +34,7 @@ namespace Idno\Core {
             $this->template = new Template();
             $this->plugins = new Plugins();
             $this->dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
+            $this->config->load();
         }
 
         /**

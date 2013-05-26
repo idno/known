@@ -88,6 +88,16 @@ namespace Idno\Core {
         }
 
         /**
+         * Retrieves ANY record from a collection
+         *
+         * @param string $collection
+         * @return mixed
+         */
+        function getAnyRecord($collection = 'entities') {
+            return $this->database->$collection->findOne();
+        }
+
+        /**
          * Retrieves a record from the database by its UUID
          *
          * @param string $id
