@@ -12,6 +12,9 @@ namespace Idno\Core {
     class Template extends \Bonita\Templates
     {
 
+        // We'll keep track of extensions to templates here
+        public $extensions = array();
+
         /**
          * On construction, detect the template type
          */
@@ -21,6 +24,39 @@ namespace Idno\Core {
                 $this->detectTemplateType();
             }
             return parent::__construct($template);
+        }
+
+        /**
+         * Extension-aware version of the template drawing function
+         *
+         * @param string $templateName
+         * @param bool $returnBlank
+         * @return \Bonita\false|string
+         */
+        function draw($templateName, $returnBlank = true) {
+            $result = parent::draw($templateName, $returnBlank);
+            if (!empty($this->extensions[$templateName])) {
+                foreach($this->extensions[$templateName] as $template) {
+                    $result .= parent::draw($template, $returnBlank);
+                }
+            }
+            return $result;
+        }
+
+        /**
+         * Extend a template with another template. eg, template "plugin/atemplate"
+         * could extend "core/atemplate"; if this is the case, the results of
+         * $template->draw('plugin/atemplate') will be automatically appended to
+         * the end of the results of $template->draw('core/atemplate').
+         *
+         * @param string $templateName
+         * @param string $extensionTemplateName
+         */
+        function extendTemplate($templateName, $extensionTemplateName) {
+            if (empty($this->extensions[$templateName])) {
+                $this->extensions[$templateName] = [];
+            }
+            $this->extensions[$templateName][] = $extensionTemplateName;
         }
 
         /**
