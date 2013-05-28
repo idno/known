@@ -189,6 +189,36 @@ namespace Idno\Core {
         }
 
         /**
+         * Set a piece of session data
+         * @param string $name
+         * @param mixed $value
+         */
+        function set($name, $value) {
+            $_SESSION[$name] = $value;
+        }
+
+        /**
+         * Retrieve the session data with key $name, if it exists
+         * @param string $name
+         * @return mixed
+         */
+        function get($name) {
+            if (!empty($_SESSION[$name])) {
+                return $_SESSION[$name];
+            } else {
+                return false;
+            }
+        }
+
+        /**
+         * Remove data with key $name from the session
+         * @param $name
+         */
+        function remove($name) {
+            unset($_SESSION[$name]);
+        }
+
+        /**
          * Checks HTTP request headers to see if the request has been properly
          * signed for API access, and if so, log the user on
          * @todo make this complete
