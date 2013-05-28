@@ -38,6 +38,15 @@
             $rssItem->appendChild($page->createElement('guid',$item->getUUID()));
             $rssItem->appendChild($page->createElement('pubDate',date(DATE_RSS,$item->created)));
             $rssItem->appendChild($page->createElement('description',$item->draw()));
+            if ($attachments = $item->getAttachments()) {
+                foreach($attachments as $attachment) {
+                    $enclosureItem = $page->createElement('enclosure');
+                    $enclosureItem->setAttribute('url', $attachment['url']);
+                    $enclosureItem->setAttribute('type', $attachment['mime-type']);
+                    $enclosureItem->setAttribute('length', $attachment['length']);
+                    $rssItem->appendChild($enclosureItem);
+                }
+            }
             $channel->appendChild($rssItem);
         }
     }
