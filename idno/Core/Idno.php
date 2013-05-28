@@ -26,6 +26,7 @@ namespace Idno\Core {
         function init()
         {
             self::$site = $this;
+            $this->dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
             $this->config = new Config();
             $this->db = new DataConcierge();
             $this->config->load();
@@ -33,7 +34,6 @@ namespace Idno\Core {
             $this->actions = new Actions();
             $this->template = new Template();
             $this->plugins = new Plugins();
-            $this->dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
         }
 
         /**
