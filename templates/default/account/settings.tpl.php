@@ -7,6 +7,7 @@
 	<h3>
 	    Account settings
 	</h3>
+    <?=$this->draw('account/menu')?>
 	<div class="hero-unit">
 	    <p>
 		Change your basic account settings here.
