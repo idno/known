@@ -62,6 +62,18 @@
             }
 
             /**
+             * Retrieve the Plugin object associated with a loaded plugin
+             * @param string $plugin Plugin name
+             * @return bool|\Idno\Common\Plugin
+             */
+            public function get($plugin) {
+                if (!empty($this->plugins[$plugin])) {
+                    return $this->plugins[$plugin];
+                }
+                return false;
+            }
+
+            /**
              * Retrieves a list of stored plugins (but not necessarily loaded ones)
              * @return array
              */
