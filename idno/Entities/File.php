@@ -25,6 +25,21 @@
             }
 
             /**
+             * Get the publicly visible filename associated with this file
+             * @return string
+             */
+            function getURL() {
+                if (!empty($this->_id)) {
+                    return \Idno\Core\site()->config()->url . 'file/' . $this->_id . '/' . urlencode($this->filename);
+                }
+                return '';
+            }
+
+            function delete() {
+                // TODO deleting files would be good ...
+            }
+
+            /**
              * Save a file to the filesystem and return the ID
              *
              * @param string $file_path Full local path to the file

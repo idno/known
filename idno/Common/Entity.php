@@ -165,6 +165,42 @@ namespace Idno\Common {
         }
 
         /**
+         * Attaches a file reference to this entity
+         * @param \Idno\Entities\File $file
+         */
+        function attachFile(\Idno\Entities\File $file) {
+            if (empty($this->attachments)) {
+                $this->attachments = [];
+            }
+            $this->attachments[] = ['_id' => $file->_id, 'url' => $file->getURL(), 'mime-type' => $file->getMimeType(), 'length' => $file->length];
+        }
+
+        /**
+         * Returns an array of attachments to this entity.
+         * @return array
+         */
+        function getAttachments() {
+            if (!empty($this->attachments)) {
+                return $this->attachments;
+            } else {
+                return [];
+            }
+        }
+
+        /**
+         * Delete any files associated with this entity
+         */
+        function deleteAttachments() {
+            if ($attachments = $this->getAttachments()) {
+                foreach($attachments as $attachment) {
+                    if ($file = \Idno\Entities\File::getByID($attachment['_id'])) {
+                        $file->delete();
+                    }
+                }
+            }
+        }
+
+        /**
          * This method is important: it'll be run by the API whenever an entity is updated.
          * It takes input from the world and saves it to the entity.
          *
