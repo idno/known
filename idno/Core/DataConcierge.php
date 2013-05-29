@@ -130,6 +130,19 @@ namespace Idno\Core {
         }
 
         /**
+         * Count the number of records that match the given parameters
+         * @param array $parameters
+         * @param string $collection The collection to interrogate (default: 'entities')
+         * @return int
+         */
+        function countRecords($parameters, $collection = 'entities') {
+            if ($result = $this->database->$collection->count($parameters)) {
+                return (int) $result;
+            }
+            return 0;
+        }
+
+        /**
          * Retrieve objects of a certain kind that we're allowed to see,
          * in reverse chronological order
          *
