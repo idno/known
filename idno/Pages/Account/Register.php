@@ -37,6 +37,7 @@
                         $user->handle = $handle;
                         $user->setPassword($password);
                         $user->setTitle($name);
+                        if (!\Idno\Entities\User::get()) $user->setAdmin(true);
                     }
                 }
 
