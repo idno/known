@@ -20,7 +20,7 @@ namespace Idno\Core {
 
         function init()
         {
-            $this->client = new \Mongo();
+            $this->client = new \Mongo(site()->config()->dbstring);
             $this->database = $this->client->selectDB(site()->config()->dbname);
         }
 
