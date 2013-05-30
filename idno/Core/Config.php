@@ -13,11 +13,12 @@ namespace Idno\Core {
     {
 
         public $config = array(
-            'dbname' => 'idno',      // Default MongoDB database
-            'sessionname' => 'idno', // Default session name
-            'plugins' => array(      // Default plugins
+            'dbname' => 'idno',         // Default MongoDB database
+            'sessionname' => 'idno',    // Default session name
+            'plugins' => array(         // Default plugins
                 'Status'
-            )
+            ),
+            'items_per_page' => 10      // Default items per page
         );
 
         function init()

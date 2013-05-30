@@ -151,7 +151,7 @@ namespace Idno\Core {
          * @param array $fields An array of fieldnames to return (leave empty for all; default: all)
          * @param int $limit Maximum number of records to return (default: 10)
          * @param int $offset Number of records to skip (default: 0)
-         * @param string $collection Collectio to query; default: entities
+         * @param string $collection Collection to query; default: entities
          * @return array|false Array of elements or false, depending on success
          */
 
@@ -195,6 +195,38 @@ namespace Idno\Core {
             }
 
             return false;
+
+        }
+
+        /**
+         * Count objects of a certain kind that we're allowed to see
+         *
+         * @param string|array $subtypes String or array of subtypes we're allowed to see
+         * @param array $search Any extra search terms in array format (eg array('foo' => 'bar')) (default: empty)
+         * @param string $collection Collection to query; default: entities
+         */
+        function countObjects($subtypes = '', $search = [], $collection = 'entities') {
+
+            // Initialize query parameters to be an empty array
+            $query_parameters = array();
+
+            // Ensure subtypes are recorded properly
+            if (!empty($subtypes)) {
+                if (is_array($subtypes)) {
+                    $query_parameters['entity_subtype'] = array('$in' => $subtypes);
+                } else {
+                    $query_parameters['entity_subtype'] = $subtypes;
+                }
+            }
+
+            // Make sure we're only getting objects that we're allowed to see
+            $readGroups = site()->session()->getReadAccessGroupIDs();
+            //$query_parameters['access'] = array('$in' => $readGroups);
+
+            // Join the rest of the search query elements to this search
+            $query_parameters = array_merge($query_parameters, $search);
+
+            return $this->countRecords($query_parameters, $collection);
 
         }
 

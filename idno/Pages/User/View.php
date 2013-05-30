@@ -22,13 +22,15 @@
                 if (empty($user)) $this->forward(); // TODO: 404
 
                 $this->setPermalink();  // This is a permalink
-                $feed = \Idno\Entities\ActivityStreamPost::get(array('owner' => $user->getUUID()));
+                $offset = (int) $this->getInput('offset');
+                $count = \Idno\Entities\ActivityStreamPost::count(array('owner' => $user->getUUID()));
+                $feed = \Idno\Entities\ActivityStreamPost::get(array('owner' => $user->getUUID()),[],\Idno\Core\site()->config()->items_per_page,$offset);
 
                 $t = \Idno\Core\site()->template();
                 $t->__(array(
 
                     'title' => $user->getTitle(),
-                    'body' => $t->__(array('user' => $user, 'items' => $feed))->draw('entity/User/profile')
+                    'body' => $t->__(array('user' => $user, 'items' => $feed, 'count' => $count, 'offset' => $offset))->draw('entity/User/profile')
 
                 ))->drawPage();
             }

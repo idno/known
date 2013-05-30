@@ -16,7 +16,9 @@ namespace Idno\Pages {
 
         function getContent()
         {
-            $feed = \Idno\Entities\ActivityStreamPost::get();
+            $offset = (int) $this->getInput('offset');
+            $count = \Idno\Entities\ActivityStreamPost::count([]);
+            $feed = \Idno\Entities\ActivityStreamPost::get([],[],\Idno\Core\site()->config()->items_per_page,$offset);
             if (\Idno\Core\site()->session()->isLoggedIn()) {
                 $create = \Idno\Common\ContentType::getRegistered();
             } else {
@@ -28,7 +30,9 @@ namespace Idno\Pages {
                 'title' => \Idno\Core\site()->config()->title,
                 'body' => $t->__(array(
                     'items' => $feed,
-                    'contentTypes' => $create
+                    'contentTypes' => $create,
+                    'offset' => $offset,
+                    'count' => $count
                 ))->draw('pages/home'),
 
             ))->drawPage();

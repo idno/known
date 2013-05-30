@@ -584,6 +584,16 @@ namespace Idno\Common {
         }
 
         /**
+         * Count the number of objects of this class that we're allowed to see
+         *
+         * @param array $search List of filter terms (default: none)
+         * @return int
+         */
+        static function count($search = []) {
+            return \Idno\Core\site()->db()->countObjects(get_called_class(), $search);
+        }
+
+        /**
          * Simple method to get objects of ANY class in reverse
          * chronological order, using the database getObjects call.
          *

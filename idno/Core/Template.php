@@ -44,6 +44,25 @@ namespace Idno\Core {
         }
 
         /**
+         * Draws generic pagination suitable for placing somewhere on a page (offset is drawn from the 'offset' input variable)
+         * @param int $count Number of items in total (across all pages)
+         * @param int $items_per_page Number of items you're displaying per page
+         * @return \Bonita\false|string
+         */
+        function drawPagination($count, $items_per_page = null) {
+
+            if ($items_per_page == null) $items_per_page = \Idno\Core\site()->config()->items_per_page;
+            $page = \Idno\Core\site()->currentPage();
+            $offset = (int) $page->getInput('offset');
+            if ($offset == 0 && $count < $items_per_page) {
+                // Do nothing (maybe later we'll add another behavior)
+            } else {
+                return $this->__(['count' => $count, 'offset' => $offset, 'items_per_page' => $items_per_page])->draw('shell/pagination');
+            }
+
+        }
+
+        /**
          * Extend a template with another template. eg, template "plugin/atemplate"
          * could extend "core/atemplate"; if this is the case, the results of
          * $template->draw('plugin/atemplate') will be automatically appended to

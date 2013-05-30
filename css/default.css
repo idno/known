@@ -116,6 +116,12 @@
         line-height: 0.5em !important;
     }
 
+    .pagination {
+        margin: auto;
+        text-align: center;
+        margin-top: 4em;
+    }
+
 /**
     Profiles
 */
