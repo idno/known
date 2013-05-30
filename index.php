@@ -16,7 +16,7 @@
 
 // Load the idno framework
 
-require_once(dirname(__FILE__) . '/idno/start.php');
+require_once(dirname(__FILE__) . '/Idno/start.php');
 
 // Manage routing
 
