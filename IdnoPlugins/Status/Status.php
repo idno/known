@@ -36,8 +36,10 @@
                     $this->body = $body;
                     $this->setAccess('PUBLIC');
                     if ($this->save()) {
-                        if ($new) $this->addToFeed(); // Add it to the Activity Streams feed
-                        \Idno\Core\Webmention::pingMentions($this->getURL(), $this->getDescription());
+                        if ($new) {
+                            $this->addToFeed();
+                            \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getDescription()));
+                        } // Add it to the Activity Streams feed
                         \Idno\Core\site()->session()->addMessage('Your status update was successfully saved.');
                         return true;
                     }
