@@ -1,0 +1,1 @@
+<i class="icon-picture"></i>
