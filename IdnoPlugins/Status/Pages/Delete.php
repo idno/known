@@ -10,7 +10,7 @@
 
                 // Are we loading an entity?
                 if (!empty($this->arguments)) {
-                    $object = \IdnoPlugins\Text\Entry::getByID($this->arguments[0]);
+                    $object = \IdnoPlugins\Status\Status::getByID($this->arguments[0]);
                 } else {
                     // TODO 404
                     $this->forward();
@@ -32,7 +32,7 @@
                 $this->gatekeeper();
 
                 if (!empty($this->arguments)) {
-                    $object = \IdnoPlugins\Text\Entry::getByID($this->arguments[0]);
+                    $object = \IdnoPlugins\Status\Status::getByID($this->arguments[0]);
                 }
                 if (empty($object)) $this->forward();
                 if (!$object->canEdit()) {
