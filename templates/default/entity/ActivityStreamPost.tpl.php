@@ -10,7 +10,7 @@
         <p>
             <?php $owner = $object->getActor(); ?>
             <a href="<?=$owner->getURL()?>" class="u-url icon-container hidden-phone"><img class="u-photo" src="<?=$owner->getIcon()?>" /></a><br />
-            <a href="<?=$owner->getURL()?>" class="p-name p-authoru-url"><?=$owner->getTitle();?></a>
+            <a href="<?=$owner->getURL()?>" class="p-name p-author u-url"><?=$owner->getTitle();?></a>
         </p>
     </div>
     <div class="span8 content">
