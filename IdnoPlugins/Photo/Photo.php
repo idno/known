@@ -53,11 +53,11 @@
                                     }
                                     if (!empty($image)) {
                                         if ($photo_information[0] > $photo_information[1]) {
-                                            $width = 1000;
-                                            $height = round($photo_information[1] * (1000 / $photo_information[0]));
+                                            $width = 700;
+                                            $height = round($photo_information[1] * (700 / $photo_information[0]));
                                         } else {
-                                            $height = 700;
-                                            $width = round($photo_information[0] * (700 / $photo_information[1]));
+                                            $height = 500;
+                                            $width = round($photo_information[0] * (500 / $photo_information[1]));
                                         }
                                         $image_copy = imagecreatetruecolor($width, $height);
                                         imagecopyresampled($image_copy, $image, 0, 0, 0, 0, $width, $height, $photo_information[0], $photo_information[1]);
