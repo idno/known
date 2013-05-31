@@ -221,9 +221,9 @@ namespace Idno\Common {
                 if ($distance < 60) {
                     return $distance . 's';
                 } else if ($distance < 360) {
-                    return round($distance / 60) . 'm';
+                    return ceil($distance / 60) . 'm';
                 } else {
-                    return round($distance / 60 / 60) . 'h';
+                    return ceil($distance / 60 / 60) . 'h';
                 }
             } else {
                 return date('M d Y',$this->created);

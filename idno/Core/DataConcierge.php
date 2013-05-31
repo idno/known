@@ -123,8 +123,12 @@ namespace Idno\Core {
 
         function getRecords($fields, $parameters, $limit, $offset, $collection = 'entities')
         {
-            if ($result = $this->database->$collection->find($parameters, $fields)->skip($offset)->limit($limit)->sort(array('created' => -1))) {
-                return $result;
+            try {
+                if ($result = $this->database->$collection->find($parameters, $fields)->skip($offset)->limit($limit)->sort(array('created' => -1))) {
+                    return $result;
+                }
+            } catch (Exception $e) {
+                return false;
             }
             return false;
         }
