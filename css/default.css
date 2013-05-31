@@ -104,6 +104,10 @@
         width: 50px;
     }
 
+    .owner .icon-container {
+        margin-top: 1em;
+    }
+
     .icon-container {
         border: 0px;
         overflow: hidden;
