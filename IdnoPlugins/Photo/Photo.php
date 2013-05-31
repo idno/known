@@ -42,9 +42,47 @@
                 // Get photo
                 if ($new) {
                     if (!empty($_FILES['photo'])) {
-                        if (getimagesize($_FILES['photo']['tmp_name'])) {
+                        if ($photo_information = getimagesize($_FILES['photo']['tmp_name'])) {
                             if ($photo = \Idno\Entities\File::createFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'], $_FILES['photo']['type'],true)) {
                                 $this->attachFile($photo);
+                                if ($photo_information[0] > 1000 || $photo_information[1] > 1000) {
+                                    switch($photo_information['mime']) {
+                                        case 'image/jpeg':  $image = imagecreatefromjpeg($_FILES['photo']['tmp_name']); break;
+                                        case 'image/png':   $image = imagecreatefrompng($_FILES['photo']['tmp_name']); break;
+                                        case 'image/gif':   $image = imagecreatefromgif($_FILES['photo']['tmp_name']); break;
+                                    }
+                                    if (!empty($image)) {
+                                        if ($photo_information[0] > $photo_information[1]) {
+                                            $width = 1000;
+                                            $height = round($photo_information[1] * (1000 / $photo_information[0]));
+                                        } else {
+                                            $height = 700;
+                                            $width = round($photo_information[0] * (700 / $photo_information[1]));
+                                        }
+                                        $image_copy = imagecreatetruecolor($width, $height);
+                                        imagecopyresampled($image_copy, $image, 0, 0, 0, 0, $width, $height, $photo_information[0], $photo_information[1]);
+                                        $tmp_dir = dirname($_FILES['photo']['tmp_name']);
+                                        switch($photo_information['mime']) {
+                                            case 'image/jpeg':  imagejpeg($image_copy, $tmp_dir . '/' . $photo->file['_id'] . '.jpg');
+                                                                $thumbnail =  \Idno\Core\site()->config()->url . 'file/' . \Idno\Entities\File::createFromFile($tmp_dir . '/' . $photo->file['_id'] . '.jpg', 'thumb.jpg', 'image/jpeg') . '/thumb.jpg';
+                                                                @unlink($tmp_dir . '/' . $photo->file['_id'] . '.jpg');
+                                                                break;
+                                            case 'image/png':   imagepng($image_copy, $tmp_dir . '/' . $photo->file['_id'] . '.png');
+                                                                $thumbnail =  \Idno\Core\site()->config()->url . 'file/' . \Idno\Entities\File::createFromFile($tmp_dir . '/' . $photo->file['_id'] . '.png', 'thumb.png', 'image/png') . '/thumb.png';
+                                                                @unlink($tmp_dir . '/' . $photo->file['_id'] . '.png');
+                                                                break;
+                                            case 'image/gif':   imagegif($image_copy, $tmp_dir . '/' . $photo->file['_id'] . '.gif');
+                                                                $thumbnail =  \Idno\Core\site()->config()->url . 'file/' . \Idno\Entities\File::createFromFile($tmp_dir . '/' . $photo->file['_id'] . '.gif', 'thumb.gif', 'image/gif') . '/thumb.gif';
+                                                                @unlink($tmp_dir . '/' . $photo->file['_id'] . '.gif');
+                                                                break;
+                                        }
+                                    }
+                                } else {
+
+                                }
+
+                                $this->thumbnail = $thumbnail;
+
                             } else {
                                 \Idno\Core\site()->session()->addMessage('Image wasn\'t attached.');
                             }

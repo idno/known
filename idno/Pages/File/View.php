@@ -21,8 +21,18 @@
                 }
                 if (empty($object)) $this->forward(); // TODO: 404
 
-                if (!empty($object->mime_type)) {
-                    header('Content-type: ' . $object->mime_type);
+                $headers = apache_request_headers();
+                if(isset($headers['If-Modified-Since'])) {
+                    if(strtotime($headers['If-Modified-Since']) < time() - 600) {
+                        header('HTTP/1.1 304 Not Modified');
+                        exit;
+                    }
+                }
+
+                header("Pragma: public");
+                header('Expires: ' . date(\DateTime::RFC1123, time() + (86400 * 365))); // Cache files for a year!
+                if (!empty($object->file['mime_type'])) {
+                    header('Content-type: ' . $object->file['mime_type']);
                 } else {
                     header('Content-type: application/data');
                 }

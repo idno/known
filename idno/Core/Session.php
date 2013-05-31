@@ -16,6 +16,7 @@ namespace Idno\Core {
         {
             session_name(site()->config->sessionname);
             session_start();
+            session_cache_limiter('public');
 
             // Session login / logout
             site()->addPageHandler('/session/login', '\Idno\Pages\Session\Login');

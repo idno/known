@@ -9,9 +9,14 @@
 <?php
     if ($attachments = $vars['object']->getAttachments()) {
         foreach($attachments as $attachment) {
+            if (!empty($vars['object']->thumbnail)) {
+                $src = $vars['object']->thumbnail;
+            } else {
+                $src = \Idno\Core\site()->config()->url . 'file/' . $attachment['_id'];
+            }
 ?>
             <p>
-                <img src="<?=\Idno\Core\site()->config()->url . 'file/' . $attachment['_id']?>" class="u-photo" />
+                <img src="<?=$src?>" class="u-photo" />
             </p>
 <?php
         }
