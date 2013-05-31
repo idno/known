@@ -47,8 +47,10 @@ namespace Idno\Pages\Account {
 
             if (!empty($_FILES['avatar'])) {
                 if (in_array($_FILES['avatar']['type'], array('image/png','image/jpg','image/jpeg','image/gif'))) {
-                    if ($icon = \Idno\Entities\File::createFromFile($_FILES['avatar']['tmp_name'], $_FILES['avatar']['name'], $_FILES['avatar']['type'])) {
-                        $user->icon = (string) $icon;
+                    if (getimagesize($_FILES['avatar']['tmp_name'])) {
+                        if ($icon = \Idno\Entities\File::createFromFile($_FILES['avatar']['tmp_name'], $_FILES['avatar']['name'], $_FILES['avatar']['type'])) {
+                            $user->icon = (string) $icon;
+                        }
                     }
                 }
             }

@@ -166,13 +166,16 @@ namespace Idno\Common {
 
         /**
          * Attaches a file reference to this entity
-         * @param \Idno\Entities\File $file
+         * @param \MongoGridFSFile $file_wrapper
          */
-        function attachFile(\Idno\Entities\File $file) {
-            if (empty($this->attachments)) {
-                $this->attachments = [];
+        function attachFile(\MongoGridFSFile $file_wrapper) {
+            $file = $file_wrapper->file;
+            if (empty($this->attachments) || !is_array($this->attachments)) {
+                $this->attachments = array();
             }
-            $this->attachments[] = ['_id' => $file->_id, 'url' => $file->getURL(), 'mime-type' => $file->getMimeType(), 'length' => $file->length];
+            $attachments = $this->attachments;
+            $attachments[] = array('_id' => $file['_id'], 'url' => \Idno\Core\site()->config()->url . 'file/ ' . $file['_id'] . '/' . urlencode($file['filename']), 'mime-type' => $file['mime_type'], 'length' => $file['length']);
+            $this->attachments = $attachments;
         }
 
         /**
