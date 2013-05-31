@@ -16,6 +16,7 @@ namespace Idno\Core {
             'dbstring' => 'mongodb://localhost:27017',
             'dbname' => 'idno',         // Default MongoDB database
             'sessionname' => 'idno',    // Default session name
+            'open_registration' => true,// Can anyone register for this system?
             'plugins' => array(         // Default plugins
                 'Status'
             ),

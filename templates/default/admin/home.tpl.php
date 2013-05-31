@@ -16,6 +16,15 @@
                 </div>
             </div>
             <div class="control-group">
+                <label class="control-label" for="open_registration">Open registration<br /><small>Can anyone register for this site?</small></label>
+                <div class="controls">
+                    <select class="span4" name="open_registration">
+                        <option value="true" <?php if (\Idno\Core\site()->config()->open_registration == true) echo 'selected="selected"'; ?>>Yes</option>
+                        <option value="false" <?php if (\Idno\Core\site()->config()->open_registration == false) echo 'selected="selected"'; ?>>No</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
                 <label class="control-label" for="url">Website URL<br /><small>The full URL to your idno-powered site. Include a trailing slash.</small></label>
                 <div class="controls">
                     <input type="url" id="url" placeholder="Site URL" class="span4" name="url" value="<?=htmlspecialchars(\Idno\Core\site()->config()->url)?>" >

@@ -18,8 +18,10 @@ namespace Idno\Core {
             // Account management
             site()->addPageHandler('/account/settings', '\Idno\Pages\Account\Settings');
 
-            // Basic registration
-            site()->addPageHandler('/account/register', '\Idno\Pages\Account\Register');
+            // Basic registration, if we're allowing it
+            if (\Idno\Core\site()->config()->open_registration == true) {
+                site()->addPageHandler('/account/register', '\Idno\Pages\Account\Register');
+            }
 
         }
 
