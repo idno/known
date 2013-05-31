@@ -4,7 +4,7 @@
 
     if (!empty($object)) {
 ?>
-<div class="row ">
+<div class="row idno-entry">
 
     <div class="span1 offset1 owner h-card">
         <p>

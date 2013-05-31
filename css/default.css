@@ -60,14 +60,14 @@
         padding: 0;
     }
 
-    .h-entry .h-card {
+    .idno-entry .h-card {
         font-size: 0.9em;
         padding-top: 1em;
         text-align: center;
         line-height: 1.2em;
     }
 
-    .h-entry .h-card .icon-container {
+    .idno-entry .h-card .icon-container {
         margin-bottom: 1em;
     }
 
@@ -100,7 +100,7 @@
         color: #999;
     }
 
-    .h-entry .u-photo {
+    .idno-entry .u-photo {
         width: 50px;
     }
 
