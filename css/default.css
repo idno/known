@@ -12,6 +12,11 @@
         font-weight: lighter;
     }
 
+    h2 {
+        line-height: 1.6em;
+        margin-bottom: 1.6em !important;
+    }
+
     .beforecontent {
         margin-bottom: 5em;
     }
