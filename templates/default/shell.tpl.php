@@ -98,10 +98,16 @@
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="<?= \Idno\Core\site()->config()->url . 'external/jquery/' ?>jquery.min.js"></script>
 	<script src="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
+    <!-- Sisyphus for localStorage forms support -->
     <script src="<?= \Idno\Core\site()->config()->url . 'external/sisyphus/' ?>sisyphus.min.js"></script>
+    <!-- Video shim -->
+    <script src="<?=\Idno\Core\site()->config()->url . 'external/fitvids/jquery.fitvids.min.js'?>"></script>
     <script>
         $('form').sisyphus({
             locationBased: true
+        });
+        $(document).ready(function(){
+            $(".h-entry").fitVids();
         });
     </script>
 

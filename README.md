@@ -41,3 +41,4 @@ idno also contains
 * Steve Clay's AutoP, which is distributed under the MIT License. Source: https://code.google.com/p/mrclay/
 * Sisyphus, which is distributed under the MIT License. Source: http://sisyphus-js.herokuapp.com/
 * Aaron Parecki's Webmention Client, which is distributed under the Apache 2.0 license. Source: https://github.com/aaronpk/mention-client
+* FitVids.js: http://fitvidsjs.com/
