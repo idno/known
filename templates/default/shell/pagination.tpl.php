@@ -5,9 +5,9 @@
     if (isset($vars['offset']) && !empty($vars['count'])) {
 
         $items_per_page = \Idno\Core\site()->config()->items_per_page;
-        $prev_offset = $offset - $items_per_page;
+        $prev_offset = $vars['offset'] - $items_per_page;
         if ($prev_offset < 0) $prev_offset = 0;
-        $next_offset = $offset + $items_per_page;
+        $next_offset = $vars['offset'] + $items_per_page;
         if ($next_offset > ($vars['count'] - 1)) $next_offset = $vars['count'] - 1;
 ?>
 
