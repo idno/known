@@ -223,7 +223,7 @@ namespace Idno\Common {
             if ($distance < 86400) {
                 if ($distance < 60) {
                     return $distance . 's';
-                } else if ($distance < 360) {
+                } else if ($distance < 3600) {
                     return ceil($distance / 60) . 'm';
                 } else {
                     return ceil($distance / 60 / 60) . 'h';
