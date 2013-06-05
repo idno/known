@@ -5,4 +5,4 @@
         $rel = '';
     }
 ?>
-<div class="h-as-note"><p><?=$this->parseURLs($vars['object']->body, $rel)?></p></div>
+<div class="h-as-note"><p><?=$this->parseURLs($this->parseHashtags($vars['object']->body),$rel)?></p></div>

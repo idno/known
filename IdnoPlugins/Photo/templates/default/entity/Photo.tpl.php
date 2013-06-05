@@ -23,4 +23,4 @@
         }
     }
 ?>
-<p><?=$this->parseURLs($vars['object']->body, $rel)?></p>
+<?=$this->autop($this->parseHashtags($this->parseURLs($vars['object']->body, $rel)))?>
