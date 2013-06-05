@@ -14,7 +14,7 @@
             echo $this->__(array('object' => $item->getRelatedFeedItems()))->draw('entity/shell');
         }
     } else {
-        echo '<p>Nothing found.</p>';
+        echo '<div class="row"><div class="span8 offset2"><p>Nothing found.</p></div></div>';
     }
 
     echo $this->drawPagination($vars['count']);
