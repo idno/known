@@ -10,4 +10,6 @@
             echo $entry->draw();
         }
 
+        echo $this->drawPagination($vars['count']);
+
     }
