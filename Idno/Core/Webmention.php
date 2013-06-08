@@ -16,6 +16,10 @@
             {
             }
 
+            function registerPages() {
+                \Idno\Core\site()->addPageHandler('/webmentions/?','\Idno\Pages\Webmentions\Endpoint');
+            }
+
             /**
              * Pings mentions from a given page to any linked pages
              * @param $pageURL Page URL
