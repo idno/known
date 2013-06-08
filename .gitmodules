@@ -4,27 +4,15 @@
 [submodule "external/torophp"]
 	path = external/torophp
 	url = https://github.com/anandkunal/ToroPHP.git
-[submodule "external/Symfony/Component/ClassLoader"]
-	path = external/Symfony/Component/ClassLoader
-	url = https://github.com/Symfony/ClassLoader.git
 [submodule "external/Symfony/Component/EventDispatcher"]
 	path = external/Symfony/Component/EventDispatcher
-	url = https://github.com/Symfony/EventDispatcher.git
+	url = git://github.com/symfony/EventDispatcher.git
 [submodule "external/Symfony/Component/HttpFoundation"]
 	path = external/Symfony/Component/HttpFoundation
 	url = https://github.com/Symfony/HttpFoundation.git
 [submodule "external/password_compat"]
 	path = external/password_compat
 	url = git://github.com/ircmaxell/password_compat.git
-[submodule "external/symfony/Component/ClassLoader"]
-	path = external/symfony/Component/ClassLoader
-	url = https://github.com/Symfony/ClassLoader.git
-[submodule "external/symfony/Component/HttpFoundation"]
-	path = external/symfony/Component/HttpFoundation
-	url = https://github.com/Symfony/HttpFoundation.git
-[submodule "external/symfony/Component/EventDispatcher"]
-	path = external/symfony/Component/EventDispatcher
-	url = https://github.com/Symfony/EventDispatcher.git
 [submodule "external/mention-client"]
 	path = external/mention-client
 	url = https://github.com/aaronpk/mention-client.git
