@@ -16,3 +16,6 @@
 [submodule "external/mention-client"]
 	path = external/mention-client
 	url = https://github.com/aaronpk/mention-client.git
+[submodule "external/Symfony/Component/ClassLoader"]
+	path = external/Symfony/Component/ClassLoader
+	url = git://github.com/symfony/ClassLoader.git
