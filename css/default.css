@@ -5,11 +5,11 @@
     body {
         background-color: #eee;
         color: #333;
-        font-weight: lighter !important;
+        font-weight: 200 !important;
     }
 
     h1,h2 {
-        font-weight: lighter;
+        font-weight: 200;
     }
 
     h2 {
@@ -141,7 +141,7 @@
 
     .profile h1 {
         font-size: 2em;
-        font-weight: lighter;
+        font-weight: 200;
     }
 
     .profile .u-photo {
