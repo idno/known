@@ -178,13 +178,16 @@ namespace Idno\Core {
 
         /**
          * Retrieves an instantiated version of the page handler class responsible for
-         * a particular page (if any)
+         * a particular page (if any). May also be a whole URL.
          *
-         * @param string $path_info The path, including the initial /
+         * @param string $path_info The path, including the initial /, or the URL
          * @return bool|\Idno\Common\Page
          */
 
         function getPageHandler($path_info) {
+            if (substr_count($path_info,\Idno\Core\site()->config()->url)) {
+                $path_info = '/'. str_replace(\Idno\Core\site()->config()->url,'',$path_info);
+            }
             $tokens = array(
                 ':string' => '([a-zA-Z]+)',
                 ':number' => '([0-9]+)',

@@ -221,6 +221,18 @@ namespace Idno\Common {
         }
 
         /**
+         *
+         */
+        function webmention()
+        {
+            if ($this->isAcceptedContentType('application/json')) {
+                \Idno\Core\site()->template()->setTemplateType('json');
+            }
+            $this->forward = false;
+            $this->webmentionContent();
+        }
+
+        /**
          * To be extended by developers
          */
         function getContent()
@@ -245,6 +257,13 @@ namespace Idno\Common {
          * To be extended by developers
          */
         function deleteContent()
+        {
+        }
+
+        /**
+         * To be extended by developers
+         */
+        function webmentionContent()
         {
         }
 
