@@ -177,6 +177,40 @@ namespace Idno\Core {
         }
 
         /**
+         * Retrieves an instantiated version of the page handler class responsible for
+         * a particular page (if any)
+         *
+         * @param string $path_info The path, including the initial /
+         * @return bool|\Idno\Common\Page
+         */
+
+        function getPageHandler($path_info) {
+            $tokens = array(
+                ':string' => '([a-zA-Z]+)',
+                ':number' => '([0-9]+)',
+                ':alpha'  => '([a-zA-Z0-9-_]+)'
+            );
+            $discovered_handler = false;
+            $matches = [];
+            foreach ($this->pagehandlers as $pattern => $handler_name) {
+                $pattern = strtr($pattern, $tokens);
+                if (preg_match('#^/?' . $pattern . '/?$#', $path_info, $matches)) {
+                    $discovered_handler = $handler_name;
+                    $regex_matches = $matches;
+                    break;
+                }
+            }
+            if (class_exists($discovered_handler)) {
+                $page = new $discovered_handler();
+                if ($page instanceof \Idno\Common\Page) {
+                    $page->arguments = $matches;
+                    return $page;
+                }
+            }
+            return false;
+        }
+
+        /**
          * Sets the current page (if any) for access throughout the system
          * @param \Idno\Common\Page $page
          */
