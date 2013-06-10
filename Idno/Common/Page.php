@@ -265,6 +265,7 @@ namespace Idno\Common {
          */
         function webmentionContent()
         {
+            return true;
         }
 
         /**
@@ -413,6 +414,20 @@ namespace Idno\Common {
                 }
             }
             return false;
+        }
+
+        /**
+         * Sets an input value that can subsequently be retrieved by getInput.
+         * Note that actual input variables (i.e., those supplied by GET or POST
+         * variables) will still take precedence.
+         *
+         * @param string $name
+         * @param mixed $value
+         */
+        function setInput($name, $value) {
+            if (!empty($name)) {
+                $this->data[$name] = $value;
+            }
         }
 
         /**
