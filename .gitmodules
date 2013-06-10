@@ -19,3 +19,12 @@
 [submodule "external/Symfony/Component/ClassLoader"]
 	path = external/Symfony/Component/ClassLoader
 	url = git://github.com/symfony/ClassLoader.git
+[submodule "external/webignition/url"]
+	path = external/webignition/url
+	url = https://github.com/webignition/url.git
+[submodule "external/webignition/absolute-url-deriver"]
+	path = external/webignition/absolute-url-deriver
+	url = https://github.com/webignition/absolute-url-deriver.git
+[submodule "external/mf2"]
+	path = external/mf2
+	url = https://github.com/indieweb/php-mf2.git
