@@ -23,9 +23,13 @@
 
                 // Check that both source and target are non-empty
                 if (!empty($source) && !empty($target)) {
-                    // TODO check that source exists, and parse it for mf2 content
+                    // TODO check that source exists, parse it for mf2 content,
+                    // and ensure that it genuinely mentions this page
+
                     // Get the page handler for target
                     if ($page = \Idno\Core\site()->getPageHandler($target)) {
+                        $page->setInput('source', $source);
+                        $page->setInput('target', $target);
                         if ($page->webmentionContent()) {
                             $this->setResponse(202);    // Webmention received a-ok.
                             exit;
