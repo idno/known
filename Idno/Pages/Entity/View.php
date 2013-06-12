@@ -31,6 +31,17 @@
                 ))->drawPage();
             }
 
+            function webmentionContent() {
+                @ini_set('log_errors','On');
+                if (!empty($this->arguments[0])) {
+                    $object = \Idno\Common\Entity::getByID($this->arguments[0]);
+                }
+                error_log(var_export($this->arguments,true));
+                if (empty($object)) return false;
+
+                return true;
+            }
+
             // Handle POST requests to the entity
 
             function postContent() {

@@ -264,7 +264,7 @@ namespace Idno\Common {
          * To be extended by developers
          */
         function webmentionContent()
-        {
+        {;
             return true;
         }
 
@@ -437,7 +437,8 @@ namespace Idno\Common {
          */
         function isAcceptedContentType($contentType) {
             if ($headers = getallheaders()) {
-                if (substr_count($headers['Accept'],$contentType)) return true;
+                if (!empty($headers['Accept']))
+                    if (substr_count($headers['Accept'],$contentType)) return true;
             }
             return false;
         }

@@ -206,7 +206,8 @@ namespace Idno\Core {
             if (class_exists($discovered_handler)) {
                 $page = new $discovered_handler();
                 if ($page instanceof \Idno\Common\Page) {
-                    $page->arguments = $matches;
+                    unset($matches[0]);
+                    $page->arguments = array_values($matches);
                     return $page;
                 }
             }

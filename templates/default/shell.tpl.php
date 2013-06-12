@@ -1,3 +1,9 @@
+<?php
+
+    header('Content-type: text/html');
+    header('Link: <'.\Idno\Core\site()->config()->url.'webmention/>; rel="http://webmention.org/"')
+
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -28,6 +34,9 @@
 
     <!-- To silo is human, to syndicate divine -->
     <link rel="alternate" type="application/rss+xml" title="<?=htmlspecialchars($vars['title'])?>" href="<?=$this->getCurrentURLWithVar('_t','rss');?>" />
+
+    <!-- Webmention endpoint -->
+    <link href="<?=\Idno\Core\site()->config()->url?>webmention/" rel="http://webmention.org/" />
 
         <?=$this->draw('shell/head',$vars);?>
 
