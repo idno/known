@@ -1,6 +1,3 @@
-[submodule "external/bonita"]
-	path = external/bonita
-	url = https://github.com/benwerd/bonita.git
 [submodule "external/torophp"]
 	path = external/torophp
 	url = https://github.com/anandkunal/ToroPHP.git
@@ -28,3 +25,6 @@
 [submodule "external/mf2"]
 	path = external/mf2
 	url = https://github.com/indieweb/php-mf2.git
+[submodule "external/bonita"]
+	path = external/bonita
+	url = https://github.com/benwerd/bonita.git
