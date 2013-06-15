@@ -51,6 +51,10 @@
                 return $response;
             }
 
+            static function process($page, $object) {
+
+            }
+
             /**
              * Parses a given set of HTML for Microformats 2 content
              * @param $content HTML to parse

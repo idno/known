@@ -261,9 +261,16 @@ namespace Idno\Common {
         }
 
         /**
-         * To be extended by developers
+         * Called when there's been a successful webmention call to the given page.
+         * To be extended by developers.
+         *
+         * @param string $source The source URL (i.e., third-party site URL)
+         * @param string $target The target URL (i.e., this page)
+         * @param string $source_content The full HTML content of the source URL
+         * @param array $source_mf2 The full, parsed Microformats 2 content of the source URL
+         * @return bool
          */
-        function webmentionContent()
+        function webmentionContent($source, $target, $source_content, $source_mf2)
         {;
             return true;
         }

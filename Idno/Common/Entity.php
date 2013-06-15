@@ -570,6 +570,10 @@ namespace Idno\Common {
             return $object;
         }
 
+        function webmentionAnnotations() {
+
+        }
+
         /**
          * Simple method to get objects of this class in reverse
          * chronological order, using the database getObjects call.

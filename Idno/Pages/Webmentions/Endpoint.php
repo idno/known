@@ -32,12 +32,8 @@
                             if (substr_count($source_content,$target)) {
                                 $source_mf2 = \Idno\Core\Webmention::parseContent($source_content);
                                 // Set source and target information as input variables
-                                $page->setInput('source', $source);                 // Source URL
-                                $page->setInput('target', $target);                 // Target URL
-                                $page->setInput('sourceHTML', $source_content);     // Source HTML
-                                $page->setInput('sourceParsed', $source_mf2);      // Source parsed microformats2 content
                                 $page->setPermalink();
-                                if ($page->webmentionContent()) {
+                                if ($page->webmentionContent($source, $target, $source_content, $source_mf2)) {
                                     $this->setResponse(202);    // Webmention received a-ok.
                                     exit;
                                 }
