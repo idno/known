@@ -16,11 +16,13 @@
              * Return the MIME type associated with this file
              * @return null|string
              */
-            function getMimeType() {
+            function getMimeType()
+            {
                 $mime_type = $this->mime_type;
                 if (!empty($mime_type)) {
                     return $this->mime_type;
                 }
+
                 return 'application/octet-stream';
             }
 
@@ -28,14 +30,17 @@
              * Get the publicly visible filename associated with this file
              * @return string
              */
-            function getURL() {
+            function getURL()
+            {
                 if (!empty($this->_id)) {
                     return \Idno\Core\site()->config()->url . 'file/' . $this->_id . '/' . urlencode($this->filename);
                 }
+
                 return '';
             }
 
-            function delete() {
+            function delete()
+            {
                 // TODO deleting files would be good ...
             }
 
@@ -48,12 +53,13 @@
              * @param bool $return_object Return the file object? If set to false (as is default), will return the ID
              * @return bool|\MongoID Depending on success
              */
-            public static function createFromFile($file_path, $filename, $mime_type = 'application/octet-stream', $return_object = false) {
+            public static function createFromFile($file_path, $filename, $mime_type = 'application/octet-stream', $return_object = false)
+            {
                 if (file_exists($file_path) && !empty($filename)) {
                     if ($fs = \Idno\Core\site()->db()->getFilesystem()) {
-                        $file = new File();
+                        $file     = new File();
                         $metadata = array(
-                            'filename' => $filename,
+                            'filename'  => $filename,
                             'mime_type' => $mime_type
                         );
                         if ($id = $fs->storeFile($file_path, $metadata, $metadata)) {
@@ -65,7 +71,103 @@
                         }
                     }
                 }
+
                 return false;
+            }
+
+            /**
+             * Determines whether a file is an image or not.
+             * @param string $file_path The path to a file
+             * @return bool
+             */
+            public static function isImage($file_path)
+            {
+                if ($photo_information = getimagesize($file_path)) {
+                    return true;
+                }
+
+                return false;
+            }
+
+            /**
+             * Given a path to an image on disk, generates and saves a thumbnail with maximum dimension $max_dimension.
+             * @param string $file_path Path to the file.
+             * @param string $filename Filename that the file should have on download.
+             * @param int $max_dimension The maximum number of pixels the thumbnail image should be along its longest side.
+             * @return bool|MongoID
+             */
+            public static function createThumbnailFromFile($file_path, $filename, $max_dimension = 800)
+            {
+
+                $thumbnail = false;
+
+                if ($photo_information = getimagesize($file_path)) {
+                    if ($photo_information[0] > $max_dimension || $photo_information[1] > $max_dimension) {
+                        switch ($photo_information['mime']) {
+                            case 'image/jpeg':
+                                $image = imagecreatefromjpeg($_FILES['photo']['tmp_name']);
+                                break;
+                            case 'image/png':
+                                $image = imagecreatefrompng($_FILES['photo']['tmp_name']);
+                                break;
+                            case 'image/gif':
+                                $image = imagecreatefromgif($_FILES['photo']['tmp_name']);
+                                break;
+                        }
+                        if (!empty($image)) {
+                            if ($photo_information[0] > $photo_information[1]) {
+                                $width  = $max_dimension;
+                                $height = round($photo_information[1] * ($max_dimension / $photo_information[0]));
+                            } else {
+                                $height = $max_dimension;
+                                $width  = round($photo_information[0] * ($max_dimension / $photo_information[1]));
+                            }
+                            $image_copy = imagecreatetruecolor($width, $height);
+                            imagecopyresampled($image_copy, $image, 0, 0, 0, 0, $width, $height, $photo_information[0], $photo_information[1]);
+
+                            if (is_callable('exif_read_data')) {
+                                $exif = exif_read_data($_FILES['photo']['tmp_name']);
+                                if (!empty($exif['Orientation'])) {
+                                    switch ($exif['Orientation']) {
+                                        case 8:
+                                            $image_copy = imagerotate($image_copy, 90, 0);
+                                            break;
+                                        case 3:
+                                            $image_copy = imagerotate($image_copy, 180, 0);
+                                            break;
+                                        case 6:
+                                            $image_copy = imagerotate($image_copy, -90, 0);
+                                            break;
+                                    }
+                                }
+                            }
+
+                            $tmp_dir = dirname($_FILES['photo']['tmp_name']);
+                            switch ($photo_information['mime']) {
+                                case 'image/jpeg':
+                                    imagejpeg($image_copy, $tmp_dir . '/' . $filename . '.jpg');
+                                    $thumbnail = \Idno\Core\site()->config()->url . 'file/' . \Idno\Entities\File::createFromFile($tmp_dir . '/' . $filename . '.jpg', 'thumb.jpg', 'image/jpeg') . '/thumb.jpg';
+                                    @unlink($tmp_dir . '/' . $filename . '.jpg');
+                                    break;
+                                case 'image/png':
+                                    imagepng($image_copy, $tmp_dir . '/' . $filename . '.png');
+                                    $thumbnail = \Idno\Core\site()->config()->url . 'file/' . \Idno\Entities\File::createFromFile($tmp_dir . '/' . $filename . '.png', 'thumb.png', 'image/png') . '/thumb.png';
+                                    @unlink($tmp_dir . '/' . $filename . '.png');
+                                    break;
+                                case 'image/gif':
+                                    imagegif($image_copy, $tmp_dir . '/' . $filename . '.gif');
+                                    $thumbnail = \Idno\Core\site()->config()->url . 'file/' . \Idno\Entities\File::createFromFile($tmp_dir . '/' . $filename . '.gif', 'thumb.gif', 'image/gif') . '/thumb.gif';
+                                    @unlink($tmp_dir . '/' . $filename . '.gif');
+                                    break;
+                            }
+                        }
+                    } else {
+
+                    }
+
+                    return $thumbnail;
+
+                }
             }
 
             /**
@@ -73,7 +175,8 @@
              * @param string $uuid
              * @return bool|\Idno\Common\Entity
              */
-            static function getByUUID($uuid) {
+            static function getByUUID($uuid)
+            {
                 if ($fs = \Idno\Core\site()->db()->getFilesystem()) {
                     return $fs->findOne($uuid);
                 }
@@ -84,7 +187,8 @@
              * @param string $id
              * @return \Idno\Common\Entity|\MongoGridFSFile|null
              */
-            static function getByID($id) {
+            static function getByID($id)
+            {
                 if ($fs = \Idno\Core\site()->db()->getFilesystem()) {
                     return $fs->findOne(array('_id' => new \MongoId($id)));
                 }
@@ -95,10 +199,12 @@
              * @param string $id
              * @return mixed
              */
-            static function getFileDataByID($id) {
+            static function getFileDataByID($id)
+            {
                 if ($file = self::getByID($id)) {
                     return $file->getBytes();
                 }
+
                 return false;
             }
 
