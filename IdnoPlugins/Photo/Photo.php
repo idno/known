@@ -54,6 +54,9 @@
                         } else {
                             \Idno\Core\site()->session()->addMessage('This doesn\'t seem to be an image ..');
                         }
+                    } else {
+                        \Idno\Core\site()->session()->addMessage('We couldn\'t access your image. Please try again.');
+                        return false;
                     }
                 }
 

@@ -105,13 +105,13 @@
                     if ($photo_information[0] > $max_dimension || $photo_information[1] > $max_dimension) {
                         switch ($photo_information['mime']) {
                             case 'image/jpeg':
-                                $image = imagecreatefromjpeg($_FILES['photo']['tmp_name']);
+                                $image = imagecreatefromjpeg($file_path);
                                 break;
                             case 'image/png':
-                                $image = imagecreatefrompng($_FILES['photo']['tmp_name']);
+                                $image = imagecreatefrompng($file_path);
                                 break;
                             case 'image/gif':
-                                $image = imagecreatefromgif($_FILES['photo']['tmp_name']);
+                                $image = imagecreatefromgif($file_path);
                                 break;
                         }
                         if (!empty($image)) {
@@ -126,7 +126,7 @@
                             imagecopyresampled($image_copy, $image, 0, 0, 0, 0, $width, $height, $photo_information[0], $photo_information[1]);
 
                             if (is_callable('exif_read_data')) {
-                                $exif = exif_read_data($_FILES['photo']['tmp_name']);
+                                $exif = exif_read_data($file_path);
                                 if (!empty($exif['Orientation'])) {
                                     switch ($exif['Orientation']) {
                                         case 8:
@@ -142,21 +142,21 @@
                                 }
                             }
 
-                            $tmp_dir = dirname($_FILES['photo']['tmp_name']);
+                            $tmp_dir = dirname($file_path);
                             switch ($photo_information['mime']) {
                                 case 'image/jpeg':
                                     imagejpeg($image_copy, $tmp_dir . '/' . $filename . '.jpg');
-                                    $thumbnail = \Idno\Core\site()->config()->url . 'file/' . \Idno\Entities\File::createFromFile($tmp_dir . '/' . $filename . '.jpg', 'thumb.jpg', 'image/jpeg') . '/thumb.jpg';
+                                    $thumbnail = \Idno\Entities\File::createFromFile($tmp_dir . '/' . $filename . '.jpg', 'thumb.jpg', 'image/jpeg') . '/thumb.jpg';
                                     @unlink($tmp_dir . '/' . $filename . '.jpg');
                                     break;
                                 case 'image/png':
                                     imagepng($image_copy, $tmp_dir . '/' . $filename . '.png');
-                                    $thumbnail = \Idno\Core\site()->config()->url . 'file/' . \Idno\Entities\File::createFromFile($tmp_dir . '/' . $filename . '.png', 'thumb.png', 'image/png') . '/thumb.png';
+                                    $thumbnail = \Idno\Entities\File::createFromFile($tmp_dir . '/' . $filename . '.png', 'thumb.png', 'image/png') . '/thumb.png';
                                     @unlink($tmp_dir . '/' . $filename . '.png');
                                     break;
                                 case 'image/gif':
                                     imagegif($image_copy, $tmp_dir . '/' . $filename . '.gif');
-                                    $thumbnail = \Idno\Core\site()->config()->url . 'file/' . \Idno\Entities\File::createFromFile($tmp_dir . '/' . $filename . '.gif', 'thumb.gif', 'image/gif') . '/thumb.gif';
+                                    $thumbnail = \Idno\Entities\File::createFromFile($tmp_dir . '/' . $filename . '.gif', 'thumb.gif', 'image/gif') . '/thumb.gif';
                                     @unlink($tmp_dir . '/' . $filename . '.gif');
                                     break;
                             }
