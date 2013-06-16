@@ -21,8 +21,7 @@
             $.ajax('/' + plugin + '/edit/', {
                 dataType: 'html',
                 success: function(data) {
-                    $('#contentCreate').html(data);
-                    $('#contentCreate').slideDown(400);
+                    $('#contentCreate').html(data).slideDown(400);
                     $('#contentTypeButtonBar').slideUp(400);
                     window.contentCreateType = plugin;
                     window.contentPage = true;
