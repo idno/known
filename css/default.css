@@ -141,6 +141,24 @@
         margin-top: 4em;
     }
 
+    .idno-annotation .icon-container {
+        width: 35px;
+        height: 35px;
+    }
+
+    .idno-annotation .icon-container img {
+        width: 100%;
+    }
+
+    .idno-annotation p {
+        margin: 0;
+        padding: 0;
+    }
+
+    .idno-annotation {
+        margin-bottom: 1em;
+    }
+
 /**
     Profiles
 */
