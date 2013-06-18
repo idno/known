@@ -13,7 +13,7 @@
             <a href="<?=$owner->getURL()?>" class="p-name u-url"><?=$owner->getTitle();?></a>
         </p>
     </div>
-    <div class="span8 content h-entry">
+    <div class="span8 h-entry idno-content">
         <div class="e-content entry-content">
             <?php if ($subObject = $object->getObject()) echo $subObject->draw(); ?>
         </div>

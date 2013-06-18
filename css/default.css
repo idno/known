@@ -21,7 +21,7 @@
         margin-bottom: 5em;
     }
 
-    .content {
+    .idno-content {
         background-color: #fff;
         padding: 1.5em;
         border: #dadada solid 1px;
@@ -59,6 +59,7 @@
     .h-entry {
         margin-top: 1em;
         display: block;
+        box-shadow: 0 3px 2px -2px #ccc;
     }
 
     .h-entry h2 {
@@ -101,6 +102,11 @@
 
     .h-entry .permalink {
         float: left;
+    }
+
+    .h-entry .permalink a, .h-entry .permalink a:hover {
+        color: #999;
+        margin-right: 1em;
     }
 
     .h-entry .dt-published {
