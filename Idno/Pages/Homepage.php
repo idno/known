@@ -24,10 +24,18 @@ namespace Idno\Pages {
             } else {
                 $create = false;
             }
+
+            if (!empty(\Idno\Core\site()->config()->description)) {
+                $description = \Idno\Core\site()->description;
+            } else {
+                $description = 'An independent social website, powered by idno.';
+            }
+
             $t = \Idno\Core\site()->template();
             $t->__(array(
 
                 'title' => \Idno\Core\site()->config()->title,
+                'description' => $description,
                 'body' => $t->__(array(
                     'items' => $feed,
                     'contentTypes' => $create,

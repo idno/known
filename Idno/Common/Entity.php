@@ -385,6 +385,19 @@
             }
 
             /**
+             * Retrieve a short description of this page suitable for including in page metatags
+             * @return string
+             */
+
+            function getShortDescription()
+            {
+                if (!empty($this->short_description))
+                    return $this->short_description;
+
+                return strip_tags($this->getDescription());
+            }
+
+            /**
              * Return the Universal Unique IDentifier for this object (which also
              * happens to be a URI for it).
              *
