@@ -41,13 +41,15 @@
 */
 
     .nav img {
-        height: 1.5em;
+        width: 1.5em;
     }
 
     .nav .icon-container {
         margin-top: 0.7em;
         margin-right: 1em;
         margin-left: 1em;
+        height: 1.5em;
+        width: 1.5em;
     }
 
 /**
@@ -106,11 +108,13 @@
     }
 
     .owner .u-photo {
-        width: 50px;
+        height: 100%;
     }
 
     .owner .icon-container {
         margin-top: 1em;
+        width: 50px;
+        height: 50px;
     }
 
     .icon-container {
@@ -144,8 +148,13 @@
         font-weight: 200;
     }
 
-    .profile .u-photo {
-        width: 100% !important;
+    .profile .icon-container {
+        width: 150px;
+        height: 150px;
+    }
+
+    .profile .icon-container .u-photo {
+        width: 150px;
     }
 
     .profile .url-container {
