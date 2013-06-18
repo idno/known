@@ -31,17 +31,21 @@
                 ))->drawPage();
             }
 
+            // Get webmention content and handle it
+
             function webmentionContent($source, $target, $source_content, $source_mf2) {
                 if (!empty($this->arguments[0])) {
                     $object = \Idno\Common\Entity::getByID($this->arguments[0]);
                 }
-                error_log(var_export($this->arguments,true));
-                error_log(var_export($object,true));
                 if (empty($object)) return false;
 
-                
+                $return = true;
 
-                return true;
+                if ($object instanceof \Idno\Common\Entity) {
+                    $return = $object->addWebmentions($source, $target, $source_content, $source_mf2);
+                }
+
+                return $return;
             }
 
             // Handle POST requests to the entity
