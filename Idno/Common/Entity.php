@@ -772,7 +772,7 @@
                 } else {
                     $time = (int) $time;
                 }
-                $annotation = ['owner_name' => $owner_name, 'owner_url' => $owner_url, 'owner_image' => $owner_image, 'content' => $content];
+                $annotation = ['owner_name' => $owner_name, 'owner_url' => $owner_url, 'owner_image' => $owner_image, 'content' => $content, 'time' => $time];
                 $annotations = $this->annotations;
                 if (empty($annotations)) {
                     $annotations = [];
