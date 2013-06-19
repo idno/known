@@ -38,6 +38,8 @@ namespace Idno\Pages\Account {
             if (!empty($email) && $email != $user->email && filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 if (!\Idno\Entities\User::getByEmail($email)) {
                     $user->email = $email;
+                } else {
+                    \Idno\Core\site()->session()->addMessage('Someone is already using ' . $email . ' as their email address.','alert-error');
                 }
             }
 

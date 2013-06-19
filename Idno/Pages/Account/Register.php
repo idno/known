@@ -29,8 +29,8 @@
 
                 $user = new \Idno\Entities\User();
 
-                if (!empty($email) && $email != $user->email && filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    if (!\Idno\Entities\User::getByEmail($email) && !\Idno\Entities\User::getByHandle($handle) &&
+                if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    if (!($emailuser = \Idno\Entities\User::getByEmail($email)) && !($handleuser = \Idno\Entities\User::getByHandle($handle)) &&
                         !empty($handle) && $password == $password2 && strlen($password) > 4 && !empty($name)) {
                         $user = new \Idno\Entities\User();
                         $user->email = $email;
@@ -38,12 +38,30 @@
                         $user->setPassword($password);
                         $user->setTitle($name);
                         if (!\Idno\Entities\User::get()) $user->setAdmin(true);
+                        $user->save();
+                    } else {
+                        if (empty($handle)) {
+                            \Idno\Core\site()->session()->addMessage("You can't have an empty handle.");
+                        } else if (!empty($handleuser)) {
+                            \Idno\Core\site()->session()->addMessage("Unfortunately, a user is already using that handle. Please choose another.");
+                        }
+                        if (!empty($emailuser)) {
+                            \Idno\Core\site()->session()->addMessage("Unfortunately, a user is already using that email address. Please choose another.");
+                        }
+                        if ($password != $password2 || strlen($password) <= 4) {
+                            \Idno\Core\site()->session()->addMessage("Please check that your passwords match and that your password is over four characters long.");
+                        }
                     }
+                } else {
+                    \Idno\Core\site()->session()->addMessage("That doesn't seem to be a valid email address.");
                 }
 
-                if ($user->save()) {
+                if (!empty($user->_id)) {
                     \Idno\Core\site()->session()->addMessage("You've registered! Well done.");
                     \Idno\Core\site()->session()->logUserOn($user);
+                } else {
+                    \Idno\Core\site()->session()->addMessage("We couldn't register you.");
+                    $this->forward($_SERVER['HTTP_REFERER']);
                 }
 
             }
