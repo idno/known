@@ -202,6 +202,84 @@ namespace Idno\Entities {
         }
 
         /**
+         * Get a list of user IDs that this user marks as a friend
+         * @return array|null
+         */
+        function getFriendIDs() {
+            if (!empty($this->friends)) {
+                return $this->friends;
+            } else {
+                return [];
+            }
+        }
+
+        /**
+         * Given a user entity, marks them as being a friend of this user.
+         * Remember to save this user entity.
+         *
+         * @param \Idno\Entities\User $friend
+         * @return bool
+         */
+        function addFriend($friend) {
+            if ($friend instanceof \Idno\Entities\User) {
+                $friends = $this->getFriendIDs();
+                if (!in_array($friend->getUUID(), $friends)) {
+                    $friends[] = $friend->getUUID();
+                    $this->friends = $friends;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /**
+         * Given a user entity, removes them from this user's friends list.
+         * Remember to save this user entity.
+         *
+         * @param \Idno\Entities\User $friend
+         * @return bool
+         */
+        function removeFriend($friend) {
+            if ($friend instanceof \Idno\Entities\User) {
+                $friends = $this->getFriendIDs();
+                $friends = array_diff($friends, [$friend->getUUID()]);
+                $this->friends = $friends;
+                return true;
+            }
+            return false;
+        }
+
+        /**
+         * Is the given user a friend of this user?
+         *
+         * @param \Idno\Entities\User $friend
+         * @return bool
+         */
+        function isFriend($friend) {
+            if ($friend instanceof \Idno\Entities\User) {
+                if (in_array($friend->getUUID(), $this->getFriendIDs())) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /**
+         * Does the given user list this user as a friend?
+         *
+         * @param \Idno\Entities\User $friend
+         * @return bool
+         */
+        function isFriendOf($friend) {
+            if ($friend instanceof \Idno\Entities\User) {
+                if ($friend->isFriend($this)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /**
          * Array of access groups that this user can *read* entities
          * from
          *
