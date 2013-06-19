@@ -53,7 +53,11 @@ namespace Idno\Core {
         function getObject($uuid)
         {
             if ($result = $this->getRecordByUUID($uuid)) {
-                return $this->rowToEntity($result);
+                if ($object = $this->rowToEntity($result)) {
+                    if ($object->canRead()) {
+                        return $object;
+                    }
+                }
             }
             return false;
         }
@@ -176,7 +180,7 @@ namespace Idno\Core {
 
             // Make sure we're only getting objects that we're allowed to see
             $readGroups = site()->session()->getReadAccessGroupIDs();
-            //$query_parameters['access'] = array('$in' => $readGroups);
+            $query_parameters['access'] = array('$in' => $readGroups);
 
             // Join the rest of the search query elements to this search
             $query_parameters = array_merge($query_parameters, $search);
@@ -225,7 +229,7 @@ namespace Idno\Core {
 
             // Make sure we're only getting objects that we're allowed to see
             $readGroups = site()->session()->getReadAccessGroupIDs();
-            //$query_parameters['access'] = array('$in' => $readGroups);
+            $query_parameters['access'] = array('$in' => $readGroups);
 
             // Join the rest of the search query elements to this search
             $query_parameters = array_merge($query_parameters, $search);
