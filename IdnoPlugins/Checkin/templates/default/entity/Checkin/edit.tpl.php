@@ -39,6 +39,8 @@
                     marker.on("dragend", function(e) {
                         var coords = e.target.getLatLng();
                         console.log(coords);
+                        $('#lat').val(coords.lat.toString());
+                        $('#long').val(coords.lng.toString());
                         replenish(coords.lat, coords.lng);
                     });
                 }
