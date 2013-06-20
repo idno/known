@@ -10,6 +10,7 @@
     $rss->setAttribute('version', '2.0');
     $rss->setAttribute('xmlns:g', 'http://base.google.com/ns/1.0');
     $rss->setAttribute('xmlns:atom', 'http://www.w3.org/2005/Atom');
+    $rss->setAttribute('xmlns:geo', 'http://www.w3.org/2003/01/geo/wgs84_pos#');
     $channel = $page->createElement('channel');
     $channel->appendChild($page->createElement('title',$vars['title']));
     $channel->appendChild($page->createElement('description',$vars['description']));
@@ -38,6 +39,10 @@
             $rssItem->appendChild($page->createElement('guid',$item->getUUID()));
             $rssItem->appendChild($page->createElement('pubDate',date(DATE_RSS,$item->created)));
             $rssItem->appendChild($page->createElement('description',$item->draw()));
+            if (!empty($item->lat) && !empty($item->long)) {
+                $rssItem->appendChild($page->createElement('geo:lat', $item->lat));
+                $rssItem->appendChild($page->createElement('geo:long', $item->long));
+            }
             if ($attachments = $item->getAttachments()) {
                 foreach($attachments as $attachment) {
                     $enclosureItem = $page->createElement('enclosure');
