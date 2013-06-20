@@ -72,12 +72,20 @@
                 $query = self::getNominatimEndpoint() . "reverse?lat={$latitude}&lon={$longitude}&format=json&zoom=18";
                 $response = [];
 
-                if ($http_response = file_get_contents($query)) {
+                $ch = curl_init();
+                $timeout = 5;
+                curl_setopt($ch, CURLOPT_URL, $query);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+                $http_response = curl_exec($ch);
+                curl_close($ch);
+
+                if (!empty($http_response)) {
                     error_log($http_response);
                     if ($contents = @json_decode($http_response)) {
                         if (!empty($contents->address)) {
                             $addr = (array) $contents->address;
-                            $response['name'] = implode(', ', array_slice($addr, 0, 3));
+                            $response['name'] = implode(', ', array_slice($addr, 0, 1));
                         }
                         if (!empty($contents->display_name)) {
                             $response['display_name'] = $contents->display_name;
@@ -99,7 +107,15 @@
 
                 $query = self::getNominatimEndpoint() . "search?q=" . urlencode($address) . "&format=json";
 
-                if ($http_response = file_get_contents($query)) {
+                $ch = curl_init();
+                $timeout = 5;
+                curl_setopt($ch, CURLOPT_URL, $query);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+                $http_response = curl_exec($ch);
+                curl_close($ch);
+
+                if (!empty($http_response)) {
                     if ($contents = @json_decode($http_response)) {
                         $contents = (array) $contents;
                         $contents = (array) array_pop($contents);   // This will have been an array wrapped in an array
