@@ -22,7 +22,10 @@
                 $subject = trim($subject);
                 $offset = (int) $this->getInput('offset');
                 if (empty($types)) {
-                    $types = '';
+                    $types = '!Idno\Entities\ActivityStreamPost';
+                } else {
+                    if (!is_array($types)) $types = [$types];
+                    $types[] = '!Idno\Entities\ActivityStreamPost';
                 }
                 if (!empty($subject)) {
                     $regexObj = new \MongoRegex("/".addslashes($subject)."/i");
@@ -31,8 +34,8 @@
                 } else {
                     $items = [];
                     $subject = 'Search';
+                    $count = 0;
                 }
-
                 $t = \Idno\Core\site()->template();
                 $t->__(array(
 

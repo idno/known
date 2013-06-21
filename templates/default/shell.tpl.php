@@ -53,6 +53,15 @@
 			<span class="icon-bar"></span>
 		    </button>
 		    <a class="brand" href="<?= \Idno\Core\site()->config()->url ?>"><?=  \Idno\Core\site()->config()->title?></a>
+            <form class="navbar-search pull-left" action="/search/" method="get">
+                <input type="text" class="search-query" name="q" placeholder="Search" value="<?php
+
+                    if ($q = \Idno\Core\site()->currentPage()->getInput('q')) {
+                        echo htmlspecialchars($q);
+                    }
+
+                ?>">
+            </form>
 		    <div class="nav-collapse collapse">
 			<ul class="nav" role="menu">
 			</ul>

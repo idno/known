@@ -152,6 +152,7 @@ namespace Idno\Core {
 
         /**
          * Retrieve objects of a certain kind that we're allowed to see,
+         * (or excluding kinds that we don't want to see),
          * in reverse chronological order
          *
          * @param string|array $subtypes String or array of subtypes we're allowed to see
@@ -170,11 +171,24 @@ namespace Idno\Core {
             $query_parameters = array();
 
             // Ensure subtypes are recorded properly
+            // and remove subtypes that have an exclamation mark before them
+            // from consideration
             if (!empty($subtypes)) {
-                if (is_array($subtypes)) {
-                    $query_parameters['entity_subtype'] = array('$in' => $subtypes);
-                } else {
-                    $query_parameters['entity_subtype'] = $subtypes;
+                $not = [];
+                if (!is_array($subtypes)) {
+                    $subtypes = [$subtypes];
+                }
+                foreach($subtypes as $key => $subtype) {
+                    if (substr($subtype,0,1) == '!') {
+                        unset($subtypes[$key]);
+                        $not[] = substr($subtype,1);
+                    }
+                }
+                if (!empty($subtypes)) {
+                    $query_parameters['entity_subtype']['$in'] = $subtypes;
+                }
+                if (!empty($not)) {
+                    $query_parameters['entity_subtype']['$not']['$in'] = $not;
                 }
             }
 
@@ -219,11 +233,24 @@ namespace Idno\Core {
             $query_parameters = array();
 
             // Ensure subtypes are recorded properly
+            // and remove subtypes that have an exclamation mark before them
+            // from consideration
             if (!empty($subtypes)) {
-                if (is_array($subtypes)) {
-                    $query_parameters['entity_subtype'] = array('$in' => $subtypes);
-                } else {
-                    $query_parameters['entity_subtype'] = $subtypes;
+                $not = [];
+                if (!is_array($subtypes)) {
+                    $subtypes = [$subtypes];
+                }
+                foreach($subtypes as $key => $subtype) {
+                    if (substr($subtype,0,1) == '!') {
+                        unset($subtypes[$key]);
+                        $not[] = substr($subtype,1);
+                    }
+                }
+                if (!empty($subtypes)) {
+                    $query_parameters['entity_subtype']['$in'] = $subtypes;
+                }
+                if (!empty($not)) {
+                    $query_parameters['entity_subtype']['$not']['$in'] = $not;
                 }
             }
 
