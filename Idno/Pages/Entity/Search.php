@@ -18,12 +18,16 @@
             {
 
                 $subject = $this->getInput('q');
+                $types = $this->getInput('types');
                 $subject = trim($subject);
                 $offset = (int) $this->getInput('offset');
+                if (empty($types)) {
+                    $types = '';
+                }
                 if (!empty($subject)) {
                     $regexObj = new \MongoRegex("/".addslashes($subject)."/i");
-                    $items = \Idno\Common\Entity::getFromAll(['$or' => [['body' => $regexObj], ['title' => $regexObj]]],[],10,$offset);
-                    $count = \Idno\Common\Entity::countFromAll(['$or' => [['body' => $regexObj], ['title' => $regexObj]]]);
+                    $items = \Idno\Common\Entity::getFromX($types,['$or' => [['body' => $regexObj], ['title' => $regexObj]]],[],10,$offset);
+                    $count = \Idno\Common\Entity::countFromX($types,['$or' => [['body' => $regexObj], ['title' => $regexObj]]]);
                 } else {
                     $items = [];
                     $subject = 'Search';

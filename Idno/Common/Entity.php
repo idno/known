@@ -858,7 +858,19 @@
              */
             static function countFromAll($search = [])
             {
-                return \Idno\Core\site()->db()->countObjects('', $search);
+                return self::countFromX('', $search);
+            }
+
+            /**
+             * Count the number of objects of any specified class(es) that we're allowed to see
+             *
+             * @param array|string $class Class(es) to search (blank for all)
+             * @param array $search
+             * @return int
+             */
+            static function countFromX($class, $search = [])
+            {
+                return \Idno\Core\site()->db()->countObjects($class, $search);
             }
 
             /**
@@ -873,7 +885,25 @@
              */
             static function getFromAll($search = array(), $fields = array(), $limit = 10, $offset = 0)
             {
-                $result = \Idno\Core\site()->db()->getObjects('', $search, $fields, $limit, $offset);
+                $result = self::getFromX('', $search, $fields, $limit, $offset);
+
+                return $result;
+            }
+
+            /**
+             * Simple method to get objects of a specified class or classes
+             * in reverse chronological order, using the database getObjects call.
+             *
+             * @param string|array $class Class name(s) to check in (blank string, null or false for all)
+             * @param array $search List of filter terms (default: none)
+             * @param array $fields List of fields to return (default: all)
+             * @param int $limit Number of items to return (default: 10)
+             * @param int $offset Number of items to skip (default: 0
+             * @return array
+             */
+            static function getfromX($class, $search = array(), $fields = array(), $limit = 10, $offset = 0)
+            {
+                $result = \Idno\Core\site()->db()->getObjects($class, $search, $fields, $limit, $offset);
 
                 return $result;
             }
