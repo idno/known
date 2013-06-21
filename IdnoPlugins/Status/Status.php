@@ -13,6 +13,7 @@
                 if (!empty($this->inreplyto)) {
                     $body = '<a href="'.$this->inreplyto.'" class="u-in-reply-to"></a>' . $body;
                 }
+                return $body;
             }
 
             /**
