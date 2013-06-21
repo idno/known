@@ -9,7 +9,10 @@
             }
 
             function getDescription() {
-                return $this->body;
+                $body = $this->body;
+                if (!empty($this->inreplyto)) {
+                    $body = '<a href="'.$this->inreplyto.'" class="u-in-reply-to"></a>' . $body;
+                }
             }
 
             /**
@@ -32,8 +35,10 @@
                     $new = false;
                 }
                 $body = \Idno\Core\site()->currentPage()->getInput('body');
+                $inreplyto = \Idno\Core\site()->currentPage()->getInput('inreplyto');
                 if (!empty($body)) {
                     $this->body = $body;
+                    $this->inreplyto = $inreplyto;
                     $this->setAccess('PUBLIC');
                     if ($this->save()) {
                         if ($new) {

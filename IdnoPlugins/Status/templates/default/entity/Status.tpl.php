@@ -5,7 +5,18 @@
         $rel = '';
     }
 ?>
-<div class=""><p><?=$this->parseURLs($this->parseHashtags($vars['object']->body),$rel)?></p></div>
+<div class="">
+    <p><?=$this->parseURLs($this->parseHashtags($vars['object']->body),$rel)?></p>
+    <?php
+
+        if (!empty($vars['object']->inreplyto)) {
+        ?>
+            <a href="<?=$vars['object']->inreplyto?>" class="u-in-reply-to"></a>
+        <?php
+        }
+
+    ?>
+</div>
 <?php
 
     // Embedded content code from Aaron Parecki, slightly modified:
