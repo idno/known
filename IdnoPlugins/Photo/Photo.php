@@ -46,7 +46,7 @@
                             if ($photo = \Idno\Entities\File::createFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'], $_FILES['photo']['type'],true)) {
                                 $this->attachFile($photo);
                                 if ($thumbnail = \Idno\Entities\File::createThumbnailFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'])) {
-                                    $this->thumbnail = $thumbnail;
+                                    $this->thumbnail = (string) $thumbnail;
                                 }
                             } else {
                                 \Idno\Core\site()->session()->addMessage('Image wasn\'t attached.');
