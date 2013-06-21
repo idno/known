@@ -41,7 +41,7 @@
                     $this->lat = $lat;
                     $this->long = $long;
                     $this->placename = $placename;
-                    $this->title = $placename;
+                    $this->title = 'Checked into '. $placename;
                     $this->body = $body;
                     $this->address = $user_address;
                     $this->setAccess('PUBLIC');
