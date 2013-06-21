@@ -608,7 +608,7 @@
              * Serialize this entity
              * @return array|mixed
              */
-            function jsonSerialize()
+            public function jsonSerialize()
             {
                 $object = array(
                     'id'          => $this->getUUID(),

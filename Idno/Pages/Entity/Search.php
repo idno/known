@@ -36,6 +36,7 @@
                     $subject = 'Search';
                     $count = 0;
                 }
+
                 $t = \Idno\Core\site()->template();
                 $t->__(array(
 

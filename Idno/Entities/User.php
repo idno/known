@@ -12,7 +12,7 @@ namespace Idno\Entities {
     // We need the PHP 5.5 password API
     require_once \Idno\Core\site()->config()->path . '/external/password_compat/lib/password.php';
 
-    class User extends \Idno\Common\Entity
+    class User extends \Idno\Common\Entity implements \JsonSerializable
     {
 
         /**
@@ -389,6 +389,10 @@ namespace Idno\Entities {
             $this->profile = \Idno\Core\site()->currentPage()->getInput('profile');
             return $this->save();
 
+        }
+
+        public function jsonSerialize() {
+            return ['what' => 'hello'];
         }
 
         /**
