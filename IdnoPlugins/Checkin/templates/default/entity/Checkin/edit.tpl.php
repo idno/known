@@ -101,7 +101,7 @@
                     <input type="text" name="body" id="body" value="<?= htmlspecialchars($vars['object']->body) ?>"
                            class="span9"/>
                 </label>
-                <?= \Idno\Core\site()->actions()->signForm('/status/edit') ?>
+                <?= \Idno\Core\site()->actions()->signForm('/checkin/edit') ?>
                 <input type="submit" class="btn btn-primary" value="Save"/>
                 <input type="button" class="btn" value="Cancel" onclick="hideContentCreateForm();"/>
             </p>
