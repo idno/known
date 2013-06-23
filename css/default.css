@@ -2,261 +2,265 @@
     Default idno CSS
 */
 
-    body {
-        background-color: #eee;
-        color: #333;
-        font-weight: 200 !important;
-    }
+body {
+    background-color: #eee;
+    color: #333;
+    font-weight: 200 !important;
+}
 
-    h1,h2 {
-        font-weight: 200;
-    }
+h1,h2 {
+    font-weight: 200;
+}
 
-    h2 {
-        line-height: 1.6em;
-        margin-bottom: 1.6em !important;
-    }
+h2 {
+    line-height: 1.6em;
+    margin-bottom: 1.6em !important;
+}
 
-    .beforecontent {
-        margin-bottom: 5em;
-    }
+.beforecontent {
+    margin-bottom: 5em;
+}
 
-    .idno-content {
-        background-color: #fff;
-        padding: 1.5em;
-        padding-bottom: 0;
-        border: #dadada solid 1px;
-    }
+.idno-content  {
+    background-color: #fff;
+    padding: 1.5em;
+    padding-bottom: 0;
+    border: #dadada solid 1px;
+}
 
-    .aftercontent {
-        font-size: 0.8em;
-        margin-top: 5em;
-    }
+.idno-content p {
+    line-height: 1.5em !important;
+}
 
-    .u-platform {
-        color: #880000;
-    }
+.aftercontent {
+    font-size: 0.8em;
+    margin-top: 5em;
+}
+
+.u-platform {
+    color: #880000;
+}
 
 /**
     Page shell
 */
 
-    .nav img {
-        width: 1.5em;
-    }
+.nav img {
+    width: 1.5em;
+}
 
-    .nav .icon-container {
-        margin-top: 0.7em;
-        margin-right: 1em;
-        margin-left: 1em;
-        height: 1.5em;
-        width: 1.5em;
-    }
+.nav .icon-container {
+    margin-top: 0.7em;
+    margin-right: 1em;
+    margin-left: 1em;
+    height: 1.5em;
+    width: 1.5em;
+}
 
 /**
     Activity streams
 */
 
-    .h-entry {
-        margin-top: 1em;
-        display: block;
-        box-shadow: 0 3px 2px -2px #ccc;
-    }
+.h-entry {
+    margin-top: 1em;
+    display: block;
+    box-shadow: 0 3px 2px -2px #ccc;
+}
 
-    .h-entry h2 {
-        font-size: 1em;
-        margin: 0;
-        padding: 0;
-    }
+.h-entry h2 {
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
+}
 
-    .idno-entry .h-card {
-        font-size: 0.9em;
-        padding-top: 1em;
-        text-align: center;
-        line-height: 1.2em;
-    }
+.idno-entry .h-card {
+    font-size: 0.9em;
+    padding-top: 1em;
+    text-align: center;
+    line-height: 1.2em;
+}
 
-    .idno-entry .h-card .icon-container {
-        margin-bottom: 1em;
-    }
+.idno-entry .h-card .icon-container {
+    margin-bottom: 1em;
+}
 
-    .h-entry .edit {
-        float: right;
-    }
+.h-entry .edit {
+    float: right;
+}
 
-    .h-entry .edit a {
-        margin-left: 1em;
-    }
+.h-entry .edit a {
+    margin-left: 1em;
+}
 
-    .h-entry .e-content {
-        overflow: auto;
-        margin-bottom: 1em;
-        padding-top: 1em;
-        line-height:1.6em;
-    }
+.h-entry .e-content {
+    overflow: auto;
+    margin-bottom: 1em;
+    padding-top: 1em;
+    line-height:1.6em;
+}
 
-    .h-entry .footer {
-        clear: both;
-        font-size: 0.85em;
-        border-top: #eee solid 1px;
-        padding: 0px; margin: 0px;
-    }
+.h-entry .footer {
+    clear: both;
+    font-size: 0.85em;
+    border-top: #eee solid 1px;
+    padding: 0px; margin: 0px;
+}
 
-    .h-entry .permalink {
-        float: left;
-    }
+.h-entry .permalink {
+    float: left;
+}
 
-    .h-entry .permalink a, .h-entry .permalink a:hover {
-        color: #999;
-        margin-right: 1em;
-    }
+.h-entry .permalink a, .h-entry .permalink a:hover {
+    color: #999;
+    margin-right: 1em;
+}
 
-    .h-entry .dt-published {
-        color: #999;
-    }
+.h-entry .dt-published {
+    color: #999;
+}
 
-    .owner .u-photo {
-        height: 100%;
-    }
+.owner .u-photo {
+    height: 100%;
+}
 
-    .owner .icon-container {
-        margin-top: 1em;
-        width: 50px;
-        height: 50px;
-    }
+.owner .icon-container {
+    margin-top: 1em;
+    width: 50px;
+    height: 50px;
+}
 
-    .icon-container {
-        border: 0px;
-        overflow: hidden;
-        border-radius: 50%;
-        display: inline-block;
-    }
+.icon-container {
+    border: 0px;
+    overflow: hidden;
+    border-radius: 50%;
+    display: inline-block;
+}
 
-    .p-name {
-        font-size: 0.9em;
-        line-height: 0.5em !important;
-    }
+.p-name {
+    font-size: 0.9em;
+    line-height: 0.5em !important;
+}
 
-    .pagination {
-        margin: auto;
-        text-align: center;
-        margin-top: 4em;
-    }
+.pagination {
+    margin: auto;
+    text-align: center;
+    margin-top: 4em;
+}
 
-    .idno-annotation .icon-container {
-        width: 35px;
-        height: 35px;
-    }
+.idno-annotation .icon-container {
+    width: 35px;
+    height: 35px;
+}
 
-    .idno-annotation .icon-container img {
-        width: 100%;
-    }
+.idno-annotation .icon-container img {
+    width: 100%;
+}
 
-    .idno-annotation p {
-        margin: 0;
-        padding: 0;
-    }
+.idno-annotation p {
+    margin: 0;
+    padding: 0;
+}
 
-    .idno-annotation {
-        margin-bottom: 1em;
-    }
+.idno-annotation {
+    margin-bottom: 1em;
+}
 
-    .posse a[rel=syndication] {
-        background-color: #bbb;
-        color: #fff;
-        padding: 3px;
-        padding-left: 5px;
-        padding-right: 5px;
-        border-radius: 3px;
-    }
+.posse a[rel=syndication] {
+    background-color: #bbb;
+    color: #fff;
+    padding: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 3px;
+}
 
-    .posse {
-        margin-bottom: 2em;
-    }
+.posse {
+    margin-bottom: 2em;
+}
 
 /**
     Profiles
 */
 
-    .profile .namebadge {
-        text-align: center !important;
-    }
+.profile .namebadge {
+    text-align: center !important;
+}
 
-    .profile h1 {
-        font-size: 2em;
-        font-weight: 200;
-    }
+.profile h1 {
+    font-size: 2em;
+    font-weight: 200;
+}
 
-    .profile .icon-container {
-        width: 150px;
-        height: 150px;
-    }
+.profile .icon-container {
+    width: 150px;
+    height: 150px;
+}
 
-    .profile .icon-container .u-photo {
-        width: 150px;
-    }
+.profile .icon-container .u-photo {
+    width: 150px;
+}
 
-    .profile .url-container {
-        display: inline-block;
-        margin-right: 1em;
-    }
+.profile .url-container {
+    display: inline-block;
+    margin-right: 1em;
+}
 
-    .profile {
-        margin-top: 4em;
-        margin-bottom: 4em;
-    }
+.profile {
+    margin-top: 4em;
+    margin-bottom: 4em;
+}
 
 /**
     Content creation
 */
 
-    .buttonBar {
-        /*background-color: #4690d6;*/
-        background-color: #bbb;
-        color: #333;
-        z-index: 9999;
-        margin: 0px;
-        width: 100%;
-        margin-bottom: 2em;
-    }
+.buttonBar {
+    /*background-color: #4690d6;*/
+    background-color: #bbb;
+    color: #333;
+    z-index: 9999;
+    margin: 0px;
+    width: 100%;
+    margin-bottom: 2em;
+}
 
-    #contentTypeButtonBar {
-        padding: 1em;
-    }
+#contentTypeButtonBar {
+    padding: 1em;
+}
 
-    a.contentTypeButton {
-        float: left;
-        width: 80px;
-        text-align: center;
-        font-size: 0.8em;
-        text-decoration: none;
-        margin-right: 0.5em;
-        margin-bottom: 0.5em;
-        transition: width 0.25s, padding-top 0.25s, padding-bottom 0.25s;
-        color: #fff;
-    }
+a.contentTypeButton {
+    float: left;
+    width: 80px;
+    text-align: center;
+    font-size: 0.8em;
+    text-decoration: none;
+    margin-right: 0.5em;
+    margin-bottom: 0.5em;
+    transition: width 0.25s, padding-top 0.25s, padding-bottom 0.25s;
+    color: #fff;
+}
 
-    a.contentTypeButton:hover {
-        text-decoration: none;
-        color: #333;
-        background-color: #fff;
-    }
+a.contentTypeButton:hover {
+    text-decoration: none;
+    color: #333;
+    background-color: #fff;
+}
 
-    span.contentTypeLogo {
-        display: block;
-        font-size: 30px;
-        padding-top: 15px;
-        padding-bottom: 5px;
-    }
+span.contentTypeLogo {
+    display: block;
+    font-size: 30px;
+    padding-top: 15px;
+    padding-bottom: 5px;
+}
 
-    #contentCreate {
-        display: none;
-        z-index: -10000;
-        padding: 1em;
-        margin-top: -5px;
-        background-color: #fff;
-    }
+#contentCreate {
+    display: none;
+    z-index: -10000;
+    padding: 1em;
+    margin-top: -5px;
+    background-color: #fff;
+}
 
-    .bodyInput {
-        height: 15em;
-    }
+.bodyInput {
+    height: 15em;
+}
