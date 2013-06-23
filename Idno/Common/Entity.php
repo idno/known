@@ -385,6 +385,21 @@
             }
 
             /**
+             * Return an array of hashtags (if any) present in this entity's description.
+             * @return array
+             */
+            function getTags() {
+                if ($descr = $this->getDescription()) {
+                    if (preg_match_all('/(?<!=)(?<!["\'])(\#[A-Za-z0-9]+)/i', $descr, $matches)) {
+                        if (!empty($matches[0])) {
+                            return $matches[0];
+                        }
+                    }
+                }
+                return [];
+            }
+
+            /**
              * Retrieve a short description of this page suitable for including in page metatags
              * @return string
              */
