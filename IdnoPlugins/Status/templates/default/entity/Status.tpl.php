@@ -11,7 +11,7 @@
 
         if (!empty($vars['object']->inreplyto)) {
         ?>
-            <a href="<?=$vars['object']->inreplyto?>" class="u-in-reply-to"></a>
+            <a href="<?=$vars['object']->inreplyto?>" class="u-in-reply-to" rel="in-reply-to"></a>
         <?php
         }
 
