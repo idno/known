@@ -6,14 +6,20 @@
 ?>
 <div class="row idno-entry">
 
-    <div class="span1 offset1 owner h-card">
+    <div class="span1 offset1 owner h-card hidden-phone">
         <p>
             <?php $owner = $object->getActor(); ?>
-            <a href="<?=$owner->getURL()?>" class="u-url icon-container hidden-phone"><img class="u-photo" src="<?=$owner->getIcon()?>" /></a><br />
+            <a href="<?=$owner->getURL()?>" class="u-url icon-container"><img class="u-photo" src="<?=$owner->getIcon()?>" /></a><br />
             <a href="<?=$owner->getURL()?>" class="p-name u-url"><?=$owner->getTitle();?></a>
         </p>
     </div>
     <div class="span8 h-entry idno-content">
+        <div class="visible-phone">
+            <p class="p-author author h-card vcard">
+                <a href="<?=$owner->getURL()?>"><img class="u-logo logo u-photo photo" src="<?=$owner->getIcon()?>" /></a>
+                <a class="p-name fn u-ulr url" href="<?=$owner->getURL()?>"><?=$owner->getTitle()?></a>
+            </p>
+        </div>
         <div class="e-content entry-content">
             <?php if ($subObject = $object->getObject()) echo $subObject->draw(); ?>
         </div>
