@@ -409,6 +409,7 @@
                 if (!empty($service) && !empty($url)) {
                     $posse = $this->posse;
                     $posse[$service] = $url;
+                    $this->posse = $posse;
                     return true;
                 }
                 return false;
