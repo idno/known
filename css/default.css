@@ -91,6 +91,7 @@
     .h-entry .e-content {
         overflow: auto;
         margin-bottom: 1em;
+        padding-top: 1em;
         line-height:1.6em;
     }
 
@@ -158,6 +159,19 @@
 
     .idno-annotation {
         margin-bottom: 1em;
+    }
+
+    .posse a[rel=syndication] {
+        background-color: #bbb;
+        color: #fff;
+        padding: 3px;
+        padding-left: 5px;
+        padding-right: 5px;
+        border-radius: 3px;
+    }
+
+    .posse {
+        margin-bottom: 2em;
     }
 
 /**

@@ -6,7 +6,7 @@
     }
 ?>
 <div class="">
-    <p><?=$this->parseURLs($this->parseHashtags($vars['object']->body),$rel)?></p>
+    <p class="p-name"><?=$this->parseURLs($this->parseHashtags($vars['object']->body),$rel)?></p>
     <?php
 
         if (!empty($vars['object']->inreplyto)) {

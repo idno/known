@@ -1,21 +1,21 @@
 <?php /* @var \Idno\Common\Entity $vars['object'] */ ?>
-<div class="permalink">
-    <p>
-        <a href="<?=$vars['object']->getURL()?>" rel="permalink" ><time class="dt-published" datetime="<?=date('c',$vars['object']->created)?>"><?=$vars['object']->getRelativePublishDate()?></time></a>
-        <a href="<?=$vars['object']->getURL()?>#comments" ><?php if ($replies = $vars['object']->countAnnotations('reply')) { echo '<i class="icon-comments"></i> ' . $replies; } ?></a>
-        <a href="<?=$vars['object']->getURL()?>#comments" ><?php if ($likes = $vars['object']->countAnnotations('like')) { echo '<i class="icon-thumbs-up"></i> ' . $likes; } ?></a>
-        <a href="<?=$vars['object']->getURL()?>#comments" ><?php if ($shares = $vars['object']->countAnnotations('share')) { echo '<i class="icon-refresh"></i> ' . $shares; } ?></a>
-        <?=$this->draw('content/end/links')?>
-    </p>
-</div>
-<br clear="all" />
+    <div class="permalink">
+        <p>
+            <a href="<?=$vars['object']->getURL()?>" rel="permalink" ><time class="dt-published" datetime="<?=date('c',$vars['object']->created)?>"><?=$vars['object']->getRelativePublishDate()?></time></a>
+            <a href="<?=$vars['object']->getURL()?>#comments" ><?php if ($replies = $vars['object']->countAnnotations('reply')) { echo '<i class="icon-comments"></i> ' . $replies; } ?></a>
+            <a href="<?=$vars['object']->getURL()?>#comments" ><?php if ($likes = $vars['object']->countAnnotations('like')) { echo '<i class="icon-thumbs-up"></i> ' . $likes; } ?></a>
+            <a href="<?=$vars['object']->getURL()?>#comments" ><?php if ($shares = $vars['object']->countAnnotations('share')) { echo '<i class="icon-refresh"></i> ' . $shares; } ?></a>
+            <?=$this->draw('content/end/links')?>
+        </p>
+    </div>
+    <br clear="all" />
 <?php
 
     if (\Idno\Core\site()->currentPage()->isPermalink()) {
 
         if (!empty($likes) || !empty($replies) || !empty($shares)) {
 
-?>
+            ?>
 
             <div class="annotations">
 
@@ -37,7 +37,27 @@
 
             </div>
 
-<?php
+        <?php
+
+        }
+
+        if ($posse = $vars['object']->getPosseLinks()) {
+
+            ?>
+            <div class="posse">
+                <a name="posse"></a>
+                <p>
+                    Also on:
+                    <?php
+
+                        foreach($posse as $service => $url) {
+                            echo '<a href="'.$url.'" rel="syndication">' . $service . '</a> ';
+                        }
+
+                    ?>
+                </p>
+            </div>
+        <?php
 
         }
 
