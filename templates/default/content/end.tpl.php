@@ -3,7 +3,7 @@
     <p>
         <a href="<?=$vars['object']->getURL()?>" rel="permalink" ><time class="dt-published" datetime="<?=date('c',$vars['object']->created)?>"><?=$vars['object']->getRelativePublishDate()?></time></a>
         <a href="<?=$vars['object']->getURL()?>#comments" ><?php if ($replies = $vars['object']->countAnnotations('reply')) { echo '<i class="icon-comments"></i> ' . $replies; } ?></a>
-        <a href="<?=$vars['object']->getURL()?>#comments" ><?php if ($likes = $vars['object']->countAnnotations('like')) { echo '<i class="icon-thumbs-up-alt"></i> ' . $likes; } ?></a>
+        <a href="<?=$vars['object']->getURL()?>#comments" ><?php if ($likes = $vars['object']->countAnnotations('like')) { echo '<i class="icon-thumbs-up"></i> ' . $likes; } ?></a>
         <a href="<?=$vars['object']->getURL()?>#comments" ><?php if ($shares = $vars['object']->countAnnotations('share')) { echo '<i class="icon-refresh"></i> ' . $shares; } ?></a>
         <?=$this->draw('content/end/links')?>
     </p>
@@ -27,10 +27,10 @@
                         echo $this->__(['annotations' => $replies])->draw('entity/annotations/replies');
                     }
                     if ($likes = $vars['object']->getAnnotations('like')) {
-                        $this->__(['annotations' => $likes])->draw('entity/annotations/likes');
+                        echo $this->__(['annotations' => $likes])->draw('entity/annotations/likes');
                     }
                     if ($shares = $vars['object']->getAnnotations('share')) {
-                        $this->__(['annotations' => $shares])->draw('entity/annotations/shares');
+                        echo $this->__(['annotations' => $shares])->draw('entity/annotations/shares');
                     }
 
                 ?>

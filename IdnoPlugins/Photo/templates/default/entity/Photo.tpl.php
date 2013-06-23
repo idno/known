@@ -5,7 +5,7 @@
         $rel = '';
     }
 ?>
-<p><a href="<?=$vars['object']->getURL();?>"><?=$vars['object']->getTitle();?></a></p>
+<p class="p-name"><a href="<?=$vars['object']->getURL();?>"><?=$vars['object']->getTitle();?></a></p>
 <?php
     if ($attachments = $vars['object']->getAttachments()) {
         foreach($attachments as $attachment) {
