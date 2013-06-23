@@ -400,6 +400,33 @@
             }
 
             /**
+             * Sets the POSSE link for this entity to a particular service
+             * @param $service
+             * @param $url
+             * @return bool
+             */
+            function setPosseLink($service, $url) {
+                if (!empty($service) && !empty($url)) {
+                    $posse = $this->posse;
+                    $posse[$service] = $url;
+                    return true;
+                }
+                return false;
+            }
+
+            /**
+             * Retrieves an array of form ['service_name' => 'url'] that represents copies of this entity
+             * on third-party services
+             * @return array
+             */
+            function getPosseLinks() {
+                if (!empty($this->posse)) {
+                    return $this->posse;
+                }
+                return [];
+            }
+
+            /**
              * Retrieve a short description of this page suitable for including in page metatags
              * @return string
              */
