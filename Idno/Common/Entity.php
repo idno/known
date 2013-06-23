@@ -693,20 +693,18 @@
                         if (!empty($item['type']) && is_array($item['type'])) {
                             foreach ($item['type'] as $type) {
                                 switch ($type) {
-                                    case 'h-card':
+                                    case 'h-entry':
                                         // We know this is the owner of the page
-                                        // So let's go digging ...
-                                        if (!empty($item['properties'])) {
-                                            error_log(var_export($item['properties'],true));
-                                            if (!empty($item['properties']['name'])) $owner['name'] = $item['properties']['name'][0];
-                                            if (!empty($item['properties']['url'])) $owner['url'] = $item['properties']['url'][0];
-                                            if (!empty($item['properties']['photo'])) $owner['photo'] = $item['properties']['photo'][0];
-                                        }
+                                        // But for now we're not going to do anything with this
                                         break;
                                     case 'h-entry':
                                         $mention = [];
                                         if (!empty($item['properties'])) {
-                                            error_log(var_export($item['properties'],true));
+                                            if (!empty($item['properties']['author']['h-card'])) {
+                                                if (!empty($item['properties']['author']['h-card']['name'])) $owner['name'] = $item['properties']['author']['h-card']['name'][0];
+                                                if (!empty($item['properties']['author']['h-card']['url'])) $owner['url'] = $item['properties']['author']['h-card']['url'][0];
+                                                if (!empty($item['properties']['author']['h-card']['photo'])) $owner['photo'] = $item['properties']['author']['h-card']['photo'][0];
+                                            }
                                             if (!empty($item['properties']['content'])) {
                                                 if (is_array($item['properties']['content'])) {
                                                     $mention['content'] = strip_tags(implode(' ', $item['properties']['content']));

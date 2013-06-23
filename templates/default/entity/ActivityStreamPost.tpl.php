@@ -17,7 +17,8 @@
         <div class="visible-phone">
             <p class="p-author author h-card vcard">
                 <a href="<?=$owner->getURL()?>"><img class="u-logo logo u-photo photo" src="<?=$owner->getIcon()?>" /></a>
-                <a class="p-name fn u-ulr url" href="<?=$owner->getURL()?>"><?=$owner->getTitle()?></a>
+                <a class="p-name fn u-url url" href="<?=$owner->getURL()?>"><?=$owner->getTitle()?></a>
+                <a class="u-url" href="<?=$owner->getURL()?>"><!-- This is here to force the hand of your MF2 parser --></a>
             </p>
         </div>
         <div class="e-content entry-content">
