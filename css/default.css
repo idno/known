@@ -101,6 +101,7 @@ h2 {
     margin-bottom: 1em;
     padding-top: 1em;
     line-height:1.6em;
+    font-size: 0.9em;
 }
 
 .idno-object .footer {
@@ -141,7 +142,6 @@ h2 {
 }
 
 .p-name {
-    font-size: 0.9em;
     line-height: 0.5em !important;
 }
 
