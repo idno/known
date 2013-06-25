@@ -32,6 +32,9 @@
                     if ($shares = $vars['object']->getAnnotations('share')) {
                         echo $this->__(['annotations' => $shares])->draw('entity/annotations/shares');
                     }
+                    if ($rsvps = $vars['object']->getAnnotations('rsvp')) {
+                        echo $this->__(['annotations' => $rsvps])->draw('entity/annotations/rsvps');
+                    }
 
                 ?>
 
