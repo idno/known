@@ -1,0 +1,23 @@
+<form action="<?=$vars['object']->getURL()?>" method="post">
+
+    <div class="row">
+
+        <div class="span10 offset1">
+
+            <p>
+                <label>
+                    Address of the page to favorite:<br />
+                    <input type="text" name="body" id="body" value="<?=htmlspecialchars($vars['object']->body)?>" class="span9" />
+                </label>
+                <label>
+                    If you want, enter some tags or a note here:<br />
+                    <input type="text" name="description" id="description" value="<?=htmlspecialchars($vars['object']->description)?>" class="span9" />
+                </label>
+                <?= \Idno\Core\site()->actions()->signForm('/like/edit') ?>
+                <input type="submit" class="btn btn-primary" value="Save" />
+                <input type="button" class="btn" value="Cancel" onclick="hideContentCreateForm();" />
+            </p>
+        </div>
+
+    </div>
+</form>

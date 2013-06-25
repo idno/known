@@ -29,8 +29,8 @@
                 }
                 if (!empty($subject)) {
                     $regexObj = new \MongoRegex("/".addslashes($subject)."/i");
-                    $items = \Idno\Common\Entity::getFromX($types,['$or' => [['body' => $regexObj], ['title' => $regexObj]]],[],10,$offset);
-                    $count = \Idno\Common\Entity::countFromX($types,['$or' => [['body' => $regexObj], ['title' => $regexObj]]]);
+                    $items = \Idno\Common\Entity::getFromX($types,['$or' => [['body' => $regexObj], ['title' => $regexObj], ['description' => $regexObj]]],[],10,$offset);
+                    $count = \Idno\Common\Entity::countFromX($types,['$or' => [['body' => $regexObj], ['title' => $regexObj], ['description' => $regexObj]]]);
                 } else {
                     $items = [];
                     $subject = 'Search';

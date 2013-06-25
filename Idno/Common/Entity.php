@@ -682,7 +682,7 @@
                     // At this point, we don't know who owns the page or what the content is.
                     // First, we'll initialize some variables that we're interested in filling.
 
-                    $owner    = []; // The page owner
+                    $owner    = []; // The content owner
                     $mentions = []; // Usable webmention items, for posting as annotations
                     $return   = true; // Return value;
 
@@ -692,18 +692,32 @@
                         // Figure out what kind of Microformats 2 item we have
                         if (!empty($item['type']) && is_array($item['type'])) {
                             foreach ($item['type'] as $type) {
-                                switch ($type) {
-                                    case 'h-entry':
-                                        // We know this is the owner of the page
-                                        // But for now we're not going to do anything with this
+
+                                switch($type) {
+                                    case 'h-card':
+                                        if (!empty($item['properties'])) {
+                                            error_log(var_export($item['properties'],true));
+                                            if (!empty($item['properties']['name'])) $owner['name'] = $item['properties']['name'][0];
+                                            if (!empty($item['properties']['url'])) $owner['url'] = $item['properties']['url'][0];
+                                            if (!empty($item['properties']['photo'])) $owner['photo'] = $item['properties']['photo'][0];
+                                        }
                                         break;
+                                }
+
+                            }
+                        }
+                        if (!empty($item['type']) && is_array($item['type'])) {
+                            foreach ($item['type'] as $type) {
+                                switch ($type) {
                                     case 'h-entry':
                                         $mention = [];
                                         if (!empty($item['properties'])) {
-                                            if (!empty($item['properties']['author']['h-card'])) {
-                                                if (!empty($item['properties']['author']['h-card']['name'])) $owner['name'] = $item['properties']['author']['h-card']['name'][0];
-                                                if (!empty($item['properties']['author']['h-card']['url'])) $owner['url'] = $item['properties']['author']['h-card']['url'][0];
-                                                if (!empty($item['properties']['author']['h-card']['photo'])) $owner['photo'] = $item['properties']['author']['h-card']['photo'][0];
+                                            if (!empty($item['properties']['author'])) {
+                                                error_log("AUTHOR");
+                                                error_log(var_export($item['properties']['author'],true));
+                                                if (!empty($item['properties']['author'][0]['properties']['name'])) $owner['name'] = $item['properties']['author'][0]['properties']['name'][0];
+                                                if (!empty($item['properties']['author'][0]['properties']['url'])) $owner['url'] = $item['properties']['author'][0]['properties']['url'][0];
+                                                if (!empty($item['properties']['author'][0]['properties']['photo'])) $owner['photo'] = $item['properties']['author'][0]['properties']['photo'][0];
                                             }
                                             if (!empty($item['properties']['content'])) {
                                                 if (is_array($item['properties']['content'])) {

@@ -57,6 +57,10 @@ h2 {
     width: 1.5em;
 }
 
+.hint {
+    color: #bbb;
+}
+
 /**
     Activity streams
 */
