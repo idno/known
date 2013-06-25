@@ -742,6 +742,22 @@
                                                     $mention['content'] = $item['properties']['content'];
                                                     error_log('Setting content to ' . $mention['content']);
                                                 }
+                                            } else if (!empty($item['properties']['summary'])) {
+                                                if (is_array($item['properties']['summary'])) {
+                                                    $mention['content'] = strip_tags(implode(' ', $item['properties']['summary']));
+                                                    error_log('Setting content to ' . $mention['content']);
+                                                } else {
+                                                    $mention['content'] = $item['properties']['summary'];
+                                                    error_log('Setting content to ' . $mention['content']);
+                                                }
+                                            } else if (!empty($item['properties']['name'])) {
+                                                if (is_array($item['properties']['name'])) {
+                                                    $mention['content'] = strip_tags(implode(' ', $item['properties']['name']));
+                                                    error_log('Setting content to ' . $mention['content']);
+                                                } else {
+                                                    $mention['content'] = $item['properties']['name'];
+                                                    error_log('Setting content to ' . $mention['content']);
+                                                }
                                             }
                                             if (!empty($item['properties']['published'])) {
                                                 if (is_array($item['properties']['published'])) {
