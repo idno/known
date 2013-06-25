@@ -46,9 +46,10 @@
                 curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($ch, CURLOPT_USERAGENT, "Idno (webmentions) 0.1");
-                if ($response = curl_exec($ch)) {} else error_log(curl_error($ch));
+                if ($content = curl_exec($ch)) {} else error_log(curl_error($ch));
+                $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
                 curl_close($ch);
-                return $response;
+                return ['content' => $content, 'response' => $http_status];
             }
 
             static function process($page, $object) {

@@ -60,6 +60,10 @@
 
             }
 
+            function deleteData() {
+                \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getDescription()));
+            }
+
             /**
              * Given a latitude and longitude, reverse geocodes it into a structure including name, address,
              * city, etc

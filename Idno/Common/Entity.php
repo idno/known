@@ -168,10 +168,21 @@
                         }
                     }
 
-                    return \Idno\Core\db()->deleteRecord($this->getID());
+                    if ($return = \Idno\Core\db()->deleteRecord($this->getID())) {
+                        $this->deleteData();
+                        return $return;
+                    }
                 }
 
                 return false;
+            }
+
+            /**
+             * Is called after an entity is deleted but before the delete process finishes
+             * @return bool
+             */
+            function deleteData() {
+                return true;
             }
 
             /**
@@ -687,7 +698,10 @@
              */
             function addWebmentions($source, $target, $source_content, $source_mf2)
             {
-                if (!empty($source_mf2) && !empty($source_mf2['items']) && is_array($source_mf2['items'])) {
+                if ($source_content['response'] == 410) {
+                    $this->removeAnnotation($source);
+                    $this->save();
+                } else if (!empty($source_mf2) && !empty($source_mf2['items']) && is_array($source_mf2['items'])) {
 
                     // At this point, we don't know who owns the page or what the content is.
                     // First, we'll initialize some variables that we're interested in filling.
