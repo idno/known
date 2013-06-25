@@ -193,6 +193,17 @@ h2 {
     margin-bottom: 2em;
 }
 
+.reply-text p {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    color: #999;
+    font-size: smaller;
+}
+
+.reply-text p a {
+    color: #666;
+}
+
 /**
     Profiles
 */

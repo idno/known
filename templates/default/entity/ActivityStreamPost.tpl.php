@@ -1,6 +1,8 @@
 <?php
     $object = $vars['object'];
+    $subObject = $object->getObject();
     /* @var \Idno\Entities\ActivityStreamPost $object */
+    /* @var \Idno\Common\Entity $subObject */
 
     if (!empty($object)) {
 ?>
@@ -21,8 +23,34 @@
                 <a class="u-url" href="<?=$owner->getURL()?>"><!-- This is here to force the hand of your MF2 parser --></a>
             </p>
         </div>
+        <?php
+            if (($subObject->inreplyto)) {
+        ?>
+                <div class="reply-text">
+                    <?php
+
+                        if (($subObject->replycontext)) {
+
+                            //echo
+
+                        } else {
+                            ?>
+
+                                <p>
+                                    <i class="icon-reply"></i> Replied to <a href="<?=$subObject->inreplyto?>" rel="in-reply-to" class="u-in-reply-to">a post on <?=parse_url($subObject->inreplyto, PHP_URL_HOST);?></a>:
+                                </p>
+
+                            <?php
+                        }
+
+                    ?>
+                </div>
+        <?php
+            }
+
+        ?>
         <div class="e-content entry-content">
-            <?php if ($subObject = $object->getObject()) echo $subObject->draw(); ?>
+            <?php if (!empty($subObject)) echo $subObject->draw(); ?>
         </div>
         <div class="footer">
             <?php
