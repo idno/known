@@ -36,12 +36,27 @@
                                 if ($page->webmentionContent($source, $target, $source_content, $source_mf2)) {
                                     $this->setResponse(202);    // Webmention received a-ok.
                                     exit;
+                                } else {
+                                    $error = 'target_not_supported';
+                                    $error_text = 'This is not webmentionable.';
                                 }
-                            } else error_log('No link from ' . $source . ' to ' . $target);
-                        } else error_log('No content from ' . $source);
+                            } else {
+                                $error = 'no_link_found';
+                                $error_text = 'The source URI does not contain a link to the target URI.';
+                                error_log('No link from ' . $source . ' to ' . $target);
+                            }
+                        } else {
+                            $error = 'source_not_found';
+                            $error_text = 'The source content could not be obtained.';
+                            error_log('No content from ' . $source);
+                        }
+                    } else {
+                        $error = 'target_not_found';
+                        $error_text = 'The target page does not exist.';
                     }
                 }
                 $this->setResponse(400);    // Webmention failed.
+                echo json_encode(['error' => $error, 'error_text' => $error_text]);
             }
 
         }
