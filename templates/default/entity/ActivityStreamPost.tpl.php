@@ -37,7 +37,7 @@
                             ?>
 
                                 <p>
-                                    <i class="icon-reply"></i> Replied to <a href="<?=$subObject->inreplyto?>" rel="in-reply-to" class="u-in-reply-to">a post on <?=parse_url($subObject->inreplyto, PHP_URL_HOST);?></a>:
+                                    <i class="icon-reply"></i> Replied to <a href="<?=$subObject->inreplyto?>" rel="in-reply-to" class="u-in-reply-to">a post on <strong><?=parse_url($subObject->inreplyto, PHP_URL_HOST);?></strong></a>:
                                 </p>
 
                             <?php
