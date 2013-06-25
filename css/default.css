@@ -65,13 +65,13 @@ h2 {
     Activity streams
 */
 
-.h-entry {
+.idno-object {
     margin-top: 1em;
     display: block;
     box-shadow: 0 3px 2px -2px #ccc;
 }
 
-.h-entry h2 {
+.idno-object h2 {
     font-size: 1em;
     margin: 0;
     padding: 0;
@@ -88,38 +88,38 @@ h2 {
     margin-bottom: 1em;
 }
 
-.h-entry .edit {
+.idno-object .edit {
     float: right;
 }
 
-.h-entry .edit a {
+.idno-object .edit a {
     margin-left: 1em;
 }
 
-.h-entry .e-content {
+.idno-object .e-content {
     overflow: auto;
     margin-bottom: 1em;
     padding-top: 1em;
     line-height:1.6em;
 }
 
-.h-entry .footer {
+.idno-object .footer {
     clear: both;
     font-size: 0.85em;
     border-top: #eee solid 1px;
     padding: 0px; margin: 0px;
 }
 
-.h-entry .permalink {
+.idno-object .permalink {
     float: left;
 }
 
-.h-entry .permalink a, .h-entry .permalink a:hover {
+.idno-object .permalink a, .idno-object .permalink a:hover {
     color: #999;
     margin-right: 1em;
 }
 
-.h-entry .dt-published {
+.idno-object .dt-published {
     color: #999;
 }
 

@@ -4,7 +4,7 @@
     /* @var \Idno\Entities\ActivityStreamPost $object */
     /* @var \Idno\Common\Entity $subObject */
 
-    if (!empty($object)) {
+    if (!empty($object) && !empty($subObject)) {
 ?>
 <div class="row idno-entry">
 
@@ -15,7 +15,7 @@
             <a href="<?=$owner->getURL()?>" class="p-name u-url"><?=$owner->getTitle();?></a>
         </p>
     </div>
-    <div class="span8 h-entry idno-content">
+    <div class="span8 <?=$subObject->getMicroformats2ObjectType()?> idno-object idno-content">
         <div class="visible-phone">
             <p class="p-author author h-card vcard">
                 <a href="<?=$owner->getURL()?>"><img class="u-logo logo u-photo photo" src="<?=$owner->getIcon()?>" /></a>

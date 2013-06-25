@@ -518,6 +518,16 @@
             }
 
             /**
+             * Retrieve the Microformats 2 root-level object type for this entity.
+             * By default, this is 'h-entry'.
+             *
+             * @return string
+             */
+            function getMicroformats2ObjectType() {
+                return 'h-entry';
+            }
+
+            /**
              * Can a specified user (either an explicitly specified user ID
              * or the currently logged-in user if this is left blank) edit
              * this entity?

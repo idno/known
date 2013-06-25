@@ -5,6 +5,7 @@
             <a href="<?=$vars['object']->getURL()?>#comments" ><?php if ($replies = $vars['object']->countAnnotations('reply')) { echo '<i class="icon-comments"></i> ' . $replies; } ?></a>
             <a href="<?=$vars['object']->getURL()?>#comments" ><?php if ($likes = $vars['object']->countAnnotations('like')) { echo '<i class="icon-thumbs-up"></i> ' . $likes; } ?></a>
             <a href="<?=$vars['object']->getURL()?>#comments" ><?php if ($shares = $vars['object']->countAnnotations('share')) { echo '<i class="icon-refresh"></i> ' . $shares; } ?></a>
+            <a href="<?=$vars['object']->getURL()?>#comments" ><?php if ($rsvps = $vars['object']->countAnnotations('rsvp')) { echo '<i class="icon-calendar-empty"></i> ' . $rsvps; } ?></a>
             <?=$this->draw('content/end/links')?>
         </p>
     </div>
@@ -13,7 +14,7 @@
 
     if (\Idno\Core\site()->currentPage()->isPermalink()) {
 
-        if (!empty($likes) || !empty($replies) || !empty($shares)) {
+        if (!empty($likes) || !empty($replies) || !empty($shares) || !empty($rsvps)) {
 
             ?>
 
