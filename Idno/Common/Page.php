@@ -281,6 +281,7 @@ namespace Idno\Common {
         function goneContent()
         {
             $this->setResponse(410);
+            http_response_code($this->response);
             $t = \Idno\Core\site()->template();
             $t->__(['body' => $t->draw('pages/410'), 'title' => 'Gone, baby, gone'])->drawPage();
             exit;
@@ -292,6 +293,7 @@ namespace Idno\Common {
         function noContent()
         {
             $this->setResponse(404);
+            http_response_code($this->response);
             $t = \Idno\Core\site()->template();
             $t->__(['body' => $t->draw('pages/404'), 'title' => 'Not found!'])->drawPage();
             exit;
