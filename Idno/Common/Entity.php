@@ -814,9 +814,6 @@
                                                     $mention['type'] = 'share';
                                                 }
                                             }
-                                            if (!isset($mention['type'])) {
-                                                $mention['type'] = 'reply';
-                                            }
                                         }
                                         if (!empty($mention['content']) && !empty($mention['type'])) {
                                             $mentions[] = $mention;
