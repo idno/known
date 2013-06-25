@@ -117,11 +117,12 @@ h2 {
 
 .idno-object .permalink a, .idno-object .permalink a:hover {
     color: #999;
-    margin-right: 1em;
+    margin-right: 0.25em;
 }
 
 .idno-object .dt-published {
     color: #999;
+    margin-right: 0.25em;
 }
 
 .owner .u-photo {
