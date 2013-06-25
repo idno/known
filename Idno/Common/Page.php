@@ -271,8 +271,30 @@ namespace Idno\Common {
          * @return bool
          */
         function webmentionContent($source, $target, $source_content, $source_mf2)
-        {;
+        {
             return true;
+        }
+
+        /**
+         * Page handler for when a resource has disappeared.
+         */
+        function goneContent()
+        {
+            $this->setResponse(410);
+            $t = \Idno\Core\site()->template();
+            $t->__(['body' => $t->draw('pages/410'), 'title' => 'Gone, baby, gone'])->drawPage();
+            exit;
+        }
+
+        /**
+         * Page handler for when a resource doesn't exist.
+         */
+        function noContent()
+        {
+            $this->setResponse(404);
+            $t = \Idno\Core\site()->template();
+            $t->__(['body' => $t->draw('pages/404'), 'title' => 'Not found!'])->drawPage();
+            exit;
         }
 
         /**

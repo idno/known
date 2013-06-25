@@ -21,7 +21,6 @@ require_once(dirname(__FILE__) . '/Idno/start.php');
 // Manage routing
 
 \Idno\Core\PageHandler::hook('404', function () {
-    // TODO: something smart here that will allow plugins and JSON API
-    // calls to have a sensible 404 page
+
 });
 \Idno\Core\PageHandler::serve(\Idno\Core\site()->pagehandlers);

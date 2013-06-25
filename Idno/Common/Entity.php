@@ -1056,7 +1056,11 @@
 
             static function getByID($id)
             {
-                return self::getOneFromAll(array('_id' => new \MongoId($id)));
+                try {
+                    return self::getOneFromAll(array('_id' => new \MongoId($id)));
+                } catch (\Exception $e) {
+                    \Idno\Core\site()->currentPage()->noContent();
+                }
             }
 
             /**

@@ -19,7 +19,9 @@
                 if (!empty($this->arguments[0])) {
                     $object = \Idno\Common\Entity::getByID($this->arguments[0]);
                 }
-                if (empty($object)) $this->forward(); // TODO: 404
+                if (empty($object)) {
+                    $this->goneContent();
+                }
 
                 $this->setPermalink();  // This is a permalink
                 $t = \Idno\Core\site()->template();

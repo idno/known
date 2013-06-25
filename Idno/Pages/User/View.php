@@ -19,7 +19,9 @@
                 if (!empty($this->arguments[0])) {
                     $user = \Idno\Entities\User::getByHandle($this->arguments[0]);
                 }
-                if (empty($user)) $this->forward(); // TODO: 404
+                if (empty($user)) {
+                    $this->noContent();
+                }
 
                 $this->setPermalink();  // This is a permalink
                 $offset = (int) $this->getInput('offset');
