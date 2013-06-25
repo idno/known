@@ -687,6 +687,8 @@
                     $return   = true; // Return value;
 
                     // And then let's cycle through them!
+
+                    // A first pass for overall owner ...
                     foreach ($source_mf2['items'] as $item) {
 
                         // Figure out what kind of Microformats 2 item we have
@@ -696,16 +698,23 @@
                                 switch($type) {
                                     case 'h-card':
                                         if (!empty($item['properties'])) {
-                                            error_log(var_export($item['properties'],true));
                                             if (!empty($item['properties']['name'])) $owner['name'] = $item['properties']['name'][0];
                                             if (!empty($item['properties']['url'])) $owner['url'] = $item['properties']['url'][0];
                                             if (!empty($item['properties']['photo'])) $owner['photo'] = $item['properties']['photo'][0];
                                         }
                                         break;
                                 }
+                                if (!empty($owner)) {
+                                    break;
+                                }
 
                             }
                         }
+
+                    }
+
+                    // And now a second pass for per-item owners and mentions ...
+                    foreach ($source_mf2['items'] as $item) {
                         if (!empty($item['type']) && is_array($item['type'])) {
                             foreach ($item['type'] as $type) {
                                 switch ($type) {
@@ -713,17 +722,25 @@
                                         $mention = [];
                                         if (!empty($item['properties'])) {
                                             if (!empty($item['properties']['author'])) {
-                                                error_log("AUTHOR");
-                                                error_log(var_export($item['properties']['author'],true));
-                                                if (!empty($item['properties']['author'][0]['properties']['name'])) $owner['name'] = $item['properties']['author'][0]['properties']['name'][0];
-                                                if (!empty($item['properties']['author'][0]['properties']['url'])) $owner['url'] = $item['properties']['author'][0]['properties']['url'][0];
-                                                if (!empty($item['properties']['author'][0]['properties']['photo'])) $owner['photo'] = $item['properties']['author'][0]['properties']['photo'][0];
+                                                foreach($item['properties']['author'] as $author) {
+                                                    if (!empty($author['type'])) {
+                                                        foreach($author['type'] as $type) {
+                                                            if ($type == 'h-card') {
+                                                                if (!empty($author['properties']['name'])) $owner['name'] = $author['properties']['name'][0];
+                                                                if (!empty($author['properties']['url'])) $owner['url'] = $author['properties']['url'][0];
+                                                                if (!empty($author['properties']['photo'])) $owner['photo'] = $author['properties']['photo'][0];
+                                                            }
+                                                        }
+                                                    }
+                                                }
                                             }
                                             if (!empty($item['properties']['content'])) {
                                                 if (is_array($item['properties']['content'])) {
                                                     $mention['content'] = strip_tags(implode(' ', $item['properties']['content']));
+                                                    error_log('Setting content to ' . $mention['content']);
                                                 } else {
                                                     $mention['content'] = $item['properties']['content'];
+                                                    error_log('Setting content to ' . $mention['content']);
                                                 }
                                             }
                                             if (!empty($item['properties']['published'])) {
@@ -751,6 +768,9 @@
                                                     $mention['type'] = 'share';
                                                 }
                                             }
+                                            if (!isset($mention['type'])) {
+                                                $mention['type'] = 'reply';
+                                            }
                                         }
                                         if (!empty($mention['content']) && !empty($mention['type'])) {
                                             $mentions[] = $mention;
@@ -760,9 +780,7 @@
                             }
                         }
                     }
-                    error_log(var_export($mentions,true));
-                    error_log(var_export($owner,true));
-                    if (!empty($mentions) && !empty($owner)) {
+                    if (!empty($mentions) && !empty($owner) && !empty($owner['url'])) {
                         if (empty($owner['photo'])) {
                             $owner['photo'] = '';
                         }
