@@ -763,6 +763,11 @@
                                                     $mention['type'] = 'like';
                                                 }
                                             }
+                                            if (!empty($item['properties']['rsvp']) && is_array($item['properties']['rsvp'])) {
+                                                if (in_array($target, $item['properties']['rsvp'])) {
+                                                    $mention['type'] = 'rsvp';
+                                                }
+                                            }
                                             if (!empty($item['properties']['share']) && is_array($item['properties']['share'])) {
                                                 if (in_array($target, $item['properties']['share'])) {
                                                     $mention['type'] = 'share';
