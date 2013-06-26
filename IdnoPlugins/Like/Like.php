@@ -65,11 +65,9 @@
                     if ($this->save()) {
                         if ($new) {
                             $this->addToFeed();
-                            $result = \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->body));
-                            error_log(var_export($result,true));
-                            $result = \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->description));
-                            error_log(var_export($result,true));
                         } // Add it to the Activity Streams feed
+                        $result = \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->body));
+                        $result = \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->description));
                         \Idno\Core\site()->session()->addMessage('You starred the page!');
                         return true;
                     }

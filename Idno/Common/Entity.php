@@ -836,6 +836,7 @@
                         if (empty($owner['name'])) {
                             $owner['name'] = 'Web user';
                         }
+                        $this->removeAnnotation($source);
                         foreach ($mentions as $mention) {
                             if (!$this->addAnnotation($mention['type'], $owner['name'], $owner['url'], $owner['photo'], $mention['content'], $source, $mention['created'])) {
                                 $return = false;

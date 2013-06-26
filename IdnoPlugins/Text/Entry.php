@@ -46,8 +46,8 @@
                         if ($new) {
                             // Add it to the Activity Streams feed
                             $this->addToFeed();
-                            \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getDescription()));
                         }
+                        \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getDescription()));
                         \Idno\Core\site()->session()->addMessage('Your entry was successfully saved.');
                         return true;
                     }

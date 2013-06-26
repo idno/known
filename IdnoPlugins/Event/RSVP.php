@@ -22,7 +22,7 @@
 
             function getURL() {
                 if (($this->getID())) {
-                    return \Idno\Core\site()->config()->url . 'rsvp/' . $this->getID() . '/' . $this->getPrettyURLTitle();
+                    return \Idno\Core\site()->config()->url . 'rsvp/' . $this->getID() . '/';
                 } else {
                     return parent::getURL();
                 }
@@ -66,8 +66,8 @@
                         if ($new) {
                             // Add it to the Activity Streams feed
                             $this->addToFeed();
-                            \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getDescription()));
                         }
+                        \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getDescription()));
                         \Idno\Core\site()->session()->addMessage('Your RSVP was successfully saved.');
                         return true;
                     }
