@@ -33,7 +33,7 @@
              * @return 'article'
              */
             function getActivityStreamsObjectType() {
-                return 'comment';
+                return 'note';
             }
 
             /**
