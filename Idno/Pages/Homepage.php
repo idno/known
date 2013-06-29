@@ -17,8 +17,17 @@ namespace Idno\Pages {
         function getContent()
         {
             $offset = (int) $this->getInput('offset');
-            $count = \Idno\Entities\ActivityStreamPost::count([]);
-            $feed = \Idno\Entities\ActivityStreamPost::get([],[],\Idno\Core\site()->config()->items_per_page,$offset);
+            $types = $this->getInput('types');
+
+            if (empty($types)) {
+                $types = 'Idno\Entities\ActivityStreamPost';
+            } else {
+                if (!is_array($types)) $types = [$types];
+                $types[] = '!Idno\Entities\ActivityStreamPost';
+            }
+
+            $count = \Idno\Entities\ActivityStreamPost::countFromX($types,[]);
+            $feed = \Idno\Entities\ActivityStreamPost::getFromX($types,[],[],\Idno\Core\site()->config()->items_per_page,$offset);
             if (\Idno\Core\site()->session()->isLoggedIn()) {
                 $create = \Idno\Common\ContentType::getRegistered();
             } else {

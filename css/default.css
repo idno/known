@@ -61,6 +61,15 @@ h2 {
     color: #bbb;
 }
 
+.dropdown-menu a {
+    color: #333 !important;
+}
+
+.dropdown-menu-icon {
+    width: 2em;
+    display: inline-block;
+}
+
 /**
     Activity streams
 */

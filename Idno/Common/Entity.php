@@ -144,12 +144,22 @@
              */
             function getRelatedFeedItems($verb = 'post')
             {
+
+                $results = [];
+
+                if ($this instanceof \Idno\Entities\ActivityStreamPost && $this->verb == $verb) {
+                    $results[] = $this;
+                }
+
                 $search = array('object' => $this->getUUID());
                 if (!empty($verb)) {
                     $search['verb'] = $verb;
                 }
 
-                return \Idno\Entities\ActivityStreamPost::get($search);
+                $other_results = \Idno\Entities\ActivityStreamPost::get($search);
+
+                return array_merge($results, $other_results);
+
             }
 
             /**

@@ -13,8 +13,7 @@
     if (!empty($vars['items'])) {
 
         foreach($vars['items'] as $entry) {
-            /* @var \Idno\Entities\ActivityStreamPost $entry */
-            echo $entry->draw();
+            echo $this->__(array('object' => $entry->getRelatedFeedItems()))->draw('entity/shell');
         }
 
         echo $this->drawPagination($vars['count']);
