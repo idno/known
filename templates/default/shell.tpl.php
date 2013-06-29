@@ -65,6 +65,7 @@
             <div class="nav-collapse collapse">
                 <ul class="nav" role="menu">
                 </ul>
+                <?=$this->draw('shell/toolbar/content')?>
                 <ul class="nav pull-right" role="menu">
                     <?php
 
