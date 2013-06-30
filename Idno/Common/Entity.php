@@ -697,8 +697,109 @@
             }
 
             /**
+             * Recursive helper function for parsing webmentions.
+             *
+             * @param $item
+             * @param $mentions
+             * @return array
+             */
+            function addWebmentionItem($item, $mentions) {
+                if (!empty($item['properties']['author'])) {
+                    foreach($item['properties']['author'] as $author) {
+                        if (!empty($author['type'])) {
+                            foreach($author['type'] as $type) {
+                                if ($type == 'h-card') {
+                                    if (!empty($author['properties']['name'])) $mentions['owner']['name'] = $author['properties']['name'][0];
+                                    if (!empty($author['properties']['url'])) $mentions['owner']['url'] = $author['properties']['url'][0];
+                                    if (!empty($author['properties']['photo'])) $mentions['owner']['photo'] = $author['properties']['photo'][0];
+                                }
+                            }
+                        }
+                    }
+                }
+                if (!empty($item['type'])) {
+                    if (in_array('h-entry', $item['type'])) {
+
+                        $mention = [];
+                        if (!empty($item['properties'])) {
+                            if (!empty($item['properties']['content'])) {
+                                if (is_array($item['properties']['content'])) {
+                                    $mention['content'] = strip_tags(implode(' ', $item['properties']['content']));
+                                    error_log('Setting content to ' . $mention['content']);
+                                } else {
+                                    $mention['content'] = $item['properties']['content'];
+                                    error_log('Setting content to ' . $mention['content']);
+                                }
+                            } else if (!empty($item['properties']['summary'])) {
+                                if (is_array($item['properties']['summary'])) {
+                                    $mention['content'] = strip_tags(implode(' ', $item['properties']['summary']));
+                                    error_log('Setting content to ' . $mention['content']);
+                                } else {
+                                    $mention['content'] = $item['properties']['summary'];
+                                    error_log('Setting content to ' . $mention['content']);
+                                }
+                            } else if (!empty($item['properties']['name'])) {
+                                if (is_array($item['properties']['name'])) {
+                                    $mention['content'] = strip_tags(implode(' ', $item['properties']['name']));
+                                    error_log('Setting content to ' . $mention['content']);
+                                } else {
+                                    $mention['content'] = $item['properties']['name'];
+                                    error_log('Setting content to ' . $mention['content']);
+                                }
+                            }
+                            if (!empty($item['properties']['published'])) {
+                                if (is_array($item['properties']['published'])) {
+                                    $mention['created'] = @strtotime(array_shift(array_pop($item['properties']['published'])));
+                                } else {
+                                    $mention['created'] = @strtotime($item['properties']['content']);
+                                }
+                                if (empty($mention['created'])) {
+                                    $mention['created'] = time();
+                                }
+                            }
+                            if (!empty($item['properties']['in-reply-to']) && is_array($item['properties']['in-reply-to'])) {
+                                if (in_array($target, $item['properties']['in-reply-to'])) {
+                                    $mention['type'] = 'reply';
+                                }
+                            }
+                            if (!empty($item['properties']['like']) && is_array($item['properties']['like'])) {
+                                if (in_array($target, $item['properties']['like'])) {
+                                    $mention['type'] = 'like';
+                                }
+                            }
+                            if (!empty($item['properties']['rsvp']) && is_array($item['properties']['rsvp'])) {
+                                //if (in_array($target, $item['properties']['rsvp'])) {
+                                $mention['type'] = 'rsvp';
+                                $mention['content'] = implode(' ', $item['properties']['rsvp']);
+                                //}
+                            }
+                            if (!empty($item['properties']['share']) && is_array($item['properties']['share'])) {
+                                if (in_array($target, $item['properties']['share'])) {
+                                    $mention['type'] = 'share';
+                                }
+                            }
+                            if (empty($mention['type'])) {
+                                $mention['type'] = 'reply';
+                            }
+                        }
+                        if (!empty($mention['content']) && !empty($mention['type'])) {
+                            $mentions['mentions'][] = $mention;
+                        }
+
+                    }
+                }
+                if (in_array('h-feed',$item['type'])) {
+                    if (!empty($item['children'])) {
+                        foreach($item['children'] as $child) {
+                            $mentions = $this->addWebmentionItem($child, $mentions);
+                        }
+                    }
+                }
+                return $mentions;
+            }
+
+            /**
              * Add webmentions as annotations based on Microformats 2 data
-             * @TODO: differentiate between comments, likes, etc
              *
              * @param string $source The source URL
              * @param string $target The target URL (i.e., the page on this site that was pinged)
@@ -716,8 +817,7 @@
                     // At this point, we don't know who owns the page or what the content is.
                     // First, we'll initialize some variables that we're interested in filling.
 
-                    $owner    = []; // The content owner
-                    $mentions = []; // Usable webmention items, for posting as annotations
+                    $mentions = ['owner' => [], 'mentions' => []]; // Content owner and usable webmention items
                     $return   = true; // Return value;
 
                     // And then let's cycle through them!
@@ -732,13 +832,13 @@
                                 switch($type) {
                                     case 'h-card':
                                         if (!empty($item['properties'])) {
-                                            if (!empty($item['properties']['name'])) $owner['name'] = $item['properties']['name'][0];
-                                            if (!empty($item['properties']['url'])) $owner['url'] = $item['properties']['url'][0];
-                                            if (!empty($item['properties']['photo'])) $owner['photo'] = $item['properties']['photo'][0];
+                                            if (!empty($item['properties']['name'])) $mentions['owner']['name'] = $item['properties']['name'][0];
+                                            if (!empty($item['properties']['url'])) $mentions['owner']['url'] = $item['properties']['url'][0];
+                                            if (!empty($item['properties']['photo'])) $mentions['owner']['photo'] = $item['properties']['photo'][0];
                                         }
                                         break;
                                 }
-                                if (!empty($owner)) {
+                                if (!empty($mentions['owner'])) {
                                     break;
                                 }
 
@@ -749,106 +849,23 @@
 
                     // And now a second pass for per-item owners and mentions ...
                     foreach ($source_mf2['items'] as $item) {
+                        $mentions = $this->addWebmentionItem($item, $mentions);
                         if (!empty($item['type']) && is_array($item['type'])) {
-                            foreach ($item['type'] as $type) {
-                                switch ($type) {
-                                    case 'h-entry':
-                                        $mention = [];
-                                        if (!empty($item['properties'])) {
-                                            if (!empty($item['properties']['author'])) {
-                                                foreach($item['properties']['author'] as $author) {
-                                                    if (!empty($author['type'])) {
-                                                        foreach($author['type'] as $type) {
-                                                            if ($type == 'h-card') {
-                                                                if (!empty($author['properties']['name'])) $owner['name'] = $author['properties']['name'][0];
-                                                                if (!empty($author['properties']['url'])) $owner['url'] = $author['properties']['url'][0];
-                                                                if (!empty($author['properties']['photo'])) $owner['photo'] = $author['properties']['photo'][0];
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                            if (!empty($item['properties']['content'])) {
-                                                if (is_array($item['properties']['content'])) {
-                                                    $mention['content'] = strip_tags(implode(' ', $item['properties']['content']));
-                                                    error_log('Setting content to ' . $mention['content']);
-                                                } else {
-                                                    $mention['content'] = $item['properties']['content'];
-                                                    error_log('Setting content to ' . $mention['content']);
-                                                }
-                                            } else if (!empty($item['properties']['summary'])) {
-                                                if (is_array($item['properties']['summary'])) {
-                                                    $mention['content'] = strip_tags(implode(' ', $item['properties']['summary']));
-                                                    error_log('Setting content to ' . $mention['content']);
-                                                } else {
-                                                    $mention['content'] = $item['properties']['summary'];
-                                                    error_log('Setting content to ' . $mention['content']);
-                                                }
-                                            } else if (!empty($item['properties']['name'])) {
-                                                if (is_array($item['properties']['name'])) {
-                                                    $mention['content'] = strip_tags(implode(' ', $item['properties']['name']));
-                                                    error_log('Setting content to ' . $mention['content']);
-                                                } else {
-                                                    $mention['content'] = $item['properties']['name'];
-                                                    error_log('Setting content to ' . $mention['content']);
-                                                }
-                                            }
-                                            if (!empty($item['properties']['published'])) {
-                                                if (is_array($item['properties']['published'])) {
-                                                    $mention['created'] = @strtotime(array_shift(array_pop($item['properties']['published'])));
-                                                } else {
-                                                    $mention['created'] = @strtotime($item['properties']['content']);
-                                                }
-                                                if (empty($mention['created'])) {
-                                                    $mention['created'] = time();
-                                                }
-                                            }
-                                            if (!empty($item['properties']['in-reply-to']) && is_array($item['properties']['in-reply-to'])) {
-                                                if (in_array($target, $item['properties']['in-reply-to'])) {
-                                                    $mention['type'] = 'reply';
-                                                }
-                                            }
-                                            if (!empty($item['properties']['like']) && is_array($item['properties']['like'])) {
-                                                if (in_array($target, $item['properties']['like'])) {
-                                                    $mention['type'] = 'like';
-                                                }
-                                            }
-                                            if (!empty($item['properties']['rsvp']) && is_array($item['properties']['rsvp'])) {
-                                                //if (in_array($target, $item['properties']['rsvp'])) {
-                                                $mention['type'] = 'rsvp';
-                                                $mention['content'] = implode(' ', $item['properties']['rsvp']);
-                                                //}
-                                            }
-                                            if (!empty($item['properties']['share']) && is_array($item['properties']['share'])) {
-                                                if (in_array($target, $item['properties']['share'])) {
-                                                    $mention['type'] = 'share';
-                                                }
-                                            }
-                                            if (empty($mention['type'])) {
-                                                $mention['type'] = 'reply';
-                                            }
-                                        }
-                                        if (!empty($mention['content']) && !empty($mention['type'])) {
-                                            $mentions[] = $mention;
-                                        }
-                                        break;
-                                }
-                            }
                         }
                     }
-                    if (!empty($mentions) && !empty($owner) && !empty($owner['url'])) {
-                        if (empty($owner['photo'])) {
-                            $owner['photo'] = '';
+                    if (!empty($mentions['mentions']) && !empty($mentions['owner']) && !empty($mentions['owner']['url'])) {
+                        if (empty($mentions['owner']['photo'])) {
+                            $mentions['owner']['photo'] = '';
                         }
-                        if (empty($owner['url'])) {
-                            $owner['url'] = $source;
+                        if (empty($mentions['owner']['url'])) {
+                            $mentions['owner']['url'] = $source;
                         }
-                        if (empty($owner['name'])) {
-                            $owner['name'] = 'Web user';
+                        if (empty($mentions['owner']['name'])) {
+                            $mentions['owner']['name'] = 'Web user';
                         }
                         $this->removeAnnotation($source);
-                        foreach ($mentions as $mention) {
-                            if (!$this->addAnnotation($mention['type'], $owner['name'], $owner['url'], $owner['photo'], $mention['content'], $source, $mention['created'])) {
+                        foreach ($mentions['mentions'] as $mention) {
+                            if (!$this->addAnnotation($mention['type'], $mentions['owner']['name'], $mentions['owner']['url'], $mentions['owner']['photo'], $mention['content'], $source, $mention['created'])) {
                                 $return = false;
                             }
                         }
