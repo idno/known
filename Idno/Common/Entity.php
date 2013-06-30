@@ -824,6 +824,9 @@
                                                     $mention['type'] = 'share';
                                                 }
                                             }
+                                            if (empty($mention['type'])) {
+                                                $mention['type'] = 'reply';
+                                            }
                                         }
                                         if (!empty($mention['content']) && !empty($mention['type'])) {
                                             $mentions[] = $mention;
@@ -833,9 +836,6 @@
                             }
                         }
                     }
-                    error_log('*** Webmention');
-                    error_log('Owner: ' . json_encode($owner));
-                    error_log('Content: ' . json_encode($mention));
                     if (!empty($mentions) && !empty($owner) && !empty($owner['url'])) {
                         if (empty($owner['photo'])) {
                             $owner['photo'] = '';
