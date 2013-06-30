@@ -160,9 +160,11 @@ namespace Idno\Core {
 
         function getReadAccessGroupIDs()
         {
-            if ($this->isLoggedOn())
-                return $this->currentUser()->getReadAccessGroupIDs();
-            return array('PUBLIC');
+            $group = array('PUBLIC');
+            if ($this->isLoggedOn()) {
+                $group = $this->currentUser()->getReadAccessGroupIDs();
+            }
+            return $group;
         }
 
         /**
