@@ -46,7 +46,8 @@
 
 <?php
 
-    if (empty($vars['hidenav'])) {
+    $hidenav = \Idno\Core\site()->currentPage()->getInput('hidenav');
+    if (empty($vars['hidenav']) && empty($hidenav)) {
 
 ?>
 <div class="navbar navbar-inverse navbar-fixed-top">
@@ -92,6 +93,12 @@
 </div>
 
 <?php
+    } else {
+
+?>
+        <div style="height: 1em;"><br /></div>
+<?php
+
     } // End hidenav test
 ?>
 

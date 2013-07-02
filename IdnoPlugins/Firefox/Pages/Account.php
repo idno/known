@@ -1,7 +1,7 @@
 <?php
 
     /**
-     * Firefox sidebar
+     * Firefox account page
      */
 
     namespace IdnoPlugins\Firefox\Pages {
@@ -9,13 +9,15 @@
         /**
          * Default class to serve Firefox-related account settings
          */
-        class Worker extends \Idno\Common\Page
+        class Account extends \Idno\Common\Page
         {
 
             function getContent()
             {
+                $this->gatekeeper(); // Logged-in users only
                 $t = \Idno\Core\site()->template();
-                echo $t->draw('firefox/worker');
+                $body = $t->draw('account/firefox');
+                $t->__(['title' => 'Firefox', 'body' => $body])->drawPage();
             }
 
         }

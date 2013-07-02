@@ -42,6 +42,10 @@
             $('#contentTypeButtonBar').slideDown(200);
             $('#contentCreate').slideUp(200);
         } else {
-            window.history.go(-1);
+            if (window.history.length > 1) {
+                window.history.go(-1);
+            } else {
+                window.close();
+            }
         }
     }

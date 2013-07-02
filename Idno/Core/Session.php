@@ -24,6 +24,7 @@ namespace Idno\Core {
             // Session login / logout
             site()->addPageHandler('/session/login', '\Idno\Pages\Session\Login');
             site()->addPageHandler('/session/logout', '\Idno\Pages\Session\Logout');
+            site()->addPageHandler('/currentUser/?', '\Idno\Pages\Session\CurrentUser');
         }
 
         /**

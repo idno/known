@@ -1,10 +1,4 @@
-<?php
-
-    header('Content-type: text/javascript');
-
-?>
-
-importScripts('/external/jquery/jquery.min.js');
+dump("yo");
 
 var apiPort;
 var ports = [];
@@ -23,8 +17,9 @@ onconnect = function(e) {
         }
         if (msg.topic == "social.initialize") {
             apiPort = port;
-            initializeAmbientNotifications();
+            //initializeAmbientNotifications();
             getProfile();
+            dump("Howdy");
         }
     }
 }
@@ -37,4 +32,18 @@ function broadcast(topic, data) {
 }
 
 function getProfile() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", '/currentUser?_t=json', false);
+    xhr.send();
+    dump("dump");
+    dump(xhr.responseText);
+    data = JSON.parse(xhr.responseText);
+    user = data['user'];
+    var userData = {
+        portrait: user['image']['url'],
+        userName: user['displayName'],
+        displayName: user['displayName'],
+        profileURL: user['url']
+    };
+    apiPort.postMessage({topic: "social.user-profile", data: userData});
 }

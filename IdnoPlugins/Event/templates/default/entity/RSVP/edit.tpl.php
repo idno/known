@@ -7,7 +7,7 @@
             <p>
                 <span id="in-reply-to">
                     What's the web address of the event you're replying to?<br />
-                    <input type="text" name="inreplyto" placeholder="The website address of the event" class="span9" value="<?=htmlspecialchars($vars['object']->inreplyto)?>" />
+                    <input type="text" name="inreplyto" placeholder="The website address of the event" class="span9" value="<?php if (empty($vars['url'])) { echo htmlspecialchars($vars['object']->inreplyto); } else { echo htmlspecialchars($vars['url']); } ?>" />
                 </span>
             </p>
             <p>

@@ -12,6 +12,7 @@
             public $entity_class = 'Idno\\Entities\\Object';
             public $handler_class = 'Idno\\Common\\ContentType';
             public $title = 'Content type';
+            public $indieWebContentType = [];
 
             // Static property containing register of all content types
             static public $registered = array();
@@ -34,7 +35,11 @@
                     return $this->entity_class;
                 }
 
-                function getEntityClassName()
+            /**
+             * Returns the namespace-free entity class associated with this content type
+             * @return string
+             */
+            function getEntityClassName()
                 {
                     $class = $this->getEntityClass();
                     return substr($class, strrpos($class,'\\') + 1);
@@ -91,6 +96,32 @@
              */
             static function getRegistered() {
                 return self::$registered;
+            }
+
+            /**
+             * Given an IndieWeb content type ('note', 'reply', 'rsvp', etc),
+             * retrieves the first registered plugin content type that maps to it
+             *
+             * @param $type
+             * @return bool
+             */
+            static function getRegisteredForIndieWebPostType($type) {
+                if ($registered = self::getRegistered()) {
+                    foreach($registered as $contentType) {
+                        if (!empty($contentType->indieWebContentType)) {
+                            if (is_array($contentType->indieWebContentType)) {
+                                if (in_array($type, $contentType->indieWebContentType)) {
+                                    return $contentType;
+                                }
+                            } else {
+                                if ($type == $contentType->indieWebContentType) {
+                                    return $contentType;
+                                }
+                            }
+                        }
+                    }
+                }
+                return false;
             }
 
         }

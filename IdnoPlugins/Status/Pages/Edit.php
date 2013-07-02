@@ -17,7 +17,9 @@
 
                 $t = \Idno\Core\site()->template();
                 $body = $t->__(array(
-                    'object' => $object
+                    'object' => $object,
+                    'url' => $this->getInput('url'),
+                    'body' => $this->getInput('body')
                 ))->draw('entity/Status/edit');
 
                 if (empty($object)) {
