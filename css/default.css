@@ -248,7 +248,7 @@ h2 {
 
 .buttonBar {
     /*background-color: #4690d6;*/
-    background-color: #bbb;
+    /*background-color: #bbb;*/
     color: #333;
     z-index: 9999;
     margin: 0px;
@@ -258,10 +258,11 @@ h2 {
 
 #contentTypeButtonBar {
     padding: 1em;
+    text-align: center;
 }
 
 a.contentTypeButton {
-    float: left;
+    /*float: left;*/
     width: 80px;
     text-align: center;
     font-size: 0.8em;
@@ -269,7 +270,8 @@ a.contentTypeButton {
     margin-right: 0.5em;
     margin-bottom: 0.5em;
     transition: width 0.25s, padding-top 0.25s, padding-bottom 0.25s;
-    color: #fff;
+    color: #777;
+    display: inline-block;
 }
 
 a.contentTypeButton:hover {
