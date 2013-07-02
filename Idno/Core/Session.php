@@ -14,6 +14,9 @@ namespace Idno\Core {
 
         function init()
         {
+
+            ini_set('session.cookie_lifetime', 60 * 60 * 24 * 30);   // Persistent cookies
+
             session_name(site()->config->sessionname);
             session_start();
             session_cache_limiter('public');
