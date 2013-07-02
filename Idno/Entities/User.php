@@ -392,7 +392,9 @@ namespace Idno\Entities {
         }
 
         public function jsonSerialize() {
-            return ['what' => 'hello'];
+            $data = parent::jsonSerialize();
+            $data['image'] = ['url' => $this->getIcon()];
+            return $data;
         }
 
         /**
