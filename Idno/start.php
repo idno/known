@@ -31,6 +31,7 @@ require_once(dirname(dirname(__FILE__)) . '/external/torophp/src/Toro.php');
 // Using mf2 for microformats parsing, and webignition components to support it
 $loader->registerNamespace('webignition\Url', dirname(dirname(__FILE__)) . '/external/webignition/url/src');
 $loader->registerNamespace('webignition\AbsoluteUrlDeriver', dirname(dirname(__FILE__)) . '/external/webignition/absolute-url-deriver/src');
+$loader->registerNamespace('webignition\NormalisedUrl', dirname(dirname(__FILE__)) . '/external/webignition/url/src');
 $loader->registerNamespace('mf2', dirname(dirname(__FILE__)) . '/external/mf2');
 
 // Register the autoloader
