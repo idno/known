@@ -21,13 +21,15 @@ namespace Idno\Pages {
 
             if (empty($types)) {
                 $types = 'Idno\Entities\ActivityStreamPost';
+                $search = ['verb' => 'post'];
             } else {
                 if (!is_array($types)) $types = [$types];
                 $types[] = '!Idno\Entities\ActivityStreamPost';
+                $search = [];
             }
 
             $count = \Idno\Entities\ActivityStreamPost::countFromX($types,[]);
-            $feed = \Idno\Entities\ActivityStreamPost::getFromX($types,['verb' => 'post'],[],\Idno\Core\site()->config()->items_per_page,$offset);
+            $feed = \Idno\Entities\ActivityStreamPost::getFromX($types,$search,[],\Idno\Core\site()->config()->items_per_page,$offset);
             if (\Idno\Core\site()->session()->isLoggedIn()) {
                 $create = \Idno\Common\ContentType::getRegistered();
             } else {
