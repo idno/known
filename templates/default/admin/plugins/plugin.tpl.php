@@ -38,7 +38,7 @@
 
                     if (array_key_exists($vars['plugin']['shortname'],$vars['plugins_loaded'])) {
 ?>
-                        <form action="/admin/plugins/" method="post">
+                        <form action="<?=\Idno\Core\site()->config()->url; ?>admin/plugins/" method="post">
                             <p>
                                 <input type="hidden" name="plugin" value="<?=$vars['plugin']['shortname']?>" />
                                 <input type="hidden" name="action" value="uninstall" />
@@ -49,7 +49,7 @@
 <?php
                     } else {
 ?>
-                        <form action="/admin/plugins/" method="post">
+                        <form action="<?=\Idno\Core\site()->config()->url; ?>admin/plugins/" method="post">
                             <p>
                                 <input type="hidden" name="plugin" value="<?=$vars['plugin']['shortname']?>" />
                                 <input type="hidden" name="action" value="install" />
