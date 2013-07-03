@@ -29,6 +29,14 @@
 	  <script src="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/js/html5shiv.js"></script>
 	<![endif]-->
 
+	
+    <!-- Shim to set some environment variables -->
+    <script>
+        function Site() {}
+
+        Site.url = '<?=\Idno\Core\site()->config()->url; ?>';
+    </script>
+
     <!-- Default idno JavaScript -->
     <script src="<?=\Idno\Core\site()->config()->url . 'js/default.js'?>"></script>
 

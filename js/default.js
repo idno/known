@@ -18,7 +18,7 @@
             $('#contentCreate').slideDown(400);
             $('#contentTypeButtonBar').slideUp(400);
         } else {
-            $.ajax('/' + plugin + '/edit/', {
+            $.ajax(Site.url + plugin + '/edit/', {
                 dataType: 'html',
                 success: function(data) {
                     $('#contentCreate').html(data).slideDown(400);
