@@ -1,4 +1,4 @@
-<form action="<?=$vars['object']->getURL()?>" method="post" target="_blank">
+<form action="<?=$vars['object']->getURL()?>" method="post">
 
     <div class="row">
 
