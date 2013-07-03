@@ -61,7 +61,7 @@
 			<span class="icon-bar"></span>
 		    </button>
 		    <a class="brand" href="<?= \Idno\Core\site()->config()->url ?>"><?=  \Idno\Core\site()->config()->title?></a>
-            <form class="navbar-search pull-left" action="/search/" method="get">
+            <form class="navbar-search pull-left" action="<?= \Idno\Core\site()->config()->url; ?>search/" method="get">
                 <input type="text" class="search-query" name="q" placeholder="Search" value="<?php
 
                     if ($q = \Idno\Core\site()->currentPage()->getInput('q')) {
