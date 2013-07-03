@@ -7,7 +7,7 @@
 </div>
 <div class="row">
     <div class="span10 offset1">
-        <form action="/admin/" class="form-horizontal" method="post">
+        <form action="<?= \Idno\Core\site()->config()->url; ?>admin/" class="form-horizontal" method="post">
 
             <div class="control-group">
                 <label class="control-label" for="name">Site name<br /><small>This can be anything you want. Except probably Facebook.</small></label>
