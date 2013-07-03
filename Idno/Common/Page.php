@@ -308,6 +308,8 @@ namespace Idno\Common {
         function forward($location = '')
         {
             if (empty($location)) $location = \Idno\Core\site()->config()->url;
+	    if ((substr_count($location, 'http://') == 0) && (substr_count($location, 'https://') == 0))
+                    $location = \Idno\Core\site()->config()->url . $location;
             if (!empty($this->forward)) {
                 header('Location: ' . $location);
                 exit;
