@@ -703,7 +703,7 @@
              * @param $mentions
              * @return array
              */
-            function addWebmentionItem($item, $mentions) {
+            function addWebmentionItem($item, $mentions, $source, $target) {
                 if (!empty($item['properties']['author'])) {
                     foreach($item['properties']['author'] as $author) {
                         if (!empty($author['type'])) {
@@ -791,7 +791,7 @@
                 if (in_array('h-feed',$item['type'])) {
                     if (!empty($item['children'])) {
                         foreach($item['children'] as $child) {
-                            $mentions = $this->addWebmentionItem($child, $mentions);
+                            $mentions = $this->addWebmentionItem($child, $mentions, $source, $target);
                         }
                     }
                 }
@@ -849,7 +849,7 @@
 
                     // And now a second pass for per-item owners and mentions ...
                     foreach ($source_mf2['items'] as $item) {
-                        $mentions = $this->addWebmentionItem($item, $mentions);
+                        $mentions = $this->addWebmentionItem($item, $mentions, $source, $target);
                         if (!empty($item['type']) && is_array($item['type'])) {
                         }
                     }
