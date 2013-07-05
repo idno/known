@@ -31,3 +31,6 @@
 [submodule "external/jquery-timeago"]
 	path = external/jquery-timeago
 	url = https://github.com/rmm5t/jquery-timeago.git
+[submodule "external/jquery-pjax"]
+	path = external/jquery-pjax
+	url = https://github.com/defunkt/jquery-pjax.git
