@@ -22,7 +22,7 @@
                 parse_str(trim(file_get_contents("php://input")),$vars);
 
                 // Check that both source and target are non-empty
-                if (!empty($vars['source']) && !empty($vars['target'])) {
+                if (!empty($vars['source']) && !empty($vars['target']) && $vars['source'] != $vars['target']) {
                     $source = urldecode($vars['source']); $target = urldecode($vars['target']);
                     // Get the page handler for target
                     if ($page = \Idno\Core\site()->getPageHandler($target)) {
