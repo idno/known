@@ -28,3 +28,6 @@
 [submodule "external/bonita"]
 	path = external/bonita
 	url = https://github.com/benwerd/bonita.git
+[submodule "external/jquery-timeago"]
+	path = external/jquery-timeago
+	url = https://github.com/rmm5t/jquery-timeago.git
