@@ -132,6 +132,7 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="<?= \Idno\Core\site()->config()->url . 'external/jquery/' ?>jquery.min.js"></script>
+<script src="<?= \Idno\Core\site()->config()->url . 'external/jquery-timeago/' ?>jquery.timeago.js"></script>
 <script src="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
 <!-- Sisyphus for localStorage forms support -->
 <script src="<?= \Idno\Core\site()->config()->url . 'external/sisyphus/' ?>sisyphus.min.js"></script>
@@ -143,6 +144,7 @@
     });
     $(document).ready(function(){
         $(".h-entry").fitVids();
+        $("time.dt-published").timeago();
     });
 </script>
 
