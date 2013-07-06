@@ -4,6 +4,7 @@
     header('Link: <'.\Idno\Core\site()->config()->url.'webmention/>; rel="http://webmention.org/"')
 
 ?>
+<?php if(!$_GET["_pjax"]): ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,96 +44,98 @@
 </head>
 
 <body>
-
-<?php
-
-    $hidenav = \Idno\Core\site()->currentPage()->getInput('hidenav');
-    if (empty($vars['hidenav']) && empty($hidenav)) {
-
-?>
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="brand" href="<?= \Idno\Core\site()->config()->url ?>"><?=  \Idno\Core\site()->config()->title?></a>
-            <div class="nav-collapse collapse">
-                <form class="navbar-search pull-left" action="/search/" method="get">
-                    <input type="text" class="search-query" name="q" placeholder="Search" value="<?php
-
-                        if ($q = \Idno\Core\site()->currentPage()->getInput('q')) {
-                            echo htmlspecialchars($q);
-                        }
-
-                    ?>">
-                </form>
-                <ul class="nav" role="menu">
-                </ul>
-                <?=$this->draw('shell/toolbar/content')?>
-                <ul class="nav pull-right" role="menu">
-                    <?php
-
-                        if (\Idno\Core\site()->session()->isLoggedIn()) {
-
-                            echo $this->draw('shell/toolbar/logged-in');
-
-                        } else {
-
-                            echo $this->draw('shell/toolbar/logged-out');
-
-                        }
-
-                    ?>
-                </ul>
-            </div><!--/.nav-collapse -->
+<?php endif; ?>
+<div id="pjax-container">
+    <?php
+    
+        $hidenav = \Idno\Core\site()->currentPage()->getInput('hidenav');
+        if (empty($vars['hidenav']) && empty($hidenav)) {
+    ?>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="brand" href="<?= \Idno\Core\site()->config()->url ?>"><?=  \Idno\Core\site()->config()->title?></a>
+                <div class="nav-collapse collapse">
+                    <form class="navbar-search pull-left" action="/search/" method="get">
+                        <input type="text" class="search-query" name="q" placeholder="Search" value="<?php
+    
+                            if ($q = \Idno\Core\site()->currentPage()->getInput('q')) {
+                                echo htmlspecialchars($q);
+                            }
+    
+                        ?>">
+                    </form>
+                    <ul class="nav" role="menu">
+                    </ul>
+                    <?=$this->draw('shell/toolbar/content')?>
+                    <ul class="nav pull-right" role="menu">
+                        <?php
+    
+                            if (\Idno\Core\site()->session()->isLoggedIn()) {
+    
+                                echo $this->draw('shell/toolbar/logged-in');
+    
+                            } else {
+    
+                                echo $this->draw('shell/toolbar/logged-out');
+    
+                            }
+    
+                        ?>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
         </div>
     </div>
-</div>
-
-<?php
-    } else {
-
-?>
-        <div style="height: 1em;"><br /></div>
-<?php
-
-    } // End hidenav test
-?>
-
-<div class="container">
-
+    
     <?php
-
-        if ($messages = \Idno\Core\site()->session()->getAndFlushMessages()) {
-            foreach($messages as $message) {
-
-                ?>
-
-                <div class="alert <?=$message['message_type']?>">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <?=$message['message']?>
-                </div>
-
-            <?php
-
-            }
-        }
-
+        } else {
+    
     ?>
-    <?=$this->draw('shell/beforecontent')?>
-    <?= $vars['body'] ?>
-    <?=$this->draw('shell/aftercontent')?>
-
-</div> <!-- /container -->
-
+            <div style="height: 1em;"><br /></div>
+    <?php
+    
+        } // End hidenav test
+    ?>
+    
+    <div class="container">
+    
+        <?php
+    
+            if ($messages = \Idno\Core\site()->session()->getAndFlushMessages()) {
+                foreach($messages as $message) {
+    
+                    ?>
+    
+                    <div class="alert <?=$message['message_type']?>">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <?=$message['message']?>
+                    </div>
+    
+                <?php
+    
+                }
+            }
+    
+        ?>
+        <?=$this->draw('shell/beforecontent')?>
+        <?= $vars['body'] ?>
+        <?=$this->draw('shell/aftercontent')?>
+    
+    </div> <!-- /container -->
+</div> <!-- pjax-container -->
+<?php if(!$_GET["_pjax"]): ?>
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="<?= \Idno\Core\site()->config()->url . 'external/jquery/' ?>jquery.min.js"></script>
 <script src="<?= \Idno\Core\site()->config()->url . 'external/jquery-timeago/' ?>jquery.timeago.js"></script>
+<script src="<?= \Idno\Core\site()->config()->url . 'external/jquery-pjax/' ?>jquery.pjax.js"></script>
 <script src="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
 <!-- Sisyphus for localStorage forms support -->
 <script src="<?= \Idno\Core\site()->config()->url . 'external/sisyphus/' ?>sisyphus.min.js"></script>
@@ -142,9 +145,31 @@
     $('form').sisyphus({
         locationBased: true
     });
-    $(document).ready(function(){
+    $(document).pjax('a', '#pjax-container');
+    $(document).on('pjax:click', function(event) {
+        if (event.target.href.match('/edit/')) { 
+            // For a reason I can't actuallly figure out, /edit pages never render with chrome
+            // when PJAXed. I don't understand the rendering pipeline well enough to figure out 
+            // what's up --jrv 20130705
+            return false;
+         }
+        if (event.target.onclick) { // If there's an onclick handler, we don't want to pjax this
+            return false;
+        } else {
+            return true;
+        }
+    });
+    function annotateContent() {
         $(".h-entry").fitVids();
         $("time.dt-published").timeago();
+
+    };
+    $(document).ready(function(){
+        annotateContent();
+    });
+
+    $(document).on('pjax:complete', function() {
+        annotateContent();
     });
 </script>
 
@@ -152,3 +177,4 @@
 
 </body>
 </html>
+<?php endif; ?>
