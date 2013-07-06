@@ -11,14 +11,14 @@
         </p>
         <?php if (!empty($vars['object']->starttime)) { ?>
             <p>
-                Time: <time class="dt-start" datetime="<?=date('Y-m-d H:s',strtotime($vars['object']->starttime))?>"><?=$vars['object']->starttime?></time>
+                Time: <time class="dt-start" datetime="<?=date('c',strtotime($vars['object']->starttime))?>"><?=$vars['object']->starttime?></time>
             </p>
         <?php
         }
         ?>
         <?php if (!empty($vars['object']->endtime)) { ?>
             <p>
-                Ends: <time class="dt-end" datetime="<?=date('Y-m-d H:s',strtotime($vars['object']->endtime))?>"><?=$vars['object']->endtime?></time>
+                Ends: <time class="dt-end" datetime="<?=date('c',strtotime($vars['object']->endtime))?>"><?=$vars['object']->endtime?></time>
             </p>
         <?php
         }
