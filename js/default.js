@@ -14,10 +14,10 @@
  */
 
     function contentCreateForm(plugin) {
-        if (window.contentCreateType == plugin) {
+        /*if (window.contentCreateType == plugin) {
             $('#contentCreate').slideDown(400);
             $('#contentTypeButtonBar').slideUp(400);
-        } else {
+        } else {*/
             $.ajax('/' + plugin + '/edit/', {
                 dataType: 'html',
                 success: function(data) {
@@ -34,7 +34,7 @@
                 }
 
             });
-        }
+        //}
     }
 
     function hideContentCreateForm() {
