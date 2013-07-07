@@ -30,14 +30,35 @@
                     <?php
 
                         if (($subObject->replycontext)) {
-
-                            //echo
-
                         } else {
+
+                            if (!is_array($subObject->inreplyto)) {
+                                $inreplyto = [$subObject->inreplyto];
+                            } else {
+                                $inreplyto = $subObject->inreplyto;
+                            }
+
                             ?>
 
                                 <p>
-                                    <i class="icon-reply"></i> Replied to <a href="<?=$subObject->inreplyto?>" rel="in-reply-to" class="u-in-reply-to">a post on <strong><?=parse_url($subObject->inreplyto, PHP_URL_HOST);?></strong></a>:
+                                    <i class="icon-reply"></i> Replied to
+                                    <?php
+
+                                        $replies = 0;
+                                        foreach($inreplyto as $inreplytolink) {
+                                            if ($replies > 0) {
+                                                if (sizeof($inreplyto) > 2 && $replies < sizeof($inreplyto) - 1) {
+                                                    echo ', ';
+                                                } else {
+                                                    echo ' and ';
+                                                }
+                                            }
+                                            ?>
+                                                <a href="<?=$inreplytolink?>" rel="in-reply-to" class="u-in-reply-to">a post on <strong><?=parse_url($inreplytolink, PHP_URL_HOST);?></strong></a><?php
+                                            $replies++;
+                                        }
+
+                                    ?>:
                                 </p>
 
                             <?php

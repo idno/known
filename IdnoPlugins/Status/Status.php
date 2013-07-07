@@ -11,7 +11,13 @@
             function getDescription() {
                 $body = $this->body;
                 if (!empty($this->inreplyto)) {
-                    $body = '<a href="'.$this->inreplyto.'" class="u-in-reply-to"></a>' . $body;
+                    if (is_array($this->inreplyto)) {
+                        foreach($this->inreplyto as $inreplyto) {
+                            $body = '<a href="'.$inreplyto.'" class="u-in-reply-to"></a>' . $body;
+                        }
+                    } else {
+                        $body = '<a href="'.$this->inreplyto.'" class="u-in-reply-to"></a>' . $body;
+                    }
                 }
                 if (!empty($this->syndicatedto)) {
                     foreach($this->syndicatedto as $syndicated) {
@@ -46,7 +52,13 @@
                     $this->body = $body;
                     $this->inreplyto = $inreplyto;
                     if (!empty($inreplyto)) {
-                        $this->syndicatedto = \Idno\Core\Webmention::addSyndicatedReplyTargets($inreplyto);
+                        if (is_array($inreplyto)) {
+                            foreach($inreplyto as $inreplytourl) {
+                                $this->syndicatedto = \Idno\Core\Webmention::addSyndicatedReplyTargets($inreplytourl, $this->syndicatedto);
+                            }
+                        } else {
+                            $this->syndicatedto = \Idno\Core\Webmention::addSyndicatedReplyTargets($inreplyto);
+                        }
                     }
                     $this->setAccess('PUBLIC');
                     if ($this->save()) {

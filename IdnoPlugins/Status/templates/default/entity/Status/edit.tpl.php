@@ -1,33 +1,42 @@
-<form action="<?=$vars['object']->getURL()?>" method="post">
+<?php
+
+    if (!empty($vars['object']->inreplyto)) {
+        if (!is_array($vars['object']->inreplyto)) {
+            $vars['object']->inreplyto = [$vars['object']->inreplyto];
+        }
+    } else {
+        $vars['object']->inreplyto = [];
+    }
+    if (!empty($vars['url'])) {
+        $vars['object']->inreplyto = [$url];
+    }
+
+?>
+<form action="<?= $vars['object']->getURL() ?>" method="post">
 
     <div class="row">
 
         <div class="span10 offset1">
 
             <p>
-<?php
-    if (empty($vars['url'])) {
-
-?>
-        <small><a href="#" onclick="$('#in-reply-to').show()">Is this a reply to a post somewhere?</a></small>
-        <span id="in-reply-to" style="display:none">
-            <br />
-<?php
-
-    } else {
-
-?>
-
-    <span id="in-reply-to">
-
-<?php
-
-    }
-
-?>
-                    <input type="text" name="inreplyto" placeholder="The website address of the post you're replying to" class="span9" value="<?php if (empty($vars['url'])) { echo htmlspecialchars($vars['object']->inreplyto); } else { echo htmlspecialchars($vars['url']); } ?>" />
-                </span>
+                <small><a href="#" onclick="$('#inreplyto').append('<span><input type=&quot;url&quot; name=&quot;inreplyto[]&quot; value=&quot;&quot; placeholder=&quot;The website address of the post you\'re replying to&quot; class=&quot;span8&quot; /> <small><a href=&quot;#&quot; onclick=&quot;$(this).parent().parent().remove(); return false;&quot;>Remove</a></small><br /></span>'); return false;">+ Add a site you're replying to</a></small>
             </p>
+            <div id="inreplyto">
+                <?php
+                    if (!empty($vars['object']->inreplyto)) {
+                        foreach($vars['object']->inreplyto as $inreplyto) {
+                            ?>
+                            <p>
+                                <input type="text" name="inreplyto[]" placeholder="The website address of the post you're replying to"
+                                       class="span8" value="<?=htmlspecialchars($inreplyto)?>"/>
+                                <small><a href="#" onclick="$(this).parent().parent().remove(); return false;">Remove</a></small>
+                            </p>
+                        <?php
+                        }
+                    }
+                ?>
+            </div>
+
             <p>
                 <label>
                     <?php
@@ -37,12 +46,16 @@
                             echo 'Your message:';
                         }
                     ?>
-                    <br />
-                    <input type="text" name="body" id="body" value="<?php if (!empty($vars['body'])) { echo htmlspecialchars($vars['body']); } else { echo htmlspecialchars($vars['object']->body); } ?>" class="span9" />
+                    <br/>
+                    <input type="text" name="body" id="body" value="<?php if (!empty($vars['body'])) {
+                        echo htmlspecialchars($vars['body']);
+                    } else {
+                        echo htmlspecialchars($vars['object']->body);
+                    } ?>" class="span9"/>
                 </label>
                 <?= \Idno\Core\site()->actions()->signForm('/status/edit') ?>
-                <input type="submit" class="btn btn-primary" value="Save" />
-                <input type="button" class="btn" value="Cancel" onclick="hideContentCreateForm();" />
+                <input type="submit" class="btn btn-primary" value="Save"/>
+                <input type="button" class="btn" value="Cancel" onclick="hideContentCreateForm();"/>
             </p>
         </div>
 
