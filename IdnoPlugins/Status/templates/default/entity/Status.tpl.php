@@ -12,7 +12,6 @@
 
     // Embedded content code from Aaron Parecki, slightly modified:
     // http://aaronparecki.com/articles/2013/05/09/1/experimenting-with-auto-embedding-content
-
     $embedded = '';
     if(preg_match_all('/https?:\/\/([^\s]+\.[^\s\.]+\.(png|jpg|jpeg|gif))/i', $vars['object']->body, $matches)) {
         foreach($matches[0] as $m) {

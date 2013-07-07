@@ -52,10 +52,6 @@
                 return ['content' => $content, 'response' => $http_status];
             }
 
-            static function process($page, $object) {
-
-            }
-
             /**
              * Parses a given set of HTML for Microformats 2 content
              * @param $content HTML to parse
@@ -64,6 +60,30 @@
             static function parseContent($content) {
                 $parser = new \mf2\Parser($content);
                 return $parser->parse();
+            }
+
+            /**
+             * Given an array of URLs (or an empty array) and a target URL to check,
+             * adds and rel="syndication" URLs in the target to the array
+             * @param $url
+             * @param array $inreplyto
+             * @return array
+             */
+            static function addSyndicatedReplyTargets($url, $inreplyto = []) {
+                if ($content = self::getPageContent($url)) {
+                    if ($mf2 = self::parseContent($content['content'])) {
+                        if (!empty($mf2['rels']['syndication'])) {
+                            if (is_array($mf2['rels']['syndication'])) {
+                                foreach($mf2['rels']['syndication'] as $syndication) {
+                                    if (!in_array($syndication, $inreplyto) && !empty($syndication)) {
+                                        $inreplyto[] = $syndication;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                return $inreplyto;
             }
 
         }

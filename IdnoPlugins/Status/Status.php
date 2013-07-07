@@ -13,6 +13,11 @@
                 if (!empty($this->inreplyto)) {
                     $body = '<a href="'.$this->inreplyto.'" class="u-in-reply-to"></a>' . $body;
                 }
+                if (!empty($this->syndicatedto)) {
+                    foreach($this->syndicatedto as $syndicated) {
+                        $body = '<a href="'.$syndicated.'" class="u-in-reply-to"></a>' . $body;
+                    }
+                }
                 return $body;
             }
 
@@ -40,6 +45,9 @@
                 if (!empty($body)) {
                     $this->body = $body;
                     $this->inreplyto = $inreplyto;
+                    if (!empty($inreplyto)) {
+                        $this->syndicatedto = \Idno\Core\Webmention::addSyndicatedReplyTargets($inreplyto);
+                    }
                     $this->setAccess('PUBLIC');
                     if ($this->save()) {
                         if ($new) {
