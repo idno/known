@@ -30,7 +30,6 @@
                 // Load webmention-client
                 require_once \Idno\Core\site()->config()->path . '/external/mention-client/mention-client.php';
                 $client = new \MentionClient($pageURL, $text);
-                $client->debug = true;
                 return $client->sendSupportedMentions();
             }
 
@@ -70,6 +69,9 @@
              * @return array
              */
             static function addSyndicatedReplyTargets($url, $inreplyto = []) {
+                if (!is_array($inreplyto)) {
+                    $inreplyto = [$inreplyto];
+                }
                 if ($content = self::getPageContent($url)) {
                     if ($mf2 = self::parseContent($content['content'])) {
                         if (!empty($mf2['rels']['syndication'])) {
