@@ -4,7 +4,7 @@
     header('Link: <'.\Idno\Core\site()->config()->url.'webmention/>; rel="http://webmention.org/"')
 
 ?>
-<?php if(!$_GET["_pjax"]): ?>
+<?php if(!$_SERVER["HTTP_X_PJAX"] ): ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -129,7 +129,7 @@
     
     </div> <!-- /container -->
 </div> <!-- pjax-container -->
-<?php if(!$_GET["_pjax"]): ?>
+<?php if(!$_SERVER["HTTP_X_PJAX"] ): ?>
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
