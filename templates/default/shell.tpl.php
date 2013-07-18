@@ -4,7 +4,7 @@
     header('Link: <'.\Idno\Core\site()->config()->url.'webmention/>; rel="http://webmention.org/"')
 
 ?>
-<?php if(!$_GET["_pjax"]): ?>
+<?php if(!$_SERVER["HTTP_X_PJAX"] ): ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -129,7 +129,7 @@
     
     </div> <!-- /container -->
 </div> <!-- pjax-container -->
-<?php if(!$_GET["_pjax"]): ?>
+<?php if(!$_SERVER["HTTP_X_PJAX"] ): ?>
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
@@ -145,7 +145,20 @@
     $('form').sisyphus({
         locationBased: true
     });
-
+    $(document).pjax('a', '#pjax-container');
+    $(document).on('pjax:click', function(event) {
+        if (event.target.href.match('/edit/')) { 
+            // For a reason I can't actuallly figure out, /edit pages never render with chrome
+            // when PJAXed. I don't understand the rendering pipeline well enough to figure out 
+            // what's up --jrv 20130705
+            return false;
+         }
+        if (event.target.onclick) { // If there's an onclick handler, we don't want to pjax this
+            return false;
+        } else {
+            return true;
+        }
+    });
     function annotateContent() {
         $(".h-entry").fitVids();
         $("time.dt-published").timeago();
@@ -155,6 +168,9 @@
         annotateContent();
     });
 
+    $(document).on('pjax:complete', function() {
+        annotateContent();
+    });
 </script>
 
 <?=$this->draw('shell/footer',$vars)?>
