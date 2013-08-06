@@ -145,10 +145,10 @@
         $(".h-entry").fitVids();
         $("time.dt-published").timeago();
 
-    };
+    }
     $(document).ready(function(){
         annotateContent();
-    });
+    })
 
 </script>
 
