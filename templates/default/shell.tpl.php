@@ -137,14 +137,9 @@
 <script src="<?= \Idno\Core\site()->config()->url . 'external/jquery-timeago/' ?>jquery.timeago.js"></script>
 <script src="<?= \Idno\Core\site()->config()->url . 'external/jquery-pjax/' ?>jquery.pjax.js"></script>
 <script src="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
-<!-- Sisyphus for localStorage forms support -->
-<script src="<?= \Idno\Core\site()->config()->url . 'external/sisyphus/' ?>sisyphus.min.js"></script>
 <!-- Video shim -->
 <script src="<?=\Idno\Core\site()->config()->url . 'external/fitvids/jquery.fitvids.min.js'?>"></script>
 <script>
-    $('form').sisyphus({
-        locationBased: true
-    });
 
     function annotateContent() {
         $(".h-entry").fitVids();
