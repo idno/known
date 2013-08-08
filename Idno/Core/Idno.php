@@ -188,6 +188,9 @@ namespace Idno\Core {
             if (substr_count($path_info,\Idno\Core\site()->config()->url)) {
                 $path_info = '/'. str_replace(\Idno\Core\site()->config()->url,'',$path_info);
             }
+            if ($q = strpos($path_info,'?')) {
+                $path_info = substr($path_info, 0, $q);
+            }
             $tokens = array(
                 ':string' => '([a-zA-Z]+)',
                 ':number' => '([0-9]+)',
