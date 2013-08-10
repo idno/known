@@ -1,14 +1,14 @@
 <?php
     if (\Idno\Core\site()->currentPage()->isPermalink()) {
-        $rel = 'rel="like object-of-like" class="u-like"';
+        $rel = 'rel="like" class="u-like"';
     } else {
         $rel = '';
     }
 
     if (!empty($vars['object']->pageTitle)) {
-        $body = '<a href="'.$vars['object']->body.'" '.$rel.'>'.$vars['object']->pageTitle.'</a>';
+        $body = $vars['object']->pageTitle;
     } else {
-        $body = '<a href="'.$vars['object']->body.'" '.$rel.'>'.$vars['object']->body.'</a>';
+        $body = $vars['object']->body;
     }
 
 ?>
