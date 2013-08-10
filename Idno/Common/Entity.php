@@ -693,6 +693,12 @@
                     'url'         => $this->getURL()
                 );
 
+                if ($attachments = $this->getAttachments()) {
+                    foreach($attachments as $attachment) {
+                        $object['attachments'][] = ['url' => $attachment['url'], 'mime-type' => $attachment['mime-type'], 'length' => $attachment['length']];
+                    }
+                }
+
                 return $object;
             }
 
