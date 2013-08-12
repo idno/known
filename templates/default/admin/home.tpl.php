@@ -43,6 +43,12 @@
                 </div>
             </div>
             <div class="control-group">
+                <label class="control-label" for="items_per_page">Items per page<br /><small>The number of items you want displayed on a single page.</small></label>
+                <div class="controls">
+                    <input type="text" id="items_per_page" placeholder="10" class="span4" name="items_per_page" value="<?=htmlspecialchars(\Idno\Core\site()->config()->items_per_page)?>" >
+                </div>
+            </div>
+            <div class="control-group">
                 <div class="controls">
                     <button type="submit" class="btn-primary">Save</button>
                 </div>

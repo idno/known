@@ -1056,7 +1056,7 @@
              * @param int $offset Number of items to skip (default: 0
              * @return array
              */
-            static function getfromX($class, $search = array(), $fields = array(), $limit = 10, $offset = 0)
+            static function getFromX($class, $search = array(), $fields = array(), $limit = 10, $offset = 0)
             {
                 $result = \Idno\Core\site()->db()->getObjects($class, $search, $fields, $limit, $offset);
 
