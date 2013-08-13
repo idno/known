@@ -19,8 +19,7 @@ For included third-party projects, see "idno also contains" below.
 
 Contributors
 ------------
-* Ben Werdmuller <ben@benwerd.com> <http://benwerd.com/>
-* See below for external projects
+* See CONTRIBUTORS.md
 
 License
 -------
