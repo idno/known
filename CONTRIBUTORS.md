@@ -23,4 +23,4 @@ How can I contribute?
 * Visit Idno on GitHub: https://github.com/idno/idno
 * Check and file issues
 * Submit pull requests
-* Not a coder? No problem. You can still help out with design, text copy, workflows. Ask us how!
+* Not a coder? No problem. Design, text copy, workflows, documentation and bug hunting are just as important as code. Ask us how!
