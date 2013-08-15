@@ -46,3 +46,4 @@ idno also contains
  * Absolute URL deriver. Source: https://github.com/webignition/absolute-url-deriver
  * URL. Source: https://github.com/webignition/url
 * FitVids.js: http://fitvidsjs.com/
+* Leaflet.js: http://leafletjs.com/ (License: https://github.com/Leaflet/Leaflet/blob/master/LICENSE)
