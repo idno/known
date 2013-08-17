@@ -9,7 +9,6 @@
 <?php
     if ($attachments = $vars['object']->getAttachments()) {
         foreach($attachments as $attachment) {
-            var_export($attachment);
             $mainsrc= $attachment['url'];//\Idno\Core\site()->config()->url . 'file/' . $attachment['_id'];
 ?>
             <p style="text-align: center">
