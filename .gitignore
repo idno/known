@@ -7,4 +7,12 @@ Idno/.idea/.name
 *.iml
 
 *.xml
+/nbproject/private//nbproject/project.xml
+/nbproject/project.properties
 /nbproject/private/
+/.htaccess
+/doc/output/
+
+/.DS_Store
+/*/.DS_Store
+/config/settings.hub.php
