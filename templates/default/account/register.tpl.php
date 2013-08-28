@@ -8,7 +8,11 @@
             <p>
 
             </p>
-            <form action="/account/register" method="post" class="form-horizontal">
+            <form action="<?php $base_url = \Idno\Core\site()->config()->url; 
+   
+                if (\Idno\Core\site()->config()->secure_sensitive_pages)
+                    $base_url = 'https:' . $base_url;
+            echo $base_url; ?>account/register" method="post" class="form-horizontal">
                 <div class="control-group">
                     <label class="control-label" for="inputUsername">Your name<br />
                     <small>The name other people will see.</small></label>

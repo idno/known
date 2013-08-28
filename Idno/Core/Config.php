@@ -21,6 +21,7 @@ namespace Idno\Core {
                 'Status'
             ),
             'items_per_page' => 10,      // Default items per page
+            'secure_sensitive_pages' => false,   // Force login, settings pages etc over HTTPS
         );
 
         function init()
@@ -36,7 +37,7 @@ namespace Idno\Core {
            
             if ($config = @parse_ini_file($this->path . '/config.ini')) {
                 $this->config = array_merge($this->config, $config);
-            }
+            } 
             date_default_timezone_set($this->timezone);
             setlocale(LC_ALL, 'en_US.UTF8');
         }
@@ -82,7 +83,7 @@ namespace Idno\Core {
          */
         function load() {
             if ($config = \Idno\Core\site()->db()->getAnyRecord('config')) {
-                $config = (array) $config;
+                $config = (array) $config; 
                 if (is_array($config)) {
                     $this->config = array_merge($this->config, $config);
                 }
