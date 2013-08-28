@@ -27,7 +27,7 @@
             <div class="control-group">
                 <label class="control-label" for="url">Website URL<br /><small>The full URL to your idno-powered site. Include a trailing slash.</small></label>
                 <div class="controls">
-                    <input type="url" id="url" placeholder="Site URL" class="span4" name="url" value="<?=htmlspecialchars(\Idno\Core\site()->config()->url)?>" >
+                    <input type="text" id="url" placeholder="Site URL" class="span4" name="url" value="<?=htmlspecialchars(\Idno\Core\site()->config()->url)?>" >
                 </div>
             </div>
             <div class="control-group">
