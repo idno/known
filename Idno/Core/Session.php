@@ -193,6 +193,7 @@ namespace Idno\Core {
         function logUserOff()
         {
             unset($_SESSION['user']);
+            session_destroy();
             return true;
         }
 
