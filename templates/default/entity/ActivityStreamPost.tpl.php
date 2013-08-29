@@ -6,7 +6,10 @@
 
     if (!empty($object) && !empty($subObject)) {
 ?>
-<div class="row idno-entry">
+<div class="row idno-entry idno-entry-<?php
+    if (preg_match('@\\\\([\w]+)$@', get_class($subObject), $matches)) {
+        echo strtolower($matches[1]);
+    }?>">
 
     <div class="span1 offset1 owner h-card hidden-phone">
         <p>
