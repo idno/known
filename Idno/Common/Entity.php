@@ -474,7 +474,10 @@
                     return $this->uuid;
                 }
                 if (!empty($this->_id)) {
-                    return \Idno\Core\site()->config()->url . 'view/' . $this->_id;
+                    $uuid = \Idno\Core\site()->config()->url . 'view/' . $this->_id;
+                    $uuid = str_replace('https:', '', $uuid);
+                    $uuid = str_replace('http:', '', $uuid);
+                    return $uuid;
                 }
 
                 return false;
