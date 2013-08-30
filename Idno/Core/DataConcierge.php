@@ -111,7 +111,14 @@ namespace Idno\Core {
 
         function getRecordByUUID($uuid, $collection = 'entities')
         {
-            return $this->database->$collection->findOne(array("uuid" => $uuid));
+            $uuid_converted = str_replace('https:', '', $uuid);
+            $uuid_converted = str_replace('http:', '', $uuid_converted);
+            if ($result = $this->database->$collection->findOne(array("uuid" => $uuid_converted)))
+                    return $result;
+            
+            if ($result = $this->database->$collection->findOne(array("uuid" => $uuid))) // Backwards compatibility
+                    return $result;
+            
         }
 
         /**
