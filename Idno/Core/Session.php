@@ -16,6 +16,7 @@ namespace Idno\Core {
         {
 
             ini_set('session.cookie_lifetime', 60 * 60 * 24 * 30);   // Persistent cookies
+            ini_set('session.cookie_httponly', true); // Restrict cookies to HTTP only (help reduce XSS attack profile)
 
             session_name(site()->config->sessionname);
             session_start();
