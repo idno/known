@@ -141,8 +141,8 @@
 <script src="<?=\Idno\Core\site()->config()->url . 'external/fitvids/jquery.fitvids.min.js'?>"></script>
 <script>
 
-    $(document).pjax('a:not([href^=\\.])', '#pjax-container');    // In idno, URLs with extensions are probably files.
-    $(document).on('pjax:click', function(event) {
+    //$(document).pjax('a:not([href^=\\.],[href^=file])', '#pjax-container');    // In idno, URLs with extensions are probably files.
+    /*$(document).on('pjax:click', function(event) {
         if (event.target.href.match('/edit/')) {
             // For a reason I can't actuallly figure out, /edit pages never render with chrome
             // when PJAXed. I don't understand the rendering pipeline well enough to figure out
@@ -154,7 +154,7 @@
         } else {
             return true;
         }
-    });
+    });*/
 
     function annotateContent() {
         $(".h-entry").fitVids();
