@@ -18,7 +18,8 @@
                         foreach($content_types as $content_type) {
 
                             if (empty($content_type->hide)) {
-                                ?><li><a href="<?=\Idno\Core\site()->config()->url?>?types[]=<?=$content_type->getEntityClass()?>"><span class="dropdown-menu-icon" ><?= $content_type->getIcon() ?></span> <?=$content_type->getTitle()?></a></li><?php
+                                /* @var Idno\Common\ContentType $content_type */
+                                ?><li><a href="<?=\Idno\Core\site()->config()->url?>?types[]=<?=$content_type->getEntityClass()?>"><span class="dropdown-menu-icon" ><?= $content_type->getIcon() ?></span> <?=$content_type->getCategoryTitle()?></a></li><?php
                             }
                         }
 

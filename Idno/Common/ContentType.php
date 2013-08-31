@@ -66,6 +66,17 @@
                 }
 
             /**
+             * Describes this content type as a category (eg "photos")
+             * @return string
+             */
+                function getCategoryTitle() {
+                    if (!empty($this->category_title)) {
+                        return $this->category_title;
+                    }
+                    return $this->getTitle();
+                }
+
+            /**
              * Retrieves the URL to the form to create a new object related to this content type
              * @return string
              */
