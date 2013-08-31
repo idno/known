@@ -5,7 +5,11 @@
 		Sign in
 	    </h3>
 
-	    <form action="/session/login" method="post">
+	    <form action="<?php $base_url = \Idno\Core\site()->config()->url; 
+   
+                if (\Idno\Core\site()->config()->secure_sensitive_pages)
+                    $base_url = 'https:' . $base_url;
+            echo $base_url; ?>session/login" method="post">
 		<div class="control-group">
 		    <div class="controls">
 			<input type="text" id="inputEmail" name="email" placeholder="Your username or email address" class="span4">

@@ -25,9 +25,18 @@
                 </div>
             </div>
             <div class="control-group">
+                <label class="control-label" for="secure_sensitive_pages">Secure sensitive pages<br /><small>Are security sensitive pages (login, registration, etc) required to use https?</small></label>
+                <div class="controls">
+                    <select class="span4" name="secure_sensitive_pages">
+                        <option value="true" <?php if (\Idno\Core\site()->config()->secure_sensitive_pages == true) echo 'selected="selected"'; ?>>Yes</option>
+                        <option value="false" <?php if (\Idno\Core\site()->config()->secure_sensitive_pages == false) echo 'selected="selected"'; ?>>No</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
                 <label class="control-label" for="url">Website URL<br /><small>The full URL to your idno-powered site. Include a trailing slash.</small></label>
                 <div class="controls">
-                    <input type="url" id="url" placeholder="Site URL" class="span4" name="url" value="<?=htmlspecialchars(\Idno\Core\site()->config()->url)?>" >
+                    <input type="text" id="url" placeholder="Site URL" class="span4" name="url" value="<?=htmlspecialchars(\Idno\Core\site()->config()->url)?>" >
                 </div>
             </div>
             <div class="control-group">

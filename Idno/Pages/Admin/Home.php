@@ -26,10 +26,12 @@
             {
                 $this->adminGatekeeper();  // Admins only
                 $title = $this->getInput('title');
-                $url = $this->getInput('url');
+                $url = str_replace('http:', '', $this->getInput('url'));
+                $url = str_replace('https:', '', $url);
                 $path = $this->getInput('path');
                 $host = $this->getInput('host');
                 $open_registration = $this->getInput('open_registration');
+                $secure_sensitive_pages = $this->getInput('secure_sensitive_pages');
                 $items_per_page = (int) $this->getInput('items_per_page');
                 if ($open_registration == 'true') {
                     $open_registration = true;
@@ -42,6 +44,7 @@
                 if (!empty($host)) \Idno\Core\site()->config->config['host'] = $host;
                 if (!empty($items_per_page) && is_int($items_per_page)) \Idno\Core\site()->config->config['items_per_page'] = $items_per_page;
                 \Idno\Core\site()->config->config['open_registration'] = $open_registration;
+                \Idno\Core\site()->config->config['secure_sensitive_pages'] = $secure_sensitive_pages;
                 \Idno\Core\site()->config()->save();
                 $this->forward('/admin/');
             }
