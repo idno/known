@@ -29,7 +29,7 @@ namespace Idno\Core {
             // If not, we'll use default values. No skin off our nose.
             // @TODO override settings from the database
             $this->path = dirname(dirname(dirname(__FILE__))); // Base path
-            $this->url = 'http://' . $_SERVER['SERVER_NAME'] . '/'; // A naive default base URL
+            $this->url = (\Idno\Common\Page::isSSL() ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . '/'; // A naive default base URL
             $this->title = 'New idno site'; // A default name for the site
             $this->timezone = 'UTC';
             $this->host = parse_url($this->url, PHP_URL_HOST); // The site hostname, without parameters etc

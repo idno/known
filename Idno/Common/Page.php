@@ -385,6 +385,23 @@ namespace Idno\Common {
         function isPermalink() {
             return $this->isPermalinkPage;
         }
+        
+        /**
+         * Has the page been requested over SSL?
+         * @return boolean
+         */
+        static function isSSL() {
+            if (isset($_SERVER['HTTPS']) ) {
+                if ($_SERVER['HTTPS'] == '1')
+                    return true;
+                if (strtolower($_SERVER['HTTPS'] == 'on'))
+                    return true;
+            } 
+            else if (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == '443')) 
+                return true;
+            
+            return false;
+        }
 
         /**
          * Provide access to page data
