@@ -2,6 +2,9 @@
     if (!empty($vars['user']->profile['url']) && is_array($vars['user']->profile['url'])) {
         foreach($vars['user']->profile['url'] as $url) {
             if (!empty($url)) {
+                
+                $url_display = $url;
+                
                 // Pick appropriate icon
                 $host = parse_url($url, PHP_URL_HOST);
                 $host = str_replace('www.','',$host);
@@ -16,9 +19,14 @@
 
                 }
 
+                $scheme = parse_url($url, PHP_URL_SCHEME);
+                switch ($scheme) {
+                    case 'mailto' : $icon = 'icon-envelope'; $url_display = str_replace('mailto:', '', $url_display); break;
+                }
+                
 ?>
         <p class="url-container">
-            <i class="<?=$icon?>"></i> <a href="<?=htmlspecialchars($url)?>" rel="me" class="u-url"><?=($url)?></a>
+            <i class="<?=$icon?>"></i> <a href="<?=htmlspecialchars($url)?>" rel="me" class="u-url"><?=($url_display)?></a>
         </p>
 <?php
             }
