@@ -162,6 +162,7 @@ h2 {
     height: 1.5em;
 }
 
+.pager,
 .pagination {
     margin: auto;
     text-align: center;
