@@ -14,8 +14,9 @@ Community contributors, by idno release
 0.1
 
 * Jesse Vincent <http://s.ly>
-* Adrian Goins <http://arces.net>
 * Marcus Povey <http://marcus-povey.co.uk>
+* Erin Jo Richey <http://erinjorichey.com>
+* Adrian Goins <http://arces.net>
 
 How can I contribute?
 ---------------------
