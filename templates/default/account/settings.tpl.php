@@ -4,9 +4,9 @@
 <div class="row">
     
     <div class="span10 offset1">
-	<h3>
+	<h2>
 	    Account settings
-	</h3>
+	</h2>
     <?=$this->draw('account/menu')?>
 	<div class="hero-unit">
 	    <p>
