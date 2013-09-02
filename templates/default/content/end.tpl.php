@@ -55,7 +55,7 @@
                     <?php
 
                         foreach($posse as $service => $url) {
-                            echo '<a href="'.$url.'" rel="syndication" class="u-syndication">' . $service . '</a> ';
+                            echo '<a href="'.$url.'" rel="syndication" class="u-syndication '.$service.'">' . $service . '</a> ';
                         }
 
                     ?>
@@ -63,7 +63,7 @@
             </div>
         <?php
 
-        }
+        } else echo 'noposse';
 
     }
 
