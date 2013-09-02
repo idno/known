@@ -26,7 +26,7 @@ namespace Idno\Core {
             site()->addPageHandler('/session/logout', '\Idno\Pages\Session\Logout');
             site()->addPageHandler('/currentUser/?', '\Idno\Pages\Session\CurrentUser');
             
-            // Update the session on save, this is a shim until #46 is fixed properly
+            // Update the session on save, this is a shim until #46 is fixed properly with #49
             \Idno\Core\site()->addEventHook('save', function(\Idno\Core\Event $event) {
                  
                  $object = $event->data()['object'];
