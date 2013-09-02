@@ -63,7 +63,7 @@
             </div>
         <?php
 
-        } else echo 'noposse';
+        }
 
     }
 

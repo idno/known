@@ -46,13 +46,14 @@
                             echo 'Your message:';
                         }
                     ?>
-                    <br/>
-                    <input type="text" name="body" id="body" value="<?php if (!empty($vars['body'])) {
-                        echo htmlspecialchars($vars['body']);
-                    } else {
-                        echo htmlspecialchars($vars['object']->body);
-                    } ?>" class="span9"/>
                 </label>
+            </p>
+                    <textarea name="body" id="body" class="span8"><?php if (!empty($vars['body'])) {
+                            echo htmlspecialchars($vars['body']);
+                        } else {
+                        echo htmlspecialchars($vars['object']->body);
+                    } ?></textarea>
+            <p>
                 <?= \Idno\Core\site()->actions()->signForm('/status/edit') ?>
                 <input type="submit" class="btn btn-primary" value="Save"/>
                 <input type="button" class="btn" value="Cancel" onclick="hideContentCreateForm();"/>
