@@ -22,6 +22,8 @@
                 $scheme = parse_url($url, PHP_URL_SCHEME);
                 switch ($scheme) {
                     case 'mailto' : $icon = 'icon-envelope'; $url_display = str_replace('mailto:', '', $url_display); break;
+                    case 'sms' : $icon = 'icon-mobile-phone'; $url_display = str_replace('sms:', '', $url_display); break;
+                    case 'tel' : $icon = 'icon-phone'; $url_display = str_replace('tel:', '', $url_display); break;
                 }
                 
 ?>
