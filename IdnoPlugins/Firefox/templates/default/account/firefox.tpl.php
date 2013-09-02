@@ -29,7 +29,7 @@
 <div class="row">
 
     <div class="span10 offset1">
-        <h3>Firefox</h3>
+        <h2>Firefox</h2>
         <?= $this->draw('account/menu') ?>
     </div>
 </div>
