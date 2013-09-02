@@ -25,6 +25,18 @@ namespace Idno\Core {
             site()->addPageHandler('/session/login', '\Idno\Pages\Session\Login');
             site()->addPageHandler('/session/logout', '\Idno\Pages\Session\Logout');
             site()->addPageHandler('/currentUser/?', '\Idno\Pages\Session\CurrentUser');
+            
+            // Update the session on save, this is a shim until #46 is fixed properly
+            \Idno\Core\site()->addEventHook('save', function(\Idno\Core\Event $event) {
+                 
+                 $object = $event->data()['object'];
+                 if ((!empty($object)) && ($object instanceof \Idno\Entities\User) // Object is a user
+                         && ($object->getUUID() == $_SESSION['user']->getUUID())) // And we're not trying a user change (avoids a possible exploit)
+                 {
+                     $_SESSION['user'] = $object;
+                 }
+                 
+            });
         }
 
         /**
