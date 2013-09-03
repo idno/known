@@ -21,10 +21,10 @@
         $('#contentCreate input.btn-primary').click(function(){
             
             $('span.posseButton a.label-info').each(function() { 
-                $('#contentCreate form').append("<input type=\"hidden\" name=\"posseMethod[]\" value=\"" + $(this).attr('data-posse') + "\" />").submit();
+                $('#contentCreate form').append("<input type=\"hidden\" name=\"posseMethod[]\" value=\"" + $(this).attr('data-posse') + "\" />");
             });
             
-            return false;
+            return true;
         });
     }    
 
