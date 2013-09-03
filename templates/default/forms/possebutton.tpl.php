@@ -1,0 +1,2 @@
+<span class="posseButton"><a href="#" class="label label-info posse-<?=$vars['service'];?>" data-posse="<?=$vars['service'];?>"><i class="<?=$vars['icon'];?>"></i> <?=$vars['service_label'];?></a></span>
+  

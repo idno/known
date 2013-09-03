@@ -169,6 +169,13 @@
         annotateContent();
     });
 
+    $("div#posseButtons span.posseButton a").click(function(){
+            // Toggle 
+            $(this).toggleClass('label-info');
+    });
+
+    
+
 </script>
 
 <?=$this->draw('shell/footer',$vars)?>

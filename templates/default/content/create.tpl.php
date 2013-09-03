@@ -36,7 +36,19 @@
     </div>
     <div class="row">
         <div class="span12">
-            <div id="contentCreate" ></div>
+            <div id="contentCreateWrapper">
+                <div id="contentCreate" ></div>
+
+                <div id="posseButtons">
+                    <div class="row">
+                        <div class="span10 offset1">
+                            
+                            <?= $this->draw('content/possebuttons'); ?>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
