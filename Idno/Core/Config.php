@@ -96,6 +96,11 @@ namespace Idno\Core {
         function save() {
             $array = $this->config;
             unset($array['dbname']);    // Don't save database access info to the database
+            
+            // If we don't have a site secret, create it
+            if (!isset($array['site_secret']))
+                $array['site_secret'] = hash('sha256', mt_rand() . microtime (true));
+            
             if (\Idno\Core\site()->db()->saveRecord('config',$array)) {
                 $this->load();
                 return true;
