@@ -5,7 +5,7 @@
 		Sign in
 	    </h3>
 
-	    <form action="/session/login" method="post">
+	    <form action="<?= \Idno\Core\site()->config()->url ?>session/login" method="post">
 		<div class="control-group">
 		    <div class="controls">
 			<input type="text" id="inputEmail" name="email" placeholder="Your username or email address" class="span4">
