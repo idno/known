@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="<?=htmlspecialchars($vars['description'])?>">
     <meta name="generator" content="idno http://idno.co">
-    <link rel="icon" type="image/png" href="<?=\Idno\Core\site()->config()->url?>gfx/templates/idnoicon.png">
+    <link rel="icon" type="image/png" href="<?=\Idno\Core\site()->config()->url?>gfx/template/idnoicon.png">
     
     <!-- Le styles -->
     <link href="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/css/bootstrap.css" rel="stylesheet">
