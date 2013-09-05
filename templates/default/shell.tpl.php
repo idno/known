@@ -14,6 +14,7 @@
     <meta name="description" content="<?=htmlspecialchars($vars['description'])?>">
     <meta name="generator" content="idno http://idno.co">
     <link rel="icon" type="image/png" href="<?=\Idno\Core\site()->config()->url?>gfx/template/idnoicon.png">
+    <link rel="apple-touch-icon" href="<?=\Idno\Core\site()->config()->url?>gfx/template/idnoappleicon.png" />
     
     <!-- Le styles -->
     <link href="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/css/bootstrap.css" rel="stylesheet">
