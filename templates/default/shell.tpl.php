@@ -14,7 +14,11 @@
     <meta name="description" content="<?=htmlspecialchars($vars['description'])?>">
     <meta name="generator" content="idno http://idno.co">
     <link rel="icon" type="image/png" href="<?=\Idno\Core\site()->config()->url?>gfx/template/idnoicon.png">
-    <link rel="apple-touch-icon" href="<?=\Idno\Core\site()->config()->url?>gfx/template/idnoappleicon.png" />
+    
+    <!-- Make this an "app" when saved to an ios device's home screen -->
+    <link rel="apple-touch-icon" href="<?=\Idno\Core\site()->config()->url?>gfx/template/idnoappleicon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     
     <!-- Le styles -->
     <link href="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/css/bootstrap.css" rel="stylesheet">
