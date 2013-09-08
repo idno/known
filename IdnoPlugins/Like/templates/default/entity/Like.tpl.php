@@ -13,7 +13,7 @@
 
 ?>
 <div class="">
-    <p class="p-name"><i class="icon-star hint"></i> <?=$this->parseURLs(($body),$rel)?></p>
+    <p class="p-name"><i class="icon-star hint"></i> <?=$this->parseURLs(($body),$rel)?> <a href="<?= $vars['object']->body;?>" rel="bookmark nofollow" target="_blank"><i class="icon-link"></i></a></p>
     <?php
 
         if (!empty($vars['object']->description)) {
