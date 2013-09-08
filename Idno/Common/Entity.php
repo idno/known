@@ -917,7 +917,7 @@
             }
 
             /**
-             * Adds an annotation to the
+             * Adds an annotation to the entity.
              * @param string $subtype Annotation subtype. 'comment' etc.
              * @param string $owner_name Name of the annotation's owner
              * @param string $owner_url Annotation owner's URL
