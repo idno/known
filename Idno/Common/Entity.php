@@ -949,7 +949,7 @@
                 $annotations[$subtype][$annotation_url] = $annotation;
                 $this->annotations = $annotations;
 
-
+                \Idno\Core\site()->triggerEvent('annotation/add/'.$subtype, $annotation);
 
                 return true;
             }
