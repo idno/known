@@ -13,8 +13,8 @@
 
         <div class="pager">
             <ul>
-                <?php if ($vars['offset'] > 0) { ?><li><a href="<?=$this->getCurrentURLWithVar('offset', $prev_offset);?>" title="Newer">&laquo; Newer</a></li><?php } ?>
-                <?php if ($vars['offset'] <= $vars['count'] - $items_per_page) { ?><li><a href="<?=$this->getCurrentURLWithVar('offset', $next_offset);?>" title="Older">Older &raquo;</a></li><?php } ?>
+                <?php if ($vars['offset'] > 0) { ?><li><a href="<?=$this->getCurrentURLWithVar('offset', $prev_offset);?>" title="Newer" rel="next">&laquo; Newer</a></li><?php } ?>
+                <?php if ($vars['offset'] <= $vars['count'] - $items_per_page) { ?><li><a href="<?=$this->getCurrentURLWithVar('offset', $next_offset);?>" title="Older" rel="prev">Older &raquo;</a></li><?php } ?>
             </ul>
         </div>
 
