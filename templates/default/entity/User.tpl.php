@@ -31,7 +31,7 @@
                 </div>
                 <div class="row">
                     <div class="span6">
-                        <div class="p-note"><?=$this->autop($vars['user']->getDescription())?></div>
+                        <div class="e-note"><?=$this->autop($vars['user']->getDescription())?></div>
 
                         <?=$this->draw('entity/User/profile/fields')?>
                     </div>
