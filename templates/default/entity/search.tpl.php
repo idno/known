@@ -2,7 +2,7 @@
 <div class="row">
     <div class="span8 offset2">
         <h2>
-            <a href="<?=\Idno\Core\site()->config()->url . 'search/?q=' . urlencode($vars['subject'])?>"><?=htmlspecialchars($vars['subject'])?></a>
+            <a href="<?=\Idno\Core\site()->getSiteUrl(['scheme' => '']) . 'search/?q=' . urlencode($vars['subject'])?>"><?=htmlspecialchars($vars['subject'])?></a>
         </h2>
     </div>
 </div>

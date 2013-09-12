@@ -8,7 +8,7 @@
             <p>
 
             </p>
-            <form action="/account/register" method="post" class="form-horizontal">
+            <form action="<?= \Idno\Core\site()->getSiteUrl(['scheme' => '']) ?>account/register" method="post" class="form-horizontal">
                 <div class="control-group">
                     <label class="control-label" for="inputUsername">Your name<br />
                     <small>The name other people will see.</small></label>
