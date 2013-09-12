@@ -15,23 +15,23 @@
     <meta name="generator" content="idno http://idno.co">
 
     <!-- Le styles -->
-    <link href="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" href="<?=\Idno\Core\site()->config()->url?>external/font-awesome/css/font-awesome.min.css">
+    <link href="<?= \Idno\Core\site()->getSiteUrl(['scheme' => '']) . 'external/bootstrap/' ?>assets/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?=\Idno\Core\site()->getSiteUrl(['scheme' => ''])?>external/font-awesome/css/font-awesome.min.css">
     <style>
         body {
             padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
         }
     </style>
-    <link href="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="<?= \Idno\Core\site()->config()->url ?>css/default.css" rel="stylesheet">
+    <link href="<?= \Idno\Core\site()->getSiteUrl(['scheme' => '']) . 'external/bootstrap/' ?>assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="<?= \Idno\Core\site()->getSiteUrl(['scheme' => '']) ?>css/default.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-    <script src="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/js/html5shiv.js"></script>
+    <script src="<?= \Idno\Core\site()->getSiteUrl(['scheme' => '']) . 'external/bootstrap/' ?>assets/js/html5shiv.js"></script>
     <![endif]-->
 
     <!-- Default idno JavaScript -->
-    <script src="<?=\Idno\Core\site()->config()->url . 'js/default.js'?>"></script>
+    <script src="<?=\Idno\Core\site()->getSiteUrl(['scheme' => '']) . 'js/default.js'?>"></script>
 
     <!-- To silo is human, to syndicate divine -->
     <link rel="alternate" type="application/rss+xml" title="<?=htmlspecialchars($vars['title'])?>" href="<?=$this->getCurrentURLWithVar('_t','rss');?>" />
@@ -59,7 +59,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="brand" href="<?= \Idno\Core\site()->config()->url ?>"><?=  \Idno\Core\site()->config()->title?></a>
+                <a class="brand" href="<?= \Idno\Core\site()->getSiteUrl(['scheme' => '']) ?>"><?=  \Idno\Core\site()->config()->title?></a>
                 <div class="nav-collapse collapse">
                     <form class="navbar-search pull-left" action="/search/" method="get">
                         <input type="text" class="search-query" name="q" placeholder="Search" value="<?php
@@ -133,12 +133,12 @@
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="<?= \Idno\Core\site()->config()->url . 'external/jquery/' ?>jquery.min.js"></script>
-<script src="<?= \Idno\Core\site()->config()->url . 'external/jquery-timeago/' ?>jquery.timeago.js"></script>
-<script src="<?= \Idno\Core\site()->config()->url . 'external/jquery-pjax/' ?>jquery.pjax.js"></script>
-<script src="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
+<script src="<?= \Idno\Core\site()->getSiteUrl(['scheme' => '']) . 'external/jquery/' ?>jquery.min.js"></script>
+<script src="<?= \Idno\Core\site()->getSiteUrl(['scheme' => '']) . 'external/jquery-timeago/' ?>jquery.timeago.js"></script>
+<script src="<?= \Idno\Core\site()->getSiteUrl(['scheme' => '']) . 'external/jquery-pjax/' ?>jquery.pjax.js"></script>
+<script src="<?= \Idno\Core\site()->getSiteUrl(['scheme' => '']) . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
 <!-- Video shim -->
-<script src="<?=\Idno\Core\site()->config()->url . 'external/fitvids/jquery.fitvids.min.js'?>"></script>
+<script src="<?=\Idno\Core\site()->getSiteUrl(['scheme' => '']) . 'external/fitvids/jquery.fitvids.min.js'?>"></script>
 <script>
 
     //$(document).pjax('a:not([href^=\\.],[href^=file])', '#pjax-container');    // In idno, URLs with extensions are probably files.

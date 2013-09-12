@@ -233,6 +233,66 @@ namespace Idno\Core {
             if (!empty($this->currentPage)) return $this->currentPage;
             return false;
         }
+        
+             
+        /**
+        * Retrieve the site url from configuration, and allow a simple way of replacing segments of it.
+        * 
+        * @param array $replacements Accepts arguments in the format of parse_url, allowing you to easily replace parts of the url e.g. 'schema' from http to https
+        * @return string
+        */
+       public function getSiteUrl(array $replacements = null) {
+           if (!$replacements)
+               return \Idno\Core\site()->config()->url;
+
+           $url = parse_url(\Idno\Core\site()->config()->url);
+
+           // perform any replacements
+           foreach ($replacements as $key => $value)
+               $url[$key] = $value;
+
+           return $this->build_url($url);
+       }
+    
+        /**
+         * Construct a URL from array components (basically an implementation of http_build_url() without PECL.
+         * 
+         * @todo Move somewhere sensible
+         * @param array $url
+         * @return string 
+         */
+        public function build_url(array $url) 
+        {
+            if (!empty($url['scheme']))
+                $page = $url['scheme'] . "://";
+            else
+                $page = '//';
+
+            // user/pass
+            if ((isset($url['user'])) && ($url['user']))
+                $page .= $url['user'];
+            if ((isset($url['pass'])) && ($url['pass']))
+                $page .= ":" . $url['pass'];
+            if (($url['user']) || $url['pass'])
+                $page .="@";
+
+            if (isset($url['host']))
+                $page .= $url['host'];
+
+            if ((isset($url['port'])) && ($url['port']))
+                $page .= ":" . $url['port'];
+
+            if (isset($url['path']))
+                $page .= $url['path'];
+
+            if ((isset($url['query'])) && ($url['query']))
+                $page .= "?" . $url['query'];
+
+            if ((isset($url['fragment'])) && ($url['fragment']))
+                $page .= "#" . $url['fragment'];
+
+            return $page;
+        }
 
     }
 

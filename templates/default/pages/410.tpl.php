@@ -12,7 +12,7 @@
             <p class="p-summary">This resource isn't here anymore.</p>
             <p>
                 Cool links never die, but sometimes things don't work out.
-                <a href="<?=\Idno\Core\site()->config()->url?>">Click here to head back to the <?=\Idno\Core\site()->config()->title?> homepage</a>.
+                <a href="<?=\Idno\Core\site()->getSiteUrl(['scheme' => ''])?>">Click here to head back to the <?=\Idno\Core\site()->config()->title?> homepage</a>.
             </p>
         </div>
     </div>
