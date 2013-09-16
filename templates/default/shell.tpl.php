@@ -13,7 +13,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="<?=htmlspecialchars($vars['description'])?>">
     <meta name="generator" content="idno http://idno.co">
-
+    <?=$this->draw('shell/favicon'); ?>
+    
     <!-- Le styles -->
     <link href="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="<?=\Idno\Core\site()->config()->url?>external/font-awesome/css/font-awesome.min.css">
