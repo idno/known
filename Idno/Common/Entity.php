@@ -1177,7 +1177,7 @@
                 try {
                     return self::getOneFromAll(array('_id' => new \MongoId($id)));
                 } catch (\Exception $e) {
-                    \Idno\Core\site()->currentPage()->noContent();
+                    return false; //\Idno\Core\site()->currentPage()->noContent();
                 }
             }
 
