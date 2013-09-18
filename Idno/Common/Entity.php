@@ -94,9 +94,9 @@
                     $this->setOwner(\Idno\Core\site()->session()->currentUser());
                 }
 
-                // Automatically add a slug (if one isn't set)
+                // Automatically add a slug (if one isn't set and this is a new entity)
 
-                if (!$this->getSlug()) {
+                if (!$this->getSlug() && empty($this->_id)) {
                     $this->setSlug($this->getTitle());
                 }
 
