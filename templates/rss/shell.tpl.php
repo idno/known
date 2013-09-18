@@ -38,7 +38,9 @@
             $rssItem->appendChild($page->createElement('link',$item->getURL()));
             $rssItem->appendChild($page->createElement('guid',$item->getUUID()));
             $rssItem->appendChild($page->createElement('pubDate',date(DATE_RSS,$item->created)));
-            $rssItem->appendChild($page->createElement('description',$item->draw()));
+            $description = $page->createElement('description');
+            $description->appendChild($page->createCDATASection($item->draw()));
+            $rssItem->appendChild($description);
             if (!empty($item->lat) && !empty($item->long)) {
                 $rssItem->appendChild($page->createElement('geo:lat', $item->lat));
                 $rssItem->appendChild($page->createElement('geo:long', $item->long));
