@@ -462,6 +462,10 @@
              * @return bool
              */
             function setSlug($slug, $limit = 140) {
+                $plugin_slug = \Idno\Core\site()->triggerEvent('entity/slug',['object' => $this]);
+                if (!empty($plugin_slug) && $plugin_slug !== true) {
+                    return $plugin_slug;
+                }
                 $slug = trim($slug);
                 $slug = strtolower($slug);
                 $slug = preg_replace('|https?://[a-z\.0-9]+|i', '', $slug);
