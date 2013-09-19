@@ -77,6 +77,25 @@
                 }
 
             /**
+             * Given a content type category name, retrieves its namespaced class name
+             * @param $friendly_name
+             * @return bool|string
+             */
+                static function categoryTitleToClass($friendly_name) {
+                    $friendly_name = str_replace(' ','',trim(strtolower($friendly_name)));
+                    if ($registered = self::getRegistered()) {
+                        foreach($registered as $contentType) {
+                            /* @var ContentType $contentType */
+                            $categoryTitle = $contentType->getCategoryTitle();
+                            if ($friendly_name == str_replace(' ','',trim(strtolower($categoryTitle)))) {
+                                return $contentType->getEntityClass();
+                            }
+                        }
+                    }
+                    return false;
+                }
+
+            /**
              * Retrieves the URL to the form to create a new object related to this content type
              * @return string
              */

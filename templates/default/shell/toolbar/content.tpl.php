@@ -19,7 +19,7 @@
 
                             if (empty($content_type->hide)) {
                                 /* @var Idno\Common\ContentType $content_type */
-                                ?><li><a href="<?=\Idno\Core\site()->config()->url?>?types[]=<?=$content_type->getEntityClass()?>"><span class="dropdown-menu-icon" ><?= $content_type->getIcon() ?></span> <?=$content_type->getCategoryTitle()?></a></li><?php
+                                ?><li><a href="<?=\Idno\Core\site()->config()->url?>content/<?=urlencode(strtolower(str_replace(' ','',$content_type->getCategoryTitle())))?>"><span class="dropdown-menu-icon" ><?= $content_type->getIcon() ?></span> <?=$content_type->getCategoryTitle()?></a></li><?php
                             }
                         }
 
