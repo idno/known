@@ -97,7 +97,7 @@
                 // Automatically add a slug (if one isn't set and this is a new entity)
 
                 if (!$this->getSlug() && empty($this->_id)) {
-                    $this->setSlug($this->getTitle());
+                    $this->setSlugResilient($this->getTitle());
                 }
 
                 // Save it to the database
@@ -463,6 +463,7 @@
              */
             function setSlug($slug, $limit = 140) {
                 $slug = trim($slug);
+                $slug = strtolower($slug);
                 $slug = preg_replace('|https?://[a-z\.0-9]+|i', '', $slug);
                 $slug = preg_replace("/[^A-Za-z0-9\-\_ ]/", '', $slug);
                 $slug = preg_replace("/[ ]+/",' ',$slug);
