@@ -12,30 +12,14 @@
         class Delete extends \Idno\Common\Page
         {
 
-            // Handle GET requests to the entity
+            // No point doing get requests for delete functions
 
-            function getContent()
-            {
-                if (!empty($this->arguments[0])) {
-                    $object = \Idno\Common\Entity::getByID($this->arguments[0]);
-                    if (empty($object)) {
-                        $object = \Idno\Common\Entity::getBySlug($this->arguments[0]);
-                    }
-                }
-                if (empty($object)) $this->forward(); // TODO: 404
 
-                $t = \Idno\Core\site()->template();
-                $t->__(array(
-
-                    'title' => $object->getTitle(),
-                    'body' => $object->draw()
-
-                ))->drawPage();
-            }
-
-            // Handle POST requests to the entity
+            // Handle POST requests 
 
             function postContent() {
+                $this->gatekeeper();
+                
                 if (!empty($this->arguments[0])) {
                     $object = \Idno\Common\Entity::getByID($this->arguments[0]);
                     if (empty($object)) {
@@ -45,21 +29,12 @@
                 if (empty($object)) {
                     $this->goneContent();
                 }
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                if (!empty($this->arguments[0])) {
-                    $object = \Idno\Common\Entity::getByID($this->arguments[0]);
-                }
-                if (empty($object)) $this->forward(); // TODO: 404
-                if ($object->delete()) {
-                    \Idno\Core\site()->session()->addMessage($object->getTitle() . ' was deleted.');
+
+                $permalink = $object->getUrl() . '/annotations/' . $this->arguments[1];
+                if ($object->canEdit()) {
+                    if ($object->removeAnnotation($permalink)) {
+                        \Idno\Core\site()->session()->addMessage('Annotation was deleted.');
+                    }
                 }
                 $this->forward($_SERVER['HTTP_REFERER']);
             }
