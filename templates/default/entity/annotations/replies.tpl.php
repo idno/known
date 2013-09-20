@@ -14,6 +14,12 @@
                 <p><small><a href="<?=htmlspecialchars($annotation['owner_url'])?>"><?=$annotation['owner_name']?></a>,
                     <a href="<?=$permalink?>"><?=date('M d Y', $annotation['time']);?></a></small></p>
             </div>
+            <?php
+                $this->annotation_permalink = $permalink;
+                
+                if ($vars['object']->canEdit())
+                    echo $this->draw('content/annotation/edit');
+            ?>
         </div>
 <?php
 
