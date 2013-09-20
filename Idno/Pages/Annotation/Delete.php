@@ -18,6 +18,9 @@
             {
                 if (!empty($this->arguments[0])) {
                     $object = \Idno\Common\Entity::getByID($this->arguments[0]);
+                    if (empty($object)) {
+                        $object = \Idno\Common\Entity::getBySlug($this->arguments[0]);
+                    }
                 }
                 if (empty($object)) $this->forward(); // TODO: 404
 
@@ -33,6 +36,24 @@
             // Handle POST requests to the entity
 
             function postContent() {
+                if (!empty($this->arguments[0])) {
+                    $object = \Idno\Common\Entity::getByID($this->arguments[0]);
+                    if (empty($object)) {
+                        $object = \Idno\Common\Entity::getBySlug($this->arguments[0]);
+                    }
+                }
+                if (empty($object)) {
+                    $this->goneContent();
+                }
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 if (!empty($this->arguments[0])) {
                     $object = \Idno\Common\Entity::getByID($this->arguments[0]);
                 }
