@@ -962,6 +962,40 @@
             }
 
             /**
+             * Retrieve an annotation type via its id
+             * @param type $uuid
+             */
+            function getAnnotationSubtype($uuid) {
+                if (!empty($this->annotations) && is_array($this->annotations))
+                {
+                    foreach ($this->annotations as $subtype => $array)
+                    {
+                        if (isset($array[$uuid]))
+                            return $subtype;
+                    }
+                }
+                
+                return false;
+            }
+            
+            /**
+             * Retrieve an annotation via its id
+             * @param type $uuid
+             */
+            function getAnnotation($uuid) {
+                if (!empty($this->annotations) && is_array($this->annotations))
+                {
+                    foreach ($this->annotations as $subtype => $array)
+                    {
+                        if (isset($array[$uuid]))
+                            return $array[$uuid];
+                    }
+                }
+                
+                return false;
+            }
+            
+            /**
              * Return all the annotations on this entity of a specific subtype. If there are no annotations of
              * this subtype, an empty array will be returned.
              *
