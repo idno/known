@@ -8,4 +8,4 @@
 <div class="">
     <p class="p-name"><?=nl2br($this->parseURLs($this->parseHashtags($vars['object']->body),$rel))?></p>
 </div>
-<?= $this->draw('entity/elements/embed'); ?>
+<?= $this->draw('entity/content/embed'); ?>

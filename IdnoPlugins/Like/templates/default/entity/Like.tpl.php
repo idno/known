@@ -24,4 +24,4 @@
 
     ?>
 </div>
-<?= $this->draw('entity/elements/embed'); ?>
+<?= $this->draw('entity/content/embed'); ?>
