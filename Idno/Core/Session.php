@@ -16,6 +16,7 @@ namespace Idno\Core {
         {
 
             ini_set('session.cookie_lifetime', 60 * 60 * 24 * 30);   // Persistent cookies
+            ini_set('session.cookie_httponly', true); // Restrict cookies to HTTP only (help reduce XSS attack profile)
 
             session_name(site()->config->sessionname);
             session_start();
@@ -193,6 +194,7 @@ namespace Idno\Core {
         function logUserOn(\Idno\Entities\User $user)
         {
             $_SESSION['user'] = $user;
+            session_regenerate_id();
             return $user;
         }
 
@@ -204,6 +206,7 @@ namespace Idno\Core {
         function logUserOff()
         {
             unset($_SESSION['user']);
+            session_destroy();
             return true;
         }
 
