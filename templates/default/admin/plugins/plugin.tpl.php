@@ -18,9 +18,9 @@
                     <?php
 
                         if (array_key_exists($vars['plugin']['shortname'],$vars['plugins_loaded'])) {
-                            echo '<span class="label label-success">Loaded</span>';
+                            echo '<span class="label label-success">Installed</span>';
                         } else {
-                            echo '<span class="label">Not loaded</span>';
+                            echo '<span class="label">Not installed</span>';
                         }
 
                     ?>
