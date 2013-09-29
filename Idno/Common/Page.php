@@ -367,6 +367,7 @@ namespace Idno\Common {
         {
             $code = (int)$code;
             $this->response = $code;
+            http_response_code($this->response);
         }
 
         /**
