@@ -112,10 +112,14 @@
                         $this->_id  = $result;
                         $this->uuid = $this->getUUID();
                         \Idno\Core\site()->db()->saveObject($this);
+                        
+                        $event = new \Idno\Core\Event(array('object' => $this));
+                        
                         if ($this->getActivityStreamsObjectType()) {
-                            $event = new \Idno\Core\Event(array('object' => $this));
                             \Idno\Core\site()->events()->dispatch('post/' . $this->getActivityStreamsObjectType(), $event);
                         }
+                        
+                        \Idno\Core\site()->events()->dispatch('saved', $event);
                     }
 
                     return $this->_id;
