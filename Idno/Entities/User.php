@@ -381,8 +381,8 @@ namespace Idno\Entities {
         /**
          * Hook to provide a method of notifying a user - for example, sending an email or displaying a popup.
          */
-        public function notify() {
-             return \Idno\Core\site()->triggerEvent('notify', ['object' => $this]);
+        public function notify(array $params = null) {
+             return \Idno\Core\site()->triggerEvent('notify', ['object' => $this, 'parameters' => $params]);
         }
         
         /**
