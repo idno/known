@@ -288,7 +288,7 @@ span.contentTypeLogo {
     padding-bottom: 5px;
 }
 
-#contentCreate {
+#contentCreateWrapper {
     display: none;
     z-index: -10000;
     padding: 1em;

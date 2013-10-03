@@ -13,6 +13,21 @@
 *** Content creation
  */
 
+
+    
+    function bindContentCreateForm() { 
+        
+        // Bind POSSE Capture submit
+        $('#contentCreate input.btn-primary').click(function(){
+            
+            $('span.posseButton a.label-info').each(function() { 
+                $('#contentCreate form').append("<input type=\"hidden\" name=\"posseMethod[]\" value=\"" + $(this).attr('data-posse') + "\" />");
+            });
+            
+            return true;
+        });
+    }    
+
     function contentCreateForm(plugin) {
         /*if (window.contentCreateType == plugin) {
             $('#contentCreate').slideDown(400);
@@ -21,13 +36,18 @@
             $.ajax('/' + plugin + '/edit/', {
                 dataType: 'html',
                 success: function(data) {
-                    $('#contentCreate').html(data).slideDown(400);
+                    $('#contentCreate').html(data);
+                    $('#contentCreateWrapper').slideDown(400);
                     $('#contentTypeButtonBar').slideUp(400);
                     window.contentCreateType = plugin;
                     window.contentPage = true;
-                    if (jQuery){
-                        $('form').sisyphus();
-                    }
+                    
+                    // Commenting the following out since it seems to break EVERYTHING
+                    //if (jQuery){
+                    //    $('form').sisyphus();
+                    //}
+                    
+                    bindContentCreateForm();
                 },
                 error: function(error) {
                     $('#contentTypeButtonBar').slideDown(400);
@@ -40,7 +60,7 @@
     function hideContentCreateForm() {
         if (window.contentPage == true) {
             $('#contentTypeButtonBar').slideDown(200);
-            $('#contentCreate').slideUp(200);
+            $('#contentCreateWrapper').slideUp(200);
         } else {
             if (window.history.length > 1) {
                 window.history.go(-1);
@@ -49,3 +69,4 @@
             }
         }
     }
+    
