@@ -94,6 +94,12 @@
                     $this->setOwner(\Idno\Core\site()->session()->currentUser());
                 }
 
+                // Automatically add a slug (if one isn't set and this is a new entity)
+
+                if (!$this->getSlug() && empty($this->_id)) {
+                    $this->setSlugResilient($this->getTitle());
+                }
+
                 // Save it to the database
 
                 if (\Idno\Core\site()->triggerEvent('save', array('object' => $this))) { // dispatch('save', $event)->response()) {
@@ -106,10 +112,14 @@
                         $this->_id  = $result;
                         $this->uuid = $this->getUUID();
                         \Idno\Core\site()->db()->saveObject($this);
+                        
+                        $event = new \Idno\Core\Event(array('object' => $this));
+                        
                         if ($this->getActivityStreamsObjectType()) {
-                            $event = new \Idno\Core\Event(array('object' => $this));
                             \Idno\Core\site()->events()->dispatch('post/' . $this->getActivityStreamsObjectType(), $event);
                         }
+                        
+                        \Idno\Core\site()->events()->dispatch('saved', $event);
                     }
 
                     return $this->_id;
@@ -449,6 +459,70 @@
             }
 
             /**
+             * Sets the URL slug of this entity to the given non-empty string, returning
+             * the sanitized slug on success
+             * @param string $slug
+             * @param int $limit The maximum length of the slug
+             * @return bool
+             */
+            function setSlug($slug, $limit = 140) {
+                $plugin_slug = \Idno\Core\site()->triggerEvent('entity/slug',['object' => $this]);
+                if (!empty($plugin_slug) && $plugin_slug !== true) {
+                    return $plugin_slug;
+                }
+                $slug = trim($slug);
+                $slug = strtolower($slug);
+                $slug = preg_replace('|https?://[a-z\.0-9]+|i', '', $slug);
+                $slug = preg_replace("/[^A-Za-z0-9\-\_ ]/", '', $slug);
+                $slug = preg_replace("/[ ]+/",' ',$slug);
+                $slug = substr($slug,0,$limit);
+                $slug = str_replace(' ','-',$slug);
+                if (empty($slug)) {
+                    return false;
+                }
+                if ($entity = \Idno\Common\Entity::getBySlug($slug)) {
+                    if ($entity->getUUID() != $this->getUUID()) {
+                        return false;
+                    }
+                }
+                $this->slug = $slug;
+                return $slug;
+            }
+
+            /**
+             * Gets the URL slug for this entity, if it exists
+             * @return bool|null
+             */
+            function getSlug() {
+                if (!empty($this->slug)) {
+                    return $this->slug;
+                }
+                return false;
+            }
+
+            /**
+             * Sets the URL slug of this entity to the given non-empty string, modifying it
+             * in the case where the slug is already taken, and returning the modified version
+             * of the slug
+             * @param string $slug
+             * @return bool|string
+             */
+            function setSlugResilient($slug) {
+                if (empty($slug)) {
+                    return false;
+                }
+                if ($this->setSlug($slug)) {
+                    return true;
+                }
+                // If we've got here, the slug exists, so we need to create a new version
+                $slug_extension = 1;
+                while (!($modified_slug = $this->setSlug($slug . '-' . $slug_extension))) {
+                    $slug_extension++;
+                }
+                return $modified_slug;
+            }
+
+            /**
              * Retrieve a short description of this page suitable for including in page metatags
              * @return string
              */
@@ -498,6 +572,12 @@
 
             function getURL()
             {
+
+                // If a slug has been set, use it
+                if ($slug = $this->getSlug()) {
+                    return \Idno\Core\site()->config()->url . date('Y',$this->created) . '/' . $slug;
+                }
+
                 $uuid = $this->getUUID();
                 if (!empty($uuid)) {
                     return $uuid;
@@ -886,6 +966,40 @@
             }
 
             /**
+             * Retrieve an annotation type via its id
+             * @param type $uuid
+             */
+            function getAnnotationSubtype($uuid) {
+                if (!empty($this->annotations) && is_array($this->annotations))
+                {
+                    foreach ($this->annotations as $subtype => $array)
+                    {
+                        if (isset($array[$uuid]))
+                            return $subtype;
+                    }
+                }
+                
+                return false;
+            }
+            
+            /**
+             * Retrieve an annotation via its id
+             * @param type $uuid
+             */
+            function getAnnotation($uuid) {
+                if (!empty($this->annotations) && is_array($this->annotations))
+                {
+                    foreach ($this->annotations as $subtype => $array)
+                    {
+                        if (isset($array[$uuid]))
+                            return $array[$uuid];
+                    }
+                }
+                
+                return false;
+            }
+            
+            /**
              * Return all the annotations on this entity of a specific subtype. If there are no annotations of
              * this subtype, an empty array will be returned.
              *
@@ -917,7 +1031,7 @@
             }
 
             /**
-             * Adds an annotation to the
+             * Adds an annotation to the entity.
              * @param string $subtype Annotation subtype. 'comment' etc.
              * @param string $owner_name Name of the annotation's owner
              * @param string $owner_url Annotation owner's URL
@@ -949,7 +1063,7 @@
                 $annotations[$subtype][$annotation_url] = $annotation;
                 $this->annotations = $annotations;
 
-
+                \Idno\Core\site()->triggerEvent('annotation/add/'.$subtype, $annotation);
 
                 return true;
             }
@@ -1106,19 +1220,32 @@
                 try {
                     return self::getOneFromAll(array('_id' => new \MongoId($id)));
                 } catch (\Exception $e) {
-                    \Idno\Core\site()->currentPage()->noContent();
+                    return false; //\Idno\Core\site()->currentPage()->noContent();
                 }
             }
 
             /**
              * Retrieve a single record by its UUID
              * @param string $uuid
-             * @return Entity
+             * @return bool|Entity
              */
 
             static function getByUUID($uuid)
             {
                 return self::getOneFromAll(array('uuid' => $uuid));
+            }
+
+            /**
+             * Retrieve a single record by its URL slug
+             * @param $slug
+             * @return bool|Entity
+             */
+            static function getBySlug($slug)
+            {
+                if (empty($slug)) {
+                    return false;
+                }
+                return self::getOneFromAll(array('slug' => $slug));
             }
 
         }

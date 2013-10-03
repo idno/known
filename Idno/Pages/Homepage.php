@@ -19,6 +19,18 @@ namespace Idno\Pages {
             $offset = (int) $this->getInput('offset');
             $types = $this->getInput('types');
 
+            if (!empty($this->arguments[0])) {  // If we're on the friendly content-specific URL
+                if ($friendly_types = explode('/',$this->arguments[0])) {
+                    $types = [];
+                    // Run through the URL parameters and set content types appropriately
+                    foreach($friendly_types as $friendly_type) {
+                        if ($content_type_class =  \Idno\Common\ContentType::categoryTitleToClass($friendly_type)) {
+                            $types[] = $content_type_class;
+                        }
+                    }
+                }
+            }
+
             if (empty($types)) {
                 $types = 'Idno\Entities\ActivityStreamPost';
                 $search = ['verb' => 'post'];

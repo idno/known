@@ -18,6 +18,9 @@
             {
                 if (!empty($this->arguments[0])) {
                     $object = \Idno\Common\Entity::getByID($this->arguments[0]);
+                    if (empty($object)) {
+                        $object = \Idno\Common\Entity::getBySlug($this->arguments[0]);
+                    }
                 }
                 if (empty($object)) {
                     $this->goneContent();
@@ -39,6 +42,9 @@
             function webmentionContent($source, $target, $source_content, $source_mf2) {
                 if (!empty($this->arguments[0])) {
                     $object = \Idno\Common\Entity::getByID($this->arguments[0]);
+                    if (empty($object)) {
+                        $object = \Idno\Common\Entity::getBySlug($this->arguments[0]);
+                    }
                 }
                 if (empty($object)) return false;
 
@@ -56,6 +62,9 @@
             function postContent() {
                 if (!empty($this->arguments[0])) {
                     $object = \Idno\Common\Entity::getByID($this->arguments[0]);
+                    if (empty($object)) {
+                        $object = \Idno\Common\Entity::getBySlug($this->arguments[0]);
+                    }
                 }
                 if (empty($object)) $this->forward(); // TODO: 404
                 if ($object->saveDataFromInput($this)) {
@@ -69,6 +78,9 @@
             function deleteContent() {
                 if (!empty($this->arguments[0])) {
                     $object = \Idno\Common\Entity::getByID($this->arguments[0]);
+                    if (empty($object)) {
+                        $object = \Idno\Common\Entity::getBySlug($this->arguments[0]);
+                    }
                 }
                 if (empty($object)) $this->forward(); // TODO: 404
                 if ($object->delete()) {
