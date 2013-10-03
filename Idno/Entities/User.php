@@ -380,9 +380,10 @@ namespace Idno\Entities {
 
         /**
          * Hook to provide a method of notifying a user - for example, sending an email or displaying a popup.
+         * @params array $params Parameters to pass to the process, for example 'object' to pass a context object.
          */
         public function notify(array $params = null) {
-             return \Idno\Core\site()->triggerEvent('notify', ['object' => $this, 'parameters' => $params]);
+             return \Idno\Core\site()->triggerEvent('notify', ['user' => $this, 'parameters' => $params]);
         }
         
         /**
