@@ -12,7 +12,7 @@
         foreach($matches[2] as $m)
             $embedded .= '<div><iframe class="youtube-player auto-link figure" width="600" height="420" style="border:0"  src="//www.youtube.com/embed/' . $m . '"></iframe></div>';
     }
-    if(preg_match_all('/(youtube\.com|youtu\.be)\/([a-z0-9\-\_]+)/i', $vars['object']->body, $matches)) {
+    else if(preg_match_all('/(youtube\.com|youtu\.be)\/([a-z0-9\-\_]+)/i', $vars['object']->body, $matches)) {
         foreach($matches[2] as $m)
             $embedded .= '<div><iframe class="youtube-player auto-link figure" width="600" height="420" style="border:0"  src="//www.youtube.com/embed/' . $m . '"></iframe></div>';
     }
