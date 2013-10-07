@@ -21,6 +21,9 @@ require_once(dirname(__FILE__) . '/Idno/start.php');
 // Manage routing
 
 \Idno\Core\PageHandler::hook('404', function () {
-
+    http_response_code(404);
+    $t = \Idno\Core\site()->template();
+    $t->__(['body' => $t->draw('pages/404'), 'title' => 'Not found!'])->drawPage();
+    exit;
 });
 \Idno\Core\PageHandler::serve(\Idno\Core\site()->pagehandlers);
