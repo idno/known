@@ -647,6 +647,12 @@
                 }
 
                 if ($this->getOwnerID() == $user_id) return true;
+                
+                $access = $this->getAccess($user_id);
+                if ((!empty($access)) && ($access instanceof \Idno\Entities\AccessGroup)) {
+                    if ($access->canEdit($user_id))
+                        return true;
+                }
 
                 return false;
             }
@@ -670,10 +676,10 @@
                 if ($access == 'PUBLIC') return true;
                 if ($this->getOwnerID() == $user_id) return true;
 
-                if ($access instanceof \Idno\Entities\AccessGroup) {
-                    if ($access->isMember($user_id)) {
+                $access = $this->getAccess($user_id);
+                if ((!empty($access)) && ($access instanceof \Idno\Entities\AccessGroup)) {
+                    if ($access->canRead($user_id))
                         return true;
-                    }
                 }
 
                 return false;
