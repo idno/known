@@ -51,8 +51,10 @@
 <?php endif; ?>
 <div id="pjax-container">
     <?php
-
-        $hidenav = \Idno\Core\site()->currentPage()->getInput('hidenav');
+        $currentPage = \Idno\Core\site()->currentPage();
+        
+        if (!empty($currentPage))
+            $hidenav = \Idno\Core\site()->currentPage()->getInput('hidenav');
         if (empty($vars['hidenav']) && empty($hidenav)) {
             ?>
             <div class="navbar navbar-inverse navbar-fixed-top">
@@ -70,8 +72,10 @@
                             <form class="navbar-search pull-left" action="/search/" method="get">
                                 <input type="text" class="search-query" name="q" placeholder="Search" value="<?php
 
-                                    if ($q = \Idno\Core\site()->currentPage()->getInput('q')) {
-                                        echo htmlspecialchars($q);
+                                    if (!empty($currentPage)) {
+                                        if ($q = \Idno\Core\site()->currentPage()->getInput('q')) {
+                                            echo htmlspecialchars($q);
+                                        }
                                     }
 
                                 ?>">
