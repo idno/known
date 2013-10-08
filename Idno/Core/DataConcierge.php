@@ -18,12 +18,14 @@ namespace Idno\Core {
         private $client = null;
         private $database = null;
         
+        // Logged out JS
         private static $acl_js = "
             function() {
                 return this.access == 'PUBLIC';
             }
         ";
         
+        // Logged in JS
         private static $acl_js_loggedin = "
             function() {
                 
