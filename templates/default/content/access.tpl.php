@@ -1,10 +1,10 @@
 <input type="hidden" name="access" id="access-control-id" value="PUBLIC" />
 <div id="access-control" class="acl">
     <div class="btn-group">
-        <button class="btn btn-mini" id="acl-text">Access</button>
-        <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
+        <a id="acl-text" class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            Access
             <span class="caret"></span>
-        </button>
+        </a>
         <ul class="dropdown-menu">
             <li><a href="#" data-access="PUBLIC"><i class="icon-globe"> </i> Public</a></li>
             <?php
