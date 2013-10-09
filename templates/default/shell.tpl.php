@@ -5,7 +5,7 @@
 
 ?>
 <?php if (!$_SERVER["HTTP_X_PJAX"]): ?>
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
