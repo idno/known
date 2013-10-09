@@ -172,6 +172,12 @@
         annotateContent();
     });
 
+    $(document).ready(function() {
+        $('#access-control a').click(function() {
+            $('#access-control-id').val($(this).attr('data-acl'));
+        });
+    });
+
 </script>
 
 <?= $this->draw('shell/footer', $vars) ?>
