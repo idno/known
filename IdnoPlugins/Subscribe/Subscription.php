@@ -56,20 +56,20 @@ namespace IdnoPlugins\Subscribe {
             }
             
             // Create/maintain following ACL
-            $subscr = \Idno\Entities\AccessGroup::getOne([
+            $acl = \Idno\Entities\AccessGroup::getOne([
                 'owner' => \Idno\Core\site()->session()->currentUserUUID(),
                 'access_group_type' => 'subscription'
             ]);
             
-            if (empty($subscr)) {
-                $subscr = new \Idno\Entities\AccessGroup();
-                $subscr->access_group_type = 'subscription';
-                $subscr->title = "People I follow";
+            if (empty($acl)) {
+                $acl = new \Idno\Entities\AccessGroup();
+                $acl->access_group_type = 'subscription';
+                $acl->title = "People I follow";
             }
             $url = Main::getUserByProfileURL($this->subscription);
             if (!$url) $url = $this->subscription;
-            $subscr->addMember($url); // TODO: Internal we're using UUID, but they're actually profiles
-            $subscr->save();
+            $acl->addMember($url); // TODO: Internal we're using UUID, but they're actually profiles
+            $acl->save();
             
         }
 
@@ -86,20 +86,20 @@ namespace IdnoPlugins\Subscribe {
             }
             
             // Create/maintain following ACL
-            $subscr = \Idno\Entities\AccessGroup::getOne([
+            $acl = \Idno\Entities\AccessGroup::getOne([
                 'owner' => \Idno\Core\site()->session()->currentUserUUID(),
                 'access_group_type' => 'subscription'
             ]);
             
-            if (empty($subscr)) {
-                $subscr = new \Idno\Entities\AccessGroup();
-                $subscr->access_group_type = 'subscription';
-                $subscr->title = "People I follow";
+            if (empty($acl)) {
+                $acl = new \Idno\Entities\AccessGroup();
+                $acl->access_group_type = 'subscription';
+                $acl->title = "People I follow";
             }
             $url = Main::getUserByProfileURL($this->subscription);
             if (!$url) $url = $this->subscription;
-            $subscr->removeMember($url); // TODO: Internal we're using UUID, but they're actually profiles
-            $subscr->save();
+            $acl->removeMember($url); // TODO: Internal we're using UUID, but they're actually profiles
+            $acl->save();
         }
 
     }
