@@ -69,17 +69,7 @@
                            href="<?= \Idno\Core\site()->config()->url ?>"><?= \Idno\Core\site()->config()->title ?></a>
 
                         <div class="nav-collapse collapse">
-                            <form class="navbar-search pull-left" action="/search/" method="get">
-                                <input type="text" class="search-query" name="q" placeholder="Search" value="<?php
-
-                                    if (!empty($currentPage)) {
-                                        if ($q = \Idno\Core\site()->currentPage()->getInput('q')) {
-                                            echo htmlspecialchars($q);
-                                        }
-                                    }
-
-                                ?>">
-                            </form>
+                            <?=$this->draw('shell/toolbar/search') ?>
                             <ul class="nav" role="menu">
                             </ul>
                             <?= $this->draw('shell/toolbar/content') ?>
