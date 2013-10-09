@@ -64,11 +64,12 @@ namespace IdnoPlugins\Subscribe {
             if (empty($subscr)) {
                 $subscr = new \Idno\Entities\AccessGroup();
                 $subscr->access_group_type = 'subscription';
+                $subscr->title = "People I follow";
             }
             $url = Main::getUserByProfileURL($this->subscription);
             if (!$url) $url = $this->subscription;
             $subscr->addMember($url); // TODO: Internal we're using UUID, but they're actually profiles
-            
+            $subscr->save();
             
         }
 
@@ -93,10 +94,12 @@ namespace IdnoPlugins\Subscribe {
             if (empty($subscr)) {
                 $subscr = new \Idno\Entities\AccessGroup();
                 $subscr->access_group_type = 'subscription';
+                $subscr->title = "People I follow";
             }
             $url = Main::getUserByProfileURL($this->subscription);
             if (!$url) $url = $this->subscription;
             $subscr->removeMember($url); // TODO: Internal we're using UUID, but they're actually profiles
+            $subscr->save();
         }
 
     }
