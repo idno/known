@@ -17,6 +17,39 @@ namespace Idno\Core {
 
         private $client = null;
         private $database = null;
+        
+        // Logged out JS
+        private static $acl_js = "
+            function() {
+                return this.access == 'PUBLIC';
+            }
+        ";
+        
+        // Logged in JS
+        private static $acl_js_loggedin = "
+            function() {
+                
+                // Find if {{user}} is in this.access
+                if (this.access != 'PUBLIC')
+                {
+                    var acl = db.entities.findOne({'uuid': this.access});
+                    var key = '';
+
+                    if (acl)
+                    {
+                        // Itterate through acl.members.read 
+                        for (key in acl.members['read']) {
+                            if (acl.members['read'][key] == '{{user}}') {
+                                return true;
+                            }
+                        }
+                    }
+
+                }
+
+                return this.access == 'PUBLIC';
+            }
+        ";
 
         function init()
         {
@@ -169,6 +202,11 @@ namespace Idno\Core {
 
             // Initialize query parameters to be an empty array
             $query_parameters = array();
+            
+            // Construct ACL query
+            $query_parameters['$where'] = self::$acl_js;
+            if ($user_id = \Idno\Core\site()->session()->currentUserUUID())
+                $query_parameters['$where'] = str_replace('{{user}}', $user_id, self::$acl_js_loggedin);
 
             // Ensure subtypes are recorded properly
             // and remove subtypes that have an exclamation mark before them
@@ -231,7 +269,12 @@ namespace Idno\Core {
 
             // Initialize query parameters to be an empty array
             $query_parameters = array();
-
+            
+            // Construct ACL query
+            $query_parameters['$where'] = self::$acl_js;
+            if ($user_id = \Idno\Core\site()->session()->currentUserUUID())
+                $query_parameters['$where'] = str_replace('{{user}}', $user_id, self::$acl_js_loggedin);
+            
             // Ensure subtypes are recorded properly
             // and remove subtypes that have an exclamation mark before them
             // from consideration

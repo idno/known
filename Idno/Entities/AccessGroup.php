@@ -118,6 +118,18 @@ namespace Idno\Entities {
             }
             return false;
         }
+        
+        /**
+         * Reset ACLS to their default.
+         */
+        function reset() 
+        {
+            $this->members = array(
+                'read' => array(\Idno\Core\site()->session()->currentUser()->getUUID()),
+                'write' => array(\Idno\Core\site()->session()->currentUser()->getUUID()),
+                'admin' => array(\Idno\Core\site()->session()->currentUser()->getUUID())
+            );
+        }
 
     }
 
