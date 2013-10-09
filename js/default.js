@@ -26,7 +26,7 @@
                     window.contentCreateType = plugin;
                     window.contentPage = true;
                     if (jQuery){
-                        $('form').sisyphus();
+                        //$('form').sisyphus();
                     }
                 },
                 error: function(error) {
