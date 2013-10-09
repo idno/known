@@ -23,7 +23,7 @@
                     $this->noContent();
                 }
 
-                $this->setPermalink();  // This is a permalink
+                //$this->setPermalink();  // This is a permalink
                 $offset = (int) $this->getInput('offset');
                 $count = \Idno\Entities\ActivityStreamPost::count(array('owner' => $user->getUUID()));
                 $feed = \Idno\Entities\ActivityStreamPost::get(array('owner' => $user->getUUID()),[],\Idno\Core\site()->config()->items_per_page,$offset);

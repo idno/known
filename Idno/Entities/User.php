@@ -379,6 +379,24 @@ namespace Idno\Entities {
         }
 
         /**
+         * Hook to provide a method of notifying a user - for example, sending an email or displaying a popup.
+         *
+         * @param string $message The message to notify the user with.
+         * @param string $long_message Optionally, a longer version of the message with more detail.
+         * @param \Idno\Common\Entity|null $object Optionally, an object to pass
+         * @param array|null $params Optionally, any parameters to pass to the process. NB: this should be used rarely.
+         */
+        public function notify($message, $long_message = null, $object = null, $params = null) {
+             return \Idno\Core\site()->triggerEvent('notify', [
+                                                                'user' => $this,
+                                                                'message' => $message,
+                                                                'long_message' => $long_message,
+                                                                'object' => $object,
+                                                                'parameters' => $params
+                                                               ]);
+        }
+        
+        /**
          * Save form input
          * @param \Idno\Common\Page $page
          * @return bool|\Idno\Common\false|\Idno\Common\true|\Idno\Core\false|\Idno\Core\MongoID|null

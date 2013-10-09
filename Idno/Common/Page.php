@@ -51,6 +51,14 @@ namespace Idno\Common {
                 }
             }
             \Idno\Core\site()->setCurrentPage($this);
+            
+            // Default exception handler
+            set_exception_handler(function ($exception) {
+                $page = \Idno\Core\site()->currentPage();
+                if (!empty($page))
+                    $page->exception($exception);
+                
+            });
         }
 
         /**
@@ -298,6 +306,15 @@ namespace Idno\Common {
             $t->__(['body' => $t->draw('pages/404'), 'title' => 'Not found!'])->drawPage();
             exit;
         }
+        
+        function exception(\Exception $e) 
+        {
+            $this->setResponse(500);
+            http_response_code($this->response);
+            $t = \Idno\Core\site()->template();
+            $t->__(['body' => $t->__(['exception' => $e])->draw('pages/500'), 'title' => 'Exception'])->drawPage();
+            exit;
+        }
 
         /**
          * If this page is allowed to forward, send a header to move
@@ -367,6 +384,7 @@ namespace Idno\Common {
         {
             $code = (int)$code;
             $this->response = $code;
+            http_response_code($this->response);
         }
 
         /**

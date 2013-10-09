@@ -1,7 +1,7 @@
 <?php
 
     /**
-     * Administration homepage
+     * Administration page: PHP dependencies
      */
 
     namespace Idno\Pages\Admin {

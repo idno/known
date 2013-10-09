@@ -239,6 +239,14 @@ namespace Idno\Core {
             return false;
         }
 
+        /**
+         * Retrieve this version of idno's version number
+         * @return string
+         */
+        function version() {
+            return '0.1 development';
+        }
+
     }
 
     /**
