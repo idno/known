@@ -68,11 +68,11 @@ namespace Idno\Core {
             $buffer      = curl_exec($curl_handle);
             $http_status = curl_getinfo($curl_handle, CURLINFO_HTTP_CODE);
 
-            curl_close($curl_handle);
-
             if ($error = curl_error($curl_handle)) {
                 error_log($error);
             }
+            
+            curl_close($curl_handle);
 
             return ['content' => $buffer, 'response' => $http_status, 'error' => $error];
         }
