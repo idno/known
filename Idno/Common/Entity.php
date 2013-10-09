@@ -680,6 +680,18 @@
             }
 
             /**
+             * Is this entity public?
+             * @return bool
+             */
+            function isPublic() {
+                $access = $this->getAccess();
+                if ($access == 'PUBLIC') {
+                    return true;
+                }
+                return false;
+            }
+
+            /**
              * Returns the database collection that this object should be
              * saved as part of
              *
