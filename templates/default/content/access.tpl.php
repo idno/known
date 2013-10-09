@@ -1,18 +1,18 @@
-<input type="hidden" name="access" id="access-control-id" value="PUBLIC" />
+<input type="text" name="access" id="access-control-id" value="PUBLIC" />
 <div id="access-control" class="acl">
     <div class="btn-group">
-        <a id="acl-text" class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-            Access
+        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            <span id="acl-text">Access</span>
             <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-            <li><a href="#" data-access="PUBLIC"><i class="icon-globe"> </i> Public</a></li>
+            <li><a href="#" data-acl="PUBLIC" class="acl-option"><i class="icon-globe"> </i> Public</a></li>
             <?php
             $acls = \Idno\Entities\AccessGroup::get(['owner' => \Idno\Core\site()->session()->currentUserUUID()]);
             if (!empty($acls)) {
                 foreach ($acls as $acl) {
                     ?>
-                    <li><a href="#" data-acl="<?= $acl->getUUID(); ?>"><i class="icon-group"> </i> <?= $acl->title; ?></a></li>
+                    <li><a href="#" data-acl="<?= $acl->getUUID(); ?>" class="acl-option"><i class="icon-group"> </i> <?= $acl->title; ?></a></li>
                         <?php
                     }
                 }
