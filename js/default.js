@@ -16,6 +16,7 @@
     function bindControls() {
         $('.acl-option').click(function() {
             $('#access-control-id').val($(this).attr('data-acl'));
+            $('#acl-text').html($(this).html());
         });
     }
 

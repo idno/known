@@ -2,7 +2,7 @@
 <div id="access-control" class="acl">
     <div class="btn-group">
         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-            <span id="acl-text">Access</span>
+            <span id="acl-text"><i class="icon-globe"> </i> Public</span>
             <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
