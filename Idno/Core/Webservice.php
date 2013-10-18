@@ -61,6 +61,13 @@ namespace Idno\Core {
             curl_setopt($curl_handle, CURLOPT_SSL_VERIFYPEER, 1);
             curl_setopt($curl_handle, CURLOPT_SSL_VERIFYHOST, 2);
 
+            // Allow plugins and other services to extend headers, allowing for plugable authentication methods on calls
+            $new_headers = \Idno\Core\site()->triggerEvent('webservice:headers', ['headers' => $headers, 'verb' => $verb]);
+            if (!empty($new_headers) && (is_array($new_headers))) {
+                if (empty($headers)) $headers = [];
+                $headers = array_merge($headers, $new_headers);
+            }
+            
             if (!empty($headers) && is_array($headers)) {
                 curl_setopt($curl_handle, CURLOPT_HTTPHEADER, $headers);
             }
