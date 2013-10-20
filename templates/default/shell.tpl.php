@@ -41,7 +41,7 @@
           href="<?= $this->getCurrentURLWithVar('_t', 'rss'); ?>"/>
 
     <!-- Webmention endpoint -->
-    <link href="<?= \Idno\Core\site()->config()->url ?>webmention/" rel="http://webmention.org/"/>
+    <link href="<?= \Idno\Core\site()->config()->url ?>webmention/" rel="http://webmention.org/ webmention"/>
 
     <?= $this->draw('shell/head', $vars); ?>
 
