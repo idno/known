@@ -1,7 +1,8 @@
 <?php
 
     header('Content-type: text/html');
-    header('Link: <' . \Idno\Core\site()->config()->url . 'webmention/>; rel="http://webmention.org/"')
+    header('Link: <' . \Idno\Core\site()->config()->url . 'webmention/>; rel="http://webmention.org/"');
+    header('Link: <' . \Idno\Core\site()->config()->url . 'webmention/>; rel="webmention"');
 
 ?>
 <?php if (!$_SERVER["HTTP_X_PJAX"]): ?>
@@ -41,7 +42,8 @@
           href="<?= $this->getCurrentURLWithVar('_t', 'rss'); ?>"/>
 
     <!-- Webmention endpoint -->
-    <link href="<?= \Idno\Core\site()->config()->url ?>webmention/" rel="http://webmention.org/ webmention"/>
+    <link href="<?= \Idno\Core\site()->config()->url ?>webmention/" rel="http://webmention.org/"/>
+    <link href="<?= \Idno\Core\site()->config()->url ?>webmention/" rel="webmention"/>
 
     <?= $this->draw('shell/head', $vars); ?>
 
