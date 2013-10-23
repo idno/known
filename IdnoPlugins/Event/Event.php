@@ -15,7 +15,7 @@
             }
 
             function getURL() {
-                if (($this->getID())) {
+                if (!($this->getSlug()) && ($this->getID())) {
                     return \Idno\Core\site()->config()->url . 'event/' . $this->getID() . '/' . $this->getPrettyURLTitle();
                 } else {
                     return parent::getURL();

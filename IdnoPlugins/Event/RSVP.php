@@ -21,7 +21,7 @@
             }
 
             function getURL() {
-                if (($this->getID())) {
+                if (!($this->getSlug()) && ($this->getID())) {
                     return \Idno\Core\site()->config()->url . 'rsvp/' . $this->getID() . '/';
                 } else {
                     return parent::getURL();
