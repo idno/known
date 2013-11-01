@@ -32,7 +32,7 @@ require_once(dirname(dirname(__FILE__)) . '/external/torophp/src/Toro.php');
 $loader->registerNamespace('webignition\Url', dirname(dirname(__FILE__)) . '/external/webignition/url/src');
 $loader->registerNamespace('webignition\AbsoluteUrlDeriver', dirname(dirname(__FILE__)) . '/external/webignition/absolute-url-deriver/src');
 $loader->registerNamespace('webignition\NormalisedUrl', dirname(dirname(__FILE__)) . '/external/webignition/url/src');
-$loader->registerNamespace('mf2', dirname(dirname(__FILE__)) . '/external/mf2');
+$loader->registerNamespace('Mf2', dirname(dirname(__FILE__)) . '/external/mf2');
 
 // Register the autoloader
 $loader->register();

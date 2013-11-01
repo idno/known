@@ -823,26 +823,20 @@
                             if (!empty($item['properties']['content'])) {
                                 if (is_array($item['properties']['content'])) {
                                     $mention['content'] = strip_tags(implode(' ', $item['properties']['content']));
-                                    error_log('Setting content to ' . $mention['content']);
                                 } else {
                                     $mention['content'] = $item['properties']['content'];
-                                    error_log('Setting content to ' . $mention['content']);
                                 }
                             } else if (!empty($item['properties']['summary'])) {
                                 if (is_array($item['properties']['summary'])) {
                                     $mention['content'] = strip_tags(implode(' ', $item['properties']['summary']));
-                                    error_log('Setting content to ' . $mention['content']);
                                 } else {
                                     $mention['content'] = $item['properties']['summary'];
-                                    error_log('Setting content to ' . $mention['content']);
                                 }
                             } else if (!empty($item['properties']['name'])) {
                                 if (is_array($item['properties']['name'])) {
                                     $mention['content'] = strip_tags(implode(' ', $item['properties']['name']));
-                                    error_log('Setting content to ' . $mention['content']);
                                 } else {
                                     $mention['content'] = $item['properties']['name'];
-                                    error_log('Setting content to ' . $mention['content']);
                                 }
                             }
                             if (!empty($item['properties']['published'])) {
@@ -858,6 +852,7 @@
                             if (!empty($item['properties']['in-reply-to']) && is_array($item['properties']['in-reply-to'])) {
                                 if (in_array($target, $item['properties']['in-reply-to'])) {
                                     $mention['type'] = 'reply';
+                                    error_log('This is a reply');
                                 }
                             }
                             if (!empty($item['properties']['like']) && is_array($item['properties']['like'])) {
@@ -866,10 +861,8 @@
                                 }
                             }
                             if (!empty($item['properties']['rsvp']) && is_array($item['properties']['rsvp'])) {
-                                //if (in_array($target, $item['properties']['rsvp'])) {
                                 $mention['type'] = 'rsvp';
                                 $mention['content'] = implode(' ', $item['properties']['rsvp']);
-                                //}
                             }
                             if (!empty($item['properties']['share']) && is_array($item['properties']['share'])) {
                                 if (in_array($target, $item['properties']['share'])) {
@@ -893,6 +886,7 @@
                         }
                     }
                 }
+                error_log(var_export($mentions,true));
                 return $mentions;
             }
 

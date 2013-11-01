@@ -57,7 +57,7 @@
              * @return array
              */
             static function parseContent($content) {
-                $parser = new \mf2\Parser($content);
+                $parser = new \Mf2\Parser($content); //\mf2\Parser($content);
                 return $parser->parse();
             }
 
