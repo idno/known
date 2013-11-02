@@ -802,6 +802,7 @@
              * @return array
              */
             function addWebmentionItem($item, $mentions, $source, $target) {
+                error_log(json_encode($item));
                 if (!empty($item['properties']['author'])) {
                     foreach($item['properties']['author'] as $author) {
                         if (!empty($author['type'])) {
@@ -821,8 +822,13 @@
                         $mention = [];
                         if (!empty($item['properties'])) {
                             if (!empty($item['properties']['content'])) {
+                                $mention['content'] = '';
                                 if (is_array($item['properties']['content'])) {
-                                    $mention['content'] = strip_tags(implode(' ', $item['properties']['content']));
+                                    foreach($item['properties']['content'] as $content) {
+                                        if (!empty($content['value'])) {
+                                            $mention['content'] .= strip_tags($content['value']);
+                                        }
+                                    }
                                 } else {
                                     $mention['content'] = $item['properties']['content'];
                                 }
@@ -852,7 +858,6 @@
                             if (!empty($item['properties']['in-reply-to']) && is_array($item['properties']['in-reply-to'])) {
                                 if (in_array($target, $item['properties']['in-reply-to'])) {
                                     $mention['type'] = 'reply';
-                                    error_log('This is a reply');
                                 }
                             }
                             if (!empty($item['properties']['like']) && is_array($item['properties']['like'])) {
@@ -886,7 +891,6 @@
                         }
                     }
                 }
-                error_log(var_export($mentions,true));
                 return $mentions;
             }
 
