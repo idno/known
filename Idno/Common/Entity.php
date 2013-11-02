@@ -802,7 +802,6 @@
              * @return array
              */
             function addWebmentionItem($item, $mentions, $source, $target) {
-                error_log(json_encode($item));
                 if (!empty($item['properties']['author'])) {
                     foreach($item['properties']['author'] as $author) {
                         if (!empty($author['type'])) {
