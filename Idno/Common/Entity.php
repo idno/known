@@ -99,6 +99,15 @@
                 if (!$this->getSlug() && empty($this->_id)) {
                     $this->setSlugResilient($this->getTitle());
                 }
+                
+                // Automatically set access
+                $page = \Idno\Core\site()->currentPage();
+                if (!empty($page))
+                {
+                    $access = $page->getInput('access');
+                    if (!empty($access))
+                        $this->access = $access;
+                }
 
                 // Save it to the database
 

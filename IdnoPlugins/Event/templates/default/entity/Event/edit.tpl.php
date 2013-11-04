@@ -37,6 +37,7 @@
                 <?= \Idno\Core\site()->actions()->signForm('/event/edit') ?>
                 <input type="submit" class="btn btn-primary" value="Save" />
                 <input type="button" class="btn" value="Cancel" onclick="hideContentCreateForm();" />
+                <?= $this->draw('content/access'); ?>
             </p>
         </div>
         <div class="span6 ">

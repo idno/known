@@ -174,6 +174,7 @@
         annotateContent();
     });
 
+   
 </script>
 
 <?= $this->draw('shell/footer', $vars) ?>

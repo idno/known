@@ -104,6 +104,7 @@
                 <?= \Idno\Core\site()->actions()->signForm('/checkin/edit') ?>
                 <input type="submit" class="btn btn-primary" value="<?php if (!$vars['object']->getUUID()) { ?>Check in<?php } else { ?>Save<?php } ?>"/>
                 <input type="button" class="btn" value="Cancel" onclick="hideContentCreateForm();"/>
+                <?= $this->draw('content/access'); ?>
             </p>
         </div>
 

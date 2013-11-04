@@ -359,7 +359,7 @@ namespace Idno\Entities {
                 0)
             ) {
                 foreach ($groups as $group) {
-                    $return[] = $group->uuid;
+                    $return[] = $group['uuid'];
                 }
             }
             return $return;
