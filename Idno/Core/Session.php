@@ -32,7 +32,7 @@ namespace Idno\Core {
                  
                  $object = $event->data()['object'];
                  if ((!empty($object)) && ($object instanceof \Idno\Entities\User) // Object is a user
-                         && ($object->getUUID() == $_SESSION['user']->getUUID())) // And we're not trying a user change (avoids a possible exploit)
+                         && ((!empty($_SESSION['user'])) && ($object->getUUID() == $_SESSION['user']->getUUID()))) // And we're not trying a user change (avoids a possible exploit)
                  {
                      $_SESSION['user'] = $object;
                  }
