@@ -559,7 +559,7 @@
                     if ($url_schema) {
                         $host = \Idno\Core\site()->config()->url;
                     } else {
-                        $host = \Idno\Core\site()->config()->host;
+                        $host = \Idno\Core\site()->config()->host . '/';
                     }
                     return $host . 's/' . $this->shorturl;
                 }
