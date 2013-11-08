@@ -133,6 +133,10 @@ h2 {
     margin-right: 0.25em;
 }
 
+.idno-object .citation {
+    color: #ccc;
+}
+
 .owner .u-photo {
     height: 100%;
 }

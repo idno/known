@@ -573,7 +573,7 @@
             function getCitation() {
                 $host = \Idno\Core\site()->config()->host;
                 $shorturl = $this->getShortURL(false);
-                return '(' . $host . ' ' . $shorturl . ')';
+                return '(' . $host . ' s/' . $shorturl . ')';
             }
 
             /**
