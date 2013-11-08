@@ -1,4 +1,4 @@
-<input type="hidden" name="access" id="access-control-id" value="PUBLIC" />
+<!--<input type="hidden" name="access" id="access-control-id" value="PUBLIC" />
 <div id="access-control" class="acl">
     <div class="btn-group">
         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -20,3 +20,4 @@
         </ul>
     </div>
 </div>
+-->
