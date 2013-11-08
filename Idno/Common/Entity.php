@@ -550,13 +550,18 @@
              * @param bool $complete
              * @return null|string
              */
-            function getShortURL($complete = true)
+            function getShortURL($complete = true, $url_schema = true)
             {
                 if (empty($this->shorturl)) {
                     $this->setShortURL();
                 }
                 if ($complete) {
-                    return \Idno\Core\site()->config()->url . 's/' . $this->shorturl;
+                    if ($url_schema) {
+                        $host = \Idno\Core\site()->config()->url;
+                    } else {
+                        $host = \Idno\Core\site()->config()->host;
+                    }
+                    return $host . 's/' . $this->shorturl;
                 }
                 return $this->shorturl;
             }
