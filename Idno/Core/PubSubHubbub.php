@@ -42,7 +42,7 @@
 
                     return \Idno\Core\Webservice::post($hub, [
                         'hub.mode' => 'publish',
-                        'hub.url'  => $url
+                        'hub.url'  => \Idno\Core\site()->config()->feed
                     ]);
 
                 }

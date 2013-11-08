@@ -33,6 +33,7 @@ namespace Idno\Core {
             $this->title = 'New idno site'; // A default name for the site
             $this->timezone = 'UTC';
             $this->host = parse_url($this->url, PHP_URL_HOST); // The site hostname, without parameters etc
+            $this->feed = $this->url . '?_t=rss';
 
             if ($config = @parse_ini_file($this->path . '/config.ini')) {
                 $this->config = array_merge($this->config, $config);
