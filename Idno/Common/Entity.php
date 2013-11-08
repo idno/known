@@ -99,11 +99,10 @@
                 if (!$this->getSlug() && empty($this->_id)) {
                     $this->setSlugResilient($this->getTitle());
                 }
-                
+
                 // Automatically set access
                 $page = \Idno\Core\site()->currentPage();
-                if (!empty($page))
-                {
+                if (!empty($page)) {
                     $access = $page->getInput('access');
                     if (!empty($access))
                         $this->access = $access;
@@ -121,13 +120,13 @@
                         $this->_id  = $result;
                         $this->uuid = $this->getUUID();
                         \Idno\Core\site()->db()->saveObject($this);
-                        
+
                         $event = new \Idno\Core\Event(array('object' => $this));
-                        
+
                         if ($this->getActivityStreamsObjectType()) {
                             \Idno\Core\site()->events()->dispatch('post/' . $this->getActivityStreamsObjectType(), $event);
                         }
-                        
+
                         \Idno\Core\site()->events()->dispatch('saved', $event);
                     }
 
@@ -199,6 +198,7 @@
 
                     if ($return = \Idno\Core\db()->deleteRecord($this->getID())) {
                         $this->deleteData();
+
                         return $return;
                     }
                 }
@@ -210,7 +210,8 @@
              * Is called after an entity is deleted but before the delete process finishes
              * @return bool
              */
-            function deleteData() {
+            function deleteData()
+            {
                 return true;
             }
 
@@ -428,7 +429,8 @@
              * Return an array of hashtags (if any) present in this entity's description.
              * @return array
              */
-            function getTags() {
+            function getTags()
+            {
                 if ($descr = $this->getDescription()) {
                     if (preg_match_all('/(?<!=)(?<!["\'])(\#[A-Za-z0-9]+)/i', $descr, $matches)) {
                         if (!empty($matches[0])) {
@@ -436,6 +438,7 @@
                         }
                     }
                 }
+
                 return [];
             }
 
@@ -445,13 +448,16 @@
              * @param $url
              * @return bool
              */
-            function setPosseLink($service, $url) {
+            function setPosseLink($service, $url)
+            {
                 if (!empty($service) && !empty($url)) {
-                    $posse = $this->posse;
+                    $posse           = $this->posse;
                     $posse[$service] = $url;
-                    $this->posse = $posse;
+                    $this->posse     = $posse;
+
                     return true;
                 }
+
                 return false;
             }
 
@@ -460,10 +466,12 @@
              * on third-party services
              * @return array
              */
-            function getPosseLinks() {
+            function getPosseLinks()
+            {
                 if (!empty($this->posse)) {
                     return $this->posse;
                 }
+
                 return [];
             }
 
@@ -474,8 +482,9 @@
              * @param int $limit The maximum length of the slug
              * @return bool
              */
-            function setSlug($slug, $limit = 140) {
-                $plugin_slug = \Idno\Core\site()->triggerEvent('entity/slug',['object' => $this]);
+            function setSlug($slug, $limit = 140)
+            {
+                $plugin_slug = \Idno\Core\site()->triggerEvent('entity/slug', ['object' => $this]);
                 if (!empty($plugin_slug) && $plugin_slug !== true) {
                     return $plugin_slug;
                 }
@@ -483,9 +492,9 @@
                 $slug = strtolower($slug);
                 $slug = preg_replace('|https?://[a-z\.0-9]+|i', '', $slug);
                 $slug = preg_replace("/[^A-Za-z0-9\-\_ ]/", '', $slug);
-                $slug = preg_replace("/[ ]+/",' ',$slug);
-                $slug = substr($slug,0,$limit);
-                $slug = str_replace(' ','-',$slug);
+                $slug = preg_replace("/[ ]+/", ' ', $slug);
+                $slug = substr($slug, 0, $limit);
+                $slug = str_replace(' ', '-', $slug);
                 if (empty($slug)) {
                     return false;
                 }
@@ -495,6 +504,7 @@
                     }
                 }
                 $this->slug = $slug;
+
                 return $slug;
             }
 
@@ -502,10 +512,12 @@
              * Gets the URL slug for this entity, if it exists
              * @return bool|null
              */
-            function getSlug() {
+            function getSlug()
+            {
                 if (!empty($this->slug)) {
                     return $this->slug;
                 }
+
                 return false;
             }
 
@@ -516,7 +528,8 @@
              * @param string $slug
              * @return bool|string
              */
-            function setSlugResilient($slug) {
+            function setSlugResilient($slug)
+            {
                 if (empty($slug)) {
                     return false;
                 }
@@ -528,7 +541,62 @@
                 while (!($modified_slug = $this->setSlug($slug . '-' . $slug_extension))) {
                     $slug_extension++;
                 }
+
                 return $modified_slug;
+            }
+
+            /**
+             * Retrieve a short URL that references this entity
+             * @param bool $complete
+             * @return null|string
+             */
+            function getShortURL($complete = true)
+            {
+                if (empty($this->shorturl)) {
+                    $this->setShortURL();
+                }
+                if ($complete) {
+                    return \Idno\Core\site()->config()->url . 's/' . $this->shorturl;
+                }
+                return $this->shorturl;
+            }
+
+            /**
+             * Retrieve a citation that references this entity
+             * @return string
+             */
+            function getCitation() {
+                $host = \Idno\Core\site()->config()->host;
+                $shorturl = $this->getShortURL(false);
+                return '(' . $host . ' ' . $shorturl . ')';
+            }
+
+            /**
+             * Sets the short URL for this entity.
+             * @return string
+             */
+            function setShortURL()
+            {
+                function shorten($id, $alphabet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
+                {
+                    $base     = strlen($alphabet);
+                    $short    = '';
+                    while ($id) {
+                        $id    = ($id - ($r = $id % $base)) / $base;
+                        $short = $alphabet{$r} . $short;
+                    };
+                    return $short;
+                }
+
+                $seed = rand(0, 99999999);
+                $code = shorten($seed);
+                while ($entity = self::getByShortURL($code)) {
+                    $code = shorten(rand(0, 99999999));
+                }
+                $this->shorturl = $code;
+                $this->save();
+
+                return $this->shorturl;
             }
 
             /**
@@ -584,7 +652,7 @@
 
                 // If a slug has been set, use it
                 if ($slug = $this->getSlug()) {
-                    return \Idno\Core\site()->config()->url . date('Y',$this->created) . '/' . $slug;
+                    return \Idno\Core\site()->config()->url . date('Y', $this->created) . '/' . $slug;
                 }
 
                 $uuid = $this->getUUID();
@@ -633,7 +701,8 @@
              *
              * @return string
              */
-            function getMicroformats2ObjectType() {
+            function getMicroformats2ObjectType()
+            {
                 return 'h-entry';
             }
 
@@ -692,11 +761,13 @@
              * Is this entity public?
              * @return bool
              */
-            function isPublic() {
+            function isPublic()
+            {
                 $access = $this->getAccess();
                 if ($access == 'PUBLIC') {
                     return true;
                 }
+
                 return false;
             }
 
@@ -795,7 +866,7 @@
                 );
 
                 if ($attachments = $this->getAttachments()) {
-                    foreach($attachments as $attachment) {
+                    foreach ($attachments as $attachment) {
                         $object['attachments'][] = ['url' => $attachment['url'], 'mime-type' => $attachment['mime-type'], 'length' => $attachment['length']];
                     }
                 }
@@ -810,11 +881,12 @@
              * @param $mentions
              * @return array
              */
-            function addWebmentionItem($item, $mentions, $source, $target) {
+            function addWebmentionItem($item, $mentions, $source, $target)
+            {
                 if (!empty($item['properties']['author'])) {
-                    foreach($item['properties']['author'] as $author) {
+                    foreach ($item['properties']['author'] as $author) {
                         if (!empty($author['type'])) {
-                            foreach($author['type'] as $type) {
+                            foreach ($author['type'] as $type) {
                                 if ($type == 'h-card') {
                                     if (!empty($author['properties']['name'])) $mentions['owner']['name'] = $author['properties']['name'][0];
                                     if (!empty($author['properties']['url'])) $mentions['owner']['url'] = $author['properties']['url'][0];
@@ -832,7 +904,7 @@
                             if (!empty($item['properties']['content'])) {
                                 $mention['content'] = '';
                                 if (is_array($item['properties']['content'])) {
-                                    foreach($item['properties']['content'] as $content) {
+                                    foreach ($item['properties']['content'] as $content) {
                                         if (!empty($content['value'])) {
                                             $mention['content'] .= strip_tags($content['value']);
                                         }
@@ -874,7 +946,7 @@
                                 }
                             }
                             if (!empty($item['properties']['rsvp']) && is_array($item['properties']['rsvp'])) {
-                                $mention['type'] = 'rsvp';
+                                $mention['type']    = 'rsvp';
                                 $mention['content'] = implode(' ', $item['properties']['rsvp']);
                             }
                             if (!empty($item['properties']['share']) && is_array($item['properties']['share'])) {
@@ -892,13 +964,14 @@
 
                     }
                 }
-                if (in_array('h-feed',$item['type'])) {
+                if (in_array('h-feed', $item['type'])) {
                     if (!empty($item['children'])) {
-                        foreach($item['children'] as $child) {
+                        foreach ($item['children'] as $child) {
                             $mentions = $this->addWebmentionItem($child, $mentions, $source, $target);
                         }
                     }
                 }
+
                 return $mentions;
             }
 
@@ -933,7 +1006,7 @@
                         if (!empty($item['type']) && is_array($item['type'])) {
                             foreach ($item['type'] as $type) {
 
-                                switch($type) {
+                                switch ($type) {
                                     case 'h-card':
                                         if (!empty($item['properties'])) {
                                             if (!empty($item['properties']['name'])) $mentions['owner']['name'] = $item['properties']['name'][0];
@@ -987,36 +1060,34 @@
              * Retrieve an annotation type via its id
              * @param type $uuid
              */
-            function getAnnotationSubtype($uuid) {
-                if (!empty($this->annotations) && is_array($this->annotations))
-                {
-                    foreach ($this->annotations as $subtype => $array)
-                    {
+            function getAnnotationSubtype($uuid)
+            {
+                if (!empty($this->annotations) && is_array($this->annotations)) {
+                    foreach ($this->annotations as $subtype => $array) {
                         if (isset($array[$uuid]))
                             return $subtype;
                     }
                 }
-                
+
                 return false;
             }
-            
+
             /**
              * Retrieve an annotation via its id
              * @param type $uuid
              */
-            function getAnnotation($uuid) {
-                if (!empty($this->annotations) && is_array($this->annotations))
-                {
-                    foreach ($this->annotations as $subtype => $array)
-                    {
+            function getAnnotation($uuid)
+            {
+                if (!empty($this->annotations) && is_array($this->annotations)) {
+                    foreach ($this->annotations as $subtype => $array) {
                         if (isset($array[$uuid]))
                             return $array[$uuid];
                     }
                 }
-                
+
                 return false;
             }
-            
+
             /**
              * Return all the annotations on this entity of a specific subtype. If there are no annotations of
              * this subtype, an empty array will be returned.
@@ -1068,9 +1139,9 @@
                 if (empty($time)) {
                     $time = time();
                 } else {
-                    $time = (int) $time;
+                    $time = (int)$time;
                 }
-                $annotation = ['owner_name' => $owner_name, 'owner_url' => $owner_url, 'owner_image' => $owner_image, 'content' => $content, 'time' => $time];
+                $annotation  = ['owner_name' => $owner_name, 'owner_url' => $owner_url, 'owner_image' => $owner_image, 'content' => $content, 'time' => $time];
                 $annotations = $this->annotations;
                 if (empty($annotations)) {
                     $annotations = [];
@@ -1079,9 +1150,9 @@
                     $annotations[$subtype] = [];
                 }
                 $annotations[$subtype][$annotation_url] = $annotation;
-                $this->annotations = $annotations;
+                $this->annotations                      = $annotations;
 
-                \Idno\Core\site()->triggerEvent('annotation/add/'.$subtype, ['annotation' => $annotation, 'object' => $this]);
+                \Idno\Core\site()->triggerEvent('annotation/add/' . $subtype, ['annotation' => $annotation, 'object' => $this]);
 
                 return true;
             }
@@ -1100,6 +1171,7 @@
                                 if (array_key_exists($annotation_url, $array)) {
                                     unset($annotations[$subtype][$annotation_url]);
                                     $this->annotations = $annotations;
+
                                     return true;
                                 }
                             }
@@ -1263,7 +1335,23 @@
                 if (empty($slug)) {
                     return false;
                 }
+
                 return self::getOneFromAll(array('slug' => $slug));
+            }
+
+            /**
+             * Retrieve a single record by its short URL
+             * @param $url
+             * @return bool|Entity
+             */
+            static function getByShortURL($url)
+            {
+                $url = str_replace(\Idno\Core\site()->config()->url . 's/', '', $url);
+                if (empty($url)) {
+                    return false;
+                }
+
+                return self::getOneFromAll(array('shorturl' => $url));
             }
 
         }
