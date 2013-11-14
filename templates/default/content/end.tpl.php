@@ -9,7 +9,7 @@
             <?=$this->draw('content/end/links')?>
             <?php
 
-                if (\Idno\Core\site()->currentPage()->isPermalink()) {
+                if (\Idno\Core\site()->currentPage()->isPermalink() && \Idno\Core\site()->config()->indieweb_citation) {
 
             ?>
             <span class="citation"><?=$vars['object']->getCitation()?></span>
