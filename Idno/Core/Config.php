@@ -28,13 +28,14 @@
                 // Load the config.ini file in the root folder, if it exists.
                 // If not, we'll use default values. No skin off our nose.
                 // @TODO override settings from the database
-                $this->path              = dirname(dirname(dirname(__FILE__))); // Base path
-                $this->url               = (\Idno\Common\Page::isSSL() ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . '/'; // A naive default base URL
-                $this->title             = 'New idno site'; // A default name for the site
-                $this->timezone          = 'UTC';
-                $this->host              = parse_url($this->url, PHP_URL_HOST); // The site hostname, without parameters etc
-                $this->feed              = $this->url . '?_t=rss';
-                $this->indieweb_citation = false;
+                $this->path               = dirname(dirname(dirname(__FILE__))); // Base path
+                $this->url                = (\Idno\Common\Page::isSSL() ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . '/'; // A naive default base URL
+                $this->title              = 'New idno site'; // A default name for the site
+                $this->timezone           = 'UTC';
+                $this->host               = parse_url($this->url, PHP_URL_HOST); // The site hostname, without parameters etc
+                $this->feed               = $this->url . '?_t=rss';
+                $this->indieweb_citation  = false;
+                $this->indieweb_reference = false;
 
                 if ($config = @parse_ini_file($this->path . '/config.ini')) {
                     $this->config = array_merge($this->config, $config);
