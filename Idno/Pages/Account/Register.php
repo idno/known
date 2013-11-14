@@ -57,8 +57,9 @@
                 }
 
                 if (!empty($user->_id)) {
-                    \Idno\Core\site()->session()->addMessage("You've registered! Well done.");
+                    \Idno\Core\site()->session()->addMessage("You've registered! Well done. Why not add some profile information?");
                     \Idno\Core\site()->session()->logUserOn($user);
+                    $this->forward($user->getURL());
                 } else {
                     \Idno\Core\site()->session()->addMessage("We couldn't register you.");
                     $this->forward($_SERVER['HTTP_REFERER']);
