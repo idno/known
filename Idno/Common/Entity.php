@@ -479,22 +479,16 @@
              * Sets the URL slug of this entity to the given non-empty string, returning
              * the sanitized slug on success
              * @param string $slug
-             * @param int $limit The maximum length of the slug
+             * @param int $max_pieces The maximum number of words in the slug (default: 10)
              * @return bool
              */
-            function setSlug($slug, $limit = 140)
+            function setSlug($slug, $max_pieces = 10)
             {
                 $plugin_slug = \Idno\Core\site()->triggerEvent('entity/slug', ['object' => $this]);
                 if (!empty($plugin_slug) && $plugin_slug !== true) {
                     return $plugin_slug;
                 }
-                $slug = trim($slug);
-                $slug = strtolower($slug);
-                $slug = preg_replace('|https?://[a-z\.0-9]+|i', '', $slug);
-                $slug = preg_replace("/[^A-Za-z0-9\-\_ ]/", '', $slug);
-                $slug = preg_replace("/[ ]+/", ' ', $slug);
-                $slug = substr($slug, 0, $limit);
-                $slug = str_replace(' ', '-', $slug);
+                $slug = $this->prepare_slug($slug);
                 if (empty($slug)) {
                     return false;
                 }
@@ -505,6 +499,23 @@
                 }
                 $this->slug = $slug;
 
+                return $slug;
+            }
+
+            /**
+             * Processes the text involved in a slug
+             * @param $slug
+             * @param int $max_pieces The maximum number of words in the slug (default: 10)
+             * @return string
+             */
+            function prepare_slug($slug, $max_pieces = 10) {
+                $slug = trim($slug);
+                $slug = strtolower($slug);
+                $slug = preg_replace('|https?://[a-z\.0-9]+|i', '', $slug);
+                $slug = preg_replace("/[^A-Za-z0-9\-\_ ]/", '', $slug);
+                $slug = preg_replace("/[ ]+/", ' ', $slug);
+                $slug = implode('-',array_slice(explode(' ', $slug),0,$max_pieces));
+                $slug = str_replace(' ', '-', $slug);
                 return $slug;
             }
 
@@ -526,19 +537,21 @@
              * in the case where the slug is already taken, and returning the modified version
              * of the slug
              * @param string $slug
+             * @param int $max_pieces The maximum number of words in the slug (default: 10)
              * @return bool|string
              */
-            function setSlugResilient($slug)
+            function setSlugResilient($slug, $max_pieces = 10)
             {
+                $slug = $this->prepare_slug($slug, $max_pieces);
                 if (empty($slug)) {
                     return false;
                 }
-                if ($this->setSlug($slug)) {
+                if ($this->setSlug($slug, $max_pieces)) {
                     return true;
                 }
                 // If we've got here, the slug exists, so we need to create a new version
                 $slug_extension = 1;
-                while (!($modified_slug = $this->setSlug($slug . '-' . $slug_extension))) {
+                while (!($modified_slug = $this->setSlug($slug . '-' . $slug_extension, 11))) {
                     $slug_extension++;
                 }
 
