@@ -405,6 +405,17 @@ namespace Idno\Entities {
 
             if (!$this->canEdit()) return false;
             $this->profile = \Idno\Core\site()->currentPage()->getInput('profile');
+            if (!empty($_FILES['avatar'])) {
+                if (in_array($_FILES['avatar']['type'], array('image/png','image/jpg','image/jpeg','image/gif'))) {
+                    if (getimagesize($_FILES['avatar']['tmp_name'])) {
+                        if ($icon = \Idno\Entities\File::createThumbnailFromFile($_FILES['avatar']['tmp_name'], $_FILES['avatar']['name'], 300)) {
+                            $this->icon = (string) $icon;
+                        } else if ($icon = \Idno\Entities\File::createFromFile($_FILES['avatar']['tmp_name'], $_FILES['avatar']['name'])) {
+                            $this->icon = (string) $icon;
+                        }
+                    }
+                }
+            }
             return $this->save();
 
         }
