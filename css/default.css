@@ -154,10 +154,6 @@ h2 {
     display: inline-block;
 }
 
-.p-name {
-    line-height: 0.5em !important;
-}
-
 .p-author {
     font-size: 1em !important;
     text-align: left !important;
@@ -305,4 +301,8 @@ span.contentTypeLogo {
 
 .bodyInput {
     height: 15em;
+}
+
+.highlightedText {
+    font-size: 1.3em;
 }
