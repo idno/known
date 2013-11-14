@@ -10,7 +10,7 @@
     <?=$this->draw('account/menu')?>
 	<div class="hero-unit">
 	    <p>
-		Change your basic account settings here.
+		    Change your basic account settings here, or <a href="<?=\Idno\Core\site()->session()->currentUser()->getURL()?>/edit/">click here to edit your profile</a>.
 	    </p>
 	    <form action="/account/settings" method="post" class="form-horizontal" enctype="multipart/form-data">
             <div class="control-group">
