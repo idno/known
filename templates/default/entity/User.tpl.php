@@ -5,6 +5,17 @@
                 <p>
                     <a href="<?=$vars['user']->getURL()?>" class="u-url icon-container"><img class="u-photo" src="<?=$vars['user']->getIcon()?>" /></a>
                 </p>
+                <?php
+
+                    if ($vars['user']->getUUID() == \Idno\Core\site()->session()->currentUserUUID()) {
+                ?>
+                        <p>
+                            <a href="<?=$vars['user']->getURL()?>/edit/#avatar">Upload a new picture</a>
+                        </p>
+                <?php
+                    }
+
+                ?>
             </div>
             <div class="span6 ">
                 <div class="row">
@@ -31,7 +42,20 @@
                 </div>
                 <div class="row">
                     <div class="span6">
-                        <div class="e-note"><?=$this->autop($vars['user']->getDescription())?></div>
+                        <div class="e-note"><?php
+                            $description = $vars['user']->getDescription();
+                            if (!empty($description)) {
+                                echo $this->autop($vars['user']->getDescription());
+                            } else if ($vars['user']->getUUID() == \Idno\Core\site()->session()->currentUserUUID()) {
+                                ?>
+                                <p class="highlightedText">
+                                    A profile helps you describe yourself to other people on the site
+                                    and on the web. You haven't added a description yet.
+                                    <a href="<?=$vars['user']->getURL()?>/edit/">Click here to fill in your profile information.</a>
+                                </p>
+                                <?php
+                            }
+                        ?></div>
 
                         <?=$this->draw('entity/User/profile/fields')?>
                     </div>

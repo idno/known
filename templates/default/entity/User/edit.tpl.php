@@ -21,7 +21,7 @@
             </p>
 
             <div class="control-group">
-                <label class="control-label" for="inputAvatar">Upload a new avatar</label>
+                <label class="control-label" for="inputAvatar"><a name="avatar"></a>Upload a new avatar</label>
                 <div class="controls">
                     <input type="file" id="inputAvatar" class="span4" name="avatar">
                 </div>
