@@ -55,6 +55,6 @@ community. We value your contributions.
 Get in touch with the core team
 -------------------------------
 
-Generic email:  hello@idno.co
-Ben Werdmuller: ben@benwerd.com, +1 (312) 488-9373
+* Generic email:  hello@idno.co
+* Ben Werdmuller: ben@benwerd.com, +1 (312) 488-9373
 
