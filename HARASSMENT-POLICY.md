@@ -25,7 +25,7 @@ The short version
 Idno is dedicated to providing a harassment-free community for everyone,
 regardless of gender, gender identity and expression, sexual orientation,
 disability, physical appearance, body size, race, or religion. We do not
-tolerate harassment of conference participants in any form. Sexual language
+tolerate harassment of community participants in any form. Sexual language
 and imagery is not appropriate for any aspect of the community, including
 chat and mailing lists. Community participants violating these rules may be
 sanctioned or expelled from the community at the discretion of the core
