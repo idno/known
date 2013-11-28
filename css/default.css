@@ -109,6 +109,12 @@ h2 {
     font-size: 0.9em;
 }
 
+.idno-object .e-content blockquote p {
+    font-size: 1.1em;
+    line-height: 1.6em;
+    margin-bottom: 1em;
+}
+
 .idno-object .footer {
     clear: both;
     font-size: 0.85em;
