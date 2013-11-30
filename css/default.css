@@ -252,6 +252,10 @@ h2 {
     margin-bottom: 4em;
 }
 
+.profile .highlightedText {
+    font-size: 1.3em;
+}
+
 /**
     Content creation
 */
@@ -309,6 +313,32 @@ span.contentTypeLogo {
     height: 15em;
 }
 
-.highlightedText {
-    font-size: 1.3em;
+.syndication span,
+.syndication span label {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    /*font-size: 0.9em;*/
+}
+
+.syndication span {
+    margin-right: 0.125em;
+}
+
+.syndication span input[type=checkbox] {
+    display: none;
+}
+
+.syndication span input[type=checkbox] + label {
+    width: 6em;
+    background-color: #ccc;
+    color: #eee;
+    border-radius: 3px;
+    padding: 0.25em;
+    text-align: center;
+}
+
+.syndication span input[type=checkbox]:checked + label {
+    background-color: #888;
+    color: #fff;
 }

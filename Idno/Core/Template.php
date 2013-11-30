@@ -44,6 +44,15 @@ namespace Idno\Core {
         }
 
         /**
+         * Draw syndication buttons relating to a particular content type
+         * @param $content_type
+         * @return \Bonita\false|string
+         */
+        function drawSyndication($content_type) {
+            return $this->__(['services' => \Idno\Core\site()->syndication()->getServices($content_type)])->draw('content/syndication');
+        }
+
+        /**
          * Draws generic pagination suitable for placing somewhere on a page (offset is drawn from the 'offset' input variable)
          * @param int $count Number of items in total (across all pages)
          * @param int $items_per_page Number of items you're displaying per page

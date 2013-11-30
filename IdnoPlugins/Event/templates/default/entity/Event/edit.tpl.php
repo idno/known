@@ -33,6 +33,7 @@
                     <input type="text" name="endtime" id="endtime" value="<?=htmlspecialchars($vars['object']->endtime)?>" class="span4" />
                 </label>
             </p>
+            <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('event'); ?>
             <p>
                 <?= \Idno\Core\site()->actions()->signForm('/event/edit') ?>
                 <input type="submit" class="btn btn-primary" value="Save" />

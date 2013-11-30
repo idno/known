@@ -25,6 +25,9 @@
                     Any comments?<br />
                     <input type="text" name="body" id="body" value="<?=htmlspecialchars($vars['object']->body)?>" class="span9" />
                 </label>
+            </p>
+            <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('note'); ?>
+            <p>
                 <?= \Idno\Core\site()->actions()->signForm('/status/edit') ?>
                 <input type="submit" class="btn btn-primary" value="Save" />
                 <input type="button" class="btn" value="Cancel" onclick="hideContentCreateForm();" />

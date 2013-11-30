@@ -125,6 +125,7 @@
 
                         if ($this->getActivityStreamsObjectType()) {
                             \Idno\Core\site()->events()->dispatch('post/' . $this->getActivityStreamsObjectType(), $event);
+                            \Idno\Core\site()->events()->dispatch('syndicate', $event);
                         }
 
                         \Idno\Core\site()->events()->dispatch('saved', $event);

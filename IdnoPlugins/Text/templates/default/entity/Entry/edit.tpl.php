@@ -20,6 +20,7 @@
                     <input type="text" name="title" id="title" value="<?=htmlspecialchars($vars['object']->title)?>" class="span4" />
                 </label>
             </p>
+            <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('article'); ?>
             <p>
                 <?= \Idno\Core\site()->actions()->signForm('/text/edit') ?>
                 <input type="submit" class="btn btn-primary" value="Save" />

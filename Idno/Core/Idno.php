@@ -20,6 +20,7 @@ namespace Idno\Core {
         public $plugins;
         public $dispatcher;
         public $pagehandlers;
+        public $syndication;
         public static $site;
         public $currentPage;
 
@@ -33,7 +34,8 @@ namespace Idno\Core {
             $this->session = new Session();
             $this->actions = new Actions();
             $this->template = new Template();
-            $this->plugins = new Plugins();
+            $this->syndication = new Syndication();
+            $this->plugins = new Plugins(); // This must be loaded last
         }
 
         /**
@@ -115,6 +117,14 @@ namespace Idno\Core {
                 return $this->config;
             else
                 return $this->config->$setting;
+        }
+
+        /**
+         * Helper function that returns the current syndication object for this site
+         * @return \Idno\Core\Syndication
+         */
+        function &syndication() {
+            return $this->syndication;
         }
 
         /**

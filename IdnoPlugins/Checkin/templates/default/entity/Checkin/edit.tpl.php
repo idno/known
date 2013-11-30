@@ -101,6 +101,9 @@
                     <input type="text" name="body" id="body" value="<?= htmlspecialchars($vars['object']->body) ?>"
                            class="span9"/>
                 </label>
+            </p>
+            <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('place'); ?>
+            <p>
                 <?= \Idno\Core\site()->actions()->signForm('/checkin/edit') ?>
                 <input type="submit" class="btn btn-primary" value="<?php if (!$vars['object']->getUUID()) { ?>Check in<?php } else { ?>Save<?php } ?>"/>
                 <input type="button" class="btn" value="Cancel" onclick="hideContentCreateForm();"/>
