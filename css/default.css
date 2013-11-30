@@ -323,6 +323,7 @@ span.contentTypeLogo {
 
 .syndication span {
     margin-right: 0.125em;
+    margin-bottom: 0.35em;
 }
 
 .syndication span input[type=checkbox] {
