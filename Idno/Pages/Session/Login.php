@@ -35,7 +35,6 @@ namespace Idno\Pages\Session {
                 if ($user->checkPassword($this->getInput('password'))) {
                     \Idno\Core\site()->triggerEvent('login/success', ['user' => $user]); // Trigger an event for auditing
                     \Idno\Core\site()->session()->logUserOn($user);
-                    \Idno\Core\site()->session()->addMessage("You've signed in as {$user->getTitle()}.");
                     $this->forward();
                 } else {
                     \Idno\Core\site()->session()->addMessage("Oops! It looks like your password isn't correct. Please try again.");
