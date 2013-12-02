@@ -23,6 +23,9 @@
                     $this->noContent();
                 }
 
+                // Users own their own profiles
+                $this->setOwner($user);
+
                 //$this->setPermalink();  // This is a permalink
                 $offset = (int) $this->getInput('offset');
                 $count = \Idno\Entities\ActivityStreamPost::count(array('owner' => $user->getUUID()));
