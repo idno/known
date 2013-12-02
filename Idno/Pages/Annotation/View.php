@@ -25,7 +25,9 @@
                 if (empty($object)) {
                     $this->goneContent();
                 }
-                
+
+                $this->setOwner($object->getOwner());
+
                 $permalink = $object->getUrl() . '/annotations/' . $this->arguments[1];
                 $annotation = $object->getAnnotation($permalink);
                 $subtype = $object->getAnnotationSubtype($permalink);
