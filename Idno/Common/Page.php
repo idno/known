@@ -45,6 +45,9 @@ namespace Idno\Common {
         // Is this an XmlHTTPRequest (AJAX) call?
         public $xhr = false;
 
+        // Who owns this page, anyway?
+        public $owner = false;
+
         function init() {
             header('X-Powered-By: http://idno.co');
             if ($template = $this->getInput('_t')) {
@@ -80,6 +83,9 @@ namespace Idno\Common {
 
             $arguments = func_get_args();
             if (!empty($arguments)) $this->arguments = $arguments;
+
+            \Idno\Core\site()->triggerEvent('page/get',['page_class' => get_called_class(), 'arguments' => $arguments]);
+
             $this->getContent();
 
             if (http_response_code() != 200)
@@ -100,6 +106,8 @@ namespace Idno\Common {
 
             $arguments = func_get_args();
             if (!empty($arguments)) $this->arguments = $arguments;
+
+            \Idno\Core\site()->triggerEvent('page/post',['page_class' => get_called_class(), 'arguments' => $arguments]);
 
             if (\Idno\Core\site()->actions()->validateToken('', false)) {
                 \Idno\Core\site()->session()->APIlogin();
@@ -128,6 +136,8 @@ namespace Idno\Common {
             $arguments = func_get_args();
             if (!empty($arguments)) $this->arguments = $arguments;
 
+            \Idno\Core\site()->triggerEvent('page/put',['page_class' => get_called_class(), 'arguments' => $arguments]);
+
             if (\Idno\Core\site()->actions()->validateToken('', false)) {
                 \Idno\Core\site()->session()->APIlogin();
                 $this->parseJSONPayload();
@@ -154,6 +164,8 @@ namespace Idno\Common {
 
             $arguments = func_get_args();
             if (!empty($arguments)) $this->arguments = $arguments;
+
+            \Idno\Core\site()->triggerEvent('page/delete',['page_class' => get_called_class(), 'arguments' => $arguments]);
 
             if (\Idno\Core\site()->actions()->validateToken('', false)) {
                 \Idno\Core\site()->session()->APIlogin();
