@@ -26,6 +26,9 @@
                     $this->goneContent();
                 }
 
+                // From here, we know the object is set
+
+                $this->setOwner($object->getOwner());
                 $this->setPermalink();  // This is a permalink
                 $t = \Idno\Core\site()->template();
                 $t->__(array(

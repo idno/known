@@ -17,6 +17,8 @@
 
 namespace Idno\Common {
 
+    use Idno\Entities\User;
+
     class Page extends \Idno\Common\Component
     {
 
@@ -237,7 +239,7 @@ namespace Idno\Common {
                 \Idno\Core\site()->template()->setTemplateType('json');
             }
             $this->forward = false;
-            $this->webmentionContent();
+            //$this->webmentionContent();
         }
 
         /**
@@ -402,6 +404,29 @@ namespace Idno\Common {
          */
         function isPermalink() {
             return $this->isPermalinkPage;
+        }
+
+        /**
+         * Sets the given user as owner of this page
+         * @param $user
+         */
+        function setOwner($user) {
+            if ($user instanceof \Idno\Entities\User) {
+                $this->owner = $user;
+            }
+        }
+
+        /**
+         * Retrieves the effective owner of this page, if one has been set
+         * @return bool|User
+         */
+        function getOwner() {
+            if (!empty($this->owner)) {
+                if ($this->owner instanceof \Idno\Entities\User) {
+                    return $this->owner;
+                }
+            }
+            return false;
         }
         
         /**
