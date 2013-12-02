@@ -11,7 +11,7 @@
         <link rel="icon" type="<?=$icon_mime?>" href="<?=$icon?>">
 
         <!-- Make this an "app" when saved to an ios device's home screen -->
-        <link rel="apple-touch-icon" href="<?=$icon?>">
+        <link rel="apple-touch-icon-precomposed" href="<?=$icon?>">
 <?php
     } else {
 ?>
