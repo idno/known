@@ -20,7 +20,12 @@ namespace Idno\Core {
 
         function init()
         {
-            $this->client = new \Mongo(site()->config()->dbstring);
+            try {
+                $this->client = new \Mongo(site()->config()->dbstring);
+            } catch (\MongoConnectionException $e) {
+                echo '<p>Unfortunately we couldn\'t connect to the database:</p><p>'.$e->getMessage().'</p>'; exit;
+            }
+
             $this->database = $this->client->selectDB(site()->config()->dbname);
         }
 
