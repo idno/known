@@ -15,8 +15,8 @@
             function getContent()
             {
                 $this->adminGatekeeper(); // Admins only
-                $t = \Idno\Core\site()->template();
-                $t->body = $t->draw('admin/dependencies');
+                $t        = \Idno\Core\site()->template();
+                $t->body  = $t->draw('admin/dependencies');
                 $t->title = 'Dependencies';
                 $t->drawPage();
 
@@ -24,11 +24,11 @@
 
             function postContent()
             {
-                $this->adminGatekeeper();  // Admins only
-                $title = $this->getInput('title');
-                $url = $this->getInput('url');
-                $path = $this->getInput('path');
-                $host = $this->getInput('host');
+                $this->adminGatekeeper(); // Admins only
+                $title             = $this->getInput('title');
+                $url               = $this->getInput('url');
+                $path              = $this->getInput('path');
+                $host              = $this->getInput('host');
                 $open_registration = $this->getInput('open_registration');
                 if ($open_registration == 'true') {
                     $open_registration = true;

@@ -16,8 +16,9 @@
             {
             }
 
-            function registerPages() {
-                \Idno\Core\site()->addPageHandler('/webmention/?','\Idno\Pages\Webmentions\Endpoint');
+            function registerPages()
+            {
+                \Idno\Core\site()->addPageHandler('/webmention/?', '\Idno\Pages\Webmentions\Endpoint');
             }
 
             /**
@@ -26,10 +27,12 @@
              * @param string $text The text to mine for links
              * @return int The number of pings that were sent out
              */
-            static function pingMentions($pageURL, $text) {
+            static function pingMentions($pageURL, $text)
+            {
                 // Load webmention-client
                 require_once \Idno\Core\site()->config()->path . '/external/mention-client/mention-client.php';
                 $client = new \MentionClient($pageURL, $text);
+
                 return $client->sendSupportedMentions();
             }
 
@@ -38,16 +41,19 @@
              * @param $url
              * @return mixed
              */
-            static function getPageContent($url) {
+            static function getPageContent($url)
+            {
                 $ch = curl_init($url);
                 curl_setopt($ch, CURLOPT_HEADER, 0);
                 curl_setopt($ch, CURLOPT_VERBOSE, 0);
                 curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($ch, CURLOPT_USERAGENT, "Idno (webmentions) 0.1");
-                if ($content = curl_exec($ch)) {} else error_log(curl_error($ch));
+                if ($content = curl_exec($ch)) {
+                } else error_log(curl_error($ch));
                 $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
                 curl_close($ch);
+
                 return ['content' => $content, 'response' => $http_status];
             }
 
@@ -56,7 +62,8 @@
              * @param $content HTML to parse
              * @return array
              */
-            static function parseContent($content) {
+            static function parseContent($content)
+            {
                 $parser = new \Mf2\Parser($content); //\mf2\Parser($content);
                 return $parser->parse();
             }
@@ -68,7 +75,8 @@
              * @param array $inreplyto
              * @return array
              */
-            static function addSyndicatedReplyTargets($url, $inreplyto = []) {
+            static function addSyndicatedReplyTargets($url, $inreplyto = [])
+            {
                 if (!is_array($inreplyto)) {
                     $inreplyto = [$inreplyto];
                 }
@@ -76,7 +84,7 @@
                     if ($mf2 = self::parseContent($content['content'])) {
                         if (!empty($mf2['rels']['syndication'])) {
                             if (is_array($mf2['rels']['syndication'])) {
-                                foreach($mf2['rels']['syndication'] as $syndication) {
+                                foreach ($mf2['rels']['syndication'] as $syndication) {
                                     if (!in_array($syndication, $inreplyto) && !empty($syndication)) {
                                         $inreplyto[] = $syndication;
                                     }
@@ -85,6 +93,7 @@
                         }
                     }
                 }
+
                 return $inreplyto;
             }
 

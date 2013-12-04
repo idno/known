@@ -9,21 +9,23 @@
 
     namespace Idno\Core {
 
-        class Plugins extends \Idno\Common\Component {
+        class Plugins extends \Idno\Common\Component
+        {
 
-            public $plugins = array();  // Property containing instantiated plugin classes
+            public $plugins = array(); // Property containing instantiated plugin classes
 
             /**
              * On initialization, the plugin management class loads plugins from the system
              * configuration and saves an instantiated copy of each one in its local $plugins
              * array property.
              */
-            public function init() {
+            public function init()
+            {
 
                 if (!empty(site()->config()->plugins)) {
-                    foreach(site()->config()->plugins as $plugin) {
+                    foreach (site()->config()->plugins as $plugin) {
                         if (is_subclass_of("IdnoPlugins\\{$plugin}\\Main", 'Idno\\Common\\Plugin')) {
-                            $class = "IdnoPlugins\\{$plugin}\\Main";
+                            $class                  = "IdnoPlugins\\{$plugin}\\Main";
                             $this->plugins[$plugin] = new $class();
                         }
                     }
@@ -37,8 +39,10 @@
              * @param $name
              * @return mixed
              */
-            public function __get($name) {
+            public function __get($name)
+            {
                 if (!empty($this->plugins[$name])) return $this->plugins[$name];
+
                 return null;
             }
 
@@ -48,8 +52,10 @@
              * @param $name
              * @return bool
              */
-            public function __isset($name) {
+            public function __isset($name)
+            {
                 if (!empty($this->plugins[$name])) return true;
+
                 return false;
             }
 
@@ -57,7 +63,8 @@
              * Retrieves the array of loaded plugin objects
              * @return array
              */
-            public function getLoaded() {
+            public function getLoaded()
+            {
                 return $this->plugins;
             }
 
@@ -66,10 +73,12 @@
              * @param string $plugin Plugin name
              * @return bool|\Idno\Common\Plugin
              */
-            public function get($plugin) {
+            public function get($plugin)
+            {
                 if (!empty($this->plugins[$plugin])) {
                     return $this->plugins[$plugin];
                 }
+
                 return false;
             }
 
@@ -77,10 +86,11 @@
              * Retrieves a list of stored plugins (but not necessarily loaded ones)
              * @return array
              */
-            public function getStored() {
+            public function getStored()
+            {
                 $plugins = array();
                 if ($folders = scandir(\Idno\Core\site()->config()->path . '/IdnoPlugins')) {
-                    foreach($folders as $folder) {
+                    foreach ($folders as $folder) {
                         if ($folder != '.' && $folder != '..') {
                             if (file_exists(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $folder . '/plugin.ini')) {
                                 $plugins[$folder] = parse_ini_file(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $folder . '/plugin.ini');
@@ -89,6 +99,7 @@
                     }
                 }
                 ksort($plugins);
+
                 return $plugins;
             }
 

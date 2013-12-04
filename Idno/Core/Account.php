@@ -1,31 +1,31 @@
 <?php
 
-/**
- * Account management class
- *
- * @package idno
- * @subpackage core
- */
+    /**
+     * Account management class
+     *
+     * @package idno
+     * @subpackage core
+     */
 
-namespace Idno\Core {
+    namespace Idno\Core {
 
-    class Account extends \Idno\Common\Component
-    {
-
-        function init()
+        class Account extends \Idno\Common\Component
         {
 
-            // Account management
-            site()->addPageHandler('/account/settings', '\Idno\Pages\Account\Settings');
+            function init()
+            {
 
-            // Basic registration, if we're allowing it
-            if (\Idno\Core\site()->config()->open_registration == true) {
-                site()->addPageHandler('/account/register', '\Idno\Pages\Account\Register');
+                // Account management
+                site()->addPageHandler('/account/settings', '\Idno\Pages\Account\Settings');
+
+                // Basic registration, if we're allowing it
+                if (\Idno\Core\site()->config()->open_registration == true) {
+                    site()->addPageHandler('/account/register', '\Idno\Pages\Account\Register');
+                }
+
             }
 
         }
 
     }
-
-}
 

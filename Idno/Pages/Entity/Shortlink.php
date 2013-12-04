@@ -28,7 +28,8 @@
 
             // Get webmention content and handle it
 
-            function webmentionContent($source, $target, $source_content, $source_mf2) {
+            function webmentionContent($source, $target, $source_content, $source_mf2)
+            {
                 if (!empty($this->arguments[0])) {
                     $object = \Idno\Common\Entity::getByShortURL($this->arguments[0]);
                 }

@@ -22,8 +22,8 @@
                 if (empty($object)) $this->forward(); // TODO: 404
 
                 $headers = apache_request_headers();
-                if(isset($headers['If-Modified-Since'])) {
-                    if(strtotime($headers['If-Modified-Since']) < time() - 600) {
+                if (isset($headers['If-Modified-Since'])) {
+                    if (strtotime($headers['If-Modified-Since']) < time() - 600) {
                         header('HTTP/1.1 304 Not Modified');
                         exit;
                     }

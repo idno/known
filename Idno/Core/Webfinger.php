@@ -1,26 +1,26 @@
 <?php
 
-/**
- * Service discovery (via webfinger) class
- *
- * @package idno
- * @subpackage core
- */
+    /**
+     * Service discovery (via webfinger) class
+     *
+     * @package idno
+     * @subpackage core
+     */
 
-namespace Idno\Core {
+    namespace Idno\Core {
 
-    class Webfinger extends \Idno\Common\Component
-    {
-
-        function init()
+        class Webfinger extends \Idno\Common\Component
         {
-        }
 
-        function registerpages()
-        {
-            site()->addPageHandler('/\.well\-known/webfinger/?', '\Idno\Pages\Webfinger\View');
+            function init()
+            {
+            }
+
+            function registerpages()
+            {
+                site()->addPageHandler('/\.well\-known/webfinger/?', '\Idno\Pages\Webfinger\View');
+            }
+
         }
 
     }
-
-}

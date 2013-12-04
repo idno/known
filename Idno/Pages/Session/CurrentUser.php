@@ -19,21 +19,22 @@
                 $user = \Idno\Core\site()->session()->currentUser();
                 if (empty($user)) $this->noContent();
 
-                $this->setPermalink();  // This is a permalink
+                $this->setPermalink(); // This is a permalink
 
                 $t = \Idno\Core\site()->template();
                 $t->__(array(
 
-                    'title' => $user->getTitle(),
-                    'body' => $t->__(array('user' => $user, 'items' => [], 'count' => 0, 'offset' => 0))->draw('entity/User/profile'),
-                    'description' => 'The ' . \Idno\Core\site()->config()->title . ' profile for ' . $user->getTitle()
+                            'title'       => $user->getTitle(),
+                            'body'        => $t->__(array('user' => $user, 'items' => [], 'count' => 0, 'offset' => 0))->draw('entity/User/profile'),
+                            'description' => 'The ' . \Idno\Core\site()->config()->title . ' profile for ' . $user->getTitle()
 
-                ))->drawPage();
+                       ))->drawPage();
             }
 
             // Handle POST requests to the entity
 
-            function postContent() {
+            function postContent()
+            {
                 return $this->getContent();
             }
 

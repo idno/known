@@ -28,19 +28,19 @@
 
                 $this->setOwner($object->getOwner());
 
-                $permalink = $object->getUrl() . '/annotations/' . $this->arguments[1];
+                $permalink  = $object->getUrl() . '/annotations/' . $this->arguments[1];
                 $annotation = $object->getAnnotation($permalink);
-                $subtype = $object->getAnnotationSubtype($permalink);
+                $subtype    = $object->getAnnotationSubtype($permalink);
 
-                $this->setPermalink();  // This is a permalink
+                $this->setPermalink(); // This is a permalink
                 $t = \Idno\Core\site()->template();
                 $t->__(array(
 
-                    'title' => $object->getTitle(),
-                    'body' => $t->__(array('annotation' => $annotation, 'subtype' => $subtype, 'permalink' => $permalink, 'object' => $object))->draw('entity/annotations/shell'),
-                    'description' => $object->getShortDescription()
+                            'title'       => $object->getTitle(),
+                            'body'        => $t->__(array('annotation' => $annotation, 'subtype' => $subtype, 'permalink' => $permalink, 'object' => $object))->draw('entity/annotations/shell'),
+                            'description' => $object->getShortDescription()
 
-                ))->drawPage();
+                       ))->drawPage();
             }
 
         }

@@ -24,15 +24,16 @@
                 $t = \Idno\Core\site()->template();
                 $t->__(array(
 
-                    'title' => $object->getTitle(),
-                    'body' => $object->draw()
+                            'title' => $object->getTitle(),
+                            'body'  => $object->draw()
 
-                ))->drawPage();
+                       ))->drawPage();
             }
 
             // Handle POST requests to the entity
 
-            function postContent() {
+            function postContent()
+            {
                 if (!empty($this->arguments[0])) {
                     $object = \Idno\Common\Entity::getByID($this->arguments[0]);
                 }

@@ -27,23 +27,24 @@
                 $this->setOwner($user);
 
                 //$this->setPermalink();  // This is a permalink
-                $offset = (int) $this->getInput('offset');
-                $count = \Idno\Entities\ActivityStreamPost::count(array('owner' => $user->getUUID()));
-                $feed = \Idno\Entities\ActivityStreamPost::get(array('owner' => $user->getUUID()),[],\Idno\Core\site()->config()->items_per_page,$offset);
+                $offset = (int)$this->getInput('offset');
+                $count  = \Idno\Entities\ActivityStreamPost::count(array('owner' => $user->getUUID()));
+                $feed   = \Idno\Entities\ActivityStreamPost::get(array('owner' => $user->getUUID()), [], \Idno\Core\site()->config()->items_per_page, $offset);
 
                 $t = \Idno\Core\site()->template();
                 $t->__(array(
 
-                    'title' => $user->getTitle(),
-                    'body' => $t->__(array('user' => $user, 'items' => $feed, 'count' => $count, 'offset' => $offset))->draw('entity/User/profile'),
-                    'description' => 'The ' . \Idno\Core\site()->config()->title . ' profile for ' . $user->getTitle()
+                            'title'       => $user->getTitle(),
+                            'body'        => $t->__(array('user' => $user, 'items' => $feed, 'count' => $count, 'offset' => $offset))->draw('entity/User/profile'),
+                            'description' => 'The ' . \Idno\Core\site()->config()->title . ' profile for ' . $user->getTitle()
 
-                ))->drawPage();
+                       ))->drawPage();
             }
 
             // Handle POST requests to the entity
 
-            function postContent() {
+            function postContent()
+            {
                 if (!empty($this->arguments[0])) {
                     $user = \Idno\Entities\User::getByHandle($this->arguments[0]);
                 }
@@ -57,7 +58,8 @@
 
             // Handle DELETE requests to the entity
 
-            function deleteContent() {
+            function deleteContent()
+            {
                 if (!empty($this->arguments[0])) {
                     $object = \Idno\Common\Entity::getByID($this->arguments[0]);
                 }

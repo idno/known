@@ -25,10 +25,10 @@
                 $t = \Idno\Core\site()->template();
                 $t->__(array(
 
-                    'title' => $object->getTitle(),
-                    'body' => $object->drawEdit()
+                            'title' => $object->getTitle(),
+                            'body'  => $object->drawEdit()
 
-                ))->drawPage();
+                       ))->drawPage();
             }
 
         }

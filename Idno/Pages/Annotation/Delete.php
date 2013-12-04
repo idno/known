@@ -17,9 +17,10 @@
 
             // Handle POST requests 
 
-            function postContent() {
+            function postContent()
+            {
                 $this->gatekeeper();
-                
+
                 if (!empty($this->arguments[0])) {
                     $object = \Idno\Common\Entity::getByID($this->arguments[0]);
                     if (empty($object)) {
@@ -33,7 +34,7 @@
                 $permalink = $object->getUrl() . '/annotations/' . $this->arguments[1];
                 if ($object->canEdit()) {
                     if (($object->removeAnnotation($permalink)) && ($object->save())) {
-                        \Idno\Core\site()->session()->addMessage('Annotation '.$permalink.' was deleted.');
+                        \Idno\Core\site()->session()->addMessage('Annotation ' . $permalink . ' was deleted.');
                     }
                 }
                 $this->forward($_SERVER['HTTP_REFERER']);

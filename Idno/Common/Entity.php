@@ -12,8 +12,6 @@
 
     namespace Idno\Common {
 
-        use Idno\Core\Event;
-
         class Entity extends Component implements \JsonSerializable
         {
 
@@ -509,14 +507,16 @@
              * @param int $max_pieces The maximum number of words in the slug (default: 10)
              * @return string
              */
-            function prepare_slug($slug, $max_pieces = 10) {
+            function prepare_slug($slug, $max_pieces = 10)
+            {
                 $slug = trim($slug);
                 $slug = strtolower($slug);
                 $slug = preg_replace('|https?://[a-z\.0-9]+|i', '', $slug);
                 $slug = preg_replace("/[^A-Za-z0-9\-\_ ]/", '', $slug);
                 $slug = preg_replace("/[ ]+/", ' ', $slug);
-                $slug = implode('-',array_slice(explode(' ', $slug),0,$max_pieces));
+                $slug = implode('-', array_slice(explode(' ', $slug), 0, $max_pieces));
                 $slug = str_replace(' ', '-', $slug);
+
                 return $slug;
             }
 
@@ -575,8 +575,10 @@
                     } else {
                         $host = \Idno\Core\site()->config()->host . '/';
                     }
+
                     return $host . 's/' . $this->shorturl;
                 }
+
                 return $this->shorturl;
             }
 
@@ -584,9 +586,11 @@
              * Retrieve a citation that references this entity
              * @return string
              */
-            function getCitation() {
-                $host = \Idno\Core\site()->config()->host;
+            function getCitation()
+            {
+                $host     = \Idno\Core\site()->config()->host;
                 $shorturl = $this->getShortURL(false);
+
                 return '(' . $host . ' s/' . $shorturl . ')';
             }
 
@@ -598,12 +602,13 @@
             {
                 function shorten($id, $alphabet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
                 {
-                    $base     = strlen($alphabet);
-                    $short    = '';
+                    $base  = strlen($alphabet);
+                    $short = '';
                     while ($id) {
                         $id    = ($id - ($r = $id % $base)) / $base;
                         $short = $alphabet{$r} . $short;
                     };
+
                     return $short;
                 }
 
@@ -843,12 +848,12 @@
                 $t = \Idno\Core\site()->template();
 
                 $return = $t->__(array(
-                    'object' => $this
-                ))->draw('entity/' . $this->getClassName(), false);
+                                      'object' => $this
+                                 ))->draw('entity/' . $this->getClassName(), false);
                 if ($return === false) {
                     $return = $t->__(array(
-                        'object' => $this
-                    ))->draw('entity/default');
+                                          'object' => $this
+                                     ))->draw('entity/default');
                 }
 
                 return $return;
@@ -865,8 +870,8 @@
                 $t = \Idno\Core\site()->template();
 
                 return $t->__(array(
-                    'object' => $this
-                ))->draw('entity/' . $this->getClassName() . '/edit');
+                                   'object' => $this
+                              ))->draw('entity/' . $this->getClassName() . '/edit');
             }
 
             /**

@@ -1,39 +1,42 @@
 <?php
 
-/**
- * Create a user
- */
+    /**
+     * Create a user
+     */
 
     namespace Idno\Pages\Account {
 
         /**
          * Default class to serve the registration page
          */
-        class Register extends \Idno\Common\Page {
+        class Register extends \Idno\Common\Page
+        {
 
-            function getContent() {
+            function getContent()
+            {
                 $this->reverseGatekeeper();
-                $t = \Idno\Core\site()->template();
-                $t->body = $t->draw('account/register');
+                $t        = \Idno\Core\site()->template();
+                $t->body  = $t->draw('account/register');
                 $t->title = 'Register';
                 $t->drawPage();
             }
 
             function postContent()
             {
-                $name = $this->getInput('name');
-                $handle = $this->getInput('handle');
-                $password = $this->getInput('password');
+                $name      = $this->getInput('name');
+                $handle    = $this->getInput('handle');
+                $password  = $this->getInput('password');
                 $password2 = $this->getInput('password2');
-                $email = $this->getInput('email');
+                $email     = $this->getInput('email');
 
                 $user = new \Idno\Entities\User();
 
                 if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     if (!($emailuser = \Idno\Entities\User::getByEmail($email)) && !($handleuser = \Idno\Entities\User::getByHandle($handle)) &&
-                        !empty($handle) && $password == $password2 && strlen($password) > 4 && !empty($name)) {
-                        $user = new \Idno\Entities\User();
-                        $user->email = $email;
+                        !empty($handle) && $password == $password2 && strlen($password) > 4 && !empty($name)
+                    ) {
+                        $user         = new \Idno\Entities\User();
+                        $user->email  = $email;
                         $user->handle = $handle;
                         $user->setPassword($password);
                         $user->setTitle($name);

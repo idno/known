@@ -27,7 +27,6 @@
             {
                 // Load the config.ini file in the root folder, if it exists.
                 // If not, we'll use default values. No skin off our nose.
-                // @TODO override settings from the database
                 $this->path               = dirname(dirname(dirname(__FILE__))); // Base path
                 $this->url                = (\Idno\Common\Page::isSSL() ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . '/'; // A naive default base URL
                 $this->title              = 'New idno site'; // A default name for the site
@@ -83,19 +82,6 @@
             }
 
             /**
-             * Retrieves configuration information from the database, if possible.
-             */
-            function load()
-            {
-                if ($config = \Idno\Core\site()->db()->getAnyRecord('config')) {
-                    $config = (array)$config;
-                    if (is_array($config)) {
-                        $this->config = array_merge($this->config, $config);
-                    }
-                }
-            }
-
-            /**
              * Saves configuration information to the database, if possible.
              * @return true|false
              */
@@ -115,6 +101,19 @@
                 }
 
                 return false;
+            }
+
+            /**
+             * Retrieves configuration information from the database, if possible.
+             */
+            function load()
+            {
+                if ($config = \Idno\Core\site()->db()->getAnyRecord('config')) {
+                    $config = (array)$config;
+                    if (is_array($config)) {
+                        $this->config = array_merge($this->config, $config);
+                    }
+                }
             }
 
         }

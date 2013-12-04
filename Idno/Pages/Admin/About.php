@@ -15,8 +15,8 @@
             function getContent()
             {
                 $this->adminGatekeeper(); // Admins only
-                $t = \Idno\Core\site()->template();
-                $t->body = $t->draw('admin/about');
+                $t        = \Idno\Core\site()->template();
+                $t->body  = $t->draw('admin/about');
                 $t->title = 'About idno';
                 $t->drawPage();
 
