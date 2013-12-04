@@ -253,7 +253,8 @@ h2 {
 }
 
 .profile .highlightedText {
-    font-size: 1.3em;
+    font-size: 1.5em;
+    line-height: 1.5em;
 }
 
 /**
