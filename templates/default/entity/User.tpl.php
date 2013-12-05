@@ -1,5 +1,15 @@
 <div class="row profile h-card">
     <div class="span8 offset2">
+        <div class="row visible-phone">
+            <div class="span2">
+                <div  style="margin-bottom: 2em; margin-top: -2em; text-align: center">
+                    <p>
+                        <?=$this->draw('entity/User/profile/contact')?>
+                    </p>
+                    <p style="margin-bottom: 2em" clear="all"></p>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="span2 namebadge">
                 <p>
