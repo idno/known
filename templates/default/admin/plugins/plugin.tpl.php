@@ -18,9 +18,9 @@
                     <?php
 
                         if (array_key_exists($vars['plugin']['shortname'],$vars['plugins_loaded'])) {
-                            echo '<span class="label label-success">Installed</span>';
+                            echo '<span class="label label-success">Enabled</span>';
                         } else {
-                            echo '<span class="label">Not installed</span>';
+                            echo '<span class="label">Disabled</span>';
                         }
 
                     ?>
@@ -42,7 +42,7 @@
                             <p>
                                 <input type="hidden" name="plugin" value="<?=$vars['plugin']['shortname']?>" />
                                 <input type="hidden" name="action" value="uninstall" />
-                                <input class="btn" type="submit" value="Uninstall" />
+                                <input class="btn" type="submit" value="Disable" />
                             </p>
                             <?= \Idno\Core\site()->actions()->signForm('/admin/plugins/')?>
                         </form>
@@ -53,7 +53,7 @@
                             <p>
                                 <input type="hidden" name="plugin" value="<?=$vars['plugin']['shortname']?>" />
                                 <input type="hidden" name="action" value="install" />
-                                <input class="btn" type="submit" value="Install" />
+                                <input class="btn" type="submit" value="Enable" />
                             </p>
                             <?= \Idno\Core\site()->actions()->signForm('/admin/plugins/')?>
                         </form>

@@ -9,11 +9,13 @@
 
 <div class="row">
     <div class="span10 offset1">
-        <p>
-            The following are system components that are required for idno to fully run.
-            It's worth checking to make sure that they're all installed. If you need help
-            installing any required packages, ask your web host or system administrator.
-        </p>
+        <div class="explanation">
+            <p>
+                The following are system components that are required for idno to fully run.
+                It's worth checking to make sure that they're all installed. If you need help
+                installing any required packages, ask your web host or system administrator.
+            </p>
+        </div>
     </div>
 </div>
 
