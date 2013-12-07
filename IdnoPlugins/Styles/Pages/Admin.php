@@ -25,8 +25,8 @@
 
                 $t = \Idno\Core\site()->template();
                 $t->__(array(
-                            'body'       => $t->__(['css' => $css])->draw('styles/admin'),
-                            'title'      => 'Site Styles'
+                            'body'  => $t->__(['css' => $css])->draw('styles/admin'),
+                            'title' => 'Site Styles'
                        ))->drawPage();
             }
 
