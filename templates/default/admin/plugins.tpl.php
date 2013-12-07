@@ -8,7 +8,7 @@
                 Plugins allow you to add new kinds of content, syndicate content to different sites,
                 and change the way idno behaves. To enable or disable a plugin, just click its enable or
                 disable button. You can always get more plugins from
-                <a href="http://idno.co" target="_blank">the official idno website</a>.
+                <a href="http://idno.co" target="_blank">the idno website</a>.
             </p>
         </div>
         <?php

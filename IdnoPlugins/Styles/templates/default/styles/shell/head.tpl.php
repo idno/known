@@ -1,0 +1,1 @@
+<link rel="stylesheet" href="<?=\Idno\Core\site()->config()->url?>styles/site/" />

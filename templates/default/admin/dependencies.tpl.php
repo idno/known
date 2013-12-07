@@ -3,12 +3,6 @@
     <div class="span10 offset1">
         <h1>Dependencies</h1>
         <?=$this->draw('admin/menu')?>
-    </div>
-
-</div>
-
-<div class="row">
-    <div class="span10 offset1">
         <div class="explanation">
             <p>
                 The following are system components that are required for idno to fully run.
@@ -17,8 +11,8 @@
             </p>
         </div>
     </div>
-</div>
 
+</div>
 <div class="row">
 
     <div class="span5 offset1">

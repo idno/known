@@ -3,18 +3,18 @@
     <div class="span10 offset1">
         <h1>Administration</h1>
         <?=$this->draw('admin/menu')?>
-    </div>
-</div>
-<div class="row">
-    <div class="span10 offset1">
         <div class="explanation">
             <p>
                 This screen allows you to change basic settings about your site,
                 like its name and the number of items of content on each page.
                 To add new kinds of content, and new functionality, click
-                <a href="/admin/plugins">Plugins</a>.
+                <a href="/admin/plugins/">Plugins</a>.
             </p>
         </div>
+    </div>
+</div>
+<div class="row">
+    <div class="span10 offset1">
         <form action="/admin/" class="form-horizontal" method="post">
 
             <div class="control-group">
