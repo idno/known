@@ -67,7 +67,7 @@
 
             /**
              * Returns the currently logged-in user, if any
-             * @return Idno\Entities\User
+             * @return \Idno\Entities\User
              */
 
             function currentUser()
@@ -256,14 +256,24 @@
 
             /**
              * Checks HTTP request headers to see if the request has been properly
-             * signed for API access, and if so, log the user on
-             * @todo make this complete
+             * signed for API access, and if so, log the user on and return the user
              *
-             * @return true|false Whether the user could be logged in
+             * @return \Idno\Entities\User|false The logged-in user, or false otherwise
              */
 
             function APIlogin()
             {
+                if (!empty($_SERVER['HTTP_X_IDNO_USERNAME']) && !empty($_SERVER['HTTP_X_IDNO_SIGNATURE'])) {
+                    if ($user = \Idno\Entities\User::getByHandle($_SERVER['HTTP_X_IDNO_USERNAME'])) {
+                        $key = $user->getAPIkey();
+                        $hmac = $_SERVER['HTTP_X_IDNO_SIGNATURE'];
+                        $compare_hmac = base64_encode(hash_hmac('sha256', $_SERVER['REQUEST_URI'], $key, true));
+                        if ($hmac == $compare_hmac) {
+                            \Idno\Core\site()->session()->logUserOn($user);
+                            return $user;
+                        }
+                    }
+                }
                 return false;
             }
 
