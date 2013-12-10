@@ -119,6 +119,7 @@
 
                         return $object;
                     }
+                return false;
             }
 
             /**

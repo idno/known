@@ -196,8 +196,8 @@
             /**
              * Log the specified user on (note that this is NOT the same as taking the user's auth credentials)
              *
-             * @param Idno\Entities\User $user
-             * @return Idno\Entities\User
+             * @param \Idno\Entities\User $user
+             * @return \Idno\Entities\User
              */
 
             function logUserOn(\Idno\Entities\User $user)

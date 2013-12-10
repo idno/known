@@ -228,6 +228,7 @@
                 $handle = $this->getHandle();
                 $title  = $this->getTitle();
                 if (!empty($handle) && !empty($title)) return true;
+                return false;
             }
 
             /**

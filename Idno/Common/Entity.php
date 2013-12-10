@@ -112,7 +112,7 @@
              *
              * @param array $search List of filter terms (default: none)
              * @param array $fields List of fields to return (default: all)
-             * @return Entity
+             * @return Entity|false
              */
 
             static function getOne($search = array(), $fields = array())
@@ -120,6 +120,7 @@
                 if ($records = self::get($search, $fields, 1))
                     foreach ($records as $record)
                         return $record;
+                return false;
             }
 
             /**
@@ -167,6 +168,7 @@
                 if ($records = self::getFromAll($search, $fields, 1))
                     foreach ($records as $record)
                         return $record;
+                return false;
             }
 
             /**
