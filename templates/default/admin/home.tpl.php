@@ -63,6 +63,15 @@
                 </div>
             </div>
             <div class="control-group">
+                <label class="control-label" for="user_avatar_favicons">Use the user's avatar as the website icon on pages they own</small></label>
+                <div class="controls">
+                    <select class="span4" name="user_avatar_favicons">
+                        <option value="true" <?php if (\Idno\Core\site()->config()->user_avatar_favicons == true) echo 'selected="selected"'; ?>>Yes</option>
+                        <option value="false" <?php if (\Idno\Core\site()->config()->user_avatar_favicons == false) echo 'selected="selected"'; ?>>No</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
                 <label class="control-label" for="items_per_page">Include IndieWeb citations<br /><small>Include a unique, citable code at the bottom of every post.</small></label>
                 <div class="controls">
                     <select class="span4" name="indieweb_citation">
