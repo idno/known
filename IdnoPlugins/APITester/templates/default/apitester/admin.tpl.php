@@ -47,6 +47,15 @@
         <form action="<?= \Idno\Core\site()->config()->url ?>admin/apitester/" method="post">
 
             <div class="row">
+                <div class="span8 offset2">
+                    <p>
+                        Some examples:
+                        <a href="?request=/status/edit&json=['body':%20'Status%20body']">post a status</a>,
+                        <a href="?request=/">get feed</a>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
                 <div class="span2">
                     <p>Request</p>
                 </div>
@@ -97,6 +106,15 @@
                 <div class="span8 offset2">
                     <?= \Idno\Core\site()->actions()->signForm('admin/apitester') ?>
                     <input type="submit" class="btn btn-primary" value="Make API call"/>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 2em">
+                <div class="span8 offset2">
+                    <p>
+                        API calls require the HTTP header X-IDNO-USERNAME to be set to the user's username,
+                        and X-IDNO-SIGANTURE to be an HMAC signature, computed with sha256, using the user's
+                        API key.
+                    </p>
                 </div>
             </div>
 
