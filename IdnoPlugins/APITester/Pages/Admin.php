@@ -47,7 +47,7 @@
                     $json = '[]';
                 }
 
-                //if (is_callable('curl_init')) {
+                if (is_callable('curl_init')) {
                     $body = \Idno\Core\site()->template()->__([
                                                               'request'      => $request,
                                                               'key'          => $key,
@@ -56,9 +56,9 @@
                                                               'sent_request' => $sent_request,
                                                               'response'     => $response
                                                               ])->draw('apitester/admin');
-                //} else {
-                //    $body = \Idno\Core\site()->template()->draw('apitester/nocurl');
-                //}
+                } else {
+                    $body = \Idno\Core\site()->template()->draw('apitester/nocurl');
+                }
 
                 \Idno\Core\site()->template()->__([
                                                   'title' => "API Tester",
