@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="open_registration">Open registration<br /><small>Can anyone register for this site?</small></label>
+                <label class="control-label" for="open_registration">Open registration<br /><small>Can anyone register for this site? If you're installing idno as a personal or closed-membership site, you'll want to turn this off.</small></label>
                 <div class="controls">
                     <select class="span4" name="open_registration">
                         <option value="true" <?php if (\Idno\Core\site()->config()->open_registration == true) echo 'selected="selected"'; ?>>Yes</option>
