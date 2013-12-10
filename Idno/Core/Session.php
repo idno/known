@@ -266,7 +266,7 @@
                 if (!empty($_SERVER['HTTP_X_IDNO_USERNAME']) && !empty($_SERVER['HTTP_X_IDNO_SIGNATURE'])) {
                     if ($user = \Idno\Entities\User::getByHandle($_SERVER['HTTP_X_IDNO_USERNAME'])) {
                         $key = $user->getAPIkey();
-                        $hmac = $_SERVER['HTTP_X_IDNO_SIGNATURE'];
+                        $hmac = trim($_SERVER['HTTP_X_IDNO_SIGNATURE']);
                         $compare_hmac = base64_encode(hash_hmac('sha256', $_SERVER['REQUEST_URI'], $key, true));
                         if ($hmac == $compare_hmac) {
                             \Idno\Core\site()->session()->logUserOn($user);
