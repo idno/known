@@ -111,6 +111,30 @@
             }
 
             /**
+             * Returns this user's unique key for use with the API, and generates a new one if they don't
+             * have one yet
+             * @return string
+             */
+            function getAPIkey() {
+                if (!empty($this->apikey)) {
+                    return $this->apikey;
+                }
+                return $this->generateAPIkey();
+            }
+
+            /**
+             * Generate a semi-random API key for this user, and then return it
+             * @return string
+             */
+            function generateAPIkey() {
+                $apikey = md5(time() . \Idno\Core\site()->config()->host . \Idno\Core\site()->config()->email . rand(0,999999) . rand (0,999999) . microtime());
+                $apikey = strtolower(substr(base64_encode($apikey), 12, 16));
+                $this->apikey = $apikey;
+                $this->save();
+                return $apikey;
+            }
+
+            /**
              * Is this user an admin?
              * @return bool
              */
@@ -490,6 +514,8 @@
 
                 return false;
             }
+
+
 
         }
 

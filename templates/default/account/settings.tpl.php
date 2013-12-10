@@ -43,6 +43,12 @@
 			<input type="password" id="inputPassword2" placeholder="Your password again" class="span4" name="password2">
 		    </div>
 		</div>
+            <div class="control-group">
+                <label class="control-label" for="apikey">Your API key</label>
+                <div class="controls">
+                    <input type="text" id="apikey" class="span4" name="apikey" value="<?=htmlspecialchars($user->getAPIkey())?>" disabled>
+                </div>
+            </div>
 		<div class="control-group">
 		    <div class="controls">
 			<button type="submit" class="btn btn-primary">Save</button>
