@@ -1,12 +1,16 @@
 <?php
 
-    if ($user = \Idno\Core\site()->currentPage()->getOwner()) {
-        $icon = $user->getIcon();
-        if (strpos($icon, 'thumb.jpg') !== false) {
-            $icon_mime = 'image/jpg';
-        } else {
-            $icon_mime = 'image/png';
+    $user_avatar_favicons = \Idno\Core\site()->config('user_avatar_favicons');
+    if (($user = \Idno\Core\site()->currentPage()->getOwner()) && ($user_avatar_favicons)) {
+        if ($user instanceof \Idno\Entities\User) {
+            $icon = $user->getIcon();
+            if (strpos($icon, 'thumb.jpg') !== false) {
+                $icon_mime = 'image/jpg';
+            } else {
+                $icon_mime = 'image/png';
+            }
         }
+
 ?>
         <link rel="shortcut icon" type="<?=$icon_mime?>" href="<?=$icon?>">
 
