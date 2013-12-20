@@ -326,6 +326,16 @@
                 return false;
             }
 
+            /**
+             * Given a text query, return an array suitable for adding into getFromX calls
+             * @param $query
+             * @return array
+             */
+            function createSearchArray($query) {
+                $regexObj = new \MongoRegex("/" . addslashes($query) . "/i");
+                return ['$or' => [['body' => $regexObj], ['title' => $regexObj], ['description' => $regexObj]]];
+            }
+
         }
 
         /**

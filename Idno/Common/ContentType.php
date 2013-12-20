@@ -86,6 +86,70 @@
             }
 
             /**
+             * Returns a version of this content type's category title suitable for including in a URL
+             * @return string
+             */
+            function getCategoryTitleSlug() {
+                return urlencode(strtolower(str_replace(' ', '', $this->getCategoryTitle())));
+            }
+
+            /**
+             * Given a content type category slug, retrieves its namespaced class name
+             * @param $friendly_name
+             * @return bool|string
+             */
+            static function categoryTitleSlugToClass($slug) {
+                $friendly_name = str_replace(' ', '', trim(strtolower($slug)));
+                if ($registered = self::getRegistered()) {
+                    foreach ($registered as $contentType) {
+                        /* @var ContentType $contentType */
+                        $categoryTitle = $contentType->getCategoryTitleSlug();
+                        if ($friendly_name == str_replace(' ', '', trim(strtolower($categoryTitle)))) {
+                            return $contentType->getEntityClass();
+                        }
+                    }
+                }
+
+                return false;
+            }
+
+            /**
+             * Given a content type category slug, retrieves its friendly name
+             * @param $slug
+             * @return bool|string
+             */
+            static function categoryTitleSlugToFriendlyName($slug) {
+                $friendly_name = str_replace(' ', '', trim(strtolower($slug)));
+                if ($registered = self::getRegistered()) {
+                    foreach ($registered as $contentType) {
+                        /* @var ContentType $contentType */
+                        $categoryTitle = $contentType->getCategoryTitleSlug();
+                        if ($friendly_name == str_replace(' ', '', trim(strtolower($categoryTitle)))) {
+                            return $contentType->getCategoryTitle();
+                        }
+                    }
+                }
+
+                return false;
+            }
+
+            /**
+             * Given multiple content types, creates a friendly string describing all of them
+             * @param $slugs
+             * @return string
+             */
+            static function categoryTitleSlugsToFriendlyName($slugs) {
+                if (!is_array($slugs)) {
+                    $slugs = explode(', ', $slugs);
+                }
+                $friendly = [];
+                foreach($slugs as $content) {
+                    $friendly[] = self::categoryTitleSlugToFriendlyName($content);
+                }
+                return implode(', ', $friendly);
+            }
+
+            /**
              * Given a content type category name, retrieves its namespaced class name
              * @param $friendly_name
              * @return bool|string
