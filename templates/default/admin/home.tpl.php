@@ -8,14 +8,14 @@
                 This screen allows you to change basic settings about your site,
                 like its name and the number of items of content on each page.
                 To add new kinds of content, and new functionality, click
-                <a href="/admin/plugins/">Plugins</a>.
+                <a href="<?=\Idno\Core\site()->config()->url?>admin/plugins/">Plugins</a>.
             </p>
         </div>
     </div>
 </div>
 <div class="row">
     <div class="span10 offset1">
-        <form action="/admin/" class="form-horizontal" method="post">
+        <form action="<?=\Idno\Core\site()->config()->url?>admin/" class="form-horizontal" method="post">
 
             <div class="control-group">
                 <label class="control-label" for="name">Site name<br /><small>This can be anything you want. Except probably Facebook.</small></label>
