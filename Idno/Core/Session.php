@@ -18,6 +18,12 @@
                 ini_set('session.cookie_lifetime', 60 * 60 * 24 * 30); // Persistent cookies
                 ini_set('session.cookie_httponly', true); // Restrict cookies to HTTP only (help reduce XSS attack profile)
 
+                $sessionHandler = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\MongoDbSessionHandler(\Idno\Core\site()->db()->getClient(), [
+                                                                                                                                                            'database'   => 'idnosession',
+                                                                                                                                                            'collection' => 'idnosession'
+                                                                                                                                                            ]);
+                session_set_save_handler($sessionHandler, true);
+
                 session_name(site()->config->sessionname);
                 session_start();
                 session_cache_limiter('public');
@@ -42,13 +48,16 @@
             }
 
             /**
-             * Is a user logged into the current session?
-             * @return true|false
+             * Get the UUID of the currently logged-in user, or false if
+             * we're logged out
+             *
+             * @return mixed
              */
-            function isLoggedIn()
+
+            function currentUserUUID()
             {
-                if (!empty($_SESSION['user']) && $_SESSION['user'] instanceof \Idno\Entities\User) {
-                    return true;
+                if ($this->isLoggedOn()) {
+                    return $this->currentUser()->getUUID();
                 }
 
                 return false;
@@ -66,6 +75,19 @@
             }
 
             /**
+             * Is a user logged into the current session?
+             * @return true|false
+             */
+            function isLoggedIn()
+            {
+                if (!empty($_SESSION['user']) && $_SESSION['user'] instanceof \Idno\Entities\User) {
+                    return true;
+                }
+
+                return false;
+            }
+
+            /**
              * Returns the currently logged-in user, if any
              * @return \Idno\Entities\User
              */
@@ -74,22 +96,6 @@
             {
                 if (!empty($_SESSION['user']))
                     return $_SESSION['user'];
-
-                return false;
-            }
-
-            /**
-             * Get the UUID of the currently logged-in user, or false if
-             * we're logged out
-             *
-             * @return mixed
-             */
-
-            function currentUserUUID()
-            {
-                if ($this->isLoggedOn()) {
-                    return $this->currentUser()->getUUID();
-                }
 
                 return false;
             }
@@ -104,6 +110,18 @@
             {
                 if (empty($_SESSION['messages'])) $_SESSION['messages'] = array();
                 $_SESSION['messages'][] = array('message' => $message, 'message_type' => $message_type);
+            }
+
+            /**
+             * Retrieve any messages from the session, remove them from the session, and return them
+             * @return array
+             */
+            function getAndFlushMessages()
+            {
+                $messages = $this->getMessages();
+                $this->flushMessages();
+
+                return $messages;
             }
 
             /**
@@ -125,18 +143,6 @@
             function flushMessages()
             {
                 $_SESSION['messages'] = array();
-            }
-
-            /**
-             * Retrieve any messages from the session, remove them from the session, and return them
-             * @return array
-             */
-            function getAndFlushMessages()
-            {
-                $messages = $this->getMessages();
-                $this->flushMessages();
-
-                return $messages;
             }
 
             /**
@@ -191,21 +197,6 @@
                 }
 
                 return $group;
-            }
-
-            /**
-             * Log the specified user on (note that this is NOT the same as taking the user's auth credentials)
-             *
-             * @param \Idno\Entities\User $user
-             * @return \Idno\Entities\User
-             */
-
-            function logUserOn(\Idno\Entities\User $user)
-            {
-                $_SESSION['user'] = $user;
-                session_regenerate_id();
-
-                return $user;
             }
 
             /**
@@ -265,16 +256,33 @@
             {
                 if (!empty($_SERVER['HTTP_X_IDNO_USERNAME']) && !empty($_SERVER['HTTP_X_IDNO_SIGNATURE'])) {
                     if ($user = \Idno\Entities\User::getByHandle($_SERVER['HTTP_X_IDNO_USERNAME'])) {
-                        $key = $user->getAPIkey();
-                        $hmac = trim($_SERVER['HTTP_X_IDNO_SIGNATURE']);
+                        $key          = $user->getAPIkey();
+                        $hmac         = trim($_SERVER['HTTP_X_IDNO_SIGNATURE']);
                         $compare_hmac = base64_encode(hash_hmac('sha256', $_SERVER['REQUEST_URI'], $key, true));
                         if ($hmac == $compare_hmac) {
                             \Idno\Core\site()->session()->logUserOn($user);
+
                             return $user;
                         }
                     }
                 }
+
                 return false;
+            }
+
+            /**
+             * Log the specified user on (note that this is NOT the same as taking the user's auth credentials)
+             *
+             * @param \Idno\Entities\User $user
+             * @return \Idno\Entities\User
+             */
+
+            function logUserOn(\Idno\Entities\User $user)
+            {
+                $_SESSION['user'] = $user;
+                session_regenerate_id();
+
+                return $user;
             }
 
         }

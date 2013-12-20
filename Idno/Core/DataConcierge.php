@@ -31,6 +31,24 @@
             }
 
             /**
+             * Returns an instance of the database reference variable
+             * @return \MongoDB
+             */
+            function getDatabase()
+            {
+                return $this->database;
+            }
+
+            /**
+             * Returns an instance of the database client reference variable
+             * @return \Mongo
+             */
+            function getClient()
+            {
+                return $this->client;
+            }
+
+            /**
              * Saves an idno entity to the database, returning the _id
              * field on success.
              *
@@ -119,6 +137,7 @@
 
                         return $object;
                     }
+
                 return false;
             }
 
@@ -331,8 +350,10 @@
              * @param $query
              * @return array
              */
-            function createSearchArray($query) {
+            function createSearchArray($query)
+            {
                 $regexObj = new \MongoRegex("/" . addslashes($query) . "/i");
+
                 return ['$or' => [['body' => $regexObj], ['title' => $regexObj], ['description' => $regexObj]]];
             }
 
