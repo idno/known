@@ -73,6 +73,36 @@
             }
 
             /**
+             * Retrieves the content type object associated with this class;
+             * @return bool|ContentType
+             */
+            function getContentType() {
+                return \Idno\Common\ContentType::getContentTypeObjectFromClass($this->getClass());
+            }
+
+            /**
+             * Retrieves the name of the content type associated with this class
+             * @return string
+             */
+            function getContentTypeCategoryTitle() {
+                if ($contentType = $this->getContentType()) {
+                    return $contentType->getCategoryTitle();
+                }
+                return '';
+            }
+
+            /**
+             * Retrieves a URL-friendly name of the content type associated with this clas
+             * @return string
+             */
+            function getContentTypeCategorySlug() {
+                if ($contentType = $this->getContentType()) {
+                    return $contentType->getCategoryTitleSlug();
+                }
+                return '';
+            }
+
+            /**
              * Count the number of objects of this class that we're allowed to see
              *
              * @param array $search List of filter terms (default: none)

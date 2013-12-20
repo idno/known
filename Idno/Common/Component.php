@@ -64,6 +64,14 @@
             }
 
             /**
+             * Helper function that gets the full class name of this entity
+             * @return string
+             */
+            function getClass() {
+                return get_class($this);
+            }
+
+            /**
              * Get the name of this class without its namespace
              * @return string
              */

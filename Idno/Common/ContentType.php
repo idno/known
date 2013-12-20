@@ -114,6 +114,25 @@
             }
 
             /**
+             * Given a class name, retrieves a content type object
+             * @param $class
+             * @return bool|ContentType
+             */
+            static function getContentTypeObjectFromClass($class) {
+                $friendly_name = str_replace(' ', '', trim(strtolower($class)));
+                if ($registered = self::getRegistered()) {
+                    foreach ($registered as $contentType) {
+                        /* @var ContentType $contentType */
+                        if ($contentType->getEntityClass() == $class) {
+                            return $contentType;
+                        }
+                    }
+                }
+
+                return false;
+            }
+
+            /**
              * Given a content type category slug, retrieves its friendly name
              * @param $slug
              * @return bool|string
