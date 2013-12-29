@@ -38,8 +38,6 @@
 
                 $content_type = \Idno\Common\ContentType::getRegisteredForIndieWebPostType($share_type);
 
-                //echo '/' . $content_type->camelCase($content_type->getEntityClassName()) . '/edit'; exit;
-
                 if (!empty($content_type)) {
                     if ($page = \Idno\Core\site()->getPageHandler('/' . $content_type->camelCase($content_type->getEntityClassName()) . '/edit')) {
                         if ($share_type == 'note' && !substr_count($url, 'twitter.com')) {
