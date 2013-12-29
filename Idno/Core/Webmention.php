@@ -65,7 +65,12 @@
             static function parseContent($content)
             {
                 $parser = new \Mf2\Parser($content); //\mf2\Parser($content);
-                return $parser->parse();
+                try {
+                    $return = $parser->parse();
+                } catch (Exception $e) {
+                    $return = false;
+                }
+                return $return;
             }
 
             /**
