@@ -44,7 +44,7 @@
         </p>
 
         <p>
-            If you have <strong>a recent version of Firefox Nightly</strong> or above, click the button below to
+            If you have <strong>Firefox 21</strong> or above, click the button below to
             set up your browser:
         </p>
 

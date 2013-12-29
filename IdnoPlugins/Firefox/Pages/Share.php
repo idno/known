@@ -14,6 +14,7 @@
 
             function getContent()
             {
+
                 if (!\Idno\Core\site()->session()->isLoggedIn()) {
                     $this->setResponse(401);
                     $this->forward('/session/login');
@@ -24,7 +25,7 @@
 
                 $share_type = 'note';
 
-                if ($content = \Idno\Core\Webmention::getPageContent($url)) {
+                /*if ($content = \Idno\Core\Webmention::getPageContent($url)) {
                     if ($mf2 = \Idno\Core\Webmention::parseContent($content['content'])) {
                         if (substr_count($content['content'],'h-entry') == 1) {
                             $share_type = 'reply';
@@ -33,9 +34,11 @@
                             }
                         }
                     }
-                }
+                }*/
 
                 $content_type = \Idno\Common\ContentType::getRegisteredForIndieWebPostType($share_type);
+
+                //echo '/' . $content_type->camelCase($content_type->getEntityClassName()) . '/edit'; exit;
 
                 if (!empty($content_type)) {
                     if ($page = \Idno\Core\site()->getPageHandler('/' . $content_type->camelCase($content_type->getEntityClassName()) . '/edit')) {
