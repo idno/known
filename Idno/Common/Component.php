@@ -99,7 +99,9 @@
              */
             function camelCase($string)
             {
-                $string = preg_replace('/\s([a-z])/e', 'strtoupper(\'$1\')', strtolower($string));
+                $string = preg_replace_callback('/\s([a-z])/', function($matches) {
+                    return strtoupper($matches[0]);
+                }, strtolower($string));
                 $string = preg_replace('/\s/', '', $string);
 
                 return $string;
