@@ -332,7 +332,7 @@ span.contentTypeLogo {
 }
 
 .syndication span input[type=checkbox] + label {
-    width: 6em;
+    width: 8em;
     background-color: #ccc;
     color: #eee;
     border-radius: 3px;
@@ -341,12 +341,12 @@ span.contentTypeLogo {
 }
 
 .syndication span input[type=checkbox]:checked + label {
-    background-color: #888;
+    background-color: #329410;;
     color: #fff;
 }
 
 /**
- * Friendly welcome messages
+ * Friendly messages
  */
 
 .welcome,
@@ -362,4 +362,8 @@ span.contentTypeLogo {
 .explanation {
     margin-top: 1em;
     margin-bottom: 2em;
+}
+
+.field-description {
+    font-size: 0.8em;
 }

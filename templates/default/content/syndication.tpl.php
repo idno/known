@@ -15,5 +15,5 @@
         }
     }
     if (!empty($buttons)) {
-        echo '<p class="syndication">' . $buttons . '</p>';
+        echo '<p class="syndication"><span class="field-description">Select services to syndicate this content to:</span><br />' . $buttons . '</p>';
     }
