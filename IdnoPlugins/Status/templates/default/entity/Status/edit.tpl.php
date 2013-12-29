@@ -8,7 +8,7 @@
         $vars['object']->inreplyto = [];
     }
     if (!empty($vars['url'])) {
-        $vars['object']->inreplyto = [$url];
+        $vars['object']->inreplyto = [$vars['url']];
     }
 
 ?>

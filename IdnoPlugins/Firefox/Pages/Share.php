@@ -25,7 +25,7 @@
 
                 $share_type = 'note';
 
-                /*if ($content = \Idno\Core\Webmention::getPageContent($url)) {
+                if ($content = \Idno\Core\Webmention::getPageContent($url)) {
                     if ($mf2 = \Idno\Core\Webmention::parseContent($content['content'])) {
                         if (substr_count($content['content'],'h-entry') == 1) {
                             $share_type = 'reply';
@@ -34,7 +34,7 @@
                             }
                         }
                     }
-                }*/
+                }
 
                 $content_type = \Idno\Common\ContentType::getRegisteredForIndieWebPostType($share_type);
 
