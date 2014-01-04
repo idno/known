@@ -58,9 +58,9 @@
                 }
 
                 if (!empty(\Idno\Core\site()->config()->description)) {
-                    $description = \Idno\Core\site()->description;
+                    $description = \Idno\Core\site()->config()->description;
                 } else {
-                    $description = 'An independent social website, powered by idno.';
+                    $description = 'An independent social website, powered by Idno.';
                 }
 
                 $t = \Idno\Core\site()->template();

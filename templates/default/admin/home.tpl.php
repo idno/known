@@ -24,6 +24,12 @@
                 </div>
             </div>
             <div class="control-group">
+                <label class="control-label" for="description">Site description<br /><small>A short description of what your site is about.</small></label>
+                <div class="controls">
+                    <input type="text" id="name" placeholder="Site description" class="span4" name="description" value="<?=htmlspecialchars(\Idno\Core\site()->config()->description)?>" >
+                </div>
+            </div>
+            <div class="control-group">
                 <label class="control-label" for="open_registration">Open registration<br /><small>Can anyone register for this site? If you're installing idno as a personal or closed-membership site, you'll want to turn this off.</small></label>
                 <div class="controls">
                     <select class="span4" name="open_registration">

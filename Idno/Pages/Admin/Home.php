@@ -26,6 +26,7 @@
             {
                 $this->adminGatekeeper(); // Admins only
                 $title                = $this->getInput('title');
+                $description          = $this->getInput('description');
                 $url                  = $this->getInput('url');
                 $path                 = $this->getInput('path');
                 $host                 = $this->getInput('host');
@@ -56,6 +57,7 @@
                     $user_avatar_favicons = false;
                 }
                 if (!empty($title)) \Idno\Core\site()->config->config['title'] = $title;
+                if (!empty($description)) \Idno\Core\site()->config->config['description'] = $description;
                 if (!empty($url)) \Idno\Core\site()->config->config['url'] = $url;
                 if (!empty($path)) \Idno\Core\site()->config->config['path'] = $path;
                 if (!empty($host)) \Idno\Core\site()->config->config['host'] = $host;
