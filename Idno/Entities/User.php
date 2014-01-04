@@ -241,32 +241,32 @@
             }
 
             /**
-             * Get a list of user IDs that this user marks as a friend
+             * Get a list of user IDs that this user marks as following
              * @return array|null
              */
-            function getFriendIDs()
+            function getFollowingIDs()
             {
-                if (!empty($this->friends)) {
-                    return $this->friends;
+                if (!empty($this->following)) {
+                    return $this->following;
                 } else {
                     return [];
                 }
             }
 
             /**
-             * Given a user entity, marks them as being a friend of this user.
+             * Given a user entity, marks them as being followed by this user.
              * Remember to save this user entity.
              *
-             * @param \Idno\Entities\User $friend
+             * @param \Idno\Entities\User $user
              * @return bool
              */
-            function addFriend($friend)
+            function addFollowing($user)
             {
-                if ($friend instanceof \Idno\Entities\User) {
-                    $friends = $this->getFriendIDs();
-                    if (!in_array($friend->getUUID(), $friends)) {
-                        $friends[]     = $friend->getUUID();
-                        $this->friends = $friends;
+                if ($user instanceof \Idno\Entities\User) {
+                    $users = $this->getFollowingIDs();
+                    if (!in_array($user->getUUID(), $users)) {
+                        $users[]     = $user->getUUID();
+                        $this->following = $users;
 
                         return true;
                     }
@@ -276,18 +276,18 @@
             }
 
             /**
-             * Given a user entity, removes them from this user's friends list.
+             * Given a user entity, removes them from this user's followed list.
              * Remember to save this user entity.
              *
-             * @param \Idno\Entities\User $friend
+             * @param \Idno\Entities\User $user
              * @return bool
              */
-            function removeFriend($friend)
+            function removeFriend($user)
             {
-                if ($friend instanceof \Idno\Entities\User) {
-                    $friends       = $this->getFriendIDs();
-                    $friends       = array_diff($friends, [$friend->getUUID()]);
-                    $this->friends = $friends;
+                if ($user instanceof \Idno\Entities\User) {
+                    $users       = $this->getFollowingIDs();
+                    $users       = array_diff($users, [$user->getUUID()]);
+                    $this->following = $users;
 
                     return true;
                 }
@@ -296,15 +296,15 @@
             }
 
             /**
-             * Is the given user a friend of this user?
+             * Is the given user a followed by this user?
              *
-             * @param \Idno\Entities\User $friend
+             * @param \Idno\Entities\User $user
              * @return bool
              */
-            function isFriend($friend)
+            function isFollowing($user)
             {
-                if ($friend instanceof \Idno\Entities\User) {
-                    if (in_array($friend->getUUID(), $this->getFriendIDs())) {
+                if ($user instanceof \Idno\Entities\User) {
+                    if (in_array($user->getUUID(), $this->getFollowingIDs())) {
                         return true;
                     }
                 }
@@ -313,15 +313,15 @@
             }
 
             /**
-             * Does the given user list this user as a friend?
+             * Is the given user following this user?
              *
-             * @param \Idno\Entities\User $friend
+             * @param \Idno\Entities\User $user
              * @return bool
              */
-            function isFriendOf($friend)
+            function isFollowedBy($user)
             {
-                if ($friend instanceof \Idno\Entities\User) {
-                    if ($friend->isFriend($this)) {
+                if ($user instanceof \Idno\Entities\User) {
+                    if ($user->isFollowing($this)) {
                         return true;
                     }
                 }
