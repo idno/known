@@ -73,36 +73,6 @@
             }
 
             /**
-             * Retrieves the content type object associated with this class;
-             * @return bool|ContentType
-             */
-            function getContentType() {
-                return \Idno\Common\ContentType::getContentTypeObjectFromClass($this->getClass());
-            }
-
-            /**
-             * Retrieves the name of the content type associated with this class
-             * @return string
-             */
-            function getContentTypeCategoryTitle() {
-                if ($contentType = $this->getContentType()) {
-                    return $contentType->getCategoryTitle();
-                }
-                return '';
-            }
-
-            /**
-             * Retrieves a URL-friendly name of the content type associated with this clas
-             * @return string
-             */
-            function getContentTypeCategorySlug() {
-                if ($contentType = $this->getContentType()) {
-                    return $contentType->getCategoryTitleSlug();
-                }
-                return '';
-            }
-
-            /**
              * Count the number of objects of this class that we're allowed to see
              *
              * @param array $search List of filter terms (default: none)
@@ -150,6 +120,7 @@
                 if ($records = self::get($search, $fields, 1))
                     foreach ($records as $record)
                         return $record;
+
                 return false;
             }
 
@@ -198,6 +169,7 @@
                 if ($records = self::getFromAll($search, $fields, 1))
                     foreach ($records as $record)
                         return $record;
+
                 return false;
             }
 
@@ -237,6 +209,16 @@
             }
 
             /**
+             * Given a UUID of a remote entity, returns a native Entity object encapsulating it
+             * @param $uuid
+             * @return \Idno\Common\Entity
+             */
+            static function getRemote($uuid)
+            {
+                return false; // TODO: make this useful
+            }
+
+            /**
              * Retrieve a single record by its UUID
              * @param string $uuid
              * @return bool|Entity
@@ -246,8 +228,9 @@
             {
                 if (self::isLocalUUID($uuid)) {
                     return self::getOneFromAll(array('uuid' => $uuid));
+                } else {
+                    return self::getRemote($uuid);
                 }
-                return false;
             }
 
             /**
@@ -265,7 +248,43 @@
                         return true;
                     }
                 }
+
                 return false;
+            }
+
+            /**
+             * Retrieves the name of the content type associated with this class
+             * @return string
+             */
+            function getContentTypeCategoryTitle()
+            {
+                if ($contentType = $this->getContentType()) {
+                    return $contentType->getCategoryTitle();
+                }
+
+                return '';
+            }
+
+            /**
+             * Retrieves the content type object associated with this class;
+             * @return bool|ContentType
+             */
+            function getContentType()
+            {
+                return \Idno\Common\ContentType::getContentTypeObjectFromClass($this->getClass());
+            }
+
+            /**
+             * Retrieves a URL-friendly name of the content type associated with this clas
+             * @return string
+             */
+            function getContentTypeCategorySlug()
+            {
+                if ($contentType = $this->getContentType()) {
+                    return $contentType->getCategoryTitleSlug();
+                }
+
+                return '';
             }
 
             /**
