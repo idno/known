@@ -28,6 +28,11 @@
 
                 // From here, we know the object is set
 
+                // Just forward to the user's page
+                if ($object instanceof \Idno\Entities\User) {
+                    $this->forward($object->getURL());
+                }
+
                 $this->setOwner($object->getOwner());
                 $this->setPermalink(); // This is a permalink
                 $t = \Idno\Core\site()->template();
