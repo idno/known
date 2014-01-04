@@ -254,10 +254,10 @@
             }
 
             /**
-             * Given a user entity, marks them as being followed by this user.
+             * Given a user entity (or a UUID), marks them as being followed by this user.
              * Remember to save this user entity.
              *
-             * @param \Idno\Entities\User $user
+             * @param \Idno\Entities\User|string $user
              * @return bool
              */
             function addFollowing($user)
@@ -276,13 +276,13 @@
             }
 
             /**
-             * Given a user entity, removes them from this user's followed list.
+             * Given a user entity (or a UUID), removes them from this user's followed list.
              * Remember to save this user entity.
              *
-             * @param \Idno\Entities\User $user
+             * @param \Idno\Entities\User|string $user
              * @return bool
              */
-            function removeFriend($user)
+            function removeFollowing($user)
             {
                 if ($user instanceof \Idno\Entities\User) {
                     $users       = $this->getFollowingIDs();
@@ -298,7 +298,7 @@
             /**
              * Is the given user a followed by this user?
              *
-             * @param \Idno\Entities\User $user
+             * @param \Idno\Entities\User|string $user
              * @return bool
              */
             function isFollowing($user)
