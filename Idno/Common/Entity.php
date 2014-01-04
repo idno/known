@@ -243,7 +243,7 @@
             {
                 // TODO: improve this heuristic
                 // Parse the UUID
-                if ($uuid_parse = parse_url($uuid) && $url_parse = parse_url(\Idno\Core\site()->config()->url)) {
+                if (($uuid_parse = parse_url($uuid)) && ($url_parse = parse_url(\Idno\Core\site()->config()->url))) {
                     if ($uuid_parse['host'] == $url_parse['host']) {
                         return true;
                     }
