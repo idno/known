@@ -215,7 +215,7 @@
              */
             static function getRemote($uuid)
             {
-                return false; // TODO: make this useful
+                return false; // TODO: make this useful by parsing external mf2 and returning an appropriate entity object
             }
 
             /**
