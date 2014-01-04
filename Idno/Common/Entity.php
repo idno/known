@@ -65,6 +65,9 @@
                 if (!empty($this->uuid)) {
                     return $this->uuid;
                 }
+                if ($url = $this->getURL(true)) {
+                    return $url;
+                }
                 if (!empty($this->_id)) {
                     return \Idno\Core\site()->config()->url . 'view/' . $this->_id;
                 }
@@ -1125,10 +1128,11 @@
              * Return a website address to view this object (defaults to the UUID
              * of the object)
              *
+             * @param $new If set to true, doesn't attempt to generate a URL from a presaved uuid
              * @return string
              */
 
-            function getURL()
+            function getURL($new = false)
             {
 
                 // If a slug has been set, use it
@@ -1136,12 +1140,15 @@
                     return \Idno\Core\site()->config()->url . date('Y', $this->created) . '/' . $slug;
                 }
 
-                $uuid = $this->getUUID();
-                if (!empty($uuid)) {
-                    return $uuid;
+                if (!$new) {
+                    $uuid = $this->getUUID();
+                    if (!empty($uuid)) {
+                        return $uuid;
+                    }
+                    return \Idno\Core\site()->config()->url . $this->getClassSelector() . '/edit';
                 }
 
-                return \Idno\Core\site()->config()->url . $this->getClassSelector() . '/edit';
+                return false;
             }
 
             /**
