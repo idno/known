@@ -53,9 +53,58 @@
 
             }
 
-            function getFollowing()
+            /**
+             * Retrieve the URI to this user's avatar icon image
+             * (if none has been saved, a default is returned)
+             *
+             * @return string
+             */
+            function getIcon()
             {
+                $response = \Idno\Core\site()->triggerEvent('icon', array('object' => $this));
+                if (!empty($response) && $response !== true) {
+                    return $response;
+                }
+                if (!empty($this->icon)) {
+                    return \Idno\Core\site()->config()->url . 'file/' . $this->icon;
+                }
 
+                return \Idno\Core\site()->config()->url . 'gfx/users/default.png';
+            }
+
+            /**
+             * Get the profile URL for this user
+             * @return string
+             */
+            function getURL()
+            {
+                return \Idno\Core\site()->config()->url . 'profile/' . $this->getHandle();
+            }
+
+            /**
+             * Retrieve's this user's handle
+             * @return string
+             */
+
+            function getHandle()
+            {
+                return $this->handle;
+            }
+
+            /**
+             * Retrieves user by email address
+             * @param string $email
+             * @return User|false Depending on success
+             */
+            static function getByEmail($email)
+            {
+                if ($result = \Idno\Core\site()->db()->getObjects('Idno\\Entities\\User', array('email' => $email), null, 1)) {
+                    foreach ($result as $row) {
+                        return $row;
+                    }
+                }
+
+                return false;
             }
 
             function getOwner()
@@ -101,13 +150,19 @@
             }
 
             /**
-             * Retrieve's this user's handle
-             * @return string
+             * Retrieves user by handle
+             * @param string $handle
+             * @return User|false Depending on success
              */
-
-            function getHandle()
+            static function getByHandle($handle)
             {
-                return $this->handle;
+                if ($result = \Idno\Core\site()->db()->getObjects('Idno\\Entities\\User', array('handle' => $handle), null, 1)) {
+                    foreach ($result as $row) {
+                        return $row;
+                    }
+                }
+
+                return false;
             }
 
             /**
@@ -115,10 +170,12 @@
              * have one yet
              * @return string
              */
-            function getAPIkey() {
+            function getAPIkey()
+            {
                 if (!empty($this->apikey)) {
                     return $this->apikey;
                 }
+
                 return $this->generateAPIkey();
             }
 
@@ -126,11 +183,13 @@
              * Generate a semi-random API key for this user, and then return it
              * @return string
              */
-            function generateAPIkey() {
-                $apikey = md5(time() . \Idno\Core\site()->config()->host . \Idno\Core\site()->config()->email . rand(0,999999) . rand (0,999999) . microtime());
-                $apikey = strtolower(substr(base64_encode($apikey), 12, 16));
+            function generateAPIkey()
+            {
+                $apikey       = md5(time() . \Idno\Core\site()->config()->host . \Idno\Core\site()->config()->email . rand(0, 999999) . rand(0, 999999) . microtime());
+                $apikey       = strtolower(substr(base64_encode($apikey), 12, 16));
                 $this->apikey = $apikey;
                 $this->save();
+
                 return $apikey;
             }
 
@@ -156,25 +215,6 @@
                 } else {
                     $this->admin = false;
                 }
-            }
-
-            /**
-             * Retrieve the URI to this user's avatar icon image
-             * (if none has been saved, a default is returned)
-             *
-             * @return string
-             */
-            function getIcon()
-            {
-                $response = \Idno\Core\site()->triggerEvent('icon', array('object' => $this));
-                if (!empty($response) && $response !== true) {
-                    return $response;
-                }
-                if (!empty($this->icon)) {
-                    return \Idno\Core\site()->config()->url . 'file/' . $this->icon;
-                }
-
-                return \Idno\Core\site()->config()->url . 'gfx/users/default.png';
             }
 
             /**
@@ -228,29 +268,8 @@
                 $handle = $this->getHandle();
                 $title  = $this->getTitle();
                 if (!empty($handle) && !empty($title)) return true;
+
                 return false;
-            }
-
-            /**
-             * Get the profile URL for this user
-             * @return string
-             */
-            function getURL()
-            {
-                return \Idno\Core\site()->config()->url . 'profile/' . $this->getHandle();
-            }
-
-            /**
-             * Get a list of user IDs that this user marks as following
-             * @return array|null
-             */
-            function getFollowingUUIDs()
-            {
-                if (!empty($this->following)) {
-                    return $this->following;
-                } else {
-                    return [];
-                }
             }
 
             /**
@@ -265,14 +284,41 @@
                 if ($user instanceof \Idno\Entities\User) {
                     $users = $this->getFollowingUUIDs();
                     if (!in_array($user->getUUID(), $users)) {
-                        $users[]     = $user->getUUID();
-                        $this->following = $users;
+                        $users[$user->getUUID()] = ['name' => $user->getTitle(), 'icon' => $user->getIcon(), 'url' => $user->getURL()];
+                        $this->following         = $users;
 
                         return true;
                     }
                 }
 
                 return false;
+            }
+
+            /**
+             * Get a list of user UUIDs that this user marks as following
+             * @return array|null
+             */
+            function getFollowingUUIDs()
+            {
+                if (!empty($this->following)) {
+                    return array_keys($this->following);
+                } else {
+                    return [];
+                }
+            }
+
+            /**
+             * Returns a list of users that this user marks as following, where the UUID is the array key, and
+             * the array is of the form ['name' => 'Name', 'url' => 'Profile URL', 'icon' => 'Icon URI']
+             * @return array|null
+             */
+            function getFollowingArray()
+            {
+                if (!empty($this->following)) {
+                    return $this->following;
+                } else {
+                    return [];
+                }
             }
 
             /**
@@ -285,28 +331,11 @@
             function removeFollowing($user)
             {
                 if ($user instanceof \Idno\Entities\User) {
-                    $users       = $this->getFollowingUUIDs();
-                    $users       = array_diff($users, [$user->getUUID()]);
+                    $users = $this->getFollowingUUIDs();
+                    unset($users[$user->getUUID()]);
                     $this->following = $users;
 
                     return true;
-                }
-
-                return false;
-            }
-
-            /**
-             * Is the given user a followed by this user?
-             *
-             * @param \Idno\Entities\User|string $user
-             * @return bool
-             */
-            function isFollowing($user)
-            {
-                if ($user instanceof \Idno\Entities\User) {
-                    if (in_array($user->getUUID(), $this->getFollowingUUIDs())) {
-                        return true;
-                    }
                 }
 
                 return false;
@@ -330,6 +359,23 @@
             }
 
             /**
+             * Is the given user a followed by this user?
+             *
+             * @param \Idno\Entities\User|string $user
+             * @return bool
+             */
+            function isFollowing($user)
+            {
+                if ($user instanceof \Idno\Entities\User) {
+                    if (in_array($user->getUUID(), $this->getFollowingUUIDs())) {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+
+            /**
              * Array of access groups that this user can *read* entities
              * from
              *
@@ -339,18 +385,6 @@
             function getReadAccessGroups()
             {
                 return $this->getXAccessGroups('read');
-            }
-
-            /**
-             * Array of access groups that this user can *write* entities
-             * to
-             *
-             * @return array
-             */
-
-            function getWriteAccessGroups()
-            {
-                return $this->getXAccessGroups('write');
             }
 
             /**
@@ -370,6 +404,18 @@
             }
 
             /**
+             * Array of access groups that this user can *write* entities
+             * to
+             *
+             * @return array
+             */
+
+            function getWriteAccessGroups()
+            {
+                return $this->getXAccessGroups('write');
+            }
+
+            /**
              * Array of access group IDs that this user can *read* entities
              * from
              *
@@ -379,18 +425,6 @@
             function getReadAccessGroupIDs()
             {
                 return $this->getXAccessGroupIDs('read');
-            }
-
-            /**
-             * Array of access group IDs that this user can *write* entities
-             * to
-             *
-             * @return type
-             */
-
-            function getWriteAccessGroupIDs()
-            {
-                return $this->getXAccessGroupIDs('write');
             }
 
             /**
@@ -415,6 +449,18 @@
                 }
 
                 return $return;
+            }
+
+            /**
+             * Array of access group IDs that this user can *write* entities
+             * to
+             *
+             * @return type
+             */
+
+            function getWriteAccessGroupIDs()
+            {
+                return $this->getXAccessGroupIDs('write');
             }
 
             /**
@@ -483,39 +529,6 @@
 
                 return $data;
             }
-
-            /**
-             * Retrieves user by handle
-             * @param string $handle
-             * @return User|false Depending on success
-             */
-            static function getByHandle($handle)
-            {
-                if ($result = \Idno\Core\site()->db()->getObjects('Idno\\Entities\\User', array('handle' => $handle), null, 1)) {
-                    foreach ($result as $row) {
-                        return $row;
-                    }
-                }
-
-                return false;
-            }
-
-            /**
-             * Retrieves user by email address
-             * @param string $email
-             * @return User|false Depending on success
-             */
-            static function getByEmail($email)
-            {
-                if ($result = \Idno\Core\site()->db()->getObjects('Idno\\Entities\\User', array('email' => $email), null, 1)) {
-                    foreach ($result as $row) {
-                        return $row;
-                    }
-                }
-
-                return false;
-            }
-
 
 
         }
