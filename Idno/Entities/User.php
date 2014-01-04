@@ -244,7 +244,7 @@
              * Get a list of user IDs that this user marks as following
              * @return array|null
              */
-            function getFollowingIDs()
+            function getFollowingUUIDs()
             {
                 if (!empty($this->following)) {
                     return $this->following;
@@ -263,7 +263,7 @@
             function addFollowing($user)
             {
                 if ($user instanceof \Idno\Entities\User) {
-                    $users = $this->getFollowingIDs();
+                    $users = $this->getFollowingUUIDs();
                     if (!in_array($user->getUUID(), $users)) {
                         $users[]     = $user->getUUID();
                         $this->following = $users;
@@ -285,7 +285,7 @@
             function removeFollowing($user)
             {
                 if ($user instanceof \Idno\Entities\User) {
-                    $users       = $this->getFollowingIDs();
+                    $users       = $this->getFollowingUUIDs();
                     $users       = array_diff($users, [$user->getUUID()]);
                     $this->following = $users;
 
@@ -304,7 +304,7 @@
             function isFollowing($user)
             {
                 if ($user instanceof \Idno\Entities\User) {
-                    if (in_array($user->getUUID(), $this->getFollowingIDs())) {
+                    if (in_array($user->getUUID(), $this->getFollowingUUIDs())) {
                         return true;
                     }
                 }
