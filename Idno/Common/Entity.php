@@ -244,7 +244,28 @@
 
             static function getByUUID($uuid)
             {
-                return self::getOneFromAll(array('uuid' => $uuid));
+                if (self::isLocalUUID($uuid)) {
+                    return self::getOneFromAll(array('uuid' => $uuid));
+                }
+                return false;
+            }
+
+            /**
+             * Determines whether the given UUID refers to a local object (in which case it returns true)
+             * or a remote object (in which case it turns false)
+             * @param $uuid
+             * @return bool
+             */
+            static function isLocalUUID($uuid)
+            {
+                // TODO: improve this heuristic
+                // Parse the UUID
+                if ($uuid_parse = parse_url($uuid) && $url_parse = parse_url(\Idno\Core\site()->config()->url)) {
+                    if ($uuid_parse['host'] == $url_parse['host']) {
+                        return true;
+                    }
+                }
+                return false;
             }
 
             /**
