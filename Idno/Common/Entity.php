@@ -65,7 +65,7 @@
                 if (!empty($this->uuid)) {
                     return $this->uuid;
                 }
-                if ($url = $this->getURL(true)) {
+                if ($url = $this->getURL()) {
                     return $url;
                 }
                 if (!empty($this->_id)) {
@@ -392,13 +392,6 @@
             function save()
             {
 
-                // Adding when this entity was created (if it's new) & updated
-
-                if (empty($this->created)) {
-                    $this->created = time();
-                }
-                $this->updated = time();
-
                 // Adding this entity's owner (if we don't know already)
 
                 $owner_id = $this->getOwnerID();
@@ -419,6 +412,13 @@
                     if (!empty($access))
                         $this->access = $access;
                 }
+
+                // Adding when this entity was created (if it's new) & updated
+
+                if (empty($this->created)) {
+                    $this->created = time();
+                }
+                $this->updated = time();
 
                 // Save it to the database
 
@@ -1132,7 +1132,7 @@
              * @return string
              */
 
-            function getURL($new = false)
+            function getURL()
             {
 
                 // If a slug has been set, use it
@@ -1140,15 +1140,15 @@
                     return \Idno\Core\site()->config()->url . date('Y', $this->created) . '/' . $slug;
                 }
 
-                if (!$new) {
+                if (!empty($this->created)) {
                     $uuid = $this->getUUID();
                     if (!empty($uuid)) {
                         return $uuid;
                     }
-                    return \Idno\Core\site()->config()->url . $this->getClassSelector() . '/edit';
                 }
 
-                return false;
+                return \Idno\Core\site()->config()->url . $this->getClassSelector() . '/edit';
+
             }
 
             /**
