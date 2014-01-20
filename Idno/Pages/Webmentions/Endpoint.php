@@ -25,8 +25,17 @@
 
                 // Check that both source and target are non-empty
                 if (!empty($vars['source']) && !empty($vars['target']) && $vars['source'] != $vars['target']) {
+
+                    // Sanitize source and target
                     $source = urldecode($vars['source']);
                     $target = urldecode($vars['target']);
+
+                    // Remove anchors from target URL, but save them to '#' input so we can still reference them later
+                    list($target, $fragment) = explode('#', $target, 2);
+                    if (!empty($fragment)) {
+                        $this->setInput('#', $fragment);
+                    }
+
                     // Get the page handler for target
                     if ($page = \Idno\Core\site()->getPageHandler($target)) {
                         // Check that source exists, parse it for mf2 content,
