@@ -1,6 +1,6 @@
 <?php
 
-    header('Content-type: text');
+    header('Content-type: text/plain');
 
 ?>
 User-agent: *
