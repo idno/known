@@ -58,6 +58,8 @@
                 $this->addPageHandler('/file/([A-Za-z0-9]+)(/.*)?', '\Idno\Pages\File\View');
                 $this->addPageHandler('/profile/([A-Za-z0-9]+)/?', '\Idno\Pages\User\View');
                 $this->addPageHandler('/profile/([A-Za-z0-9]+)/edit/?', '\Idno\Pages\User\Edit');
+                $this->addPageHandler('/robots\.txt', '\Idno\Pages\Txt\Robots');
+                $this->addPageHandler('/humans\.txt', '\Idno\Pages\Txt\Humans');
 
             }
 
