@@ -355,7 +355,7 @@
             {
                 if (!\Idno\Core\site()->session()->isLoggedIn()) {
                     $this->setResponse(401);
-                    $this->forward();
+                    $this->forward('/session/login');
                 }
             }
 

@@ -28,7 +28,8 @@
                 } else {
                     \Idno\Core\site()->triggerEvent('login/failure/nouser', ['method' => 'password', 'credentials' => ['email' => $this->getInput('email')]]);
                     $this->setResponse(401);
-                    $this->forward('/session/login');
+                    //$this->forward('/session/login');
+                    $this->gatekeeper();
                 }
 
                 if ($user instanceof \Idno\Entities\User) {

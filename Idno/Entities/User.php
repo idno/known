@@ -76,7 +76,7 @@
              * Get the profile URL for this user
              * @return string
              */
-            function getURL($new = false)
+            function getURL()
             {
                 return \Idno\Core\site()->config()->url . 'profile/' . $this->getHandle();
             }
