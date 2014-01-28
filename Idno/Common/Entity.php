@@ -1219,7 +1219,7 @@
                         $this->removeAnnotation($source);
                         foreach ($mentions['mentions'] as $mention) {
                             if (!empty($mention['url'])) {
-                                $permalink = $mention['url'];
+                                $permalink = implode('',$mention['url']);
                             } else {
                                 $permalink = $source;
                             }
@@ -1345,7 +1345,7 @@
                             }
                             foreach(['share','repost','repost-of'] as $verb) {
                                 if (!empty($item['properties'][$verb]) && is_array($item['properties'][$verb])) {
-                                    if (in_array($target, $item['properties']['share'])) {
+                                    if (in_array($target, $item['properties'][$verb])) {
                                         $mention['type'] = 'share';
                                     }
                                 }
@@ -1401,6 +1401,7 @@
                 if (empty($annotations[$subtype])) {
                     $annotations[$subtype] = [];
                 }
+
                 $annotations[$subtype][$annotation_url] = $annotation;
                 $this->annotations                      = $annotations;
 
