@@ -1218,7 +1218,12 @@
                         }
                         $this->removeAnnotation($source);
                         foreach ($mentions['mentions'] as $mention) {
-                            if (!$this->addAnnotation($mention['type'], $mentions['owner']['name'], $mentions['owner']['url'], $mentions['owner']['photo'], $mention['content'], $source, $mention['created'])) {
+                            if (!empty($mention['url'])) {
+                                $permalink = $mention['url'];
+                            } else {
+                                $permalink = $source;
+                            }
+                            if (!$this->addAnnotation($mention['type'], $mentions['owner']['name'], $mentions['owner']['url'], $mentions['owner']['photo'], $mention['content'], $permalink, $mention['created'])) {
                                 $return = false;
                             }
                         }
@@ -1320,6 +1325,9 @@
                                 if (empty($mention['created'])) {
                                     $mention['created'] = time();
                                 }
+                            }
+                            if (!empty($item['properties']['url'])) {
+                                $mention['url'] = $item['properties']['url'];
                             }
                             if (!empty($item['properties']['in-reply-to']) && is_array($item['properties']['in-reply-to'])) {
                                 if (in_array($target, $item['properties']['in-reply-to'])) {
