@@ -1343,9 +1343,11 @@
                                 $mention['type']    = 'rsvp';
                                 $mention['content'] = implode(' ', $item['properties']['rsvp']);
                             }
-                            if (!empty($item['properties']['share']) && is_array($item['properties']['share'])) {
-                                if (in_array($target, $item['properties']['share'])) {
-                                    $mention['type'] = 'share';
+                            foreach(['share','repost','repost-of'] as $verb) {
+                                if (!empty($item['properties'][$verb]) && is_array($item['properties'][$verb])) {
+                                    if (in_array($target, $item['properties']['share'])) {
+                                        $mention['type'] = 'share';
+                                    }
                                 }
                             }
                             if (empty($mention['type'])) {
