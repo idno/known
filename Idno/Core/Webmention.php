@@ -60,11 +60,12 @@
             /**
              * Parses a given set of HTML for Microformats 2 content
              * @param $content HTML to parse
+             * @param $url Optionally, the source URL of the content, so relative URLs can be parsed into absolute ones
              * @return array
              */
-            static function parseContent($content)
+            static function parseContent($content, $url = null)
             {
-                $parser = new \Mf2\Parser($content); //\mf2\Parser($content);
+                $parser = new \Mf2\Parser($content, $url);
                 try {
                     $return = $parser->parse();
                 } catch (Exception $e) {
@@ -86,7 +87,7 @@
                     $inreplyto = [$inreplyto];
                 }
                 if ($content = self::getPageContent($url)) {
-                    if ($mf2 = self::parseContent($content['content'])) {
+                    if ($mf2 = self::parseContent($content['content'], $url)) {
                         if (!empty($mf2['rels']['syndication'])) {
                             if (is_array($mf2['rels']['syndication'])) {
                                 foreach ($mf2['rels']['syndication'] as $syndication) {
