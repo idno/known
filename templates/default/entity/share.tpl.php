@@ -4,10 +4,10 @@
 
     } else {
 
-?>
+        ?>
         <p>
             This content can't be shared right now.
         </p>
-<?php
+    <?php
 
     }

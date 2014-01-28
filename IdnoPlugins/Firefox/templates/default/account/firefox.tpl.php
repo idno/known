@@ -9,7 +9,7 @@
 
         "workerURL": "<?=\Idno\Core\site()->config()->url?>IdnoPlugins/Firefox/worker.js",
         //"sidebarURL": "<?=\Idno\Core\site()->config()->url?>firefox/sidebar",
-        "shareURL": "<?=\Idno\Core\site()->config()->url?>firefox/share?share_url=%{url}&share_title=%{title}",
+        "shareURL": "<?=\Idno\Core\site()->config()->url?>share?share_url=%{url}&share_title=%{title}",
 
         "description": "Powered by idno",
         "author": "Ben Werdmuller",

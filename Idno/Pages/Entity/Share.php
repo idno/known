@@ -1,13 +1,13 @@
 <?php
 
-    /**
-     * Firefox share page
+    /*
+     * Idno share page
      */
 
-    namespace IdnoPlugins\Firefox\Pages {
+    namespace Idno\Pages\Entity {
 
         /**
-         * Default class to serve Firefox-related account settings
+         * Idno share screen
          */
         class Share extends \Idno\Common\Page
         {
@@ -62,7 +62,7 @@
                     }
                 } else {
                     $t = \Idno\Core\site()->template();
-                    $body = $t->__(['share_type' => $share_type, 'content_type' => $content_type])->draw('firefox/share');
+                    $body = $t->__(['share_type' => $share_type, 'content_type' => $content_type])->draw('entity/share');
                     $t->__(['title' => 'Share', 'body' => $body, 'hidenav' => true])->drawPage();
                 }
             }
