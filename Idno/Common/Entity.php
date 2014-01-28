@@ -1289,7 +1289,10 @@
                                 if (is_array($item['properties']['content'])) {
                                     foreach ($item['properties']['content'] as $content) {
                                         if (!empty($content['value'])) {
-                                            $mention['content'] .= strip_tags($content['value']);
+                                            $parsed_content = strip_tags($content['value']);
+                                            if (!substr_count($mention['content'], $parsed_content)) {
+                                                 $mention['content'] .= $parsed_content;
+                                            }
                                         }
                                     }
                                 } else {
