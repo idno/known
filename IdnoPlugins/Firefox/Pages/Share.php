@@ -27,10 +27,16 @@
 
                 if ($content = \Idno\Core\Webmention::getPageContent($url)) {
                     if ($mf2 = \Idno\Core\Webmention::parseContent($content['content'])) {
-                        if (substr_count($content['content'],'h-entry') == 1) {
-                            $share_type = 'reply';
-                            if (substr_count($content['content'],'h-event') == 1) {
-                                $share_type = 'rsvp';
+                        if (!empty($mf2['items'])) {
+                            foreach($mf2['items'] as $item) {
+                                if (!empty($item['type'])) {
+                                    if (in_array('h-entry',$item['type'])) {
+                                        $share_type = 'reply';
+                                    }
+                                    if (in_array('h-event',$item['type'])) {
+                                        $share_type = 'rsvp';
+                                    }
+                                }
                             }
                         }
                     }
