@@ -15,10 +15,7 @@
             function getContent()
             {
 
-                if (!\Idno\Core\site()->session()->isLoggedIn()) {
-                    $this->setResponse(401);
-                    $this->forward('/session/login');
-                }
+                $this->gatekeeper();
 
                 $url = $this->getInput('share_url');
                 $title = $this->getInput('share_title');
