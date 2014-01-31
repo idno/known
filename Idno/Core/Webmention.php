@@ -30,8 +30,8 @@
             static function pingMentions($pageURL, $text)
             {
                 // Load webmention-client
-                require_once \Idno\Core\site()->config()->path . '/external/mention-client/mention-client.php';
-                $client = new \MentionClient($pageURL, $text);
+                require_once \Idno\Core\site()->config()->path . '/external/mention-client-php/src/IndieWeb/MentionClient.php';
+                $client = new \IndieWeb\MentionClient($pageURL, $text);
 
                 return $client->sendSupportedMentions();
             }
