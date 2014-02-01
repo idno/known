@@ -6,3 +6,7 @@
     RewriteCond $1 !^(index\.php)
     RewriteRule ^(.*)$ /index.php/$1 [L]
 </IfModule>
+<Files  ~ "\.ini$">
+  Order allow,deny
+  Deny from all
+</Files>
