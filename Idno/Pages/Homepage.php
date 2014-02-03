@@ -28,9 +28,9 @@
                     }
                 } else {
                     // If user has content-specific preferences, do something with $friendly_types
-                    if ($types = \Idno\Core\site()->session()->currentUser()->settings['friendly_types']) {
-                        if (is_array($types)) {
-                            $friendly_types = $types;
+                    if ($temp_types = \Idno\Core\site()->session()->currentUser()->settings['friendly_types']) {
+                        if (is_array($temp_types)) {
+                            $friendly_types = $temp_types;
                         }
                     }
                 }
