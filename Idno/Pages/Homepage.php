@@ -35,8 +35,10 @@
                     }
                 } else {
                     // If user has content-specific preferences, do something with $friendly_types
-                    if ($user = $this->getOwner()) {
-                        $types = $user->getDefaultContentTypes();
+                    if (empty($query)) {
+                        if ($user = $this->getOwner()) {
+                            $types = $user->getDefaultContentTypes();
+                        }
                     }
                 }
 
