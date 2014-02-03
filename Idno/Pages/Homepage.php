@@ -35,7 +35,9 @@
                     }
                 } else {
                     // If user has content-specific preferences, do something with $friendly_types
-                    $types = \Idno\Core\site()->session()->currentUser()->getDefaultContentTypes();
+                    if ($user = $this->getOwner()) {
+                        $types = $user->getDefaultContentTypes();
+                    }
                 }
 
                 $search = [];

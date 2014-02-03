@@ -486,7 +486,7 @@
              */
             function getDefaultContentTypes() {
                 $friendly_types = [];
-                if ($temp_types = \Idno\Core\site()->session()->currentUser()->settings['default_feed_content']) {
+                if ($temp_types = $this->settings['default_feed_content']) {
                     if (is_array($temp_types)) {
                         foreach($temp_types as $temp_type) {
                             if ($content_type_class = \Idno\Common\ContentType::categoryTitleToClass($temp_type)) {
