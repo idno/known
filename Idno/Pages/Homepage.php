@@ -25,12 +25,23 @@
                 if (!empty($this->arguments[0])) { // If we're on the friendly content-specific URL
                     if ($friendly_types = explode('/', $this->arguments[0])) {
                         $friendly_types = array_filter($friendly_types);
-                        $types = [];
-                        // Run through the URL parameters and set content types appropriately
-                        foreach ($friendly_types as $friendly_type) {
-                            if ($content_type_class = \Idno\Common\ContentType::categoryTitleToClass($friendly_type)) {
-                                $types[] = $content_type_class;
-                            }
+                    }
+                } else {
+                    // If user has content-specific preferences, do something with $friendly_types
+                    if ($types = \Idno\Core\site()->session()->currentUser()->settings['friendly_types']) {
+                        if (is_array($types)) {
+                            $friendly_types = $types;
+                        }
+                    }
+                }
+
+                if (!empty($friendly_types)) {
+                    $friendly_types = array_filter($friendly_types);
+                    $types = [];
+                    // Run through the URL parameters and set content types appropriately
+                    foreach ($friendly_types as $friendly_type) {
+                        if ($content_type_class = \Idno\Common\ContentType::categoryTitleToClass($friendly_type)) {
+                            $types[] = $content_type_class;
                         }
                     }
                 }
