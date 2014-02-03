@@ -340,9 +340,22 @@ span.contentTypeLogo {
     text-align: center;
 }
 
+.content-type p input[type=checkbox]:checked + label,
 .syndication span input[type=checkbox]:checked + label {
-    background-color: #329410;;
+    background-color: #329410;
     color: #fff;
+}
+
+.content-type p input[type=checkbox] {
+    display: none;
+}
+
+.content-type p input[type=checkbox] + label {
+    background-color: #ccc;
+    color: #eee;
+    border-radius: 3px;
+    padding: 0.25em;
+    font-size: 30px;
 }
 
 /**

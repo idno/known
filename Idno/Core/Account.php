@@ -17,6 +17,7 @@
 
                 // Account management
                 site()->addPageHandler('/account/settings', '\Idno\Pages\Account\Settings');
+                site()->addPageHandler('/account/settings/homepage', '\Idno\Pages\Account\Settings\Homepage');
 
                 // Basic registration, if we're allowing it
                 if (\Idno\Core\site()->config()->open_registration == true) {

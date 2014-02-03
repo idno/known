@@ -228,6 +228,40 @@
             }
 
             /**
+             * Get the classes of all entities supplied by ContentType objects registered in the system.
+             * @return array
+             */
+            static function getRegisteredClasses()
+            {
+                $classes = [];
+                if ($registered = self::$registered) {
+                    foreach($registered as $type) {
+                        if ($type instanceof ContentType) {
+                            $classes[] = $type->getEntityClass();
+                        }
+                    }
+                }
+                return $classes;
+            }
+
+            /**
+             * Get the category title slugs of all entities supplied by ContentType objects registered in the system.
+             * @return array
+             */
+            static function getRegisteredCategorySlugs()
+            {
+                $slugs = [];
+                if ($registered = self::$registered) {
+                    foreach($registered as $type) {
+                        if ($type instanceof ContentType) {
+                            $slugs[] = $type->getCategoryTitleSlug();
+                        }
+                    }
+                }
+                return $slugs;
+            }
+
+            /**
              * Given an IndieWeb content type ('note', 'reply', 'rsvp', etc),
              * retrieves the first registered plugin content type that maps to it
              *

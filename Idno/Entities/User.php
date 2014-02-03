@@ -10,6 +10,8 @@
     namespace Idno\Entities {
 
         // We need the PHP 5.5 password API
+        use Idno\Common\ContentType;
+
         require_once \Idno\Core\site()->config()->path . '/external/password_compat/lib/password.php';
 
         class User extends \Idno\Common\Entity implements \JsonSerializable
@@ -475,6 +477,28 @@
                     return 'person';
 
                 return false;
+            }
+
+            /**
+             * Get a user's settings for default content types on their homepage (or all the content types registered
+             * if none have been listed)
+             * @return array
+             */
+            function getDefaultContentTypes() {
+                $friendly_types = [];
+                if ($temp_types = \Idno\Core\site()->session()->currentUser()->settings['default_feed_content']) {
+                    if (is_array($temp_types)) {
+                        foreach($temp_types as $temp_type) {
+                            if ($content_type_class = \Idno\Common\ContentType::categoryTitleToClass($temp_type)) {
+                                $friendly_types[] = $content_type_class;
+                            }
+                        }
+                    }
+                }
+                if (empty($friendly_types)) {
+                    $friendly_types = ContentType::getRegisteredClasses();
+                }
+                return $friendly_types;
             }
 
             /**
