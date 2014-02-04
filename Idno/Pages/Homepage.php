@@ -5,6 +5,7 @@
      */
 
     namespace Idno\Pages {
+        use Idno\Common\ContentType;
 
         /**
          * Default class to serve the homepage
@@ -28,6 +29,10 @@
                         $types = [];
                         // Run through the URL parameters and set content types appropriately
                         foreach ($friendly_types as $friendly_type) {
+                            if ($friendly_type == 'all') {
+                                $types = \Idno\Common\ContentType::getRegisteredClasses();
+                                break;
+                            }
                             if ($content_type_class = \Idno\Common\ContentType::categoryTitleToClass($friendly_type)) {
                                 $types[] = $content_type_class;
                             }

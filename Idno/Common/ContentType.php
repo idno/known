@@ -89,7 +89,8 @@
              * Returns a version of this content type's category title suitable for including in a URL
              * @return string
              */
-            function getCategoryTitleSlug() {
+            function getCategoryTitleSlug()
+            {
                 return urlencode(strtolower(str_replace(' ', '', $this->getCategoryTitle())));
             }
 
@@ -98,7 +99,8 @@
              * @param $friendly_name
              * @return bool|string
              */
-            static function categoryTitleSlugToClass($slug) {
+            static function categoryTitleSlugToClass($slug)
+            {
                 $friendly_name = str_replace(' ', '', trim(strtolower($slug)));
                 if ($registered = self::getRegistered()) {
                     foreach ($registered as $contentType) {
@@ -118,7 +120,8 @@
              * @param $class
              * @return bool|ContentType
              */
-            static function getContentTypeObjectFromClass($class) {
+            static function getContentTypeObjectFromClass($class)
+            {
                 $friendly_name = str_replace(' ', '', trim(strtolower($class)));
                 if ($registered = self::getRegistered()) {
                     foreach ($registered as $contentType) {
@@ -137,8 +140,12 @@
              * @param $slug
              * @return bool|string
              */
-            static function categoryTitleSlugToFriendlyName($slug) {
+            static function categoryTitleSlugToFriendlyName($slug)
+            {
                 $friendly_name = str_replace(' ', '', trim(strtolower($slug)));
+                if ($friendly_name == 'all') {
+                    return 'All content';
+                }
                 if ($registered = self::getRegistered()) {
                     foreach ($registered as $contentType) {
                         /* @var ContentType $contentType */
@@ -157,14 +164,16 @@
              * @param $slugs
              * @return string
              */
-            static function categoryTitleSlugsToFriendlyName($slugs) {
+            static function categoryTitleSlugsToFriendlyName($slugs)
+            {
                 if (!is_array($slugs)) {
                     $slugs = explode(', ', $slugs);
                 }
                 $friendly = [];
-                foreach($slugs as $content) {
+                foreach ($slugs as $content) {
                     $friendly[] = self::categoryTitleSlugToFriendlyName($content);
                 }
+
                 return implode(', ', $friendly);
             }
 
@@ -235,12 +244,13 @@
             {
                 $classes = [];
                 if ($registered = self::$registered) {
-                    foreach($registered as $type) {
+                    foreach ($registered as $type) {
                         if ($type instanceof ContentType) {
                             $classes[] = $type->getEntityClass();
                         }
                     }
                 }
+
                 return $classes;
             }
 
@@ -252,12 +262,13 @@
             {
                 $slugs = [];
                 if ($registered = self::$registered) {
-                    foreach($registered as $type) {
+                    foreach ($registered as $type) {
                         if ($type instanceof ContentType) {
                             $slugs[] = $type->getCategoryTitleSlug();
                         }
                     }
                 }
+
                 return $slugs;
             }
 
