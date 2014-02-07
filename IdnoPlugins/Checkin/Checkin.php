@@ -9,7 +9,9 @@
             }
 
             function getDescription() {
-                return $this->body;
+                if (empty($this->body)) {
+                    return ' ';
+                }
             }
 
             /**
@@ -86,7 +88,6 @@
                 curl_close($ch);
 
                 if (!empty($http_response)) {
-                    error_log($http_response);
                     if ($contents = @json_decode($http_response)) {
                         if (!empty($contents->address)) {
                             $addr = (array) $contents->address;
