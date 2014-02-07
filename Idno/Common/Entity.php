@@ -229,11 +229,11 @@
 
             static function getByUUID($uuid)
             {
-                if (self::isLocalUUID($uuid)) {
+                //if (self::isLocalUUID($uuid)) {
                     return self::getOneFromAll(array('uuid' => $uuid));
-                } else {
-                    return self::getRemote($uuid);
-                }
+                //} else {
+                //    return self::getRemote($uuid);
+                //}
             }
 
             /**
