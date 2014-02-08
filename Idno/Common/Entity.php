@@ -1354,7 +1354,10 @@
                                 $mention['type'] = 'reply';
                             }
                         }
-                        if (!empty($mention['content']) && !empty($mention['type'])) {
+                        if (empty($mention['content'])) {
+                            $mention['content'] = '';
+                        }
+                        if (!empty($mention['type'])) {
                             $mentions['mentions'][] = $mention;
                         }
 
