@@ -19,9 +19,9 @@
                 //ini_set('session.cookie_httponly', true); // Restrict cookies to HTTP only (help reduce XSS attack profile)
 
                 $sessionHandler = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\MongoDbSessionHandler(\Idno\Core\site()->db()->getClient(), [
-                                                                                                                                                            'database'   => 'idnosession',
-                                                                                                                                                            'collection' => 'idnosession'
-                                                                                                                                                            ]);
+                    'database'   => 'idnosession',
+                    'collection' => 'idnosession'
+                ]);
                 session_set_save_handler($sessionHandler, true);
 
                 session_name(site()->config->sessionname);

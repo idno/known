@@ -17,9 +17,9 @@
                 $this->adminGatekeeper(); // Admins only
                 $t        = \Idno\Core\site()->template();
                 $t->body  = $t->__(array(
-                                        'plugins_stored' => \Idno\Core\site()->plugins()->getStored(),
-                                        'plugins_loaded' => \Idno\Core\site()->plugins()->getLoaded(),
-                                   ))->draw('admin/plugins');
+                    'plugins_stored' => \Idno\Core\site()->plugins()->getStored(),
+                    'plugins_loaded' => \Idno\Core\site()->plugins()->getLoaded(),
+                ))->draw('admin/plugins');
                 $t->title = 'Plugins';
                 $t->drawPage();
             }

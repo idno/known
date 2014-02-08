@@ -17,7 +17,7 @@
 
                 $this->gatekeeper();
 
-                $url = $this->getInput('share_url');
+                $url   = $this->getInput('share_url');
                 $title = $this->getInput('share_title');
 
                 $share_type = 'note';
@@ -25,12 +25,12 @@
                 if ($content = \Idno\Core\Webmention::getPageContent($url)) {
                     if ($mf2 = \Idno\Core\Webmention::parseContent($content['content'])) {
                         if (!empty($mf2['items'])) {
-                            foreach($mf2['items'] as $item) {
+                            foreach ($mf2['items'] as $item) {
                                 if (!empty($item['type'])) {
-                                    if (in_array('h-entry',$item['type'])) {
+                                    if (in_array('h-entry', $item['type'])) {
                                         $share_type = 'reply';
                                     }
-                                    if (in_array('h-event',$item['type'])) {
+                                    if (in_array('h-event', $item['type'])) {
                                         $share_type = 'rsvp';
                                     }
                                 }
@@ -46,7 +46,7 @@
                         if ($share_type == 'note' && !substr_count($url, 'twitter.com')) {
                             $page->setInput('body', $title . ' ' . $url);
                         } else {
-                            $page->setInput('url',$url);
+                            $page->setInput('url', $url);
                             if (substr_count($url, 'twitter.com')) {
                                 preg_match("|https?://(www\.)?twitter\.com/(#!/)?@?([^/]*)|", $url, $matches);
                                 if (!empty($matches[3])) {
@@ -54,11 +54,11 @@
                                 }
                             }
                         }
-                        $page->setInput('hidenav',true);
+                        $page->setInput('hidenav', true);
                         $page->get();
                     }
                 } else {
-                    $t = \Idno\Core\site()->template();
+                    $t    = \Idno\Core\site()->template();
                     $body = $t->__(['share_type' => $share_type, 'content_type' => $content_type])->draw('entity/share');
                     $t->__(['title' => 'Share', 'body' => $body, 'hidenav' => true])->drawPage();
                 }

@@ -440,8 +440,8 @@
                 $return = array('PUBLIC', $this->getUUID());
                 if ($groups = \Idno\Core\site()->db()->getRecords(array('uuid' => true),
                     array(
-                         'entity_subtype'         => 'Idno\\Entities\\AccessGroup',
-                         'members.' . $permission => $this->getUUID()),
+                        'entity_subtype'         => 'Idno\\Entities\\AccessGroup',
+                        'members.' . $permission => $this->getUUID()),
                     PHP_INT_MAX,
                     0)
                 ) {
@@ -484,11 +484,12 @@
              * if none have been listed)
              * @return array
              */
-            function getDefaultContentTypes() {
+            function getDefaultContentTypes()
+            {
                 $friendly_types = [];
                 if ($temp_types = $this->settings['default_feed_content']) {
                     if (is_array($temp_types)) {
-                        foreach($temp_types as $temp_type) {
+                        foreach ($temp_types as $temp_type) {
                             if ($content_type_class = \Idno\Common\ContentType::categoryTitleToClass($temp_type)) {
                                 $friendly_types[] = $content_type_class;
                             }
@@ -498,6 +499,7 @@
                 if (empty($friendly_types)) {
                     $friendly_types = ContentType::getRegisteredClasses();
                 }
+
                 return $friendly_types;
             }
 
@@ -512,12 +514,12 @@
             public function notify($message, $long_message = null, $object = null, $params = null)
             {
                 return \Idno\Core\site()->triggerEvent('notify', [
-                                                                 'user'         => $this,
-                                                                 'message'      => $message,
-                                                                 'long_message' => $long_message,
-                                                                 'object'       => $object,
-                                                                 'parameters'   => $params
-                                                                 ]);
+                    'user'         => $this,
+                    'message'      => $message,
+                    'long_message' => $long_message,
+                    'object'       => $object,
+                    'parameters'   => $params
+                ]);
             }
 
             /**

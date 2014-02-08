@@ -33,9 +33,9 @@
                     $default_feed_content = false;
                 }
 
-                $settings = $user->settings;
+                $settings                         = $user->settings;
                 $settings['default_feed_content'] = $default_feed_content;
-                $user->settings = $settings;
+                $user->settings                   = $settings;
 
                 if ($user->save()) {
                     \Idno\Core\site()->session()->addMessage("Your details were saved.");

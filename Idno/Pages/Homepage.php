@@ -5,7 +5,6 @@
      */
 
     namespace Idno\Pages {
-        use Idno\Common\ContentType;
 
         /**
          * Default class to serve the homepage
@@ -18,15 +17,15 @@
             function getContent()
             {
 
-                $query = $this->getInput('q');
-                $offset = (int)$this->getInput('offset');
-                $types  = $this->getInput('types');
+                $query          = $this->getInput('q');
+                $offset         = (int)$this->getInput('offset');
+                $types          = $this->getInput('types');
                 $friendly_types = [];
 
                 if (!empty($this->arguments[0])) { // If we're on the friendly content-specific URL
                     if ($friendly_types = explode('/', $this->arguments[0])) {
                         $friendly_types = array_filter($friendly_types);
-                        $types = [];
+                        $types          = [];
                         // Run through the URL parameters and set content types appropriately
                         foreach ($friendly_types as $friendly_type) {
                             if ($friendly_type == 'all') {
@@ -49,12 +48,12 @@
 
                 $search = [];
 
-                if(!empty($query)) {
+                if (!empty($query)) {
                     $search = \Idno\Core\site()->db()->createSearchArray($query);
                 }
 
                 if (empty($types)) {
-                    $types  = 'Idno\Entities\ActivityStreamPost';
+                    $types          = 'Idno\Entities\ActivityStreamPost';
                     $search['verb'] = 'post';
                 } else {
                     if (!is_array($types)) $types = [$types];
@@ -78,19 +77,19 @@
                 $t = \Idno\Core\site()->template();
                 $t->__(array(
 
-                            'title'       => \Idno\Core\site()->config()->title,
-                            'description' => $description,
-                            'content'     => $friendly_types,
-                            'body'        => $t->__(array(
-                                                         'items'        => $feed,
-                                                         'contentTypes' => $create,
-                                                         'offset'       => $offset,
-                                                         'count'        => $count,
-                                                         'subject'      => $query,
-                                                         'content'      => $friendly_types
-                                                    ))->draw('pages/home'),
+                    'title'       => \Idno\Core\site()->config()->title,
+                    'description' => $description,
+                    'content'     => $friendly_types,
+                    'body'        => $t->__(array(
+                            'items'        => $feed,
+                            'contentTypes' => $create,
+                            'offset'       => $offset,
+                            'count'        => $count,
+                            'subject'      => $query,
+                            'content'      => $friendly_types
+                        ))->draw('pages/home'),
 
-                       ))->drawPage();
+                ))->drawPage();
             }
 
         }

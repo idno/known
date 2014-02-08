@@ -230,7 +230,7 @@
             static function getByUUID($uuid)
             {
                 //if (self::isLocalUUID($uuid)) {
-                    return self::getOneFromAll(array('uuid' => $uuid));
+                return self::getOneFromAll(array('uuid' => $uuid));
                 //} else {
                 //    return self::getRemote($uuid);
                 //}
@@ -1072,12 +1072,12 @@
                 $t = \Idno\Core\site()->template();
 
                 $return = $t->__(array(
-                                      'object' => $this
-                                 ))->draw('entity/' . $this->getClassName(), false);
+                    'object' => $this
+                ))->draw('entity/' . $this->getClassName(), false);
                 if ($return === false) {
                     $return = $t->__(array(
-                                          'object' => $this
-                                     ))->draw('entity/default');
+                        'object' => $this
+                    ))->draw('entity/default');
                 }
 
                 return $return;
@@ -1094,8 +1094,8 @@
                 $t = \Idno\Core\site()->template();
 
                 return $t->__(array(
-                                   'object' => $this
-                              ))->draw('entity/' . $this->getClassName() . '/edit');
+                    'object' => $this
+                ))->draw('entity/' . $this->getClassName() . '/edit');
             }
 
             /**
@@ -1219,7 +1219,7 @@
                         $this->removeAnnotation($source);
                         foreach ($mentions['mentions'] as $mention) {
                             if (!empty($mention['url'])) {
-                                $permalink = implode('',$mention['url']);
+                                $permalink = implode('', $mention['url']);
                             } else {
                                 $permalink = $source;
                             }
@@ -1296,7 +1296,7 @@
                                         if (!empty($content['value'])) {
                                             $parsed_content = strip_tags($content['value']);
                                             if (!substr_count($mention['content'], $parsed_content)) {
-                                                 $mention['content'] .= $parsed_content;
+                                                $mention['content'] .= $parsed_content;
                                             }
                                         }
                                     }
@@ -1343,7 +1343,7 @@
                                 $mention['type']    = 'rsvp';
                                 $mention['content'] = implode(' ', $item['properties']['rsvp']);
                             }
-                            foreach(['share','repost','repost-of'] as $verb) {
+                            foreach (['share', 'repost', 'repost-of'] as $verb) {
                                 if (!empty($item['properties'][$verb]) && is_array($item['properties'][$verb])) {
                                     if (in_array($target, $item['properties'][$verb])) {
                                         $mention['type'] = 'share';
