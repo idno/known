@@ -254,6 +254,7 @@
 
             function APIlogin()
             {
+
                 if (!empty($_SERVER['HTTP_X_IDNO_USERNAME']) && !empty($_SERVER['HTTP_X_IDNO_SIGNATURE'])) {
                     if ($user = \Idno\Entities\User::getByHandle($_SERVER['HTTP_X_IDNO_USERNAME'])) {
                         $key          = $user->getAPIkey();
@@ -261,6 +262,7 @@
                         $compare_hmac = base64_encode(hash_hmac('sha256', $_SERVER['REQUEST_URI'], $key, true));
                         if ($hmac == $compare_hmac) {
                             \Idno\Core\site()->session()->logUserOn($user);
+                            \Idno\Core\site()->session()->setIsAPIRequest(true);
 
                             return $user;
                         }
@@ -283,6 +285,29 @@
                 session_regenerate_id();
 
                 return $user;
+            }
+
+            /**
+             * Sets whether this session is an API request or a manual browse
+             * @param boolean $is_api_request
+             */
+            function setIsAPIRequest($is_api_request)
+            {
+                $is_api_request             = (bool)$is_api_request;
+                $_SESSION['is_api_request'] = $is_api_request;
+            }
+
+            /**
+             * Is this session an API request?
+             * @return bool
+             */
+            function isAPIRequest()
+            {
+                if (!empty($_SESSION['is_api_request'])) {
+                    return true;
+                }
+
+                return false;
             }
 
         }

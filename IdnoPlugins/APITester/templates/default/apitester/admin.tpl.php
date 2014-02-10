@@ -50,7 +50,7 @@
                 <div class="span8 offset2">
                     <p>
                         Some examples:
-                        <a href="?request=/status/edit&json=['body':%20'Status%20body']">post a status</a>,
+                        <a href="?request=/status/edit&json=<?=urlencode(json_encode(['body' => 'Status body']))?>">post a status</a>,
                         <a href="?request=/">get feed</a>
                     </p>
                 </div>
@@ -100,6 +100,17 @@
                 </div>
                 <div class="span8">
                     <textarea class="span8" name="json"><?= htmlspecialchars($vars['json']) ?></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span2">
+                    <p>&nbsp;</p>
+                </div>
+                <div class="span8">
+                    <label class="checkbox">
+                        <input type="checkbox" name="follow_redirects" value="1" checked>
+                        Follow redirects
+                    </label>
                 </div>
             </div>
             <div class="row">
