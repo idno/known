@@ -1115,6 +1115,12 @@
                     'url'         => $this->getURL()
                 );
 
+                if ($owner = $this->getOwner()) {
+                    if ($owner != $this) {
+                        $object['actor'] = $owner;
+                    }
+                }
+
                 if ($attachments = $this->getAttachments()) {
                     foreach ($attachments as $attachment) {
                         $object['attachments'][] = ['url' => $attachment['url'], 'mime-type' => $attachment['mime-type'], 'length' => $attachment['length']];
