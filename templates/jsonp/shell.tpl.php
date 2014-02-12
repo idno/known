@@ -7,6 +7,13 @@
     header('Content-type: application/x-javascript; charset=UTF-8');
     
     unset($vars['body']);
-    //$vars['messages'] = \Idno\Core\site()->session()->getAndFlushMessages();
-    
-    echo \Idno\Core\site()->currentPage()->getInput('callback') . "(".json_encode($vars).")";
+    $vars['messages'] = \Idno\Core\site()->session()->getAndFlushMessages();
+
+    if (!($callback = \Idno\Core\site()->currentPage()->getInput('callback'))) {
+        if (!($callback = \Idno\Core\site()->currentPage()->getInput('jsonp'))) {
+            $callback = 'response';
+        }
+    }
+
+
+    echo $callback . "(".json_encode($vars).")";
