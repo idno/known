@@ -5,10 +5,6 @@
     /* @var \Idno\Common\Entity $subObject */
 
     if (!empty($object) && !empty($subObject)) {
-        if ($owner = $object->getActor()) {
-            
-            echo json_encode([$object, $owner]);
-            
-        }
+        echo json_encode($object);
     }
 ?>
