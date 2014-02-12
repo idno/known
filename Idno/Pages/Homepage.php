@@ -25,6 +25,9 @@
                 if (!empty($this->arguments[0])) { // If we're on the friendly content-specific URL
                     if ($friendly_types = explode('/', $this->arguments[0])) {
                         $friendly_types = array_filter($friendly_types);
+                        if (empty($friendly_types) && !empty($query)) {
+                            $friendly_types = [all];
+                        }
                         $types          = [];
                         // Run through the URL parameters and set content types appropriately
                         foreach ($friendly_types as $friendly_type) {
