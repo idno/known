@@ -10,6 +10,8 @@
     namespace Idno\Entities {
 
         // We need the PHP 5.5 password API
+        use Idno\Common\ContentType;
+
         require_once \Idno\Core\site()->config()->path . '/external/password_compat/lib/password.php';
 
         class User extends \Idno\Common\Entity implements \JsonSerializable
@@ -438,8 +440,8 @@
                 $return = array('PUBLIC', $this->getUUID());
                 if ($groups = \Idno\Core\site()->db()->getRecords(array('uuid' => true),
                     array(
-                         'entity_subtype'         => 'Idno\\Entities\\AccessGroup',
-                         'members.' . $permission => $this->getUUID()),
+                        'entity_subtype'         => 'Idno\\Entities\\AccessGroup',
+                        'members.' . $permission => $this->getUUID()),
                     PHP_INT_MAX,
                     0)
                 ) {
@@ -478,6 +480,30 @@
             }
 
             /**
+             * Get a user's settings for default content types on their homepage (or all the content types registered
+             * if none have been listed)
+             * @return array
+             */
+            function getDefaultContentTypes()
+            {
+                $friendly_types = [];
+                if ($temp_types = $this->settings['default_feed_content']) {
+                    if (is_array($temp_types)) {
+                        foreach ($temp_types as $temp_type) {
+                            if ($content_type_class = \Idno\Common\ContentType::categoryTitleToClass($temp_type)) {
+                                $friendly_types[] = $content_type_class;
+                            }
+                        }
+                    }
+                }
+                if (empty($friendly_types)) {
+                    $friendly_types = ContentType::getRegisteredClasses();
+                }
+
+                return $friendly_types;
+            }
+
+            /**
              * Hook to provide a method of notifying a user - for example, sending an email or displaying a popup.
              *
              * @param string $message The message to notify the user with.
@@ -488,12 +514,12 @@
             public function notify($message, $long_message = null, $object = null, $params = null)
             {
                 return \Idno\Core\site()->triggerEvent('notify', [
-                                                                 'user'         => $this,
-                                                                 'message'      => $message,
-                                                                 'long_message' => $long_message,
-                                                                 'object'       => $object,
-                                                                 'parameters'   => $params
-                                                                 ]);
+                    'user'         => $this,
+                    'message'      => $message,
+                    'long_message' => $long_message,
+                    'object'       => $object,
+                    'parameters'   => $params
+                ]);
             }
 
             /**

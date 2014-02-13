@@ -24,10 +24,10 @@
                 $t = \Idno\Core\site()->template();
                 $t->__(array(
 
-                            'title' => 'Edit profile: ' . $user->getTitle(),
-                            'body'  => $t->__(array('user' => $user))->draw('entity/User/edit')
+                    'title' => 'Edit profile: ' . $user->getTitle(),
+                    'body'  => $t->__(array('user' => $user))->draw('entity/User/edit')
 
-                       ))->drawPage();
+                ))->drawPage();
             }
 
         }

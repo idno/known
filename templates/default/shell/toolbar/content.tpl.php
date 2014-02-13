@@ -19,7 +19,7 @@
                         if (!empty($vars['content'])) {
                             echo \Idno\Common\ContentType::categoryTitleSlugsToFriendlyName($vars['content']);
                         } else {
-                            echo 'All content';
+                            echo 'Default content';
                         }
 
                     ?>
@@ -27,6 +27,8 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a href="<?= \Idno\Core\site()->config()->url . $search ?>"><span class="dropdown-menu-icon">&nbsp;</span>
+                            Default content</a></li>
+                    <li><a href="<?= \Idno\Core\site()->config()->url . 'content/all/' . $search ?>"><span class="dropdown-menu-icon">&nbsp;</span>
                             All content</a></li>
                     <?php
 

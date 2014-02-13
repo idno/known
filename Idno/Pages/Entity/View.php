@@ -38,11 +38,11 @@
                 $t = \Idno\Core\site()->template();
                 $t->__(array(
 
-                            'title'       => $object->getTitle(),
-                            'body'        => $t->__(array('object' => $object->getRelatedFeedItems()))->draw('entity/shell'),
-                            'description' => $object->getShortDescription()
+                    'title'       => $object->getTitle(),
+                    'body'        => $t->__(array('object' => $object->getRelatedFeedItems()))->draw('entity/shell'),
+                    'description' => $object->getShortDescription()
 
-                       ))->drawPage();
+                ))->drawPage();
             }
 
             // Get webmention content and handle it

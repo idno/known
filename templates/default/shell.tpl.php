@@ -40,7 +40,7 @@
 
     <!-- To silo is human, to syndicate divine -->
     <link rel="alternate" type="application/rss+xml" title="<?= htmlspecialchars($vars['title']) ?>"
-          href="<?= $this->getCurrentURLWithVar('_t', 'rss'); ?>"/>
+          href="<?= $this->getURLWithVar('_t', 'rss'); ?>"/>
 
     <!-- Webmention endpoint -->
     <link href="<?= \Idno\Core\site()->config()->url ?>webmention/" rel="http://webmention.org/"/>

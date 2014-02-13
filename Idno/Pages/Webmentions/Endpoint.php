@@ -42,7 +42,7 @@
                         // and ensure that it genuinely mentions this page
                         if ($source_content = \Idno\Core\Webmention::getPageContent($source)) {
                             if (substr_count($source_content['content'], $target) || $source_content['response'] == 410) {
-                                $source_mf2 = \Idno\Core\Webmention::parseContent($source_content['content']);
+                                $source_mf2 = \Idno\Core\Webmention::parseContent($source_content['content'], $source);
                                 // Set source and target information as input variables
                                 $page->setPermalink();
                                 if ($page->webmentionContent($source, $target, $source_content, $source_mf2)) {

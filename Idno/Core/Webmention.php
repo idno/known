@@ -30,8 +30,8 @@
             static function pingMentions($pageURL, $text)
             {
                 // Load webmention-client
-                require_once \Idno\Core\site()->config()->path . '/external/mention-client/mention-client.php';
-                $client = new \MentionClient($pageURL, $text);
+                require_once \Idno\Core\site()->config()->path . '/external/mention-client-php/src/IndieWeb/MentionClient.php';
+                $client = new \IndieWeb\MentionClient($pageURL, $text);
 
                 return $client->sendSupportedMentions();
             }
@@ -60,16 +60,18 @@
             /**
              * Parses a given set of HTML for Microformats 2 content
              * @param $content HTML to parse
+             * @param $url Optionally, the source URL of the content, so relative URLs can be parsed into absolute ones
              * @return array
              */
-            static function parseContent($content)
+            static function parseContent($content, $url = null)
             {
-                $parser = new \Mf2\Parser($content); //\mf2\Parser($content);
+                $parser = new \Mf2\Parser($content, $url);
                 try {
                     $return = $parser->parse();
                 } catch (Exception $e) {
                     $return = false;
                 }
+
                 return $return;
             }
 
@@ -86,7 +88,7 @@
                     $inreplyto = [$inreplyto];
                 }
                 if ($content = self::getPageContent($url)) {
-                    if ($mf2 = self::parseContent($content['content'])) {
+                    if ($mf2 = self::parseContent($content['content'], $url)) {
                         if (!empty($mf2['rels']['syndication'])) {
                             if (is_array($mf2['rels']['syndication'])) {
                                 foreach ($mf2['rels']['syndication'] as $syndication) {

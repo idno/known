@@ -67,7 +67,8 @@
              * Helper function that gets the full class name of this entity
              * @return string
              */
-            function getClass() {
+            function getClass()
+            {
                 return get_class($this);
             }
 
@@ -99,7 +100,7 @@
              */
             function camelCase($string)
             {
-                $string = preg_replace_callback('/\s([a-z])/', function($matches) {
+                $string = preg_replace_callback('/\s([a-z])/', function ($matches) {
                     return strtoupper($matches[0]);
                 }, strtolower($string));
                 $string = preg_replace('/\s/', '', $string);

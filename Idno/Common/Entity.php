@@ -229,11 +229,11 @@
 
             static function getByUUID($uuid)
             {
-                if (self::isLocalUUID($uuid)) {
-                    return self::getOneFromAll(array('uuid' => $uuid));
-                } else {
-                    return self::getRemote($uuid);
-                }
+                //if (self::isLocalUUID($uuid)) {
+                return self::getOneFromAll(array('uuid' => $uuid));
+                //} else {
+                //    return self::getRemote($uuid);
+                //}
             }
 
             /**
@@ -1072,12 +1072,12 @@
                 $t = \Idno\Core\site()->template();
 
                 $return = $t->__(array(
-                                      'object' => $this
-                                 ))->draw('entity/' . $this->getClassName(), false);
+                    'object' => $this
+                ))->draw('entity/' . $this->getClassName(), false);
                 if ($return === false) {
                     $return = $t->__(array(
-                                          'object' => $this
-                                     ))->draw('entity/default');
+                        'object' => $this
+                    ))->draw('entity/default');
                 }
 
                 return $return;
@@ -1094,8 +1094,8 @@
                 $t = \Idno\Core\site()->template();
 
                 return $t->__(array(
-                                   'object' => $this
-                              ))->draw('entity/' . $this->getClassName() . '/edit');
+                    'object' => $this
+                ))->draw('entity/' . $this->getClassName() . '/edit');
             }
 
             /**
@@ -1114,6 +1114,12 @@
                     'published'   => date(\DateTime::RFC3339, $this->created),
                     'url'         => $this->getURL()
                 );
+
+                if ($owner = $this->getOwner()) {
+                    if ($owner != $this) {
+                        $object['actor'] = $owner;
+                    }
+                }
 
                 if ($attachments = $this->getAttachments()) {
                     foreach ($attachments as $attachment) {
@@ -1218,7 +1224,12 @@
                         }
                         $this->removeAnnotation($source);
                         foreach ($mentions['mentions'] as $mention) {
-                            if (!$this->addAnnotation($mention['type'], $mentions['owner']['name'], $mentions['owner']['url'], $mentions['owner']['photo'], $mention['content'], $source, $mention['created'])) {
+                            if (!empty($mention['url'])) {
+                                $permalink = implode('', $mention['url']);
+                            } else {
+                                $permalink = $source;
+                            }
+                            if (!$this->addAnnotation($mention['type'], $mentions['owner']['name'], $mentions['owner']['url'], $mentions['owner']['photo'], $mention['content'], $permalink, $mention['created'])) {
                                 $return = false;
                             }
                         }
@@ -1289,7 +1300,10 @@
                                 if (is_array($item['properties']['content'])) {
                                     foreach ($item['properties']['content'] as $content) {
                                         if (!empty($content['value'])) {
-                                            $mention['content'] .= strip_tags($content['value']);
+                                            $parsed_content = strip_tags($content['value']);
+                                            if (!substr_count($mention['content'], $parsed_content)) {
+                                                $mention['content'] .= $parsed_content;
+                                            }
                                         }
                                     }
                                 } else {
@@ -1318,6 +1332,9 @@
                                     $mention['created'] = time();
                                 }
                             }
+                            if (!empty($item['properties']['url'])) {
+                                $mention['url'] = $item['properties']['url'];
+                            }
                             if (!empty($item['properties']['in-reply-to']) && is_array($item['properties']['in-reply-to'])) {
                                 if (in_array($target, $item['properties']['in-reply-to'])) {
                                     $mention['type'] = 'reply';
@@ -1332,16 +1349,21 @@
                                 $mention['type']    = 'rsvp';
                                 $mention['content'] = implode(' ', $item['properties']['rsvp']);
                             }
-                            if (!empty($item['properties']['share']) && is_array($item['properties']['share'])) {
-                                if (in_array($target, $item['properties']['share'])) {
-                                    $mention['type'] = 'share';
+                            foreach (['share', 'repost', 'repost-of'] as $verb) {
+                                if (!empty($item['properties'][$verb]) && is_array($item['properties'][$verb])) {
+                                    if (in_array($target, $item['properties'][$verb])) {
+                                        $mention['type'] = 'share';
+                                    }
                                 }
                             }
                             if (empty($mention['type'])) {
                                 $mention['type'] = 'reply';
                             }
                         }
-                        if (!empty($mention['content']) && !empty($mention['type'])) {
+                        if (empty($mention['content'])) {
+                            $mention['content'] = '';
+                        }
+                        if (!empty($mention['type'])) {
                             $mentions['mentions'][] = $mention;
                         }
 
@@ -1388,6 +1410,7 @@
                 if (empty($annotations[$subtype])) {
                     $annotations[$subtype] = [];
                 }
+
                 $annotations[$subtype][$annotation_url] = $annotation;
                 $this->annotations                      = $annotations;
 

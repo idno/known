@@ -17,32 +17,46 @@
             function getContent()
             {
 
-                $query = $this->getInput('q');
-                $offset = (int)$this->getInput('offset');
-                $types  = $this->getInput('types');
+                $query          = $this->getInput('q');
+                $offset         = (int)$this->getInput('offset');
+                $types          = $this->getInput('types');
                 $friendly_types = [];
 
                 if (!empty($this->arguments[0])) { // If we're on the friendly content-specific URL
                     if ($friendly_types = explode('/', $this->arguments[0])) {
                         $friendly_types = array_filter($friendly_types);
-                        $types = [];
+                        if (empty($friendly_types) && !empty($query)) {
+                            $friendly_types = [all];
+                        }
+                        $types          = [];
                         // Run through the URL parameters and set content types appropriately
                         foreach ($friendly_types as $friendly_type) {
+                            if ($friendly_type == 'all') {
+                                $types = \Idno\Common\ContentType::getRegisteredClasses();
+                                break;
+                            }
                             if ($content_type_class = \Idno\Common\ContentType::categoryTitleToClass($friendly_type)) {
                                 $types[] = $content_type_class;
                             }
+                        }
+                    }
+                } else {
+                    // If user has content-specific preferences, do something with $friendly_types
+                    if (empty($query)) {
+                        if ($user = $this->getOwner()) {
+                            $types = $user->getDefaultContentTypes();
                         }
                     }
                 }
 
                 $search = [];
 
-                if(!empty($query)) {
+                if (!empty($query)) {
                     $search = \Idno\Core\site()->db()->createSearchArray($query);
                 }
 
                 if (empty($types)) {
-                    $types  = 'Idno\Entities\ActivityStreamPost';
+                    $types          = 'Idno\Entities\ActivityStreamPost';
                     $search['verb'] = 'post';
                 } else {
                     if (!is_array($types)) $types = [$types];
@@ -66,19 +80,19 @@
                 $t = \Idno\Core\site()->template();
                 $t->__(array(
 
-                            'title'       => \Idno\Core\site()->config()->title,
-                            'description' => $description,
-                            'content'     => $friendly_types,
-                            'body'        => $t->__(array(
-                                                         'items'        => $feed,
-                                                         'contentTypes' => $create,
-                                                         'offset'       => $offset,
-                                                         'count'        => $count,
-                                                         'subject'      => $query,
-                                                         'content'      => $friendly_types
-                                                    ))->draw('pages/home'),
+                    'title'       => \Idno\Core\site()->config()->title,
+                    'description' => $description,
+                    'content'     => $friendly_types,
+                    'body'        => $t->__(array(
+                            'items'        => $feed,
+                            'contentTypes' => $create,
+                            'offset'       => $offset,
+                            'count'        => $count,
+                            'subject'      => $query,
+                            'content'      => $friendly_types
+                        ))->draw('pages/home'),
 
-                       ))->drawPage();
+                ))->drawPage();
             }
 
         }

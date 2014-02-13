@@ -9,7 +9,7 @@
                 \Idno\Core\site()->addPageHandler('account/firefox','\IdnoPlugins\Firefox\Pages\Account');
 
                 // Handlers
-                \Idno\Core\site()->addPageHandler('firefox/share/?','\IdnoPlugins\Firefox\Pages\Share');
+                \Idno\Core\site()->addPageHandler('firefox/share/?','\Idno\Pages\Entity\Share'); // Backwards compatibility
                 \Idno\Core\site()->addPageHandler('firefox/sidebar/?','\IdnoPlugins\Firefox\Pages\Sidebar');
 
                 /** Template extensions */

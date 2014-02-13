@@ -36,11 +36,11 @@
                 $t = \Idno\Core\site()->template();
                 $t->__(array(
 
-                            'title'       => $object->getTitle(),
-                            'body'        => $t->__(array('annotation' => $annotation, 'subtype' => $subtype, 'permalink' => $permalink, 'object' => $object))->draw('entity/annotations/shell'),
-                            'description' => $object->getShortDescription()
+                    'title'       => $object->getTitle(),
+                    'body'        => $t->__(array('annotation' => $annotation, 'subtype' => $subtype, 'permalink' => $permalink, 'object' => $object))->draw('entity/annotations/shell'),
+                    'description' => $object->getShortDescription()
 
-                       ))->drawPage();
+                ))->drawPage();
             }
 
         }

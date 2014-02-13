@@ -27,9 +27,9 @@
                 $t = \Idno\Core\site()->template();
                 $t->setTemplateType('json');
                 $t->__(array(
-                            'subject' => $acct,
-                            'links'   => $links
-                       ))->drawPage();
+                    'subject' => $acct,
+                    'links'   => $links
+                ))->drawPage();
 
             }
 

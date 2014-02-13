@@ -34,3 +34,6 @@
 [submodule "external/jquery-pjax"]
 	path = external/jquery-pjax
 	url = https://github.com/defunkt/jquery-pjax.git
+[submodule "external/mention-client-php"]
+	path = external/mention-client-php
+	url = https://github.com/indieweb/mention-client-php.git

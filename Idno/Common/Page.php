@@ -105,19 +105,20 @@
                     \Idno\Core\site()->template()->setTemplateType('json');
                 }
 
+                \Idno\Core\site()->session()->APIlogin();
+
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
 
                 \Idno\Core\site()->triggerEvent('page/post', ['page_class' => get_called_class(), 'arguments' => $arguments]);
 
                 if (\Idno\Core\site()->actions()->validateToken('', false)) {
-                    \Idno\Core\site()->session()->APIlogin();
                     $this->parseJSONPayload();
                     $this->postContent();
                 } else {
 
                 }
-                $this->forward('/'); // If we haven't forwarded yet, do so (if we can)
+                $this->forward(); // If we haven't forwarded yet, do so (if we can)
                 if (http_response_code() != 200)
                     http_response_code($this->response);
             }
@@ -146,7 +147,7 @@
                 } else {
 
                 }
-                $this->forward('/'); // If we haven't forwarded yet, do so (if we can)
+                $this->forward(); // If we haven't forwarded yet, do so (if we can)
                 if (http_response_code() != 200)
                     http_response_code($this->response);
             }
@@ -175,7 +176,7 @@
                 } else {
 
                 }
-                $this->forward('/'); // If we haven't forwarded yet, do so (if we can)
+                $this->forward(); // If we haven't forwarded yet, do so (if we can)
                 if (http_response_code() != 200)
                     http_response_code($this->response);
             }
@@ -339,8 +340,13 @@
              */
             function forward($location = '')
             {
-                if (empty($location)) $location = \Idno\Core\site()->config()->url;
+                if (empty($location)) {
+                    $location = \Idno\Core\site()->config()->url;
+                }
                 if (!empty($this->forward)) {
+                    if (\Idno\Core\site()->template()->getTemplateType() != 'default') {
+                        $location = \Idno\Core\site()->template()->getURLWithVar('_t', \Idno\Core\site()->template()->getTemplateType(), $location);
+                    }
                     header('Location: ' . $location);
                     exit;
                 }
@@ -355,7 +361,7 @@
             {
                 if (!\Idno\Core\site()->session()->isLoggedIn()) {
                     $this->setResponse(401);
-                    $this->forward('/session/login');
+                    $this->forward('/session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']));
                 }
             }
 

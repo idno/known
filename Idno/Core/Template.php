@@ -182,14 +182,22 @@
              * @param string $variable_value
              * @return string
              */
-            function getCurrentURLWithVar($variable_name, $variable_value)
+            function getURLWithVar($variable_name, $variable_value, $url = '')
             {
-                $components = parse_url($this->getCurrentURL());
-                parse_str($components['query'], $url_var_array);
-                $url_var_array[$variable_name] = $variable_value;
-                $components['query']           = http_build_query($url_var_array);
-                $url                           = $components['scheme'] . '://' . $components['host'] . $components['path'];
-                if (!empty($components['query'])) $url .= '?' . $components['query'];
+                if (empty($url)) {
+                    $url = $this->getCurrentURL();
+                }
+                if ($components = parse_url($url)) {
+                    if (!empty($components['query'])) {
+                        parse_str($components['query'], $url_var_array);
+                    } else {
+                        $components['query'] = [];
+                    }
+                    $url_var_array[$variable_name] = $variable_value;
+                    $components['query']           = http_build_query($url_var_array);
+                    $url                           = $components['scheme'] . '://' . $components['host'] . $components['path'];
+                    if (!empty($components['query'])) $url .= '?' . $components['query'];
+                }
 
                 return $url;
             }
