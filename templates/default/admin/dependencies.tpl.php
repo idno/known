@@ -38,7 +38,7 @@
             including installation instructions.</small><br />
             <?php
 
-                foreach(['curl','date','dom','fileinfo','gd','intl','json','libxml','mbstring','mongo','oauth','reflection','session','simplexml'] as $extension) {
+                foreach(['curl','date','dom','fileinfo','gd','intl','json','libxml','mbstring','mongo','oauth','reflection','session','simplexml', 'xmlrpc'] as $extension) {
                     if (extension_loaded($extension)) {
                         $label = 'label-success';
                     } else {
