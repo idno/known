@@ -73,7 +73,7 @@
                                 error_log('No content from ' . $source);
                             }
                         } else {
-                            $error = 'target_not_supported';
+                            $error      = 'target_not_supported';
                             $error_text = 'A page can\'t webmention itself.';
                         }
                     } else {
