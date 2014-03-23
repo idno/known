@@ -52,11 +52,16 @@
                     ?>
                 </label>
             </p>
-            <textarea name="body" id="body" class="span8"><?php if (!empty($vars['body'])) {
+            
+            <textarea name="body" id="body" class="span8 pull-left"><?php if (!empty($vars['body'])) {
                     echo htmlspecialchars($vars['body']);
                 } else {
                     echo htmlspecialchars($vars['object']->body);
                 } ?></textarea>
+            <p id="counter" class="span2 pull-right progress" style="display:none;">
+                <span class="bar" style="width: 0%;"> </span> 
+                </p>
+            
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('note'); ?>
             <p>
                 <?= \Idno\Core\site()->actions()->signForm('/status/edit') ?>
@@ -64,7 +69,57 @@
                 <input type="button" class="btn" value="Cancel" onclick="hideContentCreateForm();"/>
                 <?= $this->draw('content/access'); ?>
             </p>
+            
+            
         </div>
+        
 
     </div>
 </form>
+<script>
+    $(document).ready(function(){
+       $('#body').keyup(function() {
+            var len = $(this).val().length;
+           
+           // Show / hide
+           if (len<140/2) {
+               if ($('#counter').is(":visible")) {
+                   $('#counter').fadeOut();
+               }
+           }
+           else {
+                             
+               if (!$('#counter').is(":visible")) {
+                   $('#counter').fadeIn();
+               }
+               
+               // Set bar colours
+               $('#counter').removeClass("progress-info progress-success progress-warning progress-danger progress-striped active");
+               
+               if (len<100) {
+                   $('#counter').addClass('progress-success');
+               } else if (len < 130) {
+                   $('#counter').addClass('progress-warning');
+               } else if (len <= 140) {
+                   $('#counter').addClass('progress-danger');
+               } else if (len > 140) {
+                   $('#counter').addClass('progress-striped active progress-info');
+               }
+               
+               // Set bar length
+               if (len<=140) {
+                   var percentage = (len/140) * 100;
+                   $('#counter .bar').css('width', percentage + '%');
+               }
+               else {
+                    $('#counter .bar').css('width', '100%');
+               }
+
+               $('#counter .bar').text(len);
+           }
+
+
+           
+       });
+    });
+    </script>

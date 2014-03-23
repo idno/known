@@ -15,6 +15,9 @@
             function getContent()
             {
                 $fwd      = $this->getInput('fwd'); // Forward to a new page?
+                if ($fwd == \Idno\Core\site()->config()->url . 'session/login') {
+                    $fwd = '';
+                }
                 $t        = \Idno\Core\site()->template();
                 $t->body  = $t->__(['fwd' => $fwd])->draw('session/login');
                 $t->title = 'Sign in';

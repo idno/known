@@ -38,29 +38,43 @@
 
                     // Get the page handler for target
                     if ($page = \Idno\Core\site()->getPageHandler($target)) {
+                        // First of all, make sure the target page isn't the source page. Let's not webmention ourselves!
+                        $webmention_ok = true;
+                        if (\Idno\Common\Entity::isLocalUUID($source)) {
+                            if ($source_page = \Idno\Core\site()->getPageHandler($source)) {
+                                if ($source_page == $page) {
+                                    $webmention_ok = false;
+                                }
+                            }
+                        }
                         // Check that source exists, parse it for mf2 content,
                         // and ensure that it genuinely mentions this page
-                        if ($source_content = \Idno\Core\Webmention::getPageContent($source)) {
-                            if (substr_count($source_content['content'], $target) || $source_content['response'] == 410) {
-                                $source_mf2 = \Idno\Core\Webmention::parseContent($source_content['content'], $source);
-                                // Set source and target information as input variables
-                                $page->setPermalink();
-                                if ($page->webmentionContent($source, $target, $source_content, $source_mf2)) {
-                                    $this->setResponse(202); // Webmention received a-ok.
-                                    exit;
+                        if ($webmention_ok) {
+                            if ($source_content = \Idno\Core\Webmention::getPageContent($source)) {
+                                if (substr_count($source_content['content'], $target) || $source_content['response'] == 410) {
+                                    $source_mf2 = \Idno\Core\Webmention::parseContent($source_content['content'], $source);
+                                    // Set source and target information as input variables
+                                    $page->setPermalink();
+                                    if ($page->webmentionContent($source, $target, $source_content, $source_mf2)) {
+                                        $this->setResponse(202); // Webmention received a-ok.
+                                        exit;
+                                    } else {
+                                        $error      = 'target_not_supported';
+                                        $error_text = 'This is not webmentionable.';
+                                    }
                                 } else {
-                                    $error      = 'target_not_supported';
-                                    $error_text = 'This is not webmentionable.';
+                                    $error      = 'no_link_found';
+                                    $error_text = 'The source URI does not contain a link to the target URI.';
+                                    error_log('No link from ' . $source . ' to ' . $target);
                                 }
                             } else {
-                                $error      = 'no_link_found';
-                                $error_text = 'The source URI does not contain a link to the target URI.';
-                                error_log('No link from ' . $source . ' to ' . $target);
+                                $error      = 'source_not_found';
+                                $error_text = 'The source content could not be obtained.';
+                                error_log('No content from ' . $source);
                             }
                         } else {
-                            $error      = 'source_not_found';
-                            $error_text = 'The source content could not be obtained.';
-                            error_log('No content from ' . $source);
+                            $error      = 'target_not_supported';
+                            $error_text = 'A page can\'t webmention itself.';
                         }
                     } else {
                         $error      = 'target_not_found';
