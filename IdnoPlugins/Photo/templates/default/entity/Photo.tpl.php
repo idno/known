@@ -10,7 +10,9 @@
     if ($attachments = $vars['object']->getAttachments()) {
         foreach($attachments as $attachment) {
             $mainsrc= \Idno\Core\site()->config()->url . 'file/' . $attachment['_id'];
-            if (!empty($vars['object']->thumbnail)) {
+            if (!empty($vars['object']->thumbnail_large)) {
+                $src = $vars['object']->thumbnail_large;
+	    } else if (!empty($vars['object']->thumbnail)) { // Backwards compatibility
                 $src = $vars['object']->thumbnail;
             } else {
                 $src = $mainsrc;
