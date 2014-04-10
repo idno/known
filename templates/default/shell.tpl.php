@@ -171,13 +171,22 @@
     }
     $(document).ready(function () {
         annotateContent();
+	
+	// Warn if secure forms are not secure
+	$('form.secure-form').each(function(index, element) {
+	    var action = $(this).attr('action');
+	    
+	    if (action.indexOf('https://') == -1) {
+		$('form div.non-ssl-warning').show();
+	    }
+	});
+	
     })
 
     $(document).on('pjax:complete', function () {
         annotateContent();
     });
 
-   
 </script>
 
 <?= $this->draw('shell/footer', $vars) ?>
