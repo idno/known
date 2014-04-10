@@ -38,12 +38,19 @@
                     </select>
                 </div>
             </div>
+	    
             <div class="control-group">
                 <label class="control-label" for="url">Website URL<br /><small>The full URL to your idno-powered site. Include a trailing slash.</small></label>
                 <div class="controls">
                     <input type="url" id="url" placeholder="Site URL" class="span4" name="url" value="<?=htmlspecialchars(\Idno\Core\site()->config()->url)?>" >
                 </div>
             </div>
+	    <div id="non-ssl-warning" class="alert alert-danger" <?php if (\Idno\Core\site()->currentPage->isSSL()) { ?>style="display: none;"<?php } ?>>
+		<h4>Non-secure URL used</h4>
+		<p>Your current site url appears to not use Encryption. This means that you and your visitor's private information (including your password) can be easily read by GCHQ, the NSA, and other criminals. </p>
+		<p>It is <strong>STRONGLY</strong> recommended that you configure TLS support on your web server as soon as possible!</p>
+	    </div>
+	    
             <div class="control-group">
                 <label class="control-label" for="host">Website host<br /><small>Just the hostname of your idno-powered site (no http:// or trailing slash).</small></label>
                 <div class="controls">

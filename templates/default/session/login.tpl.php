@@ -5,7 +5,13 @@
             Sign in
         </h3>
 
-        <form action="<?= \Idno\Core\site()->config()->url ?>session/login" method="post">
+        <form class="secure-form" action="<?= \Idno\Core\site()->config()->url ?>session/login" method="post">
+	    <div class="non-ssl-warning alert alert-danger" <?php if (\Idno\Core\site()->currentPage->isSSL()) { ?>style="display: none;"<?php } ?>>
+		<h4>Warning: Page not secure!</h4>
+		<p>It looks like your login page is not secure, this means that your username and password can be easily read by GCHQ, the NSA, and other criminals. </p>
+		<p>It is <strong>STRONGLY</strong> recommended that you ask your administrator to configure TLS support on your web server before proceeding!</p>
+	    </div>
+	    
             <div class="control-group">
                 <div class="controls">
                     <input type="text" id="inputEmail" name="email" placeholder="Your username or email address"
@@ -32,6 +38,6 @@
             </div>
             <?= \Idno\Core\site()->actions()->signForm('/session/login') ?>
         </form>
-
+	
     </div>
 </div>

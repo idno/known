@@ -16,8 +16,15 @@
             </p>
         </div>
 
-        <form action="<?= \Idno\Core\site()->config()->url ?>account/settings" method="post" class="form-horizontal"
+        <form class="secure-form" action="<?= \Idno\Core\site()->config()->url ?>account/settings" method="post" class="form-horizontal"
               enctype="multipart/form-data">
+	    
+	    <div class="non-ssl-warning alert alert-danger" <?php if (\Idno\Core\site()->currentPage->isSSL()) { ?>style="display: none;"<?php } ?>>
+		<h4>Warning: Page not secure!</h4>
+		<p>It looks like this page is not secure, this means that your username and password can be easily read by GCHQ, the NSA, and other criminals. </p>
+		<p>It is <strong>STRONGLY</strong> recommended that you ask your administrator to configure TLS support before changing your password.</p>
+	    </div>
+	    
             <div class="control-group">
                 <label class="control-label" for="inputName">Your name</label>
 

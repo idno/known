@@ -8,7 +8,14 @@
             <p>
 
             </p>
-            <form action="<?=\Idno\Core\site()->config()->url?>account/register" method="post" class="form-horizontal">
+            <form class="secure-form" action="<?=\Idno\Core\site()->config()->url?>account/register" method="post" class="form-horizontal">
+		
+		<div class="non-ssl-warning alert alert-danger" <?php if (\Idno\Core\site()->currentPage->isSSL()) { ?>style="display: none;"<?php } ?>>
+		    <h4>Warning: Page not secure!</h4>
+		    <p>It looks like this page is not secure, this means that your username and password can be easily read by GCHQ, the NSA, and other criminals. </p>
+		    <p>It is <strong>STRONGLY</strong> recommended that you ask your administrator to configure TLS support on your web server before proceeding!</p>
+		</div>
+		
                 <div class="control-group">
                     <label class="control-label" for="inputUsername">Your name<br />
                     <small>The name other people will see.</small></label>
