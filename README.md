@@ -46,3 +46,4 @@ idno also contains
  * URL. Source: https://github.com/webignition/url
 * FitVids.js: http://fitvidsjs.com/
 * Leaflet.js: http://leafletjs.com/ (License: https://github.com/Leaflet/Leaflet/blob/master/LICENSE)
+* H5f HTML5 Form shim: https://github.com/ryanseddon/H5F

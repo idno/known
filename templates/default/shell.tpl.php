@@ -158,6 +158,7 @@
 <script src="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
 <!-- Video shim -->
 <script src="<?= \Idno\Core\site()->config()->url . 'external/fitvids/jquery.fitvids.min.js' ?>"></script>
+<<<<<<< HEAD
 
 <?php
     // Load javascript assets
@@ -169,6 +170,10 @@
 	}
     }
 ?>
+=======
+<!-- HTML5 form element support for legacy browsers -->
+<script src="<?= \Idno\Core\site()->config()->url . 'external/h5f/h5f.min.js' ?>"></script>
+>>>>>>> 3a87e6b58b4e14ab64b701ce67536660f47a91aa
 <script>
 
     //$(document).pjax('a:not([href^=\\.],[href^=file])', '#pjax-container');    // In idno, URLs with extensions are probably files.

@@ -46,7 +46,7 @@
             <p>
                 <label>
                     Body<br />
-                    <textarea name="body" id="body" class="span6 bodyInput"><?=htmlspecialchars($vars['object']->body)?></textarea>
+                    <textarea name="body" id="body" class="span6 bodyInput" required><?=htmlspecialchars($vars['object']->body)?></textarea>
                 </label>
             </p>
 

@@ -7,7 +7,7 @@
             <p>
                 <label>
                     Address of the page to favorite:<br />
-                    <input type="text" name="body" id="body" value="<?=htmlspecialchars($vars['object']->body)?>" class="span9" />
+                    <input required type="url" name="body" id="body" value="<?=htmlspecialchars($vars['object']->body)?>" class="span9" />
                 </label>
                 <label>
                     If you want, enter some tags or a note here:<br />
