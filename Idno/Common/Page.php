@@ -47,6 +47,9 @@
 
             // Who owns this page, anyway?
             public $owner = false;
+	    
+	    // Page assets that can be registered and set by plugins (javascript, css, etc)
+	    public $assets = [];
 
             function init()
             {
@@ -564,6 +567,28 @@
 
                 return false;
             }
+	    
+	    /**
+	     * Set or add an asset.
+	     * @param type $name Name of the asset (e.g. 'idno', 'jquery')
+	     * @param type $class Class of asset (e.g. 'javascript', 'css')
+	     * @param type $value A url or other value
+	     */
+	    public function setAsset($name, $value, $class) {
+		if (!is_array($this->assets)) $this->assets = [];
+		if (!is_array($this->assets[$class])) $this->assets[$class] = [];
+		
+		$this->assets[$class][$name] = $value;
+	    }
+	    
+	    /**
+	     * Get assets of a given class.
+	     * @param type $class
+	     * @return array
+	     */
+	    public function getAssets($class) {
+		return $this->assets[$class];
+	    }
 
         }
 

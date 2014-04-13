@@ -48,6 +48,17 @@
 
     <link type="text/plain" rel="author" href="<?= \Idno\Core\site()->config()->url ?>humans.txt" />
 
+<?php
+    // Load style assets
+    if ($style = \Idno\Core\site()->currentPage->getAssets('css')) {
+	foreach ($style as $css) {
+	    ?>
+    <link href="<?= $css; ?>" rel="stylesheet">
+	    <?php
+	}
+    }
+?>
+    
     <?= $this->draw('shell/head', $vars); ?>
 
 </head>
@@ -147,6 +158,17 @@
 <script src="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
 <!-- Video shim -->
 <script src="<?= \Idno\Core\site()->config()->url . 'external/fitvids/jquery.fitvids.min.js' ?>"></script>
+
+<?php
+    // Load javascript assets
+    if ($scripts = \Idno\Core\site()->currentPage->getAssets('javascript')) {
+	foreach ($scripts as $script) {
+	    ?>
+<script src="<?= $script ?>"></script>
+	    <?php
+	}
+    }
+?>
 <script>
 
     //$(document).pjax('a:not([href^=\\.],[href^=file])', '#pjax-container');    // In idno, URLs with extensions are probably files.
