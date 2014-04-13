@@ -1,5 +1,5 @@
 <?php 
-if (version_compare(phpversion(), $vars['version']) <= 0) {
+if (version_compare(phpversion(), $vars['version']) < 0) {
     $label = 'label-important';
 } else {
     $label = 'label-success';
