@@ -42,6 +42,15 @@
 		
 			?>
 			<div class="requirements">
+			
+			    <?php
+			if (isset($requirements['idno'])) {
+			    ?>
+			    <p><label>Idno Version: <?php echo $this->__(['version' => $requirements['idno']])->draw('admin/dependencies/idno'); ?> </label> </p>
+			    <?php
+			}
+			?>
+			    
 			<?php
 			if (isset($requirements['php'])) {
 			    ?>
