@@ -29,7 +29,7 @@
                         foreach ($vars['object']->inreplyto as $inreplyto) {
                             ?>
                             <p>
-                                <input type="text" name="inreplyto[]"
+                                <input type="url" name="inreplyto[]"
                                        placeholder="The website address of the post you're replying to"
                                        class="span8" value="<?= htmlspecialchars($inreplyto) ?>"/>
                                 <small><a href="#"
@@ -53,7 +53,7 @@
                 </label>
             </p>
             
-            <textarea name="body" id="body" class="span8 pull-left"><?php if (!empty($vars['body'])) {
+            <textarea required name="body" id="body" class="span8 pull-left"><?php if (!empty($vars['body'])) {
                     echo htmlspecialchars($vars['body']);
                 } else {
                     echo htmlspecialchars($vars['object']->body);

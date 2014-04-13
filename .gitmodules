@@ -37,3 +37,6 @@
 [submodule "external/mention-client-php"]
 	path = external/mention-client-php
 	url = https://github.com/indieweb/mention-client-php.git
+[submodule "external/h5f"]
+	path = external/h5f
+	url = git@github.com:ryanseddon/H5F.git
