@@ -71,6 +71,21 @@
 			    <?php
 			}
 			?>
+			    
+			<?php
+			if (isset($requirements['plugin'])) {
+			    if (!is_array($requirements['plugin']))
+				$requirements['plugin'] = [$requirements['plugin']];
+			    ?>
+			    <p><label>Plugins: <?php 
+			    foreach ($requirements['plugin'] as $plugin) {
+				list($plugin, $version) = explode(',', $plugin);
+				echo $this->__(['plugin' => $plugin, 'version' => $version])->draw('admin/dependencies/plugin'); 
+			    }
+			    ?> </label> </p>
+			    <?php
+			}
+			?>
 			</div> 
 			<?php
 		    }
