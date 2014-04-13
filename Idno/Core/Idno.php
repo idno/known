@@ -265,7 +265,7 @@
              */
             function version()
             {
-                return '0.1 development';
+                return '0.1-dev';
             }
 
         }
