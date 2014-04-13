@@ -1114,10 +1114,10 @@
                     'published'   => date(\DateTime::RFC3339, $this->created),
                     'url'         => $this->getURL()
                 );
-		
-		if (isset($this->posse)) {
-		    $object['syndicatedAs'] = $this->posse;
-		}
+
+                if (isset($this->posse)) {
+                    $object['syndication'] = $this->posse;
+                }
 
                 if ($owner = $this->getOwner()) {
                     if ($owner != $this) {
