@@ -14,6 +14,12 @@
 
             function getContent()
             {
+
+                // If we're somehow here but logged in, move to the front page
+                if (\Idno\Core\site()->session()->isLoggedOn()) {
+                    $this->forward();
+                }
+
                 $fwd      = $this->getInput('fwd'); // Forward to a new page?
                 if ($fwd == \Idno\Core\site()->config()->url . 'session/login') {
                     $fwd = '';
