@@ -1,23 +1,30 @@
+<?php
+    $plugin_description = $vars['plugin']['Plugin description'];
+    
+    $requirements = null;
+    if (isset($vars['plugin']['requirements']))
+	$requirements = $vars['plugin']['requirements'];
 
+?>
     <div class="well well-large">
         <div class="row">
             <div class="span2">
                 <p>
-                    <strong><?=$vars['plugin']['name']?></strong> <?=$vars['plugin']['version']?><br />
+                    <strong><?=$plugin_description['name']?></strong> <?=$plugin_description['version']?><br />
                     <small>
                         by <a href="<?php
 
-                            if (!empty($vars['plugin']['author_url'])) {
-                                echo htmlspecialchars($vars['plugin']['author_url']);
+                            if (!empty($plugin_description['author_url'])) {
+                                echo htmlspecialchars($plugin_description['author_url']);
                             } else {
                                 echo '#';
                             }
 
-                        ?>"><?=$vars['plugin']['author']?></a>
+                        ?>"><?=$plugin_description['author']?></a>
                     </small><br />
                     <?php
 
-                        if (array_key_exists($vars['plugin']['shortname'],$vars['plugins_loaded'])) {
+                        if (array_key_exists($plugin_description['shortname'],$vars['plugins_loaded'])) {
                             echo '<span class="label label-success">Enabled</span>';
                         } else {
                             echo '<span class="label">Disabled</span>';
@@ -29,18 +36,69 @@
             <div class="span5">
                 <?php
 
-                    if (!empty($vars['plugin']['description'])) echo $this->autop($vars['plugin']['description']);
+                    if (!empty($plugin_description['description'])) echo $this->autop($plugin_description['description']);
 
+		    if (isset($requirements)) {
+		
+			?>
+			<div class="requirements">
+			
+			    <?php
+			if (isset($requirements['idno'])) {
+			    ?>
+			    <p><label>Idno Version: <?php echo $this->__(['version' => $requirements['idno']])->draw('admin/dependencies/idno'); ?> </label> </p>
+			    <?php
+			}
+			?>
+			    
+			<?php
+			if (isset($requirements['php'])) {
+			    ?>
+			    <p><label>PHP Version: <?php echo $this->__(['version' => $requirements['php']])->draw('admin/dependencies/php'); ?> </label> </p>
+			    <?php
+			}
+			?>
+			    
+			<?php
+			if (isset($requirements['extension'])) {
+			    if (!is_array($requirements['extension']))
+				$requirements['extension'] = [$requirements['extension']];
+			    ?>
+			    <p><label>Extensions: <?php 
+			    foreach ($requirements['extension'] as $extension)
+				echo $this->__(['extension' => $extension])->draw('admin/dependencies/extension'); 
+			    ?> </label> </p>
+			    <?php
+			}
+			?>
+			    
+			<?php
+			if (isset($requirements['plugin'])) {
+			    if (!is_array($requirements['plugin']))
+				$requirements['plugin'] = [$requirements['plugin']];
+			    ?>
+			    <p><label>Plugins: <?php 
+			    foreach ($requirements['plugin'] as $plugin) {
+				list($plugin, $version) = explode(',', $plugin);
+				echo $this->__(['plugin' => $plugin, 'version' => $version])->draw('admin/dependencies/plugin'); 
+			    }
+			    ?> </label> </p>
+			    <?php
+			}
+			?>
+			</div> 
+			<?php
+		    }
                 ?>
             </div>
             <div class="span1 offset1">
                 <?php
 
-                    if (array_key_exists($vars['plugin']['shortname'],$vars['plugins_loaded'])) {
+                    if (array_key_exists($plugin_description['shortname'],$vars['plugins_loaded'])) {
 ?>
                         <form action="<?=\Idno\Core\site()->config()->url?>admin/plugins/" method="post">
                             <p>
-                                <input type="hidden" name="plugin" value="<?=$vars['plugin']['shortname']?>" />
+                                <input type="hidden" name="plugin" value="<?=$plugin_description['shortname']?>" />
                                 <input type="hidden" name="action" value="uninstall" />
                                 <input class="btn" type="submit" value="Disable" />
                             </p>
@@ -51,7 +109,7 @@
 ?>
                         <form action="<?=\Idno\Core\site()->config()->url?>admin/plugins/" method="post">
                             <p>
-                                <input type="hidden" name="plugin" value="<?=$vars['plugin']['shortname']?>" />
+                                <input type="hidden" name="plugin" value="<?=$plugin_description['shortname']?>" />
                                 <input type="hidden" name="action" value="install" />
                                 <input class="btn" type="submit" value="Enable" />
                             </p>
