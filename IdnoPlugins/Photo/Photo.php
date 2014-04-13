@@ -23,6 +23,23 @@
             function getActivityStreamsObjectType() {
                 return 'image';
             }
+	    
+	    /**
+	     * Extend json serialisable to include some extra data
+	     */
+	    public function jsonSerialize() {
+		$object = parent::jsonSerialize();
+		
+		// Add some thumbs
+		$object['thumbnails'] = [ ];
+		$sizes = \Idno\Core\site()->events()->dispatch('photo/thumbnail/getsizes', new \Idno\Core\Event(array('sizes' => ['large' => 800, 'medium' => 400, 'small' => 200])));
+		foreach ($sizes->data()['sizes'] as $label => $size) {
+		    $varname = "thumbnail_{$label}";
+		    $object['thumbnails'][$label] = $this->$varname;
+		}
+		
+		return $object;
+	    }
 
             /**
              * Saves changes to this object based on user input
@@ -45,10 +62,22 @@
                         if (\Idno\Entities\File::isImage($_FILES['photo']['tmp_name'])) {
                             if ($photo = \Idno\Entities\File::createFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'], $_FILES['photo']['type'],true)) {
                                 $this->attachFile($photo);
-                                if ($thumbnail = \Idno\Entities\File::createThumbnailFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'])) {
-                                    $this->thumbnail = \Idno\Core\site()->config()->url . 'file/' . $thumbnail;
-                                    $this->thumbnail_id = substr($thumbnail,0,strpos($thumbnail,'/'));
-                                }
+				
+				// Now get some smaller thumbnails, with the option to override sizes
+				$sizes = \Idno\Core\site()->events()->dispatch('photo/thumbnail/getsizes', new \Idno\Core\Event(array('sizes' => ['large' => 800, 'medium' => 400, 'small' => 200])));
+				foreach ($sizes->data()['sizes'] as $label => $size) {
+				    
+				    $filename = $_FILES['photo']['name'];
+				    
+				    if ($thumbnail = \Idno\Entities\File::createThumbnailFromFile($_FILES['photo']['tmp_name'], "{$filename}_{$label}", $size)) {
+					$varname = "thumbnail_{$label}";
+					$this->$varname = \Idno\Core\site()->config()->url . 'file/' . $thumbnail;
+					
+					$varname = "thumbnail_{$label}_id";
+					$this->$varname = substr($thumbnail,0,strpos($thumbnail,'/'));
+				    }
+				}
+                                
                             } else {
                                 \Idno\Core\site()->session()->addMessage('Image wasn\'t attached.');
                             }
