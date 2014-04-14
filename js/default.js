@@ -1,83 +1,76 @@
-
 /**
-    Helper Javascript functions for idno
+ Helper Javascript functions for idno
 
-    If you need to add your own JavaScript, the best thing to do is to create your own js files
-    and reference them from a custom plugin or template.
+ If you need to add your own JavaScript, the best thing to do is to create your own js files
+ and reference them from a custom plugin or template.
 
-    @package idno
-    @subpackage core
-*/
-
-/**
-*** Content creation
+ @package idno
+ @subpackage core
  */
 
-    function bindControls() {
-        $('.acl-option').click(function() {
-            $('#access-control-id').val($(this).attr('data-acl'));
-            $('#acl-text').html($(this).html());
-        });
+/**
+ *** Content creation
+ */
+
+function bindControls() {
+    $('.acl-option').click(function () {
+        $('#access-control-id').val($(this).attr('data-acl'));
+        $('#acl-text').html($(this).html());
+    });
+}
+
+function contentCreateForm(plugin) {
+    $.ajax(wwwroot() + plugin + '/edit/', {
+        dataType: 'html',
+        success: function (data) {
+            $('#contentCreate').html(data).slideDown(400);
+            $('#contentTypeButtonBar').slideUp(400);
+            window.contentCreateType = plugin;
+            window.contentPage = true;
+
+            bindControls();
+        },
+        error: function (error) {
+            $('#contentTypeButtonBar').slideDown(400);
+        }
+
+    });
+}
+
+function hideContentCreateForm() {
+    if (window.contentPage == true) {
+        $('#contentTypeButtonBar').slideDown(200);
+        $('#contentCreate').slideUp(200);
+    } else {
+        window.close(); // Will only fire for child windows
+        if (window.history.length > 1) {
+            window.history.back();
+        }
     }
+}
 
-    function contentCreateForm(plugin) {
-            $.ajax(wwwroot() + plugin + '/edit/', {
-                dataType: 'html',
-                success: function(data) {
-                    $('#contentCreate').html(data).slideDown(400);
-                    $('#contentTypeButtonBar').slideUp(400);
-                    window.contentCreateType = plugin;
-                    window.contentPage = true;
-                    
-                    bindControls();
-                },
-                error: function(error) {
-                    $('#contentTypeButtonBar').slideDown(400);
-                }
-
-            });
-    }
-
-    function hideContentCreateForm() {
-        if (window.contentPage == true) {
-            $('#contentTypeButtonBar').slideDown(200);
-            $('#contentCreate').slideUp(200);
-        } else {
-            window.close(); // Will only fire for child windows
-            if (window.history.length > 1) {
-                window.history.back();
+function autoSave(context, elements) {
+    var previousVal = [];
+    setInterval(function () {
+        var changed = {};
+        for (element in elements) {
+            if ($("#" + elements[element]).val() != previousVal[elements[element]]) {
+                val = $("#" + elements[element]).val();
+                console.log(elements[element] + " has changed to " + val);
+                changed[elements[element]] = val;
+                previousVal[elements[element]] = val;
             }
         }
-    }
-
-    function autoSave(context, element) {
-        if (elementObj = $(element)) {
-
-            var previousVal = '';
-
-            setInterval(function() {
-
-                if ($("#" + element).val() != previousVal) {
-                    val = $("#" + element).val();
-                    $.post(wwwroot() + 'autosave/',
-                        {
-                            context: context,
-                            element: element,
-                            value: val
-                        },
-                        function() {
-                        }
-                    );
-                    console.log("Storing value for context " + context + ": " + val);
-                    previousVal = val;
+        if (Object.keys(changed).length > 0) {
+            $.post(wwwroot() + 'autosave/',
+                {
+                    "context": context,
+                    "elements": changed,
+                    "names": elements
+                },
+                function() {
                 }
-
-            }, 10000);
-
-        } else {
-
-            console.log("elementName: " + element);
-
-
+            );
         }
-    }
+    }, 10000);
+}
