@@ -2,6 +2,8 @@
 
     namespace IdnoPlugins\Text\Pages {
 
+        use Idno\Core\Autosave;
+
         class Edit extends \Idno\Common\Page {
 
             function getContent() {
@@ -45,6 +47,7 @@
                 }
 
                 if ($object->saveDataFromInput($this)) {
+                    (new \Idno\Core\Autosave())->clearContext('entry');
                     $this->forward($object->getURL());
                 }
 

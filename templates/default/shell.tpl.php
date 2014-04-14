@@ -192,12 +192,16 @@
     function annotateContent() {
         $(".h-entry").fitVids();
         $("time.dt-published").timeago();
-
     }
+
+    // Shim so that JS functions can get the current site URL
+    function wwwroot() {
+        return '<?=\Idno\Core\site()->config()->wwwroot?>';
+    }
+
     $(document).ready(function () {
         annotateContent();
     })
-
     $(document).on('pjax:complete', function () {
         annotateContent();
     });
