@@ -1,5 +1,6 @@
 <?php
     $plugin_description = $vars['plugin']['Plugin description'];
+    $shortname = $vars['plugin']['shortname'];
     
     $requirements = null;
     if (isset($vars['plugin']['requirements']))
@@ -24,7 +25,7 @@
                     </small><br />
                     <?php
 
-                        if (array_key_exists($plugin_description['shortname'],$vars['plugins_loaded'])) {
+                        if (array_key_exists($shortname, $vars['plugins_loaded'])) {
                             echo '<span class="label label-success">Enabled</span>';
                         } else {
                             echo '<span class="label">Disabled</span>';
@@ -92,13 +93,12 @@
                 ?>
             </div>
             <div class="span1 offset1">
-                <?php
-
-                    if (array_key_exists($plugin_description['shortname'],$vars['plugins_loaded'])) {
+                <?php 
+                    if (array_key_exists($shortname, $vars['plugins_loaded'])) {
 ?>
                         <form action="<?=\Idno\Core\site()->config()->url?>admin/plugins/" method="post">
                             <p>
-                                <input type="hidden" name="plugin" value="<?=$plugin_description['shortname']?>" />
+                                <input type="hidden" name="plugin" value="<?=$shortname?>" />
                                 <input type="hidden" name="action" value="uninstall" />
                                 <input class="btn" type="submit" value="Disable" />
                             </p>
@@ -109,7 +109,7 @@
 ?>
                         <form action="<?=\Idno\Core\site()->config()->url?>admin/plugins/" method="post">
                             <p>
-                                <input type="hidden" name="plugin" value="<?=$plugin_description['shortname']?>" />
+                                <input type="hidden" name="plugin" value="<?=$shortname?>" />
                                 <input type="hidden" name="action" value="install" />
                                 <input class="btn" type="submit" value="Enable" />
                             </p>
