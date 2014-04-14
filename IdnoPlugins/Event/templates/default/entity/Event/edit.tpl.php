@@ -78,10 +78,5 @@
     </div>
 </form>
 <script>
-    autoSave('event', 'title');
-    autoSave('event', 'summary');
-    autoSave('event', 'location');
-    autoSave('event', 'starttime');
-    autoSave('event', 'endtime');
-    autoSave('event', 'body');
+    autoSave('event', ['title','summary','location','starttime','endtime','body']);
 </script>
