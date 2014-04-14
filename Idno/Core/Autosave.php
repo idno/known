@@ -27,6 +27,7 @@
                             $autosave = $user->autosave;
                             $autosave[$context][$name] = $value;
                             $user->autosave = $autosave;
+                            error_log('Autosaving context: ' . $context . ', name: ' . $name . ', value: ' . $value);
                             return $user->save();
                         }
                     }

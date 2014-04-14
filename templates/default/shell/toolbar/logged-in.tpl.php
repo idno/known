@@ -3,4 +3,4 @@
 <?php if(\Idno\Core\site()->session()->currentUser()->isAdmin()) { ?>
 <li><a href="<?= \Idno\Core\site()->config()->url ?>admin/">Administration</a></li>
 <?php }?>
-<li><?=  \Idno\Core\site()->actions()->createLink('/session/logout', 'Sign out', null, ['class' => '']);?></li>
+<li><?=  \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->url . 'session/logout', 'Sign out', null, ['class' => '']);?></li>

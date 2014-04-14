@@ -21,7 +21,7 @@
     }
 
     function contentCreateForm(plugin) {
-            $.ajax('/' + plugin + '/edit/', {
+            $.ajax(wwwroot() + plugin + '/edit/', {
                 dataType: 'html',
                 success: function(data) {
                     $('#contentCreate').html(data).slideDown(400);
