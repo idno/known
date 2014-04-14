@@ -6,6 +6,8 @@
 
     namespace Idno\Pages\Entity {
 
+        use Idno\Entities\User;
+
         class Autosave extends \Idno\Common\Page
         {
 
@@ -14,11 +16,13 @@
 
                 // If we're logged in, accept input and save it to the cache
                 if (\Idno\Core\site()->session()->isLoggedOn()) {
+                    $user = new User(); // Force events to be handled
                     $context = $this->getInput('context');
-                    $element = $this->getInput('element');
+                    $elements = $this->getInput('elements');
                     $value   = $this->getInput('value');
-                    $autosave = new \Idno\Core\Autosave();
-                    $autosave->setValue($context, $element, $value);
+                    if (!empty($elements)) {
+                        (new \Idno\Core\Autosave())->setValues($context, $elements);
+                    }
                 }
 
             }

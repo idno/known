@@ -13,7 +13,7 @@
         {
 
             /**
-             * Caches the autosave value for the element $name in the context $context
+             * Caches the autosave value for the element $name in the context $context.
              * @param string $context
              * @param string $name
              * @param mixed $value
@@ -27,12 +27,35 @@
                             $autosave = $user->autosave;
                             $autosave[$context][$name] = $value;
                             $user->autosave = $autosave;
-                            error_log('Autosaving context: ' . $context . ', name: ' . $name . ', value: ' . $value);
-                            return $user->save();
+                            if ($user->save()) {
+                                \Idno\Core\site()->session()->refreshSessionUser($user);
+                            }
                         }
                     }
                 }
                 return false;
+
+            }
+
+            /**
+             * Caches the autosave values for the specified elements in the associative array $elements.
+             * @param $context
+             * @param $elements
+             */
+            function setValues($context, $elements) {
+
+                if (site()->session()->isLoggedOn()) {
+                    if ($user = site()->session()->currentUser()) {
+                        if (is_array($elements) && !empty($elements) && !empty($context)) {
+                            $autosave = $user->autosave;
+                            $autosave[$context] = $elements;
+                            $user->autosave = $autosave;
+                            if ($user->save()) {
+                                \Idno\Core\site()->session()->refreshSessionUser($user);
+                            }
+                        }
+                    }
+                }
 
             }
 
