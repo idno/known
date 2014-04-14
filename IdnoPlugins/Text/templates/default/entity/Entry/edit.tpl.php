@@ -48,6 +48,5 @@
 </form>
 <script>
     // Autosave the title & body
-    autoSave('entry', 'body');
-    autoSave('entry', 'title');
+    autoSave('entry', ['title','body']);
 </script>
