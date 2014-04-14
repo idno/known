@@ -53,6 +53,19 @@
 
                 });
 
+                // Refresh session user whenever it is saved
+                \Idno\Core\site()->addEventHook('saved', function(\Idno\Core\Event $event) {
+
+                    $user = $event->data()['object'];
+
+                    if ($user instanceof User) {
+                        if ($user->getUUID() == \Idno\Core\site()->session()->currentUser()->getUUID()) {
+                            \Idno\Core\site()->session()->refreshSessionUser($user);
+                        }
+                    }
+
+                });
+
             }
 
             /**

@@ -9,6 +9,8 @@
 
     namespace Idno\Core {
 
+        use Idno\Entities\User;
+
         class Session extends \Idno\Common\Component
         {
 
@@ -281,9 +283,18 @@
 
             function logUserOn(\Idno\Entities\User $user)
             {
-                $_SESSION['user'] = $user;
-                session_regenerate_id();
+                return $this->refreshSessionUser($user);
+            }
 
+            /**
+             * Refresh the user currently stored in the session
+             * @param \Idno\Entities\User $user
+             * @return \Idno\Entities\User
+             */
+            function refreshSessionUser(\Idno\Entities\User $user)
+            {
+                $user = User::getByUUID($user->getUUID());
+                $_SESSION['user'] = $user;
                 return $user;
             }
 
