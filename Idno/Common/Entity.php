@@ -1401,12 +1401,14 @@
                 if (empty($annotation_url)) {
                     $annotation_url = $this->getURL() . '/annotations/' . md5(time() . $content); // Invent a URL for this annotation
                 }
+		// Create a local URL (fixes #199)
+		$local_url = $this->getURL() . '/annotations/' . md5(time() . $content); // Invent a URL for this annotation
                 if (empty($time)) {
                     $time = time();
                 } else {
                     $time = (int)$time;
                 }
-                $annotation  = ['owner_name' => $owner_name, 'owner_url' => $owner_url, 'owner_image' => $owner_image, 'content' => $content, 'time' => $time];
+                $annotation  = ['permalink' => $annotation_url, 'owner_name' => $owner_name, 'owner_url' => $owner_url, 'owner_image' => $owner_image, 'content' => $content, 'time' => $time];
                 $annotations = $this->annotations;
                 if (empty($annotations)) {
                     $annotations = [];
@@ -1415,7 +1417,7 @@
                     $annotations[$subtype] = [];
                 }
 
-                $annotations[$subtype][$annotation_url] = $annotation;
+                $annotations[$subtype][$local_url] = $annotation;
                 $this->annotations                      = $annotations;
 
                 \Idno\Core\site()->triggerEvent('annotation/add/' . $subtype, ['annotation' => $annotation, 'object' => $this]);

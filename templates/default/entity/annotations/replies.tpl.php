@@ -1,7 +1,9 @@
 <?php
 
     if (!empty($vars['annotations']) && is_array($vars['annotations'])) {
-        foreach($vars['annotations'] as $permalink => $annotation) {
+        foreach($vars['annotations'] as $locallink => $annotation) {
+	    
+	    $permalink = $annotation['permalink'] ? $annotation['permalink'] : $locallink;
 ?>
         <div class="idno-annotation row">
             <div class="idno-annotation-image span1 hidden-phone">
@@ -15,7 +17,7 @@
                     <a href="<?=$permalink?>"><?=date('M d Y', $annotation['time']);?></a></small></p>
             </div>
             <?php
-                $this->annotation_permalink = $permalink;
+                $this->annotation_permalink = $locallink;
                 
                 if ($vars['object']->canEdit())
                     echo $this->draw('content/annotation/edit');
