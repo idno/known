@@ -59,6 +59,7 @@
         }
     ?>
 
+    <script src="<?=\Idno\Core\site()->config()->url?>external/fragmention/fragmention.js"></script>
     <?= $this->draw('shell/head', $vars); ?>
 
 </head>
