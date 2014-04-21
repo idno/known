@@ -590,6 +590,57 @@
 		return $this->assets[$class];
 	    }
 
+	    /**
+	     * Return the full URL of the current page.
+	     *
+	     * @param $tokenise bool If true then an exploded tokenised version is returned.
+	     * @return url|array
+	     */
+	    public static function currentUrl($tokenise = false) {
+	       $url = parse_url(\Idno\Core\site()->config()->url);
+	       $url['path'] = $_SERVER['REQUEST_URI'];
+
+	       if ($tokenise)
+		   return $url;
+
+	       return self::buildUrl($url);
+	    }
+	    
+	    
+	    /**
+	     * Construct a URL from array components (basically an implementation of http_build_url() without PECL.
+	     * 
+	     * @param array $url
+	     * @return string 
+	     */
+	    public static function buildUrl(array $url) {
+		$page = $url['scheme'] . "://";
+
+		// user/pass
+		if ((isset($url['user'])) && ($url['user']))
+		    $page .= $url['user'];
+		if ((isset($url['pass'])) && ($url['pass']))
+		    $page .= ":" . $url['pass'];
+		if (($url['user']) || $url['pass'])
+		    $page .="@";
+
+		$page .= $url['host'];
+
+		if ((isset($url['port'])) && ($url['port']))
+		    $page .= ":" . $url['port'];
+
+		$page .= $url['path'];
+
+		if ((isset($url['query'])) && ($url['query']))
+		    $page .= "?" . $url['query'];
+
+
+		if ((isset($url['fragment'])) && ($url['fragment']))
+		    $page .= "#" . $url['fragment'];
+
+
+		return $page;
+	    }
         }
 
     }
