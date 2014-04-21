@@ -596,7 +596,7 @@
 	     * @param $tokenise bool If true then an exploded tokenised version is returned.
 	     * @return url|array
 	     */
-	    public static function currentUrl($tokenise = false) {
+	    public function currentUrl($tokenise = false) {
 	       $url = parse_url(\Idno\Core\site()->config()->url);
 	       $url['path'] = $_SERVER['REQUEST_URI'];
 
