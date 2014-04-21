@@ -591,6 +591,27 @@
 	    }
 	    
 	    /**
+	     * Return whether the current page URL matches the given regex string.
+	     * @param type $regex_string URL string in the same format as the page handler definition.
+	     */
+	    public function matchUrl($regex_string) {
+		$url = $this->currentUrl(true);
+		
+		$page = $url['path'];
+
+		if ((isset($url['query'])) && ($url['query']))
+		    $page .= "?" . $url['query'];
+
+		if ((isset($url['fragment'])) && ($url['fragment']))
+		    $page .= "#" . $url['fragment'];
+
+		$url = $page;
+		
+		// Now we've got our page url, match it against regex
+		return preg_match('#^/?' . $regex_string . '/?$#', $url);
+	    }
+	    
+	    /**
 	     * Return the full URL of the current page.
 	     *
 	     * @param $tokenise bool If true then an exploded tokenised version is returned.
