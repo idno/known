@@ -589,7 +589,7 @@
 	    public function getAssets($class) {
 		return $this->assets[$class];
 	    }
-
+	    
 	    /**
 	     * Return the full URL of the current page.
 	     *
@@ -614,7 +614,10 @@
 	     * @return string 
 	     */
 	    public static function buildUrl(array $url) {
-		$page = $url['scheme'] . "://";
+		if (!empty($url['scheme']))
+		    $page = $url['scheme'] . "://";
+		else
+		    $page = '//';
 
 		// user/pass
 		if ((isset($url['user'])) && ($url['user']))
