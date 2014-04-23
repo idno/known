@@ -325,6 +325,19 @@
                 $t->__(['body' => $t->draw('pages/404'), 'title' => 'Not found!'])->drawPage();
                 exit;
             }
+	    
+	    /**
+	     * You can't see this.
+	     */
+	    function deniedContent()
+            {
+                $this->setResponse(403);
+                http_response_code($this->response);
+                $t = \Idno\Core\site()->template();
+                $t->__(['body' => $t->draw('pages/403'), 'title' => 'Denied!'])->drawPage();
+                exit;
+            }
+	    
 
             function exception(\Exception $e)
             {
