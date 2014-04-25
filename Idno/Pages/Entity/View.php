@@ -27,6 +27,11 @@
                 }
 
                 // From here, we know the object is set
+		
+		// Check that we can see it
+		if (!$object->canRead()) {
+		    $this->deniedContent();
+		}
 
                 // Just forward to the user's page
                 if ($object instanceof \Idno\Entities\User) {
