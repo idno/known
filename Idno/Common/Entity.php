@@ -957,8 +957,9 @@
                 }
 
                 if ($this->getOwnerID() == $user_id) return true;
+		
+		return \Idno\Core\site()->triggerEvent('canEdit', ['object' => $this, 'user_id' => $user_id], false);
 
-                return false;
             }
 
             /**
@@ -982,11 +983,11 @@
 
                 if ($access instanceof \Idno\Entities\AccessGroup) {
                     if ($access->isMember($user_id)) {
-                        return true;
+                        return \Idno\Core\site()->triggerEvent('canRead', ['object' => $this, 'user_id' => $user_id, 'access_group' => $access]);
                     }
                 }
 
-                return false;
+                return \Idno\Core\site()->triggerEvent('canRead', ['object' => $this, 'user_id' => $user_id], false);
             }
 
             /**
