@@ -302,6 +302,8 @@
                         $users[$user->getUUID()] = ['name' => $user->getTitle(), 'icon' => $user->getIcon(), 'url' => $user->getURL()];
                         $this->following         = $users;
 
+			\Idno\Core\site()->events()->dispatch('follow', ['user' => $this, 'following' => $user]);
+			
                         return true;
                     }
                 }
@@ -349,6 +351,8 @@
                     $users = $this->getFollowingUUIDs();
                     unset($users[$user->getUUID()]);
                     $this->following = $users;
+		    
+		    \Idno\Core\site()->events()->dispatch('unfollow', ['user' => $this, 'following' => $user]);
 
                     return true;
                 }
