@@ -91,12 +91,14 @@
              *
              * @param string $eventName The name of the event to trigger
              * @param array $data Data to pass to the event
+	     * @param mixed $default Default response (if not forwarding)
              * @return mixed
              */
 
-            function triggerEvent($eventName, $data = array())
+            function triggerEvent($eventName, $data = array(), $default = true)
             {
                 $event = new Event($data);
+		$event->setResponse($default);
                 $this->events()->dispatch($eventName, $event);
                 if (!$event->forward()) {
                     return $event->response();
