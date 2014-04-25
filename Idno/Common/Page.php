@@ -575,8 +575,8 @@
 	     * @param type $value A url or other value
 	     */
 	    public function setAsset($name, $value, $class) {
-		if (!is_array($this->assets)) $this->assets = [];
-		if (!is_array($this->assets[$class])) $this->assets[$class] = [];
+		if (!isset($this->assets)) $this->assets = [];
+		if (!isset($this->assets[$class])) $this->assets[$class] = [];
 		
 		$this->assets[$class][$name] = $value;
 	    }
