@@ -181,8 +181,8 @@
             }
 	    
 	    /**
-	     * UUID != Profile URL, and it's the latter that most users will be dealing with. This function lets you get by URL.
-	     * @param type $url
+	     * Retrieve a user by their profile URL.
+	     * @param string $url
 	     * @return User|false
 	     */
 	    static function getByProfileURL($url) {
