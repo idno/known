@@ -179,6 +179,17 @@
 
                 return false;
             }
+	    
+	    /**
+	     * UUID != Profile URL, and it's the latter that most users will be dealing with. This function lets you get by URL.
+	     * @param type $url
+	     * @return User|false
+	     */
+	    static function getByProfileURL($url) {
+		if (preg_match("~".\Idno\Core\site()->config()->url . 'profile/([A-Za-z0-9]+)?~', $url, $matches))
+			return \Idno\Entities\User::getByHandle ($matches[1]);
+		return false;
+	    }
 
             /**
              * Returns this user's unique key for use with the API, and generates a new one if they don't
