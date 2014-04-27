@@ -141,7 +141,8 @@
 	     */
 	    static function file_get_contents($url) {
 		$result = self::get($url);
-		if ($result['error']!="")
+		
+		if ($result['error']=="")
 		    return $result['content'];
 		
 		return false;
