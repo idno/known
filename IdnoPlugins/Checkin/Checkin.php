@@ -79,13 +79,7 @@
                 $query = self::getNominatimEndpoint() . "reverse?lat={$latitude}&lon={$longitude}&format=json&zoom=18";
                 $response = [];
 
-                $ch = curl_init();
-                $timeout = 5;
-                curl_setopt($ch, CURLOPT_URL, $query);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-                $http_response = curl_exec($ch);
-                curl_close($ch);
+		$http_response = \Idno\Core\Webservice::get($query)['content'];
 
                 if (!empty($http_response)) {
                     if ($contents = @json_decode($http_response)) {
@@ -113,13 +107,7 @@
 
                 $query = self::getNominatimEndpoint() . "search?q=" . urlencode($address) . "&format=json";
 
-                $ch = curl_init();
-                $timeout = 5;
-                curl_setopt($ch, CURLOPT_URL, $query);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-                $http_response = curl_exec($ch);
-                curl_close($ch);
+                $http_response = \Idno\Core\Webservice::get($query)['content'];
 
                 if (!empty($http_response)) {
                     if ($contents = @json_decode($http_response)) {
