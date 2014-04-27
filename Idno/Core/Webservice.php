@@ -134,6 +134,18 @@
                 return self::send('delete', $endpoint, $params, $headers);
             }
 
+	    /**
+	     * Replacement for file_get_contents for retrieving remote files.
+	     * Essentially a wrapper for self::get()
+	     * @param type $url
+	     */
+	    static function file_get_contents($url) {
+		$result = self::get($url);
+		if ($result['error']!="")
+		    return $result['content'];
+		
+		return false;
+	    }
         }
 
     }
