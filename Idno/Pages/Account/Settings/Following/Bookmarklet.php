@@ -27,21 +27,20 @@ namespace Idno\Pages\Account\Settings\Following {
 			$t = \Idno\Core\site()->template();
 			$body = '';
 			$hcard = [];
-			
+
 			foreach ($return['items'] as $item) {
 
 			    // Find h-card
-			    if (in_array('h-card', $item['type'])) 
+			    if (in_array('h-card', $item['type']))
 				$hcard[] = $item;
-				
 			}
-			
+
 			if (!count($hcard))
 			    throw new \Exception("Sorry, could not find any users on that page, perhaps they need to mark up their profile in <a href=\"http://microformats.org/wiki/microformats-2\">Microformats</a>?");
-			
+
 			foreach ($hcard as $card)
 			    $body .= $t->__(['mf2' => $card])->draw('account/settings/following/mf2user');
-			
+
 			// List user
 			$t->body = $body;
 			$t->title = 'Found users';
@@ -60,23 +59,25 @@ namespace Idno\Pages\Account\Settings\Following {
 	    $this->gatekeeper();
 	    $user = \Idno\Core\site()->session()->currentUser();
 
+	    if ($uuid = $this->getInput('uuid')) {
 
-	    $uuid = $this->getInput('uuid');
-	    if (!$new_user = \Idno\Entities\User::getByUUID($uuid)) {
-		// Not a user, so create it if it's remote
-		if (!\Idno\Entities\User::isLocalUUID($uuid)) {
-		    $new_user = new \Idno\Entities\RemoteUser();
+		if (!$new_user = \Idno\Entities\User::getByUUID($uuid)) {
+		    // Not a user, so create it if it's remote
+		    if (!\Idno\Entities\User::isLocalUUID($uuid)) {
+			$new_user = new \Idno\Entities\RemoteUser();
 
-		    // TODO: Populate with data
+			// TODO: Populate with data
+		    }
 		}
-	    }
 
-	    if ($new_user) {
-		if ($user->addFollowing($new_user)) {
-		    \Idno\Core\site()->session()->addMessage("User added!");
-		}
+		if ($new_user) {
+		    if ($user->addFollowing($new_user)) {
+			\Idno\Core\site()->session()->addMessage("User added!");
+		    }
+		} else
+		    throw new \Exception('Sorry, that user doesn\'t exist!');
 	    } else
-		throw new \Exception('Sorry, that user doesn\'t exist!');
+		throw new \Exception("No UUID, please try that again!");
 
 	    // forward back
 	    $this->forward($_SERVER['HTTP_REFERER']);
