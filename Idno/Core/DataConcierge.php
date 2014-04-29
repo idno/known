@@ -253,7 +253,7 @@
                     if ($result = $this->database->$collection->find($parameters, $fields)->skip($offset)->limit($limit)->sort(array('created' => -1))) {
                         return $result;
                     }
-                } catch (Exception $e) {
+                } catch (\Exception $e) {
                     return false;
                 }
 

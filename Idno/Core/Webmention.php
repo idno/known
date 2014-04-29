@@ -68,7 +68,7 @@
                 $parser = new \Mf2\Parser($content, $url);
                 try {
                     $return = $parser->parse();
-                } catch (Exception $e) {
+                } catch (\Exception $e) {
                     $return = false;
                 }
 
