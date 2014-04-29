@@ -1,65 +1,81 @@
 <?php
 
+/**
+ * Bookmarklet endpoint
+ */
+
+namespace Idno\Pages\Account\Settings\Following {
+
     /**
-     * Bookmarklet endpoint
+     * Default class to serve the following settings
      */
+    class Bookmarklet extends \Idno\Common\Page {
 
-    namespace Idno\Pages\Account\Settings\Following {
+	function getContent() {
+	    $this->gatekeeper();
+	    $user = \Idno\Core\site()->session()->currentUser();
 
-        /**
-         * Default class to serve the following settings
-         */
-        class Bookmarklet extends \Idno\Common\Page
-        {
+	    $u = $this->getInput('u');
 
-            function getContent()
-            {
-                $this->gatekeeper(); 
-		$user = \Idno\Core\site()->session()->currentUser();
-		
-		
-		
-		// Find users using MF2
-		// List users, find uuid
-	
-		
-		
-		
-		// forward back
-                $this->forward($_SERVER['HTTP_REFERER']);
-            }
-	    
-	    
-	    function postContent() {
-		$this->gatekeeper(); 
-		$user = \Idno\Core\site()->session()->currentUser();
-		
-		
-		$uuid = $this->getInput('uuid');
-		if (!$new_user = \Idno\Entities\User::getByUUID($uuid)) {
-		    // Not a user, so create it if it's remote
-		    if (!\Idno\Entities\User::isLocalUUID($uuid))
-		    {
-			$new_user = new \Idno\Entities\RemoteUser();
+	    if ($content = \Idno\Core\Webservice::get($u)['content']) {
 
-			// TODO: Populate with data
+		$parser = new \Mf2\Parser($content, $u);
+		if ($return = $parser->parse()) {
 
+		    if (isset($return['items'])) {
 
+			$t = \Idno\Core\site()->template();
+			$body = '';
+			
+			foreach ($return['items'] as $item) {
+
+			    // Find h-card
+			    if (in_array('h-card', $item['type'])) {
+				
+				$body .= $t->__(['mf2' => $item])->draw('account/settings/following/mf2user');
+			    }
+			}
+			
+			// List user
+			$t->body = $body;
+			$t->title = 'Found users';
+			$t->drawPage();
 		    }
-		}
-
-		if ($new_user) {
-		    if ($user->addFollowing($new_user))
-		    {
-			\Idno\Core\site()->session()->addMessage("User added!");
-		    }
-		    
 		} else
-		    throw new \Exception('Sorry, that user doesn\'t exist!');
-		
-		// forward back
-                $this->forward($_SERVER['HTTP_REFERER']);
+		    throw new \Exception("Sorry, there was a problem parsing the page!");
+	    } else
+		throw new \Exception("Sorry, $u could not be retrieved!");
+
+	    // forward back
+	    $this->forward($_SERVER['HTTP_REFERER']);
+	}
+
+	function postContent() {
+	    $this->gatekeeper();
+	    $user = \Idno\Core\site()->session()->currentUser();
+
+
+	    $uuid = $this->getInput('uuid');
+	    if (!$new_user = \Idno\Entities\User::getByUUID($uuid)) {
+		// Not a user, so create it if it's remote
+		if (!\Idno\Entities\User::isLocalUUID($uuid)) {
+		    $new_user = new \Idno\Entities\RemoteUser();
+
+		    // TODO: Populate with data
+		}
 	    }
-        }
+
+	    if ($new_user) {
+		if ($user->addFollowing($new_user)) {
+		    \Idno\Core\site()->session()->addMessage("User added!");
+		}
+	    } else
+		throw new \Exception('Sorry, that user doesn\'t exist!');
+
+	    // forward back
+	    $this->forward($_SERVER['HTTP_REFERER']);
+	}
 
     }
+
+}
