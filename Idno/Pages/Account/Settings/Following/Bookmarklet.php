@@ -61,12 +61,20 @@ namespace Idno\Pages\Account\Settings\Following {
 
 	    if ($uuid = $this->getInput('uuid')) {
 
-		if (!$new_user = \Idno\Entities\User::getByUUID($uuid)) {
-		    // Not a user, so create it if it's remote
+		if ((!$new_user = \Idno\Entities\User::getByUUID($uuid)) && 
+		    (!$new_user = \Idno\Entities\User::getByProfileURL($uuid))) {
+		    
+		    // No user found, so create it if it's remote
 		    if (!\Idno\Entities\User::isLocalUUID($uuid)) {
 			$new_user = new \Idno\Entities\RemoteUser();
 
-			// TODO: Populate with data
+			// Populate with data
+			$new_user->setTitle($this->getInput('name'));
+			$new_user->setHandle($this->getInput('nickname'));
+			$new_user->email = $this->getInput('email');
+			$new_user->setUrl($uuid);
+			
+			$new_user->save();
 		    }
 		}
 
