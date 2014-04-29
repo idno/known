@@ -17,6 +17,10 @@
                 // TODO: use a remote API to save to external sources if we have permission to
                 return false;
             }
+	    
+	    public function checkPassword($password) {
+		return false; // Remote users can never log in
+	    }
 
         }
 
