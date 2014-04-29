@@ -18,7 +18,7 @@ $photo = $mf2_user['properties']['photo'][0];
 	    <div class="visible-phone">
 		<p class="p-author author h-card vcard">
 		    <img class="u-logo logo u-photo photo" src="<?= $photo ?>" />
-		    <span class="p-name fn u-url url"><?= $name ?></span>
+		    <span class="p-name fn"><?= $name ?></span>
 		</p>
 	    </div>
 	    <div class="e-content entry-content">
