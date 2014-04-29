@@ -8,6 +8,12 @@ $properties = $mf2_user['properties'];
 $name = $properties['name'][0];
 $urls = array_unique($properties['url']);
 $photo =  $properties['photo'][0];
+
+$email =  $properties['email'][0];
+if (strpos('mailto:', 'mailto:')!==false) $email = substr($email, 7); // Sanitise email
+
+$nickname =  $properties['nickname'][0];
+
 ?>
 <form action="<?= \Idno\Core\site()->config()->url ?>account/settings/following/bookmarklet" method="post" class="form-horizontal">
     <div class="row idno-entry following-user">
@@ -37,8 +43,26 @@ $photo =  $properties['photo'][0];
 		    <label class="control-label" for="inputName">Name</label>
 
 		    <div class="controls">
-			<input id="inputName" type="text" class="span4" name="name"
+			<input id="inputName" type="text" class="span4" name="name" required
 			       value="<?= htmlspecialchars($name) ?>">
+		    </div>
+		</div>
+		
+		<div class="control-group">
+		    <label class="control-label" for="inputNickname">Nickname</label>
+
+		    <div class="controls">
+			<input id="inputNickname" type="text" class="span4" name="name" required placeholder="Handle (for your reference)"
+			       value="<?= htmlspecialchars($nickname) ?>">
+		    </div>
+		</div>
+		
+		<div class="control-group">
+		    <label class="control-label" for="inputEmail">Email</label>
+
+		    <div class="controls">
+			<input id="inputName" type="email" class="span4" name="name" required
+			       value="<?= htmlspecialchars($email) ?>">
 		    </div>
 		</div>
 		
