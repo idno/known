@@ -186,8 +186,17 @@
 	     * @return User|false
 	     */
 	    static function getByProfileURL($url) {
+		// If user explicitly has a profile url set (generally this means it's a RemoteUser class
+		if ($result = \Idno\Core\site()->db()->getObjects('Idno\\Entities\\User', array('url' => $url), null, 1)) {
+                    foreach ($result as $row) {
+                        return $row;
+                    }
+                }
+		// Ok, now try and see if we can get the local profile
 		if (preg_match("~".\Idno\Core\site()->config()->url . 'profile/([A-Za-z0-9]+)?~', $url, $matches))
 			return \Idno\Entities\User::getByHandle ($matches[1]);
+		
+		// Can't find
 		return false;
 	    }
 
