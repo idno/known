@@ -26,15 +26,21 @@ namespace Idno\Pages\Account\Settings\Following {
 
 			$t = \Idno\Core\site()->template();
 			$body = '';
+			$hcard = [];
 			
 			foreach ($return['items'] as $item) {
 
 			    // Find h-card
-			    if (in_array('h-card', $item['type'])) {
+			    if (in_array('h-card', $item['type'])) 
+				$hcard = $item['type'];
 				
-				$body .= $t->__(['mf2' => $item])->draw('account/settings/following/mf2user');
-			    }
 			}
+			
+			if (!count($hcard))
+			    throw new \Exception("Sorry, could not find any users on that page!");
+			
+			foreach ($hcard as $card)
+			    $body .= $t->__(['mf2' => $card])->draw('account/settings/following/mf2user');
 			
 			// List user
 			$t->body = $body;
