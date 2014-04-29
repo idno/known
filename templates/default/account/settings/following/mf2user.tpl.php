@@ -1,9 +1,13 @@
 <?php
 $mf2_user = $vars['mf2'];
 
-$name = $mf2_user['properties']['name'][0];
-$urls = array_unique($mf2_user['properties']['url']);
-$photo = $mf2_user['properties']['photo'][0];
+$properties = $mf2_user['properties'];
+//if (isset($mf2_user['properties']['author'])) // If there's an author, then use that
+     //$properties =$mf2_user['properties']['author'][0];
+
+$name = $properties['name'][0];
+$urls = array_unique($properties['url']);
+$photo =  $properties['photo'][0];
 ?>
 <form action="<?= \Idno\Core\site()->config()->url ?>account/settings/following/bookmarklet" method="post" class="form-horizontal">
     <div class="row idno-entry following-user">
