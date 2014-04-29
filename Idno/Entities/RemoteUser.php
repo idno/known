@@ -22,6 +22,22 @@
 		return false; // Remote users can never log in
 	    }
 
+	    public function getURL() {
+		
+		// Remote users don't have a local profile, so we need to override the remote url
+		if (!empty($this->url))
+		    return $this->url;
+		
+		return $this->getUUID();
+	    }
+	    
+	    /**
+	     * Set this user's remote profile url.
+	     * @param type $url
+	     */
+	    public function setUrl($url) {
+		$this->url = $url;
+	    }
         }
 
     }
