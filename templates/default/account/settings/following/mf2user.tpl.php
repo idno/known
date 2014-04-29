@@ -47,7 +47,7 @@ $photo =  $properties['photo'][0];
 		    
 		    <div class="controls">
 			<?php if (count($urls)>1) { ?>
-			<select name="url">
+			<select name="uuid">
 			    <?php
 				foreach($urls as $url) {
 				    ?>
@@ -58,6 +58,7 @@ $photo =  $properties['photo'][0];
 			</select>
 			<?php } else { ?>
 			    <a href="<?= $url; ?>" target="_blank"><?= $url; ?></a>
+			    <input type="hidden" name="uuid" value="<?= $url; ?>" />
 			<?php } ?>
 		    </div>
 
