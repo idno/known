@@ -37,7 +37,7 @@ namespace Idno\Pages\Account\Settings\Following {
 			}
 			
 			if (!count($hcard))
-			    throw new \Exception("Sorry, could not find any users on that page, perhaps they need to mark up their profile in <a href=\"http://microformats.org/wiki/microformats-2\">Microformats</a>.");
+			    throw new \Exception("Sorry, could not find any users on that page, perhaps they need to mark up their profile in <a href=\"http://microformats.org/wiki/microformats-2\">Microformats</a>?");
 			
 			foreach ($hcard as $card)
 			    $body .= $t->__(['mf2' => $card])->draw('account/settings/following/mf2user');
