@@ -32,7 +32,7 @@ namespace Idno\Pages\Account\Settings\Following {
 
 			    // Find h-card
 			    if (in_array('h-card', $item['type'])) 
-				$hcard = $item['type'];
+				$hcard[] = $item;
 				
 			}
 			
