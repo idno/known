@@ -39,8 +39,10 @@
     <script src="<?= \Idno\Core\site()->config()->url . 'js/default.js' ?>"></script>
 
     <!-- To silo is human, to syndicate divine -->
-    <link rel="alternate" type="application/rss+xml" title="<?= htmlspecialchars($vars['title']) ?>"
+    <link rel="alternate feed" type="application/rss+xml" title="<?= htmlspecialchars($vars['title']) ?>"
           href="<?= $this->getURLWithVar('_t', 'rss'); ?>"/>
+    <link rel="feed" type="text/html" title="<?= htmlspecialchars(\Idno\Core\site()->config()->title) ?>"
+          href="<?= \Idno\Core\site()->config()->url ?>content/all"/>
 
     <!-- Webmention endpoint -->
     <link href="<?= \Idno\Core\site()->config()->url ?>webmention/" rel="http://webmention.org/"/>
