@@ -113,7 +113,7 @@
              */
             static function getByEmail($email)
             {
-                if ($result = \Idno\Core\site()->db()->getObjects('Idno\\Entities\\User', array('email' => $email), null, 1)) {
+                if ($result = \Idno\Core\site()->db()->getObjects(get_called_class(), array('email' => $email), null, 1)) {
                     foreach ($result as $row) {
                         return $row;
                     }
@@ -171,7 +171,7 @@
              */
             static function getByHandle($handle)
             {
-                if ($result = \Idno\Core\site()->db()->getObjects('Idno\\Entities\\User', array('handle' => $handle), null, 1)) {
+                if ($result = \Idno\Core\site()->db()->getObjects(get_called_class(), array('handle' => $handle), null, 1)) {
                     foreach ($result as $row) {
                         return $row;
                     }
@@ -187,7 +187,7 @@
 	     */
 	    static function getByProfileURL($url) {
 		// If user explicitly has a profile url set (generally this means it's a RemoteUser class
-		if ($result = \Idno\Core\site()->db()->getObjects('Idno\\Entities\\User', array('url' => $url), null, 1)) {
+		if ($result = \Idno\Core\site()->db()->getObjects(get_called_class(), array('url' => $url), null, 1)) {
                     foreach ($result as $row) {
                         return $row;
                     }
@@ -316,13 +316,13 @@
              */
             function addFollowing($user)
             {
-                if ($user instanceof \Idno\Entities\User) {
+                if ($user instanceof \Idno\Entities\User) { 
                     $users = $this->getFollowingUUIDs();
-                    if (!in_array($user->getUUID(), $users)) {
+                    if (!in_array($user->getUUID(), $users, true)) { 
                         $users[$user->getUUID()] = ['name' => $user->getTitle(), 'icon' => $user->getIcon(), 'url' => $user->getURL()];
                         $this->following         = $users;
 
-			\Idno\Core\site()->events()->dispatch('follow', ['user' => $this, 'following' => $user]);
+			\Idno\Core\site()->triggerEvent('follow', ['user' => $this, 'following' => $user]);
 			
                         return true;
                     }
@@ -372,7 +372,7 @@
                     unset($users[$user->getUUID()]);
                     $this->following = $users;
 		    
-		    \Idno\Core\site()->events()->dispatch('unfollow', ['user' => $this, 'following' => $user]);
+		    \Idno\Core\site()->triggerEvent('unfollow', ['user' => $this, 'following' => $user]);
 
                     return true;
                 }
