@@ -15,7 +15,10 @@
             public function save()
             {
                 // TODO: use a remote API to save to external sources if we have permission to
-                return false;
+                // return false;
+		
+		// BUT for now, we still need to save some stub information in case we've just followed them
+		return parent::save();
             }
 	    
 	    public function checkPassword($password) {
@@ -29,6 +32,16 @@
 		    return $this->url;
 		
 		return $this->getUUID();
+	    }
+	    
+	    public function getUUID() {
+		// Ensure UUID returns a local UUID as reference, so we can manage following etc
+		if (!empty($this->uuid)) {
+                    return $this->uuid;
+                }
+                if (!empty($this->_id)) {
+                    return \Idno\Core\site()->config()->url . 'view/' . $this->_id;
+                }
 	    }
 	    
 	    /**
