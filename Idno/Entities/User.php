@@ -309,7 +309,7 @@
             {
                 if ($user instanceof \Idno\Entities\User) {
                     $users = $this->getFollowingUUIDs();
-                    if (!in_array($user->getUUID(), $users)) {
+                    if (!in_array($user->getUUID(), $users, true)) {
                         $users[$user->getUUID()] = ['name' => $user->getTitle(), 'icon' => $user->getIcon(), 'url' => $user->getURL()];
                         $this->following         = $users;
 
