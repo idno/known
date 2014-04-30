@@ -52,7 +52,7 @@ $nickname =  $properties['nickname'][0];
 		    <label class="control-label" for="inputNickname">Nickname</label>
 
 		    <div class="controls">
-			<input id="inputNickname" type="text" class="span4" name="name" required placeholder="Handle (for your reference)"
+			<input id="inputNickname" type="text" class="span4" name="nickname" required placeholder="Handle (for your reference)"
 			       value="<?= htmlspecialchars($nickname) ?>">
 		    </div>
 		</div>
@@ -61,7 +61,7 @@ $nickname =  $properties['nickname'][0];
 		    <label class="control-label" for="inputEmail">Email</label>
 
 		    <div class="controls">
-			<input id="inputName" type="email" class="span4" name="name" required
+			<input id="inputName" type="email" class="span4" name="email" required
 			       value="<?= htmlspecialchars($email) ?>">
 		    </div>
 		</div>
