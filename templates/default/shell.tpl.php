@@ -41,6 +41,8 @@
     <!-- To silo is human, to syndicate divine -->
     <link rel="alternate feed" type="application/rss+xml" title="<?= htmlspecialchars($vars['title']) ?>"
           href="<?= $this->getURLWithVar('_t', 'rss'); ?>"/>
+    <link rel="alternate feed" type="application/rss+xml" title="<?= htmlspecialchars(\Idno\Core\site()->config()->title) ?>"
+          href="<?= \Idno\Core\site()->config()->url ?>content/all?_t=rss"/>
     <link rel="feed" type="text/html" title="<?= htmlspecialchars(\Idno\Core\site()->config()->title) ?>"
           href="<?= \Idno\Core\site()->config()->url ?>content/all"/>
 
