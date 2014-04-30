@@ -29,7 +29,6 @@ namespace Idno\Pages\Account\Settings\Following {
 			$hcard = [];
 
 			foreach ($return['items'] as $item) {
-
 			    // Find h-card
 			    if (in_array('h-card', $item['type']))
 				$hcard[] = $item;
@@ -61,11 +60,18 @@ namespace Idno\Pages\Account\Settings\Following {
 
 	    if ($uuid = $this->getInput('uuid')) {
 
-		if ((!$new_user = \Idno\Entities\User::getByUUID($uuid)) && 
-		    (!$new_user = \Idno\Entities\User::getByProfileURL($uuid))) {
+		if (
+			// TODO: Do this better, perhaps support late bindings
+			(!$new_user = \Idno\Entities\User::getByUUID($uuid)) &&  
+			(!$new_user = \Idno\Entities\User::getByProfileURL($uuid)) &&
+			(!$new_user = \Idno\Entities\RemoteUser::getByUUID($uuid)) &&  
+			(!$new_user = \Idno\Entities\RemoteUser::getByProfileURL($uuid))
+		) {
 		    
 		    // No user found, so create it if it's remote
 		    if (!\Idno\Entities\User::isLocalUUID($uuid)) {
+			error_log("Creating new remote user");
+			
 			$new_user = new \Idno\Entities\RemoteUser();
 
 			// Populate with data
@@ -74,21 +80,31 @@ namespace Idno\Pages\Account\Settings\Following {
 			$new_user->email = $this->getInput('email');
 			$new_user->setUrl($uuid);
 			
-			$new_user->save();
-		    }
-		}
-
-		if ($new_user) {
-		    if ($user->addFollowing($new_user)) {
-			\Idno\Core\site()->session()->addMessage("User added!");
+			if (!$new_user->save())
+			    throw new \Exception ("There was a problem saving the new remote user.");
 		    }
 		} else
-		    throw new \Exception('Sorry, that user doesn\'t exist!');
-	    } else
-		throw new \Exception("No UUID, please try that again!");
+		    error_log("New user found as " . $new_user->uuid);
 
-	    // forward back
-	    $this->forward($_SERVER['HTTP_REFERER']);
+		if ($new_user) {
+		    
+		    error_log("Trying a follow");
+		    
+		    if ($user->addFollowing($new_user)) {
+			
+			error_log("User added to following");
+			
+			if ($user->save()) {
+			    
+			    error_log("Following saved");
+			    
+			    \Idno\Core\site()->session()->addMessage("You are now following " . $new_user->getTitle());
+			}
+		    } 
+		} else
+		    throw new \Exception('Sorry, that user doesn\'t exist!');
+	    } else 
+		throw new \Exception("No UUID, please try that again!");
 	}
 
     }
