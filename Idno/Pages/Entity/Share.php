@@ -22,7 +22,7 @@
 
                 $share_type = 'note';
 
-                if ($content = \Idno\Core\Webmention::getPageContent($url)) {
+                if ($content = \Idno\Core\Webservice::get($url)) {
                     if ($mf2 = \Idno\Core\Webmention::parseContent($content['content'])) {
                         if (!empty($mf2['items'])) {
                             foreach ($mf2['items'] as $item) {
