@@ -21,6 +21,7 @@
             public $dispatcher;
             public $pagehandlers;
             public $syndication;
+	    public $logging;
             public static $site;
             public $currentPage;
 
@@ -35,6 +36,7 @@
                 $this->actions     = new Actions();
                 $this->template    = new Template();
                 $this->syndication = new Syndication();
+		$this->logging	   = new Logging();
                 $this->plugins     = new Plugins(); // This must be loaded last
             }
 
