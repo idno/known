@@ -324,7 +324,7 @@
 
 			// Create/modify ACL for following user
 			$acl = \Idno\Entities\AccessGroup::getOne([
-			    'owner' => \Idno\Core\site()->session()->currentUserUUID(),
+			    'owner' => $this->getUUID(),
 			    'access_group_type' => 'FOLLOWING'
 			]);
 
@@ -388,7 +388,7 @@
                     $this->following = $users;
 		    
 		    $acl = \Idno\Entities\AccessGroup::getOne([
-			'owner' => \Idno\Core\site()->session()->currentUserUUID(),
+			'owner' => $this->getUUID(),
 			'access_group_type' => 'FOLLOWING'
 		    ]);
 
