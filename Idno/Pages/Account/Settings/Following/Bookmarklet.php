@@ -10,6 +10,21 @@ namespace Idno\Pages\Account\Settings\Following {
      * Default class to serve the following settings
      */
     class Bookmarklet extends \Idno\Common\Page {
+	
+	/**
+	 * When passed an array of MF2 data, recursively find hcard entries.
+	 * @param array $mf2
+	 * @param array $out
+	 */
+	private function findHcard(array $mf2, array &$out) {
+	    foreach ($mf2 as $item) {
+		// Find h-card
+		if (in_array('h-card', $item['type']))
+		    $out[] = $item;
+		if (isset($item['children']))
+		    $this->findHcard($item['children'], $out);
+	    }
+	}
 
 	function getContent() {
 	    $this->gatekeeper();
@@ -28,11 +43,7 @@ namespace Idno\Pages\Account\Settings\Following {
 			$body = '';
 			$hcard = [];
 
-			foreach ($return['items'] as $item) {
-			    // Find h-card
-			    if (in_array('h-card', $item['type']))
-				$hcard[] = $item;
-			}
+			$this->findHcard($return['items'], $hcard);
 
 			if (!count($hcard))
 			    throw new \Exception("Sorry, could not find any users on that page, perhaps they need to mark up their profile in <a href=\"http://microformats.org/wiki/microformats-2\">Microformats</a>?"); // TODO: Add a manual way to add the user
