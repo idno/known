@@ -25,6 +25,23 @@ namespace Idno\Pages\Account\Settings\Following {
 		    $this->findHcard($item['children'], $out);
 	    }
 	}
+	
+	/**
+	 * Go through the list of found hcards and remove duplicates (based on unique profile urls)
+	 * @param array $hcards
+	 * @return array
+	 */
+	private function removeDuplicateProfiles(array $hcards) {
+	    $cards = [];
+	    
+	    foreach ($hcards as $card) {
+		$key = serialize($card['properties']['url']);
+		if (!isset($cards[$key]))
+		    $cards[$key] = $card;
+	    }
+	    
+	    return $cards;
+	}
 
 	function getContent() {
 	    $this->gatekeeper();
@@ -44,6 +61,7 @@ namespace Idno\Pages\Account\Settings\Following {
 			$hcard = [];
 
 			$this->findHcard($return['items'], $hcard);
+			$hcard = $this->removeDuplicateProfiles($hcard);
 
 			if (!count($hcard))
 			    throw new \Exception("Sorry, could not find any users on that page, perhaps they need to mark up their profile in <a href=\"http://microformats.org/wiki/microformats-2\">Microformats</a>?"); // TODO: Add a manual way to add the user
