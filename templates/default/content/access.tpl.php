@@ -17,9 +17,9 @@
 		    	
 		    $icon = 'icon-cog';
 		    if ($acl->access_group_type == 'FOLLOWING')
-			$icon = 'icon->group';
+			$icon = 'icon-group';
                     ?>
-                    <li><a href="#" data-acl="<?= $acl->getUUID(); ?>" class="acl-option"><i class="icon-cog"> </i> <?= $acl->title; ?></a></li>
+                    <li><a href="#" data-acl="<?= $acl->getUUID(); ?>" class="acl-option"><i class="<?= $icon; ?>"> </i> <?= $acl->title; ?></a></li>
                         <?php
                     }
                 }
