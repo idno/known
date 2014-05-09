@@ -10,11 +10,14 @@
         </a>
         <ul class="dropdown-menu">
             <li><a href="#" data-acl="PUBLIC" class="acl-option"><i class="icon-globe"> </i> Public</a></li>
-	    <li><a href="#" data-acl="FOLLOWING" class="acl-option"><i class="icon-group"> </i> People I follow...</a></li>
             <?php
             $acls = \Idno\Entities\AccessGroup::get(['owner' => \Idno\Core\site()->session()->currentUserUUID()]);
             if (!empty($acls)) {
                 foreach ($acls as $acl) {
+		    	
+		    $icon = 'icon-cog';
+		    if ($acl->access_group_type == 'FOLLOWING')
+			$icon = 'icon->group';
                     ?>
                     <li><a href="#" data-acl="<?= $acl->getUUID(); ?>" class="acl-option"><i class="icon-cog"> </i> <?= $acl->title; ?></a></li>
                         <?php
