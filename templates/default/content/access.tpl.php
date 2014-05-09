@@ -1,4 +1,7 @@
-<!--<input type="hidden" name="access" id="access-control-id" value="PUBLIC" />
+<?php
+    if (\Idno\Core\site()->config->experimental) {
+?>
+<input type="hidden" name="access" id="access-control-id" value="PUBLIC" />
 <div id="access-control" class="acl">
     <div class="btn-group">
         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -20,4 +23,6 @@
         </ul>
     </div>
 </div>
--->
+<?php 
+    }
+?>
