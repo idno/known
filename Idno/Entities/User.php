@@ -322,6 +322,21 @@
                         $users[$user->getUUID()] = ['name' => $user->getTitle(), 'icon' => $user->getIcon(), 'url' => $user->getURL()];
                         $this->following         = $users;
 
+			// Create/modify ACL for following user
+			$acl = \Idno\Entities\AccessGroup::getOne([
+			    'owner' => \Idno\Core\site()->session()->currentUserUUID(),
+			    'access_group_type' => 'FOLLOWING'
+			]);
+
+			if (empty($acl)) {
+			    $acl = new \Idno\Entities\AccessGroup();
+			    $acl->title = "People I follow...";
+			    $acl->access_group_type = 'FOLLOWING';
+			}
+
+			$acl->addMember($user->getUUID());
+			$acl->save();
+			
 			\Idno\Core\site()->triggerEvent('follow', ['user' => $this, 'following' => $user]);
 			
                         return true;
@@ -372,6 +387,16 @@
                     unset($users[$user->getUUID()]);
                     $this->following = $users;
 		    
+		    $acl = \Idno\Entities\AccessGroup::getOne([
+			'owner' => \Idno\Core\site()->session()->currentUserUUID(),
+			'access_group_type' => 'FOLLOWING'
+		    ]);
+
+		    if (!empty($acl)) {
+			$acl->removeMember($user->getUUID());
+			$acl->save();
+		    }
+
 		    \Idno\Core\site()->triggerEvent('unfollow', ['user' => $this, 'following' => $user]);
 
                     return true;
