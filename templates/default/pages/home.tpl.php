@@ -18,6 +18,8 @@
 
         echo $this->drawPagination($vars['count']);
 
+    } else {
+	echo $this->draw('pages/home/nocontent');
     }
 
 ?>
