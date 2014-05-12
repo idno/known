@@ -129,7 +129,8 @@ namespace Idno\Pages\Account\Settings\Following {
 			    
 			    \Idno\Core\site()->session()->addMessage("You are now following " . $new_user->getTitle());
 			}
-		    } 
+		    } else
+			error_log('Could not follow user for some reason (probably already following)');
 		} else
 		    throw new \Exception('Sorry, that user doesn\'t exist!');
 	    } else 
