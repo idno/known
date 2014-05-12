@@ -95,13 +95,13 @@
             /**
              * Adds a specified user to the access group
              *
-             * @param string $user_id The user ID
+             * @param string $user_id The user UUID
              * @return true|false
              */
             function addMember($user_id, $access = 'read')
             {
                 if ($this->canEdit()) {
-                    if ($user = \Idno\Core\site()->db()->getObject($user_id) && $user instanceof User) {
+                    if (($user = \Idno\Core\site()->db()->getObject($user_id)) && ($user instanceof User)) {
                         $this->members[$access][] = $user_id;
 
                         return true;
@@ -114,13 +114,13 @@
             /**
              * Removes a specified user from the access group
              *
-             * @param string $user_id The user ID
+             * @param string $user_id The user UUID
              * @return true|false
              */
-            function removeMember($user_id)
+            function removeMember($user_id, $access = 'read')
             {
                 if (!empty($this->members) && is_array($this->members) && $key = array_search($user_id, $this->members)) {
-                    unset($this->members[$key]);
+                    unset($this->members[$access][$key]);
 
                     return true;
                 }
