@@ -117,10 +117,10 @@
              * @param string $user_id The user UUID
              * @return true|false
              */
-            function removeMember($user_id)
+            function removeMember($user_id, $access = 'read')
             {
                 if (!empty($this->members) && is_array($this->members) && $key = array_search($user_id, $this->members)) {
-                    unset($this->members[$key]);
+                    unset($this->members[$access][$key]);
 
                     return true;
                 }
