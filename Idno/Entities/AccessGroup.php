@@ -95,7 +95,7 @@
             /**
              * Adds a specified user to the access group
              *
-             * @param string $user_id The user ID
+             * @param string $user_id The user UUID
              * @return true|false
              */
             function addMember($user_id, $access = 'read')
@@ -114,7 +114,7 @@
             /**
              * Removes a specified user from the access group
              *
-             * @param string $user_id The user ID
+             * @param string $user_id The user UUID
              * @return true|false
              */
             function removeMember($user_id)
