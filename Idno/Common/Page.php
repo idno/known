@@ -338,7 +338,18 @@
                 exit;
             }
 	    
-
+	    /**
+	     * Functionality has not been implemented.
+	     */
+	    function notImplementedContent()
+            {
+                $this->setResponse(501);
+                http_response_code($this->response);
+                $t = \Idno\Core\site()->template();
+                $t->__(['body' => $t->__(['exception' => $e])->draw('pages/501'), 'title' => 'Not implemented'])->drawPage();
+                exit;
+            }
+	    
             function exception(\Exception $e)
             {
                 $this->setResponse(500);
