@@ -334,7 +334,7 @@
 			    $acl->access_group_type = 'FOLLOWING';
 			}
 
-			$acl->addMember($user->getUUID());
+			$acl->addMember($user->getID());
 			$acl->save();
 			
 			\Idno\Core\site()->triggerEvent('follow', ['user' => $this, 'following' => $user]);
@@ -393,7 +393,7 @@
 		    ]);
 
 		    if (!empty($acl)) {
-			$acl->removeMember($user->getUUID());
+			$acl->removeMember($user->getID());
 			$acl->save();
 		    }
 
