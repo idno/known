@@ -296,7 +296,7 @@
              * of $foo for any property of this entity.
              */
 
-            function __get($name)
+            function &__get($name)
             {
                 if (isset($this->attributes[$name])) return $this->attributes[$name];
 

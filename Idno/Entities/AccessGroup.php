@@ -101,7 +101,7 @@
             function addMember($user_id, $access = 'read')
             {
                 if ($this->canEdit()) {
-                    if ($user = \Idno\Core\site()->db()->getObject($user_id) && $user instanceof User) {
+                    if (($user = \Idno\Core\site()->db()->getObject($user_id)) && ($user instanceof User)) {
                         $this->members[$access][] = $user_id;
 
                         return true;
