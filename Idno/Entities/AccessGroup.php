@@ -86,7 +86,7 @@
             function isMember($user_id = '', $access = 'read')
             {
                 if (empty($user_id)) $user_id = \Idno\Core\site()->session()->currentUser()->uuid;
-                if (!empty($this->members->$access) && is_array($this->members->$access) && array_search($user_id, $this->members->$access)) {
+                if (!empty($this->members[$access]) && is_array($this->members[$access]) && array_search($user_id, $this->members[$access])) {
                     return true;
                 }
 
