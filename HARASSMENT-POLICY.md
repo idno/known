@@ -14,7 +14,7 @@ We also encourage you to use and publish the above anti-harassment policy
 for any Known-related events you may choose to run.
 
 As with all aspects of Known, we encourage you to submit suggested changes
-via GitHub: https://github.com/idno/idno/
+via GitHub: https://github.com/known/known/
 
 If you're wondering about how you can contribute, please see CONTRIBUTORS.md,
 or go ahead and email us: hello@withknown.com. We'll be delighted to hear from

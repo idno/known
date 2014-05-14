@@ -1,4 +1,4 @@
-<div class="idno-content">    <?php
+<div class="known-content">    <?php
 
     $this->annotations = [$vars['permalink'] => $vars['annotation']];
     

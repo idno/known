@@ -6,7 +6,7 @@
     if (!empty($vars['items'])) {
 
         foreach($vars['items'] as $entry) {
-            /* @var \Idno\Entities\ActivityStreamPost $entry */
+            /* @var \known\Entities\ActivityStreamPost $entry */
             echo $entry->draw();
         }
 

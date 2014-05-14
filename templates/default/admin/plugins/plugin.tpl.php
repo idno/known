@@ -45,9 +45,9 @@
 			<div class="requirements">
 			
 			    <?php
-			if (isset($requirements['idno'])) {
+			if (isset($requirements['known'])) {
 			    ?>
-			    <p><label>Known Version: <?php echo $this->__(['version' => $requirements['idno']])->draw('admin/dependencies/idno'); ?> </label> </p>
+			    <p><label>Known Version: <?php echo $this->__(['version' => $requirements['known']])->draw('admin/dependencies/known'); ?> </label> </p>
 			    <?php
 			}
 			?>
@@ -96,24 +96,24 @@
                 <?php 
                     if (array_key_exists($shortname, $vars['plugins_loaded'])) {
 ?>
-                        <form action="<?=\Idno\Core\site()->config()->url?>admin/plugins/" method="post">
+                        <form action="<?=\known\Core\site()->config()->url?>admin/plugins/" method="post">
                             <p>
                                 <input type="hidden" name="plugin" value="<?=$shortname?>" />
                                 <input type="hidden" name="action" value="uninstall" />
                                 <input class="btn" type="submit" value="Disable" />
                             </p>
-                            <?= \Idno\Core\site()->actions()->signForm('/admin/plugins/')?>
+                            <?= \known\Core\site()->actions()->signForm('/admin/plugins/')?>
                         </form>
 <?php
                     } else {
 ?>
-                        <form action="<?=\Idno\Core\site()->config()->url?>admin/plugins/" method="post">
+                        <form action="<?=\known\Core\site()->config()->url?>admin/plugins/" method="post">
                             <p>
                                 <input type="hidden" name="plugin" value="<?=$shortname?>" />
                                 <input type="hidden" name="action" value="install" />
                                 <input class="btn" type="submit" value="Enable" />
                             </p>
-                            <?= \Idno\Core\site()->actions()->signForm('/admin/plugins/')?>
+                            <?= \known\Core\site()->actions()->signForm('/admin/plugins/')?>
                         </form>
 <?php
                     }

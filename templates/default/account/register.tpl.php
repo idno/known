@@ -8,7 +8,7 @@
             <p>
 
             </p>
-            <form action="<?=\Idno\Core\site()->config()->url?>account/register" method="post" class="form-horizontal">
+            <form action="<?=\known\Core\site()->config()->url?>account/register" method="post" class="form-horizontal">
                 <div class="control-group">
                     <label class="control-label" for="inputUsername">Your name<br />
                     <small>The name other people will see.</small></label>
@@ -47,7 +47,7 @@
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </div>
-                <?= \Idno\Core\site()->actions()->signForm('/account/register') ?>
+                <?= \known\Core\site()->actions()->signForm('/account/register') ?>
 
             </form>
         </div>

@@ -57,7 +57,7 @@
                 <small><a href="#" onclick="$('#websitelist').append('<span><input type=&quot;url&quot; name=&quot;profile[url][]&quot; id=&quot;title&quot; value=&quot;&quot; placeholder=&quot;http://&quot; class=&quot;span3&quot; /> <small><a href=&quot;#&quot; onclick=&quot;$(this).parent().parent().remove(); return false;&quot;>Remove</a></small><br /></span>'); return false;">+ Add more</a></small>
             </p>
             <p>
-                <?= \Idno\Core\site()->actions()->signForm('/profile/' . $vars['user']->getHandle()) ?>
+                <?= \known\Core\site()->actions()->signForm('/profile/' . $vars['user']->getHandle()) ?>
                 <input type="submit" class="btn btn-primary" value="Save" />
                 <input type="button" class="btn" value="Cancel" onclick="hideContentCreateForm();" />
             </p>

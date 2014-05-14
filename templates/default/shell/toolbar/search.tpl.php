@@ -1,7 +1,7 @@
 <?php
 
-    $currentPage = \Idno\Core\site()->currentPage();
-    $action = \Idno\Core\site()->config()->url;
+    $currentPage = \known\Core\site()->currentPage();
+    $action = \known\Core\site()->config()->url;
     if (!empty($vars['content'])) {
         if (!is_array($vars['content'])) {
             $vars['content'] = [$vars['content']];

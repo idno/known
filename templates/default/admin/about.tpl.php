@@ -13,7 +13,7 @@
     <div class="span9">
         <p style="font-size: 1.6em"><a href="http://withknown.com/?utm_source=admin&utm_medium=installation">Known</a> is a publishing platform for everyone.</p>
         <p>
-            Version: <?= \Idno\Core\site()->version(); ?>
+            Version: <?= \known\Core\site()->version(); ?>
         </p>
     </div>
 </div>
@@ -22,7 +22,7 @@
         <div style="background-color: #fff; font-family: monospace; font-size: 0.9em; padding: 2em">
             <?php
 
-                $contributors = file_get_contents(\Idno\Core\site()->config()->path . '/CONTRIBUTORS.md');
+                $contributors = file_get_contents(\known\Core\site()->config()->path . '/CONTRIBUTORS.md');
                 echo $this->autop($this->parseURLs($contributors));
 
             ?>

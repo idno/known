@@ -1,5 +1,5 @@
 <?php
-    $user = \Idno\Core\site()->session()->currentUser();
+    $user = \known\Core\site()->session()->currentUser();
 ?>
 <div class="row">
 
@@ -11,12 +11,12 @@
         <div class="explanation">
             <p>
                 Change your basic account settings here, or <a
-                    href="<?= \Idno\Core\site()->session()->currentUser()->getURL() ?>/edit/">click here to edit your
+                    href="<?= \known\Core\site()->session()->currentUser()->getURL() ?>/edit/">click here to edit your
                     profile</a>.
             </p>
         </div>
 
-        <form action="<?= \Idno\Core\site()->config()->url ?>account/settings" method="post" class="form-horizontal"
+        <form action="<?= \known\Core\site()->config()->url ?>account/settings" method="post" class="form-horizontal"
               enctype="multipart/form-data">
             <div class="control-group">
                 <label class="control-label" for="inputName">Your name</label>
@@ -72,7 +72,7 @@
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </div>
-            <?= \Idno\Core\site()->actions()->signForm('/account/settings') ?>
+            <?= \known\Core\site()->actions()->signForm('/account/settings') ?>
 
         </form>
     </div>

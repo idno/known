@@ -8,7 +8,7 @@
         <ul class="dropdown-menu">
             <li><a href="#" data-acl="PUBLIC" class="acl-option"><i class="icon-globe"> </i> Public</a></li>
             <?php
-            $acls = \Idno\Entities\AccessGroup::get(['owner' => \Idno\Core\site()->session()->currentUserUUID()]);
+            $acls = \known\Entities\AccessGroup::get(['owner' => \known\Core\site()->session()->currentUserUUID()]);
             if (!empty($acls)) {
                 foreach ($acls as $acl) {
                     ?>

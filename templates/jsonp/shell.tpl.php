@@ -7,10 +7,10 @@
     header('Content-type: application/x-javascript; charset=UTF-8');
     
     unset($vars['body']);
-    $vars['messages'] = \Idno\Core\site()->session()->getAndFlushMessages();
+    $vars['messages'] = \known\Core\site()->session()->getAndFlushMessages();
 
-    if (!($callback = \Idno\Core\site()->currentPage()->getInput('callback'))) {
-        if (!($callback = \Idno\Core\site()->currentPage()->getInput('jsonp'))) {
+    if (!($callback = \known\Core\site()->currentPage()->getInput('callback'))) {
+        if (!($callback = \known\Core\site()->currentPage()->getInput('jsonp'))) {
             $callback = 'response';
         }
     }

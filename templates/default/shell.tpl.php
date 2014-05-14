@@ -1,8 +1,8 @@
 <?php
 
     header('Content-type: text/html');
-    header('Link: <' . \Idno\Core\site()->config()->url . 'webmention/>; rel="http://webmention.org/"');
-    header('Link: <' . \Idno\Core\site()->config()->url . 'webmention/>; rel="webmention"');
+    header('Link: <' . \known\Core\site()->config()->url . 'webmention/>; rel="http://webmention.org/"');
+    header('Link: <' . \known\Core\site()->config()->url . 'webmention/>; rel="webmention"');
 
 ?>
 <?php if (!$_SERVER["HTTP_X_PJAX"]): ?>
@@ -18,43 +18,43 @@
     <?= $this->draw('shell/favicon'); ?>
 
     <!-- Le styles -->
-    <link href="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/css/bootstrap.css"
+    <link href="<?= \known\Core\site()->config()->url . 'external/bootstrap/' ?>assets/css/bootstrap.css"
           rel="stylesheet">
-    <link rel="stylesheet" href="<?= \Idno\Core\site()->config()->url ?>external/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?= \known\Core\site()->config()->url ?>external/font-awesome/css/font-awesome.min.css">
     <style>
         body {
             padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
         }
     </style>
-    <link href="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/css/bootstrap-responsive.css"
+    <link href="<?= \known\Core\site()->config()->url . 'external/bootstrap/' ?>assets/css/bootstrap-responsive.css"
           rel="stylesheet">
-    <link href="<?= \Idno\Core\site()->config()->url ?>css/default.css" rel="stylesheet">
+    <link href="<?= \known\Core\site()->config()->url ?>css/default.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-    <script src="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/js/html5shiv.js"></script>
+    <script src="<?= \known\Core\site()->config()->url . 'external/bootstrap/' ?>assets/js/html5shiv.js"></script>
     <![endif]-->
 
     <!-- Default Known JavaScript -->
-    <script src="<?= \Idno\Core\site()->config()->url . 'js/default.js' ?>"></script>
+    <script src="<?= \known\Core\site()->config()->url . 'js/default.js' ?>"></script>
 
     <!-- To silo is human, to syndicate divine -->
     <link rel="alternate feed" type="application/rss+xml" title="<?= htmlspecialchars($vars['title']) ?>"
           href="<?= $this->getURLWithVar('_t', 'rss'); ?>"/>
-    <link rel="alternate feed" type="application/rss+xml" title="<?= htmlspecialchars(\Idno\Core\site()->config()->title) ?>: all content"
-          href="<?= \Idno\Core\site()->config()->url ?>content/all?_t=rss"/>
-    <link rel="feed" type="text/html" title="<?= htmlspecialchars(\Idno\Core\site()->config()->title) ?>"
-          href="<?= \Idno\Core\site()->config()->url ?>content/all"/>
+    <link rel="alternate feed" type="application/rss+xml" title="<?= htmlspecialchars(\known\Core\site()->config()->title) ?>: all content"
+          href="<?= \known\Core\site()->config()->url ?>content/all?_t=rss"/>
+    <link rel="feed" type="text/html" title="<?= htmlspecialchars(\known\Core\site()->config()->title) ?>"
+          href="<?= \known\Core\site()->config()->url ?>content/all"/>
 
     <!-- Webmention endpoint -->
-    <link href="<?= \Idno\Core\site()->config()->url ?>webmention/" rel="http://webmention.org/"/>
-    <link href="<?= \Idno\Core\site()->config()->url ?>webmention/" rel="webmention"/>
+    <link href="<?= \known\Core\site()->config()->url ?>webmention/" rel="http://webmention.org/"/>
+    <link href="<?= \known\Core\site()->config()->url ?>webmention/" rel="webmention"/>
 
-    <link type="text/plain" rel="author" href="<?= \Idno\Core\site()->config()->url ?>humans.txt"/>
+    <link type="text/plain" rel="author" href="<?= \known\Core\site()->config()->url ?>humans.txt"/>
 
     <?php
         // Load style assets
-        if ($style = \Idno\Core\site()->currentPage->getAssets('css')) {
+        if ($style = \known\Core\site()->currentPage->getAssets('css')) {
             foreach ($style as $css) {
                 ?>
                 <link href="<?= $css; ?>" rel="stylesheet">
@@ -63,7 +63,7 @@
         }
     ?>
 
-    <script src="<?=\Idno\Core\site()->config()->url?>external/fragmention/fragmention.js"></script>
+    <script src="<?=\known\Core\site()->config()->url?>external/fragmention/fragmention.js"></script>
     <?= $this->draw('shell/head', $vars); ?>
 
 </head>
@@ -72,10 +72,10 @@
 <?php endif; ?>
 <div id="pjax-container">
     <?php
-        $currentPage = \Idno\Core\site()->currentPage();
+        $currentPage = \known\Core\site()->currentPage();
 
         if (!empty($currentPage))
-            $hidenav = \Idno\Core\site()->currentPage()->getInput('hidenav');
+            $hidenav = \known\Core\site()->currentPage()->getInput('hidenav');
         if (empty($vars['hidenav']) && empty($hidenav)) {
             ?>
             <div class="navbar navbar-inverse navbar-fixed-top">
@@ -87,7 +87,7 @@
                             <span class="icon-bar"></span>
                         </button>
                         <a class="brand"
-                           href="<?= \Idno\Core\site()->config()->url ?>"><?= \Idno\Core\site()->config()->title ?></a>
+                           href="<?= \known\Core\site()->config()->url ?>"><?= \known\Core\site()->config()->title ?></a>
 
                         <div class="nav-collapse collapse">
                             <?= $this->draw('shell/toolbar/search') ?>
@@ -97,7 +97,7 @@
                             <ul class="nav pull-right" role="menu">
                                 <?php
 
-                                    if (\Idno\Core\site()->session()->isLoggedIn()) {
+                                    if (\known\Core\site()->session()->isLoggedIn()) {
 
                                         echo $this->draw('shell/toolbar/logged-in');
 
@@ -129,7 +129,7 @@
 
         <?php
 
-            if ($messages = \Idno\Core\site()->session()->getAndFlushMessages()) {
+            if ($messages = \known\Core\site()->session()->getAndFlushMessages()) {
                 foreach ($messages as $message) {
 
                     ?>
@@ -156,16 +156,16 @@
 <?php if (!$_SERVER["HTTP_X_PJAX"]): ?>
 <!-- Le javascript -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="<?= \Idno\Core\site()->config()->url . 'external/jquery/' ?>jquery.min.js"></script>
-<script src="<?= \Idno\Core\site()->config()->url . 'external/jquery-timeago/' ?>jquery.timeago.js"></script>
-<script src="<?= \Idno\Core\site()->config()->url . 'external/jquery-pjax/' ?>jquery.pjax.js"></script>
-<script src="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
+<script src="<?= \known\Core\site()->config()->url . 'external/jquery/' ?>jquery.min.js"></script>
+<script src="<?= \known\Core\site()->config()->url . 'external/jquery-timeago/' ?>jquery.timeago.js"></script>
+<script src="<?= \known\Core\site()->config()->url . 'external/jquery-pjax/' ?>jquery.pjax.js"></script>
+<script src="<?= \known\Core\site()->config()->url . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
 <!-- Video shim -->
-<script src="<?= \Idno\Core\site()->config()->url . 'external/fitvids/jquery.fitvids.min.js' ?>"></script>
+<script src="<?= \known\Core\site()->config()->url . 'external/fitvids/jquery.fitvids.min.js' ?>"></script>
 
 <?php
     // Load javascript assets
-    if ($scripts = \Idno\Core\site()->currentPage->getAssets('javascript')) {
+    if ($scripts = \known\Core\site()->currentPage->getAssets('javascript')) {
         foreach ($scripts as $script) {
             ?>
             <script src="<?= $script ?>"></script>
@@ -175,7 +175,7 @@
 ?>
 
 <!-- HTML5 form element support for legacy browsers -->
-<script src="<?= \Idno\Core\site()->config()->url . 'external/h5f/h5f.min.js' ?>"></script>
+<script src="<?= \known\Core\site()->config()->url . 'external/h5f/h5f.min.js' ?>"></script>
 
 <script>
 
@@ -201,7 +201,7 @@
 
     // Shim so that JS functions can get the current site URL
     function wwwroot() {
-        return '<?=\Idno\Core\site()->config()->wwwroot?>';
+        return '<?=\known\Core\site()->config()->wwwroot?>';
     }
 
     $(document).ready(function () {
