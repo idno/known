@@ -951,6 +951,7 @@
             {
 
                 if (!\Idno\Core\site()->session()->isLoggedOn()) return false;
+		if (!\Idno\Core\site()->canEdit()) return false;
 
                 if (empty($user_id)) {
                     $user_id = \Idno\Core\site()->session()->currentUserUUID();
