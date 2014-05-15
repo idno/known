@@ -55,7 +55,7 @@
                         <div class="e-note"><?php
                             $description = $vars['user']->getDescription();
                             if (!empty($description)) {
-                                echo $this->autop($vars['user']->getDescription());
+                                echo '<div class="highlightedText">' . $this->autop($vars['user']->getDescription()) . '</div>';
                             } else if ($vars['user']->getUUID() == \Idno\Core\site()->session()->currentUserUUID()) {
                                 ?>
                                 <p class="highlightedText">
