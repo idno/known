@@ -23,7 +23,7 @@
 
             function postContent()
             {
-                $this->gatekeeper(); // Logged-in only please
+                $this->createGatekeeper(); // Logged-in only please
                 $user = \Idno\Core\site()->session()->currentUser();
                 $name = $this->getInput('name');
                 //$handle = $this->getInput('handle');

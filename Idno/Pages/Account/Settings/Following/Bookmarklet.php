@@ -44,7 +44,7 @@ namespace Idno\Pages\Account\Settings\Following {
 	}
 
 	function getContent() {
-	    $this->gatekeeper();
+	    $this->createGatekeeper();
 	    $user = \Idno\Core\site()->session()->currentUser();
 
 	    $u = $this->getInput('u');
@@ -84,7 +84,7 @@ namespace Idno\Pages\Account\Settings\Following {
 	}
 
 	function postContent() {
-	    $this->gatekeeper();
+	    $this->createGatekeeper();
 	    $user = \Idno\Core\site()->session()->currentUser();
 
 	    if ($uuid = $this->getInput('uuid')) {

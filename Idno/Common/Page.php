@@ -380,6 +380,20 @@
                     $this->forward('/session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']));
                 }
             }
+	    
+	    /**
+	     * Placed in pages to ensure that a user is logged in and able
+	     * to create content. Returns a 403 and forwards to the home page if 
+	     * the user can't create content.
+	     */
+	    function createGatekeeper() 
+	    {
+		if (!\Idno\Core\site()->canEdit()) {
+		    $this->setResponse(403);
+                    $this->forward();
+		}
+		$this->gatekeeper();
+	    }
 
             /**
              * Placed in pages to ensure that only logged-out users can

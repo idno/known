@@ -25,7 +25,7 @@
 
             function postContent()
             {
-                $this->gatekeeper(); // Logged-in only please
+                $this->createGatekeeper(); // Logged-in only please
                 $user = \Idno\Core\site()->session()->currentUser();
 
                 $default_feed_content = $this->getInput('default_feed_content');
