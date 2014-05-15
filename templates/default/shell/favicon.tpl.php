@@ -19,9 +19,10 @@
 <?php
     } else {
 ?>
-        <link rel="icon" type="image/png" href="<?=\Idno\Core\site()->config()->url?>gfx/template/idnoicon.png">
+<!--        <link rel="icon" type="image/png" href="<?=\Idno\Core\site()->config()->url?>gfx/template/favicon.png"> -->
+        <link rel="icon" type="image/png" href="http://withknown.com/img/logo_k.png">
         <!-- Make this an "app" when saved to an ios device's home screen -->
-        <link rel="apple-touch-icon" href="<?=\Idno\Core\site()->config()->url?>gfx/template/idnoappleicon.png">
+        <link rel="apple-touch-icon" href="http://withknown.com/img/logo_k.png">
 <?php
     }
 

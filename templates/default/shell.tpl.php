@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="initial-scale=1.0" media="(device-height: 568px)"/>
     <meta name="description" content="<?= htmlspecialchars($vars['description']) ?>">
-    <meta name="generator" content="idno http://idno.co">
+    <meta name="generator" content="Known http://withknown.com">
     <?= $this->draw('shell/favicon'); ?>
 
     <!-- Le styles -->

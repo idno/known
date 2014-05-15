@@ -27,7 +27,7 @@
     $self->setAttribute('type', 'application/rss+xml');
     $self->setAttribute('xlmns', 'http://www.w3.org/2005/Atom');
     $channel->appendChild($self);
-    $channel->appendChild($page->createElement('generator','Idno http://idno.co'));
+    $channel->appendChild($page->createElement('generator','Known http://withknown.com'));
 
     // In case this isn't a feed page, find any objects
     if (empty($vars['items']) && !empty($vars['object'])) {
