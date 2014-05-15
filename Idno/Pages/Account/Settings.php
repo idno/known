@@ -52,8 +52,10 @@
                         if (getimagesize($_FILES['avatar']['tmp_name'])) {
                             if ($icon = \Idno\Entities\File::createThumbnailFromFile($_FILES['avatar']['tmp_name'], $_FILES['avatar']['name'], 300)) {
                                 $user->icon = (string)$icon;
+                                \Idno\Core\site()->session()->addMessage("Your user picture was updated.");
                             } else if ($icon = \Idno\Entities\File::createFromFile($_FILES['avatar']['tmp_name'], $_FILES['avatar']['name'])) {
                                 $user->icon = (string)$icon;
+                                \Idno\Core\site()->session()->addMessage("Your user picture was updated.");
                             }
                         }
                     }

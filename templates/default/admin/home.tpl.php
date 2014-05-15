@@ -69,7 +69,7 @@
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="user_avatar_favicons">Use the user's avatar as the website icon on pages they own</small></label>
+                <label class="control-label" for="user_avatar_favicons">Use the user's picture as the website icon on pages they own</small></label>
                 <div class="controls">
                     <select class="span4" name="user_avatar_favicons">
                         <option value="true" <?php if (\Idno\Core\site()->config()->user_avatar_favicons == true) echo 'selected="selected"'; ?>>Yes</option>
