@@ -59,8 +59,10 @@
                     $user = $event->data()['object'];
 
                     if ($user instanceof User) {
-                        if ($user->getUUID() == \Idno\Core\site()->session()->currentUser()->getUUID()) {
-                            \Idno\Core\site()->session()->refreshSessionUser($user);
+                        if ($currentUser = \Idno\Core\site()->session()->currentUser()) {
+                            if ($user->getUUID() == $currentUser->getUUID()) {
+                                \Idno\Core\site()->session()->refreshSessionUser($user);
+                            }
                         }
                     }
 
