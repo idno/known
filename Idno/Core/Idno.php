@@ -269,6 +269,58 @@
                 return '0.1-dev';
             }
 
+	    /**
+             * Can a specified user (either an explicitly specified user ID
+             * or the currently logged-in user if this is left blank) edit
+             * this entity?
+	     * 
+	     * In this instance this specifically means "Can a given user create 
+	     * new content or
+             *
+             * @param string $user_id
+             * @return true|false
+             */
+
+            function canEdit($user_id = '')
+            {
+
+                if (!\Idno\Core\site()->session()->isLoggedOn()) return false;
+
+                if (empty($user_id)) {
+                    $user_id = \Idno\Core\site()->session()->currentUserUUID();
+                }
+
+		if ($user = \Idno\Entities\User::getByUUID($user_id)) {
+		    
+		    // Remote users can't ever create anything :(
+		    if ($user instanceof \Idno\Entities\RemoteUser)
+			return false;
+		    
+		    // But local users can
+		    if ($user instanceof \Idno\Entities\User)
+			return true;
+		    
+		}
+
+                return false;
+            }
+	    
+	    /**
+             * Can a specified user (either an explicitly specified user ID
+             * or the currently logged-in user if this is left blank) view
+             * this entity?
+	     * 
+	     * Always returns true at the moment, but might be a good way to build
+	     * walled garden functionality.
+             *
+             * @param string $user_id
+             * @return true|false
+             */
+
+            function canRead($user_id = '')
+            {
+                return true;
+            }
         }
 
         /**
