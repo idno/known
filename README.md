@@ -1,21 +1,15 @@
-idno
-====
-idno is a modern social networking engine, which aims to be:
+Known
+=====
+Known is a publishing platform for everyone.
 
-* Easy to use
-* Easy to customize
-* Easy to build on top of
-* A social website in a box
+Project homepage: <http://withknown.com>
 
-Project homepage: <http://idno.co>
-Project lead: Ben Werdmuller <http://werd.io/>
-
-idno is under active development and an installable package is not yet available. It requires PHP 5.4+ with the MongoDB extension, Apache Web Server with the mod_rewrite extension, and MongoDB.
+Known is under active development and an installable package is not yet available. It requires PHP 5.4+ with the MongoDB extension, Apache Web Server with the mod_rewrite extension, and MongoDB.
 
 Copyright
 ---------
-Except for included third-party projects, idno is (c) Ben Werdmuller.
-For included third-party projects, see "idno also contains" below.
+Except for included third-party projects, Known is (c) Known, Inc.
+For included third-party projects, see "Known also contains" below.
 
 Contributors
 ------------
@@ -23,10 +17,10 @@ Contributors
 
 License
 -------
-idno is licensed under the Apache Software License 2.0. See LICENSE for more information.
+Known is licensed under the Apache Software License 2.0. See LICENSE for more information.
 
-idno also contains
-------------------
+Known also contains
+-------------------
 * Twitter Bootstrap, which is distributed under the Apache 2.0 license. Source: https://github.com/twitter/bootstrap
 * Bonita, which is distributed under the Apache 2.0 license. Source: https://github.com/benwerd/bonita
 * jQuery, which is distributed under the MIT License. Source: https://github.com/jquery/jquery

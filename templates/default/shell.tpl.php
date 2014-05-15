@@ -35,7 +35,7 @@
     <script src="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/js/html5shiv.js"></script>
     <![endif]-->
 
-    <!-- Default idno JavaScript -->
+    <!-- Default Known JavaScript -->
     <script src="<?= \Idno\Core\site()->config()->url . 'js/default.js' ?>"></script>
 
     <!-- To silo is human, to syndicate divine -->
@@ -179,7 +179,7 @@
 
 <script>
 
-    //$(document).pjax('a:not([href^=\\.],[href^=file])', '#pjax-container');    // In idno, URLs with extensions are probably files.
+    //$(document).pjax('a:not([href^=\\.],[href^=file])', '#pjax-container');    // In Known, URLs with extensions are probably files.
     /*$(document).on('pjax:click', function(event) {
      if (event.target.href.match('/edit/')) {
      // For a reason I can't actuallly figure out, /edit pages never render with chrome
