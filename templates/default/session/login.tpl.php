@@ -5,7 +5,7 @@
             Sign in
         </h3>
 
-        <form action="<?= \Idno\Core\site()->config()->url ?>session/login" method="post">
+        <form action="<?= \known\Core\site()->config()->url ?>session/login" method="post">
             <div class="control-group">
                 <div class="controls">
                     <input type="text" id="inputEmail" name="email" placeholder="Your username or email address"
@@ -26,11 +26,11 @@
                         } else if (!empty($_SERVER['HTTP_REFERER'])) {
                             echo htmlspecialchars($_SERVER['HTTP_REFERER']);
                         } else {
-                            echo \Idno\Core\site()->config()->url;
+                            echo \known\Core\site()->config()->url;
                         }?>" />
                 </div>
             </div>
-            <?= \Idno\Core\site()->actions()->signForm('/session/login') ?>
+            <?= \known\Core\site()->actions()->signForm('/session/login') ?>
         </form>
 
     </div>

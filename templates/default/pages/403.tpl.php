@@ -11,7 +11,7 @@
         <div class="offset1 span10">
             <p class="p-summary">It looks like you are not permitted to view this resource, sorry!</p>
             <p>
-                <a href="<?=\Idno\Core\site()->config()->url?>">Click here to head back to the <?=\Idno\Core\site()->config()->title?> homepage</a>.
+                <a href="<?=\known\Core\site()->config()->url?>">Click here to head back to the <?=\known\Core\site()->config()->title?> homepage</a>.
             </p>
         </div>
     </div>

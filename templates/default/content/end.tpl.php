@@ -1,4 +1,4 @@
-<?php /* @var \Idno\Common\Entity $vars['object'] */ ?>
+<?php /* @var \known\Common\Entity $vars['object'] */ ?>
     <div class="permalink">
         <p>
             <a class="u-url url" href="<?=$vars['object']->getURL()?>" rel="permalink" ><time class="dt-published" datetime="<?=date('c',$vars['object']->created)?>"><?=date('c',$vars['object']->created)?></time></a>
@@ -9,7 +9,7 @@
             <?=$this->draw('content/end/links')?>
             <?php
 
-                if (\Idno\Core\site()->currentPage()->isPermalink() && \Idno\Core\site()->config()->indieweb_citation) {
+                if (\known\Core\site()->currentPage()->isPermalink() && \known\Core\site()->config()->indieweb_citation) {
 
             ?>
             <span class="citation"><?=$vars['object']->getCitation()?></span>
@@ -23,7 +23,7 @@
     <br clear="all" />
 <?php
 
-    if (\Idno\Core\site()->currentPage()->isPermalink()) {
+    if (\known\Core\site()->currentPage()->isPermalink()) {
 
         if (!empty($likes) || !empty($replies) || !empty($shares) || !empty($rsvps)) {
 

@@ -10,7 +10,7 @@
             <?php
 
                 foreach ($vars['contentTypes'] as $contentType) {
-                    /* @var Idno\Common\ContentType $contentType */
+                    /* @var known\Common\ContentType $contentType */
                     ?>
 
                     <a class="contentTypeButton" id="<?= $contentType->getClassSelector() ?>Button"
@@ -43,8 +43,8 @@
 <?php
 
     if (empty($vars['items']) && sizeof($vars['contentTypes']) <= 1 &&
-        \Idno\Core\site()->session()->isLoggedIn() &&
-        \Idno\Core\site()->session()->currentUser()->isAdmin()) {
+        \known\Core\site()->session()->isLoggedIn() &&
+        \known\Core\site()->session()->currentUser()->isAdmin()) {
 
         ?>
         <div class="row" style="margin-top: 5em">
@@ -55,7 +55,7 @@
                     </p>
                     <p>
                         Welcome to your Known site!<br />
-                        <a href="<?=\Idno\Core\site()->config()->url?>admin/">Click here to start configuring your site</a>.
+                        <a href="<?=\known\Core\site()->config()->url?>admin/">Click here to start configuring your site</a>.
                     </p>
                 </div>
             </div>

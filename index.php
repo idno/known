@@ -8,22 +8,22 @@
  * check out the README.md file.
  *
  * Project homepage:    http://withknown.com/
- * Project repo:        https://github.com/idno/idno
+ * Project repo:        https://github.com/known/known
  *
- * @package idno
+ * @package known
  * @subpackage core
  */
 
-// Load the idno framework
+// Load the known framework
 
-require_once(dirname(__FILE__) . '/Idno/start.php');
+require_once(dirname(__FILE__) . '/known/start.php');
 
 // Manage routing
 
-\Idno\Core\PageHandler::hook('404', function () {
+\known\Core\PageHandler::hook('404', function () {
     http_response_code(404);
-    $t = \Idno\Core\site()->template();
+    $t = \known\Core\site()->template();
     $t->__(['body' => $t->draw('pages/404'), 'title' => 'Not found!'])->drawPage();
     exit;
 });
-\Idno\Core\PageHandler::serve(\Idno\Core\site()->pagehandlers);
+\known\Core\PageHandler::serve(\known\Core\site()->pagehandlers);

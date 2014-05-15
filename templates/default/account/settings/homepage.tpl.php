@@ -1,5 +1,5 @@
 <?php
-    $user = \Idno\Core\site()->session()->currentUser();
+    $user = \known\Core\site()->session()->currentUser();
 ?>
 <div class="row">
 
@@ -15,7 +15,7 @@
             </p>
         </div>
 
-        <form action="<?= \Idno\Core\site()->config()->url ?>account/settings/homepage" method="post"
+        <form action="<?= \known\Core\site()->config()->url ?>account/settings/homepage" method="post"
               class="form-horizontal" enctype="multipart/form-data">
 
             <div class="control-group">
@@ -28,7 +28,7 @@
 
                         if (!empty($vars['content_types'])) {
                             foreach ($vars['content_types'] as $content_type) {
-                                /* @var \Idno\Common\ContentType $content_type */
+                                /* @var \known\Common\ContentType $content_type */
                                 ?>
 
                                 <div class="content-type">
@@ -63,7 +63,7 @@
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </div>
-            <?= \Idno\Core\site()->actions()->signForm('/account/settings/homepage') ?>
+            <?= \known\Core\site()->actions()->signForm('/account/settings/homepage') ?>
 
         </form>
     </div>

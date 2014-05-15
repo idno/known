@@ -7,10 +7,10 @@
             function testHomepageLoads() {
 
                 // Load Known framework
-                require_once(dirname(dirname(__FILE__)) . '/Idno/start.php');
+                require_once(dirname(dirname(__FILE__)) . '/known/start.php');
 
                 // Get the rendered homepage
-                $contents = file_get_contents(\Idno\Core\site()->config()->url);
+                $contents = file_get_contents(\known\Core\site()->config()->url);
 
                 // Make sure it's not empty
                 $this->assertNotEmpty($contents);

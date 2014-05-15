@@ -1,13 +1,13 @@
 <?php
     $object = $vars['object'];
     $subObject = $object->getObject();
-    /* @var \Idno\Entities\ActivityStreamPost $object */
-    /* @var \Idno\Common\Entity $subObject */
+    /* @var \known\Entities\ActivityStreamPost $object */
+    /* @var \known\Common\Entity $subObject */
 
     if (!empty($object) && !empty($subObject)) {
         if ($owner = $object->getActor()) {
 ?>
-<div class="row idno-entry idno-entry-<?php
+<div class="row known-entry known-entry-<?php
     if (preg_match('@\\\\([\w]+)$@', get_class($subObject), $matches)) {
         echo strtolower($matches[1]);
     }?>">
@@ -18,7 +18,7 @@
             <a href="<?=$owner->getURL()?>" class="p-name u-url"><?=$owner->getTitle();?></a>
         </p>
     </div>
-    <div class="span8 <?=$subObject->getMicroformats2ObjectType()?> idno-<?=$subObject->getContentTypeCategorySlug()?> idno-object idno-content">
+    <div class="span8 <?=$subObject->getMicroformats2ObjectType()?> known-<?=$subObject->getContentTypeCategorySlug()?> known-object known-content">
         <div class="visible-phone">
             <p class="p-author author h-card vcard">
                 <a href="<?=$owner->getURL()?>"><img class="u-logo logo u-photo photo" src="<?=$owner->getIcon()?>" /></a>

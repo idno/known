@@ -2,7 +2,7 @@
 
     header('Content-type: application/rss+xml');
     unset($vars['body']);
-    //$vars['messages'] = \Idno\Core\site()->session()->getAndFlushMessages();
+    //$vars['messages'] = \known\Core\site()->session()->getAndFlushMessages();
 
     $page = new DOMDocument();
     $page->formatOutput = true;
@@ -15,8 +15,8 @@
     $channel->appendChild($page->createElement('title',$vars['title']));
     $channel->appendChild($page->createElement('description',$vars['description']));
     $channel->appendChild($page->createElement('link',$this->getCurrentURLWithoutVar('_t')));
-    if (!empty(\Idno\Core\site()->config()->hub)) {
-        $pubsub = $page->createElement('link', \Idno\Core\site()->config()->hub);
+    if (!empty(\known\Core\site()->config()->hub)) {
+        $pubsub = $page->createElement('link', \known\Core\site()->config()->hub);
         $pubsub->setAttribute('rel', 'hub');
         $pubsub->setAttribute('xlmns', 'http://www.w3.org/2005/Atom');
         $channel->appendChild($pubsub);
@@ -37,7 +37,7 @@
     // If we have a feed, add the items
     if (!empty($vars['items'])) {
         foreach($vars['items'] as $item) {
-            if ($item instanceof \Idno\Entities\ActivityStreamPost) {
+            if ($item instanceof \known\Entities\ActivityStreamPost) {
                 $item = $item->getObject();
             }
             $rssItem = $page->createElement('item');

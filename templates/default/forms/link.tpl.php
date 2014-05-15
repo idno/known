@@ -10,5 +10,5 @@
 <a <?php if (!empty($vars['class'])) { ?> class="<?=$vars['class'];?>" <?php } ?> href="<?=($vars['url'])?>" onclick="$('#<?=$uniqueID?>').submit(); return false;"><?=htmlspecialchars($vars['label'])?></a>
 <form action="<?=($vars['url'])?>" style="display: none" id="<?=$uniqueID?>" method="<?=$vars['method']?>">
     <textarea name="json"><?=htmlspecialchars(json_encode($vars['data']))?></textarea>
-    <?=  \Idno\Core\site()->actions()->signForm($vars['url']);?>
+    <?=  \known\Core\site()->actions()->signForm($vars['url']);?>
 </form>

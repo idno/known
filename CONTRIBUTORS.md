@@ -24,7 +24,7 @@ Community contributors, by Known release
 How can I contribute?
 ---------------------
 
-* Visit Known on GitHub: https://github.com/idno/idno
+* Visit Known on GitHub: https://github.com/known/known
 * Check and file issues
 * Submit pull requests
 * Not a coder? No problem. Design, text copy, workflows, documentation and bug hunting are just as important as code. Ask us how!

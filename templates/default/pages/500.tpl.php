@@ -15,7 +15,7 @@
     <div class="row">
         <div class="offset1 span10">
             <p class="p-summary"><?= $vars['exception']->getMessage(); ?></p>
-            <?php if (($debug = \Idno\Core\site()->config()->debug) && (!empty($debug))) { ?>
+            <?php if (($debug = \known\Core\site()->config()->debug) && (!empty($debug))) { ?>
             <pre>
             <?= $vars['exception']->getTraceAsString(); ?>
             </pre>
