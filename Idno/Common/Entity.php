@@ -999,7 +999,7 @@
             {
                 $access = $this->access;
                 if (!$idOnly && $access != 'PUBLIC') {
-                    $access = site()->db()->getObject($access);
+                    $access = \Idno\Core\site()->db()->getObject($access);
                 }
 
                 return $access;
