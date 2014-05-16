@@ -27,8 +27,8 @@
                 $this->adminGatekeeper(); // Admins only
                 $title                = $this->getInput('title');
                 $description          = $this->getInput('description');
-                $url                  = $this->getInput('url');
-                $path                 = $this->getInput('path');
+                $url                  = rtrim($this->getInput('url'), ' /') . '/';
+                $path                 = rtrim($this->getInput('path'), ' /');
                 $host                 = $this->getInput('host');
                 $hub                  = $this->getInput('hub'); // PuSH hub
                 $open_registration    = $this->getInput('open_registration');
