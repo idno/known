@@ -542,10 +542,13 @@
              * Retrieves input.
              *
              * @param string $name Name of the input variable
-             * @param boolean $filter Whether or not to filter the variable for safety (default: false)
+	     * @param mixed $default A default return value if no value specified (default: null)
+             * @param boolean $filter Whether or not to filter the variable for safety (default: null), you can pass
+	     *                 a callable method, function or enclosure with a definition like function($name, $value), which
+	     *                 will return the filtered result.
              * @return mixed
              */
-            function getInput($name, $filter = false)
+            function getInput($name, $default = null, callable $filter = null)
             {
                 if (!empty($name)) {
                     if (!empty($_REQUEST[$name])) {
@@ -553,11 +556,15 @@
                     } else if (!empty($this->data[$name])) {
                         $value = $this->data[$name];
                     }
+		    if ((empty($value)) && (!empty($value)))
+			$value = $default;
                     if (!empty($value)) {
-                        if ($filter == true) {
-                            // TODO: add some kind of sensible filter
+                        if (isset($filter) && is_callable($filter)) {
+                            $value = call_user_func($filter, $name, $value);
                         }
 
+			// TODO, we may want to add some sort of system wide default filter for when $filter is null
+			
                         return $value;
                     }
                 }
