@@ -62,6 +62,7 @@
                 $this->addPageHandler('/robots\.txt', '\Idno\Pages\Txt\Robots');
                 $this->addPageHandler('/humans\.txt', '\Idno\Pages\Txt\Humans');
                 $this->addPageHandler('/autosave/?', '\Idno\Pages\Entity\Autosave');
+                $this->addPageHandler('/search/?', '\Idno\Pages\Search\Forward');
 
             }
 
