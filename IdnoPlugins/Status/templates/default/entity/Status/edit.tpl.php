@@ -60,8 +60,11 @@
                 } ?></textarea>
 
         </div>
-        <div class="span6 offset1">
+        <div class="span8 offset1">
 
+            <p id="counter" style="display:none" class="pull-right">
+                <span class="count"></span>
+            </p>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('note'); ?>
             <p>
                 <?= \Idno\Core\site()->actions()->signForm('/status/edit') ?>

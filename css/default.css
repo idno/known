@@ -360,6 +360,7 @@ span.contentTypeLogo {
 
 #counter {
     text-align: right;
+    padding-top: 0.25em;
 }
 
 #counter .count {
