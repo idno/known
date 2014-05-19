@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="url">Website URL<br /><small>The full URL to your Known site. Include a trailing slash.</small></label>
+                <label class="control-label" for="url">Website URL<br /><small>The full URL to your Known site.</small></label>
                 <div class="controls">
                     <input type="url" id="url" placeholder="Site URL" class="span4" name="url" value="<?=htmlspecialchars(\Idno\Core\site()->config()->url)?>" >
                 </div>
@@ -51,7 +51,7 @@
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="path">Full path to installation<br /><small>Make sure you don't include a trailing slash.</small></label>
+                <label class="control-label" for="path">Full path to installation<br /></label>
                 <div class="controls">
                     <input type="text" id="path" placeholder="Path to Known installation" class="span4" name="path" value="<?=htmlspecialchars(\Idno\Core\site()->config()->path)?>" >
                 </div>
