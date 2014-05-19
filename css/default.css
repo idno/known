@@ -358,6 +358,15 @@ span.contentTypeLogo {
     font-size: 30px;
 }
 
+#counter {
+    text-align: right;
+}
+
+#counter .count {
+    font-size: 1.3em;
+    color: #aaa;
+}
+
 /**
  * Friendly messages
  */
@@ -380,3 +389,5 @@ span.contentTypeLogo {
 .field-description {
     font-size: 0.8em;
 }
+
+
