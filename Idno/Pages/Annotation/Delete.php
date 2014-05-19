@@ -34,7 +34,7 @@
                 $permalink = $object->getUrl() . '/annotations/' . $this->arguments[1];
                 if ($object->canEdit()) {
                     if (($object->removeAnnotation($permalink)) && ($object->save())) {
-                        \Idno\Core\site()->session()->addMessage('Annotation ' . $permalink . ' was deleted.');
+                        \Idno\Core\site()->session()->addMessage('The annotation was deleted.');
                     }
                 }
                 $this->forward($_SERVER['HTTP_REFERER']);
