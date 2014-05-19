@@ -14,7 +14,7 @@
 
             function getContent()
             {
-                $this->gatekeeper(); // Logged-in users only
+                $this->createGatekeeper(); // Logged-in users only
                 $t = \Idno\Core\site()->template();
                 $body = $t->draw('account/firefox');
                 $t->__(['title' => 'Firefox', 'body' => $body])->drawPage();

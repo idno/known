@@ -2,7 +2,9 @@
 
     if (!empty($vars['contentTypes'])) {
 
-        echo $this->draw('content/create');
+	if (\Idno\Core\site()->canEdit()) {
+	    echo $this->draw('content/create');
+	}
 
     } else {
 

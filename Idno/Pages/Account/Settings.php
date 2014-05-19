@@ -14,7 +14,7 @@
 
             function getContent()
             {
-                $this->gatekeeper(); // Logged-in only please
+                $this->createGatekeeper(); // Logged-in only please
                 $t        = \Idno\Core\site()->template();
                 $t->body  = $t->draw('account/settings');
                 $t->title = 'Account settings';
@@ -23,7 +23,7 @@
 
             function postContent()
             {
-                $this->gatekeeper(); // Logged-in only please
+                $this->createGatekeeper(); // Logged-in only please
                 $user = \Idno\Core\site()->session()->currentUser();
                 $name = $this->getInput('name');
                 //$handle = $this->getInput('handle');
