@@ -441,7 +441,9 @@
                         }
 
                         \Idno\Core\site()->events()->dispatch('saved', $event);
-                    }
+                    } else {
+			\Idno\Core\site()->triggerEvent('updated', array('object' => $this));
+		    }
 
                     return $this->_id;
                 } else {
