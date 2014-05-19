@@ -3,7 +3,7 @@ System requirements
 
 Known *requires* the following server components:
 
-* Apache Web Server
+* A Web Server that supports URL rewriting (Apache + mod_rewrite recommended)
 * PHP 5.4 or above
 * MongoDB
 
