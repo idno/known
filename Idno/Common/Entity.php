@@ -296,7 +296,7 @@
              * of $foo for any property of this entity.
              */
 
-            function __get($name)
+            function &__get($name)
             {
                 if (isset($this->attributes[$name])) return $this->attributes[$name];
 
@@ -953,6 +953,7 @@
             {
 
                 if (!\Idno\Core\site()->session()->isLoggedOn()) return false;
+		if (!\Idno\Core\site()->canEdit()) return false;
 
                 if (empty($user_id)) {
                     $user_id = \Idno\Core\site()->session()->currentUserUUID();
