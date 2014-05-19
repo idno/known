@@ -1,5 +1,5 @@
-Known Requirements
-##################
+System requirements
+###################
 
 Known *requires* the following server components:
 
