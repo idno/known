@@ -117,6 +117,19 @@
                 }
             }
 
+            /**
+             * Retrieve the canonical URL of the site
+             * @return string
+             */
+            function getURL()
+            {
+                if (!empty($this->url)) {
+                    return $this->url;
+                } else {
+                    return '/';
+                }
+            }
+
         }
 
     }
