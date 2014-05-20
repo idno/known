@@ -20,7 +20,8 @@
                 'plugins'           => array( // Default plugins
                                               'Status'
                 ),
-                'items_per_page'    => 10 // Default items per page
+                'items_per_page'    => 10, // Default items per page
+		'experimental'	    => false // A common way to enable experimental functions still in development
             );
 
             function init()
