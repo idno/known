@@ -47,9 +47,9 @@
 
             // Who owns this page, anyway?
             public $owner = false;
-	    
-	    // Page assets that can be registered and set by plugins (javascript, css, etc)
-	    public $assets = [];
+
+            // Page assets that can be registered and set by plugins (javascript, css, etc)
+            public $assets = [];
 
             function init()
             {
@@ -325,11 +325,11 @@
                 $t->__(['body' => $t->draw('pages/404'), 'title' => 'Not found!'])->drawPage();
                 exit;
             }
-	    
-	    /**
-	     * You can't see this.
-	     */
-	    function deniedContent()
+
+            /**
+             * You can't see this.
+             */
+            function deniedContent()
             {
                 $this->setResponse(403);
                 http_response_code($this->response);
@@ -337,7 +337,7 @@
                 $t->__(['body' => $t->draw('pages/403'), 'title' => 'Denied!'])->drawPage();
                 exit;
             }
-	    
+
 
             function exception(\Exception $e)
             {
@@ -380,20 +380,20 @@
                     $this->forward('/session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']));
                 }
             }
-	    
-	    /**
-	     * Placed in pages to ensure that a user is logged in and able
-	     * to create content. Returns a 403 and forwards to the home page if 
-	     * the user can't create content.
-	     */
-	    function createGatekeeper() 
-	    {
-		if (!\Idno\Core\site()->canEdit()) {
-		    $this->setResponse(403);
+
+            /**
+             * Placed in pages to ensure that a user is logged in and able
+             * to create content. Returns a 403 and forwards to the home page if
+             * the user can't create content.
+             */
+            function createGatekeeper()
+            {
+                if (!\Idno\Core\site()->canEdit()) {
+                    $this->setResponse(403);
                     $this->forward();
-		}
-		$this->gatekeeper();
-	    }
+                }
+                $this->gatekeeper();
+            }
 
             /**
              * Placed in pages to ensure that only logged-out users can
@@ -542,10 +542,10 @@
              * Retrieves input.
              *
              * @param string $name Name of the input variable
-	     * @param mixed $default A default return value if no value specified (default: null)
+             * @param mixed $default A default return value if no value specified (default: null)
              * @param boolean $filter Whether or not to filter the variable for safety (default: null), you can pass
-	     *                 a callable method, function or enclosure with a definition like function($name, $value), which
-	     *                 will return the filtered result.
+             *                 a callable method, function or enclosure with a definition like function($name, $value), which
+             *                 will return the filtered result.
              * @return mixed
              */
             function getInput($name, $default = null, callable $filter = null)
@@ -556,15 +556,15 @@
                     } else if (!empty($this->data[$name])) {
                         $value = $this->data[$name];
                     }
-		    if ((empty($value)) && (!empty($default)))
-			$value = $default;
+                    if ((empty($value)) && (!empty($default)))
+                        $value = $default;
                     if (!empty($value)) {
                         if (isset($filter) && is_callable($filter)) {
                             $value = call_user_func($filter, $name, $value);
                         }
 
-			// TODO, we may want to add some sort of system wide default filter for when $filter is null
-			
+                        // TODO, we may want to add some sort of system wide default filter for when $filter is null
+
                         return $value;
                     }
                 }
@@ -601,104 +601,109 @@
 
                 return false;
             }
-	    
-	    /**
-	     * Set or add an asset.
-	     * @param type $name Name of the asset (e.g. 'idno', 'jquery')
-	     * @param type $class Class of asset (e.g. 'javascript', 'css')
-	     * @param type $value A url or other value
-	     */
-	    public function setAsset($name, $value, $class) {
-		if (!isset($this->assets)) $this->assets = [];
-		if (!isset($this->assets[$class])) $this->assets[$class] = [];
-		
-		$this->assets[$class][$name] = $value;
-	    }
-	    
-	    /**
-	     * Get assets of a given class.
-	     * @param type $class
-	     * @return array
-	     */
-	    public function getAssets($class) {
-		return $this->assets[$class];
-	    }
-	    
-	    /**
-	     * Return whether the current page URL matches the given regex string.
-	     * @param type $regex_string URL string in the same format as the page handler definition.
-	     */
-	    public function matchUrl($regex_string) {
-		$url = $this->currentUrl(true);
-		
-		$page = $url['path'];
 
-		if ((isset($url['query'])) && ($url['query']))
-		    $page .= "?" . $url['query'];
+            /**
+             * Set or add a file asset.
+             * @param type $name Name of the asset (e.g. 'idno', 'jquery')
+             * @param type $class Class of asset (e.g. 'javascript', 'css')
+             * @param type $value A URL or other value
+             */
+            public function setAsset($name, $value, $class)
+            {
+                if (!isset($this->assets) || !is_array($this->assets)) $this->assets = [];
+                if (!isset($this->assets[$class])  || !is_array($this->assets)) $this->assets[$class] = [];
 
-		if ((isset($url['fragment'])) && ($url['fragment']))
-		    $page .= "#" . $url['fragment'];
+                $this->assets[$class][$name] = $value;
+            }
 
-		$url = $page;
-		
-		// Now we've got our page url, match it against regex
-		return preg_match('#^/?' . $regex_string . '/?$#', $url);
-	    }
-	    
-	    /**
-	     * Return the full URL of the current page.
-	     *
-	     * @param $tokenise bool If true then an exploded tokenised version is returned.
-	     * @return url|array
-	     */
-	    public function currentUrl($tokenise = false) {
-	       $url = parse_url(\Idno\Core\site()->config()->url);
-	       $url['path'] = $_SERVER['REQUEST_URI'];
+            /**
+             * Get assets of a given class.
+             * @param type $class
+             * @return array
+             */
+            public function getAssets($class)
+            {
+                return $this->assets[$class];
+            }
 
-	       if ($tokenise)
-		   return $url;
+            /**
+             * Return whether the current page URL matches the given regex string.
+             * @param type $regex_string URL string in the same format as the page handler definition.
+             */
+            public function matchUrl($regex_string)
+            {
+                $url = $this->currentUrl(true);
 
-	       return self::buildUrl($url);
-	    }
-	    
-	    
-	    /**
-	     * Construct a URL from array components (basically an implementation of http_build_url() without PECL.
-	     * 
-	     * @param array $url
-	     * @return string 
-	     */
-	    public static function buildUrl(array $url) {
-		if (!empty($url['scheme']))
-		    $page = $url['scheme'] . "://";
-		else
-		    $page = '//';
+                $page = $url['path'];
 
-		// user/pass
-		if ((isset($url['user'])) && ($url['user']))
-		    $page .= $url['user'];
-		if ((isset($url['pass'])) && ($url['pass']))
-		    $page .= ":" . $url['pass'];
-		if (($url['user']) || $url['pass'])
-		    $page .="@";
+                if ((isset($url['query'])) && ($url['query']))
+                    $page .= "?" . $url['query'];
 
-		$page .= $url['host'];
+                if ((isset($url['fragment'])) && ($url['fragment']))
+                    $page .= "#" . $url['fragment'];
 
-		if ((isset($url['port'])) && ($url['port']))
-		    $page .= ":" . $url['port'];
+                $url = $page;
 
-		$page .= $url['path'];
+                // Now we've got our page url, match it against regex
+                return preg_match('#^/?' . $regex_string . '/?$#', $url);
+            }
 
-		if ((isset($url['query'])) && ($url['query']))
-		    $page .= "?" . $url['query'];
+            /**
+             * Return the full URL of the current page.
+             *
+             * @param $tokenise bool If true then an exploded tokenised version is returned.
+             * @return url|array
+             */
+            public function currentUrl($tokenise = false)
+            {
+                $url         = parse_url(\Idno\Core\site()->config()->url);
+                $url['path'] = $_SERVER['REQUEST_URI'];
+
+                if ($tokenise)
+                    return $url;
+
+                return self::buildUrl($url);
+            }
 
 
-		if ((isset($url['fragment'])) && ($url['fragment']))
-		    $page .= "#" . $url['fragment'];
+            /**
+             * Construct a URL from array components (basically an implementation of http_build_url() without PECL.
+             *
+             * @param array $url
+             * @return string
+             */
+            public static function buildUrl(array $url)
+            {
+                if (!empty($url['scheme']))
+                    $page = $url['scheme'] . "://";
+                else
+                    $page = '//';
+
+                // user/pass
+                if ((isset($url['user'])) && ($url['user']))
+                    $page .= $url['user'];
+                if ((isset($url['pass'])) && ($url['pass']))
+                    $page .= ":" . $url['pass'];
+                if (($url['user']) || $url['pass'])
+                    $page .= "@";
+
+                $page .= $url['host'];
+
+                if ((isset($url['port'])) && ($url['port']))
+                    $page .= ":" . $url['port'];
+
+                $page .= $url['path'];
+
+                if ((isset($url['query'])) && ($url['query']))
+                    $page .= "?" . $url['query'];
 
 
-		return $page;
-	    }
+                if ((isset($url['fragment'])) && ($url['fragment']))
+                    $page .= "#" . $url['fragment'];
+
+
+                return $page;
+            }
         }
 
     }
