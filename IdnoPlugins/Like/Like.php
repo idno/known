@@ -30,11 +30,11 @@
              * @return mixed
              */
             function getTitleFromURL($Url){
-                $str = @file_get_contents($Url);
+                $str = \Idno\Core\Webservice::file_get_contents($Url); //@file_get_contents($Url); 
                 if(strlen($str)>0){
                     preg_match("/\<title\>(.*)\<\/title\>/i",$str,$title);
                     return $title[1];
-                }
+                } 
                 return '';
             }
 

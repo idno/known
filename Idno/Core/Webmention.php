@@ -37,27 +37,6 @@
             }
 
             /**
-             * Retrieve content for a given page
-             * @param $url
-             * @return mixed
-             */
-            static function getPageContent($url)
-            {
-                $ch = curl_init($url);
-                curl_setopt($ch, CURLOPT_HEADER, 0);
-                curl_setopt($ch, CURLOPT_VERBOSE, 0);
-                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_USERAGENT, "Idno (webmentions) 0.1");
-                if ($content = curl_exec($ch)) {
-                } else error_log(curl_error($ch));
-                $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-                curl_close($ch);
-
-                return ['content' => $content, 'response' => $http_status];
-            }
-
-            /**
              * Parses a given set of HTML for Microformats 2 content
              * @param $content HTML to parse
              * @param $url Optionally, the source URL of the content, so relative URLs can be parsed into absolute ones
@@ -87,7 +66,7 @@
                 if (!is_array($inreplyto)) {
                     $inreplyto = [$inreplyto];
                 }
-                if ($content = self::getPageContent($url)) {
+                if ($content = \Idno\Core\Webservice::get($url)) {
                     if ($mf2 = self::parseContent($content['content'], $url)) {
                         if (!empty($mf2['rels']['syndication'])) {
                             if (is_array($mf2['rels']['syndication'])) {

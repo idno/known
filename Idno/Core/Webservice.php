@@ -56,6 +56,7 @@
                 curl_setopt($curl_handle, CURLOPT_URL, $endpoint);
                 curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 5);
                 curl_setopt($curl_handle, CURLOPT_FOLLOWLOCATION, true);
+		curl_setopt($curl_handle, CURLOPT_AUTOREFERER, true);
                 curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($curl_handle, CURLOPT_USERAGENT, "idno http://idno.co");
                 curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
@@ -133,6 +134,19 @@
                 return self::send('delete', $endpoint, $params, $headers);
             }
 
+	    /**
+	     * Replacement for file_get_contents for retrieving remote files.
+	     * Essentially a wrapper for self::get()
+	     * @param type $url
+	     */
+	    static function file_get_contents($url) {
+		$result = self::get($url);
+		
+		if ($result['error']=="")
+		    return $result['content'];
+		
+		return false;
+	    }
         }
 
     }
