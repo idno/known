@@ -623,7 +623,82 @@
 	    public function getAssets($class) {
 		return $this->assets[$class];
 	    }
+	    
+	    /**
+	     * Return whether the current page URL matches the given regex string.
+	     * @param type $regex_string URL string in the same format as the page handler definition.
+	     */
+	    public function matchUrl($regex_string) {
+		$url = $this->currentUrl(true);
+		
+		$page = $url['path'];
 
+		if ((isset($url['query'])) && ($url['query']))
+		    $page .= "?" . $url['query'];
+
+		if ((isset($url['fragment'])) && ($url['fragment']))
+		    $page .= "#" . $url['fragment'];
+
+		$url = $page;
+		
+		// Now we've got our page url, match it against regex
+		return preg_match('#^/?' . $regex_string . '/?$#', $url);
+	    }
+	    
+	    /**
+	     * Return the full URL of the current page.
+	     *
+	     * @param $tokenise bool If true then an exploded tokenised version is returned.
+	     * @return url|array
+	     */
+	    public function currentUrl($tokenise = false) {
+	       $url = parse_url(\Idno\Core\site()->config()->url);
+	       $url['path'] = $_SERVER['REQUEST_URI'];
+
+	       if ($tokenise)
+		   return $url;
+
+	       return self::buildUrl($url);
+	    }
+	    
+	    
+	    /**
+	     * Construct a URL from array components (basically an implementation of http_build_url() without PECL.
+	     * 
+	     * @param array $url
+	     * @return string 
+	     */
+	    public static function buildUrl(array $url) {
+		if (!empty($url['scheme']))
+		    $page = $url['scheme'] . "://";
+		else
+		    $page = '//';
+
+		// user/pass
+		if ((isset($url['user'])) && ($url['user']))
+		    $page .= $url['user'];
+		if ((isset($url['pass'])) && ($url['pass']))
+		    $page .= ":" . $url['pass'];
+		if (($url['user']) || $url['pass'])
+		    $page .="@";
+
+		$page .= $url['host'];
+
+		if ((isset($url['port'])) && ($url['port']))
+		    $page .= ":" . $url['port'];
+
+		$page .= $url['path'];
+
+		if ((isset($url['query'])) && ($url['query']))
+		    $page .= "?" . $url['query'];
+
+
+		if ((isset($url['fragment'])) && ($url['fragment']))
+		    $page .= "#" . $url['fragment'];
+
+
+		return $page;
+	    }
         }
 
     }
