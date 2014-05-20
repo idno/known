@@ -17,6 +17,26 @@
     <meta name="generator" content="Known http://withknown.com">
     <?= $this->draw('shell/favicon'); ?>
 
+    <!-- Dublin Core -->
+    <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" >
+    <meta name="DC.title" content="<?=htmlspecialchars($vars['title'])?>" >
+    <meta name="DC.description" content="<?=htmlspecialchars($vars['description'])?>" ><?php
+
+        if (!empty($vars['object'])) {
+            $object = $vars['object']; /* @var \Idno\Common\Entity $object */
+            if ($creator = $object->getOwner()) {
+                ?><meta name="DC.creator" content="<?=htmlentities($creator->getTitle())?>"><?php
+            }
+            if ($created = $object->created) {
+                ?><meta name="DC.date" content="<?=date('c',$created)?>"><?php
+            }
+            if ($url = $object->getURL()) {
+                ?><meta name="DC.identifier" content="<?=htmlspecialchars($url)?>"><?php
+            }
+        }
+
+    ?>
+
     <!-- Le styles -->
     <link href="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/css/bootstrap.css"
           rel="stylesheet">
