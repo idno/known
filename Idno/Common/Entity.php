@@ -442,8 +442,8 @@
 
                         \Idno\Core\site()->events()->dispatch('saved', $event);
                     } else {
-			\Idno\Core\site()->triggerEvent('updated', array('object' => $this));
-		    }
+                        \Idno\Core\site()->triggerEvent('updated', array('object' => $this));
+                    }
 
                     return $this->_id;
                 } else {
@@ -953,7 +953,7 @@
             {
 
                 if (!\Idno\Core\site()->session()->isLoggedOn()) return false;
-		if (!\Idno\Core\site()->canEdit()) return false;
+                if (!\Idno\Core\site()->canEdit()) return false;
 
                 if (empty($user_id)) {
                     $user_id = \Idno\Core\site()->session()->currentUserUUID();
@@ -1404,8 +1404,8 @@
                 if (empty($annotation_url)) {
                     $annotation_url = $this->getURL() . '/annotations/' . md5(time() . $content); // Invent a URL for this annotation
                 }
-		// Create a local URL (fixes #199)
-		$local_url = $this->getURL() . '/annotations/' . md5(time() . $content); // Invent a URL for this annotation
+                // Create a local URL (fixes #199)
+                $local_url = $this->getURL() . '/annotations/' . md5(time() . $content); // Invent a URL for this annotation
                 if (empty($time)) {
                     $time = time();
                 } else {
@@ -1421,7 +1421,7 @@
                 }
 
                 $annotations[$subtype][$local_url] = $annotation;
-                $this->annotations                      = $annotations;
+                $this->annotations                 = $annotations;
 
                 \Idno\Core\site()->triggerEvent('annotation/add/' . $subtype, ['annotation' => $annotation, 'object' => $this]);
 
