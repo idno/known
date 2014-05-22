@@ -20,6 +20,7 @@
             public $plugins;
             public $dispatcher;
             public $pagehandlers;
+            public $public_pages;
             public $syndication;
             public static $site;
             public $currentPage;
@@ -189,12 +190,58 @@
              *
              * @param string $pattern The pattern to match
              * @param callable $handler The handler callable that will serve the page
+             * @param bool $public If set to true, this page is always public, even on non-public sites
              */
 
-            function addPageHandler($pattern, $handler)
+            function addPageHandler($pattern, $handler, $public = false)
             {
-                if (class_exists($handler))
+                if (class_exists($handler)) {
                     $this->pagehandlers[$pattern] = $handler;
+                    if ($public == true) {
+                        $this->public_pages[] = $handler;
+                    }
+                }
+            }
+
+            /**
+             * Mark a page handler class as offering public content even on walled garden sites
+             * @param $class
+             */
+            function addPublicPageHandler($class) {
+                if (class_exists($class)) {
+                    $this->public_pages[] = $class;
+                }
+            }
+
+            /**
+             * Retrieve an array of walled garden page handlers
+             * @return array
+             */
+            function getPublicPageHandlers() {
+                if (!empty($this->public_pages)) {
+                    return $this->public_pages;
+                }
+                return [];
+            }
+
+            /**
+             * Does the specified page handler class represent a public page, even on walled gardens?
+             * @param $class
+             * @return bool
+             */
+            function isPageHandlerPublic($class) {
+                if (!empty($class)) {
+                    if (in_array($class, $this->getPublicPageHandlers())) {
+                        return true;
+                    }
+                    if ($class[0] != "\\") {
+                        $class = "\\" . $class;
+                        if (in_array($class, $this->getPublicPageHandlers())) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
             }
 
             /**

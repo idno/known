@@ -110,10 +110,12 @@
                            href="<?= \Idno\Core\site()->config()->url ?>"><?= \Idno\Core\site()->config()->title ?></a>
 
                         <div class="nav-collapse collapse">
-                            <?= $this->draw('shell/toolbar/search') ?>
-                            <ul class="nav" role="menu">
-                            </ul>
-                            <?= $this->draw('shell/toolbar/content') ?>
+                            <?php
+                                if (\Idno\Core\site()->config()->isPublicSite() || \Idno\Core\site()->session()->isLoggedOn()) {
+                                    echo $this->draw('shell/toolbar/search');
+                                    echo $this->draw('shell/toolbar/content');
+                                }
+                            ?>
                             <ul class="nav pull-right" role="menu">
                                 <?php
 

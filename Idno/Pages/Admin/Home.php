@@ -32,6 +32,7 @@
                 $host                 = $this->getInput('host');
                 $hub                  = $this->getInput('hub'); // PuSH hub
                 $open_registration    = $this->getInput('open_registration');
+                $walled_garden        = $this->getInput('walled_garden'); // Private site?
                 $indieweb_citation    = $this->getInput('indieweb_citation');
                 $indieweb_reference   = $this->getInput('indieweb_reference');
                 $user_avatar_favicons = $this->getInput('user_avatar_favicons');
@@ -40,6 +41,11 @@
                     $open_registration = true;
                 } else {
                     $open_registration = false;
+                }
+                if ($walled_garden == 'true') {
+                    $walled_garden = true;
+                } else {
+                    $walled_garden = false;
                 }
                 if ($indieweb_citation == 'true') {
                     $indieweb_citation = true;
@@ -64,6 +70,7 @@
                 if (!empty($hub)) \Idno\Core\site()->config->config['hub'] = $hub;
                 if (!empty($items_per_page) && is_int($items_per_page)) \Idno\Core\site()->config->config['items_per_page'] = $items_per_page;
                 \Idno\Core\site()->config->config['open_registration']    = $open_registration;
+                \Idno\Core\site()->config->config['walled_garden']        = $walled_garden;
                 \Idno\Core\site()->config->config['indieweb_citation']    = $indieweb_citation;
                 \Idno\Core\site()->config->config['indieweb_reference']   = $indieweb_reference;
                 \Idno\Core\site()->config->config['user_avatar_favicons'] = $user_avatar_favicons;

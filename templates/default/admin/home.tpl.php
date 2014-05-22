@@ -39,6 +39,15 @@
                 </div>
             </div>
             <div class="control-group">
+                <label class="control-label" for="open_registration">Public site<br /><small>Do you want the content on this site to be public to non-members?</small></label>
+                <div class="controls">
+                    <select class="span4" name="walled_garden">
+                        <option value="false" <?php if (\Idno\Core\site()->config()->walled_garden == false) echo 'selected="selected"'; ?>>Yes</option>
+                        <option value="true" <?php if (\Idno\Core\site()->config()->walled_garden == true) echo 'selected="selected"'; ?>>No</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
                 <label class="control-label" for="url">Website URL<br /><small>The full URL to your Known site.</small></label>
                 <div class="controls">
                     <input type="url" id="url" placeholder="Site URL" class="span4" name="url" value="<?=htmlspecialchars(\Idno\Core\site()->config()->url)?>" >

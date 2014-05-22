@@ -58,7 +58,7 @@
                 curl_setopt($curl_handle, CURLOPT_FOLLOWLOCATION, true);
 		curl_setopt($curl_handle, CURLOPT_AUTOREFERER, true);
                 curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($curl_handle, CURLOPT_USERAGENT, "idno http://idno.co");
+                curl_setopt($curl_handle, CURLOPT_USERAGENT, "Known http://withknown.com");
                 curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
                 curl_setopt($curl_handle, CURLOPT_SSL_VERIFYPEER, 1);
                 curl_setopt($curl_handle, CURLOPT_SSL_VERIFYHOST, 2);

@@ -24,6 +24,7 @@
                     'database'   => 'idnosession',
                     'collection' => 'idnosession'
                 ]);
+
                 session_set_save_handler($sessionHandler, true);
 
                 session_name(site()->config->sessionname);
@@ -31,7 +32,7 @@
                 session_cache_limiter('public');
 
                 // Session login / logout
-                site()->addPageHandler('/session/login', '\Idno\Pages\Session\Login');
+                site()->addPageHandler('/session/login', '\Idno\Pages\Session\Login', true);
                 site()->addPageHandler('/session/logout', '\Idno\Pages\Session\Logout');
                 site()->addPageHandler('/currentUser/?', '\Idno\Pages\Session\CurrentUser');
 
@@ -319,6 +320,22 @@
                 }
 
                 return false;
+            }
+
+            /**
+             * If the current user isn't logged in and this isn't a public site, and this hasn't been defined as an
+             * always-public page, forward to the login page!
+             */
+            function publicGatekeeper()
+            {
+                if (!site()->config()->isPublicSite()) {
+                    if (!site()->session()->isLoggedOn()) {
+                        $class = get_class(site()->currentPage());
+                        if (!site()->isPageHandlerPublic($class)) {
+                            site()->currentPage()->forward(site()->config()->getURL() . 'session/login/');
+                        }
+                    }
+                }
             }
 
         }
