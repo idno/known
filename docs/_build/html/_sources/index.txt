@@ -11,3 +11,4 @@ This is the canonical documentation for the project.
    :maxdepth: 2
 
    install/index
+   developers/index

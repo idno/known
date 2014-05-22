@@ -250,6 +250,15 @@
             function getRecords($fields, $parameters, $limit, $offset, $collection = 'entities')
             {
                 try {
+                    // Make search case insensitive
+                    $fieldscopy = $fields;
+                    foreach($fields as $key => $value) {
+                        if (is_string($value)) {
+                            $val = new \MongoRegex("/{$value}/i");
+                            $fieldscopy[$key] = $val;
+                        }
+                    }
+                    $fields = $fieldscopy;
                     if ($result = $this->database->$collection->find($parameters, $fields)->skip($offset)->limit($limit)->sort(array('created' => -1))) {
                         return $result;
                     }

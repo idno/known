@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>System requirements &mdash; Known 0.1 documentation</title>
+    <title>Coding standards &mdash; Known 0.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -24,9 +24,8 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="Known 0.1 documentation" href="../index.html" />
-    <link rel="up" title="Installing Known" href="index.html" />
-    <link rel="next" title="Installation instructions" href="instructions.html" />
-    <link rel="prev" title="Installing Known" href="index.html" /> 
+    <link rel="up" title="Information for developers" href="index.html" />
+    <link rel="prev" title="Information for developers" href="index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -36,13 +35,10 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="instructions.html" title="Installation instructions"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="index.html" title="Installing Known"
+          <a href="index.html" title="Information for developers"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">Known 0.1 documentation</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">Installing Known</a> &raquo;</li> 
+          <li><a href="index.html" accesskey="U">Information for developers</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -51,40 +47,23 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="system-requirements">
-<h1>System requirements<a class="headerlink" href="#system-requirements" title="Permalink to this headline">¶</a></h1>
-<p>Known <em>requires</em> the following server components:</p>
+  <div class="section" id="coding-standards">
+<h1>Coding standards<a class="headerlink" href="#coding-standards" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="source-style">
+<h2>Source style<a class="headerlink" href="#source-style" title="Permalink to this headline">¶</a></h2>
+<p>We have a few core rules for legibility:</p>
 <ul class="simple">
-<li>A Web Server that supports URL rewriting (Apache + mod_rewrite recommended)</li>
-<li>PHP 5.4 or above</li>
-<li>MongoDB</li>
+<li>We favor <em>spaces over tabs</em>. Please set your IDE to four spaces per tab.</li>
+<li>All method names should use camelCase; all variable names should use snake_case.</li>
+<li>American spelling is preferred for method and variable names. eg, &#8220;color&#8221; is better than &#8220;colour&#8221; and &#8220;sanitize&#8221; is better than &#8220;sanitise&#8221;.</li>
+<li>Use PHP doc blocks for every method, <em>except</em> inherited methods, where they are optional. Use your best judgment here.</li>
+<li>Lay your code out as beautifully as you can. We&#8217;re in favor of beautifiers!</li>
 </ul>
-<p>Additionally, Known requires the following PHP components:</p>
+<p>Regarding the language in PHP doc blocks:</p>
 <ul class="simple">
-<li>curl</li>
-<li>date</li>
-<li>dom</li>
-<li>fileinfo</li>
-<li>gd</li>
-<li>intl</li>
-<li>json</li>
-<li>libxml</li>
-<li>mbstring</li>
-<li>mongo</li>
-<li>oauth</li>
-<li>reflection</li>
-<li>session</li>
-</ul>
-<p>Note that you may need to restart the web server after installing these components. Known&#8217;s installer will tell you
-if a required module isn&#8217;t available.</p>
-<div class="section" id="recommendations">
-<h2>Recommendations<a class="headerlink" href="#recommendations" title="Permalink to this headline">¶</a></h2>
-<p>Idno <em>recommends</em> the following extra server components:</p>
-<ul class="simple">
-<li>Linux or UNIX-based server</li>
-<li>A PHP accelerator like eAccelerator</li>
-<li>A secure certificate (so connections to Known can be made secure)</li>
-<li>A server cache like Squid</li>
+<li>Explain the purpose of the method or class as clearly as you can. For example, &#8220;loads ClassName by property_name&#8221; is bad; &#8220;loads objects that have a property called property_name&#8221; is much better.</li>
+<li>&#8220;Just read the code&#8221; isn&#8217;t a good idea, and we don&#8217;t like it.</li>
+<li>That said, clear, simple code is good :)</li>
 </ul>
 </div>
 </div>
@@ -97,21 +76,18 @@ if a required module isn&#8217;t available.</p>
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">System requirements</a><ul>
-<li><a class="reference internal" href="#recommendations">Recommendations</a></li>
+<li><a class="reference internal" href="#">Coding standards</a><ul>
+<li><a class="reference internal" href="#source-style">Source style</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="index.html"
-                        title="previous chapter">Installing Known</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="instructions.html"
-                        title="next chapter">Installation instructions</a></p>
+                        title="previous chapter">Information for developers</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../_sources/install/requirements.txt"
+    <li><a href="../_sources/developers/standards.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -138,13 +114,10 @@ if a required module isn&#8217;t available.</p>
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="instructions.html" title="Installation instructions"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="index.html" title="Installing Known"
+          <a href="index.html" title="Information for developers"
              >previous</a> |</li>
         <li><a href="../index.html">Known 0.1 documentation</a> &raquo;</li>
-          <li><a href="index.html" >Installing Known</a> &raquo;</li> 
+          <li><a href="index.html" >Information for developers</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

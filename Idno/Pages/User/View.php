@@ -30,14 +30,14 @@
                 $offset = (int)$this->getInput('offset');
                 $count  = \Idno\Entities\ActivityStreamPost::count(array('owner' => $user->getUUID()));
                 $feed   = \Idno\Entities\ActivityStreamPost::get(array('owner' => $user->getUUID()), [], \Idno\Core\site()->config()->items_per_page, $offset);
-		
-		$last_modified = $user->updated;
-		if (!empty($feed) && is_array($feed))
-		{
-		    if ($feed[0]->updated>$last_modified)
-			$last_modified = $feed[0]->updated;
-		}
-		$this->setLastModifiedHeader($last_modified); 
+
+                $last_modified = $user->updated;
+                if (!empty($feed) && is_array($feed)) {
+                    if ($feed[0]->updated > $last_modified) {
+                        $last_modified = $feed[0]->updated;
+                    }
+                }
+                $this->setLastModifiedHeader($last_modified);
 
                 $t = \Idno\Core\site()->template();
                 $t->__(array(
