@@ -40,6 +40,7 @@
 
                 $this->setOwner($object->getOwner());
                 $this->setPermalink(); // This is a permalink
+		$this->setLastModifiedHeader($object->updated); // Say when this was last modified
                 $t = \Idno\Core\site()->template();
                 $t->__(array(
 

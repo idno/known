@@ -77,6 +77,11 @@
                     $description = 'An independent social website, powered by Idno.';
                 }
 
+		// If we have a feed, set our last modified flag to the time of the latest returned entry
+		if ($feed && is_array($feed)) {
+		    $this->setLastModifiedHeader($feed[0]->updated); 
+		}
+		
                 $t = \Idno\Core\site()->template();
                 $t->__(array(
 
