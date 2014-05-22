@@ -628,10 +628,11 @@
 
 	    /**
 	     * Set the last updated header for this page.
+	     * Takes a unix timestamp and outputs it as RFC2616 date.
 	     * @param int $timestamp Unix timestamp.
 	     */
 	    public function setLastModifiedHeader($timestamp) {
-		header('Last-Modified: ' . date('r', (int)$timestamp));
+		header('Last-Modified: ' .  gmdate('D, d M Y H:i:s T', (int)$timestamp));
 	    }
 	    
             /**
