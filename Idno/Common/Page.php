@@ -626,6 +626,14 @@
                 return $this->assets[$class];
             }
 
+	    /**
+	     * Set the last updated header for this page.
+	     * @param int $timestamp Unix timestamp.
+	     */
+	    public function setLastModifiedHeader($timestamp) {
+		header('Last-Modified: ' . date('r', (int)$timestamp));
+	    }
+	    
             /**
              * Return whether the current page URL matches the given regex string.
              * @param type $regex_string URL string in the same format as the page handler definition.
