@@ -37,10 +37,12 @@
                     ) {
                         $user         = new \Idno\Entities\User();
                         $user->email  = $email;
-                        $user->handle = $handle;
+                        $user->handle = strtolower(trim($handle)); // Trim the handle and set it to lowercase
                         $user->setPassword($password);
                         $user->setTitle($name);
-                        if (!\Idno\Entities\User::get()) $user->setAdmin(true);
+                        if (!\Idno\Entities\User::get()) {
+                            $user->setAdmin(true);
+                        }
                         $user->save();
                     } else {
                         if (empty($handle)) {
