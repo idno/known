@@ -32,7 +32,6 @@ Known also contains
 * Anthony Ferrara's PHP 5.5 password API shim, which is distributed under the MIT license. Source: https://github.com/ircmaxell/password_compat
 * Font Awesome, which is distributed under the Open Font License, version 1.1: http://fortawesome.github.io/Font-Awesome/
 * Steve Clay's AutoP, which is distributed under the MIT License. Source: https://code.google.com/p/mrclay/
-* Sisyphus, which is distributed under the MIT License. Source: http://sisyphus-js.herokuapp.com/
 * Aaron Parecki's Webmention Client, which is distributed under the Apache 2.0 license. Source: https://github.com/aaronpk/mention-client
 * Barnaby Walters's Microformats 2 Parser: https://github.com/indieweb/php-mf2
 * Webignition URL libraries, which are distributed under the MIT license.
