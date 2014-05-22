@@ -23,7 +23,7 @@
 
                 // Basic registration, if we're allowing it
                 if (\Idno\Core\site()->config()->open_registration == true) {
-                    site()->addPageHandler('/account/register', '\Idno\Pages\Account\Register');
+                    site()->addPageHandler('/account/register', '\Idno\Pages\Account\Register', true);
                 }
 
             }
