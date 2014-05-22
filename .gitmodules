@@ -40,3 +40,6 @@
 [submodule "external/h5f"]
 	path = external/h5f
 	url = https://github.com/ryanseddon/H5F.git
+[submodule "external/swiftmailer"]
+	path = external/swiftmailer
+	url = https://github.com/swiftmailer/swiftmailer.git
