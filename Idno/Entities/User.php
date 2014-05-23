@@ -294,8 +294,32 @@
             }
 
             /**
+             * Retrieve the current password recovery code - if it's less than three hours old
+             * @return string|false
+             */
+            function getPasswordRecoveryCodes() {
+                if ($code = $this->password_recovery_code) {
+                    if ($this->password_recovery_code_time > (time() - (3600 * 3))) {
+                        return $code;
+                    }
+                }
+                return false;
+            }
+
+            /**
+             * Add a password recovery code to the user
+             * @return string The new recovery code, suitable for sending in an email
+             */
+            function addPasswordRecoveryCode() {
+                $auth_code = md5(time() . rand(0,9999) . $this->email);
+                $this->password_recovery_code = $auth_code;
+                $this->password_recovery_code_time = time();
+                return $auth_code;
+            }
+
+            /**
              * Does this user have everything he or she needs to be a fully-fledged
-             * idno member? This method checks to make sure the minimum number of
+             * Known member? This method checks to make sure the minimum number of
              * fields are filled in.
              *
              * @return true|false
