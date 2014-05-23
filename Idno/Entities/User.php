@@ -318,6 +318,13 @@
             }
 
             /**
+             * Clears this user's password recovery code (eg if they log in and don't need it anymore).
+             */
+            function clearPasswordRecoveryCode() {
+                $this->password_recovery_code = false;
+            }
+
+            /**
              * Does this user have everything he or she needs to be a fully-fledged
              * Known member? This method checks to make sure the minimum number of
              * fields are filled in.
