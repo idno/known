@@ -1,7 +1,7 @@
 <?php
 
     $user_avatar_favicons = \Idno\Core\site()->config('user_avatar_favicons');
-    if (($user = \Idno\Core\site()->currentPage()->getOwner()) && ($user_avatar_favicons)) {
+    if ((\Idno\Core\site()->currentPage()) && ($user = \Idno\Core\site()->currentPage()->getOwner()) && ($user_avatar_favicons)) {
         if ($user instanceof \Idno\Entities\User) {
             $icon = $user->getIcon();
             if (strpos($icon, 'thumb.jpg') !== false) {

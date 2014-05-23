@@ -74,7 +74,7 @@
 
     <?php
         // Load style assets
-        if ($style = \Idno\Core\site()->currentPage->getAssets('css')) {
+        if ((\Idno\Core\site()->currentPage()) && $style = \Idno\Core\site()->currentPage->getAssets('css')) {
             foreach ($style as $css) {
                 ?>
                 <link href="<?= $css; ?>" rel="stylesheet">
@@ -187,7 +187,7 @@
 
 <?php
     // Load javascript assets
-    if ($scripts = \Idno\Core\site()->currentPage->getAssets('javascript')) {
+    if ((\Idno\Core\site()->currentPage()) && $scripts = \Idno\Core\site()->currentPage->getAssets('javascript')) {
         foreach ($scripts as $script) {
             ?>
             <script src="<?= $script ?>"></script>
