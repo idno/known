@@ -54,7 +54,7 @@
                 });
 
                 // Refresh session user whenever it is saved
-                \Idno\Core\site()->addEventHook('saved', function(\Idno\Core\Event $event) {
+                \Idno\Core\site()->addEventHook('saved', function (\Idno\Core\Event $event) {
 
                     $user = $event->data()['object'];
 
@@ -181,26 +181,27 @@
 
                 return false;
             }
-	    
-	    /**
-	     * Retrieve a user by their profile URL.
-	     * @param string $url
-	     * @return User|false
-	     */
-	    static function getByProfileURL($url) {
-		// If user explicitly has a profile url set (generally this means it's a RemoteUser class
-		if ($result = \Idno\Core\site()->db()->getObjects(get_called_class(), array('url' => $url), null, 1)) {
+
+            /**
+             * Retrieve a user by their profile URL.
+             * @param string $url
+             * @return User|false
+             */
+            static function getByProfileURL($url)
+            {
+                // If user explicitly has a profile url set (generally this means it's a RemoteUser class
+                if ($result = \Idno\Core\site()->db()->getObjects(get_called_class(), array('url' => $url), null, 1)) {
                     foreach ($result as $row) {
                         return $row;
                     }
                 }
-		// Ok, now try and see if we can get the local profile
-		if (preg_match("~".\Idno\Core\site()->config()->url . 'profile/([A-Za-z0-9]+)?~', $url, $matches))
-			return \Idno\Entities\User::getByHandle ($matches[1]);
-		
-		// Can't find
-		return false;
-	    }
+                // Ok, now try and see if we can get the local profile
+                if (preg_match("~" . \Idno\Core\site()->config()->url . 'profile/([A-Za-z0-9]+)?~', $url, $matches))
+                    return \Idno\Entities\User::getByHandle($matches[1]);
+
+                // Can't find
+                return false;
+            }
 
             /**
              * Returns this user's unique key for use with the API, and generates a new one if they don't
@@ -318,29 +319,29 @@
              */
             function addFollowing($user)
             {
-                if ($user instanceof \Idno\Entities\User) { 
+                if ($user instanceof \Idno\Entities\User) {
                     $users = $this->getFollowingUUIDs();
-                    if (!in_array($user->getUUID(), $users, true)) { 
+                    if (!in_array($user->getUUID(), $users, true)) {
                         $users[$user->getUUID()] = ['name' => $user->getTitle(), 'icon' => $user->getIcon(), 'url' => $user->getURL()];
                         $this->following         = $users;
 
-			// Create/modify ACL for following user
-			$acl = \Idno\Entities\AccessGroup::getOne([
-			    'owner' => $this->getUUID(),
-			    'access_group_type' => 'FOLLOWING'
-			]);
+                        // Create/modify ACL for following user
+                        $acl = \Idno\Entities\AccessGroup::getOne([
+                            'owner'             => $this->getUUID(),
+                            'access_group_type' => 'FOLLOWING'
+                        ]);
 
-			if (empty($acl)) {
-			    $acl = new \Idno\Entities\AccessGroup();
-			    $acl->title = "People I follow...";
-			    $acl->access_group_type = 'FOLLOWING';
-			}
+                        if (empty($acl)) {
+                            $acl                    = new \Idno\Entities\AccessGroup();
+                            $acl->title             = "People I follow...";
+                            $acl->access_group_type = 'FOLLOWING';
+                        }
 
-			$acl->addMember($user->getUUID());
-			$acl->save();
-			
-			\Idno\Core\site()->triggerEvent('follow', ['user' => $this, 'following' => $user]);
-			
+                        $acl->addMember($user->getUUID());
+                        $acl->save();
+
+                        \Idno\Core\site()->triggerEvent('follow', ['user' => $this, 'following' => $user]);
+
                         return true;
                     }
                 }
@@ -388,18 +389,18 @@
                     $users = $this->getFollowingUUIDs();
                     unset($users[$user->getUUID()]);
                     $this->following = $users;
-		    
-		    $acl = \Idno\Entities\AccessGroup::getOne([
-			'owner' => $this->getUUID(),
-			'access_group_type' => 'FOLLOWING'
-		    ]);
 
-		    if (!empty($acl)) {
-			$acl->removeMember($user->getUUID());
-			$acl->save();
-		    }
+                    $acl = \Idno\Entities\AccessGroup::getOne([
+                        'owner'             => $this->getUUID(),
+                        'access_group_type' => 'FOLLOWING'
+                    ]);
 
-		    \Idno\Core\site()->triggerEvent('unfollow', ['user' => $this, 'following' => $user]);
+                    if (!empty($acl)) {
+                        $acl->removeMember($user->getUUID());
+                        $acl->save();
+                    }
+
+                    \Idno\Core\site()->triggerEvent('unfollow', ['user' => $this, 'following' => $user]);
 
                     return true;
                 }
