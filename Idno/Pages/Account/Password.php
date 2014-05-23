@@ -42,7 +42,7 @@
 
                         $user->save();  // Save the recovery code to the user
 
-                        $t = \Idno\Core\site()->template();
+                        $t = clone \Idno\Core\site()->template();
                         $t->setTemplateType('email');
 
                         $email = new Email();

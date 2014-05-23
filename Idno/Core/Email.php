@@ -11,8 +11,12 @@
 
             function init() {
                 // Using SwiftMailer to establish a message
-                require_once site()->config()->path . 'external/swiftmailer/lib/swift_required.php';
-                $this->message = \Swift_Message::newInstance();
+                try {
+                    require_once site()->config()->path . '/external/swiftmailer/lib/swift_required.php';
+                    $this->message = \Swift_Message::newInstance();
+                } catch (\Exception $e) {
+                    site()->session()->addMessage("Something went wrong and we couldn't create the email message to send.");
+                }
             }
 
             /**
@@ -71,7 +75,7 @@
              */
             function setHTMLBody($body, $shell = true) {
                 if ($shell) {
-                    $t = site()->template();
+                    $t = clone site()->template();
                     $t->setTemplateType('email');
                     $message = $t->__(['body' => $body])->draw('shell');
                 } else {
@@ -94,9 +98,13 @@
              * @return int
              */
             function send() {
-                $transport = \Swift_SmtpTransport::newInstance();   // TODO: allow this to be extended to allow for external mail services
-                $mailer = \Swift_Mailer::newInstance($transport);
-                return $mailer->send($this->message);
+                try {
+                    $transport = \Swift_SmtpTransport::newInstance();   // TODO: allow this to be extended to allow for external mail services
+                    $mailer = \Swift_Mailer::newInstance($transport);
+                    return $mailer->send($this->message);
+                } catch (\Exception $e) {
+                    site()->session()->addMessage("Something went wrong and we couldn't send the email.");
+                }
             }
 
         }
