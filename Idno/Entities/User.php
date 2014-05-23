@@ -9,9 +9,9 @@
 
     namespace Idno\Entities {
 
-        // We need the PHP 5.5 password API
         use Idno\Common\ContentType;
 
+        // We need the PHP 5.5 password API
         require_once \Idno\Core\site()->config()->path . '/external/password_compat/lib/password.php';
 
         class User extends \Idno\Common\Entity implements \JsonSerializable
