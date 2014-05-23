@@ -15,15 +15,18 @@
             function getContent()
             {
                 $this->reverseGatekeeper();
+                $code = $this->getInput('code');
+                $email = $this->getInput('email');
 
                 if (empty(\Idno\Core\site()->config()->open_registration)) {
-                    if (1 == 1) {   // TODO: check and validate invitation codes
+                    if (!\Idno\Entities\Invitation::validate($email, $code)) {
+                        \Idno\Core\site()->session()->addMessage("Your invitation doesn't seem to be valid, or has expired.");
                         $this->forward(\Idno\Core\site()->config()->getURL());
                     }
                 }
 
                 $t        = \Idno\Core\site()->template();
-                $t->body  = $t->draw('account/register');
+                $t->body  = $t->__(['email' => $email, 'code' => $code])->draw('account/register');
                 $t->title = 'Register';
                 $t->drawPage();
             }
@@ -38,8 +41,11 @@
                 $code      = $this->getInput('code');
 
                 if (empty(\Idno\Core\site()->config()->open_registration)) {
-                    if (1 == 1) {   // TODO: check and validate invitation codes
+                    if (!($invitation = \Idno\Entities\Invitation::validate($email, $code))) {
+                        \Idno\Core\site()->session()->addMessage("Your invitation doesn't seem to be valid or has expired.");
                         $this->forward(\Idno\Core\site()->config()->getURL());
+                    } else {
+                        $invitation->delete(); // Remove the invitation; it's no longer needed
                     }
                 }
 
