@@ -297,7 +297,7 @@
              * Retrieve the current password recovery code - if it's less than three hours old
              * @return string|false
              */
-            function getPasswordRecoveryCodes() {
+            function getPasswordRecoveryCode() {
                 if ($code = $this->password_recovery_code) {
                     if ($this->password_recovery_code_time > (time() - (3600 * 3))) {
                         return $code;
