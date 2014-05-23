@@ -39,11 +39,17 @@
 
                     if ($auth_code = $user->addPasswordRecoveryCode()) {
 
+                        $user->save();  // Save the recovery code to the user
+
                         // TODO: send email!
+                        
+                        $this->forward(\Idno\Core\site()->config()->getURL() . 'account/password/?sent=true');
 
                     }
 
                 }
+                \Idno\Core\site()->session()->addMessage("Oh no! We couldn't find an account associated with that email address.");
+                $this->forward(\Idno\Core\site()->config()->getURL() . 'account/password');
 
             }
 

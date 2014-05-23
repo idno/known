@@ -28,6 +28,7 @@
 
                 // Password requests
                 site()->addPagehandler('/account/password', '\Idno\Pages\Account\Password', true);
+                site()->addPagehandler('/account/password/reset', '\Idno\Pages\Account\Password\Reset', true);
 
             }
 
