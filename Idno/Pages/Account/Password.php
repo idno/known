@@ -5,6 +5,7 @@
      */
 
     namespace Idno\Pages\Account {
+        use Idno\Core\Email;
         use Idno\Entities\User;
 
         /**
@@ -41,8 +42,15 @@
 
                         $user->save();  // Save the recovery code to the user
 
-                        // TODO: send email!
-                        
+                        $t = \Idno\Core\site()->template();
+                        $t->setTemplateType('email');
+
+                        $email = new Email();
+                        $email->setSubject("Password reset");
+                        $email->addTo($user->email);
+                        $email->setHTMLBody($t->__(['email' => $email, 'code' => $auth_code])->draw('account/password'));
+                        $email->send();
+
                         $this->forward(\Idno\Core\site()->config()->getURL() . 'account/password/?sent=true');
 
                     }
