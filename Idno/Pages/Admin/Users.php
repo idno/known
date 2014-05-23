@@ -1,26 +1,23 @@
 <?php
 
     /**
-     * Administration homepage
+     * User administration
      */
 
     namespace Idno\Pages\Admin {
 
-        /**
-         * Default class to serve the homepage
-         */
-        class Management extends \Idno\Common\Page
+        class Users extends \Idno\Common\Page
         {
 
             function getContent()
             {
                 $this->adminGatekeeper(); // Admins only
                 $t        = \Idno\Core\site()->template();
-                $t->body  = $t->draw('admin/management');
+                $t->body  = $t->draw('admin/users');
                 $t->title = 'User Management';
                 $t->drawPage();
 
             }
-            }
-            }
+        }
+    }
 ?>

@@ -19,7 +19,7 @@
                 site()->addPageHandler('/admin/dependencies/?', '\Idno\Pages\Admin\Dependencies');
                 site()->addPageHandler('/admin/email/?', '\Idno\Pages\Admin\Email');
                 site()->addPageHandler('/admin/about/?', '\Idno\Pages\Admin\About');
-                site()->addPageHandler('/admin/management/?', '\Idno\Pages\Admin\Management');
+                site()->addPageHandler('/admin/users/?', '\Idno\Pages\Admin\Users');
             }
 
         }
