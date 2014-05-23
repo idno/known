@@ -26,6 +26,9 @@
                     site()->addPageHandler('/account/register', '\Idno\Pages\Account\Register', true);
                 }
 
+                // Password requests
+                site()->addPagehandler('/account/password', '\Idno\Pages\Account\Password', true);
+
             }
 
         }
