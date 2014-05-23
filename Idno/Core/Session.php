@@ -294,7 +294,9 @@
              */
             function refreshSessionUser(\Idno\Entities\User $user)
             {
-                $user = User::getByUUID($user->getUUID());
+                $user = User::getByUUID($user->getUUID()); /* @var \Idno\Common\User $user */
+                $user->clearPasswordRecoveryCode();
+                $user->save();
                 $_SESSION['user'] = $user;
                 return $user;
             }
