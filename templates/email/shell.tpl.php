@@ -44,7 +44,7 @@
 <!-- 100% wrapper (grey background) -->
 <table border="0" width="100%" height="100%" cellpadding="0" cellspacing="0" bgcolor="#ebebeb">
     <tr>
-        <td align="center" valign="top" bgcolor="#ebebeb" style="background-color: #ebebeb;">
+        <td align="center" valign="top" bgcolor="#ebebeb" style="background-color: #ebebeb; padding-top: 3em; padding-bottom: 3em;">
 
             <!-- 600px container (white background) -->
             <table border="0" width="600" cellpadding="0" cellspacing="0" class="container" bgcolor="#ffffff">
@@ -60,7 +60,12 @@
 
                         <hr>
 
-                        <em style="font-style:italic; font-size: 12px; color: #aaa;">Powered by <a href="http://withknown.com/?utm_source=transactional&utm_medium=email&utm_campaign=forgotpassword" style="color: #73b2e3; text-decoration: none;">Known</a>, a publishing platform for everyone.</em>
+                        <?php
+                            $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+                            $path = str_replace('/','_',$path);
+                        ?>
+
+                        <em style="font-style:italic; font-size: 12px; color: #aaa;">Powered by <a href="http://withknown.com/?utm_source=transactional&utm_medium=email&utm_campaign=e<?=$path?>" style="color: #73b2e3; text-decoration: none;">Known</a>, a publishing platform for everyone.</em>
                         <br><br>
 
                     </td>
