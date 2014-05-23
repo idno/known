@@ -92,6 +92,19 @@
             }
 
             /**
+             * Given the name of a template and a set of variables to include, generates an HTML body and adds it to the message
+             * @param $template_name
+             * @param array $vars
+             * @return mixed
+             */
+            function setHTMLBodyFromTemplate($template_name, $vars = []) {
+                $t = clone site()->template();
+                $t->setTemplateType('email');
+                $body = $t->__($vars)->draw($template_name);
+                return $this->setHTMLBody($body);
+            }
+
+            /**
              * Sets the plain text body of the message
              * @param string $body The body of the message
              * @return mixed
