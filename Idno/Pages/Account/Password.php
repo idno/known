@@ -34,9 +34,9 @@
             function postContent() {
 
                 $this->reverseGatekeeper();
-                $email = $this->getInput('email');
+                $email_address = $this->getInput('email');
 
-                if ($user = User::getByEmail($email)) {
+                if ($user = User::getByEmail($email_address)) {
 
                     if ($auth_code = $user->addPasswordRecoveryCode()) {
 
@@ -48,7 +48,7 @@
                         $email = new Email();
                         $email->setSubject("Password reset");
                         $email->addTo($user->email);
-                        $email->setHTMLBody($t->__(['email' => $email, 'code' => $auth_code])->draw('account/password'));
+                        $email->setHTMLBody($t->__(['email' => $email_address, 'code' => $auth_code])->draw('account/password'));
                         $email->send();
 
                         $this->forward(\Idno\Core\site()->config()->getURL() . 'account/password/?sent=true');

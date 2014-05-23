@@ -23,7 +23,7 @@
                     if ($code = $user->getPasswordRecoveryCode()) {
 
                         $t        = \Idno\Core\site()->template();
-                        $t->body  = $t->draw('account/password/reset');
+                        $t->body  = $t->__(['email' => $email, 'code' => $code])->draw('account/password/reset');
                         $t->title = 'Reset password';
 
                         $t->drawPage();
@@ -41,16 +41,27 @@
             {
 
                 $this->reverseGatekeeper();
+                $code  = $this->getInput('code');
                 $email = $this->getInput('email');
+                $password = $this->getInput('password');
+                $password2 = $this->getInput('password2');
 
-                if ($user = User::getByEmail($email)) {
+                if ($password == $password2 && !empty($password2)) {
+                    if ($user = User::getByEmail($email)) {
 
-                    if ($auth_code = $user->addPasswordRecoveryCode()) {
+                        if ($code = $user->getPasswordRecoveryCode()) {
 
-                        // TODO: send email!
+                            /* @var \Idno\Entities\User $user */
+                            $user->setPassword($password);
+                            $user->save();
+                            \Idno\Core\site()->session()->addMessage("Your password was reset!");
+
+                        }
 
                     }
-
+                } else {
+                    \Idno\Core\site()->session()->addMessage("Your passwords need to match!");
+                    $this->forward($_SERVER['HTTP_REFERER']);
                 }
 
             }
