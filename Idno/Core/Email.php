@@ -99,11 +99,34 @@
              */
             function send() {
                 try {
-                    $transport = \Swift_SmtpTransport::newInstance();   // TODO: allow this to be extended to allow for external mail services
+                    if ($smtp_host = site()->config()->smtp_host) {
+                        $transport = \Swift_SmtpTransport::newInstance($smtp_host);
+                        if ($smtp_username = site()->config()->smtp_username) {
+                            $transport->setUsername($smtp_username);
+                            if ($smtp_password = site()->config()->smtp_password) {
+                                $transport->setPassword($smtp_password);
+                            }
+                        }
+                    } else {
+                        $transport = \Swift_SmtpTransport::newInstance();   // TODO: allow this to be extended to allow for external mail services
+                    }
+                    if (!empty(site()->config()->smtp_port)) {
+                        $transport->setPort(site()->config()->smtp_port);
+                    }
+                    if (!empty(site()->config()->smtp_tls)) {
+                        $transport->setEncryption('tls');
+                    }
                     $mailer = \Swift_Mailer::newInstance($transport);
+
+                    // Set the "from" address
+                    if ($from_email = site()->config()->from_email) {
+                        $this->message->setFrom($from_email, site()->config()->title);
+                    }
+
                     return $mailer->send($this->message);
                 } catch (\Exception $e) {
                     site()->session()->addMessage("Something went wrong and we couldn't send the email.");
+                    site()->session()->addMessage($e->getMessage());
                 }
             }
 
