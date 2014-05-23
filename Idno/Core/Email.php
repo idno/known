@@ -2,14 +2,13 @@
 
     namespace Idno\Core {
 
-        use IdnoPlugins\Styles\Pages\Styles\Site;
-
         class Email extends \Idno\Common\Component
         {
 
             public $message;
 
-            function init() {
+            function init()
+            {
                 // Using SwiftMailer to establish a message
                 try {
                     require_once site()->config()->path . '/external/swiftmailer/lib/swift_required.php';
@@ -34,10 +33,12 @@
              * @param $name The name of the account
              * @return mixed
              */
-            function setFrom($email, $name = '') {
+            function setFrom($email, $name = '')
+            {
                 if (!empty($name)) {
                     return $this->message->addFrom([$name => $email]);
                 }
+
                 return $this->message->addFrom($email);
             }
 
@@ -47,10 +48,12 @@
              * @param string $name The name of the recipient (optional)
              * @return mixed
              */
-            function addTo($email, $name = '') {
+            function addTo($email, $name = '')
+            {
                 if (!empty($name)) {
                     return $this->message->addTo([$name => $email]);
                 }
+
                 return $this->message->addTo($email);
             }
 
@@ -60,10 +63,12 @@
              * @param string $name
              * @return mixed
              */
-            function setReplyTo($email, $name = '') {
+            function setReplyTo($email, $name = '')
+            {
                 if (!empty($name)) {
                     return $this->message->addReplyTo([$name => $email]);
                 }
+
                 return $this->message->addReplyTo($email);
             }
 
@@ -73,7 +78,8 @@
              * @param bool $shell Should the message be placed inside the pageshell? Default: true
              * @return mixed
              */
-            function setHTMLBody($body, $shell = true) {
+            function setHTMLBody($body, $shell = true)
+            {
                 if ($shell) {
                     $t = clone site()->template();
                     $t->setTemplateType('email');
@@ -81,6 +87,7 @@
                 } else {
                     $message = $body;
                 }
+
                 return $this->message->setBody($message, 'text/html');
             }
 
@@ -89,7 +96,8 @@
              * @param string $body The body of the message
              * @return mixed
              */
-            function setTextBody($body) {
+            function setTextBody($body)
+            {
                 return $this->message->addPart($body, 'text/plain');
             }
 
@@ -97,7 +105,8 @@
              * Send the message
              * @return int
              */
-            function send() {
+            function send()
+            {
                 try {
                     if ($smtp_host = site()->config()->smtp_host) {
                         $transport = \Swift_SmtpTransport::newInstance($smtp_host);
@@ -108,7 +117,7 @@
                             }
                         }
                     } else {
-                        $transport = \Swift_SmtpTransport::newInstance();   // TODO: allow this to be extended to allow for external mail services
+                        $transport = \Swift_SmtpTransport::newInstance(); // TODO: allow this to be extended to allow for external mail services
                     }
                     if (!empty(site()->config()->smtp_port)) {
                         $transport->setPort(site()->config()->smtp_port);
