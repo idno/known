@@ -47,7 +47,7 @@
                 $password2 = $this->getInput('password2');
 
                 if ($password == $password2 && !empty($password2)) {
-                    if ($user = User::getByEmail($email)) {
+                    if ($user = \Idno\Entities\User::getByEmail($email)) {
 
                         if ($code = $user->getPasswordRecoveryCode()) {
 
