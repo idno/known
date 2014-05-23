@@ -15,6 +15,13 @@
             function getContent()
             {
                 $this->reverseGatekeeper();
+
+                if (empty(\Idno\Core\site()->config()->open_registration)) {
+                    if (1 == 1) {   // TODO: check and validate invitation codes
+                        $this->forward(\Idno\Core\site()->config()->getURL());
+                    }
+                }
+
                 $t        = \Idno\Core\site()->template();
                 $t->body  = $t->draw('account/register');
                 $t->title = 'Register';
@@ -28,6 +35,13 @@
                 $password  = $this->getInput('password');
                 $password2 = $this->getInput('password2');
                 $email     = $this->getInput('email');
+                $code      = $this->getInput('code');
+
+                if (empty(\Idno\Core\site()->config()->open_registration)) {
+                    if (1 == 1) {   // TODO: check and validate invitation codes
+                        $this->forward(\Idno\Core\site()->config()->getURL());
+                    }
+                }
 
                 $user = new \Idno\Entities\User();
 
