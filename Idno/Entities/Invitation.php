@@ -23,7 +23,12 @@
              * Generates the code associated with this invitation
              */
             function generateCode() {
-                $this->code = md5(time() . rand(0,9999) . \Idno\Core\site()->session()->currentUser()->email);
+                if (\Idno\Core\site()->session()->isLoggedOn()) {
+                    $email = \Idno\Core\site()->session()->currentUser()->email;
+                } else {
+                    $email = base64_encode(time() . rand(0,99999));
+                }
+                $this->code = md5(time() . rand(0,9999) . $email);
             }
 
             /**
@@ -32,7 +37,7 @@
              * @return bool
              */
             function associateWithEmail($email) {
-                if (filter_var(FILTER_VALIDATE_EMAIL, $email)) {
+                if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     $this->email = $email;
                     return true;
                 }
@@ -49,6 +54,7 @@
                     $this->save();
                     $message = new Email();
                     $message->addTo($email);
+                    $message->setSubject(\Idno\Core\site()->session()->currentUser()->getTitle() . " has invited you to join " . \Idno\Core\site()->config()->title . '!');
                     $message->setHTMLBodyFromTemplate('account/invite',['email' => $email, 'code' => $this->code, 'inviter' => \Idno\Core\site()->session()->currentUser()->getTitle()]);
                     return $message->send();
                 }
@@ -56,7 +62,7 @@
             }
 
             /**
-             * Retrieves invitations associated with a particular email address
+             * Retrieves an invitation associated with a particular email address
              * @param $email
              * @return bool
              */
@@ -78,16 +84,13 @@
              * @return \Idno\Entities\Invitation|false
              */
             static function validate($email, $code) {
-                if ($invitations = self::getByEmail($email)) {
-                    foreach($invitations as $invitation) {
-                        if ($invitation->code == $code) {
-                            return $invitation;
-                        }
+                if ($invitation = self::getByEmail($email)) {
+                    if ($invitation->code == $code) {
+                        return $invitation;
                     }
                 }
                 return false;
             }
-
         }
 
     }

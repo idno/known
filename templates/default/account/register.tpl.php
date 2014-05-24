@@ -27,7 +27,7 @@
                 <div class="control-group">
                     <label class="control-label" for="inputEmail">Your email address</label>
                     <div class="controls">
-                        <input type="email" id="inputEmail" placeholder="Your email address" class="span4" name="email" value="">
+                        <input type="email" id="inputEmail" placeholder="Your email address" class="span4" name="email" value="<?=htmlentities($vars['email'])?>">
                     </div>
                 </div>
                 <div class="control-group">
@@ -45,6 +45,7 @@
                 <div class="control-group">
                     <div class="controls">
                         <button type="submit" class="btn btn-primary">Save</button>
+                        <input type="hidden" name="code" value="<?=htmlspecialchars($vars['code'])?>">
                     </div>
                 </div>
                 <?= \Idno\Core\site()->actions()->signForm('/account/register') ?>
