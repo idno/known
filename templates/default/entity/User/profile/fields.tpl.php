@@ -5,6 +5,14 @@
                 
                 $h_card = 'u-url';
                 $url_display = $url;
+
+                // Quick shim for Twitter usernames
+                if ($url[0] == '@') {
+                    if (preg_match("/\@[a-z0-9_]+/i", $url)) {
+                        $url = str_replace('@','',$url);
+                        $url = 'https://twitter.com/' . $url;
+                    }
+                }
                 
                 // Pick appropriate icon
                 $host = parse_url($url, PHP_URL_HOST);
