@@ -2,7 +2,7 @@ Known
 =====
 Known is a publishing platform for everyone.
 
-Project homepage: <http://withknown.com>
+Learn more and sign up to get updates: <http://withknown.com>
 
 Known is under active development and an installable package is not yet available. It requires PHP 5.4+ with the MongoDB extension, Apache Web Server with the mod_rewrite extension, and MongoDB.
 
