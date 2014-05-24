@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="inputEmail">Your password<br /><small>Leave this blank if you don't want to change it</small></label>
+                    <label class="control-label" for="inputEmail">Your password</label>
                     <div class="controls">
                         <input type="password" id="inputPassword" placeholder="Password" class="span4" name="password" >
                     </div>
