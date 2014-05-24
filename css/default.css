@@ -391,4 +391,21 @@ span.contentTypeLogo {
     font-size: 0.8em;
 }
 
+/**
+ * Data panes
+ */
 
+.pane {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 15em;
+    border: 1px #ddd solid;
+}
+
+div.pane div.row:nth-of-type(even) {
+    background-color: #fff;
+}
+
+div.pane div.row:nth-of-type(odd) {
+    background-color: #fafafa;
+}
