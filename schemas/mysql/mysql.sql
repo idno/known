@@ -8,13 +8,15 @@
 
 CREATE TABLE IF NOT EXISTS `entities` (
   `uuid` varchar(32) NOT NULL,
+  `_id` varchar(32) NOT NULL,
   `owner` varchar(32) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `contents` blob NOT NULL,
   `search` text NOT NULL,
   PRIMARY KEY (`uuid`),
-  KEY `owner` (`owner`,`created`,`updated`)
+  KEY `owner` (`owner`,`created`,`updated`),
+  KEY `_id` (`_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
