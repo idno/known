@@ -54,18 +54,6 @@
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="host">Website host<br /><small>Just the hostname of your Known site (no http:// or trailing slash).</small></label>
-                <div class="controls">
-                    <input type="text" id="host" placeholder="Site hostname" class="span4" name="host" value="<?=htmlspecialchars(\Idno\Core\site()->config()->host)?>" >
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="path">Full path to installation<br /></label>
-                <div class="controls">
-                    <input type="text" id="path" placeholder="Path to Known installation" class="span4" name="path" value="<?=htmlspecialchars(\Idno\Core\site()->config()->path)?>" >
-                </div>
-            </div>
-            <div class="control-group">
                 <label class="control-label" for="hub">PubSubHubbub hub<br /><small>The URI of your <a href="https://code.google.com/p/pubsubhubbub/" target="_blank">PubSubHubbub</a> hub.</small></label>
                 <div class="controls">
                     <input type="url" id="hub" placeholder="PubSubHubbub hub address" class="span4" name="hub" value="<?=htmlspecialchars(\Idno\Core\site()->config()->hub)?>" >
