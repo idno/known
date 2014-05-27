@@ -53,7 +53,7 @@
 
                 if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     if (!($emailuser = \Idno\Entities\User::getByEmail($email)) && !($handleuser = \Idno\Entities\User::getByHandle($handle)) &&
-                        !empty($handle) && $password == $password2 && strlen($password) > 4 && !empty($name)
+                        !empty($handle) && strlen($handle < 32) && $password == $password2 && strlen($password) > 4 && !empty($name)
                     ) {
                         $user         = new \Idno\Entities\User();
                         $user->email  = $email;
@@ -67,6 +67,8 @@
                     } else {
                         if (empty($handle)) {
                             \Idno\Core\site()->session()->addMessage("You can't have an empty handle.");
+                        } else if (strlen($handle) > 32) {
+                            \Idno\Core\site()->session()->addMessage("Your handle is too long.");
                         } else if (!empty($handleuser)) {
                             \Idno\Core\site()->session()->addMessage("Unfortunately, a user is already using that handle. Please choose another.");
                         }
