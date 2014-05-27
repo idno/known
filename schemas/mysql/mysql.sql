@@ -28,5 +28,6 @@ CREATE TABLE IF NOT EXISTS `metadata` (
   `name` varchar(32) NOT NULL,
   `value` text NOT NULL,
   KEY `entity` (`entity`,`name`),
-  KEY `value` (`value`(255))
+  KEY `value` (`value`(255)),
+  KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
