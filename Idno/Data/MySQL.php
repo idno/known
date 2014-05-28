@@ -104,6 +104,14 @@
                 /* @var \PDO $client */
                 $statement = $client->prepare("insert into {$collection} (`uuid`,`_id`, `owner`, `contents`, `search`) values (:uuid, :id, :owner, :contents, :search)");
                 if ($statement->execute([':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':contents' => $contents, ':search' => $search])) {
+                    if ($statement = $client->prepare("delete from metadata where entity = :uuid")) {
+                        $statement->execute([':uuid' => $array['uuid']]);
+                    }
+                    foreach($array as $key => $value) {
+                        if ($statement = $client->prepare("insert into metadata set entity = :uuid, `name` = :name, `value` = :value")) {
+                            $statement->execute([':uuid' => $array['uuid'], ':name' => $key, ':value' => $value]);
+                        }
+                    }
                     return $array['_id'];
                 }
 
