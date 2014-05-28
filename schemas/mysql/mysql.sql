@@ -7,7 +7,7 @@
 --
 
 CREATE TABLE IF NOT EXISTS `entities` (
-  `uuid` varchar(128) NOT NULL,
+  `uuid` varchar(255) NOT NULL,
   `_id` varchar(32) NOT NULL,
   `owner` varchar(32) NOT NULL,
   `entity_subtype` varchar (32) NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `entities` (
   `contents` blob NOT NULL,
   `search` text NOT NULL,
   PRIMARY KEY (`uuid`),
-  KEY `owner` (`owner`,`created`,`updated`),
+  KEY `owner` (`owner`,`created`),
   KEY `_id` (`_id`),
   KEY `entity_subtype` (`entity_subtype`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -34,3 +34,15 @@ CREATE TABLE IF NOT EXISTS `metadata` (
   KEY `value` (`value`(255)),
   KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+--
+-- Version table
+--
+CREATE TABLE IF NOT EXISTS `versions` (
+    `label` varchar(32) NOT NULL,
+    `value` varchar(10) NOT NULL,
+    PRIMARY KEY (`label`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+REPLACE INTO `versions` VALUES('schema', '2014052801');
