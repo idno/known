@@ -7,7 +7,7 @@
 --
 
 CREATE TABLE IF NOT EXISTS `entities` (
-  `uuid` varchar(128) NOT NULL,
+  `uuid` varchar(255) NOT NULL,
   `_id` varchar(32) NOT NULL,
   `owner` varchar(32) NOT NULL,
   `entity_subtype` varchar (32) NOT NULL,
