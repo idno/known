@@ -88,6 +88,25 @@
                     }
                 }*/
 
+                if (empty($array['_id'])) {
+                    $array['_id'] = md5(rand(0,9999) . time());
+                }
+                if (empty($array['uuid'])) {
+                    $array['uuid'] = \Idno\Core\site()->config()->getURL() . 'view/' . $array['_id'];
+                }
+                if (empty($array['owner'])) {
+                    $array['owner'] = '';
+                }
+                $contents = json_encode($array);
+                $search = implode(' ', $array);
+
+                $client = $this->client;
+                /* @var \PDO $client */
+                $statement = $client->prepare("insert into {$collection} (`uuid`,`_id`, `owner`, `contents`, `search`) values (:uuid, :id, :owner, :contents, :search)");
+                if ($statement->execute([':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':contents' => $contents, ':search' => $search])) {
+                    return $array['_id'];
+                }
+
                 return false;
             }
 
@@ -122,8 +141,8 @@
 
             function getRecordByUUID($uuid, $collection = 'entities')
             {
-                // TODO MySQL select statement
-                //return $this->database->$collection->findOne(array("uuid" => $uuid));
+                $statement = $this->client->prepare("select * from ".$collection." where uuid = :uuid");
+                return $statement->execute([':uuid' => $uuid]);
             }
 
             /**
@@ -155,8 +174,8 @@
 
             function getRecord($id, $collection = 'entities')
             {
-                // TODO MySQL select statement
-                //return $this->database->$collection->findOne(array("_id" => new \MongoId($id)));
+                $statement = $this->client->prepare("select * from ".$collection." where _id = :id");
+                return $statement->execute([':id' => $id]);
             }
 
             /**
@@ -167,8 +186,8 @@
              */
             function getAnyRecord($collection = 'entities')
             {
-                // TODO MySQL select statement
-                //return $this->database->$collection->findOne();
+                $statement = $this->client->prepare("select * from " . $collection . " limit 1");
+                return $statement->execute();
             }
 
             /**
