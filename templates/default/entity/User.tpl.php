@@ -60,7 +60,7 @@
                                 ?>
                                 <p class="highlightedText">
                                     A profile helps you describe yourself to other people on the site
-                                    and on the web. You haven't added a description yet.
+                                    and on the web. You haven't described yourself yet.
                                     <a href="<?=$vars['user']->getURL()?>/edit/">Click here to fill in your profile information.</a>
                                 </p>
                                 <?php
