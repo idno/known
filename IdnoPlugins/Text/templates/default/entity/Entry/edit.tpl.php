@@ -21,20 +21,17 @@
 
             <p>
                 <label>
+                    Title<br />
+                    <input type="text" name="title" id="title" value="<?=htmlspecialchars($title)?>" class="span6" />
+                </label>
+            </p>
+            <p>
+                <label>
                     Body<br />
                     <textarea required name="body" id="body" class="span6 bodyInput"><?=htmlspecialchars($body)?></textarea>
                 </label>
             </p>
 
-        </div>
-
-        <div class="span4">
-            <p>
-                <label>
-                    Title<br />
-                    <input type="text" name="title" id="title" value="<?=htmlspecialchars($title)?>" class="span4" />
-                </label>
-            </p>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('article'); ?>
             <p>
                 <?= \Idno\Core\site()->actions()->signForm('/text/edit') ?>

@@ -45,7 +45,7 @@
                 }
 
                 if ($object->saveDataFromInput($this)) {
-                    $this->forward($object->getURL());
+                    $this->forward(site()->config()->getURL() . 'content/all/');
                 }
 
             }

@@ -68,7 +68,6 @@
                         } // Add it to the Activity Streams feed
                         $result = \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->body));
                         $result = \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->description));
-                        \Idno\Core\site()->session()->addMessage('You starred the page!');
                         return true;
                     }
                 } else {
