@@ -283,15 +283,15 @@
             function getRecords($fields, $parameters, $limit, $offset, $collection = 'entities')
             {
                 try {
-                    // Make search case insensitive
-                    $fieldscopy = $fields;
-                    foreach($fields as $key => $value) {
-                        if (is_string($value)) {
-                            $val = $value;
-                            $fieldscopy[$key] = $val;
-                        }
-                    }
-                    $fields = $fieldscopy;
+
+                    // Build query
+                    $query = "select * from entities ";
+                    $variables = [];
+                    $metadata_joins = 0;
+                    $limit = (int) $limit;
+                    $offset = (int) $offset;
+                    $where = $this->build_where_from_array($parameters, $variables, $metadata_joins);
+
                     /* TODO MySQL query
                     if ($result = $this->database->$collection->find($parameters, $fields)->skip($offset)->limit($limit)->sort(array('created' => -1))) {
                         return $result;
@@ -301,6 +301,51 @@
                 }
 
                 return false;
+            }
+
+            /**
+             * Recursive function that takes an array of parameters and returns an array of clauses suitable
+             * for compiling into an SQL query
+             * @param $params
+             * @param $where
+             * @param $variables
+             * @param $metadata_joins
+             * @param string $clause Defaults to 'and'
+             */
+            function build_where_from_array($params, &$variables, &$metadata_joins, $clause = 'and') {
+                $where = '';
+                if (empty($variables)) {
+                    $variables = [];
+                }
+                if (empty($metadata_joins)) {
+                    $metadata_joins = 0;
+                }
+                if (is_array($params) && !empty($params)) {
+                    $subwhere = [];
+                    foreach($params as $key => $value) {
+                        if (!is_array($value)) {
+                            $subwhere[] = "(md{$metadata_joins}.`name` = :name{$metadata_joins} and md{$metadata_joins}.`value` = :value{$metadata_joins})";
+                            $variables[":name{$metadata_joins}"] = $key;
+                            $variables[":value{$metadata_joins}"] = $value;
+                            $metadata_joins++;
+                        } else if ($key == '$or') {
+                            $subwhere[] = "(". $this->build_where_from_array($value, $variables, $metadata_joins, 'or') .")";
+                        } else if ($key == '$not') {
+                            $notstring = "(md{$metadata_joins}.`name` = :name{$metadata_joins} and md{$metadata_joins}.`name` not in (";
+                            foreach($value as $val) {
+                                $notstring .= ":value{$metadata_joins}";
+                                $variables[":value{$metadata_joins}"] = $val;
+                                $metadata_joins++;
+                            }
+                            $notstring .= "))";
+                            $subwhere[] = $notstring;
+                        }
+                    }
+                    if (!empty($subwhere)) {
+                        $where = '(' . implode(" {$clause} ", $subwhere) . ')';
+                    }
+                }
+                return $where;
             }
 
             /**
@@ -334,7 +379,7 @@
                         $query_parameters['entity_subtype']['$in'] = $subtypes;
                     }
                     if (!empty($not)) {
-                        $query_parameters['entity_subtype']['$not']['$in'] = $not;
+                        $query_parameters['entity_subtype']['$not'] = $not;
                     }
                 }
 
