@@ -5,7 +5,7 @@ Known *requires* the following server components:
 
 * A Web Server that supports URL rewriting (Apache + mod_rewrite recommended)
 * PHP 5.4 or above
-* MongoDB
+* MongoDB or MySQL 5
 
 Additionally, Known requires the following PHP components:
 
