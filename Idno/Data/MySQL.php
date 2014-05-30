@@ -22,14 +22,15 @@
 
             function init()
             {
+
                 try {
                     $this->client = new \PDO('mysql:host='.\Idno\Core\site()->config()->dbhost.';dbname='.\Idno\Core\site()->config()->dbname.';charset=utf8', \Idno\Core\site()->config()->dbuser, \Idno\Core\site()->config()->dbpass);
                 } catch (\Exception $e) {
-                    echo '<p>Unfortunately we couldn\'t connect to the database:</p><p>' . $e->getMessage() . '</p>';
-                    exit;
+                    \Idno\Core\site()->session()->addMessage('Unfortunately we couldn\'t connect to the database: ' . $e->getMessage());
                 }
 
                 $this->database = \Idno\Core\site()->config()->dbname;
+
             }
 
             /**
@@ -150,7 +151,10 @@
             function getRecordByUUID($uuid, $collection = 'entities')
             {
                 $statement = $this->client->prepare("select * from ".$collection." where uuid = :uuid");
-                return $statement->execute([':uuid' => $uuid]);
+                if($statement->execute([':uuid' => $uuid])) {
+                    return $statement->fetch(\PDO::FETCH_OBJ);
+                }
+                return false;
             }
 
             /**
@@ -183,7 +187,10 @@
             function getRecord($id, $collection = 'entities')
             {
                 $statement = $this->client->prepare("select * from ".$collection." where _id = :id");
-                return $statement->execute([':id' => $id]);
+                if ($statement->execute([':id' => $id])) {
+                    return $statement->fetch(\PDO::FETCH_OBJ);
+                }
+                return false;
             }
 
             /**
@@ -195,7 +202,10 @@
             function getAnyRecord($collection = 'entities')
             {
                 $statement = $this->client->prepare("select * from " . $collection . " limit 1");
-                return $statement->execute();
+                if($statement->execute()) {
+                    return $statement->fetch(\PDO::FETCH_OBJ);
+                }
+                return false;
             }
 
             /**
@@ -291,11 +301,20 @@
                     $limit = (int) $limit;
                     $offset = (int) $offset;
                     $where = $this->build_where_from_array($parameters, $variables, $metadata_joins);
+                    for ($i = 0; $i < $metadata_joins; $i++) {
+                        $query .= " left_join metadata md{$i} on md{$i}.entity = entities.uuid ";
+                    }
+                    if (!empty($where)) {
+                        $query .= ' where ' . $where . ' ';
+                    }
+                    $query .= " order by entities.`created` desc limit {$offset},{$limit}";
 
-                    /* TODO MySQL query
-                    if ($result = $this->database->$collection->find($parameters, $fields)->skip($offset)->limit($limit)->sort(array('created' => -1))) {
-                        return $result;
-                    }*/
+                    $client = $this->client; /* @var \PDO $client */
+                    $statement = $client->prepare($query);
+                    if ($result = $statement->execute($variables)) {
+                        return $statement->fetchAll(\PDO::FETCH_OBJ);
+                    }
+
                 } catch (Exception $e) {
                     return false;
                 }
