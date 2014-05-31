@@ -99,7 +99,16 @@
                     $array['owner'] = '';
                 }
                 $contents = json_encode($array);
-                $search = implode(' ', $array);
+                $search = '';
+                if (!empty($array['title'])) {
+                    $search .= $array['title'] . ' ';
+                }
+                if (!empty($array['description'])) {
+                    $search .= $array['description'] . ' ';
+                }
+                if (!empty($array['body'])) {
+                    $search .= strip_tags($array['body']);
+                }
 
                 $client = $this->client;
                 /* @var \PDO $client */
@@ -358,6 +367,11 @@
                             }
                             $notstring .= "))";
                             $subwhere[] = $notstring;
+                        } else if ($key == '$search') {
+                            $val = $value[0]; // The search query is always in $value position [0] for now
+                            $subwhere[] = "match (entities.`search`) against (:value{$metadata_joins})";
+                            $variables[":value{$metadata_joins}"] = $val;
+                            $metadata_joins++;
                         }
                     }
                     if (!empty($subwhere)) {
@@ -467,9 +481,7 @@
             function createSearchArray($query)
             {
                 //$regexObj = new \MongoRegex("/" . addslashes($query) . "/i");
-                $regexObj = $query;
-
-                return ['$or' => [['body' => $regexObj], ['title' => $regexObj], ['description' => $regexObj]]];
+                return ['$search' => [$query]];
             }
 
         }
