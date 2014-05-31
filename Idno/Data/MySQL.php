@@ -338,9 +338,10 @@
              * @param $where
              * @param $variables
              * @param $metadata_joins
+             * @param $non_md_variables
              * @param string $clause Defaults to 'and'
              */
-            function build_where_from_array($params, &$variables, &$metadata_joins, $clause = 'and') {
+            function build_where_from_array($params, &$variables, &$metadata_joins, &$non_md_variables, $clause = 'and') {
                 $where = '';
                 if (empty($variables)) {
                     $variables = [];
@@ -348,16 +349,25 @@
                 if (empty($metadata_joins)) {
                     $metadata_joins = 0;
                 }
+                if (empty($non_md_variables)) {
+                    $non_md_variables = 0;
+                }
                 if (is_array($params) && !empty($params)) {
                     $subwhere = [];
                     foreach($params as $key => $value) {
                         if (!is_array($value)) {
-                            $subwhere[] = "(md{$metadata_joins}.`name` = :name{$metadata_joins} and md{$metadata_joins}.`value` = :value{$metadata_joins})";
-                            $variables[":name{$metadata_joins}"] = $key;
-                            $variables[":value{$metadata_joins}"] = $value;
-                            $metadata_joins++;
+                            if (in_array($key, ['uuid','_id','entity_subtype','owner'])) {
+                                $subwhere[] = "(`entities`.`{$key}`) = :nonmdvalue{$non_md_variables}";
+                                $variables[":nonmdvalue{$non_md_variables}"];
+                                $non_md_variables++;
+                            } else {
+                                $subwhere[] = "(md{$metadata_joins}.`name` = :name{$metadata_joins} and md{$metadata_joins}.`value` = :value{$metadata_joins})";
+                                $variables[":name{$metadata_joins}"] = $key;
+                                $variables[":value{$metadata_joins}"] = $value;
+                                $metadata_joins++;
+                            }
                         } else if ($key == '$or') {
-                            $subwhere[] = "(". $this->build_where_from_array($value, $variables, $metadata_joins, 'or') .")";
+                            $subwhere[] = "(". $this->build_where_from_array($value, $variables, $metadata_joins, $non_md_variables, 'or') .")";
                         } else if ($key == '$not') {
                             $notstring = "(md{$metadata_joins}.`name` = :name{$metadata_joins} and md{$metadata_joins}.`name` not in (";
                             foreach($value as $val) {
@@ -369,9 +379,9 @@
                             $subwhere[] = $notstring;
                         } else if ($key == '$search') {
                             $val = $value[0]; // The search query is always in $value position [0] for now
-                            $subwhere[] = "match (entities.`search`) against (:value{$metadata_joins})";
-                            $variables[":value{$metadata_joins}"] = $val;
-                            $metadata_joins++;
+                            $subwhere[] = "match (entities.`search`) against (:nonmdvalue{$non_md_variables})";
+                            $variables[":nonmdvalue{$non_md_variables}"] = $val;
+                            $non_md_variables++;
                         }
                     }
                     if (!empty($subwhere)) {
