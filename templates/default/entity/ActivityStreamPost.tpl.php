@@ -21,7 +21,7 @@
     <div class="span8 <?=$subObject->getMicroformats2ObjectType()?> idno-<?=$subObject->getContentTypeCategorySlug()?> idno-object idno-content">
         <div class="visible-phone">
             <p class="p-author author h-card vcard">
-                <a href="<?=$owner->getURL()?>"><img class="u-logo logo u-photo photo" src="<?=$owner->getIcon()?>" /></a>
+                <a href="<?=$owner->getURL()?>" class="icon-container"><img class="u-logo logo u-photo photo" src="<?=$owner->getIcon()?>" /></a>
                 <a class="p-name fn u-url url" href="<?=$owner->getURL()?>"><?=$owner->getTitle()?></a>
                 <a class="u-url" href="<?=$owner->getURL()?>"><!-- This is here to force the hand of your MF2 parser --></a>
             </p>

@@ -91,6 +91,14 @@ h2 {
 
 .idno-entry .h-card .icon-container {
     margin-bottom: 1em;
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+}
+
+.idno-entry .h-card .icon-container .u-photo {
+    width: 100%;
+    height: auto;
 }
 
 .idno-object .edit {
