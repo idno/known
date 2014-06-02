@@ -646,6 +646,7 @@
                     'user'         => $this,
                     'message'      => $message,
                     'context'      => $context,
+                    'vars'         => $vars,
                     'message_template' => $message_template,
                     'object'       => $object,
                     'parameters'   => $params
