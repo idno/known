@@ -1,7 +1,8 @@
-Information for developers
-##########################
+Developer guides
+################
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    standards
+   plugins/index

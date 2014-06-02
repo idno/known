@@ -8,7 +8,7 @@ really own, while reaching your audience whever they might be.
 This is the canonical documentation for the project.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    install/index
    developers/index
