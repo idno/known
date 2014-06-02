@@ -3,9 +3,9 @@ Hi! We wanted to let you know that <strong><a href="<?=$vars['owner_url']?>"><?=
 Here's what they said:<br>
 <br>
 <blockquote>
-    <a href="<?=$vars['owner_url']?>"><img src="<?=$vars['owner_photo']?>" style="width: 100px; margin-right: 10px; margin-bottom: 10px" align="left"></a><?=$vars['content']?>
+    <a href="<?=$vars['owner_url']?>"><img src="<?=$vars['owner_image']?>" style="width: 100px; margin-right: 10px; margin-bottom: 10px" align="left"></a><?=$vars['content']?>
 </blockquote>
-<br>
+<br clear="all"><br>
 <?php
 
     if (!empty($vars['object'])) {
