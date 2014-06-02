@@ -3,6 +3,7 @@
     header('Content-type: text/html');
     header('Link: <' . \Idno\Core\site()->config()->url . 'webmention/>; rel="http://webmention.org/"');
     header('Link: <' . \Idno\Core\site()->config()->url . 'webmention/>; rel="webmention"');
+    header("Access-Control-Allow-Origin: *");
 
 ?>
 <?php if (!$_SERVER["HTTP_X_PJAX"]): ?>
