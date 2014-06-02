@@ -78,9 +78,13 @@
 
                         if ($user->notifications['email'] == 'all' || ($user->notifications['email'] == 'comment' && in_array($context,['comment','reply']))) {
 
+                            $vars = $event->data()['vars'];
+                            if (empty($vars)) { $vars = []; }
+                            $vars['object'] = $event->data()['object'];
+
                             $email = new Email();
                             $email->setSubject($event->data()['message']);
-                            $email->setHTMLBodyFromTemplate($event->data()['message_template']);
+                            $email->setHTMLBodyFromTemplate($event->data()['message_template'], $vars);
                             $email->addTo($user->email);
                             $email->send();
 
