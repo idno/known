@@ -56,6 +56,7 @@
                 $this->addPageHandler('/edit/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Edit');
                 $this->addPageHandler('/delete/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Delete');
                 $this->addPageHandler('/share/?', '\Idno\Pages\Entity\Share');
+                $this->addPageHandler('/bookmarklet\.js', '\Idno\Pages\Entity\Bookmarklet', true);
                 $this->addPageHandler('/[0-9]+/([A-Za-z0-9\-\_]+)/annotations/([A-Za-z0-9]+)/delete/?', '\Idno\Pages\Annotation\Delete'); // Delete annotation
                 $this->addPageHandler('/file/([A-Za-z0-9]+)(/.*)?', '\Idno\Pages\File\View');
                 $this->addPageHandler('/profile/([^\/]+)/?', '\Idno\Pages\User\View');

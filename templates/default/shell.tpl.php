@@ -87,7 +87,7 @@
 
     <!-- We need jQuery at the top of the page -->
     <script src="<?= \Idno\Core\site()->config()->url . 'external/jquery/' ?>jquery.min.js"></script>
-    
+
     <?= $this->draw('shell/head', $vars); ?>
 
 </head>
