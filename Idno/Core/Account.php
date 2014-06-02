@@ -17,7 +17,8 @@
 
                 // Account management
                 site()->addPageHandler('/account/settings', '\Idno\Pages\Account\Settings');
-                site()->addPageHandler('/account/settings/homepage', '\Idno\Pages\Account\Settings\Homepage');
+                site()->addPageHandler('/account/settings/notifications/?', '\Idno\Pages\Account\Settings\Notifications');
+                site()->addPageHandler('/account/settings/homepage/?', '\Idno\Pages\Account\Settings\Homepage');
                 site()->addPageHandler('/account/settings/following/?', '\Idno\Pages\Account\Settings\Following');
                 site()->addPageHandler('/account/settings/following/bookmarklet/?', '\Idno\Pages\Account\Settings\Following\Bookmarklet');
 

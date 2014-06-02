@@ -284,6 +284,9 @@
 
             function logUserOn(\Idno\Entities\User $user)
             {
+                if (empty($user->notifications)) {
+                    $user->notifications['email'] = 'all';  // By default, send notifications to users
+                }
                 return $this->refreshSessionUser($user);
             }
 

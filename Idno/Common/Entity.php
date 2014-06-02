@@ -1425,6 +1425,33 @@
 
                 \Idno\Core\site()->triggerEvent('annotation/add/' . $subtype, ['annotation' => $annotation, 'object' => $this]);
 
+                if ($owner = $this->getOwner()) {
+
+                    switch ($subtype) {
+                        case 'reply':
+                            $subject               = $owner_name . ' replied to your post!';
+                            $notification_template = 'content/notification/reply';
+                            $context               = 'reply';
+                            break;
+                        case 'like':
+                            $subject               = $owner_name . ' liked your post!';
+                            $notification_template = 'content/notification/like';
+                            $context               = 'like';
+                            break;
+                        case 'share':
+                            $subject               = $owner_name . ' reshared your post!';
+                            $notification_template = 'content/notification/share';
+                            $context               = 'share';
+                            break;
+                        case 'rsvp':
+                            $subject               = $owner_name . ' RSVPed!';
+                            $notification_template = 'content/notification/rsvp';
+                            $context               = 'rsvp';
+                            break;
+                    }
+                    $owner->notify($subject, $notification_template, $annotation, $context, $this);
+                }
+
                 return true;
             }
 

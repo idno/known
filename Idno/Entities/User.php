@@ -10,6 +10,7 @@
     namespace Idno\Entities {
 
         use Idno\Common\ContentType;
+        use Idno\Core\Email;
 
         // We need the PHP 5.5 password API
         require_once \Idno\Core\site()->config()->path . '/external/password_compat/lib/password.php';
@@ -64,6 +65,27 @@
                                 \Idno\Core\site()->session()->refreshSessionUser($user);
                             }
                         }
+                    }
+
+                });
+
+                // Email notifications
+                \Idno\Core\site()->addEventHook('notify', function (\Idno\Core\Event $event) {
+
+                    $user = $event->data()['user'];
+
+                    if ($user instanceof User && $context = $event->data()['context']) {
+
+                        if ($user->notifications['email'] == 'all' || ($user->notifications['email'] == 'comment' && in_array($context,['comment','reply']))) {
+
+                            $email = new Email();
+                            $email->setSubject($event->data()['message']);
+                            $email->setHTMLBodyFromTemplate($event->data()['message_template']);
+                            $email->addTo($user->email);
+                            $email->send();
+
+                        }
+
                     }
 
                 });
@@ -297,12 +319,14 @@
              * Retrieve the current password recovery code - if it's less than three hours old
              * @return string|false
              */
-            function getPasswordRecoveryCode() {
+            function getPasswordRecoveryCode()
+            {
                 if ($code = $this->password_recovery_code) {
                     if ($this->password_recovery_code_time > (time() - (3600 * 3))) {
                         return $code;
                     }
                 }
+
                 return false;
             }
 
@@ -310,17 +334,20 @@
              * Add a password recovery code to the user
              * @return string The new recovery code, suitable for sending in an email
              */
-            function addPasswordRecoveryCode() {
-                $auth_code = md5(time() . rand(0,9999) . $this->email);
-                $this->password_recovery_code = $auth_code;
+            function addPasswordRecoveryCode()
+            {
+                $auth_code                         = md5(time() . rand(0, 9999) . $this->email);
+                $this->password_recovery_code      = $auth_code;
                 $this->password_recovery_code_time = time();
+
                 return $auth_code;
             }
 
             /**
              * Clears this user's password recovery code (eg if they log in and don't need it anymore).
              */
-            function clearPasswordRecoveryCode() {
+            function clearPasswordRecoveryCode()
+            {
                 $this->password_recovery_code = false;
             }
 
@@ -602,17 +629,20 @@
             /**
              * Hook to provide a method of notifying a user - for example, sending an email or displaying a popup.
              *
-             * @param string $message The message to notify the user with.
-             * @param string $long_message Optionally, a longer version of the message with more detail.
+             * @param string $message The short text message to notify the user with. (eg, a subject line.)
+             * @param string $message_template Optionally, a template name pointing to a longer version of the message with more detail.
+             * @param string $context Optionally, a string describing the kind of action. eg, "comment", "like" or "reshare".
+             * @param array $vars Optionally, variables to pass to the template.
              * @param \Idno\Common\Entity|null $object Optionally, an object to pass
              * @param array|null $params Optionally, any parameters to pass to the process. NB: this should be used rarely.
              */
-            public function notify($message, $long_message = null, $object = null, $params = null)
+            public function notify($message, $message_template = '', $vars = [], $context = '', $object = null, $params = null)
             {
                 return \Idno\Core\site()->triggerEvent('notify', [
                     'user'         => $this,
                     'message'      => $message,
-                    'long_message' => $long_message,
+                    'context'      => $context,
+                    'message_template' => $message_template,
                     'object'       => $object,
                     'parameters'   => $params
                 ]);
