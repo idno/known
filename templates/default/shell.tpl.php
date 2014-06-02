@@ -226,7 +226,7 @@
 
     // Shim so that JS functions can get the current site URL
     function wwwroot() {
-        return '<?=\Idno\Core\site()->config()->wwwroot?>';
+        return '<?=\Idno\Core\site()->config()->getURL()?>';
     }
 
     $(document).ready(function () {
