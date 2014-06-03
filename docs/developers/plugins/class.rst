@@ -45,5 +45,5 @@ registerEventHooks()
 ^^^^^^^^^^^^^^^^^^^^
 
 If this exists, this function will be called when the plugin is loaded. It's suggested that you define your
-:docs:`event hooks` here.
+:doc:`event hooks` here.
 
