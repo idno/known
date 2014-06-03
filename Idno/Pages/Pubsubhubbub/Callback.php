@@ -26,13 +26,13 @@
                 if (empty($subscription)) {
                     $this->goneContent();
                 }
-                error_log("Pubsub : ". print_r($_REQUEST, true));
+                
                 $hub_mode = $this->getInput('hub.mode', $this->getInput('hub_mode'));
                 $hub_topic = $this->getInput('hub.topic', $this->getInput('hub_topic'));
                 $hub_challenge = $this->getInput('hub.challenge', $this->getInput('hub_challenge'));
                 $hub_lease_seconds = $this->getInput('hub.lease_seconds', $this->getInput('hub_lease_seconds'));
                 
-                error_log("Pubsub: $hub_mode ping ");
+                error_log("Pubsub: $hub_mode verification ping ");
                 
                 switch ($hub_mode) {
                     case 'subscribe':
@@ -57,19 +57,25 @@
                 $this->deniedContent();
             }
 
-            function postContent()
+            function post()
             {
+                error_log("Pubsub: Ping received");
+                
+                // Since we've overloaded post, we need to parse the arguments
+                $arguments = func_get_args();
+                if (!empty($arguments)) $this->arguments = $arguments;
+                
                 // Find users
                 if (!empty($this->arguments[0])) {
                     $subscriber = \Idno\Common\Entity::getByID($this->arguments[0]);
                 }
-                if (empty($subscriber)) {
+                if (empty($subscriber) || (!($subscriber instanceof \Idno\Entities\User))) {
                     $this->goneContent();
                 }
                 if (!empty($this->arguments[1])) {
                     $subscription = \Idno\Common\Entity::getByID($this->arguments[1]);
                 }
-                if (empty($subscription)) {
+                if (empty($subscription) || (!($subscription instanceof \Idno\Entities\User))) {
                     $this->goneContent();
                 }
                 
