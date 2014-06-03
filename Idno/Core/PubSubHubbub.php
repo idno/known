@@ -34,7 +34,50 @@
             
             function registerPages()
             {
+                // Create an endpoint for subscription pings
+                $this->addPageHandler('/pubsub/callback/([A-Za-z0-9]+)/?', '\Idno\Pages\Pubsubhubbub\Callback');
                 
+                // When we follow a user, try and subscribe to their hub
+                \Idno\Core\site()->addEventHook('follow', function(\Idno\Core\Event $event) {
+
+		    $user = $event->data()['user'];
+                    $following = $event->data()['following'];
+
+                    if (($user instanceof \Idno\Entities\User) && ($following instanceof \Idno\Entities\User)) {
+                        
+			$url = $following->getURL();
+                        
+                        if ($hubs = $this->discoverHubs($url)) {
+                            
+                            \Idno\Core\Webservice::post($hub, [
+                                'hub.callback' => \Idno\Core\site()->config->url .'pubsub/callback/' . $user->getID, // Callback, unique to each subscriber
+                                'hub.mode' => 'subscribe',
+                                'hub.topic'  => $url . '?_t=rss', // Subscribe to rss
+                            ]);
+                        }
+                        
+                    }
+
+                });
+                
+                // Send unfollow notification to their hub
+                \Idno\Core\site()->addEventHook('unfollow', function(\Idno\Core\Event $event) {
+
+		    $user = $event->data()['user'];
+                    $following = $event->data()['following'];
+
+                    if (($user instanceof \Idno\Entities\User) && ($following instanceof \Idno\Entities\User)) {
+                        
+			$url = $following->getURL();
+                        
+                        \Idno\Core\Webservice::post($hub, [
+                            'hub.callback' => \Idno\Core\site()->config->url .'pubsub/callback/' . $user->getID, // Callback, unique to each subscriber
+                            'hub.mode' => 'unsubscribe',
+                            'hub.topic'  => $url . '?_t=rss', // Subscribe to rss
+                        ]);
+                    }
+
+                });
             }
 
             /**
@@ -52,7 +95,10 @@
                     $hubs = array_merge($match[1]);
                 }
                 
-                return $hubs;
+                if (count($hubs))
+                    return $hubs;
+                
+                return false;
             }
                         
             /**
