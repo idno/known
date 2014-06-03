@@ -27,12 +27,7 @@ namespace Idno\Core {
                     }
                 }
             });
-        }
-
-        function registerPages() {
-            // Create an endpoint for subscription pings
-            $this->addPageHandler('/pubsub/callback/([A-Za-z0-9]+)/([A-Za-z0-9]+)/?', '\Idno\Pages\Pubsubhubbub\Callback');
-
+            
             // When we follow a user, try and subscribe to their hub
             \Idno\Core\site()->addEventHook('follow', function(\Idno\Core\Event $event) {
 
@@ -45,8 +40,7 @@ namespace Idno\Core {
 
                     // Find self reference from profile url
                     if ($feed = $this->findSelf($url)) {
-                        $following->pubsubself = $feed;
-                        $following->save();
+                        $following->pubsub_self = $feed;
 
                         if ($hubs = $this->discoverHubs($url)) {
 
@@ -56,17 +50,24 @@ namespace Idno\Core {
                             if (!is_array($pending->subscribe))
                                 $pending->subscribe = [];
 
-                            $pending->subscribe[$following->getID()] = time();
+                            $pending->subscribe[] = $following->getUUID();
                             $user->pubsub_pending = serialize($pending);
                             $user->save();
+                            
+                            $following->pubsub_hub = $hubs[0];
+                            $following->save();
 
-                            \Idno\Core\Webservice::post($hub, [
+                            $return = \Idno\Core\Webservice::post($following->pubsub_hub, [
                                 'hub.callback' => \Idno\Core\site()->config->url . 'pubsub/callback/' . $user->getID() . '/' . $following->getID(), // Callback, unique to each subscriber
                                 'hub.mode' => 'subscribe',
                                 'hub.topic' => $feed, // Subscribe to rss
                             ]);
+                            
+                            error_log("Pubsub: " . print_r($return, true));
                         }
-                    }
+                        else
+                            error_log("Pubsub: No hubs found");
+                    } 
                 }
             });
 
@@ -86,17 +87,25 @@ namespace Idno\Core {
                     if (!is_array($pending->subscribe))
                         $pending->unsubscribe = [];
 
-                    $pending->unsubscribe[$following->getID()] = time();
+                    $pending->unsubscribe[] = $following->getID();
                     $user->pubsub_pending = serialize($pending);
                     $user->save();
 
-                    \Idno\Core\Webservice::post($hub, [
+                    $return = \Idno\Core\Webservice::post($following->pubsub_hub, [
                         'hub.callback' => \Idno\Core\site()->config->url . 'pubsub/callback/' . $user->getID() . '/' . $following->getID(), // Callback, unique to each subscriber
                         'hub.mode' => 'unsubscribe',
-                        'hub.topic' => $following->pubsubself
+                        'hub.topic' => $following->pubsub_self
                     ]);
+                    
+                    error_log("Pubsub: " . print_r($return, true));
                 }
             });
+        }
+
+        function registerPages() {
+            // Create an endpoint for subscription pings
+            \Idno\Core\site()->addPageHandler('/pubsub/callback/([A-Za-z0-9]+)/([A-Za-z0-9]+)/?', '\Idno\Pages\Pubsubhubbub\Callback');
+
         }
 
         /**
@@ -108,7 +117,7 @@ namespace Idno\Core {
             
             // Find the feed
             $feed = $this->findFeed($url);
-            
+            error_log("Pubsub: Found $feed");
             /*$page = \Idno\Core\Webservice::file_get_contents($url);
 
             if (preg_match_all('/<link href="([^"]+)" rel="hub" ?\/?>/i', $page, $match)) {
@@ -127,6 +136,12 @@ namespace Idno\Core {
                     $hubs = array_merge($match[1]);
                 }
                 if (preg_match_all('/<atom:link rel="hub" href="([^"]+)" ?\/?>/i', $page, $match)) {
+                    $hubs = array_merge($match[1]);
+                }
+                if (preg_match_all('/<atom:link href=\'([^\']+)\' rel=\'hub\' ?\/?>/i', $page, $match)) {
+                    $hubs = array_merge($match[1]);
+                }
+                if (preg_match_all('/<atom:link rel=\'hub\' href=\'([^\']+)\' ?\/?>/i', $page, $match)) {
                     $hubs = array_merge($match[1]);
                 }
             }
