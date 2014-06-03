@@ -49,6 +49,15 @@
                         
                         if ($hubs = $this->discoverHubs($url)) {
                             
+                            $pending = unserialize($user->pubsub_pending);
+                            if(!$pending) 
+                                $pending = new \stdClass ();
+                            if (!is_array($pending->subscribe))
+                                $pending->subscribe = [];
+                            
+                            $pending->subscribe[$following->getID()] = time();
+                            $user->pubsub_pending = serialize($pending); $user->save();
+                            
                             \Idno\Core\Webservice::post($hub, [
                                 'hub.callback' => \Idno\Core\site()->config->url .'pubsub/callback/' . $user->getID() . '/'.$following->getID(), // Callback, unique to each subscriber
                                 'hub.mode' => 'subscribe',
@@ -69,6 +78,15 @@
                     if (($user instanceof \Idno\Entities\User) && ($following instanceof \Idno\Entities\User)) {
                         
 			$url = $following->getURL();
+                        
+                        $pending = unserialize($user->pubsub_pending);
+                        if(!$pending) 
+                            $pending = new \stdClass ();
+                        if (!is_array($pending->subscribe))
+                            $pending->unsubscribe = [];
+
+                        $pending->unsubscribe[$following->getID()] = time();
+                        $user->pubsub_pending = serialize($pending); $user->save();
                         
                         \Idno\Core\Webservice::post($hub, [
                             'hub.callback' => \Idno\Core\site()->config->url .'pubsub/callback/' . $user->getID() . '/'.$following->getID(), // Callback, unique to each subscriber
