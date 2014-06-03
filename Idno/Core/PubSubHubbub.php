@@ -113,6 +113,14 @@
                     $hubs = array_merge($match[1]);
                 }
                 
+                // We may be looking on a feed
+                if (preg_match_all('/<atom:link href="([^"]+)" rel="hub" ?\/?>/i', $page, $match)) {
+                    $hubs = array_merge($match[1]);
+                }
+                if (preg_match_all('/<atom:link rel="hub" href="([^"]+)" ?\/?>/i', $page, $match)) {
+                    $hubs = array_merge($match[1]);
+                }
+                
                 if (count($hubs))
                     return $hubs;
                 
