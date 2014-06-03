@@ -74,7 +74,7 @@
     <!-- Pubsubhubbub -->
     <link href="<?= \Idno\Core\site()->config()->hub ?>" rel="hub" />
         <?php if (\Idno\Core\site()->currentPage()) { ?>
-           <link href="<?= \Idno\Core\site()->currentPage()->currentUrl(); ?>" rel="self" />
+           <link href="<?= \Idno\Core\site()->currentPage()->currentUrl(); ?>?_t=rss" rel="self" />
         <?php } ?>
     <?php } ?>
     
