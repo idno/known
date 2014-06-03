@@ -24,7 +24,7 @@
             {
 
                 try {
-                    $this->client = new \PDO('mysql:host='.\Idno\Core\site()->config()->dbhost.';dbname='.\Idno\Core\site()->config()->dbname.';charset=utf8', \Idno\Core\site()->config()->dbuser, \Idno\Core\site()->config()->dbpass);
+                    $this->client = new \PDO('mysql:host=' . \Idno\Core\site()->config()->dbhost . ';dbname=' . \Idno\Core\site()->config()->dbname . ';charset=utf8', \Idno\Core\site()->config()->dbuser, \Idno\Core\site()->config()->dbpass);
                 } catch (\Exception $e) {
                     \Idno\Core\site()->session()->addMessage('Unfortunately we couldn\'t connect to the database: ' . $e->getMessage());
                 }
@@ -90,7 +90,7 @@
                 }*/
 
                 if (empty($array['_id'])) {
-                    $array['_id'] = md5(rand(0,9999) . time());
+                    $array['_id'] = md5(rand(0, 9999) . time());
                 }
                 if (empty($array['uuid'])) {
                     $array['uuid'] = \Idno\Core\site()->config()->getURL() . 'view/' . $array['_id'];
@@ -99,7 +99,7 @@
                     $array['owner'] = '';
                 }
                 $contents = json_encode($array);
-                $search = '';
+                $search   = '';
                 if (!empty($array['title'])) {
                     $search .= $array['title'] . ' ';
                 }
@@ -117,11 +117,12 @@
                     if ($statement = $client->prepare("delete from metadata where entity = :uuid")) {
                         $statement->execute([':uuid' => $array['uuid']]);
                     }
-                    foreach($array as $key => $value) {
+                    foreach ($array as $key => $value) {
                         if ($statement = $client->prepare("insert into metadata set entity = :uuid, `name` = :name, `value` = :value")) {
                             $statement->execute([':uuid' => $array['uuid'], ':name' => $key, ':value' => $value]);
                         }
                     }
+
                     return $array['_id'];
                 }
 
@@ -159,10 +160,11 @@
 
             function getRecordByUUID($uuid, $collection = 'entities')
             {
-                $statement = $this->client->prepare("select * from ".$collection." where uuid = :uuid");
-                if($statement->execute([':uuid' => $uuid])) {
+                $statement = $this->client->prepare("select * from " . $collection . " where uuid = :uuid");
+                if ($statement->execute([':uuid' => $uuid])) {
                     return $statement->fetch(\PDO::FETCH_OBJ);
                 }
+
                 return false;
             }
 
@@ -195,10 +197,11 @@
 
             function getRecord($id, $collection = 'entities')
             {
-                $statement = $this->client->prepare("select * from ".$collection." where _id = :id");
+                $statement = $this->client->prepare("select * from " . $collection . " where _id = :id");
                 if ($statement->execute([':id' => $id])) {
                     return $statement->fetch(\PDO::FETCH_OBJ);
                 }
+
                 return false;
             }
 
@@ -211,9 +214,10 @@
             function getAnyRecord($collection = 'entities')
             {
                 $statement = $this->client->prepare("select * from " . $collection . " limit 1");
-                if($statement->execute()) {
+                if ($statement->execute()) {
                     return $statement->fetch(\PDO::FETCH_OBJ);
                 }
+
                 return false;
             }
 
@@ -304,12 +308,13 @@
                 try {
 
                     // Build query
-                    $query = "select * from entities ";
-                    $variables = [];
-                    $metadata_joins = 0;
-                    $limit = (int) $limit;
-                    $offset = (int) $offset;
-                    $where = $this->build_where_from_array($parameters, $variables, $metadata_joins);
+                    $query            = "select * from entities ";
+                    $variables        = [];
+                    $metadata_joins   = 0;
+                    $non_md_variables = [];
+                    $limit            = (int)$limit;
+                    $offset           = (int)$offset;
+                    $where            = $this->build_where_from_array($parameters, $variables, $metadata_joins, $non_md_variables);
                     for ($i = 0; $i < $metadata_joins; $i++) {
                         $query .= " left_join metadata md{$i} on md{$i}.entity = entities.uuid ";
                     }
@@ -318,7 +323,8 @@
                     }
                     $query .= " order by entities.`created` desc limit {$offset},{$limit}";
 
-                    $client = $this->client; /* @var \PDO $client */
+                    $client = $this->client;
+                    /* @var \PDO $client */
                     $statement = $client->prepare($query);
                     if ($result = $statement->execute($variables)) {
                         return $statement->fetchAll(\PDO::FETCH_OBJ);
@@ -341,7 +347,8 @@
              * @param $non_md_variables
              * @param string $clause Defaults to 'and'
              */
-            function build_where_from_array($params, &$variables, &$metadata_joins, &$non_md_variables, $clause = 'and') {
+            function build_where_from_array($params, &$variables, &$metadata_joins, &$non_md_variables, $clause = 'and')
+            {
                 $where = '';
                 if (empty($variables)) {
                     $variables = [];
@@ -354,23 +361,23 @@
                 }
                 if (is_array($params) && !empty($params)) {
                     $subwhere = [];
-                    foreach($params as $key => $value) {
+                    foreach ($params as $key => $value) {
                         if (!is_array($value)) {
-                            if (in_array($key, ['uuid','_id','entity_subtype','owner'])) {
+                            if (in_array($key, ['uuid', '_id', 'entity_subtype', 'owner'])) {
                                 $subwhere[] = "(`entities`.`{$key}`) = :nonmdvalue{$non_md_variables}";
                                 $variables[":nonmdvalue{$non_md_variables}"];
                                 $non_md_variables++;
                             } else {
-                                $subwhere[] = "(md{$metadata_joins}.`name` = :name{$metadata_joins} and md{$metadata_joins}.`value` = :value{$metadata_joins})";
-                                $variables[":name{$metadata_joins}"] = $key;
+                                $subwhere[]                           = "(md{$metadata_joins}.`name` = :name{$metadata_joins} and md{$metadata_joins}.`value` = :value{$metadata_joins})";
+                                $variables[":name{$metadata_joins}"]  = $key;
                                 $variables[":value{$metadata_joins}"] = $value;
                                 $metadata_joins++;
                             }
                         } else if ($key == '$or') {
-                            $subwhere[] = "(". $this->build_where_from_array($value, $variables, $metadata_joins, $non_md_variables, 'or') .")";
+                            $subwhere[] = "(" . $this->build_where_from_array($value, $variables, $metadata_joins, $non_md_variables, 'or') . ")";
                         } else if ($key == '$not') {
                             $notstring = "(md{$metadata_joins}.`name` = :name{$metadata_joins} and md{$metadata_joins}.`name` not in (";
-                            foreach($value as $val) {
+                            foreach ($value as $val) {
                                 $notstring .= ":value{$metadata_joins}";
                                 $variables[":value{$metadata_joins}"] = $val;
                                 $metadata_joins++;
@@ -378,8 +385,8 @@
                             $notstring .= "))";
                             $subwhere[] = $notstring;
                         } else if ($key == '$search') {
-                            $val = $value[0]; // The search query is always in $value position [0] for now
-                            $subwhere[] = "match (entities.`search`) against (:nonmdvalue{$non_md_variables})";
+                            $val                                         = $value[0]; // The search query is always in $value position [0] for now
+                            $subwhere[]                                  = "match (entities.`search`) against (:nonmdvalue{$non_md_variables})";
                             $variables[":nonmdvalue{$non_md_variables}"] = $val;
                             $non_md_variables++;
                         }
@@ -388,6 +395,7 @@
                         $where = '(' . implode(" {$clause} ", $subwhere) . ')';
                     }
                 }
+
                 return $where;
             }
 
@@ -445,12 +453,33 @@
              */
             function countRecords($parameters, $collection = 'entities')
             {
-                /*
-                 * TODO MySQL select query
-                 *
-                if ($result = $this->database->$collection->count($parameters)) {
-                    return (int)$result;
-                }*/
+                try {
+
+                    // Build query
+                    $query            = "select count(entities.uuid) as total from entities ";
+                    $variables        = [];
+                    $metadata_joins   = 0;
+                    $non_md_variables = [];
+                    $where            = $this->build_where_from_array($parameters, $variables, $metadata_joins, $non_md_variables);
+                    for ($i = 0; $i < $metadata_joins; $i++) {
+                        $query .= " left_join metadata md{$i} on md{$i}.entity = entities.uuid ";
+                    }
+                    if (!empty($where)) {
+                        $query .= ' where ' . $where . ' ';
+                    }
+
+                    $client = $this->client;
+                    /* @var \PDO $client */
+                    $statement = $client->prepare($query);
+                    if ($result = $statement->execute($variables)) {
+                        if ($obj = $statement->fetchObject()) {
+                            return $obj->total;
+                        }
+                    }
+
+                } catch (Exception $e) {
+                    return false;
+                }
 
                 return 0;
             }
@@ -464,6 +493,22 @@
             {
                 // TODO MySQL query
                 //return $this->database->entities->remove(array("_id" => new \MongoId($id)));
+                try {
+
+                    $client = $this->client;
+                    /* @var \PDO $client */
+                    $statement = $client->prepare("delete from entities where _id = :id");
+                    if ($statement->execute([':id' => $id])) {
+                        // TODO delete metadata
+                    }
+
+                } catch (\Exception $e) {
+
+                    return false;
+
+                }
+
+                return false;
             }
 
             /**
