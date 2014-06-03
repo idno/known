@@ -105,21 +105,30 @@ namespace Idno\Core {
         private function discoverHubs($url) {
 
             $hubs = [];
-            $page = \Idno\Core\Webservice::file_get_contents($url);
+            
+            // Find the feed
+            $feed = $this->findFeed($url);
+            
+            /*$page = \Idno\Core\Webservice::file_get_contents($url);
 
             if (preg_match_all('/<link href="([^"]+)" rel="hub" ?\/?>/i', $page, $match)) {
                 $hubs = array_merge($match[1]);
             }
             if (preg_match_all('/<link rel="hub" href="([^"]+)" ?\/?>/i', $page, $match)) {
                 $hubs = array_merge($match[1]);
-            }
+            }*/
 
-            // We may be looking on a feed
-            if (preg_match_all('/<atom:link href="([^"]+)" rel="hub" ?\/?>/i', $page, $match)) {
-                $hubs = array_merge($match[1]);
-            }
-            if (preg_match_all('/<atom:link rel="hub" href="([^"]+)" ?\/?>/i', $page, $match)) {
-                $hubs = array_merge($match[1]);
+            if ($feed) {
+                
+                $page = \Idno\Core\Webservice::file_get_contents($feed);
+                
+                // We may be looking on a feed
+                if (preg_match_all('/<atom:link href="([^"]+)" rel="hub" ?\/?>/i', $page, $match)) {
+                    $hubs = array_merge($match[1]);
+                }
+                if (preg_match_all('/<atom:link rel="hub" href="([^"]+)" ?\/?>/i', $page, $match)) {
+                    $hubs = array_merge($match[1]);
+                }
             }
 
             if (count($hubs))
@@ -128,6 +137,27 @@ namespace Idno\Core {
             return false;
         }
 
+        /**
+         * Find the (first) feed on a given URL.
+         * @param type $url
+         * @return type
+         */
+        private function findFeed($url) {
+            $feed = null;
+            
+            $data = \Idno\Core\Webservice::file_get_contents($url);
+            // serach for all 'RSS Feed' declarations 
+            if (preg_match_all('#<link[^>]+type="application/rss\+xml"[^>]*>#is', $data, $rawMatches)) {
+                
+                if (preg_match('#href="([^"]+)"#i', $rawMatches[0][0], $rawUrl)) {
+                    $feed = $rawUrl[1];
+                }
+
+            }
+            
+            return $feed;
+        }
+        
         /**
          * Find the self resource.
          * This method will find a link self on a feed, finding the feed first
@@ -139,15 +169,7 @@ namespace Idno\Core {
             $feed = null;
 
             // Find RSS
-            $data = \Idno\Core\Webservice::file_get_contents($url);
-            // serach for all 'RSS Feed' declarations 
-            if (preg_match_all('#<link[^>]+type="application/rss\+xml"[^>]*>#is', $data, $rawMatches)) {
-                
-                if (preg_match('#href="([^"]+)"#i', $rawMatches[0][0], $rawUrl)) {
-                    $feed = $rawUrl[1];
-                }
-
-            }
+            $feed = $this->findFeed($url);
 
             // Find self
             if ($feed) {
