@@ -26,11 +26,11 @@
                 if (empty($subscription)) {
                     $this->goneContent();
                 }
-                
-                $hub_mode = get_input('hub.mode');
-                $hub_topic = get_input('hub.topic');
-                $hub_challenge = get_input('hub.challenge');
-                $hub_lease_seconds = get_input('hub.lease_seconds');
+                error_log("Pubsub : ". print_r($_REQUEST, true));
+                $hub_mode = $this->getInput('hub.mode', $this->getInput('hub_mode'));
+                $hub_topic = $this->getInput('hub.topic', $this->getInput('hub_topic'));
+                $hub_challenge = $this->getInput('hub.challenge', $this->getInput('hub_challenge'));
+                $hub_lease_seconds = $this->getInput('hub.lease_seconds', $this->getInput('hub_lease_seconds'));
                 
                 error_log("Pubsub: $hub_mode ping ");
                 
