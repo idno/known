@@ -16,16 +16,15 @@
     $channel->appendChild($page->createElement('description',$vars['description']));
     $channel->appendChild($page->createElement('link',$this->getCurrentURLWithoutVar('_t')));
     if (!empty(\Idno\Core\site()->config()->hub)) {
-        $pubsub = $page->createElement('atom:link', \Idno\Core\site()->config()->hub);
+        $pubsub = $page->createElement('atom:link');
+        $pubsub->setAttribute('href',\Idno\Core\site()->config()->hub);
         $pubsub->setAttribute('rel', 'hub');
-        $pubsub->setAttribute('xlmns', 'http://www.w3.org/2005/Atom');
         $channel->appendChild($pubsub);
     }
     $self = $page->createElement('atom:link');
     $self->setAttribute('href', $this->getCurrentURL());
     $self->setAttribute('rel','self');
     $self->setAttribute('type', 'application/rss+xml');
-    $self->setAttribute('xlmns', 'http://www.w3.org/2005/Atom');
     $channel->appendChild($self);
     $channel->appendChild($page->createElement('generator','Known http://withknown.com'));
 
