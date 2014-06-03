@@ -100,7 +100,7 @@ namespace Idno\Core {
         }
 
         /**
-         * Find all hub urls.
+         * Find all hub urls for a given url, by looking at its feeds.
          */
         private function discoverHubs($url) {
 
