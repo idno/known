@@ -71,6 +71,11 @@
     <link href="<?= \Idno\Core\site()->config()->url ?>webmention/" rel="webmention"/>
 
     <link type="text/plain" rel="author" href="<?= \Idno\Core\site()->config()->url ?>humans.txt"/>
+    
+    <?php if (!empty(\Idno\Core\site()->config()->hub)) { ?>
+    <!-- Pubsubhubbub -->
+    <link href="<?= \Idno\Core\site()->config()->hub ?>" rel="hub" />
+    <?php } ?>
 
     <?php
         // Load style assets

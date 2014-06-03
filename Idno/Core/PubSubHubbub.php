@@ -117,17 +117,19 @@ namespace Idno\Core {
 
             $hubs = [];
             
-            // Find the feed
-            $feed = $this->findFeed($url);
-            error_log("Pubsub: Found $feed");
-            /*$page = \Idno\Core\Webservice::file_get_contents($url);
-
+            // Get page
+            $page = \Idno\Core\Webservice::file_get_contents($url);
+            
+            // Find the feed in page
+            $feed = $this->findFeed($url, $page);
+            
+            // See if we have a hub link in the main page
             if (preg_match_all('/<link href="([^"]+)" rel="hub" ?\/?>/i', $page, $match)) {
                 $hubs = array_merge($match[1]);
             }
             if (preg_match_all('/<link rel="hub" href="([^"]+)" ?\/?>/i', $page, $match)) {
                 $hubs = array_merge($match[1]);
-            }*/
+            }
 
             if ($feed) {
                 
@@ -159,10 +161,12 @@ namespace Idno\Core {
          * @param type $url
          * @return type
          */
-        private function findFeed($url) {
+        private function findFeed($url, $data = null) {
             $feed = null;
             
-            $data = \Idno\Core\Webservice::file_get_contents($url);
+            if (!$data)
+                $data = \Idno\Core\Webservice::file_get_contents($url);
+            
             // serach for all 'RSS Feed' declarations 
             if (preg_match_all('#<link[^>]+type="application/rss\+xml"[^>]*>#is', $data, $rawMatches)) {
                 
