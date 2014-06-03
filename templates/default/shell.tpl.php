@@ -70,6 +70,11 @@
     <link href="<?= \Idno\Core\site()->config()->url ?>webmention/" rel="http://webmention.org/"/>
     <link href="<?= \Idno\Core\site()->config()->url ?>webmention/" rel="webmention"/>
 
+    <?php if (!empty(\Idno\Core\site()->config()->hub)) { ?>
+    <!-- Pubsubhubbub -->
+    <link href="<?= \Idno\Core\site()->config()->hub ?>" rel="hub" />
+    <?php } ?>
+    
     <link type="text/plain" rel="author" href="<?= \Idno\Core\site()->config()->url ?>humans.txt"/>
 
     <?php
