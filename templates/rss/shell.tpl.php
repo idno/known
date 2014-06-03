@@ -16,7 +16,7 @@
     $channel->appendChild($page->createElement('description',$vars['description']));
     $channel->appendChild($page->createElement('link',$this->getCurrentURLWithoutVar('_t')));
     if (!empty(\Idno\Core\site()->config()->hub)) {
-        $pubsub = $page->createElement('link', \Idno\Core\site()->config()->hub);
+        $pubsub = $page->createElement('atom:link', \Idno\Core\site()->config()->hub);
         $pubsub->setAttribute('rel', 'hub');
         $pubsub->setAttribute('xlmns', 'http://www.w3.org/2005/Atom');
         $channel->appendChild($pubsub);
