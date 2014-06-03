@@ -60,6 +60,7 @@ namespace Idno\Core {
                             $return = \Idno\Core\Webservice::post($following->pubsub_hub, [
                                 'hub.callback' => \Idno\Core\site()->config->url . 'pubsub/callback/' . $user->getID() . '/' . $following->getID(), // Callback, unique to each subscriber
                                 'hub.mode' => 'subscribe',
+                                'hub.verify' => 'async', // Backwards compatibility with v0.3 hubs
                                 'hub.topic' => $feed, // Subscribe to rss
                             ]);
                             
@@ -94,6 +95,7 @@ namespace Idno\Core {
                     $return = \Idno\Core\Webservice::post($following->pubsub_hub, [
                         'hub.callback' => \Idno\Core\site()->config->url . 'pubsub/callback/' . $user->getID() . '/' . $following->getID(), // Callback, unique to each subscriber
                         'hub.mode' => 'unsubscribe',
+                        'hub.verify' => 'async', // Backwards compatibility with v0.3 hubs
                         'hub.topic' => $following->pubsub_self
                     ]);
                     
