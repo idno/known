@@ -35,7 +35,7 @@
             function registerPages()
             {
                 // Create an endpoint for subscription pings
-                $this->addPageHandler('/pubsub/callback/([A-Za-z0-9]+)/?', '\Idno\Pages\Pubsubhubbub\Callback');
+                $this->addPageHandler('/pubsub/callback/([A-Za-z0-9]+)/([A-Za-z0-9]+)/?', '\Idno\Pages\Pubsubhubbub\Callback');
                 
                 // When we follow a user, try and subscribe to their hub
                 \Idno\Core\site()->addEventHook('follow', function(\Idno\Core\Event $event) {
@@ -50,7 +50,7 @@
                         if ($hubs = $this->discoverHubs($url)) {
                             
                             \Idno\Core\Webservice::post($hub, [
-                                'hub.callback' => \Idno\Core\site()->config->url .'pubsub/callback/' . $user->getID, // Callback, unique to each subscriber
+                                'hub.callback' => \Idno\Core\site()->config->url .'pubsub/callback/' . $user->getID() . '/'.$following->getID(), // Callback, unique to each subscriber
                                 'hub.mode' => 'subscribe',
                                 'hub.topic'  => $url . '?_t=rss', // Subscribe to rss
                             ]);
@@ -71,7 +71,7 @@
 			$url = $following->getURL();
                         
                         \Idno\Core\Webservice::post($hub, [
-                            'hub.callback' => \Idno\Core\site()->config->url .'pubsub/callback/' . $user->getID, // Callback, unique to each subscriber
+                            'hub.callback' => \Idno\Core\site()->config->url .'pubsub/callback/' . $user->getID() . '/'.$following->getID(), // Callback, unique to each subscriber
                             'hub.mode' => 'unsubscribe',
                             'hub.topic'  => $url . '?_t=rss', // Subscribe to rss
                         ]);
