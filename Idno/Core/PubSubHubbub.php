@@ -31,7 +31,30 @@
                 });
 
             }
+            
+            function registerPages()
+            {
+                
+            }
 
+            /**
+             * Find all hub urls.
+             */
+            private function discoverHubs($url) {
+                
+                $hubs = [];
+                $page = \Idno\Core\Webservice::file_get_contents($url);
+                
+                if (preg_match_all('/<link href="([^"]+)" rel="hub" ?\/?>/i', $page, $match)) {
+                    $hubs = array_merge($match[1]);
+                }
+                if (preg_match_all('/<link rel="hub" href="([^"]+)" ?\/?>/i', $page, $match)) {
+                    $hubs = array_merge($match[1]);
+                }
+                
+                return $hubs;
+            }
+                        
             /**
              * If this idno installation has a PubSubHubbub hub, send a publish notification to the hub
              * @param string $url
