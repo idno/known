@@ -60,7 +60,7 @@
                 if ($new) {
                     if (!empty($_FILES['photo']['tmp_name'])) {
                         if (\Idno\Entities\File::isImage($_FILES['photo']['tmp_name'])) {
-                            if ($photo = \Idno\Entities\File::createFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'], $_FILES['photo']['type'],true)) {
+                            if ($photo = \Idno\Entities\File::createFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'], $_FILES['photo']['type'],true, true)) {
                                 $this->attachFile($photo);
 				
 				// Now get some smaller thumbnails, with the option to override sizes
