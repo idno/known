@@ -2,7 +2,6 @@
 
     header('Content-type: application/rss+xml');
     unset($vars['body']);
-    //$vars['messages'] = \Idno\Core\site()->session()->getAndFlushMessages();
 
     $page = new DOMDocument();
     $page->formatOutput = true;
