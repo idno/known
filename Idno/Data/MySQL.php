@@ -378,13 +378,11 @@
                     $client = $this->client;
                     /* @var \PDO $client */
                     $statement = $client->prepare($query);
-                    \Idno\Core\site()->session()->addMessage($query . "<br>" . var_export($variables,true));
                     if ($result = $statement->execute($variables)) {
                         return $statement->fetchAll(\PDO::FETCH_ASSOC);
                     }
 
                 } catch (\Exception $e) {
-                    \Idno\Core\site()->session()->addMessage($query);
                     \Idno\Core\site()->session()->addMessage($e->getMessage());
 
                     return false;
@@ -551,10 +549,8 @@
 
                     $client = $this->client;
                     /* @var \PDO $client */
-                    \Idno\Core\site()->session()->addMessage("delete from entities where _id = :id");
                     $statement = $client->prepare("delete from entities where _id = :id");
                     if ($statement->execute([':id' => $id])) {
-                        \Idno\Core\site()->session()->addMessage("delete from metadata where _id = :id");
                         if ($statement = $client->prepare("delete from metadata where _id = :id")) {
                             $statement->execute([':id' => $id]);
                         }
