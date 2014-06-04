@@ -124,10 +124,10 @@ namespace Idno\Core {
             $feed = $this->findFeed($url, $page);
             
             // See if we have a hub link in the main page
-            if (preg_match_all('/<link href="([^"]+)" rel="hub" ?\/?>/i', $page, $match)) {
+            if (preg_match_all('/<link href=["\']{1}([^"]+)["\']{1} rel=["\']{1}hub["\']{1}[\s]*\/?>/i', $page, $match)) {
                 $hubs = array_merge($match[1]);
             }
-            if (preg_match_all('/<link rel="hub" href="([^"]+)" ?\/?>/i', $page, $match)) {
+            if (preg_match_all('/<link rel=["\']{1}hub["\']{1} href=["\']{1}([^"]+)["\']{1}[\s]*\/?>/i', $page, $match)) {
                 $hubs = array_merge($match[1]);
             }
 
@@ -136,16 +136,10 @@ namespace Idno\Core {
                 $page = \Idno\Core\Webservice::file_get_contents($feed);
                 
                 // We may be looking on a feed
-                if (preg_match_all('/<atom:link href="([^"]+)" rel="hub" ?\/?>/i', $page, $match)) {
+                if (preg_match_all('/<atom:link href=["\']{1}([^"]+)["\']{1} rel=["\']{1}hub["\']{1}[\s]*\/?>/i', $page, $match)) {
                     $hubs = array_merge($match[1]);
                 }
-                if (preg_match_all('/<atom:link rel="hub" href="([^"]+)" ?\/?>/i', $page, $match)) {
-                    $hubs = array_merge($match[1]);
-                }
-                if (preg_match_all('/<atom:link href=\'([^\']+)\' rel=\'hub\' ?\/?>/i', $page, $match)) {
-                    $hubs = array_merge($match[1]);
-                }
-                if (preg_match_all('/<atom:link rel=\'hub\' href=\'([^\']+)\' ?\/?>/i', $page, $match)) {
+                if (preg_match_all('/<atom:link rel=["\']{1}hub["\']{1} href=["\']{1}([^"]+)["\']{1}[\s]*\/?>/i', $page, $match)) {
                     $hubs = array_merge($match[1]);
                 }
             }
