@@ -13,6 +13,7 @@
         {
 
             public $config = array(
+                'database'          => 'mongodb',
                 'dbstring'          => 'mongodb://localhost:27017',
                 'dbname'            => 'idno', // Default MongoDB database
                 'sessionname'       => 'idno', // Default session name

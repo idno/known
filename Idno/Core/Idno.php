@@ -30,7 +30,23 @@
                 self::$site       = $this;
                 $this->dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
                 $this->config     = new Config();
-                $this->db         = new DataConcierge();
+                switch ($this->config->database) {
+                    case 'mongodb':
+                        $this->db = new DataConcierge();
+                        break;
+                    case 'mysql':
+                        $this->db = new \Idno\Data\MySQL();
+                        break;
+                    default:
+                        if (class_exists("Idno\\Data\\{$this->config->database}")) {
+                            $db = "Idno\\Data\\{$this->config->database}";
+                            $this->db = new $db();
+                        }
+                        if (empty($this->db)) {
+                            $this->db = new DataConcierge();
+                        }
+                        break;
+                }
                 $this->config->load();
                 $this->session     = new Session();
                 $this->actions     = new Actions();
@@ -208,7 +224,8 @@
              * Mark a page handler class as offering public content even on walled garden sites
              * @param $class
              */
-            function addPublicPageHandler($class) {
+            function addPublicPageHandler($class)
+            {
                 if (class_exists($class)) {
                     $this->public_pages[] = $class;
                 }
@@ -218,10 +235,12 @@
              * Retrieve an array of walled garden page handlers
              * @return array
              */
-            function getPublicPageHandlers() {
+            function getPublicPageHandlers()
+            {
                 if (!empty($this->public_pages)) {
                     return $this->public_pages;
                 }
+
                 return [];
             }
 
@@ -230,7 +249,8 @@
              * @param $class
              * @return bool
              */
-            function isPageHandlerPublic($class) {
+            function isPageHandlerPublic($class)
+            {
                 if (!empty($class)) {
                     if (in_array($class, $this->getPublicPageHandlers())) {
                         return true;
@@ -242,6 +262,7 @@
                         }
                     }
                 }
+
                 return false;
             }
 
@@ -318,13 +339,13 @@
                 return '0.1-dev';
             }
 
-	    /**
+            /**
              * Can a specified user (either an explicitly specified user ID
              * or the currently logged-in user if this is left blank) edit
              * this entity?
-	     * 
-	     * In this instance this specifically means "Can a given user create 
-	     * new content or
+             *
+             * In this instance this specifically means "Can a given user create
+             * new content or
              *
              * @param string $user_id
              * @return true|false
@@ -339,28 +360,28 @@
                     $user_id = \Idno\Core\site()->session()->currentUserUUID();
                 }
 
-		if ($user = \Idno\Entities\User::getByUUID($user_id)) {
-		    
-		    // Remote users can't ever create anything :(
-		    if ($user instanceof \Idno\Entities\RemoteUser)
-			return false;
-		    
-		    // But local users can
-		    if ($user instanceof \Idno\Entities\User)
-			return true;
-		    
-		}
+                if ($user = \Idno\Entities\User::getByUUID($user_id)) {
+
+                    // Remote users can't ever create anything :(
+                    if ($user instanceof \Idno\Entities\RemoteUser)
+                        return false;
+
+                    // But local users can
+                    if ($user instanceof \Idno\Entities\User)
+                        return true;
+
+                }
 
                 return false;
             }
-	    
-	    /**
+
+            /**
              * Can a specified user (either an explicitly specified user ID
              * or the currently logged-in user if this is left blank) view
              * this entity?
-	     * 
-	     * Always returns true at the moment, but might be a good way to build
-	     * walled garden functionality.
+             *
+             * Always returns true at the moment, but might be a good way to build
+             * walled garden functionality.
              *
              * @param string $user_id
              * @return true|false
