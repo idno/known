@@ -15,8 +15,8 @@
             public $config = array(
                 'database'          => 'mongodb',
                 'dbstring'          => 'mongodb://localhost:27017',
-                'dbname'            => 'idno', // Default MongoDB database
-                'sessionname'       => 'idno', // Default session name
+                'dbname'            => 'known', // Default MongoDB database
+                'sessionname'       => 'known', // Default session name
                 'open_registration' => true, // Can anyone register for this system?
                 'plugins'           => array( // Default plugins
                                               'Status'
@@ -112,7 +112,6 @@
             function load()
             {
                 if ($config = \Idno\Core\site()->db()->getAnyRecord('config')) {
-                    /* @var \Idno\Common\Entity $config */
                     if ($config instanceof \Idno\Common\Entity) {
                         $config = $config->getAttributes();
                     }
