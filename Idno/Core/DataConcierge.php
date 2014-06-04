@@ -49,6 +49,19 @@
             }
 
             /**
+             * Offer a session handler for the current session
+             */
+            function handleSession()
+            {
+                $sessionHandler = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\MongoDbSessionHandler(\Idno\Core\site()->db()->getClient(), [
+                    'database'   => 'idnosession',
+                    'collection' => 'idnosession'
+                ]);
+
+                session_set_save_handler($sessionHandler, true);
+            }
+
+            /**
              * Saves an idno entity to the database, returning the _id
              * field on success.
              *

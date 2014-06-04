@@ -26,10 +26,18 @@
                 try {
                     $this->client = new \PDO('mysql:host=' . \Idno\Core\site()->config()->dbhost . ';dbname=' . \Idno\Core\site()->config()->dbname . ';charset=utf8', \Idno\Core\site()->config()->dbuser, \Idno\Core\site()->config()->dbpass);
                 } catch (\Exception $e) {
-                    \Idno\Core\site()->session()->addMessage('Unfortunately we couldn\'t connect to the database: ' . $e->getMessage());
+                    echo '<p>Unfortunately we couldn\'t connect to the database:</p><p>' . $e->getMessage() . '</p>';
+                    exit;
                 }
 
                 $this->database = \Idno\Core\site()->config()->dbname;
+
+            }
+
+            /**
+             * Handle the session in MySQL
+             */
+            function handleSession() {
 
             }
 
@@ -264,7 +272,7 @@
                 }
 
                 // Make sure we're only getting objects that we're allowed to see
-                $readGroups                 = site()->session()->getReadAccessGroupIDs();
+                $readGroups                 = \Idno\Core\site()->session()->getReadAccessGroupIDs();
                 $query_parameters['access'] = array('$in' => $readGroups);
 
                 // Join the rest of the search query elements to this search
@@ -435,7 +443,7 @@
                 }
 
                 // Make sure we're only getting objects that we're allowed to see
-                $readGroups                 = site()->session()->getReadAccessGroupIDs();
+                $readGroups                 = \Idno\Core\site()->session()->getReadAccessGroupIDs();
                 $query_parameters['access'] = array('$in' => $readGroups);
 
                 // Join the rest of the search query elements to this search
