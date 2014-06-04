@@ -1,5 +1,7 @@
 <?php
 
+    $messages = \Idno\Core\site()->session()->getAndFlushMessages();
+
     header('Content-type: text/html');
     header('Link: <' . \Idno\Core\site()->config()->url . 'webmention/>; rel="http://webmention.org/"');
     header('Link: <' . \Idno\Core\site()->config()->url . 'webmention/>; rel="webmention"');
@@ -156,7 +158,7 @@
 
         <?php
 
-            if ($messages = \Idno\Core\site()->session()->getAndFlushMessages()) {
+            if (!empty($messages)) {
                 foreach ($messages as $message) {
 
                     ?>
