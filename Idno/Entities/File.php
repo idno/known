@@ -51,9 +51,10 @@
              * @param string $filename Filename to store
              * @param string $mime_type MIME type associated with the file
              * @param bool $return_object Return the file object? If set to false (as is default), will return the ID
+             * @param bool $destroy_exif When true, if an image is uploaded the exif data will be destroyed.
              * @return bool|\MongoID Depending on success
              */
-            public static function createFromFile($file_path, $filename, $mime_type = 'application/octet-stream', $return_object = false)
+            public static function createFromFile($file_path, $filename, $mime_type = 'application/octet-stream', $return_object = false, $destroy_exif = false)
             {
                 if (file_exists($file_path) && !empty($filename)) {
                     if ($fs = \Idno\Core\site()->db()->getFilesystem()) {
@@ -62,6 +63,29 @@
                             'filename'  => $filename,
                             'mime_type' => $mime_type
                         );
+                        
+                        // Are we uploading an image, and do we want to remove privacy leaking EXIF data?
+                        if (self::isImage($file_path) && $destroy_exif)
+                        {
+                            $photo_information = getimagesize($file_path);
+                            $tmpfname = $file_path; //tempnam(sys_get_temp_dir(), 'known_photo'); 
+                            switch ($photo_information['mime']) {
+                                case 'image/jpeg':
+                                    $image = imagecreatefromjpeg($file_path);
+                                    imagejpeg($image, $tmpfname);
+                                    break;
+                                case 'image/png':
+                                    $image = imagecreatefrompng($file_path);
+                                    imagepng($image, $tmpfname);
+                                    break;
+                                case 'image/gif':
+                                    $image = imagecreatefromgif($file_path);
+                                    imagegif($image, $tmpfname);
+                                    break;
+                            }
+                            
+                        }
+                        
                         if ($id = $fs->storeFile($file_path, $metadata, $metadata)) {
                             if (!$return_object) {
                                 return $id;
