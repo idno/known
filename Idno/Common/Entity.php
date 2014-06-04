@@ -298,9 +298,12 @@
 
             function &__get($name)
             {
-                if (isset($this->attributes[$name])) return $this->attributes[$name];
+                if (!isset($this->attributes[$name])) {
+                    $this->attributes[$name] = null;
+                }
 
-                return null;
+                return $this->attributes[$name];
+
             }
 
             /**
