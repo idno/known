@@ -144,7 +144,6 @@
             {
                 $messages = [];
                 $_SESSION['messages'] = $messages;
-                site()->session()->addMessage("FLUSH " . var_export($_SESSION['messages'],true));
             }
 
             /**
