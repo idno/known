@@ -140,7 +140,7 @@
              */
             function flushMessages()
             {
-                $_SESSION['messages'] = array();
+                $_SESSION['messages'] = [];
             }
 
             /**
