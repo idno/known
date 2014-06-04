@@ -129,6 +129,9 @@
                 if (!empty($array['body'])) {
                     $search .= strip_tags($array['body']);
                 }
+                if (empty($array['entity_subtype'])) {
+                    $array['entity_subtype'] = 'Idno\\Common\\Entity';
+                }
 
                 $client = $this->client;
                 /* @var \PDO $client */
@@ -140,10 +143,13 @@
                                                     (:uuid, :id, :subtype, :owner, :contents, :search)
                                                     on duplicate key update `uuid` = :uuid, `entity_subtype` = :subtype, `owner` = :owner, `contents` = :contents, `search` = :search");
                     if ($statement->execute([':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search])) {
-                        if ($statement = $client->prepare("delete from metadata where entity = :uuid")) {
-                            $statement->execute([':uuid' => $array['uuid']]);
+                        if ($statement = $client->prepare("delete from metadata where _id = :id")) {
+                            $statement->execute([':id' => $array['_id']]);
                         }
                         foreach ($array as $key => $value) {
+                            if (is_array($value) || is_object($value)) {
+                                $value = json_encode($value);
+                            }
                             if ($statement = $client->prepare("insert into metadata set `collection` = :collection, `entity` = :uuid, `_id` = :id, `name` = :name, `value` = :value")) {
                                 $statement->execute(['collection' => $collection, ':uuid' => $array['uuid'], ':id' => $array['_id'], ':name' => $key, ':value' => $value]);
                             }
@@ -253,7 +259,12 @@
                 try {
                     $statement = $this->client->prepare("select * from " . $collection . " limit 1");
                     if ($statement->execute()) {
-                        return $statement->fetch(\PDO::FETCH_ASSOC);
+                        if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
+                            if ($obj = $this->rowToEntity($row)) {
+                                return $obj;
+                            }
+                            return $row;
+                        }
                     }
                 } catch (\Exception $e) {
                     \Idno\Core\site()->session()->addMessage($e->getMessage());
@@ -367,6 +378,7 @@
                     $client = $this->client;
                     /* @var \PDO $client */
                     $statement = $client->prepare($query);
+                    \Idno\Core\site()->session()->addMessage($query . "<br>" . var_export($variables,true));
                     if ($result = $statement->execute($variables)) {
                         return $statement->fetchAll(\PDO::FETCH_ASSOC);
                     }
@@ -539,9 +551,13 @@
 
                     $client = $this->client;
                     /* @var \PDO $client */
+                    \Idno\Core\site()->session()->addMessage("delete from entities where _id = :id");
                     $statement = $client->prepare("delete from entities where _id = :id");
                     if ($statement->execute([':id' => $id])) {
-                        // TODO delete metadata
+                        \Idno\Core\site()->session()->addMessage("delete from metadata where _id = :id");
+                        if ($statement = $client->prepare("delete from metadata where _id = :id")) {
+                            $statement->execute([':id' => $id]);
+                        }
                     }
 
                 } catch (\Exception $e) {
