@@ -21,7 +21,7 @@
                                               'Status'
                 ),
                 'items_per_page'    => 10, // Default items per page
-		'experimental'	    => false // A common way to enable experimental functions still in development
+                'experimental'      => false // A common way to enable experimental functions still in development
             );
 
             function init()
@@ -140,6 +140,7 @@
                 if (empty($this->walled_garden)) {
                     return true;
                 }
+
                 return false;
             }
 
