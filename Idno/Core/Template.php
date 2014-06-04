@@ -47,6 +47,23 @@
             }
 
             /**
+             * Draws the page shell.
+             * @param bool $echo
+             * @return false|string
+             */
+            function drawPage($echo = true) {
+
+                // Get messages and flush session
+                $this->messages = site()->session()->getAndFlushMessages();
+
+                // End session BEFORE we output any data
+                session_write_close();
+
+                return parent::drawPage($echo);
+
+            }
+
+            /**
              * Draw syndication buttons relating to a particular content type
              * @param $content_type
              * @return \Bonita\false|string

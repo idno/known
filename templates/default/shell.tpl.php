@@ -1,6 +1,6 @@
 <?php
 
-    $messages = \Idno\Core\site()->session()->getAndFlushMessages();
+    $messages = $vars['messages'];
 
     header('Content-type: text/html');
     header('Link: <' . \Idno\Core\site()->config()->url . 'webmention/>; rel="http://webmention.org/"');

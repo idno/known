@@ -142,8 +142,9 @@
              */
             function flushMessages()
             {
-                $messages = [];
-                $_SESSION['messages'] = $messages;
+                $messages                       = [];
+                $_SESSION['messages']           = $messages;
+                $_SESSION['last_message_flush'] = date('r', time());
             }
 
             /**
@@ -283,8 +284,9 @@
             function logUserOn(\Idno\Entities\User $user)
             {
                 if (empty($user->notifications)) {
-                    $user->notifications['email'] = 'all';  // By default, send notifications to users
+                    $user->notifications['email'] = 'all'; // By default, send notifications to users
                 }
+
                 return $this->refreshSessionUser($user);
             }
 
@@ -295,12 +297,15 @@
              */
             function refreshSessionUser(\Idno\Entities\User $user)
             {
-                if ($user = User::getByUUID($user->getUUID())) { /* @var \Idno\Common\User $user */
+                if ($user = User::getByUUID($user->getUUID())) {
+                    /* @var \Idno\Common\User $user */
                     $user->clearPasswordRecoveryCode();
                     $user->save();
                     $_SESSION['user'] = $user;
+
                     return $user;
                 }
+
                 return false;
             }
 
