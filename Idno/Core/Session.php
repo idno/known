@@ -18,9 +18,9 @@
             {
 
                 ini_set('session.cookie_lifetime', 60 * 60 * 24 * 30); // Persistent cookies
-                //ini_set('session.cookie_httponly', true); // Restrict cookies to HTTP only (help reduce XSS attack profile)
+                ini_set('session.cookie_httponly', true); // Restrict cookies to HTTP only (help reduce XSS attack profile)
 
-                site()->db()->handleSession();
+                //site()->db()->handleSession();
 
                 session_name(site()->config->sessionname);
                 session_start();
@@ -106,7 +106,9 @@
 
             function addMessage($message, $message_type = 'alert-info')
             {
-                if (empty($_SESSION['messages'])) $_SESSION['messages'] = array();
+                if (empty($_SESSION['messages'])) {
+                    $_SESSION['messages'] = [];
+                }
                 $_SESSION['messages'][] = array('message' => $message, 'message_type' => $message_type);
             }
 
@@ -131,7 +133,7 @@
                 if (!empty($_SESSION['messages'])) {
                     return $_SESSION['messages'];
                 } else {
-                    return array();
+                    return [];
                 }
             }
 
@@ -140,7 +142,9 @@
              */
             function flushMessages()
             {
-                $_SESSION['messages'] = [];
+                $messages = [];
+                $_SESSION['messages'] = $messages;
+                site()->session()->addMessage("FLUSH " . var_export($_SESSION['messages'],true));
             }
 
             /**
