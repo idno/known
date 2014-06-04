@@ -35,8 +35,8 @@ CREATE TABLE IF NOT EXISTS `entities` (
   `contents` blob NOT NULL,
   `search` text NOT NULL,
   PRIMARY KEY (`uuid`),
+  UNIQUE KEY `_id` (`_id`),
   KEY `owner` (`owner`,`created`),
-  KEY `_id` (`_id`),
   KEY `entity_subtype` (`entity_subtype`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
