@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `entities` (
 --
 
 CREATE TABLE IF NOT EXISTS `metadata` (
-  `entity` varchar(32) NOT NULL,
+  `entity` varchar(255) NOT NULL,
   `_id` varchar(32) NOT NULL,
   `collection` varchar(64) NOT NULL,
   `name` varchar(32) NOT NULL,
