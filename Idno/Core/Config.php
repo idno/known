@@ -112,7 +112,8 @@
             function load()
             {
                 if ($config = \Idno\Core\site()->db()->getAnyRecord('config')) {
-                    $config = (array)$config;
+                    /* @var \Idno\Common\Entity $config */
+                    $config = $config->getAttributes();
                     if (is_array($config)) {
                         $this->config = array_merge($this->config, $config);
                     }
