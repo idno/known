@@ -12,7 +12,10 @@
 
     namespace Idno\Common {
 
-        class Entity extends Component implements \JsonSerializable
+        interface EntityInterface extends \JsonSerializable, \ArrayAccess
+        {}
+
+        class Entity extends Component implements EntityInterface
         {
 
             // Which collection should this be stored in?
@@ -30,7 +33,12 @@
 
             function __construct()
             {
-                $this->setOwner(\Idno\Core\site()->session()->currentUser());
+                if (\Idno\Core\site()->session()) {
+                    if ($user = \Idno\Core\site()->session()->currentUser()) {
+                        //var_export(\Idno\Core\site()->session()->currentUser());
+                        $this->setOwner(\Idno\Core\site()->session()->currentUser());
+                    }
+                }
             }
 
             /**
@@ -1519,6 +1527,49 @@
                 }
 
                 return 0;
+            }
+
+            /**
+             * Allows you to query for a property value as you would an array
+             * @param mixed $offset
+             * @return bool
+             */
+            function offsetExists($offset) {
+                return empty($this->attributes[$offset]);
+            }
+
+            /**
+             * Allows you to retrieve a property value as you would an array
+             * @param mixed $offset
+             * @return mixed
+             */
+            function offsetGet($offset) {
+                return $this->attributes[$offset];
+            }
+
+            /**
+             * Allows you to set a property value as you would an array
+             * @param mixed $offset
+             * @param mixed $value
+             */
+            function offsetSet($offset, $value) {
+                $this->attributes[$offset] = $value;
+            }
+
+            /**
+             * Allows you to unset a property value as you would an array
+             * @param mixed $offset
+             */
+            function offsetUnset($offset) {
+                unset($this->attributes[$offset]);
+            }
+
+            /**
+             * Retrieve this object's stored attributes
+             * @return array
+             */
+            function getAttributes() {
+                return $this->attributes;
             }
 
         }
