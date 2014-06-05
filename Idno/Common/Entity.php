@@ -160,7 +160,7 @@
             static function getByID($id)
             {
                 try {
-                    return self::getOneFromAll(array('_id' => new \MongoId($id)));
+                    return self::getOneFromAll(array('_id' => \Idno\Core\site()->db()->processID($id)));
                 } catch (\Exception $e) {
                     return false; //\Idno\Core\site()->currentPage()->noContent();
                 }
@@ -609,7 +609,8 @@
 
                 $other_results = \Idno\Entities\ActivityStreamPost::get($search);
 
-                return array_merge($results, $other_results);
+                $return = array_merge($results, $other_results);
+                return $return;
 
             }
 

@@ -123,6 +123,15 @@
             }
 
             /**
+             * Process the ID appropriately
+             * @param $id
+             * @return \MongoId
+             */
+            function processID($id) {
+                return new \MongoId($id);
+            }
+
+            /**
              * Retrieves a record from the database by its UUID
              *
              * @param string $id

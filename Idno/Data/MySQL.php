@@ -72,6 +72,15 @@
             }
 
             /**
+             * MySQL doesn't need the ID to be processed.
+             * @param $id
+             * @return string
+             */
+            function processID($id) {
+                return $id;
+            }
+
+            /**
              * Saves a Known entity to the database, returning the _id
              * field on success.
              *
@@ -196,7 +205,7 @@
             function getRecordByUUID($uuid, $collection = 'entities')
             {
                 try {
-                    $statement = $this->client->prepare("select distinct * from " . $collection . " where uuid = :uuid");
+                    $statement = $this->client->prepare("select distinct {$collection}.* from " . $collection . " where uuid = :uuid");
                     if ($statement->execute([':uuid' => $uuid])) {
                         return $statement->fetch(\PDO::FETCH_ASSOC);
                     }
@@ -240,7 +249,7 @@
 
             function getRecord($id, $collection = 'entities')
             {
-                $statement = $this->client->prepare("select * from " . $collection . " where _id = :id");
+                $statement = $this->client->prepare("select {$collection}.* from " . $collection . " where _id = :id");
                 if ($statement->execute([':id' => $id])) {
                     return $statement->fetch(\PDO::FETCH_ASSOC);
                 }
@@ -257,7 +266,7 @@
             function getAnyRecord($collection = 'entities')
             {
                 try {
-                    $statement = $this->client->prepare("select * from " . $collection . " limit 1");
+                    $statement = $this->client->prepare("select {$collection}.* from " . $collection . " limit 1");
                     if ($statement->execute()) {
                         if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
                             if ($obj = $this->rowToEntity($row)) {
@@ -311,7 +320,7 @@
                         $query_parameters['entity_subtype']['$in'] = $subtypes;
                     }
                     if (!empty($not)) {
-                        $query_parameters['entity_subtype']['$not']['$in'] = $not;
+                        $query_parameters['entity_subtype']['$not'] = $not;
                     }
                 }
 
@@ -340,7 +349,7 @@
                     return $return;
                 }
 
-                return false;
+                return [];
 
             }
 
@@ -360,7 +369,7 @@
                 try {
 
                     // Build query
-                    $query            = "select distinct * from {$collection} ";
+                    $query            = "select distinct {$collection}.* from {$collection} ";
                     $variables        = [];
                     $metadata_joins   = 0;
                     $non_md_variables = [];
@@ -403,6 +412,7 @@
              */
             function build_where_from_array($params, &$variables, &$metadata_joins, &$non_md_variables, $clause = 'and')
             {
+
                 $where = '';
                 if (empty($variables)) {
                     $variables = [];
@@ -427,22 +437,44 @@
                                 $variables[":value{$metadata_joins}"] = $value;
                                 $metadata_joins++;
                             }
-                        } else if ($key == '$or') {
-                            $subwhere[] = "(" . $this->build_where_from_array($value, $variables, $metadata_joins, $non_md_variables, 'or') . ")";
-                        } else if ($key == '$not') {
-                            $notstring = "(md{$metadata_joins}.`name` = :name{$metadata_joins} and md{$metadata_joins}.`name` not in (";
-                            foreach ($value as $val) {
-                                $notstring .= ":value{$metadata_joins}";
-                                $variables[":value{$metadata_joins}"] = $val;
-                                $metadata_joins++;
+                        } else {
+                            if (!empty($value['$or'])) {
+                                $subwhere[] = "(" . $this->build_where_from_array($value['$or'], $variables, $metadata_joins, $non_md_variables, 'or') . ")";
                             }
-                            $notstring .= "))";
-                            $subwhere[] = $notstring;
-                        } else if ($key == '$search') {
-                            $val                                         = $value[0]; // The search query is always in $value position [0] for now
-                            $subwhere[]                                  = "match (entities.`search`) against (:nonmdvalue{$non_md_variables})";
-                            $variables[":nonmdvalue{$non_md_variables}"] = $val;
-                            $non_md_variables++;
+                            if (!empty($value['$not'])) {
+                                $notstring = "(md{$metadata_joins}.`name` = :name{$metadata_joins} and md{$metadata_joins}.`value` not in (";
+                                $variables[":name{$metadata_joins}"] = $key;
+                                $i = 0;
+                                foreach ($value['$not'] as $val) {
+                                    if ($i > 0) $notstring .= ', ';
+                                    $notstring .= ":value{$metadata_joins}";
+                                    $variables[":value{$metadata_joins}"] = $val;
+                                    $metadata_joins++;
+                                    $i++;
+                                }
+                                $notstring .= "))";
+                                $subwhere[] = $notstring;
+                            }
+                            if (!empty($value['$in'])) {
+                                $instring = "(md{$metadata_joins}.`name` = :name{$metadata_joins} and md{$metadata_joins}.`value` in (";
+                                $variables[":name{$metadata_joins}"] = $key;
+                                $i = 0;
+                                foreach ($value['$in'] as $val) {
+                                    if ($i > 0) $instring .= ', ';
+                                    $instring .= ":value{$metadata_joins}";
+                                    $variables[":value{$metadata_joins}"] = $val;
+                                    $metadata_joins++;
+                                    $i++;
+                                }
+                                $instring .= "))";
+                                $subwhere[] = $instring;
+                            }
+                            if (!empty($value['$search'])) {
+                                $val                                         = $value['$search'][0]; // The search query is always in $value position [0] for now
+                                $subwhere[]                                  = "match (entities.`search`) against (:nonmdvalue{$non_md_variables})";
+                                $variables[":nonmdvalue{$non_md_variables}"] = $val;
+                                $non_md_variables++;
+                            }
                         }
                     }
                     if (!empty($subwhere)) {
@@ -510,7 +542,7 @@
                 try {
 
                     // Build query
-                    $query            = "select count(distinct entities.uuid) as total from entities ";
+                    $query            = "select count(distinct {$collection}.uuid) as total from {$collection} ";
                     $variables        = [];
                     $metadata_joins   = 0;
                     $non_md_variables = [];
@@ -552,7 +584,7 @@
                     $statement = $client->prepare("delete from entities where _id = :id");
                     if ($statement->execute([':id' => $id])) {
                         if ($statement = $client->prepare("delete from metadata where _id = :id")) {
-                            $statement->execute([':id' => $id]);
+                            return $statement->execute([':id' => $id]);
                         }
                     }
 
