@@ -227,7 +227,7 @@
                 if (!empty($row['entity_subtype']) && !empty($row['contents'])) {
                     if (class_exists($row['entity_subtype'])) {
 
-                        $contents = (array) json_decode($row['contents']);
+                        $contents = (array) json_decode($row['contents'],true);
 
                         $object = new $row['entity_subtype']();
                         $object->loadFromArray($contents);
