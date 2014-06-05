@@ -37,7 +37,8 @@ CREATE TABLE IF NOT EXISTS `entities` (
   PRIMARY KEY (`uuid`),
   UNIQUE KEY `_id` (`_id`),
   KEY `owner` (`owner`,`created`),
-  KEY `entity_subtype` (`entity_subtype`)
+  KEY `entity_subtype` (`entity_subtype`),
+  FULLTEXT KEY `search` (`search`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

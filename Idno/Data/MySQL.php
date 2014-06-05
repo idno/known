@@ -469,9 +469,9 @@
                                 $instring .= "))";
                                 $subwhere[] = $instring;
                             }
-                            if (!empty($value['$search'])) {
-                                $val                                         = $value['$search'][0]; // The search query is always in $value position [0] for now
-                                $subwhere[]                                  = "match (entities.`search`) against (:nonmdvalue{$non_md_variables})";
+                            if ($key == '$search') {
+                                $val                                         = $value[0]; // The search query is always in $value position [0] for now
+                                $subwhere[]                                  = "match (`search`) against (:nonmdvalue{$non_md_variables})";
                                 $variables[":nonmdvalue{$non_md_variables}"] = $val;
                                 $non_md_variables++;
                             }
@@ -621,7 +621,6 @@
              */
             function createSearchArray($query)
             {
-                //$regexObj = new \MongoRegex("/" . addslashes($query) . "/i");
                 return ['$search' => [$query]];
             }
 
