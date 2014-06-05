@@ -51,7 +51,7 @@
              * @param string $filename Filename to store
              * @param string $mime_type MIME type associated with the file
              * @param bool $return_object Return the file object? If set to false (as is default), will return the ID
-             * @return bool|\MongoID Depending on success
+             * @return bool|\id Depending on success
              */
             public static function createFromFile($file_path, $filename, $mime_type = 'application/octet-stream', $return_object = false)
             {
@@ -94,7 +94,7 @@
              * @param string $file_path Path to the file.
              * @param string $filename Filename that the file should have on download.
              * @param int $max_dimension The maximum number of pixels the thumbnail image should be along its longest side.
-             * @return bool|MongoID
+             * @return bool|id
              */
             public static function createThumbnailFromFile($file_path, $filename, $max_dimension = 800)
             {
@@ -194,7 +194,7 @@
             static function getByID($id)
             {
                 if ($fs = \Idno\Core\site()->db()->getFilesystem()) {
-                    return $fs->findOne(array('_id' => new \MongoId($id)));
+                    return $fs->findOne(array('_id' => \Idno\Core\site()->db()->processID($id)));
                 }
 
                 return false;
