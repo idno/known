@@ -118,9 +118,10 @@
              * @param string $file_path Path to the file.
              * @param string $filename Filename that the file should have on download.
              * @param int $max_dimension The maximum number of pixels the thumbnail image should be along its longest side.
+             * @param mixed $exif Optionally provide exif data for the image, if not provided then this function will attempt to extract it
              * @return bool|MongoID
              */
-            public static function createThumbnailFromFile($file_path, $filename, $max_dimension = 800)
+            public static function createThumbnailFromFile($file_path, $filename, $max_dimension = 800, $exif = null)
             {
 
                 $thumbnail = false;
@@ -149,22 +150,23 @@
                             $image_copy = imagecreatetruecolor($width, $height);
                             imagecopyresampled($image_copy, $image, 0, 0, 0, 0, $width, $height, $photo_information[0], $photo_information[1]);
 
-                            if (is_callable('exif_read_data')) {
+                            if (is_callable('exif_read_data') && (!$exif)) {
                                 $exif = exif_read_data($file_path);
-                                if (!empty($exif['Orientation'])) {
-                                    switch ($exif['Orientation']) {
-                                        case 8:
-                                            $image_copy = imagerotate($image_copy, 90, 0);
-                                            break;
-                                        case 3:
-                                            $image_copy = imagerotate($image_copy, 180, 0);
-                                            break;
-                                        case 6:
-                                            $image_copy = imagerotate($image_copy, -90, 0);
-                                            break;
-                                    }
+                            }
+                            if (!empty($exif['Orientation'])) {
+                                switch ($exif['Orientation']) {
+                                    case 8:
+                                        $image_copy = imagerotate($image_copy, 90, 0);
+                                        break;
+                                    case 3:
+                                        $image_copy = imagerotate($image_copy, 180, 0);
+                                        break;
+                                    case 6:
+                                        $image_copy = imagerotate($image_copy, -90, 0);
+                                        break;
                                 }
                             }
+                            
 
                             $tmp_dir = dirname($file_path);
                             switch ($photo_information['mime']) {
