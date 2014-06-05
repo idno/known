@@ -4,7 +4,11 @@ Installation instructions
 Before you begin
 ----------------
 
-Make sure your server satisfies the :doc:`requirements`.
+By installing Known now, you're working on the cutting edge. When we release this summer, there will be a friendly
+installer, as well as a full hosted service for you to check out the features. Right now, there's a little bit more
+involved.
+
+To begin with, make sure your server satisfies the :doc:`requirements`.
 
 Some of the technologies involved are a little bit new, so you may have to ask for your web host to install them
 specially. We want to help you pick a great host that works well with Known, so we'll be creating a list of the ones
@@ -27,6 +31,9 @@ You'll find the Known git repository URL on `the main Known GitHub page <https:/
 Configure Known
 ---------------
 
+If you're using MongoDB
+^^^^^^^^^^^^^^^^^^^^^^^
+
 If your MongoDB installation accepts connections from localhost, and you're happy for your Known MongoDB database to be
 called Known, you don't need to do anything else in this section.
 
@@ -38,6 +45,22 @@ save a file called *config.ini* in the root of your Known installation. Lay it o
     dbname = "Your preferred Known database name"
 
 You can also include a subset of these items, for example to just change the database name.
+
+If you're using MySQL
+^^^^^^^^^^^^^^^^^^^^^
+
+Currently, MySQL users need to create a file called :doc:`config.ini` in the root of their installation. This should
+contain the following information:
+
+        database = "MySQL"
+        dbname = "Your MySQL database name"
+        dbhost = "Your MySQL database host (eg 'localhost')"
+        dbuser = "Your database username"
+        dbpass = "Your database password"
+
+Additionally, you will need to create the database referred to in this configuration file, and ensure that it can be
+connected to using the user credentials you supply. For now, you will need to load the SQL schema stored in
+/schemas/mysql/mysql.sql.
 
 Load Known
 ----------
