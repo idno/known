@@ -13,6 +13,7 @@
         {
 
             public $db;
+            public $filesystem;
             public $config;
             public $session;
             public $template;
@@ -44,6 +45,19 @@
                         }
                         if (empty($this->db)) {
                             $this->db = new DataConcierge();
+                        }
+                        break;
+                }
+                switch ($this->config->filesystem) {
+                    default:
+                        if (class_exists("Idno\\Files\\{$this->config->filesystem}")) {
+                            $filesystem = "Idno\\Files\\{$this->config->filesystem}";
+                            $this->filesystem = new $filesystem();
+                        }
+                        if (empty($this->filesystem)) {
+                            if ($fs = $this->db()->getFilesystem()) {
+                                $this->filesystem = $fs;
+                            }
                         }
                         break;
                 }
@@ -102,6 +116,11 @@
             function &events()
             {
                 return $this->dispatcher;
+            }
+
+            function &filesystem()
+            {
+                return $this->filesystem;
             }
 
             /**

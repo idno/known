@@ -604,13 +604,7 @@
              */
             function getFilesystem()
             {
-                /*
-                 * TODO local file system
-                if ($grid = new \MongoGridFS($this->database)) {
-                    return $grid;
-                }
-                */
-
+                // We're not returning a filesystem for MySQL
                 return false;
             }
 

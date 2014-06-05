@@ -56,7 +56,7 @@
             public static function createFromFile($file_path, $filename, $mime_type = 'application/octet-stream', $return_object = false)
             {
                 if (file_exists($file_path) && !empty($filename)) {
-                    if ($fs = \Idno\Core\site()->db()->getFilesystem()) {
+                    if ($fs = \Idno\Core\site()->filesystem()) {
                         $file     = new File();
                         $metadata = array(
                             'filename'  => $filename,
@@ -179,7 +179,7 @@
              */
             static function getByUUID($uuid)
             {
-                if ($fs = \Idno\Core\site()->db()->getFilesystem()) {
+                if ($fs = \Idno\Core\site()->filesystem()) {
                     return $fs->findOne($uuid);
                 }
 
@@ -193,7 +193,7 @@
              */
             static function getByID($id)
             {
-                if ($fs = \Idno\Core\site()->db()->getFilesystem()) {
+                if ($fs = \Idno\Core\site()->filesystem()) {
                     return $fs->findOne(array('_id' => \Idno\Core\site()->db()->processID($id)));
                 }
 
