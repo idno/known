@@ -50,7 +50,7 @@ If you're using MySQL
 ^^^^^^^^^^^^^^^^^^^^^
 
 Currently, MySQL users need to create a file called :doc:`config.ini` in the root of their installation. This should
-contain the following information:
+contain the following information::
 
         database = "MySQL"
         dbname = "Your MySQL database name"
