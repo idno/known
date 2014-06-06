@@ -54,13 +54,13 @@
             switch(gettype($structure)) {
                 case 'boolean':
                     if ($structure) {
-                        echo 'notfalse ';
+                        echo 'yes ';
                     } else {
-                        echo 'nottrue ';
+                        echo 'no ';
                     }
                     break;
                 case 'NULL':
-                    echo 'nullish ';
+                    echo 'empty ';
                     break;
                 default:
                     //echo '"'.addslashes($structure).'" ';
