@@ -13,7 +13,10 @@
         {
 
             // We'll keep track of extensions to templates here
-            public $extensions = array();
+            public $extensions = [];
+
+            // We can also extend templates with HTML or other content
+            public $rendered_extensions = [];
 
             /**
              * On construction, detect the template type
@@ -41,6 +44,9 @@
                     foreach ($this->extensions[$templateName] as $template) {
                         $result .= parent::draw($template, $returnBlank);
                     }
+                }
+                if (!empty($this->rendered_extensions[$templateName])) {
+                    $result .= $this->rendered_extensions[$templateName];
                 }
 
                 return $result;
@@ -108,6 +114,20 @@
                     $this->extensions[$templateName] = [];
                 }
                 $this->extensions[$templateName][] = $extensionTemplateName;
+            }
+
+            /**
+             * Extends a given template with pre-rendered content. All pre-rendered content will be drawn after
+             * template-driven content.
+             * @param $templateName
+             * @param $content
+             */
+            function extendTemplateWithContent($templateName, $content) {
+                if (empty($this->rendered_extensions[$templateName])) {
+                    $this->rendered_extensions[$templateName] = $content;
+                } else {
+                    $this->rendered_extensions[$templateName] .= $content;
+                }
             }
 
             /**
