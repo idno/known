@@ -618,7 +618,7 @@
              * Attaches a file reference to this entity
              * @param \MongoGridFSFile $file_wrapper
              */
-            function attachFile(\MongoGridFSFile $file_wrapper)
+            function attachFile($file_wrapper)
             {
                 $file = $file_wrapper->file;
                 if (empty($this->attachments) || !is_array($this->attachments)) {

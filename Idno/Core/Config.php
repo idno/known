@@ -42,6 +42,7 @@
                 if ($config = @parse_ini_file($this->path . '/config.ini')) {
                     $this->config = array_merge($this->config, $config);
                 }
+
                 date_default_timezone_set($this->timezone);
                 setlocale(LC_ALL, 'en_US.UTF8');
             }

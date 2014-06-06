@@ -49,6 +49,9 @@
                         break;
                 }
                 switch ($this->config->filesystem) {
+                    case 'local':
+                        $this->filesystem = new \Idno\Files\LocalFileSystem();
+                        break;
                     default:
                         if (class_exists("Idno\\Files\\{$this->config->filesystem}")) {
                             $filesystem = "Idno\\Files\\{$this->config->filesystem}";
@@ -70,7 +73,7 @@
             }
 
             /**
-             * Registers some core Idno page URLs
+             * Registers some core page URLs
              */
             function registerpages()
             {

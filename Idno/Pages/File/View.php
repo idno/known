@@ -19,6 +19,7 @@
                 if (!empty($this->arguments[0])) {
                     $object = \Idno\Entities\File::getByID($this->arguments[0]);
                 }
+
                 if (empty($object)) $this->forward(); // TODO: 404
 
                 $headers = apache_request_headers();
