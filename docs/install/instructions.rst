@@ -62,6 +62,27 @@ Additionally, you will need to create the database referred to in this configura
 connected to using the user credentials you supply. For now, you will need to load the SQL schema stored in
 /schemas/mysql/mysql.sql.
 
+Set the filesystem
+------------------
+
+If you're using MongoDB, you don't have to do anything, and all uploaded files will be stored in MongoDB itself.
+However, you can also store files locally. Additionally, plugins can provide alternative filesystems like Amazon S3.
+
+Store files locally
+^^^^^^^^^^^^^^^^^^^
+
+Create a directory where file uploads will be stored. This *must* be outside of your document root. Set permissions
+such that the web server can read and write to it. chmod 777 will work, but is insecure and not recommended.
+
+Make a note of that full path. For example, /Users/ben/Sites/withknown.com/data/.
+
+Then, add the following to your config.ini file::
+
+        filesystem = "local"
+        uploadpath = "/Users/ben/Sites/withknown.com/data/"
+
+Of course, replace the path with the path to your data folder.
+
 Load Known
 ----------
 
