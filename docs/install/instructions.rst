@@ -66,10 +66,11 @@ Set the filesystem
 ------------------
 
 If you're using MongoDB, you don't have to do anything, and all uploaded files will be stored in MongoDB itself.
-However, you can also store files locally. Additionally, plugins can provide alternative filesystems like Amazon S3.
+However, you can also store files on your server's local hard drive. Additionally, plugins can provide alternative
+filesystems like Amazon S3.
 
-Store files locally
-^^^^^^^^^^^^^^^^^^^
+Store files on your server's hard drive
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Create a directory where file uploads will be stored. This *must* be outside of your document root. Set permissions
 such that the web server can read and write to it. chmod 777 will work, but is insecure and not recommended.
