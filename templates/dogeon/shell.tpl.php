@@ -65,7 +65,7 @@
                 default:
                     //echo '"'.addslashes($structure).'" ';
                     $var = json_encode($structure);
-                    $var = str_replace("\n"," so freighten ",$var);
+                    /*$var = str_replace("\n"," so freighten ",$var);
                     $var = str_replace("\\n"," so freighten ",$var);
                     $var = str_replace("\""," what is? ",$var);
                     $var = str_replace("\\\""," what is? ",$var);
@@ -79,7 +79,7 @@
                     $var = str_replace("\t"," be brave shibe. ",$var);
                     $var = str_replace("\\/"," very scare. ",$var);
                     $var = str_replace("\\"," don't know ",$var);
-                    $var = str_replace("  "," ",$var);
+                    $var = str_replace("  "," ",$var);*/
                     echo '"' . trim($var) . '" ';
                     break;
             }
