@@ -39,6 +39,19 @@
                         }
                     }
                 ?>
+                <?php
+                    $twitter_user = null;
+                    $u = \Idno\Core\site()->currentPage()->getInput('replyto');
+                    if (preg_match('/https?:\/\/(www\.)?twitter\.com\/([^\/]+)/', $u, $matches)) {
+                        $twitter_user = $matches[2];
+                    }
+                    
+                    if (!empty($u)) {
+                        ?>
+                            <span><input required type="url" name="inreplyto[]" value="<?= $u; ?>" placeholder="The website address of the post you\'re replying to" class="span8" /> <small><a href="#" onclick="$(this).parent().parent().remove(); return false;">Remove</a></small><br /></span> 
+                        <?php
+                    }
+                ?>
             </div>
 
             <p>
@@ -53,7 +66,12 @@
                 </label>
             </p>
 
-            <textarea required name="body" id="body" style="width: 100%"><?php if (!empty($vars['body'])) {
+            <textarea required name="body" id="body" style="width: 100%"><?php 
+            
+                if (!empty($twitter_user))
+                    echo htmlspecialchars ("@$twitter_user ");
+            
+                if (!empty($vars['body'])) {
                     echo htmlspecialchars($vars['body']);
                 } else {
                     echo htmlspecialchars($vars['object']->body);
@@ -70,9 +88,14 @@
                 <?= \Idno\Core\site()->actions()->signForm('/status/edit') ?>
                 <input type="submit" class="btn btn-primary" value="Save"/>
                 <input type="button" class="btn" value="Cancel" onclick="hideContentCreateForm();"/>
+                <small><a href="#" onclick="$('#bookmarklet').toggle(); return false;">+ reply-to bookmarklet</a></small>
                 <?= $this->draw('content/access'); ?>
             </p>
 
+            <div id="bookmarklet" class="well" style="display:none;"> 
+                <p>Drag the following bookmarklet into your browser bar to easily reply to posts on other sites...</p>
+                <?= $this->draw('entity/Status/bookmarklet'); ?>
+            </div>     
         </div>
         <div class="span2">
             <p id="counter" style="display:none">
@@ -80,7 +103,7 @@
             </p>
         </div>
 
-
+               
     </div>
 </form>
 <script>

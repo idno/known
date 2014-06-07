@@ -1,0 +1,1 @@
+<a href="javascript:(function(){location.href='<?= \Idno\Core\site()->config()->url; ?>status/edit?replyto='+encodeURIComponent(location.href);})();">Reply to this...</a>
