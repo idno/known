@@ -18,12 +18,13 @@ Upload Known files
 ------------------
 
 Right now, there isn't a stable installation package for Known, so every installation lives on the cutting edge. For
-now, we assume you're okay with that.
+now, we assume you're okay with that. A friendly installer with everything you need to get going will be released
+this summer.
 
-You can place the code on your host in two ways:
+You can place the code on your host by:
 
-#. Download the zip from GitHub. Then upload the uncompressed files to the folder root of your web host.
-#. Git clone the repository to an appropriate directory (or just straight into the folder root of your web host).
+* Git clone the repository to an appropriate directory (or just straight into the folder root of your web host).
+* If you git cloned the repository to your local disk, use a file transfer app to move the files to your web host.
 
 Explaining how to use Git is beyond the scope of this tutorial, but there are plenty of great tutorials on the web.
 You'll find the Known git repository URL on `the main Known GitHub page <https://github.com/idno/idno>`_.
