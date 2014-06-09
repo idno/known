@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `entities` (
   KEY `owner` (`owner`,`created`),
   KEY `entity_subtype` (`entity_subtype`),
   FULLTEXT KEY `search` (`search`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
