@@ -276,6 +276,9 @@
                         }
                     }
                 } catch (\Exception $e) {
+		    if (\Idno\Core\site()->session() == null) 
+			die($e->getMessage());
+		    
                     \Idno\Core\site()->session()->addMessage($e->getMessage());
                 }
 
