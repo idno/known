@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `entities` (
   KEY `owner` (`owner`,`created`),
   KEY `entity_subtype` (`entity_subtype`),
   FULLTEXT KEY `search` (`search`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -83,4 +83,4 @@ CREATE TABLE IF NOT EXISTS `session` (
     PRIMARY KEY (`session_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-REPLACE INTO `versions` VALUES('schema', '2014060401');
+REPLACE INTO `versions` VALUES('schema', '2014060901');
