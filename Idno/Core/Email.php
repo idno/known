@@ -147,8 +147,8 @@
 
                     return $mailer->send($this->message);
                 } catch (\Exception $e) {
-                    site()->session()->addMessage("Something went wrong and we couldn't send the email.");
-                    site()->session()->addMessage($e->getMessage());
+                    //site()->session()->addMessage("Something went wrong and we couldn't send the email.");
+                    //site()->session()->addMessage($e->getMessage());
                 }
             }
 

@@ -78,7 +78,6 @@
             function registerpages()
             {
 
-                // Homepage
                 $this->addPageHandler('/', '\Idno\Pages\Homepage');
                 $this->addPageHandler('/content/([A-Za-z\-\/]+)+', '\Idno\Pages\Homepage');
                 $this->addPageHandler('/view/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\View');
@@ -91,6 +90,7 @@
                 $this->addPageHandler('/share/?', '\Idno\Pages\Entity\Share');
                 $this->addPageHandler('/bookmarklet\.js', '\Idno\Pages\Entity\Bookmarklet', true);
                 $this->addPageHandler('/[0-9]+/([A-Za-z0-9\-\_]+)/annotations/([A-Za-z0-9]+)/delete/?', '\Idno\Pages\Annotation\Delete'); // Delete annotation
+                $this->addPageHandler('/annotation/post/?', '\Idno\Pages\Annotation\Post');
                 $this->addPageHandler('/file/([A-Za-z0-9]+)(/.*)?', '\Idno\Pages\File\View');
                 $this->addPageHandler('/profile/([^\/]+)/?', '\Idno\Pages\User\View');
                 $this->addPageHandler('/profile/([^\/]+)/edit/?', '\Idno\Pages\User\Edit');

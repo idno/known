@@ -7,7 +7,7 @@
     if (empty($vars['method']) || !in_array($vars['method'],array('GET','POST','PUT','DELETE'))) $vars['method'] = 'POST';
 
 ?>
-<a <?php if (!empty($vars['class'])) { ?> class="<?=$vars['class'];?>" <?php } ?> href="<?=($vars['url'])?>" onclick="$('#<?=$uniqueID?>').submit(); return false;"><?=htmlspecialchars($vars['label'])?></a>
+<a <?php if (!empty($vars['class'])) { ?> class="<?=$vars['class'];?>" <?php } ?> href="<?=($vars['url'])?>" onclick="$('#<?=$uniqueID?>').submit(); return false;"><?=($vars['label'])?></a>
 
 <?php
 

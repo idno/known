@@ -19,7 +19,7 @@
             <?php
                 $this->annotation_permalink = $locallink;
                 
-                if ($vars['object']->canEdit()) {
+                if ($vars['object']->canEditAnnotation($annotation)) {
                     echo $this->draw('content/annotation/edit');
                 }
             ?>

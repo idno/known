@@ -1468,6 +1468,28 @@
             }
 
             /**
+             * Determines whether the current user can edit the specified annotation
+             * @param array|string $annotation
+             * @return bool
+             */
+            function canEditAnnotation($annotation) {
+                if ($this->canEdit()) {
+                    return true;
+                }
+                if ($user = \Idno\Core\site()->session()->currentUser()) {
+                    if (!is_array($annotation)) {
+                        $annotation = $this->getAnnotation($annotation);
+                    }
+                    if (!empty($annotation['owner_url'])) {
+                        if ($annotation['owner_url'] == $user->getURL()) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+
+            /**
              * Retrieve an annotation type via its id
              * @param type $uuid
              */
