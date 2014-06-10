@@ -1,11 +1,23 @@
-<?php /* @var \Idno\Common\Entity $vars['object'] */ ?>
+<?php
+
+    /* @var \Idno\Common\Entity $vars['object'] */
+
+    $replies = $vars['object']->countAnnotations('reply');
+    $likes = $vars['object']->countAnnotations('like');
+    $has_liked = false;
+    if ($like_annotations = $vars['object']->getAnnotations('likes')) {
+        foreach($like_annotations as $like) {
+            if ($like['owner_url'] == \Idno\Core\site()->session()->currentUser()->getURL()) {
+                $has_liked = true;
+            }
+        }
+    }
+
+?>
     <div class="permalink">
         <p>
             <a class="u-url url" href="<?=$vars['object']->getURL()?>" rel="permalink" ><time class="dt-published" datetime="<?=date('c',$vars['object']->created)?>"><?=date('c',$vars['object']->created)?></time></a>
-            <a href="<?=$vars['object']->getURL()?>#comments" ><?php if ($replies = $vars['object']->countAnnotations('reply')) { echo '<i class="icon-comments"></i> ' . $replies; } ?></a>
-            <a href="<?=$vars['object']->getURL()?>#comments" ><?php if ($likes = $vars['object']->countAnnotations('like')) { echo '<i class="icon-thumbs-up"></i> ' . $likes; } ?></a>
-            <a href="<?=$vars['object']->getURL()?>#comments" ><?php if ($shares = $vars['object']->countAnnotations('share')) { echo '<i class="icon-refresh"></i> ' . $shares; } ?></a>
-            <a href="<?=$vars['object']->getURL()?>#comments" ><?php if ($rsvps = $vars['object']->countAnnotations('rsvp')) { echo '<i class="icon-calendar-empty"></i> ' . $rsvps; } ?></a>
+            <?=$this->draw('content/edit')?>
             <?=$this->draw('content/end/links')?>
             <?php
 
@@ -19,6 +31,30 @@
 
             ?>
         </p>
+    </div>
+    <div class="interactions">
+        <a href="<?=$vars['object']->getURL()?>#comments" ><i class="icon-heart<?php if (!$has_liked) { echo '-empty'; } ?>"></i> <?php
+
+                //echo $likes;
+                if ($likes == 1) {
+                    echo '1 appreciation';
+                } else {
+                    echo $likes . ' appreciations';
+                }
+
+            ?></a>
+        <a href="<?=$vars['object']->getURL()?>#comments" ><i class="icon-comments"></i> <?php
+
+                //echo $replies;
+                if ($replies == 1) {
+                    echo '1 comment';
+                } else {
+                    echo $replies . ' comments';
+                }
+
+        ?></a>
+        <a href="<?=$vars['object']->getURL()?>#comments" ><?php if ($shares = $vars['object']->countAnnotations('share')) { echo '<i class="icon-refresh"></i> ' . $shares; } ?></a>
+        <a href="<?=$vars['object']->getURL()?>#comments" ><?php if ($rsvps = $vars['object']->countAnnotations('rsvp')) { echo '<i class="icon-calendar-empty"></i> ' . $rsvps; } ?></a>
     </div>
     <br clear="all" />
 <?php
@@ -55,6 +91,8 @@
         <?php
 
         }
+
+        echo $this->draw('entity/annotations/comment');
 
         if ($posse = $vars['object']->getPosseLinks()) {
 
