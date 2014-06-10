@@ -797,6 +797,51 @@
             }
 
             /**
+             * Retrieves the rendered HTML of this body
+             * @return string
+             */
+            function getBody()
+            {
+                if (!empty($this->body)) {
+                    return $this->body;
+                }
+
+                return '';
+            }
+
+            /**
+             * Get the URIs of all images in this entity's body HTML
+             * @return array
+             */
+            function getImageSourcesFromBody()
+            {
+                $src = [];
+                if ($body = $this->getBody()) {
+                    $doc = new \DOMDocument();
+                    $doc->loadHTML($body);
+                    if ($images = $doc->getElementsByTagName('img')) {
+                        foreach($images as $image) {
+                            if ($source = $image->getAttribute('src')) {
+                                $src[] = $source;
+                            }
+                        }
+                    }
+                }
+                return $src;
+            }
+
+            /**
+             * Gets the URI of the first image in this entity's body HTML
+             * @return bool
+             */
+            function getFirstImageSourceFromBody() {
+                if ($src = $this->getImageSourcesFromBody()) {
+                    return $src[0];
+                }
+                return false;
+            }
+
+            /**
              * Sets the POSSE link for this entity to a particular service
              * @param $service
              * @param $url
