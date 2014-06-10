@@ -45,9 +45,9 @@
             $heart = '<i class="icon-heart"></i>';
         }
         if ($likes == 1) {
-            $heart .= ' 1 appreciation';
+            $heart .= ' 1 fave';
         } else {
-            $heart .= ' ' . $likes . ' appreciations';
+            $heart .= ' ' . $likes . ' faves';
         }
         if (\Idno\Core\site()->session()->isLoggedOn()) {
             echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getURL() . 'annotation/post', $heart, ['type' => 'like', 'object' => $vars['object']->getUUID()], ['method' => 'POST']);
