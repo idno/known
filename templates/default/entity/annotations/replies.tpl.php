@@ -19,8 +19,9 @@
             <?php
                 $this->annotation_permalink = $locallink;
                 
-                if ($vars['object']->canEdit())
+                if ($vars['object']->canEdit()) {
                     echo $this->draw('content/annotation/edit');
+                }
             ?>
         </div>
 <?php
