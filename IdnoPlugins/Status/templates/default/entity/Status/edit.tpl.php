@@ -88,12 +88,14 @@
                 <?= \Idno\Core\site()->actions()->signForm('/status/edit') ?>
                 <input type="submit" class="btn btn-primary" value="Save"/>
                 <input type="button" class="btn" value="Cancel" onclick="hideContentCreateForm();"/>
-                <small><a href="#" onclick="$('#bookmarklet').toggle(); return false;">+ reply-to bookmarklet</a></small>
                 <?= $this->draw('content/access'); ?>
             </p>
+            <p>
+                <small><a href="#" onclick="$('#bookmarklet').toggle(); return false;">Get a button for your browser</a></small>
+            </p>
 
-            <div id="bookmarklet" class="well" style="display:none;"> 
-                <p>Drag the following bookmarklet into your browser bar to easily reply to posts on other sites...</p>
+            <div id="bookmarklet" style="display:none;">
+                <p>Drag the following link into your browser links bar to easily share links or reply to posts on other sites:</p>
                 <?= $this->draw('entity/Status/bookmarklet'); ?>
             </div>     
         </div>
