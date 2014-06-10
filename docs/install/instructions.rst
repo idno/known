@@ -28,7 +28,8 @@ You can place the code on your host by:
   eg: ```git clone --recursive git@github.com:idno/idno.git /path/to/webroot```
 * If you git cloned the repository to your local disk, use a file transfer app to move the files to your web host.
 
-Explaining how to use Git is beyond the scope of this tutorial, but there are plenty of great tutorials on the web.
+Explaining how to use Git is beyond the scope of this tutorial, but there are plenty of great tutorials on the web. 
+Make sure to enable the `Git submodules <http://git-scm.com/book/en/Git-Tools-Submodules>`.
 You'll find the Known git repository URL on `the main Known GitHub page <https://github.com/idno/idno>`_.
 
 Configure Known
