@@ -1461,7 +1461,10 @@
                             $context               = 'rsvp';
                             break;
                     }
-                    $owner->notify($subject, $notification_template, $annotation, $context, $this);
+
+                    if ($annotation['owner_url'] != $this->getOwner()->getURL()) {
+                        $owner->notify($subject, $notification_template, $annotation, $context, $this);
+                    }
                 }
 
                 return true;
