@@ -48,6 +48,9 @@
                         }
                         break;
                 }
+                if (!empty($this->db))
+                    $this->db->handleSession (); // Use the database to handle sessions
+                
                 switch ($this->config->filesystem) {
                     case 'local':
                         $this->filesystem = new \Idno\Files\LocalFileSystem();
