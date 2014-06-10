@@ -1,7 +1,1 @@
-<?php
-
-    header('Content-type: text/javascript');
-
-    // Bookmarklet to follow
-
-?>
+<p><a href="javascript:(function(){location.href='<?= \Idno\Core\site()->config()->url; ?>share?share_url='+encodeURIComponent(location.href)+'&share_title\='+encodeURIComponent(document.title);})();" class="btn"><?=\Idno\Core\site()->config()->title?></a></p>

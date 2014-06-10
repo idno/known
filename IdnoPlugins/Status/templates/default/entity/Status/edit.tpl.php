@@ -96,7 +96,7 @@
 
             <div id="bookmarklet" style="display:none;">
                 <p>Drag the following link into your browser links bar to easily share links or reply to posts on other sites:</p>
-                <?= $this->draw('entity/Status/bookmarklet'); ?>
+                <?= $this->draw('entity/bookmarklet'); ?>
             </div>     
         </div>
         <div class="span2">
