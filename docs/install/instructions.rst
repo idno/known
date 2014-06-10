@@ -24,6 +24,7 @@ this summer.
 You can place the code on your host by:
 
 * Git clone the repository to an appropriate directory (or just straight into the folder root of your web host).
+  Note that you need to make sure you acquire `the Git submodules <http://git-scm.com/book/en/Git-Tools-Submodules>`_.
 * If you git cloned the repository to your local disk, use a file transfer app to move the files to your web host.
 
 Explaining how to use Git is beyond the scope of this tutorial, but there are plenty of great tutorials on the web.
