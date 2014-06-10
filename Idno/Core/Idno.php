@@ -219,8 +219,14 @@
 
             function addEventHook($event, $listener, $priority = 0)
             {
-                if (is_callable($listener))
-                    $this->dispatcher->addListener($event, $listener, $priority);
+                static $listened = [];
+                if (is_callable($listener)) {
+                    $listen_index = json_encode($listener);
+                    if (empty($listened[$event][$listen_index])) {
+                        $this->dispatcher->addListener($event, $listener, $priority);
+                        $listened[$event][$listen_index] = true;
+                    }
+                }
             }
 
             /**
