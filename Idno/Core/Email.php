@@ -58,6 +58,15 @@
             }
 
             /**
+             * Adds an email to the BCC list
+             * @param $email
+             * @return mixed
+             */
+            function addBcc($email) {
+                return $this->message->addBcc($email);
+            }
+
+            /**
              * Add a "reply to" message
              * @param $email
              * @param string $name
