@@ -76,7 +76,7 @@
 
                     if ($user instanceof User && $context = $event->data()['context']) {
 
-                        if ($user->notifications['email'] == 'all' || ($user->notifications['email'] == 'comment' && in_array($context,['comment','reply']))) {
+                        if (empty($user->notifications['email']) || $user->notifications['email'] == 'all' || ($user->notifications['email'] == 'comment' && in_array($context,['comment','reply']))) {
 
                             $vars = $event->data()['vars'];
                             if (empty($vars)) { $vars = []; }
