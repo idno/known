@@ -108,7 +108,7 @@
 
         }
 
-        echo $this->draw('entity/annotations/comment');
+        echo $this->draw('entity/annotations/comment/main');
 
         if ($posse = $vars['object']->getPosseLinks()) {
 
@@ -129,6 +129,12 @@
             </div>
         <?php
 
+        }
+
+    } else {
+
+        if (\Idno\Core\site()->session()->isLoggedOn()) {
+            //echo $this->draw('entity/annotations/comment/mini');
         }
 
     }

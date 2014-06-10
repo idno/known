@@ -250,8 +250,22 @@ h2 {
     margin-bottom: 1em;
 }
 
+.annotation-add-mini .icon-container,
 .annotation-add .icon-container {
     margin-top: -1em;
+}
+
+.annotation-add-mini .icon-container {
+    width: 25px;
+    height: 25px;
+}
+
+.annotation-add-mini textarea {
+    height: 1.5em;
+}
+
+.annotation-add-mini input[type=submit] {
+    margin-top: -0.25em;
 }
 
 .posse a[rel=syndication] {
