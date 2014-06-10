@@ -7,8 +7,10 @@
     $has_liked = false;
     if ($like_annotations = $vars['object']->getAnnotations('like')) {
         foreach ($like_annotations as $like) {
-            if ($like['owner_url'] == \Idno\Core\site()->session()->currentUser()->getURL()) {
-                $has_liked = true;
+            if (\Idno\Core\site()->session()->isLoggedOn()) {
+                if ($like['owner_url'] == \Idno\Core\site()->session()->currentUser()->getURL()) {
+                    $has_liked = true;
+                }
             }
         }
     }
