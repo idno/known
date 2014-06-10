@@ -24,7 +24,7 @@
              */
             function createLink($pageurl, $label, $data = array(), $options = array())
             {
-                $params = array('url' => $pageurl, 'label' => $label, 'data' => $data);
+                $params = array('url' => $pageurl, 'label' => $label, 'data' => $data, 'class' => '');
                 $params = array_merge($params, $options);
 
                 return site()->template()->__($params)->draw('forms/link');
