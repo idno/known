@@ -43,10 +43,10 @@
             {
                 $sessionHandler = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler(\Idno\Core\site()->db()->getClient(),
                     [
-                        'db_table'      => 'session',
-                        'db_id_col'     => 'session_id',
-                        'db_data_col'   => 'session_value',
-                        'db_time_col'   => 'session_time',
+                        'db_table'    => 'session',
+                        'db_id_col'   => 'session_id',
+                        'db_data_col' => 'session_value',
+                        'db_time_col' => 'session_time',
                     ]
                 );
 
@@ -76,7 +76,8 @@
              * @param $id
              * @return string
              */
-            function processID($id) {
+            function processID($id)
+            {
                 return $id;
             }
 
@@ -230,7 +231,7 @@
                 if (!empty($row['entity_subtype']) && !empty($row['contents'])) {
                     if (class_exists($row['entity_subtype'])) {
 
-                        $contents = (array) json_decode($row['contents'],true);
+                        $contents = (array)json_decode($row['contents'], true);
 
                         $object = new $row['entity_subtype']();
                         $object->loadFromArray($contents);
@@ -275,13 +276,14 @@
                             if ($obj = $this->rowToEntity($row)) {
                                 return $obj;
                             }
+
                             return $row;
                         }
                     }
                 } catch (\Exception $e) {
-		    if (\Idno\Core\site()->session() == null) 
-			die($e->getMessage());
-		    
+                    if (\Idno\Core\site()->session() == null)
+                        die($e->getMessage());
+
                     \Idno\Core\site()->session()->addMessage($e->getMessage());
                 }
 
@@ -382,7 +384,7 @@
                     $limit            = (int)$limit;
                     $offset           = (int)$offset;
                     $where            = $this->build_where_from_array($parameters, $variables, $metadata_joins, $non_md_variables);
-                    for ($i = 0; $i < $metadata_joins; $i++) {
+                    for ($i = 0; $i <= $metadata_joins; $i++) {
                         $query .= " left join metadata md{$i} on md{$i}.entity = entities.uuid ";
                     }
                     if (!empty($where)) {
@@ -392,6 +394,7 @@
 
                     $client = $this->client;
                     /* @var \PDO $client */
+
                     $statement = $client->prepare($query);
                     if ($result = $statement->execute($variables)) {
                         return $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -416,7 +419,7 @@
              * @param $non_md_variables
              * @param string $clause Defaults to 'and'
              */
-            function build_where_from_array($params, &$variables, &$metadata_joins, &$non_md_variables, $clause = 'and')
+            function build_where_from_array($params, &$variables, &$metadata_joins, &$non_md_variables, $clause = 'and', $collection = 'entities')
             {
 
                 $where = '';
@@ -434,7 +437,7 @@
                     foreach ($params as $key => $value) {
                         if (!is_array($value)) {
                             if (in_array($key, ['uuid', '_id', 'entity_subtype', 'owner'])) {
-                                $subwhere[]                                  = "(`entities`.`{$key}`) = :nonmdvalue{$non_md_variables}";
+                                $subwhere[]                                  = "(`{$collection}`.`{$key}` = :nonmdvalue{$non_md_variables})";
                                 $variables[":nonmdvalue{$non_md_variables}"] = $value;
                                 $non_md_variables++;
                             } else {
@@ -448,31 +451,59 @@
                                 $subwhere[] = "(" . $this->build_where_from_array($value['$or'], $variables, $metadata_joins, $non_md_variables, 'or') . ")";
                             }
                             if (!empty($value['$not'])) {
-                                $notstring = "(md{$metadata_joins}.`name` = :name{$metadata_joins} and md{$metadata_joins}.`value` not in (";
-                                $variables[":name{$metadata_joins}"] = $key;
-                                $i = 0;
-                                foreach ($value['$not'] as $val) {
-                                    if ($i > 0) $notstring .= ', ';
-                                    $notstring .= ":value{$metadata_joins}";
-                                    $variables[":value{$metadata_joins}"] = $val;
+                                if (in_array($key, ['uuid', '_id', 'entity_subtype', 'owner'])) {
+                                    $notstring = "`{$collection}`.`$key` not in(";
+                                    $i         = 0;
+                                    foreach ($value['$not'] as $val) {
+                                        if ($i > 0) $notstring .= ', ';
+                                        $notstring .= ":nonmdvalue{$non_md_variables}";
+                                        $variables[":nonmdvalue{$non_md_variables}"] = $val;
+                                        $non_md_variables++;
+                                        $i++;
+                                    }
+                                    $notstring .= ")";
+                                } else {
+                                    $notstring                           = "(md{$metadata_joins}.`name` = :name{$metadata_joins} and md{$metadata_joins}.`value` not in (";
+                                    $variables[":name{$metadata_joins}"] = $key;
+                                    $i                                   = 0;
+                                    foreach ($value['$not'] as $val) {
+                                        if ($i > 0) $notstring .= ', ';
+                                        $notstring .= ":nonmdvalue{$non_md_variables}";
+                                        $variables[":nonmdvalue{$non_md_variables}"] = $val;
+                                        $non_md_variables++;
+                                        $i++;
+                                    }
                                     $metadata_joins++;
-                                    $i++;
+                                    $notstring .= "))";
                                 }
-                                $notstring .= "))";
                                 $subwhere[] = $notstring;
                             }
                             if (!empty($value['$in'])) {
-                                $instring = "(md{$metadata_joins}.`name` = :name{$metadata_joins} and md{$metadata_joins}.`value` in (";
-                                $variables[":name{$metadata_joins}"] = $key;
-                                $i = 0;
-                                foreach ($value['$in'] as $val) {
-                                    if ($i > 0) $instring .= ', ';
-                                    $instring .= ":value{$metadata_joins}";
-                                    $variables[":value{$metadata_joins}"] = $val;
+                                if (in_array($key, ['uuid', '_id', 'entity_subtype', 'owner'])) {
+                                    $instring = "`{$collection}`.`$key` in (";
+                                    $i                                   = 0;
+                                    foreach ($value['$in'] as $val) {
+                                        if ($i > 0) $instring .= ', ';
+                                        $instring .= ":nonmdvalue{$non_md_variables}";
+                                        $variables[":nonmdvalue{$non_md_variables}"] = $val;
+                                        $non_md_variables++;
+                                        $i++;
+                                    }
+                                    $instring .= ")";
+                                } else {
+                                    $instring                            = "(md{$metadata_joins}.`name` = :name{$metadata_joins} and md{$metadata_joins}.`value` in (";
+                                    $variables[":name{$metadata_joins}"] = $key;
+                                    $i                                   = 0;
+                                    foreach ($value['$in'] as $val) {
+                                        if ($i > 0) $instring .= ', ';
+                                        $instring .= ":nonmdvalue{$non_md_variables}";
+                                        $variables[":nonmdvalue{$non_md_variables}"] = $val;
+                                        $non_md_variables++;
+                                        $i++;
+                                    }
                                     $metadata_joins++;
-                                    $i++;
+                                    $instring .= "))";
                                 }
-                                $instring .= "))";
                                 $subwhere[] = $instring;
                             }
                             if ($key == '$search') {
@@ -553,7 +584,7 @@
                     $metadata_joins   = 0;
                     $non_md_variables = [];
                     $where            = $this->build_where_from_array($parameters, $variables, $metadata_joins, $non_md_variables);
-                    for ($i = 0; $i < $metadata_joins; $i++) {
+                    for ($i = 0; $i <= $metadata_joins; $i++) {
                         $query .= " left join metadata md{$i} on md{$i}.entity = entities.uuid ";
                     }
                     if (!empty($where)) {
