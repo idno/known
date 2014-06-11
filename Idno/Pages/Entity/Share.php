@@ -14,11 +14,15 @@
 
             function getContent()
             {
-
                 $this->gatekeeper();
 
                 $url   = $this->getInput('share_url');
                 $title = $this->getInput('share_title');
+             
+                // Provide a hook to a URL shortener (TODO: Tidy this up when #237 is merged)
+                $event = new \Idno\Core\Event(); $event->setResponse($url);
+                \Idno\Core\site()->events()->dispatch('url/shorten', $event);
+                $url = $event->response();
 
                 $share_type = 'note';
 
