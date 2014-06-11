@@ -159,6 +159,9 @@
                             if (is_array($value) || is_object($value)) {
                                 $value = json_encode($value);
                             }
+                            if (empty($value)) {
+                                $value = 0;
+                            }
                             if ($statement = $client->prepare("insert into metadata set `collection` = :collection, `entity` = :uuid, `_id` = :id, `name` = :name, `value` = :value")) {
                                 $statement->execute(['collection' => $collection, ':uuid' => $array['uuid'], ':id' => $array['_id'], ':name' => $key, ':value' => $value]);
                             }
