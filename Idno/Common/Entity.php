@@ -842,6 +842,27 @@
             }
 
             /**
+             * Get the time it would take to read this entity's body, in seconds.
+             * @return int
+             */
+            function getReadingTimeInSeconds() {
+                if ($body = $this->getBody()) {
+                    $body = strip_tags($body);
+                    $words = str_word_count($body);
+                    return (int) ceil(($words/200) * 60);
+                }
+                return 0;
+            }
+
+            /**
+             * Get the time it would take to read this entity's body, in minutes.
+             * @return int
+             */
+            function getReadingTimeInMinutes() {
+                return (int) ceil($this->getReadingTimeInSeconds() / 60);
+            }
+
+            /**
              * Sets the POSSE link for this entity to a particular service
              * @param $service
              * @param $url
