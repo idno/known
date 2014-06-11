@@ -17,7 +17,8 @@
             function init()
             {
 
-                ini_set('session.cookie_lifetime', 60 * 60 * 24 * 30); // Persistent cookies
+                ini_set('session.cookie_lifetime', 60 * 60 * 24 * 30);  // Persistent cookies
+                ini_set('session.gc_maxlifetime', 60 * 60 * 24 * 30);   // Garbage collection to match
                 ini_set('session.cookie_httponly', true); // Restrict cookies to HTTP only (help reduce XSS attack profile)
 
                 //site()->db()->handleSession();
