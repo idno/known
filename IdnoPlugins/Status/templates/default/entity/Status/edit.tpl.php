@@ -49,6 +49,18 @@
                     if (!empty($u)) {
                         ?>
                             <span><input required type="url" name="inreplyto[]" value="<?= $u; ?>" placeholder="The website address of the post you\'re replying to" class="span8" /> <small><a href="#" onclick="$(this).parent().parent().remove(); return false;">Remove</a></small><br /></span> 
+                            <script>
+                                $(document).ready(function(){
+                                    var content = $('#body').val();
+                                    var len = content.length;
+                                    var element = $('#body');
+                                    
+                                    $('#body').focus(function(){
+                                        $(this).prop('selectionStart', len);
+                                    });
+                                    $('#body').focus();
+                                });
+                            </script>
                         <?php
                     }
                 ?>
