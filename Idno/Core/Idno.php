@@ -124,6 +124,10 @@
                 return $this->dispatcher;
             }
 
+            /**
+             * Returns the current filesystem
+             * @return \Idno\Files\FileSystem
+             */
             function &filesystem()
             {
                 return $this->filesystem;
