@@ -50,6 +50,10 @@
                 $rssItem->appendChild($page->createElement('geo:lat', $item->lat));
                 $rssItem->appendChild($page->createElement('geo:long', $item->long));
             }
+            $webmentionItem = $page->createElement('atom:link');
+            $webmentionItem->setAttribute('rel', 'webmention');
+            $webmentionItem->setAttribute('href', \Idno\Core\site()->config()->getURL() . 'webmention/');
+            $rssItem->appendChild($webmentionItem);
             if ($attachments = $item->getAttachments()) {
                 foreach($attachments as $attachment) {
                     $enclosureItem = $page->createElement('enclosure');
