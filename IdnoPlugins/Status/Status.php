@@ -5,7 +5,8 @@
         class Status extends \Idno\Common\Entity {
 
             function getTitle() {
-                return strip_tags($this->body);
+                //return strip_tags($this->body);
+                return '';
             }
 
             function getDescription() {

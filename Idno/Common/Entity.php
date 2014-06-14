@@ -414,7 +414,12 @@
                 // Automatically add a slug (if one isn't set and this is a new entity)
 
                 if (!$this->getSlug() && empty($this->_id)) {
-                    $this->setSlugResilient($this->getTitle());
+                    if (!($title = $this->getTitle())) {
+                        if (!($title = $this->getDescription())) {
+                            $title = md5(time() . rand(0,9999));
+                        }
+                    }
+                    $this->setSlugResilient($title);
                 }
 
                 // Automatically set access

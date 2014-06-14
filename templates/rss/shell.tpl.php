@@ -3,6 +3,10 @@
     header('Content-type: application/rss+xml');
     unset($vars['body']);
 
+    if (empty($vars['title']) && !empty($vars['description'])) {
+        $vars['title'] = implode(' ',array_slice(explode(' ', strip_tags($vars['description'])),0,10));
+    }
+
     $page = new DOMDocument();
     $page->formatOutput = true;
     $rss = $page->createElement('rss');
@@ -39,7 +43,9 @@
                 $item = $item->getObject();
             }
             $rssItem = $page->createElement('item');
-            $rssItem->appendChild($page->createElement('title',$item->getTitle()));
+            if ($title = $item->getTitle()) {
+                $rssItem->appendChild($page->createElement('title',$item->getTitle()));
+            }
             $rssItem->appendChild($page->createElement('link',$item->getURL()));
             $rssItem->appendChild($page->createElement('guid',$item->getUUID()));
             $rssItem->appendChild($page->createElement('pubDate',date(DATE_RSS,$item->created)));

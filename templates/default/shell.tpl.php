@@ -7,6 +7,10 @@
     header('Link: <' . \Idno\Core\site()->config()->url . 'webmention/>; rel="webmention"');
     header("Access-Control-Allow-Origin: *");
 
+    if (empty($vars['title']) && !empty($vars['description'])) {
+        $vars['title'] = implode(' ',array_slice(explode(' ', strip_tags($vars['description'])),0,10));
+    }
+
 ?>
 <?php if (!$_SERVER["HTTP_X_PJAX"]): ?>
     <!DOCTYPE html>
@@ -16,7 +20,7 @@
     <title><?= htmlspecialchars($vars['title']); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="initial-scale=1.0" media="(device-height: 568px)"/>
-    <meta name="description" content="<?= htmlspecialchars($vars['description']) ?>">
+    <meta name="description" content="<?= htmlspecialchars(strip_tags($vars['description'])) ?>">
     <meta name="generator" content="Known http://withknown.com">
     <?= $this->draw('shell/favicon'); ?>
 
