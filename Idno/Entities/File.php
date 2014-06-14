@@ -129,6 +129,8 @@
                                 $width  = round($photo_information[0] * ($max_dimension / $photo_information[1]));
                             }
                             $image_copy = imagecreatetruecolor($width, $height);
+                            imagecopyresampled($image_copy, $image, 0, 0, 0, 0, $width, $height, $photo_information[0], $photo_information[1]);
+
                             if (is_callable('exif_read_data')) {
                                 $exif = exif_read_data($file_path);
                                 if (!empty($exif['Orientation'])) {
