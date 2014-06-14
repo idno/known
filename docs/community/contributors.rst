@@ -10,6 +10,7 @@ Core team
 * Erin Jo Richey http://erinjo.is
 
 Homepage: http://withknown.com/
+
 Team Known site: http://stream.withknown.com/
 
 Community contributors, by Known release
