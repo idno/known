@@ -21,11 +21,12 @@
                 ini_set('session.gc_maxlifetime', 60 * 60 * 24 * 30);   // Garbage collection to match
                 ini_set('session.cookie_httponly', true); // Restrict cookies to HTTP only (help reduce XSS attack profile)
 
-                //site()->db()->handleSession();
+                site()->db()->handleSession();
 
                 session_name(site()->config->sessionname);
                 session_start();
                 session_cache_limiter('public');
+                session_regenerate_id();
 
                 // Session login / logout
                 site()->addPageHandler('/session/login', '\Idno\Pages\Session\Login', true);
