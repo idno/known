@@ -31,9 +31,11 @@
                     $target = urldecode($vars['target']);
 
                     // Remove anchors from target URL, but save them to '#' input so we can still reference them later
-                    list($target, $fragment) = explode('#', $target, 2);
-                    if (!empty($fragment)) {
-                        $this->setInput('#', $fragment);
+                    if (strpos($target,'#')) {
+                        list($target, $fragment) = explode('#', $target, 2);
+                        if (!empty($fragment)) {
+                            $this->setInput('#', $fragment);
+                        }
                     }
 
                     // Get the page handler for target
