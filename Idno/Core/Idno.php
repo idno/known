@@ -70,6 +70,7 @@
                 $this->actions     = new Actions();
                 $this->template    = new Template();
                 $this->syndication = new Syndication();
+                $this->themes      = new Themes();
                 $this->plugins     = new Plugins(); // This must be loaded last
             }
 
@@ -187,9 +188,22 @@
                 return $this->session;
             }
 
+            /**
+             * Return the plugin handler associated with this site
+             * @return \Idno\Core\Plugins
+             */
             function &plugins()
             {
                 return $this->plugins;
+            }
+
+            /**
+             * Return the theme handler associated with this site
+             * @return \Idno\Core\Themes
+             */
+            function &themes()
+            {
+                return $this->themes;
             }
 
             /**

@@ -440,6 +440,18 @@ span.contentTypeLogo {
     color: #aaa;
 }
 
+.theme {
+    padding: 1em;
+    margin-bottom: 2em;
+    background-color: #fafafa;
+}
+
+.theme img {
+    border: #999 1px solid;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
 /**
  * Friendly messages
  */
