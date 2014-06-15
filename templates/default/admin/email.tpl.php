@@ -17,9 +17,26 @@
     <div class="span10 offset1">
         <form action="<?=\Idno\Core\site()->config()->url?>admin/email" class="form-horizontal" method="post">
             <div class="control-group">
-                <label class="control-label" for="from_email">Site email address<br /><small>The email address that this site will send email from.</small></label>
+                &nbsp;
+                <div class="controls">
+                    <p>
+                        Fill in the site email address if you would like your site to send email.
+                    </p>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="from_email">Site email address<br /><small>The email address that this site will send email from. Every site notification will be sent from this address.</small></label>
                 <div class="controls">
                     <input type="text" id="from_email" placeholder="Site email address" class="span4" name="from_email" value="<?=htmlspecialchars(\Idno\Core\site()->config()->from_email)?>" >
+                </div>
+            </div>
+            <div class="control-group">
+                &nbsp;
+                <div class="controls">
+                    <p>
+                        You can often leave the following settings blank. However, you may wish to set them if you're
+                        using a third-party service to send email.
+                    </p>
                 </div>
             </div>
             <div class="control-group">
