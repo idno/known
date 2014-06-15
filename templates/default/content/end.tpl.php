@@ -136,7 +136,7 @@
     } else {
 
         if (\Idno\Core\site()->session()->isLoggedOn()) {
-            //echo $this->draw('entity/annotations/comment/mini');
+            echo $this->draw('entity/annotations/comment/mini');
         }
 
     }
