@@ -6,3 +6,4 @@ Developer guides
 
    standards
    plugins/index
+   themes/index
