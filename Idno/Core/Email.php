@@ -150,14 +150,18 @@
                     $mailer = \Swift_Mailer::newInstance($transport);
 
                     // Set the "from" address
-                    if ($from_email = site()->config()->from_email) {
+                    $from_email = site()->config()->from_email;
+                    if (empty($from_email))
+                        $from_email = "known@" . site()->config()->host; // Emails MUST have a from address, so if it's not set then have a good guess
+                    if ($from_email) {
                         $this->message->setFrom($from_email, site()->config()->title);
-                    }
+                    } 
 
                     return $mailer->send($this->message);
                 } catch (\Exception $e) {
                     //site()->session()->addMessage("Something went wrong and we couldn't send the email.");
                     //site()->session()->addMessage($e->getMessage());
+                    //error_log('EMAIL: ' . $e->getMessage());
                 }
             }
 
