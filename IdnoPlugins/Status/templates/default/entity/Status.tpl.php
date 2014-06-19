@@ -6,6 +6,6 @@
     }
 ?>
 <div class="">
-    <p class="p-name"><?=nl2br($this->parseURLs($this->parseHashtags($vars['object']->body),$rel))?></p>
+    <p class="p-name"><?=nl2br($this->parseURLs($this->parseHashtags($this->parseUsers($vars['object']->body, $vars['object']->inreplyto)),$rel))?></p>
 </div>
 <?= $this->draw('entity/content/embed'); ?>
