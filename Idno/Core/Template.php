@@ -186,6 +186,56 @@
 
                 return $r;
             }
+            
+            /**
+             * Change @user links into active users.
+             * @param type $text The text to parse
+             * @param type $in_reply_to If specified, the function will make a (hopefully) sensible guess as to where the user is located
+             */
+            function parseUsers($text, $in_reply_to = null) {
+                
+                $r = $text;
+                
+                if (!empty($in_reply_to)) {
+                    
+                    // TODO: do this in a more pluggable way
+                  
+                    // It is only safe to make assumptions on @users if only one reply to is given
+                    if (!is_array($in_reply_to) || (is_array($in_reply_to) && count($in_reply_to) == 1)) {
+                        
+                        if (is_array($in_reply_to))
+                            $in_reply_to = $in_reply_to[0];
+                  
+                        // Find and replace twitter
+                        if (strpos($in_reply_to, 'twitter.com')!== false) {
+                            $r = preg_replace_callback('/(?<!=)(?<!["\'])(\@[A-Za-z0-9]+)/i', function ($matches) {
+                                $url = $matches[1];
+
+                                return '<a href="https://twitter.com/' . urlencode(ltrim($matches[1], '@')) . '" class="p-nickname u-url">' . $url . '</a>';
+                            }, $text);
+                        }
+                        
+                        // Is this a local user?
+                        if (\Idno\Common\Entity::isLocalUUID($in_reply_to)) {
+                             $r = preg_replace_callback('/(?<!=)(?<!["\'])(\@[A-Za-z0-9]+)/i', function ($matches) {
+                                $url = $matches[1];
+
+                                return '<a href="' . \Idno\Core\site()->config()->url . 'profile/' . urlencode(ltrim($matches[1], '@')) . '" class="p-nickname u-url">' . $url . '</a>';
+                            }, $text);
+                        }
+                    }
+                    
+                } else {
+                    // No in-reply, so we assume a local user
+                    $r = preg_replace_callback('/(?<!=)(?<!["\'])(\@[A-Za-z0-9]+)/i', function ($matches) {
+                        $url = $matches[1];
+
+                        return '<a href="' . \Idno\Core\site()->config()->url . 'profile/' . urlencode(ltrim($matches[1], '@')) . '" class="p-nickname u-url">' . $url . '</a>';
+                    }, $text);
+                }
+                
+                return $r;
+            }
 
             /**
              * Returns a sanitized version of the current page URL
