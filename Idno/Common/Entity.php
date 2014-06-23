@@ -397,6 +397,21 @@
             }
 
             /**
+             * Retrieve a title for this object suitable for notifications
+             * @return string
+             */
+            function getNotificationTitle()
+            {
+                if ($title = $this->getTitle()) {
+                    return $title;
+                }
+                if ($description = $this->getShortDescription()) {
+                    return $description;
+                }
+                return '';
+            }
+
+            /**
              * Saves this entity - either creating a new entry, or
              * overwriting the existing one.
              */
@@ -991,15 +1006,19 @@
 
             /**
              * Retrieve a short description of this page suitable for including in page metatags
+             * @param $words Number of words to limit to, if we're generating a short description on the fly (default: 25)
              * @return string
              */
 
-            function getShortDescription()
+            function getShortDescription($words = 25)
             {
                 if (!empty($this->short_description))
                     return $this->short_description;
 
-                return strip_tags($this->getDescription());
+                $description = strip_tags($this->getDescription());
+                $description = implode(' ',array_slice(explode(' ', $description),0,$words));
+
+                return $description;
             }
 
             /**

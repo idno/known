@@ -1,4 +1,4 @@
-Hi! We wanted to let you know that <strong><a href="<?=$vars['owner_url']?>"><?=$vars['owner_name']?></a></strong> RSVPed to your event.<br>
+Hi! We wanted to let you know that <strong><a href="<?=$vars['owner_url']?>"><?=$vars['owner_name']?></a></strong> RSVPed to your event <strong><a href="<?=$vars['object']->getURL();?>"><?=$vars['object']->getNotificationTitle()?></a></strong>.<br>
 <br>
 Here's what they said:<br>
 <br>
