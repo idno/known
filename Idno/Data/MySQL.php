@@ -518,7 +518,6 @@
                         $where = '(' . implode(" {$clause} ", $subwhere) . ')';
                     }
                 }
-
                 return $where;
             }
 
