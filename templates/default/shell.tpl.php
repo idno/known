@@ -192,6 +192,7 @@
 <script src="<?= \Idno\Core\site()->config()->url . 'external/jquery-timeago/' ?>jquery.timeago.js"></script>
 <script src="<?= \Idno\Core\site()->config()->url . 'external/jquery-pjax/' ?>jquery.pjax.js"></script>
 <script src="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
+<script src="<?= \Idno\Core\site()->config()->url . 'external/jquery-mentions-input/jquery.mentionsInput.js' ?>" type='text/javascript'></script>
 <!-- Video shim -->
 <script src="<?= \Idno\Core\site()->config()->url . 'external/fitvids/jquery.fitvids.min.js' ?>"></script>
 
@@ -211,23 +212,9 @@
 
 <script>
 
-    //$(document).pjax('a:not([href^=\\.],[href^=file])', '#pjax-container');    // In Known, URLs with extensions are probably files.
-    /*$(document).on('pjax:click', function(event) {
-     if (event.target.href.match('/edit/')) {
-     // For a reason I can't actuallly figure out, /edit pages never render with chrome
-     // when PJAXed. I don't understand the rendering pipeline well enough to figure out
-     // what's up --jrv 20130705
-     return false;
-     }
-     if (event.target.onclick) { // If there's an onclick handler, we don't want to pjax this
-     return false;
-     } else {
-     return true;
-     }
-     });*/
-
     function annotateContent() {
         $(".h-entry").fitVids();
+        $(".h-entry").mentionsInput();
         $("time.dt-published").timeago();
     }
 
