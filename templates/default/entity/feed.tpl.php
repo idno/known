@@ -1,7 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ben
- * Date: 6/23/14
- * Time: 2:00 PM
- */ 
+
+    if (!empty($vars['items'])) {
+
+        foreach($vars['items'] as $entry) {
+            echo $this->__(array('object' => $entry->getRelatedFeedItems()))->draw('entity/shell');
+        }
+
+        echo $this->drawPagination($vars['count']);
+
+    }
