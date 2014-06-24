@@ -214,7 +214,6 @@
 
     function annotateContent() {
         $(".h-entry").fitVids();
-        $(".h-entry").mentionsInput();
         $("time.dt-published").timeago();
     }
 
