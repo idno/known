@@ -46,3 +46,6 @@
 [submodule "external/underscore"]
 	path = external/underscore
 	url = https://github.com/jashkenas/underscore.git
+[submodule "external/mention"]
+	path = external/mention
+	url = https://github.com/jakiestfu/Mention.js.git
