@@ -199,6 +199,12 @@
 <!-- Mention styles -->
 <link rel="stylesheet" type="text/css" href="<?= \Idno\Core\site()->config()->url ?>external/mention/recommended-styles.css">
 
+<?php
+    if (\Idno\Core\site()->session()->isLoggedOn()) {
+        echo $this->draw('js/mentions');
+    }
+?>
+
 <!-- Video shim -->
 <script src="<?= \Idno\Core\site()->config()->url . 'external/fitvids/jquery.fitvids.min.js' ?>"></script>
 
