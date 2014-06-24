@@ -7,7 +7,8 @@
          * Represents a single file in the system
          * @package Idno\Files
          */
-        abstract class File {
+        abstract class File
+        {
 
             public $metadata = [];
             public $_id;

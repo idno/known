@@ -127,7 +127,8 @@
              * @param $id
              * @return \MongoId
              */
-            function processID($id) {
+            function processID($id)
+            {
                 return new \MongoId($id);
             }
 
@@ -274,9 +275,9 @@
                 try {
                     // Make search case insensitive
                     $fieldscopy = $fields;
-                    foreach($fields as $key => $value) {
+                    foreach ($fields as $key => $value) {
                         if (is_string($value)) {
-                            $val = new \MongoRegex("/{$value}/i");
+                            $val              = new \MongoRegex("/{$value}/i");
                             $fieldscopy[$key] = $val;
                         }
                     }

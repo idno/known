@@ -15,6 +15,7 @@
             function init()
             {
                 $result = parent::init();
+
                 return $result;
             }
 

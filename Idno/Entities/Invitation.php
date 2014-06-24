@@ -111,7 +111,7 @@
              */
             static function validate($email, $code)
             {
-                if ($invitation = self::getByEmailAndCode($email,$code)) {
+                if ($invitation = self::getByEmailAndCode($email, $code)) {
                     return $invitation;
                 }
 

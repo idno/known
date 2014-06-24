@@ -37,8 +37,8 @@
                 }
 
                 $offset = (int)$this->getInput('offset');
-                $count  = \Idno\Entities\ActivityStreamPost::countFromX($types,['owner' => $user->getUUID()]);
-                $feed   = \Idno\Entities\ActivityStreamPost::getFromX($types,['owner' => $user->getUUID()], [], \Idno\Core\site()->config()->items_per_page, $offset);
+                $count  = \Idno\Entities\ActivityStreamPost::countFromX($types, ['owner' => $user->getUUID()]);
+                $feed   = \Idno\Entities\ActivityStreamPost::getFromX($types, ['owner' => $user->getUUID()], [], \Idno\Core\site()->config()->items_per_page, $offset);
 
                 $last_modified = $user->updated;
                 if (!empty($feed) && is_array($feed)) {

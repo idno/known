@@ -31,20 +31,21 @@
                 }
 
                 $upload_file = $path . \Idno\Core\site()->config()->host . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3] . '/' . $id . '.file';
-                $data_file   = $path . \Idno\Core\site()->config()->host . '/' .$id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3] . '/' . $id . '.data';
+                $data_file   = $path . \Idno\Core\site()->config()->host . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3] . '/' . $id . '.data';
 
                 if (file_exists($upload_file)) {
-                    $file = new \Idno\Files\LocalFile();
-                    $file->_id = $id;
+                    $file                    = new \Idno\Files\LocalFile();
+                    $file->_id               = $id;
                     $file->internal_filename = $upload_file;
                     if ($metadata = file_get_contents($data_file)) {
-                        if ($metadata = json_decode($metadata,true)) {
-                            $file->metadata = $metadata;
-                            $file->file = $metadata;
-                            $file->file['_id'] = $id;
+                        if ($metadata = json_decode($metadata, true)) {
+                            $file->metadata       = $metadata;
+                            $file->file           = $metadata;
+                            $file->file['_id']    = $id;
                             $file->file['length'] = filesize($upload_file);
                         }
                     }
+
                     return $file;
                 }
 
@@ -75,7 +76,7 @@
                     $upload_file = $path . \Idno\Core\site()->config()->host . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3] . '/' . $id . '.file';
                     $data_file   = $path . \Idno\Core\site()->config()->host . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3] . '/' . $id . '.data';
 
-                    foreach([$path . \Idno\Core\site()->config()->host, $path . \Idno\Core\site()->config()->host . '/' . $id[0], $path . \Idno\Core\site()->config()->host . '/' . $id[0] . '/' . $id[1], $path . \Idno\Core\site()->config()->host . '/' . $id[0] . '/' . $id[1] . '/' . $id[2], $path . \Idno\Core\site()->config()->host . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3]] as $up_path) {
+                    foreach ([$path . \Idno\Core\site()->config()->host, $path . \Idno\Core\site()->config()->host . '/' . $id[0], $path . \Idno\Core\site()->config()->host . '/' . $id[0] . '/' . $id[1], $path . \Idno\Core\site()->config()->host . '/' . $id[0] . '/' . $id[1] . '/' . $id[2], $path . \Idno\Core\site()->config()->host . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3]] as $up_path) {
                         if (!is_dir($up_path)) {
                             $result = mkdir($up_path);
                         }

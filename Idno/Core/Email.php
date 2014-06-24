@@ -62,7 +62,8 @@
              * @param $email
              * @return mixed
              */
-            function addBcc($email) {
+            function addBcc($email)
+            {
                 return $this->message->addBcc($email);
             }
 
@@ -106,10 +107,12 @@
              * @param array $vars
              * @return mixed
              */
-            function setHTMLBodyFromTemplate($template_name, $vars = []) {
+            function setHTMLBodyFromTemplate($template_name, $vars = [])
+            {
                 $t = clone site()->template();
                 $t->setTemplateType('email');
                 $body = $t->__($vars)->draw($template_name);
+
                 return $this->setHTMLBody($body);
             }
 

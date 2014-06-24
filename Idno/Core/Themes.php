@@ -12,8 +12,8 @@
         class Themes extends \Idno\Common\Component
         {
 
-            public $theme = '';     // Property containing the current theme (blank if none)
-            public $themes = [];    // Array containing instantiated theme controllers
+            public $theme = ''; // Property containing the current theme (blank if none)
+            public $themes = []; // Array containing instantiated theme controllers
 
             /**
              * On initialization, the theme management class loads the current theme and sets it as
@@ -32,12 +32,12 @@
                             $extensions = $config['Extensions'];
                         }
                         if (!empty($extensions)) {
-                            foreach($extensions as $template => $extension) {
+                            foreach ($extensions as $template => $extension) {
                                 site()->template()->extendTemplate($template, $extension);
                             }
                         }
                         if (is_subclass_of("Themes\\{$this->theme}\\Controller", 'Idno\\Common\\Theme')) {
-                            $class = "Themes\\{$this->theme}\\Controller";
+                            $class                      = "Themes\\{$this->theme}\\Controller";
                             $this->themes[$this->theme] = new $class();
                         }
                     }

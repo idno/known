@@ -408,6 +408,7 @@
                 if ($description = $this->getShortDescription()) {
                     return $description;
                 }
+
                 return '';
             }
 
@@ -431,7 +432,7 @@
                 if (!$this->getSlug() && empty($this->_id)) {
                     if (!($title = $this->getTitle())) {
                         if (!($title = $this->getDescription())) {
-                            $title = md5(time() . rand(0,9999));
+                            $title = md5(time() . rand(0, 9999));
                         }
                     }
                     $this->setSlugResilient($title);
@@ -1016,7 +1017,7 @@
                     return $this->short_description;
 
                 $description = strip_tags($this->getDescription());
-                $description = implode(' ',array_slice(explode(' ', $description),0,$words));
+                $description = implode(' ', array_slice(explode(' ', $description), 0, $words));
 
                 return $description;
             }

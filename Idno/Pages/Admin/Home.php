@@ -23,7 +23,7 @@
             }
 
             function postContent()
-            { 
+            {
                 $this->adminGatekeeper(); // Admins only
                 $title                = $this->getInput('title');
                 $description          = $this->getInput('description');

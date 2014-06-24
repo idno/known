@@ -625,7 +625,7 @@
             public function setAsset($name, $value, $class)
             {
                 if (!isset($this->assets) || !is_array($this->assets)) $this->assets = [];
-                if (!isset($this->assets[$class])  || !is_array($this->assets)) $this->assets[$class] = [];
+                if (!isset($this->assets[$class]) || !is_array($this->assets)) $this->assets[$class] = [];
 
                 $this->assets[$class][$name] = $value;
             }
@@ -639,16 +639,17 @@
             {
                 return $this->assets[$class];
             }
-	    
-	    /**
-	     * Set the last updated header for this page.
-	     * Takes a unix timestamp and outputs it as RFC2616 date.
-	     * @param int $timestamp Unix timestamp.
-	     */
-	    public function setLastModifiedHeader($timestamp) {
-		header('Last-Modified: ' .  self::timestampToRFC2616($timestamp));
-	    }
-	    
+
+            /**
+             * Set the last updated header for this page.
+             * Takes a unix timestamp and outputs it as RFC2616 date.
+             * @param int $timestamp Unix timestamp.
+             */
+            public function setLastModifiedHeader($timestamp)
+            {
+                header('Last-Modified: ' . self::timestampToRFC2616($timestamp));
+            }
+
             /**
              * Return whether the current page URL matches the given regex string.
              * @param type $regex_string URL string in the same format as the page handler definition.
@@ -727,14 +728,15 @@
 
                 return $page;
             }
-	    
-	    /**
-	     * Convert a unix timestamp into an RFC2616 (HTTP) compatible date.
-	     * @param type $timestamp
-	     */
-	    public static function timestampToRFC2616($timestamp) {
-		return gmdate('D, d M Y H:i:s T', (int)$timestamp);
-	    }
+
+            /**
+             * Convert a unix timestamp into an RFC2616 (HTTP) compatible date.
+             * @param type $timestamp
+             */
+            public static function timestampToRFC2616($timestamp)
+            {
+                return gmdate('D, d M Y H:i:s T', (int)$timestamp);
+            }
 
         }
 

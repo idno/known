@@ -31,7 +31,7 @@
                     $target = urldecode($vars['target']);
 
                     // Remove anchors from target URL, but save them to '#' input so we can still reference them later
-                    if (strpos($target,'#')) {
+                    if (strpos($target, '#')) {
                         list($target, $fragment) = explode('#', $target, 2);
                         if (!empty($fragment)) {
                             $this->setInput('#', $fragment);

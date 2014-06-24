@@ -14,15 +14,15 @@
             function getContent()
             {
 
-                $results = [];
+                $results  = [];
                 $username = $this->getInput('username');
-                if ($users = User::get([],[],9999)) {//User::getByHandle($username)) {
-                    foreach($users as $user) {
+                if ($users = User::get([], [], 9999)) { //User::getByHandle($username)) {
+                    foreach ($users as $user) {
                         /* @var \Idno\Entities\User $user */
                         $results[] = [
                             'username' => $user->getHandle(),
-                            'name' => $user->getTitle(),
-                            'image' => $user->getIcon()
+                            'name'     => $user->getTitle(),
+                            'image'    => $user->getIcon()
                         ];
                     }
                 }

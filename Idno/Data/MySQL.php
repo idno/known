@@ -481,7 +481,7 @@
                             if (!empty($value['$in'])) {
                                 if (in_array($key, ['uuid', '_id', 'entity_subtype', 'owner'])) {
                                     $instring = "`{$collection}`.`$key` in (";
-                                    $i                                   = 0;
+                                    $i        = 0;
                                     foreach ($value['$in'] as $val) {
                                         if ($i > 0) $instring .= ', ';
                                         $instring .= ":nonmdvalue{$non_md_variables}";
@@ -518,6 +518,7 @@
                         $where = '(' . implode(" {$clause} ", $subwhere) . ')';
                     }
                 }
+
                 return $where;
             }
 

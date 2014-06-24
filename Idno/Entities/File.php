@@ -108,14 +108,14 @@
                                 $image = imagecreatefromjpeg($file_path);
                                 break;
                             case 'image/png':
-                                $image = imagecreatefrompng($file_path);
+                                $image      = imagecreatefrompng($file_path);
                                 $background = imagecolorallocate($image, 0, 0, 0);
                                 imagecolortransparent($image, $background);
                                 imagealphablending($image, false);
                                 imagesavealpha($image, true);
                                 break;
                             case 'image/gif':
-                                $image = imagecreatefromgif($file_path);
+                                $image      = imagecreatefromgif($file_path);
                                 $background = imagecolorallocate($image, 0, 0, 0);
                                 imagecolortransparent($image, $background);
                                 break;

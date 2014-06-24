@@ -23,13 +23,13 @@
             function postContent()
             {
 
-                $this->createGatekeeper();  // User is logged in and can post content
+                $this->createGatekeeper(); // User is logged in and can post content
 
                 // Get variables
-                $body = $this->getInput('body');
+                $body        = $this->getInput('body');
                 $object_uuid = $this->getInput('object');
-                $type = $this->getInput('type');
-                $user = \Idno\Core\site()->session()->currentUser();
+                $type        = $this->getInput('type');
+                $user        = \Idno\Core\site()->session()->currentUser();
                 if ($type != 'like') {
                     $type = 'reply';
                 }
@@ -39,7 +39,7 @@
                     $has_liked = false;
                     if ($type == 'like') {
                         if ($like_annotations = $object->getAnnotations('like')) {
-                            foreach($like_annotations as $like) {
+                            foreach ($like_annotations as $like) {
                                 if ($like['owner_url'] == \Idno\Core\site()->session()->currentUser()->getURL()) {
                                     $object->removeAnnotation($like['permalink']);
                                     $object->save();

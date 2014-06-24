@@ -20,7 +20,7 @@
                     $this->forward();
                 }
 
-                $fwd      = $this->getInput('fwd'); // Forward to a new page?
+                $fwd = $this->getInput('fwd'); // Forward to a new page?
                 if ($fwd == \Idno\Core\site()->config()->url . 'session/login') {
                     $fwd = '';
                 }

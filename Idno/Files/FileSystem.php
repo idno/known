@@ -7,7 +7,9 @@
          * Represents a file system capable of storing files
          * @package Idno\Files
          */
-        abstract class FileSystem {
+
+        abstract class FileSystem
+        {
 
             /**
              * Find a file.

@@ -39,7 +39,7 @@
                 if (empty($user_id)) $user_id = \Idno\Core\site()->session()->currentUser()->uuid;
                 if ($this->getOwnerID() == $user_id) return true;
                 if ($this->isMember($user_id)) return true;
-		if ($this->access == 'PUBLIC') return true;
+                if ($this->access == 'PUBLIC') return true;
 
                 return false;
             }

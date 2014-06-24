@@ -40,7 +40,7 @@
                         break;
                     default:
                         if (class_exists("Idno\\Data\\{$this->config->database}")) {
-                            $db = "Idno\\Data\\{$this->config->database}";
+                            $db       = "Idno\\Data\\{$this->config->database}";
                             $this->db = new $db();
                         }
                         if (empty($this->db)) {
@@ -55,7 +55,7 @@
                         break;
                     default:
                         if (class_exists("Idno\\Files\\{$this->config->filesystem}")) {
-                            $filesystem = "Idno\\Files\\{$this->config->filesystem}";
+                            $filesystem       = "Idno\\Files\\{$this->config->filesystem}";
                             $this->filesystem = new $filesystem();
                         }
                         if (empty($this->filesystem)) {
