@@ -43,9 +43,6 @@
 [submodule "external/swiftmailer"]
 	path = external/swiftmailer
 	url = https://github.com/swiftmailer/swiftmailer.git
-[submodule "external/jquery-mentions-input"]
-	path = external/jquery-mentions-input
-	url = https://github.com/podio/jquery-mentions-input.git
 [submodule "external/underscore"]
 	path = external/underscore
 	url = https://github.com/jashkenas/underscore.git

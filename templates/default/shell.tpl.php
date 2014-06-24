@@ -192,7 +192,8 @@
 <script src="<?= \Idno\Core\site()->config()->url . 'external/jquery-timeago/' ?>jquery.timeago.js"></script>
 <script src="<?= \Idno\Core\site()->config()->url . 'external/jquery-pjax/' ?>jquery.pjax.js"></script>
 <script src="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
-<script src="<?= \Idno\Core\site()->config()->url . 'external/jquery-mentions-input/jquery.mentionsInput.js' ?>" type='text/javascript'></script>
+<script src="<?= \Idno\Core\site()->config()->url . 'external/underscore/underscore-min.js' ?>" type="text/javascript"></script>
+
 <!-- Video shim -->
 <script src="<?= \Idno\Core\site()->config()->url . 'external/fitvids/jquery.fitvids.min.js' ?>"></script>
 
