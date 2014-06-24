@@ -445,7 +445,7 @@
              * Set the response code for the page. Note: this will be overridden
              * if the main system response code is already not 200
              *
-             * @param type $code
+             * @param int $code
              */
             function setResponse($code)
             {
