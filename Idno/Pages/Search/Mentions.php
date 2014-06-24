@@ -16,7 +16,7 @@
 
                 $results = [];
                 $username = $this->getInput('username');
-                if ($users = User::get()) {//User::getByHandle($username)) {
+                if ($users = User::get([],[],9999)) {//User::getByHandle($username)) {
                     foreach($users as $user) {
                         /* @var \Idno\Entities\User $user */
                         $results[] = [
