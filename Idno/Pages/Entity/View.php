@@ -27,11 +27,11 @@
                 }
 
                 // From here, we know the object is set
-		
-		// Check that we can see it
-		if (!$object->canRead()) {
-		    $this->deniedContent();
-		}
+
+                // Check that we can see it
+                if (!$object->canRead()) {
+                    $this->deniedContent();
+                }
 
                 // Just forward to the user's page
                 if ($object instanceof \Idno\Entities\User) {
@@ -40,7 +40,7 @@
 
                 $this->setOwner($object->getOwner());
                 $this->setPermalink(); // This is a permalink
-		$this->setLastModifiedHeader($object->updated); // Say when this was last modified
+                $this->setLastModifiedHeader($object->updated); // Say when this was last modified
                 $t = \Idno\Core\site()->template();
                 $t->__(array(
 
