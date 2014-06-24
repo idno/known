@@ -25,3 +25,4 @@
 
     </div>
 </form>
+<?=$this->draw('entity/edit/footer');?>

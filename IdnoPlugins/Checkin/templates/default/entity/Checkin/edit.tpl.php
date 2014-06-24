@@ -99,7 +99,7 @@
                 <label>
                     What are you up to?<br/>
                     <input type="text" name="body" id="body" value="<?= htmlspecialchars($vars['object']->body) ?>"
-                           class="span9"/>
+                           class="span9 mentionable"/>
                 </label>
             </p>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('place'); ?>
@@ -113,3 +113,4 @@
 
     </div>
 </form>
+<?=$this->draw('entity/edit/footer');?>

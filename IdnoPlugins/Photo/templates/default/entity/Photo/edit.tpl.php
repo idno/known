@@ -29,7 +29,7 @@
             <p>
                 <label>
                     Description<br />
-                    <textarea name="body" id="body" class="span9 bodyInput"><?=htmlspecialchars($vars['object']->body)?></textarea>
+                    <textarea name="body" id="body" class="span9 bodyInput mentionable"><?=htmlspecialchars($vars['object']->body)?></textarea>
                 </label>
             </p>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('image'); ?>
@@ -43,3 +43,4 @@
 
     </div>
 </form>
+<?=$this->draw('entity/edit/footer');?>

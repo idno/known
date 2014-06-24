@@ -66,7 +66,7 @@
                 </label>
             </p>
 
-            <textarea required name="body" id="body" style="width: 100%" class="content-entry"><?php
+            <textarea required name="body" id="body" style="width: 100%" class="content-entry mentionable"><?php
             
                 if (!empty($twitter_user))
                     echo htmlspecialchars ("@$twitter_user ");
@@ -132,3 +132,4 @@
         });
     });
 </script>
+<?=$this->draw('entity/edit/footer');?>

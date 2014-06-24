@@ -28,7 +28,7 @@
             <p>
                 <label>
                     Body<br />
-                    <textarea required name="body" id="body" class="span6 bodyInput"><?=htmlspecialchars($body)?></textarea>
+                    <textarea required name="body" id="body" class="span6 bodyInput mentionable"><?=htmlspecialchars($body)?></textarea>
                 </label>
             </p>
 
@@ -47,3 +47,4 @@
     // Autosave the title & body
     autoSave('entry', ['title','body']);
 </script>
+<?=$this->draw('entity/edit/footer');?>

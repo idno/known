@@ -69,7 +69,7 @@
             <p>
                 <label>
                     Body<br />
-                    <textarea name="body" id="body" class="span6 bodyInput" required><?=htmlspecialchars($body)?></textarea>
+                    <textarea name="body" id="body" class="span6 bodyInput mentionable" required><?=htmlspecialchars($body)?></textarea>
                 </label>
             </p>
 
@@ -80,3 +80,4 @@
 <script>
     autoSave('event', ['title','summary','location','starttime','endtime','body']);
 </script>
+<?=$this->draw('entity/edit/footer');?>
