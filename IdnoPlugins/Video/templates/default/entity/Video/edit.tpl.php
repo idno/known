@@ -12,7 +12,9 @@
                 ?>
                 <label>
                     Take a video:<br />
-                    <input type="file" name="video" id="video" class="span9" accept="video/*;capture=camcorder" />
+                    <span class="btn btn-primary btn-file">
+                        <i class="icon-facetime-video"></i> <span id="video-filename">Take a video</span> <input type="file" name="video" id="video" class="span9" accept="video/*;capture=camcorder" onchange="$('#video-filename').html($(this).val())" />
+                    </span>
                 </label>
                 <?php
 
