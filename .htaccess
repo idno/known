@@ -15,6 +15,9 @@
   Deny from all
 </Files>
 
+php_value upload_max_filesize 100M
+php_value post_max_size 108M
+
 AddType video/ogg .ogv
 AddType video/mp4 .mp4
 AddType video/webm .webm

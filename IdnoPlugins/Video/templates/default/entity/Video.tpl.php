@@ -12,8 +12,7 @@
             $mainsrc= $attachment['url'];//\Idno\Core\site()->config()->url . 'file/' . $attachment['_id'];
 ?>
             <p style="text-align: center">
-                <video src="<?=$mainsrc?>" class="u-video" controls preload="metadata"></video><br />
-                <small><a href="<?=$mainsrc?>">Direct link</a></small>
+                <video src="<?=$mainsrc?>" class="u-video" controls preload="metadata" style="width: 100%; height: 100%"></video>
             </p>
 <?php
         }

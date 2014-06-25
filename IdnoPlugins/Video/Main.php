@@ -7,6 +7,7 @@
                 \Idno\Core\site()->addPageHandler('/video/edit/?', '\IdnoPlugins\Video\Pages\Edit');
                 \Idno\Core\site()->addPageHandler('/video/edit/([A-Za-z0-9]+)/?', '\IdnoPlugins\Video\Pages\Edit');
                 \Idno\Core\site()->addPageHandler('/video/delete/([A-Za-z0-9]+)/?', '\IdnoPlugins\Video\Pages\Delete');
+                \Idno\Core\site()->template()->extendTemplate('shell/footer','video/shell/footer');
             }
         }
 
