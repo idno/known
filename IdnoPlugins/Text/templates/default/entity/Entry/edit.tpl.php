@@ -1,3 +1,4 @@
+<?=$this->draw('entity/edit/header');?>
 <?php
 
     $autosave = new \Idno\Core\Autosave();

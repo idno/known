@@ -1,3 +1,4 @@
+<?=$this->draw('entity/edit/header');?>
 <?php
 
     if (!empty($vars['object']->inreplyto)) {

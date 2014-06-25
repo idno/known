@@ -1,3 +1,4 @@
+<?=$this->draw('entity/edit/header');?>
 <form action="<?=$vars['object']->getURL()?>" method="post">
 
     <div class="row">
@@ -6,8 +7,8 @@
 
             <p>
                 <label>
-                    Address of the page to favorite:<br />
-                    <input required type="url" name="body" id="body" value="<?=htmlspecialchars($vars['object']->body)?>" class="span9" />
+                    Address of the page to bookmark:<br />
+                    <input required type="url" name="body" id="body" value="<?php if (empty($vars['url'])) { echo htmlspecialchars($vars['object']->body); } else { echo htmlspecialchars($vars['url']); } ?>" class="span9" />
                 </label>
                 <label>
                     If you want, enter some tags or a note here:<br />

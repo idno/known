@@ -1,3 +1,4 @@
+<?=$this->draw('entity/edit/header');?>
 <form action="<?=$vars['object']->getURL()?>" method="post">
 
     <div class="row">
@@ -6,7 +7,7 @@
 
             <p>
                 <span id="in-reply-to">
-                    What's the web address of the event you're replying to?<br />
+                    What's the web address of the event you're responding to?<br />
                     <input type="text" name="inreplyto" placeholder="The website address of the event" class="span9" value="<?php if (empty($vars['url'])) { echo htmlspecialchars($vars['object']->inreplyto); } else { echo htmlspecialchars($vars['url']); } ?>" />
                 </span>
             </p>

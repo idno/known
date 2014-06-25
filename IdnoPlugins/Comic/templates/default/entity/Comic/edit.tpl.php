@@ -1,3 +1,4 @@
+<?=$this->draw('entity/edit/header');?>
 <form action="<?=$vars['object']->getURL()?>" method="post" enctype="multipart/form-data">
 
     <div class="row">

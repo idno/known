@@ -1,3 +1,4 @@
+<?=$this->draw('entity/edit/header');?>
 <script>
 
     function replenish(latitude, longitude) {
