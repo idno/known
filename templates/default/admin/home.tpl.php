@@ -74,7 +74,7 @@
                     </select>
                 </div>
             </div>
-            <div class="control-group">
+            <!-- <div class="control-group">
                 <label class="control-label" for="items_per_page">Include IndieWeb citations<br /><small>Include a unique, citable code at the bottom of every post.</small></label>
                 <div class="controls">
                     <select class="span4" name="indieweb_citation">
@@ -91,7 +91,7 @@
                         <option value="false" <?php if (\Idno\Core\site()->config()->indieweb_reference == false) echo 'selected="selected"'; ?>>No</option>
                     </select>
                 </div>
-            </div>
+            </div> -->
             <div class="control-group">
                 <div class="controls">
                     <button type="submit" class="btn btn-primary">Save</button>
