@@ -42,7 +42,14 @@
                 // Get video
                 if ($new) {
                     if (!empty($_FILES['video']['tmp_name'])) {
-                        if (/*\Idno\Entities\File::isVideo($_FILES['video']['tmp_name'])*/true) {
+                        if (in_array($_FILES['video']['type'],
+                            [
+                                'video/mp4',
+                                'video/mov',
+                                'video/webm',
+                                'video/ogg'
+                            ]
+                        )) {
                             if ($video = \Idno\Entities\File::createFromFile($_FILES['video']['tmp_name'], $_FILES['video']['name'], $_FILES['video']['type'],true)) {
                                 $this->attachFile($video);
                             } else {

@@ -37,7 +37,7 @@
                 } else {
                     header('Content-type: application/data');
                 }
-                echo $object->getBytes();
+                $object->passThroughBytes();
 
             }
 

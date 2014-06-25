@@ -21,6 +21,12 @@
             abstract function getBytes();
 
             /**
+             * Pass through bytes associated with the file
+             * @return mixed
+             */
+            abstract function passThroughBytes();
+
+            /**
              * Returns this file's filename
              * @return string
              */

@@ -45,6 +45,14 @@
             }
 
             /**
+             * Passes through the contents of this file.
+             */
+            function passThroughBytes()
+            {
+                echo $this->getBytes();
+            }
+
+            /**
              * Save a file to the filesystem and return the ID
              *
              * @param string $file_path Full local path to the file
