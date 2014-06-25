@@ -42,3 +42,4 @@ Known also contains
 * H5f HTML5 Form shim, which is distributed under the MIT License. Source: https://github.com/ryanseddon/H5F
 * SwiftMailer, which is distributed under the MIT License. Source: https://github.com/swiftmailer/swiftmailer
 * Antwort, an email template which is distributed under the MIT License. Source: https://github.com/internations/antwort
+* Mention.js, a Bootstrap user at-mention library, which is distributed under the MIT License. Source: https://github.com/jakiestfu/Mention.js
