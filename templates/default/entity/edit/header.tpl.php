@@ -17,11 +17,15 @@
 
                             foreach(['note' => 'Share', 'reply' => 'Reply', 'like' => 'Bookmark', 'rsvp' => 'RSVP'] as $variable => $label) {
 
-                                ?>
-                                <li <?php if ($variable == $share_type) { ?>class="active"<?php } ?>>
-                                    <a href="<?=$this->getURLWithVar('share_type', $variable);?>"><?=$label?></a>
-                                </li>
-                                <?php
+                                if ($content_type = \Idno\Common\ContentType::getRegisteredForIndieWebPostType($variable)) {
+
+                                    ?>
+                                    <li <?php if ($variable == $share_type) { ?>class="active"<?php } ?>>
+                                        <a href="<?=$this->getURLWithVar('share_type', $variable);?>"><?=$label?></a>
+                                    </li>
+                                    <?php
+
+                                }
 
                             }
 
