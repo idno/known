@@ -118,6 +118,24 @@
             }
 
             /**
+             * A friendly alias for getTitle.
+             * @return string
+             */
+            function getName()
+            {
+                return $this->getTitle();
+            }
+
+            /**
+             * A friendly alias for SetTitle.
+             * @param $name
+             */
+            function setName($name)
+            {
+                return $this->setTitle($name);
+            }
+
+            /**
              * Get the profile URL for this user
              * @return string
              */
