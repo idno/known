@@ -932,7 +932,7 @@
              */
             function getCitation()
             {
-                $host     = \Idno\Core\site()->config()->host;
+                $host     = parse_url(\Idno\Core\site()->config()->getURL(), PHP_URL_HOST);
                 $shorturl = $this->getShortURL(false);
 
                 return '(' . $host . ' s/' . $shorturl . ')';
