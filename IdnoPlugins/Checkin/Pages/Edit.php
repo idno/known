@@ -45,7 +45,7 @@
                 }
 
                 if ($object->saveDataFromInput($this)) {
-                    $this->forward(\Idno\Core\site()->config()->getURL() . 'content/all/');
+                    $this->forward(\Idno\Core\site()->config()->getURL() . 'content/all/#feed');
                 }
 
             }
