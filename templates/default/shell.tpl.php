@@ -196,6 +196,10 @@
 <script src="<?= \Idno\Core\site()->config()->url . 'external/mention/bootstrap-typeahead.js' ?>" type="text/javascript"></script>
 <script src="<?= \Idno\Core\site()->config()->url . 'external/mention/mention.js' ?>" type="text/javascript"></script>
 
+<!-- Flexible media player -->
+<script src="<?=\Idno\Core\site()->config()->getURL()?>external/mediaelement/build/mediaelement-and-player.min.js"></script>
+<link rel="stylesheet" href="<?=\Idno\Core\site()->config()->getURL()?>external/mediaelement/build/mediaelementplayer.css" />
+
 <!-- Mention styles -->
 <link rel="stylesheet" type="text/css" href="<?= \Idno\Core\site()->config()->url ?>external/mention/recommended-styles.css">
 

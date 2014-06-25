@@ -43,3 +43,4 @@ Known also contains
 * SwiftMailer, which is distributed under the MIT License. Source: https://github.com/swiftmailer/swiftmailer
 * Antwort, an email template which is distributed under the MIT License. Source: https://github.com/internations/antwort
 * Mention.js, a Bootstrap user at-mention library, which is distributed under the MIT License. Source: https://github.com/jakiestfu/Mention.js
+* MediaElement.js, a cross-browser media player, which is distributed under the MIT License. Source: https://github.com/johndyer/mediaelement
