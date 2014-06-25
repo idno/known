@@ -16,7 +16,7 @@ a {
 li {
     line-height: 1.8em !important;
 }
-.entry-content .p-name a,
+/*.entry-content .p-name a,*/
 .idno-posts h2.p-name {
     font-size: 1.8em;
     margin: 0; padding: 0;
