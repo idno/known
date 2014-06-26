@@ -37,7 +37,11 @@
                 } else {
                     header('Content-type: application/data');
                 }
-                $object->passThroughBytes();
+                if (is_callable([$object,'passThroughBytes'])) {
+                    $object->passThroughBytes();
+                } else {
+                    echo $object->getBytes();
+                }
 
             }
 
