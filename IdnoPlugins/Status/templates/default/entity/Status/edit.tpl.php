@@ -77,7 +77,26 @@
                 } else {
                     echo htmlspecialchars($vars['object']->body);
                 } ?></textarea>
-
+            
+            <?php
+            // Set focus so you can start typing straight away (on shares)
+            if (\Idno\Core\site()->currentPage()->getInput('share_url')) {
+            ?>
+            <script>
+                $(document).ready(function(){
+                    var content = $('#body').val();
+                    var len = content.length;
+                    var element = $('#body');
+                 
+                    $('#body').focus(function(){
+                        $(this).prop('selectionStart', len);
+                    });
+                    $('#body').focus();
+                });
+            </script>
+            <?php
+            }
+            ?>
         </div>
         <div class="span8 offset1">
 
