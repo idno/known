@@ -53,7 +53,7 @@
 
                 if (!empty($content_type)) {
                     if ($page = \Idno\Core\site()->getPageHandler('/' . $content_type->camelCase($content_type->getEntityClassName()) . '/edit')) {
-                        if ($share_type == 'note' && !substr_count($url, 'twitter.com')) {
+                        if ($share_type == 'note' /*&& !substr_count($url, 'twitter.com')*/) {
                             $page->setInput('body', $title . ' ' . $url);
                         } else {
                             $page->setInput('url', $url);
