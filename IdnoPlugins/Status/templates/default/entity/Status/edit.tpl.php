@@ -50,6 +50,18 @@
                     if (!empty($u)) {
                         ?>
                             <span><input required type="url" name="inreplyto[]" value="<?= $u; ?>" placeholder="The website address of the post you\'re replying to" class="span8" /> <small><a href="#" onclick="$(this).parent().parent().remove(); return false;">Remove</a></small><br /></span> 
+                            <script>
+                                $(document).ready(function(){
+                                    var content = $('#body').val();
+                                    var len = content.length;
+                                    var element = $('#body');
+                                    
+                                    $('#body').focus(function(){
+                                        $(this).prop('selectionStart', len);
+                                    });
+                                    $('#body').focus();
+                                });
+                            </script>
                         <?php
                     }
                 ?>
@@ -96,8 +108,8 @@
             </p>
 
             <div id="bookmarklet" style="display:none;">
-                <p>Drag the following link into your browser links bar to easily share links or reply to posts on other sites:</p>
-                <?= $this->draw('entity/bookmarklet'); ?>
+                <p>Drag the following link into your browser links bar to easily reply to or share posts on other sites:</p>
+                <?= $this->draw('entity/Status/replyto-bookmarklet'); ?> <?= $this->draw('entity/bookmarklet'); ?> 
             </div>     
         </div>
         <div class="span2">
