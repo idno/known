@@ -40,19 +40,6 @@
                         }
                     }
                 ?>
-                <?php
-                    $twitter_user = null;
-                    $u = \Idno\Core\site()->currentPage()->getInput('replyto');
-                    if (preg_match('/https?:\/\/(www\.)?twitter\.com\/([^\/]+)/', $u, $matches)) {
-                        $twitter_user = $matches[2];
-                    }
-                    
-                    if (!empty($u)) {
-                        ?>
-                            <span><input required type="url" name="inreplyto[]" value="<?= $u; ?>" placeholder="The website address of the post you\'re replying to" class="span8" /> <small><a href="#" onclick="$(this).parent().parent().remove(); return false;">Remove</a></small><br /></span> 
-                        <?php
-                    }
-                ?>
             </div>
 
             <p>
@@ -68,9 +55,6 @@
             </p>
 
             <textarea required name="body" id="body" style="width: 100%" class="content-entry mentionable"><?php
-            
-                if (!empty($twitter_user))
-                    echo htmlspecialchars ("@$twitter_user ");
             
                 if (!empty($vars['body'])) {
                     echo htmlspecialchars($vars['body']);
