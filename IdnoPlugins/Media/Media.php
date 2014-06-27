@@ -1,8 +1,8 @@
 <?php
 
-    namespace IdnoPlugins\Video {
+    namespace IdnoPlugins\Media {
 
-        class Video extends \Idno\Common\Entity {
+        class Media extends \Idno\Common\Entity {
 
             function getTitle() {
                 if (empty($this->title)) {
@@ -17,11 +17,11 @@
             }
 
             /**
-             * Video objects have type 'video'
-             * @return 'video'
+             * Media objects have type 'media'
+             * @return 'media'
              */
             function getActivityStreamsObjectType() {
-                return 'video';
+                return 'media';
             }
 
             /**
@@ -39,30 +39,37 @@
                 $this->body = \Idno\Core\site()->currentPage()->getInput('body');
                 $this->setAccess('PUBLIC');
 
-                // Get video
+                // Get media
                 if ($new) {
-                    if (!empty($_FILES['video']['tmp_name'])) {
-                        if (in_array($_FILES['video']['type'],
+                    if (!empty($_FILES['media']['tmp_name'])) {
+                        if (in_array($_FILES['media']['type'],
                             [
                                 'video/mp4',
                                 'video/mov',
                                 'video/webm',
-                                'video/ogg'
+                                'video/ogg',
+                                'audio/mp4',
+                                'audio/mpeg',
+                                'audio/mp3',
+                                'audio/ogg',
+                                'audio/vorbis'
                             ]
                         )) {
-                            if ($video = \Idno\Entities\File::createFromFile($_FILES['video']['tmp_name'], $_FILES['video']['name'], $_FILES['video']['type'],true)) {
-                                $this->attachFile($video);
+                            if ($media = \Idno\Entities\File::createFromFile($_FILES['media']['tmp_name'], $_FILES['media']['name'], $_FILES['media']['type'],true)) {
+                                $this->attachFile($media);
                             } else {
-                                \Idno\Core\site()->session()->addMessage('Video wasn\'t attached.');
+                                \Idno\Core\site()->session()->addMessage('Media wasn\'t attached.');
                             }
                         } else {
-                            \Idno\Core\site()->session()->addMessage('This doesn\'t seem to be a video ..');
+                            \Idno\Core\site()->session()->addMessage('This doesn\'t seem to be a media file ..');
                         }
                     } else {
-                        \Idno\Core\site()->session()->addMessage('We couldn\'t access your video. Please try again.');
+                        \Idno\Core\site()->session()->addMessage('We couldn\'t access your media. Please try again.');
                         return false;
                     }
                 }
+
+                $this->media_type = $_FILES['media']['type'];
 
                 if ($this->save()) {
                     if ($new) {

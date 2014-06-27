@@ -1,6 +1,6 @@
 <?php
 
-    namespace IdnoPlugins\Video\Pages {
+    namespace IdnoPlugins\Media\Pages {
 
         class Edit extends \Idno\Common\Page {
 
@@ -10,15 +10,15 @@
 
                 // Are we loading an entity?
                 if (!empty($this->arguments)) {
-                    $object = \IdnoPlugins\Video\Video::getByID($this->arguments[0]);
+                    $object = \IdnoPlugins\Media\Media::getByID($this->arguments[0]);
                 } else {
-                    $object = new \IdnoPlugins\Video\Video();
+                    $object = new \IdnoPlugins\Media\Media();
                 }
 
                 $t = \Idno\Core\site()->template();
                 $body = $t->__(array(
                     'object' => $object
-                ))->draw('entity/Video/edit');
+                ))->draw('entity/Media/edit');
 
                 if (empty($object)) {
                     $title = 'Upload a picture';
@@ -38,10 +38,10 @@
 
                 $new = false;
                 if (!empty($this->arguments)) {
-                    $object = \IdnoPlugins\Video\Video::getByID($this->arguments[0]);
+                    $object = \IdnoPlugins\Media\Media::getByID($this->arguments[0]);
                 }
                 if (empty($object)) {
-                    $object = new \IdnoPlugins\Video\Video();
+                    $object = new \IdnoPlugins\Media\Media();
                 }
 
                 if ($object->saveDataFromInput($this)) {

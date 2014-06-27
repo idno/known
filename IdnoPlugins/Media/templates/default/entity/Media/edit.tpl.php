@@ -12,9 +12,8 @@
 
                 ?>
                 <label>
-                    Take a video:<br />
                     <span class="btn btn-primary btn-file">
-                        <i class="icon-facetime-video"></i> <span id="video-filename">Take a video</span> <input type="file" name="video" id="video" class="span9" accept="video/*;capture=camcorder" onchange="$('#video-filename').html($(this).val())" />
+                        <i class="icon-play-circle"></i> <span id="media-filename">Upload media</span> <input type="file" name="media" id="media" class="span9" accept="media/*;audio/*;capture=camcorder" onchange="$('#media-filename').html($(this).val())" capture/>
                     </span>
                 </label>
                 <?php
@@ -35,9 +34,9 @@
                     <textarea name="body" id="body" class="span9 bodyInput"><?=htmlspecialchars($vars['object']->body)?></textarea>
                 </label>
             </p>
-            <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('video'); ?>
+            <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('media'); ?>
             <p>
-                <?= \Idno\Core\site()->actions()->signForm('/video/edit') ?>
+                <?= \Idno\Core\site()->actions()->signForm('/media/edit') ?>
                 <input type="submit" class="btn btn-primary" value="Save" />
                 <input type="button" class="btn" value="Cancel" onclick="hideContentCreateForm();" />
                 <?= $this->draw('content/access'); ?>

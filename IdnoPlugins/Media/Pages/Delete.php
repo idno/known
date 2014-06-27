@@ -1,6 +1,6 @@
 <?php
 
-    namespace IdnoPlugins\Video\Pages {
+    namespace IdnoPlugins\Media\Pages {
 
         class Delete extends \Idno\Common\Page {
 
@@ -10,7 +10,7 @@
 
                 // Are we loading an entity?
                 if (!empty($this->arguments)) {
-                    $object = \IdnoPlugins\Video\Video::getByID($this->arguments[0]);
+                    $object = \IdnoPlugins\Media\Media::getByID($this->arguments[0]);
                 } else {
                     // TODO 404
                     $this->forward();
@@ -42,9 +42,9 @@
                 }
 
                 if ($object->delete()) {
-                    \Idno\Core\site()->session()->addMessage('Your video was deleted.');
+                    \Idno\Core\site()->session()->addMessage('Your media was deleted.');
                 } else {
-                    \Idno\Core\site()->session()->addMessage("We couldn't delete your video.");
+                    \Idno\Core\site()->session()->addMessage("We couldn't delete your media.");
                 }
                 $this->forward($_SERVER['HTTP_REFERER']);
             }
