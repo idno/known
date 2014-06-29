@@ -14,6 +14,10 @@
                     If you want, enter some tags or a note here:<br />
                     <input type="text" name="description" id="description" value="<?=htmlspecialchars($vars['object']->description)?>" class="span9" />
                 </label>
+                <label>
+                    Tags<br />
+                    <input type="text" name="description" id="description" value="<?=htmlspecialchars($vars['object']->description)?>" class="span9" />
+                </label>
             </p>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('bookmark'); ?>
             <p>
