@@ -3,27 +3,32 @@
 
     <div class="row">
 
-        <div class="span10 offset1">
+        <div class="span10 offset2">
 
             <p>
                 <label>
-                    Address of the page to bookmark:<br />
-                    <input required type="url" name="body" id="body" value="<?php if (empty($vars['url'])) { echo htmlspecialchars($vars['object']->body); } else { echo htmlspecialchars($vars['url']); } ?>" class="span9" />
+                    Page address<br />
+                    <input required type="url" name="body" id="body" placeholder="http://...." value="<?php if (empty($vars['url'])) { echo htmlspecialchars($vars['object']->body); } else { echo htmlspecialchars($vars['url']); } ?>" class="span8" />
                 </label>
                 <label>
-                    If you want, enter some tags or a note here:<br />
-                    <input type="text" name="description" id="description" value="<?=htmlspecialchars($vars['object']->description)?>" class="span9" />
+                    Comments<br />
+                    
+                    <!--Leaving the original field in here until I figure out if the body field actually works-->
+                    <!--<input type="text" name="description" id="description" placeholder="This page is great because..." value="<?=htmlspecialchars($vars['object']->description)?>" class="span8" />-->
+                    
                 </label>
+                
+                 <textarea required name="body" id="body" class="span8" placeholder="This page is great because..."><?=htmlspecialchars($body)?></textarea>  
                 <label>
                     Tags<br />
-                    <input type="text" name="description" id="description" value="<?=htmlspecialchars($vars['object']->description)?>" class="span9" />
+                    <input type="text" name="description" id="description" placeholder="Add some #tags" value="<?=htmlspecialchars($vars['object']->description)?>" class="span8" />
                 </label>
             </p>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('bookmark'); ?>
-            <p>
+            <p class="button-bar span8">
                 <?= \Idno\Core\site()->actions()->signForm('/like/edit') ?>
+                <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();" />
                 <input type="submit" class="btn btn-primary" value="Save" />
-                <input type="button" class="btn" value="Cancel" onclick="hideContentCreateForm();" />
                 <?= $this->draw('content/access'); ?>
             </p>
         </div>
