@@ -184,6 +184,13 @@ h5 {
 
 h3.register, h4.register {
 	text-align: center;
+	font-family: "Minion Pro",Times,"Times New Roman",serif
+}
+
+h3.register {
+	font-size: 38px;
+	font-weight: normal;
+	padding-top: 20px;
 }
 
 .entry-content .p-name a, .idno-posts h2.p-name {
@@ -331,17 +338,22 @@ h3.register, h4.register {
 }*/
 
 .well {
-	margin-top: 45px;
-	background-color: #8cbf99;
-	border: 3px solid #70997A;
+	margin-top: 5px;
+	background-color: #FFFFFF;
+	border: none;
+	box-shadow: none;
 }
 
 h3.text-center {
-	color: #FFFFFF;
+	color: #555555;
+	font-family: "Minion Pro",Times,"Times New Roman",serif;
+	font-size: 38px;
+    font-weight: normal;
+    padding-bottom: 20px;
 }
 
 .controls > a {
-	color: #FFFFFF;
+	color: #8cbf99;
 }
 
 .controls > a:hover {
@@ -350,4 +362,10 @@ h3.text-center {
 
 .hero-unit {
     background-color: #FFFFFF;
-}    
+    padding: 30px;
+}   
+
+.control-label {
+	color: #555555;
+	font-size: 18px;
+} 
