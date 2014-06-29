@@ -74,7 +74,7 @@
                 if (!empty($this->uuid)) {
                     return $this->uuid;
                 }
-                if ($url = $this->getURL()) {
+                if ($url = $this->getURL(true)) {
                     return $url;
                 }
                 if (!empty($this->_id)) {
@@ -1258,7 +1258,7 @@
              * @return string
              */
 
-            function getURL()
+            function getURL($new = false)
             {
 
                 // If a slug has been set, use it
@@ -1266,10 +1266,12 @@
                     return \Idno\Core\site()->config()->url . date('Y', $this->created) . '/' . $slug;
                 }
 
-                if (!empty($this->uuid)) {
-                    $uuid = $this->getUUID();
-                    if (!empty($uuid)) {
-                        return $uuid;
+                if ($new) {
+                    if (!empty($this->created)) {
+                        $uuid = $this->getUUID(false);
+                        if (!empty($uuid)) {
+                            return $uuid;
+                        }
                     }
                 }
 
