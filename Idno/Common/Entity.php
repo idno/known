@@ -1258,7 +1258,7 @@
              * @return string
              */
 
-            function getURL($new = false)
+            function getURL()
             {
 
                 // If a slug has been set, use it
@@ -1266,12 +1266,17 @@
                     return \Idno\Core\site()->config()->url . date('Y', $this->created) . '/' . $slug;
                 }
 
-                if ($new) {
-                    if (!empty($this->created)) {
-                        $uuid = $this->getUUID(false);
-                        if (!empty($uuid)) {
-                            return $uuid;
-                        }
+                $new = false;
+                if ($args = func_get_args()) {
+                    if ($args[0] === true) {
+                        $new = true;
+                    }
+                }
+
+                if (!$new) {
+                    $uuid = $this->getUUID();
+                    if (!empty($uuid)) {
+                        return $uuid;
                     }
                 }
 
