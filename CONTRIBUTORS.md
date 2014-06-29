@@ -18,8 +18,11 @@ Community contributors, by Known release
 0.1
 
 * Marcus Povey http://marcus-povey.co.uk
+* Tim Owens http://timowens.io
 * Jesse Vincent http://s.ly
 * Adrian Goins http://arces.net
+* Hugo Roy http://hroy.eu/
+* Barnaby Walters http://waterpigs.co.uk/
 
 How can I contribute?
 ---------------------

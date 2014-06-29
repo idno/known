@@ -211,7 +211,7 @@
 
                         // Find and replace twitter
                         if (strpos($in_reply_to, 'twitter.com') !== false) {
-                            $r = preg_replace_callback('/(?<!=)(?<!["\'])(\@[A-Za-z0-9]+)/i', function ($matches) {
+                            $r = preg_replace_callback('/(?<!=)(?<!["\'])(\@[A-Za-z0-9\_]+)/i', function ($matches) {
                                 $url = $matches[1];
 
                                 return '<a href="https://twitter.com/' . urlencode(ltrim($matches[1], '@')) . '" class="p-nickname u-url">' . $url . '</a>';
@@ -220,7 +220,7 @@
 
                         // Is this a local user?
                         if (\Idno\Common\Entity::isLocalUUID($in_reply_to)) {
-                            $r = preg_replace_callback('/(?<!=)(?<!["\'])(\@[A-Za-z0-9]+)/i', function ($matches) {
+                            $r = preg_replace_callback('/(?<!=)(?<!["\'])(\@[A-Za-z0-9\_]+)/i', function ($matches) {
                                 $url = $matches[1];
 
                                 return '<a href="' . \Idno\Core\site()->config()->url . 'profile/' . urlencode(ltrim($matches[1], '@')) . '" class="p-nickname u-url">' . $url . '</a>';
@@ -230,7 +230,7 @@
 
                 } else {
                     // No in-reply, so we assume a local user
-                    $r = preg_replace_callback('/(?<!=)(?<!["\'])(\@[A-Za-z0-9]+)/i', function ($matches) {
+                    $r = preg_replace_callback('/(?<!=)(?<!["\'])(\@[A-Za-z0-9\_]+)/i', function ($matches) {
                         $url = $matches[1];
 
                         return '<a href="' . \Idno\Core\site()->config()->url . 'profile/' . urlencode(ltrim($matches[1], '@')) . '" class="p-nickname u-url">' . $url . '</a>';
