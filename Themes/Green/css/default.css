@@ -182,6 +182,10 @@ h5 {
 	font-size: 20px;
 }
 
+h3.register, h4.register {
+	text-align: center;
+}
+
 .entry-content .p-name a, .idno-posts h2.p-name {
 	color: #333333;
 	font-size: 1.5em;
@@ -343,3 +347,7 @@ h3.text-center {
 .controls > a:hover {
 	color: #70997a;
 }
+
+.hero-unit {
+    background-color: #FFFFFF;
+}    
