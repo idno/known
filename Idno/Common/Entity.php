@@ -1266,7 +1266,7 @@
                     return \Idno\Core\site()->config()->url . date('Y', $this->created) . '/' . $slug;
                 }
 
-                if (!empty($this->created)) {
+                if (!empty($this->uuid)) {
                     $uuid = $this->getUUID();
                     if (!empty($uuid)) {
                         return $uuid;
