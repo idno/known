@@ -13,15 +13,12 @@
                 <label>
                     Comments<br />
                     
-                    <!--Leaving the original field in here until I figure out if the body field actually works-->
-                    <!--<input type="text" name="description" id="description" placeholder="This page is great because..." value="<?=htmlspecialchars($vars['object']->description)?>" class="span8" />-->
-                    
                 </label>
                 
-                 <textarea required name="body" id="body" class="span8" placeholder="This page is great because..."><?=htmlspecialchars($body)?></textarea>  
+                 <textarea required name="description" id="description" class="span8" placeholder="This page is great because..."><?=htmlspecialchars($vars['object']->description); ?></textarea>  
                 <label>
                     Tags<br />
-                    <input type="text" name="description" id="description" placeholder="Add some #tags" value="<?=htmlspecialchars($vars['object']->description)?>" class="span8" />
+                    <input type="text" name="tags" id="tags" placeholder="Add some #tags" value="<?=htmlspecialchars($vars['object']->tags)?>" class="span8" />
                 </label>
             </p>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('bookmark'); ?>

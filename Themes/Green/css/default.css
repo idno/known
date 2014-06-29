@@ -33,7 +33,7 @@ li {
 }
 
 .entry-content .p-bookmark a,
-.idno-posts h3.p-bookmark {
+.idno-posts h5.p-bookmark {
     font-size: 1.8em;
     margin: 0; padding: 0;
 }
@@ -64,10 +64,15 @@ li {
     color: #FFFFFF;
     text-shadow: none;
 }
+
+.navbar-inverse .brand:hover, .navbar-inverse .nav > li > a:hover, .navbar-inverse .brand:focus, .navbar-inverse .nav > li > a:focus {
+    color: #70997a;
+    text-shadow: none;
+}
  
 .navbar-inverse .nav > li > a:focus, .navbar-inverse .nav > li > a:hover {
     background-color: #8cbf99;
-    color: #FFFFFF;
+    color: #70997a;
     text-decoration: none;
 }
  
@@ -82,14 +87,30 @@ li {
     text-decoration: none;
 }
 
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus, .dropdown-submenu:hover > a, .dropdown-submenu:focus > a {
+	background-image: linear-gradient(to bottom, #70997a, #70997a);
+	background-repeat: repeat-x;
+}
+
 .dropdown-toggle:active, .open .dropdown-toggle {
     outline: 0 none;
 }
  
 .navbar-inverse .nav li.dropdown > .dropdown-toggle .caret {
-    border-bottom-color: #777777;
-    border-top-color: #777777;
+    border-bottom-color: #FFFFFF;
+    border-top-color: #FFFFFF;
 }
+
+.navbar-inverse .nav li.dropdown > a:hover .caret, .navbar-inverse .nav li.dropdown > a:focus .caret {
+    border-bottom-color: #70997a;
+    border-top-color: #70997a;
+}
+
+.navbar-inverse .nav li.dropdown.open > .dropdown-toggle .caret, .navbar-inverse .nav li.dropdown.active > .dropdown-toggle .caret, .navbar-inverse .nav li.dropdown.open.active > .dropdown-toggle .caret {
+    border-bottom-color: #70997a;
+    border-top-color: #70997a;
+}
+
  
 .navbar-inverse .navbar-search .search-query {
     background-color: #FFFFFF;
@@ -131,6 +152,11 @@ span.contentTypeLogo:hover {
     padding-top: 5px;
 }
 
+.idno-object h2 {
+    font-size: 1.5em;
+    margin-bottom: 0.6em !important;
+}
+
 h2 {
 	font-family: "Minion Pro", Times, "Times New Roman", serif;
 }
@@ -166,7 +192,7 @@ h5 {
 	font-size: 1.5em;
 }
 
-.entry-content .p-bookmark a, .idno-posts h3.p-bookmark {
+.entry-content .p-bookmark a, .idno-posts h5.p-bookmark {
 	color: #333333;
 	font-size: 1.5em;
 	font-family: "Minion Pro",Times,"Times New Roman",serif;
@@ -187,6 +213,31 @@ h5 {
     font-size: 1.3em;
     margin: 0;
     padding: 0;
+}
+
+.navbar-inverse .nav-collapse .nav > li > a:hover, .navbar-inverse .nav-collapse .nav > li > a:focus, .navbar-inverse .nav-collapse .dropdown-menu a:hover, .navbar-inverse .nav-collapse .dropdown-menu a:focus {
+	background-color: #8cbf99;
+}
+
+
+/*.navbar-inverse .nav-collapse .dropdown-menu a {
+    color: #678c70;
+}*/
+
+/*.navbar-inverse .nav-collapse .nav > li > a, .navbar-inverse .nav-collapse .dropdown-menu a {
+    color: #FFFFFF;
+}*/
+
+
+.navbar-inverse .nav-collapse .navbar-form, .navbar-inverse .nav-collapse .navbar-search {
+    border-bottom-color: #678C70;
+    border-top-color: #678C70;
+}
+
+.nav-collapse .nav > li > a, .nav-collapse .dropdown-menu a {
+    border-radius: 3px;
+    font-weight: normal;
+    padding: 9px 15px;
 }
 
 /* Buttons */
@@ -233,6 +284,20 @@ h5 {
 .button-bar {
 	text-align: right;
 	margin-left: 0px;
+}
+
+.navbar-inverse .btn-navbar {
+    background-color: #8CBF99;
+    background-image: none;
+    background-repeat: repeat-x;
+    border-color: #70997A;
+    color: #FFFFFF;
+    text-shadow: none;
+}
+
+.navbar-inverse .btn-navbar:hover, .navbar-inverse .btn-navbar:focus, .navbar-inverse .btn-navbar:active, .navbar-inverse .btn-navbar.active, .navbar-inverse .btn-navbar.disabled, .navbar-inverse .btn-navbar[disabled] {
+	background-color: #70997a;
+	color: #FFFFFF;
 }
 
 /*.btn:hover, .btn:active, .btn:focus {
