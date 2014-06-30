@@ -24,7 +24,15 @@
             </p>
 
             <h5>
-            New Update
+                <?php
+
+                    if (empty($vars['object']->_id)) {
+                        ?>New Status Update<?php
+                    } else {
+                        ?>Edit Status Update<?php
+                    }
+
+                ?>
             </h5>
 
             <textarea required name="body" id="body" class="content-entry mentionable span8" placeholder="What's going on?"><?php
@@ -79,7 +87,7 @@
 
 
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('note'); ?>
-            <p class="button-bar span8">
+            <p class="button-bar">
                 <?= \Idno\Core\site()->actions()->signForm('/status/edit') ?>
                 <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
                 <input type="submit" class="btn btn-primary" value="Publish"/>
