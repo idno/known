@@ -317,11 +317,12 @@ h3.register {
 	background-color: #70997a;
 	color: #FFFFFF;
 }
-
-/*.navbar-inverse .nav-collapse .nav > li > a, .navbar-inverse .nav-collapse .dropdown-menu a {
-    color: #FFFFFF;
+@media (max-width: 979px) {
+    .navbar-inverse .nav-collapse .nav > li > a, .navbar-inverse .nav-collapse .dropdown-menu a {
+        color: #FFFFFF;
+    }
 }
-*/
+
 /*.btn:hover, .btn:active, .btn:focus {
 	background-color: #777777;
 	color: #666666;
