@@ -385,3 +385,10 @@ h3.text-center {
     height: 125px;
     width: 125px;
 }
+
+.icon-container {
+    border: 2px solid #FFFFFF;
+    border-radius: 0%;
+    display: inline-block;
+    overflow: hidden;
+}
