@@ -69,7 +69,7 @@
 
     <div class="row">
 
-        <div class="span10 offset1">
+        <div class="span10 offset2">
 
             <div id="geoplaceholder">
                 <p>
@@ -81,7 +81,7 @@
                     <p>
                         <label>
                             Where are you?<br/>
-                            <input type="text" name="placename" id="placename" class="span9"/>
+                            <input type="text" name="placename" id="placename" class="span8"/>
                             <input type="hidden" name="lat" id="lat"/>
                             <input type="hidden" name="long" id="long"/>
                         </label>
@@ -89,7 +89,7 @@
 
                     <p>
                         Address (edit this if we got it wrong!)<br/>
-                        <input type="text" name="user_address" id="user_address" class="span9"/>
+                        <input type="text" name="user_address" id="user_address" class="span8"/>
                         <input type="hidden" name="address" id="address"/>
                     </p>
 
@@ -100,14 +100,14 @@
                 <label>
                     What are you up to?<br/>
                     <input type="text" name="body" id="body" value="<?= htmlspecialchars($vars['object']->body) ?>"
-                           class="span9 mentionable"/>
+                           class="span8 mentionable"/>
                 </label>
             </p>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('place'); ?>
-            <p>
+            <p class="button-bar span8">
+               <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
                 <?= \Idno\Core\site()->actions()->signForm('/checkin/edit') ?>
                 <input type="submit" class="btn btn-primary" value="<?php if (!$vars['object']->getUUID()) { ?>Check in<?php } else { ?>Save<?php } ?>"/>
-                <input type="button" class="btn" value="Cancel" onclick="hideContentCreateForm();"/>
                 <?= $this->draw('content/access'); ?>
             </p>
         </div>

@@ -3,7 +3,7 @@
 
     <div class="row">
 
-        <div class="span10 offset1">
+        <div class="span10 offset2">
 
             <p>
                 <?php
@@ -25,20 +25,20 @@
             <p>
                 <label>
                     Title:<br />
-                    <input type="text" name="title" id="title" value="<?=htmlspecialchars($vars['object']->title)?>" class="span9" />
+                    <input type="text" name="title" id="title" value="<?=htmlspecialchars($vars['object']->title)?>" class="span8" />
                 </label>
             </p>
             <p>
                 <label>
                     Description<br />
-                    <textarea name="body" id="body" class="span9 bodyInput"><?=htmlspecialchars($vars['object']->body)?></textarea>
+                    <textarea name="body" id="body" class="span8 bodyInput"><?=htmlspecialchars($vars['object']->body)?></textarea>
                 </label>
             </p>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('media'); ?>
-            <p>
+            <p class="button-bar span8">
                 <?= \Idno\Core\site()->actions()->signForm('/media/edit') ?>
-                <input type="submit" class="btn btn-primary" value="Save" />
-                <input type="button" class="btn" value="Cancel" onclick="hideContentCreateForm();" />
+                <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();" />
+                <input type="submit" class="btn btn-primary" value="Publish" />
                 <?= $this->draw('content/access'); ?>
             </p>
         </div>

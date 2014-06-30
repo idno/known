@@ -38,6 +38,13 @@ li {
     margin: 0; padding: 0;
 }
 
+h1.p-profile, .p-profile a {
+	margin: 0px;
+	font-family: "Minion Pro", Times, "Times New Roman", serif;
+	color: #333333;
+	font-size: 1.6em;
+}
+
 .entry-content blockquote {
     margin-top: 2em;
     margin-bottom: 2em;
@@ -369,3 +376,12 @@ h3.text-center {
 	color: #555555;
 	font-size: 18px;
 } 
+
+.profile .icon-container .u-photo {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 5px solid #678c70;
+    border-radius: 100%;
+    box-shadow: 0 1px 1px rgba(136, 153, 166, 0.15);
+    height: 125px;
+    width: 125px;
+}

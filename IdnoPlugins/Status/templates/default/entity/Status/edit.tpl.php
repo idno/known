@@ -25,15 +25,6 @@
 
             <h5>
             New Update
-                <!--<label>
-                    <?php
-                        if (empty($vars['url']) && empty($vars['object']->inreplyto)) {
-                            echo 'What\'s going on?';
-                        } else {
-                            echo 'Your message:';
-                        }
-                    ?>
-                </label>-->
             </h5>
 
             <textarea required name="body" id="body" class="content-entry mentionable span8" placeholder="What's going on?"><?php
