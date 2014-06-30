@@ -392,3 +392,7 @@ h3.text-center {
     display: inline-block;
     overflow: hidden;
 }
+
+.note {
+	color: #999999;
+}

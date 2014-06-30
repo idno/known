@@ -79,7 +79,7 @@
 
 
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('note'); ?>
-            <p class=button-bar span8">
+            <p class="button-bar span8">
                 <?= \Idno\Core\site()->actions()->signForm('/status/edit') ?>
                 <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
                 <input type="submit" class="btn btn-primary" value="Publish"/>

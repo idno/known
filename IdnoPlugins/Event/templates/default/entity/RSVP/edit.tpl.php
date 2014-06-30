@@ -28,10 +28,10 @@
                 </label>
             </p>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('note'); ?>
-            <p>
+            <p class="button-bar span8">
                 <?= \Idno\Core\site()->actions()->signForm('/status/edit') ?>
+                <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();" />
                 <input type="submit" class="btn btn-primary" value="Save" />
-                <input type="button" class="btn" value="Cancel" onclick="hideContentCreateForm();" />
                 <?= $this->draw('content/access'); ?>
             </p>
         </div>
