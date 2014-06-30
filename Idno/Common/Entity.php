@@ -1273,7 +1273,8 @@
                     }
                 }
 
-                if (!$new) {
+                $id = $this->getID();
+                if (!$new && !empty($id)) {
                     $uuid = $this->getUUID();
                     if (!empty($uuid)) {
                         return $uuid;
