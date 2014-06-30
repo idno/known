@@ -22,8 +22,23 @@
             <p id="counter" style="display:none" class="pull-right">
                 <span class="count"></span>
             </p>
-        <h5>New Post</h5>
-
+            <?php
+            
+            	if (empty($vars['object']->_id)) {
+            
+            ?>
+			<h5>New Post</h5>
+			<?php
+			
+				} else {
+			
+			?>
+			<h5>Edit Post</h5>
+			<?php
+			
+				}
+			
+			?>
             <p>
                 <label>
                     Title<br />
@@ -50,7 +65,7 @@
     </div>
 </form>
 <script>
-   /*$(document).ready(function () {
+  	$(document).ready(function () {
         $('#body').keyup(function () {
             var len = $(this).val().length;
 
@@ -61,9 +76,8 @@
             }
 
             $('#counter .count').text(len);
-
-
-        });*/
+        });
+    });
         
     // Autosave the title & body
     autoSave('entry', ['title','body']);

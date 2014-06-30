@@ -205,6 +205,10 @@
 <script src="<?=\Idno\Core\site()->config()->getURL()?>external/mediaelement/build/mediaelement-and-player.min.js"></script>
 <link rel="stylesheet" href="<?=\Idno\Core\site()->config()->getURL()?>external/mediaelement/build/mediaelementplayer.css" />
 
+<!-- WYSIWYG editor -->
+<script src="<?=\Idno\Core\site()->config()->url?>external/peneditor/src/pen.js"></script>
+<link rel="stylesheet" href="<?=\Idno\Core\site()->config()->getURL()?>external/peneditor/src/pen.css">
+
 <!-- Mention styles -->
 <link rel="stylesheet" type="text/css" href="<?= \Idno\Core\site()->config()->url ?>external/mention/recommended-styles.css">
 
