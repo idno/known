@@ -69,7 +69,7 @@
 
     <div class="row">
 
-        <div class="span10 offset2">
+        <div class="span8 offset2">
 
             <div id="geoplaceholder">
                 <p>
@@ -104,7 +104,7 @@
                 </label>
             </p>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('place'); ?>
-            <p class="button-bar span8">
+            <p class="button-bar ">
                <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
                 <?= \Idno\Core\site()->actions()->signForm('/checkin/edit') ?>
                 <input type="submit" class="btn btn-primary" value="<?php if (!$vars['object']->getUUID()) { ?>Check in<?php } else { ?>Save<?php } ?>"/>

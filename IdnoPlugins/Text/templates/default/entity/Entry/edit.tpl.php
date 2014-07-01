@@ -18,7 +18,7 @@
 
     <div class="row">
 
-        <div class="span10 offset2">
+        <div class="span8 offset2">
             <p id="counter" style="display:none" class="pull-right">
                 <span class="count"></span>
             </p>
@@ -54,7 +54,7 @@
 
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('article'); ?>
             <p class="note">Posts support <strong>text</strong> and <strong>markup</strong>. Feel free to add <strong>#tags</strong>.</p>
-            <p class="button-bar span8">
+            <p class="button-bar ">
                 <?= \Idno\Core\site()->actions()->signForm('/text/edit') ?>
                 <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();" /> 
                 <input type="submit" class="btn btn-primary" value="Publish" />
