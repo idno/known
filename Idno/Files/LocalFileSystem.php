@@ -19,10 +19,7 @@
             public function findOne($id)
             {
                 // Get path to load from
-                $path = \Idno\Core\site()->config()->uploadpath;
-                if ($path[sizeof($path) - 1] != '/') {
-                    $path .= '/';
-                }
+                $path = rtrim(\Idno\Core\site()->config()->uploadpath, ' /') . '/';
 
                 if (is_array($id)) {
                     if (!empty($id['_id'])) {
