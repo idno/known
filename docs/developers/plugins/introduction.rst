@@ -66,4 +66,8 @@ If the plugin is installed, the plugin is loaded before any output is written to
 Templates
 ---------
 
-Each template file contains its own
+Each plugin contains its own template directory, which overrides :doc:`Known templates <../templating/index>` from the
+core system. For example, you could create a whole new page shell by saving a template in `/IdnoPlugins/Banana/templates/default/page/shell.tpl.php`.
+
+This is a powerful system that, together with the other methods available to plugins, allows you to completely change
+the look and feel, and overall functionality, of your Known site.
