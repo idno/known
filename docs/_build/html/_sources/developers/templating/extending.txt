@@ -7,7 +7,7 @@ after the page footer, or add a new feature to user profiles.
 Plugins
 -------
 
-
+:doc:`Plugins <../plugins/index>` extend themes
 
 Themes
 ------
