@@ -264,7 +264,7 @@
                     while (!(stop).test(curnode.nodeName)) {
                         curnode=curnode.parentNode;
                     }
-                    if('href' in curnode && ( curnode.href.indexOf('http') || ~curnode.href.indexOf(location.host) ) ) {
+                    if('href' in curnode && ( curnode.href.indexOf('http') || ~curnode.href.indexOf(location.host) ) && (!curnode.classList.contains('contentTypeButton'))) {
                         e.preventDefault();
                         location.href = curnode.href;
                     }
