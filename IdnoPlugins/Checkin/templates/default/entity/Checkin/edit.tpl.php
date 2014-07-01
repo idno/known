@@ -77,7 +77,7 @@
                 </p>
             </div>
             <div id="geofields" style="display:none">
-                <div class="well">
+                <div class="geolocation">
                     <p>
                         <label>
                             Where are you?<br/>
@@ -107,7 +107,7 @@
             <p class="button-bar ">
                <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
                 <?= \Idno\Core\site()->actions()->signForm('/checkin/edit') ?>
-                <input type="submit" class="btn btn-primary" value="<?php if (!$vars['object']->getUUID()) { ?>Check in<?php } else { ?>Save<?php } ?>"/>
+                <input type="submit" class="btn btn-primary" value="<?php if (empty($vars['object']->_id)) { ?>Check in<?php } else { ?>Save<?php } ?>"/>
                 <?= $this->draw('content/access'); ?>
             </p>
         </div>
