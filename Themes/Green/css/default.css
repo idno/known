@@ -405,10 +405,9 @@ h3.text-center {
 .green-footer {
 	width: 100%;
 	background-color: #8CBF99;
-	margin: 0;
+	margin-top: 20px;
 	padding-bottom: 10px;
 	padding-top: 10px;
-/*	margin-top: 20px;*/
 }
 
 .green-footer p {
@@ -417,7 +416,7 @@ h3.text-center {
 }
 
 .green-small {
-	color: #333333;
+	color: #FFFFFF;
 }
 
 * {
@@ -447,5 +446,20 @@ html, body {
 	padding-right: 20px;
 }
 }
+
+textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    background-color: #FFFFFF;
+    border: 1px solid #E8E8E8;
+    box-shadow: none;
+    transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+}
+
+.wordcount {
+	text-align: right;
+	margin-left: 0px;
+	color: #AAAAAA;
+    font-size: 1.0em;
+}
+
 
 

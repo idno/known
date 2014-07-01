@@ -19,9 +19,8 @@
     <div class="row">
 
         <div class="span8 offset2">
-            <p id="counter" style="display:none" class="pull-right">
-                <span class="count"></span>
-            </p>
+
+
             <?php
             
             	if (empty($vars['object']->_id)) {
@@ -53,31 +52,60 @@
             </p>
 
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('article'); ?>
+           
+        
+        <div class="wordcount" id="result">
+
+            Total words <strong><span id="totalWords">0</span></strong>
+        </div>
             <p class="note">Posts support <strong>text</strong> and <strong>markup</strong>. Feel free to add <strong>#tags</strong>.</p>
+            
             <p class="button-bar ">
                 <?= \Idno\Core\site()->actions()->signForm('/text/edit') ?>
                 <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();" /> 
                 <input type="submit" class="btn btn-primary" value="Publish" />
                 <?= $this->draw('content/access'); ?>
-            </p>
+            </p>                      
+            
         </div>
 
     </div>
 </form>
-<script>
-  	$(document).ready(function () {
-        $('#body').keyup(function () {
-            var len = $(this).val().length;
+<script>   
+    
+counter = function() {
+    var value = $('#body').val();
 
-            if (len > 0) {
-                if (!$('#counter').is(":visible")) {
-                    $('#counter').fadeIn();
-                }
-            }
+    if (value.length == 0) {
+        $('#totalWords').html(0);
+        $('#totalChars').html(0);
+        $('#charCount').html(0);
+        $('#charCountNoSpace').html(0);
+        return;
+    }
 
-            $('#counter .count').text(len);
-        });
-    });
+    var regex = /\s+/gi;
+    var wordCount = value.trim().replace(regex, ' ').split(' ').length;
+    var totalChars = value.length;
+    var charCount = value.trim().length;
+    var charCountNoSpace = value.replace(regex, '').length;
+
+    $('#totalWords').html(wordCount);
+    $('#totalChars').html(totalChars);
+    $('#charCount').html(charCount);
+    $('#charCountNoSpace').html(charCountNoSpace);
+};
+
+$(document).ready(function() {
+    $('#body').change(counter);
+    $('#body').keydown(counter);
+    $('#body').keypress(counter);
+    $('#body').keyup(counter);
+    $('#body').blur(counter);
+    $('#body').focus(counter);
+});
+
+    
         
     // Autosave the title & body
     autoSave('entry', ['title','body']);
