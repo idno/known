@@ -408,7 +408,7 @@ h3.text-center {
 	margin: 0;
 	padding-bottom: 10px;
 	padding-top: 10px;
-	margin-top: 20px;
+/*	margin-top: 20px;*/
 }
 
 .green-footer p {
@@ -419,3 +419,33 @@ h3.text-center {
 .green-small {
 	color: #333333;
 }
+
+* {
+    margin: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+.page-container {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -60px;
+}
+    
+.green-footer, .push {
+    height: 60px;
+}
+
+@media (max-width: 767px){
+.green-footer {
+	margin-left: -20px;
+	margin-right: -20px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+}
+
+
