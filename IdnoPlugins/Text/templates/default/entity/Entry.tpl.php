@@ -5,5 +5,5 @@
         $rel = '';
     }
 ?>
-<div ><h2 class="p-name"><a href="<?=$vars['object']->getURL()?>"><?=$vars['object']->getTitle()?></a></h2>
+<div ><h2 class="p-name"><?=$vars['object']->getTitle()?></h2>
 <?php echo $this->autop($this->parseURLs($this->parseHashtags($vars['object']->body),$rel)); //TODO: a better rendering algorithm ?></div>
