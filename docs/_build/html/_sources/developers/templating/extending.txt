@@ -7,7 +7,12 @@ after the page footer, or add a new feature to user profiles.
 Plugins
 -------
 
-:doc:`Plugins <../plugins/index>` extend themes
+:doc:`Plugins <../plugins/index>` extend themes as part of their :doc:`main plugin class <../plugins/class>`,
+in the `registerPages()` plugin.
+
+This is how the `Checkin` plugin adds some mapping JavaScript to the HTML page header::
+
+    \Idno\Core\site()->template()->extendTemplate('shell/head','checkin/head');
 
 Themes
 ------

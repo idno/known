@@ -7,7 +7,8 @@ While plugins can also extend or replace Known's UI, in conjunction with extendi
 themes are a lightweight alternative. Whereas multiple plugins can be installed, only one theme can be enabled at any
 one time.
 
-Themes use standard :doc:`Known templates <../templating/index>`.
+Themes use standard :doc:`Known templates <../templating/index>`. It's a good idea to be familiar with the
+:doc:`core Known template concepts <../templating/concepts>`.
 
 Themes are selected from the `Themes` section of the administration panel.
 
