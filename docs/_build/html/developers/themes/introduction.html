@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Themes &mdash; Known 0.1 documentation</title>
+    <title>Getting started writing Known themes &mdash; Known 0.1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -24,9 +24,9 @@
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="top" title="Known 0.1 documentation" href="../../index.html" />
-    <link rel="up" title="Known for developers" href="../index.html" />
-    <link rel="next" title="Getting started writing Known themes" href="introduction.html" />
-    <link rel="prev" title="The plugin class" href="../plugins/class.html" /> 
+    <link rel="up" title="Themes" href="index.html" />
+    <link rel="next" title="The templating engine" href="../templating/index.html" />
+    <link rel="prev" title="Themes" href="index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -36,13 +36,14 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="introduction.html" title="Getting started writing Known themes"
+          <a href="../templating/index.html" title="The templating engine"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="../plugins/class.html" title="The plugin class"
+          <a href="index.html" title="Themes"
              accesskey="P">previous</a> |</li>
         <li><a href="../../index.html">Known 0.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" accesskey="U">Known for developers</a> &raquo;</li> 
+          <li><a href="../index.html" >Known for developers</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Themes</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -51,18 +52,21 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="themes">
-<h1>Themes<a class="headerlink" href="#themes" title="Permalink to this headline">¶</a></h1>
-<blockquote>
-<div><div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Getting started writing Known themes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="introduction.html#layout">Layout</a></li>
-</ul>
-</li>
+  <div class="section" id="getting-started-writing-known-themes">
+<h1>Getting started writing Known themes<a class="headerlink" href="#getting-started-writing-known-themes" title="Permalink to this headline">¶</a></h1>
+<p>Themes allow you to easily extend, or provide alternatives to, Known&#8217;s look and feel.</p>
+<p>While plugins can also extend or replace Known&#8217;s UI, in conjunction with extending or replacing its internal logic,
+themes are a lightweight alternative.</p>
+<div class="section" id="layout">
+<h2>Layout<a class="headerlink" href="#layout" title="Permalink to this headline">¶</a></h2>
+<p>The theme&#8217;s folder must sit inside /Themes.</p>
+<p>Each theme must have at least three things:</p>
+<ul class="simple">
+<li>theme.ini: a configuration file that provides information about the theme in the admin panel</li>
+<li>preview.png: a screenshot of the theme for use in the administration panel</li>
+<li>A set of templates under the theme&#8217;s <cite>templates</cite> subfolder</li>
 </ul>
 </div>
-</div></blockquote>
 </div>
 
 
@@ -71,15 +75,23 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Getting started writing Known themes</a><ul>
+<li><a class="reference internal" href="#layout">Layout</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
-  <p class="topless"><a href="../plugins/class.html"
-                        title="previous chapter">The plugin class</a></p>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Themes</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="introduction.html"
-                        title="next chapter">Getting started writing Known themes</a></p>
+  <p class="topless"><a href="../templating/index.html"
+                        title="next chapter">The templating engine</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../../_sources/developers/themes/index.txt"
+    <li><a href="../../_sources/developers/themes/introduction.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -106,13 +118,14 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="introduction.html" title="Getting started writing Known themes"
+          <a href="../templating/index.html" title="The templating engine"
              >next</a> |</li>
         <li class="right" >
-          <a href="../plugins/class.html" title="The plugin class"
+          <a href="index.html" title="Themes"
              >previous</a> |</li>
         <li><a href="../../index.html">Known 0.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >Known for developers</a> &raquo;</li> 
+          <li><a href="../index.html" >Known for developers</a> &raquo;</li>
+          <li><a href="index.html" >Themes</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

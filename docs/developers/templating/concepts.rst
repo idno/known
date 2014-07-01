@@ -74,6 +74,19 @@ Or to echo it directly::
 
     echo $t->draw('foo/bar');
 
-The template object also contains a special function to draw the page. This echoes the `shell` template, and assumes you have (at a bare minimum) set the `title` and `body` variables:
+The template object also contains a special function to draw the page. This echoes the `shell` template, and assumes you have (at a bare minimum) set the `title` and `body` variables::
 
     $t->drawPage();
+
+Example
+-------
+
+For example, to display a stream of items stored in an array called `$items`, using a template called `example/items` you might call the templating engine as follows::
+
+    $t = \Idno\Core\site()->template();
+    $t->title = 'Stream';
+    $t->items = $items;
+    $t->body = $t->draw('example/items');
+    $t->drawPage();
+
+The template itself needs to be stored in
