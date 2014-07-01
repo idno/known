@@ -21,8 +21,8 @@ Plugins and themes are the heart of extending Known.
    plugins/index
    themes/index
 
-Components
-----------
+Architecture
+------------
 
 .. toctree::
    :maxdepth: 2

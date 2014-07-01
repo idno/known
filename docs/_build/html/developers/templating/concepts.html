@@ -42,7 +42,7 @@
           <a href="index.html" title="The templating engine"
              accesskey="P">previous</a> |</li>
         <li><a href="../../index.html">Known 0.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >Developer guides</a> &raquo;</li>
+          <li><a href="../index.html" >Known for developers</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">The templating engine</a> &raquo;</li> 
       </ul>
     </div>  
@@ -131,7 +131,16 @@ $t-&gt;body = $t-&gt;draw(&#39;example/items&#39;);
 $t-&gt;drawPage();
 </pre></div>
 </div>
-<p>The template itself needs to be stored in</p>
+<p>The <cite>example/items</cite> template file itself needs to be stored in <cite>templates/default/example/items.tpl.php</cite>, and might look something like this:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;?php
+    if (!empty($vars[&#39;items&#39;])) {
+        foreach($vars[&#39;items&#39;] as $item) {
+            echo $this-&gt;__([&#39;item&#39; =&gt; $item])-&gt;draw(&#39;example/item&#39;);
+        }
+    }
+</pre></div>
+</div>
+<p>The template file could also contain raw HTML.</p>
 </div>
 </div>
 
@@ -195,7 +204,7 @@ $t-&gt;drawPage();
           <a href="index.html" title="The templating engine"
              >previous</a> |</li>
         <li><a href="../../index.html">Known 0.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >Developer guides</a> &raquo;</li>
+          <li><a href="../index.html" >Known for developers</a> &raquo;</li>
           <li><a href="index.html" >The templating engine</a> &raquo;</li> 
       </ul>
     </div>

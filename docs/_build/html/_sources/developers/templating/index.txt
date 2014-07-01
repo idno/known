@@ -7,3 +7,4 @@ Known uses an extensible templating engine to control how content is displayed.
    :maxdepth: 2
 
    concepts
+   extending

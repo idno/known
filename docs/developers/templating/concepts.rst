@@ -89,4 +89,13 @@ For example, to display a stream of items stored in an array called `$items`, us
     $t->body = $t->draw('example/items');
     $t->drawPage();
 
-The template itself needs to be stored in
+The `example/items` template file itself needs to be stored in `templates/default/example/items.tpl.php`, and might look something like this::
+
+    <?php
+        if (!empty($vars['items'])) {
+            foreach($vars['items'] as $item) {
+                echo $this->__(['item' => $item])->draw('example/item');
+            }
+        }
+
+The template file could also contain raw HTML.

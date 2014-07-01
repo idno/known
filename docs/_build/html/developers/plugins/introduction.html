@@ -25,6 +25,7 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="top" title="Known 0.1 documentation" href="../../index.html" />
     <link rel="up" title="Plugins" href="index.html" />
+    <link rel="next" title="The plugin class" href="class.html" />
     <link rel="prev" title="Plugins" href="index.html" /> 
   </head>
   <body>
@@ -35,10 +36,13 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="class.html" title="The plugin class"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
           <a href="index.html" title="Plugins"
              accesskey="P">previous</a> |</li>
         <li><a href="../../index.html">Known 0.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >Developer guides</a> &raquo;</li>
+          <li><a href="../index.html" >Known for developers</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">Plugins</a> &raquo;</li> 
       </ul>
     </div>  
@@ -71,6 +75,21 @@ simple.</p>
 <li>Any other static assets or external libraries you wish to include</li>
 </ul>
 </div>
+<div class="section" id="structure-of-plugin-ini">
+<h2>Structure of plugin.ini<a class="headerlink" href="#structure-of-plugin-ini" title="Permalink to this headline">¶</a></h2>
+<p>The plugin.ini file contains a number of text entries:</p>
+<div class="highlight-python"><div class="highlight"><pre>[Plugin description]
+name =              &quot;The name of the plugin&quot;
+version =           &quot;The plugin&#39;s version number&quot;
+author =            &quot;Author&#39;s name&quot;
+author_email =      &quot;Author&#39;s email address&quot;
+author_url =        &quot;http://authors-url/&quot;
+description =       &quot;A short description that will be displayed in the administration panel&quot;
+</pre></div>
+</div>
+<p>More may be added over time. These entries are displayed in Known&#8217;s administration panel but may also be displayed in
+a future plugin directory.</p>
+</div>
 <div class="section" id="namespaces">
 <h2>Namespaces<a class="headerlink" href="#namespaces" title="Permalink to this headline">¶</a></h2>
 <p>Plugins are all defined as classes inside the IdnoPlugins namespace. For example, if your plugin was called Banana,
@@ -95,6 +114,10 @@ when note objects are created)</li>
 <li>IdnoPluginsPluginNameContentType (if it exists) is instantiated and saved to memory</li>
 </ul>
 </div>
+<div class="section" id="templates">
+<h2>Templates<a class="headerlink" href="#templates" title="Permalink to this headline">¶</a></h2>
+<p>Each template file contains its own</p>
+</div>
 </div>
 
 
@@ -107,7 +130,9 @@ when note objects are created)</li>
   <ul>
 <li><a class="reference internal" href="#">Getting started writing Known plugins</a><ul>
 <li><a class="reference internal" href="#layout">Layout</a></li>
+<li><a class="reference internal" href="#structure-of-plugin-ini">Structure of plugin.ini</a></li>
 <li><a class="reference internal" href="#namespaces">Namespaces</a></li>
+<li><a class="reference internal" href="#templates">Templates</a></li>
 </ul>
 </li>
 </ul>
@@ -115,6 +140,9 @@ when note objects are created)</li>
   <h4>Previous topic</h4>
   <p class="topless"><a href="index.html"
                         title="previous chapter">Plugins</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="class.html"
+                        title="next chapter">The plugin class</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../../_sources/developers/plugins/introduction.txt"
@@ -144,10 +172,13 @@ when note objects are created)</li>
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
+          <a href="class.html" title="The plugin class"
+             >next</a> |</li>
+        <li class="right" >
           <a href="index.html" title="Plugins"
              >previous</a> |</li>
         <li><a href="../../index.html">Known 0.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >Developer guides</a> &raquo;</li>
+          <li><a href="../index.html" >Known for developers</a> &raquo;</li>
           <li><a href="index.html" >Plugins</a> &raquo;</li> 
       </ul>
     </div>
