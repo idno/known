@@ -3,7 +3,7 @@
 
     <div class="row">
 
-        <div class="span10 offset2">
+        <div class="span8 offset2">
 
             <p>
                 <?php
@@ -35,7 +35,7 @@
                 </label>
             </p>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('image'); ?>
-            <p class="button-bar span8">
+            <p class="button-bar ">
                 <?= \Idno\Core\site()->actions()->signForm('/photo/edit') ?>
                 <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();" />
                 <input type="submit" class="btn btn-primary" value="Publish" />
