@@ -106,7 +106,7 @@
 
 <body>
 <?php endif; ?>
-<div id="pjax-container">
+<div id="pjax-container" class="page-container">
     <?php
         $currentPage = \Idno\Core\site()->currentPage();
 
@@ -189,8 +189,12 @@
 
     </div>
     <!-- /container -->
+
+    <?= $this->draw('shell/contentfooter') ?>
+
 </div>
-<!-- pjax-container -->
+<!-- Everything below this should be includes, not content -->
+
 <?php if (!$_SERVER["HTTP_X_PJAX"]): ?>
 <!-- Le javascript -->
 <!-- Placed at the end of the document so the pages load faster -->
