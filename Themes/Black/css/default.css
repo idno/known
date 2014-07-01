@@ -1,0 +1,57 @@
+body {
+    background: #fff;
+    /*margin-top:64px;*/
+    /*padding-top: 0;*/
+    margin-bottom: 5em;
+}
+
+a {
+    color: #999999;
+}
+
+a:hover, a:focus {
+	color: #000000;
+	text-decoration: none;
+}
+
+h2 a {
+	font-family: "Proxima Nova","Open Sans","Gill Sans MT","Gill Sans",Corbel,Arial,sans-serif;
+	font-weight: 600;
+	color: #333333;
+}
+
+.idno-content {
+    box-shadow: none;
+    border: none;
+}
+li {
+    line-height: 1.8em !important;
+}
+/*.entry-content .p-name a,*/
+.idno-entry h2 {
+    font-size: 1.8em;
+    margin: 0; padding: 0;
+}
+.entry-content blockquote {
+    margin-top: 2em;
+    margin-bottom: 2em;
+    font-size: 0.9em;
+    color: #444;
+}
+.idno-statusupdates .entry-content p {
+    font-size: 1.8em;
+    margin: 0; padding: 0;
+}
+.navbar-inverse .navbar-inner {
+    background-color: #FFFFFF; 
+    background-image: none;
+    opacity: none;
+}
+
+.navbar-inverse .brand {
+    color: #333333;
+}
+
+.navbar-inverse .brand:hover, .navbar-inverse .nav > li > a:hover, .navbar-inverse .brand:focus, .navbar-inverse .nav > li > a:focus {
+    color: #000000;
+}
