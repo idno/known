@@ -3,7 +3,7 @@
 
     <div class="row">
 
-        <div class="span9 offset1">
+        <div class="span8 offset2">
 
             <p>
                 <?php

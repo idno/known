@@ -3,7 +3,7 @@
 
     <div class="row">
 
-        <div class="span10 offset1">
+        <div class="span8 offset1">
 
             <p>
                 <span id="in-reply-to">
@@ -28,10 +28,10 @@
                 </label>
             </p>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('note'); ?>
-            <p>
+            <p class="button-bar">
                 <?= \Idno\Core\site()->actions()->signForm('/status/edit') ?>
+                <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();" />
                 <input type="submit" class="btn btn-primary" value="Save" />
-                <input type="button" class="btn" value="Cancel" onclick="hideContentCreateForm();" />
                 <?= $this->draw('content/access'); ?>
             </p>
         </div>

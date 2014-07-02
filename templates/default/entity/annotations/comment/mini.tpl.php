@@ -17,7 +17,7 @@
                     <?= \Idno\Core\site()->actions()->signForm('annotation/post') ?>
                     <input type="hidden" name="object" value="<?=$object->getUUID()?>">
                     <input type="hidden" name="type" value="reply">
-                    <input type="submit" class="btn" value="Send" style="display: none">
+                    <input type="submit" class="btn btn-save" value="Leave Comment" style="display: none">
                 </form>
             </div>
         </div>

@@ -30,7 +30,7 @@
             <div class="span6 ">
                 <div class="row">
                     <div class="span5">
-                        <h1 >
+                        <h1 class="p-profile">
                             <a href="<?=$vars['user']->getURL()?>" class="u-url p-name"><?=$vars['user']->getTitle()?></a>
                         </h1>
                     </div>

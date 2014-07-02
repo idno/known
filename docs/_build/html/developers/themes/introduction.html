@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Getting started writing Known themes &mdash; Known 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="Known 0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Themes" href="index.html" />
+    <link rel="next" title="The templating engine" href="../templating/index.html" />
+    <link rel="prev" title="Themes" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../templating/index.html" title="The templating engine"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Themes"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Known 0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Known for developers</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Themes</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="getting-started-writing-known-themes">
+<h1>Getting started writing Known themes<a class="headerlink" href="#getting-started-writing-known-themes" title="Permalink to this headline">¶</a></h1>
+<p>Themes allow you to easily extend, or provide alternatives to, Known&#8217;s look and feel.</p>
+<p>While plugins can also extend or replace Known&#8217;s UI, in conjunction with extending or replacing its internal logic,
+themes are a lightweight alternative. Whereas multiple plugins can be installed, only one theme can be enabled at any
+one time.</p>
+<p>Themes use standard <a class="reference internal" href="../templating/index.html"><em>Known templates</em></a>. It&#8217;s a good idea to be familiar with the
+<a class="reference internal" href="../templating/concepts.html"><em>core Known template concepts</em></a>.</p>
+<p>Themes are selected from the <cite>Themes</cite> section of the administration panel.</p>
+<div class="section" id="layout">
+<h2>Layout<a class="headerlink" href="#layout" title="Permalink to this headline">¶</a></h2>
+<p>The theme&#8217;s folder must sit inside /Themes.</p>
+<p>Each theme must have at least three things:</p>
+<ul class="simple">
+<li>theme.ini: a configuration file that provides information about the theme in the admin panel</li>
+<li>preview.png: a screenshot of the theme for use in the administration panel</li>
+<li>A set of templates under the theme&#8217;s <cite>templates</cite> subfolder</li>
+</ul>
+</div>
+<div class="section" id="structure-of-theme-ini">
+<h2>Structure of theme.ini<a class="headerlink" href="#structure-of-theme-ini" title="Permalink to this headline">¶</a></h2>
+<p>The theme.ini file contains a number of text entries:</p>
+<div class="highlight-python"><div class="highlight"><pre>[Plugin description]
+name =              &quot;The name of the theme&quot;
+version =           &quot;The theme&#39;s version number&quot;
+author =            &quot;Author&#39;s name&quot;
+author_email =      &quot;Author&#39;s email address&quot;
+author_url =        &quot;http://authors-url/&quot;
+description =       &quot;A short description that will be displayed in the administration panel&quot;
+</pre></div>
+</div>
+<p>More may be added over time. These entries are displayed in Known&#8217;s administration panel but may also be displayed in
+a future plugin directory.</p>
+</div>
+<div class="section" id="extending">
+<span id="themes-extending-templates"></span><h2>Extending<a class="headerlink" href="#extending" title="Permalink to this headline">¶</a></h2>
+<p>In addition, you can extend templates with entries in a special <cite>[Extensions]</cite> section. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="n">Extensions</span><span class="p">]</span>
+<span class="s">&quot;template/one&quot;</span> <span class="o">=</span> <span class="s">&quot;mytheme/template/one&quot;</span>
+<span class="s">&quot;template/two&quot;</span> <span class="o">=</span> <span class="s">&quot;mytheme/template/two&quot;</span>
+</pre></div>
+</div>
+<p>Here, any calls to <cite>template/one</cite> will also call <cite>mytheme/template/one</cite> with the same variables.</p>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>Let&#8217;s say your theme is called PDX Carpet.</p>
+<p>Your theme would live in the folder <cite>/Themes/PDXCarpet/</cite>, and contain a <cite>plugin.ini</cite> and <cite>preview.png</cite> file as described
+above, to help describe the theme in the administration panel.</p>
+<p>You will also need a <cite>/Themes/PDXCarpet/templates/default/</cite> folder.</p>
+<p>You could overwrite the <cite>shell/footer</cite> theme simply by adding a new file called <cite>/Themes/PDXCarpet/templates/default/shell/footer.tpl.php</cite>. This could contain some simple text:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;p&gt;
+    This is a custom &lt;a href=&quot;http://withknown.com&quot;&gt;Known&lt;/a&gt; theme!
+&lt;/p&gt;
+</pre></div>
+</div>
+<p>To add a custom, static CSS file, you might want to <cite>extend</cite> the <cite>shell/head</cite> theme to reference it. To do ths, you would add an extension to your <cite>theme.ini</cite> file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="n">Extensions</span><span class="p">]</span>
+<span class="s">&quot;shell/head&quot;</span> <span class="o">=</span> <span class="s">&quot;pdxcarpet/shell/head&quot;</span>
+</pre></div>
+</div>
+<p>You would then create a new template file in <cite>/Themes/PDXCarpet/templates/default/pdxcarpet/shell/head.tpl.php</cite> with some HTML to be injected into the page header:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;link href=&quot;&lt;?= \Idno\Core\site()-&gt;config()-&gt;url ?&gt;Themes/PDXCarpet/css/default.css&quot; rel=&quot;stylesheet&quot;&gt;
+</pre></div>
+</div>
+<p>Finally, you&#8217;d create a normal static CSS file in <cite>/Themes/PDXCarpet/css/default.css</cite>.</p>
+</div>
+<div class="section" id="reference-themes">
+<h2>Reference themes<a class="headerlink" href="#reference-themes" title="Permalink to this headline">¶</a></h2>
+<p>Known ships with several reference themes. We recommend you take a look at the <cite>Solo</cite> theme to see how a simple alternative theme is put together.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Getting started writing Known themes</a><ul>
+<li><a class="reference internal" href="#layout">Layout</a></li>
+<li><a class="reference internal" href="#structure-of-theme-ini">Structure of theme.ini</a></li>
+<li><a class="reference internal" href="#extending">Extending</a></li>
+<li><a class="reference internal" href="#example">Example</a></li>
+<li><a class="reference internal" href="#reference-themes">Reference themes</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Themes</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../templating/index.html"
+                        title="next chapter">The templating engine</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/developers/themes/introduction.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../templating/index.html" title="The templating engine"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Themes"
+             >previous</a> |</li>
+        <li><a href="../../index.html">Known 0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Known for developers</a> &raquo;</li>
+          <li><a href="index.html" >Themes</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Known, Inc.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

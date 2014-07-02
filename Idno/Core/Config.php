@@ -23,7 +23,8 @@
                 ),
                 'themes'            => [],
                 'items_per_page'    => 10, // Default items per page
-                'experimental'      => false // A common way to enable experimental functions still in development
+                'experimental'      => false, // A common way to enable experimental functions still in development
+                'multitenant'       => false
             );
 
             function init()
@@ -42,6 +43,14 @@
 
                 if ($config = @parse_ini_file($this->path . '/config.ini')) {
                     $this->config = array_merge($this->config, $config);
+                }
+
+                if ($this->multitenant) {
+                    $dbname = $this->dbname;
+                    $this->dbname = preg_replace('/[^\da-z]/i', '', $this->host);
+                    if (empty($this->dbname)) {
+                        $this->dbname = $dbname;
+                    }
                 }
 
                 // Per domain configuration

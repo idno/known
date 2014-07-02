@@ -74,7 +74,7 @@
                 if (!empty($this->uuid)) {
                     return $this->uuid;
                 }
-                if ($url = $this->getURL()) {
+                if ($url = $this->getURL(true)) {
                     return $url;
                 }
                 if (!empty($this->_id)) {
@@ -1266,7 +1266,15 @@
                     return \Idno\Core\site()->config()->url . date('Y', $this->created) . '/' . $slug;
                 }
 
-                if (!empty($this->created)) {
+                $new = false;
+                if ($args = func_get_args()) {
+                    if ($args[0] === true) {
+                        $new = true;
+                    }
+                }
+
+                $id = $this->getID();
+                if (!$new && !empty($id)) {
                     $uuid = $this->getUUID();
                     if (!empty($uuid)) {
                         return $uuid;

@@ -41,6 +41,11 @@ in the \IdnoPlugins\Status\Main class). ::
         \Idno\Core\site()->addPageHandler('/status/delete/([A-Za-z0-9]+)/?', '\IdnoPlugins\Status\Pages\Delete');
     }
 
+This is also where plugins should :doc:`extend templates <../templating/extend>`. For example, this is how the
+`Checkin` plugin adds some mapping JavaScript to the HTML page header::
+
+    \Idno\Core\site()->template()->extendTemplate('shell/head','checkin/head');
+
 registerEventHooks()
 ^^^^^^^^^^^^^^^^^^^^
 

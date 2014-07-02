@@ -58,8 +58,8 @@
             </p>
             <p>
                 <?= \Idno\Core\site()->actions()->signForm('/profile/' . $vars['user']->getHandle()) ?>
-                <input type="submit" class="btn btn-primary" value="Save" />
-                <input type="button" class="btn" value="Cancel" onclick="hideContentCreateForm();" />
+                <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();" />
+                <input type="submit" class="btn btn-primary" value="Save Changes" />
             </p>
         </div>
 

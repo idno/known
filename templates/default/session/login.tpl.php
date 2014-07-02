@@ -24,7 +24,7 @@
             </div>
             <div class="control-group">
                 <div class="controls">
-                    <button type="submit" class="btn">Sign in</button>
+                    <button type="submit" class="btn btn-signin">Sign in</button>
                     <input type="hidden" name="fwd" value="<?php
                         if (!empty($vars['fwd'])) {
                             echo htmlspecialchars($vars['fwd']);

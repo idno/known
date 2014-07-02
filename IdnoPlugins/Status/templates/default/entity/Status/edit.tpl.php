@@ -17,45 +17,26 @@
 
     <div class="row">
 
-        <div class="span8 offset1">
-
-            <p>
-                <small><a id="inreplyto-add" href="#"
-                          onclick="$('#inreplyto').append('<span><input required type=&quot;url&quot; name=&quot;inreplyto[]&quot; value=&quot;&quot; placeholder=&quot;The website address of the post you\'re replying to&quot; class=&quot;span8&quot; /> <small><a href=&quot;#&quot; onclick=&quot;$(this).parent().parent().remove(); return false;&quot;>Remove</a></small><br /></span>'); return false;">+
-                        Add a site you're replying to</a></small>
-            </p>
-            <div id="inreplyto">
-                <?php
-                    if (!empty($vars['object']->inreplyto)) {
-                        foreach ($vars['object']->inreplyto as $inreplyto) {
-                            ?>
-                            <p>
-                                <input type="url" name="inreplyto[]"
-                                       placeholder="The website address of the post you're replying to"
-                                       class="span8" value="<?= htmlspecialchars($inreplyto) ?>"/>
-                                <small><a href="#"
-                                          onclick="$(this).parent().parent().remove(); return false;">Remove</a></small>
-                            </p>
-                        <?php
-                        }
-                    }
-                ?>
-            </div>
-
-            <p>
-                <label>
-                    <?php
-                        if (empty($vars['url']) && empty($vars['object']->inreplyto)) {
-                            echo 'What\'s going on?';
-                        } else {
-                            echo 'Your message:';
-                        }
-                    ?>
-                </label>
-            </p>
-
-            <textarea required name="body" id="body" style="width: 100%" class="content-entry mentionable"><?php
+        <div class="span8 offset2">
             
+            <p id="counter" style="display:none" class="pull-right">
+                <span class="count"></span>
+            </p>
+
+            <h5>
+                <?php
+
+                    if (empty($vars['object']->_id)) {
+                        ?>New Status Update<?php
+                    } else {
+                        ?>Edit Status Update<?php
+                    }
+
+                ?>
+            </h5>
+
+            <textarea required name="body" id="body" class="content-entry mentionable span8" placeholder="What's going on?"><?php
+                        
                 if (!empty($vars['body'])) {
                     echo htmlspecialchars($vars['body']);
                 } else {
@@ -81,17 +62,39 @@
             <?php
             }
             ?>
-        </div>
-        <div class="span8 offset1">
 
-            <p id="counter" style="display:none" class="pull-right">
-                <span class="count"></span>
-            </p>
-            <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('note'); ?>
             <p>
+                <small><a id="inreplyto-add" href="#"
+                          onclick="$('#inreplyto').append('<span><input required type=&quot;url&quot; name=&quot;inreplyto[]&quot; value=&quot;&quot; placeholder=&quot;Add the URL that you\'re replying to&quot; class=&quot;span8&quot; /> <small><a href=&quot;#&quot; onclick=&quot;$(this).parent().parent().remove(); return false;&quot;>Remove</a></small><br /></span>'); return false;">+
+                        Reply to a site</a></small>
+            </p>
+            <div id="inreplyto">
+                <?php
+                    if (!empty($vars['object']->inreplyto)) {
+                        foreach ($vars['object']->inreplyto as $inreplyto) {
+                            ?>
+                            <p>
+                                <input type="url" name="inreplyto[]"
+                                       placeholder="Add the URL that you're replying to"
+                                       class="span8" value="<?= htmlspecialchars($inreplyto) ?>"/>
+                                <small><a href="#"
+                                          onclick="$(this).parent().parent().remove(); return false;">Remove</a></small>
+                            </p>
+                        <?php
+                        }
+                    }
+                ?>
+            </div>
+
+        </div>
+        <div class="span8 offset2">
+
+
+            <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('note'); ?>
+            <p class="button-bar">
                 <?= \Idno\Core\site()->actions()->signForm('/status/edit') ?>
-                <input type="submit" class="btn btn-primary" value="Save"/>
-                <input type="button" class="btn" value="Cancel" onclick="hideContentCreateForm();"/>
+                <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
+                <input type="submit" class="btn btn-primary" value="Publish"/>
                 <?= $this->draw('content/access'); ?>
             </p>
             <p>
@@ -101,7 +104,7 @@
             <div id="bookmarklet" style="display:none;">
                 <p>Drag the following link into your browser links bar to easily share links or reply to posts on other sites:</p>
                 <?= $this->draw('entity/bookmarklet'); ?>
-            </div>     
+            </div>   
         </div>
         <div class="span2">
             <p id="counter" style="display:none">
