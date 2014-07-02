@@ -13,13 +13,16 @@
         if ( $error["type"] == E_ERROR ) {
             http_response_code(500);
             
-            $error_message = "{$error['file']}:{$error['line']} - \"{$error['message']}\", on page {$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}";
+            $error_message = "Fatal Error: {$error['file']}:{$error['line']} - \"{$error['message']}\", on page {$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}";
             
             echo "<h1>Sorry, Known experienced a problem!</h1>";
             echo "<p>Known experienced a problem with this page and couldn't continue, the details are as follows: </p>";
             echo "<pre>$error_message</pre>";
             echo "<p>If you like, you can <a href=\"mailto:oops@withknown.com?subject=".  
                     rawurlencode("Fatal error in Known install at {$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}")."&body=". rawurlencode($error_message)."\">send in a bug report!</a>";
+                    
+            error_log($error_message);
+            
             exit;
         }
     });
