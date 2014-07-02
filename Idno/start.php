@@ -11,6 +11,9 @@
     register_shutdown_function(function() {
         $error = error_get_last();
         if ( $error["type"] == E_ERROR ) {
+            
+            ob_clean();
+            
             http_response_code(500);
             
             $error_message = "Fatal Error: {$error['file']}:{$error['line']} - \"{$error['message']}\", on page {$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}";
