@@ -20,21 +20,21 @@ a:hover, a:focus {
 li {
     line-height: 1.8em !important;
 }
-.entry-content .p-name a,
-.idno-posts h2.p-name {
+.entry-content .p-name a, .idno-posts h2.p-name {
     font-size: 1.8em;
     margin: 0; padding: 0;
+    color: #333333;
 }
 
 .entry-content .p-photo a,
 .idno-posts h2.p-photo {
-    font-size: 1.8em;
+    font-size: 1.5em;
     margin: 0; padding: 0;
 }
 
 .entry-content .p-bookmark a,
 .idno-posts h5.p-bookmark {
-    font-size: 1.8em;
+    font-size: 1.4em;
     margin: 0; padding: 0;
 }
 
@@ -52,7 +52,7 @@ h1.p-profile, .p-profile a {
     color: #444;
 }
 .idno-statusupdates .entry-content p {
-    font-size: 1.8em;
+    font-size: 1.4em;
     margin: 0; padding: 0;
 }
 
@@ -159,6 +159,17 @@ span.contentTypeLogo:hover {
     padding-top: 5px;
 }
 
+.idno-object {
+    box-shadow: none;
+    display: block;
+    margin-top: 1em;
+}
+.idno-content {
+    background-color: #fff;
+    border: medium none;
+    padding: 1.5em 1.5em 0;
+}
+
 .idno-object h2 {
     font-size: 1.5em;
     margin-bottom: 0.6em !important;
@@ -166,6 +177,7 @@ span.contentTypeLogo:hover {
 
 h2 {
 	font-family: "Minion Pro", Times, "Times New Roman", serif;
+	font-size: 1.5em;
 }
 
 h3 {
@@ -200,11 +212,6 @@ h3.register {
 	padding-top: 20px;
 }
 
-.entry-content .p-name a, .idno-posts h2.p-name {
-	color: #333333;
-	font-size: 1.5em;
-}
-
 .entry-content .p-photo a, .idno-posts h2.p-photo {
 	color: #333333;
 	font-size: 1.5em;
@@ -218,7 +225,7 @@ h3.register {
 
 .entry-content .p-bookmark a, .idno-posts h5.p-bookmark {
     color: #000000;
-    font-size: 1.8em;
+    font-size: 1.4em;
     margin: 0;
     padding: 0;
 }
