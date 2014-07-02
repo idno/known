@@ -29,7 +29,7 @@
     <meta name="DC.title" content="<?=htmlspecialchars($vars['title'])?>" >
     <meta name="DC.description" content="<?=htmlspecialchars($vars['description'])?>" ><?php
 
-        if (\Idno\Core\site()->currentPage()->isPermalink()) {
+        if (\Idno\Core\site()->currentPage() && \Idno\Core\site()->currentPage()->isPermalink()) {
             $object = $vars['object']; /* @var \Idno\Common\Entity $object */
             if ($creator = $object->getOwner()) {
                 ?><meta name="DC.creator" content="<?=htmlentities($creator->getTitle())?>"><?php
