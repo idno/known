@@ -68,7 +68,6 @@
                             $this->addToFeed();
                         }
                         \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getDescription()));
-                        \Idno\Core\site()->session()->addMessage('Your comic was successfully saved.');
 
                         return true;
                     }

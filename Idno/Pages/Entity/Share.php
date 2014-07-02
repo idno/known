@@ -14,29 +14,39 @@
 
             function getContent()
             {
-
                 $this->gatekeeper();
 
                 $url   = $this->getInput('share_url');
                 $title = $this->getInput('share_title');
+                $type  = $this->getInput('share_type');
 
-                $share_type = 'note';
+                // Provide a hook to a URL shortener (TODO: Tidy this up when #237 is merged)
+                $event = new \Idno\Core\Event();
+                $event->setResponse($url);
+                \Idno\Core\site()->events()->dispatch('url/shorten', $event);
+                $url = $event->response();
 
-                if ($content = \Idno\Core\Webmention::getPageContent($url)) {
-                    if ($mf2 = \Idno\Core\Webmention::parseContent($content['content'])) {
-                        if (!empty($mf2['items'])) {
-                            foreach ($mf2['items'] as $item) {
-                                if (!empty($item['type'])) {
-                                    if (in_array('h-entry', $item['type'])) {
-                                        $share_type = 'reply';
-                                    }
-                                    if (in_array('h-event', $item['type'])) {
-                                        $share_type = 'rsvp';
+                if (!in_array($type, ['note','reply','rsvp','like'])) {
+                    $share_type = 'note';
+
+                    if ($content = \Idno\Core\Webservice::get($url)) {
+                        if ($mf2 = \Idno\Core\Webmention::parseContent($content['content'])) {
+                            if (!empty($mf2['items'])) {
+                                foreach ($mf2['items'] as $item) {
+                                    if (!empty($item['type'])) {
+                                        if (in_array('h-entry', $item['type'])) {
+                                            $share_type = 'reply';
+                                        }
+                                        if (in_array('h-event', $item['type'])) {
+                                            $share_type = 'rsvp';
+                                        }
                                     }
                                 }
                             }
                         }
                     }
+                } else {
+                    $share_type = $type;
                 }
 
                 $content_type = \Idno\Common\ContentType::getRegisteredForIndieWebPostType($share_type);
@@ -55,11 +65,13 @@
                             }
                         }
                         $page->setInput('hidenav', true);
+                        $page->setInput('sharing',true);
+                        $page->setInput('share_type', $share_type);
                         $page->get();
                     }
                 } else {
                     $t    = \Idno\Core\site()->template();
-                    $body = $t->__(['share_type' => $share_type, 'content_type' => $content_type])->draw('entity/share');
+                    $body = $t->__(['share_type' => $share_type, 'content_type' => $content_type, 'sharing' => true])->draw('entity/share');
                     $t->__(['title' => 'Share', 'body' => $body, 'hidenav' => true])->drawPage();
                 }
             }

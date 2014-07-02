@@ -21,7 +21,7 @@
             </p>
 
             <div class="control-group">
-                <label class="control-label" for="inputAvatar"><a name="avatar"></a>Upload a new avatar</label>
+                <label class="control-label" for="inputAvatar"><a name="avatar"></a>Upload a new user picture</label>
                 <div class="controls">
                     <input type="file" id="inputAvatar" class="span4" name="avatar">
                 </div>
@@ -58,8 +58,8 @@
             </p>
             <p>
                 <?= \Idno\Core\site()->actions()->signForm('/profile/' . $vars['user']->getHandle()) ?>
-                <input type="submit" class="btn btn-primary" value="Save" />
-                <input type="button" class="btn" value="Cancel" onclick="hideContentCreateForm();" />
+                <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();" />
+                <input type="submit" class="btn btn-primary" value="Save Changes" />
             </p>
         </div>
 

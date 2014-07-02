@@ -7,7 +7,7 @@
 <div class="row">
     <div class="span10 offset1">
         <div class="explanation">
-            This API tester helps you use idno's built-in API functionality. Every page in idno is also an API
+            This API tester helps you use Known's built-in API functionality. Every page in Known is also an API
             endpoint, which means you can access it using third-party applications as well as through as web browser.
         </div>
     </div>

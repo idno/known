@@ -1,3 +1,4 @@
+<?=$this->draw('entity/edit/header');?>
 <?php
 
     if (!empty($vars['object']->inreplyto)) {
@@ -16,12 +17,39 @@
 
     <div class="row">
 
-        <div class="span10 offset1">
+        <div class="span8 offset2">
+            
+            <p id="counter" style="display:none" class="pull-right">
+                <span class="count"></span>
+            </p>
+
+            <h5>
+                <?php
+
+                    if (empty($vars['object']->_id)) {
+                        ?>New Status Update<?php
+                    } else {
+                        ?>Edit Status Update<?php
+                    }
+
+                ?>
+            </h5>
+
+            <textarea required name="body" id="body" class="content-entry mentionable span8" placeholder="What's going on?"><?php
+            
+                if (!empty($twitter_user))
+                    echo htmlspecialchars ("@$twitter_user ");
+            
+                if (!empty($vars['body'])) {
+                    echo htmlspecialchars($vars['body']);
+                } else {
+                    echo htmlspecialchars($vars['object']->body);
+                } ?></textarea>
 
             <p>
-                <small><a href="#"
-                          onclick="$('#inreplyto').append('<span><input type=&quot;url&quot; name=&quot;inreplyto[]&quot; value=&quot;&quot; placeholder=&quot;The website address of the post you\'re replying to&quot; class=&quot;span8&quot; /> <small><a href=&quot;#&quot; onclick=&quot;$(this).parent().parent().remove(); return false;&quot;>Remove</a></small><br /></span>'); return false;">+
-                        Add a site you're replying to</a></small>
+                <small><a id="inreplyto-add" href="#"
+                          onclick="$('#inreplyto').append('<span><input required type=&quot;url&quot; name=&quot;inreplyto[]&quot; value=&quot;&quot; placeholder=&quot;Add the URL that you\'re replying to&quot; class=&quot;span8&quot; /> <small><a href=&quot;#&quot; onclick=&quot;$(this).parent().parent().remove(); return false;&quot;>Remove</a></small><br /></span>'); return false;">+
+                        Reply to a site</a></small>
             </p>
             <div id="inreplyto">
                 <?php
@@ -30,7 +58,7 @@
                             ?>
                             <p>
                                 <input type="url" name="inreplyto[]"
-                                       placeholder="The website address of the post you're replying to"
+                                       placeholder="Add the URL that you're replying to"
                                        class="span8" value="<?= htmlspecialchars($inreplyto) ?>"/>
                                 <small><a href="#"
                                           onclick="$(this).parent().parent().remove(); return false;">Remove</a></small>
@@ -39,87 +67,72 @@
                         }
                     }
                 ?>
+                <?php
+                    $twitter_user = null;
+                    $u = \Idno\Core\site()->currentPage()->getInput('replyto');
+                    if (preg_match('/https?:\/\/(www\.)?twitter\.com\/([^\/]+)/', $u, $matches)) {
+                        $twitter_user = $matches[2];
+                    }
+                    
+                    if (!empty($u)) {
+                        ?>
+                            <span><input required type="url" name="inreplyto[]" value="<?= $u; ?>" placeholder="The website address of the post you\'re replying to" class="span8" /> <small><a href="#" onclick="$(this).parent().parent().remove(); return false;">Remove</a></small><br /></span> 
+                        <?php
+                    }
+                ?>
             </div>
 
-            <p>
-                <label>
-                    <?php
-                        if (empty($vars['url']) && empty($vars['object']->inreplyto)) {
-                            echo 'What\'s going on?';
-                        } else {
-                            echo 'Your message:';
-                        }
-                    ?>
-                </label>
-            </p>
-            
-            <textarea required name="body" id="body" class="span8 pull-left"><?php if (!empty($vars['body'])) {
-                    echo htmlspecialchars($vars['body']);
-                } else {
-                    echo htmlspecialchars($vars['object']->body);
-                } ?></textarea>
-            <p id="counter" class="span2 pull-right progress" style="display:none;">
-                <span class="bar" style="width: 0%;"> </span> 
-                </p>
-            
+        </div>
+        <div class="span8 offset2">
+
+
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('note'); ?>
-            <p>
+            <p class="button-bar">
                 <?= \Idno\Core\site()->actions()->signForm('/status/edit') ?>
-                <input type="submit" class="btn btn-primary" value="Save"/>
-                <input type="button" class="btn" value="Cancel" onclick="hideContentCreateForm();"/>
+                <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
+                <input type="submit" class="btn btn-primary" value="Publish"/>
                 <?= $this->draw('content/access'); ?>
             </p>
-            
-            
-        </div>
-        
+            <p>
+                <small><a href="#" onclick="$('#bookmarklet').toggle(); return false;">Get a button for your browser</a></small>
+            </p>
 
+            <div id="bookmarklet" style="display:none;">
+                <p>Drag the following link into your browser links bar to easily share links or reply to posts on other sites:</p>
+                <?= $this->draw('entity/bookmarklet'); ?>
+            </div>   
+        </div>
+        <div class="span2">
+            <p id="counter" style="display:none">
+                <span class="count"></span>
+            </p>
+        </div>
+
+               
     </div>
 </form>
 <script>
-    $(document).ready(function(){
-       $('#body').keyup(function() {
+    $(document).ready(function () {
+        $('#body').keyup(function () {
             var len = $(this).val().length;
-           
-           // Show / hide
-           if (len<140/2) {
-               if ($('#counter').is(":visible")) {
-                   $('#counter').fadeOut();
-               }
-           }
-           else {
-                             
-               if (!$('#counter').is(":visible")) {
-                   $('#counter').fadeIn();
-               }
-               
-               // Set bar colours
-               $('#counter').removeClass("progress-info progress-success progress-warning progress-danger progress-striped active");
-               
-               if (len<100) {
-                   $('#counter').addClass('progress-success');
-               } else if (len < 130) {
-                   $('#counter').addClass('progress-warning');
-               } else if (len <= 140) {
-                   $('#counter').addClass('progress-danger');
-               } else if (len > 140) {
-                   $('#counter').addClass('progress-striped active progress-info');
-               }
-               
-               // Set bar length
-               if (len<=140) {
-                   var percentage = (len/140) * 100;
-                   $('#counter .bar').css('width', percentage + '%');
-               }
-               else {
-                    $('#counter .bar').css('width', '100%');
-               }
 
-               $('#counter .bar').text(len);
-           }
+            if (len > 0) {
+                if (!$('#counter').is(":visible")) {
+                    $('#counter').fadeIn();
+                }
+            }
+
+            $('#counter .count').text(len);
 
 
-           
-       });
+        });
+        
+        // Make in reply to a little less painful
+        $("#inreplyto-add").on('dragenter', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            $('#inreplyto').append('<span><input required type="url" name="inreplyto[]" value="" placeholder="The website address of the post you\'re replying to" class="span8" /> <small><a href="#" onclick="$(this).parent().parent().remove(); return false;">Remove</a></small><br /></span>');
+        });
     });
-    </script>
+</script>
+<?=$this->draw('entity/edit/footer');?>

@@ -19,7 +19,12 @@
             </div>
             <div class="control-group">
                 <div class="controls">
-                    <button type="submit" class="btn">Sign in</button>
+                    <a href="<?=\Idno\Core\site()->config()->getURL()?>account/password">Forgotten your password?</a>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit" class="btn btn-signin">Sign in</button>
                     <input type="hidden" name="fwd" value="<?php
                         if (!empty($vars['fwd'])) {
                             echo htmlspecialchars($vars['fwd']);

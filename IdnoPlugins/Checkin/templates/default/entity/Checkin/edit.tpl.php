@@ -1,3 +1,4 @@
+<?=$this->draw('entity/edit/header');?>
 <script>
 
     function replenish(latitude, longitude) {
@@ -68,7 +69,7 @@
 
     <div class="row">
 
-        <div class="span10 offset1">
+        <div class="span8 offset2">
 
             <div id="geoplaceholder">
                 <p>
@@ -76,11 +77,11 @@
                 </p>
             </div>
             <div id="geofields" style="display:none">
-                <div class="well">
+                <div class="geolocation">
                     <p>
                         <label>
                             Where are you?<br/>
-                            <input type="text" name="placename" id="placename" class="span9"/>
+                            <input type="text" name="placename" id="placename" class="span8"/>
                             <input type="hidden" name="lat" id="lat"/>
                             <input type="hidden" name="long" id="long"/>
                         </label>
@@ -88,7 +89,7 @@
 
                     <p>
                         Address (edit this if we got it wrong!)<br/>
-                        <input type="text" name="user_address" id="user_address" class="span9"/>
+                        <input type="text" name="user_address" id="user_address" class="span8"/>
                         <input type="hidden" name="address" id="address"/>
                     </p>
 
@@ -99,17 +100,18 @@
                 <label>
                     What are you up to?<br/>
                     <input type="text" name="body" id="body" value="<?= htmlspecialchars($vars['object']->body) ?>"
-                           class="span9"/>
+                           class="span8 mentionable"/>
                 </label>
             </p>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('place'); ?>
-            <p>
+            <p class="button-bar ">
+               <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
                 <?= \Idno\Core\site()->actions()->signForm('/checkin/edit') ?>
-                <input type="submit" class="btn btn-primary" value="<?php if (!$vars['object']->getUUID()) { ?>Check in<?php } else { ?>Save<?php } ?>"/>
-                <input type="button" class="btn" value="Cancel" onclick="hideContentCreateForm();"/>
+                <input type="submit" class="btn btn-primary" value="<?php if (empty($vars['object']->_id)) { ?>Check in<?php } else { ?>Save<?php } ?>"/>
                 <?= $this->draw('content/access'); ?>
             </p>
         </div>
 
     </div>
 </form>
+<?=$this->draw('entity/edit/footer');?>

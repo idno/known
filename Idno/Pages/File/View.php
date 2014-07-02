@@ -19,6 +19,7 @@
                 if (!empty($this->arguments[0])) {
                     $object = \Idno\Entities\File::getByID($this->arguments[0]);
                 }
+
                 if (empty($object)) $this->forward(); // TODO: 404
 
                 $headers = apache_request_headers();
@@ -36,7 +37,13 @@
                 } else {
                     header('Content-type: application/data');
                 }
-                echo $object->getBytes();
+                //header('Accept-Ranges: bytes');
+                //header('Content-Length: ' . filesize($object->getSize()));
+                if (is_callable([$object,'passThroughBytes'])) {
+                    $object->passThroughBytes();
+                } else {
+                    echo $object->getBytes();
+                }
 
             }
 

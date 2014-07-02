@@ -3,17 +3,17 @@
     var data = {
 
         "name": "<?=htmlspecialchars(\Idno\Core\site()->config()->title)?>",
-        "iconURL": "<?=\Idno\Core\site()->config()->url?>IdnoPlugins/Firefox/icon16.png",
-        "icon32URL": "<?=\Idno\Core\site()->config()->url?>IdnoPlugins/Firefox/icon32.png",
-        "icon64URL": "<?=\Idno\Core\site()->config()->url?>IdnoPlugins/Firefox/icon64.png",
+        "iconURL": "http://withknown.com/img/logo_k_16.png",
+        "icon32URL": "http://withknown.com/img/logo_k_32.png",
+        "icon64URL": "http://withknown.com/img/logo_k_64.png",
 
         "workerURL": "<?=\Idno\Core\site()->config()->url?>IdnoPlugins/Firefox/worker.js",
         //"sidebarURL": "<?=\Idno\Core\site()->config()->url?>firefox/sidebar",
         "shareURL": "<?=\Idno\Core\site()->config()->url?>share?share_url=%{url}&share_title=%{title}",
 
-        "description": "Powered by idno",
-        "author": "Ben Werdmuller",
-        "homepageURL": "http://idno.co/",
+        "description": "Powered by Known",
+        "author": "Known, Inc",
+        "homepageURL": "http://withknown.com/",
 
         "version": "0.1"
     }

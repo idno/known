@@ -12,7 +12,11 @@
 
     namespace Idno\Common {
 
-        class Entity extends Component implements \JsonSerializable
+        interface EntityInterface extends \JsonSerializable, \ArrayAccess
+        {
+        }
+
+        class Entity extends Component implements EntityInterface
         {
 
             // Which collection should this be stored in?
@@ -30,7 +34,12 @@
 
             function __construct()
             {
-                $this->setOwner(\Idno\Core\site()->session()->currentUser());
+                if (\Idno\Core\site()->session()) {
+                    if ($user = \Idno\Core\site()->session()->currentUser()) {
+                        //var_export(\Idno\Core\site()->session()->currentUser());
+                        $this->setOwner(\Idno\Core\site()->session()->currentUser());
+                    }
+                }
             }
 
             /**
@@ -65,7 +74,7 @@
                 if (!empty($this->uuid)) {
                     return $this->uuid;
                 }
-                if ($url = $this->getURL()) {
+                if ($url = $this->getURL(true)) {
                     return $url;
                 }
                 if (!empty($this->_id)) {
@@ -152,7 +161,7 @@
             static function getByID($id)
             {
                 try {
-                    return self::getOneFromAll(array('_id' => new \MongoId($id)));
+                    return self::getOneFromAll(array('_id' => \Idno\Core\site()->db()->processID($id)));
                 } catch (\Exception $e) {
                     return false; //\Idno\Core\site()->currentPage()->noContent();
                 }
@@ -296,11 +305,14 @@
              * of $foo for any property of this entity.
              */
 
-            function __get($name)
+            function &__get($name)
             {
-                if (isset($this->attributes[$name])) return $this->attributes[$name];
+                if (!isset($this->attributes[$name])) {
+                    $this->attributes[$name] = null;
+                }
 
-                return null;
+                return $this->attributes[$name];
+
             }
 
             /**
@@ -385,6 +397,22 @@
             }
 
             /**
+             * Retrieve a title for this object suitable for notifications
+             * @return string
+             */
+            function getNotificationTitle()
+            {
+                if ($title = $this->getTitle()) {
+                    return $title;
+                }
+                if ($description = $this->getShortDescription()) {
+                    return $description;
+                }
+
+                return '';
+            }
+
+            /**
              * Saves this entity - either creating a new entry, or
              * overwriting the existing one.
              */
@@ -402,7 +430,12 @@
                 // Automatically add a slug (if one isn't set and this is a new entity)
 
                 if (!$this->getSlug() && empty($this->_id)) {
-                    $this->setSlugResilient($this->getTitle());
+                    if (!($title = $this->getTitle())) {
+                        if (!($title = $this->getDescription())) {
+                            $title = md5(time() . rand(0, 9999));
+                        }
+                    }
+                    $this->setSlugResilient($title);
                 }
 
                 // Automatically set access
@@ -441,6 +474,8 @@
                         }
 
                         \Idno\Core\site()->events()->dispatch('saved', $event);
+                    } else {
+                        \Idno\Core\site()->triggerEvent('updated', array('object' => $this));
                     }
 
                     return $this->_id;
@@ -513,6 +548,7 @@
             {
                 $slug = trim($slug);
                 $slug = strtolower($slug);
+                $slug = strip_tags($slug);
                 $slug = preg_replace('|https?://[a-z\.0-9]+|i', '', $slug);
                 $slug = preg_replace("/[^A-Za-z0-9\-\_ ]/", '', $slug);
                 $slug = preg_replace("/[ ]+/", ' ', $slug);
@@ -596,7 +632,9 @@
 
                 $other_results = \Idno\Entities\ActivityStreamPost::get($search);
 
-                return array_merge($results, $other_results);
+                $return = array_merge($results, $other_results);
+
+                return $return;
 
             }
 
@@ -604,7 +642,7 @@
              * Attaches a file reference to this entity
              * @param \MongoGridFSFile $file_wrapper
              */
-            function attachFile(\MongoGridFSFile $file_wrapper)
+            function attachFile($file_wrapper)
             {
                 $file = $file_wrapper->file;
                 if (empty($this->attachments) || !is_array($this->attachments)) {
@@ -783,6 +821,79 @@
             }
 
             /**
+             * Retrieves the rendered HTML of this body
+             * @return string
+             */
+            function getBody()
+            {
+                if (!empty($this->body)) {
+                    return $this->body;
+                }
+
+                return '';
+            }
+
+            /**
+             * Get the URIs of all images in this entity's body HTML
+             * @return array
+             */
+            function getImageSourcesFromBody()
+            {
+                $src = [];
+                if ($body = $this->getBody()) {
+                    $doc = new \DOMDocument();
+                    $doc->loadHTML($body);
+                    if ($images = $doc->getElementsByTagName('img')) {
+                        foreach ($images as $image) {
+                            if ($source = $image->getAttribute('src')) {
+                                $src[] = $source;
+                            }
+                        }
+                    }
+                }
+
+                return $src;
+            }
+
+            /**
+             * Gets the URI of the first image in this entity's body HTML
+             * @return bool
+             */
+            function getFirstImageSourceFromBody()
+            {
+                if ($src = $this->getImageSourcesFromBody()) {
+                    return $src[0];
+                }
+
+                return false;
+            }
+
+            /**
+             * Get the time it would take to read this entity's body, in seconds.
+             * @return int
+             */
+            function getReadingTimeInSeconds()
+            {
+                if ($body = $this->getBody()) {
+                    $body  = strip_tags($body);
+                    $words = str_word_count($body);
+
+                    return (int)ceil(($words / 200) * 60);
+                }
+
+                return 0;
+            }
+
+            /**
+             * Get the time it would take to read this entity's body, in minutes.
+             * @return int
+             */
+            function getReadingTimeInMinutes()
+            {
+                return (int)ceil($this->getReadingTimeInSeconds() / 60);
+            }
+
+            /**
              * Sets the POSSE link for this entity to a particular service
              * @param $service
              * @param $url
@@ -821,7 +932,7 @@
              */
             function getCitation()
             {
-                $host     = \Idno\Core\site()->config()->host;
+                $host     = parse_url(\Idno\Core\site()->config()->getURL(), PHP_URL_HOST);
                 $shorturl = $this->getShortURL(false);
 
                 return '(' . $host . ' s/' . $shorturl . ')';
@@ -896,15 +1007,19 @@
 
             /**
              * Retrieve a short description of this page suitable for including in page metatags
+             * @param $words Number of words to limit to, if we're generating a short description on the fly (default: 25)
              * @return string
              */
 
-            function getShortDescription()
+            function getShortDescription($words = 25)
             {
                 if (!empty($this->short_description))
                     return $this->short_description;
 
-                return strip_tags($this->getDescription());
+                $description = strip_tags($this->getDescription());
+                $description = implode(' ', array_slice(explode(' ', $description), 0, $words));
+
+                return $description;
             }
 
             /**
@@ -951,6 +1066,7 @@
             {
 
                 if (!\Idno\Core\site()->session()->isLoggedOn()) return false;
+                if (!\Idno\Core\site()->canEdit()) return false;
 
                 if (empty($user_id)) {
                     $user_id = \Idno\Core\site()->session()->currentUserUUID();
@@ -999,7 +1115,7 @@
             {
                 $access = $this->access;
                 if (!$idOnly && $access != 'PUBLIC') {
-                    $access = site()->db()->getObject($access);
+                    $access = \Idno\Core\site()->db()->getObject($access);
                 }
 
                 return $access;
@@ -1150,7 +1266,15 @@
                     return \Idno\Core\site()->config()->url . date('Y', $this->created) . '/' . $slug;
                 }
 
-                if (!empty($this->created)) {
+                $new = false;
+                if ($args = func_get_args()) {
+                    if ($args[0] === true) {
+                        $new = true;
+                    }
+                }
+
+                $id = $this->getID();
+                if (!$new && !empty($id)) {
                     $uuid = $this->getUUID();
                     if (!empty($uuid)) {
                         return $uuid;
@@ -1401,8 +1525,8 @@
                 if (empty($annotation_url)) {
                     $annotation_url = $this->getURL() . '/annotations/' . md5(time() . $content); // Invent a URL for this annotation
                 }
-		// Create a local URL (fixes #199)
-		$local_url = $this->getURL() . '/annotations/' . md5(time() . $content); // Invent a URL for this annotation
+                // Create a local URL (fixes #199)
+                $local_url = $this->getURL() . '/annotations/' . md5(time() . $content); // Invent a URL for this annotation
                 if (empty($time)) {
                     $time = time();
                 } else {
@@ -1418,11 +1542,65 @@
                 }
 
                 $annotations[$subtype][$local_url] = $annotation;
-                $this->annotations                      = $annotations;
+                $this->annotations                 = $annotations;
 
                 \Idno\Core\site()->triggerEvent('annotation/add/' . $subtype, ['annotation' => $annotation, 'object' => $this]);
 
+                if ($owner = $this->getOwner()) {
+
+                    switch ($subtype) {
+                        case 'reply':
+                            $subject               = $owner_name . ' replied to your post!';
+                            $notification_template = 'content/notification/reply';
+                            $context               = 'reply';
+                            break;
+                        case 'like':
+                            $subject               = $owner_name . ' liked your post!';
+                            $notification_template = 'content/notification/like';
+                            $context               = 'like';
+                            break;
+                        case 'share':
+                            $subject               = $owner_name . ' reshared your post!';
+                            $notification_template = 'content/notification/share';
+                            $context               = 'share';
+                            break;
+                        case 'rsvp':
+                            $subject               = $owner_name . ' RSVPed!';
+                            $notification_template = 'content/notification/rsvp';
+                            $context               = 'rsvp';
+                            break;
+                    }
+
+                    if ($annotation['owner_url'] != $this->getOwner()->getURL()) {
+                        $owner->notify($subject, $notification_template, $annotation, $context, $this);
+                    }
+                }
+
                 return true;
+            }
+
+            /**
+             * Determines whether the current user can edit the specified annotation
+             * @param array|string $annotation
+             * @return bool
+             */
+            function canEditAnnotation($annotation)
+            {
+                if ($this->canEdit()) {
+                    return true;
+                }
+                if ($user = \Idno\Core\site()->session()->currentUser()) {
+                    if (!is_array($annotation)) {
+                        $annotation = $this->getAnnotation($annotation);
+                    }
+                    if (!empty($annotation['owner_url'])) {
+                        if ($annotation['owner_url'] == $user->getURL()) {
+                            return true;
+                        }
+                    }
+                }
+
+                return false;
             }
 
             /**
@@ -1486,6 +1664,54 @@
                 }
 
                 return 0;
+            }
+
+            /**
+             * Allows you to query for a property value as you would an array
+             * @param mixed $offset
+             * @return bool
+             */
+            function offsetExists($offset)
+            {
+                return empty($this->attributes[$offset]);
+            }
+
+            /**
+             * Allows you to retrieve a property value as you would an array
+             * @param mixed $offset
+             * @return mixed
+             */
+            function offsetGet($offset)
+            {
+                return $this->attributes[$offset];
+            }
+
+            /**
+             * Allows you to set a property value as you would an array
+             * @param mixed $offset
+             * @param mixed $value
+             */
+            function offsetSet($offset, $value)
+            {
+                $this->attributes[$offset] = $value;
+            }
+
+            /**
+             * Allows you to unset a property value as you would an array
+             * @param mixed $offset
+             */
+            function offsetUnset($offset)
+            {
+                unset($this->attributes[$offset]);
+            }
+
+            /**
+             * Retrieve this object's stored attributes
+             * @return array
+             */
+            function getAttributes()
+            {
+                return $this->attributes;
             }
 
         }

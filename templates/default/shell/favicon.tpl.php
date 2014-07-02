@@ -1,7 +1,7 @@
 <?php
 
     $user_avatar_favicons = \Idno\Core\site()->config('user_avatar_favicons');
-    if (($user = \Idno\Core\site()->currentPage()->getOwner()) && ($user_avatar_favicons)) {
+    if ((\Idno\Core\site()->currentPage()) && ($user = \Idno\Core\site()->currentPage()->getOwner()) && ($user_avatar_favicons)) {
         if ($user instanceof \Idno\Entities\User) {
             $icon = $user->getIcon();
             if (strpos($icon, 'thumb.jpg') !== false) {
@@ -19,9 +19,10 @@
 <?php
     } else {
 ?>
-        <link rel="icon" type="image/png" href="<?=\Idno\Core\site()->config()->url?>gfx/template/idnoicon.png">
+<!--        <link rel="icon" type="image/png" href="<?=\Idno\Core\site()->config()->url?>gfx/template/favicon.png"> -->
+        <link rel="icon" type="image/png" href="http://withknown.com/img/logo_k.png">
         <!-- Make this an "app" when saved to an ios device's home screen -->
-        <link rel="apple-touch-icon" href="<?=\Idno\Core\site()->config()->url?>gfx/template/idnoappleicon.png">
+        <link rel="apple-touch-icon" href="http://withknown.com/img/logo_k.png">
 <?php
     }
 

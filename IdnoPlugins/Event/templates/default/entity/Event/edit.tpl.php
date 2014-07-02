@@ -1,3 +1,4 @@
+<?=$this->draw('entity/edit/header');?>
 <?php
 
     $autosave = new \Idno\Core\Autosave();
@@ -57,10 +58,10 @@
                 </label>
             </p>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('event'); ?>
-            <p>
+            <p class="button-bar">
                 <?= \Idno\Core\site()->actions()->signForm('/event/edit') ?>
+                <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();" />
                 <input type="submit" class="btn btn-primary" value="Save" />
-                <input type="button" class="btn" value="Cancel" onclick="hideContentCreateForm();" />
                 <?= $this->draw('content/access'); ?>
             </p>
         </div>
@@ -69,7 +70,7 @@
             <p>
                 <label>
                     Body<br />
-                    <textarea name="body" id="body" class="span6 bodyInput" required><?=htmlspecialchars($body)?></textarea>
+                    <textarea name="body" id="body" class="span6 bodyInput mentionable" required><?=htmlspecialchars($body)?></textarea>
                 </label>
             </p>
 
@@ -80,3 +81,4 @@
 <script>
     autoSave('event', ['title','summary','location','starttime','endtime','body']);
 </script>
+<?=$this->draw('entity/edit/footer');?>

@@ -18,20 +18,18 @@
             {
 
                 ini_set('session.cookie_lifetime', 60 * 60 * 24 * 30); // Persistent cookies
-                //ini_set('session.cookie_httponly', true); // Restrict cookies to HTTP only (help reduce XSS attack profile)
+                ini_set('session.gc_maxlifetime', 60 * 60 * 24 * 30); // Garbage collection to match
+                ini_set('session.cookie_httponly', true); // Restrict cookies to HTTP only (help reduce XSS attack profile)
 
-                $sessionHandler = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\MongoDbSessionHandler(\Idno\Core\site()->db()->getClient(), [
-                    'database'   => 'idnosession',
-                    'collection' => 'idnosession'
-                ]);
-                session_set_save_handler($sessionHandler, true);
+                site()->db()->handleSession();
 
                 session_name(site()->config->sessionname);
                 session_start();
                 session_cache_limiter('public');
+                session_regenerate_id();
 
                 // Session login / logout
-                site()->addPageHandler('/session/login', '\Idno\Pages\Session\Login');
+                site()->addPageHandler('/session/login', '\Idno\Pages\Session\Login', true);
                 site()->addPageHandler('/session/logout', '\Idno\Pages\Session\Logout');
                 site()->addPageHandler('/currentUser/?', '\Idno\Pages\Session\CurrentUser');
 
@@ -110,7 +108,9 @@
 
             function addMessage($message, $message_type = 'alert-info')
             {
-                if (empty($_SESSION['messages'])) $_SESSION['messages'] = array();
+                if (empty($_SESSION['messages'])) {
+                    $_SESSION['messages'] = [];
+                }
                 $_SESSION['messages'][] = array('message' => $message, 'message_type' => $message_type);
             }
 
@@ -135,7 +135,7 @@
                 if (!empty($_SESSION['messages'])) {
                     return $_SESSION['messages'];
                 } else {
-                    return array();
+                    return [];
                 }
             }
 
@@ -144,7 +144,9 @@
              */
             function flushMessages()
             {
-                $_SESSION['messages'] = array();
+                $messages                       = [];
+                $_SESSION['messages']           = $messages;
+                $_SESSION['last_message_flush'] = date('r', time());
             }
 
             /**
@@ -283,6 +285,10 @@
 
             function logUserOn(\Idno\Entities\User $user)
             {
+                if (empty($user->notifications)) {
+                    $user->notifications['email'] = 'all'; // By default, send notifications to users
+                }
+
                 return $this->refreshSessionUser($user);
             }
 
@@ -293,9 +299,16 @@
              */
             function refreshSessionUser(\Idno\Entities\User $user)
             {
-                $user = User::getByUUID($user->getUUID());
-                $_SESSION['user'] = $user;
-                return $user;
+                if ($user = User::getByUUID($user->getUUID())) {
+                    /* @var \Idno\Common\User $user */
+                    $user->clearPasswordRecoveryCode();
+                    $user->save();
+                    $_SESSION['user'] = $user;
+
+                    return $user;
+                }
+
+                return false;
             }
 
             /**
@@ -319,6 +332,22 @@
                 }
 
                 return false;
+            }
+
+            /**
+             * If the current user isn't logged in and this isn't a public site, and this hasn't been defined as an
+             * always-public page, forward to the login page!
+             */
+            function publicGatekeeper()
+            {
+                if (!site()->config()->isPublicSite()) {
+                    if (!site()->session()->isLoggedOn()) {
+                        $class = get_class(site()->currentPage());
+                        if (!site()->isPageHandlerPublic($class)) {
+                            site()->currentPage()->forward(site()->config()->getURL() . 'session/login/');
+                        }
+                    }
+                }
             }
 
         }

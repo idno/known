@@ -5,6 +5,7 @@
     header('Cache-Control: no-cache, must-revalidate');
     header("Pragma: no-cache");
     header('Content-type: application/x-javascript; charset=UTF-8');
+    header("Access-Control-Allow-Origin: *");
     
     unset($vars['body']);
     $vars['messages'] = \Idno\Core\site()->session()->getAndFlushMessages();

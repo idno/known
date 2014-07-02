@@ -1,7 +1,10 @@
 <?php
 
     if (!empty($vars['annotations']) && is_array($vars['annotations'])) {
-        foreach($vars['annotations'] as $permalink => $annotation) {
+        foreach($vars['annotations'] as $locallink => $annotation) {
+
+            $permalink = $annotation['permalink'] ? $annotation['permalink'] : $locallink;
+
             ?>
             <div class="idno-annotation row">
                 <div class="idno-annotation-content span6 offset1">
