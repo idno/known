@@ -27,6 +27,8 @@
                 'multitenant'       => false
             );
 
+            public $ini_config = [];
+
             function init()
             {
                 // Load the config.ini file in the root folder, if it exists.
@@ -41,10 +43,6 @@
                 $this->indieweb_citation  = false;
                 $this->indieweb_reference = false;
 
-                if ($config = @parse_ini_file($this->path . '/config.ini')) {
-                    $this->config = array_merge($this->config, $config);
-                }
-
                 if ($this->multitenant) {
                     $dbname = $this->dbname;
                     $this->dbname = preg_replace('/[^\da-z]/i', '', $this->host);
@@ -53,14 +51,33 @@
                     }
                 }
 
-                // Per domain configuration
-                if ($config = @parse_ini_file($this->path . '/' . $this->host . '.ini')) {
-                    $this->config = array_merge($this->config, $config);
-                }
-
+                $this->loadIniFiles();
 
                 date_default_timezone_set($this->timezone);
                 //setlocale(LC_ALL, 'en_US.UTF8');
+            }
+
+            /**
+             * Load configuration from ini files
+             */
+            function loadIniFiles()
+            {
+
+                if (empty($this->ini_config)) {
+                    if ($config = @parse_ini_file($this->path . '/config.ini')) {
+                        $this->ini_config = array_merge($this->ini_config, $config);
+                    }
+                    // Per domain configuration
+                    if ($config = @parse_ini_file($this->path . '/' . $this->host . '.ini')) {
+                        $this->ini_config = array_merge($this->ini_config, $config);
+                    }
+                }
+
+                if (!empty($this->ini_config)) {
+                    $this->config = array_merge($this->config, $this->ini_config);
+                }
+
+
             }
 
             /**
@@ -124,7 +141,8 @@
             }
 
             /**
-             * Retrieves configuration information from the database, if possible.
+             * Retrieves configuration information from the database, if possible - while
+             * ensuring that config.ini overwrites db fields.
              */
             function load()
             {
@@ -136,6 +154,7 @@
                         $this->config = array_merge($this->config, $config);
                     }
                 }
+                $this->loadIniFiles();
             }
 
             /**
