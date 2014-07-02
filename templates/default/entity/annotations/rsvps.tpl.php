@@ -17,7 +17,7 @@
                         <a href="<?=htmlspecialchars($annotation['owner_url'])?>"><?=$annotation['owner_name']?></a>
                         RSVPed <strong><?=$annotation['content']?></strong>
                     </p>
-                    <p><small><a href="<?=$permalink?>"><?=date('M d Y', $annotation['time']);?></a></small></p>
+                    <p><small><a href="<?=$permalink?>"><?=date('M d Y', $annotation['time']);?></a> on <a href="<?=$permalink?>"><?=parse_url($permalink, PHP_URL_HOST)?></a></small></p>
                 </div>
             </div>
         <?php
