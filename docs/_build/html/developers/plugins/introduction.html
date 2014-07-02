@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Getting started writing Known plugins &mdash; Known 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="Known 0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Plugins" href="index.html" />
+    <link rel="next" title="The plugin class" href="class.html" />
+    <link rel="prev" title="Plugins" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="class.html" title="The plugin class"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Plugins"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Known 0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Known for developers</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Plugins</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="getting-started-writing-known-plugins">
+<h1>Getting started writing Known plugins<a class="headerlink" href="#getting-started-writing-known-plugins" title="Permalink to this headline">¶</a></h1>
+<p>Plugins allow you to extend Known&#8217;s functionality.</p>
+<p>In fact, it&#8217;s recommended that every piece of functionality or design that you add to Known is done through a plugin,
+so  that you can upgrade the core Known platform without jeopardizing your customizations. We&#8217;ve made this extremely
+simple.</p>
+<div class="section" id="layout">
+<h2>Layout<a class="headerlink" href="#layout" title="Permalink to this headline">¶</a></h2>
+<p>The plugin&#8217;s folder must sit inside /IdnoPlugins.</p>
+<p>Every plugin must have at least two files:</p>
+<ul class="simple">
+<li>Main.php: the main plugin class</li>
+<li>plugin.ini: a configuration file that provides information about the plugin in the admin panel</li>
+</ul>
+<p>Plugins may also contain the following files:</p>
+<ul class="simple">
+<li>ContentType.php: a class that describes a new type of content that your plugin will create (see Content Types)</li>
+<li>Entity.php: each object created with your content type will be an entity of this class (with the name of your choice - it&#8217;s recommended that you don&#8217;t actually use Entity)</li>
+<li>A set of pages under the plugin&#8217;s Pages subfolder</li>
+<li>A set of templates under the plugin&#8217;s templates subfolder</li>
+<li>Any other static assets or external libraries you wish to include</li>
+</ul>
+</div>
+<div class="section" id="structure-of-plugin-ini">
+<h2>Structure of plugin.ini<a class="headerlink" href="#structure-of-plugin-ini" title="Permalink to this headline">¶</a></h2>
+<p>The plugin.ini file contains a number of text entries:</p>
+<div class="highlight-python"><div class="highlight"><pre>[Plugin description]
+name =              &quot;The name of the plugin&quot;
+version =           &quot;The plugin&#39;s version number&quot;
+author =            &quot;Author&#39;s name&quot;
+author_email =      &quot;Author&#39;s email address&quot;
+author_url =        &quot;http://authors-url/&quot;
+description =       &quot;A short description that will be displayed in the administration panel&quot;
+</pre></div>
+</div>
+<p>More may be added over time. These entries are displayed in Known&#8217;s administration panel but may also be displayed in
+a future plugin directory.</p>
+</div>
+<div class="section" id="namespaces">
+<h2>Namespaces<a class="headerlink" href="#namespaces" title="Permalink to this headline">¶</a></h2>
+<p>Plugins are all defined as classes inside the IdnoPlugins namespace. For example, if your plugin was called Banana,
+its folder would be /IdnoPlugins/Banana, and all its classes would be in the IdnoPlugins/Banana namespace. This
+namespace maps exactly to the plugin&#8217;s file location - so, for example, IdnoPlugins/Banana/Main would be found at
+/IdnoPlugins/Banana/Main.php. Please do not write a banana plugin. (Or do. We&#8217;re not the boss of you. Whatever has
+appeal.)</p>
+<p>If the plugin is not installed, only plugin.ini is ever read by Known, and then only on the plugin administration page.</p>
+<p>If the plugin is installed, the plugin is loaded before any output is written to the screen, as follows:</p>
+<ul class="simple">
+<li>IdnoPluginsPluginNameMain is instantiated and saved to memory</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Any URLs associated with the plugin are registered</li>
+<li>Any template extensions associated with the plugin are registered</li>
+<li>Any event hooks associated with the plugin are registered (eg, the plugin might register a function to be called
+when note objects are created)</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>IdnoPluginsPluginNameContentType (if it exists) is instantiated and saved to memory</li>
+</ul>
+</div>
+<div class="section" id="templates">
+<h2>Templates<a class="headerlink" href="#templates" title="Permalink to this headline">¶</a></h2>
+<p>Each template file contains its own</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Getting started writing Known plugins</a><ul>
+<li><a class="reference internal" href="#layout">Layout</a></li>
+<li><a class="reference internal" href="#structure-of-plugin-ini">Structure of plugin.ini</a></li>
+<li><a class="reference internal" href="#namespaces">Namespaces</a></li>
+<li><a class="reference internal" href="#templates">Templates</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Plugins</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="class.html"
+                        title="next chapter">The plugin class</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/developers/plugins/introduction.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="class.html" title="The plugin class"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Plugins"
+             >previous</a> |</li>
+        <li><a href="../../index.html">Known 0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Known for developers</a> &raquo;</li>
+          <li><a href="index.html" >Plugins</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Known, Inc.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

@@ -5,11 +5,11 @@
 ?>
 /* SITE */
 
-Software: Idno http://idno.co/
+Software: Known http://withknown.com/
 
 /* TEAM */
 
-See http://idno.co for information about the Idno team.
+See http://withknown.com for information about the Known team.
 
 If no other information is displayed, this site's owner has not modified their humans.txt file as part of their
 customizations to Idno.

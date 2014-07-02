@@ -14,7 +14,7 @@
 
             function post()
             {
-                $this->gatekeeper(); // Logged-in users only
+                $this->createGatekeeper(); // Logged-in users only
                 $lat = $this->getInput('lat');
                 $long = $this->getInput('long');
                 if (!empty($lat) && (!empty($long))) {

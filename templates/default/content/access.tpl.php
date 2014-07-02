@@ -1,4 +1,7 @@
-<!--<input type="hidden" name="access" id="access-control-id" value="PUBLIC" />
+<?php
+    if (\Idno\Core\site()->config->experimental) {
+?>
+<input type="hidden" name="access" id="access-control-id" value="PUBLIC" />
 <div id="access-control" class="acl">
     <div class="btn-group">
         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -11,8 +14,12 @@
             $acls = \Idno\Entities\AccessGroup::get(['owner' => \Idno\Core\site()->session()->currentUserUUID()]);
             if (!empty($acls)) {
                 foreach ($acls as $acl) {
+		    	
+		    $icon = 'icon-cog';
+		    if ($acl->access_group_type == 'FOLLOWING')
+			$icon = 'icon-group';
                     ?>
-                    <li><a href="#" data-acl="<?= $acl->getUUID(); ?>" class="acl-option"><i class="icon-group"> </i> <?= $acl->title; ?></a></li>
+                    <li><a href="#" data-acl="<?= $acl->getUUID(); ?>" class="acl-option"><i class="<?= $icon; ?>"> </i> <?= $acl->title; ?></a></li>
                         <?php
                     }
                 }
@@ -20,4 +27,6 @@
         </ul>
     </div>
 </div>
--->
+<?php 
+    }
+?>

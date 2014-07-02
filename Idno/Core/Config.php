@@ -13,14 +13,18 @@
         {
 
             public $config = array(
+                'database'          => 'mongodb',
                 'dbstring'          => 'mongodb://localhost:27017',
-                'dbname'            => 'idno', // Default MongoDB database
-                'sessionname'       => 'idno', // Default session name
+                'dbname'            => 'known', // Default MongoDB database
+                'sessionname'       => 'known', // Default session name
                 'open_registration' => true, // Can anyone register for this system?
                 'plugins'           => array( // Default plugins
                                               'Status'
                 ),
-                'items_per_page'    => 10 // Default items per page
+                'themes'            => [],
+                'items_per_page'    => 10, // Default items per page
+                'experimental'      => false, // A common way to enable experimental functions still in development
+                'multitenant'       => false
             );
 
             function init()
@@ -29,8 +33,8 @@
                 // If not, we'll use default values. No skin off our nose.
                 $this->path               = dirname(dirname(dirname(__FILE__))); // Base path
                 $this->url                = (\Idno\Common\Page::isSSL() ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . '/'; // A naive default base URL
-                $this->title              = 'New Idno site'; // A default name for the site
-                $this->description        = 'A social website powered by Idno'; // Default description
+                $this->title              = 'New Known site'; // A default name for the site
+                $this->description        = 'A social website powered by Known'; // Default description
                 $this->timezone           = 'UTC';
                 $this->host               = parse_url($this->url, PHP_URL_HOST); // The site hostname, without parameters etc
                 $this->feed               = $this->url . '?_t=rss';
@@ -40,8 +44,23 @@
                 if ($config = @parse_ini_file($this->path . '/config.ini')) {
                     $this->config = array_merge($this->config, $config);
                 }
+
+                if ($this->multitenant) {
+                    $dbname = $this->dbname;
+                    $this->dbname = preg_replace('/[^\da-z]/i', '', $this->host);
+                    if (empty($this->dbname)) {
+                        $this->dbname = $dbname;
+                    }
+                }
+
+                // Per domain configuration
+                if ($config = @parse_ini_file($this->path . '/' . $this->host . '.ini')) {
+                    $this->config = array_merge($this->config, $config);
+                }
+
+
                 date_default_timezone_set($this->timezone);
-                setlocale(LC_ALL, 'en_US.UTF8');
+                //setlocale(LC_ALL, 'en_US.UTF8');
             }
 
             /**
@@ -110,11 +129,39 @@
             function load()
             {
                 if ($config = \Idno\Core\site()->db()->getAnyRecord('config')) {
-                    $config = (array)$config;
+                    if ($config instanceof \Idno\Common\Entity) {
+                        $config = $config->getAttributes();
+                    }
                     if (is_array($config)) {
                         $this->config = array_merge($this->config, $config);
                     }
                 }
+            }
+
+            /**
+             * Retrieve the canonical URL of the site
+             * @return string
+             */
+            function getURL()
+            {
+                if (!empty($this->url)) {
+                    return $this->url;
+                } else {
+                    return '/';
+                }
+            }
+
+            /**
+             * Is this site's content available to non-members?
+             * @return bool
+             */
+            function isPublicSite()
+            {
+                if (empty($this->walled_garden)) {
+                    return true;
+                }
+
+                return false;
             }
 
         }

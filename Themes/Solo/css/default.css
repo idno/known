@@ -1,0 +1,39 @@
+body {
+    background: #fff;
+    /*margin-top:64px;*/
+    /*padding-top: 0;*/
+    margin-bottom: 5em;
+}
+
+a {
+    color: #666;
+}
+
+.idno-content {
+    box-shadow: none;
+    border: none;
+}
+li {
+    line-height: 1.8em !important;
+}
+/*.entry-content .p-name a,*/
+.idno-entry h2 {
+    font-size: 1.8em;
+    margin: 0; padding: 0;
+}
+.entry-content blockquote {
+    margin-top: 2em;
+    margin-bottom: 2em;
+    font-size: 0.9em;
+    color: #444;
+}
+.idno-statusupdates .entry-content p {
+    font-size: 1.8em;
+    margin: 0; padding: 0;
+}
+.navbar-inverse .navbar-inner {
+    background-color: #111; /* background color will be black for all browsers */
+    background-image: none;
+    background-repeat: no-repeat;
+    opacity: 0.9;
+}

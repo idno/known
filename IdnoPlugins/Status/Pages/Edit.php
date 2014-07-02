@@ -6,7 +6,7 @@
 
             function getContent() {
 
-                $this->gatekeeper();    // This functionality is for logged-in users only
+                $this->createGatekeeper();    // This functionality is for logged-in users only
 
                 // Are we loading an entity?
                 if (!empty($this->arguments)) {
@@ -36,7 +36,7 @@
             }
 
             function postContent() {
-                $this->gatekeeper();
+                $this->createGatekeeper();
 
                 $new = false;
                 if (!empty($this->arguments)) {
@@ -47,7 +47,7 @@
                 }
 
                 if ($object->saveDataFromInput($this)) {
-                    $this->forward($object->getURL());
+                    $this->forward(\Idno\Core\site()->config()->getURL() . 'content/all/#feed');
                 }
 
             }

@@ -6,9 +6,9 @@
         <?= $this->draw('admin/menu'); ?>
         <div class="explanation">
             <p>
-                Site styles let you easily modify idno's default CSS by overriding it. You can always find more
-                idno style templates, as well as tutorials and other resources, on
-                <a href="http://idno.co" target="_blank">the idno website</a>.
+                Site styles let you easily modify Known's default CSS by overriding it. You can always find more
+                Known style templates, as well as tutorials and other resources, on
+                <a href="http://withknown.com" target="_blank">the Known website</a>.
             </p>
         </div>
     </div>
@@ -16,7 +16,7 @@
 <form action="/admin/styles/" method="post" enctype="multipart/form-data">
     <div class="row">
         <div class="span10 offset1">
-            Your changes to idno's core CSS (<a href="<?= \Idno\Core\site()->config()->url ?>styles/site/">download
+            Your changes to Known's core CSS (<a href="<?= \Idno\Core\site()->config()->url ?>styles/site/">download
                 this</a>)<br/>
             <textarea class="span10" name="css" style="height: 15em; font-family: Courier, monospace"><?php
 

@@ -9,9 +9,10 @@
 
     namespace Idno\Entities {
 
-        // We need the PHP 5.5 password API
         use Idno\Common\ContentType;
+        use Idno\Core\Email;
 
+        // We need the PHP 5.5 password API
         require_once \Idno\Core\site()->config()->path . '/external/password_compat/lib/password.php';
 
         class User extends \Idno\Common\Entity implements \JsonSerializable
@@ -54,14 +55,43 @@
                 });
 
                 // Refresh session user whenever it is saved
-                \Idno\Core\site()->addEventHook('saved', function(\Idno\Core\Event $event) {
+                \Idno\Core\site()->addEventHook('saved', function (\Idno\Core\Event $event) {
 
                     $user = $event->data()['object'];
 
                     if ($user instanceof User) {
-                        if ($user->getUUID() == \Idno\Core\site()->session()->currentUser()->getUUID()) {
-                            \Idno\Core\site()->session()->refreshSessionUser($user);
+                        if ($currentUser = \Idno\Core\site()->session()->currentUser()) {
+                            if ($user->getUUID() == $currentUser->getUUID()) {
+                                \Idno\Core\site()->session()->refreshSessionUser($user);
+                            }
                         }
+                    }
+
+                });
+
+                // Email notifications
+                \Idno\Core\site()->addEventHook('notify', function (\Idno\Core\Event $event) {
+
+                    $user = $event->data()['user'];
+
+                    if ($user instanceof User && $context = $event->data()['context']) {
+
+                        if (empty($user->notifications['email']) || $user->notifications['email'] == 'all' || ($user->notifications['email'] == 'comment' && in_array($context, ['comment', 'reply']))) {
+
+                            $vars = $event->data()['vars'];
+                            if (empty($vars)) {
+                                $vars = [];
+                            }
+                            $vars['object'] = $event->data()['object'];
+
+                            $email = new Email();
+                            $email->setSubject($event->data()['message']);
+                            $email->setHTMLBodyFromTemplate($event->data()['message_template'], $vars);
+                            $email->addTo($user->email);
+                            $email->send();
+
+                        }
+
                     }
 
                 });
@@ -85,6 +115,24 @@
                 }
 
                 return \Idno\Core\site()->config()->url . 'gfx/users/default.png';
+            }
+
+            /**
+             * A friendly alias for getTitle.
+             * @return string
+             */
+            function getName()
+            {
+                return $this->getTitle();
+            }
+
+            /**
+             * A friendly alias for SetTitle.
+             * @param $name
+             */
+            function setName($name)
+            {
+                return $this->setTitle($name);
             }
 
             /**
@@ -113,7 +161,7 @@
              */
             static function getByEmail($email)
             {
-                if ($result = \Idno\Core\site()->db()->getObjects('Idno\\Entities\\User', array('email' => $email), null, 1)) {
+                if ($result = \Idno\Core\site()->db()->getObjects(get_called_class(), array('email' => $email), null, 1)) {
                     foreach ($result as $row) {
                         return $row;
                     }
@@ -171,12 +219,33 @@
              */
             static function getByHandle($handle)
             {
-                if ($result = \Idno\Core\site()->db()->getObjects('Idno\\Entities\\User', array('handle' => $handle), null, 1)) {
+                if ($result = \Idno\Core\site()->db()->getObjects(get_called_class(), array('handle' => $handle), null, 1)) {
                     foreach ($result as $row) {
                         return $row;
                     }
                 }
 
+                return false;
+            }
+
+            /**
+             * Retrieve a user by their profile URL.
+             * @param string $url
+             * @return User|false
+             */
+            static function getByProfileURL($url)
+            {
+                // If user explicitly has a profile url set (generally this means it's a RemoteUser class
+                if ($result = \Idno\Core\site()->db()->getObjects(get_called_class(), array('url' => $url), null, 1)) {
+                    foreach ($result as $row) {
+                        return $row;
+                    }
+                }
+                // Ok, now try and see if we can get the local profile
+                if (preg_match("~" . \Idno\Core\site()->config()->url . 'profile/([A-Za-z0-9]+)?~', $url, $matches))
+                    return \Idno\Entities\User::getByHandle($matches[1]);
+
+                // Can't find
                 return false;
             }
 
@@ -271,8 +340,44 @@
             }
 
             /**
+             * Retrieve the current password recovery code - if it's less than three hours old
+             * @return string|false
+             */
+            function getPasswordRecoveryCode()
+            {
+                if ($code = $this->password_recovery_code) {
+                    if ($this->password_recovery_code_time > (time() - (3600 * 3))) {
+                        return $code;
+                    }
+                }
+
+                return false;
+            }
+
+            /**
+             * Add a password recovery code to the user
+             * @return string The new recovery code, suitable for sending in an email
+             */
+            function addPasswordRecoveryCode()
+            {
+                $auth_code                         = md5(time() . rand(0, 9999) . $this->email);
+                $this->password_recovery_code      = $auth_code;
+                $this->password_recovery_code_time = time();
+
+                return $auth_code;
+            }
+
+            /**
+             * Clears this user's password recovery code (eg if they log in and don't need it anymore).
+             */
+            function clearPasswordRecoveryCode()
+            {
+                $this->password_recovery_code = false;
+            }
+
+            /**
              * Does this user have everything he or she needs to be a fully-fledged
-             * idno member? This method checks to make sure the minimum number of
+             * Known member? This method checks to make sure the minimum number of
              * fields are filled in.
              *
              * @return true|false
@@ -298,12 +403,27 @@
             {
                 if ($user instanceof \Idno\Entities\User) {
                     $users = $this->getFollowingUUIDs();
-                    if (!in_array($user->getUUID(), $users)) {
+                    if (!in_array($user->getUUID(), $users, true)) {
                         $users[$user->getUUID()] = ['name' => $user->getTitle(), 'icon' => $user->getIcon(), 'url' => $user->getURL()];
                         $this->following         = $users;
 
-			\Idno\Core\site()->events()->dispatch('follow', ['user' => $this, 'following' => $user]);
-			
+                        // Create/modify ACL for following user
+                        $acl = \Idno\Entities\AccessGroup::getOne([
+                            'owner'             => $this->getUUID(),
+                            'access_group_type' => 'FOLLOWING'
+                        ]);
+
+                        if (empty($acl)) {
+                            $acl                    = new \Idno\Entities\AccessGroup();
+                            $acl->title             = "People I follow...";
+                            $acl->access_group_type = 'FOLLOWING';
+                        }
+
+                        $acl->addMember($user->getUUID());
+                        $acl->save();
+
+                        \Idno\Core\site()->triggerEvent('follow', ['user' => $this, 'following' => $user]);
+
                         return true;
                     }
                 }
@@ -351,8 +471,18 @@
                     $users = $this->getFollowingUUIDs();
                     unset($users[$user->getUUID()]);
                     $this->following = $users;
-		    
-		    \Idno\Core\site()->events()->dispatch('unfollow', ['user' => $this, 'following' => $user]);
+
+                    $acl = \Idno\Entities\AccessGroup::getOne([
+                        'owner'             => $this->getUUID(),
+                        'access_group_type' => 'FOLLOWING'
+                    ]);
+
+                    if (!empty($acl)) {
+                        $acl->removeMember($user->getUUID());
+                        $acl->save();
+                    }
+
+                    \Idno\Core\site()->triggerEvent('unfollow', ['user' => $this, 'following' => $user]);
 
                     return true;
                 }
@@ -523,19 +653,23 @@
             /**
              * Hook to provide a method of notifying a user - for example, sending an email or displaying a popup.
              *
-             * @param string $message The message to notify the user with.
-             * @param string $long_message Optionally, a longer version of the message with more detail.
+             * @param string $message The short text message to notify the user with. (eg, a subject line.)
+             * @param string $message_template Optionally, a template name pointing to a longer version of the message with more detail.
+             * @param string $context Optionally, a string describing the kind of action. eg, "comment", "like" or "reshare".
+             * @param array $vars Optionally, variables to pass to the template.
              * @param \Idno\Common\Entity|null $object Optionally, an object to pass
              * @param array|null $params Optionally, any parameters to pass to the process. NB: this should be used rarely.
              */
-            public function notify($message, $long_message = null, $object = null, $params = null)
+            public function notify($message, $message_template = '', $vars = [], $context = '', $object = null, $params = null)
             {
                 return \Idno\Core\site()->triggerEvent('notify', [
-                    'user'         => $this,
-                    'message'      => $message,
-                    'long_message' => $long_message,
-                    'object'       => $object,
-                    'parameters'   => $params
+                    'user'             => $this,
+                    'message'          => $message,
+                    'context'          => $context,
+                    'vars'             => $vars,
+                    'message_template' => $message_template,
+                    'object'           => $object,
+                    'parameters'       => $params
                 ]);
             }
 

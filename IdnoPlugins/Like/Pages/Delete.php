@@ -6,7 +6,7 @@
 
             function getContent() {
 
-                $this->gatekeeper();    // This functionality is for logged-in users only
+                $this->createGatekeeper();    // This functionality is for logged-in users only
 
                 // Are we loading an entity?
                 if (!empty($this->arguments)) {
@@ -29,7 +29,7 @@
             }
 
             function postContent() {
-                $this->gatekeeper();
+                $this->createGatekeeper();
 
                 if (!empty($this->arguments)) {
                     $object = \IdnoPlugins\Like\Like::getByID($this->arguments[0]);
@@ -42,7 +42,7 @@
                 }
 
                 if ($object->delete()) {
-                    \Idno\Core\site()->session()->addMessage('Your like update was deleted.');
+                    \Idno\Core\site()->session()->addMessage('Your bookmark was deleted.');
                 } else {
                     \Idno\Core\site()->session()->addMessage("We couldn't delete " . $object->getTitle() . ".");
                 }

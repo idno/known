@@ -1,5 +1,5 @@
 /**
- Helper Javascript functions for idno
+ Helper Javascript functions for Known
 
  If you need to add your own JavaScript, the best thing to do is to create your own js files
  and reference them from a custom plugin or template.

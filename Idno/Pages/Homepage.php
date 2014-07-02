@@ -28,7 +28,7 @@
                         if (empty($friendly_types) && !empty($query)) {
                             $friendly_types = [all];
                         }
-                        $types          = [];
+                        $types = [];
                         // Run through the URL parameters and set content types appropriately
                         foreach ($friendly_types as $friendly_type) {
                             if ($friendly_type == 'all') {
@@ -74,7 +74,12 @@
                 if (!empty(\Idno\Core\site()->config()->description)) {
                     $description = \Idno\Core\site()->config()->description;
                 } else {
-                    $description = 'An independent social website, powered by Idno.';
+                    $description = 'An independent social website, powered by Known.';
+                }
+
+                // If we have a feed, set our last modified flag to the time of the latest returned entry
+                if ($feed && is_array($feed)) {
+                    $this->setLastModifiedHeader($feed[0]->updated);
                 }
 
                 $t = \Idno\Core\site()->template();
