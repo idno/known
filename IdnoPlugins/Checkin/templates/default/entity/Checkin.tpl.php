@@ -9,17 +9,18 @@
 
 <div class="">
 
-    <p class="h-geo">
+    <h5 class="h-geo">
         <a href="<?=$object->getURL()?>"><?=$object->getTitle()?></a>
         <data class="p-latitude" value="<?=$object->lat?>"></data>
         <data class="p-longitude" value="<?=$object->long?>"></data>
-    </p>
-    <?php
+    </h5>
+
+    <div id="map_<?=$object->_id?>" style="height: 250px"></div>
+        <?php
         if (!empty($object->body)) {
             echo $this->autop($this->parseURLs($this->parseHashtags($object->body)));
         }
     ?>
-    <div id="map_<?=$object->_id?>" style="height: 250px"></div>
 
 </div>
 <script>

@@ -1,7 +1,8 @@
 body {
     background: #fff;
-    /*margin-top:64px;*/
-    /*padding-top: 0;*/
+    color: #373737;
+    font-weight: 400 !important;
+    font-family: 'proxima-nova','Helvetica','Avenir','Arial',sans-serif;
     margin-bottom: 5em;
 }
 
@@ -10,26 +11,94 @@ a {
 }
 
 a:hover, a:focus {
-	color: #000000;
+	color: #333333;
 	text-decoration: none;
+}
+
+h2 {
+    line-height: 0.8em;
+    margin-bottom: 0.8em !important;
 }
 
 h2 a {
 	font-family: "Proxima Nova","Open Sans","Gill Sans MT","Gill Sans",Corbel,Arial,sans-serif;
 	font-weight: 600;
-	color: #333333;
+	color: #000000;
 }
 
 .idno-content {
     box-shadow: none;
     border: none;
 }
+
+.idno-content p {
+	font-family: "Calisto MT", "Bookman Old Style", Bookman, "Goudy Old Style", Garamond, "Hoefler Text", "Bitstream Charter", Georgia, serif;
+	color: #494949;
+}
+
+.entry-content .p-photo a, .idno-posts h2. p-photo {
+	font-size: 1.8em;
+	margin:0; padding: 0;	
+}
+
+.entry-content .p-bookmark a, .idno-posts h5.p-bookmark {
+	font-size: 1.8em;
+	margin: 0; padding: 0;
+}
+
+h5.p-bookmark a {
+	color: #000000;
+}
+
+h5.p-bookmark a:hover, h5.p-bookmark a:focus {
+	color: #333333;
+}
+
+.entry-content .h-geo a, .idno-posts h5.h-geo {
+    font-size: 1.8em;
+    margin: 0;
+    padding: 0;
+}
+
+h5.h-geo a {
+    color: #000000;
+}
+
+h5.h-geo a:hover, h5.h-geo a:focus {
+	color: #333333;
+}
+
+.idno-entry h2 {
+	font-family: "Proxima Nova","Open Sans","Gill Sans MT","Gill Sans",Corbel,Arial,sans-serif;
+	font-weight: 600;
+	color: #000000;
+}
+
+.idno-object .e-content {
+	font-size: 22px;
+	padding-top: 0;
+}
+
+.idno-object .footer p {
+	font-family: 'proxima-nova','Helvetica','Avenir','Arial',sans-serif;
+}
+
+.idno-object .footer {
+    border-top: 2px solid #999999;
+    clear: both;
+    font-size: 0.85em;
+    padding-top: 5px;
+}
+
 li {
     line-height: 1.8em !important;
 }
-/*.entry-content .p-name a,*/
+
 .idno-entry h2 {
-    font-size: 1.8em;
+	font-family: "Proxima Nova","Open Sans","Gill Sans MT","Gill Sans",Corbel,Arial,sans-serif;
+	font-weight: 600;
+	color: #000000;
+    font-size: 32px;
     margin: 0; padding: 0;
 }
 .entry-content blockquote {
@@ -39,13 +108,14 @@ li {
     color: #444;
 }
 .idno-statusupdates .entry-content p {
-    font-size: 1.8em;
+    font-size: 1.0em;
     margin: 0; padding: 0;
 }
 .navbar-inverse .navbar-inner {
     background-color: #FFFFFF; 
     background-image: none;
-    opacity: none;
+    opacity: 1.0;
+    border-bottom: 3px solid #252525;
 }
 
 .navbar-inverse .brand {
@@ -53,5 +123,96 @@ li {
 }
 
 .navbar-inverse .brand:hover, .navbar-inverse .nav > li > a:hover, .navbar-inverse .brand:focus, .navbar-inverse .nav > li > a:focus {
+    color: #000000; 
+}
+
+.navbar-inverse .brand, .navbar-inverse .nav > li > a {
+    text-shadow: none;
+}
+
+.navbar-inverse .nav li.dropdown > a:hover .caret, .navbar-inverse .nav li.dropdown > a:focus .caret {
+	border-bottom-color: #000000;
+	border-top-color: #000000;
+}
+
+.navbar-inverse .nav li.dropdown > .dropdown-toggle .caret {
+    border-bottom-color: #999999;
+    border-top-color: #999999;
+}
+
+.navbar-inverse .brand {
+    color: #333333;
+    font-weight: 600;
+    padding: 12px 20px;
+    font-size: 24px;  
+}
+
+a.contentTypeButton {
     color: #000000;
+}
+
+a.contentTypeButton:hover {
+	background-color: #FFFFFF;
+	color:#8cbf99;
+}
+
+a.contentTypeButton {
+    padding-bottom: 20px;
+    padding-top: 20px;
+    border-radius: 100%;
+    border: 3px solid #000;
+    margin-bottom: 10px;
+    width: 75px;
+}
+
+a.contentTypeButton:hover {
+	border: 3px solid #8cbf99;
+}
+
+span.contentTypeLogo {
+    padding-bottom: 2px;
+    padding-top: 2px;
+}
+
+.navbar-inverse .navbar-search .search-query {
+    background-color: #fff;
+    border-color: #111111;
+    box-shadow: none;
+    color: #333;
+    transition: none 0s ease 0s ;
+}
+
+.pager li > a, .pager li > span {
+    background-color: #fff;
+    border: 2px solid #000;
+    border-radius: 15px;
+    display: inline-block;
+    padding: 5px 14px;
+}
+
+.pager a {
+	font-weight: 600;
+	color: #000;
+}
+
+.pager li > a:hover, .pager li > a:focus {
+	background-color: #73b2e3;
+	border: 2px solid #73b2e3;
+}
+
+.pager a:hover, .pager a:focus {
+	font-weight: 600;
+	color: #FFF;
+}
+
+.leaflet-container {
+    margin: 0 0 10px;
+
+
+/* This Darn Stuff Below */
+
+.idno-object .permalink a:hover {
+    color: #999;
+    margin-right: 0.25em;
+    text-decoration: underline;
 }
