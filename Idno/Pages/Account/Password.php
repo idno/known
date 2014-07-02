@@ -14,10 +14,11 @@
         class Password extends \Idno\Common\Page
         {
 
-            function getContent() {
+            function getContent()
+            {
 
                 $this->reverseGatekeeper();
-                $t        = \Idno\Core\site()->template();
+                $t = \Idno\Core\site()->template();
 
                 if ($sent = $this->getInput('sent')) {
                     $t->body  = $t->draw('account/password/sent');
@@ -31,7 +32,8 @@
 
             }
 
-            function postContent() {
+            function postContent()
+            {
 
                 $this->reverseGatekeeper();
                 $email_address = $this->getInput('email');
@@ -40,7 +42,7 @@
 
                     if ($auth_code = $user->addPasswordRecoveryCode()) {
 
-                        $user->save();  // Save the recovery code to the user
+                        $user->save(); // Save the recovery code to the user
 
                         $t = clone \Idno\Core\site()->template();
                         $t->setTemplateType('email');

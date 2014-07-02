@@ -1,9 +1,9 @@
-Hi! We wanted to let you know that <strong><a href="<?=$vars['owner_url']?>"><?=$vars['owner_name']?></a></strong> replied to your post.<br>
+<a href="<?=$vars['owner_url']?>"><img src="<?=$vars['owner_image']?>" style="width: 100px; margin-left: 10px; margin-bottom: 10px" align="right"></a>Hi! We wanted to let you know that <strong><a href="<?=$vars['owner_url']?>"><?=$vars['owner_name']?></a></strong> replied to your post <strong><a href="<?=$vars['object']->getURL();?>"><?=$vars['object']->getNotificationTitle()?></a></strong>.<br>
 <br>
 Here's what they said:<br>
 <br>
 <blockquote>
-    <a href="<?=$vars['owner_url']?>"><img src="<?=$vars['owner_image']?>" style="width: 100px; margin-right: 10px; margin-bottom: 10px" align="left"></a><?=$vars['content']?>
+    <?=$vars['content']?>
 </blockquote>
 <br clear="all"><br>
 <?php

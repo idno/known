@@ -43,3 +43,15 @@
 [submodule "external/swiftmailer"]
 	path = external/swiftmailer
 	url = https://github.com/swiftmailer/swiftmailer.git
+[submodule "external/underscore"]
+	path = external/underscore
+	url = https://github.com/jashkenas/underscore.git
+[submodule "external/mention"]
+	path = external/mention
+	url = https://github.com/jakiestfu/Mention.js.git
+[submodule "external/mediaelement"]
+	path = external/mediaelement
+	url = https://github.com/johndyer/mediaelement.git
+[submodule "external/peneditor"]
+	path = external/peneditor
+	url = https://github.com/sofish/pen.git

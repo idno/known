@@ -58,6 +58,16 @@
             }
 
             /**
+             * Adds an email to the BCC list
+             * @param $email
+             * @return mixed
+             */
+            function addBcc($email)
+            {
+                return $this->message->addBcc($email);
+            }
+
+            /**
              * Add a "reply to" message
              * @param $email
              * @param string $name
@@ -97,10 +107,12 @@
              * @param array $vars
              * @return mixed
              */
-            function setHTMLBodyFromTemplate($template_name, $vars = []) {
+            function setHTMLBodyFromTemplate($template_name, $vars = [])
+            {
                 $t = clone site()->template();
                 $t->setTemplateType('email');
                 $body = $t->__($vars)->draw($template_name);
+
                 return $this->setHTMLBody($body);
             }
 
@@ -147,8 +159,8 @@
 
                     return $mailer->send($this->message);
                 } catch (\Exception $e) {
-                    site()->session()->addMessage("Something went wrong and we couldn't send the email.");
-                    site()->session()->addMessage($e->getMessage());
+                    //site()->session()->addMessage("Something went wrong and we couldn't send the email.");
+                    //site()->session()->addMessage($e->getMessage());
                 }
             }
 

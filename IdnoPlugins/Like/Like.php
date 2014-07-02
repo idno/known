@@ -51,11 +51,13 @@
                 }
                 $body = \Idno\Core\site()->currentPage()->getInput('body');
                 $description = \Idno\Core\site()->currentPage()->getInput('description');
+                $tags = \Idno\Core\site()->currentPage()->getInput('tags');
                 $body = trim($body);
                 if(filter_var($body, FILTER_VALIDATE_URL)){
                 if (!empty($body)) {
                     $this->body = $body;
                     $this->description = $description;
+                    $this->tags = $tags;
                     if ($title = $this->getTitleFromURL($body)) {
                         $this->pageTitle = $title;
                     } else {

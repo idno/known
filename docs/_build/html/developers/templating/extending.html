@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Extending templates &mdash; Known 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="Known 0.1 documentation" href="../../index.html" />
+    <link rel="up" title="The templating engine" href="index.html" />
+    <link rel="next" title="Open source community" href="../../community/index.html" />
+    <link rel="prev" title="Core concepts" href="concepts.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../community/index.html" title="Open source community"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="concepts.html" title="Core concepts"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Known 0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Known for developers</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">The templating engine</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="extending-templates">
+<h1>Extending templates<a class="headerlink" href="#extending-templates" title="Permalink to this headline">¶</a></h1>
+<p>You may wish to extend templates for a variety of reasons. For example, a plugin may wish to display extra information
+after the page footer, or add a new feature to user profiles.</p>
+<div class="section" id="plugins">
+<h2>Plugins<a class="headerlink" href="#plugins" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="../plugins/index.html"><em>Plugins</em></a> extend themes as part of their <a class="reference internal" href="../plugins/class.html"><em>main plugin class</em></a>,
+in the <cite>registerPages()</cite> plugin.</p>
+<p>This is how the <cite>Checkin</cite> plugin adds some mapping JavaScript to the HTML page header:</p>
+<div class="highlight-python"><div class="highlight"><pre>\Idno\Core\site()-&gt;template()-&gt;extendTemplate(&#39;shell/head&#39;,&#39;checkin/head&#39;);
+</pre></div>
+</div>
+</div>
+<div class="section" id="themes">
+<h2>Themes<a class="headerlink" href="#themes" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="../themes/index.html"><em>Themes</em></a> have a special <a class="reference internal" href="../themes/introduction.html#themes-extending-templates"><em>way of extending themes as part of their theme.ini file</em></a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Extending templates</a><ul>
+<li><a class="reference internal" href="#plugins">Plugins</a></li>
+<li><a class="reference internal" href="#themes">Themes</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="concepts.html"
+                        title="previous chapter">Core concepts</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../../community/index.html"
+                        title="next chapter">Open source community</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/developers/templating/extending.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../community/index.html" title="Open source community"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="concepts.html" title="Core concepts"
+             >previous</a> |</li>
+        <li><a href="../../index.html">Known 0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Known for developers</a> &raquo;</li>
+          <li><a href="index.html" >The templating engine</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Known, Inc.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

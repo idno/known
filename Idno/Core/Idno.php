@@ -13,6 +13,7 @@
         {
 
             public $db;
+            public $filesystem;
             public $config;
             public $session;
             public $template;
@@ -39,11 +40,28 @@
                         break;
                     default:
                         if (class_exists("Idno\\Data\\{$this->config->database}")) {
-                            $db = "Idno\\Data\\{$this->config->database}";
+                            $db       = "Idno\\Data\\{$this->config->database}";
                             $this->db = new $db();
                         }
                         if (empty($this->db)) {
                             $this->db = new DataConcierge();
+                        }
+                        break;
+                }
+
+                switch ($this->config->filesystem) {
+                    case 'local':
+                        $this->filesystem = new \Idno\Files\LocalFileSystem();
+                        break;
+                    default:
+                        if (class_exists("Idno\\Files\\{$this->config->filesystem}")) {
+                            $filesystem       = "Idno\\Files\\{$this->config->filesystem}";
+                            $this->filesystem = new $filesystem();
+                        }
+                        if (empty($this->filesystem)) {
+                            if ($fs = $this->db()->getFilesystem()) {
+                                $this->filesystem = $fs;
+                            }
                         }
                         break;
                 }
@@ -52,16 +70,16 @@
                 $this->actions     = new Actions();
                 $this->template    = new Template();
                 $this->syndication = new Syndication();
+                $this->themes      = new Themes();
                 $this->plugins     = new Plugins(); // This must be loaded last
             }
 
             /**
-             * Registers some core Idno page URLs
+             * Registers some core page URLs
              */
             function registerpages()
             {
 
-                // Homepage
                 $this->addPageHandler('/', '\Idno\Pages\Homepage');
                 $this->addPageHandler('/content/([A-Za-z\-\/]+)+', '\Idno\Pages\Homepage');
                 $this->addPageHandler('/view/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\View');
@@ -74,13 +92,15 @@
                 $this->addPageHandler('/share/?', '\Idno\Pages\Entity\Share');
                 $this->addPageHandler('/bookmarklet\.js', '\Idno\Pages\Entity\Bookmarklet', true);
                 $this->addPageHandler('/[0-9]+/([A-Za-z0-9\-\_]+)/annotations/([A-Za-z0-9]+)/delete/?', '\Idno\Pages\Annotation\Delete'); // Delete annotation
-                $this->addPageHandler('/file/([A-Za-z0-9]+)(/.*)?', '\Idno\Pages\File\View');
+                $this->addPageHandler('/annotation/post/?', '\Idno\Pages\Annotation\Post');
+                $this->addPageHandler('/file/([A-Za-z0-9]+)(/.*)?', '\Idno\Pages\File\View', true);
                 $this->addPageHandler('/profile/([^\/]+)/?', '\Idno\Pages\User\View');
                 $this->addPageHandler('/profile/([^\/]+)/edit/?', '\Idno\Pages\User\Edit');
                 $this->addPageHandler('/robots\.txt', '\Idno\Pages\Txt\Robots');
                 $this->addPageHandler('/humans\.txt', '\Idno\Pages\Txt\Humans');
                 $this->addPageHandler('/autosave/?', '\Idno\Pages\Entity\Autosave');
                 $this->addPageHandler('/search/?', '\Idno\Pages\Search\Forward');
+                $this->addPageHandler('/search/mentions\.json', '\Idno\Pages\Search\Mentions');
 
             }
 
@@ -102,6 +122,15 @@
             function &events()
             {
                 return $this->dispatcher;
+            }
+
+            /**
+             * Returns the current filesystem
+             * @return \Idno\Files\FileSystem
+             */
+            function &filesystem()
+            {
+                return $this->filesystem;
             }
 
             /**
@@ -160,9 +189,22 @@
                 return $this->session;
             }
 
+            /**
+             * Return the plugin handler associated with this site
+             * @return \Idno\Core\Plugins
+             */
             function &plugins()
             {
                 return $this->plugins;
+            }
+
+            /**
+             * Return the theme handler associated with this site
+             * @return \Idno\Core\Themes
+             */
+            function &themes()
+            {
+                return $this->themes;
             }
 
             /**
@@ -197,8 +239,14 @@
 
             function addEventHook($event, $listener, $priority = 0)
             {
-                if (is_callable($listener))
-                    $this->dispatcher->addListener($event, $listener, $priority);
+                static $listened = [];
+                if (is_callable($listener)) {
+                    $listen_index = json_encode($listener);
+                    if (empty($listened[$event][$listen_index])) {
+                        $this->dispatcher->addListener($event, $listener, $priority);
+                        $listened[$event][$listen_index] = true;
+                    }
+                }
             }
 
             /**

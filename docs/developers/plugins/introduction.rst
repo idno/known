@@ -25,6 +25,22 @@ Plugins may also contain the following files:
 * A set of templates under the plugin's templates subfolder
 * Any other static assets or external libraries you wish to include
 
+Structure of plugin.ini
+-----------------------
+
+The plugin.ini file contains a number of text entries::
+
+    [Plugin description]
+    name =              "The name of the plugin"
+    version =           "The plugin's version number"
+    author =            "Author's name"
+    author_email =      "Author's email address"
+    author_url =        "http://authors-url/"
+    description =       "A short description that will be displayed in the administration panel"
+
+More may be added over time. These entries are displayed in Known's administration panel but may also be displayed in
+a future plugin directory.
+
 Namespaces
 ----------
 
@@ -46,3 +62,12 @@ If the plugin is installed, the plugin is loaded before any output is written to
    when note objects are created)
 
 * IdnoPlugins\PluginName\ContentType (if it exists) is instantiated and saved to memory
+
+Templates
+---------
+
+Each plugin contains its own template directory, which overrides :doc:`Known templates <../templating/index>` from the
+core system. For example, you could create a whole new page shell by saving a template in `/IdnoPlugins/Banana/templates/default/page/shell.tpl.php`.
+
+This is a powerful system that, together with the other methods available to plugins, allows you to completely change
+the look and feel, and overall functionality, of your Known site.

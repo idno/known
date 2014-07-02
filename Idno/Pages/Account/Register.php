@@ -15,7 +15,7 @@
             function getContent()
             {
                 $this->reverseGatekeeper();
-                $code = $this->getInput('code');
+                $code  = $this->getInput('code');
                 $email = $this->getInput('email');
 
                 if (empty(\Idno\Core\site()->config()->open_registration)) {
@@ -53,7 +53,7 @@
 
                 if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     if (!($emailuser = \Idno\Entities\User::getByEmail($email)) && !($handleuser = \Idno\Entities\User::getByHandle($handle)) &&
-                        !empty($handle) && strlen($handle <= 32) && !substr_count($handle,'/') && $password == $password2 && strlen($password) > 4 && !empty($name)
+                        !empty($handle) && strlen($handle <= 32) && !substr_count($handle, '/') && $password == $password2 && strlen($password) > 4 && !empty($name)
                     ) {
                         $user         = new \Idno\Entities\User();
                         $user->email  = $email;
@@ -69,7 +69,7 @@
                             \Idno\Core\site()->session()->addMessage("You can't have an empty handle.");
                         } else if (strlen($handle) > 32) {
                             \Idno\Core\site()->session()->addMessage("Your handle is too long.");
-                        } else if (substr_count($handle,'/')) {
+                        } else if (substr_count($handle, '/')) {
                             \Idno\Core\site()->session()->addMessage("Handles can't contain a slash ('/') character.");
                         } else if (!empty($handleuser)) {
                             \Idno\Core\site()->session()->addMessage("Unfortunately, a user is already using that handle. Please choose another.");

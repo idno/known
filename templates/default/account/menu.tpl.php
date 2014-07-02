@@ -7,9 +7,11 @@
             <?php /*
 
             This is an early development feature and is not ready to be exposed.
-
+            */ 
+            if (\Idno\Core\site()->config()->experimental) {
+            ?>
 	        <li <?php if ($_SERVER['REQUEST_URI'] == '/account/settings/following/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\site()->config()->url?>account/settings/following/" >Following</a></li>
-            */ ?>
+            <?php } ?>
             <?=$this->draw('account/menu/items')?>
         </ul>
     </div>

@@ -1,27 +1,45 @@
-<form action="<?=$vars['object']->getURL()?>" method="post">
+<?= $this->draw('entity/edit/header'); ?>
+    <form action="<?= $vars['object']->getURL() ?>" method="post">
 
-    <div class="row">
+        <div class="row">
 
-        <div class="span10 offset1">
+            <div class="span8 offset2">
+                <h5>
+                    New Bookmark
+                </h5>
 
-            <p>
-                <label>
-                    Address of the page to favorite:<br />
-                    <input required type="url" name="body" id="body" value="<?=htmlspecialchars($vars['object']->body)?>" class="span9" />
-                </label>
-                <label>
-                    If you want, enter some tags or a note here:<br />
-                    <input type="text" name="description" id="description" value="<?=htmlspecialchars($vars['object']->description)?>" class="span9" />
-                </label>
-            </p>
-            <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('bookmark'); ?>
-            <p>
-                <?= \Idno\Core\site()->actions()->signForm('/like/edit') ?>
-                <input type="submit" class="btn btn-primary" value="Save" />
-                <input type="button" class="btn" value="Cancel" onclick="hideContentCreateForm();" />
-                <?= $this->draw('content/access'); ?>
-            </p>
+                <p>
+                    <label>
+                        Page address<br/>
+                        <input required type="url" name="body" id="body" placeholder="http://...."
+                               value="<?php if (empty($vars['url'])) {
+                                   echo htmlspecialchars($vars['object']->body);
+                               } else {
+                                   echo htmlspecialchars($vars['url']);
+                               } ?>" class="span8"/>
+                    </label>
+                    <label>
+                        Comments<br/>
+
+                    </label>
+
+                    <textarea required name="description" id="description" class="span8"
+                              placeholder="This page is great because..."><?= htmlspecialchars($vars['object']->description); ?></textarea>
+                    <label>
+                        Tags<br/>
+                        <input type="text" name="tags" id="tags" placeholder="Add some #tags"
+                               value="<?= htmlspecialchars($vars['object']->tags) ?>" class="span8"/>
+                    </label>
+                </p>
+                <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('bookmark'); ?>
+                <p class="button-bar">
+                    <?= \Idno\Core\site()->actions()->signForm('/like/edit') ?>
+                    <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
+                    <input type="submit" class="btn btn-primary" value="Save"/>
+                    <?= $this->draw('content/access'); ?>
+                </p>
+            </div>
+
         </div>
-
-    </div>
-</form>
+    </form>
+<?= $this->draw('entity/edit/footer'); ?>

@@ -76,10 +76,12 @@
 
                     if ($user instanceof User && $context = $event->data()['context']) {
 
-                        if ($user->notifications['email'] == 'all' || ($user->notifications['email'] == 'comment' && in_array($context,['comment','reply']))) {
+                        if (empty($user->notifications['email']) || $user->notifications['email'] == 'all' || ($user->notifications['email'] == 'comment' && in_array($context, ['comment', 'reply']))) {
 
                             $vars = $event->data()['vars'];
-                            if (empty($vars)) { $vars = []; }
+                            if (empty($vars)) {
+                                $vars = [];
+                            }
                             $vars['object'] = $event->data()['object'];
 
                             $email = new Email();
@@ -113,6 +115,24 @@
                 }
 
                 return \Idno\Core\site()->config()->url . 'gfx/users/default.png';
+            }
+
+            /**
+             * A friendly alias for getTitle.
+             * @return string
+             */
+            function getName()
+            {
+                return $this->getTitle();
+            }
+
+            /**
+             * A friendly alias for SetTitle.
+             * @param $name
+             */
+            function setName($name)
+            {
+                return $this->setTitle($name);
             }
 
             /**
@@ -643,13 +663,13 @@
             public function notify($message, $message_template = '', $vars = [], $context = '', $object = null, $params = null)
             {
                 return \Idno\Core\site()->triggerEvent('notify', [
-                    'user'         => $this,
-                    'message'      => $message,
-                    'context'      => $context,
-                    'vars'         => $vars,
+                    'user'             => $this,
+                    'message'          => $message,
+                    'context'          => $context,
+                    'vars'             => $vars,
                     'message_template' => $message_template,
-                    'object'       => $object,
-                    'parameters'   => $params
+                    'object'           => $object,
+                    'parameters'       => $params
                 ]);
             }
 

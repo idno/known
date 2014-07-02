@@ -1,8 +1,9 @@
+<?=$this->draw('entity/edit/header');?>
 <form action="<?=$vars['object']->getURL()?>" method="post" enctype="multipart/form-data">
 
     <div class="row">
 
-        <div class="span9 offset1">
+        <div class="span8 offset2">
 
             <p>
                 <?php
@@ -50,3 +51,4 @@
 
     </div>
 </form>
+<?=$this->draw('entity/edit/footer');?>

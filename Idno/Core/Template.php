@@ -13,7 +13,10 @@
         {
 
             // We'll keep track of extensions to templates here
-            public $extensions = array();
+            public $extensions = [];
+
+            // We can also extend templates with HTML or other content
+            public $rendered_extensions = [];
 
             /**
              * On construction, detect the template type
@@ -42,8 +45,29 @@
                         $result .= parent::draw($template, $returnBlank);
                     }
                 }
+                if (!empty($this->rendered_extensions[$templateName])) {
+                    $result .= $this->rendered_extensions[$templateName];
+                }
 
                 return $result;
+            }
+
+            /**
+             * Draws the page shell.
+             * @param bool $echo
+             * @return false|string
+             */
+            function drawPage($echo = true)
+            {
+
+                // Get messages and flush session
+                $this->messages = site()->session()->getAndFlushMessages();
+
+                // End session BEFORE we output any data
+                session_write_close();
+
+                return parent::drawPage($echo);
+
             }
 
             /**
@@ -91,6 +115,21 @@
                     $this->extensions[$templateName] = [];
                 }
                 $this->extensions[$templateName][] = $extensionTemplateName;
+            }
+
+            /**
+             * Extends a given template with pre-rendered content. All pre-rendered content will be drawn after
+             * template-driven content.
+             * @param $templateName
+             * @param $content
+             */
+            function extendTemplateWithContent($templateName, $content)
+            {
+                if (empty($this->rendered_extensions[$templateName])) {
+                    $this->rendered_extensions[$templateName] = $content;
+                } else {
+                    $this->rendered_extensions[$templateName] .= $content;
+                }
             }
 
             /**
@@ -146,6 +185,57 @@
 
                     return '<a href="' . \Idno\Core\site()->config()->url . '?q=' . urlencode($matches[1]) . '" class="p-category">' . $url . '</a>';
                 }, $text);
+
+                return $r;
+            }
+
+            /**
+             * Change @user links into active users.
+             * @param type $text The text to parse
+             * @param type $in_reply_to If specified, the function will make a (hopefully) sensible guess as to where the user is located
+             */
+            function parseUsers($text, $in_reply_to = null)
+            {
+
+                $r = $text;
+
+                if (!empty($in_reply_to)) {
+
+                    // TODO: do this in a more pluggable way
+
+                    // It is only safe to make assumptions on @users if only one reply to is given
+                    if (!is_array($in_reply_to) || (is_array($in_reply_to) && count($in_reply_to) == 1)) {
+
+                        if (is_array($in_reply_to))
+                            $in_reply_to = $in_reply_to[0];
+
+                        // Find and replace twitter
+                        if (strpos($in_reply_to, 'twitter.com') !== false) {
+                            $r = preg_replace_callback('/(?<!=)(?<!["\'])(\@[A-Za-z0-9\_]+)/i', function ($matches) {
+                                $url = $matches[1];
+
+                                return '<a href="https://twitter.com/' . urlencode(ltrim($matches[1], '@')) . '" class="p-nickname u-url">' . $url . '</a>';
+                            }, $text);
+                        }
+
+                        // Is this a local user?
+                        if (\Idno\Common\Entity::isLocalUUID($in_reply_to)) {
+                            $r = preg_replace_callback('/(?<!=)(?<!["\'])(\@[A-Za-z0-9\_]+)/i', function ($matches) {
+                                $url = $matches[1];
+
+                                return '<a href="' . \Idno\Core\site()->config()->url . 'profile/' . urlencode(ltrim($matches[1], '@')) . '" class="p-nickname u-url">' . $url . '</a>';
+                            }, $text);
+                        }
+                    }
+
+                } else {
+                    // No in-reply, so we assume a local user
+                    $r = preg_replace_callback('/(?<!=)(?<!["\'])(\@[A-Za-z0-9\_]+)/i', function ($matches) {
+                        $url = $matches[1];
+
+                        return '<a href="' . \Idno\Core\site()->config()->url . 'profile/' . urlencode(ltrim($matches[1], '@')) . '" class="p-nickname u-url">' . $url . '</a>';
+                    }, $text);
+                }
 
                 return $r;
             }

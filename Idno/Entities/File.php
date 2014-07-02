@@ -45,6 +45,14 @@
             }
 
             /**
+             * Passes through the contents of this file.
+             */
+            function passThroughBytes()
+            {
+                echo $this->getBytes();
+            }
+
+            /**
              * Save a file to the filesystem and return the ID
              *
              * @param string $file_path Full local path to the file
@@ -52,12 +60,12 @@
              * @param string $mime_type MIME type associated with the file
              * @param bool $return_object Return the file object? If set to false (as is default), will return the ID
              * @param bool $destroy_exif When true, if an image is uploaded the exif data will be destroyed.
-             * @return bool|\MongoID Depending on success
+             * @return bool|\id Depending on success
              */
             public static function createFromFile($file_path, $filename, $mime_type = 'application/octet-stream', $return_object = false, $destroy_exif = false)
             {
                 if (file_exists($file_path) && !empty($filename)) {
-                    if ($fs = \Idno\Core\site()->db()->getFilesystem()) {
+                    if ($fs = \Idno\Core\site()->filesystem()) {
                         $file     = new File();
                         $metadata = array(
                             'filename'  => $filename,
@@ -119,7 +127,7 @@
              * @param string $filename Filename that the file should have on download.
              * @param int $max_dimension The maximum number of pixels the thumbnail image should be along its longest side.
              * @param mixed $exif Optionally provide exif data for the image, if not provided then this function will attempt to extract it
-             * @return bool|MongoID
+             * @return bool|id
              */
             public static function createThumbnailFromFile($file_path, $filename, $max_dimension = 800, $exif = null)
             {
@@ -133,10 +141,16 @@
                                 $image = imagecreatefromjpeg($file_path);
                                 break;
                             case 'image/png':
-                                $image = imagecreatefrompng($file_path);
+                                $image      = imagecreatefrompng($file_path);
+                                $background = imagecolorallocate($image, 0, 0, 0);
+                                imagecolortransparent($image, $background);
+                                imagealphablending($image, false);
+                                imagesavealpha($image, true);
                                 break;
                             case 'image/gif':
-                                $image = imagecreatefromgif($file_path);
+                                $image      = imagecreatefromgif($file_path);
+                                $background = imagecolorallocate($image, 0, 0, 0);
+                                imagecolortransparent($image, $background);
                                 break;
                         }
                         if (!empty($image)) {
@@ -172,17 +186,17 @@
                             switch ($photo_information['mime']) {
                                 case 'image/jpeg':
                                     imagejpeg($image_copy, $tmp_dir . '/' . $filename . '.jpg');
-                                    $thumbnail = \Idno\Entities\File::createFromFile($tmp_dir . '/' . $filename . '.jpg', 'thumb.jpg', 'image/jpeg') . '/thumb.jpg';
+                                    $thumbnail = \Idno\Entities\File::createFromFile($tmp_dir . '/' . $filename . '.jpg', "thumb_{$max_dimension}.jpg", 'image/jpeg') . '/thumb.jpg';
                                     @unlink($tmp_dir . '/' . $filename . '.jpg');
                                     break;
                                 case 'image/png':
                                     imagepng($image_copy, $tmp_dir . '/' . $filename . '.png');
-                                    $thumbnail = \Idno\Entities\File::createFromFile($tmp_dir . '/' . $filename . '.png', 'thumb.png', 'image/png') . '/thumb.png';
+                                    $thumbnail = \Idno\Entities\File::createFromFile($tmp_dir . '/' . $filename . '.png', "thumb_{$max_dimension}.png", 'image/png') . '/thumb.png';
                                     @unlink($tmp_dir . '/' . $filename . '.png');
                                     break;
                                 case 'image/gif':
                                     imagegif($image_copy, $tmp_dir . '/' . $filename . '.gif');
-                                    $thumbnail = \Idno\Entities\File::createFromFile($tmp_dir . '/' . $filename . '.gif', 'thumb.gif', 'image/gif') . '/thumb.gif';
+                                    $thumbnail = \Idno\Entities\File::createFromFile($tmp_dir . '/' . $filename . '.gif', "thumb_{$max_dimension}.gif", 'image/gif') . '/thumb.gif';
                                     @unlink($tmp_dir . '/' . $filename . '.gif');
                                     break;
                             }
@@ -205,7 +219,7 @@
              */
             static function getByUUID($uuid)
             {
-                if ($fs = \Idno\Core\site()->db()->getFilesystem()) {
+                if ($fs = \Idno\Core\site()->filesystem()) {
                     return $fs->findOne($uuid);
                 }
 
@@ -219,8 +233,8 @@
              */
             static function getByID($id)
             {
-                if ($fs = \Idno\Core\site()->db()->getFilesystem()) {
-                    return $fs->findOne(array('_id' => new \MongoId($id)));
+                if ($fs = \Idno\Core\site()->filesystem()) {
+                    return $fs->findOne(array('_id' => \Idno\Core\site()->db()->processID($id)));
                 }
 
                 return false;

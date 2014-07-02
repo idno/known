@@ -18,13 +18,15 @@
             {
 
                 ini_set('session.cookie_lifetime', 60 * 60 * 24 * 30); // Persistent cookies
-                //ini_set('session.cookie_httponly', true); // Restrict cookies to HTTP only (help reduce XSS attack profile)
+                ini_set('session.gc_maxlifetime', 60 * 60 * 24 * 30); // Garbage collection to match
+                ini_set('session.cookie_httponly', true); // Restrict cookies to HTTP only (help reduce XSS attack profile)
 
                 site()->db()->handleSession();
 
                 session_name(site()->config->sessionname);
                 session_start();
                 session_cache_limiter('public');
+                session_regenerate_id();
 
                 // Session login / logout
                 site()->addPageHandler('/session/login', '\Idno\Pages\Session\Login', true);
@@ -106,7 +108,9 @@
 
             function addMessage($message, $message_type = 'alert-info')
             {
-                if (empty($_SESSION['messages'])) $_SESSION['messages'] = array();
+                if (empty($_SESSION['messages'])) {
+                    $_SESSION['messages'] = [];
+                }
                 $_SESSION['messages'][] = array('message' => $message, 'message_type' => $message_type);
             }
 
@@ -131,7 +135,7 @@
                 if (!empty($_SESSION['messages'])) {
                     return $_SESSION['messages'];
                 } else {
-                    return array();
+                    return [];
                 }
             }
 
@@ -140,7 +144,9 @@
              */
             function flushMessages()
             {
-                $_SESSION['messages'] = array();
+                $messages                       = [];
+                $_SESSION['messages']           = $messages;
+                $_SESSION['last_message_flush'] = date('r', time());
             }
 
             /**
@@ -280,8 +286,9 @@
             function logUserOn(\Idno\Entities\User $user)
             {
                 if (empty($user->notifications)) {
-                    $user->notifications['email'] = 'all';  // By default, send notifications to users
+                    $user->notifications['email'] = 'all'; // By default, send notifications to users
                 }
+
                 return $this->refreshSessionUser($user);
             }
 
@@ -292,11 +299,16 @@
              */
             function refreshSessionUser(\Idno\Entities\User $user)
             {
-                $user = User::getByUUID($user->getUUID()); /* @var \Idno\Common\User $user */
-                $user->clearPasswordRecoveryCode();
-                $user->save();
-                $_SESSION['user'] = $user;
-                return $user;
+                if ($user = User::getByUUID($user->getUUID())) {
+                    /* @var \Idno\Common\User $user */
+                    $user->clearPasswordRecoveryCode();
+                    $user->save();
+                    $_SESSION['user'] = $user;
+
+                    return $user;
+                }
+
+                return false;
             }
 
             /**

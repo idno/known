@@ -17,7 +17,8 @@
 
                 $t = \Idno\Core\site()->template();
                 $body = $t->__(array(
-                    'object' => $object
+                    'object' => $object,
+                    'url' => $this->getInput('url')
                 ))->draw('entity/Like/edit');
 
                 if (empty($object)) {
@@ -45,7 +46,7 @@
                 }
 
                 if ($object->saveDataFromInput($this)) {
-                    $this->forward(\Idno\Core\site()->config()->getURL() . 'content/all/');
+                    $this->forward(\Idno\Core\site()->config()->getURL() . 'content/all/#feed');
                 }
 
             }

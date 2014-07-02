@@ -123,6 +123,16 @@
             }
 
             /**
+             * Process the ID appropriately
+             * @param $id
+             * @return \MongoId
+             */
+            function processID($id)
+            {
+                return new \MongoId($id);
+            }
+
+            /**
              * Retrieves a record from the database by its UUID
              *
              * @param string $id
@@ -265,9 +275,9 @@
                 try {
                     // Make search case insensitive
                     $fieldscopy = $fields;
-                    foreach($fields as $key => $value) {
+                    foreach ($fields as $key => $value) {
                         if (is_string($value)) {
-                            $val = new \MongoRegex("/{$value}/i");
+                            $val              = new \MongoRegex("/{$value}/i");
                             $fieldscopy[$key] = $val;
                         }
                     }

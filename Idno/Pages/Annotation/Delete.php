@@ -31,13 +31,13 @@
                     $this->goneContent();
                 }
 
-                $permalink = $object->getUrl() . '/annotations/' . $this->arguments[1];
-                if ($object->canEdit()) {
+                $permalink = $object->getURL() . '/annotations/' . $this->arguments[1];
+                if ($object->canEditAnnotation($permalink)) {
                     if (($object->removeAnnotation($permalink)) && ($object->save())) {
-                        \Idno\Core\site()->session()->addMessage('The annotation was deleted.');
+                        //\Idno\Core\site()->session()->addMessage('The annotation was deleted.');
                     }
                 }
-                $this->forward($_SERVER['HTTP_REFERER']);
+                $this->forward($object->getURL() . '#comments');
             }
 
         }

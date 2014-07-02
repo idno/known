@@ -25,6 +25,7 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="top" title="Known 0.1 documentation" href="../../index.html" />
     <link rel="up" title="Plugins" href="index.html" />
+    <link rel="next" title="Themes" href="../themes/index.html" />
     <link rel="prev" title="Getting started writing Known plugins" href="introduction.html" /> 
   </head>
   <body>
@@ -35,10 +36,13 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="../themes/index.html" title="Themes"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
           <a href="introduction.html" title="Getting started writing Known plugins"
              accesskey="P">previous</a> |</li>
         <li><a href="../../index.html">Known 0.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >Developer guides</a> &raquo;</li>
+          <li><a href="../index.html" >Known for developers</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">Plugins</a> &raquo;</li> 
       </ul>
     </div>  
@@ -82,11 +86,16 @@ in the IdnoPluginsStatusMain class).</p>
 }
 </pre></div>
 </div>
+<p>This is also where plugins should <tt class="xref doc docutils literal"><span class="pre">extend</span> <span class="pre">templates</span></tt>. For example, this is how the
+<cite>Checkin</cite> plugin adds some mapping JavaScript to the HTML page header:</p>
+<div class="highlight-python"><div class="highlight"><pre>\Idno\Core\site()-&gt;template()-&gt;extendTemplate(&#39;shell/head&#39;,&#39;checkin/head&#39;);
+</pre></div>
+</div>
 </div>
 <div class="section" id="registereventhooks">
 <h3>registerEventHooks()<a class="headerlink" href="#registereventhooks" title="Permalink to this headline">¶</a></h3>
 <p>If this exists, this function will be called when the plugin is loaded. It&#8217;s suggested that you define your
-<a href="#id1"><span class="problematic" id="id2">:docs:`event hooks`</span></a> here.</p>
+<tt class="xref doc docutils literal"><span class="pre">event</span> <span class="pre">hooks</span></tt> here.</p>
 </div>
 </div>
 </div>
@@ -113,6 +122,9 @@ in the IdnoPluginsStatusMain class).</p>
   <h4>Previous topic</h4>
   <p class="topless"><a href="introduction.html"
                         title="previous chapter">Getting started writing Known plugins</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../themes/index.html"
+                        title="next chapter">Themes</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../../_sources/developers/plugins/class.txt"
@@ -142,10 +154,13 @@ in the IdnoPluginsStatusMain class).</p>
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
+          <a href="../themes/index.html" title="Themes"
+             >next</a> |</li>
+        <li class="right" >
           <a href="introduction.html" title="Getting started writing Known plugins"
              >previous</a> |</li>
         <li><a href="../../index.html">Known 0.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >Developer guides</a> &raquo;</li>
+          <li><a href="../index.html" >Known for developers</a> &raquo;</li>
           <li><a href="index.html" >Plugins</a> &raquo;</li> 
       </ul>
     </div>

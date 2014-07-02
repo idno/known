@@ -1,26 +1,80 @@
-<?php /* @var \Idno\Common\Entity $vars['object'] */ ?>
-    <div class="permalink">
-        <p>
-            <a class="u-url url" href="<?=$vars['object']->getURL()?>" rel="permalink" ><time class="dt-published" datetime="<?=date('c',$vars['object']->created)?>"><?=date('c',$vars['object']->created)?></time></a>
-            <a href="<?=$vars['object']->getURL()?>#comments" ><?php if ($replies = $vars['object']->countAnnotations('reply')) { echo '<i class="icon-comments"></i> ' . $replies; } ?></a>
-            <a href="<?=$vars['object']->getURL()?>#comments" ><?php if ($likes = $vars['object']->countAnnotations('like')) { echo '<i class="icon-thumbs-up"></i> ' . $likes; } ?></a>
-            <a href="<?=$vars['object']->getURL()?>#comments" ><?php if ($shares = $vars['object']->countAnnotations('share')) { echo '<i class="icon-refresh"></i> ' . $shares; } ?></a>
-            <a href="<?=$vars['object']->getURL()?>#comments" ><?php if ($rsvps = $vars['object']->countAnnotations('rsvp')) { echo '<i class="icon-calendar-empty"></i> ' . $rsvps; } ?></a>
-            <?=$this->draw('content/end/links')?>
-            <?php
+<?php
 
-                if (\Idno\Core\site()->currentPage()->isPermalink() && \Idno\Core\site()->config()->indieweb_citation) {
+    /* @var \Idno\Common\Entity $vars ['object'] */
 
-            ?>
-            <span class="citation"><?=$vars['object']->getCitation()?></span>
-            <?php
-
+    $replies = $vars['object']->countAnnotations('reply');
+    $likes = $vars['object']->countAnnotations('like');
+    $has_liked = false;
+    if ($like_annotations = $vars['object']->getAnnotations('like')) {
+        foreach ($like_annotations as $like) {
+            if (\Idno\Core\site()->session()->isLoggedOn()) {
+                if ($like['owner_url'] == \Idno\Core\site()->session()->currentUser()->getURL()) {
+                    $has_liked = true;
                 }
+            }
+        }
+    }
 
+?>
+<div class="permalink">
+    <p>
+        <a class="u-url url" href="<?= $vars['object']->getURL() ?>" rel="permalink">
+            <time class="dt-published"
+                  datetime="<?= date('c', $vars['object']->created) ?>"><?= date('c', $vars['object']->created) ?></time>
+        </a>
+        <?= $this->draw('content/edit') ?>
+        <?= $this->draw('content/end/links') ?>
+        <?php
+
+            if (\Idno\Core\site()->currentPage()->isPermalink() && \Idno\Core\site()->config()->indieweb_citation) {
+
+                ?>
+                <span class="citation"><?= $vars['object']->getCitation() ?></span>
+            <?php
+
+            }
+
+        ?>
+    </p>
+</div>
+<div class="interactions">
+    <?php
+        if (!$has_liked) {
+            $heart = '<i class="icon-heart-empty"></i>';
+        } else {
+            $heart = '<i class="icon-heart"></i>';
+        }
+        if ($likes == 1) {
+            $heart .= ' 1 fave';
+        } else {
+            $heart .= ' ' . $likes . ' faves';
+        }
+        if (\Idno\Core\site()->session()->isLoggedOn()) {
+            echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getURL() . 'annotation/post', $heart, ['type' => 'like', 'object' => $vars['object']->getUUID()], ['method' => 'POST']);
+        } else {
             ?>
-        </p>
-    </div>
-    <br clear="all" />
+            <a href="<?= $vars['object']->getURL() ?>#comments"><?= $heart ?></a>
+        <?php
+        }
+    ?>
+    <a href="<?= $vars['object']->getURL() ?>#comments"><i class="icon-comments"></i> <?php
+
+            //echo $replies;
+            if ($replies == 1) {
+                echo '1 comment';
+            } else {
+                echo $replies . ' comments';
+            }
+
+        ?></a>
+    <a href="<?= $vars['object']->getURL() ?>#comments"><?php if ($shares = $vars['object']->countAnnotations('share')) {
+            echo '<i class="icon-refresh"></i> ' . $shares;
+        } ?></a>
+    <a href="<?= $vars['object']->getURL() ?>#comments"><?php if ($rsvps = $vars['object']->countAnnotations('rsvp')) {
+            echo '<i class="icon-calendar-empty"></i> ' . $rsvps;
+        } ?></a>
+</div>
+<br clear="all"/>
 <?php
 
     if (\Idno\Core\site()->currentPage()->isPermalink()) {
@@ -32,7 +86,7 @@
             <div class="annotations">
 
                 <a name="comments"></a>
-                <?=$this->draw('content/end/comments')?>
+                <?= $this->draw('content/end/annotations') ?>
                 <?php
 
                     if ($replies = $vars['object']->getAnnotations('reply')) {
@@ -56,17 +110,20 @@
 
         }
 
+        echo $this->draw('entity/annotations/comment/main');
+
         if ($posse = $vars['object']->getPosseLinks()) {
 
             ?>
             <div class="posse">
                 <a name="posse"></a>
+
                 <p>
                     Also on:
                     <?php
 
-                        foreach($posse as $service => $url) {
-                            echo '<a href="'.$url.'" rel="syndication" class="u-syndication '.$service.'">' . $service . '</a> ';
+                        foreach ($posse as $service => $url) {
+                            echo '<a href="' . $url . '" rel="syndication" class="u-syndication ' . $service . '">' . $service . '</a> ';
                         }
 
                     ?>
@@ -74,6 +131,12 @@
             </div>
         <?php
 
+        }
+
+    } else {
+
+        if (\Idno\Core\site()->session()->isLoggedOn()) {
+            echo $this->draw('entity/annotations/comment/mini');
         }
 
     }

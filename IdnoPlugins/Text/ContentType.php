@@ -8,6 +8,7 @@
             public $category_title = 'Posts';
             public $entity_class = 'IdnoPlugins\\Text\\Entry';
             public $logo = '<i class="icon-align-left"></i>';
+            public $indieWebContentType = ['article','entry'];
 
         }
 

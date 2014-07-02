@@ -42,7 +42,7 @@
                 }
 
                 if ($object->delete()) {
-                    \Idno\Core\site()->session()->addMessage('Your like update was deleted.');
+                    \Idno\Core\site()->session()->addMessage('Your bookmark was deleted.');
                 } else {
                     \Idno\Core\site()->session()->addMessage("We couldn't delete " . $object->getTitle() . ".");
                 }
