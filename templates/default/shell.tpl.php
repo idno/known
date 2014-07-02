@@ -8,7 +8,7 @@
     header("Access-Control-Allow-Origin: *");
 
     if (empty($vars['title']) && !empty($vars['description'])) {
-        $vars['title'] = implode(' ',array_slice(explode(' ', strip_tags($vars['description'])),0,10));
+        $vars['title'] = implode(' ', array_slice(explode(' ', strip_tags($vars['description'])), 0, 10));
     }
 
 ?>
@@ -25,20 +25,24 @@
     <?= $this->draw('shell/favicon'); ?>
 
     <!-- Dublin Core -->
-    <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" >
-    <meta name="DC.title" content="<?=htmlspecialchars($vars['title'])?>" >
-    <meta name="DC.description" content="<?=htmlspecialchars($vars['description'])?>" ><?php
+    <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+    <meta name="DC.title" content="<?= htmlspecialchars($vars['title']) ?>">
+    <meta name="DC.description" content="<?= htmlspecialchars($vars['description']) ?>"><?php
 
         if (\Idno\Core\site()->currentPage() && \Idno\Core\site()->currentPage()->isPermalink()) {
-            $object = $vars['object']; /* @var \Idno\Common\Entity $object */
+            $object = $vars['object'];
+            /* @var \Idno\Common\Entity $object */
             if ($creator = $object->getOwner()) {
-                ?><meta name="DC.creator" content="<?=htmlentities($creator->getTitle())?>"><?php
+                ?>
+                <meta name="DC.creator" content="<?= htmlentities($creator->getTitle()) ?>"><?php
             }
             if ($created = $object->created) {
-                ?><meta name="DC.date" content="<?=date('c',$created)?>"><?php
+                ?>
+                <meta name="DC.date" content="<?= date('c', $created) ?>"><?php
             }
             if ($url = $object->getURL()) {
-                ?><meta name="DC.identifier" content="<?=htmlspecialchars($url)?>"><?php
+                ?>
+                <meta name="DC.identifier" content="<?= htmlspecialchars($url) ?>"><?php
             }
         }
 
@@ -68,7 +72,8 @@
     <!-- To silo is human, to syndicate divine -->
     <link rel="alternate feed" type="application/rss+xml" title="<?= htmlspecialchars($vars['title']) ?>"
           href="<?= $this->getURLWithVar('_t', 'rss'); ?>"/>
-    <link rel="alternate feed" type="application/rss+xml" title="<?= htmlspecialchars(\Idno\Core\site()->config()->title) ?>: all content"
+    <link rel="alternate feed" type="application/rss+xml"
+          title="<?= htmlspecialchars(\Idno\Core\site()->config()->title) ?>: all content"
           href="<?= \Idno\Core\site()->config()->url ?>content/all?_t=rss"/>
     <link rel="feed" type="text/html" title="<?= htmlspecialchars(\Idno\Core\site()->config()->title) ?>"
           href="<?= \Idno\Core\site()->config()->url ?>content/all"/>
@@ -78,10 +83,10 @@
     <link href="<?= \Idno\Core\site()->config()->url ?>webmention/" rel="webmention"/>
 
     <link type="text/plain" rel="author" href="<?= \Idno\Core\site()->config()->url ?>humans.txt"/>
-    <?php $this->draw('shell/identities')?>
+    <?php $this->draw('shell/identities') ?>
     <?php if (!empty(\Idno\Core\site()->config()->hub)) { ?>
-    <!-- Pubsubhubbub -->
-    <link href="<?= \Idno\Core\site()->config()->hub ?>" rel="hub" />
+        <!-- Pubsubhubbub -->
+        <link href="<?= \Idno\Core\site()->config()->hub ?>" rel="hub"/>
     <?php } ?>
 
     <?php
@@ -95,7 +100,7 @@
         }
     ?>
 
-    <script src="<?=\Idno\Core\site()->config()->url?>external/fragmention/fragmention.js"></script>
+    <script src="<?= \Idno\Core\site()->config()->url ?>external/fragmention/fragmention.js"></script>
 
     <!-- We need jQuery at the top of the page -->
     <script src="<?= \Idno\Core\site()->config()->url . 'external/jquery/' ?>jquery.min.js"></script>
@@ -201,20 +206,25 @@
 <script src="<?= \Idno\Core\site()->config()->url . 'external/jquery-timeago/' ?>jquery.timeago.js"></script>
 <script src="<?= \Idno\Core\site()->config()->url . 'external/jquery-pjax/' ?>jquery.pjax.js"></script>
 <script src="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
-<script src="<?= \Idno\Core\site()->config()->url . 'external/underscore/underscore-min.js' ?>" type="text/javascript"></script>
-<script src="<?= \Idno\Core\site()->config()->url . 'external/mention/bootstrap-typeahead.js' ?>" type="text/javascript"></script>
+<script src="<?= \Idno\Core\site()->config()->url . 'external/underscore/underscore-min.js' ?>"
+        type="text/javascript"></script>
+<script src="<?= \Idno\Core\site()->config()->url . 'external/mention/bootstrap-typeahead.js' ?>"
+        type="text/javascript"></script>
 <script src="<?= \Idno\Core\site()->config()->url . 'external/mention/mention.js' ?>" type="text/javascript"></script>
 
 <!-- Flexible media player -->
-<script src="<?=\Idno\Core\site()->config()->getURL()?>external/mediaelement/build/mediaelement-and-player.min.js"></script>
-<link rel="stylesheet" href="<?=\Idno\Core\site()->config()->getURL()?>external/mediaelement/build/mediaelementplayer.css" />
+<script
+    src="<?= \Idno\Core\site()->config()->getURL() ?>external/mediaelement/build/mediaelement-and-player.min.js"></script>
+<link rel="stylesheet"
+      href="<?= \Idno\Core\site()->config()->getURL() ?>external/mediaelement/build/mediaelementplayer.css"/>
 
 <!-- WYSIWYG editor -->
-<script src="<?=\Idno\Core\site()->config()->url?>external/peneditor/src/pen.js"></script>
-<link rel="stylesheet" href="<?=\Idno\Core\site()->config()->getURL()?>external/peneditor/src/pen.css">
+<script src="<?= \Idno\Core\site()->config()->url ?>external/peneditor/src/pen.js"></script>
+<link rel="stylesheet" href="<?= \Idno\Core\site()->config()->getURL() ?>external/peneditor/src/pen.css">
 
 <!-- Mention styles -->
-<link rel="stylesheet" type="text/css" href="<?= \Idno\Core\site()->config()->url ?>external/mention/recommended-styles.css">
+<link rel="stylesheet" type="text/css"
+      href="<?= \Idno\Core\site()->config()->url ?>external/mention/recommended-styles.css">
 
 <?php
     if (\Idno\Core\site()->session()->isLoggedOn()) {
@@ -258,27 +268,27 @@
         annotateContent();
     });
 
-    /**  
+    /**
      * Better handle links in iOS web applications.
      * This code (from the discussion here: https://gist.github.com/kylebarrow/1042026)
      * will prevent internal links being opened up in safari when known is installed
      * on an ios home screen.
      */
-    (function(document,navigator,standalone) {
-            if ((standalone in navigator) && navigator[standalone]) {
-                var curnode, location=document.location, stop=/^(a|html)$/i;
-                document.addEventListener('click', function(e) {
-                    curnode=e.target;
-                    while (!(stop).test(curnode.nodeName)) {
-                        curnode=curnode.parentNode;
-                    }
-                    if('href' in curnode && ( curnode.href.indexOf('http') || ~curnode.href.indexOf(location.host) ) && (!curnode.classList.contains('contentTypeButton'))) {
-                        e.preventDefault();
-                        location.href = curnode.href;
-                    }
-                },false);
-            }
-        })(document,window.navigator,'standalone');
+    (function (document, navigator, standalone) {
+        if ((standalone in navigator) && navigator[standalone]) {
+            var curnode, location = document.location, stop = /^(a|html)$/i;
+            document.addEventListener('click', function (e) {
+                curnode = e.target;
+                while (!(stop).test(curnode.nodeName)) {
+                    curnode = curnode.parentNode;
+                }
+                if ('href' in curnode && ( curnode.href.indexOf('http') || ~curnode.href.indexOf(location.host) ) && (!curnode.classList.contains('contentTypeButton'))) {
+                    e.preventDefault();
+                    location.href = curnode.href;
+                }
+            }, false);
+        }
+    })(document, window.navigator, 'standalone');
 
 </script>
 
