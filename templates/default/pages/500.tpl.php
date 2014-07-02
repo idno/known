@@ -25,7 +25,7 @@
     <?php } else { ?>
     <div class="row">
         <div class="offset1 span10">
-            <p class="p-summary">Sorry, idno had a problem...</p>
+            <p class="p-summary">Oh no! Known had a problem.</p>
         </div>
     </div>
     <?php } ?>

@@ -6,7 +6,7 @@
 
             function testHomepageLoads() {
 
-                // Load idno framework
+                // Load Known framework
                 require_once(dirname(dirname(__FILE__)) . '/Idno/start.php');
 
                 // Get the rendered homepage

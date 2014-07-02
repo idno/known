@@ -47,13 +47,13 @@
 
             // Who owns this page, anyway?
             public $owner = false;
-	    
-	    // Page assets that can be registered and set by plugins (javascript, css, etc)
-	    public $assets = [];
+
+            // Page assets that can be registered and set by plugins (javascript, css, etc)
+            public $assets = [];
 
             function init()
             {
-                header('X-Powered-By: http://idno.co');
+                header('X-Powered-By: http://withknown.com');
                 if ($template = $this->getInput('_t')) {
                     if (\Idno\Core\site()->template()->templateTypeExists($template)) {
                         \Idno\Core\site()->template()->setTemplateType($template);
@@ -77,6 +77,7 @@
              */
             function get()
             {
+                \Idno\Core\site()->session()->publicGatekeeper();
 
                 if ($this->isAcceptedContentType('application/json')) {
                     \Idno\Core\site()->template()->setTemplateType('json');
@@ -103,6 +104,7 @@
              */
             function post()
             {
+                \Idno\Core\site()->session()->publicGatekeeper();
 
                 if ($this->isAcceptedContentType('application/json')) {
                     \Idno\Core\site()->template()->setTemplateType('json');
@@ -133,6 +135,7 @@
              */
             function put()
             {
+                \Idno\Core\site()->session()->publicGatekeeper();
 
                 if ($this->isAcceptedContentType('application/json')) {
                     \Idno\Core\site()->template()->setTemplateType('json');
@@ -162,6 +165,7 @@
              */
             function delete()
             {
+                \Idno\Core\site()->session()->publicGatekeeper();
 
                 if ($this->isAcceptedContentType('application/json')) {
                     \Idno\Core\site()->template()->setTemplateType('json');
@@ -190,6 +194,8 @@
              */
             function get_xhr()
             {
+                \Idno\Core\site()->session()->publicGatekeeper();
+
                 if ($this->isAcceptedContentType('application/json')) {
                     \Idno\Core\site()->template()->setTemplateType('json');
                 }
@@ -205,6 +211,8 @@
              */
             function post_xhr()
             {
+                \Idno\Core\site()->session()->publicGatekeeper();
+
                 if ($this->isAcceptedContentType('application/json')) {
                     \Idno\Core\site()->template()->setTemplateType('json');
                 }
@@ -221,6 +229,8 @@
              */
             function put_xhr()
             {
+                \Idno\Core\site()->session()->publicGatekeeper();
+
                 if ($this->isAcceptedContentType('application/json')) {
                     \Idno\Core\site()->template()->setTemplateType('json');
                 }
@@ -237,6 +247,8 @@
              */
             function delete_xhr()
             {
+                \Idno\Core\site()->session()->publicGatekeeper();
+
                 if ($this->isAcceptedContentType('application/json')) {
                     \Idno\Core\site()->template()->setTemplateType('json');
                 }
@@ -252,6 +264,8 @@
              */
             function webmention()
             {
+                \Idno\Core\site()->session()->publicGatekeeper();
+
                 if ($this->isAcceptedContentType('application/json')) {
                     \Idno\Core\site()->template()->setTemplateType('json');
                 }
@@ -325,11 +339,11 @@
                 $t->__(['body' => $t->draw('pages/404'), 'title' => 'Not found!'])->drawPage();
                 exit;
             }
-	    
-	    /**
-	     * You can't see this.
-	     */
-	    function deniedContent()
+
+            /**
+             * You can't see this.
+             */
+            function deniedContent()
             {
                 $this->setResponse(403);
                 http_response_code($this->response);
@@ -337,7 +351,7 @@
                 $t->__(['body' => $t->draw('pages/403'), 'title' => 'Denied!'])->drawPage();
                 exit;
             }
-	    
+
 
             function exception(\Exception $e)
             {
@@ -382,6 +396,20 @@
             }
 
             /**
+             * Placed in pages to ensure that a user is logged in and able
+             * to create content. Returns a 403 and forwards to the home page if
+             * the user can't create content.
+             */
+            function createGatekeeper()
+            {
+                if (!\Idno\Core\site()->canEdit()) {
+                    $this->setResponse(403);
+                    $this->forward();
+                }
+                $this->gatekeeper();
+            }
+
+            /**
              * Placed in pages to ensure that only logged-out users can
              * get at them. Sets response code 401 and tries to forward
              * to the front page.
@@ -417,7 +445,7 @@
              * Set the response code for the page. Note: this will be overridden
              * if the main system response code is already not 200
              *
-             * @param type $code
+             * @param int $code
              */
             function setResponse($code)
             {
@@ -528,10 +556,13 @@
              * Retrieves input.
              *
              * @param string $name Name of the input variable
-             * @param boolean $filter Whether or not to filter the variable for safety (default: false)
+             * @param mixed $default A default return value if no value specified (default: null)
+             * @param boolean $filter Whether or not to filter the variable for safety (default: null), you can pass
+             *                 a callable method, function or enclosure with a definition like function($name, $value), which
+             *                 will return the filtered result.
              * @return mixed
              */
-            function getInput($name, $filter = false)
+            function getInput($name, $default = null, callable $filter = null)
             {
                 if (!empty($name)) {
                     if (!empty($_REQUEST[$name])) {
@@ -539,10 +570,14 @@
                     } else if (!empty($this->data[$name])) {
                         $value = $this->data[$name];
                     }
+                    if ((empty($value)) && (!empty($default)))
+                        $value = $default;
                     if (!empty($value)) {
-                        if ($filter == true) {
-                            // TODO: add some kind of sensible filter
+                        if (isset($filter) && is_callable($filter)) {
+                            $value = call_user_func($filter, $name, $value);
                         }
+
+                        // TODO, we may want to add some sort of system wide default filter for when $filter is null
 
                         return $value;
                     }
@@ -580,28 +615,128 @@
 
                 return false;
             }
-	    
-	    /**
-	     * Set or add an asset.
-	     * @param type $name Name of the asset (e.g. 'idno', 'jquery')
-	     * @param type $class Class of asset (e.g. 'javascript', 'css')
-	     * @param type $value A url or other value
-	     */
-	    public function setAsset($name, $value, $class) {
-		if (!is_array($this->assets)) $this->assets = [];
-		if (!is_array($this->assets[$class])) $this->assets[$class] = [];
-		
-		$this->assets[$class][$name] = $value;
-	    }
-	    
-	    /**
-	     * Get assets of a given class.
-	     * @param type $class
-	     * @return array
-	     */
-	    public function getAssets($class) {
-		return $this->assets[$class];
-	    }
+
+            /**
+             * Set or add a file asset.
+             * @param type $name Name of the asset (e.g. 'idno', 'jquery')
+             * @param type $class Class of asset (e.g. 'javascript', 'css')
+             * @param type $value A URL or other value
+             */
+            public function setAsset($name, $value, $class)
+            {
+                if (!isset($this->assets) || !is_array($this->assets)) $this->assets = [];
+                if (!isset($this->assets[$class]) || !is_array($this->assets)) $this->assets[$class] = [];
+
+                $this->assets[$class][$name] = $value;
+            }
+
+            /**
+             * Get assets of a given class.
+             * @param type $class
+             * @return array
+             */
+            public function getAssets($class)
+            {
+                return $this->assets[$class];
+            }
+
+            /**
+             * Set the last updated header for this page.
+             * Takes a unix timestamp and outputs it as RFC2616 date.
+             * @param int $timestamp Unix timestamp.
+             */
+            public function setLastModifiedHeader($timestamp)
+            {
+                header('Last-Modified: ' . self::timestampToRFC2616($timestamp));
+            }
+
+            /**
+             * Return whether the current page URL matches the given regex string.
+             * @param type $regex_string URL string in the same format as the page handler definition.
+             */
+            public function matchUrl($regex_string)
+            {
+                $url = $this->currentUrl(true);
+
+                $page = $url['path'];
+
+                if ((isset($url['query'])) && ($url['query']))
+                    $page .= "?" . $url['query'];
+
+                if ((isset($url['fragment'])) && ($url['fragment']))
+                    $page .= "#" . $url['fragment'];
+
+                $url = $page;
+
+                // Now we've got our page url, match it against regex
+                return preg_match('#^/?' . $regex_string . '/?$#', $url);
+            }
+
+            /**
+             * Return the full URL of the current page.
+             *
+             * @param $tokenise bool If true then an exploded tokenised version is returned.
+             * @return url|array
+             */
+            public function currentUrl($tokenise = false)
+            {
+                $url         = parse_url(\Idno\Core\site()->config()->url);
+                $url['path'] = $_SERVER['REQUEST_URI'];
+
+                if ($tokenise)
+                    return $url;
+
+                return self::buildUrl($url);
+            }
+
+
+            /**
+             * Construct a URL from array components (basically an implementation of http_build_url() without PECL.
+             *
+             * @param array $url
+             * @return string
+             */
+            public static function buildUrl(array $url)
+            {
+                if (!empty($url['scheme']))
+                    $page = $url['scheme'] . "://";
+                else
+                    $page = '//';
+
+                // user/pass
+                if ((isset($url['user'])) && ($url['user']))
+                    $page .= $url['user'];
+                if ((isset($url['pass'])) && ($url['pass']))
+                    $page .= ":" . $url['pass'];
+                if (($url['user']) || $url['pass'])
+                    $page .= "@";
+
+                $page .= $url['host'];
+
+                if ((isset($url['port'])) && ($url['port']))
+                    $page .= ":" . $url['port'];
+
+                $page .= $url['path'];
+
+                if ((isset($url['query'])) && ($url['query']))
+                    $page .= "?" . $url['query'];
+
+
+                if ((isset($url['fragment'])) && ($url['fragment']))
+                    $page .= "#" . $url['fragment'];
+
+
+                return $page;
+            }
+
+            /**
+             * Convert a unix timestamp into an RFC2616 (HTTP) compatible date.
+             * @param type $timestamp
+             */
+            public static function timestampToRFC2616($timestamp)
+            {
+                return gmdate('D, d M Y H:i:s T', (int)$timestamp);
+            }
 
         }
 

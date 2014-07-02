@@ -5,7 +5,7 @@
         class Delete extends \Idno\Common\Page {
 
             function postContent() {
-                $this->gatekeeper();
+                $this->createGatekeeper();
 
                 if (!empty($this->arguments)) {
                     $object = \IdnoPlugins\Checkin\Checkin::getByID($this->arguments[0]);

@@ -14,7 +14,7 @@
 
             function getContent()
             {
-                $this->gatekeeper(); // Logged-in only please
+                $this->createGatekeeper(); // Logged-in only please
                 $t                        = \Idno\Core\site()->template();
                 $t->content_types         = \Idno\Common\ContentType::getRegistered();
                 $t->default_content_types = \Idno\Core\site()->session()->currentUser()->settings['default_feed_content'];
@@ -25,7 +25,7 @@
 
             function postContent()
             {
-                $this->gatekeeper(); // Logged-in only please
+                $this->createGatekeeper(); // Logged-in only please
                 $user = \Idno\Core\site()->session()->currentUser();
 
                 $default_feed_content = $this->getInput('default_feed_content');

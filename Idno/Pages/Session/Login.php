@@ -20,7 +20,7 @@
                     $this->forward();
                 }
 
-                $fwd      = $this->getInput('fwd'); // Forward to a new page?
+                $fwd = $this->getInput('fwd'); // Forward to a new page?
                 if ($fwd == \Idno\Core\site()->config()->url . 'session/login') {
                     $fwd = '';
                 }
@@ -42,7 +42,6 @@
                 } else {
                     \Idno\Core\site()->triggerEvent('login/failure/nouser', ['method' => 'password', 'credentials' => ['email' => $this->getInput('email')]]);
                     $this->setResponse(401);
-                    //$this->gatekeeper();
                 }
 
                 if ($user instanceof \Idno\Entities\User) {

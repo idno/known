@@ -19,20 +19,22 @@
              * @param mixed $value
              * @return bool
              */
-            function setValue($context, $name, $value) {
+            function setValue($context, $name, $value)
+            {
 
                 if (site()->session()->isLoggedOn()) {
                     if ($user = site()->session()->currentUser()) {
                         if (!empty($name) && !empty($context)) {
-                            $autosave = $user->autosave;
+                            $autosave                  = $user->autosave;
                             $autosave[$context][$name] = $value;
-                            $user->autosave = $autosave;
+                            $user->autosave            = $autosave;
                             if ($user->save()) {
                                 \Idno\Core\site()->session()->refreshSessionUser($user);
                             }
                         }
                     }
                 }
+
                 return false;
 
             }
@@ -42,14 +44,15 @@
              * @param $context
              * @param $elements
              */
-            function setValues($context, $elements) {
+            function setValues($context, $elements)
+            {
 
                 if (site()->session()->isLoggedOn()) {
                     if ($user = site()->session()->currentUser()) {
                         if (is_array($elements) && !empty($elements) && !empty($context)) {
-                            $autosave = $user->autosave;
+                            $autosave           = $user->autosave;
                             $autosave[$context] = $elements;
-                            $user->autosave = $autosave;
+                            $user->autosave     = $autosave;
                             if ($user->save()) {
                                 \Idno\Core\site()->session()->refreshSessionUser($user);
                             }
@@ -66,7 +69,8 @@
              * @param string $default Value to default to if the cache does not exist
              * @return mixed|bool
              */
-            function getValue($context, $name, $default = '') {
+            function getValue($context, $name, $default = '')
+            {
 
                 if (site()->session()->isLoggedOn()) {
                     if ($user = site()->session()->currentUser()) {
@@ -75,6 +79,7 @@
                         }
                     }
                 }
+
                 return $default;
 
             }
@@ -84,16 +89,19 @@
              * @param $context
              * @return bool|false|MongoID|null
              */
-            function clearContext($context) {
+            function clearContext($context)
+            {
 
                 if (site()->session()->isLoggedOn()) {
                     if ($user = site()->session()->currentUser()) {
-                        $autosave = $user->autosave;
+                        $autosave           = $user->autosave;
                         $autosave[$context] = [];
-                        $user->autosave = $autosave;
+                        $user->autosave     = $autosave;
+
                         return $user->save();
                     }
                 }
+
                 return false;
 
             }

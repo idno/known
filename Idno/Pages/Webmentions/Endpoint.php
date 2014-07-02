@@ -31,9 +31,11 @@
                     $target = urldecode($vars['target']);
 
                     // Remove anchors from target URL, but save them to '#' input so we can still reference them later
-                    list($target, $fragment) = explode('#', $target, 2);
-                    if (!empty($fragment)) {
-                        $this->setInput('#', $fragment);
+                    if (strpos($target, '#')) {
+                        list($target, $fragment) = explode('#', $target, 2);
+                        if (!empty($fragment)) {
+                            $this->setInput('#', $fragment);
+                        }
                     }
 
                     // Get the page handler for target
@@ -50,7 +52,7 @@
                         // Check that source exists, parse it for mf2 content,
                         // and ensure that it genuinely mentions this page
                         if ($webmention_ok) {
-                            if ($source_content = \Idno\Core\Webmention::getPageContent($source)) {
+                            if ($source_content = \Idno\Core\Webservice::get($source)) {
                                 if (substr_count($source_content['content'], $target) || $source_content['response'] == 410) {
                                     $source_mf2 = \Idno\Core\Webmention::parseContent($source_content['content'], $source);
                                     // Set source and target information as input variables

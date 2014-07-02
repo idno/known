@@ -2,7 +2,10 @@
 
     header('Content-type: application/rss+xml');
     unset($vars['body']);
-    //$vars['messages'] = \Idno\Core\site()->session()->getAndFlushMessages();
+
+    if (empty($vars['title']) && !empty($vars['description'])) {
+        $vars['title'] = implode(' ',array_slice(explode(' ', strip_tags($vars['description'])),0,10));
+    }
 
     $page = new DOMDocument();
     $page->formatOutput = true;
@@ -16,18 +19,17 @@
     $channel->appendChild($page->createElement('description',$vars['description']));
     $channel->appendChild($page->createElement('link',$this->getCurrentURLWithoutVar('_t')));
     if (!empty(\Idno\Core\site()->config()->hub)) {
-        $pubsub = $page->createElement('link', \Idno\Core\site()->config()->hub);
+        $pubsub = $page->createElement('atom:link');
+        $pubsub->setAttribute('href',\Idno\Core\site()->config()->hub);
         $pubsub->setAttribute('rel', 'hub');
-        $pubsub->setAttribute('xlmns', 'http://www.w3.org/2005/Atom');
         $channel->appendChild($pubsub);
     }
     $self = $page->createElement('atom:link');
     $self->setAttribute('href', $this->getCurrentURL());
     $self->setAttribute('rel','self');
     $self->setAttribute('type', 'application/rss+xml');
-    $self->setAttribute('xlmns', 'http://www.w3.org/2005/Atom');
     $channel->appendChild($self);
-    $channel->appendChild($page->createElement('generator','Idno http://idno.co'));
+    $channel->appendChild($page->createElement('generator','Known http://withknown.com'));
 
     // In case this isn't a feed page, find any objects
     if (empty($vars['items']) && !empty($vars['object'])) {
@@ -41,7 +43,9 @@
                 $item = $item->getObject();
             }
             $rssItem = $page->createElement('item');
-            $rssItem->appendChild($page->createElement('title',$item->getTitle()));
+            if ($title = $item->getTitle()) {
+                $rssItem->appendChild($page->createElement('title',$item->getTitle()));
+            }
             $rssItem->appendChild($page->createElement('link',$item->getURL()));
             $rssItem->appendChild($page->createElement('guid',$item->getUUID()));
             $rssItem->appendChild($page->createElement('pubDate',date(DATE_RSS,$item->created)));
@@ -52,6 +56,10 @@
                 $rssItem->appendChild($page->createElement('geo:lat', $item->lat));
                 $rssItem->appendChild($page->createElement('geo:long', $item->long));
             }
+            $webmentionItem = $page->createElement('atom:link');
+            $webmentionItem->setAttribute('rel', 'webmention');
+            $webmentionItem->setAttribute('href', \Idno\Core\site()->config()->getURL() . 'webmention/');
+            $rssItem->appendChild($webmentionItem);
             if ($attachments = $item->getAttachments()) {
                 foreach($attachments as $attachment) {
                     $enclosureItem = $page->createElement('enclosure');

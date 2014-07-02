@@ -16,10 +16,10 @@
 
                 // If we're logged in, accept input and save it to the cache
                 if (\Idno\Core\site()->session()->isLoggedOn()) {
-                    $user = new User(); // Force events to be handled
-                    $context = $this->getInput('context');
+                    $user     = new User(); // Force events to be handled
+                    $context  = $this->getInput('context');
                     $elements = $this->getInput('elements');
-                    $value   = $this->getInput('value');
+                    $value    = $this->getInput('value');
                     if (!empty($elements)) {
                         (new \Idno\Core\Autosave())->setValues($context, $elements);
                     }

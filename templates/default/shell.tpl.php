@@ -1,8 +1,15 @@
 <?php
 
+    $messages = $vars['messages'];
+
     header('Content-type: text/html');
     header('Link: <' . \Idno\Core\site()->config()->url . 'webmention/>; rel="http://webmention.org/"');
     header('Link: <' . \Idno\Core\site()->config()->url . 'webmention/>; rel="webmention"');
+    header("Access-Control-Allow-Origin: *");
+
+    if (empty($vars['title']) && !empty($vars['description'])) {
+        $vars['title'] = implode(' ',array_slice(explode(' ', strip_tags($vars['description'])),0,10));
+    }
 
 ?>
 <?php if (!$_SERVER["HTTP_X_PJAX"]): ?>
@@ -13,9 +20,29 @@
     <title><?= htmlspecialchars($vars['title']); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="initial-scale=1.0" media="(device-height: 568px)"/>
-    <meta name="description" content="<?= htmlspecialchars($vars['description']) ?>">
-    <meta name="generator" content="idno http://idno.co">
+    <meta name="description" content="<?= htmlspecialchars(strip_tags($vars['description'])) ?>">
+    <meta name="generator" content="Known http://withknown.com">
     <?= $this->draw('shell/favicon'); ?>
+
+    <!-- Dublin Core -->
+    <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" >
+    <meta name="DC.title" content="<?=htmlspecialchars($vars['title'])?>" >
+    <meta name="DC.description" content="<?=htmlspecialchars($vars['description'])?>" ><?php
+
+        if (\Idno\Core\site()->currentPage()->isPermalink()) {
+            $object = $vars['object']; /* @var \Idno\Common\Entity $object */
+            if ($creator = $object->getOwner()) {
+                ?><meta name="DC.creator" content="<?=htmlentities($creator->getTitle())?>"><?php
+            }
+            if ($created = $object->created) {
+                ?><meta name="DC.date" content="<?=date('c',$created)?>"><?php
+            }
+            if ($url = $object->getURL()) {
+                ?><meta name="DC.identifier" content="<?=htmlspecialchars($url)?>"><?php
+            }
+        }
+
+    ?>
 
     <!-- Le styles -->
     <link href="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/css/bootstrap.css"
@@ -35,22 +62,31 @@
     <script src="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/js/html5shiv.js"></script>
     <![endif]-->
 
-    <!-- Default idno JavaScript -->
+    <!-- Default Known JavaScript -->
     <script src="<?= \Idno\Core\site()->config()->url . 'js/default.js' ?>"></script>
 
     <!-- To silo is human, to syndicate divine -->
-    <link rel="alternate" type="application/rss+xml" title="<?= htmlspecialchars($vars['title']) ?>"
+    <link rel="alternate feed" type="application/rss+xml" title="<?= htmlspecialchars($vars['title']) ?>"
           href="<?= $this->getURLWithVar('_t', 'rss'); ?>"/>
+    <link rel="alternate feed" type="application/rss+xml" title="<?= htmlspecialchars(\Idno\Core\site()->config()->title) ?>: all content"
+          href="<?= \Idno\Core\site()->config()->url ?>content/all?_t=rss"/>
+    <link rel="feed" type="text/html" title="<?= htmlspecialchars(\Idno\Core\site()->config()->title) ?>"
+          href="<?= \Idno\Core\site()->config()->url ?>content/all"/>
 
     <!-- Webmention endpoint -->
     <link href="<?= \Idno\Core\site()->config()->url ?>webmention/" rel="http://webmention.org/"/>
     <link href="<?= \Idno\Core\site()->config()->url ?>webmention/" rel="webmention"/>
 
     <link type="text/plain" rel="author" href="<?= \Idno\Core\site()->config()->url ?>humans.txt"/>
+    
+    <?php if (!empty(\Idno\Core\site()->config()->hub)) { ?>
+    <!-- Pubsubhubbub -->
+    <link href="<?= \Idno\Core\site()->config()->hub ?>" rel="hub" />
+    <?php } ?>
 
     <?php
         // Load style assets
-        if ($style = \Idno\Core\site()->currentPage->getAssets('css')) {
+        if ((\Idno\Core\site()->currentPage()) && $style = \Idno\Core\site()->currentPage->getAssets('css')) {
             foreach ($style as $css) {
                 ?>
                 <link href="<?= $css; ?>" rel="stylesheet">
@@ -60,13 +96,17 @@
     ?>
 
     <script src="<?=\Idno\Core\site()->config()->url?>external/fragmention/fragmention.js"></script>
+
+    <!-- We need jQuery at the top of the page -->
+    <script src="<?= \Idno\Core\site()->config()->url . 'external/jquery/' ?>jquery.min.js"></script>
+
     <?= $this->draw('shell/head', $vars); ?>
 
 </head>
 
 <body>
 <?php endif; ?>
-<div id="pjax-container">
+<div id="pjax-container" class="page-container">
     <?php
         $currentPage = \Idno\Core\site()->currentPage();
 
@@ -86,10 +126,12 @@
                            href="<?= \Idno\Core\site()->config()->url ?>"><?= \Idno\Core\site()->config()->title ?></a>
 
                         <div class="nav-collapse collapse">
-                            <?= $this->draw('shell/toolbar/search') ?>
-                            <ul class="nav" role="menu">
-                            </ul>
-                            <?= $this->draw('shell/toolbar/content') ?>
+                            <?php
+                                if (\Idno\Core\site()->config()->isPublicSite() || \Idno\Core\site()->session()->isLoggedOn()) {
+                                    echo $this->draw('shell/toolbar/search');
+                                    echo $this->draw('shell/toolbar/content');
+                                }
+                            ?>
                             <ul class="nav pull-right" role="menu">
                                 <?php
 
@@ -125,7 +167,7 @@
 
         <?php
 
-            if ($messages = \Idno\Core\site()->session()->getAndFlushMessages()) {
+            if (!empty($messages)) {
                 foreach ($messages as $message) {
 
                     ?>
@@ -147,21 +189,45 @@
 
     </div>
     <!-- /container -->
+
+    <?= $this->draw('shell/contentfooter') ?>
+
 </div>
-<!-- pjax-container -->
+<!-- Everything below this should be includes, not content -->
+
 <?php if (!$_SERVER["HTTP_X_PJAX"]): ?>
 <!-- Le javascript -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="<?= \Idno\Core\site()->config()->url . 'external/jquery/' ?>jquery.min.js"></script>
 <script src="<?= \Idno\Core\site()->config()->url . 'external/jquery-timeago/' ?>jquery.timeago.js"></script>
 <script src="<?= \Idno\Core\site()->config()->url . 'external/jquery-pjax/' ?>jquery.pjax.js"></script>
 <script src="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
+<script src="<?= \Idno\Core\site()->config()->url . 'external/underscore/underscore-min.js' ?>" type="text/javascript"></script>
+<script src="<?= \Idno\Core\site()->config()->url . 'external/mention/bootstrap-typeahead.js' ?>" type="text/javascript"></script>
+<script src="<?= \Idno\Core\site()->config()->url . 'external/mention/mention.js' ?>" type="text/javascript"></script>
+
+<!-- Flexible media player -->
+<script src="<?=\Idno\Core\site()->config()->getURL()?>external/mediaelement/build/mediaelement-and-player.min.js"></script>
+<link rel="stylesheet" href="<?=\Idno\Core\site()->config()->getURL()?>external/mediaelement/build/mediaelementplayer.css" />
+
+<!-- WYSIWYG editor -->
+<script src="<?=\Idno\Core\site()->config()->url?>external/peneditor/src/pen.js"></script>
+<link rel="stylesheet" href="<?=\Idno\Core\site()->config()->getURL()?>external/peneditor/src/pen.css">
+
+<!-- Mention styles -->
+<link rel="stylesheet" type="text/css" href="<?= \Idno\Core\site()->config()->url ?>external/mention/recommended-styles.css">
+
+<?php
+    if (\Idno\Core\site()->session()->isLoggedOn()) {
+        echo $this->draw('js/mentions');
+    }
+?>
+
 <!-- Video shim -->
 <script src="<?= \Idno\Core\site()->config()->url . 'external/fitvids/jquery.fitvids.min.js' ?>"></script>
 
 <?php
     // Load javascript assets
-    if ($scripts = \Idno\Core\site()->currentPage->getAssets('javascript')) {
+    if ((\Idno\Core\site()->currentPage()) && $scripts = \Idno\Core\site()->currentPage->getAssets('javascript')) {
         foreach ($scripts as $script) {
             ?>
             <script src="<?= $script ?>"></script>
@@ -175,21 +241,6 @@
 
 <script>
 
-    //$(document).pjax('a:not([href^=\\.],[href^=file])', '#pjax-container');    // In idno, URLs with extensions are probably files.
-    /*$(document).on('pjax:click', function(event) {
-     if (event.target.href.match('/edit/')) {
-     // For a reason I can't actuallly figure out, /edit pages never render with chrome
-     // when PJAXed. I don't understand the rendering pipeline well enough to figure out
-     // what's up --jrv 20130705
-     return false;
-     }
-     if (event.target.onclick) { // If there's an onclick handler, we don't want to pjax this
-     return false;
-     } else {
-     return true;
-     }
-     });*/
-
     function annotateContent() {
         $(".h-entry").fitVids();
         $("time.dt-published").timeago();
@@ -197,7 +248,7 @@
 
     // Shim so that JS functions can get the current site URL
     function wwwroot() {
-        return '<?=\Idno\Core\site()->config()->wwwroot?>';
+        return '<?=\Idno\Core\site()->config()->getURL()?>';
     }
 
     $(document).ready(function () {
@@ -207,6 +258,27 @@
         annotateContent();
     });
 
+    /**  
+     * Better handle links in iOS web applications.
+     * This code (from the discussion here: https://gist.github.com/kylebarrow/1042026)
+     * will prevent internal links being opened up in safari when known is installed
+     * on an ios home screen.
+     */
+    (function(document,navigator,standalone) {
+            if ((standalone in navigator) && navigator[standalone]) {
+                var curnode, location=document.location, stop=/^(a|html)$/i;
+                document.addEventListener('click', function(e) {
+                    curnode=e.target;
+                    while (!(stop).test(curnode.nodeName)) {
+                        curnode=curnode.parentNode;
+                    }
+                    if('href' in curnode && ( curnode.href.indexOf('http') || ~curnode.href.indexOf(location.host) ) && (!curnode.classList.contains('contentTypeButton'))) {
+                        e.preventDefault();
+                        location.href = curnode.href;
+                    }
+                },false);
+            }
+        })(document,window.navigator,'standalone');
 
 </script>
 

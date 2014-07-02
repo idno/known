@@ -1,12 +1,13 @@
+<?=$this->draw('entity/edit/header');?>
 <form action="<?=$vars['object']->getURL()?>" method="post">
 
     <div class="row">
 
-        <div class="span10 offset1">
+        <div class="span8 offset1">
 
             <p>
                 <span id="in-reply-to">
-                    What's the web address of the event you're replying to?<br />
+                    What's the web address of the event you're responding to?<br />
                     <input type="text" name="inreplyto" placeholder="The website address of the event" class="span9" value="<?php if (empty($vars['url'])) { echo htmlspecialchars($vars['object']->inreplyto); } else { echo htmlspecialchars($vars['url']); } ?>" />
                 </span>
             </p>
@@ -27,13 +28,14 @@
                 </label>
             </p>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('note'); ?>
-            <p>
+            <p class="button-bar">
                 <?= \Idno\Core\site()->actions()->signForm('/status/edit') ?>
+                <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();" />
                 <input type="submit" class="btn btn-primary" value="Save" />
-                <input type="button" class="btn" value="Cancel" onclick="hideContentCreateForm();" />
                 <?= $this->draw('content/access'); ?>
             </p>
         </div>
 
     </div>
 </form>
+<?=$this->draw('entity/edit/footer');?>

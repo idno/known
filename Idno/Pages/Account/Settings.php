@@ -14,7 +14,7 @@
 
             function getContent()
             {
-                $this->gatekeeper(); // Logged-in only please
+                $this->createGatekeeper(); // Logged-in only please
                 $t        = \Idno\Core\site()->template();
                 $t->body  = $t->draw('account/settings');
                 $t->title = 'Account settings';
@@ -23,7 +23,7 @@
 
             function postContent()
             {
-                $this->gatekeeper(); // Logged-in only please
+                $this->createGatekeeper(); // Logged-in only please
                 $user = \Idno\Core\site()->session()->currentUser();
                 $name = $this->getInput('name');
                 //$handle = $this->getInput('handle');
@@ -52,8 +52,10 @@
                         if (getimagesize($_FILES['avatar']['tmp_name'])) {
                             if ($icon = \Idno\Entities\File::createThumbnailFromFile($_FILES['avatar']['tmp_name'], $_FILES['avatar']['name'], 300)) {
                                 $user->icon = (string)$icon;
+                                \Idno\Core\site()->session()->addMessage("Your user picture was updated.");
                             } else if ($icon = \Idno\Entities\File::createFromFile($_FILES['avatar']['tmp_name'], $_FILES['avatar']['name'])) {
                                 $user->icon = (string)$icon;
+                                \Idno\Core\site()->session()->addMessage("Your user picture was updated.");
                             }
                         }
                     }

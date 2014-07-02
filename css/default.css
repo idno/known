@@ -1,5 +1,5 @@
 /**
-    Default idno CSS
+    Default Known CSS
 */
 
 body {
@@ -30,6 +30,10 @@ h2 {
 
 .idno-content p {
     line-height: 1.5em !important;
+}
+
+.idno-content form {
+    /*display: none;*/
 }
 
 .aftercontent {
@@ -89,16 +93,51 @@ h2 {
     line-height: 1.2em;
 }
 
-.idno-entry .h-card .icon-container {
+.idno-entry .hidden-phone .h-card .icon-container {
     margin-bottom: 1em;
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
 }
 
-.idno-object .edit {
+.idno-entry .visible-phone .h-card .icon-container {
+    width: 1.3em;
+    height: 1.3em;
+    margin-bottom: -0.3em;
+    overflow: hidden;
+    border-radius: 0px !important;
+}
+
+.idno-entry .h-card .icon-container .u-photo {
+    width: 100%;
+    height: auto;
+}
+
+.idno-object a.edit {
+    margin-left: 1em;
+    color: #333 !important;
+}
+
+.annotations {
+    margin-top: 1em;
+    margin-bottom: 2em;
+}
+
+.edit-annotation {
     float: right;
 }
 
-.idno-object .edit a {
-    margin-left: 1em;
+.edit-annotation a {
+    margin-right: 0.5em;
+    color: #999;
+}
+
+.idno-comment {
+    background-color: #eee;
+}
+
+.idno-comment-container textarea {
+
 }
 
 .idno-object .e-content {
@@ -134,9 +173,23 @@ h2 {
     margin-right: 0.5em;
 }
 
+.idno-object .interactions {
+    float: right;
+}
+
+.idno-object .interactions a, .idno-object .interactions a:hover {
+    color: #999;
+    margin-left: 0.25em;
+}
+
 .idno-object .dt-published {
     color: #999;
     margin-right: 0.25em;
+}
+
+.idno-object .interactions a:hover {
+    color: #333;
+    text-decoration: none;
 }
 
 .idno-object .citation {
@@ -193,7 +246,26 @@ h2 {
 }
 
 .idno-annotation {
+    font-size: 1.1em;
     margin-bottom: 1em;
+}
+
+.annotation-add-mini .icon-container,
+.annotation-add .icon-container {
+    margin-top: -1em;
+}
+
+.annotation-add-mini .icon-container {
+    width: 25px;
+    height: 25px;
+}
+
+.annotation-add-mini textarea {
+    height: 1.5em;
+}
+
+.annotation-add-mini input[type=submit] {
+    margin-top: -0.25em;
 }
 
 .posse a[rel=syndication] {
@@ -358,6 +430,28 @@ span.contentTypeLogo {
     font-size: 30px;
 }
 
+#counter {
+    text-align: right;
+    padding-top: 0.25em;
+}
+
+#counter .count {
+    font-size: 1.3em;
+    color: #aaa;
+}
+
+.theme {
+    padding: 1em;
+    margin-bottom: 2em;
+    background-color: #fafafa;
+}
+
+.theme img {
+    border: #999 1px solid;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
 /**
  * Friendly messages
  */
@@ -379,4 +473,43 @@ span.contentTypeLogo {
 
 .field-description {
     font-size: 0.8em;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 999px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+/**
+ * Data panes
+ */
+
+.pane {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 15em;
+    border: 1px #ddd solid;
+}
+
+div.pane div.row:nth-of-type(even) {
+    background-color: #fff;
+}
+
+div.pane div.row:nth-of-type(odd) {
+    background-color: #fafafa;
 }

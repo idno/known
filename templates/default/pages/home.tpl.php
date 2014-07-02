@@ -2,7 +2,9 @@
 
     if (!empty($vars['contentTypes'])) {
 
-        echo $this->draw('content/create');
+	if (\Idno\Core\site()->canEdit()) {
+	    echo $this->draw('content/create');
+	}
 
     } else {
 
@@ -10,14 +12,6 @@
 
     }
 
-    if (!empty($vars['items'])) {
-
-        foreach($vars['items'] as $entry) {
-            echo $this->__(array('object' => $entry->getRelatedFeedItems()))->draw('entity/shell');
-        }
-
-        echo $this->drawPagination($vars['count']);
-
-    }
+    echo $this->draw('entity/feed');
 
 ?>

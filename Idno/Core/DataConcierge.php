@@ -49,6 +49,19 @@
             }
 
             /**
+             * Offer a session handler for the current session
+             */
+            function handleSession()
+            {
+                $sessionHandler = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\MongoDbSessionHandler(\Idno\Core\site()->db()->getClient(), [
+                    'database'   => 'idnosession',
+                    'collection' => 'idnosession'
+                ]);
+
+                session_set_save_handler($sessionHandler, true);
+            }
+
+            /**
              * Saves an idno entity to the database, returning the _id
              * field on success.
              *
@@ -107,6 +120,16 @@
                 }
 
                 return false;
+            }
+
+            /**
+             * Process the ID appropriately
+             * @param $id
+             * @return \MongoId
+             */
+            function processID($id)
+            {
+                return new \MongoId($id);
             }
 
             /**
@@ -250,6 +273,15 @@
             function getRecords($fields, $parameters, $limit, $offset, $collection = 'entities')
             {
                 try {
+                    // Make search case insensitive
+                    $fieldscopy = $fields;
+                    foreach ($fields as $key => $value) {
+                        if (is_string($value)) {
+                            $val              = new \MongoRegex("/{$value}/i");
+                            $fieldscopy[$key] = $val;
+                        }
+                    }
+                    $fields = $fieldscopy;
                     if ($result = $this->database->$collection->find($parameters, $fields)->skip($offset)->limit($limit)->sort(array('created' => -1))) {
                         return $result;
                     }

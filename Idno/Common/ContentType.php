@@ -50,7 +50,7 @@
 
             /**
              * Create an object with the entity class associated with this content type
-             * @return mixed
+             * @return \Idno\Common\Entity
              */
             function createEntity()
             {
@@ -277,7 +277,7 @@
              * retrieves the first registered plugin content type that maps to it
              *
              * @param $type
-             * @return bool
+             * @return \Idno\Common\ContentType
              */
             static function getRegisteredForIndieWebPostType($type)
             {

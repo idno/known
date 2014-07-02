@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Installation instructions &mdash; Known 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Known 0.1 documentation" href="../index.html" />
+    <link rel="up" title="Installing Known" href="index.html" />
+    <link rel="next" title="Developer guides" href="../developers/index.html" />
+    <link rel="prev" title="System requirements" href="requirements.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../developers/index.html" title="Developer guides"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="requirements.html" title="System requirements"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Known 0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Installing Known</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="installation-instructions">
+<h1>Installation instructions<a class="headerlink" href="#installation-instructions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="before-you-begin">
+<h2>Before you begin<a class="headerlink" href="#before-you-begin" title="Permalink to this headline">¶</a></h2>
+<p>By installing Known now, you&#8217;re working on the cutting edge. When we release this summer, there will be a friendly
+installer, as well as a full hosted service for you to check out the features. Right now, there&#8217;s a little bit more
+involved.</p>
+<p>To begin with, make sure your server satisfies the <a class="reference internal" href="requirements.html"><em>System requirements</em></a>.</p>
+<p>Some of the technologies involved are a little bit new, so you may have to ask for your web host to install them
+specially. We want to help you pick a great host that works well with Known, so we&#8217;ll be creating a list of the ones
+that will just work, out of the box.</p>
+</div>
+<div class="section" id="upload-known-files">
+<h2>Upload Known files<a class="headerlink" href="#upload-known-files" title="Permalink to this headline">¶</a></h2>
+<p>Right now, there isn&#8217;t a stable installation package for Known, so every installation lives on the cutting edge. For
+now, we assume you&#8217;re okay with that. A friendly installer with everything you need to get going will be released
+this summer.</p>
+<p>You can place the code on your host by:</p>
+<ul class="simple">
+<li>Git clone the repository to an appropriate directory (or just straight into the folder root of your web host).
+Note that you need to make sure you acquire <a class="reference external" href="http://git-scm.com/book/en/Git-Tools-Submodules">the Git submodules</a>.
+eg: <tt class="docutils literal"><span class="pre">`git</span> <span class="pre">clone</span> <span class="pre">--recursive</span> <span class="pre">git&#64;github.com:idno/idno.git</span> <span class="pre">/path/to/webroot`</span></tt></li>
+<li>If you git cloned the repository to your local disk, use a file transfer app to move the files to your web host.</li>
+</ul>
+<p>Explaining how to use Git is beyond the scope of this tutorial, but there are plenty of great tutorials on the web.
+Make sure to enable the <cite>Git submodules &lt;http://git-scm.com/book/en/Git-Tools-Submodules&gt;</cite>.
+You&#8217;ll find the Known git repository URL on <a class="reference external" href="https://github.com/idno/idno">the main Known GitHub page</a>.</p>
+</div>
+<div class="section" id="configure-known">
+<h2>Configure Known<a class="headerlink" href="#configure-known" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="if-you-re-using-mongodb">
+<h3>If you&#8217;re using MongoDB<a class="headerlink" href="#if-you-re-using-mongodb" title="Permalink to this headline">¶</a></h3>
+<p>If your MongoDB installation accepts connections from localhost, and you&#8217;re happy for your Known MongoDB database to be
+called Known, you don&#8217;t need to do anything else in this section.</p>
+<p>If you&#8217;d like to use an alternative <a class="reference external" href="http://docs.mongodb.org/manual/reference/connection-string/">MongoDB connection string</a>,
+save a file called <em>config.ini</em> in the root of your Known installation. Lay it out like this:</p>
+<div class="highlight-python"><div class="highlight"><pre>[Database configuration]
+dbstring = &quot;Your MongoDB connection string&quot;
+dbname = &quot;Your preferred Known database name&quot;
+</pre></div>
+</div>
+<p>You can also include a subset of these items, for example to just change the database name.</p>
+</div>
+<div class="section" id="if-you-re-using-mysql">
+<h3>If you&#8217;re using MySQL<a class="headerlink" href="#if-you-re-using-mysql" title="Permalink to this headline">¶</a></h3>
+<p>Currently, MySQL users need to create a file called <tt class="xref doc docutils literal"><span class="pre">config.ini</span></tt> in the root of their installation. This should
+contain the following information:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">database</span> <span class="o">=</span> <span class="s">&quot;MySQL&quot;</span>
+<span class="n">dbname</span> <span class="o">=</span> <span class="s">&quot;Your MySQL database name&quot;</span>
+<span class="n">dbhost</span> <span class="o">=</span> <span class="s">&quot;Your MySQL database host (eg &#39;localhost&#39;)&quot;</span>
+<span class="n">dbuser</span> <span class="o">=</span> <span class="s">&quot;Your database username&quot;</span>
+<span class="n">dbpass</span> <span class="o">=</span> <span class="s">&quot;Your database password&quot;</span>
+</pre></div>
+</div>
+<p>Additionally, you will need to create the database referred to in this configuration file, and ensure that it can be
+connected to using the user credentials you supply. For now, you will need to load the SQL schema stored in
+/schemas/mysql/mysql.sql.</p>
+</div>
+</div>
+<div class="section" id="set-the-filesystem">
+<h2>Set the filesystem<a class="headerlink" href="#set-the-filesystem" title="Permalink to this headline">¶</a></h2>
+<p>If you&#8217;re using MongoDB, you don&#8217;t have to do anything, and all uploaded files will be stored in MongoDB itself.
+However, you can also store files on your server&#8217;s local hard drive. Additionally, plugins can provide alternative
+filesystems like Amazon S3.</p>
+<div class="section" id="store-files-on-your-server-s-hard-drive">
+<h3>Store files on your server&#8217;s hard drive<a class="headerlink" href="#store-files-on-your-server-s-hard-drive" title="Permalink to this headline">¶</a></h3>
+<p>Create a directory where file uploads will be stored. This <em>must</em> be outside of your document root. Set permissions
+such that the web server can read and write to it. chmod 777 will work, but is insecure and not recommended.</p>
+<p>Make a note of that full path. For example, /Users/ben/Sites/withknown.com/data/.</p>
+<p>Then, add the following to your config.ini file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">filesystem</span> <span class="o">=</span> <span class="s">&quot;local&quot;</span>
+<span class="n">uploadpath</span> <span class="o">=</span> <span class="s">&quot;/Users/ben/Sites/withknown.com/data/&quot;</span>
+</pre></div>
+</div>
+<p>Of course, replace the path with the path to your data folder.</p>
+</div>
+</div>
+<div class="section" id="load-known">
+<h2>Load Known<a class="headerlink" href="#load-known" title="Permalink to this headline">¶</a></h2>
+<p>Launch Known in a web browser.</p>
+<p>For now, the first user to register will be the site administrator. Later, the installation script will take care of
+this for you.</p>
+<p>Register and log in.</p>
+</div>
+<div class="section" id="administer-known">
+<h2>Administer Known<a class="headerlink" href="#administer-known" title="Permalink to this headline">¶</a></h2>
+<p>Once you&#8217;ve registered and logged in, click &#8220;Administration&#8221; in the menu bar. This will allow you to set some site
+configuration items, including the site name. You will also be able to enable some plugins from this screen. If you&#8217;re
+using Known as a blog or a closed community, you will probably also want to turn open registration off from here.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Installation instructions</a><ul>
+<li><a class="reference internal" href="#before-you-begin">Before you begin</a></li>
+<li><a class="reference internal" href="#upload-known-files">Upload Known files</a></li>
+<li><a class="reference internal" href="#configure-known">Configure Known</a><ul>
+<li><a class="reference internal" href="#if-you-re-using-mongodb">If you&#8217;re using MongoDB</a></li>
+<li><a class="reference internal" href="#if-you-re-using-mysql">If you&#8217;re using MySQL</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#set-the-filesystem">Set the filesystem</a><ul>
+<li><a class="reference internal" href="#store-files-on-your-server-s-hard-drive">Store files on your server&#8217;s hard drive</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#load-known">Load Known</a></li>
+<li><a class="reference internal" href="#administer-known">Administer Known</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="requirements.html"
+                        title="previous chapter">System requirements</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../developers/index.html"
+                        title="next chapter">Developer guides</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/install/instructions.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../developers/index.html" title="Developer guides"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="requirements.html" title="System requirements"
+             >previous</a> |</li>
+        <li><a href="../index.html">Known 0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Installing Known</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Known, Inc.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
