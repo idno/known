@@ -23,7 +23,7 @@
                     if (!empty(\Idno\Core\site()->config()->dbport)) {
                         $connection_string .= ';port=' . \Idno\Core\site()->config()->dbport;
                     }
-                    $this->client = new \PDO($connection_string, \Idno\Core\site()->config()->dbpass);
+                    $this->client = new \PDO($connection_string, \Idno\Core\site()->config()->dbuser, \Idno\Core\site()->config()->dbpass);
                     $this->client->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
                     //$this->client->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
                 } catch (\Exception $e) {
