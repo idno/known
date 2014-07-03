@@ -26,7 +26,7 @@
                 <label>
                     <div id="photo-preview"></div>
                     <span class="btn btn-primary btn-file">
- <i class="icon-camera"></i> <span id="photo-filename">Take a photo</span> <input type="file" name="photo" id="photo" class="span9" accept="image/*;capture=camera" onchange="photoPreview(this)" />
+ <i class="icon-camera"></i> <span id="photo-filename">Select a photo</span> <input type="file" name="photo" id="photo" class="span9" accept="image/*;capture=camera" onchange="photoPreview(this)" />
 
                     </span>
                 </label>
@@ -67,7 +67,7 @@
                 var reader = new FileReader();
 
                 reader.onload = function (e) {
-                    $('#photo-preview').html('<img src="" id="photopreview" style="display:none; width: 200px">');
+                    $('#photo-preview').html('<img src="" id="photopreview" style="display:none; width: 400px">');
                     $('#photo-filename').html('Choose different photo');
                     $('#photopreview').attr('src', e.target.result);
                     $('#photopreview').show();
