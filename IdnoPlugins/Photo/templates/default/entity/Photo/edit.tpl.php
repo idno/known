@@ -26,11 +26,8 @@
                 <label>
                     <div id="photo-preview"></div>
                     <span class="btn btn-primary btn-file">
-<<<<<<< HEAD
-                        <i class="icon-camera"></i> <span id="photo-filename">Select a photo</span> <input type="file" name="photo" id="photo" class="span9" accept="image/*;capture=camera" onchange="$('#photo-filename').html($(this).val())" />
-=======
-                        <i class="icon-camera"></i> <span id="photo-filename">Take a photo</span> <input type="file" name="photo" id="photo" class="span9" accept="image/*;capture=camera" onchange="photoPreview(this)" />
->>>>>>> FETCH_HEAD
+ <i class="icon-camera"></i> <span id="photo-filename">Take a photo</span> <input type="file" name="photo" id="photo" class="span9" accept="image/*;capture=camera" onchange="photoPreview(this)" />
+
                     </span>
                 </label>
                 <?php
