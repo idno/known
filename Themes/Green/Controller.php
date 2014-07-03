@@ -1,6 +1,6 @@
 <?php
 
-    namespace Themes\Black {
+    namespace Themes\Green {
 
         class Controller extends \Idno\Common\Theme {
 
