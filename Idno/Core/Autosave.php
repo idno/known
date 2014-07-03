@@ -98,7 +98,12 @@
                         $autosave[$context] = [];
                         $user->autosave     = $autosave;
 
-                        return $user->save();
+                        if ($result = $user->save()) {
+
+                            site()->session()->refreshSessionUser($user);
+                            return $result;
+
+                        }
                     }
                 }
 
