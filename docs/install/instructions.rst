@@ -62,6 +62,10 @@ contain the following information::
         dbuser = "Your database username"
         dbpass = "Your database password"
 
+If you need to use a non-standard database port, you can also select this::
+
+        dbport = "Your database port"
+
 Additionally, you will need to create the database referred to in this configuration file, and ensure that it can be
 connected to using the user credentials you supply. For now, you will need to load the SQL schema stored in
 /schemas/mysql/mysql.sql.

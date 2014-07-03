@@ -1,12 +1,7 @@
 <?php
 
     /**
-     * Known Data handling for MySQL.
-     *
-     * THIS IS A WORK IN PROGRESS AND SHOULD NOT (CANNOT!) BE USED IN PRODUCTION
-     *
-     * Once this is complete, you will be able to set \Idno\Core\Idno->$db to an
-     * instance of this class to use MySQL.
+     * MySQL back-end for Known data.
      *
      * @package idno
      * @subpackage data
@@ -24,7 +19,11 @@
             {
 
                 try {
-                    $this->client = new \PDO('mysql:host=' . \Idno\Core\site()->config()->dbhost . ';dbname=' . \Idno\Core\site()->config()->dbname . ';charset=utf8', \Idno\Core\site()->config()->dbuser, \Idno\Core\site()->config()->dbpass);
+                    $connection_string = 'mysql:host=' . \Idno\Core\site()->config()->dbhost . ';dbname=' . \Idno\Core\site()->config()->dbname . ';charset=utf8';
+                    if (!empty(\Idno\Core\site()->config()->dbport)) {
+                        $connection_string .= ';port=' . \Idno\Core\site()->config()->dbport;
+                    }
+                    $this->client = new \PDO($connection_string, \Idno\Core\site()->config()->dbpass);
                     $this->client->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
                     //$this->client->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
                 } catch (\Exception $e) {

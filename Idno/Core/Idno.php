@@ -38,6 +38,14 @@
                     case 'mysql':
                         $this->db = new \Idno\Data\MySQL();
                         break;
+                    case 'beanstalk-mysql': // A special instance of MYSQL designed for use with Amazon Elastic Beanstalk
+                        $this->dbhost = $_SERVER['RDS_HOSTNAME'];
+                        $this->dbuser = $_SERVER['RDS_USERNAME'];
+                        $this->dbpass = $_SERVER['RDS_PASSWORD'];
+                        $this->dbport = $_SERVER['RDS_PORT'];
+                        $this->dbname = $_SERVER['RDS_DB_NAME'];
+                        $this->db = new \Idno\Data\MySQL();
+                        break;
                     default:
                         if (class_exists("Idno\\Data\\{$this->config->database}")) {
                             $db       = "Idno\\Data\\{$this->config->database}";
