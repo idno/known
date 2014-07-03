@@ -68,7 +68,7 @@
 
                 reader.onload = function (e) {
                     $('#photo-preview').html('<img src="" id="photopreview" style="display:none; width: 200px">');
-                    $('#photo-filename').html('Choose another photo');
+                    $('#photo-filename').html('Choose different photo');
                     $('#photopreview').attr('src', e.target.result);
                     $('#photopreview').show();
                 }
