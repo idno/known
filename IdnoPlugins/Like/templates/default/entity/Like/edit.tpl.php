@@ -5,7 +5,15 @@
 
             <div class="span8 offset2">
                 <h4>
-                    New Bookmark
+                                    <?php
+
+                    if (empty($vars['object']->_id)) {
+                        ?>New Bookmark<?php
+                    } else {
+                        ?>Edit Bookmark<?php
+                    }
+
+                ?>
                 </h4>
 
                 <p>

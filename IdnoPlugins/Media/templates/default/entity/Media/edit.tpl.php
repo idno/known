@@ -4,6 +4,19 @@
     <div class="row">
 
         <div class="span8 offset2">
+        
+        	<h4>
+        	
+        	                <?php
+
+                    if (empty($vars['object']->_id)) {
+                        ?>New Audio or Video<?php
+                    } else {
+                        ?>Edit Audio or Video<?php
+                    }
+
+                ?>
+        	</h4>
 
             <p>
                 <?php
@@ -24,14 +37,14 @@
             </p>
             <p>
                 <label>
-                    Title:<br />
-                    <input type="text" name="title" id="title" value="<?=htmlspecialchars($vars['object']->title)?>" class="span8" />
+                    Title<br />
+                    <input type="text" name="title" id="title" placeholder="Give it a title" value="<?=htmlspecialchars($vars['object']->title)?>" class="span8" />
                 </label>
             </p>
             <p>
                 <label>
                     Description<br />
-                    <textarea name="body" id="body" class="span8 bodyInput"><?=htmlspecialchars($vars['object']->body)?></textarea>
+                    <textarea name="description" id="description" placeholder="What's this about?" class="span8 bodyInput"><?=htmlspecialchars($vars['object']->description)?></textarea>
                 </label>
             </p>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('media'); ?>
