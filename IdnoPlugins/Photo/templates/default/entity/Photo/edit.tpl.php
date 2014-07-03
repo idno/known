@@ -12,6 +12,7 @@
 
                 ?>
                 <label>
+                    <div id="photo-preview"></div>
                     <span class="btn btn-primary btn-file">
                         <i class="icon-camera"></i> <span id="photo-filename">Take a photo</span> <input type="file" name="photo" id="photo" class="span9" accept="image/*;capture=camera" onchange="photoPreview(this)" />
                     </span>
@@ -46,14 +47,15 @@
     </div>
 </form>
 <script>
-    if (typeof photoPreview !== function) {
+    //if (typeof photoPreview !== function) {
         function photoPreview(input) {
 
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
 
                 reader.onload = function (e) {
-                    $('#photo-filename').html('<img src="" id="photopreview" style="display:none">');
+                    $('#photo-preview').html('<img src="" id="photopreview" style="display:none; width: 200px">');
+                    $('#photo-filename').html('Choose another photo');
                     $('#photopreview').attr('src', e.target.result);
                     $('#photopreview').show();
                 }
@@ -61,6 +63,6 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
-    }
+    //}
 </script>
 <?=$this->draw('entity/edit/footer');?>
