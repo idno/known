@@ -26,13 +26,13 @@
             	if (empty($vars['object']->_id)) {
             
             ?>
-			<h5>New Post</h5>
+			<h4>New Post</h4>
 			<?php
 			
 				} else {
 			
 			?>
-			<h5>Edit Post</h5>
+			<h4>Edit Post</h4>
 			<?php
 			
 				}

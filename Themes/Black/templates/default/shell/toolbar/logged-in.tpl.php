@@ -1,4 +1,4 @@
-<li><span class="icon-container"><a href="<?=\Idno\Core\site()->session()->currentUser()->getURL()?>"><img src="<?=\Idno\Core\site()->session()->currentUser()->getIcon()?>" alt="<?=htmlspecialchars(\Idno\Core\site()->session()->currentUser()->getTitle())?>" /></a></span></li>
+<li><a href="<?=\Idno\Core\site()->session()->currentUser()->getURL()?>">Profile</a></li>
 
 <?php if (\Idno\Core\site()->canEdit()) { ?>
 

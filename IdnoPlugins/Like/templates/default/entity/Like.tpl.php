@@ -18,13 +18,13 @@
 
         if (!empty($vars['object']->description)) {
         ?>
-            <p><small><?=$this->parseURLs($this->parseHashtags($vars['object']->description),$rel)?></small></p>
+            <p><?=$this->parseURLs($this->parseHashtags($vars['object']->description),$rel)?></p>
         <?php
         }
         
         if (!empty($vars['object']->tags)) {
         ?>
-            <p><small><?=$this->parseURLs($this->parseHashtags($vars['object']->tags),$rel)?></small></p>
+            <p><?=$this->parseURLs($this->parseHashtags($vars['object']->tags),$rel)?></p>
         <?php
         }
 

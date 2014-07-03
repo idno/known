@@ -23,7 +23,7 @@
                 <span class="count"></span>
             </p>
 
-            <h5>
+            <h4>
                 <?php
 
                     if (empty($vars['object']->_id)) {
@@ -33,7 +33,7 @@
                     }
 
                 ?>
-            </h5>
+            </h4>
 
             <textarea required name="body" id="body" class="content-entry mentionable span8" placeholder="What's going on?"><?php
             
@@ -93,14 +93,14 @@
                 <input type="submit" class="btn btn-primary" value="Publish"/>
                 <?= $this->draw('content/access'); ?>
             </p>
-            <p>
+            <!--<p>
                 <small><a href="#" onclick="$('#bookmarklet').toggle(); return false;">Get a button for your browser</a></small>
             </p>
 
             <div id="bookmarklet" style="display:none;">
                 <p>Drag the following link into your browser links bar to easily share links or reply to posts on other sites:</p>
-                <?= $this->draw('entity/bookmarklet'); ?>
-            </div>   
+                <?=$this->draw('entity/bookmarklet'); ?>
+            </div>  --> 
         </div>
         <div class="span2">
             <p id="counter" style="display:none">
