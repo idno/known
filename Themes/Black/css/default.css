@@ -19,8 +19,13 @@ p a:hover, p a:focus {
 	color: #8cbf99;
 }
 
+.profile h1 a {
+	color: #000000;
+	font-weight: 600;
+}
+
 h2 {
-    line-height: 0.8em;
+    line-height: 1.1em;
     margin-bottom: 0.8em !important;
 }
 
@@ -73,6 +78,7 @@ h5.p-bookmark a:hover, h5.p-bookmark a:focus {
     padding: 0;
     font-weight: 600;
     font-family: "Proxima Nova","Open Sans","Gill Sans MT","Gill Sans",Corbel,Arial,sans-serif;
+    line-height: 1.1em;
 }
 
 h5.h-geo a {
@@ -295,7 +301,7 @@ blockquote {
 	background-color: #FFFFFF;
 	box-shadow: none;
 	background-image: none;
-	font-color: #000000;
+	color: #000000;
 	text-shadow: none;
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -308,7 +314,7 @@ blockquote {
 	border-color: #73b2e3;
 	box-shadow: none;
 	background-image: none;
-	font-color: #FFFFFF;
+	color: #FFFFFF;
 	text-shadow: none;
 }
 
@@ -339,7 +345,7 @@ label, input, button, select, textarea {
 	background-color: #FFFFFF;
 	box-shadow: none;
 	background-image: none;
-	font-color: #000000;
+	color: #000000;
 	text-shadow: none;
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -352,7 +358,7 @@ label, input, button, select, textarea {
 	border-color: #73b2e3;
 	box-shadow: none;
 	background-image: none;
-	font-color: #FFFFFF;
+	color: #FFFFFF;
 	text-shadow: none;
 }
 
@@ -360,7 +366,7 @@ label, input, button, select, textarea {
 	background-color: #FFFFFF;
 	box-shadow: none;
 	background-image: none;
-	font-color: #000000;
+	color: #000000;
 	text-shadow: none;
 	margin-top: 10px;
 	margin-bottom: 10px;
