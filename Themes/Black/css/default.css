@@ -30,6 +30,11 @@ h2 a {
 	color: #000000;
 }
 
+.welcome {
+	font-size: 36px;
+	font-weight: 600;
+}
+
 h1, h2, h3, h4, h5, h6 {
 	color: #000000;
 }
@@ -330,12 +335,73 @@ label, input, button, select, textarea {
 	text-shadow: none;
 }
 
+.btn-save {
+	background-color: #FFFFFF;
+	box-shadow: none;
+	background-image: none;
+	font-color: #000000;
+	text-shadow: none;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	color: #000000;
+	border: 2px solid #000000; 
+}
+
+.btn-save:hover, .btn-save:active, .btn-save:focus {
+	background-color: #73b2e3;
+	border-color: #73b2e3;
+	box-shadow: none;
+	background-image: none;
+	font-color: #FFFFFF;
+	text-shadow: none;
+}
+
+.btn-signin {
+	background-color: #FFFFFF;
+	box-shadow: none;
+	background-image: none;
+	font-color: #000000;
+	text-shadow: none;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	color: #000000;
+	border: 2px solid #000000; 	
+}
+
+.btn-signin:hover, .btn-signin:active, .btn-signin:focus {
+	background-color: #73b2e3;
+	border-color: #73b2e3;
+	box-shadow: none;
+	background-image: none;
+	color: #FFFFFF;
+	text-shadow: none;
+}
+
 .note {
 	margin-top: 10px;
 }
 
 textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
 	box-shadow: none;
+}
+
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+	border-radius: 0px;
+}
+
+.well {
+	margin-top: 5px;
+	background-color: #FFFFFF;
+	border: none;
+	box-shadow: none;
+	padding-left: 0;
+	padding-right: 0;
+	padding-top: 20px;
+}
+
+.hero-unit {
+	background-color: #FFFFFF;
+	padding: 30px;
 }
 
 /* * {

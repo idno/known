@@ -1,6 +1,8 @@
 <div class="row">
     <div class="span6 offset3 well text-center">
 
+		<h2 class="text-center welcome">Welcome back!</h2>
+
         <h3 class="text-center">
             Sign in
         </h3>
@@ -19,11 +21,6 @@
             </div>
             <div class="control-group">
                 <div class="controls">
-                    <a href="<?=\Idno\Core\site()->config()->getURL()?>account/password">Forgotten your password?</a>
-                </div>
-            </div>
-            <div class="control-group">
-                <div class="controls">
                     <button type="submit" class="btn btn-signin">Sign in</button>
                     <input type="hidden" name="fwd" value="<?php
                         if (!empty($vars['fwd'])) {
@@ -33,6 +30,12 @@
                         } else {
                             echo \Idno\Core\site()->config()->url;
                         }?>" />
+                </div>
+            </div>
+            
+              <div class="control-group">
+                <div class="controls">
+                    <a href="<?=\Idno\Core\site()->config()->getURL()?>account/password">Forgot your password?</a>
                 </div>
             </div>
             <?= \Idno\Core\site()->actions()->signForm('/session/login') ?>
