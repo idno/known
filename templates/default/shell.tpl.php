@@ -109,7 +109,11 @@
 
 </head>
 
-<body>
+<body class="<?php
+
+    echo (str_replace('\\','_',strtolower(get_class(\Idno\Core\site()->currentPage()))));
+
+?>">
 <?php endif; ?>
 <div id="pjax-container" class="page-container">
     <?php
