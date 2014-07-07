@@ -53,6 +53,10 @@
                     }
                 }
 
+                if ($this->initial_plugins) {
+                    $this->plugins = $this->initial_plugins;
+                }
+
                 date_default_timezone_set($this->timezone);
                 //setlocale(LC_ALL, 'en_US.UTF8');
             }
