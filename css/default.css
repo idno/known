@@ -386,6 +386,10 @@ span.contentTypeLogo {
     height: 15em;
 }
 
+.bodyInputShort {
+    height: 7em;
+}
+
 .syndication span,
 .syndication span label {
     display: inline-block;
