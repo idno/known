@@ -98,6 +98,17 @@
                         }
                     }
                 }
+                if (file_exists(\Idno\Core\site()->config()->path . '/hosts/' . $_SERVER['HTTP_HOST'] . '/IdnoPlugins')) {
+                    if ($folders = scandir(\Idno\Core\site()->config()->path . '/hosts/' . $_SERVER['HTTP_HOST'] . '/IdnoPlugins')) {
+                        foreach ($folders as $folder) {
+                            if ($folder != '.' && $folder != '..') {
+                                if (file_exists(\Idno\Core\site()->config()->path . '/hosts/' . $_SERVER['HTTP_HOST'] . '/IdnoPlugins' . $folder . '/plugin.ini')) {
+                                    $plugins[$folder] = parse_ini_file(\Idno\Core\site()->config()->path . '/hosts/' . $_SERVER['HTTP_HOST'] . '/IdnoPlugins' . $folder . '/plugin.ini', true);
+                                }
+                            }
+                        }
+                    }
+                }
                 ksort($plugins);
 
                 return $plugins;

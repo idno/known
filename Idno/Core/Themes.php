@@ -70,6 +70,17 @@
                         }
                     }
                 }
+                if (file_exists(\Idno\Core\site()->config()->path . 'hosts/'.$_SERVER['HTTP_HOST'].'/Themes')) {
+                    if ($folders = scandir(\Idno\Core\site()->config()->path . 'hosts/'.$_SERVER['HTTP_HOST'].'/Themes')) {
+                        foreach ($folders as $folder) {
+                            if ($folder != '.' && $folder != '..') {
+                                if (file_exists(\Idno\Core\site()->config()->path . 'hosts/'.$_SERVER['HTTP_HOST'].'/Themes' . $folder . '/theme.ini')) {
+                                    $themes[$folder] = parse_ini_file(\Idno\Core\site()->config()->path . 'hosts/'.$_SERVER['HTTP_HOST'].'/Themes' . $folder . '/theme.ini', true);
+                                }
+                            }
+                        }
+                    }
+                }
 
                 $themes[''] = [
                     'Theme description' => [
