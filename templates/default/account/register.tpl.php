@@ -15,7 +15,7 @@
                     <!--<small>The name other people will see.</small>-->
                     </label>
                     <div class="controls">
-                        <input type="text" id="inputName" placeholder="Henri Mattise" class="span4" name="name" value="">
+                        <input type="text" id="inputName" placeholder="Henri Matisse" class="span4" name="name" value="">
                     </div>
                 </div>
                 <div class="control-group">
