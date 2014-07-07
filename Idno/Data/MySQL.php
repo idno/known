@@ -27,8 +27,13 @@
                     $this->client->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
                     //$this->client->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
                 } catch (\Exception $e) {
-                    echo '<p>Unfortunately we couldn\'t connect to the database:</p><p>' . $e->getMessage() . '</p>';
-                    exit;
+                    if (!empty(\Idno\Core\site()->config()->forward_on_empty)) {
+                        header('Location: ' . \Idno\Core\site()->config()->forward_on_empty);
+                        exit;
+                    } else {
+                        echo '<p>Unfortunately we couldn\'t connect to the database:</p><p>' . $e->getMessage() . '</p>';
+                        exit;
+                    }
                 }
 
                 $this->database = \Idno\Core\site()->config()->dbname;
