@@ -31,7 +31,11 @@
                         header('Location: ' . \Idno\Core\site()->config()->forward_on_empty);
                         exit;
                     } else {
-                        echo '<p>Unfortunately we couldn\'t connect to the database:</p><p>' . $e->getMessage() . '</p>';
+                        echo '<p>Unfortunately we couldn\'t connect to the database.</p>';
+                        if (\Idno\Core\site()->config()->debug) {
+                            echo '<p>' . $e->getMessage() . '</p>';
+                            echo '<p>'.$connection_string.'</p>';
+                        }
                         exit;
                     }
                 }
