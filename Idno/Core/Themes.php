@@ -24,8 +24,14 @@
 
                 if (!empty(site()->config()->theme)) {
                     $this->theme = site()->config()->theme;
-                    \Bonita\Main::additionalPath(site()->config()->path . '/Themes/' . $this->theme);
-                    if ($config = parse_ini_file(\Idno\Core\site()->config()->path . '/Themes/' . $this->theme . '/theme.ini', true)) {
+                    if (file_exists(\Idno\Core\site()->config()->path . '/hosts/' . $_SERVER['HTTP_HOST'] . '/Themes/' . $this->theme)) {
+                        \Bonita\Main::additionalPath(site()->config()->path . '/hosts/' . $_SERVER['HTTP_HOST'] . '/Themes/' . $this->theme);
+                        $config = parse_ini_file(\Idno\Core\site()->config()->path . '/hosts/' . $_SERVER['HTTP_HOST'] . '/Themes/' . $this->theme . '/theme.ini', true);
+                    } else {
+                        \Bonita\Main::additionalPath(site()->config()->path . '/Themes/' . $this->theme);
+                        $config = parse_ini_file(\Idno\Core\site()->config()->path . '/Themes/' . $this->theme . '/theme.ini', true);
+                    }
+                    if (!empty($config)) {
                         if (!empty($config['extensions'])) {
                             $extensions = $config['extensions'];
                         } else if (!empty($config['Extensions'])) {
@@ -66,6 +72,8 @@
                         if ($folder != '.' && $folder != '..') {
                             if (file_exists(\Idno\Core\site()->config()->path . '/Themes/' . $folder . '/theme.ini')) {
                                 $themes[$folder] = parse_ini_file(\Idno\Core\site()->config()->path . '/Themes/' . $folder . '/theme.ini', true);
+                                $themes[$folder]['Theme description']['path'] = \Idno\Core\site()->config()->path . '/Themes/' . $folder . '/';
+                                $themes[$folder]['Theme description']['url'] = \Idno\Core\site()->config()->getURL() . 'Themes/' . $folder . '/';
                             }
                         }
                     }
@@ -74,8 +82,10 @@
                     if ($folders = scandir(\Idno\Core\site()->config()->path . '/hosts/'.$_SERVER['HTTP_HOST'].'/Themes')) {
                         foreach ($folders as $folder) {
                             if ($folder != '.' && $folder != '..') {
-                                if (file_exists(\Idno\Core\site()->config()->path . '/hosts/'.$_SERVER['HTTP_HOST'].'/Themes' . $folder . '/theme.ini')) {
-                                    $themes[$folder] = parse_ini_file(\Idno\Core\site()->config()->path . '/hosts/'.$_SERVER['HTTP_HOST'].'/Themes' . $folder . '/theme.ini', true);
+                                if (file_exists(\Idno\Core\site()->config()->path . '/hosts/'.$_SERVER['HTTP_HOST'].'/Themes/' . $folder . '/theme.ini')) {
+                                    $themes[$folder] = parse_ini_file(\Idno\Core\site()->config()->path . '/hosts/'.$_SERVER['HTTP_HOST'].'/Themes/' . $folder . '/theme.ini', true);
+                                    $themes[$folder]['Theme description']['path'] = \Idno\Core\site()->config()->path . '/hosts/'.$_SERVER['HTTP_HOST'].'/Themes/' . $folder . '/';
+                                    $themes[$folder]['Theme description']['url'] = \Idno\Core\site()->config()->getURL() . 'hosts/'.$_SERVER['HTTP_HOST'].'/Themes/' . $folder . '/';
                                 }
                             }
                         }
