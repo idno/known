@@ -43,6 +43,8 @@
                 $this->indieweb_citation  = false;
                 $this->indieweb_reference = false;
 
+                $this->loadIniFiles();
+
                 if ($this->multitenant) {
                     $dbname = $this->dbname;
                     $this->dbname = preg_replace('/[^\da-z]/i', '', $this->host);
@@ -50,8 +52,6 @@
                         $this->dbname = $dbname;
                     }
                 }
-
-                $this->loadIniFiles();
 
                 date_default_timezone_set($this->timezone);
                 //setlocale(LC_ALL, 'en_US.UTF8');
