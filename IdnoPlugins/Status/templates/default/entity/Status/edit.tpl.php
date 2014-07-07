@@ -36,15 +36,32 @@
             </h4>
 
             <textarea required name="body" id="body" class="content-entry mentionable span8" placeholder="What's going on?"><?php
-            
-                if (!empty($twitter_user))
-                    echo htmlspecialchars ("@$twitter_user ");
-            
+                        
                 if (!empty($vars['body'])) {
                     echo htmlspecialchars($vars['body']);
                 } else {
                     echo htmlspecialchars($vars['object']->body);
                 } ?></textarea>
+            
+            <?php
+            // Set focus so you can start typing straight away (on shares)
+            if (\Idno\Core\site()->currentPage()->getInput('share_url')) {
+            ?>
+            <script>
+                $(document).ready(function(){
+                    var content = $('#body').val();
+                    var len = content.length;
+                    var element = $('#body');
+                 
+                    $('#body').focus(function(){
+                        $(this).prop('selectionStart', len);
+                    });
+                    $('#body').focus();
+                });
+            </script>
+            <?php
+            }
+            ?>
 
             <p>
                 <small><a id="inreplyto-add" href="#"
@@ -65,19 +82,6 @@
                             </p>
                         <?php
                         }
-                    }
-                ?>
-                <?php
-                    $twitter_user = null;
-                    $u = \Idno\Core\site()->currentPage()->getInput('replyto');
-                    if (preg_match('/https?:\/\/(www\.)?twitter\.com\/([^\/]+)/', $u, $matches)) {
-                        $twitter_user = $matches[2];
-                    }
-                    
-                    if (!empty($u)) {
-                        ?>
-                            <span><input required type="url" name="inreplyto[]" value="<?= $u; ?>" placeholder="The website address of the post you\'re replying to" class="span8" /> <small><a href="#" onclick="$(this).parent().parent().remove(); return false;">Remove</a></small><br /></span> 
-                        <?php
                     }
                 ?>
             </div>
