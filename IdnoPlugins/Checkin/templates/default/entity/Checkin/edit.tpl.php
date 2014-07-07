@@ -82,7 +82,7 @@
 			</h4>
             <div id="geoplaceholder">
                 <p>
-                    <span class="label">Hold tight...searching for your location.</span>
+                    <span class="label">Hold tight ... searching for your location.</span>
                 </p>
             </div>
             <div id="geofields" style="display:none">
