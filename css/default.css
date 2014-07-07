@@ -390,6 +390,11 @@ span.contentTypeLogo {
     height: 7em;
 }
 
+.vague {
+    font-size: 0.8em;
+    color: #999;
+}
+
 .syndication span,
 .syndication span label {
     display: inline-block;
