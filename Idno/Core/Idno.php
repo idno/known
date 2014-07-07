@@ -43,7 +43,9 @@
                         $this->dbuser = $_SERVER['RDS_USERNAME'];
                         $this->dbpass = $_SERVER['RDS_PASSWORD'];
                         $this->dbport = $_SERVER['RDS_PORT'];
-                        $this->dbname = $_SERVER['RDS_DB_NAME'];
+                        if (empty($this->dbname)) {
+                            $this->dbname = $_SERVER['RDS_DB_NAME'];
+                        }
                         $this->db = new \Idno\Data\MySQL();
                         break;
                     default:
