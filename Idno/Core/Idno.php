@@ -80,8 +80,8 @@
                 $this->actions     = new Actions();
                 $this->template    = new Template();
                 $this->syndication = new Syndication();
-                $this->themes      = new Themes();
                 $this->plugins     = new Plugins(); // This must be loaded last
+                $this->themes      = new Themes();
             }
 
             /**
