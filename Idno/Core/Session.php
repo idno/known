@@ -288,6 +288,11 @@
                 if (empty($user->notifications)) {
                     $user->notifications['email'] = 'all'; // By default, send notifications to users
                 }
+                if (empty($user->icon_number)) {
+                    $user->icon_number = rand(1,6);
+                }
+
+                $user->save();
 
                 return $this->refreshSessionUser($user);
             }

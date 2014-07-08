@@ -114,7 +114,7 @@
                     return \Idno\Core\site()->config()->url . 'file/' . $this->icon;
                 }
 
-                return \Idno\Core\site()->config()->url . 'gfx/users/default.png';
+                return \Idno\Core\site()->template()->__(['user' => $this])->draw('entity/User/icon');
             }
 
             /**
