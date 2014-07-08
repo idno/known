@@ -10,9 +10,9 @@
         	                <?php
 
                     if (empty($vars['object']->_id)) {
-                        ?>New Audio or Video<?php
+                        ?>New Audio<?php
                     } else {
-                        ?>Edit Audio or Video<?php
+                        ?>Edit Audio<?php
                     }
 
                 ?>
