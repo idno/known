@@ -45,7 +45,7 @@
             <p>
                 <label>
                     Description<br />
-                    <textarea name="body" id="description" class="span8 bodyInputShort mentionable" placeholder="Add a caption or include some #tags"><?=htmlspecialchars($vars['object']->description)?></textarea>
+                    <textarea name="body" id="description" class="span8 bodyInputShort mentionable" placeholder="Add a caption or include some #tags"><?=htmlspecialchars($vars['object']->body)?></textarea>
                 </label>
             </p>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('image'); ?>
