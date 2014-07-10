@@ -93,9 +93,9 @@
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('note'); ?>
             <p class="button-bar">
                 <?= \Idno\Core\site()->actions()->signForm('/status/edit') ?>
+                <?= $this->draw('content/access'); ?>
                 <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
                 <input type="submit" class="btn btn-primary" value="Publish"/>
-                <?= $this->draw('content/access'); ?>
             </p>
             <!--<p>
                 <small><a href="#" onclick="$('#bookmarklet').toggle(); return false;">Get a button for your browser</a></small>
