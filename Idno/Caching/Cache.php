@@ -10,7 +10,7 @@ namespace Idno\Caching {
          * Store or replace a value in the cache.
          * 
          * @param $key string Identifier for this value
-         * @param $value string Value to store
+         * @param $value mixed Value to store
          * @return bool
          */
         abstract public function store($key, $value);
@@ -18,7 +18,7 @@ namespace Idno\Caching {
         /**
          * Retrieve a value from the store.
          * @param $key Key to retrieve
-         * @return string|false
+         * @return mixed|false
          */
         abstract public function load($key);
         
