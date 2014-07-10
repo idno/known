@@ -3,7 +3,7 @@
         ?>
         <input type="hidden" name="access" id="access-control-id" value="PUBLIC"/>
         <div id="access-control" class="acl">
-            <div class="btn-group">
+            <div class="">
                 <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
                     <span id="acl-text"><i class="icon-globe"> </i> Public</span>
                     <span class="caret"></span>
