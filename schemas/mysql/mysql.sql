@@ -9,8 +9,8 @@
 CREATE TABLE IF NOT EXISTS `config` (
   `uuid` varchar(255) NOT NULL,
   `_id` varchar(32) NOT NULL,
-  `owner` varchar(32) NOT NULL,
-  `entity_subtype` varchar(32) NOT NULL,
+  `owner` varchar(255) NOT NULL,
+  `entity_subtype` varchar(64) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `contents` blob NOT NULL,
   `search` text NOT NULL,
@@ -29,8 +29,8 @@ CREATE TABLE IF NOT EXISTS `config` (
 CREATE TABLE IF NOT EXISTS `entities` (
   `uuid` varchar(255) NOT NULL,
   `_id` varchar(32) NOT NULL,
-  `owner` varchar(32) NOT NULL,
-  `entity_subtype` varchar(32) NOT NULL,
+  `owner` varchar(255) NOT NULL,
+  `entity_subtype` varchar(64) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `contents` blob NOT NULL,
   `search` text NOT NULL,
