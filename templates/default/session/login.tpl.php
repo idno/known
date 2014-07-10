@@ -35,6 +35,13 @@
             
               <div class="control-group">
                 <div class="controls">
+                    <?php
+                        if (\Idno\Core\site()->config()->open_registration == true) {
+                    ?>
+                    <a href="<?=\Idno\Core\site()->config()->getURL()?>account/register">Click here to register.</a><br><br>
+                    <?php
+                        }
+                    ?>
                     <a href="<?=\Idno\Core\site()->config()->getURL()?>account/password">Forgot your password?</a>
                 </div>
             </div>
