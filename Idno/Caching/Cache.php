@@ -44,7 +44,7 @@ namespace Idno\Caching {
         /* Array access interface */
         public function offsetGet($key) { return $this->load($key); } 
         public function offsetSet($key, $value) { $this->store($key, $value); } 
-        public function offsetExists($offset) { return (bool)$this->load($key); } 
+        public function offsetExists($key) { return (bool)$this->load($key); } 
         public function offsetUnset($key) { return $this->delete($key); }
     }
     
