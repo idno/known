@@ -531,7 +531,7 @@
                 }
                 // If we've got here, the slug exists, so we need to create a new version
                 $slug_extension = 1;
-                while (!($modified_slug = $this->setSlug($slug . '-' . $slug_extension, 20))) {
+                while (!($modified_slug = $this->setSlug($slug . '-' . $slug_extension, $max_pieces * 2))) {
                     $slug_extension++;
                 }
 

@@ -73,7 +73,6 @@
                 if ($object instanceof \Idno\Common\Entity) {
                     if ($collection = $object->getCollection()) {
                         $array = $object->saveToArray();
-
                         return $this->saveRecord($collection, $array);
                     }
                 }
@@ -92,6 +91,9 @@
             function saveRecord($collection, $array)
             {
                 $collection_obj = $this->database->selectCollection($collection);
+                if (empty($array['_id'])) {
+                    unset($array['_id']);
+                }
                 if ($result = $collection_obj->save($array, array('w' => 1))) {
                     if ($result['ok'] == 1) {
                         return $array['_id'];
