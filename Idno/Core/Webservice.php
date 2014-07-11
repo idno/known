@@ -16,16 +16,18 @@
              * Send a web services request to a specified endpoint
              * @param string $verb The verb to send the request with; one of POST, GET, DELETE, PUT
              * @param string $endpoint The URI to send the request to
-             * @param array $params Optionally, an array of parameters to send (keys are the parameter names)
+             * @param mixed $params Optionally, an array of parameters to send (keys are the parameter names), or the raw body text (depending on Content-Type)
              * @param array $headers Optionally, an array of headers to send with the request (keys are the header names)
              * @return array
              */
-            static function send($verb, $endpoint, array $params = null, array $headers = null)
+            static function send($verb, $endpoint, $params = null, array $headers = null)
             {
                 $req = "";
-                if ($params) {
+                if ($params && is_array($params)) {
                     $req = http_build_query($params);
                 }
+                if ($params && !is_array($params))
+                    $req = $params;
 
                 $curl_handle = curl_init();
 
@@ -101,11 +103,11 @@
             /**
              * Send a web services POST request to a specified URI endpoint
              * @param string $endpoint The URI to send the POST request to
-             * @param array $params Optionally, an array of parameters to send (keys are the parameter names)
+             * @param mixed $params Optionally, an array of parameters to send (keys are the parameter names), or the raw body text (depending on Content-Type)
              * @param array $headers Optionally, an array of headers to send with the request (keys are the header names)
              * @return array
              */
-            static function post($endpoint, array $params = null, array $headers = null)
+            static function post($endpoint, $params = null, array $headers = null)
             {
                 return self::send('post', $endpoint, $params, $headers);
             }
@@ -113,11 +115,11 @@
             /**
              * Send a web services PUT request to a specified URI endpoint
              * @param string $endpoint The URI to send the PUT request to
-             * @param array $params Optionally, an array of parameters to send (keys are the parameter names)
+             * @param mixed $params Optionally, an array of parameters to send (keys are the parameter names), or the raw body text (depending on Content-Type)
              * @param array $headers Optionally, an array of headers to send with the request (keys are the header names)
              * @return array
              */
-            static function put($endpoint, array $params = null, array $headers = null)
+            static function put($endpoint, $params = null, array $headers = null)
             {
                 return self::send('put', $endpoint, $params, $headers);
             }
