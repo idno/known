@@ -3,9 +3,9 @@
     var data = {
 
         "name": "<?=htmlspecialchars(\Idno\Core\site()->config()->title)?>",
-        "iconURL": "http://withknown.com/img/logo_k_16.png",
-        "icon32URL": "http://withknown.com/img/logo_k_32.png",
-        "icon64URL": "http://withknown.com/img/logo_k_64.png",
+        "iconURL": "<?=\Idno\Core\site()->config()->getURL()?>gfx/logos/logo_k_16.png",
+        "icon32URL": "<?=\Idno\Core\site()->config()->getURL()?>gfx/logos/logo_k_32.png",
+        "icon64URL": "<?=\Idno\Core\site()->config()->getURL()?>gfx/logos/logo_k_64.png",
 
         "workerURL": "<?=\Idno\Core\site()->config()->url?>IdnoPlugins/Firefox/worker.js",
         //"sidebarURL": "<?=\Idno\Core\site()->config()->url?>firefox/sidebar",
