@@ -643,9 +643,6 @@
                         }
                     }
                 }
-                if (empty($friendly_types)) {
-                    $friendly_types = ContentType::getRegisteredClasses();
-                }
 
                 return $friendly_types;
             }
