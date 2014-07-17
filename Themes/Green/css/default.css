@@ -20,7 +20,13 @@ a:hover, a:focus {
 li {
     line-height: 1.8em !important;
 }
-.entry-content .p-name a, .idno-posts h2.p-name {
+.entry-content .p-name a {
+    font-size: 1.3em;
+    margin: 0; padding: 0;
+    color: #333333;
+}
+
+.idno-posts h2.p-name {
     font-size: 1.8em;
     margin: 0; padding: 0;
     color: #333333;
