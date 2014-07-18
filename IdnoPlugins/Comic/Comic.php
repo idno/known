@@ -50,6 +50,13 @@
                     $this->body        = $body;
                     $this->title       = \Idno\Core\site()->currentPage()->getInput('title');
                     $this->description = \Idno\Core\site()->currentPage()->getInput('description');
+
+                    if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
+                        if ($time = strtotime($time)) {
+                            $this->created = $time;
+                        }
+                    }
+
                     if (!empty($_FILES['comic']['tmp_name'])) {
                         if (\Idno\Entities\File::isImage($_FILES['comic']['tmp_name'])) {
                             if ($size = getimagesize($_FILES['comic']['tmp_name'])) {

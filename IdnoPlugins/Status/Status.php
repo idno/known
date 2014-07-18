@@ -48,6 +48,13 @@
                 }
                 $body = \Idno\Core\site()->currentPage()->getInput('body');
                 $inreplyto = \Idno\Core\site()->currentPage()->getInput('inreplyto');
+
+                if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
+                    if ($time = strtotime($time)) {
+                        $this->created = $time;
+                    }
+                }
+
                 if (!empty($body)) {
                     $this->body = $body;
                     $this->inreplyto = $inreplyto;

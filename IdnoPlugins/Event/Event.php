@@ -53,6 +53,13 @@
                     $this->location = \Idno\Core\site()->currentPage()->getInput('location');
                     $this->starttime = \Idno\Core\site()->currentPage()->getInput('starttime');
                     $this->endtime = \Idno\Core\site()->currentPage()->getInput('endtime');
+
+                    if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
+                        if ($time = strtotime($time)) {
+                            $this->created = $time;
+                        }
+                    }
+
                     $this->setAccess('PUBLIC');
                     if ($this->save()) {
                         if ($new) {

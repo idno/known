@@ -44,6 +44,12 @@
                 $this->body  = \Idno\Core\site()->currentPage()->getInput('body');
                 $this->setAccess('PUBLIC');
 
+                if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
+                    if ($time = strtotime($time)) {
+                        $this->created = $time;
+                    }
+                }
+
                 // This is awful, but unfortunately, browsers can't be trusted to send the right mimetype.
                 $ext = pathinfo($_FILES['media']['name'], PATHINFO_EXTENSION);
 
