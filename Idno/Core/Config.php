@@ -69,18 +69,17 @@
 
                 if (empty($this->ini_config)) {
                     if ($config = @parse_ini_file($this->path . '/config.ini')) {
-                        $this->ini_config = array_merge($this->ini_config, $config);
+                        $this->ini_config = array_merge($config, $this->ini_config);
                     }
                     // Per domain configuration
                     if ($config = @parse_ini_file($this->path . '/' . $this->host . '.ini')) {
-                        $this->ini_config = array_merge($this->ini_config, $config);
+                        $this->ini_config = array_merge($config, $this->ini_config);
                     }
                 }
 
                 if (!empty($this->ini_config)) {
                     $this->config = array_merge($this->config, $this->ini_config);
                 }
-
 
             }
 
