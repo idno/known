@@ -29,6 +29,13 @@
                 parent::__construct();
                 $this->owner = false;
 
+            }
+
+            /**
+             * Register user-related events
+             */
+            static function registerEvents() {
+
                 // Hook to add user data to webfinger
                 \Idno\Core\site()->addEventHook('webfinger', function (\Idno\Core\Event $event) {
 

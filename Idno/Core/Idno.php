@@ -9,6 +9,8 @@
 
     namespace Idno\Core {
 
+        use Idno\Entities\User;
+
         class Idno extends \Idno\Common\Component
         {
 
@@ -82,6 +84,8 @@
                 $this->syndication = new Syndication();
                 $this->plugins     = new Plugins(); // This must be loaded last
                 $this->themes      = new Themes();
+
+                User::registerEvents();
             }
 
             /**
