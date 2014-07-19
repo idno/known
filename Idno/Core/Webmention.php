@@ -68,6 +68,8 @@
                 }
                 if ($content = \Idno\Core\Webservice::get($url)) {
                     if ($mf2 = self::parseContent($content['content'], $url)) {
+                        $mf2 = (array) $mf2;
+                        $mf2['rels'] = (array) $mf2['rels'];
                         if (!empty($mf2['rels']['syndication'])) {
                             if (is_array($mf2['rels']['syndication'])) {
                                 foreach ($mf2['rels']['syndication'] as $syndication) {
