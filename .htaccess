@@ -1,5 +1,6 @@
 <IfModule mod_rewrite.c>
     RewriteEngine on
+    RewriteRule ^(\.well\-known.*)$ /index.php/$1 [L]
     RewriteRule ^\..* - [F]
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
