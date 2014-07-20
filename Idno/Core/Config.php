@@ -79,7 +79,6 @@
                     if (file_exists($this->path . '/config.json')) {
                         if ($json = file_get_contents($this->path . '/config.json')) {
                             if ($json = json_decode($json, true)) {
-                                var_export($json);
                                 $this->ini_config = array_merge($json, $this->ini_config);
                             }
                         }
