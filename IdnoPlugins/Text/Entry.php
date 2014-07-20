@@ -9,6 +9,11 @@
                 return $this->title;
             }
 
+            function getImage(){
+                if (empty($this->image)) return "";
+                return "<img itemprop='image' class='u-photo' src='$this->image'>";
+            }
+
             function getDescription() {
                 if (!empty($this->body)) return $this->body;
                 return '';
@@ -42,6 +47,7 @@
 
                     $this->body = $body;
                     $this->title = \Idno\Core\site()->currentPage()->getInput('title');
+                    $this->image = \Idno\Core\site()->currentPage()->getInput('image');
                     $this->setAccess('PUBLIC');
 
                     if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
