@@ -7,6 +7,11 @@
     } else {
         $body = $autosave->getValue('entry','body');
     }
+    if (!empty($vars['object']->image)) {
+        $image = $vars['object']->image;
+    } else {
+        $image = $autosave->getValue('entry','image');
+    }
     if (!empty($vars['object']->title)) {
         $title = $vars['object']->title;
     } else {
@@ -44,6 +49,13 @@
                     <input type="text" name="title" id="title" placeholder="Give it a title" value="<?=htmlspecialchars($title)?>" class="span8" />
                 </label>
             </p>
+            <p>
+                <label>
+                    Image (optional) <br />
+                    <input type="text" name="image" id="image" placeholder="http://example.com/test.jpg" value="<?=htmlspecialchars($image)?>" class="span8" />
+                </label>
+            </p>
+
             <p>
                 <label>
                     Body<br />

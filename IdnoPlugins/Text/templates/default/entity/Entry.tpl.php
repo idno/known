@@ -5,16 +5,23 @@
         $rel = '';
     }
 ?>
-<div><h2 class="p-name"><a href="<?=$vars['object']->getURL()?>"><?=$vars['object']->getTitle()?></a></h2>
-<p>
-    <span class="vague">Reading time: <?php
+<div itemscope itemtype="http://schema.org/Article">
+    <div><h2 class="p-name">
+        <a href="<?=$vars['object']->getURL()?>">
+            <span itemprop="name"> <?=$vars['object']->getTitle()?></span>
+        </a>
+    </h2></div>
+    <div><?=$vars['object']->getImage()?></div>
+    <p>
+        <span class="vague">Reading time: <?php
 
-                $minutes = $vars['object']->getReadingTimeInMinutes();
-                echo $minutes . ' minute';
-                if ($minutes != 1) {
-                    echo 's';
-                }
+                    $minutes = $vars['object']->getReadingTimeInMinutes();
+                    echo $minutes . ' minute';
+                    if ($minutes != 1) {
+                        echo 's';
+                    }
 
-            ?></span>
-</p>
+                ?></span>
+    </p>
+</div>
 <?php echo $this->autop($this->parseURLs($this->parseHashtags($vars['object']->body),$rel)); //TODO: a better rendering algorithm ?></div>
