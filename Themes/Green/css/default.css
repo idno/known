@@ -32,6 +32,10 @@ li {
     color: #333333;
 }
 
+.idno-posts h2.p-name a {
+    font-size: 1.2em;
+}
+    
 .entry-content .p-photo a,
 .idno-posts h2.p-photo {
     font-size: 1.2em;
@@ -179,7 +183,7 @@ span.contentTypeLogo:hover {
 
 .idno-object h2 {
     font-size: 1.2em;
-    margin-bottom: 0.6em !important;
+    margin-bottom: 0.2em !important;
 }
 
 h2 {
@@ -524,4 +528,16 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 	text-align: center;
 }
 
+.entry-content .h-geo a, .idno-posts h2.h-geo {
+    color: #333333;
+    font-size: 1.2em;
+}
+
+.vague {
+	color: #666666;
+    font-size: 0.6em;
+	background-color: #f8f8f8;
+	padding: 10px;
+	border-radius: 5px;
+}
 
