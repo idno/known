@@ -3,19 +3,19 @@
 	url = https://github.com/anandkunal/ToroPHP.git
 [submodule "external/Symfony/Component/EventDispatcher"]
 	path = external/Symfony/Component/EventDispatcher
-	url = git://github.com/symfony/EventDispatcher.git
+	url = https://github.com/symfony/EventDispatcher.git
 [submodule "external/Symfony/Component/HttpFoundation"]
 	path = external/Symfony/Component/HttpFoundation
-	url = git://github.com/symfony/HttpFoundation.git
+	url = https://github.com/symfony/HttpFoundation.git
 [submodule "external/password_compat"]
 	path = external/password_compat
-	url = git://github.com/ircmaxell/password_compat.git
+	url = https://github.com/ircmaxell/password_compat.git
 [submodule "external/mention-client"]
 	path = external/mention-client
 	url = https://github.com/aaronpk/mention-client.git
 [submodule "external/Symfony/Component/ClassLoader"]
 	path = external/Symfony/Component/ClassLoader
-	url = git://github.com/symfony/ClassLoader.git
+	url = https://github.com/symfony/ClassLoader.git
 [submodule "external/webignition/url"]
 	path = external/webignition/url
 	url = https://github.com/webignition/url.git
