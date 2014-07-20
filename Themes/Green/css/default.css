@@ -27,14 +27,14 @@ li {
 }
 
 .idno-posts h2.p-name {
-    font-size: 1.8em;
+    font-size: 1.2em;
     margin: 0; padding: 0;
     color: #333333;
 }
 
 .entry-content .p-photo a,
 .idno-posts h2.p-photo {
-    font-size: 1.5em;
+    font-size: 1.2em;
     margin: 0; padding: 0;
 }
 
@@ -49,6 +49,7 @@ h1.p-profile, .p-profile a {
 	font-family: "Minion Pro", Times, "Times New Roman", serif;
 	color: #333333;
 	font-size: 1.6em;
+	text-align: center;
 }
 
 .entry-content blockquote {
@@ -177,13 +178,13 @@ span.contentTypeLogo:hover {
 }
 
 .idno-object h2 {
-    font-size: 1.5em;
+    font-size: 1.2em;
     margin-bottom: 0.6em !important;
 }
 
 h2 {
 	font-family: "Minion Pro", Times, "Times New Roman", serif;
-	font-size: 1.5em;
+	font-size: 1.2em;
 }
 
 h3 {
@@ -220,7 +221,7 @@ h3.register {
 
 .entry-content .p-photo a, .idno-posts h2.p-photo {
 	color: #333333;
-	font-size: 1.5em;
+	font-size: 1.2em;
 }
 
 .entry-content .p-bookmark a, .idno-posts h5.p-bookmark {
@@ -238,7 +239,7 @@ h3.register {
 
 .idno-object .e-content {
     font-size: 1.5em;
-    line-height: 1.2em;
+    line-height: 1.1em;
 }
 
 #contentTypeButtonBar {
@@ -248,7 +249,7 @@ h3.register {
 }
 
 .idno-statusupdates .entry-content p {
-    font-size: 1.3em;
+    font-size: 1.0em;
     margin: 0;
     padding: 0;
 }
@@ -511,5 +512,16 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
     border-right: 5px solid rgba(0, 0, 0, 0);
 }
 
+.entry-content .p-name a {
+	font-size: 1.0em;
+} 
+
+.e-note {
+	text-align: center;
+}
+
+.url-container {
+	text-align: center;
+}
 
 
