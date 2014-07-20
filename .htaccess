@@ -5,7 +5,7 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond $1 !^(index\.php)
-    RewriteRule ^(.*)$ /index.php/$1 [L]
+    RewriteRule ^(.*)$ index.php/$1 [L]
 </IfModule>
 <IfModule mod_php5.c>
     php_value upload_max_filesize 1000M
