@@ -153,7 +153,7 @@
              */
             function parseURLs($text, $code = '')
             {
-                $r = preg_replace_callback('/(?<!=)(?<!["\'])((ht|f)tps?:\/\/[^\s\r\n\t<>\#"\'\(\)]+)/i',
+                $r = preg_replace_callback('/(?<!=)(?<!["\'])((ht|f)tps?:\/\/[^\s\r\n\t<>"\'\(\)]+)/i',
                     create_function(
                         '$matches',
                         '

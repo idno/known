@@ -18,7 +18,7 @@
     <div id="map_<?=$object->_id?>" style="height: 250px"></div>
         <?php
         if (!empty($object->body)) {
-            echo $this->autop($this->parseHashtags($this->parseURLs($object->body)));
+            echo $this->autop($this->parseURLs($this->parseHashtags($object->body)));
         }
     ?>
 
