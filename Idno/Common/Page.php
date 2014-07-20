@@ -370,7 +370,6 @@
              */
             function forward($location = '')
             {
-                error_log("Forward to " . $location);
                 if (empty($location)) {
                     $location = \Idno\Core\site()->config()->url;
                 }
