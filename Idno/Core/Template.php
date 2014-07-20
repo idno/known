@@ -219,13 +219,13 @@
                         }
 
                         // Is this a local user?
-                        if (\Idno\Common\Entity::isLocalUUID($in_reply_to)) {
+                        /*if (\Idno\Common\Entity::isLocalUUID($in_reply_to)) {
                             $r = preg_replace_callback('/(?<!=)(?<!["\'])(\@[A-Za-z0-9\_]+)/i', function ($matches) {
                                 $url = $matches[1];
 
                                 return '<a href="' . \Idno\Core\site()->config()->url . 'profile/' . urlencode(ltrim($matches[1], '@')) . '" class="p-nickname u-url">' . $url . '</a>';
                             }, $text);
-                        }
+                        }*/
                     }
 
                 } else {
