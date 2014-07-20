@@ -68,12 +68,21 @@
             {
 
                 if (empty($this->ini_config)) {
+                    $this->ini_config = [];
                     if ($config = @parse_ini_file($this->path . '/config.ini')) {
                         $this->ini_config = array_merge($config, $this->ini_config);
                     }
                     // Per domain configuration
                     if ($config = @parse_ini_file($this->path . '/' . $this->host . '.ini')) {
                         $this->ini_config = array_merge($config, $this->ini_config);
+                    }
+                    if (file_exists($this->path . '/config.json')) {
+                        if ($json = file_get_contents($this->path . '/config.json')) {
+                            if ($json = json_decode($json, true)) {
+                                var_export($json);
+                                $this->ini_config = array_merge($json, $this->ini_config);
+                            }
+                        }
                     }
                 }
 
