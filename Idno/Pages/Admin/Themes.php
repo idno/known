@@ -47,7 +47,7 @@
                     }
                     \Idno\Core\site()->config()->save();
                 }
-                $this->forward('/admin/themes/');
+                $this->forward(\Idno\Core\site()->config()->getURL() . 'admin/themes/');
             }
 
         }

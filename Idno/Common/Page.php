@@ -391,7 +391,7 @@
             {
                 if (!\Idno\Core\site()->session()->isLoggedIn()) {
                     $this->setResponse(401);
-                    $this->forward('/session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']));
+                    $this->forward(\Idno\Core\site()->config()->getURL() . 'session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']));
                 }
             }
 

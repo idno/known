@@ -44,7 +44,7 @@
                     }
                     \Idno\Core\site()->config()->save();
                 }
-                $this->forward('/admin/plugins/');
+                $this->forward(\Idno\Core\site()->config()->getURL() . 'admin/plugins/');
             }
 
         }

@@ -75,7 +75,7 @@
                 \Idno\Core\site()->config->config['indieweb_reference']   = $indieweb_reference;
                 \Idno\Core\site()->config->config['user_avatar_favicons'] = $user_avatar_favicons;
                 \Idno\Core\site()->config()->save();
-                $this->forward('/admin/');
+                $this->forward(\Idno\Core\site()->config()->getURL() . 'admin/');
             }
 
         }
