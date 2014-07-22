@@ -9,10 +9,12 @@
 
 <div class="">
 
-    <h5 class="h-geo">
-        <a href="<?=$object->getURL()?>"><?=$object->getTitle()?></a>
-        <data class="p-latitude" value="<?=$object->lat?>"></data>
+    <h5>
+        <a href="<?=$object->getURL()?>" class="p-name"><?=$object->getTitle()?></a>
+        <span class="h-geo">
+            <data class="p-latitude" value="<?=$object->lat?>"></data>
         <data class="p-longitude" value="<?=$object->long?>"></data>
+        </span>
     </h5>
 
     <div id="map_<?=$object->_id?>" style="height: 250px"></div>
