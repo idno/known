@@ -107,7 +107,7 @@
                             <input type="hidden" name="action" value="uninstall"/>
                             <input class="btn" type="submit" value="Disable"/>
                         </p>
-                        <?= \Idno\Core\site()->actions()->signForm('/admin/plugins/') ?>
+                        <?= \Idno\Core\site()->actions()->signForm(\Idno\Core\site()->config()->url . 'admin/plugins/') ?>
                     </form>
                 <?php
                 } else {
@@ -118,7 +118,7 @@
                             <input type="hidden" name="action" value="install"/>
                             <input class="btn" type="submit" value="Enable"/>
                         </p>
-                        <?= \Idno\Core\site()->actions()->signForm('/admin/plugins/') ?>
+                        <?= \Idno\Core\site()->actions()->signForm(\Idno\Core\site()->config()->url . 'admin/plugins/') ?>
                     </form>
                 <?php
                 }
