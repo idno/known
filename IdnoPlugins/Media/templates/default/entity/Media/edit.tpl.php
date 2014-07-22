@@ -44,7 +44,7 @@
             <p>
                 <label>
                     Description<br />
-                    <textarea name="description" id="description" placeholder="What's this about?" class="span8 bodyInput"><?=htmlspecialchars($vars['object']->description)?></textarea>
+                    <textarea name="body" id="description" placeholder="What's this about?" class="span8 bodyInput"><?=htmlspecialchars($vars['object']->body)?></textarea>
                 </label>
             </p>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('media'); ?>
