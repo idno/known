@@ -181,9 +181,8 @@
             function parseHashtags($text)
             {
                 $r = preg_replace_callback('/(?<!=)(?<!["\'])(\#[A-Za-z0-9]+)/i', function ($matches) {
-                    $url = $matches[1];
-
-                    return '<a href="' . \Idno\Core\site()->config()->url . '?q=' . urlencode($matches[1]) . '" class="p-category">' . $url . '</a>';
+                    $url = ($matches[1]);
+                    return '<a href="' . \Idno\Core\site()->config()->url . 'content/all/?q=' . urlencode($matches[1]) . '" class="p-category">' . $url . '</a>';
                 }, $text);
 
                 return $r;
