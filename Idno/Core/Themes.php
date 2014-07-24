@@ -27,7 +27,7 @@
                     if (file_exists(\Idno\Core\site()->config()->path . '/hosts/' . $_SERVER['HTTP_HOST'] . '/Themes/' . $this->theme)) {
                         \Bonita\Main::additionalPath(site()->config()->path . '/hosts/' . $_SERVER['HTTP_HOST'] . '/Themes/' . $this->theme);
                         $config = parse_ini_file(\Idno\Core\site()->config()->path . '/hosts/' . $_SERVER['HTTP_HOST'] . '/Themes/' . $this->theme . '/theme.ini', true);
-                    } else {
+                    } else if (file_exists(\Idno\Core\site()->config()->path . '/Themes/' . $this->theme . '/theme.ini')) {
                         \Bonita\Main::additionalPath(site()->config()->path . '/Themes/' . $this->theme);
                         $config = parse_ini_file(\Idno\Core\site()->config()->path . '/Themes/' . $this->theme . '/theme.ini', true);
                     }
