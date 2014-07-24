@@ -40,17 +40,21 @@
 <div class="interactions">
     <?php
         if (!$has_liked) {
-            $heart = '<i class="icon-heart-empty"></i>';
+            $heart_only = '<i class="icon-heart-empty"></i>';
         } else {
-            $heart = '<i class="icon-heart"></i>';
+            $heart_only = '<i class="icon-heart"></i>';
         }
         if ($likes == 1) {
-            $heart .= ' 1 fave';
+            $heart_text = '1 fave';
         } else {
-            $heart .= ' ' . $likes . ' faves';
+            $heart_text = $likes . ' faves';
         }
+        $heart = $heart_only . ' ' . $heart_text;
         if (\Idno\Core\site()->session()->isLoggedOn()) {
-            echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getURL() . 'annotation/post', $heart, ['type' => 'like', 'object' => $vars['object']->getUUID()], ['method' => 'POST']);
+            echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getURL() . 'annotation/post', $heart_only, ['type' => 'like', 'object' => $vars['object']->getUUID()], ['method' => 'POST']);
+            ?>
+            <a href="<?= $vars['object']->getURL() ?>#comments"><?= $heart_text ?></a>
+            <?php
         } else {
             ?>
             <a href="<?= $vars['object']->getURL() ?>#comments"><?= $heart ?></a>
