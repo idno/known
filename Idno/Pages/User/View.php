@@ -67,7 +67,7 @@
                 }
                 if (empty($user)) $this->forward(); // TODO: 404
                 if ($user->saveDataFromInput($this)) {
-                    \Idno\Core\site()->session()->addMessage($user->getTitle() . ' was saved.');
+                    //\Idno\Core\site()->session()->addMessage($user->getTitle() . ' was saved.');
                     $this->forward($user->getURL());
                 }
                 $this->forward($_SERVER['HTTP_REFERER']);
