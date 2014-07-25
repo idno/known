@@ -51,7 +51,11 @@
         <script src="<?= \Idno\Core\site()->config()->url . 'external/jquery/' ?>jquery.min.js"></script>
         <?= $this->draw('shell/head', $vars); ?>
     </head>
-    <body>
+    <body class="<?php
+
+        echo (str_replace('\\','_',strtolower(get_class(\Idno\Core\site()->currentPage()))));
+
+    ?>">
         <?= $vars['body'] ?>
         <?= $this->draw('shell/footer', $vars) ?>
     </body>
