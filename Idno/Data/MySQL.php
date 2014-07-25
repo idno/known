@@ -164,15 +164,20 @@
                         if ($statement = $client->prepare("delete from metadata where _id = :id")) {
                             $statement->execute([':id' => $array['_id']]);
                         }
-                        foreach ($array as $key => $value) {
-                            if (is_array($value) || is_object($value)) {
-                                $value = json_encode($value);
+                        foreach ($array as $key => $val) {
+                            if (!is_array($val)) {
+                                $val = [$val];
                             }
-                            if (empty($value)) {
-                                $value = 0;
-                            }
-                            if ($statement = $client->prepare("insert into metadata set `collection` = :collection, `entity` = :uuid, `_id` = :id, `name` = :name, `value` = :value")) {
-                                $statement->execute(['collection' => $collection, ':uuid' => $array['uuid'], ':id' => $array['_id'], ':name' => $key, ':value' => $value]);
+                            foreach($val as $value) {
+                                if (is_array($value) || is_object($value)) {
+                                    $value = json_encode($value);
+                                }
+                                if (empty($value)) {
+                                    $value = 0;
+                                }
+                                if ($statement = $client->prepare("insert into metadata set `collection` = :collection, `entity` = :uuid, `_id` = :id, `name` = :name, `value` = :value")) {
+                                    $statement->execute(['collection' => $collection, ':uuid' => $array['uuid'], ':id' => $array['_id'], ':name' => $key, ':value' => $value]);
+                                }
                             }
                         }
 
