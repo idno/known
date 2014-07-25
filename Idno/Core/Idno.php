@@ -134,6 +134,10 @@
                 /** Autosave / preview */
                 $this->addPageHandler('/autosave/?', '\Idno\Pages\Entity\Autosave');
 
+                /** Installation / first use */
+                $this->addPageHandler('/begin/?', '\Idno\Pages\Onboarding\Begin');
+                $this->addPageHandler('/begin/register/?', '\Idno\Pages\Onboarding\Register');
+
             }
 
             /**

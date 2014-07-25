@@ -15,8 +15,9 @@
             function getContent()
             {
                 $this->reverseGatekeeper();
-                $code  = $this->getInput('code');
-                $email = $this->getInput('email');
+                $code       = $this->getInput('code');
+                $email      = $this->getInput('email');
+                $onboarding = $this->getInput('onboarding');
 
                 if (empty(\Idno\Core\site()->config()->open_registration)) {
                     if (!\Idno\Entities\Invitation::validate($email, $code)) {
@@ -25,20 +26,27 @@
                     }
                 }
 
-                $t        = \Idno\Core\site()->template();
-                $t->body  = $t->__(['email' => $email, 'code' => $code])->draw('account/register');
-                $t->title = 'Register';
-                $t->drawPage();
+                $t = \Idno\Core\site()->template();
+                if (empty($onboarding)) {
+                    $t->body  = $t->__(['email' => $email, 'code' => $code])->draw('account/register');
+                    $t->title = 'Create a new account';
+                    $t->drawPage();
+                } else {
+                    $t->body  = $t->__(['email' => $email, 'code' => $code])->draw('onboarding/register');
+                    $t->title = 'Create a new account';
+                    echo $t->draw('shell/simple');
+                }
             }
 
             function postContent()
             {
-                $name      = $this->getInput('name');
-                $handle    = $this->getInput('handle');
-                $password  = $this->getInput('password');
-                $password2 = $this->getInput('password2');
-                $email     = $this->getInput('email');
-                $code      = $this->getInput('code');
+                $name       = $this->getInput('name');
+                $handle     = $this->getInput('handle');
+                $password   = $this->getInput('password');
+                $password2  = $this->getInput('password2');
+                $email      = $this->getInput('email');
+                $code       = $this->getInput('code');
+                $onboarding = $this->getInput('onboarding');
 
                 if (empty(\Idno\Core\site()->config()->open_registration)) {
                     if (!($invitation = \Idno\Entities\Invitation::validate($email, $code))) {
@@ -52,13 +60,16 @@
                 $user = new \Idno\Entities\User();
 
                 if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    if (!($emailuser = \Idno\Entities\User::getByEmail($email)) && !($handleuser = \Idno\Entities\User::getByHandle($handle)) &&
-                        !empty($handle) && strlen($handle <= 32) && !substr_count($handle, '/') && $password == $password2 && strlen($password) > 4 && !empty($name)
+                    if (!($emailuser = \Idno\Entities\User::getByEmail($email)) && !($handleuser = \Idno\Entities\User::getByHandle($handle))
+                        && !empty($handle) && strlen($handle <= 32) && !substr_count($handle, '/') && $password == $password2 && strlen($password) > 4
                     ) {
                         $user         = new \Idno\Entities\User();
                         $user->email  = $email;
                         $user->handle = strtolower(trim($handle)); // Trim the handle and set it to lowercase
                         $user->setPassword($password);
+                        if (empty($name)) {
+                            $name = $user->handle;
+                        }
                         $user->setTitle($name);
                         if (!\Idno\Entities\User::get()) {
                             $user->setAdmin(true);
