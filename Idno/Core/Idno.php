@@ -135,8 +135,9 @@
                 $this->addPageHandler('/autosave/?', '\Idno\Pages\Entity\Autosave');
 
                 /** Installation / first use */
-                $this->addPageHandler('/begin/?', '\Idno\Pages\Onboarding\Begin');
-                $this->addPageHandler('/begin/register/?', '\Idno\Pages\Onboarding\Register');
+                $this->addPageHandler('/begin/?', '\Idno\Pages\Onboarding\Begin',true);
+                $this->addPageHandler('/begin/register/?', '\Idno\Pages\Onboarding\Register',true);
+                $this->addPageHandler('/begin/profile/?', '\Idno\Pages\Onboarding\Profile');
 
             }
 

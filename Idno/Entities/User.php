@@ -687,6 +687,9 @@
 
                 if (!$this->canEdit()) return false;
                 $this->profile = \Idno\Core\site()->currentPage()->getInput('profile');
+                if ($name = \Idno\Core\site()->currentPage()->getInput('name')) {
+                    $this->name = $name;
+                }
                 if (!empty($_FILES['avatar'])) {
                     if (in_array($_FILES['avatar']['type'], array('image/png', 'image/jpg', 'image/jpeg', 'image/gif'))) {
                         if (getimagesize($_FILES['avatar']['tmp_name'])) {

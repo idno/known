@@ -1,7 +1,7 @@
 <?php
 
     /**
-     * Index for onboarding
+     * User registration for onboarding
      */
 
     namespace Idno\Pages\Onboarding {

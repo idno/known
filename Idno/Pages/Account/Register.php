@@ -99,7 +99,11 @@
                 if (!empty($user->_id)) {
                     \Idno\Core\site()->session()->addMessage("You've registered! You're ready to get started. Why not add some profile information?");
                     \Idno\Core\site()->session()->logUserOn($user);
-                    $this->forward($user->getURL());
+                    if (empty($onboarding)) {
+                        $this->forward($user->getURL());
+                    } else {
+                        $this->forward(\Idno\Core\site()->config()->getURL() . 'begin/profile');
+                    }
                 } else {
                     \Idno\Core\site()->session()->addMessage("We couldn't register you.");
                     $this->forward($_SERVER['HTTP_REFERER']);
