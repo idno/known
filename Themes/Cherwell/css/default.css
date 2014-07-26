@@ -1,0 +1,147 @@
+body {
+    background-color: #ffffff;
+    background: url(../img/cherwell.jpg) center fixed;
+    background-size: cover;
+}
+
+.well {
+    border: 0;
+    border-radius: 0;
+    background-color: #eee;
+    color: #666;
+}
+
+.well a {
+    color: #222;
+}
+
+.idno-content {
+    border: 0;
+    box-shadow: none;
+    font-size: 1.1em;
+    background-color: rgba(255,255,255,0.95);
+}
+
+.edit-pane {
+    background-color: rgba(255,255,255,0.95);
+    padding: 1.5em;
+}
+
+.idno-content h2 {
+    font-size: 1.3em;
+    margin: 0 !important;
+    padding: 0 !important;
+    margin-bottom: 0.5em !important;
+}
+
+.idno-content .icon-container {
+    width: 3em;
+    height: 3em;
+    margin-right: 0.6em;
+    float: left;
+}
+
+.break {
+    clear: both !important;
+}
+
+.idno-content .author a.p-name {
+    color: #aaa;
+    display: block;
+    font-size: 0.8em;
+    font-weight: bold;
+    line-height: 1em;
+    padding-top: 1.4em;
+    text-transform: uppercase;
+}
+
+.idno-content .author a.p-name:hover {
+    text-decoration: none;
+}
+
+.idno-content .author {
+    border: 0;
+}
+
+.idno-content .datestamp {
+    font-size: 0.7em !important;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.idno-content .datestamp p a time {
+    color: #bbb !important;
+}
+
+.idno-content h2 a {
+    color: #222;
+    font-weight: bold;
+}
+
+.idno-statusupdates .entry-content {
+    font-size: 1.3em;
+}
+
+.idno-object a.edit {
+    margin-left: 0 !important;
+    margin-right: 1em;
+    color: #888 !important;
+}
+
+.idno-object a.edit:hover {
+    margin-right: 1em;
+}
+
+#contentTypeButtonBar {
+    background-color: rgba(0,0,0,0.3); /*rgba(200,200,200,0.8);*/
+    border-radius: 10px;
+}
+
+a.contentTypeButton {
+    color: #fff;
+}
+
+a.contentTypeButton:hover {
+    color: #fff;
+    border-radius: 1em;
+    background: 0;
+    text-shadow: 0px 0px 15px #fff;
+}
+
+.profile {
+    padding: 1.5em;
+    font-weight: normal;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 0.5em;
+    background-color: rgba(0,0,0,0.3);
+}
+
+.profile .namebadge .icon-container {
+    border: 5px #fff solid;
+}
+
+.profile a {
+    color: #fff;
+    font-weight: bold;
+}
+
+.profile .btn {
+    color: #333;
+}
+
+.idno_pages_user_edit .page-container .page-body,
+.page-account .page-container .page-body,
+.page-admin .page-container .page-body {
+    /*background-color: rgba(255,255,255,0.7);*/
+    background-color: rgba(0,0,0,0.3);
+    color: #fff;
+}
+
+.theme {
+    color: #222;
+}
+
+.idno-entities-user {
+    color: #222;
+}
