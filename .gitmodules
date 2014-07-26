@@ -52,6 +52,6 @@
 [submodule "external/mediaelement"]
 	path = external/mediaelement
 	url = https://github.com/johndyer/mediaelement.git
-[submodule "external/peneditor"]
-	path = external/peneditor
-	url = https://github.com/sofish/pen.git
+[submodule "external/summernote"]
+	path = external/summernote
+	url = https://github.com/HackerWins/summernote.git
