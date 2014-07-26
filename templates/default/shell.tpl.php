@@ -223,8 +223,8 @@
       href="<?= \Idno\Core\site()->config()->getURL() ?>external/mediaelement/build/mediaelementplayer.css"/>
 
 <!-- WYSIWYG editor -->
-<script src="<?= \Idno\Core\site()->config()->url ?>external/peneditor/src/pen.js"></script>
-<link rel="stylesheet" href="<?= \Idno\Core\site()->config()->getURL() ?>external/peneditor/src/pen.css">
+<link href="<?=\Idno\Core\site()->config()->getURL()?>external/summernote/dist/summernote.css" rel="stylesheet">
+<script src="<?=\Idno\Core\site()->config()->getURL()?>external/summernote/dist/summernote.min.js"></script>
 
 <!-- Mention styles -->
 <link rel="stylesheet" type="text/css"
