@@ -186,7 +186,7 @@
         } // End hidenav test
     ?>
 
-    <div class="container">
+    <div class="container page-body">
 
         <?php
 

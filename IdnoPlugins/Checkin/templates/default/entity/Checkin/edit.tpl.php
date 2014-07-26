@@ -69,7 +69,7 @@
 
     <div class="row">
 
-        <div class="span8 offset2">
+        <div class="span8 offset2 edit-pane">
 			<h4>
 				                <?php
 

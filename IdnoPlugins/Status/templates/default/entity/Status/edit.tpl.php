@@ -17,7 +17,7 @@
 
     <div class="row">
 
-        <div class="span8 offset2">
+        <div class="span8 offset2 edit-pane">
             
             <p id="counter" style="display:none" class="pull-right">
                 <span class="count"></span>
