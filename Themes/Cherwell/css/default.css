@@ -41,6 +41,10 @@ body {
     float: left;
 }
 
+.idno-content .footer {
+    padding-bottom: 2em;
+}
+
 .break {
     clear: both !important;
 }
