@@ -112,6 +112,20 @@
 <body class="<?php
 
     echo (str_replace('\\','_',strtolower(get_class(\Idno\Core\site()->currentPage()))));
+    if ($path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+        if ($path = explode('/',$path)) {
+            $page_class = '';
+            foreach($path as $element) {
+                if (!empty($element)) {
+                    if (!empty($page_class)) {
+                        $page_class .= '-';
+                    }
+                    $page_class .= $element;
+                    echo ' page-' . $page_class;
+                }
+            }
+        }
+    }
 
 ?>">
 <?php endif; ?>
