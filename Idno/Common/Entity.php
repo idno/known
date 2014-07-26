@@ -466,6 +466,7 @@
                         $this->uuid = $this->getUUID();
                         \Idno\Core\site()->db()->saveObject($this);
                         $this->syndicate();
+                        $event = new \Idno\Core\Event(array('object' => $this));
                         \Idno\Core\site()->events()->dispatch('saved', $event);
                     } else {
                         \Idno\Core\site()->triggerEvent('updated', array('object' => $this));
