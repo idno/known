@@ -41,9 +41,11 @@
                 $css = trim(strip_tags($css));
 
                 $styles                             = ['css' => $css];
-                \Idno\Core\site()->config()->styles = $styles;
+                $config = \Idno\Core\site()->config;
+                $config->styles = $styles;
+                \Idno\Core\site()->config = $config;
                 \Idno\Core\site()->config()->save();
-                $this->forward('/admin/styles/');
+                $this->forward(\Idno\Core\site()->config()->getURL() . 'admin/styles/');
             }
 
         }
