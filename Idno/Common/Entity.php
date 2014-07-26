@@ -465,14 +465,7 @@
                         $this->_id  = $result;
                         $this->uuid = $this->getUUID();
                         \Idno\Core\site()->db()->saveObject($this);
-
-                        $event = new \Idno\Core\Event(array('object' => $this));
-
-                        if ($this->getActivityStreamsObjectType()) {
-                            \Idno\Core\site()->events()->dispatch('post/' . $this->getActivityStreamsObjectType(), $event);
-                            \Idno\Core\site()->events()->dispatch('syndicate', $event);
-                        }
-
+                        $this->syndicate();
                         \Idno\Core\site()->events()->dispatch('saved', $event);
                     } else {
                         \Idno\Core\site()->triggerEvent('updated', array('object' => $this));
@@ -481,6 +474,28 @@
                     return $this->_id;
                 } else {
                     return false;
+                }
+            }
+
+            /**
+             * Syndicate this content to third-party sites, if such plugins are installed
+             */
+            function syndicate() {
+                if ($this->getActivityStreamsObjectType()) {
+                    $event = new \Idno\Core\Event(array('object' => $this));
+                    \Idno\Core\site()->events()->dispatch('post/' . $this->getActivityStreamsObjectType(), $event);
+                    \Idno\Core\site()->events()->dispatch('syndicate', $event);
+                }
+            }
+
+            /**
+             * Remove this content from third-party sites, if it was syndicated in the first place
+             */
+            function unsyndicate() {
+                if ($this->getActivityStreamsObjectType()) {
+                    $event = new \Idno\Core\Event(array('object' => $this));
+                    \Idno\Core\site()->events()->dispatch('delete/' . $this->getActivityStreamsObjectType(), $event);
+                    \Idno\Core\site()->events()->dispatch('unsyndicate', $event);
                 }
             }
 
@@ -690,6 +705,9 @@
                 $event = new \Idno\Core\Event(array('object' => $this));
                 $event->setResponse(true);
                 if (\Idno\Core\site()->triggerEvent('delete', array('object' => $this))) {
+
+                    $this->unsyndicate();
+
                     if ($entries = \Idno\Entities\ActivityStreamPost::getByObjectUUID($this->getUUID())) {
                         foreach ($entries as $entry) {
                             $entry->delete();
@@ -698,9 +716,9 @@
 
                     if ($return = \Idno\Core\db()->deleteRecord($this->getID())) {
                         $this->deleteData();
-
                         return $return;
                     }
+
                 }
 
                 return false;
