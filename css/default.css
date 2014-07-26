@@ -453,6 +453,8 @@ span.contentTypeLogo {
     padding: 1em;
     margin-bottom: 2em;
     background-color: #fafafa;
+    height: 32em;
+    overflow-y: scroll;
 }
 
 .theme img {

@@ -4,7 +4,7 @@
     $url = $vars['theme']['Theme description']['url'];
 
 ?>
-<div class="span3 theme">
+<div class="span4 theme">
 
     <h4><?= $vars['theme']['Theme description']['name'] ?> <?php if (\Idno\Core\site()->themes()->get() == $vars['theme']['shortname']) {
             echo '(Selected)';
