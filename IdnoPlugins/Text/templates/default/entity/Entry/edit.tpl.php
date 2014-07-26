@@ -76,21 +76,6 @@
     </form>
     <script>
 
-        $(document).ready(function () {
-            $('#body').summernote({
-                height: "15em",
-                toolbar: [
-                    ['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
-                    ['fancy', ['link']], /* Images forthcoming */
-                    ['fontsize', ['fontsize']],
-                    ['color', ['color']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['codeview',['fullscreen','codeview']]
-                ],
-                onkeyup: counter
-            });
-        });
-
         function postForm() {
             var content = $('textarea[name="body"]').html($('#body').code());
         }
@@ -128,6 +113,20 @@
             $('#body').focus(counter);
         });
 
+        $(document).ready(function () {
+            $('#body').summernote({
+                height: "15em",
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
+                    ['fancy', ['link']], /* Images forthcoming */
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['codeview',['fullscreen','codeview']]
+                ],
+                onkeyup: counter
+            });
+        });
 
         // Autosave the title & body
         autoSave('entry', ['title', 'body']);
