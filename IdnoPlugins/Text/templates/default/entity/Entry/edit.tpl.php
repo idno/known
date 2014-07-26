@@ -85,8 +85,9 @@
                     ['fontsize', ['fontsize']],
                     ['color', ['color']],
                     ['para', ['ul', 'ol', 'paragraph']],
-                    ['codeview',['codeview']]
-                ]
+                    ['codeview',['fullscreen','codeview']]
+                ],
+                onkeyup: counter
             });
         });
 
@@ -95,7 +96,8 @@
         }
 
         counter = function () {
-            var value = $('#body').val();
+
+            var value = $('#body').code(); // $('#body').val();
 
             if (value.length == 0) {
                 $('#totalWords').html(0);
