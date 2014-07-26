@@ -130,6 +130,11 @@ a.contentTypeButton:hover {
     color: #333;
 }
 
+body.page-share {
+    background-color: white;
+    background-image: none;
+}
+
 .idno_pages_user_edit .page-container .page-body,
 .page-account .page-container .page-body,
 .page-admin .page-container .page-body {
