@@ -13,7 +13,7 @@
                     <div class="">
                         <h1 class="p-profile">
                             <a href="<?= $vars['user']->getURL() ?>"
-                               class="u-url p-name"><?= $vars['user']->getTitle() ?></a>
+                               class="u-url p-name fn"><?= $vars['user']->getTitle() ?></a>
                         </h1>
                     </div>
                 </div>
