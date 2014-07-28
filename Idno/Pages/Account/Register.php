@@ -77,23 +77,23 @@
                         $user->save();
                     } else {
                         if (empty($handle)) {
-                            \Idno\Core\site()->session()->addMessage("You can't have an empty handle.");
+                            \Idno\Core\site()->session()->addMessage("Please create a username.");
                         } else if (strlen($handle) > 32) {
-                            \Idno\Core\site()->session()->addMessage("Your handle is too long.");
+                            \Idno\Core\site()->session()->addMessage("Your username is too long.");
                         } else if (substr_count($handle, '/')) {
-                            \Idno\Core\site()->session()->addMessage("Handles can't contain a slash ('/') character.");
+                            \Idno\Core\site()->session()->addMessage("Usernames can't contain a slash ('/') character.");
                         } else if (!empty($handleuser)) {
-                            \Idno\Core\site()->session()->addMessage("Unfortunately, a user is already using that handle. Please choose another.");
+                            \Idno\Core\site()->session()->addMessage("Unfortunately, someone is already using that username. Please choose another.");
                         }
                         if (!empty($emailuser)) {
-                            \Idno\Core\site()->session()->addMessage("Unfortunately, a user is already using that email address. Please choose another.");
+                            \Idno\Core\site()->session()->addMessage("Hey, it looks like there's already an account with that email address. Did you forget your login?");
                         }
                         if ($password != $password2 || strlen($password) <= 4) {
                             \Idno\Core\site()->session()->addMessage("Please check that your passwords match and that your password is over four characters long.");
                         }
                     }
                 } else {
-                    \Idno\Core\site()->session()->addMessage("That doesn't seem to be a valid email address.");
+                    \Idno\Core\site()->session()->addMessage("That doesn't seem like it's a valid email address.");
                 }
 
                 if (!empty($user->_id)) {

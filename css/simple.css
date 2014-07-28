@@ -765,11 +765,19 @@ input.scld:hover, input.scld:focus {
     background-image: url(../gfx/onboarding/camera-g.png);
 }
 .alerts {
-    background-color: rgba(0,0,0,0.3);
+	background-color: #fff1ba;
+/**    background-color: rgba(0,0,0,0.3); **/
     padding: 10px;
     border-radius: 7px;
 }
 
 .alerts .alert p {
-    font-size: 0.8em;
+    font-size: 1.0em;
+    color: #666666;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.control-label small {
+	font-weight: 400;
 }
