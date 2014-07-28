@@ -741,3 +741,13 @@ input.scld:hover, input.scld:focus {
     cursor: pointer;
     display: block;
 }
+
+.alerts {
+    background-color: rgba(0,0,0,0.3);
+    padding: 10px;
+    border-radius: 7px;
+}
+
+.alerts .alert p {
+    font-size: 0.8em;
+}
