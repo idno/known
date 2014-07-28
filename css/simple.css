@@ -1,14 +1,18 @@
 
-html{    background:url(../gfx/onboarding/background_blur.png) no-repeat;
+body.idno_pages_onboarding_begin {    
+	background:url(../gfx/onboarding/blur.jpg) no-repeat center center fixed;
     background-size: cover;
+    -webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
     height:100%;
 }
 
-#feedback-page{
+#feedback-page {
     text-align:center;
 }
 
-#form-main{
+#form-main {
     width:100%;
     float:left;
     padding-top:0px;
