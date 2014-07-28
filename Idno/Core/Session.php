@@ -115,6 +115,19 @@
             }
 
             /**
+             * Adds a message to the queue to be delivered to the user as soon as is possible, ensuring it's at the beginning of the list
+             * @param string $message The text of the message
+             * @param string $message_type This type of message; this will be added to the displayed message class, or returned as data
+             */
+
+            function addMessageAtStart($message, $message_type = 'alert-info') {
+                if (empty($_SESSION['messages'])) {
+                    $_SESSION['messages'] = [];
+                }
+                array_unshift($_SESSION['messages'], array('message' => $message, 'message_type' => $message_type));
+            }
+
+            /**
              * Retrieve any messages from the session, remove them from the session, and return them
              * @return array
              */

@@ -105,7 +105,7 @@
                         $this->forward(\Idno\Core\site()->config()->getURL() . 'begin/profile');
                     }
                 } else {
-                    \Idno\Core\site()->session()->addMessage("We couldn't register you.");
+                    \Idno\Core\site()->session()->addMessageAtStart("We couldn't register you.");
                     $this->forward($_SERVER['HTTP_REFERER']);
                 }
 
