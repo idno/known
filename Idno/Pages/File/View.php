@@ -30,8 +30,8 @@
                     }
                 }
 
-                header("Pragma: public");
-                header('Expires: ' . date(\DateTime::RFC1123, time() + (86400 * 365))); // Cache files for a year!
+                //header("Pragma: public");
+                header('Expires: ' . date(\DateTime::RFC1123, time() + (86400 * 30))); // Cache files for 30 days!
                 if (!empty($object->file['mime_type'])) {
                     header('Content-type: ' . $object->file['mime_type']);
                 } else {
