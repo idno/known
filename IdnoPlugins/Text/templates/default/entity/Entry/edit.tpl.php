@@ -13,6 +13,8 @@
         $title = $autosave->getValue('entry', 'title');
     }
 
+    /* @var \Idno\Core\Template $this */
+
 ?>
     <form action="<?= $vars['object']->getURL() ?>" method="post" onsubmit="return postForm()">
 
@@ -50,7 +52,7 @@
                     <label>
                         Body<br/>
                         <textarea name="body" id="body" placeholder="Tell your story"
-                                  class="span8 bodyInput mentionable wysiwyg"><?= htmlspecialchars($body) ?></textarea>
+                                  class="span8 bodyInput mentionable wysiwyg"><?= htmlspecialchars($this->autop($body)) ?></textarea>
                     </label>
                 </p>
 
