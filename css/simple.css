@@ -6,6 +6,7 @@ body.page-begin {
 	-moz-background-size: cover;
 	-o-background-size: cover;
     height:100%;
+    overflow: auto;
 }
 
 body.page-begin-register {    
@@ -15,6 +16,7 @@ body.page-begin-register {
 	-moz-background-size: cover;
 	-o-background-size: cover;
     height:100%;
+    overflow: auto;
 }
 
 body.page-begin-profile {    
@@ -24,6 +26,7 @@ body.page-begin-profile {
 	-moz-background-size: cover;
 	-o-background-size: cover;
     height:100%;
+    overflow: auto;
 }
 
 
