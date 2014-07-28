@@ -59,7 +59,9 @@
 
                 $user = new \Idno\Entities\User();
 
-                if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                if (empty($handle) && empty($email)) {
+                    \Idno\Core\site()->session()->addMessage("Your can't leave your username or email address blank.");
+                } else if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     if (!($emailuser = \Idno\Entities\User::getByEmail($email)) && !($handleuser = \Idno\Entities\User::getByHandle($handle))
                         && !empty($handle) && strlen($handle <= 32) && !substr_count($handle, '/') && $password == $password2 && strlen($password) > 4
                     ) {
