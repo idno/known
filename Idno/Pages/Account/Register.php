@@ -34,6 +34,7 @@
                 } else {
                     $t->body  = $t->__(['email' => $email, 'code' => $code])->draw('onboarding/register');
                     $t->title = 'Create a new account';
+                    $t->messages = \Idno\Core\site()->session()->getAndFlushMessages();
                     echo $t->draw('shell/simple');
                 }
             }
