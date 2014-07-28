@@ -4,6 +4,8 @@
 
         <p>Don't worry, you can change this anytime.</p>
 
+        <?=$this->draw('shell/simple/messages')?>
+
         <form action="<?=$vars['user']->getURL()?>" method="post" enctype="multipart/form-data">
 
             <p class="profile-pic" id="photo-preview">

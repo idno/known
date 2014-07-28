@@ -5,6 +5,8 @@
         <p class="p-register">Known is a social publishing platform.
             <br>Capture your moments, share your stories, and own your digital space.</p>
 
+        <?=$this->draw('shell/simple/messages')?>
+
         <form class="form" method="get" action="<?=\Idno\Core\site()->config()->getURL()?>begin/register/">
 
             <div class="submit">

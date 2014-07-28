@@ -4,6 +4,8 @@
 
         <p>Create a new account to get started.</p>
 
+        <?=$this->draw('shell/simple/messages')?>
+
         <form action="<?=\Idno\Core\site()->config()->url?>begin/register" method="post" class="form-horizontal">
 
             <p class="username">
