@@ -79,13 +79,13 @@
                         $user->save();
                     } else {
                         if (empty($handle)) {
-                            \Idno\Core\site()->session()->addMessage("You can't have an empty handle.");
+                            \Idno\Core\site()->session()->addMessage("You can't have an empty username.");
                         } else if (strlen($handle) > 32) {
                             \Idno\Core\site()->session()->addMessage("Your handle is too long.");
                         } else if (substr_count($handle, '/')) {
-                            \Idno\Core\site()->session()->addMessage("Handles can't contain a slash ('/') character.");
+                            \Idno\Core\site()->session()->addMessage("Usernames can't contain a slash ('/') character.");
                         } else if (!empty($handleuser)) {
-                            \Idno\Core\site()->session()->addMessage("Unfortunately, a user is already using that handle. Please choose another.");
+                            \Idno\Core\site()->session()->addMessage("Unfortunately, a user is already using that username. Please choose another.");
                         }
                         if (!empty($emailuser)) {
                             \Idno\Core\site()->session()->addMessage("Unfortunately, a user is already using that email address. Please choose another.");
