@@ -47,7 +47,7 @@
 
                 if ($this->multitenant) {
                     $dbname       = $this->dbname;
-                    $this->dbname = preg_replace('/[^\da-z]/i', '', $this->host);
+                    $this->dbname = preg_replace('/[^\da-z\.]/i', '', $this->host);
                     if (empty($this->dbname)) {
                         $this->dbname = $dbname;
                     }
