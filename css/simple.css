@@ -755,3 +755,12 @@ input.scld:hover, input.scld:focus {
     color: #c5c5c5;
     background-image: url(../gfx/onboarding/camera-g.png);
 }
+.alerts {
+    background-color: rgba(0,0,0,0.3);
+    padding: 10px;
+    border-radius: 7px;
+}
+
+.alerts .alert p {
+    font-size: 0.8em;
+}
