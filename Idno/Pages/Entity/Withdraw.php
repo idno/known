@@ -9,7 +9,21 @@
         class Withdraw extends \Idno\Common\Page
         {
 
-            // Handle GET requests to the homepage
+            // Handle GET requests to the withdrawal endpoint
+
+            function getContent() {
+                if (!empty($this->arguments[0])) {
+                    $object = \Idno\Common\Entity::getByID($this->arguments[0]);
+                    $this->forward($object->getURL());
+                }
+                if (empty($object)) {
+                    $this->setResponse(404);
+                    echo \Idno\Core\site()->template()->__(['body' => \Idno\Core\site()->template()->draw('404'), 'title' => 'Not found'])->drawPage();
+                    exit;
+                }
+            }
+
+            // Handle POST requests to the withdrawal endpoint
 
             function postContent()
             {
