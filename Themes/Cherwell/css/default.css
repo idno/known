@@ -139,6 +139,7 @@ body.page-share {
     background-image: none;
 }
 
+.result-404, .result-403, .result-410, .result-500,
 .idno_pages_user_edit .page-container .page-body,
 .page-account .page-container .page-body,
 .page-admin .page-container .page-body {
