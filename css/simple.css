@@ -214,7 +214,9 @@ p {
     font-weight: 700;
     font-size: 1.5em;
     box-shadow: 0 5px #357ebd;
+    -webkit-box-shadow: 0 5px #357ebd;
     width: 80%;
+    -webkit-appearance: none;
 }
 
 .btn-reg:hover, .btn-reg:focus {
@@ -235,7 +237,9 @@ p {
     font-weight: 700;
     font-size: 1.5em;
     box-shadow: 0 5px #535353;
+    -webkit-box-shadow: 0 5px #535353;
     width: 80%;
+    -webkit-appearance: none;
 }
 
 .btn-login:hover, .btn-login:focus {
@@ -257,6 +261,7 @@ p {
     line-height: 24px;
     padding: 15px 65px;
     text-align: center;
+    -webkit-appearance: none;
 }
 
 @media only screen and (max-width: 580px) {
@@ -676,6 +681,7 @@ input.scld:hover, input.scld:focus {
     font-size: 1.5em;
     width: 40%;
     margin-left: 5px;
+    -webkit-appearance: none;
 }
 
 .btn-continue:hover, .btn-continue:focus {
@@ -697,6 +703,7 @@ input.scld:hover, input.scld:focus {
     font-size: 1.5em;
     width: 40%;
     margin-right: 5px;
+    -webkit-appearance: none;
 }
 
 .btn-skip:hover, .btn-skip:focus {
@@ -717,6 +724,7 @@ input.scld:hover, input.scld:focus {
     display: inline-block;
     line-height: 24px;
     padding: 15px 65px;
+    -webkit-appearance: none;
 }
 
 .center-block {
@@ -734,6 +742,7 @@ input.scld:hover, input.scld:focus {
 .btn-file {
     position: relative;
     overflow: hidden;
+    -webkit-appearance: none;
 }
 .btn-file input[type=file] {
     position: absolute;
