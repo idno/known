@@ -49,7 +49,7 @@
         <link href="<?= \Idno\Core\site()->config()->url ?>css/simple.css"
               rel="stylesheet">
         <script src="<?= \Idno\Core\site()->config()->url . 'external/jquery/' ?>jquery.min.js"></script>
-        <?= $this->draw('shell/head', $vars); ?>
+        <?= $this->draw('shell/simple/head', $vars); ?>
     </head>
     <body class="<?php
 
@@ -57,6 +57,6 @@
 
     ?>">
         <?= $vars['body'] ?>
-        <?= $this->draw('shell/footer', $vars) ?>
+        <?= $this->draw('shell/simple/footer', $vars) ?>
     </body>
 </html>
