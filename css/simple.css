@@ -1,12 +1,31 @@
 
-body.idno_pages_onboarding_begin {    
-	background:url(../gfx/onboarding/blur.jpg) no-repeat center center fixed;
+body.page-begin {    
+	background:url(../gfx/onboarding/airballoon.jpg) no-repeat center center fixed;
     background-size: cover;
     -webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
     height:100%;
 }
+
+body.page-begin-register {    
+	background:url(../gfx/onboarding/sky.jpg) no-repeat center center fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+    height:100%;
+}
+
+body.page-begin-profile {    
+	background:url(../gfx/onboarding/sky.jpg) no-repeat center center fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+    height:100%;
+}
+
 
 #feedback-page {
     text-align:center;
@@ -19,7 +38,7 @@ body.idno_pages_onboarding_begin {
 }
 
 #form-div {
-    background-color:rgba(72,72,72,0.6);
+    background-color:rgba(75,85,115,0.4);
     padding-left:25px;
     padding-right:25px;
     padding-top:5px;
@@ -53,7 +72,7 @@ body.idno_pages_onboarding_begin {
 
 .feedback-input {
     color:#777777;
-    font-family: 'Raleway', Helvetica, sans-serif;
+    font-family: 'Pontano Sans',Verdana,Helvetica,sans-serif;
     font-weight:500;
     font-size: 16px;
     border-radius: 5px;
@@ -109,7 +128,7 @@ body.idno_pages_onboarding_begin {
 
 .profile-input {
     color:#777777;
-    font-family: 'Raleway', Helvetica, sans-serif;
+    font-family: 'Pontano Sans',Verdana,Helvetica,sans-serif;
     font-weight:500;
     font-size: 16px;
     border-radius: 5px;
@@ -140,7 +159,7 @@ body.idno_pages_onboarding_begin {
 }
 
 h1 {
-    font-family: 'Raleway', Helvetica, sans-serif;
+    font-family: 'Open Sans',sans-serif;
     font-size: 	2.0em;
     font-weight: 700;
     color: #FFFFFF;
@@ -191,7 +210,7 @@ p {
     margin-bottom: 10px;
     margin-top: 10px;
     text-shadow: none;
-    font-family: 'Raleway', Helvetica, sans-serif;
+    font-family: 'Pontano Sans',Verdana,Helvetica,sans-serif;
     font-weight: 700;
     font-size: 1.5em;
     box-shadow: 0 5px #357ebd;
@@ -212,7 +231,7 @@ p {
     margin-bottom: 10px;
     margin-top: 10px;
     text-shadow: none;
-    font-family: 'Raleway', Helvetica, sans-serif;
+    font-family: 'Pontano Sans',Verdana,Helvetica,sans-serif;
     font-weight: 700;
     font-size: 1.5em;
     box-shadow: 0 5px #535353;
@@ -259,8 +278,6 @@ p {
     }
 }
 
-
-/* Icons ---------------------------------- */
 #name{
     background-image: none;
 }
@@ -358,7 +375,7 @@ textarea:focus {
     color: white;
     cursor: pointer;
     float: left;
-    font-family: 'Raleway',Helvetica,sans-serif;
+    font-family: 'Pontano Sans',Verdana,Helvetica,sans-serif;
     font-size: 28px;
     font-weight: 800;
     margin-top: -4px;
@@ -416,20 +433,16 @@ textarea:focus {
     background-color:white;
 }
 
-
-
-/** New Stuff **/
-
 .control-label {
     color: #FFFFFF;
-    font-family: 'Raleway', Helvetica, sans-serif;
+    font-family: 'Pontano Sans',Verdana,Helvetica,sans-serif;
     font-weight: 500;
     font-size: 16px;
     font-weight: 600;
 }
 
 h2 {
-    font-family: 'Raleway', Helvetica, sans-serif;
+    font-family: 'Open Sans',sans-serif;
     font-size: 	28px;
     font-weight: 700;
     color: #FFFFFF;
@@ -460,6 +473,7 @@ h3 {
 
 .upload {
     text-align: center;
+    padding-top: 10px;
 }
 
 .camera {
@@ -470,19 +484,13 @@ h3 {
     background-color: #dddddd;
     border-bottom-color: #dddddd;
     border-radius: 4px;
-    border-style: solid;
+    border-style: none;
     border-width: 1px;
     box-shadow: none;
-    background-position: 15px 12px;
+    background-position: 15px 10px;
     color: #535353;
     font-family: Helvetica, sans-serif;
     font-size: 14px;
-}
-
-.upload input:hover, .upload input:focus {
-    background-color: #eaeaea;
-    color: #c5c5c5;
-    background-image: url(../gfx/onboarding/camera-g.png);
 }
 
 a {
@@ -663,7 +671,7 @@ input.scld:hover, input.scld:focus {
     margin-bottom: 10px;
     margin-top: 10px;
     text-shadow: none;
-    font-family: 'Raleway', Helvetica, sans-serif;
+    font-family: 'Pontano Sans',Verdana,Helvetica,sans-serif;
     font-weight: 700;
     font-size: 1.5em;
     width: 40%;
@@ -684,7 +692,7 @@ input.scld:hover, input.scld:focus {
     margin-bottom: 10px;
     margin-top: 10px;
     text-shadow: none;
-    font-family: 'Raleway', Helvetica, sans-serif;
+    font-family: 'Pontano Sans',Verdana,Helvetica,sans-serif;
     font-weight: 700;
     font-size: 1.5em;
     width: 40%;
@@ -740,4 +748,10 @@ input.scld:hover, input.scld:focus {
     background: white;
     cursor: pointer;
     display: block;
+}
+
+.btn-file:hover {
+    background-color: #eaeaea;
+    color: #c5c5c5;
+    background-image: url(../gfx/onboarding/camera-g.png);
 }
