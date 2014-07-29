@@ -584,7 +584,7 @@ a:hover, a:focus {
 	color: #4c93cb;
 }
 
-input[type="email"], input[type="password"] {	
+input[type="email"], input[type="password"], input[type="text"]  {	
 	border: 3px solid #dddddd;
 	padding-top: 10px;
 	padding-bottom: 10px;
@@ -604,7 +604,7 @@ input[type="email"], input[type="password"] {
     width: 75%; **/
 }
 
-input[type="email"]:focus, input[type="password"]:focus {
+input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focus {
 	box-shadow: none;
     border: 3px solid #4c93cb;
     color: #4c93cb;
@@ -687,4 +687,9 @@ input[type="email"]:focus, input[type="password"]:focus {
     background-repeat: repeat-x;
     color: #ffffff;
     text-decoration: none;
+}
+
+.hero-unit {
+    background-color: #fff;
+    border: 3px solid #73b2e3;
 }
