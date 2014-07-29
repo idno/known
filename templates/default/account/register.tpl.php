@@ -19,13 +19,13 @@
                 <div class="control-group">
                     <label class="control-label" for="inputUsername">Choose a username</label>
                     <div class="controls">
-                        <input type="text" id="inputUsername" placeholder="username" class="span4" name="handle" value="">
+                        <input type="text" id="inputUsername" placeholder="username" class="span4" name="handle" value="" autocapitalize="off">
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="inputEmail">Your email address</label>
                     <div class="controls">
-                        <input type="email" id="inputEmail" placeholder="you@email.com" class="span4" name="email" value="<?=htmlentities($vars['email'])?>">
+                        <input type="email" id="inputEmail" placeholder="you@email.com" class="span4" name="email" value="<?=htmlentities($vars['email'])?>" autocapitalize="off">
                     </div>
                 </div>
                 <div class="control-group">

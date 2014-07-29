@@ -10,12 +10,12 @@
 
             <p class="username">
                 <label class="control-label" for="inputUsername">Choose a username<br/></label>
-                <input name="handle" type="text" class="feedback-input" placeholder="username" id="username"/>
+                <input name="handle" type="text" class="feedback-input" placeholder="username" id="username" autocapitalize="off"/>
             </p>
 
             <p class="email">
                 <label class="control-label" for="inputUsername">Your email address<br/></label>
-                <input name="email" type="text" class="feedback-input" id="email" placeholder="you@email.com"/>
+                <input name="email" type="text" class="feedback-input" id="email" placeholder="you@email.com" autocapitalize="off"/>
             </p>
 
             <p class="password">
