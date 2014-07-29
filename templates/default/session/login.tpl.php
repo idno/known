@@ -10,7 +10,7 @@
         <form action="<?= \Idno\Core\site()->config()->url ?>session/login" method="post">
             <div class="control-group">
                 <div class="controls">
-                    <input type="text" id="inputEmail" name="email" placeholder="Your username or email address"
+                    <input type="email" id="inputEmail" name="email" placeholder="Your email address"
                            class="span4">
                 </div>
             </div>
@@ -38,7 +38,7 @@
                     <?php
                         if (\Idno\Core\site()->config()->open_registration == true) {
                     ?>
-                    <a href="<?=\Idno\Core\site()->config()->getURL()?>account/register">Click here to register.</a><br><br>
+                    <a href="<?=\Idno\Core\site()->config()->getURL()?>account/register">New here? Register for an account.</a><br><br>
                     <?php
                         }
                     ?>

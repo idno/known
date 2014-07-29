@@ -46,8 +46,9 @@
               href="<?= \Idno\Core\site()->config()->url ?>content/all?_t=rss"/>
         <link href="<?= \Idno\Core\site()->config()->url ?>webmention/" rel="http://webmention.org/"/>
         <link href="<?= \Idno\Core\site()->config()->url ?>webmention/" rel="webmention"/>
-        <link href="<?= \Idno\Core\site()->config()->url ?>css/simple.css"
-              rel="stylesheet">
+        <link href="<?= \Idno\Core\site()->config()->url ?>css/simple.css" rel="stylesheet">
+        <link href="http://fonts.googleapis.com/css?family=Pontano+Sans" rel="stylesheet" type="text/css">
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel='stylesheet' type='text/css'>
         <script src="<?= \Idno\Core\site()->config()->url . 'external/jquery/' ?>jquery.min.js"></script>
         <?= $this->draw('shell/simple/head', $vars); ?>
     </head>
