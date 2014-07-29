@@ -19,13 +19,13 @@
             </p>
 
             <p class="password">
-                <label class="control-label" for="inputUsername">Create a password<br/></label>
-                <input name="password" type="password" class="feedback-input" id="password" placeholder="Choose a password - at least 4 characters"/>
+                <label class="control-label" for="inputUsername">Create a password <small>(at least 4 characters please)</small><br/></label>
+                <input name="password" type="password" class="feedback-input" id="password" placeholder="secret-password"/>
             </p>
 
             <p class="password">
                 <label class="control-label" for="inputUsername">Your password again<br/></label>
-                <input name="password2" type="password" class="feedback-input" id="password" placeholder="Enter your new password again"/>
+                <input name="password2" type="password" class="feedback-input" id="password" placeholder="secret-password"/>
             </p>
 
             <div class="submit">
