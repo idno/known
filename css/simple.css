@@ -5,8 +5,8 @@ body.page-begin {
     -webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
-	height:120%;
-/**    overflow: auto;  **/
+	height:100%;
+	overflow: auto; 
 }
 
 /** Testing whitespace problem in iOS **/
@@ -16,8 +16,8 @@ body.page-begin-register {
     -webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
-    height:120%;
-/**    overflow: auto; **/
+    height:100%;
+	overflow: auto; 
 }
 
 body.page-begin-profile {    
@@ -27,9 +27,19 @@ body.page-begin-profile {
 	-moz-background-size: cover;
 	-o-background-size: cover;
     height:120%;
-/**    overflow: auto;**/
+	overflow: auto;
 }
 
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px)
+only screen and (-webkit-min-device-pixel-ratio : 1.5),
+only screen and (min-device-pixel-ratio : 1.5) {
+body.page-begin {    
+	height:530px;
+	top: 0;
+}
+}
 
 #feedback-page {
     text-align:center;
@@ -395,29 +405,6 @@ textarea:focus {
 }
 
 #button-profile:hover{
-    background-color: rgba(0,0,0,0);
-    color: #4c93cb;
-}
-
-#button-blue{
-    font-family: 'Open Sans',sans-serif;
-    float:left;
-    width: 100%;
-    border: #fbfbfb solid 4px;
-    cursor:pointer;
-    background-color: #73b2e3;
-    color:white;
-    font-size:28px;
-    padding-top:18px;
-    padding-bottom:18px;
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    transition: all 0.3s;
-    margin-top:-4px;
-    font-weight:600;
-}
-
-#button-blue:hover{
     background-color: rgba(0,0,0,0);
     color: #4c93cb;
 }
