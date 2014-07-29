@@ -1,73 +1,75 @@
+html{
+    height:100%;
+    min-height:100%;
+}
+body{
+    min-height:100%;
+}
 
-body.page-begin {    
-	background:url(../gfx/onboarding/airballoon.jpg) no-repeat center center fixed;
+body.page-begin {
+    background: url(../gfx/onboarding/airballoon.jpg) no-repeat center center fixed;
     background-size: cover;
     -webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	height:100%;
-	overflow: auto; 
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    height: 100%;
+    overflow: auto;
 }
 
 /** Testing whitespace problem in iOS **/
-body.page-begin-register {    
-	background:url(../gfx/onboarding/sky.jpg) no-repeat center center fixed;
+body.page-begin-register {
+    background: url(../gfx/onboarding/sky.jpg) no-repeat center center fixed;
     background-size: cover;
     -webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-    height:100%;
-	overflow: auto; 
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    height: 100%;
+    overflow: auto;
 }
 
-@media   
-	only screen and (-webkit-min-device-pixel-ratio : 1.5),
-	only screen and (min-device-pixel-ratio : 1.5),
-	only media and (min-device-width : 320px), 
-	only media and (max-device-width : 480px) {
-body.page-begin-register { 	
-		background:url(../gfx/onboarding/sky.jpg) fixed;
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only media and (min-device-width: 320px), only media and (max-device-width: 480px) {
+    body.page-begin-register {
+        background: url(../gfx/onboarding/sky.jpg) fixed;
         background-size: 100% auto;
         top: 0;
         left: 0;
         right: 0;
         bottom: -69px;
         z-index: -1;
-	}
+    }
 }
-  
 
-body.page-begin-profile {    
-	background:url(../gfx/onboarding/sky.jpg) no-repeat center center fixed; 
+body.page-begin-profile {
+    background: url(../gfx/onboarding/sky.jpg) no-repeat center center fixed;
     background-size: cover;
     -webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-    height:120%;
-	overflow: auto;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    height: 120%;
+    overflow: auto;
 }
 
 #feedback-page {
-    text-align:center;
+    text-align: center;
 }
 
 #form-main {
-    width:100%;
-    float:left;
-    padding-top:0px;
+    width: 100%;
+    float: left;
+    padding-top: 0px;
 }
 
 #form-div {
-    background-color:rgba(75,85,115,0.4);
-    padding-left:25px;
-    padding-right:25px;
-    padding-top:5px;
-    padding-bottom:20px;
+    background-color: rgba(75, 85, 115, 0.4);
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 5px;
+    padding-bottom: 20px;
     width: 450px;
     float: left;
     left: 50%;
     position: absolute;
-    margin-top:20px;
+    margin-top: 20px;
     margin-left: -260px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -75,15 +77,15 @@ body.page-begin-profile {
 }
 
 #form-reg {
-    padding-left:25px;
-    padding-right:25px;
-    padding-top:5px;
-    padding-bottom:20px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 5px;
+    padding-bottom: 20px;
     width: 550px;
     float: left;
     left: 50%;
     position: absolute;
-    margin-top:20px;
+    margin-top: 20px;
     margin-left: -310px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -91,9 +93,9 @@ body.page-begin-profile {
 }
 
 .feedback-input {
-    color:#777777;
-    font-family: 'Pontano Sans',Verdana,Helvetica,sans-serif;
-    font-weight:500;
+    color: #777777;
+    font-family: 'Pontano Sans', Verdana, Helvetica, sans-serif;
+    font-weight: 500;
     font-size: 16px;
     border-radius: 5px;
     line-height: 18px;
@@ -101,15 +103,15 @@ body.page-begin-profile {
     padding: 10px 10px 10px 54px;
     margin-bottom: 5px;
     margin-top: 2px;
-    width:100%;
+    width: 100%;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     -ms-box-sizing: border-box;
     box-sizing: border-box;
-    border: 3px solid rgba(0,0,0,0);
+    border: 3px solid rgba(0, 0, 0, 0);
 }
 
-.feedback-input:focus{
+.feedback-input:focus {
     background: #fff;
     box-shadow: 0;
     border: 3px solid #4c93cb;
@@ -119,9 +121,9 @@ body.page-begin-profile {
 }
 
 .website-input {
-    color:#333333;
-    font-family: 'Pontano Sans',Verdana,Helvetica,sans-serif;
-    font-weight:500;
+    color: #333333;
+    font-family: 'Pontano Sans', Verdana, Helvetica, sans-serif;
+    font-weight: 500;
     font-size: 16px;
     border-radius: 5px;
     line-height: 18px;
@@ -129,15 +131,15 @@ body.page-begin-profile {
     padding: 10px 10px 10px 10px;
     margin-bottom: 5px;
     margin-top: 2px;
-    width:100%;
+    width: 100%;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     -ms-box-sizing: border-box;
     box-sizing: border-box;
-    border: 3px solid rgba(0,0,0,0);
+    border: 3px solid rgba(0, 0, 0, 0);
 }
 
-.website-input:focus{
+.website-input:focus {
     background: #fff;
     box-shadow: 0;
     border: 3px solid #4c93cb;
@@ -147,9 +149,9 @@ body.page-begin-profile {
 }
 
 .profile-input {
-    color:#777777;
-    font-family: 'Pontano Sans',Verdana,Helvetica,sans-serif;
-    font-weight:500;
+    color: #777777;
+    font-family: 'Pontano Sans', Verdana, Helvetica, sans-serif;
+    font-weight: 500;
     font-size: 16px;
     border-radius: 5px;
     line-height: 18px;
@@ -157,15 +159,15 @@ body.page-begin-profile {
     padding: 10px 10px 10px 10px;
     margin-bottom: 5px;
     margin-top: 2px;
-    width:100%;
+    width: 100%;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     -ms-box-sizing: border-box;
     box-sizing: border-box;
-    border: 3px solid rgba(0,0,0,0);
+    border: 3px solid rgba(0, 0, 0, 0);
 }
 
-.profile-input:focus{
+.profile-input:focus {
     background: #fff;
     box-shadow: 0;
     border: 3px solid #4c93cb;
@@ -179,8 +181,8 @@ body.page-begin-profile {
 }
 
 h1 {
-    font-family: 'Open Sans',sans-serif;
-    font-size: 	2.0em;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 2.0em;
     font-weight: 700;
     color: #FFFFFF;
     padding-bottom: 1px;
@@ -201,7 +203,7 @@ p {
     padding-bottom: 1px;
     padding-top: 1px;
     font-family: 'Pontano Sans', Verdana, Helvetica, sans-serif;
-    font-size: 	18px;
+    font-size: 18px;
     font-weight: 400;
     color: #FFFFFF;
     margin-top: 10px;
@@ -213,9 +215,9 @@ p {
     margin-bottom: 30px;
 }
 
-.focused{
-    color:#30aed6;
-    border:#30aed6 solid 3px;
+.focused {
+    color: #30aed6;
+    border: #30aed6 solid 3px;
 }
 
 .submit {
@@ -230,7 +232,7 @@ p {
     margin-bottom: 10px;
     margin-top: 10px;
     text-shadow: none;
-    font-family: 'Pontano Sans',Verdana,Helvetica,sans-serif;
+    font-family: 'Pontano Sans', Verdana, Helvetica, sans-serif;
     font-weight: 700;
     font-size: 1.5em;
     box-shadow: 0 5px #357ebd;
@@ -253,7 +255,7 @@ p {
     margin-bottom: 10px;
     margin-top: 10px;
     text-shadow: none;
-    font-family: 'Pontano Sans',Verdana,Helvetica,sans-serif;
+    font-family: 'Pontano Sans', Verdana, Helvetica, sans-serif;
     font-weight: 700;
     font-size: 1.5em;
     box-shadow: 0 5px #535353;
@@ -285,7 +287,7 @@ p {
 }
 
 @media only screen and (max-width: 580px) {
-    #form-div{
+    #form-div {
         left: 3%;
         margin-right: 3%;
         width: 88%;
@@ -293,7 +295,8 @@ p {
         padding-left: 3%;
         padding-right: 3%;
     }
-    #form-reg{
+
+    #form-reg {
         left: 3%;
         margin-right: 3%;
         width: 88%;
@@ -303,7 +306,7 @@ p {
     }
 }
 
-#name{
+#name {
     background-image: none;
 }
 
@@ -311,64 +314,64 @@ p {
     background-image: none;
 }
 
-#username{
+#username {
     background-image: url(../gfx/onboarding/user.png);
     background-size: 24px;
     background-position: 11px 7px;
     background-repeat: no-repeat;
 }
 
-#username:focus{
+#username:focus {
     background-image: url(../gfx/onboarding/user-g.png);
     background-size: 24px;
     background-position: 11px 7px;
     background-repeat: no-repeat;
 }
 
-#website{
+#website {
     background-image: none;
     background-size: 24px;
     background-position: 11px 7px;
     background-repeat: no-repeat;
 }
 
-#website:focus{
+#website:focus {
     background-image: none;
     background-size: 24px;
     background-position: 11px 7px;
     background-repeat: no-repeat;
 }
 
-#password{
+#password {
     background-image: url(../gfx/onboarding/lock.png);
     background-size: 20px;
     background-position: 11px 6px;
     background-repeat: no-repeat;
 }
 
-#password:focus{
+#password:focus {
     background-image: url(../gfx/onboarding/lock-g.png);
     background-size: 20px;
     background-position: 11px 6px;
     background-repeat: no-repeat;
 }
 
-#website{
+#website {
     background-image: none;
 }
 
-#website:focus{
+#website:focus {
     background-image: none;
 }
 
-#email{
+#email {
     background-image: url(../gfx/onboarding/mail.png);
     background-size: 24px;
     background-position: 11px 11px;
     background-repeat: no-repeat;
 }
 
-#email:focus{
+#email:focus {
     background-image: url(../gfx/onboarding/mail-g.png);
     background-size: 24px;
     background-position: 11px 11px;
@@ -379,12 +382,12 @@ textarea {
     width: 100%;
     height: 150px;
     line-height: 150%;
-    resize:vertical;
+    resize: vertical;
 }
 
 input:hover,
-input:focus,  {
-    background-color:white;
+input:focus, {
+    background-color: white;
 }
 
 textarea:hover,
@@ -393,14 +396,13 @@ textarea:focus {
     color: #c5c5c5;
 }
 
-
-#button-profile{
+#button-profile {
     background-color: #73b2e3;
     border: 4px solid #fbfbfb;
     color: white;
     cursor: pointer;
     float: left;
-    font-family: 'Pontano Sans',Verdana,Helvetica,sans-serif;
+    font-family: 'Pontano Sans', Verdana, Helvetica, sans-serif;
     font-size: 28px;
     font-weight: 800;
     margin-top: -4px;
@@ -410,8 +412,8 @@ textarea:focus {
     width: 100%;
 }
 
-#button-profile:hover{
-    background-color: rgba(0,0,0,0);
+#button-profile:hover {
+    background-color: rgba(0, 0, 0, 0);
     color: #4c93cb;
 }
 
@@ -430,22 +432,22 @@ textarea:focus {
     transition: .3s ease;
 }
 
-.submit:hover .ease{
-    width:100%;
-    background-color:white;
+.submit:hover .ease {
+    width: 100%;
+    background-color: white;
 }
 
 .control-label {
     color: #FFFFFF;
-    font-family: 'Pontano Sans',Verdana,Helvetica,sans-serif;
+    font-family: 'Pontano Sans', Verdana, Helvetica, sans-serif;
     font-weight: 500;
     font-size: 16px;
     font-weight: 600;
 }
 
 h2 {
-    font-family: 'Open Sans',sans-serif;
-    font-size: 	28px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 28px;
     font-weight: 700;
     color: #FFFFFF;
     padding-bottom: 1px;
@@ -456,7 +458,7 @@ h2 {
 
 h3 {
     font-family: 'Open Sans', sans-serif;
-    font-size: 	24px;
+    font-size: 24px;
     font-weight: 700;
     color: #FFFFFF;
     padding-bottom: 1px;
@@ -653,7 +655,7 @@ input.scld:hover, input.scld:focus {
 
 .control-label {
     color: #FFFFFF;
-    font-family: 'Open Sans',sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-weight: 500;
     font-size: 16px;
     font-weight: 600;
@@ -673,7 +675,7 @@ input.scld:hover, input.scld:focus {
     margin-bottom: 10px;
     margin-top: 10px;
     text-shadow: none;
-    font-family: 'Pontano Sans',Verdana,Helvetica,sans-serif;
+    font-family: 'Pontano Sans', Verdana, Helvetica, sans-serif;
     font-weight: 700;
     font-size: 1.5em;
     width: 40%;
@@ -695,7 +697,7 @@ input.scld:hover, input.scld:focus {
     margin-bottom: 10px;
     margin-top: 10px;
     text-shadow: none;
-    font-family: 'Pontano Sans',Verdana,Helvetica,sans-serif;
+    font-family: 'Pontano Sans', Verdana, Helvetica, sans-serif;
     font-weight: 700;
     font-size: 1.5em;
     width: 40%;
@@ -741,6 +743,7 @@ input.scld:hover, input.scld:focus {
     overflow: hidden;
     -webkit-appearance: none;
 }
+
 .btn-file input[type=file] {
     position: absolute;
     top: 0;
@@ -761,9 +764,10 @@ input.scld:hover, input.scld:focus {
     color: #c5c5c5;
     background-image: url(../gfx/onboarding/camera-g.png);
 }
+
 .alerts {
-	background-color: #fff1ba;
-/**    background-color: rgba(0,0,0,0.3); **/
+    background-color: #fff1ba;
+    /**    background-color: rgba(0,0,0,0.3); **/
     padding: 10px;
     border-radius: 7px;
 }
@@ -776,5 +780,5 @@ input.scld:hover, input.scld:focus {
 }
 
 .control-label small {
-	font-weight: 400;
+    font-weight: 400;
 }
