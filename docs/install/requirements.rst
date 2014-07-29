@@ -7,6 +7,8 @@ Known *requires* the following server components:
 * PHP 5.4 or above
 * MongoDB or MySQL 5
 
+Known must be installed at the root of a domain, and does not currently support subdirectory installations.
+
 Additionally, Known requires the following PHP components:
 
 * curl
