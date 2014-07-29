@@ -746,3 +746,19 @@ small {
     border-color: #ffcc66;
     color: #e8945d;
 }
+
+.pager li > a, .pager li > span {
+    background-color: #73b2e3;
+    border: 3px solid #73b2e3;
+    border-radius: 0;
+    display: inline-block;
+    padding: 8px 24px;
+    color: #ffffff;
+    font-size: 1.2em;
+}
+
+.pager li > a:hover, .pager li > a:focus {
+	background-color: #ffffff;
+	border: 3px solid #4c93cb;
+	color: #4c93cb;
+}
