@@ -26,8 +26,7 @@ body.page-begin-register {
 	only media and (min-device-width : 320px), 
 	only media and (max-device-width : 480px) {
 body.page-begin-register { 	
-		background:url(../gfx/onboarding/sky.jpg);
-		position: fixed;
+		background:url(../gfx/onboarding/sky.jpg) fixed;
         background-size: 100% auto;
         top: 0;
         left: 0;
