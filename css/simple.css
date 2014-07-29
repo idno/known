@@ -5,35 +5,19 @@ body.page-begin {
     -webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
-    height:100%;
-    overflow: auto;  
+/**    height:100%;
+    overflow: auto;  **/
 }
 
 /** Testing whitespace problem in iOS **/
-/**body.page-begin-register {    
-	background:url(../gfx/onboarding/sky.jpg) no-repeat center center fixed;
-    background-size: cover;
-    -webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;**/
-/**    height:100%;
-    overflow: auto; **/
-/**}**/
-
-/** Testing a different fix **/
-
 body.page-begin-register {    
 	background:url(../gfx/onboarding/sky.jpg) no-repeat center center fixed;
     background-size: cover;
     -webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
-    background-size: 100% auto;
-    top: 0;
-    left:0;
-    right:0;
-    bottom: -69px;
-    z-index: -1;
+/**    height:100%;
+    overflow: auto; **/
 }
 
 body.page-begin-profile {    
@@ -42,12 +26,8 @@ body.page-begin-profile {
     -webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
-    background-size: 100% auto;
-    top: 0;
-    left:0;
-    right:0;
-    bottom: -69px;
-    z-index: -1;
+/**    height:100%;
+    overflow: auto;**/
 }
 
 
