@@ -5,16 +5,20 @@
 body {
     background-color: #ffffff;
     color: #333;
-    font-weight: 600 !important;
+    font-weight: 400 !important;
 }
 
 h1,h2 {
-    font-weight: 400;
+    font-weight: 600;
 }
 
 h2 {
-    line-height: 1.6em;
-    margin-bottom: 1.6em !important;
+    line-height: 1.2em;
+    margin-bottom: 1.2em !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 600;
 }
 
 .beforecontent {
@@ -30,6 +34,17 @@ h2 {
 
 .idno-content p {
     line-height: 1.5em !important;
+}
+
+.e-content p {
+	font-family: Georgia,"Times New Roman",Times,serif;
+	font-size: 1.2em;
+}
+
+.idno-object .e-content li {
+	font-family: Georgia,"Times New Roman",Times,serif;
+	font-size: 1.2em;
+	line-height: 1.4em;
 }
 
 .idno-content form {
@@ -77,13 +92,19 @@ h2 {
 .idno-object {
     margin-top: 1em;
     display: block;
-    box-shadow: 0 3px 2px -2px #ccc;
+    box-shadow: none;
 }
 
 .idno-object h2 {
-    font-size: 1em;
+    font-size: 1.8em;
     margin: 0;
     padding: 0;
+    font-family: "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
+}
+
+.idno-object a {
+	color:#333333;
+
 }
 
 .idno-entry .h-card {
@@ -397,6 +418,7 @@ span.contentTypeLogo {
 .vague {
     font-size: 0.8em;
     color: #999;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 .syndication span,
@@ -569,6 +591,32 @@ div.pane div.row:nth-of-type(odd) {
     text-shadow: none;
 }
 
+/** Register **/
+.btn-primary {
+    background-color: #ffffff;
+    background-image: none;
+    border: 2px solid #000000;
+    box-shadow: none;
+    color: #000000;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-shadow: none;
+    font-size: 16px;
+}
+
+.btn-primary:hover, btn-primary:active, .btn-primary:focus {
+    background-color: #73b2e3;
+    background-image: none;
+    border-color: #73b2e3;
+    box-shadow: none;
+    color: #fff;
+    text-shadow: none;
+}
+
 .well {
 	background-color: #ffffff;
 	border: 3px solid #73b2e3;
@@ -692,4 +740,15 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 .hero-unit {
     background-color: #fff;
     border: 3px solid #73b2e3;
+    padding: 40px;
+}
+
+.form-horizontal .control-label {
+    float: left;
+    padding-top: 12px;
+}
+
+small {
+    font-size: 75%;
+    font-weight: 400;
 }
