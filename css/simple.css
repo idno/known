@@ -6,17 +6,18 @@ body.page-begin {
 	-moz-background-size: cover;
 	-o-background-size: cover;
     height:100%;
-    overflow: auto;
+    overflow: auto;  
 }
 
+/** Testing whitespace problem in iOS **/
 body.page-begin-register {    
 	background:url(../gfx/onboarding/sky.jpg) no-repeat center center fixed;
     background-size: cover;
     -webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
-    height:100%;
-    overflow: auto;
+/**    height:100%;
+    overflow: auto; **/
 }
 
 body.page-begin-profile {    
@@ -218,7 +219,7 @@ p {
     font-size: 1.5em;
     box-shadow: 0 5px #357ebd;
     -webkit-box-shadow: 0 5px #357ebd;
-    width: 80%;
+    width: 100%;
     -webkit-appearance: none;
 }
 
@@ -241,7 +242,7 @@ p {
     font-size: 1.5em;
     box-shadow: 0 5px #535353;
     -webkit-box-shadow: 0 5px #535353;
-    width: 80%;
+    width: 100%;
     -webkit-appearance: none;
 }
 

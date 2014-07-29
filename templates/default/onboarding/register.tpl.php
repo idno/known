@@ -29,9 +29,7 @@
             </p>
 
             <div class="submit">
-                <input type="submit" value="Register" id="button-blue"/>
-
-                <div class="ease"></div>
+                <input type="submit" value="Register" class="btn btn-reg"/>
             </div>
 
             <?= \Idno\Core\site()->actions()->signForm('/begin/register') ?>
