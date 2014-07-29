@@ -41,10 +41,10 @@
             function postContent()
             {
                 $name       = $this->getInput('name');
-                $handle     = $this->getInput('handle');
-                $password   = $this->getInput('password');
-                $password2  = $this->getInput('password2');
-                $email      = $this->getInput('email');
+                $handle     = trim($this->getInput('handle'));
+                $password   = trim($this->getInput('password'));
+                $password2  = trim($this->getInput('password2'));
+                $email      = trim($this->getInput('email'));
                 $code       = $this->getInput('code');
                 $onboarding = $this->getInput('onboarding');
 
