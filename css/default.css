@@ -638,18 +638,6 @@ input[type="email"], input[type="password"], input[type="text"]  {
 	padding-bottom: 10px;
 	padding-left: 15px;
 	padding-right: 10px; 
-/**	background-color: #fbfbfb;
-    border: 3px solid rgba(0, 0, 0, 0);
-    border-radius: 5px;
-    box-sizing: border-box;
-    color: #777777;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 18px;
-    margin-bottom: 5px;
-    margin-top: 2px;
-    padding: 10px 10px 10px 54px;
-    width: 75%; **/
 }
 
 input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focus {
@@ -751,4 +739,10 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 small {
     font-size: 75%;
     font-weight: 400;
+}
+
+.alert-info {
+    background-color: #fff1ba;
+    border-color: #ffcc66;
+    color: #e8945d;
 }
