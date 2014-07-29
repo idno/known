@@ -5,8 +5,8 @@ body.page-begin {
     -webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
-/**    height:100%;
-    overflow: auto;  **/
+	height:120%;
+/**    overflow: auto;  **/
 }
 
 /** Testing whitespace problem in iOS **/
@@ -16,8 +16,8 @@ body.page-begin-register {
     -webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
-/**    height:100%;
-    overflow: auto; **/
+    height:120%;
+/**    overflow: auto; **/
 }
 
 body.page-begin-profile {    
@@ -26,8 +26,8 @@ body.page-begin-profile {
     -webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
-/**    height:100%;
-    overflow: auto;**/
+    height:120%;
+/**    overflow: auto;**/
 }
 
 
