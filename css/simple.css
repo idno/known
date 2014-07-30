@@ -29,10 +29,10 @@ body.page-begin-register {
 
 #bg {
     position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
+    top: -25%;
+    left: -25%;
+    width: 150%;
+    height: 150%;
 }
 #bg img {
     position: absolute;
