@@ -6,23 +6,61 @@ body{
     min-height:100%;
 }
 
-#bg {
-    position: fixed;
-    top: -25%;
-    left: -25%;
-    width: 150%;
-    height: 150%;
+body.page-begin {
+    background: url(../gfx/onboarding/airballoon.jpg) no-repeat center center fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    height: 100%;
+    overflow: auto;
 }
-#bg img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    width: 100%;
-    min-width: 50%;
-    min-height: 50%;
+
+/** Testing whitespace problem in iOS **/
+body.page-begin-register {
+    background: url(../gfx/onboarding/sky.jpg) no-repeat center center fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    height: 100%;
+    overflow: auto;
+}
+
+body.page-begin-profile {
+    background: url(../gfx/onboarding/sky.jpg) no-repeat center center fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    height: 100%;
+    overflow: auto;
+}
+
+@media only screen and (max-width: 500px) {
+    #bg {
+        position: fixed;
+        top: -25%;
+        left: -25%;
+        width: 150%;
+        height: 150%;
+    }
+        #bg img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        min-width: 100%;
+        min-height: 100%;
+    }
+}
+
+@media only screen and (min-width: 501px) {
+    #bg {
+        display: none;
+    }
 }
 
 #feedback-page {
