@@ -1,3 +1,6 @@
+<div id="bg">
+    <img src="<?=\Idno\Core\site()->config()->getURL()?>gfx/onboarding/sky.jpg" alt="">
+</div>
 <div id="form-main">
     <div id="form-div">
         <h2 class="profile">Share something about yourself</h2>
