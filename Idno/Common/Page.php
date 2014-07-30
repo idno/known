@@ -402,7 +402,7 @@
              */
             function createGatekeeper()
             {
-                if (!\Idno\Core\site()->canEdit()) {
+                if (!\Idno\Core\site()->canWrite()) {
                     $this->setResponse(403);
                     $this->forward();
                 }

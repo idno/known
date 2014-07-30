@@ -139,6 +139,7 @@
                 $this->addPageHandler('/begin/?', '\Idno\Pages\Onboarding\Begin',true);
                 $this->addPageHandler('/begin/register/?', '\Idno\Pages\Onboarding\Register',true);
                 $this->addPageHandler('/begin/profile/?', '\Idno\Pages\Onboarding\Profile');
+                $this->addPageHandler('/begin/publish/?', '\Idno\Pages\Onboarding\Publish');
 
             }
 
@@ -450,7 +451,35 @@
 
                 if ($user = \Idno\Entities\User::getByUUID($user_id)) {
 
-                    // Remote users can't ever create anything :(
+                    if ($user->isAdmin()) {
+                        return true;
+                    }
+
+                }
+
+                return false;
+            }
+
+            /**
+             * Can a specified user (either an explicitly specified user ID
+             * or the currently logged-in user if this is left blank) publish
+             * to the site?
+             *
+             * @param string $user_id
+             * @return true|false
+             */
+
+            function canWrite($user_id = '')
+            {
+                if (!\Idno\Core\site()->session()->isLoggedOn()) return false;
+
+                if (empty($user_id)) {
+                    $user_id = \Idno\Core\site()->session()->currentUserUUID();
+                }
+
+                if ($user = \Idno\Entities\User::getByUUID($user_id)) {
+
+                    // Remote users can't ever create anything :( - for now
                     if ($user instanceof \Idno\Entities\RemoteUser)
                         return false;
 
