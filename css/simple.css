@@ -41,6 +41,7 @@ body.page-begin-register {
     right: 0;
     bottom: 0;
     margin: auto;
+    width: 100%;
     min-width: 50%;
     min-height: 50%;
 }
