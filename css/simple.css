@@ -6,15 +6,6 @@ body{
     min-height:100%;
 }
 
-media only screen and (max-height: 600px) {
-    body {
-        min-height: 600px;
-    }
-    html {
-        min-height: 600px;
-    }
-}
-
 body.page-begin {
     background: url(../gfx/onboarding/airballoon.jpg) no-repeat center center fixed;
     background-size: cover;
@@ -34,6 +25,24 @@ body.page-begin-register {
     -o-background-size: cover;
     height: 100%;
     overflow: auto;
+}
+
+#bg {
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+}
+#bg img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    min-width: 50%;
+    min-height: 50%;
 }
 
 /*@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only media and (min-device-width: 320px), only media and (max-device-width: 480px) {
