@@ -1,3 +1,6 @@
+<div id="bg">
+    <img src="<?=\Idno\Core\site()->config()->getURL()?>gfx/onboarding/airballoon.jpg" alt="">
+</div>
 <div id="form-main">
     <div id="form-div">
         <h1 class="h-register">Known</h1>
