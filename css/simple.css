@@ -6,6 +6,15 @@ body{
     min-height:100%;
 }
 
+media only screen and (max-height: 600px) {
+    body {
+        min-height: 600px;
+    }
+    html {
+        min-height: 600px;
+    }
+}
+
 body.page-begin {
     background: url(../gfx/onboarding/airballoon.jpg) no-repeat center center fixed;
     background-size: cover;
