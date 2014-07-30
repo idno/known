@@ -44,6 +44,7 @@
             <div class="submit">
                 <?= \Idno\Core\site()->actions()->signForm('/profile/' . $vars['user']->getHandle()) ?>
                 <input type="submit" value="Save profile" class="btn btn-reg"/>
+                <input type="hidden" name="onboarding" value="1"/>
             </div>
         </form>
         <div id="website-template" style="display:none"><input name="profile[url][]" type="url" class="profile-input" id="website" placeholder="http://..."/></div>

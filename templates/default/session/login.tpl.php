@@ -10,7 +10,7 @@
         <form action="<?= \Idno\Core\site()->config()->url ?>session/login" method="post">
             <div class="control-group">
                 <div class="controls">
-                    <input type="email" id="inputEmail" name="email" placeholder="Your email address"
+                    <input type="text" id="inputEmail" name="email" placeholder="Your email address"
                            class="span4">
                 </div>
             </div>
