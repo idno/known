@@ -14,7 +14,7 @@ h1,h2 {
 
 h2 {
     line-height: 1.2em;
-    margin-bottom: 1.2em !important;
+	margin-bottom: 10px !important; 
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -703,10 +703,10 @@ a:hover, a:focus {
 
 input[type="email"], input[type="password"], input[type="text"]  {	
 	border: 1px solid #dddddd;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	padding-left: 15px;
-	padding-right: 10px; 
+	padding-top: 8px;
+	padding-bottom: 8px;
+	padding-left: 8px;
+	padding-right: 5px; 
 }
 
 input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focus {
@@ -716,7 +716,7 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 }
 
 input.span7 {
-    width: 640px;
+    width: 656px;
 }
 
 textarea:focus {
@@ -885,3 +885,39 @@ small {
 #photo-preview {
 	margin-bottom: 20px;
 }
+
+.note-editor .note-toolbar {
+    background-color: #ffffff !important;
+}
+
+.note-editor {
+	border: 1px solid #dddddd !important;
+}
+
+.note-editor .note-toolbar {
+    border-bottom: 1px solid #dddddd !important;
+}
+
+.note-style .btn, .note-fancy .btn, .note-fontsize .btn, .note-color .btn, .note-para .btn, .note-codeview .btn {
+	background-color: #ffffff;
+    background-image: none;
+    box-shadow: none;
+    border-color: none;
+    text-shadow: none;
+    border-style: none;
+}
+
+.note-style .btn:hover, .note-fancy .btn:hover, .note-fontsize .btn:hover, .note-color .btn:hover, .note-para .btn:hover, .note-codeview .btn:hover {
+	background-color: #73b2e3;
+    background-image: none;
+    box-shadow: none;
+    border-color: none;
+    text-shadow: none;
+    border-style: none;
+    color: #ffffff;
+}
+
+.btn-group > .btn + .dropdown-toggle {
+	box-shadow: none;
+}
+
