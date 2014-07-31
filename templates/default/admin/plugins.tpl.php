@@ -1,14 +1,13 @@
 <div class="row">
 
     <div class="span10 offset1">
-        <h1>Plugins</h1>
+        <h1>Site features</h1>
         <?=$this->draw('admin/menu')?>
         <div class="explanation">
             <p>
-                Plugins allow you to add new kinds of content, syndicate content to different sites,
-                and change the way Known behaves. To enable or disable a plugin, just click its enable or
-                disable button. You can always get more plugins from
-                <a href="http://withknown.com" target="_blank">the Known website</a>.
+                Site features allow you to add new kinds of content, syndicate content to different sites,
+                and change the way Known behaves. To enable or disable a feature, just click its enable or
+                disable button.
             </p>
         </div>
         <?php
