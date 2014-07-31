@@ -75,6 +75,10 @@
                         $user->setTitle($name);
                         if (!\Idno\Entities\User::get()) {
                             $user->setAdmin(true);
+                            if (\Idno\Core\site()->config()->title == 'New Known site') {
+                                \Idno\Core\site()->config()->title = $user->getTitle() . '\'s site';
+                                \Idno\Core\site()->config()->save();
+                            }
                         }
                         $user->save();
                     } else {
