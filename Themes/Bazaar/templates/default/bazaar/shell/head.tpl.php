@@ -1,1 +1,0 @@
-<link href="<?= \Idno\Core\site()->config()->url ?>Themes/Bazaar/css/default.css" rel="stylesheet">
