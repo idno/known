@@ -17,17 +17,9 @@ body.page-begin {
 }
 
 /** Testing whitespace problem in iOS **/
+body.page-begin-connect,
+body.page-begin-profile,
 body.page-begin-register {
-    background: url(../gfx/onboarding/sky.jpg) no-repeat center center fixed;
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    height: 100%;
-    overflow: auto;
-}
-
-body.page-begin-profile {
     background: url(../gfx/onboarding/sky.jpg) no-repeat center center fixed;
     background-size: cover;
     -webkit-background-size: cover;
@@ -528,27 +520,42 @@ a:hover, a:focus {
     text-align: left;
 }
 
-.fb {
-    background-image: url(../gfx/onboarding/facebook.png);
-    background-repeat: no-repeat;
-    background-size: 34px auto;
-    padding: 15px 15px 10px 75px;
-    background-color: #3b5998;
-    border-color: #3b5998;
+.connect {
     border-radius: 6px;
     border-style: solid;
     border-width: 1px;
     box-shadow: none;
-    background-position: 15px 8px;
+    background-position: 15px 9px;
     color: #FFFFFF;
     font-family: Helvetica, sans-serif;
     font-size: 24px;
     text-align: left;
     width: 100%;
     margin-bottom: 5px;
+    margin-top: 15px;
+    background-repeat: no-repeat;
+    background-size: 34px auto;
+    padding: 15px 15px 10px 75px;
 }
 
-input.fb:hover, input.fb:focus {
+.connect:hover {
+    text-decoration: none !important;
+}
+
+a.connect {
+    display: inline-block;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+.fb {
+    background-image: url(../gfx/onboarding/facebook.png);
+    background-color: #3b5998;
+    border-color: #3b5998;
+}
+
+.fb:hover, .fb:focus {
     background-color: #8B9DC3;
     color: #FFFFFF;
     border-color: #8B9DC3;
@@ -557,26 +564,11 @@ input.fb:hover, input.fb:focus {
 
 .tw {
     background-image: url(../gfx/onboarding/twitter.png);
-    background-repeat: no-repeat;
-    background-size: 34px auto;
-    padding: 15px 15px 10px 75px;
     background-color: #55acee;
     border-color: #55acee;
-    border-radius: 6px;
-    border-style: solid;
-    border-width: 1px;
-    box-shadow: none;
-    background-position: 15px 10px;
-    color: #FFFFFF;
-    font-family: Helvetica, sans-serif;
-    font-size: 24px;
-    text-align: left;
-    width: 100%;
-    margin-bottom: 5px;
-    margin-top: 15px;
 }
 
-input.tw:hover, input.tw:focus {
+.tw:hover, .tw:focus {
     background-color: #66757f;
     color: #FFFFFF;
     border-color: #66757f;
@@ -585,26 +577,11 @@ input.tw:hover, input.tw:focus {
 
 .fl {
     background-image: url(../gfx/onboarding/flickr.png);
-    background-repeat: no-repeat;
-    background-size: 34px auto;
-    padding: 15px 15px 10px 75px;
     background-color: #0063dc;
     border-color: #0063dc;
-    border-radius: 6px;
-    border-style: solid;
-    border-width: 1px;
-    box-shadow: none;
-    background-position: 15px 9px;
-    color: #FFFFFF;
-    font-family: Helvetica, sans-serif;
-    font-size: 24px;
-    text-align: left;
-    width: 100%;
-    margin-bottom: 5px;
-    margin-top: 15px;
 }
 
-input.fl:hover, input.fl:focus {
+.fl:hover, .fl:focus {
     background-color: #ff0084;
     color: #FFFFFF;
     border-color: #ff0084;
@@ -613,26 +590,11 @@ input.fl:hover, input.fl:focus {
 
 .fsqr {
     background-image: url(../gfx/onboarding/foursquare.png);
-    background-repeat: no-repeat;
-    background-size: 34px auto;
-    padding: 15px 15px 10px 75px;
     background-color: #40B3DF;
     border-color: #40B3DF;
-    border-radius: 6px;
-    border-style: solid;
-    border-width: 1px;
-    box-shadow: none;
-    background-position: 15px 9px;
-    color: #FFFFFF;
-    font-family: Helvetica, sans-serif;
-    font-size: 24px;
-    text-align: left;
-    width: 100%;
-    margin-bottom: 5px;
-    margin-top: 15px;
 }
 
-input.fsqr:hover, input.fsqr:focus {
+.fsqr:hover, .fsqr:focus {
     background-color: #17649A;
     color: #FFFFFF;
     border-color: #17649A;
@@ -641,30 +603,25 @@ input.fsqr:hover, input.fsqr:focus {
 
 .scld {
     background-image: url(../gfx/onboarding/soundcloud.png);
-    background-repeat: no-repeat;
-    background-size: 48px auto;
-    padding: 15px 15px 10px 75px;
     background-color: #f80;
     border-color: #f80;
-    border-radius: 6px;
-    border-style: solid;
-    border-width: 1px;
-    box-shadow: none;
-    background-position: 15px 3px;
-    color: #FFFFFF;
-    font-family: Helvetica, sans-serif;
-    font-size: 24px;
-    text-align: left;
-    width: 100%;
-    margin-bottom: 5px;
-    margin-top: 15px;
 }
 
-input.scld:hover, input.scld:focus {
+.scld:hover, .scld:focus {
     background-color: #f30;
     color: #FFFFFF;
     border-color: #f30;
     background-image: url(../gfx/onboarding/soundcloud.png);
+}
+
+.connected {
+    background-color: #bbb;
+    border: #bbb solid 1px;
+}
+
+.connected:hover,
+.connected:focus {
+    background-color: #bbb;
 }
 
 .control-label {
