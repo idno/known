@@ -198,11 +198,12 @@ h1 {
 }
 
 .p-register {
-    margin-bottom: 150px;
+    margin-bottom: 80px;
     margin-top: 40px;
     text-align: center;
     padding-left: 15px;
     padding-right: 15px;
+    font-size: 1.5em;
 }
 
 p {

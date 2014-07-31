@@ -3,9 +3,9 @@
 </div>
 <div id="form-main">
     <div id="form-div">
-        <h1 class="h-register">Known</h1>
+        <h1 class="h-register"><img src="<?=\Idno\Core\site()->config()->getURL()?>gfx/onboarding/logo_full.png" alt="Known"></h1>
 
-        <p class="p-register">Known is a social publishing platform.<br>
+        <p class="p-register">Known is a social publishing platform for everyone.<br>
             <br>Capture your moments, share your stories, and own your space on the web.</p>
 
         <?=$this->draw('shell/simple/messages')?>
