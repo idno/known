@@ -22,6 +22,17 @@ body {
     background-color: rgba(255,255,255,0.95);
 }
 
+.e-content p {
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 1em;
+}
+
+.idno-object .e-content li {
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 0.9em;
+    line-height: 1.5em;
+}
+
 .edit-pane {
     background-color: rgba(255,255,255,0.95);
     padding: 1.5em;
