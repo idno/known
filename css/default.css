@@ -277,12 +277,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .annotation-add-mini .icon-container,
 .annotation-add .icon-container {
-    margin-top: -1em;
+    margin-top: -0.5em;
 }
 
 .annotation-add-mini .icon-container {
-    width: 25px;
-    height: 25px;
+    width: 40px;
+    height: 40px;
 }
 
 .annotation-add-mini textarea {
@@ -382,13 +382,13 @@ a.contentTypeButton {
     margin-right: 0.5em;
     margin-bottom: 0.5em;
     transition: width 0.25s, padding-top 0.25s, padding-bottom 0.25s;
-    color: #777;
+    color: #333;
     display: inline-block;
 }
 
 a.contentTypeButton:hover {
     text-decoration: none;
-    color: #333;
+    color: #777;
     background-color: #fff;
 }
 
@@ -592,7 +592,7 @@ div.pane div.row:nth-of-type(odd) {
 }
 
 /** Register **/
-.btn-primary {
+.btn-reg {
     background-color: #ffffff;
     background-image: none;
     border: 2px solid #000000;
@@ -608,7 +608,7 @@ div.pane div.row:nth-of-type(odd) {
     font-size: 16px;
 }
 
-.btn-primary:hover, btn-primary:active, .btn-primary:focus {
+.btn-reg:hover, btn-reg:active, .btn-reg:focus {
     background-color: #73b2e3;
     background-image: none;
     border-color: #73b2e3;
@@ -616,6 +616,75 @@ div.pane div.row:nth-of-type(odd) {
     color: #fff;
     text-shadow: none;
 }
+/** Interface Buttons **/
+
+.btn-primary {
+    background-color: #73b2e3;
+    border-color: #73b2e3;
+    color: #ffffff;
+    text-shadow: none;
+    background-image: none;
+    background-repeat: repeat-x;
+    box-shadow: none;
+}
+
+.btn-primary:hover, btn-primary:active, .btn-primary:focus {
+    background-color: #4c93cb;
+    border-color: #4c93cb;
+    color: #ffffff;
+}
+
+.btn-cancel {
+    background-color: #dddddd;
+    border-color: #dddddd;
+    color: #333333;
+    text-shadow: none;
+    background-image: none;
+    background-repeat: repeat-x;
+    box-shadow: none;
+}
+
+.btn-cancel:hover, btn-cancel:active, .btn-cancel:focus {
+    background-color: #c5c5c5;
+    border-color: #c5c5c5;
+    color: #333333;
+}
+
+.btn-save {
+    background-color: #8cbf99;
+    border-color: #8cbf99;
+    color: #ffffff;
+    text-shadow: none;
+    background-image: none;
+    background-repeat: repeat-x;
+    box-shadow: none;
+}
+
+.btn-save:hover, btn-save:active, .btn-save:focus {
+    background-color: #70997a;
+    border-color: #70997a;
+    color: #ffffff;
+}
+
+.btn-large {
+    background-color: #dddddd;
+    border-color: #dddddd;
+    color: #333333;
+    text-shadow: none;
+    background-image: none;
+    background-repeat: repeat-x;
+    box-shadow: none;
+    border-radius: 6px;
+    font-size: 17.5px;
+    padding: 11px 19px;
+}
+
+.btn-large:hover, btn-large:active, .btn-large:focus {
+    background-color: #c5c5c5;
+    border-color: #c5c5c5;
+    color: #333333;
+}
+
 
 .well {
 	background-color: #ffffff;
@@ -633,7 +702,7 @@ a:hover, a:focus {
 }
 
 input[type="email"], input[type="password"], input[type="text"]  {	
-	border: 3px solid #dddddd;
+	border: 1px solid #dddddd;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	padding-left: 15px;
@@ -642,8 +711,35 @@ input[type="email"], input[type="password"], input[type="text"]  {
 
 input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focus {
 	box-shadow: none;
-    border: 3px solid #4c93cb;
-    color: #4c93cb;
+    border: 1px solid #4c93cb;
+    color: #555555;
+}
+
+input.span7 {
+    width: 640px;
+}
+
+textarea:focus {
+    box-shadow: none;
+}
+
+input:focus:invalid, textarea:focus:invalid, select:focus:invalid {
+    border-color: #4c93cb;
+    color: #555555;
+}
+input:focus:invalid:focus, textarea:focus:invalid:focus, select:focus:invalid:focus {
+    border-color: #4c93cb;
+    box-shadow: none;
+}
+
+textarea:focus, input[type="url"]:focus {
+    border-color: #4c93cb;
+    box-shadow: none;
+    outline: 0 none;
+}
+
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="tel"], input[type="color"], .uneditable-input {
+	margin-top: 5px;
 }
 
 .blank-footer {
@@ -725,6 +821,29 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
     text-decoration: none;
 }
 
+.navbar-inner {
+    background-color: #ffffff;
+    background-image: none;
+    background-repeat: repeat-x;
+    border: 1px solid #d4d4d4;
+    border-radius: 4px;
+    box-shadow: none;
+    min-height: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
+    background-color: #dddddd;
+    box-shadow: none;
+    color: #555555;
+    text-decoration: none;
+}
+
+.navbar .nav > li > a {
+	text-shadow: none;
+}
+
 .hero-unit {
     background-color: #fff;
     border: 3px solid #73b2e3;
@@ -761,4 +880,8 @@ small {
 	background-color: #ffffff;
 	border: 3px solid #4c93cb;
 	color: #4c93cb;
+}
+
+#photo-preview {
+	margin-bottom: 20px;
 }

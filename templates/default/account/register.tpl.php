@@ -45,7 +45,7 @@
                 </div>
                 <div class="control-group">
                     <div class="controls">
-                        <button type="submit" class="btn btn-primary">Create Account</button>
+                        <button type="submit" class="btn btn-reg">Create Account</button>
                         <input type="hidden" name="code" value="<?=htmlspecialchars($vars['code'])?>">
                     </div>
                 </div>
