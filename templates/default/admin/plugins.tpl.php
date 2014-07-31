@@ -1,7 +1,7 @@
 <div class="row">
 
     <div class="span10 offset1">
-        <h1>Site features</h1>
+        <h1>Site Features</h1>
         <?=$this->draw('admin/menu')?>
         <div class="explanation">
             <p>

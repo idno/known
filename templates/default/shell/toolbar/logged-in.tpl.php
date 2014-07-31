@@ -4,11 +4,11 @@
 
 <?php if (\Idno\Core\site()->canWrite()) { ?>
 
-    <li><a href="<?= \Idno\Core\site()->config()->url ?>account/settings/">Settings</a></li>
+    <li><a href="<?= \Idno\Core\site()->config()->url ?>account/settings/">Account Settings</a></li>
 
     <?php if (\Idno\Core\site()->session()->currentUser()->isAdmin()) { ?>
 
-        <li><a href="<?= \Idno\Core\site()->config()->url ?>admin/">Administration</a></li>
+        <li><a href="<?= \Idno\Core\site()->config()->url ?>admin/">Configure Your Site</a></li>
 
     <?php } ?>
 <?php } ?>
