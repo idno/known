@@ -42,6 +42,16 @@
                                 site()->template()->extendTemplate($template, $extension);
                             }
                         }
+                        if (!empty($config['prepend extensions'])) {
+                            $extensions = $config['prepend extensions'];
+                        } else if (!empty($config['Prepend Extensions'])) {
+                            $extensions = $config['Prepend Extensions'];
+                        }
+                        if (!empty($extensions)) {
+                            foreach ($extensions as $template => $extension) {
+                                site()->template()->extendTemplate($template, $extension, true);
+                            }
+                        }
                         if (is_subclass_of("Themes\\{$this->theme}\\Controller", 'Idno\\Common\\Theme')) {
                             $class                      = "Themes\\{$this->theme}\\Controller";
                             $this->themes[$this->theme] = new $class();
