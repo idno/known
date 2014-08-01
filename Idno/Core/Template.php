@@ -108,13 +108,18 @@
              *
              * @param string $templateName
              * @param string $extensionTemplateName
+             * @param bool $to_front If set, this will add the template to the beginning of the template queue
              */
-            function extendTemplate($templateName, $extensionTemplateName)
+            function extendTemplate($templateName, $extensionTemplateName, $to_front = false)
             {
                 if (empty($this->extensions[$templateName])) {
                     $this->extensions[$templateName] = [];
                 }
-                $this->extensions[$templateName][] = $extensionTemplateName;
+                if ($to_front) {
+                    array_unshift($this->extensions[$templateName], $extensionTemplateName);
+                } else {
+                    $this->extensions[$templateName][] = $extensionTemplateName;
+                }
             }
 
             /**
