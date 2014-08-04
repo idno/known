@@ -19,7 +19,11 @@
                 'sessionname'       => 'known', // Default session name
                 'open_registration' => true, // Can anyone register for this system?
                 'plugins'           => array( // Default plugins
-                                              'Status'
+                                              'Status',
+                                              'Text',
+                                              'Photo',
+                                              'Like',
+                                              'Checkin'
                 ),
                 'themes'            => [],
                 'items_per_page'    => 10, // Default items per page
