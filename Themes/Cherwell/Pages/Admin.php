@@ -31,7 +31,11 @@
                                 // Remove previous bg
                                 if (!empty(\Idno\Core\site()->config()->cherwell['bg_id'])) {
                                     if ($file = File::getByID(\Idno\Core\site()->config()->cherwell['bg_id'])) {
-                                        $file->delete();
+                                        if (is_callable([$file,'delete'])) {        // TODO: really need some abstraction here.
+                                            $file->delete();
+                                        } else if (is_callable([$file,'remove'])) {
+                                            $file->remove();
+                                        }
                                     }
                                 }
                                 \Idno\Core\site()->config->config['cherwell']['bg_id'] = $background;
