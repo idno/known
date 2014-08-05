@@ -7,6 +7,8 @@
             $vars['content'] = [$vars['content']];
         }
         $action .= 'content/' . implode('/', $vars['content']);
+    } else {
+        $action .= 'content/all/';
     }
 
 ?>
