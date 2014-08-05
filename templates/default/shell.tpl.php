@@ -24,13 +24,35 @@
     <meta name="generator" content="Known http://withknown.com">
     <?= $this->draw('shell/favicon'); ?>
 
+    <?php
+
+        if (\Idno\Core\site()->currentPage() && \Idno\Core\site()->currentPage()->isPermalink()) {
+            $object = $vars['object'];
+
+            ?>
+            <!-- "Open" Graph -->
+            <meta property="og:title" content="<?= htmlspecialchars($vars['title']); ?>" />
+            <meta property="og:type" content="website" />
+            <meta property="og:image" content="<?=\Idno\Core\site()->config()->getURL()?>gfx/logos/logo_k.png" />
+            <?php
+
+                if ($url = $object->getURL()) {
+
+            ?>
+            <meta property="og:url" content="<?=$url?>"/>
+            <?php
+
+                }
+        }
+
+    ?>
+
     <!-- Dublin Core -->
     <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
     <meta name="DC.title" content="<?= htmlspecialchars($vars['title']) ?>">
     <meta name="DC.description" content="<?= htmlspecialchars($vars['description']) ?>"><?php
 
         if (\Idno\Core\site()->currentPage() && \Idno\Core\site()->currentPage()->isPermalink()) {
-            $object = $vars['object'];
             /* @var \Idno\Common\Entity $object */
             if ($creator = $object->getOwner()) {
                 ?>
