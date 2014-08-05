@@ -43,12 +43,12 @@
                             }
                         }
                         if (!empty($config['prepend extensions'])) {
-                            $extensions = $config['prepend extensions'];
+                            $prep_extensions = $config['prepend extensions'];
                         } else if (!empty($config['Prepend Extensions'])) {
-                            $extensions = $config['Prepend Extensions'];
+                            $prep_extensions = $config['Prepend Extensions'];
                         }
-                        if (!empty($extensions)) {
-                            foreach ($extensions as $template => $extension) {
+                        if (!empty($prep_extensions)) {
+                            foreach ($prep_extensions as $template => $extension) {
                                 site()->template()->extendTemplate($template, $extension, true);
                             }
                         }
