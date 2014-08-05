@@ -194,6 +194,26 @@
             }
 
             /**
+             * Given a URL, fixes it to have a prefix if it needs one
+             * @param $url
+             * @return string
+             */
+            function fixURL($url) {
+                return (
+                    substr($url, 0, 7) == 'http://' ||
+                    substr($url, 0, 8) == 'https://' ||
+                    substr($url, 0, 1) == '@' ||
+                    substr($url, 0, 7) == 'mailto:' ||
+                    substr($url, 0, 4) == 'tel:' ||
+                    substr($url, 0, 4) == 'sms:' ||
+                    substr($url, 0, 6) == 'skype:' ||
+                    substr($url, 0, 5) == 'xmpp:'
+                )
+                    ? $url
+                    : 'http://'.$url;
+            }
+
+            /**
              * Change @user links into active users.
              * @param type $text The text to parse
              * @param type $in_reply_to If specified, the function will make a (hopefully) sensible guess as to where the user is located
