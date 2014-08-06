@@ -24,9 +24,10 @@
 
                 if (!empty(site()->config()->theme)) {
                     $this->theme = site()->config()->theme;
-                    if (file_exists(\Idno\Core\site()->config()->path . '/hosts/' . $_SERVER['HTTP_HOST'] . '/Themes/' . $this->theme)) {
-                        \Bonita\Main::additionalPath(site()->config()->path . '/hosts/' . $_SERVER['HTTP_HOST'] . '/Themes/' . $this->theme);
-                        $config = parse_ini_file(\Idno\Core\site()->config()->path . '/hosts/' . $_SERVER['HTTP_HOST'] . '/Themes/' . $this->theme . '/theme.ini', true);
+                    $host = str_replace('www.','',strtolower($_SERVER['HTTP_HOST']));
+                    if (file_exists(\Idno\Core\site()->config()->path . '/hosts/' . $host . '/Themes/' . $this->theme)) {
+                        \Bonita\Main::additionalPath(site()->config()->path . '/hosts/' . $host . '/Themes/' . $this->theme);
+                        $config = parse_ini_file(\Idno\Core\site()->config()->path . '/hosts/' . $host . '/Themes/' . $this->theme . '/theme.ini', true);
                     } else if (file_exists(\Idno\Core\site()->config()->path . '/Themes/' . $this->theme . '/theme.ini')) {
                         \Bonita\Main::additionalPath(site()->config()->path . '/Themes/' . $this->theme);
                         $config = parse_ini_file(\Idno\Core\site()->config()->path . '/Themes/' . $this->theme . '/theme.ini', true);
