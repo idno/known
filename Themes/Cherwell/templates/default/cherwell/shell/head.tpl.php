@@ -2,5 +2,6 @@
 <style>
     body {
         background: url(<?=Themes\Cherwell\Controller::getBackgroundImageURL()?>) center fixed;
+        background-size: cover;
     }
 </style>
