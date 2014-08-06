@@ -31,7 +31,7 @@
 
                     </label>
 
-                    <textarea required name="description" id="description" class="span8"
+                    <textarea name="description" id="description" class="span8"
                               placeholder="This page is great because..."><?= htmlspecialchars($vars['object']->description); ?></textarea>
                     <label>
                         Tags<br/>
