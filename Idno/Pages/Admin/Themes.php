@@ -26,12 +26,13 @@
                 $this->adminGatekeeper(); // Admins only
                 $theme  = $this->getInput('theme');
                 $action = $this->getInput('action');
+                $host = str_replace('www.','',strtolower($_SERVER['HTTP_HOST']));
                 if (
                     (
                         preg_match('/^[a-zA-Z0-9]+$/', $theme) &&
                         (
                             file_exists(\Idno\Core\site()->config()->path . '/Themes/' . $theme) ||
-                            file_exists(\Idno\Core\site()->config()->path . '/hosts/' . $_SERVER['HTTP_HOST'] . '/Themes/' . $theme)
+                            file_exists(\Idno\Core\site()->config()->path . '/hosts/' . $host . '/Themes/' . $theme)
                         )
                     )
                     || $theme == ''
