@@ -40,7 +40,7 @@
 // idno trunk classes (i.e., the main framework) are in /idno
     $loader->registerNamespace('Idno', dirname(dirname(__FILE__)));
 // Host for the purposes of extra paths
-    $host = $_SERVER['HTTP_HOST'];
+    $host = strtolower($_SERVER['HTTP_HOST']);
     $host = str_replace('www.','',$host);
 // idno plugins are located in /IdnoPlugins and must have their own namespace
     $loader->registerNamespace('IdnoPlugins', [dirname(dirname(__FILE__)), dirname(dirname(__FILE__)) . '/hosts/' . $host]);
