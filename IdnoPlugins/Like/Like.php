@@ -16,6 +16,14 @@
                 return $body;
             }
 
+            function getURL() {
+                if (!($this->getSlug()) && ($this->getID())) {
+                    return \Idno\Core\site()->config()->url . 'bookmark/' . $this->getID() . '/' . $this->getPrettyURLTitle();
+                } else {
+                    return parent::getURL();
+                }
+            }
+
             /**
              * Like objects have type 'bookmark'
              * @return 'bookmark'
