@@ -13,5 +13,4 @@
     }
 
     echo $this->draw('entity/feed');
-
 ?>
