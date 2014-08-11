@@ -12,10 +12,6 @@
 
     namespace Idno\Common {
 
-        interface EntityInterface extends \JsonSerializable, \ArrayAccess
-        {
-        }
-
         class Entity extends Component implements EntityInterface
         {
 
