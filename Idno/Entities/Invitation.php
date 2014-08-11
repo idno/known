@@ -18,7 +18,7 @@
             {
                 $this->generateCode();
 
-                return parent::__construct();
+                parent::__construct();
             }
 
             /**
