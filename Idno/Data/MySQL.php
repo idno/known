@@ -535,8 +535,6 @@
                     }
                 }
 
-                \Idno\Core\site()->session()->addMessage($where);
-
                 return $where;
             }
 
