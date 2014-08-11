@@ -141,6 +141,9 @@
                 if (!empty($array['title'])) {
                     $search .= $array['title'] . ' ';
                 }
+                if (!empty($array['tags'])) {
+                    $search .= $array['tags'] . ' ';
+                }
                 if (!empty($array['description'])) {
                     $search .= $array['description'] . ' ';
                 }
@@ -531,6 +534,8 @@
                         $where = '(' . implode(" {$clause} ", $subwhere) . ')';
                     }
                 }
+
+                \Idno\Core\site()->session()->addMessage($where);
 
                 return $where;
             }
