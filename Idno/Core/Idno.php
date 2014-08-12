@@ -321,6 +321,8 @@
             function hijackPageHandler($pattern, $handler, $public = false)
             {
                 if (class_exists($handler)) {
+                    @unset($this->pagehandlers[$pattern]);
+                    @unset($this->public_pages[$pattern]);
                     $this->pagehandlers = [$pattern => $handler] + $this->pagehandlers;
                     if ($public == true) {
                         $this->public_pages = [$pattern => $handler] + $this->public_pages;
