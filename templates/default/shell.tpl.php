@@ -29,12 +29,13 @@
             'og:type' => 'website',
             'og:title' => htmlspecialchars($vars['title']),
             'og:site_name' => \Idno\Core\site()->config()->title,
-            'og:image' => \Idno\Core\site()->config()->getURL() . 'gfx/logos/logo_k.png',
-            'og:url' => \Idno\Core\site()->currentPage()->currentUrl()
+            'og:image' => \Idno\Core\site()->config()->getURL() . 'gfx/logos/logo_k.png'
 	];
-    
+
         if (\Idno\Core\site()->currentPage() && \Idno\Core\site()->currentPage()->isPermalink()) {
-            
+
+            $opengraph['og:url'] = \Idno\Core\site()->currentPage()->currentUrl(); 
+
             $owner = $vars['object']->getOwner();
             $object = $vars['object'];
 	
