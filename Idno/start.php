@@ -40,12 +40,15 @@
 // idno trunk classes (i.e., the main framework) are in /idno
     $loader->registerNamespace('Idno', dirname(dirname(__FILE__)));
 // Host for the purposes of extra paths
-    $host = strtolower($_SERVER['HTTP_HOST']);
-    $host = str_replace('www.','',$host);
+    if (!empty($_SERVER['HTTP_HOST'])) {
+        $host = strtolower($_SERVER['HTTP_HOST']);
+        $host = str_replace('www.', '', $host);
+        define('KNOWN_MULTITENANT_HOST', $host);
 // idno plugins are located in /IdnoPlugins and must have their own namespace
-    $loader->registerNamespace('IdnoPlugins', [dirname(dirname(__FILE__)), dirname(dirname(__FILE__)) . '/hosts/' . $host]);
+        $loader->registerNamespace('IdnoPlugins', [dirname(dirname(__FILE__)), dirname(dirname(__FILE__)) . '/hosts/' . $host]);
 // idno themes are located in /Themes and must have their own namespace
-    $loader->registerNamespace('Themes', [dirname(dirname(__FILE__)), dirname(dirname(__FILE__)) . '/hosts/' . $host]);
+        $loader->registerNamespace('Themes', [dirname(dirname(__FILE__)), dirname(dirname(__FILE__)) . '/hosts/' . $host]);
+    }
 
 // Register our external namespaces (PSR-0 compliant modules that we love, trust and need)
 

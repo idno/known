@@ -98,13 +98,15 @@
                         }
                     }
                 }
-                $host = str_replace('www.','',strtolower($_SERVER['HTTP_HOST']));
-                if (file_exists(\Idno\Core\site()->config()->path . '/hosts/' . $host . '/IdnoPlugins')) {
-                    if ($folders = scandir(\Idno\Core\site()->config()->path . '/hosts/' . $host . '/IdnoPlugins')) {
-                        foreach ($folders as $folder) {
-                            if ($folder != '.' && $folder != '..') {
-                                if (file_exists(\Idno\Core\site()->config()->path . '/hosts/' . $host . '/IdnoPlugins' . $folder . '/plugin.ini')) {
-                                    $plugins[$folder] = parse_ini_file(\Idno\Core\site()->config()->path . '/hosts/' . $host . '/IdnoPlugins' . $folder . '/plugin.ini', true);
+                if (defined('KNOWN_MULTITENANT_HOST')) {
+                    $host = KNOWN_MULTITENANT_HOST;
+                    if (file_exists(\Idno\Core\site()->config()->path . '/hosts/' . $host . '/IdnoPlugins')) {
+                        if ($folders = scandir(\Idno\Core\site()->config()->path . '/hosts/' . $host . '/IdnoPlugins')) {
+                            foreach ($folders as $folder) {
+                                if ($folder != '.' && $folder != '..') {
+                                    if (file_exists(\Idno\Core\site()->config()->path . '/hosts/' . $host . '/IdnoPlugins' . $folder . '/plugin.ini')) {
+                                        $plugins[$folder] = parse_ini_file(\Idno\Core\site()->config()->path . '/hosts/' . $host . '/IdnoPlugins' . $folder . '/plugin.ini', true);
+                                    }
                                 }
                             }
                         }
