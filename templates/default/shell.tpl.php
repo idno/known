@@ -34,7 +34,7 @@
 
         if (\Idno\Core\site()->currentPage() && \Idno\Core\site()->currentPage()->isPermalink()) {
 
-            $opengraph['og:url'] = \Idno\Core\site()->currentPage()->currentUrl(); 
+            $opengraph['og:url'] = \Idno\Core\site()->currentPage()->currentUrl();
 
             $owner = $vars['object']->getOwner();
             $object = $vars['object'];
