@@ -311,6 +311,24 @@
             }
 
             /**
+             * Registers a page handler for a given pattern, using Toro
+             * page handling syntax - and ensures it will be handled first
+             *
+             * @param string $pattern The pattern to match
+             * @param callable $handler The handler callable that will serve the page
+             * @param bool $public If set to true, this page is always public, even on non-public sites
+             */
+            function hijackPageHandler($pattern, $handler, $public = false)
+            {
+                if (class_exists($handler)) {
+                    $this->pagehandlers = [$pattern => $handler] + $this->pagehandlers;
+                    if ($public == true) {
+                        $this->public_pages = [$pattern => $handler] + $this->public_pages;
+                    }
+                }
+            }
+
+            /**
              * Mark a page handler class as offering public content even on walled garden sites
              * @param $class
              */
