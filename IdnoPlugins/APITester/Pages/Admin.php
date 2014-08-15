@@ -93,9 +93,9 @@
                         CURLOPT_POST           => true, // Make a POST call
                         CURLOPT_HEADER         => true, // Keep headers in the response
                         CURLOPT_HTTPHEADER     => [
-                            'X-IDNO-USERNAME: ' . $username,
-                            'X-IDNO-SIGNATURE: ' . base64_encode(hash_hmac('sha256', $request, $key, true)),
-                            'User-Agent: Idno'
+                            'X-KNOWN-USERNAME: ' . $username,
+                            'X-KNOWN-SIGNATURE: ' . base64_encode(hash_hmac('sha256', $request, $key, true)),
+                            'User-Agent: Known http://withknown.com'
                         ],
                         CURLOPT_POSTFIELDS     => trim($json),
                         CURLOPT_RETURNTRANSFER => 1,
