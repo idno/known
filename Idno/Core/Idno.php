@@ -27,6 +27,7 @@
             public $syndication;
             public static $site;
             public $currentPage;
+            public $hub;
 
             function init()
             {
@@ -84,6 +85,11 @@
                 $this->syndication = new Syndication();
                 $this->plugins     = new Plugins(); // This must be loaded last
                 $this->themes      = new Themes();
+
+                // Connect to a Known hub if one is listed in the configuration file
+                if (!empty($this->config->hub)) {
+                    $this->hub = new Hub($this->config->hub);
+                }
 
                 User::registerEvents();
             }
@@ -171,6 +177,15 @@
             function &filesystem()
             {
                 return $this->filesystem;
+            }
+
+            /**
+             * Returns the current Known hub
+             * @return \Idno\Core\Hub
+             */
+            function &hub()
+            {
+                return $this->hub;
             }
 
             /**
