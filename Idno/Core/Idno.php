@@ -89,6 +89,7 @@
                 // Connect to a Known hub if one is listed in the configuration file
                 if (!empty($this->config->hub)) {
                     $this->hub = new Hub($this->config->hub);
+                    $this->hub->connect();
                 }
 
                 User::registerEvents();
