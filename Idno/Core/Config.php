@@ -195,6 +195,18 @@
             }
 
             /**
+             * Retrieve the name of this site
+             * @return string
+             */
+            function getTitle()
+            {
+                if (!empty($this->title)) {
+                    return $this->title;
+                }
+                return '';
+            }
+
+            /**
              * Is this site's content available to non-members?
              * @return bool
              */
