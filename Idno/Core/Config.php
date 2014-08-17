@@ -102,12 +102,9 @@
              * a configuration value.
              */
 
-            function __get($name)
+            function &__get($name)
             {
-                if (isset($this->config[$name]))
-                    return $this->config[$name];
-
-                return null;
+                return $this->config[$name];
             }
 
             /**
