@@ -8,20 +8,22 @@
 
     namespace Idno\Core {
 
-        class Hub extends \Idno\Common\Component {
+        class Hub extends \Idno\Common\Component
+        {
 
             public $server = '';
             public $auth_token = '';
             public $secret = '';
             public $token = '';
 
-            function __construct($server) {
+            function __construct($server)
+            {
                 parent::__construct();
                 $this->setServer($server);
-                $this->connect();
             }
 
-            function registerPages() {
+            function registerPages()
+            {
                 // This page will be called by the hub after registration
                 site()->addPageHandler('hub/register', 'Idno\Pages\Hub\Register', true);
             }
@@ -30,7 +32,8 @@
              * Sets the hub server to connect to
              * @param $server
              */
-            function setServer($server) {
+            function setServer($server)
+            {
                 $this->server = $server;
             }
 
@@ -38,7 +41,8 @@
              * Sets the public auth token to use to communicate with the hub server
              * @param $token
              */
-            function setAuthToken($token) {
+            function setAuthToken($token)
+            {
                 $this->auth_token = $token;
             }
 
@@ -46,7 +50,8 @@
              * Sets the secret auth token to use to communicate with the hub server
              * @param $secret
              */
-            function setSecret($secret) {
+            function setSecret($secret)
+            {
                 $this->secret = $secret;
             }
 
@@ -55,19 +60,19 @@
              *
              * @return bool True on success
              */
-            function connect() {
+            function connect()
+            {
                 if ($details = $this->loadDetails()) {
-
                     // Apply pre-stored auth details and connect to server
 
                 } else {
 
                     // Establish auth details, save them, and then connect
                     if ($details = $this->register()) {
-
                     }
 
                 }
+
                 return false;
             }
 
@@ -75,7 +80,8 @@
              * Retrieves a token for use in registering this Known site with a hub. Tokens last for 10 minutes.
              * @return string
              */
-            function getRegistrationToken() {
+            function getRegistrationToken()
+            {
                 if (empty(site()->config->hub_settings)) {
                     site()->config->hub_settings = [];
                 }
@@ -86,13 +92,14 @@
                         }
                     }
                 }
-                $token_generator = new \OAuthProvider();
-                $token = $token_generator->generateToken(32);
-                $config = site()->config;
-                $config->hub_settings['registration_token'] = bin2hex($token);
+                $token_generator                                   = new \OAuthProvider([]);
+                $token                                             = $token_generator->generateToken(32);
+                $config                                            = site()->config;
+                $config->hub_settings['registration_token']        = bin2hex($token);
                 $config->hub_settings['registration_token_expiry'] = time();
                 $config->save();
                 site()->config = $config;
+
                 return site()->config->hub_settings['registration_token'];
             }
 
@@ -101,12 +108,15 @@
              *
              * @return bool
              */
-            function register() {
+            function register()
+            {
                 $web_client = new Webservice();
-                $results = $web_client->post($this->server . 'hub/site/register',[
-                    'url' => site()->config()->getURL(),
+                $results    = $web_client->post($this->server . 'hub/site/register', [
+                    'url'   => site()->config()->getURL(),
+                    'title' => site()->config()->getTitle(),
                     'token' => $this->getRegistrationToken()
                 ]);
+
                 return false;
             }
 
@@ -115,10 +125,30 @@
              * saved
              * @return bool
              */
-            function loadDetails() {
-                // Get details
-                // Then set them to the data structure
+            function loadDetails()
+            {
+                if (!empty(site()->config->hub_settings['auth_token']) && !empty(site()->config->hub_settings['secret'])) {
+                    $this->setAuthToken(site()->config->hub_settings['auth_token']);
+                    $this->setSecret(site()->config->hub_settings['secret']);
+
+                    return true;
+                }
+
                 return false;
+            }
+
+            /**
+             * Save hub auth
+             * @param $token
+             * @param $secret
+             */
+            function saveDetails($token, $secret)
+            {
+                site()->config->hub_settings['auth_token'] = $token;
+                site()->config->hub_settings['secret']     = $secret;
+                site()->config->save();
+                $this->setAuthToken($token);
+                $this->setSecret($secret);
             }
 
         }
