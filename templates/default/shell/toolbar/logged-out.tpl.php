@@ -10,3 +10,4 @@
     }
 
 ?>
+<?=$this->draw('shell/toolbar/logged-out/items')?>
