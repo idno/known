@@ -72,14 +72,40 @@
             }
 
             /**
+             * Retrieves a token for use in registering this Known site with a hub. Tokens last for 10 minutes.
+             * @return string
+             */
+            function getRegistrationToken() {
+                if (empty(site()->config->hub_settings)) {
+                    site()->config->hub_settings = [];
+                }
+                if (!empty(site()->config->hub_settings['registration_token'])) {
+                    if (!empty(site()->config->hub_settings['registration_token_expiry'])) {
+                        if (site()->config->hub_settings['registration_token_expiry'] > (time() - 600)) {
+                            return site()->config->hub_settings['registration_token'];
+                        }
+                    }
+                }
+                $token_generator = new \OAuthProvider();
+                $token = $token_generator->generateToken(32);
+                $config = site()->config;
+                $config->hub_settings['registration_token'] = bin2hex($token);
+                $config->hub_settings['registration_token_expiry'] = time();
+                $config->save();
+                site()->config = $config;
+                return site()->config->hub_settings['registration_token'];
+            }
+
+            /**
              * Register this Known site with the Known hub
              *
              * @return bool
              */
             function register() {
                 $web_client = new Webservice();
-                $results = $web_client->post($this->server . 'site/register',[
-                    'url' => site()->config()->getURL()
+                $results = $web_client->post($this->server . 'hub/site/register',[
+                    'url' => site()->config()->getURL(),
+                    'token' => $this->getRegistrationToken()
                 ]);
                 return false;
             }
