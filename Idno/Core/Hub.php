@@ -16,7 +16,14 @@
             public $token = '';
 
             function __construct($server) {
-                $this->server = $server;
+                parent::__construct();
+                $this->setServer($server);
+                $this->connect();
+            }
+
+            function registerPages() {
+                // This page will be called by the hub after registration
+                site()->addPageHandler('hub/register', 'Idno\Pages\Hub\Register', true);
             }
 
             /**
@@ -49,6 +56,18 @@
              * @return bool True on success
              */
             function connect() {
+                if ($details = $this->loadDetails()) {
+
+                    // Apply pre-stored auth details and connect to server
+
+                } else {
+
+                    // Establish auth details, save them, and then connect
+                    if ($details = $this->register()) {
+
+                    }
+
+                }
                 return false;
             }
 
@@ -58,6 +77,10 @@
              * @return bool
              */
             function register() {
+                $web_client = new Webservice();
+                $results = $web_client->post($this->server . 'site/register',[
+                    'url' => site()->config()->getURL()
+                ]);
                 return false;
             }
 
@@ -67,6 +90,8 @@
              * @return bool
              */
             function loadDetails() {
+                // Get details
+                // Then set them to the data structure
                 return false;
             }
 
