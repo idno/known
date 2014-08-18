@@ -225,6 +225,31 @@
             }
 
             /**
+             * Retrieves a link that will allow the current user to log into the hub page at $endpoint
+             *
+             * @param $endpoint
+             * @param $callback
+             * @return bool|string
+             */
+            function getRemoteLink($endpoint, $callback)
+            {
+                $user = site()->session()->currentUser();
+
+                if ($this->userIsRegistered($user)) {
+                    $results = $this->makeCall('hub/user/link', ['user' => $user->getUUID(), 'endpoint' => $endpoint, 'callback' => $callback]);
+                    if (!empty($results['content']['link_token'])) {
+                        $link_token = $results['content']['link_token'];
+                        $time = time();
+                        $signature = hash_hmac('sha1',$link_token . $time, $user->hub_settings['secret']);
+                        return $this->server . $endpoint . '?token=' . urlencode($link_token) . '&time=' . $time . '&signature=' . $signature;
+                    }
+                }
+
+                return false;
+
+            }
+
+            /**
              * Load the locally stored auth token & secret details, or register with the hub if no details have been
              * saved
              * @return bool
