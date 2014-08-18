@@ -237,14 +237,16 @@
                         if (is_array($in_reply_to))
                             $in_reply_to = $in_reply_to[0];
 
-                        // Find and replace twitter
-                        if (strpos($in_reply_to, 'twitter.com') !== false) {
-                            $r = preg_replace_callback('/(?<!=)(?<!["\'])(\@[A-Za-z0-9\_]+)/i', function ($matches) {
-                                $url = $matches[1];
+                        $r = preg_replace_callback('/(?<!=)(?<!["\'])(\@[A-Za-z0-9\_]+)/i', function ($matches) use ($in_reply_to) {
+                            $url = $matches[1];
 
+                            // Find and replace twitter
+                            if (strpos($in_reply_to, 'twitter.com') !== false) {
                                 return '<a href="https://twitter.com/' . urlencode(ltrim($matches[1], '@')) . '" >' . $url . '</a>';
-                            }, $text);
-                        }
+                            } else {
+                                return $url;
+                            }
+                        }, $text);
 
                     }
 
@@ -257,7 +259,10 @@
 
                         if ($user = User::getByHandle($username)) {
                             return '<a href="' . \Idno\Core\site()->config()->url . 'profile/' . urlencode($username) . '" >' . $url . '</a>';
+                        } else {
+                            return $url;
                         }
+
                     }, $text);
                 }
 
