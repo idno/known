@@ -189,6 +189,7 @@
             {
                 $r = preg_replace_callback('/(?<!=)(?<!["\'])(\#[A-Za-z0-9]+)/i', function ($matches) {
                     $url = ($matches[1]);
+
                     return '<a href="' . \Idno\Core\site()->config()->url . 'content/all/?q=' . urlencode($matches[1]) . '" class="p-category">' . $url . '</a>';
                 }, $text);
 
@@ -200,7 +201,8 @@
              * @param $url
              * @return string
              */
-            function fixURL($url) {
+            function fixURL($url)
+            {
                 return (
                     substr($url, 0, 7) == 'http://' ||
                     substr($url, 0, 8) == 'https://' ||
@@ -212,7 +214,7 @@
                     substr($url, 0, 5) == 'xmpp:'
                 )
                     ? $url
-                    : 'http://'.$url;
+                    : 'http://' . $url;
             }
 
             /**
@@ -244,14 +246,6 @@
                             }, $text);
                         }
 
-                        // Is this a local user?
-                        /*if (\Idno\Common\Entity::isLocalUUID($in_reply_to)) {
-                            $r = preg_replace_callback('/(?<!=)(?<!["\'])(\@[A-Za-z0-9\_]+)/i', function ($matches) {
-                                $url = $matches[1];
-
-                                return '<a href="' . \Idno\Core\site()->config()->url . 'profile/' . urlencode(ltrim($matches[1], '@')) . '" class="p-nickname u-url">' . $url . '</a>';
-                            }, $text);
-                        }*/
                     }
 
                 } else {
