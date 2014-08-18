@@ -8,6 +8,8 @@
 
     namespace Idno\Core {
 
+        use Idno\Entities\User;
+
         class Hub extends \Idno\Common\Component
         {
 
@@ -15,6 +17,7 @@
             public $auth_token = '';
             public $secret = '';
             public $token = '';
+            public $client = false;
 
             function __construct($server)
             {
@@ -64,13 +67,27 @@
             {
                 if ($details = $this->loadDetails()) {
                     // Apply pre-stored auth details and connect to server
-
                 } else {
-
                     // Establish auth details, save them, and then connect
                     if ($details = $this->register()) {
                     }
 
+                }
+
+                // If we have details, and we're logged in, connect with OAuth
+                if (site()->session()->isLoggedOn()) {
+                    if (!empty($details)) {
+                        try {
+                            if (empty(site()->session()->currentUser()->hub_settings)) {
+                                //$this->client = new \OAuth($details['auth_token'], $details['secret']);
+                                //$this->client->setAuthType(OAUTH_AUTH_TYPE_URI);
+                                //$result = $this->client->getRequestToken($this->server . 'hub/oauth/request_token');
+                                $this->registerUser();
+                            }
+                        } catch (\Exception $e) {
+                            error_log($e->getMessage());
+                        }
+                    }
                 }
 
                 return false;
@@ -117,6 +134,43 @@
                     'token' => $this->getRegistrationToken()
                 ]);
 
+                if ($results['response'] == 200) {
+                    return true;
+                }
+
+                return false;
+            }
+
+            /**
+             * Register the current user with the Known hub. The site must have been registered first.
+             *
+             * @param bool $user
+             * @return bool
+             */
+            function registerUser($user = false)
+            {
+                if (empty($user)) {
+                    $user = site()->session()->currentUser();
+                }
+                if ($user instanceof User) {
+                    $web_client = new Webservice();
+                    /*$results    = $web_client->post($this->server . 'hub/user/register', [
+                        'user' => $user
+                    ]);*/
+
+                    if ($details = $this->loadDetails()) {
+                        $this->client = new \OAuth($details['auth_token'], $details['secret']);
+                        $this->client->setAuthType(OAUTH_AUTH_TYPE_URI);
+                        $this->client->setToken($details['auth_token'], $details['secret']);
+                        $result = $this->client->fetch($this->server . 'hub/user/register', ['user' => $user->getUUID()]);
+                        $response_info = $this->client->getLastResponseInfo();
+                        error_log(json_encode($result));
+                        error_log(json_encode($response_info));
+                    }
+
+                    return true;
+                }
+
                 return false;
             }
 
@@ -131,7 +185,7 @@
                     $this->setAuthToken(site()->config->hub_settings['auth_token']);
                     $this->setSecret(site()->config->hub_settings['secret']);
 
-                    return true;
+                    return site()->config->hub_settings;
                 }
 
                 return false;
