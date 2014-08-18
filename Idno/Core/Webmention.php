@@ -31,7 +31,15 @@
             {
                 // Load webmention-client
                 require_once \Idno\Core\site()->config()->path . '/external/mention-client-php/src/IndieWeb/MentionClient.php';
-                $client = new \IndieWeb\MentionClient($pageURL, $text);
+                
+                
+                // Proxy connection string provided
+                $proxystring = false;
+                if (!empty(\Idno\Core\site()->config()->proxy_string)) {
+                    $proxystring = \Idno\Core\site()->config()->proxy_string;
+                }
+                
+                $client = new \IndieWeb\MentionClient($pageURL, $text, $proxystring);
 
                 return $client->sendSupportedMentions();
             }
