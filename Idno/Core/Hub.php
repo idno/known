@@ -169,6 +169,41 @@
             }
 
             /**
+             * Makes a call to the hub
+             *
+             * @param $endpoint
+             * @param $contents
+             * @param bool $user
+             * @return array|bool
+             */
+            function makeCall($endpoint, $contents, $user = false) {
+
+                if (!$user) {
+                    $user = site()->session()->currentUser();
+                }
+
+                if ($user instanceof User) {
+                    if ($this->userIsRegistered($user)) {
+                        $web_client = new Webservice();
+                        $contents   = json_encode($contents);
+                        $time       = time();
+                        $details    = $user->hub_settings;
+                        $results    = $web_client->post($this->server . $endpoint, [
+                            'contents'   => $contents,
+                            'time'       => $time,
+                            'auth_token' => $details['token'],
+                            'signature'  => hash_hmac('sha1', $contents . $time . $details['token'], $details['secret'])
+                        ]);
+
+                        return $results;
+                    }
+                }
+
+                return false;
+
+            }
+
+            /**
              * Detect whether the current user has registered with the hub & stored credentials
              * @param bool $user
              * @return bool
