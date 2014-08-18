@@ -154,19 +154,15 @@
                 }
                 if ($user instanceof User) {
                     $web_client = new Webservice();
-                    /*$results    = $web_client->post($this->server . 'hub/user/register', [
-                        'user' => $user
-                    ]);*/
-
-                    if ($details = $this->loadDetails()) {
-                        $this->client = new \OAuth($details['auth_token'], $details['secret']);
-                        $this->client->setAuthType(OAUTH_AUTH_TYPE_URI);
-                        $this->client->setToken($details['auth_token'], $details['secret']);
-                        $result = $this->client->fetch($this->server . 'hub/user/register', ['user' => $user->getUUID()]);
-                        $response_info = $this->client->getLastResponseInfo();
-                        error_log(json_encode($result));
-                        error_log(json_encode($response_info));
-                    }
+                    $contents = json_encode($user);
+                    $time = time();
+                    $details = $this->loadDetails();
+                    $results    = $web_client->post($this->server . 'hub/user/register', [
+                        'contents' => $contents,
+                        'time' => $time,
+                        'key' => $details['auth_token'],
+                        'signature' => hash_hmac('sha1', $contents . $time . $details['auth_token'], $details['secret'])
+                    ]);
 
                     return true;
                 }
