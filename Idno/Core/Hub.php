@@ -27,8 +27,9 @@
 
             function registerPages()
             {
-                // This page will be called by the hub after registration
-                site()->addPageHandler('hub/register', 'Idno\Pages\Hub\Register', true);
+                // These pages will be called by the hub after registration
+                site()->addPageHandler('hub/register/site', 'Idno\Pages\Hub\Register\Site', true);
+                site()->addPageHandler('hub/register/user', 'Idno\Pages\Hub\Register\User', true);
             }
 
             /**
@@ -154,14 +155,14 @@
                 }
                 if ($user instanceof User) {
                     $web_client = new Webservice();
-                    $contents = json_encode($user);
-                    $time = time();
-                    $details = $this->loadDetails();
+                    $contents   = json_encode($user);
+                    $time       = time();
+                    $details    = $this->loadDetails();
                     $results    = $web_client->post($this->server . 'hub/user/register', [
-                        'contents' => $contents,
-                        'time' => $time,
-                        'key' => $details['auth_token'],
-                        'signature' => hash_hmac('sha1', $contents . $time . $details['auth_token'], $details['secret'])
+                        'contents'   => $contents,
+                        'time'       => $time,
+                        'auth_token' => $details['auth_token'],
+                        'signature'  => hash_hmac('sha1', $contents . $time . $details['auth_token'], $details['secret'])
                     ]);
 
                     return true;
