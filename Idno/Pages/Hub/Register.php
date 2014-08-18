@@ -25,8 +25,7 @@
                 }
                 if ($match_token == $token) {
 
-                    \Idno\Core\site()->hub()->saveDetails($token, $secret);
-
+                    \Idno\Core\site()->hub()->saveDetails($auth_token, $secret);
                     $result = ['status' => 'ok', 'message' => 'Credentials were stored.'];
 
                 } else {
