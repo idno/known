@@ -4,9 +4,9 @@
      * Swaps access credentials with a hub
      */
 
-    namespace Idno\Pages\Hub {
+    namespace Idno\Pages\Hub\Register {
 
-        class Register extends \Idno\Common\Page
+        class Site extends \Idno\Common\Page
         {
 
             function post()
