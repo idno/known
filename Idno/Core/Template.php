@@ -9,6 +9,8 @@
 
     namespace Idno\Core {
 
+        use Idno\Entities\User;
+
         class Template extends \Bonita\Templates
         {
 
@@ -238,7 +240,7 @@
                             $r = preg_replace_callback('/(?<!=)(?<!["\'])(\@[A-Za-z0-9\_]+)/i', function ($matches) {
                                 $url = $matches[1];
 
-                                return '<a href="https://twitter.com/' . urlencode(ltrim($matches[1], '@')) . '" class="p-nickname u-url">' . $url . '</a>';
+                                return '<a href="https://twitter.com/' . urlencode(ltrim($matches[1], '@')) . '" >' . $url . '</a>';
                             }, $text);
                         }
 
@@ -257,7 +259,11 @@
                     $r = preg_replace_callback('/(?<!=)(?<!["\'])(\@[A-Za-z0-9\_]+)/i', function ($matches) {
                         $url = $matches[1];
 
-                        return '<a href="' . \Idno\Core\site()->config()->url . 'profile/' . urlencode(ltrim($matches[1], '@')) . '" class="p-nickname u-url">' . $url . '</a>';
+                        $username = ltrim($matches[1], '@');
+
+                        if ($user = User::getByHandle($username)) {
+                            return '<a href="' . \Idno\Core\site()->config()->url . 'profile/' . urlencode($username) . '" >' . $url . '</a>';
+                        }
                     }, $text);
                 }
 
