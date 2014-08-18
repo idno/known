@@ -46,7 +46,7 @@
                     echo htmlspecialchars($vars['object']->body);
                 } ?></textarea>
 
-            <!--<p>
+            <p>
                 <small><a id="inreplyto-add" href="#"
                           onclick="$('#inreplyto').append('<span><input required type=&quot;url&quot; name=&quot;inreplyto[]&quot; value=&quot;&quot; placeholder=&quot;Add the URL that you\'re replying to&quot; class=&quot;span8&quot; /> <small><a href=&quot;#&quot; onclick=&quot;$(this).parent().parent().remove(); return false;&quot;>Remove</a></small><br /></span>'); return false;">+
                         Reply to a site</a></small>
@@ -80,7 +80,7 @@
                         <?php
                     }
                 ?>
-            </div>-->
+            </div>
 
         </div>
         <div class="span8 offset2">

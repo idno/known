@@ -605,5 +605,9 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     text-shadow: none;
 }
 
+.navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner {
+    box-shadow: none;
+}
+
 
 
