@@ -79,10 +79,7 @@
                 if (site()->session()->isLoggedOn()) {
                     if (!empty($details)) {
                         try {
-                            if (empty(site()->session()->currentUser()->hub_settings)) {
-                                //$this->client = new \OAuth($details['auth_token'], $details['secret']);
-                                //$this->client->setAuthType(OAUTH_AUTH_TYPE_URI);
-                                //$result = $this->client->getRequestToken($this->server . 'hub/oauth/request_token');
+                            if (!$this->userIsRegistered()) {
                                 $this->registerUser();
                             }
                         } catch (\Exception $e) {
@@ -168,6 +165,27 @@
                     return true;
                 }
 
+                return false;
+            }
+
+            /**
+             * Detect whether the current user has registered with the hub & stored credentials
+             * @param bool $user
+             * @return bool
+             */
+            function userIsRegistered($user = false)
+            {
+                if (empty($user)) {
+                    $user = site()->session()->currentUser();
+                    site()->session()->refreshSessionUser($user);
+                }
+                if ($user instanceof User) {
+                    if (!empty($user->hub_settings)) {
+                        if (!empty($user->hub_settings['token']) && !empty($user->hub_settings['secret'])) {
+                            return true;
+                        }
+                    }
+                }
                 return false;
             }
 

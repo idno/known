@@ -26,8 +26,7 @@
                     if ($contents = json_decode($contents)) {
                         if (!empty($contents->user)) {
                             if ($user = \Idno\Entities\User::getByUUID($contents->user)) {
-                                $user->hub_token  = $contents->auth_token;
-                                $user->hub_secret = $contents->secret;
+                                $user->hub_settings = ['token' => $contents->auth_token, 'secret' => $contents->secret];
                                 $user->save();
                                 $result = ['status' => 'ok', 'message' => 'Credentials were stored.'];
                             } else {
