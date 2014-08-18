@@ -25,19 +25,25 @@
 
                     if ($contents = json_decode($contents)) {
                         if (!empty($contents->user)) {
-                            if ($user = \Idno\Entities\User::getByID($contents->user)) {
+                            if ($user = \Idno\Entities\User::getByUUID($contents->user)) {
                                 $user->hub_token  = $contents->auth_token;
                                 $user->hub_secret = $contents->secret;
                                 $user->save();
                                 $result = ['status' => 'ok', 'message' => 'Credentials were stored.'];
+                            } else {
+                                $result = ['status' => 'fail', 'message' => 'Couldn\'t find user: ' . $contents->user];
                             }
+                        } else {
+                            $result = ['status' => 'fail', 'message' => 'No user was sent'];
                         }
+                    } else {
+                        $result = ['status' => 'fail', 'message' => 'Contents were invalid'];
                     }
 
                 }
 
                 if (empty($result)) {
-                    $result = ['status' => 'fail', 'message' => 'Request token does not match'];
+                    $result = ['status' => 'fail', 'message' => 'Signature does not match: ' . $signature . ', ' . $hmac];
                 }
 
                 echo json_encode($result);
