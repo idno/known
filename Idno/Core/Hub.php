@@ -237,8 +237,11 @@
 
                 if ($this->userIsRegistered($user)) {
                     $results = $this->makeCall('hub/user/link', ['user' => $user->getUUID(), 'endpoint' => $endpoint, 'callback' => $callback]);
-                    if (!empty($results['content']['link_token'])) {
-                        $link_token = $results['content']['link_token'];
+                    if (!empty($results['content'])) {
+                        $content = json_decode($results['content'],true);
+                    }
+                    if (!empty($content['link_token'])) {
+                        $link_token = $content['link_token'];
                         $time = time();
                         $signature = hash_hmac('sha1',$link_token . $time, $user->hub_settings['secret']);
                         return $this->server . $endpoint . '?token=' . urlencode($link_token) . '&time=' . $time . '&signature=' . $signature;
