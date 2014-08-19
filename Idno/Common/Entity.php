@@ -479,7 +479,7 @@
              */
             function syndicate() {
                 if ($this->getActivityStreamsObjectType()) {
-                    $event = new \Idno\Core\Event(array('object' => $this));
+                    $event = new \Idno\Core\Event(array('object' => $this, 'object_type' => $this->getActivityStreamsObjectType()));
                     \Idno\Core\site()->events()->dispatch('post/' . $this->getActivityStreamsObjectType(), $event);
                     \Idno\Core\site()->events()->dispatch('syndicate', $event);
                 }
@@ -490,7 +490,7 @@
              */
             function unsyndicate() {
                 if ($this->getActivityStreamsObjectType()) {
-                    $event = new \Idno\Core\Event(array('object' => $this));
+                    $event = new \Idno\Core\Event(array('object' => $this, 'object_type' => $this->getActivityStreamsObjectType()));
                     \Idno\Core\site()->events()->dispatch('delete/' . $this->getActivityStreamsObjectType(), $event);
                     \Idno\Core\site()->events()->dispatch('unsyndicate', $event);
                 }
