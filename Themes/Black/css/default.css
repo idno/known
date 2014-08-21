@@ -64,15 +64,35 @@ h1, h2, h3, h4, h5, h6 {
 	margin: 0; padding: 0;
 }
 
-h5.p-bookmark a {
+h2.p-bookmark a {
 	color: #000000;
 }
 
-h5.p-bookmark a:hover, h5.p-bookmark a:focus {
+h2.p-bookmark a:hover, h2.p-bookmark a:focus {
 	color: #333333;
 }
 
-.entry-content .h-geo a, .idno-posts h5.h-geo {
+h2.p-name a {
+	color: #000000;
+}
+
+h2.p-name a:hover, h2.p-name a:focus {
+	color: #333333;
+}
+
+h2.p-name {
+	margin-bottom: 0.2em !important;
+}
+
+h2.p-photo a {
+	color: #000000;
+}
+
+h2.p-photo a:hover, h2.p-photo a:focus {
+	color: #333333;
+}
+
+.entry-content .h-geo a, .idno-posts h2.h-geo {
     font-size: 32px;
     margin: 0;
     padding: 0;
@@ -81,11 +101,11 @@ h5.p-bookmark a:hover, h5.p-bookmark a:focus {
     line-height: 1.1em;
 }
 
-h5.h-geo a {
+h2.p-geo a {
     color: #000000;
 }
 
-h5.h-geo a:hover, h5.h-geo a:focus {
+h2.p-geo a:hover, h2.p-geo a:focus {
 	color: #333333;
 }
 
@@ -238,6 +258,7 @@ span.contentTypeLogo {
     border-radius: 15px;
     display: inline-block;
     padding: 5px 14px;
+    color: #000000;
 }
 
 .pager a {

@@ -43,7 +43,7 @@ li {
 }
 
 .entry-content .p-bookmark a,
-.idno-posts h5.p-bookmark {
+.idno-posts h2.p-bookmark {
     font-size: 1.4em;
     margin: 0; padding: 0;
 }
@@ -97,6 +97,10 @@ h1.p-profile, .p-profile a {
 .navbar-inverse .nav li.dropdown.open > .dropdown-toggle, .navbar-inverse .nav li.dropdown.active > .dropdown-toggle, .navbar-inverse .nav li.dropdown.open.active > .dropdown-toggle {
     background-color: #8cbf99;
     color: #70997a;
+}
+
+.navbar .brand {
+	padding: 12px 20px;
 }
  
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus, .dropdown-submenu:hover > a, .dropdown-submenu:focus > a {
@@ -228,22 +232,21 @@ h3.register {
 	font-size: 1.2em;
 }
 
-.entry-content .p-bookmark a, .idno-posts h5.p-bookmark {
+.entry-content .p-bookmark a, .idno-posts h2.p-bookmark {
 	color: #333333;
-	font-size: 1.5em;
-	font-family: "Minion Pro",Times,"Times New Roman",serif;
-}
-
-.entry-content .p-bookmark a, .idno-posts h5.p-bookmark {
-    color: #000000;
-    font-size: 1.4em;
-    margin: 0;
+	font-size: 1.2em;
+	font-family: "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
+	margin: 0;
     padding: 0;
 }
 
 .idno-object .e-content {
     font-size: 1.5em;
     line-height: 1.1em;
+}
+
+.e-content p {
+	font-size: 1.0em;
 }
 
 #contentTypeButtonBar {
@@ -535,9 +538,6 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 
 .vague {
 	color: #666666;
-    font-size: 0.6em;
-	background-color: #f8f8f8;
-	padding: 10px;
-	border-radius: 5px;
+    font-size: 14px;
 }
 

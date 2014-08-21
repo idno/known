@@ -164,7 +164,7 @@ h1, h2, h3, h4, h5, h6 {
 .idno-object .e-content {
     overflow: auto;
     margin-bottom: 1em;
-    padding-top: 1em;
+    padding-top: 0em;
     line-height:1.6em;
     font-size: 1em;
 }
@@ -416,9 +416,14 @@ span.contentTypeLogo {
 }
 
 .vague {
-    font-size: 0.8em;
+    font-size: 12px;
     color: #999;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.reading {
+	text-align: left;
+	margin-bottom: 5px;
 }
 
 .syndication span,
@@ -768,7 +773,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 }
 
 .navbar .brand {
-	font-weight: 600;
+	font-weight: 400;
 	font-size: 28px;
 }
 
@@ -921,3 +926,6 @@ small {
 	box-shadow: none;
 }
 
+.p-map {
+	padding-top: 10px;
+}

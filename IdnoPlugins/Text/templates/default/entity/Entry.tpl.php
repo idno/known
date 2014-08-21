@@ -6,15 +6,15 @@
     }
 ?>
 <div><h2 class="p-name"><a href="<?=$vars['object']->getURL()?>"><?=$vars['object']->getTitle()?></a></h2>
-<p>
-    <span class="vague">Reading time: <?php
+<p class="reading">
+    <span class="vague"><?php
 
                 $minutes = $vars['object']->getReadingTimeInMinutes();
-                echo $minutes . ' minute';
-                if ($minutes != 1) {
+                echo $minutes . ' min';
+             /*   if ($minutes != 1) {
                     echo 's';
-                }
+                }*/
 
-            ?></span>
+            ?> read </span>
 </p>
 <?php echo $this->autop($this->parseURLs($this->parseHashtags($vars['object']->body),$rel)); //TODO: a better rendering algorithm ?></div>
