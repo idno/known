@@ -69,7 +69,7 @@
                 if ($user->saveDataFromInput($this)) {
                     if ($onboarding = $this->getInput('onboarding')) {
                         $services = \Idno\Core\site()->syndication()->getServices();
-                        if (!empty($services)) {
+                        if (!empty($services) || !empty(\Idno\Core\site()->config->force_onboarding_connect)) {
                             $this->forward(\Idno\Core\site()->config()->getURL() . 'begin/connect');
                         } else {
                             $this->forward(\Idno\Core\site()->config()->getURL() . 'begin/publish');
