@@ -28,8 +28,8 @@
             function registerPages()
             {
                 // These pages will be called by the hub after registration
-                site()->addPageHandler('hub/register/site', 'Idno\Pages\Hub\Register\Site', true);
-                site()->addPageHandler('hub/register/user', 'Idno\Pages\Hub\Register\User', true);
+                site()->addPageHandler('hub/register/site/callback', 'Idno\Pages\Hub\Register\Site', true);
+                site()->addPageHandler('hub/register/user/callback', 'Idno\Pages\Hub\Register\User', true);
             }
 
             /**
@@ -66,11 +66,18 @@
              */
             function connect()
             {
-                if ($details = $this->loadDetails()) {
+
+                $details = $this->loadDetails();
+                if (!empty($details['auth_token'])) {
                     // Apply pre-stored auth details and connect to server
-                } else {
+                } else if (
+                    !substr_count($_SERVER['REQUEST_URI'],'callback') &&
+                    !substr_count($_SERVER['REQUEST_URI'],'.') &&
+                    !substr_count($_SERVER['REQUEST_URI'],'/file/')
+                ) {
                     // Establish auth details, save them, and then connect
                     if ($details = $this->register()) {
+
                     }
 
                 }
@@ -125,15 +132,29 @@
              */
             function register()
             {
-                $web_client = new Webservice();
-                $results    = $web_client->post($this->server . 'hub/site/register', [
-                    'url'   => site()->config()->getURL(),
-                    'title' => site()->config()->getTitle(),
-                    'token' => $this->getRegistrationToken()
-                ]);
+                if (empty(site()->config->last_hub_ping)) {
+                    $last_ping = 0;
+                } else {
+                    $last_ping = site()->config->last_hub_ping;
+                }
 
-                if ($results['response'] == 200) {
-                    return true;
+                if ($last_ping < (time() - 10)) {   // Throttling registration pings to hub
+
+                    $web_client = new Webservice();
+
+                    $results    = $web_client->post($this->server . 'hub/site/register', [
+                        'url'   => site()->config()->getURL(),
+                        'title' => site()->config()->getTitle(),
+                        'token' => $this->getRegistrationToken()
+                    ]);
+
+                    if ($results['response'] == 200) {
+                        site()->config->load();
+                        site()->config->last_hub_ping = time();
+                        site()->config->save();
+                        return true;
+                    }
+
                 }
 
                 return false;
@@ -151,6 +172,7 @@
                     $user = site()->session()->currentUser();
                 }
                 if ($user instanceof User) {
+                    $user = User::getByUUID($user->getUUID());
                     $web_client = new Webservice();
                     $contents   = json_encode($user);
                     $time       = time();
@@ -276,6 +298,7 @@
              */
             function saveDetails($token, $secret)
             {
+                site()->config->load();
                 site()->config->hub_settings['auth_token'] = $token;
                 site()->config->hub_settings['secret']     = $secret;
                 site()->config->save();
