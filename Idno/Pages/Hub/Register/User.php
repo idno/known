@@ -12,6 +12,8 @@
             function post()
             {
 
+                error_log("Loading the user registration callback");
+
                 $contents   = $this->getInput('contents');
                 $auth_token = $this->getInput('auth_token');
                 $time       = $this->getInput('time');

@@ -12,6 +12,8 @@
             function post()
             {
 
+                error_log('Site registration message received');
+
                 $token      = $this->getInput('token');
                 $auth_token = $this->getInput('auth_token');
                 $secret     = $this->getInput('secret');
