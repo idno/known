@@ -64,17 +64,21 @@
 
         if (\Idno\Core\site()->currentPage() && \Idno\Core\site()->currentPage()->isPermalink()) {
             /* @var \Idno\Common\Entity $object */
-            if ($creator = $object->getOwner()) {
-                ?>
-                <meta name="DC.creator" content="<?= htmlentities($creator->getTitle()) ?>"><?php
-            }
-            if ($created = $object->created) {
-                ?>
-                <meta name="DC.date" content="<?= date('c', $created) ?>"><?php
-            }
-            if ($url = $object->getURL()) {
-                ?>
-                <meta name="DC.identifier" content="<?= htmlspecialchars($url) ?>"><?php
+            if ($object instanceof \Idno\Common\Entity) {
+
+                if ($creator = $object->getOwner()) {
+                    ?>
+                    <meta name="DC.creator" content="<?= htmlentities($creator->getTitle()) ?>"><?php
+                }
+                if ($created = $object->created) {
+                    ?>
+                    <meta name="DC.date" content="<?= date('c', $created) ?>"><?php
+                }
+                if ($url = $object->getURL()) {
+                    ?>
+                    <meta name="DC.identifier" content="<?= htmlspecialchars($url) ?>"><?php
+                }
+
             }
         }
 
