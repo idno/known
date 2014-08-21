@@ -208,7 +208,11 @@
             static function getByID($id)
             {
                 if ($fs = \Idno\Core\site()->filesystem()) {
-                    return $fs->findOne(array('_id' => \Idno\Core\site()->db()->processID($id)));
+                    try {
+                        return $fs->findOne(array('_id' => \Idno\Core\site()->db()->processID($id)));
+                    } catch (\Exception $e) {
+                        error_log($e->getMessage());
+                    }
                 }
 
                 return false;
@@ -222,7 +226,11 @@
             static function getFileDataByID($id)
             {
                 if ($file = self::getByID($id)) {
-                    return $file->getBytes();
+                    try {
+                        return $file->getBytes();
+                    } catch (\Exception $e) {
+                        error_log($e->getMessage());
+                    }
                 }
 
                 return false;
@@ -234,15 +242,32 @@
              * @return bool|mixed|string
              */
             static function getFileDataFromAttachment($attachment) {
+                error_log(json_encode($attachment));
                 if (!empty($attachment['_id'])) {
+                    error_log("Checking attachment ID");
                     if ($bytes = self::getFileDataByID((string)$attachment['_id'])) {
-                        return $bytes;
+                        error_log("Retrieved some bytes");
+                        if (strlen($bytes)) {
+                            error_log("Bytes! " . $bytes);
+                            return $bytes;
+                        } else {
+                            error_log("Sadly no bytes");
+                        }
+                    } else {
+                        error_log("No bytes retrieved");
                     }
+                } else {
+                    error_log("Empty attachment _id");
                 }
                 if (!empty($attachment['url'])) {
                     if ($bytes = file_get_contents($attachment['url'])) {
+                        error_log("Returning bytes");
                         return $bytes;
+                    } else {
+                        error_log("Couldn't get bytes from " . $attachment['url']);
                     }
+                } else {
+                    error_log('Attachment url was empty ' . $attachment['url']);
                 }
 
                 return false;
