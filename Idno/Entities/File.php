@@ -228,6 +228,26 @@
                 return false;
             }
 
+            /**
+             * Retrieve file data from an attachment (first trying load from local storage, then from URL)
+             * @param $attachment
+             * @return bool|mixed|string
+             */
+            static function getFileDataFromAttachment($attachment) {
+                if (!empty($attachment['_id'])) {
+                    if ($bytes = self::getFileDataByID((string)$attachment['_id'])) {
+                        return $bytes;
+                    }
+                }
+                if (!empty($attachment['url'])) {
+                    if ($bytes = file_get_contents($attachment['url'])) {
+                        return $bytes;
+                    }
+                }
+
+                return false;
+            }
+
         }
 
     }
