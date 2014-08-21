@@ -79,7 +79,7 @@
              */
             function drawSyndication($content_type)
             {
-                return $this->__(['services' => \Idno\Core\site()->syndication()->getServices($content_type)])->draw('content/syndication');
+                return $this->__(['services' => \Idno\Core\site()->syndication()->getServices($content_type), 'content_type' => $content_type])->draw('content/syndication');
             }
 
             /**
