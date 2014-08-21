@@ -1277,6 +1277,11 @@
             function getURL()
             {
 
+                // If we have a URL override, use it
+                if (!empty($this->url)) {
+                    return $this->url;
+                }
+
                 // If a slug has been set, use it
                 if ($slug = $this->getSlug()) {
                     return \Idno\Core\site()->config()->url . date('Y', $this->created) . '/' . $slug;
