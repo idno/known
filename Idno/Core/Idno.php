@@ -27,7 +27,7 @@
             public $syndication;
             public static $site;
             public $currentPage;
-            public $hub;
+            public $known_hub;
 
             function init()
             {
@@ -87,12 +87,14 @@
                 $this->themes      = new Themes();
 
                 // Connect to a Known hub if one is listed in the configuration file
-                if (!empty($this->config->hub)) {
-                    $this->hub = new Hub($this->config->hub);
-                    // Only connect to the hub if we're not loading a file
-                    if (!substr_count($_SERVER['REQUEST_URI'],'.')) {
-                        $this->hub->connect();
-                    }
+                if (empty(site()->session()->hub_connect)) {
+                    site()->session()->hub_connect = 0;
+                }
+                if (!empty($this->config->known_hub) && !substr_count($_SERVER['REQUEST_URI'],'.') && site()->session()->hub_connect < (time() - 10)) {
+                    site()->session()->hub_connect = time();
+                    error_log('Connecting to ' . $this->config->known_hub);
+                    \Idno\Core\site()->known_hub = new \Idno\Core\Hub($this->config->known_hub);
+                    \Idno\Core\site()->known_hub->connect();
                 }
 
                 User::registerEvents();
@@ -189,7 +191,7 @@
              */
             function &hub()
             {
-                return $this->hub;
+                return $this->known_hub;
             }
 
             /**
