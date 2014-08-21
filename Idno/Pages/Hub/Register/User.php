@@ -14,7 +14,7 @@
 
                 error_log("Loading the user registration callback");
 
-                $contents   = $this->getInput('contents');
+                $contents   = $this->getInput('content');
                 $auth_token = $this->getInput('auth_token');
                 $time       = $this->getInput('time');
                 $signature  = $this->getInput('signature');

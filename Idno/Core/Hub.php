@@ -178,7 +178,7 @@
                     $time       = time();
                     $details    = $this->loadDetails();
                     $results    = $web_client->post($this->server . 'hub/user/register', [
-                        'contents'   => $contents,
+                        'content'   => $contents,
                         'time'       => $time,
                         'auth_token' => $details['auth_token'],
                         'signature'  => hash_hmac('sha1', $contents . $time . $details['auth_token'], $details['secret'])
@@ -211,7 +211,7 @@
                         $time       = time();
                         $details    = $user->hub_settings;
                         $results    = $web_client->post($this->server . $endpoint, [
-                            'contents'   => $contents,
+                            'content'   => $contents,
                             'time'       => $time,
                             'auth_token' => $details['token'],
                             'signature'  => hash_hmac('sha1', $contents . $time . $details['token'], $details['secret'])
