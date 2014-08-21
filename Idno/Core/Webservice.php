@@ -35,6 +35,7 @@
                     case 'post':
                         curl_setopt($curl_handle, CURLOPT_POST, 1);
                         curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $req);
+                        $headers[] = 'Expect:';
                         break;
                     case 'delete':
                         curl_setopt($curl_handle, CURLOPT_CUSTOMREQUEST, 'DELETE'); // Override request type
