@@ -103,7 +103,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .idno-object a {
-	color:#333333;
+	color:#4c93cb;
 
 }
 
@@ -697,7 +697,7 @@ div.pane div.row:nth-of-type(odd) {
 }
 
 a {
-    color: #73b2e3;
+    color: #357ebd;
     text-decoration: none;
     font-weight: 400;
 }
