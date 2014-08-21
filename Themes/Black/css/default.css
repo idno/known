@@ -25,8 +25,8 @@ p a:hover, p a:focus {
 }
 
 h2 {
-    line-height: 1.1em;
-    margin-bottom: 0.8em !important;
+    line-height: 1.4em;
+/*    margin-bottom: 0.8em !important; Why do we need this? */
 }
 
 h2 a {
@@ -54,13 +54,13 @@ h1, h2, h3, h4, h5, h6 {
 	color: #494949;
 }
 
-.entry-content .p-photo a, .idno-posts h2. p-photo {
-	font-size: 1.8em;
+.entry-content .p-photo a, .idno-posts h2.p-photo {
+	font-size: 32px;
 	margin:0; padding: 0;	
 }
 
-.entry-content .p-bookmark a, .idno-posts h5.p-bookmark {
-	font-size: 24px;
+.entry-content .p-bookmark a, .idno-posts h2.p-bookmark {
+	font-size: 32px;
 	margin: 0; padding: 0;
 }
 
@@ -77,7 +77,7 @@ h2.p-name a {
 }
 
 h2.p-name a:hover, h2.p-name a:focus {
-	color: #333333;
+	color: #666666;
 }
 
 h2.p-name {
@@ -92,7 +92,7 @@ h2.p-photo a:hover, h2.p-photo a:focus {
 	color: #333333;
 }
 
-.entry-content .h-geo a, .idno-posts h2.h-geo {
+.entry-content h-geo a, .idno-posts h2.h-geo {
     font-size: 32px;
     margin: 0;
     padding: 0;
@@ -174,7 +174,7 @@ li {
 }
 
 .navbar-inverse .brand:hover, .navbar-inverse .nav > li > a:hover, .navbar-inverse .brand:focus, .navbar-inverse .nav > li > a:focus {
-    color: #333333; 
+    color: #666666; 
 }
 
 .navbar-inverse .brand, .navbar-inverse .nav > li > a {
@@ -269,6 +269,7 @@ span.contentTypeLogo {
 .pager li > a:hover, .pager li > a:focus {
 	background-color: #73b2e3;
 	border: 2px solid #73b2e3;
+	color: #ffffff;
 }
 
 .pager a:hover, .pager a:focus {

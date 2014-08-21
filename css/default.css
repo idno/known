@@ -85,6 +85,7 @@ h1, h2, h3, h4, h5, h6 {
     display: inline-block;
 }
 
+
 /**
     Activity streams
 */
@@ -102,8 +103,18 @@ h1, h2, h3, h4, h5, h6 {
     font-family: "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
 }
 
+.idno-object h1 a, .idno-object h2 a, .idno-object h3 a {
+	color: #333333;
+}
+
+.idno-object h1 a:hover, .idno-object h1 a:focus, 
+.idno-object h2 a:hover, .idno-object h2 a:focus, 
+.idno-object h3 a:hover, .idno-object h3 a:focus {
+	color: #999999;
+}
+
 .idno-object a {
-	color:#333333;
+	color:#4c93cb;
 
 }
 
@@ -697,13 +708,13 @@ div.pane div.row:nth-of-type(odd) {
 }
 
 a {
-    color: #73b2e3;
+    color: #4c93cb;
     text-decoration: none;
     font-weight: 400;
 }
 
 a:hover, a:focus {
-	color: #4c93cb;
+	color: #357ebd;
 }
 
 input[type="email"], input[type="password"], input[type="text"]  {	
