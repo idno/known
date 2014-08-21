@@ -36,16 +36,19 @@
 
             $opengraph['og:url'] = \Idno\Core\site()->currentPage()->currentUrl();
 
-            $owner = $vars['object']->getOwner();
-            $object = $vars['object'];
-	
-            $opengraph['og:title'] = $vars['object']->getTitle();
-            $opengraph['og:description'] = $vars['object']->getShortDescription();
-            $opengraph['og:type'] = $vars['object']->getActivityStreamsObjectType();
-            $opengraph['og:image'] = $owner->getIcon(); //Icon, for now set to being the author profile pic
-            
-            if ($url = $vars['object']->getURL())
-                $opengraph['og:url'] = $vars['object']->getURL();  
+            if (!empty($vars['object'])) {
+                $owner = $vars['object']->getOwner();
+                $object = $vars['object'];
+
+                $opengraph['og:title'] = $vars['object']->getTitle();
+                $opengraph['og:description'] = $vars['object']->getShortDescription();
+                $opengraph['og:type'] = $vars['object']->getActivityStreamsObjectType();
+                $opengraph['og:image'] = $owner->getIcon(); //Icon, for now set to being the author profile pic
+
+                if ($url = $vars['object']->getURL()) {
+                    $opengraph['og:url'] = $vars['object']->getURL();
+                }
+            }
             
         }
         
