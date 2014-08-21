@@ -68,7 +68,12 @@
                 if (empty($user)) $this->forward(); // TODO: 404
                 if ($user->saveDataFromInput($this)) {
                     if ($onboarding = $this->getInput('onboarding')) {
-                        $this->forward(\Idno\Core\site()->config()->getURL() . 'begin/publish');
+                        $services = \Idno\Core\site()->syndication()->getServices();
+                        if (!empty($services)) {
+                            $this->forward(\Idno\Core\site()->config()->getURL() . 'begin/connect');
+                        } else {
+                            $this->forward(\Idno\Core\site()->config()->getURL() . 'begin/publish');
+                        }
                     }
                     $this->forward($user->getURL());
                 }
