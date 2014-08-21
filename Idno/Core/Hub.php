@@ -71,9 +71,9 @@
                 if (!empty($details['auth_token'])) {
                     // Apply pre-stored auth details and connect to server
                 } else if (
-                    !substr_count($_SERVER['REQUEST_URI'],'callback') &&
-                    !substr_count($_SERVER['REQUEST_URI'],'.') &&
-                    !substr_count($_SERVER['REQUEST_URI'],'/file/')
+                    !substr_count($_SERVER['REQUEST_URI'], 'callback') &&
+                    !substr_count($_SERVER['REQUEST_URI'], '.') &&
+                    !substr_count($_SERVER['REQUEST_URI'], '/file/')
                 ) {
                     // Establish auth details, save them, and then connect
                     if ($details = $this->register()) {
@@ -138,11 +138,11 @@
                     $last_ping = site()->config->last_hub_ping;
                 }
 
-                if ($last_ping < (time() - 10)) {   // Throttling registration pings to hub
+                if ($last_ping < (time() - 10)) { // Throttling registration pings to hub
 
                     $web_client = new Webservice();
 
-                    $results    = $web_client->post($this->server . 'hub/site/register', [
+                    $results = $web_client->post($this->server . 'hub/site/register', [
                         'url'   => site()->config()->getURL(),
                         'title' => site()->config()->getTitle(),
                         'token' => $this->getRegistrationToken()
@@ -152,6 +152,7 @@
                         site()->config->load();
                         site()->config->last_hub_ping = time();
                         site()->config->save();
+
                         return true;
                     }
 
@@ -172,13 +173,13 @@
                     $user = site()->session()->currentUser();
                 }
                 if ($user instanceof User) {
-                    $user = User::getByUUID($user->getUUID());
+                    $user       = User::getByUUID($user->getUUID());
                     $web_client = new Webservice();
                     $contents   = json_encode($user);
                     $time       = time();
                     $details    = $this->loadDetails();
                     $results    = $web_client->post($this->server . 'hub/user/register', [
-                        'content'   => $contents,
+                        'content'    => $contents,
                         'time'       => $time,
                         'auth_token' => $details['auth_token'],
                         'signature'  => hash_hmac('sha1', $contents . $time . $details['auth_token'], $details['secret'])
@@ -198,7 +199,8 @@
              * @param bool $user
              * @return array|bool
              */
-            function makeCall($endpoint, $contents, $user = false) {
+            function makeCall($endpoint, $contents, $user = false)
+            {
 
                 if (!$user) {
                     $user = site()->session()->currentUser();
@@ -211,7 +213,7 @@
                         $time       = time();
                         $details    = $user->hub_settings;
                         $results    = $web_client->post($this->server . $endpoint, [
-                            'content'   => $contents,
+                            'content'    => $contents,
                             'time'       => $time,
                             'auth_token' => $details['token'],
                             'signature'  => hash_hmac('sha1', $contents . $time . $details['token'], $details['secret'])
@@ -243,6 +245,7 @@
                         }
                     }
                 }
+
                 return false;
             }
 
@@ -260,12 +263,13 @@
                 if ($this->userIsRegistered($user)) {
                     $results = $this->makeCall('hub/user/link', ['user' => $user->getUUID(), 'endpoint' => $endpoint, 'callback' => $callback]);
                     if (!empty($results['content'])) {
-                        $content = json_decode($results['content'],true);
+                        $content = json_decode($results['content'], true);
                     }
                     if (!empty($content['link_token'])) {
                         $link_token = $content['link_token'];
-                        $time = time();
-                        $signature = hash_hmac('sha1',$link_token . $time, $user->hub_settings['secret']);
+                        $time       = time();
+                        $signature  = hash_hmac('sha1', $link_token . $time, $user->hub_settings['secret']);
+
                         return $this->server . $endpoint . '?token=' . urlencode($link_token) . '&time=' . $time . '&signature=' . $signature;
                     }
                 }
