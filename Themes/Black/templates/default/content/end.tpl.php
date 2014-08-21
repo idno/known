@@ -19,7 +19,7 @@
 ?>
 <div class="permalink">
     <p>
-    	<a href="<?=$owner->getURL()?>"><?=$owner->getTitle()?></a> published this 
+    	<a href="<?=$owner->getURL()?>"><?=$owner->getTitle()?></a>published this 
         <a class="u-url url" href="<?= $vars['object']->getURL() ?>" rel="permalink">
             <time class="dt-published"
                   datetime="<?= date('c', $vars['object']->created) ?>"><?= date('c', $vars['object']->created) ?></time></a>
@@ -41,14 +41,14 @@
 <div class="interactions">
     <?php
         if (!$has_liked) {
-            $heart = '<i class="icon-heart-empty"></i>';
+            $heart = '<i class="icon-star-empty"></i>';
         } else {
-            $heart = '<i class="icon-heart"></i>';
+            $heart = '<i class="icon-star"></i>';
         }
         if ($likes == 1) {
-            $heart .= ' 1 fave';
+            $heart .= ' 1 star';
         } else {
-            $heart .= ' ' . $likes . ' faves';
+            $heart .= ' ' . $likes . ' stars';
         }
         if (\Idno\Core\site()->session()->isLoggedOn()) {
             echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getURL() . 'annotation/post', $heart, ['type' => 'like', 'object' => $vars['object']->getUUID()], ['method' => 'POST']);

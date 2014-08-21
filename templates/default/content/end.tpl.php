@@ -14,14 +14,16 @@
             }
         }
     }
+    $owner = $vars['object']->getOwner();
 
 ?>
+
 <div class="permalink">
     <p>
+        <a href="<?=$owner->getURL()?>"><?=$owner->getTitle()?></a>published this 
         <a class="u-url url" href="<?= $vars['object']->getURL() ?>" rel="permalink">
             <time class="dt-published"
-                  datetime="<?= date('c', $vars['object']->created) ?>"><?= date('c', $vars['object']->created) ?></time>
-        </a>
+                  datetime="<?= date('c', $vars['object']->created) ?>"><?= date('c', $vars['object']->created) ?></time></a>
         <?= $this->draw('content/edit') ?>
         <?= $this->draw('content/end/links') ?>
         <?php
@@ -40,14 +42,14 @@
 <div class="interactions">
     <?php
         if (!$has_liked) {
-            $heart_only = '<i class="icon-heart-empty"></i>';
+            $heart_only = '<i class="icon-star-empty"></i>';
         } else {
-            $heart_only = '<i class="icon-heart"></i>';
+            $heart_only = '<i class="star-heart"></i>';
         }
         if ($likes == 1) {
-            $heart_text = '1 fave';
+            $heart_text = '1 star';
         } else {
-            $heart_text = $likes . ' faves';
+            $heart_text = $likes . ' stars';
         }
         $heart = $heart_only . ' ' . $heart_text;
         if (\Idno\Core\site()->session()->isLoggedOn()) {
