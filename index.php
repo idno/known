@@ -33,7 +33,6 @@
         $routes[$path . '/'] = $routes['/'];
     }
 
-
 // Manage routing
 
     \Idno\Core\PageHandler::hook('404', function () {
