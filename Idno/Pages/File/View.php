@@ -22,7 +22,21 @@
 
                 if (empty($object)) $this->forward(); // TODO: 404
 
-                $headers = apache_request_headers();
+                if (!function_exists('getallheaders')) {
+                    function getallheaders()
+                    {
+                        $headers = '';
+                        foreach ($_SERVER as $name => $value) {
+                            if (substr($name, 0, 5) == 'HTTP_') {
+                                $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+                            }
+                        }
+
+                        return $headers;
+                    }
+                }
+
+                $headers = getallheaders();
                 if (isset($headers['If-Modified-Since'])) {
                     if (strtotime($headers['If-Modified-Since']) < time() - 600) {
                         header('HTTP/1.1 304 Not Modified');
@@ -39,7 +53,7 @@
                 }
                 //header('Accept-Ranges: bytes');
                 //header('Content-Length: ' . filesize($object->getSize()));
-                if (is_callable([$object,'passThroughBytes'])) {
+                if (is_callable([$object, 'passThroughBytes'])) {
                     $object->passThroughBytes();
                 } else {
                     echo $object->getBytes();
