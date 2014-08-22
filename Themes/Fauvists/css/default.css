@@ -308,7 +308,7 @@ a:hover, a:focus {
 
 h2 {
     line-height: 1.1em;
-    margin-bottom: 0.8em !important;
+/*    margin-bottom: 0.8em !important; */
 }
 
 h2 a {

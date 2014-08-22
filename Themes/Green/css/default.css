@@ -17,9 +17,19 @@ a:hover, a:focus {
     box-shadow: none;
     border: none;
 }
+
 li {
     line-height: 1.8em !important;
 }
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 400;
+}
+
+h2 {
+    line-height: 1.3em;
+}
+
 .entry-content .p-name a {
     font-size: 1.3em;
     margin: 0; padding: 0;
@@ -27,7 +37,7 @@ li {
 }
 
 .idno-posts h2.p-name {
-    font-size: 1.2em;
+    font-size: 1.8em;
     margin: 0; padding: 0;
     color: #333333;
 }
@@ -62,6 +72,12 @@ h1.p-profile, .p-profile a {
     font-size: 0.9em;
     color: #444;
 }
+
+blockquote {
+    border-left: 5px solid #8cbf99;
+    padding: 0 0 0 15px;
+}
+
 .idno-statusupdates .entry-content p {
     font-size: 1.4em;
     margin: 0; padding: 0;
@@ -185,14 +201,25 @@ span.contentTypeLogo:hover {
     padding: 1.5em 1.5em 0;
 }
 
+.idno-content p {
+    line-height: 1.3em !important;
+}
+
+.idno-object .e-content blockquote p {
+    font-size: 1.3em;
+    line-height: 1.6em;
+    margin-bottom: 1em;
+}
+
 .idno-object h2 {
-    font-size: 1.2em;
-    margin-bottom: 0.2em !important;
+    font-size: 1.8em;
+/*    margin-bottom: 0.2em !important; */
 }
 
 h2 {
-	font-family: "Minion Pro", Times, "Times New Roman", serif;
+	font-family: "Myriad Pro", "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
 	font-size: 1.2em;
+	color: #555555;
 }
 
 h3 {
@@ -241,24 +268,18 @@ h3.register {
 }
 
 .idno-object .e-content {
-    font-size: 1.5em;
+    font-size: 1.1em;
     line-height: 1.1em;
 }
 
 .e-content p {
-	font-size: 1.0em;
+	font-size: 1.3em;
 }
 
 #contentTypeButtonBar {
     padding: 1em;
     text-align: center;
     border-bottom: 3px solid #357ebd;
-}
-
-.idno-statusupdates .entry-content p {
-    font-size: 1.0em;
-    margin: 0;
-    padding: 0;
 }
 
 .navbar-inverse .nav-collapse .nav > li > a:hover, .navbar-inverse .nav-collapse .nav > li > a:focus, .navbar-inverse .nav-collapse .dropdown-menu a:hover, .navbar-inverse .nav-collapse .dropdown-menu a:focus {

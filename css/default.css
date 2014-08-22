@@ -200,8 +200,13 @@ h1, h2, h3, h4, h5, h6 {
     float: left;
 }
 
-.idno-object .permalink a, .idno-object .permalink a:hover {
-    color: #999;
+.idno-object .permalink a {
+    color: #4c93cb;
+    margin-right: 0.25em;
+}
+
+.idno-object .permalink a:hover {
+    color: #357ebd;
     margin-right: 0.25em;
 }
 
@@ -219,9 +224,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .idno-object .dt-published {
-    color: #999;
     margin-right: 0.25em;
 }
+
 
 .idno-object .interactions a:hover {
     color: #333;
