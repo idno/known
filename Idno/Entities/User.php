@@ -686,6 +686,7 @@
             {
 
                 if (!$this->canEdit()) return false;
+
                 $this->profile = \Idno\Core\site()->currentPage()->getInput('profile');
                 if ($name = \Idno\Core\site()->currentPage()->getInput('name')) {
                     $this->setName($name);
