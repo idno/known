@@ -25,6 +25,7 @@
             public $pagehandlers;
             public $public_pages;
             public $syndication;
+	    public $logging;
             public static $site;
             public $currentPage;
             public $known_hub;
@@ -83,6 +84,7 @@
                 $this->actions     = new Actions();
                 $this->template    = new Template();
                 $this->syndication = new Syndication();
+		$this->logging	   = new Logging();
                 $this->plugins     = new Plugins(); // This must be loaded last
                 $this->themes      = new Themes();
 
@@ -92,7 +94,7 @@
                 }
                 if (!empty($this->config->known_hub) && !substr_count($_SERVER['REQUEST_URI'],'.') && site()->session()->hub_connect < (time() - 10)) {
                     site()->session()->hub_connect = time();
-                    error_log('Connecting to ' . $this->config->known_hub);
+                    \Idno\Core\site()->logging->log('Connecting to ' . $this->config->known_hub);
                     \Idno\Core\site()->known_hub = new \Idno\Core\Hub($this->config->known_hub);
                     \Idno\Core\site()->known_hub->connect();
                 }

@@ -86,7 +86,7 @@
                 $http_status = curl_getinfo($curl_handle, CURLINFO_HTTP_CODE);
 
                 if ($error = curl_error($curl_handle)) {
-                    error_log($error);
+                    \Idno\Core\site()->logging->log($error, LOGLEVEL_ERROR);
                 }
 
                 curl_close($curl_handle);
