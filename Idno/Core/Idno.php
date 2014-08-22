@@ -94,7 +94,7 @@
                 }
                 if (!empty($this->config->known_hub) && !substr_count($_SERVER['REQUEST_URI'],'.') && site()->session()->hub_connect < (time() - 10)) {
                     site()->session()->hub_connect = time();
-                    error_log('Connecting to ' . $this->config->known_hub);
+                    \Idno\Core\site()->logging->log('Connecting to ' . $this->config->known_hub);
                     \Idno\Core\site()->known_hub = new \Idno\Core\Hub($this->config->known_hub);
                     \Idno\Core\site()->known_hub->connect();
                 }

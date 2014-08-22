@@ -12,7 +12,7 @@
             function post()
             {
 
-                error_log('Site registration message received');
+                \Idno\Core\site()->logging->log('Site registration message received', LOGLEVEL_DEBUG);
 
                 $token      = $this->getInput('token');
                 $auth_token = $this->getInput('auth_token');

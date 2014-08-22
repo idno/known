@@ -64,10 +64,10 @@ namespace Idno\Core {
                                 'hub.topic' => $feed, // Subscribe to rss
                             ]);
                             
-                            error_log("Pubsub: " . print_r($return, true));
+                            \Idno\Core\site()->logging->log("Pubsub: " . print_r($return, true));
                         }
                         else
-                            error_log("Pubsub: No hubs found");
+                            \Idno\Core\site()->logging->log("Pubsub: No hubs found");
                     } 
                 }
             });
@@ -99,7 +99,7 @@ namespace Idno\Core {
                         'hub.topic' => $following->pubsub_self
                     ]);
                     
-                    error_log("Pubsub: " . print_r($return, true));
+                    \Idno\Core\site()->logging->log("Pubsub: " . print_r($return, true));
                 }
             });
         }

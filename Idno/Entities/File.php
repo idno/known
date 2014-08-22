@@ -211,7 +211,7 @@
                     try {
                         return $fs->findOne(array('_id' => \Idno\Core\site()->db()->processID($id)));
                     } catch (\Exception $e) {
-                        error_log($e->getMessage());
+                        \Idno\Core\site()->logging->log($e->getMessage(), LOGLEVEL_ERROR);
                     }
                 }
 
@@ -229,7 +229,7 @@
                     try {
                         return $file->getBytes();
                     } catch (\Exception $e) {
-                        error_log($e->getMessage());
+                        \Idno\Core\site()->logging->log($e->getMessage(), LOGLEVEL_ERROR);
                     }
                 }
 
@@ -242,32 +242,32 @@
              * @return bool|mixed|string
              */
             static function getFileDataFromAttachment($attachment) {
-                error_log(json_encode($attachment));
+                \Idno\Core\site()->logging->log(json_encode($attachment), LOGLEVEL_DEBUG);
                 if (!empty($attachment['_id'])) {
-                    error_log("Checking attachment ID");
+                    \Idno\Core\site()->logging->log("Checking attachment ID", LOGLEVEL_DEBUG);
                     if ($bytes = self::getFileDataByID((string)$attachment['_id'])) {
-                        error_log("Retrieved some bytes");
+                        \Idno\Core\site()->logging->log("Retrieved some bytes", LOGLEVEL_DEBUG);
                         if (strlen($bytes)) {
-                            error_log("Bytes! " . $bytes);
+                            \Idno\Core\site()->logging->log("Bytes! " . $bytes, LOGLEVEL_DEBUG);
                             return $bytes;
                         } else {
-                            error_log("Sadly no bytes");
+                            \Idno\Core\site()->logging->log("Sadly no bytes", LOGLEVEL_DEBUG);
                         }
                     } else {
-                        error_log("No bytes retrieved");
+                        \Idno\Core\site()->logging->log("No bytes retrieved", LOGLEVEL_DEBUG);
                     }
                 } else {
-                    error_log("Empty attachment _id");
+                    \Idno\Core\site()->logging->log("Empty attachment _id", LOGLEVEL_DEBUG);
                 }
                 if (!empty($attachment['url'])) {
                     if ($bytes = file_get_contents($attachment['url'])) {
-                        error_log("Returning bytes");
+                        \Idno\Core\site()->logging->log("Returning bytes", LOGLEVEL_DEBUG);
                         return $bytes;
                     } else {
-                        error_log("Couldn't get bytes from " . $attachment['url']);
+                        \Idno\Core\site()->logging->log("Couldn't get bytes from " . $attachment['url'], LOGLEVEL_DEBUG);
                     }
                 } else {
-                    error_log('Attachment url was empty ' . $attachment['url']);
+                    \Idno\Core\site()->logging->log('Attachment url was empty ' . $attachment['url'], LOGLEVEL_DEBUG);
                 }
 
                 return false;

@@ -12,7 +12,7 @@
             function post()
             {
 
-                error_log("Loading the user registration callback");
+                \Idno\Core\site()->logging->log("Loading the user registration callback", LOGLEVEL_DEBUG);
 
                 $contents   = $this->getInput('content');
                 $auth_token = $this->getInput('auth_token');

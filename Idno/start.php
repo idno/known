@@ -25,7 +25,7 @@
             echo "<p>If you like, you can <a href=\"mailto:hello@withknown.com?subject=" .
                 rawurlencode("Fatal error in Known install at {$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}") . "&body=" . rawurlencode($error_message) . "\">email us for more information</a>.";
 
-            error_log($error_message);
+            \Idno\Core\site()->logging->log($error_message, LOGLEVEL_ERROR);
 
             exit;
         }
