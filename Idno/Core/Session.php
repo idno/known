@@ -48,6 +48,14 @@
             }
 
             /**
+             * Kill the session.
+             */
+            function finishEarly()
+            {
+                session_write_close();
+            }
+
+            /**
              * Get the UUID of the currently logged-in user, or false if
              * we're logged out
              *
