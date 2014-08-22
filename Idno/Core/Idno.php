@@ -25,6 +25,7 @@
             public $pagehandlers;
             public $public_pages;
             public $syndication;
+	    public $logging;
             public static $site;
             public $currentPage;
             public $known_hub;
@@ -83,6 +84,7 @@
                 $this->actions     = new Actions();
                 $this->template    = new Template();
                 $this->syndication = new Syndication();
+		$this->logging	   = new Logging();
                 $this->plugins     = new Plugins(); // This must be loaded last
                 $this->themes      = new Themes();
 
