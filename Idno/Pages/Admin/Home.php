@@ -15,8 +15,11 @@
             function getContent()
             {
                 $this->adminGatekeeper(); // Admins only
+                if ($messages = \Idno\Core\site()->getVendorMessages()) {
+                    \Idno\Core\site()->session()->addMessage($messages);
+                }
                 $t        = \Idno\Core\site()->template();
-                $t->body  = $t->draw('admin/home');
+                $t->body  = $t->__(['vendor_messages' => $messages])->draw('admin/home');
                 $t->title = 'Administration';
                 $t->drawPage();
 
