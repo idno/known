@@ -1,0 +1,1 @@
+<link href="<?= \Idno\Core\site()->config()->url ?>Themes/Kandinsky/css/default.css" rel="stylesheet">
