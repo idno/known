@@ -583,7 +583,7 @@
                     'url'     => site()->config()->getURL(),
                     'title'   => site()->config()->getTitle(),
                     'version' => site()->getVersion(),
-                    'public' => site()->config()->isPublicSite(),
+                    'public'  => site()->config()->isPublicSite(),
                     'hub'     => site()->config()->known_hub
                 ]);
                 if ($results['response'] == 200) {
