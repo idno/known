@@ -7,7 +7,7 @@ body{
 }
 
 body.page-begin {
-    background: url(../gfx/onboarding/airballoon.jpg) no-repeat center center fixed;
+    background: url(../gfx/onboarding/sky.jpg) no-repeat center center fixed;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -71,12 +71,12 @@ body.page-begin-register {
     padding-right: 25px;
     padding-top: 5px;
     padding-bottom: 20px;
-    width: 450px;
+    width: 550px;
     float: left;
     left: 50%;
     position: absolute;
     margin-top: 20px;
-    margin-left: -260px;
+    margin-left: -310px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
@@ -198,8 +198,8 @@ h1 {
 }
 
 .p-register {
-    margin-bottom: 80px;
-    margin-top: 40px;
+    margin-bottom: 120px;
+    margin-top: 10px;
     text-align: center;
     padding-left: 15px;
     padding-right: 15px;
@@ -218,7 +218,7 @@ p {
 }
 
 .website {
-    margin-top: 30px;
+    margin-top: 0px;
     margin-bottom: 30px;
 }
 
@@ -229,6 +229,7 @@ p {
 
 .submit {
     text-align: center;
+    width: 60%;
 }
 
 .btn-reg {
@@ -387,7 +388,7 @@ p {
 
 textarea {
     width: 100%;
-    height: 150px;
+    height: 100px;
     line-height: 150%;
     resize: vertical;
 }
@@ -753,4 +754,24 @@ a.connect {
 
 .control-label small {
 	font-weight: 400;
+}
+
+.signin a {
+	font-size: 18px;
+	color: #ffffff;
+}
+
+.signin a:hover {
+	color: #c3c3c3;
+}
+
+.social-connect {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 22px;
+    font-weight: 300;
+    color: #FFFFFF;
+    padding-bottom: 1px;
+    padding-top: 1px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }

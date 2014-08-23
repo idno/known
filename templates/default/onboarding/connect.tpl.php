@@ -3,9 +3,7 @@
 </div>
 <div id="form-main">
     <div id="form-div">
-        <h2 class="profile">Connect some networks</h2>
-
-        <p>Add your favorite social networks and share with your audience.</p>
+		<p class="social-connect">Connect your social accounts to make sharing easier</p>
 
         <?=$this->draw('onboarding/connect/networks');?>
 
@@ -15,7 +13,7 @@
         </div>
 
         <p>
-            Don't worry, you can always connect your social networks later.
+            Don't worry, you can always connect these later.
         </p>
 
     </div>

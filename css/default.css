@@ -461,7 +461,7 @@ span.contentTypeLogo {
 
 .syndication span input[type=checkbox] + label {
     width: 8em;
-    background-color: #ccc;
+    background-color: #999;
     color: #eee;
     border-radius: 3px;
     padding: 0.25em;
@@ -470,7 +470,7 @@ span.contentTypeLogo {
 
 .content-type p input[type=checkbox]:checked + label,
 .syndication span input[type=checkbox]:checked + label {
-    background-color: #329410;
+    background-color: #678c70;
     color: #fff;
 }
 
@@ -944,4 +944,8 @@ small {
 
 .p-map {
 	padding-top: 10px;
+}
+
+#inreplyto {
+	padding-bottom: 10px;
 }

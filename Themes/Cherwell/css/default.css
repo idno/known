@@ -107,7 +107,7 @@ body {
 }
 
 #contentTypeButtonBar {
-    background-color: rgba(0,0,0,0.3); /*rgba(200,200,200,0.8);*/
+    background-color: rgba(0,0,0,0.4); /*rgba(200,200,200,0.8);*/
     border-radius: 10px;
 }
 
@@ -116,10 +116,10 @@ a.contentTypeButton {
 }
 
 a.contentTypeButton:hover {
-    color: #fff;
+    color: #000;
     border-radius: 1em;
     background: 0;
-    text-shadow: 0px 0px 15px #fff;
+    text-shadow: none;
 }
 
 .profile {

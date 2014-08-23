@@ -41,9 +41,9 @@
 <div class="interactions">
     <?php
         if (!$has_liked) {
-            $heart = '<i class="icon-heart-empty"></i>';
+            $heart = '<i class="icon-star-empty"></i>';
         } else {
-            $heart = '<i class="icon-heart"></i>';
+            $heart = '<i class="icon-star"></i>';
         }
         if ($likes == 1) {
             $heart .= ' 1 star';

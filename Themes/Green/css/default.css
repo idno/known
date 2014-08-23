@@ -245,7 +245,6 @@ h5 {
 
 h3.register, h4.register {
 	text-align: center;
-	font-family: "Minion Pro",Times,"Times New Roman",serif
 }
 
 h3.register {
@@ -425,10 +424,15 @@ h3.register {
 	padding: 0;
 }
 
+.text-center h2 {
+    font-size: 36px;
+    margin-bottom: 0.8em;
+    font-weight: 400;
+}
+
 h3.text-center {
 	color: #555555;
-	font-family: "Minion Pro",Times,"Times New Roman",serif;
-	font-size: 38px;
+	font-size: 28px;
     font-weight: normal;
     padding-bottom: 20px;
 }
