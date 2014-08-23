@@ -15,6 +15,7 @@
                 $this->gatekeeper();
 
                 $user = \Idno\Core\site()->session()->currentUser();
+                $messages = \Idno\Core\site()->getVendorMessages();
 
                 $t = \Idno\Core\site()->template();
                 echo $t->__(array(
