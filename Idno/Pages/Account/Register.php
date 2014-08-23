@@ -78,6 +78,7 @@
                             if (\Idno\Core\site()->config()->title == 'New Known site') {
                                 \Idno\Core\site()->config()->title = $user->getTitle() . '\'s site';
                                 \Idno\Core\site()->config()->open_registration = false;
+                                \Idno\Core\site()->config()->from_email = $user->email;
                                 \Idno\Core\site()->config()->save();
                             }
                         }
