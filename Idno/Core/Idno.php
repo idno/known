@@ -479,6 +479,15 @@
             }
 
             /**
+             * Alias for version()
+             * @return string
+             */
+            function getVersion()
+            {
+                return $this->version();
+            }
+
+            /**
              * Can a specified user (either an explicitly specified user ID
              * or the currently logged-in user if this is left blank) edit
              * this entity?
@@ -558,6 +567,31 @@
             {
                 return true;
             }
+
+            /**
+             * Retrieve notices (eg notifications that a new version has been released) from Known HQ
+             * @return mixed
+             */
+            function getVendorMessages()
+            {
+
+                if (!empty(site()->config()->noping)) {
+                    return '';
+                }
+                $web_client = new Webservice();
+                $results    = $web_client->post('http://withknown.com/vendor-services/messages/', [
+                    'url'     => site()->config()->getURL(),
+                    'title'   => site()->config()->getTitle(),
+                    'version' => site()->getVersion(),
+                    'public' => site()->config()->isPublicSite(),
+                    'hub'     => site()->config()->known_hub
+                ]);
+                if ($results['response'] == 200) {
+                    return $results['content'];
+                }
+
+            }
+
         }
 
         /**
