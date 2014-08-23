@@ -19,7 +19,7 @@
 </div>
 <div class="row" style="margin-top: 1em">
     <div class="span8 offset1">
-        <div style="background-color: #fff; font-family: monospace; font-size: 0.9em; padding: 2em">
+        <div style="background-color: #fff; color: #000; font-family: monospace; font-size: 0.9em; padding: 2em">
             <?php
 
                 $contributors = file_get_contents(\Idno\Core\site()->config()->path . '/CONTRIBUTORS.md');

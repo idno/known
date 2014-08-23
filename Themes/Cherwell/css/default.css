@@ -166,3 +166,9 @@ body.page-share {
 .idno-entities-user {
     color: #222;
 }
+
+.hero-unit {
+    background: none;
+    background-color: rgba(0,0,0,0.5);
+    border: 0;
+}
