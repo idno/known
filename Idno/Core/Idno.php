@@ -25,7 +25,7 @@
             public $pagehandlers;
             public $public_pages;
             public $syndication;
-	    public $logging;
+            public $logging;
             public static $site;
             public $currentPage;
             public $known_hub;
@@ -84,7 +84,7 @@
                 $this->actions     = new Actions();
                 $this->template    = new Template();
                 $this->syndication = new Syndication();
-		$this->logging	   = new Logging();
+                $this->logging     = new Logging();
                 $this->plugins     = new Plugins(); // This must be loaded last
                 $this->themes      = new Themes();
 
@@ -95,7 +95,7 @@
                 }
                 if (
                     !empty($this->config->known_hub) &&
-                    !substr_count($_SERVER['REQUEST_URI'],'.')
+                    !substr_count($_SERVER['REQUEST_URI'], '.')
                     && site()->session()->hub_connect < (time() - 10)
                     && $this->config->known_hub != $this->config->url
                 ) {
@@ -156,8 +156,8 @@
                 $this->addPageHandler('/autosave/?', '\Idno\Pages\Entity\Autosave');
 
                 /** Installation / first use */
-                $this->addPageHandler('/begin/?', '\Idno\Pages\Onboarding\Begin',true);
-                $this->addPageHandler('/begin/register/?', '\Idno\Pages\Onboarding\Register',true);
+                $this->addPageHandler('/begin/?', '\Idno\Pages\Onboarding\Begin', true);
+                $this->addPageHandler('/begin/register/?', '\Idno\Pages\Onboarding\Register', true);
                 $this->addPageHandler('/begin/profile/?', '\Idno\Pages\Onboarding\Profile');
                 $this->addPageHandler('/begin/connect/?', '\Idno\Pages\Onboarding\Connect');
                 $this->addPageHandler('/begin/publish/?', '\Idno\Pages\Onboarding\Publish');
