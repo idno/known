@@ -48,6 +48,7 @@
                 $this->feed               = $this->url . '?_t=rss';
                 $this->indieweb_citation  = false;
                 $this->indieweb_reference = false;
+                $this->known_hub          = false;
 
                 $this->loadIniFiles();
 
@@ -205,6 +206,7 @@
                 if (!empty($this->title)) {
                     return $this->title;
                 }
+
                 return '';
             }
 
