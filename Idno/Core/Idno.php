@@ -89,10 +89,16 @@
                 $this->themes      = new Themes();
 
                 // Connect to a Known hub if one is listed in the configuration file
+                // (and this isn't the hub!)
                 if (empty(site()->session()->hub_connect)) {
                     site()->session()->hub_connect = 0;
                 }
-                if (!empty($this->config->known_hub) && !substr_count($_SERVER['REQUEST_URI'],'.') && site()->session()->hub_connect < (time() - 10)) {
+                if (
+                    !empty($this->config->known_hub) &&
+                    !substr_count($_SERVER['REQUEST_URI'],'.')
+                    && site()->session()->hub_connect < (time() - 10)
+                    && $this->config->known_hub != $this->config->url
+                ) {
                     site()->session()->hub_connect = time();
                     \Idno\Core\site()->logging->log('Connecting to ' . $this->config->known_hub);
                     \Idno\Core\site()->known_hub = new \Idno\Core\Hub($this->config->known_hub);
