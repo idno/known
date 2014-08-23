@@ -32,6 +32,18 @@
             <p>
                 <?= \Idno\Core\site()->actions()->signForm(\Idno\Core\site()->config()->getURL() . 'admin/cherwell/') ?>
                 <input type="submit" class="btn btn-primary" value="Save">
+                <input type="hidden" name="action" value="" id="action">
+                <?php
+
+                    if (!empty(\Idno\Core\site()->config->cherwell['bg_id'])) {
+
+                ?>
+                        <input type="submit" class="btn" value="Restore default image" onclick="$('#action').val('clear');">
+                <?php
+
+                    }
+
+                ?>
             </p>
 
         </form>
