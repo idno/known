@@ -265,6 +265,7 @@ h5 {
 
 h3.register, h4.register {
 	text-align: center;
+	color: #000000;
 }
 
 h3.register {
@@ -358,25 +359,23 @@ h3.register {
 }
 
 .btn-signin {
-    background-color: #73B2E3;
-    border-color: #73B2E3;
-    box-shadow: 0 3px #357EBD;
+    background-color: #ffffff;
+    border-color: #e8945d;
+    box-shadow: none;
     background-image: none;
-    font-color: #FFFFFF;
     text-shadow: none;
     margin-top: 10px;
     margin-bottom: 10px;
-    color: #FFFFFF;
+    color: #e8945d;
 }
 
 .btn-signin:hover, .btn-signin:active, .btn-signin:focus {
-    background-color: #4c93cb;
-    border-color: #4c93cb;
-    box-shadow: 0 3px #357EBD;
+    background-color: #ffffff;
+    border-color: #ffcc66;
+    box-shadow: none;
     background-image: none;
-    font-color: #FFFFFF;
     text-shadow: none;
-    color: #FFFFFF;
+    color: #ffcc66;
 }
 
 .btn-save {
@@ -438,10 +437,11 @@ h3.register {
     font-size: 36px;
     margin-bottom: 0.8em;
     font-weight: 400;
+    color: #000000;
 }
 
 h3.text-center {
-	color: #555555;
+	color: #000000;
 	font-size: 28px;
     font-weight: normal;
     padding-bottom: 20px;
@@ -488,10 +488,11 @@ h3.text-center {
 
 .warm-footer {
 	width: 100%;
-	background-color: #ffcc66;
+	background-color: #ffffff;
 	margin-top: 20px;
 	padding-bottom: 10px;
 	padding-top: 10px;
+	border-top: 3px solid #9f111b;
 }
 
 .warm-footer p {
@@ -590,5 +591,35 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 	background-color: #ffffff;
     border: 3px solid #ffcc66;
     color: #ffcc66;
+}
+
+.hero-unit {
+    border: 3px solid #9f111b;
+}
+
+.btn-reg {
+    background-color: #ffffff;
+    background-image: none;
+    border: 2px solid #e8945d;
+    box-shadow: none;
+    color: #e8945d;
+    font-size: 16px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding: 10px 30px;
+    text-shadow: none;
+}
+
+.btn-reg:hover, .btn-reg:active, .btn-reg:focus {
+    background-color: #ffffff;
+    background-image: none;
+    border: 2px solid #ffcc66;
+    box-shadow: none;
+    color: #ffcc66;
+    font-size: 16px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding: 10px 30px;
+    text-shadow: none;
 }
 
