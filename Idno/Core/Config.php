@@ -61,8 +61,15 @@
                     }
                 }
 
-                if ($this->initial_plugins) {
-                    $this->plugins = $this->initial_plugins;
+                if (!empty($this->initial_plugins)) {
+                    if (!empty($this->default_plugins)) {
+                        $this->default_plugins = array_merge($this->default_plugins, $this->initial_plugins);
+                    } else {
+                        $this->default_plugins = $this->initial_plugins;
+                    }
+                }
+                if (!empty($this->default_plugins)) {
+                    $this->plugins = $this->default_plugins;
                 }
 
                 date_default_timezone_set($this->timezone);
