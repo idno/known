@@ -139,20 +139,24 @@
                             $image_copy = imagecreatetruecolor($width, $height);
                             imagecopyresampled($image_copy, $image, 0, 0, 0, 0, $width, $height, $photo_information[0], $photo_information[1]);
 
-                            if (is_callable('exif_read_data')) {
-                                $exif = exif_read_data($file_path);
-                                if (!empty($exif['Orientation'])) {
-                                    switch ($exif['Orientation']) {
-                                        case 8:
-                                            $image_copy = imagerotate($image_copy, 90, 0);
-                                            break;
-                                        case 3:
-                                            $image_copy = imagerotate($image_copy, 180, 0);
-                                            break;
-                                        case 6:
-                                            $image_copy = imagerotate($image_copy, -90, 0);
-                                            break;
+                            if (is_callable('exif_read_data') && $photo_information['mime'] == 'image/jpeg') {
+                                try {
+                                    $exif = exif_read_data($file_path);
+                                    if (!empty($exif['Orientation'])) {
+                                        switch ($exif['Orientation']) {
+                                            case 8:
+                                                $image_copy = imagerotate($image_copy, 90, 0);
+                                                break;
+                                            case 3:
+                                                $image_copy = imagerotate($image_copy, 180, 0);
+                                                break;
+                                            case 6:
+                                                $image_copy = imagerotate($image_copy, -90, 0);
+                                                break;
+                                        }
                                     }
+                                } catch (\Exception $e) {
+                                    // Don't do anything
                                 }
                             }
 
