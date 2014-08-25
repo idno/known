@@ -12,6 +12,8 @@
 
     namespace Idno\Common {
 
+        use Idno\Entities\User;
+
         class Entity extends Component implements EntityInterface
         {
 
@@ -477,7 +479,8 @@
             /**
              * Syndicate this content to third-party sites, if such plugins are installed
              */
-            function syndicate() {
+            function syndicate()
+            {
                 if ($this->getActivityStreamsObjectType()) {
                     $event = new \Idno\Core\Event(array('object' => $this, 'object_type' => $this->getActivityStreamsObjectType()));
                     \Idno\Core\site()->events()->dispatch('post/' . $this->getActivityStreamsObjectType(), $event);
@@ -488,7 +491,8 @@
             /**
              * Remove this content from third-party sites, if it was syndicated in the first place
              */
-            function unsyndicate() {
+            function unsyndicate()
+            {
                 if ($this->getActivityStreamsObjectType()) {
                     $event = new \Idno\Core\Event(array('object' => $this, 'object_type' => $this->getActivityStreamsObjectType()));
                     \Idno\Core\site()->events()->dispatch('delete/' . $this->getActivityStreamsObjectType(), $event);
@@ -713,6 +717,7 @@
 
                     if ($return = \Idno\Core\db()->deleteRecord($this->getID())) {
                         $this->deleteData();
+
                         return $return;
                     }
 
@@ -1087,9 +1092,19 @@
                     $user_id = \Idno\Core\site()->session()->currentUserUUID();
                 }
 
+                if ($user_id = \Idno\Core\site()->session()->currentUserUUID()) {
+                    $user = \Idno\Core\site()->session()->currentUser();
+                } else {
+                    $user = User::getByUUID($user_id);
+                }
+
+                if ($user->isAdmin()) {
+                    return true;
+                }
+
                 if ($this->getOwnerID() == $user_id) return true;
-		
-		return \Idno\Core\site()->triggerEvent('canEdit', ['object' => $this, 'user_id' => $user_id], false);
+
+                return \Idno\Core\site()->triggerEvent('canEdit', ['object' => $this, 'user_id' => $user_id], false);
 
             }
 
