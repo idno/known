@@ -1297,6 +1297,10 @@
                     return $this->url;
                 }
 
+                if (!empty($this->canonical)) {
+                    return $this->canonical;
+                }
+
                 // If a slug has been set, use it
                 if ($slug = $this->getSlug()) {
                     return \Idno\Core\site()->config()->url . date('Y', $this->created) . '/' . $slug;
