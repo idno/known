@@ -117,6 +117,9 @@
                 if (!empty($response) && $response !== true) {
                     return $response;
                 }
+                if (!empty($this->image)) {
+                    return $this->image;
+                }
                 if (!empty($this->icon)) {
                     return \Idno\Core\site()->config()->url . 'file/' . $this->icon;
                 }
@@ -148,6 +151,9 @@
              */
             function getURL()
             {
+                if (!empty($this->url)) {
+                    return $this->url;
+                }
                 return \Idno\Core\site()->config()->url . 'profile/' . $this->getHandle();
             }
 
