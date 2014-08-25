@@ -32,6 +32,16 @@
                 site()->addPageHandler('hub/register/user/callback', 'Idno\Pages\Hub\Register\User', true);
             }
 
+            function registerEventHooks()
+            {
+                // Register user on login
+                site()->addEventHook('user/auth', function (\Idno\Core\Event $event) {
+                    if ($user = $event->data()['user']) {
+                        $this->registerUser($user);
+                    }
+                });
+            }
+
             /**
              * Sets the hub server to connect to
              * @param $server
