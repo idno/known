@@ -315,7 +315,11 @@
 
                 $user->save();
 
-                return $this->refreshSessionUser($user);
+                $return = $this->refreshSessionUser($user);
+
+                \Idno\Core\site()->triggerEvent('user/auth', ['user' => $user]);
+
+                return $return;
             }
 
             /**
