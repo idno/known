@@ -35,7 +35,7 @@
             function registerEventHooks()
             {
                 // Register user on login
-                site()->addEventHook('user/auth', function (\Idno\Core\Event $event) {
+                site()->addEventHook('login/success', function (\Idno\Core\Event $event) {
                     if ($user = $event->data()['user']) {
                         $this->registerUser($user);
                     }
