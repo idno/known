@@ -138,6 +138,7 @@
                 $this->addPageHandler('/bookmarklet\.js', '\Idno\Pages\Entity\Bookmarklet', true);
 
                 /** Files */
+                $this->addPageHandler('/file/upload/?', '\Idno\Pages\File\Upload', true);
                 $this->addPageHandler('/file/([A-Za-z0-9]+)(/.*)?', '\Idno\Pages\File\View', true);
 
                 /** Users */
