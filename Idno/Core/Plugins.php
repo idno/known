@@ -30,7 +30,9 @@
                         if (!in_array($plugin, site()->config()->antiplugins)) {
                             if (is_subclass_of("IdnoPlugins\\{$plugin}\\Main", 'Idno\\Common\\Plugin')) {
                                 $class                  = "IdnoPlugins\\{$plugin}\\Main";
-                                $this->plugins[$plugin] = new $class();
+                                if (empty($this->plugins[$plugin])) {
+                                    $this->plugins[$plugin] = new $class();
+                                }
                             }
                         }
                     }
