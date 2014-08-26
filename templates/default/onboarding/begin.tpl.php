@@ -1,9 +1,9 @@
 <div id="bg">
-    <img src="<?=\Idno\Core\site()->config()->getURL()?>gfx/onboarding/airballoon.jpg" alt="">
+    <img src="<?=\Idno\Core\site()->config()->getURL()?>gfx/onboarding/sky.jpg" alt="">
 </div>
 <div id="form-main">
     <div id="form-div">
-        <h1 class="h-register"><img src="<?=\Idno\Core\site()->config()->getURL()?>gfx/onboarding/logo_full.png" alt="Known"></h1>
+        <h1 class="h-register img-responsive"><img src="<?=\Idno\Core\site()->config()->getURL()?>gfx/onboarding/logo_full.png" alt="Known"></h1>
 
         <p class="p-register">Known is your space for sharing content and discussing ideas.
 
@@ -12,7 +12,7 @@
         <div align="center"><form class="form" method="get" action="<?=\Idno\Core\site()->config()->getURL()?>begin/register/">
 
             <div class="submit">
-                <input class="btn btn-reg" type="submit" value="Get started"/>
+                <input class="btn btn-reg" align="center" type="submit" value="Get started"/>
             </div>
 
         </form></div>
