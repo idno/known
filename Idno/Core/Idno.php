@@ -475,7 +475,7 @@
              */
             function version()
             {
-                return '0.1-dev';
+                return '0.6-dev';
             }
 
             /**
