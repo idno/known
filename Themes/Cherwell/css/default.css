@@ -172,3 +172,7 @@ body.page-share {
     background-color: rgba(0,0,0,0.5);
     border: 0;
 }
+
+.idno-object a {
+    color: #4c93cb;
+}
