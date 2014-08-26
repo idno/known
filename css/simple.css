@@ -7,7 +7,7 @@ body{
 }
 
 body.page-begin {
-    background: url(../gfx/onboarding/sky.jpg) no-repeat center center fixed;
+    background: none;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -17,7 +17,7 @@ body.page-begin {
 }
 
 /** Testing whitespace problem in iOS **/
-body.page-begin-connect,
+/*body.page-begin-connect,
 body.page-begin-profile,
 body.page-begin-register {
     background: url(../gfx/onboarding/sky.jpg) no-repeat center center fixed;
@@ -27,7 +27,7 @@ body.page-begin-register {
     -o-background-size: cover;
     height: 100%;
     overflow: auto;
-}
+}*/
 
 @media only screen and (max-width: 500px) {
     #bg {
@@ -66,7 +66,7 @@ body.page-begin-register {
 }
 
 #form-div {
-    background-color: rgba(75, 85, 115, 0.4);
+    background-color: none;
     padding-left: 25px;
     padding-right: 25px;
     padding-top: 5px;
@@ -114,7 +114,7 @@ body.page-begin-register {
     -moz-box-sizing: border-box;
     -ms-box-sizing: border-box;
     box-sizing: border-box;
-    border: 3px solid rgba(0, 0, 0, 0);
+    border: 3px solid rgba(115, 178, 227, 0.4);
 }
 
 .feedback-input:focus {
@@ -170,7 +170,7 @@ body.page-begin-register {
     -moz-box-sizing: border-box;
     -ms-box-sizing: border-box;
     box-sizing: border-box;
-    border: 3px solid rgba(0, 0, 0, 0);
+    border: 3px solid rgba(115, 178, 227, 0.4);
 }
 
 .profile-input:focus {
@@ -190,7 +190,7 @@ h1 {
     font-family: 'Open Sans', sans-serif;
     font-size: 2.0em;
     font-weight: 700;
-    color: #FFFFFF;
+    color: #333333;
     padding-bottom: 1px;
     padding-top: 1px;
     margin-top: 25px;
@@ -212,7 +212,7 @@ p {
     font-family: 'Pontano Sans', Verdana, Helvetica, sans-serif;
     font-size: 18px;
     font-weight: 400;
-    color: #FFFFFF;
+    color: #333333;
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -229,7 +229,7 @@ p {
 
 .submit {
     text-align: center;
-    width: 60%;
+    width: 100%;
 }
 
 .btn-reg {
@@ -278,7 +278,7 @@ p {
     color: #535353;
 }
 
-.btn {
+/*.btn {
     -moz-border-bottom-colors: none;
     -moz-border-left-colors: none;
     -moz-border-right-colors: none;
@@ -292,7 +292,7 @@ p {
     padding: 15px 65px;
     text-align: center;
     -webkit-appearance: none;
-}
+}*/
 
 @media only screen and (max-width: 580px) {
     #form-div {
@@ -316,10 +316,7 @@ p {
 
 #name {
     background-image: none;
-}
-
-#name:focus, #name:hover {
-    background-image: none;
+    background-color: #ffffff;
 }
 
 #username {
@@ -343,11 +340,12 @@ p {
     background-repeat: no-repeat;
 }
 
-#website:focus {
+#website:focus, #website:hover {
     background-image: none;
     background-size: 24px;
     background-position: 11px 7px;
     background-repeat: no-repeat;
+    background-color: #f8f8f8;
 }
 
 #password {
@@ -457,10 +455,10 @@ h2 {
     font-family: 'Open Sans', sans-serif;
     font-size: 28px;
     font-weight: 700;
-    color: #FFFFFF;
+    color: #333333;
     padding-bottom: 1px;
     padding-top: 1px;
-    margin-top: 25px;
+    margin-top: 5px;
     margin-bottom: 5px;
 }
 
@@ -468,7 +466,7 @@ h3 {
     font-family: 'Open Sans', sans-serif;
     font-size: 24px;
     font-weight: 700;
-    color: #FFFFFF;
+    color: #333333;
     padding-bottom: 1px;
     padding-top: 1px;
     margin-top: 25px;
@@ -627,11 +625,10 @@ a.connect {
 }
 
 .control-label {
-    color: #FFFFFF;
+    color: #666666;
     font-family: 'Open Sans', sans-serif;
-    font-weight: 500;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 400;
 }
 
 .next-bar {
@@ -682,21 +679,6 @@ a.connect {
     background-color: #c5c5c5;
     border: 2px solid #c5c5c5;
     color: #535353;
-}
-
-.btn {
-    -moz-border-bottom-colors: none;
-    -moz-border-left-colors: none;
-    -moz-border-right-colors: none;
-    -moz-border-top-colors: none;
-    background-repeat: repeat-x;
-    border-image: none;
-    border-radius: 7px;
-    cursor: pointer;
-    display: inline-block;
-    line-height: 24px;
-    padding: 15px 65px;
-    -webkit-appearance: none;
 }
 
 .center-block {
@@ -757,21 +739,74 @@ a.connect {
 }
 
 .signin a {
-	font-size: 18px;
-	color: #ffffff;
+	font-size: 14px;
+	color: #4c93cb;
 }
 
 .signin a:hover {
-	color: #c3c3c3;
+	color: #357ebd;
+	text-decoration: underline;
 }
 
 .social-connect {
     font-family: 'Open Sans', sans-serif;
     font-size: 22px;
     font-weight: 300;
-    color: #FFFFFF;
+    color: #333333;
     padding-bottom: 1px;
     padding-top: 1px;
     margin-top: 5px;
     margin-bottom: 5px;
 }
+
+/* New Stuff */
+
+.btn-primary {
+    background-color: #73b2e3;
+    border-color: none;
+    color: #fff;
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+	background-color: #4c93cb;
+	border-color: #4c93cb;
+	color: #ffffff;
+}
+
+.btn-lg {
+    border-radius: 6px;
+    font-size: 18px;
+    line-height: 1.33;
+    padding: 10px 16px;
+}
+
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+.btn {
+    -moz-user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 24px;
+    font-weight: normal;
+    line-height: 2;
+    margin-bottom: 0;
+    padding: 6px 52px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.img-responsive {
+	max-width: 100%;
+	height: auto;
+}
+
+p a {
+	font-size: 18px;
+}
+

@@ -1,6 +1,3 @@
-<div id="bg">
-    <img src="<?=\Idno\Core\site()->config()->getURL()?>gfx/onboarding/sky.jpg" alt="">
-</div>
 <div id="form-main">
     <div id="form-div">
         <h2 class="register">Hello there!</h2>
@@ -31,9 +28,14 @@
                 <input name="password2" type="password" class="feedback-input" id="password" placeholder="secret-password"/>
             </p>
 
-            <div class="submit">
+          <!--  <div class="submit">
                 <input type="submit" value="Register" class="btn btn-reg"/>
-            </div>
+            </div>-->
+            
+          <div class="col-md-12">
+          <button type ="submit" value="Register" class="btn btn-primary btn-lg btn-responsive">Register</button>
+        
+		  </div>
 
             <?= \Idno\Core\site()->actions()->signForm('/begin/register') ?>
         </form>

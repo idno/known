@@ -18,3 +18,12 @@ Idno/.idea/.name
 config.ini
 config.json
 tests/_output/*
+IdnoPlugins/Facebook/
+
+IdnoPlugins/Flickr/
+
+IdnoPlugins/Foursquare/
+
+IdnoPlugins/SoundCloud/
+
+IdnoPlugins/Twitter/
