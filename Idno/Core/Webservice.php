@@ -22,6 +22,8 @@
              */
             static function send($verb, $endpoint, $params = null, array $headers = null)
             {
+                error_log($verb . ' ' . $endpoint . ' ' . json_encode($params));
+
                 $req = "";
                 if ($params && is_array($params)) {
                     $req = http_build_query($params);
@@ -84,6 +86,8 @@
 
                 $buffer      = curl_exec($curl_handle);
                 $http_status = curl_getinfo($curl_handle, CURLINFO_HTTP_CODE);
+
+                error_log(json_encode(curl_getinfo($curl_handle)));
 
                 if ($error = curl_error($curl_handle)) {
                     \Idno\Core\site()->logging->log($error, LOGLEVEL_ERROR);
