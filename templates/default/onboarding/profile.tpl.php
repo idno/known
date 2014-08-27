@@ -8,7 +8,7 @@
 
             <p class="profile-pic" id="photo-preview">
                 <img src="<?=$vars['user']->getIcon()?>" alt="" style="width: 150px"
-                                 class="icon-container"/>
+                                 class="icon-container" onclick="$('#photo').click();"/>
             </p>
 
             <div class="upload">
