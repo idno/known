@@ -19,13 +19,13 @@
             </div>
             <p class="name">
                 <label class="control-label" for="inputName">Your name<br/></label>
-                <input name="name" type="text" class="profile-input" placeholder="Joe Montgolfier" id="name"/>
+                <input name="name" type="text" class="profile-input" placeholder="Ben Franklin" id="name"/>
             </p>
 
             <p class="text">
                 <label class="control-label" for="inputName">Your short bio<br/></label>
                 <textarea name="profile[description]" class="profile-input" id="description"
-                          placeholder="I fly hot air balloons..."></textarea>
+                          placeholder="I fly kites..."></textarea>
             </p>
 
             <p class="website">
