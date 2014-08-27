@@ -306,15 +306,6 @@
 
             function logUserOn(\Idno\Entities\User $user)
             {
-                if (empty($user->notifications)) {
-                    $user->notifications['email'] = 'all'; // By default, send notifications to users
-                }
-                if (empty($user->icon_number)) {
-                    $user->icon_number = rand(1,6);
-                }
-
-                $user->save();
-
                 $return = $this->refreshSessionUser($user);
 
                 \Idno\Core\site()->triggerEvent('user/auth', ['user' => $user]);
@@ -330,11 +321,7 @@
             function refreshSessionUser(\Idno\Entities\User $user)
             {
                 if ($user = User::getByUUID($user->getUUID())) {
-                    /* @var \Idno\Common\User $user */
-                    $user->clearPasswordRecoveryCode();
-                    $user->save();
                     $_SESSION['user'] = $user;
-
                     return $user;
                 }
 
