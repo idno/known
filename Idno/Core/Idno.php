@@ -35,6 +35,9 @@
                 self::$site       = $this;
                 $this->dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
                 $this->config     = new Config();
+                if ($this->config->isDefaultConfig()) {
+                    // TODO: invoke installer
+                }
                 switch ($this->config->database) {
                     case 'mongodb':
                         $this->db = new DataConcierge();
