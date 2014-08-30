@@ -99,6 +99,7 @@
         </div>
         <div class="span1 offset1">
             <?php
+            if (!in_array($shortname, \Idno\Core\site()->config()->alwaysplugins)) {
                 if (array_key_exists($shortname, $vars['plugins_loaded'])) {
                     ?>
                     <form action="<?= \Idno\Core\site()->config()->url ?>admin/plugins/" method="post">
@@ -122,7 +123,7 @@
                     </form>
                 <?php
                 }
-
+            }
             ?>
         </div>
     </div>
