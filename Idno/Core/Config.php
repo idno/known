@@ -30,7 +30,8 @@
                 'alwaysplugins'     => [],
                 'items_per_page'    => 10, // Default items per page
                 'experimental'      => false, // A common way to enable experimental functions still in development
-                'multitenant'       => false
+                'multitenant'       => false,
+                'default_config'    => true // This is a trip-switch - changed to true if configuration is loaded from an ini file / the db
             );
 
             public $ini_config = [];
@@ -102,6 +103,7 @@
 
                 if (!empty($this->ini_config)) {
                     $this->config = array_merge($this->config, $this->ini_config);
+                    $this->default_config = false;
                 }
 
             }
@@ -175,6 +177,7 @@
             function load()
             {
                 if ($config = \Idno\Core\site()->db()->getAnyRecord('config')) {
+                    $this->default_config = false;
                     if ($config instanceof \Idno\Common\Entity) {
                         $config = $config->getAttributes();
                         unset($config['dbname']); // Ensure we don't accidentally load protected data from db
@@ -227,6 +230,18 @@
                     return true;
                 }
 
+                return false;
+            }
+
+            /**
+             * Is this the default site configuration?
+             * @return bool
+             */
+            function isDefaultConfig()
+            {
+                if ($this->default_config) {
+                    return true;
+                }
                 return false;
             }
 
