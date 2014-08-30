@@ -54,11 +54,17 @@
                 $this->loadIniFiles();
 
                 if ($this->multitenant) {
-                    $dbname       = $this->dbname;
-                    $this->host   = str_replace('www.', '', $this->host);
-		    $this->sessionname = preg_replace('/[^\da-z\.]/i', '', $this->host);
-                    $this->dbname = preg_replace('/[^\da-z\.]/i', '', $this->host);
-                    $this->dbname = str_replace('.', '_', $this->dbname);
+                    $dbname            = $this->dbname;
+                    $this->host        = str_replace('www.', '', $this->host);
+                    $this->sessionname = preg_replace('/[^\da-z\.]/i', '', $this->host);
+                    $this->dbname      = preg_replace('/[^\da-z\.]/i', '', $this->host);
+
+                    // Known now defaults to not including periods in database names for multitenant installs. Add
+                    // 'multitenant_periods = true' if you wish to override this.
+                    if (empty($this->multitenant_periods)) {
+                        $this->dbname      = str_replace('.', '_', $this->dbname);
+                    }
+                    
                     if (empty($this->dbname)) {
                         $this->dbname = $dbname;
                     }
@@ -104,7 +110,7 @@
                 }
 
                 if (!empty($this->ini_config)) {
-                    $this->config = array_merge($this->config, $this->ini_config);
+                    $this->config         = array_merge($this->config, $this->ini_config);
                     $this->default_config = false;
                 }
 
@@ -244,6 +250,7 @@
                 if ($this->default_config) {
                     return true;
                 }
+
                 return false;
             }
 
