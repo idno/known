@@ -64,7 +64,7 @@
                     if (empty($this->multitenant_periods)) {
                         $this->dbname      = str_replace('.', '_', $this->dbname);
                     }
-                    
+
                     if (empty($this->dbname)) {
                         $this->dbname = $dbname;
                     }
