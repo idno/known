@@ -56,7 +56,9 @@
                 if ($this->multitenant) {
                     $dbname       = $this->dbname;
                     $this->host   = str_replace('www.', '', $this->host);
+		    $this->sessionname = preg_replace('/[^\da-z\.]/i', '', $this->host);
                     $this->dbname = preg_replace('/[^\da-z\.]/i', '', $this->host);
+                    $this->dbname = str_replace('.', '_', $this->dbname);
                     if (empty($this->dbname)) {
                         $this->dbname = $dbname;
                     }
