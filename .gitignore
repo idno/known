@@ -15,4 +15,12 @@ Idno/.idea/.name
 /.DS_Store
 /*/.DS_Store
 
-config.ini
+*.ini
+*.json
+tests/_output/*
+
+IdnoPlugins/Facebook/
+IdnoPlugins/Flickr/
+IdnoPlugins/Foursquare/
+IdnoPlugins/SoundCloud/
+IdnoPlugins/Twitter/

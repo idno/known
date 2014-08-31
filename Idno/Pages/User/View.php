@@ -67,7 +67,14 @@
                 }
                 if (empty($user)) $this->forward(); // TODO: 404
                 if ($user->saveDataFromInput($this)) {
-                    \Idno\Core\site()->session()->addMessage($user->getTitle() . ' was saved.');
+                    if ($onboarding = $this->getInput('onboarding')) {
+                        $services = \Idno\Core\site()->syndication()->getServices();
+                        if (!empty($services) || !empty(\Idno\Core\site()->config->force_onboarding_connect)) {
+                            $this->forward(\Idno\Core\site()->config()->getURL() . 'begin/connect');
+                        } else {
+                            $this->forward(\Idno\Core\site()->config()->getURL() . 'begin/publish');
+                        }
+                    }
                     $this->forward($user->getURL());
                 }
                 $this->forward($_SERVER['HTTP_REFERER']);

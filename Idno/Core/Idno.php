@@ -9,6 +9,8 @@
 
     namespace Idno\Core {
 
+        use Idno\Entities\User;
+
         class Idno extends \Idno\Common\Component
         {
 
@@ -23,19 +25,34 @@
             public $pagehandlers;
             public $public_pages;
             public $syndication;
+            public $logging;
             public static $site;
             public $currentPage;
+            public $known_hub;
 
             function init()
             {
                 self::$site       = $this;
                 $this->dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
                 $this->config     = new Config();
+                if ($this->config->isDefaultConfig()) {
+                    // TODO: invoke installer
+                }
                 switch ($this->config->database) {
                     case 'mongodb':
                         $this->db = new DataConcierge();
                         break;
                     case 'mysql':
+                        $this->db = new \Idno\Data\MySQL();
+                        break;
+                    case 'beanstalk-mysql': // A special instance of MYSQL designed for use with Amazon Elastic Beanstalk
+                        $this->config->dbhost = $_SERVER['RDS_HOSTNAME'];
+                        $this->config->dbuser = $_SERVER['RDS_USERNAME'];
+                        $this->config->dbpass = $_SERVER['RDS_PASSWORD'];
+                        $this->config->dbport = $_SERVER['RDS_PORT'];
+                        if (empty($this->config->dbname)) {
+                            $this->config->dbname = $_SERVER['RDS_DB_NAME'];
+                        }
                         $this->db = new \Idno\Data\MySQL();
                         break;
                     default:
@@ -70,8 +87,28 @@
                 $this->actions     = new Actions();
                 $this->template    = new Template();
                 $this->syndication = new Syndication();
-                $this->themes      = new Themes();
+                $this->logging     = new Logging();
                 $this->plugins     = new Plugins(); // This must be loaded last
+                $this->themes      = new Themes();
+
+                // Connect to a Known hub if one is listed in the configuration file
+                // (and this isn't the hub!)
+                if (empty(site()->session()->hub_connect)) {
+                    site()->session()->hub_connect = 0;
+                }
+                if (
+                    !empty($this->config->known_hub) &&
+                    !substr_count($_SERVER['REQUEST_URI'], '.')
+                    && site()->session()->hub_connect < (time() - 10)
+                    && $this->config->known_hub != $this->config->url
+                ) {
+                    site()->session()->hub_connect = time();
+                    \Idno\Core\site()->logging->log('Connecting to ' . $this->config->known_hub);
+                    \Idno\Core\site()->known_hub = new \Idno\Core\Hub($this->config->known_hub);
+                    \Idno\Core\site()->known_hub->connect();
+                }
+
+                User::registerEvents();
             }
 
             /**
@@ -80,27 +117,54 @@
             function registerpages()
             {
 
+                /** Homepage */
+                $this->addPageHandler('', '\Idno\Pages\Homepage');
                 $this->addPageHandler('/', '\Idno\Pages\Homepage');
                 $this->addPageHandler('/content/([A-Za-z\-\/]+)+', '\Idno\Pages\Homepage');
+
+                /** Individual entities / posting / deletion */
                 $this->addPageHandler('/view/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\View');
-                $this->addPageHandler('/view/([A-Za-z0-9]+)/annotations/([A-Za-z0-9]+)?', '\Idno\Pages\Annotation\View');
                 $this->addPageHandler('/s/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Shortlink');
                 $this->addPageHandler('/[0-9]+/([A-Za-z0-9\-\_]+)/?', '\Idno\Pages\Entity\View');
-                $this->addPageHandler('/[0-9]+/([A-Za-z0-9\-\_]+)/annotations/([A-Za-z0-9]+)?', '\Idno\Pages\Annotation\View');
                 $this->addPageHandler('/edit/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Edit');
                 $this->addPageHandler('/delete/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Delete');
-                $this->addPageHandler('/share/?', '\Idno\Pages\Entity\Share');
-                $this->addPageHandler('/bookmarklet\.js', '\Idno\Pages\Entity\Bookmarklet', true);
+                $this->addPageHandler('/withdraw/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Withdraw');
+
+                /** Annotations */
+                $this->addPageHandler('/view/([A-Za-z0-9]+)/annotations/([A-Za-z0-9]+)?', '\Idno\Pages\Annotation\View');
+                $this->addPageHandler('/[0-9]+/([A-Za-z0-9\-\_]+)/annotations/([A-Za-z0-9]+)?', '\Idno\Pages\Annotation\View');
                 $this->addPageHandler('/[0-9]+/([A-Za-z0-9\-\_]+)/annotations/([A-Za-z0-9]+)/delete/?', '\Idno\Pages\Annotation\Delete'); // Delete annotation
                 $this->addPageHandler('/annotation/post/?', '\Idno\Pages\Annotation\Post');
+
+                /** Bookmarklets and sharing */
+                $this->addPageHandler('/share/?', '\Idno\Pages\Entity\Share');
+                $this->addPageHandler('/bookmarklet\.js', '\Idno\Pages\Entity\Bookmarklet', true);
+
+                /** Files */
+                $this->addPageHandler('/file/upload/?', '\Idno\Pages\File\Upload', true);
                 $this->addPageHandler('/file/([A-Za-z0-9]+)(/.*)?', '\Idno\Pages\File\View', true);
+
+                /** Users */
                 $this->addPageHandler('/profile/([^\/]+)/?', '\Idno\Pages\User\View');
                 $this->addPageHandler('/profile/([^\/]+)/edit/?', '\Idno\Pages\User\Edit');
-                $this->addPageHandler('/robots\.txt', '\Idno\Pages\Txt\Robots');
-                $this->addPageHandler('/humans\.txt', '\Idno\Pages\Txt\Humans');
-                $this->addPageHandler('/autosave/?', '\Idno\Pages\Entity\Autosave');
+
+                /** Search */
                 $this->addPageHandler('/search/?', '\Idno\Pages\Search\Forward');
                 $this->addPageHandler('/search/mentions\.json', '\Idno\Pages\Search\Mentions');
+
+                /** robots.txt / humans.txt */
+                $this->addPageHandler('/robots\.txt', '\Idno\Pages\Txt\Robots');
+                $this->addPageHandler('/humans\.txt', '\Idno\Pages\Txt\Humans');
+
+                /** Autosave / preview */
+                $this->addPageHandler('/autosave/?', '\Idno\Pages\Entity\Autosave');
+
+                /** Installation / first use */
+                $this->addPageHandler('/begin/?', '\Idno\Pages\Onboarding\Begin', true);
+                $this->addPageHandler('/begin/register/?', '\Idno\Pages\Onboarding\Register', true);
+                $this->addPageHandler('/begin/profile/?', '\Idno\Pages\Onboarding\Profile');
+                $this->addPageHandler('/begin/connect/?', '\Idno\Pages\Onboarding\Connect');
+                $this->addPageHandler('/begin/publish/?', '\Idno\Pages\Onboarding\Publish');
 
             }
 
@@ -134,17 +198,28 @@
             }
 
             /**
+             * Returns the current Known hub
+             * @return \Idno\Core\Hub
+             */
+            function &hub()
+            {
+                return $this->known_hub;
+            }
+
+            /**
              * Shortcut to trigger an event: supply the event name and
              * (optionally) an array of data, and get a variable back.
              *
              * @param string $eventName The name of the event to trigger
              * @param array $data Data to pass to the event
+             * @param mixed $default Default response (if not forwarding)
              * @return mixed
              */
 
-            function triggerEvent($eventName, $data = array())
+            function triggerEvent($eventName, $data = array(), $default = true)
             {
                 $event = new Event($data);
+                $event->setResponse($default);
                 $this->events()->dispatch($eventName, $event);
                 if (!$event->forward()) {
                     return $event->response();
@@ -269,6 +344,26 @@
             }
 
             /**
+             * Registers a page handler for a given pattern, using Toro
+             * page handling syntax - and ensures it will be handled first
+             *
+             * @param string $pattern The pattern to match
+             * @param callable $handler The handler callable that will serve the page
+             * @param bool $public If set to true, this page is always public, even on non-public sites
+             */
+            function hijackPageHandler($pattern, $handler, $public = false)
+            {
+                if (class_exists($handler)) {
+                    unset($this->pagehandlers[$pattern]);
+                    unset($this->public_pages[$pattern]);
+                    $this->pagehandlers = [$pattern => $handler] + $this->pagehandlers;
+                    if ($public == true) {
+                        $this->public_pages = [$pattern => $handler] + $this->public_pages;
+                    }
+                }
+            }
+
+            /**
              * Mark a page handler class as offering public content even on walled garden sites
              * @param $class
              */
@@ -384,7 +479,16 @@
              */
             function version()
             {
-                return '0.1-dev';
+                return '0.6-dev';
+            }
+
+            /**
+             * Alias for version()
+             * @return string
+             */
+            function getVersion()
+            {
+                return $this->version();
             }
 
             /**
@@ -410,7 +514,35 @@
 
                 if ($user = \Idno\Entities\User::getByUUID($user_id)) {
 
-                    // Remote users can't ever create anything :(
+                    if ($user->isAdmin()) {
+                        return true;
+                    }
+
+                }
+
+                return false;
+            }
+
+            /**
+             * Can a specified user (either an explicitly specified user ID
+             * or the currently logged-in user if this is left blank) publish
+             * to the site?
+             *
+             * @param string $user_id
+             * @return true|false
+             */
+
+            function canWrite($user_id = '')
+            {
+                if (!\Idno\Core\site()->session()->isLoggedOn()) return false;
+
+                if (empty($user_id)) {
+                    $user_id = \Idno\Core\site()->session()->currentUserUUID();
+                }
+
+                if ($user = \Idno\Entities\User::getByUUID($user_id)) {
+
+                    // Remote users can't ever create anything :( - for now
                     if ($user instanceof \Idno\Entities\RemoteUser)
                         return false;
 
@@ -439,6 +571,31 @@
             {
                 return true;
             }
+
+            /**
+             * Retrieve notices (eg notifications that a new version has been released) from Known HQ
+             * @return mixed
+             */
+            function getVendorMessages()
+            {
+
+                if (!empty(site()->config()->noping)) {
+                    return '';
+                }
+                $web_client = new Webservice();
+                $results    = $web_client->post('http://withknown.com/vendor-services/messages/', [
+                    'url'     => site()->config()->getURL(),
+                    'title'   => site()->config()->getTitle(),
+                    'version' => site()->getVersion(),
+                    'public'  => site()->config()->isPublicSite(),
+                    'hub'     => site()->config()->known_hub
+                ]);
+                if ($results['response'] == 200) {
+                    return $results['content'];
+                }
+
+            }
+
         }
 
         /**

@@ -29,6 +29,13 @@
                 parent::__construct();
                 $this->owner = false;
 
+            }
+
+            /**
+             * Register user-related events
+             */
+            static function registerEvents() {
+
                 // Hook to add user data to webfinger
                 \Idno\Core\site()->addEventHook('webfinger', function (\Idno\Core\Event $event) {
 
@@ -84,11 +91,13 @@
                             }
                             $vars['object'] = $event->data()['object'];
 
-                            $email = new Email();
-                            $email->setSubject($event->data()['message']);
-                            $email->setHTMLBodyFromTemplate($event->data()['message_template'], $vars);
-                            $email->addTo($user->email);
-                            $email->send();
+                            if (filter_var($user->email, FILTER_VALIDATE_EMAIL)) {
+                                $email = new Email();
+                                $email->setSubject($event->data()['message']);
+                                $email->setHTMLBodyFromTemplate($event->data()['message_template'], $vars);
+                                $email->addTo($user->email);
+                                $email->send();
+                            }
 
                         }
 
@@ -110,11 +119,14 @@
                 if (!empty($response) && $response !== true) {
                     return $response;
                 }
+                if (!empty($this->image)) {
+                    return $this->image;
+                }
                 if (!empty($this->icon)) {
                     return \Idno\Core\site()->config()->url . 'file/' . $this->icon;
                 }
 
-                return \Idno\Core\site()->config()->url . 'gfx/users/default.png';
+                return \Idno\Core\site()->template()->__(['user' => $this])->draw('entity/User/icon');
             }
 
             /**
@@ -141,6 +153,9 @@
              */
             function getURL()
             {
+                if (!empty($this->url)) {
+                    return $this->url;
+                }
                 return \Idno\Core\site()->config()->url . 'profile/' . $this->getHandle();
             }
 
@@ -643,9 +658,6 @@
                         }
                     }
                 }
-                if (empty($friendly_types)) {
-                    $friendly_types = ContentType::getRegisteredClasses();
-                }
 
                 return $friendly_types;
             }
@@ -682,7 +694,11 @@
             {
 
                 if (!$this->canEdit()) return false;
+
                 $this->profile = \Idno\Core\site()->currentPage()->getInput('profile');
+                if ($name = \Idno\Core\site()->currentPage()->getInput('name')) {
+                    $this->setName($name);
+                }
                 if (!empty($_FILES['avatar'])) {
                     if (in_array($_FILES['avatar']['type'], array('image/png', 'image/jpg', 'image/jpeg', 'image/gif'))) {
                         if (getimagesize($_FILES['avatar']['tmp_name'])) {

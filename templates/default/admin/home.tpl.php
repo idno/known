@@ -1,14 +1,16 @@
 <div class="row">
 
     <div class="span10 offset1">
-        <h1>Administration</h1>
+        <h1>
+            Configure Your Site
+        </h1>
         <?=$this->draw('admin/menu')?>
         <div class="explanation">
             <p>
                 This screen allows you to change basic settings about your site,
                 like its name and the number of items of content on each page.
                 To add new kinds of content, and new functionality, click
-                <a href="<?=\Idno\Core\site()->config()->url?>admin/plugins/">Plugins</a>.
+                <a href="<?=\Idno\Core\site()->config()->url?>admin/plugins/">Site Features</a>.
             </p>
         </div>
     </div>
@@ -24,7 +26,7 @@
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="description">Site description<br /><small>A short description of what your site is about.</small></label>
+                <label class="control-label" for="description">Site description<br /><small>A short description of what your site is about. This is sometimes used by search engines.</small></label>
                 <div class="controls">
                     <input type="text" id="name" placeholder="Site description" class="span4" name="description" value="<?=htmlspecialchars(\Idno\Core\site()->config()->description)?>" >
                 </div>

@@ -40,30 +40,4 @@
         </div>
     </div>
 </div>
-<?php
-
-    if (empty($vars['items']) && sizeof($vars['contentTypes']) <= 1 &&
-        \Idno\Core\site()->session()->isLoggedIn() &&
-        \Idno\Core\site()->session()->currentUser()->isAdmin()) {
-
-        ?>
-        <div class="row" style="margin-top: 5em">
-            <div class="span6 offset3">
-                <div class="welcome">
-                    <p>
-                        <a href="http://withknown.com/" target="_blank"><img src="http://withknown.com/img/logo_k.png" style="width: 4em; border: 0"></a>
-                    </p>
-                    <p>
-                        Welcome to your Known site!<br />
-                        <a href="<?=\Idno\Core\site()->config()->url?>admin/">Click here to start configuring your site</a>.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-<?php
-
-    }
-
-?>
 <a name="feed"></a>

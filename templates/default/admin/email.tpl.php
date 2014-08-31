@@ -9,9 +9,6 @@
                 something else - for example, if you'd like to send email using an external provider - enter the
                 new SMTP settings below.
             </p>
-            <p>
-                Plugins may provide more email functionality.
-            </p>
         </div>
     </div>
     <div class="span10 offset1">

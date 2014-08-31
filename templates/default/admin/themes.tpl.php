@@ -5,8 +5,7 @@
         <?=$this->draw('admin/menu')?>
         <div class="explanation">
             <p>
-                Themes allow you to change the way your site looks. You can always get more themes from
-                <a href="http://withknown.com" target="_blank">the Known website</a>.
+                Themes allow you to change the way your site looks.
             </p>
             <p>
                 The following themes are installed. Click on one to enable it:

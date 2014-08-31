@@ -21,6 +21,14 @@
 
             function getURL()
             {
+                // If we have a URL override, use it
+                if (!empty($this->url)) {
+                    return $this->url;
+                }
+
+                if (!empty($this->canonical)) {
+                    return $this->canonical;
+                }
                 if (($this->getID())) {
                     return \Idno\Core\site()->config()->url . 'comic/' . $this->getID() . '/' . $this->getPrettyURLTitle();
                 } else {
@@ -50,6 +58,13 @@
                     $this->body        = $body;
                     $this->title       = \Idno\Core\site()->currentPage()->getInput('title');
                     $this->description = \Idno\Core\site()->currentPage()->getInput('description');
+
+                    if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
+                        if ($time = strtotime($time)) {
+                            $this->created = $time;
+                        }
+                    }
+
                     if (!empty($_FILES['comic']['tmp_name'])) {
                         if (\Idno\Entities\File::isImage($_FILES['comic']['tmp_name'])) {
                             if ($size = getimagesize($_FILES['comic']['tmp_name'])) {

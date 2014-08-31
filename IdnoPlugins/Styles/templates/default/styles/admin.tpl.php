@@ -13,7 +13,7 @@
         </div>
     </div>
 </div>
-<form action="/admin/styles/" method="post" enctype="multipart/form-data">
+<form action="<?=\Idno\Core\site()->config()->getURL()?>admin/styles/" method="post" enctype="multipart/form-data">
     <div class="row">
         <div class="span10 offset1">
             Your changes to Known's core CSS (<a href="<?= \Idno\Core\site()->config()->url ?>styles/site/">download
@@ -37,7 +37,7 @@
         <div class="span10 offset1">
             <p>
                 <input type="submit" class="btn btn-primary" value="Save"/>
-                <?= \Idno\Core\site()->actions()->signForm('/admin/styles/') ?>
+                <?= \Idno\Core\site()->actions()->signForm(\Idno\Core\site()->config()->getURL() . 'admin/styles/') ?>
             </p>
         </div>
     </div>

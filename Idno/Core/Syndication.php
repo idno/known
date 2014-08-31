@@ -76,10 +76,20 @@
              * @param $content_type
              * @return array
              */
-            function getServices($content_type)
+            function getServices($content_type = false)
             {
-                if (!empty($this->services[$content_type])) {
-                    return $this->services[$content_type];
+                if (!empty($content_type)) {
+                    if (!empty($this->services[$content_type])) {
+                        return $this->services[$content_type];
+                    }
+                } else {
+                    $return = [];
+                    if (!empty($this->services)) {
+                        foreach($this->services as $service) {
+                            $return = array_merge($return, $service);
+                        }
+                    }
+                    return array_unique($return);
                 }
 
                 return [];

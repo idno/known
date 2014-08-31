@@ -26,8 +26,21 @@
                 $this->adminGatekeeper(); // Admins only
                 $theme  = $this->getInput('theme');
                 $action = $this->getInput('action');
+                if (defined('KNOWN_MULTITENANT_HOST')) {
+                    $host = KNOWN_MULTITENANT_HOST;
+                }
                 if (
-                    (preg_match('/^[a-zA-Z0-9]+$/', $theme) && file_exists(\Idno\Core\site()->config()->path . '/Themes/' . $theme))
+                    (
+                        preg_match('/^[a-zA-Z0-9]+$/', $theme) &&
+                        (
+                            file_exists(\Idno\Core\site()->config()->path . '/Themes/' . $theme) ||
+                            (
+                                !empty($host) && (
+                                    file_exists(\Idno\Core\site()->config()->path . '/hosts/' . $host . '/Themes/' . $theme)
+                                )
+                            )
+                        )
+                    )
                     || $theme == ''
                 ) {
                     switch ($action) {
@@ -41,7 +54,7 @@
                     }
                     \Idno\Core\site()->config()->save();
                 }
-                $this->forward('/admin/themes/');
+                $this->forward(\Idno\Core\site()->config()->getURL() . 'admin/themes/');
             }
 
         }

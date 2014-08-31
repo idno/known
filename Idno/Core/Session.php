@@ -48,6 +48,14 @@
             }
 
             /**
+             * Kill the session.
+             */
+            function finishEarly()
+            {
+                session_write_close();
+            }
+
+            /**
              * Get the UUID of the currently logged-in user, or false if
              * we're logged out
              *
@@ -112,6 +120,19 @@
                     $_SESSION['messages'] = [];
                 }
                 $_SESSION['messages'][] = array('message' => $message, 'message_type' => $message_type);
+            }
+
+            /**
+             * Adds a message to the queue to be delivered to the user as soon as is possible, ensuring it's at the beginning of the list
+             * @param string $message The text of the message
+             * @param string $message_type This type of message; this will be added to the displayed message class, or returned as data
+             */
+
+            function addMessageAtStart($message, $message_type = 'alert-info') {
+                if (empty($_SESSION['messages'])) {
+                    $_SESSION['messages'] = [];
+                }
+                array_unshift($_SESSION['messages'], array('message' => $message, 'message_type' => $message_type));
             }
 
             /**
@@ -259,10 +280,10 @@
             function APIlogin()
             {
 
-                if (!empty($_SERVER['HTTP_X_IDNO_USERNAME']) && !empty($_SERVER['HTTP_X_IDNO_SIGNATURE'])) {
-                    if ($user = \Idno\Entities\User::getByHandle($_SERVER['HTTP_X_IDNO_USERNAME'])) {
+                if (!empty($_SERVER['HTTP_X_KNOWN_USERNAME']) && !empty($_SERVER['HTTP_X_KNOWN_SIGNATURE'])) {
+                    if ($user = \Idno\Entities\User::getByHandle($_SERVER['HTTP_X_KNOWN_USERNAME'])) {
                         $key          = $user->getAPIkey();
-                        $hmac         = trim($_SERVER['HTTP_X_IDNO_SIGNATURE']);
+                        $hmac         = trim($_SERVER['HTTP_X_KNOWN_SIGNATURE']);
                         $compare_hmac = base64_encode(hash_hmac('sha256', $_SERVER['REQUEST_URI'], $key, true));
                         if ($hmac == $compare_hmac) {
                             \Idno\Core\site()->session()->logUserOn($user);
@@ -285,11 +306,11 @@
 
             function logUserOn(\Idno\Entities\User $user)
             {
-                if (empty($user->notifications)) {
-                    $user->notifications['email'] = 'all'; // By default, send notifications to users
-                }
+                $return = $this->refreshSessionUser($user);
 
-                return $this->refreshSessionUser($user);
+                \Idno\Core\site()->triggerEvent('user/auth', ['user' => $user]);
+
+                return $return;
             }
 
             /**
@@ -300,11 +321,7 @@
             function refreshSessionUser(\Idno\Entities\User $user)
             {
                 if ($user = User::getByUUID($user->getUUID())) {
-                    /* @var \Idno\Common\User $user */
-                    $user->clearPasswordRecoveryCode();
-                    $user->save();
                     $_SESSION['user'] = $user;
-
                     return $user;
                 }
 

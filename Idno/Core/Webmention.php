@@ -31,7 +31,15 @@
             {
                 // Load webmention-client
                 require_once \Idno\Core\site()->config()->path . '/external/mention-client-php/src/IndieWeb/MentionClient.php';
-                $client = new \IndieWeb\MentionClient($pageURL, $text);
+                
+                
+                // Proxy connection string provided
+                $proxystring = false;
+                if (!empty(\Idno\Core\site()->config()->proxy_string)) {
+                    $proxystring = \Idno\Core\site()->config()->proxy_string;
+                }
+                
+                $client = new \IndieWeb\MentionClient($pageURL, $text, $proxystring);
 
                 return $client->sendSupportedMentions();
             }
@@ -47,7 +55,7 @@
                 $parser = new \Mf2\Parser($content, $url);
                 try {
                     $return = $parser->parse();
-                } catch (Exception $e) {
+                } catch (\Exception $e) {
                     $return = false;
                 }
 
@@ -68,6 +76,8 @@
                 }
                 if ($content = \Idno\Core\Webservice::get($url)) {
                     if ($mf2 = self::parseContent($content['content'], $url)) {
+                        $mf2 = (array) $mf2;
+                        $mf2['rels'] = (array) $mf2['rels'];
                         if (!empty($mf2['rels']['syndication'])) {
                             if (is_array($mf2['rels']['syndication'])) {
                                 foreach ($mf2['rels']['syndication'] as $syndication) {

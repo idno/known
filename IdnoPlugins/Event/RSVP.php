@@ -21,6 +21,14 @@
             }
 
             function getURL() {
+                // If we have a URL override, use it
+                if (!empty($this->url)) {
+                    return $this->url;
+                }
+
+                if (!empty($this->canonical)) {
+                    return $this->canonical;
+                }
                 if (!($this->getSlug()) && ($this->getID())) {
                     return \Idno\Core\site()->config()->url . 'rsvp/' . $this->getID() . '/';
                 } else {

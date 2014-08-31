@@ -15,8 +15,11 @@
             function getContent()
             {
                 $this->adminGatekeeper(); // Admins only
+                if ($messages = \Idno\Core\site()->getVendorMessages()) {
+                    \Idno\Core\site()->session()->addMessage($messages);
+                }
                 $t        = \Idno\Core\site()->template();
-                $t->body  = $t->draw('admin/home');
+                $t->body  = $t->__(['vendor_messages' => $messages])->draw('admin/home');
                 $t->title = 'Administration';
                 $t->drawPage();
 
@@ -29,7 +32,9 @@
                 $description          = $this->getInput('description');
                 $url                  = rtrim($this->getInput('url'), ' /') . '/';
                 $path                 = dirname(dirname(dirname(dirname(__FILE__)))); // Path is more safely derived from install location
-                $host                 = parse_url($this->url, PHP_URL_HOST); // Host can be safely derived from URL
+                if (!empty($url)) {
+                    $host                 = parse_url($url, PHP_URL_HOST); // Host can be safely derived from URL
+                }
                 $hub                  = $this->getInput('hub'); // PuSH hub
                 $open_registration    = $this->getInput('open_registration');
                 $walled_garden        = $this->getInput('walled_garden'); // Private site?
@@ -75,7 +80,7 @@
                 \Idno\Core\site()->config->config['indieweb_reference']   = $indieweb_reference;
                 \Idno\Core\site()->config->config['user_avatar_favicons'] = $user_avatar_favicons;
                 \Idno\Core\site()->config()->save();
-                $this->forward('/admin/');
+                $this->forward(\Idno\Core\site()->config()->getURL() . 'admin/');
             }
 
         }

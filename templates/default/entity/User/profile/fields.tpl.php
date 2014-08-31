@@ -13,6 +13,8 @@
                         $url = 'https://twitter.com/' . $url;
                     }
                 }
+
+                $url = $this->fixURL($url);
                 
                 // Pick appropriate icon
                 $host = parse_url($url, PHP_URL_HOST);

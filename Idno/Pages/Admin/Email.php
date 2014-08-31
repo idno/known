@@ -35,7 +35,7 @@
                 }
 
                 \Idno\Core\site()->config()->save();
-                $this->forward('/admin/email');
+                $this->forward(\Idno\Core\site()->config()->getURL() . 'admin/email');
             }
 
         }

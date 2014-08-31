@@ -16,16 +16,18 @@
              * Send a web services request to a specified endpoint
              * @param string $verb The verb to send the request with; one of POST, GET, DELETE, PUT
              * @param string $endpoint The URI to send the request to
-             * @param array $params Optionally, an array of parameters to send (keys are the parameter names)
+             * @param mixed $params Optionally, an array of parameters to send (keys are the parameter names), or the raw body text (depending on Content-Type)
              * @param array $headers Optionally, an array of headers to send with the request (keys are the header names)
              * @return array
              */
-            static function send($verb, $endpoint, array $params = null, array $headers = null)
+            static function send($verb, $endpoint, $params = null, array $headers = null)
             {
                 $req = "";
-                if ($params) {
+                if ($params && is_array($params)) {
                     $req = http_build_query($params);
                 }
+                if ($params && !is_array($params))
+                    $req = $params;
 
                 $curl_handle = curl_init();
 
@@ -33,6 +35,7 @@
                     case 'post':
                         curl_setopt($curl_handle, CURLOPT_POST, 1);
                         curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $req);
+                        $headers[] = 'Expect:';
                         break;
                     case 'delete':
                         curl_setopt($curl_handle, CURLOPT_CUSTOMREQUEST, 'DELETE'); // Override request type
@@ -62,6 +65,11 @@
                 curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
                 curl_setopt($curl_handle, CURLOPT_SSL_VERIFYPEER, 1);
                 curl_setopt($curl_handle, CURLOPT_SSL_VERIFYHOST, 2);
+                
+                // Proxy connection string provided
+                if (!empty(\Idno\Core\site()->config()->proxy_string)) {
+                    curl_setopt($curl_handle, CURLOPT_PROXY, \Idno\Core\site()->config()->proxy_string);
+                }
 
                 // Allow plugins and other services to extend headers, allowing for plugable authentication methods on calls
                 $new_headers = \Idno\Core\site()->triggerEvent('webservice:headers', ['headers' => $headers, 'verb' => $verb]);
@@ -78,7 +86,7 @@
                 $http_status = curl_getinfo($curl_handle, CURLINFO_HTTP_CODE);
 
                 if ($error = curl_error($curl_handle)) {
-                    error_log($error);
+                    \Idno\Core\site()->logging->log($error, LOGLEVEL_ERROR);
                 }
 
                 curl_close($curl_handle);
@@ -101,11 +109,11 @@
             /**
              * Send a web services POST request to a specified URI endpoint
              * @param string $endpoint The URI to send the POST request to
-             * @param array $params Optionally, an array of parameters to send (keys are the parameter names)
+             * @param mixed $params Optionally, an array of parameters to send (keys are the parameter names), or the raw body text (depending on Content-Type)
              * @param array $headers Optionally, an array of headers to send with the request (keys are the header names)
              * @return array
              */
-            static function post($endpoint, array $params = null, array $headers = null)
+            static function post($endpoint, $params = null, array $headers = null)
             {
                 return self::send('post', $endpoint, $params, $headers);
             }
@@ -113,11 +121,11 @@
             /**
              * Send a web services PUT request to a specified URI endpoint
              * @param string $endpoint The URI to send the PUT request to
-             * @param array $params Optionally, an array of parameters to send (keys are the parameter names)
+             * @param mixed $params Optionally, an array of parameters to send (keys are the parameter names), or the raw body text (depending on Content-Type)
              * @param array $headers Optionally, an array of headers to send with the request (keys are the header names)
              * @return array
              */
-            static function put($endpoint, array $params = null, array $headers = null)
+            static function put($endpoint, $params = null, array $headers = null)
             {
                 return self::send('put', $endpoint, $params, $headers);
             }

@@ -9,6 +9,8 @@
 
     namespace Idno\Core {
 
+        use Idno\Entities\User;
+
         class Template extends \Bonita\Templates
         {
 
@@ -77,7 +79,7 @@
              */
             function drawSyndication($content_type)
             {
-                return $this->__(['services' => \Idno\Core\site()->syndication()->getServices($content_type)])->draw('content/syndication');
+                return $this->__(['services' => \Idno\Core\site()->syndication()->getServices($content_type), 'content_type' => $content_type])->draw('content/syndication');
             }
 
             /**
@@ -108,13 +110,18 @@
              *
              * @param string $templateName
              * @param string $extensionTemplateName
+             * @param bool $to_front If set, this will add the template to the beginning of the template queue
              */
-            function extendTemplate($templateName, $extensionTemplateName)
+            function extendTemplate($templateName, $extensionTemplateName, $to_front = false)
             {
                 if (empty($this->extensions[$templateName])) {
                     $this->extensions[$templateName] = [];
                 }
-                $this->extensions[$templateName][] = $extensionTemplateName;
+                if ($to_front) {
+                    array_unshift($this->extensions[$templateName], $extensionTemplateName);
+                } else {
+                    $this->extensions[$templateName][] = $extensionTemplateName;
+                }
             }
 
             /**
@@ -181,12 +188,33 @@
             function parseHashtags($text)
             {
                 $r = preg_replace_callback('/(?<!=)(?<!["\'])(\#[A-Za-z0-9]+)/i', function ($matches) {
-                    $url = $matches[1];
+                    $url = ($matches[1]);
 
-                    return '<a href="' . \Idno\Core\site()->config()->url . '?q=' . urlencode($matches[1]) . '" class="p-category">' . $url . '</a>';
+                    return '<a href="' . \Idno\Core\site()->config()->url . 'content/all/?q=' . urlencode($matches[1]) . '" class="p-category">' . $url . '</a>';
                 }, $text);
 
                 return $r;
+            }
+
+            /**
+             * Given a URL, fixes it to have a prefix if it needs one
+             * @param $url
+             * @return string
+             */
+            function fixURL($url)
+            {
+                return (
+                    substr($url, 0, 7) == 'http://' ||
+                    substr($url, 0, 8) == 'https://' ||
+                    substr($url, 0, 1) == '@' ||
+                    substr($url, 0, 7) == 'mailto:' ||
+                    substr($url, 0, 4) == 'tel:' ||
+                    substr($url, 0, 4) == 'sms:' ||
+                    substr($url, 0, 6) == 'skype:' ||
+                    substr($url, 0, 5) == 'xmpp:'
+                )
+                    ? $url
+                    : 'http://' . $url;
             }
 
             /**
@@ -209,23 +237,17 @@
                         if (is_array($in_reply_to))
                             $in_reply_to = $in_reply_to[0];
 
-                        // Find and replace twitter
-                        if (strpos($in_reply_to, 'twitter.com') !== false) {
-                            $r = preg_replace_callback('/(?<!=)(?<!["\'])(\@[A-Za-z0-9\_]+)/i', function ($matches) {
-                                $url = $matches[1];
+                        $r = preg_replace_callback('/(?<!=)(?<!["\'])(\@[A-Za-z0-9\_]+)/i', function ($matches) use ($in_reply_to) {
+                            $url = $matches[1];
 
-                                return '<a href="https://twitter.com/' . urlencode(ltrim($matches[1], '@')) . '" class="p-nickname u-url">' . $url . '</a>';
-                            }, $text);
-                        }
+                            // Find and replace twitter
+                            if (strpos($in_reply_to, 'twitter.com') !== false) {
+                                return '<a href="https://twitter.com/' . urlencode(ltrim($matches[1], '@')) . '" >' . $url . '</a>';
+                            } else {
+                                return $url;
+                            }
+                        }, $text);
 
-                        // Is this a local user?
-                        if (\Idno\Common\Entity::isLocalUUID($in_reply_to)) {
-                            $r = preg_replace_callback('/(?<!=)(?<!["\'])(\@[A-Za-z0-9\_]+)/i', function ($matches) {
-                                $url = $matches[1];
-
-                                return '<a href="' . \Idno\Core\site()->config()->url . 'profile/' . urlencode(ltrim($matches[1], '@')) . '" class="p-nickname u-url">' . $url . '</a>';
-                            }, $text);
-                        }
                     }
 
                 } else {
@@ -233,7 +255,14 @@
                     $r = preg_replace_callback('/(?<!=)(?<!["\'])(\@[A-Za-z0-9\_]+)/i', function ($matches) {
                         $url = $matches[1];
 
-                        return '<a href="' . \Idno\Core\site()->config()->url . 'profile/' . urlencode(ltrim($matches[1], '@')) . '" class="p-nickname u-url">' . $url . '</a>';
+                        $username = ltrim($matches[1], '@');
+
+                        if ($user = User::getByHandle($username)) {
+                            return '<a href="' . \Idno\Core\site()->config()->url . 'profile/' . urlencode($username) . '" >' . $url . '</a>';
+                        } else {
+                            return $url;
+                        }
+
                     }, $text);
                 }
 

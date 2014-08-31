@@ -1,10 +1,15 @@
 <IfModule mod_rewrite.c>
     RewriteEngine on
+    RewriteRule ^(\.well\-known.*)$ /index.php/$1 [L]
     RewriteRule ^\..* - [F]
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond $1 !^(index\.php)
     RewriteRule ^(.*)$ /index.php/$1 [L]
+</IfModule>
+<IfModule mod_php5.c>
+    php_value upload_max_filesize 1000M
+    php_value post_max_size 1080M
 </IfModule>
 <Files  ~ "\.ini$">
   Order allow,deny
@@ -14,9 +19,6 @@
   Order allow,deny
   Deny from all
 </Files>
-
-php_value upload_max_filesize 1000M
-php_value post_max_size 1080M
 
 AddType video/ogg .ogv
 AddType video/mp4 .mp4

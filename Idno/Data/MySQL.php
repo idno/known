@@ -1,12 +1,7 @@
 <?php
 
     /**
-     * Known Data handling for MySQL.
-     *
-     * THIS IS A WORK IN PROGRESS AND SHOULD NOT (CANNOT!) BE USED IN PRODUCTION
-     *
-     * Once this is complete, you will be able to set \Idno\Core\Idno->$db to an
-     * instance of this class to use MySQL.
+     * MySQL back-end for Known data.
      *
      * @package idno
      * @subpackage data
@@ -24,12 +19,26 @@
             {
 
                 try {
-                    $this->client = new \PDO('mysql:host=' . \Idno\Core\site()->config()->dbhost . ';dbname=' . \Idno\Core\site()->config()->dbname . ';charset=utf8', \Idno\Core\site()->config()->dbuser, \Idno\Core\site()->config()->dbpass);
+                    $connection_string = 'mysql:host=' . \Idno\Core\site()->config()->dbhost . ';dbname=' . \Idno\Core\site()->config()->dbname . ';charset=utf8';
+                    if (!empty(\Idno\Core\site()->config()->dbport)) {
+                        $connection_string .= ';port=' . \Idno\Core\site()->config()->dbport;
+                    }
+                    $this->client = new \PDO($connection_string, \Idno\Core\site()->config()->dbuser, \Idno\Core\site()->config()->dbpass);
                     $this->client->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
                     //$this->client->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
                 } catch (\Exception $e) {
-                    echo '<p>Unfortunately we couldn\'t connect to the database:</p><p>' . $e->getMessage() . '</p>';
-                    exit;
+                    if (!empty(\Idno\Core\site()->config()->forward_on_empty)) {
+                        header('Location: ' . \Idno\Core\site()->config()->forward_on_empty);
+                        exit;
+                    } else {
+                        //echo '<p>Unfortunately we couldn\'t connect to the database.</p>';
+                        if (\Idno\Core\site()->config()->debug) {
+                            $message = '<p>' . $e->getMessage() . '</p>';
+                            $message .= '<p>'.$connection_string.'</p>';
+                        }
+                        include \Idno\Core\site()->config()->path . '/statics/db.php';
+                        exit;
+                    }
                 }
 
                 $this->database = \Idno\Core\site()->config()->dbname;
@@ -133,6 +142,9 @@
                 if (!empty($array['title'])) {
                     $search .= $array['title'] . ' ';
                 }
+                if (!empty($array['tags'])) {
+                    $search .= $array['tags'] . ' ';
+                }
                 if (!empty($array['description'])) {
                     $search .= $array['description'] . ' ';
                 }
@@ -156,15 +168,20 @@
                         if ($statement = $client->prepare("delete from metadata where _id = :id")) {
                             $statement->execute([':id' => $array['_id']]);
                         }
-                        foreach ($array as $key => $value) {
-                            if (is_array($value) || is_object($value)) {
-                                $value = json_encode($value);
+                        foreach ($array as $key => $val) {
+                            if (!is_array($val)) {
+                                $val = [$val];
                             }
-                            if (empty($value)) {
-                                $value = 0;
-                            }
-                            if ($statement = $client->prepare("insert into metadata set `collection` = :collection, `entity` = :uuid, `_id` = :id, `name` = :name, `value` = :value")) {
-                                $statement->execute(['collection' => $collection, ':uuid' => $array['uuid'], ':id' => $array['_id'], ':name' => $key, ':value' => $value]);
+                            foreach($val as $value) {
+                                if (is_array($value) || is_object($value)) {
+                                    $value = json_encode($value);
+                                }
+                                if (empty($value)) {
+                                    $value = 0;
+                                }
+                                if ($statement = $client->prepare("insert into metadata set `collection` = :collection, `entity` = :uuid, `_id` = :id, `name` = :name, `value` = :value")) {
+                                    $statement->execute(['collection' => $collection, ':uuid' => $array['uuid'], ':id' => $array['_id'], ':name' => $key, ':value' => $value]);
+                                }
                             }
                         }
 

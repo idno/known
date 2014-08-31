@@ -24,6 +24,9 @@
                         }
                     }
                 }
+                if (empty($links)) {
+                    $links = [];
+                }
                 $t = \Idno\Core\site()->template();
                 $t->setTemplateType('json');
                 $t->__(array(

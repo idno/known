@@ -16,7 +16,7 @@
                     <p>
                         <a href="<?= $owner->getURL() ?>" class="u-url icon-container"><img class="u-photo"
                                                                                             src="<?= $owner->getIcon() ?>"/></a><br/>
-                        <a href="<?= $owner->getURL() ?>" class="p-name u-url"><?= $owner->getTitle(); ?></a>
+                        <a href="<?= $owner->getURL() ?>" class="p-name u-url fn"><?= $owner->getTitle(); ?></a>
                     </p>
                 </div>
                 <div

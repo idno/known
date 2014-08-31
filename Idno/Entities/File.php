@@ -164,20 +164,26 @@
                             $image_copy = imagecreatetruecolor($width, $height);
                             imagecopyresampled($image_copy, $image, 0, 0, 0, 0, $width, $height, $photo_information[0], $photo_information[1]);
 
-                            if (is_callable('exif_read_data') && (!$exif)) {
-                                $exif = exif_read_data($file_path);
-                            }
-                            if (!empty($exif['Orientation'])) {
-                                switch ($exif['Orientation']) {
-                                    case 8:
-                                        $image_copy = imagerotate($image_copy, 90, 0);
-                                        break;
-                                    case 3:
-                                        $image_copy = imagerotate($image_copy, 180, 0);
-                                        break;
-                                    case 6:
-                                        $image_copy = imagerotate($image_copy, -90, 0);
-                                        break;
+
+                            if (is_callable('exif_read_data') && $photo_information['mime'] == 'image/jpeg') {
+                                try {
+                                    if (!$exif)
+                                        $exif = exif_read_data($file_path);
+                                    if (!empty($exif['Orientation'])) {
+                                        switch ($exif['Orientation']) {
+                                            case 8:
+                                                $image_copy = imagerotate($image_copy, 90, 0);
+                                                break;
+                                            case 3:
+                                                $image_copy = imagerotate($image_copy, 180, 0);
+                                                break;
+                                            case 6:
+                                                $image_copy = imagerotate($image_copy, -90, 0);
+                                                break;
+                                        }
+                                    }
+                                } catch (\Exception $e) {
+                                    // Don't do anything
                                 }
                             }
                             
@@ -234,7 +240,11 @@
             static function getByID($id)
             {
                 if ($fs = \Idno\Core\site()->filesystem()) {
-                    return $fs->findOne(array('_id' => \Idno\Core\site()->db()->processID($id)));
+                    try {
+                        return $fs->findOne(array('_id' => \Idno\Core\site()->db()->processID($id)));
+                    } catch (\Exception $e) {
+                        \Idno\Core\site()->logging->log($e->getMessage(), LOGLEVEL_ERROR);
+                    }
                 }
 
                 return false;
@@ -248,7 +258,48 @@
             static function getFileDataByID($id)
             {
                 if ($file = self::getByID($id)) {
-                    return $file->getBytes();
+                    try {
+                        return $file->getBytes();
+                    } catch (\Exception $e) {
+                        \Idno\Core\site()->logging->log($e->getMessage(), LOGLEVEL_ERROR);
+                    }
+                }
+
+                return false;
+            }
+
+            /**
+             * Retrieve file data from an attachment (first trying load from local storage, then from URL)
+             * @param $attachment
+             * @return bool|mixed|string
+             */
+            static function getFileDataFromAttachment($attachment) {
+                \Idno\Core\site()->logging->log(json_encode($attachment), LOGLEVEL_DEBUG);
+                if (!empty($attachment['_id'])) {
+                    \Idno\Core\site()->logging->log("Checking attachment ID", LOGLEVEL_DEBUG);
+                    if ($bytes = self::getFileDataByID((string)$attachment['_id'])) {
+                        \Idno\Core\site()->logging->log("Retrieved some bytes", LOGLEVEL_DEBUG);
+                        if (strlen($bytes)) {
+                            \Idno\Core\site()->logging->log("Bytes! " . $bytes, LOGLEVEL_DEBUG);
+                            return $bytes;
+                        } else {
+                            \Idno\Core\site()->logging->log("Sadly no bytes", LOGLEVEL_DEBUG);
+                        }
+                    } else {
+                        \Idno\Core\site()->logging->log("No bytes retrieved", LOGLEVEL_DEBUG);
+                    }
+                } else {
+                    \Idno\Core\site()->logging->log("Empty attachment _id", LOGLEVEL_DEBUG);
+                }
+                if (!empty($attachment['url'])) {
+                    if ($bytes = file_get_contents($attachment['url'])) {
+                        \Idno\Core\site()->logging->log("Returning bytes", LOGLEVEL_DEBUG);
+                        return $bytes;
+                    } else {
+                        \Idno\Core\site()->logging->log("Couldn't get bytes from " . $attachment['url'], LOGLEVEL_DEBUG);
+                    }
+                } else {
+                    \Idno\Core\site()->logging->log('Attachment url was empty ' . $attachment['url'], LOGLEVEL_DEBUG);
                 }
 
                 return false;

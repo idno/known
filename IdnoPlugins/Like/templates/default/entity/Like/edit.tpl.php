@@ -3,10 +3,18 @@
 
         <div class="row">
 
-            <div class="span8 offset2">
-                <h5>
-                    New Bookmark
-                </h5>
+            <div class="span8 offset2 edit-pane">
+                <h4>
+                                    <?php
+
+                    if (empty($vars['object']->_id)) {
+                        ?>New Bookmark<?php
+                    } else {
+                        ?>Edit Bookmark<?php
+                    }
+
+                ?>
+                </h4>
 
                 <p>
                     <label>
@@ -23,7 +31,7 @@
 
                     </label>
 
-                    <textarea required name="description" id="description" class="span8"
+                    <textarea name="description" id="description" class="span8"
                               placeholder="This page is great because..."><?= htmlspecialchars($vars['object']->description); ?></textarea>
                     <label>
                         Tags<br/>

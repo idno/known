@@ -1,4 +1,4 @@
-<div class="h-entry">
+<div class="h-entry result-404">
     <div class="row" style="margin-bottom: 2em; margin-top: 4em">
 
         <div class="offset1 span10">

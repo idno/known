@@ -3,18 +3,22 @@
 */
 
 body {
-    background-color: #eee;
+    background-color: #ffffff;
     color: #333;
-    font-weight: 300 !important;
+    font-weight: 400 !important;
 }
 
 h1,h2 {
-    font-weight: 200;
+    font-weight: 600;
 }
 
 h2 {
-    line-height: 1.6em;
-    margin-bottom: 1.6em !important;
+    line-height: 1.2em;
+	margin-bottom: 10px !important; 
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 600;
 }
 
 .beforecontent {
@@ -30,6 +34,17 @@ h2 {
 
 .idno-content p {
     line-height: 1.5em !important;
+}
+
+.e-content p {
+	font-family: Georgia,"Times New Roman",Times,serif;
+	font-size: 1.2em;
+}
+
+.idno-object .e-content li {
+	font-family: Georgia,"Times New Roman",Times,serif;
+	font-size: 1.2em;
+	line-height: 1.4em;
 }
 
 .idno-content form {
@@ -70,6 +85,7 @@ h2 {
     display: inline-block;
 }
 
+
 /**
     Activity streams
 */
@@ -77,13 +93,29 @@ h2 {
 .idno-object {
     margin-top: 1em;
     display: block;
-    box-shadow: 0 3px 2px -2px #ccc;
+    box-shadow: none;
 }
 
 .idno-object h2 {
-    font-size: 1em;
+    font-size: 1.8em;
     margin: 0;
     padding: 0;
+    font-family: "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
+}
+
+.idno-object h1 a, .idno-object h2 a, .idno-object h3 a {
+	color: #333333;
+}
+
+.idno-object h1 a:hover, .idno-object h1 a:focus, 
+.idno-object h2 a:hover, .idno-object h2 a:focus, 
+.idno-object h3 a:hover, .idno-object h3 a:focus {
+	color: #999999;
+}
+
+.idno-object a {
+	color:#4c93cb;
+
 }
 
 .idno-entry .h-card {
@@ -143,7 +175,7 @@ h2 {
 .idno-object .e-content {
     overflow: auto;
     margin-bottom: 1em;
-    padding-top: 1em;
+    padding-top: 0em;
     line-height:1.6em;
     font-size: 1em;
 }
@@ -160,12 +192,21 @@ h2 {
     border-top: #eee solid 1px;
 }
 
+.blank-footer p {
+	text-align: center;
+}
+
 .idno-object .permalink {
     float: left;
 }
 
-.idno-object .permalink a, .idno-object .permalink a:hover {
-    color: #999;
+.idno-object .permalink a {
+    color: #4c93cb;
+    margin-right: 0.25em;
+}
+
+.idno-object .permalink a:hover {
+    color: #357ebd;
     margin-right: 0.25em;
 }
 
@@ -183,9 +224,9 @@ h2 {
 }
 
 .idno-object .dt-published {
-    color: #999;
     margin-right: 0.25em;
 }
+
 
 .idno-object .interactions a:hover {
     color: #333;
@@ -252,12 +293,12 @@ h2 {
 
 .annotation-add-mini .icon-container,
 .annotation-add .icon-container {
-    margin-top: -1em;
+    margin-top: -0.5em;
 }
 
 .annotation-add-mini .icon-container {
-    width: 25px;
-    height: 25px;
+    width: 40px;
+    height: 40px;
 }
 
 .annotation-add-mini textarea {
@@ -357,13 +398,13 @@ a.contentTypeButton {
     margin-right: 0.5em;
     margin-bottom: 0.5em;
     transition: width 0.25s, padding-top 0.25s, padding-bottom 0.25s;
-    color: #777;
+    color: #333;
     display: inline-block;
 }
 
 a.contentTypeButton:hover {
     text-decoration: none;
-    color: #333;
+    color: #777;
     background-color: #fff;
 }
 
@@ -386,6 +427,21 @@ span.contentTypeLogo {
     height: 15em;
 }
 
+.bodyInputShort {
+    height: 7em;
+}
+
+.vague {
+    font-size: 12px;
+    color: #999;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.reading {
+	text-align: left;
+	margin-bottom: 5px;
+}
+
 .syndication span,
 .syndication span label {
     display: inline-block;
@@ -405,7 +461,7 @@ span.contentTypeLogo {
 
 .syndication span input[type=checkbox] + label {
     width: 8em;
-    background-color: #ccc;
+    background-color: #999;
     color: #eee;
     border-radius: 3px;
     padding: 0.25em;
@@ -414,7 +470,7 @@ span.contentTypeLogo {
 
 .content-type p input[type=checkbox]:checked + label,
 .syndication span input[type=checkbox]:checked + label {
-    background-color: #329410;
+    background-color: #678c70;
     color: #fff;
 }
 
@@ -444,6 +500,8 @@ span.contentTypeLogo {
     padding: 1em;
     margin-bottom: 2em;
     background-color: #fafafa;
+    height: 32em;
+    overflow-y: scroll;
 }
 
 .theme img {
@@ -464,6 +522,19 @@ span.contentTypeLogo {
 
 .welcome {
     text-align: center;
+}
+
+.text-center h2, .text-center h3 {
+	font-weight: 600;
+}
+
+.text-center h2 {
+	font-size: 28px;
+	margin-bottom: 0.8em;
+}
+
+.text-center h3 {
+	font-size: 24px;
 }
 
 .explanation {
@@ -512,4 +583,369 @@ div.pane div.row:nth-of-type(even) {
 
 div.pane div.row:nth-of-type(odd) {
     background-color: #fafafa;
+}
+
+/** Sign In **/ 
+
+.btn-signin {
+    background-color: #ffffff;
+    background-image: none;
+    border: 2px solid #000000;
+    box-shadow: none;
+    color: #000000;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-shadow: none;
+    font-size: 16px;
+}
+
+.btn-signin:hover, .btn-signin:active, .btn-signin:focus {
+    background-color: #73b2e3;
+    background-image: none;
+    border-color: #73b2e3;
+    box-shadow: none;
+    color: #ffffff;
+    text-shadow: none;
+}
+
+/** Register **/
+.btn-reg {
+    background-color: #ffffff;
+    background-image: none;
+    border: 2px solid #000000;
+    box-shadow: none;
+    color: #000000;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-shadow: none;
+    font-size: 16px;
+}
+
+.btn-reg:hover, btn-reg:active, .btn-reg:focus {
+    background-color: #73b2e3;
+    background-image: none;
+    border-color: #73b2e3;
+    box-shadow: none;
+    color: #fff;
+    text-shadow: none;
+}
+/** Interface Buttons **/
+
+.btn-primary {
+    background-color: #73b2e3;
+    border-color: #73b2e3;
+    color: #ffffff;
+    text-shadow: none;
+    background-image: none;
+    background-repeat: repeat-x;
+    box-shadow: none;
+}
+
+.btn-primary:hover, btn-primary:active, .btn-primary:focus {
+    background-color: #4c93cb;
+    border-color: #4c93cb;
+    color: #ffffff;
+}
+
+.btn-cancel {
+    background-color: #dddddd;
+    border-color: #dddddd;
+    color: #333333;
+    text-shadow: none;
+    background-image: none;
+    background-repeat: repeat-x;
+    box-shadow: none;
+}
+
+.btn-cancel:hover, btn-cancel:active, .btn-cancel:focus {
+    background-color: #c5c5c5;
+    border-color: #c5c5c5;
+    color: #333333;
+}
+
+.btn-save {
+    background-color: #8cbf99;
+    border-color: #8cbf99;
+    color: #ffffff;
+    text-shadow: none;
+    background-image: none;
+    background-repeat: repeat-x;
+    box-shadow: none;
+}
+
+.btn-save:hover, btn-save:active, .btn-save:focus {
+    background-color: #70997a;
+    border-color: #70997a;
+    color: #ffffff;
+}
+
+.btn-large {
+    background-color: #dddddd;
+    border-color: #dddddd;
+    color: #333333;
+    text-shadow: none;
+    background-image: none;
+    background-repeat: repeat-x;
+    box-shadow: none;
+    border-radius: 6px;
+    font-size: 17.5px;
+    padding: 11px 19px;
+}
+
+.btn-large:hover, btn-large:active, .btn-large:focus {
+    background-color: #c5c5c5;
+    border-color: #c5c5c5;
+    color: #333333;
+}
+
+
+.well {
+	background-color: #ffffff;
+	border: 3px solid #73b2e3;
+}
+
+a {
+    color: #4c93cb;
+    text-decoration: none;
+    font-weight: 400;
+}
+
+a:hover, a:focus {
+	color: #357ebd;
+}
+
+input[type="email"], input[type="password"], input[type="text"]  {	
+	border: 1px solid #dddddd;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	padding-left: 8px;
+	padding-right: 5px; 
+}
+
+input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focus {
+	box-shadow: none;
+    border: 1px solid #4c93cb;
+    color: #555555;
+}
+
+input.span7 {
+    width: 656px;
+}
+
+textarea:focus {
+    box-shadow: none;
+}
+
+input:focus:invalid, textarea:focus:invalid, select:focus:invalid {
+    border-color: #4c93cb;
+    color: #555555;
+}
+input:focus:invalid:focus, textarea:focus:invalid:focus, select:focus:invalid:focus {
+    border-color: #4c93cb;
+    box-shadow: none;
+}
+
+textarea:focus, input[type="url"]:focus {
+    border-color: #4c93cb;
+    box-shadow: none;
+    outline: 0 none;
+}
+
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="tel"], input[type="color"], .uneditable-input {
+	margin-top: 5px;
+}
+
+.blank-footer {
+    margin: auto;
+    padding-top: 50px;
+    width: 100%;
+}
+
+.navbar-inverse .brand {
+    color: #333333;
+}
+.navbar-inverse .brand, .navbar-inverse .nav > li > a {
+    color: #333333;
+    text-shadow: none;
+}
+
+.navbar-inverse .navbar-inner {
+    background-color: #ffffff;
+    background-image: none;
+    background-repeat: repeat-x;
+    border-color: #ffffff;
+}
+
+.navbar-inverse .brand:hover, .navbar-inverse .nav > li > a:hover, .navbar-inverse .brand:focus, .navbar-inverse .nav > li > a:focus {
+    color: #666;
+}
+
+.navbar .brand {
+	font-weight: 400;
+	font-size: 28px;
+}
+
+
+.navbar-inverse .navbar-search .search-query {
+    background-color: #ffffff;
+    border-color: #999999;
+    box-shadow: none;
+    color: #333333;
+    transition: none 0s ease 0s ;
+}
+
+
+.navbar-inverse .navbar-search .search-query:focus, .navbar-inverse .navbar-search .search-query.focused {
+    background-color: #ffffff;
+    border-color: #999999;
+    border: 0 none;
+    box-shadow: 0 0 3px rgba(53, 126, 189, 0.4);
+    color: #999999;
+    outline: 0 none;
+    padding: 5px 15px;
+    text-shadow: 0 1px 0 #ffffff;
+}
+
+.navbar-inverse .nav li.dropdown > .dropdown-toggle .caret {
+    border-bottom-color: #333333;
+    border-top-color: #333333;
+}
+
+.navbar-inverse .nav li.dropdown > a:hover .caret, .navbar-inverse .nav li.dropdown > a:focus .caret {
+    border-bottom-color: #666666;
+    border-top-color: #666666;
+}
+
+.navbar-inverse .nav li.dropdown.open > .dropdown-toggle, .navbar-inverse .nav li.dropdown.active > .dropdown-toggle, .navbar-inverse .nav li.dropdown.open.active > .dropdown-toggle {
+    background-color: #ffffff;
+    color: #333333;
+}
+
+.navbar-inverse .nav li.dropdown.open > .dropdown-toggle .caret, .navbar-inverse .nav li.dropdown.active > .dropdown-toggle .caret, .navbar-inverse .nav li.dropdown.open.active > .dropdown-toggle .caret {
+    border-bottom-color: #333333;
+    border-top-color: #333333;
+}
+
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus, .dropdown-submenu:hover > a, .dropdown-submenu:focus > a {
+    background-color: #73b2e3;
+    background-image: none;
+    background-repeat: repeat-x;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.navbar-inner {
+    background-color: #ffffff;
+    background-image: none;
+    background-repeat: repeat-x;
+    border: 1px solid #d4d4d4;
+    border-radius: 4px;
+    box-shadow: none;
+    min-height: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
+    background-color: #dddddd;
+    box-shadow: none;
+    color: #555555;
+    text-decoration: none;
+}
+
+.navbar .nav > li > a {
+	text-shadow: none;
+}
+
+.hero-unit {
+    background-color: #fff;
+    border: 3px solid #73b2e3;
+    padding: 40px;
+}
+
+.form-horizontal .control-label {
+    float: left;
+    padding-top: 12px;
+}
+
+small {
+    font-size: 75%;
+    font-weight: 400;
+}
+
+.alert-info {
+    background-color: #fff1ba;
+    border-color: #ffcc66;
+    color: #e8945d;
+}
+
+.pager li > a, .pager li > span {
+    background-color: #73b2e3;
+    border: 3px solid #73b2e3;
+    border-radius: 0;
+    display: inline-block;
+    padding: 8px 24px;
+    color: #ffffff;
+    font-size: 1.2em;
+}
+
+.pager li > a:hover, .pager li > a:focus {
+	background-color: #ffffff;
+	border: 3px solid #4c93cb;
+	color: #4c93cb;
+}
+
+#photo-preview {
+	margin-bottom: 20px;
+}
+
+.note-editor .note-toolbar {
+    background-color: #ffffff !important;
+}
+
+.note-editor {
+	border: 1px solid #dddddd !important;
+}
+
+.note-editor .note-toolbar {
+    border-bottom: 1px solid #dddddd !important;
+}
+
+.note-style .btn, .note-fancy .btn, .note-fontsize .btn, .note-color .btn, .note-para .btn, .note-codeview .btn {
+	background-color: #ffffff;
+    background-image: none;
+    box-shadow: none;
+    border-color: none;
+    text-shadow: none;
+    border-style: none;
+}
+
+.note-style .btn:hover, .note-fancy .btn:hover, .note-fontsize .btn:hover, .note-color .btn:hover, .note-para .btn:hover, .note-codeview .btn:hover {
+	background-color: #73b2e3;
+    background-image: none;
+    box-shadow: none;
+    border-color: none;
+    text-shadow: none;
+    border-style: none;
+    color: #ffffff;
+}
+
+.btn-group > .btn + .dropdown-toggle {
+	box-shadow: none;
+}
+
+.p-map {
+	padding-top: 10px;
+}
+
+#inreplyto {
+	padding-bottom: 10px;
 }

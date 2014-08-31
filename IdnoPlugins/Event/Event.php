@@ -15,6 +15,14 @@
             }
 
             function getURL() {
+                // If we have a URL override, use it
+                if (!empty($this->url)) {
+                    return $this->url;
+                }
+
+                if (!empty($this->canonical)) {
+                    return $this->canonical;
+                }
                 if (!($this->getSlug()) && ($this->getID())) {
                     return \Idno\Core\site()->config()->url . 'event/' . $this->getID() . '/' . $this->getPrettyURLTitle();
                 } else {
@@ -53,6 +61,13 @@
                     $this->location = \Idno\Core\site()->currentPage()->getInput('location');
                     $this->starttime = \Idno\Core\site()->currentPage()->getInput('starttime');
                     $this->endtime = \Idno\Core\site()->currentPage()->getInput('endtime');
+
+                    if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
+                        if ($time = strtotime($time)) {
+                            $this->created = $time;
+                        }
+                    }
+
                     $this->setAccess('PUBLIC');
                     if ($this->save()) {
                         if ($new) {

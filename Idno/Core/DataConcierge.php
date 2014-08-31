@@ -21,7 +21,7 @@
             function init()
             {
                 try {
-                    $this->client = new \Mongo(site()->config()->dbstring);
+                    $this->client = new \MongoClient(site()->config()->dbstring);
                 } catch (\MongoConnectionException $e) {
                     echo '<p>Unfortunately we couldn\'t connect to the database:</p><p>' . $e->getMessage() . '</p>';
                     exit;
@@ -73,7 +73,6 @@
                 if ($object instanceof \Idno\Common\Entity) {
                     if ($collection = $object->getCollection()) {
                         $array = $object->saveToArray();
-
                         return $this->saveRecord($collection, $array);
                     }
                 }
@@ -92,6 +91,9 @@
             function saveRecord($collection, $array)
             {
                 $collection_obj = $this->database->selectCollection($collection);
+                if (empty($array['_id'])) {
+                    unset($array['_id']);
+                }
                 if ($result = $collection_obj->save($array, array('w' => 1))) {
                     if ($result['ok'] == 1) {
                         return $array['_id'];
@@ -285,7 +287,7 @@
                     if ($result = $this->database->$collection->find($parameters, $fields)->skip($offset)->limit($limit)->sort(array('created' => -1))) {
                         return $result;
                     }
-                } catch (Exception $e) {
+                } catch (\Exception $e) {
                     return false;
                 }
 

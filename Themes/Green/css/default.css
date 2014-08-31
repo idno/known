@@ -17,24 +17,44 @@ a:hover, a:focus {
     box-shadow: none;
     border: none;
 }
+
 li {
     line-height: 1.8em !important;
 }
-.entry-content .p-name a,
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 400;
+}
+
+h2 {
+    line-height: 1.3em;
+}
+
+.entry-content .p-name a {
+    font-size: 1.3em;
+    margin: 0; padding: 0;
+    color: #333333;
+}
+
 .idno-posts h2.p-name {
     font-size: 1.8em;
     margin: 0; padding: 0;
+    color: #333333;
+}
+
+.idno-posts h2.p-name a {
+    font-size: 1.2em;
 }
 
 .entry-content .p-photo a,
 .idno-posts h2.p-photo {
-    font-size: 1.8em;
+    font-size: 1.2em;
     margin: 0; padding: 0;
 }
 
 .entry-content .p-bookmark a,
-.idno-posts h5.p-bookmark {
-    font-size: 1.8em;
+.idno-posts h2.p-bookmark {
+    font-size: 1.4em;
     margin: 0; padding: 0;
 }
 
@@ -43,6 +63,7 @@ h1.p-profile, .p-profile a {
 	font-family: "Minion Pro", Times, "Times New Roman", serif;
 	color: #333333;
 	font-size: 1.6em;
+	text-align: center;
 }
 
 .entry-content blockquote {
@@ -51,8 +72,14 @@ h1.p-profile, .p-profile a {
     font-size: 0.9em;
     color: #444;
 }
+
+blockquote {
+    border-left: 5px solid #8cbf99;
+    padding: 0 0 0 15px;
+}
+
 .idno-statusupdates .entry-content p {
-    font-size: 1.8em;
+    font-size: 1.4em;
     margin: 0; padding: 0;
 }
 
@@ -86,6 +113,10 @@ h1.p-profile, .p-profile a {
 .navbar-inverse .nav li.dropdown.open > .dropdown-toggle, .navbar-inverse .nav li.dropdown.active > .dropdown-toggle, .navbar-inverse .nav li.dropdown.open.active > .dropdown-toggle {
     background-color: #8cbf99;
     color: #70997a;
+}
+
+.navbar .brand {
+	padding: 12px 20px;
 }
  
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus, .dropdown-submenu:hover > a, .dropdown-submenu:focus > a {
@@ -159,13 +190,36 @@ span.contentTypeLogo:hover {
     padding-top: 5px;
 }
 
+.idno-object {
+    box-shadow: none;
+    display: block;
+    margin-top: 1em;
+}
+.idno-content {
+    background-color: #fff;
+    border: medium none;
+    padding: 1.5em 1.5em 0;
+}
+
+.idno-content p {
+    line-height: 1.3em !important;
+}
+
+.idno-object .e-content blockquote p {
+    font-size: 1.3em;
+    line-height: 1.6em;
+    margin-bottom: 1em;
+}
+
 .idno-object h2 {
-    font-size: 1.5em;
-    margin-bottom: 0.6em !important;
+    font-size: 1.8em;
+/*    margin-bottom: 0.2em !important; */
 }
 
 h2 {
-	font-family: "Minion Pro", Times, "Times New Roman", serif;
+	font-family: "Myriad Pro", "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+	font-size: 1.2em;
+	color: #555555;
 }
 
 h3 {
@@ -191,7 +245,6 @@ h5 {
 
 h3.register, h4.register {
 	text-align: center;
-	font-family: "Minion Pro",Times,"Times New Roman",serif
 }
 
 h3.register {
@@ -200,44 +253,36 @@ h3.register {
 	padding-top: 20px;
 }
 
-.entry-content .p-name a, .idno-posts h2.p-name {
-	color: #333333;
-	font-size: 1.5em;
-}
-
 .entry-content .p-photo a, .idno-posts h2.p-photo {
 	color: #333333;
-	font-size: 1.5em;
+	font-size: 1.2em;
 }
 
-.entry-content .p-bookmark a, .idno-posts h5.p-bookmark {
+.entry-content .p-bookmark a, .idno-posts h2.p-bookmark {
 	color: #333333;
-	font-size: 1.5em;
-	font-family: "Minion Pro",Times,"Times New Roman",serif;
-}
-
-.entry-content .p-bookmark a, .idno-posts h5.p-bookmark {
-    color: #000000;
-    font-size: 1.8em;
-    margin: 0;
+	font-size: 1.2em;
+	font-family: "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
+	margin: 0;
     padding: 0;
 }
 
 .idno-object .e-content {
-    font-size: 1.5em;
-    line-height: 1.2em;
+    font-size: 1.1em;
+    line-height: 1.1em;
+}
+
+.e-content p {
+	font-size: 1.1em;
+}
+
+.idno-object .e-content li {
+	font-size: 1.1em;
 }
 
 #contentTypeButtonBar {
     padding: 1em;
     text-align: center;
     border-bottom: 3px solid #357ebd;
-}
-
-.idno-statusupdates .entry-content p {
-    font-size: 1.3em;
-    margin: 0;
-    padding: 0;
 }
 
 .navbar-inverse .nav-collapse .nav > li > a:hover, .navbar-inverse .nav-collapse .nav > li > a:focus, .navbar-inverse .nav-collapse .dropdown-menu a:hover, .navbar-inverse .nav-collapse .dropdown-menu a:focus {
@@ -383,10 +428,15 @@ h3.register {
 	padding: 0;
 }
 
+.text-center h2 {
+    font-size: 36px;
+    margin-bottom: 0.8em;
+    font-weight: 400;
+}
+
 h3.text-center {
 	color: #555555;
-	font-family: "Minion Pro",Times,"Times New Roman",serif;
-	font-size: 38px;
+	font-size: 28px;
     font-weight: normal;
     padding-bottom: 20px;
 }
@@ -498,5 +548,25 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
     border-right: 5px solid rgba(0, 0, 0, 0);
 }
 
+.entry-content .p-name a {
+	font-size: 1.0em;
+} 
 
+.e-note {
+	text-align: center;
+}
+
+.url-container {
+	text-align: center;
+}
+
+.entry-content .h-geo a, .idno-posts h2.h-geo {
+    color: #333333;
+    font-size: 1.2em;
+}
+
+.vague {
+	color: #666666;
+    font-size: 14px;
+}
 

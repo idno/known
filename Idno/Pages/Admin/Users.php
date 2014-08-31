@@ -8,6 +8,7 @@
 
         use Idno\Entities\Invitation;
         use Idno\Entities\User;
+        use Idno\Entities\RemoteUser;
 
         class Users extends \Idno\Common\Page
         {
@@ -17,6 +18,9 @@
                 $this->adminGatekeeper(); // Admins only
 
                 $users = User::get([], [], 99999, 0); // TODO: make this more complete / efficient
+                $remoteusers = RemoteUser::get([], [], 99999, 0);
+                
+                $users = array_merge($users, $remoteusers);
 
                 $t        = \Idno\Core\site()->template();
                 $t->body  = $t->__(['users' => $users])->draw('admin/users');

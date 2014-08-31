@@ -62,6 +62,12 @@
                 $this->body  = \Idno\Core\site()->currentPage()->getInput('body');
                 $this->setAccess('PUBLIC');
 
+                if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
+                    if ($time = strtotime($time)) {
+                        $this->created = $time;
+                    }
+                }
+
                 // Get photo
                 if ($new) {
                     if (!empty($_FILES['photo']['tmp_name'])) {

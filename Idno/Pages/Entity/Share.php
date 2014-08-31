@@ -50,10 +50,14 @@
                 }
 
                 $content_type = \Idno\Common\ContentType::getRegisteredForIndieWebPostType($share_type);
+                
+                $hide_nav = false;
+                if ($this->getInput('via') == 'ff_social')
+                    $hide_nav = true;
 
                 if (!empty($content_type)) {
                     if ($page = \Idno\Core\site()->getPageHandler('/' . $content_type->camelCase($content_type->getEntityClassName()) . '/edit')) {
-                        if ($share_type == 'note' && !substr_count($url, 'twitter.com')) {
+                        if ($share_type == 'note' /*&& !substr_count($url, 'twitter.com')*/) {
                             $page->setInput('body', $title . ' ' . $url);
                         } else {
                             $page->setInput('url', $url);
@@ -64,7 +68,7 @@
                                 }
                             }
                         }
-                        $page->setInput('hidenav', true);
+                        $page->setInput('hidenav', $hide_nav);
                         $page->setInput('sharing',true);
                         $page->setInput('share_type', $share_type);
                         $page->get();
@@ -72,7 +76,7 @@
                 } else {
                     $t    = \Idno\Core\site()->template();
                     $body = $t->__(['share_type' => $share_type, 'content_type' => $content_type, 'sharing' => true])->draw('entity/share');
-                    $t->__(['title' => 'Share', 'body' => $body, 'hidenav' => true])->drawPage();
+                    $t->__(['title' => 'Share', 'body' => $body, 'hidenav' => $hide_nav])->drawPage();
                 }
             }
 

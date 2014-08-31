@@ -13,18 +13,18 @@
 
 ?>
 <div class="">
-    <h5 class="p-bookmark"><a href="<?= $vars['object']->body;?>" rel="bookmark" target="_blank"><?=$this->parseURLs(($body),$rel)?></a></h5>
+    <h2 class="p-bookmark"><a href="<?= $vars['object']->body;?>" rel="bookmark" target="_blank"><?=$this->parseURLs(($body),$rel)?></a></h2>
     <?php
 
         if (!empty($vars['object']->description)) {
         ?>
-            <p><small><?=$this->parseURLs($this->parseHashtags($vars['object']->description),$rel)?></small></p>
+            <p><?=$this->parseURLs($this->parseHashtags($vars['object']->description),$rel)?></p>
         <?php
         }
         
         if (!empty($vars['object']->tags)) {
         ?>
-            <p><small><?=$this->parseURLs($this->parseHashtags($vars['object']->tags),$rel)?></small></p>
+            <p><?=$this->parseURLs($this->parseHashtags($vars['object']->tags),$rel)?></p>
         <?php
         }
 

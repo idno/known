@@ -19,7 +19,7 @@
                         if (!empty($vars['content'])) {
                             echo \Idno\Common\ContentType::categoryTitleSlugsToFriendlyName($vars['content']);
                         } else {
-                            echo 'Default content';
+                            echo 'Filter content';
                         }
 
                     ?>

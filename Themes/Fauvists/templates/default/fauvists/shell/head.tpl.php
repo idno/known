@@ -1,0 +1,2 @@
+<link href="<?= \Idno\Core\site()->config()->url ?>Themes/Fauvists/css/default.css" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Dosis:400,300,500,600' rel='stylesheet' type='text/css'>

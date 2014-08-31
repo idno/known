@@ -12,9 +12,7 @@
 
     namespace Idno\Common {
 
-        interface EntityInterface extends \JsonSerializable, \ArrayAccess
-        {
-        }
+        use Idno\Entities\User;
 
         class Entity extends Component implements EntityInterface
         {
@@ -465,14 +463,8 @@
                         $this->_id  = $result;
                         $this->uuid = $this->getUUID();
                         \Idno\Core\site()->db()->saveObject($this);
-
+                        $this->syndicate();
                         $event = new \Idno\Core\Event(array('object' => $this));
-
-                        if ($this->getActivityStreamsObjectType()) {
-                            \Idno\Core\site()->events()->dispatch('post/' . $this->getActivityStreamsObjectType(), $event);
-                            \Idno\Core\site()->events()->dispatch('syndicate', $event);
-                        }
-
                         \Idno\Core\site()->events()->dispatch('saved', $event);
                     } else {
                         \Idno\Core\site()->triggerEvent('updated', array('object' => $this));
@@ -481,6 +473,30 @@
                     return $this->_id;
                 } else {
                     return false;
+                }
+            }
+
+            /**
+             * Syndicate this content to third-party sites, if such plugins are installed
+             */
+            function syndicate()
+            {
+                if ($this->getActivityStreamsObjectType()) {
+                    $event = new \Idno\Core\Event(array('object' => $this, 'object_type' => $this->getActivityStreamsObjectType()));
+                    \Idno\Core\site()->events()->dispatch('post/' . $this->getActivityStreamsObjectType(), $event);
+                    \Idno\Core\site()->events()->dispatch('syndicate', $event);
+                }
+            }
+
+            /**
+             * Remove this content from third-party sites, if it was syndicated in the first place
+             */
+            function unsyndicate()
+            {
+                if ($this->getActivityStreamsObjectType()) {
+                    $event = new \Idno\Core\Event(array('object' => $this, 'object_type' => $this->getActivityStreamsObjectType()));
+                    \Idno\Core\site()->events()->dispatch('delete/' . $this->getActivityStreamsObjectType(), $event);
+                    \Idno\Core\site()->events()->dispatch('unsyndicate', $event);
                 }
             }
 
@@ -531,7 +547,7 @@
                 }
                 // If we've got here, the slug exists, so we need to create a new version
                 $slug_extension = 1;
-                while (!($modified_slug = $this->setSlug($slug . '-' . $slug_extension, 20))) {
+                while (!($modified_slug = $this->setSlug($slug . '-' . $slug_extension, $max_pieces * 2))) {
                     $slug_extension++;
                 }
 
@@ -690,6 +706,9 @@
                 $event = new \Idno\Core\Event(array('object' => $this));
                 $event->setResponse(true);
                 if (\Idno\Core\site()->triggerEvent('delete', array('object' => $this))) {
+
+                    $this->unsyndicate();
+
                     if ($entries = \Idno\Entities\ActivityStreamPost::getByObjectUUID($this->getUUID())) {
                         foreach ($entries as $entry) {
                             $entry->delete();
@@ -701,6 +720,7 @@
 
                         return $return;
                     }
+
                 }
 
                 return false;
@@ -1066,15 +1086,26 @@
             {
 
                 if (!\Idno\Core\site()->session()->isLoggedOn()) return false;
-                if (!\Idno\Core\site()->canEdit()) return false;
+                if (!\Idno\Core\site()->canWrite()) return false;
 
                 if (empty($user_id)) {
                     $user_id = \Idno\Core\site()->session()->currentUserUUID();
                 }
 
+                if ($user_id = \Idno\Core\site()->session()->currentUserUUID()) {
+                    $user = \Idno\Core\site()->session()->currentUser();
+                } else {
+                    $user = User::getByUUID($user_id);
+                }
+
+                if ($user->isAdmin()) {
+                    return true;
+                }
+
                 if ($this->getOwnerID() == $user_id) return true;
 
-                return false;
+                return \Idno\Core\site()->triggerEvent('canEdit', ['object' => $this, 'user_id' => $user_id], false);
+
             }
 
             /**
@@ -1098,11 +1129,11 @@
 
                 if ($access instanceof \Idno\Entities\AccessGroup) {
                     if ($access->isMember($user_id)) {
-                        return true;
+                        return \Idno\Core\site()->triggerEvent('canRead', ['object' => $this, 'user_id' => $user_id, 'access_group' => $access]);
                     }
                 }
 
-                return false;
+                return \Idno\Core\site()->triggerEvent('canRead', ['object' => $this, 'user_id' => $user_id], false);
             }
 
             /**
@@ -1260,6 +1291,15 @@
 
             function getURL()
             {
+
+                // If we have a URL override, use it
+                if (!empty($this->url)) {
+                    return $this->url;
+                }
+
+                if (!empty($this->canonical)) {
+                    return $this->canonical;
+                }
 
                 // If a slug has been set, use it
                 if ($slug = $this->getSlug()) {

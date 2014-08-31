@@ -67,12 +67,12 @@
                                 } else {
                                     $error      = 'no_link_found';
                                     $error_text = 'The source URI does not contain a link to the target URI.';
-                                    error_log('No link from ' . $source . ' to ' . $target);
+                                    \Idno\Core\site()->logging->log('No link from ' . $source . ' to ' . $target, LOGLEVEL_ERROR);
                                 }
                             } else {
                                 $error      = 'source_not_found';
                                 $error_text = 'The source content could not be obtained.';
-                                error_log('No content from ' . $source);
+                                \Idno\Core\site()->logging->log('No content from ' . $source, LOGLEVEL_ERROR);
                             }
                         } else {
                             $error      = 'target_not_supported';

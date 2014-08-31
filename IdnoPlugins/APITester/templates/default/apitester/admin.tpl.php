@@ -122,8 +122,8 @@
             <div class="row" style="margin-top: 2em">
                 <div class="span8 offset2">
                     <p>
-                        Technical details: API calls are a POST request  with the HTTP header X-IDNO-USERNAME
-                        set to the user's username, and X-IDNO-SIGANTURE to be an HMAC signature, computed with
+                        Technical details: API calls are a POST request  with the HTTP header X-KNOWN-USERNAME
+                        set to the user's username, and X-KNOWN-SIGANTURE to be an HMAC signature, computed with
                         sha256, using the user's API key.
                     </p>
                 </div>

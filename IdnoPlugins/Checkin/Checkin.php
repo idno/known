@@ -44,6 +44,12 @@
                 $user_address = \Idno\Core\site()->currentPage()->getInput('user_address');
                 $placename    = \Idno\Core\site()->currentPage()->getInput('placename');
 
+                if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
+                    if ($time = strtotime($time)) {
+                        $this->created = $time;
+                    }
+                }
+
                 if (!empty($lat) && !empty($long)) {
                     $this->lat       = $lat;
                     $this->long      = $long;

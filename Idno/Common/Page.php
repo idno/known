@@ -377,6 +377,7 @@
                     if (\Idno\Core\site()->template()->getTemplateType() != 'default') {
                         $location = \Idno\Core\site()->template()->getURLWithVar('_t', \Idno\Core\site()->template()->getTemplateType(), $location);
                     }
+                    \Idno\Core\site()->session()->finishEarly();
                     header('Location: ' . $location);
                     exit;
                 }
@@ -391,7 +392,7 @@
             {
                 if (!\Idno\Core\site()->session()->isLoggedIn()) {
                     $this->setResponse(401);
-                    $this->forward('/session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']));
+                    $this->forward(\Idno\Core\site()->config()->getURL() . 'session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']));
                 }
             }
 
@@ -402,7 +403,7 @@
              */
             function createGatekeeper()
             {
-                if (!\Idno\Core\site()->canEdit()) {
+                if (!\Idno\Core\site()->canWrite()) {
                     $this->setResponse(403);
                     $this->forward();
                 }
@@ -601,6 +602,16 @@
                 }
             }
 
+            function getallheaders() {
+				$headers = '';
+				foreach ($_SERVER as $name => $value) {
+					if (substr($name, 0, 5) == 'HTTP_') {
+						$headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+					}
+				}
+				return $headers;
+			}
+
             /**
              * Detects whether the current web browser accepts the given content type.
              * @param string $contentType The MIME content type.
@@ -608,7 +619,8 @@
              */
             function isAcceptedContentType($contentType)
             {
-                if ($headers = getallheaders()) {
+
+                if ($headers = $this->getallheaders()) {
                     if (!empty($headers['Accept']))
                         if (substr_count($headers['Accept'], $contentType)) return true;
                 }

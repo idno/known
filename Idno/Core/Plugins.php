@@ -22,11 +22,18 @@
             public function init()
             {
 
+                if (!empty(site()->config()->alwaysplugins)) {
+                    site()->config->plugins = array_merge(site()->config->plugins, site()->config->alwaysplugins);
+                }
                 if (!empty(site()->config()->plugins)) {
                     foreach (site()->config()->plugins as $plugin) {
-                        if (is_subclass_of("IdnoPlugins\\{$plugin}\\Main", 'Idno\\Common\\Plugin')) {
-                            $class                  = "IdnoPlugins\\{$plugin}\\Main";
-                            $this->plugins[$plugin] = new $class();
+                        if (!in_array($plugin, site()->config()->antiplugins)) {
+                            if (is_subclass_of("IdnoPlugins\\{$plugin}\\Main", 'Idno\\Common\\Plugin')) {
+                                $class                  = "IdnoPlugins\\{$plugin}\\Main";
+                                if (empty($this->plugins[$plugin])) {
+                                    $this->plugins[$plugin] = new $class();
+                                }
+                            }
                         }
                     }
                 }
@@ -94,6 +101,20 @@
                         if ($folder != '.' && $folder != '..') {
                             if (file_exists(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $folder . '/plugin.ini')) {
                                 $plugins[$folder] = parse_ini_file(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $folder . '/plugin.ini', true);
+                            }
+                        }
+                    }
+                }
+                if (defined('KNOWN_MULTITENANT_HOST')) {
+                    $host = KNOWN_MULTITENANT_HOST;
+                    if (file_exists(\Idno\Core\site()->config()->path . '/hosts/' . $host . '/IdnoPlugins')) {
+                        if ($folders = scandir(\Idno\Core\site()->config()->path . '/hosts/' . $host . '/IdnoPlugins')) {
+                            foreach ($folders as $folder) {
+                                if ($folder != '.' && $folder != '..') {
+                                    if (file_exists(\Idno\Core\site()->config()->path . '/hosts/' . $host . '/IdnoPlugins/' . $folder . '/plugin.ini')) {
+                                        $plugins[$folder] = parse_ini_file(\Idno\Core\site()->config()->path . '/hosts/' . $host . '/IdnoPlugins/' . $folder . '/plugin.ini', true);
+                                    }
+                                }
                             }
                         }
                     }

@@ -31,7 +31,7 @@
                 /* @var \Idno\Entities\User $user */
 ?>
 
-    <div class="row">
+    <div class="row <?= strtolower(str_replace('\\', '-', get_class($user))); ?>">
         <div class="span3 offset1">
             <p>
                 <img src="<?=$user->getIcon()?>" style="width: 35px; float: left; margin-right: 10px; margin-top: 3px; margin-bottom: 3em">
@@ -54,6 +54,11 @@
                 <small>
                     <?php
 
+                    if ($user instanceof \Idno\Entities\RemoteUser) {
+                     ?>
+                        Remote member
+                    <?php
+                    } else {
                         if ($user->isAdmin()) {
                             ?>
                                 <strong>Administrator</strong><br>
@@ -65,7 +70,7 @@
                             <?=  \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->url . 'admin/users', 'Make admin', ['user' => $user->getUUID(), 'action' => 'add_rights'], ['class' => '']);?>
                             <?php
                         }
-
+                    }
                     ?>
                 </small>
             </p>

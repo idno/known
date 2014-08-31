@@ -29,7 +29,16 @@
                 $this->adminGatekeeper(); // Admins only
                 $plugin = $this->getInput('plugin');
                 $action = $this->getInput('action');
-                if (preg_match('/^[a-zA-Z0-9]+$/', $plugin) && file_exists(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $plugin)) {
+                if (defined('KNOWN_MULTITENANT_HOST')) {
+                    $host = KNOWN_MULTITENANT_HOST;
+                }
+                if (
+                    preg_match('/^[a-zA-Z0-9]+$/', $plugin) &&
+                    (
+                        file_exists(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $plugin) ||
+                        (!empty($host) && file_exists(\Idno\Core\site()->config()->path . '/hosts/' . $host . '/IdnoPlugins/' . $plugin))
+                    )
+                ) {
                     switch ($action) {
                         case 'install':
                             \Idno\Core\site()->config->config['plugins'][] = $plugin;
@@ -44,7 +53,7 @@
                     }
                     \Idno\Core\site()->config()->save();
                 }
-                $this->forward('/admin/plugins/');
+                $this->forward(\Idno\Core\site()->config()->getURL() . 'admin/plugins/');
             }
 
         }

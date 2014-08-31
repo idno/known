@@ -1,1 +1,1 @@
-<li <?php if ($_SERVER['REQUEST_URI'] == '/account/firefox/') echo 'class="active"'; ?>><a href="/account/firefox/">Firefox</a></li>
+<li <?php if ($_SERVER['REQUEST_URI'] == '/account/firefox/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\site()->config()->getURL()?>account/firefox/">Firefox</a></li>

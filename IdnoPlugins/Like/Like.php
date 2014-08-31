@@ -16,6 +16,22 @@
                 return $body;
             }
 
+            function getURL() {
+                // If we have a URL override, use it
+                if (!empty($this->url)) {
+                    return $this->url;
+                }
+
+                if (!empty($this->canonical)) {
+                    return $this->canonical;
+                }
+                if (!($this->getSlug()) && ($this->getID())) {
+                    return \Idno\Core\site()->config()->url . 'bookmark/' . $this->getID() . '/' . $this->getPrettyURLTitle();
+                } else {
+                    return parent::getURL();
+                }
+            }
+
             /**
              * Like objects have type 'bookmark'
              * @return 'bookmark'
@@ -52,6 +68,13 @@
                 $body = \Idno\Core\site()->currentPage()->getInput('body');
                 $description = \Idno\Core\site()->currentPage()->getInput('description');
                 $tags = \Idno\Core\site()->currentPage()->getInput('tags');
+
+                if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
+                    if ($time = strtotime($time)) {
+                        $this->created = $time;
+                    }
+                }
+
                 $body = trim($body);
                 if(filter_var($body, FILTER_VALIDATE_URL)){
                 if (!empty($body)) {

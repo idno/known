@@ -104,7 +104,7 @@
 
                         // No user found, so create it if it's remote
                         if (!\Idno\Entities\User::isLocalUUID($uuid)) {
-                            error_log("Creating new remote user");
+                            \Idno\Core\site()->logging->log("Creating new remote user", LOGLEVEL_DEBUG);
 
                             $new_user = new \Idno\Entities\RemoteUser();
 
@@ -118,24 +118,24 @@
                                 throw new \Exception ("There was a problem saving the new remote user.");
                         }
                     } else
-                        error_log("New user found as " . $new_user->uuid);
+                        \Idno\Core\site()->logging->log("New user found as " . $new_user->uuid, LOGLEVEL_DEBUG);
 
                     if ($new_user) {
 
-                        error_log("Trying a follow");
+                        \Idno\Core\site()->logging->log("Trying a follow", LOGLEVEL_DEBUG);
 
                         if ($user->addFollowing($new_user)) {
 
-                            error_log("User added to following");
+                            \Idno\Core\site()->logging->log("User added to following", LOGLEVEL_DEBUG);
 
                             if ($user->save()) {
 
-                                error_log("Following saved");
+                                \Idno\Core\site()->logging->log("Following saved", LOGLEVEL_DEBUG);
 
                                 \Idno\Core\site()->session()->addMessage("You are now following " . $new_user->getTitle());
                             }
                         } else
-                            error_log('Could not follow user for some reason (probably already following)');
+                            \Idno\Core\site()->logging->log('Could not follow user for some reason (probably already following)', LOGLEVEL_DEBUG);
                     } else
                         throw new \Exception('Sorry, that user doesn\'t exist!');
                 } else

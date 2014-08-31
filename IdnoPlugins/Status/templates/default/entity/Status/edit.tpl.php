@@ -17,13 +17,13 @@
 
     <div class="row">
 
-        <div class="span8 offset2">
+        <div class="span8 offset2 edit-pane">
             
             <p id="counter" style="display:none" class="pull-right">
                 <span class="count"></span>
             </p>
 
-            <h5>
+            <h4>
                 <?php
 
                     if (empty($vars['object']->_id)) {
@@ -33,22 +33,39 @@
                     }
 
                 ?>
-            </h5>
+            </h4>
 
             <textarea required name="body" id="body" class="content-entry mentionable span8" placeholder="What's going on?"><?php
-            
-                if (!empty($twitter_user))
-                    echo htmlspecialchars ("@$twitter_user ");
-            
+                        
                 if (!empty($vars['body'])) {
                     echo htmlspecialchars($vars['body']);
                 } else {
                     echo htmlspecialchars($vars['object']->body);
                 } ?></textarea>
+            
+            <?php
+            // Set focus so you can start typing straight away (on shares)
+            if (\Idno\Core\site()->currentPage()->getInput('share_url')) {
+            ?>
+            <script>
+                $(document).ready(function(){
+                    var content = $('#body').val();
+                    var len = content.length;
+                    var element = $('#body');
+                 
+                    $('#body').focus(function(){
+                        $(this).prop('selectionStart', len);
+                    });
+                    $('#body').focus();
+                });
+            </script>
+            <?php
+            }
+            ?>
 
             <p>
                 <small><a id="inreplyto-add" href="#"
-                          onclick="$('#inreplyto').append('<span><input required type=&quot;url&quot; name=&quot;inreplyto[]&quot; value=&quot;&quot; placeholder=&quot;Add the URL that you\'re replying to&quot; class=&quot;span8&quot; /> <small><a href=&quot;#&quot; onclick=&quot;$(this).parent().parent().remove(); return false;&quot;>Remove</a></small><br /></span>'); return false;">+
+                          onclick="$('#inreplyto').append('<span><input required type=&quot;url&quot; name=&quot;inreplyto[]&quot; value=&quot;&quot; placeholder=&quot;Add the URL that you\'re replying to&quot; class=&quot;span8&quot; /> <small><a href=&quot;#&quot; onclick=&quot;$(this).parent().parent().remove(); return false;&quot;><icon class=&quot;icon-remove&quot;></icon> Remove URL</a></small><br /></span>'); return false;"><icon class="icon-reply"></icon>
                         Reply to a site</a></small>
             </p>
             <div id="inreplyto">
@@ -61,23 +78,11 @@
                                        placeholder="Add the URL that you're replying to"
                                        class="span8" value="<?= htmlspecialchars($inreplyto) ?>"/>
                                 <small><a href="#"
-                                          onclick="$(this).parent().parent().remove(); return false;">Remove</a></small>
+                                          onclick="$(this).parent().parent().remove(); return false;"><icon class="icon-remove"></icon> 
+                                          Remove URL</a></small>
                             </p>
                         <?php
                         }
-                    }
-                ?>
-                <?php
-                    $twitter_user = null;
-                    $u = \Idno\Core\site()->currentPage()->getInput('replyto');
-                    if (preg_match('/https?:\/\/(www\.)?twitter\.com\/([^\/]+)/', $u, $matches)) {
-                        $twitter_user = $matches[2];
-                    }
-                    
-                    if (!empty($u)) {
-                        ?>
-                            <span><input required type="url" name="inreplyto[]" value="<?= $u; ?>" placeholder="The website address of the post you\'re replying to" class="span8" /> <small><a href="#" onclick="$(this).parent().parent().remove(); return false;">Remove</a></small><br /></span> 
-                        <?php
                     }
                 ?>
             </div>
@@ -89,18 +94,18 @@
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('note'); ?>
             <p class="button-bar">
                 <?= \Idno\Core\site()->actions()->signForm('/status/edit') ?>
+                <?= $this->draw('content/access'); ?>
                 <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
                 <input type="submit" class="btn btn-primary" value="Publish"/>
-                <?= $this->draw('content/access'); ?>
             </p>
-            <p>
+            <!--<p>
                 <small><a href="#" onclick="$('#bookmarklet').toggle(); return false;">Get a button for your browser</a></small>
             </p>
 
             <div id="bookmarklet" style="display:none;">
                 <p>Drag the following link into your browser links bar to easily share links or reply to posts on other sites:</p>
-                <?= $this->draw('entity/bookmarklet'); ?>
-            </div>   
+                <?=$this->draw('entity/bookmarklet'); ?>
+            </div>  --> 
         </div>
         <div class="span2">
             <p id="counter" style="display:none">

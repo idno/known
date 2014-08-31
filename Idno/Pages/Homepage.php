@@ -22,6 +22,11 @@
                 $types          = $this->getInput('types');
                 $friendly_types = [];
 
+                // Check for an empty site
+                if (!\Idno\Entities\User::get()) {
+                    $this->forward(\Idno\Core\site()->config()->getURL() . 'begin/');
+                }
+
                 if (!empty($this->arguments[0])) { // If we're on the friendly content-specific URL
                     if ($friendly_types = explode('/', $this->arguments[0])) {
                         $friendly_types = array_filter($friendly_types);
