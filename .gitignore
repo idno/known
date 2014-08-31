@@ -18,6 +18,7 @@ Idno/.idea/.name
 *.ini
 *.json
 tests/_output/*
+*-ori.*
 
 IdnoPlugins/Facebook/
 IdnoPlugins/Flickr/
