@@ -984,3 +984,64 @@ label {
     border-color: #70997a;
     text-decoration: none;
 }
+
+textarea.feedback {
+	width: 100%;
+    background-color: #fbfbfb;
+    border: 3px solid rgba(115, 178, 227, 0.4);
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: #333333;
+    font-family: 'Pontano Sans',Verdana,Helvetica,sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 18px;
+    margin-bottom: 5px;
+    margin-top: 2px;
+    padding: 10px;
+}
+
+textarea.feedback:focus {
+    background: none repeat scroll 0 0 #fff;
+    border: 3px solid #4c93cb;
+    outline: medium none;
+    padding: 10px;
+}
+
+p.feedback {
+	font-size: 1.2em;
+}
+
+.feedback-btn {
+	width: 100%; 
+	text-align: right;
+	padding-top: 20px;
+}
+
+.btn-feedback {
+    background-color: #73b2e3;
+    border-color: #73b2e3;
+    color: #ffffff;
+    text-shadow: none;
+    background-image: none;
+    background-repeat: repeat-x;
+    box-shadow: none;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-repeat: repeat-x;
+    border-image: none;
+    border-radius: 7px;
+    cursor: pointer;
+    display: inline-block;
+    line-height: 24px;
+    padding: 15px 65px;
+    font-size: 24px;
+}
+
+.btn-feedback:hover, btn-feedback:active, .btn-feedback:focus {
+    background-color: #4c93cb;
+    border-color: #4c93cb;
+    color: #ffffff;
+}
