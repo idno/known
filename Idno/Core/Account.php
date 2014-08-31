@@ -31,6 +31,9 @@
                 site()->addPagehandler('/account/password', '\Idno\Pages\Account\Password', true);
                 site()->addPagehandler('/account/password/reset', '\Idno\Pages\Account\Password\Reset', true);
 
+                // Known feedback
+                site()->addPageHandler('/account/settings/feedback/?', '\Idno\Pages\Account\Settings\Feedback');
+
             }
 
         }
