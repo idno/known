@@ -62,6 +62,11 @@
             <?php
             }
             ?>
+                    <label>
+                        Tags <br/>
+                        <input type="text" name="tags" id="tags" placeholder="Add some #tags"
+                               value="<?= htmlspecialchars($vars['object']->tags) ?>" class="span8"/>
+                    </label>
 
             <p>
                 <small><a id="inreplyto-add" href="#"

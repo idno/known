@@ -946,6 +946,41 @@ small {
 	padding-top: 10px;
 }
 
+.map {
+	padding-bottom: 15px;
+}
+
 #inreplyto {
 	padding-bottom: 10px;
+}
+
+label {
+	cursor: text;
+}
+
+.wordcount {
+	padding-bottom: 10px;
+}
+
+.icon-tag {
+	padding-right: 10px;
+	color: #999999;
+	font-size: 1.2em;
+	vertical-align: middle;
+}
+
+.idno-object a.p-category {
+	color: #8cbf99;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	background-color: #ffffff;
+    background-repeat: repeat-x;
+    padding: 3px;
+    font-size: .85em;
+}
+
+.idno-object a.p-category:hover {
+	color: #70997a;
+	background-color: #ffffff;
+    border-color: #70997a;
+    text-decoration: none;
 }

@@ -24,7 +24,7 @@
         
         if (!empty($vars['object']->tags)) {
         ?>
-            <p><?=$this->parseURLs($this->parseHashtags($vars['object']->tags),$rel)?></p>
+            <p class="tag-row"><i class="icon-tag"></i><?=$this->parseURLs($this->parseHashtags($vars['object']->tags),$rel)?></p>
         <?php
         }
 
