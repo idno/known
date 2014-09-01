@@ -9,13 +9,13 @@
 	<div class="container">
 	<div class="row row-centered">
 		<div class="scoot col-centered col-max">
-			<img class="img-responsive" src="../../../gfx/onboarding/kite.png" width="100%">
+			<img class="img-responsive" src="../../../gfx/onboarding/kite.png" alt="Take a picture" width="100%">
 		</div>
 		<div class="scoot col-centered col-max">
-			<img class="img-responsive" src="../../../gfx/onboarding/text.png" width="100%">
+			<img class="img-responsive" src="../../../gfx/onboarding/text.png" alt="Share a message" width="100%">
 		</div>
 		<div class="scoot col-centered col-max">
-			<img class="img-responsive" src="../../../gfx/onboarding/map.png" width="100%">
+			<img class="img-responsive" src="../../../gfx/onboarding/map.png" alt="Save your location" width="100%">
 		</div>
 	</div>
 </div>
@@ -26,19 +26,24 @@
         <div align="center"><form class="form" method="get" action="<?=\Idno\Core\site()->config()->getURL()?>begin/register/">
 
             
-        <div class="submit">
+       <!-- <div class="submit">
           <button class="btn btn-primary btn-lg btn-responsive" type="submit" value="Get started">Get started</button>
         
-		  </div>
+		  </div>-->
 
 
-        </form></div>
-        
+                <div class="col-md-12 submit">
+                    <input class="btn btn-primary btn-lg btn-responsive" type="submit" value="Get started">
 
+                </div>
+
+
+            </form>
+        </div>
 
         <p class="signin" align="center"><a href="<?=\Idno\Core\site()->config()->getURL()?>session/login/">Already have an account? Sign in.</a></p>
 
  <div class="space">&nbsp;</div>
- 
+
     </div>
 </div>
