@@ -66,7 +66,7 @@ body.page-begin-register {
 }
 
 #form-div {
-    background-color: none;
+    background-color: rgba(255,255,255,0.8);
     padding-left: 25px;
     padding-right: 25px;
     padding-top: 5px;
