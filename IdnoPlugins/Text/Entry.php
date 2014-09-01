@@ -53,6 +53,7 @@
 
                     $this->body = $body;
                     $this->title = \Idno\Core\site()->currentPage()->getInput('title');
+                    $this->tags = \Idno\Core\site()->currentPage()->getInput('tags');
                     $this->setAccess('PUBLIC');
 
                     if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {

@@ -48,6 +48,7 @@
                 }
                 $body = \Idno\Core\site()->currentPage()->getInput('body');
                 $inreplyto = \Idno\Core\site()->currentPage()->getInput('inreplyto');
+                $tags = \Idno\Core\site()->currentPage()->getInput('tags');
 
                 if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
                     if ($time = strtotime($time)) {
@@ -58,6 +59,7 @@
                 if (!empty($body)) {
                     $this->body = $body;
                     $this->inreplyto = $inreplyto;
+                    $this->tags = $tags;
                     if (!empty($inreplyto)) {
                         if (is_array($inreplyto)) {
                             foreach($inreplyto as $inreplytourl) {

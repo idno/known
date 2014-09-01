@@ -39,6 +39,7 @@
                     $new = false;
                 }
                 $body         = \Idno\Core\site()->currentPage()->getInput('body');
+                $tags         = \Idno\Core\site()->currentPage()->getInput('tags');
                 $lat          = \Idno\Core\site()->currentPage()->getInput('lat');
                 $long         = \Idno\Core\site()->currentPage()->getInput('long');
                 $user_address = \Idno\Core\site()->currentPage()->getInput('user_address');
@@ -58,6 +59,7 @@
                     $this->body      = $body;
                     $this->address   = $user_address;
                     $this->setAccess('PUBLIC');
+                    $this->tags      = $tags;
                     if ($this->save()) {
                         if ($new) {
                             $this->addToFeed();
