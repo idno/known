@@ -31,6 +31,11 @@
         }
     });
 
+// Set time limit if we're using the default
+    if (ini_get('max_execution_time') == 30) {
+        set_time_limit(120);
+    }
+
 // We're making heavy use of the Symfony ClassLoader to load our classes
     require_once(dirname(dirname(__FILE__)) . '/external/Symfony/Component/ClassLoader/UniversalClassLoader.php');
     $loader = new \Symfony\Component\ClassLoader\UniversalClassLoader();
