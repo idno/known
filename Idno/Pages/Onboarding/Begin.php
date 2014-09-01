@@ -12,6 +12,11 @@
             function getContent()
             {
 
+                $set_name = $this->getInput('set_name');
+                if (!empty($set_name)) {
+                    $_SESSION['set_name'] = $set_name;
+                }
+
                 $t = \Idno\Core\site()->template();
                 echo $t->__([
                     'body' => $t->draw('onboarding/begin'),
