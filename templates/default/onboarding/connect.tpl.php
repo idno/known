@@ -2,7 +2,9 @@
     <div id="form-div">
         <h2>Share to social</h2>
 
-        <p class="social-connect">Connect your accounts to easily share content with people across the web.</p>
+        <p class="social-connect">
+            Connect your accounts to easily share content with people across the web.
+        </p>
 
         <?= $this->draw('onboarding/connect/networks'); ?>
 
