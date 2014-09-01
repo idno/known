@@ -36,7 +36,7 @@
                 $this->dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
                 $this->config     = new Config();
                 if ($this->config->isDefaultConfig()) {
-                    // TODO: invoke installer
+                    //header('Location: ./warmup/'); exit;    // Load the installer
                 }
                 switch ($this->config->database) {
                     case 'mongodb':
