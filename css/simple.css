@@ -62,7 +62,7 @@ body.page-begin-register {
 #form-main {
     width: 100%;
     float: left;
-    padding-top: 0px;
+    padding-top: 20px;
 }
 
 #form-div {
@@ -198,7 +198,7 @@ h1 {
 }
 
 .p-register {
-    margin-bottom: 120px;
+    margin-bottom: 20px;
     margin-top: 10px;
     text-align: center;
     padding-left: 15px;
@@ -230,6 +230,7 @@ p {
 .submit {
     text-align: center;
     width: 100%;
+    padding-top: 15px;
 }
 
 .btn-reg {
@@ -780,10 +781,10 @@ a.connect {
     padding: 10px 16px;
 }
 
-*, *:before, *:after {
+/* *, *:before, *:after {
     box-sizing: border-box;
 }
-
+*/
 .btn {
     -moz-user-select: none;
     background-image: none;
@@ -804,9 +805,70 @@ a.connect {
 .img-responsive {
 	max-width: 100%;
 	height: auto;
+/*	display: block; */
 }
 
 p a {
 	font-size: 18px;
 }
+
+.row:before, .row:after {
+    content: "";
+    display: table;
+    line-height: 0;
+}
+
+.row:after {
+    clear: both;
+}
+
+.row {
+    margin-left: 0px;
+    text-align: center;
+    width: 100%;
+}
+
+
+/* Experiment */
+
+.scoot {
+    width: 100%;
+    float: left;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+
+/* centered columns styles */
+.row-centered {
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
+.col-fixed {
+    /* custom width */
+    width:320px;
+}
+.col-min {
+    /* custom min width */
+    min-width:320px;
+}
+.col-max {
+    /* custom max width */
+    max-width:320px;
+}
+
+/* visual styles */
+.container{
+    max-width:99%
+}
+
+
+
 
