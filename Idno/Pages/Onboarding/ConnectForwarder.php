@@ -14,7 +14,7 @@
 
                 $this->gatekeeper();
 
-                $this->forward(\Idno\Core\site()->config()->getURL() . 'onboarding/connect');
+                $this->forward(\Idno\Core\site()->config()->getURL() . 'begin/connect');
 
             }
 

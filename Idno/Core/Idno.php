@@ -164,6 +164,7 @@
                 $this->addPageHandler('/begin/register/?', '\Idno\Pages\Onboarding\Register', true);
                 $this->addPageHandler('/begin/profile/?', '\Idno\Pages\Onboarding\Profile');
                 $this->addPageHandler('/begin/connect/?', '\Idno\Pages\Onboarding\Connect');
+                $this->addPageHandler('/begin/connect\-forwarder/?', '\Idno\Pages\Onboarding\ConnectForwarder');
                 $this->addPageHandler('/begin/publish/?', '\Idno\Pages\Onboarding\Publish');
 
             }
