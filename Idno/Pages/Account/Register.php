@@ -76,11 +76,11 @@
                         if (!\Idno\Entities\User::get()) {
                             $user->setAdmin(true);
                             if (\Idno\Core\site()->config()->title == 'New Known site') {
-                                //if (!empty($_SESSION['set_name'])) {
-                                //    \Idno\Core\site()->config()->title = $_SESSION['set_name'];
-                                //} else {
+                                if (!empty($_SESSION['set_name'])) {
+                                    \Idno\Core\site()->config()->title = $_SESSION['set_name'];
+                                } else {
                                     \Idno\Core\site()->config()->title = $user->getTitle() . '\'s site';
-                                //}
+                                }
                                 \Idno\Core\site()->config()->open_registration = false;
                                 \Idno\Core\site()->config()->from_email = $user->email;
                                 \Idno\Core\site()->config()->save();
