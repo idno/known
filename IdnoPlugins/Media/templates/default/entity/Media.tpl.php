@@ -35,9 +35,9 @@
 <?= $this->autop($this->parseHashtags($this->parseURLs($vars['object']->body, $rel))) ?>
 
 <?php
-    if (!empty($object->tags)) {
+    if (!empty($vars['object']->tags)) {
 ?>
 
-<p class="tag-row"><i class="icon-tag"></i> <?=$this->parseHashtags($object->tags)?></p>
+<p class="tag-row"><i class="icon-tag"></i> <?=$this->parseHashtags($vars['object']->tags)?></p>
 
 <?php }
