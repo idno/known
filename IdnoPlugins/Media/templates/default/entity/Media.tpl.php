@@ -1,4 +1,5 @@
 <?php
+
     if (\Idno\Core\site()->currentPage()->isPermalink()) {
         $rel = 'rel="in-reply-to"';
     } else {
@@ -33,7 +34,9 @@
 ?>
 <?= $this->autop($this->parseHashtags($this->parseURLs($vars['object']->body, $rel))) ?>
 
-if (!empty($object->tags)) { ?>
+<?php
+    if (!empty($object->tags)) {
+?>
 
 <p class="tag-row"><i class="icon-tag"></i> <?=$this->parseHashtags($object->tags)?></p>
 

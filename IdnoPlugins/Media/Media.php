@@ -71,7 +71,7 @@
                         ) {
                             $media_file = $_FILES['media'];
                             if ($media_file['type'] == 'application/octet-stream') {
-                                switch ($media_file['type']) {
+                                switch ($ext) {
                                     case 'mp4':
                                         $media_file['type'] = 'video/mp4';
                                         break;
