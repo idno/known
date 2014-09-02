@@ -1361,7 +1361,24 @@
                                         if (!empty($item['properties'])) {
                                             if (!empty($item['properties']['name'])) $mentions['owner']['name'] = $item['properties']['name'][0];
                                             if (!empty($item['properties']['url'])) $mentions['owner']['url'] = $item['properties']['url'][0];
-                                            if (!empty($item['properties']['photo'])) $mentions['owner']['photo'] = $item['properties']['photo'][0];
+                                            if (!empty($item['properties']['photo'])) {
+                                                //$mentions['owner']['photo'] = $item['properties']['photo'][0];
+                                                
+                                                $tmpfname = tempnam(sys_get_temp_dir(), 'webmention_avatar');
+                                                file_put_contents($tmpfname, \Idno\Core\Webservice::file_get_contents($item['properties']['photo'][0]));
+                                                
+                                                $name = md5($item['properties']['url'][0]);
+                                                
+                                                // TODO: Don't update the cache image for every webmention
+                                                
+                                                if ($icon = \Idno\Entities\File::createThumbnailFromFile($tmpfname, $name, 300)) {
+                                                    $mentions['owner']['photo'] = \Idno\Core\site()->config()->url . 'file/' . (string)$icon;
+                                                } else if ($icon = \Idno\Entities\File::createFromFile($tmpfname, $name)) {
+                                                    $mentions['owner']['photo'] = \Idno\Core\site()->config()->url . 'file/' . (string)$icon;
+                                                }
+                                                
+                                                unlink($tmpfname);
+                                            }
                                         }
                                         break;
                                 }
@@ -1452,7 +1469,24 @@
                                 if ($type == 'h-card') {
                                     if (!empty($author['properties']['name'])) $mentions['owner']['name'] = $author['properties']['name'][0];
                                     if (!empty($author['properties']['url'])) $mentions['owner']['url'] = $author['properties']['url'][0];
-                                    if (!empty($author['properties']['photo'])) $mentions['owner']['photo'] = $author['properties']['photo'][0];
+                                    if (!empty($author['properties']['photo'])) { 
+                                        //$mentions['owner']['photo'] = $author['properties']['photo'][0];
+                                        
+                                        $tmpfname = tempnam(sys_get_temp_dir(), 'webmention_avatar');
+                                        file_put_contents($tmpfname, \Idno\Core\Webservice::file_get_contents($author['properties']['photo'][0]));
+
+                                        $name = md5($author['properties']['url'][0]);
+
+                                        // TODO: Don't update the cache image for every webmention
+
+                                        if ($icon = \Idno\Entities\File::createThumbnailFromFile($tmpfname, $name, 300)) {
+                                            $mentions['owner']['photo'] = \Idno\Core\site()->config()->url . 'file/' . (string)$icon;
+                                        } else if ($icon = \Idno\Entities\File::createFromFile($tmpfname, $name)) {
+                                            $mentions['owner']['photo'] = \Idno\Core\site()->config()->url . 'file/' . (string)$icon;
+                                        }
+
+                                        unlink($tmpfname);
+                                    }
                                 }
                             }
                         }
