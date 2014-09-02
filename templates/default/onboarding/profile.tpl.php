@@ -7,7 +7,7 @@
         <form action="<?= $vars['user']->getURL() ?>" method="post" enctype="multipart/form-data">
 
             <p class="profile-pic" id="photo-preview">
-                <img src="<?= $vars['user']->getIcon() ?>" alt="" style="width: 150px"
+                <img src="<?= $vars['user']->getIcon() ?>" alt="" style="width: 150px; cursor: pointer"
                      class="icon-container" onclick="$('#photo').click();"/>
             </p>
 
