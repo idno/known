@@ -1,5 +1,9 @@
 <?php
 
+    if (file_exists('../config.ini')) {
+        header('Location: ../'); exit;
+    }
+
     if (empty($title)) {
         $title = 'Welcome to Known';
     }

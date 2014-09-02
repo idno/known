@@ -10,18 +10,25 @@
         <div id="form-div">
             <div class="h-register"><img src="../gfx/onboarding/logo_black.png" alt="Known" class="img-responsive"></div>
 
-            <p class="p-register">Known is your space for sharing content and discussing ideas.</p>
+            <p class="p-register">
+                Known is your space for sharing content and discussing ideas.
+            </p>
+
+            <div class="p-register">
+                <p>
+                    Over the next few screens, we'll take you through configuring your Known site for the first time.
+                </p>
+            </div>
 
             <div align="center">
 
-                    <div class="col-md-12 submit">
-                        <button class="btn btn-primary btn-lg btn-responsive" >Begin installation</button>
-                    </div>
-
-
+                <div class="submit page-bottom">
+                    <a class="btn btn-primary btn-lg btn-responsive" href="requirements.php">Let's get started</a>
                 </div>
 
-            <div class="space">&nbsp;</div>
+            </div>
+
+            <div class="space"><p>&nbsp;</p></div>
 
         </div>
     </div>
