@@ -10,27 +10,27 @@
             break;
         case '2a':
             echo $this->__([
-                'body' => "Beep! That's a great update. Did you see that your site address is " . \Idno\Core\site()->config()->getURL() . "? Be sure and bookmark this so you can find it again.\n\nYour Known site is really coming together now. I bet you've got some great pictures. Why not upload a photo that you took recently?"
+                'body' => "Beep! That was a great update. Did you see that your site address is " . \Idno\Core\site()->config()->getURL() . "? Be sure and bookmark this so you can find it again.\n\nYour Known site is really coming together now. I bet you've got some great pictures. Why not upload a photo that you took recently?"
             ])->draw('robot/post');
             break;
         case '2b':
             echo $this->__([
-                'body' => "Boop! That's a great update. Did you see that your site address is " . \Idno\Core\site()->config()->getURL() . "? Be sure and bookmark this so you can find it again.\n\nYour Known site is really coming together now. Why don't you try posting something else?"
+                'body' => "Boop! That was a great update. Did you see that your site address is " . \Idno\Core\site()->config()->getURL() . "? Be sure and bookmark this so you can find it again.\n\nYour Known site is really coming together now. Why don't you try posting something else?"
             ])->draw('robot/post');
             break;
         case '2c':
             echo $this->__([
-                'body' => "Beep boop! That's a great update. Did you see that your site address is " . \Idno\Core\site()->config()->getURL() . "? Be sure and bookmark this so you can find it again."
+                'body' => "Beep boop! That was a great update. Did you see that your site address is " . \Idno\Core\site()->config()->getURL() . "? Be sure and bookmark this so you can find it again."
             ])->draw('robot/post');
             break;
         case "3a":
             echo $this->__([
-                'body' => "Beepity boop! That's a great picture. Did you see that you can also update your profile?"
+                'body' => "Beepity boop! That was a great picture. Did you see that you can also <a href=\"".\Idno\Core\site()->session()->currentUser()->getURL()."/edit\">update your profile</a>?"
             ])->draw('robot/post');
             break;
         case "3b":
             echo $this->__([
-                'body' => "Boopity beep! Did you see that you can also update your profile?"
+                'body' => "Boopity beep! Did you see that you can also <a href=\"".\Idno\Core\site()->session()->currentUser()->getURL()."/edit\">update your profile</a>?"
             ])->draw('robot/post');
             break;
         case '4':
@@ -39,4 +39,23 @@
             ])->draw('robot/post');
             break;
 
+    }
+    if (\Idno\Core\site()->currentPage() instanceof \Idno\Pages\Homepage) {
+        if (in_array(\Idno\Core\site()->session()->currentUser()->robot_state,['3a','3b','2c','4'])) {
+            $user = \Idno\Core\site()->session()->currentUser();
+            switch($user->robot_state) {
+                case '3a':
+                case '3b':
+                    $user->robot_state = '4';
+                    break;
+                case '2c':
+                    $user->robot_state = '3b';
+                    break;
+                case '4':
+                    $user->robot_state = 0;
+                    break;
+            }
+            $user->save();
+            \Idno\Core\site()->session()->refreshSessionUser($user);
+        }
     }
