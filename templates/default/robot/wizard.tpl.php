@@ -5,7 +5,7 @@
 
         case '1':
             echo $this->__([
-                'body' => "Howdy {$username}! Welcome to your new Known site. I'm Timble, your very own welcome robot. Let's get started by adding a status update about what you did today. Just select the <strong>Status update</strong> button above."
+                'body' => "Howdy {$username}! Welcome to your new Known site. I'm Aleph, your very own welcome robot. Let's get started by adding a status update about what you did today. Just select the <strong>Status update</strong> button above."
             ])->draw('robot/post');
             break;
         case '2a':
