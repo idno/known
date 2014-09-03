@@ -71,6 +71,7 @@
                         $user->email  = $email;
                         $user->handle = strtolower(trim($handle)); // Trim the handle and set it to lowercase
                         $user->setPassword($password);
+                        $user->robot_state = 1; // State for our happy robot helper
                         if (empty($name)) {
                             $name = $user->handle;
                         }
