@@ -39,8 +39,7 @@
     map<?=$object->_id?>.addLayer(layer<?=$object->_id?>);
     var marker<?=$object->_id?> = L.marker([<?=$object->lat?>, <?=$object->long?>]);
     marker<?=$object->_id?>.addTo(map<?=$object->_id?>);
-    //map
-    <?=$object->_id?>.zoomControl.disable();
+    //map<?=$object->_id?>.zoomControl.disable();
     map<?=$object->_id?>.scrollWheelZoom.disable();
     map<?=$object->_id?>.touchZoom.disable();
     map<?=$object->_id?>.doubleClickZoom.disable();
