@@ -44,7 +44,7 @@
 
                 }
 
-                $this->forward(\Idno\Core\site()->config()->getURL() . 'account/settings/feedback/');
+                $this->forward(\Idno\Core\site()->config()->getURL() . 'account/settings/feedback/confirm/');
 
             }
 
