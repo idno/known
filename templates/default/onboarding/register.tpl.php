@@ -19,7 +19,7 @@
             </p>
 
             <p class="password">
-                <label class="control-label" for="inputUsername">Create a password <small>(at least 4 characters please)</small><br/></label>
+                <label class="control-label" for="inputUsername">Create a password <small>(at least 5 characters please)</small><br/></label>
                 <input name="password" type="password" class="feedback-input" id="password" placeholder="secret-password"/>
             </p>
 
