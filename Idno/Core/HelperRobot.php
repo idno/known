@@ -11,6 +11,7 @@
                     if (!empty(site()->session()->currentUser()->robot_state)) {
                         $this->registerEvents();
                     }
+                    site()->addPageHandler('robot/remove','Idno\Pages\Robot\Remove');
                 }
             }
 
