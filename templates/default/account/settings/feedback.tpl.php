@@ -34,8 +34,7 @@
                 <textarea rows="7" class="feedback" placeholder="Let us know what you think." name="message" required></textarea>
 
                 <p>
-                    <em>We will personally read all of your feedback. This form receives your email address so that we
-                    can respond, but we won't add your address to any list.</em>
+                    <em>We will personally read all of your feedback.</em>
                 </p>
 
                 <div class="control-group">
