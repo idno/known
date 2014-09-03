@@ -1,16 +1,16 @@
 <div class="row idno-entry idno-entry-helper">
     <div class="span1 offset1 owner h-card hidden-phone">
         <p>
-            <a href="#" class="u-url icon-container"><img class="u-photo"
+            <a class="u-url icon-container"><img class="u-photo"
                                                           src="<?=\Idno\Core\site()->config()->getURL()?>gfx/robots/1.png"/></a><br/>
-            <a href="#" class="p-name u-url fn">XXYX</a>
+            <a class="p-name u-url fn">Timble</a>
         </p>
     </div>
     <div class="visible-phone">
         <p class="p-author author h-card vcard">
             <a href="#" class="icon-container"><img
                     class="u-logo logo u-photo photo" src="<?=\Idno\Core\site()->config()->getURL()?>gfx/robots/1.png"/></a>
-            <a class="p-name fn u-url url" href="#">XXYX</a>
+            <a class="p-name fn u-url url" href="#">Timble</a>
         </p>
     </div>
     <div
@@ -19,7 +19,7 @@
             <p class="p-author author h-card vcard">
                 <a href="#" class="icon-container"><img
                         class="u-logo logo u-photo photo" src="#"/></a>
-                <a class="p-name fn u-url url" href="#">XXYX</a>
+                <a class="p-name fn u-url url" href="#">Timble</a>
             </p>
         </div>
         <div class="e-content entry-content">
@@ -27,7 +27,11 @@
         </div>
         <div class="footer">
             <p>
-                <a href="#">Click here to remove robot helpers</a>
+                <?php
+
+                    echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getURL() . 'robot/remove', "Click here to remove robot helpers");
+
+                ?>
             </p>
         </div>
     </div>
