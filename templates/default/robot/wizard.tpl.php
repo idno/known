@@ -1,16 +1,17 @@
 <?php
 
     $username = \Idno\Core\site()->session()->currentUser()->getHandle();
+    $url = \Idno\Core\site()->session()->currentUser()->getURL();
     switch (\Idno\Core\site()->session()->currentUser()->robot_state) {
 
         case '1':
             echo $this->__([
-                'body' => "Howdy {$username}! Welcome to your new Known site. I'm Aleph, your very own welcome robot. Let's get started by adding a status update about what you did today. Just select the <strong>Status update</strong> button above."
+                'body' => "Hey there <a href=\"{$url}\">{$username}</a>! Welcome to your new Known site. I'm Aleph, your very own welcome robot. Let's get started by adding a status update about what you did today. Just select the button above."
             ])->draw('robot/post');
             break;
         case '2a':
             echo $this->__([
-                'body' => "Beep! That was a great update. Did you see that your site address is " . \Idno\Core\site()->config()->getURL() . "? Be sure and bookmark this so you can find it again.\n\nYour Known site is really coming together now. I bet you've got some great pictures. Why not upload a photo that you took recently?"
+                'body' => "Beep! That was a great update. Did you see that your site address is <a href=\"".\Idno\Core\site()->config()->getURL()."\"" . \Idno\Core\site()->config()->getURL() . "? Be sure and bookmark this so you can find it again.\n\nYour Known site is really coming together now. I bet you've got some great pictures. Why not upload a photo that you took recently?"
             ])->draw('robot/post');
             break;
         case '2b':
