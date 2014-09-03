@@ -7,7 +7,7 @@
 
         <p class="p-register">Known is your space for sharing content and discussing ideas.</p>
 
-        <div class="container">
+        <div class="container" style="margin-bottom: 3em; margin-top: 2em">
             <div class="row row-centered">
                 <div class="scoot col-centered col-max">
                     <img class="img-responsive" src="../../../gfx/onboarding/kite.png" alt="Take a picture"
