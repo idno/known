@@ -29,6 +29,7 @@
             public static $site;
             public $currentPage;
             public $known_hub;
+            public $helper_robot;
 
             function init()
             {
@@ -36,7 +37,8 @@
                 $this->dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
                 $this->config     = new Config();
                 if ($this->config->isDefaultConfig()) {
-                    header('Location: ./warmup/'); exit;    // Load the installer
+                    header('Location: ./warmup/');
+                    exit; // Load the installer
                 }
                 switch ($this->config->database) {
                     case 'mongodb':
@@ -83,13 +85,14 @@
                         break;
                 }
                 $this->config->load();
-                $this->session     = new Session();
-                $this->actions     = new Actions();
-                $this->template    = new Template();
-                $this->syndication = new Syndication();
-                $this->logging     = new Logging();
-                $this->plugins     = new Plugins(); // This must be loaded last
-                $this->themes      = new Themes();
+                $this->session      = new Session();
+                $this->actions      = new Actions();
+                $this->template     = new Template();
+                $this->syndication  = new Syndication();
+                $this->logging      = new Logging();
+                $this->plugins      = new Plugins(); // This must be loaded last
+                $this->themes       = new Themes();
+                $this->helper_robot = new HelperRobot();
 
                 // Connect to a Known hub if one is listed in the configuration file
                 // (and this isn't the hub!)
