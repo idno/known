@@ -1049,3 +1049,7 @@ p.feedback {
 .idno-entry-helper {
     margin-bottom: 3em;
 }
+
+.idno-entry-helper .idno-content {
+    background-color: #fffed3;
+}
