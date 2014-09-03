@@ -5,6 +5,7 @@
      */
 
     namespace Idno\Pages\Account {
+        use Idno\Entities\Invitation;
 
         /**
          * Default class to serve the registration page
@@ -53,7 +54,8 @@
                         \Idno\Core\site()->session()->addMessage("Your invitation doesn't seem to be valid or has expired.");
                         $this->forward(\Idno\Core\site()->config()->getURL());
                     } else {
-                        $invitation->delete(); // Remove the invitation; it's no longer needed
+                        // Removing this from here - invitation will be deleted once user is created
+                        //$invitation->delete(); // Remove the invitation; it's no longer needed
                     }
                 }
 
@@ -87,6 +89,10 @@
                             }
                         }
                         $user->save();
+                        // Now we can remove the invitation
+                        if ($invitation instanceof Invitation) {
+                            $invitation->delete(); // Remove the invitation; it's no longer needed
+                        }
                     } else {
                         if (empty($handle)) {
                             \Idno\Core\site()->session()->addMessage("Please create a username.");
