@@ -71,13 +71,13 @@
                         $user->email  = $email;
                         $user->handle = strtolower(trim($handle)); // Trim the handle and set it to lowercase
                         $user->setPassword($password);
-                        $user->robot_state = 1; // State for our happy robot helper
                         if (empty($name)) {
                             $name = $user->handle;
                         }
                         $user->setTitle($name);
                         if (!\Idno\Entities\User::get()) {
                             $user->setAdmin(true);
+                            $user->robot_state = 1; // State for our happy robot helper
                             if (\Idno\Core\site()->config()->title == 'New Known site') {
                                 if (!empty($_SESSION['set_name'])) {
                                     \Idno\Core\site()->config()->title = $_SESSION['set_name'];
