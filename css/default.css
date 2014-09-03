@@ -1045,3 +1045,7 @@ p.feedback {
     border-color: #4c93cb;
     color: #ffffff;
 }
+
+.idno-entry-helper {
+    margin-bottom: 3em;
+}
