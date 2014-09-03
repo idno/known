@@ -388,7 +388,7 @@
             {
                 $regexObj = new \MongoRegex("/" . addslashes($query) . "/i");
 
-                return ['$or' => [['body' => $regexObj], ['title' => $regexObj], ['description' => $regexObj]]];
+                return ['$or' => [['body' => $regexObj], ['title' => $regexObj], ['tags' => $regexObj], ['description' => $regexObj]]];
             }
 
         }
