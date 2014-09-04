@@ -16,7 +16,7 @@
                     <p>
                         <?php
 
-                            echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getURL() . 'robot/remove', "Turn off robot helpers?");
+                            echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getURL() . 'robot/remove', "Power down robots. I can take it from here.");
 
                         ?>
                     </p>
