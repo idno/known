@@ -60,7 +60,7 @@
 
                     }
                 } else {
-                    \Idno\Core\site()->session()->addMessage("Your passwords need to match!");
+                    \Idno\Core\site()->session()->addMessage('Sorry, your passwords either don\'t match, or are too weak', 'alert-error');
                     $this->forward($_SERVER['HTTP_REFERER']);
                 }
 
