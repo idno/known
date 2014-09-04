@@ -5,6 +5,7 @@
      */
 
     namespace Idno\Pages\Entity {
+        use Idno\Common\Entity;
 
         /**
          * Default class to serve the homepage
@@ -61,7 +62,10 @@
                         $object = \Idno\Common\Entity::getBySlug($this->arguments[0]);
                     }
                 }
-                if (empty($object)) return false;
+                if (empty($object)) {
+                    \Idno\Core\site()->logging->log("No object was found with ID {$this->arguments[0]}.", LOGLEVEL_ERROR);
+                    return false;
+                }
 
                 $return = true;
 
