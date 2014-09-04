@@ -23,7 +23,8 @@
                                               'Text',
                                               'Photo',
                                               'Like',
-                                              'Checkin'
+                                              'Checkin',
+                                              'Media'
                 ),
                 'themes'            => [],
                 'antiplugins'       => [],
