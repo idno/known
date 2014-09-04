@@ -818,7 +818,7 @@
             {
                 if ($descr = $this->getDescription()) {
                     if (!empty($this->tags)) {
-                        $descr .= ' ' .$this->tags;
+                        $descr .= ' ' . $this->tags;
                     }
                     if (preg_match_all('/(?<!=)(?<!["\'])(\#[A-Za-z0-9]+)/i', $descr, $matches)) {
                         if (!empty($matches[0])) {
@@ -1568,8 +1568,16 @@
                 if (empty($annotation_url)) {
                     $annotation_url = $this->getURL() . '/annotations/' . md5(time() . $content); // Invent a URL for this annotation
                 }
-                // Create a local URL (fixes #199)
-                $local_url = $this->getURL() . '/annotations/' . md5(time() . $content); // Invent a URL for this annotation
+                if ($existing_annotations = $this->getAnnotations($subtype)) {
+                    foreach($existing_annotations as $existing_local_url => $existing_annotation) {
+                        if ($existing_annotation['permalink'] == $annotation_url) {
+                            $local_url = $existing_local_url;
+                        }
+                    }
+                }
+                if (empty($local_url)) {
+                    $local_url = $this->getURL() . '/annotations/' . md5(time() . $content); // Invent a URL for this annotation if we don't have one already
+                }
                 if (empty($time)) {
                     $time = time();
                 } else {
@@ -1586,6 +1594,7 @@
 
                 $annotations[$subtype][$local_url] = $annotation;
                 $this->annotations                 = $annotations;
+                $this->save();
 
                 \Idno\Core\site()->triggerEvent('annotation/add/' . $subtype, ['annotation' => $annotation, 'object' => $this]);
 
