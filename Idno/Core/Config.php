@@ -31,7 +31,8 @@
                 'items_per_page'    => 10, // Default items per page
                 'experimental'      => false, // A common way to enable experimental functions still in development
                 'multitenant'       => false,
-                'default_config'    => true // This is a trip-switch - changed to true if configuration is loaded from an ini file / the db
+                'default_config'    => true, // This is a trip-switch - changed to true if configuration is loaded from an ini file / the db
+                'log_level'         => 4
             );
 
             public $ini_config = [];
