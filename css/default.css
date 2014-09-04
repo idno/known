@@ -1072,3 +1072,12 @@ p.feedback {
     margin-top: 2em;
     font-size: 0.75em;
 }
+
+.icon-heart {
+	color: #9f111b;
+}
+
+.icon-heart:hover {
+	color: #af474f;
+}
+

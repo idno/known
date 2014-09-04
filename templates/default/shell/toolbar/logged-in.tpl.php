@@ -11,6 +11,8 @@
     <?php if (\Idno\Core\site()->session()->currentUser()->isAdmin()) { ?>
 
         <li><a href="<?= \Idno\Core\site()->config()->url ?>admin/">Configure Your Site</a></li>
+        
+        <li><a href="<?=\Idno\Core\site()->config()->url?>account/settings/feedback/" ><icon class="icon-heart"></icon></a></li>
 
     <?php } ?>
 <?php } ?>
