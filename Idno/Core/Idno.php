@@ -89,7 +89,7 @@
                 $this->actions      = new Actions();
                 $this->template     = new Template();
                 $this->syndication  = new Syndication();
-                $this->logging      = new Logging();
+                $this->logging      = new Logging(5);
                 $this->plugins      = new Plugins(); // This must be loaded last
                 $this->themes       = new Themes();
                 $this->helper_robot = new HelperRobot();
