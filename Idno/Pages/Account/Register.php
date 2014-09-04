@@ -65,7 +65,7 @@
                     \Idno\Core\site()->session()->addMessage("Please enter a username and email address.");
                 } else if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     if (!($emailuser = \Idno\Entities\User::getByEmail($email)) && !($handleuser = \Idno\Entities\User::getByHandle($handle))
-                        && !empty($handle) && strlen($handle <= 32) && !substr_count($handle, '/') && $password == $password2 && strlen($password) > 4
+                        && !empty($handle) && strlen($handle <= 32) && !substr_count($handle, '/') && \Idno\Entities\User::checkNewPasswordStrength($password, $password2)
                     ) {
                         $user         = new \Idno\Entities\User();
                         $user->email  = $email;

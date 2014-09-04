@@ -43,7 +43,7 @@
                     }
                 }
 
-                if (!empty($password) && $password == $password2) {
+                if (\Idno\Entities\User::checkNewPasswordStrength($password, $password2)) {
                     $user->setPassword($password);
                 }
 
