@@ -14,7 +14,10 @@
         </p>
         <p>
             To continue, create a new file called <code>config.ini</code> at the root of your Known installation,
-            with the following contents. Once you've saved it, just reload this page to continue.
+            with the following contents.
+        </p>
+        <p>
+            Once you've saved it, just reload this page to continue.
         </p>
 
         <textarea class="installation"><?=htmlspecialchars($ini_file);?></textarea>
