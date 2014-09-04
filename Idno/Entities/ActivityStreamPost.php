@@ -145,6 +145,23 @@
             }
 
             /**
+             * Pass webmentions to the component objects
+             *
+             * @param string $source The source URL
+             * @param string $target The target URL (i.e., the page on this site that was pinged)
+             * @param string $source_content The source page's HTML
+             * @param array $source_mf2 Parsed Microformats 2 content from $source
+             * @return bool
+             */
+            function addWebmentions($source, $target, $source_content, $source_mf2)
+            {
+                if ($object = $this->getObject()) {
+                    return $object->addWebmentions($source, $target, $source_content, $source_mf2);
+                }
+                return parent::addWebmentions($source, $target, $source_content, $source_mf2);
+            }
+
+            /**
              * Get activity streams posts by object UUID
              * @param $uuid
              * @return array|bool
