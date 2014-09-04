@@ -539,7 +539,7 @@ span.contentTypeLogo {
 
 .explanation {
     margin-top: 1em;
-    margin-bottom: 2em;
+    margin-bottom: 1.5em;
 }
 
 .field-description {
@@ -1051,7 +1051,8 @@ p.feedback {
 }
 
 .idno-entry-helper .idno-content {
-    background-color: #dbf3e1;
+    background-color: #f8f8f8;
+    border: 2px solid #c5c5c5;
 }
 
 .idno-entry-helper p {

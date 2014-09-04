@@ -18,7 +18,7 @@
     <img src="../../../../../gfx/robots/feedback.png" alt="Feedback from Aleph" width="300" height="503" class="img-responsive"/>
     </p>
 
-        <p>
+        <p align="center">
             Feedback is a gift.  For more information about Known, <a href="http://withknown.com/">please visit our homepage</a>.
         </p>
 

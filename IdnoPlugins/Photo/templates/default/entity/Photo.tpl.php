@@ -5,7 +5,7 @@
         $rel = '';
     }
     if (!empty($vars['object']->tags)) {
-        $vars['object']->body .= '<p>' . $vars['object']->tags . '</p>';
+        $vars['object']->body .= '<p class="tag-row"><i class="icon-tag"></i>' . $vars['object']->tags . '</p>';
     }
 ?>
     <h2 class="p-photo"><a href="<?= $vars['object']->getURL(); ?>"><?= $vars['object']->getTitle(); ?></a></h2>
