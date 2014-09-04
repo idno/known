@@ -353,6 +353,23 @@
             {
                 return \password_verify($password, $this->password);
             }
+            
+            /**
+             * Check that a new password is strong.
+             * @param string $password
+             * @param string $password2
+             * @return bool
+             */
+            static function checkNewPasswordStrength($password, $password2) {
+            
+                $default = false;
+                
+                // Default "base" password validation
+                if ($password == $password2 && (strlen($password) > 4) && !empty($password2))
+                    $default = true;
+                
+                return $default;
+            }
 
             /**
              * Retrieve the current password recovery code - if it's less than three hours old
