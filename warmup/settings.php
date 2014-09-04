@@ -31,6 +31,7 @@
         try {
             $dbh = new PDO('mysql:host=' . $mysql_host . ';dbname=' . $mysql_name, $mysql_user, $mysql_pass);
             if ($schema = @file_get_contents('../schemas/mysql/mysql.sql')) {
+                $dbh->exec('use `'.$mysql_name.'`');
                 $dbh->exec($schema);
             } else {
                 $messages .= '<p>We couldn\'t find the schema doc.</p>';
