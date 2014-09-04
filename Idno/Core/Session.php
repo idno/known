@@ -121,6 +121,14 @@
                 }
                 $_SESSION['messages'][] = array('message' => $message, 'message_type' => $message_type);
             }
+            
+            /**
+             * Error message wrapper for addMessage()
+             * @param type $message
+             */
+            function addErrorMessage($message) {
+                $this->addMessage($message, 'alert-error');
+            }
 
             /**
              * Adds a message to the queue to be delivered to the user as soon as is possible, ensuring it's at the beginning of the list
