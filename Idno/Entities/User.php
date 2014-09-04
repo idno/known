@@ -365,7 +365,7 @@
                 $default = false;
                 
                 // Default "base" password validation
-                if ($password == $password2 && (strlen($password) > 4) && !empty($password2))
+                if ($password == $password2 && (strlen($password) >= 8) && !empty($password2))
                     $default = true;
                 
                 return \Idno\Core\site()->triggerEvent('user/password/checkstrength', [
