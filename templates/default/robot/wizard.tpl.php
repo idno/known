@@ -6,17 +6,17 @@
 
         case '1':
             echo $this->__([
-                'body' => "Hey there <a href=\"{$url}\">{$username}</a>! Welcome to your new Known site. I'm Aleph, your very own welcome robot. Let's get started by adding a status update about what you did today. Just select the button above."
+                'body' => "Hey there <a href=\"{$url}\">{$username}</a>! Welcome to your new Known site. I'm Aleph, your very own welcome robot. Let's get started by adding a status update about what you did today. Just select the icon above."
             ])->draw('robot/post');
             break;
         case '2a':
             echo $this->__([
-                'body' => "Beep! That was a great update. Did you see that your site address is <a href=\"".\Idno\Core\site()->config()->getURL()."\"" . \Idno\Core\site()->config()->getURL() . "? Be sure and bookmark this so you can find it again.\n\nYour Known site is really coming together now. I bet you've got some great pictures. Why not upload a photo that you took recently?"
+                'body' => "Beep! That was a great update. Did you see that your site address is <a href=\"".\Idno\Core\site()->config()->getURL()."\">" . \Idno\Core\site()->config()->getURL() . "</a>? Be sure and bookmark this so you can find it again.\n\nYour Known site is really coming together now. I bet you've got some great pictures. Why not upload a photo that you took recently?"
             ])->draw('robot/post');
             break;
         case '2b':
             echo $this->__([
-                'body' => "Boop! That was a great update. Did you see that your site address is " . \Idno\Core\site()->config()->getURL() . "? Be sure and bookmark this so you can find it again.\n\nYour Known site is really coming together now. Why don't you try posting something else?"
+                'body' => "Zeep zeep! That was a great update. Did you see that your site address is <a href=\"".\Idno\Core\site()->config()->getURL()."\">" . \Idno\Core\site()->config()->getURL() . "</a>? Be sure and bookmark this so you can find it again.\n\nYour Known site is really coming together now. Why don't you try posting something else?"
             ])->draw('robot/post');
             break;
         case '2c':

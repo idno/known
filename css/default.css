@@ -1054,7 +1054,20 @@ p.feedback {
     background-color: #dbf3e1;
 }
 
-.idno-object .robot-footer {
-    clear: both;
-    font-size: 0.85em;
+.idno-entry-helper p {
+    font-family: Helvetica Neue, Helvetica, Arial !important;
+    font-size: 1.2em !important;
+}
+
+.idno-entry-helper .robot-head p {
+    font-size: 0.9em !important;
+}
+
+.idno-entry-helper .robot-murmur p {
+    font-size: 1.2em;
+}
+
+.idno-entry-helper .robot-footer {
+    margin-top: 2em;
+    font-size: 0.75em;
 }
