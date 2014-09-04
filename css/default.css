@@ -1051,5 +1051,10 @@ p.feedback {
 }
 
 .idno-entry-helper .idno-content {
-    background-color: #fffed3;
+    background-color: #dbf3e1;
+}
+
+.idno-object .robot-footer {
+    clear: both;
+    font-size: 0.85em;
 }

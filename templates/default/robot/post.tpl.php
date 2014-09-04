@@ -3,14 +3,14 @@
         <p>
             <a class="u-url icon-container"><img class="u-photo"
                                                           src="<?=\Idno\Core\site()->config()->getURL()?>gfx/robots/1.png"/></a><br/>
-            <a class="p-name u-url fn">Aleph</a>
+            Aleph
         </p>
     </div>
     <div class="visible-phone">
         <p class="p-author author h-card vcard">
             <a href="#" class="icon-container"><img
                     class="u-logo logo u-photo photo" src="<?=\Idno\Core\site()->config()->getURL()?>gfx/robots/1.png"/></a>
-            <a class="p-name fn u-url url" href="#">Aleph</a>
+            Aleph
         </p>
     </div>
     <div
@@ -19,17 +19,17 @@
             <p class="p-author author h-card vcard">
                 <a href="#" class="icon-container"><img
                         class="u-logo logo u-photo photo" src="#"/></a>
-                <a class="p-name fn u-url url" href="#">Aleph</a>
+                Aleph
             </p>
         </div>
         <div class="e-content entry-content">
             <?= $vars['body'] ?>
         </div>
-        <div class="footer">
+        <div class="robot-footer">
             <p>
                 <?php
 
-                    echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getURL() . 'robot/remove', "Click here to remove robot helpers");
+                    echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getURL() . 'robot/remove', "Turn off robot helpers?");
 
                 ?>
             </p>
