@@ -83,7 +83,7 @@
                         $text = 'This extension is installed.';
                     } else {
                         $class = 'failure';
-                        $text = 'This extension is not installed. Usually this means that ';
+                        $text = 'This extension is not installed.';
                         $ok = false;
                     }
                     ?>
