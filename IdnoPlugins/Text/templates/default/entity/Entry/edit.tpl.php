@@ -5,12 +5,12 @@
     if (!empty($vars['object']->body)) {
         $body = $vars['object']->body;
     } else {
-        $body = $autosave->getValue('entry', 'body');
+        $body = ''; //$autosave->getValue('entry', 'body');
     }
     if (!empty($vars['object']->title)) {
         $title = $vars['object']->title;
     } else {
-        $title = $autosave->getValue('entry', 'title');
+        $title = ''; //$autosave->getValue('entry', 'title');
     }
 
     /* @var \Idno\Core\Template $this */
