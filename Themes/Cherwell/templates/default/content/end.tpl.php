@@ -1,7 +1,6 @@
 <?php
 
     /* @var \Idno\Common\Entity $vars ['object'] */
-
     $replies = $vars['object']->countAnnotations('reply');
     $likes = $vars['object']->countAnnotations('like');
     $has_liked = false;
