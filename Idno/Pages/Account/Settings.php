@@ -43,8 +43,11 @@
                     }
                 }
 
-                if (\Idno\Entities\User::checkNewPasswordStrength($password, $password2)) {
-                    $user->setPassword($password);
+                if (!empty($password)) {
+                    if (\Idno\Entities\User::checkNewPasswordStrength($password, $password2))
+                        $user->setPassword($password);
+                    else
+                        \Idno\Core\site()->session()->addMessage('Sorry, your password is too weak', 'alert-error');
                 }
 
                 if (!empty($_FILES['avatar'])) {
