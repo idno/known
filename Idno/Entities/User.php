@@ -368,7 +368,10 @@
                 if ($password == $password2 && (strlen($password) > 4) && !empty($password2))
                     $default = true;
                 
-                return $default;
+                return \Idno\Core\site()->triggerEvent('user/password/checkstrength', [
+                    'password' => $password,
+                    'password2' => $password2
+                ], $default);
             }
 
             /**
