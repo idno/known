@@ -1081,3 +1081,7 @@ p.feedback {
 	color: #af474f;
 }
 
+.access-control-block {
+    display: block;
+    margin-bottom: 1em;
+}
