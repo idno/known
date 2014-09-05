@@ -176,8 +176,9 @@
     <?php
         $currentPage = \Idno\Core\site()->currentPage();
 
-        if (!empty($currentPage))
-            $hidenav = \Idno\Core\site()->currentPage()->getInput('hidenav');
+        if (!empty($currentPage)) {
+            $hidenav = \Idno\Core\site()->embedded(); //\Idno\Core\site()->currentPage()->getInput('hidenav');
+        }
         if (empty($vars['hidenav']) && empty($hidenav)) {
             ?>
             <div class="navbar navbar-inverse navbar-fixed-top">

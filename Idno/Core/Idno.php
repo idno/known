@@ -600,6 +600,26 @@
 
             }
 
+            /**
+             * Is this site being run in embedded mode? Hides the navigation bar, maybe more.
+             * @return bool
+             */
+            function embedded()
+            {
+                if (site()->currentPage()->getInput('unembed')) {
+                    $_SESSION['embedded'] = false;
+                    return false;
+                }
+                if (!empty($_SESSION['embedded'])) {
+                    return true;
+                }
+                if (site()->currentPage()->getInput('embedded')) {
+                    $_SESSION['embedded'] = true;
+                    return true;
+                }
+                return false;
+            }
+
         }
 
         /**
