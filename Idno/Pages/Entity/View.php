@@ -69,7 +69,7 @@
 
                 $return = true;
 
-                if ($object instanceof \Idno\Common\Entity) {
+                if ($object instanceof \Idno\Common\Entity && $source != $target && $source != $object->getURL()) {
                     $return = $object->addWebmentions($source, $target, $source_content, $source_mf2);
                 }
 
