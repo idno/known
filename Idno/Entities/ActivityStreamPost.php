@@ -162,6 +162,17 @@
             }
 
             /**
+             * Retrieves the URL of the contained object if there is one; otherwise the URL of this stream item.
+             * @return string
+             */
+            function getObjectURL() {
+                if ($object = $this->getObject()) {
+                    return $object->getURL();
+                }
+                return $this->getURL();
+            }
+
+            /**
              * Get activity streams posts by object UUID
              * @param $uuid
              * @return array|bool

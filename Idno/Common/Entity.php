@@ -1329,6 +1329,14 @@
             }
 
             /**
+             * Returns the URL of this object, or the URL of the contained object if this is a container.
+             * @return string
+             */
+            function getObjectURL() {
+                return $this->getURL();
+            }
+
+            /**
              * Add webmentions as annotations based on Microformats 2 data
              *
              * @param string $source The source URL
