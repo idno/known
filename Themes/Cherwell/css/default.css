@@ -1,6 +1,11 @@
 body {
     background-color: #ffffff;
     background-size: cover;
+    color: #222222;
+}
+
+blockquote {
+    border-left: 5px solid #222;
 }
 
 .well {
@@ -18,7 +23,7 @@ body {
     border: 0;
     box-shadow: none;
     font-size: 1.1em;
-    background-color: rgba(255,255,255,0.95);
+    background-color: rgba(255,255,255,1.0);
 }
 
 .e-content p {
@@ -38,7 +43,7 @@ body {
 }
 
 .idno-content h2 {
-    font-size: 1.3em;
+    font-size: 1.8em;
     margin: 0 !important;
     padding: 0 !important;
     margin-bottom: 0.5em !important;
@@ -83,13 +88,13 @@ body {
     text-transform: uppercase;
 }
 
-.idno-content .datestamp p a time {
+.idno-content .datestamp p a time, .idno-content .datestamp p a:hover {
     color: #bbb !important;
 }
 
 .idno-content h2 a {
     color: #222;
-    font-weight: bold;
+    font-weight: lighter;
 }
 
 .idno-statusupdates .entry-content {
@@ -107,7 +112,7 @@ body {
 }
 
 #contentTypeButtonBar {
-    background-color: rgba(0,0,0,0.4); /*rgba(200,200,200,0.8);*/
+    background-color: rgba(0,0,0,0.7); 
     border-radius: 10px;
 }
 
@@ -116,7 +121,7 @@ a.contentTypeButton {
 }
 
 a.contentTypeButton:hover {
-    color: #000;
+    color: #ccc;
     border-radius: 1em;
     background: 0;
     text-shadow: none;
@@ -128,7 +133,8 @@ a.contentTypeButton:hover {
     color: #fff;
     text-align: center;
     margin-bottom: 0.5em;
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0,0,0,0.7);
+    border-radius: 15px;
 }
 
 .profile .namebadge .icon-container {
@@ -155,8 +161,9 @@ body.page-share {
 .page-account .page-container .page-body,
 .page-admin .page-container .page-body {
     /*background-color: rgba(255,255,255,0.7);*/
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0,0,0,0.7);
     color: #fff;
+    border-radius: 15px;
 }
 
 .theme {
