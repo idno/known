@@ -3,8 +3,9 @@
     $shortname = $vars['plugin']['shortname'];
 
     $requirements = null;
-    if (isset($vars['plugin']['requirements']))
+    if (isset($vars['plugin']['requirements'])) {
         $requirements = $vars['plugin']['requirements'];
+    }
 
 ?>
 <div class="well well-large">
