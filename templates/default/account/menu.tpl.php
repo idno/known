@@ -14,7 +14,6 @@
 	        <li <?php if ($_SERVER['REQUEST_URI'] == '/account/settings/following/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\site()->config()->url?>account/settings/following/" >Following</a></li>
             <?php } ?>
             <?=$this->draw('account/menu/items')?>
-            <li <?php if ($_SERVER['REQUEST_URI'] == '/account/settings/feedback/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\site()->config()->url?>account/settings/feedback/" >Feedback</a></li>
         </ul>
     </div>
 </div>

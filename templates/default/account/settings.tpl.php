@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="inputHandle">Your handle</label>
+                <label class="control-label" for="inputHandle">Your username</label>
 
                 <div class="controls">
                     <input type="text" id="inputHandle" placeholder="Your handle" class="span4" name="handle"
@@ -49,22 +49,6 @@
 
                 <div class="controls">
                     <input type="password" id="inputPassword" placeholder="Password" class="span4" name="password">
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="inputPassword2">Your password again</label>
-
-                <div class="controls">
-                    <input type="password" id="inputPassword2" placeholder="Your password again" class="span4"
-                           name="password2">
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="apikey">Your API key</label>
-
-                <div class="controls">
-                    <input type="text" id="apikey" class="span4" name="apikey"
-                           value="<?= htmlspecialchars($user->getAPIkey()) ?>" disabled>
                 </div>
             </div>
             <div class="control-group">

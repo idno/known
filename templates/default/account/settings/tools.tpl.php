@@ -8,7 +8,8 @@
             Tools and Apps
         </h1>
         <?= $this->draw('account/menu') ?>
-        <div class="explanation">
+        <div>
+            <h2>Bookmarklet</h2>
             <p>
                 You can easily share websites you browse, reply to posts on other peoples' sites and RSVP to
                 events by dragging the button below to your browser's bookmarked links bar:
@@ -34,6 +35,19 @@
             <strong>Internet Explorer:</strong> Select <em>Tools</em>, then make sure <em>Favorites Bar</em> is
             checked.
         </p>
+    </div>
+
+</div>
+<div class="row" style="margin-top: 2em">
+
+    <div class="span10 offset1">
+
+        <h2>API</h2>
+        <p>
+            Your API key: <input type="text" id="apikey" class="span4" name="apikey"
+                                 value="<?= htmlspecialchars($user->getAPIkey()) ?>" disabled>
+        </p>
+
     </div>
 
 </div>

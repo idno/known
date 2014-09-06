@@ -26,10 +26,8 @@
                 $this->createGatekeeper(); // Logged-in only please
                 $user = \Idno\Core\site()->session()->currentUser();
                 $name = $this->getInput('name');
-                //$handle = $this->getInput('handle');
                 $email     = $this->getInput('email');
                 $password  = $this->trim(getInput('password'));
-                $password2 = $this->trim(getInput('password2'));
 
                 if (!empty($name)) {
                     $user->setTitle($name);
@@ -43,7 +41,7 @@
                     }
                 }
 
-                if (!empty($password) && $password == $password2) {
+                if (!empty($password)) {
                     $user->setPassword($password);
                 }
 
