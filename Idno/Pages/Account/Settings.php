@@ -28,8 +28,8 @@
                 $name = $this->getInput('name');
                 //$handle = $this->getInput('handle');
                 $email     = $this->getInput('email');
-                $password  = $this->getInput('password');
-                $password2 = $this->getInput('password2');
+                $password  = $this->trim(getInput('password'));
+                $password2 = $this->trim(getInput('password2'));
 
                 if (!empty($name)) {
                     $user->setTitle($name);

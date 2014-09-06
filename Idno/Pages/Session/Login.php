@@ -45,7 +45,7 @@
                 }
 
                 if ($user instanceof \Idno\Entities\User) {
-                    if ($user->checkPassword($this->getInput('password'))) {
+                    if ($user->checkPassword(trim($this->getInput('password')))) {
                         \Idno\Core\site()->triggerEvent('login/success', ['user' => $user]); // Trigger an event for auditing
                         \Idno\Core\site()->session()->logUserOn($user);
                         $this->forward($fwd);
