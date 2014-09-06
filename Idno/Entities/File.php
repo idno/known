@@ -120,8 +120,6 @@
                                 $image      = imagecreatefrompng($file_path);
                                 $background = imagecolorallocatealpha($image, 0, 0, 0, 127);
                                 imagecolortransparent($image, $background);
-                                imagealphablending($image, false);
-                                imagesavealpha($image, true);
                                 break;
                             case 'image/gif':
                                 $image      = imagecreatefromgif($file_path);
@@ -162,6 +160,8 @@
                                 $offset_y = 0;
                             }
                             $image_copy = imagecreatetruecolor($new_width, $new_height);
+                            imagealphablending($image_copy, false);
+                            imagesavealpha($image_copy, true);
                             imagecopyresampled($image_copy, $image, 0, 0, $offset_x, $offset_y, $new_width, $new_height, $original_width, $original_height);
 
                             if (is_callable('exif_read_data') && $photo_information['mime'] == 'image/jpeg') {
