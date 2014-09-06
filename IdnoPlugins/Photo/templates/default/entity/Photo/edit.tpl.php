@@ -25,13 +25,13 @@
                             ?>
                             <label>
                                 <div id="photo-preview"></div>
-                    <span class="btn btn-primary btn-file">
- <i class="icon-camera"></i> <span id="photo-filename">Select a photo</span> <input type="file" name="photo" id="photo"
+                                    <span class="btn btn-primary btn-file">
+                                        <i class="icon-camera"></i> <span id="photo-filename">Select a photo</span> <input type="file" name="photo" id="photo"
                                                                                     class="span9"
                                                                                     accept="image/*;capture=camera"
                                                                                     onchange="photoPreview(this)"/>
 
-                    </span>
+                                    </span>
                             </label>
                         <?php
 
