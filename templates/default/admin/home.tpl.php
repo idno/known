@@ -20,7 +20,7 @@
         <form action="<?=\Idno\Core\site()->config()->url?>admin/" class="form-horizontal" method="post">
 
             <div class="control-group">
-                <label class="control-label" for="name">Site name<br /><small>This can be anything you want. Except probably Facebook.</small></label>
+                <label class="control-label" for="name">Site name<br /><small>This can be anything you want.</small></label>
                 <div class="controls">
                     <input type="text" id="name" placeholder="Site name" class="span4" name="title" value="<?=htmlspecialchars(\Idno\Core\site()->config()->title)?>" >
                 </div>
