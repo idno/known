@@ -54,6 +54,9 @@
                 // This is awful, but unfortunately, browsers can't be trusted to send the right mimetype.
                 $ext = pathinfo($_FILES['media']['name'], PATHINFO_EXTENSION);
 
+                // This flag will tell us if it's safe to save the object later on
+                $ok = false;
+
                 // Get media
                 if ($new) {
                     if (!empty($ext)) {
@@ -97,6 +100,7 @@
                             }
                             if ($media = \Idno\Entities\File::createFromFile($media_file['tmp_name'], $media_file['name'], $media_file['type'], true)) {
                                 $this->attachFile($media);
+                                $ok = true;
                             } else {
                                 \Idno\Core\site()->session()->addMessage('Media wasn\'t attached.');
                             }
@@ -108,6 +112,11 @@
 
                         return false;
                     }
+                }
+
+                // If a media file wasn't attached, don't save the file.
+                if (!$ok) {
+                    return false;
                 }
 
                 $this->media_type = $_FILES['media']['type'];
