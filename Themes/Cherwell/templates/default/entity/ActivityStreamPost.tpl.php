@@ -26,9 +26,9 @@
                     </div>
                     <div class="datestamp">
                         <p>
-                            <a class="u-url url" href="<?= $vars['object']->getURL() ?>" rel="permalink">
+                            <a class="u-url url" href="<?= $subObject->getURL() ?>" rel="permalink">
                                 <time class="dt-published"
-                                      datetime="<?= date('c', $vars['object']->created) ?>"><?= date('c', $vars['object']->created) ?></time>
+                                      datetime="<?= date('c', $subObject->created) ?>"><?= date('c', $subObject->created) ?></time>
                             </a>
                         </p>
                     </div>
