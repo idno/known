@@ -41,7 +41,7 @@
              * @return 'article'
              */
             function getActivityStreamsObjectType() {
-                return 'note';
+                return 'rsvp';
             }
 
             /**
