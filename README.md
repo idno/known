@@ -22,6 +22,8 @@ Unless otherwise stated, Known is licensed under the Apache Software License 2.0
 Known logos are (c) Known, Inc. Permission from Known, Inc is required to use the Known name or logo as part of any
 project, product, service, domain or company name, except as included in official themes distributed by Known.
 
+Logos of external services are (c) their respective owners. All rights reserved.
+
 Third party libraries are licensed separately.
 
 Known also contains
