@@ -100,9 +100,9 @@
                     }
                     // Per domain configuration
                     if ($config = @parse_ini_file($this->path . '/' . $this->host . '.ini')) {
-                        unset($config['initial_plugins']);  // Don't let plugin settings be merged
-                        unset($config['alwaysplugins']);
-                        unset($config['antiplugins']);
+                        unset($this->ini_config['initial_plugins']);  // Don't let plugin settings be merged
+                        unset($this->ini_config['alwaysplugins']);
+                        unset($this->ini_config['antiplugins']);
                         $this->ini_config = array_merge($config, $this->ini_config);
                     }
                     if (file_exists($this->path . '/config.json')) {
