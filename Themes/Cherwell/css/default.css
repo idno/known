@@ -9,10 +9,10 @@ blockquote {
 }
 
 .well {
-    border: 0;
-    border-radius: 0;
-    background-color: #eee;
-    color: #666;
+    border: 2px solid #000;
+    border-radius: 10px;
+    background-color: #fff;
+    color: #000;
 }
 
 .well a {
@@ -158,13 +158,18 @@ body.page-share {
 .result-404, .result-403, .result-410, .result-500,
 .page-begin-publish .page-container .page-body,
 .idno_pages_user_edit .page-container .page-body,
-.page-account .page-container .page-body,
-.page-admin .page-container .page-body {
+.page-admin .page-container .page-body, .page-account .page-container .page-body {
     /*background-color: rgba(255,255,255,0.7);*/
     background-color: rgba(0,0,0,0.7);
     color: #fff;
     border-radius: 15px;
 }
+
+/*.page-account .page-container .page-body {
+    background-color: none;
+    color: #333;
+    border-radius: 15px;
+}*/
 
 .theme {
     color: #222;
@@ -176,7 +181,7 @@ body.page-share {
 
 .hero-unit {
     background: none;
-    background-color: rgba(0,0,0,0.5);
+    background-color: none;
     border: 0;
 }
 
