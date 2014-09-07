@@ -5,13 +5,13 @@
 
     <div class="span10 offset1">
         <h1>
-            Account settings
+            Settings
         </h1>
         <?= $this->draw('account/menu') ?>
         <div class="explanation">
             <p>
-                Change your basic account settings here, or <a
-                    href="<?= \Idno\Core\site()->session()->currentUser()->getURL() ?>/edit/">click here to edit your
+                Change your basic account settings here. You may also want to <a
+                    href="<?= \Idno\Core\site()->session()->currentUser()->getURL() ?>/edit/">edit your
                     profile</a>.
             </p>
         </div>
@@ -44,12 +44,14 @@
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputPassword">Your password<br/>
-                    <small>Leave this blank if you don't want to change it</small>
+                   <!-- <small>Leave this blank if you don't want to change it</small>-->
                 </label>
 
                 <div class="controls">
                     <input type="password" id="inputPassword" placeholder="Password" class="span4" name="password">
+                     
                 </div>
+                <div class="controls"><small>Leave this blank if you don't want to change it</small></div>
             </div>
             <div class="control-group">
                 <div class="controls">

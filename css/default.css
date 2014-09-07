@@ -514,11 +514,16 @@ span.contentTypeLogo {
  * Friendly messages
  */
 
-.welcome,
-.explanation {
+.welcome {
     font-size: 1.5em;
     line-height: 1.5em;
 }
+
+.explanation {
+    font-size: 1.2em;
+    line-height: 1.5em;
+}
+
 
 .welcome {
     text-align: center;
