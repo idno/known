@@ -16,7 +16,7 @@
     /* @var \Idno\Core\Template $this */
 
 ?>
-    <form action="<?= $vars['object']->getURL() ?>" method="post" onsubmit="return postForm()">
+    <form action="<?= $vars['object']->getURL() ?>" method="post" >
 
         <div class="row">
 
@@ -81,14 +81,16 @@
     </form>
     <script>
 
-        function postForm() {
-            var content = $('textarea[name="body"]').html($('#body').code());
-        }
+        /*function postForm() {
+            var content = $('textarea[name="body"]').html($('#body').html());
+            console.log(content);
+            return content;
+        }*/
 
         counter = function () {
 
             var value = $('#body').code(); // $('#body').val();
-
+console.log(value);
             if (value.length == 0) {
                 $('#totalWords').html(0);
                 $('#totalChars').html(0);
@@ -158,6 +160,6 @@
         }
 
         // Autosave the title & body
-        autoSave('entry', ['title', 'body']);
+        //autoSave('entry', ['title', 'body']);
     </script>
 <?= $this->draw('entity/edit/footer'); ?>
