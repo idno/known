@@ -196,6 +196,9 @@
                         unset($config['host']);
                         unset($config['feed']);
                         unset($config['uploadpath']);
+                        unset($config['initial_plugins']);
+                        unset($config['antiplugins']);
+                        unset($config['alwaysplugins']);
                     }
                     if (is_array($config)) {
                         $this->config = array_merge($this->config, $config);
