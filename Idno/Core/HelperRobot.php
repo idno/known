@@ -18,7 +18,7 @@
             function registerEvents()
             {
 
-                \Idno\Core\site()->addEventHook('syndicate', function (\Idno\Core\Event $event) {
+                \Idno\Core\site()->addEventHook('saved', function (\Idno\Core\Event $event) {
 
                     if ($object = $event->data()['object']) {
                         if (site()->session()->isLoggedOn()) {
