@@ -323,8 +323,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .reply-text p {
-    margin-bottom: 0;
-    padding-bottom: 0;
+    /*margin-bottom: 0;
+    padding-bottom: 0;*/
     color: #999;
     font-size: smaller;
 }
