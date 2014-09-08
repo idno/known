@@ -484,6 +484,7 @@ span.contentTypeLogo {
     border-radius: 3px;
     padding: 0.25em;
     font-size: 30px;
+    cursor: pointer;
 }
 
 #counter {
