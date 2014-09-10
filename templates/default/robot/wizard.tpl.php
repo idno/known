@@ -44,7 +44,7 @@
     if (\Idno\Core\site()->currentPage() instanceof \Idno\Pages\Homepage) {
         if (in_array(\Idno\Core\site()->session()->currentUser()->robot_state,['3a','3b','2c','4'])) {
             $user = \Idno\Core\site()->session()->currentUser();
-            if (!empty(\Idno\Core\HelperRobot::$changed_state)) {
+            //if (!empty(\Idno\Core\HelperRobot::$changed_state)) {
                 switch($user->robot_state) {
                     case '3a':
                     case '3b':
@@ -59,6 +59,6 @@
                 }
                 $user->save();
                 \Idno\Core\site()->session()->refreshSessionUser($user);
-            }
+            //}
         }
     }
