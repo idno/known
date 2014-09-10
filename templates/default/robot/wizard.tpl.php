@@ -36,7 +36,7 @@
             break;
         case '4':
             echo $this->__([
-                'body' => "01011001 01101111 00100000 01111001 01101111 00100000 01111001 01101111 \n\nThat's how you say hello where I come from. I wanted to remind you that you can also change the theme of your site. If you ever have feedback, you can send a message to my human creators."
+                'body' => "01011001 01101111 00100000 01111001 01101111 00100000 01111001 01101111 \n\nThat's how you say hello where I come from. I wanted to remind you that you can also <a href=\"".\Idno\Core\site()->config()->getURL()."admin/themes/\">change the theme of your site</a>. If you ever have feedback, you can <a href=\"".\Idno\Core\site()->config()->getURL()."account/settings/feedback/\">send a message to my human creators</a>."
             ])->draw('robot/post');
             break;
 
