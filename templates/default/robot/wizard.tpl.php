@@ -44,19 +44,21 @@
     if (\Idno\Core\site()->currentPage() instanceof \Idno\Pages\Homepage) {
         if (in_array(\Idno\Core\site()->session()->currentUser()->robot_state,['3a','3b','2c','4'])) {
             $user = \Idno\Core\site()->session()->currentUser();
-            switch($user->robot_state) {
-                case '3a':
-                case '3b':
-                    $user->robot_state = '4';
-                    break;
-                case '2c':
-                    $user->robot_state = '3b';
-                    break;
-                case '4':
-                    $user->robot_state = 0;
-                    break;
+            if (!empty(\Idno\Core\HelperRobot::$changed_state)) {
+                switch($user->robot_state) {
+                    case '3a':
+                    case '3b':
+                        $user->robot_state = '4';
+                        break;
+                    case '2c':
+                        $user->robot_state = '3b';
+                        break;
+                    case '4':
+                        $user->robot_state = 0;
+                        break;
+                }
+                $user->save();
+                \Idno\Core\site()->session()->refreshSessionUser($user);
             }
-            $user->save();
-            \Idno\Core\site()->session()->refreshSessionUser($user);
         }
     }
