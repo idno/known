@@ -483,7 +483,7 @@
              */
             function version()
             {
-                return '0.6-dev';
+                return '0.6';
             }
 
             /**
