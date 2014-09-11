@@ -27,7 +27,7 @@
                 $user = \Idno\Core\site()->session()->currentUser();
                 $name = $this->getInput('name');
                 $email     = $this->getInput('email');
-                $password  = $this->trim(getInput('password'));
+                $password  = trim(getInput('password'));
 
                 if (!empty($name)) {
                     $user->setTitle($name);
