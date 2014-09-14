@@ -218,7 +218,7 @@
             {
                 $handle = trim($handle);
                 $handle = strtolower($handle);
-                if (!empty($handle)) {
+                if (!empty($handle) && ctype_alnum($handle)) {
                     if (!self::getByHandle($handle)) {
                         $this->handle = $handle;
                     }

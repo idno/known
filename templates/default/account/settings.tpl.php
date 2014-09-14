@@ -30,8 +30,8 @@
                 <label class="control-label" for="inputHandle">Your username</label>
 
                 <div class="controls">
-                    <input type="text" id="inputHandle" placeholder="Your handle" class="span4" name="handle"
-                           value="<?= htmlspecialchars($user->handle) ?>" disabled>
+                    <input type="text" id="inputHandle" placeholder="Your username" class="span4" name="handle"
+                           value="<?= htmlspecialchars($user->handle) ?>">
                 </div>
             </div>
             <div class="control-group">
