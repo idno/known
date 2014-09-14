@@ -155,6 +155,11 @@
                     $array['entity_subtype'] = 'Idno\\Common\\Entity';
                 }
 
+                $search = str_replace("\n", " \n ", $search);
+                $search = str_replace("\r", "", $search);
+                $search = str_replace("#", " #", $search);
+                $search = strtolower($search);
+
                 $client = $this->client;
                 /* @var \PDO $client */
 
@@ -188,7 +193,7 @@
                         return $array['_id'];
                     }
                 } catch (\Exception $e) {
-                    \Idno\Core\site()->session()->addMessage($e->getMessage());
+                    //\Idno\Core\site()->session()->addMessage($e->getMessage());
                 }
 
                 return false;
@@ -231,7 +236,7 @@
                         return $statement->fetch(\PDO::FETCH_ASSOC);
                     }
                 } catch (\Exception $e) {
-                    \Idno\Core\site()->session()->addMessage($e->getMessage());
+                    //\Idno\Core\site()->session()->addMessage($e->getMessage());
                 }
 
                 return false;
@@ -301,7 +306,7 @@
                     if (\Idno\Core\site()->session() == null)
                         die($e->getMessage());
 
-                    \Idno\Core\site()->session()->addMessage($e->getMessage());
+                    //\Idno\Core\site()->session()->addMessage($e->getMessage());
                 }
 
                 return false;
