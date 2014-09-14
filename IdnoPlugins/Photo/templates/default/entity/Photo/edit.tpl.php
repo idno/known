@@ -54,12 +54,8 @@
                         <textarea name="body" id="description" class="span8 bodyInputShort mentionable"
                                   placeholder="Add a caption"><?= htmlspecialchars($vars['object']->body) ?></textarea>
                     </label>
-                    <label>
-                        Tags<br/>
-                        <input type="text" name="tags" id="tags" placeholder="Add some #tags"
-                               value="<?= htmlspecialchars($vars['object']->tags) ?>" class="span8"/>
-                    </label>
                 </p>
+                <?=$this->draw('entity/tags/input');?>
                 <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('image'); ?>
                 <p class="button-bar ">
                     <?= \Idno\Core\site()->actions()->signForm('/photo/edit') ?>

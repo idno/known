@@ -42,8 +42,10 @@
                 } else {
                     echo htmlspecialchars($vars['object']->body);
                 } ?></textarea>
-            
             <?php
+
+                echo $this->draw('entity/tags/input');
+
             // Set focus so you can start typing straight away (on shares)
             if (\Idno\Core\site()->currentPage()->getInput('share_url')) {
             ?>
@@ -62,11 +64,6 @@
             <?php
             }
             ?>
-                    <label>
-                        Tags <br/>
-                        <input type="text" name="tags" id="tags" placeholder="Add some #tags"
-                               value="<?= htmlspecialchars($vars['object']->tags) ?>" class="span8"/>
-                    </label>
 
             <p>
                 <small><a id="inreplyto-add" href="#"

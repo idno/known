@@ -47,11 +47,7 @@
                     <textarea name="body" id="description" placeholder="What's this about?" class="span8 bodyInput"><?=htmlspecialchars($vars['object']->body)?></textarea>
                 </label>
             </p>
-                <label>
-                     Tags<br/>
-                     <input type="text" name="tags" id="tags" placeholder="Add some #tags"
-                               value="<?= htmlspecialchars($vars['object']->tags) ?>" class="span8"/>
-                </label>
+            <?=$this->draw('entity/tags/input');?>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('media'); ?>
             <p class="button-bar ">
                 <?= \Idno\Core\site()->actions()->signForm('/media/edit') ?>

@@ -33,12 +33,8 @@
 
                     <textarea name="description" id="description" class="span8"
                               placeholder="This page is great because..."><?= htmlspecialchars($vars['object']->description); ?></textarea>
-                    <label>
-                        Tags<br/>
-                        <input type="text" name="tags" id="tags" placeholder="Add some #tags"
-                               value="<?= htmlspecialchars($vars['object']->tags) ?>" class="span8"/>
-                    </label>
                 </p>
+                <?=$this->draw('entity/tags/input');?>
                 <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('bookmark'); ?>
                 <p class="button-bar">
                     <?= \Idno\Core\site()->actions()->signForm('/like/edit') ?>
