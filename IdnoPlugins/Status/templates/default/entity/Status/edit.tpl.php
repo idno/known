@@ -89,10 +89,6 @@
                 ?>
             </div>
 
-        </div>
-        <div class="span8 offset2">
-
-
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('note'); ?>
             <p class="button-bar">
                 <?= \Idno\Core\site()->actions()->signForm('/status/edit') ?>
@@ -100,14 +96,6 @@
                 <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
                 <input type="submit" class="btn btn-primary" value="Publish"/>
             </p>
-            <!--<p>
-                <small><a href="#" onclick="$('#bookmarklet').toggle(); return false;">Get a button for your browser</a></small>
-            </p>
-
-            <div id="bookmarklet" style="display:none;">
-                <p>Drag the following link into your browser links bar to easily share links or reply to posts on other sites:</p>
-                <?=$this->draw('entity/bookmarklet'); ?>
-            </div>  --> 
         </div>
         <div class="span2">
             <p id="counter" style="display:none">
