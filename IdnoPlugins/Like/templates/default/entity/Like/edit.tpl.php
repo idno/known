@@ -32,7 +32,7 @@
                     </label>
 
                     <textarea name="description" id="description" class="span8"
-                              placeholder="This page is great because..."><?= htmlspecialchars($vars['object']->description); ?></textarea>
+                              placeholder="This page is great because... Use hashtags to organize your bookmark."><?= htmlspecialchars($vars['object']->description); ?></textarea>
                 </p>
                 <?=$this->draw('entity/tags/input');?>
                 <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('bookmark'); ?>
