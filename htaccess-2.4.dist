@@ -1,4 +1,4 @@
-# Apache config for verison 2.2
+# Apache config for version 2.4
 
 <IfModule mod_rewrite.c>
     RewriteEngine on
@@ -14,16 +14,13 @@
     php_value post_max_size 1080M
 </IfModule>
 <Files  ~ "\.dist$">
-  Order allow,deny
-  Deny from all
+  Require all denied
 </Files>
 <Files  ~ "\.ini$">
-  Order allow,deny
-  Deny from all
+  Require all denied
 </Files>
 <Files ~ "\.xml$">
-  Order allow,deny
-  Deny from all
+  Require all denied
 </Files>
 
 AddType video/ogg .ogv
