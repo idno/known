@@ -1619,6 +1619,7 @@
                 }
                 if (empty($local_url)) {
                     $local_url = $this->getURL() . '/annotations/' . md5(time() . $content); // Invent a URL for this annotation if we don't have one already
+                    $local_url = str_replace('.','~',$local_url); //mongodb 2.6+ doesnt like a dot in a field name; so replace them with tildes
                 }
                 if (empty($time)) {
                     $time = time();

@@ -29,8 +29,15 @@
                 $this->setOwner($object->getOwner());
 
                 $permalink  = $object->getUrl() . '/annotations/' . $this->arguments[1];
-                $annotation = $object->getAnnotation($permalink);
-                $subtype    = $object->getAnnotationSubtype($permalink);
+		$annotation = $object->getAnnotation($permalink);
+		$subtype    = $object->getAnnotationSubtype($permalink);
+		if(empty($annotation)){
+			// prior to mongodb 2.6 you could keep a dot in a field name; now you cant so both ways exist to support
+                        // backward compatability
+			$malformedId = str_replace('.','~',$permalink);
+	                $annotation = $object->getAnnotation($malformedId);
+        	        $subtype    = $object->getAnnotationSubtype($malformedId);
+		}
 
                 $this->setPermalink(); // This is a permalink
                 $t = \Idno\Core\site()->template();
