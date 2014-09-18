@@ -32,11 +32,20 @@
                 }
 
                 $permalink = $object->getURL() . '/annotations/' . $this->arguments[1];
-                if ($object->canEditAnnotation($permalink)) {
+		if ($object->canEditAnnotation($permalink)) {
                     if (($object->removeAnnotation($permalink)) && ($object->save())) {
                         //\Idno\Core\site()->session()->addMessage('The annotation was deleted.');
                     }
-                }
+                }else{
+			// prior to mongodb 2.6 you could keep a dot in a field name; now you cant so both ways exist to support
+			// backward compatability
+			$mangledLink = str_replace('.','~',$permalink);
+			if ($object->canEditAnnotation($mangledLink)) {
+        	            if (($object->removeAnnotation($mangledLink)) && ($object->save())) {
+        	                //\Idno\Core\site()->session()->addMessage('The annotation was deleted.');
+        	            }
+        	        }
+		}
                 $this->forward($object->getURL() . '#comments');
             }
 
