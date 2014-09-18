@@ -89,6 +89,7 @@ uploadpath = '{$upload_path}'
 END;
 
         try {
+            rename('../htaccess.dist','../.htaccess');
             if ($fp = @fopen('../config.ini', 'w')) {
                 fwrite($fp, $ini_file);
                 fclose($fp);
