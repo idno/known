@@ -5,6 +5,9 @@
 
             $permalink = $annotation['permalink'] ? $annotation['permalink'] : $locallink;
 
+            str_replace('~','.',$permalink);    // This is temporarily here to clean up some issues with a previous PR
+                                                // TODO: remove this
+
             ?>
             <div class="idno-annotation row">
                 <div class="idno-annotation-image span1 hidden-phone">
