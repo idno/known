@@ -149,7 +149,7 @@
                                     $original_height = $photo_information[0];
                                     $original_width = $photo_information[0];
                                     $offset_x = 0;
-                                    $offset_y = round(($photo_information[0] - $photo_information[1]) / 2);
+                                    $offset_y = round(($photo_information[1] - $photo_information[0]) / 2);
                                 }
                             } else {
                                 $new_height = $height;
