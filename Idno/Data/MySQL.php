@@ -423,8 +423,7 @@
                     }
 
                 } catch (\Exception $e) {
-                    \Idno\Core\site()->session()->addMessage($e->getMessage());
-
+                    //\Idno\Core\site()->session()->addMessage($e->getMessage());
                     return false;
                 }
 
@@ -627,6 +626,17 @@
                 }
 
                 return 0;
+            }
+
+            /**
+             * Get database errors
+             * @return mixed
+             */
+            function getErrors() {
+                if (!empty($this->client)) {
+                    return $this->client->errorInfo();
+                }
+                return false;
             }
 
             /**
