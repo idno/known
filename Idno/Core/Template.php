@@ -17,6 +17,9 @@
             // We'll keep track of extensions to templates here
             public $extensions = [];
 
+            // We'll keep track of prepended templates here
+            public $prepends = [];
+
             // We can also extend templates with HTML or other content
             public $rendered_extensions = [];
 
@@ -41,7 +44,13 @@
              */
             function draw($templateName, $returnBlank = true)
             {
-                $result = parent::draw($templateName, $returnBlank);
+                $result = '';
+                if (!empty($this->prepends[$templateName])) {
+                    foreach ($this->prepends[$templateName] as $template) {
+                        $result .= parent::draw($template, $returnBlank);
+                    }
+                }
+                $result .= parent::draw($templateName, $returnBlank);
                 if (!empty($this->extensions[$templateName])) {
                     foreach ($this->extensions[$templateName] as $template) {
                         $result .= parent::draw($template, $returnBlank);
@@ -121,6 +130,28 @@
                     array_unshift($this->extensions[$templateName], $extensionTemplateName);
                 } else {
                     $this->extensions[$templateName][] = $extensionTemplateName;
+                }
+            }
+
+            /**
+             * Prepend a template with another template. eg, template "plugin/atemplate"
+             * could extend "core/atemplate"; if this is the case, the results of
+             * $template->draw('plugin/atemplate') will be automatically prepended to
+             * the end of the results of $template->draw('core/atemplate').
+             *
+             * @param string $templateName
+             * @param string $prependTemplateName
+             * @param bool $to_front If set, this will add the template to the beginning of the template queue
+             */
+            function prependTemplate($templateName, $prependTemplateName, $to_front = false)
+            {
+                if (empty($this->prepends[$templateName])) {
+                    $this->prepends[$templateName] = [];
+                }
+                if ($to_front) {
+                    array_unshift($this->prepends[$templateName], $prependTemplateName);
+                } else {
+                    $this->prepends[$templateName][] = $prependTemplateName;
                 }
             }
 
