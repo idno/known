@@ -190,7 +190,10 @@
                             <span class="icon-bar"></span>
                         </button>
                         <a class="brand"
-                           href="<?= \Idno\Core\site()->config()->url ?>"><?= \Idno\Core\site()->config()->title ?></a>
+                           href="<?= \Idno\Core\site()->config()->url ?>"><?=
+                                // \Idno\Core\site()->config()->title
+                                $this->draw('shell/toolbar/title')
+                            ?></a>
 
                         <div class="nav-collapse collapse">
                             <?php
