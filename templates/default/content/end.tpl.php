@@ -62,7 +62,7 @@
                 <?php
                 } else {
                     ?>
-                    <a href="<?= $vars['object']->getURL() ?>#comments"><?= $heart_text ?></a>
+                    <a href="<?= $vars['object']->getURL() ?>#comments"><?= $heart ?></a>
                 <?php
                 }
             ?>
