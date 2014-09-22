@@ -690,6 +690,17 @@
             function getAttachments()
             {
                 if (!empty($this->attachments)) {
+                    if (!empty(\Idno\Core\site()->config()->attachment_base_host)) {
+                        $attachments = $this->attachments;
+                        foreach($this->attachments as $key => $value) {
+                            if (!empty($value['url'])) {
+                                $host = parse_url($value['url'], PHP_URL_HOST);
+                                $value['url'] = str_replace($host, \Idno\Core\site()->config()->attachment_base_host, $value['url']);
+                                $attachments[$key] = $value;
+                            }
+                        }
+                        $this->attachments = $attachments;
+                    }
                     return $this->attachments;
                 } else {
                     return [];
