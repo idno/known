@@ -47,7 +47,7 @@
                 if (!$has_liked) {
                     $heart_only = '<i class="icon-star-empty"></i>';
                 } else {
-                    $heart_only = '<i class="star-heart"></i>';
+                    $heart_only = '<i class="icon-star"></i>';
                 }
                 if ($likes == 1) {
                     $heart_text = '1 star';

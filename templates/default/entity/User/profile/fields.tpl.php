@@ -23,6 +23,7 @@
 
                     case 'twitter.com':         $icon = 'icon-twitter'; break;
                     case 'github.com':          $icon = 'icon-github'; break;
+                    case 'fb.com':
                     case 'facebook.com':        $icon = 'icon-facebook'; break;
                     case 'plus.google.com':     $icon = 'icon-google-plus'; break;
                     case 'linkedin.com':        $icon = 'icon-linkedin'; break;

@@ -318,13 +318,8 @@
 
             function addEventHook($event, $listener, $priority = 0)
             {
-                static $listened = [];
                 if (is_callable($listener)) {
-                    $listen_index = json_encode($listener);
-                    if (empty($listened[$event][$listen_index])) {
-                        $this->dispatcher->addListener($event, $listener, $priority);
-                        $listened[$event][$listen_index] = true;
-                    }
+                    $this->dispatcher->addListener($event, $listener, $priority);
                 }
             }
 
@@ -483,7 +478,7 @@
              */
             function version()
             {
-                return '0.6-dev';
+                return '0.6.3';
             }
 
             /**
@@ -598,6 +593,26 @@
                     return $results['content'];
                 }
 
+            }
+
+            /**
+             * Is this site being run in embedded mode? Hides the navigation bar, maybe more.
+             * @return bool
+             */
+            function embedded()
+            {
+                if (site()->currentPage()->getInput('unembed')) {
+                    $_SESSION['embedded'] = false;
+                    return false;
+                }
+                if (!empty($_SESSION['embedded'])) {
+                    return true;
+                }
+                if (site()->currentPage()->getInput('embedded')) {
+                    $_SESSION['embedded'] = true;
+                    return true;
+                }
+                return false;
             }
 
         }

@@ -43,8 +43,8 @@
                 $this->reverseGatekeeper();
                 $code      = $this->getInput('code');
                 $email     = $this->getInput('email');
-                $password  = $this->getInput('password');
-                $password2 = $this->getInput('password2');
+                $password  = trim($this->getInput('password'));
+                $password2 = trim($this->getInput('password2'));
 
                 if (\Idno\Entities\User::checkNewPasswordStrength($password, $password2)) {
                     if ($user = \Idno\Entities\User::getByEmail($email)) {

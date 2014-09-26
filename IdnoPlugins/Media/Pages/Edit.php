@@ -21,9 +21,9 @@
                 ))->draw('entity/Media/edit');
 
                 if (empty($object)) {
-                    $title = 'Upload a picture';
+                    $title = 'Upload audio';
                 } else {
-                    $title = 'Edit picture details';
+                    $title = 'Edit audio details';
                 }
 
                 if (!empty($this->xhr)) {

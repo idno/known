@@ -68,6 +68,8 @@
                         $page->exception($exception);
 
                 });
+
+                \Idno\Core\site()->embedded();
             }
 
             /**

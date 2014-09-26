@@ -323,8 +323,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .reply-text p {
-    margin-bottom: 0;
-    padding-bottom: 0;
+    /*margin-bottom: 0;
+    padding-bottom: 0;*/
     color: #999;
     font-size: smaller;
 }
@@ -484,6 +484,7 @@ span.contentTypeLogo {
     border-radius: 3px;
     padding: 0.25em;
     font-size: 30px;
+    cursor: pointer;
 }
 
 #counter {
@@ -514,11 +515,16 @@ span.contentTypeLogo {
  * Friendly messages
  */
 
-.welcome,
-.explanation {
+.welcome {
     font-size: 1.5em;
     line-height: 1.5em;
 }
+
+.explanation {
+    font-size: 1.2em;
+    line-height: 1.5em;
+}
+
 
 .welcome {
     text-align: center;
@@ -539,7 +545,7 @@ span.contentTypeLogo {
 
 .explanation {
     margin-top: 1em;
-    margin-bottom: 2em;
+    margin-bottom: 1.5em;
 }
 
 .field-description {
@@ -954,10 +960,6 @@ small {
 	padding-bottom: 10px;
 }
 
-label {
-	cursor: text;
-}
-
 .wordcount {
 	padding-bottom: 10px;
 }
@@ -975,7 +977,7 @@ label {
 	background-color: #ffffff;
     background-repeat: repeat-x;
     padding: 3px;
-    font-size: .85em;
+    font-size: 1.0em;
 }
 
 .idno-object a.p-category:hover {
@@ -1051,7 +1053,8 @@ p.feedback {
 }
 
 .idno-entry-helper .idno-content {
-    background-color: #dbf3e1;
+    background-color: #f8f8f8;
+    border: 2px solid #c5c5c5;
 }
 
 .idno-entry-helper p {
@@ -1070,4 +1073,17 @@ p.feedback {
 .idno-entry-helper .robot-footer {
     margin-top: 2em;
     font-size: 0.75em;
+}
+
+.icon-heart {
+	color: #9f111b;
+}
+
+.icon-heart:hover {
+	color: #af474f;
+}
+
+.access-control-block {
+    display: block;
+    margin-bottom: 1em;
 }

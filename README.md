@@ -6,6 +6,10 @@ Learn more and sign up to get updates: <http://withknown.com>
 
 Known is under active development and an installable package is not yet available. It requires PHP 5.4+ with the MongoDB extension, Apache Web Server with the mod_rewrite extension, and MongoDB.
 
+Installation
+------------
+See installation instructions: http://docs.withknown.com/en/latest/install/index.html
+
 Copyright
 ---------
 Except for included third-party projects, Known is (c) Known, Inc.
@@ -21,6 +25,8 @@ Unless otherwise stated, Known is licensed under the Apache Software License 2.0
 
 Known logos are (c) Known, Inc. Permission from Known, Inc is required to use the Known name or logo as part of any
 project, product, service, domain or company name, except as included in official themes distributed by Known.
+
+Logos of external services are (c) their respective owners. All rights reserved.
 
 Third party libraries are licensed separately.
 
@@ -49,3 +55,4 @@ Known also contains
 * Antwort, an email template which is distributed under the MIT License. Source: https://github.com/internations/antwort
 * Mention.js, a Bootstrap user at-mention library, which is distributed under the MIT License. Source: https://github.com/jakiestfu/Mention.js
 * MediaElement.js, a cross-browser media player, which is distributed under the MIT License. Source: https://github.com/johndyer/mediaelement
+* Summernote, a WYSIWYG editor, which is distributed under the MIT License. Source: https://github.com/HackerWins/summernote

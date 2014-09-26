@@ -36,7 +36,7 @@
             break;
         case '4':
             echo $this->__([
-                'body' => "01011001 01101111 00100000 01111001 01101111 00100000 01111001 01101111 \n\nThat's how you say hello where I come from. I wanted to remind you that you can also change the theme of your site. If you ever have feedback, you can send a message to my human creators."
+                'body' => "01011001 01101111 00100000 01111001 01101111 00100000 01111001 01101111 \n\nThat's how you say hello where I come from. I wanted to remind you that you can also <a href=\"".\Idno\Core\site()->config()->getURL()."admin/themes/\">change the theme of your site</a>. If you ever have feedback, you can <a href=\"".\Idno\Core\site()->config()->getURL()."account/settings/feedback/\">send a message to my human creators</a>."
             ])->draw('robot/post');
             break;
 
@@ -44,19 +44,21 @@
     if (\Idno\Core\site()->currentPage() instanceof \Idno\Pages\Homepage) {
         if (in_array(\Idno\Core\site()->session()->currentUser()->robot_state,['3a','3b','2c','4'])) {
             $user = \Idno\Core\site()->session()->currentUser();
-            switch($user->robot_state) {
-                case '3a':
-                case '3b':
-                    $user->robot_state = '4';
-                    break;
-                case '2c':
-                    $user->robot_state = '3b';
-                    break;
-                case '4':
-                    $user->robot_state = 0;
-                    break;
-            }
-            $user->save();
-            \Idno\Core\site()->session()->refreshSessionUser($user);
+            //if (!empty(\Idno\Core\HelperRobot::$changed_state)) {
+                switch($user->robot_state) {
+                    case '3a':
+                    case '3b':
+                        $user->robot_state = '4';
+                        break;
+                    case '2c':
+                        $user->robot_state = '3b';
+                        break;
+                    case '4':
+                        $user->robot_state = 0;
+                        break;
+                }
+                $user->save();
+                \Idno\Core\site()->session()->refreshSessionUser($user);
+            //}
         }
     }

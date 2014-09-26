@@ -23,7 +23,8 @@
                                               'Text',
                                               'Photo',
                                               'Like',
-                                              'Checkin'
+                                              'Checkin',
+                                              'Media'
                 ),
                 'themes'            => [],
                 'antiplugins'       => [],
@@ -58,7 +59,7 @@
                     $dbname            = $this->dbname;
                     $this->host        = str_replace('www.', '', $this->host);
                     //$this->sessionname = preg_replace('/[^\da-z]/i', '', $this->host);
-                    $this->dbname      = preg_replace('/[^\da-z\.]/i', '', $this->host);
+                    $this->dbname      = preg_replace('/[^0-9a-z\.\-\_]/i', '', $this->host);
 
                     // Known now defaults to not including periods in database names for multitenant installs. Add
                     // 'multitenant_periods = true' if you wish to override this.
@@ -99,6 +100,9 @@
                     }
                     // Per domain configuration
                     if ($config = @parse_ini_file($this->path . '/' . $this->host . '.ini')) {
+                        unset($this->ini_config['initial_plugins']);  // Don't let plugin settings be merged
+                        unset($this->ini_config['alwaysplugins']);
+                        unset($this->ini_config['antiplugins']);
                         $this->ini_config = array_merge($config, $this->ini_config);
                     }
                     if (file_exists($this->path . '/config.json')) {
@@ -195,6 +199,9 @@
                         unset($config['host']);
                         unset($config['feed']);
                         unset($config['uploadpath']);
+                        unset($config['initial_plugins']);
+                        unset($config['antiplugins']);
+                        unset($config['alwaysplugins']);
                     }
                     if (is_array($config)) {
                         $this->config = array_merge($this->config, $config);

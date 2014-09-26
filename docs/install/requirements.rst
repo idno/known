@@ -4,6 +4,7 @@ System requirements
 Known *requires* the following server components:
 
 * A Web Server that supports URL rewriting (Apache + mod_rewrite recommended)
+* If you are using Apache, you also need to make sure support for .htaccess is enabled (using the AllowOverride All directive - see https://help.ubuntu.com/community/EnablingUseOfApacheHtaccessFiles).
 * PHP 5.4 or above
 * MongoDB or MySQL 5
 
@@ -47,6 +48,7 @@ Additionally, Known requires the following PHP components:
 * oauth
 * reflection
 * session
+* xmlrpc
 
 Note that you may need to restart the web server after installing these components. Known's installer will tell you
 if a required module isn't available.

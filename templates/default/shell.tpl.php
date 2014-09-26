@@ -22,13 +22,8 @@
     <meta name="viewport" content="initial-scale=1.0" media="(device-height: 568px)"/>
     <meta name="description" content="<?= htmlspecialchars(strip_tags($vars['description'])) ?>">
     <meta name="generator" content="Known http://withknown.com">
-    
-<!--Le fav and touch icons-->
-<link rel="apple-touch-icon" sizes="57x57" href="<?=\Idno\Core\site()->config()->getURL()?>gfx/logos/apple-icon-57x57.png" />
-<link rel="apple-touch-icon" sizes="72x72" href="<?=\Idno\Core\site()->config()->getURL()?>gfx/logos/apple-icon-72x72.png" />
-<link rel="apple-touch-icon" sizes="114x114" href="<?=\Idno\Core\site()->config()->getURL()?>gfx/logos/apple-icon-114x114.png" />
-<link rel="apple-touch-icon" sizes="144x144" href="<?=\Idno\Core\site()->config()->getURL()?>gfx/logos/apple-icon-144x144.png" />
 
+    <?= $this->draw('shell/icons'); ?>
     <?= $this->draw('shell/favicon'); ?>
 
     <?php
@@ -176,8 +171,9 @@
     <?php
         $currentPage = \Idno\Core\site()->currentPage();
 
-        if (!empty($currentPage))
-            $hidenav = \Idno\Core\site()->currentPage()->getInput('hidenav');
+        if (!empty($currentPage)) {
+            $hidenav = \Idno\Core\site()->embedded(); //\Idno\Core\site()->currentPage()->getInput('hidenav');
+        }
         if (empty($vars['hidenav']) && empty($hidenav)) {
             ?>
             <div class="navbar navbar-inverse navbar-fixed-top">
@@ -189,7 +185,10 @@
                             <span class="icon-bar"></span>
                         </button>
                         <a class="brand"
-                           href="<?= \Idno\Core\site()->config()->url ?>"><?= \Idno\Core\site()->config()->title ?></a>
+                           href="<?= \Idno\Core\site()->config()->url ?>"><?=
+                                // \Idno\Core\site()->config()->title
+                                $this->draw('shell/toolbar/title')
+                            ?></a>
 
                         <div class="nav-collapse collapse">
                             <?php

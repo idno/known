@@ -5,6 +5,8 @@
         class HelperRobot extends \Idno\Common\Component
         {
 
+            static $changed_state = 0;
+
             function init()
             {
                 if (site()->session()->isLoggedOn()) {
@@ -18,7 +20,7 @@
             function registerEvents()
             {
 
-                \Idno\Core\site()->addEventHook('syndicate', function (\Idno\Core\Event $event) {
+                \Idno\Core\site()->addEventHook('saved', function (\Idno\Core\Event $event) {
 
                     if ($object = $event->data()['object']) {
                         if (site()->session()->isLoggedOn()) {
@@ -32,14 +34,17 @@
                                         } else {
                                             $user->robot_state = '2b';
                                         }
+                                        self::$changed_state = 1;
                                         break;
                                     case '2a':
                                         if (class_exists('IdnoPlugins\Photo') && $object instanceof \IdnoPlugins\Photo) {
                                             $user->robot_state = '3a';
                                         }
+                                        self::$changed_state = 1;
                                         break;
                                     case '2b':
                                         $user->robot_state = '3b';
+                                        self::$changed_state = 1;
                                         break;
 
                                 }

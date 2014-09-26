@@ -80,6 +80,7 @@
                     <textarea name="body" id="body" class="span4 bodyInput mentionable" placeholder="Describe the event" required><?=htmlspecialchars($body)?></textarea>
                 </label>
             </p>
+            <?=$this->draw('entity/tags/input');?>
 
         </div>
         

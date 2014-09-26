@@ -29,7 +29,7 @@
                     <div class="span1">
                         <?php
 
-                            if ($vars['user']->canEdit()) {
+                            if ($vars['user']->canEdit() && $vars['user']->getUUID() == \Idno\Core\site()->session()->currentUserUUID()) {
                                 // If you're wondering, this is wrapped in an h1 tag to keep it aligned with
                                 // the user's name over in the next div. TODO: find a better way to do this
                                 // that retains visual consistency.

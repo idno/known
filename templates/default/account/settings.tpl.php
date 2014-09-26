@@ -5,13 +5,13 @@
 
     <div class="span10 offset1">
         <h1>
-            Account settings
+            Settings
         </h1>
         <?= $this->draw('account/menu') ?>
         <div class="explanation">
             <p>
-                Change your basic account settings here, or <a
-                    href="<?= \Idno\Core\site()->session()->currentUser()->getURL() ?>/edit/">click here to edit your
+                Change your basic account settings here. You may also want to <a
+                    href="<?= \Idno\Core\site()->session()->currentUser()->getURL() ?>/edit/">edit your
                     profile</a>.
             </p>
         </div>
@@ -27,11 +27,11 @@
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="inputHandle">Your handle</label>
+                <label class="control-label" for="inputHandle">Your username</label>
 
                 <div class="controls">
-                    <input type="text" id="inputHandle" placeholder="Your handle" class="span4" name="handle"
-                           value="<?= htmlspecialchars($user->handle) ?>" disabled>
+                    <input type="text" id="inputHandle" placeholder="Your username" class="span4" name="handle"
+                           value="<?= htmlspecialchars($user->handle) ?>">
                 </div>
             </div>
             <div class="control-group">
@@ -44,28 +44,14 @@
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputPassword">Your password<br/>
-                    <small>Leave this blank if you don't want to change it</small>
+                   <!-- <small>Leave this blank if you don't want to change it</small>-->
                 </label>
 
                 <div class="controls">
                     <input type="password" id="inputPassword" placeholder="Password" class="span4" name="password">
+                     
                 </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="inputPassword2">Your password again</label>
-
-                <div class="controls">
-                    <input type="password" id="inputPassword2" placeholder="Your password again" class="span4"
-                           name="password2">
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="apikey">Your API key</label>
-
-                <div class="controls">
-                    <input type="text" id="apikey" class="span4" name="apikey"
-                           value="<?= htmlspecialchars($user->getAPIkey()) ?>" disabled>
-                </div>
+                <div class="controls"><small>Leave this blank if you don't want to change it</small></div>
             </div>
             <div class="control-group">
                 <div class="controls">

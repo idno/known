@@ -16,7 +16,7 @@
     /* @var \Idno\Core\Template $this */
 
 ?>
-    <form action="<?= $vars['object']->getURL() ?>" method="post" onsubmit="return postForm()">
+    <form action="<?= $vars['object']->getURL() ?>" method="post" >
 
         <div class="row">
 
@@ -55,13 +55,8 @@
                                   class="span8 bodyInput mentionable wysiwyg"><?= htmlspecialchars($this->autop($body)) ?></textarea>
                     </label>
                 </p>
-
+                <?=$this->draw('entity/tags/input');?>
                 <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('article'); ?>
-                    <label>
-                        Tags<br/>
-                        <input type="text" name="tags" id="tags" placeholder="Add some #tags"
-                               value="<?= htmlspecialchars($vars['object']->tags) ?>" class="span8"/>
-                    </label>
 
                 <div class="wordcount" id="result">
 
@@ -81,14 +76,16 @@
     </form>
     <script>
 
-        function postForm() {
-            var content = $('textarea[name="body"]').html($('#body').code());
-        }
+        /*function postForm() {
+            var content = $('textarea[name="body"]').html($('#body').html());
+            console.log(content);
+            return content;
+        }*/
 
         counter = function () {
 
             var value = $('#body').code(); // $('#body').val();
-
+console.log(value);
             if (value.length == 0) {
                 $('#totalWords').html(0);
                 $('#totalChars').html(0);
@@ -158,6 +155,6 @@
         }
 
         // Autosave the title & body
-        autoSave('entry', ['title', 'body']);
+        //autoSave('entry', ['title', 'body']);
     </script>
 <?= $this->draw('entity/edit/footer'); ?>

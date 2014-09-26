@@ -62,8 +62,10 @@
                         if ($user->isAdmin()) {
                             ?>
                                 <strong>Administrator</strong><br>
-                                <?=  \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->url . 'admin/users', 'Remove rights', ['user' => $user->getUUID(), 'action' => 'remove_rights'], ['class' => '']);?>
                             <?php
+                                if ($user->getUUID() != \Idno\Core\site()->session()->currentUserUUID()) {
+                                    echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->url . 'admin/users', 'Remove rights', ['user' => $user->getUUID(), 'action' => 'remove_rights'], ['class' => '']);
+                                }
                         } else {
                             ?>
                                 Standard member<br>

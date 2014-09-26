@@ -114,13 +114,8 @@
                     <input type="text" name="body" id="body" placeholder="What are you up to?" value="<?= htmlspecialchars($vars['object']->body) ?>"
                            class="span8 mentionable"/>
                 </label>
-                <label>
-                    Tags<br/>
-                        <input type="text" name="tags" id="tags" placeholder="Add some #tags"
-                               value="<?= htmlspecialchars($vars['object']->tags) ?>" class="span8"/>
-                </label>
-
             </p>
+            <?=$this->draw('entity/tags/input');?>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('place'); ?>
             <p class="button-bar ">
                <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>

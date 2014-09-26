@@ -4,7 +4,7 @@
         <h1>
             Share your feedback
         </h1>
-        <?= $this->draw('account/menu') ?>
+        <!--<?= $this->draw('account/menu') ?>-->
         <p class="explanation">
             Want to share something with the Known team? We'd love to read your thoughts, suggestions, or ideas.
         </p>

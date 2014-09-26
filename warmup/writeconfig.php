@@ -13,9 +13,16 @@
             means your server is more secure!
         </p>
         <p>
-            To continue, create a new file called <code>config.ini</code> at the root of your Known installation,
-            with the following contents.
+            To continue:
         </p>
+        <ul>
+            <li>Rename the file called <code>htaccess.dist</code> at the root of your Known installation to
+                <code>.htaccess</code>.</li>
+            <li>
+                Create a new file called <code>config.ini</code> at the root of your Known installation,
+                with the following contents.
+            </li>
+        </ul>
         <p>
             Once you've saved it, just reload this page to continue.
         </p>

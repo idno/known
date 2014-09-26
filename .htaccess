@@ -11,6 +11,10 @@
     php_value upload_max_filesize 1000M
     php_value post_max_size 1080M
 </IfModule>
+<Files  ~ "\.dist$">
+  Order allow,deny
+  Deny from all
+</Files>
 <Files  ~ "\.ini$">
   Order allow,deny
   Deny from all

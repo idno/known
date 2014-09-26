@@ -218,7 +218,7 @@
             {
                 $handle = trim($handle);
                 $handle = strtolower($handle);
-                if (!empty($handle)) {
+                if (!empty($handle) && ctype_alnum($handle)) {
                     if (!self::getByHandle($handle)) {
                         $this->handle = $handle;
                     }
@@ -722,7 +722,7 @@
                 if (!empty($_FILES['avatar'])) {
                     if (in_array($_FILES['avatar']['type'], array('image/png', 'image/jpg', 'image/jpeg', 'image/gif'))) {
                         if (getimagesize($_FILES['avatar']['tmp_name'])) {
-                            if ($icon = \Idno\Entities\File::createThumbnailFromFile($_FILES['avatar']['tmp_name'], $_FILES['avatar']['name'], 300)) {
+                            if ($icon = \Idno\Entities\File::createThumbnailFromFile($_FILES['avatar']['tmp_name'], $_FILES['avatar']['name'], 300, true)) {
                                 $this->icon = (string)$icon;
                             } else if ($icon = \Idno\Entities\File::createFromFile($_FILES['avatar']['tmp_name'], $_FILES['avatar']['name'])) {
                                 $this->icon = (string)$icon;

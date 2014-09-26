@@ -37,6 +37,7 @@
                         //\Idno\Core\site()->session()->addMessage('The annotation was deleted.');
                     }
                 }
+
                 $this->forward($object->getURL() . '#comments');
             }
 

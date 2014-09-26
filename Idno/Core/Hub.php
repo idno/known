@@ -87,15 +87,13 @@
                 ) {
                     // Establish auth details, save them, and then connect
                     if ($details = $this->register()) {
-
                     }
-
                 }
 
-                // If we have details, and we're logged in, connect with OAuth
+                // If we have details, and we're logged in, connect
                 if (site()->session()->isLoggedOn()) {
                     \Idno\Core\site()->logging->log("User is logged on, checking hub status");
-                    if (!empty($details)) {
+                        if (!empty($details)) {
                         try {
                             if (!$this->userIsRegistered()) {
                                 \Idno\Core\site()->logging->log("User isn't registered; registering ...");
@@ -105,8 +103,6 @@
                             \Idno\Core\site()->logging->log($e->getMessage());
                         }
                     }
-                } else {
-                    \Idno\Core\site()->logging->log("No user");
                 }
 
                 return false;
@@ -152,25 +148,25 @@
                     $last_ping = site()->config->last_hub_ping;
                 }
 
-                if ($last_ping < (time() - 10)) { // Throttling registration pings to hub
+                //if ($last_ping < (time() - 10)) { // Throttling registration pings to hub
 
-                    $web_client = new Webservice();
+                $web_client = new Webservice();
 
-                    $results = $web_client->post($this->server . 'hub/site/register', [
-                        'url'   => site()->config()->getURL(),
-                        'title' => site()->config()->getTitle(),
-                        'token' => $this->getRegistrationToken()
-                    ]);
+                $results = $web_client->post($this->server . 'hub/site/register', [
+                    'url'   => site()->config()->getURL(),
+                    'title' => site()->config()->getTitle(),
+                    'token' => $this->getRegistrationToken()
+                ]);
 
-                    if ($results['response'] == 200) {
-                        site()->config->load();
-                        site()->config->last_hub_ping = time();
-                        site()->config->save();
+                if ($results['response'] == 200) {
+                    site()->config->load();
+                    site()->config->last_hub_ping = time();
+                    site()->config->save();
 
-                        return true;
-                    }
-
+                    return true;
                 }
+
+                //}
 
                 return false;
             }
@@ -198,6 +194,16 @@
                         'auth_token' => $details['auth_token'],
                         'signature'  => hash_hmac('sha1', $contents . $time . $details['auth_token'], $details['secret'])
                     ]);
+
+                    if ($results['response'] == 401) {
+                        site()->config->hub_settings = false;
+                        site()->config->save();
+                        $user->hub_settings = false;
+                        $user->save();
+                        if ($user->getUUID() == site()->session()->currentUserUUID()) {
+                            site()->session()->refreshSessionUser($user);
+                        }
+                    }
 
                     return true;
                 }
@@ -273,6 +279,8 @@
             function getRemoteLink($endpoint, $callback)
             {
                 $user = site()->session()->currentUser();
+                $user = User::getByUUID($user->getUUID());
+                site()->session()->refreshSessionUser($user);
 
                 if ($this->userIsRegistered($user)) {
                     $results = $this->makeCall('hub/user/link', ['user' => $user->getUUID(), 'endpoint' => $endpoint, 'callback' => $callback]);
