@@ -69,8 +69,7 @@
                         !($handleuser = \Idno\Entities\User::getByHandle($handle)) &&
                         !empty($handle) && strlen($handle) <= 32 &&
                         !substr_count($handle, '/') &&
-                        $password == $password2
-                        && strlen($password) > 4
+                        \Idno\Entities\User::checkNewPasswordStrength($password, $password2)
                     ) {
                         $user         = new \Idno\Entities\User();
                         $user->email  = $email;
@@ -116,8 +115,8 @@
                         if (!empty($emailuser)) {
                             \Idno\Core\site()->session()->addMessage("Hey, it looks like there's already an account with that email address. Did you forget your login?");
                         }
-                        if ($password != $password2 || strlen($password) <= 4) {
-                            \Idno\Core\site()->session()->addMessage("Please check that your passwords match and that your password is over four characters long.");
+                        if (!\Idno\Entities\User::checkNewPasswordStrength($password, $password2)) {
+                            \Idno\Core\site()->session()->addMessage("Please check that your passwords match and that your password is over 7 characters long.");
                         }
                     }
                 } else {
