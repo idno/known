@@ -9,7 +9,6 @@
 
     namespace Idno\Entities {
 
-        use Idno\Common\ContentType;
         use Idno\Core\Email;
 
         // We need the PHP 5.5 password API
@@ -34,7 +33,8 @@
             /**
              * Register user-related events
              */
-            static function registerEvents() {
+            static function registerEvents()
+            {
 
                 // Hook to add user data to webfinger
                 \Idno\Core\site()->addEventHook('webfinger', function (\Idno\Core\Event $event) {
@@ -156,6 +156,7 @@
                 if (!empty($this->url)) {
                     return $this->url;
                 }
+
                 return \Idno\Core\site()->config()->url . 'profile/' . $this->getHandle();
             }
 
@@ -353,25 +354,26 @@
             {
                 return \password_verify($password, $this->password);
             }
-            
+
             /**
              * Check that a new password is strong.
              * @param string $password
-             * @param string $password2
              * @return bool
              */
-            static function checkNewPasswordStrength($password, $password2) {
-            
+            static function checkNewPasswordStrength($password)
+            {
+
                 $default = false;
-                
+
                 // Default "base" password validation
-                if ($password == $password2 && (strlen($password) >= 8) && !empty($password2))
+                if (strlen($password) >= 7) {
                     $default = true;
-                
+                }
+
                 return \Idno\Core\site()->triggerEvent('user/password/checkstrength', [
-                    'password' => $password,
-                    'password2' => $password2
+                    'password'  => $password
                 ], $default);
+
             }
 
             /**
