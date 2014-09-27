@@ -742,10 +742,6 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
     color: #555555;
 }
 
-input.span7 {
-    width: 656px;
-}
-
 textarea:focus {
     box-shadow: none;
 }
