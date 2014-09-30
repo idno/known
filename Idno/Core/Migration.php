@@ -13,6 +13,7 @@
             static function exportToFolder($dir = false) {
 
                 set_time_limit(0);  // Switch off the time limit for PHP
+                site()->currentPage()->setPermalink(true);
 
                 // Prepare a unique name for the archive
                 $name = md5(time() . rand(0,9999) . site()->config()->getURL());
@@ -53,9 +54,9 @@
 
                 // Let's export everything.
                 $fields = [];
-                $query_parameters = ['entity_subtype' => ['$not' => ['Idno\Entities\ActivityStreamPost']]];
+                $query_parameters = ['entity_subtype' => ['$not' => ['$in' => ['Idno\Entities\ActivityStreamPost']]]];
                 $collection = 'entities';
-                if ($results = site()->db()->getRecords($fields, $query_parameters, PHP_INT_MAX, 0, $collection)) {
+                if ($results = site()->db()->getRecords($fields, $query_parameters, 99999, 0, $collection)) {
                     foreach ($results as $id => $row) {
                         $object = site()->db()->rowToEntity($row);
                         if (!empty($object->_id)) {
@@ -84,8 +85,8 @@
                             if (is_callable([$object, 'draw'])) {
                                 file_put_contents($html_path . $object_name . '.html', $activityStreamPost->draw());
                             }
-                            unset($results[$id]);
-                            unset($object);
+                            //unset($results[$id]);
+                            //unset($object);
                             gc_collect_cycles();    // Clean memory
                         }
                     }

@@ -472,6 +472,10 @@
                                 $subwhere[] = "(" . $this->build_where_from_array($value['$or'], $variables, $metadata_joins, $non_md_variables, 'or') . ")";
                             }
                             if (!empty($value['$not'])) {
+                                if (!empty($value['$not']['$in'])) {
+                                    $value['$not'] = array_merge($value['$not'], $value['$not']['$in']);
+                                    unset($value['$not']['$in']);
+                                }
                                 if (in_array($key, ['uuid', '_id', 'entity_subtype', 'owner'])) {
                                     $notstring = "`{$collection}`.`$key` not in(";
                                     $i         = 0;
