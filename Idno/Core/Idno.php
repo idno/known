@@ -9,6 +9,7 @@
 
     namespace Idno\Core {
 
+        use Idno\Common\Page;
         use Idno\Entities\User;
 
         class Idno extends \Idno\Common\Component
@@ -467,9 +468,11 @@
              */
             function currentPage()
             {
-                if (!empty($this->currentPage)) return $this->currentPage;
+                if (!empty($this->currentPage)) {
+                    return $this->currentPage;
+                }
 
-                return false;
+                return new Page();
             }
 
             /**
