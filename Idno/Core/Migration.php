@@ -73,9 +73,16 @@
                                 }
                                 $object->attachments = $attachments;
                             }
+                            $activityStreamPost = new \Idno\Entities\ActivityStreamPost();
+                            $owner              = $object->getOwner();
+                            $activityStreamPost->setOwner($owner);
+                            $activityStreamPost->setActor($owner);
+                            $activityStreamPost->setTitle(sprintf($object->getTitle(), $owner->getTitle(), $object->getTitle()));
+                            $activityStreamPost->setVerb('post');
+                            $activityStreamPost->setObject($object);
                             file_put_contents($json_path . $object_name . '.json', json_encode($object));
                             if (is_callable([$object, 'draw'])) {
-                                file_put_contents($html_path . $object_name . '.html', $object->draw());
+                                file_put_contents($html_path . $object_name . '.html', $activityStreamPost->draw());
                             }
                             unset($results[$id]);
                             unset($object);
