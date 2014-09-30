@@ -21,6 +21,7 @@
                 site()->addPageHandler('/admin/email/?', '\Idno\Pages\Admin\Email');
                 site()->addPageHandler('/admin/about/?', '\Idno\Pages\Admin\About');
                 site()->addPageHandler('/admin/users/?', '\Idno\Pages\Admin\Users');
+                site()->addPageHandler('/admin/export/?', '\Idno\Pages\Admin\Export');
             }
 
         }
