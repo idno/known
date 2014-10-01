@@ -120,7 +120,6 @@
     <link href="<?= \Idno\Core\site()->config()->url ?>webmention/" rel="http://webmention.org/"/>
     <link href="<?= \Idno\Core\site()->config()->url ?>webmention/" rel="webmention"/>
 
-    <link type="text/plain" rel="author" href="<?= \Idno\Core\site()->config()->url ?>humans.txt"/>
     <?php $this->draw('shell/identities') ?>
     <?php if (!empty(\Idno\Core\site()->config()->hub)) { ?>
         <!-- Pubsubhubbub -->

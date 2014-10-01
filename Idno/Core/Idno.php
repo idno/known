@@ -156,9 +156,8 @@
                 $this->addPageHandler('/search/?', '\Idno\Pages\Search\Forward');
                 $this->addPageHandler('/search/mentions\.json', '\Idno\Pages\Search\Mentions');
 
-                /** robots.txt / humans.txt */
+                /** robots.txt */
                 $this->addPageHandler('/robots\.txt', '\Idno\Pages\Txt\Robots');
-                $this->addPageHandler('/humans\.txt', '\Idno\Pages\Txt\Humans');
 
                 /** Autosave / preview */
                 $this->addPageHandler('/autosave/?', '\Idno\Pages\Entity\Autosave');
