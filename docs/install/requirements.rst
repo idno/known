@@ -13,26 +13,25 @@ support subdomains, however.
 
 If you use Apache 2.4, you either must install and activate:
 * mod_access_compat (see http://httpd.apache.org/docs/2.4/mod/mod_access_compat.html)
-or manually edit Known's stock .htaccess file by replacing:
-```
-<Files ~ "\.ini$">
-Order allow,deny
-Deny from all
-</Files>
-<Files ~ "\.xml$">
-Order allow,deny
-Deny from all
-</Files>
-```
-with
-```
-<Files ~ "\.ini$">
-Require all denied
-</Files>
-<Files ~ "\.xml$">
-Require all denied
-</Files>
-```
+or manually edit Known's stock .htaccess file by replacing::
+
+    <Files ~ "\.ini$">
+    Order allow,deny
+    Deny from all
+    </Files>
+    <Files ~ "\.xml$">
+    Order allow,deny
+    Deny from all
+    </Files>
+
+with::
+
+    <Files ~ "\.ini$">
+    Require all denied
+    </Files>
+    <Files ~ "\.xml$">
+    Require all denied
+    </Files>
 
 Additionally, Known requires the following PHP components:
 
