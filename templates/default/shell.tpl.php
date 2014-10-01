@@ -108,7 +108,9 @@
     <script src="<?= \Idno\Core\site()->config()->url . 'js/default.js' ?>"></script>
 
     <!-- To silo is human, to syndicate divine -->
-    <link rel="alternate feed" type="application/rss+xml" title="<?= htmlspecialchars($vars['title']) ?>"
+    <link rel="alternate" type="application/rss+xml" title="<?= htmlspecialchars($vars['title']) ?>"
+          href="<?= $this->getURLWithVar('_t', 'rss'); ?>"/>
+    <link rel="feed" type="application/rss+xml" title="<?= htmlspecialchars($vars['title']) ?>"
           href="<?= $this->getURLWithVar('_t', 'rss'); ?>"/>
     <link rel="alternate feed" type="application/rss+xml"
           title="<?= htmlspecialchars(\Idno\Core\site()->config()->title) ?>: all content"
