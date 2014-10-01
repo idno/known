@@ -25,6 +25,9 @@
                 <div class="submit page-bottom">
                     <a class="btn btn-primary btn-lg btn-responsive" href="requirements.php">Let's get started</a>
                 </div>
+                <p>
+                    <small><a href="http://docs.withknown.com/">Want to get set up manually? Here's our documentation.</a></small>
+                </p>
 
             </div>
 

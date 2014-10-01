@@ -111,6 +111,9 @@
             <p>
                 <a class="btn btn-primary btn-lg btn-responsive" href="settings.php">Hooray! Let's get you set up.</a>
             </p>
+            <p>
+                <small><a href="http://docs.withknown.com/">Want to get set up manually? Here's our documentation.</a></small>
+            </p>
         </div>
     <?php
 
@@ -125,6 +128,9 @@
                 Unfortunately it looks like you need to install a few things. If you need to, ask your system administrator.
                 Scroll up for more details, and <a href="http://withknown.com">check out our website</a> for more services
                 and information.
+            </p>
+            <p>
+                <small><a href="http://docs.withknown.com/">Want more information? Here's our documentation.</a></small>
             </p>
         </div>
     <?php
