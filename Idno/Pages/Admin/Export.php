@@ -11,12 +11,35 @@
 
                 $this->adminGatekeeper();
 
+                function shutdown() {
+                    posix_kill(posix_getpid(), SIGHUP);
+                }
+
+                if ($pid = pcntl_fork()) {
+                    return;
+                }
+
+                ob_end_clean();
+
+                fclose(STDIN);  // Close all of the standard
+                fclose(STDOUT); // file descriptors as we
+                fclose(STDERR); // are running as a daemon.
+
+                register_shutdown_function('shutdown');
+
+                if (posix_setsid() < 0)
+                    return;
+
+                if ($pid = pcntl_fork()) {
+                    return;
+                }
+
+                sleep(10);
+
                 // Eliminate time limit - this could take a while
                 set_time_limit(0);
 
                 if ($path = Migration::createCompressedArchive()) {
-
-                    \Idno\Core\site()->session()->addMessage("ARchive: {$path}");
 
                     $filename = \Idno\Core\site()->config()->host . '.tar.gz';
                     header('Content-disposition: attachment;filename=' . $filename);
@@ -26,11 +49,11 @@
                         }
                     }
                     fclose($fp);
+
+                    // TODO: notify the user that the archive is ready;
+
                     exit;
 
-                } else {
-                    \Idno\Core\site()->session()->addMessage("We couldn't generate an archive of your data.");
-                    $this->forward($_SERVER['HTTP_REFERER']);
                 }
 
             }
