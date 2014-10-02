@@ -693,7 +693,7 @@ div.pane div.row:nth-of-type(odd) {
     color: #ffffff;
 }
 
-.btn-large {
+.btn-default {
     background-color: #dddddd;
     border-color: #dddddd;
     color: #333333;
@@ -701,17 +701,19 @@ div.pane div.row:nth-of-type(odd) {
     background-image: none;
     background-repeat: repeat-x;
     box-shadow: none;
-    border-radius: 6px;
-    font-size: 17.5px;
-    padding: 11px 19px;
 }
 
-.btn-large:hover, btn-large:active, .btn-large:focus {
+.btn-default:hover, .btn-default:active, .btn-default:focus {
     background-color: #c5c5c5;
     border-color: #c5c5c5;
     color: #333333;
 }
 
+.btn-large {
+    border-radius: 6px;
+    font-size: 17.5px;
+    padding: 11px 19px;
+}
 
 .well {
 	background-color: #ffffff;
