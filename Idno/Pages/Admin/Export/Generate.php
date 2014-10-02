@@ -1,14 +1,18 @@
 <?php
 
-    namespace Idno\Pages\Admin {
+    namespace Idno\Pages\Admin\Export {
 
         use Idno\Common\Page;
         use Idno\Core\Migration;
         use Idno\Entities\File;
 
-        class Export extends Page {
+        class Generate extends Page {
 
             function getContent() {
+                $this->forward(\Idno\Core\site()->config()->getURL() . 'admin/export/');
+            }
+
+            function postContent() {
 
                 $this->adminGatekeeper();
 
@@ -50,13 +54,13 @@
                 if ($path = Migration::createCompressedArchive()) {
 
                     $filename = \Idno\Core\site()->config()->host . '.tar.gz';
-/*                    header('Content-disposition: attachment;filename=' . $filename);
-                    if ($fp = fopen($path, 'r')) {
-                        while ($content = fread($fp, 4096)) {
-                            echo $content;
-                        }
-                    }
-                    fclose($fp);*/
+                    /*                    header('Content-disposition: attachment;filename=' . $filename);
+                                        if ($fp = fopen($path, 'r')) {
+                                            while ($content = fread($fp, 4096)) {
+                                                echo $content;
+                                            }
+                                        }
+                                        fclose($fp);*/
 
                     if ($file = File::createFromFile($path, $filename)) {
                         \Idno\Core\site()->config->export_filename = $filename;
@@ -69,10 +73,6 @@
 
                 }
 
-            }
-
-            function postContent() {
-                $this->getContent();
             }
 
         }
