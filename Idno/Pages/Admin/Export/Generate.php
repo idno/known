@@ -27,7 +27,7 @@
                     posix_kill(posix_getpid(), SIGHUP);
                 }
 
-                if ($pid = pcntl_fork()) {
+                if ($pid = \pcntl_fork()) {
                     return;
                 }
 
