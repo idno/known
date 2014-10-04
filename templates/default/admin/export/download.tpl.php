@@ -3,7 +3,8 @@
 </p>
 <p style="text-align: center">
     <a class="btn btn-primary" href="<?=\Idno\Core\site()->config()->getURL()?>file/<?=$vars['export_file_id']?>/<?=$vars['export_filename']?>">Download your data</a><br>
-    <small></small>
+    <small>Generated <time class="dt-published"
+                           datetime="<?= date('c', $vars['export_last_requested']) ?>"><?= date('c', $vars['export_last_requested']) ?></time></small>
 </p>
 <p style="margin-top: 2em">
     You can also regenerate your data archive by clicking below:
