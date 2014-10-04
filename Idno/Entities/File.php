@@ -273,17 +273,17 @@
             static function getFileDataFromAttachment($attachment) {
                 \Idno\Core\site()->logging->log(json_encode($attachment), LOGLEVEL_DEBUG);
                 if (!empty($attachment['_id'])) {
-                    \Idno\Core\site()->logging->log("Checking attachment ID", LOGLEVEL_DEBUG);
+                    //\Idno\Core\site()->logging->log("Checking attachment ID", LOGLEVEL_DEBUG);
                     if ($bytes = self::getFileDataByID((string)$attachment['_id'])) {
-                        \Idno\Core\site()->logging->log("Retrieved some bytes", LOGLEVEL_DEBUG);
+                        //\Idno\Core\site()->logging->log("Retrieved some bytes", LOGLEVEL_DEBUG);
                         if (strlen($bytes)) {
-                            \Idno\Core\site()->logging->log("Bytes! " . $bytes, LOGLEVEL_DEBUG);
+                            //\Idno\Core\site()->logging->log("Bytes! " . $bytes, LOGLEVEL_DEBUG);
                             return $bytes;
                         } else {
-                            \Idno\Core\site()->logging->log("Sadly no bytes", LOGLEVEL_DEBUG);
+                            //\Idno\Core\site()->logging->log("Sadly no bytes", LOGLEVEL_DEBUG);
                         }
                     } else {
-                        \Idno\Core\site()->logging->log("No bytes retrieved", LOGLEVEL_DEBUG);
+                        //\Idno\Core\site()->logging->log("No bytes retrieved", LOGLEVEL_DEBUG);
                     }
                 } else {
                     \Idno\Core\site()->logging->log("Empty attachment _id", LOGLEVEL_DEBUG);
