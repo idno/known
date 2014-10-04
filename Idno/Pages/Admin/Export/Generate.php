@@ -3,6 +3,7 @@
     namespace Idno\Pages\Admin\Export {
 
         use Idno\Common\Page;
+        use Idno\Core\Email;
         use Idno\Core\Migration;
         use Idno\Entities\File;
 
@@ -58,6 +59,12 @@
                         \Idno\Core\site()->config->export_file_id = $file;
                         \Idno\Core\site()->config->export_in_progress = 0;
                         \Idno\Core\site()->config->save();
+
+                        $mail = new Email();
+                        $mail->setHTMLBodyFromTemplate('admin/export');
+                        $mail->addTo(\Idno\Core\site()->session()->currentUser()->email);
+                        $mail->setSubject("Your data export is ready");
+                        $mail->send();
                     }
 
                     exit;
