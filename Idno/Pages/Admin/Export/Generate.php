@@ -43,7 +43,7 @@
 
                 if ($path = Migration::createCompressedArchive()) {
 
-                    $filename = \Idno\Core\site()->config()->host . '.tar.gz';
+                    $filename = \Idno\Core\site()->config()->host . '.zip';
                     /*                    header('Content-disposition: attachment;filename=' . $filename);
                                         if ($fp = fopen($path, 'r')) {
                                             while ($content = fread($fp, 4096)) {

@@ -127,11 +127,11 @@
                     @unlink('/var/tmp/' . $filename . '.tar.gz');
                 }
 
-                $archive = new \PharData('/var/tmp/' . $filename . '.tar');
+                $archive = new \PharData('/var/tmp/' . $filename . '.zip');
                 $archive->buildFromDirectory($path);
-                $archive->compress(\Phar::GZ);
+                //$archive->compress(\Phar::GZ);
 
-                return $archive->getPath() . '.gz';
+                return $archive->getPath();
 
             }
 
