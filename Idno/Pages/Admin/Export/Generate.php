@@ -23,33 +23,23 @@
 
                 $this->forward($_SERVER['HTTP_REFERER'], false);
 
-                function shutdown() {
-                    posix_kill(posix_getpid(), SIGHUP);
+                ignore_user_abort(true);    // This is dangerous, but we need export to continue
+
+                @ob_end_flush();            // Return output to the browser
+
+                sleep(10);                  // Pause
+
+                set_time_limit(0);          // Eliminate time limit - this could take a while
+
+                // Remove the previous export file
+                if (!empty(\Idno\Core\site()->config()->export_file_id)) {
+                    if ($file = File::getByID(\Idno\Core\site()->config()->export_file_id)) {
+                        $file->delete();
+                        \Idno\Core\site()->config->export_file_id = false;
+                        \Idno\Core\site()->config->export_filename = false;
+                        \Idno\Core\site()->config->save();
+                    }
                 }
-
-                if ($pid = \pcntl_fork()) {
-                    return;
-                }
-
-                ob_end_clean();
-
-                fclose(STDIN);  // Close all of the standard
-                fclose(STDOUT); // file descriptors as we
-                fclose(STDERR); // are running as a daemon.
-
-                register_shutdown_function('shutdown');
-
-                if (posix_setsid() < 0)
-                    return;
-
-                if ($pid = pcntl_fork()) {
-                    return;
-                }
-
-                sleep(10);
-
-                // Eliminate time limit - this could take a while
-                set_time_limit(0);
 
                 if ($path = Migration::createCompressedArchive()) {
 
@@ -63,6 +53,7 @@
                                         fclose($fp);*/
 
                     if ($file = File::createFromFile($path, $filename)) {
+                        @unlink($path);
                         \Idno\Core\site()->config->export_filename = $filename;
                         \Idno\Core\site()->config->export_file_id = $file;
                         \Idno\Core\site()->config->export_in_progress = 0;
