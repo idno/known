@@ -65,7 +65,7 @@
                             $path = str_replace('/','_',$path);
                         ?>
 
-                        <em style="font-style:italic; font-size: 12px; color: #aaa;">Powered by <a href="http://withknown.com/?utm_source=transactional&utm_medium=email&utm_campaign=e<?=$path?>" style="color: #73b2e3; text-decoration: none;">Known</a>, a publishing platform for everyone.</em>
+                        <em style="font-style:italic; font-size: 12px; color: #aaa;">Powered by <a href="http://withknown.com/?utm_source=transactional&utm_medium=email&utm_campaign=e<?=$path?>" style="color: #73b2e3; text-decoration: none;">Known</a>, the best way to publish content, discuss ideas, and share from a space you own.</em>
                         <br><br>
 
                     </td>
