@@ -35,6 +35,19 @@
             }
 
             /**
+             * Retrieves a stream resource referencing the file
+             * @return mixed|resource
+             */
+            function getResource() {
+                if (file_exists($this->internal_filename)) {
+                    if ($file_handle = fopen($this->internal_filename, 'r')) {
+                        return $file_handle;
+                    }
+                }
+                return false;
+            }
+
+            /**
              * Delete this file
              */
             function delete()

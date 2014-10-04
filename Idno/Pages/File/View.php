@@ -56,7 +56,11 @@
                 if (is_callable([$object, 'passThroughBytes'])) {
                     $object->passThroughBytes();
                 } else {
-                    echo $object->getBytes();
+                    if ($stream = $object->getResource()) {
+                        while (!feof($stream)) {
+                            echo fread($stream, 8192);
+                        }
+                    }
                 }
 
             }
