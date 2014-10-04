@@ -26,7 +26,14 @@
 
                 ignore_user_abort(true);    // This is dangerous, but we need export to continue
 
+                session_write_close();
+
+                header('Connection: close');
+                header('Content-length: ' . (string) ob_get_length());
+
                 @ob_end_flush();            // Return output to the browser
+                @ob_end_clean();
+                @flush();
 
                 sleep(10);                  // Pause
 
