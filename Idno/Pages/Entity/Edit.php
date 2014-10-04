@@ -22,6 +22,8 @@
                 if (empty($object)) $this->forward(); // TODO: 404
                 if (!$object->canEdit()) $this->forward($object->getURL());
 
+                session_write_close();
+
                 $t = \Idno\Core\site()->template();
                 $t->__(array(
 
