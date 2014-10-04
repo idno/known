@@ -142,10 +142,27 @@
             static function createCompressedArchive() {
                 if ($path = self::exportToFolder()) {
                     if ($archive = self::archiveExportFolder($path)) {
+                        self::cleanUpFolder($path);
                         return $archive;
                     }
                 }
                 return false;
+            }
+
+            /**
+             * Given the path to an archive folder, recursively removes it
+             * @param $path
+             */
+            static function cleanUpFolder($path) {
+                foreach(glob("{path}/*") as $file)
+                {
+                    if(is_dir($file)) {
+                        self::cleanUpFolder($file);
+                    } else {
+                        @unlink($file);
+                    }
+                }
+                @rmdir($path);
             }
 
         }
