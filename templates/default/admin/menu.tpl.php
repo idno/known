@@ -7,6 +7,7 @@
             <?=$this->draw('admin/menu/items')?>
             <li <?php if ($_SERVER['REQUEST_URI'] == '/admin/email/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\site()->config()->url?>admin/email/">Email</a></li>
             <li <?php if ($_SERVER['REQUEST_URI'] == '/admin/users/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\site()->config()->url?>admin/users/">Users</a></li>
+            <li <?php if ($_SERVER['REQUEST_URI'] == '/admin/export/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\site()->config()->url?>admin/export/">Export</a></li>
             <li <?php if ($_SERVER['REQUEST_URI'] == '/admin/about/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\site()->config()->url?>admin/about/">About</a></li>
 
         </ul>
