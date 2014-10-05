@@ -16,7 +16,7 @@
     /* @var \Idno\Core\Template $this */
 
 ?>
-    <form action="<?= $vars['object']->getURL() ?>" method="post" >
+    <form action="<?= $vars['object']->getURL() ?>" method="post">
 
         <div class="row">
 
@@ -51,15 +51,14 @@
                 <p>
                     <label>
                         Body<br/>
-                        <textarea name="body" id="body" placeholder="Tell your story"
-                                  class="span8 bodyInput mentionable wysiwyg"><?= htmlspecialchars($this->autop($body)) ?></textarea>
+                        <textarea name="body"  placeholder="Tell your story"
+                                  class="span8 bodyInput mentionable wysiwyg" id="body"><?= (htmlspecialchars($this->autop($body))) ?></textarea>
                     </label>
                 </p>
-                <?=$this->draw('entity/tags/input');?>
+                <?= $this->draw('entity/tags/input'); ?>
                 <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('article'); ?>
 
                 <div class="wordcount" id="result">
-
                     Total words <strong><span id="totalWords">0</span></strong>
                 </div>
 
@@ -77,15 +76,15 @@
     <script>
 
         /*function postForm() {
-            var content = $('textarea[name="body"]').html($('#body').html());
-            console.log(content);
-            return content;
-        }*/
+         var content = $('textarea[name="body"]').html($('#body').html());
+         console.log(content);
+         return content;
+         }*/
 
         counter = function () {
 
             var value = $('#body').code(); // $('#body').val();
-console.log(value);
+            console.log(value);
             if (value.length == 0) {
                 $('#totalWords').html(0);
                 $('#totalChars').html(0);
@@ -118,19 +117,14 @@ console.log(value);
         $(document).ready(function () {
             $('#body').summernote({
                 height: "15em",
+                airMode: false,
                 toolbar: [
-                    ['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
+                    ['style', ['bold', 'italic', 'underline']],
                     ['fancy', ['link', 'picture']],
-                    /* Images forthcoming */
-                    ['fontsize', ['fontsize']],
-                    ['color', ['color']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['codeview', ['fullscreen', 'codeview']]
+                    ['para', ['ul', 'ol']]
                 ],
                 onkeyup: counter,
-                onImageUpload: function(files, editor, welEditable)
-                {
-                    console.log(files);
+                onImageUpload: function (files, editor, welEditable) {
                     uploadFileAsync(files[0], editor, welEditable);
                 }
             });
