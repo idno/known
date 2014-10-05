@@ -18,7 +18,7 @@
                     on <a href="<?=$permalink?>"><?=parse_url($permalink, PHP_URL_HOST)?></a></small></p></small></p>
             </div>
             <?php
-                $this->annotation_permalink = $permalink;
+                $this->annotation_permalink = $locallink;
                 
                 if ($vars['object']->canEditAnnotation($annotation)) {
                     echo $this->draw('content/annotation/edit');
