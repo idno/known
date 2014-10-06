@@ -119,9 +119,12 @@
                 height: "15em",
                 airMode: false,
                 toolbar: [
-                    ['style', ['bold', 'italic', 'underline']],
+                    ['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
                     ['fancy', ['link', 'picture']],
-                    ['para', ['ul', 'ol']]
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['codeview', ['fullscreen', 'codeview']]
                 ],
                 onkeyup: counter,
                 onImageUpload: function (files, editor, welEditable) {
