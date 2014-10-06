@@ -49,8 +49,8 @@
                     foreach($mf2_content['items'] as $item) {
                         if (in_array('h-entry',$item['type'])) {
                             $entry = new FeedItem();
-                            $entry->setFeedURL($url);
                             $entry->loadFromMF2(array($item));
+                            $entry->setFeedURL($url);
                             $items[] = $entry;
                         }
                     }
