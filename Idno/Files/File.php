@@ -27,6 +27,12 @@
             abstract function passThroughBytes();
 
             /**
+             * Get a stream resource referencing the file
+             * @return mixed
+             */
+            abstract function getResource();
+
+            /**
              * Returns this file's filename
              * @return string
              */

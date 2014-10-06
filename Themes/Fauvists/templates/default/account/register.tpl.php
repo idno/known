@@ -33,7 +33,7 @@
                     
                     <div class="controls">
                         <input type="password" id="inputPassword" placeholder="secret-password" class="" style="width: 100%" name="password" >
-                        <br /><small>(at least 4 characters please)</small>                      
+                        <br /><small>(at least 7 characters please)</small>
                     </div>
                     
                 </div>

@@ -156,6 +156,21 @@
 
                 return false;
             }
+
+            /**
+             * Take a URL, check for a schema and add one if necessary
+             * @param $url
+             * @return string|bool
+             */
+            static function sanitizeURL($url) {
+                if (!empty($url)) {
+                    if (!substr_count($url, ':') && !substr_count($url, '//')) {
+                        $url = 'http://' . $url;
+                    }
+                    return $url;
+                }
+                return false;
+            }
         }
 
     }

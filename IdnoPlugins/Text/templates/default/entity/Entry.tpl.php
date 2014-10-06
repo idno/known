@@ -4,6 +4,9 @@
     } else {
         $rel = '';
     }
+    if (!empty($vars['object']->tags)) {
+        $vars['object']->body .= '<p class="tag-row"><i class="icon-tag"></i>' . $vars['object']->tags . '</p>';
+    }
 ?>
 <div><h2 class="p-name"><a href="<?=$vars['object']->getURL()?>"><?=$vars['object']->getTitle()?></a></h2>
 <p class="reading">

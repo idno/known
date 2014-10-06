@@ -85,7 +85,7 @@
                     <span class="label">Hold tight ... searching for your location.</span>
                 </p>
             </div>
-            <div id="geofields" style="display:none">
+            <div id="geofields" class="map" style="display:none">
                 <div class="geolocation">
                     <p>
                         <label>
@@ -115,11 +115,12 @@
                            class="span8 mentionable"/>
                 </label>
             </p>
+            <?=$this->draw('entity/tags/input');?>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('place'); ?>
             <p class="button-bar ">
                <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
                 <?= \Idno\Core\site()->actions()->signForm('/checkin/edit') ?>
-                <input type="submit" class="btn btn-primary" value="<?php if (empty($vars['object']->_id)) { ?>Check-in<?php } else { ?>Save<?php } ?>"/>
+                <input type="submit" class="btn btn-primary" value="<?php if (empty($vars['object']->_id)) { ?>Check in<?php } else { ?>Save<?php } ?>"/>
                 <?= $this->draw('content/access'); ?>
             </p>
         </div>

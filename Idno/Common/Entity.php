@@ -690,6 +690,17 @@
             function getAttachments()
             {
                 if (!empty($this->attachments)) {
+                    if (!empty(\Idno\Core\site()->config()->attachment_base_host)) {
+                        $attachments = $this->attachments;
+                        foreach($this->attachments as $key => $value) {
+                            if (!empty($value['url'])) {
+                                $host = parse_url($value['url'], PHP_URL_HOST);
+                                $value['url'] = str_replace($host, \Idno\Core\site()->config()->attachment_base_host, $value['url']);
+                                $attachments[$key] = $value;
+                            }
+                        }
+                        $this->attachments = $attachments;
+                    }
                     return $this->attachments;
                 } else {
                     return [];
@@ -817,6 +828,9 @@
             function getTags()
             {
                 if ($descr = $this->getDescription()) {
+                    if (!empty($this->tags)) {
+                        $descr .= ' ' . $this->tags;
+                    }
                     if (preg_match_all('/(?<!=)(?<!["\'])(\#[A-Za-z0-9]+)/i', $descr, $matches)) {
                         if (!empty($matches[0])) {
                             return $matches[0];
@@ -1326,6 +1340,14 @@
             }
 
             /**
+             * Returns the URL of this object, or the URL of the contained object if this is a container.
+             * @return string
+             */
+            function getObjectURL() {
+                return $this->getURL();
+            }
+
+            /**
              * Add webmentions as annotations based on Microformats 2 data
              *
              * @param string $source The source URL
@@ -1361,7 +1383,24 @@
                                         if (!empty($item['properties'])) {
                                             if (!empty($item['properties']['name'])) $mentions['owner']['name'] = $item['properties']['name'][0];
                                             if (!empty($item['properties']['url'])) $mentions['owner']['url'] = $item['properties']['url'][0];
-                                            if (!empty($item['properties']['photo'])) $mentions['owner']['photo'] = $item['properties']['photo'][0];
+                                            if (!empty($item['properties']['photo'])) {
+                                                //$mentions['owner']['photo'] = $item['properties']['photo'][0];
+                                                
+                                                $tmpfname = tempnam(sys_get_temp_dir(), 'webmention_avatar');
+                                                file_put_contents($tmpfname, \Idno\Core\Webservice::file_get_contents($item['properties']['photo'][0]));
+                                                
+                                                $name = md5($item['properties']['url'][0]);
+                                                
+                                                // TODO: Don't update the cache image for every webmention
+                                                
+                                                if ($icon = \Idno\Entities\File::createThumbnailFromFile($tmpfname, $name, 300)) {
+                                                    $mentions['owner']['photo'] = \Idno\Core\site()->config()->url . 'file/' . (string)$icon;
+                                                } else if ($icon = \Idno\Entities\File::createFromFile($tmpfname, $name)) {
+                                                    $mentions['owner']['photo'] = \Idno\Core\site()->config()->url . 'file/' . (string)$icon;
+                                                }
+                                                
+                                                unlink($tmpfname);
+                                            }
                                         }
                                         break;
                                 }
@@ -1452,7 +1491,24 @@
                                 if ($type == 'h-card') {
                                     if (!empty($author['properties']['name'])) $mentions['owner']['name'] = $author['properties']['name'][0];
                                     if (!empty($author['properties']['url'])) $mentions['owner']['url'] = $author['properties']['url'][0];
-                                    if (!empty($author['properties']['photo'])) $mentions['owner']['photo'] = $author['properties']['photo'][0];
+                                    if (!empty($author['properties']['photo'])) { 
+                                        //$mentions['owner']['photo'] = $author['properties']['photo'][0];
+                                        
+                                        $tmpfname = tempnam(sys_get_temp_dir(), 'webmention_avatar');
+                                        file_put_contents($tmpfname, \Idno\Core\Webservice::file_get_contents($author['properties']['photo'][0]));
+
+                                        $name = md5($author['properties']['url'][0]);
+
+                                        // TODO: Don't update the cache image for every webmention
+
+                                        if ($icon = \Idno\Entities\File::createThumbnailFromFile($tmpfname, $name, 300)) {
+                                            $mentions['owner']['photo'] = \Idno\Core\site()->config()->url . 'file/' . (string)$icon;
+                                        } else if ($icon = \Idno\Entities\File::createFromFile($tmpfname, $name)) {
+                                            $mentions['owner']['photo'] = \Idno\Core\site()->config()->url . 'file/' . (string)$icon;
+                                        }
+
+                                        unlink($tmpfname);
+                                    }
                                 }
                             }
                         }
@@ -1565,8 +1621,16 @@
                 if (empty($annotation_url)) {
                     $annotation_url = $this->getURL() . '/annotations/' . md5(time() . $content); // Invent a URL for this annotation
                 }
-                // Create a local URL (fixes #199)
-                $local_url = $this->getURL() . '/annotations/' . md5(time() . $content); // Invent a URL for this annotation
+                if ($existing_annotations = $this->getAnnotations($subtype)) {
+                    foreach($existing_annotations as $existing_local_url => $existing_annotation) {
+                        if ($existing_annotation['permalink'] == $annotation_url) {
+                            $local_url = $existing_local_url;
+                        }
+                    }
+                }
+                if (empty($local_url)) {
+                    $local_url = $this->getURL() . '/annotations/' . md5(time() . $content); // Invent a URL for this annotation if we don't have one already
+                }
                 if (empty($time)) {
                     $time = time();
                 } else {
@@ -1583,6 +1647,7 @@
 
                 $annotations[$subtype][$local_url] = $annotation;
                 $this->annotations                 = $annotations;
+                $this->save();
 
                 \Idno\Core\site()->triggerEvent('annotation/add/' . $subtype, ['annotation' => $annotation, 'object' => $this]);
 

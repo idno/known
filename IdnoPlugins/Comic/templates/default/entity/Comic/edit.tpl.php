@@ -39,6 +39,7 @@
                     <textarea name="body" id="body" class="span9 bodyInput"><?=htmlspecialchars($vars['object']->body)?></textarea>
                 </label>
             </p>
+            <?=$this->draw('entity/tags/input');?>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('article'); ?>
             <p>
                 <?= \Idno\Core\site()->actions()->signForm('/text/edit') ?>

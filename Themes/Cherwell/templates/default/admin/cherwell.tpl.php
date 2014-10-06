@@ -2,7 +2,7 @@
 
     <div class="span10 offset1">
         <h1>Cherwell Theme Options</h1>
-        <?=$this->draw('admin/menu')?>
+        <?= $this->draw('admin/menu') ?>
         <div class="explanation">
             <p>
                 Update your background image.
@@ -17,16 +17,21 @@
     <div class="span6 offset3">
 
         <p>
-            <img src="<?=\Themes\Cherwell\Controller::getBackgroundImageURL()?>" style="width: 50%; float: left; margin-right: 10px; margin-bottom: 10px" id="photopreview">
+            <img src="<?= \Themes\Cherwell\Controller::getBackgroundImageURL() ?>"
+                 style="width: 50%; float: left; margin-right: 10px; margin-bottom: 10px" id="photopreview">
         </p>
 
-        <form action="<?=\Idno\Core\site()->config()->getURL()?>admin/cherwell/" method="post" enctype="multipart/form-data">
+        <form id="bgform" action="<?= \Idno\Core\site()->config()->getURL() ?>admin/cherwell/" method="post"
+              enctype="multipart/form-data">
 
             <p class="upload">
-                <span class="camera btn-file" type="button" value="Add a photo of yourself">
-                    <span id="photo-filename" class="btn">Upload a new background image</span>
-                    <input type="file" name="background" id="photo" class="span9" accept="image/*;capture=camera" onchange="photoPreview(this)" />
-                </span>
+                <label>
+                    <span class="btn btn-file">
+                    <span id="photo-filename">Upload a new background image</span>
+                    <input type="file" name="background" id="photo" class="span9" accept="image/*;capture=camera"
+                           onchange="photoPreview(this)"/>
+                    </span>
+                </label>
             </p>
 
             <p>
@@ -37,9 +42,10 @@
 
                     if (!empty(\Idno\Core\site()->config->cherwell['bg_id'])) {
 
-                ?>
-                        <input type="submit" class="btn" value="Restore default image" onclick="$('#action').val('clear');">
-                <?php
+                        ?>
+                        <input type="button" class="btn" value="Restore default image"
+                               onclick="$('#action').val('clear'); $('#bgform').submit();">
+                    <?php
 
                     }
 

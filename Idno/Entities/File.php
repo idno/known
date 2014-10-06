@@ -126,10 +126,11 @@
              * @param string $file_path Path to the file.
              * @param string $filename Filename that the file should have on download.
              * @param int $max_dimension The maximum number of pixels the thumbnail image should be along its longest side.
+             * @param bool $square If this is set to true, the thumbnail will be made square.
              * @param mixed $exif Optionally provide exif data for the image, if not provided then this function will attempt to extract it
              * @return bool|id
              */
-            public static function createThumbnailFromFile($file_path, $filename, $max_dimension = 800, $exif = null)
+            public static function createThumbnailFromFile($file_path, $filename, $max_dimension = 800, $square = false, $exif = null)
             {
 
                 $thumbnail = false;
@@ -142,14 +143,12 @@
                                 break;
                             case 'image/png':
                                 $image      = imagecreatefrompng($file_path);
-                                $background = imagecolorallocate($image, 0, 0, 0);
+                                $background = imagecolorallocatealpha($image, 0, 0, 0, 127);
                                 imagecolortransparent($image, $background);
-                                imagealphablending($image, false);
-                                imagesavealpha($image, true);
                                 break;
                             case 'image/gif':
                                 $image      = imagecreatefromgif($file_path);
-                                $background = imagecolorallocate($image, 0, 0, 0);
+                                $background = imagecolorallocatealpha($image, 0, 0, 0, 127);
                                 imagecolortransparent($image, $background);
                                 break;
                         }
@@ -161,8 +160,34 @@
                                 $height = $max_dimension;
                                 $width  = round($photo_information[0] * ($max_dimension / $photo_information[1]));
                             }
-                            $image_copy = imagecreatetruecolor($width, $height);
-                            imagecopyresampled($image_copy, $image, 0, 0, 0, 0, $width, $height, $photo_information[0], $photo_information[1]);
+                            if ($square) {
+                                if ($width > $height) {
+                                    $new_height = $max_dimension;
+                                    $new_width = $max_dimension;
+                                    $original_height = $photo_information[1];
+                                    $original_width = $photo_information[1];
+                                    $offset_x = round(($photo_information[0] - $photo_information[1]) / 2);
+                                    $offset_y = 0;
+                                } else {
+                                    $new_height = $max_dimension;
+                                    $new_width = $max_dimension;
+                                    $original_height = $photo_information[0];
+                                    $original_width = $photo_information[0];
+                                    $offset_x = 0;
+                                    $offset_y = round(($photo_information[1] - $photo_information[0]) / 2);
+                                }
+                            } else {
+                                $new_height = $height;
+                                $new_width = $width;
+                                $original_height = $photo_information[1];
+                                $original_width = $photo_information[0];
+                                $offset_x = 0;
+                                $offset_y = 0;
+                            }
+                            $image_copy = imagecreatetruecolor($new_width, $new_height);
+                            imagealphablending($image_copy, false);
+                            imagesavealpha($image_copy, true);
+                            imagecopyresampled($image_copy, $image, 0, 0, $offset_x, $offset_y, $new_width, $new_height, $original_width, $original_height);
 
 
                             if (is_callable('exif_read_data') && $photo_information['mime'] == 'image/jpeg') {
@@ -276,17 +301,17 @@
             static function getFileDataFromAttachment($attachment) {
                 \Idno\Core\site()->logging->log(json_encode($attachment), LOGLEVEL_DEBUG);
                 if (!empty($attachment['_id'])) {
-                    \Idno\Core\site()->logging->log("Checking attachment ID", LOGLEVEL_DEBUG);
+                    //\Idno\Core\site()->logging->log("Checking attachment ID", LOGLEVEL_DEBUG);
                     if ($bytes = self::getFileDataByID((string)$attachment['_id'])) {
-                        \Idno\Core\site()->logging->log("Retrieved some bytes", LOGLEVEL_DEBUG);
+                        //\Idno\Core\site()->logging->log("Retrieved some bytes", LOGLEVEL_DEBUG);
                         if (strlen($bytes)) {
-                            \Idno\Core\site()->logging->log("Bytes! " . $bytes, LOGLEVEL_DEBUG);
+                            //\Idno\Core\site()->logging->log("Bytes! " . $bytes, LOGLEVEL_DEBUG);
                             return $bytes;
                         } else {
-                            \Idno\Core\site()->logging->log("Sadly no bytes", LOGLEVEL_DEBUG);
+                            //\Idno\Core\site()->logging->log("Sadly no bytes", LOGLEVEL_DEBUG);
                         }
                     } else {
-                        \Idno\Core\site()->logging->log("No bytes retrieved", LOGLEVEL_DEBUG);
+                        //\Idno\Core\site()->logging->log("No bytes retrieved", LOGLEVEL_DEBUG);
                     }
                 } else {
                     \Idno\Core\site()->logging->log("Empty attachment _id", LOGLEVEL_DEBUG);

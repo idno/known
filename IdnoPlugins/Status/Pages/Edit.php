@@ -19,7 +19,8 @@
                 $body = $t->__(array(
                     'object' => $object,
                     'url' => $this->getInput('url'),
-                    'body' => $this->getInput('body')
+                    'body' => $this->getInput('body'),
+                    'tags' => $this->getInput('tags')
                 ))->draw('entity/Status/edit');
 
                 if (empty($object)) {

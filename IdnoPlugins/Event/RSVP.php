@@ -5,7 +5,9 @@
         class RSVP extends \Idno\Common\Entity {
 
             function getTitle() {
-                if (!empty($this->body)) return $this->body;
+                if (!empty($this->body)) {
+                    return ucfirst($this->rsvp) . ': ' . $this->body;
+                }
                 return '';
             }
 
@@ -41,7 +43,7 @@
              * @return 'article'
              */
             function getActivityStreamsObjectType() {
-                return 'note';
+                return 'rsvp';
             }
 
             /**

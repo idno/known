@@ -93,6 +93,69 @@
                 return $inreplyto;
             }
 
+            /**
+             * Given a URL, returns a user icon (or false)
+             * @param $url
+             * @return bool|string
+             */
+            static function getIconFromURL($url) {
+                if ($content = Webservice::get($url)) {
+                    return self::getIconFromWebsiteContent($content['content'], $url);
+                }
+                return false;
+            }
+
+            /**
+             * Retrieve a user's icon from a given homepage
+             * @param $content The content of the page
+             * @param $url The URL of the page
+             * @return $icon_url
+             */
+            static function getIconFromWebsiteContent($content, $url)
+            {
+                if ($mf2 = self::parseContent($content, $url)) {
+                    $mf2 = (array) $mf2;
+                    foreach ($mf2['items'] as $item) {
+
+                        // Figure out what kind of Microformats 2 item we have
+                        if (!empty($item['type']) && is_array($item['type'])) {
+                            foreach ($item['type'] as $type) {
+
+                                switch ($type) {
+                                    case 'h-card':
+                                        if (!empty($item['properties'])) {
+                                            if (!empty($item['properties']['name'])) $mentions['owner']['name'] = $item['properties']['name'][0];
+                                            if (!empty($item['properties']['url'])) $mentions['owner']['url'] = $item['properties']['url'][0];
+                                            if (!empty($item['properties']['photo'])) {
+                                                //$mentions['owner']['photo'] = $item['properties']['photo'][0];
+
+                                                $tmpfname = tempnam(sys_get_temp_dir(), 'webmention_avatar');
+                                                file_put_contents($tmpfname, \Idno\Core\Webservice::file_get_contents($item['properties']['photo'][0]));
+
+                                                $name = md5($item['properties']['url'][0]);
+
+                                                // TODO: Don't update the cache image for every webmention
+
+                                                if ($icon = \Idno\Entities\File::createThumbnailFromFile($tmpfname, $name, 300)) {
+                                                    return \Idno\Core\site()->config()->url . 'file/' . (string)$icon;
+                                                } else if ($icon = \Idno\Entities\File::createFromFile($tmpfname, $name)) {
+                                                    return \Idno\Core\site()->config()->url . 'file/' . (string)$icon;
+                                                }
+
+                                                unlink($tmpfname);
+                                            }
+                                        }
+                                        break;
+                                }
+
+                            }
+                        }
+
+                    }
+                }
+                return false;
+            }
+
         }
 
     }

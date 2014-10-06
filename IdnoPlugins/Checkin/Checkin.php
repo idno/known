@@ -39,10 +39,12 @@
                     $new = false;
                 }
                 $body         = \Idno\Core\site()->currentPage()->getInput('body');
+                $tags         = \Idno\Core\site()->currentPage()->getInput('tags');
                 $lat          = \Idno\Core\site()->currentPage()->getInput('lat');
                 $long         = \Idno\Core\site()->currentPage()->getInput('long');
                 $user_address = \Idno\Core\site()->currentPage()->getInput('user_address');
                 $placename    = \Idno\Core\site()->currentPage()->getInput('placename');
+                $tags         = \Idno\Core\site()->currentPage()->getInput('tags');
 
                 if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
                     if ($time = strtotime($time)) {
@@ -58,10 +60,11 @@
                     $this->body      = $body;
                     $this->address   = $user_address;
                     $this->setAccess('PUBLIC');
+                    $this->tags = $tags;
                     if ($this->save()) {
                         if ($new) {
                             $this->addToFeed();
-                            \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getDescription()));
+                            \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getTitle() . ' ' . $this->getDescription()));
                         }
 
                         return true;
@@ -76,7 +79,7 @@
 
             function deleteData()
             {
-                \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getDescription()));
+                \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getTitle() . ' ' . $this->getDescription()));
             }
 
             /**

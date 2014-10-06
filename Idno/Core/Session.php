@@ -96,6 +96,18 @@
             }
 
             /**
+             * Returns true if a user is logged into the current session, and they're an admin.
+             * @return bool
+             */
+            function isAdmin()
+            {
+                if ($this->isLoggedIn()) {
+                    return $this->currentUser()->isAdmin();
+                }
+                return false;
+            }
+
+            /**
              * Returns the currently logged-in user, if any
              * @return \Idno\Entities\User
              */
@@ -120,6 +132,14 @@
                     $_SESSION['messages'] = [];
                 }
                 $_SESSION['messages'][] = array('message' => $message, 'message_type' => $message_type);
+            }
+            
+            /**
+             * Error message wrapper for addMessage()
+             * @param type $message
+             */
+            function addErrorMessage($message) {
+                $this->addMessage($message, 'alert-error');
             }
 
             /**

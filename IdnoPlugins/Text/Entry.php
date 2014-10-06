@@ -53,6 +53,7 @@
 
                     $this->body = $body;
                     $this->title = \Idno\Core\site()->currentPage()->getInput('title');
+                    $this->tags = \Idno\Core\site()->currentPage()->getInput('tags');
                     $this->setAccess('PUBLIC');
 
                     if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
@@ -66,7 +67,7 @@
                             // Add it to the Activity Streams feed
                             $this->addToFeed();
                         }
-                        \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getDescription()));
+                        \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getTitle() . ' ' . $this->getDescription()));
                         return true;
                     }
                 } else {
@@ -77,7 +78,7 @@
             }
 
             function deleteData() {
-                \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getDescription()));
+                \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getTitle() . ' ' . $this->getDescription()));
             }
 
         }

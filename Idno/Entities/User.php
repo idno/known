@@ -9,7 +9,6 @@
 
     namespace Idno\Entities {
 
-        use Idno\Common\ContentType;
         use Idno\Core\Email;
 
         // We need the PHP 5.5 password API
@@ -34,7 +33,8 @@
             /**
              * Register user-related events
              */
-            static function registerEvents() {
+            static function registerEvents()
+            {
 
                 // Hook to add user data to webfinger
                 \Idno\Core\site()->addEventHook('webfinger', function (\Idno\Core\Event $event) {
@@ -156,6 +156,7 @@
                 if (!empty($this->url)) {
                     return $this->url;
                 }
+
                 return \Idno\Core\site()->config()->url . 'profile/' . $this->getHandle();
             }
 
@@ -218,7 +219,7 @@
             {
                 $handle = trim($handle);
                 $handle = strtolower($handle);
-                if (!empty($handle)) {
+                if (!empty($handle) && ctype_alnum($handle)) {
                     if (!self::getByHandle($handle)) {
                         $this->handle = $handle;
                     }
@@ -352,6 +353,27 @@
             function checkPassword($password)
             {
                 return \password_verify($password, $this->password);
+            }
+
+            /**
+             * Check that a new password is strong.
+             * @param string $password
+             * @return bool
+             */
+            static function checkNewPasswordStrength($password)
+            {
+
+                $default = false;
+
+                // Default "base" password validation
+                if (strlen($password) >= 7) {
+                    $default = true;
+                }
+
+                return \Idno\Core\site()->triggerEvent('user/password/checkstrength', [
+                    'password'  => $password
+                ], $default);
+
             }
 
             /**
@@ -702,7 +724,7 @@
                 if (!empty($_FILES['avatar'])) {
                     if (in_array($_FILES['avatar']['type'], array('image/png', 'image/jpg', 'image/jpeg', 'image/gif'))) {
                         if (getimagesize($_FILES['avatar']['tmp_name'])) {
-                            if ($icon = \Idno\Entities\File::createThumbnailFromFile($_FILES['avatar']['tmp_name'], $_FILES['avatar']['name'], 300)) {
+                            if ($icon = \Idno\Entities\File::createThumbnailFromFile($_FILES['avatar']['tmp_name'], $_FILES['avatar']['name'], 300, true)) {
                                 $this->icon = (string)$icon;
                             } else if ($icon = \Idno\Entities\File::createFromFile($_FILES['avatar']['tmp_name'], $_FILES['avatar']['name'])) {
                                 $this->icon = (string)$icon;

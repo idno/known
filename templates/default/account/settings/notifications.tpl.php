@@ -5,18 +5,18 @@
 
     <div class="span10 offset1">
         <h1>
-            Notification settings
+            Email notifications
         </h1>
         <?= $this->draw('account/menu') ?>
         <div class="explanation">
             <p>
-                Set how you'd like to be notified when someone interacts with your content or profile.
+                Set how you'd like to be notified when someone stars or comments on your content.
             </p>
         </div>
         <form action="<?= \Idno\Core\site()->config()->url ?>account/settings/notifications" method="post" class="form-horizontal"
               enctype="multipart/form-data">
             <div class="control-group">
-                <label class="control-label" for="email">Receive email notifications?</label>
+                <label class="control-label" for="email">Send email notifications</label>
                 <div class="controls">
                     <select name="notifications[email]" id="email" class="span4">
                         <option value="all" <?php if ($user->notifications[email] == 'all') { echo 'selected'; } ?>>Whenever someone interacts with my content</option>

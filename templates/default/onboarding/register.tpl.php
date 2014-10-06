@@ -19,7 +19,7 @@
             </p>
 
             <p class="password">
-                <label class="control-label" for="inputUsername">Create a password <small>(at least 4 characters please)</small><br/></label>
+                <label class="control-label" for="inputUsername">Create a password <small>(at least 7 characters please)</small><br/></label>
                 <input name="password" type="password" class="feedback-input" id="password" placeholder="secret-password"/>
             </p>
 
@@ -33,7 +33,7 @@
             </div>-->
             
           <div class="col-md-12">
-          <button type ="submit" value="Register" class="btn btn-primary btn-lg btn-responsive">Register</button>
+          <input type ="submit" value="Register" class="btn btn-primary btn-lg btn-responsive">
         
 		  </div>
 

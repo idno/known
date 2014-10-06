@@ -323,8 +323,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .reply-text p {
-    margin-bottom: 0;
-    padding-bottom: 0;
+    /*margin-bottom: 0;
+    padding-bottom: 0;*/
     color: #999;
     font-size: smaller;
 }
@@ -484,6 +484,7 @@ span.contentTypeLogo {
     border-radius: 3px;
     padding: 0.25em;
     font-size: 30px;
+    cursor: pointer;
 }
 
 #counter {
@@ -514,11 +515,16 @@ span.contentTypeLogo {
  * Friendly messages
  */
 
-.welcome,
-.explanation {
+.welcome {
     font-size: 1.5em;
     line-height: 1.5em;
 }
+
+.explanation {
+    font-size: 1.2em;
+    line-height: 1.5em;
+}
+
 
 .welcome {
     text-align: center;
@@ -539,7 +545,7 @@ span.contentTypeLogo {
 
 .explanation {
     margin-top: 1em;
-    margin-bottom: 2em;
+    margin-bottom: 1.5em;
 }
 
 .field-description {
@@ -687,7 +693,7 @@ div.pane div.row:nth-of-type(odd) {
     color: #ffffff;
 }
 
-.btn-large {
+.btn-default {
     background-color: #dddddd;
     border-color: #dddddd;
     color: #333333;
@@ -695,17 +701,19 @@ div.pane div.row:nth-of-type(odd) {
     background-image: none;
     background-repeat: repeat-x;
     box-shadow: none;
-    border-radius: 6px;
-    font-size: 17.5px;
-    padding: 11px 19px;
 }
 
-.btn-large:hover, btn-large:active, .btn-large:focus {
+.btn-default:hover, .btn-default:active, .btn-default:focus {
     background-color: #c5c5c5;
     border-color: #c5c5c5;
     color: #333333;
 }
 
+.btn-large {
+    border-radius: 6px;
+    font-size: 17.5px;
+    padding: 11px 19px;
+}
 
 .well {
 	background-color: #ffffff;
@@ -734,10 +742,6 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 	box-shadow: none;
     border: 1px solid #4c93cb;
     color: #555555;
-}
-
-input.span7 {
-    width: 656px;
 }
 
 textarea:focus {
@@ -946,6 +950,138 @@ small {
 	padding-top: 10px;
 }
 
+.map {
+	padding-bottom: 15px;
+}
+
 #inreplyto {
 	padding-bottom: 10px;
+}
+
+.wordcount {
+	padding-bottom: 10px;
+}
+
+.icon-tag {
+	padding-right: 10px;
+	color: #999999;
+	font-size: 1.2em;
+	vertical-align: middle;
+}
+
+.idno-object a.p-category {
+	color: #8cbf99;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	background-color: #ffffff;
+    background-repeat: repeat-x;
+    padding: 3px;
+    font-size: 1.0em;
+}
+
+.idno-object a.p-category:hover {
+	color: #70997a;
+	background-color: #ffffff;
+    border-color: #70997a;
+    text-decoration: none;
+}
+
+textarea.feedback {
+	width: 100%;
+    background-color: #fbfbfb;
+    border: 3px solid rgba(115, 178, 227, 0.4);
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: #333333;
+    font-family: 'Pontano Sans',Verdana,Helvetica,sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 18px;
+    margin-bottom: 5px;
+    margin-top: 2px;
+    padding: 10px;
+}
+
+textarea.feedback:focus {
+    background: none repeat scroll 0 0 #fff;
+    border: 3px solid #4c93cb;
+    outline: medium none;
+    padding: 10px;
+}
+
+p.feedback {
+	font-size: 1.2em;
+}
+
+.feedback-btn {
+	width: 100%; 
+	text-align: right;
+	padding-top: 20px;
+}
+
+.btn-feedback {
+    background-color: #73b2e3;
+    border-color: #73b2e3;
+    color: #ffffff;
+    text-shadow: none;
+    background-image: none;
+    background-repeat: repeat-x;
+    box-shadow: none;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-repeat: repeat-x;
+    border-image: none;
+    border-radius: 7px;
+    cursor: pointer;
+    display: inline-block;
+    line-height: 24px;
+    padding: 15px 65px;
+    font-size: 24px;
+}
+
+.btn-feedback:hover, btn-feedback:active, .btn-feedback:focus {
+    background-color: #4c93cb;
+    border-color: #4c93cb;
+    color: #ffffff;
+}
+
+.idno-entry-helper {
+    margin-bottom: 3em;
+}
+
+.idno-entry-helper .idno-content {
+    background-color: #f8f8f8;
+    border: 2px solid #c5c5c5;
+}
+
+.idno-entry-helper p {
+    font-family: Helvetica Neue, Helvetica, Arial !important;
+    font-size: 1.2em !important;
+}
+
+.idno-entry-helper .robot-head p {
+    font-size: 0.9em !important;
+}
+
+.idno-entry-helper .robot-murmur p {
+    font-size: 1.2em;
+}
+
+.idno-entry-helper .robot-footer {
+    margin-top: 2em;
+    font-size: 0.75em;
+}
+
+.icon-heart {
+	color: #9f111b;
+}
+
+.icon-heart:hover {
+	color: #af474f;
+}
+
+.access-control-block {
+    display: block;
+    margin-bottom: 1em;
 }

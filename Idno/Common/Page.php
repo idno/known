@@ -68,6 +68,8 @@
                         $page->exception($exception);
 
                 });
+
+                \Idno\Core\site()->embedded();
             }
 
             /**
@@ -367,8 +369,9 @@
              * the browser on. Otherwise, do nothing
              *
              * @param string $location Location to forward to (eg "/foo/bar")
+             * @param bool $exit If set to true (which it is by default), execution finishes once the header is sent.
              */
-            function forward($location = '')
+            function forward($location = '', $exit = true)
             {
                 if (empty($location)) {
                     $location = \Idno\Core\site()->config()->url;
@@ -377,9 +380,13 @@
                     if (\Idno\Core\site()->template()->getTemplateType() != 'default') {
                         $location = \Idno\Core\site()->template()->getURLWithVar('_t', \Idno\Core\site()->template()->getTemplateType(), $location);
                     }
-                    \Idno\Core\site()->session()->finishEarly();
+                    if ($exit) {
+                        \Idno\Core\site()->session()->finishEarly();
+                    }
                     header('Location: ' . $location);
-                    exit;
+                    if ($exit) {
+                        exit;
+                    }
                 }
             }
 

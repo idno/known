@@ -2,19 +2,20 @@
     <div id="form-div">
         <h2 class="profile">Create your profile</h2>
 
-        <?=$this->draw('shell/simple/messages')?>
+        <?= $this->draw('shell/simple/messages') ?>
 
-        <form action="<?=$vars['user']->getURL()?>" method="post" enctype="multipart/form-data">
+        <form action="<?= $vars['user']->getURL() ?>" method="post" enctype="multipart/form-data">
 
             <p class="profile-pic" id="photo-preview">
-                <img src="<?=$vars['user']->getIcon()?>" alt="" style="width: 150px"
-                                 class="icon-container" onclick="$('#photo').click();"/>
+                <img src="<?= $vars['user']->getIcon() ?>" alt="" style="width: 150px; cursor: pointer"
+                     class="icon-container" onclick="$('#photo').click();"/>
             </p>
 
             <div class="upload">
                 <span class="camera btn-file" type="button" value="Add a photo of yourself">
                     <span id="photo-filename">Add a photo of yourself</span>
-                    <input type="file" name="avatar" id="photo" class="span9" accept="image/*;capture=camera" onchange="photoPreview(this)" />
+                    <input type="file" name="avatar" id="photo" class="span9" accept="image/*;capture=camera"
+                           onchange="photoPreview(this)"/>
                 </span>
             </div>
             <p class="name">
@@ -30,19 +31,24 @@
 
             <p class="website">
                 <span id="websites">
-                    <label class="control-label" for="inputWebsite">Your other websites <small>(a blog, a portfolio, Twitter, Facebook, etc)</small><br/></label>
-                    <input name="profile[url][]" type="url" class="profile-input" id="website" placeholder="http://..."/>
+                    <label class="control-label" for="inputWebsite">Your other websites
+                        <small>(a blog, a portfolio, Twitter, Facebook, etc)</small>
+                        <br/></label>
+                    <input name="profile[url][]" type="url" class="profile-input" id="website"
+                           placeholder="http://..."/>
                 </span>
-                <a href="#" onclick="$('#websites').append($('#website-template').html()); return false;">Add another website</a>
+                <a href="#" onclick="$('#websites').append($('#website-template').html()); return false;">Add another
+                    website</a>
             </p>
-          <div class="col-md-12">
-          <div class="submit">
-          <?= \Idno\Core\site()->actions()->signForm('/profile/' . $vars['user']->getHandle()) ?>
-          <button type="submit" value="Save profile" class="btn btn-primary btn-lg btn-responsive">Save profile</button>  
-          <input type="hidden" name="onboarding" value="1"/>      
-		  </div>
+            <div class="col-md-12">
+                <div class="submit">
+                    <?= \Idno\Core\site()->actions()->signForm('/profile/' . $vars['user']->getHandle()) ?>
+                    <input type="submit" value="Save profile" class="btn btn-primary btn-lg btn-responsive">
+                    <input type="hidden" name="onboarding" value="1"/>
+                </div>
         </form>
-        <div id="website-template" style="display:none"><input name="profile[url][]" type="url" class="profile-input" id="website" placeholder="http://..."/></div>
+        <div id="website-template" style="display:none"><input name="profile[url][]" type="url" class="profile-input"
+                                                               id="website" placeholder="http://..."/></div>
 
     </div>
 </div>

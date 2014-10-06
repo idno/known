@@ -60,6 +60,7 @@
                 }
                 $this->title = \Idno\Core\site()->currentPage()->getInput('title');
                 $this->body  = \Idno\Core\site()->currentPage()->getInput('body');
+                $this->tags  = \Idno\Core\site()->currentPage()->getInput('tags');
                 $this->setAccess('PUBLIC');
 
                 if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
@@ -88,12 +89,15 @@
 
                                     $filename = $_FILES['photo']['name'];
 
-                                    if ($thumbnail = \Idno\Entities\File::createThumbnailFromFile($_FILES['photo']['tmp_name'], "{$filename}_{$label}", $size, $exif)) {
-                                        $varname        = "thumbnail_{$label}";
-                                        $this->$varname = \Idno\Core\site()->config()->url . 'file/' . $thumbnail;
+                                    // Experiment: let's not save thumbnails for GIFs, in order to enable animated GIF posting.
+                                    if ($_FILES['photo']['type'] != 'image/gif') {
+                                        if ($thumbnail = \Idno\Entities\File::createThumbnailFromFile($_FILES['photo']['tmp_name'], "{$filename}_{$label}", $size, false, $exif)) {
+                                            $varname        = "thumbnail_{$label}";
+                                            $this->$varname = \Idno\Core\site()->config()->url . 'file/' . $thumbnail;
 
-                                        $varname        = "thumbnail_{$label}_id";
-                                        $this->$varname = substr($thumbnail, 0, strpos($thumbnail, '/'));
+                                            $varname        = "thumbnail_{$label}_id";
+                                            $this->$varname = substr($thumbnail, 0, strpos($thumbnail, '/'));
+                                        }
                                     }
                                 }
 
@@ -114,7 +118,7 @@
                     if ($new) {
                         $this->addToFeed();
                     } // Add it to the Activity Streams feed
-                    \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getDescription()));
+                    \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getTitle() . ' ' . $this->getDescription()));
 
                     return true;
                 } else {

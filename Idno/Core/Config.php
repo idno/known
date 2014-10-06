@@ -23,7 +23,8 @@
                                               'Text',
                                               'Photo',
                                               'Like',
-                                              'Checkin'
+                                              'Checkin',
+                                              'Media'
                 ),
                 'themes'            => [],
                 'antiplugins'       => [],
@@ -31,7 +32,8 @@
                 'items_per_page'    => 10, // Default items per page
                 'experimental'      => false, // A common way to enable experimental functions still in development
                 'multitenant'       => false,
-                'default_config'    => true // This is a trip-switch - changed to true if configuration is loaded from an ini file / the db
+                'default_config'    => true, // This is a trip-switch - changed to true if configuration is loaded from an ini file / the db
+                'log_level'         => 4
             );
 
             public $ini_config = [];
@@ -56,8 +58,8 @@
                 if ($this->multitenant) {
                     $dbname            = $this->dbname;
                     $this->host        = str_replace('www.', '', $this->host);
-                    $this->sessionname = preg_replace('/[^\da-z\.]/i', '', $this->host);
-                    $this->dbname      = preg_replace('/[^\da-z\.]/i', '', $this->host);
+                    //$this->sessionname = preg_replace('/[^\da-z]/i', '', $this->host);
+                    $this->dbname      = preg_replace('/[^0-9a-z\.\-\_]/i', '', $this->host);
 
                     // Known now defaults to not including periods in database names for multitenant installs. Add
                     // 'multitenant_periods = true' if you wish to override this.
@@ -98,6 +100,9 @@
                     }
                     // Per domain configuration
                     if ($config = @parse_ini_file($this->path . '/' . $this->host . '.ini')) {
+                        unset($this->ini_config['initial_plugins']);  // Don't let plugin settings be merged
+                        unset($this->ini_config['alwaysplugins']);
+                        unset($this->ini_config['antiplugins']);
                         $this->ini_config = array_merge($config, $this->ini_config);
                     }
                     if (file_exists($this->path . '/config.json')) {
@@ -194,6 +199,9 @@
                         unset($config['host']);
                         unset($config['feed']);
                         unset($config['uploadpath']);
+                        unset($config['initial_plugins']);
+                        unset($config['antiplugins']);
+                        unset($config['alwaysplugins']);
                     }
                     if (is_array($config)) {
                         $this->config = array_merge($this->config, $config);

@@ -16,7 +16,7 @@ Team Known site: http://stream.withknown.com/
 Community contributors, by Known release
 ----------------------------------------
 
-0.1
+0.6
 
 * Marcus Povey http://marcus-povey.co.uk
 * Tim Owens http://timowens.io

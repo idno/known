@@ -53,12 +53,12 @@
              */
             function handleSession()
             {
-                $sessionHandler = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\MongoDbSessionHandler(\Idno\Core\site()->db()->getClient(), [
+                /*$sessionHandler = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\MongoDbSessionHandler(\Idno\Core\site()->db()->getClient(), [
                     'database'   => 'idnosession',
                     'collection' => 'idnosession'
                 ]);
 
-                session_set_save_handler($sessionHandler, true);
+                session_set_save_handler($sessionHandler, true);*/
             }
 
             /**
@@ -388,7 +388,7 @@
             {
                 $regexObj = new \MongoRegex("/" . addslashes($query) . "/i");
 
-                return ['$or' => [['body' => $regexObj], ['title' => $regexObj], ['description' => $regexObj]]];
+                return ['$or' => [['body' => $regexObj], ['title' => $regexObj], ['tags' => $regexObj], ['description' => $regexObj]]];
             }
 
         }

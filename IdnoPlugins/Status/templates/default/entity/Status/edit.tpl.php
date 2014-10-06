@@ -35,15 +35,17 @@
                 ?>
             </h4>
 
-            <textarea required name="body" id="body" class="content-entry mentionable span8" placeholder="What's going on?"><?php
+            <textarea required name="body" id="body" class="content-entry mentionable span8" placeholder="Share a quick note or comment. You can use links and hashtags."><?php
                         
                 if (!empty($vars['body'])) {
                     echo htmlspecialchars($vars['body']);
                 } else {
                     echo htmlspecialchars($vars['object']->body);
                 } ?></textarea>
-            
             <?php
+
+                echo $this->draw('entity/tags/input');
+
             // Set focus so you can start typing straight away (on shares)
             if (\Idno\Core\site()->currentPage()->getInput('share_url')) {
             ?>
@@ -87,10 +89,6 @@
                 ?>
             </div>
 
-        </div>
-        <div class="span8 offset2">
-
-
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('note'); ?>
             <p class="button-bar">
                 <?= \Idno\Core\site()->actions()->signForm('/status/edit') ?>
@@ -98,14 +96,6 @@
                 <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
                 <input type="submit" class="btn btn-primary" value="Publish"/>
             </p>
-            <!--<p>
-                <small><a href="#" onclick="$('#bookmarklet').toggle(); return false;">Get a button for your browser</a></small>
-            </p>
-
-            <div id="bookmarklet" style="display:none;">
-                <p>Drag the following link into your browser links bar to easily share links or reply to posts on other sites:</p>
-                <?=$this->draw('entity/bookmarklet'); ?>
-            </div>  --> 
         </div>
         <div class="span2">
             <p id="counter" style="display:none">

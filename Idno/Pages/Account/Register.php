@@ -5,6 +5,7 @@
      */
 
     namespace Idno\Pages\Account {
+        use Idno\Entities\Invitation;
 
         /**
          * Default class to serve the registration page
@@ -53,7 +54,8 @@
                         \Idno\Core\site()->session()->addMessage("Your invitation doesn't seem to be valid or has expired.");
                         $this->forward(\Idno\Core\site()->config()->getURL());
                     } else {
-                        $invitation->delete(); // Remove the invitation; it's no longer needed
+                        // Removing this from here - invitation will be deleted once user is created
+                        //$invitation->delete(); // Remove the invitation; it's no longer needed
                     }
                 }
 
@@ -62,8 +64,13 @@
                 if (empty($handle) && empty($email)) {
                     \Idno\Core\site()->session()->addMessage("Please enter a username and email address.");
                 } else if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    if (!($emailuser = \Idno\Entities\User::getByEmail($email)) && !($handleuser = \Idno\Entities\User::getByHandle($handle))
-                        && !empty($handle) && strlen($handle <= 32) && !substr_count($handle, '/') && $password == $password2 && strlen($password) > 4
+                    if (
+                        !($emailuser = \Idno\Entities\User::getByEmail($email)) &&
+                        !($handleuser = \Idno\Entities\User::getByHandle($handle)) &&
+                        !empty($handle) && strlen($handle) <= 32 &&
+                        !substr_count($handle, '/') &&
+                        $password == $password2 &
+                        \Idno\Entities\User::checkNewPasswordStrength($password)
                     ) {
                         $user         = new \Idno\Entities\User();
                         $user->email  = $email;
@@ -75,29 +82,42 @@
                         $user->setTitle($name);
                         if (!\Idno\Entities\User::get()) {
                             $user->setAdmin(true);
+                            $user->robot_state = 1; // State for our happy robot helper
                             if (\Idno\Core\site()->config()->title == 'New Known site') {
-                                \Idno\Core\site()->config()->title = $user->getTitle() . '\'s site';
+                                if (!empty($_SESSION['set_name'])) {
+                                    \Idno\Core\site()->config()->title = $_SESSION['set_name'];
+                                } else {
+                                    \Idno\Core\site()->config()->title = $user->getTitle() . '\'s Known';
+                                }
                                 \Idno\Core\site()->config()->open_registration = false;
-                                \Idno\Core\site()->config()->from_email = $user->email;
+                                \Idno\Core\site()->config()->from_email        = $user->email;
                                 \Idno\Core\site()->config()->save();
                             }
                         }
                         $user->save();
+                        \Idno\Core\site()->triggerEvent('site/firstadmin', ['user' => $user]); // Event hook for first admin
+                        // Now we can remove the invitation
+                        if ($invitation instanceof Invitation) {
+                            $invitation->delete(); // Remove the invitation; it's no longer needed
+                        }
                     } else {
                         if (empty($handle)) {
                             \Idno\Core\site()->session()->addMessage("Please create a username.");
-                        } else if (strlen($handle) > 32) {
+                        }
+                        if (strlen($handle) > 32) {
                             \Idno\Core\site()->session()->addMessage("Your username is too long.");
-                        } else if (substr_count($handle, '/')) {
+                        }
+                        if (substr_count($handle, '/')) {
                             \Idno\Core\site()->session()->addMessage("Usernames can't contain a slash ('/') character.");
-                        } else if (!empty($handleuser)) {
+                        }
+                        if (!empty($handleuser)) {
                             \Idno\Core\site()->session()->addMessage("Unfortunately, someone is already using that username. Please choose another.");
                         }
                         if (!empty($emailuser)) {
                             \Idno\Core\site()->session()->addMessage("Hey, it looks like there's already an account with that email address. Did you forget your login?");
                         }
-                        if ($password != $password2 || strlen($password) <= 4) {
-                            \Idno\Core\site()->session()->addMessage("Please check that your passwords match and that your password is over four characters long.");
+                        if (!\Idno\Entities\User::checkNewPasswordStrength($password) || $password != $password2) {
+                            \Idno\Core\site()->session()->addMessage("Please check that your passwords match and that your password is at least 7 characters long.");
                         }
                     }
                 } else {

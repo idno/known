@@ -2,11 +2,11 @@
 
 <?php if (\Idno\Core\site()->canEdit()) { ?>
 
-<li><a href="<?= \Idno\Core\site()->config()->url ?>account/settings/">Settings</a></li>
+<li><a href="<?= \Idno\Core\site()->config()->url ?>account/settings/">Account</a></li>
 
 <?php if(\Idno\Core\site()->session()->currentUser()->isAdmin()) { ?>
 
-<li><a href="<?= \Idno\Core\site()->config()->url ?>admin/">Administration</a></li>
+<li><a href="<?= \Idno\Core\site()->config()->url ?>admin/">Configure</a></li>
 
 <?php } ?>
 <?php } ?>

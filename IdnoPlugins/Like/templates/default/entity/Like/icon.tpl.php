@@ -1,1 +1,1 @@
-<i class=" icon-bookmark"></i>
+<i class="icon-bookmark"></i>

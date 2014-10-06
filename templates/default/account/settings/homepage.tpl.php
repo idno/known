@@ -5,25 +5,28 @@
 
     <div class="span10 offset1">
         <h1>
-            Account settings
+            Homepage content
         </h1>
         <?= $this->draw('account/menu') ?>
         <div class="explanation">
             <p>
-                Choose which of your content people will see by default when they visit your personal page.
-                They can always use the content menu to find types of content that you choose not to display.
+                Choose what content people will see by default when they visit your site.
+                Visitors can always use the content menu to find types of content that you don't show on the main page.
             </p>
         </div>
 
+		<div class="control-label">Select the content types that you want to display on the main page.
+                    </div>
+                    <br>
         <form action="<?= \Idno\Core\site()->config()->url ?>account/settings/homepage" method="post"
               class="form-horizontal" enctype="multipart/form-data">
 
             <div class="control-group">
-                <div class="control-label">Content to display<br/>
-                    <small>Choose which kinds of content display by default when people visit your personal page.
+                <!--<div class="control-label">Content to display<br/>
+                    <small>Select the content types that you want to display on the main page.
                     </small>
-                </div>
-                <div class="controls">
+                </div>-->
+                <div class="">
                     <?php
 
                         if (!empty($vars['content_types'])) {
@@ -59,7 +62,7 @@
                 </div>
             </div>
             <div class="control-group">
-                <div class="controls">
+                <div class="">
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </div>
