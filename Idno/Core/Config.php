@@ -52,6 +52,7 @@
                 $this->indieweb_citation  = false;
                 $this->indieweb_reference = false;
                 $this->known_hub          = false;
+                $this->session_path       = session_save_path(); // Session path when not storing sessions in the database
 
                 $this->loadIniFiles();
 
@@ -169,6 +170,7 @@
                 unset($array['host']); // Don't save the host to the database
                 unset($array['feed']); // Don't save the feed URL to the database
                 unset($array['uploadpath']); // Don't save the upload path to the database
+                unset($array['session_path']); // Don't save the session path in the database
 
                 // If we don't have a site secret, create it
                 if (!isset($array['site_secret']))
@@ -202,6 +204,7 @@
                         unset($config['initial_plugins']);
                         unset($config['antiplugins']);
                         unset($config['alwaysplugins']);
+                        unset($config['session_path']); 
                     }
                     if (is_array($config)) {
                         $this->config = array_merge($this->config, $config);
