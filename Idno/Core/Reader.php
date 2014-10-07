@@ -5,7 +5,8 @@
         use Idno\Common\Component;
         use Idno\Entities\Reader\FeedItem;
 
-        class Reader extends Component {
+        class Reader extends Component
+        {
 
             /**
              * Given the content of a page and its URL, returns an array of FeedItem objects (or false on failure)
@@ -13,22 +14,27 @@
              * @param $url
              * @return array|bool
              */
-            function parseFeed($content, $url) {
+            function parseFeed($content, $url)
+            {
 
+                // Try XML (RSS or Atom)
+                $xml_parser = new \SimplePie();
+                $xml_parser->set_raw_data($content);
+                $xml_parser->init();
+                if (!$xml_parser->error()) {
+
+                    return $this->xmlFeedToFeedItems($xml_parser->get_items(), $url);
+
+                }
+
+                // Check for microformats
                 if ($html = @\DOMDocument::loadHTML($content)) {
                     try {
-                        $parser = new \Mf2\Parser($html, $url);
-                        $content = $parser->parse();
-                        return $this->mf2FeedToFeedItems($content, $url);
+                        $parser  = new \Mf2\Parser($html, $url);
+                        $parsed_content = $parser->parse();
+                        return $this->mf2FeedToFeedItems($parsed_content, $url);
                     } catch (\Exception $e) {
                         return false;
-                    }
-                }
-                if ($xml = @simplexml_load_string($content)) {
-                    if (!empty($xml->channel->items)) {
-                        return $this->rssFeedToFeedItems($xml, $url);
-                    } else if (!empty($xml->feed)) {
-                        return $this->atomFeedToFeedItems($xml, $url);
                     }
                 }
 
@@ -42,12 +48,13 @@
              * @param $url
              * @return array
              */
-            function mf2FeedToFeedItems($mf2_content, $url) {
+            function mf2FeedToFeedItems($mf2_content, $url)
+            {
 
                 $items = [];
                 if (!empty($mf2_content['items'])) {
-                    foreach($mf2_content['items'] as $item) {
-                        if (in_array('h-entry',$item['type'])) {
+                    foreach ($mf2_content['items'] as $item) {
+                        if (in_array('h-entry', $item['type'])) {
                             $entry = new FeedItem();
                             $entry->loadFromMF2(array($item));
                             $entry->setFeedURL($url);
@@ -55,36 +62,47 @@
                         }
                     }
                 }
+
                 return $items;
 
             }
 
             /**
-             * Given a parsed RSS feed, returns an array of FeedItem objects
+             * Given a parsed RSS or Atom feed, returns an array of FeedItem objects
              * @param $rss_content
              * @param $url
              * @return array
              */
-            function rssFeedToFeedItems($rss_content, $url) {
+            function xmlFeedToFeedItems($xml_items, $url)
+            {
 
-                return [];
+                $items = [];
+                if (!empty($xml_items)) {
+                    foreach ($xml_items as $item) {
+
+                        $entry = new FeedItem();
+                        $entry->loadFromXMLItem($item);
+                        $entry->setFeedURL($url);
+                        $items[] = $entry;
+
+                    }
+                }
+
+                return $items;
 
             }
 
             /**
-             * Given a parsed Atom feed, returns an array of FeedItem objects
-             * @param $rss_content
+             *
              * @param $url
-             * @return array
+             * @return array|bool
              */
-            function atomFeedToFeedItems($atom_content, $url) {
+            function fetchAndParseFeed($url)
+            {
 
-                return [];
-
-            }
-
-            function fetchAndParseFeed($url) {
-
+                if (!filter_var($url, FILTER_VALIDATE_URL)) {
+                    return false;
+                }
                 $client = new Webservice();
                 if ($result = $client->get($url)) {
                     return $this->parseFeed($result['content'], $url);
@@ -101,7 +119,8 @@
              * @param $url
              * @return mixed
              */
-            function getFeedURL($url) {
+            function getFeedURL($url)
+            {
 
                 if (!filter_var($url, FILTER_VALIDATE_URL)) {
                     return false;
@@ -113,7 +132,7 @@
                     if (!empty($result['content'])) {
                         if ($html = @\DOMDocument::loadHTML($result['content'])) {
                             $xpath = new \DOMXpath($html);
-                            if ($xpath->query("//*[contains(concat(' ', @class, ' '), ' hfeed ')]")->length > 0) {
+                            if ($xpath->query("//*[contains(concat(' ', @class, ' '), ' h-entry ')]")->length > 0) {
                                 return $url;
                             }
                             if ($rss_url = $this->findXMLFeedURL($html)) {
@@ -138,13 +157,14 @@
              * @param $content
              * @return array|bool
              */
-            function findXMLFeedURL($html) {
+            function findXMLFeedURL($html)
+            {
 
                 $xpath = new \DOMXPath($html);
                 $feeds = $xpath->query("//head/link[@href][@type='application/rss+xml']/@href");
 
                 if ($feeds->length > 0) {
-                    foreach($feeds as $feed) {
+                    foreach ($feeds as $feed) {
                         return $feed->nodeValue;
                     }
                 }
@@ -152,7 +172,7 @@
                 $feeds = $xpath->query("//head/link[@href][@type='application/atom+xml']/@href");
 
                 if ($feeds->length > 0) {
-                    foreach($feeds as $feed) {
+                    foreach ($feeds as $feed) {
                         return $feed->nodeValue;
                     }
                 }
