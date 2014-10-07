@@ -173,13 +173,28 @@
                 $this->setTitle($this->mfpath($mf, "name/1"));
                 $this->setPublishDate($this->mfpath($mf, "published/1"));
                 $this->setBody($this->mfpath($mf, "content/html/1"));
-                $this->setValue($this->mfpath($mf, "content/value/1"));
                 $this->setPhoto($this->mfpath($mf, "photo/1"));
                 $this->setURL($this->mfpath($mf, "url/1"));
                 $this->setAuthorName($this->mfpath($mf, "author/name/1"));
                 $this->setAuthorPhoto($this->mfpath($mf, "author/photo/1"));
                 $this->setAuthorURL($this->mfpath($mf, "author/url/1"));
                 $this->setSyndication($this->mfpath($mf, "syndication"));
+            }
+
+            /**
+             * Given a SimplePie-parsed XML item, populates this object
+             * @param $item
+             */
+            function loadFromXMLItem($item)
+            {
+                $this->setTitle($item->get_title());
+                $this->setPublishDate($item->get_date("c"));
+                $this->setBody($item->get_content());
+                $this->setURL($item->get_permalink());
+
+                $author = $item->get_author();
+                $this->setAuthorName($author->get_name());
+                $this->setAuthorURL($author->get_link());
             }
 
             function mftype($parsed, $type)
