@@ -59,9 +59,10 @@
              * @param string $filename Filename to store
              * @param string $mime_type MIME type associated with the file
              * @param bool $return_object Return the file object? If set to false (as is default), will return the ID
+             * @param bool $destroy_exif When true, if an image is uploaded the exif data will be destroyed.
              * @return bool|\id Depending on success
              */
-            public static function createFromFile($file_path, $filename, $mime_type = 'application/octet-stream', $return_object = false)
+            public static function createFromFile($file_path, $filename, $mime_type = 'application/octet-stream', $return_object = false, $destroy_exif = false)
             {
                 if (file_exists($file_path) && !empty($filename)) {
                     if ($fs = \Idno\Core\site()->filesystem()) {
@@ -70,6 +71,29 @@
                             'filename'  => $filename,
                             'mime_type' => $mime_type
                         );
+                        
+                        // Are we uploading an image, and do we want to remove privacy leaking EXIF data?
+                        if (self::isImage($file_path) && $destroy_exif)
+                        {
+                            $photo_information = getimagesize($file_path);
+                            $tmpfname = $file_path; //tempnam(sys_get_temp_dir(), 'known_photo'); 
+                            switch ($photo_information['mime']) {
+                                case 'image/jpeg':
+                                    $image = imagecreatefromjpeg($file_path);
+                                    imagejpeg($image, $tmpfname);
+                                    break;
+                                case 'image/png':
+                                    $image = imagecreatefrompng($file_path);
+                                    imagepng($image, $tmpfname);
+                                    break;
+                                case 'image/gif':
+                                    $image = imagecreatefromgif($file_path);
+                                    imagegif($image, $tmpfname);
+                                    break;
+                            }
+                            
+                        }
+                        
                         if ($id = $fs->storeFile($file_path, $metadata, $metadata)) {
                             if (!$return_object) {
                                 return $id;
@@ -103,9 +127,10 @@
              * @param string $filename Filename that the file should have on download.
              * @param int $max_dimension The maximum number of pixels the thumbnail image should be along its longest side.
              * @param bool $square If this is set to true, the thumbnail will be made square.
+             * @param mixed $exif Optionally provide exif data for the image, if not provided then this function will attempt to extract it
              * @return bool|id
              */
-            public static function createThumbnailFromFile($file_path, $filename, $max_dimension = 800, $square = false)
+            public static function createThumbnailFromFile($file_path, $filename, $max_dimension = 800, $square = false, $exif = null)
             {
 
                 $thumbnail = false;
@@ -164,9 +189,11 @@
                             imagesavealpha($image_copy, true);
                             imagecopyresampled($image_copy, $image, 0, 0, $offset_x, $offset_y, $new_width, $new_height, $original_width, $original_height);
 
+
                             if (is_callable('exif_read_data') && $photo_information['mime'] == 'image/jpeg') {
                                 try {
-                                    $exif = exif_read_data($file_path);
+                                    if (!$exif)
+                                        $exif = exif_read_data($file_path);
                                     if (!empty($exif['Orientation'])) {
                                         switch ($exif['Orientation']) {
                                             case 8:
@@ -184,6 +211,7 @@
                                     // Don't do anything
                                 }
                             }
+                            
 
                             $tmp_dir = dirname($file_path);
                             switch ($photo_information['mime']) {

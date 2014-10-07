@@ -73,7 +73,14 @@
                 if ($new) {
                     if (!empty($_FILES['photo']['tmp_name'])) {
                         if (\Idno\Entities\File::isImage($_FILES['photo']['tmp_name'])) {
-                            if ($photo = \Idno\Entities\File::createFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'], $_FILES['photo']['type'], true)) {
+                            
+                            // Extract exif data so we can rotate
+                            if (is_callable('exif_read_data')) {
+                                $exif = exif_read_data($_FILES['photo']['tmp_name']);
+                                $this->exif = base64_encode(serialize($exif)); // Yes, this is rough, but exif contains binary data that can not be saved in mongo
+                            }
+                            
+                            if ($photo = \Idno\Entities\File::createFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'], $_FILES['photo']['type'], true, true)) {
                                 $this->attachFile($photo);
 
                                 // Now get some smaller thumbnails, with the option to override sizes
@@ -84,7 +91,7 @@
 
                                     // Experiment: let's not save thumbnails for GIFs, in order to enable animated GIF posting.
                                     if ($_FILES['photo']['type'] != 'image/gif') {
-                                        if ($thumbnail = \Idno\Entities\File::createThumbnailFromFile($_FILES['photo']['tmp_name'], "{$filename}_{$label}", $size)) {
+                                        if ($thumbnail = \Idno\Entities\File::createThumbnailFromFile($_FILES['photo']['tmp_name'], "{$filename}_{$label}", $size, false, $exif)) {
                                             $varname        = "thumbnail_{$label}";
                                             $this->$varname = \Idno\Core\site()->config()->url . 'file/' . $thumbnail;
 
