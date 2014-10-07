@@ -55,3 +55,6 @@
 [submodule "external/summernote"]
 	path = external/summernote
 	url = https://github.com/HackerWins/summernote.git
+[submodule "external/simplepie"]
+	path = external/simplepie
+	url = https://github.com/simplepie/simplepie.git
