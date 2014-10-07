@@ -24,7 +24,7 @@
                 $event = new \Idno\Core\Event();
                 $event->setResponse($url);
                 \Idno\Core\site()->events()->dispatch('url/shorten', $event);
-                $url = $event->response();
+                $short_url = $event->response();
 
                 if (!in_array($type, ['note','reply','rsvp','like'])) {
                     $share_type = 'note';
@@ -58,8 +58,9 @@
                 if (!empty($content_type)) {
                     if ($page = \Idno\Core\site()->getPageHandler('/' . $content_type->camelCase($content_type->getEntityClassName()) . '/edit')) {
                         if ($share_type == 'note' /*&& !substr_count($url, 'twitter.com')*/) {
-                            $page->setInput('body', $title . ' ' . $url);
+                            $page->setInput('body', $title . ' ' . $short_url);
                         } else {
+                            $page->setInput('short-url', $short_url);
                             $page->setInput('url', $url);
                             if (substr_count($url, 'twitter.com')) {
                                 preg_match("|https?://(www\.)?twitter\.com/(#!/)?@?([^/]*)|", $url, $matches);
