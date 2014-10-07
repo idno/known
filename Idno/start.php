@@ -71,6 +71,9 @@
     $loader->registerNamespace('webignition\NormalisedUrl', dirname(dirname(__FILE__)) . '/external/webignition/url/src');
     $loader->registerNamespace('Mf2', dirname(dirname(__FILE__)) . '/external/mf2');
 
+// Using Simplepie for RSS and Atom parsing
+    include dirname(dirname(__FILE__)) . '/external/simplepie/autoloader.php';
+
 // Register the autoloader
     $loader->register();
 
