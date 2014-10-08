@@ -42,6 +42,7 @@
                 }
 
                 $this->database = \Idno\Core\site()->config()->dbname;
+                $this->checkAndUpgradeSchema();
 
             }
 
@@ -689,6 +690,48 @@
             function createSearchArray($query)
             {
                 return ['$search' => [$query]];
+            }
+
+            /**
+             * Retrieve version information from the schema
+             * @return array|bool
+             */
+            function getVersions()
+            {
+                try {
+                    $client = $this->client;    /* @var \PDO $client */
+                    $statement = $client->prepare("select * from `versions`");
+                    if ($statement->execute()) {
+                       return $statement->fetchAll(\PDO::FETCH_OBJ);
+                    }
+                } catch (\Exception $e) {
+                }
+                return false;
+            }
+
+            /**
+             * Checks the current schema version and upgrades if necessary
+             */
+            function checkAndUpgradeSchema() {
+                if ($versions = $this->getVersions()) {
+                    foreach($versions as $version) {
+                        if ($version->label == 'schema') {
+                            $basedate = $newdate = (int) $version->value;
+                            $upgrade_sql_files = [];
+                            $schema_dir = dirname(dirname(dirname(__FILE__))) . '/schemas/mysql/';
+                            $client = $this->client; /* @var \PDO $client */
+                            if ($basedate < 2014100801) {
+                                if ($sql = @file_get_contents($schema_dir . '2014100801.sql')) {
+                                    try {
+                                        $statement = $client->prepare($sql);
+                                        $statement->execute();
+                                    } catch (\Exception $e) {}
+                                }
+                                $newdate = 2014100801;
+                            }
+                        }
+                    }
+                }
             }
 
         }
