@@ -31,6 +31,7 @@
             public $currentPage;
             public $known_hub;
             public $helper_robot;
+            public $reader;
 
             function init()
             {
@@ -93,6 +94,7 @@
                 $this->logging      = new Logging($this->config->log_level);
                 $this->plugins      = new Plugins(); // This must be loaded last
                 $this->themes       = new Themes();
+                $this->reader       = new Reader();
                 $this->helper_robot = new HelperRobot();
 
                 // Connect to a Known hub if one is listed in the configuration file
@@ -306,6 +308,15 @@
             }
 
             /**
+             * Return the reader associated with this site
+             * @return \Idno\Core\Reader
+             */
+            function &reader()
+            {
+                return $this->reader;
+            }
+
+            /**
              * Tells the system that callable $listener wants to be notified when
              * event $event is triggered. $priority is an optional integer
              * that specifies order priority; the higher the number, the earlier
@@ -480,7 +491,7 @@
              */
             function version()
             {
-                return '0.6.3';
+                return '0.6.4';
             }
 
             /**
