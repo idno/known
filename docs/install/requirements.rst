@@ -56,7 +56,7 @@ if a required module isn't available.
 Recommendations
 ---------------
 
-Idno *recommends* the following extra server components:
+Known *recommends* the following extra server components:
 
 * Linux or UNIX-based server
 * A PHP accelerator like eAccelerator
