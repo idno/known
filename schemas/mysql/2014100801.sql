@@ -22,3 +22,5 @@ CREATE TABLE IF NOT EXISTS `reader` (
   KEY `entity_subtype` (`entity_subtype`),
   FULLTEXT KEY `search` (`search`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+UPDATE `versions` SET `value` = '2014100801' WHERE `label` = 'schema';
