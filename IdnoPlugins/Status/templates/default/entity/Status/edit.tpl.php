@@ -67,7 +67,7 @@
 
             <p>
                 <small><a id="inreplyto-add" href="#"
-                          onclick="$('#inreplyto').append('<span><input required type=&quot;url&quot; name=&quot;inreplyto[]&quot; value=&quot;&quot; placeholder=&quot;Add the URL that you\'re replying to&quot; class=&quot;span8&quot; /> <small><a href=&quot;#&quot; onclick=&quot;$(this).parent().parent().remove(); return false;&quot;><icon class=&quot;icon-remove&quot;></icon> Remove URL</a></small><br /></span>'); return false;"><icon class="icon-reply"></icon>
+                          onclick="$('#inreplyto').append('<span><input required type=&quot;url&quot; name=&quot;inreplyto[]&quot; value=&quot;&quot; placeholder=&quot;Add the URL that you\'re replying to&quot; class=&quot;span8&quot; onchange=&quot;adjust_content(this.value)&quot; /> <small><a href=&quot;#&quot; onclick=&quot;$(this).parent().parent().remove(); return false;&quot;><icon class=&quot;icon-remove&quot;></icon> Remove URL</a></small><br /></span>'); return false;"><icon class="icon-reply"></icon>
                         Reply to a site</a></small>
             </p>
             <div id="inreplyto">
@@ -78,7 +78,7 @@
                             <p>
                                 <input type="url" name="inreplyto[]"
                                        placeholder="Add the URL that you're replying to"
-                                       class="span8" value="<?= htmlspecialchars($inreplyto) ?>"/>
+                                       class="span8 inreplyto" value="<?= htmlspecialchars($inreplyto) ?>" onchange="adjust_content(this.value)"/>
                                 <small><a href="#"
                                           onclick="$(this).parent().parent().remove(); return false;"><icon class="icon-remove"></icon> 
                                           Remove URL</a></small>
@@ -107,26 +107,38 @@
     </div>
 </form>
 <script>
+    function adjust_content(url) {
+        var username = url.match(/https?:\/\/(www\.)?twitter\.com\/(#!\/)?@?([^\/]*)/)[3];
+        if (username != null) {
+            if ($('#body').val().search('@' + username) == -1) {
+                $('#body').val('@' + username + ' ' + $('#body').val());
+                count_chars();
+            }
+        }
+    }
+
+    function count_chars() {
+        var len = $('#body').val().length;
+
+        if (len > 0) {
+            if (!$('#counter').is(":visible")) {
+                $('#counter').fadeIn();
+            }
+        }
+
+        $('#counter .count').text(len);
+    }
+
     $(document).ready(function () {
         $('#body').keyup(function () {
-            var len = $(this).val().length;
-
-            if (len > 0) {
-                if (!$('#counter').is(":visible")) {
-                    $('#counter').fadeIn();
-                }
-            }
-
-            $('#counter .count').text(len);
-
-
+            count_chars();
         });
-        
+
         // Make in reply to a little less painful
         $("#inreplyto-add").on('dragenter', function(e) {
             e.stopPropagation();
             e.preventDefault();
-            $('#inreplyto').append('<span><input required type="url" name="inreplyto[]" value="" placeholder="The website address of the post you\'re replying to" class="span8" /> <small><a href="#" onclick="$(this).parent().parent().remove(); return false;">Remove</a></small><br /></span>');
+            $('#inreplyto').append('<span><input required type="url" name="inreplyto[]" value="" placeholder="The website address of the post you\'re replying to" class="span8 inreplyto" onchange="adjust_content(this.value)" /> <small><a href="#" onclick="$(this).parent().parent().remove(); return false;">Remove</a></small><br /></span>');
         });
     });
 </script>
