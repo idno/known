@@ -7,6 +7,7 @@
         class Subscription extends Entity {
 
             public $collection = 'reader';
+            public static $retrieve_collection = 'reader';
 
             /**
              * Sets the URL of the feed this subscription belongs to
