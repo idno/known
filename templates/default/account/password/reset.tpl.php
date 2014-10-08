@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="inputPassword">New password</label>
+                <label class="control-label" for="inputPassword">New password (7 characters or more)</label>
                 <div class="controls">
                     <input type="password" id="inputPassword" class="span4" name="password" value="" required>
                 </div>
