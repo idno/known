@@ -4,9 +4,18 @@
 
         use Idno\Common\Component;
         use Idno\Entities\Reader\FeedItem;
+        use Idno\Entities\Reader\Subscription;
+        use Idno\Entities\User;
 
         class Reader extends Component
         {
+
+            // Register pages
+            function registerPages() {
+                site()->addPageHandler('/following/?', '\Idno\Pages\Following\Home');
+                site()->addPageHandler('/following/add/?', '\Idno\Pages\Following\Add');
+                site()->addPageHandler('/stream/?', '\Idno\Pages\Stream\Home');
+            }
 
             /**
              * Given the content of a page and its URL, returns an array of FeedItem objects (or false on failure)
@@ -178,6 +187,24 @@
                 }
 
                 return false;
+
+            }
+
+            /**
+             * Retrieve a particular user's subscriptions
+             * @param $user
+             * @return array|bool
+             */
+            function getUserSubscriptions($user) {
+
+                if ($user instanceof User) {
+                    $user = $user->getUUID();
+                }
+                if (empty($user)) {
+                    return false;
+                }
+
+                return Subscription::get(['owner' => $user]);
 
             }
 
