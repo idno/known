@@ -194,7 +194,6 @@
                         return $array['_id'];
                     }
                 } catch (\Exception $e) {
-                    //\Idno\Core\site()->session()->addMessage($e->getMessage());
                 }
 
                 return false;
@@ -237,7 +236,6 @@
                         return $statement->fetch(\PDO::FETCH_ASSOC);
                     }
                 } catch (\Exception $e) {
-                    //\Idno\Core\site()->session()->addMessage($e->getMessage());
                 }
 
                 return false;
@@ -306,8 +304,6 @@
                 } catch (\Exception $e) {
                     if (\Idno\Core\site()->session() == null)
                         die($e->getMessage());
-
-                    //\Idno\Core\site()->session()->addMessage($e->getMessage());
                 }
 
                 return false;
@@ -406,9 +402,9 @@
                     $non_md_variables = [];
                     $limit            = (int)$limit;
                     $offset           = (int)$offset;
-                    $where            = $this->build_where_from_array($parameters, $variables, $metadata_joins, $non_md_variables);
+                    $where            = $this->build_where_from_array($parameters, $variables, $metadata_joins, $non_md_variables, 'and', $collection);
                     for ($i = 0; $i <= $metadata_joins; $i++) {
-                        $query .= " left join metadata md{$i} on md{$i}.entity = entities.uuid ";
+                        $query .= " left join metadata md{$i} on md{$i}.entity = {$collection}.uuid ";
                     }
                     if (!empty($where)) {
                         $query .= ' where ' . $where . ' ';
@@ -424,7 +420,6 @@
                     }
 
                 } catch (\Exception $e) {
-                    //\Idno\Core\site()->session()->addMessage($e->getMessage());
                     return false;
                 }
 
@@ -470,7 +465,7 @@
                             }
                         } else {
                             if (!empty($value['$or'])) {
-                                $subwhere[] = "(" . $this->build_where_from_array($value['$or'], $variables, $metadata_joins, $non_md_variables, 'or') . ")";
+                                $subwhere[] = "(" . $this->build_where_from_array($value['$or'], $variables, $metadata_joins, $non_md_variables, 'or', $collection) . ")";
                             }
                             if (!empty($value['$not'])) {
                                 if (!empty($value['$not']['$in'])) {
@@ -609,9 +604,9 @@
                     $variables        = [];
                     $metadata_joins   = 0;
                     $non_md_variables = [];
-                    $where            = $this->build_where_from_array($parameters, $variables, $metadata_joins, $non_md_variables);
+                    $where            = $this->build_where_from_array($parameters, $variables, $metadata_joins, $non_md_variables, 'and', $collection);
                     for ($i = 0; $i <= $metadata_joins; $i++) {
-                        $query .= " left join metadata md{$i} on md{$i}.entity = entities.uuid ";
+                        $query .= " left join metadata md{$i} on md{$i}.entity = {$collection}.uuid ";
                     }
                     if (!empty($where)) {
                         $query .= ' where ' . $where . ' ';
@@ -649,13 +644,13 @@
              * @param string $id
              * @return true|false
              */
-            function deleteRecord($id)
+            function deleteRecord($id, $collection = 'entities')
             {
                 try {
 
                     $client = $this->client;
                     /* @var \PDO $client */
-                    $statement = $client->prepare("delete from entities where _id = :id");
+                    $statement = $client->prepare("delete from {$collection} where _id = :id");
                     if ($statement->execute([':id' => $id])) {
                         if ($statement = $client->prepare("delete from metadata where _id = :id")) {
                             return $statement->execute([':id' => $id]);

@@ -363,9 +363,9 @@
              * @param string $id
              * @return true|false
              */
-            function deleteRecord($id)
+            function deleteRecord($id, $collection = 'entities')
             {
-                return $this->database->entities->remove(array("_id" => new \MongoId($id)));
+                return $this->database->$collection->remove(array("_id" => new \MongoId($id)));
             }
 
             /**

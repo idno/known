@@ -102,7 +102,7 @@
              */
             static function countFromAll($search = [])
             {
-                return self::countFromX('', $search);
+                return static::countFromX('', $search);
             }
 
             /**
@@ -128,7 +128,7 @@
 
             static function getOne($search = array(), $fields = array())
             {
-                if ($records = self::get($search, $fields, 1))
+                if ($records = static::get($search, $fields, 1))
                     foreach ($records as $record)
                         return $record;
 
@@ -148,7 +148,7 @@
 
             static function get($search = array(), $fields = array(), $limit = 10, $offset = 0)
             {
-                return \Idno\Core\site()->db()->getObjects(get_called_class(), $search, $fields, $limit, $offset, self::$retrieve_collection);
+                return \Idno\Core\site()->db()->getObjects(get_called_class(), $search, $fields, $limit, $offset, static::$retrieve_collection);
             }
 
             /**
@@ -160,7 +160,7 @@
             static function getByID($id)
             {
                 try {
-                    return self::getOneFromAll(array('_id' => \Idno\Core\site()->db()->processID($id)));
+                    return static::getOneFromAll(array('_id' => \Idno\Core\site()->db()->processID($id)));
                 } catch (\Exception $e) {
                     return false; //\Idno\Core\site()->currentPage()->noContent();
                 }
@@ -177,7 +177,7 @@
 
             static function getOneFromAll($search = array(), $fields = array())
             {
-                if ($records = self::getFromAll($search, $fields, 1))
+                if ($records = static::getFromAll($search, $fields, 1))
                     foreach ($records as $record)
                         return $record;
 
@@ -196,7 +196,7 @@
              */
             static function getFromAll($search = array(), $fields = array(), $limit = 10, $offset = 0)
             {
-                $result = self::getFromX('', $search, $fields, $limit, $offset);
+                $result = static::getFromX('', $search, $fields, $limit, $offset);
 
                 return $result;
             }
@@ -214,7 +214,7 @@
              */
             static function getFromX($class, $search = array(), $fields = array(), $limit = 10, $offset = 0)
             {
-                $result = \Idno\Core\site()->db()->getObjects($class, $search, $fields, $limit, $offset, self::$retrieve_collection);
+                $result = \Idno\Core\site()->db()->getObjects($class, $search, $fields, $limit, $offset, static::$retrieve_collection);
 
                 return $result;
             }
@@ -237,11 +237,7 @@
 
             static function getByUUID($uuid)
             {
-                //if (self::isLocalUUID($uuid)) {
-                return self::getOneFromAll(array('uuid' => $uuid));
-                //} else {
-                //    return self::getRemote($uuid);
-                //}
+                return static::getOneFromAll(array('uuid' => $uuid));
             }
 
             /**
@@ -613,7 +609,7 @@
                     return false;
                 }
 
-                return self::getOneFromAll(array('slug' => $slug));
+                return static::getOneFromAll(array('slug' => $slug));
             }
 
             /**
@@ -728,7 +724,7 @@
                         }
                     }
 
-                    if ($return = \Idno\Core\db()->deleteRecord($this->getID())) {
+                    if ($return = \Idno\Core\db()->deleteRecord($this->getID(), $this->collection)) {
                         $this->deleteData();
 
                         return $return;
@@ -1017,7 +1013,7 @@
 
                 $seed = rand(0, 99999999);
                 $code = shorten($seed);
-                while ($entity = self::getByShortURL($code)) {
+                while ($entity = static::getByShortURL($code)) {
                     $code = shorten(rand(0, 99999999));
                 }
                 $this->shorturl = $code;
@@ -1038,7 +1034,7 @@
                     return false;
                 }
 
-                return self::getOneFromAll(array('shorturl' => $url));
+                return static::getOneFromAll(array('shorturl' => $url));
             }
 
             /**
