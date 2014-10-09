@@ -84,7 +84,7 @@
 
                     ?>
                     <div class="e-content entry-content">
-                        <?php if (!empty($subObject)) echo $subObject->draw(); ?>
+                        <?php if (!empty($subObject)) echo htmlspecialchars($subObject->draw(), ENT_QUOTES); ?>
                     </div>
                     <div class="footer">
                         <?= $this->draw('content/end') ?>
