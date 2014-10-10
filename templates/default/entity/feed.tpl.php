@@ -3,7 +3,9 @@
     if (!empty($vars['items'])) {
 
         foreach($vars['items'] as $entry) {
-            echo $this->__(array('object' => $entry->getRelatedFeedItems()))->draw('entity/shell');
+            if ($entry instanceof \Idno\Common\Entity) {
+                echo $this->__(array('object' => $entry->getRelatedFeedItems()))->draw('entity/shell');
+            }
         }
 
         echo $this->drawPagination($vars['count']);
