@@ -21,7 +21,6 @@
             echo "<h1>Oh no! Known experienced a problem!</h1>";
             echo "<p>Known experienced a problem with this page and couldn't continue. The technical details are as follows:</p>";
             echo "<pre>$error_message</pre>";
-            echo "<p>We've logged this error and will make sure we take a look.</p>";
             echo "<p>If you like, you can <a href=\"mailto:hello@withknown.com?subject=" .
                 rawurlencode("Fatal error in Known install at {$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}") . "&body=" . rawurlencode($error_message) . "\">email us for more information</a>.";
 
