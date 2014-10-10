@@ -19,9 +19,12 @@
                 if ($url = $this->getInput('url')) {
                     $wc = new Webservice();
                     if ($url = $wc->sanitizeURL($url)) {
-                        if ($feed = \Idno\Core\site()->reader()->getFeedURL($url)) {
+                        if ($feed = \Idno\Core\site()->reader()->getFeedDetails($url)) {
                             $sub = new Subscription();
-                            $sub->setFeedURL($feed);
+                            $sub->setFeedURL($feed['url']);
+                            if (!empty($feed['title'])) {
+                                $sub->setTitle($feed['title']);
+                            }
                             if (!$sub->save()) {
                                 \Idno\Core\site()->session()->addMessage("We couldn't save your feed.");
                             }

@@ -122,13 +122,13 @@
             }
 
             /**
-             * Given the URL of a website, returns a single URL of a feed (whether Microformats or RSS / Atom). The
-             * function will attempt to discover RSS and Atom feeds in the page if this is an HTML site. Returns false
-             * if there is no feed.
+             * Given the URL of a website, returns a single linked array containing the URL and title of a feed
+             * (whether Microformats or RSS / Atom). The function will attempt to discover RSS and Atom feeds in
+             * the page if this is an HTML site. Returns false if there is no feed.
              * @param $url
-             * @return mixed
+             * @return array|false
              */
-            function getFeedURL($url)
+            function getFeedDetails($url)
             {
 
                 if (!filter_var($url, FILTER_VALIDATE_URL)) {
@@ -138,19 +138,44 @@
                 $client = new Webservice();
                 if ($result = $client->get($url)) {
 
+                    $feed = [];
+
                     if (!empty($result['content'])) {
                         if ($html = @\DOMDocument::loadHTML($result['content'])) {
                             $xpath = new \DOMXpath($html);
+                            $title = $xpath->query('//title')->item(0)->nodeValue;
                             if ($xpath->query("//*[contains(concat(' ', @class, ' '), ' h-entry ')]")->length > 0) {
-                                return $url;
+                                $feed['type'] = 'mf2';
+                                $feed['url'] = $url;
+                                if (!empty($title)) {
+                                    $feed['title'] = $title;
+                                }
+                                site()->session()->addMessage(var_export($feed,true));
+                                return $feed;
                             }
                             if ($rss_url = $this->findXMLFeedURL($html)) {
-                                return $rss_url;
+                                $feed['type'] = 'xml';
+                                $feed['url'] = $rss_url;
+                                if (!empty($title)) {
+                                    $feed['title'] = $title;
+                                }
+                                site()->session()->addMessage(var_export($feed,true));
+                                return $feed;
                             }
                         }
                         if ($xml = @simplexml_load_string($result['content'])) {
-                            if (!empty($xml->channel->item) || !empty($xml->feed)) {
-                                return $url;
+                            if (!empty($xml->rss->channel->item) || !empty($xml->feed) || !empty($xml->channel->item)) {
+                                $feed['type'] = 'xml';
+                                $feed['url'] = $url;
+                                if (!empty($xml->rss->channel->title)) {
+                                    $feed['title'] = $xml->rss->channel->title;
+                                } else if (!empty($xml->channel->title)) {
+                                    $feed['title'] = $xml->channel->title;
+                                } else if (!empty($xml->title)) {
+                                    $feed['title'] = $xml->title;
+                                }
+                                site()->session()->addMessage(var_export($feed,true));
+                                return $feed;
                             }
                         }
                     }
