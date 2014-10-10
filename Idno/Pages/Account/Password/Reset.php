@@ -46,7 +46,7 @@
                 $password  = trim($this->getInput('password'));
                 $password2 = trim($this->getInput('password2'));
 
-                if (\Idno\Entities\User::checkNewPasswordStrength($password) && $password != $password2) {
+                if (\Idno\Entities\User::checkNewPasswordStrength($password) && $password == $password2) {
                     if ($user = \Idno\Entities\User::getByEmail($email)) {
 
                         if ($code = $user->getPasswordRecoveryCode()) {
