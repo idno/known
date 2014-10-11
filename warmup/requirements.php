@@ -21,7 +21,7 @@
 
             <?php
 
-                if (version_compare(phpversion(), '5.4.0') >= 0) {
+                if (version_compare(phpversion(), '5.3') >= 0) {
                     $class = 'success';
                     $text = 'You are running PHP version ' . phpversion() . '.';
                 } else {
