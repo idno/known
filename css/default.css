@@ -1085,3 +1085,19 @@ p.feedback {
     display: block;
     margin-bottom: 1em;
 }
+
+.subscription {
+    background-color: #eee;
+    margin-bottom: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.subscription p {
+    margin: 0; padding: 0;
+}
+
+.subscription .feed_url {
+    font-size: 0.8em;
+    color: #999;
+}
