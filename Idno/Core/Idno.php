@@ -366,9 +366,9 @@
                 if (class_exists($handler)) {
                     unset($this->pagehandlers[$pattern]);
                     unset($this->public_pages[$pattern]);
-                    $this->pagehandlers = [$pattern => $handler] + $this->pagehandlers;
+                    $this->pagehandlers = array($pattern => $handler) + $this->pagehandlers;
                     if ($public == true) {
-                        $this->public_pages = [$pattern => $handler] + $this->public_pages;
+                        $this->public_pages = array($pattern => $handler) + $this->public_pages;
                     }
                 }
             }
@@ -441,7 +441,7 @@
                     ':alpha'  => '([a-zA-Z0-9-_]+)'
                 );
                 $discovered_handler = false;
-                $matches            = [];
+                $matches            = array();
                 foreach ($this->pagehandlers as $pattern => $handler_name) {
                     $pattern = strtr($pattern, $tokens);
                     if (preg_match('#^/?' . $pattern . '/?$#', $path_info, $matches)) {

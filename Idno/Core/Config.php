@@ -36,7 +36,7 @@
                 'log_level'         => 4
             );
 
-            public $ini_config = [];
+            public $ini_config = array();
 
             function init()
             {
@@ -95,7 +95,7 @@
             {
 
                 if (empty($this->ini_config)) {
-                    $this->ini_config = [];
+                    $this->ini_config = array();
                     if ($config = @parse_ini_file($this->path . '/config.ini')) {
                         $this->ini_config = array_merge($config, $this->ini_config);
                     }

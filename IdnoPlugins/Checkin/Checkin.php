@@ -94,7 +94,7 @@
             {
 
                 $query    = self::getNominatimEndpoint() . "reverse?lat={$latitude}&lon={$longitude}&format=json&zoom=18";
-                $response = [];
+                $response = array();
 
                 $http_response = \Idno\Core\Webservice::get($query)['content'];
 

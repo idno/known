@@ -19,7 +19,8 @@ namespace Idno\Core {
 
             // Hook into the "saved" event to publish to PuSH when an entity is saved
             \Idno\Core\site()->addEventHook('saved', function (\Idno\Core\Event $event) {
-                if ($object = $event->data()['object']) {
+                $eventdata = $event->data();
+                if ($object = $eventdata['object']) {
                     /* @var \Idno\Common\Entity $object */
                     if ($object->isPublic()) {
                         $url = $object->getURL();
@@ -31,8 +32,10 @@ namespace Idno\Core {
             // When we follow a user, try and subscribe to their hub
             \Idno\Core\site()->addEventHook('follow', function(\Idno\Core\Event $event) {
 
-                $user = $event->data()['user'];
-                $following = $event->data()['following'];
+                $eventdata = $event->data();
+                $user = $eventdata['user'];
+                $eventdata = $event->data();
+                $following = $eventdata['following'];
 
                 if (($user instanceof \Idno\Entities\User) && ($following instanceof \Idno\Entities\User)) {
 
@@ -48,7 +51,7 @@ namespace Idno\Core {
                             if (!$pending)
                                 $pending = new \stdClass ();
                             if (!is_array($pending->subscribe))
-                                $pending->subscribe = [];
+                                $pending->subscribe = array();
 
                             $pending->subscribe[] = $following->getUUID();
                             $user->pubsub_pending = serialize($pending);
@@ -75,8 +78,10 @@ namespace Idno\Core {
             // Send unfollow notification to their hub
             \Idno\Core\site()->addEventHook('unfollow', function(\Idno\Core\Event $event) {
 
-                $user = $event->data()['user'];
-                $following = $event->data()['following'];
+                $eventdata = $event->data();
+                $user = $eventdata['user'];
+                $eventdata = $event->data();
+                $following = $eventdata['following'];
 
                 if (($user instanceof \Idno\Entities\User) && ($following instanceof \Idno\Entities\User)) {
 
@@ -86,7 +91,7 @@ namespace Idno\Core {
                     if (!$pending)
                         $pending = new \stdClass ();
                     if (!is_array($pending->subscribe))
-                        $pending->unsubscribe = [];
+                        $pending->unsubscribe = array();
 
                     $pending->unsubscribe[] = $following->getID();
                     $user->pubsub_pending = serialize($pending);
@@ -115,7 +120,7 @@ namespace Idno\Core {
          */
         private function discoverHubs($url) {
 
-            $hubs = [];
+            $hubs = array();
             
             // Get page
             $page = \Idno\Core\Webservice::file_get_contents($url);

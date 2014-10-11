@@ -15,13 +15,13 @@
         {
 
             // We'll keep track of extensions to templates here
-            public $extensions = [];
+            public $extensions = array();
 
             // We'll keep track of prepended templates here
-            public $prepends = [];
+            public $prepends = array();
 
             // We can also extend templates with HTML or other content
-            public $rendered_extensions = [];
+            public $rendered_extensions = array();
 
             /**
              * On construction, detect the template type
@@ -88,7 +88,7 @@
              */
             function drawSyndication($content_type)
             {
-                return $this->__(['services' => \Idno\Core\site()->syndication()->getServices($content_type), 'content_type' => $content_type])->draw('content/syndication');
+                return $this->__(array('services' => \Idno\Core\site()->syndication()->getServices($content_type), 'content_type' => $content_type))->draw('content/syndication');
             }
 
             /**
@@ -106,7 +106,7 @@
                 if ($offset == 0 && $count < $items_per_page) {
                     return '';
                 } else {
-                    return $this->__(['count' => $count, 'offset' => $offset, 'items_per_page' => $items_per_page])->draw('shell/pagination');
+                    return $this->__(array('count' => $count, 'offset' => $offset, 'items_per_page' => $items_per_page))->draw('shell/pagination');
                 }
 
             }
@@ -124,7 +124,7 @@
             function extendTemplate($templateName, $extensionTemplateName, $to_front = false)
             {
                 if (empty($this->extensions[$templateName])) {
-                    $this->extensions[$templateName] = [];
+                    $this->extensions[$templateName] = array();
                 }
                 if ($to_front) {
                     array_unshift($this->extensions[$templateName], $extensionTemplateName);
@@ -146,7 +146,7 @@
             function prependTemplate($templateName, $prependTemplateName, $to_front = false)
             {
                 if (empty($this->prepends[$templateName])) {
-                    $this->prepends[$templateName] = [];
+                    $this->prepends[$templateName] = array();
                 }
                 if ($to_front) {
                     array_unshift($this->prepends[$templateName], $prependTemplateName);
@@ -341,7 +341,7 @@
                     if (!empty($components['query'])) {
                         parse_str($components['query'], $url_var_array);
                     } else {
-                        $components['query'] = [];
+                        $components['query'] = array();
                     }
                     $url_var_array[$variable_name] = $variable_value;
                     $components['query']           = http_build_query($url_var_array);

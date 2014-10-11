@@ -13,7 +13,7 @@
             public $entity_class = 'Idno\\Entities\\Object';
             public $handler_class = 'Idno\\Common\\ContentType';
             public $title = 'Content type';
-            public $indieWebContentType = [];
+            public $indieWebContentType = array();
 
             // Static property containing register of all content types
             static public $registered = array();
@@ -169,7 +169,7 @@
                 if (!is_array($slugs)) {
                     $slugs = explode(', ', $slugs);
                 }
-                $friendly = [];
+                $friendly = array();
                 foreach ($slugs as $content) {
                     $friendly[] = self::categoryTitleSlugToFriendlyName($content);
                 }
@@ -242,7 +242,7 @@
              */
             static function getRegisteredClasses()
             {
-                $classes = [];
+                $classes = array();
                 if ($registered = self::$registered) {
                     foreach ($registered as $type) {
                         if ($type instanceof ContentType) {
@@ -260,7 +260,7 @@
              */
             static function getRegisteredCategorySlugs()
             {
-                $slugs = [];
+                $slugs = array();
                 if ($registered = self::$registered) {
                     foreach ($registered as $type) {
                         if ($type instanceof ContentType) {

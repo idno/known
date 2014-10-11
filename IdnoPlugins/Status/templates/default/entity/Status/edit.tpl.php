@@ -6,7 +6,7 @@
             $vars['object']->inreplyto = [$vars['object']->inreplyto];
         }
     } else {
-        $vars['object']->inreplyto = [];
+        $vars['object']->inreplyto = array();
     }
     if (!empty($vars['url'])) {
         $vars['object']->inreplyto = [$vars['url']];

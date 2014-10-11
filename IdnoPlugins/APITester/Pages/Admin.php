@@ -50,22 +50,22 @@
                 }
 
                 if (is_callable('curl_init')) {
-                    $body = \Idno\Core\site()->template()->__([
+                    $body = \Idno\Core\site()->template()->__(array(
                         'request'      => $request,
                         'key'          => $key,
                         'username'     => $username,
                         'json'         => $json,
                         'sent_request' => $sent_request,
                         'response'     => $response
-                    ])->draw('apitester/admin');
+                    ))->draw('apitester/admin');
                 } else {
                     $body = \Idno\Core\site()->template()->draw('apitester/nocurl');
                 }
 
-                \Idno\Core\site()->template()->__([
+                \Idno\Core\site()->template()->__(array(
                     'title' => "API Tester",
                     'body'  => $body,
-                ])->drawPage();
+                ))->drawPage();
 
                 return true;
 

@@ -17,13 +17,13 @@
             {
                 $this->adminGatekeeper(); // Admins only
 
-                $users = User::get([], [], 99999, 0); // TODO: make this more complete / efficient
-                $remoteusers = RemoteUser::get([], [], 99999, 0);
+                $users = User::get(array(), array(), 99999, 0); // TODO: make this more complete / efficient
+                $remoteusers = RemoteUser::get(array(), array(), 99999, 0);
                 
                 $users = array_merge($users, $remoteusers);
 
                 $t        = \Idno\Core\site()->template();
-                $t->body  = $t->__(['users' => $users])->draw('admin/users');
+                $t->body  = $t->__(array('users' => $users))->draw('admin/users');
                 $t->title = 'User Management';
                 $t->drawPage();
 

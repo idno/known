@@ -29,11 +29,11 @@
 
                 $t = \Idno\Core\site()->template();
                 if (empty($onboarding)) {
-                    $t->body  = $t->__(['email' => $email, 'code' => $code])->draw('account/register');
+                    $t->body  = $t->__(array('email' => $email, 'code' => $code))->draw('account/register');
                     $t->title = 'Create a new account';
                     $t->drawPage();
                 } else {
-                    $t->body  = $t->__(['email' => $email, 'code' => $code, 'messages' => \Idno\Core\site()->session()->getAndFlushMessages()])->draw('onboarding/register');
+                    $t->body  = $t->__(array('email' => $email, 'code' => $code, 'messages' => \Idno\Core\site()->session()->getAndFlushMessages()))->draw('onboarding/register');
                     $t->title = 'Create a new account';
                     echo $t->draw('shell/simple');
                 }

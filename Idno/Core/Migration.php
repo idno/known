@@ -45,16 +45,16 @@
 
                 // If we've made it here, we've created a temporary directory with the hash name
 
-                $config = [
+                $config = array(
                     'url'   => site()->config()->getURL(),
                     'title' => site()->config()->getTitle()
-                ];
+                );
 
                 file_put_contents($dir . $name . DIRECTORY_SEPARATOR . 'known.json', json_encode($config));
 
                 // Let's export everything.
-                $fields = [];
-                $query_parameters = ['entity_subtype' => ['$not' => ['$in' => ['Idno\Entities\ActivityStreamPost']]]];
+                $fields = array();
+                $query_parameters = array('entity_subtype' => ['$not' => ['$in' => ['Idno\Entities\ActivityStreamPost']]]);
                 $collection = 'entities';
                 if ($results = site()->db()->getRecords($fields, $query_parameters, 99999, 0, $collection)) {
                     foreach ($results as $id => $row) {
@@ -82,7 +82,7 @@
                             $activityStreamPost->setVerb('post');
                             $activityStreamPost->setObject($object);
                             file_put_contents($json_path . $object_name . '.json', json_encode($object));
-                            if (is_callable([$object, 'draw'])) {
+                            if (is_callable(array($object, 'draw'))) {
                                 file_put_contents($html_path . $object_name . '.html', $activityStreamPost->draw());
                             }
                             //unset($results[$id]);

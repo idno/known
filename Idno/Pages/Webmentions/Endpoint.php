@@ -15,7 +15,7 @@
             function getContent()
             {
                 $t = \Idno\Core\site()->template();
-                $t->__(['title' => 'Webmention endpoint', 'body' => $t->draw('pages/webmention')])->drawPage();
+                $t->__(array('title' => 'Webmention endpoint', 'body' => $t->draw('pages/webmention')))->drawPage();
             }
 
             function post()
@@ -84,7 +84,7 @@
                     }
                 }
                 $this->setResponse(400); // Webmention failed.
-                echo json_encode(['error' => $error, 'error_text' => $error_text]);
+                echo json_encode(array('error' => $error, 'error_text' => $error_text));
             }
 
         }

@@ -217,9 +217,9 @@
                 // and remove subtypes that have an exclamation mark before them
                 // from consideration
                 if (!empty($subtypes)) {
-                    $not = [];
+                    $not = array();
                     if (!is_array($subtypes)) {
-                        $subtypes = [$subtypes];
+                        $subtypes = array($subtypes);
                     }
                     foreach ($subtypes as $key => $subtype) {
                         if (substr($subtype, 0, 1) == '!') {
@@ -304,7 +304,7 @@
              * @param array $search Any extra search terms in array format (eg array('foo' => 'bar')) (default: empty)
              * @param string $collection Collection to query; default: entities
              */
-            function countObjects($subtypes = '', $search = [], $collection = 'entities')
+            function countObjects($subtypes = '', $search = array(), $collection = 'entities')
             {
 
                 // Initialize query parameters to be an empty array
@@ -314,9 +314,9 @@
                 // and remove subtypes that have an exclamation mark before them
                 // from consideration
                 if (!empty($subtypes)) {
-                    $not = [];
+                    $not = array();
                     if (!is_array($subtypes)) {
-                        $subtypes = [$subtypes];
+                        $subtypes = array($subtypes);
                     }
                     foreach ($subtypes as $key => $subtype) {
                         if (substr($subtype, 0, 1) == '!') {

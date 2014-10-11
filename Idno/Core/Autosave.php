@@ -95,7 +95,7 @@
                 if (site()->session()->isLoggedOn()) {
                     if ($user = site()->session()->currentUser()) {
                         $autosave           = $user->autosave;
-                        $autosave[$context] = [];
+                        $autosave[$context] = array();
                         $user->autosave     = $autosave;
 
                         if ($result = $user->save()) {

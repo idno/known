@@ -23,7 +23,7 @@
                     if ($code = $user->getPasswordRecoveryCode()) {
 
                         $t        = \Idno\Core\site()->template();
-                        $t->body  = $t->__(['email' => $email, 'code' => $code])->draw('account/password/reset');
+                        $t->body  = $t->__(array('email' => $email, 'code' => $code))->draw('account/password/reset');
                         $t->title = 'Reset password';
 
                         $t->drawPage();

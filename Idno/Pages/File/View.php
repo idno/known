@@ -55,7 +55,7 @@
                 }
                 //header('Accept-Ranges: bytes');
                 //header('Content-Length: ' . filesize($object->getSize()));
-                if (is_callable([$object, 'passThroughBytes'])) {
+                if (is_callable(array($object, 'passThroughBytes'))) {
                     $object->passThroughBytes();
                 } else {
                     if ($stream = $object->getResource()) {

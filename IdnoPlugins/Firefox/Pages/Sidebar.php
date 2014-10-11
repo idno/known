@@ -21,7 +21,7 @@
 
                 $t = \Idno\Core\site()->template();
                 $body = $t->draw('firefox/sidebar');
-                $t->__(['title' => 'Sidebar', 'body' => $body, 'hidenav' => true])->drawPage();
+                $t->__(array('title' => 'Sidebar', 'body' => $body, 'hidenav' => true))->drawPage();
             }
 
         }

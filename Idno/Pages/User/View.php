@@ -32,7 +32,7 @@
                     $types          = 'Idno\Entities\ActivityStreamPost';
                     $search['verb'] = 'post';
                 } else {
-                    if (!is_array($types)) $types = [$types];
+                    if (!is_array($types)) $types = arra($types);
                     $types[] = '!Idno\Entities\ActivityStreamPost';
                 }
 

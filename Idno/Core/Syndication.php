@@ -23,8 +23,9 @@
             {
                 \Idno\Core\site()->events()->addListener('syndicate', function (\Idno\Core\Event $event) {
 
-                    if (!empty($event->data()['object'])) {
-                        $content_type = $event->data()['object']->getActivityStreamsObjectType();
+                    $eventdata = $event->data();
+                    if (!empty($eventdata['object'])) {
+                        $content_type = $eventdata['object']->getActivityStreamsObjectType();
                         if ($services = \Idno\Core\site()->syndication()->getServices($content_type)) {
                             if ($selected_services = \Idno\Core\site()->currentPage()->getInput('syndication')) {
                                 if (!empty($selected_services) && is_array($selected_services)) {
@@ -47,7 +48,7 @@
              * @param callable $checker A function that will return true if the current user has the service enabled; false otherwise
              * @param array $content_types An array of content types that the service supports syndication for
              */
-            function registerService($service, callable $checker, $content_types = ['article', 'note', 'event', 'rsvp', 'reply'])
+            function registerService($service, callable $checker, $content_types = array('article', 'note', 'event', 'rsvp', 'reply'))
             {
                 $service = strtolower($service);
                 if (!empty($content_types)) {
@@ -83,7 +84,7 @@
                         return $this->services[$content_type];
                     }
                 } else {
-                    $return = [];
+                    $return = array();
                     if (!empty($this->services)) {
                         foreach($this->services as $service) {
                             $return = array_merge($return, $service);

@@ -28,23 +28,23 @@
                     if ($contents = json_decode($contents)) {
                         if (!empty($contents->user)) {
                             if ($user = \Idno\Entities\User::getByUUID($contents->user)) {
-                                $user->hub_settings = ['token' => $contents->auth_token, 'secret' => $contents->secret];
+                                $user->hub_settings = array('token' => $contents->auth_token, 'secret' => $contents->secret);
                                 $user->save();
-                                $result = ['status' => 'ok', 'message' => 'Credentials were stored.'];
+                                $result = array('status' => 'ok', 'message' => 'Credentials were stored.');
                             } else {
-                                $result = ['status' => 'fail', 'message' => 'Couldn\'t find user: ' . $contents->user];
+                                $result = array('status' => 'fail', 'message' => 'Couldn\'t find user: ' . $contents->user);
                             }
                         } else {
-                            $result = ['status' => 'fail', 'message' => 'No user was sent'];
+                            $result = array('status' => 'fail', 'message' => 'No user was sent');
                         }
                     } else {
-                        $result = ['status' => 'fail', 'message' => 'Contents were invalid'];
+                        $result = array('status' => 'fail', 'message' => 'Contents were invalid');
                     }
 
                 }
 
                 if (empty($result)) {
-                    $result = ['status' => 'fail', 'message' => 'Signature does not match: ' . $signature . ', ' . $hmac];
+                    $result = array('status' => 'fail', 'message' => 'Signature does not match: ' . $signature . ', ' . $hmac);
                 }
 
                 echo json_encode($result);

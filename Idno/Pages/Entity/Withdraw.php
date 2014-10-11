@@ -18,7 +18,7 @@
                 }
                 if (empty($object)) {
                     $this->setResponse(404);
-                    echo \Idno\Core\site()->template()->__(['body' => \Idno\Core\site()->template()->draw('404'), 'title' => 'Not found'])->drawPage();
+                    echo \Idno\Core\site()->template()->__(array('body' => \Idno\Core\site()->template()->draw('404'), 'title' => 'Not found'))->drawPage();
                     exit;
                 }
             }
@@ -32,13 +32,13 @@
                 }
                 if (empty($object)) {
                     $this->setResponse(404);
-                    echo \Idno\Core\site()->template()->__(['body' => \Idno\Core\site()->template()->draw('404'), 'title' => 'Not found'])->drawPage();
+                    echo \Idno\Core\site()->template()->__(array('body' => \Idno\Core\site()->template()->draw('404'), 'title' => 'Not found'))->drawPage();
                     exit;
                 }
 
                 if (!$object->canEdit()) {
                     $this->setResponse(403);
-                    echo \Idno\Core\site()->template()->__(['body' => \Idno\Core\site()->template()->draw('403'), 'title' => 'Permission denied'])->drawPage();
+                    echo \Idno\Core\site()->template()->__(array('body' => \Idno\Core\site()->template()->draw('403'), 'title' => 'Permission denied'))->drawPage();
                     exit;
                 }
 

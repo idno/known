@@ -60,7 +60,7 @@
             function mf2FeedToFeedItems($mf2_content, $url)
             {
 
-                $items = [];
+                $items = array();
                 if (!empty($mf2_content['items'])) {
                     foreach ($mf2_content['items'] as $item) {
                         if (in_array('h-entry', $item['type'])) {
@@ -85,7 +85,7 @@
             function xmlFeedToFeedItems($xml_items, $url)
             {
 
-                $items = [];
+                $items = array();
                 if (!empty($xml_items)) {
                     foreach ($xml_items as $item) {
 
@@ -138,7 +138,7 @@
                 $client = new Webservice();
                 if ($result = $client->get($url)) {
 
-                    $feed = [];
+                    $feed = array();
 
                     if (!empty($result['content'])) {
                         if ($html = @\DOMDocument::loadHTML($result['content'])) {
@@ -226,7 +226,7 @@
                     return false;
                 }
 
-                return Subscription::get(['owner' => $user]);
+                return Subscription::get(array('owner' => $user));
 
             }
 

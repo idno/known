@@ -22,7 +22,8 @@
 
                 \Idno\Core\site()->addEventHook('saved', function (\Idno\Core\Event $event) {
 
-                    if ($object = $event->data()['object']) {
+                    $eventdata = $event->data();
+                    if ($object = $eventdata['object']) {
                         if (site()->session()->isLoggedOn()) {
                             if (!empty(site()->session()->currentUser()->robot_state)) {
                                 $user = site()->session()->currentUser();

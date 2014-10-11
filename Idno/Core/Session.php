@@ -36,7 +36,8 @@
                 // Update the session on save, this is a shim until #46 is fixed properly with #49
                 \Idno\Core\site()->addEventHook('save', function (\Idno\Core\Event $event) {
 
-                    $object = $event->data()['object'];
+                    $eventdata = $event->data();
+                    $object = $eventdata['object'];
                     if ((!empty($object)) && ($object instanceof \Idno\Entities\User) // Object is a user
                         && ((!empty($_SESSION['user'])) && ($object->getUUID() == $_SESSION['user']->getUUID()))
                     ) // And we're not trying a user change (avoids a possible exploit)
@@ -129,7 +130,7 @@
             function addMessage($message, $message_type = 'alert-info')
             {
                 if (empty($_SESSION['messages'])) {
-                    $_SESSION['messages'] = [];
+                    $_SESSION['messages'] = array();
                 }
                 $_SESSION['messages'][] = array('message' => $message, 'message_type' => $message_type);
             }
@@ -150,7 +151,7 @@
 
             function addMessageAtStart($message, $message_type = 'alert-info') {
                 if (empty($_SESSION['messages'])) {
-                    $_SESSION['messages'] = [];
+                    $_SESSION['messages'] = array();
                 }
                 array_unshift($_SESSION['messages'], array('message' => $message, 'message_type' => $message_type));
             }
@@ -185,7 +186,7 @@
              */
             function flushMessages()
             {
-                $messages                       = [];
+                $messages                       = array();
                 $_SESSION['messages']           = $messages;
                 $_SESSION['last_message_flush'] = date('r', time());
             }

@@ -22,17 +22,17 @@
 
                 if (empty($token) || empty($auth_token) || empty($secret)) {
 
-                    $result = ['status' => 'fail', 'message' => 'Empty credentials.'];
+                    $result = array('status' => 'fail', 'message' => 'Empty credentials.');
 
                 }
                 if ($match_token == $token) {
 
                     \Idno\Core\site()->hub()->saveDetails($auth_token, $secret);
-                    $result = ['status' => 'ok', 'message' => 'Credentials were stored.'];
+                    $result = array('status' => 'ok', 'message' => 'Credentials were stored.');
 
                 } else {
 
-                    $result = ['status' => 'fail', 'message' => 'Request token does not match'];
+                    $result = array('status' => 'fail', 'message' => 'Request token does not match');
 
                 }
 

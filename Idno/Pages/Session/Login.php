@@ -25,7 +25,7 @@
                     $fwd = '';
                 }
                 $t        = \Idno\Core\site()->template();
-                $t->body  = $t->__(['fwd' => $fwd])->draw('session/login');
+                $t->body  = $t->__(array('fwd' => $fwd))->draw('session/login');
                 $t->title = 'Sign in';
                 $t->drawPage();
             }

@@ -36,7 +36,8 @@
             {
                 // Register user on login
                 site()->addEventHook('login/success', function (\Idno\Core\Event $event) {
-                    if ($user = $event->data()['user']) {
+                    $eventdata = $event->data();
+                    if ($user = $eventdata['user']) {
                         $this->registerUser($user);
                     }
                 });
@@ -115,7 +116,7 @@
             function getRegistrationToken()
             {
                 if (empty(site()->config->hub_settings)) {
-                    site()->config->hub_settings = [];
+                    site()->config->hub_settings = array();
                 }
                 if (!empty(site()->config->hub_settings['registration_token'])) {
                     if (!empty(site()->config->hub_settings['registration_token_expiry'])) {
@@ -124,7 +125,7 @@
                         }
                     }
                 }
-                $token_generator                                   = new \OAuthProvider([]);
+                $token_generator                                   = new \OAuthProvider(array());
                 $token                                             = $token_generator->generateToken(32);
                 $config                                            = site()->config;
                 $config->hub_settings['registration_token']        = bin2hex($token);

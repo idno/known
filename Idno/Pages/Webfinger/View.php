@@ -25,7 +25,7 @@
                     }
                 }
                 if (empty($links)) {
-                    $links = [];
+                    $links = array();
                 }
                 $t = \Idno\Core\site()->template();
                 $t->setTemplateType('json');

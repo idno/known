@@ -36,9 +36,10 @@
                 $object = parent::jsonSerialize();
 
                 // Add some thumbs
-                $object['thumbnails'] = [];
+                $object['thumbnails'] = array();
                 $sizes                = \Idno\Core\site()->events()->dispatch('photo/thumbnail/getsizes', new \Idno\Core\Event(array('sizes' => ['large' => 800, 'medium' => 400, 'small' => 200])));
-                foreach ($sizes->data()['sizes'] as $label => $size) {
+                $eventdata = $sizes->data();
+                foreach ($eventdata['sizes'] as $label => $size) {
                     $varname                      = "thumbnail_{$label}";
                     $object['thumbnails'][$label] = $this->$varname;
                 }
@@ -87,7 +88,8 @@
 
                                 // Now get some smaller thumbnails, with the option to override sizes
                                 $sizes = \Idno\Core\site()->events()->dispatch('photo/thumbnail/getsizes', new \Idno\Core\Event(array('sizes' => ['large' => 800, 'medium' => 400, 'small' => 200])));
-                                foreach ($sizes->data()['sizes'] as $label => $size) {
+                                $eventdata = $sizes->data();
+                                foreach ($eventdata['sizes'] as $label => $size) {
 
                                     $filename = $_FILES['photo']['name'];
 

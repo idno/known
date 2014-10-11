@@ -35,7 +35,7 @@
              */
             private function removeDuplicateProfiles(array $hcards)
             {
-                $cards = [];
+                $cards = array();
 
                 foreach ($hcards as $card) {
                     $key = serialize($card['properties']['url']);
@@ -62,7 +62,7 @@
 
                             $t     = \Idno\Core\site()->template();
                             $body  = '';
-                            $hcard = [];
+                            $hcard = array();
 
                             $this->findHcard($return['items'], $hcard);
                             $hcard = $this->removeDuplicateProfiles($hcard);
@@ -71,7 +71,7 @@
                                 throw new \Exception("Sorry, could not find any users on that page, perhaps they need to mark up their profile in <a href=\"http://microformats.org/wiki/microformats-2\">Microformats</a>?"); // TODO: Add a manual way to add the user
 
                             foreach ($hcard as $card)
-                                $body .= $t->__(['mf2' => $card])->draw('account/settings/following/mf2user');
+                                $body .= $t->__(array('mf2' => $card))->draw('account/settings/following/mf2user');
 
                             // List user
                             $t->body  = $body;

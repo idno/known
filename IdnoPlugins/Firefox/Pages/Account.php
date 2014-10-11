@@ -17,7 +17,7 @@
                 $this->createGatekeeper(); // Logged-in users only
                 $t = \Idno\Core\site()->template();
                 $body = $t->draw('account/firefox');
-                $t->__(['title' => 'Firefox', 'body' => $body])->drawPage();
+                $t->__(array('title' => 'Firefox', 'body' => $body))->drawPage();
             }
 
         }

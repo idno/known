@@ -50,7 +50,7 @@
                 <div class="span8 offset2">
                     <p>
                         Some examples:
-                        <a href="?request=/status/edit&json=<?=urlencode(json_encode(['body' => 'Status body']))?>">post a status</a>,
+                        <a href="?request=/status/edit&json=<?=urlencode(json_encode(array('body' => 'Status body')))?>">post a status</a>,
                         <a href="?request=/">get feed</a>
                     </p>
                 </div>

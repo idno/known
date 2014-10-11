@@ -10,9 +10,9 @@
         abstract class File
         {
 
-            public $metadata = [];
+            public $metadata = array();
             public $_id;
-            public $file = [];
+            public $file = array();
 
             /**
              * Retrieve the bytes associated with the file

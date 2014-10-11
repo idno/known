@@ -49,7 +49,7 @@
             public $owner = false;
 
             // Page assets that can be registered and set by plugins (javascript, css, etc)
-            public $assets = [];
+            public $assets = array();
 
             function init()
             {
@@ -326,7 +326,7 @@
                 $this->setResponse(410);
                 http_response_code($this->response);
                 $t = \Idno\Core\site()->template();
-                $t->__(['body' => $t->draw('pages/410'), 'title' => 'Gone, baby, gone'])->drawPage();
+                $t->__(array('body' => $t->draw('pages/410'), 'title' => 'Gone, baby, gone'))->drawPage();
                 exit;
             }
 
@@ -338,7 +338,7 @@
                 $this->setResponse(404);
                 http_response_code($this->response);
                 $t = \Idno\Core\site()->template();
-                $t->__(['body' => $t->draw('pages/404'), 'title' => 'Not found!'])->drawPage();
+                $t->__(array('body' => $t->draw('pages/404'), 'title' => 'Not found!'))->drawPage();
                 exit;
             }
 
@@ -350,7 +350,7 @@
                 $this->setResponse(403);
                 http_response_code($this->response);
                 $t = \Idno\Core\site()->template();
-                $t->__(['body' => $t->draw('pages/403'), 'title' => 'Denied!'])->drawPage();
+                $t->__(array('body' => $t->draw('pages/403'), 'title' => 'Denied!'))->drawPage();
                 exit;
             }
 
@@ -360,7 +360,7 @@
                 $this->setResponse(500);
                 http_response_code($this->response);
                 $t = \Idno\Core\site()->template();
-                $t->__(['body' => $t->__(['exception' => $e])->draw('pages/500'), 'title' => 'Exception'])->drawPage();
+                $t->__(array('body' => $t->__(array('exception' => $e))->draw('pages/500'), 'title' => 'Exception'))->drawPage();
                 exit;
             }
 
@@ -643,8 +643,8 @@
              */
             public function setAsset($name, $value, $class)
             {
-                if (!isset($this->assets) || !is_array($this->assets)) $this->assets = [];
-                if (!isset($this->assets[$class]) || !is_array($this->assets)) $this->assets[$class] = [];
+                if (!isset($this->assets) || !is_array($this->assets)) $this->assets = array();
+                if (!isset($this->assets[$class]) || !is_array($this->assets)) $this->assets[$class] = array();
 
                 $this->assets[$class][$name] = $value;
             }

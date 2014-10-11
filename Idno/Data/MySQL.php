@@ -170,13 +170,13 @@
                                                     values
                                                     (:uuid, :id, :subtype, :owner, :contents, :search)
                                                     on duplicate key update `uuid` = :uuid, `entity_subtype` = :subtype, `owner` = :owner, `contents` = :contents, `search` = :search");
-                    if ($statement->execute([':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search])) {
+                    if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search))) {
                         if ($statement = $client->prepare("delete from metadata where _id = :id")) {
-                            $statement->execute([':id' => $array['_id']]);
+                            $statement->execute(array(':id' => $array['_id']));
                         }
                         foreach ($array as $key => $val) {
                             if (!is_array($val)) {
-                                $val = [$val];
+                                $val = array($val);
                             }
                             foreach($val as $value) {
                                 if (is_array($value) || is_object($value)) {
@@ -186,7 +186,7 @@
                                     $value = 0;
                                 }
                                 if ($statement = $client->prepare("insert into metadata set `collection` = :collection, `entity` = :uuid, `_id` = :id, `name` = :name, `value` = :value")) {
-                                    $statement->execute(['collection' => $collection, ':uuid' => $array['uuid'], ':id' => $array['_id'], ':name' => $key, ':value' => $value]);
+                                    $statement->execute(array('collection' => $collection, ':uuid' => $array['uuid'], ':id' => $array['_id'], ':name' => $key, ':value' => $value));
                                 }
                             }
                         }
@@ -232,7 +232,7 @@
             {
                 try {
                     $statement = $this->client->prepare("select distinct {$collection}.* from " . $collection . " where uuid = :uuid");
-                    if ($statement->execute([':uuid' => $uuid])) {
+                    if ($statement->execute(array(':uuid' => $uuid))) {
                         return $statement->fetch(\PDO::FETCH_ASSOC);
                     }
                 } catch (\Exception $e) {
@@ -275,7 +275,7 @@
             function getRecord($id, $collection = 'entities')
             {
                 $statement = $this->client->prepare("select {$collection}.* from " . $collection . " where _id = :id");
-                if ($statement->execute([':id' => $id])) {
+                if ($statement->execute(array(':id' => $id))) {
                     return $statement->fetch(\PDO::FETCH_ASSOC);
                 }
 
@@ -333,9 +333,9 @@
                 // and remove subtypes that have an exclamation mark before them
                 // from consideration
                 if (!empty($subtypes)) {
-                    $not = [];
+                    $not = array();
                     if (!is_array($subtypes)) {
-                        $subtypes = [$subtypes];
+                        $subtypes = array($subtypes);
                     }
                     foreach ($subtypes as $key => $subtype) {
                         if (substr($subtype, 0, 1) == '!') {
@@ -397,9 +397,9 @@
 
                     // Build query
                     $query            = "select distinct {$collection}.* from {$collection} ";
-                    $variables        = [];
+                    $variables        = array();
                     $metadata_joins   = 0;
-                    $non_md_variables = [];
+                    $non_md_variables = array();
                     $limit            = (int)$limit;
                     $offset           = (int)$offset;
                     $where            = $this->build_where_from_array($parameters, $variables, $metadata_joins, $non_md_variables, 'and', $collection);
@@ -441,7 +441,7 @@
 
                 $where = '';
                 if (empty($variables)) {
-                    $variables = [];
+                    $variables = array();
                 }
                 if (empty($metadata_joins)) {
                     $metadata_joins = 0;
@@ -450,7 +450,7 @@
                     $non_md_variables = 0;
                 }
                 if (is_array($params) && !empty($params)) {
-                    $subwhere = [];
+                    $subwhere = array();
                     foreach ($params as $key => $value) {
                         if (!is_array($value)) {
                             if (in_array($key, ['uuid', '_id', 'entity_subtype', 'owner'])) {
@@ -550,7 +550,7 @@
              * @param array $search Any extra search terms in array format (eg array('foo' => 'bar')) (default: empty)
              * @param string $collection Collection to query; default: entities
              */
-            function countObjects($subtypes = '', $search = [], $collection = 'entities')
+            function countObjects($subtypes = '', $search = array(), $collection = 'entities')
             {
 
                 // Initialize query parameters to be an empty array
@@ -560,9 +560,9 @@
                 // and remove subtypes that have an exclamation mark before them
                 // from consideration
                 if (!empty($subtypes)) {
-                    $not = [];
+                    $not = array();
                     if (!is_array($subtypes)) {
-                        $subtypes = [$subtypes];
+                        $subtypes = array($subtypes);
                     }
                     foreach ($subtypes as $key => $subtype) {
                         if (substr($subtype, 0, 1) == '!') {
@@ -601,9 +601,9 @@
 
                     // Build query
                     $query            = "select count(distinct {$collection}.uuid) as total from {$collection} ";
-                    $variables        = [];
+                    $variables        = array();
                     $metadata_joins   = 0;
-                    $non_md_variables = [];
+                    $non_md_variables = array();
                     $where            = $this->build_where_from_array($parameters, $variables, $metadata_joins, $non_md_variables, 'and', $collection);
                     for ($i = 0; $i <= $metadata_joins; $i++) {
                         $query .= " left join metadata md{$i} on md{$i}.entity = {$collection}.uuid ";
@@ -651,9 +651,9 @@
                     $client = $this->client;
                     /* @var \PDO $client */
                     $statement = $client->prepare("delete from {$collection} where _id = :id");
-                    if ($statement->execute([':id' => $id])) {
+                    if ($statement->execute(array(':id' => $id))) {
                         if ($statement = $client->prepare("delete from metadata where _id = :id")) {
-                            return $statement->execute([':id' => $id]);
+                            return $statement->execute(array(':id' => $id));
                         }
                     }
 
@@ -712,7 +712,7 @@
                     foreach($versions as $version) {
                         if ($version->label == 'schema') {
                             $basedate = $newdate = (int) $version->value;
-                            $upgrade_sql_files = [];
+                            $upgrade_sql_files = array();
                             $schema_dir = dirname(dirname(dirname(__FILE__))) . '/schemas/mysql/';
                             $client = $this->client; /* @var \PDO $client */
                             if ($basedate < 2014100801) {

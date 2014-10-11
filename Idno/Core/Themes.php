@@ -13,7 +13,7 @@
         {
 
             public $theme = ''; // Property containing the current theme (blank if none)
-            public $themes = []; // Array containing instantiated theme controllers
+            public $themes = array(); // Array containing instantiated theme controllers
 
             /**
              * On initialization, the theme management class loads the current theme and sets it as
@@ -108,16 +108,16 @@
                     }
                 }
 
-                $themes[''] = [
-                    'Theme description' => [
+                $themes[''] = array(
+                    'Theme description' => array(
                         'name'         => 'Default theme',
                         'version'      => '0.1',
                         'author'       => "Known",
                         'author_email' => "hello@withknown.com",
                         'author_url'   => "http://withknown.com",
                         'description'  => 'The default Known theme.'
-                    ]
-                ];
+                    )
+                );
 
                 ksort($themes);
 

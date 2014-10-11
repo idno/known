@@ -21,18 +21,6 @@
 
                 $this->forward(\Idno\Core\site()->config()->getURL());
 
-/*
-                $t = \Idno\Core\site()->template();
-                echo $t->__(array(
-
-                    'title' => "Publish your first story!",
-                    'body'  => $t->__([
-                            'user'         => $user,
-                            'contentTypes' => \Idno\Common\ContentType::getRegistered()
-                        ])->draw('onboarding/publish'),
-
-                ))->drawPage();
-*/
             }
 
         }

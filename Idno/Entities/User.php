@@ -39,7 +39,8 @@
                 // Hook to add user data to webfinger
                 \Idno\Core\site()->addEventHook('webfinger', function (\Idno\Core\Event $event) {
 
-                    $user = $event->data()['object'];
+                    $eventdata = $event->data();
+                    $user = $eventdata['object'];
 
                     $links = $event->response();
                     if (empty($links)) $links = array();
@@ -64,7 +65,8 @@
                 // Refresh session user whenever it is saved
                 \Idno\Core\site()->addEventHook('saved', function (\Idno\Core\Event $event) {
 
-                    $user = $event->data()['object'];
+                    $eventdata = $event->data();
+                    $user = $eventdata['object'];
 
                     if ($user instanceof User) {
                         if ($currentUser = \Idno\Core\site()->session()->currentUser()) {
@@ -79,22 +81,26 @@
                 // Email notifications
                 \Idno\Core\site()->addEventHook('notify', function (\Idno\Core\Event $event) {
 
-                    $user = $event->data()['user'];
+                    $eventdata = $event->data();
+                    $user = $eventdata['user'];
 
-                    if ($user instanceof User && $context = $event->data()['context']) {
+                    $eventdata = $event->data();
+                    if ($user instanceof User && $context = $eventdata['context']) {
 
                         if (empty($user->notifications['email']) || $user->notifications['email'] == 'all' || ($user->notifications['email'] == 'comment' && in_array($context, ['comment', 'reply']))) {
 
-                            $vars = $event->data()['vars'];
+                            $eventdata = $event->data();
+                            $vars = $eventdata['vars'];
                             if (empty($vars)) {
-                                $vars = [];
+                                $vars = array();
                             }
-                            $vars['object'] = $event->data()['object'];
+                            $eventdata = $event->data();
+                            $vars['object'] = $eventdata['object'];
 
                             if (filter_var($user->email, FILTER_VALIDATE_EMAIL)) {
                                 $email = new Email();
-                                $email->setSubject($event->data()['message']);
-                                $email->setHTMLBodyFromTemplate($event->data()['message_template'], $vars);
+                                $email->setSubject($eventdata['message']);
+                                $email->setHTMLBodyFromTemplate($eventdata['message_template'], $vars);
                                 $email->addTo($user->email);
                                 $email->send();
                             }
@@ -126,7 +132,7 @@
                     return \Idno\Core\site()->config()->url . 'file/' . $this->icon;
                 }
 
-                return \Idno\Core\site()->template()->__(['user' => $this])->draw('entity/User/icon');
+                return \Idno\Core\site()->template()->__(array('user' => $this))->draw('entity/User/icon');
             }
 
             /**
@@ -441,14 +447,14 @@
                 if ($user instanceof \Idno\Entities\User) {
                     $users = $this->getFollowingUUIDs();
                     if (!in_array($user->getUUID(), $users, true)) {
-                        $users[$user->getUUID()] = ['name' => $user->getTitle(), 'icon' => $user->getIcon(), 'url' => $user->getURL()];
+                        $users[$user->getUUID()] = array('name' => $user->getTitle(), 'icon' => $user->getIcon(), 'url' => $user->getURL());
                         $this->following         = $users;
 
                         // Create/modify ACL for following user
-                        $acl = \Idno\Entities\AccessGroup::getOne([
+                        $acl = \Idno\Entities\AccessGroup::getOne(array(
                             'owner'             => $this->getUUID(),
                             'access_group_type' => 'FOLLOWING'
-                        ]);
+                        ));
 
                         if (empty($acl)) {
                             $acl                    = new \Idno\Entities\AccessGroup();
@@ -509,10 +515,10 @@
                     unset($users[$user->getUUID()]);
                     $this->following = $users;
 
-                    $acl = \Idno\Entities\AccessGroup::getOne([
+                    $acl = \Idno\Entities\AccessGroup::getOne(array(
                         'owner'             => $this->getUUID(),
                         'access_group_type' => 'FOLLOWING'
-                    ]);
+                    ));
 
                     if (!empty($acl)) {
                         $acl->removeMember($user->getUUID());
@@ -670,7 +676,7 @@
              */
             function getDefaultContentTypes()
             {
-                $friendly_types = [];
+                $friendly_types = array();
                 if ($temp_types = $this->settings['default_feed_content']) {
                     if (is_array($temp_types)) {
                         foreach ($temp_types as $temp_type) {
@@ -694,7 +700,7 @@
              * @param \Idno\Common\Entity|null $object Optionally, an object to pass
              * @param array|null $params Optionally, any parameters to pass to the process. NB: this should be used rarely.
              */
-            public function notify($message, $message_template = '', $vars = [], $context = '', $object = null, $params = null)
+            public function notify($message, $message_template = '', $vars = array(), $context = '', $object = null, $params = null)
             {
                 return \Idno\Core\site()->triggerEvent('notify', [
                     'user'             => $this,
@@ -740,7 +746,7 @@
             public function jsonSerialize()
             {
                 $data          = parent::jsonSerialize();
-                $data['image'] = ['url' => $this->getIcon()];
+                $data['image'] = array('url' => $this->getIcon());
 
                 return $data;
             }

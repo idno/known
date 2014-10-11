@@ -18,11 +18,11 @@
                 }
 
                 $t = \Idno\Core\site()->template();
-                echo $t->__([
+                echo $t->__(array(
                     'body' => $t->draw('onboarding/begin'),
                     'title' => 'Welcome to Known',
                     'messages' => \Idno\Core\site()->session()->getAndFlushMessages()
-                ])->draw('shell/simple');
+                ))->draw('shell/simple');
 
             }
 

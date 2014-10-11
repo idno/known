@@ -69,10 +69,10 @@
              * @param array $inreplyto
              * @return array
              */
-            static function addSyndicatedReplyTargets($url, $inreplyto = [])
+            static function addSyndicatedReplyTargets($url, $inreplyto = array())
             {
                 if (!is_array($inreplyto)) {
-                    $inreplyto = [$inreplyto];
+                    $inreplyto = array($inreplyto);
                 }
                 if ($content = \Idno\Core\Webservice::get($url)) {
                     if ($mf2 = self::parseContent($content['content'], $url)) {

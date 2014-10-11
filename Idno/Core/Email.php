@@ -36,7 +36,7 @@
             function setFrom($email, $name = '')
             {
                 if (!empty($name)) {
-                    return $this->message->addFrom([$name => $email]);
+                    return $this->message->addFrom(array($name => $email));
                 }
 
                 return $this->message->addFrom($email);
@@ -51,7 +51,7 @@
             function addTo($email, $name = '')
             {
                 if (!empty($name)) {
-                    return $this->message->addTo([$name => $email]);
+                    return $this->message->addTo(array($name => $email));
                 }
 
                 return $this->message->addTo($email);
@@ -76,7 +76,7 @@
             function setReplyTo($email, $name = '')
             {
                 if (!empty($name)) {
-                    return $this->message->addReplyTo([$name => $email]);
+                    return $this->message->addReplyTo(array($name => $email));
                 }
 
                 return $this->message->addReplyTo($email);
@@ -93,7 +93,7 @@
                 if ($shell) {
                     $t = clone site()->template();
                     $t->setTemplateType('email');
-                    $message = $t->__(['body' => $body])->draw('shell');
+                    $message = $t->__(array('body' => $body))->draw('shell');
                 } else {
                     $message = $body;
                 }
@@ -107,7 +107,7 @@
              * @param array $vars
              * @return mixed
              */
-            function setHTMLBodyFromTemplate($template_name, $vars = [])
+            function setHTMLBodyFromTemplate($template_name, $vars = array())
             {
                 $t = clone site()->template();
                 $t->setTemplateType('email');

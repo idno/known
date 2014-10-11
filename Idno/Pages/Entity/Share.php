@@ -76,8 +76,8 @@
                     }
                 } else {
                     $t    = \Idno\Core\site()->template();
-                    $body = $t->__(['share_type' => $share_type, 'content_type' => $content_type, 'sharing' => true])->draw('entity/share');
-                    $t->__(['title' => 'Share', 'body' => $body, 'hidenav' => $hide_nav])->drawPage();
+                    $body = $t->__(array('share_type' => $share_type, 'content_type' => $content_type, 'sharing' => true))->draw('entity/share');
+                    $t->__(array('title' => 'Share', 'body' => $body, 'hidenav' => $hide_nav))->drawPage();
                 }
             }
 

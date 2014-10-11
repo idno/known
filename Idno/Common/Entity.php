@@ -89,7 +89,7 @@
              * @param array $search List of filter terms (default: none)
              * @return int
              */
-            static function count($search = [])
+            static function count($search = array())
             {
                 return \Idno\Core\site()->db()->countObjects(get_called_class(), $search);
             }
@@ -100,7 +100,7 @@
              * @param array $search
              * @return int
              */
-            static function countFromAll($search = [])
+            static function countFromAll($search = array())
             {
                 return static::countFromX('', $search);
             }
@@ -112,7 +112,7 @@
              * @param array $search
              * @return int
              */
-            static function countFromX($class, $search = [])
+            static function countFromX($class, $search = array())
             {
                 return \Idno\Core\site()->db()->countObjects($class, $search);
             }
@@ -632,7 +632,7 @@
             function getRelatedFeedItems($verb = 'post')
             {
 
-                $results = [];
+                $results = array();
 
                 if ($this instanceof \Idno\Entities\ActivityStreamPost && $this->verb == $verb) {
                     $results[] = $this;
@@ -871,7 +871,7 @@
              */
             function getImageSourcesFromBody()
             {
-                $src = [];
+                $src = array();
                 if ($body = $this->getBody()) {
                     $doc = new \DOMDocument();
                     $doc->loadHTML($body);
@@ -1286,7 +1286,7 @@
 
                 if ($attachments = $this->getAttachments()) {
                     foreach ($attachments as $attachment) {
-                        $object['attachments'][] = ['url' => $attachment['url'], 'mime-type' => $attachment['mime-type'], 'length' => $attachment['length']];
+                        $object['attachments'][] = array('url' => $attachment['url'], 'mime-type' => $attachment['mime-type'], 'length' => $attachment['length']);
                     }
                 }
 
@@ -1365,7 +1365,7 @@
                     // At this point, we don't know who owns the page or what the content is.
                     // First, we'll initialize some variables that we're interested in filling.
 
-                    $mentions = ['owner' => [], 'mentions' => []]; // Content owner and usable webmention items
+                    $mentions = array('owner' => array(), 'mentions' => array()); // Content owner and usable webmention items
                     $return   = true; // Return value;
 
                     // And then let's cycle through them!
@@ -1516,7 +1516,7 @@
                 if (!empty($item['type'])) {
                     if (in_array('h-entry', $item['type'])) {
 
-                        $mention = [];
+                        $mention = array();
                         if (!empty($item['properties'])) {
                             if (!empty($item['properties']['content'])) {
                                 $mention['content'] = '';
@@ -1572,7 +1572,7 @@
                                 $mention['type']    = 'rsvp';
                                 $mention['content'] = implode(' ', $item['properties']['rsvp']);
                             }
-                            foreach (['share', 'repost', 'repost-of'] as $verb) {
+                            foreach (array('share', 'repost', 'repost-of') as $verb) {
                                 if (!empty($item['properties'][$verb]) && is_array($item['properties'][$verb])) {
                                     if (in_array($target, $item['properties'][$verb])) {
                                         $mention['type'] = 'share';
@@ -1635,13 +1635,13 @@
                 } else {
                     $time = (int)$time;
                 }
-                $annotation  = ['permalink' => $annotation_url, 'owner_name' => $owner_name, 'owner_url' => $owner_url, 'owner_image' => $owner_image, 'content' => $content, 'time' => $time];
+                $annotation  = array('permalink' => $annotation_url, 'owner_name' => $owner_name, 'owner_url' => $owner_url, 'owner_image' => $owner_image, 'content' => $content, 'time' => $time);
                 $annotations = $this->annotations;
                 if (empty($annotations)) {
-                    $annotations = [];
+                    $annotations = array();
                 }
                 if (empty($annotations[$subtype])) {
-                    $annotations[$subtype] = [];
+                    $annotations[$subtype] = array();
                 }
 
                 $annotations[$subtype][$local_url] = $annotation;

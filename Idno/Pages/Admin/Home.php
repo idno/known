@@ -19,7 +19,7 @@
                     \Idno\Core\site()->session()->addMessage($messages);
                 }
                 $t        = \Idno\Core\site()->template();
-                $t->body  = $t->__(['vendor_messages' => $messages])->draw('admin/home');
+                $t->body  = $t->__(array('vendor_messages' => $messages))->draw('admin/home');
                 $t->title = 'Administration';
                 $t->drawPage();
 
