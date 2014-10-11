@@ -150,7 +150,6 @@
                                 if (!empty($title)) {
                                     $feed['title'] = $title;
                                 }
-                                site()->session()->addMessage(var_export($feed,true));
                                 return $feed;
                             }
                             if ($rss_url = $this->findXMLFeedURL($html)) {
@@ -159,7 +158,6 @@
                                 if (!empty($title)) {
                                     $feed['title'] = $title;
                                 }
-                                site()->session()->addMessage(var_export($feed,true));
                                 return $feed;
                             }
                         }
@@ -174,7 +172,6 @@
                                 } else if (!empty($xml->title)) {
                                     $feed['title'] = $xml->title;
                                 }
-                                site()->session()->addMessage(var_export($feed,true));
                                 return $feed;
                             }
                         }
