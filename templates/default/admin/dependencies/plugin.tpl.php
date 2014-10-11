@@ -2,8 +2,9 @@
 $plugin = trim($vars['plugin']);
 $version = trim($vars['version']);
 
-$loaded_plugin = \Idno\Core\site()->plugins->get($plugin); 
-$details = \Idno\Core\site()->plugins->getStored()[$plugin]; 
+$loaded_plugin = \Idno\Core\site()->plugins->get($plugin);
+$getstored = \Idno\Core\site()->plugins->getStored();
+$details = $getstored[$plugin];
 
 $v_value = version_compare($details['Plugin description']['version'], strtolower($version));
 
