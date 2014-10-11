@@ -21,7 +21,9 @@
                     if ($url = $wc->sanitizeURL($url)) {
                         if ($feed = \Idno\Core\site()->reader()->getFeedDetails($url)) {
                             $sub = new Subscription();
+                            $sub->url = $url;
                             $sub->setFeedURL($feed['url']);
+                            $sub->type = $feed['type'];
                             if (!empty($feed['title'])) {
                                 $sub->setTitle($feed['title']);
                             }
