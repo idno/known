@@ -51,14 +51,14 @@
             $heart .= ' ' . $likes . ' stars';
         }
         if (\Idno\Core\site()->session()->isLoggedOn()) {
-            echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getURL() . 'annotation/post', $heart, ['type' => 'like', 'object' => $vars['object']->getUUID()], ['method' => 'POST']);
+            echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getURL() . 'annotation/post', $heart, ['type' => 'like', 'object' => $vars['object']->getUUID()], ['method' => 'POST', 'class' => 'stars']);
         } else {
             ?>
-            <a href="<?= $vars['object']->getURL() ?>#comments"><?= $heart ?></a>
+            <a class="stars" href="<?= $vars['object']->getURL() ?>#comments"><?= $heart ?></a>
         <?php
         }
     ?>
-    <a href="<?= $vars['object']->getURL() ?>#comments"><i class="icon-comments"></i> <?php
+    <a class="comments" href="<?= $vars['object']->getURL() ?>#comments"><i class="icon-comments"></i> <?php
 
             //echo $replies;
             if ($replies == 1) {
@@ -68,10 +68,10 @@
             }
 
         ?></a>
-    <a href="<?= $vars['object']->getURL() ?>#comments"><?php if ($shares = $vars['object']->countAnnotations('share')) {
+    <a class="shares" href="<?= $vars['object']->getURL() ?>#comments"><?php if ($shares = $vars['object']->countAnnotations('share')) {
             echo '<i class="icon-refresh"></i> ' . $shares;
         } ?></a>
-    <a href="<?= $vars['object']->getURL() ?>#comments"><?php if ($rsvps = $vars['object']->countAnnotations('rsvp')) {
+    <a class="rsvps" href="<?= $vars['object']->getURL() ?>#comments"><?php if ($rsvps = $vars['object']->countAnnotations('rsvp')) {
             echo '<i class="icon-calendar-empty"></i> ' . $rsvps;
         } ?></a>
 </div>
