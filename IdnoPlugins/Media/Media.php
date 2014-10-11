@@ -65,7 +65,7 @@
                     $ext = pathinfo($_FILES['media']['name'], PATHINFO_EXTENSION);
                     if (!empty($ext)) {
                         if (in_array($ext,
-                            [
+                            array(
                                 'mp4',
                                 'mov',
                                 'webm',
@@ -73,7 +73,7 @@
                                 'mpeg',
                                 'mp3',
                                 'vorbis'
-                            ]
+                            )
                         )
                         ) {
                             $media_file = $_FILES['media'];

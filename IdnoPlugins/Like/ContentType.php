@@ -7,7 +7,7 @@
             public $title = 'Bookmark';
             public $category_title = 'Bookmarked pages';
             public $entity_class = 'IdnoPlugins\\Like\\Like';
-            public $indieWebContentType = ['like'];
+            public $indieWebContentType = array('like');
 
         }
 

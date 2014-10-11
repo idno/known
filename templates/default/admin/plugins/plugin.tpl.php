@@ -69,7 +69,7 @@
                         <?php
                             if (isset($requirements['extension'])) {
                                 if (!is_array($requirements['extension']))
-                                    $requirements['extension'] = [$requirements['extension']];
+                                    $requirements['extension'] = array($requirements['extension']);
                                 ?>
                                 <p><label>Extensions: <?php
                                             foreach ($requirements['extension'] as $extension)
@@ -82,7 +82,7 @@
                         <?php
                             if (isset($requirements['plugin'])) {
                                 if (!is_array($requirements['plugin']))
-                                    $requirements['plugin'] = [$requirements['plugin']];
+                                    $requirements['plugin'] = array($requirements['plugin']);
                                 ?>
                                 <p><label>Plugins: <?php
                                             foreach ($requirements['plugin'] as $plugin) {

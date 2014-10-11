@@ -89,18 +89,18 @@
 
                 if (is_callable('curl_init')) {
                     $ch = \curl_init($url);
-                    curl_setopt_array($ch, [
+                    curl_setopt_array($ch, array(
                         CURLOPT_POST           => true, // Make a POST call
                         CURLOPT_HEADER         => true, // Keep headers in the response
-                        CURLOPT_HTTPHEADER     => [
+                        CURLOPT_HTTPHEADER     => array(
                             'X-KNOWN-USERNAME: ' . $username,
                             'X-KNOWN-SIGNATURE: ' . base64_encode(hash_hmac('sha256', $request, $key, true)),
                             'User-Agent: Known http://withknown.com'
-                        ],
+                        ),
                         CURLOPT_POSTFIELDS     => trim($json),
                         CURLOPT_RETURNTRANSFER => 1,
                         CURLINFO_HEADER_OUT    => true
-                    ]);
+                    ));
                     if (!empty($follow_redirects)) {
                         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
                     }
@@ -108,14 +108,14 @@
                     $sent_request = curl_getinfo($ch, CURLINFO_HEADER_OUT);
                     curl_close($ch);
 
-                    $api_request = [
+                    $api_request = array(
                         'request'      => $request,
                         'key'          => $key,
                         'username'     => $username,
                         'json'         => $json,
                         'sent_request' => $sent_request,
                         'response'     => $response
-                    ];
+                    );
 
                     \Idno\Core\site()->session()->set('api_request', $api_request);
 

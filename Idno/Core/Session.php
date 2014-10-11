@@ -177,7 +177,7 @@
                 if (!empty($_SESSION['messages'])) {
                     return $_SESSION['messages'];
                 } else {
-                    return [];
+                    return array();
                 }
             }
 
@@ -329,7 +329,7 @@
             {
                 $return = $this->refreshSessionUser($user);
 
-                \Idno\Core\site()->triggerEvent('user/auth', ['user' => $user]);
+                \Idno\Core\site()->triggerEvent('user/auth', array('user' => $user));
 
                 return $return;
             }

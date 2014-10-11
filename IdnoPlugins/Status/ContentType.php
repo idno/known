@@ -7,7 +7,7 @@
             public $title = 'Status update';
             public $category_title = 'Status updates';
             public $entity_class = 'IdnoPlugins\\Status\\Status';
-            public $indieWebContentType = ['note','reply'];
+            public $indieWebContentType = array('note','reply');
 
         }
 

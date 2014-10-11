@@ -160,7 +160,7 @@
                 if (!empty($this->syndication)) {
                     return $this->syndication;
                 }
-                return [];
+                return array();
             }
 
             /**

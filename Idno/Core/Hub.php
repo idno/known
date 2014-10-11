@@ -153,11 +153,11 @@
 
                 $web_client = new Webservice();
 
-                $results = $web_client->post($this->server . 'hub/site/register', [
+                $results = $web_client->post($this->server . 'hub/site/register', array(
                     'url'   => site()->config()->getURL(),
                     'title' => site()->config()->getTitle(),
                     'token' => $this->getRegistrationToken()
-                ]);
+                ));
 
                 if ($results['response'] == 200) {
                     site()->config->load();
@@ -189,12 +189,12 @@
                     $contents   = json_encode($user);
                     $time       = time();
                     $details    = $this->loadDetails();
-                    $results    = $web_client->post($this->server . 'hub/user/register', [
+                    $results    = $web_client->post($this->server . 'hub/user/register', array(
                         'content'    => $contents,
                         'time'       => $time,
                         'auth_token' => $details['auth_token'],
                         'signature'  => hash_hmac('sha1', $contents . $time . $details['auth_token'], $details['secret'])
-                    ]);
+                    ));
 
                     if ($results['response'] == 401) {
                         site()->config->hub_settings = false;
@@ -233,12 +233,12 @@
                         $contents   = json_encode($contents);
                         $time       = time();
                         $details    = $user->hub_settings;
-                        $results    = $web_client->post($this->server . $endpoint, [
+                        $results    = $web_client->post($this->server . $endpoint, array(
                             'content'    => $contents,
                             'time'       => $time,
                             'auth_token' => $details['token'],
                             'signature'  => hash_hmac('sha1', $contents . $time . $details['token'], $details['secret'])
-                        ]);
+                        ));
 
                         return $results;
                     }
@@ -284,7 +284,7 @@
                 site()->session()->refreshSessionUser($user);
 
                 if ($this->userIsRegistered($user)) {
-                    $results = $this->makeCall('hub/user/link', ['user' => $user->getUUID(), 'endpoint' => $endpoint, 'callback' => $callback]);
+                    $results = $this->makeCall('hub/user/link', array('user' => $user->getUUID(), 'endpoint' => $endpoint, 'callback' => $callback));
                     if (!empty($results['content'])) {
                         $content = json_decode($results['content'], true);
                     }

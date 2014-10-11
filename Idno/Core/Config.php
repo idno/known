@@ -26,9 +26,9 @@
                                               'Checkin',
                                               'Media'
                 ),
-                'themes'            => [],
-                'antiplugins'       => [],
-                'alwaysplugins'     => [],
+                'themes'            => array(),
+                'antiplugins'       => array(),
+                'alwaysplugins'     => array(),
                 'items_per_page'    => 10, // Default items per page
                 'experimental'      => false, // A common way to enable experimental functions still in development
                 'multitenant'       => false,

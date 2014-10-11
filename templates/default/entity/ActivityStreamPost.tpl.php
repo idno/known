@@ -40,7 +40,7 @@
                                     } else {
 
                                         if (!is_array($subObject->inreplyto)) {
-                                            $inreplyto = [$subObject->inreplyto];
+                                            $inreplyto = array($subObject->inreplyto);
                                         } else {
                                             $inreplyto = $subObject->inreplyto;
                                         }

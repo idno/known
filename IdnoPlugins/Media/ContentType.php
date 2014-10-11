@@ -7,7 +7,7 @@
             public $title = 'Audio';
             public $category_title = 'Streaming media';
             public $entity_class = 'IdnoPlugins\\Media\\Media';
-            public $indieWebContentType = ['media'];
+            public $indieWebContentType = array('media');
 
         }
 

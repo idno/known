@@ -580,7 +580,7 @@
              */
             function setSlug($slug, $max_pieces = 10)
             {
-                $plugin_slug = \Idno\Core\site()->triggerEvent('entity/slug', ['object' => $this]);
+                $plugin_slug = \Idno\Core\site()->triggerEvent('entity/slug', array('object' => $this));
                 if (!empty($plugin_slug) && $plugin_slug !== true) {
                     return $plugin_slug;
                 }
@@ -701,7 +701,7 @@
 
                     return $this->attachments;
                 } else {
-                    return [];
+                    return array();
                 }
             }
 
@@ -836,7 +836,7 @@
                     }
                 }
 
-                return [];
+                return array();
             }
 
             /**
@@ -955,7 +955,7 @@
                     return $this->posse;
                 }
 
-                return [];
+                return array();
             }
 
             /**
@@ -1116,7 +1116,7 @@
 
                 if ($this->getOwnerID() == $user_id) return true;
 
-                return \Idno\Core\site()->triggerEvent('canEdit', ['object' => $this, 'user_id' => $user_id], false);
+                return \Idno\Core\site()->triggerEvent('canEdit', array('object' => $this, 'user_id' => $user_id), false);
 
             }
 
@@ -1141,11 +1141,11 @@
 
                 if ($access instanceof \Idno\Entities\AccessGroup) {
                     if ($access->isMember($user_id)) {
-                        return \Idno\Core\site()->triggerEvent('canRead', ['object' => $this, 'user_id' => $user_id, 'access_group' => $access]);
+                        return \Idno\Core\site()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
                     }
                 }
 
-                return \Idno\Core\site()->triggerEvent('canRead', ['object' => $this, 'user_id' => $user_id], false);
+                return \Idno\Core\site()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id), false);
             }
 
             /**
@@ -1648,7 +1648,7 @@
                 $this->annotations                 = $annotations;
                 $this->save();
 
-                \Idno\Core\site()->triggerEvent('annotation/add/' . $subtype, ['annotation' => $annotation, 'object' => $this]);
+                \Idno\Core\site()->triggerEvent('annotation/add/' . $subtype, array('annotation' => $annotation, 'object' => $this));
 
                 if ($owner = $this->getOwner()) {
 
@@ -1752,7 +1752,7 @@
                     return $this->annotations[$subtype];
                 }
 
-                return [];
+                return array();
             }
 
             /**

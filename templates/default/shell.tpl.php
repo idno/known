@@ -27,34 +27,34 @@
     <?= $this->draw('shell/favicon'); ?>
 
     <?php
-        $opengraph = [
-            'og:type' => 'website',
-            'og:title' => htmlspecialchars($vars['title']),
+        $opengraph = array(
+            'og:type'      => 'website',
+            'og:title'     => htmlspecialchars($vars['title']),
             'og:site_name' => \Idno\Core\site()->config()->title,
-            'og:image' => \Idno\Core\site()->config()->getURL() . 'gfx/logos/logo_k.png'
-	];
+            'og:image'     => \Idno\Core\site()->config()->getURL() . 'gfx/logos/logo_k.png'
+        );
 
         if (\Idno\Core\site()->currentPage() && \Idno\Core\site()->currentPage()->isPermalink()) {
 
             $opengraph['og:url'] = \Idno\Core\site()->currentPage()->currentUrl();
 
             if (!empty($vars['object'])) {
-                $owner = $vars['object']->getOwner();
+                $owner  = $vars['object']->getOwner();
                 $object = $vars['object'];
 
-                $opengraph['og:title'] = $vars['object']->getTitle();
+                $opengraph['og:title']       = $vars['object']->getTitle();
                 $opengraph['og:description'] = $vars['object']->getShortDescription();
-                $opengraph['og:type'] = $vars['object']->getActivityStreamsObjectType();
-                $opengraph['og:image'] = $owner->getIcon(); //Icon, for now set to being the author profile pic
+                $opengraph['og:type']        = $vars['object']->getActivityStreamsObjectType();
+                $opengraph['og:image']       = $owner->getIcon(); //Icon, for now set to being the author profile pic
 
                 if ($url = $vars['object']->getURL()) {
                     $opengraph['og:url'] = $vars['object']->getURL();
                 }
             }
-            
+
         }
-        
-        foreach ($opengraph as $key => $value) 
+
+        foreach ($opengraph as $key => $value)
             echo "<meta property=\"$key\" content=\"$value\" />\n";
 
     ?>
@@ -150,11 +150,11 @@
 
 <body class="<?php
 
-    echo (str_replace('\\','_',strtolower(get_class(\Idno\Core\site()->currentPage()))));
+    echo(str_replace('\\', '_', strtolower(get_class(\Idno\Core\site()->currentPage()))));
     if ($path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
-        if ($path = explode('/',$path)) {
+        if ($path = explode('/', $path)) {
             $page_class = '';
-            foreach($path as $element) {
+            foreach ($path as $element) {
                 if (!empty($element)) {
                     if (!empty($page_class)) {
                         $page_class .= '-';
@@ -280,8 +280,8 @@
       href="<?= \Idno\Core\site()->config()->getURL() ?>external/mediaelement/build/mediaelementplayer.css"/>
 
 <!-- WYSIWYG editor -->
-<link href="<?=\Idno\Core\site()->config()->getURL()?>external/summernote/dist/summernote.css" rel="stylesheet">
-<script src="<?=\Idno\Core\site()->config()->getURL()?>external/summernote/dist/summernote.min.js"></script>
+<link href="<?= \Idno\Core\site()->config()->getURL() ?>external/summernote/dist/summernote.css" rel="stylesheet">
+<script src="<?= \Idno\Core\site()->config()->getURL() ?>external/summernote/dist/summernote.min.js"></script>
 
 <!-- Mention styles -->
 <link rel="stylesheet" type="text/css"

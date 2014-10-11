@@ -23,7 +23,7 @@
     ?>
     <p><?php
 
-            echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->url . 'admin/themes/', '<img src="' . $src . '" style="width: 100%">', ['theme' => $vars['theme']['shortname'], 'action' => 'install'], ['class' => '']);
+            echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->url . 'admin/themes/', '<img src="' . $src . '" style="width: 100%">', array('theme' => $vars['theme']['shortname'], 'action' => 'install'), array('class' => ''));
 
 
         ?></p>

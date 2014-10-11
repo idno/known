@@ -68,8 +68,8 @@
                     $types[] = '!Idno\Entities\ActivityStreamPost';
                 }
 
-                $count = \Idno\Entities\ActivityStreamPost::countFromX($types, []);
-                $feed  = \Idno\Entities\ActivityStreamPost::getFromX($types, $search, [], \Idno\Core\site()->config()->items_per_page, $offset);
+                $count = \Idno\Entities\ActivityStreamPost::countFromX($types, array());
+                $feed  = \Idno\Entities\ActivityStreamPost::getFromX($types, $search, array(), \Idno\Core\site()->config()->items_per_page, $offset);
                 if (\Idno\Core\site()->session()->isLoggedIn()) {
                     $create = \Idno\Common\ContentType::getRegistered();
                 } else {

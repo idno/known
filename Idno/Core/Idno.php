@@ -394,7 +394,7 @@
                     return $this->public_pages;
                 }
 
-                return [];
+                return array();
             }
 
             /**
@@ -595,13 +595,13 @@
                     return '';
                 }
                 $web_client = new Webservice();
-                $results    = $web_client->post('http://withknown.com/vendor-services/messages/', [
+                $results    = $web_client->post('http://withknown.com/vendor-services/messages/', array(
                     'url'     => site()->config()->getURL(),
                     'title'   => site()->config()->getTitle(),
                     'version' => site()->getVersion(),
                     'public'  => site()->config()->isPublicSite(),
                     'hub'     => site()->config()->known_hub
-                ]);
+                ));
                 if ($results['response'] == 200) {
                     return $results['content'];
                 }

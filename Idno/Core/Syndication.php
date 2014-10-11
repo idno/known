@@ -93,7 +93,7 @@
                     return array_unique($return);
                 }
 
-                return [];
+                return array();
             }
 
             //function triggerSyndication

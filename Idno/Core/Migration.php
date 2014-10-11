@@ -54,7 +54,7 @@
 
                 // Let's export everything.
                 $fields = array();
-                $query_parameters = array('entity_subtype' => ['$not' => ['$in' => ['Idno\Entities\ActivityStreamPost']]]);
+                $query_parameters = array('entity_subtype' => array('$not' => array('$in' => array('Idno\Entities\ActivityStreamPost'))));
                 $collection = 'entities';
                 if ($results = site()->db()->getRecords($fields, $query_parameters, 99999, 0, $collection)) {
                     foreach ($results as $id => $row) {

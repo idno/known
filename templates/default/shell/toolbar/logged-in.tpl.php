@@ -16,4 +16,4 @@
 
     <?php } ?>
 <?php } ?>
-<li><?= \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->url . 'session/logout', 'Sign out', null, ['class' => '']); ?></li>
+<li><?= \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->url . 'session/logout', 'Sign out', null, array('class' => '')); ?></li>

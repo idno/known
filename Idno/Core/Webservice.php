@@ -72,7 +72,7 @@
                 }
 
                 // Allow plugins and other services to extend headers, allowing for plugable authentication methods on calls
-                $new_headers = \Idno\Core\site()->triggerEvent('webservice:headers', ['headers' => $headers, 'verb' => $verb]);
+                $new_headers = \Idno\Core\site()->triggerEvent('webservice:headers', array('headers' => $headers, 'verb' => $verb));
                 if (!empty($new_headers) && (is_array($new_headers))) {
                     if (empty($headers)) $headers = array();
                     $headers = array_merge($headers, $new_headers);
@@ -91,7 +91,7 @@
 
                 curl_close($curl_handle);
 
-                return ['content' => $buffer, 'response' => $http_status, 'error' => $error];
+                return array('content' => $buffer, 'response' => $http_status, 'error' => $error);
             }
 
             /**

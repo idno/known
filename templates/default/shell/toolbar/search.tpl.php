@@ -4,7 +4,7 @@
     $action = \Idno\Core\site()->config()->url;
     if (!empty($vars['content'])) {
         if (!is_array($vars['content'])) {
-            $vars['content'] = [$vars['content']];
+            $vars['content'] = array($vars['content']);
         }
         $action .= 'content/' . implode('/', $vars['content']);
     } else {

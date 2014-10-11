@@ -81,11 +81,11 @@
                 
                 \Idno\Core\site()->logging->log("Pubsub: Ping received, pinging out...", LOGLEVEL_DEBUG);
                 
-                \Idno\Core\site()->triggerEvent('pubsubhubbub/ping', [
+                \Idno\Core\site()->triggerEvent('pubsubhubbub/ping', array(
                     'subscriber' => $subscriber,
                     'subscription' => $subscription,
                     'data' => trim(file_get_contents("php://input"))
-                ]);
+                ));
                 
             }
 

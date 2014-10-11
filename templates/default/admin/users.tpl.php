@@ -64,12 +64,12 @@
                                 <strong>Administrator</strong><br>
                             <?php
                                 if ($user->getUUID() != \Idno\Core\site()->session()->currentUserUUID()) {
-                                    echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->url . 'admin/users', 'Remove rights', ['user' => $user->getUUID(), 'action' => 'remove_rights'], ['class' => '']);
+                                    echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->url . 'admin/users', 'Remove rights', array('user' => $user->getUUID(), 'action' => 'remove_rights'), array('class' => ''));
                                 }
                         } else {
                             ?>
                                 Standard member<br>
-                            <?=  \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->url . 'admin/users', 'Make admin', ['user' => $user->getUUID(), 'action' => 'add_rights'], ['class' => '']);?>
+                            <?=  \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->url . 'admin/users', 'Make admin', array('user' => $user->getUUID(), 'action' => 'add_rights'), array('class' => ''));?>
                             <?php
                         }
                     }

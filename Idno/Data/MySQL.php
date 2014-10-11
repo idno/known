@@ -52,12 +52,12 @@
             function handleSession()
             {
                 $sessionHandler = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler(\Idno\Core\site()->db()->getClient(),
-                    [
+                    array(
                         'db_table'    => 'session',
                         'db_id_col'   => 'session_id',
                         'db_data_col' => 'session_value',
                         'db_time_col' => 'session_time',
-                    ]
+                    )
                 );
 
                 session_set_save_handler($sessionHandler, true);
@@ -376,7 +376,7 @@
                     return $return;
                 }
 
-                return [];
+                return array();
 
             }
 
@@ -453,7 +453,7 @@
                     $subwhere = array();
                     foreach ($params as $key => $value) {
                         if (!is_array($value)) {
-                            if (in_array($key, ['uuid', '_id', 'entity_subtype', 'owner'])) {
+                            if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner'))) {
                                 $subwhere[]                                  = "(`{$collection}`.`{$key}` = :nonmdvalue{$non_md_variables})";
                                 $variables[":nonmdvalue{$non_md_variables}"] = $value;
                                 $non_md_variables++;
@@ -472,7 +472,7 @@
                                     $value['$not'] = array_merge($value['$not'], $value['$not']['$in']);
                                     unset($value['$not']['$in']);
                                 }
-                                if (in_array($key, ['uuid', '_id', 'entity_subtype', 'owner'])) {
+                                if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner'))) {
                                     $notstring = "`{$collection}`.`$key` not in(";
                                     $i         = 0;
                                     foreach ($value['$not'] as $val) {
@@ -500,7 +500,7 @@
                                 $subwhere[] = $notstring;
                             }
                             if (!empty($value['$in'])) {
-                                if (in_array($key, ['uuid', '_id', 'entity_subtype', 'owner'])) {
+                                if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner'))) {
                                     $instring = "`{$collection}`.`$key` in (";
                                     $i        = 0;
                                     foreach ($value['$in'] as $val) {
@@ -684,7 +684,7 @@
              */
             function createSearchArray($query)
             {
-                return ['$search' => [$query]];
+                return array('$search' => array($query));
             }
 
             /**

@@ -40,7 +40,7 @@
                 }
                 $css = trim(strip_tags($css));
 
-                $styles                             = ['css' => $css];
+                $styles                             = array('css' => $css);
                 $config = \Idno\Core\site()->config;
                 $config->styles = $styles;
                 \Idno\Core\site()->config = $config;

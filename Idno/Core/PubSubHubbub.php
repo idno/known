@@ -60,12 +60,12 @@ namespace Idno\Core {
                             $following->pubsub_hub = $hubs[0];
                             $following->save();
 
-                            $return = \Idno\Core\Webservice::post($following->pubsub_hub, [
+                            $return = \Idno\Core\Webservice::post($following->pubsub_hub, array(
                                 'hub.callback' => \Idno\Core\site()->config->url . 'pubsub/callback/' . $user->getID() . '/' . $following->getID(), // Callback, unique to each subscriber
                                 'hub.mode' => 'subscribe',
                                 'hub.verify' => 'async', // Backwards compatibility with v0.3 hubs
                                 'hub.topic' => $feed, // Subscribe to rss
-                            ]);
+                            ));
                             
                             \Idno\Core\site()->logging->log("Pubsub: " . print_r($return, true));
                         }
@@ -97,12 +97,12 @@ namespace Idno\Core {
                     $user->pubsub_pending = serialize($pending);
                     $user->save();
 
-                    $return = \Idno\Core\Webservice::post($following->pubsub_hub, [
+                    $return = \Idno\Core\Webservice::post($following->pubsub_hub, array(
                         'hub.callback' => \Idno\Core\site()->config->url . 'pubsub/callback/' . $user->getID() . '/' . $following->getID(), // Callback, unique to each subscriber
                         'hub.mode' => 'unsubscribe',
                         'hub.verify' => 'async', // Backwards compatibility with v0.3 hubs
                         'hub.topic' => $following->pubsub_self
-                    ]);
+                    ));
                     
                     \Idno\Core\site()->logging->log("Pubsub: " . print_r($return, true));
                 }
@@ -214,10 +214,10 @@ namespace Idno\Core {
         static function publish($url) {
             if ($hub = \Idno\Core\site()->config()->hub) {
 
-                return \Idno\Core\Webservice::post($hub, [
+                return \Idno\Core\Webservice::post($hub, array(
                             'hub.mode' => 'publish',
                             'hub.url' => \Idno\Core\site()->config()->feed
-                ]);
+                ));
             }
 
             return false;

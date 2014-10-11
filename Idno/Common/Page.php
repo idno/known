@@ -91,7 +91,7 @@
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
 
-                \Idno\Core\site()->triggerEvent('page/get', ['page_class' => get_called_class(), 'arguments' => $arguments]);
+                \Idno\Core\site()->triggerEvent('page/get', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
                 $this->getContent();
 
@@ -117,7 +117,7 @@
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
 
-                \Idno\Core\site()->triggerEvent('page/post', ['page_class' => get_called_class(), 'arguments' => $arguments]);
+                \Idno\Core\site()->triggerEvent('page/post', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
                 if (\Idno\Core\site()->actions()->validateToken('', false)) {
                     $this->parseJSONPayload();
@@ -146,7 +146,7 @@
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
 
-                \Idno\Core\site()->triggerEvent('page/put', ['page_class' => get_called_class(), 'arguments' => $arguments]);
+                \Idno\Core\site()->triggerEvent('page/put', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
                 if (\Idno\Core\site()->actions()->validateToken('', false)) {
                     \Idno\Core\site()->session()->APIlogin();
@@ -176,7 +176,7 @@
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
 
-                \Idno\Core\site()->triggerEvent('page/delete', ['page_class' => get_called_class(), 'arguments' => $arguments]);
+                \Idno\Core\site()->triggerEvent('page/delete', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
                 if (\Idno\Core\site()->actions()->validateToken('', false)) {
                     \Idno\Core\site()->session()->APIlogin();

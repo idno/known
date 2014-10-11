@@ -30,7 +30,7 @@
                 if (!empty($email) && !empty($message)) {
 
                     $web_client = new Webservice();
-                    $results    = $web_client->post('http://withknown.com/vendor-services/feedback/', [
+                    $results    = $web_client->post('http://withknown.com/vendor-services/feedback/', array(
                         'url'     => \Idno\Core\site()->config()->getURL(),
                         'title'   => \Idno\Core\site()->config()->getTitle(),
                         'version' => \Idno\Core\site()->getVersion(),
@@ -38,7 +38,7 @@
                         'hub'     => \Idno\Core\site()->config()->known_hub,
                         'email'   => $email,
                         'message' => $message
-                    ]);
+                    ));
 
                     \Idno\Core\site()->session()->addMessage("Thanks! We received your feedback.");
 

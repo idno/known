@@ -37,7 +37,7 @@
 
                 // Add some thumbs
                 $object['thumbnails'] = array();
-                $sizes                = \Idno\Core\site()->events()->dispatch('photo/thumbnail/getsizes', new \Idno\Core\Event(array('sizes' => ['large' => 800, 'medium' => 400, 'small' => 200])));
+                $sizes                = \Idno\Core\site()->events()->dispatch('photo/thumbnail/getsizes', new \Idno\Core\Event(array('sizes' => array('large' => 800, 'medium' => 400, 'small' => 200))));
                 $eventdata = $sizes->data();
                 foreach ($eventdata['sizes'] as $label => $size) {
                     $varname                      = "thumbnail_{$label}";
@@ -87,7 +87,7 @@
                                 $this->attachFile($photo);
 
                                 // Now get some smaller thumbnails, with the option to override sizes
-                                $sizes = \Idno\Core\site()->events()->dispatch('photo/thumbnail/getsizes', new \Idno\Core\Event(array('sizes' => ['large' => 800, 'medium' => 400, 'small' => 200])));
+                                $sizes = \Idno\Core\site()->events()->dispatch('photo/thumbnail/getsizes', new \Idno\Core\Event(array('sizes' => array('large' => 800, 'medium' => 400, 'small' => 200))));
                                 $eventdata = $sizes->data();
                                 foreach ($eventdata['sizes'] as $label => $size) {
 

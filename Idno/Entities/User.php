@@ -87,7 +87,7 @@
                     $eventdata = $event->data();
                     if ($user instanceof User && $context = $eventdata['context']) {
 
-                        if (empty($user->notifications['email']) || $user->notifications['email'] == 'all' || ($user->notifications['email'] == 'comment' && in_array($context, ['comment', 'reply']))) {
+                        if (empty($user->notifications['email']) || $user->notifications['email'] == 'all' || ($user->notifications['email'] == 'comment' && in_array($context, array('comment', 'reply')))) {
 
                             $eventdata = $event->data();
                             $vars = $eventdata['vars'];
@@ -376,9 +376,9 @@
                     $default = true;
                 }
 
-                return \Idno\Core\site()->triggerEvent('user/password/checkstrength', [
+                return \Idno\Core\site()->triggerEvent('user/password/checkstrength', array(
                     'password'  => $password
-                ], $default);
+                ), $default);
 
             }
 
@@ -465,7 +465,7 @@
                         $acl->addMember($user->getUUID());
                         $acl->save();
 
-                        \Idno\Core\site()->triggerEvent('follow', ['user' => $this, 'following' => $user]);
+                        \Idno\Core\site()->triggerEvent('follow', array('user' => $this, 'following' => $user));
 
                         return true;
                     }
@@ -483,7 +483,7 @@
                 if (!empty($this->following)) {
                     return array_keys($this->following);
                 } else {
-                    return [];
+                    return array();
                 }
             }
 
@@ -497,7 +497,7 @@
                 if (!empty($this->following)) {
                     return $this->following;
                 } else {
-                    return [];
+                    return array();
                 }
             }
 
@@ -525,7 +525,7 @@
                         $acl->save();
                     }
 
-                    \Idno\Core\site()->triggerEvent('unfollow', ['user' => $this, 'following' => $user]);
+                    \Idno\Core\site()->triggerEvent('unfollow', array('user' => $this, 'following' => $user));
 
                     return true;
                 }
@@ -702,7 +702,7 @@
              */
             public function notify($message, $message_template = '', $vars = array(), $context = '', $object = null, $params = null)
             {
-                return \Idno\Core\site()->triggerEvent('notify', [
+                return \Idno\Core\site()->triggerEvent('notify', array(
                     'user'             => $this,
                     'message'          => $message,
                     'context'          => $context,
@@ -710,7 +710,7 @@
                     'message_template' => $message_template,
                     'object'           => $object,
                     'parameters'       => $params
-                ]);
+                ));
             }
 
             /**

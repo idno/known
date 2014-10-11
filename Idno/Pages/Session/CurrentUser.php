@@ -25,7 +25,7 @@
                 $t->__(array(
 
                     'title'       => $user->getTitle(),
-                    'body'        => $t->__(array('user' => $user, 'items' => [], 'count' => 0, 'offset' => 0))->draw('entity/User/profile'),
+                    'body'        => $t->__(array('user' => $user, 'items' => array(), 'count' => 0, 'offset' => 0))->draw('entity/User/profile'),
                     'description' => 'The ' . \Idno\Core\site()->config()->title . ' profile for ' . $user->getTitle()
 
                 ))->drawPage();

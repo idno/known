@@ -3,13 +3,13 @@
 
     if (!empty($vars['object']->inreplyto)) {
         if (!is_array($vars['object']->inreplyto)) {
-            $vars['object']->inreplyto = [$vars['object']->inreplyto];
+            $vars['object']->inreplyto = array($vars['object']->inreplyto);
         }
     } else {
         $vars['object']->inreplyto = array();
     }
     if (!empty($vars['url'])) {
-        $vars['object']->inreplyto = [$vars['url']];
+        $vars['object']->inreplyto = array($vars['url']);
     }
 
 ?>

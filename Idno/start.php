@@ -49,9 +49,9 @@
         $host = str_replace('www.', '', $host);
         define('KNOWN_MULTITENANT_HOST', $host);
 // idno plugins are located in /IdnoPlugins and must have their own namespace
-        $loader->registerNamespace('IdnoPlugins', [dirname(dirname(__FILE__)), dirname(dirname(__FILE__)) . '/hosts/' . $host]);
+        $loader->registerNamespace('IdnoPlugins', array(dirname(dirname(__FILE__)), dirname(dirname(__FILE__)) . '/hosts/' . $host));
 // idno themes are located in /Themes and must have their own namespace
-        $loader->registerNamespace('Themes', [dirname(dirname(__FILE__)), dirname(dirname(__FILE__)) . '/hosts/' . $host]);
+        $loader->registerNamespace('Themes', array(dirname(dirname(__FILE__)), dirname(dirname(__FILE__)) . '/hosts/' . $host));
     }
 
 // Register our external namespaces (PSR-0 compliant modules that we love, trust and need)
