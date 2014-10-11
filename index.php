@@ -15,7 +15,7 @@
      */
 
 // Check PHP version first of all
-    if (version_compare(phpversion(), '5.4', '<')) {
+    if (version_compare(phpversion(), '5.3', '<')) {
         header('Location: warmup/'); exit;
     }
 
@@ -43,7 +43,7 @@
     \Idno\Core\PageHandler::hook('404', function () {
         http_response_code(404);
         $t = \Idno\Core\site()->template();
-        $t->__(['body' => $t->draw('pages/404'), 'title' => 'Not found!'])->drawPage();
+        $t->__(array('body' => $t->draw('pages/404'), 'title' => 'Not found!'))->drawPage();
         exit;
     });
     \Idno\Core\PageHandler::serve($routes);
