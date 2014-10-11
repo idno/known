@@ -15,7 +15,7 @@
                         <li><a href="#" data-acl="<?= \Idno\Core\site()->session()->currentUserUUID() ?>"
                                class="acl-option"><i class="icon-lock"> </i> Private</a></li>
                         <?php
-                            $acls = \Idno\Entities\AccessGroup::get(['owner' => \Idno\Core\site()->session()->currentUserUUID()]);
+                            $acls = \Idno\Entities\AccessGroup::get(array('owner' => \Idno\Core\site()->session()->currentUserUUID()));
                             if (!empty($acls)) {
                                 foreach ($acls as $acl) {
 

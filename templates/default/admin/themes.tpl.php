@@ -16,7 +16,7 @@
             if (!empty($vars['themes_stored']) && is_array($vars['themes_stored'])) {
                 foreach($vars['themes_stored'] as $shortname => $theme) {
                     $theme['shortname'] = $shortname;
-                    echo $this->__(['theme' => $theme])->draw('admin/themes/theme');
+                    echo $this->__(array('theme' => $theme))->draw('admin/themes/theme');
                 }
             }
 

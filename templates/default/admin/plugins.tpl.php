@@ -15,7 +15,7 @@
             if (!empty($vars['plugins_stored']) && is_array($vars['plugins_stored'])) {
                 foreach($vars['plugins_stored'] as $shortname => $plugin) {
                     $plugin['shortname'] = $shortname;
-                    echo $this->__(['plugin' => $plugin])->draw('admin/plugins/plugin');
+                    echo $this->__(array('plugin' => $plugin))->draw('admin/plugins/plugin');
                 }
             }
 

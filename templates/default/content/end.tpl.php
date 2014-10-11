@@ -99,16 +99,16 @@
                     <?php
 
                         if ($replies = $vars['object']->getAnnotations('reply')) {
-                            echo $this->__(['annotations' => $replies])->draw('entity/annotations/replies');
+                            echo $this->__(array('annotations' => $replies))->draw('entity/annotations/replies');
                         }
                         if ($likes = $vars['object']->getAnnotations('like')) {
-                            echo $this->__(['annotations' => $likes])->draw('entity/annotations/likes');
+                            echo $this->__(array('annotations' => $likes))->draw('entity/annotations/likes');
                         }
                         if ($shares = $vars['object']->getAnnotations('share')) {
-                            echo $this->__(['annotations' => $shares])->draw('entity/annotations/shares');
+                            echo $this->__(array('annotations' => $shares))->draw('entity/annotations/shares');
                         }
                         if ($rsvps = $vars['object']->getAnnotations('rsvp')) {
-                            echo $this->__(['annotations' => $rsvps])->draw('entity/annotations/rsvps');
+                            echo $this->__(array('annotations' => $rsvps))->draw('entity/annotations/rsvps');
                         }
 
                     ?>

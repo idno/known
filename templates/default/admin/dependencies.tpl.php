@@ -21,7 +21,7 @@
             Version 5.4 or greater<br />
             <?php
 
-                echo $this->__(['version' => '5.4.0'])->draw('admin/dependencies/php');
+                echo $this->__(array('version' => '5.4.0'))->draw('admin/dependencies/php');
 
             ?>
         </p>
@@ -32,8 +32,8 @@
             including installation instructions.</small><br />
             <?php
 
-                foreach(['curl','date','dom','fileinfo','gd','intl','json','libxml','mbstring','mongo','oauth','reflection','session','simplexml', 'xmlrpc'] as $extension) {
-		     echo $this->__(['extension' => $extension])->draw('admin/dependencies/extension');
+                foreach(array('curl','date','dom','fileinfo','gd','intl','json','libxml','mbstring','mongo','oauth','reflection','session','simplexml', 'xmlrpc') as $extension) {
+		     echo $this->__(array('extension' => $extension))->draw('admin/dependencies/extension');
                 }
 
             ?>

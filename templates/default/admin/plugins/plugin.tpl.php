@@ -50,7 +50,7 @@
                             if (isset($requirements['idno'])) {
                                 ?>
                                 <p><label>Known
-                                        Version: <?php echo $this->__(['version' => $requirements['idno']])->draw('admin/dependencies/idno'); ?> </label>
+                                        Version: <?php echo $this->__(array('version' => $requirements['idno']))->draw('admin/dependencies/idno'); ?> </label>
                                 </p>
                             <?php
                             }
@@ -60,7 +60,7 @@
                             if (isset($requirements['php'])) {
                                 ?>
                                 <p><label>PHP
-                                        Version: <?php echo $this->__(['version' => $requirements['php']])->draw('admin/dependencies/php'); ?> </label>
+                                        Version: <?php echo $this->__(array('version' => $requirements['php']))->draw('admin/dependencies/php'); ?> </label>
                                 </p>
                             <?php
                             }
@@ -73,7 +73,7 @@
                                 ?>
                                 <p><label>Extensions: <?php
                                             foreach ($requirements['extension'] as $extension)
-                                                echo $this->__(['extension' => $extension])->draw('admin/dependencies/extension');
+                                                echo $this->__(array('extension' => $extension))->draw('admin/dependencies/extension');
                                         ?> </label></p>
                             <?php
                             }
@@ -87,7 +87,7 @@
                                 <p><label>Plugins: <?php
                                             foreach ($requirements['plugin'] as $plugin) {
                                                 list($plugin, $version) = explode(',', $plugin);
-                                                echo $this->__(['plugin' => $plugin, 'version' => $version])->draw('admin/dependencies/plugin');
+                                                echo $this->__(array('plugin' => $plugin, 'version' => $version))->draw('admin/dependencies/plugin');
                                             }
                                         ?> </label></p>
                             <?php
