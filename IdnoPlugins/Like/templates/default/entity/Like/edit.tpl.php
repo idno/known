@@ -35,7 +35,7 @@
                               placeholder="This page is great because... Use hashtags to organize your bookmark."><?= htmlspecialchars($vars['object']->description); ?></textarea>
                 </p>
                 <?=$this->draw('entity/tags/input');?>
-                <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('like'); ?>
+                <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('bookmark'); ?>
                 <p class="button-bar">
                     <?= \Idno\Core\site()->actions()->signForm('/like/edit') ?>
                     <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
