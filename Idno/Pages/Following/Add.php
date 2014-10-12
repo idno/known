@@ -17,20 +17,10 @@
 
                 $this->gatekeeper();
                 if ($url = $this->getInput('url')) {
-                    $wc = new Webservice();
-                    if ($url = $wc->sanitizeURL($url)) {
-                        if ($feed = \Idno\Core\site()->reader()->getFeedDetails($url)) {
-                            $sub = new Subscription();
-                            $sub->url = $url;
-                            $sub->setFeedURL($feed['url']);
-                            $sub->type = $feed['type'];
-                            if (!empty($feed['title'])) {
-                                $sub->setTitle($feed['title']);
-                            }
-                            if (!$sub->save()) {
-                                \Idno\Core\site()->session()->addMessage("We couldn't save your feed.");
-                            }
-                        }
+                    if ($feed = \Idno\Core\site()->reader()->getFeedObject($url)) {
+                        $this->forward(\Idno\Core\site()->config()->getURL() . 'following/confirm/?feed=' . urlencode($url));
+                    } else {
+                        \Idno\Core\site()->session()->addMessage("We couldn't find a feed at that site.");
                     }
                 }
                 $this->forward(\Idno\Core\site()->config()->getURL() . 'following/');
