@@ -8,6 +8,7 @@
         {
 
             public $collection = 'reader';
+            public static $retrieve_collection = 'reader';
 
             /**
              * Sets the URL of the feed this item belongs to
