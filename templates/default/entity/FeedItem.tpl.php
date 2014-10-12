@@ -32,7 +32,7 @@
             <?=$this->autop($item->getBody())?>
         </div>
         <div class="footer">
-            <?= $this->draw('end') ?>
+            <?= $this->draw('content/feed/end') ?>
         </div>
     </div>
 </div>
