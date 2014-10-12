@@ -29,9 +29,15 @@
              */
             static function pingMentions($pageURL, $text)
             {
+
+                if ($current_page = site()->currentPage()) {
+                    if ($nowebmention = $current_page->getInput('nomention')) {
+                        return true;
+                    }
+                }
+
                 // Load webmention-client
                 require_once \Idno\Core\site()->config()->path . '/external/mention-client-php/src/IndieWeb/MentionClient.php';
-                
                 
                 // Proxy connection string provided
                 $proxystring = false;
@@ -91,6 +97,30 @@
                 }
 
                 return $inreplyto;
+            }
+
+            /**
+             * Given content, returns the type of action you can respond with
+             * @param $content
+             * @return string
+             */
+            static function getActionTypeFromHTML($content) {
+                $share_type = 'comment';
+                if ($mf2 = \Idno\Core\Webmention::parseContent($content['content'])) {
+                    if (!empty($mf2['items'])) {
+                        foreach ($mf2['items'] as $item) {
+                            if (!empty($item['type'])) {
+                                if (in_array('h-entry', $item['type'])) {
+                                    $share_type = 'reply';
+                                }
+                                if (in_array('h-event', $item['type'])) {
+                                    $share_type = 'rsvp';
+                                }
+                            }
+                        }
+                    }
+                }
+                return $share_type;
             }
 
             /**
