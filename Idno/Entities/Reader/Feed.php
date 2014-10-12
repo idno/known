@@ -3,10 +3,12 @@
     namespace Idno\Entities\Reader {
 
         use Idno\Common\Entity;
+        use Idno\Core\Webservice;
 
         class Feed extends Entity {
 
             public $collection = 'reader';
+            public static $retrieve_collection = 'reader';
 
             /**
              * Sets the URL of this feed
@@ -14,6 +16,51 @@
              */
             function setURL($url) {
                 $this->url = $url;
+            }
+
+            /**
+             * Sets the URL of the feed this subscription belongs to
+             * @param $url
+             */
+            function setFeedURL($url) {
+                $this->feed_url = $url;
+            }
+
+            /**
+             * Retrieves the URL of the feed this subscription belongs to
+             * @param $url
+             * @return mixed
+             */
+            function getFeedURL() {
+                return $this->feed_url;
+            }
+
+            /**
+             * Set the type of this feed
+             * @param $type
+             */
+            function setType($type) {
+                $this->feed_type = $type;
+            }
+
+            /**
+             * Get the type of this feed
+             * @return mixed
+             */
+            function getType() {
+                return $this->feed_type;
+            }
+
+            /**
+             * Get parsed items from this feed
+             * @return array|bool
+             */
+            function retrieveItems() {
+                $ws = new Webservice();
+                if ($content = $ws->get($this->getFeedURL())) {
+                    return \Idno\Core\site()->reader()->parseFeed($content['content'], $this->getFeedURL());
+                }
+                return false;
             }
 
             /**
