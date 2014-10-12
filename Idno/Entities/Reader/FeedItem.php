@@ -125,8 +125,13 @@
              * @param $author_photo
              * @return mixed
              */
-            function getAuthorPhoto($author_photo) {
-                return $this->authorPhoto;
+            function getAuthorPhoto() {
+                if ($photo = $this->authorPhoto) {
+                    return $photo;
+                }
+                $bn = hexdec(substr(md5($this->getUUID()), 0, 15));
+                $number = 1 + ($bn % 5);
+                return \Idno\Core\site()->config()->url . 'gfx/users/default-'. str_pad($number, 2, '0', STR_PAD_LEFT) .'.png';
             }
 
             /**
