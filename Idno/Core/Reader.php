@@ -194,7 +194,7 @@
             function getFeedObject($url, $update = false) {
 
                 $wc = new Webservice();
-                $feed_url = $wc->sanitizeURL($url);
+                $url = $wc->sanitizeURL($url);
                 if ($feed_details = $this->getFeedDetails($url)) {
                     if ($feed_array = Feed::get(array('feed_url' => $feed_details['url']))) {
                         foreach($feed_array as $feed_item) {
