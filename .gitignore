@@ -27,3 +27,5 @@ IdnoPlugins/SoundCloud/
 IdnoPlugins/Twitter/
 
 error_log
+
+configbackup.ini
