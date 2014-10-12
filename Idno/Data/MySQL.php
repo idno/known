@@ -51,16 +51,18 @@
              */
             function handleSession()
             {
-                $sessionHandler = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler(\Idno\Core\site()->db()->getClient(),
-                    array(
-                        'db_table'    => 'session',
-                        'db_id_col'   => 'session_id',
-                        'db_data_col' => 'session_value',
-                        'db_time_col' => 'session_time',
-                    )
-                );
+                if (version_compare(phpversion(), '5.3', '>')) {
+                    $sessionHandler = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler(\Idno\Core\site()->db()->getClient(),
+                        array(
+                            'db_table'    => 'session',
+                            'db_id_col'   => 'session_id',
+                            'db_data_col' => 'session_value',
+                            'db_time_col' => 'session_time',
+                        )
+                    );
 
-                session_set_save_handler($sessionHandler, true);
+                    session_set_save_handler($sessionHandler, true);
+                }
             }
 
             /**
@@ -415,6 +417,7 @@
                     /* @var \PDO $client */
 
                     $statement = $client->prepare($query);
+
                     if ($result = $statement->execute($variables)) {
                         return $statement->fetchAll(\PDO::FETCH_ASSOC);
                     }
