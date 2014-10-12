@@ -3,6 +3,7 @@
     namespace Idno\Core {
 
         use Idno\Common\Component;
+        use Idno\Entities\Reader\Feed;
         use Idno\Entities\Reader\FeedItem;
         use Idno\Entities\Reader\Subscription;
         use Idno\Entities\User;
@@ -14,6 +15,7 @@
             function registerPages() {
                 site()->addPageHandler('/following/?', '\Idno\Pages\Following\Home');
                 site()->addPageHandler('/following/add/?', '\Idno\Pages\Following\Add');
+                site()->addPageHandler('/following/confirm/?', '\Idno\Pages\Following\Confirm');
                 site()->addPageHandler('/stream/?', '\Idno\Pages\Stream\Home');
             }
 
@@ -181,6 +183,45 @@
 
                 return false;
 
+            }
+
+            /**
+             * Retrieves a feed object for the given URL, or creates one if it's new to the system
+             * @param $url
+             * @param $update Set to true in order to refresh saved feed details. False by default.
+             * @return bool|false|\Idno\Common\Entity|Feed
+             */
+            function getFeedObject($url, $update = false) {
+
+                $wc = new Webservice();
+                $feed_url = $wc->sanitizeURL($url);
+                if ($feed_details = $this->getFeedDetails($url)) {
+                    if ($feed_array = Feed::get(array('feed_url' => $feed_details['url']))) {
+                        foreach($feed_array as $feed_item) {
+                            $feed = $feed_item; break;
+                        }
+                    } else {
+                        $feed = new Feed();
+                    }
+                    if ($feed->getID() && !$update) {
+                        return $feed;
+                    }
+                    $feed->url = $url;
+                    if (!empty($feed_details['title'])) {
+                        $feed->setTitle($feed_details['title']);
+                    }
+                    if (!empty($feed_details['type'])) {
+                        $feed->setType($feed_details['type']);
+                    }
+                    if (!empty ($feed_details['url'])) {
+                        $feed->setFeedURL($feed_details['url']);
+                        if ($feed->save()) {
+                            return $feed;
+                        }
+                    }
+
+                }
+                return false;
             }
 
             /**
