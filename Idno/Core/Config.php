@@ -164,7 +164,10 @@
             function save()
             {
                 $array = $this->config;
-                unset($array['dbname']); // Don't save database access info to the database
+                unset($array['dbname']); // Don't save database a
+                unset($array['dbpass']);
+                unset($array['dbhost']);
+                unset($array['dbstring']);
                 unset($array['path']); // Don't save the file path to the database
                 unset($array['url']); // Don't save the URL to the database
                 unset($array['host']); // Don't save the host to the database
@@ -196,6 +199,9 @@
                     if ($config instanceof \Idno\Common\Entity) {
                         $config = $config->getAttributes();
                         unset($config['dbname']); // Ensure we don't accidentally load protected data from db
+                        unset($config['dbpass']);
+                        unset($config['dbhost']);
+                        unset($config['dbstring']);
                         unset($config['path']);
                         unset($config['url']);
                         unset($config['host']);
