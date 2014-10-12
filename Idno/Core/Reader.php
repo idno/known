@@ -65,7 +65,7 @@
                 $items = array();
                 if (!empty($mf2_content['items'])) {
                     foreach ($mf2_content['items'] as $item) {
-                        if (in_array('h-entry', $item['type'])) {
+                        if (in_array('h-entry', $item['type']) || in_array('h-event', $item['type']) || in_array('h-cite', $item['type'])) {
                             $entry = new FeedItem();
                             $entry->loadFromMF2(array($item));
                             $entry->setFeedURL($url);
