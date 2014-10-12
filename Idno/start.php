@@ -54,6 +54,9 @@
         $loader->registerNamespace('Themes', array(dirname(dirname(__FILE__)), dirname(dirname(__FILE__)) . '/hosts/' . $host));
     }
 
+// Shims
+    include 'shims.php';
+
 // Register our external namespaces (PSR-0 compliant modules that we love, trust and need)
 
 // Bonita is being used for templating
