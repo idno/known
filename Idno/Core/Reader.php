@@ -16,6 +16,7 @@
                 site()->addPageHandler('/following/?', '\Idno\Pages\Following\Home');
                 site()->addPageHandler('/following/add/?', '\Idno\Pages\Following\Add');
                 site()->addPageHandler('/following/confirm/?', '\Idno\Pages\Following\Confirm');
+                site()->addPageHandler('/following/refresh/?', '\Idno\Pages\Following\Refresh',true);
                 site()->addPageHandler('/stream/?', '\Idno\Pages\Stream\Home');
             }
 
@@ -50,6 +51,24 @@
                 }
 
                 return false;
+
+            }
+
+            /**
+             * Parses the feed and saves items if they haven't yet been saved
+             */
+            function parseAndSaveFeeds() {
+
+                if ($feeds = Feed::get()) {
+                    foreach($feeds as $feed) {
+                        /* @var \Idno\Entities\Reader\Feed $feed */
+                        if ($items = $feed->fetchAndParse()) {
+                            foreach($items as $item) { /* @var \Idno\Entities\Reader\FeedItem $item */
+                                $item->saveIfNotSaved();
+                            }
+                        }
+                    }
+                }
 
             }
 
