@@ -52,6 +52,14 @@
             }
 
             /**
+             * Retrieves and parses this feed
+             * @return array|bool
+             */
+            function fetchAndParse() {
+                return \Idno\Core\site()->reader()->fetchAndParseFeed($this->getFeedURL());
+            }
+
+            /**
              * Get parsed items from this feed
              * @return array|bool
              */
