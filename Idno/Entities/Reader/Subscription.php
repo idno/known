@@ -22,8 +22,28 @@
              * @param $url
              * @return mixed
              */
-            function getFeedURL($url) {
+            function getFeedURL() {
                 return $this->feed_url;
+            }
+
+            /**
+             * Returns the feed associated with this subscription
+             * @return bool|false|Entity|Feed
+             */
+            function getFeedObject() {
+                if ($feed_url = $this->getFeedURL()) {
+                    return Feed::getOne(array('feed_url' => $feed_url));
+                }
+                return false;
+            }
+
+            /**
+             * Get a user's subscriptions
+             * @param $user
+             * @return array
+             */
+            static function getByUser($user) {
+                return Subscription::get(array('owner' => $user->getUUID()));
             }
 
         }
