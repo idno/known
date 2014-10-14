@@ -24,7 +24,7 @@
              * @param $url
              * @return mixed
              */
-            function getFeedURL($url)
+            function getFeedURL()
             {
                 return $this->feed_url;
             }
@@ -198,9 +198,10 @@
                 $this->setBody($item->get_content());
                 $this->setURL($item->get_permalink());
 
-                $author = $item->get_author();
-                $this->setAuthorName($author->get_name());
-                $this->setAuthorURL($author->get_link());
+                if ($author = $item->get_author()) {
+                    $this->setAuthorName($author->get_name());
+                    $this->setAuthorURL($author->get_link());
+                }
             }
 
             function mftype($parsed, $type)
@@ -256,6 +257,19 @@
                 }, $mf);
             }
 
+            /**
+             * Saves this item if it hasn't been saved yet
+             * @return $this|bool|false|Entity
+             */
+            function saveIfNotSaved() {
+                if ($object = FeedItem::getOne(array('url' => $this->url))) {
+                    return $object;
+                }
+                if ($this->save()) {
+                    return $this;
+                }
+                return false;
+            }
 
         }
 
