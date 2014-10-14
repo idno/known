@@ -6,8 +6,6 @@
 
     if (!empty($item)) {
 
-        echo \Idno\Core\Webmention::getActionTypeFromHTML($item->getBody());
-
         ?>
 
         <div class="permalink">
