@@ -405,7 +405,7 @@
                     $limit            = (int)$limit;
                     $offset           = (int)$offset;
                     $where            = $this->build_where_from_array($parameters, $variables, $metadata_joins, $non_md_variables, 'and', $collection);
-                    for ($i = 0; $i <= $metadata_joins; $i++) {
+                    for ($i = 1; $i <= $metadata_joins; $i++) {
                         $query .= " left join metadata md{$i} on md{$i}.entity = {$collection}.uuid ";
                     }
                     if (!empty($where)) {
@@ -456,15 +456,15 @@
                     $subwhere = array();
                     foreach ($params as $key => $value) {
                         if (!is_array($value)) {
-                            if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner'))) {
+                            if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner', 'created'))) {
                                 $subwhere[]                                  = "(`{$collection}`.`{$key}` = :nonmdvalue{$non_md_variables})";
                                 $variables[":nonmdvalue{$non_md_variables}"] = $value;
                                 $non_md_variables++;
                             } else {
-                                $subwhere[]                           = "(md{$metadata_joins}.`name` = :name{$metadata_joins} and md{$metadata_joins}.`value` = :value{$metadata_joins})";
+                                $metadata_joins++;
+                                $subwhere[]                           = "(md{$metadata_joins}.`name` = :name{$metadata_joins} and md{$metadata_joins}.`value` = :value{$metadata_joins} and md{$metadata_joins}.`collection` = '{$collection}')";
                                 $variables[":name{$metadata_joins}"]  = $key;
                                 $variables[":value{$metadata_joins}"] = $value;
-                                $metadata_joins++;
                             }
                         } else {
                             if (!empty($value['$or'])) {
@@ -487,7 +487,8 @@
                                     }
                                     $notstring .= ")";
                                 } else {
-                                    $notstring                           = "(md{$metadata_joins}.`name` = :name{$metadata_joins} and md{$metadata_joins}.`value` not in (";
+                                    $metadata_joins++;
+                                    $notstring                           = "(md{$metadata_joins}.`name` = :name{$metadata_joins} and md{$metadata_joins}.`collection` = '{$collection}' and md{$metadata_joins}.`value` not in (";
                                     $variables[":name{$metadata_joins}"] = $key;
                                     $i                                   = 0;
                                     foreach ($value['$not'] as $val) {
@@ -497,7 +498,6 @@
                                         $non_md_variables++;
                                         $i++;
                                     }
-                                    $metadata_joins++;
                                     $notstring .= "))";
                                 }
                                 $subwhere[] = $notstring;
@@ -515,7 +515,8 @@
                                     }
                                     $instring .= ")";
                                 } else {
-                                    $instring                            = "(md{$metadata_joins}.`name` = :name{$metadata_joins} and md{$metadata_joins}.`value` in (";
+                                    $metadata_joins++;
+                                    $instring                            = "(md{$metadata_joins}.`name` = :name{$metadata_joins} and md{$metadata_joins}.`collection` = '{$collection}' and md{$metadata_joins}.`value` in (";
                                     $variables[":name{$metadata_joins}"] = $key;
                                     $i                                   = 0;
                                     foreach ($value['$in'] as $val) {
@@ -525,7 +526,6 @@
                                         $non_md_variables++;
                                         $i++;
                                     }
-                                    $metadata_joins++;
                                     $instring .= "))";
                                 }
                                 $subwhere[] = $instring;
