@@ -1558,9 +1558,9 @@
                                 } else {
                                     $mention['created'] = @strtotime($item['properties']['content']);
                                 }
-                                if (empty($mention['created'])) {
-                                    $mention['created'] = time();
-                                }
+                            }
+                            if (empty($mention['created'])) {
+                                $mention['created'] = time();
                             }
                             if (!empty($item['properties']['url'])) {
                                 $mention['url'] = $item['properties']['url'];
