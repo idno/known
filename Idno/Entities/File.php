@@ -72,7 +72,7 @@
                             'mime_type' => $mime_type
                         );
                         
-                        // Are we uploading an image, and do we want to remove privacy leaking EXIF data?
+                        // Are we uploading an image, and do we want to remove EXIF data?
                         if (self::isImage($file_path) && $destroy_exif)
                         {
                             $photo_information = getimagesize($file_path);
@@ -86,10 +86,10 @@
                                     $image = imagecreatefrompng($file_path);
                                     imagepng($image, $tmpfname);
                                     break;
-                                case 'image/gif':
+                                /*case 'image/gif':
                                     $image = imagecreatefromgif($file_path);
                                     imagegif($image, $tmpfname);
-                                    break;
+                                    break;*/
                             }
                             
                         }
