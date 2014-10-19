@@ -82,14 +82,6 @@
                                     $image = imagecreatefromjpeg($file_path);
                                     imagejpeg($image, $tmpfname);
                                     break;
-                                case 'image/png':
-                                    $image = imagecreatefrompng($file_path);
-                                    imagepng($image, $tmpfname);
-                                    break;
-                                /*case 'image/gif':
-                                    $image = imagecreatefromgif($file_path);
-                                    imagegif($image, $tmpfname);
-                                    break;*/
                             }
                             
                         }
