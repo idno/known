@@ -61,7 +61,7 @@
                         foreach ($urls as $url) {
                             if (!empty($url)) {
                                 ?>
-                                <span><input type="url" name="profile[url][]" value="<?= htmlspecialchars($url) ?>"
+                                <span><input type="text" name="profile[url][]" value="<?= htmlspecialchars($this->fixURL($url)) ?>"
                                              placeholder="http://" class="span3"/> <small><a href="#"
                                                                                              onclick="$(this).parent().parent().remove(); return false;">Remove</a>
                                     </small><br/></span>
@@ -71,12 +71,12 @@
                     }
 
                 ?>
-                <span><input type="url" name="profile[url][]" id="title" value="" placeholder="http://" class="span3"/> <small>
+                <span><input type="text" name="profile[url][]" id="title" value="" placeholder="http://" class="span3"/> <small>
                         <a href="#" onclick="$(this).parent().parent().remove(); return false;">Remove</a></small><br/></span>
             </p>
             <p>
                 <small><a href="#"
-                          onclick="$('#websitelist').append('<span><input type=&quot;url&quot; name=&quot;profile[url][]&quot; id=&quot;title&quot; value=&quot;&quot; placeholder=&quot;http://&quot; class=&quot;span3&quot; /> <small><a href=&quot;#&quot; onclick=&quot;$(this).parent().parent().remove(); return false;&quot;>Remove</a></small><br /></span>'); return false;">+
+                          onclick="$('#websitelist').append('<span><input type=&quot;text&quot; name=&quot;profile[url][]&quot; id=&quot;title&quot; value=&quot;&quot; placeholder=&quot;http://&quot; class=&quot;span3&quot; /> <small><a href=&quot;#&quot; onclick=&quot;$(this).parent().parent().remove(); return false;&quot;>Remove</a></small><br /></span>'); return false;">+
                         Add more</a></small>
             </p>
             <p>
