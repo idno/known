@@ -41,7 +41,7 @@
                 $eventdata = $sizes->data();
                 foreach ($eventdata['sizes'] as $label => $size) {
                     $varname                      = "thumbnail_{$label}";
-                    $object['thumbnails'][$label] = $this->$varname;
+                    $object['thumbnails'][$label] = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\site()->config()->url, $this->$varname);
                 }
 
                 return $object;

@@ -1293,7 +1293,11 @@
 
                 if ($attachments = $this->getAttachments()) {
                     foreach ($attachments as $attachment) {
-                        $object['attachments'][] = array('url' => $attachment['url'], 'mime-type' => $attachment['mime-type'], 'length' => $attachment['length']);
+                        $object['attachments'][] = [
+                            'url' => preg_replace('/^(https?:\/\/\/)/', \Idno\Core\site()->config()->url, $attachment['url']), 
+                            'mime-type' => $attachment['mime-type'], 
+                            'length' => $attachment['length']
+                        ];
                     }
                 }
 
