@@ -113,6 +113,11 @@
                             }
                         }
                     }
+                    
+                    // Perform some sanity checks on some user contributed settings
+                    if (isset($this->ini_config['uploadpath'])) $this->ini_config['uploadpath'] = rtrim($this->ini_config['uploadpath'], ' /') . '/'; // End trailing slash insanity once and for all
+                    unset($this->ini_config['path']); // Path should always be derived
+                    unset($this->ini_config['host']); // Host should always come from URL
                 }
 
                 if (!empty($this->ini_config)) {
