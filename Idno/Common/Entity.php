@@ -440,12 +440,12 @@
                     if (!empty($access)) {
                         $this->access = $access;
                     }
-                    $syndication = $page->getInput('syndication');
+                    /*$syndication = $page->getInput('syndication');
                     if (!empty($syndication) && is_array($syndication)) {
                         foreach($syndication as $label => $url) {
                             $this->setPosseLink($label, $url);
                         }
-                    }
+                    }*/
                 }
 
                 // Adding when this entity was created (if it's new) & updated
