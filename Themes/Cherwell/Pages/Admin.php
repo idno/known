@@ -7,6 +7,7 @@
     namespace Themes\Cherwell\Pages {
 
         use Idno\Entities\File;
+        use Idno\Entities\User;
 
         class Admin extends \Idno\Common\Page
         {
@@ -14,8 +15,9 @@
             function getContent()
             {
                 $this->adminGatekeeper(); // Admins only
+                $users = User::get(array('admin' => true));
                 $t        = \Idno\Core\site()->template();
-                $t->body  = $t->draw('admin/cherwell');
+                $t->body  = $t->__(array('users' => $users))->draw('admin/cherwell');
                 $t->title = 'Theme Settings';
                 $t->drawPage();
 
@@ -24,6 +26,9 @@
             function postContent()
             {
                 $this->adminGatekeeper(); // Admins only
+                if ($profile_user = $this->getInput('profile_user')) {
+                    \Idno\Core\site()->config->config['cherwell']['profile_user'] = $profile_user;
+                }
                 if (!empty($_FILES['background']) && $this->getInput('action') != 'clear') {
                     if (in_array($_FILES['background']['type'], array('image/png', 'image/jpg', 'image/jpeg', 'image/gif'))) {
                         if (getimagesize($_FILES['background']['tmp_name'])) {
@@ -41,7 +46,6 @@
                                 \Idno\Core\site()->config->config['cherwell']['bg_id'] = $background;
                                 $background = \Idno\Core\site()->config()->getURL() . 'file/' . $background;
                                 \Idno\Core\site()->config->config['cherwell']['bg'] = $background;
-                                \Idno\Core\site()->config->save();
                             }
                         }
                     }
@@ -57,8 +61,8 @@
                         }
                     }
                     \Idno\Core\site()->config->cherwell = [];
-                    \Idno\Core\site()->config->save();
                 }
+                \Idno\Core\site()->config->save();
                 $this->forward(\Idno\Core\site()->config()->getURL() . 'admin/cherwell/');
             }
 

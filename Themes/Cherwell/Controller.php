@@ -2,6 +2,8 @@
 
     namespace Themes\Cherwell {
 
+        use Idno\Entities\User;
+
         class Controller extends \Idno\Common\Theme {
 
             /**
@@ -11,7 +13,14 @@
 
                 \Idno\Core\site()->events()->addListener('page/get',function(\Idno\Core\Event $event) {
                     if ($event->data()['page_class'] == 'Idno\Pages\Homepage') {
-                        \Idno\Core\site()->currentPage()->setOwner(\Idno\Entities\User::getOne(['admin' => true]));
+                        if (!empty(\Idno\Core\site()->config()->cherwell['profile_user'])) {
+                            if ($profile_user = User::getByHandle(\Idno\Core\site()->config()->cherwell['profile_user'])) {
+                                \Idno\Core\site()->currentPage()->setOwner($profile_user);
+                            }
+                        }
+                        if (empty($profile_user)) {
+                            \Idno\Core\site()->currentPage()->setOwner(\Idno\Entities\User::getOne(['admin' => true]));
+                        }
                     }
                 });
 
