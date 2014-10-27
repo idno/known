@@ -26,7 +26,7 @@
                 \Idno\Core\site()->events()->dispatch('url/shorten', $event);
                 $short_url = $event->response();
 
-                if (!in_array($type, array('note','reply','rsvp','like'))) {
+                if (!in_array($type, array('note','reply','rsvp','like','bookmark'))) {
                     $share_type = 'note';
 
                     if ($content = \Idno\Core\Webservice::get($url)) {
