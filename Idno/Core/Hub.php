@@ -28,8 +28,8 @@
             function registerPages()
             {
                 // These pages will be called by the hub after registration
-                site()->addPageHandler('hub/register/site/callback', 'Idno\Pages\Hub\Register\Site', true);
-                site()->addPageHandler('hub/register/user/callback', 'Idno\Pages\Hub\Register\User', true);
+                site()->addPageHandler('hub/register/site/callback/?', 'Idno\Pages\Hub\Register\Site', true);
+                site()->addPageHandler('hub/register/user/callback/?', 'Idno\Pages\Hub\Register\User', true);
             }
 
             function registerEventHooks()
