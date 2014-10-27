@@ -36,8 +36,6 @@
                     }
                 }
 
-                session_write_close();  // Close the session early
-
                 $headers = getallheaders();
                 if (isset($headers['If-Modified-Since'])) {
                     if (strtotime($headers['If-Modified-Since']) < time() - 600) {
@@ -45,6 +43,8 @@
                         exit;
                     }
                 }
+
+                session_write_close();  // Close the session early
 
                 //header("Pragma: public");
                 header("Pragma: public");
