@@ -105,8 +105,6 @@
                 if (
                     !empty($this->config->known_hub) &&
                     !substr_count($_SERVER['REQUEST_URI'], '.') &&
-                    !substr_count($_SERVER['REQUEST_URI'], 'callback') &&
-                    site()->session()->hub_connect < (time() - 10) &&
                     $this->config->known_hub != $this->config->url
                 ) {
                     site()->session()->hub_connect = time();

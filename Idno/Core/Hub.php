@@ -28,8 +28,8 @@
             function registerPages()
             {
                 // These pages will be called by the hub after registration
-                site()->addPageHandler('hub/register/site/callback/?', 'Idno\Pages\Hub\Register\Site', true);
-                site()->addPageHandler('hub/register/user/callback/?', 'Idno\Pages\Hub\Register\User', true);
+                site()->addPageHandler('/hub/register/site/callback/?', 'Idno\Pages\Hub\Register\Site', true);
+                site()->addPageHandler('/hub/register/user/callback/?', 'Idno\Pages\Hub\Register\User', true);
             }
 
             function registerEventHooks()
@@ -94,7 +94,7 @@
                 // If we have details, and we're logged in, connect
                 if (site()->session()->isLoggedOn()) {
                     \Idno\Core\site()->logging->log("User is logged on, checking hub status");
-                        if (!empty($details)) {
+                    if (!empty($details)) {
                         try {
                             if (!$this->userIsRegistered()) {
                                 \Idno\Core\site()->logging->log("User isn't registered; registering ...");
