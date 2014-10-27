@@ -1,3 +1,10 @@
+<?php
+
+    if (empty($vars['user']) && !empty($vars['object'])) {
+        $vars['user'] = $vars['object'];
+    }
+
+?>
 <div class="row profile h-card">
     <div class="span8 offset2">
         <div class="row visible-phone">
