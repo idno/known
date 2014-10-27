@@ -13,3 +13,4 @@ This is the canonical documentation for the project.
    install/index
    developers/index
    community/index
+   changelog

@@ -4,7 +4,7 @@ Known is a publishing platform for everyone.
 
 Learn more and sign up to get updates: <http://withknown.com>
 
-Known is under active development and an installable package is not yet available. It requires PHP 5.3+ with selected
+Known is under active development and an installable package is not yet available. It requires PHP 5.4+ with selected
 extensions. More info: <http://docs.withknown.com/>
 
 Installation
