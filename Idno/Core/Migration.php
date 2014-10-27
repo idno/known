@@ -2,6 +2,7 @@
 
     namespace Idno\Core {
 
+        use Idno\Common\Entity;
         use Idno\Entities\File;
 
         class Migration extends \Idno\Common\Component {
@@ -59,7 +60,7 @@
                 if ($results = site()->db()->getRecords($fields, $query_parameters, 99999, 0, $collection)) {
                     foreach ($results as $id => $row) {
                         $object = site()->db()->rowToEntity($row);
-                        if (!empty($object->_id)) {
+                        if (!empty($object->_id) && $object instanceof Entity) {
                             $object_name = $object->_id;
                             if ($attachments = $object->attachments) {
                                 foreach($attachments as $key => $attachment) {
