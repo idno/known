@@ -179,6 +179,7 @@
                 unset($array['feed']); // Don't save the feed URL to the database
                 unset($array['uploadpath']); // Don't save the upload path to the database
                 unset($array['session_path']); // Don't save the session path in the database
+                unset($array['known_hub']);
 
                 // If we don't have a site secret, create it
                 if (!isset($array['site_secret']))
