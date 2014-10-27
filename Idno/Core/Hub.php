@@ -149,25 +149,25 @@
                     $last_ping = site()->config->last_hub_ping;
                 }
 
-                //if ($last_ping < (time() - 10)) { // Throttling registration pings to hub
+                if ($last_ping < (time() - 10)) { // Throttling registration pings to hub
 
-                $web_client = new Webservice();
+                    $web_client = new Webservice();
 
-                $results = $web_client->post($this->server . 'hub/site/register', array(
-                    'url'   => site()->config()->getURL(),
-                    'title' => site()->config()->getTitle(),
-                    'token' => $this->getRegistrationToken()
-                ));
+                    $results = $web_client->post($this->server . 'hub/site/register', array(
+                        'url'   => site()->config()->getURL(),
+                        'title' => site()->config()->getTitle(),
+                        'token' => $this->getRegistrationToken()
+                    ));
 
-                if ($results['response'] == 200) {
-                    site()->config->load();
-                    site()->config->last_hub_ping = time();
-                    site()->config->save();
+                    if ($results['response'] == 200) {
+                        site()->config->load();
+                        site()->config->last_hub_ping = time();
+                        site()->config->save();
 
-                    return true;
+                        return true;
+                    }
+
                 }
-
-                //}
 
                 return false;
             }
