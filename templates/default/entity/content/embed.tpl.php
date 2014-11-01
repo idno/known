@@ -4,7 +4,7 @@
     // http://aaronparecki.com/articles/2013/05/09/1/experimenting-with-auto-embedding-content
     $embedded = '';
     
-    $body = Idno\Core\site()->triggerEvent('url/expandintext', [], $vars['object']->body); 
+    $body = Idno\Core\site()->triggerEvent('url/expandintext', ['object' => $vars['object']], $vars['object']->body); 
     
     if (preg_match_all('/https?:\/\/([^\s]+\.[^\s\.]+\.(png|jpg|jpeg|gif))/i', $body, $matches)) {
         foreach ($matches[0] as $m) {
