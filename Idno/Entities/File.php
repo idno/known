@@ -44,6 +44,11 @@
                 // TODO deleting files would be good ...
             }
 
+            function remove()
+            {
+                return $this->delete();
+            }
+
             /**
              * Passes through the contents of this file.
              */

@@ -50,6 +50,15 @@
              */
             abstract function delete();
 
+            /**
+             * Alias for delete
+             * @return mixed
+             */
+            function remove()
+            {
+                return $this->delete();
+            }
+
         }
 
     }

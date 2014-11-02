@@ -42,7 +42,7 @@
                 // Remove the previous export file
                 if (!empty(\Idno\Core\site()->config()->export_file_id)) {
                     if ($file = File::getByID(\Idno\Core\site()->config()->export_file_id)) {
-                        $file->delete();
+                        $file->remove();
                         \Idno\Core\site()->config->export_file_id = false;
                         \Idno\Core\site()->config->export_filename = false;
                         \Idno\Core\site()->config->save();
