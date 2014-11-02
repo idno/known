@@ -21,6 +21,11 @@
             } else {
                 $src = $mainsrc;
             }
+            
+            // Patch to correct certain broken URLs caused by https://github.com/idno/idno/issues/526
+            $src = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\site()->config()->url, $src);
+            $mainsrc = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\site()->config()->url, $mainsrc);
+            
             ?>
             <p style="text-align: center">
                 <a href="<?= $mainsrc ?>"><img src="<?= $src ?>" class="u-photo"/></a>
