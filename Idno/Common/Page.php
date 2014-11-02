@@ -71,6 +71,30 @@
 
                 \Idno\Core\site()->embedded();
             }
+            
+            function head() 
+            {
+                \Idno\Core\site()->session()->publicGatekeeper();
+
+                if ($this->isAcceptedContentType('application/json')) {
+                    \Idno\Core\site()->template()->setTemplateType('json');
+                }
+                
+                \Idno\Core\site()->session()->APIlogin();
+                $this->parseJSONPayload();
+
+                $arguments = func_get_args();
+                if (!empty($arguments)) $this->arguments = $arguments;
+
+                \Idno\Core\site()->triggerEvent('page/head', array('page_class' => get_called_class(), 'arguments' => $arguments));
+
+                // Triggering GET content to call all the appropriate headers (web server should truncate the head request from body). 
+                // This is the only way we can generate accurate expires and content length etc, but could be done more efficiently
+                $this->getContent(); 
+                
+                if (http_response_code() != 200)
+                    http_response_code($this->response);
+            }
 
             /**
              * Internal function used to handle GET requests.
