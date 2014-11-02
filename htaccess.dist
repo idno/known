@@ -1,11 +1,8 @@
+# Known .htaccess file
+# If these settings don't work for you, we recommend copying htaccess-2.4.dist instead.
+
 <IfModule mod_rewrite.c>
     RewriteEngine on
-#    RewriteRule ^(\.well\-known.*)$ /index.php/$1 [L]
-#    RewriteRule ^\..* - [F]
-#    RewriteCond %{REQUEST_FILENAME} !-f
-#    RewriteCond %{REQUEST_FILENAME} !-d
-#    RewriteCond $1 !^(index\.php)
-#    RewriteRule ^(.*)$ /index.php/$1 [L]
     RewriteBase /
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
