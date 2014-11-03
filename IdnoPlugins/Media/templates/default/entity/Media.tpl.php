@@ -6,7 +6,7 @@
         $rel = '';
     }
 ?>
-    <h2 class="p-name"><a href="<?= $vars['object']->getURL(); ?>"><?= $vars['object']->getTitle(); ?></a></h2>
+    <h2 class="p-name"><a href="<?= $vars['object']->getURL(); ?>"><?= htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?></a></h2>
 <?php
     if ($attachments = $vars['object']->getAttachments()) {
         foreach ($attachments as $attachment) {
