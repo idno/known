@@ -16,7 +16,7 @@
                     <p>
                         <a href="<?= $owner->getURL() ?>" class="u-url icon-container"><img class="u-photo"
                                                                                             src="<?= $owner->getIcon() ?>"/></a><br/>
-                        <a href="<?= $owner->getURL() ?>" class="p-name u-url fn"><?= $owner->getTitle(); ?></a>
+                        <a href="<?= $owner->getURL() ?>" class="p-name u-url fn"><?= htmlentities($owner->getTitle(), ENT_QUOTES, 'UTF-8'); ?></a>
                     </p>
                 </div>
                 <div
@@ -25,7 +25,7 @@
                         <p class="p-author author h-card vcard">
                             <a href="<?= $owner->getURL() ?>" class="icon-container"><img
                                     class="u-logo logo u-photo photo" src="<?= $owner->getIcon() ?>"/></a>
-                            <a class="p-name fn u-url url" href="<?= $owner->getURL() ?>"><?= $owner->getTitle() ?></a>
+                            <a class="p-name fn u-url url" href="<?= $owner->getURL() ?>"><?= htmlentities($owner->getTitle(), ENT_QUOTES, 'UTF-8') ?></a>
                             <a class="u-url" href="<?= $owner->getURL() ?>">
                                 <!-- This is here to force the hand of your MF2 parser --></a>
                         </p>
