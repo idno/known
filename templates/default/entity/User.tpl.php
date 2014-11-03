@@ -30,7 +30,7 @@
                     <div class="span5">
                         <h1 class="p-profile">
                             <a href="<?= $vars['user']->getURL() ?>"
-                               class="u-url p-name fn"><?= htmlentities($vars['user']->getTitle(), ENT_QUOTES, 'UTF-8') ?></a>
+                               class="u-url p-name fn"><?= htmlentities(strip_tags($vars['user']->getTitle()), ENT_QUOTES, 'UTF-8') ?></a>
                         </h1>
                     </div>
                     <div class="span1">
