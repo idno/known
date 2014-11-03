@@ -157,6 +157,13 @@
                 if (empty($array['entity_subtype'])) {
                     $array['entity_subtype'] = 'Idno\\Common\\Entity';
                 }
+                if (empty($array['created'])) {
+                    $array['created'] = date("Y-m-d H:i:s", time());
+                } else {
+                    $array['created'] = date("Y-m-d H:i:s", $array['created']);
+                }
+
+                error_log(var_export($array,true));
 
                 $search = str_replace("\n", " \n ", $search);
                 $search = str_replace("\r", "", $search);
@@ -167,12 +174,13 @@
                 /* @var \PDO $client */
 
                 try {
+
                     $statement = $client->prepare("insert into {$collection}
-                                                    (`uuid`, `_id`, `entity_subtype`,`owner`, `contents`, `search`)
+                                                    (`uuid`, `_id`, `entity_subtype`,`owner`, `contents`, `search`, `created`)
                                                     values
-                                                    (:uuid, :id, :subtype, :owner, :contents, :search)
-                                                    on duplicate key update `uuid` = :uuid, `entity_subtype` = :subtype, `owner` = :owner, `contents` = :contents, `search` = :search");
-                    if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search))) {
+                                                    (:uuid, :id, :subtype, :owner, :contents, :search, :created)
+                                                    on duplicate key update `uuid` = :uuid, `entity_subtype` = :subtype, `owner` = :owner, `contents` = :contents, `search` = :search, `created` = :created");
+                    if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search, ':created' => $array['created']))) {
                         if ($statement = $client->prepare("delete from metadata where _id = :id")) {
                             $statement->execute(array(':id' => $array['_id']));
                         }
@@ -458,6 +466,11 @@
                         if (!is_array($value)) {
                             if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner', 'created'))) {
                                 $subwhere[]                                  = "(`{$collection}`.`{$key}` = :nonmdvalue{$non_md_variables})";
+                                if ($key == 'created') {
+                                    if (!is_int($value)) {
+                                        $value = strtotime($value);
+                                    }
+                                }
                                 $variables[":nonmdvalue{$non_md_variables}"] = $value;
                                 $non_md_variables++;
                             } else {
