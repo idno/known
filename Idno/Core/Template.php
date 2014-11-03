@@ -183,8 +183,8 @@
             {
                 require_once dirname(dirname(dirname(__FILE__))) . '/external/MrClay_AutoP/AutoP.php';
                 $autop = new \MrClay_AutoP();
-
-                return $autop->process($html);
+                
+                return site()->triggerEvent('text/filter', [], $autop->process($html));
             }
 
             /**
