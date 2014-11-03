@@ -52,9 +52,9 @@
                 <div class="row">
                     <div class="span6">
                         <div class="e-note"><?php
-                                $description = strip_tags($vars['user']->getDescription());
+                                $description = $vars['user']->getDescription();
                                 if (!empty($description)) {
-                                    echo '<div class="highlightedText">' . $this->autop(strip_tags($vars['user']->getDescription())) . '</div>';
+                                    echo '<div class="highlightedText">' . $this->autop($vars['user']->getDescription()) . '</div>';
                                 } else if ($vars['user']->getUUID() == \Idno\Core\site()->session()->currentUserUUID()) {
                                     ?>
                                     <p class="highlightedText">
