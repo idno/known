@@ -30,7 +30,7 @@
         $opengraph = array(
             'og:type'      => 'website',
             'og:title'     => htmlspecialchars($vars['title']),
-            'og:site_name' => \Idno\Core\site()->config()->title,
+            'og:site_name' => htmlspecialchars(\Idno\Core\site()->config()->title),
             'og:image'     => \Idno\Core\site()->config()->getURL() . 'gfx/logos/logo_k.png'
         );
 
