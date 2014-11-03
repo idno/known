@@ -184,7 +184,16 @@
                 require_once dirname(dirname(dirname(__FILE__))) . '/external/MrClay_AutoP/AutoP.php';
                 $autop = new \MrClay_AutoP();
                 
-                return site()->triggerEvent('text/filter', [], $autop->process($html));
+                return $this->sanitise_html($autop->process($html));
+            }
+            
+            /**
+             * Sanitise HTML in a large block of text, removing XSS and other vulnerabilities.
+             * This works by calling the text/filter event, note that currently there is no native implementation.
+             * @param type $html
+             */
+            function sanitise_html($html) {
+                return site()->triggerEvent('text/filter', [], $html);
             }
 
             /**
