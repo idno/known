@@ -24,7 +24,7 @@
                 <label class="control-label" for="inputUsername">Your email address<br />
                     <small>The address associated with your <?=\Idno\Core\site()->config()->title?> account.</small></label>
                 <div class="controls">
-                    <input type="email" id="inputName" placeholder="Email" class="span4" name="email" value="" required>
+                    <input type="email" id="inputName" placeholder="Email" class="" name="email" value="" required>
                 </div>
             </div>
             <div class="control-group">
