@@ -1,13 +1,13 @@
 <div >
     <h2 class="p-name">
-        <a href="<?=$vars['object']->getURL()?>" class="u-url"><?=$vars['object']->getTitle()?></a>
+        <a href="<?=$vars['object']->getURL()?>" class="u-url"><?= htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?></a>
     </h2>
     <div class="well">
         <p class="p-summary">
-            <?=$vars['object']->summary?>
+            <?= htmlentities(strip_tags($vars['object']->summary), ENT_QUOTES, 'UTF-8');?>
         </p>
         <p>
-            Location: <span class="p-location"><?=$vars['object']->location?></span>
+            Location: <span class="p-location"><?= htmlentities(strip_tags($vars['object']->location), ENT_QUOTES, 'UTF-8'); ?></span>
         </p>
         <?php if (!empty($vars['object']->starttime)) { ?>
             <p>

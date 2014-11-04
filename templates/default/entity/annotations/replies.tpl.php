@@ -13,7 +13,7 @@
             </div>
             <div class="idno-annotation-content span6">
                 <?=$this->autop($this->parseURLs($annotation['content']));?>
-                <p><small><a href="<?=$annotation['owner_url']?>"><?=$annotation['owner_name']?></a>,
+                <p><small><a href="<?=htmlspecialchars($annotation['owner_url'])?>"><?=$annotation['owner_name']?></a>,
                     <a href="<?=$permalink?>"><?=date('M d Y', $annotation['time']);?></a>
                     on <a href="<?=$permalink?>"><?=parse_url($permalink, PHP_URL_HOST)?></a></small></p></small></p>
             </div>

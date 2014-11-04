@@ -29,8 +29,8 @@
     <?php
         $opengraph = array(
             'og:type'      => 'website',
-            'og:title'     => htmlspecialchars($vars['title']),
-            'og:site_name' => \Idno\Core\site()->config()->title,
+            'og:title'     => htmlspecialchars(strip_tags($vars['title'])),
+            'og:site_name' => htmlspecialchars(strip_tags(\Idno\Core\site()->config()->title)),
             'og:image'     => \Idno\Core\site()->config()->getURL() . 'gfx/logos/logo_k.png'
         );
 
@@ -42,9 +42,9 @@
                 $owner  = $vars['object']->getOwner();
                 $object = $vars['object'];
 
-                $opengraph['og:title']       = $vars['object']->getTitle();
-                $opengraph['og:description'] = $vars['object']->getShortDescription();
-                $opengraph['og:type']        = $vars['object']->getActivityStreamsObjectType();
+                $opengraph['og:title']       = htmlspecialchars(strip_tags($vars['object']->getTitle()));
+                $opengraph['og:description'] = htmlspecialchars($vars['object']->getShortDescription());
+                $opengraph['og:type']        = htmlspecialchars($vars['object']->getActivityStreamsObjectType());
                 $opengraph['og:image']       = $owner->getIcon(); //Icon, for now set to being the author profile pic
 
                 if ($url = $vars['object']->getURL()) {
