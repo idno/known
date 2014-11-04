@@ -96,7 +96,7 @@
                         return true;
                     }
                 } else {
-                    \Idno\Core\site()->session()->addMessage('You can\'t like nothingness. I mean, maybe you can, but it\'s frowned upon.');
+                    \Idno\Core\site()->session()->addMessage('You can\'t bookmark an empty URL.');
                 }
                 } else {
                     \Idno\Core\site()->session()->addMessage('That doesn\'t look like a valid URL.');

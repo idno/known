@@ -52,8 +52,9 @@
                 $content_type = \Idno\Common\ContentType::getRegisteredForIndieWebPostType($share_type);
                 
                 $hide_nav = false;
-                if ($this->getInput('via') == 'ff_social')
+                if ($this->getInput('via') == 'ff_social') {
                     $hide_nav = true;
+                }
 
                 if (!empty($content_type)) {
                     if ($page = \Idno\Core\site()->getPageHandler('/' . $content_type->camelCase($content_type->getEntityClassName()) . '/edit')) {
