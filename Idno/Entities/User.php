@@ -9,6 +9,7 @@
 
     namespace Idno\Entities {
 
+        use Idno\Common\Entity;
         use Idno\Core\Email;
 
         // We need the PHP 5.5 password API
@@ -741,6 +742,22 @@
 
                 return $this->save();
 
+            }
+
+            /**
+             * Remove this user and all its objects
+             * @return bool
+             */
+            function delete() {
+
+                // First, remove all owned objects
+                while ($objects = Entity::get(array('owner' => $this->getUUID(), array(), 100))) {
+                    foreach($objects as $object) {
+                        $object->delete();
+                    }
+                }
+
+                return parent::delete();
             }
 
             public function jsonSerialize()
