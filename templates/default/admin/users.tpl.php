@@ -79,6 +79,19 @@
                 </small>
             </p>
         </div>
+        <div class="span1">
+            <p><small>
+                <?php
+
+                    if ($user->getUUID() != \Idno\Core\site()->session()->currentUserUUID()) {
+                        echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->url . 'admin/users', 'Delete', array('user' => $user->getUUID(), 'action' => 'delete'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? This will delete this user and all their content.'));
+                    } else {
+                        echo '&nbsp';
+                    }
+
+                ?>
+                </small></p>
+        </div>
     </div>
 
 <?php

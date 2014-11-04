@@ -53,6 +53,14 @@
                             \Idno\Core\site()->session()->addMessage($user->getTitle() . " was stripped of their administration rights.");
                         }
                         break;
+                    case 'delete':
+                        $uuid = $this->getInput('user');
+                        if ($user = User::getByUUID($uuid)) {
+                            if ($user->delete()) {
+                                \Idno\Core\site()->session()->addMessage($user->getTitle() . " was removed from your site.");
+                            }
+                        }
+                        break;
                     case 'invite_users':
                         $emails = $this->getInput('invitation_emails');
 
