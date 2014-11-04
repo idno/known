@@ -385,8 +385,12 @@
 
             function getTitle()
             {
-                if (!empty($this->title))
+                if (!empty($this->title)) {
+                    if (is_array($this->title)) {
+                        $this->title = trim(implode(' ', $this->title));
+                    }
                     return $this->title;
+                }
 
                 return get_class($this) . ' ' . $this->_id;
             }
