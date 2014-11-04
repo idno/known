@@ -65,6 +65,8 @@
                             <?php
                                 if ($user->getUUID() != \Idno\Core\site()->session()->currentUserUUID()) {
                                     echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->url . 'admin/users', 'Remove rights', array('user' => $user->getUUID(), 'action' => 'remove_rights'), array('class' => ''));
+                                } else {
+                                    echo 'Yes';
                                 }
                         } else {
                             ?>
