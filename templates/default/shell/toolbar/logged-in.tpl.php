@@ -11,9 +11,8 @@
     <?php if (\Idno\Core\site()->session()->currentUser()->isAdmin()) { ?>
 
         <li><a href="<?= \Idno\Core\site()->config()->url ?>admin/">Site configuration</a></li>
-        
-        <li><a href="<?=\Idno\Core\site()->config()->url?>account/settings/feedback/" ><icon class="icon-heart"></icon></a></li>
 
     <?php } ?>
 <?php } ?>
+<li><a href="<?=\Idno\Core\site()->config()->url?>account/settings/feedback/" ><icon class="icon-heart"></icon></a></li>
 <li><?= \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->url . 'session/logout', 'Sign out', null, array('class' => '')); ?></li>
