@@ -594,7 +594,7 @@
                     return '';
                 }
                 $web_client = new Webservice();
-                $results    = $web_client->post('http://withknown.com/vendor-services/messages/', array(
+                $results    = $web_client->post('https://withknown.com/vendor-services/messages/', array(
                     'url'     => site()->config()->getURL(),
                     'title'   => site()->config()->getTitle(),
                     'version' => site()->getVersion(),
