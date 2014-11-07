@@ -115,7 +115,7 @@
         });
 
         $(document).ready(function () {
-            $('#body').summernote({
+            $('.wysiwyg').summernote({
                 height: "15em",
                 airMode: false,
                 toolbar: [
