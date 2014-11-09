@@ -290,7 +290,7 @@
                         if (is_array($in_reply_to))
                             $in_reply_to = $in_reply_to[0];
 
-                        $r = preg_replace_callback('/(?<!=)(?<!["\'])(\@[A-Za-z0-9\_]+)/i', function ($matches) use ($in_reply_to) {
+                        $r = preg_replace_callback('/(?<=^|[\>\s\n])(\@[A-Za-z0-9\_]+)/i', function ($matches) use ($in_reply_to) {
                             $url = $matches[1];
 
                             // Find and replace twitter
@@ -305,7 +305,7 @@
 
                 } else {
                     // No in-reply, so we assume a local user
-                    $r = preg_replace_callback('/(?<!=)(?<!["\'])(\@[A-Za-z0-9\_]+)/i', function ($matches) {
+                    $r = preg_replace_callback('/(?<=^|[\>\s\n])(\@[A-Za-z0-9\_]+)/i', function ($matches) {
                         $url = $matches[1];
 
                         $username = ltrim($matches[1], '@');
