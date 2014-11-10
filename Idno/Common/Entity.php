@@ -1450,9 +1450,10 @@
                             } else {
                                 $permalink = $source;
                             }
-                            // Refs #510: Temporary kludge to work around bridgy
-                            if (strpos($source, 'https://brid-gy.appspot.com/')!==FALSE)
-                                    $permalink = $source;
+                            // Special exemption for bridgy
+                            if ((strpos($source, 'https://brid-gy.appspot.com/') !== FALSE) && in_array($mention['type'], array('like','share','rsvp'))) {
+                                $permalink = $source;
+                            }
                             if (!$this->addAnnotation($mention['type'], $mentions['owner']['name'], $mentions['owner']['url'], $mentions['owner']['photo'], $mention['content'], $permalink, $mention['created'])) {
                                 $return = false;
                             }
