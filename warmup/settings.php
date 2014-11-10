@@ -163,6 +163,9 @@ END;
                 <p class="control-label">
                     Known needs a single MySQL database, with a user that can connect to it. We recommend that this
                     is a user you have created just for Known, rather than one you share with other applications.
+                    <br><br>
+                    You should create your database before entering the details here. If you're using a shared host,
+                    you may have an option called "MySQL Database Wizard" that will speed you through the process.
                 </p>
                 <p>
                     <label class="control-label">
