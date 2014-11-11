@@ -415,6 +415,19 @@
             }
 
             /**
+             * Flushes content to the browser and continues page working asynchronously.
+             */
+            function flushBrowser()
+            {
+                header('Connection: close');
+                header('Content-length: ' . (string) ob_get_length());
+
+                @ob_end_flush();            // Return output to the browser
+                @ob_end_clean();
+                @flush();
+            }
+
+            /**
              * Placed in pages to ensure that only logged-in users can
              * get at them. Sets response code 401 and tries to forward
              * to the front page.
