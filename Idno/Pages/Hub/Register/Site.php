@@ -12,6 +12,8 @@
             function post()
             {
 
+                $this->flushBrowser();
+
                 \Idno\Core\site()->logging->log('Site registration message received', LOGLEVEL_DEBUG);
 
                 $token      = $this->getInput('token');
