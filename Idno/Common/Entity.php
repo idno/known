@@ -1669,33 +1669,56 @@
 
                 \Idno\Core\site()->triggerEvent('annotation/add/' . $subtype, array('annotation' => $annotation, 'object' => $this));
 
-                if ($owner = $this->getOwner()) {
+                if ($owners = $this->getAnnotationOwnerUUIDs(true)) {
+                    $owners[] = $this->getOwnerID();
+                    $owners = array_unique($owners);
+                } else {
+                    $owners = array($this->getOwnerID());
+                }
 
-                    switch ($subtype) {
-                        case 'reply':
-                            $subject               = $owner_name . ' replied to your post!';
-                            $notification_template = 'content/notification/reply';
-                            $context               = 'reply';
-                            break;
-                        case 'like':
-                            $subject               = $owner_name . ' liked your post!';
-                            $notification_template = 'content/notification/like';
-                            $context               = 'like';
-                            break;
-                        case 'share':
-                            $subject               = $owner_name . ' reshared your post!';
-                            $notification_template = 'content/notification/share';
-                            $context               = 'share';
-                            break;
-                        case 'rsvp':
-                            $subject               = $owner_name . ' RSVPed!';
-                            $notification_template = 'content/notification/rsvp';
-                            $context               = 'rsvp';
-                            break;
-                    }
+                foreach($owners as $owner_uuid) {
+                    if ($owner = User::getByUUID($owner_uuid)) {
 
-                    if ($annotation['owner_url'] != $this->getOwner()->getURL()) {
-                        $owner->notify($subject, $notification_template, $annotation, $context, $this);
+                        $send = true;
+                        switch ($subtype) {
+                            case 'reply':
+                                if ($owner_uuid == $this->getOwnerID()) {
+                                    $subject               = $owner_name . ' replied to your post!';
+                                } else {
+                                    $subject               = $owner_name . ' replied!';
+                                }
+                                $notification_template = 'content/notification/reply';
+                                $context               = 'reply';
+                                break;
+                            case 'like':
+                                if ($owner_uuid == $this->getOwnerID()) {
+                                    $subject               = $owner_name . ' liked your post!';
+                                } else {
+                                    $send = false;
+                                }
+                                $notification_template = 'content/notification/like';
+                                $context               = 'like';
+                                break;
+                            case 'share':
+                                if ($owner_uuid == $this->getOwnerID()) {
+                                    $subject = $owner_name . ' reshared your post!';
+                                } else {
+                                    $send = false;
+                                }
+                                $notification_template = 'content/notification/share';
+                                $context               = 'share';
+                                break;
+                            case 'rsvp':
+                                $subject               = $owner_name . ' RSVPed!';
+                                $notification_template = 'content/notification/rsvp';
+                                $context               = 'rsvp';
+                                break;
+                        }
+
+                        if ($annotation['owner_url'] != $this->getOwner()->getURL() && $send == true) {
+                            $owner->notify($subject, $notification_template, $annotation, $context, $this);
+                        }
+
                     }
                 }
 
@@ -1787,6 +1810,29 @@
                 }
 
                 return 0;
+            }
+
+            /**
+             * Retrieves a list of UUIDs of annotation owners
+             * @param bool $local If set to true, only returns UUIDs of users who belong to this Known site
+             * @return array
+             */
+            function getAnnotationOwnerUUIDs($local = false) {
+                $owners = array();
+                if (!empty($this->annotations)) {
+                    foreach($this->annotations as $annotation_type) {
+                        if (!empty($annotation_type) && is_array($annotation_type)) {
+                            foreach($annotation_type as $annotation) {
+                                if (!empty($annotation['owner_url'])) {
+                                    if ((parse_url($annotation['owner_url'], PHP_URL_HOST) == parse_url(\Idno\Core\site()->config()->getURL(), PHP_URL_HOST)) || !$local) {
+                                        $owners[] = $annotation['owner_url'];
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                return $owners;
             }
 
             /**
