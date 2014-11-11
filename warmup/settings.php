@@ -106,6 +106,11 @@ END;
 
     }
 
+    if (empty($upload_path)) {
+        // New default upload path
+        $upload_path = dirname(dirname(__FILE__)) . '/Uploads/';
+    }
+
     $title = 'Settings';
     include 'top.php';
 
@@ -205,8 +210,10 @@ END;
 
                 <p>
                     <label class="control-label" for="upload_path">
-                        The full path to a folder that Known can upload to. This shouldn't be in your web server's
-                        document root. Your web server does need to be able to read and write to it.
+                        The full path to a folder that Known can upload to. By default this is the "Uploads" folder -
+                        you should leave this as-is unless you're an experienced system administrator. You need to make
+                        sure the web server can save data to it. In your file manager, you should be able
+                        to select the folder, and click to enable "group" access.
                     </label>
                 </p>
 
