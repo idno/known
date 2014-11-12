@@ -280,7 +280,7 @@
                 } else {
                     $newuri = 'http:';
                 }
-                return str_replace($scheme . ':', $newuri, $scheme);
+                return str_replace($scheme . ':', $newuri, $url);
             }
 
             /**
