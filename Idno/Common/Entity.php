@@ -1072,7 +1072,7 @@
              */
             function getEditURL()
             {
-                return \Idno\Core\site()->config()->url . $this->getClassSelector() . '/edit/' . $this->getID();
+                return \Idno\Core\site()->config()->getDisplayURL() . $this->getClassSelector() . '/edit/' . $this->getID();
             }
 
             /**
@@ -1082,7 +1082,7 @@
              */
             function getDeleteURL()
             {
-                return \Idno\Core\site()->config()->url . $this->getClassSelector() . '/delete/' . $this->getID();
+                return \Idno\Core\site()->config()->getDisplayURL() . $this->getClassSelector() . '/delete/' . $this->getID();
             }
 
             /**
