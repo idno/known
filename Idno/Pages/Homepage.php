@@ -48,9 +48,7 @@
                 } else {
                     // If user has content-specific preferences, do something with $friendly_types
                     if (empty($query)) {
-                        if ($user = $this->getOwner()) {
-                            $types = $user->getDefaultContentTypes();
-                        }
+                        $types = \Idno\Core\site()->config()->getHomepageContentTypes();
                     }
                 }
 

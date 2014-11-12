@@ -26,15 +26,8 @@
                 // Users own their own profiles
                 $this->setOwner($user);
 
-                // Get content types
-                $types = $user->getDefaultContentTypes();
-                if (empty($types)) {
-                    $types          = 'Idno\Entities\ActivityStreamPost';
-                    $search['verb'] = 'post';
-                } else {
-                    if (!is_array($types)) $types = arra($types);
-                    $types[] = '!Idno\Entities\ActivityStreamPost';
-                }
+                $types          = 'Idno\Entities\ActivityStreamPost';
+                $search['verb'] = 'post';
 
                 $offset = (int)$this->getInput('offset');
                 $count  = \Idno\Entities\ActivityStreamPost::countFromX($types, array('owner' => $user->getUUID()));

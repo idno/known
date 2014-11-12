@@ -672,7 +672,11 @@
 
             /**
              * Get a user's settings for default content types on their homepage (or all the content types registered
-             * if none have been listed)
+             * if none have been listed).
+             *
+             * THIS IS A LEGACY FUNCTION AND DUE FOR REMOVAL.
+             * @deprecated
+             *
              * @return array
              */
             function getDefaultContentTypes()

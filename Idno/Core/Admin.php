@@ -18,6 +18,7 @@
                 site()->addPageHandler('/admin/plugins/?', '\Idno\Pages\Admin\Plugins');
                 site()->addPageHandler('/admin/themes/?', '\Idno\Pages\Admin\Themes');
                 site()->addPageHandler('/admin/dependencies/?', '\Idno\Pages\Admin\Dependencies');
+                site()->addPageHandler('/admin/homepage/?', '\Idno\Pages\Admin\Homepage');
                 site()->addPageHandler('/admin/email/?', '\Idno\Pages\Admin\Email');
                 site()->addPageHandler('/admin/about/?', '\Idno\Pages\Admin\About');
                 site()->addPageHandler('/admin/users/?', '\Idno\Pages\Admin\Users');

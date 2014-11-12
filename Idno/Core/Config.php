@@ -277,6 +277,26 @@
                 return false;
             }
 
+            /**
+             * Get the content types that this site should display on its homepage.
+             * @return array
+             */
+            function getHomepageContentTypes()
+            {
+                $friendly_types = array();
+                if ($temp_types = $this->default_feed_content) {
+                    if (is_array($temp_types)) {
+                        foreach ($temp_types as $temp_type) {
+                            if ($content_type_class = \Idno\Common\ContentType::categoryTitleToClass($temp_type)) {
+                                $friendly_types[] = $content_type_class;
+                            }
+                        }
+                    }
+                }
+
+                return $friendly_types;
+            }
+
         }
 
     }
