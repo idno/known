@@ -28,7 +28,7 @@
             
             ?>
             <p style="text-align: center">
-                <a href="<?= $mainsrc ?>"><img src="<?= $src ?>" class="u-photo"/></a>
+                <a href="<?= $this->makeDisplayURL($mainsrc) ?>"><img src="<?= $this->makeDisplayURL($src) ?>" class="u-photo"/></a>
             </p>
         <?php
         }
