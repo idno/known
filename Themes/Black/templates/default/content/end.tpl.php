@@ -51,7 +51,7 @@
             $heart .= ' ' . $likes . ' stars';
         }
         if (\Idno\Core\site()->session()->isLoggedOn()) {
-            echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getURL() . 'annotation/post', $heart, ['type' => 'like', 'object' => $vars['object']->getUUID()], ['method' => 'POST', 'class' => 'stars']);
+            echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'annotation/post', $heart, ['type' => 'like', 'object' => $vars['object']->getUUID()], ['method' => 'POST', 'class' => 'stars']);
         } else {
             ?>
             <a class="stars" href="<?= $vars['object']->getURL() ?>#comments"><?= $heart ?></a>

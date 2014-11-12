@@ -239,6 +239,17 @@
             }
 
             /**
+             * Return a version of the URL suitable for displaying in templates etc
+             * @return mixed
+             */
+            function getDisplayURL()
+            {
+                $url = $this->getURL();
+                $urischeme = parse_url($url, PHP_URL_SCHEME);
+                return str_replace($urischeme . ':', '', $url);
+            }
+
+            /**
              * Retrieve the name of this site
              * @return string
              */

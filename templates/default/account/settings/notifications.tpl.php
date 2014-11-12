@@ -13,7 +13,7 @@
                 Set how you'd like to be notified when someone stars or comments on your content.
             </p>
         </div>
-        <form action="<?= \Idno\Core\site()->config()->url ?>account/settings/notifications" method="post" class="form-horizontal"
+        <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>account/settings/notifications" method="post" class="form-horizontal"
               enctype="multipart/form-data">
             <div class="control-group">
                 <label class="control-label" for="email">Send email notifications</label>

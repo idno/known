@@ -9,7 +9,7 @@
             <p>
 
             </p>
-            <form action="<?=\Idno\Core\site()->config()->url?>account/register" method="post" style="width: 100%" class="form-horizontal">
+            <form action="<?=\Idno\Core\site()->config()->getDisplayURL()?>account/register" method="post" style="width: 100%" class="form-horizontal">
                 <div class="control-group">
                    <label class="control-label" for="inputUsername">Your name</label>
                     <div class="controls">

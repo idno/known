@@ -16,7 +16,7 @@
             </p>
         </div>
 
-        <form action="<?= \Idno\Core\site()->config()->url ?>account/settings" method="post" class="form-horizontal"
+        <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>account/settings" method="post" class="form-horizontal"
               enctype="multipart/form-data">
             <div class="control-group">
                 <label class="control-label" for="inputName">Your name</label>

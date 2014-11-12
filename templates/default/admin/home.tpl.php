@@ -9,14 +9,14 @@
             <p>On this page you can change the basic configurations for your site,
                 like its name and the number of items of content on each page.
                 To add new kinds of content, and new functionality, visit
-                <a href="<?=\Idno\Core\site()->config()->url?>admin/plugins/">Site Features</a>.
+                <a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/plugins/">Site Features</a>.
             </p>
         </div>
     </div>
 </div>
 <div class="row">
     <div class="span10 offset1">
-        <form action="<?=\Idno\Core\site()->config()->url?>admin/" class="form-horizontal" method="post">
+        <form action="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/" class="form-horizontal" method="post">
 
             <div class="control-group">
                 <label class="control-label" for="name">Site name</label>
@@ -57,7 +57,7 @@
             <div class="control-group">
                 <label class="control-label" for="url">Website URL</label>
                 <div class="controls">
-                    <input type="url" id="url" placeholder="Site URL" class="span4" name="url" value="<?=htmlspecialchars(\Idno\Core\site()->config()->url)?>" >
+                    <input type="url" id="url" placeholder="Site URL" class="span4" name="url" value="<?=htmlspecialchars(\Idno\Core\site()->config()->getDisplayURL())?>" >
                 </div>
                 <div class="controls"><small>This is the full URL to your Known site.</small></div>
             </div>

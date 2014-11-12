@@ -57,7 +57,7 @@
                     </p>
                     <p>
                         Welcome to your Known site!<br />
-                        <a href="<?=\Idno\Core\site()->config()->url?>admin/">Click here to start configuring your site</a>.
+                        <a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/">Click here to start configuring your site</a>.
                     </p>
                 </div>
             </div>

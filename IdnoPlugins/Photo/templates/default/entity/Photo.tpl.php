@@ -12,7 +12,7 @@
 <?php
     if ($attachments = $vars['object']->getAttachments()) {
         foreach ($attachments as $attachment) {
-            //$mainsrc= \Idno\Core\site()->config()->url . 'file/' . $attachment['_id'];
+            //$mainsrc= \Idno\Core\site()->config()->getDisplayURL() . 'file/' . $attachment['_id'];
             $mainsrc = $attachment['url'];
             if (!empty($vars['object']->thumbnail_large)) {
                 $src = $vars['object']->thumbnail_large;
@@ -23,8 +23,8 @@
             }
             
             // Patch to correct certain broken URLs caused by https://github.com/idno/idno/issues/526
-            $src = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\site()->config()->url, $src);
-            $mainsrc = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\site()->config()->url, $mainsrc);
+            $src = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\site()->config()->getDisplayURL(), $src);
+            $mainsrc = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\site()->config()->getDisplayURL(), $mainsrc);
             
             ?>
             <p style="text-align: center">

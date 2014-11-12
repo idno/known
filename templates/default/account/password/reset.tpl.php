@@ -10,7 +10,7 @@
     </div>
     <div class="span10 offset1">
 
-        <form action="<?=\Idno\Core\site()->config()->url?>account/password/reset" method="post" class="form-horizontal">
+        <form action="<?=\Idno\Core\site()->config()->getDisplayURL()?>account/password/reset" method="post" class="form-horizontal">
 
             <div class="control-group">
                 <label class="control-label" for="inputEmail">Your email address<br />

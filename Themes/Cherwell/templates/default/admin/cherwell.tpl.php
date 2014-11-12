@@ -12,7 +12,7 @@
 
 </div>
 
-<form id="bgform" action="<?= \Idno\Core\site()->config()->getURL() ?>admin/cherwell/" method="post"
+<form id="bgform" action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/cherwell/" method="post"
       enctype="multipart/form-data">
 
     <div class="row">
@@ -40,7 +40,7 @@
             </p>
 
             <p>
-                <?= \Idno\Core\site()->actions()->signForm(\Idno\Core\site()->config()->getURL() . 'admin/cherwell/') ?>
+                <?= \Idno\Core\site()->actions()->signForm(\Idno\Core\site()->config()->getDisplayURL() . 'admin/cherwell/') ?>
                 <input type="submit" class="btn btn-primary" value="Save">
                 <input type="hidden" name="action" value="" id="action">
                 <?php

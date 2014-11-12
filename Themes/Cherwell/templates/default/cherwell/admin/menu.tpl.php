@@ -1,1 +1,1 @@
-<li <?php if ($_SERVER['REQUEST_URI'] == '/admin/cherwell/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\site()->config()->url?>admin/cherwell/">Cherwell Theme Options</a></li>
+<li <?php if ($_SERVER['REQUEST_URI'] == '/admin/cherwell/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/cherwell/">Cherwell Theme Options</a></li>

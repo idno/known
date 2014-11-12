@@ -63,14 +63,14 @@
                                                 <strong>Administrator</strong><br>
                                                 <?php
                                                 if ($user->getUUID() != \Idno\Core\site()->session()->currentUserUUID()) {
-                                                    echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->url . 'admin/users', 'Remove rights', array('user' => $user->getUUID(), 'action' => 'remove_rights'), array('class' => ''));
+                                                    echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'admin/users', 'Remove rights', array('user' => $user->getUUID(), 'action' => 'remove_rights'), array('class' => ''));
                                                 } else {
                                                     echo 'Yes';
                                                 }
                                             } else {
                                                 ?>
                                                 Standard member<br>
-                                                <?= \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->url . 'admin/users', 'Make admin', array('user' => $user->getUUID(), 'action' => 'add_rights'), array('class' => '')); ?>
+                                                <?= \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'admin/users', 'Make admin', array('user' => $user->getUUID(), 'action' => 'add_rights'), array('class' => '')); ?>
                                                 <?php
                                             }
                                         }
@@ -82,7 +82,7 @@
                                 <p><small>
                 <?php
                 if ($user->getUUID() != \Idno\Core\site()->session()->currentUserUUID()) {
-                    echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->url . 'admin/users', 'Delete', array('user' => $user->getUUID(), 'action' => 'delete'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? This will delete this user and all their content.'));
+                    echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'admin/users', 'Delete', array('user' => $user->getUUID(), 'action' => 'delete'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? This will delete this user and all their content.'));
                 } else {
                     echo '&nbsp';
                 }
@@ -104,7 +104,7 @@
 <div class="row">
     <div class="span10 offset1">
 
-        <form action="<?= \Idno\Core\site()->config()->getURL() ?>admin/users" method="post">
+        <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/users" method="post">
 
             <h3>Invite users:</h3>
 

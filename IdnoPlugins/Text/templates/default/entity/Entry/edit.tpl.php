@@ -140,7 +140,7 @@
             $.ajax({
                 data: data,
                 type: "POST",
-                url: "<?=\Idno\Core\site()->config()->getURL()?>file/upload/",
+                url: "<?=\Idno\Core\site()->config()->getDisplayURL()?>file/upload/",
                 cache: false,
                 contentType: false,
                 processData: false,

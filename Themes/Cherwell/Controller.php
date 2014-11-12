@@ -35,9 +35,9 @@
             static function getBackgroundImageURL() {
 
                 if (!empty(\Idno\Core\site()->config()->cherwell['bg_id'])) {
-                    return \Idno\Core\site()->config()->getURL() . 'file/' . \Idno\Core\site()->config()->cherwell['bg_id'];
+                    return \Idno\Core\site()->config()->getDisplayURL() . 'file/' . \Idno\Core\site()->config()->cherwell['bg_id'];
                 } else {
-                    return \Idno\Core\site()->config()->getURL() . 'Themes/Cherwell/img/cherwell.jpg';
+                    return \Idno\Core\site()->config()->getDisplayURL() . 'Themes/Cherwell/img/cherwell.jpg';
                 }
 
             }

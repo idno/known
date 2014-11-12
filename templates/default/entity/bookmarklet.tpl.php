@@ -1,1 +1,1 @@
-<p><a href="javascript:(function(){window.open('<?= \Idno\Core\site()->config()->url; ?>share?share_url='+encodeURIComponent(location.href)+'&share_title\='+encodeURIComponent(document.title));})();" class="btn"><?=\Idno\Core\site()->config()->title?></a></p>
+<p><a href="javascript:(function(){window.open('<?= \Idno\Core\site()->config()->getDisplayURL(); ?>share?share_url='+encodeURIComponent(location.href)+'&share_title\='+encodeURIComponent(document.title));})();" class="btn"><?=\Idno\Core\site()->config()->title?></a></p>

@@ -1,8 +1,8 @@
 <?php
 
     header('Content-type: text/html');
-    header('Link: <' . \Idno\Core\site()->config()->url . 'webmention/>; rel="http://webmention.org/"');
-    header('Link: <' . \Idno\Core\site()->config()->url . 'webmention/>; rel="webmention"');
+    header('Link: <' . \Idno\Core\site()->config()->getDisplayURL() . 'webmention/>; rel="http://webmention.org/"');
+    header('Link: <' . \Idno\Core\site()->config()->getDisplayURL() . 'webmention/>; rel="webmention"');
     header("Access-Control-Allow-Origin: *");
 
     if (empty($vars['title']) && !empty($vars['description'])) {
@@ -43,13 +43,13 @@
         ?>
         <link rel="alternate feed" type="application/rss+xml"
               title="<?= htmlspecialchars(\Idno\Core\site()->config()->title) ?>: all content"
-              href="<?= \Idno\Core\site()->config()->url ?>content/all?_t=rss"/>
-        <link href="<?= \Idno\Core\site()->config()->url ?>webmention/" rel="http://webmention.org/"/>
-        <link href="<?= \Idno\Core\site()->config()->url ?>webmention/" rel="webmention"/>
-        <link href="<?= \Idno\Core\site()->config()->url ?>css/simple.css" rel="stylesheet">
+              href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>content/all?_t=rss"/>
+        <link href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>webmention/" rel="http://webmention.org/"/>
+        <link href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>webmention/" rel="webmention"/>
+        <link href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>css/simple.css" rel="stylesheet">
         <link href="http://fonts.googleapis.com/css?family=Pontano+Sans" rel="stylesheet" type="text/css">
 		<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel='stylesheet' type='text/css'>
-        <script src="<?= \Idno\Core\site()->config()->url . 'external/jquery/' ?>jquery.min.js"></script>
+        <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/jquery/' ?>jquery.min.js"></script>
         <?= $this->draw('shell/simple/head', $vars); ?>
 
     </head>

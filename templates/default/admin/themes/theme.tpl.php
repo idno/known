@@ -16,14 +16,14 @@
                 $src = $url . 'preview.png';
             }
         } else {
-            $src = \Idno\Core\site()->config()->getURL() . 'gfx/themes/default.png';
+            $src = \Idno\Core\site()->config()->getDisplayURL() . 'gfx/themes/default.png';
         }
         if (!empty($src)) {
 
     ?>
     <p><?php
 
-            echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->url . 'admin/themes/', '<img src="' . $src . '" style="width: 100%">', array('theme' => $vars['theme']['shortname'], 'action' => 'install'), array('class' => ''));
+            echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'admin/themes/', '<img src="' . $src . '" style="width: 100%">', array('theme' => $vars['theme']['shortname'], 'action' => 'install'), array('class' => ''));
 
 
         ?></p>

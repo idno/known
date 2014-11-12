@@ -15,7 +15,7 @@ if (strpos('mailto:', 'mailto:')!==false) $email = substr($email, 7); // Sanitis
 $nickname =  $properties['nickname'][0];
 
 ?>
-<form action="<?= \Idno\Core\site()->config()->url ?>account/settings/following/bookmarklet" method="post" class="form-horizontal">
+<form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>account/settings/following/bookmarklet" method="post" class="form-horizontal">
     <div class="row idno-entry following-user">
 
 	<div class="span1 offset1 owner h-card hidden-phone">

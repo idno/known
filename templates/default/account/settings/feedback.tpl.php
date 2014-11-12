@@ -12,7 +12,7 @@
     </div>
 </div>
 
-<form class="form-horizontal" action="<?= \Idno\Core\site()->config()->getURL() ?>account/settings/feedback"
+<form class="form-horizontal" action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>account/settings/feedback"
       method="post">
 <div class="row">
     <div class="span10 offset1">

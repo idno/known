@@ -3,8 +3,8 @@
     $messages = $vars['messages'];
 
     header('Content-type: text/html');
-    header('Link: <' . \Idno\Core\site()->config()->url . 'webmention/>; rel="http://webmention.org/"');
-    header('Link: <' . \Idno\Core\site()->config()->url . 'webmention/>; rel="webmention"');
+    header('Link: <' . \Idno\Core\site()->config()->getDisplayURL() . 'webmention/>; rel="http://webmention.org/"');
+    header('Link: <' . \Idno\Core\site()->config()->getDisplayURL() . 'webmention/>; rel="webmention"');
     header("Access-Control-Allow-Origin: *");
 
     if (empty($vars['title']) && !empty($vars['description'])) {
@@ -31,7 +31,7 @@
             'og:type'      => 'website',
             'og:title'     => htmlspecialchars(strip_tags($vars['title'])),
             'og:site_name' => htmlspecialchars(strip_tags(\Idno\Core\site()->config()->title)),
-            'og:image'     => \Idno\Core\site()->config()->getURL() . 'gfx/logos/logo_k.png'
+            'og:image'     => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k.png'
         );
 
         if (\Idno\Core\site()->currentPage() && \Idno\Core\site()->currentPage()->isPermalink()) {
@@ -87,25 +87,25 @@
     ?>
 
     <!-- Le styles -->
-    <link href="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/css/bootstrap.css"
+    <link href="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/css/bootstrap.css"
           rel="stylesheet">
-    <link rel="stylesheet" href="<?= \Idno\Core\site()->config()->url ?>external/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/font-awesome/css/font-awesome.min.css">
     <style>
         body {
             padding-top: 100px; /* 60px to make the container go all the way to the bottom of the topbar */
         }
     </style>
-    <link href="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/css/bootstrap-responsive.css"
+    <link href="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/css/bootstrap-responsive.css"
           rel="stylesheet">
-    <link href="<?= \Idno\Core\site()->config()->url ?>css/default.css" rel="stylesheet">
+    <link href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>css/default.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-    <script src="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/js/html5shiv.js"></script>
+    <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/js/html5shiv.js"></script>
     <![endif]-->
 
     <!-- Default Known JavaScript -->
-    <script src="<?= \Idno\Core\site()->config()->url . 'js/default.js' ?>"></script>
+    <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'js/default.js' ?>"></script>
 
     <!-- To silo is human, to syndicate divine -->
     <link rel="alternate" type="application/rss+xml" title="<?= htmlspecialchars($vars['title']) ?>"
@@ -114,13 +114,13 @@
           href="<?= $this->getURLWithVar('_t', 'rss'); ?>"/>
     <link rel="alternate feed" type="application/rss+xml"
           title="<?= htmlspecialchars(\Idno\Core\site()->config()->title) ?>: all content"
-          href="<?= \Idno\Core\site()->config()->url ?>content/all?_t=rss"/>
+          href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>content/all?_t=rss"/>
     <link rel="feed" type="text/html" title="<?= htmlspecialchars(\Idno\Core\site()->config()->title) ?>"
-          href="<?= \Idno\Core\site()->config()->url ?>content/all"/>
+          href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>content/all"/>
 
     <!-- Webmention endpoint -->
-    <link href="<?= \Idno\Core\site()->config()->url ?>webmention/" rel="http://webmention.org/"/>
-    <link href="<?= \Idno\Core\site()->config()->url ?>webmention/" rel="webmention"/>
+    <link href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>webmention/" rel="http://webmention.org/"/>
+    <link href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>webmention/" rel="webmention"/>
 
     <?php $this->draw('shell/identities') ?>
     <?php if (!empty(\Idno\Core\site()->config()->hub)) { ?>
@@ -139,10 +139,10 @@
         }
     ?>
 
-    <script src="<?= \Idno\Core\site()->config()->url ?>external/fragmention/fragmention.js"></script>
+    <script src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/fragmention/fragmention.js"></script>
 
     <!-- We need jQuery at the top of the page -->
-    <script src="<?= \Idno\Core\site()->config()->url . 'external/jquery/' ?>jquery.min.js"></script>
+    <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/jquery/' ?>jquery.min.js"></script>
 
     <?= $this->draw('shell/head', $vars); ?>
 
@@ -186,7 +186,7 @@
                             <span class="icon-bar"></span>
                         </button>
                         <a class="brand"
-                           href="<?= \Idno\Core\site()->config()->url ?>"><?=
+                           href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>"><?=
                                 // \Idno\Core\site()->config()->title
                                 $this->draw('shell/toolbar/title')
                             ?></a>
@@ -264,28 +264,28 @@
 <?php if (!$_SERVER["HTTP_X_PJAX"]): ?>
 <!-- Le javascript -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="<?= \Idno\Core\site()->config()->url . 'external/jquery-timeago/' ?>jquery.timeago.js"></script>
-<script src="<?= \Idno\Core\site()->config()->url . 'external/jquery-pjax/' ?>jquery.pjax.js"></script>
-<script src="<?= \Idno\Core\site()->config()->url . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
-<script src="<?= \Idno\Core\site()->config()->url . 'external/underscore/underscore-min.js' ?>"
+<script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/jquery-timeago/' ?>jquery.timeago.js"></script>
+<script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/jquery-pjax/' ?>jquery.pjax.js"></script>
+<script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
+<script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/underscore/underscore-min.js' ?>"
         type="text/javascript"></script>
-<script src="<?= \Idno\Core\site()->config()->url . 'external/mention/bootstrap-typeahead.js' ?>"
+<script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/mention/bootstrap-typeahead.js' ?>"
         type="text/javascript"></script>
-<script src="<?= \Idno\Core\site()->config()->url . 'external/mention/mention.js' ?>" type="text/javascript"></script>
+<script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/mention/mention.js' ?>" type="text/javascript"></script>
 
 <!-- Flexible media player -->
 <script
-    src="<?= \Idno\Core\site()->config()->getURL() ?>external/mediaelement/build/mediaelement-and-player.min.js"></script>
+    src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/mediaelement/build/mediaelement-and-player.min.js"></script>
 <link rel="stylesheet"
-      href="<?= \Idno\Core\site()->config()->getURL() ?>external/mediaelement/build/mediaelementplayer.css"/>
+      href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/mediaelement/build/mediaelementplayer.css"/>
 
 <!-- WYSIWYG editor -->
-<link href="<?= \Idno\Core\site()->config()->getURL() ?>external/summernote/dist/summernote.css" rel="stylesheet">
-<script src="<?= \Idno\Core\site()->config()->getURL() ?>external/summernote/dist/summernote.min.js"></script>
+<link href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/summernote/dist/summernote.css" rel="stylesheet">
+<script src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/summernote/dist/summernote.min.js"></script>
 
 <!-- Mention styles -->
 <link rel="stylesheet" type="text/css"
-      href="<?= \Idno\Core\site()->config()->url ?>external/mention/recommended-styles.css">
+      href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/mention/recommended-styles.css">
 
 <?php
     if (\Idno\Core\site()->session()->isLoggedOn()) {
@@ -294,7 +294,7 @@
 ?>
 
 <!-- Video shim -->
-<script src="<?= \Idno\Core\site()->config()->url . 'external/fitvids/jquery.fitvids.min.js' ?>"></script>
+<script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/fitvids/jquery.fitvids.min.js' ?>"></script>
 
 <?php
     // Load javascript assets
@@ -308,7 +308,7 @@
 ?>
 
 <!-- HTML5 form element support for legacy browsers -->
-<script src="<?= \Idno\Core\site()->config()->url . 'external/h5f/h5f.min.js' ?>"></script>
+<script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/h5f/h5f.min.js' ?>"></script>
 
 <script>
 
@@ -319,7 +319,7 @@
 
     // Shim so that JS functions can get the current site URL
     function wwwroot() {
-        return '<?=\Idno\Core\site()->config()->getURL()?>';
+        return '<?=\Idno\Core\site()->config()->getDisplayURL()?>';
     }
 
     $(document).ready(function () {

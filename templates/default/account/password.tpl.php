@@ -18,7 +18,7 @@
 
     <div class="span10 offset1">
 
-        <form action="<?=\Idno\Core\site()->config()->url?>account/password" method="post" class="form-horizontal">
+        <form action="<?=\Idno\Core\site()->config()->getDisplayURL()?>account/password" method="post" class="form-horizontal">
 
             <div class="control-group">
                 <label class="control-label" for="inputUsername">Your email address<br />

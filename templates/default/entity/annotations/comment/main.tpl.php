@@ -12,7 +12,7 @@
                                                                                 src="<?= $user->getIcon() ?>"/></a>
         </div>
         <div class="span7 idno-comment-container">
-            <form action="<?=\Idno\Core\site()->config()->getURL()?>annotation/post" method="post">
+            <form action="<?=\Idno\Core\site()->config()->getDisplayURL()?>annotation/post" method="post">
                 <textarea name="body" placeholder="Add a comment ..." class="span7 mentionable"></textarea>
                 <p style="text-align: right">
                     <?= \Idno\Core\site()->actions()->signForm('annotation/post') ?>

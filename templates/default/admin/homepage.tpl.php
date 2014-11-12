@@ -15,7 +15,7 @@
         <div class="control-label">Select the content types that you want to display on the main page.
         </div>
         <br>
-        <form action="<?= \Idno\Core\site()->config()->getURL() ?>admin/homepage" method="post"
+        <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/homepage" method="post"
               class="form-horizontal" enctype="multipart/form-data">
 
             <div class="control-group">

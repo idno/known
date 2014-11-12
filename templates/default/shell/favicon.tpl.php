@@ -14,7 +14,7 @@
                 $icon_mime = $user_icon_mime;
             }
         } else {
-            $user_icon      = \Idno\Core\site()->config()->getURL() . 'gfx/logos/logo_k.png';
+            $user_icon      = \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k.png';
             $user_icon_mime = 'image/png';
         }
     }

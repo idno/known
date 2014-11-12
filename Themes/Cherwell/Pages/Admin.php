@@ -44,7 +44,7 @@
                                     }
                                 }
                                 \Idno\Core\site()->config->config['cherwell']['bg_id'] = $background;
-                                $background = \Idno\Core\site()->config()->getURL() . 'file/' . $background;
+                                $background = \Idno\Core\site()->config()->getDisplayURL() . 'file/' . $background;
                                 \Idno\Core\site()->config->config['cherwell']['bg'] = $background;
                             }
                         }
@@ -63,7 +63,7 @@
                     \Idno\Core\site()->config->cherwell = [];
                 }
                 \Idno\Core\site()->config->save();
-                $this->forward(\Idno\Core\site()->config()->getURL() . 'admin/cherwell/');
+                $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'admin/cherwell/');
             }
 
         }

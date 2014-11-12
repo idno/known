@@ -6,7 +6,7 @@
 
         <?=$this->draw('shell/simple/messages')?>
 
-        <form action="<?=\Idno\Core\site()->config()->url?>begin/register" method="post" class="form-horizontal">
+        <form action="<?=\Idno\Core\site()->config()->getDisplayURL()?>begin/register" method="post" class="form-horizontal">
 
             <p class="username">
                 <label class="control-label" for="inputUsername">Choose a username<br/></label>

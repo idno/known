@@ -7,11 +7,11 @@
         <div class="row annotation-add">
             <div class="span1 owner h-card hidden-phone">
                 <div class="u-url icon-container"><img class="u-photo"
-                                                       src="<?= \Idno\Core\site()->config()->getURL() ?>gfx/users/default-00.png"/>
+                                                       src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>gfx/users/default-00.png"/>
                 </div>
             </div>
             <div class="span7 idno-comment-container">
-                <form action="<?= \Idno\Core\site()->config()->getURL() ?>comments/post" method="post">
+                <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>comments/post" method="post">
                     <input type="text" name="name" class="span7" placeholder="Your name" required>
                     <input type="text" name="url" class="span7" placeholder="Your website address" required>
 

@@ -2,7 +2,7 @@
 
     <div class="span10 offset1">
 
-        <form action="<?=\Idno\Core\site()->config()->getURL()?>following/confirm/" method="post">
+        <form action="<?=\Idno\Core\site()->config()->getDisplayURL()?>following/confirm/" method="post">
             <h1>
                 Follow <?=$vars['feed']->getTitle()?>? <input type="submit" class="btn btn-primary" value="Follow">
                 <input type="hidden" name="feed" value="<?=htmlspecialchars($vars['feed']->getURL())?>">
