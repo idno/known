@@ -627,6 +627,16 @@
                 return false;
             }
 
+            /**
+             * Detects if this site is being accessed securely or not
+             * @return bool
+             */
+            function isSecure() {
+                return
+                    (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+                    || $_SERVER['SERVER_PORT'] == 443;
+            }
+
         }
 
         /**

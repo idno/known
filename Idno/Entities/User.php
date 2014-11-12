@@ -130,7 +130,7 @@
                     return $this->image;
                 }
                 if (!empty($this->icon)) {
-                    return \Idno\Core\site()->config()->url . 'file/' . $this->icon;
+                    return \Idno\Core\site()->config()->getDisplayURL() . 'file/' . $this->icon;
                 }
 
                 return \Idno\Core\site()->template()->__(array('user' => $this))->draw('entity/User/icon');

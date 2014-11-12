@@ -246,7 +246,12 @@
             {
                 $url = $this->getURL();
                 $urischeme = parse_url($url, PHP_URL_SCHEME);
-                return str_replace($urischeme . ':', '', $url);
+                if (site()->isSecure()) {
+                    $newuri = 'https:';
+                } else {
+                    $newuri = 'http:';
+                }
+                return str_replace($urischeme . ':', $newuri, $url);
             }
 
             /**
