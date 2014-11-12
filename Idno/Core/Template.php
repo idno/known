@@ -275,7 +275,12 @@
             function makeDisplayURL($url)
             {
                 $scheme = parse_url($url, PHP_URL_SCHEME);
-                return str_replace($scheme . ':', '', $scheme);
+                if (site()->isSecure()) {
+                    $newuri = 'https:';
+                } else {
+                    $newuri = 'http:';
+                }
+                return str_replace($scheme . ':', $newuri, $scheme);
             }
 
             /**
