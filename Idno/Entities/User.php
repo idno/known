@@ -164,7 +164,7 @@
                     return $this->url;
                 }
 
-                return \Idno\Core\site()->config()->url . 'profile/' . $this->getHandle();
+                return \Idno\Core\site()->config()->getDisplayURL() . 'profile/' . $this->getHandle();
             }
 
             /**
