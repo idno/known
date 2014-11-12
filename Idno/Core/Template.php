@@ -44,10 +44,6 @@
              */
             function draw($templateName, $returnBlank = true)
             {
-                /*if (!defined('known_session_closed')) {
-                    session_write_close();
-                    define('known_session_closed',true);
-                }*/
                 $result = '';
                 if (!empty($this->prepends[$templateName])) {
                     foreach ($this->prepends[$templateName] as $template) {
