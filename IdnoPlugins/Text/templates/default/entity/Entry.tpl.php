@@ -14,9 +14,6 @@
 
                 $minutes = $vars['object']->getReadingTimeInMinutes();
                 echo $minutes . ' min';
-             /*   if ($minutes != 1) {
-                    echo 's';
-                }*/
 
             ?> read </span>
 </p>
