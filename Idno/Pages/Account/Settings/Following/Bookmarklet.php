@@ -146,6 +146,7 @@
 
                             if (!$new_user->save())
                                 throw new \Exception ("There was a problem saving the new remote user.");
+                            
                         }
                     } else
                         \Idno\Core\site()->logging->log("New user found as " . $new_user->uuid, LOGLEVEL_DEBUG);
@@ -162,7 +163,16 @@
 
                                 \Idno\Core\site()->logging->log("Following saved", LOGLEVEL_DEBUG);
 
+                                // Ok, we've saved the new user, now, lets subscribe to their feeds
+                                if ($feed = \Idno\Core\site()->reader()->getFeedObject($new_user->getURL())) {
+                                    
+                                    \Idno\Core\site()->session()->addMessage("You are now following " . $new_user->getTitle() . ', would you like to subscribe to their feed?');
+                                    
+                                    $this->forward(\Idno\Core\site()->config()->getURL() . 'following/confirm/?feed=' . urlencode($new_user->getURL()));
+                                }
+                                
                                 \Idno\Core\site()->session()->addMessage("You are now following " . $new_user->getTitle());
+                                
                             }
                         } else
                             \Idno\Core\site()->logging->log('Could not follow user for some reason (probably already following)', LOGLEVEL_DEBUG);
