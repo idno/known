@@ -22,11 +22,6 @@
         $mysql_host = 'localhost';
     }
 
-    if (file_exists('../config.ini')) {
-        header('Location: ../begin/register?set_name=' . urlencode($site_title));
-        exit;
-    }
-
     if (!empty($mysql_name) && !empty($mysql_host)) {
         try {
             $dbh = new PDO('mysql:host=' . $mysql_host . ';dbname=' . $mysql_name, $mysql_user, $mysql_pass);
@@ -42,6 +37,11 @@
             $messages .= '<blockquote><p>' . $e->getMessage() . '</p></blockquote>';
             $ok = false;
         }
+    }
+
+    if (file_exists('../config.ini')) {
+        header('Location: ../begin/register?set_name=' . urlencode($site_title));
+        exit;
     }
 
     if (!empty($upload_path)) {
