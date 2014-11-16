@@ -35,7 +35,7 @@ $nickname =  $properties['nickname'][0];
 	<div class="span8 idno-object idno-content">
 	    <div class="visible-phone">
 		<p class="p-author author h-card vcard">
-		    <img class="u-logo logo u-photo photo" src="<?= $photo ?>" />
+		    <img class="u-logo logo u-photo photo" src="<?= htmlspecialchars($photo) ?>" />
 		    <span class="p-name fn"><?= $name ?></span>
 		</p>
 	    </div>
@@ -43,10 +43,12 @@ $nickname =  $properties['nickname'][0];
 		<?php
 		foreach ($urls as $url) {
 		    ?>
-    		<input type="hidden" name="urls[]" value="<?= $url; ?>" />
+    		<input type="hidden" name="urls[]" value="<?= htmlspecialchars($url); ?>" />
 		    <?php
 		}
 		?>
+                <input type="hidden" name="photo" value="<?= htmlspecialchars($photo) ?>" />
+                
 		<div class="control-group">
 		    <label class="control-label" for="inputName">Name</label>
 
@@ -83,7 +85,7 @@ $nickname =  $properties['nickname'][0];
 			    <?php
 				foreach($urls as $url) {
 				    ?>
-			    <option><?=$url;?></option>
+			    <option><?= htmlspecialchars($url);?></option>
 			    <?php
 				}
 			    ?>
