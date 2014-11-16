@@ -74,5 +74,8 @@
     ?>">
         <?= $vars['body'] ?>
         <?= $this->draw('shell/simple/footer', $vars) ?>
+        
+        <!-- HTML5 form element support for legacy browsers -->
+        <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/h5f/h5f.min.js' ?>"></script>
     </body>
 </html>
