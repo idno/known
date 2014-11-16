@@ -142,7 +142,7 @@
                             $new_user->email = $this->getInput('email');
                             $new_user->setUrl($uuid);
                             
-                            // TODO: Get a profile URL
+                            // TODO: Get a profile URL - get it from passed photo variable, upload to local and treat as avatar.
 
                             if (!$new_user->save())
                                 throw new \Exception ("There was a problem saving the new remote user.");
