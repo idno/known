@@ -330,9 +330,7 @@
             {
                 $return = $this->refreshSessionUser($user);
 
-                \Idno\Core\site()->triggerEvent('user/auth', array('user' => $user));
-
-                return $return;
+                return \Idno\Core\site()->triggerEvent('user/auth', array('user' => $user), $return);
             }
 
             /**
