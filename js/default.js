@@ -56,7 +56,10 @@ function autoSave(context, elements) {
         for (element in elements) {
             if ($("#" + elements[element]).val() != previousVal[elements[element]]) {
                 val = $("#" + elements[element]).val();
-                console.log(elements[element] + " has changed to " + val);
+            } else {
+                val = false;
+            }
+            if (val !== false) {
                 changed[elements[element]] = val;
                 previousVal[elements[element]] = val;
             }
