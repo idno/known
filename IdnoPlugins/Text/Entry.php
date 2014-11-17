@@ -2,6 +2,8 @@
 
     namespace IdnoPlugins\Text {
 
+        use Idno\Core\Autosave;
+
         class Entry extends \Idno\Common\Entity {
 
             function getTitle() {
@@ -63,6 +65,10 @@
                     }
 
                     if ($this->save()) {
+
+                        $autosave = new Autosave();
+                        $autosave->clearContext('entry');
+
                         if ($new) {
                             // Add it to the Activity Streams feed
                             $this->addToFeed();
