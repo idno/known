@@ -212,6 +212,15 @@
             }
 
             /**
+             * Returns the current logging interface
+             * @return \Idno\Core\Logging
+             */
+            function &logging()
+            {
+                return $this->logging;
+            }
+
+            /**
              * Shortcut to trigger an event: supply the event name and
              * (optionally) an array of data, and get a variable back.
              *
