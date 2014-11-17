@@ -491,8 +491,13 @@
             {
                 if ($this->getActivityStreamsObjectType()) {
                     $event = new \Idno\Core\Event(array('object' => $this, 'object_type' => $this->getActivityStreamsObjectType()));
-                    \Idno\Core\site()->events()->dispatch('post/' . $this->getActivityStreamsObjectType(), $event);
-                    \Idno\Core\site()->events()->dispatch('syndicate', $event);
+                    try {
+                        \Idno\Core\site()->events()->dispatch('post/' . $this->getActivityStreamsObjectType(), $event);
+                        \Idno\Core\site()->events()->dispatch('syndicate', $event);
+                    } catch (\Exception $e) {
+                        \Idno\Core\site()->session()->addMessage("There was a problem syndicating.");
+                        \Idno\Core\site()->logging()->log($e->getMessage());
+                    }
                 }
             }
 
