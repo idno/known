@@ -315,7 +315,8 @@
                     }
                 }
 
-                return false;
+                // We're not logged in yet, so try and authenticate using other mechanism
+                return site()->triggerEvent('user/auth/api', [], false);
             }
 
             /**
