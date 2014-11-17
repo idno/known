@@ -5,12 +5,12 @@
     if (!empty($vars['object']->body)) {
         $body = $vars['object']->body;
     } else {
-        $body = ''; //$autosave->getValue('entry', 'body');
+        $body = $autosave->getValue('entry', 'bodyautosave');
     }
     if (!empty($vars['object']->title)) {
         $title = $vars['object']->title;
     } else {
-        $title = ''; //$autosave->getValue('entry', 'title');
+        $title = $autosave->getValue('entry', 'title');
     }
 
     /* @var \Idno\Core\Template $this */
@@ -73,6 +73,7 @@
 
         </div>
     </form>
+    <div id="bodyautosave" style="display:none"></div>
     <script>
 
         /*function postForm() {
@@ -84,7 +85,6 @@
         counter = function () {
 
             var value = $('#body').code(); // $('#body').val();
-            console.log(value);
             if (value.length == 0) {
                 $('#totalWords').html(0);
                 $('#totalChars').html(0);
@@ -112,6 +112,9 @@
             $('#body').keyup(counter);
             $('#body').blur(counter);
             $('#body').focus(counter);
+            setInterval(function() {
+                $('#bodyautosave').val($('#body').code());
+            },10000);
         });
 
         $(document).ready(function () {
@@ -131,8 +134,7 @@
                     uploadFileAsync(files[0], editor, welEditable);
                 }
             });
-        })
-        ;
+        });
 
         function uploadFileAsync(file, editor, welEditable) {
             data = new FormData();
@@ -145,13 +147,12 @@
                 contentType: false,
                 processData: false,
                 success: function (url) {
-                    console.log("Success! " + url);
                     editor.insertImage(welEditable, url);
                 }
             });
         }
 
         // Autosave the title & body
-        //autoSave('entry', ['title', 'body']);
+        autoSave('entry', ['title', 'bodyautosave']);
     </script>
 <?= $this->draw('entity/edit/footer'); ?>
