@@ -315,7 +315,8 @@
                     }
                 }
 
-                return false;
+                // We're not logged in yet, so try and authenticate using other mechanism
+                return site()->triggerEvent('user/auth/api', [], false);
             }
 
             /**
@@ -329,9 +330,7 @@
             {
                 $return = $this->refreshSessionUser($user);
 
-                \Idno\Core\site()->triggerEvent('user/auth', array('user' => $user));
-
-                return $return;
+                return \Idno\Core\site()->triggerEvent('user/auth', array('user' => $user), $return);
             }
 
             /**
