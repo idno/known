@@ -89,7 +89,13 @@ uploadpath = '{$upload_path}'
 END;
 
         try {
-            @rename(dirname(dirname(__FILE__)) . '/htaccess.dist', dirname(dirname(__FILE__)) . '/.htaccess');
+            if (file_exists(dirname(dirname(__FILE__)) . '/.htaccess')) {
+                if ($fp = @fopen(dirname(dirname(__FILE__)) . '/.htaccess', 'a')) {
+                    fwrite($fp, "\n\n\n" . file_get_contents(dirname(dirname(__FILE__)) . '/htaccess.dist'));
+                }
+            } else {
+                @rename(dirname(dirname(__FILE__)) . '/htaccess.dist', dirname(dirname(__FILE__)) . '/.htaccess');
+            }
             if ($fp = @fopen('../config.ini', 'w')) {
                 fwrite($fp, $ini_file);
                 fclose($fp);
