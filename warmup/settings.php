@@ -39,7 +39,7 @@
         }
     }
 
-    if (file_exists('../config.ini')) {
+    if (file_exists('../config.ini') && $ok) {
         header('Location: ../begin/register?set_name=' . urlencode($site_title));
         exit;
     }
