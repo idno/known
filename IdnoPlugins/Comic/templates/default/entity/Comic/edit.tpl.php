@@ -13,7 +13,16 @@
                         ?>
                         <label>
                             Add a comic:<br />
-                            <input type="file" name="comic" id="comic" class="span9" accept="image/*;capture=camera" />
+                            <label>
+                                <div id="photo-preview"></div>
+                                    <span class="btn btn-primary btn-file">
+                                        <i class="icon-camera"></i> <span id="photo-filename">Select a comic</span> <input type="file" name="comic" id="comic"
+                                                                                                                           class="span9"
+                                                                                                                           accept="image/*;capture=camera"
+                                                                                                                           onchange="comicPreview(this)"/>
+
+                                    </span>
+                            </label>
                         </label>
                     <?php
 
@@ -52,4 +61,21 @@
 
     </div>
 </form>
+    <script>
+        function comicPreview(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#photo-preview').html('<img src="" id="photopreview" style="display:none; width: 400px">');
+                    $('#photo-filename').html('Choose different comic');
+                    $('#photopreview').attr('src', e.target.result);
+                    $('#photopreview').show();
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 <?=$this->draw('entity/edit/footer');?>

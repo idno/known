@@ -6,9 +6,9 @@
 
 ?>
 
-        <object title="<?=htmlspecialchars($object->getTitle())?>" data="<?=$attachment['url']?>" type="<?=$attachment['mime-type']?>" width="<?=$object->width?>" height="<?=$object->height?>">
-            <?=$this->autop($this->parseHashtags($object->description));?>
-        </object>
+        <p>
+            <img src="<?=$attachment['url']?>" width="<?=$object->width?>" height="<?=$object->height?>" alt="<?=htmlspecialchars(strip_tags($object->description));?>">
+        </p>
 
 <?php
 
