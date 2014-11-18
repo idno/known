@@ -4,9 +4,8 @@ Installation instructions
 Before you begin
 ----------------
 
-By installing Known now, you're working on the cutting edge. When we release this summer, there will be a friendly
-installer, as well as a full hosted service for you to check out the features. Right now, there's a little bit more
-involved.
+If you're running Known in production, we highly recommend that you download the installation package from
+`withknown.com <http://withknown.com>/`_.
 
 To begin with, make sure your server satisfies the :doc:`requirements`.
 
@@ -46,6 +45,19 @@ Use the automatic installer
 
 If you're using a MySQL back-end, you can get started by pointing your browser at your Known site address. If you want
 to use MongoDB, you'll need to create the configuration file manually, as described below.
+
+Use environment variables
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If you're using Docker or other virtualized server environments, you will need to create a config.ini file at the root
+of your installation. However, all configuration items can be stored in environment variables starting with KNOWN_.
+For example, the following environment variables will allow you to set the database::
+
+    KNOWN_DATABASE = "MySQL"
+    KNOWN_DBNAME = "KnownDBName"
+    KNOWN_DBUSER = "KnownDBUser"
+    KNOWN_DBPASS = "KnownDBPassword"
+    KNOWN_DBHOST = "your.database.server"
 
 If you're using MongoDB
 ^^^^^^^^^^^^^^^^^^^^^^^

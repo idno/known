@@ -57,15 +57,15 @@
                 $this->loadIniFiles();
 
                 if ($this->multitenant) {
-                    $dbname            = $this->dbname;
-                    $this->host        = str_replace('www.', '', $this->host);
+                    $dbname     = $this->dbname;
+                    $this->host = str_replace('www.', '', $this->host);
                     //$this->sessionname = preg_replace('/[^\da-z]/i', '', $this->host);
-                    $this->dbname      = preg_replace('/[^0-9a-z\.\-\_]/i', '', $this->host);
+                    $this->dbname = preg_replace('/[^0-9a-z\.\-\_]/i', '', $this->host);
 
                     // Known now defaults to not including periods in database names for multitenant installs. Add
                     // 'multitenant_periods = true' if you wish to override this.
                     if (empty($this->multitenant_periods)) {
-                        $this->dbname      = str_replace('.', '_', $this->dbname);
+                        $this->dbname = str_replace('.', '_', $this->dbname);
                     }
 
                     if (empty($this->dbname)) {
@@ -99,6 +99,7 @@
                     if ($config = @parse_ini_file($this->path . '/config.ini')) {
                         $this->ini_config = array_merge($config, $this->ini_config);
                     }
+
                     // Per domain configuration
                     if ($config = @parse_ini_file($this->path . '/' . $this->host . '.ini')) {
                         unset($this->ini_config['initial_plugins']);  // Don't let plugin settings be merged
@@ -113,7 +114,16 @@
                             }
                         }
                     }
-                    
+
+                    // Check environment variables and set as appropriate
+                    foreach($_SERVER as $name => $val) {
+                        if (substr($name, 0, 6) == 'KNOWN_') {
+                            $name = strtolower(str_replace('KNOWN_','',$name));
+                            $val = $val;
+                            $this->ini_config[$name] = $val;
+                        }
+                    }
+
                     // Perform some sanity checks on some user contributed settings
                     if (isset($this->ini_config['uploadpath'])) $this->ini_config['uploadpath'] = rtrim($this->ini_config['uploadpath'], ' /') . '/'; // End trailing slash insanity once and for all
                     unset($this->ini_config['path']); // Path should always be derived
@@ -216,7 +226,7 @@
                         unset($config['initial_plugins']);
                         unset($config['antiplugins']);
                         unset($config['alwaysplugins']);
-                        unset($config['session_path']); 
+                        unset($config['session_path']);
                     }
                     if (is_array($config)) {
                         $this->config = array_merge($this->config, $config);
@@ -244,13 +254,14 @@
              */
             function getDisplayURL()
             {
-                $url = $this->getURL();
+                $url       = $this->getURL();
                 $urischeme = parse_url($url, PHP_URL_SCHEME);
                 if (site()->isSecure()) {
                     $newuri = 'https:';
                 } else {
                     $newuri = 'http:';
                 }
+
                 return str_replace($urischeme . ':', $newuri, $url);
             }
 
