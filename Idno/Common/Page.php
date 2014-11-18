@@ -147,7 +147,7 @@
                     $this->parseJSONPayload();
                     $this->postContent();
                 } else {
-
+                    throw new \Exception('Action tokens are invalid.');
                 }
                 $this->forward(); // If we haven't forwarded yet, do so (if we can)
                 if (http_response_code() != 200)
@@ -177,7 +177,7 @@
                     $this->parseJSONPayload();
                     $this->putContent();
                 } else {
-
+                    throw new \Exception('Action tokens are invalid.');
                 }
                 $this->forward(); // If we haven't forwarded yet, do so (if we can)
                 if (http_response_code() != 200)
@@ -207,7 +207,7 @@
                     $this->parseJSONPayload();
                     $this->deleteContent();
                 } else {
-
+                    throw new \Exception('Action tokens are invalid.');
                 }
                 $this->forward(); // If we haven't forwarded yet, do so (if we can)
                 if (http_response_code() != 200)
