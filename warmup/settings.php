@@ -219,7 +219,7 @@ END;
                         The full path to a folder that Known can upload to. By default this is the "Uploads" folder -
                         you should leave this as-is unless you're an experienced system administrator. You need to make
                         sure the web server can save data to it. In your file manager, you should be able
-                        to select the folder, and click to enable "group" access.
+                        to select the folder, and click to enable "group" write access.
                     </label>
                 </p>
 
