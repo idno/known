@@ -89,19 +89,22 @@
     <!-- Le styles -->
     <link href="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/css/bootstrap.css"
           rel="stylesheet">
-    <link rel="stylesheet" href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet"
+          href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/font-awesome/css/font-awesome.min.css">
     <style>
         body {
             padding-top: 100px; /* 60px to make the container go all the way to the bottom of the topbar */
         }
     </style>
-    <link href="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/css/bootstrap-responsive.css"
-          rel="stylesheet">
+    <link
+        href="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/css/bootstrap-responsive.css"
+        rel="stylesheet">
     <link href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>css/default.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-    <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/js/html5shiv.js"></script>
+    <script
+        src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/js/html5shiv.js"></script>
     <![endif]-->
 
     <!-- Default Known JavaScript -->
@@ -264,14 +267,17 @@
 <?php if (!$_SERVER["HTTP_X_PJAX"]): ?>
 <!-- Le javascript -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/jquery-timeago/' ?>jquery.timeago.js"></script>
+<script
+    src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/jquery-timeago/' ?>jquery.timeago.js"></script>
 <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/jquery-pjax/' ?>jquery.pjax.js"></script>
-<script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
+<script
+    src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
 <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/underscore/underscore-min.js' ?>"
         type="text/javascript"></script>
 <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/mention/bootstrap-typeahead.js' ?>"
         type="text/javascript"></script>
-<script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/mention/mention.js' ?>" type="text/javascript"></script>
+<script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/mention/mention.js' ?>"
+        type="text/javascript"></script>
 
 <!-- Flexible media player -->
 <script
@@ -280,7 +286,8 @@
       href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/mediaelement/build/mediaelementplayer.css"/>
 
 <!-- WYSIWYG editor -->
-<link href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/summernote/dist/summernote.css" rel="stylesheet">
+<link href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/summernote/dist/summernote.css"
+      rel="stylesheet">
 <script src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/summernote/dist/summernote.min.js"></script>
 
 <!-- Mention styles -->
