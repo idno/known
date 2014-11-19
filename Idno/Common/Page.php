@@ -119,8 +119,9 @@
 
                 $this->getContent();
 
-                if (http_response_code() != 200)
+                if (http_response_code() != 200) {
                     http_response_code($this->response);
+                }
             }
 
             /**
@@ -150,8 +151,9 @@
 
                 }
                 $this->forward(); // If we haven't forwarded yet, do so (if we can)
-                if (http_response_code() != 200)
+                if (http_response_code() != 200) {
                     http_response_code($this->response);
+                }
             }
 
             /**
@@ -407,7 +409,9 @@
                     if ($exit) {
                         \Idno\Core\site()->session()->finishEarly();
                     }
-                    header('Location: ' . $location);
+                    if (!\Idno\Core\site()->session()->isAPIRequest()) {
+                        header('Location: ' . $location);
+                    }
                     if ($exit) {
                         exit;
                     }
