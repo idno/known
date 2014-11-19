@@ -35,7 +35,6 @@
             {
                 if (\Idno\Core\site()->session()) {
                     if ($user = \Idno\Core\site()->session()->currentUser()) {
-                        //var_export(\Idno\Core\site()->session()->currentUser());
                         $this->setOwner(\Idno\Core\site()->session()->currentUser());
                     }
                 }
