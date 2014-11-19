@@ -5,6 +5,7 @@
      */
 
     namespace IdnoPlugins\APITester\Pages {
+        use Idno\Core\Webservice;
 
         /**
          * Default class to serve the homepage
@@ -81,49 +82,23 @@
                 $username         = $this->getInput('username');
                 $json             = $this->getInput('json');
                 $follow_redirects = $this->getInput('follow_redirects');
-                $url              = \Idno\Core\site()->config()->url;
+                $url              = \Idno\Core\site()->config()->getURL();
                 if (strripos($url, '/') == strlen($url) - 1) {
                     $url = substr($url, 0, strlen($url) - 1);
                 }
                 $url .= $request;
 
-                if (is_callable('curl_init')) {
-                    $ch = \curl_init($url);
-                    curl_setopt_array($ch, array(
-                        CURLOPT_POST           => true, // Make a POST call
-                        CURLOPT_HEADER         => true, // Keep headers in the response
-                        CURLOPT_HTTPHEADER     => array(
-                            'X-KNOWN-USERNAME: ' . $username,
-                            'X-KNOWN-SIGNATURE: ' . base64_encode(hash_hmac('sha256', $request, $key, true)),
-                            'User-Agent: Known http://withknown.com'
-                        ),
-                        CURLOPT_POSTFIELDS     => trim($json),
-                        CURLOPT_RETURNTRANSFER => 1,
-                        CURLINFO_HEADER_OUT    => true
-                    ));
-                    if (!empty($follow_redirects)) {
-                        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-                    }
-                    $response     = curl_exec($ch);
-                    $sent_request = curl_getinfo($ch, CURLINFO_HEADER_OUT);
-                    curl_close($ch);
+                error_log("REQUEST " . $url);
+                error_log("REQUEST KEY " . $key);
 
-                    $api_request = array(
-                        'request'      => $request,
-                        'key'          => $key,
-                        'username'     => $username,
-                        'json'         => $json,
-                        'sent_request' => $sent_request,
-                        'response'     => $response
-                    );
+                $client = new Webservice();
+                $result = $client->post($url, $json, array(
+                    'X-KNOWN-USERNAME: ' . $username,
+                    'X-KNOWN-SIGNATURE: ' . base64_encode(hash_hmac('sha256', $request, $key, true)),
+                ));
+                \Idno\Core\site()->session()->addMessage(var_export($result,true));
 
-                    \Idno\Core\site()->session()->set('api_request', $api_request);
-
-                } else {
-                    \Idno\Core\site()->session()->addMessage('The API Tester can\'t make an API call without the curl extension.');
-                }
-
-                $this->forward(\Idno\Core\site()->config()->url . 'admin/apitester/');
+                $this->forward(\Idno\Core\site()->config()->getURL() . 'admin/apitester/');
 
             }
         }
