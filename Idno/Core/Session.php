@@ -304,6 +304,10 @@
                 if (!empty($_SERVER['HTTP_X_KNOWN_USERNAME']) && !empty($_SERVER['HTTP_X_KNOWN_SIGNATURE'])) {
 
                     \Idno\Core\site()->session()->setIsAPIRequest(true);
+                    $t = site()->currentPage()->getInput('_t');
+                    if (empty($t)) {
+                        site()->template()->setTemplateType('json');
+                    }
 
                     if ($user = \Idno\Entities\User::getByHandle($_SERVER['HTTP_X_KNOWN_USERNAME'])) {
 
