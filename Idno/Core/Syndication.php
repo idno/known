@@ -13,6 +13,7 @@
         {
 
             public $services = array();
+            public $accounts = array();
             public $checkers = array(); // Our array of "does user X have service Y enabled?" checkers
 
             function init()
@@ -61,6 +62,18 @@
             }
 
             /**
+             * Registers an account on a particular service as being available. The service itself must also have been registered.
+             * @param $service The name of the service.
+             * @param $username The username or user identifier on the service.
+             * @param $display_name A human-readable name for this account.
+             */
+            function registerServiceAccount($service, $username, $display_name)
+            {
+                $service = strtolower($service);
+                $this->accounts[$service][] = array('username' => $username, 'name' => $display_name);
+            }
+
+            /**
              * Adds a content type that the specified service will support
              * @param $service
              * @param $content_type
@@ -94,6 +107,19 @@
                 }
 
                 return array();
+            }
+
+            /**
+             * Retrieve the user identifiers associated with syndicating to the specified service
+             * @param $service
+             * @return bool
+             */
+            function getServiceAccounts($service)
+            {
+                if (!empty($this->accounts[$service])) {
+                    return $this->accounts[$service];
+                }
+                return false;
             }
 
             //function triggerSyndication
