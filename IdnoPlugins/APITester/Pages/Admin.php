@@ -96,7 +96,6 @@
                     'X-KNOWN-USERNAME: ' . $username,
                     'X-KNOWN-SIGNATURE: ' . base64_encode(hash_hmac('sha256', $request, $key, true)),
                 ));
-                \Idno\Core\site()->session()->addMessage(var_export($result,true));
 
                 $this->forward(\Idno\Core\site()->config()->getURL() . 'admin/apitester/');
 
