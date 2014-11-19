@@ -34,7 +34,7 @@
                     $json         = $api_request['json'];
                     $sent_request = $api_request['sent_request'];
                     $response     = $api_request['response'];
-                    \Idno\Core\site()->session()->set('api_request',false);
+                    \Idno\Core\site()->session()->set('api_request', false);
                 }
 
                 if (empty($request)) {
@@ -88,14 +88,24 @@
                 }
                 $url .= $request;
 
-                error_log("REQUEST " . $url);
-                error_log("REQUEST KEY " . $key);
-
                 $client = new Webservice();
                 $result = $client->post($url, $json, array(
                     'X-KNOWN-USERNAME: ' . $username,
                     'X-KNOWN-SIGNATURE: ' . base64_encode(hash_hmac('sha256', $request, $key, true)),
                 ));
+
+                $response     = Webservice::getLastResponse();
+                $sent_request = Webservice::getLastRequest() . $json;
+
+                $api_request = array(
+                    'request'      => $request,
+                    'key'          => $key,
+                    'username'     => $username,
+                    'json'         => $json,
+                    'sent_request' => $sent_request,
+                    'response'     => $response
+                );
+                \Idno\Core\site()->session()->set('api_request', $api_request);
 
                 $this->forward(\Idno\Core\site()->config()->getURL() . 'admin/apitester/');
 
