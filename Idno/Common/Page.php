@@ -409,7 +409,7 @@
                     if ($exit) {
                         \Idno\Core\site()->session()->finishEarly();
                     }
-                    if (!\Idno\Core\site()->session()->isAPIRequest()) {
+                    if (!\Idno\Core\site()->session()->isAPIRequest() || $this->response == 200) {
                         header('Location: ' . $location);
                     }
                     if ($exit) {
