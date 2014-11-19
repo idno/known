@@ -63,7 +63,7 @@
                 </div>
 
                 <p class="button-bar ">
-                    <?= \Idno\Core\site()->actions()->signForm('/text/edit') ?>
+                    <?= \Idno\Core\site()->actions()->signForm('/entry/edit') ?>
                     <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
                     <input type="submit" class="btn btn-primary" value="Publish"/>
                     <?= $this->draw('content/access'); ?>
