@@ -123,7 +123,7 @@
                 <div class="span8 offset2">
                     <p>
                         Technical details: API calls are a POST request  with the HTTP header X-KNOWN-USERNAME
-                        set to the user's username, and X-KNOWN-SIGANTURE to be an HMAC signature, computed with
+                        set to the user's username, and X-KNOWN-SIGNATURE to be an HMAC signature, computed with
                         sha256, using the user's API key.
                     </p>
                 </div>
