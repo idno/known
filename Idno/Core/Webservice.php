@@ -12,6 +12,9 @@
         class Webservice extends \Idno\Common\Component
         {
 
+            public static $lastRequest = '';
+            public static $lastResponse = '';
+
             /**
              * Send a web services request to a specified endpoint
              * @param string $verb The verb to send the request with; one of POST, GET, DELETE, PUT
@@ -64,6 +67,7 @@
                 curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($curl_handle, CURLOPT_USERAGENT, "Known http://withknown.com");
                 curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($curl_handle, CURLINFO_HEADER_OUT, 1);
                 curl_setopt($curl_handle, CURLOPT_SSL_VERIFYPEER, 1);
                 curl_setopt($curl_handle, CURLOPT_SSL_VERIFYHOST, 2);
                 
@@ -89,6 +93,9 @@
                 if ($error = curl_error($curl_handle)) {
                     \Idno\Core\site()->logging->log($error, LOGLEVEL_ERROR);
                 }
+
+                self::$lastRequest = curl_getinfo($curl_handle, CURLINFO_HEADER_OUT);
+                self::$lastResponse = $buffer;
 
                 curl_close($curl_handle);
 
@@ -172,6 +179,25 @@
                 }
                 return false;
             }
+
+            /**
+             * Retrieves the last HTTP request sent by the service client
+             * @return string
+             */
+            static function getLastRequest()
+            {
+                return self::$lastRequest;
+            }
+
+            /**
+             * Retrieves the last HTTP response sent to the service client
+             * @return string
+             */
+            static function getLastResponse()
+            {
+                return self::$lastResponse;
+            }
+
         }
 
     }
