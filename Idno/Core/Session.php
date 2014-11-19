@@ -302,21 +302,37 @@
             {
 
                 if (!empty($_SERVER['HTTP_X_KNOWN_USERNAME']) && !empty($_SERVER['HTTP_X_KNOWN_SIGNATURE'])) {
+
+                    \Idno\Core\site()->session()->setIsAPIRequest(true);
+
                     if ($user = \Idno\Entities\User::getByHandle($_SERVER['HTTP_X_KNOWN_USERNAME'])) {
+
                         $key          = $user->getAPIkey();
                         $hmac         = trim($_SERVER['HTTP_X_KNOWN_SIGNATURE']);
                         $compare_hmac = base64_encode(hash_hmac('sha256', $_SERVER['REQUEST_URI'], $key, true));
+
                         if ($hmac == $compare_hmac) {
+
                             \Idno\Core\site()->session()->logUserOn($user);
-                            \Idno\Core\site()->session()->setIsAPIRequest(true);
 
                             return $user;
+
                         }
+
                     }
                 }
 
                 // We're not logged in yet, so try and authenticate using other mechanism
-                return site()->triggerEvent('user/auth/api', [], false);
+                $return = site()->triggerEvent('user/auth/api', [], false);
+
+                // If this is an API request but we're not logged in, set page response code to access denied
+                if ($this->isAPIRequest() && !$return) {
+                    error_log("Bad auth");
+                    site()->currentPage()->setResponse(403);
+                }
+
+                return $return;
+
             }
 
             /**
