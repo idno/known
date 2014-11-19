@@ -327,7 +327,8 @@
                 }
 
                 // We're not logged in yet, so try and authenticate using other mechanism
-                $return = site()->triggerEvent('user/auth/api', [], false);
+                if ($return = site()->triggerEvent('user/auth/api', [], false))
+                    \Idno\Core\site()->session()->setIsAPIRequest(true);
 
                 // If this is an API request but we're not logged in, set page response code to access denied
                 if ($this->isAPIRequest() && !$return) {
