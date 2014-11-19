@@ -92,8 +92,8 @@
                 // This is the only way we can generate accurate expires and content length etc, but could be done more efficiently
                 $this->getContent(); 
                 
-                if (http_response_code() != 200)
-                    http_response_code($this->response);
+                //if (http_response_code() != 200)
+                http_response_code($this->response);
             }
 
             /**
@@ -151,9 +151,9 @@
 
                 }
                 $this->forward(); // If we haven't forwarded yet, do so (if we can)
-                if (http_response_code() != 200) {
+                //if (http_response_code() != 200) {
                     http_response_code($this->response);
-                }
+                //}
             }
 
             /**
