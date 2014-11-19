@@ -26,8 +26,9 @@
                 if ($params && is_array($params)) {
                     $req = http_build_query($params);
                 }
-                if ($params && !is_array($params))
+                if ($params && !is_array($params)) {
                     $req = $params;
+                }
 
                 $curl_handle = curl_init();
 
