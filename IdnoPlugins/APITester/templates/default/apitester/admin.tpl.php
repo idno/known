@@ -69,7 +69,7 @@
                     <p style="text-align: right">
                         <a href="#" class="btn" onclick="return setResponseType('json')">JSON</a>
                         <a href="#" class="btn" onclick="return setResponseType('rss')">RSS</a>
-                        <a href="#" class="btn" onclick="return setResponseType('default')">HTML</a>
+                        <a href="#" class="btn" onclick="return setResponseType('default')">Default</a>
                     </p>
                 </div>
             </div>
