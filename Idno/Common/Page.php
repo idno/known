@@ -159,7 +159,9 @@
                     // forward to / in some situations, these will need rewriting.
                     if ($return === null)
                     {
-                        $this->setResponse(400);
+                        if (http_response_code() == 200) {
+                            $this->setResponse(400);
+                        }
                         
                         // Say something, if nothing has been said
                         $messages = \Idno\Core\site()->session()->getMessages();
@@ -171,8 +173,8 @@
                         echo $t->drawPage();
                         
                     } else {
-                        // We have a return value, still probably should handle this better, but it's something. Assume false is error, everything else is ok
-                        if ($return === false) {
+                        // We have a return value, and response hasn't been explicitly set. Assume false is error, everything else is ok
+                        if (($return === false) && (http_response_code() == 200)) {
                             $this->setResponse(400);
                         }
                         
@@ -221,7 +223,9 @@
                     // Ensure we always get a meaningful response from the api
                     if ($return === null)
                     {
-                        $this->setResponse(400);
+                        if (http_response_code() == 200) {
+                            $this->setResponse(400);
+                        }
                         
                         // Say something, if nothing has been said
                         $messages = \Idno\Core\site()->session()->getMessages();
@@ -233,8 +237,8 @@
                         echo $t->drawPage();
                         
                     } else {
-                        // We have a return value, still probably should handle this better, but it's something. Assume false is error, everything else is ok
-                        if ($return === false) {
+                        // We have a return value, and response hasn't been explicitly set. Assume false is error, everything else is ok
+                        if (($return === false) && (http_response_code() == 200)) {
                             $this->setResponse(400);
                         }
                         
@@ -281,7 +285,9 @@
                     // Ensure we always get a meaningful response from the api
                     if ($return === null)
                     {
-                        $this->setResponse(400);
+                        if (http_response_code() == 200) {
+                            $this->setResponse(400);
+                        }
                         
                         // Say something, if nothing has been said
                         $messages = \Idno\Core\site()->session()->getMessages();
@@ -293,8 +299,8 @@
                         echo $t->drawPage();
                         
                     } else {
-                        // We have a return value, still probably should handle this better, but it's something. Assume false is error, everything else is ok
-                        if ($return === false) {
+                        // We have a return value, and response hasn't been explicitly set. Assume false is error, everything else is ok
+                        if (($return === false) && (http_response_code() == 200)) {
                             $this->setResponse(400);
                         }
                         
@@ -400,6 +406,7 @@
              */
             function getContent()
             {
+                $this->setResponse(501);
             }
 
             /**
@@ -407,6 +414,7 @@
              */
             function postContent()
             {
+                $this->setResponse(501);
             }
 
             /**
@@ -414,6 +422,7 @@
              */
             function putContent()
             {
+                $this->setResponse(501);
             }
 
             /**
@@ -421,6 +430,7 @@
              */
             function deleteContent()
             {
+                $this->setResponse(501);
             }
 
             /**
