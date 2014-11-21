@@ -48,7 +48,7 @@
                 $this->description        = 'A social website powered by Known'; // Default description
                 $this->timezone           = 'UTC';
                 $this->host               = parse_url($this->url, PHP_URL_HOST); // The site hostname, without parameters etc
-                $this->feed               = $this->url . '?_t=rss';
+                $this->feed               = $this->getDisplayURL() . 'content/all/?_t=rss';
                 $this->indieweb_citation  = false;
                 $this->indieweb_reference = false;
                 $this->known_hub          = false;
