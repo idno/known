@@ -87,7 +87,7 @@
                         return true;
                     }
                 } else {
-                    \Idno\Core\site()->session()->addMessage('You can\'t save an empty comic.');
+                    \Idno\Core\site()->session()->addErrorMessage('You can\'t save an empty comic.');
                 }
 
                 return false;
