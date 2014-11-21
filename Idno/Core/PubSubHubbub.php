@@ -28,6 +28,21 @@ namespace Idno\Core {
                     }
                 }
             });
+
+            // Add PuSH headers to the top of the page
+            \Idno\Core\site()->addEventHook('page/head', function (Event $event) {
+
+                if (!empty(site()->config()->hub)) {
+                    $eventdata = $event->data();
+                    if ($page = $eventdata['page']) {
+
+                        header('Link: <'.site()->config()->hub.'> rel="hub"');
+                        header('Link: <'.site()->config()->feed.'> rel="self"');
+
+                    }
+                }
+
+            });
             
             // When we follow a user, try and subscribe to their hub
             \Idno\Core\site()->addEventHook('follow', function(\Idno\Core\Event $event) {
