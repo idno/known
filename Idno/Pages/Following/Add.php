@@ -20,7 +20,7 @@
                     if ($feed = \Idno\Core\site()->reader()->getFeedObject($url)) {
                         $this->forward(\Idno\Core\site()->config()->getURL() . 'following/confirm/?feed=' . urlencode($url));
                     } else {
-                        \Idno\Core\site()->session()->addMessage("We couldn't find a feed at that site.");
+                        \Idno\Core\site()->session()->addErrorMessage("We couldn't find a feed at that site.");
                     }
                 }
                 $this->forward(\Idno\Core\site()->config()->getURL() . 'following/');
