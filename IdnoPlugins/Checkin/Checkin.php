@@ -70,7 +70,7 @@
                         return true;
                     }
                 } else {
-                    \Idno\Core\site()->session()->addMessage('You can\'t save an empty checkin.');
+                    \Idno\Core\site()->session()->addErrorMessage('You can\'t save an empty checkin.');
                 }
 
                 return false;
