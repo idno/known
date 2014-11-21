@@ -117,13 +117,18 @@ namespace Idno\Core {
 
         /**
          * Find all hub urls for a given url, by looking at its feeds.
+         * @param $url the URL of the page to check
+         * @param $page optionally, the contents of the page at $url
+         * @todo replace this with xpath.
          */
-        private function discoverHubs($url) {
+        private function discoverHubs($url, $page = '') {
 
             $hubs = array();
             
-            // Get page
-            $page = \Idno\Core\Webservice::file_get_contents($url);
+            // Get page, if necessary
+            if (empty($page)) {
+                $page = \Idno\Core\Webservice::file_get_contents($url);
+            }
             
             // Find the feed in page
             $feed = $this->findFeed($url, $page);
@@ -207,16 +212,15 @@ namespace Idno\Core {
         }
 
         /**
-         * If this idno installation has a PubSubHubbub hub, send a publish notification to the hub
+         * If this Known installation has a PubSubHubbub hub, send a publish notification to the hub
          * @param string $url
          * @return array
          */
         static function publish($url) {
             if ($hub = \Idno\Core\site()->config()->hub) {
-
                 return \Idno\Core\Webservice::post($hub, array(
-                            'hub.mode' => 'publish',
-                            'hub.url' => \Idno\Core\site()->config()->feed
+                    'hub.mode' => 'publish',
+                    'hub.url' => \Idno\Core\site()->config()->feed
                 ));
             }
 
