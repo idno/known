@@ -37,14 +37,14 @@
                 if (empty($object)) $this->forward();
                 if (!$object->canEdit()) {
                     $this->setResponse(403);
-                    \Idno\Core\site()->session()->addMessage("You don't have permission to perform this task.");
+                    \Idno\Core\site()->session()->addErrorMessage("You don't have permission to perform this task.");
                     $this->forward();
                 }
 
                 if ($object->delete()) {
                     \Idno\Core\site()->session()->addMessage('Your photo was deleted.');
                 } else {
-                    \Idno\Core\site()->session()->addMessage("We couldn't delete your photo.");
+                    \Idno\Core\site()->session()->addErrorMessage("We couldn't delete your photo.");
                 }
                 $this->forward($_SERVER['HTTP_REFERER']);
             }
