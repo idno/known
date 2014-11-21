@@ -61,6 +61,8 @@
                 }
                 \Idno\Core\site()->setCurrentPage($this);
 
+                \Idno\Core\site()->triggerEvent('page/head',array('page' => $this));
+
                 // Default exception handler
                 set_exception_handler(function ($exception) {
                     $page = \Idno\Core\site()->currentPage();
