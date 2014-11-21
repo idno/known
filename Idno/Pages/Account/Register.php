@@ -22,7 +22,7 @@
 
                 if (empty(\Idno\Core\site()->config()->open_registration)) {
                     if (!\Idno\Entities\Invitation::validate($email, $code)) {
-                        \Idno\Core\site()->session()->addMessage("Your invitation doesn't seem to be valid, or has expired.");
+                        \Idno\Core\site()->session()->addErrorMessage("Your invitation doesn't seem to be valid, or has expired.");
                         $this->forward(\Idno\Core\site()->config()->getURL());
                     }
                 }
@@ -51,7 +51,7 @@
 
                 if (empty(\Idno\Core\site()->config()->open_registration)) {
                     if (!($invitation = \Idno\Entities\Invitation::validate($email, $code))) {
-                        \Idno\Core\site()->session()->addMessage("Your invitation doesn't seem to be valid or has expired.");
+                        \Idno\Core\site()->session()->addErrorMessage("Your invitation doesn't seem to be valid, or has expired.");
                         $this->forward(\Idno\Core\site()->config()->getURL());
                     } else {
                         // Removing this from here - invitation will be deleted once user is created
@@ -62,7 +62,7 @@
                 $user = new \Idno\Entities\User();
 
                 if (empty($handle) && empty($email)) {
-                    \Idno\Core\site()->session()->addMessage("Please enter a username and email address.");
+                    \Idno\Core\site()->session()->addErrorMessage("Please enter a username and email address.");
                 } else if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     if (
                         !($emailuser = \Idno\Entities\User::getByEmail($email)) &&
@@ -121,7 +121,7 @@
                         }
                     }
                 } else {
-                    \Idno\Core\site()->session()->addMessage("That doesn't seem like it's a valid email address.");
+                    \Idno\Core\site()->session()->addErrorMessage("That doesn't seem like it's a valid email address.");
                 }
 
                 if (!empty($user->_id)) {
