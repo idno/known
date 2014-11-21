@@ -102,22 +102,22 @@
                         }
                     } else {
                         if (empty($handle)) {
-                            \Idno\Core\site()->session()->addMessage("Please create a username.");
+                            \Idno\Core\site()->session()->addErrorMessage("Please create a username.");
                         }
                         if (strlen($handle) > 32) {
-                            \Idno\Core\site()->session()->addMessage("Your username is too long.");
+                            \Idno\Core\site()->session()->addErrorMessage("Your username is too long.");
                         }
                         if (substr_count($handle, '/')) {
-                            \Idno\Core\site()->session()->addMessage("Usernames can't contain a slash ('/') character.");
+                            \Idno\Core\site()->session()->addErrorMessage("Usernames can't contain a slash ('/') character.");
                         }
                         if (!empty($handleuser)) {
-                            \Idno\Core\site()->session()->addMessage("Unfortunately, someone is already using that username. Please choose another.");
+                            \Idno\Core\site()->session()->addErrorMessage("Unfortunately, someone is already using that username. Please choose another.");
                         }
                         if (!empty($emailuser)) {
-                            \Idno\Core\site()->session()->addMessage("Hey, it looks like there's already an account with that email address. Did you forget your login?");
+                            \Idno\Core\site()->session()->addErrorMessage("Hey, it looks like there's already an account with that email address. Did you forget your login?");
                         }
                         if (!\Idno\Entities\User::checkNewPasswordStrength($password) || $password != $password2) {
-                            \Idno\Core\site()->session()->addMessage("Please check that your passwords match and that your password is at least 7 characters long.");
+                            \Idno\Core\site()->session()->addErrorMessage("Please check that your passwords match and that your password is at least 7 characters long.");
                         }
                     }
                 } else {
