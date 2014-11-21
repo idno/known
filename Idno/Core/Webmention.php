@@ -21,6 +21,22 @@
                 \Idno\Core\site()->addPageHandler('/webmention/?', '\Idno\Pages\Webmentions\Endpoint');
             }
 
+            function registerEventHooks()
+            {
+
+                // Add webmention headers to the top of the page
+                \Idno\Core\site()->addEventHook('page/head', function (Event $event) {
+
+                    if (!empty(site()->config()->hub)) {
+                        $eventdata = $event->data();
+                        header('Link: <' . \Idno\Core\site()->config()->getDisplayURL() . 'webmention/>; rel="http://webmention.org/"', false);
+                        header('Link: <' . \Idno\Core\site()->config()->getDisplayURL() . 'webmention/>; rel="webmention"', false);
+                    }
+
+                });
+
+            }
+
             /**
              * Pings mentions from a given page to any linked pages
              * @param $pageURL Page URL
