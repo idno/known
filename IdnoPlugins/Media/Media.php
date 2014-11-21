@@ -107,13 +107,13 @@
                                 $this->attachFile($media);
                                 $ok = true;
                             } else {
-                                \Idno\Core\site()->session()->addMessage('Media wasn\'t attached.');
+                                \Idno\Core\site()->session()->addErrorMessage('Media wasn\'t attached.');
                             }
                         } else {
-                            \Idno\Core\site()->session()->addMessage('This doesn\'t seem to be a media file .. ' . $_FILES['media']['type']);
+                            \Idno\Core\site()->session()->addErrorMessage('This doesn\'t seem to be a media file .. ' . $_FILES['media']['type']);
                         }
                     } else {
-                        \Idno\Core\site()->session()->addMessage('We couldn\'t access your media. Please try again.');
+                        \Idno\Core\site()->session()->addErrorMessage('We couldn\'t access your media. Please try again.');
 
                         return false;
                     }
