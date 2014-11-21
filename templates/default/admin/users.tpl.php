@@ -46,7 +46,18 @@
                             </div>
                             <div class="span2">
                                 <p>
-                                    <small><strong>Updated</strong><br><time datetime="<?= date('r', $user->updated) ?>" class="dt-published"><?= date('r', $user->updated) ?></time></small>
+                                    <small><strong>Last update posted</strong>
+                                        <br>
+                                        <?php 
+                                        if ($feed  = \Idno\Entities\ActivityStreamPost::getFromX(null, ['owner' => $user->getUUID()], array(), 1, 0)) {
+                                        ?>
+                                        <time datetime="<?= date('r', $feed[0]->updated) ?>" class="dt-published"><?= date('r', $feed[0]->updated) ?></time>
+                                        <?php } else {
+                                            ?>
+                                        Never
+                                        <?php
+                                        } ?>
+                                    </small>
                                 </p>
                             </div>
                             <div class="span2">
