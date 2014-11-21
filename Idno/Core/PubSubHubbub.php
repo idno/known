@@ -34,12 +34,8 @@ namespace Idno\Core {
 
                 if (!empty(site()->config()->hub)) {
                     $eventdata = $event->data();
-                    if ($page = $eventdata['page']) {
-
-                        header('Link: <'.site()->config()->hub.'> rel="hub"');
-                        header('Link: <'.site()->config()->feed.'> rel="self"');
-
-                    }
+                    header('Link: <'.site()->config()->hub.'> rel="hub"');
+                    header('Link: <'.site()->config()->feed.'> rel="self"');
                 }
 
             });
