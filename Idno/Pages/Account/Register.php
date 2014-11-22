@@ -49,6 +49,10 @@
                 $code       = $this->getInput('code');
                 $onboarding = $this->getInput('onboarding');
 
+                if (!\Idno\Common\Page::isSSL() && !\Idno\Core\site()->config()->disable_cleartext_warning) {
+                    \Idno\Core\site()->session()->addErrorMessage("Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini");
+                }
+                
                 if (empty(\Idno\Core\site()->config()->open_registration)) {
                     if (!($invitation = \Idno\Entities\Invitation::validate($email, $code))) {
                         \Idno\Core\site()->session()->addMessage("Your invitation doesn't seem to be valid or has expired.");
