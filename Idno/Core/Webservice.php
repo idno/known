@@ -71,6 +71,14 @@
                 curl_setopt($curl_handle, CURLOPT_SSL_VERIFYPEER, 1);
                 curl_setopt($curl_handle, CURLOPT_SSL_VERIFYHOST, 2);
                 
+                // If we're calling this function as a logged in user, then we need to store cookies in a cookiejar
+                if ($user = \Idno\Core\site()->session()->currentUser()) {
+                    
+                    // Save cookie to user specific cookie jar, using some level of obfuscation
+                    curl_setopt($curl_handle, CURLOPT_COOKIEJAR, \Idno\Core\site()->config()->cookie_jar . md5($user->getUUID() . \Idno\Core\site()->config()->site_secret)); 
+                }
+                
+                
                 // Proxy connection string provided
                 if (!empty(\Idno\Core\site()->config()->proxy_string)) {
                     curl_setopt($curl_handle, CURLOPT_PROXY, \Idno\Core\site()->config()->proxy_string);
