@@ -1456,7 +1456,7 @@
                             }
                             // Special exemption for bridgy
                             if ((strpos($source, 'https://brid-gy.appspot.com/') !== FALSE) && in_array($mention['type'], array('like','share','rsvp'))) {
-                                $permalink = \Idno\Core\site()->template()->getURLWithVar('known_from',$source,$mention['url']);
+                                $permalink = \Idno\Core\site()->template()->getURLWithVar('known_from',$source,implode('',$mention['url']));
                             }
                             if (!$this->addAnnotation($mention['type'], $mentions['owner']['name'], $mentions['owner']['url'], $mentions['owner']['photo'], $mention['content'], $permalink, $mention['created'])) {
                                 $return = false;
