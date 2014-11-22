@@ -53,6 +53,7 @@
                 $this->indieweb_reference = false;
                 $this->known_hub          = false;
                 $this->session_path       = session_save_path(); // Session path when not storing sessions in the database
+                $this->disable_cleartext_warning = false; // Set to true to disable warning when access credentials are sent in the clear
 
                 $this->loadIniFiles();
 
