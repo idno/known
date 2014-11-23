@@ -61,6 +61,8 @@
                 }
                 \Idno\Core\site()->setCurrentPage($this);
 
+                \Idno\Core\site()->triggerEvent('page/head',array('page' => $this));
+
                 // Default exception handler
                 set_exception_handler(function ($exception) {
                     $page = \Idno\Core\site()->currentPage();
@@ -146,11 +148,47 @@
 
                 if (\Idno\Core\site()->actions()->validateToken('', false)) {
                     $this->parseJSONPayload();
-                    $this->postContent();
+                    $return = $this->postContent();
                 } else {
 
                 }
-                $this->forward(); // If we haven't forwarded yet, do so (if we can)
+                
+                if (\Idno\Core\site()->session()->isAPIRequest()) {
+                
+                    // If postContent hasn't forwarded itself, and returns null, then balance of probabilities is something went wrong.
+                    // Either way, it's not safe to forward to the site root since this spits back json encoded front page and a 200 response. 
+                    // API currently doesn't explicitly handle this situation (bad), but we don't want to forward (worse). Some plugins will still
+                    // forward to / in some situations, these will need rewriting.
+                    if ($return === null)
+                    {
+                        if (http_response_code() == 200) {
+                            $this->setResponse(400);
+                        }
+                        
+                        // Say something, if nothing has been said
+                        $messages = \Idno\Core\site()->session()->getMessages();
+                        if (empty($messages)) {
+                            \Idno\Core\site()->session()->addErrorMessage("Couldn't say anything about execution, probably something went wrong");
+                        }
+                        
+                        $t = \Idno\Core\site()->template();
+                        echo $t->drawPage();
+                        
+                    } else {
+                        // We have a return value, and response hasn't been explicitly set. Assume false is error, everything else is ok
+                        if (($return === false) && (http_response_code() == 200)) {
+                            $this->setResponse(400);
+                        }
+                        
+                        $t = \Idno\Core\site()->template();
+                        echo $t->__(['result' => $return])->drawPage();
+                    }
+                }
+                else
+                {
+                    $this->forward(); // If we haven't forwarded yet, do so (if we can)
+                }
+                
                 //if (http_response_code() != 200) {
                     http_response_code($this->response);
                 //}
@@ -177,11 +215,43 @@
                 if (\Idno\Core\site()->actions()->validateToken('', false)) {
                     \Idno\Core\site()->session()->APIlogin();
                     $this->parseJSONPayload();
-                    $this->putContent();
+                    $return = $this->putContent();
                 } else {
 
                 }
-                $this->forward(); // If we haven't forwarded yet, do so (if we can)
+                
+                if (\Idno\Core\site()->session()->isAPIRequest()) {
+                    
+                    // Ensure we always get a meaningful response from the api
+                    if ($return === null)
+                    {
+                        if (http_response_code() == 200) {
+                            $this->setResponse(400);
+                        }
+                        
+                        // Say something, if nothing has been said
+                        $messages = \Idno\Core\site()->session()->getMessages();
+                        if (empty($messages)) {
+                            \Idno\Core\site()->session()->addErrorMessage("Couldn't say anything about execution, probably something went wrong");
+                        }
+                        
+                        $t = \Idno\Core\site()->template();
+                        echo $t->drawPage();
+                        
+                    } else {
+                        // We have a return value, and response hasn't been explicitly set. Assume false is error, everything else is ok
+                        if (($return === false) && (http_response_code() == 200)) {
+                            $this->setResponse(400);
+                        }
+                        
+                        $t = \Idno\Core\site()->template();
+                        echo $t->__(['result' => $return])->drawPage();
+                    }
+                    
+                } else {
+                    $this->forward(); // If we haven't forwarded yet, do so (if we can)
+                }
+                
                 if (http_response_code() != 200)
                     http_response_code($this->response);
             }
@@ -207,11 +277,43 @@
                 if (\Idno\Core\site()->actions()->validateToken('', false)) {
                     \Idno\Core\site()->session()->APIlogin();
                     $this->parseJSONPayload();
-                    $this->deleteContent();
+                    $return = $this->deleteContent();
                 } else {
 
                 }
-                $this->forward(); // If we haven't forwarded yet, do so (if we can)
+                
+                if (\Idno\Core\site()->session()->isAPIRequest()) {
+                    
+                    // Ensure we always get a meaningful response from the api
+                    if ($return === null)
+                    {
+                        if (http_response_code() == 200) {
+                            $this->setResponse(400);
+                        }
+                        
+                        // Say something, if nothing has been said
+                        $messages = \Idno\Core\site()->session()->getMessages();
+                        if (empty($messages)) {
+                            \Idno\Core\site()->session()->addErrorMessage("Couldn't say anything about execution, probably something went wrong");
+                        }
+                        
+                        $t = \Idno\Core\site()->template();
+                        echo $t->drawPage();
+                        
+                    } else {
+                        // We have a return value, and response hasn't been explicitly set. Assume false is error, everything else is ok
+                        if (($return === false) && (http_response_code() == 200)) {
+                            $this->setResponse(400);
+                        }
+                        
+                        $t = \Idno\Core\site()->template();
+                        echo $t->__(['result' => $return])->drawPage();
+                    }
+                    
+                } else {
+                    $this->forward(); // If we haven't forwarded yet, do so (if we can)
+                }
+                
                 if (http_response_code() != 200)
                     http_response_code($this->response);
             }
@@ -306,6 +408,7 @@
              */
             function getContent()
             {
+                $this->setResponse(501);
             }
 
             /**
@@ -313,6 +416,7 @@
              */
             function postContent()
             {
+                $this->setResponse(501);
             }
 
             /**
@@ -320,6 +424,7 @@
              */
             function putContent()
             {
+                $this->setResponse(501);
             }
 
             /**
@@ -327,6 +432,7 @@
              */
             function deleteContent()
             {
+                $this->setResponse(501);
             }
 
             /**

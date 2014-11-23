@@ -22,7 +22,7 @@
 
                 if (empty(\Idno\Core\site()->config()->open_registration)) {
                     if (!\Idno\Entities\Invitation::validate($email, $code)) {
-                        \Idno\Core\site()->session()->addMessage("Your invitation doesn't seem to be valid, or has expired.");
+                        \Idno\Core\site()->session()->addErrorMessage("Your invitation doesn't seem to be valid, or has expired.");
                         $this->forward(\Idno\Core\site()->config()->getURL());
                     }
                 }
@@ -55,7 +55,7 @@
                 
                 if (empty(\Idno\Core\site()->config()->open_registration)) {
                     if (!($invitation = \Idno\Entities\Invitation::validate($email, $code))) {
-                        \Idno\Core\site()->session()->addMessage("Your invitation doesn't seem to be valid or has expired.");
+                        \Idno\Core\site()->session()->addErrorMessage("Your invitation doesn't seem to be valid, or has expired.");
                         $this->forward(\Idno\Core\site()->config()->getURL());
                     } else {
                         // Removing this from here - invitation will be deleted once user is created
@@ -66,7 +66,7 @@
                 $user = new \Idno\Entities\User();
 
                 if (empty($handle) && empty($email)) {
-                    \Idno\Core\site()->session()->addMessage("Please enter a username and email address.");
+                    \Idno\Core\site()->session()->addErrorMessage("Please enter a username and email address.");
                 } else if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     if (
                         !($emailuser = \Idno\Entities\User::getByEmail($email)) &&
@@ -106,26 +106,26 @@
                         }
                     } else {
                         if (empty($handle)) {
-                            \Idno\Core\site()->session()->addMessage("Please create a username.");
+                            \Idno\Core\site()->session()->addErrorMessage("Please create a username.");
                         }
                         if (strlen($handle) > 32) {
-                            \Idno\Core\site()->session()->addMessage("Your username is too long.");
+                            \Idno\Core\site()->session()->addErrorMessage("Your username is too long.");
                         }
                         if (substr_count($handle, '/')) {
-                            \Idno\Core\site()->session()->addMessage("Usernames can't contain a slash ('/') character.");
+                            \Idno\Core\site()->session()->addErrorMessage("Usernames can't contain a slash ('/') character.");
                         }
                         if (!empty($handleuser)) {
-                            \Idno\Core\site()->session()->addMessage("Unfortunately, someone is already using that username. Please choose another.");
+                            \Idno\Core\site()->session()->addErrorMessage("Unfortunately, someone is already using that username. Please choose another.");
                         }
                         if (!empty($emailuser)) {
-                            \Idno\Core\site()->session()->addMessage("Hey, it looks like there's already an account with that email address. Did you forget your login?");
+                            \Idno\Core\site()->session()->addErrorMessage("Hey, it looks like there's already an account with that email address. Did you forget your login?");
                         }
                         if (!\Idno\Entities\User::checkNewPasswordStrength($password) || $password != $password2) {
-                            \Idno\Core\site()->session()->addMessage("Please check that your passwords match and that your password is at least 7 characters long.");
+                            \Idno\Core\site()->session()->addErrorMessage("Please check that your passwords match and that your password is at least 7 characters long.");
                         }
                     }
                 } else {
-                    \Idno\Core\site()->session()->addMessage("That doesn't seem like it's a valid email address.");
+                    \Idno\Core\site()->session()->addErrorMessage("That doesn't seem like it's a valid email address.");
                 }
 
                 if (!empty($user->_id)) {

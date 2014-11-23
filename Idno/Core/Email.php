@@ -14,7 +14,7 @@
                     require_once site()->config()->path . '/external/swiftmailer/lib/swift_required.php';
                     $this->message = \Swift_Message::newInstance();
                 } catch (\Exception $e) {
-                    site()->session()->addMessage("Something went wrong and we couldn't create the email message to send.");
+                    site()->session()->addErrorMessage("Something went wrong and we couldn't create the email message to send.");
                 }
             }
 

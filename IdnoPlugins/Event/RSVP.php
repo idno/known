@@ -82,7 +82,7 @@
                         return true;
                     }
                 } else {
-                    \Idno\Core\site()->session()->addMessage('You can\'t save an RSVP with no status.');
+                    \Idno\Core\site()->session()->addErrorMessage('You can\'t save an RSVP with no status.');
                 }
                 return false;
 

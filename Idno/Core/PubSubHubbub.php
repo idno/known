@@ -28,6 +28,17 @@ namespace Idno\Core {
                     }
                 }
             });
+
+            // Add PuSH headers to the top of the page
+            \Idno\Core\site()->addEventHook('page/head', function (Event $event) {
+
+                if (!empty(site()->config()->hub)) {
+                    $eventdata = $event->data();
+                    header('Link: <'.site()->config()->hub.'> rel="hub"',false);
+                    header('Link: <'.site()->config()->feed.'> rel="self"',false);
+                }
+
+            });
             
             // When we follow a user, try and subscribe to their hub
             \Idno\Core\site()->addEventHook('follow', function(\Idno\Core\Event $event) {
@@ -117,13 +128,18 @@ namespace Idno\Core {
 
         /**
          * Find all hub urls for a given url, by looking at its feeds.
+         * @param $url the URL of the page to check
+         * @param $page optionally, the contents of the page at $url
+         * @todo replace this with xpath.
          */
-        private function discoverHubs($url) {
+        private function discoverHubs($url, $page = '') {
 
             $hubs = array();
             
-            // Get page
-            $page = \Idno\Core\Webservice::file_get_contents($url);
+            // Get page, if necessary
+            if (empty($page)) {
+                $page = \Idno\Core\Webservice::file_get_contents($url);
+            }
             
             // Find the feed in page
             $feed = $this->findFeed($url, $page);
@@ -207,16 +223,15 @@ namespace Idno\Core {
         }
 
         /**
-         * If this idno installation has a PubSubHubbub hub, send a publish notification to the hub
+         * If this Known installation has a PubSubHubbub hub, send a publish notification to the hub
          * @param string $url
          * @return array
          */
         static function publish($url) {
             if ($hub = \Idno\Core\site()->config()->hub) {
-
                 return \Idno\Core\Webservice::post($hub, array(
-                            'hub.mode' => 'publish',
-                            'hub.url' => \Idno\Core\site()->config()->feed
+                    'hub.mode' => 'publish',
+                    'hub.url' => \Idno\Core\site()->config()->feed
                 ));
             }
 

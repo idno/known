@@ -3,8 +3,6 @@
     $messages = $vars['messages'];
 
     header('Content-type: text/html');
-    header('Link: <' . \Idno\Core\site()->config()->getDisplayURL() . 'webmention/>; rel="http://webmention.org/"');
-    header('Link: <' . \Idno\Core\site()->config()->getDisplayURL() . 'webmention/>; rel="webmention"');
     header("Access-Control-Allow-Origin: *");
 
     if (empty($vars['title']) && !empty($vars['description'])) {

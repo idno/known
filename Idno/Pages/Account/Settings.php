@@ -46,7 +46,7 @@
                     if (!\Idno\Entities\User::getByEmail($email)) {
                         $user->email = $email;
                     } else {
-                        \Idno\Core\site()->session()->addMessage('Someone is already using ' . $email . ' as their email address.', 'alert-error');
+                        \Idno\Core\site()->session()->addErrorMessage('Someone is already using ' . $email . ' as their email address.');
                     }
                 }
 
@@ -54,7 +54,7 @@
                     if (\Idno\Entities\User::checkNewPasswordStrength($password)) {
                         $user->setPassword($password);
                     } else {
-                        \Idno\Core\site()->session()->addMessage('Sorry, your password is too weak', 'alert-error');
+                        \Idno\Core\site()->session()->addErrorMessage('Sorry, your password is too weak');
                     }
                 }
 
