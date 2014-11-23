@@ -63,8 +63,8 @@
 
             /**
              * Registers an account on a particular service as being available. The service itself must also have been registered.
-             * @param $service The name of the service.
-             * @param $username The username or user identifier on the service.
+             * @param string $service The name of the service.
+             * @param string $username The username or user identifier on the service.
              * @param $display_name A human-readable name for this account.
              */
             function registerServiceAccount($service, $username, $display_name)
