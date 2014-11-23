@@ -8,7 +8,6 @@
     header("Access-Control-Allow-Origin: *");
     
     unset($vars['body']);
-    $vars['messages'] = \Idno\Core\site()->session()->getAndFlushMessages();
 
     if (!($callback = \Idno\Core\site()->currentPage()->getInput('callback'))) {
         if (!($callback = \Idno\Core\site()->currentPage()->getInput('jsonp'))) {
