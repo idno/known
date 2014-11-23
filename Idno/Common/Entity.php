@@ -494,7 +494,7 @@
                         \Idno\Core\site()->events()->dispatch('post/' . $this->getActivityStreamsObjectType(), $event);
                         \Idno\Core\site()->events()->dispatch('syndicate', $event);
                     } catch (\Exception $e) {
-                        \Idno\Core\site()->session()->addMessage("There was a problem syndicating.");
+                        \Idno\Core\site()->session()->addErrorMessage("There was a problem syndicating.");
                         \Idno\Core\site()->logging()->log($e->getMessage());
                     }
                 }

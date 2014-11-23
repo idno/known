@@ -50,12 +50,12 @@
                         \Idno\Core\site()->session()->logUserOn($user);
                         $this->forward($fwd);
                     } else {
-                        \Idno\Core\site()->session()->addMessage("Oops! It looks like your password isn't correct. Please try again.");
+                        \Idno\Core\site()->session()->addErrorMessage("Oops! It looks like your password isn't correct. Please try again.");
                         \Idno\Core\site()->triggerEvent('login/failure', array('user' => $user));
                         $this->forward($_SERVER['HTTP_REFERER']);
                     }
                 } else {
-                    \Idno\Core\site()->session()->addMessage("Oops! We couldn't find your username or email address. Please check you typed it correctly and try again.");
+                    \Idno\Core\site()->session()->addErrorMessage("Oops! We couldn't find your username or email address. Please check you typed it correctly and try again.");
                 }
             }
 

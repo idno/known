@@ -106,13 +106,13 @@
                                 }
 
                             } else {
-                                \Idno\Core\site()->session()->addMessage('Image wasn\'t attached.');
+                                \Idno\Core\site()->session()->addErrorMessage('Image wasn\'t attached.');
                             }
                         } else {
-                            \Idno\Core\site()->session()->addMessage('This doesn\'t seem to be an image ..');
+                            \Idno\Core\site()->session()->addErrorMessage('This doesn\'t seem to be an image ..');
                         }
                     } else {
-                        \Idno\Core\site()->session()->addMessage('We couldn\'t access your image. Please try again.');
+                        \Idno\Core\site()->session()->addErrorMessage('We couldn\'t access your image. Please try again.');
 
                         return false;
                     }

@@ -77,7 +77,7 @@
                         return true;
                     }
                 } else {
-                    \Idno\Core\site()->session()->addMessage('You can\'t save an empty entry.');
+                    \Idno\Core\site()->session()->addErrorMessage('You can\'t save an empty entry.');
                 }
                 return false;
 
