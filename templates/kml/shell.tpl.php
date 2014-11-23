@@ -30,7 +30,7 @@
                     $kmlItem->appendChild($page->createElement('name', $item->getTitle()));
                 }
                 $description = $page->createElement('description');
-                $description->appendChild($page->createCDATASection($item->draw()));
+                $description->appendChild($page->createCDATASection($item->draw() . '<p><small>'.date('F j, Y',$item->created).'</small></p>'));
                 $kmlItem->appendChild($description);
                 $point          = $page->createElement('Point');
                 $point->appendChild($page->createElement('coordinates', $item->long . ',' . $item->lat));
