@@ -25,32 +25,34 @@
              */
             static function send($verb, $endpoint, $params = null, array $headers = null)
             {
-                $req = "";
-                if ($params && is_array($params)) {
-                    $req = http_build_query($params);
-                }
-                if ($params && !is_array($params)) {
-                    $req = $params;
-                }
+                
 
                 $curl_handle = curl_init();
 
                 switch (strtolower($verb)) {
                     case 'post':
                         curl_setopt($curl_handle, CURLOPT_POST, 1);
-                        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $req);
+                        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $params);
                         $headers[] = 'Expect:';
                         break;
                     case 'delete':
                         curl_setopt($curl_handle, CURLOPT_CUSTOMREQUEST, 'DELETE'); // Override request type
-                        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $req);
+                        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $params);
                         break;
                     case 'put':
                         curl_setopt($curl_handle, CURLOPT_CUSTOMREQUEST, 'PUT'); // Override request type
-                        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $req);
+                        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $params);
                         break;
                     case 'get':
                     default:
+                        $req = "";
+                        if ($params && is_array($params)) {
+                            $req = http_build_query($params);
+                        }
+                        if ($params && !is_array($params)) {
+                            $req = $params;
+                        }
+                        
                         curl_setopt($curl_handle, CURLOPT_HTTPGET, true);
                         if (strpos($endpoint, '?') !== false) {
                             $endpoint .= '&' . $req;

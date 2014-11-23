@@ -32,7 +32,7 @@
                     }
                 }
 
-                \Idno\Core\site()->session()->addMessage("The password reset code wasn't valid. They expire after three hours, so you might need to try again.");
+                \Idno\Core\site()->session()->addErrorMessage("The password reset code wasn't valid. They expire after three hours, so you might need to try again.");
                 $this->forward(\Idno\Core\site()->config()->getURL() . 'account/password');
 
             }
@@ -60,7 +60,7 @@
 
                     }
                 } else {
-                    \Idno\Core\site()->session()->addMessage('Sorry, your passwords either don\'t match, or are too weak', 'alert-error');
+                    \Idno\Core\site()->session()->addErrorMessage('Sorry, your passwords either don\'t match, or are too weak', 'alert-error');
                     $this->forward($_SERVER['HTTP_REFERER']);
                 }
 

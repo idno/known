@@ -96,10 +96,10 @@
                         return true;
                     }
                 } else {
-                    \Idno\Core\site()->session()->addMessage('You can\'t bookmark an empty URL.');
+                    \Idno\Core\site()->session()->addErrorMessage('You can\'t bookmark an empty URL.');
                 }
                 } else {
-                    \Idno\Core\site()->session()->addMessage('That doesn\'t look like a valid URL.');
+                    \Idno\Core\site()->session()->addErrorMessage('That doesn\'t look like a valid URL.');
                 }
                 return false;
 

@@ -33,7 +33,8 @@
                 'experimental'      => false, // A common way to enable experimental functions still in development
                 'multitenant'       => false,
                 'default_config'    => true, // This is a trip-switch - changed to true if configuration is loaded from an ini file / the db
-                'log_level'         => 4
+                'log_level'         => 4,
+                'multi_syndication' => true
             );
 
             public $ini_config = array();
@@ -48,12 +49,14 @@
                 $this->description        = 'A social website powered by Known'; // Default description
                 $this->timezone           = 'UTC';
                 $this->host               = parse_url($this->url, PHP_URL_HOST); // The site hostname, without parameters etc
-                $this->feed               = $this->url . '?_t=rss';
+                $this->feed               = $this->getDisplayURL() . 'content/all/?_t=rss';
                 $this->indieweb_citation  = false;
                 $this->indieweb_reference = false;
                 $this->known_hub          = false;
+                $this->hub                = 'http://withknown.superfeedr.com/';
                 $this->session_path       = session_save_path(); // Session path when not storing sessions in the database
                 $this->cookie_jar	  = rtrim(sys_get_temp_dir(), '/\\') . DIRECTORY_SEPARATOR; // Cookie jar for API requests, default location isn't terribly secure on shared hosts!
+                $this->multi_syndication  = true; // Do we allow multiple accounts per syndication endpoint?
 
                 $this->loadIniFiles();
 
@@ -282,6 +285,15 @@
             }
 
             /**
+             * Return a normalized version of the host, for use in file paths etc
+             * @return string
+             */
+            function pathHost()
+            {
+                return str_replace('www.','',$this->host);
+            }
+
+            /**
              * Is this site's content available to non-members?
              * @return bool
              */
@@ -291,6 +303,17 @@
                     return true;
                 }
 
+                return false;
+            }
+
+            /**
+             * Does this site allow users to have multiple syndication accounts?
+             * @return bool
+             */
+            function multipleSyndicationAccounts() {
+                if (!empty($this->multi_syndication)) {
+                    return true;
+                }
                 return false;
             }
 
