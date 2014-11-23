@@ -54,6 +54,7 @@
                 $this->known_hub          = false;
                 $this->hub                = 'http://withknown.superfeedr.com/';
                 $this->session_path       = session_save_path(); // Session path when not storing sessions in the database
+                $this->multi_syndication  = true; // Do we allow multiple accounts per syndication endpoint?
 
                 $this->loadIniFiles();
 
