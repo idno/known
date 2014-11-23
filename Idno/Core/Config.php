@@ -303,6 +303,17 @@
             }
 
             /**
+             * Does this site allow users to have multiple syndication accounts?
+             * @return bool
+             */
+            function multipleSyndicationAccounts() {
+                if (!empty($this->multi_syndication)) {
+                    return true;
+                }
+                return false;
+            }
+
+            /**
              * Is this the default site configuration?
              * @return bool
              */
