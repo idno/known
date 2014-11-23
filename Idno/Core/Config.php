@@ -33,7 +33,8 @@
                 'experimental'      => false, // A common way to enable experimental functions still in development
                 'multitenant'       => false,
                 'default_config'    => true, // This is a trip-switch - changed to true if configuration is loaded from an ini file / the db
-                'log_level'         => 4
+                'log_level'         => 4,
+                'multi_syndication' => true
             );
 
             public $ini_config = array();
