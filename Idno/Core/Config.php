@@ -280,6 +280,15 @@
             }
 
             /**
+             * Return a normalized version of the host, for use in file paths etc
+             * @return string
+             */
+            function pathHost()
+            {
+                return str_replace('www.','',$this->host);
+            }
+
+            /**
              * Is this site's content available to non-members?
              * @return bool
              */
