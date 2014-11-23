@@ -70,6 +70,13 @@
             function registerServiceAccount($service, $username, $display_name)
             {
                 $service = strtolower($service);
+                if (!empty($this->accounts[$service])) {
+                    foreach($this->accounts[$service] as $key => $account) {
+                        if ($account['username'] == $username) {
+                            unset($this->accounts[$service][$key]); // Remove existing entry if it exists, so fresher one can be added
+                        }
+                    }
+                }
                 $this->accounts[$service][] = array('username' => $username, 'name' => $display_name);
             }
 
