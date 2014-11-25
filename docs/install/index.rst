@@ -8,3 +8,4 @@ A step-by-step guide to running Known on your own server.
 
    requirements
    instructions
+   sharedhost
