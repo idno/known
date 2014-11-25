@@ -135,4 +135,4 @@ Once you've saved your user profile, you should be on the compose view of your n
 
 ![Your new site](https://withknown.com/img/docs/arvixe/27-home.png)
 
-You may also want to create the social network plugins for your site now. You can find details for setting up these plugins here.
+You may also want to create the social network plugins for your site now.
