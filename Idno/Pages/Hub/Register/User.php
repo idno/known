@@ -12,6 +12,8 @@
             function post()
             {
 
+                $this->sslGatekeeper();
+                
                 $this->flushBrowser();
 
                 \Idno\Core\site()->logging->log("Loading the user registration callback", LOGLEVEL_DEBUG);
