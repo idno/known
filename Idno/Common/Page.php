@@ -670,6 +670,24 @@
 
                 return false;
             }
+            
+            /**
+             * Force connection over SSL.
+             * If a page is requested over HTTP, this function will issue a 307 redirect to force
+             * the connection over TLS. 307 is used to preserve POST data on a web services call.
+             */
+            function sslGatekeeper() 
+            {
+                if (!static::isSSL()) {
+                    
+                    $url = str_replace('http://', 'https://', $this->currentUrl());
+
+                    header("HTTP/1.1 307 Temporary Redirect");
+                    header("Location: $url");
+
+                    exit;
+                }
+            }
 
             /**
              * Provide access to page data
