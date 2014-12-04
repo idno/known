@@ -236,7 +236,7 @@
              */
             function parseHashtags($text)
             {
-                $r = preg_replace_callback('/(?<=^|[\>\s\n])(\#\w+)/iu', function($matches) {
+                $r = preg_replace_callback('/(?<=^|[\>\s\n])(\#[\w0-9]+)/iu', function($matches) {
                     $url = ($matches[1]);
 
                     return '<a href="' . \Idno\Core\site()->config()->url . 'content/all/?q=' . urlencode($matches[1]) . '" class="p-category">' . $url . '</a>';
@@ -303,7 +303,7 @@
                         if (is_array($in_reply_to))
                             $in_reply_to = $in_reply_to[0];
 
-                        $r = preg_replace_callback('/(?<=^|[\>\s\n])(\@[A-Za-z0-9\_]+)/i', function ($matches) use ($in_reply_to) {
+                        $r = preg_replace_callback('/(?<=^|[\>\s\n])(\@[\w0-9\_]+)/i', function ($matches) use ($in_reply_to) {
                             $url = $matches[1];
 
                             // Find and replace twitter
