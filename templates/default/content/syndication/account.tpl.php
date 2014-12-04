@@ -10,7 +10,7 @@
 
         ?>
         <span class="syndication_<?=$vars['service']?>_<?=$identifier?>">
-            <input type="checkbox" name="syndication[]" id="syndication_<?=$vars['service']?>_<?=$identifier?>toggle" value="<?=htmlentities($vars['username'])?>">
+            <input type="checkbox" name="syndication[]" id="syndication_<?=$vars['service']?>_<?=$identifier?>_toggle" value="<?=$vars['service']?>::<?=htmlentities($vars['username'])?>">
             <label for="syndication_<?=$vars['service']?>_<?=$identifier?>_toggle"><?=$vars['name'];?></label>
         </span>
     <?php

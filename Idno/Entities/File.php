@@ -314,10 +314,14 @@
                     \Idno\Core\site()->logging->log("Empty attachment _id", LOGLEVEL_DEBUG);
                 }
                 if (!empty($attachment['url'])) {
-                    if ($bytes = file_get_contents($attachment['url'])) {
-                        \Idno\Core\site()->logging->log("Returning bytes", LOGLEVEL_DEBUG);
-                        return $bytes;
-                    } else {
+                    try {
+                        if ($bytes = file_get_contents($attachment['url'])) {
+                            \Idno\Core\site()->logging->log("Returning bytes", LOGLEVEL_DEBUG);
+                            return $bytes;
+                        } else {
+                            \Idno\Core\site()->logging->log("Couldn't get bytes from " . $attachment['url'], LOGLEVEL_DEBUG);
+                        }
+                    } catch (\Exception $e) {
                         \Idno\Core\site()->logging->log("Couldn't get bytes from " . $attachment['url'], LOGLEVEL_DEBUG);
                     }
                 } else {

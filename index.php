@@ -15,7 +15,7 @@
      */
 
 // Check PHP version first of all
-    if (version_compare(phpversion(), '5.3', '<')) {
+    if (version_compare(phpversion(), '5.4', '<')) {
         header('Location: warmup/'); exit;
     }
 
