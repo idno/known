@@ -208,7 +208,7 @@
              * @param null $maxredirect
              * @return bool|mixed
              */
-            function webservice_exec($ch, &$maxredirect = null)
+            static function webservice_exec($ch, &$maxredirect = null)
             {
 
                 $mr = $maxredirect === null ? 5 : intval($maxredirect);
