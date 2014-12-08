@@ -82,7 +82,7 @@
                          * NOTE: temporarily removing EXIF stripping because it messes with auto-rotation.
                          * Another solution will be found and this will be reinstated.
                          */
-                        /*if (self::isImage($file_path) && $destroy_exif)
+                        if (self::isImage($file_path) && $destroy_exif)
                         {
                             $photo_information = getimagesize($file_path);
                             $tmpfname = $file_path; //tempnam(sys_get_temp_dir(), 'known_photo'); 
@@ -93,7 +93,7 @@
                                     break;
                             }
                             
-                        }*/
+                        }
                         
                         if ($id = $fs->storeFile($file_path, $metadata, $metadata)) {
                             if (!$return_object) {
