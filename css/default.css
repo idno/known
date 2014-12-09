@@ -1101,3 +1101,10 @@ p.feedback {
     font-size: 0.8em;
     color: #999;
 }
+
+select, input[type="file"] {
+    height: 40px;
+    line-height: 34px;
+	font-style: italic;
+	padding-left: 10px;
+}
