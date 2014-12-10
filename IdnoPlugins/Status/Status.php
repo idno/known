@@ -3,6 +3,20 @@
     namespace IdnoPlugins\Status {
 
         class Status extends \Idno\Common\Entity {
+            
+            /** 
+             * Create an appropriate status class.
+             * Returns an appropriate new class, either a Status or a Reply, depending on whether it is in reply to something.
+             * @return Status|Reply
+             */
+            public static function factory() {
+                $inreplyto = \Idno\Core\site()->currentPage()->getInput('inreplyto');
+                
+                if (!empty($inreplyto)) 
+                    return new Reply();
+                
+                return new Status();
+            }
 
             function getTitle() {
                 return $this->getShortDescription();
