@@ -212,8 +212,9 @@
             {
 
                 $mr = $maxredirect === null ? 5 : intval($maxredirect);
+                $open_basedir = ini_get('open_basedir');
 
-                if (filter_var(ini_get('open_basedir'), FILTER_VALIDATE_BOOLEAN) === false
+                if (empty($open_basedir)
                     && filter_var(ini_get('safe_mode'), FILTER_VALIDATE_BOOLEAN) === false
                 ) {
 
