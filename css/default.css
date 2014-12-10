@@ -1117,3 +1117,13 @@ select, input[type="file"] {
 .code {
 	margin-top: 20px;
 }
+
+.form-horizontal .control-label {
+    text-align: left;
+}
+
+.config-desc {
+	padding-top: 12px;
+	font-size: small;
+	color: #70997a;
+}
