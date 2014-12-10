@@ -4,10 +4,10 @@
 
         class RepliesContentType extends \Idno\Common\ContentType {
 
-            public $title = '@replies';
-            public $category_title = 'Reply status updates';
+            public $title = 'Replies';
+            public $category_title = '@replies';
             public $entity_class = 'IdnoPlugins\\Status\\Status';
-            public $indieWebContentType = array('note','reply');
+            public $indieWebContentType = array('reply');
 
         }
 
