@@ -12,7 +12,7 @@
                 if (!empty($this->arguments)) {
                     $object = \IdnoPlugins\Status\Status::getByID($this->arguments[0]);
                 } else {
-                    $object = new \IdnoPlugins\Status\Status();
+                    $object = \IdnoPlugins\Status\Status::factory();
                 }
 
                 $t = \Idno\Core\site()->template();
@@ -44,7 +44,7 @@
                     $object = \IdnoPlugins\Status\Status::getByID($this->arguments[0]);
                 }
                 if (empty($object)) {
-                    $object = new \IdnoPlugins\Status\Status();
+                    $object = \IdnoPlugins\Status\Status::factory();
                 }
 
                 if ($object->saveDataFromInput($this)) {
