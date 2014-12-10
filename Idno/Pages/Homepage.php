@@ -70,6 +70,13 @@
                 $feed  = \Idno\Entities\ActivityStreamPost::getFromX($types, $search, array(), \Idno\Core\site()->config()->items_per_page, $offset);
                 if (\Idno\Core\site()->session()->isLoggedIn()) {
                     $create = \Idno\Common\ContentType::getRegistered();
+                    
+                    // If we can't create an object of this type, hide from the button bar
+                    foreach ($create as $key => $obj) {
+                        if (!$obj->createable) {
+                            unset($create[$key]);
+                        }
+                    }
                 } else {
                     $create = false;
                 }
