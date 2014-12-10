@@ -11,8 +11,12 @@
              */
             public static function factory() {
                 $inreplyto = \Idno\Core\site()->currentPage()->getInput('inreplyto');
+                $body = \Idno\Core\site()->currentPage()->getInput('body');
                 
                 if (!empty($inreplyto)) 
+                    return new Reply();
+                
+                if ($body[0] == '@')
                     return new Reply();
                 
                 return new Status();
