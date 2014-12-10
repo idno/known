@@ -8,6 +8,7 @@
             public $category_title = 'Replies';
             public $entity_class = 'IdnoPlugins\\Status\\Reply';
             public $indieWebContentType = array('reply');
+            public $createable = false; // Don't show on new content bar
 
         }
 
