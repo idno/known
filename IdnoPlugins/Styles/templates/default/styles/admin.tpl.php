@@ -31,8 +31,13 @@
     <div class="row">
         <div class="span10 offset1">
             <p>
-                Do you have an existing stylesheet that you'd like to use? <br>Import a CSS file from your computer:
-                <input type="file" name="import" accept="text/css"/>
+                Do you have an existing stylesheet that you'd like to use? Import a CSS file from your computer:
+                <span class="btn btn-primary btn-file">
+                    <span id="css-filename">Select a CSS file</span> <input type="file" name="cssfile" id="cssfile"
+                                                                                                       class="span9"/>
+                    <input type="file" name="import" accept="text/css" id="cssfileinput" onchange="$('#css-filename').html($('#cssfileinput').val());"/>
+
+                </span>
             </p>
         </div>
     </div>
