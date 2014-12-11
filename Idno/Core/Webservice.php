@@ -233,9 +233,13 @@
 
                         $rch = curl_copy_handle($ch);
 
+                        $post_fields = curl_getinfo($ch, CURLOPT_POSTFIELDS);
+
                         curl_setopt($rch, CURLOPT_HEADER, true);
                         curl_setopt($rch, CURLOPT_NOBODY, true);
                         curl_setopt($rch, CURLOPT_FORBID_REUSE, false);
+                        curl_setopt($rch, CURLOPT_POSTFIELDS, $post_fields);
+
                         do {
                             curl_setopt($rch, CURLOPT_URL, $newurl);
                             $header = curl_exec($rch);
