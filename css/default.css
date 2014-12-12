@@ -661,6 +661,11 @@ div.pane div.row:nth-of-type(odd) {
     color: #ffffff;
 }
 
+.upload {
+	margin-bottom: 5px;
+	margin-left: 10px;
+}
+
 .btn-cancel {
     background-color: #dddddd;
     border-color: #dddddd;

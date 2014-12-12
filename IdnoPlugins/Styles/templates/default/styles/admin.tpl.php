@@ -19,32 +19,42 @@
 	</div>
     <div class="row">
         <div class="span10 offset1">
-            Add your changes to Known's core CSS below. <a href="<?= \Idno\Core\site()->config()->url ?>styles/site/">Download
-                your stylesheet.</a><br/>
+            <p>Add your changes to Known's core CSS below. </p>
+            <p>
+                Do you have an existing stylesheet that you'd like to use? Import a CSS file from your computer.
+                <span class="btn btn-primary btn-file upload">
+                    <span id="css-filename">Upload a stylesheet</span> <input type="file" name="cssfile" id="cssfile"
+                                                                                                       class="span9"/>
+                    <input type="file" name="import" accept="text/css" id="cssfileinput" onchange="$('#css-filename').html($('#cssfileinput').val());"/>
+
+                </span>
+            </p>
             <textarea class="span10" name="css" style="height: 15em; font-family: Courier, monospace"><?php
 
                     echo htmlspecialchars($vars['css']);
 
                 ?></textarea>
+            You can also <a href="<?= \Idno\Core\site()->config()->url ?>styles/site/">download
+                your stylesheet</a> to work on it locally.
         </div>
     </div>
-    <div class="row">
+<!--    <div class="row">
         <div class="span10 offset1">
             <p>
-                Do you have an existing stylesheet that you'd like to use? Import a CSS file from your computer:
+                Do you have an existing stylesheet that you'd like to use? Import a CSS file from your computer.<br>
                 <span class="btn btn-primary btn-file">
-                    <span id="css-filename">Select a CSS file</span> <input type="file" name="cssfile" id="cssfile"
+                    <span id="css-filename"><i class="icon-code"></i> Upload a stylesheet</span> <input type="file" name="cssfile" id="cssfile"
                                                                                                        class="span9"/>
                     <input type="file" name="import" accept="text/css" id="cssfileinput" onchange="$('#css-filename').html($('#cssfileinput').val());"/>
 
                 </span>
             </p>
         </div>
-    </div>
+    </div>-->
     <div class="row">
         <div class="span10 offset1">
             <p>
-                <input type="submit" class="btn btn-primary" value="Save stylesheet"/>
+                <input type="submit" class="btn btn-primary code" value="Save stylesheet"/>
                 <?= \Idno\Core\site()->actions()->signForm(\Idno\Core\site()->config()->getDisplayURL() . 'admin/styles/') ?>
             </p>
         </div>
