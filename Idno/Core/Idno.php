@@ -593,6 +593,36 @@
             }
 
             /**
+             * Retrieve site icons.
+             * Retrieve a set of one or more icon for the current site, allowing plugins and other components
+             * access icons for displaying in various contexts
+             * 
+             * @returns array An associative array of various icons => url
+             */
+            function getSiteIcons() 
+            {
+                $icons = [];
+                
+                // Set our defaults
+                $icons['defaults'] = [
+                    'default' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k.png',
+                    'default_16' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k_16.png',
+                    'default_32' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k_32.png',
+                    'default_64' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k_64.png',
+                ];
+                
+                // If we're on a page, see if that has a specific icon
+                if ($page = \Idno\Core\site()->currentPage()) {
+                    if ($page_icons = $page->getIcon()) {
+                        $icons['page'] = $page_icons;
+                    }
+                }
+                
+                // Now, return a list of icons, but pass it through an event hook to override
+                return $this->triggerEvent('icon', ['object' => $this], $icons);                
+            }
+            
+            /**
              * Retrieve notices (eg notifications that a new version has been released) from Known HQ
              * @return mixed
              */
