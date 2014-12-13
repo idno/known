@@ -823,6 +823,27 @@
             {
                 return $this->assets[$class];
             }
+            
+            /**
+             * Get an icon for this page.
+             */
+            public function getIcon() 
+            {
+                $icon = \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k.png';
+                
+                if ($user_avatar_favicons)
+                {
+                    if ($user = \Idno\Core\site()->currentPage()->getOwner()) 
+                    {
+                        if ($user instanceof \Idno\Entities\User) 
+                        {
+                            $icon = $user->getIcon();
+                        }
+                    }
+                }
+                
+                return \Idno\Core\site()->triggerEvent('icon', ['object' => $this], $icon);
+            }
 
             /**
              * Set the last updated header for this page.
