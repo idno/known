@@ -619,7 +619,7 @@
                 }
                 
                 // Now, return a list of icons, but pass it through an event hook to override
-                return $this->triggerEvent('icon', ['object' => $this], $icons);                
+                return $this->triggerEvent('site/icons', ['object' => $this], $icons);                
             }
             
             /**
