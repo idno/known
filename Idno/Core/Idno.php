@@ -603,7 +603,7 @@
             {
                 $icons = [];
                 
-                // Set our defaults
+                // Set our defaults (TODO: Set these cleaner, perhaps through the template system)
                 $icons['defaults'] = [
                     'default' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k.png',
                     'default_16' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k_16.png',
