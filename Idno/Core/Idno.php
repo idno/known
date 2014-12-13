@@ -609,8 +609,14 @@
                     'default_16' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k_16.png',
                     'default_32' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k_32.png',
                     'default_64' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k_64.png',
+                    
+                    // Apple logos
+                    'default_57' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-57x57.png',
+                    'default_72' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-72x72.png',
+                    'default_114' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-114x114.png',
+                    'default_144' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-144x144.png',
                 ];
-                
+                                
                 // If we're on a page, see if that has a specific icon
                 if ($page = \Idno\Core\site()->currentPage()) {
                     if ($page_icons = $page->getIcon()) {
