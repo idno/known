@@ -227,7 +227,7 @@
 
                     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
 
-                    if ($mr > 0) {
+                    /*if ($mr > 0) {
                         $original_url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
                         $newurl       = $original_url;
 
@@ -242,6 +242,7 @@
 
                         do {
                             curl_setopt($rch, CURLOPT_URL, $newurl);
+                            site()->session()->addMessage("Checking " . $newurl);
                             $header = curl_exec($rch);
                             if (curl_errno($rch)) {
                                 $code = 0;
@@ -273,7 +274,7 @@
                             return false;
                         }
                         curl_setopt($ch, CURLOPT_URL, $newurl);
-                    }
+                    }*/
                 }
 
                 return curl_exec($ch);
