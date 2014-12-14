@@ -15,8 +15,8 @@
 <div class="row">
 
     <div class="span10 offset1">
+	            <?= $this->draw('account/menu') ?>
         <h1>Firefox</h1>
-        <?= $this->draw('account/menu') ?>
     </div>
 </div>
 <div class="row">

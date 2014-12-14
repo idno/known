@@ -4,10 +4,11 @@
 <div class="row">
 
     <div class="span10 offset1">
+        <?= $this->draw('account/menu') ?>
         <h1>
             Tools and Apps
         </h1>
-        <?= $this->draw('account/menu') ?>
+
         <div>
             <h2>Bookmarklet</h2>
             <p>

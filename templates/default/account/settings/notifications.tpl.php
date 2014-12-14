@@ -4,10 +4,11 @@
 <div class="row">
 
     <div class="span10 offset1">
+        <?= $this->draw('account/menu') ?>
         <h1>
             Email notifications
         </h1>
-        <?= $this->draw('account/menu') ?>
+
         <div class="explanation">
             <p>
                 Set how you'd like to be notified when someone stars or comments on your content.

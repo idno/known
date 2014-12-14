@@ -4,10 +4,11 @@
 <div class="row">
 
     <div class="span10 offset1">
+        <?= $this->draw('account/menu') ?>
         <h1>
             Settings
         </h1>
-        <?= $this->draw('account/menu') ?>
+
         <div class="explanation">
             <p>
                 Change your basic account settings here. You may also want to <a
