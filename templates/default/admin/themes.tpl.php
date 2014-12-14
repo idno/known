@@ -1,8 +1,7 @@
 <div class="row">
-
     <div class="span10 offset1">
+	    <?=$this->draw('admin/menu')?>
         <h1>Themes</h1>
-        <?=$this->draw('admin/menu')?>
         <div class="explanation">
             <p>
                 Themes allow you to change the way your site looks.

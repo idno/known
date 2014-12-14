@@ -1,9 +1,9 @@
 <div class="row">
     <div class="span10 offset1">
+	            <?= $this->draw('admin/menu'); ?>
         <h1>
             Custom CSS
         </h1>
-        <?= $this->draw('admin/menu'); ?>
         <div class="explanation">
             <p>
                 The site styles CSS editor lets you easily modify the visual style of your Known site by overriding the default CSS. With Custom CSS, you have more control over the fonts, colors, and visual impact of your site. 

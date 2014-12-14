@@ -1,10 +1,11 @@
 <div class="row">
 
     <div class="span10 offset1">
+	            <?= $this->draw('admin/menu') ?>
         <h1>
             Homepage content
         </h1>
-        <?= $this->draw('admin/menu') ?>
+
         <div class="explanation">
             <p>
                 Choose what content people will see by default when they visit your site.

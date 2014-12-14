@@ -1,8 +1,9 @@
 <div class="row">
 
     <div class="span10 offset1">
+	            <?=$this->draw('admin/menu')?>
         <h1>Email</h1>
-        <?=$this->draw('admin/menu')?>
+
         <div class="explanation">
             <p>
                 Known tries to send email using your server's default email settings. If you'd like it to do

@@ -1,10 +1,11 @@
 <div class="row">
 
     <div class="span10 offset1">
+	    <?=$this->draw('admin/menu')?>
         <h1>
             Site configuration
         </h1>
-        <?=$this->draw('admin/menu')?>
+        
         <div class="explanation">
             <p>On this page you can change the basic configurations for your site,
                 like its name and the number of items of content on each page.
@@ -149,6 +150,7 @@
                         <option value="true" <?php if (\Idno\Core\site()->config()->indieweb_reference == true) echo 'selected="selected"'; ?>>Yes</option>
                         <option value="false" <?php if (\Idno\Core\site()->config()->indieweb_reference == false) echo 'selected="selected"'; ?>>No</option>
                     </select>
+                    
                 </div>
                 <div class="span4"><p class="config-desc">Include a permalink to the original post when you syndicate.</p>
                 </div>
@@ -166,3 +168,5 @@
     </div>
 
 </div>
+
+

@@ -855,23 +855,40 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     background-color: #ffffff;
     background-image: none;
     background-repeat: repeat-x;
-    border: 1px solid #d4d4d4;
+    border: none;
     border-radius: 4px;
     box-shadow: none;
     min-height: 40px;
-    padding-left: 20px;
+    padding-left: 0px;
     padding-right: 20px;
 }
 
 .navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
-    background-color: #dddddd;
+    background-color: #FFFFFF;
     box-shadow: none;
-    color: #555555;
+    color: #222222;
     text-decoration: none;
+    font-weight: 700;
 }
 
 .navbar .nav > li > a {
 	text-shadow: none;
+}
+
+.page-body .navbar-inner {
+	text-transform: uppercase;
+}
+
+.page-body .navbar .nav > li > a {
+	padding: 8px 8px;
+}
+
+.page-body .navbar-inner a {
+	font-weight: 300;
+}
+
+.navbar {
+	margin-bottom: 50px;
 }
 
 .hero-unit {

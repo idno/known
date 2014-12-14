@@ -1,8 +1,9 @@
 <div class="row">
 
     <div class="span10 offset1">
+	<?=$this->draw('admin/menu')?>
         <h1>Plugins</h1>
-        <?=$this->draw('admin/menu')?>
+
         <div class="explanation">
             <p>
                 The plugins section allows you to add features to your site. These include new kinds of content, options to syndicate content to different sites,

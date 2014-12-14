@@ -1,7 +1,8 @@
 <div class="row">
     <div class="span10 offset1">
+	            <?= $this->draw('admin/menu') ?>
         <h1>User Management</h1>
-        <?= $this->draw('admin/menu') ?>
+
 
         <div class="explanation">
             <p>
