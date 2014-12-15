@@ -71,6 +71,7 @@
                 curl_setopt($curl_handle, CURLINFO_HEADER_OUT, 1);
                 curl_setopt($curl_handle, CURLOPT_SSL_VERIFYPEER, 1);
                 curl_setopt($curl_handle, CURLOPT_SSL_VERIFYHOST, 2);
+                curl_setopt($curl_handle, CURLOPT_HEADER, 1);
 
                 // Proxy connection string provided
                 if (!empty(\Idno\Core\site()->config()->proxy_string)) {
@@ -90,17 +91,23 @@
 
                 $buffer      = self::webservice_exec($curl_handle);
                 $http_status = curl_getinfo($curl_handle, CURLINFO_HTTP_CODE);
+                
+                // Get HTTP Header / body
+                $header_size = curl_getinfo($curl_handle, CURLINFO_HEADER_SIZE);
+                $header = substr($buffer, 0, $header_size);
+                $content = substr($buffer, $header_size);
+                
 
                 if ($error = curl_error($curl_handle)) {
                     \Idno\Core\site()->logging->log($error, LOGLEVEL_ERROR);
                 }
 
                 self::$lastRequest  = curl_getinfo($curl_handle, CURLINFO_HEADER_OUT);
-                self::$lastResponse = $buffer;
+                self::$lastResponse = $content;
 
                 curl_close($curl_handle);
 
-                return array('content' => $buffer, 'response' => $http_status, 'error' => $error);
+                return array('header' => $header, 'content' => $content, 'response' => $http_status, 'error' => $error);
             }
 
             /**
