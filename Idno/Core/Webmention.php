@@ -61,7 +61,7 @@
                     $proxystring = \Idno\Core\site()->config()->proxy_string;
                 }
                 
-                $client = new \IndieWeb\MentionClient($pageURL, $text, $proxystring);
+                $client = new \Idno\Core\MentionClient($pageURL, $text, $proxystring);
 
                 return $client->sendSupportedMentions();
             }
