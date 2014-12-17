@@ -709,6 +709,9 @@
                             if (!empty($value['url'])) {
                                 $host              = parse_url($value['url'], PHP_URL_HOST);
                                 $value['url']      = str_replace($host, \Idno\Core\site()->config()->attachment_base_host, $value['url']);
+                                if (empty($value['filename'])) {
+                                    $value['filename'] = basename($value['url']);
+                                }
                                 $attachments[$key] = $value;
                             }
                         }
