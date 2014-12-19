@@ -55,6 +55,7 @@
                 $this->known_hub          = false;
                 $this->hub                = 'http://withknown.superfeedr.com/';
                 $this->session_path       = session_save_path(); // Session path when not storing sessions in the database
+                $this->cookie_jar	  = rtrim(sys_get_temp_dir(), '/\\') . DIRECTORY_SEPARATOR; // Cookie jar for API requests, default location isn't terribly secure on shared hosts!
                 $this->multi_syndication  = true; // Do we allow multiple accounts per syndication endpoint?
 
                 $this->loadIniFiles();
@@ -192,6 +193,7 @@
                 unset($array['feed']); // Don't save the feed URL to the database
                 unset($array['uploadpath']); // Don't save the upload path to the database
                 unset($array['session_path']); // Don't save the session path in the database
+                unset($array['cookie_jar']); // Don't save the cookie path in the database
                 unset($array['known_hub']);
 
                 // If we don't have a site secret, create it
@@ -230,6 +232,7 @@
                         unset($config['antiplugins']);
                         unset($config['alwaysplugins']);
                         unset($config['session_path']);
+                        unset($config['cookie_jar']); 
                     }
                     if (is_array($config)) {
                         $this->config = array_merge($this->config, $config);

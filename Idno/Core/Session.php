@@ -311,6 +311,10 @@
 
                     if ($user = \Idno\Entities\User::getByHandle($_SERVER['HTTP_X_KNOWN_USERNAME'])) {
 
+                        // Short circuit authentication, since this user is already logged in. Needed to resolve #595
+                        if (\Idno\Core\site()->session()->currentUser() && \Idno\Core\site()->session()->currentUser()->getUUID() == $user->getUUID())
+                            return $user;
+
                         $key          = $user->getAPIkey();
                         $hmac         = trim($_SERVER['HTTP_X_KNOWN_SIGNATURE']);
                         $compare_hmac = base64_encode(hash_hmac('sha256', $_SERVER['REQUEST_URI'], $key, true));
