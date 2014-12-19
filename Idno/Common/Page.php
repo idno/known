@@ -150,7 +150,7 @@
                     $this->parseJSONPayload();
                     $return = $this->postContent();
                 } else {
-
+                    throw new \Exception('Action tokens are invalid.');
                 }
                 
                 if (\Idno\Core\site()->session()->isAPIRequest()) {
@@ -217,7 +217,7 @@
                     $this->parseJSONPayload();
                     $return = $this->putContent();
                 } else {
-
+                    throw new \Exception('Action tokens are invalid.');
                 }
                 
                 if (\Idno\Core\site()->session()->isAPIRequest()) {
@@ -279,7 +279,7 @@
                     $this->parseJSONPayload();
                     $return = $this->deleteContent();
                 } else {
-
+                    throw new \Exception('Action tokens are invalid.');
                 }
                 
                 if (\Idno\Core\site()->session()->isAPIRequest()) {
