@@ -10,6 +10,8 @@
             <p>
                 Choose what content people will see by default when they visit your site.
                 Visitors can always use the content menu to find types of content that you don't show on the main page.
+                Your homepage looks different when you are not logged in.
+                To display your profile information, choose one of the single-user themes.
             </p>
         </div>
 
