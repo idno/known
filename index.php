@@ -43,6 +43,14 @@
     \Idno\Core\PageHandler::hook('404', function () {
         http_response_code(404);
         $t = \Idno\Core\site()->template();
+        
+        // Take over page detection 
+        $t->setTemplateType(\Idno\Core\site()->currentPage()->getInput('_t'));
+        if (\Idno\Core\site()->currentPage()->isAcceptedContentType('application/json'))
+        {
+            $t->setTemplateType('json');
+        }
+        
         $t->__(array('body' => $t->draw('pages/404'), 'title' => 'Not found!'))->drawPage();
         exit;
     });
