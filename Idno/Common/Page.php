@@ -580,7 +580,9 @@
             {
                 if (\Idno\Core\site()->session()->isLoggedIn()) {
                     $this->setResponse(403);
-                    $this->forward();
+                    if (!\Idno\Core\site()->session()->isAPIRequest()) {
+                        $this->forward();
+                    }
                 }
             }
 
@@ -598,8 +600,11 @@
                     }
                 }
                 if (!$ok) {
-                    $this->setResponse(401);
-                    $this->forward();
+                    $this->setResponse(403);
+                    
+                    if (!\Idno\Core\site()->session()->isAPIRequest()) {
+                        $this->forward();
+                    }
                 }
             }
 
