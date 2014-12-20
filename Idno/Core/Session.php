@@ -407,7 +407,11 @@
                     if (!site()->session()->isLoggedOn()) {
                         $class = get_class(site()->currentPage());
                         if (!site()->isPageHandlerPublic($class)) {
-                            site()->currentPage()->forward(site()->config()->getURL() . 'session/login/');
+                            
+                            $this->setResponse(403);
+                            if (!\Idno\Core\site()->session()->isAPIRequest()) {
+                                site()->currentPage()->forward(site()->config()->getURL() . 'session/login/');
+                            }
                         }
                     }
                 }
