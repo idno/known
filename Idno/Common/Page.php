@@ -546,7 +546,11 @@
             {
                 if (!\Idno\Core\site()->session()->isLoggedIn()) {
                     $this->setResponse(401);
-                    $this->forward(\Idno\Core\site()->config()->getURL() . 'session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']));
+                    
+                    // Forwarding loses the response code, so is only helpful if this is not an API request
+                    if (!\Idno\Core\site()->session()->isAPIRequest()) {
+                        $this->forward(\Idno\Core\site()->config()->getURL() . 'session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']));
+                    }
                 }
             }
 
