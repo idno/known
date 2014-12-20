@@ -545,7 +545,7 @@
             function gatekeeper()
             {
                 if (!\Idno\Core\site()->session()->isLoggedIn()) {
-                    $this->setResponse(401);
+                    $this->setResponse(403);
                     
                     // Forwarding loses the response code, so is only helpful if this is not an API request
                     if (!\Idno\Core\site()->session()->isAPIRequest()) {
@@ -579,7 +579,7 @@
             function reverseGatekeeper()
             {
                 if (\Idno\Core\site()->session()->isLoggedIn()) {
-                    $this->setResponse(401);
+                    $this->setResponse(403);
                     $this->forward();
                 }
             }
