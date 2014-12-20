@@ -563,7 +563,10 @@
             {
                 if (!\Idno\Core\site()->canWrite()) {
                     $this->setResponse(403);
-                    $this->forward();
+                    
+                    if (!\Idno\Core\site()->session()->isAPIRequest()) {
+                        $this->forward();
+                    }
                 }
                 $this->gatekeeper();
             }
