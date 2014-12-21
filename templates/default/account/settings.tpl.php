@@ -23,24 +23,21 @@
                 <label class="control-label" for="inputName">Your name</label>
 
                 <div class="controls">
-                    <input type="text" id="inputName" placeholder="Your name" class="span4" name="name"
-                           value="<?= htmlspecialchars($user->getTitle()) ?>">
+                    <?= $this->__(['id' => 'inputName', 'value' => $user->getTitle(), 'class' => 'span4', 'name' => 'name', 'placeholder' => 'Your name'])->draw('forms/input/text'); ?>
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputHandle">Your username</label>
 
                 <div class="controls">
-                    <input type="text" id="inputHandle" placeholder="Your username" class="span4" name="handle"
-                           value="<?= htmlspecialchars($user->handle) ?>">
+                    <?= $this->__(['id' => 'inputHandle', 'value' => $user->handle, 'class' => 'span4', 'name' => 'handle', 'placeholder' => 'Your username'])->draw('forms/input/text'); ?>
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputEmail">Your email address</label>
 
                 <div class="controls">
-                    <input type="email" id="inputEmail" placeholder="Your email address" class="span4" name="email"
-                           value="<?= htmlspecialchars($user->email) ?>">
+                    <?= $this->__(['id' => 'inputEmail', 'value' => $user->email, 'class' => 'span4', 'name' => 'email', 'placeholder' => 'Your email address'])->draw('forms/input/email'); ?>
                 </div>
             </div>
             <div class="control-group">
@@ -49,8 +46,7 @@
                 </label>
 
                 <div class="controls">
-                    <input type="password" id="inputPassword" placeholder="Password" class="span4" name="password">
-                     
+                    <?= $this->__(['id' => 'inputPassword', 'class' => 'span4', 'name' => 'password', 'placeholder' => 'Password'])->draw('forms/input/password'); ?> 
                 </div>
                 <div class="controls"><small>Leave this blank if you don't want to change it</small></div>
             </div>
