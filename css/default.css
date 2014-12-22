@@ -1164,3 +1164,54 @@ select, input[type="file"] {
 	padding-top: 25px;
 	padding-bottom: 5px;
 }
+
+a.connect {
+    box-sizing: border-box;
+    display: inline-block;
+}
+.tw {
+    background-color: #55acee;
+    background-image: url("../gfx/onboarding/twitter.png");
+    border-color: #55acee;
+}
+
+.tw:hover, .tw:focus {
+    background-color: #66757f;
+    color: #FFFFFF;
+    border-color: #66757f;
+    background-image: url(../gfx/onboarding/twitter.png);
+}
+.connect {
+    background-position: 15px 9px;
+    background-repeat: no-repeat;
+    background-size: 34px auto;
+    border-radius: 6px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: none;
+    color: #ffffff;
+    font-family: Helvetica,sans-serif;
+    font-size: 24px;
+    margin-bottom: 5px;
+    margin-top: 15px;
+    padding: 15px 15px 10px 75px;
+    text-align: left;
+    width: 100%;
+}
+
+.connect:hover {
+	text-decoration: none;
+}
+
+.connected {
+    background-color: #bbb;
+    border: 1px solid #bbb;
+}
+
+.social {
+    text-align: left;
+}
+
+.social.span4 {
+	margin-left: 0px;
+}
