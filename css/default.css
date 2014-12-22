@@ -1157,5 +1157,10 @@ select, input[type="file"] {
 .config-desc {
 	padding-top: 12px;
 	font-size: small;
-	color: #70997a;
+	color: #888888;
+}
+
+.email-settings {
+	padding-top: 25px;
+	padding-bottom: 5px;
 }
