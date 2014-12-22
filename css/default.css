@@ -1146,6 +1146,12 @@ select, input[type="file"] {
 
 .form-horizontal .control-label {
     text-align: left;
+    font-weight: 700;
+}
+
+.control-label-api {
+	font-weight: 700;
+	padding-top: 15px;
 }
 
 .config-desc {
