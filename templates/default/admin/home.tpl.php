@@ -158,7 +158,7 @@
             
 <!---------->            
             <div class="control-group">
-                <div class="controls">
+                <div class="controls-save">
                     <button type="submit" class="btn btn-primary">Save updates</button>
                 </div>
             </div>

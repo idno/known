@@ -1131,9 +1131,13 @@ select, input[type="file"] {
 	padding-left: 10px;
 }
 
-.form-horizontal .controls {
+.form-horizontal .js-controls {
     margin-left: 0px;
     padding-top: 30px;
+}
+
+.form-horizontal .controls-save {
+    margin-top: 30px;
 }
 
 .code {
