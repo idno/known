@@ -1181,8 +1181,21 @@ a.connect {
     border-color: #66757f;
     background-image: url(../gfx/onboarding/twitter.png);
 }
+
+.fsqr {
+    background-color: #40b3df;
+    background-image: url("../gfx/onboarding/foursquare.png");
+    border-color: #40b3df;
+}
+
+.fsqr:hover, .fsqr:focus {
+    background-color: #17649a;
+    background-image: url("../gfx/onboarding/foursquare.png");
+    border-color: #17649a;
+    color: #ffffff;
+}
 .connect {
-    background-position: 15px 9px;
+    background-position: 15px 6px;
     background-repeat: no-repeat;
     background-size: 34px auto;
     border-radius: 6px;
