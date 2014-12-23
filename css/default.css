@@ -1179,7 +1179,7 @@ a.connect {
     background-color: #66757f;
     color: #FFFFFF;
     border-color: #66757f;
-    background-image: url(../gfx/onboarding/twitter.png);
+    background-image: url("../gfx/onboarding/twitter.png");
 }
 
 .fsqr {
@@ -1194,6 +1194,41 @@ a.connect {
     border-color: #17649a;
     color: #ffffff;
 }
+
+.fb {
+    background-color: #3b5998;
+    background-image: url("../gfx/onboarding/facebook.png");
+    border-color: #3b5998;
+}
+.fb:hover, .fb:focus {
+    background-color: #8b9dc3;
+    background-image: url("../gfx/onboarding/facebook.png");
+    border-color: #8b9dc3;
+    color: #ffffff;
+}
+.scld {
+    background-color: #f80;
+    background-image: url("../gfx/onboarding/soundcloud.png");
+    border-color: #f80;
+}
+.scld:hover, .scld:focus {
+    background-color: #f30;
+    background-image: url("../gfx/onboarding/soundcloud.png");
+    border-color: #f30;
+    color: #ffffff;
+}
+.fl {
+    background-color: #0063dc;
+    background-image: url("../gfx/onboarding/flickr.png");
+    border-color: #0063dc;
+}
+.fl:hover, .fl:focus {
+    background-color: #ff0084;
+    background-image: url("../gfx/onboarding/flickr.png");
+    border-color: #ff0084;
+    color: #ffffff;
+}
+
 .connect {
     background-position: 15px 6px;
     background-repeat: no-repeat;
