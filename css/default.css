@@ -1292,3 +1292,25 @@ a.connect {
 .social.span4 {
 	margin-left: 0px;
 }
+
+.bookmarklet {
+    background-color: #ffffff;
+    background-image: none;
+    background-repeat: repeat-x;
+    border-color: #8cbf99;
+    border: 2px solid;
+    box-shadow: none;
+    color: #8cbf99;
+    text-shadow: none;
+    border-radius: 4px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+a:hover.bookmarklet, a:focus.bookmarklet {
+	text-decoration: none;
+	border-collapse: #678c70;
+	color: #678c70;
+}
