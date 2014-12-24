@@ -27,7 +27,7 @@
         </div>
 	<div class="span4">
 		<p>
-			<img src="../../../../gfx/other/bookmarklet-mouse.png" alt="bookmarklet-mouse" width="177" height="127" />
+			<img src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>gfx/other/bookmarklet-mouse.png" alt="bookmarklet-mouse" width="177" height="127" />
 		</p>
         </div>
 </div>
@@ -35,7 +35,7 @@
 
 <div class="row">
 	<div class="span5 offset1">
-		<img src="../../../../gfx/other/bookmarklet.png" alt="bookmarklet" width="500" height="181" />
+		<img src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>gfx/other/bookmarklet.png" alt="bookmarklet" width="500" height="181" />
 	</div>
 	<div class="span4">
         <p>

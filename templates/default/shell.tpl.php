@@ -57,6 +57,7 @@
 
     ?>
 
+
     <!-- Dublin Core -->
     <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
     <meta name="DC.title" content="<?= htmlspecialchars($vars['title']) ?>">
@@ -98,6 +99,7 @@
         href="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/css/bootstrap-responsive.css"
         rel="stylesheet">
     <link href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>css/default.css" rel="stylesheet">
+    
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -107,7 +109,6 @@
 
     <!-- Default Known JavaScript -->
     <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'js/default.js' ?>"></script>
-
 
     <!-- To silo is human, to syndicate divine -->
     <link rel="alternate" type="application/rss+xml" title="<?= htmlspecialchars($vars['title']) ?>"
@@ -141,10 +142,10 @@
         }
     ?>
 
-    <script src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/fragmention/fragmention.js"></script>
+   <script src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/fragmention/fragmention.js"></script>
 
     <!-- We need jQuery at the top of the page -->
-    <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/jquery/' ?>jquery.min.js"></script>
+   <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/jquery/' ?>jquery.min.js"></script>
 
     <?= $this->draw('shell/head', $vars); ?>
 

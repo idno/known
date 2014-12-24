@@ -21,7 +21,7 @@
 </div>
 <div class="row">
 	<div class="span4 offset1">
-		<p style="padding-bottom: 25px; padding-top: 15px;"><img src="../../../../../gfx/other/firefox-long.png" alt="firefox" /></p>
+		<p style="padding-bottom: 25px; padding-top: 15px;"><img src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>gfx/other/firefox-long.png" alt="firefox" /></p>
 				<p>Adding Known to Firefox is the easiest way to bookmark links, share content, and reply to posts from any page on the web.</p>
 		        <p>
             <button class="firefox ff" onclick="activate(this)">Activate now            </button>
@@ -33,14 +33,14 @@
 	</div>
 	<div class="span5">
 		<p style="text-align: right;">
-		<img src="../../../../../gfx/other/firefoxsocial.png" alt="firefoxsocial" width="400" height="281" />
+		<img src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>gfx/other/firefoxsocial.png" alt="firefoxsocial" width="400" height="281" />
 		</p>
 	</div>
 </div>
 
 <div class="row">
-	<div class="span8 offset1">
-		<p>Click <strong>Enable Services</strong> to install Known in your Firefox toolbar.</p>
+	<div class="span10 offset1">
+		<p>After clicking the <strong>Activate</strong> button, choose <strong>Enable Services</strong> from the browser message to install Known in your Firefox toolbar.</p>
 	</div>
 </div>
 	

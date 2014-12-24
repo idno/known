@@ -69,6 +69,8 @@
                         <option value="false" <?php if (\Idno\Core\site()->config()->open_registration == false) echo 'selected="selected"'; ?>>No</option>
                     </select>
                 </div>
+                
+                
                 <div class="span4">
 	                <p class="config-desc">Allow registration if you want others to sign up for your site.</p>
 	             </div>
@@ -156,7 +158,10 @@
                 </div>
             </div>
             
-<!---------->            
+<!---------->    
+
+				
+        
             <div class="control-group">
                 <div class="controls-save">
                     <button type="submit" class="btn btn-primary">Save updates</button>
