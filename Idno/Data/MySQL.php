@@ -163,8 +163,6 @@
                     $array['created'] = date("Y-m-d H:i:s", $array['created']);
                 }
 
-                error_log(var_export($array,true));
-
                 $search = str_replace("\n", " \n ", $search);
                 $search = str_replace("\r", "", $search);
                 $search = str_replace("#", " #", $search);
