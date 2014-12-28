@@ -15,6 +15,10 @@
             if (file_exists($path . 'preview.png')) {
                 $src = $url . 'preview.png';
             }
+            else 
+	    {
+		$src = \Idno\Core\site()->config()->getDisplayURL() . 'gfx/themes/default.png';
+	    }
         } else {
             $src = \Idno\Core\site()->config()->getDisplayURL() . 'gfx/themes/default.png';
         }
