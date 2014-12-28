@@ -8,17 +8,16 @@
 
     <h4><?= $vars['theme']['Theme description']['name'] ?> <?php if (\Idno\Core\site()->themes()->get() == $vars['theme']['shortname']) {
             echo '(Selected)';
-        } ?></h4>
+        } else {
+            echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'admin/themes/', '[Activate]', array('theme' => $vars['theme']['shortname'], 'action' => 'install'), array('class' => 'pull-right')); 
+        }
+?></h4>
     <?php
 
         if (!empty($vars['theme']['shortname'])) {
             if (file_exists($path . 'preview.png')) {
                 $src = $url . 'preview.png';
             }
-            else 
-	    {
-		$src = \Idno\Core\site()->config()->getDisplayURL() . 'gfx/themes/default.png';
-	    }
         } else {
             $src = \Idno\Core\site()->config()->getDisplayURL() . 'gfx/themes/default.png';
         }
