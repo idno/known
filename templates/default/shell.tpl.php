@@ -19,7 +19,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="initial-scale=1.0" media="(device-height: 568px)"/>
     <meta name="description" content="<?= htmlspecialchars(strip_tags($vars['description'])) ?>">
-    <meta name="generator" content="Known http://withknown.com">
+    <meta name="generator" content="Known https://withknown.com">
 
     <?= $this->draw('shell/icons'); ?>
     <?= $this->draw('shell/favicon'); ?>
