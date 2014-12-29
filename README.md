@@ -4,6 +4,8 @@ Known is a publishing platform for everyone.
 
 Learn more and sign up to get updates: <http://withknown.com>
 
+Join the development mailing list: <https://groups.google.com/forum/#!forum/known-dev>
+
 Known is under active development. Installable packages are available from <http://withknown.com>.
 Known requires PHP 5.4+ with selected extensions. More info: <http://docs.withknown.com/>
 
