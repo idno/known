@@ -103,20 +103,20 @@
                     if ($config = @parse_ini_file($this->path . '/config.ini')) {
                         $this->ini_config = array_merge($config, $this->ini_config);
                     }
+                    if (file_exists($this->path . '/config.json')) {
+                        if ($json = file_get_contents($this->path . '/config.json')) {
+                            if ($json = json_decode($json, true)) {
+                                $this->ini_config = array_merge($this->ini_config, $json);
+                            }
+                        }
+                    }
 
                     // Per domain configuration
                     if ($config = @parse_ini_file($this->path . '/' . $this->host . '.ini')) {
                         unset($this->ini_config['initial_plugins']);  // Don't let plugin settings be merged
                         unset($this->ini_config['alwaysplugins']);
                         unset($this->ini_config['antiplugins']);
-                        $this->ini_config = array_merge($config, $this->ini_config);
-                    }
-                    if (file_exists($this->path . '/config.json')) {
-                        if ($json = file_get_contents($this->path . '/config.json')) {
-                            if ($json = json_decode($json, true)) {
-                                $this->ini_config = array_merge($json, $this->ini_config);
-                            }
-                        }
+                        $this->ini_config = array_merge($this->ini_config, $config);
                     }
 
                     // Check environment variables and set as appropriate
