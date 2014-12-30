@@ -1206,6 +1206,20 @@ a.connect {
     border-color: #8b9dc3;
     color: #ffffff;
 }
+
+.lkin {
+    background-color: #0976b4;
+    background-image: url("../gfx/onboarding/linkedin.png");
+    border-color: #0976b4;
+}
+.lkin:hover, .lkin:focus {
+    background-color: #000;
+    background-image: url("../gfx/onboarding/linkedin.png");
+    border-color: #000;
+    color: #ffffff;
+    text-decoration: none;
+}
+
 .scld {
     background-color: #f80;
     background-image: url("../gfx/onboarding/soundcloud.png");
@@ -1261,7 +1275,7 @@ a.connect {
 .connect {
     background-position: 15px 6px;
     background-repeat: no-repeat;
-    background-size: 34px auto;
+    background-size: 32px auto;
     border-radius: 6px;
     border-style: solid;
     border-width: 1px;
@@ -1314,3 +1328,4 @@ a:hover.bookmarklet, a:focus.bookmarklet {
 	border-collapse: #678c70;
 	color: #678c70;
 }
+
