@@ -1299,6 +1299,10 @@ a.connect {
     border: 1px solid #bbb;
 }
 
+.connected:hover, .connected:focus {
+    background-color: #aaa;
+}
+
 .social {
     text-align: left;
 }
