@@ -17,6 +17,8 @@ function bindControls() {
         $('#access-control-id').val($(this).attr('data-acl'));
         $('#acl-text').html($(this).html());
     });
+    $('.syndication-toggle input[type=checkbox]').bootstrapToggle();
+    $('.ignore-this').hide();
 }
 
 function contentCreateForm(plugin) {

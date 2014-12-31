@@ -52,6 +52,10 @@
         <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/jquery/' ?>jquery.min.js"></script>
         <?= $this->draw('shell/simple/head', $vars); ?>
 
+        <!-- Syndication -->
+        <link href="<?=\Idno\Core\site()->config()->getDisplayURL()?>external/bootstrap-toggle/css/bootstrap2-toggle.min.css" rel="stylesheet" />
+        <script src="<?=\Idno\Core\site()->config()->getDisplayURL()?>external/bootstrap-toggle/js/bootstrap2-toggle.min.js"></script>
+
     </head>
     <body class="<?php
 
