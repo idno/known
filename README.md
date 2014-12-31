@@ -66,3 +66,4 @@ Known also contains
 * MediaElement.js, a cross-browser media player, which is distributed under the MIT License. Source: https://github.com/johndyer/mediaelement
 * Summernote, a WYSIWYG editor, which is distributed under the MIT License. Source: https://github.com/HackerWins/summernote
 * Simplepie, a feed parser, which is distributed under the BSD license. Source: https://github.com/simplepie/simplepie/
+* Bootstrap Toggle, which is distributed under the MIT License. Source: http://www.bootstraptoggle.com/

@@ -442,12 +442,12 @@ span.contentTypeLogo {
 	margin-bottom: 5px;
 }
 
+/*
 .syndication span,
 .syndication span label {
     display: inline-block;
     margin: 0;
     padding: 0;
-    /*font-size: 0.9em;*/
 }
 
 .syndication span {
@@ -486,7 +486,7 @@ span.contentTypeLogo {
     font-size: 30px;
     cursor: pointer;
 }
-
+*/
 #counter {
     text-align: right;
     padding-top: 0.25em;
@@ -1329,10 +1329,9 @@ a.connect {
 
 a:hover.bookmarklet, a:focus.bookmarklet {
 	text-decoration: none;
-	border-collapse: #678c70;
+	/*border-collapse: #678c70;*/
 	color: #678c70;
 }
-
 .pages.span3 {
 	margin-left: 0px;
 }
@@ -1341,4 +1340,54 @@ a:hover.bookmarklet, a:focus.bookmarklet {
 	margin-bottom: 20px;
 }
 
+/* Syndication toggles */
 
+.syndication-toggle .btn-default:hover,
+.syndication-toggle .btn-default:focus,
+.syndication-toggle .btn-default:active,
+.syndication-toggle .btn-default.active,
+.syndication-toggle .open > .dropdown-toggle.btn-default {
+    color: #999;
+}
+
+.syndication-toggle .btn:active,
+.syndication-toggle .btn.active {
+    background-image: none;
+    box-shadow: none;
+    outline: 0 none;
+}
+
+.syndication-toggle .btn-info {
+    background-color: #8cbf99;
+    border-color: #8cbf99;
+    color: #fff;
+}
+.syndication-toggle .btn-info:hover,
+.syndication-toggle .btn-info:focus,
+.syndication-toggle .btn-info:active,
+.syndication-toggle .btn-info.active,
+.syndication-toggle .open > .dropdown-toggle.btn-info {
+    background-color: #70997a;
+    border-color: #70997a;
+    color: #fff;
+}
+
+.syndication-toggle label.checkbox-inline {
+    font-size: 20px;
+    color: #666;
+}
+
+.syndication-toggle .checkbox label .toggle,
+.syndication-toggle .checkbox-inline .toggle {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.syndication-toggle .checkbox {
+    width: 400px !important;
+}
+
+.toggle {
+    width: 12em !important;
+    margin-bottom: 5px;
+}

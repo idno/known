@@ -148,6 +148,10 @@
     <!-- We need jQuery at the top of the page -->
    <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/jquery/' ?>jquery.min.js"></script>
 
+    <!-- Syndication -->
+    <link href="<?=\Idno\Core\site()->config()->getDisplayURL()?>external/bootstrap-toggle/css/bootstrap2-toggle.min.css" rel="stylesheet" />
+    <script src="<?=\Idno\Core\site()->config()->getDisplayURL()?>external/bootstrap-toggle/js/bootstrap2-toggle.js"></script>
+
     <?= $this->draw('shell/head', $vars); ?>
 
 </head>
