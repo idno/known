@@ -99,6 +99,7 @@
         href="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/css/bootstrap-responsive.css"
         rel="stylesheet">
     <link href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>css/default.css" rel="stylesheet">
+
     
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -278,6 +279,8 @@
         type="text/javascript"></script>
 <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/mention/mention.js' ?>"
         type="text/javascript"></script>
+
+        
         
 <!-- Flexible media player -->
 <script

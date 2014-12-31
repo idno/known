@@ -1333,3 +1333,12 @@ a:hover.bookmarklet, a:focus.bookmarklet {
 	color: #678c70;
 }
 
+.pages.span3 {
+	margin-left: 0px;
+}
+
+.note-editor {
+	margin-bottom: 20px;
+}
+
+
