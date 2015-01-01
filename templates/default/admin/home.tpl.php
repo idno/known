@@ -79,7 +79,7 @@
 <!---------->
             <div class="row">
 	            <div class="span2">
-					<p class="control-label" for="open_registration"><strong>Set site public</strong></p>
+                    <p class="control-label" for="open_registration"><strong>Set site public</strong></p>
 	            </div>
                 <div class="span4">
                     <select class="span4" name="walled_garden">
