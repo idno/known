@@ -79,7 +79,7 @@
 <!---------->
             <div class="row">
 	            <div class="span2">
-                	<p class="control-label" for="open_registration"><strong>Set site private</strong></p>
+                    <p class="control-label" for="open_registration"><strong>Set site public</strong></p>
 	            </div>
                 <div class="span4">
                     <select class="span4" name="walled_garden">
@@ -87,7 +87,7 @@
                         <option value="true" <?php if (\Idno\Core\site()->config()->walled_garden == true) echo 'selected="selected"'; ?>>No</option>
                     </select>
                 </div>
-                <div class="span4"><p class="config-desc">Content on a private site is only visible if you're logged in.</p>
+                <div class="span4"><p class="config-desc">Content on a public site is always visible, even if you're not logged in.</p>
                 </div>
             </div>
             
