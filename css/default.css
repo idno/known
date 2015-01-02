@@ -646,8 +646,8 @@ div.pane div.row:nth-of-type(odd) {
 /** Interface Buttons **/
 
 .btn-primary {
-    background-color: #73b2e3;
-    border-color: #73b2e3;
+    background-color: #4c93cb;
+    border-color: #4c93cb;
     color: #ffffff;
     text-shadow: none;
     background-image: none;
@@ -656,8 +656,8 @@ div.pane div.row:nth-of-type(odd) {
 }
 
 .btn-primary:hover, btn-primary:active, .btn-primary:focus {
-    background-color: #4c93cb;
-    border-color: #4c93cb;
+    background-color: #357ebd;
+    border-color: #357ebd;
     color: #ffffff;
 }
 
@@ -770,6 +770,7 @@ textarea:focus, input[type="url"]:focus {
 
 select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="tel"], input[type="color"], .uneditable-input {
 	margin-top: 5px;
+	margin-bottom: 10px;
 }
 
 .blank-footer {
@@ -1358,18 +1359,21 @@ a:hover.bookmarklet, a:focus.bookmarklet {
 }
 
 .syndication-toggle .btn-info {
-    background-color: #8cbf99;
-    border-color: #8cbf99;
+    background-color: #70997a;
+    border-color: #70997a;
     color: #fff;
+    text-shadow: none;
+    background-image: none;
 }
 .syndication-toggle .btn-info:hover,
 .syndication-toggle .btn-info:focus,
 .syndication-toggle .btn-info:active,
 .syndication-toggle .btn-info.active,
 .syndication-toggle .open > .dropdown-toggle.btn-info {
-    background-color: #70997a;
-    border-color: #70997a;
+    background-color: #678c70;
+    border-color: #678c70;
     color: #fff;
+    background-image: none;
 }
 
 .syndication-toggle label.checkbox-inline {
@@ -1391,3 +1395,52 @@ a:hover.bookmarklet, a:focus.bookmarklet {
     width: 12em !important;
     margin-bottom: 5px;
 }
+
+
+/* Config Toggles */
+
+.config-toggle .btn-default:hover, 
+.config-toggle .btn-default:focus, 
+.config-toggle .btn-default:active, 
+.config-toggle .btn-default.active, 
+.config-toggle .open > .dropdown-toggle.btn-default {
+    color: #999;
+}
+
+.config-toggle .btn:active, 
+.config-toggle .btn.active {
+    background-image: none;
+    box-shadow: none;
+    outline: 0 none;
+}
+
+.config-toggle .btn-info {
+    background-color: #4c93cb;
+    border-color: #4c93cb;
+    color: #fff;
+    text-shadow: none;
+    background-image: none;
+}
+.config-toggle .btn-info:hover, 
+.config-toggle .btn-info:focus, 
+.config-toggle .btn-info:active, 
+.config-toggle .btn-info.active, 
+.config-toggle .open > .dropdown-toggle.btn-info {
+    background-color: #357ebd;
+    border-color: #357ebd;
+    color: #fff;
+    background-image: none;
+}
+
+.config-toggle label.checkbox-inline {
+	font-size: 20px;
+	color: #666;
+}
+
+.config-toggle .checkbox label .toggle, 
+.config-toggle .checkbox-inline .toggle {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+

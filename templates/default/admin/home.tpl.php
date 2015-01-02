@@ -63,11 +63,12 @@
 	            <div class="span2">
                 	<p class="control-label" for="open_registration"><strong>Allow registration</strong></p>
 	            </div>
-                <div class="span4">
-                    <select class="span4" name="open_registration">
+                <div class="config-toggle span4">
+	                <input type="checkbox" data-toggle="toggle" data-onstyle="info"  data-on="Yes" data-off="No">
+                    <!--<select class="span4" name="open_registration">
                         <option value="true" <?php if (\Idno\Core\site()->config()->open_registration == true) echo 'selected="selected"'; ?>>Yes</option>
                         <option value="false" <?php if (\Idno\Core\site()->config()->open_registration == false) echo 'selected="selected"'; ?>>No</option>
-                    </select>
+                    </select>-->
                 </div>
                 
                 
@@ -81,11 +82,12 @@
 	            <div class="span2">
                     <p class="control-label" for="open_registration"><strong>Set site public</strong></p>
 	            </div>
-                <div class="span4">
-                    <select class="span4" name="walled_garden">
+                <div class="config-toggle span4">
+	                <input type="checkbox" data-toggle="toggle" data-onstyle="info"  data-on="Yes" data-off="No">
+                   <!-- <select class="span4" name="walled_garden">
                         <option value="false" <?php if (\Idno\Core\site()->config()->walled_garden == false) echo 'selected="selected"'; ?>>Yes</option>
                         <option value="true" <?php if (\Idno\Core\site()->config()->walled_garden == true) echo 'selected="selected"'; ?>>No</option>
-                    </select>
+                    </select>-->
                 </div>
                 <div class="span4"><p class="config-desc">Content on a public site is always visible, even if you're not logged in.</p>
                 </div>
@@ -123,11 +125,15 @@
 	            <div class="span2">
                 	<p class="control-label" for="user_avatar_favicons"><strong>User avatar as icon</strong></p><!-- We need to take a look at this one and make sure that the language is clear; it's a little confusing right now.--->
 	            </div>
-                <div class="span4">
-                    <select class="span4" name="user_avatar_favicons">
-                        <option value="true" <?php if (\Idno\Core\site()->config()->user_avatar_favicons == true) echo 'selected="selected"'; ?>>Yes</option>
+                <div class="config-toggle span4">
+	                <input type="checkbox" data-toggle="toggle" data-onstyle="info"  data-on="Yes" data-off="No">
+                    <!--<select class="span4" name="user_avatar_favicons">
+	                    
+                       <option value="true" <?php if (\Idno\Core\site()->config()->user_avatar_favicons == true) echo 'selected="selected"'; ?>>Yes</option>
                         <option value="false" <?php if (\Idno\Core\site()->config()->user_avatar_favicons == false) echo 'selected="selected"'; ?>>No</option>
-                    </select>
+                    </select>-->
+                </div>
+                <div class="span4"><p class="config-desc">Need an explanation here.</p>
                 </div>
             </div>
             
@@ -147,11 +153,14 @@
 	            <div class="span2">
                 	<p class="control-label" for="items_per_page"><strong>Include permalinks</strong></p>
 	            </div>
-                <div class="span4">
-                    <select class="span4" name="indieweb_reference">
+                <div class="config-toggle span4">
+	                
+	                				<input type="checkbox" data-toggle="toggle" data-onstyle="info"  data-on="Yes" data-off="No">
+	                				
+                    <!--<select class="span4" name="indieweb_reference">
                         <option value="true" <?php if (\Idno\Core\site()->config()->indieweb_reference == true) echo 'selected="selected"'; ?>>Yes</option>
                         <option value="false" <?php if (\Idno\Core\site()->config()->indieweb_reference == false) echo 'selected="selected"'; ?>>No</option>
-                    </select>
+                    </select>-->
                     
                 </div>
                 <div class="span4"><p class="config-desc">Include a permalink to the original post when you syndicate.</p>
