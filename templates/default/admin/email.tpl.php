@@ -1,7 +1,7 @@
 <div class="row">
 
     <div class="span10 offset1">
-	            <?=$this->draw('admin/menu')?>
+        <?= $this->draw('admin/menu') ?>
         <h1>Email settings</h1>
 
         <div class="explanation">
@@ -13,112 +13,117 @@
         </div>
     </div>
     <div class="span10 offset1">
-        <form action="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/email" class="form-horizontal" method="post">
-	        
-	       <div class="row">
-		       <div class="span10 email-settings">
-		            <p>
+        <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/email" class="form-horizontal"
+              method="post">
+
+            <div class="row">
+                <div class="span10 email-settings">
+                    <p>
                         Fill in the site email address if you would like your site to send email.
                     </p>
-		       </div>
-	       </div> 
-	       <div class="row">
-            <div class="span2">
-                <p class="control-label" for="name"><strong>Site email address</strong></p>
-            </div>
-            <div class="span4">
-                     <input type="text" id="from_email" placeholder="Site email address" class="span4" name="from_email" value="<?=htmlspecialchars(\Idno\Core\site()->config()->from_email)?>" >
                 </div>
-            <div class="span4">
-                <p class="config-desc">This is the address that every notification will be sent from.</p>
             </div>
-		</div>
-		
-			<div class="row">
-		       <div class="span6 email-settings">
-		            <p>
+            <div class="row">
+                <div class="span2">
+                    <p class="control-label" for="name"><strong>Site email address</strong></p>
+                </div>
+                <div class="span4">
+                    <input type="text" id="from_email" placeholder="Site email address" class="span4" name="from_email"
+                           value="<?= htmlspecialchars(\Idno\Core\site()->config()->from_email) ?>">
+                </div>
+                <div class="span4">
+                    <p class="config-desc">This is the address that every notification will be sent from.</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span6 email-settings">
+                    <p>
                         You can often leave the following settings blank. However, you may wish to set them if you're
                         using a third-party service to send email.
                     </p>
-		       </div>
-	       </div> 
-		
-		
-		<div class="row">
-            <div class="span2">
-                <p class="control-label" for="name"><strong>SMTP host</strong></p>
+                </div>
             </div>
+
+
+            <div class="row">
+                <div class="span2">
+                    <p class="control-label" for="name"><strong>SMTP host</strong></p>
+                </div>
                 <div class="span4">
-                    <input type="text" id="smtp_host" placeholder="SMTP host" class="span4" name="smtp_host" value="<?=htmlspecialchars(\Idno\Core\site()->config()->smtp_host)?>" >
-                    </div>
-                 <div class="span4">
+                    <input type="text" id="smtp_host" placeholder="SMTP host" class="span4" name="smtp_host"
+                           value="<?= htmlspecialchars(\Idno\Core\site()->config()->smtp_host) ?>">
+                </div>
+                <div class="span4">
                     <p class="config-desc">This is the address of the server that will send email for you.</p>
-                    </div>
-		</div>
-		
-		
-				<div class="row">
-            <div class="span2">
-                <p class="control-label" for="name"><strong>SMTP username</strong></p>
+                </div>
             </div>
+
+
+            <div class="row">
+                <div class="span2">
+                    <p class="control-label" for="name"><strong>SMTP username</strong></p>
+                </div>
                 <div class="span4">
-                    <input type="text" id="smtp_username" placeholder="SMTP username" class="span4" name="smtp_username" value="<?=htmlspecialchars(\Idno\Core\site()->config()->smtp_username)?>" >
-                    </div>
-                 <div class="span4">
+                    <input type="text" id="smtp_username" placeholder="SMTP username" class="span4" name="smtp_username"
+                           value="<?= htmlspecialchars(\Idno\Core\site()->config()->smtp_username) ?>">
+                </div>
+                <div class="span4">
                     <p class="config-desc">If your mail server needs a username, enter it here.</p>
-                    </div>
-		</div>
-		
-		
-		<div class="row">
-            <div class="span2">
-                <p class="control-label" for="name"><strong>SMTP password</strong></p>
+                </div>
             </div>
+
+
+            <div class="row">
+                <div class="span2">
+                    <p class="control-label" for="name"><strong>SMTP password</strong></p>
+                </div>
                 <div class="span4">
-                    <input type="password" id="smtp_password" placeholder="SMTP password" class="span4" name="smtp_password" value="<?=htmlspecialchars(\Idno\Core\site()->config()->smtp_password)?>" >
-                    </div>
-                 <div class="span4">
+                    <input type="password" id="smtp_password" placeholder="SMTP password" class="span4"
+                           name="smtp_password"
+                           value="<?= htmlspecialchars(\Idno\Core\site()->config()->smtp_password) ?>">
+                </div>
+                <div class="span4">
                     <p class="config-desc">If your mail server needs a password, enter it here.</p>
-                    </div>
-		</div>
-		
-		
-		<div class="row">
-            <div class="span2">
-                <p class="control-label" for="name"><strong>SMTP port</strong></p>
+                </div>
             </div>
+
+
+            <div class="row">
+                <div class="span2">
+                    <p class="control-label" for="name"><strong>SMTP port</strong></p>
+                </div>
                 <div class="span4">
-                    <input type="number" id="smtp_port" placeholder="SMTP password" class="span4" name="smtp_port" value="<?php
+                    <input type="number" id="smtp_port" placeholder="SMTP password" class="span4" name="smtp_port"
+                           value="<?php
 
-                        $port = (int) \Idno\Core\site()->config()->smtp_port;
-                        if (empty($port)) {
-                            $port = 25;
-                        }
-                        echo $port;
+                               $port = (int)\Idno\Core\site()->config()->smtp_port;
+                               if (empty($port)) {
+                                   $port = 25;
+                               }
+                               echo $port;
 
-                    ?>" >
-                    </div>
-                 <div class="span4">
+                           ?>">
+                </div>
+                <div class="span4">
                     <p class="config-desc">This is the SMTP port to use.</p>
-                    </div>
-		</div>
-		
-	<div class="row">
-            <div class="span2">
-                <p class="control-label" for="name"><strong>Use TLS?</strong></p>
+                </div>
             </div>
-                <div class="config-toggle span4"> 
-	                <input type="checkbox" data-toggle="toggle" data-onstyle="info"  data-on="Yes" data-off="No">                     
-                     <!-- <select class="span4" name="smtp_tls" id="smtp_tls">
-                        <option value="true" <?php if (\Idno\Core\site()->config()->smtp_tls == true) echo 'selected="selected"'; ?>>Yes</option>
-                        <option value="false" <?php if (\Idno\Core\site()->config()->smtp_tls == false) echo 'selected="selected"'; ?>>No</option>
-                    </select>-->
-                    </div>
-                 <div class="span4">
+
+            <div class="row">
+                <div class="span2">
+                    <p class="control-label" for="name"><strong>Use TLS?</strong></p>
+                </div>
+                <div class="config-toggle span4">
+                    <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
+                           name="smtp_tls"
+                           value="true" <?php if (\Idno\Core\site()->config()->smtp_tls == true) echo 'checked'; ?>>
+                </div>
+                <div class="span4">
                     <p class="config-desc">Select yes if you use secure logins to your mail server.</p>
-                    </div>
-		</div>
-		
+                </div>
+            </div>
+
 
             <div class="control-group">
                 <div class="controls-save">
@@ -126,7 +131,7 @@
                 </div>
             </div>
 
-            <?= \Idno\Core\site()->actions()->signForm('/admin/email')?>
+            <?= \Idno\Core\site()->actions()->signForm('/admin/email') ?>
         </form>
     </div>
 </div>
