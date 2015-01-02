@@ -93,7 +93,7 @@
                 return;
             }
 
-            var regex = /\s+/gi;
+            var regex = /\S+/g;
             var wordCount = value.trim().replace(regex, ' ').split(' ').length;
             var totalChars = value.length;
             var charCount = value.trim().length;
