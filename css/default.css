@@ -699,8 +699,8 @@ div.pane div.row:nth-of-type(odd) {
 }
 
 .btn-default {
-    background-color: #333333;
-    border-color: #333333;
+    background-color: #bbbbbb;
+    border-color: #bbbbbb;
     color: #333333;
     text-shadow: none;
     background-image: none;
@@ -1394,6 +1394,14 @@ a:hover.bookmarklet, a:focus.bookmarklet {
 .toggle {
     width: 12em !important;
     margin-bottom: 5px;
+}
+
+.toggle-off.btn {
+	padding-top: 6px;
+}
+
+.toggle-on.btn {
+	padding-top: 6px;
 }
 
 
