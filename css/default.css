@@ -699,8 +699,8 @@ div.pane div.row:nth-of-type(odd) {
 }
 
 .btn-default {
-    background-color: #dddddd;
-    border-color: #dddddd;
+    background-color: #333333;
+    border-color: #333333;
     color: #333333;
     text-shadow: none;
     background-image: none;
