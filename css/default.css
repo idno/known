@@ -1399,6 +1399,10 @@ a:hover.bookmarklet, a:focus.bookmarklet {
 
 /* Config Toggles */
 
+.config-toggle {
+	padding-top: 8px;
+}
+
 .config-toggle .btn-default:hover, 
 .config-toggle .btn-default:focus, 
 .config-toggle .btn-default:active, 

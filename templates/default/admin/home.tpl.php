@@ -8,7 +8,7 @@
 
         <div class="explanation">
             <p>On this page you can change the basic configurations for your site,
-                like its name and the number of items of content on each page.
+                like the site name and the number of posts visible on each page.
                 To add new types of content or new features, visit the
                 <a href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/plugins/">plugins</a>.
             </p>
@@ -86,8 +86,7 @@
                            name="walled_garden"
                            value="true" <?php if (\Idno\Core\site()->config()->walled_garden == true) echo 'checked'; ?>>
                 </div>
-                <div class="span4"><p class="config-desc">Content on a public site is always visible, even if you're not
-                        logged in.</p>
+                <div class="span4"><p class="config-desc">Content on a private site is only visible if you're logged in.</p>
                 </div>
             </div>
 
@@ -102,10 +101,10 @@
                            value="<?= htmlspecialchars(\Idno\Core\site()->config()->hub) ?>">
                 </div>
                 <div class="span4">
-                    <p class="config-desc">You can usually leave this be.<br>
-                        <small><a href="https://code.google.com/p/pubsubhubbub/" target="_blank">Learn more about
-                                PubSubHubbub</a>.
-                        </small>
+                    <p class="config-desc">You can probably leave this as is.
+                       Learn more about
+                                <a href="https://code.google.com/p/pubsubhubbub/" target="_blank">PuSH</a>.
+                       
                     </p>
                 </div>
             </div>
@@ -120,7 +119,7 @@
                     <input type="text" id="items_per_page" placeholder="10" class="span4" name="items_per_page"
                            value="<?= htmlspecialchars(\Idno\Core\site()->config()->items_per_page) ?>">
                 </div>
-                <div class="span4"><p class="config-desc">The number of items displayed on each page.</p>
+                <div class="span4"><p class="config-desc">This is the number of content posts displayed on each page.</p>
                 </div>
             </div>
 
@@ -128,9 +127,8 @@
 
             <div class="row">
                 <div class="span2">
-                    <p class="control-label" for="user_avatar_favicons"><strong>User picture in browser tabs</strong>
+                    <p class="control-label" for="user_avatar_favicons"><strong>Avatar as icon</strong>
                     </p>
-                    <!-- We need to take a look at this one and make sure that the language is clear; it's a little confusing right now.--->
                 </div>
                 <div class="config-toggle span4">
                     <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
@@ -138,7 +136,7 @@
                            name="user_avatar_favicons" <?php if (\Idno\Core\site()->config()->user_avatar_favicons == true) echo 'checked'; ?>>
                 </div>
                 <div class="span4"><p class="config-desc">
-                        Use your user picture in web browser tabs and bookmarks for this site.
+                        This uses members' avatar images as the site favicon.
                     </p>
                 </div>
             </div>
@@ -164,8 +162,8 @@
                            name="indieweb_reference"
                            value="true" <?php if (\Idno\Core\site()->config()->indieweb_reference == true) echo 'checked'; ?>>
                 </div>
-                <div class="span4"><p class="config-desc">Include a permalink to the original post when you
-                        syndicate.</p>
+                <div class="span4"><p class="config-desc">Add a permalink to the original content when you
+                        cross-post.</p>
                 </div>
             </div>
 
