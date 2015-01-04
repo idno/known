@@ -16,7 +16,7 @@
             {
                 if (!\Idno\Core\site()->session()->isLoggedIn()) {
                     $this->setResponse(401);
-                    $this->forward('/session/login');
+                    $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'session/login');
                 }
 
                 $t = \Idno\Core\site()->template();
