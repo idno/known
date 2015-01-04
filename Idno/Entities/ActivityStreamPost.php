@@ -68,6 +68,10 @@
             function setObject(\Idno\Common\Entity $object)
             {
                 $this->object = $object->getUUID();
+                
+                if (!empty($object->created)) {
+                    $this->created = $object->created;
+                }
             }
 
             /**
