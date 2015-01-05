@@ -1208,6 +1208,18 @@ a.connect {
     color: #ffffff;
 }
 
+.goog {
+    background-color: #dd4b39;
+    background-image: url("../gfx/onboarding/google.png");
+    border-color: #dd4b39;
+}
+.goog:hover, .goog:focus {
+    background-color: #dba59e;
+    background-image: url("../gfx/onboarding/google.png");
+    border-color: #dba59e;
+    color: #ffffff;
+}
+
 .lkin {
     background-color: #0976b4;
     background-image: url("../gfx/onboarding/linkedin.png");
