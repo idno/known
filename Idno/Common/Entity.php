@@ -1598,6 +1598,11 @@
                                     $mention['type'] = 'like';
                                 }
                             }
+                            if (!empty($item['properties']['like-of']) && is_array($item['properties']['like-of'])) {
+                                if (in_array($target, $item['properties']['like-of'])) {
+                                    $mention['type'] = 'like';
+                                }
+                            }
                             if (!empty($item['properties']['rsvp']) && is_array($item['properties']['rsvp'])) {
                                 $mention['type']    = 'rsvp';
                                 $mention['content'] = implode(' ', $item['properties']['rsvp']);
