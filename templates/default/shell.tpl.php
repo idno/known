@@ -203,11 +203,14 @@
                             <?php
                                 if (\Idno\Core\site()->config()->isPublicSite() || \Idno\Core\site()->session()->isLoggedOn()) {
                                     echo $this->draw('shell/toolbar/search');
+
                                     echo $this->draw('shell/toolbar/content');
                                 }
                             ?>
                             <ul class="nav pull-right" role="menu">
                                 <?php
+
+                                    echo $this->draw('shell/toolbar/links');
 
                                     if (\Idno\Core\site()->session()->isLoggedIn()) {
 
