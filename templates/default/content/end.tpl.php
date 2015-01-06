@@ -110,6 +110,9 @@
                         if ($rsvps = $vars['object']->getAnnotations('rsvp')) {
                             echo $this->__(array('annotations' => $rsvps))->draw('entity/annotations/rsvps');
                         }
+                        if ($mentions = $vars['object']->getAnnotations('mention')) {
+                            echo $this->__(array('annotations' => $mentions))->draw('entity/annotations/mentions');
+                        }
 
                     ?>
 

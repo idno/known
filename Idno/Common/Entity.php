@@ -1394,6 +1394,19 @@
                     $mentions = array('owner' => array(), 'mentions' => array()); // Content owner and usable webmention items
                     $return   = true; // Return value;
 
+                    // Get the page title from the source content
+                    $title = $source;
+                    try {
+                        $dom = new \DOMDocument();
+                        $dom->loadHTML($source_content);
+                        $xpath = new \DOMXPath($dom);
+                        if ($xpath_title = $xpath->query('//title')->item(0)->textContent) {
+                            $title = $xpath_title;
+                        }
+                    } catch (\Exception $e) {
+                        // Do nothing
+                    }
+
                     // And then let's cycle through them!
 
                     // A first pass for overall owner ...
@@ -1440,7 +1453,7 @@
 
                     // And now a second pass for per-item owners and mentions ...
                     foreach ($source_mf2['items'] as $item) {
-                        $mentions = $this->addWebmentionItem($item, $mentions, $source, $target);
+                        $mentions = $this->addWebmentionItem($item, $mentions, $source, $target, $title);
                         if (!empty($item['type']) && is_array($item['type'])) {
                         }
                     }
@@ -1511,7 +1524,7 @@
              * @param $mentions
              * @return array
              */
-            function addWebmentionItem($item, $mentions, $source, $target)
+            function addWebmentionItem($item, $mentions, $source, $target, $title = '')
             {
                 if (!empty($item['properties']['author'])) {
                     foreach ($item['properties']['author'] as $author) {
@@ -1615,12 +1628,13 @@
                                 }
                             }
                             if (empty($mention['type'])) {
-                                $mention['type'] = 'reply';
+                                $mention['type'] = 'mention';
                             }
                         }
                         if (empty($mention['content'])) {
                             $mention['content'] = '';
                         }
+                        $mention['title'] = $title;
                         if (!empty($mention['type'])) {
                             $mentions['mentions'][] = $mention;
                         }
@@ -1630,7 +1644,7 @@
                 if (in_array('h-feed', $item['type'])) {
                     if (!empty($item['children'])) {
                         foreach ($item['children'] as $child) {
-                            $mentions = $this->addWebmentionItem($child, $mentions, $source, $target);
+                            $mentions = $this->addWebmentionItem($child, $mentions, $source, $target, $title);
                         }
                     }
                 }
