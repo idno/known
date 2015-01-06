@@ -44,7 +44,7 @@
                 // Load the config.ini file in the root folder, if it exists.
                 // If not, we'll use default values. No skin off our nose.
                 $this->path               = dirname(dirname(dirname(__FILE__))); // Base path
-                $this->url                = (\Idno\Common\Page::isSSL() ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . '/'; // A naive default base URL
+                $this->url                = $this->detectBaseURL();
                 $this->title              = 'New Known site'; // A default name for the site
                 $this->description        = 'A social website powered by Known'; // Default description
                 $this->timezone           = 'UTC';
@@ -139,6 +139,24 @@
                     $this->default_config = false;
                 }
 
+            }
+            
+            /**
+             * Attempt to detect your known configuration's server name.
+             */
+            protected function detectBaseURL() {
+                if (!empty($_SERVER['SERVER_NAME'])) {
+                    
+                    // Servername specified, so we can construct things in the normal way.
+                    return (\Idno\Common\Page::isSSL() ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . '/'; // A naive default base URL
+                }
+                
+                // No servername set, try something else
+                    // TODO: Detect servername using other methods (but don't use HTTP_HOST)
+                    
+                
+                // Default to root relative urls
+                return '/';
             }
 
             /**
