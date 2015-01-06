@@ -1,21 +1,7 @@
 <script>
 
     var data = {
-
-        "name": "<?=htmlspecialchars(\Idno\Core\site()->config()->title)?>",
-        "iconURL": "<?=\Idno\Core\site()->config()->getDisplayURL()?>gfx/logos/logo_k_16.png",
-        "icon32URL": "<?=\Idno\Core\site()->config()->getDisplayURL()?>gfx/logos/logo_k_32.png",
-        "icon64URL": "<?=\Idno\Core\site()->config()->getDisplayURL()?>gfx/logos/logo_k_64.png",
-
-        "workerURL": "<?=\Idno\Core\site()->config()->url?>IdnoPlugins/Firefox/worker.js",
-        //"sidebarURL": "<?=\Idno\Core\site()->config()->url?>firefox/sidebar",
-        "shareURL": "<?=\Idno\Core\site()->config()->url?>share?share_url=%{url}&share_title=%{title}&via=ff_social",
-
-        "description": "Powered by Known",
-        "author": "Known, Inc",
-        "homepageURL": "http://withknown.com/",
-
-        "version": "0.1"
+        <?= $this->draw('account/firefox/manifest'); ?>
     }
 
     function activate(node) {
@@ -29,35 +15,35 @@
 <div class="row">
 
     <div class="span10 offset1">
-        <h1>Firefox</h1>
-        <?= $this->draw('account/menu') ?>
+	            <?= $this->draw('account/menu') ?>
+        <h1>Known for Firefox</h1>
     </div>
 </div>
 <div class="row">
-    <div class="span10 offset1" style="margin-top: 4em">
-
-        <p>
-            The very latest version of <a href="http://www.mozilla.org/en-US/firefox/new/" target="_blank">Mozilla
-                Firefox</a>
-            contains extensions that make it easy to post and keep up to date
-            with <?= \Idno\Core\site()->config()->title ?>.
+	<div class="span4 offset1">
+		<p style="padding-bottom: 25px; padding-top: 15px;"><img src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>gfx/other/firefox-long.png" alt="firefox" /></p>
+				<p>Adding Known to Firefox is the easiest way to bookmark links, share content, and reply to posts from any page on the web.</p>
+		        <p>
+            <button class="firefox ff" onclick="activate(this)">Activate now            </button>
         </p>
-
-        <p>
-            If you have <strong>Firefox 21</strong> or above, click the button below to
-            set up your browser:
+                <p>
+            <small>Requires <strong>Firefox 21</strong> or above. Download the latest version
+            <a href="http://www.mozilla.org/en-US/firefox/new/" target="_blank">here</a>.</small>
         </p>
+	</div>
+	<div class="span5">
+		<p style="text-align: right;">
+		<img src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>gfx/other/firefoxsocial.png" alt="firefoxsocial" width="400" height="281" />
+		</p>
+	</div>
+</div>
 
-        <p>
-            <button class="btn btn-success" onclick="activate(this)">Click here to begin using <?= \Idno\Core\site()->config()->title ?> for
-                Firefox
-            </button>
-        </p>
-        <p>
-            If you don't have the required version of Firefox,
-            <a href="http://www.mozilla.org/en-US/firefox/new/" target="_blank">click here to install it</a>.
-        </p>
+<div class="row">
+	<div class="span10 offset1">
+		<p>After clicking the <strong>Activate</strong> button, choose <strong>Enable Services</strong> from the browser message to install Known in your Firefox toolbar.</p>
+	</div>
+</div>
+	
 
-    </div>
 
 </div>

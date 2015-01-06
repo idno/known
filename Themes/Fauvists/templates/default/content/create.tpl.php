@@ -53,7 +53,7 @@
             <div class="span6 offset3">
                 <div class="welcome">
                     <p>
-                        <a href="http://withknown.com/" target="_blank"><img src="http://withknown.com/img/logo_k.png" style="width: 4em; border: 0"></a>
+                        <a href="https://withknown.com/" target="_blank"><img src="https://withknown.com/img/logo_k.png" style="width: 4em; border: 0"></a>
                     </p>
                     <p>
                         Welcome to your Known site!<br />

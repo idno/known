@@ -1,7 +1,8 @@
 <div class="row">
     <div class="span10 offset1">
+	            <?= $this->draw('admin/menu') ?>
         <h1>API Tester</h1>
-        <?= $this->draw('admin/menu') ?>
+
     </div>
 </div>
 <div class="row">
@@ -57,7 +58,7 @@
             </div>
             <div class="row">
                 <div class="span2">
-                    <p>Request</p>
+                    <label class="control-label-api">Request</label>
                 </div>
                 <div class="span5">
                     <p>
@@ -75,7 +76,7 @@
             </div>
             <div class="row">
                 <div class="span2">
-                    <p>Username</p>
+                    <label class="control-label-api">Username</label>
                 </div>
                 <div class="span8">
                     <p>
@@ -86,7 +87,7 @@
             </div>
             <div class="row">
                 <div class="span2">
-                    <p>API key</p>
+                    <label class="control-label-api">API key</label>
                 </div>
                 <div class="span8">
                     <p>
@@ -96,7 +97,7 @@
             </div>
             <div class="row">
                 <div class="span2">
-                    <p>JSON payload</p>
+                    <label class="control-label-api">JSON payload</label>
                 </div>
                 <div class="span8">
                     <textarea class="span8" name="json"><?= htmlspecialchars($vars['json']) ?></textarea>
@@ -120,9 +121,9 @@
                 </div>
             </div>
             <div class="row" style="margin-top: 2em">
-                <div class="span8 offset2">
+                <div class="span8">
                     <p>
-                        Technical details: API calls are a POST request  with the HTTP header X-KNOWN-USERNAME
+                        <strong>Technical details:</strong> API calls are a POST request  with the HTTP header X-KNOWN-USERNAME
                         set to the user's username, and X-KNOWN-SIGNATURE to be an HMAC signature, computed with
                         sha256, using the user's API key.
                     </p>

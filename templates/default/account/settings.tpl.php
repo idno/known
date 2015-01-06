@@ -4,10 +4,11 @@
 <div class="row">
 
     <div class="span10 offset1">
+        <?= $this->draw('account/menu') ?>
         <h1>
             Settings
         </h1>
-        <?= $this->draw('account/menu') ?>
+
         <div class="explanation">
             <p>
                 Change your basic account settings here. You may also want to <a
@@ -15,47 +16,63 @@
                     profile</a>.
             </p>
         </div>
+    </div>
+</div>
+ <div class="row">
+    <div class="span10 offset1">       
 
         <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>account/settings" method="post" class="form-horizontal"
               enctype="multipart/form-data">
-            <div class="control-group">
+	              
+	    <div class="row">          
+            <div class="span2">
                 <label class="control-label" for="inputName">Your name</label>
-
-                <div class="controls">
-                    <input type="text" id="inputName" placeholder="Your name" class="span4" name="name"
-                           value="<?= htmlspecialchars($user->getTitle()) ?>">
+            </div>
+            <div class="span4">
+                    <?= $this->__(['id' => 'inputName', 'value' => $user->getTitle(), 'class' => 'span4', 'name' => 'name', 'placeholder' => 'Your name'])->draw('forms/input/text'); ?>
+                </div>
+                <div class="span2">
                 </div>
             </div>
-            <div class="control-group">
+            
+            <div class="row">            
+            <div class="span2">
                 <label class="control-label" for="inputHandle">Your username</label>
-
-                <div class="controls">
-                    <input type="text" id="inputHandle" placeholder="Your username" class="span4" name="handle"
-                           value="<?= htmlspecialchars($user->handle) ?>">
-                </div>
             </div>
-            <div class="control-group">
+            <div class="span4">
+                    <?= $this->__(['id' => 'inputHandle', 'value' => $user->handle, 'class' => 'span4', 'name' => 'handle', 'placeholder' => 'Your username'])->draw('forms/input/text'); ?>
+            </div>
+            <div class="span2">
+            </div>
+           </div>
+           
+           <div class="row">
+            <div class="span2">
                 <label class="control-label" for="inputEmail">Your email address</label>
-
-                <div class="controls">
-                    <input type="email" id="inputEmail" placeholder="Your email address" class="span4" name="email"
-                           value="<?= htmlspecialchars($user->email) ?>">
-                </div>
             </div>
-            <div class="control-group">
+			<div class="span4">
+                    <?= $this->__(['id' => 'inputEmail', 'value' => $user->email, 'class' => 'span4', 'name' => 'email', 'placeholder' => 'Your email address'])->draw('forms/input/email'); ?>
+            </div>
+            <div class="span4 config-desc">
+	            Site notifications will be sent here.
+            </div>
+           </div>
+           
+           <div class="row">
+            <div class="span2">
                 <label class="control-label" for="inputPassword">Your password<br/>
-                   <!-- <small>Leave this blank if you don't want to change it</small>-->
                 </label>
-
-                <div class="controls">
-                    <input type="password" id="inputPassword" placeholder="Password" class="span4" name="password">
-                     
-                </div>
-                <div class="controls"><small>Leave this blank if you don't want to change it</small></div>
             </div>
+            <div class="span4">
+                    <?= $this->__(['id' => 'inputPassword', 'class' => 'span4', 'name' => 'password', 'placeholder' => 'Password'])->draw('forms/input/password'); ?> 
+             </div>
+            <div class="span4 config-desc">
+	            Leave this blank if you don't want to change it.
+	        </div>
+           </div>
             <div class="control-group">
-                <div class="controls">
-                    <button type="submit" class="btn btn-primary">Save</button>
+                <div class="controls-save">
+                    <button type="submit" class="btn btn-primary">Save updates</button>
                 </div>
             </div>
             <?= \Idno\Core\site()->actions()->signForm('/account/settings') ?>

@@ -78,6 +78,10 @@
                         );
                         
                         // Are we uploading an image, and do we want to remove EXIF data?
+                        /**
+                         * NOTE: temporarily removing EXIF stripping because it messes with auto-rotation.
+                         * Another solution will be found and this will be reinstated.
+                         */
                         if (self::isImage($file_path) && $destroy_exif)
                         {
                             $photo_information = getimagesize($file_path);
@@ -314,10 +318,14 @@
                     \Idno\Core\site()->logging->log("Empty attachment _id", LOGLEVEL_DEBUG);
                 }
                 if (!empty($attachment['url'])) {
-                    if ($bytes = file_get_contents($attachment['url'])) {
-                        \Idno\Core\site()->logging->log("Returning bytes", LOGLEVEL_DEBUG);
-                        return $bytes;
-                    } else {
+                    try {
+                        if ($bytes = file_get_contents($attachment['url'])) {
+                            \Idno\Core\site()->logging->log("Returning bytes", LOGLEVEL_DEBUG);
+                            return $bytes;
+                        } else {
+                            \Idno\Core\site()->logging->log("Couldn't get bytes from " . $attachment['url'], LOGLEVEL_DEBUG);
+                        }
+                    } catch (\Exception $e) {
                         \Idno\Core\site()->logging->log("Couldn't get bytes from " . $attachment['url'], LOGLEVEL_DEBUG);
                     }
                 } else {

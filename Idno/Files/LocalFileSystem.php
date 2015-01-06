@@ -75,7 +75,7 @@
 
                     foreach (array($path . \Idno\Core\site()->config()->pathHost(), $path . \Idno\Core\site()->config()->host . '/' . $id[0], $path . \Idno\Core\site()->config()->host . '/' . $id[0] . '/' . $id[1], $path . \Idno\Core\site()->config()->host . '/' . $id[0] . '/' . $id[1] . '/' . $id[2], $path . \Idno\Core\site()->config()->host . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3]) as $up_path) {
                         if (!is_dir($up_path)) {
-                            $result = mkdir($up_path);
+                            $result = mkdir($up_path, 0777, true);
                         }
                     }
 

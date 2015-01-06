@@ -14,6 +14,7 @@
     $rss->setAttribute('xmlns:g', 'http://base.google.com/ns/1.0');
     $rss->setAttribute('xmlns:atom', 'http://www.w3.org/2005/Atom');
     $rss->setAttribute('xmlns:geo', 'http://www.w3.org/2003/01/geo/wgs84_pos#');
+    $rss->setAttribute('xmlns:dc', 'http://purl.org/dc/elements/1.1/');
     $channel = $page->createElement('channel');
     $channel->appendChild($page->createElement('title',$vars['title']));
     $channel->appendChild($page->createElement('description',$vars['description']));
@@ -29,7 +30,7 @@
     $self->setAttribute('rel','self');
     $self->setAttribute('type', 'application/rss+xml');
     $channel->appendChild($self);
-    $channel->appendChild($page->createElement('generator','Known http://withknown.com'));
+    $channel->appendChild($page->createElement('generator','Known https://withknown.com'));
 
     // In case this isn't a feed page, find any objects
     if (empty($vars['items']) && !empty($vars['object'])) {
@@ -49,6 +50,11 @@
             $rssItem->appendChild($page->createElement('link',$item->getURL()));
             $rssItem->appendChild($page->createElement('guid',$item->getUUID()));
             $rssItem->appendChild($page->createElement('pubDate',date(DATE_RSS,$item->created)));
+            
+            $owner = $item->getOwner();
+            $rssItem->appendChild($page->createElement('author', "{$owner->email} ({$owner->title})"));
+            $rssItem->appendChild($page->createElement('dc:creator', $owner->title));
+            
             $description = $page->createElement('description');
             $description->appendChild($page->createCDATASection($item->draw()));
             $rssItem->appendChild($description);

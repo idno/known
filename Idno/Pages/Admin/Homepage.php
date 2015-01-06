@@ -11,7 +11,15 @@
                 $this->createGatekeeper(); // Logged-in only please
                 $t                        = \Idno\Core\site()->template();
                 $t->content_types         = \Idno\Common\ContentType::getRegistered();
-                $t->default_content_types = \Idno\Core\site()->config()->getHomepageContentTypes(); //\Idno\Core\site()->session()->currentUser()->settings['default_feed_content'];
+                $default_content_types = \Idno\Core\site()->config()->getHomepageContentTypes(); //\Idno\Core\site()->session()->currentUser()->settings['default_feed_content'];
+
+                if (empty($default_content_types)) {
+                    foreach($t->content_types as $content_type) {
+                        $default_content_types[] = $content_type->getEntityClass();
+                    }
+                }
+
+                $t->default_content_types = $default_content_types;
                 $t->body                  = $t->draw('admin/homepage');
                 $t->title                 = 'Homepage';
                 $t->drawPage();

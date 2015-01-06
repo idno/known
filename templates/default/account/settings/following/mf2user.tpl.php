@@ -8,6 +8,14 @@ $properties = $mf2_user['properties'];
 $name = $properties['name'][0];
 $urls = array_unique($properties['url']);
 $photo =  $properties['photo'][0];
+if (empty($photo)) {
+    
+    // No photo URL found, lets fake one for niceness
+    
+    $bn = hexdec(substr(md5($properties['url'][0]), 0, 15));
+    $number = 1 + ($bn % 5);
+    $photo = \Idno\Core\site()->config()->getDisplayURL() . 'gfx/users/default-'. str_pad($number, 2, '0', STR_PAD_LEFT) .'.png';
+}
 
 $email =  $properties['email'][0];
 if (strpos('mailto:', 'mailto:')!==false) $email = substr($email, 7); // Sanitise email
@@ -27,7 +35,7 @@ $nickname =  $properties['nickname'][0];
 	<div class="span8 idno-object idno-content">
 	    <div class="visible-phone">
 		<p class="p-author author h-card vcard">
-		    <img class="u-logo logo u-photo photo" src="<?= $photo ?>" />
+		    <img class="u-logo logo u-photo photo" src="<?= htmlspecialchars($photo) ?>" />
 		    <span class="p-name fn"><?= $name ?></span>
 		</p>
 	    </div>
@@ -35,10 +43,12 @@ $nickname =  $properties['nickname'][0];
 		<?php
 		foreach ($urls as $url) {
 		    ?>
-    		<input type="hidden" name="urls[]" value="<?= $url; ?>" />
+    		<input type="hidden" name="urls[]" value="<?= htmlspecialchars($url); ?>" />
 		    <?php
 		}
 		?>
+                <input type="hidden" name="photo" value="<?= htmlspecialchars($photo) ?>" />
+                
 		<div class="control-group">
 		    <label class="control-label" for="inputName">Name</label>
 
@@ -75,7 +85,7 @@ $nickname =  $properties['nickname'][0];
 			    <?php
 				foreach($urls as $url) {
 				    ?>
-			    <option><?=$url;?></option>
+			    <option><?= htmlspecialchars($url);?></option>
 			    <?php
 				}
 			    ?>

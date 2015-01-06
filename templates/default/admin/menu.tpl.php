@@ -2,7 +2,7 @@
     <div class="navbar-inner">
         <ul class="nav">
             <li <?php if ($_SERVER['REQUEST_URI'] == '/admin/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/" >Site configuration</a></li>
-            <li <?php if ($_SERVER['REQUEST_URI'] == '/admin/plugins/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/plugins/">Site Features</a></li>
+            <li <?php if ($_SERVER['REQUEST_URI'] == '/admin/plugins/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/plugins/">Plugins</a></li>
             <li <?php if ($_SERVER['REQUEST_URI'] == '/admin/themes/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/themes/">Themes</a></li>
             <?=$this->draw('admin/menu/items')?>
             <li <?php if ($_SERVER['REQUEST_URI'] == '/admin/homepage/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/homepage/">Homepage</a></li>

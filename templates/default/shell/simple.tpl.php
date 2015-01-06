@@ -17,7 +17,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="viewport" content="initial-scale=1.0" media="(device-height: 568px)"/>
         <meta name="description" content="<?= htmlspecialchars(strip_tags($vars['description'])) ?>">
-        <meta name="generator" content="Known http://withknown.com">
+        <meta name="generator" content="Known https://withknown.com">
         <?= $this->draw('shell/favicon'); ?>
         <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
         <meta name="DC.title" content="<?= htmlspecialchars($vars['title']) ?>">
@@ -51,6 +51,10 @@
 		<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel='stylesheet' type='text/css'>
         <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/jquery/' ?>jquery.min.js"></script>
         <?= $this->draw('shell/simple/head', $vars); ?>
+
+        <!-- Syndication -->
+        <link href="<?=\Idno\Core\site()->config()->getDisplayURL()?>external/bootstrap-toggle/css/bootstrap2-toggle.min.css" rel="stylesheet" />
+        <script src="<?=\Idno\Core\site()->config()->getDisplayURL()?>external/bootstrap-toggle/js/bootstrap2-toggle.min.js"></script>
 
     </head>
     <body class="<?php

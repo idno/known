@@ -1,17 +1,18 @@
 <div class="row">
     <div class="span10 offset1">
-        <h1>
-            Export data
-        </h1>
-
-        <?php
+	            <?php
 
             echo $this->draw('admin/menu');
 
         ?>
+        <h1>
+            Export data
+        </h1>
+
+
         <p class="explanation">
-            Known gives you an archive containing all of your site's data: every file you upload, every site user, and
-            every post you publish. You can then import these into other Known sites, or process them using other
+            Known gives you an archive containing all of your site's data. The export includes every file you upload, every site user, and
+            every post you publish. You can then import these into other Known sites or process them using other
             software.
         </p>
         <?php

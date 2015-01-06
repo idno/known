@@ -77,8 +77,9 @@
                             
                             // Extract exif data so we can rotate
                             if (is_callable('exif_read_data')) {
-                                $exif = exif_read_data($_FILES['photo']['tmp_name']);
-                                $this->exif = base64_encode(serialize($exif)); // Yes, this is rough, but exif contains binary data that can not be saved in mongo
+                                if ($exif = exif_read_data($_FILES['photo']['tmp_name'])) {
+                                    $this->exif = base64_encode(serialize($exif)); // Yes, this is rough, but exif contains binary data that can not be saved in mongo
+                                }
                             } else {
                                 $exif = false;
                             }

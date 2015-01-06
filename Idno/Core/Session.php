@@ -16,9 +16,8 @@
 
             function init()
             {
-
-                ini_set('session.cookie_lifetime', 60 * 60 * 24 * 30); // Persistent cookies
-                ini_set('session.gc_maxlifetime', 60 * 60 * 24 * 30); // Garbage collection to match
+                ini_set('session.cookie_lifetime', 60 * 60 * 24 * 7); // Persistent cookies
+                ini_set('session.gc_maxlifetime', 60 * 60 * 24 * 7); // Garbage collection to match
                 ini_set('session.cookie_httponly', true); // Restrict cookies to HTTP only (help reduce XSS attack profile)
 
                 site()->db()->handleSession();
@@ -314,6 +313,10 @@
                     }
 
                     if ($user = \Idno\Entities\User::getByHandle($_SERVER['HTTP_X_KNOWN_USERNAME'])) {
+
+                        // Short circuit authentication, since this user is already logged in. Needed to resolve #595
+                        if (\Idno\Core\site()->session()->currentUser() && \Idno\Core\site()->session()->currentUser()->getUUID() == $user->getUUID())
+                            return $user;
 
                         $key          = $user->getAPIkey();
                         $hmac         = trim($_SERVER['HTTP_X_KNOWN_SIGNATURE']);

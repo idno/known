@@ -21,7 +21,7 @@
 
             <?php
 
-                if (version_compare(phpversion(), '5.3') >= 0) {
+                if (version_compare(phpversion(), '5.4') >= 0) {
                     $class = 'success';
                     $text = 'You are running PHP version ' . phpversion() . '.';
                 } else {
@@ -126,7 +126,7 @@
             </h2>
             <p>
                 Unfortunately it looks like you need to install a few things. If you need to, ask your system administrator.
-                Scroll up for more details, and <a href="http://withknown.com">check out our website</a> for more services
+                Scroll up for more details, and <a href="https://withknown.com">check out our website</a> for more services
                 and information.
             </p>
             <p>

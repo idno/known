@@ -44,7 +44,7 @@
                 // Load the config.ini file in the root folder, if it exists.
                 // If not, we'll use default values. No skin off our nose.
                 $this->path               = dirname(dirname(dirname(__FILE__))); // Base path
-                $this->url                = (\Idno\Common\Page::isSSL() ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . '/'; // A naive default base URL
+                $this->url                = $this->detectBaseURL();
                 $this->title              = 'New Known site'; // A default name for the site
                 $this->description        = 'A social website powered by Known'; // Default description
                 $this->timezone           = 'UTC';
@@ -56,6 +56,7 @@
                 $this->hub                = 'http://withknown.superfeedr.com/';
                 $this->session_path       = session_save_path(); // Session path when not storing sessions in the database
                 $this->disable_cleartext_warning = false; // Set to true to disable warning when access credentials are sent in the clear
+                $this->cookie_jar	  = rtrim(sys_get_temp_dir(), '/\\') . DIRECTORY_SEPARATOR; // Cookie jar for API requests, default location isn't terribly secure on shared hosts!
                 $this->multi_syndication  = true; // Do we allow multiple accounts per syndication endpoint?
 
                 $this->loadIniFiles();
@@ -103,20 +104,20 @@
                     if ($config = @parse_ini_file($this->path . '/config.ini')) {
                         $this->ini_config = array_merge($config, $this->ini_config);
                     }
+                    if (file_exists($this->path . '/config.json')) {
+                        if ($json = file_get_contents($this->path . '/config.json')) {
+                            if ($json = json_decode($json, true)) {
+                                $this->ini_config = array_merge($this->ini_config, $json);
+                            }
+                        }
+                    }
 
                     // Per domain configuration
                     if ($config = @parse_ini_file($this->path . '/' . $this->host . '.ini')) {
                         unset($this->ini_config['initial_plugins']);  // Don't let plugin settings be merged
                         unset($this->ini_config['alwaysplugins']);
                         unset($this->ini_config['antiplugins']);
-                        $this->ini_config = array_merge($config, $this->ini_config);
-                    }
-                    if (file_exists($this->path . '/config.json')) {
-                        if ($json = file_get_contents($this->path . '/config.json')) {
-                            if ($json = json_decode($json, true)) {
-                                $this->ini_config = array_merge($json, $this->ini_config);
-                            }
-                        }
+                        $this->ini_config = array_merge($this->ini_config, $config);
                     }
 
                     // Check environment variables and set as appropriate
@@ -139,6 +140,24 @@
                     $this->default_config = false;
                 }
 
+            }
+            
+            /**
+             * Attempt to detect your known configuration's server name.
+             */
+            protected function detectBaseURL() {
+                if (!empty($_SERVER['SERVER_NAME'])) {
+                    
+                    // Servername specified, so we can construct things in the normal way.
+                    return (\Idno\Common\Page::isSSL() ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . '/'; // A naive default base URL
+                }
+                
+                // No servername set, try something else
+                    // TODO: Detect servername using other methods (but don't use HTTP_HOST)
+                    
+                
+                // Default to root relative urls
+                return '/';
             }
 
             /**
@@ -193,6 +212,7 @@
                 unset($array['feed']); // Don't save the feed URL to the database
                 unset($array['uploadpath']); // Don't save the upload path to the database
                 unset($array['session_path']); // Don't save the session path in the database
+                unset($array['cookie_jar']); // Don't save the cookie path in the database
                 unset($array['known_hub']);
 
                 // If we don't have a site secret, create it
@@ -231,6 +251,7 @@
                         unset($config['antiplugins']);
                         unset($config['alwaysplugins']);
                         unset($config['session_path']);
+                        unset($config['cookie_jar']); 
                     }
                     if (is_array($config)) {
                         $this->config = array_merge($this->config, $config);

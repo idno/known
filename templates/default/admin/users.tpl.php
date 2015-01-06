@@ -1,11 +1,12 @@
 <div class="row">
     <div class="span10 offset1">
-        <h1>User Management</h1>
-        <?= $this->draw('admin/menu') ?>
+	            <?= $this->draw('admin/menu') ?>
+        <h1>Users</h1>
+
 
         <div class="explanation">
             <p>
-                Manage users in the system, and invite new ones.
+                View the users registered for your site, and invite new users to join.
             </p>
 
         </div>
@@ -13,7 +14,7 @@
 </div>
 <div class="row">
     <div class="span10 offset1">
-        <h3>Site users:</h3>
+        <h3>Manage site users</h3>
         <p>
             The following users are members of this site.
         </p>
@@ -32,9 +33,9 @@
                         ?>
 
                         <div class="row <?= strtolower(str_replace('\\', '-', get_class($user))); ?>">
-                            <div class="span3 offset1">
+                            <div class="span3">
                                 <p>
-                                    <img src="<?= $user->getIcon() ?>" style="width: 35px; float: left; margin-right: 10px; margin-top: 3px; margin-bottom: 3em">
+                                    <img src="<?= $user->getIcon() ?>" style="width: 35px; float: left; margin-right: 10px; margin-left: 10px; margin-top: 3px; margin-bottom: 3em">
                                     <a href="<?= $user->getURL() ?>"><?= htmlentities($user->getTitle()) ?></a> (<a href="<?= $user->getURL() ?>"><?= $user->getHandle() ?></a>)<br>
                                     <small><?= $user->email ?></small>
                                 </p>
@@ -90,10 +91,10 @@
                                 </p>
                             </div>
                             <div class="span1">
-                                <p><small>
+                                <p style="padding-top: 20px;"><small>
                 <?php
                 if ($user->getUUID() != \Idno\Core\site()->session()->currentUserUUID()) {
-                    echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'admin/users', 'Delete', array('user' => $user->getUUID(), 'action' => 'delete'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? This will delete this user and all their content.'));
+                    echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'admin/users', '<i class="icon-remove"></i> Delete', array('user' => $user->getUUID(), 'action' => 'delete'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? This will delete this user and all their content.'));
                 } else {
                     echo '&nbsp';
                 }
@@ -117,16 +118,16 @@
 
         <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/users" method="post">
 
-            <h3>Invite users:</h3>
+            <h3>Invite new users</h3>
 
             <p>
-                To invite users to the system, enter one or more email addresses below.
+                To invite new users to the site, enter one or more email addresses below.
             </p>
 
-            <textarea name="invitation_emails" class="span8"></textarea>
+            <textarea name="invitation_emails" class="span10" placeholder="friend@email.com"></textarea>
 
             <p>
-                <input type="submit" class="btn btn-primary" value="Invite">
+                <input type="submit" class="btn btn-primary" value="Send invite">
                 <input type="hidden" name="action" value="invite_users">
 <?= \Idno\Core\site()->actions()->signForm('/admin/users') ?>
             </p>

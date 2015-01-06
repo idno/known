@@ -388,6 +388,7 @@
                     if (is_array($this->title)) {
                         $this->title = trim(implode(' ', $this->title));
                     }
+
                     return $this->title;
                 }
 
@@ -708,6 +709,9 @@
                             if (!empty($value['url'])) {
                                 $host              = parse_url($value['url'], PHP_URL_HOST);
                                 $value['url']      = str_replace($host, \Idno\Core\site()->config()->attachment_base_host, $value['url']);
+                                if (empty($value['filename'])) {
+                                    $value['filename'] = basename($value['url']);
+                                }
                                 $attachments[$key] = $value;
                             }
                         }
@@ -946,12 +950,15 @@
              * @param $url
              * @return bool
              */
-            function setPosseLink($service, $url)
+            function setPosseLink($service, $url, $identifier = '')
             {
                 if (!empty($service) && !empty($url)) {
-                    $posse           = $this->posse;
-                    $posse[$service] = $url;
-                    $this->posse     = $posse;
+                    $posse = $this->posse;
+                    if (empty($identifier)) {
+                        $identifier = $service;
+                    }
+                    $posse[$service][] = array('url' => $url, 'identifier' => $identifier);
+                    $this->posse       = $posse;
 
                     return true;
                 }
@@ -1302,9 +1309,9 @@
                 if ($attachments = $this->getAttachments()) {
                     foreach ($attachments as $attachment) {
                         $object['attachments'][] = [
-                            'url' => preg_replace('/^(https?:\/\/\/)/', \Idno\Core\site()->config()->url, $attachment['url']), 
-                            'mime-type' => $attachment['mime-type'], 
-                            'length' => $attachment['length']
+                            'url'       => preg_replace('/^(https?:\/\/\/)/', \Idno\Core\site()->config()->url, $attachment['url']),
+                            'mime-type' => $attachment['mime-type'],
+                            'length'    => $attachment['length']
                         ];
                     }
                 }
@@ -1455,8 +1462,8 @@
                                 $permalink = $source;
                             }
                             // Special exemption for bridgy
-                            if ((strpos($source, 'https://brid-gy.appspot.com/') !== FALSE) && in_array($mention['type'], array('like','share','rsvp'))) {
-                                $permalink = \Idno\Core\site()->template()->getURLWithVar('known_from',$source,implode('',$mention['url']));
+                            if ((strpos($source, 'https://brid-gy.appspot.com/') !== false) && in_array($mention['type'], array('like', 'share', 'rsvp'))) {
+                                $permalink = \Idno\Core\site()->template()->getURLWithVar('known_from', $source, implode('', $mention['url']));
                             }
                             if (!$this->addAnnotation($mention['type'], $mentions['owner']['name'], $mentions['owner']['url'], $mentions['owner']['photo'], $mention['content'], $permalink, $mention['created'])) {
                                 $return = false;
@@ -1591,6 +1598,11 @@
                                     $mention['type'] = 'like';
                                 }
                             }
+                            if (!empty($item['properties']['like-of']) && is_array($item['properties']['like-of'])) {
+                                if (in_array($target, $item['properties']['like-of'])) {
+                                    $mention['type'] = 'like';
+                                }
+                            }
                             if (!empty($item['properties']['rsvp']) && is_array($item['properties']['rsvp'])) {
                                 $mention['type']    = 'rsvp';
                                 $mention['content'] = implode(' ', $item['properties']['rsvp']);
@@ -1675,28 +1687,28 @@
 
                 if ($owners = $this->getAnnotationOwnerUUIDs(true)) {
                     $owners[] = $this->getOwnerID();
-                    $owners = array_unique($owners);
+                    $owners   = array_unique($owners);
                 } else {
                     $owners = array($this->getOwnerID());
                 }
 
-                foreach($owners as $owner_uuid) {
+                foreach ($owners as $owner_uuid) {
                     if ($owner = User::getByUUID($owner_uuid)) {
 
                         $send = true;
                         switch ($subtype) {
                             case 'reply':
                                 if ($owner_uuid == $this->getOwnerID()) {
-                                    $subject               = $owner_name . ' replied to your post!';
+                                    $subject = $owner_name . ' replied to your post!';
                                 } else {
-                                    $subject               = $owner_name . ' replied!';
+                                    $subject = $owner_name . ' replied!';
                                 }
                                 $notification_template = 'content/notification/reply';
                                 $context               = 'reply';
                                 break;
                             case 'like':
                                 if ($owner_uuid == $this->getOwnerID()) {
-                                    $subject               = $owner_name . ' liked your post!';
+                                    $subject = $owner_name . ' liked your post!';
                                 } else {
                                     $send = false;
                                 }
@@ -1821,12 +1833,13 @@
              * @param bool $local If set to true, only returns UUIDs of users who belong to this Known site
              * @return array
              */
-            function getAnnotationOwnerUUIDs($local = false) {
+            function getAnnotationOwnerUUIDs($local = false)
+            {
                 $owners = array();
                 if (!empty($this->annotations)) {
-                    foreach($this->annotations as $annotation_type) {
+                    foreach ($this->annotations as $annotation_type) {
                         if (!empty($annotation_type) && is_array($annotation_type)) {
-                            foreach($annotation_type as $annotation) {
+                            foreach ($annotation_type as $annotation) {
                                 if (!empty($annotation['owner_url'])) {
                                     if ((parse_url($annotation['owner_url'], PHP_URL_HOST) == parse_url(\Idno\Core\site()->config()->getURL(), PHP_URL_HOST)) || !$local) {
                                         $owners[] = $annotation['owner_url'];
@@ -1836,6 +1849,7 @@
                         }
                     }
                 }
+
                 return $owners;
             }
 

@@ -1,10 +1,10 @@
+<hr>
 <p>
-    To get started exporting your content, click the button below. It'll take a while, but you can leave this page.
-    This page will update once the export is complete, and you'll be able to download the archive right here.
+    To start exporting your content, click the button below. It may take a while to generate the export file. You can leave this page while it's working. Once the export is complete, this page will update, and you'll be able to download the archive right here.
 </p>
 <form action="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/export/generate/" method="post">
-    <p style="text-align: center; margin-top: 3em;">
-        <input type="submit" class="btn btn-primary" value="Start exporting your data">
+    <p style="text-align: left; margin-top: 3em;">
+        <input type="submit" class="btn btn-primary" value="Export your data">
         <?php
 
             echo \Idno\Core\site()->actions()->signForm(\Idno\Core\site()->config()->getDisplayURL() . 'admin/export/generate');

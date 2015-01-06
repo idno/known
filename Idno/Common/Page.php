@@ -53,7 +53,7 @@
 
             function init()
             {
-                header('X-Powered-By: http://withknown.com');
+                header('X-Powered-By: https://withknown.com');
                 if ($template = $this->getInput('_t')) {
                     if (\Idno\Core\site()->template()->templateTypeExists($template)) {
                         \Idno\Core\site()->template()->setTemplateType($template);
@@ -150,7 +150,7 @@
                     $this->parseJSONPayload();
                     $return = $this->postContent();
                 } else {
-
+                    throw new \Exception('Action tokens are invalid.');
                 }
                 
                 if (\Idno\Core\site()->session()->isAPIRequest()) {
@@ -217,7 +217,7 @@
                     $this->parseJSONPayload();
                     $return = $this->putContent();
                 } else {
-
+                    throw new \Exception('Action tokens are invalid.');
                 }
                 
                 if (\Idno\Core\site()->session()->isAPIRequest()) {
@@ -279,7 +279,7 @@
                     $this->parseJSONPayload();
                     $return = $this->deleteContent();
                 } else {
-
+                    throw new \Exception('Action tokens are invalid.');
                 }
                 
                 if (\Idno\Core\site()->session()->isAPIRequest()) {
@@ -669,6 +669,24 @@
                     return true;
 
                 return false;
+            }
+            
+            /**
+             * Force connection over SSL.
+             * If a page is requested over HTTP, this function will issue a 307 redirect to force
+             * the connection over TLS. 307 is used to preserve POST data on a web services call.
+             */
+            function sslGatekeeper() 
+            {
+                if (!static::isSSL()) {
+                    
+                    $url = str_replace('http://', 'https://', $this->currentUrl());
+
+                    header("HTTP/1.1 307 Temporary Redirect");
+                    header("Location: $url");
+
+                    exit;
+                }
             }
 
             /**

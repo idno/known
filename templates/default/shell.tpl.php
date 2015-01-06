@@ -19,7 +19,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="initial-scale=1.0" media="(device-height: 568px)"/>
     <meta name="description" content="<?= htmlspecialchars(strip_tags($vars['description'])) ?>">
-    <meta name="generator" content="Known http://withknown.com">
+    <meta name="generator" content="Known https://withknown.com">
 
     <?= $this->draw('shell/icons'); ?>
     <?= $this->draw('shell/favicon'); ?>
@@ -56,6 +56,7 @@
             echo "<meta property=\"$key\" content=\"$value\" />\n";
 
     ?>
+
 
     <!-- Dublin Core -->
     <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
@@ -99,11 +100,16 @@
         rel="stylesheet">
     <link href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>css/default.css" rel="stylesheet">
 
+    
+
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
     <script
         src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/js/html5shiv.js"></script>
     <![endif]-->
+
+    <!-- We need jQuery at the top of the page -->
+    <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/jquery/' ?>jquery.min.js"></script>
 
     <!-- Default Known JavaScript -->
     <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'js/default.js' ?>"></script>
@@ -140,10 +146,11 @@
         }
     ?>
 
-    <script src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/fragmention/fragmention.js"></script>
+   <script src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/fragmention/fragmention.js"></script>
 
-    <!-- We need jQuery at the top of the page -->
-    <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/jquery/' ?>jquery.min.js"></script>
+    <!-- Syndication -->
+    <link href="<?=\Idno\Core\site()->config()->getDisplayURL()?>external/bootstrap-toggle/css/bootstrap2-toggle.min.css" rel="stylesheet" />
+    <script src="<?=\Idno\Core\site()->config()->getDisplayURL()?>external/bootstrap-toggle/js/bootstrap2-toggle.js"></script>
 
     <?= $this->draw('shell/head', $vars); ?>
 
@@ -196,11 +203,14 @@
                             <?php
                                 if (\Idno\Core\site()->config()->isPublicSite() || \Idno\Core\site()->session()->isLoggedOn()) {
                                     echo $this->draw('shell/toolbar/search');
+
                                     echo $this->draw('shell/toolbar/content');
                                 }
                             ?>
                             <ul class="nav pull-right" role="menu">
                                 <?php
+
+                                    echo $this->draw('shell/toolbar/links');
 
                                     if (\Idno\Core\site()->session()->isLoggedIn()) {
 
@@ -277,6 +287,8 @@
 <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/mention/mention.js' ?>"
         type="text/javascript"></script>
 
+        
+        
 <!-- Flexible media player -->
 <script
     src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/mediaelement/build/mediaelement-and-player.min.js"></script>

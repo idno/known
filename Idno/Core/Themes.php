@@ -52,7 +52,8 @@
                         }
                         if (!empty($prep_extensions)) {
                             foreach ($prep_extensions as $template => $extension) {
-                                site()->template()->extendTemplate($template, $extension, true);
+                                //site()->template()->extendTemplate($template, $extension, true);
+                                site()->template()->prependTemplate($template, $extension, true);
                             }
                         }
                         if (is_subclass_of("Themes\\{$this->theme}\\Controller", 'Idno\\Common\\Theme')) {
@@ -114,7 +115,7 @@
                         'version'      => '0.1',
                         'author'       => "Known",
                         'author_email' => "hello@withknown.com",
-                        'author_url'   => "http://withknown.com",
+                        'author_url'   => "https://withknown.com",
                         'description'  => 'The default Known theme.'
                     )
                 );

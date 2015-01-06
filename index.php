@@ -7,7 +7,7 @@
      * If you're wondering what this is all about, you could do worse than
      * check out the README.md file.
      *
-     * Project homepage:    http://withknown.com/
+     * Project homepage:    https://withknown.com/
      * Project repo:        https://github.com/idno/idno
      *
      * @package idno
@@ -15,7 +15,7 @@
      */
 
 // Check PHP version first of all
-    if (version_compare(phpversion(), '5.3', '<')) {
+    if (version_compare(phpversion(), '5.4', '<')) {
         header('Location: warmup/'); exit;
     }
 
@@ -43,6 +43,14 @@
     \Idno\Core\PageHandler::hook('404', function () {
         http_response_code(404);
         $t = \Idno\Core\site()->template();
+        
+        // Take over page detection 
+        $t->setTemplateType(\Idno\Core\site()->currentPage()->getInput('_t'));
+        if (\Idno\Core\site()->currentPage()->isAcceptedContentType('application/json'))
+        {
+            $t->setTemplateType('json');
+        }
+        
         $t->__(array('body' => $t->draw('pages/404'), 'title' => 'Not found!'))->drawPage();
         exit;
     });
