@@ -75,7 +75,7 @@
                 <?php
                 }
 
-                $extensions = array('curl','date','dom','gd','json','libxml','mbstring','mysql','reflection','session','simplexml','xmlrpc');
+                $extensions = array('curl','date','dom','gd','json','libxml','mbstring','mysql','reflection','session','simplexml');
                 asort($extensions);
                 foreach($extensions as $extension) {
                     if (extension_loaded($extension)) {
