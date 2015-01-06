@@ -7,7 +7,7 @@
      * If you're wondering what this is all about, you could do worse than
      * check out the README.md file.
      *
-     * Project homepage:    http://withknown.com/
+     * Project homepage:    https://withknown.com/
      * Project repo:        https://github.com/idno/idno
      *
      * @package idno

@@ -65,7 +65,7 @@ You will also need a `/Themes/PDXCarpet/templates/default/` folder.
 You could overwrite the `shell/footer` theme simply by adding a new file called `/Themes/PDXCarpet/templates/default/shell/footer.tpl.php`. This could contain some simple text::
 
     <p>
-        This is a custom <a href="http://withknown.com">Known</a> theme!
+        This is a custom <a href="https://withknown.com">Known</a> theme!
     </p>
 
 To add a custom, static CSS file, you might want to `extend` the `shell/head` theme to reference it. To do ths, you would add an extension to your `theme.ini` file::

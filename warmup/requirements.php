@@ -126,7 +126,7 @@
             </h2>
             <p>
                 Unfortunately it looks like you need to install a few things. If you need to, ask your system administrator.
-                Scroll up for more details, and <a href="http://withknown.com">check out our website</a> for more services
+                Scroll up for more details, and <a href="https://withknown.com">check out our website</a> for more services
                 and information.
             </p>
             <p>

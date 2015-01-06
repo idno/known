@@ -5,7 +5,7 @@ Before you begin
 ----------------
 
 If you're running Known in production, we highly recommend that you download the installation package from
-`withknown.com <http://withknown.com/>`_.
+`withknown.com <https://withknown.com/>`_.
 
 To begin with, make sure your server satisfies the :doc:`requirements`.
 
@@ -16,7 +16,7 @@ that will just work, out of the box.
 Upload Known files
 ------------------
 
-Known releases stable installation packages from `withknown.com <http://withknown.com/>`_ in both .zip and .tar.gz
+Known releases stable installation packages from `withknown.com <https://withknown.com/>`_ in both .zip and .tar.gz
 formats. If you are using Known for any purpose other than development, this is the recommended source for Known
 installations.
 
@@ -25,7 +25,7 @@ domain or subdomain.
 
 You can place the platform on your web host by:
 
-* Downloading the latest package from `the Known homepage <http://withknown.com/>`_. This is by far the easiest
+* Downloading the latest package from `the Known homepage <https://withknown.com/>`_. This is by far the easiest
   option. If you've uploaded the files inside the archive to your web host, you can skip to the configuration section
   of these documents, below.
 * Git clone the repository to an appropriate directory (or just straight into the folder root of your web host).

@@ -66,7 +66,7 @@
                 curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 5);
                 curl_setopt($curl_handle, CURLOPT_AUTOREFERER, true);
                 curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($curl_handle, CURLOPT_USERAGENT, "Known http://withknown.com");
+                curl_setopt($curl_handle, CURLOPT_USERAGENT, "Known https://withknown.com");
                 curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
                 curl_setopt($curl_handle, CURLINFO_HEADER_OUT, 1);
                 curl_setopt($curl_handle, CURLOPT_SSL_VERIFYPEER, 1);

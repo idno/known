@@ -28,7 +28,7 @@ Once you've clicked it, select PHP 5.4 or PHP 5.5 from the "Preferred directory"
 Next, go back to the CPanel main screen.
 
 ##Uploading the files##
-In order to install Known, you'll need the latest package of the software.  You can download the latest release of Known from the [homepage of our site(https://withknown.com) or from our [developers page](http://withknown.com/developers/).
+In order to install Known, you'll need the latest package of the software.  You can download the latest release of Known from the [homepage of our site(https://withknown.com) or from our [developers page](https://withknown.com/developers/).
 
 In the CPanel of your site, navigate to "File Manager" under "Files."
 

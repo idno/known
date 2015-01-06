@@ -53,7 +53,7 @@
 
             function init()
             {
-                header('X-Powered-By: http://withknown.com');
+                header('X-Powered-By: https://withknown.com');
                 if ($template = $this->getInput('_t')) {
                     if (\Idno\Core\site()->template()->templateTypeExists($template)) {
                         \Idno\Core\site()->template()->setTemplateType($template);

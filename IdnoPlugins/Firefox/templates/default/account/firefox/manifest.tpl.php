@@ -9,7 +9,7 @@
 
     "description": "Powered by Known",
     "author": "Known, Inc",
-    "homepageURL": "http://withknown.com/",
+    "homepageURL": "https://withknown.com/",
 
     "version": "0.1"
     

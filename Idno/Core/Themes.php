@@ -115,7 +115,7 @@
                         'version'      => '0.1',
                         'author'       => "Known",
                         'author_email' => "hello@withknown.com",
-                        'author_url'   => "http://withknown.com",
+                        'author_url'   => "https://withknown.com",
                         'description'  => 'The default Known theme.'
                     )
                 );

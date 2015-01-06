@@ -19,7 +19,7 @@
     </p>
 
         <p align="center">
-            Feedback is a gift.  For more information about Known, <a href="http://withknown.com/">please visit our homepage</a>.
+            Feedback is a gift.  For more information about Known, <a href="https://withknown.com/">please visit our homepage</a>.
         </p>
 
     </div>

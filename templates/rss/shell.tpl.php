@@ -30,7 +30,7 @@
     $self->setAttribute('rel','self');
     $self->setAttribute('type', 'application/rss+xml');
     $channel->appendChild($self);
-    $channel->appendChild($page->createElement('generator','Known http://withknown.com'));
+    $channel->appendChild($page->createElement('generator','Known https://withknown.com'));
 
     // In case this isn't a feed page, find any objects
     if (empty($vars['items']) && !empty($vars['object'])) {
