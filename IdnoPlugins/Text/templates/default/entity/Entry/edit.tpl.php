@@ -48,9 +48,12 @@
                     </label>
                 </p>
 
+                <p style="text-align: right">
+                    <small>
+                        <a href="#" onclick="$('.wysiwyg').destroy(); $('#plainTextSwitch').hide(); $('#richTextSwitch').show(); return false;" id="plainTextSwitch">Switch to plain text editor</a>
+                        <a href="#" onclick="makeRichText('.wysiwyg'); $('#plainTextSwitch').show(); $('#richTextSwitch').hide(); return false;" id="richTextSwitch" style="display:none">Switch to rich text editor</a></small></p>
                 <p>
                     <label>
-                        Body<br/>
                         <textarea name="body"  placeholder="Tell your story"
                                   class="span8 bodyInput mentionable wysiwyg" id="body"><?= (htmlspecialchars($this->autop($body))) ?></textarea>
                     </label>
@@ -118,6 +121,10 @@
         });
 
         $(document).ready(function () {
+            makeRichText('.wysiwyg');
+        });
+
+        function makeRichText(container) {
             $('.wysiwyg').summernote({
                 height: "15em",
                 airMode: false,
@@ -127,14 +134,14 @@
                     ['fontsize', ['fontsize']],
                     ['color', ['color']],
                     ['para', ['ul', 'ol', 'paragraph']],
-                    ['codeview', ['fullscreen', 'codeview']]
+                    ['codeview', ['fullscreen']]
                 ],
                 onkeyup: counter,
                 onImageUpload: function (files, editor, welEditable) {
                     uploadFileAsync(files[0], editor, welEditable);
                 }
             });
-        });
+        }
 
         function uploadFileAsync(file, editor, welEditable) {
             data = new FormData();
