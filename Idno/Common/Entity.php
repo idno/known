@@ -1398,7 +1398,7 @@
                     $title = $source;
                     try {
                         $dom = new \DOMDocument();
-                        $dom->loadHTML($source_content);
+                        $dom->loadHTML($source_content['content']);
                         $xpath = new \DOMXPath($dom);
                         if ($xpath_title = $xpath->query('//title')->item(0)->textContent) {
                             $title = $xpath_title;
