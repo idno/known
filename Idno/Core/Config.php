@@ -55,6 +55,7 @@
                 $this->known_hub          = false;
                 $this->hub                = 'http://withknown.superfeedr.com/';
                 $this->session_path       = session_save_path(); // Session path when not storing sessions in the database
+                $this->disable_cleartext_warning = false; // Set to true to disable warning when access credentials are sent in the clear
                 $this->cookie_jar	  = rtrim(sys_get_temp_dir(), '/\\') . DIRECTORY_SEPARATOR; // Cookie jar for API requests, default location isn't terribly secure on shared hosts!
                 $this->multi_syndication  = true; // Do we allow multiple accounts per syndication endpoint?
 

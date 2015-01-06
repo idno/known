@@ -303,6 +303,10 @@
                 if (!empty($_SERVER['HTTP_X_KNOWN_USERNAME']) && !empty($_SERVER['HTTP_X_KNOWN_SIGNATURE'])) {
 
                     \Idno\Core\site()->session()->setIsAPIRequest(true);
+                    if (!\Idno\Common\Page::isSSL() && !\Idno\Core\site()->config()->disable_cleartext_warning) {
+                        \Idno\Core\site()->session()->addErrorMessage("Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini");
+                    }
+                    
                     $t = site()->currentPage()->getInput('_t');
                     if (empty($t)) {
                         site()->template()->setTemplateType('json');
@@ -332,6 +336,10 @@
                 // We're not logged in yet, so try and authenticate using other mechanism
                 if ($return = site()->triggerEvent('user/auth/api', [], false)) {
                     \Idno\Core\site()->session()->setIsAPIRequest(true);
+                    
+                    if (!\Idno\Common\Page::isSSL() && !\Idno\Core\site()->config()->disable_cleartext_warning) {
+                        \Idno\Core\site()->session()->addErrorMessage("Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini");
+                    }
                 }
 
                 // If this is an API request but we're not logged in, set page response code to access denied
