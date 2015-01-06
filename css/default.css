@@ -1353,6 +1353,31 @@ a:hover.bookmarklet, a:focus.bookmarklet {
 	margin-left: 0px;
 }
 
+p.pages {
+	padding-bottom: 25px;
+}
+
+tr.pages {
+	border-bottom: 1px solid #000;
+	font-size: 1.2em;
+	font-weight: bold;
+	line-height: 42px;	
+}
+
+tr.items {
+	line-height: 28px;
+}
+
+.btn-page {
+	margin-left: 10px;
+	padding: 4px 20px;
+	line-height: 28px;	
+}
+
+.btn-add {
+	padding: 6px 18px;
+}
+
 .note-editor {
 	margin-bottom: 20px;
 }
