@@ -29,7 +29,7 @@
             'og:type'      => 'website',
             'og:title'     => htmlspecialchars(strip_tags($vars['title'])),
             'og:site_name' => htmlspecialchars(strip_tags(\Idno\Core\site()->config()->title)),
-            'og:image'     => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k.png'
+            'og:image'     => Idno\Core\site()->currentPage()->getIcon()
         );
 
         if (\Idno\Core\site()->currentPage() && \Idno\Core\site()->currentPage()->isPermalink()) {

@@ -1,7 +1,12 @@
+<?php
+
+    $icons = Idno\Core\site()->getSiteIcons();
+    
+?>
     "name": "<?=htmlspecialchars(\Idno\Core\site()->config()->title)?>",
-    "iconURL": "<?=\Idno\Core\site()->config()->getDisplayURL()?>gfx/logos/logo_k_16.png",
-    "icon32URL": "<?=\Idno\Core\site()->config()->getDisplayURL()?>gfx/logos/logo_k_32.png",
-    "icon64URL": "<?=\Idno\Core\site()->config()->getDisplayURL()?>gfx/logos/logo_k_64.png",
+    "iconURL": "<?=$icons['defaults']['default_16']; ?>",
+    "icon32URL": "<?=$icons['defaults']['default_32']; ?>",
+    "icon64URL": "<?=$icons['defaults']['default_64']; ?>",
 
     "workerURL": "<?=\Idno\Core\site()->config()->url?>IdnoPlugins/Firefox/worker.js",
     //"sidebarURL": "<?=\Idno\Core\site()->config()->url?>firefox/sidebar",

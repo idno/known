@@ -599,6 +599,42 @@
             }
 
             /**
+             * Retrieve site icons.
+             * Retrieve a set of one or more icon for the current site, allowing plugins and other components
+             * access icons for displaying in various contexts
+             * 
+             * @returns array An associative array of various icons => url
+             */
+            function getSiteIcons() 
+            {
+                $icons = [];
+                
+                // Set our defaults (TODO: Set these cleaner, perhaps through the template system)
+                $icons['defaults'] = [
+                    'default' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k.png',
+                    'default_16' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k_16.png',
+                    'default_32' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k_32.png',
+                    'default_64' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k_64.png',
+                    
+                    // Apple logos
+                    'default_57' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-57x57.png',
+                    'default_72' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-72x72.png',
+                    'default_114' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-114x114.png',
+                    'default_144' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-144x144.png',
+                ];
+                                
+                // If we're on a page, see if that has a specific icon
+                if ($page = \Idno\Core\site()->currentPage()) {
+                    if ($page_icons = $page->getIcon()) {
+                        $icons['page'] = $page_icons;
+                    }
+                }
+                
+                // Now, return a list of icons, but pass it through an event hook to override
+                return $this->triggerEvent('site/icons', ['object' => $this], $icons);                
+            }
+            
+            /**
              * Retrieve notices (eg notifications that a new version has been released) from Known HQ
              * @return mixed
              */
