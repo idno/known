@@ -71,7 +71,7 @@
                                 }
                             } else {
                                 $error      = 'source_not_found';
-                                $error_text = 'The source content could not be obtained.';
+                                $error_text = 'The source content for '.$source.' could not be obtained.';
                                 \Idno\Core\site()->logging->log('No content from ' . $source, LOGLEVEL_ERROR);
                             }
                         } else {
@@ -80,7 +80,8 @@
                         }
                     } else {
                         $error      = 'target_not_found';
-                        $error_text = 'The target page does not exist.';
+                        $error_text = 'The target page '.$source.' does not exist.';
+                        \Idno\Core\site()->logging()->log('Could not find handler for ' . $target, LOGLEVEL_ERROR);
                     }
                 }
                 $this->setResponse(400); // Webmention failed.
