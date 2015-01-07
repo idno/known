@@ -545,8 +545,12 @@
             function gatekeeper()
             {
                 if (!\Idno\Core\site()->session()->isLoggedIn()) {
-                    $this->setResponse(401);
-                    $this->forward(\Idno\Core\site()->config()->getURL() . 'session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']));
+                    $this->setResponse(403);
+                    
+                    // Forwarding loses the response code, so is only helpful if this is not an API request
+                    if (!\Idno\Core\site()->session()->isAPIRequest()) {
+                        $this->forward(\Idno\Core\site()->config()->getURL() . 'session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']));
+                    }
                 }
             }
 
@@ -559,7 +563,10 @@
             {
                 if (!\Idno\Core\site()->canWrite()) {
                     $this->setResponse(403);
-                    $this->forward();
+                    
+                    if (!\Idno\Core\site()->session()->isAPIRequest()) {
+                        $this->forward();
+                    }
                 }
                 $this->gatekeeper();
             }
@@ -572,8 +579,10 @@
             function reverseGatekeeper()
             {
                 if (\Idno\Core\site()->session()->isLoggedIn()) {
-                    $this->setResponse(401);
-                    $this->forward();
+                    $this->setResponse(403);
+                    if (!\Idno\Core\site()->session()->isAPIRequest()) {
+                        $this->forward();
+                    }
                 }
             }
 
@@ -591,8 +600,11 @@
                     }
                 }
                 if (!$ok) {
-                    $this->setResponse(401);
-                    $this->forward();
+                    $this->setResponse(403);
+                    
+                    if (!\Idno\Core\site()->session()->isAPIRequest()) {
+                        $this->forward();
+                    }
                 }
             }
 
