@@ -80,7 +80,7 @@
                         }
                     } else {
                         $error      = 'target_not_found';
-                        $error_text = 'The target page '.$source.' does not exist.';
+                        $error_text = 'The target page '.$target.' does not exist.';
                         \Idno\Core\site()->logging()->log('Could not find handler for ' . $target, LOGLEVEL_ERROR);
                     }
                 }
