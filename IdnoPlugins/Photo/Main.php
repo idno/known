@@ -9,6 +9,37 @@
                 \Idno\Core\site()->addPageHandler('/photo/edit/([A-Za-z0-9]+)/?', '\IdnoPlugins\Photo\Pages\Edit');
                 \Idno\Core\site()->addPageHandler('/photo/delete/([A-Za-z0-9]+)/?', '\IdnoPlugins\Photo\Pages\Delete');
             }
+
+            /**
+             * Get the total file usage
+             * @param bool $user
+             * @return int
+             */
+            function getFileUsage($user = false) {
+
+                $total = 0;
+
+                if (!empty($user)) {
+                    $search = ['user' => $user];
+                } else {
+                    $search = [];
+                }
+
+                if ($photos = Photo::get($search,[],9999,0)) {
+                    foreach($photos as $photo) {
+                        /* @var Photo $photo */
+                        if ($attachments = $photo->getAttachments()) {
+                            foreach($attachments as $attachment) {
+                                $total += $attachment['length'];
+                            }
+                        }
+                    }
+                }
+
+                return $total;
+
+            }
+
         }
 
     }

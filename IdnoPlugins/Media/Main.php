@@ -10,6 +10,37 @@
                 \Idno\Core\site()->addPageHandler('/media/delete/([A-Za-z0-9]+)/?', '\IdnoPlugins\Media\Pages\Delete');
                 \Idno\Core\site()->template()->extendTemplate('shell/footer','media/shell/footer');
             }
+
+            /**
+             * Get the total file usage
+             * @param bool $user
+             * @return int
+             */
+            function getFileUsage($user = false) {
+
+                $total = 0;
+
+                if (!empty($user)) {
+                    $search = ['user' => $user];
+                } else {
+                    $search = [];
+                }
+
+                if ($media = Photo::get($search,[],9999,0)) {
+                    foreach($media as $post) {
+                        /* @var Media $post */
+                        if ($attachments = $post->getAttachments()) {
+                            foreach($attachments as $attachment) {
+                                $total += $attachment['length'];
+                            }
+                        }
+                    }
+                }
+
+                return $total;
+
+            }
+
         }
 
     }
