@@ -9,6 +9,8 @@
 
     namespace Idno\Core {
 
+        use Idno\Common\Plugin;
+
         class Plugins extends \Idno\Common\Component
         {
 
@@ -144,6 +146,35 @@
                 ksort($plugins);
 
                 return $plugins;
+            }
+
+            /**
+             * Retrieves the file bytes stored by each plugin
+             * @return array
+             */
+            public function getFileUsageByPlugin()
+            {
+                $usage = [];
+                if (!empty($this->plugins)) {
+                    foreach($this->plugins as $plugin) {
+                        if ($plugin instanceof Plugin) {
+                            $usage[$plugin->getClassName()] = (int) $plugin->getFileUsage();
+                        }
+                    }
+                }
+                return $usage;
+            }
+
+            /**
+             * Retrieves the number of bytes stored by all plugins in the system.
+             * @return int
+             */
+            public function getTotalFileUsage()
+            {
+                if ($usage = $this->getFileUsageByPlugin()) {
+                    return (int) array_sum($usage);
+                }
+                return 0;
             }
 
         }

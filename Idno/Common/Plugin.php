@@ -35,6 +35,16 @@
                 }
             }
 
+            /**
+             * Returns the bytes used by this plugin; if a user ID is included, limits to that user's uploads
+             * @param string|bool $user (By default this isn't set)
+             * @return int
+             */
+            function getFileUsage($user = false)
+            {
+                return 0;
+            }
+
         }
 
     }

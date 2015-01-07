@@ -696,6 +696,19 @@
             }
 
             /**
+             * Return the total size of all files owned by this user
+             * @return int
+             */
+            function getFileUsage()
+            {
+                $bytes = 0;
+
+                // Gather bytes
+
+                return $bytes;
+            }
+
+            /**
              * Hook to provide a method of notifying a user - for example, sending an email or displaying a popup.
              *
              * @param string $message The short text message to notify the user with. (eg, a subject line.)
