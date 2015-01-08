@@ -36,14 +36,6 @@
                     }
                 }
 
-                $headers = getallheaders();
-                if (isset($headers['If-Modified-Since'])) {
-                    if (strtotime($headers['If-Modified-Since']) < time() - 600) {
-                        header('HTTP/1.1 304 Not Modified');
-                        exit;
-                    }
-                }
-
                 session_write_close();  // Close the session early
 
                 //header("Pragma: public");
@@ -57,6 +49,15 @@
                 }
                 //header('Accept-Ranges: bytes');
                 //header('Content-Length: ' . filesize($object->getSize()));
+
+                $headers = getallheaders();
+                if (isset($headers['If-Modified-Since'])) {
+                    if (strtotime($headers['If-Modified-Since']) < time() - 600) {
+                        header('HTTP/1.1 304 Not Modified');
+                        exit;
+                    }
+                }
+
                 if (is_callable(array($object, 'passThroughBytes'))) {
                     $object->passThroughBytes();
                 } else {
