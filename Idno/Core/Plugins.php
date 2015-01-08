@@ -110,17 +110,19 @@
                 if ($folders = scandir(\Idno\Core\site()->config()->path . '/IdnoPlugins')) {
                     foreach ($folders as $folder) {
                         if ($folder != '.' && $folder != '..') {
-                            if (file_exists(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $folder . '/plugin.ini')) {
-                                $plugins[$folder] = parse_ini_file(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $folder . '/plugin.ini', true);
-                            }
-                            
-                            // See if this is a plugin as a checkout
-                            if ($subfolders = scandir(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $folder)) {
-                                foreach ($subfolders as $subfolder) {
-                                    if ($subfolder != '.' && $subfolder != '..') {
-                                        if (file_exists(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $folder . '/' . $subfolder . '/plugin.ini')) {
-                                            if (file_exists(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $folder . '/autoloader.php')) {
-                                                $plugins[$folder] = parse_ini_file(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $folder . '/' . $subfolder . '/plugin.ini', true);
+                            if (is_dir(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $folder)) {
+                                if (file_exists(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $folder . '/plugin.ini')) {
+                                    $plugins[$folder] = parse_ini_file(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $folder . '/plugin.ini', true);
+                                }
+
+                                // See if this is a plugin as a checkout
+                                if ($subfolders = scandir(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $folder)) {
+                                    foreach ($subfolders as $subfolder) {
+                                        if ($subfolder != '.' && $subfolder != '..') {
+                                            if (file_exists(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $folder . '/' . $subfolder . '/plugin.ini')) {
+                                                if (file_exists(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $folder . '/autoloader.php')) {
+                                                    $plugins[$folder] = parse_ini_file(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $folder . '/' . $subfolder . '/plugin.ini', true);
+                                                }
                                             }
                                         }
                                     }
