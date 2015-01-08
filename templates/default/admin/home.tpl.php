@@ -167,6 +167,7 @@
                 </div>
             </div>
 
+            <?=$this->draw('admin/home/settings')?>
 
             <div class="control-group">
                 <div class="controls-save">
