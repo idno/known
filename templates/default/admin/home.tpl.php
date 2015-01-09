@@ -2,17 +2,7 @@
 
     <div class="span10 offset1">
         <?= $this->draw('admin/menu') ?>
-        <h1>
-            Site configuration
-        </h1>
-
-        <div class="explanation">
-            <p>On this page you can change the basic configurations for your site,
-                like the site name and the number of posts visible on each page.
-                To add new types of content or new features, visit the
-                <a href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/plugins/">plugins</a>.
-            </p>
-        </div>
+        <?= $this->draw('admin/home/description')?>
     </div>
 </div>
 <div class="row">
@@ -21,7 +11,7 @@
 
             <div class="row">
                 <div class="span2">
-                    <p class="control-label" for="name"><strong>Site name</strong></p>
+                    <p><label class="control-label" for="name"><strong>Site name</strong></label></p>
                 </div>
                 <div class="span4">
                     <input type="text" id="name" placeholder="Site name" class="span4" name="title"
@@ -35,7 +25,7 @@
 
             <div class="row">
                 <div class="span2">
-                    <p class="control-label" for="description"><strong>Site description</strong></p>
+                    <p><label class="control-label" for="description"><strong>Site description</strong></label></p>
                 </div>
                 <div class="span4">
                     <input type="text" id="name" placeholder="Site description" class="span4" name="description"
@@ -49,7 +39,7 @@
             <!---------->
             <div class="row">
                 <div class="span2">
-                    <p class="control-label" for="url"><strong>Site URL</strong></p>
+                    <p><label class="control-label" for="url"><strong>Site URL</strong></label></p>
                 </div>
                 <div class="span4">
                     <input type="url" id="url" placeholder="Site URL" class="span4" name="url"
@@ -64,7 +54,7 @@
 
             <div class="row">
                 <div class="span2">
-                    <p class="control-label" for="open_registration"><strong>Allow registration</strong></p>
+                    <p><label class="control-label" for="open_registration"><strong>Allow registration</strong></label></p>
                 </div>
                 <div class="config-toggle span4">
                     <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
@@ -79,7 +69,7 @@
             <!---------->
             <div class="row">
                 <div class="span2">
-                    <p class="control-label" for="open_registration"><strong>Make site private</strong></p>
+                    <p><label class="control-label" for="open_registration"><strong>Make site private</strong></label></p>
                 </div>
                 <div class="config-toggle span4">
                     <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
@@ -94,7 +84,7 @@
 
             <div class="row">
                 <div class="span2">
-                    <p class="control-label" for="hub"><strong>PubSubHubbub hub</strong></p>
+                    <p><label class="control-label" for="hub"><strong>PubSubHubbub hub</strong></label></p>
                 </div>
                 <div class="span4">
                     <input type="url" id="hub" placeholder="PubSubHubbub hub address" class="span4" name="hub"
@@ -113,7 +103,7 @@
 
             <div class="row">
                 <div class="span2">
-                    <p class="control-label" for="items_per_page"><strong>Items per page</strong></p>
+                    <p><label class="control-label" for="items_per_page"><strong>Items per page</strong></label></p>
                 </div>
                 <div class="span4">
                     <input type="text" id="items_per_page" placeholder="10" class="span4" name="items_per_page"
@@ -127,7 +117,7 @@
 
             <div class="row">
                 <div class="span2">
-                    <p class="control-label" for="user_avatar_favicons"><strong>Avatar as icon</strong>
+                    <p><label class="control-label" for="user_avatar_favicons"><strong>Avatar as icon</strong></label>
                     </p>
                 </div>
                 <div class="config-toggle span4">
@@ -155,7 +145,7 @@
             <!---------->
             <div class="row">
                 <div class="span2">
-                    <p class="control-label" for="items_per_page"><strong>Include permalinks</strong></p>
+                    <p><label class="control-label" for="items_per_page"><strong>Include permalinks</strong></label></p>
                 </div>
                 <div class="config-toggle span4">
                     <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
