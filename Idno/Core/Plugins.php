@@ -160,7 +160,7 @@
                 if (!empty($this->plugins)) {
                     foreach($this->plugins as $plugin) {
                         if ($plugin instanceof Plugin) {
-                            $usage[$plugin->getClassName()] = (int) $plugin->getFileUsage();
+                            $usage[$plugin->getClass()] = (int) $plugin->getFileUsage();
                         }
                     }
                 }
