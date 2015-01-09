@@ -690,7 +690,7 @@
              */
             function sslGatekeeper() 
             {
-                if (!static::isSSL()) {
+                if (!static::isSSL() && empty(\Idno\Core\site()->config()->ignore_ssl_gatekeeper)) {
                     
                     $url = str_replace('http://', 'https://', $this->currentUrl());
 
