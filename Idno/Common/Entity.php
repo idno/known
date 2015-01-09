@@ -1711,6 +1711,7 @@
 
                         $send = true;
                         switch ($subtype) {
+                            case 'mention':
                             case 'reply':
                                 if ($owner_uuid == $this->getOwnerID()) {
                                     $subject = $owner_name . ' replied to your post!';
@@ -1746,7 +1747,12 @@
                         }
 
                         if ($annotation['owner_url'] != $this->getOwner()->getURL() && $send == true) {
-                            $owner->notify($subject, $notification_template, $annotation, $context, $this);
+                            if (empty($subject)) {
+                                $subject = '';
+                            }
+                            if (!empty($notification_template) && !empty($context)) {
+                                $owner->notify($subject, $notification_template, $annotation, $context, $this);
+                            }
                         }
 
                     }
