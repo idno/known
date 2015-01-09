@@ -80,6 +80,7 @@
                         $user->email  = $email;
                         $user->handle = strtolower(trim($handle)); // Trim the handle and set it to lowercase
                         $user->setPassword($password);
+                        $user->notifications['email'] == 'all';
                         if (empty($name)) {
                             $name = $user->handle;
                         }
