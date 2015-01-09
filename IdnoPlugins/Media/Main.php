@@ -26,7 +26,7 @@
                     $search = [];
                 }
 
-                if ($media = Photo::get($search,[],9999,0)) {
+                if ($media = Media::get($search,[],9999,0)) {
                     foreach($media as $post) {
                         /* @var Media $post */
                         if ($attachments = $post->getAttachments()) {
