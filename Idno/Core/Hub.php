@@ -57,6 +57,7 @@
                 }
 
                 $server = str_replace($urischeme . ':', $newuri, $server);
+                site()->logging()->log('Saved connection to hub ' . $server);
                 $this->server = $server;
             }
 
