@@ -351,7 +351,7 @@
              * @return bool
              */
             function canMakeSitePrivate() {
-                $event = new Event(); $event->setResponse(false);
+                $event = new Event(); $event->setResponse(true);
                 $event = site()->events()->dispatch('site/walledgarden/check',$event);
                 return $event->response();
             }
