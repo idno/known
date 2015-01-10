@@ -6,12 +6,6 @@
 ?>
 <div class="span4 theme">
 
-    <h4><?= $vars['theme']['Theme description']['name'] ?> <?php if (\Idno\Core\site()->themes()->get() == $vars['theme']['shortname']) {
-            echo '(Selected)';
-        } else {
-            echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'admin/themes/', '[Activate]', array('theme' => $vars['theme']['shortname'], 'action' => 'install'), array('class' => 'pull-right')); 
-        }
-?></h4>
     <?php
 
         if (!empty($vars['theme']['shortname'])) {
@@ -33,9 +27,15 @@
     <?php
         }
     ?>
+    <h4><?= $vars['theme']['Theme description']['name'] ?> <?php if (\Idno\Core\site()->themes()->get() == $vars['theme']['shortname']) {
+            echo '(Selected)';
+        } else {
+            echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'admin/themes/', 'Enable', array('theme' => $vars['theme']['shortname'], 'action' => 'install'), array('class' => 'pull-right btn btn-primary')); 
+        }
+?></h4>
 
     <p>
-        Version <?= $vars['theme']['Theme description']['version'] ?><br>
+        <strong>Version <?= $vars['theme']['Theme description']['version'] ?></strong> by
         <a href="<?= $vars['theme']['Theme description']['author_url'] ?>"><?= $vars['theme']['Theme description']['author'] ?></a>
     </p>
 

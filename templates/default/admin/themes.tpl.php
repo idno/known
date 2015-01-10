@@ -5,9 +5,7 @@
         <div class="explanation">
             <p>
                 Themes allow you to change the way your site looks.
-            </p>
-            <p>
-                The following themes are installed. Click on one to enable it:
+                The following themes are installed.
             </p>
         </div>
         <?php

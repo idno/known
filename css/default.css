@@ -500,13 +500,14 @@ span.contentTypeLogo {
 .theme {
     padding: 1em;
     margin-bottom: 2em;
-    background-color: #fafafa;
+    background-color: #ffffff;
     height: 32em;
     overflow-y: scroll;
 }
 
 .theme img {
-    border: #999 1px solid;
+    border: #c5c5c5 3px solid;
+    border-radius: 4px;
     margin-top: 1em;
     margin-bottom: 1em;
 }
