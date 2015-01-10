@@ -347,6 +347,16 @@
             }
 
             /**
+             * Can the site administrator make this site private? Defaults to true; uses a hook to determine.
+             * @return bool
+             */
+            function canMakeSitePrivate() {
+                $event = new Event(['return' => true]);
+                $event = site()->events()->dispatch('site/walledgarden/check',$event);
+                return $event->return;
+            }
+
+            /**
              * Is this the default site configuration?
              * @return bool
              */

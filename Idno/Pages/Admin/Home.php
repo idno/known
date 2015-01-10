@@ -47,7 +47,7 @@
                 } else {
                     $open_registration = false;
                 }
-                if ($walled_garden == 'true') {
+                if ($walled_garden == 'true' && \Idno\Core\site()->config()->canMakeSitePrivate()) {
                     $walled_garden = true;
                 } else {
                     $walled_garden = false;
