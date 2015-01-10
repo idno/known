@@ -4,6 +4,7 @@
 
     $replies = $vars['object']->countAnnotations('reply');
     $likes = $vars['object']->countAnnotations('like');
+    $mentions = $vars['object']->countAnnotations('mention');
     $has_liked = false;
     if ($like_annotations = $vars['object']->getAnnotations('like')) {
         foreach ($like_annotations as $like) {
@@ -88,7 +89,7 @@
 
         if (\Idno\Core\site()->currentPage()->isPermalink()) {
 
-            if (!empty($likes) || !empty($replies) || !empty($shares) || !empty($rsvps)) {
+            if (!empty($likes) || !empty($replies) || !empty($shares) || !empty($rsvps) || !empty($mentions)) {
 
                 ?>
 

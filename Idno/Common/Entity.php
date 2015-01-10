@@ -1467,6 +1467,9 @@
                         if (empty($mentions['owner']['name'])) {
                             $mentions['owner']['name'] = 'Web user';
                         }
+                        if (empty($mentions['title'])) {
+                            $mentions['title'] = '';
+                        }
                         $this->removeAnnotation($source);
                         foreach ($mentions['mentions'] as $mention) {
                             if (!empty($mention['url'])) {
@@ -1478,7 +1481,7 @@
                             if ((strpos($source, 'https://brid-gy.appspot.com/') !== false) && in_array($mention['type'], array('like', 'share', 'rsvp'))) {
                                 $permalink = \Idno\Core\site()->template()->getURLWithVar('known_from', $source, implode('', $mention['url']));
                             }
-                            if (!$this->addAnnotation($mention['type'], $mentions['owner']['name'], $mentions['owner']['url'], $mentions['owner']['photo'], $mention['content'], $permalink, $mention['created'])) {
+                            if (!$this->addAnnotation($mention['type'], $mentions['owner']['name'], $mentions['owner']['url'], $mentions['owner']['photo'], $mention['content'], $permalink, $mention['created'], $mention['title'])) {
                                 $return = false;
                             }
                         }
@@ -1661,9 +1664,10 @@
              * @param string $content Content of the annotation
              * @param string|null $annotation_url If included, the existing URL of this annotation
              * @param int $time The UNIX timestamp associated with this annotation (if set to 0, as is default, will be current time)
+             * @param string $title The title associated with this annotation (blank by default)
              * @return bool Depending on success
              */
-            function addAnnotation($subtype, $owner_name, $owner_url, $owner_image, $content, $annotation_url = null, $time = null)
+            function addAnnotation($subtype, $owner_name, $owner_url, $owner_image, $content, $annotation_url = null, $time = null, $title = '')
             {
                 if (empty($subtype)) return false;
                 if (empty($annotation_url)) {
@@ -1684,7 +1688,7 @@
                 } else {
                     $time = (int)$time;
                 }
-                $annotation  = array('permalink' => $annotation_url, 'owner_name' => $owner_name, 'owner_url' => $owner_url, 'owner_image' => $owner_image, 'content' => $content, 'time' => $time);
+                $annotation  = array('permalink' => $annotation_url, 'owner_name' => $owner_name, 'owner_url' => $owner_url, 'owner_image' => $owner_image, 'content' => $content, 'time' => $time, 'title' => $title);
                 $annotations = $this->annotations;
                 if (empty($annotations)) {
                     $annotations = array();
