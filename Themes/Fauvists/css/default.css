@@ -331,11 +331,6 @@ h1, h2, h3, h4, h5, h6 {
     border: none;
 }
 
-.entry-content .p-photo a, .idno-posts h2. p-photo {
-	font-size: 1.8em;
-	margin:0; padding: 0;	
-}
-
 .entry-content .p-bookmark a, .idno-posts h5.p-bookmark {
 	font-size: 24px;
 	margin: 0; padding: 0;
