@@ -116,7 +116,7 @@
                         'author'       => "Known",
                         'author_email' => "hello@withknown.com",
                         'author_url'   => "https://withknown.com",
-                        'description'  => 'The default Known theme.'
+                        'description'  => 'The default Known theme, built to be used as a basis for your designs.'
                     )
                 );
 
