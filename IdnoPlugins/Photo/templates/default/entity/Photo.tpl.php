@@ -8,7 +8,7 @@
         $vars['object']->body .= '<p class="tag-row"><i class="icon-tag"></i>' . $vars['object']->tags . '</p>';
     }
 ?>
-    <h2 class="p-photo"><a href="<?= $vars['object']->getURL(); ?>"><?= htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?></a></h2>
+    <h2 class="p-name"><a href="<?= $vars['object']->getURL(); ?>"><?= htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?></a></h2>
 <?php
     if ($attachments = $vars['object']->getAttachments()) {
         foreach ($attachments as $attachment) {
