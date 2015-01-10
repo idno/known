@@ -21,6 +21,10 @@
                 $onboarding = $this->getInput('onboarding');
 
                 if (empty(\Idno\Core\site()->config()->open_registration)) {
+                    if (!\Idno\Core\site()->config()->canAddUsers()) {
+                        \Idno\Core\site()->session()->addErrorMessage("This site is closed to new users.");
+                        $this->forward(\Idno\Core\site()->config()->getURL());
+                    }
                     if (!\Idno\Entities\Invitation::validate($email, $code)) {
                         \Idno\Core\site()->session()->addErrorMessage("Your invitation doesn't seem to be valid, or has expired.");
                         $this->forward(\Idno\Core\site()->config()->getURL());

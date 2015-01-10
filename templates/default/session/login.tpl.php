@@ -36,7 +36,7 @@
               <div class="control-group">
                 <div class="controls">
                     <?php
-                        if (\Idno\Core\site()->config()->open_registration == true) {
+                        if (\Idno\Core\site()->config()->open_registration == true && \Idno\Core\site()->config()->canAddUsers()) {
                     ?>
                     <a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>account/register">New here? Register for an account.</a><br><br>
                     <?php

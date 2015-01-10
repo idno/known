@@ -337,6 +337,16 @@
             }
 
             /**
+             * Can new users be added to the site? Defaults to true; uses a hook to determine.
+             * @return bool
+             */
+            function canAddUsers() {
+                $event = new Event(['return' => true]);
+                $event = site()->events()->dispatch('users/add/check',$event);
+                return $event->return;
+            }
+
+            /**
              * Is this the default site configuration?
              * @return bool
              */

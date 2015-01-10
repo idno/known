@@ -113,26 +113,34 @@
     </div>
 
 </div>
-<div class="row">
-    <div class="span10 offset1">
+<?php
 
-        <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/users" method="post">
+    if (\Idno\Core\site()->config()->canAddUsers()) {
 
-            <h3>Invite new users</h3>
+        ?>
+        <div class="row">
+            <div class="span10 offset1">
 
-            <p>
-                To invite new users to the site, enter one or more email addresses below.
-            </p>
+                <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/users" method="post">
 
-            <textarea name="invitation_emails" class="span10" placeholder="friend@email.com"></textarea>
+                    <h3>Invite new users</h3>
 
-            <p>
-                <input type="submit" class="btn btn-primary" value="Send invite">
-                <input type="hidden" name="action" value="invite_users">
-<?= \Idno\Core\site()->actions()->signForm('/admin/users') ?>
-            </p>
+                    <p>
+                        To invite new users to the site, enter one or more email addresses below.
+                    </p>
 
-        </form>
+                    <textarea name="invitation_emails" class="span10" placeholder="friend@email.com"></textarea>
 
-    </div>
-</div>
+                    <p>
+                        <input type="submit" class="btn btn-primary" value="Send invite">
+                        <input type="hidden" name="action" value="invite_users">
+                        <?= \Idno\Core\site()->actions()->signForm('/admin/users') ?>
+                    </p>
+
+                </form>
+
+            </div>
+        </div>
+    <?php
+
+    }
