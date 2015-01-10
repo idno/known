@@ -46,7 +46,7 @@
                     switch ($action) {
                         case 'install':
                             \Idno\Core\site()->config->config['theme'] = $theme;
-                            \Idno\Core\site()->session()->addMessage('The theme was enabled.');
+                            //\Idno\Core\site()->session()->addMessage('The theme was enabled.');
                             break;
                         case 'uninstall':
                             \Idno\Core\site()->config->config['theme'] = '';
