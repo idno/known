@@ -49,6 +49,14 @@
              */
             function setServer($server)
             {
+                $urischeme = parse_url($server, PHP_URL_SCHEME);
+                if (site()->isSecure()) {
+                    $newuri = 'https:';
+                } else {
+                    $newuri = 'http:';
+                }
+
+                $server = str_replace($urischeme . ':', $newuri, $server);
                 $this->server = $server;
             }
 
