@@ -118,6 +118,12 @@ Then, add the following to your config.ini file::
 
 Of course, replace the path with the path to your data folder.
 
+Copy .htaccess
+^^^^^^^^^^^^^^
+
+If you are using Known 0.6.5 and Apache 2.4, copy htaccess-2.4.dist to .htaccess; otherwise, copy htaccess.dist to .htaccess.
+If you downloaded from git, you may skip this step.
+
 Load Known
 ----------
 
