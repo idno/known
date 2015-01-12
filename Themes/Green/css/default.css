@@ -46,12 +46,6 @@ h2 {
     font-size: 1.2em;
 }
 
-.entry-content .p-photo a,
-.idno-posts h2.p-photo {
-    font-size: 1.2em;
-    margin: 0; padding: 0;
-}
-
 .entry-content .p-bookmark a,
 .idno-posts h2.p-bookmark {
     font-size: 1.4em;
@@ -251,11 +245,6 @@ h3.register {
 	font-size: 38px;
 	font-weight: normal;
 	padding-top: 20px;
-}
-
-.entry-content .p-photo a, .idno-posts h2.p-photo {
-	color: #333333;
-	font-size: 1.2em;
 }
 
 .entry-content .p-bookmark a, .idno-posts h2.p-bookmark {
