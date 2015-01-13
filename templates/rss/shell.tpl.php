@@ -75,6 +75,12 @@
                     $rssItem->appendChild($enclosureItem);
                 }
             }
+            if ($tags = $item->getTags()) {
+                foreach($tags as $tag) {
+                    $tagItem = $page->createElement('category', $tag);
+                    $rssItem->appendChild($tagItem);
+                }
+            }
             $channel->appendChild($rssItem);
         }
     }
