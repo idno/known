@@ -10,7 +10,7 @@
 <div class="">
 
     <h2 class="h-geo">
-        <a href="<?=$object->getURL()?>"><?=$object->getTitle()?></a>
+        <a href="<?=$object->getDisplayURL()?>"><?=$object->getTitle()?></a>
         <data class="p-latitude" value="<?=$object->lat?>"></data>
         <data class="p-longitude" value="<?=$object->long?>"></data>
     </h2>

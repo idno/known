@@ -47,7 +47,7 @@
             if ($title = $item->getTitle()) {
                 $rssItem->appendChild($page->createElement('title',$item->getTitle()));
             }
-            $rssItem->appendChild($page->createElement('link',$item->getURL()));
+            $rssItem->appendChild($page->createElement('link',$item->getDisplayURL()));
             $rssItem->appendChild($page->createElement('guid',$item->getUUID()));
             $rssItem->appendChild($page->createElement('pubDate',date(DATE_RSS,$item->created)));
             
@@ -64,7 +64,7 @@
             }
             $webmentionItem = $page->createElement('atom:link');
             $webmentionItem->setAttribute('rel', 'webmention');
-            $webmentionItem->setAttribute('href', \Idno\Core\site()->config()->getURL() . 'webmention/');
+            $webmentionItem->setAttribute('href', \Idno\Core\site()->config()->getDisplayURL() . 'webmention/');
             $rssItem->appendChild($webmentionItem);
             if ($attachments = $item->getAttachments()) {
                 foreach($attachments as $attachment) {

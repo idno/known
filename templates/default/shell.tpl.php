@@ -45,8 +45,8 @@
                 $opengraph['og:type']        = htmlspecialchars($vars['object']->getActivityStreamsObjectType());
                 $opengraph['og:image']       = $owner->getIcon(); //Icon, for now set to being the author profile pic
 
-                if ($url = $vars['object']->getURL()) {
-                    $opengraph['og:url'] = $vars['object']->getURL();
+                if ($url = $vars['object']->getDisplayURL()) {
+                    $opengraph['og:url'] = $vars['object']->getDisplayURL();
                 }
             }
 
@@ -75,7 +75,7 @@
                     ?>
                     <meta name="DC.date" content="<?= date('c', $created) ?>"><?php
                 }
-                if ($url = $object->getURL()) {
+                if ($url = $object->getDisplayURL()) {
                     ?>
                     <meta name="DC.identifier" content="<?= htmlspecialchars($url) ?>"><?php
                 }

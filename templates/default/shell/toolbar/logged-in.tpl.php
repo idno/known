@@ -1,4 +1,4 @@
-<li><span class="icon-container"><a href="<?= \Idno\Core\site()->session()->currentUser()->getURL() ?>"><img
+<li><span class="icon-container"><a href="<?= \Idno\Core\site()->session()->currentUser()->getDisplayURL() ?>"><img
                 src="<?= \Idno\Core\site()->session()->currentUser()->getIcon() ?>"
                 alt="<?= htmlspecialchars(\Idno\Core\site()->session()->currentUser()->getTitle()) ?>"/></a></span></li>
 

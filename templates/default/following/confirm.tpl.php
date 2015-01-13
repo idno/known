@@ -5,7 +5,7 @@
         <form action="<?=\Idno\Core\site()->config()->getDisplayURL()?>following/confirm/" method="post">
             <h1>
                 Follow <?=$vars['feed']->getTitle()?>? <input type="submit" class="btn btn-primary" value="Follow">
-                <input type="hidden" name="feed" value="<?=htmlspecialchars($vars['feed']->getURL())?>">
+                <input type="hidden" name="feed" value="<?=htmlspecialchars($vars['feed']->getDisplayURL())?>">
                 <?=\Idno\Core\site()->actions()->signForm('following/confirm')?>
             </h1>
             <p class="explanation">

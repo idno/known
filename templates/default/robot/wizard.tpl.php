@@ -1,7 +1,7 @@
 <?php
 
     $username = \Idno\Core\site()->session()->currentUser()->getHandle();
-    $url = \Idno\Core\site()->session()->currentUser()->getURL();
+    $url = \Idno\Core\site()->session()->currentUser()->getDisplayURL();
     switch (\Idno\Core\site()->session()->currentUser()->robot_state) {
 
         case '1':
@@ -26,12 +26,12 @@
             break;
         case "3a":
             echo $this->__(array(
-                'body' => "Beepity boop! That was a great picture. Did you see that you can also <a href=\"".\Idno\Core\site()->session()->currentUser()->getURL()."/edit\">update your profile</a>?"
+                'body' => "Beepity boop! That was a great picture. Did you see that you can also <a href=\"".\Idno\Core\site()->session()->currentUser()->getDisplayURL()."/edit\">update your profile</a>?"
             ))->draw('robot/post');
             break;
         case "3b":
             echo $this->__(array(
-                'body' => "Boopity beep! Did you see that you can also <a href=\"".\Idno\Core\site()->session()->currentUser()->getURL()."/edit\">update your profile</a>?"
+                'body' => "Boopity beep! Did you see that you can also <a href=\"".\Idno\Core\site()->session()->currentUser()->getDisplayURL()."/edit\">update your profile</a>?"
             ))->draw('robot/post');
             break;
         case '4':

@@ -1,4 +1,4 @@
-<li><a href="<?= \Idno\Core\site()->session()->currentUser()->getURL() ?>">Profile</a></li>
+<li><a href="<?= \Idno\Core\site()->session()->currentUser()->getDisplayURL() ?>">Profile</a></li>
 
 <?php if (\Idno\Core\site()->canWrite()) { ?>
 

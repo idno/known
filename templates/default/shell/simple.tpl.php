@@ -34,7 +34,7 @@
                     ?>
                     <meta name="DC.date" content="<?= date('c', $created) ?>"><?php
                 }
-                if ($url = $object->getURL()) {
+                if ($url = $object->getDisplayURL()) {
                     ?>
                     <meta name="DC.identifier" content="<?= htmlspecialchars($url) ?>"><?php
                 }

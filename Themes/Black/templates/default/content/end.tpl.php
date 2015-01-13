@@ -8,7 +8,7 @@
     if ($like_annotations = $vars['object']->getAnnotations('like')) {
         foreach ($like_annotations as $like) {
             if (\Idno\Core\site()->session()->isLoggedOn()) {
-                if ($like['owner_url'] == \Idno\Core\site()->session()->currentUser()->getURL()) {
+                if ($like['owner_url'] == \Idno\Core\site()->session()->currentUser()->getDisplayURL()) {
                     $has_liked = true;
                 }
             }
@@ -19,8 +19,8 @@
 ?>
 <div class="permalink">
     <p>
-    	<a href="<?=$owner->getURL()?>"><?=$owner->getTitle()?></a>published this 
-        <a class="u-url url" href="<?= $vars['object']->getURL() ?>" rel="permalink">
+    	<a href="<?=$owner->getDisplayURL()?>"><?=$owner->getTitle()?></a>published this
+        <a class="u-url url" href="<?= $vars['object']->getDisplayURL() ?>" rel="permalink">
             <time class="dt-published"
                   datetime="<?= date('c', $vars['object']->created) ?>"><?= date('c', $vars['object']->created) ?></time></a>
         <?= $this->draw('content/edit') ?>
@@ -54,11 +54,11 @@
             echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'annotation/post', $heart, ['type' => 'like', 'object' => $vars['object']->getUUID()], ['method' => 'POST', 'class' => 'stars']);
         } else {
             ?>
-            <a class="stars" href="<?= $vars['object']->getURL() ?>#comments"><?= $heart ?></a>
+            <a class="stars" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?= $heart ?></a>
         <?php
         }
     ?>
-    <a class="comments" href="<?= $vars['object']->getURL() ?>#comments"><i class="icon-comments"></i> <?php
+    <a class="comments" href="<?= $vars['object']->getDisplayURL() ?>#comments"><i class="icon-comments"></i> <?php
 
             //echo $replies;
             if ($replies == 1) {
@@ -68,10 +68,10 @@
             }
 
         ?></a>
-    <a class="shares" href="<?= $vars['object']->getURL() ?>#comments"><?php if ($shares = $vars['object']->countAnnotations('share')) {
+    <a class="shares" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?php if ($shares = $vars['object']->countAnnotations('share')) {
             echo '<i class="icon-refresh"></i> ' . $shares;
         } ?></a>
-    <a class="rsvps" href="<?= $vars['object']->getURL() ?>#comments"><?php if ($rsvps = $vars['object']->countAnnotations('rsvp')) {
+    <a class="rsvps" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?php if ($rsvps = $vars['object']->countAnnotations('rsvp')) {
             echo '<i class="icon-calendar-empty"></i> ' . $rsvps;
         } ?></a>
 </div>
