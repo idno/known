@@ -50,8 +50,8 @@ h2 {
     font-size: 1.2em;
 }
 
-.entry-content .p-photo a,
-.idno-posts h2.p-photo {
+.entry-content .photo-title a,
+.idno-posts h2.photo-title {
     font-size: 1.2em;
     margin: 0; padding: 0;
 }
@@ -274,7 +274,7 @@ h3.register {
 	padding-top: 20px;
 }
 
-.entry-content .p-photo a, .idno-posts h2.p-photo {
+.entry-content .photo-title a, .idno-posts h2.photo-title {
 	color: #9f111b;
 	font-size: 1.2em;
 }
