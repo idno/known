@@ -1373,6 +1373,15 @@
             }
 
             /**
+             * Wrapper for getURL
+             * @return string
+             */
+            function getDisplayURL()
+            {
+                return $this->getURL();
+            }
+
+            /**
              * Add webmentions as annotations based on Microformats 2 data
              *
              * @param string $source The source URL
