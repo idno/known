@@ -54,7 +54,7 @@ h1, h2, h3, h4, h5, h6 {
 	color: #494949;
 }
 
-.entry-content .p-photo a, .idno-posts h2.p-photo {
+.entry-content .p-name a, .idno-posts h2.p-name {
 	font-size: 32px;
 	margin:0; padding: 0;	
 }
@@ -82,14 +82,6 @@ h2.p-name a:hover, h2.p-name a:focus {
 
 h2.p-name {
 	margin-bottom: 0.2em !important;
-}
-
-h2.p-photo a {
-	color: #000000;
-}
-
-h2.p-photo a:hover, h2.p-photo a:focus {
-	color: #333333;
 }
 
 .entry-content h-geo a, .idno-posts h2.h-geo {
