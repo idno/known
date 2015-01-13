@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>H5F Test Suite</title>
+  <!-- Load local QUnit (grunt requires v1.0.0 or newer). -->
+  <link rel="stylesheet" href="../libs/qunit/qunit.css" media="screen">
+  <script src="../src/H5F.js"></script>
+  
+</head>
+<body>
+  <h1 id="qunit-header">H5F Test Suite</h1>
+  <h2 id="qunit-banner"></h2>
+  <div id="qunit-testrunner-toolbar"></div>
+  <h2 id="qunit-userAgent"></h2>
+  <ol id="qunit-tests"></ol>
+  <form id="qunit-fixture">
+    <fieldset>
+      <legend>Your details</legend>
+      
+      <ol>
+        <li>
+          <label for="fullname">Name *</label> 
+          <input type="text" id="fullname" name="fullname" placeholder="Full name" required />
+        </li>
+        <li>
+          <label for="email">Email *</label> 
+          <input type="email" id="email" name="email" placeholder="e.g. ryan@example.net" title="Please enter a valid email" required />
+        </li>
+        <li>
+          <label for="url">Website *</label> 
+          <input type="url" id="url" name="url" required />
+        </li>
+        <li>
+          <label for="tel">Phone *</label> 
+          <input type="tel" id="tel" name="tel" pattern="\d{10}" placeholder="Please enter a ten digit phone number" required />
+        </li>
+        <li>
+          <label for="date">Date *</label> 
+          <input type="date" id="date" name="date" required />
+        </li>
+        <li>
+          <label for="nickname">Nick name</label> 
+          <input type="text" id="nickname" name="nickname" pattern="\w{4,}" placeholder="A nickname that is atleast four characters" />
+        </li>
+        <li>
+          <label for="postcode">Post code *</label>
+          <input id="postcode" name="postcode" type="number" min="1001" step="2" max="8000" required />
+        </li>
+        <li>
+          <label for="other">Other</label> 
+          <input type="text" id="other" name="other" placeholder="Other information" />
+        </li>
+        <li>
+          <label for="disabled">Other</label> 
+          <input type="text" id="disabled" name="disabled" required disabled placeholder="Other information" />
+        </li>
+        <li>
+          <label for="gen">Generic</label> 
+          <input type="text" id="gen" name="gen" placeholder="Other information" />
+        </li>
+        <li>
+          <label for="gen">Checkbox</label> 
+          <input type="checkbox" required id="chkbox" name="chkbox" />
+        </li>
+        <li>
+          <label for="female">Female</label>
+          <input type="radio" id="female" name="gender" value="female" required />
+        </li>
+        <li>
+          <label for="male">Male</label>
+          <input type="radio" id="male" name="gender" value="male" required />
+        </li>
+      </ol>
+    </fieldset>
+  </form>
+  <script type="text/javascript">
+    H5F.setup(document.getElementById("qunit-fixture"));
+  </script>
+  <script src="../libs/qunit/qunit.js"></script>
+  <script src="H5F_test.js"></script>
+</body>
+</html>

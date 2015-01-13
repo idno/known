@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>Mention.js Test</title>
+
+	<link rel="stylesheet" type="text/css" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../recommended-styles.css">
+	
+	<style type='text/css'>
+		body {
+			padding:20px;
+			background: #EEE;
+			color: #252525;
+			text-shadow: 0 1px 0 white;
+			}
+
+		ul {
+			text-shadow:none;
+			}
+		textarea {
+			padding: 8px 15px;
+			background: #fefefe;
+			-moz-border-radius: 2px;
+			-webkit-border-radius: 2px;
+			-o-border-radius: 2px;
+			-ms-border-radius: 2px;
+			-khtml-border-radius: 2px;
+			border-radius: 2px;
+			border: 1px solid #999;
+			-moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+			-webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+			-o-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+			box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+			overflow: auto;
+			overflow-y: hidden;
+			color:#444;
+			width:100%;
+			height:100px;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			}
+		h2{
+			border-bottom: 1px solid #CCC;
+			margin-bottom: 5px;
+			margin-top: 30px;
+			}
+	</style>
+</head>
+<body>
+	<p>Type in some text below as if you were sending a "tweet". Be sure to try to "mention" someone by typing the @ symbol, then some text</p>
+
+	<hr />
+
+	<h3>Example #1: Name, Username, &amp; Image</h3>
+	<p>In this example, a full name, image, and username is shown in the resulting list. You can query by username OR full name (try typing @Jenna)</p>
+	<textarea id="full"></textarea>
+
+	<h3>Example #2: Name, Username</h3>
+	<p>In this example, a full name and username is shown in the resulting list.</p>
+	<textarea id="med"></textarea>
+
+	<h3>Example #3: Username</h3>
+	<p>In this example, a full name and username is shown in the resulting list. You can <b>only</b> query by typing the username</p>
+	<textarea id="light"></textarea>
+	
+	<script type='text/javascript' src='http://code.jquery.com/jquery-1.8.2.js'></script>
+	<script type='text/javascript' src="../bootstrap-typeahead.js"></script>
+	<script type='text/javascript' src="../mention.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			
+			$("#full").mention({
+				users: [{
+					name: 'Lindsay Made',
+					username: 'LindsayM',
+					image: 'http://placekitten.com/25/25'
+				}, {
+					name: 'Rob Dyrdek',
+					username: 'robdyrdek',
+					image: 'http://placekitten.com/25/24'
+				}, {
+					name: 'Rick Bahner',
+					username: 'RickyBahner',
+					image: 'http://placekitten.com/25/23'
+				}, {
+					name: 'Jacob Kelley',
+					username: 'jakiestfu',
+					image: 'http://placekitten.com/25/22'
+				}, {
+					name: 'John Doe',
+					username: 'HackMurphy',
+					image: 'http://placekitten.com/25/21'
+				}, {
+					name: 'Charlie Edmiston',
+					username: 'charlie',
+					image: 'http://placekitten.com/25/20'
+				}, {
+					name: 'Andrea Montoya',
+					username: 'andream',
+					image: 'http://placekitten.com/24/20'
+				}, {
+					name: 'Jenna Talbert',
+					username: 'calisunshine',
+					image: 'http://placekitten.com/23/20'
+				}, {
+					name: 'Street League',
+					username: 'streetleague',
+					image: 'http://placekitten.com/22/20'
+				}, {
+					name: 'Loud Mouth Burrito',
+					username: 'Loudmouthfoods',
+					image: 'http://placekitten.com/21/20'
+				}]
+			});
+
+
+			$("#med").mention({
+				users: [{
+					name: 'Lindsay Made',
+					username: 'LindsayM'
+				}, {
+					name: 'Rob Dyrdek',
+					username: 'robdyrdek'
+				}, {
+					name: 'Rick Bahner',
+					username: 'RickyBahner'
+				}, {
+					name: 'Jacob Kelley',
+					username: 'jakiestfu'
+				}, {
+					name: 'John Doe',
+					username: 'HackMurphy'
+				}, {
+					name: 'Charlie Edmiston',
+					username: 'charlie'
+				}, {
+					name: 'Andrea Montoya',
+					username: 'andream'
+				}, {
+					name: 'Jenna Talbert',
+					username: 'calisunshine'
+				}, {
+					name: 'Street League',
+					username: 'streetleague'
+				}, {
+					name: 'Loud Mouth Burrito',
+					username: 'Loudmouthfoods'
+				}]
+			});
+
+			$("#light").mention({
+				users: [{
+					username: 'LindsayM'
+				}, {
+					username: 'robdyrdek'
+				}, {
+					username: 'RickyBahner'
+				}, {
+					username: 'jakiestfu'
+				}, {
+					username: 'HackMurphy'
+				}, {
+					username: 'charlie'
+				}, {
+					username: 'andream'
+				}, {
+					username: 'calisunshine'
+				}, {
+					username: 'streetleague'
+				}, {
+					username: 'Loudmouthfoods'
+				}]
+			});
+			
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+/* Just some base styles not needed for example to function */
+*, html { font-family: Verdana, Arial, Helvetica, sans-serif; }
+
+body, form, ul, li, p, h2, h3, h4, h5
+{
+	margin: 0;
+	padding: 0;
+}
+body { background-color: #606061; color: #ffffff; }
+img { border: none; }
+p
+{
+	font-size: 1em;
+	margin: 0 0 1em 0;
+}
+h2 { font-size: 14px; margin: 0 0 12px; }
+
+/* Form styles */
+#signup
+{
+	margin: 20px auto;
+	width: 610px;
+}
+#signup fieldset	
+{
+	margin: 0 0 20px;
+	padding: 20px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+	#signup ol
+	{
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+	}
+	#signup li
+	{
+		margin: 0 0 12px;
+		position: relative;
+	}
+	#signup label, #signup .label
+	{
+		width: 150px;
+		display: inline-block;
+		vertical-align: top;
+	}
+	#signup fieldset input,
+	#signup fieldset textarea,
+	#signup fieldset select
+	{
+		background: #fff url(ico_validation.png) 379px 24px no-repeat;
+		display: inline-block;
+		width: 371px;
+		border: 1px solid #fff;
+		padding: 3px 26px 3px 3px;
+		
+		-moz-transition: background-color 1s ease;
+		-webkit-transition: background-color 1s ease;
+		-o-transition: background-color 1s ease;
+		transition: background-color 1s ease;
+		-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		border-radius: 5px;
+	}
+	#signup fieldset select		{ width: 401px; padding: 3px; }
+	#signup fieldset #postcode	{ padding: 3px; width: 400px; }
+	
+#signup fieldset .radchecks input {
+	width: auto;
+}
+#signup fieldset .radchecks label {
+	width: 105px;
+}
+		
+
+#signup input::-webkit-input-placeholder	{ color: #a9a9a9; }
+#signup input:-moz-placeholder			{ color: #a9a9a9; }
+
+/* Enhanced error styling */
+#signup input.error
+{
+	background-color: pink; 
+	background-position: 379px 3px;
+	outline: none; 
+}
+#signup input.required
+{
+	background-color: #fff; 
+	background-position: 379px -29px;
+}
+#signup input.valid
+{ 
+	background-color: #fff;
+	background-position: 379px -61px;
+}
+#signup fieldset input:required:valid
+{ 
+	background-color: #fff;
+	background-position: 379px -61px;
+}

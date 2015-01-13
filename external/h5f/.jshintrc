@@ -1,0 +1,25 @@
+{
+  "browser": true,
+  "curly": true,
+  "eqeqeq": true,
+  "immed": true,
+  "latedef": true,
+  "newcap": true,
+  "noarg": true,
+  "undef": true,
+  "unused": true,
+  "boss": true,
+  "eqnull": true,
+  "regexdash": true,
+  "sub": true,
+  "globals": {
+    "define": true,
+    "require": true,
+    "module": true,
+    "QUnit": true,
+    "test": true,
+    "ok": true,
+    "equal": true,
+    "process": true
+  }
+}
