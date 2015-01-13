@@ -120,6 +120,7 @@
                 }
 
                 User::registerEvents();
+                site()->session()->refreshCurrentSessionuser();
             }
 
             /**

@@ -382,6 +382,18 @@
             }
 
             /**
+             * If we're logged in, refresh the current session user.
+             */
+            function refreshCurrentSessionuser()
+            {
+                if ($this->isLoggedIn()) {
+                    $user_uuid = $this->currentUserUUID();
+                    $user = User::getByUUID($user_uuid);
+                    $this->refreshSessionUser($user);
+                }
+            }
+
+            /**
              * Sets whether this session is an API request or a manual browse
              * @param boolean $is_api_request
              */
