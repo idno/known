@@ -23,7 +23,7 @@
                     $this->goneContent();
                 }
                 header("HTTP/1.1 301 Moved Permanently");
-                $this->forward($object->getURL());
+                $this->forward($object->getDisplayURL());
             }
 
             // Get webmention content and handle it
