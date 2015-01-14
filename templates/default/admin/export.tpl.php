@@ -17,7 +17,7 @@
         </p>
         <?php
 
-            if (empty($vars['export_last_requested']) || empty($vars['export_filename']) || $vars['export_last_requested'] < (time() - 86400)) {
+            if (empty($vars['export_last_requested']) || empty($vars['export_filename'])) {
 
                 echo $this->draw('admin/export/generate');
 
