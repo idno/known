@@ -17,7 +17,7 @@
         </p>
         <?php
 
-            if (empty($vars['export_last_requested']) || empty($vars['export_filename'])) {
+            if (empty($vars['export_last_requested'])) {
 
                 echo $this->draw('admin/export/generate');
 
