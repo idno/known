@@ -22,7 +22,7 @@
                 \Idno\Core\site()->config->export_in_progress = 1;
                 \Idno\Core\site()->config->save();
 
-                $this->forward($_SERVER['HTTP_REFERER'], false);
+                $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'admin/export/', false);
 
                 ignore_user_abort(true);    // This is dangerous, but we need export to continue
 
