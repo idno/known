@@ -1252,13 +1252,15 @@
             {
                 $t = \Idno\Core\site()->template();
 
-                $return = $t->__(array(
-                    'object' => $this
-                ))->draw('entity/' . $this->getClassName(), false);
+                if ($this instanceof User) {
+                    $params = ['user' => $this];
+                } else {
+                    $params = ['object' => $this];
+                }
+
+                $return = $t->__($params)->draw('entity/' . $this->getClassName(), false);
                 if ($return === false) {
-                    $return = $t->__(array(
-                        'object' => $this
-                    ))->draw('entity/default');
+                    $return = $t->__($params)->draw('entity/default');
                 }
 
                 return $return;
