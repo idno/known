@@ -37,6 +37,10 @@
             </div>
 
             <!---------->
+            <?php /*
+
+            Removing this field for now.
+
             <div class="row">
                 <div class="span2">
                     <p><label class="control-label" for="url"><strong>Site URL</strong></label></p>
@@ -51,6 +55,7 @@
             </div>
 
             <!--------->
+            */ ?>
 
             <div class="row">
                 <div class="span2">
