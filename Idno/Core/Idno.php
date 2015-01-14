@@ -87,22 +87,22 @@
                         break;
                 }
                 $this->config->load();
-                $this->session      = new Session();
-                $this->actions      = new Actions();
-                $this->template     = new Template();
-                $this->syndication  = new Syndication();
-                $this->logging      = new Logging($this->config->log_level);
-                $this->plugins      = new Plugins(); // This must be loaded last
-                $this->themes       = new Themes();
+                $this->session     = new Session();
+                $this->actions     = new Actions();
+                $this->template    = new Template();
+                $this->syndication = new Syndication();
+                $this->logging     = new Logging($this->config->log_level);
+                //$this->plugins      = new Plugins(); // This must be loaded last
+                //$this->themes       = new Themes();
                 $this->reader       = new Reader();
                 $this->helper_robot = new HelperRobot();
-                
+
                 // No URL is a critical error, default base fallback is now a warning (Refs #526)
                 if (!$this->config->url) throw new \Exception('Known was unable to work out your base URL! You might try setting url="http://yourdomain.com/" in your config.ini');
-                if ($this->config->url == '/') \Idno\Core\site()->logging->log ('Base URL has defaulted to "/" because Known was unable to detect your server name. '
-                        . 'This may be because you\'re loading Known via a script. '
-                        . 'Try setting url="http://yourdomain.com/" in your config.ini to remove this message', LOGLEVEL_WARNING);
-                
+                if ($this->config->url == '/') \Idno\Core\site()->logging->log('Base URL has defaulted to "/" because Known was unable to detect your server name. '
+                    . 'This may be because you\'re loading Known via a script. '
+                    . 'Try setting url="http://yourdomain.com/" in your config.ini to remove this message', LOGLEVEL_WARNING);
+
                 // Connect to a Known hub if one is listed in the configuration file
                 // (and this isn't the hub!)
                 if (empty(site()->session()->hub_connect)) {
@@ -177,6 +177,9 @@
                 $this->addPageHandler('/begin/connect/?', '\Idno\Pages\Onboarding\Connect');
                 $this->addPageHandler('/begin/connect\-forwarder/?', '\Idno\Pages\Onboarding\ConnectForwarder');
                 $this->addPageHandler('/begin/publish/?', '\Idno\Pages\Onboarding\Publish');
+
+                $this->themes  = new Themes();
+                $this->plugins = new Plugins(); // This must be loaded last
 
             }
 
@@ -603,38 +606,38 @@
              * Retrieve site icons.
              * Retrieve a set of one or more icon for the current site, allowing plugins and other components
              * access icons for displaying in various contexts
-             * 
+             *
              * @returns array An associative array of various icons => url
              */
-            function getSiteIcons() 
+            function getSiteIcons()
             {
                 $icons = [];
-                
+
                 // Set our defaults (TODO: Set these cleaner, perhaps through the template system)
                 $icons['defaults'] = [
-                    'default' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k.png',
-                    'default_16' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k_16.png',
-                    'default_32' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k_32.png',
-                    'default_64' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k_64.png',
-                    
+                    'default'     => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k.png',
+                    'default_16'  => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k_16.png',
+                    'default_32'  => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k_32.png',
+                    'default_64'  => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k_64.png',
+
                     // Apple logos
-                    'default_57' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-57x57.png',
-                    'default_72' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-72x72.png',
+                    'default_57'  => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-57x57.png',
+                    'default_72'  => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-72x72.png',
                     'default_114' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-114x114.png',
                     'default_144' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-144x144.png',
                 ];
-                                
+
                 // If we're on a page, see if that has a specific icon
                 if ($page = \Idno\Core\site()->currentPage()) {
                     if ($page_icons = $page->getIcon()) {
                         $icons['page'] = $page_icons;
                     }
                 }
-                
+
                 // Now, return a list of icons, but pass it through an event hook to override
-                return $this->triggerEvent('site/icons', ['object' => $this], $icons);                
+                return $this->triggerEvent('site/icons', ['object' => $this], $icons);
             }
-            
+
             /**
              * Retrieve notices (eg notifications that a new version has been released) from Known HQ
              * @return mixed
@@ -667,6 +670,7 @@
             {
                 if (site()->currentPage()->getInput('unembed')) {
                     $_SESSION['embedded'] = false;
+
                     return false;
                 }
                 if (!empty($_SESSION['embedded'])) {
@@ -674,8 +678,10 @@
                 }
                 if (site()->currentPage()->getInput('embedded')) {
                     $_SESSION['embedded'] = true;
+
                     return true;
                 }
+
                 return false;
             }
 
@@ -683,7 +689,8 @@
              * Detects if this site is being accessed securely or not
              * @return bool
              */
-            function isSecure() {
+            function isSecure()
+            {
                 return
                     (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
                     || $_SERVER['SERVER_PORT'] == 443
