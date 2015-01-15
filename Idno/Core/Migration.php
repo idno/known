@@ -21,10 +21,7 @@
 
                 // If $folder is false or doesn't exist, use the temporary directory and ensure it has a slash on the end of it
                 if (!is_dir($dir)) {
-                    $dir = sys_get_temp_dir();
-                }
-                if (substr($dir, -1) != DIRECTORY_SEPARATOR) {
-                    $dir .= DIRECTORY_SEPARATOR;
+                    $dir = site()->config()->getTempDir();
                 }
 
                 // Make the temporary directory, or fail out
@@ -111,6 +108,10 @@
                     }
                 }
 
+                if ($exported_records = \Idno\Core\site()->db()->exportRecords()) {
+                    file_put_contents($dir . $name . DIRECTORY_SEPARATOR . 'exported_data', $exported_records);
+                }
+
                 file_put_contents($dir . $name . DIRECTORY_SEPARATOR . 'entities.json', json_encode($all_in_one_json));
 
                 // As we're successful, return the unique name of the archive
@@ -143,12 +144,12 @@
 
                 $filename = str_replace('.','_',site()->config()->host);
 
-                if (file_exists('/var/tmp/' . $filename . '.tar')) {
-                    @unlink('/var/tmp/' . $filename . '.tar');
-                    @unlink('/var/tmp/' . $filename . '.tar.gz');
+                if (file_exists(site()->config()->getTempDir() . $filename . '.tar')) {
+                    @unlink(site()->config()->getTempDir() . $filename . '.tar');
+                    @unlink(site()->config()->getTempDir() . $filename . '.tar.gz');
                 }
 
-                $archive = new \PharData('/var/tmp/' . $filename . '.zip');
+                $archive = new \PharData(site()->config()->getTempDir() . $filename . '.zip');
                 $archive->buildFromDirectory($path);
                 //$archive->compress(\Phar::GZ);
 
