@@ -389,6 +389,51 @@
                 return $friendly_types;
             }
 
+            /**
+             * Attempt to get a temporary folder suitable for writing in.
+             * @return string
+             */
+            function getTempDir()
+            {
+                static $temp;
+
+                if (function_exists('sys_get_temp_dir')) {
+                    $temp = sys_get_temp_dir();
+                    if (is_dir($temp)) {
+                        return $this->sanitizePath($temp);
+                    }
+                }
+
+                $temp = ini_get('upload_tmp_dir');
+                if (@is_dir($temp)) {
+                    return $this->sanitizePath($temp);
+                }
+
+                if (!empty($this->uploadpath)) {
+                    $temp = $this->uploadpath;
+                    if (is_dir($temp)) {
+                        return $temp;
+                    }
+                }
+
+                $temp = '/tmp/';
+
+                return $temp;
+            }
+
+            /**
+             * Add a trailing slash to the ends of paths
+             * @todo Further sanitization tasks
+             * @param $path
+             * @return string
+             */
+            function sanitizePath($path) {
+                if (substr($path, -1) != DIRECTORY_SEPARATOR) {
+                    $path .= DIRECTORY_SEPARATOR;
+                }
+                return $path;
+            }
+
         }
 
     }
