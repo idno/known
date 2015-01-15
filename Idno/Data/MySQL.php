@@ -456,7 +456,7 @@
                             $line = 'insert into ' . $collection . ' ';
                             $line .= '(' . implode(',',$fields) . ')';
                             $line .= ' values ';
-                            $line .= '(' . implode(',', $object) . ')';
+                            $line .= '(' . implode(',', $object) . ');';
                             $output .= $line . "\n";
 
                         }
