@@ -1,5 +1,5 @@
 <h1>
-    Configure your site
+    Site configuration
 </h1>
 
 <div class="explanation">
