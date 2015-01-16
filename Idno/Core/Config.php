@@ -291,6 +291,18 @@
             }
 
             /**
+             * Does this site have SSL?
+             * @return bool
+             */
+            function hasSSL()
+            {
+                if (substr_count(site()->config()->getURL(), 'https://','0') || !empty($this->config->force_ssl)) {
+                    return true;
+                }
+                return false;
+            }
+
+            /**
              * Retrieve the name of this site
              * @return string
              */

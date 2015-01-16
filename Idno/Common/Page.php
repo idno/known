@@ -73,15 +73,15 @@
 
                 \Idno\Core\site()->embedded();
             }
-            
-            function head() 
+
+            function head()
             {
                 \Idno\Core\site()->session()->publicGatekeeper();
 
                 if ($this->isAcceptedContentType('application/json')) {
                     \Idno\Core\site()->template()->setTemplateType('json');
                 }
-                
+
                 \Idno\Core\site()->session()->APIlogin();
                 $this->parseJSONPayload();
 
@@ -92,8 +92,8 @@
 
                 // Triggering GET content to call all the appropriate headers (web server should truncate the head request from body). 
                 // This is the only way we can generate accurate expires and content length etc, but could be done more efficiently
-                $this->getContent(); 
-                
+                $this->getContent();
+
                 //if (http_response_code() != 200)
                 http_response_code($this->response);
             }
@@ -152,9 +152,9 @@
                 } else {
                     throw new \Exception('Action tokens are invalid.');
                 }
-                
+
                 if (\Idno\Core\site()->session()->isAPIRequest()) {
-                
+
                     // If postContent hasn't forwarded itself, and returns null, then balance of probabilities is something went wrong.
                     // Either way, it's not safe to forward to the site root since this spits back json encoded front page and a 200 response. 
                     // API currently doesn't explicitly handle this situation (bad), but we don't want to forward (worse). Some plugins will still
@@ -164,22 +164,22 @@
                         if (http_response_code() == 200) {
                             $this->setResponse(400);
                         }
-                        
+
                         // Say something, if nothing has been said
                         $messages = \Idno\Core\site()->session()->getMessages();
                         if (empty($messages)) {
                             \Idno\Core\site()->session()->addErrorMessage("Couldn't say anything about execution, probably something went wrong");
                         }
-                        
+
                         $t = \Idno\Core\site()->template();
                         echo $t->drawPage();
-                        
+
                     } else {
                         // We have a return value, and response hasn't been explicitly set. Assume false is error, everything else is ok
                         if (($return === false) && (http_response_code() == 200)) {
                             $this->setResponse(400);
                         }
-                        
+
                         $t = \Idno\Core\site()->template();
                         echo $t->__(['result' => $return])->drawPage();
                     }
@@ -188,9 +188,9 @@
                 {
                     $this->forward(); // If we haven't forwarded yet, do so (if we can)
                 }
-                
+
                 //if (http_response_code() != 200) {
-                    http_response_code($this->response);
+                http_response_code($this->response);
                 //}
             }
 
@@ -219,39 +219,39 @@
                 } else {
                     throw new \Exception('Action tokens are invalid.');
                 }
-                
+
                 if (\Idno\Core\site()->session()->isAPIRequest()) {
-                    
+
                     // Ensure we always get a meaningful response from the api
                     if ($return === null)
                     {
                         if (http_response_code() == 200) {
                             $this->setResponse(400);
                         }
-                        
+
                         // Say something, if nothing has been said
                         $messages = \Idno\Core\site()->session()->getMessages();
                         if (empty($messages)) {
                             \Idno\Core\site()->session()->addErrorMessage("Couldn't say anything about execution, probably something went wrong");
                         }
-                        
+
                         $t = \Idno\Core\site()->template();
                         echo $t->drawPage();
-                        
+
                     } else {
                         // We have a return value, and response hasn't been explicitly set. Assume false is error, everything else is ok
                         if (($return === false) && (http_response_code() == 200)) {
                             $this->setResponse(400);
                         }
-                        
+
                         $t = \Idno\Core\site()->template();
                         echo $t->__(['result' => $return])->drawPage();
                     }
-                    
+
                 } else {
                     $this->forward(); // If we haven't forwarded yet, do so (if we can)
                 }
-                
+
                 if (http_response_code() != 200)
                     http_response_code($this->response);
             }
@@ -281,39 +281,39 @@
                 } else {
                     throw new \Exception('Action tokens are invalid.');
                 }
-                
+
                 if (\Idno\Core\site()->session()->isAPIRequest()) {
-                    
+
                     // Ensure we always get a meaningful response from the api
                     if ($return === null)
                     {
                         if (http_response_code() == 200) {
                             $this->setResponse(400);
                         }
-                        
+
                         // Say something, if nothing has been said
                         $messages = \Idno\Core\site()->session()->getMessages();
                         if (empty($messages)) {
                             \Idno\Core\site()->session()->addErrorMessage("Couldn't say anything about execution, probably something went wrong");
                         }
-                        
+
                         $t = \Idno\Core\site()->template();
                         echo $t->drawPage();
-                        
+
                     } else {
                         // We have a return value, and response hasn't been explicitly set. Assume false is error, everything else is ok
                         if (($return === false) && (http_response_code() == 200)) {
                             $this->setResponse(400);
                         }
-                        
+
                         $t = \Idno\Core\site()->template();
                         echo $t->__(['result' => $return])->drawPage();
                     }
-                    
+
                 } else {
                     $this->forward(); // If we haven't forwarded yet, do so (if we can)
                 }
-                
+
                 if (http_response_code() != 200)
                     http_response_code($this->response);
             }
@@ -546,7 +546,7 @@
             {
                 if (!\Idno\Core\site()->session()->isLoggedIn()) {
                     $this->setResponse(403);
-                    
+
                     // Forwarding loses the response code, so is only helpful if this is not an API request
                     if (!\Idno\Core\site()->session()->isAPIRequest()) {
                         $this->forward(\Idno\Core\site()->config()->getURL() . 'session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']));
@@ -563,7 +563,7 @@
             {
                 if (!\Idno\Core\site()->canWrite()) {
                     $this->setResponse(403);
-                    
+
                     if (!\Idno\Core\site()->session()->isAPIRequest()) {
                         $this->forward();
                     }
@@ -601,7 +601,7 @@
                 }
                 if (!$ok) {
                     $this->setResponse(403);
-                    
+
                     if (!\Idno\Core\site()->session()->isAPIRequest()) {
                         $this->forward();
                     }
@@ -682,16 +682,16 @@
 
                 return false;
             }
-            
+
             /**
              * Force connection over SSL.
              * If a page is requested over HTTP, this function will issue a 307 redirect to force
              * the connection over TLS. 307 is used to preserve POST data on a web services call.
              */
-            function sslGatekeeper() 
+            function sslGatekeeper()
             {
-                if (!static::isSSL() && empty(\Idno\Core\site()->config()->ignore_ssl_gatekeeper)) {
-                    
+                if (!static::isSSL() && empty(\Idno\Core\site()->config()->ignore_ssl_gatekeeper) && \Idno\Core\site()->config()->hasSSL()) {
+
                     $url = str_replace('http://', 'https://', $this->currentUrl());
 
                     header("HTTP/1.1 307 Temporary Redirect");
@@ -787,14 +787,14 @@
             }
 
             function getallheaders() {
-				$headers = '';
-				foreach ($_SERVER as $name => $value) {
-					if (substr($name, 0, 5) == 'HTTP_') {
-						$headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
-					}
-				}
-				return $headers;
-			}
+                $headers = '';
+                foreach ($_SERVER as $name => $value) {
+                    if (substr($name, 0, 5) == 'HTTP_') {
+                        $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+                    }
+                }
+                return $headers;
+            }
 
             /**
              * Detects whether the current web browser accepts the given content type.
@@ -835,25 +835,25 @@
             {
                 return $this->assets[$class];
             }
-            
+
             /**
              * Get an icon for this page.
              */
-            public function getIcon() 
+            public function getIcon()
             {
                 $icon = \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k.png';
-                
+
                 if (\Idno\Core\site()->config('user_avatar_favicons'))
                 {
-                    if ($user = \Idno\Core\site()->currentPage()->getOwner()) 
+                    if ($user = \Idno\Core\site()->currentPage()->getOwner())
                     {
-                        if ($user instanceof \Idno\Entities\User) 
+                        if ($user instanceof \Idno\Entities\User)
                         {
                             $icon = $user->getIcon();
                         }
                     }
                 }
-                
+
                 return \Idno\Core\site()->triggerEvent('icon', ['object' => $this], $icon);
             }
 
