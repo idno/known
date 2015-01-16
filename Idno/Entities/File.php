@@ -319,7 +319,7 @@
                 }
                 if (!empty($attachment['url'])) {
                     try {
-                        if ($bytes = file_get_contents($attachment['url'])) {
+                        if ($bytes = @file_get_contents($attachment['url'])) {
                             \Idno\Core\site()->logging->log("Returning bytes", LOGLEVEL_DEBUG);
                             return $bytes;
                         } else {

@@ -53,6 +53,13 @@
                 } else {
                     $new = false;
                 }
+
+                if ($new) {
+                    if (!\Idno\Core\site()->triggerEvent("file/upload",[],true)) {
+                        return false;
+                    }
+                }
+
                 $body = \Idno\Core\site()->currentPage()->getInput('body');
                 if (!empty($_FILES['comic']['tmp_name']) || !empty($this->_id)) {
                     $this->body        = $body;

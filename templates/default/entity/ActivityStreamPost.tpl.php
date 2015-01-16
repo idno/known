@@ -14,19 +14,19 @@
 
                 <div class="span1 offset1 owner h-card hidden-phone">
                     <p>
-                        <a href="<?= $owner->getURL() ?>" class="u-url icon-container"><img class="u-photo"
+                        <a href="<?= $owner->getDisplayURL() ?>" class="u-url icon-container"><img class="u-photo"
                                                                                             src="<?= $owner->getIcon() ?>"/></a><br/>
-                        <a href="<?= $owner->getURL() ?>" class="p-name u-url fn"><?= htmlentities(strip_tags($owner->getTitle()), ENT_QUOTES, 'UTF-8'); ?></a>
+                        <a href="<?= $owner->getDisplayURL() ?>" class="p-name u-url fn"><?= htmlentities(strip_tags($owner->getTitle()), ENT_QUOTES, 'UTF-8'); ?></a>
                     </p>
                 </div>
                 <div
                     class="span8 <?= $subObject->getMicroformats2ObjectType() ?> idno-<?= $subObject->getContentTypeCategorySlug() ?> idno-object idno-content">
                     <div class="visible-phone">
                         <p class="p-author author h-card vcard">
-                            <a href="<?= $owner->getURL() ?>" class="icon-container"><img
+                            <a href="<?= $owner->getDisplayURL() ?>" class="icon-container"><img
                                     class="u-logo logo u-photo photo" src="<?= $owner->getIcon() ?>"/></a>
-                            <a class="p-name fn u-url url" href="<?= $owner->getURL() ?>"><?= htmlentities(strip_tags($owner->getTitle()), ENT_QUOTES, 'UTF-8') ?></a>
-                            <a class="u-url" href="<?= $owner->getURL() ?>">
+                            <a class="p-name fn u-url url" href="<?= $owner->getDisplayURL() ?>"><?= htmlentities(strip_tags($owner->getTitle()), ENT_QUOTES, 'UTF-8') ?></a>
+                            <a class="u-url" href="<?= $owner->getDisplayURL() ?>">
                                 <!-- This is here to force the hand of your MF2 parser --></a>
                         </p>
                     </div>

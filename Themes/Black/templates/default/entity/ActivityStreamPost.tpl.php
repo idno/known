@@ -16,10 +16,10 @@
                     class="span8 offset2 <?= $subObject->getMicroformats2ObjectType() ?> idno-<?= $subObject->getContentTypeCategorySlug() ?> idno-object idno-content">
                     <div style="display: none"> <!-- This is useful for webmentions -->
                         <p class="p-author author h-card vcard">
-                            <a href="<?= $owner->getURL() ?>" class="icon-container"><img
+                            <a href="<?= $owner->getDisplayURL() ?>" class="icon-container"><img
                                     class="u-logo logo u-photo photo" src="<?= $owner->getIcon() ?>"/></a>
-                            <a class="p-name fn u-url url" href="<?= $owner->getURL() ?>"><?= $owner->getTitle() ?></a>
-                            <a class="u-url" href="<?= $owner->getURL() ?>">
+                            <a class="p-name fn u-url url" href="<?= $owner->getDisplayURL() ?>"><?= $owner->getTitle() ?></a>
+                            <a class="u-url" href="<?= $owner->getDisplayURL() ?>">
                                 <!-- This is here to force the hand of your MF2 parser --></a>
                         </p>
                     </div>

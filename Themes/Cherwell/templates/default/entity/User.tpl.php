@@ -4,7 +4,7 @@
         <div class="">
             <div class="namebadge">
                 <p>
-                    <a href="<?= $vars['user']->getURL() ?>" class="u-url icon-container"><img class="u-photo"
+                    <a href="<?= $vars['user']->getDisplayURL() ?>" class="u-url icon-container"><img class="u-photo"
                                                                                                src="<?= $vars['user']->getIcon() ?>"/></a>
                 </p>
             </div>
@@ -12,7 +12,7 @@
                 <div class="">
                     <div class="">
                         <h1 class="p-profile">
-                            <a href="<?= $vars['user']->getURL() ?>"
+                            <a href="<?= $vars['user']->getDisplayURL() ?>"
                                class="u-url p-name fn"><?= $vars['user']->getTitle() ?></a>
                         </h1>
                     </div>
@@ -28,7 +28,7 @@
                                     <p class="highlightedText">
                                         A profile helps you describe yourself to other people on the site
                                         and on the web. You haven't described yourself yet.
-                                        <a href="<?= $vars['user']->getURL() ?>/edit/">Click here to fill in your
+                                        <a href="<?= $vars['user']->getDisplayURL() ?>/edit/">Click here to fill in your
                                             profile information.</a>
                                     </p>
                                 <?php

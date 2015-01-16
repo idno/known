@@ -54,7 +54,7 @@ h1, h2, h3, h4, h5, h6 {
 	color: #494949;
 }
 
-.entry-content .p-photo a, .idno-posts h2.p-photo {
+.entry-content .photo-title a, .idno-posts h2.photo-title {
 	font-size: 32px;
 	margin:0; padding: 0;	
 }
@@ -84,11 +84,11 @@ h2.p-name {
 	margin-bottom: 0.2em !important;
 }
 
-h2.p-photo a {
+h2.photo-title a {
 	color: #000000;
 }
 
-h2.p-photo a:hover, h2.p-photo a:focus {
+h2.photo-title a:hover, h2.photo-title a:focus {
 	color: #333333;
 }
 

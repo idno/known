@@ -12,8 +12,7 @@ Known requires PHP 5.4+ with selected extensions. More info: <http://docs.withkn
 If you are installing Known for use on your website, we HIGHLY recommend using the installable packages
 from <https://withknown.com/>. Installation will be much easier.
 
-If you are checking out from the git repository, you should read the full documentation, taking particular note of
-the requirement to initialize git submodules: <http://docs.withknown.com/>
+If you are checking out from the git repository, you should read the full documentation: <http://docs.withknown.com/>
 
 Installation
 ------------

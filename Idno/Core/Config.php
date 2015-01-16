@@ -141,21 +141,21 @@
                 }
 
             }
-            
+
             /**
              * Attempt to detect your known configuration's server name.
              */
             protected function detectBaseURL() {
                 if (!empty($_SERVER['SERVER_NAME'])) {
-                    
+
                     // Servername specified, so we can construct things in the normal way.
                     return (\Idno\Common\Page::isSSL() ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . '/'; // A naive default base URL
                 }
-                
+
                 // No servername set, try something else
-                    // TODO: Detect servername using other methods (but don't use HTTP_HOST)
-                    
-                
+                // TODO: Detect servername using other methods (but don't use HTTP_HOST)
+
+
                 // Default to root relative urls
                 return '/';
             }
@@ -251,7 +251,7 @@
                         unset($config['antiplugins']);
                         unset($config['alwaysplugins']);
                         unset($config['session_path']);
-                        unset($config['cookie_jar']); 
+                        unset($config['cookie_jar']);
                     }
                     if (is_array($config)) {
                         $this->config = array_merge($this->config, $config);
@@ -341,9 +341,19 @@
              * @return bool
              */
             function canAddUsers() {
-                $event = new Event(['return' => true]);
+                $event = new Event(); $event->setResponse(true);
                 $event = site()->events()->dispatch('users/add/check',$event);
-                return $event->return;
+                return $event->response();
+            }
+
+            /**
+             * Can the site administrator make this site private? Defaults to true; uses a hook to determine.
+             * @return bool
+             */
+            function canMakeSitePrivate() {
+                $event = new Event(); $event->setResponse(true);
+                $event = site()->events()->dispatch('site/walledgarden/check',$event);
+                return $event->response();
             }
 
             /**
@@ -377,6 +387,51 @@
                 }
 
                 return $friendly_types;
+            }
+
+            /**
+             * Attempt to get a temporary folder suitable for writing in.
+             * @return string
+             */
+            function getTempDir()
+            {
+                static $temp;
+
+                if (function_exists('sys_get_temp_dir')) {
+                    $temp = sys_get_temp_dir();
+                    if (is_dir($temp)) {
+                        return $this->sanitizePath($temp);
+                    }
+                }
+
+                $temp = ini_get('upload_tmp_dir');
+                if (@is_dir($temp)) {
+                    return $this->sanitizePath($temp);
+                }
+
+                if (!empty($this->uploadpath)) {
+                    $temp = $this->uploadpath;
+                    if (is_dir($temp)) {
+                        return $temp;
+                    }
+                }
+
+                $temp = '/tmp/';
+
+                return $temp;
+            }
+
+            /**
+             * Add a trailing slash to the ends of paths
+             * @todo Further sanitization tasks
+             * @param $path
+             * @return string
+             */
+            function sanitizePath($path) {
+                if (substr($path, -1) != DIRECTORY_SEPARATOR) {
+                    $path .= DIRECTORY_SEPARATOR;
+                }
+                return $path;
             }
 
         }

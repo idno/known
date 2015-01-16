@@ -8,7 +8,7 @@
 ?>
     <div class="row annotation-add">
         <div class="span1 owner h-card hidden-phone">
-            <a href="<?= $user->getURL() ?>" class="u-url icon-container"><img class="u-photo"
+            <a href="<?= $user->getDisplayURL() ?>" class="u-url icon-container"><img class="u-photo"
                                                                                 src="<?= $user->getIcon() ?>"/></a>
         </div>
         <div class="span7 idno-comment-container">

@@ -13,7 +13,7 @@
     }
 
 ?>
-<form action="<?= $vars['object']->getURL() ?>" method="post">
+<form action="<?= $vars['object']->getDisplayURL() ?>" method="post">
 
     <div class="row">
 

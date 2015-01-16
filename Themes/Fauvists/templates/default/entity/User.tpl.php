@@ -13,14 +13,14 @@
         <div class="row">
             <div class="span2 namebadge">
                 <p>
-                    <a href="<?=$vars['user']->getURL()?>" class="u-url icon-container"><img class="u-photo" src="<?=$vars['user']->getIcon()?>" /></a>
+                    <a href="<?=$vars['user']->getDisplayURL()?>" class="u-url icon-container"><img class="u-photo" src="<?=$vars['user']->getIcon()?>" /></a>
                 </p>
                 <?php
 
                     if ($vars['user']->getUUID() == \Idno\Core\site()->session()->currentUserUUID()) {
                 ?>
                         <p>
-                            <a href="<?=$vars['user']->getURL()?>/edit/#avatar">Upload a new picture</a>
+                            <a href="<?=$vars['user']->getDisplayURL()?>/edit/#avatar">Upload a new picture</a>
                         </p>
                 <?php
                     }
@@ -31,7 +31,7 @@
                 <div class="row">
                     <div class="span5">
                         <h1 class="p-profile">
-                            <a href="<?=$vars['user']->getURL()?>" class="u-url p-name"><?=$vars['user']->getTitle()?></a>
+                            <a href="<?=$vars['user']->getDisplayURL()?>" class="u-url p-name"><?=$vars['user']->getTitle()?></a>
                         </h1>
                     </div>
                     <div class="span1">
@@ -60,7 +60,7 @@
                                 ?>
                                 <p class="highlightedText">
                                     What makes you say yes? Fill out your profile and describe yourself.
-                                    <a href="<?=$vars['user']->getURL()?>/edit/">Click here to fill in your profile information.</a>
+                                    <a href="<?=$vars['user']->getDisplayURL()?>/edit/">Click here to fill in your profile information.</a>
                                 </p>
                                 <?php
                             }

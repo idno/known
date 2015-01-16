@@ -37,6 +37,10 @@
             </div>
 
             <!---------->
+            <?php /*
+
+            Removing this field for now.
+
             <div class="row">
                 <div class="span2">
                     <p><label class="control-label" for="url"><strong>Site URL</strong></label></p>
@@ -51,6 +55,7 @@
             </div>
 
             <!--------->
+            */ ?>
 
             <div class="row">
                 <div class="span2">
@@ -66,19 +71,31 @@
                 </div>
             </div>
 
-            <!---------->
-            <div class="row">
-                <div class="span2">
-                    <p><label class="control-label" for="open_registration"><strong>Make site private</strong></label></p>
-                </div>
-                <div class="config-toggle span4">
-                    <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
-                           name="walled_garden"
-                           value="true" <?php if (\Idno\Core\site()->config()->walled_garden == true) echo 'checked'; ?>>
-                </div>
-                <div class="span4"><p class="config-desc">Content on a private site is only visible if you're logged in.</p>
-                </div>
-            </div>
+            <?php
+
+                if (\Idno\Core\site()->config()->walled_garden == true || \Idno\Core\site()->config()->canMakeSitePrivate()) {
+
+                    ?>
+                    <!---------->
+                    <div class="row">
+                        <div class="span2">
+                            <p><label class="control-label" for="open_registration"><strong>Make site
+                                        private</strong></label></p>
+                        </div>
+                        <div class="config-toggle span4">
+                            <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
+                                   name="walled_garden"
+                                   value="true" <?php if (\Idno\Core\site()->config()->walled_garden == true) echo 'checked'; ?>>
+                        </div>
+                        <div class="span4"><p class="config-desc">Content on a private site is only visible if you're
+                                logged in.</p>
+                        </div>
+                    </div>
+                <?php
+
+                }
+
+            ?>
 
             <!---------->
 

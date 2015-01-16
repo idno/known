@@ -23,7 +23,7 @@
                     if (!empty(\Idno\Core\site()->config()->dbport)) {
                         $connection_string .= ';port=' . \Idno\Core\site()->config()->dbport;
                     }
-                    $this->client = new \PDO($connection_string, \Idno\Core\site()->config()->dbuser, \Idno\Core\site()->config()->dbpass);
+                    $this->client = new \PDO($connection_string, \Idno\Core\site()->config()->dbuser, \Idno\Core\site()->config()->dbpass, array(\PDO::MYSQL_ATTR_LOCAL_INFILE => 1));
                     $this->client->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
                     //$this->client->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
                 } catch (\Exception $e) {
@@ -432,6 +432,40 @@
                     return false;
                 }
 
+                return false;
+            }
+
+            /**
+             * Export a collection as SQL.
+             * @param string $collection
+             * @return bool|string
+             */
+            function exportRecords($collection = 'entities')
+            {
+                try {
+                    $file = tempnam(\Idno\Core\site()->config()->getTempDir(),'sqldump');
+                    error_log('output file ' . $file);
+                    $client = $this->client; /* @var \PDO $client */
+                    $statement = $client->prepare("select * from {$collection}");
+                    $output = '';
+                    if ($response = $statement->execute()) {
+                        while ($object = $statement->fetch(\PDO::FETCH_ASSOC)) {
+                            $fields = array_keys($object);
+                            $fields = array_map(function($v) { return '`' . $v . '`'; }, $fields);
+                            $object = array_map(function($v) { return \Idno\Core\site()->db()->getClient()->quote($v); }, $object);
+                            $line = 'insert into ' . $collection . ' ';
+                            $line .= '(' . implode(',',$fields) . ')';
+                            $line .= ' values ';
+                            $line .= '(' . implode(',', $object) . ');';
+                            $output .= $line . "\n";
+
+                        }
+                    }
+                    return $output;
+                } catch (\Exception $e) {
+                    error_log("Uh oh. " . $e->getMessage());
+                    return false;
+                }
                 return false;
             }
 

@@ -49,14 +49,14 @@
              */
             function setServer($server)
             {
-                $urischeme = parse_url($server, PHP_URL_SCHEME);
+                /*$urischeme = parse_url($server, PHP_URL_SCHEME);
                 if (site()->isSecure()) {
                     $newuri = 'https:';
                 } else {
                     $newuri = 'http:';
                 }
 
-                $server = str_replace($urischeme . ':', $newuri, $server);
+                $server = str_replace($urischeme . ':', $newuri, $server);*/
                 site()->logging()->log('Saved connection to hub ' . $server);
                 $this->server = $server;
             }

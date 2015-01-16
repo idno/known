@@ -36,7 +36,7 @@
 
                 // Just forward to the user's page
                 if ($object instanceof \Idno\Entities\User) {
-                    $this->forward($object->getURL());
+                    $this->forward($object->getDisplayURL());
                 }
 
                 $this->setOwner($object->getOwner());
@@ -88,7 +88,7 @@
                 }
                 if (empty($object)) $this->forward(); // TODO: 404
                 if ($object->saveDataFromInput($this)) {
-                    $this->forward($object->getURL());
+                    $this->forward($object->getDisplayURL());
                 }
                 $this->forward($_SERVER['HTTP_REFERER']);
             }

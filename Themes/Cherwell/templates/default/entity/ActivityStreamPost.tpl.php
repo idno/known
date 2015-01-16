@@ -15,18 +15,18 @@
                     class="span8 offset2 <?= $subObject->getMicroformats2ObjectType() ?> idno-<?= $subObject->getContentTypeCategorySlug() ?> idno-object idno-content">
                     <div>
                         <div class="p-author author h-card vcard">
-                            <a href="<?= $owner->getURL() ?>" class="u-url icon-container"><img class="u-photo"
+                            <a href="<?= $owner->getDisplayURL() ?>" class="u-url icon-container"><img class="u-photo"
                                                                                                 src="<?= $owner->getIcon() ?>"/></a>
                             <a class="p-name fn u-url url"
-                               href="<?= $owner->getURL() ?>"><?= $owner->getTitle() ?></a>
-                            <a class="u-url" href="<?= $owner->getURL() ?>">
+                               href="<?= $owner->getDisplayURL() ?>"><?= $owner->getTitle() ?></a>
+                            <a class="u-url" href="<?= $owner->getDisplayURL() ?>">
                                 <!-- This is here to force the hand of your MF2 parser --></a>
                         </div>
                         <div class="break">&nbsp;</div>
                     </div>
                     <div class="datestamp">
                         <p>
-                            <a class="u-url url" href="<?= $subObject->getURL() ?>" rel="permalink">
+                            <a class="u-url url" href="<?= $subObject->getDisplayURL() ?>" rel="permalink">
                                 <time class="dt-published"
                                       datetime="<?= date('c', $subObject->created) ?>"><?= date('c', $subObject->created) ?></time>
                             </a>

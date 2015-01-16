@@ -36,7 +36,7 @@
                             <div class="span3">
                                 <p>
                                     <img src="<?= $user->getIcon() ?>" style="width: 35px; float: left; margin-right: 10px; margin-left: 10px; margin-top: 3px; margin-bottom: 3em">
-                                    <a href="<?= $user->getURL() ?>"><?= htmlentities($user->getTitle()) ?></a> (<a href="<?= $user->getURL() ?>"><?= $user->getHandle() ?></a>)<br>
+                                    <a href="<?= $user->getDisplayURL() ?>"><?= htmlentities($user->getTitle()) ?></a> (<a href="<?= $user->getDisplayURL() ?>"><?= $user->getHandle() ?></a>)<br>
                                     <small><?= $user->email ?></small>
                                 </p>
                             </div>

@@ -41,6 +41,12 @@
                     $new = false;
                 }
 
+                if ($new) {
+                    if (!\Idno\Core\site()->triggerEvent("file/upload",[],true)) {
+                        return false;
+                    }
+                }
+
                 $this->title = \Idno\Core\site()->currentPage()->getInput('title');
                 $this->body  = \Idno\Core\site()->currentPage()->getInput('body');
                 $this->tags  = \Idno\Core\site()->currentPage()->getInput('tags');

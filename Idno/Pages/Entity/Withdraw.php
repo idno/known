@@ -14,7 +14,7 @@
             function getContent() {
                 if (!empty($this->arguments[0])) {
                     $object = \Idno\Common\Entity::getByID($this->arguments[0]);
-                    $this->forward($object->getURL());
+                    $this->forward($object->getDisplayURL());
                 }
                 if (empty($object)) {
                     $this->setResponse(404);
@@ -46,7 +46,7 @@
 
                 \Idno\Core\site()->session()->addMessage("We removed copies on all the syndicated sites.");
 
-                $this->forward($object->getURL());
+                $this->forward($object->getDisplayURL());
 
             }
 

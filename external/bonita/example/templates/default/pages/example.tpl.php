@@ -1,0 +1,1 @@
+<?=$t->process($t->draw('pages/example/text'))?>

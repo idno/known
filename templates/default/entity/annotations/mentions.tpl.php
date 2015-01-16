@@ -12,7 +12,7 @@
                     </p>
                 </div>
                 <div class="idno-annotation-content span6">
-                    <p>Referenced in: <a href="<?=$permalink?>"><?php
+                    <p>Mentioned in: <a href="<?=$permalink?>"><?php
 
                                 if (!empty($annotation['title'])) {
                                     echo $annotation['title'];

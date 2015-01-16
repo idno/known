@@ -52,7 +52,7 @@
 
                 $headers = getallheaders();
                 if (isset($headers['If-Modified-Since'])) {
-                    if (strtotime($headers['If-Modified-Since']) < time() - 600) {
+                    if (strtotime($headers['If-Modified-Since']) > time() - (86400 * 30)) {
                         header('HTTP/1.1 304 Not Modified');
                         exit;
                     }

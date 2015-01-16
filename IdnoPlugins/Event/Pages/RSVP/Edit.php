@@ -46,7 +46,7 @@
                 }
 
                 if ($object->saveDataFromInput($this)) {
-                    $this->forward($object->getURL());
+                    $this->forward($object->getDisplayURL());
                 }
 
             }

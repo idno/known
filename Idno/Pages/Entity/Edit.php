@@ -20,7 +20,7 @@
                     $object = \Idno\Common\Entity::getByID($this->arguments[0]);
                 }
                 if (empty($object)) $this->forward(); // TODO: 404
-                if (!$object->canEdit()) $this->forward($object->getURL());
+                if (!$object->canEdit()) $this->forward($object->getDisplayURL());
 
                 session_write_close();
 

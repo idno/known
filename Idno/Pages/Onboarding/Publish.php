@@ -19,7 +19,7 @@
                     \Idno\Core\site()->session()->addMessage($messages);
                 }
 
-                $this->forward(\Idno\Core\site()->config()->getURL());
+                $this->forward(\Idno\Core\site()->config()->getDisplayURL());
 
             }
 

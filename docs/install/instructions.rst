@@ -28,9 +28,8 @@ You can place the platform on your web host by:
 * Downloading the latest package from `the Known homepage <https://withknown.com/>`_. This is by far the easiest
   option. If you've uploaded the files inside the archive to your web host, you can skip to the configuration section
   of these documents, below.
-* Git clone the repository to an appropriate directory (or just straight into the folder root of your web host).
-  Note that you need to make sure you acquire `the Git submodules <http://git-scm.com/book/en/Git-Tools-Submodules>`_.
-  eg: ```git clone --recursive git@github.com:idno/idno.git /path/to/webroot```
+* Git clone the repository to an appropriate directory (or just straight into the folder root of your web host). You
+  can also grab the master zip file from `the Known git repository <https://github.com/idno/idno>`_.
 * If you git cloned the repository to your local disk, use a file transfer app to move the files to your web host.
 
 Explaining how to use Git is beyond the scope of this tutorial, but there are plenty of great tutorials on the web. 
@@ -117,6 +116,12 @@ Then, add the following to your config.ini file::
         uploadpath = "/Users/ben/Sites/withknown.com/data/"
 
 Of course, replace the path with the path to your data folder.
+
+Copy .htaccess
+^^^^^^^^^^^^^^
+
+If you are using Known 0.6.5 and Apache 2.4, copy htaccess-2.4.dist to .htaccess; otherwise, copy htaccess.dist to .htaccess.
+If you downloaded from git, you may skip this step.
 
 Load Known
 ----------

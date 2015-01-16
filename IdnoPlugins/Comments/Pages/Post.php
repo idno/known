@@ -32,7 +32,7 @@
                                 }
                             }
                         }
-                        $this->forward($object->getURL());
+                        $this->forward($object->getDisplayURL());
 
                     }
                 }

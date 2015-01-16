@@ -157,20 +157,14 @@ body.page-share {
 
 .result-404, .result-403, .result-410, .result-500,
 .page-begin-publish .page-container .page-body,
-.idno_pages_user_edit .page-container .page-body,
-.no-content,
+.idno_pages_user_edit .page-container .page-body, .page-pages .page-container .page-body,
+.no-content, .generic-page,
 .page-admin .page-container .page-body, .page-account .page-container .page-body {
     /*background-color: rgba(255,255,255,0.7);*/
     background-color: rgba(0,0,0,0.7);
     color: #fff;
     border-radius: 15px;
 }
-
-/*.page-account .page-container .page-body {
-    background-color: none;
-    color: #333;
-    border-radius: 15px;
-}*/
 
 .theme {
     color: #222;

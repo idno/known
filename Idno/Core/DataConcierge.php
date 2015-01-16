@@ -298,6 +298,23 @@
             }
 
             /**
+             * Export a collection to JSON.
+             * @param string $collection
+             * @return bool|string
+             */
+            function exportRecords($collection = 'entities')
+            {
+                try {
+                    if ($result = $this->database->$collection->find()) {
+                        return json_encode(iterator_to_array($result));
+                    }
+                } catch (\Exception $e) {
+                    return false;
+                }
+                return false;
+            }
+
+            /**
              * Count objects of a certain kind that we're allowed to see
              *
              * @param string|array $subtypes String or array of subtypes we're allowed to see

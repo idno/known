@@ -1,4 +1,4 @@
-<form action="<?= $vars['user']->getURL() ?>" method="post" enctype="multipart/form-data">
+<form action="<?= $vars['user']->getDisplayURL() ?>" method="post" enctype="multipart/form-data">
 
     <div class="row beforecontent">
         <div class="span11 offset1">

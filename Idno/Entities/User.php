@@ -168,6 +168,15 @@
             }
 
             /**
+             * Wrapper for getURL for consistency
+             * @return string
+             */
+            function getDisplayURL()
+            {
+                return $this->getURL();
+            }
+
+            /**
              * Retrieve's this user's handle
              * @return string
              */

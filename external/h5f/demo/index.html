@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
+	<link rel="stylesheet" type="text/css" href="_styles.css" media="screen" />
+	
+	<script type="text/javascript" src="../H5F.js"></script>
+	<script type="text/javascript">
+		window.onload = function() {
+			/*
+				Accepts HTMLFormElement, HTMLCollection of HTMLFormElements, or Array of HTMLFormElements.
+				Optional object of options: validClass, invalidClass, requiredClass
+				
+				e.g. 
+				
+				H5F.setup([d.getElementById("signup"),d.getElementById("anotherform")], {
+					validClass: "valid",
+					invalidClass: "invalid",
+					requiredClass: "required"
+				});
+			*/
+			H5F.setup(document.getElementById("signup"));
+		}
+	</script>
+	
+	<title>Validate those forms with CSS3 Basic UI module pseudo-classes, HTML5 Form attributes and consraint validation API</title>
+
+</head>
+<body>
+	
+	<form id="signup">
+		<h1>Sign up now!</h1>
+		
+		<h2>Fields marked (*) are required</h2>
+		
+		<fieldset>
+			<legend>Your details</legend>
+			
+			<ol>
+				<li>
+					<label for="fullname">Name *</label> 
+					<input type="text" id="fullname" name="fullname" placeholder="Full name" required />
+				</li>
+				<li>
+					<label for="email">Email *</label> 
+					<input type="email" id="email" name="email" placeholder="e.g. ryan@example.net" title="Please enter a valid email" required />
+				</li>
+				<li>
+					<label for="tel">Phone *</label> 
+					<input type="tel" id="tel" name="tel" pattern="\d{10}" placeholder="Please enter a ten digit phone number" required />
+				</li>
+				<li>
+					<label for="date">Date *</label> 
+					<input type="date" id="date" name="date" required />
+				</li>
+				<li>
+					<label for="nickname">Nick name</label> 
+					<input type="text" id="nickname" name="nickname" pattern="\w{4,}" placeholder="A nickname that is atleast four characters" />
+				</li>
+				<li>
+					<label for="other">Other</label> 
+					<input type="text" id="other" name="other" placeholder="Other information" />
+				</li>
+				<li class="radchecks">
+					<span class="label">Checkboxes</span>
+					<input type="checkbox" id="checkbox1" name="group1" required />
+					<label for="checkbox1">Checkbox 1</label> 
+					
+					<input type="checkbox" id="checkbox2" name="group1" required />
+					<label for="checkbox2">Checkbox 2</label> 
+					
+					<input type="checkbox" id="checkbox3" name="group1" required />
+					<label for="checkbox3">Checkbox 3</label> 
+				</li>
+				<li class="radchecks">
+					<span class="label">Radios</span>
+					<input type="radio" id="radio1" name="group2" required />
+					<label for="radio1">Radio 1</label> 
+					
+					<input type="radio" id="radio2" name="group2" />
+					<label for="radio2">Radio 2</label> 
+					
+					<input type="radio" id="radio3" name="group2" />
+					<label for="radio3">Radio 3</label> 
+				</li>
+			</ol>
+		</fieldset>
+		
+		<fieldset>
+			<legend>Delivery address</legend>
+			<ol>
+				<li>
+					<label for="address">Address *</label>
+					<input id="address" name="address" type="text" required />
+				</li>
+				<li>
+					<label for="suburb">Suburb *</label>
+					<input id="suburb" name="suburb" type="text" required />
+				</li>
+				<li>
+					<label for="postcode">Post code *</label>
+					<input id="postcode" name="postcode" type="number" min="1001" max="8000" step="2" required maxlength="4" />
+				</li>
+				<li>
+					<label for="state">State</label>
+					<select name="state" id="state" required>
+						<option>Choose state</option>
+						<option value="ACT">ACT</option>
+						<option>NSW</option>
+						<option>NT</option>
+						<option>QLD</option>
+						<option>SA</option>
+						<option>TAS</option>
+						<option>VIC</option>
+						<option>WA</option>
+					</select>
+				</li>
+			</ol>
+		</fieldset>
+
+		<fieldset>
+			<legend>Membership information</legend>
+			<ol>		
+				<li>
+					<label for="username">Username *</label>
+					<input id="username" name="username" type="text" pattern="\w{4,}" placeholder="Atleast 4 alphanumeric characters" required />
+				</li>
+				<li>
+					<label for="password">Password *</label>
+					<input id="password" name="password" type="password" required title="Minimum 8 characters, one number, one uppercase and one lowercase letter" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*" /> 
+				</li>
+				<li>
+					<label for="url">Website *</label> 
+					<input type="url" name="url" id="url" required />
+				</li>
+			</ol>
+		</fieldset>
+		
+		<input type="submit" value="Save" formnovalidate />
+		<button formnovalidate>Button Save</button>
+		<input type="submit" value="Sign up" />
+
+	</form>
+	
+</body>
+</html>
