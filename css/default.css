@@ -935,6 +935,13 @@ small {
     color: #e8945d;
 }
 
+.alert-success {
+    background-color: #eeeeee;
+    border: solid 2px #678c70;
+    color: #535353;
+    margin-top: 30px;
+}
+
 .pager li > a, .pager li > span {
     background-color: #73b2e3;
     border: 3px solid #73b2e3;

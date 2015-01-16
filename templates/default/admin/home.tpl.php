@@ -15,7 +15,8 @@
                 </div>
                 <div class="span4">
                     <input type="text" id="name" placeholder="Site name" class="span4" name="title"
-                           value="<?= htmlspecialchars(\Idno\Core\site()->config()->title) ?>"></div>
+                           value="<?= htmlspecialchars(\Idno\Core\site()->config()->title) ?>">
+                </div>
                 <div class="span4">
                     <p class="config-desc">Give your site a name!</p>
                 </div>
