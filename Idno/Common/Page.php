@@ -921,11 +921,11 @@
                     $page = '//';
 
                 // user/pass
-                if ((isset($url['user'])) && ($url['user']))
+                if ((isset($url['user'])) && !empty($url['user']))
                     $page .= $url['user'];
-                if ((isset($url['pass'])) && ($url['pass']))
+                if ((isset($url['pass'])) && !empty($url['pass']))
                     $page .= ":" . $url['pass'];
-                if (($url['user']) || $url['pass'])
+                if (!empty($url['user']) || !empty($url['pass']))
                     $page .= "@";
 
                 $page .= $url['host'];
