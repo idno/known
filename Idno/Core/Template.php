@@ -237,9 +237,10 @@
             function parseHashtags($text)
             {
                 $r = preg_replace_callback('/(?<=^|[\>\s\n])(\#[\w0-9]+)/iu', function($matches) {
-                    $url = ($matches[1]);
+                    $url = $matches[1];
+                    $tag = str_replace('#','',$matches[1]);
 
-                    return '<a href="' . \Idno\Core\site()->config()->url . 'content/all/?q=' . urlencode($matches[1]) . '" class="p-category" rel="tag">' . $url . '</a>';
+                    return '<a href="' . \Idno\Core\site()->config()->getDisplayURL() . 'tag/' . urlencode($tag) . '" class="p-category" rel="tag">' . $url . '</a>';
                 }, $text);
 
                 return $r;
