@@ -1384,6 +1384,28 @@
             }
 
             /**
+             * Many properties in mf2 can have either a simple string value or a complex
+             * object value, "u-in-reply-to h-cite" is a common example. This function
+             * takes a possibly mixed array, and returns an array of only strings.
+             *
+             * @return array
+             */
+            static function getStringURLs($arr)
+            {
+                $result = [];
+                foreach($arr as $value) {
+                    if (is_string($value)) {
+                        $result[] = $value;
+                    } else if (is_array($value) && !empty($value['properties']) && !empty($value['properties']['url'])) {
+                        foreach($value['properties']['url'] as $url) {
+                            $result[] = $url;
+                        }
+                    }
+                }
+                return $result;
+            }
+
+            /**
              * Add webmentions as annotations based on Microformats 2 data
              *
              * @param string $source The source URL
@@ -1616,17 +1638,17 @@
                                 $mention['url'] = $item['properties']['url'];
                             }
                             if (!empty($item['properties']['in-reply-to']) && is_array($item['properties']['in-reply-to'])) {
-                                if (in_array($target, $item['properties']['in-reply-to'])) {
+                                if (in_array($target, static::getStringURLs($item['properties']['in-reply-to']))) {
                                     $mention['type'] = 'reply';
                                 }
                             }
                             if (!empty($item['properties']['like']) && is_array($item['properties']['like'])) {
-                                if (in_array($target, $item['properties']['like'])) {
+                                if (in_array($target, static::getStringURLs($item['properties']['like']))) {
                                     $mention['type'] = 'like';
                                 }
                             }
                             if (!empty($item['properties']['like-of']) && is_array($item['properties']['like-of'])) {
-                                if (in_array($target, $item['properties']['like-of'])) {
+                                if (in_array($target, static::getStringURLs($item['properties']['like-of']))) {
                                     $mention['type'] = 'like';
                                 }
                             }
@@ -1636,7 +1658,7 @@
                             }
                             foreach (array('share', 'repost', 'repost-of') as $verb) {
                                 if (!empty($item['properties'][$verb]) && is_array($item['properties'][$verb])) {
-                                    if (in_array($target, $item['properties'][$verb])) {
+                                    if (in_array($target, static::getStringURLs($item['properties'][$verb]))) {
                                         $mention['type'] = 'share';
                                     }
                                 }
@@ -1939,4 +1961,3 @@
         }
 
     }
-	
