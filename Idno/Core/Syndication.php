@@ -59,7 +59,12 @@
                 $service = strtolower($service);
                 if (!empty($content_types)) {
                     foreach ($content_types as $content_type) {
-                        $this->services[$content_type][] = $service;
+                        if (empty($this->services[$content_type])) {
+                            $this->services[$content_type ] = [];
+                        }
+                        if (!in_array($service, $this->services[$content_type]) || empty($this->services[$content_type])) {
+                            $this->services[$content_type][] = $service;
+                        }
                     }
                 }
                 $this->checkers[$service] = $checker;
