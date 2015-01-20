@@ -28,16 +28,17 @@
                     if (!empty($eventdata['object'])) {
                         $content_type = $eventdata['object']->getActivityStreamsObjectType();
                         if ($services = \Idno\Core\site()->syndication()->getServices($content_type)) {
+                            error_log("SERVICES for $content_type are " . json_encode($services));
                             if ($selected_services = \Idno\Core\site()->currentPage()->getInput('syndication')) {
+                                error_log("SELECTED SERVICES ARE " . json_encode($selected_services));
                                 if (!empty($selected_services) && is_array($selected_services)) {
                                     foreach ($selected_services as $selected_service) {
                                         $event->data()['syndication_account'] = false;
                                         if (in_array($selected_service, $services)) {
-                                            \Idno\Core\site()->events()->dispatch('post/' . $content_type . '/' . $selected_service, $event);
-                                        }
-                                        if ($implied_service = $this->getServiceByAccountString($selected_service)) {
-                                            $event->data()['syndication_account'] = $this->getAccountFromAccountString($selected_service);
-                                            \Idno\Core\site()->events()->dispatch('post/' . $content_type . '/' . $implied_service, $event);
+                                            site()->triggerEvent('post/' . $content_type . '/' . $selected_service, $eventdata);
+                                        } else if ($implied_service = $this->getServiceByAccountString($selected_service)) {
+                                            $eventdata['syndication_account'] = $this->getAccountFromAccountString($selected_service);
+                                            site()->triggerEvent('post/' . $content_type . '/' . $implied_service, $eventdata);
                                         }
                                     }
                                 }
