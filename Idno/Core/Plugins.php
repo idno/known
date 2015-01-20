@@ -31,7 +31,18 @@
                         }
                     }
                 });
-                
+
+                if (!empty(site()->config()->prerequisiteplugins)) {
+                    site()->config()->prerequisiteplugins = array_unique(site()->config()->prerequisiteplugins);
+                    foreach (site()->config()->prerequisiteplugins as $plugin) {
+                        if (is_subclass_of("IdnoPlugins\\{$plugin}\\Main", 'Idno\\Common\\Plugin')) {
+                            $class                  = "IdnoPlugins\\{$plugin}\\Main";
+                            if (empty($this->plugins[$plugin])) {
+                                $this->plugins[$plugin] = new $class();
+                            }
+                        }
+                    }
+                }
                 if (!empty(site()->config()->alwaysplugins)) {
                     site()->config->plugins = array_merge(site()->config->plugins, site()->config->alwaysplugins);
                 }
@@ -48,7 +59,6 @@
                         }
                     }
                 }
-                
             }
 
             /**
