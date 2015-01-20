@@ -13,28 +13,29 @@
         {
 
             public $config = array(
-                'database'          => 'mongodb',
-                'dbstring'          => 'mongodb://localhost:27017',
-                'dbname'            => 'known', // Default MongoDB database
-                'sessionname'       => 'known', // Default session name
-                'open_registration' => true, // Can anyone register for this system?
-                'plugins'           => array( // Default plugins
-                                              'Status',
-                                              'Text',
-                                              'Photo',
-                                              'Like',
-                                              'Checkin',
-                                              'Media'
+                'database'            => 'mongodb',
+                'dbstring'            => 'mongodb://localhost:27017',
+                'dbname'              => 'known', // Default MongoDB database
+                'sessionname'         => 'known', // Default session name
+                'open_registration'   => true, // Can anyone register for this system?
+                'plugins'             => array( // Default plugins
+                                                'Status',
+                                                'Text',
+                                                'Photo',
+                                                'Like',
+                                                'Checkin',
+                                                'Media'
                 ),
-                'themes'            => array(),
-                'antiplugins'       => array(),
-                'alwaysplugins'     => array(),
-                'items_per_page'    => 10, // Default items per page
-                'experimental'      => false, // A common way to enable experimental functions still in development
-                'multitenant'       => false,
-                'default_config'    => true, // This is a trip-switch - changed to true if configuration is loaded from an ini file / the db
-                'log_level'         => 4,
-                'multi_syndication' => true
+                'themes'              => array(),
+                'antiplugins'         => array(),
+                'alwaysplugins'       => array(),
+                'prerequisiteplugins' => array(),
+                'items_per_page'      => 10, // Default items per page
+                'experimental'        => false, // A common way to enable experimental functions still in development
+                'multitenant'         => false,
+                'default_config'      => true, // This is a trip-switch - changed to true if configuration is loaded from an ini file / the db
+                'log_level'           => 4,
+                'multi_syndication'   => true
             );
 
             public $ini_config = array();
@@ -43,21 +44,21 @@
             {
                 // Load the config.ini file in the root folder, if it exists.
                 // If not, we'll use default values. No skin off our nose.
-                $this->path               = dirname(dirname(dirname(__FILE__))); // Base path
-                $this->url                = $this->detectBaseURL();
-                $this->title              = 'New Known site'; // A default name for the site
-                $this->description        = 'A social website powered by Known'; // Default description
-                $this->timezone           = 'UTC';
-                $this->host               = parse_url($this->url, PHP_URL_HOST); // The site hostname, without parameters etc
-                $this->feed               = $this->getDisplayURL() . 'content/all/?_t=rss';
-                $this->indieweb_citation  = false;
-                $this->indieweb_reference = false;
-                $this->known_hub          = false;
-                $this->hub                = 'http://withknown.superfeedr.com/';
-                $this->session_path       = session_save_path(); // Session path when not storing sessions in the database
+                $this->path                      = dirname(dirname(dirname(__FILE__))); // Base path
+                $this->url                       = $this->detectBaseURL();
+                $this->title                     = 'New Known site'; // A default name for the site
+                $this->description               = 'A social website powered by Known'; // Default description
+                $this->timezone                  = 'UTC';
+                $this->host                      = parse_url($this->url, PHP_URL_HOST); // The site hostname, without parameters etc
+                $this->feed                      = $this->getDisplayURL() . 'content/all/?_t=rss';
+                $this->indieweb_citation         = false;
+                $this->indieweb_reference        = false;
+                $this->known_hub                 = false;
+                $this->hub                       = 'http://withknown.superfeedr.com/';
+                $this->session_path              = session_save_path(); // Session path when not storing sessions in the database
                 $this->disable_cleartext_warning = false; // Set to true to disable warning when access credentials are sent in the clear
-                $this->cookie_jar	  = rtrim(sys_get_temp_dir(), '/\\') . DIRECTORY_SEPARATOR; // Cookie jar for API requests, default location isn't terribly secure on shared hosts!
-                $this->multi_syndication  = true; // Do we allow multiple accounts per syndication endpoint?
+                $this->cookie_jar                = rtrim(sys_get_temp_dir(), '/\\') . DIRECTORY_SEPARATOR; // Cookie jar for API requests, default location isn't terribly secure on shared hosts!
+                $this->multi_syndication         = true; // Do we allow multiple accounts per syndication endpoint?
 
                 $this->loadIniFiles();
 
@@ -121,10 +122,10 @@
                     }
 
                     // Check environment variables and set as appropriate
-                    foreach($_SERVER as $name => $val) {
+                    foreach ($_SERVER as $name => $val) {
                         if (substr($name, 0, 6) == 'KNOWN_') {
-                            $name = strtolower(str_replace('KNOWN_','',$name));
-                            $val = $val;
+                            $name                    = strtolower(str_replace('KNOWN_', '', $name));
+                            $val                     = $val;
                             $this->ini_config[$name] = $val;
                         }
                     }
@@ -145,7 +146,8 @@
             /**
              * Attempt to detect your known configuration's server name.
              */
-            protected function detectBaseURL() {
+            protected function detectBaseURL()
+            {
                 if (!empty($_SERVER['SERVER_NAME'])) {
 
                     // Servername specified, so we can construct things in the normal way.
@@ -299,6 +301,7 @@
                 if (substr_count(site()->config()->getURL(), 'https://') || !empty($this->config->force_ssl)) {
                     return true;
                 }
+
                 return false;
             }
 
@@ -321,7 +324,7 @@
              */
             function pathHost()
             {
-                return str_replace('www.','',$this->host);
+                return str_replace('www.', '', $this->host);
             }
 
             /**
@@ -341,10 +344,12 @@
              * Does this site allow users to have multiple syndication accounts?
              * @return bool
              */
-            function multipleSyndicationAccounts() {
+            function multipleSyndicationAccounts()
+            {
                 if (!empty($this->multi_syndication)) {
                     return true;
                 }
+
                 return false;
             }
 
@@ -352,9 +357,12 @@
              * Can new users be added to the site? Defaults to true; uses a hook to determine.
              * @return bool
              */
-            function canAddUsers() {
-                $event = new Event(); $event->setResponse(true);
-                $event = site()->events()->dispatch('users/add/check',$event);
+            function canAddUsers()
+            {
+                $event = new Event();
+                $event->setResponse(true);
+                $event = site()->events()->dispatch('users/add/check', $event);
+
                 return $event->response();
             }
 
@@ -362,9 +370,12 @@
              * Can the site administrator make this site private? Defaults to true; uses a hook to determine.
              * @return bool
              */
-            function canMakeSitePrivate() {
-                $event = new Event(); $event->setResponse(true);
-                $event = site()->events()->dispatch('site/walledgarden/check',$event);
+            function canMakeSitePrivate()
+            {
+                $event = new Event();
+                $event->setResponse(true);
+                $event = site()->events()->dispatch('site/walledgarden/check', $event);
+
                 return $event->response();
             }
 
@@ -439,10 +450,12 @@
              * @param $path
              * @return string
              */
-            function sanitizePath($path) {
+            function sanitizePath($path)
+            {
                 if (substr($path, -1) != DIRECTORY_SEPARATOR) {
                     $path .= DIRECTORY_SEPARATOR;
                 }
+
                 return $path;
             }
 
