@@ -712,6 +712,9 @@
                                 if (empty($value['filename'])) {
                                     $value['filename'] = basename($value['url']);
                                 }
+                                if (empty($value['mime_type'])) {
+                                    $value['mime_type'] = 'application/octet-stream';
+                                }
                                 $attachments[$key] = $value;
                             }
                         }
