@@ -1,7 +1,6 @@
 
 .DS_Store
 .idea/*
-
 Idno/.idea/.name
 
 *.iml
@@ -11,6 +10,7 @@ Idno/.idea/.name
 /nbproject/private/
 /.htaccess
 /doc/output/
+/Uploads
 
 /.DS_Store
 /*/.DS_Store
