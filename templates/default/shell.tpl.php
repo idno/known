@@ -100,9 +100,7 @@
     <link
         href="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/css/bootstrap-responsive.css"
         rel="stylesheet">
-    <link href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>css/default.css" rel="stylesheet">
-
-    
+    <link href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>css/default.css?20150123" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
