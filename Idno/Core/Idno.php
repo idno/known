@@ -245,7 +245,7 @@
             {
                 $event = new Event($data);
                 $event->setResponse($default);
-                $this->events()->dispatch($eventName, $event);
+                $event = $this->events()->dispatch($eventName, $event);
                 if (!$event->forward()) {
                     return $event->response();
                 } else {
