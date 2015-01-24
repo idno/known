@@ -346,8 +346,8 @@
              */
             function multipleSyndicationAccounts()
             {
-                if (!empty($this->multi_syndication)) {
-                    return true;
+                if (isset($this->multi_syndication)) {
+                    return $this->multi_syndication;
                 }
 
                 return false;
