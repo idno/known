@@ -1156,7 +1156,6 @@ p.feedback {
 select, input[type="file"] {
     height: 40px;
     line-height: 34px;
-	font-style: italic;
 	padding-left: 10px;
 }
 
