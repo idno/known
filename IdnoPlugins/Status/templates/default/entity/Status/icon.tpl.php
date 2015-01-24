@@ -1,1 +1,1 @@
-<i class="icon-comment-alt"></i>
+<i class="icon-comment-empty"></i>

@@ -1,1 +1,1 @@
-<i class="icon-share"></i>
+<i class="icon-export"></i>

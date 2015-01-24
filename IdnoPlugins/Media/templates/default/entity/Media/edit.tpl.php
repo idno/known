@@ -26,7 +26,7 @@
                 ?>
                 <label>
                     <span class="btn btn-primary btn-file">
-                        <i class="icon-play-circle"></i> <span id="media-filename">Upload media</span> <input type="file" name="media" id="media" class="span9" accept="audio/*;video/*;capture=audio" onchange="$('#media-filename').html($(this).val())" />
+                        <i class="icon-play-circled"></i> <span id="media-filename">Upload media</span> <input type="file" name="media" id="media" class="span9" accept="audio/*;video/*;capture=audio" onchange="$('#media-filename').html($(this).val())" />
                     </span>
                 </label>
                 <?php

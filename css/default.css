@@ -1466,12 +1466,16 @@ tr.items {
 }
 
 .toggle-off.btn {
-	padding-top: 6px;
+    padding-left: 0px;
 }
 
-.toggle-on.btn {
+/*.toggle-off.btn {
 	padding-top: 6px;
-}
+}*/
+
+/*.toggle-on.btn {
+	padding-top: 6px;
+}*/
 
 
 /* Config Toggles */
@@ -1587,6 +1591,24 @@ tr.items {
     background-color: #4c93cb;
     background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
     background-size: 40px 40px;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	width: 1.5em;
+	background-image:none;
+}
+
+/* Updates for WYSIWYG */
+
+.btn-group > .btn:first-child {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    margin-left: 0;
+}
+
+.btn-group > .btn:last-child, .btn-group > .dropdown-toggle {
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
 }
 
 

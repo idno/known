@@ -1,1 +1,1 @@
-<i class="icon-microphone"></i>
+<i class="icon-mic"></i>

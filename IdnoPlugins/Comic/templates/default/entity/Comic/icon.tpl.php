@@ -1,1 +1,1 @@
-<i class="icon-qrcode"></i>
+<i class="icon-comic"></i>

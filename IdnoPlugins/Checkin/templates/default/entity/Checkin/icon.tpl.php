@@ -1,1 +1,1 @@
-<i class="icon-map-marker"></i>
+<i class="icon-location"></i>

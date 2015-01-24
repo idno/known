@@ -89,7 +89,9 @@
     <link href="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/css/bootstrap.css"
           rel="stylesheet">
     <link rel="stylesheet"
-          href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/font-awesome/css/font-awesome.min.css">
+          href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/fontello/css/known-fontello.css">
+    <!--<link rel="stylesheet"
+          href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/font-awesome/css/font-awesome.min.css">-->
     <style>
         body {
             padding-top: 100px; /* 60px to make the container go all the way to the bottom of the topbar */
