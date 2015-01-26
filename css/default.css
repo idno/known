@@ -1456,11 +1456,11 @@ tr.items {
 }
 
 .syndication-toggle .checkbox {
-    width: 400px !important;
+    /*width: 400px !important;*/
 }
 
 .toggle {
-    width: 12em !important;
+    min-width: 8em !important;
     margin-bottom: 5px;
 }
 

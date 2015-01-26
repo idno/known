@@ -16,10 +16,6 @@
         $human_icon = htmlspecialchars($human_icon);
 
         ?>
-        <!--<span class="syndication_<?=$vars['service']?>_<?=$identifier?>">
-            <input type="checkbox" name="syndication[]" id="syndication_<?=$vars['service']?>_<?=$identifier?>_toggle" value="<?=$vars['service']?>::<?=htmlentities($vars['username'])?>">
-            <label for="syndication_<?=$vars['service']?>_<?=$identifier?>_toggle"><?=$vars['name'];?></label>
-        </span>-->
         <span class="syndication-toggle">
             <input type="checkbox" class="checkbox" name="syndication[]" id="syndication_<?=$vars['service']?>_<?=$identifier?>_toggle" value="<?=$vars['service']?>::<?=htmlentities($vars['username'])?>" data-toggle="toggle" data-onstyle="info" data-on="<?=$human_icon;?>&nbsp;<?=$human_name;?>" data-off="<?=$human_icon;?>&nbsp;<?=$human_name;?>">
         </span>
