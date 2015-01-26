@@ -1,5 +1,8 @@
 <?php
     $user = \Idno\Core\site()->session()->currentUser();
+    if (empty($user->notifications[email])) {
+        $user->notifications[email] = 'none';
+    }
 ?>
 <div class="row">
 
