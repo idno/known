@@ -388,8 +388,9 @@
             {
                 if ($this->isLoggedIn()) {
                     $user_uuid = $this->currentUserUUID();
-                    $user = User::getByUUID($user_uuid);
-                    $this->refreshSessionUser($user);
+                    if ($user = User::getByUUID($user_uuid)) {
+                        $this->refreshSessionUser($user);
+                    }
                 }
             }
 
