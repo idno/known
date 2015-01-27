@@ -1,12 +1,12 @@
 /**
- * Super simple wysiwyg editor on Bootstrap v0.5.3
+ * Super simple wysiwyg editor on Bootstrap v0.6.0
  * http://hackerwins.github.io/summernote/
  *
  * summernote.js
- * Copyright 2013 Alan Hong. and outher contributors
+ * Copyright 2013-2014 Alan Hong. and other contributors
  * summernote may be freely distributed under the MIT license./
  *
- * Date: 2014-07-25T03:05Z
+ * Date: 2014-11-29T05:20Z
  */
 (function (factory) {
   /* global define */
@@ -50,6 +50,33 @@
     };
   }
 
+  if ('function' !== typeof Array.prototype.filter) {
+    Array.prototype.filter = function (fun/*, thisArg*/) {
+      if (this === void 0 || this === null) {
+        throw new TypeError();
+      }
+  
+      var t = Object(this);
+      var len = t.length >>> 0;
+      if (typeof fun !== 'function') {
+        throw new TypeError();
+      }
+  
+      var res = [];
+      var thisArg = arguments.length >= 2 ? arguments[1] : void 0;
+      for (var i = 0; i < len; i++) {
+        if (i in t) {
+          var val = t[i];
+          if (fun.call(thisArg, val, i, t)) {
+            res.push(val);
+          }
+        }
+      }
+  
+      return res;
+    };
+  }
+
   var isSupportAmd = typeof define === 'function' && define.amd;
 
   /**
@@ -84,21 +111,28 @@
     jqueryVersion: parseFloat($.fn.jquery),
     isSupportAmd: isSupportAmd,
     hasCodeMirror: isSupportAmd ? require.specified('CodeMirror') : !!window.CodeMirror,
-    isFontInstalled: isFontInstalled
+    isFontInstalled: isFontInstalled,
+    isW3CRangeSupport: !!document.createRange
   };
 
   /**
    * func utils (for high-order func's arg)
    */
   var func = (function () {
-    var eq = function (elA) {
-      return function (elB) {
-        return elA === elB;
+    var eq = function (itemA) {
+      return function (itemB) {
+        return itemA === itemB;
       };
     };
 
-    var eq2 = function (elA, elB) {
-      return elA === elB;
+    var eq2 = function (itemA, itemB) {
+      return itemA === itemB;
+    };
+
+    var peq2 = function (propName) {
+      return function (itemA, itemB) {
+        return itemA[propName] === itemB[propName];
+      };
     };
 
     var ok = function () {
@@ -112,6 +146,12 @@
     var not = function (f) {
       return function () {
         return !f.apply(f, arguments);
+      };
+    };
+
+    var and = function (fA, fB) {
+      return function (item) {
+        return fA(item) && fB(item);
       };
     };
 
@@ -172,10 +212,12 @@
     return {
       eq: eq,
       eq2: eq2,
+      peq2: peq2,
       ok: ok,
       fail: fail,
-      not: not,
       self: self,
+      not: not,
+      and: and,
       uniqueId: uniqueId,
       rect2bnd: rect2bnd,
       invertObject: invertObject
@@ -187,7 +229,8 @@
    */
   var list = (function () {
     /**
-     * returns the first element of an array.
+     * returns the first item of an array.
+     *
      * @param {Array} array
      */
     var head = function (array) {
@@ -195,7 +238,8 @@
     };
 
     /**
-     * returns the last element of an array.
+     * returns the last item of an array.
+     *
      * @param {Array} array
      */
     var last = function (array) {
@@ -204,6 +248,7 @@
 
     /**
      * returns everything but the last entry of the array.
+     *
      * @param {Array} array
      */
     var initial = function (array) {
@@ -211,7 +256,8 @@
     };
 
     /**
-     * returns the rest of the elements in an array.
+     * returns the rest of the items in an array.
+     *
      * @param {Array} array
      */
     var tail = function (array) {
@@ -219,29 +265,39 @@
     };
 
     /**
-     * returns next item.
-     * @param {Array} array
+     * returns item of array
      */
-    var next = function (array, item) {
-      var idx = array.indexOf(item);
-      if (idx === -1) { return null; }
-
-      return array[idx + 1];
+    var find = function (array, pred) {
+      for (var idx = 0, len = array.length; idx < len; idx ++) {
+        var item = array[idx];
+        if (pred(item)) {
+          return item;
+        }
+      }
     };
 
     /**
-     * returns prev item.
-     * @param {Array} array
+     * returns true if all of the values in the array pass the predicate truth test.
      */
-    var prev = function (array, item) {
-      var idx = array.indexOf(item);
-      if (idx === -1) { return null; }
-
-      return array[idx - 1];
+    var all = function (array, pred) {
+      for (var idx = 0, len = array.length; idx < len; idx ++) {
+        if (!pred(array[idx])) {
+          return false;
+        }
+      }
+      return true;
     };
-  
+
+    /**
+     * returns true if the value is present in the list.
+     */
+    var contains = function (array, item) {
+      return $.inArray(item, array) !== -1;
+    };
+
     /**
      * get sum from a list
+     *
      * @param {Array} array - array
      * @param {Function} fn - iterator
      */
@@ -266,6 +322,7 @@
   
     /**
      * cluster elements by predicate function.
+     *
      * @param {Array} array - array
      * @param {Function} fn - predicate function for cluster rule
      * @param {Array[]}
@@ -286,21 +343,67 @@
   
     /**
      * returns a copy of the array with all falsy values removed
+     *
      * @param {Array} array - array
      * @param {Function} fn - predicate function for cluster rule
      */
     var compact = function (array) {
       var aResult = [];
-      for (var idx = 0, sz = array.length; idx < sz; idx ++) {
+      for (var idx = 0, len = array.length; idx < len; idx ++) {
         if (array[idx]) { aResult.push(array[idx]); }
       }
       return aResult;
     };
+
+    /**
+     * produces a duplicate-free version of the array
+     *
+     * @param {Array} array
+     */
+    var unique = function (array) {
+      var results = [];
+
+      for (var idx = 0, len = array.length; idx < len; idx ++) {
+        if (!contains(results, array[idx])) {
+          results.push(array[idx]);
+        }
+      }
+
+      return results;
+    };
+
+    /**
+     * returns next item.
+     * @param {Array} array
+     */
+    var next = function (array, item) {
+      var idx = array.indexOf(item);
+      if (idx === -1) { return null; }
+
+      return array[idx + 1];
+    };
+
+    /**
+     * returns prev item.
+     * @param {Array} array
+     */
+    var prev = function (array, item) {
+      var idx = array.indexOf(item);
+      if (idx === -1) { return null; }
+
+      return array[idx - 1];
+    };
+
   
     return { head: head, last: last, initial: initial, tail: tail,
-             prev: prev, next: next, sum: sum, from: from,
-             compact: compact, clusterBy: clusterBy };
+             prev: prev, next: next, find: find, contains: contains,
+             all: all, sum: sum, from: from,
+             clusterBy: clusterBy, compact: compact, unique: unique };
   })();
+
+
+  var NBSP_CHAR = String.fromCharCode(160);
+  var ZERO_WIDTH_NBSP_CHAR = '\ufeff';
 
   /**
    * Dom functions
@@ -309,13 +412,19 @@
     /**
      * returns whether node is `note-editable` or not.
      *
-     * @param {Element} node
+     * @param {Node} node
      * @return {Boolean}
      */
     var isEditable = function (node) {
       return node && $(node).hasClass('note-editable');
     };
-  
+
+    /**
+     * returns whether node is `note-control-sizing` or not.
+     *
+     * @param {Node} node
+     * @return {Boolean}
+     */
     var isControlSizing = function (node) {
       return node && $(node).hasClass('note-control-sizing');
     };
@@ -344,7 +453,7 @@
           dialog: makeFinder('#note-dialog-')
         };
 
-      // frame mode
+        // frame mode
       } else {
         makeFinder = function (sClassName) {
           return function () { return $editor.find(sClassName); };
@@ -365,32 +474,124 @@
 
     /**
      * returns predicate which judge whether nodeName is same
-     * @param {String} sNodeName
+     *
+     * @param {String} nodeName
+     * @return {String}
      */
-    var makePredByNodeName = function (sNodeName) {
-      // nodeName is always uppercase.
+    var makePredByNodeName = function (nodeName) {
+      nodeName = nodeName.toUpperCase();
       return function (node) {
-        return node && node.nodeName === sNodeName;
+        return node && node.nodeName.toUpperCase() === nodeName;
       };
     };
-  
-    var isPara = function (node) {
-      // Chrome(v31.0), FF(v25.0.1) use DIV for paragraph
-      return node && /^DIV|^P|^LI|^H[1-7]/.test(node.nodeName);
+
+    var isText = function (node) {
+      return node && node.nodeType === 3;
     };
-  
+
+    /**
+     * ex) br, col, embed, hr, img, input, ...
+     * @see http://www.w3.org/html/wg/drafts/html/master/syntax.html#void-elements
+     */
+    var isVoid = function (node) {
+      return node && /^BR|^IMG|^HR/.test(node.nodeName.toUpperCase());
+    };
+
+    var isPara = function (node) {
+      if (isEditable(node)) {
+        return false;
+      }
+
+      // Chrome(v31.0), FF(v25.0.1) use DIV for paragraph
+      return node && /^DIV|^P|^LI|^H[1-7]/.test(node.nodeName.toUpperCase());
+    };
+
+    var isLi = makePredByNodeName('LI');
+
+    var isPurePara = function (node) {
+      return isPara(node) && !isLi(node);
+    };
+
+    var isInline = function (node) {
+      return !isBodyContainer(node) && !isList(node) && !isPara(node);
+    };
+
     var isList = function (node) {
-      return node && /^UL|^OL/.test(node.nodeName);
+      return node && /^UL|^OL/.test(node.nodeName.toUpperCase());
     };
 
     var isCell = function (node) {
-      return node && /^TD|^TH/.test(node.nodeName);
+      return node && /^TD|^TH/.test(node.nodeName.toUpperCase());
     };
-  
+
+    var isBlockquote = makePredByNodeName('BLOCKQUOTE');
+
+    var isBodyContainer = function (node) {
+      return isCell(node) || isBlockquote(node) || isEditable(node);
+    };
+
+    var isAnchor = makePredByNodeName('A');
+
+    var isParaInline = function (node) {
+      return isInline(node) && !!ancestor(node, isPara);
+    };
+
+    var isBodyInline = function (node) {
+      return isInline(node) && !ancestor(node, isPara);
+    };
+
+    var isBody = makePredByNodeName('BODY');
+
+    /**
+     * blank HTML for cursor position
+     */
+    var blankHTML = agent.isMSIE ? '&nbsp;' : '<br>';
+
+    /**
+     * returns #text's text size or element's childNodes size
+     *
+     * @param {Node} node
+     */
+    var nodeLength = function (node) {
+      if (isText(node)) {
+        return node.nodeValue.length;
+      }
+
+      return node.childNodes.length;
+    };
+
+    /**
+     * returns whether node is empty or not.
+     *
+     * @param {Node} node
+     * @return {Boolean}
+     */
+    var isEmpty = function (node) {
+      var len = nodeLength(node);
+
+      if (len === 0) {
+        return true;
+      } else if (!dom.isText(node) && len === 1 && node.innerHTML === blankHTML) {
+        // ex) <p><br></p>, <span><br></span>
+        return true;
+      }
+
+      return false;
+    };
+
+    /**
+     * padding blankHTML if node is empty (for cursor position)
+     */
+    var paddingBlankHTML = function (node) {
+      if (!isVoid(node) && !nodeLength(node)) {
+        node.innerHTML = blankHTML;
+      }
+    };
+
     /**
      * find nearest ancestor predicate hit
      *
-     * @param {Element} node
+     * @param {Node} node
      * @param {Function} pred - predicate function
      */
     var ancestor = function (node, pred) {
@@ -402,128 +603,130 @@
       }
       return null;
     };
-  
+
     /**
      * returns new array of ancestor nodes (until predicate hit).
      *
-     * @param {Element} node
+     * @param {Node} node
      * @param {Function} [optional] pred - predicate function
      */
     var listAncestor = function (node, pred) {
       pred = pred || func.fail;
-  
-      var aAncestor = [];
+
+      var ancestors = [];
       ancestor(node, function (el) {
-        aAncestor.push(el);
+        if (!isEditable(el)) {
+          ancestors.push(el);
+        }
+
         return pred(el);
       });
-      return aAncestor;
+      return ancestors;
     };
-  
+
+    /**
+     * find farthest ancestor predicate hit
+     */
+    var lastAncestor = function (node, pred) {
+      var ancestors = listAncestor(node);
+      return list.last(ancestors.filter(pred));
+    };
+
     /**
      * returns common ancestor node between two nodes.
      *
-     * @param {Element} nodeA
-     * @param {Element} nodeB
+     * @param {Node} nodeA
+     * @param {Node} nodeB
      */
     var commonAncestor = function (nodeA, nodeB) {
-      var aAncestor = listAncestor(nodeA);
+      var ancestors = listAncestor(nodeA);
       for (var n = nodeB; n; n = n.parentNode) {
-        if ($.inArray(n, aAncestor) > -1) { return n; }
+        if ($.inArray(n, ancestors) > -1) { return n; }
       }
       return null; // difference document area
     };
-  
-    /**
-     * listing all Nodes between two nodes.
-     * FIXME: nodeA and nodeB must be sorted, use comparePoints later.
-     *
-     * @param {Element} nodeA
-     * @param {Element} nodeB
-     */
-    var listBetween = function (nodeA, nodeB) {
-      var aNode = [];
-  
-      var isStart = false, isEnd = false;
 
-      // DFS(depth first search) with commonAcestor.
-      (function fnWalk(node) {
-        if (!node) { return; } // traverse fisnish
-        if (node === nodeA) { isStart = true; } // start point
-        if (isStart && !isEnd) { aNode.push(node); } // between
-        if (node === nodeB) { isEnd = true; return; } // end point
-
-        for (var idx = 0, sz = node.childNodes.length; idx < sz; idx++) {
-          fnWalk(node.childNodes[idx]);
-        }
-      })(commonAncestor(nodeA, nodeB));
-  
-      return aNode;
-    };
-  
     /**
      * listing all previous siblings (until predicate hit).
-     * @param {Element} node
+     *
+     * @param {Node} node
      * @param {Function} [optional] pred - predicate function
      */
     var listPrev = function (node, pred) {
       pred = pred || func.fail;
-  
-      var aNext = [];
+
+      var nodes = [];
       while (node) {
-        aNext.push(node);
         if (pred(node)) { break; }
+        nodes.push(node);
         node = node.previousSibling;
       }
-      return aNext;
+      return nodes;
     };
-  
+
     /**
      * listing next siblings (until predicate hit).
      *
-     * @param {Element} node
+     * @param {Node} node
      * @param {Function} [pred] - predicate function
      */
     var listNext = function (node, pred) {
       pred = pred || func.fail;
-  
-      var aNext = [];
+
+      var nodes = [];
       while (node) {
-        aNext.push(node);
         if (pred(node)) { break; }
+        nodes.push(node);
         node = node.nextSibling;
       }
-      return aNext;
+      return nodes;
     };
 
     /**
      * listing descendant nodes
      *
-     * @param {Element} node
+     * @param {Node} node
      * @param {Function} [pred] - predicate function
      */
     var listDescendant = function (node, pred) {
-      var aDescendant = [];
+      var descendents = [];
       pred = pred || func.ok;
 
       // start DFS(depth first search) with node
       (function fnWalk(current) {
         if (node !== current && pred(current)) {
-          aDescendant.push(current);
+          descendents.push(current);
         }
-        for (var idx = 0, sz = current.childNodes.length; idx < sz; idx++) {
+        for (var idx = 0, len = current.childNodes.length; idx < len; idx++) {
           fnWalk(current.childNodes[idx]);
         }
       })(node);
 
-      return aDescendant;
+      return descendents;
     };
-  
+
+    /**
+     * wrap node with new tag.
+     *
+     * @param {Node} node
+     * @param {Node} tagName of wrapper
+     * @return {Node} - wrapper
+     */
+    var wrap = function (node, wrapperName) {
+      var parent = node.parentNode;
+      var wrapper = $('<' + wrapperName + '>')[0];
+
+      parent.insertBefore(wrapper, node);
+      wrapper.appendChild(node);
+
+      return wrapper;
+    };
+
     /**
      * insert node after preceding
      *
-     * @param {Element} node
-     * @param {Element} preceding - predicate function
+     * @param {Node} node
+     * @param {Node} preceding - predicate function
      */
     var insertAfter = function (node, preceding) {
       var next = preceding.nextSibling, parent = preceding.parentNode;
@@ -534,219 +737,1151 @@
       }
       return node;
     };
-  
+
     /**
      * append elements.
      *
-     * @param {Element} node
+     * @param {Node} node
      * @param {Collection} aChild
      */
-    var appends = function (node, aChild) {
+    var appendChildNodes = function (node, aChild) {
       $.each(aChild, function (idx, child) {
         node.appendChild(child);
       });
       return node;
     };
-  
-    var isText = makePredByNodeName('#text');
-  
+
     /**
-     * returns #text's text size or element's childNodes size
+     * returns whether boundaryPoint is left edge or not.
      *
-     * @param {Element} node
+     * @param {BoundaryPoint} point
+     * @return {Boolean}
      */
-    var length = function (node) {
-      if (isText(node)) { return node.nodeValue.length; }
-      return node.childNodes.length;
+    var isLeftEdgePoint = function (point) {
+      return point.offset === 0;
+    };
+
+    /**
+     * returns whether boundaryPoint is right edge or not.
+     *
+     * @param {BoundaryPoint} point
+     * @return {Boolean}
+     */
+    var isRightEdgePoint = function (point) {
+      return point.offset === nodeLength(point.node);
     };
 
     /**
      * returns whether boundaryPoint is edge or not.
      *
-     * @param {BoundaryPoint} boundaryPoitn
+     * @param {BoundaryPoint} point
      * @return {Boolean}
      */
-    var isEdgeBP = function (boundaryPoint) {
-      return boundaryPoint.offset === 0 ||
-             boundaryPoint.offset === length(boundaryPoint.node);
+    var isEdgePoint = function (point) {
+      return isLeftEdgePoint(point) || isRightEdgePoint(point);
+    };
+
+    /**
+     * returns wheter node is left edge of ancestor or not.
+     *
+     * @param {Node} node
+     * @param {Node} ancestor
+     * @return {Boolean}
+     */
+    var isLeftEdgeOf = function (node, ancestor) {
+      while (node && node !== ancestor) {
+        if (position(node) !== 0) {
+          return false;
+        }
+        node = node.parentNode;
+      }
+
+      return true;
+    };
+
+    /**
+     * returns whether node is right edge of ancestor or not.
+     *
+     * @param {Node} node
+     * @param {Node} ancestor
+     * @return {Boolean}
+     */
+    var isRightEdgeOf = function (node, ancestor) {
+      while (node && node !== ancestor) {
+        if (position(node) !== nodeLength(node.parentNode) - 1) {
+          return false;
+        }
+        node = node.parentNode;
+      }
+
+      return true;
     };
 
     /**
      * returns offset from parent.
      *
-     * @param {Element} node
+     * @param {Node} node
      */
     var position = function (node) {
       var offset = 0;
-      while ((node = node.previousSibling)) { offset += 1; }
+      while ((node = node.previousSibling)) {
+        offset += 1;
+      }
       return offset;
     };
 
     var hasChildren = function (node) {
-      return node && node.childNodes && node.childNodes.length;
+      return !!(node && node.childNodes && node.childNodes.length);
     };
 
     /**
      * returns previous boundaryPoint
      *
-     * @param {BoundaryPoint} boundaryPoitn
+     * @param {BoundaryPoint} point
+     * @param {Boolean} isSkipInnerOffset
      * @return {BoundaryPoint}
      */
-    var prevBP = function (boundaryPoint) {
-      var node = boundaryPoint.node,
-          offset = boundaryPoint.offset;
+    var prevPoint = function (point, isSkipInnerOffset) {
+      var node, offset;
 
-      if (offset === 0) {
-        if (isEditable(node)) { return null; }
-        return {node: node.parentNode, offset: position(node)};
-      } else {
-        if (hasChildren(node)) {
-          var child = node.childNodes[offset - 1];
-          return {node: child, offset: length(child)};
-        } else {
-          return {node: node, offset: offset - 1};
+      if (point.offset === 0) {
+        if (isEditable(point.node)) {
+          return null;
         }
+
+        node = point.node.parentNode;
+        offset = position(point.node);
+      } else if (hasChildren(point.node)) {
+        node = point.node.childNodes[point.offset - 1];
+        offset = nodeLength(node);
+      } else {
+        node = point.node;
+        offset = isSkipInnerOffset ? 0 : point.offset - 1;
+      }
+
+      return {
+        node: node,
+        offset: offset
+      };
+    };
+
+    /**
+     * returns next boundaryPoint
+     *
+     * @param {BoundaryPoint} point
+     * @param {Boolean} isSkipInnerOffset
+     * @return {BoundaryPoint}
+     */
+    var nextPoint = function (point, isSkipInnerOffset) {
+      var node, offset;
+
+      if (nodeLength(point.node) === point.offset) {
+        if (isEditable(point.node)) {
+          return null;
+        }
+
+        node = point.node.parentNode;
+        offset = position(point.node) + 1;
+      } else if (hasChildren(point.node)) {
+        node = point.node.childNodes[point.offset];
+        offset = 0;
+      } else {
+        node = point.node;
+        offset = isSkipInnerOffset ? nodeLength(point.node) : point.offset + 1;
+      }
+
+      return {
+        node: node,
+        offset: offset
+      };
+    };
+
+    /**
+     * returns whether pointA and pointB is same or not.
+     *
+     * @param {BoundaryPoint} pointA
+     * @param {BoundaryPoint} pointB
+     * @return {Boolean}
+     */
+    var isSamePoint = function (pointA, pointB) {
+      return pointA.node === pointB.node && pointA.offset === pointB.offset;
+    };
+
+    /**
+     * returns whether point is visible (can set cursor) or not.
+     * 
+     * @param {BoundaryPoint} point
+     * @return {Boolean}
+     */
+    var isVisiblePoint = function (point) {
+      if (isText(point.node) || !hasChildren(point.node) || isEmpty(point.node)) {
+        return true;
+      }
+
+      var leftNode = point.node.childNodes[point.offset - 1];
+      var rightNode = point.node.childNodes[point.offset];
+      if ((!leftNode || isVoid(leftNode)) && (!rightNode || isVoid(rightNode))) {
+        return true;
+      }
+
+      return false;
+    };
+
+    /**
+     * @param {BoundaryPoint} point
+     * @param {Function} pred
+     * @return {BoundaryPoint}
+     */
+    var prevPointUntil = function (point, pred) {
+      while (point) {
+        if (pred(point)) {
+          return point;
+        }
+
+        point = prevPoint(point);
+      }
+
+      return null;
+    };
+
+    /**
+     * @param {BoundaryPoint} point
+     * @param {Function} pred
+     * @return {BoundaryPoint}
+     */
+    var nextPointUntil = function (point, pred) {
+      while (point) {
+        if (pred(point)) {
+          return point;
+        }
+
+        point = nextPoint(point);
+      }
+
+      return null;
+    };
+
+    /**
+     * @param {BoundaryPoint} startPoint
+     * @param {BoundaryPoint} endPoint
+     * @param {Function} handler
+     * @param {Boolean} isSkipInnerOffset
+     */
+    var walkPoint = function (startPoint, endPoint, handler, isSkipInnerOffset) {
+      var point = startPoint;
+
+      while (point) {
+        handler(point);
+
+        if (isSamePoint(point, endPoint)) {
+          break;
+        }
+
+        var isSkipOffset = isSkipInnerOffset &&
+                           startPoint.node !== point.node &&
+                           endPoint.node !== point.node;
+        point = nextPoint(point, isSkipOffset);
       }
     };
-  
+
     /**
      * return offsetPath(array of offset) from ancestor
      *
-     * @param {Element} ancestor - ancestor node
-     * @param {Element} node
+     * @param {Node} ancestor - ancestor node
+     * @param {Node} node
      */
     var makeOffsetPath = function (ancestor, node) {
-      var aAncestor = list.initial(listAncestor(node, func.eq(ancestor)));
-      return $.map(aAncestor, position).reverse();
+      var ancestors = listAncestor(node, func.eq(ancestor));
+      return $.map(ancestors, position).reverse();
     };
-  
+
     /**
      * return element from offsetPath(array of offset)
      *
-     * @param {Element} ancestor - ancestor node
+     * @param {Node} ancestor - ancestor node
      * @param {array} aOffset - offsetPath
      */
     var fromOffsetPath = function (ancestor, aOffset) {
       var current = ancestor;
-      for (var i = 0, sz = aOffset.length; i < sz; i++) {
-        current = current.childNodes[aOffset[i]];
+      for (var i = 0, len = aOffset.length; i < len; i++) {
+        if (current.childNodes.length <= aOffset[i]) {
+          current = current.childNodes[current.childNodes.length - 1];
+        } else {
+          current = current.childNodes[aOffset[i]];
+        }
       }
       return current;
     };
-  
+
     /**
      * split element or #text
      *
-     * @param {Element} node
-     * @param {Number} offset
+     * @param {BoundaryPoint} point
+     * @param {Boolean} [isSkipPaddingBlankHTML]
+     * @return {Node} right node of boundaryPoint
      */
-    var split = function (node, offset) {
-      if (offset === 0) { return node; }
-      if (offset >= length(node)) { return node.nextSibling; }
-  
-      // splitText
-      if (isText(node)) { return node.splitText(offset); }
-  
-      // splitElement
-      var child = node.childNodes[offset];
-      node = insertAfter(node.cloneNode(false), node);
-      return appends(node, listNext(child));
-    };
-  
-    /**
-     * split dom tree by boundaryPoint(pivot and offset)
-     *
-     * @param {Element} root
-     * @param {Element} pivot - this will be boundaryPoint's node
-     * @param {Number} offset - this will be boundaryPoint's offset
-     */
-    var splitTree = function (root, pivot, offset) {
-      var aAncestor = listAncestor(pivot, func.eq(root));
-      if (aAncestor.length === 1) { return split(pivot, offset); }
-      return aAncestor.reduce(function (node, parent) {
-        var clone = parent.cloneNode(false);
-        insertAfter(clone, parent);
-        if (node === pivot) {
-          node = split(node, offset);
+    var splitNode = function (point, isSkipPaddingBlankHTML) {
+      // split #text
+      if (isText(point.node)) {
+        // edge case
+        if (isLeftEdgePoint(point)) {
+          return point.node;
+        } else if (isRightEdgePoint(point)) {
+          return point.node.nextSibling;
         }
-        appends(clone, listNext(node));
+
+        return point.node.splitText(point.offset);
+      }
+
+      // split element
+      var childNode = point.node.childNodes[point.offset];
+      var clone = insertAfter(point.node.cloneNode(false), point.node);
+      appendChildNodes(clone, listNext(childNode));
+
+      if (!isSkipPaddingBlankHTML) {
+        paddingBlankHTML(point.node);
+        paddingBlankHTML(clone);
+      }
+
+      return clone;
+    };
+
+    /**
+     * split tree by point
+     *
+     * @param {Node} root - split root
+     * @param {BoundaryPoint} point
+     * @param {Boolean} [isSkipPaddingBlankHTML]
+     * @return {Node} right node of boundaryPoint
+     */
+    var splitTree = function (root, point, isSkipPaddingBlankHTML) {
+      // ex) [#text, <span>, <p>]
+      var ancestors = listAncestor(point.node, func.eq(root));
+
+      if (!ancestors.length) {
+        return null;
+      } else if (ancestors.length === 1) {
+        return splitNode(point, isSkipPaddingBlankHTML);
+      }
+
+      return ancestors.reduce(function (node, parent) {
+        var clone = insertAfter(parent.cloneNode(false), parent);
+
+        if (node === point.node) {
+          node = splitNode(point, isSkipPaddingBlankHTML);
+        }
+
+        appendChildNodes(clone, listNext(node));
+
+        if (!isSkipPaddingBlankHTML) {
+          paddingBlankHTML(parent);
+          paddingBlankHTML(clone);
+        }
         return clone;
       });
     };
 
+    var create = function (nodeName) {
+      return document.createElement(nodeName);
+    };
+
+    var createText = function (text) {
+      return document.createTextNode(text);
+    };
+
     /**
-     * remove node, (bRemoveChild: remove child or not)
-     * @param {Element} node
-     * @param {Boolean} bRemoveChild
+     * remove node, (isRemoveChild: remove child or not)
+     * @param {Node} node
+     * @param {Boolean} isRemoveChild
      */
-    var remove = function (node, bRemoveChild) {
+    var remove = function (node, isRemoveChild) {
       if (!node || !node.parentNode) { return; }
-      if (node.removeNode) { return node.removeNode(bRemoveChild); }
-  
-      var elParent = node.parentNode;
-      if (!bRemoveChild) {
-        var aNode = [];
-        var i, sz;
-        for (i = 0, sz = node.childNodes.length; i < sz; i++) {
-          aNode.push(node.childNodes[i]);
+      if (node.removeNode) { return node.removeNode(isRemoveChild); }
+
+      var parent = node.parentNode;
+      if (!isRemoveChild) {
+        var nodes = [];
+        var i, len;
+        for (i = 0, len = node.childNodes.length; i < len; i++) {
+          nodes.push(node.childNodes[i]);
         }
-  
-        for (i = 0, sz = aNode.length; i < sz; i++) {
-          elParent.insertBefore(aNode[i], node);
+
+        for (i = 0, len = nodes.length; i < len; i++) {
+          parent.insertBefore(nodes[i], node);
         }
       }
-  
-      elParent.removeChild(node);
+
+      parent.removeChild(node);
     };
-  
-    var html = function ($node) {
-      return dom.isTextarea($node[0]) ? $node.val() : $node.html();
+
+    /**
+     * @param {Node} node
+     * @param {Function} pred
+     */
+    var removeWhile = function (node, pred) {
+      while (node) {
+        if (isEditable(node) || !pred(node)) {
+          break;
+        }
+
+        var parent = node.parentNode;
+        remove(node);
+        node = parent;
+      }
     };
-  
+
+    /**
+     * replace node with provided nodeName
+     *
+     * @param {Node} node
+     * @param {String} nodeName
+     * @return {Node} - new node
+     */
+    var replace = function (node, nodeName) {
+      if (node.nodeName.toUpperCase() === nodeName.toUpperCase()) {
+        return node;
+      }
+
+      var newNode = create(nodeName);
+
+      if (node.style.cssText) {
+        newNode.style.cssText = node.style.cssText;
+      }
+
+      appendChildNodes(newNode, list.from(node.childNodes));
+      insertAfter(newNode, node);
+      remove(node);
+
+      return newNode;
+    };
+
+    var isTextarea = makePredByNodeName('TEXTAREA');
+
+    /**
+     * get the HTML contents of node 
+     *
+     * @param {jQuery} $node
+     * @param {Boolean} [isNewlineOnBlock]
+     */
+    var html = function ($node, isNewlineOnBlock) {
+      var markup = isTextarea($node[0]) ? $node.val() : $node.html();
+
+      if (isNewlineOnBlock) {
+        var regexTag = /<(\/?)(\b(?!!)[^>\s]*)(.*?)(\s*\/?>)/g;
+        markup = markup.replace(regexTag, function (match, endSlash, name) {
+          name = name.toUpperCase();
+          var isEndOfInlineContainer = /^DIV|^TD|^TH|^P|^LI|^H[1-7]/.test(name) &&
+                                       !!endSlash;
+          var isBlockNode = /^BLOCKQUOTE|^TABLE|^TBODY|^TR|^HR|^UL|^OL/.test(name);
+
+          return match + ((isEndOfInlineContainer || isBlockNode) ? '\n' : '');
+        });
+        markup = $.trim(markup);
+      }
+
+      return markup;
+    };
+
+    var value = function ($textarea) {
+      var val = $textarea.val();
+      // strip line breaks
+      return val.replace(/[\n\r]/g, '');
+    };
+
     return {
-      blank: agent.isMSIE ? '&nbsp;' : '<br/>',
-      emptyPara: '<p><br/></p>',
+      NBSP_CHAR: NBSP_CHAR,
+      ZERO_WIDTH_NBSP_CHAR: ZERO_WIDTH_NBSP_CHAR,
+      blank: blankHTML,
+      emptyPara: '<p>' + blankHTML + '</p>',
       isEditable: isEditable,
       isControlSizing: isControlSizing,
       buildLayoutInfo: buildLayoutInfo,
       isText: isText,
       isPara: isPara,
+      isPurePara: isPurePara,
+      isInline: isInline,
+      isBodyInline: isBodyInline,
+      isBody: isBody,
+      isParaInline: isParaInline,
       isList: isList,
       isTable: makePredByNodeName('TABLE'),
       isCell: isCell,
-      isAnchor: makePredByNodeName('A'),
+      isBlockquote: isBlockquote,
+      isBodyContainer: isBodyContainer,
+      isAnchor: isAnchor,
       isDiv: makePredByNodeName('DIV'),
-      isLi: makePredByNodeName('LI'),
+      isLi: isLi,
       isSpan: makePredByNodeName('SPAN'),
       isB: makePredByNodeName('B'),
       isU: makePredByNodeName('U'),
       isS: makePredByNodeName('S'),
       isI: makePredByNodeName('I'),
       isImg: makePredByNodeName('IMG'),
-      isTextarea: makePredByNodeName('TEXTAREA'),
-      length: length,
-      isEdgeBP: isEdgeBP,
-      prevBP: prevBP,
+      isTextarea: isTextarea,
+      isEmpty: isEmpty,
+      isEmptyAnchor: func.and(isAnchor, isEmpty),
+      nodeLength: nodeLength,
+      isLeftEdgePoint: isLeftEdgePoint,
+      isRightEdgePoint: isRightEdgePoint,
+      isEdgePoint: isEdgePoint,
+      isLeftEdgeOf: isLeftEdgeOf,
+      isRightEdgeOf: isRightEdgeOf,
+      prevPoint: prevPoint,
+      nextPoint: nextPoint,
+      isSamePoint: isSamePoint,
+      isVisiblePoint: isVisiblePoint,
+      prevPointUntil: prevPointUntil,
+      nextPointUntil: nextPointUntil,
+      walkPoint: walkPoint,
       ancestor: ancestor,
       listAncestor: listAncestor,
+      lastAncestor: lastAncestor,
       listNext: listNext,
       listPrev: listPrev,
       listDescendant: listDescendant,
       commonAncestor: commonAncestor,
-      listBetween: listBetween,
+      wrap: wrap,
       insertAfter: insertAfter,
+      appendChildNodes: appendChildNodes,
       position: position,
+      hasChildren: hasChildren,
       makeOffsetPath: makeOffsetPath,
       fromOffsetPath: fromOffsetPath,
       splitTree: splitTree,
+      create: create,
+      createText: createText,
       remove: remove,
-      html: html
+      removeWhile: removeWhile,
+      replace: replace,
+      html: html,
+      value: value
+    };
+  })();
+
+
+  /**
+   * Data structure
+   *  - {BoundaryPoint}: a point of dom tree
+   *  - {BoundaryPoints}: two boundaryPoints corresponding to the start and the end of the Range
+   *
+   *  @see http://www.w3.org/TR/DOM-Level-2-Traversal-Range/ranges.html#Level-2-Range-Position
+   */
+  var range = (function () {
+
+    /**
+     * return boundaryPoint from TextRange, inspired by Andy Na's HuskyRange.js
+     *
+     * @param {TextRange} textRange
+     * @param {Boolean} isStart
+     * @return {BoundaryPoint}
+     *
+     * @see http://msdn.microsoft.com/en-us/library/ie/ms535872(v=vs.85).aspx
+     */
+    var textRangeToPoint = function (textRange, isStart) {
+      var container = textRange.parentElement(), offset;
+  
+      var tester = document.body.createTextRange(), prevContainer;
+      var childNodes = list.from(container.childNodes);
+      for (offset = 0; offset < childNodes.length; offset++) {
+        if (dom.isText(childNodes[offset])) {
+          continue;
+        }
+        tester.moveToElementText(childNodes[offset]);
+        if (tester.compareEndPoints('StartToStart', textRange) >= 0) {
+          break;
+        }
+        prevContainer = childNodes[offset];
+      }
+  
+      if (offset !== 0 && dom.isText(childNodes[offset - 1])) {
+        var textRangeStart = document.body.createTextRange(), curTextNode = null;
+        textRangeStart.moveToElementText(prevContainer || container);
+        textRangeStart.collapse(!prevContainer);
+        curTextNode = prevContainer ? prevContainer.nextSibling : container.firstChild;
+  
+        var pointTester = textRange.duplicate();
+        pointTester.setEndPoint('StartToStart', textRangeStart);
+        var textCount = pointTester.text.replace(/[\r\n]/g, '').length;
+  
+        while (textCount > curTextNode.nodeValue.length && curTextNode.nextSibling) {
+          textCount -= curTextNode.nodeValue.length;
+          curTextNode = curTextNode.nextSibling;
+        }
+  
+        /* jshint ignore:start */
+        var dummy = curTextNode.nodeValue; // enforce IE to re-reference curTextNode, hack
+        /* jshint ignore:end */
+  
+        if (isStart && curTextNode.nextSibling && dom.isText(curTextNode.nextSibling) &&
+            textCount === curTextNode.nodeValue.length) {
+          textCount -= curTextNode.nodeValue.length;
+          curTextNode = curTextNode.nextSibling;
+        }
+  
+        container = curTextNode;
+        offset = textCount;
+      }
+  
+      return {
+        cont: container,
+        offset: offset
+      };
+    };
+    
+    /**
+     * return TextRange from boundary point (inspired by google closure-library)
+     * @param {BoundaryPoint} point
+     * @return {TextRange}
+     */
+    var pointToTextRange = function (point) {
+      var textRangeInfo = function (container, offset) {
+        var node, isCollapseToStart;
+  
+        if (dom.isText(container)) {
+          var prevTextNodes = dom.listPrev(container, func.not(dom.isText));
+          var prevContainer = list.last(prevTextNodes).previousSibling;
+          node =  prevContainer || container.parentNode;
+          offset += list.sum(list.tail(prevTextNodes), dom.nodeLength);
+          isCollapseToStart = !prevContainer;
+        } else {
+          node = container.childNodes[offset] || container;
+          if (dom.isText(node)) {
+            return textRangeInfo(node, 0);
+          }
+  
+          offset = 0;
+          isCollapseToStart = false;
+        }
+  
+        return {
+          node: node,
+          collapseToStart: isCollapseToStart,
+          offset: offset
+        };
+      };
+  
+      var textRange = document.body.createTextRange();
+      var info = textRangeInfo(point.node, point.offset);
+  
+      textRange.moveToElementText(info.node);
+      textRange.collapse(info.collapseToStart);
+      textRange.moveStart('character', info.offset);
+      return textRange;
+    };
+    
+    /**
+     * Wrapped Range
+     *
+     * @param {Node} sc - start container
+     * @param {Number} so - start offset
+     * @param {Node} ec - end container
+     * @param {Number} eo - end offset
+     */
+    var WrappedRange = function (sc, so, ec, eo) {
+      this.sc = sc;
+      this.so = so;
+      this.ec = ec;
+      this.eo = eo;
+  
+      // nativeRange: get nativeRange from sc, so, ec, eo
+      var nativeRange = function () {
+        if (agent.isW3CRangeSupport) {
+          var w3cRange = document.createRange();
+          w3cRange.setStart(sc, so);
+          w3cRange.setEnd(ec, eo);
+
+          return w3cRange;
+        } else {
+          var textRange = pointToTextRange({
+            node: sc,
+            offset: so
+          });
+
+          textRange.setEndPoint('EndToEnd', pointToTextRange({
+            node: ec,
+            offset: eo
+          }));
+
+          return textRange;
+        }
+      };
+
+      this.getPoints = function () {
+        return {
+          sc: sc,
+          so: so,
+          ec: ec,
+          eo: eo
+        };
+      };
+
+      this.getStartPoint = function () {
+        return {
+          node: sc,
+          offset: so
+        };
+      };
+
+      this.getEndPoint = function () {
+        return {
+          node: ec,
+          offset: eo
+        };
+      };
+
+      /**
+       * select update visible range
+       */
+      this.select = function () {
+        var nativeRng = nativeRange();
+        if (agent.isW3CRangeSupport) {
+          var selection = document.getSelection();
+          if (selection.rangeCount > 0) {
+            selection.removeAllRanges();
+          }
+          selection.addRange(nativeRng);
+        } else {
+          nativeRng.select();
+        }
+      };
+
+      /**
+       * @return {WrappedRange}
+       */
+      this.normalize = function () {
+        var getVisiblePoint = function (point) {
+          if (!dom.isVisiblePoint(point)) {
+            if (dom.isLeftEdgePoint(point)) {
+              point = dom.nextPointUntil(point, dom.isVisiblePoint);
+            } else if (dom.isRightEdgePoint(point)) {
+              point = dom.prevPointUntil(point, dom.isVisiblePoint);
+            }
+          }
+          return point;
+        };
+
+        var startPoint = getVisiblePoint(this.getStartPoint());
+        var endPoint = getVisiblePoint(this.getStartPoint());
+
+        return new WrappedRange(
+          startPoint.node,
+          startPoint.offset,
+          endPoint.node,
+          endPoint.offset
+        );
+      };
+
+      /**
+       * returns matched nodes on range
+       *
+       * @param {Function} [pred] - predicate function
+       * @param {Object} [options]
+       * @param {Boolean} [options.includeAncestor]
+       * @param {Boolean} [options.fullyContains]
+       * @return {Node[]}
+       */
+      this.nodes = function (pred, options) {
+        pred = pred || func.ok;
+
+        var includeAncestor = options && options.includeAncestor;
+        var fullyContains = options && options.fullyContains;
+
+        // TODO compare points and sort
+        var startPoint = this.getStartPoint();
+        var endPoint = this.getEndPoint();
+
+        var nodes = [];
+        var leftEdgeNodes = [];
+
+        dom.walkPoint(startPoint, endPoint, function (point) {
+          if (dom.isEditable(point.node)) {
+            return;
+          }
+
+          var node;
+          if (fullyContains) {
+            if (dom.isLeftEdgePoint(point)) {
+              leftEdgeNodes.push(point.node);
+            }
+            if (dom.isRightEdgePoint(point) && list.contains(leftEdgeNodes, point.node)) {
+              node = point.node;
+            }
+          } else if (includeAncestor) {
+            node = dom.ancestor(point.node, pred);
+          } else {
+            node = point.node;
+          }
+
+          if (node && pred(node)) {
+            nodes.push(node);
+          }
+        }, true);
+
+        return list.unique(nodes);
+      };
+
+      /**
+       * returns commonAncestor of range
+       * @return {Element} - commonAncestor
+       */
+      this.commonAncestor = function () {
+        return dom.commonAncestor(sc, ec);
+      };
+
+      /**
+       * returns expanded range by pred
+       *
+       * @param {Function} pred - predicate function
+       * @return {WrappedRange}
+       */
+      this.expand = function (pred) {
+        var startAncestor = dom.ancestor(sc, pred);
+        var endAncestor = dom.ancestor(ec, pred);
+
+        if (!startAncestor && !endAncestor) {
+          return new WrappedRange(sc, so, ec, eo);
+        }
+
+        var boundaryPoints = this.getPoints();
+
+        if (startAncestor) {
+          boundaryPoints.sc = startAncestor;
+          boundaryPoints.so = 0;
+        }
+
+        if (endAncestor) {
+          boundaryPoints.ec = endAncestor;
+          boundaryPoints.eo = dom.nodeLength(endAncestor);
+        }
+
+        return new WrappedRange(
+          boundaryPoints.sc,
+          boundaryPoints.so,
+          boundaryPoints.ec,
+          boundaryPoints.eo
+        );
+      };
+
+      /**
+       * @param {Boolean} isCollapseToStart
+       * @return {WrappedRange}
+       */
+      this.collapse = function (isCollapseToStart) {
+        if (isCollapseToStart) {
+          return new WrappedRange(sc, so, sc, so);
+        } else {
+          return new WrappedRange(ec, eo, ec, eo);
+        }
+      };
+
+      /**
+       * splitText on range
+       */
+      this.splitText = function () {
+        var isSameContainer = sc === ec;
+        var boundaryPoints = this.getPoints();
+
+        if (dom.isText(ec) && !dom.isEdgePoint(this.getEndPoint())) {
+          ec.splitText(eo);
+        }
+
+        if (dom.isText(sc) && !dom.isEdgePoint(this.getStartPoint())) {
+          boundaryPoints.sc = sc.splitText(so);
+          boundaryPoints.so = 0;
+
+          if (isSameContainer) {
+            boundaryPoints.ec = boundaryPoints.sc;
+            boundaryPoints.eo = eo - so;
+          }
+        }
+
+        return new WrappedRange(
+          boundaryPoints.sc,
+          boundaryPoints.so,
+          boundaryPoints.ec,
+          boundaryPoints.eo
+        );
+      };
+
+      /**
+       * delete contents on range
+       * @return {WrappedRange}
+       */
+      this.deleteContents = function () {
+        if (this.isCollapsed()) {
+          return this;
+        }
+
+        var rng = this.splitText();
+        var nodes = rng.nodes(null, {
+          fullyContains: true
+        });
+
+        var point = dom.prevPointUntil(rng.getStartPoint(), function (point) {
+          return !list.contains(nodes, point.node);
+        });
+
+        var emptyParents = [];
+        $.each(nodes, function (idx, node) {
+          // find empty parents
+          var parent = node.parentNode;
+          if (point.node !== parent && dom.nodeLength(parent) === 1) {
+            emptyParents.push(parent);
+          }
+          dom.remove(node, false);
+        });
+
+        // remove empty parents
+        $.each(emptyParents, function (idx, node) {
+          dom.remove(node, false);
+        });
+
+        return new WrappedRange(
+          point.node,
+          point.offset,
+          point.node,
+          point.offset
+        );
+      };
+      
+      /**
+       * makeIsOn: return isOn(pred) function
+       */
+      var makeIsOn = function (pred) {
+        return function () {
+          var ancestor = dom.ancestor(sc, pred);
+          return !!ancestor && (ancestor === dom.ancestor(ec, pred));
+        };
+      };
+  
+      // isOnEditable: judge whether range is on editable or not
+      this.isOnEditable = makeIsOn(dom.isEditable);
+      // isOnList: judge whether range is on list node or not
+      this.isOnList = makeIsOn(dom.isList);
+      // isOnAnchor: judge whether range is on anchor node or not
+      this.isOnAnchor = makeIsOn(dom.isAnchor);
+      // isOnAnchor: judge whether range is on cell node or not
+      this.isOnCell = makeIsOn(dom.isCell);
+
+      /**
+       * @param {Function} pred
+       * @return {Boolean}
+       */
+      this.isLeftEdgeOf = function (pred) {
+        if (!dom.isLeftEdgePoint(this.getStartPoint())) {
+          return false;
+        }
+
+        var node = dom.ancestor(this.sc, pred);
+        return node && dom.isLeftEdgeOf(this.sc, node);
+      };
+
+      /**
+       * returns whether range was collapsed or not
+       */
+      this.isCollapsed = function () {
+        return sc === ec && so === eo;
+      };
+
+      /**
+       * wrap inline nodes which children of body with paragraph
+       *
+       * @return {WrappedRange}
+       */
+      this.wrapBodyInlineWithPara = function () {
+        if (dom.isBodyContainer(sc) && dom.isEmpty(sc)) {
+          sc.innerHTML = dom.emptyPara;
+          return new WrappedRange(sc.firstChild, 0);
+        }
+
+        if (dom.isParaInline(sc) || dom.isPara(sc)) {
+          return this.normalize();
+        }
+
+        // find inline top ancestor
+        var topAncestor;
+        if (dom.isInline(sc)) {
+          var ancestors = dom.listAncestor(sc, func.not(dom.isInline));
+          topAncestor = list.last(ancestors);
+          if (!dom.isInline(topAncestor)) {
+            topAncestor = ancestors[ancestors.length - 2] || sc.childNodes[so];
+          }
+        } else {
+          topAncestor = sc.childNodes[so - 1];
+        }
+
+        // siblings not in paragraph
+        var inlineSiblings = dom.listPrev(topAncestor, dom.isParaInline).reverse();
+        inlineSiblings = inlineSiblings.concat(dom.listNext(topAncestor.nextSibling, dom.isParaInline));
+
+        // wrap with paragraph
+        if (inlineSiblings.length) {
+          var para = dom.wrap(list.head(inlineSiblings), 'p');
+          dom.appendChildNodes(para, list.tail(inlineSiblings));
+        }
+
+        return this.normalize();
+      };
+
+      /**
+       * insert node at current cursor
+       *
+       * @param {Node} node
+       * @param {Boolean} [isInline]
+       * @return {Node}
+       */
+      this.insertNode = function (node, isInline) {
+        var rng = this.wrapBodyInlineWithPara();
+        var point = rng.getStartPoint();
+
+        var splitRoot, container, pivot;
+        if (isInline) {
+          container = dom.isPara(point.node) ? point.node : point.node.parentNode;
+          if (dom.isPara(point.node)) {
+            pivot = point.node.childNodes[point.offset];
+          } else {
+            pivot = dom.splitTree(point.node, point);
+          }
+        } else {
+          // splitRoot will be childNode of container
+          var ancestors = dom.listAncestor(point.node, dom.isBodyContainer);
+          var topAncestor = list.last(ancestors) || point.node;
+
+          if (dom.isBodyContainer(topAncestor)) {
+            splitRoot = ancestors[ancestors.length - 2];
+            container = topAncestor;
+          } else {
+            splitRoot = topAncestor;
+            container = splitRoot.parentNode;
+          }
+          pivot = splitRoot && dom.splitTree(splitRoot, point);
+        }
+
+        if (pivot) {
+          pivot.parentNode.insertBefore(node, pivot);
+        } else {
+          container.appendChild(node);
+        }
+
+        return node;
+      };
+  
+      this.toString = function () {
+        var nativeRng = nativeRange();
+        return agent.isW3CRangeSupport ? nativeRng.toString() : nativeRng.text;
+      };
+  
+      /**
+       * create offsetPath bookmark
+       * @param {Node} editable
+       */
+      this.bookmark = function (editable) {
+        return {
+          s: {
+            path: dom.makeOffsetPath(editable, sc),
+            offset: so
+          },
+          e: {
+            path: dom.makeOffsetPath(editable, ec),
+            offset: eo
+          }
+        };
+      };
+
+      /**
+       * getClientRects
+       * @return {Rect[]}
+       */
+      this.getClientRects = function () {
+        var nativeRng = nativeRange();
+        return nativeRng.getClientRects();
+      };
+    };
+  
+    return {
+      /**
+       * create Range Object From arguments or Browser Selection
+       *
+       * @param {Node} sc - start container
+       * @param {Number} so - start offset
+       * @param {Node} ec - end container
+       * @param {Number} eo - end offset
+       */
+      create : function (sc, so, ec, eo) {
+        if (!arguments.length) { // from Browser Selection
+          if (agent.isW3CRangeSupport) {
+            var selection = document.getSelection();
+            if (selection.rangeCount === 0) {
+              return null;
+            } else if (dom.isBody(selection.anchorNode)) {
+              // Firefox: returns entire body as range on initialization. We won't never need it.
+              return null;
+            }
+  
+            var nativeRng = selection.getRangeAt(0);
+            sc = nativeRng.startContainer;
+            so = nativeRng.startOffset;
+            ec = nativeRng.endContainer;
+            eo = nativeRng.endOffset;
+          } else { // IE8: TextRange
+            var textRange = document.selection.createRange();
+            var textRangeEnd = textRange.duplicate();
+            textRangeEnd.collapse(false);
+            var textRangeStart = textRange;
+            textRangeStart.collapse(true);
+  
+            var startPoint = textRangeToPoint(textRangeStart, true),
+            endPoint = textRangeToPoint(textRangeEnd, false);
+
+            // same visible point case: range was collapsed.
+            if (dom.isText(startPoint.node) && dom.isLeftEdgePoint(startPoint) &&
+                dom.isTextNode(endPoint.node) && dom.isRightEdgePoint(endPoint) &&
+                endPoint.node.nextSibling === startPoint.node) {
+              startPoint = endPoint;
+            }
+
+            sc = startPoint.cont;
+            so = startPoint.offset;
+            ec = endPoint.cont;
+            eo = endPoint.offset;
+          }
+        } else if (arguments.length === 2) { //collapsed
+          ec = sc;
+          eo = so;
+        }
+        return new WrappedRange(sc, so, ec, eo);
+      },
+
+      /**
+       * create WrappedRange from node
+       *
+       * @param {Node} node
+       * @return {WrappedRange}
+       */
+      createFromNode: function (node) {
+        return this.create(node, 0, node, 1);
+      },
+
+      /**
+       * create WrappedRange from Bookmark
+       *
+       * @param {Node} editable
+       * @param {Obkect} bookmark
+       * @return {WrappedRange}
+       */
+      createFromBookmark : function (editable, bookmark) {
+        var sc = dom.fromOffsetPath(editable, bookmark.s.path);
+        var so = bookmark.s.offset;
+        var ec = dom.fromOffsetPath(editable, bookmark.e.path);
+        var eo = bookmark.e.offset;
+        return new WrappedRange(sc, so, ec, eo);
+      }
     };
   })();
 
   var settings = {
     // version
-    version: '0.5.3',
+    version: '0.6.0',
 
     /**
      * options
@@ -767,11 +1902,14 @@
       disableDragAndDrop: false,    // disable drag and drop event
       disableResizeEditor: false,   // disable resizing editor
 
+      shortcuts: true,              // enable keyboard shortcuts
+
+      placeholder: false,           // enable placeholder text
+
       codemirror: {                 // codemirror options
         mode: 'text/html',
         htmlMode: true,
-        lineNumbers: true,
-        autoFormatOnStart: false
+        lineNumbers: true
       },
 
       // language
@@ -781,14 +1919,13 @@
       // toolbar
       toolbar: [
         ['style', ['style']],
-        ['font', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']],
+        ['font', ['bold', 'italic', 'underline', 'clear']],
         ['fontname', ['fontname']],
-        // ['fontsize', ['fontsize']], // Still buggy
         ['color', ['color']],
         ['para', ['ul', 'ol', 'paragraph']],
         ['height', ['height']],
         ['table', ['table']],
-        ['insert', ['link', 'picture', 'video', 'hr']],
+        ['insert', ['link', 'picture', 'hr']],
         ['view', ['fullscreen', 'codeview']],
         ['help', ['help']]
       ],
@@ -799,12 +1936,11 @@
       //   ['style', ['style']],
       //   ['font', ['bold', 'italic', 'underline', 'clear']],
       //   ['fontname', ['fontname']],
-      //   ['fontsize', ['fontsize']], // Still buggy
       //   ['color', ['color']],
       //   ['para', ['ul', 'ol', 'paragraph']],
       //   ['height', ['height']],
       //   ['table', ['table']],
-      //   ['insert', ['link', 'picture', 'video']],
+      //   ['insert', ['link', 'picture']],
       //   ['help', ['help']]
       // ],
       airPopover: [
@@ -840,9 +1976,6 @@
         ['#630000', '#7B3900', '#846300', '#295218', '#083139', '#003163', '#21104A', '#4A1031']
       ],
 
-      // fontSize
-      fontSizes: ['8', '9', '10', '11', '12', '14', '18', '24', '36'],
-
       // lineHeight
       lineHeights: ['1.0', '1.2', '1.4', '1.5', '1.6', '1.8', '2.0', '3.0'],
 
@@ -851,6 +1984,9 @@
         col: 10,
         row: 10
       },
+
+      // image
+      maximumImageFileSize: null, // size in bytes, null = no limit
 
       // callbacks
       oninit: null,             // initialize
@@ -862,6 +1998,7 @@
       onImageUpload: null,      // imageUpload
       onImageUploadError: null, // imageUploadError
       onToolbarClick: null,
+      onsubmit: null,
 
       /**
        * manipulate link address when user create link
@@ -880,6 +2017,7 @@
 
       keyMap: {
         pc: {
+          'ENTER': 'insertParagraph',
           'CTRL+Z': 'undo',
           'CTRL+Y': 'redo',
           'TAB': 'tab',
@@ -909,6 +2047,7 @@
         },
 
         mac: {
+          'ENTER': 'insertParagraph',
           'CMD+Z': 'undo',
           'CMD+SHIFT+Z': 'redo',
           'TAB': 'tab',
@@ -946,13 +2085,9 @@
           bold: 'Bold',
           italic: 'Italic',
           underline: 'Underline',
-          strikethrough: 'Strikethrough',
-          subscript: 'Subscript',
-          superscript: 'Superscript',
           clear: 'Remove Font Style',
           height: 'Line Height',
-          name: 'Font Family',
-          size: 'Font Size'
+          name: 'Font Family'
         },
         image: {
           image: 'Picture',
@@ -963,8 +2098,15 @@
           floatLeft: 'Float Left',
           floatRight: 'Float Right',
           floatNone: 'Float None',
-          dragImageHere: 'Drag an image here',
+          shapeRounded: 'Shape: Rounded',
+          shapeCircle: 'Shape: Circle',
+          shapeThumbnail: 'Shape: Thumbnail',
+          shapeNone: 'Shape: None',
+          dragImageHere: 'Drag image here',
+          dropImage: 'Drop image',
           selectFromFiles: 'Select from files',
+          maximumFileSize: 'Maximum file size',
+          maximumFileSizeError: 'Maximum file size exceeded.',
           url: 'Image URL',
           remove: 'Remove Image'
         },
@@ -976,13 +2118,6 @@
           textToDisplay: 'Text to display',
           url: 'To what URL should this link go?',
           openInNewWindow: 'Open in new window'
-        },
-        video: {
-          video: 'Video',
-          videoLink: 'Video Link',
-          insert: 'Insert Video',
-          url: 'Video URL?',
-          providers: '(YouTube, Vimeo, Vine, Instagram, DailyMotion or Youku)'
         },
         table: {
           table: 'Table'
@@ -1076,15 +2211,17 @@
      * @param {String} sUrl
      * @return {Promise} - then: $image
      */
-    var createImage = function (sUrl) {
+    var createImage = function (sUrl, filename) {
       return $.Deferred(function (deferred) {
         $('<img>').one('load', function () {
           deferred.resolve($(this));
         }).one('error abort', function () {
-          deferred.reject($(this));
+          deferred.reject($(this).detach());
         }).css({
           display: 'none'
-        }).appendTo(document.body).attr('src', sUrl);
+        }).appendTo(document.body)
+          .attr('src', sUrl)
+          .attr('data-filename', filename);
       }).promise();
     };
 
@@ -1099,7 +2236,7 @@
    */
   var key = {
     isEdit: function (keyCode) {
-      return [8, 9, 13, 32].indexOf(keyCode) !== -1;
+      return list.contains([8, 9, 13, 32], keyCode);
     },
     nameFromCode: {
       '8': 'BACKSPACE',
@@ -1167,11 +2304,13 @@
      * paragraph level style
      *
      * @param {WrappedRange} rng
-     * @param {Object} oStyle
+     * @param {Object} styleInfo
      */
-    this.stylePara = function (rng, oStyle) {
-      $.each(rng.nodes(dom.isPara), function (idx, elPara) {
-        $(elPara).css(oStyle);
+    this.stylePara = function (rng, styleInfo) {
+      $.each(rng.nodes(dom.isPara, {
+        includeAncestor: true
+      }), function (idx, para) {
+        $(para).css(styleInfo);
       });
     };
 
@@ -1179,466 +2318,108 @@
      * get current style on cursor
      *
      * @param {WrappedRange} rng
-     * @param {Element} elTarget - target element on event
+     * @param {Node} target - target element on event
      * @return {Object} - object contains style properties.
      */
-    this.current = function (rng, elTarget) {
+    this.current = function (rng, target) {
       var $cont = $(dom.isText(rng.sc) ? rng.sc.parentNode : rng.sc);
       var properties = ['font-family', 'font-size', 'text-align', 'list-style-type', 'line-height'];
-      var oStyle = jQueryCSS($cont, properties) || {};
+      var styleInfo = jQueryCSS($cont, properties) || {};
 
-      oStyle['font-size'] = parseInt(oStyle['font-size'], 10);
+      styleInfo['font-size'] = parseInt(styleInfo['font-size'], 10);
 
       // document.queryCommandState for toggle state
-      oStyle['font-bold'] = document.queryCommandState('bold') ? 'bold' : 'normal';
-      oStyle['font-italic'] = document.queryCommandState('italic') ? 'italic' : 'normal';
-      oStyle['font-underline'] = document.queryCommandState('underline') ? 'underline' : 'normal';
-      oStyle['font-strikethrough'] = document.queryCommandState('strikeThrough') ? 'strikethrough' : 'normal';
-      oStyle['font-superscript'] = document.queryCommandState('superscript') ? 'superscript' : 'normal';
-      oStyle['font-subscript'] = document.queryCommandState('subscript') ? 'subscript' : 'normal';
+      styleInfo['font-bold'] = document.queryCommandState('bold') ? 'bold' : 'normal';
+      styleInfo['font-italic'] = document.queryCommandState('italic') ? 'italic' : 'normal';
+      styleInfo['font-underline'] = document.queryCommandState('underline') ? 'underline' : 'normal';
+      styleInfo['font-strikethrough'] = document.queryCommandState('strikeThrough') ? 'strikethrough' : 'normal';
+      styleInfo['font-superscript'] = document.queryCommandState('superscript') ? 'superscript' : 'normal';
+      styleInfo['font-subscript'] = document.queryCommandState('subscript') ? 'subscript' : 'normal';
 
       // list-style-type to list-style(unordered, ordered)
       if (!rng.isOnList()) {
-        oStyle['list-style'] = 'none';
+        styleInfo['list-style'] = 'none';
       } else {
         var aOrderedType = ['circle', 'disc', 'disc-leading-zero', 'square'];
-        var isUnordered = $.inArray(oStyle['list-style-type'], aOrderedType) > -1;
-        oStyle['list-style'] = isUnordered ? 'unordered' : 'ordered';
+        var isUnordered = $.inArray(styleInfo['list-style-type'], aOrderedType) > -1;
+        styleInfo['list-style'] = isUnordered ? 'unordered' : 'ordered';
       }
 
-      var elPara = dom.ancestor(rng.sc, dom.isPara);
-      if (elPara && elPara.style['line-height']) {
-        oStyle['line-height'] = elPara.style.lineHeight;
+      var para = dom.ancestor(rng.sc, dom.isPara);
+      if (para && para.style['line-height']) {
+        styleInfo['line-height'] = para.style.lineHeight;
       } else {
-        var lineHeight = parseInt(oStyle['line-height'], 10) / parseInt(oStyle['font-size'], 10);
-        oStyle['line-height'] = lineHeight.toFixed(1);
+        var lineHeight = parseInt(styleInfo['line-height'], 10) / parseInt(styleInfo['font-size'], 10);
+        styleInfo['line-height'] = lineHeight.toFixed(1);
       }
 
-      oStyle.image = dom.isImg(elTarget) && elTarget;
-      oStyle.anchor = rng.isOnAnchor() && dom.ancestor(rng.sc, dom.isAnchor);
-      oStyle.aAncestor = dom.listAncestor(rng.sc, dom.isEditable);
-      oStyle.range = rng;
+      styleInfo.image = dom.isImg(target) && target;
+      styleInfo.anchor = rng.isOnAnchor() && dom.ancestor(rng.sc, dom.isAnchor);
+      styleInfo.ancestors = dom.listAncestor(rng.sc, dom.isEditable);
+      styleInfo.range = rng;
 
-      return oStyle;
+      return styleInfo;
     };
   };
 
-  /**
-   * range module
-   */
-  var range = (function () {
-    var isW3CRangeSupport = !!document.createRange;
-     
+
+  var Typing = function () {
+
     /**
-     * return boundaryPoint from TextRange, inspired by Andy Na's HuskyRange.js
-     * @param {TextRange} textRange
-     * @param {Boolean} isStart
-     * @return {BoundaryPoint}
+     * @param {jQuery} $editable 
+     * @param {WrappedRange} rng
+     * @param {Number} tabsize
      */
-    var textRange2bp = function (textRange, isStart) {
-      var elCont = textRange.parentElement(), nOffset;
-  
-      var tester = document.body.createTextRange(), elPrevCont;
-      var aChild = list.from(elCont.childNodes);
-      for (nOffset = 0; nOffset < aChild.length; nOffset++) {
-        if (dom.isText(aChild[nOffset])) { continue; }
-        tester.moveToElementText(aChild[nOffset]);
-        if (tester.compareEndPoints('StartToStart', textRange) >= 0) { break; }
-        elPrevCont = aChild[nOffset];
-      }
-  
-      if (nOffset !== 0 && dom.isText(aChild[nOffset - 1])) {
-        var textRangeStart = document.body.createTextRange(), elCurText = null;
-        textRangeStart.moveToElementText(elPrevCont || elCont);
-        textRangeStart.collapse(!elPrevCont);
-        elCurText = elPrevCont ? elPrevCont.nextSibling : elCont.firstChild;
-  
-        var pointTester = textRange.duplicate();
-        pointTester.setEndPoint('StartToStart', textRangeStart);
-        var nTextCount = pointTester.text.replace(/[\r\n]/g, '').length;
-  
-        while (nTextCount > elCurText.nodeValue.length && elCurText.nextSibling) {
-          nTextCount -= elCurText.nodeValue.length;
-          elCurText = elCurText.nextSibling;
-        }
-  
-        /* jshint ignore:start */
-        var sDummy = elCurText.nodeValue; //enforce IE to re-reference elCurText, hack
-        /* jshint ignore:end */
-  
-        if (isStart && elCurText.nextSibling && dom.isText(elCurText.nextSibling) &&
-            nTextCount === elCurText.nodeValue.length) {
-          nTextCount -= elCurText.nodeValue.length;
-          elCurText = elCurText.nextSibling;
-        }
-  
-        elCont = elCurText;
-        nOffset = nTextCount;
-      }
-  
-      return {cont: elCont, offset: nOffset};
+    this.insertTab = function ($editable, rng, tabsize) {
+      var tab = dom.createText(new Array(tabsize + 1).join(dom.NBSP_CHAR));
+      rng = rng.deleteContents();
+      rng.insertNode(tab, true);
+
+      rng = range.create(tab, tabsize);
+      rng.select();
     };
-    
+
     /**
-     * return TextRange from boundary point (inspired by google closure-library)
-     * @param {BoundaryPoint} bp
-     * @return {TextRange}
+     * insert paragraph
      */
-    var bp2textRange = function (bp) {
-      var textRangeInfo = function (elCont, nOffset) {
-        var elNode, isCollapseToStart;
-  
-        if (dom.isText(elCont)) {
-          var aPrevText = dom.listPrev(elCont, func.not(dom.isText));
-          var elPrevCont = list.last(aPrevText).previousSibling;
-          elNode =  elPrevCont || elCont.parentNode;
-          nOffset += list.sum(list.tail(aPrevText), dom.length);
-          isCollapseToStart = !elPrevCont;
-        } else {
-          elNode = elCont.childNodes[nOffset] || elCont;
-          if (dom.isText(elNode)) {
-            return textRangeInfo(elNode, nOffset);
-          }
-  
-          nOffset = 0;
-          isCollapseToStart = false;
-        }
-  
-        return {cont: elNode, collapseToStart: isCollapseToStart, offset: nOffset};
-      };
-  
-      var textRange = document.body.createTextRange();
-      var info = textRangeInfo(bp.cont, bp.offset);
-  
-      textRange.moveToElementText(info.cont);
-      textRange.collapse(info.collapseToStart);
-      textRange.moveStart('character', info.offset);
-      return textRange;
-    };
-    
-    /**
-     * Wrapped Range
-     *
-     * @param {Element} sc - start container
-     * @param {Number} so - start offset
-     * @param {Element} ec - end container
-     * @param {Number} eo - end offset
-     */
-    var WrappedRange = function (sc, so, ec, eo) {
-      this.sc = sc;
-      this.so = so;
-      this.ec = ec;
-      this.eo = eo;
-  
-      // nativeRange: get nativeRange from sc, so, ec, eo
-      var nativeRange = function () {
-        if (isW3CRangeSupport) {
-          var w3cRange = document.createRange();
-          w3cRange.setStart(sc, so);
-          w3cRange.setEnd(ec, eo);
-          return w3cRange;
-        } else {
-          var textRange = bp2textRange({cont: sc, offset: so});
-          textRange.setEndPoint('EndToEnd', bp2textRange({cont: ec, offset: eo}));
-          return textRange;
-        }
-      };
+    this.insertParagraph = function () {
+      var rng = range.create();
 
-      this.getBPs = function () {
-        return {
-          sc: sc,
-          so: so,
-          ec: ec,
-          eo: eo
-        };
-      };
+      // deleteContents on range.
+      rng = rng.deleteContents();
 
-      this.getStartBP = function () {
-        return {
-          node: sc,
-          offset: so
-        };
-      };
+      // Wrap range if it needs to be wrapped by paragraph
+      rng = rng.wrapBodyInlineWithPara();
 
-      this.getEndBP = function () {
-        return {
-          node: ec,
-          offset: eo
-        };
-      };
+      // finding paragraph
+      var splitRoot = dom.ancestor(rng.sc, dom.isPara);
 
-      /**
-       * select update visible range
-       */
-      this.select = function () {
-        var nativeRng = nativeRange();
-        if (isW3CRangeSupport) {
-          var selection = document.getSelection();
-          if (selection.rangeCount > 0) { selection.removeAllRanges(); }
-          selection.addRange(nativeRng);
-        } else {
-          nativeRng.select();
-        }
-      };
+      var nextPara;
+      // on paragraph: split paragraph
+      if (splitRoot) {
+        nextPara = dom.splitTree(splitRoot, rng.getStartPoint());
 
-      /**
-       * returns matched nodes on range
-       *
-       * @param {Function} [pred] - predicate function
-       * @return {Element[]}
-       */
-      this.nodes = function (pred) {
-        pred = pred || func.ok;
+        var emptyAnchors = dom.listDescendant(splitRoot, dom.isEmptyAnchor);
+        emptyAnchors = emptyAnchors.concat(dom.listDescendant(nextPara, dom.isEmptyAnchor));
 
-        var aNode = dom.listBetween(sc, ec);
-        var aMatched = list.compact($.map(aNode, function (node) {
-          return dom.ancestor(node, pred);
-        }));
-        return $.map(list.clusterBy(aMatched, func.eq2), list.head);
-      };
-
-      /**
-       * returns commonAncestor of range
-       * @return {Element} - commonAncestor
-       */
-      this.commonAncestor = function () {
-        return dom.commonAncestor(sc, ec);
-      };
-
-      /**
-       * returns expanded range by pred
-       *
-       * @param {Function} pred - predicate function
-       * @return {WrappedRange}
-       */
-      this.expand = function (pred) {
-        var startAncestor = dom.ancestor(sc, pred);
-        var endAncestor = dom.ancestor(ec, pred);
-
-        if (!startAncestor && !endAncestor) {
-          return new WrappedRange(sc, so, ec, eo);
-        }
-
-        var boundaryPoints = this.getBPs();
-
-        if (startAncestor) {
-          boundaryPoints.sc = startAncestor;
-          boundaryPoints.so = 0;
-        }
-
-        if (endAncestor) {
-          boundaryPoints.ec = endAncestor;
-          boundaryPoints.eo = dom.length(endAncestor);
-        }
-
-        return new WrappedRange(
-          boundaryPoints.sc,
-          boundaryPoints.so,
-          boundaryPoints.ec,
-          boundaryPoints.eo
-        );
-      };
-
-      /**
-       * @param {Boolean} isCollapseToStart
-       * @return {WrappedRange}
-       */
-      this.collapse = function (isCollapseToStart) {
-        if (isCollapseToStart) {
-          return new WrappedRange(sc, so, sc, so);
-        } else {
-          return new WrappedRange(ec, eo, ec, eo);
-        }
-      };
-
-      /**
-       * splitText on range
-       */
-      this.splitText = function () {
-        var isSameContainer = sc === ec;
-        var boundaryPoints = this.getBPs();
-
-        if (dom.isText(ec) && !dom.isEdgeBP(this.getEndBP())) {
-          ec.splitText(eo);
-        }
-
-        if (dom.isText(sc) && !dom.isEdgeBP(this.getStartBP())) {
-          boundaryPoints.sc = sc.splitText(so);
-          boundaryPoints.so = 0;
-
-          if (isSameContainer) {
-            boundaryPoints.ec = boundaryPoints.sc;
-            boundaryPoints.eo = eo - so;
-          }
-        }
-
-        return new WrappedRange(
-          boundaryPoints.sc,
-          boundaryPoints.so,
-          boundaryPoints.ec,
-          boundaryPoints.eo
-        );
-      };
-
-      /**
-       * delete contents on range
-       * @return {WrappedRange}
-       */
-      this.deleteContents = function () {
-        if (this.isCollapsed()) {
-          return this;
-        }
-
-        var rng = this.splitText();
-        var prevBP = dom.prevBP(rng.getStartBP());
-
-        $.each(rng.nodes(), function (idx, node) {
-          dom.remove(node, !dom.isPara(node));
+        $.each(emptyAnchors, function (idx, anchor) {
+          dom.remove(anchor);
         });
-
-        return new WrappedRange(
-          prevBP.node,
-          prevBP.offset,
-          prevBP.node,
-          prevBP.offset
-        );
-      };
-      
-      /**
-       * makeIsOn: return isOn(pred) function
-       */
-      var makeIsOn = function (pred) {
-        return function () {
-          var elAncestor = dom.ancestor(sc, pred);
-          return !!elAncestor && (elAncestor === dom.ancestor(ec, pred));
-        };
-      };
-  
-      // isOnEditable: judge whether range is on editable or not
-      this.isOnEditable = makeIsOn(dom.isEditable);
-      // isOnList: judge whether range is on list node or not
-      this.isOnList = makeIsOn(dom.isList);
-      // isOnAnchor: judge whether range is on anchor node or not
-      this.isOnAnchor = makeIsOn(dom.isAnchor);
-      // isOnAnchor: judge whether range is on cell node or not
-      this.isOnCell = makeIsOn(dom.isCell);
-      // isCollapsed: judge whether range was collapsed
-      this.isCollapsed = function () { return sc === ec && so === eo; };
-
-      /**
-       * insert node at current cursor
-       * @param {Element} node
-       */
-      this.insertNode = function (node) {
-        var nativeRng = nativeRange();
-        if (isW3CRangeSupport) {
-          nativeRng.insertNode(node);
+      // no paragraph: insert empty paragraph
+      } else {
+        var next = rng.sc.childNodes[rng.so];
+        nextPara = $(dom.emptyPara)[0];
+        if (next) {
+          rng.sc.insertBefore(nextPara, next);
         } else {
-          var tmpId = 'node-insert-node-target';
-          node.id = tmpId;
-
-          // NOTE: missing node reference.
-          nativeRng.pasteHTML(node.outerHTML);
-          node = $('#' + tmpId)[0];
+          rng.sc.appendChild(nextPara);
         }
-
-        return node;
-      };
-  
-      this.toString = function () {
-        var nativeRng = nativeRange();
-        return isW3CRangeSupport ? nativeRng.toString() : nativeRng.text;
-      };
-  
-      /**
-       * create offsetPath bookmark
-       * @param {Element} elEditable
-       */
-      this.bookmark = function (elEditable) {
-        return {
-          s: { path: dom.makeOffsetPath(elEditable, sc), offset: so },
-          e: { path: dom.makeOffsetPath(elEditable, ec), offset: eo }
-        };
-      };
-
-      /**
-       * getClientRects
-       * @return {Rect[]}
-       */
-      this.getClientRects = function () {
-        var nativeRng = nativeRange();
-        return nativeRng.getClientRects();
-      };
-    };
-  
-    return {
-      /**
-       * create Range Object From arguments or Browser Selection
-       *
-       * @param {Element} sc - start container
-       * @param {Number} so - start offset
-       * @param {Element} ec - end container
-       * @param {Number} eo - end offset
-       */
-      create : function (sc, so, ec, eo) {
-        if (!arguments.length) { // from Browser Selection
-          if (isW3CRangeSupport) { // webkit, firefox
-            var selection = document.getSelection();
-            if (selection.rangeCount === 0) { return null; }
-  
-            var nativeRng = selection.getRangeAt(0);
-            sc = nativeRng.startContainer;
-            so = nativeRng.startOffset;
-            ec = nativeRng.endContainer;
-            eo = nativeRng.endOffset;
-          } else { // IE8: TextRange
-            var textRange = document.selection.createRange();
-            var textRangeEnd = textRange.duplicate();
-            textRangeEnd.collapse(false);
-            var textRangeStart = textRange;
-            textRangeStart.collapse(true);
-  
-            var bpStart = textRange2bp(textRangeStart, true),
-            bpEnd = textRange2bp(textRangeEnd, false);
-  
-            sc = bpStart.cont;
-            so = bpStart.offset;
-            ec = bpEnd.cont;
-            eo = bpEnd.offset;
-          }
-        } else if (arguments.length === 2) { //collapsed
-          ec = sc;
-          eo = so;
-        }
-        return new WrappedRange(sc, so, ec, eo);
-      },
-
-      /**
-       * create WrappedRange from node
-       *
-       * @param {Element} node
-       * @return {WrappedRange}
-       */
-      createFromNode: function (node) {
-        return this.create(node, 0, node, 1);
-      },
-
-      /**
-       * create WrappedRange from Bookmark
-       *
-       * @param {Element} elEditable
-       * @param {Obkect} bookmark
-       * @return {WrappedRange}
-       */
-      createFromBookmark : function (elEditable, bookmark) {
-        var sc = dom.fromOffsetPath(elEditable, bookmark.s.path);
-        var so = bookmark.s.offset;
-        var ec = dom.fromOffsetPath(elEditable, bookmark.e.path);
-        var eo = bookmark.e.offset;
-        return new WrappedRange(sc, so, ec, eo);
       }
+
+      range.create(nextPara, 0).normalize().select();
     };
-  })();
+
+  };
 
   /**
    * Table
@@ -1652,37 +2433,228 @@
      * @param {Boolean} isShift
      */
     this.tab = function (rng, isShift) {
-      var elCell = dom.ancestor(rng.commonAncestor(), dom.isCell);
-      var elTable = dom.ancestor(elCell, dom.isTable);
-      var aCell = dom.listDescendant(elTable, dom.isCell);
+      var cell = dom.ancestor(rng.commonAncestor(), dom.isCell);
+      var table = dom.ancestor(cell, dom.isTable);
+      var cells = dom.listDescendant(table, dom.isCell);
 
-      var elNext = list[isShift ? 'prev' : 'next'](aCell, elCell);
-      if (elNext) {
-        range.create(elNext, 0).select();
+      var nextCell = list[isShift ? 'prev' : 'next'](cells, cell);
+      if (nextCell) {
+        range.create(nextCell, 0).select();
       }
     };
 
     /**
      * create empty table element
      *
-     * @param {Number} nRow
-     * @param {Number} nCol
+     * @param {Number} rowCount
+     * @param {Number} colCount
+     * @return {Node}
      */
-    this.createTable = function (nCol, nRow) {
-      var aTD = [], sTD;
-      for (var idxCol = 0; idxCol < nCol; idxCol++) {
-        aTD.push('<td>' + dom.blank + '</td>');
+    this.createTable = function (colCount, rowCount) {
+      var tds = [], tdHTML;
+      for (var idxCol = 0; idxCol < colCount; idxCol++) {
+        tds.push('<td>' + dom.blank + '</td>');
       }
-      sTD = aTD.join('');
+      tdHTML = tds.join('');
 
-      var aTR = [], sTR;
-      for (var idxRow = 0; idxRow < nRow; idxRow++) {
-        aTR.push('<tr>' + sTD + '</tr>');
+      var trs = [], trHTML;
+      for (var idxRow = 0; idxRow < rowCount; idxRow++) {
+        trs.push('<tr>' + tdHTML + '</tr>');
       }
-      sTR = aTR.join('');
-      var sTable = '<table class="table table-bordered">' + sTR + '</table>';
+      trHTML = trs.join('');
+      return $('<table class="table table-bordered">' + trHTML + '</table>')[0];
+    };
+  };
 
-      return $(sTable)[0];
+
+  var Bullet = function () {
+    /**
+     * toggle ordered list
+     * @type command
+     */
+    this.insertOrderedList = function () {
+      this.toggleList('OL');
+    };
+
+    /**
+     * toggle unordered list
+     * @type command
+     */
+    this.insertUnorderedList = function () {
+      this.toggleList('UL');
+    };
+
+    /**
+     * indent
+     * @type command
+     */
+    this.indent = function () {
+      var self = this;
+      var rng = range.create().wrapBodyInlineWithPara();
+
+      var paras = rng.nodes(dom.isPara, { includeAncestor: true });
+      var clustereds = list.clusterBy(paras, func.peq2('parentNode'));
+
+      $.each(clustereds, function (idx, paras) {
+        var head = list.head(paras);
+        if (dom.isLi(head)) {
+          self.wrapList(paras, head.parentNode.nodeName);
+        } else {
+          $.each(paras, function (idx, para) {
+            $(para).css('marginLeft', function (idx, val) {
+              return (parseInt(val, 10) || 0) + 25;
+            });
+          });
+        }
+      });
+
+      rng.select();
+    };
+
+    /**
+     * outdent
+     * @type command
+     */
+    this.outdent = function () {
+      var self = this;
+      var rng = range.create().wrapBodyInlineWithPara();
+
+      var paras = rng.nodes(dom.isPara, { includeAncestor: true });
+      var clustereds = list.clusterBy(paras, func.peq2('parentNode'));
+
+      $.each(clustereds, function (idx, paras) {
+        var head = list.head(paras);
+        if (dom.isLi(head)) {
+          self.releaseList([paras]);
+        } else {
+          $.each(paras, function (idx, para) {
+            $(para).css('marginLeft', function (idx, val) {
+              val = (parseInt(val, 10) || 0);
+              return val > 25 ? val - 25 : '';
+            });
+          });
+        }
+      });
+
+      rng.select();
+    };
+
+    /**
+     * toggle list
+     * @param {String} listName - OL or UL
+     */
+    this.toggleList = function (listName) {
+      var self = this;
+      var rng = range.create().wrapBodyInlineWithPara();
+
+      var paras = rng.nodes(dom.isPara, { includeAncestor: true });
+      var clustereds = list.clusterBy(paras, func.peq2('parentNode'));
+
+      // paragraph to list
+      if (list.find(paras, dom.isPurePara)) {
+        $.each(clustereds, function (idx, paras) {
+          self.wrapList(paras, listName);
+        });
+      // list to paragraph or change list style
+      } else {
+        var diffLists = rng.nodes(dom.isList, {
+          includeAncestor: true
+        }).filter(function (listNode) {
+          return !$.nodeName(listNode, listName);
+        });
+
+        if (diffLists.length) {
+          $.each(diffLists, function (idx, listNode) {
+            dom.replace(listNode, listName);
+          });
+        } else {
+          this.releaseList(clustereds, true);
+        }
+      }
+
+      rng.select();
+    };
+
+    /**
+     * @param {Node[]} paras
+     * @param {String} listName
+     */
+    this.wrapList = function (paras, listName) {
+      var head = list.head(paras);
+      var last = list.last(paras);
+
+      var prevList = dom.isList(head.previousSibling) && head.previousSibling;
+      var nextList = dom.isList(last.nextSibling) && last.nextSibling;
+
+      var listNode = prevList || dom.insertAfter(dom.create(listName || 'UL'), last);
+
+      // P to LI
+      paras = $.map(paras, function (para) {
+        return dom.isPurePara(para) ? dom.replace(para, 'LI') : para;
+      });
+
+      // append to list(<ul>, <ol>)
+      dom.appendChildNodes(listNode, paras);
+
+      if (nextList) {
+        dom.appendChildNodes(listNode, list.from(nextList.childNodes));
+        dom.remove(nextList);
+      }
+    };
+
+    /**
+     * @param {Array[]} clustereds
+     * @param {Boolean} isEscapseToBody
+     * @return {Node[]}
+     */
+    this.releaseList = function (clustereds, isEscapseToBody) {
+      var releasedParas = [];
+
+      $.each(clustereds, function (idx, paras) {
+        var head = list.head(paras);
+        var last = list.last(paras);
+
+        var headList = isEscapseToBody ? dom.lastAncestor(head, dom.isList) :
+                                         head.parentNode;
+        var lastList = headList.childNodes.length > 1 ? dom.splitTree(headList, {
+          node: last.parentNode,
+          offset: dom.position(last) + 1
+        }, true) : null;
+
+        var middleList = dom.splitTree(headList, {
+          node: head.parentNode,
+          offset: dom.position(head)
+        }, true);
+
+        paras = isEscapseToBody ? dom.listDescendant(middleList, dom.isLi) :
+                                  list.from(middleList.childNodes).filter(dom.isLi);
+
+        // LI to P
+        if (isEscapseToBody || !dom.isList(headList.parentNode)) {
+          paras = $.map(paras, function (para) {
+            return dom.replace(para, 'P');
+          });
+        }
+
+        $.each(list.from(paras).reverse(), function (idx, para) {
+          dom.insertAfter(para, headList);
+        });
+
+        // remove empty lists
+        var rootLists = list.compact([headList, middleList, lastList]);
+        $.each(rootLists, function (idx, rootList) {
+          var listNodes = [rootList].concat(dom.listDescendant(rootList, dom.isList));
+          $.each(listNodes.reverse(), function (idx, listNode) {
+            if (!dom.nodeLength(listNode)) {
+              dom.remove(listNode, true);
+            }
+          });
+        });
+
+        releasedParas = releasedParas.concat(paras);
+      });
+
+      return releasedParas;
     };
   };
 
@@ -1694,15 +2666,28 @@
 
     var style = new Style();
     var table = new Table();
+    var typing = new Typing();
+    var bullet = new Bullet();
+
+    /**
+     * create range
+     */
+    this.createRange = function ($editable) {
+      $editable.focus();
+      return range.create();
+    };
 
     /**
      * save current range
      *
      * @param {jQuery} $editable
      */
-    this.saveRange = function ($editable) {
+    this.saveRange = function ($editable, thenCollapse) {
       $editable.focus();
       $editable.data('range', range.create());
+      if (thenCollapse) {
+        range.create().collapse().select();
+      }
     };
 
     /**
@@ -1720,11 +2705,18 @@
 
     /**
      * current style
-     * @param {Element} elTarget
+     * @param {Node} target
      */
-    this.currentStyle = function (elTarget) {
+    this.currentStyle = function (target) {
       var rng = range.create();
-      return rng ? rng.isOnEditable() && style.current(rng, elTarget) : false;
+      return rng ? rng.isOnEditable() && style.current(rng, target) : false;
+    };
+
+    var triggerOnChange = this.triggerOnChange = function ($editable) {
+      var onChange = $editable.data('callbacks').onChange;
+      if (onChange) {
+        onChange($editable.html(), $editable);
+      }
     };
 
     /**
@@ -1732,7 +2724,8 @@
      * @param {jQuery} $editable
      */
     this.undo = function ($editable) {
-      $editable.data('NoteHistory').undo($editable);
+      $editable.data('NoteHistory').undo();
+      triggerOnChange($editable);
     };
 
     /**
@@ -1740,53 +2733,41 @@
      * @param {jQuery} $editable
      */
     this.redo = function ($editable) {
-      $editable.data('NoteHistory').redo($editable);
+      $editable.data('NoteHistory').redo();
+      triggerOnChange($editable);
     };
 
     /**
-     * record Undo
+     * after command
      * @param {jQuery} $editable
      */
-    var recordUndo = this.recordUndo = function ($editable) {
-      $editable.data('NoteHistory').recordUndo($editable);
+    var afterCommand = this.afterCommand = function ($editable) {
+      $editable.data('NoteHistory').recordUndo();
+      triggerOnChange($editable);
     };
 
     /* jshint ignore:start */
     // native commands(with execCommand), generate function for execCommand
-    var aCmd = ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript',
-                'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull',
-                'insertOrderedList', 'insertUnorderedList',
-                'indent', 'outdent', 'formatBlock', 'removeFormat',
-                'backColor', 'foreColor', 'insertHorizontalRule', 'fontName'];
+    var commands = ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript',
+                    'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull',
+                    'formatBlock', 'removeFormat',
+                    'backColor', 'foreColor', 'insertHorizontalRule', 'fontName'];
 
-    for (var idx = 0, len = aCmd.length; idx < len; idx ++) {
-      this[aCmd[idx]] = (function (sCmd) {
-        return function ($editable, sValue) {
-          recordUndo($editable);
-          document.execCommand(sCmd, false, sValue);
+    for (var idx = 0, len = commands.length; idx < len; idx ++) {
+      this[commands[idx]] = (function (sCmd) {
+        return function ($editable, value) {
+          document.execCommand(sCmd, false, value);
+
+          afterCommand($editable);
         };
-      })(aCmd[idx]);
+      })(commands[idx]);
     }
     /* jshint ignore:end */
 
     /**
-     * @param {jQuery} $editable 
-     * @param {WrappedRange} rng
-     * @param {Number} nTabsize
-     */
-    var insertTab = function ($editable, rng, nTabsize) {
-      recordUndo($editable);
-      var sNbsp = new Array(nTabsize + 1).join('&nbsp;');
-      rng.insertNode($('<span id="noteTab">' + sNbsp + '</span>')[0]);
-      var $tab = $('#noteTab').removeAttr('id');
-      rng = range.create($tab[0], 1);
-      rng.select();
-      dom.remove($tab[0]);
-    };
-
-    /**
      * handle tab key
-     * @param {jQuery} $editable 
+     *
+     * @param {jQuery} $editable
      * @param {Object} options
      */
     this.tab = function ($editable, options) {
@@ -1794,7 +2775,8 @@
       if (rng.isCollapsed() && rng.isOnCell()) {
         table.tab(rng);
       } else {
-        insertTab($editable, rng, options.tabsize);
+        typing.insertTab($editable, rng, options.tabsize);
+        afterCommand($editable);
       }
     };
 
@@ -1809,19 +2791,61 @@
     };
 
     /**
+     * insert paragraph
+     *
+     * @param {Node} $editable
+     */
+    this.insertParagraph = function ($editable) {
+      typing.insertParagraph($editable);
+      afterCommand($editable);
+    };
+
+    /**
+     * @param {jQuery} $editable
+     */
+    this.insertOrderedList = function ($editable) {
+      bullet.insertOrderedList($editable);
+      afterCommand($editable);
+    };
+
+    /**
+     * @param {jQuery} $editable
+     */
+    this.insertUnorderedList = function ($editable) {
+      bullet.insertUnorderedList($editable);
+      afterCommand($editable);
+    };
+
+    /**
+     * @param {jQuery} $editable
+     */
+    this.indent = function ($editable) {
+      bullet.indent($editable);
+      afterCommand($editable);
+    };
+
+    /**
+     * @param {jQuery} $editable
+     */
+    this.outdent = function ($editable) {
+      bullet.outdent($editable);
+      afterCommand($editable);
+    };
+
+    /**
      * insert image
      *
      * @param {jQuery} $editable
      * @param {String} sUrl
      */
-    this.insertImage = function ($editable, sUrl) {
-      async.createImage(sUrl).then(function ($image) {
-        recordUndo($editable);
+    this.insertImage = function ($editable, sUrl, filename) {
+      async.createImage(sUrl, filename).then(function ($image) {
         $image.css({
           display: '',
           width: Math.min($editable.width(), $image.width())
         });
         range.create().insertNode($image[0]);
+        afterCommand($editable);
       }).fail(function () {
         var callbacks = $editable.data('callbacks');
         if (callbacks.onImageUploadError) {
@@ -1831,86 +2855,42 @@
     };
 
     /**
-     * insert video
-     * @param {jQuery} $editable
-     * @param {String} sUrl
+     * insert node
+     * @param {Node} $editable
+     * @param {Node} node
+     * @param {Boolean} [isInline]
      */
-    this.insertVideo = function ($editable, sUrl) {
-      recordUndo($editable);
+    this.insertNode = function ($editable, node, isInline) {
+      range.create().insertNode(node, isInline);
+      afterCommand($editable);
+    };
 
-      // video url patterns(youtube, instagram, vimeo, dailymotion, youku)
-      var ytRegExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-      var ytMatch = sUrl.match(ytRegExp);
-
-      var igRegExp = /\/\/instagram.com\/p\/(.[a-zA-Z0-9]*)/;
-      var igMatch = sUrl.match(igRegExp);
-
-      var vRegExp = /\/\/vine.co\/v\/(.[a-zA-Z0-9]*)/;
-      var vMatch = sUrl.match(vRegExp);
-
-      var vimRegExp = /\/\/(player.)?vimeo.com\/([a-z]*\/)*([0-9]{6,11})[?]?.*/;
-      var vimMatch = sUrl.match(vimRegExp);
-
-      var dmRegExp = /.+dailymotion.com\/(video|hub)\/([^_]+)[^#]*(#video=([^_&]+))?/;
-      var dmMatch = sUrl.match(dmRegExp);
-
-      var youkuRegExp = /\/\/v\.youku\.com\/v_show\/id_(\w+)\.html/;
-      var youkuMatch = sUrl.match(youkuRegExp);
-
-      var $video;
-      if (ytMatch && ytMatch[2].length === 11) {
-        var youtubeId = ytMatch[2];
-        $video = $('<iframe>')
-          .attr('src', '//www.youtube.com/embed/' + youtubeId)
-          .attr('width', '640').attr('height', '360');
-      } else if (igMatch && igMatch[0].length) {
-        $video = $('<iframe>')
-          .attr('src', igMatch[0] + '/embed/')
-          .attr('width', '612').attr('height', '710')
-          .attr('scrolling', 'no')
-          .attr('allowtransparency', 'true');
-      } else if (vMatch && vMatch[0].length) {
-        $video = $('<iframe>')
-          .attr('src', vMatch[0] + '/embed/simple')
-          .attr('width', '600').attr('height', '600')
-          .attr('class', 'vine-embed');
-      } else if (vimMatch && vimMatch[3].length) {
-        $video = $('<iframe webkitallowfullscreen mozallowfullscreen allowfullscreen>')
-          .attr('src', '//player.vimeo.com/video/' + vimMatch[3])
-          .attr('width', '640').attr('height', '360');
-      } else if (dmMatch && dmMatch[2].length) {
-        $video = $('<iframe>')
-          .attr('src', '//www.dailymotion.com/embed/video/' + dmMatch[2])
-          .attr('width', '640').attr('height', '360');
-      } else if (youkuMatch && youkuMatch[1].length) {
-        $video = $('<iframe webkitallowfullscreen mozallowfullscreen allowfullscreen>')
-          .attr('height', '498')
-          .attr('width', '510')
-          .attr('src', '//player.youku.com/embed/' + youkuMatch[1]);
-      } else {
-        // this is not a known video link. Now what, Cat? Now what?
-      }
-
-      if ($video) {
-        $video.attr('frameborder', 0);
-        range.create().insertNode($video[0]);
-      }
+    /**
+     * insert text
+     * @param {Node} $editable
+     * @param {String} text
+     */
+    this.insertText = function ($editable, text) {
+      var textNode = this.createRange($editable).insertNode(dom.createText(text), true);
+      range.create(textNode, dom.nodeLength(textNode)).select();
+      afterCommand($editable);
     };
 
     /**
      * formatBlock
      *
      * @param {jQuery} $editable
-     * @param {String} sTagName
+     * @param {String} tagName
      */
-    this.formatBlock = function ($editable, sTagName) {
-      recordUndo($editable);
-      sTagName = agent.isMSIE ? '<' + sTagName + '>' : sTagName;
-      document.execCommand('FormatBlock', false, sTagName);
+    this.formatBlock = function ($editable, tagName) {
+      tagName = agent.isMSIE ? '<' + tagName + '>' : tagName;
+      document.execCommand('FormatBlock', false, tagName);
+      afterCommand($editable);
     };
 
     this.formatPara = function ($editable) {
       this.formatBlock($editable, 'P');
+      afterCommand($editable);
     };
 
     /* jshint ignore:start */
@@ -1928,77 +2908,84 @@
      * FIXME: Still buggy
      *
      * @param {jQuery} $editable
-     * @param {String} sValue - px
+     * @param {String} value - px
      */
-    this.fontSize = function ($editable, sValue) {
-      recordUndo($editable);
+    this.fontSize = function ($editable, value) {
       document.execCommand('fontSize', false, 3);
       if (agent.isFF) {
-        // firefox: <font size="3"> to <span style='font-size={sValue}px;'>, buggy
-        $editable.find('font[size=3]').removeAttr('size').css('font-size', sValue + 'px');
+        // firefox: <font size="3"> to <span style='font-size={value}px;'>, buggy
+        $editable.find('font[size=3]').removeAttr('size').css('font-size', value + 'px');
       } else {
-        // chrome: <span style="font-size: medium"> to <span style='font-size={sValue}px;'>
+        // chrome: <span style="font-size: medium"> to <span style='font-size={value}px;'>
         $editable.find('span').filter(function () {
           return this.style.fontSize === 'medium';
-        }).css('font-size', sValue + 'px');
+        }).css('font-size', value + 'px');
       }
+
+      afterCommand($editable);
     };
 
     /**
      * lineHeight
      * @param {jQuery} $editable
-     * @param {String} sValue
+     * @param {String} value
      */
-    this.lineHeight = function ($editable, sValue) {
-      recordUndo($editable);
-      style.stylePara(range.create(), {lineHeight: sValue});
+    this.lineHeight = function ($editable, value) {
+      style.stylePara(range.create(), {
+        lineHeight: value
+      });
+      afterCommand($editable);
     };
 
     /**
      * unlink
+     *
+     * @type command
+     *
      * @param {jQuery} $editable
      */
     this.unlink = function ($editable) {
       var rng = range.create();
       if (rng.isOnAnchor()) {
-        recordUndo($editable);
-        var elAnchor = dom.ancestor(rng.sc, dom.isAnchor);
-        rng = range.createFromNode(elAnchor);
+        var anchor = dom.ancestor(rng.sc, dom.isAnchor);
+        rng = range.createFromNode(anchor);
         rng.select();
         document.execCommand('unlink');
+
+        afterCommand($editable);
       }
     };
 
     /**
      * create link
      *
+     * @type command
+     *
      * @param {jQuery} $editable
      * @param {Object} linkInfo
      * @param {Object} options
      */
     this.createLink = function ($editable, linkInfo, options) {
-      var sLinkUrl = linkInfo.url;
-      var sLinkText = linkInfo.text;
+      var linkUrl = linkInfo.url;
+      var linkText = linkInfo.text;
       var isNewWindow = linkInfo.newWindow;
       var rng = linkInfo.range;
 
-      recordUndo($editable);
-
       if (options.onCreateLink) {
-        sLinkUrl = options.onCreateLink(sLinkUrl);
+        linkUrl = options.onCreateLink(linkUrl);
       }
 
       rng = rng.deleteContents();
 
       // Create a new link when there is no anchor on range.
-      var anchor = rng.insertNode($('<A>' + sLinkText + '</A>')[0]);
+      var anchor = rng.insertNode($('<A>' + linkText + '</A>')[0], true);
       $(anchor).attr({
-        href: sLinkUrl,
+        href: linkUrl,
         target: isNewWindow ? '_blank' : ''
       });
 
-      rng = range.createFromNode(anchor);
-      rng.select();
+      range.createFromNode(anchor).select();
+      afterCommand($editable);
     };
 
     /**
@@ -2022,65 +3009,57 @@
       };
     };
 
-    /**
-     * get video info
-     *
-     * @param {jQuery} $editable
-     * @return {Object}
-     */
-    this.getVideoInfo = function ($editable) {
-      $editable.focus();
-
-      var rng = range.create();
-
-      if (rng.isOnAnchor()) {
-        var elAnchor = dom.ancestor(rng.sc, dom.isAnchor);
-        rng = range.createFromNode(elAnchor);
-      }
-
-      return {
-        text: rng.toString()
-      };
-    };
-
     this.color = function ($editable, sObjColor) {
       var oColor = JSON.parse(sObjColor);
       var foreColor = oColor.foreColor, backColor = oColor.backColor;
 
-      recordUndo($editable);
       if (foreColor) { document.execCommand('foreColor', false, foreColor); }
       if (backColor) { document.execCommand('backColor', false, backColor); }
+
+      afterCommand($editable);
     };
 
     this.insertTable = function ($editable, sDim) {
-      recordUndo($editable);
-      var aDim = sDim.split('x');
-      range.create().insertNode(table.createTable(aDim[0], aDim[1]));
+      var dimension = sDim.split('x');
+      var rng = range.create();
+      rng = rng.deleteContents();
+      rng.insertNode(table.createTable(dimension[0], dimension[1]));
+      afterCommand($editable);
     };
 
     /**
      * @param {jQuery} $editable
-     * @param {String} sValue
+     * @param {String} value
      * @param {jQuery} $target
      */
-    this.floatMe = function ($editable, sValue, $target) {
-      recordUndo($editable);
-      $target.css('float', sValue);
+    this.floatMe = function ($editable, value, $target) {
+      $target.css('float', value);
+      afterCommand($editable);
+    };
+
+    this.imageShape = function ($editable, value, $target) {
+      $target.removeClass('img-rounded img-circle img-thumbnail');
+
+      if (value) {
+        $target.addClass(value);
+      }
+
+      afterCommand($editable);
     };
 
     /**
      * resize overlay element
      * @param {jQuery} $editable
-     * @param {String} sValue
+     * @param {String} value
      * @param {jQuery} $target - target element
      */
-    this.resize = function ($editable, sValue, $target) {
-      recordUndo($editable);
-
+    this.resize = function ($editable, value, $target) {
       $target.css({
-        width: $editable.width() * sValue + 'px',
+        width: value * 100 + '%',
         height: ''
       });
+
+      afterCommand($editable);
     };
 
     /**
@@ -2089,34 +3068,35 @@
      * @param {Boolean} [bKeepRatio] - keep ratio
      */
     this.resizeTo = function (pos, $target, bKeepRatio) {
-      var szImage;
+      var imageSize;
       if (bKeepRatio) {
         var newRatio = pos.y / pos.x;
         var ratio = $target.data('ratio');
-        szImage = {
+        imageSize = {
           width: ratio > newRatio ? pos.x : pos.y / ratio,
           height: ratio > newRatio ? pos.x * ratio : pos.y
         };
       } else {
-        szImage = {
+        imageSize = {
           width: pos.x,
           height: pos.y
         };
       }
 
-      $target.css(szImage);
+      $target.css(imageSize);
     };
 
     /**
      * remove media object
      *
      * @param {jQuery} $editable
-     * @param {String} sValue - dummy argument (for keep interface)
+     * @param {String} value - dummy argument (for keep interface)
      * @param {jQuery} $target - target element
      */
-    this.removeMedia = function ($editable, sValue, $target) {
-      recordUndo($editable);
+    this.removeMedia = function ($editable, value, $target) {
       $target.detach();
+
+      afterCommand($editable);
     };
   };
 
@@ -2124,41 +3104,57 @@
    * History
    * @class
    */
-  var History = function () {
-    var aUndo = [], aRedo = [];
+  var History = function ($editable) {
+    var stack = [], stackOffset = -1;
+    var editable = $editable[0];
 
-    var makeSnap = function ($editable) {
-      var elEditable = $editable[0], rng = range.create();
+    var makeSnapshot = function () {
+      var rng = range.create();
+      var emptyBookmark = {s: {path: [0], offset: 0}, e: {path: [0], offset: 0}};
+
       return {
         contents: $editable.html(),
-        bookmark: rng.bookmark(elEditable),
-        scrollTop: $editable.scrollTop()
+        bookmark: (rng ? rng.bookmark(editable) : emptyBookmark)
       };
     };
 
-    var applySnap = function ($editable, oSnap) {
-      $editable.html(oSnap.contents).scrollTop(oSnap.scrollTop);
-      range.createFromBookmark($editable[0], oSnap.bookmark).select();
+    var applySnapshot = function (snapshot) {
+      if (snapshot.contents !== null) {
+        $editable.html(snapshot.contents);
+      }
+      if (snapshot.bookmark !== null) {
+        range.createFromBookmark(editable, snapshot.bookmark).select();
+      }
     };
 
-    this.undo = function ($editable) {
-      var oSnap = makeSnap($editable);
-      if (!aUndo.length) { return; }
-      applySnap($editable, aUndo.pop());
-      aRedo.push(oSnap);
+    this.undo = function () {
+      if (0 < stackOffset) {
+        stackOffset--;
+        applySnapshot(stack[stackOffset]);
+      }
     };
 
-    this.redo = function ($editable) {
-      var oSnap = makeSnap($editable);
-      if (!aRedo.length) { return; }
-      applySnap($editable, aRedo.pop());
-      aUndo.push(oSnap);
+    this.redo = function () {
+      if (stack.length - 1 > stackOffset) {
+        stackOffset++;
+        applySnapshot(stack[stackOffset]);
+      }
     };
 
-    this.recordUndo = function ($editable) {
-      aRedo = [];
-      aUndo.push(makeSnap($editable));
+    this.recordUndo = function () {
+      stackOffset++;
+
+      // Wash out stack after stackOffset
+      if (stack.length > stackOffset) {
+        stack = stack.slice(0, stackOffset);
+      }
+
+      // Create new snapshot and push it to the end
+      stack.push(makeSnapshot());
     };
+
+    // Create first undo stack
+    this.recordUndo();
   };
 
   /**
@@ -2169,18 +3165,18 @@
      * update button status
      *
      * @param {jQuery} $container
-     * @param {Object} oStyle
+     * @param {Object} styleInfo
      */
-    this.update = function ($container, oStyle) {
+    this.update = function ($container, styleInfo) {
       /**
        * handle dropdown's check mark (for fontname, fontsize, lineHeight).
        * @param {jQuery} $btn
-       * @param {Number} nValue
+       * @param {Number} value
        */
-      var checkDropdownMenu = function ($btn, nValue) {
+      var checkDropdownMenu = function ($btn, value) {
         $btn.find('.dropdown-menu li a').each(function () {
           // always compare string to avoid creating another func.
-          var isChecked = ($(this).data('value') + '') === (nValue + '');
+          var isChecked = ($(this).data('value') + '') === (value + '');
           this.className = isChecked ? 'checked' : '';
         });
       };
@@ -2188,18 +3184,18 @@
       /**
        * update button state(active or not).
        *
-       * @param {String} sSelector
+       * @param {String} selector
        * @param {Function} pred
        */
-      var btnState = function (sSelector, pred) {
-        var $btn = $container.find(sSelector);
+      var btnState = function (selector, pred) {
+        var $btn = $container.find(selector);
         $btn.toggleClass('active', pred());
       };
 
       // fontname
       var $fontname = $container.find('.note-fontname');
       if ($fontname.length) {
-        var selectedFont = oStyle['font-family'];
+        var selectedFont = styleInfo['font-family'];
         if (!!selectedFont) {
           selectedFont = list.head(selectedFont.split(','));
           selectedFont = selectedFont.replace(/\'/g, '');
@@ -2210,66 +3206,66 @@
 
       // fontsize
       var $fontsize = $container.find('.note-fontsize');
-      $fontsize.find('.note-current-fontsize').text(oStyle['font-size']);
-      checkDropdownMenu($fontsize, parseFloat(oStyle['font-size']));
+      $fontsize.find('.note-current-fontsize').text(styleInfo['font-size']);
+      checkDropdownMenu($fontsize, parseFloat(styleInfo['font-size']));
 
       // lineheight
       var $lineHeight = $container.find('.note-height');
-      checkDropdownMenu($lineHeight, parseFloat(oStyle['line-height']));
+      checkDropdownMenu($lineHeight, parseFloat(styleInfo['line-height']));
 
       btnState('button[data-event="bold"]', function () {
-        return oStyle['font-bold'] === 'bold';
+        return styleInfo['font-bold'] === 'bold';
       });
       btnState('button[data-event="italic"]', function () {
-        return oStyle['font-italic'] === 'italic';
+        return styleInfo['font-italic'] === 'italic';
       });
       btnState('button[data-event="underline"]', function () {
-        return oStyle['font-underline'] === 'underline';
+        return styleInfo['font-underline'] === 'underline';
       });
       btnState('button[data-event="strikethrough"]', function () {
-        return oStyle['font-strikethrough'] === 'strikethrough';
+        return styleInfo['font-strikethrough'] === 'strikethrough';
       });
       btnState('button[data-event="superscript"]', function () {
-        return oStyle['font-superscript'] === 'superscript';
+        return styleInfo['font-superscript'] === 'superscript';
       });
       btnState('button[data-event="subscript"]', function () {
-        return oStyle['font-subscript'] === 'subscript';
+        return styleInfo['font-subscript'] === 'subscript';
       });
       btnState('button[data-event="justifyLeft"]', function () {
-        return oStyle['text-align'] === 'left' || oStyle['text-align'] === 'start';
+        return styleInfo['text-align'] === 'left' || styleInfo['text-align'] === 'start';
       });
       btnState('button[data-event="justifyCenter"]', function () {
-        return oStyle['text-align'] === 'center';
+        return styleInfo['text-align'] === 'center';
       });
       btnState('button[data-event="justifyRight"]', function () {
-        return oStyle['text-align'] === 'right';
+        return styleInfo['text-align'] === 'right';
       });
       btnState('button[data-event="justifyFull"]', function () {
-        return oStyle['text-align'] === 'justify';
+        return styleInfo['text-align'] === 'justify';
       });
       btnState('button[data-event="insertUnorderedList"]', function () {
-        return oStyle['list-style'] === 'unordered';
+        return styleInfo['list-style'] === 'unordered';
       });
       btnState('button[data-event="insertOrderedList"]', function () {
-        return oStyle['list-style'] === 'ordered';
+        return styleInfo['list-style'] === 'ordered';
       });
     };
 
     /**
      * update recent color
      *
-     * @param {Element} elBtn
-     * @param {String} sEvent
-     * @param {sValue} sValue
+     * @param {Node} button
+     * @param {String} eventName
+     * @param {value} value
      */
-    this.updateRecentColor = function (elBtn, sEvent, sValue) {
-      var $color = $(elBtn).closest('.note-color');
+    this.updateRecentColor = function (button, eventName, value) {
+      var $color = $(button).closest('.note-color');
       var $recentColor = $color.find('.note-recent-color');
-      var oColor = JSON.parse($recentColor.attr('data-value'));
-      oColor[sEvent] = sValue;
-      $recentColor.attr('data-value', JSON.stringify(oColor));
-      var sKey = sEvent === 'backColor' ? 'background-color' : 'color';
-      $recentColor.find('i').css(sKey, sValue);
+      var colorInfo = JSON.parse($recentColor.attr('data-value'));
+      colorInfo[eventName] = value;
+      $recentColor.attr('data-value', JSON.stringify(colorInfo));
+      var sKey = eventName === 'backColor' ? 'background-color' : 'color';
+      $recentColor.find('i').css(sKey, value);
     };
   };
 
@@ -2279,12 +3275,17 @@
   var Toolbar = function () {
     var button = new Button();
 
-    this.update = function ($toolbar, oStyle) {
-      button.update($toolbar, oStyle);
+    this.update = function ($toolbar, styleInfo) {
+      button.update($toolbar, styleInfo);
     };
 
-    this.updateRecentColor = function (elBtn, sEvent, sValue) {
-      button.updateRecentColor(elBtn, sEvent, sValue);
+    /**
+     * @param {Node} button
+     * @param {String} eventName
+     * @param {String} value
+     */
+    this.updateRecentColor = function (buttonNode, eventName, value) {
+      button.updateRecentColor(buttonNode, eventName, value);
     };
 
     /**
@@ -2292,7 +3293,9 @@
      * @param {jQuery} $toolbar
      */
     this.activate = function ($toolbar) {
-      $toolbar.find('button').not('button[data-event="codeview"]').removeClass('disabled');
+      $toolbar.find('button')
+              .not('button[data-event="codeview"]')
+              .removeClass('disabled');
     };
 
     /**
@@ -2300,7 +3303,9 @@
      * @param {jQuery} $toolbar
      */
     this.deactivate = function ($toolbar) {
-      $toolbar.find('button').not('button[data-event="codeview"]').addClass('disabled');
+      $toolbar.find('button')
+              .not('button[data-event="codeview"]')
+              .addClass('disabled');
     };
 
     this.updateFullscreen = function ($container, bFullscreen) {
@@ -2322,7 +3327,7 @@
 
     /**
      * returns position from placeholder
-     * @param {Element} placeholder
+     * @param {Node} placeholder
      * @param {Boolean} isAirMode
      */
     var posFromPlaceholder = function (placeholder, isAirMode) {
@@ -2355,32 +3360,32 @@
     /**
      * update current state
      * @param {jQuery} $popover - popover container
-     * @param {Object} oStyle - style object
+     * @param {Object} styleInfo - style object
      * @param {Boolean} isAirMode
      */
-    this.update = function ($popover, oStyle, isAirMode) {
-      button.update($popover, oStyle);
+    this.update = function ($popover, styleInfo, isAirMode) {
+      button.update($popover, styleInfo);
 
       var $linkPopover = $popover.find('.note-link-popover');
-      if (oStyle.anchor) {
+      if (styleInfo.anchor) {
         var $anchor = $linkPopover.find('a');
-        var href = $(oStyle.anchor).attr('href');
+        var href = $(styleInfo.anchor).attr('href');
         $anchor.attr('href', href).html(href);
-        showPopover($linkPopover, posFromPlaceholder(oStyle.anchor, isAirMode));
+        showPopover($linkPopover, posFromPlaceholder(styleInfo.anchor, isAirMode));
       } else {
         $linkPopover.hide();
       }
 
       var $imagePopover = $popover.find('.note-image-popover');
-      if (oStyle.image) {
-        showPopover($imagePopover, posFromPlaceholder(oStyle.image, isAirMode));
+      if (styleInfo.image) {
+        showPopover($imagePopover, posFromPlaceholder(styleInfo.image, isAirMode));
       } else {
         $imagePopover.hide();
       }
 
       var $airPopover = $popover.find('.note-air-popover');
-      if (isAirMode && !oStyle.range.isCollapsed()) {
-        var bnd = func.rect2bnd(list.last(oStyle.range.getClientRects()));
+      if (isAirMode && !styleInfo.range.isCollapsed()) {
+        var bnd = func.rect2bnd(list.last(styleInfo.range.getClientRects()));
         showPopover($airPopover, {
           left: Math.max(bnd.left + bnd.width / 2 - PX_POPOVER_ARROW_OFFSET_X, 0),
           top: bnd.top + bnd.height
@@ -2390,13 +3395,18 @@
       }
     };
 
-    this.updateRecentColor = function (elBtn, sEvent, sValue) {
-      button.updateRecentColor(elBtn, sEvent, sValue);
+    /**
+     * @param {Node} button
+     * @param {String} eventName
+     * @param {String} value
+     */
+    this.updateRecentColor = function (button, eventName, value) {
+      button.updateRecentColor(button, eventName, value);
     };
 
     /**
      * hide all popovers
-     * @param {jQuery} $popover - popover contaienr
+     * @param {jQuery} $popover - popover container
      */
     this.hide = function ($popover) {
       $popover.children().hide();
@@ -2410,17 +3420,17 @@
     /**
      * update handle
      * @param {jQuery} $handle
-     * @param {Object} oStyle
+     * @param {Object} styleInfo
      * @param {Boolean} isAirMode
      */
-    this.update = function ($handle, oStyle, isAirMode) {
+    this.update = function ($handle, styleInfo, isAirMode) {
       var $selection = $handle.find('.note-control-selection');
-      if (oStyle.image) {
-        var $image = $(oStyle.image);
+      if (styleInfo.image) {
+        var $image = $(styleInfo.image);
         var pos = isAirMode ? $image.offset() : $image.position();
 
         // include margin
-        var szImage = {
+        var imageSize = {
           w: $image.outerWidth(true),
           h: $image.outerHeight(true)
         };
@@ -2429,11 +3439,11 @@
           display: 'block',
           left: pos.left,
           top: pos.top,
-          width: szImage.w,
-          height: szImage.h
-        }).data('target', oStyle.image); // save current image element.
-        var sSizing = szImage.w + 'x' + szImage.h;
-        $selection.find('.note-control-selection-info').text(sSizing);
+          width: imageSize.w,
+          height: imageSize.h
+        }).data('target', styleInfo.image); // save current image element.
+        var sizingText = imageSize.w + 'x' + imageSize.h;
+        $selection.find('.note-control-selection-info').text(sizingText);
       } else {
         $selection.hide();
       }
@@ -2484,6 +3494,7 @@
               deferred.resolve(this.files);
               $imageDialog.modal('hide');
             })
+            .val('')
           );
 
           $imageBtn.click(function (event) {
@@ -2517,42 +3528,6 @@
     };
 
     /**
-     * Show video dialog and set event handlers on dialog controls.
-     *
-     * @param {jQuery} $dialog 
-     * @param {Object} videoInfo 
-     * @return {Promise}
-     */
-    this.showVideoDialog = function ($editable, $dialog, videoInfo) {
-      return $.Deferred(function (deferred) {
-        var $videoDialog = $dialog.find('.note-video-dialog');
-        var $videoUrl = $videoDialog.find('.note-video-url'),
-            $videoBtn = $videoDialog.find('.note-video-btn');
-
-        $videoDialog.one('shown.bs.modal', function () {
-          $videoUrl.val(videoInfo.text).keyup(function () {
-            toggleBtn($videoBtn, $videoUrl.val());
-          }).trigger('keyup').trigger('focus');
-
-          $videoBtn.click(function (event) {
-            event.preventDefault();
-
-            deferred.resolve($videoUrl.val());
-            $videoDialog.modal('hide');
-          });
-        }).one('hidden.bs.modal', function () {
-          // dettach events
-          $videoUrl.off('keyup');
-          $videoBtn.off('click');
-
-          if (deferred.state() === 'pending') {
-            deferred.reject();
-          }
-        }).modal('show');
-      });
-    };
-
-    /**
      * Show link dialog and set event handlers on dialog controls.
      *
      * @param {jQuery} $dialog
@@ -2571,7 +3546,7 @@
         $linkDialog.one('shown.bs.modal', function () {
           $linkText.val(linkInfo.text);
 
-          $linkText.keyup(function () {
+          $linkText.on('input', function () {
             // if linktext was modified by keyup,
             // stop cloning text from linkUrl
             linkInfo.text = $linkText.val();
@@ -2583,7 +3558,7 @@
             toggleBtn($linkBtn, linkInfo.text);
           }
 
-          $linkUrl.keyup(function () {
+          $linkUrl.on('input', function () {
             toggleBtn($linkBtn, $linkUrl.val());
             // display same link on `Text to display` input
             // when create a new link
@@ -2606,9 +3581,9 @@
             $linkDialog.modal('hide');
           });
         }).one('hidden.bs.modal', function () {
-          // dettach events
-          $linkText.off('keyup');
-          $linkUrl.off('keyup');
+          // detach events
+          $linkText.off('input');
+          $linkUrl.off('input');
           $linkBtn.off('click');
 
           if (deferred.state() === 'pending') {
@@ -2658,10 +3633,14 @@
     var toolbar = new Toolbar(), popover = new Popover();
     var handle = new Handle(), dialog = new Dialog();
 
+    this.getEditor = function () {
+      return editor;
+    };
+
     /**
      * returns makeLayoutInfo from editor's descendant node.
      *
-     * @param {Element} descendant
+     * @param {Node} descendant
      * @returns {Object}
      */
     var makeLayoutInfo = function (descendant) {
@@ -2682,12 +3661,15 @@
     /**
      * insert Images from file array.
      *
-     * @param {jQuery} $editable
+     * @param {Object} layoutInfo
      * @param {File[]} files
      */
-    var insertImages = function ($editable, files) {
-      editor.restoreRange($editable);
+    var insertImages = function (layoutInfo, files) {
+      var $editor = layoutInfo.editor(),
+          $editable = layoutInfo.editable();
+
       var callbacks = $editable.data('callbacks');
+      var options = $editor.data('options');
 
       // If onImageUpload options setted
       if (callbacks.onImageUpload) {
@@ -2695,25 +3677,34 @@
       // else insert Image as dataURL
       } else {
         $.each(files, function (idx, file) {
-          async.readFileAsDataURL(file).then(function (sDataURL) {
-            editor.insertImage($editable, sDataURL);
-          }).fail(function () {
+          var filename = file.name;
+          if (options.maximumImageFileSize && options.maximumImageFileSize < file.size) {
             if (callbacks.onImageUploadError) {
-              callbacks.onImageUploadError();
+              callbacks.onImageUploadError(options.langInfo.image.maximumFileSizeError);
+            } else {
+              alert(options.langInfo.image.maximumFileSizeError);
             }
-          });
+          } else {
+            async.readFileAsDataURL(file).then(function (sDataURL) {
+              editor.insertImage($editable, sDataURL, filename);
+            }).fail(function () {
+              if (callbacks.onImageUploadError) {
+                callbacks.onImageUploadError();
+              }
+            });
+          }
         });
       }
     };
 
     var commands = {
       /**
-       * @param {Object} oLayoutInfo
+       * @param {Object} layoutInfo
        */
-      showLinkDialog: function (oLayoutInfo) {
-        var $editor = oLayoutInfo.editor(),
-            $dialog = oLayoutInfo.dialog(),
-            $editable = oLayoutInfo.editable(),
+      showLinkDialog: function (layoutInfo) {
+        var $editor = layoutInfo.editor(),
+            $dialog = layoutInfo.dialog(),
+            $editable = layoutInfo.editable(),
             linkInfo = editor.getLinkInfo($editable);
 
         var options = $editor.data('options');
@@ -2723,18 +3714,18 @@
           editor.restoreRange($editable);
           editor.createLink($editable, linkInfo, options);
           // hide popover after creating link
-          popover.hide(oLayoutInfo.popover());
+          popover.hide(layoutInfo.popover());
         }).fail(function () {
           editor.restoreRange($editable);
         });
       },
 
       /**
-       * @param {Object} oLayoutInfo
+       * @param {Object} layoutInfo
        */
-      showImageDialog: function (oLayoutInfo) {
-        var $dialog = oLayoutInfo.dialog(),
-            $editable = oLayoutInfo.editable();
+      showImageDialog: function (layoutInfo) {
+        var $dialog = layoutInfo.dialog(),
+            $editable = layoutInfo.editable();
 
         editor.saveRange($editable);
         dialog.showImageDialog($editable, $dialog).then(function (data) {
@@ -2745,7 +3736,7 @@
             editor.insertImage($editable, data);
           } else {
             // array of files
-            insertImages($editable, data);
+            insertImages(layoutInfo, data);
           }
         }).fail(function () {
           editor.restoreRange($editable);
@@ -2753,45 +3744,25 @@
       },
 
       /**
-       * @param {Object} oLayoutInfo
+       * @param {Object} layoutInfo
        */
-      showVideoDialog: function (oLayoutInfo) {
-        var $dialog = oLayoutInfo.dialog(),
-            $editable = oLayoutInfo.editable(),
-            videoInfo = editor.getVideoInfo($editable);
+      showHelpDialog: function (layoutInfo) {
+        var $dialog = layoutInfo.dialog(),
+            $editable = layoutInfo.editable();
 
-        editor.saveRange($editable);
-        dialog.showVideoDialog($editable, $dialog, videoInfo).then(function (sUrl) {
-          editor.restoreRange($editable);
-          editor.insertVideo($editable, sUrl);
-        }).fail(function () {
-          editor.restoreRange($editable);
-        });
-      },
-
-      /**
-       * @param {Object} oLayoutInfo
-       */
-      showHelpDialog: function (oLayoutInfo) {
-        var $dialog = oLayoutInfo.dialog(),
-            $editable = oLayoutInfo.editable();
-
-        editor.saveRange($editable);
+        editor.saveRange($editable, true);
         dialog.showHelpDialog($editable, $dialog).then(function () {
           editor.restoreRange($editable);
         });
       },
 
-      fullscreen: function (oLayoutInfo) {
-        var $editor = oLayoutInfo.editor(),
-        $toolbar = oLayoutInfo.toolbar(),
-        $editable = oLayoutInfo.editable(),
-        $codable = oLayoutInfo.codable();
-
-        var options = $editor.data('options');
+      fullscreen: function (layoutInfo) {
+        var $editor = layoutInfo.editor(),
+        $toolbar = layoutInfo.toolbar(),
+        $editable = layoutInfo.editable(),
+        $codable = layoutInfo.codable();
 
         var resize = function (size) {
-          $editor.css('width', size.w);
           $editable.css('height', size.h);
           $codable.css('height', size.h);
           if ($codable.data('cmeditor')) {
@@ -2806,7 +3777,6 @@
 
           $window.on('resize', function () {
             resize({
-              w: $window.width(),
               h: $window.height() - $toolbar.outerHeight()
             });
           }).trigger('resize');
@@ -2815,7 +3785,6 @@
         } else {
           $window.off('resize');
           resize({
-            w: options.width || '',
             h: $editable.data('orgheight')
           });
           $scrollbar.css('overflow', 'visible');
@@ -2824,12 +3793,13 @@
         toolbar.updateFullscreen($toolbar, isFullscreen);
       },
 
-      codeview: function (oLayoutInfo) {
-        var $editor = oLayoutInfo.editor(),
-        $toolbar = oLayoutInfo.toolbar(),
-        $editable = oLayoutInfo.editable(),
-        $codable = oLayoutInfo.codable(),
-        $popover = oLayoutInfo.popover();
+      codeview: function (layoutInfo) {
+        var $editor = layoutInfo.editor(),
+        $toolbar = layoutInfo.toolbar(),
+        $editable = layoutInfo.editable(),
+        $codable = layoutInfo.codable(),
+        $popover = layoutInfo.popover(),
+        $handle = layoutInfo.handle();
 
         var options = $editor.data('options');
 
@@ -2839,10 +3809,11 @@
 
         var isCodeview = $editor.hasClass('codeview');
         if (isCodeview) {
-          $codable.val($editable.html());
+          $codable.val(dom.html($editable, true));
           $codable.height($editable.height());
           toolbar.deactivate($toolbar);
           popover.hide($popover);
+          handle.hide($handle);
           $codable.focus();
 
           // activate CodeMirror as codable
@@ -2860,13 +3831,6 @@
 
             // CodeMirror hasn't Padding.
             cmEditor.setSize(null, $editable.outerHeight());
-            // autoFormatRange If formatting included
-            if (options.codemirror.autoFormatOnStart && cmEditor.autoFormatRange) {
-              cmEditor.autoFormatRange({line: 0, ch: 0}, {
-                line: cmEditor.lineCount(),
-                ch: cmEditor.getTextArea().value.length
-              });
-            }
             $codable.data('cmEditor', cmEditor);
           }
         } else {
@@ -2877,14 +3841,14 @@
             cmEditor.toTextArea();
           }
 
-          $editable.html($codable.val() || dom.emptyPara);
+          $editable.html(dom.value($codable) || dom.emptyPara);
           $editable.height(options.height ? $codable.height() : 'auto');
 
           toolbar.activate($toolbar);
           $editable.focus();
         }
 
-        toolbar.updateCodeview(oLayoutInfo.toolbar(), isCodeview);
+        toolbar.updateCodeview(layoutInfo.toolbar(), isCodeview);
       }
     };
 
@@ -2898,25 +3862,25 @@
     var hToolbarAndPopoverUpdate = function (event) {
       // delay for range after mouseup
       setTimeout(function () {
-        var oLayoutInfo = makeLayoutInfo(event.currentTarget || event.target);
-        var oStyle = editor.currentStyle(event.target);
-        if (!oStyle) { return; }
+        var layoutInfo = makeLayoutInfo(event.currentTarget || event.target);
+        var styleInfo = editor.currentStyle(event.target);
+        if (!styleInfo) { return; }
 
-        var isAirMode = oLayoutInfo.editor().data('options').airMode;
+        var isAirMode = layoutInfo.editor().data('options').airMode;
         if (!isAirMode) {
-          toolbar.update(oLayoutInfo.toolbar(), oStyle);
+          toolbar.update(layoutInfo.toolbar(), styleInfo);
         }
 
-        popover.update(oLayoutInfo.popover(), oStyle, isAirMode);
-        handle.update(oLayoutInfo.handle(), oStyle, isAirMode);
+        popover.update(layoutInfo.popover(), styleInfo, isAirMode);
+        handle.update(layoutInfo.handle(), styleInfo, isAirMode);
       }, 0);
     };
 
     var hScroll = function (event) {
-      var oLayoutInfo = makeLayoutInfo(event.currentTarget || event.target);
+      var layoutInfo = makeLayoutInfo(event.currentTarget || event.target);
       //hide popover and handle when scrolled
-      popover.hide(oLayoutInfo.popover());
-      handle.hide(oLayoutInfo.handle());
+      popover.hide(layoutInfo.popover());
+      handle.hide(layoutInfo.handle());
     };
 
     /**
@@ -2930,13 +3894,17 @@
         return;
       }
 
-      var oLayoutInfo = makeLayoutInfo(event.currentTarget || event.target);
+      var layoutInfo = makeLayoutInfo(event.currentTarget || event.target),
+          $editable = layoutInfo.editable();
+
       var item = list.head(clipboardData.items);
       var isClipboardImage = item.kind === 'file' && item.type.indexOf('image/') !== -1;
 
       if (isClipboardImage) {
-        insertImages(oLayoutInfo.editable(), [item.getAsFile()]);
+        insertImages(layoutInfo, [item.getAsFile()]);
       }
+
+      editor.afterCommand($editable);
     };
 
     /**
@@ -2950,13 +3918,13 @@
         event.preventDefault();
         event.stopPropagation();
 
-        var oLayoutInfo = makeLayoutInfo(event.target),
-            $handle = oLayoutInfo.handle(), $popover = oLayoutInfo.popover(),
-            $editable = oLayoutInfo.editable(),
-            $editor = oLayoutInfo.editor();
+        var layoutInfo = makeLayoutInfo(event.target),
+            $handle = layoutInfo.handle(), $popover = layoutInfo.popover(),
+            $editable = layoutInfo.editable(),
+            $editor = layoutInfo.editor();
 
-        var elTarget = $handle.find('.note-control-selection').data('target'),
-            $target = $(elTarget), posStart = $target.offset(),
+        var target = $handle.find('.note-control-selection').data('target'),
+            $target = $(target), posStart = $target.offset(),
             scrollTop = $document.scrollTop();
 
         var isAirMode = $editor.data('options').airMode;
@@ -2967,17 +3935,16 @@
             y: event.clientY - (posStart.top - scrollTop)
           }, $target, !event.shiftKey);
 
-          handle.update($handle, {image: elTarget}, isAirMode);
-          popover.update($popover, {image: elTarget}, isAirMode);
+          handle.update($handle, {image: target}, isAirMode);
+          popover.update($popover, {image: target}, isAirMode);
         }).one('mouseup', function () {
           $document.off('mousemove');
+          editor.afterCommand($editable);
         });
 
         if (!$target.data('ratio')) { // original ratio.
           $target.data('ratio', $target.height() / $target.width());
         }
-
-        editor.recordUndo($editable);
       }
     };
 
@@ -2993,33 +3960,42 @@
       var $btn = $(event.target).closest('[data-event]');
 
       if ($btn.length) {
-        var sEvent = $btn.attr('data-event'),
-            sValue = $btn.attr('data-value');
+        var eventName = $btn.attr('data-event'),
+            value = $btn.attr('data-value'),
+            hide = $btn.attr('data-hide');
 
-        var oLayoutInfo = makeLayoutInfo(event.target);
+        var layoutInfo = makeLayoutInfo(event.target);
 
         event.preventDefault();
 
         // before command: detect control selection element($target)
         var $target;
-        if ($.inArray(sEvent, ['resize', 'floatMe', 'removeMedia']) !== -1) {
-          var $selection = oLayoutInfo.handle().find('.note-control-selection');
+        if ($.inArray(eventName, ['resize', 'floatMe', 'removeMedia', 'imageShape']) !== -1) {
+          var $selection = layoutInfo.handle().find('.note-control-selection');
           $target = $($selection.data('target'));
         }
 
-        if (editor[sEvent]) { // on command
-          var $editable = oLayoutInfo.editable();
+        // If requested, hide the popover when the button is clicked.
+        // Useful for things like showHelpDialog.
+        if (hide) {
+          $btn.parents('.popover').hide();
+        }
+
+        if (editor[eventName]) { // on command
+          var $editable = layoutInfo.editable();
           $editable.trigger('focus');
-          editor[sEvent]($editable, sValue, $target);
-        } else if (commands[sEvent]) {
-          commands[sEvent].call(this, oLayoutInfo);
+          editor[eventName]($editable, value, $target);
+        } else if (commands[eventName]) {
+          commands[eventName].call(this, layoutInfo);
+        } else if ($.isFunction($.summernote.pluginEvents[eventName])) {
+          $.summernote.pluginEvents[eventName](layoutInfo, value, $target);
         }
 
         // after command
-        if ($.inArray(sEvent, ['backColor', 'foreColor']) !== -1) {
-          var options = oLayoutInfo.editor().data('options', options);
+        if ($.inArray(eventName, ['backColor', 'foreColor']) !== -1) {
+          var options = layoutInfo.editor().data('options', options);
           var module = options.airMode ? popover : toolbar;
-          module.updateRecentColor(list.head($btn), sEvent, sValue);
+          module.updateRecentColor(list.head($btn), eventName, value);
         }
 
         hToolbarAndPopoverUpdate(event);
@@ -3039,8 +4015,8 @@
       var $editable = makeLayoutInfo(event.target).editable();
       var nEditableTop = $editable.offset().top - $document.scrollTop();
 
-      var oLayoutInfo = makeLayoutInfo(event.currentTarget || event.target);
-      var options = oLayoutInfo.editor().data('options');
+      var layoutInfo = makeLayoutInfo(event.currentTarget || event.target);
+      var options = layoutInfo.editor().data('options');
 
       $document.on('mousemove', function (event) {
         var nHeight = event.clientY - (nEditableTop + EDITABLE_PADDING);
@@ -3097,41 +4073,60 @@
     };
 
     /**
+     * Drag and Drop Events
+     *
+     * @param {Object} layoutInfo - layout Informations
+     * @param {Object} options
+     */
+    var handleDragAndDropEvent = function (layoutInfo, options) {
+      if (options.disableDragAndDrop) {
+        // prevent default drop event
+        $document.on('drop', function (e) {
+          e.preventDefault();
+        });
+      } else {
+        attachDragAndDropEvent(layoutInfo, options);
+      }
+    };
+
+    /**
      * attach Drag and Drop Events
      *
-     * @param {Object} oLayoutInfo - layout Informations
+     * @param {Object} layoutInfo - layout Informations
+     * @param {Object} options
      */
-    var attachDragAndDropEvent = function (oLayoutInfo) {
-      var collection = $(), $dropzone = oLayoutInfo.dropzone,
-          $dropzoneMessage = oLayoutInfo.dropzone.find('.note-dropzone-message');
+    var attachDragAndDropEvent = function (layoutInfo, options) {
+      var collection = $(),
+          $dropzone = layoutInfo.dropzone,
+          $dropzoneMessage = layoutInfo.dropzone.find('.note-dropzone-message');
 
       // show dropzone on dragenter when dragging a object to document.
       $document.on('dragenter', function (e) {
-        var isCodeview = oLayoutInfo.editor.hasClass('codeview');
+        var isCodeview = layoutInfo.editor.hasClass('codeview');
         if (!isCodeview && !collection.length) {
-          oLayoutInfo.editor.addClass('dragover');
-          $dropzone.width(oLayoutInfo.editor.width());
-          $dropzone.height(oLayoutInfo.editor.height());
-          $dropzoneMessage.text('Drag Image Here');
+          layoutInfo.editor.addClass('dragover');
+          $dropzone.width(layoutInfo.editor.width());
+          $dropzone.height(layoutInfo.editor.height());
+          $dropzoneMessage.text(options.langInfo.image.dragImageHere);
         }
         collection = collection.add(e.target);
       }).on('dragleave', function (e) {
         collection = collection.not(e.target);
         if (!collection.length) {
-          oLayoutInfo.editor.removeClass('dragover');
+          layoutInfo.editor.removeClass('dragover');
         }
       }).on('drop', function () {
         collection = $();
-        oLayoutInfo.editor.removeClass('dragover');
+        layoutInfo.editor.removeClass('dragover');
       });
 
       // change dropzone's message on hover.
       $dropzone.on('dragenter', function () {
         $dropzone.addClass('hover');
-        $dropzoneMessage.text('Drop Image');
+        $dropzoneMessage.text(options.langInfo.image.dropImage);
       }).on('dragleave', function () {
         $dropzone.removeClass('hover');
-        $dropzoneMessage.text('Drag Image Here');
+        $dropzoneMessage.text(options.langInfo.image.dragImageHere);
       });
 
       // attach dropImage
@@ -3140,9 +4135,9 @@
 
         var dataTransfer = event.originalEvent.dataTransfer;
         if (dataTransfer && dataTransfer.files) {
-          var oLayoutInfo = makeLayoutInfo(event.currentTarget || event.target);
-          oLayoutInfo.editable().focus();
-          insertImages(oLayoutInfo.editable(), dataTransfer.files);
+          var layoutInfo = makeLayoutInfo(event.currentTarget || event.target);
+          layoutInfo.editable().focus();
+          insertImages(layoutInfo, dataTransfer.files);
         }
       }).on('dragover', false); // prevent default dragover event
     };
@@ -3151,14 +4146,14 @@
     /**
      * bind KeyMap on keydown
      *
-     * @param {Object} oLayoutInfo
+     * @param {Object} layoutInfo
      * @param {Object} keyMap
      */
-    this.bindKeyMap = function (oLayoutInfo, keyMap) {
-      var $editor = oLayoutInfo.editor;
-      var $editable = oLayoutInfo.editable;
+    this.bindKeyMap = function (layoutInfo, keyMap) {
+      var $editor = layoutInfo.editor;
+      var $editable = layoutInfo.editable;
 
-      oLayoutInfo = makeLayoutInfo($editable);
+      layoutInfo = makeLayoutInfo($editable);
 
       $editable.on('keydown', function (event) {
         var aKey = [];
@@ -3172,17 +4167,22 @@
         var keyName = key.nameFromCode[event.keyCode];
         if (keyName) { aKey.push(keyName); }
 
-        var sEvent = keyMap[aKey.join('+')];
-        if (sEvent) {
+        var eventName = keyMap[aKey.join('+')];
+        if (eventName) {
           event.preventDefault();
 
-          if (editor[sEvent]) {
-            editor[sEvent]($editable, $editor.data('options'));
-          } else if (commands[sEvent]) {
-            commands[sEvent].call(this, oLayoutInfo);
+          if (editor[eventName]) {
+            editor[eventName]($editable, $editor.data('options'));
+          } else if (commands[eventName]) {
+            commands[eventName].call(this, layoutInfo);
+          } else if ($.summernote.plugins[eventName]) {
+            var plugin = $.summernote.plugins[eventName];
+            if ($.isFunction(plugin.event)) {
+              plugin.event(event, editor, layoutInfo);
+            }
           }
         } else if (key.isEdit(event.keyCode)) {
-          editor.recordUndo($editable);
+          editor.afterCommand($editable);
         }
       });
     };
@@ -3190,43 +4190,43 @@
     /**
      * attach eventhandler
      *
-     * @param {Object} oLayoutInfo - layout Informations
+     * @param {Object} layoutInfo - layout Informations
      * @param {Object} options - user options include custom event handlers
      * @param {Function} options.enter - enter key handler
      */
-    this.attach = function (oLayoutInfo, options) {
+    this.attach = function (layoutInfo, options) {
       // handlers for editable
-      this.bindKeyMap(oLayoutInfo, options.keyMap[agent.isMac ? 'mac' : 'pc']);
-      oLayoutInfo.editable.on('mousedown', hMousedown);
-      oLayoutInfo.editable.on('keyup mouseup', hToolbarAndPopoverUpdate);
-      oLayoutInfo.editable.on('scroll', hScroll);
-      oLayoutInfo.editable.on('paste', hPasteClipboardImage);
+      if (options.shortcuts) {
+        this.bindKeyMap(layoutInfo, options.keyMap[agent.isMac ? 'mac' : 'pc']);
+      }
+      layoutInfo.editable.on('mousedown', hMousedown);
+      layoutInfo.editable.on('keyup mouseup', hToolbarAndPopoverUpdate);
+      layoutInfo.editable.on('scroll', hScroll);
+      layoutInfo.editable.on('paste', hPasteClipboardImage);
 
       // handler for handle and popover
-      oLayoutInfo.handle.on('mousedown', hHandleMousedown);
-      oLayoutInfo.popover.on('click', hToolbarAndPopoverClick);
-      oLayoutInfo.popover.on('mousedown', hToolbarAndPopoverMousedown);
+      layoutInfo.handle.on('mousedown', hHandleMousedown);
+      layoutInfo.popover.on('click', hToolbarAndPopoverClick);
+      layoutInfo.popover.on('mousedown', hToolbarAndPopoverMousedown);
 
       // handlers for frame mode (toolbar, statusbar)
       if (!options.airMode) {
         // handler for drag and drop
-        if (!options.disableDragAndDrop) {
-          attachDragAndDropEvent(oLayoutInfo);
-        }
+        handleDragAndDropEvent(layoutInfo, options);
 
         // handler for toolbar
-        oLayoutInfo.toolbar.on('click', hToolbarAndPopoverClick);
-        oLayoutInfo.toolbar.on('mousedown', hToolbarAndPopoverMousedown);
+        layoutInfo.toolbar.on('click', hToolbarAndPopoverClick);
+        layoutInfo.toolbar.on('mousedown', hToolbarAndPopoverMousedown);
 
         // handler for statusbar
         if (!options.disableResizeEditor) {
-          oLayoutInfo.statusbar.on('mousedown', hStatusbarMousedown);
+          layoutInfo.statusbar.on('mousedown', hStatusbarMousedown);
         }
       }
 
       // handler for table dimension
-      var $catcherContainer = options.airMode ? oLayoutInfo.popover :
-                                                oLayoutInfo.toolbar;
+      var $catcherContainer = options.airMode ? layoutInfo.popover :
+                                                layoutInfo.toolbar;
       var $catcher = $catcherContainer.find('.note-dimension-picker-mousecatcher');
       $catcher.css({
         width: options.insertTableMaxSize.col + 'em',
@@ -3236,51 +4236,53 @@
       });
 
       // save options on editor
-      oLayoutInfo.editor.data('options', options);
+      layoutInfo.editor.data('options', options);
 
       // ret styleWithCSS for backColor / foreColor clearing with 'inherit'.
-      if (options.styleWithSpan && !agent.isMSIE) {
+      if (!agent.isMSIE) {
         // protect FF Error: NS_ERROR_FAILURE: Failure
         setTimeout(function () {
-          document.execCommand('styleWithCSS', 0, true);
+          document.execCommand('styleWithCSS', 0, options.styleWithSpan);
         }, 0);
       }
 
       // History
-      oLayoutInfo.editable.data('NoteHistory', new History());
+      var history = new History(layoutInfo.editable);
+      layoutInfo.editable.data('NoteHistory', history);
 
       // basic event callbacks (lowercase)
       // enter, focus, blur, keyup, keydown
       if (options.onenter) {
-        oLayoutInfo.editable.keypress(function (event) {
+        layoutInfo.editable.keypress(function (event) {
           if (event.keyCode === key.ENTER) { options.onenter(event); }
         });
       }
 
-      if (options.onfocus) { oLayoutInfo.editable.focus(options.onfocus); }
-      if (options.onblur) { oLayoutInfo.editable.blur(options.onblur); }
-      if (options.onkeyup) { oLayoutInfo.editable.keyup(options.onkeyup); }
-      if (options.onkeydown) { oLayoutInfo.editable.keydown(options.onkeydown); }
-      if (options.onpaste) { oLayoutInfo.editable.on('paste', options.onpaste); }
+      if (options.onfocus) { layoutInfo.editable.focus(options.onfocus); }
+      if (options.onblur) { layoutInfo.editable.blur(options.onblur); }
+      if (options.onkeyup) { layoutInfo.editable.keyup(options.onkeyup); }
+      if (options.onkeydown) { layoutInfo.editable.keydown(options.onkeydown); }
+      if (options.onpaste) { layoutInfo.editable.on('paste', options.onpaste); }
 
       // callbacks for advanced features (camel)
-      if (options.onToolbarClick) { oLayoutInfo.toolbar.click(options.onToolbarClick); }
+      if (options.onToolbarClick) { layoutInfo.toolbar.click(options.onToolbarClick); }
       if (options.onChange) {
         var hChange = function () {
-          options.onChange(oLayoutInfo.editable, oLayoutInfo.editable.html());
+          editor.triggerOnChange(layoutInfo.editable);
         };
 
         if (agent.isMSIE) {
           var sDomEvents = 'DOMCharacterDataModified DOMSubtreeModified DOMNodeInserted';
-          oLayoutInfo.editable.on(sDomEvents, hChange);
+          layoutInfo.editable.on(sDomEvents, hChange);
         } else {
-          oLayoutInfo.editable.on('input', hChange);
+          layoutInfo.editable.on('input', hChange);
         }
       }
 
       // All editor status will be saved on editable with jquery's data
       // for support multiple editor with singleton object.
-      oLayoutInfo.editable.data('callbacks', {
+      layoutInfo.editable.data('callbacks', {
+        onChange: options.onChange,
         onAutoSave: options.onAutoSave,
         onImageUpload: options.onImageUpload,
         onImageUploadError: options.onImageUploadError,
@@ -3289,17 +4291,17 @@
       });
     };
 
-    this.dettach = function (oLayoutInfo, options) {
-      oLayoutInfo.editable.off();
+    this.detach = function (layoutInfo, options) {
+      layoutInfo.editable.off();
 
-      oLayoutInfo.popover.off();
-      oLayoutInfo.handle.off();
-      oLayoutInfo.dialog.off();
+      layoutInfo.popover.off();
+      layoutInfo.handle.off();
+      layoutInfo.dialog.off();
 
       if (!options.airMode) {
-        oLayoutInfo.dropzone.off();
-        oLayoutInfo.toolbar.off();
-        oLayoutInfo.statusbar.off();
+        layoutInfo.dropzone.off();
+        layoutInfo.toolbar.off();
+        layoutInfo.statusbar.off();
       }
     };
   };
@@ -3314,19 +4316,21 @@
     /**
      * bootstrap button template
      *
-     * @param {String} sLabel
+     * @param {String} label
      * @param {Object} [options]
      * @param {String} [options.event]
      * @param {String} [options.value]
      * @param {String} [options.title]
      * @param {String} [options.dropdown]
+     * @param {String} [options.hide]
      */
-    var tplButton = function (sLabel, options) {
+    var tplButton = function (label, options) {
       var event = options.event;
       var value = options.value;
       var title = options.title;
       var className = options.className;
       var dropdown = options.dropdown;
+      var hide = options.hide;
 
       return '<button type="button"' +
                  ' class="btn btn-default btn-sm btn-small' +
@@ -3337,8 +4341,9 @@
                  (title ? ' title="' + title + '"' : '') +
                  (event ? ' data-event="' + event + '"' : '') +
                  (value ? ' data-value=\'' + value + '\'' : '') +
+                 (hide ? ' data-hide=\'' + hide + '\'' : '') +
                  ' tabindex="-1">' +
-               sLabel +
+               label +
                (dropdown ? ' <span class="caret"></span>' : '') +
              '</button>' +
              (dropdown || '');
@@ -3347,16 +4352,16 @@
     /**
      * bootstrap icon button template
      *
-     * @param {String} sIconClass
+     * @param {String} iconClassName
      * @param {Object} [options]
      * @param {String} [options.event]
      * @param {String} [options.value]
      * @param {String} [options.title]
      * @param {String} [options.dropdown]
      */
-    var tplIconButton = function (sIconClass, options) {
-      var sLabel = '<i class="' + sIconClass + '"></i>';
-      return tplButton(sLabel, options);
+    var tplIconButton = function (iconClassName, options) {
+      var label = '<i class="' + iconClassName + '"></i>';
+      return tplButton(label, options);
     };
 
     /**
@@ -3393,9 +4398,7 @@
                    '</div>' : ''
                    ) +
                    '<form class="note-modal-form">' +
-                     '<div class="modal-body">' +
-                       '<div class="row-fluid">' + body + '</div>' +
-                     '</div>' +
+                     '<div class="modal-body">' + body + '</div>' +
                      (footer ?
                      '<div class="modal-footer">' + footer + '</div>' : ''
                      ) +
@@ -3407,25 +4410,21 @@
 
     var tplButtonInfo = {
       picture: function (lang) {
-        return tplIconButton('fa fa-picture-o icon-picture', {
+        return tplIconButton('fa fa-picture-o', {
           event: 'showImageDialog',
-          title: lang.image.image
+          title: lang.image.image,
+          hide: true
         });
       },
       link: function (lang) {
-        return tplIconButton('fa fa-link icon-link', {
+        return tplIconButton('fa fa-link', {
           event: 'showLinkDialog',
-          title: lang.link.link
-        });
-      },
-      video: function (lang) {
-        return tplIconButton('fa fa-youtube-play icon-play', {
-          event: 'showVideoDialog',
-          title: lang.video.video
+          title: lang.link.link,
+          hide: true
         });
       },
       table: function (lang) {
-        var dropdown = '<ul class="dropdown-menu">' +
+        var dropdown = '<ul class="note-table dropdown-menu">' +
                          '<div class="note-dimension-picker">' +
                            '<div class="note-dimension-picker-mousecatcher" data-event="insertTable" data-value="1x1"></div>' +
                            '<div class="note-dimension-picker-highlighted"></div>' +
@@ -3433,7 +4432,7 @@
                          '</div>' +
                          '<div class="note-dimension-display"> 1 x 1 </div>' +
                        '</ul>';
-        return tplIconButton('fa fa-table icon-table', {
+        return tplIconButton('fa fa-table', {
           title: lang.table.table,
           dropdown: dropdown
         });
@@ -3449,7 +4448,7 @@
                  '</a></li>';
         }, '');
 
-        return tplIconButton('fa fa-magic icon-magic', {
+        return tplIconButton('fa fa-magic', {
           title: lang.style.style,
           dropdown: '<ul class="dropdown-menu">' + items + '</ul>'
         });
@@ -3458,33 +4457,19 @@
         var items = options.fontNames.reduce(function (memo, v) {
           if (!agent.isFontInstalled(v)) { return memo; }
           return memo + '<li><a data-event="fontName" href="#" data-value="' + v + '">' +
-                          '<i class="fa fa-check icon-ok"></i> ' + v +
+                          '<i class="fa fa-check"></i> ' + v +
                         '</a></li>';
         }, '');
-        var sLabel = '<span class="note-current-fontname">' +
+        var label = '<span class="note-current-fontname">' +
                        options.defaultFontName +
                      '</span>';
-        return tplButton(sLabel, {
+        return tplButton(label, {
           title: lang.font.name,
           dropdown: '<ul class="dropdown-menu">' + items + '</ul>'
         });
       },
-      fontsize: function (lang, options) {
-        var items = options.fontSizes.reduce(function (memo, v) {
-          return memo + '<li><a data-event="fontSize" href="#" data-value="' + v + '">' +
-                          '<i class="fa fa-check icon-ok"></i> ' + v +
-                        '</a></li>';
-        }, '');
-
-        var sLabel = '<span class="note-current-fontsize">11</span>';
-        return tplButton(sLabel, {
-          title: lang.font.size,
-          dropdown: '<ul class="dropdown-menu">' + items + '</ul>'
-        });
-      },
-
       color: function (lang) {
-        var colorButtonLabel = '<i class="fa fa-font icon-font" style="color:black;background-color:yellow;"></i>';
+        var colorButtonLabel = '<i class="fa fa-font" style="color:black;background-color:yellow;"></i>';
         var colorButton = tplButton(colorButtonLabel, {
           className: 'note-recent-color',
           title: lang.color.recent,
@@ -3520,82 +4505,64 @@
         return colorButton + moreButton;
       },
       bold: function (lang) {
-        return tplIconButton('fa fa-bold icon-bold', {
+        return tplIconButton('fa fa-bold', {
           event: 'bold',
           title: lang.font.bold
         });
       },
       italic: function (lang) {
-        return tplIconButton('fa fa-italic icon-italic', {
+        return tplIconButton('fa fa-italic', {
           event: 'italic',
           title: lang.font.italic
         });
       },
       underline: function (lang) {
-        return tplIconButton('fa fa-underline icon-underline', {
+        return tplIconButton('fa fa-underline', {
           event: 'underline',
           title: lang.font.underline
         });
       },
-      strikethrough: function (lang) {
-        return tplIconButton('fa fa-strikethrough icon-strikethrough', {
-          event: 'strikethrough',
-          title: lang.font.strikethrough
-        });
-      },
-      superscript: function (lang) {
-        return tplIconButton('fa fa-superscript icon-superscript', {
-          event: 'superscript',
-          title: lang.font.superscript
-        });
-      },
-      subscript: function (lang) {
-        return tplIconButton('fa fa-subscript icon-subscript', {
-          event: 'subscript',
-          title: lang.font.subscript
-        });
-      },
       clear: function (lang) {
-        return tplIconButton('fa fa-eraser icon-eraser', {
+        return tplIconButton('fa fa-eraser', {
           event: 'removeFormat',
           title: lang.font.clear
         });
       },
       ul: function (lang) {
-        return tplIconButton('fa fa-list-ul icon-list-ul', {
+        return tplIconButton('fa fa-list-ul', {
           event: 'insertUnorderedList',
           title: lang.lists.unordered
         });
       },
       ol: function (lang) {
-        return tplIconButton('fa fa-list-ol icon-list-ol', {
+        return tplIconButton('fa fa-list-ol', {
           event: 'insertOrderedList',
           title: lang.lists.ordered
         });
       },
       paragraph: function (lang) {
-        var leftButton = tplIconButton('fa fa-align-left icon-align-left', {
+        var leftButton = tplIconButton('fa fa-align-left', {
           title: lang.paragraph.left,
           event: 'justifyLeft'
         });
-        var centerButton = tplIconButton('fa fa-align-center icon-align-center', {
+        var centerButton = tplIconButton('fa fa-align-center', {
           title: lang.paragraph.center,
           event: 'justifyCenter'
         });
-        var rightButton = tplIconButton('fa fa-align-right icon-align-right', {
+        var rightButton = tplIconButton('fa fa-align-right', {
           title: lang.paragraph.right,
           event: 'justifyRight'
         });
-        var justifyButton = tplIconButton('fa fa-align-justify icon-align-justify', {
+        var justifyButton = tplIconButton('fa fa-align-justify', {
           title: lang.paragraph.justify,
           event: 'justifyFull'
         });
 
-        var outdentButton = tplIconButton('fa fa-outdent icon-indent-left', {
+        var outdentButton = tplIconButton('fa fa-outdent', {
           title: lang.paragraph.outdent,
           event: 'outdent'
         });
-        var indentButton = tplIconButton('fa fa-indent icon-indent-right', {
+        var indentButton = tplIconButton('fa fa-indent', {
           title: lang.paragraph.indent,
           event: 'indent'
         });
@@ -3609,7 +4576,7 @@
                          '</div>' +
                        '</div>';
 
-        return tplIconButton('fa fa-align-left icon-align-left', {
+        return tplIconButton('fa fa-align-left', {
           title: lang.paragraph.paragraph,
           dropdown: dropdown
         });
@@ -3617,48 +4584,49 @@
       height: function (lang, options) {
         var items = options.lineHeights.reduce(function (memo, v) {
           return memo + '<li><a data-event="lineHeight" href="#" data-value="' + parseFloat(v) + '">' +
-                          '<i class="fa fa-check icon-ok"></i> ' + v +
+                          '<i class="fa fa-check"></i> ' + v +
                         '</a></li>';
         }, '');
 
-        return tplIconButton('fa fa-text-height icon-text-height', {
+        return tplIconButton('fa fa-text-height', {
           title: lang.font.height,
           dropdown: '<ul class="dropdown-menu">' + items + '</ul>'
         });
 
       },
       help: function (lang) {
-        return tplIconButton('fa fa-question icon-question', {
+        return tplIconButton('fa fa-question', {
           event: 'showHelpDialog',
-          title: lang.options.help
+          title: lang.options.help,
+          hide: true
         });
       },
       fullscreen: function (lang) {
-        return tplIconButton('fa fa-arrows-alt icon-fullscreen', {
+        return tplIconButton('fa fa-arrows-alt', {
           event: 'fullscreen',
           title: lang.options.fullscreen
         });
       },
       codeview: function (lang) {
-        return tplIconButton('fa fa-code icon-code', {
+        return tplIconButton('fa fa-code', {
           event: 'codeview',
           title: lang.options.codeview
         });
       },
       undo: function (lang) {
-        return tplIconButton('fa fa-undo icon-undo', {
+        return tplIconButton('fa fa-undo', {
           event: 'undo',
           title: lang.history.undo
         });
       },
       redo: function (lang) {
-        return tplIconButton('fa fa-repeat icon-repeat', {
+        return tplIconButton('fa fa-repeat', {
           event: 'redo',
           title: lang.history.redo
         });
       },
       hr: function (lang) {
-        return tplIconButton('fa fa-minus icon-hr', {
+        return tplIconButton('fa fa-minus', {
           event: 'insertHorizontalRule',
           title: lang.hr.insert
         });
@@ -3667,11 +4635,12 @@
 
     var tplPopovers = function (lang, options) {
       var tplLinkPopover = function () {
-        var linkButton = tplIconButton('fa fa-edit icon-edit', {
+        var linkButton = tplIconButton('fa fa-edit', {
           title: lang.link.edit,
-          event: 'showLinkDialog'
+          event: 'showLinkDialog',
+          hide: true
         });
-        var unlinkButton = tplIconButton('fa fa-unlink icon-unlink', {
+        var unlinkButton = tplIconButton('fa fa-unlink', {
           title: lang.link.unlink,
           event: 'unlink'
         });
@@ -3699,23 +4668,44 @@
           value: '0.25'
         });
 
-        var leftButton = tplIconButton('fa fa-align-left icon-align-left', {
+        var leftButton = tplIconButton('fa fa-align-left', {
           title: lang.image.floatLeft,
           event: 'floatMe',
           value: 'left'
         });
-        var rightButton = tplIconButton('fa fa-align-right icon-align-right', {
+        var rightButton = tplIconButton('fa fa-align-right', {
           title: lang.image.floatRight,
           event: 'floatMe',
           value: 'right'
         });
-        var justifyButton = tplIconButton('fa fa-align-justify icon-align-justify', {
+        var justifyButton = tplIconButton('fa fa-align-justify', {
           title: lang.image.floatNone,
           event: 'floatMe',
           value: 'none'
         });
 
-        var removeButton = tplIconButton('fa fa-trash-o icon-trash', {
+        var roundedButton = tplIconButton('fa fa-square', {
+          title: lang.image.shapeRounded,
+          event: 'imageShape',
+          value: 'img-rounded'
+        });
+        var circleButton = tplIconButton('fa fa-circle-o', {
+          title: lang.image.shapeCircle,
+          event: 'imageShape',
+          value: 'img-circle'
+        });
+        var thumbnailButton = tplIconButton('fa fa-picture-o', {
+          title: lang.image.shapeThumbnail,
+          event: 'imageShape',
+          value: 'img-thumbnail'
+        });
+        var noneButton = tplIconButton('fa fa-times', {
+          title: lang.image.shapeNone,
+          event: 'imageShape',
+          value: ''
+        });
+
+        var removeButton = tplIconButton('fa fa-trash-o', {
           title: lang.image.remove,
           event: 'removeMedia',
           value: 'none'
@@ -3723,16 +4713,17 @@
 
         var content = '<div class="btn-group">' + fullButton + halfButton + quarterButton + '</div>' +
                       '<div class="btn-group">' + leftButton + rightButton + justifyButton + '</div>' +
+                      '<div class="btn-group">' + roundedButton + circleButton + thumbnailButton + noneButton + '</div>' +
                       '<div class="btn-group">' + removeButton + '</div>';
         return tplPopover('note-image-popover', content);
       };
 
       var tplAirPopover = function () {
         var content = '';
-        for (var idx = 0, sz = options.airPopover.length; idx < sz; idx ++) {
+        for (var idx = 0, len = options.airPopover.length; idx < len; idx ++) {
           var group = options.airPopover[idx];
           content += '<div class="note-' + group[0] + ' btn-group">';
-          for (var i = 0, szGroup = group[1].length; i < szGroup; i++) {
+          for (var i = 0, lenGroup = group[1].length; i < lenGroup; i++) {
             content += tplButtonInfo[group[1][i]](lang, options);
           }
           content += '</div>';
@@ -3766,102 +4757,136 @@
      * @param {String} title
      * @param {String} body
      */
-    var tplShortcut = function (title, body) {
-      return '<table class="note-shortcut">' +
-               '<thead>' +
-                 '<tr><th></th><th>' + title + '</th></tr>' +
-               '</thead>' +
-               '<tbody>' + body + '</tbody>' +
-             '</table>';
+    var tplShortcut = function (title, keys) {
+      var keyClass = 'note-shortcut-col col-xs-6 note-shortcut-';
+      var body = [];
+
+      for (var i in keys) {
+        body.push(
+          '<div class="' + keyClass + 'key">' + keys[i].kbd + '</div>' +
+          '<div class="' + keyClass + 'name">' + keys[i].text + '</div>'
+          );
+      }
+
+      return '<div class="note-shortcut-row row"><div class="' + keyClass + 'title col-xs-offset-6">' + title + '</div></div>' +
+             '<div class="note-shortcut-row row">' + body.join('</div><div class="note-shortcut-row row">') + '</div>';
     };
 
     var tplShortcutText = function (lang) {
-      var body = '<tr><td>⌘ + B</td><td>' + lang.font.bold + '</td></tr>' +
-                 '<tr><td>⌘ + I</td><td>' + lang.font.italic + '</td></tr>' +
-                 '<tr><td>⌘ + U</td><td>' + lang.font.underline + '</td></tr>' +
-                 '<tr><td>⌘ + ⇧ + S</td><td>' + lang.font.strikethrough + '</td></tr>' +
-                 '<tr><td>⌘ + \\</td><td>' + lang.font.clear + '</td></tr>';
+      var keys = [
+        { kbd: '⌘ + B', text: lang.font.bold },
+        { kbd: '⌘ + I', text: lang.font.italic },
+        { kbd: '⌘ + U', text: lang.font.underline },
+        { kbd: '⌘ + ⇧ + S', text: lang.font.sdivikethrough },
+        { kbd: '⌘ + \\', text: lang.font.clear }
+      ];
 
-      return tplShortcut(lang.shortcut.textFormatting, body);
+      return tplShortcut(lang.shortcut.textFormatting, keys);
     };
 
     var tplShortcutAction = function (lang) {
-      var body = '<tr><td>⌘ + Z</td><td>' + lang.history.undo + '</td></tr>' +
-                 '<tr><td>⌘ + ⇧ + Z</td><td>' + lang.history.redo + '</td></tr>' +
-                 '<tr><td>⌘ + ]</td><td>' + lang.paragraph.indent + '</td></tr>' +
-                 '<tr><td>⌘ + [</td><td>' + lang.paragraph.outdent + '</td></tr>' +
-                 '<tr><td>⌘ + ENTER</td><td>' + lang.hr.insert + '</td></tr>';
+      var keys = [
+        { kbd: '⌘ + Z', text: lang.history.undo },
+        { kbd: '⌘ + ⇧ + Z', text: lang.history.redo },
+        { kbd: '⌘ + ]', text: lang.paragraph.indent },
+        { kbd: '⌘ + [', text: lang.paragraph.oudivent },
+        { kbd: '⌘ + ENTER', text: lang.hr.insert }
+      ];
 
-      return tplShortcut(lang.shortcut.action, body);
+      return tplShortcut(lang.shortcut.action, keys);
     };
 
     var tplShortcutPara = function (lang) {
-      var body = '<tr><td>⌘ + ⇧ + L</td><td>' + lang.paragraph.left + '</td></tr>' +
-                 '<tr><td>⌘ + ⇧ + E</td><td>' + lang.paragraph.center + '</td></tr>' +
-                 '<tr><td>⌘ + ⇧ + R</td><td>' + lang.paragraph.right + '</td></tr>' +
-                 '<tr><td>⌘ + ⇧ + J</td><td>' + lang.paragraph.justify + '</td></tr>' +
-                 '<tr><td>⌘ + ⇧ + NUM7</td><td>' + lang.lists.ordered + '</td></tr>' +
-                 '<tr><td>⌘ + ⇧ + NUM8</td><td>' + lang.lists.unordered + '</td></tr>';
+      var keys = [
+        { kbd: '⌘ + ⇧ + L', text: lang.paragraph.left },
+        { kbd: '⌘ + ⇧ + E', text: lang.paragraph.center },
+        { kbd: '⌘ + ⇧ + R', text: lang.paragraph.right },
+        { kbd: '⌘ + ⇧ + J', text: lang.paragraph.justify },
+        { kbd: '⌘ + ⇧ + NUM7', text: lang.lists.ordered },
+        { kbd: '⌘ + ⇧ + NUM8', text: lang.lists.unordered }
+      ];
 
-      return tplShortcut(lang.shortcut.paragraphFormatting, body);
+      return tplShortcut(lang.shortcut.paragraphFormatting, keys);
     };
 
     var tplShortcutStyle = function (lang) {
-      var body = '<tr><td>⌘ + NUM0</td><td>' + lang.style.normal + '</td></tr>' +
-                 '<tr><td>⌘ + NUM1</td><td>' + lang.style.h1 + '</td></tr>' +
-                 '<tr><td>⌘ + NUM2</td><td>' + lang.style.h2 + '</td></tr>' +
-                 '<tr><td>⌘ + NUM3</td><td>' + lang.style.h3 + '</td></tr>' +
-                 '<tr><td>⌘ + NUM4</td><td>' + lang.style.h4 + '</td></tr>' +
-                 '<tr><td>⌘ + NUM5</td><td>' + lang.style.h5 + '</td></tr>' +
-                 '<tr><td>⌘ + NUM6</td><td>' + lang.style.h6 + '</td></tr>';
+      var keys = [
+        { kbd: '⌘ + NUM0', text: lang.style.normal },
+        { kbd: '⌘ + NUM1', text: lang.style.h1 },
+        { kbd: '⌘ + NUM2', text: lang.style.h2 },
+        { kbd: '⌘ + NUM3', text: lang.style.h3 },
+        { kbd: '⌘ + NUM4', text: lang.style.h4 },
+        { kbd: '⌘ + NUM5', text: lang.style.h5 },
+        { kbd: '⌘ + NUM6', text: lang.style.h6 }
+      ];
 
-      return tplShortcut(lang.shortcut.documentStyle, body);
+      return tplShortcut(lang.shortcut.documentStyle, keys);
     };
 
     var tplExtraShortcuts = function (lang, options) {
       var extraKeys = options.extraKeys;
-      var body = '';
+      var keys = [];
+
       for (var key in extraKeys) {
         if (extraKeys.hasOwnProperty(key)) {
-          body += '<tr><td>' + key + '</td><td>' + extraKeys[key] + '</td></tr>';
+          keys.push({ kbd: key, text: extraKeys[key] });
         }
       }
 
-      return tplShortcut(lang.shortcut.extraKeys, body);
+      return tplShortcut(lang.shortcut.extraKeys, keys);
     };
 
     var tplShortcutTable = function (lang, options) {
-      var template = '<table class="note-shortcut-layout">' +
-                       '<tbody>' +
-                         '<tr><td>' + tplShortcutAction(lang, options) + '</td><td>' + tplShortcutText(lang, options) + '</td></tr>' +
-                         '<tr><td>' + tplShortcutStyle(lang, options) + '</td><td>' + tplShortcutPara(lang, options) + '</td></tr>';
+      var colClass = 'class="note-shortcut note-shortcut-col col-sm-6 col-xs-12"';
+      var template = [
+        '<div ' + colClass + '>' + tplShortcutAction(lang, options) + '</div>' +
+        '<div ' + colClass + '>' + tplShortcutText(lang, options) + '</div>',
+        '<div ' + colClass + '>' + tplShortcutStyle(lang, options) + '</div>' +
+        '<div ' + colClass + '>' + tplShortcutPara(lang, options) + '</div>'
+      ];
+
       if (options.extraKeys) {
-        template += '<tr><td colspan="2">' + tplExtraShortcuts(lang, options) + '</td></tr>';
+        template.push('<div ' + colClass + '>' + tplExtraShortcuts(lang, options) + '</div>');
       }
-      template += '</tbody</table>';
-      return template;
+
+      return '<div class="note-shortcut-row row">' +
+               template.join('</div><div class="note-shortcut-row row">') +
+             '</div>';
     };
 
     var replaceMacKeys = function (sHtml) {
       return sHtml.replace(/⌘/g, 'Ctrl').replace(/⇧/g, 'Shift');
     };
 
-    var tplDialogs = function (lang, options) {
-      var tplImageDialog = function () {
-        var body = '<h5>' + lang.image.selectFromFiles + '</h5>' +
-                   '<input class="note-image-input" type="file" name="files" accept="image/*" />' +
-                   '<h5>' + lang.image.url + '</h5>' +
-                   '<input class="note-image-url form-control span12" type="text" />';
+    var tplDialogInfo = {
+      image: function (lang, options) {
+        var imageLimitation = '';
+        if (options.maximumImageFileSize) {
+          var unit = Math.floor(Math.log(options.maximumImageFileSize) / Math.log(1024));
+          var readableSize = (options.maximumImageFileSize / Math.pow(1024, unit)).toFixed(2) * 1 +
+                             ' ' + ' KMGTP'[unit] + 'B';
+          imageLimitation = '<small>' + lang.image.maximumFileSize + ' : ' + readableSize + '</small>';
+        }
+
+        var body = '<div class="form-group row-fluid note-group-select-from-files">' +
+                     '<label>' + lang.image.selectFromFiles + '</label>' +
+                     '<input class="note-image-input" type="file" name="files" accept="image/*" />' +
+                     imageLimitation +
+                   '</div>' +
+                   '<div class="form-group row-fluid">' +
+                     '<label>' + lang.image.url + '</label>' +
+                     '<input class="note-image-url form-control span12" type="text" />' +
+                   '</div>';
         var footer = '<button href="#" class="btn btn-primary note-image-btn disabled" disabled>' + lang.image.insert + '</button>';
         return tplDialog('note-image-dialog', lang.image.insert, body, footer);
-      };
+      },
 
-      var tplLinkDialog = function () {
-        var body = '<div class="form-group">' +
+      link: function (lang, options) {
+        var body = '<div class="form-group row-fluid">' +
                      '<label>' + lang.link.textToDisplay + '</label>' +
                      '<input class="note-link-text form-control span12" type="text" />' +
                    '</div>' +
-                   '<div class="form-group">' +
+                   '<div class="form-group row-fluid">' +
                      '<label>' + lang.link.url + '</label>' +
                      '<input class="note-link-url form-control span12" type="text" />' +
                    '</div>' +
@@ -3874,35 +4899,29 @@
                    );
         var footer = '<button href="#" class="btn btn-primary note-link-btn disabled" disabled>' + lang.link.insert + '</button>';
         return tplDialog('note-link-dialog', lang.link.insert, body, footer);
-      };
+      },
 
-      var tplVideoDialog = function () {
-        var body = '<div class="form-group">' +
-                     '<label>' + lang.video.url + '</label>&nbsp;<small class="text-muted">' + lang.video.providers + '</small>' +
-                     '<input class="note-video-url form-control span12" type="text" />' +
-                   '</div>';
-        var footer = '<button href="#" class="btn btn-primary note-video-btn disabled" disabled>' + lang.video.insert + '</button>';
-        return tplDialog('note-video-dialog', lang.video.insert, body, footer);
-      };
-
-      var tplHelpDialog = function () {
+      help: function (lang, options) {
         var body = '<a class="modal-close pull-right" aria-hidden="true" tabindex="-1">' + lang.shortcut.close + '</a>' +
                    '<div class="title">' + lang.shortcut.shortcuts + '</div>' +
                    (agent.isMac ? tplShortcutTable(lang, options) : replaceMacKeys(tplShortcutTable(lang, options))) +
                    '<p class="text-center">' +
-                     '<a href="//hackerwins.github.io/summernote/" target="_blank">Summernote 0.5.3</a> · ' +
+                     '<a href="//hackerwins.github.io/summernote/" target="_blank">Summernote 0.6.0</a> · ' +
                      '<a href="//github.com/HackerWins/summernote" target="_blank">Project</a> · ' +
                      '<a href="//github.com/HackerWins/summernote/issues" target="_blank">Issues</a>' +
                    '</p>';
         return tplDialog('note-help-dialog', '', body, '');
-      };
+      }
+    };
 
-      return '<div class="note-dialog">' +
-               tplImageDialog() +
-               tplLinkDialog() +
-               tplVideoDialog() +
-               tplHelpDialog() +
-             '</div>';
+    var tplDialogs = function (lang, options) {
+      var dialogs = '';
+
+      $.each(tplDialogInfo, function (idx, tplDialog) {
+        dialogs += tplDialog(lang, options);
+      });
+
+      return '<div class="note-dialog">' + dialogs + '</div>';
     };
 
     var tplStatusbar = function () {
@@ -3956,24 +4975,24 @@
 
     // createPalette
     var createPalette = function ($container, options) {
-      var aaColor = options.colors;
+      var colorInfo = options.colors;
       $container.find('.note-color-palette').each(function () {
-        var $palette = $(this), sEvent = $palette.attr('data-target-event');
-        var aPaletteContents = [];
-        for (var row = 0, szRow = aaColor.length; row < szRow; row++) {
-          var aColor = aaColor[row];
-          var aButton = [];
-          for (var col = 0, szCol = aColor.length; col < szCol; col++) {
-            var sColor = aColor[col];
-            aButton.push(['<button type="button" class="note-color-btn" style="background-color:', sColor,
-                           ';" data-event="', sEvent,
-                           '" data-value="', sColor,
-                           '" title="', sColor,
+        var $palette = $(this), eventName = $palette.attr('data-target-event');
+        var paletteContents = [];
+        for (var row = 0, lenRow = colorInfo.length; row < lenRow; row++) {
+          var colors = colorInfo[row];
+          var buttons = [];
+          for (var col = 0, lenCol = colors.length; col < lenCol; col++) {
+            var color = colors[col];
+            buttons.push(['<button type="button" class="note-color-btn" style="background-color:', color,
+                           ';" data-event="', eventName,
+                           '" data-value="', color,
+                           '" title="', color,
                            '" data-toggle="button" tabindex="-1"></button>'].join(''));
           }
-          aPaletteContents.push('<div class="note-color-row">' + aButton.join('') + '</div>');
+          paletteContents.push('<div class="note-color-row">' + buttons.join('') + '</div>');
         }
-        $palette.html(aPaletteContents.join(''));
+        $palette.html(paletteContents.join(''));
       });
     };
 
@@ -3984,9 +5003,8 @@
      * @param {Object} options
      */
     this.createLayoutByAirMode = function ($holder, options) {
+      var langInfo = options.langInfo;
       var keyMap = options.keyMap[agent.isMac ? 'mac' : 'pc'];
-      var langInfo = $.summernote.lang[options.lang];
-
       var id = func.uniqueId();
 
       $holder.addClass('note-air-editor note-editable');
@@ -4028,6 +5046,8 @@
      * @param {Object} options
      */
     this.createLayoutByFrame = function ($holder, options) {
+      var langInfo = options.langInfo;
+
       //01. create Editor
       var $editor = $('<div class="note-editor"></div>');
       if (options.width) {
@@ -4049,28 +5069,34 @@
       if (options.direction) {
         $editable.attr('dir', options.direction);
       }
+      if (options.placeholder) {
+        $editable.attr('data-placeholder', options.placeholder);
+      }
 
-      $editable.html(dom.html($holder) || dom.emptyPara);
+      $editable.html(dom.html($holder));
 
       //031. create codable
       $('<textarea class="note-codable"></textarea>').prependTo($editor);
 
-      var langInfo = $.summernote.lang[options.lang];
-
       //04. create Toolbar
-      var sToolbar = '';
-      for (var idx = 0, sz = options.toolbar.length; idx < sz; idx ++) {
-        var group = options.toolbar[idx];
-        sToolbar += '<div class="note-' + group[0] + ' btn-group">';
-        for (var i = 0, szGroup = group[1].length; i < szGroup; i++) {
-          sToolbar += tplButtonInfo[group[1][i]](langInfo, options);
+      var toolbarHTML = '';
+      for (var idx = 0, len = options.toolbar.length; idx < len; idx ++) {
+        var groupName = options.toolbar[idx][0];
+        var groupButtons = options.toolbar[idx][1];
+
+        toolbarHTML += '<div class="note-' + groupName + ' btn-group">';
+        for (var i = 0, btnLength = groupButtons.length; i < btnLength; i++) {
+          var buttonInfo = tplButtonInfo[groupButtons[i]];
+          // continue creating toolbar even if a button doesn't exist
+          if (!$.isFunction(buttonInfo)) { continue; }
+          toolbarHTML += buttonInfo(langInfo, options);
         }
-        sToolbar += '</div>';
+        toolbarHTML += '</div>';
       }
 
-      sToolbar = '<div class="note-toolbar btn-toolbar">' + sToolbar + '</div>';
+      toolbarHTML = '<div class="note-toolbar btn-toolbar">' + toolbarHTML + '</div>';
 
-      var $toolbar = $(sToolbar).prependTo($editor);
+      var $toolbar = $(toolbarHTML).prependTo($editor);
       var keyMap = options.keyMap[agent.isMac ? 'mac' : 'pc'];
       createPalette($toolbar, options);
       createTooltip($toolbar, keyMap, 'bottom');
@@ -4149,24 +5175,40 @@
      * removeLayout
      *
      * @param {jQuery} $holder - placeholder
-     * @param {Object} oLayoutInfo
+     * @param {Object} layoutInfo
      * @param {Object} options
      *
      */
-    this.removeLayout = function ($holder, oLayoutInfo, options) {
+    this.removeLayout = function ($holder, layoutInfo, options) {
       if (options.airMode) {
         $holder.removeClass('note-air-editor note-editable')
                .removeAttr('id contentEditable');
 
-        oLayoutInfo.popover.remove();
-        oLayoutInfo.handle.remove();
-        oLayoutInfo.dialog.remove();
+        layoutInfo.popover.remove();
+        layoutInfo.handle.remove();
+        layoutInfo.dialog.remove();
       } else {
-        $holder.html(oLayoutInfo.editable.html());
+        $holder.html(layoutInfo.editable.html());
 
-        oLayoutInfo.editor.remove();
+        layoutInfo.editor.remove();
         $holder.show();
       }
+    };
+
+    this.getTemplate = function () {
+      return {
+        button: tplButton,
+        iconButton: tplIconButton,
+        dialog: tplDialog
+      };
+    };
+
+    this.addButtonInfo = function (name, buttonInfo) {
+      tplButtonInfo[name] = buttonInfo;
+    };
+
+    this.addDialogInfo = function (name, dialogInfo) {
+      tplDialogInfo[name] = dialogInfo;
     };
   };
 
@@ -4178,6 +5220,54 @@
 
   var renderer = new Renderer();
   var eventHandler = new EventHandler();
+
+  $.extend($.summernote, {
+    renderer: renderer,
+    eventHandler: eventHandler,
+    core: {
+      agent: agent,
+      dom: dom,
+      range: range
+    },
+    pluginEvents: {}
+  });
+
+  /**
+   * addPlugin
+   *
+   * @param {Object} plugin
+   */
+  $.summernote.addPlugin = function (plugin) {
+    if (plugin.buttons) {
+      $.each(plugin.buttons, function (name, button) {
+        renderer.addButtonInfo(name, button);
+      });
+    }
+
+    if (plugin.dialogs) {
+      $.each(plugin.dialogs, function (name, dialog) {
+        renderer.addDialogInfo(name, dialog);
+      });
+    }
+
+    if (plugin.events) {
+      $.each(plugin.events, function (name, event) {
+        $.summernote.pluginEvents[name] = event;
+      });
+    }
+
+    if (plugin.langs) {
+      $.each(plugin.langs, function (locale, lang) {
+        if ($.summernote.lang[locale]) {
+          $.extend($.summernote.lang[locale], lang);
+        }
+      });
+    }
+
+    if (plugin.options) {
+      $.extend($.summernote.options, plugin.options);
+    }
+  };
 
   /**
    * extend jquery fn
@@ -4194,8 +5284,12 @@
       // extend default options
       options = $.extend({}, $.summernote.options, options);
 
-      this.each(function (idx, elHolder) {
-        var $holder = $(elHolder);
+      // Include langInfo in options for later use, e.g. for image drag-n-drop
+      // Setup language info with en-US as default
+      options.langInfo = $.extend(true, {}, $.summernote.lang['en-US'], $.summernote.lang[options.lang]);
+
+      this.each(function (idx, holder) {
+        var $holder = $(holder);
 
         // createLayout with options
         renderer.createLayout($holder, options);
@@ -4206,7 +5300,13 @@
         // Textarea: auto filling the code before form submit.
         if (dom.isTextarea($holder[0])) {
           $holder.closest('form').submit(function () {
-            $holder.html($holder.code());
+            var contents = $holder.code();
+            $holder.val(contents);
+
+            // callback on submit
+            if (options.onsubmit) {
+              options.onsubmit(contents);
+            }
           });
         }
       });
@@ -4224,7 +5324,7 @@
 
       return this;
     },
-    // 
+    //
 
     /**
      * get the HTML contents of note or set the HTML contents of note.
@@ -4245,12 +5345,12 @@
           }
           return isCodeview ? info.codable.val() : info.editable.html();
         }
-        return $holder.html();
+        return dom.isTextarea($holder[0]) ? $holder.val() : $holder.html();
       }
 
       // set the HTML contents of note
-      this.each(function (i, elHolder) {
-        var info = renderer.layoutInfoFromHolder($(elHolder));
+      this.each(function (i, holder) {
+        var info = renderer.layoutInfoFromHolder($(holder));
         if (info && info.editable) { info.editable.html(sHTML); }
       });
 
@@ -4258,19 +5358,20 @@
     },
 
     /**
-     * destroy Editor Layout and dettach Key and Mouse Event
+     * destroy Editor Layout and detach Key and Mouse Event
+     *
      * @returns {this}
      */
     destroy: function () {
-      this.each(function (idx, elHolder) {
-        var $holder = $(elHolder);
+      this.each(function (idx, holder) {
+        var $holder = $(holder);
 
         var info = renderer.layoutInfoFromHolder($holder);
         if (!info || !info.editable) { return; }
 
         var options = info.editor.data('options');
 
-        eventHandler.dettach(info, options);
+        eventHandler.detach(info, options);
         renderer.removeLayout($holder, info, options);
       });
 

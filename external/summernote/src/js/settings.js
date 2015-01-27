@@ -22,11 +22,14 @@ define('summernote/settings', function () {
       disableDragAndDrop: false,    // disable drag and drop event
       disableResizeEditor: false,   // disable resizing editor
 
+      shortcuts: true,              // enable keyboard shortcuts
+
+      placeholder: false,           // enable placeholder text
+
       codemirror: {                 // codemirror options
         mode: 'text/html',
         htmlMode: true,
-        lineNumbers: true,
-        autoFormatOnStart: false
+        lineNumbers: true
       },
 
       // language
@@ -36,14 +39,13 @@ define('summernote/settings', function () {
       // toolbar
       toolbar: [
         ['style', ['style']],
-        ['font', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']],
+        ['font', ['bold', 'italic', 'underline', 'clear']],
         ['fontname', ['fontname']],
-        // ['fontsize', ['fontsize']], // Still buggy
         ['color', ['color']],
         ['para', ['ul', 'ol', 'paragraph']],
         ['height', ['height']],
         ['table', ['table']],
-        ['insert', ['link', 'picture', 'video', 'hr']],
+        ['insert', ['link', 'picture', 'hr']],
         ['view', ['fullscreen', 'codeview']],
         ['help', ['help']]
       ],
@@ -54,12 +56,11 @@ define('summernote/settings', function () {
       //   ['style', ['style']],
       //   ['font', ['bold', 'italic', 'underline', 'clear']],
       //   ['fontname', ['fontname']],
-      //   ['fontsize', ['fontsize']], // Still buggy
       //   ['color', ['color']],
       //   ['para', ['ul', 'ol', 'paragraph']],
       //   ['height', ['height']],
       //   ['table', ['table']],
-      //   ['insert', ['link', 'picture', 'video']],
+      //   ['insert', ['link', 'picture']],
       //   ['help', ['help']]
       // ],
       airPopover: [
@@ -95,9 +96,6 @@ define('summernote/settings', function () {
         ['#630000', '#7B3900', '#846300', '#295218', '#083139', '#003163', '#21104A', '#4A1031']
       ],
 
-      // fontSize
-      fontSizes: ['8', '9', '10', '11', '12', '14', '18', '24', '36'],
-
       // lineHeight
       lineHeights: ['1.0', '1.2', '1.4', '1.5', '1.6', '1.8', '2.0', '3.0'],
 
@@ -106,6 +104,9 @@ define('summernote/settings', function () {
         col: 10,
         row: 10
       },
+
+      // image
+      maximumImageFileSize: null, // size in bytes, null = no limit
 
       // callbacks
       oninit: null,             // initialize
@@ -117,6 +118,7 @@ define('summernote/settings', function () {
       onImageUpload: null,      // imageUpload
       onImageUploadError: null, // imageUploadError
       onToolbarClick: null,
+      onsubmit: null,
 
       /**
        * manipulate link address when user create link
@@ -135,6 +137,7 @@ define('summernote/settings', function () {
 
       keyMap: {
         pc: {
+          'ENTER': 'insertParagraph',
           'CTRL+Z': 'undo',
           'CTRL+Y': 'redo',
           'TAB': 'tab',
@@ -164,6 +167,7 @@ define('summernote/settings', function () {
         },
 
         mac: {
+          'ENTER': 'insertParagraph',
           'CMD+Z': 'undo',
           'CMD+SHIFT+Z': 'redo',
           'TAB': 'tab',
@@ -201,13 +205,9 @@ define('summernote/settings', function () {
           bold: 'Bold',
           italic: 'Italic',
           underline: 'Underline',
-          strikethrough: 'Strikethrough',
-          subscript: 'Subscript',
-          superscript: 'Superscript',
           clear: 'Remove Font Style',
           height: 'Line Height',
-          name: 'Font Family',
-          size: 'Font Size'
+          name: 'Font Family'
         },
         image: {
           image: 'Picture',
@@ -218,8 +218,15 @@ define('summernote/settings', function () {
           floatLeft: 'Float Left',
           floatRight: 'Float Right',
           floatNone: 'Float None',
-          dragImageHere: 'Drag an image here',
+          shapeRounded: 'Shape: Rounded',
+          shapeCircle: 'Shape: Circle',
+          shapeThumbnail: 'Shape: Thumbnail',
+          shapeNone: 'Shape: None',
+          dragImageHere: 'Drag image here',
+          dropImage: 'Drop image',
           selectFromFiles: 'Select from files',
+          maximumFileSize: 'Maximum file size',
+          maximumFileSizeError: 'Maximum file size exceeded.',
           url: 'Image URL',
           remove: 'Remove Image'
         },
@@ -231,13 +238,6 @@ define('summernote/settings', function () {
           textToDisplay: 'Text to display',
           url: 'To what URL should this link go?',
           openInNewWindow: 'Open in new window'
-        },
-        video: {
-          video: 'Video',
-          videoLink: 'Video Link',
-          insert: 'Insert Video',
-          url: 'Video URL?',
-          providers: '(YouTube, Vimeo, Vine, Instagram, DailyMotion or Youku)'
         },
         table: {
           table: 'Table'
