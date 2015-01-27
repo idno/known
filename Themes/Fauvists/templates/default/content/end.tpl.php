@@ -58,7 +58,7 @@
         <?php
         }
     ?>
-    <a class="comments" href="<?= $vars['object']->getDisplayURL() ?>#comments"><i class="icon-comments"></i> <?php
+    <a class="comments" href="<?= $vars['object']->getDisplayURL() ?>#comments"><i class="icon-chat"></i> <?php
 
             //echo $replies;
             if ($replies == 1) {
