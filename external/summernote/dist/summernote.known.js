@@ -4606,7 +4606,7 @@
                 });
             },
             fullscreen: function (lang) {
-                return tplIconButton('fa icon-arrows-alt', {
+                return tplIconButton('fa icon-fullscreen', {
                     event: 'fullscreen',
                     title: lang.options.fullscreen
                 });
