@@ -78,7 +78,7 @@
 
                 ?></a>
             <a class="shares" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?php if ($shares = $vars['object']->countAnnotations('share')) {
-                    echo '<i class="icon-refresh"></i> ' . $shares;
+                    echo '<i class="icon-arrows-cw"></i> ' . $shares;
                 } ?></a>
             <a class="shares" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?php if ($rsvps = $vars['object']->countAnnotations('rsvp')) {
                     echo '<i class="icon-calendar-empty"></i> ' . $rsvps;
