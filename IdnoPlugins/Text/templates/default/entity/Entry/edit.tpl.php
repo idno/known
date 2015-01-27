@@ -59,11 +59,12 @@
                     </label>
                 </p>
                 <?= $this->draw('entity/tags/input'); ?>
-                <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('article'); ?>
 
                 <div class="wordcount" id="result">
                     Total words <strong><span id="totalWords">0</span></strong>
                 </div>
+
+                <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('article'); ?>
 
                 <p class="button-bar ">
                     <?= \Idno\Core\site()->actions()->signForm('/entry/edit') ?>
@@ -137,6 +138,7 @@
                     ['codeview', ['fullscreen']]
                 ],
                 onkeyup: counter,
+                styleWithSpan: false,
                 onImageUpload: function (files, editor, welEditable) {
                     uploadFileAsync(files[0], editor, welEditable);
                 }
