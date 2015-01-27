@@ -390,6 +390,8 @@
                     $user_uuid = $this->currentUserUUID();
                     if ($user = User::getByUUID($user_uuid)) {
                         $this->refreshSessionUser($user);
+                    } else {
+                        $this->logUserOff();
                     }
                 }
             }
