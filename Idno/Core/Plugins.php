@@ -124,7 +124,7 @@
                                 if (file_exists(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $folder . '/plugin.ini')) {
                                     $plugins[$folder] = parse_ini_file(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $folder . '/plugin.ini', true);
                                 }
-
+/*
                                 // See if this is a plugin as a checkout
                                 if ($subfolders = scandir(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $folder)) {
                                     foreach ($subfolders as $subfolder) {
@@ -137,6 +137,7 @@
                                         }
                                     }
                                 }
+*/
                             }
                         }
                     }
