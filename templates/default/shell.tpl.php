@@ -296,9 +296,8 @@
       href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/mediaelement/build/mediaelementplayer.css"/>
 
 <!-- WYSIWYG editor -->
-<link href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/summernote/dist/summernote.css"
-      rel="stylesheet">
-<script src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/summernote/dist/summernote.known.js"></script>
+<script src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/tinymce/js/tinymce/tinymce.min.js" type="text/javascript"></script>
+<script src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/tinymce/js/tinymce/jquery.tinymce.min.js" type="text/javascript"></script>
 
 <!-- Mention styles -->
 <link rel="stylesheet" type="text/css"
