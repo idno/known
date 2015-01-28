@@ -127,6 +127,7 @@
             $(container).tinymce({
                 selector: 'textarea',
                 theme: 'modern',
+                skin: 'light',
                 menubar: false,
                 toolbar: 'styleselect | bold italic | link image | blockquote | alignleft aligncenter alignright | code',
                 plugins: 'code link image',

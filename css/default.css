@@ -310,9 +310,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .posse a[rel=syndication] {
-    border-radius: 3px;
+    background-color: none;
     color: #333;
-    padding: 3px 5px;
+    padding: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .posse {
@@ -1606,5 +1608,6 @@ tr.items {
     border-bottom-right-radius: 0px;
     border-top-right-radius: 0px;
 }
+
 
 
