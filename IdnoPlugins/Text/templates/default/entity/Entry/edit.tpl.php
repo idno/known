@@ -50,8 +50,8 @@
 
                 <p style="text-align: right">
                     <small>
-                        <a href="#" onclick="$('.wysiwyg').destroy(); $('#plainTextSwitch').hide(); $('#richTextSwitch').show(); return false;" id="plainTextSwitch">Switch to plain text editor</a>
-                        <a href="#" onclick="makeRichText('.wysiwyg'); $('#plainTextSwitch').show(); $('#richTextSwitch').hide(); return false;" id="richTextSwitch" style="display:none">Switch to rich text editor</a></small></p>
+                        <a href="#" onclick="tinymce.EditorManager.execCommand('mceRemoveEditor',true, 'body'); $('#plainTextSwitch').hide(); $('#richTextSwitch').show(); return false;" id="plainTextSwitch">Switch to plain text editor</a>
+                        <a href="#" onclick="makeRichText('#body'); $('#plainTextSwitch').show(); $('#richTextSwitch').hide(); return false;" id="richTextSwitch" style="display:none">Switch to rich text editor</a></small></p>
                 <p>
                     <label>
                         <textarea name="body"  placeholder="Tell your story"
@@ -88,7 +88,7 @@
 
         counter = function () {
 
-            var value = $('#body').code(); // $('#body').val();
+            var value = $('#body').html(); // $('#body').val();
             if (value.length == 0) {
                 $('#totalWords').html(0);
                 $('#totalChars').html(0);
@@ -107,6 +107,7 @@
             $('#totalChars').html(totalChars);
             $('#charCount').html(charCount);
             $('#charCountNoSpace').html(charCountNoSpace);
+
         };
 
         $(document).ready(function () {
@@ -116,52 +117,46 @@
             $('#body').keyup(counter);
             $('#body').blur(counter);
             $('#body').focus(counter);
-            setInterval(function() {
-                $('#bodyautosave').val($('#body').code());
-            },10000);
         });
 
         $(document).ready(function () {
-            makeRichText('.wysiwyg');
+            makeRichText('#body');
         });
 
         function makeRichText(container) {
-            $('.wysiwyg').summernote({
-                height: "15em",
-                airMode: false,
-                toolbar: [
-                    ['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
-                    ['fancy', ['link', 'picture']],
-                    ['fontsize', ['fontsize']],
-                    ['color', ['color']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['codeview', ['fullscreen']]
-                ],
-                onkeyup: counter,
-                styleWithSpan: false,
-                onImageUpload: function (files, editor, welEditable) {
-                    uploadFileAsync(files[0], editor, welEditable);
+            $(container).tinymce({
+                selector: 'textarea',
+                theme: 'modern',
+                menubar: false,
+                toolbar: 'styleselect | bold italic | link image | blockquote | alignleft aligncenter alignright | code',
+                plugins: 'code link image',
+                file_picker_callback: function (callback, value, meta) {
+                    filePickerDialog(callback, value, meta);
+                },
+                setup: function(ed) {
+                    ed.on('keyup', function(e) {
+                        //console.log('Editor contents was modified. Contents: ' + ed.getContent());
+                        //check_submit();
+                        counter();
+                    });
                 }
             });
         }
 
-        function uploadFileAsync(file, editor, welEditable) {
-            data = new FormData();
-            data.append("file", file);
-            $.ajax({
-                data: data,
-                type: "POST",
-                url: "<?=\Idno\Core\site()->config()->getDisplayURL()?>file/upload/",
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (url) {
-                    editor.insertImage(welEditable, url);
+        function filePickerDialog(callback, value, meta) {
+            tinymce.activeEditor.windowManager.open({
+                title: 'File Manager',
+                url: '<?=\Idno\Core\site()->config()->getDisplayURL()?>file/picker/?type=' + meta.filetype,
+                width: 650,
+                height: 550
+            }, {
+                oninsert: function (url) {
+                    callback(url);
                 }
             });
         }
 
         // Autosave the title & body
-        autoSave('entry', ['title', 'bodyautosave']);
+        autoSave('entry', ['title', 'body']);
     </script>
 <?= $this->draw('entity/edit/footer'); ?>
