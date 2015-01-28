@@ -328,6 +328,20 @@
             }
 
             /**
+             * Returns the base folder name to use when storing files (usually the site host)
+             * @return mixed|string
+             */
+            function getFileBaseDirName()
+            {
+                $host = $this->pathHost();
+                if (!empty($this->file_path_host)) {
+                    $host = $this->file_path_host;
+                }
+                $host = site()->triggerEvent('file/path/host', ['host' => $host], $host);
+                return $host;
+            }
+
+            /**
              * Is this site's content available to non-members?
              * @return bool
              */

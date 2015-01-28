@@ -27,8 +27,8 @@
                     }
                 }
 
-                $upload_file = $path . \Idno\Core\site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3] . '/' . $id . '.file';
-                $data_file   = $path . \Idno\Core\site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3] . '/' . $id . '.data';
+                $upload_file = $path . \Idno\Core\site()->config()->getFileBaseDirName() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3] . '/' . $id . '.file';
+                $data_file   = $path . \Idno\Core\site()->config()->getFileBaseDirName() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3] . '/' . $id . '.data';
 
                 if (file_exists($upload_file)) {
                     $file                    = new \Idno\Files\LocalFile();
@@ -70,10 +70,10 @@
                     if ($path[sizeof($path) - 1] != '/') {
                         $path .= '/';
                     }
-                    $upload_file = $path . \Idno\Core\site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3] . '/' . $id . '.file';
-                    $data_file   = $path . \Idno\Core\site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3] . '/' . $id . '.data';
+                    $upload_file = $path . \Idno\Core\site()->config()->getFileBaseDirName() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3] . '/' . $id . '.file';
+                    $data_file   = $path . \Idno\Core\site()->config()->getFileBaseDirName() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3] . '/' . $id . '.data';
 
-                    foreach (array($path . \Idno\Core\site()->config()->pathHost(), $path . \Idno\Core\site()->config()->host . '/' . $id[0], $path . \Idno\Core\site()->config()->host . '/' . $id[0] . '/' . $id[1], $path . \Idno\Core\site()->config()->host . '/' . $id[0] . '/' . $id[1] . '/' . $id[2], $path . \Idno\Core\site()->config()->host . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3]) as $up_path) {
+                    foreach (array($path . \Idno\Core\site()->config()->getFileBaseDirName(), $path . \Idno\Core\site()->config()->host . '/' . $id[0], $path . \Idno\Core\site()->config()->host . '/' . $id[0] . '/' . $id[1], $path . \Idno\Core\site()->config()->host . '/' . $id[0] . '/' . $id[1] . '/' . $id[2], $path . \Idno\Core\site()->config()->host . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3]) as $up_path) {
                         if (!is_dir($up_path)) {
                             $result = mkdir($up_path, 0777, true);
                         }
