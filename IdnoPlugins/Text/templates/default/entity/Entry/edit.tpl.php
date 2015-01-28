@@ -128,6 +128,7 @@
                 selector: 'textarea',
                 theme: 'modern',
                 skin: 'light',
+                statusbar: false,
                 menubar: false,
                 toolbar: 'styleselect | bold italic | link image | blockquote | alignleft aligncenter alignright | code',
                 plugins: 'code link image',
