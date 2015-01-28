@@ -64,6 +64,6 @@ Known also contains
 * Antwort, an email template which is distributed under the MIT License. Source: https://github.com/internations/antwort
 * Mention.js, a Bootstrap user at-mention library, which is distributed under the MIT License. Source: https://github.com/jakiestfu/Mention.js
 * MediaElement.js, a cross-browser media player, which is distributed under the MIT License. Source: https://github.com/johndyer/mediaelement
-* Summernote, a WYSIWYG editor, which is distributed under the MIT License. Source: https://github.com/HackerWins/summernote
 * Simplepie, a feed parser, which is distributed under the BSD license. Source: https://github.com/simplepie/simplepie/
 * Bootstrap Toggle, which is distributed under the MIT License. Source: http://www.bootstraptoggle.com/
+* TinyMCE, a rich text editor, which is distributed under the AGPL License. Source: https://github.com/tinymce/tinymce
