@@ -1,6 +1,4 @@
-<li><span class="icon-container"><a href="<?= \Idno\Core\site()->session()->currentUser()->getDisplayURL() ?>"><img
-                src="<?= \Idno\Core\site()->session()->currentUser()->getIcon() ?>"
-                alt="<?= htmlspecialchars(\Idno\Core\site()->session()->currentUser()->getTitle()) ?>"/></a></span></li>
+<li><a href="<?=\Idno\Core\site()->session()->currentUser()->getDisplayURL()?>">Profile</a></li>
 
 <?=$this->draw('shell/toolbar/logged-in/items')?>
 
