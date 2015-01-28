@@ -20,6 +20,9 @@
                     $user = \Idno\Entities\User::getByHandle($this->arguments[0]);
                 }
                 if (empty($user)) $this->forward(); // TODO: 404
+                if (!$user->canEdit()) {
+                    $this->deniedContent();
+                }
 
                 $t = \Idno\Core\site()->template();
                 $t->__(array(
