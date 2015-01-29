@@ -110,9 +110,9 @@
                 </div>
                 <div class="span4">
                     <p class="config-desc">You can probably leave this as is.
-                       Learn more about
-                                <a href="https://code.google.com/p/pubsubhubbub/" target="_blank">PuSH</a>.
-                       
+                        Learn more about
+                        <a href="https://code.google.com/p/pubsubhubbub/" target="_blank">PuSH</a>.
+
                     </p>
                 </div>
             </div>
@@ -183,6 +183,8 @@
                 </div>
             </div>
             <?= \Idno\Core\site()->actions()->signForm('/admin/') ?>
+
+            <?=$this->draw('admin/home/footer/settings')?>
 
         </form>
     </div>
