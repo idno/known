@@ -130,7 +130,7 @@
                 skin: 'light',
                 statusbar: false,
                 menubar: false,
-                toolbar: 'styleselect | bold italic | link image | blockquote | alignleft aligncenter alignright | code',
+                toolbar: 'styleselect | bold italic | link image | blockquote bullist numlist | alignleft aligncenter alignright | code',
                 plugins: 'code link image autoresize',
                 file_picker_callback: function (callback, value, meta) {
                     filePickerDialog(callback, value, meta);
