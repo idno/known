@@ -161,8 +161,9 @@ body.page-share {
 .no-content, .generic-page,
 .page-admin .page-container .page-body, .page-account .page-container .page-body {
     /*background-color: rgba(255,255,255,0.7);*/
-    background-color: rgba(0,0,0,0.7);
-    color: #fff;
+    /*background-color: rgba(0,0,0,0.7);*/
+    background-color:#ffffff;
+    color: #333;
     border-radius: 15px;
 }
 
@@ -182,4 +183,9 @@ body.page-share {
 
 .idno-object a {
     color: #4c93cb;
+}
+
+.upload {
+	margin-bottom: 5px;
+	margin-left: 0px;
 }

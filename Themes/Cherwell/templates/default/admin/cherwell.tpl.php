@@ -1,8 +1,8 @@
 <div class="row">
 
     <div class="span10 offset1">
-        <h1>Cherwell Theme Options</h1>
         <?= $this->draw('admin/menu') ?>
+                <h1>Cherwell Theme Options</h1>
         <div class="explanation">
             <p>
                 Update your background image and other display settings.
@@ -17,22 +17,25 @@
 
     <div class="row">
 
-        <div class="span6 offset3">
+        <div class="span6 offset1">
             <p>
                 Change your background image:
             </p>
         </div>
-        <div class="span6 offset3">
+        <div class="span6 offset1">
 
             <p>
                 <img src="<?= \Themes\Cherwell\Controller::getBackgroundImageURL() ?>"
                      style="width: 50%; float: left; margin-right: 10px; margin-bottom: 10px" id="photopreview">
             </p>
+        </div>
+        <div class="span6 offset1">
 
             <p class="upload">
                 <label>
-                    <span class="btn btn-file">
-                    <span id="photo-filename">Upload a new background image</span>
+                    <span class="btn btn-primary btn-file">
+                    <i class="icon-camera"></i>
+                    <span id="photo-filename">Upload a new image</span>
                     <input type="file" name="background" id="photo" class="span9" accept="image/*;capture=camera"
                            onchange="photoPreview(this)"/>
                     </span>
@@ -59,7 +62,7 @@
 
 
         </div>
-        <div class="span6 offset3" style="margin-top: 1em">
+        <div class="span6 offset1" style="margin-top: 1em">
             <?php
 
                 if (!empty($vars['users'])) {
