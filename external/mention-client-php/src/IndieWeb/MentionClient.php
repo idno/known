@@ -201,7 +201,11 @@ class MentionClient {
 
       foreach($this->_links as $link) {
         $this->_debug("Checking $link");
-        $totalAccepted += $this->sendSupportedMentions($link);
+        $path = parse_url($link, PHP_URL_PATH);
+        $ext = pathinfo($path, PATHINFO_EXTENSION);
+        if (empty($ext) || !in_array($ext, ['jpg','jpeg','mp4','gif','pdf','png'])) {
+          $totalAccepted += $this->sendSupportedMentions($link);
+        }
         $this->_debug('');
       }
 
