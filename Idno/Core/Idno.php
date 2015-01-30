@@ -511,7 +511,7 @@
              */
             function version()
             {
-                return '0.6.5';
+                return '0.7';
             }
 
             /**
