@@ -34,7 +34,7 @@
                     <label class="control-label" for="inputWebsite">Your other websites
                         <small>(a blog, a portfolio, Twitter, Facebook, etc)</small>
                         <br/></label>
-                    <input name="profile[url][]" type="url" class="profile-input" id="website"
+                    <input name="profile[url][]" type="text" class="profile-input" id="website"
                            placeholder="http://..."/>
                 </span>
                 <a href="#" onclick="$('#websites').append($('#website-template').html()); return false;">Add another
@@ -47,7 +47,7 @@
                     <input type="hidden" name="onboarding" value="1"/>
                 </div>
         </form>
-        <div id="website-template" style="display:none"><input name="profile[url][]" type="url" class="profile-input"
+        <div id="website-template" style="display:none"><input name="profile[url][]" type="text" class="profile-input"
                                                                id="website" placeholder="http://..."/></div>
 
     </div>
