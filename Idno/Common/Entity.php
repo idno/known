@@ -583,6 +583,9 @@
                 $slug = preg_replace("/[ ]+/", ' ', $slug);
                 $slug = implode('-', array_slice(explode(' ', $slug), 0, $max_pieces));
                 $slug = str_replace(' ', '-', $slug);
+                if (empty($slug)) {
+                    $slug = 'untitled';
+                }
 
                 return $slug;
             }

@@ -5,7 +5,11 @@
         class Status extends \Idno\Common\Entity {
 
             function getTitle() {
-                return $this->getShortDescription();
+                $title = trim($this->getShortDescription());
+                if (empty($title)) {
+                    $title = 'Status update';
+                }
+                return $title;
             }
 
             function getDescription() {
