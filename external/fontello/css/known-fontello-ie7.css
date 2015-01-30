@@ -10,15 +10,15 @@
   /* font-size: 120%; */
 }
  
-.icon-soundcloud { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe800;&nbsp;'); }
-.icon-flickr { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe801;&nbsp;'); }
-.icon-twitter { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe802;&nbsp;'); }
-.icon-facebook { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe803;&nbsp;'); }
-.icon-gplus { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe804;&nbsp;'); }
-.icon-tumblr { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe805;&nbsp;'); }
-.icon-linkedin { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe806;&nbsp;'); }
-.icon-foursquare { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe807;&nbsp;'); }
-.icon-wordpress { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe808;&nbsp;'); }
+.icon-sdcld { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe800;&nbsp;'); }
+.icon-flkr { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe801;&nbsp;'); }
+.icon-twttr { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe802;&nbsp;'); }
+.icon-fb { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe803;&nbsp;'); }
+.icon-gpl { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe804;&nbsp;'); }
+.icon-tblr { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe805;&nbsp;'); }
+.icon-li { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe806;&nbsp;'); }
+.icon-frsqr { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe807;&nbsp;'); }
+.icon-wp { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe808;&nbsp;'); }
 .icon-export { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe809;&nbsp;'); }
 .icon-diigo { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe80a;&nbsp;'); }
 .icon-glass { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe80b;&nbsp;'); }
@@ -428,7 +428,7 @@
 .icon-dribbble { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe99f;&nbsp;'); }
 .icon-drupal { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9a0;&nbsp;'); }
 .icon-dropbox { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9a1;&nbsp;'); }
-.icon-facebook-squared { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9a2;&nbsp;'); }
+.icon-fb-squared { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9a2;&nbsp;'); }
 .icon-git-squared { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9a3;&nbsp;'); }
 .icon-git { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9a4;&nbsp;'); }
 .icon-github { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9a5;&nbsp;'); }
@@ -436,8 +436,8 @@
 .icon-github-circled { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9a7;&nbsp;'); }
 .icon-gittip { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9a8;&nbsp;'); }
 .icon-google { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9a9;&nbsp;'); }
-.icon-gplus-1 { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9aa;&nbsp;'); }
-.icon-gplus-squared { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9ab;&nbsp;'); }
+.icon-gp-1 { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9aa;&nbsp;'); }
+.icon-gp1-squared { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9ab;&nbsp;'); }
 .icon-gwallet { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9ac;&nbsp;'); }
 .icon-hacker-news { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9ad;&nbsp;'); }
 .icon-html5 { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9ae;&nbsp;'); }
@@ -474,9 +474,9 @@
 .icon-stumbleupon-circled { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9cd;&nbsp;'); }
 .icon-tencent-weibo { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9ce;&nbsp;'); }
 .icon-trello { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9cf;&nbsp;'); }
-.icon-tumblr-squared { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9d0;&nbsp;'); }
+.icon-tblr-squared { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9d0;&nbsp;'); }
 .icon-twitch { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9d1;&nbsp;'); }
-.icon-twitter-squared { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9d2;&nbsp;'); }
+.icon-twttr-squared { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9d2;&nbsp;'); }
 .icon-vimeo-squared { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9d3;&nbsp;'); }
 .icon-vine { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9d4;&nbsp;'); }
 .icon-vkontakte { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9d5;&nbsp;'); }

@@ -1,13 +1,13 @@
 
-.icon-soundcloud:before { content: '\e800'; } /* '' */
-.icon-flickr:before { content: '\e801'; } /* '' */
-.icon-twitter:before { content: '\e802'; } /* '' */
-.icon-facebook:before { content: '\e803'; } /* '' */
-.icon-gplus:before { content: '\e804'; } /* '' */
-.icon-tumblr:before { content: '\e805'; } /* '' */
-.icon-linkedin:before { content: '\e806'; } /* '' */
-.icon-foursquare:before { content: '\e807'; } /* '' */
-.icon-wordpress:before { content: '\e808'; } /* '' */
+.icon-sdcld:before { content: '\e800'; } /* '' */
+.icon-flkr:before { content: '\e801'; } /* '' */
+.icon-twttr:before { content: '\e802'; } /* '' */
+.icon-fb:before { content: '\e803'; } /* '' */
+.icon-gpl:before { content: '\e804'; } /* '' */
+.icon-tblr:before { content: '\e805'; } /* '' */
+.icon-li:before { content: '\e806'; } /* '' */
+.icon-frsqr:before { content: '\e807'; } /* '' */
+.icon-wp:before { content: '\e808'; } /* '' */
 .icon-export:before { content: '\e809'; } /* '' */
 .icon-diigo:before { content: '\e80a'; } /* '' */
 .icon-glass:before { content: '\e80b'; } /* '' */
@@ -417,7 +417,7 @@
 .icon-dribbble:before { content: '\e99f'; } /* '' */
 .icon-drupal:before { content: '\e9a0'; } /* '' */
 .icon-dropbox:before { content: '\e9a1'; } /* '' */
-.icon-facebook-squared:before { content: '\e9a2'; } /* '' */
+.icon-fb-squared:before { content: '\e9a2'; } /* '' */
 .icon-git-squared:before { content: '\e9a3'; } /* '' */
 .icon-git:before { content: '\e9a4'; } /* '' */
 .icon-github:before { content: '\e9a5'; } /* '' */
@@ -425,8 +425,8 @@
 .icon-github-circled:before { content: '\e9a7'; } /* '' */
 .icon-gittip:before { content: '\e9a8'; } /* '' */
 .icon-google:before { content: '\e9a9'; } /* '' */
-.icon-gplus-1:before { content: '\e9aa'; } /* '' */
-.icon-gplus-squared:before { content: '\e9ab'; } /* '' */
+.icon-gp-1:before { content: '\e9aa'; } /* '' */
+.icon-gp1-squared:before { content: '\e9ab'; } /* '' */
 .icon-gwallet:before { content: '\e9ac'; } /* '' */
 .icon-hacker-news:before { content: '\e9ad'; } /* '' */
 .icon-html5:before { content: '\e9ae'; } /* '' */
@@ -463,9 +463,9 @@
 .icon-stumbleupon-circled:before { content: '\e9cd'; } /* '' */
 .icon-tencent-weibo:before { content: '\e9ce'; } /* '' */
 .icon-trello:before { content: '\e9cf'; } /* '' */
-.icon-tumblr-squared:before { content: '\e9d0'; } /* '' */
+.icon-tblr-squared:before { content: '\e9d0'; } /* '' */
 .icon-twitch:before { content: '\e9d1'; } /* '' */
-.icon-twitter-squared:before { content: '\e9d2'; } /* '' */
+.icon-twttr-squared:before { content: '\e9d2'; } /* '' */
 .icon-vimeo-squared:before { content: '\e9d3'; } /* '' */
 .icon-vine:before { content: '\e9d4'; } /* '' */
 .icon-vkontakte:before { content: '\e9d5'; } /* '' */
