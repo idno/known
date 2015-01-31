@@ -770,6 +770,21 @@
             }
 
             /**
+             * Retrieves an icon for this entity
+             * @return mixed|string
+             */
+            function getIcon()
+            {
+                if ($user = $this->getOwner()) {
+                    return $user->getIcon();
+                }
+                if ($page = \Idno\Core\site()->currentPage()) {
+                    return $page->getIcon();
+                }
+                return \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k.png';
+            }
+
+            /**
              * Is called after an entity is deleted but before the delete process finishes
              * @return bool
              */
