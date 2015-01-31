@@ -43,6 +43,15 @@
                 return 'article';
             }
 
+            function getIcon() {
+                $xpath = new \DOMXPath(@\DOMDocument::loadHTML($this->getDescription()));
+                $src = $xpath->evaluate("string(//img/@src)");
+                if (!empty($src)) {
+                    return $src;
+                }
+                return parent::getIcon();
+            }
+
             function saveDataFromInput() {
 
                 if (empty($this->_id)) {
