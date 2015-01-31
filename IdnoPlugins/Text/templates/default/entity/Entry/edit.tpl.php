@@ -132,6 +132,9 @@
                 menubar: false,
                 toolbar: 'styleselect | bold italic | link image | blockquote bullist numlist | alignleft aligncenter alignright | code',
                 plugins: 'code link image autoresize',
+                relative_urls : false,
+                remove_script_host : false,
+                convert_urls : true,
                 file_picker_callback: function (callback, value, meta) {
                     filePickerDialog(callback, value, meta);
                 },

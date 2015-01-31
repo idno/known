@@ -43,7 +43,7 @@
                 $opengraph['og:title']       = htmlspecialchars(strip_tags($vars['object']->getTitle()));
                 $opengraph['og:description'] = htmlspecialchars($vars['object']->getShortDescription());
                 $opengraph['og:type']        = htmlspecialchars($vars['object']->getActivityStreamsObjectType());
-                $opengraph['og:image']       = $owner->getIcon(); //Icon, for now set to being the author profile pic
+                $opengraph['og:image']       = $vars['object']->getIcon(); //$owner->getIcon(); //Icon, for now set to being the author profile pic
 
                 if ($url = $vars['object']->getDisplayURL()) {
                     $opengraph['og:url'] = $vars['object']->getDisplayURL();
