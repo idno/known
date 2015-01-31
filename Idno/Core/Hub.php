@@ -102,11 +102,10 @@
 
                 // If we have details, and we're logged in, connect
                 if (site()->session()->isLoggedOn()) {
-                    \Idno\Core\site()->logging->log("User is logged on, checking hub status");
                     if (!empty($details)) {
                         try {
                             if (!$this->userIsRegistered(site()->session()->currentUser())) {
-                                \Idno\Core\site()->logging->log("User isn't registered; registering ...");
+                                \Idno\Core\site()->logging->log("User isn't registered on hub; registering ...");
                                 $this->registerUser(site()->session()->currentUser());
                             }
                         } catch (\Exception $e) {
