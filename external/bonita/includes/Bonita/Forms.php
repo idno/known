@@ -54,7 +54,7 @@
 					    }
 					}
 		 			
-		 			if (abs(time() - $time) < 10800)
+		 			if (abs(time() - $time) < 86400)
 			 			if (self::token($action, $time) == $token) {
 			 				return true;
 			 			}
