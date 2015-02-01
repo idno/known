@@ -35,3 +35,6 @@ IdnoPlugins/StaticPages/
 error_log
 
 configbackup.ini
+
+# Allow these previously excluded files
+!/external/fontello/config.json
