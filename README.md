@@ -1,4 +1,4 @@
-Known
+Known [![Build Status](https://travis-ci.org/idno/Known.svg?branch=master)](https://travis-ci.org/idno/Known)
 =====
 Known is a publishing platform for everyone.
 
