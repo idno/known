@@ -114,7 +114,6 @@
                     $this->config->known_hub != $this->config->url
                 ) {
                     site()->session()->hub_connect = time();
-                    \Idno\Core\site()->logging->log('Connecting to ' . $this->config->known_hub);
                     \Idno\Core\site()->known_hub = new \Idno\Core\Hub($this->config->known_hub);
                     \Idno\Core\site()->known_hub->connect();
                 }
