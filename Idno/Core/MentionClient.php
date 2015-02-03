@@ -29,7 +29,11 @@ namespace Idno\Core {
         }
 
         protected function _fetchHead($url) {
-            return $this->_parse_headers(Webservice::get($url)['headers']);
+            $response = Webservice::get($url);
+            if (!empty($response['headers'])) {
+                return $this->_parse_headers($response['headers']);
+            }
+            return [];
         }
 
         protected function _fetchBody($url) {
