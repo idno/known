@@ -19,14 +19,21 @@
 
         }
 
+        if (\Idno\Core\site()->template()->getTemplateType() == 'default') {
+
+            ?>
+            <p class="reading">
+                <span class="vague"><?php
+
+                        $minutes = $vars['object']->getReadingTimeInMinutes();
+                        echo $minutes . ' min';
+
+                    ?> read </span>
+            </p>
+        <?php
+
+        }
+
     ?>
-    <p class="reading">
-        <span class="vague"><?php
-
-                    $minutes = $vars['object']->getReadingTimeInMinutes();
-                    echo $minutes . ' min';
-
-                ?> read </span>
-    </p>
-    <?php echo $this->autop($this->parseURLs($this->parseHashtags($vars['object']->body),$rel)); //TODO: a better rendering algorithm ?>
+    <?php echo $this->autop($this->parseURLs($this->parseHashtags($vars['object']->body), $rel)); //TODO: a better rendering algorithm ?>
 </div>
