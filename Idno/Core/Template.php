@@ -240,6 +240,10 @@
                     $url = $matches[1];
                     $tag = str_replace('#','',$matches[1]);
 
+                    if (preg_match('/\#[A-Fa-f0-9]{6}/', $matches[1])) {
+                        return $matches[1];
+                    }
+
                     return '<a href="' . \Idno\Core\site()->config()->getDisplayURL() . 'tag/' . urlencode($tag) . '" class="p-category" rel="tag">' . $url . '</a>';
                 }, $text);
 
