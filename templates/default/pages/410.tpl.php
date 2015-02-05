@@ -3,7 +3,7 @@
 
         <div class="offset1 span10">
             <h1 class="p-name">
-                Gone, baby, gone.
+                This content has been removed
             </h1>
         </div>
     </div>
