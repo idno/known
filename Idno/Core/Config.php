@@ -68,8 +68,6 @@
 
                 if ($this->multitenant) {
                     $dbname     = $this->dbname;
-                    //$this->host = str_replace('www.', '', $this->host);
-                    //$this->sessionname = preg_replace('/[^\da-z]/i', '', $this->host);
                     $this->dbname = preg_replace('/[^0-9a-z\.\-\_]/i', '', $this->host);
 
                     // Known now defaults to not including periods in database names for multitenant installs. Add
