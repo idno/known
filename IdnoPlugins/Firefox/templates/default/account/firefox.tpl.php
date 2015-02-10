@@ -42,4 +42,3 @@
 		<p>After clicking the <strong>Activate</strong> button, choose <strong>Enable Services</strong> from the browser message to install Known in your Firefox toolbar.</p>
 	</div>
 </div>
-	
