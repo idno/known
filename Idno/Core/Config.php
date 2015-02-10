@@ -24,7 +24,8 @@
                                                 'Photo',
                                                 'Like',
                                                 'Checkin',
-                                                'Media'
+                                                'Media',
+                                                'Firefox'
                 ),
                 'themes'              => array(),
                 'antiplugins'         => array(),

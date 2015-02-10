@@ -14,9 +14,8 @@
 
 <div class="row">
 
-    <div class="span10 offset1">
-	            <?= $this->draw('account/menu') ?>
-        <h1>Known for Firefox</h1>
+    <div class="span10 offset1" style="margin-top: 1em">
+        <h2>Known for Firefox</h2>
     </div>
 </div>
 <div class="row">
@@ -44,6 +43,3 @@
 	</div>
 </div>
 	
-
-
-</div>

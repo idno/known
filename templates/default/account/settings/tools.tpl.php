@@ -53,6 +53,7 @@
     </div>
 </div>
 
+<?=$this->draw('account/settings/tools/list')?>
 
 <div class="row" style="margin-top: 2em">
 

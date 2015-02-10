@@ -14,7 +14,8 @@
 
                 /** Template extensions */
                 // Add menu items to account screen
-                \Idno\Core\site()->template()->extendTemplate('account/menu/items','account/firefox/menu');
+                //\Idno\Core\site()->template()->extendTemplate('account/menu/items','account/firefox/menu');
+                \Idno\Core\site()->template()->extendTemplate('account/settings/tools/list','account/firefox');
             }
 
         }
