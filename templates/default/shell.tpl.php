@@ -45,6 +45,17 @@
                 $opengraph['og:type']        = htmlspecialchars($vars['object']->getActivityStreamsObjectType());
                 $opengraph['og:image']       = $vars['object']->getIcon(); //$owner->getIcon(); //Icon, for now set to being the author profile pic
 
+                if ($icon = $vars['object']->getIcon()) {
+                    if ($icon_file = \Idno\Entities\File::getByURL($icon)) {
+                        if (!empty($icon_file->metadata['width'])) {
+                            $opengraph['og:image:width'] = $icon_file->metadata['width'];
+                        }
+                        if (!empty($icon_file->metadata['height'])) {
+                            $opengraph['og:image:height'] = $icon_file->metadata['height'];
+                        }
+                    }
+                }
+
                 if ($url = $vars['object']->getDisplayURL()) {
                     $opengraph['og:url'] = $vars['object']->getDisplayURL();
                 }
