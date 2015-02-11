@@ -76,16 +76,20 @@
                             'filename'  => $filename,
                             'mime_type' => $mime_type
                         );
-                        
-                        // Are we uploading an image, and do we want to remove EXIF data?
-                        /**
-                         * NOTE: temporarily removing EXIF stripping because it messes with auto-rotation.
-                         * Another solution will be found and this will be reinstated.
-                         */
-                        if (self::isImage($file_path) && $destroy_exif)
-                        {
+
+                        // Get image filesize
+                        if (self::isImage($file_path)) {
                             $photo_information = getimagesize($file_path);
-                            $tmpfname = $file_path; //tempnam(sys_get_temp_dir(), 'known_photo'); 
+                            if (!empty($photo_information[0]) && !empty($photo_information[1])) {
+                                $metadata['width'] = $photo_information[0];
+                                $metadata['height'] = $photo_information[1];
+                            }
+                        }
+
+                        // Do we want to remove EXIF data?
+                        if (!empty($photo_information) && $destroy_exif)
+                        {
+                            $tmpfname = $file_path;
                             switch ($photo_information['mime']) {
                                 case 'image/jpeg':
                                     $image = imagecreatefromjpeg($file_path);
@@ -273,6 +277,21 @@
                     }
                 }
 
+                return false;
+            }
+
+            /**
+             * Attempt to extract a file from a URL to it. Will fail with false if the file is external or otherwise
+             * can't be retrieved.
+             * @param $url
+             * @return \Idno\Common\Entity|\MongoGridFSFile|null
+             */
+            static function getByURL($url)
+            {
+                if (substr_count($url, \Idno\Core\site()->config()->getDisplayURL() . 'file/')) {
+                    $url = str_replace(\Idno\Core\site()->config()->getDisplayURL() . 'file/','',$url);
+                    return self::getByID($url);
+                }
                 return false;
             }
 
