@@ -43,6 +43,10 @@
                 return 'article';
             }
 
+            /**
+             * Retrieve icon
+             * @return mixed|string
+             */
             function getIcon() {
                 $xpath = new \DOMXPath(@\DOMDocument::loadHTML($this->getDescription()));
                 $src = $xpath->evaluate("string(//img/@src)");
