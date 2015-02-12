@@ -87,10 +87,7 @@
                         $this->pageTitle = '';
                     }
                     $this->setAccess('PUBLIC');
-                    if ($this->save()) {
-                        if ($new) {
-                            $this->addToFeed();
-                        } // Add it to the Activity Streams feed
+                    if ($this->save($new)) {
                         $result = \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->body));
                         $result = \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->description));
                         return true;

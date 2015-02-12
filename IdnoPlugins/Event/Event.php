@@ -69,11 +69,7 @@
                     }
 
                     $this->setAccess('PUBLIC');
-                    if ($this->save()) {
-                        if ($new) {
-                            // Add it to the Activity Streams feed
-                            $this->addToFeed();
-                        }
+                    if ($this->save($new)) {
                         \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getDescription()));
                         return true;
                     }

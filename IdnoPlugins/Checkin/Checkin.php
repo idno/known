@@ -61,9 +61,8 @@
                     $this->address   = $user_address;
                     $this->setAccess('PUBLIC');
                     $this->tags = $tags;
-                    if ($this->save()) {
+                    if ($this->save($new)) {
                         if ($new) {
-                            $this->addToFeed();
                             \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getTitle() . ' ' . $this->getDescription()));
                         }
 

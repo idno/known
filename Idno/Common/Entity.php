@@ -414,9 +414,12 @@
             /**
              * Saves this entity - either creating a new entry, or
              * overwriting the existing one.
+             *
+             * @param bool $add_to_feed If set to true, will add this item to the activity stream feed if this object is being newly created
+             * @param string $feed_verb If this item is added to the feed, this is the verb that will be used
              */
 
-            function save()
+            function save($add_to_feed = false, $feed_verb = 'post')
             {
 
                 // Adding this entity's owner (if we don't know already)
@@ -471,6 +474,9 @@
                         $this->_id  = $result;
                         $this->uuid = $this->getUUID();
                         \Idno\Core\site()->db()->saveObject($this);
+                        if ($add_to_feed) {
+                            $this->addToFeed($feed_verb);
+                        }
                         $this->syndicate();
                         $event = new \Idno\Core\Event(array('object' => $this));
                         \Idno\Core\site()->events()->dispatch('saved', $event);
