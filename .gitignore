@@ -10,7 +10,7 @@ Idno/.idea/.name
 /nbproject/private/
 /.htaccess
 /doc/output/
-/Uploads
+/Uploads/*
 
 /.DS_Store
 /*/.DS_Store
@@ -38,3 +38,4 @@ configbackup.ini
 
 # Allow these previously excluded files
 !/external/fontello/config.json
+!/Uploads/readme.txt
