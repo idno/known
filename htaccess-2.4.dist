@@ -23,6 +23,9 @@
 <Files ~ "\.xml$">
   Require all denied
 </Files>
+<Files ~ "sitemap.xml">
+  Require all granted
+</Files>
 
 AddType video/ogg .ogv
 AddType video/mp4 .mp4
