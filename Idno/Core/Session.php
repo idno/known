@@ -41,7 +41,7 @@
                         && ((!empty($_SESSION['user'])) && ($object->getUUID() == $_SESSION['user']->getUUID()))
                     ) // And we're not trying a user change (avoids a possible exploit)
                     {
-                        $_SESSION['user'] = $object;
+                        $_SESSION['user'] = $this->refreshSessionUser($object);
                     }
 
                 });

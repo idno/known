@@ -16,7 +16,6 @@
                 $user = \Idno\Core\site()->session()->currentUser();
                 $user->robot_state = 0;
                 $user->save();
-                \Idno\Core\site()->session()->refreshSessionUser($user);
                 $this->forward($_SERVER['HTTP_REFERER']);
 
             }

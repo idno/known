@@ -58,7 +58,6 @@
                         break;
                 }
                 $user->save();
-                \Idno\Core\site()->session()->refreshSessionUser($user);
             //}
         }
     }

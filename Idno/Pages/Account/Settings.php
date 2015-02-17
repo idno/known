@@ -59,7 +59,6 @@
                 }
 
                 if ($user->save()) {
-                    \Idno\Core\site()->session()->refreshSessionUser($user);
                     \Idno\Core\site()->session()->addMessage("Your details were saved.");
                 }
                 $this->forward($_SERVER['HTTP_REFERER']);
