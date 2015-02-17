@@ -12,13 +12,13 @@
         class RemoteUser extends \Idno\Entities\User implements \JsonSerializable
         {
 
-            public function save()
+            public function save($add_to_feed = false, $feed_verb = 'post')
             {
                 // TODO: use a remote API to save to external sources if we have permission to
                 // return false;
 
                 // BUT for now, we still need to save some stub information in case we've just followed them
-                return parent::save();
+                return parent::save($add_to_feed, $feed_verb);
             }
 
             public function checkPassword($password)

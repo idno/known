@@ -65,7 +65,7 @@
                 return false;
             }
 
-            function save()
+            function save($add_to_feed = false, $feed_verb = 'post')
             {
                 if (empty($this->_id)) {
                     $new = true;
@@ -76,7 +76,7 @@
                     // TODO: email notification
                 }
 
-                return parent::save();
+                return parent::save($add_to_feed, $feed_verb);
             }
 
         }

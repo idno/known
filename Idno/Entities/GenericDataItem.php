@@ -26,12 +26,12 @@
                 return $this->datatype;
             }
             
-            public function save() {
+            public function save($add_to_feed = false, $feed_verb = 'post') {
                 if (empty($this->datatype)) {
                     throw new \Exception("GenericDataItem classes must have a datatype label set.");
                 }
                 
-                return parent::save();
+                return parent::save($add_to_feed, $feed_verb);
             }
             
             /**
