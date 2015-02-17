@@ -106,8 +106,10 @@
                         $user->save();
                         \Idno\Core\site()->triggerEvent('site/firstadmin', array('user' => $user)); // Event hook for first admin
                         // Now we can remove the invitation
-                        if ($invitation instanceof Invitation) {
-                            $invitation->delete(); // Remove the invitation; it's no longer needed
+                        if (!empty($invitation)) {
+                            if ($invitation instanceof Invitation) {
+                                $invitation->delete(); // Remove the invitation; it's no longer needed
+                            }
                         }
                     } else {
                         if (empty($handle)) {
