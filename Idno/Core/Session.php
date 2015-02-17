@@ -14,6 +14,8 @@
         class Session extends \Idno\Common\Component
         {
 
+            private $user;
+
             function init()
             {
                 ini_set('session.cookie_lifetime', 60 * 60 * 24 * 7); // Persistent cookies
@@ -38,10 +40,10 @@
                     $eventdata = $event->data();
                     $object = $eventdata['object'];
                     if ((!empty($object)) && ($object instanceof \Idno\Entities\User) // Object is a user
-                        && ((!empty($_SESSION['user'])) && ($object->getUUID() == $_SESSION['user']->getUUID()))
+                        && ((!empty($_SESSION['user_uuid'])) && ($object->getUUID() == $this->user->getUUID()))
                     ) // And we're not trying a user change (avoids a possible exploit)
                     {
-                        $_SESSION['user'] = $this->refreshSessionUser($object);
+                        $this->user = $this->refreshSessionUser($object);
                     }
 
                 });
@@ -88,7 +90,7 @@
              */
             function isLoggedIn()
             {
-                if (!empty($_SESSION['user']) && $_SESSION['user'] instanceof \Idno\Entities\User) {
+                if (!empty($this->user) && $this->user instanceof \Idno\Entities\User) {
                     return true;
                 }
 
@@ -114,8 +116,9 @@
 
             function currentUser()
             {
-                if (!empty($_SESSION['user']))
-                    return $_SESSION['user'];
+                if (!empty($this->user)) {
+                    return $this->user;
+                }
 
                 return false;
             }
@@ -197,8 +200,9 @@
 
             function getWriteAccessGroups()
             {
-                if ($this->isLoggedOn())
+                if ($this->isLoggedOn()) {
                     return $this->currentUser()->getWriteAccessGroups();
+                }
 
                 return array();
             }
@@ -251,7 +255,8 @@
 
             function logUserOff()
             {
-                unset($_SESSION['user']);
+                unset($_SESSION['user_uuid']);
+                unset($this->user);
                 session_destroy();
 
                 return true;
@@ -374,7 +379,8 @@
             function refreshSessionUser(\Idno\Entities\User $user)
             {
                 if ($user = User::getByUUID($user->getUUID())) {
-                    $_SESSION['user'] = $user;
+                    $_SESSION['user_uuid'] = $user->getUUID();
+                    $this->user = $user;
                     return $user;
                 }
 
@@ -386,7 +392,9 @@
              */
             function refreshCurrentSessionuser()
             {
-                if ($this->isLoggedIn()) {
+                if (!$this->currentUser() && !empty($_SESSION['user_uuid'])) {
+                    $this->user = User::getByUUID($_SESSION['user_uuid']);
+                } else if ($this->isLoggedIn()) {
                     $user_uuid = $this->currentUserUUID();
                     if ($user = User::getByUUID($user_uuid)) {
                         $this->refreshSessionUser($user);
