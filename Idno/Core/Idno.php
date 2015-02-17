@@ -92,8 +92,6 @@
                 $this->template    = new Template();
                 $this->syndication = new Syndication();
                 $this->logging     = new Logging($this->config->log_level);
-                //$this->plugins      = new Plugins(); // This must be loaded last
-                //$this->themes       = new Themes();
                 $this->reader       = new Reader();
                 $this->helper_robot = new HelperRobot();
 
