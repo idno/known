@@ -25,6 +25,10 @@
   Order allow,deny
   Deny from all
 </Files>
+<Files ~ "sitemap.xml">
+  Order allow,deny
+  Allow from all
+</Files>
 
 AddType video/ogg .ogv
 AddType video/mp4 .mp4
