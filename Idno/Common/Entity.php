@@ -1733,10 +1733,12 @@
                 if (empty($annotation_url)) {
                     $annotation_url = $this->getURL() . '/annotations/' . md5(time() . $content); // Invent a URL for this annotation
                 }
+                $post_existed = false;
                 if ($existing_annotations = $this->getAnnotations($subtype)) {
                     foreach ($existing_annotations as $existing_local_url => $existing_annotation) {
                         if ($existing_annotation['permalink'] == $annotation_url) {
                             $local_url = $existing_local_url;
+                            $post_existed = true;
                         }
                     }
                 }
@@ -1810,7 +1812,7 @@
                                 break;
                         }
 
-                        if ($annotation['owner_url'] != $this->getOwner()->getURL() && $send == true) {
+                        if ($annotation['owner_url'] != $this->getOwner()->getURL() && $send == true && $post_existed == false) {
                             if (empty($subject)) {
                                 $subject = '';
                             }
