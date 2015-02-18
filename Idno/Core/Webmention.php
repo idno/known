@@ -67,6 +67,28 @@
             }
 
             /**
+             * Does the supplied page support webmentions?
+             * @param $pageURL
+             * @param bool $sourceBody
+             * @return mixed
+             */
+            static function supportsMentions($pageURL, $sourceBody = false)
+            {
+                // Load webmention-client
+                require_once \Idno\Core\site()->config()->path . '/external/mention-client-php/src/IndieWeb/MentionClient.php';
+
+                // Proxy connection string provided
+                $proxystring = false;
+                if (!empty(\Idno\Core\site()->config()->proxy_string)) {
+                    $proxystring = \Idno\Core\site()->config()->proxy_string;
+                }
+
+                $client = new \Idno\Core\MentionClient($pageURL, $sourceBody, $proxystring);
+
+                return $client->supportsWebmention($pageURL);
+            }
+
+            /**
              * Parses a given set of HTML for Microformats 2 content
              * @param $content HTML to parse
              * @param $url Optionally, the source URL of the content, so relative URLs can be parsed into absolute ones

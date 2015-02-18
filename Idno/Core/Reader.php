@@ -162,6 +162,9 @@
                     $feed = array();
 
                     if (!empty($result['content'])) {
+
+                        $feed['webmention'] = Webmention::supportsMentions($url, $result['content']);
+
                         if ($html = @\DOMDocument::loadHTML($result['content'])) {
                             $xpath = new \DOMXpath($html);
                             $title = $xpath->query('//title')->item(0)->nodeValue;
