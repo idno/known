@@ -646,7 +646,7 @@
 
             function getActivityStreamsObjectType()
             {
-                return 'article';
+                return 'entity';
             }
 
             /**
