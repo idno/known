@@ -29,16 +29,6 @@
             function parseFeed($content, $url)
             {
 
-                // Try XML (RSS or Atom)
-                $xml_parser = new \SimplePie();
-                $xml_parser->set_raw_data($content);
-                $xml_parser->init();
-                if (!$xml_parser->error()) {
-
-                    return $this->xmlFeedToFeedItems($xml_parser->get_items(), $url);
-
-                }
-
                 // Check for microformats
                 if ($html = @\DOMDocument::loadHTML($content)) {
                     try {
@@ -48,6 +38,16 @@
                     } catch (\Exception $e) {
                         return false;
                     }
+                }
+
+                // Try XML (RSS or Atom)
+                $xml_parser = new \SimplePie();
+                $xml_parser->set_raw_data($content);
+                $xml_parser->init();
+                if (!$xml_parser->error()) {
+
+                    return $this->xmlFeedToFeedItems($xml_parser->get_items(), $url);
+
                 }
 
                 return false;
