@@ -12,17 +12,12 @@ Core team
 Homepage: https://withknown.com/
 Team Known site: http://stream.withknown.com/
 
-Community contributors, by Known release
-----------------------------------------
+Community contributors
+----------------------
 
-0.6.x
+We now use GitHub to list contributors:
 
-* Marcus Povey http://marcus-povey.co.uk
-* Tim Owens http://timowens.io
-* Jesse Vincent http://s.ly
-* Adrian Goins http://arces.net
-* Hugo Roy http://hroy.eu/
-* Barnaby Walters http://waterpigs.co.uk/
+https://github.com/idno/Known/graphs/contributors
 
 How can I contribute?
 ---------------------
