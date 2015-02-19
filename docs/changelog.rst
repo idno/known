@@ -3,6 +3,29 @@ What's changed?
 
 Starting with version 0.6.4, this is a list of changes in the self-hosted, open source version of Known.
 
+0.7.1
+-----
+February 8, 2015
+
+* Improved support for root-level domains
+* Fixed bug with HTML pasted from other sources
+
+0.7
+---
+January 31, 2015
+
+* Infinite accounts per syndication service
+* Static pages
+* Webhooks
+* Improved interface when AdBlock Plus is used
+* Changed rich text editor to TinyMCE
+* Introducing the Uploads folder, for easier installation / configuration
+* Introducing prerequisite plugins, which are always loaded first
+* Webmention client now uses internal web services API
+* Improved export format
+* Improved session user storage
+* Numerous internal API and interface improvements
+
 0.6.5
 -----
 November 24, 2014
