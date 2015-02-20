@@ -24,18 +24,22 @@
 
     <div class="span6 offset1">
 
-        <p>
-            <a href="https://brid.gy/facebook/start?feature=listen&callback=<?=urlencode(\Idno\Core\site()->config()->getDisplayURL() . 'account/bridgy/')?>" class="connect fb">Connect Facebook</a><br>
-            <small>
-                Brid.gy imports comments and likes from Facebook.
-            </small>
-        </p>
-        <p>
-            <a href="https://brid.gy/twitter/start?feature=listen&callback=<?=urlencode(\Idno\Core\site()->config()->getDisplayURL() . 'account/bridgy/')?>" class="connect tw">Connect Twitter</a><br>
-            <small>
-                Brid.gy imports replies, favorites and retweets from Twitter.
-            </small>
-        </p>
+        <form action="https://www.brid.gy/facebook/start?feature=listen&callback=<?=urlencode(\Idno\Core\site()->config()->getDisplayURL() . 'account/bridgy/')?>" method="post">
+            <p>
+                <button class="connect fb">Connect Facebook</button><br>
+                <small>
+                    Brid.gy imports comments and likes from Facebook.
+                </small>
+            </p>
+        </form>
+        <form action="https://www.brid.gy/twitter/start?feature=listen&callback=<?=urlencode(\Idno\Core\site()->config()->getDisplayURL() . 'account/bridgy/')?>" method="post">
+            <p>
+                <button class="connect tw">Connect Twitter</button><br>
+                <small>
+                    Brid.gy imports replies, favorites and retweets from Twitter.
+                </small>
+            </p>
+        </form>
 
     </div>
 
