@@ -25,7 +25,8 @@
                                                 'Like',
                                                 'Checkin',
                                                 'Media',
-                                                'Firefox'
+                                                'Firefox',
+                                                'Bridgy'
                 ),
                 'themes'              => array(),
                 'antiplugins'         => array(),
