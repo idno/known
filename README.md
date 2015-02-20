@@ -67,3 +67,4 @@ Known also contains
 * Simplepie, a feed parser, which is distributed under the BSD license. Source: https://github.com/simplepie/simplepie/
 * Bootstrap Toggle, which is distributed under the MIT License. Source: http://www.bootstraptoggle.com/
 * TinyMCE, a rich text editor, which is distributed under the AGPL License. Source: https://github.com/tinymce/tinymce
+* Highlight.js, a library for source code syntax highlighting, which is distributed under the BSD license. Source: https://github.com/isagalaev/highlight.js
