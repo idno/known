@@ -102,9 +102,11 @@
                                 \Idno\Core\site()->config()->from_email        = $user->email;
                                 \Idno\Core\site()->config()->save();
                             }
+                            \Idno\Core\site()->triggerEvent('site/firstadmin', array('user' => $user)); // Event hook for first admin
+                        } else {
+                            \Idno\Core\site()->triggerEvent('site/newuser', array('user' => $user)); // Event hook for new user
                         }
                         $user->save();
-                        \Idno\Core\site()->triggerEvent('site/firstadmin', array('user' => $user)); // Event hook for first admin
                         // Now we can remove the invitation
                         if (!empty($invitation)) {
                             if ($invitation instanceof Invitation) {
