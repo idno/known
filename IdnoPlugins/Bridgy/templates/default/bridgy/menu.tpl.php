@@ -1,0 +1,1 @@
+<li <?php if ($_SERVER['REQUEST_URI'] == '/account/bridgy/') echo 'class="active"'; ?>><a href="/account/bridgy/">Brid.gy</a></li>
