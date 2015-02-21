@@ -11,11 +11,25 @@
 <textarea name="<?=$vars['name']?>"  placeholder="Tell your story"
           class="span8 bodyInput mentionable wysiwyg" id="<?=$unique_id?>"><?= (htmlspecialchars($this->autop($vars['value']))) ?></textarea>
 
+<?php
+
+    if (!empty($vars['wordcount'])) {
+
+?>
+        <div class="wordcount" id="result">
+            Total words <strong><span id="totalWords<?=$unique_id?>">0</span></strong>
+        </div>
+<?php
+
+    }
+
+?>
+
 <script>
 
     counter = function () {
 
-        var value = $('#<?=$unique_id?>').html();
+        var value = $('#<?=$unique_id?>').text();
         if (value.length == 0) {
             $('#totalWords').html(0);
             $('#totalChars').html(0);
@@ -30,10 +44,10 @@
         var charCount = value.trim().length;
         var charCountNoSpace = value.replace(regex, '').length;
 
-        $('#totalWords').html(wordCount);
-        $('#totalChars').html(totalChars);
-        $('#charCount').html(charCount);
-        $('#charCountNoSpace').html(charCountNoSpace);
+        $('#totalWords<?=$unique_id?>').html(wordCount);
+        $('#totalChars<?=$unique_id?>').html(totalChars);
+        $('#charCount<?=$unique_id?>').html(charCount);
+        $('#charCountNoSpace<?=$unique_id?>').html(charCountNoSpace);
 
     };
 
@@ -44,6 +58,7 @@
         $('#<?=$unique_id?>').keyup(counter);
         $('#<?=$unique_id?>').blur(counter);
         $('#<?=$unique_id?>').focus(counter);
+        counter();
     });
 
     $(document).ready(function () {

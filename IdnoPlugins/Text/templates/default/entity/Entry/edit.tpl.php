@@ -56,13 +56,10 @@
                 <?= $this->__([
                     'name' => 'body',
                     'value' => $body,
-                    'object' => $object
+                    'object' => $object,
+                    'wordcount' => true
                 ])->draw('forms/input/richtext')?>
                 <?= $this->draw('entity/tags/input'); ?>
-
-                <div class="wordcount" id="result">
-                    Total words <strong><span id="totalWords">0</span></strong>
-                </div>
 
                 <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('article'); ?>
 
