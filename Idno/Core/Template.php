@@ -20,6 +20,9 @@
             // We'll keep track of prepended templates here
             public $prepends = array();
 
+            // We'll keep track of replaced templates here
+            public $replacements = array();
+
             // We can also extend templates with HTML or other content
             public $rendered_extensions = array();
 
@@ -50,7 +53,11 @@
                         $result .= parent::draw($template, $returnBlank);
                     }
                 }
-                $result .= parent::draw($templateName, $returnBlank);
+                if (!empty($this->replacements[$templateName])) {
+                    $result .= parent::draw($templateName, $returnBlank);
+                } else {
+                    $result .= parent::draw($templateName, $returnBlank);
+                }
                 if (!empty($this->extensions[$templateName])) {
                     foreach ($this->extensions[$templateName] as $template) {
                         $result .= parent::draw($template, $returnBlank);
@@ -152,6 +159,25 @@
                     array_unshift($this->prepends[$templateName], $prependTemplateName);
                 } else {
                     $this->prepends[$templateName][] = $prependTemplateName;
+                }
+            }
+
+            /**
+             * Replace a core template with another template. eg, template "plugin/atemplate"
+             * could replace "core/atemplate"; if this is the case, the results of
+             * $template->draw('plugin/atemplate') will be displayed instead of
+             * $template->draw('core/atemplate'). Usually this isn't required - Known replaces
+             * templates automatically if you create one in your plugin with the same name -
+             * but this function enables conditional replacements.
+             *
+             * @param string $templateName
+             * @param string $extensionTemplateName
+             * @param bool $to_front If set, this will add the template to the beginning of the template queue
+             */
+            function replaceTemplate($templateName, $replacementTemplateName)
+            {
+                if (empty($this->replacements[$templateName])) {
+                    $this->replacements[$templateName] = array();
                 }
             }
 
