@@ -30,5 +30,8 @@
             there's a database problem.
         </p>
         <?php if (!empty($message)) echo $message; ?>
+        <p>
+            <a href="http://docs.withknown.com">See the Known documentation for help.</a>
+        </p>
     </body>
 </html>
