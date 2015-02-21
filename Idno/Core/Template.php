@@ -54,8 +54,8 @@
                         $result .= parent::draw($template, $returnBlank);
                     }
                 }
-                if (!empty($this->replacements[$templateName])) {
-                    $result .= parent::draw($templateName, $returnBlank);
+                if (!empty($this->replacements[$templateName]) && $replacements == true) {
+                    $result .= parent::draw($this->replacements[$templateName], $returnBlank);
                 } else {
                     $result .= parent::draw($templateName, $returnBlank);
                 }
@@ -180,6 +180,7 @@
                 if (empty($this->replacements[$templateName])) {
                     $this->replacements[$templateName] = array();
                 }
+                $this->replacements[$templateName] = $replacementTemplateName;
             }
 
             /**

@@ -12,6 +12,11 @@
     } else {
         $title = $autosave->getValue('entry', 'title');
     }
+    if (!empty($vars['object'])) {
+        $object = $vars['object'];
+    } else {
+        $object = false;
+    }
 
     /* @var \Idno\Core\Template $this */
 
@@ -50,7 +55,8 @@
 
                 <?= $this->__([
                     'name' => 'body',
-                    'value' => $body
+                    'value' => $body,
+                    'object' => $object
                 ])->draw('forms/input/richtext')?>
                 <?= $this->draw('entity/tags/input'); ?>
 
