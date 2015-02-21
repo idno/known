@@ -177,6 +177,7 @@
              */
             function autop($html)
             {
+                $html = site()->triggerEvent('text/format', [], $html);
                 require_once dirname(dirname(dirname(__FILE__))) . '/external/MrClay_AutoP/AutoP.php';
                 $autop = new \MrClay_AutoP();
                 
