@@ -35,5 +35,9 @@
         }
 
     ?>
-    <?php echo $this->autop($this->parseURLs($this->parseHashtags($vars['object']->body), $rel)); //TODO: a better rendering algorithm ?>
+    <?php
+
+        echo $this->__(['value' => $vars['object']->body, 'object' => $vars['object'], 'rel' => $rel])->draw('forms/output/richtext');
+
+    ?>
 </div>
