@@ -42,10 +42,11 @@
              * Extension-aware version of the template drawing function
              *
              * @param string $templateName
-             * @param bool $returnBlank
+             * @param bool $returnBlank Should we return a blank string if the template doesn't exist? (Defaults to true)
+             * @param book $replacements Should we honor template replacements? (Defaults to true)
              * @return \Bonita\false|string
              */
-            function draw($templateName, $returnBlank = true)
+            function draw($templateName, $returnBlank = true, $replacements = true)
             {
                 $result = '';
                 if (!empty($this->prepends[$templateName])) {
