@@ -5,6 +5,9 @@
         class Like extends \Idno\Common\Entity {
 
             function getTitle() {
+                if (!empty($this->pageTitle)) {
+                    return $this->pageTitle;
+                }
                 return strip_tags($this->body);
             }
 
