@@ -188,10 +188,10 @@
             }
 
             /**
-             * Given the XML source of a Blogger export, imports each post into Known.
+             * Given the XML source of an export, imports each post into Known.
              * @param $xml
              */
-            static function ImportBloggerXML($xml) {
+            static function ImportFeedXML($xml) {
 
                 // Blogger will be imported as blog posts, so make sure we can import those ...
                 if (!($text = site()->plugins()->get('Text'))) {
@@ -283,17 +283,27 @@
 
             }
 
+            /**
+             * Given the XML source of a Blogger export, imports each post into Known.
+             * @param $xml
+             */
+            static function ImportBloggerXML($xml) {
+
+                return self::ImportFeedXML($xml);
+
+            }
+
+            /**
+             * Given the XML source of a WordPress export, imports each post into Known.
+             * @param $xml
+             */
             static function ImportWordPressXML($xml) {
 
-                // TODO
+                // TODO add WordPress-specific content to the parent method
+                return self::ImportFeedXML($xml);
 
             }
 
-            static function ImportRSS($xml) {
-
-                // TODO
-
-            }
 
         }
 
