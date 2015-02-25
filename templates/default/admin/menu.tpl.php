@@ -9,6 +9,7 @@
             <li <?php if ($_SERVER['REQUEST_URI'] == '/admin/email/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/email/">Email</a></li>
             <li <?php if ($_SERVER['REQUEST_URI'] == '/admin/users/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/users/">Users</a></li>
             <li <?php if ($_SERVER['REQUEST_URI'] == '/admin/export/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/export/">Export</a></li>
+            <li <?php if ($_SERVER['REQUEST_URI'] == '/admin/import/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/import/">Import</a></li>
             <li <?php if ($_SERVER['REQUEST_URI'] == '/admin/about/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/about/">About</a></li>
 
         </ul>

@@ -258,8 +258,8 @@
                                                 }
                                                 if ($file = File::createFromFile($newname, basename($src), $mime, true)) {
                                                     $newsrc = \Idno\Core\site()->config()->getURL() . 'file/' . $file->file['_id'];
-                                                    error_log("Stored " . $newsrc . " instead of " . $src);
                                                     $body = str_replace($src, $newsrc, $body);
+                                                    @unlink($newname);
                                                 } else {
                                                     error_log("Couldn't store newname");
                                                 }
