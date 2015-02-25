@@ -187,6 +187,114 @@
                 @rmdir($path);
             }
 
+            /**
+             * Given the XML source of a Blogger export, imports each post into Known.
+             * @param $xml
+             */
+            static function ImportBloggerXML($xml) {
+
+                // Blogger will be imported as blog posts, so make sure we can import those ...
+                if (!($text = site()->plugins()->get('Text'))) {
+                    return false;
+                }
+
+                $xml_parser = new \SimplePie();
+                $xml_parser->set_raw_data($xml);
+                $xml_parser->init();
+
+                if ($items = $xml_parser->get_items()) {
+
+                    foreach($items as $item) { /* @var \SimplePie_Item $item */
+
+                        $post_type = 'post';
+                        if ($categories = $item->get_categories()) {
+                            foreach($categories as $category) {
+                                if (!empty($category->term) && !empty($category->scheme)) {
+                                    if ($category->scheme == 'http://schemas.google.com/g/2005#kind') {
+                                        foreach(['settings','template','comment'] as $term) {
+                                            if (substr_count($category->term,$term)) {
+                                                $post_type = $term;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        if ($post_type == 'post') {
+                            $body = $item->get_content();
+                            $tags = [];
+                            if ($categories = $item->get_categories()) {
+                                foreach($categories as $category) {
+                                    if (empty($category->scheme) || $category->scheme != 'http://schemas.google.com/g/2005#kind') {
+                                        $tags[] = '#' . preg_replace('/\s+/', '', $category->term);
+                                    }
+                                }
+                            }
+                            if (!empty($tags)) {
+                                $body .= '<p>' . implode(' ',$tags) . '</p>';
+                            }
+
+                            $doc = new \DOMDocument();
+                            if (@$doc->loadHTML($body)) {
+                                if ($images = $doc->getElementsByTagName('img')) {
+                                    foreach($images as $image) {
+                                        $src = $image->getAttribute('src');
+                                        if (substr_count($src,'blogspot.com')) {
+                                            $dir = site()->config()->getTempDir();
+                                            $name = md5($src);
+                                            $newname = $dir . $name . basename($src);
+                                            if (@file_put_contents($newname , fopen($src, 'r'))) {
+                                                switch (strtolower(pathinfo($src, PATHINFO_EXTENSION))) {
+                                                    case 'jpg':
+                                                    case 'jpeg':
+                                                        $mime = 'image/jpg'; break;
+                                                    case 'gif':
+                                                        $mime = 'image/gif'; break;
+                                                    case 'png':
+                                                        $mime = 'image/png'; break;
+                                                    default:
+                                                        $mime = 'application/octet-stream';
+                                                }
+                                                if ($file = File::createFromFile($newname, basename($src), $mime, true)) {
+                                                    $newsrc = \Idno\Core\site()->config()->getURL() . 'file/' . $file->file['_id'];
+                                                    error_log("Stored " . $newsrc . " instead of " . $src);
+                                                    $body = str_replace($src, $newsrc, $body);
+                                                } else {
+                                                    error_log("Couldn't store newname");
+                                                }
+
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            $object = new \IdnoPlugins\Text\Entry();
+                            $object->setTitle($item->get_title());
+                            $object->created = strtotime(($item->get_date("c")));
+                            $object->body = ($body);
+                            $object->save(true);
+                        }
+
+                    }
+
+                }
+
+            }
+
+            static function ImportWordPressXML($xml) {
+
+                // TODO
+
+            }
+
+            static function ImportRSS($xml) {
+
+                // TODO
+
+            }
+
         }
 
     }
