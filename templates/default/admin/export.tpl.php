@@ -17,27 +17,17 @@
         </p>
         <?php
 
-            if (empty($vars['export_last_requested']) || (empty($vars['export_filename']) && $vars['export_last_requested'] < (60 * 4))) {
-
-                echo $this->draw('admin/export/generate');
-
-            } else if ($vars['export_last_requested'] >= (time() - 86400) && !empty($vars['export_in_progress'])) {
-
-                echo $this->draw('admin/export/wait');
-
-            } else if (empty($vars['export_in_progress']) && !empty($vars['export_file_id'])) {
+            if (empty($vars['export_in_progress']) && !empty($vars['export_file_id'])) {
 
                 echo $this->draw('admin/export/download');
 
-            } else {
-
-                ?>
-                <p>
-                    Something seems to have gone wrong.
-                </p>
-                <?php
+            } else if (empty($vars['export_last_requested']) || (time() - $vars['export_last_requested'] >= (60*5))) {
 
                 echo $this->draw('admin/export/generate');
+
+            } else {
+
+                echo $this->draw('admin/export/wait');
 
             }
 
