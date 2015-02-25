@@ -348,6 +348,7 @@
                 $activityStreamPost->setTitle(sprintf($title, $owner->getTitle(), $this->getTitle()));
                 $activityStreamPost->setVerb('post');
                 $activityStreamPost->setObject($this);
+                $activityStreamPost->created = $this->created;
 
                 return $activityStreamPost->save();
             }
