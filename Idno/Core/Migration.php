@@ -271,7 +271,7 @@
                             }
 
                             $object = new \IdnoPlugins\Text\Entry();
-                            $object->setTitle($item->get_title());
+                            $object->setTitle(html_entity_decode($item->get_title()));
                             $object->created = strtotime(($item->get_date("c")));
                             $object->body = ($body);
                             $object->save(true);
