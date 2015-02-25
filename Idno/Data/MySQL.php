@@ -457,8 +457,20 @@
                             $line .= '(' . implode(',',$fields) . ')';
                             $line .= ' values ';
                             $line .= '(' . implode(',', $object) . ');';
-                            $output .= $line . "\n";
-
+                            $output .= $line . "\n\n";
+                            $metadata_statement = $client->prepare("select * from metadata where `entity` = '{$fields['uuid']}'");
+                            if ($metadata_response = $metadata_statement->execute()) {
+                                while ($metadata_object = $statement->fetch(\PDO::FETCH_ASSOC)) {
+                                    $fields = array_keys($object);
+                                    $fields = array_map(function($v) { return '`' . $v . '`'; }, $fields);
+                                    $object = array_map(function($v) { return \Idno\Core\site()->db()->getClient()->quote($v); }, $object);
+                                    $line = 'insert into metadata ';
+                                    $line .= '(' . implode(',',$fields) . ')';
+                                    $line .= ' values ';
+                                    $line .= '(' . implode(',', $object) . ');';
+                                    $output .= $line . "\n";
+                                }
+                            }
                         }
                     }
                     return $output;
