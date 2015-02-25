@@ -46,7 +46,7 @@
                     </span>
                 </label>
                 <?= \Idno\Core\site()->actions()->signForm('/admin/import') ?>
-                <input type="hidden" name="import_type" name="blogger">
+                <input type="hidden" name="import_type" value="Blogger">
                 <input type="submit" class="btn " id="blogger-submit" value="Import your data" style="display:none">
             </p>
 

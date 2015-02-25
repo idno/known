@@ -24,15 +24,15 @@
 
                 $this->adminGatekeeper();
 
+                $import_type = $this->getInput('import_type');
+
                 if (empty($_FILES['import'])) {
                     \Idno\Core\site()->session()->addMessage("You need to upload an import file to continue.");
                 } else if (!($xml = @file_get_contents($_FILES['import']['tmp_name']))) {
                     \Idno\Core\site()->session()->addMessage("We couldn't open the file you uploaded. Please try again.");
                 } else {
-                    \Idno\Core\site()->session()->addMessage("Your import has started.");
+                    \Idno\Core\site()->session()->addMessage("Your {$import_type} import has started.");
                 }
-
-                $import_type = $this->getInput('import_type');
 
                 $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'admin/import/', false);
 
@@ -51,7 +51,7 @@
 
                 set_time_limit(0);          // Eliminate time limit - this could take a while
 
-                if ($import_type == 'blogger') {
+                if (strtolower($import_type) == 'blogger') {
                     if (Migration::ImportBloggerXML($xml)) {
 
                         $mail = new Email();
