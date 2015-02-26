@@ -679,6 +679,10 @@
                         return true;
                 } else if (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == '443'))
                     return true;
+                
+                if(isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'){
+                    return true;
+                }
 
                 return false;
             }
