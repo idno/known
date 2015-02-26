@@ -503,6 +503,15 @@
             }
 
             /**
+             * Retrieves admins for this site
+             * @return array
+             */
+            function getAdmins()
+            {
+                return User::get(['admin' => true],[],9999);
+            }
+
+            /**
              * Retrieve this version of idno's version number
              * @return string
              */
