@@ -138,10 +138,10 @@
                 }
 
                 if (!empty($user->_id)) {
-                    \Idno\Core\site()->session()->addMessage("You've registered! You're ready to get started. Why not add some profile information?");
+                    \Idno\Core\site()->session()->addMessage("You've registered! You're ready to get started. Why not add a status update to say hello?");
                     \Idno\Core\site()->session()->logUserOn($user);
                     if (empty($onboarding)) {
-                        $this->forward($user->getURL());
+                        $this->forward();
                     } else {
                         $this->forward(\Idno\Core\site()->config()->getURL() . 'begin/profile');
                     }
