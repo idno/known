@@ -64,7 +64,7 @@
                 </label>
             </div>
             <div class="span4">
-                    <?= $this->__(['id' => 'inputPassword', 'class' => 'span4', 'name' => 'password', 'placeholder' => 'Password'])->draw('forms/input/password'); ?> 
+                    <?= $this->__(['id' => 'inputPassword', 'class' => 'span4', 'name' => 'password', 'placeholder' => 'Password', 'autocomplete' => 'off', 'value' => ''])->draw('forms/input/password'); ?> 
              </div>
             <div class="span4 config-desc">
 	            Leave this blank if you don't want to change it.
