@@ -19,7 +19,7 @@
 <div class="row">
     <div class="pane span10 offset1">
         <small><pre>
-                <?= $vars['report']; ?>
+<?= $vars['report']; ?>
             </pre></small>
     </div>
 
