@@ -15,7 +15,7 @@
 
                 // Create diagnostics report
                 
-                $report = "Known Diagnostics: Build " . \Idno\Core\site()->version() . "\nDate: " . date(r) . "\n\n";
+                $report = "Known Diagnostics: Build " . \Idno\Core\site()->version() . "\nDate: " . date('r') . "\n\n";
                 $report .= "Running config:\n---------------\n" . var_export(\Idno\Core\site()->config(), true) . "\n\n";
                 $report .= "\$_SESSION:\n----------\n" . var_export($_SESSION, true) . "\n\n";
                 $report .= "\$_SERVER:\n---------\n" . var_export($_SERVER, true) . "\n\n";
