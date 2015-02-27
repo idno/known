@@ -20,6 +20,7 @@
                 $report .= "\$_SESSION:\n----------\n" . var_export($_SESSION, true) . "\n\n";
                 $report .= "\$_SERVER:\n---------\n" . var_export($_SERVER, true) . "\n\n";
                 
+                // Hook so other plugins and subsystems can add their own data to the report.
                 $report = \Idno\Core\site()->triggerEvent('diagnostics/generate', [], $report);
                 
                 $t        = \Idno\Core\site()->template();
