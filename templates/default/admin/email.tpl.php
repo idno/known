@@ -120,7 +120,7 @@
                             foreach ([
                                 'No' => false,
                                 'Yes (tls)' => 'tls',
-                                'Yes (ssl/starttls)' => 'ssl'
+                                'Yes (ssl)' => 'ssl'
                             ] as $field => $value) {
                                 ?>
                         <option value="<?= $value; ?>" <?php if (\Idno\Core\site()->config()->smtp_tls === $value) { echo "selected"; } ?>><?= $field; ?></option>
