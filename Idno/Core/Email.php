@@ -147,8 +147,11 @@
                     if (!empty(site()->config()->smtp_port)) {
                         $transport->setPort(site()->config()->smtp_port);
                     }
-                    if (!empty(site()->config()->smtp_tls)) {
-                        $transport->setEncryption('tls');
+                    if (!empty(site()->config()->smtp_secure)) {
+                        switch (site()->config()->smtp_secure) {   
+                            case 'tls': $transport->setEncryption('tls'); break;
+                            case 'ssl': $transport->setEncryption('ssl'); break;
+                        }
                     }
                     $mailer = \Swift_Mailer::newInstance($transport);
 
