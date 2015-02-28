@@ -115,7 +115,7 @@
                     <p class="control-label" for="name"><strong>Use Secure connection?</strong></p>
                 </div>
                 <div class="config-toggle span4">
-                    <select name="smtp_tls">
+                    <select name="smtp_secure">
                         <?php
                             foreach ([
                                 'No' => false,
@@ -123,7 +123,7 @@
                                 'Yes (ssl)' => 'ssl'
                             ] as $field => $value) {
                                 ?>
-                        <option value="<?= $value; ?>" <?php if (\Idno\Core\site()->config()->smtp_tls === $value) { echo "selected"; } ?>><?= $field; ?></option>
+                        <option value="<?= $value; ?>" <?php if (\Idno\Core\site()->config()->smtp_secure === $value) { echo "selected"; } ?>><?= $field; ?></option>
                         <?php
                             }
                         ?>
