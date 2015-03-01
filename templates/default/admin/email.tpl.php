@@ -143,7 +143,7 @@
                     <p class="control-label" for="name"><strong>To address</strong></p>
                 </div>
                 <div class="span4">
-                    <input type="text" id="from_email" placeholder="To address" class="span4" name="to_email"
+                    <input type="text" id="to_email" placeholder="To address" class="span4" name="to_email"
                            value="<?= htmlspecialchars(\Idno\Core\site()->config()->from_email) ?>">
                 </div>
                 <div class="span4">
