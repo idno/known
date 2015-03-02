@@ -28,7 +28,7 @@
                 \Idno\Core\site()->config->config['smtp_username'] = $this->getInput('smtp_username');
                 \Idno\Core\site()->config->config['smtp_password'] = $this->getInput('smtp_password');
                 \Idno\Core\site()->config->config['smtp_port']     = (int)$this->getInput('smtp_port');
-                \Idno\Core\site()->config->config['smtp_tls']      = (bool)$this->getInput('smtp_tls');
+                \Idno\Core\site()->config->config['smtp_secure']      = $this->getInput('smtp_secure');
 
                 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     \Idno\Core\site()->config->config['from_email'] = $this->getInput('from_email');

@@ -112,12 +112,22 @@
 
             <div class="row">
                 <div class="span2">
-                    <p class="control-label" for="name"><strong>Use TLS?</strong></p>
+                    <p class="control-label" for="name"><strong>Use Secure connection?</strong></p>
                 </div>
                 <div class="config-toggle span4">
-                    <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
-                           name="smtp_tls"
-                           value="true" <?php if (\Idno\Core\site()->config()->smtp_tls == true) echo 'checked'; ?>>
+                    <select name="smtp_secure">
+                        <?php
+                            foreach ([
+                                'No' => false,
+                                'Yes (tls)' => 'tls',
+                                'Yes (ssl)' => 'ssl'
+                            ] as $field => $value) {
+                                ?>
+                        <option value="<?= $value; ?>" <?php if (\Idno\Core\site()->config()->smtp_secure === $value) { echo "selected"; } ?>><?= $field; ?></option>
+                        <?php
+                            }
+                        ?>
+                    </select>
                 </div>
                 <div class="span4">
                     <p class="config-desc">Select yes if you use secure logins to your mail server.</p>
