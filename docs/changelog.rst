@@ -3,6 +3,21 @@ What's changed?
 
 Starting with version 0.6.4, this is a list of changes in the self-hosted, open source version of Known.
 
+0.7.5
+-----
+March 2, 2015
+
+* Better bookmark page title handling
+* Improved username matching
+* Improved email handling
+* Exports better SQL
+* Import from external blogging platforms like Blogger
+* Source code highlighting
+* Simpler link to brid.gy
+* More efficient user session handling
+* Better syndication workflow
+* Improved open graph tag handling
+
 0.7.1
 -----
 February 8, 2015
