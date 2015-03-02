@@ -81,8 +81,11 @@
                 }
 
                 // If we have a feed, set our last modified flag to the time of the latest returned entry
-                if ($feed && is_array($feed)) {
-                    $this->setLastModifiedHeader($feed[0]->updated);
+                if (!empty($feed)) {
+                    if (is_array($feed)) {
+                        $feed = array_filter($feed);
+                        $this->setLastModifiedHeader(reset($feed)->updated);
+                    }
                 }
 
                 $t = \Idno\Core\site()->template();
