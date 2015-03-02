@@ -5,15 +5,15 @@
 
             <div class="span8 offset2 edit-pane">
                 <h4>
-                                    <?php
+                    <?php
 
-                    if (empty($vars['object']->_id)) {
-                        ?>New Bookmark<?php
-                    } else {
-                        ?>Edit Bookmark<?php
-                    }
+                        if (empty($vars['object']->_id)) {
+                            ?>New Bookmark<?php
+                        } else {
+                            ?>Edit Bookmark<?php
+                        }
 
-                ?>
+                    ?>
                 </h4>
 
                 <p>
@@ -25,6 +25,13 @@
                                } else {
                                    echo htmlspecialchars($vars['url']);
                                } ?>" class="span8"/>
+                    </label>
+                    <label>
+                        Page title<br/>
+                        <input required type="text" name="title" id="title" placeholder="Page name"
+                               value="<?php
+                                   echo htmlspecialchars($vars['object']->title);
+                               ?>" class="span8"/>
                     </label>
                     <label>
                         Comments<br/>

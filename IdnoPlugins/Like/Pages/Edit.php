@@ -10,9 +10,12 @@
 
                 // Are we loading an entity?
                 if (!empty($this->arguments)) {
+                    $title = 'Edit bookmark';
                     $object = \IdnoPlugins\Like\Like::getByID($this->arguments[0]);
                 } else {
+                    $title = 'New bookmark';
                     $object = new \IdnoPlugins\Like\Like();
+                    $object->setTitle($object->getTitleFromURL($this->getInput('url')));
                 }
 
                 $t = \Idno\Core\site()->template();
@@ -20,12 +23,6 @@
                     'object' => $object,
                     'url' => $this->getInput('url')
                 ))->draw('entity/Like/edit');
-
-                if (empty($object)) {
-                    $title = 'What are you up to?';
-                } else {
-                    $title = 'Edit like update';
-                }
 
                 if (!empty($this->xhr)) {
                     echo $body;

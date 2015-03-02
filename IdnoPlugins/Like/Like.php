@@ -49,11 +49,11 @@
              * @return mixed
              */
             function getTitleFromURL($Url){
-                $str = \Idno\Core\Webservice::file_get_contents($Url); //@file_get_contents($Url); 
-                if(strlen($str)>0){
-                    preg_match("/\<title\>(.*)\<\/title\>/i",$str,$title);
+                $str = \Idno\Core\Webservice::file_get_contents($Url);
+                if(strlen($str) > 0){
+                    preg_match("/\<title\>(.*)\<\/title\>/siU",$str,$title);
                     return $title[1];
-                } 
+                }
                 return '';
             }
 
@@ -71,6 +71,7 @@
                 $body = \Idno\Core\site()->currentPage()->getInput('body');
                 $description = \Idno\Core\site()->currentPage()->getInput('description');
                 $tags = \Idno\Core\site()->currentPage()->getInput('tags');
+                $title = \Idno\Core\site()->currentPage()->getInput('title');
 
                 if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
                     if ($time = strtotime($time)) {
@@ -80,24 +81,30 @@
 
                 $body = trim($body);
                 if(filter_var($body, FILTER_VALIDATE_URL)){
-                if (!empty($body)) {
-                    $this->body = $body;
-                    $this->description = $description;
-                    $this->tags = $tags;
-                    if ($title = $this->getTitleFromURL($body)) {
-                        $this->pageTitle = $title;
+                    if (!empty($body)) {
+                        $this->body = $body;
+                        $this->description = $description;
+                        $this->tags = $tags;
+                        if (empty($title)) {
+                            if ($title = $this->getTitleFromURL($body)) {
+                                $this->pageTitle = $title;
+                            } else {
+                                $this->pageTitle = '';
+                            }
+                        }
+                        if (empty($title)) {
+                            \Idno\Core\site()->session()->addErrorMessage('You need to specify a title.');
+                            return false;
+                        }
+                        $this->setAccess('PUBLIC');
+                        if ($this->save($new)) {
+                            $result = \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->body));
+                            $result = \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->description));
+                            return true;
+                        }
                     } else {
-                        $this->pageTitle = '';
+                        \Idno\Core\site()->session()->addErrorMessage('You can\'t bookmark an empty URL.');
                     }
-                    $this->setAccess('PUBLIC');
-                    if ($this->save($new)) {
-                        $result = \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->body));
-                        $result = \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->description));
-                        return true;
-                    }
-                } else {
-                    \Idno\Core\site()->session()->addErrorMessage('You can\'t bookmark an empty URL.');
-                }
                 } else {
                     \Idno\Core\site()->session()->addErrorMessage('That doesn\'t look like a valid URL.');
                 }
