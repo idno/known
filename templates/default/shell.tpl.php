@@ -42,7 +42,7 @@
 
                 $opengraph['og:title']       = htmlspecialchars(strip_tags($vars['object']->getTitle()));
                 $opengraph['og:description'] = htmlspecialchars($vars['object']->getShortDescription());
-                $opengraph['og:type']        = htmlspecialchars($vars['object']->getActivityStreamsObjectType());
+                $opengraph['og:type']        = 'article'; //htmlspecialchars($vars['object']->getActivityStreamsObjectType());
                 $opengraph['og:image']       = $vars['object']->getIcon(); //$owner->getIcon(); //Icon, for now set to being the author profile pic
 
                 if ($icon = $vars['object']->getIcon()) {
