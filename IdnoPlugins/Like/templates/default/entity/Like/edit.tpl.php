@@ -26,13 +26,13 @@
                                    echo htmlspecialchars($vars['url']);
                                } ?>" class="span8"/>
                     </label>
-                    <label>
+                    <!-- <label>
                         Page title<br/>
                         <input required type="text" name="title" id="title" placeholder="Page name"
                                value="<?php
                                    echo htmlspecialchars($vars['object']->title);
                                ?>" class="span8"/>
-                    </label>
+                    </label> -->
                     <label>
                         Comments<br/>
 
