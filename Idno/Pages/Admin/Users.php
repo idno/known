@@ -73,8 +73,9 @@
                                 foreach ($matches[0] as $email) {
                                     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                                         if (!($user = User::getByEmail($email))) {
-                                            (new Invitation())->sendToEmail($email);
-                                            $invitation_count++;
+                                            if ((new Invitation())->sendToEmail($email) !== 0) {
+                                                $invitation_count++;
+                                            }
                                         }
                                     }
                                 }

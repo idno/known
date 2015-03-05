@@ -162,9 +162,14 @@
 
                     return $mailer->send($this->message);
                 } catch (\Exception $e) {
+                    // Lets log errors rather than silently drop them
+                    \Idno\Core\site()->logging()->log($e->getMessage(), LOGLEVEL_ERROR);
+                    
                     //site()->session()->addMessage("Something went wrong and we couldn't send the email.");
                     //site()->session()->addMessage($e->getMessage());
                 }
+                
+                return 0;
             }
 
         }
