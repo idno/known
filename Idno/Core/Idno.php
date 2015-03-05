@@ -152,6 +152,7 @@
                 /** Files */
                 $this->addPageHandler('/file/upload/?', '\Idno\Pages\File\Upload', true);
                 $this->addPageHandler('/file/picker/?', '\Idno\Pages\File\Picker', true);
+                $this->addPageHandler('/filepicker/?', '\Idno\Pages\File\Picker', true);
                 $this->addPageHandler('/file/([A-Za-z0-9]+)(/.*)?', '\Idno\Pages\File\View', true);
 
                 /** Users */
