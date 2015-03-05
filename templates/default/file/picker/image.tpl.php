@@ -34,6 +34,10 @@
     </div>
 </form>
 <script>
+    $(document).ready(function() {
+        $('#photo').click();
+    })
+
     //if (typeof photoPreview !== function) {
     function photoPreview(input) {
 
