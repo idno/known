@@ -30,8 +30,8 @@
         }
     });
 
-// Set time limit if we're using the default
-    if (ini_get('max_execution_time') == 30) {
+// Set time limit if we're using less
+    if (ini_get('max_execution_time') < 120 ) {
         set_time_limit(120);
     }
 
