@@ -18,7 +18,7 @@
 
             function registerPages()
             {
-                \Idno\Core\site()->addPageHandler('/webmention/?', '\Idno\Pages\Webmentions\Endpoint');
+                \Idno\Core\site()->addPageHandler('/webmention/?', '\Idno\Pages\Webmentions\Endpoint', true);
             }
 
             function registerEventHooks()
