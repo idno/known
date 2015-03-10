@@ -98,8 +98,8 @@
                         }
                         $this->setAccess('PUBLIC');
                         if ($this->save($new)) {
-                            $result = \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->body));
-                            $result = \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->description));
+                            //$result = \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->body));
+                            //$result = \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->description));
                             return true;
                         }
                     } else {
