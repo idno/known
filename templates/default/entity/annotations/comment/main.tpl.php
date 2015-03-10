@@ -7,13 +7,13 @@
 
 ?>
     <div class="row annotation-add">
-        <div class="span1 owner h-card hidden-phone">
+        <div class="col-md-1 owner h-card hidden-phone">
             <a href="<?= $user->getDisplayURL() ?>" class="u-url icon-container"><img class="u-photo"
                                                                                 src="<?= $user->getIcon() ?>"/></a>
         </div>
-        <div class="span7 idno-comment-container">
+        <div class="col-md-7 idno-comment-container">
             <form action="<?=\Idno\Core\site()->config()->getDisplayURL()?>annotation/post" method="post">
-                <textarea name="body" placeholder="Add a comment ..." class="span7 mentionable"></textarea>
+                <textarea name="body" placeholder="Add a comment ..." class="col-md-7 mentionable"></textarea>
                 <p style="text-align: right">
                     <?= \Idno\Core\site()->actions()->signForm('annotation/post') ?>
                     <input type="hidden" name="object" value="<?=$object->getUUID()?>">

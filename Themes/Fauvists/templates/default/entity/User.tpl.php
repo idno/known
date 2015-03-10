@@ -1,7 +1,7 @@
 <div class="row profile h-card">
-    <div class="span8 offset2">
+    <div class="col-md-8 col-md-offset-2">
         <div class="row visible-phone">
-            <div class="span2">
+            <div class="col-md-2">
                 <div  style="margin-bottom: 2em; margin-top: -2em; text-align: center">
                     <p>
                         <?=$this->draw('entity/User/profile/contact')?>
@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="span2 namebadge">
+            <div class="col-md-2 namebadge">
                 <p>
                     <a href="<?=$vars['user']->getDisplayURL()?>" class="u-url icon-container"><img class="u-photo" src="<?=$vars['user']->getIcon()?>" /></a>
                 </p>
@@ -27,14 +27,14 @@
 
                 ?>
             </div>
-            <div class="span6 ">
+            <div class="col-md-6 ">
                 <div class="row">
-                    <div class="span5">
+                    <div class="col-md-5">
                         <h1 class="p-profile">
                             <a href="<?=$vars['user']->getDisplayURL()?>" class="u-url p-name"><?=$vars['user']->getTitle()?></a>
                         </h1>
                     </div>
-                    <div class="span1">
+                    <div class="col-md-1">
                         <?php
 
                             if ($vars['user']->canEdit()) {
@@ -51,7 +51,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="span6">
+                    <div class="col-md-6">
                         <div class="e-note"><?php
                             $description = $vars['user']->getDescription();
                             if (!empty($description)) {

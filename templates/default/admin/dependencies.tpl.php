@@ -1,6 +1,6 @@
 <div class="row">
 
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
         <h1>Dependencies</h1>
         <?=$this->draw('admin/menu')?>
         <div class="explanation">
@@ -15,7 +15,7 @@
 </div>
 <div class="row">
 
-    <div class="span5 offset1">
+    <div class="col-md-5 col-md-offset-1">
         <h3>PHP</h3>
         <p>
             Version 5.4 or greater<br />
@@ -40,7 +40,7 @@
         </p>
     </div>
 
-    <div class="span5">
+    <div class="col-md-5">
 
     </div>
 

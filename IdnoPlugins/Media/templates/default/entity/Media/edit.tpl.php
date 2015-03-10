@@ -3,7 +3,7 @@
 
     <div class="row">
 
-        <div class="span8 offset2 edit-pane">
+        <div class="col-md-8 col-md-offset-2 edit-pane">
         
         	<h4>
         	
@@ -26,7 +26,7 @@
                 ?>
                 <label>
                     <span class="btn btn-primary btn-file">
-                        <i class="icon-play-circled"></i> <span id="media-filename">Upload media</span> <input type="file" name="media" id="media" class="span9" accept="audio/*;video/*;capture=audio" onchange="$('#media-filename').html($(this).val())" />
+                        <i class="icon-play-circled"></i> <span id="media-filename">Upload media</span> <input type="file" name="media" id="media" class="col-md-9" accept="audio/*;video/*;capture=audio" onchange="$('#media-filename').html($(this).val())" />
                     </span>
                 </label>
                 <?php
@@ -38,13 +38,13 @@
             <p>
                 <label>
                     Title<br />
-                    <input type="text" name="title" id="title" placeholder="Give it a title" value="<?=htmlspecialchars($vars['object']->title)?>" class="span8" />
+                    <input type="text" name="title" id="title" placeholder="Give it a title" value="<?=htmlspecialchars($vars['object']->title)?>" class="col-md-8" />
                 </label>
             </p>
             <p>
                 <label>
                     Description<br />
-                    <textarea name="body" id="description" placeholder="What's this about?" class="span8 bodyInput"><?=htmlspecialchars($vars['object']->body)?></textarea>
+                    <textarea name="body" id="description" placeholder="What's this about?" class="col-md-8 bodyInput"><?=htmlspecialchars($vars['object']->body)?></textarea>
                 </label>
             </p>
             <?=$this->draw('entity/tags/input');?>

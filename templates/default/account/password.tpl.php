@@ -1,6 +1,6 @@
 <div class="row">
 
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
 
         <h1>
             Reset your password
@@ -16,7 +16,7 @@
 </div>
 <div class="row" style="margin-top: 2em">
 
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
 
         <form action="<?=\Idno\Core\site()->config()->getDisplayURL()?>account/password" method="post" class="form-horizontal">
 

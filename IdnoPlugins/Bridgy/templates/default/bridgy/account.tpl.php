@@ -1,13 +1,13 @@
 <div class="row">
 
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
 
         <?= $this->draw('account/menu') ?>
         <h1>Bridgy</h1>
 
     </div>
 
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
 
                 <p class="explanation">
 				<a href="https://brid.gy">Bridgy</a> is a service that pulls social interactions - such as likes and retweets - back to your website.</p> 
@@ -21,7 +21,7 @@
 </div>
 <div class="row">
 
-    <div class="span6 offset1">
+    <div class="col-md-6 col-md-offset-1">
 
         <form action="https://www.brid.gy/facebook/start?feature=listen&callback=<?=urlencode(\Idno\Core\site()->config()->getDisplayURL() . 'account/bridgy/')?>" method="post">
             <p>

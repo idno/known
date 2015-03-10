@@ -69,7 +69,7 @@
 
     <div class="row">
 
-        <div class="span8 offset2 edit-pane">
+        <div class="col-md-8 col-md-offset-2 edit-pane">
 			<h4>
 				                <?php
 
@@ -90,7 +90,7 @@
                     <p>
                         <label>
                             Location<br/>
-                            <input type="text" name="placename" id="placename" class="span8" placeholder="Where are you?"/>
+                            <input type="text" name="placename" id="placename" class="col-md-8" placeholder="Where are you?"/>
                             <input type="hidden" name="lat" id="lat"/>
                             <input type="hidden" name="long" id="long"/>
                         </label>
@@ -99,7 +99,7 @@
                     <p>
                         <label>Address<br/>
                         <small>You can edit the address if it's wrong.</small>
-                        <input type="text" name="user_address" id="user_address" class="span8"/>
+                        <input type="text" name="user_address" id="user_address" class="col-md-8"/>
                         <input type="hidden" name="address" id="address"/>
                        
                         </label>
@@ -112,7 +112,7 @@
                 <label>
                     Comments<br/>
                     <input type="text" name="body" id="body" placeholder="What are you up to?" value="<?= htmlspecialchars($vars['object']->body) ?>"
-                           class="span8 mentionable"/>
+                           class="col-md-8 mentionable"/>
                 </label>
             </p>
             <?=$this->draw('entity/tags/input');?>

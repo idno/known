@@ -1,6 +1,6 @@
 <div class="row">
 
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
 
         <h1>Your password reset email has been sent</h1>
 
@@ -9,7 +9,7 @@
 </div>
 <div class="row" style="margin-top: 2em">
 
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
 
         <p>
             Check your inbox! You'll find an email containing a special link that will help you reset your password.

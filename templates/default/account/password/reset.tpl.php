@@ -1,6 +1,6 @@
 <div class="row">
 
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
 
         <h1>Reset your password</h1>
         <p>
@@ -8,7 +8,7 @@
         </p>
 
     </div>
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
 
         <form action="<?=\Idno\Core\site()->config()->getDisplayURL()?>account/password/reset" method="post" class="form-horizontal">
 
@@ -16,20 +16,20 @@
                 <label class="control-label" for="inputEmail">Your email address<br />
                     <small>The address associated with your <?=\Idno\Core\site()->config()->title?> account.</small></label>
                 <div class="controls">
-                    <input type="email" id="inputEmail" placeholder="Email" class="span4" name="email" value="<?=$vars['email']?>" required>
+                    <input type="email" id="inputEmail" placeholder="Email" class="col-md-4" name="email" value="<?=$vars['email']?>" required>
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputPassword">New password (7 characters or more)</label>
                 <div class="controls">
-                    <input type="password" id="inputPassword" class="span4" name="password" value="" required>
+                    <input type="password" id="inputPassword" class="col-md-4" name="password" value="" required>
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputPassword2">Retype password<br />
                     <small>We ask you to enter the password twice to protect against typos.</small></label>
                 <div class="controls">
-                    <input type="password" id="inputPassword2" class="span4" name="password2" value="" required>
+                    <input type="password" id="inputPassword2" class="col-md-4" name="password2" value="" required>
                 </div>
             </div>
             <div class="control-group">

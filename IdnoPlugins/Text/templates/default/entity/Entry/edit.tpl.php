@@ -25,7 +25,7 @@
 
         <div class="row">
 
-            <div class="span8 offset2 edit-pane">
+            <div class="col-md-8 col-md-offset-2 edit-pane">
 
 
                 <?php
@@ -49,7 +49,7 @@
                     <label>
                         Title<br/>
                         <input type="text" name="title" id="title" placeholder="Give it a title"
-                               value="<?= htmlspecialchars($title) ?>" class="span8"/>
+                               value="<?= htmlspecialchars($title) ?>" class="col-md-8"/>
                     </label>
                 </p>
 

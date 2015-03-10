@@ -4,7 +4,7 @@
     $url = $vars['theme']['Theme description']['url'];
 
 ?>
-<div class="span4 theme">
+<div class="col-md-4 theme">
 
     <?php
 

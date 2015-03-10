@@ -2,7 +2,7 @@
     // Search term
     ?>
     <div class="row" style="margin-top: 5em">
-        <div class="span6 offset3">
+        <div class="col-md-6 col-md-offset-3">
             <div class="no-content explanation">
                 <p>
 

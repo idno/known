@@ -17,7 +17,7 @@
 
     <div class="row">
 
-        <div class="span8 offset2">
+        <div class="col-md-8 col-md-offset-2">
             
             <p id="counter" style="display:none" class="pull-right">
                 <span class="count"></span>
@@ -35,7 +35,7 @@
                 ?>
             </h4>
 
-            <textarea required name="body" id="body" class="content-entry mentionable span8" placeholder="What's going on?"><?php
+            <textarea required name="body" id="body" class="content-entry mentionable col-md-8" placeholder="What's going on?"><?php
             
                 if (!empty($twitter_user))
                     echo htmlspecialchars ("@$twitter_user ");
@@ -48,7 +48,7 @@
 
             <p>
                 <small><a id="inreplyto-add" href="#"
-                          onclick="$('#inreplyto').append('<span><input required type=&quot;url&quot; name=&quot;inreplyto[]&quot; value=&quot;&quot; placeholder=&quot;Add the URL that you\'re replying to&quot; class=&quot;span8&quot; /> <small><a href=&quot;#&quot; onclick=&quot;$(this).parent().parent().remove(); return false;&quot;>Remove</a></small><br /></span>'); return false;">+
+                          onclick="$('#inreplyto').append('<span><input required type=&quot;url&quot; name=&quot;inreplyto[]&quot; value=&quot;&quot; placeholder=&quot;Add the URL that you\'re replying to&quot; class=&quot;col-md-8&quot; /> <small><a href=&quot;#&quot; onclick=&quot;$(this).parent().parent().remove(); return false;&quot;>Remove</a></small><br /></span>'); return false;">+
                         Reply to a site</a></small>
             </p>
             <div id="inreplyto">
@@ -59,7 +59,7 @@
                             <p>
                                 <input type="url" name="inreplyto[]"
                                        placeholder="Add the URL that you're replying to"
-                                       class="span8" value="<?= htmlspecialchars($inreplyto) ?>"/>
+                                       class="col-md-8" value="<?= htmlspecialchars($inreplyto) ?>"/>
                                 <small><a href="#"
                                           onclick="$(this).parent().parent().remove(); return false;">Remove</a></small>
                             </p>
@@ -76,14 +76,14 @@
                     
                     if (!empty($u)) {
                         ?>
-                            <span><input required type="url" name="inreplyto[]" value="<?= $u; ?>" placeholder="The website address of the post you\'re replying to" class="span8" /> <small><a href="#" onclick="$(this).parent().parent().remove(); return false;">Remove</a></small><br /></span> 
+                            <span><input required type="url" name="inreplyto[]" value="<?= $u; ?>" placeholder="The website address of the post you\'re replying to" class="col-md-8" /> <small><a href="#" onclick="$(this).parent().parent().remove(); return false;">Remove</a></small><br /></span>
                         <?php
                     }
                 ?>
             </div>
 
         </div>
-        <div class="span8 offset2">
+        <div class="col-md-8 col-md-offset-2">
 
 
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('note'); ?>
@@ -102,7 +102,7 @@
                 <?=$this->draw('entity/bookmarklet'); ?>
             </div>  --> 
         </div>
-        <div class="span2">
+        <div class="col-md-2">
             <p id="counter" style="display:none">
                 <span class="count"></span>
             </p>
@@ -131,7 +131,7 @@
         $("#inreplyto-add").on('dragenter', function(e) {
             e.stopPropagation();
             e.preventDefault();
-            $('#inreplyto').append('<span><input required type="url" name="inreplyto[]" value="" placeholder="The website address of the post you\'re replying to" class="span8" /> <small><a href="#" onclick="$(this).parent().parent().remove(); return false;">Remove</a></small><br /></span>');
+            $('#inreplyto').append('<span><input required type="url" name="inreplyto[]" value="" placeholder="The website address of the post you\'re replying to" class="col-md-8" /> <small><a href="#" onclick="$(this).parent().parent().remove(); return false;">Remove</a></small><br /></span>');
         });
     });
 </script>

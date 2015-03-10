@@ -14,12 +14,12 @@
 
 <div class="row">
 
-    <div class="span10 offset1" style="margin-top: 1em">
+    <div class="col-md-10 col-md-offset-1" style="margin-top: 1em">
         <h2>Known for Firefox</h2>
     </div>
 </div>
 <div class="row">
-    <div class="span4 offset1">
+    <div class="col-md-4 col-md-offset-1">
         <p style="padding-bottom: 25px; padding-top: 15px;"><img
                 src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>gfx/other/firefox-long.png" alt="firefox"/></p>
 
@@ -35,7 +35,7 @@
             </small>
         </p>
     </div>
-    <div class="span5">
+    <div class="col-md-5">
         <p style="text-align: right;">
             <img src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>gfx/other/firefoxsocial.png"
                  alt="firefoxsocial" width="400" height="281"/>
@@ -44,7 +44,7 @@
 </div>
 
 <div class="row">
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
         <p>After clicking the <strong>Activate</strong> button, choose <strong>Enable Services</strong> from the browser
             message to install Known in your Firefox toolbar.</p>
     </div>

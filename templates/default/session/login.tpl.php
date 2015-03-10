@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="span6 offset3 well text-center">
+    <div class="col-md-6 col-md-offset-3 well text-center">
 
 		<h2 class="text-center welcome">Welcome back!</h2>
 
@@ -11,12 +11,12 @@
             <div class="control-group">
                 <div class="controls">
                     <input type="text" id="inputEmail" name="email" placeholder="Your email address"
-                           class="span4">
+                           class="col-md-4">
                 </div>
             </div>
             <div class="control-group">
                 <div class="controls">
-                    <input type="password" id="inputPassword" name="password" placeholder="Password" class="span4">
+                    <input type="password" id="inputPassword" name="password" placeholder="Password" class="col-md-4">
                 </div>
             </div>
             <div class="control-group">

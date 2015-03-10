@@ -5,7 +5,7 @@
         ?>
         <div class="buttonBar">
         <div class="row ">
-        <div class="span12">
+        <div class="col-md-12">
         <div id="contentTypeButtonBar">
             <?php
 
@@ -37,7 +37,7 @@
     </div>
     </div>
     <div class="row">
-        <div class="span12">
+        <div class="col-md-12">
             <div id="contentCreate"></div>
         </div>
     </div>
@@ -50,7 +50,7 @@
 
         ?>
         <div class="row" style="margin-top: 5em">
-            <div class="span6 offset3">
+            <div class="col-md-6 col-md-offset-3">
                 <div class="welcome">
                     <p>
                         <a href="https://withknown.com/" target="_blank"><img src="<?=\Idno\Core\site()->config()->getDisplayURL()?>gfx/logos/logo_k.png" style="width: 4em; border: 0"></a>

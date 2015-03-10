@@ -13,7 +13,7 @@
                 }?>">
 
                 <div
-                    class="span8 offset2 <?= $subObject->getMicroformats2ObjectType() ?> idno-<?= $subObject->getContentTypeCategorySlug() ?> idno-object idno-content">
+                    class="col-md-8 col-md-offset-2 <?= $subObject->getMicroformats2ObjectType() ?> idno-<?= $subObject->getContentTypeCategorySlug() ?> idno-object idno-content">
                     <div style="display: none"> <!-- This is useful for webmentions -->
                         <p class="p-author author h-card vcard">
                             <a href="<?= $owner->getDisplayURL() ?>" class="icon-container"><img

@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
         <h1>Following</h1>
         <?=$this->draw('following/menu')?>
     </div>
@@ -9,7 +9,7 @@
 
 ?>
     <div class="row">
-        <div class="span10 offset1">
+        <div class="col-md-10 col-md-offset-1">
             <p id="follow-link"><a href="#" onclick="$('#follow-link').hide(); $('#follow-enclosure').slideDown(); return false;">+ Follow another site</a></p>
             <div id="follow-enclosure" style="display:none"><?=$this->draw('following/add')?></div>
         </div>
@@ -26,7 +26,7 @@
     } else {
 ?>
         <div class="row">
-            <div class="span10 offset1">
+            <div class="col-md-10 col-md-offset-1">
                 <p>
                     You're not following anyone yet.
                 </p>

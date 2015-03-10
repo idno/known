@@ -1,12 +1,12 @@
 <div class="row">
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
 	            <?= $this->draw('admin/menu') ?>
         <h1>API Tester</h1>
 
     </div>
 </div>
 <div class="row">
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
         <div class="explanation">
             This API tester helps you use Known's built-in API functionality. Every page in Known is also an API
             endpoint, which means you can access it using third-party applications as well as through as web browser.
@@ -19,7 +19,7 @@
 
         ?>
         <div class="row" id="apiResponse">
-            <div class="span10 offset1">
+            <div class="col-md-10 col-md-offset-1">
                 <div class="well">
                     <p>
                         Your last API request:
@@ -43,12 +43,12 @@
 
 ?>
 <div class="row">
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
 
         <form action="<?= \Idno\Core\site()->config()->url ?>admin/apitester/" method="post">
 
             <div class="row">
-                <div class="span8 offset2">
+                <div class="col-md-8 col-md-offset-2">
                     <p>
                         Some examples:
                         <a href="?request=/status/edit&json=<?=urlencode(json_encode(array('body' => 'Status body')))?>">post a status</a>,
@@ -57,16 +57,16 @@
                 </div>
             </div>
             <div class="row">
-                <div class="span2">
+                <div class="col-md-2">
                     <label class="control-label-api">Request</label>
                 </div>
-                <div class="span5">
+                <div class="col-md-5">
                     <p>
-                        <input type="text" class="span5" name="request" id="apirequest"
+                        <input type="text" class="col-md-5" name="request" id="apirequest"
                                value="<?= htmlspecialchars($vars['request']) ?>"/>
                     </p>
                 </div>
-                <div class="span3">
+                <div class="col-md-3">
                     <p style="text-align: right">
                         <a href="#" class="btn" onclick="return setResponseType('json')">JSON</a>
                         <a href="#" class="btn" onclick="return setResponseType('rss')">RSS</a>
@@ -75,39 +75,39 @@
                 </div>
             </div>
             <div class="row">
-                <div class="span2">
+                <div class="col-md-2">
                     <label class="control-label-api">Username</label>
                 </div>
-                <div class="span8">
+                <div class="col-md-8">
                     <p>
-                        <input type="text" class="span8" name="username"
+                        <input type="text" class="col-md-8" name="username"
                                value="<?= htmlspecialchars($vars['username']) ?>"/>
                     </p>
                 </div>
             </div>
             <div class="row">
-                <div class="span2">
+                <div class="col-md-2">
                     <label class="control-label-api">API key</label>
                 </div>
-                <div class="span8">
+                <div class="col-md-8">
                     <p>
-                        <input type="text" class="span8" name="key" value="<?= htmlspecialchars($vars['key']) ?>"/>
+                        <input type="text" class="col-md-8" name="key" value="<?= htmlspecialchars($vars['key']) ?>"/>
                     </p>
                 </div>
             </div>
             <div class="row">
-                <div class="span2">
+                <div class="col-md-2">
                     <label class="control-label-api">JSON payload</label>
                 </div>
-                <div class="span8">
-                    <textarea class="span8" name="json"><?= htmlspecialchars($vars['json']) ?></textarea>
+                <div class="col-md-8">
+                    <textarea class="col-md-8" name="json"><?= htmlspecialchars($vars['json']) ?></textarea>
                 </div>
             </div>
             <div class="row">
-                <div class="span2">
+                <div class="col-md-2">
                     <p>&nbsp;</p>
                 </div>
-                <div class="span8">
+                <div class="col-md-8">
                     <label class="checkbox">
                         <input type="checkbox" name="follow_redirects" value="1" checked>
                         Follow redirects
@@ -115,13 +115,13 @@
                 </div>
             </div>
             <div class="row">
-                <div class="span8 offset2">
+                <div class="col-md-8 col-md-offset-2">
                     <?= \Idno\Core\site()->actions()->signForm('admin/apitester') ?>
                     <input type="submit" class="btn btn-primary" value="Make API call"/>
                 </div>
             </div>
             <div class="row" style="margin-top: 2em">
-                <div class="span8">
+                <div class="col-md-8">
                     <p>
                         <strong>Technical details:</strong> API calls are a POST request  with the HTTP header X-KNOWN-USERNAME
                         set to the user's username, and X-KNOWN-SIGNATURE to be an HMAC signature, computed with

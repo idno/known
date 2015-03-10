@@ -3,7 +3,7 @@
 
         <div class="row">
 
-            <div class="span8 offset2 edit-pane">
+            <div class="col-md-8 col-md-offset-2 edit-pane">
                 <h4>
                     <?php
 
@@ -24,21 +24,21 @@
                                    echo htmlspecialchars($vars['object']->body);
                                } else {
                                    echo htmlspecialchars($vars['url']);
-                               } ?>" class="span8"/>
+                               } ?>" class="col-md-8"/>
                     </label>
                     <!-- <label>
                         Page title<br/>
                         <input required type="text" name="title" id="title" placeholder="Page name"
                                value="<?php
                                    echo htmlspecialchars($vars['object']->title);
-                               ?>" class="span8"/>
+                               ?>" class="col-md-8"/>
                     </label> -->
                     <label>
                         Comments<br/>
 
                     </label>
 
-                    <textarea name="description" id="description" class="span8"
+                    <textarea name="description" id="description" class="col-md-8"
                               placeholder="This page is great because... Use hashtags to organize your bookmark."><?= htmlspecialchars($vars['object']->description); ?></textarea>
                 </p>
                 <?=$this->draw('entity/tags/input');?>

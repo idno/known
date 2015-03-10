@@ -1,7 +1,7 @@
 <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>filepicker/" method="post"
       enctype="multipart/form-data">
     <div class="row">
-        <div class="span10 offset1">
+        <div class="col-md-10 col-md-offset-1">
             <div style="text-align: center">
                 <h2>
                     Upload an image
@@ -17,7 +17,7 @@
                                             <i class="icon-camera"></i> <span
                                                 id="photo-filename">Select an image</span>
                                             <input type="file" name="file" id="photo"
-                                                   class="span9"
+                                                   class="col-md-9"
                                                    accept="image/*;capture=camera"
                                                    onchange="photoPreview(this)"/>
                                         </span>

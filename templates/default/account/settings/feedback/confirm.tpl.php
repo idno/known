@@ -1,6 +1,6 @@
 <div class="row">
 
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
         <h1>
             Message received!
         </h1>
@@ -13,7 +13,7 @@
 
 </div>
 <div class="row">
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
     <p align="center">
     <img src="../../../../../gfx/robots/feedback.png" alt="Feedback from Aleph" width="300" height="503" class="img-responsive"/>
     </p>

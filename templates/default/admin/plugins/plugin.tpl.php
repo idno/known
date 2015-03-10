@@ -10,7 +10,7 @@
 ?>
 <div class="well well-large">
     <div class="row">
-        <div class="span2">
+        <div class="col-md-2">
             <p>
                 <strong><?= $plugin_description['name'] ?></strong> <?= $plugin_description['version'] ?><br/>
                 <small>
@@ -36,7 +36,7 @@
                 ?>
             </p>
         </div>
-        <div class="span5">
+        <div class="col-md-5">
             <?php
 
                 if (!empty($plugin_description['description'])) echo $this->autop($plugin_description['description']);
@@ -98,7 +98,7 @@
                 }
             ?>
         </div>
-        <div class="span1 offset1">
+        <div class="col-md-1 col-md-offset-1">
             <?php
                 if (!in_array($shortname, \Idno\Core\site()->config()->alwaysplugins)) {
                     if (array_key_exists($shortname, $vars['plugins_loaded'])) {

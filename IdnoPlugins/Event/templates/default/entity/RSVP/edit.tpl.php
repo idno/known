@@ -3,7 +3,7 @@
 
     <div class="row">
 
-        <div class="span8 offset2 edit-pane">
+        <div class="col-md-8 col-md-offset-2 edit-pane">
         
         	<h4>
 				                <?php
@@ -19,7 +19,7 @@
             <p>
                 <span id="in-reply-to">
                     What's the URL of the event you're responding to?<br />
-                    <input type="text" name="inreplyto" placeholder="The website address of the event" class="span8" value="<?php if (empty($vars['url'])) { echo htmlspecialchars($vars['object']->inreplyto); } else { echo htmlspecialchars($vars['url']); } ?>" />
+                    <input type="text" name="inreplyto" placeholder="The website address of the event" class="col-md-8" value="<?php if (empty($vars['url'])) { echo htmlspecialchars($vars['object']->inreplyto); } else { echo htmlspecialchars($vars['url']); } ?>" />
                 </span>
             </p>
             <p>
@@ -35,7 +35,7 @@
             <p>
                 <label>
                     Any comments?<br />
-                    <input type="text" name="body" id="body" value="<?=htmlspecialchars($vars['object']->body)?>" class="span8" />
+                    <input type="text" name="body" id="body" value="<?=htmlspecialchars($vars['object']->body)?>" class="col-md-8" />
                 </label>
             </p>
             <?=$this->draw('entity/tags/input');?>

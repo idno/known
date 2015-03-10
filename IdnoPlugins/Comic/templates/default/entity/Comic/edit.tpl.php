@@ -3,7 +3,7 @@
 
     <div class="row">
 
-        <div class="span8 offset2 edit-pane">
+        <div class="col-md-8 col-md-offset-2 edit-pane">
 
             <p>
                 <?php
@@ -17,7 +17,7 @@
                                 <div id="photo-preview"></div>
                                     <span class="btn btn-primary btn-file">
                                         <i class="icon-camera"></i> <span id="photo-filename">Select a comic</span> <input type="file" name="comic" id="comic"
-                                                                                                                           class="span9"
+                                                                                                                           class="col-md-9"
                                                                                                                            accept="image/*;capture=camera"
                                                                                                                            onchange="comicPreview(this)"/>
 
@@ -33,19 +33,19 @@
             <p>
                 <label>
                     Title (displayed in feeds)<br />
-                    <input type="text" name="title" id="title" value="<?=htmlspecialchars($vars['object']->title)?>" class="span9" />
+                    <input type="text" name="title" id="title" value="<?=htmlspecialchars($vars['object']->title)?>" class="col-md-9" />
                 </label>
             </p>
             <p>
                 <label>
                     Description of comic (displayed when image is not available)<br />
-                    <textarea name="description" id="description" class="span9 bodyInput"><?=htmlspecialchars($vars['object']->description)?></textarea>
+                    <textarea name="description" id="description" class="col-md-9 bodyInput"><?=htmlspecialchars($vars['object']->description)?></textarea>
                 </label>
             </p>
             <p>
                 <label>
                     Accompanying text<br />
-                    <textarea name="body" id="body" class="span9 bodyInput"><?=htmlspecialchars($vars['object']->body)?></textarea>
+                    <textarea name="body" id="body" class="col-md-9 bodyInput"><?=htmlspecialchars($vars['object']->body)?></textarea>
                 </label>
             </p>
             <?=$this->draw('entity/tags/input');?>

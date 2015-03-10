@@ -10,7 +10,7 @@
         echo strtolower($matches[1]);
     }?>">
 
-    <div class="span1 offset1 owner h-card hidden-phone">
+    <div class="col-md-1 col-md-offset-1 owner h-card hidden-phone">
         <p>
             <a href="<?= $item->getAuthorURL() ?>" class="u-url icon-container"><img class="u-photo"
                                                                                 src="<?= $item->getAuthorPhoto()?>"/></a><br/>
@@ -18,7 +18,7 @@
         </p>
     </div>
     <div
-        class="span8 idno-feed-item idno-object idno-content">
+        class="col-md-8 idno-feed-item idno-object idno-content">
         <div class="visible-phone">
             <p class="p-author author h-card vcard">
                 <a href="<?= $item->getAuthorURL() ?>" class="icon-container"><img

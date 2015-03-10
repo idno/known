@@ -1,6 +1,6 @@
 <div class="row">
 
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
 	<?=$this->draw('admin/menu')?>
         <h1>Plugins</h1>
 

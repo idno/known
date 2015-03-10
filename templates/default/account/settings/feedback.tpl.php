@@ -1,6 +1,6 @@
 <div class="row">
 
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
         <h1>
             Share your feedback
         </h1>
@@ -15,7 +15,7 @@
 <form class="form-horizontal" action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>account/settings/feedback"
       method="post">
 <div class="row">
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
 
             <p class="feedback">
                 <strong>From:</strong> <?= \Idno\Core\site()->session()->currentUser()->email ?>

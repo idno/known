@@ -1,6 +1,6 @@
 <div class="row">
 
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
 	            <?= $this->draw('admin/menu') ?>
         <h1>
             Homepage content
@@ -31,7 +31,7 @@
 
                                 <div class="content-type">
 	                                <div class="row">
-                                    <div class="span2">
+                                    <div class="col-md-2">
 	                                    
 	                                    <label class="homepage_<?= $content_type->getCategoryTitleSlug() ?>"
                                                for="homepage_toggle_<?= $content_type->getCategoryTitleSlug() ?>">
@@ -39,7 +39,7 @@
                                             <strong><?= $content_type->getCategoryTitle() ?></strong>
                                         </label>
                                     </div>
-                                    <div class="config-toggle span4">
+                                    <div class="config-toggle col-md-4">
                                         
                                         <input type="checkbox" data-toggle="toggle" data-onstyle="info" name="default_feed_content[]"
                                                

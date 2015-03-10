@@ -5,7 +5,7 @@
         ?>
         <div class="buttonBar">
         <div class="row ">
-        <div class="span12">
+        <div class="col-md-12">
         <div id="contentTypeButtonBar">
             <?php
 
@@ -35,7 +35,7 @@
     </div>
     </div>
     <div class="row">
-        <div class="span12">
+        <div class="col-md-12">
             <div id="contentCreate"></div>
         </div>
     </div>

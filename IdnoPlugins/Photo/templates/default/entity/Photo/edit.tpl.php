@@ -3,7 +3,7 @@
 
         <div class="row">
 
-            <div class="span8 offset2 edit-pane">
+            <div class="col-md-8 col-md-offset-2 edit-pane">
 
                 <h4>
                     <?php
@@ -27,7 +27,7 @@
                                 <div id="photo-preview"></div>
                                     <span class="btn btn-primary btn-file">
                                         <i class="icon-camera"></i> <span id="photo-filename">Select a photo</span> <input type="file" name="photo" id="photo"
-                                                                                    class="span9"
+                                                                                    class="col-md-9"
                                                                                     accept="image/*;capture=camera"
                                                                                     onchange="photoPreview(this)"/>
 
@@ -43,7 +43,7 @@
                     <label>
                         Title<br/>
                         <input type="text" name="title" id="title"
-                               value="<?= htmlspecialchars($vars['object']->title) ?>" class="span8"
+                               value="<?= htmlspecialchars($vars['object']->title) ?>" class="col-md-8"
                                placeholder="Give it a title"/>
                     </label>
                 </p>
@@ -51,7 +51,7 @@
                 <p>
                     <label>
                         Description<br/>
-                        <textarea name="body" id="description" class="span8 bodyInputShort mentionable"
+                        <textarea name="body" id="description" class="col-md-8 bodyInputShort mentionable"
                                   placeholder="Add a caption"><?= htmlspecialchars($vars['object']->body) ?></textarea>
                     </label>
                 </p>

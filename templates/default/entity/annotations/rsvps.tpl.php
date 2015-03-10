@@ -7,12 +7,12 @@
 
             ?>
             <div class="idno-annotation row">
-                <div class="idno-annotation-image span1 hidden-phone">
+                <div class="idno-annotation-image col-md-1 hidden-phone">
                     <p>
                         <a href="<?=$annotation['owner_url']?>" class="icon-container"><img src="<?=$annotation['owner_image']?>" /></a>
                     </p>
                 </div>
-                <div class="idno-annotation-content span6">
+                <div class="idno-annotation-content col-md-6">
                     <p>
                         <a href="<?=htmlspecialchars($annotation['owner_url'])?>"><?=htmlentities($annotation['owner_name'], ENT_QUOTES, 'UTF-8')?></a>
                         RSVPed <strong><?=$annotation['content']?></strong>

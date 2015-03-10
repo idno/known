@@ -1,5 +1,5 @@
 <div class="row h-card">
-    <div class="span8 profile offset2">
+    <div class="col-md-8 profile col-md-offset-2">
 
         <div class="">
             <div class="namebadge">
@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="span8">
+                    <div class="col-md-8">
                         <div class="e-note"><?php
                                 $description = $vars['user']->getDescription();
                                 if (!empty($description)) {

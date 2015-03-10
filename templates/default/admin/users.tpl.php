@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
 	            <?= $this->draw('admin/menu') ?>
         <h1>Users</h1>
 
@@ -13,7 +13,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
         <h3>Manage site users</h3>
         <p>
             The following users are members of this site.
@@ -21,7 +21,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="pane span10 offset1">
+    <div class="pane col-md-10 col-md-offset-1">
 
         <?php
         if (!empty($vars['users']) && is_array($vars['users'])) {
@@ -33,19 +33,19 @@
                         ?>
 
                         <div class="row <?= strtolower(str_replace('\\', '-', get_class($user))); ?>">
-                            <div class="span3">
+                            <div class="col-md-3">
                                 <p>
                                     <img src="<?= $user->getIcon() ?>" style="width: 35px; float: left; margin-right: 10px; margin-left: 10px; margin-top: 3px; margin-bottom: 3em">
                                     <a href="<?= $user->getDisplayURL() ?>"><?= htmlentities($user->getTitle()) ?></a> (<a href="<?= $user->getDisplayURL() ?>"><?= $user->getHandle() ?></a>)<br>
                                     <small><?= $user->email ?></small>
                                 </p>
                             </div>
-                            <div class="span2">
+                            <div class="col-md-2">
                                 <p>
                                     <small><strong>Joined</strong><br><time datetime="<?= date('r', $user->created) ?>" class="dt-published"><?= date('r', $user->created) ?></time></small>
                                 </p>
                             </div>
-                            <div class="span2">
+                            <div class="col-md-2">
                                 <p>
                                     <small><strong>Last update posted</strong>
                                         <br>
@@ -61,7 +61,7 @@
                                     </small>
                                 </p>
                             </div>
-                            <div class="span2">
+                            <div class="col-md-2">
                                 <p>
                                     <small>
                                         <?php
@@ -90,7 +90,7 @@
                                     </small>
                                 </p>
                             </div>
-                            <div class="span1">
+                            <div class="col-md-1">
                                 <p style="padding-top: 20px;"><small>
                 <?php
                 if ($user->getUUID() != \Idno\Core\site()->session()->currentUserUUID()) {
@@ -119,7 +119,7 @@
 
         ?>
         <div class="row">
-            <div class="span10 offset1">
+            <div class="col-md-10 col-md-offset-1">
 
                 <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/users" method="post">
 
@@ -129,7 +129,7 @@
                         To invite new users to the site, enter one or more email addresses below.
                     </p>
 
-                    <textarea name="invitation_emails" class="span10" placeholder="friend@email.com"></textarea>
+                    <textarea name="invitation_emails" class="col-md-10" placeholder="friend@email.com"></textarea>
 
                     <p>
                         <input type="submit" class="btn btn-primary" value="Send invite">

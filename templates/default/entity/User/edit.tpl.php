@@ -1,7 +1,7 @@
 <form action="<?= $vars['user']->getDisplayURL() ?>" method="post" enctype="multipart/form-data">
 
     <div class="row beforecontent">
-        <div class="span11 offset1">
+        <div class="col-md-11 col-md-offset-1">
             <h1>Edit your profile</h1>
 
             <p>
@@ -13,13 +13,13 @@
 
     <div class="row">
 
-        <div class="span6 offset1">
+        <div class="col-md-6 col-md-offset-1">
 
             <p>
                 <label>
                     About you<br/>
                     <textarea name="profile[description]" id="body"
-                              class="span6 bodyInput"><?= htmlspecialchars($vars['user']->getDescription()) ?></textarea>
+                              class="col-md-6 bodyInput"><?= htmlspecialchars($vars['user']->getDescription()) ?></textarea>
                 </label>
             </p>
 
@@ -29,7 +29,7 @@
                                         <i class="icon-camera"></i> <span
                                             id="photo-filename">Select a user picture</span>
                                         <input type="file" name="avatar" id="photo"
-                                               class="span9"
+                                               class="col-md-9"
                                                accept="image/*;capture=camera"
                                                onchange="photoPreview(this)"/>
 
@@ -38,12 +38,12 @@
 
         </div>
 
-        <div class="span4">
+        <div class="col-md-4">
             <p>
                 <label>
                     Your name<br>
                     <input type="text" name="name" value="<?= htmlspecialchars($vars['user']->getTitle()) ?>"
-                           class="span3">
+                           class="col-md-3">
                 </label>
             </p>
 
@@ -62,7 +62,7 @@
                             if (!empty($url)) {
                                 ?>
                                 <span><input type="text" name="profile[url][]" value="<?= htmlspecialchars($this->fixURL($url)) ?>"
-                                             placeholder="http://" class="span3"/> <small><a href="#"
+                                             placeholder="http://" class="col-md-3"/> <small><a href="#"
                                                                                              onclick="$(this).parent().parent().remove(); return false;">Remove</a>
                                     </small><br/></span>
                             <?php
@@ -71,12 +71,12 @@
                     }
 
                 ?>
-                <span><input type="text" name="profile[url][]" id="title" value="" placeholder="http://" class="span3"/> <small>
+                <span><input type="text" name="profile[url][]" id="title" value="" placeholder="http://" class="col-md-3"/> <small>
                         <a href="#" onclick="$(this).parent().parent().remove(); return false;">Remove</a></small><br/></span>
             </p>
             <p>
                 <small><a href="#"
-                          onclick="$('#websitelist').append('<span><input type=&quot;text&quot; name=&quot;profile[url][]&quot; id=&quot;title&quot; value=&quot;&quot; placeholder=&quot;http://&quot; class=&quot;span3&quot; /> <small><a href=&quot;#&quot; onclick=&quot;$(this).parent().parent().remove(); return false;&quot;>Remove</a></small><br /></span>'); return false;">+
+                          onclick="$('#websitelist').append('<span><input type=&quot;text&quot; name=&quot;profile[url][]&quot; id=&quot;title&quot; value=&quot;&quot; placeholder=&quot;http://&quot; class=&quot;col-md-3&quot; /> <small><a href=&quot;#&quot; onclick=&quot;$(this).parent().parent().remove(); return false;&quot;>Remove</a></small><br /></span>'); return false;">+
                         Add more</a></small>
             </p>
             <p>

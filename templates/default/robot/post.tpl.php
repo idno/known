@@ -1,6 +1,6 @@
 <div class="row idno-entry idno-entry-helper">
     <div
-        class="span10 offset1 idno-helper idno-object idno-content">
+        class="col-md-10 col-md-offset-1 idno-helper idno-object idno-content">
         <div class="e-content entry-content">
 
             <div class="robot-head" style="width: 100px; height: 130px; float: left">
@@ -10,7 +10,7 @@
                 </p>
             </div>
 
-            <div class="span7 robot-murmur">
+            <div class="col-md-7 robot-murmur">
                 <?= $this->autop($vars['body']) ?>
                 <div class="robot-footer">
                     <p>
