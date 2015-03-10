@@ -221,7 +221,7 @@
                             $tmp_dir = dirname($file_path);
                             switch ($photo_information['mime']) {
                                 case 'image/jpeg':
-                                    imagejpeg($image_copy, $tmp_dir . '/' . $filename . '.jpg');
+                                    imagejpeg($image_copy, $tmp_dir . '/' . $filename . '.jpg', 85);
                                     $thumbnail = \Idno\Entities\File::createFromFile($tmp_dir . '/' . $filename . '.jpg', "thumb_{$max_dimension}.jpg", 'image/jpeg') . '/thumb.jpg';
                                     @unlink($tmp_dir . '/' . $filename . '.jpg');
                                     break;
