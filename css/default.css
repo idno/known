@@ -64,11 +64,11 @@ h1, h2, h3, h4, h5, h6 {
     Page shell
 */
 
-.nav img {
+.navbar img {
     width: 1.5em;
 }
 
-.nav .icon-container {
+.navbar .icon-container {
     margin-top: 0.3em;
     margin-right: 1em;
     margin-left: 1em;
@@ -808,22 +808,22 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     text-shadow: none;
 }
 
-.navbar-inverse .navbar-inner {
+.navbar-inverse  {
     background-color: #ffffff;
     background-image: none;
     background-repeat: repeat-x;
     border-color: #ffffff;
 }
 
-.navbar-inverse .brand:hover, .navbar-inverse .nav > li > a:hover, .navbar-inverse .brand:focus, .navbar-inverse .nav > li > a:focus {
+.navbar-inverse .brand:hover, .navbar-inverse .nav > li > a:hover, .navbar-inverse .brand:focus, .navbar-inverse .navbar > li > a:focus {
     color: #666;
 }
 
 .navbar .brand {
 	font-weight: 400;
 	font-size: 28px;
+    text-shadow: none;
 }
-
 
 .navbar-inverse .navbar-search .search-query {
     background-color: #ffffff;
@@ -873,7 +873,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     text-decoration: none;
 }
 
-.navbar-inner {
+.navbar {
     background-color: #ffffff;
     background-image: none;
     background-repeat: repeat-x;
@@ -893,7 +893,8 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     font-weight: 700;
 }
 
-.navbar .nav > li > a {
+.brand,
+.navbar-header > li > a {
 	text-shadow: none;
 }
 

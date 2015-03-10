@@ -203,45 +203,45 @@
             ?>
             <div class="navbar navbar-inverse navbar-fixed-top">
                 <div class="navbar-header">
-                        <button type="button" class="btn navbar-btn" data-toggle="collapse" data-target=".nav-collapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand"
-                           href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>"><?=
-                                // \Idno\Core\site()->config()->title
-                                $this->draw('shell/toolbar/title')
-                            ?></a>
-
-                        <div class="navbar-collapse collapse">
-                            <?php
-                                if (\Idno\Core\site()->config()->isPublicSite() || \Idno\Core\site()->session()->isLoggedOn()) {
-                                    echo $this->draw('shell/toolbar/search');
-
-                                    echo $this->draw('shell/toolbar/content');
-                                }
-                            ?>
-                            <ul class="navbar-header navbar-right" role="menu">
-                                <?php
-
-                                    echo $this->draw('shell/toolbar/links');
-
-                                    if (\Idno\Core\site()->session()->isLoggedIn()) {
-
-                                        echo $this->draw('shell/toolbar/logged-in');
-
-                                    } else {
-
-                                        echo $this->draw('shell/toolbar/logged-out');
-
-                                    }
-
-                                ?>
-                            </ul>
-                        </div>
-                        <!--/.nav-collapse -->
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand"
+                       href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>"><?=
+                            $this->draw('shell/toolbar/title')
+                        ?></a>
                 </div>
+
+                <div class="navbar-collapse collapse">
+                    <?php
+                        if (\Idno\Core\site()->config()->isPublicSite() || \Idno\Core\site()->session()->isLoggedOn()) {
+                            echo $this->draw('shell/toolbar/search');
+
+                            //echo $this->draw('shell/toolbar/content');
+                        }
+                    ?>
+                    <ul class="nav navbar-nav navbar-right" role="menu">
+                        <?php
+
+                            echo $this->draw('shell/toolbar/links');
+
+                            if (\Idno\Core\site()->session()->isLoggedIn()) {
+
+                                echo $this->draw('shell/toolbar/logged-in');
+
+                            } else {
+
+                                echo $this->draw('shell/toolbar/logged-out');
+
+                            }
+
+                        ?>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
             </div>
 
         <?php
