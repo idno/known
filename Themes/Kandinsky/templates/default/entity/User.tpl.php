@@ -1,6 +1,6 @@
 <div class="row profile h-card">
     <div class="col-md-8 col-md-offset-2">
-        <div class="row visible-phone">
+        <div class="row visible-sm">
             <div class="col-md-2">
                 <div style="margin-bottom: 2em; margin-top: -2em; text-align: center">
                     <p>

@@ -26,14 +26,14 @@ $nickname =  $properties['nickname'][0];
 <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>account/settings/following/bookmarklet" method="post" class="form-horizontal">
     <div class="row idno-entry following-user">
 
-	<div class="col-md-1 col-md-offset-1 owner h-card hidden-phone">
+	<div class="col-md-1 col-md-offset-1 owner h-card hidden-sm">
 	    <p>
 		<span class="u-url icon-container"><img class="u-photo" src="<?= $photo ?>" /></span><br />
 		<?= $name; ?>
 	    </p>
 	</div>
 	<div class="col-md-8 idno-object idno-content">
-	    <div class="visible-phone">
+	    <div class="visible-sm">
 		<p class="p-author author h-card vcard">
 		    <img class="u-logo logo u-photo photo" src="<?= htmlspecialchars($photo) ?>" />
 		    <span class="p-name fn"><?= $name ?></span>

@@ -5,7 +5,7 @@
     if (!\Idno\Core\site()->session()->isLoggedOn() && $object instanceof \Idno\Common\Entity) {
         ?>
         <div class="row annotation-add">
-            <div class="col-md-1 owner h-card hidden-phone">
+            <div class="col-md-1 owner h-card hidden-sm">
                 <div class="u-url icon-container"><img class="u-photo"
                                                        src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>gfx/users/default-00.png"/>
                 </div>

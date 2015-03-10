@@ -97,8 +97,11 @@
     ?>
 
     <!-- Le styles -->
-    <link href="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/css/bootstrap.css"
+    <link href="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/css/bootstrap.min.css"
           rel="stylesheet">
+    <link href="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/css/bootstrap-theme.min.css"
+          rel="stylesheet">
+    <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
     <link rel="stylesheet"
           href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/fontello/css/known-fontello.css">
     <!--<link rel="stylesheet"
@@ -108,9 +111,6 @@
             padding-top: 100px; /* 60px to make the container go all the way to the bottom of the topbar */
         }
     </style>
-    <link
-        href="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/css/bootstrap-responsive.css"
-        rel="stylesheet">
     <link href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>css/default.css?20150123" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -201,15 +201,37 @@
         }
         if (empty($vars['hidenav']) && empty($hidenav)) {
             ?>
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Bootply</a>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="navbar-header navbar-right">
+                    <p class="navbar-text">
+                        <a href="#" class="navbar-link">Username</a>
+                    </p>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+            </nav>
             <div class="navbar navbar-inverse navbar-fixed-top">
                 <div class="navbar-inner">
                     <div class="container">
-                        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <button type="button" class="btn navbar-btn" data-toggle="collapse" data-target=".nav-collapse">
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="brand"
+                        <a class="navbar-brand"
                            href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>"><?=
                                 // \Idno\Core\site()->config()->title
                                 $this->draw('shell/toolbar/title')

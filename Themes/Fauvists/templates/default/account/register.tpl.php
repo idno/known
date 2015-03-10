@@ -1,7 +1,7 @@
 <div class="row">
 
     <div class="col-md-8 col-md-offset-2">
-        <div class="hero-unit">
+        <div class="jumbotron">
                 <h3 class="register">
             Hello there!  
         </h3>

@@ -12,7 +12,7 @@
                     echo strtolower($matches[1]);
                 }?>">
 
-                <div class="col-md-1 col-md-offset-1 owner h-card hidden-phone">
+                <div class="col-md-1 col-md-offset-1 owner h-card hidden-sm">
                     <p>
                         <a href="<?= $owner->getDisplayURL() ?>" class="u-url icon-container"><img class="u-photo"
                                                                                             src="<?= $owner->getIcon() ?>"/></a><br/>
@@ -21,7 +21,7 @@
                 </div>
                 <div
                     class="col-md-8 <?= $subObject->getMicroformats2ObjectType() ?> idno-<?= $subObject->getContentTypeCategorySlug() ?> idno-object idno-content">
-                    <div class="visible-phone">
+                    <div class="visible-sm">
                         <p class="p-author author h-card vcard">
                             <a href="<?= $owner->getDisplayURL() ?>" class="icon-container"><img
                                     class="u-logo logo u-photo photo" src="<?= $owner->getIcon() ?>"/></a>

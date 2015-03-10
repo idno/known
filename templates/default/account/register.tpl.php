@@ -5,7 +5,7 @@
             Hello there!  
         </h3>
         <h4 class="register">Create a new account to get started.</h4>
-        <div class="hero-unit">
+        <div class="jumbotron">
             <p>
 
             </p>
