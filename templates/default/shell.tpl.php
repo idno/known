@@ -199,29 +199,31 @@
         }
         if (empty($vars['hidenav']) && empty($hidenav)) {
             ?>
-            <div class="navbar navbar-inverse navbar-fixed-top">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand"
-                       href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>"><?=
+            
+            
+            <nav class="navbar navbar-default navbar-fixed-top">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<button class="navbar-toggle collapsed" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" type="button">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+							<a class="navbar-brand" href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>"><?=
                             $this->draw('shell/toolbar/title')
-                        ?></a>
-                </div>
-
-                <div class="navbar-collapse collapse">
-                    <?php
+                        ?>
+							</a>
+					</div>
+					<div class="navbar-collapse collapse ">
+					<?php
                         if (\Idno\Core\site()->config()->isPublicSite() || \Idno\Core\site()->session()->isLoggedOn()) {
                             echo $this->draw('shell/toolbar/search');
 
                             //echo $this->draw('shell/toolbar/content');
                         }
                     ?>
-                    <ul class="nav navbar-nav navbar-right" role="menu">
+						<ul class="nav navbar-nav navbar-right" role="menu">
                         <?php
 
                             echo $this->draw('shell/toolbar/links');
@@ -237,11 +239,12 @@
                             }
 
                         ?>
-                    </ul>
-                </div>
-                <!--/.nav-collapse -->
-            </div>
-
+						</ul>
+					</div>
+				</div>
+            </nav>
+            
+            
         <?php
         } else {
 

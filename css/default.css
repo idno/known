@@ -874,7 +874,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 }
 
 .navbar {
-    background-color: #ffffff;
+    background-color: #eee;
     background-image: none;
     background-repeat: repeat-x;
     border: none;
