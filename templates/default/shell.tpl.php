@@ -204,7 +204,7 @@
             <nav class="navbar navbar-default navbar-fixed-top">
 				<div class="container-fluid">
 					<div class="navbar-header">
-						<button class="navbar-toggle collapsed" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" type="button">
+						<button class="navbar-toggle collapsed" data-target="#bs-navbar-collapse-1" data-toggle="collapse" type="button">
 							<span class="sr-only">Toggle navigation</span>
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
@@ -215,7 +215,7 @@
                         ?>
 							</a>
 					</div>
-					<div class="navbar-collapse collapse ">
+					<div class="navbar-collapse collapse " id="bs-navbar-collapse-1">
 					<?php
                         if (\Idno\Core\site()->config()->isPublicSite() || \Idno\Core\site()->session()->isLoggedOn()) {
                             echo $this->draw('shell/toolbar/search');
