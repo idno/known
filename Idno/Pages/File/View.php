@@ -41,10 +41,15 @@
                 //header("Pragma: public");
                 
                 // Determine uploaded timestamp
-                if ($object instanceof \MongoGridFSFile)
+                if ($object instanceof \MongoGridFSFile) {
                     $upload_ts = $object->file['uploadDate']->sec;
-                else
+                } else if (!empty($object->updated)) {
                     $upload_ts = $object->updated;
+                } else if (!empty($object->created)) {
+                    $upload_ts = $object->created;
+                } else {
+                    $upload_ts = time();
+                }
                 
                 header("Pragma: public");
                 header("Cache-Control: public");
