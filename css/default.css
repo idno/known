@@ -1125,11 +1125,11 @@ p.feedback {
     font-size: 0.75em;
 }
 
-.icon-heart {
+.fa-heart {
 	color: #9f111b;
 }
 
-.icon-heart:hover {
+.fa-heart:hover {
 	color: #af474f;
 }
 
@@ -1593,7 +1593,7 @@ tr.items {
     background-size: 40px 40px;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+[class^="fa fa-"], [class*=" fa fa-"] {
 	width: 1.5em;
 	background-image:none;
 }

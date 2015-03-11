@@ -1,1 +1,1 @@
-<i class="icon-location"></i>
+<i class="fa fa-map-marker"></i>

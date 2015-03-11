@@ -1,1 +1,1 @@
-<i class="icon-comic"></i>
+<i class="fa fa-th-large"></i>

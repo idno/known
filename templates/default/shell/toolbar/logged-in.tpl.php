@@ -12,5 +12,5 @@
 
     <?php } ?>
 <?php } ?>
-<li><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>account/settings/feedback/" ><icon class="icon-heart"></icon></a></li>
+<li><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>account/settings/feedback/" ><i class="fa fa-heart"></i></a></li>
 <li><?= \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'session/logout', 'Sign out', null, array('class' => '')); ?></li>

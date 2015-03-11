@@ -1,1 +1,1 @@
-<i class="icon-calendar-empty"></i>
+<i class="fa fa-calendar-o"></i>
