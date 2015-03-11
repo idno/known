@@ -96,6 +96,9 @@
 
     ?>
 
+    <!-- We need jQuery at the top of the page -->
+    <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/jquery/' ?>jquery.min.js"></script>
+
     <!-- Le styles -->
     <link href="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/css/bootstrap.min.css"
           rel="stylesheet">
@@ -116,9 +119,6 @@
     <script
         src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/js/html5shiv.js"></script>
     <![endif]-->
-
-    <!-- We need jQuery at the top of the page -->
-    <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/jquery/' ?>jquery.min.js"></script>
 
     <!-- Default Known JavaScript -->
     <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'js/default.js' ?>"></script>
