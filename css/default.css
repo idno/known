@@ -979,18 +979,16 @@ small {
 	background-color: #ffffff;
     background-image: none;
     box-shadow: none;
-    border-color: none;
+    border: 0;
     text-shadow: none;
-    border-style: none;
 }
 
 .note-style .btn:hover, .note-fancy .btn:hover, .note-fontsize .btn:hover, .note-color .btn:hover, .note-para .btn:hover, .note-codeview .btn:hover {
 	background-color: #73b2e3;
     background-image: none;
     box-shadow: none;
-    border-color: none;
+    border: 0;
     text-shadow: none;
-    border-style: none;
     color: #ffffff;
 }
 
