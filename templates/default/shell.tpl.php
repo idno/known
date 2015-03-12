@@ -25,6 +25,27 @@
     <?= $this->draw('shell/favicon'); ?>
 
     <?php
+
+        if (\Idno\Core\site()->session()->isLoggedIn()) {
+
+            ?>
+            <link rel="manifest" href="<?=\Idno\Core\site()->config()->getDisplayURL()?>chrome/manifest.json">
+            <script>
+                window.addEventListener('load', function() {
+                    navigator.serviceWorker.register('<?=\Idno\Core\site()->config()->getDisplayURL()?>chrome/service-worker.js', { scope: '/' })
+                        .then(function(r) {
+                            console.log('Registered service worker');
+                        })
+                        .catch(function(whut) {
+                            console.error('Could not register service worker');
+                            console.error(whut);
+                        });
+                });
+            </script>
+        <?php
+
+        }
+
         $opengraph = array(
             'og:type'      => 'website',
             'og:title'     => htmlspecialchars(strip_tags($vars['title'])),

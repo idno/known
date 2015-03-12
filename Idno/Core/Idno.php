@@ -149,6 +149,9 @@
                 $this->addPageHandler('/share/?', '\Idno\Pages\Entity\Share');
                 $this->addPageHandler('/bookmarklet\.js', '\Idno\Pages\Entity\Bookmarklet', true);
 
+                /** Mobile integrations */
+                $this->addPageHandler('/chrome/manifest\.json', '\Idno\Pages\Chrome\Manifest', true);
+
                 /** Files */
                 $this->addPageHandler('/file/upload/?', '\Idno\Pages\File\Upload', true);
                 $this->addPageHandler('/file/picker/?', '\Idno\Pages\File\Picker', true);
