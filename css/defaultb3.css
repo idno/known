@@ -1,0 +1,39 @@
+/* CSS changes for Boostrap 3 migration */
+
+.nav-tabs.nav > li > a {
+	color: #777777;
+	font-weight: 300;
+	text-transform: uppercase;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	padding: 8px;
+	font-size: 14px;
+}
+
+.nav-tabs {
+    border-bottom: none;
+}
+
+.nav-tabs > li.active > a, 
+.nav-tabs > li.active > a:focus, 
+.nav-tabs > li.active > a:hover {
+	border-color: none;
+    border-image: none;
+    border-style: none;
+    border-width: 0px;
+}
+
+.nav-tabs > li.active > a {
+	color:#222222;
+	font-weight: 700;
+}
+
+.nav-tabs > li > a:hover {
+    border-color: transparent;
+}
+
+.nav > li > a:focus,
+.nav > li > a:hover {
+	background-color: transparent;
+	text-decoration: none;
+	color: #333;
+}

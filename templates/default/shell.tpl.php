@@ -113,6 +113,7 @@
         }
     </style>
     <link href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>css/default.css?20150123" rel="stylesheet">
+    <link href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>css/defaultb3.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
