@@ -26,7 +26,7 @@ var SUBDOMAINS = "a. b. c. d.".split(" "),
         "terrain":      MAKE_PROVIDER("terrain", "jpg", 4, 18),
         "watercolor":   MAKE_PROVIDER("watercolor", "jpg", 1, 16),
         "trees-cabs-crime": {
-            "url": "http://{S}.tiles.mapbox.com/v3/stamen.trees-cabs-crime/{Z}/{X}/{Y}.png",
+            "url": "https://stamen-tiles-{S}.a.ssl.fastly.net/v3/stamen.trees-cabs-crime/{Z}/{X}/{Y}.png",
             "type": "png",
             "subdomains": "a b c d".split(" "),
             "minZoom": 11,
