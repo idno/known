@@ -1,5 +1,5 @@
 <ul class="nav nav-tabs">
-  <li <?php if ($_SERVER['REQUEST_URI'] == '/admin/') echo 'class="active"'; ?> role="presentation"><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin">Site configuration</a></li>
+  <li <?php if ($_SERVER['REQUEST_URI'] == '/admin/') echo 'class="active"'; ?> role="presentation"><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/">Site configuration</a></li>
   <li <?php if ($_SERVER['REQUEST_URI'] == '/admin/plugins/') echo 'class="active"'; ?> role="presentation"><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/plugins/">Plugins</a></li>
   <li <?php if ($_SERVER['REQUEST_URI'] == '/admin/themes/') echo 'class="active"'; ?> role="presentation"><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/themes/">Themes</a></li>
             <?=$this->draw('admin/menu/items')?>
