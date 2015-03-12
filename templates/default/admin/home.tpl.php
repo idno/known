@@ -14,7 +14,7 @@
                     <p><label class="control-label" for="name"><strong>Site name</strong></label></p>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" id="name" placeholder="Site name" class="col-md-4" name="title"
+                    <input type="text" id="name" placeholder="Site name" class="input col-md-4 form-control" name="title"
                            value="<?= htmlspecialchars(\Idno\Core\site()->config()->title) ?>">
                 </div>
                 <div class="col-md-4">
@@ -29,7 +29,7 @@
                     <p><label class="control-label" for="description"><strong>Site description</strong></label></p>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" id="name" placeholder="Site description" class="col-md-4" name="description"
+                    <input type="text" id="name" placeholder="Site description" class="input col-md-4 form-control" name="description"
                            value="<?= htmlspecialchars(\Idno\Core\site()->config()->description) ?>">
                 </div>
                 <div class="col-md-4">
@@ -47,7 +47,7 @@
                     <p><label class="control-label" for="url"><strong>Site URL</strong></label></p>
                 </div>
                 <div class="col-md-4">
-                    <input type="url" id="url" placeholder="Site URL" class="col-md-4" name="url"
+                    <input type="url" id="url" placeholder="Site URL" class="input col-md-4 form-control" name="url"
                            value="<?= htmlspecialchars(\Idno\Core\site()->config()->getDisplayURL()) ?>">
                 </div>
                 <div class="col-md-4">
@@ -105,7 +105,7 @@
                     <p><label class="control-label" for="hub"><strong>PubSubHubbub hub</strong></label></p>
                 </div>
                 <div class="col-md-4">
-                    <input type="url" id="hub" placeholder="PubSubHubbub hub address" class="col-md-4" name="hub"
+                    <input type="url" id="hub" placeholder="PubSubHubbub hub address" class="input col-md-4 form-control" name="hub"
                            value="<?= htmlspecialchars(\Idno\Core\site()->config()->hub) ?>">
                 </div>
                 <div class="col-md-4">
@@ -124,7 +124,7 @@
                     <p><label class="control-label" for="items_per_page"><strong>Items per page</strong></label></p>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" id="items_per_page" placeholder="10" class="col-md-4" name="items_per_page"
+                    <input type="text" id="items_per_page" placeholder="10" class="input col-md-4 form-control" name="items_per_page"
                            value="<?= htmlspecialchars(\Idno\Core\site()->config()->items_per_page) ?>">
                 </div>
                 <div class="col-md-4"><p class="config-desc">This is the number of content posts displayed on each page.</p>
@@ -149,7 +149,7 @@
                 </div>
             </div>
 
-            <!-- <div class="control-group">
+            <!-- <div class="form-group">
                 <label class="control-label" for="items_per_page">Include citations<br /><small>Include a unique, citable code at the bottom of every post.</small></label>
                 <div class="controls">
                     <select class="col-md-4" name="indieweb_citation">
@@ -177,7 +177,7 @@
 
             <?=$this->draw('admin/home/settings')?>
 
-            <div class="control-group">
+            <div class="form-group">
                 <div class="controls-save">
                     <button type="submit" class="btn btn-primary">Save updates</button>
                 </div>
