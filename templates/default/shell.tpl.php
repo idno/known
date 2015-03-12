@@ -215,12 +215,12 @@
                         ?>
 							</a>
 					</div>
-					<div class="navbar-collapse collapse " id="bs-navbar-collapse-1">
+					<div class="navbar-collapse collapse" id="bs-navbar-collapse-1">
 					<?php
                         if (\Idno\Core\site()->config()->isPublicSite() || \Idno\Core\site()->session()->isLoggedOn()) {
                             echo $this->draw('shell/toolbar/search');
 
-                            //echo $this->draw('shell/toolbar/content');
+                            echo $this->draw('shell/toolbar/content');
                         }
                     ?>
 						<ul class="nav navbar-nav navbar-right" role="menu">
@@ -400,5 +400,7 @@
 <?= $this->draw('shell/footer', $vars) ?>
 
 </body>
+
+
 </html>
 <?php endif; ?>
