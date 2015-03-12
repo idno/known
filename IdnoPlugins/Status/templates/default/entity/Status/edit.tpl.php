@@ -67,7 +67,7 @@
 
             <p>
                 <small><a id="inreplyto-add" href="#"
-                          onclick="$('#inreplyto').append('<span><input required type=&quot;url&quot; name=&quot;inreplyto[]&quot; value=&quot;&quot; placeholder=&quot;Add the URL that you\'re replying to&quot; class=&quot;col-md-8&quot; onchange=&quot;adjust_content(this.value)&quot; /> <small><a href=&quot;#&quot; onclick=&quot;$(this).parent().parent().remove(); return false;&quot;><icon class=&quot;icon-remove&quot;></icon> Remove URL</a></small><br /></span>'); return false;"><icon class="icon-reply"></icon>
+                          onclick="$('#inreplyto').append('<span><input required type="url" name="inreplyto[]" value=""  class="col-md-8" onchange="adjust_content(this.value)" /> <small><a href="#" onclick="$(this).parent().parent().remove(); return false;"><icon class=&quot;icon-remove&quot;></icon> Remove URL</a></small><br /></span>'); return false;"><icon class="icon-reply"></icon>
                         Reply to a site</a></small>
             </p>
             <div id="inreplyto">
@@ -80,7 +80,7 @@
                                        placeholder="Add the URL that you're replying to"
                                        class="col-md-8 inreplyto" value="<?= htmlspecialchars($inreplyto) ?>" onchange="adjust_content(this.value)"/>
                                 <small><a href="#"
-                                          onclick="$(this).parent().parent().remove(); return false;"><icon class="icon-remove"></icon> 
+                                          onclick="$(this).parent().parent().remove(); return false;"><i class="fa fa-times"></i> 
                                           Remove URL</a></small>
                             </p>
                         <?php

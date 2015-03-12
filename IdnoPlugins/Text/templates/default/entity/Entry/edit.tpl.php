@@ -49,7 +49,7 @@
                     <label>
                         Title<br/>
                         <input type="text" name="title" id="title" placeholder="Give it a title"
-                               value="<?= htmlspecialchars($title) ?>" class="col-md-8"/>
+                               value="<?= htmlspecialchars($title) ?>" class="col-md-8 form-control"/>
                     </label>
                 </p>
 

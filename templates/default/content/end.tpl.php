@@ -46,9 +46,9 @@
         <div class="interactions">
             <?php
                 if (!$has_liked) {
-                    $heart_only = '<i class="icon-star-empty"></i>';
+                    $heart_only = '<i class="fa fa-star-o"></i>';
                 } else {
-                    $heart_only = '<i class="icon-star"></i>';
+                    $heart_only = '<i class="fa fa-star"></i>';
                 }
                 if ($likes == 1) {
                     $heart_text = '1 star';
@@ -67,7 +67,7 @@
                 <?php
                 }
             ?>
-            <a class="comments" href="<?= $vars['object']->getDisplayURL() ?>#comments"><i class="icon-chat"></i> <?php
+            <a class="comments" href="<?= $vars['object']->getDisplayURL() ?>#comments"><i class="fa fa-comments"></i> <?php
 
                     //echo $replies;
                     if ($replies == 1) {
@@ -78,10 +78,10 @@
 
                 ?></a>
             <a class="shares" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?php if ($shares = $vars['object']->countAnnotations('share')) {
-                    echo '<i class="icon-arrows-cw"></i> ' . $shares;
+                    echo '<i class="fa fa-retweet"></i>' . $shares;
                 } ?></a>
             <a class="shares" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?php if ($rsvps = $vars['object']->countAnnotations('rsvp')) {
-                    echo '<i class="icon-calendar-empty"></i> ' . $rsvps;
+                    echo '<i class="fa fa-calendar-o"></i>' . $rsvps;
                 } ?></a>
         </div>
         <br clear="all"/>
