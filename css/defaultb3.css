@@ -5,7 +5,8 @@
 	font-weight: 300;
 	text-transform: uppercase;
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-	padding: 8px;
+	padding-left: 0px;
+	padding-right: 8px;
 	font-size: 14px;
 }
 
@@ -36,4 +37,8 @@
 	background-color: transparent;
 	text-decoration: none;
 	color: #333;
+}
+
+.admin.navbar-form {
+	padding-left: 0px;
 }
