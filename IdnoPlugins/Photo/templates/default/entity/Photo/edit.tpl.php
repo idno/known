@@ -17,44 +17,42 @@
                     ?>
                 </h4>
 
-                <p>
                     <?php
 
                         if (empty($vars['object']->_id)) {
 
                             ?>
-                            <label>
                                 <div id="photo-preview"></div>
                                     <span class="btn btn-primary btn-file">
-                                        <i class="icon-camera"></i> <span id="photo-filename">Select a photo</span> <input type="file" name="photo" id="photo"
-                                                                                    class="col-md-9"
+                                        <i class="fa fa-camera"></i> <span id="photo-filename">Select a photo</span> <input type="file" name="photo" id="photo"
+                                                                                    class="col-md-9 form-control"
                                                                                     accept="image/*;capture=camera"
                                                                                     onchange="photoPreview(this)"/>
 
                                     </span>
-                            </label>
+
                         <?php
 
                         }
 
                     ?>
-                </p>
-                <p>
-                    <label>
-                        Title<br/>
-                        <input type="text" name="title" id="title"
-                               value="<?= htmlspecialchars($vars['object']->title) ?>" class="col-md-8"
-                               placeholder="Give it a title"/>
-                    </label>
-                </p>
 
-                <p>
-                    <label>
-                        Description<br/>
-                        <textarea name="body" id="description" class="col-md-8 bodyInputShort mentionable"
+                <div class="content-form">
+                    <label for="title">
+                        Title</label>
+                        <input type="text" name="title" id="title"
+                               value="<?= htmlspecialchars($vars['object']->title) ?>" class="form-control"
+                               placeholder="Give it a title"/>
+                  
+                </div>
+
+                <div class="content-form">
+                    <label for="description">
+                        Description</label>
+                        <textarea name="body" id="description" class="col-md-8 bodyInputShort mentionable form-control"
                                   placeholder="Add a caption"><?= htmlspecialchars($vars['object']->body) ?></textarea>
-                    </label>
-                </p>
+                    
+                </div>
                 <?=$this->draw('entity/tags/input');?>
                 <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('image'); ?>
                 <p class="button-bar ">

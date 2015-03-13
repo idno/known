@@ -87,34 +87,35 @@
             </div>
             <div id="geofields" class="map" style="display:none">
                 <div class="geolocation">
-                    <p>
-                        <label>
-                            Location<br/>
-                            <input type="text" name="placename" id="placename" class="col-md-8" placeholder="Where are you?"/>
+                    <div class="content-form">
+                        <label for="placename">
+                            Location</label>
+                            <input type="text" name="placename" id="placename" class="form-control" placeholder="Where are you?"/>
                             <input type="hidden" name="lat" id="lat"/>
                             <input type="hidden" name="long" id="long"/>
-                        </label>
-                    </p>
 
-                    <p>
-                        <label>Address<br/>
+                    </div>
+
+                    <div class="content-form">
+                        <label for="user_address">Address</label>
                         <small>You can edit the address if it's wrong.</small>
-                        <input type="text" name="user_address" id="user_address" class="col-md-8"/>
-                        <input type="hidden" name="address" id="address"/>
+                        <input type="text" name="user_address" id="user_address" class="form-control"/>
+                        <input type="hidden" name="address" id="address" class="form-control"/>
                        
-                        </label>
-                    </p>
+                       
+                    </div>
 
                     <div id="checkinMap" style="height: 250px" ></div>
                 </div>
             </div>
-            <p>
-                <label>
-                    Comments<br/>
+            
+            <div class="content-form">
+                <label for="body">
+                    Comments</label>
                     <input type="text" name="body" id="body" placeholder="What are you up to?" value="<?= htmlspecialchars($vars['object']->body) ?>"
-                           class="col-md-8 mentionable"/>
-                </label>
-            </p>
+                           class="form-control"/>
+
+            </div>
             <?=$this->draw('entity/tags/input');?>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('place'); ?>
             <p class="button-bar ">

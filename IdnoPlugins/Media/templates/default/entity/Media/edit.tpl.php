@@ -26,7 +26,7 @@
                 ?>
                 <label>
                     <span class="btn btn-primary btn-file">
-                        <i class="icon-play-circled"></i> <span id="media-filename">Upload media</span> <input type="file" name="media" id="media" class="col-md-9" accept="audio/*;video/*;capture=audio" onchange="$('#media-filename').html($(this).val())" />
+                        <i class="fa fa-play-circle"></i> <span id="media-filename">Upload media</span> <input type="file" name="media" id="media" class="col-md-9" accept="audio/*;video/*;capture=audio" onchange="$('#media-filename').html($(this).val())" />
                     </span>
                 </label>
                 <?php
@@ -35,18 +35,18 @@
 
                 ?>
             </p>
-            <p>
-                <label>
-                    Title<br />
-                    <input type="text" name="title" id="title" placeholder="Give it a title" value="<?=htmlspecialchars($vars['object']->title)?>" class="col-md-8" />
-                </label>
-            </p>
-            <p>
-                <label>
-                    Description<br />
-                    <textarea name="body" id="description" placeholder="What's this about?" class="col-md-8 bodyInput"><?=htmlspecialchars($vars['object']->body)?></textarea>
-                </label>
-            </p>
+            <div class="content-form">
+                <label for="title">
+                    Title</label>
+                    <input type="text" name="title" id="title" placeholder="Give it a title" value="<?=htmlspecialchars($vars['object']->title)?>" class="form-control" />
+
+            </idv>
+            <div class="content-form">
+                <label for="description">
+                    Description</label>
+                    <textarea name="body" id="description" placeholder="What's this about?" class="form-control"><?=htmlspecialchars($vars['object']->body)?></textarea>
+
+            </div>
             <?=$this->draw('entity/tags/input');?>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('media'); ?>
             <p class="button-bar ">

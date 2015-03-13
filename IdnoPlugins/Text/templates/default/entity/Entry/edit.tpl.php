@@ -45,13 +45,11 @@
                     }
 
                 ?>
-                <p>
-                    <label>
-                        Title<br/>
-                        <input type="text" name="title" id="title" placeholder="Give it a title"
-                               value="<?= htmlspecialchars($title) ?>" class="col-md-8 form-control"/>
-                    </label>
-                </p>
+                
+                <div class="content-form">
+                    <label for="title">Title</label>
+                    <input type="text" name="title" id="title" placeholder="Give it a title" value="<?= htmlspecialchars($title) ?>" class="form-control"/>                    
+                </div>
 
                 <?= $this->__([
                     'name' => 'body',

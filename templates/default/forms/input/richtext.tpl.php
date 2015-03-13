@@ -9,7 +9,7 @@
         <a href="#" onclick="makeRichText('#<?=$unique_id?>'); $('#plainTextSwitch').show(); $('#richTextSwitch').hide(); return false;" id="richTextSwitch" style="display:none">Switch to rich text editor</a></small></p>
 
 <textarea name="<?=$vars['name']?>"  placeholder="Tell your story"
-          class="col-md-8 bodyInput mentionable wysiwyg" id="<?=$unique_id?>"><?= (htmlspecialchars($this->autop($vars['value']))) ?></textarea>
+          class="bodyInput mentionable wysiwyg form-control" id="<?=$unique_id?>"><?= (htmlspecialchars($this->autop($vars['value']))) ?></textarea>
 
 <?php
 

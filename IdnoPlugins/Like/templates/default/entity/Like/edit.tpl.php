@@ -16,31 +16,31 @@
                     ?>
                 </h4>
 
-                <p>
-                    <label>
-                        Page address<br/>
+                <div class="content-form">
+                    <label for="body">
+                        Page address</label>
                         <input required type="url" name="body" id="body" placeholder="http://...."
                                value="<?php if (empty($vars['url'])) {
                                    echo htmlspecialchars($vars['object']->body);
                                } else {
                                    echo htmlspecialchars($vars['url']);
-                               } ?>" class="col-md-8"/>
-                    </label>
-                    <!-- <label>
-                        Page title<br/>
+                               } ?>" class="form-control"/>
+
+                     <!--<label for="title">
+                        Page title</label>
                         <input required type="text" name="title" id="title" placeholder="Page name"
                                value="<?php
                                    echo htmlspecialchars($vars['object']->title);
-                               ?>" class="col-md-8"/>
-                    </label> -->
-                    <label>
-                        Comments<br/>
+                               ?>" class="form-control"/>-->
+
+                    <label for="description">
+                        Comments
 
                     </label>
 
-                    <textarea name="description" id="description" class="col-md-8"
+                    <textarea name="description" id="description" class="form-control"
                               placeholder="This page is great because... Use hashtags to organize your bookmark."><?= htmlspecialchars($vars['object']->description); ?></textarea>
-                </p>
+                </div>
                 <?=$this->draw('entity/tags/input');?>
                 <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('bookmark'); ?>
                 <p class="button-bar">

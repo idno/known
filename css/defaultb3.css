@@ -58,3 +58,16 @@
 .admin .col-md-2, .admin .col-md-4, .admin .col-md-6 {
 	padding-right:0px;
 }
+.label {
+	font-weight: 500;
+}
+.content-form {
+	padding-top: 15px;
+}
+
+textarea.wysiwyg {
+    height: 15em;
+}
+textarea.bodyInputShort {
+    height: 7em;
+}
