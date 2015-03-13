@@ -61,8 +61,6 @@
                 }
                 \Idno\Core\site()->setCurrentPage($this);
 
-                \Idno\Core\site()->triggerEvent('page/head',array('page' => $this));
-
                 // Default exception handler
                 set_exception_handler(function ($exception) {
                     $page = \Idno\Core\site()->currentPage();
@@ -117,6 +115,7 @@
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
 
+                \Idno\Core\site()->triggerEvent('page/head',array('page' => $this));
                 \Idno\Core\site()->triggerEvent('page/get', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
                 $this->getContent();
@@ -144,6 +143,7 @@
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
 
+                \Idno\Core\site()->triggerEvent('page/head',array('page' => $this));
                 \Idno\Core\site()->triggerEvent('page/post', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
                 if (\Idno\Core\site()->actions()->validateToken('', false)) {
@@ -210,6 +210,7 @@
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
 
+                \Idno\Core\site()->triggerEvent('page/head',array('page' => $this));
                 \Idno\Core\site()->triggerEvent('page/put', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
                 if (\Idno\Core\site()->actions()->validateToken('', false)) {
@@ -272,6 +273,7 @@
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
 
+                \Idno\Core\site()->triggerEvent('page/head',array('page' => $this));
                 \Idno\Core\site()->triggerEvent('page/delete', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
                 if (\Idno\Core\site()->actions()->validateToken('', false)) {
