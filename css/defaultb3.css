@@ -42,3 +42,15 @@
 .admin.navbar-form {
 	padding-left: 0px;
 }
+
+.navbar-form .form-control {
+	width:100%;
+}
+
+.control-label {
+	padding-top: 12px;
+}
+
+.controls-save {
+	margin-top: 30px;
+}

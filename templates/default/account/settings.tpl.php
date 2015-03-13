@@ -88,8 +88,9 @@
                 <label class="control-label" for="inputName">Your name</label>
             </div>
             <div class="col-md-4">
-                    <?= $this->__(['id' => 'inputName', 'value' => $user->getTitle(), 'class' => 'input col-md-4 form-control', 'name' => 'name', 'placeholder' => 'Your name'])->draw('forms/input/text'); ?>     
+                    <?= $this->__(['id' => 'inputName', 'value' => $user->getTitle(), 'class' => 'input col-md-4 form-control', 'name' => 'name', 'placeholder' => 'Your name'])->draw('forms/input/text'); ?> 
             </div>
+            
             <div class="col-md-2">
             </div>
         </div>
@@ -130,8 +131,9 @@
 	        </div>
         </div>
 
-  
+  <div class="controls-save">
   <button type="submit" class="btn btn-primary">Save updates</button>
+  </div>
   
   
  <?= \Idno\Core\site()->actions()->signForm('/account/settings') ?>
