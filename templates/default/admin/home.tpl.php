@@ -7,7 +7,8 @@
 </div>
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
-        <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/" class="form-horizontal" method="post">
+	    
+        <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/" class="navbar-form admin" method="post">
 
             <div class="row">
                 <div class="col-md-2">
@@ -17,7 +18,7 @@
                     <input type="text" id="name" placeholder="Site name" class="input col-md-4 form-control" name="title"
                            value="<?= htmlspecialchars(\Idno\Core\site()->config()->title) ?>">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <p class="config-desc">Give your site a name!</p>
                 </div>
             </div>
@@ -32,31 +33,10 @@
                     <input type="text" id="name" placeholder="Site description" class="input col-md-4 form-control" name="description"
                            value="<?= htmlspecialchars(\Idno\Core\site()->config()->description) ?>">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <p class="config-desc">You might want to add a short tagline for your site.</p>
                 </div>
             </div>
-
-            <!---------->
-            <?php /*
-
-            Removing this field for now.
-
-            <div class="row">
-                <div class="col-md-2">
-                    <p><label class="control-label" for="url"><strong>Site URL</strong></label></p>
-                </div>
-                <div class="col-md-4">
-                    <input type="url" id="url" placeholder="Site URL" class="input col-md-4 form-control" name="url"
-                           value="<?= htmlspecialchars(\Idno\Core\site()->config()->getDisplayURL()) ?>">
-                </div>
-                <div class="col-md-4">
-                    <p class="config-desc">This is your site's URL.</p>
-                </div>
-            </div>
-
-            <!--------->
-            */ ?>
 
             <div class="row">
                 <div class="col-md-2">
@@ -67,7 +47,7 @@
                            name="open_registration"
                            value="true" <?php if (\Idno\Core\site()->config()->open_registration == true) echo 'checked'; ?>>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <p class="config-desc">Allow registration if you want others to sign up for your site.</p>
                 </div>
             </div>
@@ -88,7 +68,7 @@
                                    name="walled_garden"
                                    value="true" <?php if (\Idno\Core\site()->config()->walled_garden == true) echo 'checked'; ?>>
                         </div>
-                        <div class="col-md-4"><p class="config-desc">Content on a private site is only visible if you're
+                        <div class="col-md-6"><p class="config-desc">Content on a private site is only visible if you're
                                 logged in.</p>
                         </div>
                     </div>
@@ -108,7 +88,7 @@
                     <input type="url" id="hub" placeholder="PubSubHubbub hub address" class="input col-md-4 form-control" name="hub"
                            value="<?= htmlspecialchars(\Idno\Core\site()->config()->hub) ?>">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <p class="config-desc">You can probably leave this as is.
                         Learn more about
                         <a href="https://code.google.com/p/pubsubhubbub/" target="_blank">PuSH</a>.
@@ -127,7 +107,7 @@
                     <input type="text" id="items_per_page" placeholder="10" class="input col-md-4 form-control" name="items_per_page"
                            value="<?= htmlspecialchars(\Idno\Core\site()->config()->items_per_page) ?>">
                 </div>
-                <div class="col-md-4"><p class="config-desc">This is the number of content posts displayed on each page.</p>
+                <div class="col-md-6"><p class="config-desc">This is the number of content posts displayed on each page.</p>
                 </div>
             </div>
 
@@ -143,22 +123,11 @@
                            value="true"
                            name="user_avatar_favicons" <?php if (\Idno\Core\site()->config()->user_avatar_favicons == true) echo 'checked'; ?>>
                 </div>
-                <div class="col-md-4"><p class="config-desc">
+                <div class="col-md-6"><p class="config-desc">
                         This uses members' avatar images as the site favicon.
                     </p>
                 </div>
             </div>
-
-            <!-- <div class="form-group">
-                <label class="control-label" for="items_per_page">Include citations<br /><small>Include a unique, citable code at the bottom of every post.</small></label>
-                <div class="controls">
-                    <select class="col-md-4" name="indieweb_citation">
-                        <option value="true" <?php if (\Idno\Core\site()->config()->indieweb_citation == true) echo 'selected="selected"'; ?>>Yes</option>
-                        <option value="false" <?php if (\Idno\Core\site()->config()->indieweb_citation == false) echo 'selected="selected"'; ?>>No</option>
-                    </select>
-                </div>
-            </div> -->
-
 
             <!---------->
             <div class="row">
@@ -170,18 +139,18 @@
                            name="indieweb_reference"
                            value="true" <?php if (\Idno\Core\site()->config()->indieweb_reference == true) echo 'checked'; ?>>
                 </div>
-                <div class="col-md-4"><p class="config-desc">Add a permalink to the original content when you
+                <div class="col-md-6"><p class="config-desc">Add a permalink to the original content when you
                         cross-post.</p>
                 </div>
             </div>
 
             <?=$this->draw('admin/home/settings')?>
 
-            <div class="form-group">
+
                 <div class="controls-save">
                     <button type="submit" class="btn btn-primary">Save updates</button>
                 </div>
-            </div>
+
             <?= \Idno\Core\site()->actions()->signForm('/admin/') ?>
 
             <?=$this->draw('admin/home/footer/settings')?>

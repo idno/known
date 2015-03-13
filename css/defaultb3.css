@@ -54,3 +54,7 @@
 .controls-save {
 	margin-top: 30px;
 }
+
+.admin .col-md-2, .admin .col-md-4, .admin .col-md-6 {
+	padding-right:0px;
+}
