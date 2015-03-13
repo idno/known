@@ -14,8 +14,7 @@
             if (substr($attachment['mime-type'], 0, 5) == 'video') {
                 ?>
                 <p style="text-align: center">
-                    <video src="<?= $this->makeDisplayURL($mainsrc) ?>" class="u-video" controls preload="none"
-                           style="width: 100%; height: 100%"></video>
+                    <video src="<?= $this->makeDisplayURL($mainsrc) ?>" class="u-video known-media-element" controls preload="none"></video>
                 </p>
             <?php
 
@@ -23,8 +22,7 @@
 
                 ?>
                 <p style="text-align: center">
-                    <audio src="<?= $this->makeDisplayURL($mainsrc) ?>" class="u-audio" controls preload="none"
-                           style="width: 100%; height: 100%"></audio>
+                    <audio src="<?= $this->makeDisplayURL($mainsrc) ?>" class="u-audio known-media-element" controls preload="none"></audio>
                 </p>
             <?php
 
