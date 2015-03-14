@@ -71,3 +71,7 @@ textarea.wysiwyg {
 textarea.bodyInputShort {
     height: 7em;
 }
+
+textarea.comic {
+	height: 10em
+}

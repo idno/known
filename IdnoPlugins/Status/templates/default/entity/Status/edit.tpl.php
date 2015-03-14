@@ -64,15 +64,6 @@
             <?php
             }
             ?>
-
-            <!--<p>
-                <small>
-                <a id="inreplyto-add" href="#"
-                          onclick="$('#inreplyto').append('<span><input required type="url" name="inreplyto[]" value=""  class="col-md-8" onchange="adjust_content(this.value)" /> <small><a href="#" onclick="$(this).parent().parent().remove(); return false;"><icon class=&quot;icon-remove&quot;></icon> Remove URL</a></small><br /></span>'); return false;"><i class="fa fa-reply"></i>
-
-                        Reply to a site</a>
-                </small>
-            </p>-->
             
             <p>
                 <small><a id="inreplyto-add" href="#"
