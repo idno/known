@@ -809,8 +809,9 @@
             {
 
                 if ($headers = $this->getallheaders()) {
-                    if (!empty($headers['Accept']))
+                    if (!empty($headers['Accept'])) {
                         if (substr_count($headers['Accept'], $contentType)) return true;
+                    }
                 }
 
                 return false;

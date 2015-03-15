@@ -44,9 +44,11 @@
         http_response_code(404);
         $t = \Idno\Core\site()->template();
         
-        // Take over page detection 
-        $t->setTemplateType(\Idno\Core\site()->currentPage()->getInput('_t'));
-        if (\Idno\Core\site()->currentPage()->isAcceptedContentType('application/json'))
+        // Take over page detection
+        $template = \Idno\Core\site()->currentPage()->getInput('_t');
+        if (!empty($template)) {
+            $t->setTemplateType(\Idno\Core\site()->currentPage()->getInput('_t'));
+        } else if (\Idno\Core\site()->currentPage()->isAcceptedContentType('application/json'))
         {
             $t->setTemplateType('json');
         }
