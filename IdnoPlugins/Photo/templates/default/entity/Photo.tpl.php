@@ -7,9 +7,13 @@
     if (!empty($vars['object']->tags)) {
         $vars['object']->body .= '<p class="tag-row"><i class="icon-tag"></i>' . $vars['object']->tags . '</p>';
     }
-?>
-    <h2 class="photo-title p-name"><a href="<?= $vars['object']->getURL(); ?>"><?= htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?></a></h2>
-<?php
+    if (\Idno\Core\site()->template()->getTemplateType() == 'default') {
+        ?>
+        <h2 class="photo-title p-name"><a
+                href="<?= $vars['object']->getURL(); ?>"><?= htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?></a>
+        </h2>
+    <?php
+    }
     if ($attachments = $vars['object']->getAttachments()) {
         foreach ($attachments as $attachment) {
             //$mainsrc= \Idno\Core\site()->config()->getDisplayURL() . 'file/' . $attachment['_id'];
