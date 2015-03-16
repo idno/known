@@ -1,3 +1,30 @@
+#Known
+** A modern publishing platform for everyone! **
+
+
+![Known - A publishing platform for everyone](https://raw.githubusercontent.com/idno/Known/master/gfx/robots/feedback.png "Hello!")
+
+
+
+Installation [![Build Status](https://travis-ci.org/idno/Known.svg?branch=master)](https://travis-ci.org/idno/Known)
+------------
+
+Known is under active development, and requires PHP 5.4+ with selected extensions, together with a supported database backend. 
+
+If you are installing Known for use on your own website, we HIGHLY recommend using the installable packages
+from <https://withknown.com/>, installation will be much easier!
+
+You can also opt to check out the bleeding edge code from the git repository. 
+
+Either way, you should read the detailed installation instructions: http://docs.withknown.com/en/latest/install/index.html
+
+
+
+
+
+
+
+
 Known [![Build Status](https://travis-ci.org/idno/Known.svg?branch=master)](https://travis-ci.org/idno/Known)
 =====
 Known is a publishing platform for everyone.
