@@ -6,56 +6,31 @@
 
 
 
-Installation [![Build Status](https://travis-ci.org/idno/Known.svg?branch=master)](https://travis-ci.org/idno/Known)
-------------
+##Installation [![Build Status](https://travis-ci.org/idno/Known.svg?branch=master)](https://travis-ci.org/idno/Known)
 
 Known is under active development, and requires PHP 5.4+ with selected extensions, together with a supported database backend. 
 
 If you are installing Known for use on your own website, we HIGHLY recommend using the installable packages
 from <https://withknown.com/>, installation will be much easier!
 
-You can also opt to check out the bleeding edge code from the git repository. 
+You can also opt to check out the bleeding edge code from the git repository: https://github.com/idno/Known
 
 Either way, you should read the detailed installation instructions: http://docs.withknown.com/en/latest/install/index.html
 
 
+## Community links
 
+* Learn more and sign up to get updates: <https://withknown.com>
+* Full project documentation: <http://docs.withknown.com/>
+* Join the development mailing list: <https://groups.google.com/forum/#!forum/known-dev>
+* Join the IRC channel: #knownchat on Freenode
 
+For details on contributing to the Known project, please read [CONTRIBUTORS.md](CONTRIBUTORS.md).
 
+##Copyright and License
 
-
-
-Known [![Build Status](https://travis-ci.org/idno/Known.svg?branch=master)](https://travis-ci.org/idno/Known)
-=====
-Known is a publishing platform for everyone.
-
-Learn more and sign up to get updates: <https://withknown.com>
-
-Join the development mailing list: <https://groups.google.com/forum/#!forum/known-dev>
-
-Known is under active development. Installable packages are available from <https://withknown.com>.
-Known requires PHP 5.4+ with selected extensions. More info: <http://docs.withknown.com/>
-
-If you are installing Known for use on your website, we HIGHLY recommend using the installable packages
-from <https://withknown.com/>. Installation will be much easier.
-
-If you are checking out from the git repository, you should read the full documentation: <http://docs.withknown.com/>
-
-Installation
-------------
-See installation instructions: http://docs.withknown.com/en/latest/install/index.html
-
-Copyright
----------
 Except for included third-party projects, Known is (c) Known, Inc.
-For included third-party projects, see "Known also contains" below.
 
-Contributors
-------------
-* See CONTRIBUTORS.md
-
-License
--------
 Unless otherwise stated, Known is licensed under the Apache Software License 2.0. See LICENSE for more information.
 
 Known logos are (c) Known, Inc. Permission from Known, Inc is required to use the Known name or logo as part of any
@@ -65,8 +40,8 @@ Logos of external services are (c) their respective owners. All rights reserved.
 
 Third party libraries are licensed separately.
 
-Known also contains
--------------------
+###Known also contains
+
 * Twitter Bootstrap, which is distributed under the Apache 2.0 license. Source: https://github.com/twitter/bootstrap
 * Bonita, which is distributed under the Apache 2.0 license. Source: https://github.com/benwerd/bonita
 * jQuery, which is distributed under the MIT License. Source: https://github.com/jquery/jquery
