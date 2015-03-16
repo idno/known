@@ -101,17 +101,19 @@ textarea.comic, textarea.event {
 	background-image: none;
 }
 
-.btn-default {
-    background-color: #fff;
-    background-image: none;
-    background-repeat: repeat-x;
-    border-color: #333;
-    box-shadow: none;
-    color: #333333;
-    text-shadow: none;
-}
 
 .btn-success {
     background-image: none;
 	background-color: #5cb85c;
+}
+
+#pages-add {
+	margin-top: 10px;
+	width: 250px;
+}
+
+select, input[type="file"] {
+    line-height: 0;
+    padding-left: 10px;
+    height: auto;
 }

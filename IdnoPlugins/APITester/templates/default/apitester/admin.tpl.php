@@ -62,7 +62,7 @@
                 </div>
                 <div class="col-md-5">
                     <p>
-                        <input type="text" class="col-md-5" name="request" id="apirequest"
+                        <input type="text" class="form-control" name="request" id="apirequest"
                                value="<?= htmlspecialchars($vars['request']) ?>"/>
                     </p>
                 </div>
@@ -80,7 +80,7 @@
                 </div>
                 <div class="col-md-8">
                     <p>
-                        <input type="text" class="col-md-8" name="username"
+                        <input type="text" class="form-control" name="username"
                                value="<?= htmlspecialchars($vars['username']) ?>"/>
                     </p>
                 </div>
@@ -91,7 +91,7 @@
                 </div>
                 <div class="col-md-8">
                     <p>
-                        <input type="text" class="col-md-8" name="key" value="<?= htmlspecialchars($vars['key']) ?>"/>
+                        <input type="text" class="form-control" name="key" value="<?= htmlspecialchars($vars['key']) ?>"/>
                     </p>
                 </div>
             </div>
@@ -100,14 +100,14 @@
                     <label class="control-label-api">JSON payload</label>
                 </div>
                 <div class="col-md-8">
-                    <textarea class="col-md-8" name="json"><?= htmlspecialchars($vars['json']) ?></textarea>
+                    <textarea class="form-control" name="json"><?= htmlspecialchars($vars['json']) ?></textarea>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-2">
                     <p>&nbsp;</p>
                 </div>
-                <div class="col-md-8">
+                <div class="checkbox col-md-8">
                     <label class="checkbox">
                         <input type="checkbox" name="follow_redirects" value="1" checked>
                         Follow redirects
@@ -121,7 +121,7 @@
                 </div>
             </div>
             <div class="row" style="margin-top: 2em">
-                <div class="col-md-8">
+                <div class="col-md-8 col-md-offset-2">
                     <p>
                         <strong>Technical details:</strong> API calls are a POST request  with the HTTP header X-KNOWN-USERNAME
                         set to the user's username, and X-KNOWN-SIGNATURE to be an HMAC signature, computed with

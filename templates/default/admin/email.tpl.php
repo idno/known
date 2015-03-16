@@ -28,16 +28,16 @@
                     <p class="control-label" for="name"><strong>Site email address</strong></p>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" id="from_email" placeholder="Site email address" class="col-md-4" name="from_email"
+                    <input type="text" id="from_email" placeholder="Site email address" class="form-control" name="from_email"
                            value="<?= htmlspecialchars(\Idno\Core\site()->config()->from_email) ?>">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <p class="config-desc">This is the address that every notification will be sent from.</p>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-md-6 email-settings">
+                <div class="col-md-12 email-settings">
                     <p>
                         You can often leave the following settings blank. However, you may wish to set them if you're
                         using a third-party service to send email.
@@ -51,10 +51,10 @@
                     <p class="control-label" for="name"><strong>SMTP host</strong></p>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" id="smtp_host" placeholder="SMTP host" class="col-md-4" name="smtp_host"
+                    <input type="text" id="smtp_host" placeholder="SMTP host" class="form-control" name="smtp_host"
                            value="<?= htmlspecialchars(\Idno\Core\site()->config()->smtp_host) ?>">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <p class="config-desc">This is the address of the server that will send email for you.</p>
                 </div>
             </div>
@@ -65,10 +65,10 @@
                     <p class="control-label" for="name"><strong>SMTP username</strong></p>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" id="smtp_username" placeholder="SMTP username" class="col-md-4" name="smtp_username"
+                    <input type="text" id="smtp_username" placeholder="SMTP username" class="form-control" name="smtp_username"
                            value="<?= htmlspecialchars(\Idno\Core\site()->config()->smtp_username) ?>">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <p class="config-desc">If your mail server needs a username, enter it here.</p>
                 </div>
             </div>
@@ -79,11 +79,11 @@
                     <p class="control-label" for="name"><strong>SMTP password</strong></p>
                 </div>
                 <div class="col-md-4">
-                    <input type="password" id="smtp_password" placeholder="SMTP password" class="col-md-4"
+                    <input type="password" id="smtp_password" placeholder="SMTP password" class="form-control"
                            name="smtp_password"
                            value="<?= htmlspecialchars(\Idno\Core\site()->config()->smtp_password) ?>">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <p class="config-desc">If your mail server needs a password, enter it here.</p>
                 </div>
             </div>
@@ -94,7 +94,7 @@
                     <p class="control-label" for="name"><strong>SMTP port</strong></p>
                 </div>
                 <div class="col-md-4">
-                    <input type="number" id="smtp_port" placeholder="SMTP password" class="col-md-4" name="smtp_port"
+                    <input type="number" id="smtp_port" placeholder="SMTP password" class="form-control" name="smtp_port"
                            value="<?php
 
                                $port = (int)\Idno\Core\site()->config()->smtp_port;
@@ -105,16 +105,16 @@
 
                            ?>">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <p class="config-desc">This is the SMTP port to use.</p>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-2">
-                    <p class="control-label" for="name"><strong>Use Secure connection?</strong></p>
+                    <p class="control-label" for="name"><strong>Secure connection</strong></p>
                 </div>
-                <div class="config-toggle col-md-4">
+                <div class="col-md-4">
                     <select name="smtp_secure">
                         <?php
                             foreach ([
@@ -129,7 +129,7 @@
                         ?>
                     </select>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <p class="config-desc">Select yes if you use secure logins to your mail server.</p>
                 </div>
             </div>
