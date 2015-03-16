@@ -1,4 +1,4 @@
-#Known - A modern publishing platform for everyone!
+#Known - a publishing platform for everyone!
 
 
 ![Known - A publishing platform for everyone](https://raw.githubusercontent.com/idno/Known/master/gfx/robots/feedback.png "Hello!")
