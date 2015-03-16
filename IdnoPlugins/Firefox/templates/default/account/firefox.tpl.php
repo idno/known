@@ -19,9 +19,9 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-4 col-md-offset-1">
+    <div class="col-md-5 col-md-offset-1">
         <p style="padding-bottom: 25px; padding-top: 15px;"><img
-                src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>gfx/other/firefox-long.png" alt="firefox"/></p>
+                src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>gfx/other/firefox-long.png" alt="firefox" class="img-responsive"/></p>
 
         <p>Adding Known to Firefox is the easiest way to bookmark links, share content, and reply to posts from any page
             on the web.</p>
@@ -35,10 +35,10 @@
             </small>
         </p>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-4">
         <p style="text-align: right;">
             <img src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>gfx/other/firefoxsocial.png"
-                 alt="firefoxsocial" width="400" height="281"/>
+                 alt="firefoxsocial" class="img-responsive" />
         </p>
     </div>
 </div>

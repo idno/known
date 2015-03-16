@@ -75,3 +75,20 @@ textarea.bodyInputShort {
 textarea.comic, textarea.event {
 	height: 9em
 }
+
+.connect {
+	padding: 15px 15px 10px 25px;
+}
+
+.tw {
+    background-color: #55acee;
+    background-image: none;
+    border-color: #55acee;
+}
+
+.tw:hover, .tw:focus {
+    background-color: #66757f;
+    background-image: none;
+    border-color: #66757f;
+    color: #ffffff;
+}

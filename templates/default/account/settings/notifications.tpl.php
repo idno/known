@@ -22,7 +22,7 @@
               enctype="multipart/form-data">
 
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label class=""><strong>
                             Send email notifications
                         </strong>
@@ -31,7 +31,7 @@
             </div>
 
             <div class="row">
-                <div class="radio col-md-4">
+                <div class="radio col-md-6">
                     <label>
                         <input type="radio" name="notifications[email]" id="optionsRadios1"
                                value="all" <?php if ($user->notifications[email] == 'all') {
@@ -43,7 +43,7 @@
             </div>
 
             <div class="row">
-                <div class="radio col-md-4">
+                <div class="radio col-md-6">
                     <label>
                         <input type="radio" name="notifications[email]" id="optionsRadios2"
                                value="comments" <?php if ($user->notifications[email] == 'comments') {
@@ -55,7 +55,7 @@
             </div>
 
             <div class="row">
-                <div class="radio col-md-4">
+                <div class="radio col-md-6">
                     <label>
                         <input type="radio" name="notifications[email]" id="optionsRadios3"
                                value="none" <?php if ($user->notifications[email] == 'none') {

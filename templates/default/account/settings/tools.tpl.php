@@ -27,7 +27,7 @@
         </div>
 	<div class="col-md-4">
 		<p>
-			<img src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>gfx/other/bookmarklet-mouse.png" alt="bookmarklet-mouse" width="177" height="127" />
+			<img src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>gfx/other/bookmarklet-mouse.png" alt="bookmarklet-mouse" class="img-responsive" />
 		</p>
         </div>
 </div>
@@ -35,7 +35,7 @@
 
 <div class="row">
 	<div class="col-md-5 col-md-offset-1">
-		<img src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>gfx/other/bookmarklet.png" alt="bookmarklet" width="500" height="181" />
+		<img src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>gfx/other/bookmarklet.png" alt="bookmarklet" class="img-responsive"  />
 	</div>
 	<div class="col-md-4">
         <p>
@@ -57,13 +57,14 @@
 
 <div class="row" style="margin-top: 2em">
 
-    <div class="col-md-10 col-md-offset-1">
+    <div class="col-md-5 col-md-offset-1">
 
         <h2>API</h2>
-        <p>
-            Your API key: <input type="text" id="apikey" class="col-md-4" name="apikey"
+        <label for="apikey">
+            Your API key:</label> 
+           <input type="text" id="apikey" class="form-control" name="apikey"
                                  value="<?= htmlspecialchars($user->getAPIkey()) ?>" disabled>
-        </p>
+     
 
     </div>
 
