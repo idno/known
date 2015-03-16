@@ -47,6 +47,10 @@
 	width:100%;
 }
 
+.form-control {
+	box-shadow: none;
+}
+
 .control-label {
 	padding-top: 12px;
 }
@@ -117,3 +121,12 @@ select, input[type="file"] {
     padding-left: 10px;
     height: auto;
 }
+
+.pages.col-md-3 {
+    padding-left: 0;
+}
+
+.page-cat {
+	padding-top: 15px;
+}
+

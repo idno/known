@@ -6,17 +6,19 @@
         <h3 class="text-center">
             Sign in
         </h3>
+        
+        <div class="col-md-10 col-md-offset-1">
 
         <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>session/login" method="post">
             <div class="control-group">
                 <div class="controls">
-                    <input type="text" id="inputEmail" name="email" placeholder="Your email address"
-                           class="col-md-4">
+                    <input type="text" id="inputEmail" name="email" placeholder="Your username or email address"
+                           class="form-control">
                 </div>
             </div>
             <div class="control-group">
                 <div class="controls">
-                    <input type="password" id="inputPassword" name="password" placeholder="Password" class="col-md-4">
+                    <input type="password" id="inputPassword" name="password" placeholder="Password" class="form-control">
                 </div>
             </div>
             <div class="control-group">
@@ -47,6 +49,7 @@
             </div>
             <?= \Idno\Core\site()->actions()->signForm('/session/login') ?>
         </form>
+        </div>
 
     </div>
 </div>
