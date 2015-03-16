@@ -22,7 +22,7 @@ Either way, you should read the detailed installation instructions: http://docs.
 * Learn more and sign up to get updates: <https://withknown.com>
 * Full project documentation: <http://docs.withknown.com/>
 * Join the development mailing list: <https://groups.google.com/forum/#!forum/known-dev>
-* Join the IRC channel: #knownchat on Freenode
+* Join the IRC channel: [#knownchat](https://webchat.freenode.net/?channels=knownchat) on Freenode
 
 For details on contributing to the Known project, please read [CONTRIBUTORS.md](CONTRIBUTORS.md).
 
