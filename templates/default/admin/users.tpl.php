@@ -94,7 +94,7 @@
                                 <p style="padding-top: 20px;"><small>
                 <?php
                 if ($user->getUUID() != \Idno\Core\site()->session()->currentUserUUID()) {
-                    echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'admin/users', '<i class="icon-remove"></i> Delete', array('user' => $user->getUUID(), 'action' => 'delete'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? This will delete this user and all their content.'));
+                    echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'admin/users', '<i class="fa fa-times"></i> Delete', array('user' => $user->getUUID(), 'action' => 'delete'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? This will delete this user and all their content.'));
                 } else {
                     echo '&nbsp';
                 }
@@ -129,7 +129,7 @@
                         To invite new users to the site, enter one or more email addresses below.
                     </p>
 
-                    <textarea name="invitation_emails" class="col-md-10" placeholder="friend@email.com"></textarea>
+                    <textarea name="invitation_emails" class="form-control" placeholder="friend@email.com"></textarea>
 
                     <p>
                         <input type="submit" class="btn btn-primary" value="Send invite">

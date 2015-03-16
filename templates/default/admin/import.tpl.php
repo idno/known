@@ -20,8 +20,8 @@
                 Blogger
             </h2>
             <p>
-                Upload a Blogger XML file and turn it into Known posts.
-                <small><a href="#" onclick="$('#blogger-explanation').show(); return false;">How do I get my Blogger XML file?</a></small>
+                Upload a Blogger XML file and turn it into Known posts.</p>
+                <p><a href="#" onclick="$('#blogger-explanation').show(); return false;">How do I get my Blogger XML file?</a>
             </p>
             <div id="blogger-explanation" class="well" style="display:none">
                 <p>
