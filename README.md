@@ -30,7 +30,7 @@ For details on contributing to the Known project, please read [CONTRIBUTORS.md](
 
 Except for included third-party projects, Known is (c) Known, Inc.
 
-Unless otherwise stated, Known is licensed under the Apache Software License 2.0. See LICENSE for more information.
+Unless otherwise stated, Known is licensed under the Apache Software License 2.0. See [LICENSE](LICENSE) for more information.
 
 Known logos are (c) Known, Inc. Permission from Known, Inc is required to use the Known name or logo as part of any
 project, product, service, domain or company name, except as included in official themes distributed by Known.
