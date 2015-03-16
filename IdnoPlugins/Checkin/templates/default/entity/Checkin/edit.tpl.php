@@ -51,6 +51,7 @@
     function errorPosition() {
     }
 
+    <?php if (empty($vars['object']->_id)) { ?>
     if (navigator.geolocation) {
 
         // If so, get the current position and feed it to exportPosition
@@ -63,7 +64,30 @@
         $('#geoplaceholder').html('<p>Your browser does not support geolocation.</p>');
 
     }
-
+    <?php } else { ?>
+    
+    $(document).ready(function(){
+        $('#geoplaceholder').hide();
+        $('#lat').val('<?= $vars['object']->lat; ?>');
+        $('#long').val('<?= $vars['object']->long; ?>');
+        $('#geofields').slideDown();
+        if (typeof map === 'undefined') {
+            var map = L.map('checkinMap').setView([<?= $vars['object']->lat; ?>, <?= $vars['object']->long; ?>], 15);
+            var layer = new L.StamenTileLayer("toner-lite");
+            map.addLayer(layer);
+            var marker = L.marker([<?= $vars['object']->lat; ?>, <?= $vars['object']->long; ?>],{dragging: true});
+            marker.addTo(map);
+            marker.dragging.enable();
+            marker.on("dragend", function(e) {
+                var coords = e.target.getLatLng();
+                console.log(coords);
+                $('#lat').val(coords.lat.toString());
+                $('#long').val(coords.lng.toString());
+                replenish(coords.lat, coords.lng);
+            });
+        }
+        });
+    <?php } ?>
 </script>
 <form action="<?= $vars['object']->getURL() ?>" method="post">
 
@@ -90,7 +114,7 @@
                     <p>
                         <label>
                             Location<br/>
-                            <input type="text" name="placename" id="placename" class="span8" placeholder="Where are you?"/>
+                            <input type="text" name="placename" id="placename" class="span8" placeholder="Where are you?" value="<?= htmlspecialchars($vars['object']->placename) ?>" />
                             <input type="hidden" name="lat" id="lat"/>
                             <input type="hidden" name="long" id="long"/>
                         </label>
@@ -99,7 +123,7 @@
                     <p>
                         <label>Address<br/>
                         <small>You can edit the address if it's wrong.</small>
-                        <input type="text" name="user_address" id="user_address" class="span8"/>
+                        <input type="text" name="user_address" id="user_address" class="span8" value="<?= htmlspecialchars($vars['object']->address) ?>"/>
                         <input type="hidden" name="address" id="address"/>
                        
                         </label>
