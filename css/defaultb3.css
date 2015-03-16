@@ -92,3 +92,26 @@ textarea.comic, textarea.event {
     border-color: #66757f;
     color: #ffffff;
 }
+
+.theme {
+	height: 28em;
+}
+
+.well {
+	background-image: none;
+}
+
+.btn-default {
+    background-color: #fff;
+    background-image: none;
+    background-repeat: repeat-x;
+    border-color: #333;
+    box-shadow: none;
+    color: #333333;
+    text-shadow: none;
+}
+
+.btn-success {
+    background-image: none;
+	background-color: #5cb85c;
+}

@@ -107,7 +107,7 @@
                             <p>
                                 <input type="hidden" name="plugin" value="<?= $shortname ?>"/>
                                 <input type="hidden" name="action" value="uninstall"/>
-                                <input class="btn" type="submit" value="Disable"/>
+                                <input class="btn btn-success" type="submit" value="Disable"/>
                             </p>
                             <?= \Idno\Core\site()->actions()->signForm(\Idno\Core\site()->config()->getDisplayURL() . 'admin/plugins/') ?>
                         </form>
@@ -118,7 +118,7 @@
                             <p>
                                 <input type="hidden" name="plugin" value="<?= $shortname ?>"/>
                                 <input type="hidden" name="action" value="install"/>
-                                <input class="btn" type="submit" value="Enable"/>
+                                <input class="btn btn-default" type="submit" value="Enable"/>
                             </p>
                             <?= \Idno\Core\site()->actions()->signForm(\Idno\Core\site()->config()->getDisplayURL() . 'admin/plugins/') ?>
                         </form>
