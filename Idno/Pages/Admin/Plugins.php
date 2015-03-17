@@ -36,6 +36,7 @@
                     preg_match('/^[a-zA-Z0-9]+$/', $plugin) &&
                     (
                         file_exists(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $plugin) ||
+                        (!empty(\Idno\Core\site()->config()->external_plugin_path) && file_exists(\Idno\Core\site()->config()->external_plugin_path . '/' . $plugin)) ||
                         (!empty($host) && file_exists(\Idno\Core\site()->config()->path . '/hosts/' . $host . '/IdnoPlugins/' . $plugin))
                     )
                 ) {
@@ -51,6 +52,7 @@
                             }
                             break;
                     }
+                    \Idno\Core\site()->config->config['plugins'] = array_unique(\Idno\Core\site()->config->config['plugins']);
                     \Idno\Core\site()->config()->save();
                 }
                 $this->forward(\Idno\Core\site()->config()->getURL() . 'admin/plugins/');

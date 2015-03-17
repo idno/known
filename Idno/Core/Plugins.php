@@ -23,7 +23,9 @@
              */
             public function init()
             {
+
                 // Add a classloader to look for a package autoloader
+                // TODO: make sure this works with multitenant sites and plugins on an external path
                 spl_autoload_register(function($class) {
                     foreach (\Idno\Core\site()->config->config['plugins'] as $plugin) {
                         if (file_exists(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $plugin . '/autoloader.php')) {
