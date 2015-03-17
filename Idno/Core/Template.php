@@ -422,6 +422,22 @@
                 return $url;
             }
 
+            /**
+             * Sets the template type based on various environmental factors
+             */
+            function autodetectTemplateType() {
+                if ($page = site()->currentPage()) {
+                    $template = $page->getInput('_t');
+                    if (!empty($template)) {
+                        site()->template()->setTemplateType($template);
+                    } else if ($page->isAcceptedContentType('application/json')) {
+                        site()->template()->setTemplateType('json');
+                    } else {
+                        site()->template()->setTemplateType('default');
+                    }
+                }
+            }
+
         }
 
     }
