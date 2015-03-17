@@ -9,10 +9,10 @@
                 $display = true;
                 $scheme = parse_url($url, PHP_URL_SCHEME);
                 switch ($scheme) {
-                    case 'mailto' : $icon = 'icon-envelope'; $url_display = str_replace('mailto:', '', $url_display); $h_card = 'u-email'; break;
-                    case 'sms' : $icon = 'icon-mobile-phone'; $url_display = str_replace('sms:', '', $url_display); $h_card = 'p-tel'; break;
-                    case 'tel' : $icon = 'icon-phone'; $url_display = str_replace('tel:', '', $url_display); $h_card = 'p-tel'; break;
-                    case 'facetime' : $icon = 'icon-facetime-video'; $url_display = str_replace('facetime:', '', $url_display); $h_card = 'p-facetime'; break;
+                    case 'mailto' : $icon = 'fa fa-envelope-o'; $url_display = str_replace('mailto:', '', $url_display); $h_card = 'u-email'; break;
+                    case 'sms' : $icon = 'fa fa-mobile'; $url_display = str_replace('sms:', '', $url_display); $h_card = 'p-tel'; break;
+                    case 'tel' : $icon = 'fa fa-phone'; $url_display = str_replace('tel:', '', $url_display); $h_card = 'p-tel'; break;
+                    case 'facetime' : $icon = 'fa fa-video-camera'; $url_display = str_replace('facetime:', '', $url_display); $h_card = 'p-facetime'; break;
                     default: $display = false;
                 }
                 if ($scheme != 'http' && $scheme != 'https') {

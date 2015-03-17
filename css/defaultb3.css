@@ -76,6 +76,10 @@ textarea.bodyInputShort {
     height: 7em;
 }
 
+textarea.bodyInput {
+	height: 15em;
+}
+
 textarea.comic, textarea.event {
 	height: 9em
 }

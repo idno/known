@@ -16,20 +16,19 @@
         <div class="col-md-6 col-md-offset-1">
 
             <p>
-                <label>
-                    About you<br/>
+                <label for="body">
+                    About you</label>
                     <textarea name="profile[description]" id="body"
-                              class="col-md-6 bodyInput"><?= htmlspecialchars($vars['user']->getDescription()) ?></textarea>
-                </label>
+                              class="form-control bodyInput"><?= htmlspecialchars($vars['user']->getDescription()) ?></textarea>
             </p>
 
             <label>
                 <div id="photo-preview"></div>
                                     <span class="btn btn-primary btn-file">
-                                        <i class="icon-camera"></i> <span
+                                        <i class="fa fa-camera"></i> <span
                                             id="photo-filename">Select a user picture</span>
                                         <input type="file" name="avatar" id="photo"
-                                               class="col-md-9"
+                                               class="form-control"
                                                accept="image/*;capture=camera"
                                                onchange="photoPreview(this)"/>
 
@@ -40,11 +39,10 @@
 
         <div class="col-md-4">
             <p>
-                <label>
-                    Your name<br>
-                    <input type="text" name="name" value="<?= htmlspecialchars($vars['user']->getTitle()) ?>"
-                           class="col-md-3">
-                </label>
+                <label for="name">
+                    Your name</label>
+                    <input type="text" id="name" name="name" value="<?= htmlspecialchars($vars['user']->getTitle()) ?>"
+                           class="form-control">
             </p>
 
             <p id="websitelist">
@@ -62,7 +60,7 @@
                             if (!empty($url)) {
                                 ?>
                                 <span><input type="text" name="profile[url][]" value="<?= htmlspecialchars($this->fixURL($url)) ?>"
-                                             placeholder="http://" class="col-md-3"/> <small><a href="#"
+                                             placeholder="http://" class="form-control"/> <small><a href="#"
                                                                                              onclick="$(this).parent().parent().remove(); return false;">Remove</a>
                                     </small><br/></span>
                             <?php
@@ -71,12 +69,12 @@
                     }
 
                 ?>
-                <span><input type="text" name="profile[url][]" id="title" value="" placeholder="http://" class="col-md-3"/> <small>
+                <span><input type="text" name="profile[url][]" id="title" value="" placeholder="http://" class="form-control"/> <small>
                         <a href="#" onclick="$(this).parent().parent().remove(); return false;">Remove</a></small><br/></span>
             </p>
             <p>
                 <small><a href="#"
-                          onclick="$('#websitelist').append('<span><input type=&quot;text&quot; name=&quot;profile[url][]&quot; id=&quot;title&quot; value=&quot;&quot; placeholder=&quot;http://&quot; class=&quot;col-md-3&quot; /> <small><a href=&quot;#&quot; onclick=&quot;$(this).parent().parent().remove(); return false;&quot;>Remove</a></small><br /></span>'); return false;">+
+                          onclick="$('#websitelist').append('<span><input type=&quot;text&quot; name=&quot;profile[url][]&quot; id=&quot;title&quot; value=&quot;&quot; placeholder=&quot;http://&quot; class=&quot;form-control&quot; /> <small><a href=&quot;#&quot; onclick=&quot;$(this).parent().parent().remove(); return false;&quot;>Remove</a></small><br /></span>'); return false;">+
                         Add more</a></small>
             </p>
             <p>
