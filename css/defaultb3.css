@@ -130,3 +130,9 @@ select, input[type="file"] {
 	padding-top: 15px;
 }
 
+.jumbotron {
+    background-color: #fff;
+    border: 3px solid #73b2e3;
+    padding: 40px;
+}
+
