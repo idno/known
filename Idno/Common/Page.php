@@ -54,6 +54,7 @@
             function init()
             {
                 header('X-Powered-By: https://withknown.com');
+                header('X-Clacks-Overhead: GNU Terry Pratchett');
                 if ($template = $this->getInput('_t')) {
                     if (\Idno\Core\site()->template()->templateTypeExists($template)) {
                         \Idno\Core\site()->template()->setTemplateType($template);
