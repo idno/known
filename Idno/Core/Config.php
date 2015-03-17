@@ -13,31 +13,32 @@
         {
 
             public $config = array(
-                'database'            => 'mongodb',
-                'dbstring'            => 'mongodb://localhost:27017',
-                'dbname'              => 'known', // Default MongoDB database
-                'sessionname'         => 'known', // Default session name
-                'open_registration'   => true, // Can anyone register for this system?
-                'plugins'             => array( // Default plugins
-                                                'Status',
-                                                'Text',
-                                                'Photo',
-                                                'Like',
-                                                'Checkin',
-                                                'Media',
-                                                'Firefox',
-                                                'Bridgy'
+                'database'               => 'mongodb',
+                'dbstring'               => 'mongodb://localhost:27017',
+                'dbname'                 => 'known', // Default MongoDB database
+                'sessionname'            => 'known', // Default session name
+                'open_registration'      => true, // Can anyone register for this system?
+                'plugins'                => array( // Default plugins
+                                                   'Status',
+                                                   'Text',
+                                                   'Photo',
+                                                   'Like',
+                                                   'Checkin',
+                                                   'Media',
+                                                   'Firefox',
+                                                   'Bridgy'
                 ),
-                'themes'              => array(),
-                'antiplugins'         => array(),
-                'alwaysplugins'       => array(),
-                'prerequisiteplugins' => array(),
-                'items_per_page'      => 10, // Default items per page
-                'experimental'        => false, // A common way to enable experimental functions still in development
-                'multitenant'         => false,
-                'default_config'      => true, // This is a trip-switch - changed to false if configuration is loaded from an ini file / the db
-                'log_level'           => 4,
-                'multi_syndication'   => true
+                'themes'                 => array(),
+                'antiplugins'            => array(),
+                'alwaysplugins'          => array(),
+                'prerequisiteplugins'    => array(),
+                'items_per_page'         => 10, // Default items per page
+                'experimental'           => false, // A common way to enable experimental functions still in development
+                'multitenant'            => false,
+                'default_config'         => true, // This is a trip-switch - changed to false if configuration is loaded from an ini file / the db
+                'log_level'              => 4,
+                'multi_syndication'      => true,
+                'external_plugin_folder' => false
             );
 
             public $ini_config = array();
@@ -64,12 +65,12 @@
 
                 $this->loadIniFiles();
 
-                if (substr($this->host,0,4) == 'www.') {
-                    $this->host = substr($this->host,4);
+                if (substr($this->host, 0, 4) == 'www.') {
+                    $this->host = substr($this->host, 4);
                 }
 
                 if ($this->multitenant) {
-                    $dbname     = $this->dbname;
+                    $dbname       = $this->dbname;
                     $this->dbname = preg_replace('/[^0-9a-z\.\-\_]/i', '', $this->host);
 
                     // Known now defaults to not including periods in database names for multitenant installs. Add
@@ -342,6 +343,7 @@
                     $host = $this->file_path_host;
                 }
                 $host = site()->triggerEvent('file/path/host', ['host' => $host], $host);
+
                 return $host;
             }
 
