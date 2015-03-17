@@ -35,7 +35,7 @@ namespace Idno\Core {
                 if (!empty(site()->config()->hub)) {
                     $eventdata = $event->data();
                     header('Link: <'.site()->config()->hub.'>; rel="hub"',false);
-                    header('Link: <'.site()->config()->feed.'>; rel="self"',false);
+                    header('Link: <'.site()->template()->getCurrentURL().'>; rel="self"',false);
                 }
 
             });
