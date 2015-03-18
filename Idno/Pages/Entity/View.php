@@ -41,10 +41,11 @@
 
                 $this->setOwner($object->getOwner());
                 $this->setPermalink(); // This is a permalink
-                
-                header("Pragma: private");
-                header("Cache-Control: private");
-                header('Expires: ' . date(\DateTime::RFC1123, time() + (86400 * 30))); // Cache for 30 days!
+
+                // Commenting this out because it's not guaranteed to work in all browsers
+                //header("Pragma: private");
+                //header("Cache-Control: private");
+                //header('Expires: ' . date(\DateTime::RFC1123, time() + (86400 * 30))); // Cache for 30 days!
                 $this->setLastModifiedHeader($object->updated); // Say when this was last modified
                 
                 $headers = getallheaders(); 
