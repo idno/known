@@ -89,9 +89,9 @@ textarea.comic, textarea.event {
 }
 
 .tw {
-    background-color: #55acee;
+/*    background-color: #55acee; */
     background-image: none;
-    border-color: #55acee;
+/*    border-color: #55acee; */
 }
 
 .tw:hover, .tw:focus {
@@ -99,6 +99,26 @@ textarea.comic, textarea.event {
     background-image: none;
     border-color: #66757f;
     color: #ffffff;
+}
+
+.fb {
+	background-image: none;
+}
+
+.fb:hover, .fb:focus {
+	background-image: none;
+}
+
+.fsqr {
+	background-image: none;
+	background-color: #0732a2;
+	border-color: #0732a2;
+}
+
+.fsqr:hover, .fsqr:focus {
+	background-image: none;
+	background-color: #ffc800;
+	border-color: #ffc800;
 }
 
 .theme {
@@ -138,5 +158,13 @@ select, input[type="file"] {
     background-color: #fff;
     border: 3px solid #73b2e3;
     padding: 40px;
+}
+
+.controls-group {
+	padding-top: 25px;
+}
+
+.alert-info {
+	background-image: none;
 }
 
