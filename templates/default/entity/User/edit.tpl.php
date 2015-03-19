@@ -121,7 +121,7 @@
       <div class="col-md-3">
         <div class="text-center">
 
-          <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+          <img src="//placehold.it/100" class="avatar img-circle" alt="avatar"><!-- We'll want this to be a Known avatar-->
           		<div id="photo-preview"></div>
 
                         <span class="btn btn-primary btn-file">
