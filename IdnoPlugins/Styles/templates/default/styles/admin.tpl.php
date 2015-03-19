@@ -29,7 +29,7 @@
 
                 </span>
             </p>
-            <textarea class="col-md-10" name="css" style="height: 15em; font-family: Courier, monospace"><?php
+            <textarea class="form-control" name="css" style="height: 15em; font-family: Courier, monospace"><?php
 
                     echo htmlspecialchars($vars['css']);
 
@@ -38,19 +38,7 @@
                 your stylesheet</a> to work on it locally.
         </div>
     </div>
-<!--    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <p>
-                Do you have an existing stylesheet that you'd like to use? Import a CSS file from your computer.<br>
-                <span class="btn btn-primary btn-file">
-                    <span id="css-filename"><i class="icon-code"></i> Upload a stylesheet</span> <input type="file" name="cssfile" id="cssfile"
-                                                                                                       class="col-md-9"/>
-                    <input type="file" name="import" accept="text/css" id="cssfileinput" onchange="$('#css-filename').html($('#cssfileinput').val());"/>
 
-                </span>
-            </p>
-        </div>
-    </div>-->
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <p>
