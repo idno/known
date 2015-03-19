@@ -56,11 +56,11 @@
                     } else {
                         \Idno\Core\site()->session()->addErrorMessage("Oops! It looks like your password isn't correct. Please try again.");
                         \Idno\Core\site()->triggerEvent('login/failure', array('user' => $user));
-                        $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'session/login/');
+                        $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'session/login/?fwd=' . urlencode($fwd));
                     }
                 } else {
                     \Idno\Core\site()->session()->addErrorMessage("Oops! We couldn't find your username or email address. Please check you typed it correctly and try again.");
-                    $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'session/login/');
+                    $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'session/login/?fwd=' . urlencode($fwd));
                 }
             }
 
