@@ -121,6 +121,31 @@ textarea.comic, textarea.event {
 	border-color: #ffc800;
 }
 
+.connected.fsqr {
+	background-color: #bbb;
+	border-color: #bbb;
+}
+
+.connect.fsqr:hover {
+	background-color: #aaa;
+}
+
+.fl {
+	background-image: none;
+}
+
+.fl:hover, .fl:focus {
+	background-image: none;
+}
+
+.scld {
+	background-image: none;
+}
+
+.scld:hover, .scld:focus {
+	background-image: none;
+}
+
 .theme {
 	height: 28em;
 }
