@@ -16,8 +16,8 @@
             {
                 $this->gatekeeper();
 
-                $url   = $this->getInput('share_url');
-                $title = $this->getInput('share_title');
+                $url   = $this->getInput('share_url', $this->getInput('url'));
+                $title = $this->getInput('share_title', $this->getInput('title'));
                 $type  = $this->getInput('share_type');
 
                 // Provide a hook to a URL shortener (TODO: Tidy this up when #237 is merged)
