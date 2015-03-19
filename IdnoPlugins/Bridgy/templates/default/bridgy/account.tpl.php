@@ -25,7 +25,8 @@
 
         <form action="https://www.brid.gy/facebook/start?feature=listen&callback=<?=urlencode(\Idno\Core\site()->config()->getDisplayURL() . 'account/bridgy/')?>" method="post">
             <p>
-                <button class="connect fb">Activate Facebook + Bridgy</button>
+                <button class="connect fb"><i class="fa fa-facebook"></i>
+ Activate Facebook + Bridgy</button>
             </p>
                 <p>
                     Bridgy pulls in comments and likes from Facebook.
@@ -33,7 +34,8 @@
         </form>
         <form action="https://www.brid.gy/twitter/start?feature=listen&callback=<?=urlencode(\Idno\Core\site()->config()->getDisplayURL() . 'account/bridgy/')?>" method="post">
             <p>
-                <button class="connect tw">Activate Twitter + Bridgy</button>
+                <button class="connect tw"><i class="fa fa-twitter"></i>
+ Activate Twitter + Bridgy</button>
             </p>
                 <p>
                     Bridgy pulls in replies, favorites, and retweets from Twitter.
