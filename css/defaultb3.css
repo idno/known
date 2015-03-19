@@ -146,6 +146,14 @@ textarea.comic, textarea.event {
 	background-image: none;
 }
 
+.lkin {
+	background-image: none;
+}
+
+.lkin:hover, .lkin:focus {
+	background-image:none;
+}
+
 .theme {
 	height: 28em;
 }
