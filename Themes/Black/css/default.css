@@ -26,7 +26,6 @@ p a:hover, p a:focus {
 
 h2 {
     line-height: 1.4em;
-/*    margin-bottom: 0.8em !important; Why do we need this? */
 }
 
 h2 a {
@@ -162,12 +161,6 @@ li {
     font-size: 22px;
     margin: 0; padding: 0;
 }
-.navbar-inverse .navbar-inner {
-    background-color: #FFFFFF; 
-    background-image: none;
-    opacity: 1.0;
-    border-bottom: 3px solid #252525;
-}
 
 .navbar-inverse .brand {
     color: #333333;
@@ -210,13 +203,6 @@ li {
     border-top-color: #999999;
 }
 
-.navbar-inverse .brand {
-    color: #000;
-    font-weight: 600;
-    padding: 12px 20px;
-    font-size: 24px;  
-}
-
 a.contentTypeButton {
     color: #000000;
 }
@@ -232,7 +218,6 @@ a.contentTypeButton {
     border-radius: 100%;
     border: 3px solid #000;
     margin-bottom: 10px;
-    width: 75px;
 }
 
 a.contentTypeButton:hover {
@@ -242,14 +227,6 @@ a.contentTypeButton:hover {
 span.contentTypeLogo {
     padding-bottom: 2px;
     padding-top: 2px;
-}
-
-.navbar-inverse .navbar-search .search-query {
-    background-color: #fff;
-    border-color: #111111;
-    box-shadow: none;
-    color: #333;
-    transition: none 0s ease 0s ;
 }
 
 .pager li > a, .pager li > span {
@@ -280,11 +257,6 @@ span.contentTypeLogo {
 .leaflet-container {
     margin: 0 0 10px;
 }
-
-ul, ol {
-    margin: 0 0 10px 35px;
-    padding: 0;
-}        
 
 blockquote {
     border-left: 5px solid #8cbf99;
@@ -432,29 +404,42 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 	padding: 30px;
 }
 
-/* * {
-	margin: 0;
-}
-
-html, body {
-	height: 100%;
-}
-
-.page-container {
-	min-height: 100%;
-	height: auto !important!;
-	height: 100%;
-	margin: 0 auto -150px;
-}
-
-.blank-footer, .push {
-	height: 150px;
-}
-*/
-/* This Darn Stuff Below */
 
 .idno-object .permalink a:hover {
     color: #999;
     margin-right: 0.25em;
     text-decoration: underline;
+}
+
+/* Added for B3 */
+.navbar-fixed-top {
+	background-color: #ffffff;
+    background-image: none;
+    border-bottom: 3px solid #252525;
+    opacity: 1;
+    border-radius: 0px;
+}
+
+ul, ol {
+    margin: 0 0 10px 0;
+    padding: 0;
+}
+.navbar-default .navbar-brand {
+    color: #000;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+
+.navbar-form .form-control.search-query {
+    background-color: #fff;
+    border-color: #111111;
+    box-shadow: none;
+    color: #333;
+    transition: none 0s ease 0s ;
+    border-radius: 15px;
+}
+
+a.contentTypeButton {
+	width: 90px;
 }
