@@ -39,6 +39,16 @@
 	color: #333;
 }
 
+.navbar-nav > li > .nav > li > a {
+    color: #777;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+.navbar-nav > li > .nav > li > a:hover, .navbar-nav > li > .nav > li > a:focus  {
+    color: #333;
+}
+
 .admin.navbar-form {
 	padding-left: 0px;
 }

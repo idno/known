@@ -115,6 +115,7 @@
     <link href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>css/default.css?20150123" rel="stylesheet">
     <link href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>css/defaultb3.css" rel="stylesheet">
 
+
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
     <script
@@ -123,7 +124,10 @@
 
     <!-- Default Known JavaScript -->
     <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'js/default.js' ?>"></script>
+    
 
+	
+	
     <!-- To silo is human, to syndicate divine -->
     <link rel="alternate" type="application/rss+xml" title="<?= htmlspecialchars($vars['title']) ?>"
           href="<?= $this->getURLWithVar('_t', 'rss'); ?>"/>
