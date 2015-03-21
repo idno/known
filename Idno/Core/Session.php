@@ -441,6 +441,8 @@
                             site()->currentPage()->setResponse(403);
                             if (!\Idno\Core\site()->session()->isAPIRequest()) {
                                 site()->currentPage()->forward(site()->config()->getURL() . 'session/login/');
+                            } else {
+                                site()->currentPage()->deniedContent();
                             }
                         }
                     }

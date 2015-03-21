@@ -538,6 +538,8 @@
                     // Forwarding loses the response code, so is only helpful if this is not an API request
                     if (!\Idno\Core\site()->session()->isAPIRequest()) {
                         $this->forward(\Idno\Core\site()->config()->getURL() . 'session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']));
+                    } else {
+                        $this->deniedContent();
                     }
                 }
             }
@@ -554,6 +556,8 @@
 
                     if (!\Idno\Core\site()->session()->isAPIRequest()) {
                         $this->forward();
+                    } else {
+                        $this->deniedContent();
                     }
                 }
                 $this->gatekeeper();
@@ -570,7 +574,10 @@
                     $this->setResponse(403);
                     if (!\Idno\Core\site()->session()->isAPIRequest()) {
                         $this->forward();
+                    } else {
+                        $this->deniedContent();
                     }
+                    
                 }
             }
 
@@ -592,6 +599,8 @@
 
                     if (!\Idno\Core\site()->session()->isAPIRequest()) {
                         $this->forward();
+                    } else {
+                        $this->deniedContent();
                     }
                 }
             }
