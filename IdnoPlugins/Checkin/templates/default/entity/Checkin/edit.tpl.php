@@ -71,7 +71,7 @@
 
         <div class="col-md-8 col-md-offset-2 edit-pane">
 			<h4>
-				                <?php
+                <?php
 
                     if (empty($vars['object']->_id)) {
                         ?>New Check-in<?php
@@ -81,8 +81,8 @@
                   ?>
 			</h4>
             <div id="geoplaceholder">
-                <p>
-                    <span class="label">Hold tight ... searching for your location.</span>
+                <p class="well">
+                    Hold tight ... searching for your location.
                 </p>
             </div>
             <div id="geofields" class="map" style="display:none">
