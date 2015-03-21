@@ -159,51 +159,54 @@
                 </div>
 
                 <div class="form-group">
-                    <p id="websitelist">
+                    <p>
                         <label for="website">
                             Your websites</label><br>
                         <small>Other places on the web where people can find you.</small>
+                    </p>
+                    <div id="websitelist">
                         <?php
 
                             if (!empty($vars['user']->profile['url'])) {
-                            if (!is_array($vars['user']->profile['url'])) {
-                                $urls = array($vars['user']->profile['url']);
-                            } else {
-                                $urls = $vars['user']->profile['url'];
+                                if (!is_array($vars['user']->profile['url'])) {
+                                    $urls = array($vars['user']->profile['url']);
+                                } else {
+                                    $urls = $vars['user']->profile['url'];
+                                }
+                                foreach ($urls as $url) {
+                                    if (!empty($url)) {
+                                        ?>
+                                        <div class="row">
+                                            <div class="col-md-10"><input type="text" name="profile[url][]" id="website"
+                                                                          value="<?= htmlspecialchars($this->fixURL($url)) ?>"
+                                                                          placeholder="http://" class="form-control"/>
+                                            </div>
+                                            <div class="col-md-2" style="margin-top: 0.75em">
+                                                <small><a href="#"
+                                                          onclick="$(this).parent().parent().parent().remove(); return false;">Remove</a>
+                                                </small>
+                                            </div>
+                                        </div>
+                                    <?php
+                                    }
+                                }
                             }
-                            foreach ($urls as $url) {
-                            if (!empty($url)) {
-                        ?>
-                    <div class="row">
-                        <div class="col-md-10"><input type="text" name="profile[url][]" id="website"
-                                                      value="<?= htmlspecialchars($this->fixURL($url)) ?>"
-                                                      placeholder="http://" class="form-control"/></div>
-                        <div class="col-md-2">
-                            <small><a href="#"
-                                      onclick="$(this).parent().parent().remove(); return false;">Remove</a>
-                            </small>
-                        </div>
-                    </div>
-                    <?php
-                        }
-                        }
-                        }
 
-                    ?>
-                    <div class="row">
-                        <div class="col-md-10">
-                            <input type="text" name="profile[url][]" id="title" value="" placeholder="http://"
-                                   class="form-control"/></div>
-                        <div class="col-md-2">
-                            <small>
-                                <a href="#" onclick="$(this).parent().parent().remove(); return false;">Remove</a>
-                            </small>
+                        ?>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <input type="text" name="profile[url][]" id="title" value="" placeholder="http://"
+                                       class="form-control"/></div>
+                            <div class="col-md-2" style="margin-top: 0.75em">
+                                <small >
+                                    <a href="#" onclick="$(this).parent().parent().parent().remove(); return false;">Remove</a>
+                                </small>
+                            </div>
                         </div>
                     </div>
-                    </p>
                     <p>
                         <small><a href="#"
-                                  onclick="$('#websitelist').append('<span><input type=&quot;text&quot; name=&quot;profile[url][]&quot; id=&quot;title&quot; value=&quot;&quot; placeholder=&quot;http://&quot; class=&quot;form-control&quot; /> <small><a href=&quot;#&quot; onclick=&quot;$(this).parent().parent().remove(); return false;&quot;>Remove</a></small><br /></span>'); return false;">+
+                                  onclick="$('#websitelist').append($('#form-website-template').html()); return false;">+
                                 Add more</a></small>
                     </p>
                 </div>
@@ -222,6 +225,18 @@
 
 
     </form>
+    <div id="form-website-template" style="display:none">
+        <div class="row">
+            <div class="col-md-10">
+                <input type="text" name="profile[url][]" id="title" value="" placeholder="http://"
+                       class="form-control"/></div>
+            <div class="col-md-2" style="margin-top: 0.75em">
+                <small>
+                    <a href="#" onclick="$(this).parent().parent().parent().remove(); return false;">Remove</a>
+                </small>
+            </div>
+        </div>
+    </div>
 </div>
 
 
