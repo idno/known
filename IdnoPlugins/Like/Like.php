@@ -91,6 +91,8 @@
                             } else {
                                 $this->pageTitle = '';
                             }
+                        } else {
+                        	$this->pageTitle = $title;
                         }
                         if (empty($title)) {
                             \Idno\Core\site()->session()->addErrorMessage('You need to specify a title.');
