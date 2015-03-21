@@ -12,7 +12,7 @@
 
         ?>
         
-            <li class="dropdown">
+            <li class="dropdown" role="presentation">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                     <?php
 
@@ -26,7 +26,7 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
-                    <<li><a href="<?= \Idno\Core\site()->config()->getDisplayURL() . $search ?>"><span class="dropdown-menu-icon">&nbsp;</span>
+                    <li><a href="<?= \Idno\Core\site()->config()->getDisplayURL() . $search ?>"><span class="dropdown-menu-icon">&nbsp;</span>
                             Default content</a></li>
                     <li><a href="<?= \Idno\Core\site()->config()->getDisplayURL() . 'content/all/' . $search ?>"><span class="dropdown-menu-icon">&nbsp;</span>
                             All content</a></li>
