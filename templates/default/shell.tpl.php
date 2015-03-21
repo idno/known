@@ -169,7 +169,11 @@
     <!-- Syntax highlighting -->
     <link href="<?=\Idno\Core\site()->config()->getDisplayURL()?>external/highlight/styles/default.css" rel="stylesheet">
     <script src="<?=\Idno\Core\site()->config()->getDisplayURL()?>external/highlight/highlight.pack.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    <script>
+        if (typeof hljs !== 'undefined') {
+            hljs.initHighlightingOnLoad();
+        }
+    </script>
 
     <?= $this->draw('shell/head', $vars); ?>
 
@@ -298,8 +302,6 @@
 <script
     src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/jquery-timeago/' ?>jquery.timeago.js"></script>
 <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/jquery-pjax/' ?>jquery.pjax.js"></script>
-<script
-    src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
 <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/underscore/underscore-min.js' ?>"
         type="text/javascript"></script>
 <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/mention/bootstrap-typeahead.js' ?>"
