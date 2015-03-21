@@ -117,13 +117,16 @@
         </p>
     </div>
 
-    <div class="row">
-        <!-- left column -->
-        <div class="col-md-3">
-            <div class="text-center">
+    <form class="form-horizontal" role="form" action="<?= $vars['user']->getDisplayURL() ?>" method="post"
+          enctype="multipart/form-data">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-3">
+                <div class="text-center">
 
-                <div id="photo-preview"><img src="<?= \Idno\Core\site()->session()->currentUser()->getIcon() ?>" class="avatar img-circle"
-                                             alt="avatar" style="width: 100px"></div>
+                    <div id="photo-preview"><img src="<?= \Idno\Core\site()->session()->currentUser()->getIcon() ?>"
+                                                 class="avatar img-circle"
+                                                 alt="avatar" style="width: 100px"></div>
 
                         <span class="btn btn-primary btn-file">
                             <i class="fa fa-camera"></i> 
@@ -134,13 +137,11 @@
                                    onchange="photoPreview(this)"/>
 
                         </span>
+                </div>
             </div>
-        </div>
 
-        <!-- edit form column -->
-        <div class="col-md-8 personal-info">
-            <form class="form-horizontal" role="form" action="<?= $vars['user']->getDisplayURL() ?>" method="post"
-                  enctype="multipart/form-data">
+            <!-- edit form column -->
+            <div class="col-md-8 personal-info">
 
                 <div class="form-group">
                     <label class="control-label" for="body">About you</label><br>
@@ -216,9 +217,11 @@
 
 
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
+
+
+    </form>
 </div>
 
 
