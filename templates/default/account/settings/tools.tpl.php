@@ -62,7 +62,7 @@
         <h2>API</h2>
         <p>
             Your API key: <input type="text" id="apikey" class="span4" name="apikey"
-                                 value="<?= htmlspecialchars($user->getAPIkey()) ?>" disabled>
+                                 value="<?= htmlspecialchars($user->getAPIkey()) ?>" readonly>
         </p>
 
     </div>
