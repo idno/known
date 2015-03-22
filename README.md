@@ -1,9 +1,6 @@
 #Known - a publishing platform for everyone!
 
-
 ![Known - A publishing platform for everyone](https://raw.githubusercontent.com/idno/Known/master/gfx/robots/feedback.png "Hello!")
-
-
 
 ##Installation [![Build Status](https://travis-ci.org/idno/Known.svg?branch=master)](https://travis-ci.org/idno/Known)
 
@@ -15,7 +12,6 @@ from <https://withknown.com/>, installation will be much easier!
 You can also opt to check out the bleeding edge code from the git repository: https://github.com/idno/Known
 
 Either way, you should read the detailed installation instructions: http://docs.withknown.com/en/latest/install/index.html
-
 
 ## Community links
 
