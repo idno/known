@@ -79,7 +79,6 @@
 
                 \Idno\Core\site()->template()->autodetectTemplateType();
 
-                \Idno\Core\site()->session()->APIlogin();
                 $this->parseJSONPayload();
 
                 $arguments = func_get_args();
@@ -106,7 +105,6 @@
 
                 \Idno\Core\site()->template()->autodetectTemplateType();
 
-                \Idno\Core\site()->session()->APIlogin();
                 $this->parseJSONPayload();
 
                 $arguments = func_get_args();
@@ -132,8 +130,6 @@
                 \Idno\Core\site()->session()->publicGatekeeper();
 
                 \Idno\Core\site()->template()->autodetectTemplateType();
-
-                \Idno\Core\site()->session()->APIlogin();
 
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
@@ -207,7 +203,6 @@
                 \Idno\Core\site()->triggerEvent('page/put', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
                 if (\Idno\Core\site()->actions()->validateToken('', false)) {
-                    \Idno\Core\site()->session()->APIlogin();
                     $this->parseJSONPayload();
                     $return = $this->putContent();
                 } else {
@@ -268,7 +263,6 @@
                 \Idno\Core\site()->triggerEvent('page/delete', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
                 if (\Idno\Core\site()->actions()->validateToken('', false)) {
-                    \Idno\Core\site()->session()->APIlogin();
                     $this->parseJSONPayload();
                     $return = $this->deleteContent();
                 } else {
