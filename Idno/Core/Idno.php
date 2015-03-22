@@ -116,6 +116,7 @@
                     \Idno\Core\site()->known_hub->connect();
                 }
 
+                site()->session()->APIlogin();
                 User::registerEvents();
                 site()->session()->refreshCurrentSessionuser();
             }
