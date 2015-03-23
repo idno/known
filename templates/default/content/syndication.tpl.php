@@ -21,6 +21,10 @@
             }
 
         }
+        
+        // Since template vars aren't scoped, reset vars to avoid them appearing in API views
+        unset($this->vars['service']);
+        unset($this->vars['username']);
     }
     $buttons .= $this->draw('content/syndication/buttons');
     if (!empty($buttons)) {
