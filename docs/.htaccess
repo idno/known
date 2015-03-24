@@ -1,1 +1,35 @@
-deny from all
+# Known .htaccess file
+# If these settings don't work for you, we recommend copying htaccess-2.4.dist instead.
+
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteBase /
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php?/$1 [L,QSA]
+    RewriteRule ^Uploads.* - [F]
+</IfModule>
+<IfModule mod_php5.c>
+    php_value upload_max_filesize 1000M
+    php_value post_max_size 1080M
+</IfModule>
+<Files  ~ "\.dist$">
+  Order allow,deny
+  Deny from all
+</Files>
+<Files  ~ "\.ini$">
+  Order allow,deny
+  Deny from all
+</Files>
+<Files ~ "\.xml$">
+  Order allow,deny
+  Deny from all
+</Files>
+<Files ~ "sitemap.xml">
+  Order allow,deny
+  Allow from all
+</Files>
+
+AddType video/ogg .ogv
+AddType video/mp4 .mp4
+AddType video/webm .webm
