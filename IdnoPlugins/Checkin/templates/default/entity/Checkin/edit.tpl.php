@@ -60,7 +60,7 @@
     } else {
 
         // If the browser isn't geo-capable, tell the user.
-        $('#geoplaceholder').html('<p>Your browser does not support geolocation.</p>');
+        $('#geoplaceholder').html('<p>Oh no! It looks like your browser does not support geolocation.</p>');
 
     }
 
@@ -81,9 +81,17 @@
                   ?>
 			</h4>
             <div id="geoplaceholder">
-                <p class="well">
-                    Hold tight ... searching for your location.
+                <p style="text-align: center; color: #4c93cb;">    
+                    Hang tight ... searching for your location.
                 </p>
+
+                <div class="geospinner">
+					<div class="rect1"></div>
+					<div class="rect2"></div>
+					<div class="rect3"></div>
+					<div class="rect4"></div>
+					<div class="rect5"></div>
+				</div>
             </div>
             <div id="geofields" class="map" style="display:none">
                 <div class="geolocation">
