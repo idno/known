@@ -22,7 +22,7 @@
                 ini_set('session.gc_maxlifetime', 60 * 60 * 24 * 7); // Garbage collection to match
                 ini_set('session.cookie_httponly', true); // Restrict cookies to HTTP only (help reduce XSS attack profile)
                 if (site()->isSecure()) {
-                    ini_set('session.cookie_secure', true); 
+                    ini_set('session.cookie_secure', true); // Set secure cookies when site is secure
                 }
 
                 site()->db()->handleSession();
