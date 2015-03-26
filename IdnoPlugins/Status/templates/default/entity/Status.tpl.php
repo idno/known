@@ -1,10 +1,11 @@
 <?php
     $tags = '';
-    if (\Idno\Core\site()->currentPage()->isPermalink()) {
+    $rel = '';
+    /*if (\Idno\Core\site()->currentPage()->isPermalink()) {
         $rel = 'rel="in-reply-to" class="u-in-reply-to"';
     } else {
         $rel = '';
-    }
+    }*/
     if (!empty($vars['object']->tags)) {
         /*$vars['object']->body .= */ $tags = '<p class="tag-row"><i class="icon-tag"></i>' . $vars['object']->tags . '</p>';
     }
