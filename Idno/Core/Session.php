@@ -32,7 +32,7 @@
                 session_name(site()->config->sessionname);
                 session_start();
                 session_cache_limiter('public');
-                session_regenerate_id();
+                session_regenerate_id(true);
 
                 // Session login / logout
                 site()->addPageHandler('/session/login', '\Idno\Pages\Session\Login', true);
