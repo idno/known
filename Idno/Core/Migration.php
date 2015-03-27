@@ -371,11 +371,7 @@
                                 $object->setTitle(html_entity_decode($title));
                                 $object->created = $published;
                                 $object->body = ($body);
-                                if ($object->save(true)) {
-                                    error_log("added {$item['guid']}");
-                                } else {
-                                    error_log("couldn't add {$item['guid']}");
-                                }
+                                $object->save(true);
 
                             }
 
