@@ -1,3 +1,3 @@
-# Installing Known on common shard hosting providers
+# Installing Known on common shared hosting providers
 
 * [Arvixe](sharedhost/arvixe.md)
