@@ -191,7 +191,7 @@
              * Given the XML source of an export, imports each post into Known.
              * @param $xml
              */
-            static function ImportFeedXML($xml) {
+            static function importFeedXML($xml) {
 
                 // Blogger will be imported as blog posts, so make sure we can import those ...
                 if (!($text = site()->plugins()->get('Text'))) {
@@ -227,7 +227,7 @@
                             if ($categories = $item->get_categories()) {
                                 foreach($categories as $category) {
                                     if (empty($category->scheme) || $category->scheme != 'http://schemas.google.com/g/2005#kind') {
-                                        $tags[] = '#' . preg_replace('/\s+/', '', $category->term);
+                                        $tags[] = '#' . preg_replace('/\W+/', '', $category->term);
                                     }
                                 }
                             }
@@ -235,7 +235,7 @@
                                 $body .= '<p>' . implode(' ',$tags) . '</p>';
                             }
 
-                            self::importImagesFromBodyHTML($body);
+                            self::importImagesFromBodyHTML($body, 'blogspot.com');
 
                             $object = new \IdnoPlugins\Text\Entry();
                             $object->setTitle(html_entity_decode($item->get_title()));
@@ -250,14 +250,14 @@
 
             }
 
-            static function importImagesFromBodyHTML($body) {
+            static function importImagesFromBodyHTML($body, $src_url) {
 
                 $doc = new \DOMDocument();
                 if (@$doc->loadHTML($body)) {
                     if ($images = $doc->getElementsByTagName('img')) {
                         foreach($images as $image) {
                             $src = $image->getAttribute('src');
-                            if (substr_count($src,'blogspot.com')) {
+                            if (substr_count($src,$src_url)) {
                                 $dir = site()->config()->getTempDir();
                                 $name = md5($src);
                                 $newname = $dir . $name . basename($src);
@@ -293,9 +293,9 @@
              * Given the XML source of a Blogger export, imports each post into Known.
              * @param $xml
              */
-            static function ImportBloggerXML($xml) {
+            static function importBloggerXML($xml) {
 
-                return self::ImportFeedXML($xml);
+                return self::importFeedXML($xml);
 
             }
 
@@ -303,7 +303,7 @@
              * Given the XML source of a WordPress export, imports each post into Known.
              * @param $xml
              */
-            static function ImportWordPressXML($xml) {
+            static function importWordPressXML($xml) {
 
                 // XML will be imported as blog posts, so make sure we can import those ...
                 if (!($text = site()->plugins()->get('Text'))) {
@@ -332,44 +332,52 @@
                                 }
                             }
 
-                            $title = $item['title'];
-                            if (!empty($item['content:encoded'])) {
-                                $body = $item['content:encoded'];
-                            } else if (!empty($item['description'])) {
-                                $body = $item['description'];
-                            } else {
-                                $body = '';
-                            }
-                            if (!empty($item['wp:post_date'])) {
-                                $published = strtotime($item['wp:post_date']);
-                            } else if (!empty($item['pubDate'])) {
-                                $published = strtotime($item['pubDate']);
-                            } else {
-                                $published = time();
-                            }
-                            if (!empty($item['category'])) {
-                                $tags = [];
-                                if (!is_array($item['category'])) {
-                                    $item['category'] = [$item['category']];
+                            if ($item['wp:post_type'] == 'post' && $item['wp:status'] == 'publish') {
+
+                                $title = $item['title'];
+                                if (!empty($item['content:encoded'])) {
+                                    $body = $item['content:encoded'];
+                                } else if (!empty($item['description'])) {
+                                    $body = $item['description'];
+                                } else {
+                                    $body = '';
                                 }
-                                foreach($item['category'] as $category) {
-                                    $category = strtolower(trim($category));
-                                    if ($category != 'general') {
-                                        $tags[] = '#' . preg_replace('/\s+/', '', $category);
+                                if (!empty($item['wp:post_date'])) {
+                                    $published = strtotime($item['wp:post_date']);
+                                } else if (!empty($item['pubDate'])) {
+                                    $published = strtotime($item['pubDate']);
+                                } else {
+                                    $published = time();
+                                }
+                                if (!empty($item['category'])) {
+                                    $tags = [];
+                                    if (!is_array($item['category'])) {
+                                        $item['category'] = [$item['category']];
+                                    }
+                                    foreach($item['category'] as $category) {
+                                        $category = strtolower(trim($category));
+                                        if ($category != 'general') {
+                                            $tags[] = '#' . preg_replace('/\W+/', '', $category);
+                                        }
+                                    }
+                                    if (!empty($tags)) {
+                                        $body .= '<p>' . implode(' ',$tags) . '</p>';
                                     }
                                 }
-                                if (!empty($tags)) {
-                                    $body .= '<p>' . implode(' ',$tags) . '</p>';
+
+                                self::importImagesFromBodyHTML($body, parse_url($item['link'], PHP_URL_HOST));
+
+                                $object = new \IdnoPlugins\Text\Entry();
+                                $object->setTitle(html_entity_decode($title));
+                                $object->created = $published;
+                                $object->body = ($body);
+                                if ($object->save(true)) {
+                                    error_log("added {$item['guid']}");
+                                } else {
+                                    error_log("couldn't add {$item['guid']}");
                                 }
+
                             }
-
-                            self::importImagesFromBodyHTML($body);
-
-                            $object = new \IdnoPlugins\Text\Entry();
-                            $object->setTitle(html_entity_decode($title));
-                            $object->created = published;
-                            $object->body = ($body);
-                            $object->save(true);
 
                         }
                     }
