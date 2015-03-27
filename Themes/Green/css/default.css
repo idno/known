@@ -83,23 +83,23 @@ blockquote {
     margin: 0; padding: 0;
 }
 
-.navbar-inverse .navbar-inner {
+.navbar-default {
     background-color: #8CBF99;
     background-image: none;
     border-bottom: 5px solid #678c70;
     border-color: #FFFFFF #FFFFFF #678c70;
 }
  
-.navbar-inverse .brand {
+.navbar-default .brand {
     color: #333333;
 }
  
-.navbar-inverse .brand, .navbar-inverse .nav > li > a {
+.navbar-default .brand, .navbar-default .nav > li > a {
     color: #FFFFFF;
     text-shadow: none;
 }
 
-.navbar-inverse .brand:hover, .navbar-inverse .nav > li > a:hover, .navbar-inverse .brand:focus, .navbar-inverse .nav > li > a:focus {
+.navbar-default .brand:hover, .navbar-default .nav > li > a:hover, .navbar-default .brand:focus, .navbar-default .nav > li > a:focus {
     color: #70997a;
     text-shadow: none;
 }
@@ -513,7 +513,7 @@ html, body {
 }
     
 .green-footer, .push {
-    height: 60px;
+    height: 80px;
 }
 
 @media (max-width: 767px){
@@ -568,5 +568,54 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 .vague {
 	color: #666666;
     font-size: 14px;
+}
+
+/* for B3 */
+
+.navbar-brand, .navbar-nav > li > a {
+    text-shadow: none;
+}
+
+.navbar-default .navbar-brand {
+    color: #fff;
+}
+
+.navbar-nav > li > .nav > li > a {
+    color: #fff;
+    padding-bottom: 0;
+    padding-top: 12px;
+}
+
+.navbar .nav .dropdown-toggle .caret {
+    margin-top: 0;
+}
+
+.navbar-default .navbar-nav > .open > a, 
+.navbar-default .navbar-nav > .open > a:focus, 
+.navbar-default .navbar-nav > .open > a:hover {
+    background-color: transparent;
+    color: #70997a;
+}
+
+.navbar-default .navbar-nav > .active > a, 
+.navbar-default .navbar-nav > .open > a {
+    background-image: none;
+    background-repeat: repeat-x;
+    box-shadow: none;
+}
+
+.navbar-nav > li > .nav > li > a:hover, 
+.navbar-nav > li > .nav > li > a:focus {
+    color: #70997a;
+}
+
+.nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+    background-color: transparent;
+    border: none;
+}
+
+.navbar-form .form-control.search-query {
+    border-color: #8cbf99;
+	color: #8cbf99;
 }
 
