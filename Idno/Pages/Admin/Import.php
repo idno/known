@@ -34,11 +34,10 @@
                     \Idno\Core\site()->session()->addMessage("Your {$import_type} import has started.");
                 }
 
+                session_write_close();
                 $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'admin/import/', false);
 
                 ignore_user_abort(true);    // This is dangerous, but we need export to continue
-
-                session_write_close();
 
                 header('Connection: close');
                 header('Content-length: ' . (string) ob_get_length());
@@ -51,16 +50,23 @@
 
                 set_time_limit(0);          // Eliminate time limit - this could take a while
 
-                if (strtolower($import_type) == 'blogger') {
-                    if (Migration::ImportBloggerXML($xml)) {
+                $imported = false;
+                switch(strtolower($import_type)) {
 
-                        $mail = new Email();
-                        $mail->setHTMLBodyFromTemplate('admin/import');
-                        $mail->addTo(\Idno\Core\site()->session()->currentUser()->email);
-                        $mail->setSubject("Your data import has completed");
-                        $mail->send();
+                    case 'blogger':
+                        $imported = Migration::importBloggerXML($xml);
+                        break;
+                    case 'wordpress':
+                        $imported = Migration::importWordPressXML($xml);
+                        break;
 
-                    }
+                }
+                if ($imported) {
+                    $mail = new Email();
+                    $mail->setHTMLBodyFromTemplate('admin/import');
+                    $mail->addTo(\Idno\Core\site()->session()->currentUser()->email);
+                    $mail->setSubject("Your data import has completed");
+                    $mail->send();
                 }
 
             }
