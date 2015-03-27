@@ -160,7 +160,7 @@
                         $this->message->setFrom($from_email, site()->config()->title);
                     }
 
-                    return $mailer->send($this->message);
+                    return $mailer->send(site()->triggerEvent('email/send', [], $this->message));
                 } catch (\Exception $e) {
                     // Lets log errors rather than silently drop them
                     \Idno\Core\site()->logging()->log($e->getMessage(), LOGLEVEL_ERROR);
