@@ -26,7 +26,8 @@
                                                    'Checkin',
                                                    'Media',
                                                    'Firefox',
-                                                   'Bridgy'
+                                                   'Bridgy',
+                                                   'FooterJS'
                 ),
                 'themes'                 => array(),
                 'antiplugins'            => array(),
