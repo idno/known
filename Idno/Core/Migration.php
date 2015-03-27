@@ -235,40 +235,7 @@
                                 $body .= '<p>' . implode(' ',$tags) . '</p>';
                             }
 
-                            $doc = new \DOMDocument();
-                            if (@$doc->loadHTML($body)) {
-                                if ($images = $doc->getElementsByTagName('img')) {
-                                    foreach($images as $image) {
-                                        $src = $image->getAttribute('src');
-                                        if (substr_count($src,'blogspot.com')) {
-                                            $dir = site()->config()->getTempDir();
-                                            $name = md5($src);
-                                            $newname = $dir . $name . basename($src);
-                                            if (@file_put_contents($newname , fopen($src, 'r'))) {
-                                                switch (strtolower(pathinfo($src, PATHINFO_EXTENSION))) {
-                                                    case 'jpg':
-                                                    case 'jpeg':
-                                                        $mime = 'image/jpg'; break;
-                                                    case 'gif':
-                                                        $mime = 'image/gif'; break;
-                                                    case 'png':
-                                                        $mime = 'image/png'; break;
-                                                    default:
-                                                        $mime = 'application/octet-stream';
-                                                }
-                                                if ($file = File::createFromFile($newname, basename($src), $mime, true)) {
-                                                    $newsrc = \Idno\Core\site()->config()->getURL() . 'file/' . $file->file['_id'];
-                                                    $body = str_replace($src, $newsrc, $body);
-                                                    @unlink($newname);
-                                                } else {
-                                                    error_log("Couldn't store newname");
-                                                }
-
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                            self::importImagesFromBodyHTML($body);
 
                             $object = new \IdnoPlugins\Text\Entry();
                             $object->setTitle(html_entity_decode($item->get_title()));
@@ -279,6 +246,45 @@
 
                     }
 
+                }
+
+            }
+
+            static function importImagesFromBodyHTML($body) {
+
+                $doc = new \DOMDocument();
+                if (@$doc->loadHTML($body)) {
+                    if ($images = $doc->getElementsByTagName('img')) {
+                        foreach($images as $image) {
+                            $src = $image->getAttribute('src');
+                            if (substr_count($src,'blogspot.com')) {
+                                $dir = site()->config()->getTempDir();
+                                $name = md5($src);
+                                $newname = $dir . $name . basename($src);
+                                if (@file_put_contents($newname , fopen($src, 'r'))) {
+                                    switch (strtolower(pathinfo($src, PATHINFO_EXTENSION))) {
+                                        case 'jpg':
+                                        case 'jpeg':
+                                            $mime = 'image/jpg'; break;
+                                        case 'gif':
+                                            $mime = 'image/gif'; break;
+                                        case 'png':
+                                            $mime = 'image/png'; break;
+                                        default:
+                                            $mime = 'application/octet-stream';
+                                    }
+                                    if ($file = File::createFromFile($newname, basename($src), $mime, true)) {
+                                        $newsrc = \Idno\Core\site()->config()->getURL() . 'file/' . $file->file['_id'];
+                                        $body = str_replace($src, $newsrc, $body);
+                                        @unlink($newname);
+                                    } else {
+                                        error_log("Couldn't store newname");
+                                    }
+
+                                }
+                            }
+                        }
+                    }
                 }
 
             }
@@ -299,8 +305,76 @@
              */
             static function ImportWordPressXML($xml) {
 
-                // TODO add WordPress-specific content to the parent method
-                return self::ImportFeedXML($xml);
+                // XML will be imported as blog posts, so make sure we can import those ...
+                if (!($text = site()->plugins()->get('Text'))) {
+                    return false;
+                }
+
+                if ($data = simplexml_load_string($xml, null, LIBXML_NOCDATA)) {
+
+                    $namespaces = $data->getDocNamespaces(false);
+                    $namespaces[] = null;
+
+                    unset($namespace_data);
+                    unset($xml);
+
+                    if (!empty($data->channel->item)) {
+                        foreach($data->channel->item as $item_structure) {
+                            $item = [];
+                            foreach($namespaces as $ns => $namespace) {
+                                if ($properties = (array)$item_structure->children($namespace)) {
+                                    foreach($properties as $name => $val) {
+                                        if (!empty($ns)) {
+                                            $name = $ns . ':' . $name;
+                                        }
+                                        $item[$name] = $val;
+                                    }
+                                }
+                            }
+
+                            $title = $item['title'];
+                            if (!empty($item['content:encoded'])) {
+                                $body = $item['content:encoded'];
+                            } else if (!empty($item['description'])) {
+                                $body = $item['description'];
+                            } else {
+                                $body = '';
+                            }
+                            if (!empty($item['wp:post_date'])) {
+                                $published = strtotime($item['wp:post_date']);
+                            } else if (!empty($item['pubDate'])) {
+                                $published = strtotime($item['pubDate']);
+                            } else {
+                                $published = time();
+                            }
+                            if (!empty($item['category'])) {
+                                $tags = [];
+                                if (!is_array($item['category'])) {
+                                    $item['category'] = [$item['category']];
+                                }
+                                foreach($item['category'] as $category) {
+                                    $category = strtolower(trim($category));
+                                    if ($category != 'general') {
+                                        $tags[] = '#' . preg_replace('/\s+/', '', $category);
+                                    }
+                                }
+                                if (!empty($tags)) {
+                                    $body .= '<p>' . implode(' ',$tags) . '</p>';
+                                }
+                            }
+
+                            self::importImagesFromBodyHTML($body);
+
+                            $object = new \IdnoPlugins\Text\Entry();
+                            $object->setTitle(html_entity_decode($title));
+                            $object->created = published;
+                            $object->body = ($body);
+                            $object->save(true);
+
+                        }
+                    }
+
+                }
 
             }
 
