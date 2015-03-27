@@ -1,4 +1,4 @@
-#Known - a publishing platform for everyone!
+#Known: create a single site for all your content
 
 ![Known - A publishing platform for everyone](https://raw.githubusercontent.com/idno/Known/master/gfx/robots/feedback.png "Hello!")
 
