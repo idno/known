@@ -32,7 +32,6 @@
                 session_name(site()->config->sessionname);
                 session_start();
                 session_cache_limiter('public');
-                session_regenerate_id(true);
 
                 // Session login / logout
                 site()->addPageHandler('/session/login', '\Idno\Pages\Session\Login', true);
@@ -373,6 +372,8 @@
             {
                 $return = $this->refreshSessionUser($user);
 
+                session_regenerate_id(true);
+                
                 return \Idno\Core\site()->triggerEvent('user/auth', array('user' => $user), $return);
             }
 
