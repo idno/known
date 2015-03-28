@@ -22,7 +22,7 @@
                     'object' => $object
                 ))->draw('entity/Entry/edit');
 
-                if (empty($object)) {
+                if (empty($vars['object']->_id)) {
                     $title = 'Write an entry';
                 } else {
                     $title = 'Edit entry';
