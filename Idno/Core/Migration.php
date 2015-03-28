@@ -277,8 +277,6 @@
                                         $newsrc = \Idno\Core\site()->config()->getURL() . 'file/' . $file->file['_id'];
                                         $body = str_replace($src, $newsrc, $body);
                                         @unlink($newname);
-                                    } else {
-                                        error_log("Couldn't store newname");
                                     }
 
                                 }
