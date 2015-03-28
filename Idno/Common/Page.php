@@ -86,7 +86,7 @@
 
                 \Idno\Core\site()->triggerEvent('page/head', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
-                // Triggering GET content to call all the appropriate headers (web server should truncate the head request from body). 
+                // Triggering GET content to call all the appropriate headers (web server should truncate the head request from body).
                 // This is the only way we can generate accurate expires and content length etc, but could be done more efficiently
                 $this->getContent();
 
@@ -147,7 +147,7 @@
                 if (\Idno\Core\site()->session()->isAPIRequest()) {
 
                     // If postContent hasn't forwarded itself, and returns null, then balance of probabilities is something went wrong.
-                    // Either way, it's not safe to forward to the site root since this spits back json encoded front page and a 200 response. 
+                    // Either way, it's not safe to forward to the site root since this spits back json encoded front page and a 200 response.
                     // API currently doesn't explicitly handle this situation (bad), but we don't want to forward (worse). Some plugins will still
                     // forward to / in some situations, these will need rewriting.
                     if ($return === null)
@@ -571,7 +571,7 @@
                     } else {
                         $this->deniedContent();
                     }
-                    
+
                 }
             }
 
@@ -670,7 +670,7 @@
                         return true;
                 } else if (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == '443'))
                     return true;
-                
+
                 if(isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'){
                     return true;
                 }
@@ -781,7 +781,17 @@
                 }
             }
 
-            function getallheaders() {
+            /**
+             * Shim for running on nginx, which doesn't provide the
+             * getallheaders function
+             * @return array
+             */
+            function getallheaders()
+            {
+                if (function_exists('getallheaders')) {
+                    return getallheaders();
+                }
+
                 $headers = '';
                 foreach ($_SERVER as $name => $value) {
                     if (substr($name, 0, 5) == 'HTTP_') {
@@ -953,4 +963,3 @@
         }
 
     }
-
