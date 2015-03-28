@@ -21,8 +21,8 @@
                 ini_set('session.cookie_lifetime', 60 * 60 * 24 * 7); // Persistent cookies
                 ini_set('session.gc_maxlifetime', 60 * 60 * 24 * 7); // Garbage collection to match
                 ini_set('session.cookie_httponly', true); // Restrict cookies to HTTP only (help reduce XSS attack profile)
-                //ini_set('session.use_strict_mode', true); // Help mitigate session fixation
-                //ini_set('session.hash_function', 'sha256'); // Using a more secure hashing algorithm for session IDs
+                ini_set('session.use_strict_mode', true); // Help mitigate session fixation
+                ini_set('session.hash_function', 'sha256'); // Using a more secure hashing algorithm for session IDs
                 if (site()->isSecure()) {
                     ini_set('session.cookie_secure', true); // Set secure cookies when site is secure
                 }
@@ -32,7 +32,6 @@
                 session_name(site()->config->sessionname);
                 session_start();
                 session_cache_limiter('public');
-                session_regenerate_id(true);
 
                 // Session login / logout
                 site()->addPageHandler('/session/login', '\Idno\Pages\Session\Login', true);
@@ -373,6 +372,8 @@
             {
                 $return = $this->refreshSessionUser($user);
 
+                session_regenerate_id(true);
+                
                 return \Idno\Core\site()->triggerEvent('user/auth', array('user' => $user), $return);
             }
 
