@@ -15,7 +15,7 @@
                 } else {
                     $title = 'New bookmark';
                     $object = new \IdnoPlugins\Like\Like();
-                    $object->setTitle($object->getTitleFromURL($this->getInput('url')));
+                    $object->pageTitle = ($object->getTitleFromURL($this->getInput('url')));
                 }
 
                 $t = \Idno\Core\site()->template();
