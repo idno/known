@@ -53,6 +53,7 @@
 
                             /* @var \Idno\Entities\User $user */
                             $user->setPassword($password);
+                            $user->clearPasswordRecoveryCode();
                             $user->save();
                             \Idno\Core\site()->session()->addMessage("Your password was reset!");
 
