@@ -24,15 +24,22 @@
                                    echo htmlspecialchars($vars['object']->body);
                                } else {
                                    echo htmlspecialchars($vars['url']);
-                               } ?>" class="span8"/>
+                               } ?>" class="span8 bookmark-url"/>
                     </label>
-                    <!-- <label>
+                    <div class="bookmark-spinner-container">
+                        <div class="spinner bookmark-title-spinner" style="display:none">
+                            <div class="bounce1"></div>
+                            <div class="bounce2"></div>
+                            <div class="bounce3"></div>
+                        </div>
+                    </div>
+                    <label class="bookmark-title-container" <?php if (empty($vars['object']->pageTitle)) { ?>style="display:none"<?php } ?>>
                         Page title<br/>
                         <input required type="text" name="title" id="title" placeholder="Page name"
                                value="<?php
                                    echo htmlspecialchars($vars['object']->pageTitle);
-                               ?>" class="span8"/>
-                    </label> -->
+                               ?>" class="span8 bookmark-title"/>
+                    </label>
                     <label>
                         Comments<br/>
 
@@ -54,3 +61,34 @@
         </div>
     </form>
 <?= $this->draw('entity/edit/footer'); ?>
+<script language="javascript">
+
+    $(document).ready(function() {
+
+        $('.bookmark-url').change(function() {
+
+            if ($('bookmark-url').val() != "") {
+                $('.bookmark-title-spinner').show();
+                $.ajax({
+                    dataType: "json",
+                    url: "<?=\Idno\Core\site()->config()->getDisplayURL()?>like/callback/",
+                    data: {
+                        url: $('.bookmark-url').val()
+                    },
+                    success: function(data) {
+                        $('.bookmark-title').val(data.value);
+                        $('.bookmark-spinner-container').html(" ");
+                        $('.bookmark-title-container').show();
+                    },
+                    error: function() {
+                        $('.bookmark-spinner-container').html(" ");
+                        $('.bookmark-title-container').show();
+                    }
+                });
+            }
+
+        });
+
+    })
+
+</script>
