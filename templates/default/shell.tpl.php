@@ -9,10 +9,14 @@
         $vars['title'] = implode(' ', array_slice(explode(' ', strip_tags($vars['description'])), 0, 10));
     }
 
+    // Use appropriate language
+    $lang = 'en';
+    if (!empty(\Idno\Core\site()->config()->lang))
+        $lang = \Idno\Core\site()->config()->lang;
 ?>
 <?php if (!$_SERVER["HTTP_X_PJAX"]): ?>
     <!DOCTYPE html>
-<html lang="en">
+<html lang="<?= $lang; ?>">
 <head>
     <meta charset="utf-8">
     <title><?= htmlspecialchars($vars['title']); ?></title>
@@ -20,6 +24,7 @@
     <meta name="viewport" content="initial-scale=1.0" media="(device-height: 568px)"/>
     <meta name="description" content="<?= htmlspecialchars(strip_tags($vars['description'])) ?>">
     <meta name="generator" content="Known https://withknown.com">
+    <meta http-equiv="Content-Language" content="<?= $lang; ?>">
 
     <?= $this->draw('shell/icons'); ?>
     <?= $this->draw('shell/favicon'); ?>
