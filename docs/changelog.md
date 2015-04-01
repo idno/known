@@ -2,6 +2,18 @@
 
 Starting with version 0.6.4, this is a list of changes in the self-hosted, open source version of Known.
 
+0.7.6
+-----
+March 31, 2015
+
+* Better bookmark page title handling (again!)
+* Improved session handling
+* Thumbnails are higher quality
+* Further improvement to Open Graph tag handling
+* Improvement to PubSubHubbub HTTP headers
+* A number of fixes across plugins
+* Experimental release of WordPress importer
+
 0.7.5
 -----
 March 2, 2015
