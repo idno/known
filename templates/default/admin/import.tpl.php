@@ -21,7 +21,7 @@
             </h2>
             <p>
                 Upload a WordPress XML file and turn it into Known posts.
-                <small><a href="#" onclick="$('#wordpress-explanation').show(); return false;">How do I get my WordPress XML file?</a></small>
+                <small>(Experimental) <a href="#" onclick="$('#wordpress-explanation').show(); return false;">How do I get my WordPress XML file?</a></small>
             </p>
             <div id="wordpress-explanation" class="well" style="display:none">
                 <p>
@@ -47,7 +47,7 @@
                 </label>
                 <?= \Idno\Core\site()->actions()->signForm('/admin/import') ?>
                 <input type="hidden" name="import_type" value="WordPress">
-                <input type="submit" class="btn " id="wordpress-submit" value="Import your data" style="display:none">
+                <input type="submit" class="btn " id="wordpress-submit" value="Import your data" style="display:none"><br>
             </p>
 
         </form>
