@@ -155,7 +155,14 @@
                 if (!empty($_SERVER['SERVER_NAME'])) {
 
                     // Servername specified, so we can construct things in the normal way.
-                    return (\Idno\Common\Page::isSSL() ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . '/'; // A naive default base URL
+                    $url = (\Idno\Common\Page::isSSL() ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'];
+                    if (!empty($_SERVER['SERVER_PORT'])) {
+                        if ($_SERVER['SERVER_PORT'] != 80 && $_SERVER['SERVER_PORT'] != 443) {
+                            $url .= ':' . $_SERVER['SERVER_PORT'];
+                        }
+                    }
+                    $url .= '/'; // A naive default base URL
+                    return $url;
                 }
 
                 // No servername set, try something else
