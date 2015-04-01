@@ -38,6 +38,14 @@ The plugin.ini file contains a number of text entries:
 More may be added over time. These entries are displayed in Known's administration panel but may also be displayed in
 a future plugin directory.
 
+Additionally, plugin authors can specify dependencies:
+
+    extension[] = "php extension"
+    extension[] = "second php extension"
+
+    plugin[] = "Known plugin"
+    plugin[] = "Another Known plugin"
+
 ## Namespaces
 
 Plugins are all defined as classes inside the IdnoPlugins namespace. For example, if your plugin was called Banana,
