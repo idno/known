@@ -22,7 +22,7 @@
                 $src = $mainsrc;
             }
             
-            // Patch to correct certain broken URLs caused by https://github.com/idno/idno/issues/526
+            // Patch to correct certain broken URLs caused by https://github.com/idno/known/issues/526
             $src = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\site()->config()->getDisplayURL(), $src);
             $mainsrc = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\site()->config()->getDisplayURL(), $mainsrc);
             

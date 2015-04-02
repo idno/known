@@ -8,7 +8,7 @@
      * check out the README.md file.
      *
      * Project homepage:    https://withknown.com/
-     * Project repo:        https://github.com/idno/idno
+     * Project repo:        https://github.com/idno/known
      *
      * @package idno
      * @subpackage core

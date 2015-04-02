@@ -17,7 +17,7 @@ Note that Known currently does not support installation in subdirectories. Your 
 You can place the platform on your web host by:
 
 + Downloading the latest package from [the Known homepage](https://withknown.com/). This is by far the easiest option. If you’ve uploaded the files inside the archive to your web host, you can skip to the configuration section of these documents, below.
-+ Git clone the repository to an appropriate directory (or just straight into the folder root of your web host). Note that you need to make sure you acquire [the Git submodules](http://git-scm.com/book/en/v2/Git-Tools-Submodules). eg: ```git clone --recursive git@github.com:idno/idno.git /path/to/webroot```
++ Git clone the repository to an appropriate directory (or just straight into the folder root of your web host). Note that you need to make sure you acquire [the Git submodules](http://git-scm.com/book/en/v2/Git-Tools-Submodules). eg: ```git clone --recursive git@github.com:idno/known.git /path/to/webroot```
 + If you git cloned the repository to your local disk, use a file transfer app to move the files to your web host.
 
 Explaining how to use Git is beyond the scope of this tutorial, but there are plenty of great tutorials on the web. Make sure to enable the [Git submodules](http://git-scm.com/book/en/v2/Git-Tools-Submodules). You’ll find the Known git repository URL on [the main Known GitHub page](https://github.com/idno/idno).
