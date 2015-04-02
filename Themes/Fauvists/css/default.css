@@ -50,7 +50,7 @@ a.contentTypeButton {
     border-radius: 100%;
     border: 3px solid #643196;
     margin-bottom: 10px;
-    width: 75px;
+    width: 90px;
 }   
 
 a.contentTypeButton:hover {
@@ -96,7 +96,7 @@ a.contentTypeButton:hover {
 .navbar.navbar-default .nav > li > a {
     color: #ffa851;
     text-shadow: none;
-    margin-top: 3px; 
+    margin-top: 0px; 
 }
 
 .navbar.navbar-default .nav > li > a:hover, .navbar.navbar-default .nav >li > a:focus {
@@ -135,7 +135,6 @@ a.contentTypeButton:hover {
     border-bottom-color: #ffa851;
     border-top-color: #ffa851;
 }
-
 
 .idno-content p {
 	font-family: "Open Sans","Corbel","Arial",sans-serif;
@@ -603,12 +602,6 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     color: #fff;
 }
 
-.navbar-nav > li > .nav > li > a {
-    color: #fff;
-    padding-bottom: 0;
-    padding-top: 12px;
-}
-
 .navbar .nav .dropdown-toggle .caret {
     margin-top: 0;
 }
@@ -624,5 +617,30 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     line-height: 2em;
     margin-right: 0; 
 }
+
+.navbar-default .navbar-nav > .active > a, 
+.navbar-default .navbar-nav > .open > a {
+    background-image: none;
+    background-repeat: repeat-x;
+    box-shadow: none;
+}
+
+.nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+    background-color: transparent;
+    border: none;
+}
+
+.navbar-nav > li > .nav > li > a {
+    color: #fff;
+    padding-bottom: 0;
+    padding-top: 15px;
+}
+
+ul > li > .nav {
+	padding-left: 0px;
+	margin-left: 0px;
+}
+
+
 
 
