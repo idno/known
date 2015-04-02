@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="">
                         <div class="e-note"><?php
                                 $description = $vars['user']->getDescription();
                                 if (!empty($description)) {
@@ -33,7 +33,8 @@
                                     </p>
                                 <?php
                                 }
-                            ?></div>
+                            ?>
+                        </div>
 
                         <?= $this->draw('entity/User/profile/fields') ?>
                         <?php
@@ -43,7 +44,7 @@
                                 // the user's name over in the next div. TODO: find a better way to do this
                                 // that retains visual consistency.
                                 ?>
-                                <h1><a href="<?= $vars['user']->getEditURL() ?>" class="btn btn-large">Edit</a></h1>
+                                <p style=""><a href="<?= $vars['user']->getEditURL() ?>" class="btn btn-large">Edit profile</a></p>
                             <?php
 
                             }
