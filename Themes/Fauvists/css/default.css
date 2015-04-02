@@ -443,10 +443,10 @@ span.contentTypeLogo {
     margin: 0 0 10px;
 }
 
-ul, ol {
+/*ul, ol {
     margin: 0 0 10px 35px;
     padding: 0;
-}        
+}   */     
 
 blockquote {
     border-left: 5px solid #673095;
