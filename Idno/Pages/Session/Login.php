@@ -32,10 +32,7 @@
 
             function postContent()
             {
-                /*if (!\Idno\Common\Page::isSSL() && !\Idno\Core\site()->config()->disable_cleartext_warning) {
-                    \Idno\Core\site()->session()->addErrorMessage("Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini");
-                }*/
-                    
+
                 $fwd = $this->getInput('fwd'); // Forward to a new page?
                 if (empty($fwd)) {
                     $fwd = \Idno\Core\site()->config()->url;

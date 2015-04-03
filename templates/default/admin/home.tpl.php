@@ -175,6 +175,21 @@
                 </div>
             </div>
 
+            <!---------->
+            <div class="row">
+                <div class="span2">
+                    <p><label class="control-label" for="items_per_page"><strong>Notify Internet Archive</strong></label></p>
+                </div>
+                <div class="config-toggle span4">
+                    <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
+                           name="wayback_machine"
+                           value="true" <?php if (\Idno\Core\site()->config()->wayback_machine == true) echo 'checked'; ?>>
+                </div>
+                <div class="span4"><p class="config-desc">Notify <a href="https://archive.org" target="_blank">the Internet Archive</a>
+                        about new public posts.</p>
+                </div>
+            </div>
+
             <?=$this->draw('admin/home/settings')?>
 
             <div class="control-group">

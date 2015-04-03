@@ -9,6 +9,8 @@
 
     namespace Idno\Core {
 
+        use Idno\Common\Entity;
+
         class Syndication extends \Idno\Common\Component
         {
 
@@ -26,11 +28,17 @@
 
                     $eventdata = $event->data();
                     if (!empty($eventdata['object'])) {
+                        if (!empty(site()->config()->wayback_machine)) {
+                            if ($eventdata['object'] instanceof Entity) {
+                                if ($eventdata['object']->isPublic()) {
+                                    Webservice::get('https://web.archive.org/save/' . $eventdata['object']->getDisplayURL());
+                                    error_log("Pinged " . 'https://web.archive.org/save/' . $eventdata['object']->getDisplayURL());
+                                }
+                            }
+                        }
                         $content_type = $eventdata['object']->getActivityStreamsObjectType();
                         if ($services = \Idno\Core\site()->syndication()->getServices($content_type)) {
-                            error_log("SERVICES for $content_type are " . json_encode($services));
                             if ($selected_services = \Idno\Core\site()->currentPage()->getInput('syndication')) {
-                                error_log("SELECTED SERVICES ARE " . json_encode($selected_services));
                                 if (!empty($selected_services) && is_array($selected_services)) {
                                     foreach ($selected_services as $selected_service) {
                                         $event->data()['syndication_account'] = false;
