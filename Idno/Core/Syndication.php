@@ -32,7 +32,6 @@
                             if ($eventdata['object'] instanceof Entity) {
                                 if ($eventdata['object']->isPublic()) {
                                     Webservice::get('https://web.archive.org/save/' . $eventdata['object']->getDisplayURL());
-                                    error_log("Pinged " . 'https://web.archive.org/save/' . $eventdata['object']->getDisplayURL());
                                 }
                             }
                         }
