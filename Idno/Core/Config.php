@@ -67,7 +67,7 @@
                 $this->disable_cleartext_warning = false; // Set to true to disable warning when access credentials are sent in the clear
                 $this->cookie_jar                = rtrim(sys_get_temp_dir(), '/\\') . DIRECTORY_SEPARATOR; // Cookie jar for API requests, default location isn't terribly secure on shared hosts!
                 $this->multi_syndication         = true; // Do we allow multiple accounts per syndication endpoint?
-                $this->wayback_machine           = true; // Automatically ping new pages on public sites to the Internet Archive
+                $this->wayback_machine           = false; // Automatically ping new pages on public sites to the Internet Archive
 
                 $this->loadIniFiles();
 
