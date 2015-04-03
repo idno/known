@@ -123,21 +123,21 @@
     ?>
 
     <!-- Le styles -->
-    <link href="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/css/bootstrap.css"
+    <link href="<?= \Idno\Core\site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/css/bootstrap.css"
           rel="stylesheet">
     <link rel="stylesheet"
-          href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/fontello/css/known-fontello.css">
+          href="<?= \Idno\Core\site()->config()->getStaticURL() ?>external/fontello/css/known-fontello.css">
     <!--<link rel="stylesheet"
-          href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/font-awesome/css/font-awesome.min.css">-->
+          href="<?= \Idno\Core\site()->config()->getStaticURL() ?>external/font-awesome/css/font-awesome.min.css">-->
     <style>
         body {
             padding-top: 100px; /* 60px to make the container go all the way to the bottom of the topbar */
         }
     </style>
     <link
-        href="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/css/bootstrap-responsive.css"
+        href="<?= \Idno\Core\site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/css/bootstrap-responsive.css"
         rel="stylesheet">
-    <link href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>css/default.css?20150123" rel="stylesheet">
+    <link href="<?= \Idno\Core\site()->config()->getStaticURL() ?>css/default.css?20150123" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -146,10 +146,10 @@
     <![endif]-->
 
     <!-- We need jQuery at the top of the page -->
-    <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/jquery/' ?>jquery.min.js"></script>
+    <script src="<?= \Idno\Core\site()->config()->getStaticURL() . 'external/jquery/' ?>jquery.min.js"></script>
 
     <!-- Default Known JavaScript -->
-    <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'js/default.js' ?>"></script>
+    <script src="<?= \Idno\Core\site()->config()->getStaticURL() . 'js/default.js' ?>"></script>
 
     <!-- To silo is human, to syndicate divine -->
     <link rel="alternate" type="application/rss+xml" title="<?= htmlspecialchars($vars['title']) ?>"
@@ -183,15 +183,15 @@
         }
     ?>
 
-   <script src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/fragmention/fragmention.js"></script>
+   <script src="<?= \Idno\Core\site()->config()->getStaticURL() ?>external/fragmention/fragmention.js"></script>
 
     <!-- Syndication -->
-    <link href="<?=\Idno\Core\site()->config()->getDisplayURL()?>external/bootstrap-toggle/css/bootstrap2-toggle.min.css" rel="stylesheet" />
-    <script src="<?=\Idno\Core\site()->config()->getDisplayURL()?>external/bootstrap-toggle/js/bootstrap2-toggle.js"></script>
+    <link href="<?=\Idno\Core\site()->config()->getStaticURL()?>external/bootstrap-toggle/css/bootstrap2-toggle.min.css" rel="stylesheet" />
+    <script src="<?=\Idno\Core\site()->config()->getStaticURL()?>external/bootstrap-toggle/js/bootstrap2-toggle.js"></script>
 
     <!-- Syntax highlighting -->
-    <link href="<?=\Idno\Core\site()->config()->getDisplayURL()?>external/highlight/styles/default.css" rel="stylesheet">
-    <script src="<?=\Idno\Core\site()->config()->getDisplayURL()?>external/highlight/highlight.pack.js"></script>
+    <link href="<?=\Idno\Core\site()->config()->getStaticURL()?>external/highlight/styles/default.css" rel="stylesheet">
+    <script src="<?=\Idno\Core\site()->config()->getStaticURL()?>external/highlight/highlight.pack.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
 
     <?= $this->draw('shell/head', $vars); ?>

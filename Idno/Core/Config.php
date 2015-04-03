@@ -40,7 +40,9 @@
                 'default_config'         => true, // This is a trip-switch - changed to false if configuration is loaded from an ini file / the db
                 'log_level'              => 4,
                 'multi_syndication'      => true,
-                'external_plugin_folder' => false
+                'external_plugin_folder' => false,
+                'wayback_machine'        => false,
+                'static_url'             => false,
             );
 
             public $ini_config = array();
@@ -51,6 +53,7 @@
                 // If not, we'll use default values. No skin off our nose.
                 $this->path                      = dirname(dirname(dirname(__FILE__))); // Base path
                 $this->url                       = $this->detectBaseURL();
+                $this->static_url                = false;
                 $this->title                     = 'New Known site'; // A default name for the site
                 $this->description               = 'A social website powered by Known'; // Default description
                 $this->timezone                  = 'UTC';
@@ -298,6 +301,18 @@
                 }
 
                 return str_replace($urischeme . ':', $newuri, $url);
+            }
+
+            /**
+             * Retrieves the URL for static assets
+             * @return mixed
+             */
+            function getStaticURL()
+            {
+                if (!empty($this->static_url)) {
+                    return $this->static_url;
+                }
+                return $this->getDisplayURL();
             }
 
             /**
