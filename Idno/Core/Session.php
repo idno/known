@@ -353,7 +353,6 @@
 
                 // If this is an API request but we're not logged in, set page response code to access denied
                 if ($this->isAPIRequest() && !$return) {
-                    error_log("Bad auth");
                     site()->currentPage()->setResponse(403);
                 }
 

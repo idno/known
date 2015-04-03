@@ -25,7 +25,6 @@
                         }
                         if ($file = \Idno\Entities\File::createFromFile($_FILES['file']['tmp_name'], $_FILES['file']['name'], $_FILES['file']['type'], true, true)) {
                             echo json_encode(\Idno\Core\site()->config()->url . 'file/' . $file->file['_id']);
-                            error_log(\Idno\Core\site()->config()->url . 'file/' . $file->file['_id']);
                         }
                     }
                 }

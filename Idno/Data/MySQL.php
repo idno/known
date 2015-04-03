@@ -444,7 +444,6 @@
             {
                 try {
                     $file = tempnam(\Idno\Core\site()->config()->getTempDir(),'sqldump');
-                    error_log('output file ' . $file);
                     $client = $this->client; /* @var \PDO $client */
                     $statement = $client->prepare("select * from {$collection}");
                     $output = '';
@@ -482,7 +481,7 @@
                     }
                     return $output;
                 } catch (\Exception $e) {
-                    error_log("Uh oh. " . $e->getMessage());
+                    \Idno\Core\site()->logging()->log($e->getMessage());
                     return false;
                 }
                 return false;
