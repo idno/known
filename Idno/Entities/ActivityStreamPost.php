@@ -149,6 +149,19 @@
             }
 
             /**
+             * No need for a friendly slug for activity streams
+             * @param string $slug
+             * @param int $max_pieces
+             * @return string
+             */
+            function setSlugResilient($slug, $max_pieces = 10)
+            {
+                $slug = md5(time() . rand(0,9999));
+                $this->slug = $slug;
+                return $slug;
+            }
+
+            /**
              * Pass webmentions to the component objects
              *
              * @param string $source The source URL
