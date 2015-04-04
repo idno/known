@@ -64,7 +64,7 @@
             Your API key: <?php if (\Idno\Core\site()->currentPage()->isSSL()) { ?><input type="text" id="apikey" class="span4" name="apikey"
                                  value="<?= htmlspecialchars($user->getAPIkey()) ?>" readonly>
             <?php } else { ?>
-            <em>Visit this page on a secure connection to view your API key.</em>
+            <em><a href="<?= str_replace('http://', 'https://', \Idno\Core\site()->currentPage()->currentUrl()); ?>">Visit this page on a secure connection to view your API key.</a></em>
             <?php } ?>
         </p>
 
