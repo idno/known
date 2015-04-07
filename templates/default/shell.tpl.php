@@ -149,7 +149,7 @@
     <script src="<?= \Idno\Core\site()->config()->getStaticURL() . 'external/jquery/' ?>jquery.min.js"></script>
 
     <!-- Default Known JavaScript -->
-    <script src="<?= \Idno\Core\site()->config()->getStaticURL() . 'js/default.js' ?>"></script>
+    <script src="<?= \Idno\Core\site()->config()->getStaticURL() . 'js/default.js?20150406' ?>"></script>
 
     <!-- To silo is human, to syndicate divine -->
     <link rel="alternate" type="application/rss+xml" title="<?= htmlspecialchars($vars['title']) ?>"

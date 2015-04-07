@@ -79,3 +79,9 @@ function autoSave(context, elements) {
         }
     }, 10000);
 }
+
+function knownStripHTML(html) {
+    var tmp = document.createElement("DIV");
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || "";
+}
