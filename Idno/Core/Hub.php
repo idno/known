@@ -125,7 +125,7 @@
                     }
                 }
 
-                $token_generator                                   = new \OAuthProvider(array());
+                $token_generator                                   = new TokenProvider();
                 $token                                             = $token_generator->generateToken(32);
                 $config                                            = site()->config;
                 $config->hub_settings['registration_token']        = bin2hex($token);
