@@ -31,7 +31,9 @@
                 ),
                 'themes'                 => array(),
                 'antiplugins'            => array(),
-                'alwaysplugins'          => array(),
+                'alwaysplugins'          => array(
+                                                    'Convoy'
+                ),
                 'prerequisiteplugins'    => array(),
                 'directloadplugins'      => array(),
                 'items_per_page'         => 10, // Default items per page
