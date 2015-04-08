@@ -51,7 +51,38 @@
              * @return bool False for now ...
              */
             function isConvoyEnabled() {
+                if ($this->getConvoyToken()) {
+                    return true;
+                }
                 return false;
+            }
+
+            /**
+             * Get Convoy token
+             * @return bool
+             */
+            function getConvoyToken() {
+                if ($token = \Idno\Core\site()->config()->convoy_token) {
+                    return $token;
+                }
+                return false;
+            }
+
+            /**
+             * Saves the Convoy token
+             * @param $token
+             */
+            function saveConvoyToken($token) {
+                \Idno\Core\site()->config()->convoy_token = $token;
+                \Idno\Core\site()->config()->save();
+            }
+
+            /**
+             * Removes the Convoy token
+             */
+            function removeConvoyToken() {
+                \Idno\Core\site()->config()->convoy_token = false;
+                \Idno\Core\site()->config()->save();
             }
 
         }
