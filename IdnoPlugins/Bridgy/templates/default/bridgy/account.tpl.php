@@ -28,26 +28,18 @@
 
     <div class="span6 offset1">
 
-        <form
-            action="https://www.brid.gy/facebook/start?feature=listen&callback=<?= urlencode(\Idno\Core\site()->config()->getDisplayURL() . 'account/bridgy/') ?>"
-            method="post">
-            <p>
-                <button class="btn btn-primary">Manage Facebook + Bridgy</button>
-            </p>
-            <p>
-                Bridgy pulls in comments and likes from Facebook.
-            </p>
-        </form>
-        <form
-            action="https://www.brid.gy/twitter/start?feature=listen&callback=<?= urlencode(\Idno\Core\site()->config()->getDisplayURL() . 'account/bridgy/') ?>"
-            method="post">
-            <p>
-                <button class="btn btn-primary">Manage Twitter + Bridgy</button>
-            </p>
-            <p>
-                Bridgy pulls in replies, favorites, and retweets from Twitter.
-            </p>
-        </form>
+        <h3>
+            <a href="https://www.brid.gy/facebook/start?feature=listen&callback=<?= urlencode(\Idno\Core\site()->config()->getDisplayURL() . 'account/bridgy/') ?>">Manage Facebook + Bridgy</a>
+        </h3>
+        <p>
+            Bridgy pulls in comments and likes from Facebook.
+        </p>
+        <h3 style="margin-top: 2em">
+            <a href="https://www.brid.gy/twitter/start?feature=listen&callback=<?= urlencode(\Idno\Core\site()->config()->getDisplayURL() . 'account/bridgy/') ?>">Manage Twitter + Bridgy</a>
+        </h3>
+        <p>
+            Bridgy pulls in replies, favorites, and retweets from Twitter.
+        </p>
 
     </div>
 
