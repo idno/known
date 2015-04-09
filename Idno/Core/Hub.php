@@ -289,7 +289,7 @@
                         $time      = time();
                         $signature = hash_hmac('sha1', $user->hub_settings['token'] . $time, $user->hub_settings['secret']);
 
-                        return $this->server . $endpoint . '?token=' . urlencode($user->hub_settings['token']) . '&time=' . $time . '&signature=' . $signature;
+                        return $this->server . $endpoint . '?token=' . urlencode($user->hub_settings['token']) . '&time=' . $time . '&signature=' . $signature . '&callback=' . urlencode($callback);
                     }
                 }
 
