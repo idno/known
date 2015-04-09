@@ -17,7 +17,7 @@
 
                 $t = \Idno\Core\site()->template();
                 $t->body = $t->__([])->draw('bridgy/account');
-                $t->title = 'Brid.gy';
+                $t->title = 'Interactions';
                 $t->drawPage();
 
             }
