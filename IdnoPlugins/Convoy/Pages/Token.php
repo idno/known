@@ -13,7 +13,7 @@
                     $convoy = \Idno\Core\site()->plugins()->get('Convoy'); /* @var \IdnoPlugins\Convoy\Main $convoy */
                     $convoy->saveConvoyToken($convoy_token);
                 }
-                $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'settings/connect/');
+                $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'account/settings/services/');
 
             }
 
