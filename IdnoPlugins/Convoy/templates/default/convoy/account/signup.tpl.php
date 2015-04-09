@@ -12,7 +12,10 @@
             APIs on your own server.
         </p>
         <p>
-            Convoy is coming soon.
+            Connect to Twitter, Facebook, LinkedIn, Flickr and more - instantly.
+        </p>
+        <p>
+            <a href="https://withknown.com/convoy/?domain=<?=\Idno\Core\site()->config()->host?>" class="btn btn-primary">Get started</a>
         </p>
 
     </div>

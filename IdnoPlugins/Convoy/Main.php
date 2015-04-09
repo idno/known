@@ -8,6 +8,7 @@
                 \Idno\Core\site()->addPageHandler('withknown/settings/?', '\IdnoPlugins\Convoy\Pages\Settings');
                 \Idno\Core\site()->addPageHandler('account/settings/services/?', '\IdnoPlugins\Convoy\Pages\Services');
                 \Idno\Core\site()->addPageHandler('withknown/syndication/?', '\IdnoPlugins\Convoy\Pages\Syndication');
+                \Idno\Core\site()->addPageHandler('convoy/token/?', '\IdnoPlugins\Convoy\Pages\Token');
 
                 if (\Idno\Core\site()->hub() || \Idno\Core\site()->session()->isAdmin()) {
                     \Idno\Core\site()->template()->extendTemplate('account/menu/items','convoy/account/menu', true);
