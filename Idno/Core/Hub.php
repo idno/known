@@ -143,6 +143,7 @@
              */
             function register()
             {
+
                 if (empty(site()->config->last_hub_ping)) {
                     $last_ping = 0;
                 } else {
@@ -284,18 +285,6 @@
                 site()->session()->refreshSessionUser($user);
 
                 if ($this->userIsRegistered($user)) {
-                    /*$results = $this->makeCall('hub/user/link', array('user' => $user->getUUID(), 'endpoint' => $endpoint, 'callback' => $callback));
-                    if (!empty($results['content'])) {
-                        $content = json_decode($results['content'], true);
-                    }
-                    if (!empty($content['link_token'])) {
-                        $link_token = $content['link_token'];
-                        $time       = time();
-                        $signature  = hash_hmac('sha1', $link_token . $time, $user->hub_settings['secret']);
-
-                        return $this->server . $endpoint . '?token=' . urlencode($link_token) . '&time=' . $time . '&signature=' . $signature;
-                    }*/
-
                     if (!empty($user->hub_settings['token'])) {
                         $time      = time();
                         $signature = hash_hmac('sha1', $user->hub_settings['token'] . $time, $user->hub_settings['secret']);

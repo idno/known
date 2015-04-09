@@ -9,10 +9,14 @@
                 \Idno\Core\site()->addPageHandler('account/settings/services/?', '\IdnoPlugins\Convoy\Pages\Services');
                 \Idno\Core\site()->addPageHandler('withknown/syndication/?', '\IdnoPlugins\Convoy\Pages\Syndication');
 
-                \Idno\Core\site()->template()->extendTemplate('account/menu/items','convoy/account/menu', true);
+                if (\Idno\Core\site()->hub() || \Idno\Core\site()->session()->isAdmin()) {
+                    \Idno\Core\site()->template()->extendTemplate('account/menu/items','convoy/account/menu', true);
+                }
 
                 if ($this->isConvoyEnabled()) {
-                    \Idno\Core\site()->known_hub = 'https://domains.withknown.com/';
+                    \Idno\Core\site()->session()->hub_connect = time();
+                    \Idno\Core\site()->known_hub = new \Idno\Core\Hub('https://domains.withknown.com/');
+                    \Idno\Core\site()->hub()->connect();
                     \Idno\Core\site()->template()->extendTemplate('content/syndication','convoy/syndication');
                     \Idno\Core\site()->template()->extendTemplate('content/syndication/embed', 'convoy/syndication/embed');
                 }
