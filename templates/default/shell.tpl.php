@@ -208,9 +208,57 @@
         }
         if (empty($vars['hidenav']) && empty($hidenav)) {
             ?>
-            
-            
+
             <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>"><?=
+                                $this->draw('shell/toolbar/title')
+                            ?>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="navbar-collapse">
+
+                        <?php
+                            if (\Idno\Core\site()->config()->isPublicSite() || \Idno\Core\site()->session()->isLoggedOn()) {
+                                echo $this->draw('shell/toolbar/search');
+
+                                echo $this->draw('shell/toolbar/content');
+                            }
+                        ?>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <?php
+
+                                echo $this->draw('shell/toolbar/links');
+
+                                if (\Idno\Core\site()->session()->isLoggedIn()) {
+
+                                    echo $this->draw('shell/toolbar/logged-in');
+
+                                } else {
+
+                                    echo $this->draw('shell/toolbar/logged-out');
+
+                                }
+
+                            ?>
+                        </ul>
+
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+<?php /*
+           <nav class="navbar navbar-default navbar-fixed-top">
 				<div class="container-fluid">
 					<div class="navbar-header">
 						<button class="navbar-toggle collapsed" data-target="#bs-navbar-collapse-1" data-toggle="collapse" type="button">
@@ -252,6 +300,7 @@
 					</div>
 				</div>
             </nav>
+*/ ?>
             
             
         <?php

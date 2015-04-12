@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Known Nav Bar</title>
+
+    <!-- Bootstrap -->
+    <link href="external/bootstrap/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+<style type="text/css">
+body {
+	padding-top: 70px;
+	min-height: 2000px;
+}
+	
+.container {
+	padding-left: 15px;
+	padding-right: 15px;
+}	
+	
+.navbar {
+	background-color: #fff;
+	border: medium none;
+	border-radius: 0;
+    box-shadow: none;
+/*    border-bottom: solid 1px #ddd;	*/
+	box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+	margin-bottom: 20px;
+}	
+
+.navbar-default .navbar-brand {
+    color: #333;
+}
+
+.navbar-brand {
+	font-size: 28px;
+	font-weight: 400;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .open > a {
+    background-image: none;
+    background-repeat: repeat-x;
+    box-shadow: none;
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
+    background-color: transparent;
+    color: #555;
+}
+
+.form-control.search-query {
+	border-radius: 15px;
+}
+
+.navbar-form .form-control.search-query:active {
+    border-color: #999;
+    box-shadow: none;
+    transition: none 0s ease 0s ;
+}
+
+.navbar-form .form-control.search-query:focus {
+	box-shadow: none;
+	border-color: #357ebd;
+}
+
+.dropdown-menu {
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #ddd;
+	border-left: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	box-shadow: none;
+}
+
+.dropdown-menu > li > a:focus, 
+.dropdown-menu > li > a:hover {
+	background-color: #73b2e3;
+	color: #333;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #333;
+}
+
+.navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > li > a:hover {
+    color: #666;
+}
+
+.fa-heart {
+    color: #9f111b;
+}
+
+.fa-heart:hover {
+    color: #af474f;
+}
+
+.dropdown-menu-icon {
+    display: inline-block;
+    width: 2em;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: transparent;
+}
+
+.navbar-default .navbar-toggle:focus,
+.navbar-default .navbar-toggle:hover {
+	background-color: #f8f8f8;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #333;
+}
+
+	
+</style>
+    
+  </head>
+  <body>
+	  
+ 
+		  <nav class="navbar navbar-default navbar-fixed-top">
+		  	<div class="container">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    		<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				<a class="navbar-brand" href="#">Known</a>
+	    		</div>
+	
+			    <!-- Collect the nav links, forms, and other content for toggling -->
+			    <div class="collapse navbar-collapse" id="navbar-collapse">
+  
+			    <form class="navbar-form navbar-search navbar-left" method="get" action="">
+				  	<div class="form-group">
+				  		<input class="search-query form-control" type="search" value="" placeholder="Search" name="q">
+					</div>
+				</form>
+			      
+			      
+			      <ul class="nav navbar-nav">
+				      <li class="dropdown">
+				          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Filter content <span class="caret"></span></a>
+				          <ul class="dropdown-menu" role="menu">
+				            <li><a href="#"><span class="dropdown-menu-icon">
+				            	</span>Default content</a></li>
+				            <li><a href="#"><span class="dropdown-menu-icon">
+				            	</span>All content</a></li>
+							<li><a href="#"><span class="dropdown-menu-icon">
+								<i class="fa fa-comment-o"></i>
+								</span>Status updates</a></li>
+							<li><a href="#"><span class="dropdown-menu-icon">
+								<i class="fa fa-align-left"></i>
+								</span>Posts</a></li>
+							<li><a href="#"><span class="dropdown-menu-icon">
+								<i class="fa fa-picture-o"></i>
+								</span>Photos</a></li>
+							<li><a href="#"><span class="dropdown-menu-icon">
+								<i class="fa fa-bookmark"></i>
+								</span>Bookmarks</a></li>
+							<li><a href="#"><span class="dropdown-menu-icon">
+								<i class="fa fa-map-marker"></i>
+								</span>Check-ins</a></li>
+							<li><a href="#"><span class="dropdown-menu-icon">
+								<i class="fa fa-microphone"></i>
+								</span>Audio</a></li>
+
+				          </ul>
+				        </li>
+			      </ul>
+
+			      <ul class="nav navbar-nav navbar-right">
+				  	<li class="dropdown">
+			          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Pages <span class="caret"></span></a>
+			          <ul class="dropdown-menu" role="menu">
+			            <li><a href="#">One</a></li>
+			            <li><a href="#">Two</a></li>
+			            <li><a href="#">Three</a></li>
+			          </ul>
+		  			</li>
+				  	<li><a href="#">Profile</a></li>
+				    <li><a href="#">Settings</a></li>
+					<li><a href="#">Site configuration</a></li>
+			        <li><a href="#"><i class="fa fa-heart"></i></a></li>
+			        <li><a href="#">Sign out</a></li>
+			      </ul>
+			    </div><!-- /.navbar-collapse -->
+			</div><!-- /.container-fluid -->
+		</nav>
+
+
+<div class="container-fluid col-md-10 col-md-offset-1">
+	<div class="jumbotron">
+		<h1>Known Navbar</h1>
+			<p>Hello World!</p>
+			<p>This is the default navbar.</p>
+	</div>
+</div>
+    
+    
+    
+    
+    
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="external/bootstrap/assets/js/bootstrap.min.js"></script>
+  </body>
+</html>
