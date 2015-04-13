@@ -16,7 +16,7 @@
     <div class="span10 offset1">
         <h3>Manage site users</h3>
         <p>
-            The following users are members of this site.
+            Your site has <strong><?=sizeof($vars['users'])?></strong> user<?php if (sizeof($vars['users']) != 1) { echo 's'; } ?>.
         </p>
     </div>
 </div>
