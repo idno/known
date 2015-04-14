@@ -479,10 +479,9 @@
                             $this->addToFeed($feed_verb);
                         }
                         $this->syndicate();
-                        $event = new \Idno\Core\Event(array('object' => $this));
-                        \Idno\Core\site()->events()->dispatch('saved', $event);
+                        \Idno\Core\site()->triggerEvent('saved', ['object' => $this]);
                     } else {
-                        \Idno\Core\site()->triggerEvent('updated', array('object' => $this));
+                        \Idno\Core\site()->triggerEvent('updated', ['object' => $this]);
                     }
 
                     return $this->_id;
