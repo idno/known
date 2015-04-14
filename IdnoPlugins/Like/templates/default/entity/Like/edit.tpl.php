@@ -33,7 +33,7 @@
                             <div class="bounce3"></div>
                         </div>
                     </div>
-                    <label class="bookmark-title-container" <?php if (empty($vars['object']->pageTitle)) { ?>style="display:none"<?php } ?>>
+                    <label class="bookmark-title-container" <?php if (empty($vars['object']->pageTitle) && empty($vars['object']->_id)) { ?>style="display:none"<?php } ?>>
                         Page title<br/>
                         <input required type="text" name="title" id="title" placeholder="Page name"
                                value="<?php
