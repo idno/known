@@ -290,7 +290,7 @@
 
             /**
              * Return a version of the URL suitable for displaying in templates etc
-             * @return mixed
+             * @return string
              */
             function getDisplayURL()
             {
@@ -306,8 +306,23 @@
             }
 
             /**
+             * Get a version of the URL without URI scheme or trailing slash
+             * @return string
+             */
+            function getSchemelessURL()
+            {
+                $url = $this->getURL();
+                $urischeme = parse_url($url, PHP_URL_SCHEME);
+                $url = str_replace($urischeme . '://','',$url);
+                if (substr($url,-1,1) == '/') {
+                    $url = substr($url,0,strlen($url) - 1);
+                }
+                return $url;
+            }
+
+            /**
              * Retrieves the URL for static assets
-             * @return mixed
+             * @return string
              */
             function getStaticURL()
             {
