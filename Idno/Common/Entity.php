@@ -1411,6 +1411,15 @@
             }
 
             /**
+             * Wrapper for getURL, specifically for syndication
+             * @return string
+             */
+            function getSyndicationURL()
+            {
+                return $this->getDisplayURL();
+            }
+
+            /**
              * Many properties in mf2 can have either a simple string value or a complex
              * object value, "u-in-reply-to h-cite" is a common example. This function
              * takes a possibly mixed array, and returns an array of only strings.
