@@ -36,6 +36,14 @@
             }
 
             /**
+             * Returns a URL for syndication
+             * @return mixed
+             */
+            function getSyndicationURL() {
+                return $this->body;
+            }
+
+            /**
              * Like objects have type 'bookmark'
              * @return 'bookmark'
              */
