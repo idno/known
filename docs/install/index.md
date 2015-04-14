@@ -7,3 +7,7 @@
 # Upgrading Known
 
 * [Upgrade instructions](upgrade.md)
+
+# Configuring Known
+
+* [Using config.ini to configure Known](config.md)

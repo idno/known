@@ -6,6 +6,7 @@ pages:
 - ['install/instructions.md', 'Installing and upgrading Known', 'Installation instructions']
 - ['install/requirements.md', 'Installing and upgrading Known', 'System requirements']
 - ['install/upgrade.md', 'Installing and upgrading Known', 'Upgrading Known']
+- ['install/config.md', 'Installing and upgrading Known', 'Using config.ini']
 - ['install/sharedhost.md', 'Installing and upgrading Known', 'Instructions for common shared hosting providers']
 - ['install/sharedhost/arvixe.md', 'Installing and upgrading Known', 'Installing on Arvixe']
 - ['developers/index.md', 'Known for developers', 'Introduction']
