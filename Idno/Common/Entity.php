@@ -1344,6 +1344,10 @@
                         ];
                     }
                 }
+                
+                if (!empty($this->annotations)) {
+                    $object['annotations'] = $this->annotations;
+                }
 
                 return $object;
             }
