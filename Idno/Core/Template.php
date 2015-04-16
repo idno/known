@@ -68,7 +68,9 @@
                     $result .= $this->rendered_extensions[$templateName];
                 }
 
-                return $result;
+                if (!empty($result)) return $result;
+                if ($returnBlank) return '';
+                return false;
             }
 
             /**
