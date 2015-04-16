@@ -40,14 +40,16 @@
             ?>
             <script>
                 window.addEventListener('load', function() {
-                    navigator.serviceWorker.register('<?=\Idno\Core\site()->config()->getDisplayURL()?>chrome/service-worker.js', { scope: '/' })
-                        .then(function(r) {
-                            console.log('Registered service worker');
-                        })
-                        .catch(function(whut) {
-                            console.error('Could not register service worker');
-                            console.error(whut);
-                        });
+                    if ('serviceWorker' in navigator) {
+                        navigator.serviceWorker.register('<?=\Idno\Core\site()->config()->getDisplayURL()?>chrome/service-worker.js', { scope: '/' })
+                            .then(function(r) {
+                                console.log('Registered service worker');
+                            })
+                            .catch(function(whut) {
+                                console.error('Could not register service worker');
+                                console.error(whut);
+                            });
+                        }
                 });
             </script>
         <?php
