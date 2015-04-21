@@ -108,7 +108,7 @@
 </form>
 <script>
     function adjust_content(url) {
-        var username = url.match(/https?:\/\/(www\.)?twitter\.com\/(#!\/)?@?([^\/]*)/)[3];
+        var username = url.match(/https?:\/\/([a-z]+\.)?twitter\.com\/(#!\/)?@?([^\/]*)/)[3];
         if (username != null) {
             if ($('#body').val().search('@' + username) == -1) {
                 $('#body').val('@' + username + ' ' + $('#body').val());
