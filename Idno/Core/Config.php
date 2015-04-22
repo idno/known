@@ -66,6 +66,7 @@
                 $this->known_hub                 = false;
                 $this->hub                       = 'https://withknown.superfeedr.com/';
                 $this->session_path              = session_save_path(); // Session path when not storing sessions in the database
+                $this->session_hash_function     = 'sha256'; // Default hash function
                 $this->disable_cleartext_warning = false; // Set to true to disable warning when access credentials are sent in the clear
                 $this->cookie_jar                = rtrim(sys_get_temp_dir(), '/\\') . DIRECTORY_SEPARATOR; // Cookie jar for API requests, default location isn't terribly secure on shared hosts!
                 $this->multi_syndication         = true; // Do we allow multiple accounts per syndication endpoint?
@@ -227,6 +228,7 @@
                 unset($array['feed']); // Don't save the feed URL to the database
                 unset($array['uploadpath']); // Don't save the upload path to the database
                 unset($array['session_path']); // Don't save the session path in the database
+                unset($array['session_hash_function']); // Don't save the session hash to database, we want the ability to upgrade
                 unset($array['cookie_jar']); // Don't save the cookie path in the database
                 unset($array['known_hub']);
 
@@ -266,6 +268,7 @@
                         unset($config['antiplugins']);
                         unset($config['alwaysplugins']);
                         unset($config['session_path']);
+                        unset($config['session_hash_function']); 
                         unset($config['cookie_jar']);
                     }
                     if (is_array($config)) {
