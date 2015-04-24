@@ -42,6 +42,9 @@
                     
                     session_destroy();
                 }
+                
+                // Flag insecure sessions (so we can check state changes etc)
+                $_SESSION['secure'] = site()->isSecure();
 
                 // Session login / logout
                 site()->addPageHandler('/session/login', '\Idno\Pages\Session\Login', true);
