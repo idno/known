@@ -33,18 +33,20 @@
                 session_start();
                 session_cache_limiter('public');
                 
+                
+                // Flag insecure sessions (so we can check state changes etc)
+                if (!isset($_SESSION['secure'])) $_SESSION['secure'] = site()->isSecure();
+                
                 // Validate session
                 try {
                     $this->validate();
                 } catch (\Exception $ex) {
                     // Session didn't validate, log & destroy
-                    site()->logging()->log($ex->getMessage(), 1);
+                    error_log($ex->getMessage());
                     
                     session_destroy();
                 }
                 
-                // Flag insecure sessions (so we can check state changes etc)
-                $_SESSION['secure'] = site()->isSecure();
 
                 // Session login / logout
                 site()->addPageHandler('/session/login', '\Idno\Pages\Session\Login', true);
@@ -72,6 +74,9 @@
              */
             protected function validate() {
                 
+                // Check for secure sessions being delivered insecurely, and vis versa
+                if ($_SESSION['secure'] != site()->isSecure()) 
+                    throw new \Exception ('Session funnybusiness: Secure session accessed insecurely, or an insecure session accessed over TLS.');
             }
 
             /**
