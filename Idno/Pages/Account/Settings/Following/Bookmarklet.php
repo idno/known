@@ -174,8 +174,10 @@
                                 \Idno\Core\site()->session()->addMessage("You are now following " . $new_user->getTitle());
                                 
                             }
-                        } else
+                        } else {
                             \Idno\Core\site()->logging->log('Could not follow user for some reason (probably already following)', LOGLEVEL_DEBUG);
+                            \Idno\Core\site()->session()->addErrorMessage('You\'re already following ' . $this->getInput('name'));
+                        }
                     } else
                         throw new \Exception('Sorry, that user doesn\'t exist!');
                 } else
