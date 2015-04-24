@@ -32,6 +32,16 @@
                 session_name(site()->config->sessionname);
                 session_start();
                 session_cache_limiter('public');
+                
+                // Validate session
+                try {
+                    $this->validate();
+                } catch (\Exception $ex) {
+                    // Session didn't validate, log & destroy
+                    site()->logging()->log($ex->getMessage(), 1);
+                    
+                    session_destroy();
+                }
 
                 // Session login / logout
                 site()->addPageHandler('/session/login', '\Idno\Pages\Session\Login', true);
@@ -51,6 +61,14 @@
                     }
 
                 });
+            }
+            
+            /**
+             * Validate the session.
+             * @throws \Exception if the session is invalid.
+             */
+            protected function validate() {
+                
             }
 
             /**
