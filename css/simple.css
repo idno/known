@@ -907,6 +907,10 @@ a.btn:hover {
     background-color: #FAC9B9;
 }
 
+.warning {
+    background-color: #FAF4B9;
+}
+
 .explainer {
     margin-top: 2em;
 }
