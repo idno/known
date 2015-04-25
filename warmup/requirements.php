@@ -74,7 +74,7 @@
                     } else {
                         $class = 'warning';
                     }
-                    $text = 'You appear to be running Known on an unsecured site, we strongly recommend obtaining a certificate to make your site secure.';
+                    $text = 'You appear to be running Known on an unsecured site. We strongly recommend obtaining a certificate to make your site secure, and protect the privacy of your users.';
                 }
             ?>
             <div class="component <?= $class ?>">
