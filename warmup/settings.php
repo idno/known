@@ -39,6 +39,29 @@
         }
     }
 
+    if (function_exists('apache_get_version')) {
+        $host = strtolower($_SERVER['HTTP_HOST']);
+        $schema = $_SERVER['HTTPS'] ? 'https://' : 'http://';
+
+        $curl_handle = curl_init();
+        curl_setopt($curl_handle, CURLOPT_URL, $schema . $host . '/js/canary.js');
+        curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl_handle, CURLOPT_HEADER, 1);
+
+        $curl_result = curl_exec($curl_handle);
+        $curl_status = curl_getinfo($curl_handle, CURLINFO_HTTP_CODE);
+
+        if ($curl_status < 200 || $curl_status > 299) {
+            $messages .= '<p>Rewriting appears to be disabled. Usually this means "AllowOverride None" is set in apache2.conf ';
+            $messages .= 'which prevents Known\'s .htaccess from doing its thing. We tried to fetch a URL that should redirect ';
+            $messages .= 'to default.js, but got this response instead:</p>';
+            $messages .= '<code><pre>'.htmlspecialchars($curl_result).'</pre></code>';
+            $ok = false;
+        }
+
+        curl_close($curl_handle);
+    }
+
     if (file_exists('../config.ini') && $ok) {
         header('Location: ../begin/register?set_name=' . urlencode($site_title));
         exit;
