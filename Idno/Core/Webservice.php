@@ -82,6 +82,28 @@
                 // Proxy connection string provided
                 if (!empty(\Idno\Core\site()->config()->proxy_string)) {
                     curl_setopt($curl_handle, CURLOPT_PROXY, \Idno\Core\site()->config()->proxy_string);
+                    
+                    // If proxy type not specified by command string (as some settings can't be), allow for proxy type to be passed.
+                    if (!empty(\Idno\Core\site()->config()->proxy_type)) {
+                        $type = 0;
+                        switch (\Idno\Core\site()->config()->proxy_type) {
+
+                            case 'socks4': 
+                            case 'CURLPROXY_SOCKS4': $type = CURLPROXY_SOCKS4; break;
+
+                            case 'socks5': 
+                            case 'CURLPROXY_SOCKS5': $type = CURLPROXY_SOCKS5; break;
+
+                            case 'socks5-hostname': 
+                            case 'CURLPROXY_SOCKS5_HOSTNAME': $type = 7; break; // Use proxy to resolve DNS, but this isn't defined in current versions of curl
+
+                            case 'http':
+                            case 'CURLPROXY_HTTP' : 
+                            default : $type = CURLPROXY_HTTP; break;
+                        }
+                        
+                        curl_setopt($curl_handle, CURLOPT_PROXYTYPE, $type);
+                    }
                 }
 
                 // Allow plugins and other services to extend headers, allowing for plugable authentication methods on calls
