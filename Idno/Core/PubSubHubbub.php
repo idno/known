@@ -247,21 +247,19 @@ namespace Idno\Core {
                     $feeds[] = $base.'tag/'.$tag;
                 }
 
-                // encode the feeds and their RSS counterparts
-                $encurls = array();
-                foreach ($feeds as $feed) {
-                    $encurls[] = urlencode($feed);
-                    $encurls[] = urlencode(
-                        \Idno\Core\site()->template()->getURLWithVar('_t', 'rss', $feed));
-                }
-
-                if (!empty($encurls)) {
-                    $urlstr = implode(',', $encurls);
-                    \Idno\Core\site()->logging()->log('Pinging '.$hub.' with url '.$urlstr);
-                    \Idno\Core\Webservice::post($hub, array(
-                        'hub.mode' => 'publish',
-                        'hub.url' => $urlstr
-                    ));
+                if (!empty($feeds)) {
+                    // encode the feeds and their RSS counterparts
+                    $encurls = array();
+                    foreach ($feeds as $feed) {
+                        $encurls[] = urlencode($feed);
+                        $encurls[] = urlencode(
+                            \Idno\Core\site()->template()->getURLWithVar('_t', 'rss', $feed));
+                    }
+                    
+                    $formdata = 'hub.mode=publish&hub.url='.implode(',', $encurls);
+                    \Idno\Core\site()->logging()->log('Pinging '.$hub.' with data '.$formdata);
+                    \Idno\Core\Webservice::post($hub, $formdata, array(
+                        'Content-Type' => 'application/x-www-form-urlencoded'));
                 }
 
                 return true;
