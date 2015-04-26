@@ -69,9 +69,17 @@
                 curl_setopt($curl_handle, CURLOPT_USERAGENT, "Known https://withknown.com");
                 curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
                 curl_setopt($curl_handle, CURLINFO_HEADER_OUT, 1);
-                curl_setopt($curl_handle, CURLOPT_SSL_VERIFYPEER, 1);
-                curl_setopt($curl_handle, CURLOPT_SSL_VERIFYHOST, 2);
                 curl_setopt($curl_handle, CURLOPT_HEADER, 1);
+                
+                // Allow unsafe ssl verify
+                if (!empty(\Idno\Core\site()->config()->disable_ssl_verify)) {
+                    curl_setopt($curl_handle, CURLOPT_SSL_VERIFYPEER, 0);
+                    curl_setopt($curl_handle, CURLOPT_SSL_VERIFYHOST, 0);
+                } else {
+                    curl_setopt($curl_handle, CURLOPT_SSL_VERIFYPEER, 1);
+                    curl_setopt($curl_handle, CURLOPT_SSL_VERIFYHOST, 2); 
+                }
+                
 
                 // If we're calling this function as a logged in user, then we need to store cookies in a cookiejar
                 if ($user = \Idno\Core\site()->session()->currentUser()) {
