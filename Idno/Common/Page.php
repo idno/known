@@ -3,7 +3,7 @@
     /**
      * Handles pages in the system (and, by extension, the idno API).
      *
-     * Developers shoudld extend the getContent, postContent and dataContent
+     * Developers should extend the getContent, postContent and dataContent
      * methods as follows:
      *
      * getContent: echoes HTML to the page
