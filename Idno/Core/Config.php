@@ -45,6 +45,7 @@
                 'external_plugin_folder' => false,
                 'wayback_machine'        => false,
                 'static_url'             => false,
+                'user_avatar_favicons'   => true
             );
 
             public $ini_config = array();
