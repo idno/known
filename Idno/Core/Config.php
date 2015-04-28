@@ -230,6 +230,9 @@
                 unset($array['session_path']); // Don't save the session path in the database
                 unset($array['session_hash_function']); // Don't save the session hash to database, we want the ability to upgrade
                 unset($array['cookie_jar']); // Don't save the cookie path in the database
+                unset($array['proxy_string']); 
+                unset($array['proxy_type']);
+                unset($array['disable_ssl_verify']);
                 unset($array['known_hub']);
 
                 // If we don't have a site secret, create it
@@ -270,6 +273,9 @@
                         unset($config['session_path']);
                         unset($config['session_hash_function']); 
                         unset($config['cookie_jar']);
+                        unset($config['proxy_string']); 
+                        unset($config['proxy_type']);
+                        unset($config['disable_ssl_verify']);
                     }
                     if (is_array($config)) {
                         $this->config = array_merge($this->config, $config);
