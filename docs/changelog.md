@@ -2,6 +2,22 @@
 
 Starting with version 0.6.4, this is a list of changes in the self-hosted, open source version of Known.
 
+0.7.8
+-----
+May 4, 2015
+
+* Hashtags now handle unicode character sets
+* Improved PubSubHubbub handling
+* Installation now detects rewrite rule support more reliably
+* Sessions do not persist between http and https
+* Site URL in public comments is now optional
+* Better mobile Twitter URL support
+* Internal web client is more configurable
+* Object annotations are included in JSON
+* Bookmarks syndicate to Twitter
+* Included tweets auto-embed in status updates
+* Includes Vagrant and Ansible configuration files
+
 0.7.7.1
 -------
 April 10, 2015
