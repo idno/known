@@ -26,6 +26,12 @@
                                    echo htmlspecialchars($vars['url']);
                                } ?>" class="span8 bookmark-url"/>
                     </label>
+                    <?php
+
+                        if (empty($vars['url'])) {
+
+                    ?>
+
                     <div class="bookmark-spinner-container">
                         <div class="spinner bookmark-title-spinner" style="display:none">
                             <div class="bounce1"></div>
@@ -33,6 +39,12 @@
                             <div class="bounce3"></div>
                         </div>
                     </div>
+                
+                    <?php
+
+                        }
+
+                    ?>
                     <label class="bookmark-title-container" <?php if (empty($vars['object']->pageTitle) && empty($vars['object']->_id)) { ?>style="display:none"<?php } ?>>
                         Page title<br/>
                         <input required type="text" name="title" id="title" placeholder="Page name"
