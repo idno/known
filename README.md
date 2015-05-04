@@ -1,6 +1,6 @@
 #Known: create a single site for all your content
 
-![Known - A publishing platform for everyone](https://raw.githubusercontent.com/idno/Known/master/gfx/robots/feedback.png "Hello!")
+![Known - A publishing platform for everyone](https://withknown.com/img/home/screens.png)
 
 ##Installation [![Build Status](https://travis-ci.org/idno/Known.svg?branch=master)](https://travis-ci.org/idno/Known)
 
