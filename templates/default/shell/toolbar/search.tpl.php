@@ -12,7 +12,7 @@
     }
 
 ?>
-<form class="navbar-form navbar-search navbar-left" action="<?=$action?>" method="get">
+<form class="navbar-form navbar-left" action="<?=$action?>" method="get" role="search">
     <div class="form-group">
         <input type="search" class="search-query form-control" name="q" placeholder="Search" value="<?php
 

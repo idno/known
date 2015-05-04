@@ -221,7 +221,7 @@
                         </button>
                         <a class="navbar-brand" href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>"><?=
                                 $this->draw('shell/toolbar/title')
-                            ?>
+                            ?></a>
                     </div>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
