@@ -595,8 +595,13 @@
                             }
                             if ($key == '$search') {
                                 $val                                         = $value[0]; // The search query is always in $value position [0] for now
-                                $subwhere[]                                  = "match (`search`) against (:nonmdvalue{$non_md_variables})";
-                                $variables[":nonmdvalue{$non_md_variables}"] = $val;
+                                if (strlen($val) > 3) {
+                                    $subwhere[]                                  = "match (`search`) against (:nonmdvalue{$non_md_variables})";
+                                    $variables[":nonmdvalue{$non_md_variables}"] = $val;
+                                } else {
+                                    $subwhere[] = "`search` like :nonmdvalue{$non_md_variables}";
+                                    $variables[":nonmdvalue{$non_md_variables}"] = '%' . $val . '%';
+                                }
                                 $non_md_variables++;
                             }
                         }
