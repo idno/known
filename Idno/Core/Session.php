@@ -22,7 +22,12 @@
                 ini_set('session.gc_maxlifetime', 60 * 60 * 24 * 7); // Garbage collection to match
                 ini_set('session.cookie_httponly', true); // Restrict cookies to HTTP only (help reduce XSS attack profile)
                 ini_set('session.use_strict_mode', true); // Help mitigate session fixation
-                ini_set('session.hash_function', 'sha256'); // Using a more secure hashing algorithm for session IDs
+                
+                // Using a more secure hashing algorithm for session IDs, if available
+                if (($hash = site()->config()->session_hash_function) && (in_array($hash, hash_algos()))) {
+                    ini_set('session.hash_function', $hash); 
+                }
+                    
                 if (site()->isSecure()) {
                     ini_set('session.cookie_secure', true); // Set secure cookies when site is secure
                 }
@@ -32,6 +37,21 @@
                 session_name(site()->config->sessionname);
                 session_start();
                 session_cache_limiter('public');
+                
+                
+                // Flag insecure sessions (so we can check state changes etc)
+                if (!isset($_SESSION['secure'])) $_SESSION['secure'] = site()->isSecure();
+                
+                // Validate session
+                try {
+                    $this->validate();
+                } catch (\Exception $ex) {
+                    // Session didn't validate, log & destroy
+                    error_log($ex->getMessage());
+                    
+                    session_destroy();
+                }
+                
 
                 // Session login / logout
                 site()->addPageHandler('/session/login', '\Idno\Pages\Session\Login', true);
@@ -51,6 +71,17 @@
                     }
 
                 });
+            }
+            
+            /**
+             * Validate the session.
+             * @throws \Exception if the session is invalid.
+             */
+            protected function validate() {
+                
+                // Check for secure sessions being delivered insecurely, and vis versa
+                if ($_SESSION['secure'] != site()->isSecure()) 
+                    throw new \Exception ('Session funnybusiness: Secure session accessed insecurely, or an insecure session accessed over TLS.');
             }
 
             /**

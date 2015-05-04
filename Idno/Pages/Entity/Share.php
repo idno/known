@@ -64,7 +64,7 @@
                             $page->setInput('short-url', $short_url);
                             $page->setInput('url', $url);
                             if (substr_count($url, 'twitter.com')) {
-                                preg_match("|https?://(www\.)?twitter\.com/(#!/)?@?([^/]*)|", $url, $matches);
+                                preg_match("|https?://([a-z]+\.)?twitter\.com/(#!/)?@?([^/]*)|", $url, $matches);
                                 if (!empty($matches[3])) {
                                     $page->setInput('body', '@' . $matches[3] . ' ');
                                 }

@@ -36,6 +36,14 @@
             }
 
             /**
+             * Returns a URL for syndication
+             * @return mixed
+             */
+            function getSyndicationURL() {
+                return $this->body;
+            }
+
+            /**
              * Like objects have type 'bookmark'
              * @return 'bookmark'
              */
@@ -51,8 +59,8 @@
             function getTitleFromURL($Url){
                 $str = \Idno\Core\Webservice::file_get_contents($Url);
                 if(strlen($str) > 0){
-                    preg_match("/\<title\>(.*)\<\/title\>/siU",$str,$title);
-                    return $title[1];
+                    preg_match("/\<title\>(.*)\<\/title\>/siu",$str,$title);
+                    return htmlspecialchars_decode($title[1]);
                 }
                 return '';
             }

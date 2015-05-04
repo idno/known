@@ -68,7 +68,9 @@
                     $result .= $this->rendered_extensions[$templateName];
                 }
 
-                return $result;
+                if (!empty($result)) return $result;
+                if ($returnBlank) return '';
+                return false;
             }
 
             /**
@@ -265,7 +267,8 @@
              */
             function parseHashtags($text)
             {
-                $r = preg_replace_callback('/(?<=^|[\>\s\n])(\#[\w0-9]+)/iu', function($matches) {
+                $text = (html_entity_decode($text));
+                $r = preg_replace_callback('/(?<=^|[\>\s\n])(\#[\p{L}]+)/u', function($matches) {
                     $url = $matches[1];
                     $tag = str_replace('#','',$matches[1]);
 

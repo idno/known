@@ -3,9 +3,9 @@
     // Embedded content code from Aaron Parecki, slightly modified:
     // http://aaronparecki.com/articles/2013/05/09/1/experimenting-with-auto-embedding-content
     $embedded = '';
-    
-    $body = Idno\Core\site()->triggerEvent('url/expandintext', ['object' => $vars['object']], $vars['object']->body); 
-    
+
+    $body = Idno\Core\site()->triggerEvent('url/expandintext', ['object' => $vars['object']], $vars['object']->body);
+
     if (preg_match_all('/https?:\/\/([^\s]+\.[^\s\.]+\.(png|jpg|jpeg|gif))/i', $body, $matches)) {
         foreach ($matches[0] as $m) {
             $embedded .= '<p><img src="' . $m . '" /></p>';
@@ -22,7 +22,11 @@
         foreach ($matches[1] as $m)
             $embedded .= '<iframe src="//player.vimeo.com/video/' . $m . '" width="600" height="450" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
     }
+    if (preg_match_all('/https?:\/\/twitter\.com\/[^\s]+\/status\/[^\s]+\/?/i', $body, $matches)) {
+
+        foreach ($matches[0] as $m)
+            $embedded .= '<div id="sc_' . md5($m) . '" class="twitter-embed" data-url="' . $m . '"></div>';
+    }
     echo $embedded;
 
-?>
 

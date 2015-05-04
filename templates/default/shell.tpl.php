@@ -34,20 +34,26 @@
         if (\Idno\Core\site()->session()->isLoggedIn()) {
 
             ?>
-            <link rel="manifest" href="<?=\Idno\Core\site()->config()->getDisplayURL()?>chrome/manifest.json">
+            <link rel="manifest" href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>chrome/manifest.json">
+        <?php
+            if (Idno\Core\site()->isSecure()) {
+        ?>
             <script>
-                window.addEventListener('load', function() {
-                    navigator.serviceWorker.register('<?=\Idno\Core\site()->config()->getDisplayURL()?>chrome/service-worker.js', { scope: '/' })
-                        .then(function(r) {
-                            console.log('Registered service worker');
-                        })
-                        .catch(function(whut) {
-                            console.error('Could not register service worker');
-                            console.error(whut);
-                        });
+                window.addEventListener('load', function () {
+                    if ('serviceWorker' in navigator) {
+                        navigator.serviceWorker.register('<?=\Idno\Core\site()->config()->getDisplayURL()?>chrome/service-worker.js', {scope: '/'})
+                            .then(function (r) {
+                                console.log('Registered service worker');
+                            })
+                            .catch(function (whut) {
+                                console.error('Could not register service worker');
+                                console.error(whut);
+                            });
+                    }
                 });
             </script>
         <?php
+        }
 
         }
 
@@ -183,15 +189,19 @@
         }
     ?>
 
-   <script src="<?= \Idno\Core\site()->config()->getStaticURL() ?>external/fragmention/fragmention.js"></script>
+    <script src="<?= \Idno\Core\site()->config()->getStaticURL() ?>external/fragmention/fragmention.js"></script>
 
     <!-- Syndication -->
-    <link href="<?=\Idno\Core\site()->config()->getStaticURL()?>external/bootstrap-toggle/css/bootstrap2-toggle.min.css" rel="stylesheet" />
-    <script src="<?=\Idno\Core\site()->config()->getStaticURL()?>external/bootstrap-toggle/js/bootstrap2-toggle.js"></script>
+    <link
+        href="<?= \Idno\Core\site()->config()->getStaticURL() ?>external/bootstrap-toggle/css/bootstrap2-toggle.min.css"
+        rel="stylesheet"/>
+    <script
+        src="<?= \Idno\Core\site()->config()->getStaticURL() ?>external/bootstrap-toggle/js/bootstrap2-toggle.js"></script>
 
     <!-- Syntax highlighting -->
-    <link href="<?=\Idno\Core\site()->config()->getStaticURL()?>external/highlight/styles/default.css" rel="stylesheet">
-    <script src="<?=\Idno\Core\site()->config()->getStaticURL()?>external/highlight/highlight.pack.js"></script>
+    <link href="<?= \Idno\Core\site()->config()->getStaticURL() ?>external/highlight/styles/default.css"
+          rel="stylesheet">
+    <script src="<?= \Idno\Core\site()->config()->getStaticURL() ?>external/highlight/highlight.pack.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
 
     <?= $this->draw('shell/head', $vars); ?>
@@ -329,8 +339,7 @@
 <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/mention/mention.js' ?>"
         type="text/javascript"></script>
 
-        
-        
+
 <!-- Flexible media player -->
 <script
     src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/mediaelement/build/mediaelement-and-player.min.js"></script>
@@ -398,6 +407,24 @@
     })
     $(document).on('pjax:complete', function () {
         annotateContent();
+    });
+
+    /**
+     * Handle Twitter tweet embedding
+     */
+    $(document).ready(function () {
+        $('div.twitter-embed').each(function (index) {
+            var url = $(this).attr('data-url');
+            var div = $(this);
+
+            $.ajax({
+                url: "https://api.twitter.com/1/statuses/oembed.json?url=" + url,
+                dataType: "jsonp",
+                success: function (data) {
+                    div.html(data['html']);
+                }
+            });
+        });
     });
 
     /**

@@ -34,7 +34,7 @@
                         //echo '<p>Unfortunately we couldn\'t connect to the database.</p>';
                         if (\Idno\Core\site()->config()->debug) {
                             $message = '<p>' . $e->getMessage() . '</p>';
-                            $message .= '<p>'.$connection_string.'</p>';
+                            $message .= '<p>' . $connection_string . '</p>';
                         }
                         include \Idno\Core\site()->config()->path . '/statics/db.php';
                         exit;
@@ -186,7 +186,7 @@
                             if (!is_array($val)) {
                                 $val = array($val);
                             }
-                            foreach($val as $value) {
+                            foreach ($val as $value) {
                                 if (is_array($value) || is_object($value)) {
                                     $value = json_encode($value);
                                 }
@@ -443,18 +443,23 @@
             function exportRecords($collection = 'entities')
             {
                 try {
-                    $file = tempnam(\Idno\Core\site()->config()->getTempDir(),'sqldump');
-                    $client = $this->client; /* @var \PDO $client */
+                    $file   = tempnam(\Idno\Core\site()->config()->getTempDir(), 'sqldump');
+                    $client = $this->client;
+                    /* @var \PDO $client */
                     $statement = $client->prepare("select * from {$collection}");
-                    $output = '';
+                    $output    = '';
                     if ($response = $statement->execute()) {
                         while ($object = $statement->fetch(\PDO::FETCH_ASSOC)) {
-                            $uuid = $object['uuid'];
+                            $uuid   = $object['uuid'];
                             $fields = array_keys($object);
-                            $fields = array_map(function($v) { return '`' . $v . '`'; }, $fields);
-                            $object = array_map(function($v) { return \Idno\Core\site()->db()->getClient()->quote($v); }, $object);
-                            $line = 'insert into ' . $collection . ' ';
-                            $line .= '(' . implode(',',$fields) . ')';
+                            $fields = array_map(function ($v) {
+                                return '`' . $v . '`';
+                            }, $fields);
+                            $object = array_map(function ($v) {
+                                return \Idno\Core\site()->db()->getClient()->quote($v);
+                            }, $object);
+                            $line   = 'insert into ' . $collection . ' ';
+                            $line .= '(' . implode(',', $fields) . ')';
                             $line .= ' values ';
                             $line .= '(' . implode(',', $object) . ');';
                             $output .= $line . "\n";
@@ -462,10 +467,14 @@
                             if ($metadata_response = $metadata_statement->execute([':uuid' => $uuid])) {
                                 while ($object = $metadata_statement->fetch(\PDO::FETCH_ASSOC)) {
                                     $fields = array_keys($object);
-                                    $fields = array_map(function($v) { return '`' . $v . '`'; }, $fields);
-                                    $object = array_map(function($v) { return \Idno\Core\site()->db()->getClient()->quote($v); }, $object);
-                                    $line = 'insert into metadata ';
-                                    $line .= '(' . implode(',',$fields) . ')';
+                                    $fields = array_map(function ($v) {
+                                        return '`' . $v . '`';
+                                    }, $fields);
+                                    $object = array_map(function ($v) {
+                                        return \Idno\Core\site()->db()->getClient()->quote($v);
+                                    }, $object);
+                                    $line   = 'insert into metadata ';
+                                    $line .= '(' . implode(',', $fields) . ')';
                                     $line .= ' values ';
                                     $line .= '(' . implode(',', $object) . ');';
                                     $output .= $line . "\n";
@@ -479,11 +488,14 @@
                             gc_collect_cycles();    // Clean memory
                         }
                     }
+
                     return $output;
                 } catch (\Exception $e) {
                     \Idno\Core\site()->logging()->log($e->getMessage());
+
                     return false;
                 }
+
                 return false;
             }
 
@@ -515,7 +527,7 @@
                     foreach ($params as $key => $value) {
                         if (!is_array($value)) {
                             if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner', 'created'))) {
-                                $subwhere[]                                  = "(`{$collection}`.`{$key}` = :nonmdvalue{$non_md_variables})";
+                                $subwhere[] = "(`{$collection}`.`{$key}` = :nonmdvalue{$non_md_variables})";
                                 if ($key == 'created') {
                                     if (!is_int($value)) {
                                         $value = strtotime($value);
@@ -594,9 +606,14 @@
                                 $subwhere[] = $instring;
                             }
                             if ($key == '$search') {
-                                $val                                         = $value[0]; // The search query is always in $value position [0] for now
-                                $subwhere[]                                  = "match (`search`) against (:nonmdvalue{$non_md_variables})";
-                                $variables[":nonmdvalue{$non_md_variables}"] = $val;
+                                $val = $value[0]; // The search query is always in $value position [0] for now
+                                if (strlen($val) > 3) {
+                                    $subwhere[]                                  = "match (`search`) against (:nonmdvalue{$non_md_variables})";
+                                    $variables[":nonmdvalue{$non_md_variables}"] = $val;
+                                } else {
+                                    $subwhere[]                                  = "`search` like :nonmdvalue{$non_md_variables}";
+                                    $variables[":nonmdvalue{$non_md_variables}"] = '%' . $val . '%';
+                                }
                                 $non_md_variables++;
                             }
                         }
@@ -698,10 +715,12 @@
              * Get database errors
              * @return mixed
              */
-            function getErrors() {
+            function getErrors()
+            {
                 if (!empty($this->client)) {
                     return $this->client->errorInfo();
                 }
+
                 return false;
             }
 
@@ -760,33 +779,38 @@
             function getVersions()
             {
                 try {
-                    $client = $this->client;    /* @var \PDO $client */
+                    $client = $this->client;
+                    /* @var \PDO $client */
                     $statement = $client->prepare("select * from `versions`");
                     if ($statement->execute()) {
-                       return $statement->fetchAll(\PDO::FETCH_OBJ);
+                        return $statement->fetchAll(\PDO::FETCH_OBJ);
                     }
                 } catch (\Exception $e) {
                 }
+
                 return false;
             }
 
             /**
              * Checks the current schema version and upgrades if necessary
              */
-            function checkAndUpgradeSchema() {
+            function checkAndUpgradeSchema()
+            {
                 if ($versions = $this->getVersions()) {
-                    foreach($versions as $version) {
+                    foreach ($versions as $version) {
                         if ($version->label == 'schema') {
-                            $basedate = $newdate = (int) $version->value;
+                            $basedate          = $newdate = (int)$version->value;
                             $upgrade_sql_files = array();
-                            $schema_dir = dirname(dirname(dirname(__FILE__))) . '/schemas/mysql/';
-                            $client = $this->client; /* @var \PDO $client */
+                            $schema_dir        = dirname(dirname(dirname(__FILE__))) . '/schemas/mysql/';
+                            $client            = $this->client;
+                            /* @var \PDO $client */
                             if ($basedate < 2014100801) {
                                 if ($sql = @file_get_contents($schema_dir . '2014100801.sql')) {
                                     try {
                                         $statement = $client->prepare($sql);
                                         $statement->execute();
-                                    } catch (\Exception $e) {}
+                                    } catch (\Exception $e) {
+                                    }
                                 }
                                 $newdate = 2014100801;
                             }

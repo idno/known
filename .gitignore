@@ -3,6 +3,8 @@
 .idea/*
 Idno/.idea/.name
 
+.vagrant
+
 *.iml
 
 /nbproject/private//nbproject/project.xml

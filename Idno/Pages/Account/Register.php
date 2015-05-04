@@ -56,7 +56,7 @@
                 /*if (!\Idno\Common\Page::isSSL() && !\Idno\Core\site()->config()->disable_cleartext_warning) {
                     \Idno\Core\site()->session()->addErrorMessage("Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini");
                 }*/
-                
+
                 if (empty(\Idno\Core\site()->config()->open_registration)) {
                     if (!($invitation = \Idno\Entities\Invitation::validate($email, $code))) {
                         \Idno\Core\site()->session()->addErrorMessage("Your invitation doesn't seem to be valid, or has expired.");
@@ -99,6 +99,7 @@
                                 } else {
                                     \Idno\Core\site()->config()->title = $user->getTitle() . '\'s Known';
                                 }
+                                \Idno\Core\site()->config()->theme             = 'Solo';
                                 \Idno\Core\site()->config()->open_registration = false;
                                 \Idno\Core\site()->config()->from_email        = $user->email;
                                 \Idno\Core\site()->config()->save();

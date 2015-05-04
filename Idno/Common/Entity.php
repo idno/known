@@ -479,10 +479,9 @@
                             $this->addToFeed($feed_verb);
                         }
                         $this->syndicate();
-                        $event = new \Idno\Core\Event(array('object' => $this));
-                        \Idno\Core\site()->events()->dispatch('saved', $event);
+                        \Idno\Core\site()->triggerEvent('saved', ['object' => $this]);
                     } else {
-                        \Idno\Core\site()->triggerEvent('updated', array('object' => $this));
+                        \Idno\Core\site()->triggerEvent('updated', ['object' => $this]);
                     }
 
                     return $this->_id;
@@ -1345,6 +1344,10 @@
                         ];
                     }
                 }
+                
+                if (!empty($this->annotations)) {
+                    $object['annotations'] = $this->annotations;
+                }
 
                 return $object;
             }
@@ -1409,6 +1412,15 @@
             function getDisplayURL()
             {
                 return $this->getURL();
+            }
+
+            /**
+             * Wrapper for getURL, specifically for syndication
+             * @return string
+             */
+            function getSyndicationURL()
+            {
+                return $this->getDisplayURL();
             }
 
             /**

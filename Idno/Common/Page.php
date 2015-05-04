@@ -3,7 +3,7 @@
     /**
      * Handles pages in the system (and, by extension, the idno API).
      *
-     * Developers shoudld extend the getContent, postContent and dataContent
+     * Developers should extend the getContent, postContent and dataContent
      * methods as follows:
      *
      * getContent: echoes HTML to the page
@@ -848,7 +848,7 @@
             {
                 $icon = \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k.png';
 
-                if (\Idno\Core\site()->config('user_avatar_favicons'))
+                if (\Idno\Core\site()->config()->user_avatar_favicons)
                 {
                     if ($user = \Idno\Core\site()->currentPage()->getOwner())
                     {

@@ -22,9 +22,8 @@ namespace Idno\Core {
                 $eventdata = $event->data();
                 if ($object = $eventdata['object']) {
                     /* @var \Idno\Common\Entity $object */
-                    if ($object->isPublic()) {
-                        $url = $object->getURL();
-                        \Idno\Core\PubSubHubbub::publish($url);
+                    if ($object instanceof \Idno\Entities\ActivityStreamPost && $object->isPublic()) {
+                        \Idno\Core\PubSubHubbub::publish($object);
                     }
                 }
             });
@@ -178,22 +177,22 @@ namespace Idno\Core {
          */
         private function findFeed($url, $data = null) {
             $feed = null;
-            
+
             if (!$data)
                 $data = \Idno\Core\Webservice::file_get_contents($url);
-            
-            // serach for all 'RSS Feed' declarations 
+
+            // search for all 'RSS Feed' declarations
             if (preg_match_all('#<link[^>]+type="application/rss\+xml"[^>]*>#is', $data, $rawMatches)) {
-                
+
                 if (preg_match('#href="([^"]+)"#i', $rawMatches[0][0], $rawUrl)) {
                     $feed = $rawUrl[1];
                 }
 
             }
-            
+
             return $feed;
         }
-        
+
         /**
          * Find the self resource.
          * This method will find a link self on a feed, finding the feed first
@@ -224,15 +223,46 @@ namespace Idno\Core {
 
         /**
          * If this Known installation has a PubSubHubbub hub, send a publish notification to the hub
-         * @param string $url
+         * @param ActivityStreamPost $act_stream_post
          * @return array
          */
-        static function publish($url) {
+        static function publish($act_stream_post) {
             if ($hub = \Idno\Core\site()->config()->hub) {
-                return \Idno\Core\Webservice::post($hub, array(
-                    'hub.mode' => 'publish',
-                    'hub.url' => \Idno\Core\site()->config()->feed
-                ));
+                $object = $act_stream_post->getObject();
+                $base = \Idno\Core\site()->config()->getDisplayURL();
+                $feeds = array();
+
+                // homepage feed
+                $homepage_types = \Idno\Core\site()->config()->getHomepageContentTypes();
+                if (empty($homepage_types) || in_array($object->getContentType(), $homepage_types)) {
+                    $feeds[] = $base;
+                }
+
+                // type-specific feeds
+                $feeds[] = $base.'content/'.$object->getContentTypeCategorySlug().'/';
+                $feeds[] = $base.'content/all/';
+
+                // tag feeds
+                foreach ($object->getTags() as $tag) {
+                    $feeds[] = $base.'tag/'.$tag;
+                }
+
+                if (!empty($feeds)) {
+                    // encode the feeds and their RSS counterparts
+                    $encurls = array();
+                    foreach ($feeds as $feed) {
+                        $encurls[] = urlencode($feed);
+                        $encurls[] = urlencode(
+                            \Idno\Core\site()->template()->getURLWithVar('_t', 'rss', $feed));
+                    }
+                    
+                    $formdata = 'hub.mode=publish&hub.url='.implode(',', $encurls);
+                    \Idno\Core\site()->logging()->log('Pinging '.$hub.' with data '.$formdata);
+                    \Idno\Core\Webservice::post($hub, $formdata, array(
+                        'Content-Type' => 'application/x-www-form-urlencoded'));
+                }
+
+                return true;
             }
 
             return false;

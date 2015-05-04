@@ -166,7 +166,7 @@
                 /** Search */
                 $this->addPageHandler('/search/?', '\Idno\Pages\Search\Forward');
                 $this->addPageHandler('/search/mentions\.json', '\Idno\Pages\Search\Mentions');
-                $this->addPageHandler('/tag/([\w0-9]+)\/?', '\Idno\Pages\Search\Tags');
+                $this->addPageHandler('/tag/([^\s]+)\/?', '\Idno\Pages\Search\Tags');
 
                 /** robots.txt */
                 $this->addPageHandler('/robots\.txt', '\Idno\Pages\Txt\Robots');
@@ -522,7 +522,7 @@
              */
             function version()
             {
-                return '0.7.7';
+                return '0.7.8';
             }
 
             /**
