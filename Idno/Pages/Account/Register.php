@@ -92,7 +92,7 @@
                         $user->setTitle($name);
                         if (!\Idno\Entities\User::get()) {
                             $user->setAdmin(true);
-                            $user->robot_state = 1; // State for our happy robot helper
+                            $user->robot_state = '1'; // State for our happy robot helper
                             if (\Idno\Core\site()->config()->title == 'New Known site') {
                                 if (!empty($_SESSION['set_name'])) {
                                     \Idno\Core\site()->config()->title = $_SESSION['set_name'];

@@ -124,7 +124,7 @@
             /**
              * Registers some core page URLs
              */
-            function registerpages()
+            function registerPages()
             {
 
                 /** Homepage */
