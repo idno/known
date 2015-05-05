@@ -11,7 +11,7 @@
     <div class="span10 offset1">
 
         <p class="explanation">
-            <a href="https://brid.gy">Bridgy</a> is a service that pulls social interactions - such as likes and
+            <a href="https://www.brid.gy">Bridgy</a> is a service that pulls social interactions - such as likes and
             retweets - back to your website.</p>
 
         <p class="explanation">If you send content from Known to Facebook or Twitter, use Bridgy to save comments and
