@@ -9,14 +9,26 @@
 
             function getContent()
             {
-
-                if (!empty($_SERVER['HTTP_REFERER']))
-                if (substr_count($_SERVER['HTTP_REFERER'], 'brid.gy')) {
-                    \Idno\Core\site()->session()->addMessage("Your account has been connected with brid.gy!");
+                $user = \Idno\Core\site()->session()->currentUser();
+                $vars = array();
+                foreach (array('twitter', 'facebook') as $service) {
+                    if ($user && isset($user->bridgy[$service])) {
+                        $bdata = $user->bridgy[$service];
+                        $vars[$service.'_enabled'] = isset($bdata['status'])
+                            && $bdata['status'] == 'enabled';
+                        if (isset($bdata['user'])) {
+                            $vars[$service.'_user'] = $bdata['user'];
+                        }
+                        if (isset($bdata['key'])) {
+                            $vars[$service.'_key'] = $bdata['key'];
+                        }
+                    } else {
+                        $vars[$service.'_enabled'] = false;
+                    }
                 }
 
                 $t = \Idno\Core\site()->template();
-                $t->body = $t->__([])->draw('bridgy/account');
+                $t->body = $t->__($vars)->draw('bridgy/account');
                 $t->title = 'Interactions';
                 $t->drawPage();
 
