@@ -15,7 +15,7 @@
         $lang = \Idno\Core\site()->config()->lang;
 ?>
 <?php if (!$_SERVER["HTTP_X_PJAX"]): ?>
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="<?= $lang; ?>">
 <head>
     <meta charset="utf-8">
