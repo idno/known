@@ -28,7 +28,22 @@
 
     <div class="span6 offset1">
 
-        <form action="https://www.brid.gy/facebook/start?feature=listen&callback=<?=urlencode(\Idno\Core\site()->config()->getDisplayURL() . 'account/bridgy/')?>" method="post">
+        <?php if ($vars['facebook_enabled']) { ?>
+        <form action="https://www.brid.gy/delete/start" method="post">
+            <input type="hidden" name="feature" value="listen"></input>
+            <input type="hidden" name="key" value="<?=$vars['facebook_key']?>"></input>
+            <input type="hidden" name="callback" value="<?=\Idno\Core\site()->config()->getDisplayURL() . 'account/bridgy/disabled/?service=facebook'?>">
+            <p>
+                <button class="connect fb connected">Facebook + Bridgy connected</button>
+            </p>
+            <p>
+                Bridgy is pulling in comments and likes from Facebook. Click to disable.
+            </p>
+        </form>
+        <?php } else { ?>
+        <form action="https://www.brid.gy/facebook/start" method="post">
+            <input type="hidden" name="feature" value="listen"></input>
+            <input type="hidden" name="callback" value="<?=\Idno\Core\site()->config()->getDisplayURL() . 'account/bridgy/enabled/?service=facebook'?>">
             <p>
                 <button class="connect fb">Activate Facebook + Bridgy</button>
             </p>
@@ -36,7 +51,24 @@
                 Bridgy pulls in comments and likes from Facebook.
             </p>
         </form>
-        <form action="https://www.brid.gy/twitter/start?feature=listen&callback=<?=urlencode(\Idno\Core\site()->config()->getDisplayURL() . 'account/bridgy/')?>" method="post">
+        <?php } ?>
+
+        <?php if ($vars['twitter_enabled']) { ?>
+        <form action="https://www.brid.gy/delete/start" method="post">
+            <input type="hidden" name="feature" value="listen"></input>
+            <input type="hidden" name="key" value="<?=$vars['twitter_key']?>"></input>
+            <input type="hidden" name="callback" value="<?=\Idno\Core\site()->config()->getDisplayURL() . 'account/bridgy/disabled/?service=twitter'?>">
+            <p>
+                <button class="connect fb connected">Twitter + Bridgy connected</button>
+            </p>
+            <p>
+                Bridgy is pulling in replies, favorites, and retweets from Twitter. Click to disable.
+            </p>
+        </form>
+        <?php } else { ?>
+        <form action="https://www.brid.gy/twitter/start" method="post">
+            <input type="hidden" name="feature" value="listen"></input>
+            <input type="hidden" name="callback" value="<?=\Idno\Core\site()->config()->getDisplayURL() . 'account/bridgy/enabled/?service=twitter'?>">
             <p>
                 <button class="connect tw">Activate Twitter + Bridgy</button>
             </p>
@@ -44,7 +76,7 @@
                 Bridgy pulls in replies, favorites, and retweets from Twitter.
             </p>
         </form>
-
+        <?php } ?>
     </div>
 
 </div>
