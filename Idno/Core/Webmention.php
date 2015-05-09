@@ -29,8 +29,8 @@
 
                     if (!empty(site()->config()->hub)) {
                         $eventdata = $event->data();
-                        header('Link: <' . \Idno\Core\site()->config()->getDisplayURL() . 'webmention/>; rel="http://webmention.org/"', false);
-                        header('Link: <' . \Idno\Core\site()->config()->getDisplayURL() . 'webmention/>; rel="webmention"', false);
+                        header('Link: <' . \Idno\Core\site()->config()->getURL() . 'webmention/>; rel="http://webmention.org/"', false);
+                        header('Link: <' . \Idno\Core\site()->config()->getURL() . 'webmention/>; rel="webmention"', false);
                     }
 
                 });

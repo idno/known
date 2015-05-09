@@ -169,8 +169,8 @@
           href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>content/all"/>
 
     <!-- Webmention endpoint -->
-    <link href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>webmention/" rel="http://webmention.org/"/>
-    <link href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>webmention/" rel="webmention"/>
+    <link href="<?= \Idno\Core\site()->config()->getURL() ?>webmention/" rel="http://webmention.org/"/>
+    <link href="<?= \Idno\Core\site()->config()->getURL() ?>webmention/" rel="webmention"/>
 
     <?php $this->draw('shell/identities') ?>
     <?php if (!empty(\Idno\Core\site()->config()->hub)) { ?>
