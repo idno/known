@@ -20,6 +20,7 @@
                 site()->addPageHandler('/admin/dependencies/?', '\Idno\Pages\Admin\Dependencies');
                 site()->addPageHandler('/admin/homepage/?', '\Idno\Pages\Admin\Homepage');
                 site()->addPageHandler('/admin/email/?', '\Idno\Pages\Admin\Email');
+                site()->addPageHandler('/admin/emailtest/?', '\Idno\Pages\Admin\EmailTest');
                 site()->addPageHandler('/admin/about/?', '\Idno\Pages\Admin\About');
                 site()->addPageHandler('/admin/users/?', '\Idno\Pages\Admin\Users');
                 site()->addPageHandler('/admin/export/?', '\Idno\Pages\Admin\Export');
