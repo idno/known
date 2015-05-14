@@ -6,12 +6,13 @@
 
         class Account extends Page
         {
+            public static $SERVICES = array('twitter', 'facebook');
 
             function getContent()
             {
                 $user = \Idno\Core\site()->session()->currentUser();
                 $vars = array();
-                foreach (array('twitter', 'facebook') as $service) {
+                foreach (self::$SERVICES as $service) {
                     if ($user && isset($user->bridgy[$service])) {
                         $bdata = $user->bridgy[$service];
                         $vars[$service.'_enabled'] = isset($bdata['status'])
@@ -31,7 +32,6 @@
                 $t->body = $t->__($vars)->draw('bridgy/account');
                 $t->title = 'Interactions';
                 $t->drawPage();
-
             }
 
         }

@@ -24,10 +24,9 @@
     </div>
 
 </div>
-<div class="row">
+<div class="row" id="account-area">
 
     <div class="span6 offset1">
-
         <?php if ($vars['facebook_enabled']) { ?>
         <form action="https://www.brid.gy/delete/start" method="post">
             <input type="hidden" name="feature" value="listen"></input>
@@ -80,3 +79,27 @@
     </div>
 
 </div>
+
+
+<script>
+$(function(){
+    function refreshAccountArea() {
+        $.get(
+            "<?=\Idno\Core\site()->config()->getDisplayURL().'account/bridgy/'?>",
+            function(page) {
+                // swap out the account area with the re-rendered area
+                $('#account-area').replaceWith(
+                    $('#account-area', $(page)));
+            });
+    }
+
+    // check whether the account statuses have changed
+    $.get(
+        "<?=\Idno\Core\site()->config()->getDisplayURL().'account/bridgy/check/'?>",
+        function(data) {
+            if (data.changed) {
+                refreshAccountArea();
+            }
+        });
+});
+</script>
