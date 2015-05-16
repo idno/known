@@ -2,6 +2,12 @@
 
 Starting with version 0.6.4, this is a list of changes in the self-hosted, open source version of Known.
 
+0.7.8.5.1
+---------
+May 16, 2015
+
+* Correcting an issue with accented characters in page slugs
+
 0.7.8.5
 -------
 May 16, 2015
