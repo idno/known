@@ -94,7 +94,7 @@
                     <p class="control-label" for="name"><strong>SMTP port</strong></p>
                 </div>
                 <div class="span4">
-                    <input type="number" id="smtp_port" placeholder="SMTP password" class="span4" name="smtp_port"
+                    <input type="text" id="smtp_port" placeholder="SMTP password" class="span4" name="smtp_port"
                            value="<?php
 
                                $port = (int)\Idno\Core\site()->config()->smtp_port;
@@ -106,7 +106,9 @@
                            ?>">
                 </div>
                 <div class="span4">
-                    <p class="config-desc">This is the SMTP port to use.</p>
+                    <p class="config-desc">
+                        This is normally 25 or 587.
+                    </p>
                 </div>
             </div>
 
@@ -119,8 +121,8 @@
                         <?php
                             foreach ([
                                 'No' => false,
-                                'Yes (tls)' => 'tls',
-                                'Yes (ssl)' => 'ssl'
+                                'Yes (TLS)' => 'tls',
+                                'Yes (SSL)' => 'ssl'
                             ] as $field => $value) {
                                 ?>
                         <option value="<?= $value; ?>" <?php if (\Idno\Core\site()->config()->smtp_secure === $value) { echo "selected"; } ?>><?= $field; ?></option>
@@ -130,7 +132,7 @@
                     </select>
                 </div>
                 <div class="span4">
-                    <p class="config-desc">Select yes if you use secure logins to your mail server.</p>
+                    <p class="config-desc">Select yes if you securely authenticate to your mail server.</p>
                 </div>
             </div>
 
@@ -145,25 +147,25 @@
         </form>
     </div>
     <?php if (\Idno\Core\site()->config()->from_email) { ?>
-    <div class="span10 offset1 well">
+    <div class="span10 offset1">
         <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/emailtest" class="form-horizontal" method="post">
         
             <div class="row">
                 <div class="span2">
-                    <p class="control-label" for="name"><strong>To address</strong></p>
+                    <p class="control-label" for="name"><strong>Send a test message to:</strong></p>
                 </div>
                 <div class="span4">
                     <input type="text" id="to_email" placeholder="To address" class="span4" name="to_email"
                            value="<?= htmlspecialchars(\Idno\Core\site()->config()->from_email) ?>">
                 </div>
                 <div class="span4">
-                    <p class="config-desc">Email address to send a message to.</p>
+                    <p class="config-desc">Email address to send a test message to.</p>
                 </div>
             </div>
             
             <div class="control-group">
                 <div class="controls-save">
-                    <button type="submit" class="btn btn-primary">Test settings...</button>
+                    <button type="submit" class="btn btn-primary">Test settings</button>
                 </div>
             </div>
             <?= \Idno\Core\site()->actions()->signForm('/admin/emailtest') ?>

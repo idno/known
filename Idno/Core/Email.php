@@ -142,7 +142,7 @@
                             }
                         }
                     } else {
-                        $transport = \Swift_SmtpTransport::newInstance(); // TODO: allow this to be extended to allow for external mail services
+                        $transport = \Swift_SmtpTransport::newInstance();
                     }
                     if (!empty(site()->config()->smtp_port)) {
                         $transport->setPort(site()->config()->smtp_port);
@@ -161,12 +161,10 @@
                     }
 
                     return $mailer->send(site()->triggerEvent('email/send', ['email' => $this], $this->message));
+
                 } catch (\Exception $e) {
                     // Lets log errors rather than silently drop them
                     \Idno\Core\site()->logging()->log($e->getMessage(), LOGLEVEL_ERROR);
-                    
-                    //site()->session()->addMessage("Something went wrong and we couldn't send the email.");
-                    //site()->session()->addMessage($e->getMessage());
                 }
                 
                 return 0;

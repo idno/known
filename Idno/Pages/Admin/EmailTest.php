@@ -20,10 +20,11 @@ namespace Idno\Pages\Admin {
                 $message->setHTMLBodyFromTemplate('admin/emailtest');
 
             
-                if ($message->send())
-                    \Idno\Core\site ()->session ()->addMessage ("Test email sent to $email");
-                else
-                    \Idno\Core\site ()->session ()->addErrorMessage ("There was a problem sending a test message to $email, check your settings and try again!");
+                if ($message->send()) {
+                    \Idno\Core\site()->session()->addMessage("Test email sent to $email");
+                } else {
+                    \Idno\Core\site ()->session ()->addErrorMessage ("There was a problem sending a test message to {$email}.");
+                }
             } catch (\Exception $e) {
                 \Idno\Core\site ()->session ()->addErrorMessage ($e->getMessage());
             }
