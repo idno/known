@@ -241,6 +241,11 @@
                     $base   = \Idno\Core\site()->config()->getDisplayURL();
                     $feeds  = array();
 
+                    // Check to make sure there's an entity
+                    if (!($object instanceof Entity)) {
+                        return false;
+                    }
+
                     // homepage feed
                     $homepage_types = \Idno\Core\site()->config()->getHomepageContentTypes();
                     $type_in_homepage = false;
