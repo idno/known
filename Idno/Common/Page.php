@@ -488,7 +488,7 @@
             function forward($location = '', $exit = true)
             {
                 if (empty($location)) {
-                    $location = \Idno\Core\site()->config()->url;
+                    $location = \Idno\Core\site()->config()->getDisplayURL();
                 }
                 if (!empty($this->forward)) {
                     if (\Idno\Core\site()->template()->getTemplateType() != 'default') {
@@ -531,7 +531,7 @@
 
                     // Forwarding loses the response code, so is only helpful if this is not an API request
                     if (!\Idno\Core\site()->session()->isAPIRequest()) {
-                        $this->forward(\Idno\Core\site()->config()->getURL() . 'session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']));
+                        $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']));
                     } else {
                         $this->deniedContent();
                     }
