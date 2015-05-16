@@ -477,7 +477,7 @@
                             
                             site()->currentPage()->setResponse(403);
                             if (!\Idno\Core\site()->session()->isAPIRequest()) {
-                                site()->currentPage()->forward(site()->config()->getURL() . 'session/login/');
+                                site()->currentPage()->forward(site()->config()->getURL() . 'session/login/?fwd=' . urlencode($_SERVER['REQUEST_URI']));
                             } else {
                                 site()->currentPage()->deniedContent();
                             }
