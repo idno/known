@@ -20,7 +20,6 @@
                 $title = $this->getInput('share_title', $this->getInput('title'));
                 $type  = $this->getInput('share_type');
 
-                // Provide a hook to a URL shortener (TODO: Tidy this up when #237 is merged)
                 $event = new \Idno\Core\Event();
                 $event->setResponse($url);
                 \Idno\Core\site()->events()->dispatch('url/shorten', $event);
