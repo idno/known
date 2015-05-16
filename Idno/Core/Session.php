@@ -40,7 +40,9 @@
                 
                 
                 // Flag insecure sessions (so we can check state changes etc)
-                if (!isset($_SESSION['secure'])) $_SESSION['secure'] = site()->isSecure();
+                if (!isset($_SESSION['secure'])) {
+                    $_SESSION['secure'] = site()->isSecure();
+                }
                 
                 // Validate session
                 try {
@@ -48,7 +50,6 @@
                 } catch (\Exception $ex) {
                     // Session didn't validate, log & destroy
                     error_log($ex->getMessage());
-                    
                     session_destroy();
                 }
                 
@@ -78,10 +79,10 @@
              * @throws \Exception if the session is invalid.
              */
             protected function validate() {
-                
                 // Check for secure sessions being delivered insecurely, and vis versa
-                if ($_SESSION['secure'] != site()->isSecure()) 
+                if ($_SESSION['secure'] != site()->isSecure()) {
                     throw new \Exception ('Session funnybusiness: Secure session accessed insecurely, or an insecure session accessed over TLS.');
+                }
             }
 
             /**
