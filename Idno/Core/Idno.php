@@ -522,7 +522,7 @@
              */
             function version()
             {
-                return '0.7.8.5';
+                return '0.7.8.5.1';
             }
 
             /**
@@ -539,7 +539,7 @@
              * @return string
              */
             function machineVersion() {
-                return '2015051601';
+                return '2015051602';
             }
 
             /**
