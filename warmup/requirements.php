@@ -41,7 +41,6 @@
 
             </div>
             
-            
             <?php
                 /* 
                  * Check whether you're installing on a secure connection (and presumably your site is secure).
@@ -74,7 +73,7 @@
                     } else {
                         $class = 'warning';
                     }
-                    $text = 'You appear to be running Known on an unsecured site. We strongly recommend obtaining a certificate to make your site secure, and protect the privacy of your users.';
+                    $text = 'Your site doesn\'t seem to be loaded with HTTPS. We strongly recommend using HTTPS to make your site secure and protect your privacy.';
                 }
             ?>
             <div class="component <?= $class ?>">
