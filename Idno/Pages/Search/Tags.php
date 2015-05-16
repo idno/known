@@ -17,7 +17,7 @@
                 if (!empty($this->arguments[0])) {
                     $tag  = urldecode($this->arguments[0]);
                     $page = new Homepage();
-                    $page->setInput('q', $tag);
+                    $page->setInput('q', '#' . $tag);
                     $page->getContent();
                     exit;
                 }

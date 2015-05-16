@@ -59,8 +59,7 @@
                 }
 
                 if (empty($types)) {
-                    $types          = 'Idno\Entities\ActivityStreamPost';
-                    $search['verb'] = 'post';
+                    $types = \Idno\Common\ContentType::getRegisteredClasses();
                 } else {
                     if (!is_array($types)) $types = array($types);
                     $types[] = '!Idno\Entities\ActivityStreamPost';

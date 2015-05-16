@@ -607,7 +607,7 @@
                             }
                             if ($key == '$search') {
                                 $val = $value[0]; // The search query is always in $value position [0] for now
-                                if (strlen($val) > 3) {
+                                if (strlen($val) > 5) {
                                     $subwhere[]                                  = "match (`search`) against (:nonmdvalue{$non_md_variables})";
                                     $variables[":nonmdvalue{$non_md_variables}"] = $val;
                                 } else {
