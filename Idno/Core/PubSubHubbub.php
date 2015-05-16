@@ -9,6 +9,8 @@
 
     namespace Idno\Core {
 
+        use Idno\Common\Entity;
+
         class PubSubHubbub extends \Idno\Common\Component
         {
 
@@ -241,7 +243,13 @@
 
                     // homepage feed
                     $homepage_types = \Idno\Core\site()->config()->getHomepageContentTypes();
-                    if (empty($homepage_types) || in_array($object->getContentType(), $homepage_types)) {
+                    $type_in_homepage = false;
+                    if ($object instanceof Entity) {
+                        if (in_array($object->getContentType(), $homepage_types)) {
+                            $type_in_homepage = true;
+                        }
+                    }
+                    if (empty($homepage_types) || $type_in_homepage) {
                         $feeds[] = $base;
                     }
 
