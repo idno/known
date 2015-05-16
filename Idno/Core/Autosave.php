@@ -102,6 +102,7 @@
                         if ($result = $user->save()) {
 
                             site()->session()->refreshSessionUser($user);
+
                             return $result;
 
                         }

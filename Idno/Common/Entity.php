@@ -716,8 +716,8 @@
                         $attachments = $this->attachments;
                         foreach ($this->attachments as $key => $value) {
                             if (!empty($value['url'])) {
-                                $host              = parse_url($value['url'], PHP_URL_HOST);
-                                $value['url']      = str_replace($host, \Idno\Core\site()->config()->attachment_base_host, $value['url']);
+                                $host         = parse_url($value['url'], PHP_URL_HOST);
+                                $value['url'] = str_replace($host, \Idno\Core\site()->config()->attachment_base_host, $value['url']);
                                 if (empty($value['filename'])) {
                                     $value['filename'] = basename($value['url']);
                                 }
@@ -787,6 +787,7 @@
                 if ($page = \Idno\Core\site()->currentPage()) {
                     return $page->getIcon();
                 }
+
                 return \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k.png';
             }
 
@@ -1344,7 +1345,7 @@
                         ];
                     }
                 }
-                
+
                 if (!empty($this->annotations)) {
                     $object['annotations'] = $this->annotations;
                 }
@@ -1433,15 +1434,16 @@
             static function getStringURLs($arr)
             {
                 $result = [];
-                foreach($arr as $value) {
+                foreach ($arr as $value) {
                     if (is_string($value)) {
                         $result[] = $value;
                     } else if (is_array($value) && !empty($value['properties']) && !empty($value['properties']['url'])) {
-                        foreach($value['properties']['url'] as $url) {
+                        foreach ($value['properties']['url'] as $url) {
                             $result[] = $url;
                         }
                     }
                 }
+
                 return $result;
             }
 
@@ -1750,7 +1752,7 @@
                 if ($existing_annotations = $this->getAnnotations($subtype)) {
                     foreach ($existing_annotations as $existing_local_url => $existing_annotation) {
                         if ($existing_annotation['permalink'] == $annotation_url) {
-                            $local_url = $existing_local_url;
+                            $local_url    = $existing_local_url;
                             $post_existed = true;
                         }
                     }

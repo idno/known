@@ -14,7 +14,7 @@
                         $this->registerEvents();
                     }
                 }
-                site()->addPageHandler('robot/remove/?','Idno\Pages\Robot\Remove');
+                site()->addPageHandler('robot/remove/?', 'Idno\Pages\Robot\Remove');
             }
 
             function registerEvents()
@@ -44,7 +44,7 @@
                                         self::$changed_state = 1;
                                         break;
                                     case '2b':
-                                        $user->robot_state = '3b';
+                                        $user->robot_state   = '3b';
                                         self::$changed_state = 1;
                                         break;
 

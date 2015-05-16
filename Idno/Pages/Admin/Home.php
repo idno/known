@@ -28,12 +28,12 @@
             function postContent()
             {
                 $this->adminGatekeeper(); // Admins only
-                $title                = $this->getInput('title');
-                $description          = $this->getInput('description');
-                $url                  = rtrim($this->getInput('url'), ' /') . '/';
-                $path                 = dirname(dirname(dirname(dirname(__FILE__)))); // Path is more safely derived from install location
+                $title       = $this->getInput('title');
+                $description = $this->getInput('description');
+                $url         = rtrim($this->getInput('url'), ' /') . '/';
+                $path        = dirname(dirname(dirname(dirname(__FILE__)))); // Path is more safely derived from install location
                 if (!empty($url)) {
-                    $host                 = parse_url($url, PHP_URL_HOST); // Host can be safely derived from URL
+                    $host = parse_url($url, PHP_URL_HOST); // Host can be safely derived from URL
                 }
                 $hub                  = $this->getInput('hub'); // PuSH hub
                 $open_registration    = $this->getInput('open_registration');

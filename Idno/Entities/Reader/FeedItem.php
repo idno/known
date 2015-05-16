@@ -42,7 +42,8 @@
              * Sets the body of this item to the given content string
              * @param $content
              */
-            function setBody($content) {
+            function setBody($content)
+            {
                 $this->body = $content;
             }
 
@@ -50,7 +51,8 @@
              * Retrieves the body of this item
              * @return string
              */
-            function getBody() {
+            function getBody()
+            {
                 return $this->body;
             }
 
@@ -58,7 +60,8 @@
              * Sets the non-HTML value of this item
              * @param $content
              */
-            function setValue($content) {
+            function setValue($content)
+            {
                 $this->value = $content;
             }
 
@@ -66,7 +69,8 @@
              * Retrieves the non-HTML value of this item
              * @return mixed
              */
-            function getValue() {
+            function getValue()
+            {
                 return $this->value;
             }
 
@@ -74,7 +78,8 @@
              * Sets the URL of a photo associated with this item
              * @param $photo
              */
-            function setPhoto($photo) {
+            function setPhoto($photo)
+            {
                 $this->photo = $photo;
             }
 
@@ -83,7 +88,8 @@
              * @param $photo
              * @return mixed
              */
-            function getPhoto($photo) {
+            function getPhoto($photo)
+            {
                 return $this->photo;
             }
 
@@ -100,7 +106,8 @@
              * Sets the name of the author of this item
              * @param $author_name
              */
-            function setAuthorName($author_name) {
+            function setAuthorName($author_name)
+            {
                 $this->authorName = $author_name;
             }
 
@@ -108,7 +115,8 @@
              * Retrieves the name of the author of this item
              * @return mixed
              */
-            function getAuthorName() {
+            function getAuthorName()
+            {
                 return $this->authorName;
             }
 
@@ -116,7 +124,8 @@
              * Sets the URL of the author photo associated with this piece
              * @param $author_photo
              */
-            function setAuthorPhoto($author_photo) {
+            function setAuthorPhoto($author_photo)
+            {
                 $this->authorPhoto = $author_photo;
             }
 
@@ -125,20 +134,23 @@
              * @param $author_photo
              * @return mixed
              */
-            function getAuthorPhoto() {
+            function getAuthorPhoto()
+            {
                 if ($photo = $this->authorPhoto) {
                     return $photo;
                 }
-                $bn = hexdec(substr(md5($this->getUUID()), 0, 15));
+                $bn     = hexdec(substr(md5($this->getUUID()), 0, 15));
                 $number = 1 + ($bn % 5);
-                return \Idno\Core\site()->config()->url . 'gfx/users/default-'. str_pad($number, 2, '0', STR_PAD_LEFT) .'.png';
+
+                return \Idno\Core\site()->config()->url . 'gfx/users/default-' . str_pad($number, 2, '0', STR_PAD_LEFT) . '.png';
             }
 
             /**
              * Sets the URL of the author of this item
              * @param $url
              */
-            function setAuthorURL($url) {
+            function setAuthorURL($url)
+            {
                 $this->authorURL = $url;
             }
 
@@ -146,7 +158,8 @@
              * Retrieves the URL of the author of this item
              * @return mixed
              */
-            function getAuthorURL() {
+            function getAuthorURL()
+            {
                 return $this->authorURL;
             }
 
@@ -154,7 +167,8 @@
              * Sets an array containing the syndication points of this item
              * @param $syndication
              */
-            function setSyndication($syndication) {
+            function setSyndication($syndication)
+            {
                 $this->syndication = $syndication;
             }
 
@@ -162,10 +176,12 @@
              * Retrieves the URLs to syndicated versions of this item
              * @return array
              */
-            function getSyndication() {
+            function getSyndication()
+            {
                 if (!empty($this->syndication)) {
                     return $this->syndication;
                 }
+
                 return array();
             }
 
@@ -249,8 +265,8 @@
             function mfpath($mf, $path)
             {
                 $elts = array_filter(explode("/", $path), function ($e) {
-                        return $e != "";
-                    });
+                    return $e != "";
+                });
 
                 return array_reduce($elts, function ($result, $elt) {
                     return $this->mfprop($result, $elt);
@@ -261,13 +277,15 @@
              * Saves this item if it hasn't been saved yet
              * @return $this|bool|false|Entity
              */
-            function saveIfNotSaved() {
+            function saveIfNotSaved()
+            {
                 if ($object = FeedItem::getOne(array('url' => $this->url))) {
                     return $object;
                 }
                 if ($this->save()) {
                     return $this;
                 }
+
                 return false;
             }
 

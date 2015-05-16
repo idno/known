@@ -148,9 +148,13 @@
                         $transport->setPort(site()->config()->smtp_port);
                     }
                     if (!empty(site()->config()->smtp_secure)) {
-                        switch (site()->config()->smtp_secure) {   
-                            case 'tls': $transport->setEncryption('tls'); break;
-                            case 'ssl': $transport->setEncryption('ssl'); break;
+                        switch (site()->config()->smtp_secure) {
+                            case 'tls':
+                                $transport->setEncryption('tls');
+                                break;
+                            case 'ssl':
+                                $transport->setEncryption('ssl');
+                                break;
                         }
                     }
                     $mailer = \Swift_Mailer::newInstance($transport);
@@ -166,7 +170,7 @@
                     // Lets log errors rather than silently drop them
                     \Idno\Core\site()->logging()->log($e->getMessage(), LOGLEVEL_ERROR);
                 }
-                
+
                 return 0;
             }
 

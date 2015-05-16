@@ -32,7 +32,7 @@
                 'themes'                 => array(),
                 'antiplugins'            => array(),
                 'alwaysplugins'          => array(
-                                                    'Convoy'
+                    'Convoy'
                 ),
                 'prerequisiteplugins'    => array(),
                 'directloadplugins'      => array(),
@@ -231,7 +231,7 @@
                 unset($array['session_path']); // Don't save the session path in the database
                 unset($array['session_hash_function']); // Don't save the session hash to database, we want the ability to upgrade
                 unset($array['cookie_jar']); // Don't save the cookie path in the database
-                unset($array['proxy_string']); 
+                unset($array['proxy_string']);
                 unset($array['proxy_type']);
                 unset($array['disable_ssl_verify']);
                 unset($array['known_hub']);
@@ -272,9 +272,9 @@
                         unset($config['antiplugins']);
                         unset($config['alwaysplugins']);
                         unset($config['session_path']);
-                        unset($config['session_hash_function']); 
+                        unset($config['session_hash_function']);
                         unset($config['cookie_jar']);
-                        unset($config['proxy_string']); 
+                        unset($config['proxy_string']);
                         unset($config['proxy_type']);
                         unset($config['disable_ssl_verify']);
                     }
@@ -321,12 +321,13 @@
              */
             function getSchemelessURL()
             {
-                $url = $this->getURL();
+                $url       = $this->getURL();
                 $urischeme = parse_url($url, PHP_URL_SCHEME);
-                $url = str_replace($urischeme . '://','',$url);
-                if (substr($url,-1,1) == '/') {
-                    $url = substr($url,0,strlen($url) - 1);
+                $url       = str_replace($urischeme . '://', '', $url);
+                if (substr($url, -1, 1) == '/') {
+                    $url = substr($url, 0, strlen($url) - 1);
                 }
+
                 return $url;
             }
 
@@ -339,6 +340,7 @@
                 if (!empty($this->static_url)) {
                     return $this->static_url;
                 }
+
                 return $this->getDisplayURL();
             }
 

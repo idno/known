@@ -120,13 +120,16 @@
                     <select name="smtp_secure">
                         <?php
                             foreach ([
-                                'No' => false,
-                                'Yes (TLS)' => 'tls',
-                                'Yes (SSL)' => 'ssl'
-                            ] as $field => $value) {
+                                         'No'        => false,
+                                         'Yes (TLS)' => 'tls',
+                                         'Yes (SSL)' => 'ssl'
+                                     ] as $field => $value) {
                                 ?>
-                        <option value="<?= $value; ?>" <?php if (\Idno\Core\site()->config()->smtp_secure === $value) { echo "selected"; } ?>><?= $field; ?></option>
-                        <?php
+                                <option
+                                    value="<?= $value; ?>" <?php if (\Idno\Core\site()->config()->smtp_secure === $value) {
+                                    echo "selected";
+                                } ?>><?= $field; ?></option>
+                            <?php
                             }
                         ?>
                     </select>
@@ -147,29 +150,30 @@
         </form>
     </div>
     <?php if (\Idno\Core\site()->config()->from_email) { ?>
-    <div class="span10 offset1">
-        <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/emailtest" class="form-horizontal" method="post">
-        
-            <div class="row">
-                <div class="span2">
-                    <p class="control-label" for="name"><strong>Send a test message to:</strong></p>
+        <div class="span10 offset1">
+            <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/emailtest" class="form-horizontal"
+                  method="post">
+
+                <div class="row">
+                    <div class="span2">
+                        <p class="control-label" for="name"><strong>Send a test message to:</strong></p>
+                    </div>
+                    <div class="span4">
+                        <input type="text" id="to_email" placeholder="To address" class="span4" name="to_email"
+                               value="<?= htmlspecialchars(\Idno\Core\site()->config()->from_email) ?>">
+                    </div>
+                    <div class="span4">
+                        <p class="config-desc">Email address to send a test message to.</p>
+                    </div>
                 </div>
-                <div class="span4">
-                    <input type="text" id="to_email" placeholder="To address" class="span4" name="to_email"
-                           value="<?= htmlspecialchars(\Idno\Core\site()->config()->from_email) ?>">
+
+                <div class="control-group">
+                    <div class="controls-save">
+                        <button type="submit" class="btn btn-primary">Test settings</button>
+                    </div>
                 </div>
-                <div class="span4">
-                    <p class="config-desc">Email address to send a test message to.</p>
-                </div>
-            </div>
-            
-            <div class="control-group">
-                <div class="controls-save">
-                    <button type="submit" class="btn btn-primary">Test settings</button>
-                </div>
-            </div>
-            <?= \Idno\Core\site()->actions()->signForm('/admin/emailtest') ?>
-        </form>      
-    </div>
+                <?= \Idno\Core\site()->actions()->signForm('/admin/emailtest') ?>
+            </form>
+        </div>
     <?php } ?>
 </div>

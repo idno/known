@@ -18,7 +18,7 @@
                 }
 
                 $page = new \Idno\Pages\Account\Register();
-                $page->setInput('onboarding',true);
+                $page->setInput('onboarding', true);
                 $page->getContent();
 
             }
@@ -27,7 +27,7 @@
             {
 
                 $page = new \Idno\Pages\Account\Register();
-                $page->setInput('onboarding',true);
+                $page->setInput('onboarding', true);
                 $page->postContent();
 
             }

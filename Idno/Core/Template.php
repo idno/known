@@ -70,6 +70,7 @@
 
                 if (!empty($result)) return $result;
                 if ($returnBlank) return '';
+
                 return false;
             }
 
@@ -210,16 +211,17 @@
                 $html = site()->triggerEvent('text/format', [], $html);
                 require_once dirname(dirname(dirname(__FILE__))) . '/external/MrClay_AutoP/AutoP.php';
                 $autop = new \MrClay_AutoP();
-                
+
                 return $this->sanitize_html($autop->process($html));
             }
-            
+
             /**
              * Sanitize HTML in a large block of text, removing XSS and other vulnerabilities.
              * This works by calling the text/filter event, note that currently there is no native implementation.
              * @param type $html
              */
-            function sanitize_html($html) {
+            function sanitize_html($html)
+            {
                 return site()->triggerEvent('text/filter', [], $html);
             }
 
@@ -228,7 +230,8 @@
              * @param $html
              * @return mixed
              */
-            function sanitise_html($html) {
+            function sanitise_html($html)
+            {
                 return $this->sanitize_html($html);
             }
 
@@ -268,9 +271,9 @@
             function parseHashtags($text)
             {
                 $text = (html_entity_decode($text));
-                $r = preg_replace_callback('/(?<=^|[\>\s\n])(\#[\p{L}]+)/u', function($matches) {
+                $r    = preg_replace_callback('/(?<=^|[\>\s\n])(\#[\p{L}]+)/u', function ($matches) {
                     $url = $matches[1];
-                    $tag = str_replace('#','',$matches[1]);
+                    $tag = str_replace('#', '', $matches[1]);
 
                     if (preg_match('/\#[A-Fa-f0-9]{6}/', $matches[1])) {
                         return $matches[1];
@@ -318,6 +321,7 @@
                 } else {
                     $newuri = 'http:';
                 }
+
                 return str_replace($scheme . ':', $newuri, $url);
             }
 
@@ -428,7 +432,8 @@
             /**
              * Sets the template type based on various environmental factors
              */
-            function autodetectTemplateType() {
+            function autodetectTemplateType()
+            {
                 if ($page = site()->currentPage()) {
                     $template = $page->getInput('_t');
                     if (!empty($template)) {

@@ -68,7 +68,7 @@
                 if (!empty($content_types)) {
                     foreach ($content_types as $content_type) {
                         if (empty($this->services[$content_type])) {
-                            $this->services[$content_type ] = [];
+                            $this->services[$content_type] = [];
                         }
                         if (!in_array($service, $this->services[$content_type]) || empty($this->services[$content_type])) {
                             $this->services[$content_type][] = $service;
@@ -89,7 +89,7 @@
             {
                 $service = strtolower($service);
                 if (!empty($this->accounts[$service])) {
-                    foreach($this->accounts[$service] as $key => $account) {
+                    foreach ($this->accounts[$service] as $key => $account) {
                         if ($account['username'] == $username) {
                             unset($this->accounts[$service][$key]); // Remove existing entry if it exists, so fresher one can be added
                         }
@@ -124,10 +124,11 @@
                 } else {
                     $return = array();
                     if (!empty($this->services)) {
-                        foreach($this->services as $service) {
+                        foreach ($this->services as $service) {
                             $return = array_merge($return, $service);
                         }
                     }
+
                     return array_unique($return);
                 }
 
@@ -144,6 +145,7 @@
                 if (!empty($this->accounts[$service])) {
                     return $this->accounts[$service];
                 }
+
                 return false;
             }
 
@@ -156,6 +158,7 @@
                 if (!empty($this->accounts)) {
                     return $this->accounts;
                 }
+
                 return array();
             }
 
@@ -164,16 +167,18 @@
              * @param $account_string
              * @return bool|int|string
              */
-            function getServiceByAccountString($account_string) {
+            function getServiceByAccountString($account_string)
+            {
                 if ($accounts = $this->getServiceAccountsByService()) {
-                    foreach($accounts as $service => $account_list) {
-                        foreach($account_list as $listed_account) {
+                    foreach ($accounts as $service => $account_list) {
+                        foreach ($account_list as $listed_account) {
                             if ($account_string == $service . '::' . $listed_account['username']) {
                                 return $service;
                             }
                         }
                     }
                 }
+
                 return false;
             }
 
@@ -182,10 +187,12 @@
              * @param $account_string
              * @return bool|mixed
              */
-            function getAccountFromAccountString($account_string) {
+            function getAccountFromAccountString($account_string)
+            {
                 if ($service = $this->getServiceByAccountString($account_string)) {
                     return str_replace($service . '::', '', $account_string);
                 }
+
                 return false;
             }
 

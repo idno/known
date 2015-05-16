@@ -36,7 +36,7 @@
                             file_exists(\Idno\Core\site()->config()->path . '/Themes/' . $theme) ||
                             (
                                 !empty($host) && (
-                                    file_exists(\Idno\Core\site()->config()->path . '/hosts/' . $host . '/Themes/' . $theme)
+                                file_exists(\Idno\Core\site()->config()->path . '/hosts/' . $host . '/Themes/' . $theme)
                                 )
                             )
                         )

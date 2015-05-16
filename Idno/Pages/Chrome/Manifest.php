@@ -4,9 +4,11 @@
 
         use Idno\Common\Page;
 
-        class Manifest extends Page {
+        class Manifest extends Page
+        {
 
-            function getContent() {
+            function getContent()
+            {
 
                 echo \Idno\Core\site()->template()->draw('chrome/manifest');
 

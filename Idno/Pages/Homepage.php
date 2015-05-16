@@ -95,13 +95,13 @@
                     'description' => $description,
                     'content'     => $friendly_types,
                     'body'        => $t->__(array(
-                            'items'        => $feed,
-                            'contentTypes' => $create,
-                            'offset'       => $offset,
-                            'count'        => $count,
-                            'subject'      => $query,
-                            'content'      => $friendly_types
-                        ))->draw('pages/home'),
+                        'items'        => $feed,
+                        'contentTypes' => $create,
+                        'offset'       => $offset,
+                        'count'        => $count,
+                        'subject'      => $query,
+                        'content'      => $friendly_types
+                    ))->draw('pages/home'),
 
                 ))->drawPage();
             }

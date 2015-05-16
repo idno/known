@@ -31,7 +31,7 @@
     });
 
 // Set time limit if we're using less
-    if (ini_get('max_execution_time') < 120 ) {
+    if (ini_get('max_execution_time') < 120) {
         set_time_limit(120);
     }
 
@@ -44,8 +44,10 @@
      * Retrieve the loader
      * @return \Symfony\Component\ClassLoader\UniversalClassLoader
      */
-    function &loader() {
+    function &loader()
+    {
         global $known_loader;
+
         return $known_loader;
     }
 

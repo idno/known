@@ -7,8 +7,8 @@
     namespace Idno\Pages\Admin {
 
         use Idno\Entities\Invitation;
-        use Idno\Entities\User;
         use Idno\Entities\RemoteUser;
+        use Idno\Entities\User;
 
         class Users extends \Idno\Common\Page
         {
@@ -17,9 +17,9 @@
             {
                 $this->adminGatekeeper(); // Admins only
 
-                $users = User::get(array(), array(), 99999, 0); // TODO: make this more complete / efficient
+                $users       = User::get(array(), array(), 99999, 0); // TODO: make this more complete / efficient
                 $remoteusers = RemoteUser::get(array(), array(), 99999, 0);
-                
+
                 $users = array_merge($users, $remoteusers);
 
                 $t        = \Idno\Core\site()->template();

@@ -22,12 +22,12 @@
                 ini_set('session.gc_maxlifetime', 60 * 60 * 24 * 7); // Garbage collection to match
                 ini_set('session.cookie_httponly', true); // Restrict cookies to HTTP only (help reduce XSS attack profile)
                 ini_set('session.use_strict_mode', true); // Help mitigate session fixation
-                
+
                 // Using a more secure hashing algorithm for session IDs, if available
                 if (($hash = site()->config()->session_hash_function) && (in_array($hash, hash_algos()))) {
-                    ini_set('session.hash_function', $hash); 
+                    ini_set('session.hash_function', $hash);
                 }
-                    
+
                 if (site()->isSecure()) {
                     ini_set('session.cookie_secure', true); // Set secure cookies when site is secure
                 }
@@ -37,13 +37,13 @@
                 session_name(site()->config->sessionname);
                 session_start();
                 session_cache_limiter('public');
-                
-                
+
+
                 // Flag insecure sessions (so we can check state changes etc)
                 if (!isset($_SESSION['secure'])) {
                     $_SESSION['secure'] = site()->isSecure();
                 }
-                
+
                 // Validate session
                 try {
                     $this->validate();
@@ -52,7 +52,7 @@
                     error_log($ex->getMessage());
                     session_destroy();
                 }
-                
+
 
                 // Session login / logout
                 site()->addPageHandler('/session/login', '\Idno\Pages\Session\Login', true);
@@ -63,7 +63,7 @@
                 \Idno\Core\site()->addEventHook('save', function (\Idno\Core\Event $event) {
 
                     $eventdata = $event->data();
-                    $object = $eventdata['object'];
+                    $object    = $eventdata['object'];
                     if ((!empty($object)) && ($object instanceof \Idno\Entities\User) // Object is a user
                         && ((!empty($_SESSION['user_uuid'])) && ($object->getUUID() == $this->user->getUUID()))
                     ) // And we're not trying a user change (avoids a possible exploit)
@@ -73,12 +73,13 @@
 
                 });
             }
-            
+
             /**
              * Validate the session.
              * @throws \Exception if the session is invalid.
              */
-            protected function validate() {
+            protected function validate()
+            {
                 // Check for secure sessions being delivered insecurely, and vis versa
                 if ($_SESSION['secure'] != site()->isSecure()) {
                     throw new \Exception ('Session funnybusiness: Secure session accessed insecurely, or an insecure session accessed over TLS.');
@@ -142,6 +143,7 @@
                 if ($this->isLoggedIn()) {
                     return $this->currentUser()->isAdmin();
                 }
+
                 return false;
             }
 
@@ -172,12 +174,13 @@
                 }
                 $_SESSION['messages'][] = array('message' => $message, 'message_type' => $message_type);
             }
-            
+
             /**
              * Error message wrapper for addMessage()
              * @param type $message
              */
-            function addErrorMessage($message) {
+            function addErrorMessage($message)
+            {
                 $this->addMessage($message, 'alert-error');
             }
 
@@ -187,7 +190,8 @@
              * @param string $message_type This type of message; this will be added to the displayed message class, or returned as data
              */
 
-            function addMessageAtStart($message, $message_type = 'alert-info') {
+            function addMessageAtStart($message, $message_type = 'alert-info')
+            {
                 if (empty($_SESSION['messages'])) {
                     $_SESSION['messages'] = array();
                 }
@@ -347,7 +351,7 @@
                     if (!\Idno\Common\Page::isSSL() && !\Idno\Core\site()->config()->disable_cleartext_warning) {
                         \Idno\Core\site()->session()->addErrorMessage("Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini");
                     }
-                    
+
                     $t = site()->currentPage()->getInput('_t');
                     if (empty($t)) {
                         site()->template()->setTemplateType('json');
@@ -377,7 +381,7 @@
                 // We're not logged in yet, so try and authenticate using other mechanism
                 if ($return = site()->triggerEvent('user/auth/api', [], false)) {
                     \Idno\Core\site()->session()->setIsAPIRequest(true);
-                    
+
                     if (!\Idno\Common\Page::isSSL() && !\Idno\Core\site()->config()->disable_cleartext_warning) {
                         \Idno\Core\site()->session()->addErrorMessage("Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini");
                     }
@@ -404,7 +408,7 @@
                 $return = $this->refreshSessionUser($user);
 
                 session_regenerate_id(true);
-                
+
                 return \Idno\Core\site()->triggerEvent('user/auth', array('user' => $user), $return);
             }
 
@@ -417,7 +421,8 @@
             {
                 if ($user = User::getByUUID($user->getUUID())) {
                     $_SESSION['user_uuid'] = $user->getUUID();
-                    $this->user = $user;
+                    $this->user            = $user;
+
                     return $user;
                 }
 
@@ -474,7 +479,7 @@
                     if (!site()->session()->isLoggedOn()) {
                         $class = get_class(site()->currentPage());
                         if (!site()->isPageHandlerPublic($class)) {
-                            
+
                             site()->currentPage()->setResponse(403);
                             if (!\Idno\Core\site()->session()->isAPIRequest()) {
                                 site()->currentPage()->forward(site()->config()->getURL() . 'session/login/?fwd=' . urlencode($_SERVER['REQUEST_URI']));

@@ -4,17 +4,18 @@
 
         use Idno\Common\Page;
 
-        class Homepage extends Page {
+        class Homepage extends Page
+        {
 
             function getContent()
             {
                 $this->createGatekeeper(); // Logged-in only please
-                $t                        = \Idno\Core\site()->template();
-                $t->content_types         = \Idno\Common\ContentType::getRegistered();
+                $t                     = \Idno\Core\site()->template();
+                $t->content_types      = \Idno\Common\ContentType::getRegistered();
                 $default_content_types = \Idno\Core\site()->config()->getHomepageContentTypes(); //\Idno\Core\site()->session()->currentUser()->settings['default_feed_content'];
 
                 if (empty($default_content_types)) {
-                    foreach($t->content_types as $content_type) {
+                    foreach ($t->content_types as $content_type) {
                         $default_content_types[] = $content_type->getEntityClass();
                     }
                 }
@@ -35,9 +36,9 @@
                     $default_feed_content = false;
                 }
 
-                $config = \Idno\Core\site()->config;
+                $config                       = \Idno\Core\site()->config;
                 $config->default_feed_content = $default_feed_content;
-                \Idno\Core\site()->config = $config;
+                \Idno\Core\site()->config     = $config;
 
                 if (\Idno\Core\site()->config->save()) {
                     \Idno\Core\site()->session()->addMessage("The default homepage content types were saved.");

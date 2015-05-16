@@ -41,7 +41,7 @@
                 \Idno\Core\site()->addEventHook('webfinger', function (\Idno\Core\Event $event) {
 
                     $eventdata = $event->data();
-                    $user = $eventdata['object'];
+                    $user      = $eventdata['object'];
 
                     $links = $event->response();
                     if (empty($links)) $links = array();
@@ -67,7 +67,7 @@
                 \Idno\Core\site()->addEventHook('saved', function (\Idno\Core\Event $event) {
 
                     $eventdata = $event->data();
-                    $user = $eventdata['object'];
+                    $user      = $eventdata['object'];
 
                     if ($user instanceof User) {
                         if ($currentUser = \Idno\Core\site()->session()->currentUser()) {
@@ -83,7 +83,7 @@
                 \Idno\Core\site()->addEventHook('notify', function (\Idno\Core\Event $event) {
 
                     $eventdata = $event->data();
-                    $user = $eventdata['user'];
+                    $user      = $eventdata['user'];
 
                     $eventdata = $event->data();
                     if ($user instanceof User && $context = $eventdata['context']) {
@@ -91,11 +91,11 @@
                         if (empty($user->notifications['email']) || $user->notifications['email'] == 'all' || ($user->notifications['email'] == 'comment' && in_array($context, array('comment', 'reply')))) {
 
                             $eventdata = $event->data();
-                            $vars = $eventdata['vars'];
+                            $vars      = $eventdata['vars'];
                             if (empty($vars)) {
                                 $vars = array();
                             }
-                            $eventdata = $event->data();
+                            $eventdata      = $event->data();
                             $vars['object'] = $eventdata['object'];
 
                             if (filter_var($user->email, FILTER_VALIDATE_EMAIL)) {
@@ -387,7 +387,7 @@
                 }
 
                 return \Idno\Core\site()->triggerEvent('user/password/checkstrength', array(
-                    'password'  => $password
+                    'password' => $password
                 ), $default);
 
             }
@@ -777,11 +777,12 @@
              * Remove this user and all its objects
              * @return bool
              */
-            function delete() {
+            function delete()
+            {
 
                 // First, remove all owned objects
                 while ($objects = Entity::get(array('owner' => $this->getUUID(), array(), 100))) {
-                    foreach($objects as $object) {
+                    foreach ($objects as $object) {
                         $object->delete();
                     }
                 }

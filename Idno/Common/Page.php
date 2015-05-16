@@ -110,7 +110,7 @@
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
 
-                \Idno\Core\site()->triggerEvent('page/head',array('page' => $this));
+                \Idno\Core\site()->triggerEvent('page/head', array('page' => $this));
                 \Idno\Core\site()->triggerEvent('page/get', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
                 $this->getContent();
@@ -134,7 +134,7 @@
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
 
-                \Idno\Core\site()->triggerEvent('page/head',array('page' => $this));
+                \Idno\Core\site()->triggerEvent('page/head', array('page' => $this));
                 \Idno\Core\site()->triggerEvent('page/post', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
                 if (\Idno\Core\site()->actions()->validateToken('', false)) {
@@ -150,8 +150,7 @@
                     // Either way, it's not safe to forward to the site root since this spits back json encoded front page and a 200 response.
                     // API currently doesn't explicitly handle this situation (bad), but we don't want to forward (worse). Some plugins will still
                     // forward to / in some situations, these will need rewriting.
-                    if ($return === null)
-                    {
+                    if ($return === null) {
                         if (http_response_code() == 200) {
                             $this->setResponse(400);
                         }
@@ -174,9 +173,7 @@
                         $t = \Idno\Core\site()->template();
                         echo $t->__(['result' => $return])->drawPage();
                     }
-                }
-                else
-                {
+                } else {
                     $this->forward(); // If we haven't forwarded yet, do so (if we can)
                 }
 
@@ -199,7 +196,7 @@
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
 
-                \Idno\Core\site()->triggerEvent('page/head',array('page' => $this));
+                \Idno\Core\site()->triggerEvent('page/head', array('page' => $this));
                 \Idno\Core\site()->triggerEvent('page/put', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
                 if (\Idno\Core\site()->actions()->validateToken('', false)) {
@@ -212,8 +209,7 @@
                 if (\Idno\Core\site()->session()->isAPIRequest()) {
 
                     // Ensure we always get a meaningful response from the api
-                    if ($return === null)
-                    {
+                    if ($return === null) {
                         if (http_response_code() == 200) {
                             $this->setResponse(400);
                         }
@@ -259,7 +255,7 @@
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
 
-                \Idno\Core\site()->triggerEvent('page/head',array('page' => $this));
+                \Idno\Core\site()->triggerEvent('page/head', array('page' => $this));
                 \Idno\Core\site()->triggerEvent('page/delete', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
                 if (\Idno\Core\site()->actions()->validateToken('', false)) {
@@ -272,8 +268,7 @@
                 if (\Idno\Core\site()->session()->isAPIRequest()) {
 
                     // Ensure we always get a meaningful response from the api
-                    if ($return === null)
-                    {
+                    if ($return === null) {
                         if (http_response_code() == 200) {
                             $this->setResponse(400);
                         }
@@ -512,7 +507,7 @@
             function flushBrowser()
             {
                 header('Connection: close');
-                header('Content-length: ' . (string) ob_get_length());
+                header('Content-length: ' . (string)ob_get_length());
 
                 @ob_end_flush();            // Return output to the browser
                 @ob_end_clean();
@@ -671,7 +666,7 @@
                 } else if (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == '443'))
                     return true;
 
-                if(isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'){
+                if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
                     return true;
                 }
 
@@ -798,6 +793,7 @@
                         $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
                     }
                 }
+
                 return $headers;
             }
 
@@ -848,12 +844,9 @@
             {
                 $icon = \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k.png';
 
-                if (\Idno\Core\site()->config()->user_avatar_favicons)
-                {
-                    if ($user = \Idno\Core\site()->currentPage()->getOwner())
-                    {
-                        if ($user instanceof \Idno\Entities\User)
-                        {
+                if (\Idno\Core\site()->config()->user_avatar_favicons) {
+                    if ($user = \Idno\Core\site()->currentPage()->getOwner()) {
+                        if ($user instanceof \Idno\Entities\User) {
                             $icon = $user->getIcon();
                         }
                     }

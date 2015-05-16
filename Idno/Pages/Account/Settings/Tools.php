@@ -23,7 +23,7 @@
 
             function postContent()
             {
-                
+
                 $this->forward($_SERVER['HTTP_REFERER']);
             }
 

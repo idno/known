@@ -26,7 +26,7 @@
 
                 // Add a classloader to look for a package autoloader
                 // TODO: make sure this works with multitenant sites and plugins on an external path
-                spl_autoload_register(function($class) {
+                spl_autoload_register(function ($class) {
                     foreach (\Idno\Core\site()->config->config['plugins'] as $plugin) {
                         if (file_exists(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $plugin . '/autoloader.php')) {
                             include_once(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $plugin . '/autoloader.php');
@@ -35,7 +35,7 @@
                 });
 
                 if (!empty(site()->config()->directloadplugins)) {
-                    foreach(site()->config()->directloadplugins as $plugin => $folder) {
+                    foreach (site()->config()->directloadplugins as $plugin => $folder) {
                         @include $folder . '/Main.php';
                     }
                 }
@@ -44,7 +44,7 @@
                     site()->config()->prerequisiteplugins = array_unique(site()->config()->prerequisiteplugins);
                     foreach (site()->config()->prerequisiteplugins as $plugin) {
                         if (is_subclass_of("IdnoPlugins\\{$plugin}\\Main", 'Idno\\Common\\Plugin')) {
-                            $class                  = "IdnoPlugins\\{$plugin}\\Main";
+                            $class = "IdnoPlugins\\{$plugin}\\Main";
                             if (empty($this->plugins[$plugin])) {
                                 $this->plugins[$plugin] = new $class();
                             }
@@ -59,7 +59,7 @@
                     foreach (site()->config()->plugins as $plugin) {
                         if (!in_array($plugin, site()->config()->antiplugins)) {
                             if (is_subclass_of("IdnoPlugins\\{$plugin}\\Main", 'Idno\\Common\\Plugin')) {
-                                $class                  = "IdnoPlugins\\{$plugin}\\Main";
+                                $class = "IdnoPlugins\\{$plugin}\\Main";
                                 if (empty($this->plugins[$plugin])) {
                                     $this->plugins[$plugin] = new $class();
                                 }
@@ -176,12 +176,13 @@
             {
                 $usage = [];
                 if (!empty($this->plugins)) {
-                    foreach($this->plugins as $plugin) {
+                    foreach ($this->plugins as $plugin) {
                         if ($plugin instanceof Plugin) {
-                            $usage[$plugin->getClass()] = (int) $plugin->getFileUsage();
+                            $usage[$plugin->getClass()] = (int)$plugin->getFileUsage();
                         }
                     }
                 }
+
                 return $usage;
             }
 
@@ -192,8 +193,9 @@
             public function getTotalFileUsage()
             {
                 if ($usage = $this->getFileUsageByPlugin()) {
-                    return (int) array_sum($usage);
+                    return (int)array_sum($usage);
                 }
+
                 return 0;
             }
 

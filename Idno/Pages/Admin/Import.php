@@ -4,23 +4,25 @@
 
         use Idno\Common\Page;
         use Idno\Core\Migration;
-        use Idno\Entities\File;
 
-        class Import extends Page {
+        class Import extends Page
+        {
 
-            function getContent() {
+            function getContent()
+            {
 
                 $this->adminGatekeeper();
 
                 $t = \Idno\Core\site()->template();
                 $t->__(array(
                     'title' => 'Import data',
-                    'body' => $t->draw('admin/import'),
+                    'body'  => $t->draw('admin/import'),
                 ))->drawPage();
 
             }
 
-            function postContent() {
+            function postContent()
+            {
 
                 $this->adminGatekeeper();
 
@@ -40,7 +42,7 @@
                 ignore_user_abort(true);    // This is dangerous, but we need export to continue
 
                 header('Connection: close');
-                header('Content-length: ' . (string) ob_get_length());
+                header('Content-length: ' . (string)ob_get_length());
 
                 @ob_end_flush();            // Return output to the browser
                 @ob_end_clean();
@@ -51,7 +53,7 @@
                 set_time_limit(0);          // Eliminate time limit - this could take a while
 
                 $imported = false;
-                switch(strtolower($import_type)) {
+                switch (strtolower($import_type)) {
 
                     case 'blogger':
                         $imported = Migration::importBloggerXML($xml);

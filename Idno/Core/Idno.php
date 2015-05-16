@@ -87,11 +87,11 @@
                         break;
                 }
                 $this->config->load();
-                $this->session     = new Session();
-                $this->actions     = new Actions();
-                $this->template    = new Template();
-                $this->syndication = new Syndication();
-                $this->logging     = new Logging($this->config->log_level);
+                $this->session      = new Session();
+                $this->actions      = new Actions();
+                $this->template     = new Template();
+                $this->syndication  = new Syndication();
+                $this->logging      = new Logging($this->config->log_level);
                 $this->reader       = new Reader();
                 $this->helper_robot = new HelperRobot();
 
@@ -112,7 +112,7 @@
                     $this->config->known_hub != $this->config->url
                 ) {
                     site()->session()->hub_connect = time();
-                    \Idno\Core\site()->known_hub = new \Idno\Core\Hub($this->config->known_hub);
+                    \Idno\Core\site()->known_hub   = new \Idno\Core\Hub($this->config->known_hub);
                     \Idno\Core\site()->known_hub->connect();
                 }
 
@@ -513,7 +513,7 @@
              */
             function getAdmins()
             {
-                return User::get(['admin' => true],[],9999);
+                return User::get(['admin' => true], [], 9999);
             }
 
             /**

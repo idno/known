@@ -25,7 +25,7 @@
                 \Idno\Core\site()->events()->dispatch('url/shorten', $event);
                 $short_url = $event->response();
 
-                if (!in_array($type, array('note','reply','rsvp','like','bookmark'))) {
+                if (!in_array($type, array('note', 'reply', 'rsvp', 'like', 'bookmark'))) {
                     $share_type = 'note';
 
                     if ($content = \Idno\Core\Webservice::get($url)) {
@@ -49,7 +49,7 @@
                 }
 
                 $content_type = \Idno\Common\ContentType::getRegisteredForIndieWebPostType($share_type);
-                
+
                 $hide_nav = false;
                 if ($this->getInput('via') == 'ff_social') {
                     $hide_nav = true;
@@ -70,7 +70,7 @@
                             }
                         }
                         $page->setInput('hidenav', $hide_nav);
-                        $page->setInput('sharing',true);
+                        $page->setInput('sharing', true);
                         $page->setInput('share_type', $share_type);
                         $page->get();
                     }

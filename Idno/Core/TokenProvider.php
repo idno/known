@@ -4,9 +4,11 @@
 
         use Idno\Common\Component;
 
-        class TokenProvider extends Component {
+        class TokenProvider extends Component
+        {
 
-            function generateToken($length) {
+            function generateToken($length)
+            {
 
                 return openssl_random_pseudo_bytes($length);
 
