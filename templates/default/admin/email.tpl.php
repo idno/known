@@ -8,7 +8,8 @@
             <p>
                 Known tries to send email using your server's default email settings. If you'd like it to do
                 something else - for example, if you'd like to send email using an external provider - enter the
-                new SMTP settings below.
+                new SMTP settings below. You can also
+                <a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>account/settings/notifications/">change your notification settings</a>.
             </p>
         </div>
     </div>
