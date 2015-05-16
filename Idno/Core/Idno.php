@@ -517,7 +517,7 @@
             }
 
             /**
-             * Retrieve this version of idno's version number
+             * Retrieve this version of Known's version number
              * @return string
              */
             function version()
@@ -532,6 +532,22 @@
             function getVersion()
             {
                 return $this->version();
+            }
+
+            /**
+             * Retrieve a machine-readale version of Known's version number
+             * @return string
+             */
+            function machineVersion() {
+                return '2015051601';
+            }
+
+            /**
+             * Alias for getMachineVersion
+             * @return string
+             */
+            function getMachineVersion() {
+                return $this->machineVersion();
             }
 
             /**
