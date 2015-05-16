@@ -2,6 +2,16 @@
 
 Starting with version 0.6.4, this is a list of changes in the self-hosted, open source version of Known.
 
+0.7.8.5
+-------
+May 16, 2015
+
+* Better tag support, including for short tags
+* Fixed an issue with hashtags containing numbers
+* Native MongoDB notifications
+* Improved brid.gy integration
+* Fixed issue with login forwarding on walled garden sites
+
 0.7.8
 -----
 May 4, 2015
