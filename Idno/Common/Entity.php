@@ -585,7 +585,7 @@
                 $slug = strtolower($slug);
                 $slug = strip_tags($slug);
                 $slug = preg_replace('|https?://[a-z\.0-9]+|i', '', $slug);
-                $slug = preg_replace("/[^\%\p{L}0-9\-\_ ]/", '', $slug);
+                $slug = preg_replace("/[^A-Za-z0-9\-\_ ]/", '', $slug);
                 $slug = preg_replace("/[ ]+/", ' ', $slug);
                 $slug = implode('-', array_slice(explode(' ', $slug), 0, $max_pieces));
                 $slug = str_replace(' ', '-', $slug);
