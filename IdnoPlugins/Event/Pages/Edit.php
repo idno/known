@@ -48,8 +48,8 @@
 
                 if ($object->saveDataFromInput($this)) {
                     (new \Idno\Core\Autosave())->clearContext('event');
-                    $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'content/all/');
-                    //$this->forward($object->getDisplayURL());
+                    $forward = $this->getInput('forward-to', $this->forward($object->getDisplayURL()));
+                    $this->forward($forward);
                 }
 
             }
