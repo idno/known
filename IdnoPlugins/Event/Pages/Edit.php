@@ -48,7 +48,7 @@
 
                 if ($object->saveDataFromInput($this)) {
                     (new \Idno\Core\Autosave())->clearContext('event');
-                    $forward = $this->getInput('forward-to', $this->forward($object->getDisplayURL()));
+                    $forward = $this->getInput('forward-to', $object->getDisplayURL());
                     $this->forward($forward);
                 }
 

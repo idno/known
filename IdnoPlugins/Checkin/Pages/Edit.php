@@ -45,10 +45,10 @@
                 }
 
                 if ($object->saveDataFromInput($this)) {
-                    $forward = $this->getInput('forward-to', $this->forward($object->getDisplayURL()));
+                    $forward = $this->getInput('forward-to', $object->getDisplayURL());
                     $this->forward($forward);
                 }
-
+                
             }
 
         }
