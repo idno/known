@@ -492,6 +492,9 @@
                     if ($exit) {
                         \Idno\Core\site()->session()->finishEarly();
                     }
+                    if (!Entity::isLocalUUID($location)) {
+                        throw new \Exception('Attempted to redirect page to a non local URL.');
+                    }
                     if (!\Idno\Core\site()->session()->isAPIRequest() || $this->response == 200) {
                         header('Location: ' . $location);
                     }

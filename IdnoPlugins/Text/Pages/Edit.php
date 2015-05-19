@@ -50,7 +50,8 @@
                     (new \Idno\Core\Autosave())->clearContext('entry');
                     //$this->forward(\Idno\Core\site()->config()->getURL() . 'content/all/');
                     //$this->forward($object->getDisplayURL());
-                    $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'content/all/');
+                    $forward = $this->getInput('forward-to', $object->getDisplayURL());
+                    $this->forward($forward);
                 }
 
             }

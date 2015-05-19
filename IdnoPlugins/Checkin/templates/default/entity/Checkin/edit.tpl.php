@@ -139,6 +139,7 @@
                            class="span8 mentionable"/>
                 </label>
             </p>
+            <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to" value="<?= \Idno\Core\site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
             <?=$this->draw('entity/tags/input');?>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('place'); ?>
             <p class="button-bar ">

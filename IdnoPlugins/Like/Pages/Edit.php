@@ -43,8 +43,8 @@
                 }
 
                 if ($object->saveDataFromInput($this)) {
-                    $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'content/all/');
-                    //$this->forward($object->getDisplayURL());
+                    $forward = $this->getInput('forward-to', $object->getDisplayURL());
+                    $this->forward($forward);
                 }
 
             }
