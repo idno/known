@@ -63,10 +63,16 @@
                             $page->setInput('short-url', $short_url);
                             $page->setInput('url', $url);
                             if (substr_count($url, 'twitter.com')) {
+                                $atusers = [];
                                 preg_match("|https?://([a-z]+\.)?twitter\.com/(#!/)?@?([^/]*)|", $url, $matches);
                                 if (!empty($matches[3])) {
-                                    $page->setInput('body', '@' . $matches[3] . ' ');
+                                    $atusers[] = '@'.$matches[3];
+//                                    $page->setInput('body', '@' . $matches[3] . ' ');
                                 }
+                                preg_match_all("|@([^\s]+)|", $title, $matches);
+                                $atusers = array_merge($atusers, $matches[0]);
+                                $atusers = array_unique($atusers);
+                                $page->setInput('body', implode(' ', $atusers));
                             }
                         }
                         $page->setInput('hidenav', $hide_nav);
