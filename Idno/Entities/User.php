@@ -102,6 +102,7 @@
                                 $email = new Email();
                                 $email->setSubject($eventdata['message']);
                                 $email->setHTMLBodyFromTemplate($eventdata['message_template'], $vars);
+                                $email->setTextBodyFromTemplate($eventdata['message_template'], $vars);
                                 $email->addTo($user->email);
                                 $email->send();
                             }
