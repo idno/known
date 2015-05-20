@@ -72,6 +72,7 @@
                                 if (preg_match_all("|@([^\s^\)]+)|", $title, $matches)) {
                                     $atusers = array_merge($atusers, $matches[0]);
                                 }
+                                // TODO: Find a way to remove my own user
                                 $atusers = array_unique($atusers);
                                 $page->setInput('body', implode(' ', $atusers));
                             }
