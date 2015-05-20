@@ -69,8 +69,9 @@
                                     $atusers[] = '@'.$matches[3];
 //                                    $page->setInput('body', '@' . $matches[3] . ' ');
                                 }
-                                preg_match_all("|@([^\s]+)|", $title, $matches);
-                                $atusers = array_merge($atusers, $matches[0]);
+                                if (preg_match_all("|@([^\s^\)]+)|", $title, $matches)) {
+                                    $atusers = array_merge($atusers, $matches[0]);
+                                }
                                 $atusers = array_unique($atusers);
                                 $page->setInput('body', implode(' ', $atusers));
                             }
