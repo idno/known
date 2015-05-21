@@ -28,9 +28,11 @@
                 if ($photos = Photo::get($search,[],9999,0)) {
                     foreach($photos as $photo) {
                         /* @var Photo $photo */
-                        if ($attachments = $photo->getAttachments()) {
-                            foreach($attachments as $attachment) {
-                                $total += $attachment['length'];
+                        if ($photo instanceof Photo) {
+                            if ($attachments = $photo->getAttachments()) {
+                                foreach($attachments as $attachment) {
+                                    $total += $attachment['length'];
+                                }
                             }
                         }
                     }
