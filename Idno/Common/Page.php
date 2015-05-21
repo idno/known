@@ -492,9 +492,16 @@
                     if ($exit) {
                         \Idno\Core\site()->session()->finishEarly();
                     }
+
+                    /*
+                     * TODO: find a more granular way to do this. But some Known functions depend on
+                     * redirection to other sites (eg a Known hub).
+
                     if (!Entity::isLocalUUID($location)) {
                         throw new \Exception('Attempted to redirect page to a non local URL.');
                     }
+                    */
+
                     if (!\Idno\Core\site()->session()->isAPIRequest() || $this->response == 200) {
                         header('Location: ' . $location);
                     }
