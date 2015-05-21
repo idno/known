@@ -85,7 +85,7 @@
                                 }
                                 
                                 $atusers = array_unique($atusers);
-                                $page->setInput('body', implode(' ', $atusers));
+                                $page->setInput('body', implode(' ', $atusers) . ' ');
                             }
                         }
                         $page->setInput('hidenav', $hide_nav);
