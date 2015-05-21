@@ -72,7 +72,18 @@
                                 if (preg_match_all("|@([^\s^\)]+)|", $title, $matches)) {
                                     $atusers = array_merge($atusers, $matches[0]);
                                 }
-                                // TODO: Find a way to remove my own user
+                                
+                                // See if one of your registered twitter handles is present, if so remove it.
+                                $user = \Idno\Core\site()->session()->currentUser();
+                                if ((!empty($user->twitter)) && (is_array($user->twitter))) {
+                                    $me = [];
+                                    foreach ($user->twitter as $k => $v)
+                                    {
+                                        $me[] = "@$k";
+                                    }
+                                    $atusers = array_diff($atusers, $me);
+                                }
+                                
                                 $atusers = array_unique($atusers);
                                 $page->setInput('body', implode(' ', $atusers));
                             }
