@@ -20,6 +20,7 @@
                     $message->addTo($email);
                     $message->setSubject("Test email from " . \Idno\Core\site()->config()->title . '!');
                     $message->setHTMLBodyFromTemplate('admin/emailtest');
+                    $message->setTextBodyFromTemplate('admin/emailtest');
 
                     if ($message->send()) {
                         \Idno\Core\site()->session()->addMessage("Test email sent to $email");

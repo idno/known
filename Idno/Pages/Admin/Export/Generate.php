@@ -72,6 +72,7 @@
 
                         $mail = new Email();
                         $mail->setHTMLBodyFromTemplate('admin/export');
+                        $mail->setTextBodyFromTemplate('admin/export');
                         $mail->addTo(\Idno\Core\site()->session()->currentUser()->email);
                         $mail->setSubject("Your data export is ready");
                         $mail->send();

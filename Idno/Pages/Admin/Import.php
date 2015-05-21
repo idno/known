@@ -66,6 +66,7 @@
                 if ($imported) {
                     $mail = new Email();
                     $mail->setHTMLBodyFromTemplate('admin/import');
+                    $mail->setTextBodyFromTemplate('admin/import');
                     $mail->addTo(\Idno\Core\site()->session()->currentUser()->email);
                     $mail->setSubject("Your data import has completed");
                     $mail->send();

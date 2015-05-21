@@ -115,6 +115,21 @@
 
                 return $this->setHTMLBody($body);
             }
+            
+            /**
+             * Set the text only component of an email.
+             * @param type $template_name
+             * @param type $vars
+             * @return mixed
+             */
+            function setTextBodyFromTemplate($template_name, $vars = array())
+            {
+                $t = clone site()->template();
+                $t->setTemplateType('email-text');
+                $body = $t->__($vars)->draw($template_name);
+
+                return $this->setTextBody($body);
+            }
 
             /**
              * Sets the plain text body of the message
