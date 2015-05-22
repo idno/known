@@ -150,7 +150,7 @@
                     $last_ping = site()->config->last_hub_ping;
                 }
 
-                if ($last_ping < (time() - 10)) { // Throttling registration pings to hub
+                //if ($last_ping < (time() - 10)) { // Throttling registration pings to hub
 
                     $web_client = new Webservice();
 
@@ -168,7 +168,7 @@
                         return true;
                     }
 
-                }
+                //}
 
                 return false;
             }
