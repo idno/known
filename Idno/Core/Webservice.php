@@ -141,7 +141,6 @@
                 $header      = substr($buffer, 0, $header_size);
                 $content     = substr($buffer, $header_size);
 
-
                 if ($error = curl_error($curl_handle)) {
                     \Idno\Core\site()->logging->log($error, LOGLEVEL_ERROR);
                 }
@@ -328,7 +327,12 @@
                     }*/
                 }
 
-                return curl_exec($ch);
+                try {
+                    return curl_exec($ch);
+                } catch (\Exception $e) {
+                    \Idno\Core\site()->logging()->log($e->getMessage());
+                    return false;
+                }
             }
 
         }
