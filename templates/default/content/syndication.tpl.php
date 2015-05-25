@@ -19,7 +19,11 @@
                             
                             $service_details[$service][] = ['username' => $account['username'], 'name' => $account['name']];
                             
-                            $button .= $this->__(array('service' => $service, 'username' => $account['username'], 'name' => $account['name']))->draw('content/syndication/account');
+                            $button .= $this->__(array('service' => $service, 'username' => $account['username'], 'name' => $account['name'], 'selected' => \Idno\Core\site()->triggerEvent('syndication/service/selected', [
+                                'service' => $service,
+                                'username' => $account['username'],
+                                'reply-to' => \Idno\Core\site()->currentPage()->getInput('inreplyto')
+                            ], false)))->draw('content/syndication/account');
                         }
                     } else {
                         $button = $this->__(array('service' => $service))->draw('content/syndication/button');
