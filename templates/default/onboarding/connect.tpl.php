@@ -14,9 +14,6 @@
                 Continue
             </button>
         </div>
-        <p align="center">
-            <a href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>begin/publish">Or skip this step.</a>
-        </p>
 
         <p align="center">
             Don't worry, you can always connect these later.

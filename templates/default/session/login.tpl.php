@@ -12,7 +12,7 @@
         <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>session/login" method="post">
             <div class="control-group">
                 <div class="controls">
-                    <input type="text" id="inputEmail" name="email" placeholder="Your username or email address"
+                    <input type="text" id="inputEmail" name="email" placeholder="Your email address or username"
                            class="form-control">
                 </div>
             </div>

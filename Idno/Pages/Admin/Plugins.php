@@ -36,21 +36,27 @@
                     preg_match('/^[a-zA-Z0-9]+$/', $plugin) &&
                     (
                         file_exists(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $plugin) ||
+                        (!empty(\Idno\Core\site()->config()->external_plugin_path) && file_exists(\Idno\Core\site()->config()->external_plugin_path . '/IdnoPlugins/' . $plugin)) ||
                         (!empty($host) && file_exists(\Idno\Core\site()->config()->path . '/hosts/' . $host . '/IdnoPlugins/' . $plugin))
                     )
                 ) {
                     switch ($action) {
                         case 'install':
                             \Idno\Core\site()->config->config['plugins'][] = $plugin;
+                            if (!empty(\Idno\Core\site()->config()->external_plugin_path) && file_exists(\Idno\Core\site()->config()->external_plugin_path . '/IdnoPlugins/' . $plugin)) {
+                                \Idno\Core\site()->config->config['directloadplugins'][$plugin] = \Idno\Core\site()->config()->external_plugin_path . '/IdnoPlugins/' . $plugin;
+                            }
                             \Idno\Core\site()->session()->addMessage('The plugin was installed.');
                             break;
                         case 'uninstall':
                             if (($key = array_search($plugin, \Idno\Core\site()->config->config['plugins'])) !== false) {
                                 unset(\Idno\Core\site()->config->config['plugins'][$key]);
+                                unset(\Idno\Core\site()->config->config['directloadplugins'][$key]);
                                 \Idno\Core\site()->session()->addMessage('The plugin was uninstalled.');
                             }
                             break;
                     }
+                    \Idno\Core\site()->config->config['plugins'] = array_unique(\Idno\Core\site()->config->config['plugins']);
                     \Idno\Core\site()->config()->save();
                 }
                 $this->forward(\Idno\Core\site()->config()->getURL() . 'admin/plugins/');

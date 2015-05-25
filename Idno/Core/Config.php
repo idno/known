@@ -13,31 +13,39 @@
         {
 
             public $config = array(
-                'database'            => 'mongodb',
-                'dbstring'            => 'mongodb://localhost:27017',
-                'dbname'              => 'known', // Default MongoDB database
-                'sessionname'         => 'known', // Default session name
-                'open_registration'   => true, // Can anyone register for this system?
-                'plugins'             => array( // Default plugins
-                                                'Status',
-                                                'Text',
-                                                'Photo',
-                                                'Like',
-                                                'Checkin',
-                                                'Media',
-                                                'Firefox',
-                                                'Bridgy'
+                'database'               => 'mongodb',
+                'dbstring'               => 'mongodb://localhost:27017',
+                'dbname'                 => 'known', // Default MongoDB database
+                'sessionname'            => 'known', // Default session name
+                'open_registration'      => true, // Can anyone register for this system?
+                'plugins'                => array( // Default plugins
+                                                   'Status',
+                                                   'Text',
+                                                   'Photo',
+                                                   'Like',
+                                                   'Checkin',
+                                                   'Media',
+                                                   'Firefox',
+                                                   'Bridgy',
+                                                   'FooterJS'
                 ),
-                'themes'              => array(),
-                'antiplugins'         => array(),
-                'alwaysplugins'       => array(),
-                'prerequisiteplugins' => array(),
-                'items_per_page'      => 10, // Default items per page
-                'experimental'        => false, // A common way to enable experimental functions still in development
-                'multitenant'         => false,
-                'default_config'      => true, // This is a trip-switch - changed to false if configuration is loaded from an ini file / the db
-                'log_level'           => 4,
-                'multi_syndication'   => true
+                'themes'                 => array(),
+                'antiplugins'            => array(),
+                'alwaysplugins'          => array(
+                    'Convoy'
+                ),
+                'prerequisiteplugins'    => array(),
+                'directloadplugins'      => array(),
+                'items_per_page'         => 10, // Default items per page
+                'experimental'           => false, // A common way to enable experimental functions still in development
+                'multitenant'            => false,
+                'default_config'         => true, // This is a trip-switch - changed to false if configuration is loaded from an ini file / the db
+                'log_level'              => 4,
+                'multi_syndication'      => true,
+                'external_plugin_folder' => false,
+                'wayback_machine'        => false,
+                'static_url'             => false,
+                'user_avatar_favicons'   => true
             );
 
             public $ini_config = array();
@@ -48,6 +56,7 @@
                 // If not, we'll use default values. No skin off our nose.
                 $this->path                      = dirname(dirname(dirname(__FILE__))); // Base path
                 $this->url                       = $this->detectBaseURL();
+                $this->static_url                = false;
                 $this->title                     = 'New Known site'; // A default name for the site
                 $this->description               = 'A social website powered by Known'; // Default description
                 $this->timezone                  = 'UTC';
@@ -56,20 +65,22 @@
                 $this->indieweb_citation         = false;
                 $this->indieweb_reference        = false;
                 $this->known_hub                 = false;
-                $this->hub                       = 'http://withknown.superfeedr.com/';
+                $this->hub                       = 'https://withknown.superfeedr.com/';
                 $this->session_path              = session_save_path(); // Session path when not storing sessions in the database
+                $this->session_hash_function     = 'sha256'; // Default hash function
                 $this->disable_cleartext_warning = false; // Set to true to disable warning when access credentials are sent in the clear
                 $this->cookie_jar                = rtrim(sys_get_temp_dir(), '/\\') . DIRECTORY_SEPARATOR; // Cookie jar for API requests, default location isn't terribly secure on shared hosts!
                 $this->multi_syndication         = true; // Do we allow multiple accounts per syndication endpoint?
+                $this->wayback_machine           = false; // Automatically ping new pages on public sites to the Internet Archive
 
                 $this->loadIniFiles();
 
-                if (substr($this->host,0,4) == 'www.') {
-                    $this->host = substr($this->host,4);
+                if (substr($this->host, 0, 4) == 'www.') {
+                    $this->host = substr($this->host, 4);
                 }
 
                 if ($this->multitenant) {
-                    $dbname     = $this->dbname;
+                    $dbname       = $this->dbname;
                     $this->dbname = preg_replace('/[^0-9a-z\.\-\_]/i', '', $this->host);
 
                     // Known now defaults to not including periods in database names for multitenant installs. Add
@@ -225,7 +236,11 @@
                 unset($array['feed']); // Don't save the feed URL to the database
                 unset($array['uploadpath']); // Don't save the upload path to the database
                 unset($array['session_path']); // Don't save the session path in the database
+                unset($array['session_hash_function']); // Don't save the session hash to database, we want the ability to upgrade
                 unset($array['cookie_jar']); // Don't save the cookie path in the database
+                unset($array['proxy_string']);
+                unset($array['proxy_type']);
+                unset($array['disable_ssl_verify']);
                 unset($array['known_hub']);
 
                 // If we don't have a site secret, create it
@@ -264,7 +279,11 @@
                         unset($config['antiplugins']);
                         unset($config['alwaysplugins']);
                         unset($config['session_path']);
+                        unset($config['session_hash_function']);
                         unset($config['cookie_jar']);
+                        unset($config['proxy_string']);
+                        unset($config['proxy_type']);
+                        unset($config['disable_ssl_verify']);
                     }
                     if (is_array($config)) {
                         $this->config = array_merge($this->config, $config);
@@ -288,7 +307,7 @@
 
             /**
              * Return a version of the URL suitable for displaying in templates etc
-             * @return mixed
+             * @return string
              */
             function getDisplayURL()
             {
@@ -301,6 +320,35 @@
                 }
 
                 return str_replace($urischeme . ':', $newuri, $url);
+            }
+
+            /**
+             * Get a version of the URL without URI scheme or trailing slash
+             * @return string
+             */
+            function getSchemelessURL()
+            {
+                $url       = $this->getURL();
+                $urischeme = parse_url($url, PHP_URL_SCHEME);
+                $url       = str_replace($urischeme . '://', '', $url);
+                if (substr($url, -1, 1) == '/') {
+                    $url = substr($url, 0, strlen($url) - 1);
+                }
+
+                return $url;
+            }
+
+            /**
+             * Retrieves the URL for static assets
+             * @return string
+             */
+            function getStaticURL()
+            {
+                if (!empty($this->static_url)) {
+                    return $this->static_url;
+                }
+
+                return $this->getDisplayURL();
             }
 
             /**
@@ -349,6 +397,7 @@
                     $host = $this->file_path_host;
                 }
                 $host = site()->triggerEvent('file/path/host', ['host' => $host], $host);
+
                 return $host;
             }
 

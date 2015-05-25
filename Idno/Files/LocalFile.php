@@ -26,7 +26,7 @@
             function passThroughBytes()
             {
                 if (file_exists($this->internal_filename)) {
-                    if ($file_handle = fopen($this->internal_filename,'r')) {
+                    if ($file_handle = fopen($this->internal_filename, 'r')) {
                         ob_end_flush();
                         fpassthru($file_handle);
                         fclose($file_handle);
@@ -38,12 +38,14 @@
              * Retrieves a stream resource referencing the file
              * @return mixed|resource
              */
-            function getResource() {
+            function getResource()
+            {
                 if (file_exists($this->internal_filename)) {
                     if ($file_handle = fopen($this->internal_filename, 'r')) {
                         return $file_handle;
                     }
                 }
+
                 return false;
             }
 

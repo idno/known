@@ -68,7 +68,7 @@
             function setObject(\Idno\Common\Entity $object)
             {
                 $this->object = $object->getUUID();
-                
+
                 if (!empty($object->created)) {
                     $this->created = $object->created;
                 }
@@ -149,6 +149,20 @@
             }
 
             /**
+             * No need for a friendly slug for activity streams
+             * @param string $slug
+             * @param int $max_pieces
+             * @return string
+             */
+            function setSlugResilient($slug, $max_pieces = 10)
+            {
+                $slug       = md5(time() . rand(0, 9999));
+                $this->slug = $slug;
+
+                return $slug;
+            }
+
+            /**
              * Pass webmentions to the component objects
              *
              * @param string $source The source URL
@@ -162,6 +176,7 @@
                 if ($object = $this->getObject()) {
                     return $object->addWebmentions($source, $target, $source_content, $source_mf2);
                 }
+
                 return parent::addWebmentions($source, $target, $source_content, $source_mf2);
             }
 
@@ -169,10 +184,12 @@
              * Retrieves the URL of the contained object if there is one; otherwise the URL of this stream item.
              * @return string
              */
-            function getObjectURL() {
+            function getObjectURL()
+            {
                 if ($object = $this->getObject()) {
                     return $object->getURL();
                 }
+
                 return $this->getURL();
             }
 

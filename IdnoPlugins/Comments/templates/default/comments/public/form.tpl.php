@@ -13,8 +13,7 @@
             <div class="col-md-11 idno-comment-container">
                 <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>comments/post" method="post">
                     <input type="text" name="name" class="form-control" placeholder="Your name" required>
-                    <input type="text" name="url" class="form-control" placeholder="Your website address" required>
-
+                    <input type="text" name="url" class="form-control" placeholder="Your website address">
                     <div id="extrafield" style="display:none"></div>
                     <textarea name="body" placeholder="Add a comment ..." class="form-control mentionable"></textarea>
 

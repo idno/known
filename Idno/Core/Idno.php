@@ -87,11 +87,11 @@
                         break;
                 }
                 $this->config->load();
-                $this->session     = new Session();
-                $this->actions     = new Actions();
-                $this->template    = new Template();
-                $this->syndication = new Syndication();
-                $this->logging     = new Logging($this->config->log_level);
+                $this->session      = new Session();
+                $this->actions      = new Actions();
+                $this->template     = new Template();
+                $this->syndication  = new Syndication();
+                $this->logging      = new Logging($this->config->log_level);
                 $this->reader       = new Reader();
                 $this->helper_robot = new HelperRobot();
 
@@ -112,10 +112,11 @@
                     $this->config->known_hub != $this->config->url
                 ) {
                     site()->session()->hub_connect = time();
-                    \Idno\Core\site()->known_hub = new \Idno\Core\Hub($this->config->known_hub);
+                    \Idno\Core\site()->known_hub   = new \Idno\Core\Hub($this->config->known_hub);
                     \Idno\Core\site()->known_hub->connect();
                 }
 
+                site()->session()->APIlogin();
                 User::registerEvents();
                 site()->session()->refreshCurrentSessionuser();
             }
@@ -123,7 +124,7 @@
             /**
              * Registers some core page URLs
              */
-            function registerpages()
+            function registerPages()
             {
 
                 /** Homepage */
@@ -132,22 +133,25 @@
                 $this->addPageHandler('/content/([A-Za-z\-\/]+)+', '\Idno\Pages\Homepage');
 
                 /** Individual entities / posting / deletion */
-                $this->addPageHandler('/view/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\View');
-                $this->addPageHandler('/s/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Shortlink');
-                $this->addPageHandler('/[0-9]+/([A-Za-z0-9\-\_]+)/?', '\Idno\Pages\Entity\View');
-                $this->addPageHandler('/edit/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Edit');
-                $this->addPageHandler('/delete/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Delete');
-                $this->addPageHandler('/withdraw/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Withdraw');
+                $this->addPageHandler('/view/([\%\p{L}0-9]+)/?', '\Idno\Pages\Entity\View');
+                $this->addPageHandler('/s/([\%\p{L}0-9]+)/?', '\Idno\Pages\Entity\Shortlink');
+                $this->addPageHandler('/[0-9]+/([\%\p{L}0-9\-\_]+)/?', '\Idno\Pages\Entity\View');
+                $this->addPageHandler('/edit/([\p{L}0-9]+)/?', '\Idno\Pages\Entity\Edit');
+                $this->addPageHandler('/delete/([\p{L}0-9]+)/?', '\Idno\Pages\Entity\Delete');
+                $this->addPageHandler('/withdraw/([\p{L}0-9]+)/?', '\Idno\Pages\Entity\Withdraw');
 
                 /** Annotations */
-                $this->addPageHandler('/view/([A-Za-z0-9]+)/annotations/([A-Za-z0-9]+)?', '\Idno\Pages\Annotation\View');
-                $this->addPageHandler('/[0-9]+/([A-Za-z0-9\-\_]+)/annotations/([A-Za-z0-9]+)?', '\Idno\Pages\Annotation\View');
-                $this->addPageHandler('/[0-9]+/([A-Za-z0-9\-\_]+)/annotations/([A-Za-z0-9]+)/delete/?', '\Idno\Pages\Annotation\Delete'); // Delete annotation
+                $this->addPageHandler('/view/([\p{L}0-9]+)/annotations/([A-Za-z0-9]+)?', '\Idno\Pages\Annotation\View');
+                $this->addPageHandler('/[0-9]+/([\%\p{L}0-9\-\_]+)/annotations/([A-Za-z0-9]+)?', '\Idno\Pages\Annotation\View');
+                $this->addPageHandler('/[0-9]+/([\%\p{L}0-9\-\_]+)/annotations/([A-Za-z0-9]+)/delete/?', '\Idno\Pages\Annotation\Delete'); // Delete annotation
                 $this->addPageHandler('/annotation/post/?', '\Idno\Pages\Annotation\Post');
 
                 /** Bookmarklets and sharing */
                 $this->addPageHandler('/share/?', '\Idno\Pages\Entity\Share');
                 $this->addPageHandler('/bookmarklet\.js', '\Idno\Pages\Entity\Bookmarklet', true);
+
+                /** Mobile integrations */
+                $this->addPageHandler('/chrome/manifest\.json', '\Idno\Pages\Chrome\Manifest', true);
 
                 /** Files */
                 $this->addPageHandler('/file/upload/?', '\Idno\Pages\File\Upload', true);
@@ -162,7 +166,7 @@
                 /** Search */
                 $this->addPageHandler('/search/?', '\Idno\Pages\Search\Forward');
                 $this->addPageHandler('/search/mentions\.json', '\Idno\Pages\Search\Mentions');
-                $this->addPageHandler('/tag/([\w0-9]+)\/?', '\Idno\Pages\Search\Tags');
+                $this->addPageHandler('/tag/([^\s]+)\/?', '\Idno\Pages\Search\Tags');
 
                 /** robots.txt */
                 $this->addPageHandler('/robots\.txt', '\Idno\Pages\Txt\Robots');
@@ -509,16 +513,16 @@
              */
             function getAdmins()
             {
-                return User::get(['admin' => true],[],9999);
+                return User::get(['admin' => true], [], 9999);
             }
 
             /**
-             * Retrieve this version of idno's version number
+             * Retrieve this version of Known's version number
              * @return string
              */
             function version()
             {
-                return '0.7.5';
+                return '0.7.8.5.1';
             }
 
             /**
@@ -528,6 +532,22 @@
             function getVersion()
             {
                 return $this->version();
+            }
+
+            /**
+             * Retrieve a machine-readale version of Known's version number
+             * @return string
+             */
+            function machineVersion() {
+                return '2015051602';
+            }
+
+            /**
+             * Alias for getMachineVersion
+             * @return string
+             */
+            function getMachineVersion() {
+                return $this->machineVersion();
             }
 
             /**

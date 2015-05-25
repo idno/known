@@ -49,15 +49,6 @@
              */
             function setServer($server)
             {
-                /*$urischeme = parse_url($server, PHP_URL_SCHEME);
-                if (site()->isSecure()) {
-                    $newuri = 'https:';
-                } else {
-                    $newuri = 'http:';
-                }
-
-                $server = str_replace($urischeme . ':', $newuri, $server);*/
-                //site()->logging()->log('Saved connection to hub ' . $server);
                 $this->server = $server;
             }
 
@@ -133,7 +124,8 @@
                         }
                     }
                 }
-                $token_generator                                   = new \OAuthProvider(array());
+
+                $token_generator                                   = new TokenProvider();
                 $token                                             = $token_generator->generateToken(32);
                 $config                                            = site()->config;
                 $config->hub_settings['registration_token']        = bin2hex($token);
@@ -151,13 +143,14 @@
              */
             function register()
             {
+
                 if (empty(site()->config->last_hub_ping)) {
                     $last_ping = 0;
                 } else {
                     $last_ping = site()->config->last_hub_ping;
                 }
 
-                if ($last_ping < (time() - 10)) { // Throttling registration pings to hub
+                //if ($last_ping < (time() - 10)) { // Throttling registration pings to hub
 
                     $web_client = new Webservice();
 
@@ -175,7 +168,7 @@
                         return true;
                     }
 
-                }
+                //}
 
                 return false;
             }
@@ -292,22 +285,11 @@
                 site()->session()->refreshSessionUser($user);
 
                 if ($this->userIsRegistered($user)) {
-                    /*$results = $this->makeCall('hub/user/link', array('user' => $user->getUUID(), 'endpoint' => $endpoint, 'callback' => $callback));
-                    if (!empty($results['content'])) {
-                        $content = json_decode($results['content'], true);
-                    }
-                    if (!empty($content['link_token'])) {
-                        $link_token = $content['link_token'];
-                        $time       = time();
-                        $signature  = hash_hmac('sha1', $link_token . $time, $user->hub_settings['secret']);
-
-                        return $this->server . $endpoint . '?token=' . urlencode($link_token) . '&time=' . $time . '&signature=' . $signature;
-                    }*/
-
                     if (!empty($user->hub_settings['token'])) {
-                        $time = time();
-                        $signature  = hash_hmac('sha1', $user->hub_settings['token'] . $time, $user->hub_settings['secret']);
-                        return $this->server . $endpoint . '?token=' . urlencode($user->hub_settings['token']) . '&time=' . $time . '&signature=' . $signature;
+                        $time      = time();
+                        $signature = hash_hmac('sha1', $user->hub_settings['token'] . $time, $user->hub_settings['secret']);
+
+                        return $this->server . $endpoint . '?token=' . urlencode($user->hub_settings['token']) . '&time=' . $time . '&signature=' . $signature . '&callback=' . urlencode($callback);
                     }
                 }
 

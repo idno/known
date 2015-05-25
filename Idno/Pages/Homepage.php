@@ -59,8 +59,7 @@
                 }
 
                 if (empty($types)) {
-                    $types          = 'Idno\Entities\ActivityStreamPost';
-                    $search['verb'] = 'post';
+                    $types = \Idno\Common\ContentType::getRegisteredClasses();
                 } else {
                     if (!is_array($types)) $types = array($types);
                     $types[] = '!Idno\Entities\ActivityStreamPost';
@@ -70,6 +69,13 @@
                 $feed  = \Idno\Entities\ActivityStreamPost::getFromX($types, $search, array(), \Idno\Core\site()->config()->items_per_page, $offset);
                 if (\Idno\Core\site()->session()->isLoggedIn()) {
                     $create = \Idno\Common\ContentType::getRegistered();
+                    
+                    // If we can't create an object of this type, hide from the button bar
+                    foreach ($create as $key => $obj) {
+                        if (!$obj->createable) {
+                            unset($create[$key]);
+                        }
+                    }
                 } else {
                     $create = false;
                 }
@@ -95,13 +101,13 @@
                     'description' => $description,
                     'content'     => $friendly_types,
                     'body'        => $t->__(array(
-                            'items'        => $feed,
-                            'contentTypes' => $create,
-                            'offset'       => $offset,
-                            'count'        => $count,
-                            'subject'      => $query,
-                            'content'      => $friendly_types
-                        ))->draw('pages/home'),
+                        'items'        => $feed,
+                        'contentTypes' => $create,
+                        'offset'       => $offset,
+                        'count'        => $count,
+                        'subject'      => $query,
+                        'content'      => $friendly_types
+                    ))->draw('pages/home'),
 
                 ))->drawPage();
             }

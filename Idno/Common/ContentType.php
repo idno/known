@@ -14,6 +14,7 @@
             public $handler_class = 'Idno\\Common\\ContentType';
             public $title = 'Content type';
             public $indieWebContentType = array();
+            public $createable = true;
 
             // Static property containing register of all content types
             static public $registered = array();

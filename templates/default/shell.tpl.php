@@ -9,10 +9,14 @@
         $vars['title'] = implode(' ', array_slice(explode(' ', strip_tags($vars['description'])), 0, 10));
     }
 
+    // Use appropriate language
+    $lang = 'en';
+    if (!empty(\Idno\Core\site()->config()->lang))
+        $lang = \Idno\Core\site()->config()->lang;
 ?>
 <?php if (!$_SERVER["HTTP_X_PJAX"]): ?>
-    <!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="<?= $lang; ?>">
 <head>
     <meta charset="utf-8">
     <title><?= htmlspecialchars($vars['title']); ?></title>
@@ -20,11 +24,39 @@
     <meta name="viewport" content="initial-scale=1.0" media="(device-height: 568px)"/>
     <meta name="description" content="<?= htmlspecialchars(strip_tags($vars['description'])) ?>">
     <meta name="generator" content="Known https://withknown.com">
+    <meta http-equiv="Content-Language" content="<?= $lang; ?>">
 
     <?= $this->draw('shell/icons'); ?>
     <?= $this->draw('shell/favicon'); ?>
 
     <?php
+
+        if (\Idno\Core\site()->session()->isLoggedIn()) {
+
+            ?>
+            <link rel="manifest" href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>chrome/manifest.json">
+        <?php
+            if (Idno\Core\site()->isSecure()) {
+        ?>
+            <script>
+                window.addEventListener('load', function () {
+                    if ('serviceWorker' in navigator) {
+                        navigator.serviceWorker.register('<?=\Idno\Core\site()->config()->getDisplayURL()?>chrome/service-worker.js', {scope: '/'})
+                            .then(function (r) {
+                                console.log('Registered service worker');
+                            })
+                            .catch(function (whut) {
+                                console.error('Could not register service worker');
+                                console.error(whut);
+                            });
+                    }
+                });
+            </script>
+        <?php
+        }
+
+        }
+
         $opengraph = array(
             'og:type'      => 'website',
             'og:title'     => htmlspecialchars(strip_tags($vars['title'])),
@@ -100,21 +132,23 @@
     <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/jquery/' ?>jquery.min.js"></script>
 
     <!-- Le styles -->
-    <link href="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/css/bootstrap.min.css"
+    <link href="<?= \Idno\Core\site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/css/bootstrap.min.css"
           rel="stylesheet">
-    <link href="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/css/bootstrap-theme.min.css"
-          rel="stylesheet">
-    <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
-    <link rel="stylesheet"
-          href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/font-awesome/css/font-awesome.min.css">
+    <link href="<?= \Idno\Core\site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/css/bootstrap-theme.min.css"
+    <script src="<?= \Idno\Core\site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
+    <link rel="stylesheet
+          href="<?= \Idno\Core\site()->config()->getStaticURL() ?>external/fontello/css/known-fontello.css">
+    <!--<link rel="stylesheet"
+          href="<?= \Idno\Core\site()->config()->getStaticURL() ?>external/font-awesome/css/font-awesome.min.css">-->
     <style>
         body {
             padding-top: 100px; /* 60px to make the container go all the way to the bottom of the topbar */
         }
     </style>
-    <link href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>css/default.css?20150123" rel="stylesheet">
-    <link href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>css/defaultb3.css" rel="stylesheet">
-
+    <link
+        href="<?= \Idno\Core\site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/css/bootstrap-responsive.css"
+        rel="stylesheet">
+    <link href="<?= \Idno\Core\site()->config()->getStaticURL() ?>css/default.css?20150123" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -122,12 +156,12 @@
         src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/js/html5shiv.js"></script>
     <![endif]-->
 
-    <!-- Default Known JavaScript -->
-    <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'js/default.js' ?>"></script>
-    
+    <!-- We need jQuery at the top of the page -->
+    <script src="<?= \Idno\Core\site()->config()->getStaticURL() . 'external/jquery/' ?>jquery.min.js"></script>
 
-	
-	
+    <!-- Default Known JavaScript -->
+    <script src="<?= \Idno\Core\site()->config()->getStaticURL() . 'js/default.js?20150406' ?>"></script>
+
     <!-- To silo is human, to syndicate divine -->
     <link rel="alternate" type="application/rss+xml" title="<?= htmlspecialchars($vars['title']) ?>"
           href="<?= $this->getURLWithVar('_t', 'rss'); ?>"/>
@@ -140,8 +174,8 @@
           href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>content/all"/>
 
     <!-- Webmention endpoint -->
-    <link href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>webmention/" rel="http://webmention.org/"/>
-    <link href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>webmention/" rel="webmention"/>
+    <link href="<?= \Idno\Core\site()->config()->getURL() ?>webmention/" rel="http://webmention.org/"/>
+    <link href="<?= \Idno\Core\site()->config()->getURL() ?>webmention/" rel="webmention"/>
 
     <?php $this->draw('shell/identities') ?>
     <?php if (!empty(\Idno\Core\site()->config()->hub)) { ?>
@@ -160,20 +194,14 @@
         }
     ?>
 
-   <script src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/fragmention/fragmention.js"></script>
+    <script src="<?= \Idno\Core\site()->config()->getStaticURL() ?>external/fragmention/fragmention.js"></script>
 
-    <!-- Toggles -->
-    <link href="<?=\Idno\Core\site()->config()->getDisplayURL()?>external/bootstrap-toggle/css/bootstrap-toggle.min.css" rel="stylesheet" />
-    <script src="<?=\Idno\Core\site()->config()->getDisplayURL()?>external/bootstrap-toggle/js/bootstrap-toggle.js"></script>
-
-    <!-- Syntax highlighting -->
-    <link href="<?=\Idno\Core\site()->config()->getDisplayURL()?>external/highlight/styles/default.css" rel="stylesheet">
-    <script src="<?=\Idno\Core\site()->config()->getDisplayURL()?>external/highlight/highlight.pack.js"></script>
-    <script>
-        if (typeof hljs !== 'undefined') {
-            hljs.initHighlightingOnLoad();
-        }
-    </script>
+    <!-- Syndication -->
+    <link
+        href="<?= \Idno\Core\site()->config()->getStaticURL() ?>external/bootstrap-toggle/css/bootstrap2-toggle.min.css"
+        rel="stylesheet"/>
+    <script
+        src="<?= \Idno\Core\site()->config()->getStaticURL() ?>external/bootstrap-toggle/js/bootstrap2-toggle.js"></script>
 
     <?= $this->draw('shell/head', $vars); ?>
 
@@ -358,8 +386,7 @@
 <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/mention/mention.js' ?>"
         type="text/javascript"></script>
 
-        
-        
+
 <!-- Flexible media player -->
 <script
     src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/mediaelement/build/mediaelement-and-player.min.js"></script>
@@ -427,6 +454,24 @@
     })
     $(document).on('pjax:complete', function () {
         annotateContent();
+    });
+
+    /**
+     * Handle Twitter tweet embedding
+     */
+    $(document).ready(function () {
+        $('div.twitter-embed').each(function (index) {
+            var url = $(this).attr('data-url');
+            var div = $(this);
+
+            $.ajax({
+                url: "https://api.twitter.com/1/statuses/oembed.json?url=" + url,
+                dataType: "jsonp",
+                success: function (data) {
+                    div.html(data['html']);
+                }
+            });
+        });
     });
 
     /**

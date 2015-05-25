@@ -60,11 +60,10 @@
     <div class="col-md-5 col-md-offset-1">
 
         <h2>API</h2>
-        <label for="apikey">
-            Your API key:</label> 
-           <input type="text" id="apikey" class="form-control" name="apikey"
-                                 value="<?= htmlspecialchars($user->getAPIkey()) ?>" disabled>
-     
+        <p>
+            Your API key: <input type="text" id="apikey" class="form-control" name="apikey"
+                                 value="<?= htmlspecialchars($user->getAPIkey()) ?>" readonly>
+        </p>
 
     </div>
 

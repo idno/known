@@ -29,8 +29,8 @@
 
                     if (!empty(site()->config()->hub)) {
                         $eventdata = $event->data();
-                        header('Link: <' . \Idno\Core\site()->config()->getDisplayURL() . 'webmention/>; rel="http://webmention.org/"', false);
-                        header('Link: <' . \Idno\Core\site()->config()->getDisplayURL() . 'webmention/>; rel="webmention"', false);
+                        header('Link: <' . \Idno\Core\site()->config()->getURL() . 'webmention/>; rel="http://webmention.org/"', false);
+                        header('Link: <' . \Idno\Core\site()->config()->getURL() . 'webmention/>; rel="webmention"', false);
                     }
 
                 });
@@ -54,13 +54,13 @@
 
                 // Load webmention-client
                 require_once \Idno\Core\site()->config()->path . '/external/mention-client-php/src/IndieWeb/MentionClient.php';
-                
+
                 // Proxy connection string provided
                 $proxystring = false;
                 if (!empty(\Idno\Core\site()->config()->proxy_string)) {
                     $proxystring = \Idno\Core\site()->config()->proxy_string;
                 }
-                
+
                 $client = new \Idno\Core\MentionClient($pageURL, $text, $proxystring);
 
                 return $client->sendSupportedMentions();
@@ -120,8 +120,8 @@
                 }
                 if ($content = \Idno\Core\Webservice::get($url)) {
                     if ($mf2 = self::parseContent($content['content'], $url)) {
-                        $mf2 = (array) $mf2;
-                        $mf2['rels'] = (array) $mf2['rels'];
+                        $mf2         = (array)$mf2;
+                        $mf2['rels'] = (array)$mf2['rels'];
                         if (!empty($mf2['rels']['syndication'])) {
                             if (is_array($mf2['rels']['syndication'])) {
                                 foreach ($mf2['rels']['syndication'] as $syndication) {
@@ -142,7 +142,8 @@
              * @param $content
              * @return string
              */
-            static function getActionTypeFromHTML($content) {
+            static function getActionTypeFromHTML($content)
+            {
                 $share_type = 'comment';
                 if ($mf2 = \Idno\Core\Webmention::parseContent($content['content'])) {
                     if (!empty($mf2['items'])) {
@@ -158,6 +159,7 @@
                         }
                     }
                 }
+
                 return $share_type;
             }
 
@@ -166,10 +168,12 @@
              * @param $url
              * @return bool|string
              */
-            static function getIconFromURL($url) {
+            static function getIconFromURL($url)
+            {
                 if ($content = Webservice::get($url)) {
                     return self::getIconFromWebsiteContent($content['content'], $url);
                 }
+
                 return false;
             }
 
@@ -182,7 +186,7 @@
             static function getIconFromWebsiteContent($content, $url)
             {
                 if ($mf2 = self::parseContent($content, $url)) {
-                    $mf2 = (array) $mf2;
+                    $mf2 = (array)$mf2;
                     foreach ($mf2['items'] as $item) {
 
                         // Figure out what kind of Microformats 2 item we have
@@ -221,6 +225,7 @@
 
                     }
                 }
+
                 return false;
             }
 

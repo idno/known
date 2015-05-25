@@ -4,7 +4,7 @@ Arvixe is a web host provider with reliable hosting for Known.  Visit the [Arvix
 
 ![Arvixe account](https://withknown.com/img/docs/arvixe/01-arvixe.png)
 
-During the account creation process, you'll be able to buy a domain name for your site or add in details for a domain that you already own. 
+During the account creation process, you'll be able to buy a domain name for your site or add in details for a domain that you already own.
 
 ![CPanel](https://withknown.com/img/docs/arvixe/02-cpanel-login.png)
 

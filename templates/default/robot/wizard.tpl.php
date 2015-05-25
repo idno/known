@@ -2,26 +2,34 @@
 
     $username = \Idno\Core\site()->session()->currentUser()->getHandle();
     $url = \Idno\Core\site()->session()->currentUser()->getDisplayURL();
+
+    $facebookurl = "https://www.facebook.com/sharer/sharer.php?u=".urlencode(\Idno\Core\site()->config()->getDisplayURL());
+    $twitterurl = "https://twitter.com/intent/tweet?text=".urlencode("Check out my new @withknown site!")."&url=".urlencode(\Idno\Core\site()->config()->getDisplayURL())."&source=webclient";
+
     switch (\Idno\Core\site()->session()->currentUser()->robot_state) {
 
         case '1':
             echo $this->__(array(
-                'body' => "Hey there <a href=\"{$url}\">{$username}</a>! Welcome to your new Known site. I'm Aleph, your very own welcome robot. Let's get started by adding a status update about what you did today. Just select the icon above."
+                'body' =>
+                    "Welcome to your new Known site! " .
+                    "I'm Aleph, your very own welcome robot. Let's get started by <a href=\"#\" onclick=\"contentCreateForm('status'); return false;\">adding your first status update</a>! "
+
+                    //"about what you did today. Just select the icon above."
             ))->draw('robot/post');
             break;
         case '2a':
             echo $this->__(array(
-                'body' => "Beep! That was a great update. Did you see that your site address is <a href=\"".\Idno\Core\site()->config()->getDisplayURL()."\">" . \Idno\Core\site()->config()->getDisplayURL() . "</a>? Be sure and bookmark this so you can find it again.\n\nYour Known site is really coming together now. I bet you've got some great pictures. Why not upload a photo that you took recently?"
+                'body' => "Beep! That was a great update. Why not <a href=\"{$facebookurl}\" target=\"blank\" onclick=\"window.open('{$facebookurl}', 'newwindow', 'width=600, height=350'); return false;\">share your new website on Facebook</a> and <a href=\"{$twitterurl}\">Twitter</a> so your friends know about it?</a>\n\nI bet you've got some great photos. <a href=\"#\" onclick=\"contentCreateForm('photo'); return false;\">Try posting one</a>!"
             ))->draw('robot/post');
             break;
         case '2b':
             echo $this->__(array(
-                'body' => "Zeep zeep! That was a great update. Did you see that your site address is <a href=\"".\Idno\Core\site()->config()->getDisplayURL()."\">" . \Idno\Core\site()->config()->getDisplayURL() . "</a>? Be sure and bookmark this so you can find it again.\n\nYour Known site is really coming together now. Why don't you try posting something else?"
+                'body' => "Zeep! That was a great update. Why not <a href=\"{$facebookurl}\" target=\"blank\" onclick=\"window.open('{$facebookurl}', 'newwindow', 'width=600, height=350'); return false;\">share your new website on Facebook</a> and <a href=\"{$twitterurl}\">Twitter</a> so your friends know about it?</a>\n\nI bet you've got some great photos. <a href=\"#\" onclick=\"contentCreateForm('photo'); return false;\">Try posting one</a>!"
             ))->draw('robot/post');
             break;
         case '2c':
             echo $this->__(array(
-                'body' => "Beep boop! That was a great update. Did you see that your site address is " . \Idno\Core\site()->config()->getDisplayURL() . "? Be sure and bookmark this so you can find it again."
+                'body' => "Beep boop! That was a great update. Why not <a href=\"{$facebookurl}\" target=\"blank\" onclick=\"window.open('{$facebookurl}', 'newwindow', 'width=600, height=350'); return false;\">share your new website on Facebook</a> and <a href=\"{$twitterurl}\">Twitter</a> so your friends know about it?</a>\n\nI bet you've got some great photos. <a href=\"#\" onclick=\"contentCreateForm('photo'); return false;\">Try posting one</a>!"
             ))->draw('robot/post');
             break;
         case "3a":

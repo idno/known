@@ -81,14 +81,13 @@
                         if (self::isImage($file_path)) {
                             $photo_information = getimagesize($file_path);
                             if (!empty($photo_information[0]) && !empty($photo_information[1])) {
-                                $metadata['width'] = $photo_information[0];
+                                $metadata['width']  = $photo_information[0];
                                 $metadata['height'] = $photo_information[1];
                             }
                         }
 
                         // Do we want to remove EXIF data?
-                        if (!empty($photo_information) && $destroy_exif)
-                        {
+                        if (!empty($photo_information) && $destroy_exif) {
                             $tmpfname = $file_path;
                             switch ($photo_information['mime']) {
                                 case 'image/jpeg':
@@ -96,9 +95,9 @@
                                     imagejpeg($image, $tmpfname);
                                     break;
                             }
-                            
+
                         }
-                        
+
                         if ($id = $fs->storeFile($file_path, $metadata, $metadata)) {
                             if (!$return_object) {
                                 return $id;
@@ -167,27 +166,27 @@
                             }
                             if ($square) {
                                 if ($width > $height) {
-                                    $new_height = $max_dimension;
-                                    $new_width = $max_dimension;
+                                    $new_height      = $max_dimension;
+                                    $new_width       = $max_dimension;
                                     $original_height = $photo_information[1];
-                                    $original_width = $photo_information[1];
-                                    $offset_x = round(($photo_information[0] - $photo_information[1]) / 2);
-                                    $offset_y = 0;
+                                    $original_width  = $photo_information[1];
+                                    $offset_x        = round(($photo_information[0] - $photo_information[1]) / 2);
+                                    $offset_y        = 0;
                                 } else {
-                                    $new_height = $max_dimension;
-                                    $new_width = $max_dimension;
+                                    $new_height      = $max_dimension;
+                                    $new_width       = $max_dimension;
                                     $original_height = $photo_information[0];
-                                    $original_width = $photo_information[0];
-                                    $offset_x = 0;
-                                    $offset_y = round(($photo_information[1] - $photo_information[0]) / 2);
+                                    $original_width  = $photo_information[0];
+                                    $offset_x        = 0;
+                                    $offset_y        = round(($photo_information[1] - $photo_information[0]) / 2);
                                 }
                             } else {
-                                $new_height = $height;
-                                $new_width = $width;
+                                $new_height      = $height;
+                                $new_width       = $width;
                                 $original_height = $photo_information[1];
-                                $original_width = $photo_information[0];
-                                $offset_x = 0;
-                                $offset_y = 0;
+                                $original_width  = $photo_information[0];
+                                $offset_x        = 0;
+                                $offset_y        = 0;
                             }
                             $image_copy = imagecreatetruecolor($new_width, $new_height);
                             imagealphablending($image_copy, false);
@@ -216,7 +215,7 @@
                                     // Don't do anything
                                 }
                             }
-                            
+
 
                             $tmp_dir = dirname($file_path);
                             switch ($photo_information['mime']) {
@@ -289,9 +288,11 @@
             static function getByURL($url)
             {
                 if (substr_count($url, \Idno\Core\site()->config()->getDisplayURL() . 'file/')) {
-                    $url = str_replace(\Idno\Core\site()->config()->getDisplayURL() . 'file/','',$url);
+                    $url = str_replace(\Idno\Core\site()->config()->getDisplayURL() . 'file/', '', $url);
+
                     return self::getByID($url);
                 }
+
                 return false;
             }
 
@@ -318,7 +319,8 @@
              * @param $attachment
              * @return bool|mixed|string
              */
-            static function getFileDataFromAttachment($attachment) {
+            static function getFileDataFromAttachment($attachment)
+            {
                 \Idno\Core\site()->logging->log(json_encode($attachment), LOGLEVEL_DEBUG);
                 if (!empty($attachment['_id'])) {
                     //\Idno\Core\site()->logging->log("Checking attachment ID", LOGLEVEL_DEBUG);
@@ -340,6 +342,7 @@
                     try {
                         if ($bytes = @file_get_contents($attachment['url'])) {
                             \Idno\Core\site()->logging->log("Returning bytes", LOGLEVEL_DEBUG);
+
                             return $bytes;
                         } else {
                             \Idno\Core\site()->logging->log("Couldn't get bytes from " . $attachment['url'], LOGLEVEL_DEBUG);

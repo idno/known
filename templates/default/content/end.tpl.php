@@ -115,6 +115,8 @@
                             echo $this->__(array('annotations' => $mentions))->draw('entity/annotations/mentions');
                         }
 
+                        unset($this->vars['annotations']);
+                        unset($this->vars['annotation_permalink']);
                     ?>
 
                 </div>

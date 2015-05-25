@@ -1,0 +1,1 @@
+<i class="icon-frsqr"></i>

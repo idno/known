@@ -5,9 +5,11 @@
         use Idno\Common\Page;
         use Idno\Entities\Reader\Subscription;
 
-        class Confirm extends Page {
+        class Confirm extends Page
+        {
 
-            function getContent() {
+            function getContent()
+            {
 
                 $this->gatekeeper();
 
@@ -20,8 +22,8 @@
                         $t = \Idno\Core\site()->template();
                         $t->__(array(
                             'title' => 'Subscribe to ' . $feed->getTitle(),
-                            'body' => $t->__(array(
-                                'feed' => $feed,
+                            'body'  => $t->__(array(
+                                'feed'  => $feed,
                                 'items' => $items
                             ))->draw('following/confirm')
                         ))->drawPage();
@@ -32,7 +34,8 @@
 
             }
 
-            function postContent() {
+            function postContent()
+            {
 
                 $this->gatekeeper();
 

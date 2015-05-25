@@ -5,19 +5,21 @@
         use Idno\Common\Entity;
         use Idno\Entities\File;
 
-        class Migration extends \Idno\Common\Component {
+        class Migration extends \Idno\Common\Component
+        {
 
             /**
              * Prepares an archive containing all of this site's data.
              * @return string
              */
-            static function exportToFolder($dir = false) {
+            static function exportToFolder($dir = false)
+            {
 
                 set_time_limit(0);  // Switch off the time limit for PHP
                 site()->currentPage()->setPermalink(true);
 
                 // Prepare a unique name for the archive
-                $name = md5(time() . rand(0,9999) . site()->config()->getURL());
+                $name = md5(time() . rand(0, 9999) . site()->config()->getURL());
 
                 // If $folder is false or doesn't exist, use the temporary directory and ensure it has a slash on the end of it
                 if (!is_dir($dir)) {
@@ -52,19 +54,19 @@
                 $all_in_one_json = '';
 
                 // Let's export everything.
-                $fields = array();
+                $fields           = array();
                 $query_parameters = array('entity_subtype' => array('$not' => array('$in' => array('Idno\Entities\ActivityStreamPost'))));
-                $collection = 'entities';
+                $collection       = 'entities';
                 if ($results = site()->db()->getRecords($fields, $query_parameters, 99999, 0, $collection)) {
                     foreach ($results as $id => $row) {
                         $object = site()->db()->rowToEntity($row);
                         if (!empty($object->_id) && $object instanceof Entity) {
                             $object_name = $object->_id;
                             if ($attachments = $object->attachments) {
-                                foreach($attachments as $key => $attachment) {
+                                foreach ($attachments as $key => $attachment) {
                                     if ($data = File::getFileDataFromAttachment($attachment)) {
                                         $filename = $attachment['_id'];
-                                        $id = $attachment['_id'];
+                                        $id       = $attachment['_id'];
                                         if ($ext = pathinfo($attachment['url'], PATHINFO_EXTENSION)) {
                                             $filename .= '.' . $ext;
                                         }
@@ -75,7 +77,7 @@
                                         }
                                         //file_put_contents($file_path . $filename, $data);
                                         $attachments[$key]['url'] = '../files/' . site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3] . '/' . $id . '.file'; //$filename;
-                                        $data_file   = $file_path . \Idno\Core\site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3] . '/' . $id . '.data';
+                                        $data_file                = $file_path . \Idno\Core\site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3] . '/' . $id . '.data';
                                         foreach (array($file_path . \Idno\Core\site()->config()->pathHost(), $file_path . \Idno\Core\site()->config()->pathHost() . '/' . $id[0], $file_path . \Idno\Core\site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1], $file_path . \Idno\Core\site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2], $file_path . \Idno\Core\site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3]) as $up_path) {
                                             if (!is_dir($up_path)) {
                                                 $result = mkdir($up_path, 0777, true);
@@ -88,7 +90,7 @@
                                 $object->attachments = $attachments;
                             }
                             $activityStreamPost = new \Idno\Entities\ActivityStreamPost();
-                            if ($owner              = $object->getOwner()) {
+                            if ($owner = $object->getOwner()) {
                                 $activityStreamPost->setOwner($owner);
                                 $activityStreamPost->setActor($owner);
                                 $activityStreamPost->setTitle(sprintf($object->getTitle(), $owner->getTitle(), $object->getTitle()));
@@ -127,7 +129,8 @@
              * @param $save_path
              * @return string
              */
-            static function archiveExportFolder($path, $save_path = false) {
+            static function archiveExportFolder($path, $save_path = false)
+            {
 
                 if (!is_dir($path)) {
                     return false;
@@ -142,7 +145,7 @@
                     return false;
                 }
 
-                $filename = str_replace('.','_',site()->config()->host);
+                $filename = str_replace('.', '_', site()->config()->host);
 
                 if (file_exists(site()->config()->getTempDir() . $filename . '.tar')) {
                     @unlink(site()->config()->getTempDir() . $filename . '.tar');
@@ -151,6 +154,7 @@
 
                 $archive = new \PharData(site()->config()->getTempDir() . $filename . '.zip');
                 $archive->buildFromDirectory($path);
+
                 //$archive->compress(\Phar::GZ);
 
                 return $archive->getPath();
@@ -161,13 +165,16 @@
              * Wrapper function that exports Known data and returns the path to the archive of it.
              * @return bool|string
              */
-            static function createCompressedArchive() {
+            static function createCompressedArchive()
+            {
                 if ($path = self::exportToFolder()) {
                     if ($archive = self::archiveExportFolder($path)) {
                         self::cleanUpFolder($path);
+
                         return $archive;
                     }
                 }
+
                 return false;
             }
 
@@ -175,10 +182,10 @@
              * Given the path to an archive folder, recursively removes it
              * @param $path
              */
-            static function cleanUpFolder($path) {
-                foreach(glob("{path}/*") as $file)
-                {
-                    if(is_dir($file)) {
+            static function cleanUpFolder($path)
+            {
+                foreach (glob("{path}/*") as $file) {
+                    if (is_dir($file)) {
                         self::cleanUpFolder($file);
                     } else {
                         @unlink($file);
@@ -191,7 +198,8 @@
              * Given the XML source of an export, imports each post into Known.
              * @param $xml
              */
-            static function ImportFeedXML($xml) {
+            static function importFeedXML($xml)
+            {
 
                 // Blogger will be imported as blog posts, so make sure we can import those ...
                 if (!($text = site()->plugins()->get('Text'))) {
@@ -204,15 +212,16 @@
 
                 if ($items = $xml_parser->get_items()) {
 
-                    foreach($items as $item) { /* @var \SimplePie_Item $item */
+                    foreach ($items as $item) {
+                        /* @var \SimplePie_Item $item */
 
                         $post_type = 'post';
                         if ($categories = $item->get_categories()) {
-                            foreach($categories as $category) {
+                            foreach ($categories as $category) {
                                 if (!empty($category->term) && !empty($category->scheme)) {
                                     if ($category->scheme == 'http://schemas.google.com/g/2005#kind') {
-                                        foreach(['settings','template','comment'] as $term) {
-                                            if (substr_count($category->term,$term)) {
+                                        foreach (['settings', 'template', 'comment'] as $term) {
+                                            if (substr_count($category->term, $term)) {
                                                 $post_type = $term;
                                             }
                                         }
@@ -225,55 +234,22 @@
                             $body = $item->get_content();
                             $tags = [];
                             if ($categories = $item->get_categories()) {
-                                foreach($categories as $category) {
+                                foreach ($categories as $category) {
                                     if (empty($category->scheme) || $category->scheme != 'http://schemas.google.com/g/2005#kind') {
-                                        $tags[] = '#' . preg_replace('/\s+/', '', $category->term);
+                                        $tags[] = '#' . preg_replace('/\W+/', '', $category->term);
                                     }
                                 }
                             }
                             if (!empty($tags)) {
-                                $body .= '<p>' . implode(' ',$tags) . '</p>';
+                                $body .= '<p>' . implode(' ', $tags) . '</p>';
                             }
 
-                            $doc = new \DOMDocument();
-                            if (@$doc->loadHTML($body)) {
-                                if ($images = $doc->getElementsByTagName('img')) {
-                                    foreach($images as $image) {
-                                        $src = $image->getAttribute('src');
-                                        if (substr_count($src,'blogspot.com')) {
-                                            $dir = site()->config()->getTempDir();
-                                            $name = md5($src);
-                                            $newname = $dir . $name . basename($src);
-                                            if (@file_put_contents($newname , fopen($src, 'r'))) {
-                                                switch (strtolower(pathinfo($src, PATHINFO_EXTENSION))) {
-                                                    case 'jpg':
-                                                    case 'jpeg':
-                                                        $mime = 'image/jpg'; break;
-                                                    case 'gif':
-                                                        $mime = 'image/gif'; break;
-                                                    case 'png':
-                                                        $mime = 'image/png'; break;
-                                                    default:
-                                                        $mime = 'application/octet-stream';
-                                                }
-                                                if ($file = File::createFromFile($newname, basename($src), $mime, true)) {
-                                                    $newsrc = \Idno\Core\site()->config()->getURL() . 'file/' . $file->file['_id'];
-                                                    $body = str_replace($src, $newsrc, $body);
-                                                    @unlink($newname);
-                                                } else {
-                                                    error_log("Couldn't store newname");
-                                                }
-
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                            self::importImagesFromBodyHTML($body, 'blogspot.com');
 
                             $object = new \IdnoPlugins\Text\Entry();
                             $object->setTitle(html_entity_decode($item->get_title()));
                             $object->created = strtotime(($item->get_date("c")));
-                            $object->body = ($body);
+                            $object->body    = ($body);
                             $object->save(true);
                         }
 
@@ -283,13 +259,55 @@
 
             }
 
+            static function importImagesFromBodyHTML($body, $src_url)
+            {
+
+                $doc = new \DOMDocument();
+                if (@$doc->loadHTML($body)) {
+                    if ($images = $doc->getElementsByTagName('img')) {
+                        foreach ($images as $image) {
+                            $src = $image->getAttribute('src');
+                            if (substr_count($src, $src_url)) {
+                                $dir     = site()->config()->getTempDir();
+                                $name    = md5($src);
+                                $newname = $dir . $name . basename($src);
+                                if (@file_put_contents($newname, fopen($src, 'r'))) {
+                                    switch (strtolower(pathinfo($src, PATHINFO_EXTENSION))) {
+                                        case 'jpg':
+                                        case 'jpeg':
+                                            $mime = 'image/jpg';
+                                            break;
+                                        case 'gif':
+                                            $mime = 'image/gif';
+                                            break;
+                                        case 'png':
+                                            $mime = 'image/png';
+                                            break;
+                                        default:
+                                            $mime = 'application/octet-stream';
+                                    }
+                                    if ($file = File::createFromFile($newname, basename($src), $mime, true)) {
+                                        $newsrc = \Idno\Core\site()->config()->getURL() . 'file/' . $file->file['_id'];
+                                        $body   = str_replace($src, $newsrc, $body);
+                                        @unlink($newname);
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+
             /**
              * Given the XML source of a Blogger export, imports each post into Known.
              * @param $xml
              */
-            static function ImportBloggerXML($xml) {
+            static function importBloggerXML($xml)
+            {
 
-                return self::ImportFeedXML($xml);
+                return self::importFeedXML($xml);
 
             }
 
@@ -297,10 +315,83 @@
              * Given the XML source of a WordPress export, imports each post into Known.
              * @param $xml
              */
-            static function ImportWordPressXML($xml) {
+            static function importWordPressXML($xml)
+            {
 
-                // TODO add WordPress-specific content to the parent method
-                return self::ImportFeedXML($xml);
+                // XML will be imported as blog posts, so make sure we can import those ...
+                if (!($text = site()->plugins()->get('Text'))) {
+                    return false;
+                }
+
+                if ($data = simplexml_load_string($xml, null, LIBXML_NOCDATA)) {
+
+                    $namespaces   = $data->getDocNamespaces(false);
+                    $namespaces[] = null;
+
+                    unset($namespace_data);
+                    unset($xml);
+
+                    if (!empty($data->channel->item)) {
+                        foreach ($data->channel->item as $item_structure) {
+                            $item = [];
+                            foreach ($namespaces as $ns => $namespace) {
+                                if ($properties = (array)$item_structure->children($namespace)) {
+                                    foreach ($properties as $name => $val) {
+                                        if (!empty($ns)) {
+                                            $name = $ns . ':' . $name;
+                                        }
+                                        $item[$name] = $val;
+                                    }
+                                }
+                            }
+
+                            if ($item['wp:post_type'] == 'post' && $item['wp:status'] == 'publish') {
+
+                                $title = $item['title'];
+                                if (!empty($item['content:encoded'])) {
+                                    $body = $item['content:encoded'];
+                                } else if (!empty($item['description'])) {
+                                    $body = $item['description'];
+                                } else {
+                                    $body = '';
+                                }
+                                if (!empty($item['wp:post_date'])) {
+                                    $published = strtotime($item['wp:post_date']);
+                                } else if (!empty($item['pubDate'])) {
+                                    $published = strtotime($item['pubDate']);
+                                } else {
+                                    $published = time();
+                                }
+                                if (!empty($item['category'])) {
+                                    $tags = [];
+                                    if (!is_array($item['category'])) {
+                                        $item['category'] = [$item['category']];
+                                    }
+                                    foreach ($item['category'] as $category) {
+                                        $category = strtolower(trim($category));
+                                        if ($category != 'general') {
+                                            $tags[] = '#' . preg_replace('/\W+/', '', $category);
+                                        }
+                                    }
+                                    if (!empty($tags)) {
+                                        $body .= '<p>' . implode(' ', $tags) . '</p>';
+                                    }
+                                }
+
+                                self::importImagesFromBodyHTML($body, parse_url($item['link'], PHP_URL_HOST));
+
+                                $object = new \IdnoPlugins\Text\Entry();
+                                $object->setTitle(html_entity_decode($title));
+                                $object->created = $published;
+                                $object->body    = ($body);
+                                $object->save(true);
+
+                            }
+
+                        }
+                    }
+
+                }
 
             }
 

@@ -5,7 +5,6 @@
      */
 
     namespace Idno\Pages\Entity {
-        use Idno\Common\Entity;
 
         /**
          * Default class to serve the homepage
@@ -41,7 +40,21 @@
 
                 $this->setOwner($object->getOwner());
                 $this->setPermalink(); // This is a permalink
+
+                // Commenting this out because it's not guaranteed to work in all browsers
+                //header("Pragma: private");
+                //header("Cache-Control: private");
+                //header('Expires: ' . date(\DateTime::RFC1123, time() + (86400 * 30))); // Cache for 30 days!
                 $this->setLastModifiedHeader($object->updated); // Say when this was last modified
+
+                $headers = $this->getallheaders();
+                if (isset($headers['If-Modified-Since'])) {
+                    if (strtotime($headers['If-Modified-Since']) <= $object->updated) {
+                        header('HTTP/1.1 304 Not Modified');
+                        exit;
+                    }
+                }
+
                 $t = \Idno\Core\site()->template();
                 $t->__(array(
 
@@ -64,6 +77,7 @@
                 }
                 if (empty($object)) {
                     \Idno\Core\site()->logging->log("No object was found with ID {$this->arguments[0]}.", LOGLEVEL_ERROR);
+
                     return false;
                 }
 

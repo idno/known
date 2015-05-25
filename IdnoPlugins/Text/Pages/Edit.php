@@ -22,7 +22,7 @@
                     'object' => $object
                 ))->draw('entity/Entry/edit');
 
-                if (empty($object)) {
+                if (empty($vars['object']->_id)) {
                     $title = 'Write an entry';
                 } else {
                     $title = 'Edit entry';
@@ -48,8 +48,10 @@
 
                 if ($object->saveDataFromInput($this)) {
                     (new \Idno\Core\Autosave())->clearContext('entry');
-                    //$this->forward(\Idno\Core\site()->config()->getURL() . 'content/all/#feed');
-                    $this->forward($object->getDisplayURL());
+                    //$this->forward(\Idno\Core\site()->config()->getURL() . 'content/all/');
+                    //$this->forward($object->getDisplayURL());
+                    $forward = $this->getInput('forward-to', $object->getDisplayURL());
+                    $this->forward($forward);
                 }
 
             }

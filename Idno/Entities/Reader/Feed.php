@@ -5,7 +5,8 @@
         use Idno\Common\Entity;
         use Idno\Core\Webservice;
 
-        class Feed extends Entity {
+        class Feed extends Entity
+        {
 
             public $collection = 'reader';
             public static $retrieve_collection = 'reader';
@@ -14,7 +15,8 @@
              * Sets the URL of this feed
              * @param $url
              */
-            function setURL($url) {
+            function setURL($url)
+            {
                 $this->url = $url;
             }
 
@@ -22,7 +24,8 @@
              * Sets the URL of the feed this subscription belongs to
              * @param $url
              */
-            function setFeedURL($url) {
+            function setFeedURL($url)
+            {
                 $this->feed_url = $url;
             }
 
@@ -31,7 +34,8 @@
              * @param $url
              * @return mixed
              */
-            function getFeedURL() {
+            function getFeedURL()
+            {
                 return $this->feed_url;
             }
 
@@ -39,7 +43,8 @@
              * Set the type of this feed
              * @param $type
              */
-            function setType($type) {
+            function setType($type)
+            {
                 $this->feed_type = $type;
             }
 
@@ -47,7 +52,8 @@
              * Get the type of this feed
              * @return mixed
              */
-            function getType() {
+            function getType()
+            {
                 return $this->feed_type;
             }
 
@@ -55,7 +61,8 @@
              * Retrieves and parses this feed
              * @return array|bool
              */
-            function fetchAndParse() {
+            function fetchAndParse()
+            {
                 return \Idno\Core\site()->reader()->fetchAndParseFeed($this->getFeedURL());
             }
 
@@ -63,11 +70,13 @@
              * Get parsed items from this feed
              * @return array|bool
              */
-            function retrieveItems() {
+            function retrieveItems()
+            {
                 $ws = new Webservice();
                 if ($content = $ws->get($this->getFeedURL())) {
                     return \Idno\Core\site()->reader()->parseFeed($content['content'], $this->getFeedURL());
                 }
+
                 return false;
             }
 
@@ -75,8 +84,9 @@
              * Sets the time that this item was last updated
              * @param $time
              */
-            function setLastUpdated($time) {
-                $this->updated = (int) $time;
+            function setLastUpdated($time)
+            {
+                $this->updated = (int)$time;
             }
 
         }

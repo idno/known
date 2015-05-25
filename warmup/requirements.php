@@ -5,6 +5,7 @@
     include 'top.php';
 
     $ok = true;
+    $sslrequired = false; // Only warn for now, later we might want to make SSL a requirement
 
 ?>
 
@@ -38,6 +39,48 @@
                     <?=$text?>
                 </p>
 
+            </div>
+            
+            <?php
+                /* 
+                 * Check whether you're installing on a secure connection (and presumably your site is secure).
+                 * This is a warning for now, in future this might be a hard fail. 
+                 */
+            
+                function isTLS() {
+                    if (isset($_SERVER['HTTPS'])) {
+                        if ($_SERVER['HTTPS'] == '1')
+                            return true;
+                        if (strtolower($_SERVER['HTTPS'] == 'on'))
+                            return true;
+                    } else if (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == '443'))
+                        return true;
+
+                    if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
+                        return true;
+                    }
+
+                    return false;
+                }
+                
+                if (isTLS()) {
+                    $class = 'success';
+                    $text = 'You are running Known on a secure site.';
+                } else {
+                    if ($sslrequired) {
+                        $class = 'failure';
+                        $ok = false;
+                    } else {
+                        $class = 'warning';
+                    }
+                    $text = 'Your site doesn\'t seem to be loaded with HTTPS. We strongly recommend using HTTPS to make your site secure and protect your privacy.';
+                }
+            ?>
+            <div class="component <?= $class ?>">
+                <h3>Secure site</h3>
+                <p>
+                    <?=$text?>
+                </p>
             </div>
 
             <?php

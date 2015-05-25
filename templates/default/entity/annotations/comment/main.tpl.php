@@ -25,6 +25,8 @@
     </div>
 <?php
 
+    // Prevent scope pollution
+    unset($this->vars['action']);
     }
 
 ?>

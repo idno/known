@@ -85,7 +85,7 @@
 
             </div>
             <?=$this->draw('entity/tags/input');?>
-
+            <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to" value="<?= \Idno\Core\site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
         </div>
         
         <div class="col-md-8 col-md-offset-2">

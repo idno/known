@@ -6,6 +6,8 @@
 
     namespace Idno\Pages\Search {
 
+        use Idno\Pages\Homepage;
+
         class Tags extends \Idno\Common\Page
         {
 
@@ -13,8 +15,11 @@
             {
 
                 if (!empty($this->arguments[0])) {
-                    $tag = $this->arguments[0];
-                    $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'content/all/?q=' . urlencode('#' . $tag));
+                    $tag  = urldecode($this->arguments[0]);
+                    $page = new Homepage();
+                    $page->setInput('q', '#' . $tag);
+                    $page->getContent();
+                    exit;
                 }
 
                 $this->forward(\Idno\Core\site()->config()->getDisplayURL());

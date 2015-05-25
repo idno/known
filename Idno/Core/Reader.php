@@ -12,11 +12,12 @@
         {
 
             // Register pages
-            function registerPages() {
+            function registerPages()
+            {
                 site()->addPageHandler('/following/?', '\Idno\Pages\Following\Home');
                 site()->addPageHandler('/following/add/?', '\Idno\Pages\Following\Add');
                 site()->addPageHandler('/following/confirm/?', '\Idno\Pages\Following\Confirm');
-                site()->addPageHandler('/following/refresh/?', '\Idno\Pages\Following\Refresh',true);
+                site()->addPageHandler('/following/refresh/?', '\Idno\Pages\Following\Refresh', true);
                 site()->addPageHandler('/stream/?', '\Idno\Pages\Stream\Home');
             }
 
@@ -32,8 +33,9 @@
                 // Check for microformats
                 if ($html = @\DOMDocument::loadHTML($content)) {
                     try {
-                        $parser  = new \Mf2\Parser($html, $url);
+                        $parser         = new \Mf2\Parser($html, $url);
                         $parsed_content = $parser->parse();
+
                         return $this->mf2FeedToFeedItems($parsed_content, $url);
                     } catch (\Exception $e) {
                         return false;
@@ -57,13 +59,15 @@
             /**
              * Parses the feed and saves items if they haven't yet been saved
              */
-            function parseAndSaveFeeds() {
+            function parseAndSaveFeeds()
+            {
 
                 if ($feeds = Feed::get()) {
-                    foreach($feeds as $feed) {
+                    foreach ($feeds as $feed) {
                         /* @var \Idno\Entities\Reader\Feed $feed */
                         if ($items = $feed->fetchAndParse()) {
-                            foreach($items as $item) { /* @var \Idno\Entities\Reader\FeedItem $item */
+                            foreach ($items as $item) {
+                                /* @var \Idno\Entities\Reader\FeedItem $item */
                                 $item->saveIfNotSaved();
                             }
                         }
@@ -170,25 +174,27 @@
                             $title = $xpath->query('//title')->item(0)->nodeValue;
                             if ($xpath->query("//*[contains(concat(' ', @class, ' '), ' h-entry ')]")->length > 0) {
                                 $feed['type'] = 'mf2';
-                                $feed['url'] = $url;
+                                $feed['url']  = $url;
                                 if (!empty($title)) {
                                     $feed['title'] = $title;
                                 }
+
                                 return $feed;
                             }
                             if ($rss_url = $this->findXMLFeedURL($html)) {
                                 $feed['type'] = 'xml';
-                                $feed['url'] = $rss_url;
+                                $feed['url']  = $rss_url;
                                 if (!empty($title)) {
                                     $feed['title'] = $title;
                                 }
+
                                 return $feed;
                             }
                         }
                         if ($xml = @simplexml_load_string($result['content'])) {
                             if (!empty($xml->rss->channel->item) || !empty($xml->feed) || !empty($xml->channel->item)) {
                                 $feed['type'] = 'xml';
-                                $feed['url'] = $url;
+                                $feed['url']  = $url;
                                 if (!empty($xml->rss->channel->title)) {
                                     $feed['title'] = $xml->rss->channel->title;
                                 } else if (!empty($xml->channel->title)) {
@@ -196,6 +202,7 @@
                                 } else if (!empty($xml->title)) {
                                     $feed['title'] = $xml->title;
                                 }
+
                                 return $feed;
                             }
                         }
@@ -213,14 +220,16 @@
              * @param $update Set to true in order to refresh saved feed details. False by default.
              * @return bool|false|\Idno\Common\Entity|Feed
              */
-            function getFeedObject($url, $update = false) {
+            function getFeedObject($url, $update = false)
+            {
 
-                $wc = new Webservice();
+                $wc  = new Webservice();
                 $url = $wc->sanitizeURL($url);
                 if ($feed_details = $this->getFeedDetails($url)) {
                     if ($feed_array = Feed::get(array('feed_url' => $feed_details['url']))) {
-                        foreach($feed_array as $feed_item) {
-                            $feed = $feed_item; break;
+                        foreach ($feed_array as $feed_item) {
+                            $feed = $feed_item;
+                            break;
                         }
                     } else {
                         $feed = new Feed();
@@ -243,6 +252,7 @@
                     }
 
                 }
+
                 return false;
             }
 
@@ -280,7 +290,8 @@
              * @param $user
              * @return array|bool
              */
-            function getUserSubscriptions($user) {
+            function getUserSubscriptions($user)
+            {
 
                 if ($user instanceof User) {
                     $user = $user->getUUID();

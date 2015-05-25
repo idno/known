@@ -24,18 +24,36 @@
                                    echo htmlspecialchars($vars['object']->body);
                                } else {
                                    echo htmlspecialchars($vars['url']);
-                               } ?>" class="form-control"/>
+                               } ?>" class="form-control bookmark-url"/>
+                    </label>
+                    <?php
 
-                     <!--<label for="title">
-                        Page title</label>
+                        if (empty($vars['url'])) {
+
+                    ?>
+
+                    <div class="bookmark-spinner-container">
+                        <div class="spinner bookmark-title-spinner" style="display:none">
+                            <div class="bounce1"></div>
+                            <div class="bounce2"></div>
+                            <div class="bounce3"></div>
+                        </div>
+                    </div>
+
+                    <?php
+
+                        }
+
+                    ?>
+                    <label class="bookmark-title-container" for="title" <?php if (empty($vars['object']->pageTitle) && empty($vars['object']->_id)) { ?>style="display:none"<?php } ?>>
+                        Page title<br/>
+                        </label>
                         <input required type="text" name="title" id="title" placeholder="Page name"
                                value="<?php
-                                   echo htmlspecialchars($vars['object']->title);
-                               ?>" class="form-control"/>-->
-
-                    <label for="description">
-                        Comments
-
+                                   echo htmlspecialchars($vars['object']->pageTitle);
+                               ?>" class="form-control bookmark-title"/>
+                    <label>
+                        Comments<br/>
                     </label>
 
                     <textarea name="description" id="description" class="form-control"
@@ -43,6 +61,7 @@
                 </div>
                 <?=$this->draw('entity/tags/input');?>
                 <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('bookmark'); ?>
+                <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to" value="<?= \Idno\Core\site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
                 <p class="button-bar">
                     <?= \Idno\Core\site()->actions()->signForm('/like/edit') ?>
                     <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
@@ -54,3 +73,34 @@
         </div>
     </form>
 <?= $this->draw('entity/edit/footer'); ?>
+<script language="javascript">
+
+    $(document).ready(function() {
+
+        $('.bookmark-url').change(function() {
+
+            if ($('bookmark-url').val() != "") {
+                $('.bookmark-title-spinner').show();
+                $.ajax({
+                    dataType: "json",
+                    url: "<?=\Idno\Core\site()->config()->getDisplayURL()?>like/callback/",
+                    data: {
+                        url: $('.bookmark-url').val()
+                    },
+                    success: function(data) {
+                        $('.bookmark-title').val(data.value);
+                        $('.bookmark-spinner-container').html(" ");
+                        $('.bookmark-title-container').show();
+                    },
+                    error: function() {
+                        $('.bookmark-spinner-container').html(" ");
+                        $('.bookmark-title-container').show();
+                    }
+                });
+            }
+
+        });
+
+    })
+
+</script>
