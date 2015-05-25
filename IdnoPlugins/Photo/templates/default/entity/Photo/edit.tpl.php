@@ -17,33 +17,37 @@
                     ?>
                 </h4>
 
-                    <?php
+                <?php
 
-                        if (empty($vars['object']->_id)) {
+                    if (empty($vars['object']->_id)) {
 
-                            ?>
-                                <div id="photo-preview"></div>
-                                    <span class="btn btn-primary btn-file">
-                                        <i class="fa fa-camera"></i> <span id="photo-filename">Select a photo</span> <input type="file" name="photo" id="photo"
-                                                                                    class="col-md-9 form-control"
-                                                                                    accept="image/*;capture=camera"
-                                                                                    onchange="photoPreview(this)"/>
+                        ?>
+                        <div id="photo-preview"></div>
+                        <p>
+                                <span class="btn btn-primary btn-file">
+                                        <i class="fa fa-camera"></i> <span
+                                        id="photo-filename">Select a photo</span> <input type="file" name="photo"
+                                                                                         id="photo"
+                                                                                         class="col-md-9 form-control"
+                                                                                         accept="image/*;capture=camera"
+                                                                                         onchange="photoPreview(this)"/>
 
                                     </span>
+                        </p>
 
-                        <?php
+                    <?php
 
-                        }
+                    }
 
-                    ?>
+                ?>
 
                 <div class="content-form">
                     <label for="title">
                         Title</label>
-                        <input type="text" name="title" id="title"
-                               value="<?= htmlspecialchars($vars['object']->title) ?>" class="form-control"
-                               placeholder="Give it a title"/>
-                  
+                    <input type="text" name="title" id="title"
+                           value="<?= htmlspecialchars($vars['object']->title) ?>" class="form-control"
+                           placeholder="Give it a title"/>
+
                 </div>
 
                 <div class="content-form">
@@ -51,11 +55,12 @@
                         Description</label>
                         <textarea name="body" id="description" class="col-md-8 bodyInputShort mentionable form-control"
                                   placeholder="Add a caption"><?= htmlspecialchars($vars['object']->body) ?></textarea>
-                    
+
                 </div>
-                <?=$this->draw('entity/tags/input');?>
+                <?= $this->draw('entity/tags/input'); ?>
                 <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('image'); ?>
-                <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to" value="<?= \Idno\Core\site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
+                <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to"
+                                                                  value="<?= \Idno\Core\site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
                 <p class="button-bar ">
                     <?= \Idno\Core\site()->actions()->signForm('/photo/edit') ?>
                     <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
