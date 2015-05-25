@@ -1,5 +1,5 @@
 <?php
-    if (\Idno\Core\site()->config->experimental) {
+    if (\Idno\Core\site()->config()->experimental) {
         ?>
         <div class="access-control-block">
             <input type="hidden" name="access" id="access-control-id" value="PUBLIC"/>
@@ -19,9 +19,9 @@
                             if (!empty($acls)) {
                                 foreach ($acls as $acl) {
 
-                                    $icon = 'icon-cog';
+                                    $icon = 'fa fa-cog';
                                     if ($acl->access_group_type == 'FOLLOWING')
-                                        $icon = 'icon-group';
+                                        $icon = 'fa fa-users';
                                     ?>
                                     <li><a href="#" data-acl="<?= $acl->getUUID(); ?>" class="acl-option"><i
                                                 class="<?= $icon; ?>"> </i> <?= $acl->title; ?></a></li>
