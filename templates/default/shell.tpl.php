@@ -198,10 +198,10 @@
 
     <!-- Syndication -->
     <link
-        href="<?= \Idno\Core\site()->config()->getStaticURL() ?>external/bootstrap-toggle/css/bootstrap2-toggle.min.css"
+        href="<?= \Idno\Core\site()->config()->getStaticURL() ?>external/bootstrap-toggle/css/bootstrap-toggle.min.css"
         rel="stylesheet"/>
     <script
-        src="<?= \Idno\Core\site()->config()->getStaticURL() ?>external/bootstrap-toggle/js/bootstrap2-toggle.js"></script>
+        src="<?= \Idno\Core\site()->config()->getStaticURL() ?>external/bootstrap-toggle/js/bootstrap-toggle.js"></script>
 
     <?= $this->draw('shell/head', $vars); ?>
 
