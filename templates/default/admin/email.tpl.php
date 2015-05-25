@@ -94,13 +94,8 @@
                 <div class="col-md-2">
                     <p class="control-label" for="name"><strong>SMTP port</strong></p>
                 </div>
-<<<<<<< HEAD
                 <div class="col-md-4">
-                    <input type="number" id="smtp_port" placeholder="SMTP password" class="form-control" name="smtp_port"
-=======
-                <div class="span4">
-                    <input type="text" id="smtp_port" placeholder="SMTP password" class="span4" name="smtp_port"
->>>>>>> fd347ae166aa2475b19490a1bd16be8b2eca789a
+                    <input type="text" id="smtp_port" placeholder="SMTP password" class="form-control" name="smtp_port"
                            value="<?php
 
                                $port = (int)\Idno\Core\site()->config()->smtp_port;
@@ -111,15 +106,10 @@
 
                            ?>">
                 </div>
-<<<<<<< HEAD
                 <div class="col-md-6">
-                    <p class="config-desc">This is the SMTP port to use.</p>
-=======
-                <div class="span4">
                     <p class="config-desc">
                         This is normally 25 or 587.
                     </p>
->>>>>>> fd347ae166aa2475b19490a1bd16be8b2eca789a
                 </div>
             </div>
 
@@ -160,31 +150,32 @@
             <?= \Idno\Core\site()->actions()->signForm('/admin/email') ?>
         </form>
     </div>
+
     <?php if (\Idno\Core\site()->config()->from_email) { ?>
-        <div class="span10 offset1">
-            <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/emailtest" class="form-horizontal"
-                  method="post">
+    <div class="col-md-10 col-md-offset-1" style="margin-top: 5em">
+                <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/emailtest" class="form-horizontal"
+                      method="post">
 
-                <div class="row">
-                    <div class="span2">
-                        <p class="control-label" for="name"><strong>Send a test message to:</strong></p>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <p class="control-label" for="to_email"><strong>Send a test message to:</strong></p>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" id="to_email" placeholder="To address" class="form-control" name="to_email"
+                                   value="<?= htmlspecialchars(\Idno\Core\site()->config()->from_email) ?>">
+                        </div>
+                        <div class="col-md-4">
+                            <p class="config-desc">Check your email settings by sending a test email.</p>
+                        </div>
                     </div>
-                    <div class="span4">
-                        <input type="text" id="to_email" placeholder="To address" class="span4" name="to_email"
-                               value="<?= htmlspecialchars(\Idno\Core\site()->config()->from_email) ?>">
-                    </div>
-                    <div class="span4">
-                        <p class="config-desc">Email address to send a test message to.</p>
-                    </div>
-                </div>
 
-                <div class="control-group">
-                    <div class="controls-save">
-                        <button type="submit" class="btn btn-primary">Test settings</button>
+                    <div class="control-group">
+                        <div class="controls-save">
+                            <button type="submit" class="btn btn-primary">Test settings</button>
+                        </div>
                     </div>
-                </div>
-                <?= \Idno\Core\site()->actions()->signForm('/admin/emailtest') ?>
-            </form>
+                    <?= \Idno\Core\site()->actions()->signForm('/admin/emailtest') ?>
+                </form>
         </div>
     <?php } ?>
 </div>

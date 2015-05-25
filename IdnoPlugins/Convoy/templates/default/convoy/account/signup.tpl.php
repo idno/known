@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="span10 offset1">
+    <div class="col-lg-10 col-lg-offset-1">
 
         <?= $this->draw('account/menu') ?>
 
