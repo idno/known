@@ -22,7 +22,7 @@
                             $button .= $this->__(array('service' => $service, 'username' => $account['username'], 'name' => $account['name'], 'selected' => \Idno\Core\site()->triggerEvent('syndication/selected/' . $service, [
                                 'service' => $service,
                                 'username' => $account['username'],
-                                'reply-to' => \Idno\Core\site()->currentPage()->getInput('inreplyto')
+                                'reply-to' => \Idno\Core\site()->currentPage()->getInput('share_url')
                             ], false)))->draw('content/syndication/account');
                         }
                     } else {
