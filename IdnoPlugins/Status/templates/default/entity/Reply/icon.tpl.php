@@ -1,1 +1,1 @@
-<i class="icon-reply"></i>
+<i class="fa fa-reply"></i>

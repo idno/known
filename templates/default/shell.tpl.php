@@ -133,11 +133,11 @@
 
     <!-- Le styles -->
     <link href="<?= \Idno\Core\site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/css/bootstrap.min.css"
-          rel="stylesheet">
-    <link href="<?= \Idno\Core\site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/css/bootstrap-theme.min.css"
+          rel="stylesheet" />
+    <link href="<?= \Idno\Core\site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/css/bootstrap-theme.min.css" />
     <script src="<?= \Idno\Core\site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
-    <link rel="stylesheet
-          href="<?= \Idno\Core\site()->config()->getStaticURL() ?>external/fontello/css/known-fontello.css">
+    <link rel="stylesheet"
+          href="<?= \Idno\Core\site()->config()->getStaticURL() ?>external/font-awesome/css/font-awesome.css">
     <!--<link rel="stylesheet"
           href="<?= \Idno\Core\site()->config()->getStaticURL() ?>external/font-awesome/css/font-awesome.min.css">-->
     <style>
