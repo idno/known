@@ -53,9 +53,9 @@
                                             <?= $category ?>
                                         </td>
                                         <td>
-                                            <icon class="icon-pencil"></icon> <a href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>staticpage/edit/<?= $page->_id ?>">Edit</a>
+                                            <icon class="fa fa-pencil"></icon> <a href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>staticpage/edit/<?= $page->_id ?>">Edit</a>
                                         </td>
-                                        <td><icon class="icon-trash"></icon>
+                                        <td><icon class="fa fa-trash-o"></icon>
                                             <?=  \Idno\Core\site()->actions()->createLink($page->getDeleteURL(), 'Delete', array(), array('method' => 'POST', 'class' => 'edit', 'confirm' => true, 'confirm-text' => 'Are you sure you want to permanently delete this page?'));?>
                                         </td>
                                     </tr>
