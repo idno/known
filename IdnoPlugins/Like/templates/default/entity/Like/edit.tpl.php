@@ -45,13 +45,15 @@
                         }
 
                     ?>
-                    <label class="bookmark-title-container" for="title" <?php if (empty($vars['object']->pageTitle) && empty($vars['object']->_id)) { ?>style="display:none"<?php } ?>>
+                    <div class="bookmark-title-container" for="title" <?php if (empty($vars['object']->pageTitle) && empty($vars['object']->_id)) { ?>style="display:none"<?php } ?>>
+                        <label for="title">
                         Page title<br/>
                         </label>
                         <input required type="text" name="title" id="title" placeholder="Page name"
                                value="<?php
                                    echo htmlspecialchars($vars['object']->pageTitle);
-                               ?>" class="form-control bookmark-title"/>
+                               ?>" class="form-control bookmark-title" />
+                    </div>
                     <label>
                         Comments<br/>
                     </label>
