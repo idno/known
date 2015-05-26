@@ -166,6 +166,8 @@ body.page-share {
     background-color:#ffffff;
     color: #333;
     border-radius: 15px;
+    padding-top: 10px;
+    box-sizing: border-box;
 }
 
 .theme {
