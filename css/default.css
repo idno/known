@@ -721,7 +721,7 @@ div.pane div.row:nth-of-type(odd) {
 .btn-default {
     background-color: #bbbbbb;
     border-color: #bbbbbb;
-    color: #333333;
+    color: #666666;
     text-shadow: none;
     background-image: none;
     background-repeat: repeat-x;

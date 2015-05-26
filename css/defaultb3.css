@@ -201,7 +201,17 @@ textarea.comic, textarea.event {
 
 .btn-success {
     background-image: none;
-	background-color: #5cb85c;
+	background-color: #70997a;
+	border-color:#70997a;
+}
+.btn-success.active, 
+.btn-success.focus, 
+.btn-success:active,
+.btn-success:focus,
+.btn-success:hover, 
+.open > .dropdown-toggle.btn-success {
+	background-color: #678c70;
+	border-color: #678c70;
 }
 
 #pages-add {
@@ -290,6 +300,9 @@ select, input[type="file"] {
     transform: scaleY(1.0);
     -webkit-transform: scaleY(1.0);
   }
+}
+.label-success {
+    background-color: #70997a;
 }
 
 
