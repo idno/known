@@ -19,7 +19,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-5 col-md-offset-1">
+    <div class="col-md-4 col-md-offset-1">
         <p style="padding-bottom: 25px; padding-top: 15px;"><img
                 src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>gfx/other/firefox-long.png" alt="firefox" class="img-responsive"/></p>
 
@@ -35,7 +35,7 @@
             </small>
         </p>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 col-md-offset-1">
         <p style="text-align: right;">
             <img src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>gfx/other/firefoxsocial.png"
                  alt="firefoxsocial" class="img-responsive" />

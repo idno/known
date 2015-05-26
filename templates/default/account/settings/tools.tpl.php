@@ -17,7 +17,7 @@
 
 
 <div class="row">
-	<div class="col-md-5 col-md-offset-1">
+	<div class="col-md-4 col-md-offset-1">
             <p>
                 The Known bookmarklet is the best way to save links, reply to posts, and share articles.</p> 
                 <p>Just drag the bookmarklet button below into your browser's Bookmark Bar. 
@@ -25,7 +25,7 @@
             <p>
                 <?=$this->draw('entity/bookmarklet'); ?>             </p>
         </div>
-	<div class="col-md-4">
+	<div class="col-md-4 col-md-offset-1">
 		<p>
 			<img src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>gfx/other/bookmarklet-mouse.png" alt="bookmarklet-mouse" class="img-responsive" />
 		</p>
@@ -34,10 +34,10 @@
 
 
 <div class="row">
-	<div class="col-md-5 col-md-offset-1">
+	<div class="col-md-4 col-md-offset-1">
 		<img src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>gfx/other/bookmarklet.png" alt="bookmarklet" class="img-responsive"  />
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-4 col-md-offset-1">
         <p>
             <strong>Don't see a bookmarks bar?</strong>
         </p>
@@ -57,7 +57,7 @@
 
 <div class="row" style="margin-top: 2em">
 
-    <div class="col-md-5 col-md-offset-1">
+    <div class="col-md-4 col-md-offset-1">
 
         <h2>API</h2>
         <p>
