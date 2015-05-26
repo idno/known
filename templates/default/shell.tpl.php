@@ -148,6 +148,7 @@
     <link
         href="<?= \Idno\Core\site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/css/bootstrap-responsive.css"
         rel="stylesheet">
+    <link href="<?= \Idno\Core\site()->config()->getStaticURL() ?>css/default.css?20150123" rel="stylesheet">
     <link href="<?= \Idno\Core\site()->config()->getStaticURL() ?>css/defaultb3.css?20150123" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
