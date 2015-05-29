@@ -34,6 +34,8 @@
 
                 if (site()->config()->sessions_database) {
                     site()->db()->handleSession();
+                } else {
+                    session_save_path(site()->config()->session_path);
                 }
 
                 session_name(site()->config->sessionname);
