@@ -32,7 +32,9 @@
                     ini_set('session.cookie_secure', true); // Set secure cookies when site is secure
                 }
 
-                site()->db()->handleSession();
+                if (site()->config()->sessions_database) {
+                    site()->db()->handleSession();
+                }
 
                 session_name(site()->config->sessionname);
                 session_start();
