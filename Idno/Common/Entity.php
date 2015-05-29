@@ -978,14 +978,14 @@
              * @param $url
              * @return bool
              */
-            function setPosseLink($service, $url, $identifier = '')
+            function setPosseLink($service, $url, $identifier = '', $item_id = '')
             {
                 if (!empty($service) && !empty($url)) {
                     $posse = $this->posse;
                     if (empty($identifier)) {
                         $identifier = $service;
                     }
-                    $posse[$service][] = array('url' => $url, 'identifier' => $identifier);
+                    $posse[$service][] = array('url' => $url, 'identifier' => $identifier, 'item_id' => $item_id);
                     $this->posse       = $posse;
 
                     return true;
