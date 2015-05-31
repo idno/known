@@ -17,9 +17,8 @@
     <?php
 
         if (!empty($vars['object']->description)) {
-        ?>
-            <p><?=$this->parseURLs($this->parseHashtags($vars['object']->description),$rel)?></p>
-        <?php
+            echo $this->__(['value' => $vars['object']->description, 'object' => $vars['object'], 'rel' => $rel])->draw('forms/output/richtext');
+        
         }
         
         if (!empty($vars['object']->tags)) {
