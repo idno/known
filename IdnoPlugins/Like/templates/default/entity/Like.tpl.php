@@ -23,7 +23,7 @@
         
         if (!empty($vars['object']->tags)) {
         ?>
-            <p class="tag-row"><i class="icon-tag"></i><?=$this->parseURLs($this->parseHashtags($vars['object']->tags),$rel)?></p>
+            <p class="tag-row"><i class="icon-tag"></i><?=$this->parseURLs($this->parseHashtags(htmlentities(strip_tags($vars['object']->tags))),$rel)?></p>
         <?php
         }
 
