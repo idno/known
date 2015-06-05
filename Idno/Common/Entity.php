@@ -587,23 +587,16 @@
             function prepare_slug($slug, $max_pieces = 10)
             {
                 $slug = trim($slug);
+                $slug = strtolower($slug);
                 $slug = strip_tags($slug);
-                try {
-                    $slug = strtolower($slug);
-                    $slug = preg_replace('|https?://[a-z\.0-9]+|iu', '', $slug);
-                    $slug = preg_replace("/[^A-Za-z0-9\-\_ ]/u", '', $slug);
-                    $slug = preg_replace("/[ ]+/u", ' ', $slug);
-                    $slug = implode('-', array_slice(explode(' ', $slug), 0, $max_pieces));
-                    $slug = str_replace(' ', '-', $slug);
-                    if (empty($slug)) {
-                        $slug = 'untitled';
-                    }
-                    \Idno\Core\site()->logging()->log("Preparing slug {$slug}");
-                } catch (\Exception $e) {
-                    \Idno\Core\site()->logging()->log("Couldn't generate slug for {$slug}");
-                    return false;
+                $slug = preg_replace('|https?://[a-z\.0-9]+|i', '', $slug);
+                $slug = preg_replace("/[^A-Za-z0-9\-\_ ]/", '', $slug);
+                $slug = preg_replace("/[ ]+/", ' ', $slug);
+                $slug = implode('-', array_slice(explode(' ', $slug), 0, $max_pieces));
+                $slug = str_replace(' ', '-', $slug);
+                if (empty($slug)) {
+                    $slug = 'untitled';
                 }
-
                 return $slug;
             }
 
@@ -616,6 +609,7 @@
              */
             function setSlug($slug, $max_pieces = 10)
             {
+
                 $plugin_slug = \Idno\Core\site()->triggerEvent('entity/slug', array('object' => $this));
                 if (!empty($plugin_slug) && $plugin_slug !== true) {
                     return $plugin_slug;
@@ -630,9 +624,8 @@
                     }
                 }
                 $this->slug = $slug;
-                \Idno\Core\site()->logging()->log("Setting slug to {$slug}");
-
                 return $slug;
+
             }
 
             /**
