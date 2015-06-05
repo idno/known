@@ -140,7 +140,12 @@
                 if (empty($array['owner'])) {
                     $array['owner'] = '';
                 }
-                $contents = json_encode($array);
+                try {
+                    $contents = json_encode($array);
+                } catch (\Exception $e) {
+                    \Idno\Core\site()->logging()->log($e->getMessage());
+                    return false;
+                }
                 $search   = '';
                 if (!empty($array['title'])) {
                     $search .= $array['title'] . ' ';
