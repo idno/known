@@ -202,6 +202,7 @@
                         return $array['_id'];
                     }
                 } catch (\Exception $e) {
+                    \Idno\Core\site()->logging()->log($e->getMessage());
                 }
 
                 return false;
