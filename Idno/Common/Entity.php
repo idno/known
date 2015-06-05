@@ -581,7 +581,6 @@
              */
             function prepare_slug($slug, $max_pieces = 10)
             {
-                return md5(rand(0,999) . time());   // THIS IS TEMPORARY
                 $slug = trim($slug);
                 $slug = strip_tags($slug);
                 try {
