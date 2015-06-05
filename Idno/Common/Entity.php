@@ -442,6 +442,8 @@
                     error_log("Setting resilient slug");
                     $this->setSlugResilient($title);
                     error_log("Set resilient slug");
+                } else {
+                    error_log("Had slug: " . $this->getSlug());
                 }
 
                 // Automatically set access
