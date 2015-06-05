@@ -866,9 +866,9 @@
             function getPrettyURLTitle()
             {
                 //$clean = iconv('UTF-8', 'ASCII//TRANSLIT', $this->getTitle());
-                $clean = preg_replace("/[^a-zA-Z0-9\/_| -]/", '', $this->getTitle());
+                $clean = preg_replace("/[^a-zA-Z0-9\/_| -]/u", '', $this->getTitle());
                 $clean = strtolower(trim($clean, '_'));
-                $clean = preg_replace("/[\/_| -]+/", '-', $clean);
+                $clean = preg_replace("/[\/_| -]+/u", '-', $clean);
 
                 return urlencode($clean);
             }
@@ -883,7 +883,7 @@
                     if (!empty($this->tags)) {
                         $descr .= ' ' . $this->tags;
                     }
-                    if (preg_match_all('/(?<!=)(?<!["\'])(\#[A-Za-z0-9]+)/i', $descr, $matches)) {
+                    if (preg_match_all('/(?<!=)(?<!["\'])(\#[A-Za-z0-9]+)/iu', $descr, $matches)) {
                         if (!empty($matches[0])) {
                             return $matches[0];
                         }
@@ -1346,7 +1346,7 @@
                 if ($attachments = $this->getAttachments()) {
                     foreach ($attachments as $attachment) {
                         $object['attachments'][] = [
-                            'url'       => preg_replace('/^(https?:\/\/\/)/', \Idno\Core\site()->config()->url, $attachment['url']),
+                            'url'       => preg_replace('/^(https?:\/\/\/)/u', \Idno\Core\site()->config()->url, $attachment['url']),
                             'mime-type' => $attachment['mime-type'],
                             'length'    => $attachment['length']
                         ];
