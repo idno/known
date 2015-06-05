@@ -140,7 +140,7 @@
                 if (empty($array['owner'])) {
                     $array['owner'] = '';
                 }
-                $contents = json_encode($array, JSON_UNESCAPED_UNICODE);
+                $contents = json_encode($array);
                 $search   = '';
                 if (!empty($array['title'])) {
                     $search .= $array['title'] . ' ';
