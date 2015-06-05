@@ -145,9 +145,7 @@
             padding-top: 100px; /* 60px to make the container go all the way to the bottom of the topbar */
         }
     </style>
-    <link
-        href="<?= \Idno\Core\site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/css/bootstrap-responsive.css"
-        rel="stylesheet">
+    
     <link href="<?= \Idno\Core\site()->config()->getStaticURL() ?>css/default.css?20150123" rel="stylesheet">
     <link href="<?= \Idno\Core\site()->config()->getStaticURL() ?>css/defaultb3.css?20150123" rel="stylesheet">
 
