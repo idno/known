@@ -138,6 +138,17 @@ textarea.comic, textarea.event {
     color: #ffffff;
 }
 
+.lkin {
+    background-image: none;
+}
+
+.lkin:hover, .lkin:focus {
+    background-color: #66757f;
+    background-image: none;
+    border-color: #66757f;
+    color: #ffffff;
+}
+
 .fb {
 	background-image: none;
 }
