@@ -593,6 +593,7 @@
                     if (empty($slug)) {
                         $slug = 'untitled';
                     }
+                    \Idno\Core\site()->logging()->log("Preparing slug {$slug}");
                 } catch (\Exception $e) {
                     \Idno\Core\site()->logging()->log("Couldn't generate slug for {$slug}");
                     return false;
@@ -624,6 +625,7 @@
                     }
                 }
                 $this->slug = $slug;
+                \Idno\Core\site()->logging()->log("Setting slug to {$slug}");
 
                 return $slug;
             }
