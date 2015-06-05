@@ -584,13 +584,18 @@
                 $slug = trim($slug);
                 $slug = strtolower($slug);
                 $slug = strip_tags($slug);
-                $slug = preg_replace('|https?://[a-z\.0-9]+|i', '', $slug);
-                $slug = preg_replace("/[^A-Za-z0-9\-\_ ]/", '', $slug);
-                $slug = preg_replace("/[ ]+/", ' ', $slug);
-                $slug = implode('-', array_slice(explode(' ', $slug), 0, $max_pieces));
-                $slug = str_replace(' ', '-', $slug);
-                if (empty($slug)) {
-                    $slug = 'untitled';
+                try {
+                    $slug = preg_replace('|https?://[a-z\.0-9]+|i', '', $slug);
+                    $slug = preg_replace("/[^A-Za-z0-9\-\_ ]/", '', $slug);
+                    $slug = preg_replace("/[ ]+/", ' ', $slug);
+                    $slug = implode('-', array_slice(explode(' ', $slug), 0, $max_pieces));
+                    $slug = str_replace(' ', '-', $slug);
+                    if (empty($slug)) {
+                        $slug = 'untitled';
+                    }
+                } catch (\Exception $e) {
+                    \Idno\Core\site()->logging()->log("Couldn't generate slug for {$slug}");
+                    $slug = urlencode($slug);
                 }
 
                 return $slug;
