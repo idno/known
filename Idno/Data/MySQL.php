@@ -143,6 +143,7 @@
                 try {
                     $contents = json_encode($array);
                 } catch (\Exception $e) {
+                    $contents = json_encode([]);
                     \Idno\Core\site()->logging()->log($e->getMessage());
                     return false;
                 }
@@ -193,7 +194,12 @@
                             }
                             foreach ($val as $value) {
                                 if (is_array($value) || is_object($value)) {
-                                    $value = json_encode($value);
+                                    try {
+                                        $value = json_encode($value);
+                                    } catch (\Exception $e) {
+                                        $value = json_encode([]);
+                                        \Idno\Core\site()->logging()->log($e->getMessage());
+                                    }
                                 }
                                 if (empty($value)) {
                                     $value = 0;
