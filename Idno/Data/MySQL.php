@@ -250,6 +250,7 @@
                         return $statement->fetch(\PDO::FETCH_ASSOC);
                     }
                 } catch (\Exception $e) {
+                    \Idno\Core\site()->logging()->log($e->getMessage());
                 }
 
                 return false;
@@ -435,6 +436,7 @@
                     }
 
                 } catch (\Exception $e) {
+                    \Idno\Core\site()->logging()->log($e->getMessage());
                     return false;
                 }
 
@@ -711,6 +713,7 @@
                     }
 
                 } catch (Exception $e) {
+                    \Idno\Core\site()->logging()->log($e->getMessage());
                     return false;
                 }
 
@@ -750,6 +753,7 @@
 
                 } catch (\Exception $e) {
 
+                    \Idno\Core\site()->logging()->log($e->getMessage());
                     return false;
 
                 }
@@ -792,6 +796,7 @@
                         return $statement->fetchAll(\PDO::FETCH_OBJ);
                     }
                 } catch (\Exception $e) {
+                    \Idno\Core\site()->logging()->log($e->getMessage());
                 }
 
                 return false;
@@ -816,6 +821,7 @@
                                         $statement = $client->prepare($sql);
                                         $statement->execute();
                                     } catch (\Exception $e) {
+                                        \Idno\Core\site()->logging()->log($e->getMessage());
                                     }
                                 }
                                 $newdate = 2014100801;
