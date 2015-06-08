@@ -11,7 +11,7 @@
 
         class Logging extends \Idno\Common\Component
         {
-            public $loglevel_filter;
+            public $loglevel_filter = 4;
             private $identifier;
 
             /**
