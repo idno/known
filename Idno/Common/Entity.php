@@ -587,11 +587,15 @@
             function prepare_slug($slug, $max_pieces = 10)
             {
                 $slug = trim($slug);
-                $slug = strtolower($slug);
+                if (is_callable('mb_strtolower')) {
+                    $slug = mb_strtolower($slug);
+                } else {
+                    $slug = strtolower($slug);
+                }
                 $slug = strip_tags($slug);
-                $slug = preg_replace('|https?://[a-z\.0-9]+|i', '', $slug);
-                $slug = preg_replace("/[^A-Za-z0-9\-\_ ]/", '', $slug);
-                $slug = preg_replace("/[ ]+/", ' ', $slug);
+                $slug = preg_replace('|https?://[a-z\.0-9]+|', '', $slug);
+                $slug = preg_replace("/[^A-Za-z0-9\-\_ ]/u", '', $slug);
+                $slug = preg_replace("/[ ]+/u", ' ', $slug);
                 $slug = implode('-', array_slice(explode(' ', $slug), 0, $max_pieces));
                 $slug = str_replace(' ', '-', $slug);
                 if (empty($slug)) {
