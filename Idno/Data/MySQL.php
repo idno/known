@@ -142,7 +142,6 @@
                 }
                 try {
                     $contents = json_encode($array);
-                    \Idno\Core\site()->logging()->log($contents);   // TEMPORARY
                 } catch (\Exception $e) {
                     $contents = json_encode([]);
                     \Idno\Core\site()->logging()->log($e->getMessage());
