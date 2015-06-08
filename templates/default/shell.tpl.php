@@ -419,6 +419,14 @@
                 }
             });
         });
+
+        $('body').on('click', function (event, el) {
+            var clickTarget = event.target;
+
+            if (clickTarget.href && clickTarget.href.indexOf(window.location.origin) === -1) {
+                clickTarget.target = "_blank";
+            }
+        });
     });
 
     /**
