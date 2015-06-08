@@ -28,8 +28,10 @@
                     $eventdata = $event->data();
                     if ($object = $eventdata['object']) {
                         /* @var \Idno\Common\Entity $object */
-                        if ($object instanceof \Idno\Entities\ActivityStreamPost && $object->isPublic()) {
-                            \Idno\Core\PubSubHubbub::publish($object);
+                        if ($object instanceof \Idno\Entities\ActivityStreamPost) {
+                            if ($object->isPublic()) {
+                                \Idno\Core\PubSubHubbub::publish($object);
+                            }
                         }
                     }
                 });
