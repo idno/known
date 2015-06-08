@@ -597,6 +597,9 @@
                 if (empty($slug)) {
                     $slug = 'untitled';
                 }
+                if (is_callable('mb_convert_encoding')) {
+                    $slug = mb_convert_encoding($slug, 'UTF-8', 'UTF-8');
+                }
                 return $slug;
             }
 
