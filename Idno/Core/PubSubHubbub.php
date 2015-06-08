@@ -10,6 +10,7 @@
     namespace Idno\Core {
 
         use Idno\Common\Entity;
+        use Idno\Entities\ActivityStreamPost;
 
         class PubSubHubbub extends \Idno\Common\Component
         {
@@ -237,6 +238,11 @@
             static function publish($act_stream_post)
             {
                 if ($hub = \Idno\Core\site()->config()->hub) {
+
+                    if (!($act_stream_post instanceof ActivityStreamPost)) {
+                        return false;
+                    }
+
                     $object = $act_stream_post->getObject();
                     $base   = \Idno\Core\site()->config()->getDisplayURL();
                     $feeds  = array();
@@ -259,7 +265,9 @@
                     }
 
                     // type-specific feeds
-                    $feeds[] = $base . 'content/' . $object->getContentTypeCategorySlug() . '/';
+                    if ($object instanceof Entity) {
+                        $feeds[] = $base . 'content/' . $object->getContentTypeCategorySlug() . '/';
+                    }
                     $feeds[] = $base . 'content/all/';
 
                     // tag feeds
