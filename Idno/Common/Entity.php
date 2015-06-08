@@ -1682,7 +1682,12 @@
                                 $mention['created'] = time();
                             }
                             if (!empty($item['properties']['url'])) {
-                                $mention['url'] = $item['properties']['url'];
+                                if (!empty($item['properties']['uid'])) {
+                                    $mention['url'] = array_intersect($item['properties']['uid'], $item['properties']['url']);
+                                }
+                                if (empty($mention['url'])) {
+                                    $urls = $item['properties']['url'];
+                                }
                             }
                             if (!empty($item['properties']['in-reply-to']) && is_array($item['properties']['in-reply-to'])) {
                                 if (in_array($target, static::getStringURLs($item['properties']['in-reply-to']))) {
