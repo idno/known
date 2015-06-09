@@ -19,7 +19,7 @@
                     $t->__([
                         'title' => 'URL to page title callback',
                         'body' => '',
-                        'value' => $title
+                        'value' => trim($title)
                     ])->drawPage();
 
                 }
