@@ -55,6 +55,8 @@
             $('.acl-option').on('click', function() {
                 $('#access-control-id').val($(this).data('acl'));
                 $('#access-button').html($(this).html() + ' <span class="caret"></span>');
+                $('#access-button').click();
+                return false;
             });
 
             $('#access-control-id').on('change', function() {
