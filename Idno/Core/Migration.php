@@ -108,7 +108,8 @@
                             file_put_contents($json_path . $object_name . '.json', $json_object);
                             $all_in_one_json[] = json_decode($json_object);
                             if (is_callable(array($object, 'draw'))) {
-                                file_put_contents($html_path . $object_name . '.html', $activityStreamPost->draw());
+                                //file_put_contents($html_path . $object_name . '.html', $activityStreamPost->draw());
+                                file_put_contents($html_path . $object_name . '.html', $object->draw());
                             }
                             //unset($results[$id]);
                             //unset($object);
