@@ -93,7 +93,7 @@
                             if ($owner = $object->getOwner()) {
                                 $activityStreamPost->setOwner($owner);
                                 $activityStreamPost->setActor($owner);
-                                $activityStreamPost->setTitle(sprintf($object->getTitle(), $owner->getTitle(), $object->getTitle()));
+                                $activityStreamPost->setTitle(sprintf("%s posted %s", $owner->getTitle(), $object->getTitle()));
                             }
                             $activityStreamPost->setVerb('post');
                             $activityStreamPost->setObject($object);
