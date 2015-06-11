@@ -14,7 +14,7 @@
 
             <div id="access-control" class="acl">
                 <div class="btn-group">
-                    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#" id="access-button">
+                    <a class="btn access dropdown-toggle" data-toggle="dropdown" href="#" id="access-button">
                         <span id="acl-text"><i class="icon-globe"> </i> Public</span>
                         <span class="caret"></span>
                     </a>
