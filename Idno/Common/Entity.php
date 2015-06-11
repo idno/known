@@ -850,8 +850,11 @@
              * return true|false
              */
 
-            function setAccess($access)
+            function setAccess($access = -1)
             {
+                if ($access === false) {
+                    $access = 'PUBLIC';
+                }
                 if (
                     $access instanceof \Idno\Entities\AccessGroup ||
                     ($access = \Idno\Core\site()->db()->getObject($access) && $access instanceof \Idno\Entities\AccessGroup)

@@ -63,6 +63,7 @@
                 }
                 $body = \Idno\Core\site()->currentPage()->getInput('body');
                 $rsvp = \Idno\Core\site()->currentPage()->getInput('rsvp');
+                $access = \Idno\Core\site()->currentPage()->getInput('access');
                 if (!empty($rsvp)) {
                     $this->body = $body;
                     $rsvp = strtolower($rsvp);
@@ -71,7 +72,7 @@
                     }
                     $this->rsvp = $rsvp;
                     $this->inreplyto = \Idno\Core\site()->currentPage()->getInput('inreplyto');
-                    $this->setAccess('PUBLIC');
+                    $this->setAccess($access);
                     if ($this->save($new)) {
                         \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getDescription()));
                         \Idno\Core\site()->session()->addMessage('Your RSVP was successfully saved.');
