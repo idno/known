@@ -118,7 +118,12 @@
                 }
 
                 if ($exported_records = \Idno\Core\site()->db()->exportRecords()) {
-                    file_put_contents($dir . $name . DIRECTORY_SEPARATOR . 'exported_data', $exported_records);
+                    if (site()->dbtype == 'mysql' || site()->dbtype == 'postgres') {
+                        $export_ext = 'sql';
+                    } else {
+                        $export_ext = 'json';
+                    }
+                    file_put_contents($dir . $name . DIRECTORY_SEPARATOR . 'exported_data.' . $export_ext, $exported_records);
                 }
 
                 file_put_contents($dir . $name . DIRECTORY_SEPARATOR . 'entities.json', json_encode($all_in_one_json));
