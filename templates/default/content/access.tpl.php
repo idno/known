@@ -33,7 +33,7 @@
                                         $icon = 'icon-group';
                                     ?>
                                     <li><a href="#" data-acl="<?= $acl->getUUID(); ?>" class="acl-option"><i
-                                                class="<?= $icon; ?> acl-option"> </i> <?= $acl->title; ?></a></li>
+                                                class="<?= $icon; ?>"> </i> <?= $acl->title; ?></a></li>
                                 <?php
                                 }
                             }
