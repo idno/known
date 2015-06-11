@@ -26,8 +26,7 @@
                 <a href="<?= $owner->getDisplayURL() ?>"><?= htmlentities(strip_tags($owner->getTitle()), ENT_QUOTES, 'UTF-8') ?></a>published this
                 <a class="u-url url" href="<?= $vars['object']->getDisplayURL() ?>" rel="permalink">
                     <time class="dt-published"
-                          datetime="<?= date('c', $vars['object']->created) ?>"><?= date('c', $vars['object']->created) ?></time>
-                </a>
+                          datetime="<?= date('c', $vars['object']->created) ?>"><?= date('c', $vars['object']->created) ?></time></a>
                 <?= $this->draw('content/edit') ?>
                 <?= $this->draw('content/end/links') ?>
                 <?php
