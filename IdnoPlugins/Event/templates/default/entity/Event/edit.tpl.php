@@ -85,11 +85,12 @@
         </div>
         
         <div class="span8 offset2">
+	        <?= $this->draw('content/access'); ?>
             <p class="button-bar">
                 <?= \Idno\Core\site()->actions()->signForm('/event/edit') ?>
                 <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();" />
                 <input type="submit" class="btn btn-primary" value="Save" />
-                <?= $this->draw('content/access'); ?>
+
             </p>
         </div>
     </div>

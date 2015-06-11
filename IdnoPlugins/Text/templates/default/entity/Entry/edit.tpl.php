@@ -63,12 +63,15 @@
 
                 <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('article'); ?>
                 <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to" value="<?= \Idno\Core\site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
+                
+                <?= $this->draw('content/access'); ?>
 
                 <p class="button-bar ">
+	                
                     <?= \Idno\Core\site()->actions()->signForm('/entry/edit') ?>
                     <input type="button" class="btn btn-cancel" value="Cancel" onclick="tinymce.EditorManager.execCommand('mceRemoveEditor',true, 'body'); hideContentCreateForm();"/>
                     <input type="submit" class="btn btn-primary" value="Publish"/>
-                    <?= $this->draw('content/access'); ?>
+
                 </p>
 
             </div>
