@@ -118,7 +118,7 @@
                 }
 
                 if ($exported_records = \Idno\Core\site()->db()->exportRecords()) {
-                    if (site()->dbtype == 'mysql' || site()->dbtype == 'postgres') {
+                    if (site()->database == 'mysql' || site()->database == 'postgres') {
                         $export_ext = 'sql';
                     } else {
                         $export_ext = 'json';
