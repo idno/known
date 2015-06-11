@@ -34,6 +34,13 @@
 </div>
 <div class="interactions">
     <?php
+
+        if ($vars['object']->access != 'PUBLIC') {
+            ?><i class="icon-lock"> </i><?php
+        }
+
+    ?>
+    <?php
         if (!$has_liked) {
             $heart_only = '<i class="icon-star-empty"></i>';
         } else {
