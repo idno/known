@@ -1625,4 +1625,6 @@ a.access {
 	border-top: 4px solid #555;
 }
 
-
+[class^="icon-"], [class*=" icon-"]{
+    background:none!important;
+}
