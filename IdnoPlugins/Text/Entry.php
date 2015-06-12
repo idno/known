@@ -4,19 +4,25 @@
 
         use Idno\Core\Autosave;
 
-        class Entry extends \Idno\Common\Entity {
+        class Entry extends \Idno\Common\Entity
+        {
 
-            function getTitle() {
+            function getTitle()
+            {
                 if (empty($this->title)) return 'Untitled';
+
                 return $this->title;
             }
 
-            function getDescription() {
+            function getDescription()
+            {
                 if (!empty($this->body)) return $this->body;
+
                 return '';
             }
 
-            function getURL() {
+            function getURL()
+            {
 
                 // If we have a URL override, use it
                 if (!empty($this->url)) {
@@ -39,7 +45,8 @@
              * Entry objects have type 'article'
              * @return 'article'
              */
-            function getActivityStreamsObjectType() {
+            function getActivityStreamsObjectType()
+            {
                 return 'article';
             }
 
@@ -47,16 +54,19 @@
              * Retrieve icon
              * @return mixed|string
              */
-            function getIcon() {
+            function getIcon()
+            {
                 $xpath = new \DOMXPath(@\DOMDocument::loadHTML($this->getDescription()));
-                $src = $xpath->evaluate("string(//img/@src)");
+                $src   = $xpath->evaluate("string(//img/@src)");
                 if (!empty($src)) {
                     return $src;
                 }
+
                 return parent::getIcon();
             }
 
-            function saveDataFromInput() {
+            function saveDataFromInput()
+            {
 
                 if (empty($this->_id)) {
                     $new = true;
@@ -66,10 +76,10 @@
                 $body = \Idno\Core\site()->currentPage()->getInput('body');
                 if (!empty($body)) {
 
-                    $this->body = $body;
+                    $this->body  = $body;
                     $this->title = \Idno\Core\site()->currentPage()->getInput('title');
-                    $this->tags = \Idno\Core\site()->currentPage()->getInput('tags');
-                    $access = \Idno\Core\site()->currentPage()->getInput('access');
+                    $this->tags  = \Idno\Core\site()->currentPage()->getInput('tags');
+                    $access      = \Idno\Core\site()->currentPage()->getInput('access');
                     $this->setAccess($access);
 
                     if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
@@ -84,16 +94,19 @@
                         $autosave->clearContext('entry');
 
                         \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getTitle() . ' ' . $this->getDescription()));
+
                         return true;
                     }
                 } else {
                     \Idno\Core\site()->session()->addErrorMessage('You can\'t save an empty entry.');
                 }
+
                 return false;
 
             }
 
-            function deleteData() {
+            function deleteData()
+            {
                 \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getTitle() . ' ' . $this->getDescription()));
             }
 
