@@ -447,18 +447,21 @@
                 }
 
                 // Automatically set access
+                /*
+                 * Commenting this out because it was making users private! bw 2015.06.12
+                 *
                 $page = \Idno\Core\site()->currentPage();
                 if (!empty($page)) {
                     $access = $page->getInput('access');
                     if (!empty($access)) {
                         $this->access = $access;
                     }
-                    /*$syndication = $page->getInput('syndication');
-                    if (!empty($syndication) && is_array($syndication)) {
-                        foreach($syndication as $label => $url) {
-                            $this->setPosseLink($label, $url);
-                        }
-                    }*/
+                }
+                */
+
+                // Force users to be public
+                if ($this instanceof User) {
+                    $this->access = 'PUBLIC';
                 }
 
                 // Adding when this entity was created (if it's new) & updated
@@ -852,19 +855,29 @@
 
             function setAccess($access = -1)
             {
-                if ($access === false) {
+                if (empty($access)) {
                     $access = 'PUBLIC';
                 }
-                if (
+                if ($access == 'PUBLIC') {
+                    $this->access = 'PUBLIC';
+                }
+                if ($access == 'SITE') {
+                    $this->access = 'SITE';
+                }
+                if ($this instanceof User) {
+                    $access = 'PUBLIC';
+                }
+                $this->access = $access;
+                return true;
+                /*if (
                     $access instanceof \Idno\Entities\AccessGroup ||
                     ($access = \Idno\Core\site()->db()->getObject($access) && $access instanceof \Idno\Entities\AccessGroup)
                 ) {
                     $this->access = $access->getUUID();
 
                     return true;
-                }
-
-                return false;
+                }*/
+                //return false;
             }
 
             /**
