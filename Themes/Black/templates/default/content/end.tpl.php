@@ -23,6 +23,13 @@
         <a class="u-url url" href="<?= $vars['object']->getDisplayURL() ?>" rel="permalink">
             <time class="dt-published"
                   datetime="<?= date('c', $vars['object']->created) ?>"><?= date('c', $vars['object']->created) ?></time></a>
+        <?php
+
+            if ($vars['object']->access != 'PUBLIC') {
+                ?><i class="icon-lock"> </i><?php
+            }
+
+        ?>
         <?= $this->draw('content/edit') ?>
         <?= $this->draw('content/end/links') ?>
         <?php
