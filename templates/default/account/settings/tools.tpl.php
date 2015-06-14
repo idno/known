@@ -62,9 +62,23 @@
         <h2>API</h2>
         <p>
             Your API key: <input type="text" id="apikey" class="span4" name="apikey"
-                                 value="<?= htmlspecialchars($user->getAPIkey()) ?>" readonly>
+                                 value="Click to show" readonly>
         </p>
 
     </div>
 
 </div>
+<script>
+    $(document).ready(function() {
+        $('#apikey').click(function() {
+            var ctrl = $(this);
+            
+            $.ajax('<?= \Idno\Core\site()->currentPage()->currentUrl(); ?>', {
+                dataType: 'json',
+                success: function(data) {
+                    ctrl.val(data);
+                }
+            })
+        });
+    });
+</script>
