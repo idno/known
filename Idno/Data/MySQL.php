@@ -14,6 +14,7 @@
 
             private $client = null;
             private $database = null;
+	    private $cache = null;
 
             function init()
             {
@@ -25,6 +26,7 @@
                     }
                     $this->client = new \PDO($connection_string, \Idno\Core\site()->config()->dbuser, \Idno\Core\site()->config()->dbpass, array(\PDO::MYSQL_ATTR_LOCAL_INFILE => 1));
                     $this->client->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+		    $this->cache = new \Idno\Caching\MemoryCache();
                     //$this->client->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
                 } catch (\Exception $e) {
                     if (!empty(\Idno\Core\site()->config()->forward_on_empty)) {
@@ -431,14 +433,21 @@
                         $query .= ' where ' . $where . ' ';
                     }
                     $query .= " order by {$collection}.`created` desc limit {$offset},{$limit}";
-
+		    
                     $client = $this->client;
                     /* @var \PDO $client */
 
+		    if (isset($this->cache[md5(serialize($fields).  serialize($parameters) . serialize($limit) . serialize($offset) . serialize($collection))]))
+			return $this->cache[md5(serialize($fields).  serialize($parameters) . serialize($limit) . serialize($offset) . serialize($collection))]; // May be able to do this cleaner
+		    
                     $statement = $client->prepare($query);
 
                     if ($result = $statement->execute($variables)) {
-                        return $statement->fetchAll(\PDO::FETCH_ASSOC);
+			
+			$objs = $statement->fetchAll(\PDO::FETCH_ASSOC);
+			$this->cache[md5(serialize($fields).  serialize($parameters) . serialize($limit) . serialize($offset) . serialize($collection))] = $objs;
+			
+			return $objs;
                     }
 
                 } catch (\Exception $e) {
