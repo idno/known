@@ -137,12 +137,14 @@
                     }
                 }
                 if (!empty(site()->config()->external_plugin_path)) {
-                    if ($folders = scandir(\Idno\Core\site()->config()->external_plugin_path . '/IdnoPlugins/')) {
-                        foreach ($folders as $folder) {
-                            if ($folder != '.' && $folder != '..') {
-                                if (is_dir(\Idno\Core\site()->config()->external_plugin_path . '/IdnoPlugins/' . $folder)) {
-                                    if (file_exists(\Idno\Core\site()->config()->external_plugin_path . '/IdnoPlugins/' . $folder . '/plugin.ini')) {
-                                        $plugins[$folder] = parse_ini_file(\Idno\Core\site()->config()->external_plugin_path . '/IdnoPlugins/' . $folder . '/plugin.ini', true);
+                    if (file_exists(\Idno\Core\site()->config()->external_plugin_path . '/IdnoPlugins/')) {
+                        if ($folders = scandir(\Idno\Core\site()->config()->external_plugin_path . '/IdnoPlugins/')) {
+                            foreach ($folders as $folder) {
+                                if ($folder != '.' && $folder != '..') {
+                                    if (is_dir(\Idno\Core\site()->config()->external_plugin_path . '/IdnoPlugins/' . $folder)) {
+                                        if (file_exists(\Idno\Core\site()->config()->external_plugin_path . '/IdnoPlugins/' . $folder . '/plugin.ini')) {
+                                            $plugins[$folder] = parse_ini_file(\Idno\Core\site()->config()->external_plugin_path . '/IdnoPlugins/' . $folder . '/plugin.ini', true);
+                                        }
                                     }
                                 }
                             }

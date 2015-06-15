@@ -1,0 +1,1 @@
+<li <?php if ($_SERVER['REQUEST_URI'] == '/admin/footerjs/') echo 'class="active"'; ?>><a href="/admin/footerjs/">Custom JavaScript</a></li>
