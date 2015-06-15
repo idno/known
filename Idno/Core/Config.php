@@ -40,7 +40,7 @@
                 'experimental'           => false, // A common way to enable experimental functions still in development
                 'multitenant'            => false,
                 'default_config'         => true, // This is a trip-switch - changed to false if configuration is loaded from an ini file / the db
-                'log_level'              => 4,
+                'loglevel'              => 5,
                 'multi_syndication'      => true,
                 'external_plugin_folder' => false,
                 'wayback_machine'        => false,
@@ -68,6 +68,7 @@
                 $this->hub                       = 'https://withknown.superfeedr.com/';
                 $this->session_path              = session_save_path(); // Session path when not storing sessions in the database
                 $this->session_hash_function     = 'sha256'; // Default hash function
+                $this->sessions_database         = true; // Let the database handle the session
                 $this->disable_cleartext_warning = false; // Set to true to disable warning when access credentials are sent in the clear
                 $this->cookie_jar                = rtrim(sys_get_temp_dir(), '/\\') . DIRECTORY_SEPARATOR; // Cookie jar for API requests, default location isn't terribly secure on shared hosts!
                 $this->multi_syndication         = true; // Do we allow multiple accounts per syndication endpoint?
@@ -237,6 +238,7 @@
                 unset($array['uploadpath']); // Don't save the upload path to the database
                 unset($array['session_path']); // Don't save the session path in the database
                 unset($array['session_hash_function']); // Don't save the session hash to database, we want the ability to upgrade
+                unset($array['sessions_database']); // Don't want to save sessions in database
                 unset($array['cookie_jar']); // Don't save the cookie path in the database
                 unset($array['proxy_string']);
                 unset($array['proxy_type']);
@@ -280,6 +282,7 @@
                         unset($config['alwaysplugins']);
                         unset($config['session_path']);
                         unset($config['session_hash_function']);
+                        unset($config['sessions_database']);
                         unset($config['cookie_jar']);
                         unset($config['proxy_string']);
                         unset($config['proxy_type']);

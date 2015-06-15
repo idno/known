@@ -140,7 +140,13 @@
                 if (empty($array['owner'])) {
                     $array['owner'] = '';
                 }
-                $contents = json_encode($array);
+                try {
+                    $contents = json_encode($array);
+                } catch (\Exception $e) {
+                    $contents = json_encode([]);
+                    \Idno\Core\site()->logging()->log($e->getMessage());
+                    return false;
+                }
                 $search   = '';
                 if (!empty($array['title'])) {
                     $search .= $array['title'] . ' ';
@@ -188,7 +194,12 @@
                             }
                             foreach ($val as $value) {
                                 if (is_array($value) || is_object($value)) {
-                                    $value = json_encode($value);
+                                    try {
+                                        $value = json_encode($value);
+                                    } catch (\Exception $e) {
+                                        $value = json_encode([]);
+                                        \Idno\Core\site()->logging()->log($e->getMessage());
+                                    }
                                 }
                                 if (empty($value)) {
                                     $value = 0;
@@ -202,6 +213,7 @@
                         return $array['_id'];
                     }
                 } catch (\Exception $e) {
+                    \Idno\Core\site()->logging()->log($e->getMessage());
                 }
 
                 return false;
@@ -244,6 +256,7 @@
                         return $statement->fetch(\PDO::FETCH_ASSOC);
                     }
                 } catch (\Exception $e) {
+                    \Idno\Core\site()->logging()->log($e->getMessage());
                 }
 
                 return false;
@@ -429,6 +442,7 @@
                     }
 
                 } catch (\Exception $e) {
+                    \Idno\Core\site()->logging()->log($e->getMessage());
                     return false;
                 }
 
@@ -705,6 +719,7 @@
                     }
 
                 } catch (Exception $e) {
+                    \Idno\Core\site()->logging()->log($e->getMessage());
                     return false;
                 }
 
@@ -744,6 +759,7 @@
 
                 } catch (\Exception $e) {
 
+                    \Idno\Core\site()->logging()->log($e->getMessage());
                     return false;
 
                 }
@@ -786,6 +802,7 @@
                         return $statement->fetchAll(\PDO::FETCH_OBJ);
                     }
                 } catch (\Exception $e) {
+                    \Idno\Core\site()->logging()->log($e->getMessage());
                 }
 
                 return false;
@@ -810,6 +827,7 @@
                                         $statement = $client->prepare($sql);
                                         $statement->execute();
                                     } catch (\Exception $e) {
+                                        \Idno\Core\site()->logging()->log($e->getMessage());
                                     }
                                 }
                                 $newdate = 2014100801;

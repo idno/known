@@ -20,7 +20,7 @@
                     $object = \Idno\Entities\File::getByID($this->arguments[0]);
                 }
 
-                if (empty($object)) $this->forward(); // TODO: 404
+                if (empty($object)) $this->noContent(); 
 
 
                 session_write_close();  // Close the session early

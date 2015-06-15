@@ -433,27 +433,35 @@
                 // Automatically add a slug (if one isn't set and this is a new entity)
 
                 if (!$this->getSlug() && empty($this->_id)) {
+                    error_log("Didn't get slug");
                     if (!($title = $this->getTitle())) {
                         if (!($title = $this->getDescription())) {
                             $title = md5(time() . rand(0, 9999));
                         }
                     }
+                    error_log("Setting resilient slug");
                     $this->setSlugResilient($title);
+                    error_log("Set resilient slug");
+                } else {
+                    error_log("Had slug: " . $this->getSlug());
                 }
 
                 // Automatically set access
+                /*
+                 * Commenting this out because it was making users private! bw 2015.06.12
+                 *
                 $page = \Idno\Core\site()->currentPage();
                 if (!empty($page)) {
                     $access = $page->getInput('access');
                     if (!empty($access)) {
                         $this->access = $access;
                     }
-                    /*$syndication = $page->getInput('syndication');
-                    if (!empty($syndication) && is_array($syndication)) {
-                        foreach($syndication as $label => $url) {
-                            $this->setPosseLink($label, $url);
-                        }
-                    }*/
+                }
+                */
+
+                // Force users to be public
+                if ($this instanceof User) {
+                    $this->access = 'PUBLIC';
                 }
 
                 // Adding when this entity was created (if it's new) & updated
@@ -582,17 +590,23 @@
             function prepare_slug($slug, $max_pieces = 10)
             {
                 $slug = trim($slug);
-                $slug = strtolower($slug);
+                if (is_callable('mb_strtolower')) {
+                    $slug = mb_strtolower($slug);
+                } else {
+                    $slug = strtolower($slug);
+                }
                 $slug = strip_tags($slug);
-                $slug = preg_replace('|https?://[a-z\.0-9]+|i', '', $slug);
-                $slug = preg_replace("/[^A-Za-z0-9\-\_ ]/", '', $slug);
-                $slug = preg_replace("/[ ]+/", ' ', $slug);
+                $slug = preg_replace('|https?://[a-z\.0-9]+|', '', $slug);
+                $slug = preg_replace("/[^A-Za-z0-9\-\_ ]/u", '', $slug);
+                $slug = preg_replace("/[ ]+/u", ' ', $slug);
                 $slug = implode('-', array_slice(explode(' ', $slug), 0, $max_pieces));
                 $slug = str_replace(' ', '-', $slug);
                 if (empty($slug)) {
                     $slug = 'untitled';
                 }
-
+                if (is_callable('mb_convert_encoding')) {
+                    $slug = mb_convert_encoding($slug, 'UTF-8', 'UTF-8');
+                }
                 return $slug;
             }
 
@@ -605,6 +619,7 @@
              */
             function setSlug($slug, $max_pieces = 10)
             {
+
                 $plugin_slug = \Idno\Core\site()->triggerEvent('entity/slug', array('object' => $this));
                 if (!empty($plugin_slug) && $plugin_slug !== true) {
                     return $plugin_slug;
@@ -619,8 +634,8 @@
                     }
                 }
                 $this->slug = $slug;
-
                 return $slug;
+
             }
 
             /**
@@ -838,18 +853,31 @@
              * return true|false
              */
 
-            function setAccess($access)
+            function setAccess($access = -1)
             {
-                if (
+                if (empty($access)) {
+                    $access = 'PUBLIC';
+                }
+                if ($access == 'PUBLIC') {
+                    $this->access = 'PUBLIC';
+                }
+                if ($access == 'SITE') {
+                    $this->access = 'SITE';
+                }
+                if ($this instanceof User) {
+                    $access = 'PUBLIC';
+                }
+                $this->access = $access;
+                return true;
+                /*if (
                     $access instanceof \Idno\Entities\AccessGroup ||
                     ($access = \Idno\Core\site()->db()->getObject($access) && $access instanceof \Idno\Entities\AccessGroup)
                 ) {
                     $this->access = $access->getUUID();
 
                     return true;
-                }
-
-                return false;
+                }*/
+                //return false;
             }
 
             /**
@@ -859,9 +887,9 @@
             function getPrettyURLTitle()
             {
                 //$clean = iconv('UTF-8', 'ASCII//TRANSLIT', $this->getTitle());
-                $clean = preg_replace("/[^a-zA-Z0-9\/_| -]/", '', $this->getTitle());
+                $clean = preg_replace("/[^a-zA-Z0-9\/_| -]/u", '', $this->getTitle());
                 $clean = strtolower(trim($clean, '_'));
-                $clean = preg_replace("/[\/_| -]+/", '-', $clean);
+                $clean = preg_replace("/[\/_| -]+/u", '-', $clean);
 
                 return urlencode($clean);
             }
@@ -876,7 +904,7 @@
                     if (!empty($this->tags)) {
                         $descr .= ' ' . $this->tags;
                     }
-                    if (preg_match_all('/(?<!=)(?<!["\'])(\#[A-Za-z0-9]+)/i', $descr, $matches)) {
+                    if (preg_match_all('/(?<!=)(?<!["\'])(\#[A-Za-z0-9]+)/iu', $descr, $matches)) {
                         if (!empty($matches[0])) {
                             return $matches[0];
                         }
@@ -978,14 +1006,14 @@
              * @param $url
              * @return bool
              */
-            function setPosseLink($service, $url, $identifier = '')
+            function setPosseLink($service, $url, $identifier = '', $item_id = '')
             {
                 if (!empty($service) && !empty($url)) {
                     $posse = $this->posse;
                     if (empty($identifier)) {
                         $identifier = $service;
                     }
-                    $posse[$service][] = array('url' => $url, 'identifier' => $identifier);
+                    $posse[$service][] = array('url' => $url, 'identifier' => $identifier, 'item_id' => $item_id);
                     $this->posse       = $posse;
 
                     return true;
@@ -1187,6 +1215,7 @@
                 $access = $this->getAccess();
 
                 if ($access == 'PUBLIC') return true;
+                if ($access == 'SITE' && \Idno\Core\site()->session()->isLoggedIn()) return true;
                 if ($this->getOwnerID() == $user_id) return true;
 
                 if ($access instanceof \Idno\Entities\AccessGroup) {
@@ -1207,7 +1236,7 @@
             function getAccess($idOnly = false)
             {
                 $access = $this->access;
-                if (!$idOnly && $access != 'PUBLIC') {
+                if (!$idOnly && $access != 'PUBLIC' && $access != 'SITE') {
                     $access = \Idno\Core\site()->db()->getObject($access);
                 }
 
@@ -1339,7 +1368,7 @@
                 if ($attachments = $this->getAttachments()) {
                     foreach ($attachments as $attachment) {
                         $object['attachments'][] = [
-                            'url'       => preg_replace('/^(https?:\/\/\/)/', \Idno\Core\site()->config()->url, $attachment['url']),
+                            'url'       => preg_replace('/^(https?:\/\/\/)/u', \Idno\Core\site()->config()->url, $attachment['url']),
                             'mime-type' => $attachment['mime-type'],
                             'length'    => $attachment['length']
                         ];
@@ -1677,7 +1706,12 @@
                                 $mention['created'] = time();
                             }
                             if (!empty($item['properties']['url'])) {
-                                $mention['url'] = $item['properties']['url'];
+                                if (!empty($item['properties']['uid'])) {
+                                    $mention['url'] = array_intersect($item['properties']['uid'], $item['properties']['url']);
+                                }
+                                if (empty($mention['url'])) {
+                                    $urls = $item['properties']['url'];
+                                }
                             }
                             if (!empty($item['properties']['in-reply-to']) && is_array($item['properties']['in-reply-to'])) {
                                 if (in_array($target, static::getStringURLs($item['properties']['in-reply-to']))) {

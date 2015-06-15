@@ -61,6 +61,7 @@
                     $this->location = \Idno\Core\site()->currentPage()->getInput('location');
                     $this->starttime = \Idno\Core\site()->currentPage()->getInput('starttime');
                     $this->endtime = \Idno\Core\site()->currentPage()->getInput('endtime');
+                    $access = \Idno\Core\site()->currentPage()->getInput('access');
 
                     if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
                         if ($time = strtotime($time)) {
@@ -68,7 +69,7 @@
                         }
                     }
 
-                    $this->setAccess('PUBLIC');
+                    $this->setAccess($access);
                     if ($this->save($new)) {
                         \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getDescription()));
                         return true;

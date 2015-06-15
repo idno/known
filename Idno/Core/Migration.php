@@ -43,6 +43,13 @@
                     return false;
                 }
 
+                if (!@mkdir($file_path . 'readable', 0777, true)) {
+                    return false;
+                }
+                if (!@mkdir($file_path . 'uploads', 0777, true)) {
+                    return false;
+                }
+
                 // If we've made it here, we've created a temporary directory with the hash name
 
                 $config = array(
@@ -75,15 +82,15 @@
                                         } else {
                                             $mime_type = 'application/octet-stream';
                                         }
-                                        //file_put_contents($file_path . $filename, $data);
+                                        file_put_contents($file_path . 'readable/' . $filename, $data);
                                         $attachments[$key]['url'] = '../files/' . site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3] . '/' . $id . '.file'; //$filename;
-                                        $data_file                = $file_path . \Idno\Core\site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3] . '/' . $id . '.data';
-                                        foreach (array($file_path . \Idno\Core\site()->config()->pathHost(), $file_path . \Idno\Core\site()->config()->pathHost() . '/' . $id[0], $file_path . \Idno\Core\site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1], $file_path . \Idno\Core\site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2], $file_path . \Idno\Core\site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3]) as $up_path) {
+                                        $data_file                = $file_path . 'uploads/' . \Idno\Core\site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3] . '/' . $id . '.data';
+                                        foreach (array($file_path . 'uploads/' . \Idno\Core\site()->config()->pathHost(), $file_path . \Idno\Core\site()->config()->pathHost() . '/' . $id[0], $file_path . 'uploads/' . \Idno\Core\site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1], $file_path . 'uploads/' . \Idno\Core\site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2], $file_path . 'uploads/' . \Idno\Core\site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3]) as $up_path) {
                                             if (!is_dir($up_path)) {
                                                 $result = mkdir($up_path, 0777, true);
                                             }
                                         }
-                                        file_put_contents($file_path . site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3] . '/' . $id . '.file', $data);
+                                        file_put_contents($file_path . 'uploads/' . site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3] . '/' . $id . '.file', $data);
                                         file_put_contents($data_file, json_encode(['filename' => $filename, 'mime_type' => $mime_type]));
                                     }
                                 }
@@ -93,7 +100,7 @@
                             if ($owner = $object->getOwner()) {
                                 $activityStreamPost->setOwner($owner);
                                 $activityStreamPost->setActor($owner);
-                                $activityStreamPost->setTitle(sprintf($object->getTitle(), $owner->getTitle(), $object->getTitle()));
+                                $activityStreamPost->setTitle(sprintf("%s posted %s", $owner->getTitle(), $object->getTitle()));
                             }
                             $activityStreamPost->setVerb('post');
                             $activityStreamPost->setObject($object);
@@ -101,7 +108,8 @@
                             file_put_contents($json_path . $object_name . '.json', $json_object);
                             $all_in_one_json[] = json_decode($json_object);
                             if (is_callable(array($object, 'draw'))) {
-                                file_put_contents($html_path . $object_name . '.html', $activityStreamPost->draw());
+                                //file_put_contents($html_path . $object_name . '.html', $activityStreamPost->draw());
+                                file_put_contents($html_path . $object_name . '.html', $object->draw());
                             }
                             //unset($results[$id]);
                             //unset($object);
@@ -111,7 +119,12 @@
                 }
 
                 if ($exported_records = \Idno\Core\site()->db()->exportRecords()) {
-                    file_put_contents($dir . $name . DIRECTORY_SEPARATOR . 'exported_data', $exported_records);
+                    if (site()->database == 'mysql' || site()->database == 'postgres') {
+                        $export_ext = 'sql';
+                    } else {
+                        $export_ext = 'json';
+                    }
+                    file_put_contents($dir . $name . DIRECTORY_SEPARATOR . 'exported_data.' . $export_ext, $exported_records);
                 }
 
                 file_put_contents($dir . $name . DIRECTORY_SEPARATOR . 'entities.json', json_encode($all_in_one_json));

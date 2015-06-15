@@ -59,7 +59,7 @@
             function getTitleFromURL($Url){
                 $str = \Idno\Core\Webservice::file_get_contents($Url);
                 if(strlen($str) > 0){
-                    preg_match("/\<title\>(.*)\<\/title\>/siu",$str,$title);
+                    preg_match("/\<title\>(.*)\<\/title\>/siuU",$str,$title);
                     return htmlspecialchars_decode($title[1]);
                 }
                 return '';
@@ -80,6 +80,7 @@
                 $description = \Idno\Core\site()->currentPage()->getInput('description');
                 $tags = \Idno\Core\site()->currentPage()->getInput('tags');
                 $title = \Idno\Core\site()->currentPage()->getInput('title');
+                $access = \Idno\Core\site()->currentPage()->getInput('access');
 
                 if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
                     if ($time = strtotime($time)) {
@@ -106,7 +107,7 @@
                             \Idno\Core\site()->session()->addErrorMessage('You need to specify a title.');
                             return false;
                         }
-                        $this->setAccess('PUBLIC');
+                        $this->setAccess($access);
                         if ($this->save($new)) {
                             return true;
                         }

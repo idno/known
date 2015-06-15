@@ -4,7 +4,6 @@
 
     $replies = $vars['object']->countAnnotations('reply');
     $likes = $vars['object']->countAnnotations('like');
-    $mentions = $vars['object']->countAnnotations('mention');
     $has_liked = false;
     if ($like_annotations = $vars['object']->getAnnotations('like')) {
         foreach ($like_annotations as $like) {
@@ -20,13 +19,13 @@
     if (!empty($owner)) {
 
         ?>
-
         <div class="permalink">
             <p>
-                <a href="<?= $owner->getDisplayURL() ?>"><?= htmlentities(strip_tags($owner->getTitle()), ENT_QUOTES, 'UTF-8') ?></a>published this
+                <a href="<?= $owner->getDisplayURL() ?>"><?= $owner->getTitle() ?></a>published this
                 <a class="u-url url" href="<?= $vars['object']->getDisplayURL() ?>" rel="permalink">
                     <time class="dt-published"
-                          datetime="<?= date('c', $vars['object']->created) ?>"><?= date('c', $vars['object']->created) ?></time></a>
+                          datetime="<?= date('c', $vars['object']->created) ?>"><?= date('c', $vars['object']->created) ?></time>
+                </a>
                 <?php
 
                     if ($vars['object']->access != 'PUBLIC') {
@@ -52,28 +51,24 @@
         <div class="interactions">
             <?php
                 if (!$has_liked) {
-                    $heart_only = '<i class="fa fa-star-o"></i>';
+                    $heart = '<i class="icon-star-empty"></i>';
                 } else {
-                    $heart_only = '<i class="fa fa-star"></i>';
+                    $heart = '<i class="icon-star"></i>';
                 }
                 if ($likes == 1) {
-                    $heart_text = '1 star';
+                    $heart .= ' 1 star';
                 } else {
-                    $heart_text = $likes . ' stars';
+                    $heart .= ' ' . $likes . ' stars';
                 }
-                $heart = $heart_only . ' ' . $heart_text;
                 if (\Idno\Core\site()->session()->isLoggedOn()) {
-					echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'annotation/post', $heart_only, ['type' => 'like', 'object' => $vars['object']->getUUID()], ['method' => 'POST', 'class' => 'stars']);
+                    echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'annotation/post', $heart, ['type' => 'like', 'object' => $vars['object']->getUUID()], ['method' => 'POST', 'class' => 'stars']);
+                } else {
+                    ?>
+                    <a class="stars" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?= $heart ?></a>
+                <?php
+                }
             ?>
-            <a class="stars" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?= $heart_text ?></a>
-        <?php
-        } else {
-            ?>
-            <a class="stars" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?= $heart ?></a>
-        <?php
-        }
-            ?>
-            <a class="comments" href="<?= $vars['object']->getDisplayURL() ?>#comments"><i class="fa fa-comments"></i> <?php
+            <a class="comments" href="<?= $vars['object']->getDisplayURL() ?>#comments"><i class="icon-chat"></i> <?php
 
                     //echo $replies;
                     if ($replies == 1) {
@@ -83,11 +78,13 @@
                     }
 
                 ?></a>
-            <a class="shares" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?php if ($shares = $vars['object']->countAnnotations('share')) {
-                    echo '<i class="fa fa-retweet"></i>' . $shares;
+            <a class="shares"
+               href="<?= $vars['object']->getDisplayURL() ?>#comments"><?php if ($shares = $vars['object']->countAnnotations('share')) {
+                    echo '<i class="icon-arrows-cw"></i> ' . $shares;
                 } ?></a>
-            <a class="shares" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?php if ($rsvps = $vars['object']->countAnnotations('rsvp')) {
-                    echo '<i class="fa fa-calendar-o"></i>' . $rsvps;
+            <a class="rsvps"
+               href="<?= $vars['object']->getDisplayURL() ?>#comments"><?php if ($rsvps = $vars['object']->countAnnotations('rsvp')) {
+                    echo '<i class="icon-calendar-empty"></i> ' . $rsvps;
                 } ?></a>
         </div>
         <br clear="all"/>
@@ -95,7 +92,7 @@
 
         if (\Idno\Core\site()->currentPage()->isPermalink()) {
 
-            if (!empty($likes) || !empty($replies) || !empty($shares) || !empty($rsvps) || !empty($mentions)) {
+            if (!empty($likes) || !empty($replies) || !empty($shares) || !empty($rsvps)) {
 
                 ?>
 
@@ -106,23 +103,18 @@
                     <?php
 
                         if ($replies = $vars['object']->getAnnotations('reply')) {
-                            echo $this->__(array('annotations' => $replies))->draw('entity/annotations/replies');
+                            echo $this->__(['annotations' => $replies])->draw('entity/annotations/replies');
                         }
                         if ($likes = $vars['object']->getAnnotations('like')) {
-                            echo $this->__(array('annotations' => $likes))->draw('entity/annotations/likes');
+                            echo $this->__(['annotations' => $likes])->draw('entity/annotations/likes');
                         }
                         if ($shares = $vars['object']->getAnnotations('share')) {
-                            echo $this->__(array('annotations' => $shares))->draw('entity/annotations/shares');
+                            echo $this->__(['annotations' => $shares])->draw('entity/annotations/shares');
                         }
                         if ($rsvps = $vars['object']->getAnnotations('rsvp')) {
-                            echo $this->__(array('annotations' => $rsvps))->draw('entity/annotations/rsvps');
-                        }
-                        if ($mentions = $vars['object']->getAnnotations('mention')) {
-                            echo $this->__(array('annotations' => $mentions))->draw('entity/annotations/mentions');
+                            echo $this->__(['annotations' => $rsvps])->draw('entity/annotations/rsvps');
                         }
 
-                        unset($this->vars['annotations']);
-                        unset($this->vars['annotation_permalink']);
                     ?>
 
                 </div>
