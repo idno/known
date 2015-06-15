@@ -36,7 +36,7 @@
     <?php
 
         if ($vars['object']->access != 'PUBLIC') {
-            ?><i class="icon-lock"> </i><?php
+            ?><i class="fa fa-lock"> </i><?php
         }
 
     ?>
