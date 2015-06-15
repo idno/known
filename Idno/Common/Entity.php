@@ -1215,6 +1215,7 @@
                 $access = $this->getAccess();
 
                 if ($access == 'PUBLIC') return true;
+                if ($access == 'SITE' && \Idno\Core\site()->session()->isLoggedIn()) return true;
                 if ($this->getOwnerID() == $user_id) return true;
 
                 if ($access instanceof \Idno\Entities\AccessGroup) {
