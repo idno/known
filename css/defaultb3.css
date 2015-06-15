@@ -316,6 +316,10 @@ select, input[type="file"] {
     background-color: #70997a;
 }
 
+.navbar-fixed-top .navbar-collapse {
+    max-height: none;
+}
+
 
 
 
