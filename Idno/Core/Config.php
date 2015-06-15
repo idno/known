@@ -42,7 +42,6 @@
                 'default_config'         => true, // This is a trip-switch - changed to false if configuration is loaded from an ini file / the db
                 'loglevel'              => 5,
                 'multi_syndication'      => true,
-                'external_plugin_folder' => false,
                 'wayback_machine'        => false,
                 'static_url'             => false,
                 'user_avatar_favicons'   => true
