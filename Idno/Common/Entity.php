@@ -1236,7 +1236,7 @@
             function getAccess($idOnly = false)
             {
                 $access = $this->access;
-                if (!$idOnly && $access != 'PUBLIC') {
+                if (!$idOnly && $access != 'PUBLIC' && $access != 'SITE') {
                     $access = \Idno\Core\site()->db()->getObject($access);
                 }
 
