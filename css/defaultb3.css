@@ -320,6 +320,11 @@ select, input[type="file"] {
     max-height: none;
 }
 
+.idno-entry.row {
+	margin-left:0px;
+	margin-right:0px;
+}
+
 
 
 
