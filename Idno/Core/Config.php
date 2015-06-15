@@ -243,6 +243,7 @@
                 unset($array['proxy_type']);
                 unset($array['disable_ssl_verify']);
                 unset($array['known_hub']);
+                unset($array['directloadplugins']);
 
                 // If we don't have a site secret, create it
                 if (!isset($array['site_secret']))
