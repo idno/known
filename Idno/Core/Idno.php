@@ -32,6 +32,7 @@
             public $known_hub;
             public $helper_robot;
             public $reader;
+            public $cache;
 
             function init()
             {
@@ -94,6 +95,12 @@
                 $this->logging      = new Logging($this->config->log_level);
                 $this->reader       = new Reader();
                 $this->helper_robot = new HelperRobot();
+                
+                // Attempt to create a cache object, making use of support present on the system
+                if (extension_loaded('xcache')) {
+                    $this->cache = new \Idno\Caching\XCache();
+                }
+                // TODO: Support other persistent caching methods
 
                 // No URL is a critical error, default base fallback is now a warning (Refs #526)
                 if (!$this->config->url) throw new \Exception('Known was unable to work out your base URL! You might try setting url="http://yourdomain.com/" in your config.ini');
@@ -232,6 +239,15 @@
             function &logging()
             {
                 return $this->logging;
+            }
+            
+            /**
+             * Return a persistent cache object.
+             * @return \Idno\Caching\PersistentCache
+             */
+            function &cache() 
+            {
+                return $this->cache;
             }
 
             /**
