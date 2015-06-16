@@ -60,10 +60,10 @@ h2 {
 
 h1.p-profile, .p-profile a {
 	margin: 0px;
-	font-family: "Minion Pro", Times, "Times New Roman", serif;
-	color: #333333;
-	font-size: 1.6em;
 	text-align: center;
+	color: #333333;
+    font-family: "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
+    font-size: 1.6em;
 }
 
 .entry-content blockquote {
@@ -636,4 +636,12 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 }
 .navbar-nav > li > .dropdown-menu {
     margin-top: 4px;
+}
+.namebadge .btn {
+	border: 2px solid #678c70;
+	padding: 5px 20px;
+}
+.namebadge .btn:hover, .namebadge .btn:focus {
+	color: #8cbf99;
+	border: 2px solid #8cbf99;
 }

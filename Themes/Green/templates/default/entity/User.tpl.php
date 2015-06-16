@@ -12,21 +12,21 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-8 namebadge">
+            <div class="namebadge">
                 <p>
                     <a href="<?= $vars['user']->getDisplayURL() ?>" class="u-url icon-container"><img class="u-photo"
                                                                                                src="<?= $vars['user']->getIcon() ?>"/></a>
                 </p>
             </div>
-            <div class="col-md-8 ">
+            <div class=" ">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="">
                         <h1 class="p-profile">
                             <a href="<?= $vars['user']->getDisplayURL() ?>"
                                class="u-url p-name fn"><?= $vars['user']->getTitle() ?></a>
                         </h1>
                     </div>
-                    <div class="col-md-2 col-md-offset-6">
+                    <div class="namebadge">
                         <?php
 
                             if ($vars['user']->canEdit()) {
@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-8 url-container">
+                    <div class="url-container">
                         <div class="e-note"><?php
                                 $description = $vars['user']->getDescription();
                                 if (!empty($description)) {
