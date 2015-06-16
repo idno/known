@@ -7,7 +7,7 @@
 
 ?>
     <div class="row annotation-add">
-        <div class="col-md-1 owner h-card hidden-xs">
+        <div class="col-md-1 owner h-card visible-md visible-lg">
             <a href="<?= $user->getDisplayURL() ?>" class="u-url icon-container"><img class="u-photo"
                                                                                 src="<?= $user->getIcon() ?>"/></a>
         </div>
