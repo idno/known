@@ -180,7 +180,7 @@ li {
 }
 
 .navbar .nav > li {
-    float: left;
+    /*float: left;*/
     font-family: "Proxima Nova","Open Sans","Gill Sans MT","Gill Sans",Corbel,Arial,sans-serif;
 }
 

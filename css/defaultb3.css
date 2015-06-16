@@ -316,9 +316,9 @@ select, input[type="file"] {
     background-color: #70997a;
 }
 
-.navbar-fixed-top .navbar-collapse {
+/*.navbar-fixed-top .navbar-collapse {
     max-height: none;
-}
+}*/
 
 .idno-entry.row {
 	margin-left:0px;
