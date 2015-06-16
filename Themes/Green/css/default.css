@@ -582,7 +582,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 
 .navbar-nav > li > .nav > li > a {
     color: #fff;
-    padding-bottom: 0;
+    padding-bottom: 12px;
     padding-top: 12px;
 }
 
@@ -618,4 +618,22 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
     border-color: #8cbf99;
 	color: #8cbf99;
 }
-
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #fff;
+}
+.dropdown-menu {
+    background-color: #8cbf99;
+     margin: 5px 0 0;
+}
+.dropdown-menu > li > a {
+    color: #fff;
+}
+.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #fff;
+}
+.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+	color:#666;
+}
+.navbar-nav > li > .dropdown-menu {
+    margin-top: 4px;
+}
