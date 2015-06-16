@@ -98,10 +98,19 @@ blockquote {
 
 .navbar-nav > li > .nav > li > a {
     color: #fff;
-    padding-bottom: 0;
+    padding-bottom: 13px;
     padding-top: 13px;
 }
 
 .navbar .nav .dropdown-toggle .caret {
     margin-top: 0;
+}
+.dropdown-menu {
+	margin: 0 0 0;
+}
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #fff;
+}
+.navbar-default .navbar-toggle {
+    border-color: transparent;
 }
