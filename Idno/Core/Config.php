@@ -287,6 +287,7 @@
                         unset($config['proxy_string']);
                         unset($config['proxy_type']);
                         unset($config['disable_ssl_verify']);
+                        unset($config['upload_tmp_dir']);
                     }
                     if (is_array($config)) {
                         $this->config = array_merge($this->config, $config);
@@ -497,16 +498,16 @@
             {
                 static $temp;
 
+                $temp = ini_get('upload_tmp_dir');
+                if (@is_dir($temp)) {
+                    return $this->sanitizePath($temp);
+                }
+
                 if (function_exists('sys_get_temp_dir')) {
                     $temp = sys_get_temp_dir();
                     if (is_dir($temp)) {
                         return $this->sanitizePath($temp);
                     }
-                }
-
-                $temp = ini_get('upload_tmp_dir');
-                if (@is_dir($temp)) {
-                    return $this->sanitizePath($temp);
                 }
 
                 if (!empty($this->uploadpath)) {
