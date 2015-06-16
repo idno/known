@@ -324,6 +324,12 @@ select, input[type="file"] {
 	margin-left:0px;
 	margin-right:0px;
 }
+@media (max-width: 1083px) {
+	.namebadge-profile { 
+		text-align:center;		
+	}
+}
+
 
 
 
