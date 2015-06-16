@@ -1,6 +1,5 @@
-<div class="navbar">
-    <div class="navbar-inner">
-        <ul class="nav">
+
+        <ul class="nav nav-tabs">
             <li <?php if ($_SERVER['REQUEST_URI'] == '/account/settings/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>account/settings/" >Settings</a></li>
             <li <?php if ($_SERVER['REQUEST_URI'] == '/account/settings/notifications/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>account/settings/notifications/" >Email notifications</a></li>
             <li <?php if ($_SERVER['REQUEST_URI'] == '/account/settings/tools/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>account/settings/tools/" >Tools and Apps</a></li>
@@ -14,5 +13,3 @@
             <?php } ?>
             <?=$this->draw('account/menu/items')?>
         </ul>
-    </div>
-</div>
