@@ -64,7 +64,7 @@ h2 {
 
 h1.p-profile, .p-profile a {
 	margin: 0px;
-	font-family: "Minion Pro", Times, "Times New Roman", serif;
+	font-family: "Myriad Pro","Gill Sans","Gill Sans MT",Calibri,sans-serif;
 	color: #333333;
 	font-size: 1.6em;
 	text-align: center;
@@ -238,7 +238,7 @@ span.contentTypeLogo:hover {
 
 h2 {
 	font-family: "Myriad Pro", "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
-	font-size: 1.2em;
+	font-size: 28px;
 	color: #555555;
 }
 
@@ -265,7 +265,7 @@ h5 {
 
 h3.register, h4.register {
 	text-align: center;
-	color: #000000;
+	color: #555555;
 }
 
 h3.register {
@@ -437,11 +437,11 @@ h3.register {
     font-size: 36px;
     margin-bottom: 0.8em;
     font-weight: 400;
-    color: #000000;
+    color: #555555;
 }
 
 h3.text-center {
-	color: #000000;
+	color: #555555;
 	font-size: 28px;
     font-weight: normal;
     padding-bottom: 20px;
@@ -462,7 +462,7 @@ h3.text-center {
 
 .control-label {
 	color: #555555;
-	font-size: 18px;
+	font-size: 14px;
 } 
 
 .profile .icon-container .u-photo {
@@ -492,7 +492,6 @@ h3.text-center {
 	margin-top: 20px;
 	padding-bottom: 10px;
 	padding-top: 10px;
-	border-top: 3px solid #9f111b;
 }
 
 .warm-footer p {
@@ -556,7 +555,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 }
 
 .entry-content .p-name a {
-	font-size: 1.2em;
+	font-size: 1.0em;
 } 
 
 .e-note {
@@ -639,7 +638,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 
 .navbar-nav > li > .nav > li > a {
     color: #fff;
-    padding-bottom: 0;
+    padding-bottom: 12px;
     padding-top: 12px;
 }
 
@@ -666,5 +665,35 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 .red-small {
 	color: #9f111b;
 }
-
+.navbar-nav > li > .dropdown-menu {
+	margin-top:5px;
+}
+.dropdown-menu {
+	margin-top: 6px;
+    background-color: #e8945d;
+    border: 1px solid #e8945d;
+}
+.navbar-form .form-control.search-query {
+    border-color: #e8945d;
+}
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #fff;
+}
+.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #fff;
+}
+.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+	color: #ffcc66;
+}
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+	background-color:#9f111b;
+	border-color:#9f111b;
+}
+.entry-content .p-name a:hover, .entry-content .p-name a:focus {
+    color: #af474f;
+}
+.jumbotron {
+    background-color: #fff;
+    border: 3px solid #9f111b;
+}
 
