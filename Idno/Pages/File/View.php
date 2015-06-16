@@ -16,6 +16,13 @@
 
             function getContent()
             {
+                // Check modified ts
+                if ($cache = \Idno\Core\site()->cache()) {
+                    if ($modifiedts = $cache->load("{$this->arguments[0]}_modified_ts")) {
+                        $this->lastModifiedGatekeeper($modifiedts); // Set 304 and exit if we've not modified this object
+                    }
+                }
+                
                 if (!empty($this->arguments[0])) {
                     $object = \Idno\Entities\File::getByID($this->arguments[0]);
                 }
@@ -42,6 +49,9 @@
                 header("Cache-Control: public");
                 header('Expires: ' . date(\DateTime::RFC1123, time() + (86400 * 30))); // Cache files for 30 days!
                 $this->setLastModifiedHeader($upload_ts);
+                if ($cache = \Idno\Core\site()->cache()) {
+                    $cache->store("{$this->arguments[0]}_modified_ts", $upload_ts);
+                }
                 if (!empty($object->file['mime_type'])) {
                     header('Content-type: ' . $object->file['mime_type']);
                 } else {
@@ -49,14 +59,6 @@
                 }
                 //header('Accept-Ranges: bytes');
                 //header('Content-Length: ' . filesize($object->getSize()));
-
-                $headers = $this->getallheaders();
-                if (isset($headers['If-Modified-Since'])) {
-                    if (strtotime($headers['If-Modified-Since']) <= $upload_ts) { //> time() - (86400 * 30)) {
-                        header('HTTP/1.1 304 Not Modified');
-                        exit;
-                    }
-                }
 
                 if (is_callable(array($object, 'passThroughBytes'))) {
                     $object->passThroughBytes();
