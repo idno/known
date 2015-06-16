@@ -122,8 +122,8 @@ a.contentTypeButton:hover {
 }
 
 .navbar.navbar-default .nav li.dropdown > a:hover .caret, .navbar.navbar-default .nav li.dropdown > a:focus .caret {
-	border-bottom-color: rgba(229, 202, 31, 0.7);
-	border-top-color: rgba(229, 202, 31, 0.7);
+	border-bottom-color: #fff;
+	border-top-color: #fff;
 }
 
 .navbar.navbar-default .nav li.dropdown.open > .dropdown-toggle .caret, .navbar.navbar-default .nav li.dropdown.active > .dropdown-toggle .caret, .navbar.navbar-default .nav li.dropdown.open.active > .dropdown-toggle .caret {
@@ -609,7 +609,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 .navbar.navbar-default .nav > li > a {
 	text-transform: uppercase;
 	color: #ffa851;
-    float: right; 
+    /*float: right; */
     font-family: "Open Sans","Corbel","Arial",sans-serif;
     font-size: 0.85em; 
     font-style: normal;
@@ -632,7 +632,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 
 .navbar-nav > li > .nav > li > a {
     color: #fff;
-    padding-bottom: 0;
+    padding-bottom: 15px;
     padding-top: 15px;
 }
 
@@ -640,7 +640,33 @@ ul > li > .nav {
 	padding-left: 0px;
 	margin-left: 0px;
 }
-
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #fff;
+}
+.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #fff;
+}
+.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover {
+    color: #ccc;
+}
+.dropdown-menu {
+	background-color: #223d96;
+	border: none;
+	margin: 0 0 0;
+}
+.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+	text-transform: uppercase;
+	font-size: 0.85em;
+}
+.navbar-form .form-control.search-query {
+    border-color: #223d96;
+}
+.btn-group.open .dropdown-toggle {
+    box-shadow: none;
+}
+.dropdown-menu > li > a {
+    color: #fff;
+}
 
 
 
