@@ -14,7 +14,6 @@
     if (!empty(\Idno\Core\site()->config()->lang))
         $lang = \Idno\Core\site()->config()->lang;
 ?>
-<?php if (!$_SERVER["HTTP_X_PJAX"]): ?>
 <!DOCTYPE html>
 <html lang="<?= $lang; ?>">
 <head>
@@ -146,8 +145,7 @@
         }
     </style>
     
-    <link href="<?= \Idno\Core\site()->config()->getStaticURL() ?>css/default.css?20150123" rel="stylesheet">
-    <link href="<?= \Idno\Core\site()->config()->getStaticURL() ?>css/defaultb3.css?20150123" rel="stylesheet">
+    <?=$this->draw('shell/css');?>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -225,7 +223,6 @@
     }
 
 ?>">
-<?php endif; ?>
 <div id="pjax-container" class="page-container">
     <?php
         $currentPage = \Idno\Core\site()->currentPage();
