@@ -13,8 +13,8 @@
             </p>
         </div>
 
-		<!--This needs to be updated so that toggles are On by default-->
-        <div class="control-label">Turn off content types to hide them from the homepage of your site.
+		
+        <div class="explanation">Turn off content types to hide them from the homepage of your site.
         </div>
         <br>
         <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/homepage" method="post"

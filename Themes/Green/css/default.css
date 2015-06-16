@@ -218,7 +218,7 @@ span.contentTypeLogo:hover {
 
 h2 {
 	font-family: "Myriad Pro", "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
-	font-size: 1.2em;
+	font-size: 28px;
 	color: #555555;
 }
 
@@ -456,7 +456,7 @@ h3.text-center {
 
 .control-label {
 	color: #555555;
-	font-size: 18px;
+	font-size: 14px;
 } 
 
 .profile .icon-container .u-photo {
@@ -644,4 +644,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 .namebadge .btn:hover, .namebadge .btn:focus {
 	color: #8cbf99;
 	border: 2px solid #8cbf99;
+}
+tr.pages {
+    border-bottom: 1px solid #888;
 }
