@@ -874,6 +874,21 @@
             {
                 header('Last-Modified: ' . self::timestampToRFC2616($timestamp));
             }
+            
+            /**
+             * Simplify if modified since checks.
+             * Set a 304 not modified if If-Modified-Since header is less than the given timestamp.
+             * @param type $timestamp Timestamp to check
+             */
+            public function lastModifiedGatekeeper($timestamp) {
+                $headers = $this->getallheaders();
+                if (isset($headers['If-Modified-Since'])) {
+                    if (strtotime($headers['If-Modified-Since']) <= $timestamp) { 
+                        header('HTTP/1.1 304 Not Modified');
+                        exit;
+                    }
+                }
+            }
 
             /**
              * Return whether the current page URL matches the given regex string.
