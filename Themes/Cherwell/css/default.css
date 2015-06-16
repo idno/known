@@ -193,3 +193,17 @@ body.page-share {
 	margin-bottom: 5px;
 	margin-left: 0px;
 }
+.dropdown-menu {
+	border: none;
+	margin: 0px;
+}
+.navbar-nav > li > .nav > li > a:hover, .navbar-nav > li > .nav > li > a:focus  {
+	background-color: #fff;
+	color:#999;
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
+    background-color: #fff;
+}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+	color:#999;
+}
