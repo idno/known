@@ -286,6 +286,25 @@
             }
 
             /**
+             * Given HTML text, attempts to return text from the first $paras paragraphs
+             * @param $html_text
+             * @param int $paras Number of paragraphs to return; defaults to 1
+             * @return string
+             */
+            function sampleParagraph($html_text, $paras = 1)
+            {
+                $sample = '';
+                $dom = new \DOMDocument;
+                $dom->loadHTML($html_text);
+                if ($p = $dom->getElementsByTagName('p')) {
+                    for ($i = 0; $i < $paras; $i++) {
+                        $sample .= $p->item($i)->textContent;
+                    }
+                }
+                return $sample;
+            }
+
+            /**
              * Given a URL, fixes it to have a prefix if it needs one
              * @param $url
              * @return string
