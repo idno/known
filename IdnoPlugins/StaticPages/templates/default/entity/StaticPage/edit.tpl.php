@@ -143,12 +143,12 @@
 
                 </div>
 
+                <?= $this->draw('content/access'); ?>
 
                 <p class="button-bar " style="text-align: right">
                     <?= \Idno\Core\site()->actions()->signForm('/staticpages/edit') ?>
                     <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
                     <input type="submit" class="btn btn-primary" value="Publish"/>
-                    <?= $this->draw('content/access'); ?>
                 </p>
 
             </div>
