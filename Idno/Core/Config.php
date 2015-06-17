@@ -27,7 +27,8 @@
                                                    'Media',
                                                    'Firefox',
                                                    'Bridgy',
-                                                   'FooterJS'
+                                                   'FooterJS',
+                                                   'IndiePub'
                 ),
                 'themes'                 => array(),
                 'antiplugins'            => array(),
