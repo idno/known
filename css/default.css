@@ -890,7 +890,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     box-shadow: none;
     color: #222222;
     text-decoration: none;
-    font-weight: 700;
+    font-weight: 400;
 }
 
 .brand,

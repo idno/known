@@ -25,7 +25,8 @@
 
 .nav-tabs > li.active > a {
 	color:#222222;
-	font-weight: 700;
+	font-weight: 400;
+    margin-top: 1px;
 }
 
 .nav-tabs > li > a:hover {
