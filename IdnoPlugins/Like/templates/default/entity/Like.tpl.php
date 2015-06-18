@@ -12,7 +12,7 @@
     }
 
 ?>
-<div class="">
+<div class="known-bookmark">
     <h2 class="p-bookmark"><a href="<?= $vars['object']->body;?>" rel="bookmark" target="_blank"><?=$this->parseURLs(htmlentities(strip_tags($body)),$rel)?></a></h2>
     <?php
 
