@@ -7,8 +7,6 @@
         }
     }
 
-    if (\Idno\Core\site()->config->experimental) {
-
         ?>
         <div class="access-control-block">
             <input type="hidden" name="access" id="access-control-id" value="<?=htmlspecialchars($access);?>"/>
@@ -65,12 +63,3 @@
             });
 
         </script>
-    <?php
-    } else {
-
-        ?>
-        <input type="hidden" name="access" id="access-control-id" value="<?=htmlspecialchars($access);?>"/>
-        <?php
-
-    }
-?>
