@@ -211,29 +211,6 @@
                             imagecopyresampled($image_copy, $image, 0, 0, $offset_x, $offset_y, $new_width, $new_height, $original_width, $original_height);
 
 
-                            if (is_callable('exif_read_data') && $photo_information['mime'] == 'image/jpeg') {
-                                try {
-                                    if (!$exif)
-                                        $exif = exif_read_data($file_path);
-                                    if (!empty($exif['Orientation'])) {
-                                        switch ($exif['Orientation']) {
-                                            case 8:
-                                                $image_copy = imagerotate($image_copy, 90, 0);
-                                                break;
-                                            case 3:
-                                                $image_copy = imagerotate($image_copy, 180, 0);
-                                                break;
-                                            case 6:
-                                                $image_copy = imagerotate($image_copy, -90, 0);
-                                                break;
-                                        }
-                                    }
-                                } catch (\Exception $e) {
-                                    // Don't do anything
-                                }
-                            }
-
-
                             $tmp_dir = dirname($file_path);
                             switch ($photo_information['mime']) {
                                 case 'image/jpeg':
