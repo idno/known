@@ -148,10 +148,9 @@
              * @param string $filename Filename that the file should have on download.
              * @param int $max_dimension The maximum number of pixels the thumbnail image should be along its longest side.
              * @param bool $square If this is set to true, the thumbnail will be made square.
-             * @param mixed $exif Optionally provide exif data for the image, if not provided then this function will attempt to extract it
              * @return bool|id
              */
-            public static function createThumbnailFromFile($file_path, $filename, $max_dimension = 800, $square = false, $exif = null)
+            public static function createThumbnailFromFile($file_path, $filename, $max_dimension = 800, $square = false)
             {
 
                 $thumbnail = false;
