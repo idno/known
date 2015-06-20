@@ -91,7 +91,24 @@
                             $tmpfname = $file_path;
                             switch ($photo_information['mime']) {
                                 case 'image/jpeg':
-                                    $image = imagecreatefromjpeg($file_path);
+                                    $image = imagecreatefromjpeg($tmpfname);
+                                    
+                                    // Since we're stripping Exif, we need to manually adjust orientation of main image
+                                    $exif = exif_read_data($tmpfname);
+                                    if (!empty($exif['Orientation'])) {
+                                        switch ($exif['Orientation']) {
+                                            case 8:
+                                                $image = imagerotate($image, 90, 0);
+                                                break;
+                                            case 3:
+                                                $image = imagerotate($image, 180, 0);
+                                                break;
+                                            case 6:
+                                                $image = imagerotate($image, -90, 0);
+                                                break;
+                                        }
+                                    }
+                                    
                                     imagejpeg($image, $tmpfname);
                                     break;
                             }
