@@ -14,7 +14,7 @@
 ?>
 <form class="navbar-form navbar-left" action="<?=$action?>" method="get" role="search">
     <div class="form-group">
-        <input type="search" class="search-query form-control" name="q" placeholder="Search" value="<?php
+        <input type="search" class="search-query form-control" name="q" placeholder="Search" tabindex="2" value="<?php
 
             if (!empty($currentPage)) {
                 if ($q = $currentPage->getInput('q')) {

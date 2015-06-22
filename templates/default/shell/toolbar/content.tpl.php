@@ -12,7 +12,7 @@
 
         ?>
         
-            <li class="dropdown">
+            <li class="dropdown" tabindex="3">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                     <?php
 

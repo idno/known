@@ -1,0 +1,5 @@
+div.active {
+	&:focus {
+		@include outline(1px);
+	}
+}
