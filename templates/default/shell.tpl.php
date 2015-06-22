@@ -247,7 +247,7 @@
     ?>
 
     <div class="container page-body">
-
+        <a name="pagecontent"></a>
         <?php
 
             if (!empty($messages)) {
