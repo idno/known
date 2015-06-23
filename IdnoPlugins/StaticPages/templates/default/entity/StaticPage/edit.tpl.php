@@ -98,7 +98,8 @@
                 </div>
 
                 <p id="show-options">
-                    <small><a href="#" onclick="$('#moreoptions').toggle(); $('#show-options').hide(); return false;"><i class="fa fa-plus"></i>
+                    <small><a href="#" onclick="$('#moreoptions').toggle(); $('#show-options').hide(); return false;"><i
+                                class="fa fa-plus"></i>
                             Show advanced options</a></small>
                 </p>
                 <div id="moreoptions" <?php
@@ -110,49 +111,50 @@
                 ?>>
 
                     <p id="hide-options">
-                        <small><a href="#" onclick="$('#moreoptions').toggle(); $('#show-options').show(); return false;"><i class="fa fa-minus"></i>
+                        <small><a href="#"
+                                  onclick="$('#moreoptions').toggle(); $('#show-options').show(); return false;"><i
+                                    class="fa fa-minus"></i>
                                 Hide advanced options</a></small>
                     </p>
 
                     <div>
-                        <label for="forward_url">
-                            Forward URL</label>
-                        <input type="text" name="forward_url" id="forward_url" placeholder="Website to forward users to"
-                               value="<?= htmlspecialchars($forward_url) ?>" class="form-control"/>
-                        <small>Most of the time, you should leave this blank. Include a URL here if you want users to
-                            be forwarded to an external page instead of displaying page content.
-                        </small>
+                        <p>
+                            <label for="forward_url">
+                                Forward URL</label>
+                            <input type="text" name="forward_url" id="forward_url"
+                                   placeholder="Website to forward users to"
+                                   value="<?= htmlspecialchars($forward_url) ?>" class="form-control"/>
+                            <small>Most of the time, you should leave this blank. Include a URL here if you want users
+                                to
+                                be forwarded to an external page instead of displaying page content.
+                            </small>
+                        </p>
                     </div>
-                    <div class="page-cat">
-
-                        <label>
-                            Show the page title as a heading?</label><br>
-                        <!--<select name="hide_title" >
-                                <option value="0">Yes</option>
-                                <option value="1" <?php
-
-                            if (!empty($hide_title)) {
-                                echo 'selected';
-                            }
-
-                        ?>>No</option>
-                            </select>-->
-
+                    <p style="margin-bottom: 20px">
+                        <strong>Show the page title as a heading?</strong><br>
                         <label class="radio-inline">
-                            <input type="radio" name="optionsRadios" id="yes" value="0">
+                            <input type="radio" name="optionsRadios" id="title-heading" value="0" <?php
+
+                                if (empty($hide_title)) {
+                                    echo 'checked';
+                                }
+
+                            ?>>
                             Yes
                         </label>
-
                         <label class="radio-inline">
-                            <input type="radio" name="optionsRadios" id="no" value="1" <?php
+                            <input type="radio" name="optionsRadios" id="title-heading" value="1" <?php
 
                                 if (!empty($hide_title)) {
-                                    echo 'selected';
+                                    echo 'checked';
                                 }
 
                             ?>>
                             No
                         </label>
+                    </p>
+
+                    <div class="page-cat">
 
 
                     </div>
