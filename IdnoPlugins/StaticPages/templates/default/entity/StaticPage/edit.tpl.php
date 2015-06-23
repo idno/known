@@ -4,10 +4,10 @@
     /* @var \Idno\Core\Template $this */
 
     if (!empty($vars['object'])) {
-        $title = $vars['object']->getTitle();
-        $body = $vars['object']->body;
+        $title       = $vars['object']->getTitle();
+        $body        = $vars['object']->body;
         $forward_url = $vars['object']->forward_url;
-        $hide_title = $vars['object']->hide_title;
+        $hide_title  = $vars['object']->hide_title;
     }
 
     if ($title == 'Untitled') {
@@ -15,7 +15,7 @@
     }
 
 ?>
-    <form action="<?= $vars['object']->getURL() ?>" method="post" >
+    <form action="<?= $vars['object']->getURL() ?>" method="post">
 
         <div class="row">
 
@@ -42,54 +42,64 @@
                 <p>
                     <label for="title">
                         Title</label>
-                        <input type="text" name="title" id="title" placeholder="Give it a title"
-                               value="<?= htmlspecialchars($title) ?>" class="form-control"/>
+                    <input type="text" name="title" id="title" placeholder="Give it a title"
+                           value="<?= htmlspecialchars($title) ?>" class="form-control"/>
                 </p>
 
                 <div class="pages col-md-3">
                     <label for="body">
-                        Body </label>  
+                        Body </label>
                 </div>
-                                     
+
                 <p style="text-align: right">
                     <small>
-                        <a href="#" onclick="tinymce.EditorManager.execCommand('mceRemoveEditor',true, 'body'); $('#plainTextSwitch').hide(); $('#richTextSwitch').show(); return false;" id="plainTextSwitch">Switch to plain text editor</a>
-                        <a href="#" onclick="makeRich('#body'); $('#plainTextSwitch').show(); $('#richTextSwitch').hide(); return false;" id="richTextSwitch" style="display:none">Switch to rich text editor</a></small></p>
+                        <a href="#"
+                           onclick="tinymce.EditorManager.execCommand('mceRemoveEditor',true, 'body'); $('#plainTextSwitch').hide(); $('#richTextSwitch').show(); return false;"
+                           id="plainTextSwitch">Switch to plain text editor</a>
+                        <a href="#"
+                           onclick="makeRich('#body'); $('#plainTextSwitch').show(); $('#richTextSwitch').hide(); return false;"
+                           id="richTextSwitch" style="display:none">Switch to rich text editor</a></small>
+                </p>
                 </p>
                     
                         <textarea name="body" id="body" placeholder="Tell your story"
                                   class="form-control bodyInput mentionable wysiwyg"><?= htmlspecialchars($this->autop($body)) ?></textarea>
 
-                    
-               
 
-                <?=$this->draw('entity/tags/input');?>
-                
+
+
+                <?= $this->draw('entity/tags/input'); ?>
+
                 <div class="page-cat">
                     <label>
                         Parent category</label><br>
-                        <select name="category" class="selectpicker">
-                            <option <?php if ($vars['category'] == 'No Category') { echo 'selected'; } ?>>No Category</option>
-                            <?php
+                    <select name="category" class="selectpicker">
+                        <option <?php if ($vars['category'] == 'No Category') {
+                            echo 'selected';
+                        } ?>>No Category
+                        </option>
+                        <?php
 
-                                if (!empty($vars['categories'])) {
-                                    foreach($vars['categories'] as $category) {
+                            if (!empty($vars['categories'])) {
+                                foreach ($vars['categories'] as $category) {
 
-                            ?>
-                                        <option <?php if ($category == $vars['category']) { echo 'selected'; } ?>><?=htmlspecialchars($category)?></option>
-                            <?php
+                                    ?>
+                                    <option <?php if ($category == $vars['category']) {
+                                        echo 'selected';
+                                    } ?>><?= htmlspecialchars($category) ?></option>
+                                <?php
 
-                                    }
                                 }
+                            }
 
-                            ?>
-                        </select>
+                        ?>
+                    </select>
 
                 </div>
-                
+
                 <p>
                     <small><a href="#" onclick="$('#moreoptions').show(); return false;"><i class="fa fa-plus"></i>
- Show advanced options</a></small>
+                            Show advanced options</a></small>
                 </p>
                 <div id="moreoptions" <?php
                     if (empty($hide_title) && empty($forward_url)) {
@@ -97,46 +107,47 @@
                         style="display:none"
                     <?php
                     }
-                        ?>>
+                ?>>
 
                     <div>
                         <label for="forward_url">
                             Forward URL</label>
-                            <input type="text" name="forward_url" id="forward_url" placeholder="Website to forward users to"
-                                   value="<?= htmlspecialchars($forward_url) ?>" class="form-control"/>
-                            <small>Most of the time, you should leave this blank. Include a URL here if you want users to
-                                be forwarded to an external page instead of displaying page content.</small>
+                        <input type="text" name="forward_url" id="forward_url" placeholder="Website to forward users to"
+                               value="<?= htmlspecialchars($forward_url) ?>" class="form-control"/>
+                        <small>Most of the time, you should leave this blank. Include a URL here if you want users to
+                            be forwarded to an external page instead of displaying page content.
+                        </small>
                     </div>
                     <div class="page-cat">
 
                         <label>
                             Show the page title as a heading?</label><br>
-                            <!--<select name="hide_title" >
+                        <!--<select name="hide_title" >
                                 <option value="0">Yes</option>
                                 <option value="1" <?php
 
-                                    if (!empty($hide_title)) {
-                                        echo 'selected';
-                                    }
+                            if (!empty($hide_title)) {
+                                echo 'selected';
+                            }
 
-                                ?>>No</option>
+                        ?>>No</option>
                             </select>-->
 
-								<label class="radio-inline">
-								<input type="radio" name="optionsRadios" id="yes" value="0">
-								Yes
-								</label>
+                        <label class="radio-inline">
+                            <input type="radio" name="optionsRadios" id="yes" value="0">
+                            Yes
+                        </label>
 
-								<label class="radio-inline">
-								<input type="radio" name="optionsRadios" id="no" value="1" <?php
+                        <label class="radio-inline">
+                            <input type="radio" name="optionsRadios" id="no" value="1" <?php
 
-                                    if (!empty($hide_title)) {
-                                        echo 'selected';
-                                    }
+                                if (!empty($hide_title)) {
+                                    echo 'selected';
+                                }
 
-                                ?>>
-								No
-								</label>
+                            ?>>
+                            No
+                        </label>
 
 
                     </div>
@@ -177,9 +188,9 @@
                 menubar: false,
                 toolbar: 'styleselect | bold italic | link image | blockquote bullist numlist | alignleft aligncenter alignright | code',
                 plugins: 'code link image autoresize',
-                relative_urls : false,
-                remove_script_host : false,
-                convert_urls : true,
+                relative_urls: false,
+                remove_script_host: false,
+                convert_urls: true,
                 file_picker_callback: function (callback, value, meta) {
                     filePickerDialog(callback, value, meta);
                 }
@@ -198,7 +209,7 @@
                 }
             });
         }
-        
+
         //$('.selectpicker').selectpicker();
 
     </script>
