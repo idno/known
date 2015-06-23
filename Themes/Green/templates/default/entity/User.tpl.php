@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="url-container">
+                    <div class="col-xs-12 url-container">
                         <div class="e-note"><?php
                                 $description = $vars['user']->getDescription();
                                 if (!empty($description)) {
@@ -58,9 +58,11 @@
                                     </p>
                                 <?php
                                 }
-                            ?></div>
+                            ?>
+                            <?= $this->draw('entity/User/profile/fields') ?>
+                        </div>
 
-                        <?= $this->draw('entity/User/profile/fields') ?>
+
                     </div>
                 </div>
             </div>
