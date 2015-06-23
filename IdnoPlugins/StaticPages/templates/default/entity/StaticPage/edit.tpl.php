@@ -97,8 +97,8 @@
 
                 </div>
 
-                <p>
-                    <small><a href="#" onclick="$('#moreoptions').show(); return false;"><i class="fa fa-plus"></i>
+                <p id="show-options">
+                    <small><a href="#" onclick="$('#moreoptions').toggle(); $('#show-options').hide(); return false;"><i class="fa fa-plus"></i>
                             Show advanced options</a></small>
                 </p>
                 <div id="moreoptions" <?php
@@ -108,6 +108,11 @@
                     <?php
                     }
                 ?>>
+
+                    <p id="hide-options">
+                        <small><a href="#" onclick="$('#moreoptions').toggle(); $('#show-options').show(); return false;"><i class="fa fa-minus"></i>
+                                Hide advanced options</a></small>
+                    </p>
 
                     <div>
                         <label for="forward_url">
