@@ -72,9 +72,12 @@
     color: #666;
 }
 
-.admin.navbar-form {
-	padding-left: 0px;
+@media (min-width:837px) {
+	.admin.navbar-form {
+		padding-left: 0px;
+	}	
 }
+
 
 .navbar-form .form-control {
 	width:100%;
