@@ -43,7 +43,7 @@
             if ($item instanceof \Idno\Entities\ActivityStreamPost) {
                 $item = $item->getObject();
             }
-            if (!($item instanceof Idno\Pages\Entity\)) {
+            if (!($item instanceof \Idno\Common\Entity)) {
                 continue;
             }
             $rssItem = $page->createElement('item');
