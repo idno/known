@@ -439,11 +439,11 @@
                             $title = md5(time() . rand(0, 9999));
                         }
                     }
-                    error_log("Setting resilient slug");
+                    \Idno\Core\site()->logging()->log("Setting resilient slug", LOGLEVEL_DEBUG);
                     $this->setSlugResilient($title);
-                    error_log("Set resilient slug");
+                    \Idno\Core\site()->logging()->log("Set resilient slug", LOGLEVEL_DEBUG);
                 } else {
-                    error_log("Had slug: " . $this->getSlug());
+                    \Idno\Core\site()->logging()->log("Had slug: " . $this->getSlug(), LOGLEVEL_DEBUG);
                 }
 
                 // Automatically set access
