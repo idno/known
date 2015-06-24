@@ -13,7 +13,7 @@
 
             <?php
 
-                if (!empty(\Idno\Core\site()->config()->experimental)) {
+                //if (!empty(\Idno\Core\site()->config()->experimental)) {
 
                     ?>
 
@@ -51,7 +51,7 @@
 
                 <?php
 
-                }
+                //}
 
             ?>
 
