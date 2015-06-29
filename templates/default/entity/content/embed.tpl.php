@@ -28,6 +28,7 @@
             $embedded .= '<div id="sc_' . md5($m) . '" class="twitter-embed" data-url="' . $m . '"></div>';
     }
     //Soundcloud
+    /*
     if (preg_match_all('/https?:\/\/soundcloud\.com\/[^\s]+\/status\/[^\s]+\/?/i', $body, $matches)){
         print_r($matches);
         foreach ($matches[0])
@@ -41,6 +42,7 @@
         $jsonObj = json_decode($decodeiFrame);
         $embedded .= $jsonObj->html;
     }
+    */
     echo $embedded;
 
 
