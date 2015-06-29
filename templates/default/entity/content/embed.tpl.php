@@ -29,7 +29,7 @@
     }
     //Soundcloud
    
-    if (preg_match_all('/https?:\/\/soundcloud\.com\/[^\s]+\/status\/[^\s]+\/?/i', $body, $matches)){
+    if (preg_match_all('/https?:\/\/soundcloud\.com\/[^\s]+\/?/i', $body, $matches)){
         print_r($matches);
     /*    foreach ($matches[0])
         //Get the SoundCloud URL 
