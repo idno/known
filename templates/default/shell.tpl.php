@@ -138,7 +138,7 @@
 
     <!-- Accessibility -->
     <link rel="stylesheet" href="<?= \Idno\Core\site()->config()->getStaticURL() . 'external/paypal-bootstrap-accessibility-plugin/' ?>plugins/css/bootstrap-accessibility_1.0.3.css">
-    <script  src="<?= \Idno\Core\site()->config()->getStaticURL() . 'external/paypal-bootstrap-accessibility-plugin/' ?>plugins/js/bootstrap-accessibility_1.0.3.min.js">
+    <script  src="<?= \Idno\Core\site()->config()->getStaticURL() . 'external/paypal-bootstrap-accessibility-plugin/' ?>plugins/js/bootstrap-accessibility_1.0.3.min.js"></script>
 
     <!-- Fonts -->
     <link rel="stylesheet"
