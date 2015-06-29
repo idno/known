@@ -31,17 +31,15 @@
    
     if (preg_match_all('/https?:\/\/soundcloud\.com\/[^\s]+\/?/i', $body, $matches)){
         print_r($matches);
-    /*    foreach ($matches[0])
-        //Get the SoundCloud URL 
-        $url="https://soundcloud.com/epitaph-records/this-wild-life-history";
-        //Get the JSON data of song details with embed code from SoundCloud oEmbed
-        $getValues=file_get_contents('http://soundcloud.com/oembed?format=js&url='.$m.'&iframe=true');
-        //Clean the Json to decode
-        $decodeiFrame=substr($getValues, 1, -2);
-        //json decode to convert it as an array
-        $jsonObj = json_decode($decodeiFrame);
-        $embedded .= $jsonObj->html;
-        */
+        foreach ($matches[0] as $m) {
+            //Get the JSON data of song details with embed code from SoundCloud oEmbed
+            $getValues=file_get_contents('http://soundcloud.com/oembed?format=js&url='.$m.'&iframe=true');
+            //Clean the Json to decode
+            $decodeiFrame=substr($getValues, 1, -2);
+            //json decode to convert it as an array
+            $jsonObj = json_decode($decodeiFrame);
+            $embedded .= $jsonObj->html;
+        }
     }
     
     echo $embedded;
