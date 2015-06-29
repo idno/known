@@ -28,10 +28,10 @@
             $embedded .= '<div id="sc_' . md5($m) . '" class="twitter-embed" data-url="' . $m . '"></div>';
     }
     //Soundcloud
-    /*
+   
     if (preg_match_all('/https?:\/\/soundcloud\.com\/[^\s]+\/status\/[^\s]+\/?/i', $body, $matches)){
         print_r($matches);
-        foreach ($matches[0])
+    /*    foreach ($matches[0])
         //Get the SoundCloud URL 
         $url="https://soundcloud.com/epitaph-records/this-wild-life-history";
         //Get the JSON data of song details with embed code from SoundCloud oEmbed
@@ -41,8 +41,9 @@
         //json decode to convert it as an array
         $jsonObj = json_decode($decodeiFrame);
         $embedded .= $jsonObj->html;
+        */
     }
-    */
+    
     echo $embedded;
 
 
