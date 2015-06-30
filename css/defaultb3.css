@@ -1,5 +1,4 @@
 /* CSS changes for Boostrap 3 migration */
-
 .nav-tabs.nav > li > a {
 	color: #777777;
 	font-weight: 300;
@@ -105,6 +104,33 @@
 
 .admin .col-md-2, .admin .col-md-4, .admin .col-md-6 {
 	padding-right:0px;
+}
+@media (max-width:550px) {
+	.admin .col-md-2, .admin .col-md-4, .admin .col-md-6 {
+		padding-right:10px;
+	}
+}
+@media (max-width:1082px) {
+	.config-desc {
+    	padding-top: 0px;
+	}
+	select, textarea, 
+	input[type="text"], 
+	input[type="password"], 
+	input[type="datetime"], 
+	input[type="datetime-local"], 
+	input[type="date"], 
+	input[type="month"], 
+	input[type="time"], 
+	input[type="week"], 
+	input[type="number"], 
+	input[type="email"], 
+	input[type="url"], 
+	input[type="tel"], 
+	input[type="color"], 
+	.uneditable-input {
+    	margin-bottom: 5px;
+    }
 }
 .label {
 	font-weight: 500;
