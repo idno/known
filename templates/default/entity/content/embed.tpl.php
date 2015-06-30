@@ -27,20 +27,12 @@
         foreach ($matches[0] as $m)
             $embedded .= '<div id="sc_' . md5($m) . '" class="twitter-embed" data-url="' . $m . '"></div>';
     }
-    //Soundcloud 
-    // solution from http://stackoverflow.com/a/27461646
-    if (preg_match_all('/https?:\/\/soundcloud\.com\/[^\s]+\/?/i', $body, $matches)){
-        foreach ($matches[0] as $m) {
-            //Get the JSON data of song details with embed code from SoundCloud oEmbed
-            $getValues=file_get_contents('http://soundcloud.com/oembed?format=js&url='.$m.'&iframe=true');
-            //Clean the Json to decode
-            $decodeiFrame=substr($getValues, 1, -2);
-            //json decode to convert it as an array
-            $jsonObj = json_decode($decodeiFrame);
-            $embedded .= $jsonObj->html;
-        }
+    if (preg_match_all('/(http:\/\/|https:\/\/)soundcloud\.com\/([^\s]+)/i', $body, $matches)) {
+
+        foreach ($matches[0] as $m)
+            $embedded .= '<div id="sc_'.md5($m).'" class="soundcloud-embed" data-url="'.$m.'"></div>';
     }
-    
+
     echo $embedded;
 
 
