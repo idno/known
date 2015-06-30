@@ -20,13 +20,13 @@
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
 	                <p class="js-controls"><strong>Header code</strong></p>
-                    <textarea name="headerjs" class="col-md-10" rows="10"><?=htmlspecialchars(\Idno\Core\site()->config()->headerjs)?></textarea>
+                    <textarea class="form-control" name="headerjs"><?=htmlspecialchars(\Idno\Core\site()->config()->headerjs)?></textarea>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
 	               <p class="js-controls"><strong>Footer code</strong></p> 
-                    <textarea name="footerjs" class="col-md-10" rows="10"><?=htmlspecialchars(\Idno\Core\site()->config()->footerjs)?></textarea>
+                    <textarea name="footerjs" class="form-control"><?=htmlspecialchars(\Idno\Core\site()->config()->footerjs)?></textarea>
                 </div>
             </div>
             <div class="row">

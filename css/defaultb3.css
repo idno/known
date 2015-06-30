@@ -92,6 +92,7 @@
 
 .form-control {
 	box-shadow: none;
+	border-radius: 0px;
 }
 
 .control-label {
