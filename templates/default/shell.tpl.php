@@ -224,6 +224,11 @@
             }
         }
     }
+    if (\Idno\Core\site()->session()->isLoggedIn()) {
+        echo ' logged-in';
+    } else {
+        echo ' logged-out';
+    }
 
 ?>">
 <div id="pjax-container" class="page-container">
