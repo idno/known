@@ -14,7 +14,7 @@
                 <label>
                     <div id="photo-preview"></div>
                                         <span class="btn btn-primary btn-file">
-                                            <i class="icon-camera"></i> <span
+                                            <i class="fa fa-camera"></i> <span
                                                 id="photo-filename">Select an image</span>
                                             <input type="file" name="file" id="photo"
                                                    class="col-md-9"
