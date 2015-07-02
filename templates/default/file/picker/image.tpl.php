@@ -10,9 +10,10 @@
                 <div id="photo-preview" style="display: inline-block; margin-top: 1em; margin-bottom: 1em">
                     <div style="width: 300px; height: 200px; background-color: #ccc;">&nbsp;</div>
                 </div>
-
+            </div>
+			<div class="col-md-10 col-md-offset-1" style="text-align: center">
                 <label>
-                    <div id="photo-preview"></div>
+                    <div id="photo-preview" ></div>
                                         <span class="btn btn-primary btn-file">
                                             <i class="fa fa-camera"></i> <span
                                                 id="photo-filename">Select an image</span>
