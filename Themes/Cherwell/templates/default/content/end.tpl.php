@@ -33,6 +33,7 @@
     </p>
 </div>
 <div class="interactions">
+	<span class="annotate-icon">
     <?php
 
         if ($vars['object']->access != 'PUBLIC') {
@@ -59,11 +60,11 @@
         <?php
         } else {
             ?>
-            <a class="stars" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?= $heart ?></a>
+            <a class="stars" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?= $heart ?></a></span>
         <?php
         }
     ?>
-    <a class="comments" href="<?= $vars['object']->getDisplayURL() ?>#comments"><i class="fa fa-comments"></i> <?php
+    	    <span class="annotate-icon"><a class="comments" href="<?= $vars['object']->getDisplayURL() ?>#comments"><i class="fa fa-comments"></i> <?php
 
             //echo $replies;
             if ($replies == 1) {
@@ -72,7 +73,7 @@
                 echo $replies . ' comments';
             }
 
-        ?></a>
+        ?></a></span>
     <a class="shares" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?php if ($shares = $vars['object']->countAnnotations('share')) {
             echo '<i class="fa fa-retweet"></i> ' . $shares;
         } ?></a>

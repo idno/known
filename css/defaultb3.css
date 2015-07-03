@@ -376,6 +376,9 @@ select, input[type="file"] {
 p.user-tbl {
 	margin-top: 15px;
 }
+.annotate-icon {
+	margin-left: 15px;
+}
 
 
 

@@ -46,7 +46,8 @@
                 ?>
             </p>
         </div>
-        <div class="interactions">
+        <div class="interactions">	       
+	         <span class="annotate-icon">
             <?php
                 if (!$has_liked) {
                     $heart = '<i class="fa fa-star-o"></i>';
@@ -62,11 +63,11 @@
                     echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'annotation/post', $heart, ['type' => 'like', 'object' => $vars['object']->getUUID()], ['method' => 'POST', 'class' => 'stars']);
                 } else {
                     ?>
-                    <a class="stars" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?= $heart ?></a>
+                    <a class="stars" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?= $heart ?></a></span>
                 <?php
                 }
             ?>
-            <a class="comments" href="<?= $vars['object']->getDisplayURL() ?>#comments"><i class="fa fa-comments"></i> <?php
+            	    <span class="annotate-icon"><a class="comments" href="<?= $vars['object']->getDisplayURL() ?>#comments"><i class="fa fa-comments"></i> <?php
 
                     //echo $replies;
                     if ($replies == 1) {
@@ -75,7 +76,7 @@
                         echo $replies . ' comments';
                     }
 
-                ?></a>
+                ?></a></span>
             <a class="shares"
                href="<?= $vars['object']->getDisplayURL() ?>#comments"><?php if ($shares = $vars['object']->countAnnotations('share')) {
                     echo '<i class="fa fa-retweet"></i> ' . $shares;
