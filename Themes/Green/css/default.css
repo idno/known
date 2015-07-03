@@ -93,7 +93,9 @@ blockquote {
 .navbar-default .brand {
     color: #333333;
 }
- 
+.navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover {
+	color:#70997a;
+} 
 .navbar-default .brand, .navbar-default .nav > li > a {
     color: #FFFFFF;
     text-shadow: none;
