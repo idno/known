@@ -173,6 +173,9 @@
                             $url .= ':' . $_SERVER['SERVER_PORT'];
                         }
                     }
+                    if (defined('KNOWN_SUBDIRECTORY')) {
+                        $url .= '/' . KNOWN_SUBDIRECTORY;
+                    }
                     $url .= '/'; // A naive default base URL
                     return $url;
                 }

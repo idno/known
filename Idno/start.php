@@ -30,6 +30,22 @@
         }
     });
 
+// This is a good time to see if we're running in a subdirectory
+    if (!empty($_SERVER['PHP_SELF'])) {
+        if ($subdir = dirname($_SERVER['PHP_SELF'])) {
+            if ($subdir != DIRECTORY_SEPARATOR) {
+                if(substr($subdir, -1) == DIRECTORY_SEPARATOR) {
+                    $subdir = substr($subdir, 0, -1);
+                }
+                if (substr($subdir, 0, 1) == DIRECTORY_SEPARATOR) {
+                    $subdir = substr($subdir, 1);
+                }
+                $subdir = str_replace(DIRECTORY_SEPARATOR, '/', $subdir);
+                define('KNOWN_SUBDIRECTORY', $subdir);
+            }
+        }
+    }
+
 // Set time limit if we're using less
     if (ini_get('max_execution_time') < 120) {
         set_time_limit(120);
@@ -47,7 +63,6 @@
     function &loader()
     {
         global $known_loader;
-
         return $known_loader;
     }
 

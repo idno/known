@@ -367,6 +367,9 @@
 
             function addPageHandler($pattern, $handler, $public = false)
             {
+                if (defined('KNOWN_SUBDIRECTORY')) {
+                    $pattern = '/' . KNOWN_SUBDIRECTORY . $pattern;
+                }
                 if (class_exists($handler)) {
                     $this->pagehandlers[$pattern] = $handler;
                     if ($public == true) {
