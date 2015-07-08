@@ -185,7 +185,7 @@
              */
             function addErrorMessage($message)
             {
-                $this->addMessage($message, 'alert-error');
+                $this->addMessage($message, 'alert-danger');
             }
 
             /**
