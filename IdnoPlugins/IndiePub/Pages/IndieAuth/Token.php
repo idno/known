@@ -9,7 +9,7 @@
         {
 
             // GET requests verify a token
-            function get()
+            function get($params = array())
             {
 
                 $headers = getallheaders();

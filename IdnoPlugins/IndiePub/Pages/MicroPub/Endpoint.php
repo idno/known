@@ -8,7 +8,7 @@
         class Endpoint extends \Idno\Common\Page
         {
 
-            function get()
+            function get($params = array())
             {
 
                 $this->setResponse(403);
