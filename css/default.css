@@ -1114,6 +1114,10 @@ p.feedback {
     font-size: 0.9em !important;
 }
 
+.idno-entry-helper .robot-head p img {
+    width: 100%;
+}
+
 .idno-entry-helper .robot-murmur p {
     font-size: 1.2em;
 }
