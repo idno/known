@@ -28,13 +28,6 @@
 
                     $eventdata = $event->data();
                     if (!empty($eventdata['object'])) {
-                        if (!empty(site()->config()->wayback_machine)) {
-                            if ($eventdata['object'] instanceof Entity) {
-                                if ($eventdata['object']->isPublic()) {
-                                    Webservice::get('https://web.archive.org/save/' . $eventdata['object']->getDisplayURL());
-                                }
-                            }
-                        }
                         $content_type = $eventdata['object']->getActivityStreamsObjectType();
                         if ($services = \Idno\Core\site()->syndication()->getServices($content_type)) {
                             if ($selected_services = \Idno\Core\site()->currentPage()->getInput('syndication')) {

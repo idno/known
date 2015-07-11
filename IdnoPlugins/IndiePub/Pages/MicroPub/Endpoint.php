@@ -42,7 +42,7 @@
                     $content     = $this->getInput('content');
                     $name        = $this->getInput('name');
                     $in_reply_to = $this->getInput('in-reply-to');
-                    $syndicate   = $this->getInput('syndicate-to');
+                    $syndicate   = $this->getInput('mp-syndicate-to');
 
                     if ($type == 'entry') {
                         if (!empty($_FILES['photo'])) {
