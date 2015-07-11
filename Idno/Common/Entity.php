@@ -12,6 +12,7 @@
 
     namespace Idno\Common {
 
+        use Idno\Core\Webmention;
         use Idno\Entities\User;
 
         class Entity extends Component implements EntityInterface
@@ -1258,6 +1259,18 @@
             }
 
             /**
+             * Is this entity a reply to another entity?
+             * @return bool
+             */
+            function isReply()
+            {
+                if (!empty($this->inreplyto)) {
+                    return true;
+                }
+                return false;
+            }
+
+            /**
              * Returns the database collection that this object should be
              * saved as part of
              *
@@ -1590,6 +1603,13 @@
                             }
                         }
                         $this->save();
+
+                        if ($return) {
+                            if ($this->isReply()) {
+                                $webmentions = new Webmention();
+                                $webmentions->pingMentions($this->getDisplayURL());
+                            }
+                        }
                     }
 
                     return $return;
