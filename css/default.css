@@ -241,6 +241,15 @@ img {
     color: #ccc;
 }
 
+.h-cite .h-card {
+    text-align: left;
+}
+
+.h-cite .e-content {
+    margin-bottom: 0;
+}
+
+
 .owner .u-photo {
     height: 100%;
 }
