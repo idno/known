@@ -33,11 +33,11 @@
         if (\Idno\Core\site()->session()->isLoggedIn()) {
 
             ?>
-            <link rel="manifest" href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>chrome/manifest.json">
+            <!-- <link rel="manifest" href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>chrome/manifest.json"> -->
         <?php
             if (Idno\Core\site()->isSecure()) {
         ?>
-            <script>
+            <!-- <script>
                 window.addEventListener('load', function () {
                     if ('serviceWorker' in navigator) {
                         navigator.serviceWorker.register('<?=\Idno\Core\site()->config()->getDisplayURL()?>chrome/service-worker.js', {scope: '/'})
@@ -50,7 +50,7 @@
                             });
                     }
                 });
-            </script>
+            </script> -->
         <?php
         }
 
