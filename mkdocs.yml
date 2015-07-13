@@ -22,4 +22,5 @@ pages:
 - ['community/index.md', 'Open Source community', 'Introduction']
 - ['community/contributors.md', 'Open Source community', 'Contributors']
 - ['community/harassment.md', 'Open Source community', 'Anti-harassment policy']
+- ['community/plugins/index.md', 'Open Source community', '3rd Party Plugins']
 - ['changelog.md', 'What''s changed?', 'Changes by version']
