@@ -19,7 +19,7 @@ before_script:
   - sudo cp -f Tests/build/travis-ci-apache /etc/apache2/sites-available/default
   - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
   # Configure Known
-  - sudo cp -f Tests/build/config_sample $(TRAVIS_BUILD_DIR)/config.ini
+  - sudo cp -f Tests/build/config_sample.ini $(TRAVIS_BUILD_DIR)/config.ini
   - sudo cp -f $(TRAVIS_BUILD_DIR)/htaccess.dist $(TRAVIS_BUILD_DIR)/.htaccess
   - sudo service apache2 restart
 
