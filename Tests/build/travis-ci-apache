@@ -18,5 +18,8 @@
     FastCgiExternalServer /usr/lib/cgi-bin/php5-fcgi -host 127.0.0.1:9000 -pass-header Authorization
   </IfModule>
 
+    ErrorLog "%TRAVIS_BUILD_DIR%/apache-error.log" 
+    CustomLog "%TRAVIS_BUILD_DIR%/apache-access.log" combined
+
   # [...]
 </VirtualHost>

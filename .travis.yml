@@ -31,6 +31,9 @@ before_script:
 services:
   - mongodb
 
+after_failure:
+  - sudo cat $TRAVIS_BUILD_DIR/apache-error.log
+
 notifications:
   email:
     - hello@withknown.com
