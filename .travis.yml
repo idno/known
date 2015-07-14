@@ -37,3 +37,4 @@ after_failure:
 notifications:
   email:
     - hello@withknown.com
+  irc: "irc.freenode.net#knownchat"
