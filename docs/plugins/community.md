@@ -6,6 +6,10 @@ listings here do not imply endorsement by the Known project team in any way.
 ## Plugin listings
 
 
+### Content types
+
+* [Video](https://github.com/tjgillies/Video) - Post videos to your Known site, by [Tyler Gillies](http://tylergillies.club/)
+
 ### Syndication plugins
 
 * [LinkedIn](https://github.com/mapkyca/KnownLinkedin) - Provides support for LinkedIn, 
@@ -25,6 +29,8 @@ listings here do not imply endorsement by the Known project team in any way.
 
 * [Known Crosspost](https://github.com/mapkyca/KnownKnown) - Crosspost content to another Known site via the API, 
     by [Marcus Povey](https://www.marcus-povey.co.uk)
+
+* [Diaspora](https://github.com/Phyks/KnownDiaspora) - Crosspost content to a Diaspora site, by [Lukas Verney](http://phyks.me/)
 
 ### New Content Types
 
@@ -64,6 +70,8 @@ listings here do not imply endorsement by the Known project team in any way.
 * [Flickr Import](https://github.com/mapkyca/KnownFlickrImport) - Import content from your Flickr account, 
     by [Marcus Povey](https://www.marcus-povey.co.uk)
 
+* [File Picker](https://github.com/Decentralized-Sharing-Working-Group/idno-file-picker) - pick files from your
+    Cozy, ownCloud, or remoteStorage server, by [Decentralized Sharing Community Group](https://www.w3.org/community/decsharing/)
 
 ### Themes
 
@@ -80,6 +88,9 @@ listings here do not imply endorsement by the Known project team in any way.
 
 * [Pushover](https://github.com/timmmmyboy/Pushover) - Push notifications from Known to your iOS and Android devices via
    the Pushover.net service, by [Tim Owens](http://timowens.io/)
+
+* [KnownTracks](https://github.com/klermor/KnownTracks) - View GPS Exchange (GPX) files from your Known site, by
+   [Yann Sallou](http://winds.fr/)
 
 * [Markdown](https://github.com/mapkyca/IdnoMarkdown) - Adds Markdown support for status and blog posts, 
     by [Marcus Povey](https://www.marcus-povey.co.uk)
