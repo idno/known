@@ -8,6 +8,6 @@
   <li <?php if ($_SERVER['REQUEST_URI'] == '/admin/users/') echo 'class="active"'; ?> role="presentation"><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/users/" >Users</a></li>          
   <li <?php if ($_SERVER['REQUEST_URI'] == '/admin/export/') echo 'class="active"'; ?> role="presentation"><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/export/" >Export</a></li>           
   <li <?php if ($_SERVER['REQUEST_URI'] == '/admin/import/') echo 'class="active"'; ?> role="presentation"><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/import/" >Import</a></li>
-  <li <?php if ($_SERVER['REQUEST_URI'] == '/admin/diagnostics/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/diagnostics/">Diagnostics</a></li>
+  <li <?php if ($_SERVER['REQUEST_URI'] == '/admin/diagnostics/') echo 'class="active"'; ?> role="presentation"><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/diagnostics/">Diagnostics</a></li>
   <li <?php if ($_SERVER['REQUEST_URI'] == '/admin/about/') echo 'class="active"'; ?> role="presentation"><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/about/">About</a></li>
 </ul>
