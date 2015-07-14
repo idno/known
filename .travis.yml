@@ -9,7 +9,11 @@ branches:
     - master
 
 before_script:
+  - sudo apt-get update
+  - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5
+  - sudo a2enmod rewrite
   - printf "\n" | pecl -q install mongo && echo "extension=mongo.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+  - sudo service apache2 restart
 
 services:
   - mongodb
