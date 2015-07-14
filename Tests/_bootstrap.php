@@ -3,10 +3,31 @@
 define('KNOWN_UNIT_TEST', true);
 
 // Set some environment
-$_SERVER['SERVER_NAME'] = 'localhost';
-$_SERVER['SERVER_PORT'] = 80;
+$domain = getenv('KNOWN_DOMAIN');
+if (!$domain)
+    $domain = $_SERVER['SERVER_NAME'];
+if (!$domain)
+    $domain = 'localhost';
+$_SERVER['SERVER_NAME'] = $domain;
 
-// Load Known framework
-require_once(dirname(dirname(__FILE__)) . '/Idno/start.php');
+$port = getenv('KNOWN_PORT');
+if (!$port)
+    $port = $_SERVER['SERVER_PORT'];
+if (!$port)
+    $port = 80;
+$_SERVER['SERVER_PORT'] = $port;
 
-// TODO: Initialise and populate test DB
+$_SERVER['KNOWN_DBNAME'] = 'known_unittest';
+$_SERVER['KNOWN_SESSIONNAME'] = 'known_unittest';
+
+try {
+    
+    // Load Known framework
+    require_once(dirname(dirname(__FILE__)) . '/Idno/start.php');
+
+    // TODO: Initialise and populate test DB
+
+
+} catch (Exception $ex) {
+    echo $ex->getMessage();
+}
