@@ -45,7 +45,7 @@
                 switch ($this->config->database) {
                     case 'mongodb':
                         $this->db = new DataConcierge();
-                        break;
+                        break;  
                     case 'mysql':
                         $this->db = new \Idno\Data\MySQL();
                         break;
@@ -729,6 +729,13 @@
                     || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https');
             }
 
+            /**
+             * This is a state dependant object, and so can not be serialised.
+             * @return array
+             */
+            function __sleep() {
+                return [];
+            }
         }
 
         /**

@@ -24,24 +24,29 @@
             echo "<p>If you like, you can <a href=\"mailto:hello@withknown.com?subject=" .
                 rawurlencode("Fatal error in Known install at {$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}") . "&body=" . rawurlencode($error_message) . "\">email us for more information</a>.";
 
-            \Idno\Core\site()->logging->log($error_message, LOGLEVEL_ERROR);
+            if (isset(\Idno\Core\site()->logging) && \Idno\Core\site()->logging)
+                \Idno\Core\site()->logging->log($error_message, LOGLEVEL_ERROR);
+            else 
+                error_log($error_message);
 
             exit;
         }
     });
 
 // This is a good time to see if we're running in a subdirectory
-    if (!empty($_SERVER['PHP_SELF'])) {
-        if ($subdir = dirname($_SERVER['PHP_SELF'])) {
-            if ($subdir != DIRECTORY_SEPARATOR) {
-                if(substr($subdir, -1) == DIRECTORY_SEPARATOR) {
-                    $subdir = substr($subdir, 0, -1);
+    if (!defined('KNOWN_UNIT_TEST')) {
+        if (!empty($_SERVER['PHP_SELF'])) {
+            if ($subdir = dirname($_SERVER['PHP_SELF'])) {
+                if ($subdir != DIRECTORY_SEPARATOR) {
+                    if(substr($subdir, -1) == DIRECTORY_SEPARATOR) {
+                        $subdir = substr($subdir, 0, -1);
+                    }
+                    if (substr($subdir, 0, 1) == DIRECTORY_SEPARATOR) {
+                        $subdir = substr($subdir, 1);
+                    }
+                    $subdir = str_replace(DIRECTORY_SEPARATOR, '/', $subdir);
+                    define('KNOWN_SUBDIRECTORY', $subdir);
                 }
-                if (substr($subdir, 0, 1) == DIRECTORY_SEPARATOR) {
-                    $subdir = substr($subdir, 1);
-                }
-                $subdir = str_replace(DIRECTORY_SEPARATOR, '/', $subdir);
-                define('KNOWN_SUBDIRECTORY', $subdir);
             }
         }
     }

@@ -2,13 +2,37 @@ language: php
 php:
  - 5.4
  - 5.5
+ - 5.6
 
 branches:
   only:
     - master
 
+before_script:
+  # Update and install base system
+  - sudo apt-get update
+  - sudo apt-get install -y --force-yes apache2 libapache2-mod-fastcgi php5-dev make php-pear make
+  - sudo a2enmod rewrite
+  # Enable php-fpm and Mongodb
+  - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
+  - sudo a2enmod rewrite actions fastcgi alias
+  - echo "extension = mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
+  #- printf "\n" | pecl -q install mongo && echo "extension=mongo.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+  # configure apache virtual hosts
+  - sudo cp -f Tests/build/travis-ci-apache /etc/apache2/sites-available/default
+  - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
+  # Configure Known
+  - sudo cp -f Tests/build/config_sample.ini $TRAVIS_BUILD_DIR/config.ini
+  - sudo cp -f $TRAVIS_BUILD_DIR/htaccess.dist $TRAVIS_BUILD_DIR/.htaccess
+  - sudo service apache2 restart
+
 services:
   - mongodb
+
+after_failure:
+  - sudo cat $TRAVIS_BUILD_DIR/apache-error.log
 
 notifications:
   email:
