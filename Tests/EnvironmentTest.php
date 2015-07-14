@@ -18,12 +18,18 @@
                 $this->assertTrue(file_exists(dirname(dirname(__FILE__)). '/config.ini'));
             }
             
-            
             /** 
              * Assert that htaccess is there
              */
             function testHTAccessExists() {
                 $this->assertTrue(file_exists(dirname(dirname(__FILE__)). '/.htaccess'));
+            }
+            
+            /**
+             * Assert that the configuration has been loaded correctly
+             */
+            function testKnownConfig() {
+                $this->assertFalse(\Idno\Core\site()->config()->isDefaultConfig());
             }
         }
 
