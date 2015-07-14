@@ -2,7 +2,7 @@
 
 define('KNOWN_UNIT_TEST', true);
 
-// Set some environment
+// Set some environment: Use export KNOWN_DOMAIN / KNOWN_PORT to override from the command line
 $domain = getenv('KNOWN_DOMAIN');
 if (!$domain && isset($_SERVER['SERVER_NAME']))
     $domain = $_SERVER['SERVER_NAME'];
