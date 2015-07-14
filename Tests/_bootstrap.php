@@ -4,14 +4,14 @@ define('KNOWN_UNIT_TEST', true);
 
 // Set some environment
 $domain = getenv('KNOWN_DOMAIN');
-if (!$domain)
+if (!$domain && isset($_SERVER['SERVER_NAME']))
     $domain = $_SERVER['SERVER_NAME'];
 if (!$domain)
     $domain = 'localhost';
 $_SERVER['SERVER_NAME'] = $domain;
 
 $port = getenv('KNOWN_PORT');
-if (!$port)
+if (!$port && isset($_SERVER['SERVER_PORT']))
     $port = $_SERVER['SERVER_PORT'];
 if (!$port)
     $port = 80;
