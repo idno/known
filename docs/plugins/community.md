@@ -34,10 +34,10 @@ listings here do not imply endorsement by the Known project team in any way.
 * [Sitemap.xml](https://github.com/mapkyca/KnownSitemap) - Automatically generate a sitemap.xml for your site, 
     by [Marcus Povey](https://www.marcus-povey.co.uk)
 
-* [Bitly URL shortener](https://github.com/mapkyca/KnownOAuth2) - Allow API integration via OAuth2, 
+* [Bitly URL shortener](https://github.com/mapkyca/KnownBitlyShorten) - Provide short links for shared content, 
     by [Marcus Povey](https://www.marcus-povey.co.uk)
 
-* [OAuth2 Server](https://github.com/mapkyca/KnownBitlyShorten) - Provide short links for shared content, 
+* [OAuth2 Server](https://github.com/mapkyca/KnownOAuth2) - Allow API integration via OAuth2, 
     by [Marcus Povey](https://www.marcus-povey.co.uk)
 
 ### Browser Integration and Apps
