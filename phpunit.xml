@@ -4,6 +4,9 @@
         <testsuite name="Known Basic Unit Tests">
             <directory>./Tests/</directory>
         </testsuite>
+	<testsuite name="Plugins">
+	    <directory>./IdnoPlugins/*/Tests/</directory>
+    	</testsuite>
     </testsuites>
     <php>
         <ini name="display_errors" value="On" />
