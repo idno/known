@@ -63,6 +63,7 @@
                     $message->addTo($email);
                     $message->setSubject(\Idno\Core\site()->session()->currentUser()->getTitle() . " has invited you to join " . \Idno\Core\site()->config()->title . '!');
                     $message->setHTMLBodyFromTemplate('account/invite', array('email' => $email, 'code' => $this->code, 'inviter' => \Idno\Core\site()->session()->currentUser()->getTitle()));
+                    $message->setTextBodyFromTemplate('account/invite', array('email' => $email, 'code' => $this->code, 'inviter' => \Idno\Core\site()->session()->currentUser()->getTitle()));
 
                     return $message->send();
                 }

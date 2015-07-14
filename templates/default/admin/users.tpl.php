@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
 	            <?= $this->draw('admin/menu') ?>
         <h1>Users</h1>
 
@@ -13,15 +13,15 @@
     </div>
 </div>
 <div class="row">
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
         <h3>Manage site users</h3>
         <p>
-            The following users are members of this site.
+            Your site has <strong><?=sizeof($vars['users'])?></strong> user<?php if (sizeof($vars['users']) != 1) { echo 's'; } ?>.
         </p>
     </div>
 </div>
 <div class="row">
-    <div class="pane span10 offset1">
+    <div class="pane col-md-10 col-md-offset-1">
 
         <?php
         if (!empty($vars['users']) && is_array($vars['users'])) {
@@ -33,20 +33,20 @@
                         ?>
 
                         <div class="row <?= strtolower(str_replace('\\', '-', get_class($user))); ?>">
-                            <div class="span3">
-                                <p>
-                                    <img src="<?= $user->getIcon() ?>" style="width: 35px; float: left; margin-right: 10px; margin-left: 10px; margin-top: 3px; margin-bottom: 3em">
+                            <div class="col-sm-4 col-xs-12">
+                                <p class="user-tbl">
+                                    <img src="<?= $user->getIcon() ?>">
                                     <a href="<?= $user->getDisplayURL() ?>"><?= htmlentities($user->getTitle()) ?></a> (<a href="<?= $user->getDisplayURL() ?>"><?= $user->getHandle() ?></a>)<br>
                                     <small><?= $user->email ?></small>
                                 </p>
                             </div>
-                            <div class="span2">
-                                <p>
+                            <div class="col-sm-3 col-xs-6">
+                                <p class="user-tbl">
                                     <small><strong>Joined</strong><br><time datetime="<?= date('r', $user->created) ?>" class="dt-published"><?= date('r', $user->created) ?></time></small>
                                 </p>
                             </div>
-                            <div class="span2">
-                                <p>
+                            <div class="col-sm-2 col-xs-6">
+                                <p class="user-tbl">
                                     <small><strong>Last update posted</strong>
                                         <br>
                                         <?php 
@@ -61,8 +61,8 @@
                                     </small>
                                 </p>
                             </div>
-                            <div class="span2">
-                                <p>
+                            <div class="col-sm-2 col-xs-6">
+                                <p class="user-tbl">
                                     <small>
                                         <?php
                                         if ($user instanceof \Idno\Entities\RemoteUser) {
@@ -90,11 +90,11 @@
                                     </small>
                                 </p>
                             </div>
-                            <div class="span1">
-                                <p style="padding-top: 20px;"><small>
+                            <div class="col-sm-1 col-xs-6">
+                                <p class="user-tbl" style="padding-top: 20px;"><small>
                 <?php
                 if ($user->getUUID() != \Idno\Core\site()->session()->currentUserUUID()) {
-                    echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'admin/users', '<i class="icon-remove"></i> Delete', array('user' => $user->getUUID(), 'action' => 'delete'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? This will delete this user and all their content.'));
+                    echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'admin/users', '<i class="fa fa-times"></i> Delete', array('user' => $user->getUUID(), 'action' => 'delete'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? This will delete this user and all their content.'));
                 } else {
                     echo '&nbsp';
                 }
@@ -119,7 +119,7 @@
 
         ?>
         <div class="row">
-            <div class="span10 offset1">
+            <div class="col-md-10 col-md-offset-1">
 
                 <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/users" method="post">
 
@@ -129,7 +129,7 @@
                         To invite new users to the site, enter one or more email addresses below.
                     </p>
 
-                    <textarea name="invitation_emails" class="span10" placeholder="friend@email.com"></textarea>
+                    <textarea name="invitation_emails" class="form-control" placeholder="friend@email.com"></textarea>
 
                     <p>
                         <input type="submit" class="btn btn-primary" value="Send invite">

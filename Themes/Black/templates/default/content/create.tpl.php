@@ -5,7 +5,7 @@
         ?>
         <div class="buttonBar">
         <div class="row ">
-        <div class="span12">
+        <div class="col-md-12">
         <div id="contentTypeButtonBar">
             <?php
 
@@ -37,35 +37,10 @@
     </div>
     </div>
     <div class="row">
-        <div class="span12">
+        <div class="col-md-12">
             <div id="contentCreate"></div>
         </div>
     </div>
 </div>
-<?php
 
-    if (empty($vars['items']) && sizeof($vars['contentTypes']) <= 1 &&
-        \Idno\Core\site()->session()->isLoggedIn() &&
-        \Idno\Core\site()->session()->currentUser()->isAdmin()) {
-
-        ?>
-        <div class="row" style="margin-top: 5em">
-            <div class="span6 offset3">
-                <div class="welcome">
-                    <p>
-                        <a href="https://withknown.com/" target="_blank"><img src="<?=\Idno\Core\site()->config()->getDisplayURL()?>gfx/logos/logo_k.png" style="width: 4em; border: 0"></a>
-                    </p>
-                    <p>
-                        Welcome to your Known site!<br />
-                        <a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/">Click here to start configuring your site</a>.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-<?php
-
-    }
-
-?>
 <a name="feed"></a>

@@ -69,7 +69,8 @@
                 $this->title = \Idno\Core\site()->currentPage()->getInput('title');
                 $this->body  = \Idno\Core\site()->currentPage()->getInput('body');
                 $this->tags  = \Idno\Core\site()->currentPage()->getInput('tags');
-                $this->setAccess('PUBLIC');
+                $access = \Idno\Core\site()->currentPage()->getInput('access');
+                $this->setAccess($access);
 
                 if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
                     if ($time = strtotime($time)) {
@@ -85,8 +86,10 @@
                             // Extract exif data so we can rotate
                             if (is_callable('exif_read_data') && $_FILES['photo']['type'] == 'image/jpeg') {
                                 try {
-                                    if ($exif = exif_read_data($_FILES['photo']['tmp_name'])) {
-                                        $this->exif = base64_encode(serialize($exif)); // Yes, this is rough, but exif contains binary data that can not be saved in mongo
+                                    if (function_exists('exif_read_data')) {
+                                        if ($exif = exif_read_data($_FILES['photo']['tmp_name'])) {
+                                            $this->exif = base64_encode(serialize($exif)); // Yes, this is rough, but exif contains binary data that can not be saved in mongo
+                                        }
                                     }
                                 } catch (\Exception $e) {
                                     $exif = false;
@@ -107,7 +110,7 @@
 
                                     // Experiment: let's not save thumbnails for GIFs, in order to enable animated GIF posting.
                                     if ($_FILES['photo']['type'] != 'image/gif') {
-                                        if ($thumbnail = \Idno\Entities\File::createThumbnailFromFile($_FILES['photo']['tmp_name'], "{$filename}_{$label}", $size, false, $exif)) {
+                                        if ($thumbnail = \Idno\Entities\File::createThumbnailFromFile($_FILES['photo']['tmp_name'], "{$filename}_{$label}", $size, false)) {
                                             $varname        = "thumbnail_{$label}";
                                             $this->$varname = \Idno\Core\site()->config()->url . 'file/' . $thumbnail;
 

@@ -1,1 +1,1 @@
-<i class="icon-comment-empty"></i>
+<i class="fa fa-comment-o"></i>

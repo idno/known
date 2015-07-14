@@ -1,7 +1,7 @@
 <div class="row profile h-card">
-    <div class="span8 offset2">
-        <div class="row visible-phone">
-            <div class="span2">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="row visible-sm">
+            <div class="col-md-2">
                 <div style="margin-bottom: 2em; margin-top: -2em; text-align: center">
                     <p>
                         <?= $this->draw('entity/User/profile/contact') ?>
@@ -12,21 +12,15 @@
             </div>
         </div>
         <div class="row">
-            <div class="span8 namebadge">
-                <p>
+            <div class="col-md-8 col-md-offset-2 namebadge">
+                <p style="margin: 0px;">
                     <a href="<?= $vars['user']->getDisplayURL() ?>" class="u-url icon-container"><img class="u-photo"
                                                                                                src="<?= $vars['user']->getIcon() ?>"/></a>
                 </p>
             </div>
-            <div class="span8 ">
+            <div class="col-md-8 col-md-offset-2">
                 <div class="row">
-                    <div class="span8">
-                        <h1 class="p-profile">
-                            <a href="<?= $vars['user']->getDisplayURL() ?>"
-                               class="u-url p-name fn"><?= $vars['user']->getTitle() ?></a>
-                        </h1>
-                    </div>
-                    <div class="span2 offset6">
+	                                    <div class="">
                         <?php
 
                             if ($vars['user']->canEdit()) {
@@ -34,7 +28,7 @@
                                 // the user's name over in the next div. TODO: find a better way to do this
                                 // that retains visual consistency.
                                 ?>
-                                <h1><a href="<?= $vars['user']->getEditURL() ?>" class="btn btn-large">Edit</a></h1>
+                                <p style="text-align: center;"><a href="<?= $vars['user']->getEditURL() ?>" class="btn btn-primary">Edit profile</a></p>
                             <?php
 
                             }
@@ -43,7 +37,16 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="span8 url-container">
+                    <div class="">
+                        <h1 class="p-profile">
+                            <a href="<?= $vars['user']->getDisplayURL() ?>"
+                               class="u-url p-name fn"><?= $vars['user']->getTitle() ?></a>
+                        </h1>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="">
                         <div class="e-note"><?php
                                 $description = $vars['user']->getDescription();
                                 if (!empty($description)) {
@@ -59,6 +62,10 @@
                                 <?php
                                 }
                             ?></div>
+                    </div>
+                </div>
+                                <div class="row">
+                    <div style="text-align: center;">
 
                         <?= $this->draw('entity/User/profile/fields') ?>
                     </div>

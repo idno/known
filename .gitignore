@@ -3,6 +3,8 @@
 .idea/*
 Idno/.idea/.name
 
+.vagrant
+
 *.iml
 
 /nbproject/private//nbproject/project.xml
@@ -27,11 +29,11 @@ IdnoPlugins/SoundCloud/
 IdnoPlugins/Twitter/
 IdnoPlugins/LinkedIn/
 IdnoPlugins/GooglePlus/
-IdnoPlugins/FooterJS/
 IdnoPlugins/Google/
-IdnoPlugins/IndiePub/
-IdnoPlugins/StaticPages/
 IdnoPlugins/Markdown/
+IdnoPlugins/ApplyToJoin/
+
+Themes/Ansel/
 
 error_log
 

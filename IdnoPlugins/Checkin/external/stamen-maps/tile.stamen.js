@@ -4,10 +4,11 @@
  * tile.stamen.js v1.2.3
  */
 
-var SUBDOMAINS = " a. b. c. d.".split(" "),
+var SUBDOMAINS = "a. b. c. d.".split(" "),
     MAKE_PROVIDER = function(layer, type, minZoom, maxZoom) {
         return {
-            "url":          ["http://{S}tile.stamen.com/", layer, "/{Z}/{X}/{Y}.", type].join(""),
+            //"url":          ["http://{S}tile.stamen.com/", layer, "/{Z}/{X}/{Y}.", type].join(""),
+	    "url":          ["https://stamen-tiles-{S}a.ssl.fastly.net/", layer, "/{Z}/{X}/{Y}.", type].join(""),
             "type":         type,
             "subdomains":   SUBDOMAINS.slice(),
             "minZoom":      minZoom,
@@ -25,7 +26,7 @@ var SUBDOMAINS = " a. b. c. d.".split(" "),
         "terrain":      MAKE_PROVIDER("terrain", "jpg", 4, 18),
         "watercolor":   MAKE_PROVIDER("watercolor", "jpg", 1, 16),
         "trees-cabs-crime": {
-            "url": "http://{S}.tiles.mapbox.com/v3/stamen.trees-cabs-crime/{Z}/{X}/{Y}.png",
+            "url": "https://stamen-tiles-{S}.a.ssl.fastly.net/v3/stamen.trees-cabs-crime/{Z}/{X}/{Y}.png",
             "type": "png",
             "subdomains": "a b c d".split(" "),
             "minZoom": 11,

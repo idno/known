@@ -3,10 +3,16 @@
 
 <IfModule mod_rewrite.c>
     RewriteEngine on
-    RewriteBase /
+    #RewriteBase /
+
+    RewriteCond %{ENV:BASE} ^$
+    RewriteCond $1::%{REQUEST_URI} ^(.*)::(.*?)\1$
+    RewriteRule ^(.*)$ - [ENV=BASE:%2]
+
+    RewriteRule ^js/canary\.js$ %{ENV:BASE}/js/default.js [L]
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)$ index.php?/$1 [L,QSA]
+    RewriteRule ^(.*)$ %{ENV:BASE}/index.php?/$1 [L,QSA]
     RewriteRule ^Uploads.* - [F]
 </IfModule>
 <IfModule mod_php5.c>

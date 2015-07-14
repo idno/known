@@ -53,6 +53,7 @@
 
                             /* @var \Idno\Entities\User $user */
                             $user->setPassword($password);
+                            $user->clearPasswordRecoveryCode();
                             $user->save();
                             \Idno\Core\site()->session()->addMessage("Your password was reset!");
 
@@ -60,7 +61,7 @@
 
                     }
                 } else {
-                    \Idno\Core\site()->session()->addErrorMessage('Sorry, your passwords either don\'t match, or are too weak', 'alert-error');
+                    \Idno\Core\site()->session()->addErrorMessage('Sorry, your passwords either don\'t match, or are too weak');
                     $this->forward($_SERVER['HTTP_REFERER']);
                 }
 

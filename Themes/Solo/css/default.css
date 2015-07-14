@@ -31,7 +31,7 @@ li {
     font-size: 1.8em;
     margin: 0; padding: 0;
 }
-.navbar-inverse .navbar-inner {
+.navbar-default {
     background-color: #111; /* background color will be black for all browsers */
     background-image: none;
     background-repeat: no-repeat;
@@ -80,4 +80,37 @@ blockquote {
 
 .navbar .nav .dropdown-toggle .caret {
     margin-top: 11px;
+}
+
+/* For B3 */
+
+.navbar-default .navbar-brand {
+    color: #fff;
+}
+
+.navbar-brand, .navbar-nav > li > a {
+    text-shadow: none;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #fff;
+}
+
+.navbar-nav > li > .nav > li > a {
+    color: #fff;
+    padding-bottom: 13px;
+    padding-top: 13px;
+}
+
+.navbar .nav .dropdown-toggle .caret {
+    margin-top: 0;
+}
+.dropdown-menu {
+	margin: 0 0 0;
+}
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #fff;
+}
+.navbar-default .navbar-toggle {
+    border-color: transparent;
 }

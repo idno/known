@@ -4,9 +4,11 @@
 
         use Idno\Common\Page;
 
-        class Refresh extends Page {
+        class Refresh extends Page
+        {
 
-            function getContent() {
+            function getContent()
+            {
 
                 $this->gatekeeper();
                 \Idno\Core\site()->reader()->parseAndSaveFeeds();

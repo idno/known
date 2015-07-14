@@ -1,1 +1,2 @@
-<link href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>css/default.css" rel="stylesheet">
+<link href="<?= \Idno\Core\site()->config()->getStaticURL() ?>css/default.css?20150123" rel="stylesheet">
+<link href="<?= \Idno\Core\site()->config()->getStaticURL() ?>css/defaultb3.css?20150123" rel="stylesheet">

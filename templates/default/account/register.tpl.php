@@ -1,11 +1,11 @@
 <div class="row">
 
-    <div class="span8 offset2">
+    <div class="col-md-8 col-md-offset-2">
         <h3 class="register">
             Hello there!  
         </h3>
         <h4 class="register">Create a new account to get started.</h4>
-        <div class="hero-unit">
+        <div class="jumbotron">
             <p>
 
             </p>

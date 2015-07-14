@@ -9,7 +9,7 @@
         <a href="#" onclick="makeRichText('#<?=$unique_id?>'); $('#plainTextSwitch').show(); $('#richTextSwitch').hide(); return false;" id="richTextSwitch" style="display:none">Switch to rich text editor</a></small></p>
 
 <textarea name="<?=$vars['name']?>"  placeholder="Tell your story"
-          class="span8 bodyInput mentionable wysiwyg" id="<?=$unique_id?>"><?= (htmlspecialchars($this->autop($vars['value']))) ?></textarea>
+          class="bodyInput mentionable wysiwyg form-control" id="<?=$unique_id?>"><?= (htmlspecialchars($this->autop($vars['value']))) ?></textarea>
 
 <?php
 
@@ -39,7 +39,7 @@
         }
 
         var regex = /\S+/g;
-        var wordCount = value.trim().replace(regex, ' ').split(' ').length;
+        var wordCount = knownStripHTML(value.trim()).split(' ').length; //value.trim().replace(regex, ' ').split(' ').length;
         var totalChars = value.length;
         var charCount = value.trim().length;
         var charCountNoSpace = value.replace(regex, '').length;
@@ -93,7 +93,7 @@
     function filePickerDialog(callback, value, meta) {
         tinymce.activeEditor.windowManager.open({
             title: 'File Manager',
-            url: '<?=\Idno\Core\site()->config()->getDisplayURL()?>file/picker/?type=' + meta.filetype,
+            url: '<?=\Idno\Core\site()->config()->getDisplayURL()?>filepicker/?type=' + meta.filetype,
             width: 650,
             height: 550
         }, {

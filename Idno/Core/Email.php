@@ -115,6 +115,21 @@
 
                 return $this->setHTMLBody($body);
             }
+            
+            /**
+             * Set the text only component of an email.
+             * @param type $template_name
+             * @param type $vars
+             * @return mixed
+             */
+            function setTextBodyFromTemplate($template_name, $vars = array())
+            {
+                $t = clone site()->template();
+                $t->setTemplateType('email-text');
+                $body = $t->__($vars)->draw($template_name);
+
+                return $this->setTextBody($body);
+            }
 
             /**
              * Sets the plain text body of the message
@@ -142,13 +157,20 @@
                             }
                         }
                     } else {
-                        $transport = \Swift_SmtpTransport::newInstance(); // TODO: allow this to be extended to allow for external mail services
+                        $transport = \Swift_SmtpTransport::newInstance();
                     }
                     if (!empty(site()->config()->smtp_port)) {
                         $transport->setPort(site()->config()->smtp_port);
                     }
-                    if (!empty(site()->config()->smtp_tls)) {
-                        $transport->setEncryption('tls');
+                    if (!empty(site()->config()->smtp_secure)) {
+                        switch (site()->config()->smtp_secure) {
+                            case 'tls':
+                                $transport->setEncryption('tls');
+                                break;
+                            case 'ssl':
+                                $transport->setEncryption('ssl');
+                                break;
+                        }
                     }
                     $mailer = \Swift_Mailer::newInstance($transport);
 
@@ -157,11 +179,14 @@
                         $this->message->setFrom($from_email, site()->config()->title);
                     }
 
-                    return $mailer->send($this->message);
+                    return $mailer->send(site()->triggerEvent('email/send', ['email' => $this], $this->message));
+
                 } catch (\Exception $e) {
-                    //site()->session()->addMessage("Something went wrong and we couldn't send the email.");
-                    //site()->session()->addMessage($e->getMessage());
+                    // Lets log errors rather than silently drop them
+                    \Idno\Core\site()->logging()->log($e->getMessage(), LOGLEVEL_ERROR);
                 }
+
+                return 0;
             }
 
         }

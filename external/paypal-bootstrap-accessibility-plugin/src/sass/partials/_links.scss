@@ -1,0 +1,5 @@
+a {
+  &:focus {
+  	@include outline(1px);
+  }
+}

@@ -1,7 +1,7 @@
-<form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>file/picker/" method="post"
+<form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>filepicker/" method="post"
       enctype="multipart/form-data">
     <div class="row">
-        <div class="span10 offset1">
+        <div class="col-md-10 col-md-offset-1">
             <div style="text-align: center">
                 <h2>
                     Upload an image
@@ -10,21 +10,22 @@
                 <div id="photo-preview" style="display: inline-block; margin-top: 1em; margin-bottom: 1em">
                     <div style="width: 300px; height: 200px; background-color: #ccc;">&nbsp;</div>
                 </div>
-
+            </div>
+			<div class="col-md-10 col-md-offset-1" style="text-align: center">
                 <label>
-                    <div id="photo-preview"></div>
+                    <div id="photo-preview" ></div>
                                         <span class="btn btn-primary btn-file">
-                                            <i class="icon-camera"></i> <span
+                                            <i class="fa fa-camera"></i> <span
                                                 id="photo-filename">Select an image</span>
                                             <input type="file" name="file" id="photo"
-                                                   class="span9"
+                                                   class="col-md-9"
                                                    accept="image/*;capture=camera"
                                                    onchange="photoPreview(this)"/>
                                         </span>
                 </label>
 
                 <p>
-                    <?= \Idno\Core\site()->actions()->signForm('/file/picker/'); ?>
+                    <?= \Idno\Core\site()->actions()->signForm('/filepicker/'); ?>
                     <input type="submit" value="Upload this image" class="btn btn-primary" style="display:none"
                            id="upload-button">
                 </p>
@@ -34,6 +35,10 @@
     </div>
 </form>
 <script>
+    $(document).ready(function() {
+        $('#photo').click();
+    })
+
     //if (typeof photoPreview !== function) {
     function photoPreview(input) {
 

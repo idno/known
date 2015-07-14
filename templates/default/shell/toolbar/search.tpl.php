@@ -12,14 +12,16 @@
     }
 
 ?>
-<form class="navbar-search pull-left" action="<?=$action?>" method="get">
-    <input type="search" class="search-query" name="q" placeholder="Search" value="<?php
+<form class="navbar-form navbar-left" action="<?=$action?>" method="get" role="search">
+    <div class="form-group">
+        <input type="search" class="search-query form-control" name="q" placeholder="Search" tabindex="2" value="<?php
 
-        if (!empty($currentPage)) {
-            if ($q = $currentPage->getInput('q')) {
-                echo htmlspecialchars($q);
+            if (!empty($currentPage)) {
+                if ($q = $currentPage->getInput('q')) {
+                    echo htmlspecialchars($q);
+                }
             }
-        }
 
-    ?>">
+        ?>">
+    </div>
 </form>

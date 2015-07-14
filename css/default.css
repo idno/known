@@ -21,6 +21,10 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: 600;
 }
 
+img {
+    max-width: 100%;
+}
+
 .beforecontent {
     margin-bottom: 5em;
 }
@@ -64,11 +68,11 @@ h1, h2, h3, h4, h5, h6 {
     Page shell
 */
 
-.nav img {
+.navbar img {
     width: 1.5em;
 }
 
-.nav .icon-container {
+.navbar .icon-container {
     margin-top: 0.3em;
     margin-right: 1em;
     margin-left: 1em;
@@ -227,7 +231,6 @@ h1, h2, h3, h4, h5, h6 {
     margin-right: 0.25em;
 }
 
-
 .idno-object .interactions a:hover {
     color: #333;
     text-decoration: none;
@@ -236,6 +239,15 @@ h1, h2, h3, h4, h5, h6 {
 .idno-object .citation {
     color: #ccc;
 }
+
+.h-cite .h-card {
+    text-align: left;
+}
+
+.h-cite .e-content {
+    margin-bottom: 0;
+}
+
 
 .owner .u-photo {
     height: 100%;
@@ -360,7 +372,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .profile {
-    margin-top: 4em;
+    margin-top: 0.5em;
     margin-bottom: 4em;
 }
 
@@ -721,7 +733,7 @@ div.pane div.row:nth-of-type(odd) {
 .btn-default {
     background-color: #bbbbbb;
     border-color: #bbbbbb;
-    color: #333333;
+    color: #666666;
     text-shadow: none;
     background-image: none;
     background-repeat: repeat-x;
@@ -808,22 +820,22 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     text-shadow: none;
 }
 
-.navbar-inverse .navbar-inner {
+.navbar-inverse  {
     background-color: #ffffff;
     background-image: none;
     background-repeat: repeat-x;
     border-color: #ffffff;
 }
 
-.navbar-inverse .brand:hover, .navbar-inverse .nav > li > a:hover, .navbar-inverse .brand:focus, .navbar-inverse .nav > li > a:focus {
+.navbar-inverse .brand:hover, .navbar-inverse .nav > li > a:hover, .navbar-inverse .brand:focus, .navbar-inverse .navbar > li > a:focus {
     color: #666;
 }
 
 .navbar .brand {
 	font-weight: 400;
 	font-size: 28px;
+    text-shadow: none;
 }
-
 
 .navbar-inverse .navbar-search .search-query {
     background-color: #ffffff;
@@ -873,8 +885,8 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     text-decoration: none;
 }
 
-.navbar-inner {
-    background-color: #ffffff;
+.navbar {
+    background-color: #fff;
     background-image: none;
     background-repeat: repeat-x;
     border: none;
@@ -890,10 +902,11 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     box-shadow: none;
     color: #222222;
     text-decoration: none;
-    font-weight: 700;
+    font-weight: 400;
 }
 
-.navbar .nav > li > a {
+.brand,
+.navbar-header > li > a {
 	text-shadow: none;
 }
 
@@ -978,18 +991,16 @@ small {
 	background-color: #ffffff;
     background-image: none;
     box-shadow: none;
-    border-color: none;
+    border: 0;
     text-shadow: none;
-    border-style: none;
 }
 
 .note-style .btn:hover, .note-fancy .btn:hover, .note-fontsize .btn:hover, .note-color .btn:hover, .note-para .btn:hover, .note-codeview .btn:hover {
 	background-color: #73b2e3;
     background-image: none;
     box-shadow: none;
-    border-color: none;
+    border: 0;
     text-shadow: none;
-    border-style: none;
     color: #ffffff;
 }
 
@@ -1115,6 +1126,10 @@ p.feedback {
     font-size: 0.9em !important;
 }
 
+.idno-entry-helper .robot-head p img {
+    width: 100%;
+}
+
 .idno-entry-helper .robot-murmur p {
     font-size: 1.2em;
 }
@@ -1124,11 +1139,11 @@ p.feedback {
     font-size: 0.75em;
 }
 
-.icon-heart {
+.fa-heart {
 	color: #9f111b;
 }
 
-.icon-heart:hover {
+.fa-heart:hover {
 	color: #af474f;
 }
 
@@ -1303,7 +1318,7 @@ a.connect {
     font-size: 24px;
     margin-bottom: 5px;
     margin-top: 15px;
-    padding: 15px 15px 10px 15px;
+    padding: 10px 10px 5px 10px;
     text-align: center;
     width: 100%;
 }
@@ -1592,7 +1607,7 @@ tr.items {
     background-size: 40px 40px;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+[class^="fa fa-"], [class*=" fa fa-"] {
 	width: 1.5em;
 	background-image:none;
 }
@@ -1610,5 +1625,17 @@ tr.items {
     border-top-right-radius: 0px;
 }
 
+/* Updates for Access Permissions */
 
+a.access {
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #cccccc;
+	box-shadow: none;
+	text-shadow: none;
+	color: #555555;
+}
 
+.access .caret {
+	border-top: 4px solid #555;
+}

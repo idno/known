@@ -69,19 +69,57 @@
                 curl_setopt($curl_handle, CURLOPT_USERAGENT, "Known https://withknown.com");
                 curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
                 curl_setopt($curl_handle, CURLINFO_HEADER_OUT, 1);
-                curl_setopt($curl_handle, CURLOPT_SSL_VERIFYPEER, 1);
-                curl_setopt($curl_handle, CURLOPT_SSL_VERIFYHOST, 2);
                 curl_setopt($curl_handle, CURLOPT_HEADER, 1);
+
+                // Allow unsafe ssl verify
+                if (!empty(\Idno\Core\site()->config()->disable_ssl_verify)) {
+                    curl_setopt($curl_handle, CURLOPT_SSL_VERIFYPEER, 0);
+                    curl_setopt($curl_handle, CURLOPT_SSL_VERIFYHOST, 0);
+                } else {
+                    curl_setopt($curl_handle, CURLOPT_SSL_VERIFYPEER, 1);
+                    curl_setopt($curl_handle, CURLOPT_SSL_VERIFYHOST, 2);
+                }
+
 
                 // If we're calling this function as a logged in user, then we need to store cookies in a cookiejar
                 if ($user = \Idno\Core\site()->session()->currentUser()) {
                     // Save cookie to user specific cookie jar, using some level of obfuscation
-                    curl_setopt($curl_handle, CURLOPT_COOKIEJAR, \Idno\Core\site()->config()->cookie_jar . md5($user->getUUID() . \Idno\Core\site()->config()->site_secret)); 
+                    curl_setopt($curl_handle, CURLOPT_COOKIEJAR, \Idno\Core\site()->config()->cookie_jar . md5($user->getUUID() . \Idno\Core\site()->config()->site_secret));
                 }
 
                 // Proxy connection string provided
                 if (!empty(\Idno\Core\site()->config()->proxy_string)) {
                     curl_setopt($curl_handle, CURLOPT_PROXY, \Idno\Core\site()->config()->proxy_string);
+
+                    // If proxy type not specified by command string (as some settings can't be), allow for proxy type to be passed.
+                    if (!empty(\Idno\Core\site()->config()->proxy_type)) {
+                        $type = 0;
+                        switch (\Idno\Core\site()->config()->proxy_type) {
+
+                            case 'socks4':
+                            case 'CURLPROXY_SOCKS4':
+                                $type = CURLPROXY_SOCKS4;
+                                break;
+
+                            case 'socks5':
+                            case 'CURLPROXY_SOCKS5':
+                                $type = CURLPROXY_SOCKS5;
+                                break;
+
+                            case 'socks5-hostname':
+                            case 'CURLPROXY_SOCKS5_HOSTNAME':
+                                $type = 7;
+                                break; // Use proxy to resolve DNS, but this isn't defined in current versions of curl
+
+                            case 'http':
+                            case 'CURLPROXY_HTTP' :
+                            default :
+                                $type = CURLPROXY_HTTP;
+                                break;
+                        }
+
+                        curl_setopt($curl_handle, CURLOPT_PROXYTYPE, $type);
+                    }
                 }
 
                 // Allow plugins and other services to extend headers, allowing for plugable authentication methods on calls
@@ -97,12 +135,11 @@
 
                 $buffer      = self::webservice_exec($curl_handle);
                 $http_status = curl_getinfo($curl_handle, CURLINFO_HTTP_CODE);
-                
+
                 // Get HTTP Header / body
                 $header_size = curl_getinfo($curl_handle, CURLINFO_HEADER_SIZE);
-                $header = substr($buffer, 0, $header_size);
-                $content = substr($buffer, $header_size);
-                
+                $header      = substr($buffer, 0, $header_size);
+                $content     = substr($buffer, $header_size);
 
                 if ($error = curl_error($curl_handle)) {
                     \Idno\Core\site()->logging->log($error, LOGLEVEL_ERROR);
@@ -224,7 +261,7 @@
             static function webservice_exec($ch, &$maxredirect = null)
             {
 
-                $mr = $maxredirect === null ? 5 : intval($maxredirect);
+                $mr           = $maxredirect === null ? 5 : intval($maxredirect);
                 $open_basedir = ini_get('open_basedir');
 
                 if (empty($open_basedir)
@@ -290,7 +327,12 @@
                     }*/
                 }
 
-                return curl_exec($ch);
+                try {
+                    return curl_exec($ch);
+                } catch (\Exception $e) {
+                    \Idno\Core\site()->logging()->log($e->getMessage());
+                    return false;
+                }
             }
 
         }

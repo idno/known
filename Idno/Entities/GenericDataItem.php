@@ -20,27 +20,29 @@
             {
                 $this->datatype = $datatype;
             }
-            
+
             public function getDatatype()
             {
                 return $this->datatype;
             }
-            
-            public function save($add_to_feed = false, $feed_verb = 'post') {
+
+            public function save($add_to_feed = false, $feed_verb = 'post')
+            {
                 if (empty($this->datatype)) {
                     throw new \Exception("GenericDataItem classes must have a datatype label set.");
                 }
-                
+
                 return parent::save($add_to_feed, $feed_verb);
             }
-            
+
             /**
              * Retrieve a bit of generic data by it's data type
              * @param type $datatype
              */
-            public static function getByDatatype($datatype, $search = array(), $fields = array(), $limit = 10, $offset = 0) {
+            public static function getByDatatype($datatype, $search = array(), $fields = array(), $limit = 10, $offset = 0)
+            {
                 $search = array_merge($search, ['datatype' => $datatype]);
-                
+
                 return static::getFromX(get_called_class(), $search, $fields, $limit, $offset);
             }
         }

@@ -12,19 +12,18 @@
     }
 
 ?>
-<div class="">
-    <h2 class="p-bookmark"><a href="<?= $vars['object']->body;?>" rel="bookmark" target="_blank"><?=$this->parseURLs(($body),$rel)?></a></h2>
+<div class="known-bookmark">
+    <h2 class="p-bookmark"><a href="<?= $vars['object']->body;?>" rel="bookmark" target="_blank"><?=$this->parseURLs(htmlentities(strip_tags($body)),$rel)?></a></h2>
     <?php
 
         if (!empty($vars['object']->description)) {
-        ?>
-            <p><?=$this->parseURLs($this->parseHashtags($vars['object']->description),$rel)?></p>
-        <?php
+            echo $this->__(['value' => $vars['object']->description, 'object' => $vars['object'], 'rel' => $rel])->draw('forms/output/richtext');
+        
         }
         
         if (!empty($vars['object']->tags)) {
         ?>
-            <p class="tag-row"><i class="icon-tag"></i><?=$this->parseURLs($this->parseHashtags($vars['object']->tags),$rel)?></p>
+            <p class="tag-row"><i class="icon-tag"></i><?=$this->parseURLs($this->parseHashtags(htmlentities(strip_tags($vars['object']->tags))),$rel)?></p>
         <?php
         }
 

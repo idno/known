@@ -17,7 +17,7 @@
 
     <div class="row">
 
-        <div class="span8 offset2 edit-pane">
+        <div class="col-md-8 col-md-offset-2 edit-pane">
             
             <p id="counter" style="display:none" class="pull-right">
                 <span class="count"></span>
@@ -35,7 +35,7 @@
                 ?>
             </h4>
 
-            <textarea required name="body" id="body" class="content-entry mentionable span8" placeholder="Share a quick note or comment. You can use links and hashtags."><?php
+            <textarea required name="body" id="body" class="content-entry mentionable form-control" placeholder="Share a quick note or comment. You can use links and hashtags."><?php
                         
                 if (!empty($vars['body'])) {
                     echo htmlspecialchars($vars['body']);
@@ -64,12 +64,14 @@
             <?php
             }
             ?>
-
+            
             <p>
                 <small><a id="inreplyto-add" href="#"
-                          onclick="$('#inreplyto').append('<span><input required type=&quot;url&quot; name=&quot;inreplyto[]&quot; value=&quot;&quot; placeholder=&quot;Add the URL that you\'re replying to&quot; class=&quot;span8&quot; onchange=&quot;adjust_content(this.value)&quot; /> <small><a href=&quot;#&quot; onclick=&quot;$(this).parent().parent().remove(); return false;&quot;><icon class=&quot;icon-remove&quot;></icon> Remove URL</a></small><br /></span>'); return false;"><icon class="icon-reply"></icon>
+                          onclick="$('#inreplyto').append('<span><input required type=&quot;url&quot; name=&quot;inreplyto[]&quot; value=&quot;&quot; placeholder=&quot;Add the URL that you\'re replying to&quot; class=&quot;form-control&quot; onchange=&quot;adjust_content(this.value)&quot; /> <small><a href=&quot;#&quot; onclick=&quot;$(this).parent().parent().remove(); return false;&quot;><icon class=&quot;fa fa-times&quot;></icon> Remove URL</a></small><br /></span>'); return false;"><i class="fa fa-reply"></i>
                         Reply to a site</a></small>
             </p>
+            
+            
             <div id="inreplyto">
                 <?php
                     if (!empty($vars['object']->inreplyto)) {
@@ -78,9 +80,9 @@
                             <p>
                                 <input type="url" name="inreplyto[]"
                                        placeholder="Add the URL that you're replying to"
-                                       class="span8 inreplyto" value="<?= htmlspecialchars($inreplyto) ?>" onchange="adjust_content(this.value)"/>
+                                       class="form-control inreplyto" value="<?= htmlspecialchars($inreplyto) ?>" onchange="adjust_content(this.value)"/>
                                 <small><a href="#"
-                                          onclick="$(this).parent().parent().remove(); return false;"><icon class="icon-remove"></icon> 
+                                          onclick="$(this).parent().parent().remove(); return false;"><i class="fa fa-times"></i> 
                                           Remove URL</a></small>
                             </p>
                         <?php
@@ -89,15 +91,17 @@
                 ?>
             </div>
 
+            <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to" value="<?= \Idno\Core\site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('note'); ?>
+            <?= $this->draw('content/access'); ?>
+
             <p class="button-bar">
                 <?= \Idno\Core\site()->actions()->signForm('/status/edit') ?>
-                <?= $this->draw('content/access'); ?>
                 <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
                 <input type="submit" class="btn btn-primary" value="Publish"/>
             </p>
         </div>
-        <div class="span2">
+        <div class="col-md-2">
             <p id="counter" style="display:none">
                 <span class="count"></span>
             </p>
@@ -108,7 +112,7 @@
 </form>
 <script>
     function adjust_content(url) {
-        var username = url.match(/https?:\/\/(www\.)?twitter\.com\/(#!\/)?@?([^\/]*)/)[3];
+        var username = url.match(/https?:\/\/([a-z]+\.)?twitter\.com\/(#!\/)?@?([^\/]*)/)[3];
         if (username != null) {
             if ($('#body').val().search('@' + username) == -1) {
                 $('#body').val('@' + username + ' ' + $('#body').val());
@@ -138,7 +142,7 @@
         $("#inreplyto-add").on('dragenter', function(e) {
             e.stopPropagation();
             e.preventDefault();
-            $('#inreplyto').append('<span><input required type="url" name="inreplyto[]" value="" placeholder="The website address of the post you\'re replying to" class="span8 inreplyto" onchange="adjust_content(this.value)" /> <small><a href="#" onclick="$(this).parent().parent().remove(); return false;">Remove</a></small><br /></span>');
+            $('#inreplyto').append('<span><input required type="url" name="inreplyto[]" value="" placeholder="The website address of the post you\'re replying to" class="col-md-8 inreplyto" onchange="adjust_content(this.value)" /> <small><a href="#" onclick="$(this).parent().parent().remove(); return false;">Remove</a></small><br /></span>');
         });
     });
 </script>

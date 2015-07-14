@@ -27,4 +27,12 @@
     $form = ob_get_clean();
     \Idno\Core\site()->template()->extendTemplateWithContent('shell/footer', $form);
 
+    // Prevent scope pollution
+    unset($this->vars['confirm-text']);
+    unset($this->vars['class']);
+    unset($this->vars['confirm']);
+    unset($this->vars['url']);
+    unset($this->vars['method']);
+    unset($this->vars['data']);
+    unset($this->vars['label']);
 ?>

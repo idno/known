@@ -1,3 +1,4 @@
+<ul class="nav navbar-nav">
 <?php
 
     $content_types = \Idno\Common\ContentType::getRegistered();
@@ -10,10 +11,9 @@
         }
 
         ?>
-
-        <ul class="nav">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        
+            <li class="dropdown" tabindex="3">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                     <?php
 
                         if (!empty($vars['content'])) {
@@ -23,9 +23,9 @@
                         }
 
                     ?>
-                    <b class="caret"></b>
+                    <span class="caret"></span>
                 </a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu" role="menu">
                     <li><a href="<?= \Idno\Core\site()->config()->getDisplayURL() . $search ?>"><span class="dropdown-menu-icon">&nbsp;</span>
                             Default content</a></li>
                     <li><a href="<?= \Idno\Core\site()->config()->getDisplayURL() . 'content/all/' . $search ?>"><span class="dropdown-menu-icon">&nbsp;</span>
@@ -45,12 +45,14 @@
                         }
 
                     ?>
+
+
                 </ul>
             </li>
-        </ul>
 
     <?php
 
     }
 
 ?>
+</ul>

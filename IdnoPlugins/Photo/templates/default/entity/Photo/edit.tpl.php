@@ -3,7 +3,7 @@
 
         <div class="row">
 
-            <div class="span8 offset2 edit-pane">
+            <div class="col-md-8 col-md-offset-2 edit-pane">
 
                 <h4>
                     <?php
@@ -17,51 +17,55 @@
                     ?>
                 </h4>
 
-                <p>
-                    <?php
+                <?php
 
-                        if (empty($vars['object']->_id)) {
+                    if (empty($vars['object']->_id)) {
 
-                            ?>
-                            <label>
-                                <div id="photo-preview"></div>
-                                    <span class="btn btn-primary btn-file">
-                                        <i class="icon-camera"></i> <span id="photo-filename">Select a photo</span> <input type="file" name="photo" id="photo"
-                                                                                    class="span9"
-                                                                                    accept="image/*;capture=camera"
-                                                                                    onchange="photoPreview(this)"/>
+                        ?>
+                        <div id="photo-preview"></div>
+                        <p>
+                                <span class="btn btn-primary btn-file">
+                                        <i class="fa fa-camera"></i> <span
+                                        id="photo-filename">Select a photo</span> <input type="file" name="photo"
+                                                                                         id="photo"
+                                                                                         class="col-md-9 form-control"
+                                                                                         accept="image/*;capture=camera"
+                                                                                         onchange="photoPreview(this)"/>
 
                                     </span>
-                            </label>
-                        <?php
+                        </p>
 
-                        }
+                    <?php
 
-                    ?>
-                </p>
-                <p>
-                    <label>
-                        Title<br/>
-                        <input type="text" name="title" id="title"
-                               value="<?= htmlspecialchars($vars['object']->title) ?>" class="span8"
-                               placeholder="Give it a title"/>
-                    </label>
-                </p>
+                    }
 
-                <p>
-                    <label>
-                        Description<br/>
-                        <textarea name="body" id="description" class="span8 bodyInputShort mentionable"
+                ?>
+
+                <div class="content-form">
+                    <label for="title">
+                        Title</label>
+                    <input type="text" name="title" id="title"
+                           value="<?= htmlspecialchars($vars['object']->title) ?>" class="form-control"
+                           placeholder="Give it a title"/>
+
+                </div>
+
+                <div class="content-form">
+                    <label for="description">
+                        Description</label>
+                        <textarea name="body" id="description" class="col-md-8 bodyInputShort mentionable form-control"
                                   placeholder="Add a caption"><?= htmlspecialchars($vars['object']->body) ?></textarea>
-                    </label>
-                </p>
-                <?=$this->draw('entity/tags/input');?>
+
+                </div>
+                <?= $this->draw('entity/tags/input'); ?>
                 <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('image'); ?>
+                <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to"
+                                                                  value="<?= \Idno\Core\site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
+                <?= $this->draw('content/access'); ?>
                 <p class="button-bar ">
                     <?= \Idno\Core\site()->actions()->signForm('/photo/edit') ?>
                     <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
                     <input type="submit" class="btn btn-primary" value="Publish"/>
-                    <?= $this->draw('content/access'); ?>
                 </p>
             </div>
 

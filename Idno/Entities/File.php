@@ -81,24 +81,42 @@
                         if (self::isImage($file_path)) {
                             $photo_information = getimagesize($file_path);
                             if (!empty($photo_information[0]) && !empty($photo_information[1])) {
-                                $metadata['width'] = $photo_information[0];
+                                $metadata['width']  = $photo_information[0];
                                 $metadata['height'] = $photo_information[1];
                             }
                         }
 
                         // Do we want to remove EXIF data?
-                        if (!empty($photo_information) && $destroy_exif)
-                        {
+                        if (!empty($photo_information) && $destroy_exif) {
                             $tmpfname = $file_path;
                             switch ($photo_information['mime']) {
                                 case 'image/jpeg':
-                                    $image = imagecreatefromjpeg($file_path);
+                                    $image = imagecreatefromjpeg($tmpfname);
+                                    
+                                    // Since we're stripping Exif, we need to manually adjust orientation of main image
+                                    if (function_exists('exif_read_data')) {
+                                        $exif = exif_read_data($tmpfname);
+                                        if (!empty($exif['Orientation'])) {
+                                            switch ($exif['Orientation']) {
+                                                case 8:
+                                                    $image = imagerotate($image, 90, 0);
+                                                    break;
+                                                case 3:
+                                                    $image = imagerotate($image, 180, 0);
+                                                    break;
+                                                case 6:
+                                                    $image = imagerotate($image, -90, 0);
+                                                    break;
+                                            }
+                                        }
+                                    }
+                                    
                                     imagejpeg($image, $tmpfname);
                                     break;
                             }
-                            
+
                         }
-                        
+
                         if ($id = $fs->storeFile($file_path, $metadata, $metadata)) {
                             if (!$return_object) {
                                 return $id;
@@ -132,10 +150,9 @@
              * @param string $filename Filename that the file should have on download.
              * @param int $max_dimension The maximum number of pixels the thumbnail image should be along its longest side.
              * @param bool $square If this is set to true, the thumbnail will be made square.
-             * @param mixed $exif Optionally provide exif data for the image, if not provided then this function will attempt to extract it
              * @return bool|id
              */
-            public static function createThumbnailFromFile($file_path, $filename, $max_dimension = 800, $square = false, $exif = null)
+            public static function createThumbnailFromFile($file_path, $filename, $max_dimension = 800, $square = false)
             {
 
                 $thumbnail = false;
@@ -167,27 +184,27 @@
                             }
                             if ($square) {
                                 if ($width > $height) {
-                                    $new_height = $max_dimension;
-                                    $new_width = $max_dimension;
+                                    $new_height      = $max_dimension;
+                                    $new_width       = $max_dimension;
                                     $original_height = $photo_information[1];
-                                    $original_width = $photo_information[1];
-                                    $offset_x = round(($photo_information[0] - $photo_information[1]) / 2);
-                                    $offset_y = 0;
+                                    $original_width  = $photo_information[1];
+                                    $offset_x        = round(($photo_information[0] - $photo_information[1]) / 2);
+                                    $offset_y        = 0;
                                 } else {
-                                    $new_height = $max_dimension;
-                                    $new_width = $max_dimension;
+                                    $new_height      = $max_dimension;
+                                    $new_width       = $max_dimension;
                                     $original_height = $photo_information[0];
-                                    $original_width = $photo_information[0];
-                                    $offset_x = 0;
-                                    $offset_y = round(($photo_information[1] - $photo_information[0]) / 2);
+                                    $original_width  = $photo_information[0];
+                                    $offset_x        = 0;
+                                    $offset_y        = round(($photo_information[1] - $photo_information[0]) / 2);
                                 }
                             } else {
-                                $new_height = $height;
-                                $new_width = $width;
+                                $new_height      = $height;
+                                $new_width       = $width;
                                 $original_height = $photo_information[1];
-                                $original_width = $photo_information[0];
-                                $offset_x = 0;
-                                $offset_y = 0;
+                                $original_width  = $photo_information[0];
+                                $offset_x        = 0;
+                                $offset_y        = 0;
                             }
                             $image_copy = imagecreatetruecolor($new_width, $new_height);
                             imagealphablending($image_copy, false);
@@ -195,33 +212,10 @@
                             imagecopyresampled($image_copy, $image, 0, 0, $offset_x, $offset_y, $new_width, $new_height, $original_width, $original_height);
 
 
-                            if (is_callable('exif_read_data') && $photo_information['mime'] == 'image/jpeg') {
-                                try {
-                                    if (!$exif)
-                                        $exif = exif_read_data($file_path);
-                                    if (!empty($exif['Orientation'])) {
-                                        switch ($exif['Orientation']) {
-                                            case 8:
-                                                $image_copy = imagerotate($image_copy, 90, 0);
-                                                break;
-                                            case 3:
-                                                $image_copy = imagerotate($image_copy, 180, 0);
-                                                break;
-                                            case 6:
-                                                $image_copy = imagerotate($image_copy, -90, 0);
-                                                break;
-                                        }
-                                    }
-                                } catch (\Exception $e) {
-                                    // Don't do anything
-                                }
-                            }
-                            
-
                             $tmp_dir = dirname($file_path);
                             switch ($photo_information['mime']) {
                                 case 'image/jpeg':
-                                    imagejpeg($image_copy, $tmp_dir . '/' . $filename . '.jpg');
+                                    imagejpeg($image_copy, $tmp_dir . '/' . $filename . '.jpg', 85);
                                     $thumbnail = \Idno\Entities\File::createFromFile($tmp_dir . '/' . $filename . '.jpg', "thumb_{$max_dimension}.jpg", 'image/jpeg') . '/thumb.jpg';
                                     @unlink($tmp_dir . '/' . $filename . '.jpg');
                                     break;
@@ -289,9 +283,11 @@
             static function getByURL($url)
             {
                 if (substr_count($url, \Idno\Core\site()->config()->getDisplayURL() . 'file/')) {
-                    $url = str_replace(\Idno\Core\site()->config()->getDisplayURL() . 'file/','',$url);
+                    $url = str_replace(\Idno\Core\site()->config()->getDisplayURL() . 'file/', '', $url);
+
                     return self::getByID($url);
                 }
+
                 return false;
             }
 
@@ -318,7 +314,8 @@
              * @param $attachment
              * @return bool|mixed|string
              */
-            static function getFileDataFromAttachment($attachment) {
+            static function getFileDataFromAttachment($attachment)
+            {
                 \Idno\Core\site()->logging->log(json_encode($attachment), LOGLEVEL_DEBUG);
                 if (!empty($attachment['_id'])) {
                     //\Idno\Core\site()->logging->log("Checking attachment ID", LOGLEVEL_DEBUG);
@@ -340,6 +337,7 @@
                     try {
                         if ($bytes = @file_get_contents($attachment['url'])) {
                             \Idno\Core\site()->logging->log("Returning bytes", LOGLEVEL_DEBUG);
+
                             return $bytes;
                         } else {
                             \Idno\Core\site()->logging->log("Couldn't get bytes from " . $attachment['url'], LOGLEVEL_DEBUG);

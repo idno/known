@@ -6,8 +6,6 @@
 
     namespace Idno\Pages\Account\Settings {
 
-        use Idno\Core\Webservice;
-
         class FeedbackConfirm extends \Idno\Common\Page
         {
 

@@ -56,7 +56,7 @@
                 /*if (!\Idno\Common\Page::isSSL() && !\Idno\Core\site()->config()->disable_cleartext_warning) {
                     \Idno\Core\site()->session()->addErrorMessage("Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini");
                 }*/
-                
+
                 if (empty(\Idno\Core\site()->config()->open_registration)) {
                     if (!($invitation = \Idno\Entities\Invitation::validate($email, $code))) {
                         \Idno\Core\site()->session()->addErrorMessage("Your invitation doesn't seem to be valid, or has expired.");
@@ -76,6 +76,7 @@
                         !($emailuser = \Idno\Entities\User::getByEmail($email)) &&
                         !($handleuser = \Idno\Entities\User::getByHandle($handle)) &&
                         !empty($handle) && strlen($handle) <= 32 &&
+                        preg_match('/^[a-zA-Z0-9_]{1,}$/', $handle) &&
                         !substr_count($handle, '/') &&
                         $password == $password2 &
                         \Idno\Entities\User::checkNewPasswordStrength($password)
@@ -91,13 +92,14 @@
                         $user->setTitle($name);
                         if (!\Idno\Entities\User::get()) {
                             $user->setAdmin(true);
-                            $user->robot_state = 1; // State for our happy robot helper
+                            $user->robot_state = '1'; // State for our happy robot helper
                             if (\Idno\Core\site()->config()->title == 'New Known site') {
                                 if (!empty($_SESSION['set_name'])) {
                                     \Idno\Core\site()->config()->title = $_SESSION['set_name'];
                                 } else {
                                     \Idno\Core\site()->config()->title = $user->getTitle() . '\'s Known';
                                 }
+                                \Idno\Core\site()->config()->theme             = 'Solo';
                                 \Idno\Core\site()->config()->open_registration = false;
                                 \Idno\Core\site()->config()->from_email        = $user->email;
                                 \Idno\Core\site()->config()->save();
@@ -119,6 +121,9 @@
                         }
                         if (strlen($handle) > 32) {
                             \Idno\Core\site()->session()->addErrorMessage("Your username is too long.");
+                        }
+                        if (!preg_match('/^[a-zA-Z0-9_]{1,}$/', $handle)) {
+                            \Idno\Core\site()->session()->addErrorMessage("Usernames can only have letters, numbers and underscores.");
                         }
                         if (substr_count($handle, '/')) {
                             \Idno\Core\site()->session()->addErrorMessage("Usernames can't contain a slash ('/') character.");

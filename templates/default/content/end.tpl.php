@@ -24,10 +24,15 @@
         <div class="permalink">
             <p>
                 <a href="<?= $owner->getDisplayURL() ?>"><?= htmlentities(strip_tags($owner->getTitle()), ENT_QUOTES, 'UTF-8') ?></a>published this
-                <a class="u-url url" href="<?= $vars['object']->getDisplayURL() ?>" rel="permalink">
-                    <time class="dt-published"
-                          datetime="<?= date('c', $vars['object']->created) ?>"><?= date('c', $vars['object']->created) ?></time>
-                </a>
+                <a class="u-url url" href="<?= $vars['object']->getDisplayURL() ?>" rel="permalink"><time class="dt-published"
+                          datetime="<?= date('c', $vars['object']->created) ?>"><?= date('c', $vars['object']->created) ?></time></a>
+                <?php
+
+                    if ($vars['object']->access != 'PUBLIC') {
+                        ?><i class="fa fa-lock"> </i><?php
+                    }
+
+                ?>
                 <?= $this->draw('content/edit') ?>
                 <?= $this->draw('content/end/links') ?>
                 <?php
@@ -44,11 +49,12 @@
             </p>
         </div>
         <div class="interactions">
+	        <span class="annotate-icon">
             <?php
                 if (!$has_liked) {
-                    $heart_only = '<i class="icon-star-empty"></i>';
+                    $heart_only = '<i class="fa fa-star-o"></i>';
                 } else {
-                    $heart_only = '<i class="icon-star"></i>';
+                    $heart_only = '<i class="fa fa-star"></i>';
                 }
                 if ($likes == 1) {
                     $heart_text = '1 star';
@@ -57,17 +63,17 @@
                 }
                 $heart = $heart_only . ' ' . $heart_text;
                 if (\Idno\Core\site()->session()->isLoggedOn()) {
-                    echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'annotation/post', $heart_only, array('type' => 'like', 'object' => $vars['object']->getUUID()), array('method' => 'POST', 'class' => 'stars'));
-                    ?>
-                    <a class="stars" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?= $heart_text ?></a>
-                <?php
-                } else {
-                    ?>
-                    <a class="stars" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?= $heart ?></a>
-                <?php
-                }
+					echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'annotation/post', $heart_only, ['type' => 'like', 'object' => $vars['object']->getUUID()], ['method' => 'POST', 'class' => 'stars']);
             ?>
-            <a class="comments" href="<?= $vars['object']->getDisplayURL() ?>#comments"><i class="icon-chat"></i> <?php
+           <a class="stars" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?= $heart_text ?></a></span>
+        <?php
+        } else {
+            ?>
+            <a class="stars" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?= $heart ?></a></span>
+        <?php
+        }
+            ?>
+           <span class="annotate-icon"> <a class="comments" href="<?= $vars['object']->getDisplayURL() ?>#comments"><i class="fa fa-comments"></i> <?php
 
                     //echo $replies;
                     if ($replies == 1) {
@@ -76,12 +82,12 @@
                         echo $replies . ' comments';
                     }
 
-                ?></a>
+                ?></a></span>
             <a class="shares" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?php if ($shares = $vars['object']->countAnnotations('share')) {
-                    echo '<i class="icon-arrows-cw"></i> ' . $shares;
+                    echo '<i class="fa fa-retweet"></i>' . $shares;
                 } ?></a>
             <a class="shares" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?php if ($rsvps = $vars['object']->countAnnotations('rsvp')) {
-                    echo '<i class="icon-calendar-empty"></i> ' . $rsvps;
+                    echo '<i class="fa fa-calendar-o"></i>' . $rsvps;
                 } ?></a>
         </div>
         <br clear="all"/>
@@ -115,6 +121,8 @@
                             echo $this->__(array('annotations' => $mentions))->draw('entity/annotations/mentions');
                         }
 
+                        unset($this->vars['annotations']);
+                        unset($this->vars['annotation_permalink']);
                     ?>
 
                 </div>

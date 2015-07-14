@@ -11,7 +11,8 @@
 
             // Handle GET requests to the withdrawal endpoint
 
-            function getContent() {
+            function getContent()
+            {
                 if (!empty($this->arguments[0])) {
                     $object = \Idno\Common\Entity::getByID($this->arguments[0]);
                     $this->forward($object->getDisplayURL());

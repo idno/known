@@ -25,4 +25,4 @@
         ?>
     </div>
 
-    <?php echo $this->autop($this->parseHashtags($vars['object']->body)); //TODO: a better rendering algorithm ?></div>
+    <?php echo $this->autop($this->parseHashtags($this->parseURLs($vars['object']->body))); //TODO: a better rendering algorithm ?></div>

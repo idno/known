@@ -6,12 +6,12 @@
             $permalink = $annotation['permalink'] ? $annotation['permalink'] : $locallink;
             ?>
             <div class="idno-annotation row">
-                <div class="idno-annotation-image span1 hidden-phone">
+                <div class="idno-annotation-image col-md-1 hidden-sm">
                     <p>
                         <a href="<?=$annotation['owner_url']?>" class="icon-container"><img src="<?=$annotation['owner_image']?>" /></a>
                     </p>
                 </div>
-                <div class="idno-annotation-content span6">
+                <div class="idno-annotation-content col-md-6">
                     <p>Mentioned in: <a href="<?=$permalink?>"><?php
 
                                 if (!empty($annotation['title'])) {

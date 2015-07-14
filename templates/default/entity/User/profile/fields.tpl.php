@@ -21,22 +21,22 @@
                 $host = str_replace('www.','',$host);
                 switch($host) {
 
-                    case 'twitter.com':         $icon = 'icon-twttr'; break;
-                    case 'github.com':          $icon = 'icon-github'; break;
+                    case 'twitter.com':         $icon = 'fa fa-twitter'; break;
+                    case 'github.com':          $icon = 'a fa-github-square'; break;
                     case 'fb.com':
-                    case 'facebook.com':        $icon = 'icon-kbf'; break;
-                    case 'plus.google.com':     $icon = 'icon-gpl'; break;
-                    case 'linkedin.com':        $icon = 'icon-li'; break;
-                    default:                    $icon = 'icon-globe'; break;
+                    case 'facebook.com':        $icon = 'fa fa-facebook'; break;
+                    case 'plus.google.com':     $icon = 'fa fa-google-plus'; break;
+                    case 'linkedin.com':        $icon = 'fa fa-linkedin'; break;
+                    default:                    $icon = 'fa fa-globe'; break;
 
                 }
 
                 $scheme = parse_url($url, PHP_URL_SCHEME);
                 switch ($scheme) {
-                    case 'mailto' : $icon = 'icon-mail'; $url_display = str_replace('mailto:', '', $url_display); $h_card = 'u-email'; break;
-                    case 'sms' : $icon = 'icon-mobile'; $url_display = str_replace('sms:', '', $url_display); $h_card = 'p-tel'; break;
-                    case 'tel' : $icon = 'icon-phone'; $url_display = str_replace('tel:', '', $url_display); $h_card = 'p-tel'; break;
-                    case 'facetime' : $icon = 'icon-videocam'; $url_display = str_replace('facetime:', '', $url_display); $h_card = 'p-facetime'; break;
+                    case 'mailto' : $icon = 'fa fa-envelope-o'; $url_display = str_replace('mailto:', '', $url_display); $h_card = 'u-email'; break;
+                    case 'sms' : $icon = 'fa fa-mobile'; $url_display = str_replace('sms:', '', $url_display); $h_card = 'p-tel'; break;
+                    case 'tel' : $icon = 'fa fa-phone'; $url_display = str_replace('tel:', '', $url_display); $h_card = 'p-tel'; break;
+                    case 'facetime' : $icon = 'fa fa-video-camera'; $url_display = str_replace('facetime:', '', $url_display); $h_card = 'p-facetime'; break;
                 }
                 
 ?>

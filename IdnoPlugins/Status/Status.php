@@ -3,6 +3,26 @@
     namespace IdnoPlugins\Status {
 
         class Status extends \Idno\Common\Entity {
+            
+            /** 
+             * Create an appropriate status class.
+             * Returns an appropriate new class, either a Status or a Reply, depending on whether it is in reply to something.
+             * @return Status|Reply
+             */
+            public static function factory() {
+                $inreplyto = \Idno\Core\site()->currentPage()->getInput('inreplyto');
+                $body = \Idno\Core\site()->currentPage()->getInput('body');
+                
+                if (!empty($inreplyto)) {
+                    return new Reply();
+                }
+                
+                if ($body[0] == '@') {
+                    return new Reply();
+                }
+                
+                return new Status();
+            }
 
             function getTitle() {
                 $title = trim($this->getShortDescription());
@@ -53,6 +73,7 @@
                 $body = \Idno\Core\site()->currentPage()->getInput('body');
                 $inreplyto = \Idno\Core\site()->currentPage()->getInput('inreplyto');
                 $tags = \Idno\Core\site()->currentPage()->getInput('tags');
+                $access = \Idno\Core\site()->currentPage()->getInput('access');
 
                 if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
                     if ($time = strtotime($time)) {
@@ -73,7 +94,7 @@
                             $this->syndicatedto = \Idno\Core\Webmention::addSyndicatedReplyTargets($inreplyto);
                         }
                     }
-                    $this->setAccess('PUBLIC');
+                    $this->setAccess($access);
                     if ($this->save($new)) {
                         \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getDescription()));
                         return true;

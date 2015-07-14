@@ -53,15 +53,14 @@
              */
             function handleSession()
             {
-                session_save_path(site()->config()->session_path);
                 ini_set('session.gc_probability', 1);
-                
-                /*$sessionHandler = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\MongoDbSessionHandler(\Idno\Core\site()->db()->getClient(), [
+
+                $sessionHandler = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\MongoDbSessionHandler(\Idno\Core\site()->db()->getClient(), [
                     'database'   => 'idnosession',
                     'collection' => 'idnosession'
                 ]);
 
-                session_set_save_handler($sessionHandler, true);*/
+                session_set_save_handler($sessionHandler, true);
             }
 
             /**
@@ -76,6 +75,7 @@
                 if ($object instanceof \Idno\Common\Entity) {
                     if ($collection = $object->getCollection()) {
                         $array = $object->saveToArray();
+
                         return $this->saveRecord($collection, $array);
                     }
                 }
@@ -311,6 +311,7 @@
                 } catch (\Exception $e) {
                     return false;
                 }
+
                 return false;
             }
 

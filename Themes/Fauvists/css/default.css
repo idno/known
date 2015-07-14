@@ -50,7 +50,7 @@ a.contentTypeButton {
     border-radius: 100%;
     border: 3px solid #643196;
     margin-bottom: 10px;
-    width: 75px;
+    width: 90px;
 }   
 
 a.contentTypeButton:hover {
@@ -59,7 +59,7 @@ a.contentTypeButton:hover {
 	border: 3px solid #223d96;
 } 
 
-.navbar-inverse .brand {
+.navbar-brand {
     color: #FFFFFF;
     font-family: "Open Sans","Corbel","Arial",sans-serif;
     font-size: 18px;
@@ -71,18 +71,18 @@ a.contentTypeButton:hover {
 }
 
 @media (max-width: 600px) {
-	.navbar-inverse .brand {
+	.navbar-brand {
 		font-size: 15px;
 		margin-top: 3px;
 	}
 }
 
-.navbar-inverse .brand:hover, .navbar-inverse .brand:focus {
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
 	color: rgba(255, 255, 255, 0.7);
 }
 
 
-.navbar-inverse .navbar-inner {
+.navbar.navbar-default {
     background-color: #223d96;
     background-image: none;
     background-repeat: repeat-x;
@@ -93,33 +93,17 @@ a.contentTypeButton:hover {
     border-width: 0 0 3px;
 }
 
-.navbar-inverse .nav > li > a {
+.navbar.navbar-default .nav > li > a {
     color: #ffa851;
     text-shadow: none;
-    margin-top: 3px; 
+    margin-top: 0px; 
 }
 
-.navbar-inverse .nav > li > a:hover, .navbar-inverse .nav >li > a:focus {
-	color: rgba(229, 202, 31, 0.7);
+.navbar.navbar-default .nav > li > a:hover, .navbar.navbar-default .nav >li > a:focus {
+	color: #fff;
 }
 
-.navbar .nav.pull-right {
-    color: #ffa851;
-    text-shadow: none;
-    float: right;
-    margin-right: 0;    
-    font-family: "Open Sans","Corbel","Arial",sans-serif;
-    font-size: 0.85em;
-    font-style: normal;
-    font-weight: 400;
-    letter-spacing: 3px;
-    line-height: 2em;
-    text-decoration: none;
-    text-transform: uppercase;
-}
-
-
-.navbar-inverse .navbar-search .search-query {
+.navbar.navbar-default .navbar-search .search-query {
     background-color: #fff;
     border-color: #223d96;
     box-shadow: none;
@@ -127,7 +111,7 @@ a.contentTypeButton:hover {
     transition: none 0s ease 0s ;
 }
 
-.navbar-inverse .nav li.dropdown.open > .dropdown-toggle, .navbar-inverse .nav li.dropdown.active > .dropdown-toggle, .navbar-inverse .nav li.dropdown.open.active > .dropdown-toggle {
+.navbar.navbar-default .nav li.dropdown.open > .dropdown-toggle, .navbar.navbar-default .nav li.dropdown.active > .dropdown-toggle, .navbar.navbar-default .nav li.dropdown.open.active > .dropdown-toggle {
     background-color: #653195;
     color: #FFF;
 }
@@ -137,21 +121,20 @@ a.contentTypeButton:hover {
 	background-color: #653195;
 }
 
-.navbar-inverse .nav li.dropdown > a:hover .caret, .navbar-inverse .nav li.dropdown > a:focus .caret {
-	border-bottom-color: rgba(229, 202, 31, 0.7);
-	border-top-color: rgba(229, 202, 31, 0.7);
+.navbar.navbar-default .nav li.dropdown > a:hover .caret, .navbar.navbar-default .nav li.dropdown > a:focus .caret {
+	border-bottom-color: #fff;
+	border-top-color: #fff;
 }
 
-.navbar-inverse .nav li.dropdown.open > .dropdown-toggle .caret, .navbar-inverse .nav li.dropdown.active > .dropdown-toggle .caret, .navbar-inverse .nav li.dropdown.open.active > .dropdown-toggle .caret {
+.navbar.navbar-default .nav li.dropdown.open > .dropdown-toggle .caret, .navbar.navbar-default .nav li.dropdown.active > .dropdown-toggle .caret, .navbar.navbar-default .nav li.dropdown.open.active > .dropdown-toggle .caret {
     border-bottom-color: #FFF;
     border-top-color: #FFF;
 }
 
-.navbar-inverse .nav li.dropdown > .dropdown-toggle .caret {
+.navbar.navbar-default .nav li.dropdown > .dropdown-toggle .caret {
     border-bottom-color: #ffa851;
     border-top-color: #ffa851;
 }
-
 
 .idno-content p {
 	font-family: "Open Sans","Corbel","Arial",sans-serif;
@@ -235,27 +218,27 @@ a {
     color: #223d96;
 }
 
-.navbar-inverse .btn-navbar {
+.navbar.navbar-default .btn-navbar {
     background-color: #2366e1;
     background-image: none;
     color: #ffffff;
     text-shadow: none;
 }
 
-.navbar-inverse .nav-collapse .navbar-form, .navbar-inverse .nav-collapse .navbar-search {
+.navbar.navbar-default .nav-collapse .navbar-form, .navbar.navbar-default .nav-collapse .navbar-search {
     border-bottom-color: #fff;
     border-top-color: #fff;
 }
 
-.navbar-inverse .nav-collapse .nav > li > a, 
-.navbar-inverse .nav-collapse .dropdown-menu a {
+.navbar.navbar-default .nav-collapse .nav > li > a, 
+.navbar.navbar-default .nav-collapse .dropdown-menu a {
     color: #f69625;
 }
 
-.navbar-inverse .nav-collapse .nav > li > a:hover, 
-.navbar-inverse .nav-collpase .nav > li > a:focus,
-.navbar-inverse .nav-collapse .dropdown-menu a:hover, 
-.navbar-inverse .nav-collapse .dropdown-menu a:focus {
+.navbar.navbar-default .nav-collapse .nav > li > a:hover, 
+.navbar.navbar-default .nav-collpase .nav > li > a:focus,
+.navbar.navbar-default .nav-collapse .dropdown-menu a:hover, 
+.navbar.navbar-default .nav-collapse .dropdown-menu a:focus {
 	background-color: #223d96;
 	color: rgba(255, 255, 255, 1.0);
 	
@@ -460,10 +443,10 @@ span.contentTypeLogo {
     margin: 0 0 10px;
 }
 
-ul, ol {
+/*ul, ol {
     margin: 0 0 10px 35px;
     padding: 0;
-}        
+}   */     
 
 blockquote {
     border-left: 5px solid #673095;
@@ -607,6 +590,82 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 
 .navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner {
     box-shadow: none;
+}
+
+/* B3 Updates */
+
+.navbar-brand, .navbar-nav > li > a {
+    text-shadow: none;
+}
+
+.navbar-default .navbar-brand {
+    color: #fff;
+}
+
+.navbar .nav .dropdown-toggle .caret {
+    margin-top: 0;
+}
+
+.navbar.navbar-default .nav > li > a {
+	text-transform: uppercase;
+	color: #ffa851;
+    /*float: right; */
+    font-family: "Open Sans","Corbel","Arial",sans-serif;
+    font-size: 0.85em; 
+    font-style: normal;
+    font-weight: 400;
+    line-height: 2em;
+    margin-right: 0; 
+}
+
+.navbar-default .navbar-nav > .active > a, 
+.navbar-default .navbar-nav > .open > a {
+    background-image: none;
+    background-repeat: repeat-x;
+    box-shadow: none;
+}
+
+.nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+    background-color: transparent;
+    border: none;
+}
+
+.navbar-nav > li > .nav > li > a {
+    color: #fff;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+ul > li > .nav {
+	padding-left: 0px;
+	margin-left: 0px;
+}
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #fff;
+}
+.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #fff;
+}
+.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover {
+    color: #ccc;
+}
+.dropdown-menu {
+	background-color: #223d96;
+	border: none;
+	margin: 0 0 0;
+}
+.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+	text-transform: uppercase;
+	font-size: 0.85em;
+}
+.navbar-form .form-control.search-query {
+    border-color: #223d96;
+}
+.btn-group.open .dropdown-toggle {
+    box-shadow: none;
+}
+.dropdown-menu > li > a {
+    color: #fff;
 }
 
 

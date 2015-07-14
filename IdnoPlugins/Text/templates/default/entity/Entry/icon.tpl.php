@@ -1,1 +1,1 @@
-<i class="icon-align-left"></i>
+<i class="fa fa-align-left"></i>

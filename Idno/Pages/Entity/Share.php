@@ -16,17 +16,16 @@
             {
                 $this->gatekeeper();
 
-                $url   = $this->getInput('share_url');
-                $title = $this->getInput('share_title');
+                $url   = $this->getInput('share_url', $this->getInput('url'));
+                $title = $this->getInput('share_title', $this->getInput('title'));
                 $type  = $this->getInput('share_type');
 
-                // Provide a hook to a URL shortener (TODO: Tidy this up when #237 is merged)
                 $event = new \Idno\Core\Event();
                 $event->setResponse($url);
                 \Idno\Core\site()->events()->dispatch('url/shorten', $event);
                 $short_url = $event->response();
 
-                if (!in_array($type, array('note','reply','rsvp','like','bookmark'))) {
+                if (!in_array($type, array('note', 'reply', 'rsvp', 'like', 'bookmark'))) {
                     $share_type = 'note';
 
                     if ($content = \Idno\Core\Webservice::get($url)) {
@@ -50,7 +49,7 @@
                 }
 
                 $content_type = \Idno\Common\ContentType::getRegisteredForIndieWebPostType($share_type);
-                
+
                 $hide_nav = false;
                 if ($this->getInput('via') == 'ff_social') {
                     $hide_nav = true;
@@ -64,14 +63,33 @@
                             $page->setInput('short-url', $short_url);
                             $page->setInput('url', $url);
                             if (substr_count($url, 'twitter.com')) {
-                                preg_match("|https?://(www\.)?twitter\.com/(#!/)?@?([^/]*)|", $url, $matches);
+                                $atusers = [];
+                                preg_match("|https?://([a-z]+\.)?twitter\.com/(#!/)?@?([^/]*)|", $url, $matches);
                                 if (!empty($matches[3])) {
-                                    $page->setInput('body', '@' . $matches[3] . ' ');
+                                    $atusers[] = '@'.$matches[3];
+//                                    $page->setInput('body', '@' . $matches[3] . ' ');
                                 }
+                                if (preg_match_all("|@([^\s^\)]+)|", $title, $matches)) {
+                                    $atusers = array_merge($atusers, $matches[0]);
+                                }
+                                
+                                // See if one of your registered twitter handles is present, if so remove it.
+                                $user = \Idno\Core\site()->session()->currentUser();
+                                if ((!empty($user->twitter)) && (is_array($user->twitter))) {
+                                    $me = [];
+                                    foreach ($user->twitter as $k => $v)
+                                    {
+                                        $me[] = "@$k";
+                                    }
+                                    $atusers = array_diff($atusers, $me);
+                                }
+                                
+                                $atusers = array_unique($atusers);
+                                $page->setInput('body', implode(' ', $atusers) . ' ');
                             }
                         }
                         $page->setInput('hidenav', $hide_nav);
-                        $page->setInput('sharing',true);
+                        $page->setInput('sharing', true);
                         $page->setInput('share_type', $share_type);
                         $page->get();
                     }

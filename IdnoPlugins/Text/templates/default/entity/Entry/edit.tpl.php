@@ -25,7 +25,7 @@
 
         <div class="row">
 
-            <div class="span8 offset2 edit-pane">
+            <div class="col-md-8 col-md-offset-2 edit-pane">
 
 
                 <?php
@@ -45,13 +45,11 @@
                     }
 
                 ?>
-                <p>
-                    <label>
-                        Title<br/>
-                        <input type="text" name="title" id="title" placeholder="Give it a title"
-                               value="<?= htmlspecialchars($title) ?>" class="span8"/>
-                    </label>
-                </p>
+                
+                <div class="content-form">
+                    <label for="title">Title</label>
+                    <input type="text" name="title" id="title" placeholder="Give it a title" value="<?= htmlspecialchars($title) ?>" class="form-control"/>                    
+                </div>
 
                 <?= $this->__([
                     'name' => 'body',
@@ -62,12 +60,16 @@
                 <?= $this->draw('entity/tags/input'); ?>
 
                 <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('article'); ?>
+                <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to" value="<?= \Idno\Core\site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
+                
+                <?= $this->draw('content/access'); ?>
 
                 <p class="button-bar ">
+	                
                     <?= \Idno\Core\site()->actions()->signForm('/entry/edit') ?>
                     <input type="button" class="btn btn-cancel" value="Cancel" onclick="tinymce.EditorManager.execCommand('mceRemoveEditor',true, 'body'); hideContentCreateForm();"/>
                     <input type="submit" class="btn btn-primary" value="Publish"/>
-                    <?= $this->draw('content/access'); ?>
+
                 </p>
 
             </div>

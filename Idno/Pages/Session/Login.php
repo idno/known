@@ -32,10 +32,7 @@
 
             function postContent()
             {
-                /*if (!\Idno\Common\Page::isSSL() && !\Idno\Core\site()->config()->disable_cleartext_warning) {
-                    \Idno\Core\site()->session()->addErrorMessage("Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini");
-                }*/
-                    
+
                 $fwd = $this->getInput('fwd'); // Forward to a new page?
                 if (empty($fwd)) {
                     $fwd = \Idno\Core\site()->config()->url;
@@ -56,11 +53,11 @@
                     } else {
                         \Idno\Core\site()->session()->addErrorMessage("Oops! It looks like your password isn't correct. Please try again.");
                         \Idno\Core\site()->triggerEvent('login/failure', array('user' => $user));
-                        $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'session/login/');
+                        $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'session/login/?fwd=' . urlencode($fwd));
                     }
                 } else {
                     \Idno\Core\site()->session()->addErrorMessage("Oops! We couldn't find your username or email address. Please check you typed it correctly and try again.");
-                    $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'session/login/');
+                    $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'session/login/?fwd=' . urlencode($fwd));
                 }
             }
 

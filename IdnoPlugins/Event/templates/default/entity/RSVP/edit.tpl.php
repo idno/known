@@ -3,7 +3,7 @@
 
     <div class="row">
 
-        <div class="span8 offset2 edit-pane">
+        <div class="col-md-8 col-md-offset-2 edit-pane">
         
         	<h4>
 				                <?php
@@ -16,36 +16,38 @@
                   ?>
 			</h4>
 
-            <p>
-                <span id="in-reply-to">
-                    What's the URL of the event you're responding to?<br />
-                    <input type="text" name="inreplyto" placeholder="The website address of the event" class="span8" value="<?php if (empty($vars['url'])) { echo htmlspecialchars($vars['object']->inreplyto); } else { echo htmlspecialchars($vars['url']); } ?>" />
-                </span>
-            </p>
-            <p>
-                <label>
-                    Are you going?<br />
-                    <select name="rsvp">
+
+            <div class="content-form">
+                <label id="in-reply-to" for="reply">
+                    What's the URL of the event you're responding to?</label>
+                    <input type="text" id="reply" name="inreplyto" placeholder="The website address of the event" class="form-control" value="<?php if (empty($vars['url'])) { echo htmlspecialchars($vars['object']->inreplyto); } else { echo htmlspecialchars($vars['url']); } ?>" />
+            </div>
+            <div class="content-form">
+                <label for="rsvp">
+                    Are you going?</label>
+                    <select class="form-control" name="rsvp" id="rsvp">
                         <option value="yes" <?php if ($vars['object']->rsvp == 'yes') echo "checked"; ?>>Yes :-)</option>
                         <option value="no" <?php if ($vars['object']->rsvp == 'no') echo "checked"; ?>>No :-(</option>
                         <option value="maybe" <?php if ($vars['object']->rsvp == 'maybe') echo "checked"; ?>>Maybe :-/</option>
                     </select>
-                </label>
-            </p>
-            <p>
-                <label>
-                    Any comments?<br />
-                    <input type="text" name="body" id="body" value="<?=htmlspecialchars($vars['object']->body)?>" class="span8" />
-                </label>
-            </p>
+            </div>
+
+            <div class="content-form">
+                <label for="body">
+                    Any comments?</label>
+                    <textarea name="body" id="body" value="<?=htmlspecialchars($vars['object']->body)?>" class="form-control event" /></textarea>
+            </div>
             <?=$this->draw('entity/tags/input');?>
+            <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to" value="<?= \Idno\Core\site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('note'); ?>
+            <?= $this->draw('content/access'); ?>
             <p class="button-bar">
                 <?= \Idno\Core\site()->actions()->signForm('/status/edit') ?>
                 <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();" />
                 <input type="submit" class="btn btn-primary" value="Save" />
-                <?= $this->draw('content/access'); ?>
+
             </p>
+
         </div>
 
     </div>

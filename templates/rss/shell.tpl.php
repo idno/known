@@ -43,6 +43,9 @@
             if ($item instanceof \Idno\Entities\ActivityStreamPost) {
                 $item = $item->getObject();
             }
+            if (!($item instanceof \Idno\Common\Entity)) {
+                continue;
+            }
             $rssItem = $page->createElement('item');
             if ($title = $item->getTitle()) {
                 $rssItem->appendChild($page->createElement('title',$item->getTitle()));

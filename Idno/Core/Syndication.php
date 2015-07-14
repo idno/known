@@ -9,6 +9,8 @@
 
     namespace Idno\Core {
 
+        use Idno\Common\Entity;
+
         class Syndication extends \Idno\Common\Component
         {
 
@@ -28,9 +30,7 @@
                     if (!empty($eventdata['object'])) {
                         $content_type = $eventdata['object']->getActivityStreamsObjectType();
                         if ($services = \Idno\Core\site()->syndication()->getServices($content_type)) {
-                            error_log("SERVICES for $content_type are " . json_encode($services));
                             if ($selected_services = \Idno\Core\site()->currentPage()->getInput('syndication')) {
-                                error_log("SELECTED SERVICES ARE " . json_encode($selected_services));
                                 if (!empty($selected_services) && is_array($selected_services)) {
                                     foreach ($selected_services as $selected_service) {
                                         $event->data()['syndication_account'] = false;
@@ -61,7 +61,7 @@
                 if (!empty($content_types)) {
                     foreach ($content_types as $content_type) {
                         if (empty($this->services[$content_type])) {
-                            $this->services[$content_type ] = [];
+                            $this->services[$content_type] = [];
                         }
                         if (!in_array($service, $this->services[$content_type]) || empty($this->services[$content_type])) {
                             $this->services[$content_type][] = $service;
@@ -82,7 +82,7 @@
             {
                 $service = strtolower($service);
                 if (!empty($this->accounts[$service])) {
-                    foreach($this->accounts[$service] as $key => $account) {
+                    foreach ($this->accounts[$service] as $key => $account) {
                         if ($account['username'] == $username) {
                             unset($this->accounts[$service][$key]); // Remove existing entry if it exists, so fresher one can be added
                         }
@@ -117,10 +117,11 @@
                 } else {
                     $return = array();
                     if (!empty($this->services)) {
-                        foreach($this->services as $service) {
+                        foreach ($this->services as $service) {
                             $return = array_merge($return, $service);
                         }
                     }
+
                     return array_unique($return);
                 }
 
@@ -137,6 +138,7 @@
                 if (!empty($this->accounts[$service])) {
                     return $this->accounts[$service];
                 }
+
                 return false;
             }
 
@@ -149,7 +151,46 @@
                 if (!empty($this->accounts)) {
                     return $this->accounts;
                 }
+
                 return array();
+            }
+
+            /**
+             * Get a list of fully-formatted service::username syndication strings
+             * @return array
+             */
+            function getServiceAccountStrings()
+            {
+                $strings = [];
+                if ($services = $this->getServiceAccountsByService()) {
+                    foreach($services as $service_name => $service) {
+                        foreach($service as $account) {
+                            $strings[] = $service_name . '::' . $account['username'];
+                        }
+                    }
+                }
+                return $strings;
+            }
+
+            /**
+             * Get a list of expanded service data
+             * @return array
+             */
+            function getServiceAccountData()
+            {
+                $data = [];
+                if ($services = $this->getServiceAccountsByService()) {
+                    foreach($services as $service_name => $service) {
+                        foreach($service as $account) {
+                            $data[] = [
+                                'id' => $service_name . '::' . $account['username'],
+                                'name' => $account['name'],
+                                'service' => $service_name
+                            ];
+                        }
+                    }
+                }
+                return $data;
             }
 
             /**
@@ -157,16 +198,18 @@
              * @param $account_string
              * @return bool|int|string
              */
-            function getServiceByAccountString($account_string) {
+            function getServiceByAccountString($account_string)
+            {
                 if ($accounts = $this->getServiceAccountsByService()) {
-                    foreach($accounts as $service => $account_list) {
-                        foreach($account_list as $listed_account) {
+                    foreach ($accounts as $service => $account_list) {
+                        foreach ($account_list as $listed_account) {
                             if ($account_string == $service . '::' . $listed_account['username']) {
                                 return $service;
                             }
                         }
                     }
                 }
+
                 return false;
             }
 
@@ -175,10 +218,12 @@
              * @param $account_string
              * @return bool|mixed
              */
-            function getAccountFromAccountString($account_string) {
+            function getAccountFromAccountString($account_string)
+            {
                 if ($service = $this->getServiceByAccountString($account_string)) {
                     return str_replace($service . '::', '', $account_string);
                 }
+
                 return false;
             }
 

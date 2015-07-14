@@ -3,7 +3,7 @@
     /**
      * Handles pages in the system (and, by extension, the idno API).
      *
-     * Developers shoudld extend the getContent, postContent and dataContent
+     * Developers should extend the getContent, postContent and dataContent
      * methods as follows:
      *
      * getContent: echoes HTML to the page
@@ -54,14 +54,13 @@
             function init()
             {
                 header('X-Powered-By: https://withknown.com');
+                header('X-Clacks-Overhead: GNU Terry Pratchett');
                 if ($template = $this->getInput('_t')) {
                     if (\Idno\Core\site()->template()->templateTypeExists($template)) {
                         \Idno\Core\site()->template()->setTemplateType($template);
                     }
                 }
                 \Idno\Core\site()->setCurrentPage($this);
-
-                \Idno\Core\site()->triggerEvent('page/head',array('page' => $this));
 
                 // Default exception handler
                 set_exception_handler(function ($exception) {
@@ -78,11 +77,8 @@
             {
                 \Idno\Core\site()->session()->publicGatekeeper();
 
-                if ($this->isAcceptedContentType('application/json')) {
-                    \Idno\Core\site()->template()->setTemplateType('json');
-                }
+                \Idno\Core\site()->template()->autodetectTemplateType();
 
-                \Idno\Core\site()->session()->APIlogin();
                 $this->parseJSONPayload();
 
                 $arguments = func_get_args();
@@ -90,7 +86,7 @@
 
                 \Idno\Core\site()->triggerEvent('page/head', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
-                // Triggering GET content to call all the appropriate headers (web server should truncate the head request from body). 
+                // Triggering GET content to call all the appropriate headers (web server should truncate the head request from body).
                 // This is the only way we can generate accurate expires and content length etc, but could be done more efficiently
                 $this->getContent();
 
@@ -103,20 +99,19 @@
              * Performs some administration functions and hands off to
              * getContent().
              */
-            function get()
+            function get($params = array())
             {
+
                 \Idno\Core\site()->session()->publicGatekeeper();
 
-                if ($this->isAcceptedContentType('application/json')) {
-                    \Idno\Core\site()->template()->setTemplateType('json');
-                }
+                \Idno\Core\site()->template()->autodetectTemplateType();
 
-                \Idno\Core\site()->session()->APIlogin();
                 $this->parseJSONPayload();
 
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
 
+                \Idno\Core\site()->triggerEvent('page/head', array('page' => $this));
                 \Idno\Core\site()->triggerEvent('page/get', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
                 $this->getContent();
@@ -135,15 +130,12 @@
             {
                 \Idno\Core\site()->session()->publicGatekeeper();
 
-                if ($this->isAcceptedContentType('application/json')) {
-                    \Idno\Core\site()->template()->setTemplateType('json');
-                }
-
-                \Idno\Core\site()->session()->APIlogin();
+                \Idno\Core\site()->template()->autodetectTemplateType();
 
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
 
+                \Idno\Core\site()->triggerEvent('page/head', array('page' => $this));
                 \Idno\Core\site()->triggerEvent('page/post', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
                 if (\Idno\Core\site()->actions()->validateToken('', false)) {
@@ -156,11 +148,10 @@
                 if (\Idno\Core\site()->session()->isAPIRequest()) {
 
                     // If postContent hasn't forwarded itself, and returns null, then balance of probabilities is something went wrong.
-                    // Either way, it's not safe to forward to the site root since this spits back json encoded front page and a 200 response. 
+                    // Either way, it's not safe to forward to the site root since this spits back json encoded front page and a 200 response.
                     // API currently doesn't explicitly handle this situation (bad), but we don't want to forward (worse). Some plugins will still
                     // forward to / in some situations, these will need rewriting.
-                    if ($return === null)
-                    {
+                    if ($return === null) {
                         if (http_response_code() == 200) {
                             $this->setResponse(400);
                         }
@@ -183,9 +174,7 @@
                         $t = \Idno\Core\site()->template();
                         echo $t->__(['result' => $return])->drawPage();
                     }
-                }
-                else
-                {
+                } else {
                     $this->forward(); // If we haven't forwarded yet, do so (if we can)
                 }
 
@@ -203,17 +192,15 @@
             {
                 \Idno\Core\site()->session()->publicGatekeeper();
 
-                if ($this->isAcceptedContentType('application/json')) {
-                    \Idno\Core\site()->template()->setTemplateType('json');
-                }
+                \Idno\Core\site()->template()->autodetectTemplateType();
 
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
 
+                \Idno\Core\site()->triggerEvent('page/head', array('page' => $this));
                 \Idno\Core\site()->triggerEvent('page/put', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
                 if (\Idno\Core\site()->actions()->validateToken('', false)) {
-                    \Idno\Core\site()->session()->APIlogin();
                     $this->parseJSONPayload();
                     $return = $this->putContent();
                 } else {
@@ -223,8 +210,7 @@
                 if (\Idno\Core\site()->session()->isAPIRequest()) {
 
                     // Ensure we always get a meaningful response from the api
-                    if ($return === null)
-                    {
+                    if ($return === null) {
                         if (http_response_code() == 200) {
                             $this->setResponse(400);
                         }
@@ -265,17 +251,15 @@
             {
                 \Idno\Core\site()->session()->publicGatekeeper();
 
-                if ($this->isAcceptedContentType('application/json')) {
-                    \Idno\Core\site()->template()->setTemplateType('json');
-                }
+                \Idno\Core\site()->template()->autodetectTemplateType();
 
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
 
+                \Idno\Core\site()->triggerEvent('page/head', array('page' => $this));
                 \Idno\Core\site()->triggerEvent('page/delete', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
                 if (\Idno\Core\site()->actions()->validateToken('', false)) {
-                    \Idno\Core\site()->session()->APIlogin();
                     $this->parseJSONPayload();
                     $return = $this->deleteContent();
                 } else {
@@ -285,8 +269,7 @@
                 if (\Idno\Core\site()->session()->isAPIRequest()) {
 
                     // Ensure we always get a meaningful response from the api
-                    if ($return === null)
-                    {
+                    if ($return === null) {
                         if (http_response_code() == 200) {
                             $this->setResponse(400);
                         }
@@ -326,9 +309,8 @@
             {
                 \Idno\Core\site()->session()->publicGatekeeper();
 
-                if ($this->isAcceptedContentType('application/json')) {
-                    \Idno\Core\site()->template()->setTemplateType('json');
-                }
+                \Idno\Core\site()->template()->autodetectTemplateType();
+
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
                 $this->xhr = true;
@@ -343,9 +325,8 @@
             {
                 \Idno\Core\site()->session()->publicGatekeeper();
 
-                if ($this->isAcceptedContentType('application/json')) {
-                    \Idno\Core\site()->template()->setTemplateType('json');
-                }
+                \Idno\Core\site()->template()->autodetectTemplateType();
+
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
                 $this->xhr     = true;
@@ -361,9 +342,8 @@
             {
                 \Idno\Core\site()->session()->publicGatekeeper();
 
-                if ($this->isAcceptedContentType('application/json')) {
-                    \Idno\Core\site()->template()->setTemplateType('json');
-                }
+                \Idno\Core\site()->template()->autodetectTemplateType();
+
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
                 $this->xhr     = true;
@@ -379,9 +359,8 @@
             {
                 \Idno\Core\site()->session()->publicGatekeeper();
 
-                if ($this->isAcceptedContentType('application/json')) {
-                    \Idno\Core\site()->template()->setTemplateType('json');
-                }
+                \Idno\Core\site()->template()->autodetectTemplateType();
+
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
                 $this->xhr     = true;
@@ -396,9 +375,8 @@
             {
                 \Idno\Core\site()->session()->publicGatekeeper();
 
-                if ($this->isAcceptedContentType('application/json')) {
-                    \Idno\Core\site()->template()->setTemplateType('json');
-                }
+                \Idno\Core\site()->template()->autodetectTemplateType();
+
                 $this->forward = false;
                 //$this->webmentionContent();
             }
@@ -506,7 +484,7 @@
             function forward($location = '', $exit = true)
             {
                 if (empty($location)) {
-                    $location = \Idno\Core\site()->config()->url;
+                    $location = \Idno\Core\site()->config()->getDisplayURL();
                 }
                 if (!empty($this->forward)) {
                     if (\Idno\Core\site()->template()->getTemplateType() != 'default') {
@@ -515,6 +493,16 @@
                     if ($exit) {
                         \Idno\Core\site()->session()->finishEarly();
                     }
+
+                    /*
+                     * TODO: find a more granular way to do this. But some Known functions depend on
+                     * redirection to other sites (eg a Known hub).
+
+                    if (!Entity::isLocalUUID($location)) {
+                        throw new \Exception('Attempted to redirect page to a non local URL.');
+                    }
+                    */
+
                     if (!\Idno\Core\site()->session()->isAPIRequest() || $this->response == 200) {
                         header('Location: ' . $location);
                     }
@@ -530,7 +518,7 @@
             function flushBrowser()
             {
                 header('Connection: close');
-                header('Content-length: ' . (string) ob_get_length());
+                header('Content-length: ' . (string)ob_get_length());
 
                 @ob_end_flush();            // Return output to the browser
                 @ob_end_clean();
@@ -549,7 +537,9 @@
 
                     // Forwarding loses the response code, so is only helpful if this is not an API request
                     if (!\Idno\Core\site()->session()->isAPIRequest()) {
-                        $this->forward(\Idno\Core\site()->config()->getURL() . 'session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']));
+                        $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']));
+                    } else {
+                        $this->deniedContent();
                     }
                 }
             }
@@ -566,6 +556,8 @@
 
                     if (!\Idno\Core\site()->session()->isAPIRequest()) {
                         $this->forward();
+                    } else {
+                        $this->deniedContent();
                     }
                 }
                 $this->gatekeeper();
@@ -582,7 +574,10 @@
                     $this->setResponse(403);
                     if (!\Idno\Core\site()->session()->isAPIRequest()) {
                         $this->forward();
+                    } else {
+                        $this->deniedContent();
                     }
+
                 }
             }
 
@@ -604,6 +599,8 @@
 
                     if (!\Idno\Core\site()->session()->isAPIRequest()) {
                         $this->forward();
+                    } else {
+                        $this->deniedContent();
                     }
                 }
             }
@@ -679,8 +676,8 @@
                         return true;
                 } else if (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == '443'))
                     return true;
-                
-                if(isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'){
+
+                if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
                     return true;
                 }
 
@@ -790,13 +787,24 @@
                 }
             }
 
-            function getallheaders() {
+            /**
+             * Shim for running on nginx, which doesn't provide the
+             * getallheaders function
+             * @return array
+             */
+            function getallheaders()
+            {
+                if (function_exists('getallheaders')) {
+                    return getallheaders();
+                }
+
                 $headers = '';
                 foreach ($_SERVER as $name => $value) {
                     if (substr($name, 0, 5) == 'HTTP_') {
                         $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
                     }
                 }
+
                 return $headers;
             }
 
@@ -809,8 +817,9 @@
             {
 
                 if ($headers = $this->getallheaders()) {
-                    if (!empty($headers['Accept']))
+                    if (!empty($headers['Accept'])) {
                         if (substr_count($headers['Accept'], $contentType)) return true;
+                    }
                 }
 
                 return false;
@@ -847,12 +856,9 @@
             {
                 $icon = \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k.png';
 
-                if (\Idno\Core\site()->config('user_avatar_favicons'))
-                {
-                    if ($user = \Idno\Core\site()->currentPage()->getOwner())
-                    {
-                        if ($user instanceof \Idno\Entities\User)
-                        {
+                if (\Idno\Core\site()->config()->user_avatar_favicons) {
+                    if ($user = \Idno\Core\site()->currentPage()->getOwner()) {
+                        if ($user instanceof \Idno\Entities\User) {
                             $icon = $user->getIcon();
                         }
                     }
@@ -904,8 +910,9 @@
                 $url         = parse_url(\Idno\Core\site()->config()->url);
                 $url['path'] = $_SERVER['REQUEST_URI'];
 
-                if ($tokenise)
+                if ($tokenise) {
                     return $url;
+                }
 
                 return self::buildUrl($url);
             }
@@ -962,4 +969,3 @@
         }
 
     }
-

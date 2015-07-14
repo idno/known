@@ -1,1 +1,1 @@
-<i class="icon-export"></i>
+<i class="fa fa-share-square-o"></i>

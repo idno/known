@@ -1,7 +1,7 @@
 <div class="row profile h-card">
-    <div class="span8 offset2">
-        <div class="row visible-phone">
-            <div class="span2">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="row visible-sm">
+            <div class="col-md-2">
                 <div style="margin-bottom: 2em; margin-top: -2em; text-align: center">
                     <p>
                         <?= $this->draw('entity/User/profile/contact') ?>
@@ -12,21 +12,21 @@
             </div>
         </div>
         <div class="row">
-            <div class="span8 namebadge">
+            <div class="namebadge">
                 <p>
                     <a href="<?= $vars['user']->getDisplayURL() ?>" class="u-url icon-container"><img class="u-photo"
                                                                                                src="<?= $vars['user']->getIcon() ?>"/></a>
                 </p>
             </div>
-            <div class="span8 ">
+            <div class=" ">
                 <div class="row">
-                    <div class="span8">
+                    <div class="">
                         <h1 class="p-profile">
                             <a href="<?= $vars['user']->getDisplayURL() ?>"
                                class="u-url p-name fn"><?= $vars['user']->getTitle() ?></a>
                         </h1>
                     </div>
-                    <div class="span2 offset6">
+                    <div class="namebadge">
                         <?php
 
                             if ($vars['user']->canEdit()) {
@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="span8 url-container">
+                    <div class="col-xs-12 url-container">
                         <div class="e-note"><?php
                                 $description = $vars['user']->getDescription();
                                 if (!empty($description)) {
@@ -58,9 +58,11 @@
                                     </p>
                                 <?php
                                 }
-                            ?></div>
+                            ?>
+                            <?= $this->draw('entity/User/profile/fields') ?>
+                        </div>
 
-                        <?= $this->draw('entity/User/profile/fields') ?>
+
                     </div>
                 </div>
             </div>

@@ -19,12 +19,15 @@
             <li>Rename the file called <code>htaccess.dist</code> at the root of your Known installation to
                 <code>.htaccess</code>.</li>
             <li>
+                Make sure your <code>Uploads</code> directory is set to allow your web server to save files to it.
+            </li>
+            <li>
                 Create a new file called <code>config.ini</code> at the root of your Known installation,
                 with the following contents.
             </li>
         </ul>
         <p>
-            Once you've saved it, just reload this page to continue.
+            Once you've saved your <code>config.ini</code> file, just reload this page to continue.
         </p>
 
         <textarea class="installation"><?=htmlspecialchars($ini_file);?></textarea>

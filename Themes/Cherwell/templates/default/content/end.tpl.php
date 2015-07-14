@@ -33,11 +33,19 @@
     </p>
 </div>
 <div class="interactions">
+	<span class="annotate-icon">
+    <?php
+
+        if ($vars['object']->access != 'PUBLIC') {
+            ?><i class="fa fa-lock"> </i><?php
+        }
+
+    ?>
     <?php
         if (!$has_liked) {
-            $heart_only = '<i class="icon-star-empty"></i>';
+            $heart_only = '<i class="fa fa-star-o"></i>';
         } else {
-            $heart_only = '<i class="icon-star"></i>';
+            $heart_only = '<i class="fa fa-star"></i>';
         }
         if ($likes == 1) {
             $heart_text = '1 star';
@@ -52,11 +60,11 @@
         <?php
         } else {
             ?>
-            <a class="stars" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?= $heart ?></a>
+            <a class="stars" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?= $heart ?></a></span>
         <?php
         }
     ?>
-    <a class="comments" href="<?= $vars['object']->getDisplayURL() ?>#comments"><i class="icon-chat"></i> <?php
+    	    <span class="annotate-icon"><a class="comments" href="<?= $vars['object']->getDisplayURL() ?>#comments"><i class="fa fa-comments"></i> <?php
 
             //echo $replies;
             if ($replies == 1) {
@@ -65,12 +73,12 @@
                 echo $replies . ' comments';
             }
 
-        ?></a>
+        ?></a></span>
     <a class="shares" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?php if ($shares = $vars['object']->countAnnotations('share')) {
-            echo '<i class="icon-arrows-cw"></i> ' . $shares;
+            echo '<i class="fa fa-retweet"></i> ' . $shares;
         } ?></a>
     <a class="rsvps" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?php if ($rsvps = $vars['object']->countAnnotations('rsvp')) {
-            echo '<i class="icon-calendar-empty"></i> ' . $rsvps;
+            echo '<i class="fa fa-calendar-o"></i> ' . $rsvps;
         } ?></a>
 </div>
 <br clear="all"/>

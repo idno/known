@@ -1,12 +1,13 @@
 <div class="row">
 
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
         <h1>
             Share your feedback
         </h1>
         <!--<?= $this->draw('account/menu') ?>-->
         <p class="explanation">
             Want to share something with the Known team? We'd love to read your thoughts, suggestions, or ideas.
+            We will personally read all of your feedback.
         </p>
 
     </div>
@@ -15,7 +16,7 @@
 <form class="form-horizontal" action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>account/settings/feedback"
       method="post">
 <div class="row">
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
 
             <p class="feedback">
                 <strong>From:</strong> <?= \Idno\Core\site()->session()->currentUser()->email ?>
@@ -31,14 +32,10 @@
             <div class="control-group">
                 <textarea rows="7" class="feedback" placeholder="Let us know what you think." name="message" required></textarea>
 
-                <p>
-                    <em>We will personally read all of your feedback.</em>
-                </p>
-
                 <div class="control-group">
                     <div class="feedback-btn">
                         <?= \Idno\Core\site()->actions()->signForm('/account/settings/feedback') ?>
-                        <input type="submit" class="btn btn-feedback" value="Send feedback">
+                        <input type="submit" class="btn btn-primary" value="Send feedback">
                     </div>
                 </div>
 

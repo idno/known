@@ -68,7 +68,10 @@
                     $result .= $this->rendered_extensions[$templateName];
                 }
 
-                return $result;
+                if (!empty($result)) return $result;
+                if ($returnBlank) return '';
+
+                return false;
             }
 
             /**
@@ -208,16 +211,17 @@
                 $html = site()->triggerEvent('text/format', [], $html);
                 require_once dirname(dirname(dirname(__FILE__))) . '/external/MrClay_AutoP/AutoP.php';
                 $autop = new \MrClay_AutoP();
-                
+
                 return $this->sanitize_html($autop->process($html));
             }
-            
+
             /**
              * Sanitize HTML in a large block of text, removing XSS and other vulnerabilities.
              * This works by calling the text/filter event, note that currently there is no native implementation.
              * @param type $html
              */
-            function sanitize_html($html) {
+            function sanitize_html($html)
+            {
                 return site()->triggerEvent('text/filter', [], $html);
             }
 
@@ -226,7 +230,8 @@
              * @param $html
              * @return mixed
              */
-            function sanitise_html($html) {
+            function sanitise_html($html)
+            {
                 return $this->sanitize_html($html);
             }
 
@@ -265,9 +270,10 @@
              */
             function parseHashtags($text)
             {
-                $r = preg_replace_callback('/(?<=^|[\>\s\n])(\#[\w0-9]+)/iu', function($matches) {
+                $text = (html_entity_decode($text));
+                $r    = preg_replace_callback('/(?<=^|[\>\s\n])(\#[\p{L}0-9]+)/u', function ($matches) {
                     $url = $matches[1];
-                    $tag = str_replace('#','',$matches[1]);
+                    $tag = str_replace('#', '', $matches[1]);
 
                     if (preg_match('/\#[A-Fa-f0-9]{6}/', $matches[1])) {
                         return $matches[1];
@@ -277,6 +283,25 @@
                 }, $text);
 
                 return $r;
+            }
+
+            /**
+             * Given HTML text, attempts to return text from the first $paras paragraphs
+             * @param $html_text
+             * @param int $paras Number of paragraphs to return; defaults to 1
+             * @return string
+             */
+            function sampleParagraph($html_text, $paras = 1)
+            {
+                $sample = '';
+                $dom = new \DOMDocument;
+                $dom->loadHTML($html_text);
+                if ($p = $dom->getElementsByTagName('p')) {
+                    for ($i = 0; $i < $paras; $i++) {
+                        $sample .= $p->item($i)->textContent;
+                    }
+                }
+                return $sample;
             }
 
             /**
@@ -315,6 +340,7 @@
                 } else {
                     $newuri = 'http:';
                 }
+
                 return str_replace($scheme . ':', $newuri, $url);
             }
 
@@ -420,6 +446,23 @@
                 }
 
                 return $url;
+            }
+
+            /**
+             * Sets the template type based on various environmental factors
+             */
+            function autodetectTemplateType()
+            {
+                if ($page = site()->currentPage()) {
+                    $template = $page->getInput('_t');
+                    if (!empty($template)) {
+                        site()->template()->setTemplateType($template);
+                    } else if ($page->isAcceptedContentType('application/json')) {
+                        site()->template()->setTemplateType('json');
+                    } else {
+                        site()->template()->setTemplateType('default');
+                    }
+                }
             }
 
         }

@@ -12,24 +12,25 @@
                     echo strtolower($matches[1]);
                 }?>">
 
-                <div class="span1 offset1 owner h-card hidden-phone">
+                <div class="col-md-1 col-md-offset-1 owner h-card visible-md visible-lg">
                     <p>
-                        <a href="<?= $owner->getDisplayURL() ?>" class="u-url icon-container"><img class="u-photo"
-                                                                                            src="<?= $owner->getIcon() ?>"/></a><br/>
+                        <a href="<?= $owner->getDisplayURL() ?>" class="u-url icon-container">
+	                        <img class="u-photo" src="<?= $owner->getIcon() ?>"/></a><br/>
                         <a href="<?= $owner->getDisplayURL() ?>" class="p-name u-url fn"><?= htmlentities(strip_tags($owner->getTitle()), ENT_QUOTES, 'UTF-8'); ?></a>
                     </p>
                 </div>
+                
                 <div
-                    class="span8 <?= $subObject->getMicroformats2ObjectType() ?> idno-<?= $subObject->getContentTypeCategorySlug() ?> idno-object idno-content">
-                    <div class="visible-phone">
+                    class="col-md-8 <?= $subObject->getMicroformats2ObjectType() ?> idno-<?= $subObject->getContentTypeCategorySlug() ?> idno-object idno-content">
+                    <!--<div class="visible-xs">
                         <p class="p-author author h-card vcard">
                             <a href="<?= $owner->getDisplayURL() ?>" class="icon-container"><img
                                     class="u-logo logo u-photo photo" src="<?= $owner->getIcon() ?>"/></a>
                             <a class="p-name fn u-url url" href="<?= $owner->getDisplayURL() ?>"><?= htmlentities(strip_tags($owner->getTitle()), ENT_QUOTES, 'UTF-8') ?></a>
                             <a class="u-url" href="<?= $owner->getDisplayURL() ?>">
-                                <!-- This is here to force the hand of your MF2 parser --></a>
+                                </a>
                         </p>
-                    </div>
+                    </div>-->
                     <?php
                         if (($subObject->inreplyto)) {
                             ?>
@@ -49,7 +50,7 @@
                                             ?>
 
                                             <p>
-                                                <i class="icon-reply"></i> Replied to
+                                                <i class="fa fa-reply"></i> Replied to
                                                 <?php
 
                                                     $replies = 0;

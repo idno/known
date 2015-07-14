@@ -3,7 +3,7 @@
 ?>
 <div class="row">
 
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
         <?= $this->draw('account/menu') ?>
         <h1>
             Tools and Apps
@@ -17,7 +17,7 @@
 
 
 <div class="row">
-	<div class="span5 offset1">
+	<div class="col-md-4 col-md-offset-1">
             <p>
                 The Known bookmarklet is the best way to save links, reply to posts, and share articles.</p> 
                 <p>Just drag the bookmarklet button below into your browser's Bookmark Bar. 
@@ -25,19 +25,19 @@
             <p>
                 <?=$this->draw('entity/bookmarklet'); ?>             </p>
         </div>
-	<div class="span4">
+	<div class="col-md-4 col-md-offset-1">
 		<p>
-			<img src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>gfx/other/bookmarklet-mouse.png" alt="bookmarklet-mouse" width="177" height="127" />
+			<img src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>gfx/other/bookmarklet-mouse.png" alt="bookmarklet-mouse" class="img-responsive" />
 		</p>
         </div>
 </div>
 
 
 <div class="row">
-	<div class="span5 offset1">
-		<img src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>gfx/other/bookmarklet.png" alt="bookmarklet" width="500" height="181" />
+	<div class="col-md-4 col-md-offset-1">
+		<img src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>gfx/other/bookmarklet.png" alt="bookmarklet" class="img-responsive"  />
 	</div>
-	<div class="span4">
+	<div class="col-md-4 col-md-offset-1">
         <p>
             <strong>Don't see a bookmarks bar?</strong>
         </p>
@@ -57,14 +57,28 @@
 
 <div class="row" style="margin-top: 2em">
 
-    <div class="span10 offset1">
+    <div class="col-md-4 col-md-offset-1">
 
         <h2>API</h2>
         <p>
             Your API key: <input type="text" id="apikey" class="span4" name="apikey"
-                                 value="<?= htmlspecialchars($user->getAPIkey()) ?>" disabled>
+                                 value="Click to show" readonly>
         </p>
 
     </div>
 
 </div>
+<script>
+    $(document).ready(function() {
+        $('#apikey').click(function() {
+            var ctrl = $(this);
+            
+            $.ajax('<?= \Idno\Core\site()->currentPage()->currentUrl(); ?>', {
+                dataType: 'json',
+                success: function(data) {
+                    ctrl.val(data);
+                }
+            })
+        });
+    });
+</script>

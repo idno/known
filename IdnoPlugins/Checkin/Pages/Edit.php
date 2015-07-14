@@ -45,10 +45,10 @@
                 }
 
                 if ($object->saveDataFromInput($this)) {
-                    //$this->forward(\Idno\Core\site()->config()->getURL() . 'content/all/#feed');
-                    $this->forward($object->getDisplayURL());
+                    $forward = $this->getInput('forward-to', $object->getDisplayURL());
+                    $this->forward($forward);
                 }
-
+                
             }
 
         }
