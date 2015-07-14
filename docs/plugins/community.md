@@ -11,6 +11,12 @@ listings here do not imply endorsement by the Known project team in any way.
 * [LinkedIn](https://github.com/mapkyca/KnownLinkedin) - Provides support for LinkedIn, 
     by [Marcus Povey](https://www.marcus-povey.co.uk)
 
+* [WordPress](https://github.com/timmmmyboy/WordPress) - Syndicate your content to a WordPress blog, by [Tim Owens](http://timowens.io/)
+
+* [Tumblr](https://github.com/timmmmyboy/Tumblr) - Syndicate your content to a Tumblr feed, by [Tim Owens](http://timowens.io/)
+
+* [Diigo](https://github.com/timmmmyboy/Diigo) - Syndicate your bookmarks to Diigo, by [Tim Owens](http://timowens.io/)
+
 * [Github](https://github.com/mapkyca/KnownGithub) - Create issues and reply to comments on Github, all from your own site, 
     by [Marcus Povey](https://www.marcus-povey.co.uk)
 
@@ -69,11 +75,14 @@ listings here do not imply endorsement by the Known project team in any way.
 * [Gist Support](https://github.com/mapkyca/IdnoGist) - Automatically render gist links in your content, 
     by [Marcus Povey](https://www.marcus-povey.co.uk)
 
+* [UserColors](https://github.com/misuba/UserColors) - Let users choose the colors on their profile pages on multi-user
+    Known sites, by [Mike Sugarbaker](http://gibberish.com/)
+
+* [Pushover](https://github.com/timmmmyboy/Pushover) - Push notifications from Known to your iOS and Android devices via
+   the Pushover.net service, by [Tim Owens](http://timowens.io/)
+
 * [Markdown](https://github.com/mapkyca/IdnoMarkdown) - Adds Markdown support for status and blog posts, 
     by [Marcus Povey](https://www.marcus-povey.co.uk)
-
-
-
 
 
 ## Submissions
