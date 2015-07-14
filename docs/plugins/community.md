@@ -32,12 +32,6 @@ listings here do not imply endorsement by the Known project team in any way.
 
 * [Diaspora](https://github.com/Phyks/KnownDiaspora) - Crosspost content to a Diaspora site, by [Lukas Verney](http://phyks.me/)
 
-### New Content Types
-
-...
-
-
-
 ### System and Security
 
 * [HTML Output sanitisation](https://github.com/mapkyca/KnownHTMLPurifier) - Provides HTML Purifier user output sanitisation, 
