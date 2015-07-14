@@ -8,10 +8,7 @@
                 
                 // Get the rendered homepage
                 $contents = file_get_contents(\Idno\Core\site()->config()->url); 
-                
-                
-                var_export($contents);
-                
+                                
                 // Make sure it's not empty
                 $this->assertNotEmpty($contents);
 
