@@ -62,7 +62,9 @@ listings here do not imply endorsement by the Known project team in any way.
 
 ## Submissions
 
-To add a new plugin, submit a pull request with the following details:
+To add a new plugin, submit a pull request with the following details in the appropriate section:
 
-### [Plugin name](http://link/to/plugin) - A short description (no more than a paragraph), 
-    by [Author name](http://link/to/author)
+```
+* [Plugin name](http://link/to/plugin) - A short description (no more than a paragraph), 
+  by [Author name](http://link/to/author)
+```
