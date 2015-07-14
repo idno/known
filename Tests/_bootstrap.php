@@ -17,9 +17,6 @@ if (!$port)
     $port = 80;
 $_SERVER['SERVER_PORT'] = $port;
 
-$_SERVER['KNOWN_DBNAME'] = 'known_unittest';
-$_SERVER['KNOWN_SESSIONNAME'] = 'known_unittest';
-$_SERVER['KNOWN_DEFAULT_CONFIG'] = false;
 
 try {
     
