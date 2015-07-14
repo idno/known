@@ -38,7 +38,7 @@
                 self::$site       = $this;
                 $this->dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
                 $this->config     = new Config();
-                if ($this->config->isDefaultConfig()) {
+                if ($this->config->isDefaultConfig()) {die(var_export($this->config));
                     header('Location: ./warmup/');
                     exit; // Load the installer
                 }
