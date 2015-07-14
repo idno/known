@@ -9,10 +9,15 @@ branches:
     - master
 
 before_script:
+  # Update and install base system
   - sudo apt-get update
   - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5
   - sudo a2enmod rewrite
+  # Load Mongodb support
   - printf "\n" | pecl -q install mongo && echo "extension=mongo.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+  # configure apache virtual hosts
+  - sudo cp -f build/travis-ci-apache /etc/apache2/sites-available/default
+  - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
   - sudo service apache2 restart
 
 services:
