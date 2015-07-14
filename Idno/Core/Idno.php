@@ -45,7 +45,7 @@
                 switch ($this->config->database) {
                     case 'mongodb':
                         $this->db = new DataConcierge();
-                        break;
+                        break;  
                     case 'mysql':
                         $this->db = new \Idno\Data\MySQL();
                         break;
