@@ -36,6 +36,7 @@
                             $message = '<p>' . $e->getMessage() . '</p>';
                             $message .= '<p>' . $connection_string . '</p>';
                         }
+                        \Idno\Core\site()->logging()->log($e->getMessage());
                         include \Idno\Core\site()->config()->path . '/statics/db.php';
                         exit;
                     }
