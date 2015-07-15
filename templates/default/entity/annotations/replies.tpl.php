@@ -5,7 +5,7 @@
 	    
 	    $permalink = $annotation['permalink'] ? $annotation['permalink'] : $locallink;
 ?>
-        <div class="idno-annotation row p-comment h-cite">
+        <div class="idno-annotation row u-comment h-cite">
             <div class="idno-annotation-image col-md-1 hidden-sm">
                 <p>
                     <a href="<?=$annotation['owner_url']?>" class="icon-container"><img src="<?=$annotation['owner_image']?>" /></a>
