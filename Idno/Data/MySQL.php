@@ -803,7 +803,8 @@
                         return $statement->fetchAll(\PDO::FETCH_OBJ);
                     }
                 } catch (\Exception $e) {
-                    \Idno\Core\site()->logging()->log($e->getMessage());
+                    //\Idno\Core\site()->logging()->log($e->getMessage());
+                    error_log($e->getMessage());
                 }
 
                 return false;
@@ -828,7 +829,8 @@
                                         $statement = $client->prepare($sql);
                                         $statement->execute();
                                     } catch (\Exception $e) {
-                                        \Idno\Core\site()->logging()->log($e->getMessage());
+                                        //\Idno\Core\site()->logging()->log($e->getMessage());
+                                        error_log($e->getMessage());
                                     }
                                 }
                                 $newdate = 2014100801;
@@ -839,7 +841,8 @@
                                         $statement = $client->prepare($sql);
                                         $statement->execute();
                                     } catch (\Exception $e) {
-                                        \Idno\Core\site()->logging()->log($e->getMessage());
+                                        //\Idno\Core\site()->logging()->log($e->getMessage());
+                                        error_log($e->getMessage());
                                     }
                                 }
                                 $newdate = 2015061501;
