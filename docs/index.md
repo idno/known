@@ -5,6 +5,7 @@
 This is the canonical documentation for the project.
 
 * [Installing and upgrading Known](install/index.md)
+* [Plugins](plugins/index.md)
 * [About the Known open source community](community/index.md)
 * [Known for developers](developers/index.md)
 * [What's new in Known?](changelog.md)

@@ -67,6 +67,22 @@
             }
 
             /**
+             * Send a webmention payload to a target without parsing HTML
+             *
+             * @param $sourceURL
+             * @param $targetURL
+             * @return bool
+             */
+            static function sendWebmentionPayload($sourceURL, $targetURL)
+            {
+
+                // Load webmention-client
+                require_once \Idno\Core\site()->config()->path . '/external/mention-client-php/src/IndieWeb/MentionClient.php';
+                $client = new \Idno\Core\MentionClient($sourceURL);
+                return $client->sendWebmentionPayload($targetURL);
+            }
+
+            /**
              * Does the supplied page support webmentions?
              * @param $pageURL
              * @param bool $sourceBody
@@ -74,6 +90,7 @@
              */
             static function supportsMentions($pageURL, $sourceBody = false)
             {
+
                 // Load webmention-client
                 require_once \Idno\Core\site()->config()->path . '/external/mention-client-php/src/IndieWeb/MentionClient.php';
 

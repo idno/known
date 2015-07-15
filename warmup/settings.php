@@ -1,6 +1,6 @@
 <?php
 
-    $ok = true;
+    $ok       = true;
     $messages = '';
 
     function getInput($name)
@@ -12,21 +12,40 @@
         return '';
     }
 
-    $site_title = getInput('site_title');
-    $mysql_user = getInput('mysql_user');
-    $mysql_host = getInput('mysql_host');
-    $mysql_pass = getInput('mysql_pass');
-    $mysql_name = getInput('mysql_name');
+    $site_title  = getInput('site_title');
+    $mysql_user  = getInput('mysql_user');
+    $mysql_host  = getInput('mysql_host');
+    $mysql_pass  = getInput('mysql_pass');
+    $mysql_name  = getInput('mysql_name');
     $upload_path = getInput('upload_path');
     if (empty($mysql_host)) {
         $mysql_host = 'localhost';
+    }
+
+    if (!empty($_SERVER['PHP_SELF'])) {
+        if ($subdir = dirname(dirname($_SERVER['PHP_SELF']))) {
+            if ($subdir != DIRECTORY_SEPARATOR) {
+                if(substr($subdir, -1) == DIRECTORY_SEPARATOR) {
+                    $subdir = substr($subdir, 0, -1);
+                }
+                if (substr($subdir, 0, 1) == DIRECTORY_SEPARATOR) {
+                    $subdir = substr($subdir, 1);
+                }
+                $subdir = str_replace(DIRECTORY_SEPARATOR, '/', $subdir);
+            }
+        }
+    }
+    if (empty($subdir)) {
+        $subdir = '';
+    } else {
+        $subdir = '/' . $subdir;
     }
 
     if (!empty($mysql_name) && !empty($mysql_host)) {
         try {
             $dbh = new PDO('mysql:host=' . $mysql_host . ';dbname=' . $mysql_name, $mysql_user, $mysql_pass);
             if ($schema = @file_get_contents('../schemas/mysql/mysql.sql')) {
-                $dbh->exec('use `'.$mysql_name.'`');
+                $dbh->exec('use `' . $mysql_name . '`');
                 $dbh->exec($schema);
             } else {
                 $messages .= '<p>We couldn\'t find the schema doc.</p>';
@@ -41,10 +60,14 @@
 
     if (function_exists('apache_get_version')) {
         $host = strtolower($_SERVER['HTTP_HOST']);
-        $schema = $_SERVER['HTTPS'] ? 'https://' : 'http://';
+        if (!empty($_SERVER['HTTPS'])) {
+            $schema = 'https://';
+        } else {
+            $schema = 'http://';
+        }
 
         $curl_handle = curl_init();
-        curl_setopt($curl_handle, CURLOPT_URL, $schema . $host . '/js/canary.js');
+        curl_setopt($curl_handle, CURLOPT_URL, $schema . $host . $subdir . '/js/canary.js');
         curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl_handle, CURLOPT_HEADER, 1);
 
@@ -55,7 +78,7 @@
             $messages .= '<p>Rewriting appears to be disabled. Usually this means "AllowOverride None" is set in apache2.conf ';
             $messages .= 'which prevents Known\'s .htaccess from doing its thing. We tried to fetch a URL that should redirect ';
             $messages .= 'to default.js, but got this response instead:</p>';
-            $messages .= '<code><pre>'.htmlspecialchars($curl_result).'</pre></code>';
+            $messages .= '<code><pre>' . htmlspecialchars($curl_result) . '</pre></code>';
             $ok = false;
         }
 
@@ -201,6 +224,7 @@ END;
                     You should create your database before entering the details here. If you're using a shared host,
                     you may have an option called "MySQL Database Wizard" that will speed you through the process.
                 </p>
+
                 <p>
                     <label class="control-label">
                         MySQL database name<br>

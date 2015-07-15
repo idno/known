@@ -35,12 +35,14 @@
         $path = substr($path, 0, -1);
     }
     if (!empty($path)) {
-        $routes[$path . '/'] = $routes['/'];
+        if (!empty($routes['/'])) {
+            $routes[$path . '/'] = $routes['/'];
+        }
     }
 
 // Manage routing
 
-    \Idno\Core\PageHandler::hook('404', function () {
+    \Idno\Core\PageHandler::hook('404', function ($params = array()) {
         http_response_code(404);
         $t = \Idno\Core\site()->template();
         

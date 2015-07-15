@@ -28,13 +28,6 @@
 
                     $eventdata = $event->data();
                     if (!empty($eventdata['object'])) {
-                        if (!empty(site()->config()->wayback_machine)) {
-                            if ($eventdata['object'] instanceof Entity) {
-                                if ($eventdata['object']->isPublic()) {
-                                    Webservice::get('https://web.archive.org/save/' . $eventdata['object']->getDisplayURL());
-                                }
-                            }
-                        }
                         $content_type = $eventdata['object']->getActivityStreamsObjectType();
                         if ($services = \Idno\Core\site()->syndication()->getServices($content_type)) {
                             if ($selected_services = \Idno\Core\site()->currentPage()->getInput('syndication')) {
@@ -160,6 +153,44 @@
                 }
 
                 return array();
+            }
+
+            /**
+             * Get a list of fully-formatted service::username syndication strings
+             * @return array
+             */
+            function getServiceAccountStrings()
+            {
+                $strings = [];
+                if ($services = $this->getServiceAccountsByService()) {
+                    foreach($services as $service_name => $service) {
+                        foreach($service as $account) {
+                            $strings[] = $service_name . '::' . $account['username'];
+                        }
+                    }
+                }
+                return $strings;
+            }
+
+            /**
+             * Get a list of expanded service data
+             * @return array
+             */
+            function getServiceAccountData()
+            {
+                $data = [];
+                if ($services = $this->getServiceAccountsByService()) {
+                    foreach($services as $service_name => $service) {
+                        foreach($service as $account) {
+                            $data[] = [
+                                'id' => $service_name . '::' . $account['username'],
+                                'name' => $account['name'],
+                                'service' => $service_name
+                            ];
+                        }
+                    }
+                }
+                return $data;
             }
 
             /**

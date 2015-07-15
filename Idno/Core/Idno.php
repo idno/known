@@ -45,7 +45,7 @@
                 switch ($this->config->database) {
                     case 'mongodb':
                         $this->db = new DataConcierge();
-                        break;
+                        break;  
                     case 'mysql':
                         $this->db = new \Idno\Data\MySQL();
                         break;
@@ -367,6 +367,9 @@
 
             function addPageHandler($pattern, $handler, $public = false)
             {
+                if (defined('KNOWN_SUBDIRECTORY')) {
+                    $pattern = '/' . KNOWN_SUBDIRECTORY . $pattern;
+                }
                 if (class_exists($handler)) {
                     $this->pagehandlers[$pattern] = $handler;
                     if ($public == true) {
@@ -726,6 +729,13 @@
                     || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https');
             }
 
+            /**
+             * This is a state dependant object, and so can not be serialised.
+             * @return array
+             */
+            function __sleep() {
+                return [];
+            }
         }
 
         /**

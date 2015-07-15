@@ -10,7 +10,7 @@
                 </p>
             </div>
 
-            <div class="col-md-7 robot-murmur">
+            <div class="col-md-10 robot-murmur">
                 <?= $this->autop($vars['body']) ?>
                 <div class="robot-footer">
                     <p>

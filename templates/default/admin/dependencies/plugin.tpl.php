@@ -11,11 +11,11 @@ $v_value = version_compare($details['Plugin description']['version'], strtolower
 if ($loaded_plugin) {
     $label = 'label-success';
 } else {
-    $label = 'label-important';
+    $label = 'label-danger';
 }
 
 if ($version && $details && $v_value<0)
-	$label = 'label-important';
+	$label = 'label-danger';
 
 ?><span class="label <?= $label ?>"><?= $plugin ?><?php
     if ($details) {

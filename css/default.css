@@ -21,6 +21,10 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: 600;
 }
 
+img {
+    max-width: 100%;
+}
+
 .beforecontent {
     margin-bottom: 5em;
 }
@@ -227,7 +231,6 @@ h1, h2, h3, h4, h5, h6 {
     margin-right: 0.25em;
 }
 
-
 .idno-object .interactions a:hover {
     color: #333;
     text-decoration: none;
@@ -236,6 +239,15 @@ h1, h2, h3, h4, h5, h6 {
 .idno-object .citation {
     color: #ccc;
 }
+
+.h-cite .h-card {
+    text-align: left;
+}
+
+.h-cite .e-content {
+    margin-bottom: 0;
+}
+
 
 .owner .u-photo {
     height: 100%;
@@ -1112,6 +1124,10 @@ p.feedback {
 
 .idno-entry-helper .robot-head p {
     font-size: 0.9em !important;
+}
+
+.idno-entry-helper .robot-head p img {
+    width: 100%;
 }
 
 .idno-entry-helper .robot-murmur p {
