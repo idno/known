@@ -32,6 +32,9 @@ listings here do not imply endorsement by the Known project team in any way.
 
 * [Diaspora](https://github.com/Phyks/KnownDiaspora) - Crosspost content to a Diaspora site, by [Lukas Verney](http://phyks.me/)
 
+* [IRC](https://github.com/mapkyca/KnownIRC) - Post messages and links into IRC channels, 
+    by [Marcus Povey](https://www.marcus-povey.co.uk)
+
 ### System and Security
 
 * [HTML Output sanitisation](https://github.com/mapkyca/KnownHTMLPurifier) - Provides HTML Purifier user output sanitisation, 
