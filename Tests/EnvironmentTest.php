@@ -2,7 +2,7 @@
 
     namespace Tests {
 
-        class EnvironmentTest extends \PHPUnit_Framework_TestCase {
+        class EnvironmentTest extends KnownTestCase {
 
             /** 
              * Assert a compatible version of PHP
