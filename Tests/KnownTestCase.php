@@ -14,7 +14,7 @@ namespace Tests {
          * Return a test user, creating it if necessary.
          * @return \Idno\Entities\User
          */
-        public function &user() {
+        protected function &user() {
             
             // Have we already got a user?
             if (static::$testUser) 
@@ -46,7 +46,7 @@ namespace Tests {
          * Return an admin test user, creating it if necessary.
          * @return \Idno\Entities\User
          */
-        public function &admin() {
+        protected function &admin() {
             
             // Have we already got a user?
             if (static::$testAdmin) 
