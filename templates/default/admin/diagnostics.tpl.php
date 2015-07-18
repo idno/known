@@ -6,12 +6,8 @@
 
         <div class="explanation">
             <p>
-                This tool will provide you with a set of diagnostics which may be helpful to you or others to get to the bottom of any problems you may have.
+                This page provides you with information that may help you or others diagnose any problems you may be experiencing with your Known install.
             </p>
-            <p>
-                Please note, this report may contain sensitive and security related information, so you absolutely must not send it to anyone in an unencrypted form!
-            </p>
-
         </div>
     </div>
 
@@ -24,7 +20,7 @@
                 </pre></small>
         </div>
 
-        <span class="btn btn-primary" id="diagnostics-report-run">Generate report...</span>
+        <span class="btn btn-primary" id="diagnostics-report-run">Generate full report...</span>
 
     </div>
 
