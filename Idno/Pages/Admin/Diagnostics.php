@@ -108,8 +108,12 @@
                     } else {
                         $report .= "Basic checks on installation discovered no problems.\n\n";
                     }
-                    
-                    $report .= "Running config:\n---------------\n" . var_export(\Idno\Core\site()->config(), true) . "\n\n";
+
+                    $config = \Idno\Core\site()->config();
+                    $config->config['dbpass'] = '** REDACTED **';
+                    $config->ini_config['dbpass'] = '** REDACTED **';
+
+                    $report .= "Running config:\n---------------\n" . var_export($config, true) . "\n\n";
                     $report .= "\$_SESSION:\n----------\n" . var_export($_SESSION, true) . "\n\n";
                     $report .= "\$_SERVER:\n---------\n" . var_export($_SERVER, true) . "\n\n";
 
