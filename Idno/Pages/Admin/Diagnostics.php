@@ -42,6 +42,44 @@
                 }
                 $basics['report']['php-extensions']['message'] = trim($basics['report']['php-extensions']['message'], ' ,') . ' missing.';
                 
+                // Check upload directory (if set)
+                $basics['report']['upload-path'] = ['status' => 'Ok'];
+                $upload_path = \Idno\Core\site()->config()->uploadpath;
+                if (!empty($upload_path)) {
+                    if ($upload_path = realpath($upload_path)) {
+                        if (substr($upload_path, -1) != '/' && substr($upload_path, -1) != '\\') {
+                            $upload_path .= '/';
+                        }
+                        if (file_exists($upload_path) && is_dir($upload_path)) {
+                            if (!is_readable($upload_path)) {
+                                $basics['status'] = 'Failure';
+                                $basics['report']['upload-path']['message'] .= 'We can\'t read data from ' . htmlspecialchars($upload_path) . ' - please check permissions and try again.';
+                                $basics['report']['upload-path']['status'] = 'Failure';
+                            }
+                            if (!is_writable($upload_path)) {
+                                $basics['status'] = 'Failure';
+                                $basics['report']['upload-path']['message'] .= 'We can\'t write data to ' . htmlspecialchars($upload_path) . ' - please check it is writable by your web server user.';
+                                $basics['report']['upload-path']['status'] = 'Failure';
+                            }
+                        } else {
+                            $basics['status'] = 'Failure';
+                            $basics['report']['upload-path']['message'] .= 'The upload path ' . htmlspecialchars($upload_path) . ' either doesn\'t exist or isn\'t a directory.';
+                            $basics['report']['upload-path']['status'] = 'Failure';
+                        }
+                    } else {
+                        $basics['status'] = 'Failure';
+                        $basics['report']['upload-path']['message'] .= 'The upload path ' . htmlspecialchars($upload_path) . ' either doesn\'t exist or isn\'t a directory.';
+                        $basics['report']['upload-path']['status'] = 'Failure';
+                    }
+                } else {
+                    // We don't have an upload path set, do we need one?
+                    if (\Idno\Core\site()->config()->filesystem == 'local') {
+                        $basics['status'] = 'Failure';
+                        $basics['report']['upload-path']['message'] .= "Your file system is set to 'local' but you have not specified an upload path (uploadpath = ...;) in your config.ini";
+                        $basics['report']['upload-path']['status'] = 'Failure';
+                    }
+                }
+                
                 return $basics;
             }
 
