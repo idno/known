@@ -93,8 +93,8 @@
                 // Create diagnostics report
                 if ($this->xhr) {
                 
-                    $report = "Known Diagnostics: Build " . \Idno\Core\site()->version() . "\nDate: " . date('r') . "\n\n";
-                    $report .= "*** WARNING: This report contains security sensitive information, take care how you send it to people! ***\n\n";
+                    $report = "Known Diagnostics: Version " . \Idno\Core\site()->version() . "\nDate: " . date('r') . "\n\n";
+                    $report .= "*** WARNING: This report contains sensitive information. Be careful about who and how you transmit it. ***\n\n";
                     $report .= "Basics:\n-------\n\n";
                     
                     if ($basics['status']!='Ok') {
