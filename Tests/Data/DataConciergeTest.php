@@ -119,6 +119,39 @@ namespace Tests\Data {
             $this->validateObject($objs[0]);
         }
         
+        public function testSearchShort() {
+            $search = array();
+
+            $search = \Idno\Core\site()->db()->createSearchArray("sear");
+
+            $count = \Idno\Entities\GenericDataItem::countFromX('Idno\Entities\GenericDataItem', $search);
+            $this->assertTrue($count > 0);
+            
+            $feed  = \Idno\Entities\GenericDataItem::getFromX('Idno\Entities\GenericDataItem', $search);
+            $this->assertTrue(is_array($feed));
+            $this->assertTrue(($feed[0] instanceof \Idno\Entities\GenericDataItem));
+        }
+        
+        public function testSearchLong() {
+            $search = array();
+
+            $search = \Idno\Core\site()->db()->createSearchArray("search obj");
+
+            $count = \Idno\Entities\GenericDataItem::countFromX('Idno\Entities\GenericDataItem', $search);
+            $this->assertTrue($count > 0);
+            
+            $feed  = \Idno\Entities\GenericDataItem::getFromX('Idno\Entities\GenericDataItem', $search);
+            $this->assertTrue(is_array($feed));
+            $this->assertTrue(($feed[0] instanceof \Idno\Entities\GenericDataItem));
+        }
+        
+        public function testCountObjects() {
+            $cnt = \Idno\Entities\GenericDataItem::count(['variable1' => 'test']);
+            
+            $this->assertTrue(is_int($cnt));
+            $this->assertTrue($cnt > 0);
+        }
+        
         /**
          * Helper function to validate object.
          */
