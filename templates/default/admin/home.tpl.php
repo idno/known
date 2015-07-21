@@ -82,6 +82,23 @@
 
             <div class="row">
                 <div class="col-md-2">
+                    <p><label class="control-label" for="show_privacy"><strong>Per-post privacy</strong></label></p>
+                </div>
+                <div class="config-toggle col-md-4">
+                    <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
+                           name="show_privacy" id="show_privacy"
+                           value="true" <?php if (\Idno\Core\site()->config()->show_privacy == true) echo 'checked'; ?>>
+                </div>
+                <div class="col-md-6"><p class="config-desc">
+                        Show per-post privacy settings.
+                    </p>
+                </div>
+            </div>
+
+            <!---------->
+
+            <div class="row">
+                <div class="col-md-2">
                     <p><label class="control-label" for="hub"><strong>PubSubHubbub hub</strong></label></p>
                 </div>
                 <div class="col-md-4">
@@ -141,23 +158,6 @@
                 </div>
                 <div class="col-md-6"><p class="config-desc">Add a permalink to the original content when you
                         cross-post.</p>
-                </div>
-            </div>
-
-            <!---------->
-
-            <div class="row">
-                <div class="col-md-2">
-                    <p><label class="control-label" for="hide_privacy"><strong>Hide post privacy</strong></label></p>
-                </div>
-                <div class="config-toggle col-md-4">
-                    <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
-                           name="hide_privacy" id="hide_privacy"
-                           value="true" <?php if (\Idno\Core\site()->config()->hide_privacy == true) echo 'checked'; ?>>
-                </div>
-                <div class="col-md-6"><p class="config-desc">
-                        Hide per-post privacy settings.
-                    </p>
                 </div>
             </div>
 

@@ -7,7 +7,7 @@
         }
     }
 
-    if (empty(\Idno\Core\site()->config()->hide_privacy) || $access != 'PUBLIC') {
+    if (!empty(\Idno\Core\site()->config()->show_privacy) || $access != 'PUBLIC') {
 
         ?>
         <div class="access-control-block">
