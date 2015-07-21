@@ -433,22 +433,6 @@
 
                 return false;
             }
-
-            
-            
-            
-            
-
-            
-            
-            /** TODO **/
-            
-            
-            
-                        
-            
-            
-
             
             /**
              * Recursive function that takes an array of parameters and returns an array of clauses suitable
@@ -642,6 +626,9 @@
                     for ($i = 0; $i <= $metadata_joins; $i++) {
                         $query .= " left join metadata md{$i} on md{$i}.entity = {$collection}.uuid ";
                     }
+                    if (isset($parameters['$search'])) {
+                        $query .= " left join {$collection}_search srch on srch.uuid = {$collection}.uuid ";
+                    }
                     if (!empty($where)) {
                         $query .= ' where ' . $where . ' ';
                     }
@@ -651,7 +638,7 @@
                     $statement = $client->prepare($query);
                     if ($result = $statement->execute($variables)) {
                         if ($obj = $statement->fetchObject()) {
-                            return $obj->total;
+                            return (int)$obj->total;
                         }
                     }
 
