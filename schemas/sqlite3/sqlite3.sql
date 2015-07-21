@@ -40,10 +40,6 @@ CREATE INDEX IF NOT EXISTS entity_subtype ON entities (entity_subtype);
 
 CREATE VIRTUAL TABLE entities_search USING fts4 (
   uuid varchar(255) NOT NULL PRIMARY KEY,
-  _id varchar(32) NOT NULL UNIQUE,
-  owner varchar(255) NOT NULL,
-  entity_subtype varchar(64) NOT NULL,
-  created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   search text NOT NULL
 );
 
@@ -68,10 +64,6 @@ CREATE INDEX IF NOT EXISTS entity_subtype ON reader (entity_subtype);
 
 CREATE VIRTUAL TABLE reader_search USING fts4 (
   uuid varchar(255) NOT NULL PRIMARY KEY,
-  _id varchar(32) NOT NULL UNIQUE,
-  owner varchar(255) NOT NULL,
-  entity_subtype varchar(64) NOT NULL,
-  created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   search text NOT NULL
 );
 
