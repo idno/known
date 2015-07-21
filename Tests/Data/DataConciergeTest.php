@@ -52,7 +52,7 @@ namespace Tests\Data {
         /**
          * Attempt to retrieve record by UUID.
          */
-        public function testGetByUUID() {
+        public function testGetRecordByUUID() {
             $this->validateObject(
                     \Idno\Core\site()->db()->rowToEntity(
                             \Idno\Core\site()->db()->getRecordByUUID(self::$uuid)
@@ -81,6 +81,24 @@ namespace Tests\Data {
         }
         
         /**
+         * Test getByID
+         */
+        public function testGetById() {
+            $obj = \Idno\Entities\GenericDataItem::getByID(self::$id);
+            
+            $this->validateObject($obj);
+        }
+        
+        /**
+         * Test getByID
+         */
+        public function testGetByUUID() {
+            $obj = \Idno\Entities\GenericDataItem::getByUUID(self::$uuid);
+            
+            $this->validateObject($obj);
+        }
+        
+        /**
          * Helper function to validate object.
          */
         protected function validateObject($obj) {
@@ -98,4 +116,4 @@ namespace Tests\Data {
     }
 }
 
-// get id, get uuid, get url, get by metadata, search
+//  get by metadata, search
