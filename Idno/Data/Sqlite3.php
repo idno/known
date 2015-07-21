@@ -311,20 +311,6 @@
                 return false;
             }
             
-            
-            
-            
-
-            
-            
-            /** TODO **/
-            
-            
-            
-                        
-            
-            
-
             /**
              * Retrieve objects of a certain kind that we're allowed to see,
              * (or excluding kinds that we don't want to see),
@@ -444,6 +430,22 @@
                 return false;
             }
 
+            
+            
+            
+            
+
+            
+            
+            /** TODO **/
+            
+            
+            
+                        
+            
+            
+
+            
             /**
              * Recursive function that takes an array of parameters and returns an array of clauses suitable
              * for compiling into an SQL query
