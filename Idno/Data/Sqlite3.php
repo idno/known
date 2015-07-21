@@ -1,15 +1,16 @@
 <?php
 
     /**
-     * MySQL back-end for Known data.
-     *
+     * SQLite3 back-end for Known data.
+     * 
+     * @requires php5-sqlite
      * @package idno
      * @subpackage data
      */
 
     namespace Idno\Data {
 
-        class MySQL extends \Idno\Core\DataConcierge
+        class Sqlite3 extends \Idno\Core\DataConcierge
         {
 
             private $client = null;
@@ -19,36 +20,48 @@
             {
 
                 try {
-                    $connection_string = 'mysql:host=' . \Idno\Core\site()->config()->dbhost . ';dbname=' . \Idno\Core\site()->config()->dbname . ';charset=utf8';
-                    if (!empty(\Idno\Core\site()->config()->dbport)) {
-                        $connection_string .= ';port=' . \Idno\Core\site()->config()->dbport;
-                    }
-                    $this->client = new \PDO($connection_string, \Idno\Core\site()->config()->dbuser, \Idno\Core\site()->config()->dbpass, array(\PDO::MYSQL_ATTR_LOCAL_INFILE => 1));
+                    
+                    $connection_string = "sqlite:".\Idno\Core\site()->config()->dbname;
+                    $this->client = new \PDO($connection_string);
                     $this->client->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-                    //$this->client->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
-                } catch (\Exception $e) {
-                    if (!empty(\Idno\Core\site()->config()->forward_on_empty)) {
-                        header('Location: ' . \Idno\Core\site()->config()->forward_on_empty);
-                        exit;
-                    } else {
-                        //echo '<p>Unfortunately we couldn\'t connect to the database.</p>';
-                        if (\Idno\Core\site()->config()->debug) {
-                            $message = '<p>' . $e->getMessage() . '</p>';
-                            $message .= '<p>' . $connection_string . '</p>';
+                    $this->client->exec("SELECT * from versions;"); // Quick and dirty check to see if database is installed TODO: do this better.
+                
+                } catch (\Exception $e) { 
+                    if (strpos($e->getMessage(), 'no such table')!==false) {
+                        // Database not installed, try and install it to dbname
+                        $dbh = new \PDO($connection_string);
+                        $filename = dirname(dirname(dirname(__FILE__))) . '/schemas/sqlite3/sqlite3.sql';
+                        if (file_exists($filename)) { 
+                            $dbh->exec(@file_get_contents($filename));
+                        } else {
+                            $messages = '<p>We couldn\'t find the schema doc.</p>';
+                            die($messages);
                         }
-                        error_log($e->getMessage());
-                        include \Idno\Core\site()->config()->path . '/statics/db.php';
-                        exit;
+                        
+                    }
+                    else {
+                        
+                        if (!empty(\Idno\Core\site()->config()->forward_on_empty)) {
+                            header('Location: ' . \Idno\Core\site()->config()->forward_on_empty);
+                            exit;
+                        } else { 
+                            if (\Idno\Core\site()->config()->debug) {
+                                $message = '<p>' . $e->getMessage() . '</p>';
+                                $message .= '<p>' . $connection_string . '</p>';
+                            }
+                            error_log($e->getMessage());
+                            include \Idno\Core\site()->config()->path . '/statics/db.php';
+                            exit;
+                        }
                     }
                 }
-
+                
                 $this->database = \Idno\Core\site()->config()->dbname;
                 $this->checkAndUpgradeSchema();
-
             }
 
             /**
-             * Handle the session in MySQL
+             * Handle the session in Sqlite3
              */
             function handleSession()
             {
@@ -85,7 +98,7 @@
             }
 
             /**
-             * MySQL doesn't need the ID to be processed.
+             * Sqlite3 doesn't need the ID to be processed.
              * @param $id
              * @return string
              */
@@ -94,26 +107,30 @@
                 return $id;
             }
 
-            /**
-             * Saves a Known entity to the database, returning the _id
-             * field on success.
-             *
-             * @param Entity $object
-             */
-
-            function saveObject($object)
-            {
-                if ($object instanceof \Idno\Common\Entity) {
-                    if ($collection = $object->getCollection()) {
-                        $array = $object->saveToArray();
-
-                        return $this->saveRecord($collection, $array);
-                    }
-                }
-
-                return false;
-            }
-
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            /** TODO **/
+            
+            
+            
+            
+            
+            
+            
             /**
              * Saves a record to the specified database collection
              *
@@ -220,26 +237,6 @@
                 return false;
             }
 
-            /**
-             * Retrieves a Known entity object by its UUID, casting it to the
-             * correct class
-             *
-             * @param string $id
-             * @return \Idno\Common\Entity | false
-             */
-
-            function getObject($uuid)
-            {
-                if ($result = $this->getRecordByUUID($uuid)) {
-                    if ($object = $this->rowToEntity($result)) {
-                        if ($object->canRead()) {
-                            return $object;
-                        }
-                    }
-                }
-
-                return false;
-            }
 
             /**
              * Retrieves a record from the database by its UUID
@@ -775,7 +772,7 @@
              */
             function getFilesystem()
             {
-                // We're not returning a filesystem for MySQL
+                // We're not returning a filesystem for Sqlite3
                 return false;
             }
 
@@ -820,36 +817,19 @@
                         if ($version->label == 'schema') {
                             $basedate          = $newdate = (int)$version->value;
                             $upgrade_sql_files = array();
-                            $schema_dir        = dirname(dirname(dirname(__FILE__))) . '/schemas/mysql/';
+                            $schema_dir        = dirname(dirname(dirname(__FILE__))) . '/schemas/sqllite3/';
                             $client            = $this->client;
-                            /* @var \PDO $client */
-                            if ($basedate < 2014100801) {
-                                if ($sql = @file_get_contents($schema_dir . '2014100801.sql')) {
-                                    try {
-                                        $statement = $client->prepare($sql);
-                                        $statement->execute();
-                                    } catch (\Exception $e) {
-                                        //\Idno\Core\site()->logging()->log($e->getMessage());
-                                        error_log($e->getMessage());
-                                    }
-                                }
-                                $newdate = 2014100801;
-                            }
-                            if ($basedate < 2015061501) {
-                                if ($sql = @file_get_contents($schema_dir . '2015061501.sql')) {
-                                    try {
-                                        $statement = $client->prepare($sql);
-                                        $statement->execute();
-                                    } catch (\Exception $e) {
-                                        //\Idno\Core\site()->logging()->log($e->getMessage());
-                                        error_log($e->getMessage());
-                                    }
-                                }
-                                $newdate = 2015061501;
-                            }
                         }
                     }
                 }
+            }
+            
+            /**
+             * Install a schema.
+             * @param type $dbname
+             */
+            function installSchema($dbname) {
+                
             }
 
         }
