@@ -106,30 +106,6 @@
             {
                 return $id;
             }
-
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            /** TODO **/
-            
-            
-            
-            
-            
-            
             
             /**
              * Saves a record to the specified database collection
@@ -197,12 +173,19 @@
 
                 try {
 
-                    $statement = $client->prepare("insert into {$collection}
-                                                    (`uuid`, `_id`, `entity_subtype`,`owner`, `contents`, `search`, `created`)
+                    $statement = $client->prepare("insert or replace into {$collection}
+                                                    (`uuid`, `_id`, `entity_subtype`,`owner`, `created`, `contents`)
                                                     values
-                                                    (:uuid, :id, :subtype, :owner, :contents, :search, :created)
-                                                    on duplicate key update `uuid` = :uuid, `entity_subtype` = :subtype, `owner` = :owner, `contents` = :contents, `search` = :search, `created` = :created");
-                    if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search, ':created' => $array['created']))) {
+                                                    (:uuid, :id, :subtype, :owner, :created, :contents)");
+                    if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':created' => $array['created']))) {
+                        
+                        // Update FTS
+                        $statement = $client->prepare("insert or replace into {$collection}_search
+                            (`uuid`, `_id`, `entity_subtype`,`owner`, `created`, `search`)
+                            values
+                            (:uuid, :id, :subtype, :owner, :created, :search)");
+                        $statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':search' => $search, ':created' => $array['created']));
+                        
                         if ($statement = $client->prepare("delete from metadata where _id = :id")) {
                             $statement->execute(array(':id' => $array['_id']));
                         }
@@ -222,7 +205,7 @@
                                 if (empty($value)) {
                                     $value = 0;
                                 }
-                                if ($statement = $client->prepare("insert into metadata set `collection` = :collection, `entity` = :uuid, `_id` = :id, `name` = :name, `value` = :value")) {
+                                if ($statement = $client->prepare("insert into metadata (`collection`, `entity`, `_id`, `name`, `value`) values (:collection, :uuid, :id, :name, :value)")) {
                                     $statement->execute(array('collection' => $collection, ':uuid' => $array['uuid'], ':id' => $array['_id'], ':name' => $key, ':value' => $value));
                                 }
                             }
@@ -237,6 +220,13 @@
                 return false;
             }
 
+            
+            
+            /** TODO **/
+            
+            
+            
+            
 
             /**
              * Retrieves a record from the database by its UUID
