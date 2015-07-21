@@ -30,6 +30,7 @@ namespace Tests\Data {
             
             $obj = new \Idno\Entities\GenericDataItem();
             $obj->setDatatype('UnitTestObject');
+            $obj->setTitle("Unit Test Search Object");
             $obj->variable1 = 'test';
             $obj->variable2 = 'test again';
             $id = $obj->save();
