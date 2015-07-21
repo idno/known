@@ -2,6 +2,24 @@
 
 Starting with version 0.6.4, this is a list of changes in the self-hosted, open source version of Known.
 
+0.8
+---
+July 21, 2015
+
+It's been a while! Additions and fixes include:
+
+* Per-site access permissions. Want to keep just this one post private? Now you can.
+* Much better accessibility for screen readers and mobility-impaired users.
+* The bookmark tool handles page titles more intelligently.
+* Support for non-Latin characters in hashtags.
+* You can reply to multiple Twitter accounts more easily.
+* The public comment form is more robot-proof.
+* An upgraded, all-new interface framework using Bootstrap 3 and the latest Font Awesome fonts.
+* You can now install Known in a subdirectory.
+* The installer now does more checking to make sure you have the right server configuration.
+* A handy diagnostics tool to give you more information if something's gone wrong with your installation.
+* Developers have access to more tests.
+
 0.7.8.5.1
 ---------
 May 16, 2015
