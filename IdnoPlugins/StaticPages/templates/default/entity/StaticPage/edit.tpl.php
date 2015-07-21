@@ -207,7 +207,7 @@
         function filePickerDialog(callback, value, meta) {
             tinymce.activeEditor.windowManager.open({
                 title: 'File Manager',
-                url: '<?=\Idno\Core\site()->config()->getDisplayURL()?>file/picker/?type=' + meta.filetype,
+                url: '<?=\Idno\Core\site()->config()->getDisplayURL()?>filepicker/?type=' + meta.filetype,
                 width: 650,
                 height: 550
             }, {
