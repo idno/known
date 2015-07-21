@@ -179,12 +179,12 @@
                                                     (:uuid, :id, :subtype, :owner, :created, :contents)");
                     if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':created' => $array['created']))) {
                         
-                        // Update FTS
+                        // Update FTS Lookup
                         $statement = $client->prepare("insert or replace into {$collection}_search
-                            (`uuid`, `_id`, `entity_subtype`,`owner`, `created`, `search`)
+                            (`uuid`, `search`)
                             values
-                            (:uuid, :id, :subtype, :owner, :created, :search)");
-                        $statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':search' => $search, ':created' => $array['created']));
+                            (:uuid, :search)");
+                        $statement->execute(array(':uuid' => $array['uuid'], ':search' => $search));
                         
                         if ($statement = $client->prepare("delete from metadata where _id = :id")) {
                             $statement->execute(array(':id' => $array['_id']));
@@ -404,9 +404,13 @@
                     $non_md_variables = array();
                     $limit            = (int)$limit;
                     $offset           = (int)$offset;
+                    $searchjoins      = false;
                     $where            = $this->build_where_from_array($parameters, $variables, $metadata_joins, $non_md_variables, 'and', $collection);
                     for ($i = 1; $i <= $metadata_joins; $i++) {
                         $query .= " left join metadata md{$i} on md{$i}.entity = {$collection}.uuid ";
+                    }
+                    if (isset($parameters['$search'])) {
+                        $query .= " left join {$collection}_search srch on srch.uuid = {$collection}.uuid ";
                     }
                     if (!empty($where)) {
                         $query .= ' where ' . $where . ' ';
@@ -554,13 +558,13 @@
                             }
                             if ($key == '$search') {
                                 $val = $value[0]; // The search query is always in $value position [0] for now
-                                if (strlen($val) > 5) {
-                                    $subwhere[]                                  = "match (`search`) against (:nonmdvalue{$non_md_variables})";
-                                    $variables[":nonmdvalue{$non_md_variables}"] = $val;
-                                } else {
-                                    $subwhere[]                                  = "`search` like :nonmdvalue{$non_md_variables}";
+//                                if (strlen($val) > 5) {
+//                                    $subwhere[]                                  = " srch.search match :nonmdvalue{$non_md_variables} ";
+//                                    $variables[":nonmdvalue{$non_md_variables}"] = "$val*";
+//                                } else {
+                                    $subwhere[]                                  = " srch.search like :nonmdvalue{$non_md_variables}";
                                     $variables[":nonmdvalue{$non_md_variables}"] = '%' . $val . '%';
-                                }
+//                                }
                                 $non_md_variables++;
                             }
                         }
