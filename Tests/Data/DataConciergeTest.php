@@ -98,6 +98,26 @@ namespace Tests\Data {
             $this->validateObject($obj);
         }
         
+        public function testGetByMetadata() {
+            
+            $null = \Idno\Entities\GenericDataItem::get(['variable1' => 'not']);
+            $this->assertTrue(empty($null));
+            
+            $objs = \Idno\Entities\GenericDataItem::get(['variable1' => 'test']);
+            $this->assertTrue(is_array($objs));
+            $this->validateObject($objs[0]);
+        }
+        
+        public function testGetByMetadataMulti() {
+            
+            $null = \Idno\Entities\GenericDataItem::get(['variable1' => 'test', 'variable2' => 'not']);
+            $this->assertTrue(empty($null));
+            
+            $objs = \Idno\Entities\GenericDataItem::get(['variable1' => 'test', 'variable2' => 'test again']);
+            $this->assertTrue(is_array($objs));
+            $this->validateObject($objs[0]);
+        }
+        
         /**
          * Helper function to validate object.
          */
