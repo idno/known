@@ -220,14 +220,6 @@
                 return false;
             }
 
-            
-            
-            /** TODO **/
-            
-            
-            
-            
-
             /**
              * Retrieves a record from the database by its UUID
              *
@@ -263,7 +255,7 @@
 
                         $contents = (array)json_decode($row['contents'], true);
 
-                        $object = new $row['entity_subtype']();
+                        $object = new $row['entity_subtype'](); 
                         $object->loadFromArray($contents);
 
                         return $object;
@@ -290,6 +282,7 @@
 
                 return false;
             }
+            
 
             /**
              * Retrieves ANY record from a collection
@@ -317,6 +310,20 @@
 
                 return false;
             }
+            
+            
+            
+            
+
+            
+            
+            /** TODO **/
+            
+            
+            
+                        
+            
+            
 
             /**
              * Retrieve objects of a certain kind that we're allowed to see,
@@ -431,70 +438,6 @@
 
                 } catch (\Exception $e) {
                     \Idno\Core\site()->logging()->log($e->getMessage());
-                    return false;
-                }
-
-                return false;
-            }
-
-            /**
-             * Export a collection as SQL.
-             * @param string $collection
-             * @return bool|string
-             */
-            function exportRecords($collection = 'entities')
-            {
-                try {
-                    $file   = tempnam(\Idno\Core\site()->config()->getTempDir(), 'sqldump');
-                    $client = $this->client;
-                    /* @var \PDO $client */
-                    $statement = $client->prepare("select * from {$collection}");
-                    $output    = '';
-                    if ($response = $statement->execute()) {
-                        while ($object = $statement->fetch(\PDO::FETCH_ASSOC)) {
-                            $uuid   = $object['uuid'];
-                            $fields = array_keys($object);
-                            $fields = array_map(function ($v) {
-                                return '`' . $v . '`';
-                            }, $fields);
-                            $object = array_map(function ($v) {
-                                return \Idno\Core\site()->db()->getClient()->quote($v);
-                            }, $object);
-                            $line   = 'insert into ' . $collection . ' ';
-                            $line .= '(' . implode(',', $fields) . ')';
-                            $line .= ' values ';
-                            $line .= '(' . implode(',', $object) . ');';
-                            $output .= $line . "\n";
-                            $metadata_statement = $client->prepare("select * from metadata where `entity` = :uuid");
-                            if ($metadata_response = $metadata_statement->execute([':uuid' => $uuid])) {
-                                while ($object = $metadata_statement->fetch(\PDO::FETCH_ASSOC)) {
-                                    $fields = array_keys($object);
-                                    $fields = array_map(function ($v) {
-                                        return '`' . $v . '`';
-                                    }, $fields);
-                                    $object = array_map(function ($v) {
-                                        return \Idno\Core\site()->db()->getClient()->quote($v);
-                                    }, $object);
-                                    $line   = 'insert into metadata ';
-                                    $line .= '(' . implode(',', $fields) . ')';
-                                    $line .= ' values ';
-                                    $line .= '(' . implode(',', $object) . ');';
-                                    $output .= $line . "\n";
-                                }
-                                unset($metadata_statement);
-                                gc_collect_cycles();    // Clean memory
-                            }
-                            $output .= "\n";
-                            unset($object);
-                            unset($fields);
-                            gc_collect_cycles();    // Clean memory
-                        }
-                    }
-
-                    return $output;
-                } catch (\Exception $e) {
-                    \Idno\Core\site()->logging()->log($e->getMessage());
-
                     return false;
                 }
 
@@ -814,14 +757,13 @@
                 }
             }
             
-            /**
-             * Install a schema.
-             * @param type $dbname
-             */
-            function installSchema($dbname) {
+            
+        
+            public function exportRecords($collection = 'entities') {
                 
+                
+                return false; // TODO
             }
-
         }
 
         /**
