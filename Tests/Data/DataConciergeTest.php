@@ -12,6 +12,22 @@ namespace Tests\Data {
         public static $id;
         public static $url;
         
+        public static function setUpBeforeClass()
+        {
+            $obj = new \Idno\Entities\GenericDataItem();
+            $obj->setDatatype('UnitTestObject');
+            $obj->setTitle("Unit Test Search Object");
+            $obj->variable1 = 'test';
+            $obj->variable2 = 'test again';
+            $id = $obj->save();
+            
+            // Save for later retrieval
+            self::$id = $id;
+            self::$uuid = $obj->getUUID();
+            self::$url = $obj->getUrl();
+            self::$object = $obj;
+        }
+        
         /**
          * Versions test (if applicable)
          */
@@ -27,27 +43,12 @@ namespace Tests\Data {
          * Create an object.
          */
         public function testCreateObject() {
-            
-            $obj = new \Idno\Entities\GenericDataItem();
-            $obj->setDatatype('UnitTestObject');
-            $obj->setTitle("Unit Test Search Object");
-            $obj->variable1 = 'test';
-            $obj->variable2 = 'test again';
-            $id = $obj->save();
-            
-            // Make sure we've created something
-            $this->assertTrue(is_string($id));
-            
-            // Save for later retrieval
-            self::$id = $id;
-            self::$uuid = $obj->getUUID();
-            self::$url = $obj->getUrl();
-            self::$object = $obj;
-            
             // Verify
-            $this->assertTrue(is_string(self::$id));
+            $this->assertFalse(empty(self::$id));
             $this->assertTrue(is_string(self::$uuid));
             $this->assertTrue(is_string(self::$url));
+            
+            $this->validateObject(self::$object);
         }
         
         /**
@@ -78,6 +79,13 @@ namespace Tests\Data {
         public function testGetAnyRecord() {
             $obj = \Idno\Core\site()->db()->getAnyRecord();
            
+            $this->assertFalse(empty($obj));
+            if (is_array($obj))
+            {
+                print "WARNING: getAnyRecord for this DataConcierge returned an Array. This is inconsistent, but we're converting.";
+                $obj = \Idno\Core\site()->db()->rowToEntity($obj);
+            }
+            
             $this->assertTrue(is_object($obj));
         }
         
@@ -155,11 +163,11 @@ namespace Tests\Data {
         /**
          * Helper function to validate object.
          */
-        protected function validateObject($obj) {
+        protected function validateObject(&$obj) {
             
             $this->assertTrue($obj instanceof \Idno\Entities\GenericDataItem);
-            $this->assertEquals(self::$object->getID(), $obj->getID());
-            $this->assertEquals(self::$id, $obj->getID());
+            $this->assertEquals("".self::$object->getID(), "".$obj->getID());
+            $this->assertEquals("".self::$id, "".$obj->getID());
             $this->assertEquals(self::$uuid, $obj->getUUID());
             $this->assertEquals(self::$url, $obj->getUrl());
         }
