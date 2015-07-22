@@ -12,6 +12,8 @@ namespace Tests\Data {
         public static $id;
         public static $url;
         
+        public static $fts_object;
+        
         public static function setUpBeforeClass()
         {
             $obj = new \Idno\Entities\GenericDataItem();
@@ -142,17 +144,31 @@ namespace Tests\Data {
         }
         
         public function testSearchLong() {
+            
+            /** Create a FTS object, since MySQL FTS tables operate in natural language mode */
+            $obj = new \Idno\Entities\GenericDataItem();
+            $obj->setDatatype('UnitTestObject');
+            $obj->setTitle("This is a test obj to get around MySQL natural language mode");
+            $obj->variable1 = 'test';
+            $obj->variable2 = 'test again';
+            $id = $obj->save();
+            
+            self::$fts_object = $obj;
+            
+            
             $search = array();
 
-            $search = \Idno\Core\site()->db()->createSearchArray("test search obj");
+            $search = \Idno\Core\site()->db()->createSearchArray("language");
 
-//            $count = \Idno\Entities\GenericDataItem::countFromX('Idno\Entities\GenericDataItem', $search); 
-//            $this->assertTrue(is_int($count));
-//            $this->assertTrue($count > 0);
-////            
-//            $feed  = \Idno\Entities\GenericDataItem::getFromX('Idno\Entities\GenericDataItem', $search);
-//            $this->assertTrue(is_array($feed)); 
-//            $this->assertTrue(($feed[0] instanceof \Idno\Entities\GenericDataItem));
+            $count = \Idno\Entities\GenericDataItem::countFromX('Idno\Entities\GenericDataItem', $search);
+            $this->assertTrue(is_int($count));
+            $this->assertTrue($count > 0);
+           
+            $feed  = \Idno\Entities\GenericDataItem::getFromX('Idno\Entities\GenericDataItem', $search);
+            $this->assertTrue(is_array($feed)); 
+            $this->assertTrue(($feed[0] instanceof \Idno\Entities\GenericDataItem));
+            
+            $obj->delete();
         }
         
         public function testCountObjects() {
@@ -176,6 +192,7 @@ namespace Tests\Data {
         
         public static function tearDownAfterClass() {
             if (static::$object) static::$object->delete();
+            if (static::$fts_object) static::$fts_object->delete();
         }
     }
 }
