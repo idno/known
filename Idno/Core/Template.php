@@ -402,7 +402,20 @@
              */
             function getCurrentURL()
             {
-                return \Idno\Core\site()->config()->url . substr($_SERVER['REQUEST_URI'], 1);
+                $base_url = site()->config()->getDisplayURL();
+                $path = '';
+                if ($components = parse_url($base_url)) {
+                    if ($components['path'] != '/') {
+                        $path = substr($components['path'],1);
+                    }
+                }
+                $request_uri = substr($_SERVER['REQUEST_URI'],1);
+                if (!empty($path)) {
+                    if (substr($request_uri, 0, strlen($path)) == $path) {
+                        $request_uri = substr($request_uri, strlen($path));
+                    }
+                }
+                return \Idno\Core\site()->config()->getDisplayURL() . $request_uri;
             }
 
             /**
