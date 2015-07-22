@@ -635,6 +635,9 @@
                     }
                     if (!empty($subwhere)) {
                         $where = '(' . implode(" {$clause} ", $subwhere) . ')';
+                        if (defined('KNOWN_UNIT_TEST')) {
+                            error_log($where);
+                        }
                     }
                 }
 
