@@ -143,7 +143,7 @@ namespace Tests\Data {
         public function testSearchLong() {
             $search = array();
 
-            $search = \Idno\Core\site()->db()->createSearchArray("search obj");
+            $search = \Idno\Core\site()->db()->createSearchArray("test search obj");
 
             $count = \Idno\Entities\GenericDataItem::countFromX('Idno\Entities\GenericDataItem', $search);
             $this->assertTrue(is_int($count));
