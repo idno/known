@@ -435,7 +435,9 @@
 
                     $client = $this->client;
                     /* @var \PDO $client */
-
+if (defined('KNOWN_UNIT_TEST')) {
+    error_log($query);
+}
                     $statement = $client->prepare($query);
 
                     if ($result = $statement->execute($variables)) {
@@ -635,9 +637,6 @@
                     }
                     if (!empty($subwhere)) {
                         $where = '(' . implode(" {$clause} ", $subwhere) . ')';
-                        if (defined('KNOWN_UNIT_TEST')) {
-                            error_log($where);
-                        }
                     }
                 }
 
@@ -712,7 +711,9 @@
                     if (!empty($where)) {
                         $query .= ' where ' . $where . ' ';
                     }
-
+if (defined('KNOWN_UNIT_TEST')) {
+    error_log($query);
+}
                     $client = $this->client;
                     /* @var \PDO $client */
                     $statement = $client->prepare($query);
