@@ -8,6 +8,7 @@ php:
 env:
   - DB=mysql
   - DB=mongo
+  - DB=sqlite3
 
 branches:
   only:
@@ -17,7 +18,7 @@ before_script:
   # Update and install base system
   - sudo apt-get update
   - sudo apt-get install -y --force-yes apache2 libapache2-mod-fastcgi make 
-  - sudo apt-get install -y --force-yes php5-dev php-pear php5-mysql php5-curl php5-gd php5-json 
+  - sudo apt-get install -y --force-yes php5-dev php-pear php5-mysql php5-curl php5-gd php5-json php5-sqlite
   # Enable php-fpm and Mongodb
   - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
   - sudo a2enmod rewrite actions fastcgi alias
@@ -30,11 +31,14 @@ before_script:
   # Configure Known
   - if [[ "$DB" == "mysql" ]]; then echo "PROVISIONING WITH MySQL"; fi
   - if [[ "$DB" == "mysql" ]]; then sudo cp -f Tests/build/config_mysql.ini $TRAVIS_BUILD_DIR/config.ini; fi
+  - if [[ "$DB" == "mysql" ]]; then mysql --version; fi
   - if [[ "$DB" == "mysql" ]]; then mysql -e "CREATE DATABASE known_unittest;" -uroot; fi
   - if [[ "$DB" == "mysql" ]]; then mysql -e "GRANT ALL ON known_unittest.* TO 'travis'@'127.0.0.1';" -uroot; fi
-  - if [[ "$DB" == "mysql" ]]; then mysql -e "USE known_unittest; SOURCE ./schemas/mysql/mysql.sql;" -utravis; fi
+  - if [[ "$DB" == "mysql" ]]; then mysql -e "USE known_unittest; SOURCE ./schemas/mysql/mysql.sql; show table status; show index from entities;" -utravis; fi
   - if [[ "$DB" == "mongo" ]]; then echo "PROVISIONING WITH MongoDB (default)"; fi
   - if [[ "$DB" == "mongo" ]]; then sudo cp -f Tests/build/config_default.ini $TRAVIS_BUILD_DIR/config.ini; fi
+  - if [[ "$DB" == "sqlite3" ]]; then echo "PROVISIONING WITH Sqlite"; fi
+  - if [[ "$DB" == "sqlite3" ]]; then sudo cp -f Tests/build/config_sqlite3.ini $TRAVIS_BUILD_DIR/config.ini; fi
   - sudo cp -f $TRAVIS_BUILD_DIR/htaccess.dist $TRAVIS_BUILD_DIR/.htaccess
   # Restart services
   - sudo service apache2 restart

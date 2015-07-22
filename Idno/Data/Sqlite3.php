@@ -1,15 +1,16 @@
 <?php
 
     /**
-     * MySQL back-end for Known data.
-     *
+     * SQLite3 back-end for Known data.
+     * 
+     * @requires php5-sqlite
      * @package idno
      * @subpackage data
      */
 
     namespace Idno\Data {
 
-        class MySQL extends \Idno\Core\DataConcierge
+        class Sqlite3 extends \Idno\Core\DataConcierge
         {
 
             private $client = null;
@@ -19,36 +20,48 @@
             {
 
                 try {
-                    $connection_string = 'mysql:host=' . \Idno\Core\site()->config()->dbhost . ';dbname=' . \Idno\Core\site()->config()->dbname . ';charset=utf8';
-                    if (!empty(\Idno\Core\site()->config()->dbport)) {
-                        $connection_string .= ';port=' . \Idno\Core\site()->config()->dbport;
-                    }
-                    $this->client = new \PDO($connection_string, \Idno\Core\site()->config()->dbuser, \Idno\Core\site()->config()->dbpass, array(\PDO::MYSQL_ATTR_LOCAL_INFILE => 1));
+                    
+                    $connection_string = "sqlite:".\Idno\Core\site()->config()->dbname;
+                    $this->client = new \PDO($connection_string);
                     $this->client->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-                    //$this->client->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
-                } catch (\Exception $e) {
-                    if (!empty(\Idno\Core\site()->config()->forward_on_empty)) {
-                        header('Location: ' . \Idno\Core\site()->config()->forward_on_empty);
-                        exit;
-                    } else {
-                        //echo '<p>Unfortunately we couldn\'t connect to the database.</p>';
-                        if (\Idno\Core\site()->config()->debug) {
-                            $message = '<p>' . $e->getMessage() . '</p>';
-                            $message .= '<p>' . $connection_string . '</p>';
+                    $this->client->exec("SELECT * from versions;"); // Quick and dirty check to see if database is installed TODO: do this better.
+                
+                } catch (\Exception $e) { 
+                    if (strpos($e->getMessage(), 'no such table')!==false) {
+                        // Database not installed, try and install it to dbname
+                        $dbh = new \PDO($connection_string);
+                        $filename = dirname(dirname(dirname(__FILE__))) . '/schemas/sqlite3/sqlite3.sql';
+                        if (file_exists($filename)) { 
+                            $dbh->exec(@file_get_contents($filename));
+                        } else {
+                            $messages = '<p>We couldn\'t find the schema doc.</p>';
+                            die($messages);
                         }
-                        error_log($e->getMessage());
-                        include \Idno\Core\site()->config()->path . '/statics/db.php';
-                        exit;
+                        
+                    }
+                    else {
+                        
+                        if (!empty(\Idno\Core\site()->config()->forward_on_empty)) {
+                            header('Location: ' . \Idno\Core\site()->config()->forward_on_empty);
+                            exit;
+                        } else { 
+                            if (\Idno\Core\site()->config()->debug) {
+                                $message = '<p>' . $e->getMessage() . '</p>';
+                                $message .= '<p>' . $connection_string . '</p>';
+                            }
+                            error_log($e->getMessage());
+                            include \Idno\Core\site()->config()->path . '/statics/db.php';
+                            exit;
+                        }
                     }
                 }
-
+                
                 $this->database = \Idno\Core\site()->config()->dbname;
                 $this->checkAndUpgradeSchema();
-
             }
 
             /**
-             * Handle the session in MySQL
+             * Handle the session in Sqlite3
              */
             function handleSession()
             {
@@ -85,7 +98,7 @@
             }
 
             /**
-             * MySQL doesn't need the ID to be processed.
+             * Sqlite3 doesn't need the ID to be processed.
              * @param $id
              * @return string
              */
@@ -93,27 +106,7 @@
             {
                 return $id;
             }
-
-            /**
-             * Saves a Known entity to the database, returning the _id
-             * field on success.
-             *
-             * @param Entity $object
-             */
-
-            function saveObject($object)
-            {
-                if ($object instanceof \Idno\Common\Entity) {
-                    if ($collection = $object->getCollection()) {
-                        $array = $object->saveToArray();
-
-                        return $this->saveRecord($collection, $array);
-                    }
-                }
-
-                return false;
-            }
-
+            
             /**
              * Saves a record to the specified database collection
              *
@@ -180,12 +173,19 @@
 
                 try {
 
-                    $statement = $client->prepare("insert into {$collection}
-                                                    (`uuid`, `_id`, `entity_subtype`,`owner`, `contents`, `search`, `created`)
+                    $statement = $client->prepare("insert or replace into {$collection}
+                                                    (`uuid`, `_id`, `entity_subtype`,`owner`, `created`, `contents`)
                                                     values
-                                                    (:uuid, :id, :subtype, :owner, :contents, :search, :created)
-                                                    on duplicate key update `uuid` = :uuid, `entity_subtype` = :subtype, `owner` = :owner, `contents` = :contents, `search` = :search, `created` = :created");
-                    if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search, ':created' => $array['created']))) {
+                                                    (:uuid, :id, :subtype, :owner, :created, :contents)");
+                    if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':created' => $array['created']))) {
+                        
+                        // Update FTS Lookup
+                        $statement = $client->prepare("insert or replace into {$collection}_search
+                            (`uuid`, `search`)
+                            values
+                            (:uuid, :search)");
+                        $statement->execute(array(':uuid' => $array['uuid'], ':search' => $search));
+                        
                         if ($statement = $client->prepare("delete from metadata where _id = :id")) {
                             $statement->execute(array(':id' => $array['_id']));
                         }
@@ -205,7 +205,7 @@
                                 if (empty($value)) {
                                     $value = 0;
                                 }
-                                if ($statement = $client->prepare("insert into metadata set `collection` = :collection, `entity` = :uuid, `_id` = :id, `name` = :name, `value` = :value")) {
+                                if ($statement = $client->prepare("insert into metadata (`collection`, `entity`, `_id`, `name`, `value`) values (:collection, :uuid, :id, :name, :value)")) {
                                     $statement->execute(array('collection' => $collection, ':uuid' => $array['uuid'], ':id' => $array['_id'], ':name' => $key, ':value' => $value));
                                 }
                             }
@@ -215,27 +215,6 @@
                     }
                 } catch (\Exception $e) {
                     \Idno\Core\site()->logging()->log($e->getMessage());
-                }
-
-                return false;
-            }
-
-            /**
-             * Retrieves a Known entity object by its UUID, casting it to the
-             * correct class
-             *
-             * @param string $id
-             * @return \Idno\Common\Entity | false
-             */
-
-            function getObject($uuid)
-            {
-                if ($result = $this->getRecordByUUID($uuid)) {
-                    if ($object = $this->rowToEntity($result)) {
-                        if ($object->canRead()) {
-                            return $object;
-                        }
-                    }
                 }
 
                 return false;
@@ -276,7 +255,7 @@
 
                         $contents = (array)json_decode($row['contents'], true);
 
-                        $object = new $row['entity_subtype']();
+                        $object = new $row['entity_subtype'](); 
                         $object->loadFromArray($contents);
 
                         return $object;
@@ -303,6 +282,7 @@
 
                 return false;
             }
+            
 
             /**
              * Retrieves ANY record from a collection
@@ -330,7 +310,7 @@
 
                 return false;
             }
-
+            
             /**
              * Retrieve objects of a certain kind that we're allowed to see,
              * (or excluding kinds that we don't want to see),
@@ -424,9 +404,13 @@
                     $non_md_variables = array();
                     $limit            = (int)$limit;
                     $offset           = (int)$offset;
+                    $searchjoins      = false;
                     $where            = $this->build_where_from_array($parameters, $variables, $metadata_joins, $non_md_variables, 'and', $collection);
                     for ($i = 1; $i <= $metadata_joins; $i++) {
                         $query .= " left join metadata md{$i} on md{$i}.entity = {$collection}.uuid ";
+                    }
+                    if (isset($parameters['$search'])) {
+                        $query .= " left join {$collection}_search srch on srch.uuid = {$collection}.uuid ";
                     }
                     if (!empty($where)) {
                         $query .= ' where ' . $where . ' ';
@@ -449,71 +433,7 @@
 
                 return false;
             }
-
-            /**
-             * Export a collection as SQL.
-             * @param string $collection
-             * @return bool|string
-             */
-            function exportRecords($collection = 'entities')
-            {
-                try {
-                    $file   = tempnam(\Idno\Core\site()->config()->getTempDir(), 'sqldump');
-                    $client = $this->client;
-                    /* @var \PDO $client */
-                    $statement = $client->prepare("select * from {$collection}");
-                    $output    = '';
-                    if ($response = $statement->execute()) {
-                        while ($object = $statement->fetch(\PDO::FETCH_ASSOC)) {
-                            $uuid   = $object['uuid'];
-                            $fields = array_keys($object);
-                            $fields = array_map(function ($v) {
-                                return '`' . $v . '`';
-                            }, $fields);
-                            $object = array_map(function ($v) {
-                                return \Idno\Core\site()->db()->getClient()->quote($v);
-                            }, $object);
-                            $line   = 'insert into ' . $collection . ' ';
-                            $line .= '(' . implode(',', $fields) . ')';
-                            $line .= ' values ';
-                            $line .= '(' . implode(',', $object) . ');';
-                            $output .= $line . "\n";
-                            $metadata_statement = $client->prepare("select * from metadata where `entity` = :uuid");
-                            if ($metadata_response = $metadata_statement->execute([':uuid' => $uuid])) {
-                                while ($object = $metadata_statement->fetch(\PDO::FETCH_ASSOC)) {
-                                    $fields = array_keys($object);
-                                    $fields = array_map(function ($v) {
-                                        return '`' . $v . '`';
-                                    }, $fields);
-                                    $object = array_map(function ($v) {
-                                        return \Idno\Core\site()->db()->getClient()->quote($v);
-                                    }, $object);
-                                    $line   = 'insert into metadata ';
-                                    $line .= '(' . implode(',', $fields) . ')';
-                                    $line .= ' values ';
-                                    $line .= '(' . implode(',', $object) . ');';
-                                    $output .= $line . "\n";
-                                }
-                                unset($metadata_statement);
-                                gc_collect_cycles();    // Clean memory
-                            }
-                            $output .= "\n";
-                            unset($object);
-                            unset($fields);
-                            gc_collect_cycles();    // Clean memory
-                        }
-                    }
-
-                    return $output;
-                } catch (\Exception $e) {
-                    \Idno\Core\site()->logging()->log($e->getMessage());
-
-                    return false;
-                }
-
-                return false;
-            }
-
+            
             /**
              * Recursive function that takes an array of parameters and returns an array of clauses suitable
              * for compiling into an SQL query
@@ -622,13 +542,13 @@
                             }
                             if ($key == '$search') {
                                 $val = $value[0]; // The search query is always in $value position [0] for now
-                                if (strlen($val) > 5) {
-                                    $subwhere[]                                  = "match (`search`) against (:nonmdvalue{$non_md_variables})";
-                                    $variables[":nonmdvalue{$non_md_variables}"] = $val;
-                                } else {
-                                    $subwhere[]                                  = "`search` like :nonmdvalue{$non_md_variables}";
+//                                if (strlen($val) > 5) {
+//                                    $subwhere[]                                  = " srch.search match :nonmdvalue{$non_md_variables} ";
+//                                    $variables[":nonmdvalue{$non_md_variables}"] = "$val*";
+//                                } else {
+                                    $subwhere[]                                  = " srch.search like :nonmdvalue{$non_md_variables}";
                                     $variables[":nonmdvalue{$non_md_variables}"] = '%' . $val . '%';
-                                }
+//                                }
                                 $non_md_variables++;
                             }
                         }
@@ -706,6 +626,9 @@
                     for ($i = 0; $i <= $metadata_joins; $i++) {
                         $query .= " left join metadata md{$i} on md{$i}.entity = {$collection}.uuid ";
                     }
+                    if (isset($parameters['$search'])) {
+                        $query .= " left join {$collection}_search srch on srch.uuid = {$collection}.uuid ";
+                    }
                     if (!empty($where)) {
                         $query .= ' where ' . $where . ' ';
                     }
@@ -775,7 +698,7 @@
              */
             function getFilesystem()
             {
-                // We're not returning a filesystem for MySQL
+                // We're not returning a filesystem for Sqlite3
                 return false;
             }
 
@@ -820,38 +743,20 @@
                         if ($version->label == 'schema') {
                             $basedate          = $newdate = (int)$version->value;
                             $upgrade_sql_files = array();
-                            $schema_dir        = dirname(dirname(dirname(__FILE__))) . '/schemas/mysql/';
+                            $schema_dir        = dirname(dirname(dirname(__FILE__))) . '/schemas/sqllite3/';
                             $client            = $this->client;
-                            /* @var \PDO $client */
-                            if ($basedate < 2014100801) {
-                                if ($sql = @file_get_contents($schema_dir . '2014100801.sql')) {
-                                    try {
-                                        $statement = $client->prepare($sql);
-                                        $statement->execute();
-                                    } catch (\Exception $e) {
-                                        //\Idno\Core\site()->logging()->log($e->getMessage());
-                                        error_log($e->getMessage());
-                                    }
-                                }
-                                $newdate = 2014100801;
-                            }
-                            if ($basedate < 2015061501) {
-                                if ($sql = @file_get_contents($schema_dir . '2015061501.sql')) {
-                                    try {
-                                        $statement = $client->prepare($sql);
-                                        $statement->execute();
-                                    } catch (\Exception $e) {
-                                        //\Idno\Core\site()->logging()->log($e->getMessage());
-                                        error_log($e->getMessage());
-                                    }
-                                }
-                                $newdate = 2015061501;
-                            }
                         }
                     }
                 }
             }
-
+            
+            
+        
+            public function exportRecords($collection = 'entities') {
+                
+                
+                return false; // TODO
+            }
         }
 
         /**
