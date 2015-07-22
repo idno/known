@@ -163,7 +163,7 @@ namespace Tests\Data {
         /**
          * Helper function to validate object.
          */
-        protected function validateObject(&$obj) {
+        protected function validateObject($obj) {
             
             $this->assertTrue($obj instanceof \Idno\Entities\GenericDataItem);
             $this->assertEquals("".self::$object->getID(), "".$obj->getID());
