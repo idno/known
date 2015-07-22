@@ -435,9 +435,7 @@
 
                     $client = $this->client;
                     /* @var \PDO $client */
-if (defined('KNOWN_UNIT_TEST')) {
-    error_log($query);
-}
+
                     $statement = $client->prepare($query);
 
                     if ($result = $statement->execute($variables)) {
@@ -711,9 +709,7 @@ if (defined('KNOWN_UNIT_TEST')) {
                     if (!empty($where)) {
                         $query .= ' where ' . $where . ' ';
                     }
-if (defined('KNOWN_UNIT_TEST')) {
-    error_log($query);
-}
+
                     $client = $this->client;
                     /* @var \PDO $client */
                     $statement = $client->prepare($query);
