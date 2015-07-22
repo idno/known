@@ -5,7 +5,7 @@ Known _requires_ the following server components:
 + A Web Server that supports URL rewriting (Apache + mod_rewrite recommended)
 + If you are using Apache, you also need to make sure support for .htaccess is enabled (using [the AllowOverride All directive](https://help.ubuntu.com/community/EnablingUseOfApacheHtaccessFiles)).
 + PHP 5.4 or above
-+ MongoDB or MySQL 5
++ MongoDB, MySQL 5 or SQLite3
 
 Known must be installed at the root of a domain, and does not currently support subdirectory installations. It does support subdomains, however.
 

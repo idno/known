@@ -68,6 +68,15 @@ If you need to use a non-standard database port, you can also select this:
 
 Additionally, you will need to create the database referred to in this configuration file, and ensure that it can be connected to using the user credentials you supply. For now, you will need to load the SQL schema stored in /schemas/mysql/mysql.sql.
 
+### If you're using SQLite
+
+As with MySQL, currently SQLite users need to create a ```config.ini``` in the root of their installation. This should contain the following information:
+
+    database = "Sqlite3"
+    dbname = "/path/to/sqlite.db"
+
+Assuming that you've got sqlite support built into PHP (this is usually provided by a module called php5-sqlite), and the location you select in dbname is writable, Known will automatically set up your database.
+
 ### Set the filesystem
 
 If you’re using MongoDB, you don’t have to do anything, and all uploaded files will be stored in MongoDB itself. However, you can also store files on your server’s local hard drive. Additionally, plugins can provide alternative filesystems like Amazon S3.
@@ -84,6 +93,8 @@ Then, add the following to your config.ini file:
     uploadpath = "/Users/ben/Sites/withknown.com/data/"
 
 Of course, replace the path with the path to your data folder.
+
+If you're using Mysql or SQLite, you must specify an upload directory if you want to store files, images or profile pictures.
 
 ### Load Known
 
