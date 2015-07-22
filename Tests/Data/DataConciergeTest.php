@@ -12,7 +12,7 @@ namespace Tests\Data {
         public static $id;
         public static $url;
         
-        public static $fts_object;
+        public static $fts_objects;
         
         public static function setUpBeforeClass()
         {
@@ -145,7 +145,7 @@ namespace Tests\Data {
         
         public function testSearchLong() {
             
-            /** Create a FTS object, since MySQL FTS tables operate in natural language mode */
+            /** Create couple of FTS objects, since MySQL FTS tables operate in natural language mode */
             $obj = new \Idno\Entities\GenericDataItem();
             $obj->setDatatype('UnitTestObject');
             $obj->setTitle("This is a test obj to get around MySQL natural language mode");
@@ -153,7 +153,14 @@ namespace Tests\Data {
             $obj->variable2 = 'test again';
             $id = $obj->save();
             
-            self::$fts_object = $obj;
+            $obj2 = new \Idno\Entities\GenericDataItem();
+            $obj2->setDatatype('UnitTestObject');
+            $obj2->setTitle("This is some other text because mysql is a pain.");
+            $obj2->variable1 = 'test';
+            $obj2->variable2 = 'test again';
+            $id = $obj2->save();
+            
+            self::$fts_objects = [$obj, $obj2];
             
             
             $search = array();
@@ -168,7 +175,12 @@ namespace Tests\Data {
             $this->assertTrue(is_array($feed)); 
             $this->assertTrue(($feed[0] instanceof \Idno\Entities\GenericDataItem));
             
-            $obj->delete();
+            // Clean up
+            if (static::$fts_objects) {
+                foreach (static::$fts_objects as $obj) {
+                    $obj->delete();
+                }
+            }
         }
         
         public function testCountObjects() {
@@ -192,7 +204,11 @@ namespace Tests\Data {
         
         public static function tearDownAfterClass() {
             if (static::$object) static::$object->delete();
-            if (static::$fts_object) static::$fts_object->delete();
+            if (static::$fts_objects) {
+                foreach (static::$fts_objects as $obj) {
+                    $obj->delete();
+                }
+            }
         }
     }
 }
