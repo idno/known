@@ -146,7 +146,7 @@ namespace Tests\Data {
 
             $search = \Idno\Core\site()->db()->createSearchArray("test search obj");
 
-            $count = \Idno\Entities\GenericDataItem::countFromX('Idno\Entities\GenericDataItem', $search); var_export($search); die(var_export(\Idno\Entities\GenericDataItem::getFromX('Idno\Entities\GenericDataItem', $search))); var_export($count); die('blerg');
+            $count = \Idno\Entities\GenericDataItem::countFromX('Idno\Entities\GenericDataItem', $search); var_export($search);  var_export($count); die('blerg');
             $this->assertTrue(is_int($count));
             $this->assertTrue($count > 0);
             
