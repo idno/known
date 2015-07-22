@@ -94,7 +94,7 @@ Then, add the following to your config.ini file:
 
 Of course, replace the path with the path to your data folder.
 
-If you're using Mysql or SQLite, you must specify an upload directory if you want to store files, images or profile pictures.
+If you're using MySQL or SQLite, you must specify an upload directory if you want to store files, images or profile pictures.
 
 ### Load Known
 
