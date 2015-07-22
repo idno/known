@@ -60,12 +60,12 @@
                     <!---------->
                     <div class="row">
                         <div class="col-md-2">
-                            <p><label class="control-label" for="open_registration"><strong>Make site
+                            <p><label class="control-label" for="walled_garden"><strong>Make site
                                         private</strong></label></p>
                         </div>
                         <div class="config-toggle col-md-4">
                             <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
-                                   name="walled_garden"
+                                   name="walled_garden" id="walled_garden"
                                    value="true" <?php if (\Idno\Core\site()->config()->walled_garden == true) echo 'checked'; ?>>
                         </div>
                         <div class="col-md-6"><p class="config-desc">Content on a private site is only visible if you're
@@ -77,6 +77,23 @@
                 }
 
             ?>
+
+            <!---------->
+
+            <div class="row">
+                <div class="col-md-2">
+                    <p><label class="control-label" for="show_privacy"><strong>Per-post privacy</strong></label></p>
+                </div>
+                <div class="config-toggle col-md-4">
+                    <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
+                           name="show_privacy" id="show_privacy"
+                           value="true" <?php if (\Idno\Core\site()->config()->show_privacy == true) echo 'checked'; ?>>
+                </div>
+                <div class="col-md-6"><p class="config-desc">
+                        Show per-post privacy settings.
+                    </p>
+                </div>
+            </div>
 
             <!---------->
 
@@ -120,7 +137,7 @@
                 </div>
                 <div class="config-toggle col-md-4">
                     <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
-                           value="true"
+                           value="true" id="user_avatar_favicons"
                            name="user_avatar_favicons" <?php if (\Idno\Core\site()->config()->user_avatar_favicons == true) echo 'checked'; ?>>
                 </div>
                 <div class="col-md-6"><p class="config-desc">
@@ -132,11 +149,11 @@
             <!---------->
             <div class="row">
                 <div class="col-md-2">
-                    <p><label class="control-label" for="items_per_page"><strong>Include permalinks</strong></label></p>
+                    <p><label class="control-label" for="include_permalinks"><strong>Include permalinks</strong></label></p>
                 </div>
                 <div class="config-toggle col-md-4">
                     <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
-                           name="indieweb_reference"
+                           name="indieweb_reference" id="include_permalinks"
                            value="true" <?php if (\Idno\Core\site()->config()->indieweb_reference == true) echo 'checked'; ?>>
                 </div>
                 <div class="col-md-6"><p class="config-desc">Add a permalink to the original content when you

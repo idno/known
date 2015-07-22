@@ -2,13 +2,22 @@
 
     namespace Tests {
 
-        class EnvironmentTest extends \PHPUnit_Framework_TestCase {
+        class EnvironmentTest extends KnownTestCase {
 
             /** 
              * Assert a compatible version of PHP
              */
             function testPHPVersion() {
                 $this->assertTrue(version_compare(phpversion(), '5.4', '>='));
+            }
+            
+            /**
+             * Assert that required extension modules are present
+             */
+            function testExtensions() {
+                foreach (['curl','date','dom','gd','json','libxml','mbstring','mysql','reflection','session','simplexml'] as $extension) {
+                    $this->assertTrue(extension_loaded($extension));
+                }
             }
             
             /** 

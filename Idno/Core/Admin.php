@@ -27,6 +27,7 @@
                 site()->addPageHandler('/admin/export/generate/?', '\Idno\Pages\Admin\Export\Generate');
                 site()->addPageHandler('/admin/export/download/?', '\Idno\Pages\Admin\Export\Download');
                 site()->addPageHandler('/admin/import/?', '\Idno\Pages\Admin\Import');
+                site()->addPageHandler('/admin/diagnostics/?', '\Idno\Pages\Admin\Diagnostics');
             }
 
         }

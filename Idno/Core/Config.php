@@ -207,6 +207,9 @@
 
             function &__get($name)
             {
+                if ($name == 'config') {
+                    return $this->config;
+                }
                 return $this->config[$name];
             }
 
@@ -218,6 +221,9 @@
 
             function __set($name, $value)
             {
+                if ($name == 'config') {
+                    $this->config = $value;
+                }
                 return $this->config[$name] = $value;
             }
 
@@ -265,7 +271,7 @@
                     $array['site_secret'] = hash('sha256', mt_rand() . microtime(true));
 
                 if (\Idno\Core\site()->db()->saveRecord('config', $array)) {
-                    $this->load();
+                    $this->init();
 
                     return true;
                 }

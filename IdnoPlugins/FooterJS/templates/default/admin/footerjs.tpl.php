@@ -11,7 +11,7 @@
     </div>
 
 </div>
-<form action="/admin/footerjs/" class="form-horizontal" method="post">
+<form action="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/footerjs/" class="form-horizontal" method="post">
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 		<h2>Code editor</h2>

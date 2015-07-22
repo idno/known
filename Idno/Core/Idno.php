@@ -368,6 +368,9 @@
             function addPageHandler($pattern, $handler, $public = false)
             {
                 if (defined('KNOWN_SUBDIRECTORY')) {
+                    if (substr($pattern, 0,1) != '/') {
+                        $pattern = '/' . $pattern;
+                    }
                     $pattern = '/' . KNOWN_SUBDIRECTORY . $pattern;
                 }
                 if (class_exists($handler)) {
@@ -525,7 +528,7 @@
              */
             function version()
             {
-                return '0.8';
+                return '0.8.1';
             }
 
             /**

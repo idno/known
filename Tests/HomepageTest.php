@@ -2,7 +2,7 @@
 
     namespace Tests {
 
-        class HomepageTest extends \PHPUnit_Framework_TestCase {
+        class HomepageTest extends KnownTestCase {
 
             function testHomepageLoads() {
                 

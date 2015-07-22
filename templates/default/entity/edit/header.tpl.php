@@ -11,7 +11,7 @@
 ?>
 
             <div class="row">
-                <div class="col-md-10 col-md-offset-1">
+                <div class="col-md-8 col-md-offset-2">
                     <ul class="nav nav-tabs">
                         <?php
 
