@@ -48,6 +48,7 @@ services:
 
 after_failure:
   - sudo cat $TRAVIS_BUILD_DIR/apache-error.log
+  - mysql -utravis -e "use known_unittest; select * from entities where match (search) against ('test sear');"
 
 notifications:
    email:
