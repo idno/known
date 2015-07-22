@@ -715,7 +715,7 @@
                     $statement = $client->prepare($query);
                     if ($result = $statement->execute($variables)) {
                         if ($obj = $statement->fetchObject()) {
-                            return $obj->total;
+                            return (int)$obj->total;
                         }
                     }
 
