@@ -28,7 +28,8 @@
                                                    'Firefox',
                                                    'Bridgy',
                                                    'FooterJS',
-                                                   'IndiePub'
+                                                   'IndiePub',
+                                                   'Convoy'
                 ),
                 'themes'                 => array(),
                 'antiplugins'            => array(),
