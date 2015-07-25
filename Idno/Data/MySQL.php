@@ -27,6 +27,7 @@
                     $this->client->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
                     //$this->client->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
                 } catch (\Exception $e) {
+                    error_log($e->getMessage());
                     if (!empty(\Idno\Core\site()->config()->forward_on_empty)) {
                         header('Location: ' . \Idno\Core\site()->config()->forward_on_empty);
                         exit;
