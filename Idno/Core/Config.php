@@ -106,12 +106,6 @@
                 if (!empty($this->default_plugins)) {
                     $this->plugins = $this->default_plugins;
                 }
-
-                // If we don't have a site secret, create it
-                if (!isset($this->site_secret)) {
-                    $token_generator = new TokenProvider();
-                    $this->site_secret = bin2hex($token_generator->generateToken(64));
-                }
                 
                 date_default_timezone_set($this->timezone);
                 //setlocale(LC_ALL, 'en_US.UTF8');
@@ -163,7 +157,7 @@
                     $this->config         = array_merge($this->config, $this->ini_config);
                     $this->default_config = false;
                 }
-
+                
             }
 
             /**
@@ -318,6 +312,13 @@
                     }
                 }
                 $this->loadIniFiles();
+                
+                // If we don't have a site secret, create it
+                if (!isset($this->site_secret)) {
+                    $token_generator = new TokenProvider(); 
+                    $this->site_secret = bin2hex($token_generator->generateToken(64));
+                    $this->save();
+                }
             }
 
             /**
