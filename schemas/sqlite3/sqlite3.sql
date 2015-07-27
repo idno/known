@@ -13,12 +13,16 @@ CREATE TABLE IF NOT EXISTS config (
   owner varchar(255) NOT NULL,
   entity_subtype varchar(64) NOT NULL,
   created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  contents longblob NOT NULL,
-  search text NOT NULL
+  contents longblob NOT NULL
 );
 CREATE INDEX IF NOT EXISTS _id ON config (_id);
 CREATE INDEX IF NOT EXISTS owner ON config (owner);
 CREATE INDEX IF NOT EXISTS entity_subtype ON config (entity_subtype);
+
+CREATE VIRTUAL TABLE config_search USING fts4 (
+  uuid varchar(255) NOT NULL PRIMARY KEY,
+  search text NOT NULL
+);
 
 -- --------------------------------------------------------
 
