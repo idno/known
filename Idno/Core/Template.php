@@ -35,6 +35,9 @@
                     $this->detectTemplateType();
                 }
 
+                assert('\Idno\Core\site()->config()->site_secret /* Site secret not set */');
+                \Bonita\Main::siteSecret(\Idno\Core\site()->config()->site_secret);
+                
                 return parent::__construct($template);
             }
 

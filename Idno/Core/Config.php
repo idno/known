@@ -107,6 +107,10 @@
                     $this->plugins = $this->default_plugins;
                 }
 
+                // If we don't have a site secret, create it
+                if (!isset($this->site_secret))
+                    $this->site_secret = hash('sha256', mt_rand() . microtime(true));
+                
                 date_default_timezone_set($this->timezone);
                 //setlocale(LC_ALL, 'en_US.UTF8');
             }
@@ -266,10 +270,6 @@
                 unset($array['disable_ssl_verify']);
                 unset($array['known_hub']);
                 unset($array['directloadplugins']);
-
-                // If we don't have a site secret, create it
-                if (!isset($array['site_secret']))
-                    $array['site_secret'] = hash('sha256', mt_rand() . microtime(true));
 
                 if (\Idno\Core\site()->db()->saveRecord('config', $array)) {
                     $this->init();
