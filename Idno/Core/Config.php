@@ -108,8 +108,10 @@
                 }
 
                 // If we don't have a site secret, create it
-                if (!isset($this->site_secret))
-                    $this->site_secret = hash('sha256', mt_rand() . microtime(true));
+                if (!isset($this->site_secret)) {
+                    $token_generator = new TokenProvider();
+                    $this->site_secret = bin2hex($token_generator->generateToken(64));
+                }
                 
                 date_default_timezone_set($this->timezone);
                 //setlocale(LC_ALL, 'en_US.UTF8');
