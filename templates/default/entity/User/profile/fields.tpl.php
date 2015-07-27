@@ -22,7 +22,7 @@
                 switch($host) {
 
                     case 'twitter.com':         $icon = 'fa fa-twitter'; break;
-                    case 'github.com':          $icon = 'a fa-github-square'; break;
+                    case 'github.com':          $icon = 'fa fa-github-square'; break;
                     case 'fb.com':
                     case 'facebook.com':        $icon = 'fa fa-facebook'; break;
                     case 'plus.google.com':     $icon = 'fa fa-google-plus'; break;
