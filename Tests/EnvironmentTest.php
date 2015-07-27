@@ -15,7 +15,7 @@
              * Assert that required extension modules are present
              */
             function testExtensions() {
-                foreach (['curl','date','dom','gd','json','libxml','mbstring','mysql','reflection','session','simplexml'] as $extension) {
+                foreach (['curl','date','dom','gd','json','libxml','mbstring','mysql','reflection','session','simplexml', 'openssl'] as $extension) {
                     $this->assertTrue(extension_loaded($extension));
                 }
             }
