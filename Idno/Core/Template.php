@@ -35,6 +35,8 @@
                     $this->detectTemplateType();
                 }
 
+                \Bonita\Main::siteSecret(\Idno\Core\site()->config()->site_secret);
+                
                 return parent::__construct($template);
             }
 
