@@ -33,7 +33,7 @@
                 
                 // Check installed extensions
                 $basics['report']['php-extensions'] = ['status' => 'Ok', 'message' => 'PHP Extension(s): '];
-                foreach (['curl','date','dom','gd','json','libxml','mbstring','mysql','reflection','session','simplexml'] as $extension) {
+                foreach (['curl','date','dom','gd','json','libxml','mbstring','mysql','reflection','session','simplexml', 'openssl'] as $extension) {
                     if (!extension_loaded($extension)) {
                         $basics['report']['php-extensions']['message'] .= "$extension, ";
                         $basics['report']['php-extensions']['status'] = 'Failure';
