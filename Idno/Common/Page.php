@@ -876,7 +876,7 @@
              */
             public function setLastModifiedHeader($timestamp)
             {
-                header('Last-Modified: ' . self::timestampToRFC2616($timestamp));
+                header('Last-Modified: ' . Time::timestampToRFC2616($timestamp));
             }
 
             /**
@@ -957,15 +957,6 @@
 
 
                 return $page;
-            }
-
-            /**
-             * Convert a unix timestamp into an RFC2616 (HTTP) compatible date.
-             * @param type $timestamp
-             */
-            public static function timestampToRFC2616($timestamp)
-            {
-                return gmdate('D, d M Y H:i:s T', (int)$timestamp);
             }
 
         }
