@@ -41,12 +41,17 @@
                     <input type="text" name="title" id="title" placeholder="Give it a title" value="<?=htmlspecialchars($vars['object']->title)?>" class="form-control" />
 
             </idv>
-            <div class="content-form">
-                <label for="description">
-                    Description</label>
-                    <textarea name="body" id="description" placeholder="What's this about?" class="form-control"><?=htmlspecialchars($vars['object']->body)?></textarea>
 
-            </div>
+            <?= $this->__([
+                'name' => 'body',
+                'value' => $body,
+                'object' => $object,
+                'wordcount' => false,
+                'height' => 250,
+                'class' => 'wysiwyg-short',
+                'placeholder' => 'Describe your audio',
+                'label' => 'Description',
+            ])->draw('forms/input/richtext')?>
             <?=$this->draw('entity/tags/input');?>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('media'); ?>
             <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to" value="<?= \Idno\Core\site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
