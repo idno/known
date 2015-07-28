@@ -40,15 +40,6 @@
             }
 
             /**
-             * Returns an instance of the database client reference variable
-             * @return \Mongo
-             */
-            function getClient()
-            {
-                return $this->client;
-            }
-
-            /**
              * Offer a session handler for the current session
              */
             function handleSession()
@@ -61,6 +52,15 @@
                 ]);
 
                 session_set_save_handler($sessionHandler, true);
+            }
+
+            /**
+             * Returns an instance of the database client reference variable
+             * @return \Mongo
+             */
+            function getClient()
+            {
+                return $this->client;
             }
 
             /**
@@ -128,16 +128,6 @@
             }
 
             /**
-             * Process the ID appropriately
-             * @param $id
-             * @return \MongoId
-             */
-            function processID($id)
-            {
-                return new \MongoId($id);
-            }
-
-            /**
              * Retrieves a record from the database by its UUID
              *
              * @param string $id
@@ -167,6 +157,16 @@
                     }
 
                 return false;
+            }
+
+            /**
+             * Process the ID appropriately
+             * @param $id
+             * @return \MongoId
+             */
+            function processID($id)
+            {
+                return new \MongoId($id);
             }
 
             /**

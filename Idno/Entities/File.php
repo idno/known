@@ -13,138 +13,6 @@
         {
 
             /**
-             * Return the MIME type associated with this file
-             * @return null|string
-             */
-            function getMimeType()
-            {
-                $mime_type = $this->mime_type;
-                if (!empty($mime_type)) {
-                    return $this->mime_type;
-                }
-
-                return 'application/octet-stream';
-            }
-
-            /**
-             * Get the publicly visible filename associated with this file
-             * @return string
-             */
-            function getURL()
-            {
-                if (!empty($this->_id)) {
-                    return \Idno\Core\site()->config()->url . 'file/' . $this->_id . '/' . urlencode($this->filename);
-                }
-
-                return '';
-            }
-
-            function delete()
-            {
-                // TODO deleting files would be good ...
-            }
-
-            function remove()
-            {
-                return $this->delete();
-            }
-
-            /**
-             * Passes through the contents of this file.
-             */
-            function passThroughBytes()
-            {
-                echo $this->getBytes();
-            }
-
-            /**
-             * Save a file to the filesystem and return the ID
-             *
-             * @param string $file_path Full local path to the file
-             * @param string $filename Filename to store
-             * @param string $mime_type MIME type associated with the file
-             * @param bool $return_object Return the file object? If set to false (as is default), will return the ID
-             * @param bool $destroy_exif When true, if an image is uploaded the exif data will be destroyed.
-             * @return bool|\id Depending on success
-             */
-            public static function createFromFile($file_path, $filename, $mime_type = 'application/octet-stream', $return_object = false, $destroy_exif = false)
-            {
-                if (file_exists($file_path) && !empty($filename)) {
-                    if ($fs = \Idno\Core\site()->filesystem()) {
-                        $file     = new File();
-                        $metadata = array(
-                            'filename'  => $filename,
-                            'mime_type' => $mime_type
-                        );
-
-                        // Get image filesize
-                        if (self::isImage($file_path)) {
-                            $photo_information = getimagesize($file_path);
-                            if (!empty($photo_information[0]) && !empty($photo_information[1])) {
-                                $metadata['width']  = $photo_information[0];
-                                $metadata['height'] = $photo_information[1];
-                            }
-                        }
-
-                        // Do we want to remove EXIF data?
-                        if (!empty($photo_information) && $destroy_exif) {
-                            $tmpfname = $file_path;
-                            switch ($photo_information['mime']) {
-                                case 'image/jpeg':
-                                    $image = imagecreatefromjpeg($tmpfname);
-                                    
-                                    // Since we're stripping Exif, we need to manually adjust orientation of main image
-                                    if (function_exists('exif_read_data')) {
-                                        $exif = exif_read_data($tmpfname);
-                                        if (!empty($exif['Orientation'])) {
-                                            switch ($exif['Orientation']) {
-                                                case 8:
-                                                    $image = imagerotate($image, 90, 0);
-                                                    break;
-                                                case 3:
-                                                    $image = imagerotate($image, 180, 0);
-                                                    break;
-                                                case 6:
-                                                    $image = imagerotate($image, -90, 0);
-                                                    break;
-                                            }
-                                        }
-                                    }
-                                    
-                                    imagejpeg($image, $tmpfname);
-                                    break;
-                            }
-
-                        }
-
-                        if ($id = $fs->storeFile($file_path, $metadata, $metadata)) {
-                            if (!$return_object) {
-                                return $id;
-                            } else {
-                                return self::getByID($id);
-                            }
-                        }
-                    }
-                }
-
-                return false;
-            }
-
-            /**
-             * Determines whether a file is an image or not.
-             * @param string $file_path The path to a file
-             * @return bool
-             */
-            public static function isImage($file_path)
-            {
-                if ($photo_information = getimagesize($file_path)) {
-                    return true;
-                }
-
-                return false;
-            }
-
-            /**
              * Given a path to an image on disk, generates and saves a thumbnail with maximum dimension $max_dimension.
              * @param string $file_path Path to the file.
              * @param string $filename Filename that the file should have on download.
@@ -243,14 +111,87 @@
             }
 
             /**
-             * Retrieve a file by UUID
-             * @param string $uuid
-             * @return bool|\Idno\Common\Entity
+             * Save a file to the filesystem and return the ID
+             *
+             * @param string $file_path Full local path to the file
+             * @param string $filename Filename to store
+             * @param string $mime_type MIME type associated with the file
+             * @param bool $return_object Return the file object? If set to false (as is default), will return the ID
+             * @param bool $destroy_exif When true, if an image is uploaded the exif data will be destroyed.
+             * @return bool|\id Depending on success
              */
-            static function getByUUID($uuid)
+            public static function createFromFile($file_path, $filename, $mime_type = 'application/octet-stream', $return_object = false, $destroy_exif = false)
             {
-                if ($fs = \Idno\Core\site()->filesystem()) {
-                    return $fs->findOne($uuid);
+                if (file_exists($file_path) && !empty($filename)) {
+                    if ($fs = \Idno\Core\site()->filesystem()) {
+                        $file     = new File();
+                        $metadata = array(
+                            'filename'  => $filename,
+                            'mime_type' => $mime_type
+                        );
+
+                        // Get image filesize
+                        if (self::isImage($file_path)) {
+                            $photo_information = getimagesize($file_path);
+                            if (!empty($photo_information[0]) && !empty($photo_information[1])) {
+                                $metadata['width']  = $photo_information[0];
+                                $metadata['height'] = $photo_information[1];
+                            }
+                        }
+
+                        // Do we want to remove EXIF data?
+                        if (!empty($photo_information) && $destroy_exif) {
+                            $tmpfname = $file_path;
+                            switch ($photo_information['mime']) {
+                                case 'image/jpeg':
+                                    $image = imagecreatefromjpeg($tmpfname);
+
+                                    // Since we're stripping Exif, we need to manually adjust orientation of main image
+                                    if (function_exists('exif_read_data')) {
+                                        $exif = exif_read_data($tmpfname);
+                                        if (!empty($exif['Orientation'])) {
+                                            switch ($exif['Orientation']) {
+                                                case 8:
+                                                    $image = imagerotate($image, 90, 0);
+                                                    break;
+                                                case 3:
+                                                    $image = imagerotate($image, 180, 0);
+                                                    break;
+                                                case 6:
+                                                    $image = imagerotate($image, -90, 0);
+                                                    break;
+                                            }
+                                        }
+                                    }
+
+                                    imagejpeg($image, $tmpfname);
+                                    break;
+                            }
+
+                        }
+
+                        if ($id = $fs->storeFile($file_path, $metadata, $metadata)) {
+                            if (!$return_object) {
+                                return $id;
+                            } else {
+                                return self::getByID($id);
+                            }
+                        }
+                    }
+                }
+
+                return false;
+            }
+
+            /**
+             * Determines whether a file is an image or not.
+             * @param string $file_path The path to a file
+             * @return bool
+             */
+            public static function isImage($file_path)
+            {
+                if ($photo_information = getimagesize($file_path)) {
+                    return true;
                 }
 
                 return false;
@@ -275,6 +216,20 @@
             }
 
             /**
+             * Retrieve a file by UUID
+             * @param string $uuid
+             * @return bool|\Idno\Common\Entity
+             */
+            static function getByUUID($uuid)
+            {
+                if ($fs = \Idno\Core\site()->filesystem()) {
+                    return $fs->findOne($uuid);
+                }
+
+                return false;
+            }
+
+            /**
              * Attempt to extract a file from a URL to it. Will fail with false if the file is external or otherwise
              * can't be retrieved.
              * @param $url
@@ -286,24 +241,6 @@
                     $url = str_replace(\Idno\Core\site()->config()->getDisplayURL() . 'file/', '', $url);
 
                     return self::getByID($url);
-                }
-
-                return false;
-            }
-
-            /**
-             * Retrieve file data by ID
-             * @param string $id
-             * @return mixed
-             */
-            static function getFileDataByID($id)
-            {
-                if ($file = self::getByID($id)) {
-                    try {
-                        return $file->getBytes();
-                    } catch (\Exception $e) {
-                        \Idno\Core\site()->logging->log($e->getMessage(), LOGLEVEL_ERROR);
-                    }
                 }
 
                 return false;
@@ -350,6 +287,69 @@
                 }
 
                 return false;
+            }
+
+            /**
+             * Retrieve file data by ID
+             * @param string $id
+             * @return mixed
+             */
+            static function getFileDataByID($id)
+            {
+                if ($file = self::getByID($id)) {
+                    try {
+                        return $file->getBytes();
+                    } catch (\Exception $e) {
+                        \Idno\Core\site()->logging->log($e->getMessage(), LOGLEVEL_ERROR);
+                    }
+                }
+
+                return false;
+            }
+
+            /**
+             * Return the MIME type associated with this file
+             * @return null|string
+             */
+            function getMimeType()
+            {
+                $mime_type = $this->mime_type;
+                if (!empty($mime_type)) {
+                    return $this->mime_type;
+                }
+
+                return 'application/octet-stream';
+            }
+
+            /**
+             * Get the publicly visible filename associated with this file
+             * @return string
+             */
+            function getURL()
+            {
+                if (!empty($this->_id)) {
+                    return \Idno\Core\site()->config()->url . 'file/' . $this->_id . '/' . urlencode($this->filename);
+                }
+
+                return '';
+            }
+
+            function remove()
+            {
+                return $this->delete();
+            }
+
+            function delete()
+            {
+                // TODO deleting files would be good ...
+            }
+
+            /**
+             * Passes through the contents of this file.
+             */
+            function passThroughBytes()
+            {
+                echo $this->getBytes();
             }
 
         }

@@ -83,6 +83,21 @@
             }
 
             /**
+             * Given the name of a template and a set of variables to include, generates an HTML body and adds it to the message
+             * @param $template_name
+             * @param array $vars
+             * @return mixed
+             */
+            function setHTMLBodyFromTemplate($template_name, $vars = array())
+            {
+                $t = clone site()->template();
+                $t->setTemplateType('email');
+                $body = $t->__($vars)->draw($template_name);
+
+                return $this->setHTMLBody($body);
+            }
+
+            /**
              * Sets the HTML body of the message (optionally setting it inside the email pageshell as defined by the email template)
              * @param $body The formatted HTML body text of the message
              * @param bool $shell Should the message be placed inside the pageshell? Default: true
@@ -101,21 +116,6 @@
                 return $this->message->setBody($message, 'text/html');
             }
 
-            /**
-             * Given the name of a template and a set of variables to include, generates an HTML body and adds it to the message
-             * @param $template_name
-             * @param array $vars
-             * @return mixed
-             */
-            function setHTMLBodyFromTemplate($template_name, $vars = array())
-            {
-                $t = clone site()->template();
-                $t->setTemplateType('email');
-                $body = $t->__($vars)->draw($template_name);
-
-                return $this->setHTMLBody($body);
-            }
-            
             /**
              * Set the text only component of an email.
              * @param type $template_name

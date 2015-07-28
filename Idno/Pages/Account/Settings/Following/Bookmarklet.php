@@ -12,53 +12,6 @@
         class Bookmarklet extends \Idno\Common\Page
         {
 
-            /**
-             * When passed an array of MF2 data, recursively find hcard entries.
-             * @param array $mf2
-             * @param array $out
-             */
-            private function findHcard(array $mf2, array &$out)
-            {
-                foreach ($mf2 as $item) {
-                    // Find h-card
-                    if (in_array('h-card', $item['type']))
-                        $out[] = $item;
-                    if (isset($item['children']))
-                        $this->findHcard($item['children'], $out);
-                }
-            }
-
-            /**
-             * Go through the list of found hcards and remove duplicates (based on unique profile urls)
-             * @param array $hcards
-             * @return array
-             */
-            private function removeDuplicateProfiles(array $hcards)
-            {
-                $cards = array();
-
-                foreach ($hcards as $card) {
-                    $key = serialize($card['properties']['url']);
-                    if (!isset($cards[$key]))
-                        $cards[$key] = $card;
-                }
-
-                return $cards;
-            }
-
-            /**
-             * Quickly find a title from a HTML page.
-             * @return string|false
-             * @param type $content
-             */
-            private function findPageTitle($content)
-            {
-                if (!preg_match("/<title>(.*)<\/title>/siU", $content, $matches))
-                    return false;
-
-                return trim($matches[1], " \n");
-            }
-
             function getContent()
             {
                 $this->createGatekeeper();
@@ -114,6 +67,53 @@
 
                 // forward back
                 $this->forward($_SERVER['HTTP_REFERER']);
+            }
+
+            /**
+             * When passed an array of MF2 data, recursively find hcard entries.
+             * @param array $mf2
+             * @param array $out
+             */
+            private function findHcard(array $mf2, array &$out)
+            {
+                foreach ($mf2 as $item) {
+                    // Find h-card
+                    if (in_array('h-card', $item['type']))
+                        $out[] = $item;
+                    if (isset($item['children']))
+                        $this->findHcard($item['children'], $out);
+                }
+            }
+
+            /**
+             * Go through the list of found hcards and remove duplicates (based on unique profile urls)
+             * @param array $hcards
+             * @return array
+             */
+            private function removeDuplicateProfiles(array $hcards)
+            {
+                $cards = array();
+
+                foreach ($hcards as $card) {
+                    $key = serialize($card['properties']['url']);
+                    if (!isset($cards[$key]))
+                        $cards[$key] = $card;
+                }
+
+                return $cards;
+            }
+
+            /**
+             * Quickly find a title from a HTML page.
+             * @return string|false
+             * @param type $content
+             */
+            private function findPageTitle($content)
+            {
+                if (!preg_match("/<title>(.*)<\/title>/siU", $content, $matches))
+                    return false;
+
+                return trim($matches[1], " \n");
             }
 
             function postContent()

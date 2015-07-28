@@ -2,7 +2,7 @@
 
     /**
      * SQLite3 back-end for Known data.
-     * 
+     *
      * @requires php5-sqlite
      * @package idno
      * @subpackage data
@@ -20,31 +20,30 @@
             {
 
                 try {
-                    
-                    $connection_string = "sqlite:".\Idno\Core\site()->config()->dbname;
-                    $this->client = new \PDO($connection_string);
+
+                    $connection_string = "sqlite:" . \Idno\Core\site()->config()->dbname;
+                    $this->client      = new \PDO($connection_string);
                     $this->client->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
                     $this->client->exec("SELECT * from versions;"); // Quick and dirty check to see if database is installed TODO: do this better.
-                
-                } catch (\Exception $e) { 
-                    if (strpos($e->getMessage(), 'no such table')!==false) {
+
+                } catch (\Exception $e) {
+                    if (strpos($e->getMessage(), 'no such table') !== false) {
                         // Database not installed, try and install it to dbname
-                        $dbh = new \PDO($connection_string);
+                        $dbh      = new \PDO($connection_string);
                         $filename = dirname(dirname(dirname(__FILE__))) . '/schemas/sqlite3/sqlite3.sql';
-                        if (file_exists($filename)) { 
+                        if (file_exists($filename)) {
                             $dbh->exec(@file_get_contents($filename));
                         } else {
                             $messages = '<p>We couldn\'t find the schema doc.</p>';
                             die($messages);
                         }
-                        
-                    }
-                    else {
-                        
+
+                    } else {
+
                         if (!empty(\Idno\Core\site()->config()->forward_on_empty)) {
                             header('Location: ' . \Idno\Core\site()->config()->forward_on_empty);
                             exit;
-                        } else { 
+                        } else {
                             if (\Idno\Core\site()->config()->debug) {
                                 $message = '<p>' . $e->getMessage() . '</p>';
                                 $message .= '<p>' . $connection_string . '</p>';
@@ -55,9 +54,47 @@
                         }
                     }
                 }
-                
+
                 $this->database = \Idno\Core\site()->config()->dbname;
                 $this->checkAndUpgradeSchema();
+            }
+
+            /**
+             * Checks the current schema version and upgrades if necessary
+             */
+            function checkAndUpgradeSchema()
+            {
+                if ($versions = $this->getVersions()) {
+                    foreach ($versions as $version) {
+                        if ($version->label == 'schema') {
+                            $basedate          = $newdate = (int)$version->value;
+                            $upgrade_sql_files = array();
+                            $schema_dir        = dirname(dirname(dirname(__FILE__))) . '/schemas/sqllite3/';
+                            $client            = $this->client;
+                        }
+                    }
+                }
+            }
+
+            /**
+             * Retrieve version information from the schema
+             * @return array|bool
+             */
+            function getVersions()
+            {
+                try {
+                    $client = $this->client;
+                    /* @var \PDO $client */
+                    $statement = $client->prepare("select * from `versions`");
+                    if ($statement->execute()) {
+                        return $statement->fetchAll(\PDO::FETCH_OBJ);
+                    }
+                } catch (\Exception $e) {
+                    //\Idno\Core\site()->logging()->log($e->getMessage());
+                    error_log($e->getMessage());
+                }
+
+                return false;
             }
 
             /**
@@ -106,7 +143,7 @@
             {
                 return $id;
             }
-            
+
             /**
              * Saves a record to the specified database collection
              *
@@ -139,9 +176,10 @@
                 } catch (\Exception $e) {
                     $contents = json_encode([]);
                     \Idno\Core\site()->logging()->log($e->getMessage());
+
                     return false;
                 }
-                $search   = '';
+                $search = '';
                 if (!empty($array['title'])) {
                     $search .= $array['title'] . ' ';
                 }
@@ -178,14 +216,14 @@
                                                     values
                                                     (:uuid, :id, :subtype, :owner, :created, :contents)");
                     if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':created' => $array['created']))) {
-                        
+
                         // Update FTS Lookup
                         $statement = $client->prepare("insert or replace into {$collection}_search
                             (`uuid`, `search`)
                             values
                             (:uuid, :search)");
                         $statement->execute(array(':uuid' => $array['uuid'], ':search' => $search));
-                        
+
                         if ($statement = $client->prepare("delete from metadata where _id = :id")) {
                             $statement->execute(array(':id' => $array['_id']));
                         }
@@ -243,29 +281,6 @@
             }
 
             /**
-             * Converts a database row into a Known entity
-             *
-             * @param array $row
-             * @return \Idno\Common\Entity
-             */
-            function rowToEntity($row)
-            {
-                if (!empty($row['entity_subtype']) && !empty($row['contents'])) {
-                    if (class_exists($row['entity_subtype'])) {
-
-                        $contents = (array)json_decode($row['contents'], true);
-
-                        $object = new $row['entity_subtype'](); 
-                        $object->loadFromArray($contents);
-
-                        return $object;
-                    }
-                }
-
-                return false;
-            }
-
-            /**
              * Retrieves a record from the database by ID
              *
              * @param string $id
@@ -282,7 +297,6 @@
 
                 return false;
             }
-            
 
             /**
              * Retrieves ANY record from a collection
@@ -310,7 +324,30 @@
 
                 return false;
             }
-            
+
+            /**
+             * Converts a database row into a Known entity
+             *
+             * @param array $row
+             * @return \Idno\Common\Entity
+             */
+            function rowToEntity($row)
+            {
+                if (!empty($row['entity_subtype']) && !empty($row['contents'])) {
+                    if (class_exists($row['entity_subtype'])) {
+
+                        $contents = (array)json_decode($row['contents'], true);
+
+                        $object = new $row['entity_subtype']();
+                        $object->loadFromArray($contents);
+
+                        return $object;
+                    }
+                }
+
+                return false;
+            }
+
             /**
              * Retrieve objects of a certain kind that we're allowed to see,
              * (or excluding kinds that we don't want to see),
@@ -428,12 +465,13 @@
 
                 } catch (\Exception $e) {
                     \Idno\Core\site()->logging()->log($e->getMessage());
+
                     return false;
                 }
 
                 return false;
             }
-            
+
             /**
              * Recursive function that takes an array of parameters and returns an array of clauses suitable
              * for compiling into an SQL query
@@ -546,8 +584,8 @@
 //                                    $subwhere[]                                  = " srch.search match :nonmdvalue{$non_md_variables} ";
 //                                    $variables[":nonmdvalue{$non_md_variables}"] = "$val*";
 //                                } else {
-                                    $subwhere[]                                  = " srch.search like :nonmdvalue{$non_md_variables}";
-                                    $variables[":nonmdvalue{$non_md_variables}"] = '%' . $val . '%';
+                                $subwhere[]                                  = " srch.search like :nonmdvalue{$non_md_variables}";
+                                $variables[":nonmdvalue{$non_md_variables}"] = '%' . $val . '%';
 //                                }
                                 $non_md_variables++;
                             }
@@ -644,6 +682,7 @@
 
                 } catch (Exception $e) {
                     \Idno\Core\site()->logging()->log($e->getMessage());
+
                     return false;
                 }
 
@@ -684,6 +723,7 @@
                 } catch (\Exception $e) {
 
                     \Idno\Core\site()->logging()->log($e->getMessage());
+
                     return false;
 
                 }
@@ -712,49 +752,10 @@
                 return array('$search' => array($query));
             }
 
-            /**
-             * Retrieve version information from the schema
-             * @return array|bool
-             */
-            function getVersions()
+            public function exportRecords($collection = 'entities')
             {
-                try {
-                    $client = $this->client;
-                    /* @var \PDO $client */
-                    $statement = $client->prepare("select * from `versions`");
-                    if ($statement->execute()) {
-                        return $statement->fetchAll(\PDO::FETCH_OBJ);
-                    }
-                } catch (\Exception $e) {
-                    //\Idno\Core\site()->logging()->log($e->getMessage());
-                    error_log($e->getMessage());
-                }
 
-                return false;
-            }
 
-            /**
-             * Checks the current schema version and upgrades if necessary
-             */
-            function checkAndUpgradeSchema()
-            {
-                if ($versions = $this->getVersions()) {
-                    foreach ($versions as $version) {
-                        if ($version->label == 'schema') {
-                            $basedate          = $newdate = (int)$version->value;
-                            $upgrade_sql_files = array();
-                            $schema_dir        = dirname(dirname(dirname(__FILE__))) . '/schemas/sqllite3/';
-                            $client            = $this->client;
-                        }
-                    }
-                }
-            }
-            
-            
-        
-            public function exportRecords($collection = 'entities') {
-                
-                
                 return false; // TODO
             }
         }

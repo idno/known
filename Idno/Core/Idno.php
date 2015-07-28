@@ -45,7 +45,7 @@
                 switch ($this->config->database) {
                     case 'mongodb':
                         $this->db = new DataConcierge();
-                        break;  
+                        break;
                     case 'mysql':
                         $this->db = new \Idno\Data\MySQL();
                         break;
@@ -368,7 +368,7 @@
             function addPageHandler($pattern, $handler, $public = false)
             {
                 if (defined('KNOWN_SUBDIRECTORY')) {
-                    if (substr($pattern, 0,1) != '/') {
+                    if (substr($pattern, 0, 1) != '/') {
                         $pattern = '/' . $pattern;
                     }
                     $pattern = '/' . KNOWN_SUBDIRECTORY . $pattern;
@@ -544,7 +544,8 @@
              * Retrieve a machine-readale version of Known's version number
              * @return string
              */
-            function machineVersion() {
+            function machineVersion()
+            {
                 return '2015072201';
             }
 
@@ -552,7 +553,8 @@
              * Alias for getMachineVersion
              * @return string
              */
-            function getMachineVersion() {
+            function getMachineVersion()
+            {
                 return $this->machineVersion();
             }
 
@@ -736,7 +738,8 @@
              * This is a state dependant object, and so can not be serialised.
              * @return array
              */
-            function __sleep() {
+            function __sleep()
+            {
                 return [];
             }
         }

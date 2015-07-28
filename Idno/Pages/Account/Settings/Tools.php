@@ -15,7 +15,7 @@
             function getContent()
             {
                 $this->createGatekeeper(); // Logged-in only please
-          
+
                 if ($this->xhr) {
                     $user = \Idno\Core\site()->session()->currentUser();
                     echo json_encode($user->getAPIkey());

@@ -66,24 +66,23 @@
                                 $atusers = [];
                                 preg_match("|https?://([a-z]+\.)?twitter\.com/(#!/)?@?([^/]*)|", $url, $matches);
                                 if (!empty($matches[3])) {
-                                    $atusers[] = '@'.$matches[3];
+                                    $atusers[] = '@' . $matches[3];
 //                                    $page->setInput('body', '@' . $matches[3] . ' ');
                                 }
                                 if (preg_match_all("|@([^\s^\)]+)|", $title, $matches)) {
                                     $atusers = array_merge($atusers, $matches[0]);
                                 }
-                                
+
                                 // See if one of your registered twitter handles is present, if so remove it.
                                 $user = \Idno\Core\site()->session()->currentUser();
                                 if ((!empty($user->twitter)) && (is_array($user->twitter))) {
                                     $me = [];
-                                    foreach ($user->twitter as $k => $v)
-                                    {
+                                    foreach ($user->twitter as $k => $v) {
                                         $me[] = "@$k";
                                     }
                                     $atusers = array_diff($atusers, $me);
                                 }
-                                
+
                                 $atusers = array_unique($atusers);
                                 $page->setInput('body', implode(' ', $atusers) . ' ');
                             }

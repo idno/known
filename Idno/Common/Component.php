@@ -53,32 +53,12 @@
             }
 
             /**
-             * A helper method that retrieves the current namespace of this class
-             * (eg, the namespace of a child class).
-             */
-            function getNamespace()
-            {
-                $reflector = new \ReflectionClass(get_class($this));
-
-                return $reflector->getNamespaceName();
-            }
-
-            /**
              * Helper function that gets the full class name of this entity
              * @return string
              */
             function getClass()
             {
                 return get_class($this);
-            }
-
-            /**
-             * Get the name of this class without its namespace
-             * @return string
-             */
-            function getClassName()
-            {
-                return str_replace('\\', '', str_replace($this->getNamespace(), '', get_class($this)));
             }
 
             /**
@@ -91,6 +71,15 @@
                 $reflector = new \ReflectionClass(get_class($this));
 
                 return $reflector->getFileName();
+            }
+
+            /**
+             * Returns a camelCase version of the object title, suitable for use in element IDs
+             * @return string
+             */
+            function getIDSelector()
+            {
+                return $this->camelCase($this->getTitle());
             }
 
             /**
@@ -109,21 +98,32 @@
             }
 
             /**
-             * Returns a camelCase version of the object title, suitable for use in element IDs
-             * @return string
-             */
-            function getIDSelector()
-            {
-                return $this->camelCase($this->getTitle());
-            }
-
-            /**
              * Returns a camelCase version of the object class, suitable for use in element IDs
              * @return string
              */
             function getClassSelector()
             {
                 return $this->camelCase($this->getClassName());
+            }
+
+            /**
+             * Get the name of this class without its namespace
+             * @return string
+             */
+            function getClassName()
+            {
+                return str_replace('\\', '', str_replace($this->getNamespace(), '', get_class($this)));
+            }
+
+            /**
+             * A helper method that retrieves the current namespace of this class
+             * (eg, the namespace of a child class).
+             */
+            function getNamespace()
+            {
+                $reflector = new \ReflectionClass(get_class($this));
+
+                return $reflector->getNamespaceName();
             }
 
         }

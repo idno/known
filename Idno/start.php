@@ -26,7 +26,7 @@
 
             if (isset(\Idno\Core\site()->logging) && \Idno\Core\site()->logging)
                 \Idno\Core\site()->logging->log($error_message, LOGLEVEL_ERROR);
-            else 
+            else
                 error_log($error_message);
 
             exit;
@@ -38,7 +38,7 @@
         if (!empty($_SERVER['PHP_SELF'])) {
             if ($subdir = dirname($_SERVER['PHP_SELF'])) {
                 if ($subdir != DIRECTORY_SEPARATOR) {
-                    if(substr($subdir, -1) == DIRECTORY_SEPARATOR) {
+                    if (substr($subdir, -1) == DIRECTORY_SEPARATOR) {
                         $subdir = substr($subdir, 0, -1);
                     }
                     if (substr($subdir, 0, 1) == DIRECTORY_SEPARATOR) {
@@ -68,6 +68,7 @@
     function &loader()
     {
         global $known_loader;
+
         return $known_loader;
     }
 

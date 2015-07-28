@@ -5,6 +5,7 @@
      */
 
     namespace Idno\Pages\Account {
+
         use Idno\Core\Email;
         use Idno\Entities\User;
 

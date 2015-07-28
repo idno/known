@@ -13,43 +13,215 @@
         {
 
             public $config = array(
-                'database'               => 'mongodb',
-                'dbstring'               => 'mongodb://localhost:27017',
-                'dbname'                 => 'known', // Default MongoDB database
-                'sessionname'            => 'known', // Default session name
-                'open_registration'      => true, // Can anyone register for this system?
-                'plugins'                => array( // Default plugins
-                                                   'Status',
-                                                   'Text',
-                                                   'Photo',
-                                                   'Like',
-                                                   'Checkin',
-                                                   'Media',
-                                                   'Firefox',
-                                                   'Bridgy',
-                                                   'FooterJS',
-                                                   'IndiePub',
-                                                   'Convoy'
+                'database'             => 'mongodb',
+                'dbstring'             => 'mongodb://localhost:27017',
+                'dbname'               => 'known', // Default MongoDB database
+                'sessionname'          => 'known', // Default session name
+                'open_registration'    => true, // Can anyone register for this system?
+                'plugins'              => array( // Default plugins
+                                                 'Status',
+                                                 'Text',
+                                                 'Photo',
+                                                 'Like',
+                                                 'Checkin',
+                                                 'Media',
+                                                 'Firefox',
+                                                 'Bridgy',
+                                                 'FooterJS',
+                                                 'IndiePub',
+                                                 'Convoy'
                 ),
-                'themes'                 => array(),
-                'antiplugins'            => array(),
-                'alwaysplugins'          => array(
+                'themes'               => array(),
+                'antiplugins'          => array(),
+                'alwaysplugins'        => array(
                     'Convoy'
                 ),
-                'prerequisiteplugins'    => array(),
-                'directloadplugins'      => array(),
-                'items_per_page'         => 10, // Default items per page
-                'experimental'           => false, // A common way to enable experimental functions still in development
-                'multitenant'            => false,
-                'default_config'         => true, // This is a trip-switch - changed to false if configuration is loaded from an ini file / the db
-                'loglevel'              => 5,
-                'multi_syndication'      => true,
-                'wayback_machine'        => false,
-                'static_url'             => false,
-                'user_avatar_favicons'   => true
+                'prerequisiteplugins'  => array(),
+                'directloadplugins'    => array(),
+                'items_per_page'       => 10, // Default items per page
+                'experimental'         => false, // A common way to enable experimental functions still in development
+                'multitenant'          => false,
+                'default_config'       => true, // This is a trip-switch - changed to false if configuration is loaded from an ini file / the db
+                'loglevel'             => 5,
+                'multi_syndication'    => true,
+                'wayback_machine'      => false,
+                'static_url'           => false,
+                'user_avatar_favicons' => true
             );
 
             public $ini_config = array();
+
+            /**
+             * We're overloading the "get" method for the configuration
+             * class, so you can simply check $config->property to get
+             * a configuration value.
+             */
+
+            function &__get($name)
+            {
+                if ($name == 'config') {
+                    return $this->config;
+                }
+
+                return $this->config[$name];
+            }
+
+            /**
+             * Overloading the "set" method for the configuration class,
+             * so you can simply set $configuration->property = $value to
+             * overwrite configuration values.
+             */
+
+            function __set($name, $value)
+            {
+                if ($name == 'config') {
+                    $this->config = $value;
+                }
+
+                return $this->config[$name] = $value;
+            }
+
+            /**
+             * Overloading the entity property isset check, so that
+             * isset($entity->property) and empty($entity->property)
+             * work as expected.
+             */
+
+            function __isset($name)
+            {
+                if (!empty($this->config[$name])) return true;
+
+                return false;
+            }
+
+            /**
+             * Retrieves configuration information from the database, if possible - while
+             * ensuring that config.ini overwrites db fields.
+             */
+            function load()
+            {
+                if ($config = \Idno\Core\site()->db()->getAnyRecord('config')) {
+                    $this->default_config = false;
+                    if ($config instanceof \Idno\Common\Entity) {
+                        $config = $config->getAttributes();
+                        unset($config['dbname']); // Ensure we don't accidentally load protected data from db
+                        unset($config['dbpass']);
+                        unset($config['dbhost']);
+                        unset($config['dbstring']);
+                        unset($config['path']);
+                        unset($config['url']);
+                        unset($config['host']);
+                        unset($config['feed']);
+                        unset($config['uploadpath']);
+                        unset($config['initial_plugins']);
+                        unset($config['antiplugins']);
+                        unset($config['alwaysplugins']);
+                        unset($config['session_path']);
+                        unset($config['session_hash_function']);
+                        unset($config['sessions_database']);
+                        unset($config['cookie_jar']);
+                        unset($config['proxy_string']);
+                        unset($config['proxy_type']);
+                        unset($config['disable_ssl_verify']);
+                        unset($config['upload_tmp_dir']);
+                    }
+                    if (is_array($config)) {
+                        $this->config = array_merge($this->config, $config);
+                    }
+                }
+                $this->loadIniFiles();
+
+                // If we don't have a site secret, create it
+                if (!isset($this->site_secret)) {
+                    $token_generator   = new TokenProvider();
+                    $this->site_secret = bin2hex($token_generator->generateToken(64));
+                    $this->save();
+                }
+            }
+
+            /**
+             * Load configuration from ini files
+             */
+            function loadIniFiles()
+            {
+
+                if (empty($this->ini_config)) {
+                    $this->ini_config = array();
+                    if ($config = @parse_ini_file($this->path . '/config.ini')) {
+                        $this->ini_config = array_merge($config, $this->ini_config);
+                    }
+                    if (file_exists($this->path . '/config.json')) {
+                        if ($json = file_get_contents($this->path . '/config.json')) {
+                            if ($json = json_decode($json, true)) {
+                                $this->ini_config = array_merge($this->ini_config, $json);
+                            }
+                        }
+                    }
+
+                    // Per domain configuration
+                    if ($config = @parse_ini_file($this->path . '/' . $this->host . '.ini')) {
+                        unset($this->ini_config['initial_plugins']);  // Don't let plugin settings be merged
+                        unset($this->ini_config['alwaysplugins']);
+                        unset($this->ini_config['antiplugins']);
+                        $this->ini_config = array_merge($this->ini_config, $config);
+                    }
+
+                    // Check environment variables and set as appropriate
+                    foreach ($_SERVER as $name => $val) {
+                        if (substr($name, 0, 6) == 'KNOWN_') {
+                            $name                    = strtolower(str_replace('KNOWN_', '', $name));
+                            $val                     = $val;
+                            $this->ini_config[$name] = $val;
+                        }
+                    }
+
+                    // Perform some sanity checks on some user contributed settings
+                    if (isset($this->ini_config['uploadpath'])) $this->ini_config['uploadpath'] = rtrim($this->ini_config['uploadpath'], ' /') . '/'; // End trailing slash insanity once and for all
+                    unset($this->ini_config['path']); // Path should always be derived
+                    unset($this->ini_config['host']); // Host should always come from URL
+                }
+
+                if (!empty($this->ini_config)) {
+                    $this->config         = array_merge($this->config, $this->ini_config);
+                    $this->default_config = false;
+                }
+
+            }
+
+            /**
+             * Saves configuration information to the database, if possible.
+             * @return true|false
+             */
+            function save()
+            {
+                $array = $this->config;
+                unset($array['dbname']); // Don't save database a
+                unset($array['dbpass']);
+                unset($array['dbhost']);
+                unset($array['dbstring']);
+                unset($array['path']); // Don't save the file path to the database
+                unset($array['url']); // Don't save the URL to the database
+                unset($array['host']); // Don't save the host to the database
+                unset($array['feed']); // Don't save the feed URL to the database
+                unset($array['uploadpath']); // Don't save the upload path to the database
+                unset($array['session_path']); // Don't save the session path in the database
+                unset($array['session_hash_function']); // Don't save the session hash to database, we want the ability to upgrade
+                unset($array['sessions_database']); // Don't want to save sessions in database
+                unset($array['cookie_jar']); // Don't save the cookie path in the database
+                unset($array['proxy_string']);
+                unset($array['proxy_type']);
+                unset($array['disable_ssl_verify']);
+                unset($array['known_hub']);
+                unset($array['directloadplugins']);
+
+                if (\Idno\Core\site()->db()->saveRecord('config', $array)) {
+                    $this->init();
+
+                    return true;
+                }
+
+                return false;
+            }
 
             function init()
             {
@@ -106,58 +278,9 @@
                 if (!empty($this->default_plugins)) {
                     $this->plugins = $this->default_plugins;
                 }
-                
+
                 date_default_timezone_set($this->timezone);
                 //setlocale(LC_ALL, 'en_US.UTF8');
-            }
-
-            /**
-             * Load configuration from ini files
-             */
-            function loadIniFiles()
-            {
-
-                if (empty($this->ini_config)) {
-                    $this->ini_config = array();
-                    if ($config = @parse_ini_file($this->path . '/config.ini')) {
-                        $this->ini_config = array_merge($config, $this->ini_config);
-                    }
-                    if (file_exists($this->path . '/config.json')) {
-                        if ($json = file_get_contents($this->path . '/config.json')) {
-                            if ($json = json_decode($json, true)) {
-                                $this->ini_config = array_merge($this->ini_config, $json);
-                            }
-                        }
-                    }
-
-                    // Per domain configuration
-                    if ($config = @parse_ini_file($this->path . '/' . $this->host . '.ini')) {
-                        unset($this->ini_config['initial_plugins']);  // Don't let plugin settings be merged
-                        unset($this->ini_config['alwaysplugins']);
-                        unset($this->ini_config['antiplugins']);
-                        $this->ini_config = array_merge($this->ini_config, $config);
-                    }
-
-                    // Check environment variables and set as appropriate
-                    foreach ($_SERVER as $name => $val) {
-                        if (substr($name, 0, 6) == 'KNOWN_') {
-                            $name                    = strtolower(str_replace('KNOWN_', '', $name));
-                            $val                     = $val;
-                            $this->ini_config[$name] = $val;
-                        }
-                    }
-
-                    // Perform some sanity checks on some user contributed settings
-                    if (isset($this->ini_config['uploadpath'])) $this->ini_config['uploadpath'] = rtrim($this->ini_config['uploadpath'], ' /') . '/'; // End trailing slash insanity once and for all
-                    unset($this->ini_config['path']); // Path should always be derived
-                    unset($this->ini_config['host']); // Host should always come from URL
-                }
-
-                if (!empty($this->ini_config)) {
-                    $this->config         = array_merge($this->config, $this->ini_config);
-                    $this->default_config = false;
-                }
-                
             }
 
             /**
@@ -169,9 +292,10 @@
                 // If Sandstorm has supplied a base URL (called a base path in their nomenclature), use this
                 if (!empty($_SERVER['X-Sandstorm-Base-Path'])) {
                     $base_url = $_SERVER['X-Sandstorm-Base-Path'];
-                    if (substr($base_url,-1) != '/') {
+                    if (substr($base_url, -1) != '/') {
                         $base_url .= '/';
                     }
+
                     return $base_url;
                 }
 
@@ -201,140 +325,6 @@
             }
 
             /**
-             * We're overloading the "get" method for the configuration
-             * class, so you can simply check $config->property to get
-             * a configuration value.
-             */
-
-            function &__get($name)
-            {
-                if ($name == 'config') {
-                    return $this->config;
-                }
-                return $this->config[$name];
-            }
-
-            /**
-             * Overloading the "set" method for the configuration class,
-             * so you can simply set $configuration->property = $value to
-             * overwrite configuration values.
-             */
-
-            function __set($name, $value)
-            {
-                if ($name == 'config') {
-                    $this->config = $value;
-                }
-                return $this->config[$name] = $value;
-            }
-
-            /**
-             * Overloading the entity property isset check, so that
-             * isset($entity->property) and empty($entity->property)
-             * work as expected.
-             */
-
-            function __isset($name)
-            {
-                if (!empty($this->config[$name])) return true;
-
-                return false;
-            }
-
-            /**
-             * Saves configuration information to the database, if possible.
-             * @return true|false
-             */
-            function save()
-            {
-                $array = $this->config;
-                unset($array['dbname']); // Don't save database a
-                unset($array['dbpass']);
-                unset($array['dbhost']);
-                unset($array['dbstring']);
-                unset($array['path']); // Don't save the file path to the database
-                unset($array['url']); // Don't save the URL to the database
-                unset($array['host']); // Don't save the host to the database
-                unset($array['feed']); // Don't save the feed URL to the database
-                unset($array['uploadpath']); // Don't save the upload path to the database
-                unset($array['session_path']); // Don't save the session path in the database
-                unset($array['session_hash_function']); // Don't save the session hash to database, we want the ability to upgrade
-                unset($array['sessions_database']); // Don't want to save sessions in database
-                unset($array['cookie_jar']); // Don't save the cookie path in the database
-                unset($array['proxy_string']);
-                unset($array['proxy_type']);
-                unset($array['disable_ssl_verify']);
-                unset($array['known_hub']);
-                unset($array['directloadplugins']);
-
-                if (\Idno\Core\site()->db()->saveRecord('config', $array)) {
-                    $this->init();
-
-                    return true;
-                }
-
-                return false;
-            }
-
-            /**
-             * Retrieves configuration information from the database, if possible - while
-             * ensuring that config.ini overwrites db fields.
-             */
-            function load()
-            {
-                if ($config = \Idno\Core\site()->db()->getAnyRecord('config')) {
-                    $this->default_config = false;
-                    if ($config instanceof \Idno\Common\Entity) {
-                        $config = $config->getAttributes();
-                        unset($config['dbname']); // Ensure we don't accidentally load protected data from db
-                        unset($config['dbpass']);
-                        unset($config['dbhost']);
-                        unset($config['dbstring']);
-                        unset($config['path']);
-                        unset($config['url']);
-                        unset($config['host']);
-                        unset($config['feed']);
-                        unset($config['uploadpath']);
-                        unset($config['initial_plugins']);
-                        unset($config['antiplugins']);
-                        unset($config['alwaysplugins']);
-                        unset($config['session_path']);
-                        unset($config['session_hash_function']);
-                        unset($config['sessions_database']);
-                        unset($config['cookie_jar']);
-                        unset($config['proxy_string']);
-                        unset($config['proxy_type']);
-                        unset($config['disable_ssl_verify']);
-                        unset($config['upload_tmp_dir']);
-                    }
-                    if (is_array($config)) {
-                        $this->config = array_merge($this->config, $config);
-                    }
-                }
-                $this->loadIniFiles();
-                
-                // If we don't have a site secret, create it
-                if (!isset($this->site_secret)) {
-                    $token_generator = new TokenProvider(); 
-                    $this->site_secret = bin2hex($token_generator->generateToken(64));
-                    $this->save();
-                }
-            }
-
-            /**
-             * Retrieve the canonical URL of the site
-             * @return string
-             */
-            function getURL()
-            {
-                if (!empty($this->url)) {
-                    return $this->url;
-                } else {
-                    return '/';
-                }
-            }
-
-            /**
              * Return a version of the URL suitable for displaying in templates etc
              * @return string
              */
@@ -349,6 +339,19 @@
                 }
 
                 return str_replace($urischeme . ':', $newuri, $url);
+            }
+
+            /**
+             * Retrieve the canonical URL of the site
+             * @return string
+             */
+            function getURL()
+            {
+                if (!empty($this->url)) {
+                    return $this->url;
+                } else {
+                    return '/';
+                }
             }
 
             /**
@@ -407,15 +410,6 @@
             }
 
             /**
-             * Return a normalized version of the host, for use in file paths etc
-             * @return string
-             */
-            function pathHost()
-            {
-                return str_replace('www.', '', $this->host);
-            }
-
-            /**
              * Returns the base folder name to use when storing files (usually the site host)
              * @return mixed|string
              */
@@ -428,6 +422,15 @@
                 $host = site()->triggerEvent('file/path/host', ['host' => $host], $host);
 
                 return $host;
+            }
+
+            /**
+             * Return a normalized version of the host, for use in file paths etc
+             * @return string
+             */
+            function pathHost()
+            {
+                return str_replace('www.', '', $this->host);
             }
 
             /**

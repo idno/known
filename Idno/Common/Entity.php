@@ -608,6 +608,7 @@
                 if (is_callable('mb_convert_encoding')) {
                     $slug = mb_convert_encoding($slug, 'UTF-8', 'UTF-8');
                 }
+
                 return $slug;
             }
 
@@ -635,6 +636,7 @@
                     }
                 }
                 $this->slug = $slug;
+
                 return $slug;
 
             }
@@ -869,6 +871,7 @@
                     $access = 'PUBLIC';
                 }
                 $this->access = $access;
+
                 return true;
                 /*if (
                     $access instanceof \Idno\Entities\AccessGroup ||
@@ -1267,6 +1270,7 @@
                 if (!empty($this->inreplyto)) {
                     return true;
                 }
+
                 return false;
             }
 
@@ -1280,8 +1284,10 @@
                     if (!is_array($this->inreplyto)) {
                         $this->inreplyto = [$this->inreplyto];
                     }
+
                     return $this->inreplyto;
                 }
+
                 return false;
             }
 
@@ -1376,8 +1382,8 @@
             public function jsonSerialize()
             {
                 $object = array(
-                    'id'      => $this->getUUID(),
-                    'content' => strip_tags($this->getDescription()),
+                    'id'          => $this->getUUID(),
+                    'content'     => strip_tags($this->getDescription()),
                     'formattedContent'
                                   => \Idno\Core\site()->template()->autop($this->getDescription()),
                     'displayName' => $this->getTitle(),
@@ -1626,7 +1632,7 @@
                             if ($this->isReply()) {
                                 $webmentions = new Webmention();
                                 if ($reply_urls = $this->getReplyToURLs()) {
-                                    foreach($reply_urls as $reply_url) {
+                                    foreach ($reply_urls as $reply_url) {
                                         $webmentions->sendWebmentionPayload($this->getDisplayURL(), $reply_url);
                                     }
                                 }

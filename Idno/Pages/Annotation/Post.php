@@ -5,6 +5,7 @@
      */
 
     namespace Idno\Pages\Annotation {
+
         use Idno\Common\Entity;
 
         /**

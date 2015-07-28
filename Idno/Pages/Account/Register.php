@@ -5,6 +5,7 @@
      */
 
     namespace Idno\Pages\Account {
+
         use Idno\Entities\Invitation;
 
         /**

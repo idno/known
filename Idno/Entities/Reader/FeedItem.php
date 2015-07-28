@@ -7,8 +7,8 @@
         class FeedItem extends Entity
         {
 
-            public $collection = 'reader';
             public static $retrieve_collection = 'reader';
+            public $collection = 'reader';
 
             /**
              * Sets the URL of the feed this item belongs to
@@ -27,24 +27,6 @@
             function getFeedURL()
             {
                 return $this->feed_url;
-            }
-
-            /**
-             * Sets the URL of this feed item
-             * @param $url
-             */
-            function setURL($url)
-            {
-                $this->url = $url;
-            }
-
-            /**
-             * Sets the body of this item to the given content string
-             * @param $content
-             */
-            function setBody($content)
-            {
-                $this->body = $content;
             }
 
             /**
@@ -75,15 +57,6 @@
             }
 
             /**
-             * Sets the URL of a photo associated with this item
-             * @param $photo
-             */
-            function setPhoto($photo)
-            {
-                $this->photo = $photo;
-            }
-
-            /**
              * Retrieves the URL of a photo associated with this item
              * @param $photo
              * @return mixed
@@ -94,39 +67,12 @@
             }
 
             /**
-             * Sets the time that this item was published
-             * @param $time
-             */
-            function setPublishDate($time)
-            {
-                $this->created = strtotime($time);
-            }
-
-            /**
-             * Sets the name of the author of this item
-             * @param $author_name
-             */
-            function setAuthorName($author_name)
-            {
-                $this->authorName = $author_name;
-            }
-
-            /**
              * Retrieves the name of the author of this item
              * @return mixed
              */
             function getAuthorName()
             {
                 return $this->authorName;
-            }
-
-            /**
-             * Sets the URL of the author photo associated with this piece
-             * @param $author_photo
-             */
-            function setAuthorPhoto($author_photo)
-            {
-                $this->authorPhoto = $author_photo;
             }
 
             /**
@@ -146,30 +92,12 @@
             }
 
             /**
-             * Sets the URL of the author of this item
-             * @param $url
-             */
-            function setAuthorURL($url)
-            {
-                $this->authorURL = $url;
-            }
-
-            /**
              * Retrieves the URL of the author of this item
              * @return mixed
              */
             function getAuthorURL()
             {
                 return $this->authorURL;
-            }
-
-            /**
-             * Sets an array containing the syndication points of this item
-             * @param $syndication
-             */
-            function setSyndication($syndication)
-            {
-                $this->syndication = $syndication;
             }
 
             /**
@@ -203,38 +131,15 @@
                 $this->setSyndication($this->mfpath($mf, "syndication"));
             }
 
-            /**
-             * Given a SimplePie-parsed XML item, populates this object
-             * @param $item
-             */
-            function loadFromXMLItem($item)
+            function mfpath($mf, $path)
             {
-                $this->setTitle($item->get_title());
-                $this->setPublishDate($item->get_date("c"));
-                $this->setBody($item->get_content());
-                $this->setURL($item->get_permalink());
-
-                if ($author = $item->get_author()) {
-                    $this->setAuthorName($author->get_name());
-                    $this->setAuthorURL($author->get_link());
-                }
-            }
-
-            function mftype($parsed, $type)
-            {
-                return array_filter($parsed["items"], function ($elt) use ($type) {
-                    return in_array($type, $elt["type"]);
+                $elts = array_filter(explode("/", $path), function ($e) {
+                    return $e != "";
                 });
-            }
 
-            function scrubstrings($arr)
-            {
-                return array_map(function ($elt) {
-                    if (gettype($elt) == "string")
-                        return htmlspecialchars($elt);
-
-                    return $elt;
-                }, $arr);
+                return array_reduce($elts, function ($result, $elt) {
+                    return $this->mfprop($result, $elt);
+                }, $mf);
             }
 
             function mfprop($mfs, $prop)
@@ -262,15 +167,110 @@
                 return $props;
             }
 
-            function mfpath($mf, $path)
+            function scrubstrings($arr)
             {
-                $elts = array_filter(explode("/", $path), function ($e) {
-                    return $e != "";
-                });
+                return array_map(function ($elt) {
+                    if (gettype($elt) == "string")
+                        return htmlspecialchars($elt);
 
-                return array_reduce($elts, function ($result, $elt) {
-                    return $this->mfprop($result, $elt);
-                }, $mf);
+                    return $elt;
+                }, $arr);
+            }
+
+            /**
+             * Sets the time that this item was published
+             * @param $time
+             */
+            function setPublishDate($time)
+            {
+                $this->created = strtotime($time);
+            }
+
+            /**
+             * Sets the body of this item to the given content string
+             * @param $content
+             */
+            function setBody($content)
+            {
+                $this->body = $content;
+            }
+
+            /**
+             * Sets the URL of a photo associated with this item
+             * @param $photo
+             */
+            function setPhoto($photo)
+            {
+                $this->photo = $photo;
+            }
+
+            /**
+             * Sets the URL of this feed item
+             * @param $url
+             */
+            function setURL($url)
+            {
+                $this->url = $url;
+            }
+
+            /**
+             * Sets the name of the author of this item
+             * @param $author_name
+             */
+            function setAuthorName($author_name)
+            {
+                $this->authorName = $author_name;
+            }
+
+            /**
+             * Sets the URL of the author photo associated with this piece
+             * @param $author_photo
+             */
+            function setAuthorPhoto($author_photo)
+            {
+                $this->authorPhoto = $author_photo;
+            }
+
+            /**
+             * Sets the URL of the author of this item
+             * @param $url
+             */
+            function setAuthorURL($url)
+            {
+                $this->authorURL = $url;
+            }
+
+            /**
+             * Sets an array containing the syndication points of this item
+             * @param $syndication
+             */
+            function setSyndication($syndication)
+            {
+                $this->syndication = $syndication;
+            }
+
+            /**
+             * Given a SimplePie-parsed XML item, populates this object
+             * @param $item
+             */
+            function loadFromXMLItem($item)
+            {
+                $this->setTitle($item->get_title());
+                $this->setPublishDate($item->get_date("c"));
+                $this->setBody($item->get_content());
+                $this->setURL($item->get_permalink());
+
+                if ($author = $item->get_author()) {
+                    $this->setAuthorName($author->get_name());
+                    $this->setAuthorURL($author->get_link());
+                }
+            }
+
+            function mftype($parsed, $type)
+            {
+                return array_filter($parsed["items"], function ($elt) use ($type) {
+                    return in_array($type, $elt["type"]);
+                });
             }
 
             /**

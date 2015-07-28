@@ -7,8 +7,18 @@
         class Subscription extends Entity
         {
 
-            public $collection = 'reader';
             public static $retrieve_collection = 'reader';
+            public $collection = 'reader';
+
+            /**
+             * Get a user's subscriptions
+             * @param $user
+             * @return array
+             */
+            static function getByUser($user)
+            {
+                return Subscription::get(array('owner' => $user->getUUID()));
+            }
 
             /**
              * Sets the URL of the feed this subscription belongs to
@@ -17,16 +27,6 @@
             function setFeedURL($url)
             {
                 $this->feed_url = $url;
-            }
-
-            /**
-             * Retrieves the URL of the feed this subscription belongs to
-             * @param $url
-             * @return mixed
-             */
-            function getFeedURL()
-            {
-                return $this->feed_url;
             }
 
             /**
@@ -43,13 +43,13 @@
             }
 
             /**
-             * Get a user's subscriptions
-             * @param $user
-             * @return array
+             * Retrieves the URL of the feed this subscription belongs to
+             * @param $url
+             * @return mixed
              */
-            static function getByUser($user)
+            function getFeedURL()
             {
-                return Subscription::get(array('owner' => $user->getUUID()));
+                return $this->feed_url;
             }
 
         }
