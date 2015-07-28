@@ -361,9 +361,6 @@
 
     $(document).ready(function () {
         annotateContent();
-    })
-    $(document).on('pjax:complete', function () {
-        annotateContent();
     });
 
     /**
