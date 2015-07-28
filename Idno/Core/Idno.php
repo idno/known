@@ -545,7 +545,7 @@
              * @return string
              */
             function machineVersion() {
-                return '2015051602';
+                return '2015072201';
             }
 
             /**
