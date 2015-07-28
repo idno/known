@@ -6,7 +6,7 @@
     <div class="col-md-10 col-md-offset-1">
         <?= $this->draw('account/menu') ?>
         <h1>
-            Settings
+            Account Settings
         </h1>
 
         <div class="explanation">
