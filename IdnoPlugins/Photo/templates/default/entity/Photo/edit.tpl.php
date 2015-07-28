@@ -50,13 +50,17 @@
 
                 </div>
 
-                <div class="content-form">
-                    <label for="description">
-                        Description</label>
-                        <textarea name="body" id="description" class="col-md-8 bodyInputShort mentionable form-control"
-                                  placeholder="Add a caption"><?= htmlspecialchars($vars['object']->body) ?></textarea>
+                <?= $this->__([
+                    'name' => 'body',
+                    'value' => $vars['object']->body,
+                    'object' => $object,
+                    'wordcount' => false,
+                    'class' => 'wysiwyg-short',
+                    'height' => 100,
+                    'placeholder' => 'Describe your photo',
+                    'label' => 'Description'
+                ])->draw('forms/input/richtext')?>
 
-                </div>
                 <?= $this->draw('entity/tags/input'); ?>
                 <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('image'); ?>
                 <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to"
