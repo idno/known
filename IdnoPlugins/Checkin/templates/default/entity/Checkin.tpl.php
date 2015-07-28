@@ -11,7 +11,7 @@
 
     <h2 class="p-geo">
         <?php
-            if (\Idno\Core\site()->template()->getTemplateType() == 'default') {
+            if (empty($vars['feed_view'])) {
                 ?>
                 <a href="<?= $object->getURL() ?>" class="p-name"><?= $object->getTitle() ?></a>
             <?php
@@ -27,7 +27,7 @@
 
 <?php
 
-    if (\Idno\Core\site()->template()->getTemplateType() == 'default') {
+    if (empty($vars['feed_view'])) {
 
         ?>
         <div id="map_<?= $object->_id ?>" style="height: 250px"></div>
@@ -51,7 +51,7 @@
 </div>
 <?php
 
-    if (\Idno\Core\site()->template()->getTemplateType() == 'default') {
+    if (empty($vars['feed_view'])) {
 
         ?>
         <script>
