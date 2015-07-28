@@ -11,7 +11,7 @@
 
         <div class="explanation">
             <p>
-                Change your basic account settings here. You may also want to <a
+                Change your user account settings here. You may also want to <a
                     href="<?= \Idno\Core\site()->session()->currentUser()->getDisplayURL() ?>/edit/">edit your
                     profile</a>.
             </p>
