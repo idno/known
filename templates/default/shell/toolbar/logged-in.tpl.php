@@ -1,4 +1,4 @@
-<li><a href="<?=\Idno\Core\site()->session()->currentUser()->getDisplayURL()?>">Profile</a></li>
+<li><a href="<?=\Idno\Core\site()->session()->currentUser()->getDisplayURL()?>"><i class="fa fa-user" title="Your Profile"></i></a></li>
 
 <?=$this->draw('shell/toolbar/logged-in/items')?>
 
