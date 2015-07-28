@@ -56,10 +56,10 @@
             
             $owner = $item->getOwner();
             $rssItem->appendChild($page->createElement('author', "{$owner->email} ({$owner->title})"));
-            $rssItem->appendChild($page->createElement('dc:creator', $owner->title));
+            //$rssItem->appendChild($page->createElement('dc:creator', $owner->title));
             
             $description = $page->createElement('description');
-            $description->appendChild($page->createCDATASection($item->draw()));
+            $description->appendChild($page->createCDATASection($item->draw(true)));
             $rssItem->appendChild($description);
             if (!empty($item->lat) && !empty($item->long)) {
                 $rssItem->appendChild($page->createElement('geo:lat', $item->lat));
