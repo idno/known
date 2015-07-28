@@ -15,9 +15,17 @@
     $rss->setAttribute('xmlns:atom', 'http://www.w3.org/2005/Atom');
     $rss->setAttribute('xmlns:geo', 'http://www.w3.org/2003/01/geo/wgs84_pos#');
     $rss->setAttribute('xmlns:dc', 'http://purl.org/dc/elements/1.1/');
+    $rss->setAttribute('xmlns:itunes', 'http://www.itunes.com/dtds/podcast-1.0.dtd');
     $channel = $page->createElement('channel');
     $channel->appendChild($page->createElement('title',$vars['title']));
-    $channel->appendChild($page->createElement('description',$vars['description']));
+    if (!empty(\Idno\Core\site()->config()->description)) {
+        $site_description = $page->createElement('description');
+        $site_description->appendChild($page->createCDATASection(\Idno\Core\site()->config()->description));
+        $rss->appendChild($site_description);
+        $site_description = $page->createElement('itunes:summary');
+        $site_description->appendChild($page->createCDATASection(\Idno\Core\site()->config()->description));
+        $rss->appendChild($site_description);
+    }
     $channel->appendChild($page->createElement('link',$this->getCurrentURLWithoutVar('_t')));
     if (!empty(\Idno\Core\site()->config()->hub)) {
         $pubsub = $page->createElement('atom:link');
