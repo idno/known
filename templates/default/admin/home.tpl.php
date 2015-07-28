@@ -144,8 +144,7 @@
                 </div>
                 <div class="col-md-6">
                     <p class="config-desc">You can probably leave this as is.
-                        Learn more about
-                        <a href="https://code.google.com/p/pubsubhubbub/" target="_blank">PuSH</a>.
+                        <a href="https://code.google.com/p/pubsubhubbub/" target="_blank">Learn more about PuSH</a>.
 
                     </p>
                 </div>
