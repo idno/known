@@ -28,10 +28,11 @@
             function postContent()
             {
                 $this->adminGatekeeper(); // Admins only
-                $title       = $this->getInput('title');
-                $description = $this->getInput('description');
-                $url         = rtrim($this->getInput('url'), ' /') . '/';
-                $path        = dirname(dirname(dirname(dirname(__FILE__)))); // Path is more safely derived from install location
+                $title         = $this->getInput('title');
+                $homepagetitle = $this->getInput('homepagetitle');
+                $description   = $this->getInput('description');
+                $url           = rtrim($this->getInput('url'), ' /') . '/';
+                $path          = dirname(dirname(dirname(dirname(__FILE__)))); // Path is more safely derived from install location
                 if (!empty($url)) {
                     $host = parse_url($url, PHP_URL_HOST); // Host can be safely derived from URL
                 }
@@ -80,6 +81,7 @@
                     $wayback_machine = false;
                 }
                 if (!empty($title)) \Idno\Core\site()->config->config['title'] = $title;
+                \Idno\Core\site()->config->config['homepagetitle'] = trim($homepagetitle);
                 if (!empty($description)) \Idno\Core\site()->config->config['description'] = $description;
                 if (!empty($url)) \Idno\Core\site()->config->config['url'] = $url;
                 if (!empty($path)) \Idno\Core\site()->config->config['path'] = $path;

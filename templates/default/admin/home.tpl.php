@@ -47,6 +47,21 @@
 
             <div class="row">
                 <div class="col-md-2">
+                    <p><label class="control-label" for="homepage-title"><strong>Homepage title</strong></label></p>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" id="homepage-title" placeholder="Homepage title" class="input col-md-4 form-control" name="homepagetitle"
+                           value="<?= htmlspecialchars(\Idno\Core\site()->config()->homepagetitle) ?>">
+                </div>
+                <div class="col-md-6">
+                    <p class="config-desc">What should the browser display as the title on your homepage?<br>By default this is just your site title.</p>
+                </div>
+            </div>
+
+            <!-------->
+
+            <div class="row">
+                <div class="col-md-2">
                     <p><label class="control-label" for="items_per_page"><strong>Items per page</strong></label></p>
                 </div>
                 <div class="col-md-4">

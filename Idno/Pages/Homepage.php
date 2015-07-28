@@ -94,10 +94,16 @@
                     }
                 }
 
+                if (!empty(\Idno\Core\site()->config()->homepagetitle)) {
+                    $title = \Idno\Core\site()->config()->homepagetitle;
+                } else {
+                    $title = \Idno\Core\site()->config()->title;
+                }
+
                 $t = \Idno\Core\site()->template();
                 $t->__(array(
 
-                    'title'       => \Idno\Core\site()->config()->title,
+                    'title'       => $title,
                     'description' => $description,
                     'content'     => $friendly_types,
                     'body'        => $t->__(array(
