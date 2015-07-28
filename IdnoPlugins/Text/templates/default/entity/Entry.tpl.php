@@ -10,7 +10,7 @@
 ?>
 <div>
     <?php
-        if (\Idno\Core\site()->template()->getTemplateType() == 'default') {
+        if (empty($vars['feed_view'])) {
             ?>
             <h2 class="p-name"><a
                     href="<?= $vars['object']->getURL() ?>"><?= htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?></a>
@@ -19,7 +19,7 @@
 
         }
 
-        if (\Idno\Core\site()->template()->getTemplateType() == 'default') {
+        if (empty($vars['feed_view'])) {
 
             ?>
             <p class="reading">
