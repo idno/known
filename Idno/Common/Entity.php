@@ -1331,16 +1331,19 @@
              * If entity/EntityClass doesn't exist, the template entity/template
              * is tried as a fallback.
              *
+             * @param $feed_view If set to true, draws a version of the entity suitable for including in a feed, eg
+             *                   RSS (false by default)
+             *
              * @return string The rendered entity.
              */
-            function draw()
+            function draw($feed_view = false)
             {
                 $t = \Idno\Core\site()->template();
 
                 if ($this instanceof User) {
-                    $params = ['user' => $this];
+                    $params = ['user' => $this, 'feed_view' => $feed_view];
                 } else {
-                    $params = ['object' => $this];
+                    $params = ['object' => $this, 'feed_view' => $feed_view];
                 }
 
                 $return = $t->__($params)->draw('entity/' . $this->getClassName(), false);
