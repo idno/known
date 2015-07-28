@@ -51,7 +51,7 @@
                 </pre></small>
         </div>
 
-        <span class="btn btn-primary" id="diagnostics-report-run">Generate detailed report...</span>
+        <span class="btn btn-primary" id="diagnostics-report-run">Generate detailed report</span>
 
     </div>
 
