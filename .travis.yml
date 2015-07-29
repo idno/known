@@ -15,9 +15,6 @@ env:
 #  only:
 #    - master
 
-addons:
-  postgresql: "9.3"
-
 before_script:
   # Update and install base system
   - sudo apt-get update
