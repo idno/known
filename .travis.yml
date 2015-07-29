@@ -11,9 +11,9 @@ env:
   - DB=sqlite3
   - DB=pgsql
 
-#branches:
-#  only:
-#    - master
+branches:
+  only:
+    - master
 
 before_script:
   # Update and install base system
@@ -56,8 +56,6 @@ after_failure:
   - sudo cat $TRAVIS_BUILD_DIR/apache-error.log
 
 notifications:
-   email:
-     - marcus@dushka.co.uk
-#  email:
-#    - hello@withknown.com
-#  irc: "irc.freenode.net#knownchat"
+  email:
+    - hello@withknown.com
+  irc: "irc.freenode.net#knownchat"
