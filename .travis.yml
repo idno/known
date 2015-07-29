@@ -11,9 +11,9 @@ env:
   - DB=sqlite3
   - DB=pgsql
 
-branches:
-  only:
-    - master
+#branches:
+#  only:
+#    - master
 
 addons:
   postgresql: "9.3"
