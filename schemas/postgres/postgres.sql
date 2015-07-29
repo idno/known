@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS config (
   owner varchar(255) NOT NULL,
   entity_subtype varchar(64) NOT NULL,
   created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  contents BYTEA NOT NULL,
+  contents text NOT NULL,
   search text NOT NULL,
   PRIMARY KEY (uuid)
 );
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS entities (
   owner varchar(255) NOT NULL,
   entity_subtype varchar(64) NOT NULL,
   created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  contents BYTEA NOT NULL,
+  contents text NOT NULL,
   search text NOT NULL,
   PRIMARY KEY (uuid)
 );
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS reader (
   owner varchar(255) NOT NULL,
   entity_subtype varchar(64) NOT NULL,
   created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  contents BYTEA NOT NULL,
+  contents text NOT NULL,
   search text NOT NULL,
   PRIMARY KEY (uuid)
 );
