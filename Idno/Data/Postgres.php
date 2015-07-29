@@ -203,18 +203,18 @@
 
                     // No such thing as on duplicate key, so fake it TODO do better
                     $statement = $client->prepare("UPDATE {$collection}
-                                                    set uuid=:uuid, _id=:id, entity_subtype = :subtype, owner=:owner, contents=:contents, search = :search, created = :created
+                                                    set uuid=:uuid, _id=:id::text, entity_subtype = :subtype, owner=:owner, created = :created, contents=:contents, search = :search
                                                     where
                                                     _id=:id");
                     $statement2 = $client->prepare("insert into {$collection}
-                                                    (uuid, _id, entity_subtype,owner, contents, search, created)
+                                                    (uuid, _id, owner, entity_subtype, created, contents, search, )
                                                     values
-                                                    (:uuid, :id, :subtype, :owner, :contents, :search, :created)");
+                                                    (:uuid, :id::text, :owner, :subtype, :created, :contents, :search)"); 
                     if (
                             ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search, ':created' => $array['created']))) || 
                             ($statement2->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search, ':created' => $array['created'])))
                     ) {
-                        if ($statement = $client->prepare("delete from metadata where _id = :id")) {
+                        if ($statement = $client->prepare("delete from metadata where _id = :id::text")) {
                             $statement->execute(array(':id' => $array['_id']));
                         }
                         foreach ($array as $key => $val) {
@@ -233,7 +233,7 @@
                                 if (empty($value)) {
                                     $value = 0;
                                 }
-                                if ($statement = $client->prepare("insert into metadata set collection = :collection, entity = :uuid, _id = :id, name = :name, value = :value")) {
+                                if ($statement = $client->prepare("insert into metadata (collection, entity, _id, name, value) values (:collection, :uuid, :id::text, :name, :value)")) {
                                     $statement->execute(array('collection' => $collection, ':uuid' => $array['uuid'], ':id' => $array['_id'], ':name' => $key, ':value' => $value));
                                 }
                             }
@@ -460,7 +460,7 @@
                     if (!empty($where)) {
                         $query .= ' where ' . $where . ' ';
                     }
-                    $query .= " order by {$collection}.created desc limit {$offset},{$limit}";
+                    $query .= " order by {$collection}.created desc limit {$limit} offset {$offset}";
 
                     $client = $this->client;
                     /* @var \PDO $client */
