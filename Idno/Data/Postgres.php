@@ -195,7 +195,7 @@
                 $search = str_replace("\r", "", $search);
                 $search = str_replace("#", " #", $search);
                 $search = strtolower($search);
-
+                
                 $client = $this->client;
                 /* @var \PDO $client */
 
@@ -203,14 +203,14 @@
 
                     // No such thing as on duplicate key, so fake it TODO do better
                     $statement = $client->prepare("UPDATE {$collection}
-                                                    set uuid=:uuid::text, _id=:id::text, entity_subtype = :subtype::text, owner=:owner::text, contents=:contents::text, search = :search::text
+                                                    set entity_subtype = :subtype::text, owner=:owner::text, contents=:contents::text, search = :search::text
                                                     where _id=:id::text");
                     $statement2 = $client->prepare("insert into {$collection}
                                                     (uuid, _id, owner, entity_subtype, contents, search)
                                                     values
                                                     (:uuid::text, :id::text, :owner::text, :subtype::text, :contents::text, :search::text)"); 
                     
-                    $ex1 = $statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search));
+                    $ex1 = $statement->execute(array(':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search, ':id' => $array['_id']));
                     $count1 = $statement->rowCount();
                     $ex2 = $statement2->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search));
                     $count2 = $statement2->rowCount();
@@ -433,7 +433,7 @@
                 return array();
 
             }
-
+            
             /**
              * Retrieves a set of records from the database with given parameters, in
              * reverse chronological order
@@ -469,6 +469,8 @@
                     /* @var \PDO $client */
 
                     $statement = $client->prepare($query);
+                    
+                    error_log(str_replace(array_keys($variables), array_values($variables), $query));
 
                     if ($result = $statement->execute($variables)) {
                         return $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -489,61 +491,7 @@
              */
             function exportRecords($collection = 'entities')
             {
-                try {
-                    $file   = tempnam(\Idno\Core\site()->config()->getTempDir(), 'sqldump');
-                    $client = $this->client;
-                    /* @var \PDO $client */
-                    $statement = $client->prepare("select * from {$collection}");
-                    $output    = '';
-                    if ($response = $statement->execute()) {
-                        while ($object = $statement->fetch(\PDO::FETCH_ASSOC)) {
-                            $uuid   = $object['uuid'];
-                            $fields = array_keys($object);
-                            $fields = array_map(function ($v) {
-                                return '' . $v . '';
-                            }, $fields);
-                            $object = array_map(function ($v) {
-                                return \Idno\Core\site()->db()->getClient()->quote($v);
-                            }, $object);
-                            $line   = 'insert into ' . $collection . ' ';
-                            $line .= '(' . implode(',', $fields) . ')';
-                            $line .= ' values ';
-                            $line .= '(' . implode(',', $object) . ');';
-                            $output .= $line . "\n";
-                            $metadata_statement = $client->prepare("select * from metadata where entity = :uuid");
-                            if ($metadata_response = $metadata_statement->execute([':uuid' => $uuid])) {
-                                while ($object = $metadata_statement->fetch(\PDO::FETCH_ASSOC)) {
-                                    $fields = array_keys($object);
-                                    $fields = array_map(function ($v) {
-                                        return '' . $v . '';
-                                    }, $fields);
-                                    $object = array_map(function ($v) {
-                                        return \Idno\Core\site()->db()->getClient()->quote($v);
-                                    }, $object);
-                                    $line   = 'insert into metadata ';
-                                    $line .= '(' . implode(',', $fields) . ')';
-                                    $line .= ' values ';
-                                    $line .= '(' . implode(',', $object) . ');';
-                                    $output .= $line . "\n";
-                                }
-                                unset($metadata_statement);
-                                gc_collect_cycles();    // Clean memory
-                            }
-                            $output .= "\n";
-                            unset($object);
-                            unset($fields);
-                            gc_collect_cycles();    // Clean memory
-                        }
-                    }
-
-                    return $output;
-                } catch (\Exception $e) {
-                    \Idno\Core\site()->logging()->log($e->getMessage());
-
-                    return false;
-                }
-
-                return false;
+                // TODO
             }
 
             /**
