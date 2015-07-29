@@ -119,20 +119,6 @@
 
                 return false;
             }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
 
             /**
              * TODO
@@ -210,10 +196,13 @@
                                                     values
                                                     (:uuid::text, :id::text, :owner::text, :subtype::text, :contents::text, :search::text)"); 
                     
+                    $ex2 = false;
                     $ex1 = $statement->execute(array(':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search, ':id' => $array['_id']));
                     $count1 = $statement->rowCount();
-                    $ex2 = $statement2->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search));
-                    $count2 = $statement2->rowCount();
+                    if (!$count1) {
+                        $ex2 = $statement2->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search));
+                        $count2 = $statement2->rowCount();
+                    }
                     if (
                             ($ex1 && $ex2) && ($count1 || $count2)
                     ) {
@@ -602,13 +591,13 @@
                             }
                             if ($key == '$search') {
                                 $val = $value[0]; // The search query is always in $value position [0] for now
-                                if (strlen($val) > 5) {
-                                    $subwhere[]                                  = "match (search) against (:nonmdvalue{$non_md_variables})";
-                                    $variables[":nonmdvalue{$non_md_variables}"] = $val;
-                                } else {
+//                                if (strlen($val) > 5) {
+//                                    $subwhere[]                                  = "match (search) against (:nonmdvalue{$non_md_variables})";
+//                                    $variables[":nonmdvalue{$non_md_variables}"] = $val;
+//                                } else {
                                     $subwhere[]                                  = "search like :nonmdvalue{$non_md_variables}";
                                     $variables[":nonmdvalue{$non_md_variables}"] = '%' . $val . '%';
-                                }
+//                                }
                                 $non_md_variables++;
                             }
                         }
