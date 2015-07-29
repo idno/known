@@ -7,7 +7,7 @@
  * @subpackage core
  */
 
-namespace Idno\Common {
+namespace Idno\Core {
 
     class Time extends Component {
 
