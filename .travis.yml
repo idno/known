@@ -34,7 +34,7 @@ before_script:
   - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
   # Configure Known
   - if [[ "$DB" == "pgsql" ]]; then echo "PROVISIONING WITH PostgreSQL"; fi
-  - if [[ "$DB" == "mysql" ]]; then sudo cp -f Tests/build/config_pgsql.ini $TRAVIS_BUILD_DIR/config.ini; fi
+  - if [[ "$DB" == "pgsql" ]]; then sudo cp -f Tests/build/config_pgsql.ini $TRAVIS_BUILD_DIR/config.ini; fi
   - if [[ "$DB" == "pgsql" ]]; then psql -c 'create database known_unittest;' -U postgres; fi
   - if [[ "$DB" == "pgsql" ]]; then psql -c '\c known_unittest;' -U postgres; fi
   - if [[ "$DB" == "pgsql" ]]; then psql -c '\i ./schemas/postgres/postgres.sql;' -U postgres; fi
