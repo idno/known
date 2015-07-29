@@ -9,16 +9,20 @@ env:
   - DB=mysql
   - DB=mongo
   - DB=sqlite3
+  - DB=pgsql
 
 branches:
   only:
     - master
 
+addons:
+  postgresql: "9.3"
+
 before_script:
   # Update and install base system
   - sudo apt-get update
   - sudo apt-get install -y --force-yes apache2 libapache2-mod-fastcgi make 
-  - sudo apt-get install -y --force-yes php5-dev php-pear php5-mysql php5-curl php5-gd php5-json php5-sqlite
+  - sudo apt-get install -y --force-yes php5-dev php-pear php5-mysql php5-curl php5-gd php5-json php5-sqlite php5-pgsql
   # Enable php-fpm and Mongodb
   - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
   - sudo a2enmod rewrite actions fastcgi alias
@@ -29,6 +33,9 @@ before_script:
   - sudo cp -f Tests/build/travis-ci-apache /etc/apache2/sites-available/default
   - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
   # Configure Known
+  - if [[ "$DB" == "pgsql" ]]; then echo "PROVISIONING WITH PostgreSQL"; fi
+  - if [[ "$DB" == "pgsql" ]]; then psql -c 'create database known_unittest;' -U postgres; fi
+  - if [[ "$DB" == "pgsql" ]]; then psql -c '\c known_unittest; \i ./schemas/postgres/postgres.sql;' -U postgres; fi
   - if [[ "$DB" == "mysql" ]]; then echo "PROVISIONING WITH MySQL"; fi
   - if [[ "$DB" == "mysql" ]]; then sudo cp -f Tests/build/config_mysql.ini $TRAVIS_BUILD_DIR/config.ini; fi
   - if [[ "$DB" == "mysql" ]]; then mysql --version; fi
