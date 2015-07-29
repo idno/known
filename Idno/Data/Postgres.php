@@ -189,7 +189,7 @@
 
                     // No such thing as on duplicate key, so fake it TODO do better
                     $statement = $client->prepare("UPDATE {$collection}
-                                                    set entity_subtype = :subtype::text, owner=:owner::text, contents=:contents::text, search = :search::text
+                                                    set uuid=:uuid::text, entity_subtype = :subtype::text, owner=:owner::text, contents=:contents::text, search = :search::text
                                                     where _id=:id::text");
                     $statement2 = $client->prepare("insert into {$collection}
                                                     (uuid, _id, owner, entity_subtype, contents, search)
@@ -197,14 +197,14 @@
                                                     (:uuid::text, :id::text, :owner::text, :subtype::text, :contents::text, :search::text)"); 
                     
                     $ex2 = false;
-                    $ex1 = $statement->execute(array(':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search, ':id' => $array['_id']));
+                    $ex1 = $statement->execute(array(':uuid' => $array['uuid'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search, ':id' => $array['_id']));
                     $count1 = $statement->rowCount();
                     if (!$count1) {
                         $ex2 = $statement2->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search));
                         $count2 = $statement2->rowCount();
                     }
                     if (
-                            ($ex1 && $ex2) && ($count1 || $count2)
+                            ($ex1 || $ex2) && ($count1 || $count2)
                     ) {
                         if ($statement = $client->prepare("delete from metadata where _id = :id::text")) {
                             $statement->execute(array(':id' => $array['_id']));
@@ -459,7 +459,7 @@
 
                     $statement = $client->prepare($query);
                     
-                    error_log(str_replace(array_keys($variables), array_values($variables), $query));
+//                    error_log(str_replace(array_keys($variables), array_values($variables), $query));
 
                     if ($result = $statement->execute($variables)) {
                         return $statement->fetchAll(\PDO::FETCH_ASSOC);
