@@ -207,7 +207,7 @@
                                                     where
                                                     _id=:id");
                     $statement2 = $client->prepare("insert into {$collection}
-                                                    (uuid, _id, owner, entity_subtype, created, contents, search, )
+                                                    (uuid, _id, owner, entity_subtype, created, contents, search)
                                                     values
                                                     (:uuid, :id::text, :owner, :subtype, :created, :contents, :search)"); 
                     if (
