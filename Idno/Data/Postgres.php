@@ -203,16 +203,19 @@
 
                     // No such thing as on duplicate key, so fake it TODO do better
                     $statement = $client->prepare("UPDATE {$collection}
-                                                    set uuid=:uuid, _id=:id::text, entity_subtype = :subtype, owner=:owner, created = :created, contents=:contents, search = :search
-                                                    where
-                                                    _id=:id");
+                                                    set uuid=:uuid::text, _id=:id::text, entity_subtype = :subtype::text, owner=:owner::text, contents=:contents::text, search = :search::text
+                                                    where _id=:id::text");
                     $statement2 = $client->prepare("insert into {$collection}
-                                                    (uuid, _id, owner, entity_subtype, created, contents, search)
+                                                    (uuid, _id, owner, entity_subtype, contents, search)
                                                     values
-                                                    (:uuid, :id::text, :owner, :subtype, :created, :contents, :search)"); 
+                                                    (:uuid::text, :id::text, :owner::text, :subtype::text, :contents::text, :search::text)"); 
+                    
+                    $ex1 = $statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search));
+                    $count1 = $statement->rowCount();
+                    $ex2 = $statement2->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search));
+                    $count2 = $statement2->rowCount();
                     if (
-                            ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search, ':created' => $array['created']))) || 
-                            ($statement2->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search, ':created' => $array['created'])))
+                            ($ex1 && $ex2) && ($count1 || $count2)
                     ) {
                         if ($statement = $client->prepare("delete from metadata where _id = :id::text")) {
                             $statement->execute(array(':id' => $array['_id']));
