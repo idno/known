@@ -9,7 +9,7 @@
 
 namespace Idno\Core {
 
-    class Time extends Component {
+    class Time extends \Idno\Common\Component {
 
         /**
          * Convert a unix timestamp into an RFC2616 (HTTP) compatible date.

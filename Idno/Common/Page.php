@@ -876,7 +876,7 @@
              */
             public function setLastModifiedHeader($timestamp)
             {
-                header('Last-Modified: ' . Time::timestampToRFC2616($timestamp));
+                header('Last-Modified: ' . \Idno\Core\Time::timestampToRFC2616($timestamp));
             }
 
             /**
