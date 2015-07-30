@@ -69,7 +69,7 @@
 
                     $eventdata = $event->data();
                     $object    = $eventdata['object'];
-                    if ($this->user instanceof User) {
+                    if ((!empty($this->user)) && ($this->user instanceof User)) {
                         $user_uuid = $object->getUUID() == $this->user->getUUID();
                     } else {
                         $user_uuid = false;
@@ -422,7 +422,7 @@
             {
                 $return = $this->refreshSessionUser($user);
 
-                session_regenerate_id(true);
+                @session_regenerate_id(true);
 
                 return \Idno\Core\site()->triggerEvent('user/auth', array('user' => $user), $return);
             }
