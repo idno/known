@@ -73,10 +73,14 @@
                 $rssItem->appendChild($page->createElement('geo:lat', $item->lat));
                 $rssItem->appendChild($page->createElement('geo:long', $item->long));
             }
-            $webmentionItem = $page->createElement('atom:link');
-            $webmentionItem->setAttribute('rel', 'webmention');
-            $webmentionItem->setAttribute('href', \Idno\Core\site()->config()->getDisplayURL() . 'webmention/');
-            $rssItem->appendChild($webmentionItem);
+            /*
+             * Some feed readers choke on references to webmention, so this is removed for now
+             *
+                $webmentionItem = $page->createElement('atom:link');
+                $webmentionItem->setAttribute('rel', 'webmention');
+                $webmentionItem->setAttribute('href', \Idno\Core\site()->config()->getDisplayURL() . 'webmention/');
+                $rssItem->appendChild($webmentionItem);
+            */
             if ($attachments = $item->getAttachments()) {
                 foreach($attachments as $attachment) {
                     $enclosureItem = $page->createElement('enclosure');
