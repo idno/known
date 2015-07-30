@@ -422,7 +422,7 @@
             {
                 $return = $this->refreshSessionUser($user);
 
-                session_regenerate_id(true);
+                @session_regenerate_id(true);
 
                 return \Idno\Core\site()->triggerEvent('user/auth', array('user' => $user), $return);
             }
