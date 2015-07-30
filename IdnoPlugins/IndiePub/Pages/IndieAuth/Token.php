@@ -54,7 +54,7 @@
                     if (!empty($content['me']) &&
                         (
                             parse_url($content['me'], PHP_URL_HOST) == parse_url(\Idno\Core\site()->config()->getURL(), PHP_URL_HOST) ||
-                            'www' . parse_url($content['me'], PHP_URL_HOST) == parse_url(\Idno\Core\site()->config()->getURL(), PHP_URL_HOST)
+                            'www.' . parse_url($content['me'], PHP_URL_HOST) == parse_url(\Idno\Core\site()->config()->getURL(), PHP_URL_HOST)
                         )
                         ) {
 
