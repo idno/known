@@ -9,7 +9,11 @@ Known _requires_ the following server components:
 
 Known must be installed at the root of a domain, and does not currently support subdirectory installations. It does support subdomains, however.
 
-If you use Apache 2.4, you either must install and activate: * mod_access_compat (see [http://httpd.apache.org/docs/2.4/mod/mod_access_compat.html](http://httpd.apache.org/docs/2.4/mod/mod_access_compat.html)) or manually edit Known’s stock .htaccess file by replacing:
+If you use Apache 2.4, you either must install and activate:
+
+* mod_access_compat (see [http://httpd.apache.org/docs/2.4/mod/mod_access_compat.html](http://httpd.apache.org/docs/2.4/mod/mod_access_compat.html))
+
+Or manually edit Known’s stock .htaccess file by replacing:
 
     <Files ~ "\.ini$">
     Order allow,deny
