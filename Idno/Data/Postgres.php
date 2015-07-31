@@ -19,7 +19,10 @@
             {
 
                 try {
-                    $connection_string = 'pgsql:host=' . \Idno\Core\site()->config()->dbhost . ';dbname=' . \Idno\Core\site()->config()->dbname;
+                    $connection_string =  'pgsql:dbname=' . \Idno\Core\site()->config()->dbname;
+                    if (!empty(\Idno\Core\site()->config()->dbhost)) {
+                        $connection_string .= ';host=' . \Idno\Core\site()->config()->dbhost;
+                    }
                     if (!empty(\Idno\Core\site()->config()->dbport)) {
                         $connection_string .= ';port=' . \Idno\Core\site()->config()->dbport;
                     }
@@ -121,8 +124,7 @@
             }
 
             /**
-             * TODO
-             * Saves a record to the specified database collection 
+             * Saves a record to the specified database collection
              *
              * @param string $collection
              * @param array $array
@@ -181,32 +183,26 @@
                 $search = str_replace("\r", "", $search);
                 $search = str_replace("#", " #", $search);
                 $search = strtolower($search);
-                
+
                 $client = $this->client;
                 /* @var \PDO $client */
 
                 try {
+                    // crazy Postgres equivalent of MySQL's "on duplicate update" using
+                    // Common Table Expressions ("with...") http://www.the-art-of-web.com/sql/upsert/#section_1
+                    // Postgres 9.5 will have "on conflict do update"
+                    $upsert = "update {$collection}
+                               set uuid=:uuid, entity_subtype=:subtype, owner=:owner,
+                               contents=:contents, search=:search where _id=:id";
+                    $insert = "insert into {$collection}
+                               (uuid, _id, owner, entity_subtype, contents, search)
+                               select :uuid, :id, :owner, :subtype, :contents, :search";
 
-                    // No such thing as on duplicate key, so fake it TODO do better
-                    $statement = $client->prepare("UPDATE {$collection}
-                                                    set uuid=:uuid::text, entity_subtype = :subtype::text, owner=:owner::text, contents=:contents::text, search = :search::text
-                                                    where _id=:id::text");
-                    $statement2 = $client->prepare("insert into {$collection}
-                                                    (uuid, _id, owner, entity_subtype, contents, search)
-                                                    values
-                                                    (:uuid::text, :id::text, :owner::text, :subtype::text, :contents::text, :search::text)"); 
-                    
-                    $ex2 = false;
-                    $ex1 = $statement->execute(array(':uuid' => $array['uuid'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search, ':id' => $array['_id']));
-                    $count1 = $statement->rowCount();
-                    if (!$count1) {
-                        $ex2 = $statement2->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search));
-                        $count2 = $statement2->rowCount();
-                    }
-                    if (
-                            ($ex1 || $ex2) && ($count1 || $count2)
-                    ) {
-                        if ($statement = $client->prepare("delete from metadata where _id = :id::text")) {
+                    $statement = $client->prepare("with upsert as (${upsert} returning *)
+                                                   ${insert} where not exists (select * from upsert)");
+
+                    if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search))) {
+                        if ($statement = $client->prepare("delete from metadata where _id = :id")) {
                             $statement->execute(array(':id' => $array['_id']));
                         }
                         foreach ($array as $key => $val) {
@@ -422,7 +418,7 @@
                 return array();
 
             }
-            
+
             /**
              * Retrieves a set of records from the database with given parameters, in
              * reverse chronological order
@@ -458,7 +454,7 @@
                     /* @var \PDO $client */
 
                     $statement = $client->prepare($query);
-                    
+
 //                    error_log(str_replace(array_keys($variables), array_values($variables), $query));
 
                     if ($result = $statement->execute($variables)) {
@@ -791,7 +787,7 @@
                             $upgrade_sql_files = array();
                             $schema_dir        = dirname(dirname(dirname(__FILE__))) . '/schemas/mysql/';
                             $client            = $this->client;
-                            
+
                         }
                     }
                 }
