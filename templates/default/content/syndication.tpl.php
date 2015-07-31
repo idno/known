@@ -26,7 +26,11 @@
                             ], false)))->draw('content/syndication/account');
                         }
                     } else {
-                        $button = $this->__(array('service' => $service))->draw('content/syndication/button');
+                        $button = $this->__(array('service' => $service, 'selected' => \Idno\Core\site()->triggerEvent('syndication/selected/' . $service, [
+                                'service' => $service,
+                                'username' => $account['username'],
+                                'reply-to' => \Idno\Core\site()->currentPage()->getInput('share_url')
+                            ], false)))->draw('content/syndication/button');
                     }
                 }
                 $buttons .= $button;
