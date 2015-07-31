@@ -1758,7 +1758,7 @@
                                     $mention['url'] = array_intersect($item['properties']['uid'], $item['properties']['url']);
                                 }
                                 if (empty($mention['url'])) {
-                                    $urls = $item['properties']['url'];
+                                    $mention['url'] = $item['properties']['url'];
                                 }
                             }
                             if (!empty($item['properties']['in-reply-to']) && is_array($item['properties']['in-reply-to'])) {
