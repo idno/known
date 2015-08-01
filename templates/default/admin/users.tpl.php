@@ -94,7 +94,7 @@
                                 <p style="padding-top: 20px;"><small>
                 <?php
                 if ($user->getUUID() != \Idno\Core\site()->session()->currentUserUUID()) {
-                    echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'admin/users', '<i class="fa fa-times"></i> Delete', array('user' => $user->getUUID(), 'action' => 'delete'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? This will delete this user and all their content.'));
+                    echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'admin/users', '<i class="icon-remove"></i> Delete', array('user' => $user->getUUID(), 'action' => 'delete'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? This will delete this user and all their content.'));
                 } else {
                     echo '&nbsp';
                 }
