@@ -69,7 +69,20 @@
                         $object = site()->db()->rowToEntity($row);
                         if (!empty($object->_id) && $object instanceof Entity) {
                             $object_name = $object->_id;
-                            if ($attachments = $object->attachments) {
+                            $attachments = $object->attachments;
+                            if (empty($attachments)) {
+                                $attachments = [];
+                            }
+                            foreach(['thumbnail','thumbnail_large'] as $thumbnail)
+                            if (!empty($object->$thumbnail)) {
+                                if (preg_match('/file\/([a-zA-Z0-9]+)\/', $object->$thumbnail, $matches)) {
+                                    $attachments[] = [
+                                        'url' => $object->$thumbnail,
+                                        '_id' => $matches[1]
+                                    ];
+                                }
+                            }
+                            if (!empty($attachments)) {
                                 foreach ($attachments as $key => $attachment) {
                                     if ($data = File::getFileDataFromAttachment($attachment)) {
                                         $filename = $attachment['_id'];
