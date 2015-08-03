@@ -110,6 +110,7 @@
             relative_urls : false,
             remove_script_host : false,
             convert_urls : true,
+            valid_children : "+body[style]",
             file_picker_callback: function (callback, value, meta) {
                 filePickerDialog(callback, value, meta);
             },
