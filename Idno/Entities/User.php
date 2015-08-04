@@ -302,8 +302,9 @@
              */
             function generateAPIkey()
             {
-                $apikey       = md5(time() . \Idno\Core\site()->config()->host . \Idno\Core\site()->config()->email . rand(0, 999999) . rand(0, 999999) . microtime());
-                $apikey       = strtolower(substr(base64_encode($apikey), 12, 16));
+                $token = new \Idno\Core\TokenProvider();
+                
+                $apikey       = strtolower(substr(base64_encode($token->generateToken(32)), 12, 16));
                 $this->apikey = $apikey;
                 $this->save();
 
