@@ -21,9 +21,9 @@
                 $this->adminGatekeeper();
 
                 // Flag that a site export has been requested
-                \Idno\Core\site()->config->export_last_requested = time();
-                \Idno\Core\site()->config->export_in_progress    = 1;
-                \Idno\Core\site()->config->save();
+                \Idno\Core\site()->config()->export_last_requested = time();
+                \Idno\Core\site()->config()->export_in_progress    = 1;
+                \Idno\Core\site()->config()->save();
 
                 $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'admin/export/', false);
 
@@ -46,9 +46,9 @@
                 if (!empty(\Idno\Core\site()->config()->export_file_id)) {
                     if ($file = File::getByID(\Idno\Core\site()->config()->export_file_id)) {
                         $file->remove();
-                        \Idno\Core\site()->config->export_file_id  = false;
-                        \Idno\Core\site()->config->export_filename = false;
-                        \Idno\Core\site()->config->save();
+                        \Idno\Core\site()->config()->export_file_id  = false;
+                        \Idno\Core\site()->config()->export_filename = false;
+                        \Idno\Core\site()->config()->save();
                     }
                 }
 
@@ -65,10 +65,10 @@
 
                     if ($file = File::createFromFile($path, $filename)) {
                         @unlink($path);
-                        \Idno\Core\site()->config->export_filename    = $filename;
-                        \Idno\Core\site()->config->export_file_id     = $file;
-                        \Idno\Core\site()->config->export_in_progress = 0;
-                        \Idno\Core\site()->config->save();
+                        \Idno\Core\site()->config()->export_filename    = $filename;
+                        \Idno\Core\site()->config()->export_file_id     = $file;
+                        \Idno\Core\site()->config()->export_in_progress = 0;
+                        \Idno\Core\site()->config()->save();
 
                         $mail = new Email();
                         $mail->setHTMLBodyFromTemplate('admin/export');

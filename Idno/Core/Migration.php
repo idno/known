@@ -75,7 +75,7 @@
                             }
                             foreach(['thumbnail','thumbnail_large'] as $thumbnail)
                             if (!empty($object->$thumbnail)) {
-                                if (preg_match('/file\/([a-zA-Z0-9]+)\/', $object->$thumbnail, $matches)) {
+                                if (preg_match('/file\/([a-zA-Z0-9]+)\//', $object->$thumbnail, $matches)) {
                                     $attachments[] = [
                                         'url' => $object->$thumbnail,
                                         '_id' => $matches[1]
@@ -132,7 +132,7 @@
                 }
 
                 if ($exported_records = \Idno\Core\site()->db()->exportRecords()) {
-                    if (site()->database == 'mysql' || site()->database == 'postgres') {
+                    if (site()->config()->database == 'mysql' || site()->config()->database == 'postgres') {
                         $export_ext = 'sql';
                     } else {
                         $export_ext = 'json';

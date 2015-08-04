@@ -216,10 +216,12 @@
 
                 if (\Idno\Core\site()->db()->saveRecord('config', $array)) {
                     $this->init();
-
+                    $this->load();
                     return true;
                 }
 
+                $this->init();
+                $this->load();
                 return false;
             }
 
@@ -258,7 +260,7 @@
                     $this->dbname = preg_replace('/[^0-9a-z\.\-\_]/i', '', $this->host);
 
                     // Known now defaults to not including periods in database names for multitenant installs. Add
-                    // 'multitenant_periods = true' if you wish to override this.
+                    // 'multitenant_periods = true' to config.ini if you wish to override this.
                     if (empty($this->multitenant_periods)) {
                         $this->dbname = str_replace('.', '_', $this->dbname);
                     }

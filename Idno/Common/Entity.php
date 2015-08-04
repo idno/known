@@ -13,6 +13,7 @@
     namespace Idno\Common {
 
         use Idno\Core\Webmention;
+        use Idno\Entities\File;
         use Idno\Entities\User;
 
         class Entity extends Component implements EntityInterface
@@ -1404,6 +1405,12 @@
 
                 if ($attachments = $this->getAttachments()) {
                     foreach ($attachments as $attachment) {
+                        if (empty($attachment['mime-type'])) {
+                            $attachment['mime-type'] = 'application/octet-stream';
+                        }
+                        if (empty($attachment['length'])) {
+                            $attachment['length'] = 0;
+                        }
                         $object['attachments'][] = [
                             'url'       => preg_replace('/^(https?:\/\/\/)/u', \Idno\Core\site()->config()->url, $attachment['url']),
                             'mime-type' => $attachment['mime-type'],
