@@ -62,7 +62,10 @@
         <h2>API</h2>
         <p>
             Your API key: <input type="text" id="apikey" class="span4" name="apikey"
-                                 value="Click to show" readonly>
+                                 value="Click to show" readonly> <?php
+                                 if (!empty($user->apikey)) {
+                                     echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->currentPage()->currentUrl(), 'Revoke', array('_method' => 'revoke'), array('method' => 'POST', 'class' => 'btn btn-danger', 'confirm' => true, 'confirm-text' => 'Revoking this key will mean you must update any applications that use this key!')); 
+                                 } ?>
         </p>
 
     </div>
@@ -77,6 +80,7 @@
                 dataType: 'json',
                 success: function(data) {
                     ctrl.val(data);
+                    $('#apikey-revoke').fadeIn();
                 }
             })
         });

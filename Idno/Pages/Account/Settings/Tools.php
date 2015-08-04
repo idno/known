@@ -29,7 +29,18 @@
 
             function postContent()
             {
-
+                $this->createGatekeeper();
+                
+                $user = \Idno\Core\site()->session()->currentUser();
+                if (!empty($user)) {
+                    
+                    switch ($this->getInput('_method')) {
+                        case 'revoke': 
+                            $user->apikey = null;
+                            $user->getAPIkey();
+                    }
+                }
+                
                 $this->forward($_SERVER['HTTP_REFERER']);
             }
 
