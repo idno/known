@@ -1,5 +1,4 @@
 # Known .htaccess file
-# If these settings don't work for you, we recommend copying htaccess-2.4.dist instead.
 
 <IfModule mod_rewrite.c>
     RewriteEngine on
