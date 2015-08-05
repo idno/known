@@ -404,6 +404,16 @@
 
                 // If this is an API request but we're not logged in, set page response code to access denied
                 if ($this->isAPIRequest() && !$return) {
+                    
+                    $ip = $_SERVER['REMOTE_ADDR'];
+                    if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+                         $proxies = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']); // We are behind a proxy 
+                         $ip = trim($proxies[0]);
+                    }
+
+                    site()->logging()->log("API Login failure from $ip", LOGLEVEL_ERROR); 
+                    //\Idno\Core\site()->triggerEvent('login/failure/api'); // Can't be used until #918 is fixed.
+                    
                     site()->currentPage()->setResponse(403);
                 }
 
