@@ -4,14 +4,14 @@
 
 ##Installation [![Build Status](https://travis-ci.org/idno/Known.svg?branch=master)](https://travis-ci.org/idno/Known)
 
-Known is under active development and requires PHP 5.4+ with selected extensions, together with a supported database backend.
-
 ###One-click Known sites
 
 A fully-managed hosted service is provided at <https://withknown.com/>. If in doubt, this is the best way to get started
 with Known.
 
 ###Self-hosting
+
+Known is under active development and requires PHP 5.4+ with selected extensions, together with a supported database backend.
 
 If you are installing Known for use on your own website, we HIGHLY recommend using the installable packages
 from <https://withknown.com/opensource>. Installation will be much easier!
