@@ -6,8 +6,13 @@
 
 ###One-click Known sites
 
-A fully-managed hosted service is provided at <https://withknown.com/>. If in doubt, this is the best way to get started
-with Known.
+A fully-managed hosted service is provided at <https://withknown.com/>. It is always kept up to date with the latest
+version of Known.
+
+Known is also tested to work with the following hosts:
+
+* [Reclaim Hosting](https://portal.reclaimhosting.com/aff.php?aff=013)
+* [Arvixe](http://www.arvixe.com/9014-443-3-367.html)
 
 ###Self-hosting
 
