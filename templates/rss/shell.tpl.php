@@ -21,10 +21,10 @@
     if (!empty(\Idno\Core\site()->config()->description)) {
         $site_description = $page->createElement('description');
         $site_description->appendChild($page->createCDATASection(\Idno\Core\site()->config()->description));
-        $rss->appendChild($site_description);
+        $channel->appendChild($site_description);
         $site_description = $page->createElement('itunes:summary');
         $site_description->appendChild($page->createCDATASection(\Idno\Core\site()->config()->description));
-        $rss->appendChild($site_description);
+        $channel->appendChild($site_description);
     }
     $channel->appendChild($page->createElement('link',$this->getCurrentURLWithoutVar('_t')));
     if (!empty(\Idno\Core\site()->config()->hub)) {
