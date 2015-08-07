@@ -52,7 +52,7 @@
                             // Never show this
                             $backtrace = $backtrace[0];
 
-                            $trace = "[{$backtrace['file']}:{$backtrace['line']}]";
+                            $trace = " [{$backtrace['file']}:{$backtrace['line']}]";
                         }
                     }
 
@@ -62,7 +62,7 @@
                     if ($level == 3) $level = "INFO";
                     if ($level == 4) $level = "DEBUG";
 
-                    error_log("Known ({$this->identifier}): $level - $message $trace");
+                    error_log("Known ({$this->identifier}): $level - $message{$trace}");
                 }
             }
         }
