@@ -141,19 +141,19 @@
 
                 <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/users" method="post">
 
-                    <h3>Add user directly:</h3>
+                    <h3>Create a new user</h3>
 
                     <p>
                         You should only do this for people whose email addresses you trust
-                        from prior correspondence.
+                        from prior correspondence. An email will not be sent.
                     </p>
 
                     <div>
-                        <input type="email" name="email" placeholder="Email address" />
-
-                        <input type="text" name="handle" placeholder="Username" />
-
-                        <input type="text" name="name" placeholder="Full name" />
+                        <input type="email" name="email" placeholder="Email address" required >
+                        <input type="text" name="handle" placeholder="Username" required >
+                        <input type="text" name="name" placeholder="Full name" required >
+                        <input type="password" name="password1" placeholder="Password" required>
+                        <input type="password" name="password2" placeholder="Password again" required>
                     </div>
 
                     <p>

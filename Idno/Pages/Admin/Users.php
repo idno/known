@@ -91,21 +91,23 @@
                         }
                         break;
                     case 'add_user':
-                        $name       = $this->getInput('name');
-                        $handle     = trim($this->getInput('handle'));
-                        $email      = trim($this->getInput('email'));
 
-                        $password = "";
-                        //Initialize a random desired length
-                        $desired_length = rand(8, 12);
-                        for($length = 0; $length < $desired_length; $length++) {
-                            //Append a random ASCII character (including symbols)
-                            $password .= chr(rand(32, 126));
+                        if (!\Idno\Core\site()->config()->canAddUsers()) {
+                            \Idno\Core\site()->session()->addMessage("You can't add any more users to your site.");
+                            break;
                         }
+
+                        $name      = $this->getInput('name');
+                        $handle    = trim($this->getInput('handle'));
+                        $email     = trim($this->getInput('email'));
+                        $password  = trim($this->getInput('password1'));
+                        $password2 = trim($this->getInput('password2'));
 
                         $user = new \Idno\Entities\User();
 
-                        if (empty($handle) && empty($email)) {
+                        if (empty($password) || $password != $password2) {
+                            \Idno\Core\site()->session()->addMessage("Please make sure your passwords match and aren't empty.");
+                        } else if (empty($handle) && empty($email)) {
                             \Idno\Core\site()->session()->addMessage("Please enter a username and email address.");
                         } else if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
                             if (
@@ -145,7 +147,7 @@
                         }
 
                         if (!empty($user->_id)) {
-                            \Idno\Core\site()->session()->addMessage("User registered with password $password - better mail that to them now!");
+                            \Idno\Core\site()->session()->addMessage("User " . $user->getHandle() . " was created. You may wish to email them to let them know.");
                         } else {
                             \Idno\Core\site()->session()->addMessageAtStart("We couldn't register that user.");
                         }
@@ -158,4 +160,3 @@
 
         }
     }
-?>
