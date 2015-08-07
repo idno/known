@@ -62,7 +62,7 @@
                     if ($level == 3) $level = "INFO";
                     if ($level == 4) $level = "DEBUG";
 
-                    error_log("Known ({$this->identifier}): $level - $message {$this->loglevel_filter}$trace");
+                    error_log("Known ({$this->identifier}): $level - $message $trace");
                 }
             }
         }
