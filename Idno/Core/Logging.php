@@ -44,9 +44,9 @@
 
                     // Construct log message
 
-                    // Trace for debug
+                    // Trace for debug (when filtering is set to debug, always add a trace)
                     $trace = "";
-                    if ($level == 4) {
+                    if ($this->loglevel_filter == 4) {
                         $backtrace = @debug_backtrace(false, 2);
                         if ($backtrace) {
                             // Never show this
@@ -62,7 +62,7 @@
                     if ($level == 3) $level = "INFO";
                     if ($level == 4) $level = "DEBUG";
 
-                    error_log("Known ({$this->identifier}): $level - $message {$this->loglevel_filter}$trace");
+                    error_log("Known ({$this->identifier}): $level - $message{$trace}");
                 }
             }
         }
