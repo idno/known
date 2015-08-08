@@ -14,6 +14,13 @@
 
             // Handle GET requests to the entity
 
+            function postContent()
+            {
+                return $this->getContent();
+            }
+
+            // Handle POST requests to the entity
+
             function getContent()
             {
                 $user = \Idno\Core\site()->session()->currentUser();
@@ -29,13 +36,6 @@
                     'description' => 'The ' . \Idno\Core\site()->config()->title . ' profile for ' . $user->getTitle()
 
                 ))->drawPage();
-            }
-
-            // Handle POST requests to the entity
-
-            function postContent()
-            {
-                return $this->getContent();
             }
 
         }

@@ -255,7 +255,7 @@
                     }
 
                     // homepage feed
-                    $homepage_types = \Idno\Core\site()->config()->getHomepageContentTypes();
+                    $homepage_types   = \Idno\Core\site()->config()->getHomepageContentTypes();
                     $type_in_homepage = false;
                     if ($object instanceof Entity) {
                         if (in_array($object->getContentType(), $homepage_types)) {

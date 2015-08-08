@@ -53,8 +53,10 @@
 
             function init()
             {
-                header('X-Powered-By: https://withknown.com');
-                header('X-Clacks-Overhead: GNU Terry Pratchett');
+                if (!defined('KNOWN_UNIT_TEST')) { // Don't do header stuff in unit tests
+                    header('X-Powered-By: https://withknown.com');
+                    header('X-Clacks-Overhead: GNU Terry Pratchett');
+                }
                 if ($template = $this->getInput('_t')) {
                     if (\Idno\Core\site()->template()->templateTypeExists($template)) {
                         \Idno\Core\site()->template()->setTemplateType($template);
@@ -874,7 +876,22 @@
              */
             public function setLastModifiedHeader($timestamp)
             {
-                header('Last-Modified: ' . self::timestampToRFC2616($timestamp));
+                header('Last-Modified: ' . \Idno\Core\Time::timestampToRFC2616($timestamp));
+            }
+            
+            /**
+             * Simplify if modified since checks.
+             * Set a 304 not modified if If-Modified-Since header is less than the given timestamp.
+             * @param type $timestamp Timestamp to check
+             */
+            public function lastModifiedGatekeeper($timestamp) {
+                $headers = $this->getallheaders();
+                if (isset($headers['If-Modified-Since'])) {
+                    if (strtotime($headers['If-Modified-Since']) <= $timestamp) { 
+                        header('HTTP/1.1 304 Not Modified');
+                        exit;
+                    }
+                }
             }
 
             /**
@@ -955,15 +972,6 @@
 
 
                 return $page;
-            }
-
-            /**
-             * Convert a unix timestamp into an RFC2616 (HTTP) compatible date.
-             * @param type $timestamp
-             */
-            public static function timestampToRFC2616($timestamp)
-            {
-                return gmdate('D, d M Y H:i:s T', (int)$timestamp);
             }
 
         }

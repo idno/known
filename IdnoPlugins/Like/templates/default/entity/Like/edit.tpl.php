@@ -54,12 +54,17 @@
                                    echo htmlspecialchars($vars['object']->pageTitle);
                                ?>" class="form-control bookmark-title" />
                     </div>
-                    <label>
-                        Comments<br/>
-                    </label>
 
-                    <textarea name="description" id="description" class="form-control"
-                              placeholder="This page is great because... Use hashtags to organize your bookmark."><?= htmlspecialchars($vars['object']->description); ?></textarea>
+                    <?= $this->__([
+                        'name' => 'description',
+                        'value' => $vars['object']->description,
+                        'object' => $object,
+                        'wordcount' => false,
+                        'class' => 'wysiwyg-short',
+                        'height' => 250,
+                        'placeholder' => 'This page is great because ...',
+                        'label' => 'Description and hashtags'
+                    ])->draw('forms/input/richtext')?>
                 </div>
                 <?=$this->draw('entity/tags/input');?>
                 <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('bookmark'); ?>
@@ -91,7 +96,7 @@
                         url: $('.bookmark-url').val()
                     },
                     success: function(data) {
-                        $('.bookmark-title').val(data.value);
+                        $('.bookmark-title').val(htmlEntityDecode(data.value));
                         $('.bookmark-spinner-container').html(" ");
                         $('.bookmark-title-container').show();
                     },

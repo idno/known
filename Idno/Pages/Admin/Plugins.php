@@ -50,6 +50,7 @@
                             break;
                         case 'uninstall':
                             if (($key = array_search($plugin, \Idno\Core\site()->config->config['plugins'])) !== false) {
+                                \Idno\Core\site()->triggerEvent('plugin/unload/' . $plugin);
                                 unset(\Idno\Core\site()->config->config['plugins'][$key]);
                                 unset(\Idno\Core\site()->config->config['directloadplugins'][$key]);
                                 \Idno\Core\site()->session()->addMessage('The plugin was uninstalled.');

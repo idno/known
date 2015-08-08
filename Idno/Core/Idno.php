@@ -32,6 +32,7 @@
             public $known_hub;
             public $helper_robot;
             public $reader;
+            public $cache;
 
             function init()
             {
@@ -45,7 +46,7 @@
                 switch ($this->config->database) {
                     case 'mongodb':
                         $this->db = new DataConcierge();
-                        break;  
+                        break;
                     case 'mysql':
                         $this->db = new \Idno\Data\MySQL();
                         break;
@@ -94,6 +95,12 @@
                 $this->logging      = new Logging($this->config->log_level);
                 $this->reader       = new Reader();
                 $this->helper_robot = new HelperRobot();
+                
+                // Attempt to create a cache object, making use of support present on the system
+                if (extension_loaded('xcache')) {
+                    $this->cache = new \Idno\Caching\XCache();
+                }
+                // TODO: Support other persistent caching methods
 
                 // No URL is a critical error, default base fallback is now a warning (Refs #526)
                 if (!$this->config->url) throw new \Exception('Known was unable to work out your base URL! You might try setting url="http://yourdomain.com/" in your config.ini');
@@ -233,6 +240,15 @@
             {
                 return $this->logging;
             }
+            
+            /**
+             * Return a persistent cache object.
+             * @return \Idno\Caching\PersistentCache
+             */
+            function &cache() 
+            {
+                return $this->cache;
+            }
 
             /**
              * Shortcut to trigger an event: supply the event name and
@@ -368,7 +384,7 @@
             function addPageHandler($pattern, $handler, $public = false)
             {
                 if (defined('KNOWN_SUBDIRECTORY')) {
-                    if (substr($pattern, 0,1) != '/') {
+                    if (substr($pattern, 0, 1) != '/') {
                         $pattern = '/' . $pattern;
                     }
                     $pattern = '/' . KNOWN_SUBDIRECTORY . $pattern;
@@ -528,7 +544,7 @@
              */
             function version()
             {
-                return '0.8.1';
+                return '0.8.2';
             }
 
             /**
@@ -544,15 +560,17 @@
              * Retrieve a machine-readale version of Known's version number
              * @return string
              */
-            function machineVersion() {
-                return '2015051602';
+            function machineVersion()
+            {
+                return '2015072201';
             }
 
             /**
              * Alias for getMachineVersion
              * @return string
              */
-            function getMachineVersion() {
+            function getMachineVersion()
+            {
                 return $this->machineVersion();
             }
 
@@ -736,7 +754,8 @@
              * This is a state dependant object, and so can not be serialised.
              * @return array
              */
-            function __sleep() {
+            function __sleep()
+            {
                 return [];
             }
         }

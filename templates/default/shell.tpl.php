@@ -245,6 +245,11 @@
         } else {
 
             ?>
+            <style>
+                body {
+                    padding-top: 0px !important; /* 60px to make the container go all the way to the bottom of the topbar */
+                }
+            </style>
             <div style="height: 1em;"><br/></div>
         <?php
 
@@ -360,9 +365,6 @@
     }
 
     $(document).ready(function () {
-        annotateContent();
-    })
-    $(document).on('pjax:complete', function () {
         annotateContent();
     });
 

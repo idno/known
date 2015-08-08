@@ -15,9 +15,17 @@
     $rss->setAttribute('xmlns:atom', 'http://www.w3.org/2005/Atom');
     $rss->setAttribute('xmlns:geo', 'http://www.w3.org/2003/01/geo/wgs84_pos#');
     $rss->setAttribute('xmlns:dc', 'http://purl.org/dc/elements/1.1/');
+    $rss->setAttribute('xmlns:itunes', 'http://www.itunes.com/dtds/podcast-1.0.dtd');
     $channel = $page->createElement('channel');
     $channel->appendChild($page->createElement('title',$vars['title']));
-    $channel->appendChild($page->createElement('description',$vars['description']));
+    if (!empty(\Idno\Core\site()->config()->description)) {
+        $site_description = $page->createElement('description');
+        $site_description->appendChild($page->createCDATASection(\Idno\Core\site()->config()->description));
+        $channel->appendChild($site_description);
+        $site_description = $page->createElement('itunes:summary');
+        $site_description->appendChild($page->createCDATASection(\Idno\Core\site()->config()->description));
+        $channel->appendChild($site_description);
+    }
     $channel->appendChild($page->createElement('link',$this->getCurrentURLWithoutVar('_t')));
     if (!empty(\Idno\Core\site()->config()->hub)) {
         $pubsub = $page->createElement('atom:link');
@@ -56,19 +64,23 @@
             
             $owner = $item->getOwner();
             $rssItem->appendChild($page->createElement('author', "{$owner->email} ({$owner->title})"));
-            $rssItem->appendChild($page->createElement('dc:creator', $owner->title));
+            //$rssItem->appendChild($page->createElement('dc:creator', $owner->title));
             
             $description = $page->createElement('description');
-            $description->appendChild($page->createCDATASection($item->draw()));
+            $description->appendChild($page->createCDATASection($item->draw(true)));
             $rssItem->appendChild($description);
             if (!empty($item->lat) && !empty($item->long)) {
                 $rssItem->appendChild($page->createElement('geo:lat', $item->lat));
                 $rssItem->appendChild($page->createElement('geo:long', $item->long));
             }
-            $webmentionItem = $page->createElement('atom:link');
-            $webmentionItem->setAttribute('rel', 'webmention');
-            $webmentionItem->setAttribute('href', \Idno\Core\site()->config()->getDisplayURL() . 'webmention/');
-            $rssItem->appendChild($webmentionItem);
+            /*
+             * Some feed readers choke on references to webmention, so this is removed for now
+             *
+                $webmentionItem = $page->createElement('atom:link');
+                $webmentionItem->setAttribute('rel', 'webmention');
+                $webmentionItem->setAttribute('href', \Idno\Core\site()->config()->getDisplayURL() . 'webmention/');
+                $rssItem->appendChild($webmentionItem);
+            */
             if ($attachments = $item->getAttachments()) {
                 foreach($attachments as $attachment) {
                     $enclosureItem = $page->createElement('enclosure');

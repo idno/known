@@ -142,8 +142,8 @@
 textarea.wysiwyg {
     height: 15em;
 }
-textarea.bodyInputShort {
-    height: 7em;
+textarea.wysiwyg-short {
+    height: 4em !important;
 }
 
 textarea.bodyInput {

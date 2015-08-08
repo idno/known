@@ -1,15 +1,41 @@
 <?php
 
     $unique_id = 'body' . rand(0,9999);
+    if (!empty($vars['class'])) {
+        $class = $vars['class'];
+    } else {
+        $class = '';
+    }
+    if (!empty($vars['height'])) {
+        $height = $vars['height'];
+    } else {
+        $height = 500;
+    }
+    if (!empty($vars['placeholder'])) {
+        $placeholder = $vars['placeholder'];
+    } else {
+        $placeholder = 'Tell your story';
+    }
 
 ?>
-<p style="text-align: right">
+<p style="float: right">
     <small>
         <a href="#" onclick="tinymce.EditorManager.execCommand('mceRemoveEditor',true, '<?= $unique_id; ?>'); $('#plainTextSwitch').hide(); $('#richTextSwitch').show(); return false;" id="plainTextSwitch">Switch to plain text editor</a>
         <a href="#" onclick="makeRichText('#<?=$unique_id?>'); $('#plainTextSwitch').show(); $('#richTextSwitch').hide(); return false;" id="richTextSwitch" style="display:none">Switch to rich text editor</a></small></p>
+<?php
 
-<textarea name="<?=$vars['name']?>"  placeholder="Tell your story"
-          class="bodyInput mentionable wysiwyg form-control" id="<?=$unique_id?>"><?= (htmlspecialchars($this->autop($vars['value']))) ?></textarea>
+    if (!empty($vars['label'])) {
+
+        ?>
+        <label for="<?=$unique_id?>"><?=htmlspecialchars($vars['label'])?></label>
+        <?php
+
+    }
+
+?>
+    <br clear="all">
+    <textarea name="<?=$vars['name']?>"  placeholder="<?=htmlspecialchars($placeholder);?>" style="height:<?=$height?>px"
+          class="bodyInput mentionable wysiwyg form-control <?=$class?>" id="<?=$unique_id?>"><?= (htmlspecialchars($this->autop($vars['value']))) ?></textarea>
 
 <?php
 
@@ -20,6 +46,12 @@
             Total words <strong><span id="totalWords<?=$unique_id?>">0</span></strong>
         </div>
 <?php
+
+    } else {
+
+    ?>
+    <br>
+    <?php
 
     }
 
@@ -72,11 +104,13 @@
             skin: 'light',
             statusbar: false,
             menubar: false,
+            height: <?=$height?>,
             toolbar: 'styleselect | bold italic | link image | blockquote bullist numlist | alignleft aligncenter alignright | code',
             plugins: 'code link image autoresize',
             relative_urls : false,
             remove_script_host : false,
             convert_urls : true,
+            valid_children : "+body[style]",
             file_picker_callback: function (callback, value, meta) {
                 filePickerDialog(callback, value, meta);
             },
@@ -93,7 +127,8 @@
     function filePickerDialog(callback, value, meta) {
         tinymce.activeEditor.windowManager.open({
             title: 'File Manager',
-            url: '<?=\Idno\Core\site()->config()->getDisplayURL()?>filepicker/?type=' + meta.filetype,
+            //url: '<?=\Idno\Core\site()->config()->getDisplayURL()?>filepicker/?type=' + meta.filetype,
+            url: '<?=\Idno\Core\site()->config()->getDisplayURL()?>filepicker/?type=image',
             width: 650,
             height: 550
         }, {

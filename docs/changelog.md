@@ -2,6 +2,13 @@
 
 Starting with version 0.6.4, this is a list of changes in the self-hosted, open source version of Known.
 
+0.8.2
+-----
+July 22, 2015
+
+* Fixes a bug with pagination in subdirectory installations
+* Experimental support for SQLite as a database engine
+
 0.8.1
 -----
 July 21, 2015

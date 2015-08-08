@@ -51,7 +51,12 @@
                 ));
                 if ($response['response'] == 200) {
                     parse_str($response['content'], $content);
-                    if (!empty($content['me']) && parse_url($content['me'], PHP_URL_HOST) == parse_url(\Idno\Core\site()->config()->getURL(), PHP_URL_HOST)) {
+                    if (!empty($content['me']) &&
+                        (
+                            parse_url($content['me'], PHP_URL_HOST) == parse_url(\Idno\Core\site()->config()->getURL(), PHP_URL_HOST) ||
+                            'www.' . parse_url($content['me'], PHP_URL_HOST) == parse_url(\Idno\Core\site()->config()->getURL(), PHP_URL_HOST)
+                        )
+                        ) {
 
                         // Get user & existing tokens
                         $user             = \Idno\Entities\User::getOne(array('admin' => true));

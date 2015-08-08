@@ -10,7 +10,8 @@
 
             static $changed_state = 0;
 
-            function registerPages() {
+            function registerPages()
+            {
                 site()->addPageHandler('/robot/remove/?', 'Idno\Pages\Robot\Remove');
             }
 

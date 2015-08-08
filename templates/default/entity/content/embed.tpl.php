@@ -12,15 +12,25 @@
         }
     }
     if (preg_match_all('/(youtube\.com|youtu\.be)\/watch\?v=([a-z0-9\-\_]+)/i', $body, $matches)) {
-        foreach ($matches[2] as $m)
+        foreach ($matches[2] as $m) {
             $embedded .= '<div><iframe class="youtube-player auto-link figure" width="600" height="420" style="border:0"  src="//www.youtube.com/embed/' . $m . '"></iframe></div>';
+        }
+    } else if (
+        preg_match_all('/(youtube\.com|youtu\.be)\/c\/([a-z0-9\-\_]+)/i', $body, $matches) ||
+        preg_match_all('/(youtube\.com|youtu\.be)\/channel\/([a-z0-9\-\_]+)/i', $body, $matches)
+    ) {
+        foreach ($matches[2] as $m) {
+            // TODO: see if there's a way to embed YouTube channels
+        }
     } else if (preg_match_all('/(youtube\.com|youtu\.be)\/([a-z0-9\-\_]+)/i', $body, $matches)) {
-        foreach ($matches[2] as $m)
+        foreach ($matches[2] as $m) {
             $embedded .= '<div><iframe class="youtube-player auto-link figure" width="600" height="420" style="border:0"  src="//www.youtube.com/embed/' . $m . '"></iframe></div>';
+        }
     }
     if (preg_match_all('/vimeo\.com\/([0-9]+)/i', $body, $matches)) {
-        foreach ($matches[1] as $m)
+        foreach ($matches[1] as $m) {
             $embedded .= '<iframe src="//player.vimeo.com/video/' . $m . '" width="600" height="450" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+        }
     }
     if (preg_match_all('/https?:\/\/twitter\.com\/[^\s]+\/status\/[^\s]+\/?/i', $body, $matches)) {
 

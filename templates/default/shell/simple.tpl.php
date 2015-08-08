@@ -64,7 +64,7 @@
                       href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/font-awesome/css/font-awesome.min.css">
                 <style>
                     body {
-                        padding-top: 100px; /* 60px to make the container go all the way to the bottom of the topbar */
+                        padding-top: 10px; /* 60px to make the container go all the way to the bottom of the topbar */
                     }
                 </style>
                 <link

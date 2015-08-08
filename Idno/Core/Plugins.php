@@ -156,6 +156,19 @@
             }
 
             /**
+             * Retrieves the number of bytes stored by all plugins in the system.
+             * @return int
+             */
+            public function getTotalFileUsage()
+            {
+                if ($usage = $this->getFileUsageByPlugin()) {
+                    return (int)array_sum($usage);
+                }
+
+                return 0;
+            }
+
+            /**
              * Retrieves the file bytes stored by each plugin
              * @return array
              */
@@ -171,19 +184,6 @@
                 }
 
                 return $usage;
-            }
-
-            /**
-             * Retrieves the number of bytes stored by all plugins in the system.
-             * @return int
-             */
-            public function getTotalFileUsage()
-            {
-                if ($usage = $this->getFileUsageByPlugin()) {
-                    return (int)array_sum($usage);
-                }
-
-                return 0;
             }
 
         }

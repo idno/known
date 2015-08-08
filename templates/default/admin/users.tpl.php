@@ -49,7 +49,7 @@
                                 <p class="user-tbl">
                                     <small><strong>Last update posted</strong>
                                         <br>
-                                        <?php 
+                                        <?php
                                         if ($feed  = \Idno\Entities\ActivityStreamPost::getFromX(null, ['owner' => $user->getUUID()], array(), 1, 0)) {
                                         ?>
                                         <time datetime="<?= date('r', $feed[0]->updated) ?>" class="dt-published"><?= date('r', $feed[0]->updated) ?></time>
@@ -139,8 +139,36 @@
 
                 </form>
 
+                <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/users" method="post">
+
+                    <h3>Create a new user</h3>
+
+                    <p>
+                        You should only do this for people whose email addresses you trust
+                        from prior correspondence. An email will not be sent.
+                    </p>
+
+                    <div>
+                        <input type="email" name="email" placeholder="Email address" required >
+                        <input type="text" name="handle" placeholder="Username" required >
+                        <input type="text" name="name" placeholder="Full name" required >
+                        <input type="password" name="password1" placeholder="Password" required>
+                        <input type="password" name="password2" placeholder="Password again" required>
+                    </div>
+
+                    <p>
+
+                    </p>
+
+                    <p>
+                        <input type="submit" class="btn btn-primary" value="Add">
+                        <input type="hidden" name="action" value="add_user">
+                        <?= \Idno\Core\site()->actions()->signForm('/admin/users') ?>
+                    </p>
+
+                </form>
             </div>
         </div>
-    <?php
+<?php
 
     }

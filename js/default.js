@@ -93,3 +93,9 @@ function inIframe () {
         return true;
     }
 }
+
+function htmlEntityDecode(encodedString) {
+    var textArea = document.createElement('textarea');
+    textArea.innerHTML = encodedString;
+    return textArea.value;
+}

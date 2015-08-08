@@ -13,6 +13,23 @@
         {
 
             /**
+             *  Gatekeeper function that validates input forms and prevents csrf attacks.
+             *  Call this from your form action code.
+             *
+             * @param string $targetURL The URL of the form action that brought us here.
+             * @param boolean $haltExecutionOnBadRequest If set to true, the function halts all execution if the form doesn't validate. (True by default.)
+             * @return true|false
+             */
+            public static function validateToken($action = '', $haltExecutionOnBadRequest = true)
+            {
+                if (site()->session()->isAPIRequest()) {
+                    return true;
+                }
+
+                return parent::validateToken($action, $haltExecutionOnBadRequest);
+            }
+
+            /**
              * Creates an action link that will submit via POST to the page
              * specified at $pageurl with the data specified in $data
              *
@@ -50,23 +67,6 @@
             function signForm($pageurl)
             {
                 return site()->template()->__(array('action' => $pageurl, 'time' => time()))->draw('forms/token');
-            }
-
-            /**
-             *  Gatekeeper function that validates input forms and prevents csrf attacks.
-             *  Call this from your form action code.
-             *
-             * @param string $targetURL The URL of the form action that brought us here.
-             * @param boolean $haltExecutionOnBadRequest If set to true, the function halts all execution if the form doesn't validate. (True by default.)
-             * @return true|false
-             */
-            public static function validateToken($action = '', $haltExecutionOnBadRequest = true)
-            {
-                if (site()->session()->isAPIRequest()) {
-                    return true;
-                }
-
-                return parent::validateToken($action, $haltExecutionOnBadRequest);
             }
 
         }

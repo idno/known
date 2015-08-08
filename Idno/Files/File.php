@@ -15,6 +15,25 @@
             public $file = array();
 
             /**
+             * Given a file size in bytes, converts it to a friendly version
+             * @param $bytes
+             * @return string
+             */
+            static function describeFileSize($bytes)
+            {
+                $units = array('B', 'KB', 'MB', 'GB', 'TB');
+
+                $bytes = max($bytes, 0);
+                $pow   = floor(($bytes ? log($bytes) : 0) / log(1024));
+                $pow   = min($pow, count($units) - 1);
+
+                $bytes /= (1 << (10 * $pow));
+
+                return round($bytes, 2) . ' ' . $units[$pow];
+
+            }
+
+            /**
              * Retrieve the bytes associated with the file
              * @return mixed
              */
@@ -38,17 +57,16 @@
              */
             abstract function getFilename();
 
+            /* Delete this file
+             * @return bool
+             */
+
             /**
              * Writes the contents of this file to a location specified in $path
              * @param string $path
              * @return mixed
              */
             abstract function write($path);
-
-            /* Delete this file
-             * @return bool
-             */
-            abstract function delete();
 
             /**
              * Alias for delete
@@ -59,24 +77,7 @@
                 return $this->delete();
             }
 
-            /**
-             * Given a file size in bytes, converts it to a friendly version
-             * @param $bytes
-             * @return string
-             */
-            static function describeFileSize($bytes)
-            {
-                $units = array('B', 'KB', 'MB', 'GB', 'TB');
-
-                $bytes = max($bytes, 0);
-                $pow   = floor(($bytes ? log($bytes) : 0) / log(1024));
-                $pow   = min($pow, count($units) - 1);
-
-                $bytes /= (1 << (10 * $pow));
-
-                return round($bytes, 2) . ' ' . $units[$pow];
-
-            }
+            abstract function delete();
 
         }
 

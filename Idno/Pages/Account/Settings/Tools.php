@@ -15,7 +15,7 @@
             function getContent()
             {
                 $this->createGatekeeper(); // Logged-in only please
-          
+
                 if ($this->xhr) {
                     $user = \Idno\Core\site()->session()->currentUser();
                     echo json_encode($user->getAPIkey());
@@ -29,7 +29,18 @@
 
             function postContent()
             {
-
+                $this->createGatekeeper();
+                
+                $user = \Idno\Core\site()->session()->currentUser();
+                if (!empty($user)) {
+                    
+                    switch ($this->getInput('_method')) {
+                        case 'revoke': 
+                            $user->apikey = null;
+                            $user->getAPIkey();
+                    }
+                }
+                
                 $this->forward($_SERVER['HTTP_REFERER']);
             }
 

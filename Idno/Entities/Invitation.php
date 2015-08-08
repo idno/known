@@ -35,16 +35,48 @@
             }
 
             /**
-             * Associates this invitation with a particular email address; returns false if the address is invalid
+             * Retrieves an invitation associated with a particular email address
              * @param $email
              * @return bool
              */
-            function associateWithEmail($email)
+            static function getByEmail($email)
             {
-                if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    $this->email = $email;
+                if ($result = \Idno\Core\site()->db()->getObjects(get_called_class(), array('email' => $email), null, 1)) {
+                    foreach ($result as $row) {
+                        return $row;
+                    }
+                }
 
-                    return true;
+                return false;
+            }
+
+            /**
+             * Validates an email address / invitation code combination (or returns false if no such invitation exists).
+             * @param $email
+             * @param $code
+             * @return \Idno\Entities\Invitation|false
+             */
+            static function validate($email, $code)
+            {
+                if ($invitation = self::getByEmailAndCode($email, $code)) {
+                    return $invitation;
+                }
+
+                return false;
+            }
+
+            /**
+             * Retrieves an invitation associated with a particular email address and code.
+             * @param $email
+             * @param $code
+             * @return bool
+             */
+            static function getByEmailAndCode($email, $code)
+            {
+                if ($result = \Idno\Core\site()->db()->getObjects(get_called_class(), array('email' => $email, 'code' => $code), null, 1)) {
+                    foreach ($result as $row) {
+                        return $row;
+                    }
                 }
 
                 return false;
@@ -72,48 +104,16 @@
             }
 
             /**
-             * Retrieves an invitation associated with a particular email address
+             * Associates this invitation with a particular email address; returns false if the address is invalid
              * @param $email
              * @return bool
              */
-            static function getByEmail($email)
+            function associateWithEmail($email)
             {
-                if ($result = \Idno\Core\site()->db()->getObjects(get_called_class(), array('email' => $email), null, 1)) {
-                    foreach ($result as $row) {
-                        return $row;
-                    }
-                }
+                if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $this->email = $email;
 
-                return false;
-            }
-
-            /**
-             * Retrieves an invitation associated with a particular email address and code.
-             * @param $email
-             * @param $code
-             * @return bool
-             */
-            static function getByEmailAndCode($email, $code)
-            {
-                if ($result = \Idno\Core\site()->db()->getObjects(get_called_class(), array('email' => $email, 'code' => $code), null, 1)) {
-                    foreach ($result as $row) {
-                        return $row;
-                    }
-                }
-
-                return false;
-            }
-
-            /**
-             * Validates an email address / invitation code combination (or returns false if no such invitation exists).
-             * @param $email
-             * @param $code
-             * @return \Idno\Entities\Invitation|false
-             */
-            static function validate($email, $code)
-            {
-                if ($invitation = self::getByEmailAndCode($email, $code)) {
-                    return $invitation;
+                    return true;
                 }
 
                 return false;

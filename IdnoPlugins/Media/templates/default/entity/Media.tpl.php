@@ -5,16 +5,25 @@
     } else {
         $rel = '';
     }
-?>
-    <h2 class="p-name"><a href="<?= $vars['object']->getURL(); ?>"><?= htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?></a></h2>
-<?php
+    if (empty($vars['feed_view'])) {
+        ?>
+        <h2 class="p-name"><a
+                href="<?= $vars['object']->getURL(); ?>"><?= htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?></a>
+        </h2>
+    <?php
+    }
     if ($attachments = $vars['object']->getAttachments()) {
+        if (empty($vars['feed_view'])) {
+            $controls = 'controls preload="none"';
+        } else {
+            $controls = '';
+        }
         foreach ($attachments as $attachment) {
             $mainsrc = $attachment['url'];
             if (substr($attachment['mime-type'], 0, 5) == 'video') {
                 ?>
                 <p style="text-align: center">
-                    <video src="<?= $this->makeDisplayURL($mainsrc) ?>" class="u-video known-media-element" controls preload="none"></video>
+                    <video src="<?= $this->makeDisplayURL($mainsrc) ?>" class="u-video known-media-element" <?=$controls?> style="width: 100%"></video>
                 </p>
             <?php
 
@@ -22,7 +31,7 @@
 
                 ?>
                 <p style="text-align: center">
-                    <audio src="<?= $this->makeDisplayURL($mainsrc) ?>" class="u-audio known-media-element" controls preload="none"></audio>
+                    <audio src="<?= $this->makeDisplayURL($mainsrc) ?>" class="u-audio known-media-element" <?=$controls?> style="width: 100%"></audio>
                 </p>
             <?php
 

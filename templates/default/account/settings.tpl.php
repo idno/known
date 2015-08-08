@@ -6,12 +6,12 @@
     <div class="col-md-10 col-md-offset-1">
         <?= $this->draw('account/menu') ?>
         <h1>
-            Settings
+            Account Settings
         </h1>
 
         <div class="explanation">
             <p>
-                Change your basic account settings here. You may also want to <a
+                Change your user account settings here. You may also want to <a
                     href="<?= \Idno\Core\site()->session()->currentUser()->getDisplayURL() ?>/edit/">edit your
                     profile</a>.
             </p>

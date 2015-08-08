@@ -90,6 +90,68 @@
                             \Idno\Core\site()->session()->addMessage("No email addresses were found or all the people you invited are already members of this site.");
                         }
                         break;
+                    case 'add_user':
+
+                        if (!\Idno\Core\site()->config()->canAddUsers()) {
+                            \Idno\Core\site()->session()->addMessage("You can't add any more users to your site.");
+                            break;
+                        }
+
+                        $name      = $this->getInput('name');
+                        $handle    = trim($this->getInput('handle'));
+                        $email     = trim($this->getInput('email'));
+                        $password  = trim($this->getInput('password1'));
+                        $password2 = trim($this->getInput('password2'));
+
+                        $user = new \Idno\Entities\User();
+
+                        if (empty($password) || $password != $password2) {
+                            \Idno\Core\site()->session()->addMessage("Please make sure your passwords match and aren't empty.");
+                        } else if (empty($handle) && empty($email)) {
+                            \Idno\Core\site()->session()->addMessage("Please enter a username and email address.");
+                        } else if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                            if (
+                                !($emailuser = \Idno\Entities\User::getByEmail($email)) &&
+                                !($handleuser = \Idno\Entities\User::getByHandle($handle)) &&
+                                !empty($handle) && strlen($handle) <= 32 &&
+                                !substr_count($handle, '/')
+                            ) {
+                                $user         = new \Idno\Entities\User();
+                                $user->email  = $email;
+                                $user->handle = strtolower(trim($handle)); // Trim the handle and set it to lowercase
+                                $user->setPassword($password);
+                                if (empty($name)) {
+                                    $name = $user->handle;
+                                }
+                                $user->setTitle($name);
+                                $user->save();
+                            } else {
+                                if (empty($handle)) {
+                                    \Idno\Core\site()->session()->addMessage("Please create a username.");
+                                }
+                                if (strlen($handle) > 32) {
+                                    \Idno\Core\site()->session()->addMessage("Your username is too long.");
+                                }
+                                if (substr_count($handle, '/')) {
+                                    \Idno\Core\site()->session()->addMessage("Usernames can't contain a slash ('/') character.");
+                                }
+                                if (!empty($handleuser)) {
+                                    \Idno\Core\site()->session()->addMessage("Unfortunately, someone is already using that username. Please choose another.");
+                                }
+                                if (!empty($emailuser)) {
+                                    \Idno\Core\site()->session()->addMessage("Hey, it looks like there's already an account with that email address. Did you forget your login?");
+                                }
+                            }
+                        } else {
+                            \Idno\Core\site()->session()->addMessage("That doesn't seem like it's a valid email address.");
+                        }
+
+                        if (!empty($user->_id)) {
+                            \Idno\Core\site()->session()->addMessage("User " . $user->getHandle() . " was created. You may wish to email them to let them know.");
+                        } else {
+                            \Idno\Core\site()->session()->addMessageAtStart("We couldn't register that user.");
+                        }
+                        break;
                 }
 
                 $this->forward(\Idno\Core\site()->config()->getURL() . 'admin/users');
@@ -98,4 +160,3 @@
 
         }
     }
-?>

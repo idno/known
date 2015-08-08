@@ -15,11 +15,6 @@
         class MentionClient extends \IndieWeb\MentionClient
         {
 
-            protected static function _get($url)
-            {
-                return Webservice::get($url)['content'];
-            }
-
             protected static function _post($url, $body, $headers = array(), $returnHTTPCode = false)
             {
 
@@ -44,6 +39,11 @@
             protected function _fetchBody($url)
             {
                 return self::_get($url);
+            }
+
+            protected static function _get($url)
+            {
+                return Webservice::get($url)['content'];
             }
 
         }

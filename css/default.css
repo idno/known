@@ -1639,3 +1639,13 @@ a.access {
 .access .caret {
 	border-top: 4px solid #555;
 }
+
+/* Media */
+
+video {
+    width: 100%;
+}
+
+audio {
+    width: 100%;
+}

@@ -13,6 +13,17 @@
         class GenericDataItem extends \Idno\Entities\Object
         {
             /**
+             * Retrieve a bit of generic data by it's data type
+             * @param type $datatype
+             */
+            public static function getByDatatype($datatype, $search = array(), $fields = array(), $limit = 10, $offset = 0)
+            {
+                $search = array_merge($search, ['datatype' => $datatype]);
+
+                return static::getFromX(get_called_class(), $search, $fields, $limit, $offset);
+            }
+
+            /**
              * Label this item as being of a user defined type.
              * @param type $datatype
              */
@@ -33,17 +44,6 @@
                 }
 
                 return parent::save($add_to_feed, $feed_verb);
-            }
-
-            /**
-             * Retrieve a bit of generic data by it's data type
-             * @param type $datatype
-             */
-            public static function getByDatatype($datatype, $search = array(), $fields = array(), $limit = 10, $offset = 0)
-            {
-                $search = array_merge($search, ['datatype' => $datatype]);
-
-                return static::getFromX(get_called_class(), $search, $fields, $limit, $offset);
             }
         }
 

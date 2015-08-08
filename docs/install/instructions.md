@@ -4,7 +4,7 @@
 
 If you’re running Known in production, we highly recommend that you download the installation package from [withknown.com](https://withknown.com).
 
-To begin with, make sure your server satisfies the _System requirements_.
+To begin with, make sure your server satisfies the [System requirements](requirements.md).
 
 Some of the technologies involved are a little bit new, so you may have to ask for your web host to install them specially. We want to help you pick a great host that works well with Known, so we'll be creating a list of the ones that will just work, out of the box.
 
@@ -12,15 +12,10 @@ Some of the technologies involved are a little bit new, so you may have to ask f
 
 Known releases stable installation packages from [withknown.com](https://withknown.com) in both .zip and .tar.gz formats. If you are using Known for any purpose other than development, this is the recommended source for Known installations.
 
-Note that Known currently does not support installation in subdirectories. Your Known site must be at the root of your domain or subdomain.
-
 You can place the platform on your web host by:
 
 + Downloading the latest package from [the Known homepage](https://withknown.com/). This is by far the easiest option. If you’ve uploaded the files inside the archive to your web host, you can skip to the configuration section of these documents, below.
-+ Git clone the repository to an appropriate directory (or just straight into the folder root of your web host). Note that you need to make sure you acquire [the Git submodules](http://git-scm.com/book/en/v2/Git-Tools-Submodules). eg: ```git clone --recursive git@github.com:idno/known.git /path/to/webroot```
-+ If you git cloned the repository to your local disk, use a file transfer app to move the files to your web host.
-
-Explaining how to use Git is beyond the scope of this tutorial, but there are plenty of great tutorials on the web. Make sure to enable the [Git submodules](http://git-scm.com/book/en/v2/Git-Tools-Submodules). You’ll find the Known git repository URL on [the main Known GitHub page](https://github.com/idno/idno).
+* If you have more control over your server, you can also use Git to clone the code from [our repository](https://github.com/idno/known). Git is a technical source code management system that is out of scope for this guide, so if in doubt, use point one.
 
 ## Configure Known
 
@@ -68,6 +63,15 @@ If you need to use a non-standard database port, you can also select this:
 
 Additionally, you will need to create the database referred to in this configuration file, and ensure that it can be connected to using the user credentials you supply. For now, you will need to load the SQL schema stored in /schemas/mysql/mysql.sql.
 
+### If you're using SQLite
+
+As with MySQL, currently SQLite users need to create a ```config.ini``` in the root of their installation. This should contain the following information:
+
+    database = "Sqlite3"
+    dbname = "/path/to/sqlite.db"
+
+Assuming that you've got sqlite support built into PHP (this is usually provided by a module called php5-sqlite), and the location you select in dbname is writable, Known will automatically set up your database.
+
 ### Set the filesystem
 
 If you’re using MongoDB, you don’t have to do anything, and all uploaded files will be stored in MongoDB itself. However, you can also store files on your server’s local hard drive. Additionally, plugins can provide alternative filesystems like Amazon S3.
@@ -84,6 +88,8 @@ Then, add the following to your config.ini file:
     uploadpath = "/Users/ben/Sites/withknown.com/data/"
 
 Of course, replace the path with the path to your data folder.
+
+If you're using MySQL or SQLite, you must specify an upload directory if you want to store files, images or profile pictures.
 
 ### Load Known
 

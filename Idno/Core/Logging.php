@@ -14,6 +14,8 @@
             public $loglevel_filter = 4;
             private $identifier;
 
+            private $contexts = [];
+                
             /**
              * Create a basic logger to log to the PHP log.
              *
@@ -29,6 +31,38 @@
 
                 $this->loglevel_filter = $loglevel_filter;
                 $this->identifier      = $identifier;
+                $this->contexts        = [];
+            }
+            
+            /**
+             * Set the context
+             */
+            public function setContext($context) {
+                $this->clearContexts();
+                $this->pushContext($context);
+            }
+            
+            /**
+             * Clear logging contexts.
+             */
+            public function clearContexts() {
+                $this->contexts = [];
+            }
+            
+            /**
+             * Push a context onto log.
+             * @param type $context
+             */
+            public function pushContext($context) {
+                array_push($this->contexts, trim($context));
+            }
+            
+            /**
+             * Remove a logging context from the stack
+             * @return context
+             */
+            public function popContext() {
+                return array_pop($this->contexts);
             }
 
             /**
@@ -44,9 +78,9 @@
 
                     // Construct log message
 
-                    // Trace for debug
+                    // Trace for debug (when filtering is set to debug, always add a trace)
                     $trace = "";
-                    if ($level == 4) {
+                    if ($this->loglevel_filter == 4) {
                         $backtrace = @debug_backtrace(false, 2);
                         if ($backtrace) {
                             // Never show this
@@ -62,7 +96,13 @@
                     if ($level == 3) $level = "INFO";
                     if ($level == 4) $level = "DEBUG";
 
-                    error_log("Known ({$this->identifier}): $level - $message {$this->loglevel_filter}$trace");
+                    // Logging contexts
+                    $contexts = '';
+                    if (!empty($this->contexts)) {
+                        $contexts = ' ['.implode(';', $this->contexts).']';
+                    }
+                    
+                    error_log("Known ({$this->identifier}$contexts): $level - $message{$trace}");
                 }
             }
         }

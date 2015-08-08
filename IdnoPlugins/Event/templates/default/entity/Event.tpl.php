@@ -1,7 +1,18 @@
 <div >
-    <h2 class="p-name">
-        <a href="<?=$vars['object']->getURL()?>" class="u-url"><?= htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?></a>
-    </h2>
+    <?php
+
+        if (empty($vars['feed_view'])) {
+
+            ?>
+            <h2 class="p-name">
+                <a href="<?= $vars['object']->getURL() ?>"
+                   class="u-url"><?= htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?></a>
+            </h2>
+        <?php
+
+        }
+
+    ?>
     <div class="well">
         <p class="p-summary">
             <?= htmlentities(strip_tags($vars['object']->summary), ENT_QUOTES, 'UTF-8');?>

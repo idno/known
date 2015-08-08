@@ -20,20 +20,26 @@
         {
 
             /**
+             * Get activity streams posts by object UUID
+             * @param $uuid
+             * @return array|bool
+             */
+            static function getByObjectUUID($uuid)
+            {
+                if ($result = self::get(array('object' => $uuid), array(), 10000)) {
+                    return $result;
+                }
+
+                return false;
+            }
+
+            /**
              * Describes the entity that performed the activity.
              * @param \Idno\Common\Entity $actor
              */
             function setActor(\Idno\Common\Entity $actor)
             {
                 $this->actor = $actor->getUUID();
-            }
-
-            /**
-             * Get the actor associated with this entity
-             */
-            function getActor()
-            {
-                return \Idno\Common\Entity::getByUUID($this->actor);
             }
 
             /**
@@ -49,19 +55,6 @@
             }
 
             /**
-             * Retrieve the verb associated with this activity.
-             * @return string
-             */
-            function getVerb()
-            {
-                if (!empty($this->verb)) {
-                    return $this->verb;
-                } else {
-                    return 'post';
-                }
-            }
-
-            /**
              * Describes the primary object of the activity.
              * @param \Idno\Common\Entity $object
              */
@@ -72,15 +65,6 @@
                 if (!empty($object->created)) {
                     $this->created = $object->created;
                 }
-            }
-
-            /**
-             * Get the object associated with this stream entry
-             * @return \Idno\Common\Entity
-             */
-            function getObject()
-            {
-                return \Idno\Common\Entity::getByUUID($this->object);
             }
 
             /**
@@ -181,6 +165,15 @@
             }
 
             /**
+             * Get the object associated with this stream entry
+             * @return \Idno\Common\Entity
+             */
+            function getObject()
+            {
+                return \Idno\Common\Entity::getByUUID($this->object);
+            }
+
+            /**
              * Retrieves the URL of the contained object if there is one; otherwise the URL of this stream item.
              * @return string
              */
@@ -191,20 +184,6 @@
                 }
 
                 return $this->getURL();
-            }
-
-            /**
-             * Get activity streams posts by object UUID
-             * @param $uuid
-             * @return array|bool
-             */
-            static function getByObjectUUID($uuid)
-            {
-                if ($result = self::get(array('object' => $uuid), array(), 10000)) {
-                    return $result;
-                }
-
-                return false;
             }
 
             /**
@@ -226,6 +205,27 @@
                 );
 
                 return $serialization;
+            }
+
+            /**
+             * Get the actor associated with this entity
+             */
+            function getActor()
+            {
+                return \Idno\Common\Entity::getByUUID($this->actor);
+            }
+
+            /**
+             * Retrieve the verb associated with this activity.
+             * @return string
+             */
+            function getVerb()
+            {
+                if (!empty($this->verb)) {
+                    return $this->verb;
+                } else {
+                    return 'post';
+                }
             }
 
         }
