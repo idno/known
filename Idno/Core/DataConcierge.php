@@ -40,6 +40,15 @@
             }
 
             /**
+             * Performs database optimizations, depending on engine
+             * @return bool
+             */
+            function optimize()
+            {
+                return true;
+            }
+
+            /**
              * Offer a session handler for the current session
              */
             function handleSession()

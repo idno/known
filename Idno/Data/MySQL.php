@@ -111,6 +111,18 @@
                 return false;
             }
 
+            function optimize()
+            {
+                try {
+                    $this->client->query("optimize table entities");
+                    $this->client->query("optimize table metadata");
+                } catch (\Exception $e) {
+                    error_log($e->getMessage());
+                }
+
+                return false;
+            }
+
             /**
              * Handle the session in MySQL
              */

@@ -15,6 +15,7 @@
             function getContent()
             {
                 $this->adminGatekeeper(); // Admins only
+                \Idno\Core\site()->db()->optimize();
                 if ($messages = \Idno\Core\site()->getVendorMessages()) {
                     \Idno\Core\site()->session()->addMessage($messages);
                 }
