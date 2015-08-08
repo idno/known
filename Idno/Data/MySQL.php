@@ -116,6 +116,7 @@
                 try {
                     $this->client->query("optimize table entities");
                     $this->client->query("optimize table metadata");
+                    $this->client->query("optimize table session");
                 } catch (\Exception $e) {
                     error_log($e->getMessage());
                 }
