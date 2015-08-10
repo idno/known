@@ -11,9 +11,9 @@
                 \Idno\Core\site()->addPageHandler('withknown/syndication/?', '\IdnoPlugins\Convoy\Pages\Syndication');
                 \Idno\Core\site()->addPageHandler('convoy/token/?', '\IdnoPlugins\Convoy\Pages\Token');
 
-                if (\Idno\Core\site()->hub() || \Idno\Core\site()->session()->isAdmin()) {
-                    \Idno\Core\site()->template()->extendTemplate('account/menu/items','convoy/account/menu', true);
-                }
+                //if (\Idno\Core\site()->hub() || \Idno\Core\site()->session()->isAdmin()) {
+                \Idno\Core\site()->template()->extendTemplate('account/menu/items','convoy/account/menu', true);
+                //}
 
                 if ($this->isConvoyEnabled()) {
                     \Idno\Core\site()->session()->hub_connect = time();
