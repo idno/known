@@ -111,6 +111,10 @@
                 return false;
             }
 
+            /**
+             * Optimize tables - this can reduce overall database storage space and query time
+             * @return bool
+             */
             function optimize()
             {
                 try {
