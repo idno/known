@@ -133,6 +133,8 @@
                 \Idno\Core\site()->session()->publicGatekeeper();
 
                 \Idno\Core\site()->template()->autodetectTemplateType();
+                
+                \Idno\Core\Actions::validateToken();
 
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
@@ -195,6 +197,8 @@
                 \Idno\Core\site()->session()->publicGatekeeper();
 
                 \Idno\Core\site()->template()->autodetectTemplateType();
+                
+                \Idno\Core\Actions::validateToken();
 
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
@@ -254,6 +258,8 @@
                 \Idno\Core\site()->session()->publicGatekeeper();
 
                 \Idno\Core\site()->template()->autodetectTemplateType();
+                
+                \Idno\Core\Actions::validateToken();
 
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
