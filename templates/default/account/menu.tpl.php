@@ -8,4 +8,16 @@
     <li <?php if ($_SERVER['REQUEST_URI'] == '/account/settings/tools/') echo 'class="active"'; ?> role="presentation">
         <a href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>account/settings/tools/">Tools and Apps</a></li>
     <?= $this->draw('account/menu/items') ?>
+    <?php
+
+        if (\Idno\Core\site()->config()->show_directory) {
+
+            ?>
+        <li <?php if ($_SERVER['REQUEST_URI'] == '/directory/') echo 'class="active"'; ?> role="presentation">
+            <a href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>directory/">Member Directory</a></li>
+            <?php
+
+        }
+
+    ?>
 </ul>
