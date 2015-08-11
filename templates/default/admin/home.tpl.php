@@ -96,11 +96,27 @@
                 </div>
             </div>
 
+            <!---------->
+            <div class="row">
+                <div class="col-md-2">
+                    <p><label class="control-label" for="open_registration"><strong>Show members directory</strong></label></p>
+                </div>
+                <div class="config-toggle col-md-4">
+                    <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
+                           name="show_directory"
+                           value="true" <?php if (\Idno\Core\site()->config()->show_directory == true) echo 'checked'; ?>>
+                </div>
+                <div class="col-md-6">
+                    <p class="config-desc">Allows logged-in users to see a directory of all site members.</p>
+                </div>
+            </div>
+
             <?php
 
                 if (\Idno\Core\site()->config()->walled_garden == true || \Idno\Core\site()->config()->canMakeSitePrivate()) {
 
                     ?>
+
                     <!---------->
                     <div class="row">
                         <div class="col-md-2">
