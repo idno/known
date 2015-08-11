@@ -61,8 +61,9 @@
 
         <h2>API</h2>
         <p>
+            <form id="apikey_form"><?= $t->__(['action' => '/account/settings/tools/'])->draw('forms/token')?>
             Your API key: <input type="text" id="apikey" class="span4" name="apikey"
-                                 value="Click to show" readonly> <?php
+                                 value="Click to show" readonly></form> <?php
                                  if (!empty($user->apikey)) {
                                      echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->currentPage()->currentUrl(), 'Revoke', array('_method' => 'revoke'), array('method' => 'POST', 'class' => 'btn btn-danger', 'confirm' => true, 'confirm-text' => 'Revoking this key will mean you must update any applications that use this key!')); 
                                  } ?>
@@ -78,6 +79,7 @@
             
             $.ajax('<?= \Idno\Core\site()->currentPage()->currentUrl(); ?>', {
                 dataType: 'json',
+                data: $('#apikey_form').serialize(),
                 success: function(data) {
                     ctrl.val(data);
                     $('#apikey-revoke').fadeIn();
