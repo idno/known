@@ -250,7 +250,7 @@
                     if (is_array($array['profile'])) {
                         foreach($array['profile'] as $profile_item) {
                             if (is_array($profile_item)) {
-                                
+
                             } else {
                                 $search .= strip_tags($profile_item) . ' ';
                             }
