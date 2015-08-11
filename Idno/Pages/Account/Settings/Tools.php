@@ -32,6 +32,8 @@
             {
                 $this->createGatekeeper();
                 
+                \Idno\Core\Actions::validateToken(\Idno\Core\site()->currentPage()->currentUrl());
+                
                 $user = \Idno\Core\site()->session()->currentUser();
                 if (!empty($user)) {
                     
