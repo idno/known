@@ -1128,8 +1128,9 @@
 
             function getShortDescription($words = 25)
             {
-                if (!empty($this->short_description))
+                if (!empty($this->short_description)) {
                     return $this->short_description;
+                }
 
                 $description = strip_tags($this->getDescription());
                 $description = implode(' ', array_slice(explode(' ', $description), 0, $words));
