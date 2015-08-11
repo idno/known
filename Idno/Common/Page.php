@@ -134,7 +134,9 @@
 
                 \Idno\Core\site()->template()->autodetectTemplateType();
                 
-                \Idno\Core\Actions::validateToken();
+                if (!\Idno\Core\Actions::validateToken('', false)) {
+                    throw new \Exception("Sorry, security token provided was not valid.");
+                }
 
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
@@ -198,7 +200,9 @@
 
                 \Idno\Core\site()->template()->autodetectTemplateType();
                 
-                \Idno\Core\Actions::validateToken();
+                if (!\Idno\Core\Actions::validateToken('', false)) {
+                    throw new \Exception("Sorry, security token provided was not valid.");
+                }
 
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
@@ -259,7 +263,9 @@
 
                 \Idno\Core\site()->template()->autodetectTemplateType();
                 
-                \Idno\Core\Actions::validateToken();
+                if (!\Idno\Core\Actions::validateToken('', false)) {
+                    throw new \Exception("Sorry, security token provided was not valid.");
+                }
 
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
