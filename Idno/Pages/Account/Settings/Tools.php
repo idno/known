@@ -17,6 +17,7 @@
                 $this->createGatekeeper(); // Logged-in only please
 
                 if ($this->xhr) {
+                    \Idno\Core\Actions::validateToken('/account/settings/tools/');
                     $user = \Idno\Core\site()->session()->currentUser();
                     echo json_encode($user->getAPIkey());
                 } else {
