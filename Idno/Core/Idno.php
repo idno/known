@@ -169,7 +169,6 @@
                 /** Users */
                 $this->addPageHandler('/profile/([^\/]+)/?', '\Idno\Pages\User\View');
                 $this->addPageHandler('/profile/([^\/]+)/edit/?', '\Idno\Pages\User\Edit');
-                $this->addPageHandler('/directory/?', '\Idno\Pages\Members\Directory');
 
                 /** Search */
                 $this->addPageHandler('/search/?', '\Idno\Pages\Search\Forward');
