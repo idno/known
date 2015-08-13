@@ -45,6 +45,7 @@
                 $user_address = \Idno\Core\site()->currentPage()->getInput('user_address');
                 $placename    = \Idno\Core\site()->currentPage()->getInput('placename');
                 $tags         = \Idno\Core\site()->currentPage()->getInput('tags');
+                $access       = \Idno\Core\site()->currentPage()->getInput('access');
 
                 if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
                     if ($time = strtotime($time)) {
@@ -59,7 +60,7 @@
                     $this->title     = 'Checked into ' . $placename;
                     $this->body      = $body;
                     $this->address   = $user_address;
-                    $this->setAccess('PUBLIC');
+                    $this->setAccess($access);
                     $this->tags = $tags;
                     if ($this->save($new)) {
                         if ($new) {
