@@ -1649,3 +1649,22 @@ video {
 audio {
     width: 100%;
 }
+
+/* Member directory */
+
+.member-directory .member-name {
+    font-size: 1.3em;
+}
+
+.member-directory .member-icon {
+    height: 50px;
+}
+
+.member-directory .light-description a,
+.member-directory .light-description {
+    color: #888;
+}
+
+.member-directory .fa-chevron-right {
+    font-size: 1.5em;
+}

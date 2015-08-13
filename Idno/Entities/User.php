@@ -227,6 +227,35 @@
             }
 
             /**
+             * Retrieve a one-line text description of this user
+             *
+             * @param int $words
+             * @return string
+             */
+            function getShortDescription($words = 25)
+            {
+                if (!empty($this->profile['tagline'])) {
+                    $tagline = $this->profile['tagline'];
+                } else if (!empty($this->short_description)) {
+                    $tagline = $this->short_description;
+                } else {
+                    $tagline = $this->getDescription();
+                }
+
+                if (!empty($tagline)) {
+                    $description = strip_tags($tagline);
+                    $description_words = explode(' ', $description);
+                    $description = implode(' ', array_slice($description_words, 0, $words));
+                    if (sizeof($description_words) > $words) {
+                        $description .= ' ...';
+                    }
+                    return $description;
+                }
+
+                return '';
+            }
+
+            /**
              * Sets this user's username handle (and balks if someone's already using it)
              * @param string $handle
              * @return true|false True or false depending on success
@@ -445,6 +474,15 @@
                 if (!empty($handle) && !empty($title)) return true;
 
                 return false;
+            }
+
+            /**
+             * Count the number of posts this user has made
+             * @return int
+             */
+            function countPosts()
+            {
+                return \Idno\Entities\ActivityStreamPost::countFromX('Idno\Entities\ActivityStreamPost', array('owner' => $this->getUUID()));
             }
 
             /**

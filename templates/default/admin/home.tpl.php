@@ -72,6 +72,8 @@
                 </div>
             </div>
 
+            <?=$this->draw('admin/home/settings/details')?>
+
             <!----------->
 
             <div class="row">
@@ -101,6 +103,7 @@
                 if (\Idno\Core\site()->config()->walled_garden == true || \Idno\Core\site()->config()->canMakeSitePrivate()) {
 
                     ?>
+
                     <!---------->
                     <div class="row">
                         <div class="col-md-2">
@@ -147,6 +150,8 @@
                     <?php
 
                 }
+
+                echo $this->draw('admin/home/settings/privacy');
                 
             ?>
 
@@ -210,6 +215,8 @@
             </div>
 
             <!---------->
+
+            <?=$this->draw('admin/home/settings/technical')?>
 
             <?=$this->draw('admin/home/settings')?>
 

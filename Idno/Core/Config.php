@@ -357,6 +357,20 @@
             }
 
             /**
+             * Make sure attachment URL is pointing to the right place
+             * @param $url
+             * @return mixed
+             */
+            function sanitizeAttachmentURL($url)
+            {
+                if (!empty(\Idno\Core\site()->config()->attachment_base_host)) {
+                    $host = parse_url($url, PHP_URL_HOST);
+                    return str_replace($host, \Idno\Core\site()->config()->attachment_base_host, $url);
+                }
+                return $url;
+            }
+
+            /**
              * Get a version of the URL without URI scheme or trailing slash
              * @return string
              */

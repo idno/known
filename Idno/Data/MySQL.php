@@ -111,6 +111,10 @@
                 return false;
             }
 
+            /**
+             * Optimize tables - this can reduce overall database storage space and query time
+             * @return bool
+             */
             function optimize()
             {
                 try {
@@ -238,6 +242,20 @@
                 }
                 if (!empty($array['body'])) {
                     $search .= strip_tags($array['body']);
+                }
+                if (!empty($array['handle'])) {
+                    $search .= $array['handle'] . ' ';
+                }
+                if (!empty($array['profile'])) {
+                    if (is_array($array['profile'])) {
+                        foreach($array['profile'] as $profile_item) {
+                            if (is_array($profile_item)) {
+
+                            } else {
+                                $search .= strip_tags($profile_item) . ' ';
+                            }
+                        }
+                    }
                 }
                 if (empty($array['entity_subtype'])) {
                     $array['entity_subtype'] = 'Idno\\Common\\Entity';
