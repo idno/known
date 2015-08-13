@@ -45,7 +45,6 @@
                 $indieweb_reference   = $this->getInput('indieweb_reference');
                 $user_avatar_favicons = $this->getInput('user_avatar_favicons');
                 $wayback_machine      = $this->getInput('wayback_machine');
-                $show_directory       = $this->getInput('show_directory');
                 $items_per_page       = (int)$this->getInput('items_per_page');
                 if ($open_registration == 'true') {
                     $open_registration = true;
@@ -61,11 +60,6 @@
                     $show_privacy = true;
                 } else {
                     $show_privacy = false;
-                }
-                if ($show_directory == 'true') {
-                    $show_directory = true;
-                } else {
-                    $show_directory = false;
                 }
                 if ($indieweb_citation == 'true') {
                     $indieweb_citation = true;
@@ -98,11 +92,13 @@
                 \Idno\Core\site()->config->config['open_registration']    = $open_registration;
                 \Idno\Core\site()->config->config['walled_garden']        = $walled_garden;
                 \Idno\Core\site()->config->config['show_privacy']         = $show_privacy;
-                \Idno\Core\site()->config->config['show_directory']       = $show_directory;
                 \Idno\Core\site()->config->config['indieweb_citation']    = $indieweb_citation;
                 \Idno\Core\site()->config->config['indieweb_reference']   = $indieweb_reference;
                 \Idno\Core\site()->config->config['user_avatar_favicons'] = $user_avatar_favicons;
                 \Idno\Core\site()->config->config['wayback_machine']      = $wayback_machine;
+
+                \Idno\Core\site()->triggerEvent('admin/home/save');
+
                 \Idno\Core\site()->config()->save();
                 $this->forward(\Idno\Core\site()->config()->getURL() . 'admin/');
             }
