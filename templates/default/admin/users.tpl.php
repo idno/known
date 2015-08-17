@@ -189,7 +189,7 @@
 
                 <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/users" method="post">
 
-                    <h3>Block users</h3>
+                    <h3>Block email addresses</h3>
 
                     <p>
                         By blocking email addresses, you prevent people using those email addresses from registering on
