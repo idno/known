@@ -40,7 +40,7 @@
                                     <small><?= $user->email ?></small>
                                 </p>
                             </div>
-                            <div class="col-sm-3 col-xs-6">
+                            <div class="col-sm-2 col-xs-6">
                                 <p class="user-tbl">
                                     <small><strong>Joined</strong><br><time datetime="<?= date('r', $user->created) ?>" class="dt-published"><?= date('r', $user->created) ?></time></small>
                                 </p>
@@ -90,7 +90,7 @@
                                     </small>
                                 </p>
                             </div>
-                            <div class="col-sm-1 col-xs-6">
+                            <div class="col-sm-2 col-xs-6">
                                 <p class="user-tbl"><small>
                 <?php
                 if ($user->getUUID() != \Idno\Core\site()->session()->currentUserUUID()) {
