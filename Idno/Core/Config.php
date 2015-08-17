@@ -441,6 +441,7 @@
                         $count++;
                         unset($emails[$key]);
                     }
+                    site()->config()->blocked_emails = $emails;
                     return $count;
                 }
                 return false;
