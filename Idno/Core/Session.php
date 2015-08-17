@@ -43,7 +43,6 @@
                 session_start();
                 session_cache_limiter('public');
 
-
                 // Flag insecure sessions (so we can check state changes etc)
                 if (!isset($_SESSION['secure'])) {
                     $_SESSION['secure'] = site()->isSecure();
@@ -57,7 +56,6 @@
                     error_log($ex->getMessage());
                     session_destroy();
                 }
-
 
                 // Session login / logout
                 site()->addPageHandler('/session/login', '\Idno\Pages\Session\Login', true);
@@ -468,7 +466,11 @@
             function refreshCurrentSessionuser()
             {
                 if (!$this->currentUser() && !empty($_SESSION['user_uuid'])) {
-                    $this->user = User::getByUUID($_SESSION['user_uuid']);
+                    if ($this->user = User::getByUUID($_SESSION['user_uuid'])) {
+                        if (site()->config()->emailIsBlocked($this->user->email)) {
+                            $this->logUserOff();
+                        }
+                    }
                 } else if ($this->isLoggedIn()) {
                     $user_uuid = $this->currentUserUUID();
                     if ($user = User::getByUUID($user_uuid)) {
