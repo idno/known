@@ -1,1 +1,1 @@
-<i class="icon-sdcld"></i>
+<i class="fa fa-soundcloud"></i>

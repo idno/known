@@ -1,1 +1,1 @@
-<i class="icon-flkr"></i>
+<i class="fa fa-flickr"></i>
