@@ -1661,10 +1661,12 @@ audio {
 }
 
 .member-directory .light-description a,
-.member-directory .light-description {
-    color: #888;
+.member-directory .light-description {    
+	color: #888;
+    margin-top: 0.5em;
 }
 
 .member-directory .fa-chevron-right {
     font-size: 1.5em;
+    margin-top: 0.5em;
 }
