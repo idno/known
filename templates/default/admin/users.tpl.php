@@ -196,7 +196,7 @@
                         your site. Enter the email addresses you want to block below.
                     </p>
 
-                    <textarea name="blocked_emails" class="form-control" placeholder="friend@email.com"></textarea>
+                    <textarea name="blocked_emails" class="form-control" placeholder="user@email.com"></textarea>
 
                     <p>
                         <input type="submit" class="btn btn-primary" value="Block email addresses">
