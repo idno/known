@@ -434,12 +434,14 @@
              */
             function removeBlockedEmail($email)
             {
+                $count = 0;
                 $email = trim(strtolower($email));
                 if ($emails = $this->getBlockedEmails()) {
                     foreach (array_keys($emails, $email, true) as $key) {
+                        $count++;
                         unset($emails[$key]);
                     }
-                    return $this->blocked_emails = $emails;
+                    return $count;
                 }
                 return false;
             }

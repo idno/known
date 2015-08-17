@@ -199,7 +199,7 @@
                         } else if ($block_count == 1) {
                             \Idno\Core\site()->session()->addMessage("The email address was unblocked.");
                         } else {
-                            \Idno\Core\site()->session()->addMessage("No email addresses were found. {$emails}");
+                            \Idno\Core\site()->session()->addMessage("No email addresses were found.");
                         }
                         break;
                 }
