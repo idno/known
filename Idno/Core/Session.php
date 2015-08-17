@@ -430,10 +430,12 @@
 
             function logUserOn(\Idno\Entities\User $user)
             {
+                if (site()->config()->emailIsBlocked($user->email)) {
+                    $this->logUserOff();
+                    return false;
+                }
                 $return = $this->refreshSessionUser($user);
-
                 @session_regenerate_id(true);
-
                 return \Idno\Core\site()->triggerEvent('user/auth', array('user' => $user), $return);
             }
 
@@ -445,6 +447,12 @@
             function refreshSessionUser(\Idno\Entities\User $user)
             {
                 if ($user = User::getByUUID($user->getUUID())) {
+
+                    if (site()->config()->emailIsBlocked($user->email)) {
+                        $this->logUserOff();
+                        return false;
+                    }
+
                     $_SESSION['user_uuid'] = $user->getUUID();
                     $this->user            = $user;
 

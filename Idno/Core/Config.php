@@ -428,6 +428,23 @@
             }
 
             /**
+             * Remove an email address from the blocklist
+             * @param $email
+             * @return array|bool
+             */
+            function removeBlockedEmail($email)
+            {
+                $email = trim(strtolower($email));
+                if ($emails = $this->getBlockedEmails()) {
+                    foreach (array_keys($emails, $email, true) as $key) {
+                        unset($emails[$key]);
+                    }
+                    return $this->blocked_emails = $emails;
+                }
+                return false;
+            }
+
+            /**
              * Is the specified email address blocked from registering?
              * @param $email
              * @return bool
