@@ -1670,3 +1670,28 @@ audio {
     font-size: 1.5em;
     margin-top: 0.5em;
 }
+/* Syndication Panels */
+.panel-default > .panel-heading {
+    background-color: #f0f0f0;
+    border-color: #f0f0f0;
+    color: #fff;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom: 1px solid #adadad;
+}
+.panel-default {
+    border-color: #adadad;
+    border-radius: 0px; 
+}
+.panel-title {
+	color:#999;
+	font-weight: 400;
+}
+.panel-group {
+	margin-bottom: 0px;
+	border-bottom: none;
+	margin-top: 10px;
+}
+textarea.form-control {
+    height: 10em;
+}
