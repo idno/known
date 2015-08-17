@@ -152,6 +152,31 @@
                             \Idno\Core\site()->session()->addMessageAtStart("We couldn't register that user.");
                         }
                         break;
+                    case 'block_email':
+                        $emails = $this->getInput('blocked_emails');
+                        preg_match_all('/[a-z\d._%+-]+@[a-z\d.-]+\.[a-z]{2,4}\b/i', $emails, $matches);
+
+                        $block_count = 0;
+
+                        if (!empty($matches[0])) {
+                            if (is_array($matches[0])) {
+                                foreach ($matches[0] as $email) {
+                                    if (\Idno\Core\site()->config()->addBlockedEmail($email)) {
+                                        $block_count++;
+                                    }
+                                }
+                                \Idno\Core\site()->config()->save();
+                            }
+                        }
+
+                        if ($block_count > 1) {
+                            \Idno\Core\site()->session()->addMessage("{$block_count} emails were blocked.");
+                        } else if ($block_count == 1) {
+                            \Idno\Core\site()->session()->addMessage("The email address was blocked.");
+                        } else {
+                            \Idno\Core\site()->session()->addMessage("No email addresses were found.");
+                        }
+                        break;
                 }
 
                 $this->forward(\Idno\Core\site()->config()->getURL() . 'admin/users');

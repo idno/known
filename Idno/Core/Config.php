@@ -400,6 +400,52 @@
             }
 
             /**
+             * Retrieve an array of email addresses that are blocked from registering on this site.
+             * @return array
+             */
+            function getBlockedEmails()
+            {
+                $emails = [];
+                if (!empty($this->blocked_emails)) {
+                    $emails = $this->blocked_emails;
+                }
+                return $emails;
+            }
+
+            /**
+             * Adds an email address to the blocked list
+             * @param $email
+             * @return array|bool
+             */
+            function addBlockedEmail($email)
+            {
+                if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $emails = $this->getBlockedEmails();
+                    $emails[] = trim(strtolower($email));
+                    return $this->blocked_emails = $emails;
+                }
+                return false;
+            }
+
+            /**
+             * Is the specified email address blocked from registering?
+             * @param $email
+             * @return bool
+             */
+            function emailIsBlocked($email)
+            {
+                $email = trim(strtolower($email));
+                if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    if ($emails = $this->getBlockedEmails()) {
+                        if (in_array($email, $emails)) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+
+            /**
              * Does this site have SSL?
              * @return bool
              */

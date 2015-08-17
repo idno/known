@@ -139,6 +139,15 @@
 
                 </form>
 
+            </div>
+        </div>
+        <?php
+        /*
+         * Temporarily removing this feature due to some security concerns
+         *
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+
                 <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/users" method="post">
 
                     <h3>Create a new user</h3>
@@ -167,6 +176,31 @@
                     </p>
 
                 </form>
+            </div>
+        </div>
+        */ ?>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+
+                <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/users" method="post">
+
+                    <h3>Block users</h3>
+
+                    <p>
+                        By blocking email addresses, you prevent people using those email addresses from registering on
+                        your site. Enter the email addresses you want to block below.
+                    </p>
+
+                    <textarea name="blocked_emails" class="form-control" placeholder="friend@email.com"></textarea>
+
+                    <p>
+                        <input type="submit" class="btn btn-primary" value="Block email addresses">
+                        <input type="hidden" name="action" value="block_emails">
+                        <?= \Idno\Core\site()->actions()->signForm('/admin/users') ?>
+                    </p>
+
+                </form>
+
             </div>
         </div>
 <?php
