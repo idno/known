@@ -140,7 +140,7 @@
                     <div id="checkinMap" style="height: 250px" ></div>
                 </div>
             </div>
-            
+
             <?= $this->__([
                 'name' => 'body',
                 'value' => $vars['object']->body,
