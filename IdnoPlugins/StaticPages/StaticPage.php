@@ -26,6 +26,15 @@
                 return '';
             }
 
+            function getPriority()
+            {
+                if (!empty($this->priority)) {
+                    return $this->priority;
+                }
+
+                return 0;
+            }
+
             function getActivityStreamsObjectType()
             {
                 return 'article';
