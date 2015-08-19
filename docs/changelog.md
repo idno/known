@@ -2,6 +2,12 @@
 
 Starting with version 0.6.4, this is a list of changes in the self-hosted, open source version of Known.
 
+0.8.3.1
+-------
+August 19, 2015
+
+* Fixing a bug with account settings
+
 0.8.3
 -----
 August 18, 2015
