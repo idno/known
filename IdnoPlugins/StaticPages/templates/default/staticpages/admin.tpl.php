@@ -207,6 +207,7 @@
                 var pageGroups = $('.sortable-pages');
                 var container = pageGroups.parent();
                 pageGroups.detach();
+                container.append(pageGroups.filter('[data-value="No Category"]'));
                 $('#sortable-categories [data-value]').each(function () {
                     container.append(pageGroups.filter('[data-value="'+$(this).data('value')+'"]'));
                 });
