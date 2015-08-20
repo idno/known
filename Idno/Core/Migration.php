@@ -14,7 +14,7 @@
              */
             static function exportToFolder($dir = false)
             {
-
+                
                 set_time_limit(0);  // Switch off the time limit for PHP
                 site()->currentPage()->setPermalink(true);
 
@@ -64,8 +64,13 @@
                 $fields           = array();
                 $query_parameters = array('entity_subtype' => array('$not' => array('$in' => array('Idno\Entities\ActivityStreamPost'))));
                 $collection       = 'entities';
-                if ($results = site()->db()->getRecords($fields, $query_parameters, 99999, 0, $collection)) {
+                
+                $limit = 10;
+                $offset = 0;
+                
+                while ($results = site()->db()->getRecords($fields, $query_parameters, $limit, $offset, $collection)) {
                     foreach ($results as $id => $row) {
+
                         $object = site()->db()->rowToEntity($row);
                         if (!empty($object->_id) && $object instanceof Entity) {
                             $object_name = $object->_id;
@@ -85,8 +90,8 @@
                             if (!empty($attachments)) {
                                 foreach ($attachments as $key => $attachment) {
                                     if ($data = File::getFileDataFromAttachment($attachment)) {
-                                        $filename = $attachment['_id'];
-                                        $id       = $attachment['_id'];
+                                        $filename = "" . $attachment['_id'];
+                                        $id       = "" . $attachment['_id']; // Ensure MongoIDs are cast to string (see #978)
                                         if ($ext = pathinfo($attachment['url'], PATHINFO_EXTENSION)) {
                                             $filename .= '.' . $ext;
                                         }
@@ -129,6 +134,9 @@
                             gc_collect_cycles();    // Clean memory
                         }
                     }
+                    
+                    $results = null;
+                    $offset += $limit;
                 }
 
                 if ($exported_records = \Idno\Core\site()->db()->exportRecords()) {
