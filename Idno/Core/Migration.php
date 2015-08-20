@@ -135,6 +135,7 @@
                         }
                     }
                     
+                    $results = null;
                     $offset += $limit;
                 }
 
