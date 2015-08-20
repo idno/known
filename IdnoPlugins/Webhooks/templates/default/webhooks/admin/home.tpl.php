@@ -37,24 +37,39 @@
                     foreach(\Idno\Core\site()->config()->webhook_syndication as $webhook) {
 
 ?>
-                        <p>
-                            <input type="text" name="titles[]" value="<?=htmlspecialchars($webhook['title'])?>" placeholder="Name of this webhook" class="span3">
-                            <input type="text" name="webhooks[]" value="<?=htmlspecialchars($webhook['url'])?>" placeholder="Webhook URL" class="span5">
-                            <small><a href="#" onclick="$(this).closest('p').remove(); return false;">- Remove</a></small>
-                        </p>
+				<div class="row">
+					<div class="col-md-4">
+                        <input type="text" name="titles[]" value="<?=htmlspecialchars($webhook['title'])?>" placeholder="Name of this webhook" class="form-control">
+					</div>
+					<div class="col-md-5">
+                        <input type="text" name="webhooks[]" value="<?=htmlspecialchars($webhook['url'])?>" placeholder="Webhook URL" class="form-control">
+					</div>
+					<div class="col-md-3" style="margin-top: 0.75em">
+                        <small><a href="#" onclick="$(this).closest('p').remove(); return false;"><i class="fa fa-times"></i> Remove this Webhook</a></small>
+					</div>
+				</div>
 <?php
 
                     }
                 }
 
             ?>
-            <p>
-                <input type="text" value="" name="titles[]" placeholder="Name of this webhook" class="span3">
-                <input type="text" value="" name="webhooks[]" placeholder="Webhook URL" class="span5">
-                <small><a href="#" onclick="$(this).closest('p').remove(); return false;"><icon class="icon-remove"></icon> Remove this Webhook</a></small>
-            </p>
+            <div class="row">
+	            <div class="col-md-4">
+	                <input type="text" value="" name="titles[]" placeholder="Name of this webhook" class="form-control">
+	            </div>
+				<div class="col-md-5">
+	                <input type="text" value="" name="webhooks[]" placeholder="Webhook URL" class="form-control">
+				</div>
+				<div class="col-md-3" style="margin-top: 0.75em">
+	                <small><a href="#" onclick="$(this).closest('p').remove(); return false;"><i class="fa fa-times"></i> Remove this Webhook</a></small>
+	        	</div>
+            </div>
             <div id="morefields"></div>
-            <p><a href="#" onclick="$('#morefields').append($('#field_template').html());"><icon class="icon-plus"></icon> Add another Webhook</a></p>
+            
+            	<p style="margin-top:1em; margin-bottom:1.5em">
+	            	<a href="#" onclick="$('#morefields').append($('#field_template').html());"><i class="fa fa-plus"></i> Add another Webhook</a>
+	            </p>
             <p>
                 <?= \Idno\Core\site()->actions()->signForm('/admin/webhooks/') ?>
                 <input class="btn btn-primary" value="Save Webhooks" type="submit">

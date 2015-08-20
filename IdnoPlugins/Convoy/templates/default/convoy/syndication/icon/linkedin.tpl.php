@@ -1,1 +1,1 @@
-<i class="icon-li"></i>
+<i class="fa fa-linkedin"></i>

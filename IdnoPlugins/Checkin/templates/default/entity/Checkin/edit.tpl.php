@@ -140,14 +140,17 @@
                     <div id="checkinMap" style="height: 250px" ></div>
                 </div>
             </div>
-            
-            <div class="content-form">
-                <label for="body">
-                    Comments</label>
-                    <input type="text" name="body" id="body" placeholder="" value="<?= htmlspecialchars($vars['object']->body) ?>"
-                           class="form-control"/>
-                </label>
-            </div>
+
+            <?= $this->__([
+                'name' => 'body',
+                'value' => $vars['object']->body,
+                'object' => $object,
+                'wordcount' => false,
+                'class' => 'wysiwyg-short',
+                'height' => 100,
+                'placeholder' => '',
+                'label' => 'Description'
+            ])->draw('forms/input/richtext')?>
             <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to" value="<?= \Idno\Core\site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
             <?=$this->draw('entity/tags/input');?>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('place'); ?>

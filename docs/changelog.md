@@ -2,6 +2,27 @@
 
 Starting with version 0.6.4, this is a list of changes in the self-hosted, open source version of Known.
 
+0.8.3.1
+-------
+August 19, 2015
+
+* Fixing a bug with account settings
+
+0.8.3
+-----
+August 18, 2015
+
+* Block users by email address
+* Fixes a bug with per-item access permissions in location check-ins
+* Improved Convoy display for syndicated content
+* Most content types now have a rich text editor
+* Improved brid.gy interactions
+* Improved audio player display
+* Improved RSS feed display
+* Fixed an issue with saving configuration
+* Experimental Postgres support
+* Such dogeon support so removed wow
+
 0.8.2
 -----
 July 22, 2015

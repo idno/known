@@ -400,6 +400,72 @@
             }
 
             /**
+             * Retrieve an array of email addresses that are blocked from registering on this site.
+             * @return array
+             */
+            function getBlockedEmails()
+            {
+                $emails = [];
+                if (!empty($this->blocked_emails)) {
+                    $emails = $this->blocked_emails;
+                }
+                return $emails;
+            }
+
+            /**
+             * Adds an email address to the blocked list
+             * @param $email
+             * @return array|bool
+             */
+            function addBlockedEmail($email)
+            {
+                if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $emails = $this->getBlockedEmails();
+                    $emails[] = trim(strtolower($email));
+                    return $this->blocked_emails = $emails;
+                }
+                return false;
+            }
+
+            /**
+             * Remove an email address from the blocklist
+             * @param $email
+             * @return array|bool
+             */
+            function removeBlockedEmail($email)
+            {
+                $count = 0;
+                $email = trim(strtolower($email));
+                if ($emails = $this->getBlockedEmails()) {
+                    foreach (array_keys($emails, $email, true) as $key) {
+                        $count++;
+                        unset($emails[$key]);
+                    }
+                    site()->config()->blocked_emails = $emails;
+                    return $count;
+                }
+                return false;
+            }
+
+            /**
+             * Is the specified email address blocked from registering?
+             * @param $email
+             * @return bool
+             */
+            function emailIsBlocked($email)
+            {
+                $email = trim(strtolower($email));
+                if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    if ($emails = $this->getBlockedEmails()) {
+                        if (in_array($email, $emails)) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+
+            /**
              * Does this site have SSL?
              * @return bool
              */

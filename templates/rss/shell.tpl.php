@@ -54,16 +54,18 @@
             if (!($item instanceof \Idno\Common\Entity)) {
                 continue;
             }
-            $rssItem = $page->createElement('item');
-            if ($title = $item->getTitle()) {
-                $rssItem->appendChild($page->createElement('title',$item->getTitle()));
+            $title = $item->getTitle();
+            if (empty($title)) {
+                $title = $item->getShortDescription(5);
             }
-            $rssItem->appendChild($page->createElement('link',$item->getDisplayURL()));
+            $rssItem = $page->createElement('item');
+            $rssItem->appendChild($page->createElement('title',$title));
+            $rssItem->appendChild($page->createElement('link',$item->getSyndicationURL()));
             $rssItem->appendChild($page->createElement('guid',$item->getUUID()));
             $rssItem->appendChild($page->createElement('pubDate',date(DATE_RSS,$item->created)));
             
             $owner = $item->getOwner();
-            $rssItem->appendChild($page->createElement('author', "{$owner->email} ({$owner->title})"));
+            $rssItem->appendChild($page->createElement('author', "{$owner->title}"));
             //$rssItem->appendChild($page->createElement('dc:creator', $owner->title));
             
             $description = $page->createElement('description');

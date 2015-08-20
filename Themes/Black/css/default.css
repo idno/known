@@ -422,7 +422,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 
 ul, ol {
     margin: 0 0 10px 0;
-    padding: 0;
+ /*   padding: 0;*/
 }
 .navbar-default .navbar-brand {
     color: #000;

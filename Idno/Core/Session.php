@@ -43,7 +43,6 @@
                 session_start();
                 session_cache_limiter('public');
 
-
                 // Flag insecure sessions (so we can check state changes etc)
                 if (!isset($_SESSION['secure'])) {
                     $_SESSION['secure'] = site()->isSecure();
@@ -57,7 +56,6 @@
                     error_log($ex->getMessage());
                     session_destroy();
                 }
-
 
                 // Session login / logout
                 site()->addPageHandler('/session/login', '\Idno\Pages\Session\Login', true);
@@ -430,10 +428,12 @@
 
             function logUserOn(\Idno\Entities\User $user)
             {
+                if (site()->config()->emailIsBlocked($user->email)) {
+                    $this->logUserOff();
+                    return false;
+                }
                 $return = $this->refreshSessionUser($user);
-
                 @session_regenerate_id(true);
-
                 return \Idno\Core\site()->triggerEvent('user/auth', array('user' => $user), $return);
             }
 
@@ -445,6 +445,12 @@
             function refreshSessionUser(\Idno\Entities\User $user)
             {
                 if ($user = User::getByUUID($user->getUUID())) {
+
+                    if (site()->config()->emailIsBlocked($user->email)) {
+                        $this->logUserOff();
+                        return false;
+                    }
+
                     $_SESSION['user_uuid'] = $user->getUUID();
                     $this->user            = $user;
 
@@ -460,7 +466,11 @@
             function refreshCurrentSessionuser()
             {
                 if (!$this->currentUser() && !empty($_SESSION['user_uuid'])) {
-                    $this->user = User::getByUUID($_SESSION['user_uuid']);
+                    if ($this->user = User::getByUUID($_SESSION['user_uuid'])) {
+                        if (site()->config()->emailIsBlocked($this->user->email)) {
+                            $this->logUserOff();
+                        }
+                    }
                 } else if ($this->isLoggedIn()) {
                     $user_uuid = $this->currentUserUUID();
                     if ($user = User::getByUUID($user_uuid)) {
