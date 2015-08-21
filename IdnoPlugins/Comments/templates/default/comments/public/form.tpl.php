@@ -5,12 +5,12 @@
     if (!\Idno\Core\site()->session()->isLoggedOn() && $object instanceof \Idno\Common\Entity) {
         ?>
         <div class="row annotation-add">
-            <div class="col-md-1 owner h-card hidden-sm">
+            <div class="col-md-2 owner h-card hidden-sm hidden-xs">
                 <div class="u-url icon-container"><img class="u-photo"
                                                        src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>gfx/users/default-00.png"/>
                 </div>
             </div>
-            <div class="col-md-11 idno-comment-container" id="comment-form">
+            <div class="col-md-10 idno-comment-container" id="comment-form">
                 <input type="text" name="name" class="form-control" placeholder="Your name" required>
                 <input type="text" name="url" class="form-control" placeholder="Your website address">
                 <div id="extrafield" style="display:none"></div>
