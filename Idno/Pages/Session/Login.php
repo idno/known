@@ -38,7 +38,8 @@
                     $fwd = \Idno\Core\site()->config()->url;
                 }
 
-                if (empty($this->getReferrer())) {
+                $referrer = $this->getReferrer();
+                if (empty($referrer)) {
                     $this->deniedContent();
                 }
                 

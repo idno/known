@@ -23,7 +23,8 @@
                     $this->deniedContent();
                 }
                 
-                if (empty($this->getReferrer())) {
+                $referrer = $this->getReferrer();
+                if (empty($referrer)) {
                     $this->deniedContent();
                 }
                 
