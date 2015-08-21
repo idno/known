@@ -1695,3 +1695,22 @@ audio {
 textarea.form-control {
     height: 10em;
 }
+/* File Uploader */
+.file-upload {
+	text-align: left;
+	border-radius: 10px;
+	border: 1px solid #dadada;
+	padding:1em;
+	background-color: #f4f4f4;
+}
+.btn-download {
+	font-size: 1.2em;
+	padding: 0;
+}
+.btn-download:hover, .btn-download:focus {
+	color:#357ebd;
+}
+.file-upload small {
+	color:#666;
+	padding-left: 0.4em;
+}
