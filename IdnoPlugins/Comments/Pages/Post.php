@@ -23,6 +23,10 @@
                     $this->deniedContent();
                 }
                 
+                if (empty($this->getReferrer())) {
+                    $this->deniedContent();
+                }
+                
                 if (!empty($body) && !empty($name) && !empty($validator)) {
                     if ($object = Entity::getByUUID($validator)) {
                         if ($url = Webservice::sanitizeURL($url)) {
