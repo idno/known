@@ -38,6 +38,10 @@
                     $fwd = \Idno\Core\site()->config()->url;
                 }
 
+                if (empty($this->getReferrer())) {
+                    $this->deniedContent();
+                }
+                
                 if ($user = \Idno\Entities\User::getByHandle($this->getInput('email'))) {
                 } else if ($user = \Idno\Entities\User::getByEmail($this->getInput('email'))) {
                 } else {
