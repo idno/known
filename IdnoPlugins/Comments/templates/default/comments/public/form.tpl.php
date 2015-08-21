@@ -13,6 +13,7 @@
             <div class="col-md-11 idno-comment-container" id="comment-form">
                 <input type="text" name="name" class="form-control" placeholder="Your name" required>
                 <input type="text" name="url" class="form-control" placeholder="Your website address">
+                <input type="text" name="url-2" class="form-control" placeholder="You probably shouldn't fill this in" style="display: none;" >
                 <div id="extrafield" style="display:none"></div>
                 <textarea name="body" placeholder="Add a comment ..." class="form-control mentionable"></textarea>
 
