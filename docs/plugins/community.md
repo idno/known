@@ -72,6 +72,9 @@ listings here do not imply endorsement by the Known project team in any way.
 * [File Picker](https://github.com/Decentralized-Sharing-Working-Group/idno-file-picker) - pick files from your
     Cozy, ownCloud, or remoteStorage server, by [Decentralized Sharing Community Group](https://www.w3.org/community/decsharing/)
 
+* [Moves Import](https://github.com/danito/KnownImportMoves) - Import your Moves-app.com data, 
+    by [Daniel Nix](https://nxd4n.nixekinder.be)
+
 ### Themes
 
 ...
