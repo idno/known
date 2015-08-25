@@ -16,7 +16,7 @@
 .nav-tabs > li.active > a, 
 .nav-tabs > li.active > a:focus, 
 .nav-tabs > li.active > a:hover {
-    border-color: none;
+    border-color: transparent;
     border-image: none;
     border-width: 1px;
 }
