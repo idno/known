@@ -212,6 +212,7 @@
                 unset($array['proxy_type']);
                 unset($array['disable_ssl_verify']);
                 unset($array['known_hub']);
+                unset($array['known_hubs']);
                 unset($array['directloadplugins']);
 
                 if (\Idno\Core\site()->db()->saveRecord('config', $array)) {
@@ -240,6 +241,7 @@
                 $this->indieweb_citation         = false;
                 $this->indieweb_reference        = false;
                 $this->known_hub                 = false;
+                $this->known_hubs                = [];
                 $this->hub                       = 'https://withknown.superfeedr.com/';
                 $this->session_path              = session_save_path(); // Session path when not storing sessions in the database
                 $this->session_hash_function     = 'sha256'; // Default hash function
