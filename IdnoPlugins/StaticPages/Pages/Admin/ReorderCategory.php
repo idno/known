@@ -4,7 +4,8 @@
 
         use Idno\Common\Page;
 
-        class ReorderCategory extends Page {
+        class ReorderCategory extends Page
+        {
 
             function post()
             {
@@ -14,11 +15,12 @@
                 $position = intval($this->getInput('position'));
                 if ($staticpages = \Idno\Core\site()->plugins()->get('StaticPages')) {
 
-                    $categories = $staticpages->getCategories();
+                    $categories   = $staticpages->getCategories();
                     $old_position = array_search($category, $categories);
                     if ($old_position === false ||
                         $position < 0 ||
-                        $position >= count($categories)) {
+                        $position >= count($categories)
+                    ) {
 
                         // Invalid Request
                         $this->setResponse(400);

@@ -4,29 +4,32 @@
 
         use Idno\Common\Page;
 
-        class ReorderPage extends Page {
+        class ReorderPage extends Page
+        {
 
             function post()
             {
                 $this->adminGatekeeper();
 
-                $page = \IdnoPlugins\StaticPages\StaticPage::getByID($this->getInput('page'));
+                $page     = \IdnoPlugins\StaticPages\StaticPage::getByID($this->getInput('page'));
                 $position = intval($this->getInput('position'));
 
                 if (!$page) {
                     // Not Found
                     $this->setResponse(404);
+
                     return;
                 }
 
                 if ($staticpages = \Idno\Core\site()->plugins()->get('StaticPages')) {
 
-                    $pages = $staticpages->getPagesByCategory($page->category);
+                    $pages        = $staticpages->getPagesByCategory($page->category);
                     $old_position = array_search($page, $pages);
 
                     if ($old_position === false ||
                         $position < 0 ||
-                        $position >= count($pages)) {
+                        $position >= count($pages)
+                    ) {
 
                         // Invalid Request
                         $this->setResponse(400);
@@ -36,7 +39,7 @@
                         $page->priority = $pages[$position]->getPriority() + 1;
                         $page->save();
                         for ($i = $position > $old_position ? $position : $position - 1; $i >= 0; $i--) {
-                            if($i != $old_position) {
+                            if ($i != $old_position) {
                                 $pages[$i]->priority = $pages[$i]->getPriority() + 2;
                                 $pages[$i]->save();
                             }

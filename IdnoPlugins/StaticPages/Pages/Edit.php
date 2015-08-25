@@ -4,9 +4,11 @@
 
         use Idno\Common\Page;
 
-        class Edit extends Page {
+        class Edit extends Page
+        {
 
-            function getContent() {
+            function getContent()
+            {
 
                 $this->adminGatekeeper();
 
@@ -28,20 +30,21 @@
 
                     $body = \Idno\Core\site()->template()->__([
                         'categories' => $categories,
-                        'category' => $category,
-                        'object' => $object
+                        'category'   => $category,
+                        'object'     => $object
                     ])->draw('entity/StaticPage/edit');
 
                     \Idno\Core\site()->template()->__([
                         'title' => 'Edit page',
-                        'body' => $body
+                        'body'  => $body
                     ])->drawPage();
 
                 }
 
             }
 
-            function postContent() {
+            function postContent()
+            {
 
                 $this->adminGatekeeper();
 
