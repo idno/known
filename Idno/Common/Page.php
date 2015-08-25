@@ -811,6 +811,20 @@
             }
 
             /**
+             * Get the referrer information for the current page.
+             */
+            function getReferrer() {
+                
+                $referrer = $_SERVER['HTTP_REFERER'];
+                
+                if (empty($referrer)) {
+                     // TODO: Try other ways - e.g. for nginx
+                }
+                
+                return $referrer;
+            }
+            
+            /**
              * Detects whether the current web browser accepts the given content type.
              * @param string $contentType The MIME content type.
              * @return bool
