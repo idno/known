@@ -27,7 +27,7 @@
             public $public_pages;
             public $syndication;
             public $logging;
-            public static $site;
+            public static $site; /* @var \Idno\Core\Idno $site */
             public $currentPage;
             public $known_hub;
             public $helper_robot;
@@ -762,7 +762,7 @@
 
         /**
          * Helper function that returns the current site object
-         * @return \Idno\Core\Idno
+         * @return \Idno\Core\Idno $site
          */
         function &site()
         {
