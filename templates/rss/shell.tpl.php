@@ -3,8 +3,12 @@
     header('Content-type: application/rss+xml');
     unset($vars['body']);
 
-    if (empty($vars['title']) && !empty($vars['description'])) {
-        $vars['title'] = implode(' ',array_slice(explode(' ', strip_tags($vars['description'])),0,10));
+    if (empty($vars['title'])) {
+        if (!empty($vars['description'])) {
+            $vars['title'] = implode(' ',array_slice(explode(' ', strip_tags($vars['description'])),0,10));
+        } else {
+            $vars['title'] = 'Known site';
+        }
     }
 
     $page = new DOMDocument();
@@ -56,7 +60,11 @@
             }
             $title = $item->getTitle();
             if (empty($title)) {
-                $title = $item->getShortDescription(5);
+                if ($description = $item->getShortDescription(5)) {
+                    $title = $description;
+                } else {
+                    $title = 'New ' . $item->getContentTypeTitle();
+                }
             }
             $rssItem = $page->createElement('item');
             $rssItem->appendChild($page->createElement('title',$title));
