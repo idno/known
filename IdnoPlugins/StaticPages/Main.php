@@ -18,6 +18,8 @@
                 \Idno\Core\site()->addPageHandler('/admin/staticpages/edit/?', 'IdnoPlugins\StaticPages\Pages\Admin\EditCategory');
                 \Idno\Core\site()->addPageHandler('/admin/staticpages/delete/?', 'IdnoPlugins\StaticPages\Pages\Admin\DeleteCategory');
                 \Idno\Core\site()->addPageHandler('/admin/staticpages/categories/?', 'IdnoPlugins\StaticPages\Pages\Admin\Categories');
+                \Idno\Core\site()->addPageHandler('/admin/staticpages/reorder/?', 'IdnoPlugins\StaticPages\Pages\Admin\ReorderCategory');
+                \Idno\Core\site()->addPageHandler('/admin/staticpages/reorder/page/?', 'IdnoPlugins\StaticPages\Pages\Admin\ReorderPage');
 
                 \Idno\Core\site()->addPageHandler('/pages/([A-Za-z0-9\-\_]+)/?', 'IdnoPlugins\StaticPages\Pages\View');
 
@@ -162,7 +164,11 @@
              * @return array
              */
             function getPagesByCategory($category) {
-                return StaticPage::get(['category' => $category]);
+                $pages = StaticPage::get(['category' => $category]);
+                usort($pages, function ($left, $right) {
+                    return $right->getPriority() - $left->getPriority();
+                });
+                return $pages;
             }
 
             /**
