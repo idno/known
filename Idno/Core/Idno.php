@@ -626,12 +626,16 @@
                 if ($user = \Idno\Entities\User::getByUUID($user_id)) {
 
                     // Remote users can't ever create anything :( - for now
-                    if ($user instanceof \Idno\Entities\RemoteUser)
+                    if ($user instanceof \Idno\Entities\RemoteUser) {
                         return false;
+                    }
 
                     // But local users can
-                    if ($user instanceof \Idno\Entities\User)
-                        return true;
+                    if ($user instanceof \Idno\Entities\User) {
+                        if (empty($user->read_only)) {
+                            return true;
+                        }
+                    }
 
                 }
 
