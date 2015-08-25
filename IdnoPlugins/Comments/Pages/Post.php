@@ -22,11 +22,8 @@
                 if (!empty($url2)) {
                     $this->deniedContent();
                 }
-                
-                $referrer = $this->getReferrer();
-                if (empty($referrer)) {
-                    $this->deniedContent();
-                }
+
+                $this->referrerGatekeeper();
                 
                 if (!empty($body) && !empty($name) && !empty($validator)) {
                     if ($object = Entity::getByUUID($validator)) {
