@@ -1410,6 +1410,16 @@ tr.items {
 	line-height: 28px;
 }
 
+.sortable-pages .items td,
+.sortable-categories .items td {
+    cursor: move;
+}
+
+.sortable-pages .items.pages-no-category td,
+.sortable-categories .items.pages-no-category td {
+    cursor: default;
+}
+
 .btn-page {
 	margin-left: 10px;
 	padding: 4px 20px;

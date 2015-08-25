@@ -132,15 +132,15 @@
                             <td width="15%">&nbsp;</td>
                             <td width="15%">&nbsp;</td>
                         </tr>
-                    </thead><tbody id="sortable-categories">
+                    </thead><tbody class="sortable-categories">
                     <?php
 
                         foreach ($categories as $category => $count) {
 
-                            $unique_id = md5($category);
+                            $unique_id = md5($category . rand(0,999));
 
                             ?>
-                            <tr class="items"<?php if ($category != 'No Category') { echo ' data-value="'.$category.'"'; } ?>>
+                            <tr class="items <?php if ($category == 'No Category') { echo 'pages-no-category'; } ?>" <?php if ($category != 'No Category') { echo ' data-value="'.$category.'"'; } ?>>
                                 <td>
                                     <div id="category-name-<?=$unique_id?>"><?= $category ?></div>
                                     <div id="edit-category-<?=$unique_id?>" style="display: none">
@@ -196,13 +196,13 @@
         ?>
         <script type="text/javascript" src="<?php echo \Idno\Core\site()->config()->getDisplayURL() ?>IdnoPlugins/StaticPages/external/html5sortable/html.sortable.min.js"></script>
         <script type="text/javascript">
-            $('#sortable-categories').sortable({
+            $('.sortable-categories').sortable({
                 items: '[data-value]',
                 placeholder: '<tr style="border:1px dotted #999;"><td colspan="4">&nbsp;</td></tr>'
             }).bind('sortstop', function (evt, ui) {
                 $.post("<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/staticpages/reorder/", {
                     category: ui.item.data('value'),
-                    position: $('#sortable-categories [data-value]').index(ui.item)
+                    position: $('.sortable-categories [data-value]').index(ui.item)
                 });
                 var pageGroups = $('.sortable-pages');
                 var container = pageGroups.parent();
