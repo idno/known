@@ -10,6 +10,7 @@ listings here do not imply endorsement by the Known project team in any way.
 
 * [Video](https://github.com/tjgillies/Video) - Post videos to your Known site, by [Tyler Gillies](http://tylergillies.club/)
 * [Recipe](https://github.com/cleverdevil/Known-Recipes) – Post recipes to your Known site, by [Jonathan LaCour](https://cleverdevil.io)
+* [Review](https://github.com/cleverdevil/Known-Reviews) – Post reviews to your Known site, by [Jonathan LaCour](https://cleverdevil.io)
 
 ### Syndication plugins
 
@@ -70,6 +71,9 @@ listings here do not imply endorsement by the Known project team in any way.
 
 * [File Picker](https://github.com/Decentralized-Sharing-Working-Group/idno-file-picker) - pick files from your
     Cozy, ownCloud, or remoteStorage server, by [Decentralized Sharing Community Group](https://www.w3.org/community/decsharing/)
+
+* [Moves Import](https://github.com/danito/KnownImportMoves) - Import your Moves-app.com data, 
+    by [Daniel Nix](https://nxd4n.nixekinder.be)
 
 ### Themes
 

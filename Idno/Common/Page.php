@@ -608,6 +608,27 @@
             }
 
             /**
+             * Checks for an HTTP referrer; denies access if one doesn't exist
+             */
+            function referrerGatekeeper()
+            {
+                if (empty(\Idno\Core\site()->config()->ignore_referrer)) {
+                    $referrer = $this->getReferrer();
+                    if (empty($referrer)) {
+                        $this->deniedContent();
+                    }
+                }
+            }
+
+            /**
+             * Because users of HTTP "referer" often can't spell.
+             */
+            function refererGatekeeper()
+            {
+                $this->referrerGatekeeper();
+            }
+
+            /**
              * Set the response code for the page. Note: this will be overridden
              * if the main system response code is already not 200
              *
@@ -810,6 +831,20 @@
                 return $headers;
             }
 
+            /**
+             * Get the referrer information for the current page.
+             */
+            function getReferrer() {
+                
+                $referrer = $_SERVER['HTTP_REFERER'];
+                
+                if (empty($referrer)) {
+                     // TODO: Try other ways - e.g. for nginx
+                }
+                
+                return $referrer;
+            }
+            
             /**
              * Detects whether the current web browser accepts the given content type.
              * @param string $contentType The MIME content type.

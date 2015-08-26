@@ -38,6 +38,8 @@
                     $fwd = \Idno\Core\site()->config()->url;
                 }
 
+                $this->referrerGatekeeper();
+                
                 if ($user = \Idno\Entities\User::getByHandle($this->getInput('email'))) {
                 } else if ($user = \Idno\Entities\User::getByEmail($this->getInput('email'))) {
                 } else {

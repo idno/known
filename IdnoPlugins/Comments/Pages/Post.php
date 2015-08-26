@@ -16,8 +16,15 @@
                 $body      = strip_tags($this->getInput('body'));
                 $name      = strip_tags($this->getInput('name'));
                 $url       = trim($this->getInput('url'));
+                $url2       = trim($this->getInput('url-2'));
                 $validator = $this->getInput('validator');
 
+                if (!empty($url2)) {
+                    $this->deniedContent();
+                }
+
+                $this->referrerGatekeeper();
+                
                 if (!empty($body) && !empty($name) && !empty($validator)) {
                     if ($object = Entity::getByUUID($validator)) {
                         if ($url = Webservice::sanitizeURL($url)) {

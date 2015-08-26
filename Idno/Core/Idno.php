@@ -27,7 +27,7 @@
             public $public_pages;
             public $syndication;
             public $logging;
-            public static $site;
+            public static $site; /* @var \Idno\Core\Idno $site */
             public $currentPage;
             public $known_hub;
             public $helper_robot;
@@ -626,12 +626,16 @@
                 if ($user = \Idno\Entities\User::getByUUID($user_id)) {
 
                     // Remote users can't ever create anything :( - for now
-                    if ($user instanceof \Idno\Entities\RemoteUser)
+                    if ($user instanceof \Idno\Entities\RemoteUser) {
                         return false;
+                    }
 
                     // But local users can
-                    if ($user instanceof \Idno\Entities\User)
-                        return true;
+                    if ($user instanceof \Idno\Entities\User) {
+                        if (empty($user->read_only)) {
+                            return true;
+                        }
+                    }
 
                 }
 
@@ -762,7 +766,7 @@
 
         /**
          * Helper function that returns the current site object
-         * @return \Idno\Core\Idno
+         * @return \Idno\Core\Idno $site
          */
         function &site()
         {

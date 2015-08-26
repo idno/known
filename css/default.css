@@ -1410,6 +1410,16 @@ tr.items {
 	line-height: 28px;
 }
 
+.sortable-pages .items td,
+.sortable-categories .items td {
+    cursor: move;
+}
+
+.sortable-pages .items.pages-no-category td,
+.sortable-categories .items.pages-no-category td {
+    cursor: default;
+}
+
 .btn-page {
 	margin-left: 10px;
 	padding: 4px 20px;
@@ -1694,4 +1704,27 @@ audio {
 }
 textarea.form-control {
     height: 10em;
+}
+/* File Uploader */
+.file-upload {
+	text-align: left;
+	border-radius: 10px;
+	border: 1px solid #dadada;
+	padding:1em;
+	background-color: #f4f4f4;
+	padding-left: 1.4em;
+}
+.btn-download {
+	font-size: 1.2em;
+	padding: 0;
+	background-color: #f4f4f4;
+	white-space: normal;
+	width: 100%;
+	text-align: left;
+}
+.btn-download:hover, .btn-download:focus {
+	color:#357ebd;
+}
+.file-upload small {
+	color:#666;
 }

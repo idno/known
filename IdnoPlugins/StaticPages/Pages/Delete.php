@@ -2,9 +2,11 @@
 
     namespace IdnoPlugins\StaticPages\Pages {
 
-        class Delete extends \Idno\Common\Page {
+        class Delete extends \Idno\Common\Page
+        {
 
-            function getContent() {
+            function getContent()
+            {
 
                 $this->createGatekeeper();    // This functionality is for logged-in users only
 
@@ -16,7 +18,7 @@
                     $this->forward();
                 }
 
-                $t = \Idno\Core\site()->template();
+                $t    = \Idno\Core\site()->template();
                 $body = $t->__(array(
                     'object' => $object
                 ))->draw('entity/StaticPages/delete');
@@ -28,7 +30,8 @@
                 }
             }
 
-            function postContent() {
+            function postContent()
+            {
                 $this->createGatekeeper();
 
                 if (!empty($this->arguments)) {

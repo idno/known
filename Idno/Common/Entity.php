@@ -261,13 +261,26 @@
             }
 
             /**
-             * Retrieves the name of the content type associated with this class
+             * Retrieves the category name of the content type associated with this class
              * @return string
              */
             function getContentTypeCategoryTitle()
             {
                 if ($contentType = $this->getContentType()) {
                     return $contentType->getCategoryTitle();
+                }
+
+                return '';
+            }
+
+            /**
+             * Retrieves the name of the content type associated with this class
+             * @return string
+             */
+            function getContentTypeTitle()
+            {
+                if ($contentType = $this->getContentType()) {
+                    return $contentType->getTitle();
                 }
 
                 return '';
