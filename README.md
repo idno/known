@@ -14,7 +14,7 @@ Known is also tested to work with the following hosts:
 * [Reclaim Hosting](https://portal.reclaimhosting.com/aff.php?aff=013)
 * [Arvixe](http://www.arvixe.com/9014-443-3-367.html)
 
-###Self-hosting
+###Installing
 
 Known is under active development and requires PHP 5.4+ with selected extensions, together with a supported database backend.
 
@@ -23,7 +23,14 @@ from <https://withknown.com/opensource>. Installation will be much easier!
 
 You can also opt to check out the bleeding edge code from the git repository: <https://github.com/idno/Known>
 
-Either way, you should read the detailed installation instructions: <http://docs.withknown.com/en/latest/install/index.html>
+Detailed installation instructions: <http://docs.withknown.com/en/latest/install/index.html>
+
+###Support
+
+* [Star us on GitHub](https://github.com/idno/known)
+* [Like us on alternativeto.net](http://alternativeto.net/software/known/)
+* [Contribute](CONTRIBUTORS.md)
+
 
 ## Community links
 
