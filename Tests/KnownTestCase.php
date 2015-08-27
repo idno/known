@@ -77,6 +77,7 @@ namespace Tests {
         
         /**
          * Clean up framework.
+         * @return \Idno\Entities\User
          */
         public static function tearDownAfterClass() {
             
