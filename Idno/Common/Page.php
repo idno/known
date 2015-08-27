@@ -505,7 +505,7 @@
                     }
                     */
 
-                    if (!\Idno\Core\site()->session()->isAPIRequest() || $this->response == 200) {
+                    if (!\Idno\Core\site()->session()->isAPIRequest() && $this->response == 200) { 
                         header('Location: ' . $location);
                     }
                     if ($exit) {
