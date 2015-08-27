@@ -85,8 +85,16 @@
                     }
 
                 });
+                
+                // If this is an API request, we need to destroy the session afterwards. See #1028
+                register_shutdown_function(function () {
+                    $session = site()->session();
+                    if ($session && $session->isAPIRequest()) {
+                        $session->logUserOff();
+                    }
+                });
             }
-
+            
             /**
              * Validate the session.
              * @throws \Exception if the session is invalid.
