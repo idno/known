@@ -505,9 +505,13 @@
                     }
                     */
 
-                    if (!\Idno\Core\site()->session()->isAPIRequest() || $this->response == 200) {
+                    if (!\Idno\Core\site()->session()->isAPIRequest() && $this->response == 200) { 
                         header('Location: ' . $location);
                     }
+                    elseif (\Idno\Core\site()->session()->isAPIRequest()) {
+                        header('X-Known-API-Location: ' . $location);
+                    }
+                    
                     if ($exit) {
                         exit;
                     }

@@ -85,8 +85,16 @@
                     }
 
                 });
+                
+                // If this is an API request, we need to destroy the session afterwards. See #1028
+                register_shutdown_function(function () {
+                    $session = site()->session();
+                    if ($session && $session->isAPIRequest()) {
+                        $session->logUserOff();
+                    }
+                });
             }
-
+            
             /**
              * Validate the session.
              * @throws \Exception if the session is invalid.
@@ -371,10 +379,6 @@
                     }
 
                     if ($user = \Idno\Entities\User::getByHandle($_SERVER['HTTP_X_KNOWN_USERNAME'])) {
-
-                        // Short circuit authentication, since this user is already logged in. Needed to resolve #595
-                        if (\Idno\Core\site()->session()->currentUser() && \Idno\Core\site()->session()->currentUser()->getUUID() == $user->getUUID())
-                            return $user;
 
                         $key          = $user->getAPIkey();
                         $hmac         = trim($_SERVER['HTTP_X_KNOWN_SIGNATURE']);
