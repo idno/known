@@ -617,9 +617,11 @@
             function referrerGatekeeper()
             {
                 if (empty(\Idno\Core\site()->config()->ignore_referrer)) {
-                    $referrer = $this->getReferrer();
-                    if (empty($referrer)) {
-                        $this->deniedContent();
+                    if (!\Idno\Core\site()->session()->isAPIRequest()) {
+                        $referrer = $this->getReferrer();
+                        if (empty($referrer)) {
+                            $this->deniedContent();
+                        }
                     }
                 }
             }
