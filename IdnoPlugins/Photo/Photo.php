@@ -2,6 +2,8 @@
 
     namespace IdnoPlugins\Photo {
 
+        use Idno\Entities\File;
+
         class Photo extends \Idno\Common\Entity
         {
 
@@ -81,7 +83,7 @@
                 // Get photo
                 if ($new) {
                     if (!empty($_FILES['photo']['tmp_name'])) {
-                        if (\Idno\Entities\File::isImage($_FILES['photo']['tmp_name'])) {
+                        if (\Idno\Entities\File::isImage($_FILES['photo']['tmp_name']) || \Idno\Entities\File::isSVG($_FILES['photo']['tmp_name'], $_FILES['photo']['name'])) {
                             
                             // Extract exif data so we can rotate
                             if (is_callable('exif_read_data') && $_FILES['photo']['type'] == 'image/jpeg') {
