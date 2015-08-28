@@ -53,6 +53,8 @@
                 $email      = trim($this->getInput('email'));
                 $code       = $this->getInput('code');
                 $onboarding = $this->getInput('onboarding');
+                
+                $this->referrerGatekeeper();
 
                 /*if (!\Idno\Common\Page::isSSL() && !\Idno\Core\site()->config()->disable_cleartext_warning) {
                     \Idno\Core\site()->session()->addErrorMessage("Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini");
