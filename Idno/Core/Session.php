@@ -514,11 +514,11 @@
              */
             function publicGatekeeper()
             {
+
                 if (!site()->config()->isPublicSite()) {
                     if (!site()->session()->isLoggedOn()) {
                         $class = get_class(site()->currentPage());
                         if (!site()->isPageHandlerPublic($class)) {
-
                             site()->currentPage()->setResponse(403);
                             if (!\Idno\Core\site()->session()->isAPIRequest()) {
                                 site()->currentPage()->forward(site()->config()->getURL() . 'session/login/?fwd=' . urlencode($_SERVER['REQUEST_URI']));

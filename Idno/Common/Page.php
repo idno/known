@@ -114,7 +114,7 @@
                 if (!empty($arguments)) $this->arguments = $arguments;
 
                 \Idno\Core\site()->triggerEvent('page/head', array('page' => $this));
-                \Idno\Core\site()->triggerEvent('page/get', array('page_class' => get_called_class(), 'arguments' => $arguments));
+                //\Idno\Core\site()->triggerEvent('page/get', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
                 $this->getContent();
 
@@ -505,7 +505,7 @@
                     }
                     */
 
-                    if (!\Idno\Core\site()->session()->isAPIRequest() && $this->response == 200) { 
+                    if (!\Idno\Core\site()->session()->isAPIRequest() || $this->response == 200) {
                         header('Location: ' . $location);
                     }
                     elseif (\Idno\Core\site()->session()->isAPIRequest()) {
