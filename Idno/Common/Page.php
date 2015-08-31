@@ -144,7 +144,7 @@
                     $this->parseJSONPayload();
                     $return = $this->postContent();
                 } else {
-                    throw new \Exception('Action tokens are invalid.');
+                    throw new \Exception('The page you were on timed out.');
                 }
 
                 if (\Idno\Core\site()->session()->isAPIRequest()) {
@@ -206,7 +206,7 @@
                     $this->parseJSONPayload();
                     $return = $this->putContent();
                 } else {
-                    throw new \Exception('Action tokens are invalid.');
+                    throw new \Exception('The page you were on timed out.');
                 }
 
                 if (\Idno\Core\site()->session()->isAPIRequest()) {
@@ -265,7 +265,7 @@
                     $this->parseJSONPayload();
                     $return = $this->deleteContent();
                 } else {
-                    throw new \Exception('Action tokens are invalid.');
+                    throw new \Exception('The page you were on timed out.');
                 }
 
                 if (\Idno\Core\site()->session()->isAPIRequest()) {
