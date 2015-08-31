@@ -324,7 +324,11 @@
                     substr($url, 0, 4) == 'sms:' ||
                     substr($url, 0, 6) == 'skype:' ||
                     substr($url, 0, 5) == 'xmpp:' ||
-                    substr($url, 0, 5) == 'facetime:'
+                    substr($url, 0, 4) == 'sip:' ||
+                    substr($url, 0, 4) == 'ssh:' ||
+                    substr($url, 0, 8) == 'spotify:' ||
+                    substr($url, 0, 8) == 'bitcoin:' ||
+                    substr($url, 0, 9) == 'facetime:'
                 )
                     ? $url
                     : 'http://' . $url;
