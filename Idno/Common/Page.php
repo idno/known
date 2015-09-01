@@ -114,7 +114,7 @@
                 if (!empty($arguments)) $this->arguments = $arguments;
 
                 \Idno\Core\site()->triggerEvent('page/head', array('page' => $this));
-                \Idno\Core\site()->triggerEvent('page/get', array('page_class' => get_called_class(), 'arguments' => $arguments));
+                //\Idno\Core\site()->triggerEvent('page/get', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
                 $this->getContent();
 
@@ -144,7 +144,7 @@
                     $this->parseJSONPayload();
                     $return = $this->postContent();
                 } else {
-                    throw new \Exception('Action tokens are invalid.');
+                    throw new \Exception('The page you were on timed out.');
                 }
 
                 if (\Idno\Core\site()->session()->isAPIRequest()) {
@@ -206,7 +206,7 @@
                     $this->parseJSONPayload();
                     $return = $this->putContent();
                 } else {
-                    throw new \Exception('Action tokens are invalid.');
+                    throw new \Exception('The page you were on timed out.');
                 }
 
                 if (\Idno\Core\site()->session()->isAPIRequest()) {
@@ -265,7 +265,7 @@
                     $this->parseJSONPayload();
                     $return = $this->deleteContent();
                 } else {
-                    throw new \Exception('Action tokens are invalid.');
+                    throw new \Exception('The page you were on timed out.');
                 }
 
                 if (\Idno\Core\site()->session()->isAPIRequest()) {
@@ -508,6 +508,10 @@
                     if (!\Idno\Core\site()->session()->isAPIRequest() || $this->response == 200) {
                         header('Location: ' . $location);
                     }
+                    elseif (\Idno\Core\site()->session()->isAPIRequest()) {
+                        header('X-Known-API-Location: ' . $location);
+                    }
+                    
                     if ($exit) {
                         exit;
                     }

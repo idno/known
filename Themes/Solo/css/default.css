@@ -13,9 +13,6 @@ a {
     box-shadow: none;
     border: none;
 }
-li {
-    line-height: 1.8em !important;
-}
 /*.entry-content .p-name a,*/
 .idno-entry h2 {
     font-size: 1.8em;

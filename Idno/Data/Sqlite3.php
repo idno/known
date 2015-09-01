@@ -578,7 +578,7 @@
                                 }
                                 $subwhere[] = $instring;
                             }
-                            if ($key == '$search') {
+                            if ($key == '$search' && !empty($value)) {
                                 $val = $value[0]; // The search query is always in $value position [0] for now
 //                                if (strlen($val) > 5) {
 //                                    $subwhere[]                                  = " srch.search match :nonmdvalue{$non_md_variables} ";
