@@ -505,13 +505,13 @@
                     }
                     */
 
-                    if (!\Idno\Core\site()->session()->isAPIRequest() || $this->response == 200) {
-                        header('Location: ' . $location);
-                    }
-                    elseif (\Idno\Core\site()->session()->isAPIRequest()) {
+                    if (\Idno\Core\site()->session()->isAPIRequest()) {
                         echo json_encode([
                             'location' => $location
                         ]); 
+                    }
+                    elseif (!\Idno\Core\site()->session()->isAPIRequest() || $this->response == 200) {
+                        header('Location: ' . $location);
                     }
                     
                     if ($exit) {
