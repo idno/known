@@ -25,7 +25,7 @@ img {
     max-width: 100%;
 }
 
-li {
+.nav li {
     /*line-height: 1.8em !important;*/
     height: 2em;
 }
