@@ -376,11 +376,15 @@
              * Get a version of the URL without URI scheme or trailing slash
              * @return string
              */
-            function getSchemelessURL()
+            function getSchemelessURL($preceding_slashes = false)
             {
                 $url       = $this->getURL();
                 $urischeme = parse_url($url, PHP_URL_SCHEME);
-                $url       = str_replace($urischeme . '://', '', $url);
+                if ($preceding_slashes) {
+                    $url       = str_replace($urischeme . ':', '', $url);
+                } else {
+                    $url       = str_replace($urischeme . '://', '', $url);
+                }
                 if (substr($url, -1, 1) == '/') {
                     $url = substr($url, 0, strlen($url) - 1);
                 }
