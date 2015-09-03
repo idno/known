@@ -29,6 +29,11 @@
                 if ($user instanceof \Idno\Entities\User) {
                     $handle = $user->getHandle();
                     if (!empty($handle)) {
+                        if (strlen($handle) > 18) {
+                            $display_handle = substr($handle, 0, 16) . '...';
+                        } else {
+                            $display_handle = $handle;
+                        }
                         /* @var \Idno\Entities\User $user */
                         ?>
 
@@ -36,7 +41,7 @@
                             <div class="col-sm-4 col-xs-12">
                                 <p class="user-tbl">
                                     <img src="<?= $user->getIcon() ?>">
-                                    <a href="<?= $user->getDisplayURL() ?>"><?= htmlentities($user->getTitle()) ?></a> (<a href="<?= $user->getDisplayURL() ?>"><?= $user->getHandle() ?></a>)<br>
+                                    <a href="<?= $user->getDisplayURL() ?>"><?= htmlentities($user->getTitle()) ?></a> (<a href="<?= $user->getDisplayURL() ?>"><?= $display_handle ?></a>)<br>
                                     <small><?= $user->email ?></small>
                                 </p>
                             </div>
