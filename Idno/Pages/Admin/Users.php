@@ -73,7 +73,7 @@
                                 foreach ($matches[0] as $email) {
                                     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                                         if (!($user = User::getByEmail($email))) {
-                                            if ((new Invitation())->sendToEmail($email) !== 0) {
+                                            if ((new Invitation())->sendToEmail($email, \Idno\Core\site()->session()->currentUser()->email) !== 0) {
                                                 $invitation_count++;
                                             }
                                         }
