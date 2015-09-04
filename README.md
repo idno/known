@@ -11,7 +11,7 @@ version of Known.
 
 Exclusive web hosting sponsor:
 
-[![DreamHost](http://dreamhost.com/redir.cgi?promo=known595&url=promo/hosting595/&utm_source=known&utm_medium=banner&utm_content=sponsorshared595&utm_campaign=shared)](https://withknown.com/img/sponsor_dh_long.png)
+[![DreamHost](https://withknown.com/img/sponsor_dh_small.jpg)](http://dreamhost.com/redir.cgi?promo=known595&url=promo/hosting595/&utm_source=known&utm_medium=banner&utm_content=sponsorshared595&utm_campaign=shared)
 
 ###Installing
 
