@@ -296,10 +296,10 @@
 <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/jquery-pjax/' ?>jquery.pjax.js"></script>
 <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/underscore/underscore-min.js' ?>"
         type="text/javascript"></script>
-<script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/mention/bootstrap-typeahead.js' ?>"
+<!--<script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/mention/bootstrap-typeahead.js' ?>"
         type="text/javascript"></script>
 <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/mention/mention.js' ?>"
-        type="text/javascript"></script>
+        type="text/javascript"></script> -->
 
 
 <!-- Flexible media player -->
