@@ -821,6 +821,10 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     clear: both;
 }
 
+.navbar-brand {
+    height: auto;
+}
+
 .navbar-inverse .brand {
     color: #333333;
 }
