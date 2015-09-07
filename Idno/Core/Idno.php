@@ -137,6 +137,9 @@
                 /** Homepage */
                 $this->addPageHandler('', '\Idno\Pages\Homepage');
                 $this->addPageHandler('/', '\Idno\Pages\Homepage');
+                $this->addPageHandler('/feed\.xml', '\Idno\Pages\Feed');
+                $this->addPageHandler('/feed/?', '\Idno\Pages\Feed');
+                $this->addPageHandler('/rss\.xml', '\Idno\Pages\Feed');
                 $this->addPageHandler('/content/([A-Za-z\-\/]+)+', '\Idno\Pages\Homepage');
 
                 /** Individual entities / posting / deletion */
