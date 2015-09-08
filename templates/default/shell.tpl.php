@@ -307,7 +307,7 @@
     if (!empty(\Idno\Core\site()->config()->assets)) {
         foreach(\Idno\Core\site()->config()->assets as $asset => $enabled) {
             if (!empty($enabled)) {
-                $this->draw('assets/' . $asset);
+                echo $this->draw('assets/' . $asset);
             }
         }
     }
