@@ -304,17 +304,12 @@
 
 <?php
 
-    if (!empty(\Idno\Core\site()->config()->assets['mediaelementplayer'])) {
-
-        ?>
-        <!-- Flexible media player -->
-        <script
-            src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/mediaelement/build/mediaelement-and-player.min.js"></script>
-        <link rel="stylesheet"
-              href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/mediaelement/build/mediaelementplayer.css"/>
-
-        <?php
-
+    if (!empty(\Idno\Core\site()->config()->assets)) {
+        foreach(\Idno\Core\site()->config()->assets as $asset => $enabled) {
+            if (!empty($enabled)) {
+                $this->draw('assets/' . $asset);
+            }
+        }
     }
 
     if (\Idno\Core\site()->session()->isLoggedIn()) {
