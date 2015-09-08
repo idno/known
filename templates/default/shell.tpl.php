@@ -335,12 +335,6 @@
     if (\Idno\Core\site()->session()->isLoggedOn()) {
         echo $this->draw('js/mentions');
     }
-?>
-
-<!-- Video shim -->
-<script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/fitvids/jquery.fitvids.min.js' ?>"></script>
-
-<?php
     // Load javascript assets
     if ((\Idno\Core\site()->currentPage()) && $scripts = \Idno\Core\site()->currentPage->getAssets('javascript')) {
         foreach ($scripts as $script) {

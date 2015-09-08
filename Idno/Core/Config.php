@@ -32,8 +32,9 @@
                                                  'Convoy'
                 ),
                 'assets'               => [      // Assets to be included
-                                            'mediaelementplayer' => true
-                                          ],
+                                                 'mediaelementplayer' => true,
+                                                 'fitvids'            => true,
+                ],
                 'themes'               => array(),
                 'antiplugins'          => array(),
                 'alwaysplugins'        => array(
@@ -221,11 +222,13 @@
                 if (\Idno\Core\site()->db()->saveRecord('config', $array)) {
                     $this->init();
                     $this->load();
+
                     return true;
                 }
 
                 $this->init();
                 $this->load();
+
                 return false;
             }
 
@@ -370,8 +373,10 @@
             {
                 if (!empty(\Idno\Core\site()->config()->attachment_base_host)) {
                     $host = parse_url($url, PHP_URL_HOST);
+
                     return str_replace($host, \Idno\Core\site()->config()->attachment_base_host, $url);
                 }
+
                 return $url;
             }
 
@@ -384,9 +389,9 @@
                 $url       = $this->getURL();
                 $urischeme = parse_url($url, PHP_URL_SCHEME);
                 if ($preceding_slashes) {
-                    $url       = str_replace($urischeme . ':', '', $url);
+                    $url = str_replace($urischeme . ':', '', $url);
                 } else {
-                    $url       = str_replace($urischeme . '://', '', $url);
+                    $url = str_replace($urischeme . '://', '', $url);
                 }
                 if (substr($url, -1, 1) == '/') {
                     $url = substr($url, 0, strlen($url) - 1);
@@ -418,6 +423,7 @@
                 if (!empty($this->blocked_emails)) {
                     $emails = $this->blocked_emails;
                 }
+
                 return $emails;
             }
 
@@ -429,10 +435,12 @@
             function addBlockedEmail($email)
             {
                 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    $emails = $this->getBlockedEmails();
+                    $emails   = $this->getBlockedEmails();
                     $emails[] = trim(strtolower($email));
+
                     return $this->blocked_emails = $emails;
                 }
+
                 return false;
             }
 
@@ -451,8 +459,10 @@
                         unset($emails[$key]);
                     }
                     site()->config()->blocked_emails = $emails;
+
                     return $count;
                 }
+
                 return false;
             }
 
@@ -471,6 +481,7 @@
                         }
                     }
                 }
+
                 return false;
             }
 
