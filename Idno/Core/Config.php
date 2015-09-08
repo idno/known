@@ -31,6 +31,9 @@
                                                  'IndiePub',
                                                  'Convoy'
                 ),
+                'assets'               => [      // Assets to be included
+                                            'mediaelementplayer' => true
+                                          ],
                 'themes'               => array(),
                 'antiplugins'          => array(),
                 'alwaysplugins'        => array(

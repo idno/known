@@ -302,13 +302,20 @@
         type="text/javascript"></script> -->
 
 
-<!-- Flexible media player -->
-<script
-    src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/mediaelement/build/mediaelement-and-player.min.js"></script>
-<link rel="stylesheet"
-      href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/mediaelement/build/mediaelementplayer.css"/>
-
 <?php
+
+    if (!empty(\Idno\Core\site()->config()->assets['mediaelementplayer'])) {
+
+        ?>
+        <!-- Flexible media player -->
+        <script
+            src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/mediaelement/build/mediaelement-and-player.min.js"></script>
+        <link rel="stylesheet"
+              href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/mediaelement/build/mediaelementplayer.css"/>
+
+        <?php
+
+    }
 
     if (\Idno\Core\site()->session()->isLoggedIn()) {
 
