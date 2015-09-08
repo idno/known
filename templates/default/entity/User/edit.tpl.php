@@ -40,11 +40,11 @@
                            value="<?= htmlspecialchars($vars['user']->getTitle()) ?>">
                 </div>
 
-                <div class="form-group">
+                <!--<div class="form-group">
                     <label class="control-label" for="tagline">Short description</label>
                     <input class="form-control" type="text" id="tagline" name="profile[tagline]"
                            value="<?= htmlspecialchars($vars['user']->getShortDescription()) ?>">
-                </div>
+                </div>-->
 
                 <div class="form-group">
                     <label class="control-label" for="body">About you</label><br>
