@@ -46,5 +46,5 @@
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
-    <br clear="all" style="height: 1px">
+    <br clear="all" style="display: none">
 </nav>
