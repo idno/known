@@ -77,12 +77,12 @@
                     try {
                         foreach (array($path . \Idno\Core\site()->config()->getFileBaseDirName(), $path . \Idno\Core\site()->config()->host . '/' . $id[0], $path . \Idno\Core\site()->config()->host . '/' . $id[0] . '/' . $id[1], $path . \Idno\Core\site()->config()->host . '/' . $id[0] . '/' . $id[1] . '/' . $id[2], $path . \Idno\Core\site()->config()->host . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3]) as $up_path) {
                             if (!is_dir($up_path)) {
-                                $result = mkdir($up_path, 0777, true);
+                                $result = @mkdir($up_path, 0777, true);
                             }
                         }
 
-                        copy($file_path, $upload_file);
-                        file_put_contents($data_file, $metadata);
+                        @copy($file_path, $upload_file);
+                        @file_put_contents($data_file, $metadata);
                     } catch (\Exception $e) {
 
                         \Idno\Core\site()->session()->addMessage("Something went wrong saving your file.");
