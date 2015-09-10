@@ -119,6 +119,22 @@
             }
 
             /**
+             * Is the specified plugin allowed to be loaded?
+             * @param $plugin
+             * @return bool
+             */
+            public function isAllowed($plugin)
+            {
+                if (empty(site()->config()->antiplugins)) {
+                    return true;
+                }
+                if (!in_array($plugin, site()->config()->antiplugins)) {
+                    return true;
+                }
+                return false;
+            }
+
+            /**
              * Retrieves a list of stored plugins (but not necessarily loaded ones)
              * @return array
              */
@@ -130,7 +146,9 @@
                         if ($folder != '.' && $folder != '..') {
                             if (is_dir(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $folder)) {
                                 if (file_exists(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $folder . '/plugin.ini')) {
-                                    $plugins[$folder] = parse_ini_file(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $folder . '/plugin.ini', true);
+                                    if ($this->isAllowed($folder)) {
+                                        $plugins[$folder] = parse_ini_file(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $folder . '/plugin.ini', true);
+                                    }
                                 }
                             }
                         }
@@ -143,7 +161,9 @@
                             foreach ($folders as $folder) {
                                 if ($folder != '.' && $folder != '..') {
                                     if (file_exists(\Idno\Core\site()->config()->path . '/hosts/' . $host . '/IdnoPlugins/' . $folder . '/plugin.ini')) {
-                                        $plugins[$folder] = parse_ini_file(\Idno\Core\site()->config()->path . '/hosts/' . $host . '/IdnoPlugins/' . $folder . '/plugin.ini', true);
+                                        if ($this->isAllowed($folder)) {
+                                            $plugins[$folder] = parse_ini_file(\Idno\Core\site()->config()->path . '/hosts/' . $host . '/IdnoPlugins/' . $folder . '/plugin.ini', true);
+                                        }
                                     }
                                 }
                             }
