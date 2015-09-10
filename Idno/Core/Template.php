@@ -278,6 +278,10 @@
                     $url = $matches[1];
                     $tag = str_replace('#', '', $matches[1]);
 
+                    if (preg_match('/\#[0-9]{1,3}$/', $matches[1])) {
+                        return $matches[1];
+                    }
+
                     if (preg_match('/\#[A-Fa-f0-9]{6}/', $matches[1])) {
                         return $matches[1];
                     }
