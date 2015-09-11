@@ -505,6 +505,11 @@
                     }
                     */
 
+                    if (!\Idno\Core\site()->config()->session_cookies) {
+                        $t = \Idno\Core\site()->template(); /* @var $t \Idno\Core\Template */
+                        $location = $t->getURLWithVar('sid', session_id());
+                    }
+
                     if (!\Idno\Core\site()->session()->isAPIRequest() || $this->response == 200) {
                         header('Location: ' . $location);
                     }

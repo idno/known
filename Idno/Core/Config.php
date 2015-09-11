@@ -17,6 +17,7 @@
                 'dbstring'             => 'mongodb://localhost:27017',
                 'dbname'               => 'known', // Default MongoDB database
                 'sessionname'          => 'known', // Default session name
+                'session_cookies'      => true,
                 'open_registration'    => true, // Can anyone register for this system?
                 'plugins'              => array( // Default plugins
                                                  'Status',
@@ -123,6 +124,7 @@
                         unset($config['session_path']);
                         unset($config['session_hash_function']);
                         unset($config['sessions_database']);
+                        unset($config['session_cookies']);
                         unset($config['cookie_jar']);
                         unset($config['proxy_string']);
                         unset($config['proxy_type']);
