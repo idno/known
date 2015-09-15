@@ -11,10 +11,18 @@
     <div class="col-md-1 col-md-offset-1 col-xs-3">
         <a href="https://withknown.com"><img src="<?=\Idno\Core\site()->config()->getDisplayURL()?>gfx/logos/logo_k.png" style="width: 70px; border: 0"></a>
     </div>
-    <div class="col-md-9 col-xs-9">
+    <div class="col-md-5">
         <p style="font-size: 1.6em"><a href="https://withknown.com/?utm_source=admin&utm_medium=installation">Known</a> is a publishing platform for everyone.</p>
         <p>
             Version: <?= \Idno\Core\site()->version(); ?>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <p>
+            Exclusive Web Hosting Sponsor:
+        </p>
+        <p>
+            <a href="http://dreamhost.com/redir.cgi?promo=known595&url=promo/hosting595/&utm_source=known&utm_medium=banner&utm_content=sponsorshared595&utm_campaign=shared"></a><img src="https://withknown.com/img/sponsor_dh_long.png" style="width: 100%"></a>
         </p>
     </div>
 </div>

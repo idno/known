@@ -9,10 +9,9 @@
 A fully-managed hosted service is provided at <https://withknown.com/>. It is always kept up to date with the latest
 version of Known.
 
-Known is also tested to work with the following hosts:
+Exclusive web hosting sponsor:
 
-* [Reclaim Hosting](https://portal.reclaimhosting.com/aff.php?aff=013)
-* [Arvixe](http://www.arvixe.com/9014-443-3-367.html)
+[![DreamHost](https://withknown.com/img/sponsor_dh_small.jpg)](http://dreamhost.com/redir.cgi?promo=known595&url=promo/hosting595/&utm_source=known&utm_medium=banner&utm_content=sponsorshared595&utm_campaign=shared)
 
 ###Installing
 

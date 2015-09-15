@@ -9,7 +9,7 @@
 ?>
 <a <?php if (!empty($vars['class'])) { ?> class="<?=$vars['class'];?>" <?php } ?> href="<?=($vars['url'])?>" onclick="<?php 
     if ($vars['confirm']) {
-        ?>if (confirm('<?= $vars['confirm-text']; ?>')) { $('#<?=$uniqueID?>').submit(); return false; } else { return false; } <?php
+        ?>if (confirm('<?= addslashes($vars['confirm-text']); ?>')) { $('#<?=$uniqueID?>').submit(); return false; } else { return false; } <?php
     } else { 
         ?>$('#<?=$uniqueID?>').submit(); return false; <?php
     } ?>"><?=($vars['label'])?></a>

@@ -114,7 +114,7 @@
                 if (!empty($arguments)) $this->arguments = $arguments;
 
                 \Idno\Core\site()->triggerEvent('page/head', array('page' => $this));
-                //\Idno\Core\site()->triggerEvent('page/get', array('page_class' => get_called_class(), 'arguments' => $arguments));
+                \Idno\Core\site()->triggerEvent('page/get', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
                 $this->getContent();
 
@@ -504,6 +504,11 @@
                         throw new \Exception('Attempted to redirect page to a non local URL.');
                     }
                     */
+
+                    if (!\Idno\Core\site()->config()->session_cookies) {
+                        $t = \Idno\Core\site()->template(); /* @var $t \Idno\Core\Template */
+                        $location = $t->getURLWithVar('sid', session_id());
+                    }
 
                     if (!\Idno\Core\site()->session()->isAPIRequest() || $this->response == 200) {
                         header('Location: ' . $location);

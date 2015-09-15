@@ -28,11 +28,23 @@
   Order allow,deny
   Deny from all
 </Files>
+<Files ~ "\.yml$">
+  Order allow,deny
+  Deny from all
+</Files>
 <Files ~ "\.xml$">
   Order allow,deny
   Deny from all
 </Files>
 <Files ~ "sitemap.xml">
+  Order allow,deny
+  Allow from all
+</Files>
+<Files ~ "feed\.xml">
+  Order allow,deny
+  Allow from all
+</Files>
+<Files ~ "rss\.xml">
   Order allow,deny
   Allow from all
 </Files>

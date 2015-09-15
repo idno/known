@@ -21,16 +21,23 @@
             {
                 ini_set('session.cookie_lifetime', 60 * 60 * 24 * 7); // Persistent cookies
                 ini_set('session.gc_maxlifetime', 60 * 60 * 24 * 7); // Garbage collection to match
-                ini_set('session.cookie_httponly', true); // Restrict cookies to HTTP only (help reduce XSS attack profile)
-                ini_set('session.use_strict_mode', true); // Help mitigate session fixation
+
+                if (site()->config()->session_cookies) {
+                    header('P3P: CP="CAO PSA OUR"');
+                    ini_set('session.cookie_httponly', true); // Restrict cookies to HTTP only (help reduce XSS attack profile)
+                    ini_set('session.use_strict_mode', true); // Help mitigate session fixation
+                    if (site()->isSecure()) {
+                        ini_set('session.cookie_secure', true); // Set secure cookies when site is secure
+                    }
+                } else {
+                    ini_set('session.use_only_cookies', 0);
+                    ini_set("session.use_cookies",0);
+                    ini_set("session.use_trans_sid",1);
+                }
 
                 // Using a more secure hashing algorithm for session IDs, if available
                 if (($hash = site()->config()->session_hash_function) && (in_array($hash, hash_algos()))) {
                     ini_set('session.hash_function', $hash);
-                }
-
-                if (site()->isSecure()) {
-                    ini_set('session.cookie_secure', true); // Set secure cookies when site is secure
                 }
 
                 if (site()->config()->sessions_database) {

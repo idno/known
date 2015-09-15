@@ -85,9 +85,10 @@
             /**
              * Saves this invitation and sends it to the appropriate email address
              * @param $email
+             * @param $from_email If set, sets a reply to
              * @return bool|int
              */
-            function sendToEmail($email)
+            function sendToEmail($email, $from_email = '')
             {
                 if ($this->associateWithEmail($email)) {
                     $this->save();
@@ -96,6 +97,9 @@
                     $message->setSubject(\Idno\Core\site()->session()->currentUser()->getTitle() . " has invited you to join " . \Idno\Core\site()->config()->title . '!');
                     $message->setHTMLBodyFromTemplate('account/invite', array('email' => $email, 'code' => $this->code, 'inviter' => \Idno\Core\site()->session()->currentUser()->getTitle()));
                     $message->setTextBodyFromTemplate('account/invite', array('email' => $email, 'code' => $this->code, 'inviter' => \Idno\Core\site()->session()->currentUser()->getTitle()));
+                    if (!empty($from_email)) {
+                        $message->setReplyTo($from_email);
+                    }
 
                     return $message->send();
                 }

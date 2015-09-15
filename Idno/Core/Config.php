@@ -17,6 +17,7 @@
                 'dbstring'             => 'mongodb://localhost:27017',
                 'dbname'               => 'known', // Default MongoDB database
                 'sessionname'          => 'known', // Default session name
+                'session_cookies'      => true,
                 'open_registration'    => true, // Can anyone register for this system?
                 'plugins'              => array( // Default plugins
                                                  'Status',
@@ -31,6 +32,10 @@
                                                  'IndiePub',
                                                  'Convoy'
                 ),
+                'assets'               => [      // Assets to be included
+                                                 'mediaelementplayer' => true,
+                                                 'fitvids'            => true,
+                ],
                 'themes'               => array(),
                 'antiplugins'          => array(),
                 'alwaysplugins'        => array(
@@ -119,6 +124,7 @@
                         unset($config['session_path']);
                         unset($config['session_hash_function']);
                         unset($config['sessions_database']);
+                        unset($config['session_cookies']);
                         unset($config['cookie_jar']);
                         unset($config['proxy_string']);
                         unset($config['proxy_type']);
@@ -218,11 +224,13 @@
                 if (\Idno\Core\site()->db()->saveRecord('config', $array)) {
                     $this->init();
                     $this->load();
+
                     return true;
                 }
 
                 $this->init();
                 $this->load();
+
                 return false;
             }
 
@@ -367,8 +375,10 @@
             {
                 if (!empty(\Idno\Core\site()->config()->attachment_base_host)) {
                     $host = parse_url($url, PHP_URL_HOST);
+
                     return str_replace($host, \Idno\Core\site()->config()->attachment_base_host, $url);
                 }
+
                 return $url;
             }
 
@@ -376,11 +386,15 @@
              * Get a version of the URL without URI scheme or trailing slash
              * @return string
              */
-            function getSchemelessURL()
+            function getSchemelessURL($preceding_slashes = false)
             {
                 $url       = $this->getURL();
                 $urischeme = parse_url($url, PHP_URL_SCHEME);
-                $url       = str_replace($urischeme . '://', '', $url);
+                if ($preceding_slashes) {
+                    $url = str_replace($urischeme . ':', '', $url);
+                } else {
+                    $url = str_replace($urischeme . '://', '', $url);
+                }
                 if (substr($url, -1, 1) == '/') {
                     $url = substr($url, 0, strlen($url) - 1);
                 }
@@ -411,6 +425,7 @@
                 if (!empty($this->blocked_emails)) {
                     $emails = $this->blocked_emails;
                 }
+
                 return $emails;
             }
 
@@ -422,10 +437,12 @@
             function addBlockedEmail($email)
             {
                 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    $emails = $this->getBlockedEmails();
+                    $emails   = $this->getBlockedEmails();
                     $emails[] = trim(strtolower($email));
+
                     return $this->blocked_emails = $emails;
                 }
+
                 return false;
             }
 
@@ -444,8 +461,10 @@
                         unset($emails[$key]);
                     }
                     site()->config()->blocked_emails = $emails;
+
                     return $count;
                 }
+
                 return false;
             }
 
@@ -464,6 +483,7 @@
                         }
                     }
                 }
+
                 return false;
             }
 
