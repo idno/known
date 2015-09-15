@@ -19,11 +19,11 @@
 
                 $users       = User::get(array(), array(), 99999, 0); // TODO: make this more complete / efficient
                 $remoteusers = RemoteUser::get(array(), array(), 99999, 0);
-
                 $users = array_merge($users, $remoteusers);
+                $invitations = Invitation::get();
 
                 $t        = \Idno\Core\site()->template();
-                $t->body  = $t->__(array('users' => $users))->draw('admin/users');
+                $t->body  = $t->__(array('users' => $users, 'invitations' => $invitations))->draw('admin/users');
                 $t->title = 'User Management';
                 $t->drawPage();
 
@@ -64,18 +64,16 @@
                     case 'invite_users':
                         $emails = $this->getInput('invitation_emails');
 
-                        preg_match_all('/[a-z\d._%+-]+@[a-z\d.-]+\.[a-z]{2,4}\b/i', $emails, $matches);
+                        preg_match_all('/[a-z\d._%\+-]+@[a-z\d.-]+\.[a-z]{2,4}\b/i', $emails, $matches);
 
                         $invitation_count = 0;
-
                         if (!empty($matches[0])) {
                             if (is_array($matches[0])) {
                                 foreach ($matches[0] as $email) {
-                                    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                                        if (!($user = User::getByEmail($email))) {
-                                            if ((new Invitation())->sendToEmail($email, \Idno\Core\site()->session()->currentUser()->email) !== 0) {
-                                                $invitation_count++;
-                                            }
+                                    if (!($user = User::getByEmail($email))) {
+                                        $invitation = new Invitation();
+                                        if ($invitation->sendToEmail($email, \Idno\Core\site()->session()->currentUser()->email) !== 0) {
+                                            $invitation_count++;
                                         }
                                     }
                                 }
@@ -89,6 +87,31 @@
                         } else {
                             \Idno\Core\site()->session()->addMessage("No email addresses were found or all the people you invited are already members of this site.");
                         }
+                        break;
+                    case 'remove_invitation':
+                        $invitation_id = $this->getInput('invitation_id');
+
+                        if ($invitation = Invitation::getByID($invitation_id)) {
+                            if ($invitation->delete()) {
+                                \Idno\Core\site()->session()->addMessage("The invitation was removed.");
+                            }
+                        }
+
+                        break;
+                    case 'resend_invitation':
+
+                        $invitation_id = $this->getInput('invitation_id');
+
+                        if ($invitation = Invitation::getByID($invitation_id)) {
+                            $email = $invitation->email;
+                            if ($invitation->delete()) {
+                                $new_invitation = new Invitation();
+                                if ($new_invitation->sendToEmail($email)) {
+                                    \Idno\Core\site()->session()->addMessage("The invitation was resent.");
+                                }
+                            }
+                        }
+
                         break;
                     case 'add_user':
 
