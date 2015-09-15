@@ -142,7 +142,7 @@
         $("#inreplyto-add").on('dragenter', function(e) {
             e.stopPropagation();
             e.preventDefault();
-            $('#inreplyto').append('<span><input required type="url" name="inreplyto[]" value="" placeholder="The website address of the post you\'re replying to" class="col-md-8 inreplyto" onchange="adjust_content(this.value)" /> <small><a href="#" onclick="$(this).parent().parent().remove(); return false;">Remove</a></small><br /></span>');
+            $('#inreplyto').append('<span><input required type="url" name="inreplyto[]" value="" placeholder="Add the URL that you\'re replying to" class="form-control" onchange="adjust_content(this.value)" /> <small><a href="#" onclick="$(this).parent().parent().remove(); return false;"><icon class="fa fa-times"></icon> Remove URL</a></small><br /></span>'); return false;
         });
     });
 </script>

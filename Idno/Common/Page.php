@@ -114,7 +114,7 @@
                 if (!empty($arguments)) $this->arguments = $arguments;
 
                 \Idno\Core\site()->triggerEvent('page/head', array('page' => $this));
-                //\Idno\Core\site()->triggerEvent('page/get', array('page_class' => get_called_class(), 'arguments' => $arguments));
+                \Idno\Core\site()->triggerEvent('page/get', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
                 $this->getContent();
 
@@ -505,10 +505,15 @@
                     }
                     */
 
+                    if (!\Idno\Core\site()->config()->session_cookies) {
+                        $t = \Idno\Core\site()->template(); /* @var $t \Idno\Core\Template */
+                        $location = $t->getURLWithVar('sid', session_id());
+                    }
+
                     if (\Idno\Core\site()->session()->isAPIRequest()) {
                         echo json_encode([
                             'location' => $location
-                        ]); 
+                        ]);
                     }
                     elseif (!\Idno\Core\site()->session()->isAPIRequest() || $this->response == 200) {
                         header('Location: ' . $location);

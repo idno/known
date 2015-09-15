@@ -654,15 +654,17 @@
                                 $subwhere[] = $instring;
                             }
                             if ($key == '$search') {
-                                $val = $value[0]; // The search query is always in $value position [0] for now
-                                if (strlen($val) > 5) {
-                                    $subwhere[]                                  = "match (`search`) against (:nonmdvalue{$non_md_variables})";
-                                    $variables[":nonmdvalue{$non_md_variables}"] = $val;
-                                } else {
-                                    $subwhere[]                                  = "`search` like :nonmdvalue{$non_md_variables}";
-                                    $variables[":nonmdvalue{$non_md_variables}"] = '%' . $val . '%';
+                                if(!empty($value[0])) {
+                                    $val = $value[0]; // The search query is always in $value position [0] for now
+                                    if (strlen($val) > 5) {
+                                        $subwhere[]                                  = "match (`search`) against (:nonmdvalue{$non_md_variables})";
+                                        $variables[":nonmdvalue{$non_md_variables}"] = $val;
+                                    } else {
+                                        $subwhere[]                                  = "`search` like :nonmdvalue{$non_md_variables}";
+                                        $variables[":nonmdvalue{$non_md_variables}"] = '%' . $val . '%';
+                                    }
+                                    $non_md_variables++;
                                 }
-                                $non_md_variables++;
                             }
                         }
                     }
