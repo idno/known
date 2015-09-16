@@ -16,20 +16,20 @@
                 <label class="control-label" for="inputEmail">Your email address<br />
                     <small>The address associated with your <?=\Idno\Core\site()->config()->title?> account.</small></label>
                 <div class="controls">
-                    <input type="email" id="inputEmail" placeholder="Email" class="col-md-4" name="email" value="<?=$vars['email']?>" required>
+                    <input type="email" id="inputEmail" placeholder="Email" class="form-control" name="email" value="<?=$vars['email']?>" required>
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputPassword">New password (7 characters or more)</label>
                 <div class="controls">
-                    <input type="password" id="inputPassword" class="col-md-4" name="password" value="" required>
+                    <input type="password" id="inputPassword" class="form-control" name="password" value="" required>
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputPassword2">Retype password<br />
                     <small>We ask you to enter the password twice to protect against typos.</small></label>
                 <div class="controls">
-                    <input type="password" id="inputPassword2" class="col-md-4" name="password2" value="" required>
+                    <input type="password" id="inputPassword2" class="form-control" name="password2" value="" required>
                 </div>
             </div>
             <div class="control-group">
