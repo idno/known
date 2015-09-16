@@ -444,7 +444,9 @@
              */
             function addPasswordRecoveryCode()
             {
-                $auth_code                         = md5(time() . rand(0, 9999) . $this->email);
+                $token = new \Idno\Core\TokenProvider();
+                
+                $auth_code                         = $token->generateToken(16);
                 $this->password_recovery_code      = $auth_code;
                 $this->password_recovery_code_time = time();
 
