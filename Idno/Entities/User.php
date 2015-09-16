@@ -446,7 +446,7 @@
             {
                 $token = new \Idno\Core\TokenProvider();
                 
-                $auth_code                         = $token->generateToken(16);
+                $auth_code                         = bin2hex($token->generateToken(16));
                 $this->password_recovery_code      = $auth_code;
                 $this->password_recovery_code_time = time();
 
