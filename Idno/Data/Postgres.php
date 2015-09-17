@@ -142,7 +142,7 @@
                 }*/
 
                 if (empty($array['_id'])) {
-                    $array['_id'] = md5(rand(0, 9999) . time());
+                    $array['_id'] = md5(rand() . microtime(true));
                 }
                 if (empty($array['uuid'])) {
                     $array['uuid'] = \Idno\Core\site()->config()->getURL() . 'view/' . $array['_id'];
