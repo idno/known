@@ -451,7 +451,7 @@
                     error_log("Didn't get slug");
                     if (!($title = $this->getTitle())) {
                         if (!($title = $this->getDescription())) {
-                            $title = md5(time() . rand(0, 9999));
+                            $title = md5(rand() . microtime(true));
                         }
                     }
                     \Idno\Core\site()->logging()->log("Setting resilient slug", LOGLEVEL_DEBUG);
