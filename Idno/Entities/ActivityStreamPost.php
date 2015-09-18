@@ -140,7 +140,7 @@
              */
             function setSlugResilient($slug, $max_pieces = 10)
             {
-                $slug       = md5(time() . rand(0, 9999));
+                $slug       = md5(rand() . microtime(true));
                 $this->slug = $slug;
 
                 return $slug;
