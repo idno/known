@@ -15,8 +15,10 @@
             
             function registerContentTypes() {
                 parent::registerContentTypes();
-                
-                \Idno\Common\ContentType::register($this->getNamespace() . '\\RepliesContentType');
+
+                if (!empty(\Idno\Core\site()->config()->split_replies)) {
+                    \Idno\Common\ContentType::register($this->getNamespace() . '\\RepliesContentType');
+                }
             }
         }
 
