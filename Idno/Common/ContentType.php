@@ -16,7 +16,7 @@
             public $title = 'Content type';
             public $indieWebContentType = array();
 
-            // Will this content type show on the creatuin menu
+            // Will this content type show on the creation menu
             public $createable = true;
 
             /**
