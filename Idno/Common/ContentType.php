@@ -16,7 +16,7 @@
             public $title = 'Content type';
             public $indieWebContentType = array();
 
-            // Static property containing register of all content types
+            // Will this content type show on the creatuin menu
             public $createable = true;
 
             /**
