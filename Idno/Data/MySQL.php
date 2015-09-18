@@ -32,7 +32,9 @@
                         header('Location: ' . \Idno\Core\site()->config()->forward_on_empty);
                         exit;
                     } else {
-                        //echo '<p>Unfortunately we couldn\'t connect to the database.</p>';
+                        
+                        http_response_code(500);
+                        
                         if (\Idno\Core\site()->config()->debug) {
                             $message = '<p>' . $e->getMessage() . '</p>';
                             $message .= '<p>' . $connection_string . '</p>';
