@@ -67,7 +67,6 @@
                             $req = $params;
                         }
 
-                        curl_setopt($curl_handle, CURLOPT_HTTPGET, true);
                         if (strpos($endpoint, '?') !== false) {
                             $endpoint .= '&' . $req;
                         } else {
