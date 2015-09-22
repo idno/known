@@ -34,6 +34,7 @@
                         if (file_exists($filename)) {
                             $dbh->exec(@file_get_contents($filename));
                         } else {
+                            http_response_code(500);
                             $messages = '<p>We couldn\'t find the schema doc.</p>';
                             die($messages);
                         }
@@ -44,6 +45,9 @@
                             header('Location: ' . \Idno\Core\site()->config()->forward_on_empty);
                             exit;
                         } else {
+                            
+                            http_response_code(500);
+                            
                             if (\Idno\Core\site()->config()->debug) {
                                 $message = '<p>' . $e->getMessage() . '</p>';
                                 $message .= '<p>' . $connection_string . '</p>';
