@@ -28,16 +28,26 @@
                 if (!in_array($type, array('note', 'reply', 'rsvp', 'like', 'bookmark'))) {
                     $share_type = 'note';
 
-                    if ($content = \Idno\Core\Webservice::get($url)) {
-                        if ($mf2 = \Idno\Core\Webmention::parseContent($content['content'])) {
-                            if (!empty($mf2['items'])) {
-                                foreach ($mf2['items'] as $item) {
-                                    if (!empty($item['type'])) {
-                                        if (in_array('h-entry', $item['type'])) {
-                                            $share_type = 'reply';
-                                        }
-                                        if (in_array('h-event', $item['type'])) {
-                                            $share_type = 'rsvp';
+                    // Probe to see if this is something we can MF2 parse, before we do
+                    $headers = [];
+                    if ($head = \Idno\Core\Webservice::head($url)) {
+                        $headers = http_parse_headers($head['header']);
+                    }
+                    
+                    // Only MF2 Parse supported types
+                    if (preg_match('/text\/(html|plain)+/', $headers['Content-Type'])) {
+                        
+                        if ($content = \Idno\Core\Webservice::get($url)) {
+                            if ($mf2 = \Idno\Core\Webmention::parseContent($content['content'])) {
+                                if (!empty($mf2['items'])) {
+                                    foreach ($mf2['items'] as $item) {
+                                        if (!empty($item['type'])) {
+                                            if (in_array('h-entry', $item['type'])) {
+                                                $share_type = 'reply';
+                                            }
+                                            if (in_array('h-event', $item['type'])) {
+                                                $share_type = 'rsvp';
+                                            }
                                         }
                                     }
                                 }

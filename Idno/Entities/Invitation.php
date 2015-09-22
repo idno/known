@@ -26,12 +26,9 @@
              */
             function generateCode()
             {
-                if (\Idno\Core\site()->session()->isLoggedOn()) {
-                    $email = \Idno\Core\site()->session()->currentUser()->email;
-                } else {
-                    $email = base64_encode(time() . rand(0, 99999));
-                }
-                $this->code = md5(time() . rand(0, 9999) . $email);
+                $token = new \Idno\Core\TokenProvider();
+                
+                $this->code = $token->generateHexToken(16);
             }
 
             /**

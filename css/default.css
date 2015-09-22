@@ -886,6 +886,10 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     border-top-color: #333333;
 }
 
+.navbar-right {
+    margin-bottom: 15px;
+}
+
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus, .dropdown-submenu:hover > a, .dropdown-submenu:focus > a {
     background-color: #73b2e3;
     background-image: none;

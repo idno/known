@@ -40,7 +40,9 @@
                         header('Location: ' . \Idno\Core\site()->config()->forward_on_empty);
                         exit;
                     } else {
-                        //echo '<p>Unfortunately we couldn\'t connect to the database.</p>';
+                        
+                        http_response_code(500);
+                        
                         if (\Idno\Core\site()->config()->debug) {
                             $message = '<p>' . $e->getMessage() . '</p>';
                             $message .= '<p>' . $connection_string . '</p>';
@@ -142,7 +144,7 @@
                 }*/
 
                 if (empty($array['_id'])) {
-                    $array['_id'] = md5(rand(0, 9999) . time());
+                    $array['_id'] = md5(rand() . microtime(true));
                 }
                 if (empty($array['uuid'])) {
                     $array['uuid'] = \Idno\Core\site()->config()->getURL() . 'view/' . $array['_id'];
