@@ -514,7 +514,9 @@
                         header('Location: ' . $location);
                     }
                     elseif (\Idno\Core\site()->session()->isAPIRequest()) {
-                        header('X-Known-API-Location: ' . $location);
+                        echo json_encode([
+                            'location' => $location
+                        ]); 
                     }
                     
                     if ($exit) {
