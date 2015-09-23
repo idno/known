@@ -6,7 +6,7 @@
 
             protected $purifier;
 
-            function __construct() {
+            function init() {
 
                 $config = \HTMLPurifier_Config::createDefault();
                 $config->set('Cache.DefinitionImpl', null);
