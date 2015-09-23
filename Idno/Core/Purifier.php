@@ -20,6 +20,16 @@
 
             }
 
+            function registerEventHooks() {
+                \Idno\Core\site()->addEventHook('text/filter',function(\Idno\Core\Event $event) {
+                    
+		    $text = $event->response();
+		    
+		    $text = $this->purify($text);
+		    
+		    $event->setResponse($text);
+                });
+            }
         }
 
     }

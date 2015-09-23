@@ -231,9 +231,7 @@
             function sanitize_html($html)
             {
                 $html = site()->triggerEvent('text/filter', [], $html);
-                if ($this->purifier instanceof Purifier) {
-                    return $this->purifier->purify($html);
-                }
+                
                 return $html;
             }
 
