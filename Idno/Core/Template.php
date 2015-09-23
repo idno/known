@@ -26,6 +26,9 @@
             // We can also extend templates with HTML or other content
             public $rendered_extensions = array();
 
+            // Keep track of the HTML purifier
+            public $purifier = false;
+
             /**
              * On construction, detect the template type
              */
@@ -37,6 +40,8 @@
 
                 assert('\Idno\Core\site()->config()->site_secret /* Site secret not set */');
                 \Bonita\Main::siteSecret(\Idno\Core\site()->config()->site_secret);
+
+                $this->purifier = new Purifier();
 
                 return parent::__construct($template);
             }
@@ -220,12 +225,16 @@
 
             /**
              * Sanitize HTML in a large block of text, removing XSS and other vulnerabilities.
-             * This works by calling the text/filter event, note that currently there is no native implementation.
+             * This works by calling the text/filter event, as well as any built-in purifier.
              * @param type $html
              */
             function sanitize_html($html)
             {
-                return site()->triggerEvent('text/filter', [], $html);
+                $html = site()->triggerEvent('text/filter', [], $html);
+                if ($this->purifier instanceof Purifier) {
+                    return $this->purifier->purify($html);
+                }
+                return $html;
             }
 
             /**
