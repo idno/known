@@ -6,7 +6,7 @@
 
             protected $purifier;
 
-            function __construct() {
+            function init() {
 
                 $config = \HTMLPurifier_Config::createDefault();
                 $config->set('Cache.DefinitionImpl', null);
@@ -20,6 +20,16 @@
 
             }
 
+            function registerEventHooks() {
+                \Idno\Core\site()->addEventHook('text/filter',function(\Idno\Core\Event $event) {
+                    
+		    $text = $event->response();
+		    
+		    $text = $this->purify($text);
+		    
+		    $event->setResponse($text);
+                });
+            }
         }
 
     }
