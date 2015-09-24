@@ -423,7 +423,7 @@
                     site()->logging()->log("API Login failure from $ip", LOGLEVEL_ERROR); 
                     //\Idno\Core\site()->triggerEvent('login/failure/api'); // Can't be used until #918 is fixed.
                     
-                    site()->currentPage()->setResponse(403);
+                    site()->currentPage()->deniedContent();
                 }
 
                 return $return;

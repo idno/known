@@ -448,10 +448,9 @@
                 // Automatically add a slug (if one isn't set and this is a new entity)
 
                 if (!$this->getSlug() && empty($this->_id)) {
-                    error_log("Didn't get slug");
                     if (!($title = $this->getTitle())) {
                         if (!($title = $this->getDescription())) {
-                            $title = md5(time() . rand(0, 9999));
+                            $title = md5(rand() . microtime(true));
                         }
                     }
                     \Idno\Core\site()->logging()->log("Setting resilient slug", LOGLEVEL_DEBUG);
@@ -1742,7 +1741,7 @@
                                 if (is_array($item['properties']['content'])) {
                                     foreach ($item['properties']['content'] as $content) {
                                         if (!empty($content['value'])) {
-                                            $parsed_content = strip_tags($content['value']);
+                                            $parsed_content = \Idno\Core\site()->template()->sanitize_html($content['value']);
                                             if (!substr_count($mention['content'], $parsed_content)) {
                                                 $mention['content'] .= $parsed_content;
                                             }
@@ -1753,13 +1752,13 @@
                                 }
                             } else if (!empty($item['properties']['summary'])) {
                                 if (is_array($item['properties']['summary'])) {
-                                    $mention['content'] = strip_tags(implode(' ', $item['properties']['summary']));
+                                    $mention['content'] = \Idno\Core\site()->template()->sanitize_html(implode(' ', $item['properties']['summary']));
                                 } else {
                                     $mention['content'] = $item['properties']['summary'];
                                 }
                             } else if (!empty($item['properties']['name'])) {
                                 if (is_array($item['properties']['name'])) {
-                                    $mention['content'] = strip_tags(implode(' ', $item['properties']['name']));
+                                    $mention['content'] = \Idno\Core\site()->template()->sanitize_html(implode(' ', $item['properties']['name']));
                                 } else {
                                     $mention['content'] = $item['properties']['name'];
                                 }
