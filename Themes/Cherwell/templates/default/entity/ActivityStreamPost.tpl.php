@@ -51,7 +51,7 @@
                                             ?>
 
                                             <p>
-                                                <i class="icon-reply"></i> Replied to
+                                                <i class="fa fa-reply"></i> Replied to
                                                 <?php
 
                                                     $replies = 0;
