@@ -51,7 +51,7 @@
                 // We need to set pragma and expires headers
                 header("Pragma: private");
                 header("Cache-Control: private");
-                header('Expires: ' . date(\DateTime::RFC1123, time() + (86400 * 30))); // Cache for 30 days!
+                //header('Expires: ' . date(\DateTime::RFC1123, time() + (86400 * 30))); // Cache for 30 days!
                 $this->setLastModifiedHeader($object->updated); // Say when this was last modified
                 if ($cache = \Idno\Core\site()->cache()) {
                     $cache->store("{$this->arguments[0]}_modified_ts", $object->updated);
