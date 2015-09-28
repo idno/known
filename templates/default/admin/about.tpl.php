@@ -22,7 +22,7 @@
             Exclusive Web Hosting Sponsor:
         </p>
         <p>
-            <a href="http://dreamhost.com/redir.cgi?promo=known595&url=promo/hosting595/&utm_source=known&utm_medium=banner&utm_content=sponsorshared595&utm_campaign=shared"></a><img src="https://withknown.com/img/sponsor_dh_long.png" style="width: 100%"></a>
+            <a href="https://dreamhost.com/redir.cgi?promo=known595&url=promo/known595/&utm_source=known&utm_medium=banner&utm_content=panelshared595&utm_campaign=shared"></a><img src="https://withknown.com/img/sponsor_dh_long.png" style="width: 100%"></a>
         </p>
     </div>
 </div>
