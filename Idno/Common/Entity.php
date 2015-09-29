@@ -1781,11 +1781,6 @@
                                     $mention['url'] = $item['properties']['url'];
                                 }
                             }
-                            if (!empty($item['properties']['in-reply-to']) && is_array($item['properties']['in-reply-to'])) {
-                                if (in_array($target, static::getStringURLs($item['properties']['in-reply-to']))) {
-                                    $mention['type'] = 'reply';
-                                }
-                            }
                             if (!empty($item['properties']['like']) && is_array($item['properties']['like'])) {
                                 if (in_array($target, static::getStringURLs($item['properties']['like']))) {
                                     $mention['type'] = 'like';
@@ -1805,6 +1800,11 @@
                                     if (in_array($target, static::getStringURLs($item['properties'][$verb]))) {
                                         $mention['type'] = 'share';
                                     }
+                                }
+                            }
+                            if (!empty($item['properties']['in-reply-to']) && is_array($item['properties']['in-reply-to'])) {
+                                if (in_array($target, static::getStringURLs($item['properties']['in-reply-to']))) {
+                                    $mention['type'] = 'reply';
                                 }
                             }
                             if (empty($mention['type'])) {
