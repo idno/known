@@ -936,8 +936,8 @@
                 $headers = $this->getallheaders();
                 if (isset($headers['If-Modified-Since'])) {
                     if (strtotime($headers['If-Modified-Since']) <= $timestamp) { 
-                        header('HTTP/1.1 304 Not Modified');
-                        exit;
+                        //header('HTTP/1.1 304 Not Modified');
+                        //exit;
                     }
                 }
             }
