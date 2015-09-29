@@ -2,6 +2,20 @@
 
 Starting with version 0.6.4, this is a list of changes in the self-hosted, open source version of Known.
 
+0.8.4
+-----
+September 28, 2015
+
+* See who you've invited to Known, and resend or rescind invitations
+* Hashtag linking improvements
+* Added support for SIP, Bitcoin and Spotify profile fields
+* SVG upload support
+* Numerous interface improvements
+* Fixed aggressive caching of Known posts
+* Assorted API fixes and improvements
+* Introduced HTML purifier component
+* Webmentions no longer strip HTML
+
 0.8.3.1
 -------
 August 19, 2015
