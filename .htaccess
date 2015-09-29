@@ -1,3 +1,5 @@
+<<<<<<< .merge_file_1kqYNK
+=======
 # Known .htaccess file
 
 <IfModule mod_rewrite.c>
@@ -50,3 +52,4 @@
 AddType video/ogg .ogv
 AddType video/mp4 .mp4
 AddType video/webm .webm
+>>>>>>> .merge_file_OfTiVK
