@@ -10,7 +10,7 @@
     if (empty($vars['feed_view'])) {
         ?>
         <h2 class="photo-title p-name"><a
-                href="<?= $vars['object']->getURL(); ?>"><?= htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?></a>
+                href="<?= $vars['object']->getDisplayURL(); ?>"><?= htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?></a>
         </h2>
     <?php
     }

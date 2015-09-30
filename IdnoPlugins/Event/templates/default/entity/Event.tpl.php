@@ -5,7 +5,7 @@
 
             ?>
             <h2 class="p-name">
-                <a href="<?= $vars['object']->getURL() ?>"
+                <a href="<?= $vars['object']->getDisplayURL() ?>"
                    class="u-url"><?= htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?></a>
             </h2>
         <?php
