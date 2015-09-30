@@ -55,7 +55,7 @@
                             $object->save();
                         }
                     }
-                    $this->forward($object->getURL() . '#comments');
+                    $this->forward($object->getDisplayURL() . '#comments');
                 }
 
             }
