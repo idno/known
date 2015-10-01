@@ -624,12 +624,21 @@
             function referrerGatekeeper()
             {
                 if (empty(\Idno\Core\site()->config()->ignore_referrer)) {
-                    if (!\Idno\Core\site()->session()->isAPIRequest()) {
+                    /*
+                     * BW 2015-10-01 - it turns out enterprise proxy servers strip referrer for security reasons.
+                     * As a result, I'm both commenting this out and telling people to change enterprise proxy server
+                     * vendor.
+                     *
+                     * To be fair, users have the right to strip out their referrer value, in the same way they have
+                     * the right to change their browser identification string. Probably another solution is required.
+                     *
+                     * if (!\Idno\Core\site()->session()->isAPIRequest()) {
                         $referrer = $this->getReferrer();
                         if (empty($referrer)) {
                             $this->deniedContent();
                         }
                     }
+                    */
                 }
             }
 
