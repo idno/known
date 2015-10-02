@@ -51,7 +51,8 @@
                 'multi_syndication'    => true,
                 'wayback_machine'      => false,
                 'static_url'           => false,
-                'user_avatar_favicons' => true
+                'user_avatar_favicons' => true,
+                'form_token_expiry'    => 21600,
             );
 
             public $ini_config = array();
