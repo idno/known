@@ -24,6 +24,9 @@
         <p>
             <a href="https://dreamhost.com/redir.cgi?promo=known595&url=promo/known595/&utm_source=known&utm_medium=banner&utm_content=panelshared595&utm_campaign=shared"></a><img src="https://withknown.com/img/sponsor_dh_long.png" style="width: 100%"></a>
         </p>
+        <p>
+            Known is compatible with <a href="https://dreamhost.com/redir.cgi?promo=known595&url=promo/known595/&utm_source=known&utm_medium=banner&utm_content=panelshared595&utm_campaign=shared">DreamHost's unlimited hosting plan</a>.
+        </p>
     </div>
 </div>
 <div class="row" style="margin-top: 1em">
