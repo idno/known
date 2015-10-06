@@ -220,7 +220,7 @@
                 require_once dirname(dirname(dirname(__FILE__))) . '/external/MrClay_AutoP/AutoP.php';
                 $autop = new \MrClay_AutoP();
 
-                return $this->sanitize_html($autop->process($html));
+                return $autop->process($html);
             }
 
             /**
