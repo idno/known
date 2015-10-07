@@ -64,7 +64,7 @@
                     case 'invite_users':
                         $emails = $this->getInput('invitation_emails');
 
-                        preg_match_all('/[a-z\d._%\+-]+@[a-z\d.-]+\.[a-z]{2,4}\b/i', $emails, $matches);
+                        preg_match_all('/[a-z\d._%\+\-]+@[a-z\d.-]+\.[a-z]{2,4}\b/i', $emails, $matches);
 
                         $invitation_count = 0;
                         if (!empty($matches[0])) {
