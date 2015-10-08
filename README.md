@@ -26,12 +26,16 @@ You can also opt to check out the bleeding edge code from the git repository: <h
 
 Detailed installation instructions: <http://docs.withknown.com/en/latest/install/index.html>
 
-###Support
+###Support us
 
 * [Star us on GitHub](https://github.com/idno/known)
 * [Like us on alternativeto.net](http://alternativeto.net/software/known/)
 * [Contribute](CONTRIBUTORS.md)
 
+###Get support
+
+* Try the open source mailing list: <https://groups.google.com/forum/#!forum/known-dev>
+* Commercial support is available: <https://withknown.com/services>
 
 ## Community links
 
