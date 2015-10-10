@@ -11,10 +11,8 @@
         ?>">
         <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
         <script src="https://cdn.ampproject.org/v0.js" async></script>
+        <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
         <style>body {opacity: 0}</style><noscript><style>body {opacity: 1}</style></noscript>
-
-        <!-- We need jQuery at the top of the page -->
-        <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/jquery/' ?>jquery.min.js"></script>
 
         <!-- To silo is human, to syndicate divine -->
         <link rel="alternate" type="application/rss+xml" title="<?= htmlspecialchars($vars['title']) ?>"
@@ -38,32 +36,6 @@
         <?=$this->draw('shell/css');?>
 
         <?php
-
-            if (\Idno\Core\site()->session()->isLoggedIn()) {
-
-                ?>
-                <!-- <link rel="manifest" href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>chrome/manifest.json"> -->
-                <?php
-                if (Idno\Core\site()->isSecure()) {
-                    ?>
-                    <!-- <script>
-                window.addEventListener('load', function () {
-                    if ('serviceWorker' in navigator) {
-                        navigator.serviceWorker.register('<?=\Idno\Core\site()->config()->getDisplayURL()?>chrome/service-worker.js', {scope: '/'})
-                            .then(function (r) {
-                                console.log('Registered service worker');
-                            })
-                            .catch(function (whut) {
-                                console.error('Could not register service worker');
-                                console.error(whut);
-                            });
-                    }
-                });
-            </script> -->
-                    <?php
-                }
-
-            }
 
             $opengraph = array(
                 'og:type'      => 'website',
@@ -143,6 +115,7 @@
 
             $body = $vars['body'];
             $body = str_replace('<img','<amp-img',$body);
+            $body = str_replace('<iframe','<amp-iframe',$body);
             echo $body;
 
         ?>
