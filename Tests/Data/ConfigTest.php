@@ -12,7 +12,7 @@ namespace Tests\Data {
          * Ensure that config collection has been correctly configured.
          */
         public function testSave() {
-            $this->assertNotFalse(\Idno\Core\site()->config()->save());
+            $this->assertTrue(\Idno\Core\site()->config()->save()!==false);
         }
         
         
