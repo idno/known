@@ -81,6 +81,8 @@
                 $tags = \Idno\Core\site()->currentPage()->getInput('tags');
                 $title = \Idno\Core\site()->currentPage()->getInput('title');
                 $access = \Idno\Core\site()->currentPage()->getInput('access');
+                $likeof = \Idno\Core\site()->currentPage()->getInput('like-of');
+                $repostof = \Idno\Core\site()->currentPage()->getInput('repost-of');
 
                 if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
                     if ($time = strtotime($time)) {
@@ -89,13 +91,21 @@
                 }
 
                 $body = trim($body);
-                if(filter_var($body, FILTER_VALIDATE_URL)){
-                    if (!empty($body)) {
+                if(filter_var($body, FILTER_VALIDATE_URL) || filter_var($likeof, FILTER_VALIDATE_URL) || filter_var($repostof, FILTER_VALIDATE_URL)){
+                    if (!empty($body) || !empty($likeof) || !empty($repostof)) {
                         $this->body = $body;
+                        if (!empty($likeof)) {
+                            $this->body = $likeof;
+                            $this->likeof = $likeof;
+                        }
+                        if (!empty($repostof)) {
+                            $this->body = $repostof;
+                            $this->repostof = $repostof;
+                        }
                         $this->description = $description;
                         $this->tags = $tags;
                         if (empty($title)) {
-                            if ($title = $this->getTitleFromURL($body)) {
+                            if ($title = $this->getTitleFromURL($this->body)) {
                                 $this->pageTitle = $title;
                             } else {
                                 $this->pageTitle = '';
@@ -104,6 +114,7 @@
                         	$this->pageTitle = $title;
                         }
                         if (empty($title)) {
+                            error_log("No title");
                             \Idno\Core\site()->session()->addErrorMessage('You need to specify a title.');
                             return false;
                         }
@@ -112,9 +123,11 @@
                             return true;
                         }
                     } else {
+                        error_log("No URL");
                         \Idno\Core\site()->session()->addErrorMessage('You can\'t bookmark an empty URL.');
                     }
                 } else {
+                    error_log("Invalid URL");
                     \Idno\Core\site()->session()->addErrorMessage('That doesn\'t look like a valid URL.');
                 }
                 return false;

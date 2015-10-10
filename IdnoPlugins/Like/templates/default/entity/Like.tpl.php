@@ -1,8 +1,15 @@
 <?php
-    if (\Idno\Core\site()->currentPage()->isPermalink()) {
-        $rel = 'rel="like" class="u-like"';
-    } else {
-        $rel = '';
+
+    $rel = '';
+    $icon = '';
+
+    if (!empty($vars['object']->likeof)) {
+        $rel = 'rel="like" class="u-like-of"';
+        $icon = '<i class="fa fa-star-o"></i> ';
+    }
+    if (!empty($vars['object']->repostof)) {
+        $rel = 'rel="like" class="u-repost-of"';
+        $icon = '<i class="fa fa-retweet"></i> ';
     }
 
     if (!empty($vars['object']->pageTitle)) {
@@ -18,7 +25,7 @@
         if (empty($vars['feed_view'])) {
 
             ?>
-            <h2 class="p-bookmark"><a href="<?= $vars['object']->body; ?>" rel="bookmark"
+            <h2 class="p-bookmark"><?=$icon?><a href="<?= $vars['object']->body; ?>" rel="bookmark"
                                       target="_blank"><?= $this->parseURLs(htmlentities(strip_tags($body)), $rel) ?></a>
             </h2>
         <?php
