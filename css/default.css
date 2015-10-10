@@ -898,6 +898,12 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     text-decoration: none;
 }
 
+@media screen and (max-width: 767px) {
+    .navbar-nav .open .dropdown-menu {
+        float: left;
+    }
+}
+
 .navbar {
     background-color: #fff;
     background-image: none;
