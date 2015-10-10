@@ -17,9 +17,9 @@
                     $token = trim($token);
                 }
 
-                $user       = \Idno\Entities\User::getOne(array('admin' => true));
+                $user             = \Idno\Entities\User::getOne(array('admin' => true));
                 $indieauth_tokens = $user->indieauth_tokens;
-                $user_token = $user->getAPIkey();
+                $user_token       = $user->getAPIkey();
 
                 if (!empty($indieauth_tokens[$token]) || $token == $user_token) {
                     \Idno\Core\site()->session()->refreshSessionUser($user);
@@ -43,8 +43,8 @@
             function post()
             {
 
-                $headers = $this->getallheaders();
-                $user    = \Idno\Entities\User::getOne(array('admin' => true));
+                $headers          = $this->getallheaders();
+                $user             = \Idno\Entities\User::getOne(array('admin' => true));
                 $indieauth_tokens = $user->indieauth_tokens;
 
                 if (!empty($headers['Authorization'])) {
@@ -67,18 +67,26 @@
                     $name        = $this->getInput('name');
                     $in_reply_to = $this->getInput('in-reply-to');
                     $syndicate   = $this->getInput('mp-syndicate-to');
+                    $like_of     = $this->getInput('like-of');
+                    $repost_of   = $this->getInput('repost-of');
 
                     if ($type == 'entry') {
+                        $type = 'article';
                         if (!empty($_FILES['photo'])) {
                             $type = 'photo';
                             if (empty($name) && !empty($content)) {
                                 $name    = $content;
                                 $content = '';
                             }
-                        } else if (empty($name)) {
+                        }
+                        if (empty($name)) {
                             $type = 'note';
-                        } else {
-                            $type = 'article';
+                        }
+                        if (!empty($like_of)) {
+                            $type = 'like';
+                        }
+                        if (!empty($repost_of)) {
+                            $type = 'repost';
                         }
                     }
 
@@ -87,9 +95,14 @@
 
                         if ($entity = $contentType->createEntity()) {
 
+                            error_log(var_export($entity, true));
+
                             $this->setInput('title', $name);
                             $this->setInput('body', $content);
                             $this->setInput('inreplyto', $in_reply_to);
+                            $this->setInput('like-of', $like_of);
+                            $this->setInput('repost-of', $repost_of);
+                            $this->setInput('access', 'PUBLIC');
                             if ($created = $this->getInput('published')) {
                                 $this->setInput('created', $created);
                             }
@@ -98,7 +111,7 @@
                                 $this->setInput('syndication', $syndication);
                             }
                             if ($entity->saveDataFromInput()) {
-                                //$this->setResponse(201);
+                                $this->setResponse(201);
                                 header('Location: ' . $entity->getURL());
                                 exit;
                             } else {
