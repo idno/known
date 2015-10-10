@@ -32,7 +32,7 @@
                         </p>
                     </div>-->
                     <?php
-                        if (($subObject->inreplyto)) {
+                        if ($subObject->inreplyto) {
                             ?>
                             <div class="reply-text">
                                 <?php
