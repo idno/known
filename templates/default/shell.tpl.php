@@ -126,6 +126,13 @@
         }
 
     ?>
+    <!-- AMP versions -->
+    <link rel="amphtml" href="<?php
+
+        /* @var \Idno\Core\Template $this */
+        echo $this->getCurrentURLWithVar('_t', 'amp');
+
+    ?>">
 
     <!-- We need jQuery at the top of the page -->
     <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/jquery/' ?>jquery.min.js"></script>
