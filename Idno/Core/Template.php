@@ -433,6 +433,24 @@
             }
 
             /**
+             * Returns a version of the current page URL with the specified URL variable set to the specified value
+             * @param $variable_name
+             * @param $value
+             * @return string
+             */
+            function getCurrentURLWithVar($variable_name, $value)
+            {
+                $components = parse_url($this->getCurrentURL());
+                parse_str($components['query'], $url_var_array);
+                $url_var_array[$variable_name] = $value;
+                $components['query'] = http_build_query($url_var_array);
+                $url                 = $components['scheme'] . '://' . $components['host'] . $components['path'];
+                if (!empty($components['query'])) $url .= '?' . $components['query'];
+
+                return $url;
+            }
+
+            /**
              * Returns a sanitized version of the current page URL
              * @return string
              */
