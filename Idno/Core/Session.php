@@ -325,7 +325,7 @@
             {
                 unset($_SESSION['user_uuid']);
                 unset($this->user);
-                session_destroy();
+                @session_destroy();
 
                 return true;
             }
