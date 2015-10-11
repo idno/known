@@ -56,7 +56,7 @@
                         curl_setopt($curl_handle, CURLOPT_CUSTOMREQUEST, 'DELETE'); // Override request type
                         curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $params);
                     case 'head':
-                        curl_setopt($curl_handle, CURLOPT_NOBODY, true);
+                        if ($verb == 'head') curl_setopt($curl_handle, CURLOPT_NOBODY, true);
                     case 'get':
                     default:
                         $req = "";
