@@ -47,14 +47,14 @@
                         curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $params);
                         $headers[] = 'Expect:';
                         break;
-                    case 'delete':
-                        curl_setopt($curl_handle, CURLOPT_CUSTOMREQUEST, 'DELETE'); // Override request type
-                        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $params);
-                        break;
                     case 'put':
                         curl_setopt($curl_handle, CURLOPT_CUSTOMREQUEST, 'PUT'); // Override request type
                         curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $params);
                         break;
+                       
+                    case 'delete':
+                        curl_setopt($curl_handle, CURLOPT_CUSTOMREQUEST, 'DELETE'); // Override request type
+                        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $params);
                     case 'head':
                         curl_setopt($curl_handle, CURLOPT_NOBODY, true);
                     case 'get':
