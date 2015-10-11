@@ -389,7 +389,7 @@
 
                         $key          = $user->getAPIkey();
                         $hmac         = trim($_SERVER['HTTP_X_KNOWN_SIGNATURE']);
-                        $compare_hmac = base64_encode(hash_hmac('sha256', $_SERVER['REQUEST_URI'], $key, true));
+                        $compare_hmac = base64_encode(hash_hmac('sha256', rtrim($_SERVER['REQUEST_URI'], '?'), $key, true));
 
                         if ($hmac == $compare_hmac) {
 
