@@ -108,6 +108,12 @@
 
         ?>
 
+        <style>
+            body {
+                font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial, sans-serif;
+            }
+        </style>
+
     </head>
     <body>
         <?= $this->draw('shell/beforecontent') ?>

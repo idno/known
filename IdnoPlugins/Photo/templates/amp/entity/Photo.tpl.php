@@ -12,7 +12,7 @@
         <h2 class="photo-title p-name"><a
                 href="<?= $vars['object']->getDisplayURL(); ?>"><?= htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?></a>
         </h2>
-    <?php
+        <?php
     }
     if ($attachments = $vars['object']->getAttachments()) {
         foreach ($attachments as $attachment) {
@@ -32,12 +32,15 @@
             // Patch to correct certain broken URLs caused by https://github.com/idno/known/issues/526
             $src = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\site()->config()->getDisplayURL(), $src);
             $mainsrc = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\site()->config()->getDisplayURL(), $mainsrc);
-            
-            ?>
-            <p style="text-align: center">
-                <a href="<?= $this->makeDisplayURL($mainsrc) ?>"><img src="<?= $this->makeDisplayURL($src) ?>" class="u-photo"/></a>
-            </p>
-        <?php
+
+            if (list($width, $height, $type, $attr) = getimagesize($src)) {
+                ?>
+                <p style="text-align: center">
+                    <a href="<?= $this->makeDisplayURL($mainsrc) ?>"><img src="<?= $this->makeDisplayURL($src) ?>" class="u-photo" width="<?=$width?>" height="<?=$height?>"/></a>
+                </p>
+                <?php
+            }
+
         }
     }
 ?>
