@@ -55,5 +55,13 @@
             }
         });
 
+    $console
+        ->register('version')
+        ->setDescription('Returns the current Known version as defined in version.known')
+        ->setDefinition([])
+        ->setCode(function (\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) {
+            $output->writeln(file_get_contents(dirname(__FILE__) . '/version.known'));
+        });
+
     // Run the application
     $console->run();
