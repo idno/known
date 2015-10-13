@@ -196,8 +196,9 @@
                 $this->addPageHandler('/begin/connect\-forwarder/?', '\Idno\Pages\Onboarding\ConnectForwarder');
                 $this->addPageHandler('/begin/publish/?', '\Idno\Pages\Onboarding\Publish');
 
+                // These must be loaded last
+                $this->plugins = new Plugins();
                 $this->themes  = new Themes();
-                $this->plugins = new Plugins(); // This must be loaded last
 
             }
 
@@ -569,7 +570,7 @@
              */
             function machineVersion()
             {
-                return '2015092801';
+                return '2015101301';
             }
 
             /**
