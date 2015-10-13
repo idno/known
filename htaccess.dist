@@ -22,6 +22,14 @@
   Order allow,deny
   Deny from all
 </Files>
+<Files ~ "known\.php">
+  Order allow,deny
+  Deny from all
+</Files>
+<Files  ~ "\.known">
+  Order allow,deny
+  Deny from all
+</Files>
 <Files  ~ "\.ini$">
   Order allow,deny
   Deny from all
