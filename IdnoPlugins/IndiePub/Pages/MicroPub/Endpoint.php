@@ -97,8 +97,19 @@
 
                             error_log(var_export($entity, true));
 
+                            if (is_array($content)) {
+                                $content_value = '';
+                                if (!empty($content['html'])) {
+                                    $content_value = $content['html'];
+                                } else if (!empty($content['value'])) {
+                                    $content_value = $content['value'];
+                                }
+                            } else {
+                                $content_value = $content;
+                            }
+
                             $this->setInput('title', $name);
-                            $this->setInput('body', $content);
+                            $this->setInput('body', $content_value);
                             $this->setInput('inreplyto', $in_reply_to);
                             $this->setInput('like-of', $like_of);
                             $this->setInput('repost-of', $repost_of);
