@@ -938,8 +938,12 @@
 
             function getDescription()
             {
-                if (!empty($this->description))
+                if (!empty($this->description)) {
+                    if (is_array($this->description)) {
+                        $this->description = implode(' ', $this->description);
+                    }
                     return $this->description;
+                }
 
                 return '';
             }
