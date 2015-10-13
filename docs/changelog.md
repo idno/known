@@ -2,6 +2,17 @@
 
 Starting with version 0.6.4, this is a list of changes in the self-hosted, open source version of Known.
 
+0.8.5
+-----
+October 13, 2015
+
+* Experimental AMP support! See http://ampproject.org for more details
+* Better support for embedded content
+* A slew of indieweb improvements, including upgraded micropub support for actions like likes and reshares
+* Themes now take template precedence over plugins - so a theme can create a new style for a plugin-provided feature
+* Known now works better under FastCGI on some shared hosts
+* Lots of API fixes and consistency changes under the hood
+
 0.8.4
 -----
 September 28, 2015
