@@ -949,6 +949,30 @@
             }
 
             /**
+             * Retrieves this object's author name
+             * @return bool|string
+             */
+            function getAuthorName()
+            {
+                if ($owner = $this->getOwner()) {
+                    return $owner->getTitle();
+                }
+                return false;
+            }
+
+            /**
+             * Retrieves this object's author URL
+             * @return bool|string
+             */
+            function getAuthorURL()
+            {
+                if ($owner = $this->getOwner()) {
+                    return $owner->getURL();
+                }
+                return false;
+            }
+
+            /**
              * Retrieves the rendered HTML of this body
              * @return string
              */
