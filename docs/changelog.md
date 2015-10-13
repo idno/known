@@ -9,6 +9,7 @@ October 13, 2015
 * Experimental AMP support! See http://ampproject.org for more details
 * Better support for embedded content
 * A slew of indieweb improvements, including upgraded micropub support for actions like likes and reshares
+* A command line tool (with extensible plugin interface) to automatically create a config.ini file, among other things
 * Themes now take template precedence over plugins - so a theme can create a new style for a plugin-provided feature
 * Known now works better under FastCGI on some shared hosts
 * Lots of API fixes and consistency changes under the hood
