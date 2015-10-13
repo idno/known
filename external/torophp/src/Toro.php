@@ -14,11 +14,11 @@ class Toro
         else if (!empty($_SERVER['ORIG_PATH_INFO']) && $_SERVER['ORIG_PATH_INFO'] !== '/index.php') {
             $path_info = $_SERVER['ORIG_PATH_INFO'];
         }
-        else {
+        //else {
             if (!empty($_SERVER['REQUEST_URI'])) {
                 $path_info = (strpos($_SERVER['REQUEST_URI'], '?') > 0) ? strstr($_SERVER['REQUEST_URI'], '?', true) : $_SERVER['REQUEST_URI'];
             }
-        }
+        //}
         
         $discovered_handler = null;
         $regex_matches = array();
