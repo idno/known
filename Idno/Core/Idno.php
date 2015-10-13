@@ -43,7 +43,7 @@
                     header('Location: ./warmup/');
                     exit; // Load the installer
                 }
-                switch ($this->config->database) {
+                switch (trim(strtolower($this->config->database))) {
                     case 'mongodb':
                         $this->db = new DataConcierge();
                         break;
