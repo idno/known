@@ -551,7 +551,7 @@
              */
             function version()
             {
-                return '0.8.4';
+                return '0.8.5';
             }
 
             /**
