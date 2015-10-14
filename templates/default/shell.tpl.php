@@ -261,6 +261,9 @@
         <?php
 
         } // End hidenav test
+
+        $this->draw('shell/beforecontainer');
+
     ?>
 
     <div class="container page-body">
@@ -290,6 +293,7 @@
     </div>
     <!-- /container -->
 
+    <?= $this->draw('shell/aftercontainer') ?>
     <?= $this->draw('shell/contentfooter') ?>
 
 </div>
