@@ -30,7 +30,8 @@
                                                  'Bridgy',
                                                  'FooterJS',
                                                  'IndiePub',
-                                                 'Convoy'
+                                                 'Convoy',
+                                                 'Comments',
                 ),
                 'assets'               => [      // Assets to be included
                                                  'mediaelementplayer' => true,
