@@ -262,7 +262,7 @@
 
         } // End hidenav test
 
-        $this->draw('shell/beforecontainer');
+        echo $this->draw('shell/beforecontainer');
 
     ?>
 
