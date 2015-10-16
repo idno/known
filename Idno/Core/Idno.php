@@ -63,11 +63,15 @@
                     default:
                         if (class_exists("Idno\\Data\\{$this->config->database}")) {
                             $db       = "Idno\\Data\\{$this->config->database}";
-                            $this->db = new $db();
+                            if (is_subclass_of($db, "Idno\\Core\\DataConcierge")) {
+								$this->db = new $db();
+							}
                         }
                         if (empty($this->db) && class_exists("{$this->config->database}")) {
                             $db       = "{$this->config->database}";
-                            $this->db = new $db();
+                            if (is_subclass_of($db, "Idno\\Core\\DataConcierge")) {
+								$this->db = new $db();
+							}
                         }
                         if (empty($this->db)) {
                             $this->db = new DataConcierge();
