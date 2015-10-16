@@ -989,7 +989,7 @@
              * Get the URIs of all images in this entity's body HTML
              * @return array
              */
-            function getImageSourcesFromBody()
+            function getImageSourcesFromBody($total = 0)
             {
                 $src = array();
                 if ($body = $this->getBody()) {
@@ -999,6 +999,9 @@
                         foreach ($images as $image) {
                             if ($source = $image->getAttribute('src')) {
                                 $src[] = $source;
+                                if ($total > 0 && sizeof($src) >= $total) {
+                                    return $src;
+                                }
                             }
                         }
                     }
@@ -1018,6 +1021,30 @@
                 }
 
                 return false;
+            }
+
+            /**
+             * Retrieves paragraphs from the body, optionally limiting the total number to $total
+             * @param int $total
+             * @return array
+             */
+            function getParagraphsFromBody($total = 0)
+            {
+                $src = array();
+                if ($body = $this->getBody()) {
+                    $doc = new \DOMDocument();
+                    $doc->loadHTML($body);
+                    if ($paras = $doc->getElementsByTagName('p')) {
+                        foreach ($paras as $para) {
+                            $src[] = $doc->saveHTML($para);
+                            if ($total > 0 && sizeof($src) >= $total) {
+                                return $src;
+                            }
+                        }
+                    }
+                }
+
+                return $src;
             }
 
             /**
