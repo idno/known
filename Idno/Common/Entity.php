@@ -789,7 +789,7 @@
                     if ($return = \Idno\Core\db()->deleteRecord($this->getID(), $this->collection)) {
                         $this->deleteData();
                         
-                        \Idno\Core\site()->triggerEvent('delete', array('object' => $this));
+                        \Idno\Core\site()->triggerEvent('deleted', array('object' => $this));
 
                         return $return;
                     }
