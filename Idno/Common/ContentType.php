@@ -65,10 +65,10 @@
             function getCategoryTitle()
             {
                 if (!empty($this->category_title)) {
-                    return $this->category_title;
+                    return \Idno\Core\site()->language()->get($this->category_title);
                 }
 
-                return $this->getTitle();
+                return \Idno\Core\site()->language()->get($this->getTitle());
             }
 
             /**
@@ -77,7 +77,7 @@
              */
             function getTitle()
             {
-                return $this->title;
+                return \Idno\Core\site()->language()->get($this->title);
             }
 
             /**
@@ -134,7 +134,7 @@
                         /* @var ContentType $contentType */
                         $categoryTitle = $contentType->getCategoryTitleSlug();
                         if ($friendly_name == str_replace(' ', '', trim(strtolower($categoryTitle)))) {
-                            return $contentType->getCategoryTitle();
+                            return \Idno\Core\site()->language()->get($contentType->getCategoryTitle());
                         }
                     }
                 }

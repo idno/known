@@ -20,6 +20,7 @@
             public $config;
             public $session;
             public $template;
+            public $language;
             public $actions;
             public $plugins;
             public $dispatcher;
@@ -95,6 +96,7 @@
                 $this->session      = new Session();
                 $this->actions      = new Actions();
                 $this->template     = new Template();
+                $this->language     = new Language();
                 $this->syndication  = new Syndication();
                 $this->logging      = new Logging($this->config->log_level);
                 $this->reader       = new Reader();
@@ -342,6 +344,16 @@
             function &template()
             {
                 return $this->template;
+            }
+
+            /**
+             * Return the language handler associated with this site
+             * @return \Idno\Core\Language
+             */
+
+            function &language()
+            {
+                return $this->language;
             }
 
             /**
