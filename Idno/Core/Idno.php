@@ -203,8 +203,8 @@
                 $this->addPageHandler('/begin/publish/?', '\Idno\Pages\Onboarding\Publish');
 
                 // These must be loaded last
-                $this->themes  = new Themes();
                 $this->plugins = new Plugins();
+                $this->themes  = new Themes();
 
             }
 
