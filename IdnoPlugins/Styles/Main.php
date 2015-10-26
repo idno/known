@@ -14,7 +14,7 @@
                 //\Idno\Core\site()->template()->extendTemplate('settings/menu/items', 'styles/settings/menu');
 
                 if (!empty(\Idno\Core\site()->config()->styles['css'])) {
-                    \Idno\Core\site()->template()->extendTemplate('shell/head', 'styles/shell/head');
+                    \Idno\Core\site()->template()->extendTemplate('shell/head/final', 'styles/shell/head');
                 }
             }
         }

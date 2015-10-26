@@ -211,6 +211,7 @@
         src="<?= \Idno\Core\site()->config()->getStaticURL() ?>external/bootstrap-toggle/js/bootstrap-toggle.js"></script>
 
     <?= $this->draw('shell/head', $vars); ?>
+    <?= $this->draw('shell/head/final', $vars); ?>
 
 </head>
 
