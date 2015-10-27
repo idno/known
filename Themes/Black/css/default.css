@@ -443,3 +443,6 @@ ul, ol {
 a.contentTypeButton {
 	width: 90px;
 }
+.navbar-nav > li > .dropdown-menu, .navbar-right .dropdown-menu {
+    margin-top: 8px;
+}

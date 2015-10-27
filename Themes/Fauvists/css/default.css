@@ -112,7 +112,7 @@ a.contentTypeButton:hover {
 }
 
 .navbar.navbar-default .nav li.dropdown.open > .dropdown-toggle, .navbar.navbar-default .nav li.dropdown.active > .dropdown-toggle, .navbar.navbar-default .nav li.dropdown.open.active > .dropdown-toggle {
-    background-color: #653195;
+    background-color: transparent;
     color: #FFF;
 }
 
@@ -632,8 +632,8 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 
 .navbar-nav > li > .nav > li > a {
     color: #fff;
-    padding-bottom: 15px;
-    padding-top: 15px;
+    /*padding-bottom: 15px;
+    padding-top: 15px;*/
 }
 
 ul > li > .nav {
@@ -666,6 +666,9 @@ ul > li > .nav {
 }
 .dropdown-menu > li > a {
     color: #fff;
+}
+.navbar-nav > li > .dropdown-menu, .navbar-right .dropdown-menu {
+    margin-top: 0px;
 }
 
 

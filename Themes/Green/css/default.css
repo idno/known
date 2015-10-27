@@ -18,9 +18,9 @@ a:hover, a:focus {
     border: none;
 }
 
-li {
+/*li {
     line-height: 1.8em !important;
-}
+}*/
 
 h1, h2, h3, h4, h5, h6 {
     font-weight: 400;
@@ -584,8 +584,8 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 
 .navbar-nav > li > .nav > li > a {
     color: #fff;
-    padding-bottom: 12px;
-    padding-top: 12px;
+    /*padding-bottom: 12px;
+    padding-top: 12px;*/
 }
 
 .navbar .nav .dropdown-toggle .caret {
@@ -649,4 +649,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 }
 tr.pages {
     border-bottom: 1px solid #888;
+}
+.navbar-nav > li > .dropdown-menu, .navbar-right .dropdown-menu {
+    margin-top: 10px;
 }
