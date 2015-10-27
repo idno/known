@@ -62,12 +62,16 @@
 
 .navbar-nav > li > .nav > li > a {
     color: #333;
-    padding-bottom: 15px;
-    padding-top: 15px;
+   /* padding-bottom: 15px;
+    padding-top: 15px;*/
 }
 
 .navbar-nav > li > .nav > li > a:hover, .navbar-nav > li > .nav > li > a:focus  {
     color: #666;
+}
+.navbar-nav > li > a {
+	padding-bottom: 10px;
+	padding-top: 10px;
 }
 
 @media (min-width:837px) {
@@ -361,6 +365,7 @@ select, input[type="file"] {
 }
 .dropdown-menu {
 	border-radius: 0px;
+	border-top: none;
 }
 .user-tbl img {
 	 width: 40px;
@@ -377,6 +382,12 @@ p.user-tbl {
 }
 .annotate-icon {
 	margin-left: 15px;
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
+	background-color: transparent;
+}
+.nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+	background-color: transparent;
 }
 
 

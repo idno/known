@@ -24,10 +24,15 @@ h1, h2, h3, h4, h5, h6 {
 img {
     max-width: 100%;
 }
-
+.navbar-nav {
+    padding-top: 5px;
+}
 .nav li {
     /*line-height: 1.8em !important;*/
-    height: 2em;
+    /*height: 2em;*/
+}
+.navbar-nav > li > .dropdown-menu, .navbar-right .dropdown-menu {
+	margin-top: 5px;
 }
 
 .beforecontent {
@@ -886,9 +891,9 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     border-top-color: #333333;
 }
 
-.navbar-right {
+/*.navbar-right {
     margin-bottom: 15px;
-}
+}*/
 
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus, .dropdown-submenu:hover > a, .dropdown-submenu:focus > a {
     background-color: #73b2e3;
