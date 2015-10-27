@@ -3,7 +3,8 @@
 	<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href=""><?=\Idno\Core\site()->session()->currentUser()->getHandle()?> <span class="caret"></span></a>
 		<ul class="dropdown-menu">
 			<li><a href="<?=\Idno\Core\site()->session()->currentUser()->getDisplayURL()?>">Profile</a></li>
-			<li><a href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>account/settings/">Settings</a></li></li>
+			<?=$this->draw('shell/toolbar/personal/items')?>
+			<li><a href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>account/settings/">Account Settings</a></li></li>
 			<?php if (\Idno\Core\site()->session()->currentUser()->isAdmin()) { ?>
 			<li><a href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/">Site Configuration</a></li>
 			<?php } ?>
@@ -34,7 +35,7 @@
 			        */
 			?>
 			<li><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>account/settings/feedback/" ><i class="fa fa-heart" title="Leave feedback"></i> Feedback</a></li>
-	<?=$this->draw('shell/toolbar/logout')?>
+			<?=$this->draw('shell/toolbar/logout')?>
 		</ul>
 	
 	
