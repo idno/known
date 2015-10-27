@@ -190,7 +190,7 @@
                 }
 
                 if (!empty($this->ini_config)) {
-                    $this->config         = array_merge($this->config, $this->ini_config);
+                    $this->config         = array_replace_recursive($this->config, $this->ini_config);
                     $this->default_config = false;
                 }
 
