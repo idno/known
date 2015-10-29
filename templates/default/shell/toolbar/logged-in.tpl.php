@@ -1,6 +1,6 @@
 <?=$this->draw('shell/toolbar/logged-in/items')?>
 <!--<ul class="nav navbar-nav">-->
-	<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href=""><?=\Idno\Core\site()->session()->currentUser()->getHandle()?> <span class="caret"></span></a>
+	<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href=""><?=\Idno\Core\site()->session()->currentUser()->getTitle()?> <span class="caret"></span></a>
 		<ul class="dropdown-menu">
 			<li><a href="<?=\Idno\Core\site()->session()->currentUser()->getDisplayURL()?>">Profile</a></li>
 			<?=$this->draw('shell/toolbar/personal/items')?>
