@@ -67,14 +67,16 @@
                         preg_match_all('/[a-z\d._%\+\-]+@[a-z\d.-]+\.[a-z]{2,4}\b/i', $emails, $matches);
 
                         $invitation_count = 0;
+                        $invitations_sent = 0;
                         if (!empty($matches[0])) {
                             if (is_array($matches[0])) {
                                 foreach ($matches[0] as $email) {
                                     if (!($user = User::getByEmail($email))) {
                                         $invitation = new Invitation();
                                         if ($invitation->sendToEmail($email, \Idno\Core\site()->session()->currentUser()->email) !== 0) {
-                                            $invitation_count++;
+                                            $invitations_sent++;
                                         }
+                                        $invitation_count++;
                                     }
                                 }
                             }
@@ -84,6 +86,8 @@
                             \Idno\Core\site()->session()->addMessage("{$invitation_count} invitations were sent.");
                         } else if ($invitation_count == 1) {
                             \Idno\Core\site()->session()->addMessage("Your invitation was sent.");
+                        } else if ($invitations_sent == 0 && $invitation_count > 0) {
+                            \Idno\Core\site()->session()->addMessage("Something went wrong and we couldn't send emails to your recipients.");
                         } else {
                             \Idno\Core\site()->session()->addMessage("No email addresses were found or all the people you invited are already members of this site.");
                         }
