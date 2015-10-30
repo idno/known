@@ -148,20 +148,22 @@
 
                                     // Since we're stripping Exif, we need to manually adjust orientation of main image
                                     if (function_exists('exif_read_data')) {
-                                        $exif = exif_read_data($tmpfname);
-                                        if (!empty($exif['Orientation'])) {
-                                            switch ($exif['Orientation']) {
-                                                case 8:
-                                                    $image = imagerotate($image, 90, 0);
-                                                    break;
-                                                case 3:
-                                                    $image = imagerotate($image, 180, 0);
-                                                    break;
-                                                case 6:
-                                                    $image = imagerotate($image, -90, 0);
-                                                    break;
+                                        try {
+                                            $exif = exif_read_data($tmpfname);
+                                            if (!empty($exif['Orientation'])) {
+                                                switch ($exif['Orientation']) {
+                                                    case 8:
+                                                        $image = imagerotate($image, 90, 0);
+                                                        break;
+                                                    case 3:
+                                                        $image = imagerotate($image, 180, 0);
+                                                        break;
+                                                    case 6:
+                                                        $image = imagerotate($image, -90, 0);
+                                                        break;
+                                                }
                                             }
-                                        }
+                                        } catch (\Exception $e) {}
                                     }
 
                                     imagejpeg($image, $tmpfname);
