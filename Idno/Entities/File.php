@@ -147,8 +147,9 @@
                                     $image = imagecreatefromjpeg($tmpfname);
 
                                     // Since we're stripping Exif, we need to manually adjust orientation of main image
-                                    if (function_exists('exif_read_data')) {
-                                        try {
+                                    try {
+                                        if (function_exists('exif_read_data')) {
+
                                             $exif = exif_read_data($tmpfname);
                                             if (!empty($exif['Orientation'])) {
                                                 switch ($exif['Orientation']) {
@@ -163,10 +164,10 @@
                                                         break;
                                                 }
                                             }
-                                        } catch (\Exception $e) {}
-                                    }
+                                        }
 
-                                    imagejpeg($image, $tmpfname);
+                                        imagejpeg($image, $tmpfname);
+                                    } catch (\Exception $e) {}
                                     break;
                             }
 
