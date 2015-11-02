@@ -218,7 +218,7 @@
              */
             static function cleanUpFolder($path)
             {
-                foreach (glob("{path}/*") as $file) {
+                foreach (glob("{$path}/*") as $file) {
                     if (is_dir($file)) {
                         self::cleanUpFolder($file);
                     } else {
