@@ -27,9 +27,9 @@ img {
 .navbar-nav {
     padding-top: 5px;
 }
-.nav li {
-    /*line-height: 1.8em !important;*/
-    /*height: 2em;*/
+.nav.nav-tabs li {
+    line-height: 1.8em !important;
+    height: 2em;
 }
 .navbar-nav > li > .dropdown-menu, .navbar-right .dropdown-menu {
 	margin-top: 5px;
