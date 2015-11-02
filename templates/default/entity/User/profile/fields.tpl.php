@@ -27,7 +27,7 @@
                     case 'facebook.com':        $icon = 'fa fa-facebook'; break;
                     case 'plus.google.com':     $icon = 'fa fa-google-plus'; break;
                     case 'linkedin.com':        $icon = 'fa fa-linkedin'; break;
-                    default:                    $icon = 'fa fa-globe'; break;
+                    default:                    $icon = 'fa fa-link'; break;
 
                 }
 
