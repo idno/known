@@ -13,7 +13,7 @@
 
                 $category = $this->getInput('category');
                 $position = intval($this->getInput('position'));
-                if ($staticpages = \Idno\Core\site()->plugins()->get('StaticPages')) {
+                if ($staticpages = \Idno\Core\Idno::site()->plugins()->get('StaticPages')) {
 
                     $categories   = $staticpages->getCategories();
                     $old_position = array_search($category, $categories);

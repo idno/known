@@ -9,8 +9,8 @@
     
     unset($vars['body']);
 
-    if (!($callback = \Idno\Core\site()->currentPage()->getInput('callback'))) {
-        if (!($callback = \Idno\Core\site()->currentPage()->getInput('jsonp'))) {
+    if (!($callback = \Idno\Core\Idno::site()->currentPage()->getInput('callback'))) {
+        if (!($callback = \Idno\Core\Idno::site()->currentPage()->getInput('jsonp'))) {
             $callback = 'response';
         }
     }

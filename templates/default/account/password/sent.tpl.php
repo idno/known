@@ -15,7 +15,7 @@
             Check your inbox! You'll find an email containing a special link that will help you reset your password.
         </p>
         <p>
-            Did you remember your password? That's okay too. You can <a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>session/login">click here to sign in.</a>
+            Did you remember your password? That's okay too. You can <a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>session/login">click here to sign in.</a>
         </p>
 
     </div>

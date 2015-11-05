@@ -1,3 +1,3 @@
 <?php
 
-    echo \Idno\Core\site()->config()->footerjs;
+    echo \Idno\Core\Idno::site()->config()->footerjs;

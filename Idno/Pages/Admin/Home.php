@@ -15,11 +15,11 @@
             function getContent()
             {
                 $this->adminGatekeeper(); // Admins only
-                \Idno\Core\site()->db()->optimize();
-                if ($messages = \Idno\Core\site()->getVendorMessages()) {
-                    \Idno\Core\site()->session()->addMessage($messages);
+                \Idno\Core\Idno::site()->db()->optimize();
+                if ($messages = \Idno\Core\Idno::site()->getVendorMessages()) {
+                    \Idno\Core\Idno::site()->session()->addMessage($messages);
                 }
-                $t        = \Idno\Core\site()->template();
+                $t        = \Idno\Core\Idno::site()->template();
                 $t->body  = $t->__(array('vendor_messages' => $messages))->draw('admin/home');
                 $t->title = 'Administration';
                 $t->drawPage();
@@ -51,7 +51,7 @@
                 } else {
                     $open_registration = false;
                 }
-                if ($walled_garden == 'true' && \Idno\Core\site()->config()->canMakeSitePrivate()) {
+                if ($walled_garden == 'true' && \Idno\Core\Idno::site()->config()->canMakeSitePrivate()) {
                     $walled_garden = true;
                 } else {
                     $walled_garden = false;
@@ -81,26 +81,26 @@
                 } else {
                     $wayback_machine = false;
                 }
-                if (!empty($title)) \Idno\Core\site()->config->config['title'] = $title;
-                \Idno\Core\site()->config->config['homepagetitle'] = trim($homepagetitle);
-                if (!empty($description)) \Idno\Core\site()->config->config['description'] = $description;
-                if (!empty($url)) \Idno\Core\site()->config->config['url'] = $url;
-                if (!empty($path)) \Idno\Core\site()->config->config['path'] = $path;
-                if (!empty($host)) \Idno\Core\site()->config->config['host'] = $host;
-                if (!empty($hub)) \Idno\Core\site()->config->config['hub'] = $hub;
-                if (!empty($items_per_page) && is_int($items_per_page)) \Idno\Core\site()->config->config['items_per_page'] = $items_per_page;
-                \Idno\Core\site()->config->config['open_registration']    = $open_registration;
-                \Idno\Core\site()->config->config['walled_garden']        = $walled_garden;
-                \Idno\Core\site()->config->config['show_privacy']         = $show_privacy;
-                \Idno\Core\site()->config->config['indieweb_citation']    = $indieweb_citation;
-                \Idno\Core\site()->config->config['indieweb_reference']   = $indieweb_reference;
-                \Idno\Core\site()->config->config['user_avatar_favicons'] = $user_avatar_favicons;
-                \Idno\Core\site()->config->config['wayback_machine']      = $wayback_machine;
+                if (!empty($title)) \Idno\Core\Idno::site()->config->config['title'] = $title;
+                \Idno\Core\Idno::site()->config->config['homepagetitle'] = trim($homepagetitle);
+                if (!empty($description)) \Idno\Core\Idno::site()->config->config['description'] = $description;
+                if (!empty($url)) \Idno\Core\Idno::site()->config->config['url'] = $url;
+                if (!empty($path)) \Idno\Core\Idno::site()->config->config['path'] = $path;
+                if (!empty($host)) \Idno\Core\Idno::site()->config->config['host'] = $host;
+                if (!empty($hub)) \Idno\Core\Idno::site()->config->config['hub'] = $hub;
+                if (!empty($items_per_page) && is_int($items_per_page)) \Idno\Core\Idno::site()->config->config['items_per_page'] = $items_per_page;
+                \Idno\Core\Idno::site()->config->config['open_registration']    = $open_registration;
+                \Idno\Core\Idno::site()->config->config['walled_garden']        = $walled_garden;
+                \Idno\Core\Idno::site()->config->config['show_privacy']         = $show_privacy;
+                \Idno\Core\Idno::site()->config->config['indieweb_citation']    = $indieweb_citation;
+                \Idno\Core\Idno::site()->config->config['indieweb_reference']   = $indieweb_reference;
+                \Idno\Core\Idno::site()->config->config['user_avatar_favicons'] = $user_avatar_favicons;
+                \Idno\Core\Idno::site()->config->config['wayback_machine']      = $wayback_machine;
 
-                \Idno\Core\site()->triggerEvent('admin/home/save');
+                \Idno\Core\Idno::site()->triggerEvent('admin/home/save');
 
-                \Idno\Core\site()->config()->save();
-                $this->forward(\Idno\Core\site()->config()->getURL() . 'admin/');
+                \Idno\Core\Idno::site()->config()->save();
+                $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'admin/');
             }
 
         }

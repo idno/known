@@ -47,7 +47,7 @@
                 echo $this->draw('entity/tags/input');
 
             // Set focus so you can start typing straight away (on shares)
-            if (\Idno\Core\site()->currentPage()->getInput('share_url')) {
+            if (\Idno\Core\Idno::site()->currentPage()->getInput('share_url')) {
             ?>
             <script>
                 $(document).ready(function(){
@@ -91,12 +91,12 @@
                 ?>
             </div>
 
-            <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to" value="<?= \Idno\Core\site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
+            <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to" value="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('note'); ?>
             <?= $this->draw('content/access'); ?>
 
             <p class="button-bar">
-                <?= \Idno\Core\site()->actions()->signForm('/status/edit') ?>
+                <?= \Idno\Core\Idno::site()->actions()->signForm('/status/edit') ?>
                 <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
                 <input type="submit" class="btn btn-primary" value="Publish"/>
             </p>

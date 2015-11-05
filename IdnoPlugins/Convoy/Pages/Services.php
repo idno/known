@@ -7,18 +7,18 @@
             function getContent() {
 
                 $this->gatekeeper();
-                if (\Idno\Core\site()->hub()) {
+                if (\Idno\Core\Idno::site()->hub()) {
 
-                    \Idno\Core\site()->template()->__([
+                    \Idno\Core\Idno::site()->template()->__([
                         'title' => 'Connect Social Media',
-                        'body' => \Idno\Core\site()->template()->draw('convoy/account/services')
+                        'body' => \Idno\Core\Idno::site()->template()->draw('convoy/account/services')
                     ])->drawPage();
 
-                } else if (\Idno\Core\site()->session()->isAdmin()) {
+                } else if (\Idno\Core\Idno::site()->session()->isAdmin()) {
 
-                    \Idno\Core\site()->template()->__([
+                    \Idno\Core\Idno::site()->template()->__([
                         'title' => 'Connect Social Media',
-                        'body' => \Idno\Core\site()->template()->draw('convoy/account/signup')
+                        'body' => \Idno\Core\Idno::site()->template()->draw('convoy/account/signup')
                     ])->drawPage();
 
                 } else {

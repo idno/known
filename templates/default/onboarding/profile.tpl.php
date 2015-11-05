@@ -42,7 +42,7 @@
             </p>
             <div class="col-md-12">
                 <div class="submit">
-                    <?= \Idno\Core\site()->actions()->signForm('/profile/' . $vars['user']->getHandle()) ?>
+                    <?= \Idno\Core\Idno::site()->actions()->signForm('/profile/' . $vars['user']->getHandle()) ?>
                     <input type="submit" value="Save profile" class="btn btn-primary btn-lg btn-responsive">
                     <input type="hidden" name="onboarding" value="1"/>
                 </div>

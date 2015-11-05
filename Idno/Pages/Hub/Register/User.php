@@ -14,14 +14,14 @@
 
                 $this->flushBrowser();
 
-                \Idno\Core\site()->logging->log("Loading the user registration callback", LOGLEVEL_DEBUG);
+                \Idno\Core\Idno::site()->logging->log("Loading the user registration callback", LOGLEVEL_DEBUG);
 
                 $contents   = $this->getInput('content');
                 $auth_token = $this->getInput('auth_token');
                 $time       = $this->getInput('time');
                 $signature  = $this->getInput('signature');
 
-                $secret = \Idno\Core\site()->hub()->secret;
+                $secret = \Idno\Core\Idno::site()->hub()->secret;
 
                 $hmac = hash_hmac('sha1', $contents . $time . $auth_token, $secret);
 

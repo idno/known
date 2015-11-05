@@ -10,7 +10,7 @@ as part of the `registerPages()` method.
 
 This is how the `Checkin` plugin adds some mapping JavaScript to the HTML page header::
 
-    \Idno\Core\site()->template()->extendTemplate('shell/head','checkin/head');
+    \Idno\Core\Idno::site()->template()->extendTemplate('shell/head','checkin/head');
 
 ## Themes
 

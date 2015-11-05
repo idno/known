@@ -24,9 +24,9 @@
              */
             public function __construct($loglevel_filter = 0, $identifier = null)
             {
-                if (!$identifier) $identifier = \Idno\Core\site()->config->host;
-                if (isset(\Idno\Core\site()->config->loglevel)) {
-                    $loglevel_filter = \Idno\Core\site()->config->loglevel;
+                if (!$identifier) $identifier = \Idno\Core\Idno::site()->config->host;
+                if (isset(\Idno\Core\Idno::site()->config->loglevel)) {
+                    $loglevel_filter = \Idno\Core\Idno::site()->config->loglevel;
                 }
 
                 $this->loglevel_filter = $loglevel_filter;

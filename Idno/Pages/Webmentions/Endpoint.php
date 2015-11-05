@@ -14,7 +14,7 @@
 
             function getContent()
             {
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
                 $t->__(array('title' => 'Webmention endpoint', 'body' => $t->draw('pages/webmention')))->drawPage();
             }
 
@@ -39,11 +39,11 @@
                     }
 
                     // Get the page handler for target
-                    if ($page = \Idno\Core\site()->getPageHandler($target)) {
+                    if ($page = \Idno\Core\Idno::site()->getPageHandler($target)) {
                         // First of all, make sure the target page isn't the source page. Let's not webmention ourselves!
                         $webmention_ok = true;
                         if (\Idno\Common\Entity::isLocalUUID($source)) {
-                            if ($source_page = \Idno\Core\site()->getPageHandler($source)) {
+                            if ($source_page = \Idno\Core\Idno::site()->getPageHandler($source)) {
                                 if ($source_page == $page) {
                                     $webmention_ok = false;
                                 }
@@ -67,12 +67,12 @@
                                 } else {
                                     $error      = 'no_link_found';
                                     $error_text = 'The source URI does not contain a link to the target URI.';
-                                    \Idno\Core\site()->logging->log('No link from ' . $source . ' to ' . $target, LOGLEVEL_ERROR);
+                                    \Idno\Core\Idno::site()->logging->log('No link from ' . $source . ' to ' . $target, LOGLEVEL_ERROR);
                                 }
                             } else {
                                 $error      = 'source_not_found';
                                 $error_text = 'The source content for ' . $source . ' could not be obtained.';
-                                \Idno\Core\site()->logging->log('No content from ' . $source, LOGLEVEL_ERROR);
+                                \Idno\Core\Idno::site()->logging->log('No content from ' . $source, LOGLEVEL_ERROR);
                             }
                         } else {
                             $error      = 'target_not_supported';
@@ -81,7 +81,7 @@
                     } else {
                         $error      = 'target_not_found';
                         $error_text = 'The target page ' . $target . ' does not exist.';
-                        \Idno\Core\site()->logging()->log('Could not find handler for ' . $target, LOGLEVEL_ERROR);
+                        \Idno\Core\Idno::site()->logging()->log('Could not find handler for ' . $target, LOGLEVEL_ERROR);
                     }
                 }
                 $this->setResponse(400); // Webmention failed.

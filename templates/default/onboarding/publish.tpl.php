@@ -1,6 +1,6 @@
 <?php
 
-    if (\Idno\Core\site()->canWrite()) {
+    if (\Idno\Core\Idno::site()->canWrite()) {
         echo $this->draw('content/create');
     }
 

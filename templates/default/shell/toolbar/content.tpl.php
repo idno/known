@@ -26,9 +26,9 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="<?= \Idno\Core\site()->config()->getDisplayURL() . $search ?>"><span class="dropdown-menu-icon">&nbsp;</span>
+                    <li><a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . $search ?>"><span class="dropdown-menu-icon">&nbsp;</span>
                             Default content</a></li>
-                    <li><a href="<?= \Idno\Core\site()->config()->getDisplayURL() . 'content/all/' . $search ?>"><span class="dropdown-menu-icon">&nbsp;</span>
+                    <li><a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/' . $search ?>"><span class="dropdown-menu-icon">&nbsp;</span>
                             All content</a></li>
                     <?php
 
@@ -38,7 +38,7 @@
                                 /* @var Idno\Common\ContentType $content_type */
                                 ?>
                                 <li><a
-                                    href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>content/<?= $content_type->getCategoryTitleSlug() ?>/<?= $search ?>"><span
+                                    href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>content/<?= $content_type->getCategoryTitleSlug() ?>/<?= $search ?>"><span
                                         class="dropdown-menu-icon"><?= $content_type->getIcon() ?></span> <?= $content_type->getCategoryTitle() ?>
                                 </a></li><?php
                             }

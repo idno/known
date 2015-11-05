@@ -49,7 +49,7 @@ Examples:
 
 Templates are called by accessing the current site template::
 
-    $t = \Idno\Core\site()->template();
+    $t = \Idno\Core\Idno::site()->template();
 
 You can add variables to pass to the templates by simply adding them as properties to the template object::
 
@@ -76,7 +76,7 @@ The template object also contains a special function to draw the page. This echo
 
 For example, to display a stream of items stored in an array called `$items`, using a template called `example/items` you might call the templating engine as follows::
 
-    $t = \Idno\Core\site()->template();
+    $t = \Idno\Core\Idno::site()->template();
     $t->title = 'Stream';
     $t->items = $items;
     $t->body = $t->draw('example/items');

@@ -14,7 +14,7 @@
             {
 
                 $this->gatekeeper();
-                $user              = \Idno\Core\site()->session()->currentUser();
+                $user              = \Idno\Core\Idno::site()->session()->currentUser();
                 $user->robot_state = 0;
                 $user->save();
                 $this->forward($_SERVER['HTTP_REFERER']);

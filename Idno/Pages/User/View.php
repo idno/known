@@ -31,7 +31,7 @@
 
                 $offset = (int)$this->getInput('offset');
                 $count  = \Idno\Entities\ActivityStreamPost::countFromX($types, array('owner' => $user->getUUID()));
-                $feed   = \Idno\Entities\ActivityStreamPost::getFromX($types, array('owner' => $user->getUUID()), array(), \Idno\Core\site()->config()->items_per_page, $offset);
+                $feed   = \Idno\Entities\ActivityStreamPost::getFromX($types, array('owner' => $user->getUUID()), array(), \Idno\Core\Idno::site()->config()->items_per_page, $offset);
 
                 $last_modified = $user->updated;
                 if (!empty($feed) && is_array($feed)) {
@@ -41,12 +41,12 @@
                 }
                 $this->setLastModifiedHeader($last_modified);
 
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
                 $t->__(array(
 
                     'title'       => $user->getTitle(),
                     'body'        => $t->__(array('user' => $user, 'items' => $feed, 'count' => $count, 'offset' => $offset))->draw('entity/User/profile'),
-                    'description' => 'The ' . \Idno\Core\site()->config()->title . ' profile for ' . $user->getTitle()
+                    'description' => 'The ' . \Idno\Core\Idno::site()->config()->title . ' profile for ' . $user->getTitle()
 
                 ))->drawPage();
             }
@@ -61,11 +61,11 @@
                 if (empty($user)) $this->forward(); // TODO: 404
                 if ($user->saveDataFromInput($this)) {
                     if ($onboarding = $this->getInput('onboarding')) {
-                        $services = \Idno\Core\site()->syndication()->getServices();
-                        if (!empty($services) || !empty(\Idno\Core\site()->config->force_onboarding_connect)) {
-                            $this->forward(\Idno\Core\site()->config()->getURL() . 'begin/connect');
+                        $services = \Idno\Core\Idno::site()->syndication()->getServices();
+                        if (!empty($services) || !empty(\Idno\Core\Idno::site()->config->force_onboarding_connect)) {
+                            $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'begin/connect');
                         } else {
-                            $this->forward(\Idno\Core\site()->config()->getURL() . 'begin/publish');
+                            $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'begin/publish');
                         }
                     }
                     $this->forward($user->getURL());
@@ -82,7 +82,7 @@
                 }
                 if (empty($object)) $this->forward(); // TODO: 404
                 if ($object->delete()) {
-                    \Idno\Core\site()->session()->addMessage($object->getTitle() . ' was deleted.');
+                    \Idno\Core\Idno::site()->session()->addMessage($object->getTitle() . ' was deleted.');
                 }
                 $this->forward($_SERVER['HTTP_REFERER']);
             }

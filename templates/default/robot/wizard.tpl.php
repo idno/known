@@ -1,12 +1,12 @@
 <?php
 
-    $username = \Idno\Core\site()->session()->currentUser()->getHandle();
-    $url = \Idno\Core\site()->session()->currentUser()->getDisplayURL();
+    $username = \Idno\Core\Idno::site()->session()->currentUser()->getHandle();
+    $url = \Idno\Core\Idno::site()->session()->currentUser()->getDisplayURL();
 
-    $facebookurl = "https://www.facebook.com/sharer/sharer.php?u=".urlencode(\Idno\Core\site()->config()->getDisplayURL());
-    $twitterurl = "https://twitter.com/intent/tweet?text=".urlencode("Check out my new @withknown site!")."&url=".urlencode(\Idno\Core\site()->config()->getDisplayURL())."&source=webclient";
+    $facebookurl = "https://www.facebook.com/sharer/sharer.php?u=".urlencode(\Idno\Core\Idno::site()->config()->getDisplayURL());
+    $twitterurl = "https://twitter.com/intent/tweet?text=".urlencode("Check out my new @withknown site!")."&url=".urlencode(\Idno\Core\Idno::site()->config()->getDisplayURL())."&source=webclient";
 
-    switch (\Idno\Core\site()->session()->currentUser()->robot_state) {
+    switch (\Idno\Core\Idno::site()->session()->currentUser()->robot_state) {
 
         case '1':
             echo $this->__(array(
@@ -34,25 +34,25 @@
             break;
         case "3a":
             echo $this->__(array(
-                'body' => "Beepity boop! That was a great picture. Did you see that you can also <a href=\"".\Idno\Core\site()->session()->currentUser()->getDisplayURL()."/edit\">update your profile</a>?"
+                'body' => "Beepity boop! That was a great picture. Did you see that you can also <a href=\"".\Idno\Core\Idno::site()->session()->currentUser()->getDisplayURL()."/edit\">update your profile</a>?"
             ))->draw('robot/post');
             break;
         case "3b":
             echo $this->__(array(
-                'body' => "Boopity beep! Did you see that you can also <a href=\"".\Idno\Core\site()->session()->currentUser()->getDisplayURL()."/edit\">update your profile</a>?"
+                'body' => "Boopity beep! Did you see that you can also <a href=\"".\Idno\Core\Idno::site()->session()->currentUser()->getDisplayURL()."/edit\">update your profile</a>?"
             ))->draw('robot/post');
             break;
         case '4':
             echo $this->__(array(
-                'body' => "01011001 01101111 00100000 01111001 01101111 00100000 01111001 01101111 \n\nThat's how you say hello where I come from. I wanted to remind you that you can also <a href=\"".\Idno\Core\site()->config()->getDisplayURL()."admin/themes/\">change the theme of your site</a>. If you ever have feedback, you can <a href=\"".\Idno\Core\site()->config()->getDisplayURL()."account/settings/feedback/\">send a message to my human creators</a>."
+                'body' => "01011001 01101111 00100000 01111001 01101111 00100000 01111001 01101111 \n\nThat's how you say hello where I come from. I wanted to remind you that you can also <a href=\"".\Idno\Core\Idno::site()->config()->getDisplayURL()."admin/themes/\">change the theme of your site</a>. If you ever have feedback, you can <a href=\"".\Idno\Core\Idno::site()->config()->getDisplayURL()."account/settings/feedback/\">send a message to my human creators</a>."
             ))->draw('robot/post');
             break;
 
     }
-    if (\Idno\Core\site()->currentPage() instanceof \Idno\Pages\Homepage) {
-        if (!empty(\Idno\Core\site()->session()->currentUser()->robot_state)) {
-            if (in_array(\Idno\Core\site()->session()->currentUser()->robot_state,['3a','3b','2c','4'])) {
-                $user = \Idno\Core\site()->session()->currentUser();
+    if (\Idno\Core\Idno::site()->currentPage() instanceof \Idno\Pages\Homepage) {
+        if (!empty(\Idno\Core\Idno::site()->session()->currentUser()->robot_state)) {
+            if (in_array(\Idno\Core\Idno::site()->session()->currentUser()->robot_state,['3a','3b','2c','4'])) {
+                $user = \Idno\Core\Idno::site()->session()->currentUser();
                 switch($user->robot_state) {
                     case '3a':
                     case '3b':

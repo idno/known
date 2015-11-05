@@ -11,11 +11,11 @@
             {
 
                 $this->gatekeeper();
-                $subscriptions = \Idno\Core\site()->reader()->getUserSubscriptions(\Idno\Core\site()->session()->currentUserUUID());
+                $subscriptions = \Idno\Core\Idno::site()->reader()->getUserSubscriptions(\Idno\Core\Idno::site()->session()->currentUserUUID());
 
-                \Idno\Core\site()->template()->__(array(
+                \Idno\Core\Idno::site()->template()->__(array(
                     'title' => 'Following',
-                    'body'  => \Idno\Core\site()->template()->__(array('subscriptions' => $subscriptions))->draw('following/home')
+                    'body'  => \Idno\Core\Idno::site()->template()->__(array('subscriptions' => $subscriptions))->draw('following/home')
                 ))->drawPage();
 
             }

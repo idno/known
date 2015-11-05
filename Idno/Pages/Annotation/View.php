@@ -33,7 +33,7 @@
                 $subtype    = $object->getAnnotationSubtype($permalink);
 
                 $this->setPermalink(); // This is a permalink
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
                 $t->__(array(
 
                     'title'       => $object->getTitle(),

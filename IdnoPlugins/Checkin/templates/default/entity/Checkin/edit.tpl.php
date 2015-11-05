@@ -151,13 +151,13 @@
                 'placeholder' => '',
                 'label' => 'Description'
             ])->draw('forms/input/richtext')?>
-            <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to" value="<?= \Idno\Core\site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
+            <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to" value="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
             <?=$this->draw('entity/tags/input');?>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('place'); ?>
             <?= $this->draw('content/access'); ?>
             <p class="button-bar ">
                <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
-                <?= \Idno\Core\site()->actions()->signForm('/checkin/edit') ?>
+                <?= \Idno\Core\Idno::site()->actions()->signForm('/checkin/edit') ?>
                 <input type="submit" class="btn btn-primary" value="<?php if (empty($vars['object']->_id)) { ?>Publish<?php } else { ?>Save<?php } ?>"/>
 
             </p>

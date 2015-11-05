@@ -17,7 +17,7 @@
             function getContent()
             {
                 // Check modified ts
-                if ($cache = \Idno\Core\site()->cache()) {
+                if ($cache = \Idno\Core\Idno::site()->cache()) {
                     if ($modifiedts = $cache->load("{$this->arguments[0]}_modified_ts")) {
                         $this->lastModifiedGatekeeper($modifiedts); // Set 304 and exit if we've not modified this object
                     }
@@ -49,7 +49,7 @@
                 header("Cache-Control: public");
                 header('Expires: ' . date(\DateTime::RFC1123, time() + (86400 * 30))); // Cache files for 30 days!
                 $this->setLastModifiedHeader($upload_ts);
-                if ($cache = \Idno\Core\site()->cache()) {
+                if ($cache = \Idno\Core\Idno::site()->cache()) {
                     $cache->store("{$this->arguments[0]}_modified_ts", $upload_ts);
                 }
                 if (!empty($object->file['mime_type'])) {

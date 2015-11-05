@@ -36,14 +36,14 @@
                 }
 
                 // Forward if necessary
-                if (!empty($object->forward_url) && !\Idno\Core\site()->session()->isAdmin()) {
+                if (!empty($object->forward_url) && !\Idno\Core\Idno::site()->session()->isAdmin()) {
                     $this->forward($object->forward_url);
                 }
 
                 $this->setOwner($object->getOwner());
                 $this->setPermalink(); // This is a permalink
                 $this->setLastModifiedHeader($object->updated); // Say when this was last modified
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
                 $t->__(array(
 
                     'title'       => $object->getTitle(),
@@ -64,7 +64,7 @@
                     }
                 }
                 if (empty($object)) {
-                    \Idno\Core\site()->logging->log("No object was found with ID {$this->arguments[0]}.", LOGLEVEL_ERROR);
+                    \Idno\Core\Idno::site()->logging->log("No object was found with ID {$this->arguments[0]}.", LOGLEVEL_ERROR);
 
                     return false;
                 }
@@ -107,7 +107,7 @@
                 }
                 if (empty($object)) $this->forward(); // TODO: 404
                 if ($object->delete()) {
-                    \Idno\Core\site()->session()->addMessage($object->getTitle() . ' was deleted.');
+                    \Idno\Core\Idno::site()->session()->addMessage($object->getTitle() . ' was deleted.');
                 }
                 $this->forward($_SERVER['HTTP_REFERER']);
             }

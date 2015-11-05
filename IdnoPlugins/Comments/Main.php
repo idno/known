@@ -10,8 +10,8 @@
             function RegisterPages()
             {
 
-                \Idno\Core\site()->addPageHandler('/comments/post/?', '\IdnoPlugins\Comments\Pages\Post', true);
-                \Idno\Core\site()->template()->extendTemplate('entity/annotations/comment/main', 'comments/public/form');
+                \Idno\Core\Idno::site()->addPageHandler('/comments/post/?', '\IdnoPlugins\Comments\Pages\Post', true);
+                \Idno\Core\Idno::site()->template()->extendTemplate('entity/annotations/comment/main', 'comments/public/form');
 
             }
 

@@ -1,7 +1,7 @@
 <?php
 
-    $currentPage = \Idno\Core\site()->currentPage();
-    $action = \Idno\Core\site()->config()->getDisplayURL();
+    $currentPage = \Idno\Core\Idno::site()->currentPage();
+    $action = \Idno\Core\Idno::site()->config()->getDisplayURL();
     if (!empty($vars['content'])) {
         if (!is_array($vars['content'])) {
             $vars['content'] = array($vars['content']);

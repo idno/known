@@ -18,7 +18,7 @@
                     $object->pageTitle = ($object->getTitleFromURL($this->getInput('url')));
                 }
 
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
                 $body = $t->__(array(
                     'object' => $object,
                     'url' => $this->getInput('url')

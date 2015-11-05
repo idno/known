@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         <h2>
-            <a href="<?=\Idno\Core\site()->config()->getDisplayURL() . '?q=' . urlencode($vars['subject'])?>"><?=htmlspecialchars($vars['subject'])?></a>
+            <a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL() . '?q=' . urlencode($vars['subject'])?>"><?=htmlspecialchars($vars['subject'])?></a>
         </h2>
     </div>
 </div>

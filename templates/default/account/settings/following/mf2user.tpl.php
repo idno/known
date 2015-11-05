@@ -14,7 +14,7 @@ if (empty($photo)) {
     
     $bn = hexdec(substr(md5($properties['url'][0]), 0, 15));
     $number = 1 + ($bn % 5);
-    $photo = \Idno\Core\site()->config()->getDisplayURL() . 'gfx/users/default-'. str_pad($number, 2, '0', STR_PAD_LEFT) .'.png';
+    $photo = \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/users/default-'. str_pad($number, 2, '0', STR_PAD_LEFT) .'.png';
 }
 
 $email =  $properties['email'][0];
@@ -23,7 +23,7 @@ if (strpos('mailto:', 'mailto:')!==false) $email = substr($email, 7); // Sanitis
 $nickname =  $properties['nickname'][0];
 
 ?>
-<form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>account/settings/following/bookmarklet" method="post" class="form-horizontal">
+<form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>account/settings/following/bookmarklet" method="post" class="form-horizontal">
     <div class="row idno-entry following-user">
 
 	<div class="col-md-1 col-md-offset-1 owner h-card hidden-sm">
@@ -113,6 +113,6 @@ $nickname =  $properties['nickname'][0];
     </div>
 
 
-    <?= \Idno\Core\site()->actions()->signForm('/account/settings/following/bookmarklet') ?>
+    <?= \Idno\Core\Idno::site()->actions()->signForm('/account/settings/following/bookmarklet') ?>
 
 </form>

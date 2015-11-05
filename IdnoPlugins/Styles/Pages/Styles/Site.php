@@ -15,9 +15,9 @@
             function getContent()
             {
                 $css = '';
-                if (!empty(\Idno\Core\site()->config()->styles)) {
-                    if (!empty(\Idno\Core\site()->config()->styles['css'])) {
-                        $css = \Idno\Core\site()->config()->styles['css'];
+                if (!empty(\Idno\Core\Idno::site()->config()->styles)) {
+                    if (!empty(\Idno\Core\Idno::site()->config()->styles['css'])) {
+                        $css = \Idno\Core\Idno::site()->config()->styles['css'];
                     }
                 }
 

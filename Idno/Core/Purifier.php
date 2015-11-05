@@ -21,7 +21,7 @@
             }
 
             function registerEventHooks() {
-                \Idno\Core\site()->addEventHook('text/filter',function(\Idno\Core\Event $event) {
+                \Idno\Core\Idno::site()->addEventHook('text/filter',function(\Idno\Core\Event $event) {
                     
 		    $text = $event->response();
 		    

@@ -63,7 +63,7 @@
              */
             function fetchAndParse()
             {
-                return \Idno\Core\site()->reader()->fetchAndParseFeed($this->getFeedURL());
+                return \Idno\Core\Idno::site()->reader()->fetchAndParseFeed($this->getFeedURL());
             }
 
             /**
@@ -74,7 +74,7 @@
             {
                 $ws = new Webservice();
                 if ($content = $ws->get($this->getFeedURL())) {
-                    return \Idno\Core\site()->reader()->parseFeed($content['content'], $this->getFeedURL());
+                    return \Idno\Core\Idno::site()->reader()->parseFeed($content['content'], $this->getFeedURL());
                 }
 
                 return false;

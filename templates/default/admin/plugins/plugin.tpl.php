@@ -100,27 +100,27 @@
         </div>
         <div class="col-md-1 col-md-offset-1">
             <?php
-                if (!in_array($shortname, \Idno\Core\site()->config()->alwaysplugins)) {
+                if (!in_array($shortname, \Idno\Core\Idno::site()->config()->alwaysplugins)) {
                     if (array_key_exists($shortname, $vars['plugins_loaded'])) {
                         ?>
-                        <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/plugins/" method="post">
+                        <form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>admin/plugins/" method="post">
                             <p>
                                 <input type="hidden" name="plugin" value="<?= $shortname ?>"/>
                                 <input type="hidden" name="action" value="uninstall"/>
                                 <input class="btn btn-default" type="submit" value="Disable"/>
                             </p>
-                            <?= \Idno\Core\site()->actions()->signForm(\Idno\Core\site()->config()->getDisplayURL() . 'admin/plugins/') ?>
+                            <?= \Idno\Core\Idno::site()->actions()->signForm(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/plugins/') ?>
                         </form>
                     <?php
                     } else {
                         ?>
-                        <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/plugins/" method="post">
+                        <form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>admin/plugins/" method="post">
                             <p>
                                 <input type="hidden" name="plugin" value="<?= $shortname ?>"/>
                                 <input type="hidden" name="action" value="install"/>
                                 <input class="btn btn-primary" type="submit" value="Enable"/>
                             </p>
-                            <?= \Idno\Core\site()->actions()->signForm(\Idno\Core\site()->config()->getDisplayURL() . 'admin/plugins/') ?>
+                            <?= \Idno\Core\Idno::site()->actions()->signForm(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/plugins/') ?>
                         </form>
                     <?php
                     }

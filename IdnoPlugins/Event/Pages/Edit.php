@@ -17,7 +17,7 @@
                     $object = new \IdnoPlugins\Event\Event();
                 }
 
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
                 $body = $t->__(array(
                     'object' => $object
                 ))->draw('entity/Event/edit');

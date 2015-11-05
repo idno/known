@@ -12,13 +12,13 @@
             function getContent()
             {
                 $query = $this->getInput('q');
-                $this->forward(\Idno\Core\site()->config()->url . '?q=' . urlencode($query));
+                $this->forward(\Idno\Core\Idno::site()->config()->url . '?q=' . urlencode($query));
             }
 
             function postContent()
             {
                 $query = $this->getInput('q');
-                $this->forward(\Idno\Core\site()->config()->url . '?q=' . urlencode($query));
+                $this->forward(\Idno\Core\Idno::site()->config()->url . '?q=' . urlencode($query));
             }
 
         }

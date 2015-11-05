@@ -9,7 +9,7 @@ Form submissions and API calls in Known are both handled by pages. In effect, ev
 All forms must uniquely sign their data before they will be accepted. This is to prevent a number of attacks that could
 compromise a user's security.
 
-Each form signing method uses a method of `\Idno\Core\site()->actions()`. The following methods should be used within
+Each form signing method uses a method of `\Idno\Core\Idno::site()->actions()`. The following methods should be used within
 your templates that take user input.
 
 ### From within an HTML form
@@ -19,13 +19,13 @@ hidden action token fields.
 
 To do this, simply include form signing code with a unique, relative URL for your action somewhere within the form body.
 
-    <?= \Idno\Core\site()->actions()->signForm('your/form/url') ?>
+    <?= \Idno\Core\Idno::site()->actions()->signForm('your/form/url') ?>
 
 The `postContent()` method in [the page handler class](pages.md) will seamlessly validate this token.
 
 An example of a complete form might be:
 
-    <form action="<?=\Idno\Core\site()->config()->getDisplayURL()?>myplugin/custompage/" method="post">
+    <form action="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>myplugin/custompage/" method="post">
         <p>
             <label>
                 A URL:
@@ -33,7 +33,7 @@ An example of a complete form might be:
             </label>
         </p>
         <p>
-            <?= \Idno\Core\site()->actions()->signForm('myplugin/custompage') ?>
+            <?= \Idno\Core\Idno::site()->actions()->signForm('myplugin/custompage') ?>
             <input type="submit" value="Post the form">
         </p>
     </form>
@@ -41,11 +41,11 @@ An example of a complete form might be:
 ### From within a link
 
 You can create a link to submit a properly-signed POST request using
-`\Idno\Core\site()->actions()->createLink($url, $label, $data_to_include, $extra_configuration)`.
+`\Idno\Core\Idno::site()->actions()->createLink($url, $label, $data_to_include, $extra_configuration)`.
 
 For example, the code for the logout button is as follows:
 
-    <?= \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'session/logout',
+    <?= \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/logout',
                                                  'Sign out')); ?>
 
 `$data_to_include` is an optional array of key => value pairs that will be sent with the POST request.
@@ -67,7 +67,7 @@ page handler class using `$page->postContent()`.
 First, let's reproduce our form from above, which sends the contents of a URL field with name `my_url` to a page at
 `/myplugin/custompage/`:
 
-    <form action="<?=\Idno\Core\site()->config()->getDisplayURL()?>myplugin/custompage/" method="post">
+    <form action="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>myplugin/custompage/" method="post">
         <p>
             <label>
                 A URL:
@@ -75,7 +75,7 @@ First, let's reproduce our form from above, which sends the contents of a URL fi
             </label>
         </p>
         <p>
-            <?= \Idno\Core\site()->actions()->signForm('myplugin/custompage') ?>
+            <?= \Idno\Core\Idno::site()->actions()->signForm('myplugin/custompage') ?>
             <input type="submit" value="Post the form">
         </p>
     </form>
@@ -85,7 +85,7 @@ appropriately:
 
     namespace \IdnoPlugins\MyPlugin {
         function registerPages() {
-            \Idno\Core\site()->addPageHandler('/myplugin/custompage/?', '\IdnoPlugins\MyPlugin\Pages\CustomPage');
+            \Idno\Core\Idno::site()->addPageHandler('/myplugin/custompage/?', '\IdnoPlugins\MyPlugin\Pages\CustomPage');
         }
     }
 
@@ -122,7 +122,7 @@ For example, to output the contents of the field to the screen:
 
 We could also send the `my_url` variable to the page handler in a link:
 
-<?= \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'myplugin/custompage',
+<?= \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'myplugin/custompage',
                                                  'This link sends a pre-defined value to the page',
                                                  array('my_url' => 'http://some/predefined/url'))); ?>
 

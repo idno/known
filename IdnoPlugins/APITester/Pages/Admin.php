@@ -25,7 +25,7 @@
                 $sent_request = '';
                 $response     = '';
 
-                $api_request = \Idno\Core\site()->session()->get('api_request');
+                $api_request = \Idno\Core\Idno::site()->session()->get('api_request');
 
                 if (!empty($api_request)) {
                     $request      = $api_request['request'];
@@ -34,24 +34,24 @@
                     $json         = $api_request['json'];
                     $sent_request = $api_request['sent_request'];
                     $response     = $api_request['response'];
-                    \Idno\Core\site()->session()->set('api_request', false);
+                    \Idno\Core\Idno::site()->session()->set('api_request', false);
                 }
 
                 if (empty($request)) {
                     $request = '/?_t=json';
                 }
                 if (empty($username)) {
-                    $username = \Idno\Core\site()->session()->currentUser()->getHandle();
+                    $username = \Idno\Core\Idno::site()->session()->currentUser()->getHandle();
                 }
                 if (empty($key)) {
-                    $key = \Idno\Core\site()->session()->currentUser()->getAPIkey();
+                    $key = \Idno\Core\Idno::site()->session()->currentUser()->getAPIkey();
                 }
                 if (empty($json)) {
                     $json = '[]';
                 }
 
                 if (is_callable('curl_init')) {
-                    $body = \Idno\Core\site()->template()->__(array(
+                    $body = \Idno\Core\Idno::site()->template()->__(array(
                         'request'      => $request,
                         'key'          => $key,
                         'username'     => $username,
@@ -60,10 +60,10 @@
                         'response'     => $response
                     ))->draw('apitester/admin');
                 } else {
-                    $body = \Idno\Core\site()->template()->draw('apitester/nocurl');
+                    $body = \Idno\Core\Idno::site()->template()->draw('apitester/nocurl');
                 }
 
-                \Idno\Core\site()->template()->__(array(
+                \Idno\Core\Idno::site()->template()->__(array(
                     'title' => "API Tester",
                     'body'  => $body,
                 ))->drawPage();
@@ -82,7 +82,7 @@
                 $username         = $this->getInput('username');
                 $json             = $this->getInput('json');
                 $follow_redirects = $this->getInput('follow_redirects');
-                $url              = \Idno\Core\site()->config()->getURL();
+                $url              = \Idno\Core\Idno::site()->config()->getURL();
                 if (strripos($url, '/') == strlen($url) - 1) {
                     $url = substr($url, 0, strlen($url) - 1);
                 }
@@ -105,9 +105,9 @@
                     'sent_request' => $sent_request,
                     'response'     => $response
                 );
-                \Idno\Core\site()->session()->set('api_request', $api_request);
+                \Idno\Core\Idno::site()->session()->set('api_request', $api_request);
 
-                $this->forward(\Idno\Core\site()->config()->getURL() . 'admin/apitester/');
+                $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'admin/apitester/');
 
             }
         }

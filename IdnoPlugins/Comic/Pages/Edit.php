@@ -15,7 +15,7 @@
                     $object = new \IdnoPlugins\Comic\Comic();
                 }
 
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
                 $body = $t->__(array(
                     'object' => $object
                 ))->draw('entity/Comic/edit');

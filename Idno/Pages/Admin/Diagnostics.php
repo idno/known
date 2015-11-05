@@ -19,7 +19,7 @@
                 // Create diagnostics report
                 if ($this->xhr) {
 
-                    $report = "Known Diagnostics: Version " . \Idno\Core\site()->version() . "\nDate: " . date('r') . "\n\n";
+                    $report = "Known Diagnostics: Version " . \Idno\Core\Idno::site()->version() . "\nDate: " . date('r') . "\n\n";
                     $report .= "*** WARNING: This report contains sensitive information. Be careful about who and how you transmit it. ***\n\n";
                     $report .= "Basics:\n-------\n\n";
 
@@ -35,7 +35,7 @@
                         $report .= "Basic checks on installation discovered no problems.\n\n";
                     }
 
-                    $config                       = \Idno\Core\site()->config();
+                    $config                       = \Idno\Core\Idno::site()->config();
                     $config->config['dbpass']     = '** REDACTED **';
                     $config->ini_config['dbpass'] = '** REDACTED **';
 
@@ -44,12 +44,12 @@
                     $report .= "\$_SERVER:\n---------\n" . var_export($_SERVER, true) . "\n\n";
 
                     // Hook so other plugins and subsystems can add their own data to the report.
-                    $report = \Idno\Core\site()->triggerEvent('diagnostics/generate', [], $report);
+                    $report = \Idno\Core\Idno::site()->triggerEvent('diagnostics/generate', [], $report);
 
                     echo $report;
                     exit;
                 } else {
-                    $t        = \Idno\Core\site()->template();
+                    $t        = \Idno\Core\Idno::site()->template();
                     $t->body  = $t->__(['basics' => $basics])->draw('admin/diagnostics');
                     $t->title = 'Diagnostics';
                     $t->drawPage();
@@ -92,7 +92,7 @@
 
                 // Check upload directory (if set)
                 $basics['report']['upload-path'] = ['status' => 'Ok'];
-                $upload_path                     = \Idno\Core\site()->config()->uploadpath;
+                $upload_path                     = \Idno\Core\Idno::site()->config()->uploadpath;
                 if (!empty($upload_path)) {
                     if ($upload_path = realpath($upload_path)) {
                         if (substr($upload_path, -1) != '/' && substr($upload_path, -1) != '\\') {
@@ -121,7 +121,7 @@
                     }
                 } else {
                     // We don't have an upload path set, do we need one?
-                    if (\Idno\Core\site()->config()->filesystem == 'local') {
+                    if (\Idno\Core\Idno::site()->config()->filesystem == 'local') {
                         $basics['status'] = 'Failure';
                         $basics['report']['upload-path']['message'] .= "Your file system is set to 'local' but you have not specified an upload path (uploadpath = ...;) in your config.ini";
                         $basics['report']['upload-path']['status'] = 'Failure';

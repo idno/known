@@ -24,7 +24,7 @@
                     return $this->canonical;
                 }
                 if (!($this->getSlug()) && ($this->getID())) {
-                    return \Idno\Core\site()->config()->url . 'event/' . $this->getID() . '/' . $this->getPrettyURLTitle();
+                    return \Idno\Core\Idno::site()->config()->url . 'event/' . $this->getID() . '/' . $this->getPrettyURLTitle();
                 } else {
                     return parent::getURL();
                 }
@@ -53,17 +53,17 @@
                 } else {
                     $new = false;
                 }
-                $body = \Idno\Core\site()->currentPage()->getInput('body');
+                $body = \Idno\Core\Idno::site()->currentPage()->getInput('body');
                 if (!empty($body)) {
                     $this->body = $body;
-                    $this->title = \Idno\Core\site()->currentPage()->getInput('title');
-                    $this->summary = \Idno\Core\site()->currentPage()->getInput('summary');
-                    $this->location = \Idno\Core\site()->currentPage()->getInput('location');
-                    $this->starttime = \Idno\Core\site()->currentPage()->getInput('starttime');
-                    $this->endtime = \Idno\Core\site()->currentPage()->getInput('endtime');
-                    $access = \Idno\Core\site()->currentPage()->getInput('access');
+                    $this->title = \Idno\Core\Idno::site()->currentPage()->getInput('title');
+                    $this->summary = \Idno\Core\Idno::site()->currentPage()->getInput('summary');
+                    $this->location = \Idno\Core\Idno::site()->currentPage()->getInput('location');
+                    $this->starttime = \Idno\Core\Idno::site()->currentPage()->getInput('starttime');
+                    $this->endtime = \Idno\Core\Idno::site()->currentPage()->getInput('endtime');
+                    $access = \Idno\Core\Idno::site()->currentPage()->getInput('access');
 
-                    if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
+                    if ($time = \Idno\Core\Idno::site()->currentPage()->getInput('created')) {
                         if ($time = strtotime($time)) {
                             $this->created = $time;
                         }
@@ -71,18 +71,18 @@
 
                     $this->setAccess($access);
                     if ($this->save($new)) {
-                        \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getDescription()));
+                        \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getDescription()));
                         return true;
                     }
                 } else {
-                    \Idno\Core\site()->session()->addErrorMessage('You can\'t save an event with no description.');
+                    \Idno\Core\Idno::site()->session()->addErrorMessage('You can\'t save an event with no description.');
                 }
                 return false;
 
             }
 
             function deleteData() {
-                \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getDescription()));
+                \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getDescription()));
             }
 
         }

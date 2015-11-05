@@ -14,7 +14,7 @@
 
                     $like = new Like();
                     $title = $like->getTitleFromURL($url);
-                    $t = \Idno\Core\site()->template();
+                    $t = \Idno\Core\Idno::site()->template();
                     $t->setTemplateType('json');
                     $t->__([
                         'title' => 'URL to page title callback',

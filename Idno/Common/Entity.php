@@ -35,9 +35,9 @@
 
             function __construct()
             {
-                if (\Idno\Core\site()->session()) {
-                    if ($user = \Idno\Core\site()->session()->currentUser()) {
-                        $this->setOwner(\Idno\Core\site()->session()->currentUser());
+                if (\Idno\Core\Idno::site()->session()) {
+                    if ($user = \Idno\Core\Idno::site()->session()->currentUser()) {
+                        $this->setOwner(\Idno\Core\Idno::site()->session()->currentUser());
                     }
                 }
             }
@@ -78,7 +78,7 @@
                     return $url;
                 }
                 if (!empty($this->_id)) {
-                    return \Idno\Core\site()->config()->url . 'view/' . $this->_id;
+                    return \Idno\Core\Idno::site()->config()->url . 'view/' . $this->_id;
                 }
 
                 return false;
@@ -92,7 +92,7 @@
              */
             static function count($search = array())
             {
-                return \Idno\Core\site()->db()->countObjects(get_called_class(), $search);
+                return \Idno\Core\Idno::site()->db()->countObjects(get_called_class(), $search);
             }
 
             /**
@@ -115,7 +115,7 @@
              */
             static function countFromX($class, $search = array())
             {
-                return \Idno\Core\site()->db()->countObjects($class, $search);
+                return \Idno\Core\Idno::site()->db()->countObjects($class, $search);
             }
 
             /**
@@ -149,7 +149,7 @@
 
             static function get($search = array(), $fields = array(), $limit = 10, $offset = 0)
             {
-                return \Idno\Core\site()->db()->getObjects(get_called_class(), $search, $fields, $limit, $offset, static::$retrieve_collection);
+                return \Idno\Core\Idno::site()->db()->getObjects(get_called_class(), $search, $fields, $limit, $offset, static::$retrieve_collection);
             }
 
             /**
@@ -161,9 +161,9 @@
             static function getByID($id)
             {
                 try {
-                    return static::getOneFromAll(array('_id' => \Idno\Core\site()->db()->processID($id)));
+                    return static::getOneFromAll(array('_id' => \Idno\Core\Idno::site()->db()->processID($id)));
                 } catch (\Exception $e) {
-                    return false; //\Idno\Core\site()->currentPage()->noContent();
+                    return false; //\Idno\Core\Idno::site()->currentPage()->noContent();
                 }
             }
 
@@ -215,7 +215,7 @@
              */
             static function getFromX($class, $search = array(), $fields = array(), $limit = 10, $offset = 0)
             {
-                $result = \Idno\Core\site()->db()->getObjects($class, $search, $fields, $limit, $offset, static::$retrieve_collection);
+                $result = \Idno\Core\Idno::site()->db()->getObjects($class, $search, $fields, $limit, $offset, static::$retrieve_collection);
 
                 return $result;
             }
@@ -251,7 +251,7 @@
             {
                 // TODO: improve this heuristic
                 // Parse the UUID
-                if (($uuid_parse = parse_url($uuid)) && ($url_parse = parse_url(\Idno\Core\site()->config()->url))) {
+                if (($uuid_parse = parse_url($uuid)) && ($url_parse = parse_url(\Idno\Core\Idno::site()->config()->url))) {
                     if ($uuid_parse['host'] == $url_parse['host']) {
                         return true;
                     }
@@ -441,8 +441,8 @@
                 // Adding this entity's owner (if we don't know already)
 
                 $owner_id = $this->getOwnerID();
-                if (\Idno\Core\site()->session()->isLoggedIn() && empty($owner_id)) {
-                    $this->setOwner(\Idno\Core\site()->session()->currentUser());
+                if (\Idno\Core\Idno::site()->session()->isLoggedIn() && empty($owner_id)) {
+                    $this->setOwner(\Idno\Core\Idno::site()->session()->currentUser());
                 }
 
                 // Automatically add a slug (if one isn't set and this is a new entity)
@@ -453,18 +453,18 @@
                             $title = md5(rand() . microtime(true));
                         }
                     }
-                    \Idno\Core\site()->logging()->log("Setting resilient slug", LOGLEVEL_DEBUG);
+                    \Idno\Core\Idno::site()->logging()->log("Setting resilient slug", LOGLEVEL_DEBUG);
                     $this->setSlugResilient($title);
-                    \Idno\Core\site()->logging()->log("Set resilient slug", LOGLEVEL_DEBUG);
+                    \Idno\Core\Idno::site()->logging()->log("Set resilient slug", LOGLEVEL_DEBUG);
                 } else {
-                    \Idno\Core\site()->logging()->log("Had slug: " . $this->getSlug(), LOGLEVEL_DEBUG);
+                    \Idno\Core\Idno::site()->logging()->log("Had slug: " . $this->getSlug(), LOGLEVEL_DEBUG);
                 }
 
                 // Automatically set access
                 /*
                  * Commenting this out because it was making users private! bw 2015.06.12
                  *
-                $page = \Idno\Core\site()->currentPage();
+                $page = \Idno\Core\Idno::site()->currentPage();
                 if (!empty($page)) {
                     $access = $page->getInput('access');
                     if (!empty($access)) {
@@ -487,8 +487,8 @@
 
                 // Save it to the database
 
-                if (\Idno\Core\site()->triggerEvent('save', array('object' => $this))) { // dispatch('save', $event)->response()) {
-                    $result = \Idno\Core\site()->db()->saveObject($this);
+                if (\Idno\Core\Idno::site()->triggerEvent('save', array('object' => $this))) { // dispatch('save', $event)->response()) {
+                    $result = \Idno\Core\Idno::site()->db()->saveObject($this);
                 } else {
                     $result = false;
                 }
@@ -496,14 +496,14 @@
                     if (empty($this->_id)) {
                         $this->_id  = $result;
                         $this->uuid = $this->getUUID();
-                        \Idno\Core\site()->db()->saveObject($this);
+                        \Idno\Core\Idno::site()->db()->saveObject($this);
                         if ($add_to_feed) {
                             $this->addToFeed($feed_verb);
                         }
                         $this->syndicate();
-                        \Idno\Core\site()->triggerEvent('saved', ['object' => $this]);
+                        \Idno\Core\Idno::site()->triggerEvent('saved', ['object' => $this]);
                     } else {
-                        \Idno\Core\site()->triggerEvent('updated', ['object' => $this]);
+                        \Idno\Core\Idno::site()->triggerEvent('updated', ['object' => $this]);
                     }
 
                     return $this->_id;
@@ -520,11 +520,11 @@
                 if ($this->getActivityStreamsObjectType()) {
                     $event = new \Idno\Core\Event(array('object' => $this, 'object_type' => $this->getActivityStreamsObjectType()));
                     try {
-                        \Idno\Core\site()->events()->dispatch('post/' . $this->getActivityStreamsObjectType(), $event);
-                        \Idno\Core\site()->events()->dispatch('syndicate', $event);
+                        \Idno\Core\Idno::site()->events()->dispatch('post/' . $this->getActivityStreamsObjectType(), $event);
+                        \Idno\Core\Idno::site()->events()->dispatch('syndicate', $event);
                     } catch (\Exception $e) {
-                        \Idno\Core\site()->session()->addErrorMessage("There was a problem syndicating.");
-                        \Idno\Core\site()->logging()->log($e->getMessage());
+                        \Idno\Core\Idno::site()->session()->addErrorMessage("There was a problem syndicating.");
+                        \Idno\Core\Idno::site()->logging()->log($e->getMessage());
                     }
                 }
             }
@@ -536,8 +536,8 @@
             {
                 if ($this->getActivityStreamsObjectType()) {
                     $event = new \Idno\Core\Event(array('object' => $this, 'object_type' => $this->getActivityStreamsObjectType()));
-                    \Idno\Core\site()->events()->dispatch('delete/' . $this->getActivityStreamsObjectType(), $event);
-                    \Idno\Core\site()->events()->dispatch('unsyndicate', $event);
+                    \Idno\Core\Idno::site()->events()->dispatch('delete/' . $this->getActivityStreamsObjectType(), $event);
+                    \Idno\Core\Idno::site()->events()->dispatch('unsyndicate', $event);
                 }
             }
 
@@ -579,16 +579,19 @@
              */
             function setSlugResilient($slug, $max_pieces = 10)
             {
-                $slug = $this->prepare_slug($slug, $max_pieces);
+                // UUID max length is 255 chars; slug length <= 255 - (base URL + year + slash)
+                $max_chars = 245 - strlen(\Idno\Core\site()->config()->getDisplayURL());
+
+                $slug = $this->prepare_slug($slug, $max_pieces, $max_chars - 10);
                 if (empty($slug)) {
                     return false;
                 }
-                if ($this->setSlug($slug, $max_pieces)) {
+                if ($this->setSlug($slug, $max_pieces, $max_chars - 10)) {
                     return true;
                 }
                 // If we've got here, the slug exists, so we need to create a new version
                 $slug_extension = 1;
-                while (!($modified_slug = $this->setSlug($slug . '-' . $slug_extension, $max_pieces * 2))) {
+                while (!($modified_slug = $this->setSlug($slug . '-' . $slug_extension, $max_pieces * 2, $max_chars))) {
                     $slug_extension++;
                 }
 
@@ -599,9 +602,10 @@
              * Processes the text involved in a slug
              * @param $slug
              * @param int $max_pieces The maximum number of words in the slug (default: 10)
+             * @param int $max_chars The maximum number of characters in the slug (default: 255)
              * @return string
              */
-            function prepare_slug($slug, $max_pieces = 10)
+            function prepare_slug($slug, $max_pieces = 10, $max_chars = 255)
             {
                 $slug = trim($slug);
                 if (is_callable('mb_strtolower')) {
@@ -615,6 +619,7 @@
                 $slug = preg_replace("/[ ]+/u", ' ', $slug);
                 $slug = implode('-', array_slice(explode(' ', $slug), 0, $max_pieces));
                 $slug = str_replace(' ', '-', $slug);
+                $slug = substr($slug, 0, $max_chars);
                 if (empty($slug)) {
                     $slug = 'untitled';
                 }
@@ -630,16 +635,17 @@
              * the sanitized slug on success
              * @param string $slug
              * @param int $max_pieces The maximum number of words in the slug (default: 10)
+             * @param int $max_chars The maximum number of characters in the slug (default: 255)
              * @return bool
              */
-            function setSlug($slug, $max_pieces = 10)
+            function setSlug($slug, $max_pieces = 10, $max_chars = 255)
             {
 
-                $plugin_slug = \Idno\Core\site()->triggerEvent('entity/slug', array('object' => $this));
+                $plugin_slug = \Idno\Core\Idno::site()->triggerEvent('entity/slug', array('object' => $this));
                 if (!empty($plugin_slug) && $plugin_slug !== true) {
                     return $plugin_slug;
                 }
-                $slug = $this->prepare_slug($slug);
+                $slug = $this->prepare_slug($slug, $max_pieces, $max_chars);
                 if (empty($slug)) {
                     return false;
                 }
@@ -718,7 +724,7 @@
                     $this->attachments = array();
                 }
                 $attachments       = $this->attachments;
-                $attachments[]     = array('_id' => $file['_id'], 'url' => \Idno\Core\site()->config()->url . 'file/' . $file['_id'] . '/' . urlencode($file['filename']), 'mime-type' => $file['mime_type'], 'length' => $file['length']);
+                $attachments[]     = array('_id' => $file['_id'], 'url' => \Idno\Core\Idno::site()->config()->url . 'file/' . $file['_id'] . '/' . urlencode($file['filename']), 'mime-type' => $file['mime_type'], 'length' => $file['length']);
                 $this->attachments = $attachments;
             }
 
@@ -743,12 +749,12 @@
             function getAttachments()
             {
                 if (!empty($this->attachments)) {
-                    if (!empty(\Idno\Core\site()->config()->attachment_base_host)) {
+                    if (!empty(\Idno\Core\Idno::site()->config()->attachment_base_host)) {
                         $attachments = $this->attachments;
                         foreach ($this->attachments as $key => $value) {
                             if (!empty($value['url'])) {
                                 $host         = parse_url($value['url'], PHP_URL_HOST);
-                                $value['url'] = str_replace($host, \Idno\Core\site()->config()->attachment_base_host, $value['url']);
+                                $value['url'] = str_replace($host, \Idno\Core\Idno::site()->config()->attachment_base_host, $value['url']);
                                 if (empty($value['filename'])) {
                                     $value['filename'] = basename($value['url']);
                                 }
@@ -776,7 +782,7 @@
             {
                 $event = new \Idno\Core\Event(array('object' => $this));
                 $event->setResponse(true);
-                if (\Idno\Core\site()->triggerEvent('delete', array('object' => $this))) {
+                if (\Idno\Core\Idno::site()->triggerEvent('delete', array('object' => $this))) {
 
                     $this->unsyndicate();
 
@@ -788,9 +794,7 @@
 
                     if ($return = \Idno\Core\db()->deleteRecord($this->getID(), $this->collection)) {
                         $this->deleteData();
-                        
-                        \Idno\Core\site()->triggerEvent('deleted', array('object' => $this));
-
+                        \Idno\Core\Idno::site()->triggerEvent('deleted', array('object' => $this));
                         return $return;
                     }
 
@@ -817,11 +821,11 @@
                 if ($user = $this->getOwner()) {
                     return $user->getIcon();
                 }
-                if ($page = \Idno\Core\site()->currentPage()) {
+                if ($page = \Idno\Core\Idno::site()->currentPage()) {
                     return $page->getIcon();
                 }
 
-                return \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k.png';
+                return \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k.png';
             }
 
             /**
@@ -890,7 +894,7 @@
                 return true;
                 /*if (
                     $access instanceof \Idno\Entities\AccessGroup ||
-                    ($access = \Idno\Core\site()->db()->getObject($access) && $access instanceof \Idno\Entities\AccessGroup)
+                    ($access = \Idno\Core\Idno::site()->db()->getObject($access) && $access instanceof \Idno\Entities\AccessGroup)
                 ) {
                     $this->access = $access->getUUID();
 
@@ -1116,7 +1120,7 @@
              */
             function getCitation()
             {
-                $host     = parse_url(\Idno\Core\site()->config()->getURL(), PHP_URL_HOST);
+                $host     = parse_url(\Idno\Core\Idno::site()->config()->getURL(), PHP_URL_HOST);
                 $shorturl = $this->getShortURL(false);
 
                 return '(' . $host . ' s/' . $shorturl . ')';
@@ -1134,9 +1138,9 @@
                 }
                 if ($complete) {
                     if ($url_schema) {
-                        $host = \Idno\Core\site()->config()->url;
+                        $host = \Idno\Core\Idno::site()->config()->url;
                     } else {
-                        $host = \Idno\Core\site()->config()->host . '/';
+                        $host = \Idno\Core\Idno::site()->config()->host . '/';
                     }
 
                     return $host . 's/' . $this->shorturl;
@@ -1181,7 +1185,7 @@
              */
             static function getByShortURL($url)
             {
-                $url = str_replace(\Idno\Core\site()->config()->url . 's/', '', $url);
+                $url = str_replace(\Idno\Core\Idno::site()->config()->url . 's/', '', $url);
                 if (empty($url)) {
                     return false;
                 }
@@ -1214,7 +1218,7 @@
              */
             function getEditURL()
             {
-                return \Idno\Core\site()->config()->getDisplayURL() . $this->getClassSelector() . '/edit/' . $this->getID();
+                return \Idno\Core\Idno::site()->config()->getDisplayURL() . $this->getClassSelector() . '/edit/' . $this->getID();
             }
 
             /**
@@ -1224,7 +1228,7 @@
              */
             function getDeleteURL()
             {
-                return \Idno\Core\site()->config()->getDisplayURL() . $this->getClassSelector() . '/delete/' . $this->getID();
+                return \Idno\Core\Idno::site()->config()->getDisplayURL() . $this->getClassSelector() . '/delete/' . $this->getID();
             }
 
             /**
@@ -1250,15 +1254,15 @@
             function canEdit($user_id = '')
             {
 
-                if (!\Idno\Core\site()->session()->isLoggedOn()) return false;
-                if (!\Idno\Core\site()->canWrite()) return false;
+                if (!\Idno\Core\Idno::site()->session()->isLoggedOn()) return false;
+                if (!\Idno\Core\Idno::site()->canWrite()) return false;
 
                 if (empty($user_id)) {
-                    $user_id = \Idno\Core\site()->session()->currentUserUUID();
+                    $user_id = \Idno\Core\Idno::site()->session()->currentUserUUID();
                 }
 
-                if ($user_id = \Idno\Core\site()->session()->currentUserUUID()) {
-                    $user = \Idno\Core\site()->session()->currentUser();
+                if ($user_id = \Idno\Core\Idno::site()->session()->currentUserUUID()) {
+                    $user = \Idno\Core\Idno::site()->session()->currentUser();
                 } else {
                     $user = User::getByUUID($user_id);
                 }
@@ -1269,7 +1273,7 @@
 
                 if ($this->getOwnerID() == $user_id) return true;
 
-                return \Idno\Core\site()->triggerEvent('canEdit', array('object' => $this, 'user_id' => $user_id), false);
+                return \Idno\Core\Idno::site()->triggerEvent('canEdit', array('object' => $this, 'user_id' => $user_id), false);
 
             }
 
@@ -1285,21 +1289,21 @@
             function canRead($user_id = '')
             {
                 if (empty($user_id)) {
-                    $user_id = \Idno\Core\site()->session()->currentUserUUID();
+                    $user_id = \Idno\Core\Idno::site()->session()->currentUserUUID();
                 }
                 $access = $this->getAccess();
 
                 if ($access == 'PUBLIC') return true;
-                if ($access == 'SITE' && \Idno\Core\site()->session()->isLoggedIn()) return true;
+                if ($access == 'SITE' && \Idno\Core\Idno::site()->session()->isLoggedIn()) return true;
                 if ($this->getOwnerID() == $user_id) return true;
 
                 if ($access instanceof \Idno\Entities\AccessGroup) {
                     if ($access->isMember($user_id)) {
-                        return \Idno\Core\site()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
+                        return \Idno\Core\Idno::site()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
                     }
                 }
 
-                return \Idno\Core\site()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id), false);
+                return \Idno\Core\Idno::site()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id), false);
             }
 
             /**
@@ -1312,7 +1316,7 @@
             {
                 $access = $this->access;
                 if (!$idOnly && $access != 'PUBLIC' && $access != 'SITE') {
-                    $access = \Idno\Core\site()->db()->getObject($access);
+                    $access = \Idno\Core\Idno::site()->db()->getObject($access);
                 }
 
                 return $access;
@@ -1415,7 +1419,7 @@
              */
             function draw($feed_view = false)
             {
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
 
                 if ($this instanceof User) {
                     $params = ['user' => $this, 'feed_view' => $feed_view];
@@ -1439,7 +1443,7 @@
              */
             function drawEdit()
             {
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
 
                 return $t->__(array(
                     'object' => $this
@@ -1456,7 +1460,7 @@
                     'id'          => $this->getUUID(),
                     'content'     => strip_tags($this->getDescription()),
                     'formattedContent'
-                                  => \Idno\Core\site()->template()->autop($this->getDescription()),
+                                  => \Idno\Core\Idno::site()->template()->autop($this->getDescription()),
                     'displayName' => $this->getTitle(),
                     'objectType'  => $this->getActivityStreamsObjectType(),
                     'published'   => date(\DateTime::RFC3339, $this->created),
@@ -1482,7 +1486,7 @@
                             $attachment['length'] = 0;
                         }
                         $object['attachments'][] = [
-                            'url'       => preg_replace('/^(https?:\/\/\/)/u', \Idno\Core\site()->config()->url, $attachment['url']),
+                            'url'       => preg_replace('/^(https?:\/\/\/)/u', \Idno\Core\Idno::site()->config()->url, $attachment['url']),
                             'mime-type' => $attachment['mime-type'],
                             'length'    => $attachment['length']
                         ];
@@ -1518,7 +1522,7 @@
 
                 // If a slug has been set, use it
                 if ($slug = $this->getSlug()) {
-                    return \Idno\Core\site()->config()->getDisplayURL() . date('Y', $this->created) . '/' . $slug;
+                    return \Idno\Core\Idno::site()->config()->getDisplayURL() . date('Y', $this->created) . '/' . $slug;
                 }
 
                 $new = false;
@@ -1536,7 +1540,7 @@
                     }
                 }
 
-                return \Idno\Core\site()->config()->getDisplayURL() . $this->getClassSelector() . '/edit';
+                return \Idno\Core\Idno::site()->config()->getDisplayURL() . $this->getClassSelector() . '/edit';
 
             }
 
@@ -1556,8 +1560,8 @@
             function getDisplayURL()
             {
                 $url = $this->getURL();
-                if (\Idno\Core\site()->config()->unique_urls) {
-                    $url = \Idno\Core\site()->template()->getURLWithVar('rnd', rand(0,999999), $url);
+                if (\Idno\Core\Idno::site()->config()->unique_urls) {
+                    $url = \Idno\Core\Idno::site()->template()->getURLWithVar('rnd', rand(0,999999), $url);
                 }
                 return $url;
             }
@@ -1654,9 +1658,9 @@
                                                 // TODO: Don't update the cache image for every webmention
 
                                                 if ($icon = \Idno\Entities\File::createThumbnailFromFile($tmpfname, $name, 300)) {
-                                                    $mentions['owner']['photo'] = \Idno\Core\site()->config()->url . 'file/' . (string)$icon;
+                                                    $mentions['owner']['photo'] = \Idno\Core\Idno::site()->config()->url . 'file/' . (string)$icon;
                                                 } else if ($icon = \Idno\Entities\File::createFromFile($tmpfname, $name)) {
-                                                    $mentions['owner']['photo'] = \Idno\Core\site()->config()->url . 'file/' . (string)$icon;
+                                                    $mentions['owner']['photo'] = \Idno\Core\Idno::site()->config()->url . 'file/' . (string)$icon;
                                                 }
 
                                                 unlink($tmpfname);
@@ -1701,7 +1705,7 @@
                             }
                             // Special exemption for bridgy
                             if ((strpos($source, 'https://brid-gy.appspot.com/') !== false) && in_array($mention['type'], array('like', 'share', 'rsvp'))) {
-                                $permalink = \Idno\Core\site()->template()->getURLWithVar('known_from', $source, implode('', $mention['url']));
+                                $permalink = \Idno\Core\Idno::site()->template()->getURLWithVar('known_from', $source, implode('', $mention['url']));
                             }
                             if (!$this->addAnnotation($mention['type'], $mentions['owner']['name'], $mentions['owner']['url'], $mentions['owner']['photo'], $mention['content'], $permalink, $mention['created'], $mention['title'])) {
                                 $return = false;
@@ -1780,9 +1784,9 @@
                                         // TODO: Don't update the cache image for every webmention
 
                                         if ($icon = \Idno\Entities\File::createThumbnailFromFile($tmpfname, $name, 300)) {
-                                            $mentions['owner']['photo'] = \Idno\Core\site()->config()->url . 'file/' . (string)$icon;
+                                            $mentions['owner']['photo'] = \Idno\Core\Idno::site()->config()->url . 'file/' . (string)$icon;
                                         } else if ($icon = \Idno\Entities\File::createFromFile($tmpfname, $name)) {
-                                            $mentions['owner']['photo'] = \Idno\Core\site()->config()->url . 'file/' . (string)$icon;
+                                            $mentions['owner']['photo'] = \Idno\Core\Idno::site()->config()->url . 'file/' . (string)$icon;
                                         }
 
                                         unlink($tmpfname);
@@ -1802,7 +1806,7 @@
                                 if (is_array($item['properties']['content'])) {
                                     foreach ($item['properties']['content'] as $content) {
                                         if (!empty($content['value'])) {
-                                            $parsed_content = \Idno\Core\site()->template()->sanitize_html($content['value']);
+                                            $parsed_content = \Idno\Core\Idno::site()->template()->sanitize_html($content['value']);
                                             if (!substr_count($mention['content'], $parsed_content)) {
                                                 $mention['content'] .= $parsed_content;
                                             }
@@ -1813,13 +1817,13 @@
                                 }
                             } else if (!empty($item['properties']['summary'])) {
                                 if (is_array($item['properties']['summary'])) {
-                                    $mention['content'] = \Idno\Core\site()->template()->sanitize_html(implode(' ', $item['properties']['summary']));
+                                    $mention['content'] = \Idno\Core\Idno::site()->template()->sanitize_html(implode(' ', $item['properties']['summary']));
                                 } else {
                                     $mention['content'] = $item['properties']['summary'];
                                 }
                             } else if (!empty($item['properties']['name'])) {
                                 if (is_array($item['properties']['name'])) {
-                                    $mention['content'] = \Idno\Core\site()->template()->sanitize_html(implode(' ', $item['properties']['name']));
+                                    $mention['content'] = \Idno\Core\Idno::site()->template()->sanitize_html(implode(' ', $item['properties']['name']));
                                 } else {
                                     $mention['content'] = $item['properties']['name'];
                                 }
@@ -1941,7 +1945,7 @@
                 $this->annotations                 = $annotations;
                 $this->save();
 
-                \Idno\Core\site()->triggerEvent('annotation/add/' . $subtype, array('annotation' => $annotation, 'object' => $this));
+                \Idno\Core\Idno::site()->triggerEvent('annotation/add/' . $subtype, array('annotation' => $annotation, 'object' => $this));
 
                 if ($owners = $this->getAnnotationOwnerUUIDs(true)) {
                     $owners[] = $this->getOwnerID();
@@ -2015,7 +2019,7 @@
                 if ($this->canEdit()) {
                     return true;
                 }
-                if ($user = \Idno\Core\site()->session()->currentUser()) {
+                if ($user = \Idno\Core\Idno::site()->session()->currentUser()) {
                     if (!is_array($annotation)) {
                         $annotation = $this->getAnnotation($annotation);
                     }
@@ -2105,7 +2109,7 @@
                         if (!empty($annotation_type) && is_array($annotation_type)) {
                             foreach ($annotation_type as $annotation) {
                                 if (!empty($annotation['owner_url'])) {
-                                    if ((parse_url($annotation['owner_url'], PHP_URL_HOST) == parse_url(\Idno\Core\site()->config()->getURL(), PHP_URL_HOST)) || !$local) {
+                                    if ((parse_url($annotation['owner_url'], PHP_URL_HOST) == parse_url(\Idno\Core\Idno::site()->config()->getURL(), PHP_URL_HOST)) || !$local) {
                                         $owners[] = $annotation['owner_url'];
                                     }
                                 }

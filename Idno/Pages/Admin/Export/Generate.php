@@ -12,7 +12,7 @@
 
             function getContent()
             {
-                $this->forward(\Idno\Core\site()->config()->getURL() . 'admin/export/');
+                $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'admin/export/');
             }
 
             function postContent()
@@ -21,11 +21,11 @@
                 $this->adminGatekeeper();
 
                 // Flag that a site export has been requested
-                \Idno\Core\site()->config()->export_last_requested = time();
-                \Idno\Core\site()->config()->export_in_progress    = 1;
-                \Idno\Core\site()->config()->save();
+                \Idno\Core\Idno::site()->config()->export_last_requested = time();
+                \Idno\Core\Idno::site()->config()->export_in_progress    = 1;
+                \Idno\Core\Idno::site()->config()->save();
 
-                $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'admin/export/', false);
+                $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/export/', false);
 
                 ignore_user_abort(true);    // This is dangerous, but we need export to continue
 
@@ -43,18 +43,18 @@
                 set_time_limit(0);          // Eliminate time limit - this could take a while
 
                 // Remove the previous export file
-                if (!empty(\Idno\Core\site()->config()->export_file_id)) {
-                    if ($file = File::getByID(\Idno\Core\site()->config()->export_file_id)) {
+                if (!empty(\Idno\Core\Idno::site()->config()->export_file_id)) {
+                    if ($file = File::getByID(\Idno\Core\Idno::site()->config()->export_file_id)) {
                         $file->remove();
-                        \Idno\Core\site()->config()->export_file_id  = false;
-                        \Idno\Core\site()->config()->export_filename = false;
-                        \Idno\Core\site()->config()->save();
+                        \Idno\Core\Idno::site()->config()->export_file_id  = false;
+                        \Idno\Core\Idno::site()->config()->export_filename = false;
+                        \Idno\Core\Idno::site()->config()->save();
                     }
                 }
 
                 if ($path = Migration::createCompressedArchive()) {
 
-                    $filename = \Idno\Core\site()->config()->host . '.zip';
+                    $filename = \Idno\Core\Idno::site()->config()->host . '.zip';
                     /*                    header('Content-disposition: attachment;filename=' . $filename);
                                         if ($fp = fopen($path, 'r')) {
                                             while ($content = fread($fp, 4096)) {
@@ -65,15 +65,15 @@
 
                     if ($file = File::createFromFile($path, $filename)) {
                         @unlink($path);
-                        \Idno\Core\site()->config()->export_filename    = $filename;
-                        \Idno\Core\site()->config()->export_file_id     = $file;
-                        \Idno\Core\site()->config()->export_in_progress = 0;
-                        \Idno\Core\site()->config()->save();
+                        \Idno\Core\Idno::site()->config()->export_filename    = $filename;
+                        \Idno\Core\Idno::site()->config()->export_file_id     = $file;
+                        \Idno\Core\Idno::site()->config()->export_in_progress = 0;
+                        \Idno\Core\Idno::site()->config()->save();
 
                         $mail = new Email();
                         $mail->setHTMLBodyFromTemplate('admin/export');
                         $mail->setTextBodyFromTemplate('admin/export');
-                        $mail->addTo(\Idno\Core\site()->session()->currentUser()->email);
+                        $mail->addTo(\Idno\Core\Idno::site()->session()->currentUser()->email);
                         $mail->setSubject("Your data export is ready");
                         $mail->send();
                     }

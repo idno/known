@@ -25,11 +25,11 @@
 
 // Get page routes
 
-    $routes = \Idno\Core\site()->pagehandlers;
+    $routes = \Idno\Core\Idno::site()->pagehandlers;
 
 // Get subdirectory
 
-    $url = \Idno\Core\site()->config()->getURL();
+    $url = \Idno\Core\Idno::site()->config()->getURL();
     $path = parse_url($url, PHP_URL_PATH);
     if(substr($path, -1) == '/') {
         $path = substr($path, 0, -1);
@@ -44,10 +44,10 @@
 
     \Idno\Core\PageHandler::hook('404', function ($params = array()) {
         http_response_code(404);
-        $t = \Idno\Core\site()->template();
+        $t = \Idno\Core\Idno::site()->template();
         
         // Take over page detection
-        \Idno\Core\site()->template()->autodetectTemplateType();
+        \Idno\Core\Idno::site()->template()->autodetectTemplateType();
         
         $t->__(array('body' => $t->draw('pages/404'), 'title' => 'Not found!'))->drawPage();
         exit;

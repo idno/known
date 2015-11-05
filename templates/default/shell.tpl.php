@@ -11,8 +11,8 @@
 
     // Use appropriate language
     $lang = 'en';
-    if (!empty(\Idno\Core\site()->config()->lang))
-        $lang = \Idno\Core\site()->config()->lang;
+    if (!empty(\Idno\Core\Idno::site()->config()->lang))
+        $lang = \Idno\Core\Idno::site()->config()->lang;
 ?>
 <!DOCTYPE html>
 <html lang="<?= $lang; ?>">
@@ -30,17 +30,17 @@
 
     <?php
 
-        if (\Idno\Core\site()->session()->isLoggedIn()) {
+        if (\Idno\Core\Idno::site()->session()->isLoggedIn()) {
 
             ?>
-            <!-- <link rel="manifest" href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>chrome/manifest.json"> -->
+            <!-- <link rel="manifest" href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>chrome/manifest.json"> -->
         <?php
             if (Idno\Core\site()->isSecure()) {
         ?>
             <!-- <script>
                 window.addEventListener('load', function () {
                     if ('serviceWorker' in navigator) {
-                        navigator.serviceWorker.register('<?=\Idno\Core\site()->config()->getDisplayURL()?>chrome/service-worker.js', {scope: '/'})
+                        navigator.serviceWorker.register('<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>chrome/service-worker.js', {scope: '/'})
                             .then(function (r) {
                                 console.log('Registered service worker');
                             })
@@ -59,13 +59,13 @@
         $opengraph = array(
             'og:type'      => 'website',
             'og:title'     => htmlspecialchars(strip_tags($vars['title'])),
-            'og:site_name' => htmlspecialchars(strip_tags(\Idno\Core\site()->config()->title)),
+            'og:site_name' => htmlspecialchars(strip_tags(\Idno\Core\Idno::site()->config()->title)),
             'og:image'     => Idno\Core\site()->currentPage()->getIcon()
         );
 
-        if (\Idno\Core\site()->currentPage() && \Idno\Core\site()->currentPage()->isPermalink()) {
+        if (\Idno\Core\Idno::site()->currentPage() && \Idno\Core\Idno::site()->currentPage()->isPermalink()) {
 
-            $opengraph['og:url'] = \Idno\Core\site()->currentPage()->currentUrl();
+            $opengraph['og:url'] = \Idno\Core\Idno::site()->currentPage()->currentUrl();
 
             if (!empty($vars['object'])) {
                 $owner  = $vars['object']->getOwner();
@@ -105,7 +105,7 @@
     <meta name="DC.title" content="<?= htmlspecialchars($vars['title']) ?>">
     <meta name="DC.description" content="<?= htmlspecialchars($vars['description']) ?>"><?php
 
-        if (\Idno\Core\site()->currentPage() && \Idno\Core\site()->currentPage()->isPermalink()) {
+        if (\Idno\Core\Idno::site()->currentPage() && \Idno\Core\Idno::site()->currentPage()->isPermalink()) {
             /* @var \Idno\Common\Entity $object */
             if ($object instanceof \Idno\Common\Entity) {
 
@@ -135,23 +135,23 @@
     ?>">
 
     <!-- We need jQuery at the top of the page -->
-    <script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/jquery/' ?>jquery.min.js"></script>
+    <script src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/jquery/' ?>jquery.min.js"></script>
 
     <!-- Le styles -->
-    <link href="<?= \Idno\Core\site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/css/bootstrap.min.css"
+    <link href="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/css/bootstrap.min.css"
           rel="stylesheet" />
-    <link href="<?= \Idno\Core\site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/css/bootstrap-theme.min.css" />
-    <script src="<?= \Idno\Core\site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
+    <link href="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/css/bootstrap-theme.min.css" />
+    <script src="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
 
     <!-- Accessibility -->
-    <link rel="stylesheet" href="<?= \Idno\Core\site()->config()->getStaticURL() . 'external/paypal-bootstrap-accessibility-plugin/' ?>plugins/css/bootstrap-accessibility_1.0.3.css">
-    <script  src="<?= \Idno\Core\site()->config()->getStaticURL() . 'external/paypal-bootstrap-accessibility-plugin/' ?>plugins/js/bootstrap-accessibility_1.0.3.min.js"></script>
+    <link rel="stylesheet" href="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'external/paypal-bootstrap-accessibility-plugin/' ?>plugins/css/bootstrap-accessibility_1.0.3.css">
+    <script  src="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'external/paypal-bootstrap-accessibility-plugin/' ?>plugins/js/bootstrap-accessibility_1.0.3.min.js"></script>
 
     <!-- Fonts -->
     <link rel="stylesheet"
-          href="<?= \Idno\Core\site()->config()->getStaticURL() ?>external/font-awesome/css/font-awesome.css">
+          href="<?= \Idno\Core\Idno::site()->config()->getStaticURL() ?>external/font-awesome/css/font-awesome.css">
     <!--<link rel="stylesheet"
-          href="<?= \Idno\Core\site()->config()->getStaticURL() ?>external/font-awesome/css/font-awesome.min.css">-->
+          href="<?= \Idno\Core\Idno::site()->config()->getStaticURL() ?>external/font-awesome/css/font-awesome.min.css">-->
     <style>
         body {
             padding-top: 100px; /* 60px to make the container go all the way to the bottom of the topbar */
@@ -163,11 +163,11 @@
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
     <script
-        src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/js/html5shiv.js"></script>
+        src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/js/html5shiv.js"></script>
     <![endif]-->
 
     <!-- Default Known JavaScript -->
-    <script src="<?= \Idno\Core\site()->config()->getStaticURL() . 'js/default.js?20150406' ?>"></script>
+    <script src="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'js/default.js?20150406' ?>"></script>
 
     <!-- To silo is human, to syndicate divine -->
     <link rel="alternate" type="application/rss+xml" title="<?= htmlspecialchars($vars['title']) ?>"
@@ -175,24 +175,24 @@
     <link rel="feed" type="application/rss+xml" title="<?= htmlspecialchars($vars['title']) ?>"
           href="<?= $this->getURLWithVar('_t', 'rss'); ?>"/>
     <link rel="alternate feed" type="application/rss+xml"
-          title="<?= htmlspecialchars(\Idno\Core\site()->config()->title) ?>: all content"
-          href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>content/all?_t=rss"/>
-    <link rel="feed" type="text/html" title="<?= htmlspecialchars(\Idno\Core\site()->config()->title) ?>"
-          href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>content/all"/>
+          title="<?= htmlspecialchars(\Idno\Core\Idno::site()->config()->title) ?>: all content"
+          href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>content/all?_t=rss"/>
+    <link rel="feed" type="text/html" title="<?= htmlspecialchars(\Idno\Core\Idno::site()->config()->title) ?>"
+          href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>content/all"/>
 
     <!-- Webmention endpoint -->
-    <link href="<?= \Idno\Core\site()->config()->getURL() ?>webmention/" rel="http://webmention.org/"/>
-    <link href="<?= \Idno\Core\site()->config()->getURL() ?>webmention/" rel="webmention"/>
+    <link href="<?= \Idno\Core\Idno::site()->config()->getURL() ?>webmention/" rel="http://webmention.org/"/>
+    <link href="<?= \Idno\Core\Idno::site()->config()->getURL() ?>webmention/" rel="webmention"/>
 
     <?php $this->draw('shell/identities') ?>
-    <?php if (!empty(\Idno\Core\site()->config()->hub)) { ?>
+    <?php if (!empty(\Idno\Core\Idno::site()->config()->hub)) { ?>
         <!-- Pubsubhubbub -->
-        <link href="<?= \Idno\Core\site()->config()->hub ?>" rel="hub"/>
+        <link href="<?= \Idno\Core\Idno::site()->config()->hub ?>" rel="hub"/>
     <?php } ?>
 
     <?php
         // Load style assets
-        if ((\Idno\Core\site()->currentPage()) && $style = \Idno\Core\site()->currentPage->getAssets('css')) {
+        if ((\Idno\Core\Idno::site()->currentPage()) && $style = \Idno\Core\Idno::site()->currentPage->getAssets('css')) {
             foreach ($style as $css) {
                 ?>
                 <link href="<?= $css; ?>" rel="stylesheet">
@@ -201,14 +201,14 @@
         }
     ?>
 
-    <script src="<?= \Idno\Core\site()->config()->getStaticURL() ?>external/fragmention/fragmention.js"></script>
+    <script src="<?= \Idno\Core\Idno::site()->config()->getStaticURL() ?>external/fragmention/fragmention.js"></script>
 
     <!-- Syndication -->
     <link
-        href="<?= \Idno\Core\site()->config()->getStaticURL() ?>external/bootstrap-toggle/css/bootstrap-toggle.min.css"
+        href="<?= \Idno\Core\Idno::site()->config()->getStaticURL() ?>external/bootstrap-toggle/css/bootstrap-toggle.min.css"
         rel="stylesheet"/>
     <script
-        src="<?= \Idno\Core\site()->config()->getStaticURL() ?>external/bootstrap-toggle/js/bootstrap-toggle.js"></script>
+        src="<?= \Idno\Core\Idno::site()->config()->getStaticURL() ?>external/bootstrap-toggle/js/bootstrap-toggle.js"></script>
 
     <?= $this->draw('shell/head', $vars); ?>
     <?= $this->draw('shell/head/final', $vars); ?>
@@ -217,7 +217,7 @@
 
 <body class="<?php
 
-    echo(str_replace('\\', '_', strtolower(get_class(\Idno\Core\site()->currentPage()))));
+    echo(str_replace('\\', '_', strtolower(get_class(\Idno\Core\Idno::site()->currentPage()))));
     if ($path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
         if ($path = explode('/', $path)) {
             $page_class = '';
@@ -232,7 +232,7 @@
             }
         }
     }
-    if (\Idno\Core\site()->session()->isLoggedIn()) {
+    if (\Idno\Core\Idno::site()->session()->isLoggedIn()) {
         echo ' logged-in';
     } else {
         echo ' logged-out';
@@ -241,10 +241,10 @@
 ?>">
 <div id="pjax-container" class="page-container">
     <?php
-        $currentPage = \Idno\Core\site()->currentPage();
+        $currentPage = \Idno\Core\Idno::site()->currentPage();
 
         if (!empty($currentPage)) {
-            $hidenav = \Idno\Core\site()->embedded(); //\Idno\Core\site()->currentPage()->getInput('hidenav');
+            $hidenav = \Idno\Core\Idno::site()->embedded(); //\Idno\Core\Idno::site()->currentPage()->getInput('hidenav');
         }
         if (empty($vars['hidenav']) && empty($hidenav)) {
 
@@ -304,34 +304,34 @@
 <!-- Le javascript -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script
-    src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/jquery-timeago/' ?>jquery.timeago.js"></script>
-<script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/jquery-pjax/' ?>jquery.pjax.js"></script>
-<script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/underscore/underscore-min.js' ?>"
+    src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/jquery-timeago/' ?>jquery.timeago.js"></script>
+<script src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/jquery-pjax/' ?>jquery.pjax.js"></script>
+<script src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/underscore/underscore-min.js' ?>"
         type="text/javascript"></script>
-<!--<script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/mention/bootstrap-typeahead.js' ?>"
+<!--<script src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/mention/bootstrap-typeahead.js' ?>"
         type="text/javascript"></script>
-<script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/mention/mention.js' ?>"
+<script src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/mention/mention.js' ?>"
         type="text/javascript"></script> -->
 
 
 <?php
 
-    if (!empty(\Idno\Core\site()->config()->assets)) {
-        foreach(\Idno\Core\site()->config()->assets as $asset => $enabled) {
+    if (!empty(\Idno\Core\Idno::site()->config()->assets)) {
+        foreach(\Idno\Core\Idno::site()->config()->assets as $asset => $enabled) {
             if (!empty($enabled)) {
                 echo $this->draw('assets/' . $asset);
             }
         }
     }
 
-    if (\Idno\Core\site()->session()->isLoggedIn()) {
+    if (\Idno\Core\Idno::site()->session()->isLoggedIn()) {
 
         ?>
         <!-- WYSIWYG editor -->
-        <script src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/tinymce/js/tinymce/tinymce.min.js"
+        <script src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>external/tinymce/js/tinymce/tinymce.min.js"
                 type="text/javascript"></script>
         <script
-            src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/tinymce/js/tinymce/jquery.tinymce.min.js"
+            src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>external/tinymce/js/tinymce/jquery.tinymce.min.js"
             type="text/javascript"></script>
     <?php
 
@@ -341,14 +341,14 @@
 
 <!-- Mention styles -->
 <link rel="stylesheet" type="text/css"
-      href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>external/mention/recommended-styles.css">
+      href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>external/mention/recommended-styles.css">
 
 <?php
-    if (\Idno\Core\site()->session()->isLoggedOn()) {
+    if (\Idno\Core\Idno::site()->session()->isLoggedOn()) {
         echo $this->draw('js/mentions');
     }
     // Load javascript assets
-    if ((\Idno\Core\site()->currentPage()) && $scripts = \Idno\Core\site()->currentPage->getAssets('javascript')) {
+    if ((\Idno\Core\Idno::site()->currentPage()) && $scripts = \Idno\Core\Idno::site()->currentPage->getAssets('javascript')) {
         foreach ($scripts as $script) {
             ?>
             <script src="<?= $script ?>"></script>
@@ -358,7 +358,7 @@
 ?>
 
 <!-- HTML5 form element support for legacy browsers -->
-<script src="<?= \Idno\Core\site()->config()->getDisplayURL() . 'external/h5f/h5f.min.js' ?>"></script>
+<script src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/h5f/h5f.min.js' ?>"></script>
 
 <script>
 
@@ -369,7 +369,7 @@
 
     // Shim so that JS functions can get the current site URL
     function wwwroot() {
-        return '<?=\Idno\Core\site()->config()->getDisplayURL()?>';
+        return '<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>';
     }
 
     $(document).ready(function () {

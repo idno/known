@@ -1,6 +1,6 @@
 <?php
 
-    if ($staticpages = \Idno\Core\site()->plugins()->get('StaticPages')) {
+    if ($staticpages = \Idno\Core\Idno::site()->plugins()->get('StaticPages')) {
         /* @var \IdnoPlugins\StaticPages\Main $staticpages */
         if ($pages_list = $staticpages->getPagesAndCategories()) {
 
@@ -41,7 +41,7 @@
                                         if (substr($category, 0, 1) == '#') {
                                             ?>
                                             <li>
-                                                <a href="<?= \Idno\Core\site()->config()->getURL() ?>content/all/?q=<?= urlencode($category) ?>">Stream</a>
+                                                <a href="<?= \Idno\Core\Idno::site()->config()->getURL() ?>content/all/?q=<?= urlencode($category) ?>">Stream</a>
                                             </li>
                                         <?php
                                         }

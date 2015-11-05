@@ -123,7 +123,7 @@
             public static function createFromFile($file_path, $filename, $mime_type = 'application/octet-stream', $return_object = false, $destroy_exif = false)
             {
                 if (file_exists($file_path) && !empty($filename)) {
-                    if ($fs = \Idno\Core\site()->filesystem()) {
+                    if ($fs = \Idno\Core\Idno::site()->filesystem()) {
                         $file     = new File();
                         $metadata = array(
                             'filename'  => $filename,
@@ -147,24 +147,27 @@
                                     $image = imagecreatefromjpeg($tmpfname);
 
                                     // Since we're stripping Exif, we need to manually adjust orientation of main image
-                                    if (function_exists('exif_read_data')) {
-                                        $exif = exif_read_data($tmpfname);
-                                        if (!empty($exif['Orientation'])) {
-                                            switch ($exif['Orientation']) {
-                                                case 8:
-                                                    $image = imagerotate($image, 90, 0);
-                                                    break;
-                                                case 3:
-                                                    $image = imagerotate($image, 180, 0);
-                                                    break;
-                                                case 6:
-                                                    $image = imagerotate($image, -90, 0);
-                                                    break;
+                                    try {
+                                        if (function_exists('exif_read_data')) {
+
+                                            $exif = exif_read_data($tmpfname);
+                                            if (!empty($exif['Orientation'])) {
+                                                switch ($exif['Orientation']) {
+                                                    case 8:
+                                                        $image = imagerotate($image, 90, 0);
+                                                        break;
+                                                    case 3:
+                                                        $image = imagerotate($image, 180, 0);
+                                                        break;
+                                                    case 6:
+                                                        $image = imagerotate($image, -90, 0);
+                                                        break;
+                                                }
                                             }
                                         }
-                                    }
 
-                                    imagejpeg($image, $tmpfname);
+                                        imagejpeg($image, $tmpfname);
+                                    } catch (\Exception $e) {}
                                     break;
                             }
 
@@ -218,11 +221,11 @@
              */
             static function getByID($id)
             {
-                if ($fs = \Idno\Core\site()->filesystem()) {
+                if ($fs = \Idno\Core\Idno::site()->filesystem()) {
                     try {
-                        return $fs->findOne(array('_id' => \Idno\Core\site()->db()->processID($id)));
+                        return $fs->findOne(array('_id' => \Idno\Core\Idno::site()->db()->processID($id)));
                     } catch (\Exception $e) {
-                        \Idno\Core\site()->logging->log($e->getMessage(), LOGLEVEL_ERROR);
+                        \Idno\Core\Idno::site()->logging->log($e->getMessage(), LOGLEVEL_ERROR);
                     }
                 }
 
@@ -236,7 +239,7 @@
              */
             static function getByUUID($uuid)
             {
-                if ($fs = \Idno\Core\site()->filesystem()) {
+                if ($fs = \Idno\Core\Idno::site()->filesystem()) {
                     return $fs->findOne($uuid);
                 }
 
@@ -251,8 +254,8 @@
              */
             static function getByURL($url)
             {
-                if (substr_count($url, \Idno\Core\site()->config()->getDisplayURL() . 'file/')) {
-                    $url = str_replace(\Idno\Core\site()->config()->getDisplayURL() . 'file/', '', $url);
+                if (substr_count($url, \Idno\Core\Idno::site()->config()->getDisplayURL() . 'file/')) {
+                    $url = str_replace(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'file/', '', $url);
 
                     return self::getByID($url);
                 }
@@ -267,37 +270,37 @@
              */
             static function getFileDataFromAttachment($attachment)
             {
-                \Idno\Core\site()->logging->log(json_encode($attachment), LOGLEVEL_DEBUG);
+                \Idno\Core\Idno::site()->logging->log(json_encode($attachment), LOGLEVEL_DEBUG);
                 if (!empty($attachment['_id'])) {
-                    //\Idno\Core\site()->logging->log("Checking attachment ID", LOGLEVEL_DEBUG);
+                    //\Idno\Core\Idno::site()->logging->log("Checking attachment ID", LOGLEVEL_DEBUG);
                     if ($bytes = self::getFileDataByID((string)$attachment['_id'])) {
-                        //\Idno\Core\site()->logging->log("Retrieved some bytes", LOGLEVEL_DEBUG);
+                        //\Idno\Core\Idno::site()->logging->log("Retrieved some bytes", LOGLEVEL_DEBUG);
                         if (strlen($bytes)) {
-                            //\Idno\Core\site()->logging->log("Bytes! " . $bytes, LOGLEVEL_DEBUG);
+                            //\Idno\Core\Idno::site()->logging->log("Bytes! " . $bytes, LOGLEVEL_DEBUG);
                             return $bytes;
                         } else {
-                            //\Idno\Core\site()->logging->log("Sadly no bytes", LOGLEVEL_DEBUG);
+                            //\Idno\Core\Idno::site()->logging->log("Sadly no bytes", LOGLEVEL_DEBUG);
                         }
                     } else {
-                        //\Idno\Core\site()->logging->log("No bytes retrieved", LOGLEVEL_DEBUG);
+                        //\Idno\Core\Idno::site()->logging->log("No bytes retrieved", LOGLEVEL_DEBUG);
                     }
                 } else {
-                    \Idno\Core\site()->logging->log("Empty attachment _id", LOGLEVEL_DEBUG);
+                    \Idno\Core\Idno::site()->logging->log("Empty attachment _id", LOGLEVEL_DEBUG);
                 }
                 if (!empty($attachment['url'])) {
                     try {
                         if ($bytes = @file_get_contents($attachment['url'])) {
-                            \Idno\Core\site()->logging->log("Returning bytes", LOGLEVEL_DEBUG);
+                            \Idno\Core\Idno::site()->logging->log("Returning bytes", LOGLEVEL_DEBUG);
 
                             return $bytes;
                         } else {
-                            \Idno\Core\site()->logging->log("Couldn't get bytes from " . $attachment['url'], LOGLEVEL_DEBUG);
+                            \Idno\Core\Idno::site()->logging->log("Couldn't get bytes from " . $attachment['url'], LOGLEVEL_DEBUG);
                         }
                     } catch (\Exception $e) {
-                        \Idno\Core\site()->logging->log("Couldn't get bytes from " . $attachment['url'], LOGLEVEL_DEBUG);
+                        \Idno\Core\Idno::site()->logging->log("Couldn't get bytes from " . $attachment['url'], LOGLEVEL_DEBUG);
                     }
                 } else {
-                    \Idno\Core\site()->logging->log('Attachment url was empty ' . $attachment['url'], LOGLEVEL_DEBUG);
+                    \Idno\Core\Idno::site()->logging->log('Attachment url was empty ' . $attachment['url'], LOGLEVEL_DEBUG);
                 }
 
                 return false;
@@ -314,7 +317,7 @@
                     try {
                         return $file->getBytes();
                     } catch (\Exception $e) {
-                        \Idno\Core\site()->logging->log($e->getMessage(), LOGLEVEL_ERROR);
+                        \Idno\Core\Idno::site()->logging->log($e->getMessage(), LOGLEVEL_ERROR);
                     }
                 }
 
@@ -342,7 +345,7 @@
             function getURL()
             {
                 if (!empty($this->_id)) {
-                    return \Idno\Core\site()->config()->url . 'file/' . $this->_id . '/' . urlencode($this->filename);
+                    return \Idno\Core\Idno::site()->config()->url . 'file/' . $this->_id . '/' . urlencode($this->filename);
                 }
 
                 return '';

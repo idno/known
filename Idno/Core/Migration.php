@@ -102,8 +102,8 @@
                                         }
                                         file_put_contents($file_path . 'readable/' . $filename, $data);
                                         $attachments[$key]['url'] = '../files/' . site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3] . '/' . $id . '.file'; //$filename;
-                                        $data_file                = $file_path . 'uploads/' . \Idno\Core\site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3] . '/' . $id . '.data';
-                                        foreach (array($file_path . 'uploads/' . \Idno\Core\site()->config()->pathHost(), $file_path . \Idno\Core\site()->config()->pathHost() . '/' . $id[0], $file_path . 'uploads/' . \Idno\Core\site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1], $file_path . 'uploads/' . \Idno\Core\site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2], $file_path . 'uploads/' . \Idno\Core\site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3]) as $up_path) {
+                                        $data_file                = $file_path . 'uploads/' . \Idno\Core\Idno::site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3] . '/' . $id . '.data';
+                                        foreach (array($file_path . 'uploads/' . \Idno\Core\Idno::site()->config()->pathHost(), $file_path . \Idno\Core\Idno::site()->config()->pathHost() . '/' . $id[0], $file_path . 'uploads/' . \Idno\Core\Idno::site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1], $file_path . 'uploads/' . \Idno\Core\Idno::site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2], $file_path . 'uploads/' . \Idno\Core\Idno::site()->config()->pathHost() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3]) as $up_path) {
                                             if (!is_dir($up_path)) {
                                                 $result = mkdir($up_path, 0777, true);
                                             }
@@ -139,7 +139,7 @@
                     $offset += $limit;
                 }
 
-                if ($exported_records = \Idno\Core\site()->db()->exportRecords()) {
+                if ($exported_records = \Idno\Core\Idno::site()->db()->exportRecords()) {
                     if (site()->config()->database == 'mysql' || site()->config()->database == 'postgres') {
                         $export_ext = 'sql';
                     } else {
@@ -218,7 +218,7 @@
              */
             static function cleanUpFolder($path)
             {
-                foreach (glob("{path}/*") as $file) {
+                foreach (glob("{$path}/*") as $file) {
                     if (is_dir($file)) {
                         self::cleanUpFolder($file);
                     } else {
@@ -321,7 +321,7 @@
                                             $mime = 'application/octet-stream';
                                     }
                                     if ($file = File::createFromFile($newname, basename($src), $mime, true)) {
-                                        $newsrc = \Idno\Core\site()->config()->getURL() . 'file/' . $file->file['_id'];
+                                        $newsrc = \Idno\Core\Idno::site()->config()->getURL() . 'file/' . $file->file['_id'];
                                         $body   = str_replace($src, $newsrc, $body);
                                         @unlink($newname);
                                     }

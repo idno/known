@@ -14,12 +14,12 @@
 
             function getContent()
             {
-                if (!\Idno\Core\site()->session()->isLoggedIn()) {
+                if (!\Idno\Core\Idno::site()->session()->isLoggedIn()) {
                     $this->setResponse(401);
-                    $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'session/login');
+                    $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login');
                 }
 
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
                 $body = $t->draw('firefox/sidebar');
                 $t->__(array('title' => 'Sidebar', 'body' => $body, 'hidenav' => true))->drawPage();
             }

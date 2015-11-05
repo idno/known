@@ -42,18 +42,18 @@
                 }
 
                 if ($new) {
-                    if (!\Idno\Core\site()->triggerEvent("file/upload",[],true)) {
+                    if (!\Idno\Core\Idno::site()->triggerEvent("file/upload",[],true)) {
                         return false;
                     }
                 }
 
-                $this->title = \Idno\Core\site()->currentPage()->getInput('title');
-                $this->body  = \Idno\Core\site()->currentPage()->getInput('body');
-                $this->tags  = \Idno\Core\site()->currentPage()->getInput('tags');
-                $access = \Idno\Core\site()->currentPage()->getInput('access');
+                $this->title = \Idno\Core\Idno::site()->currentPage()->getInput('title');
+                $this->body  = \Idno\Core\Idno::site()->currentPage()->getInput('body');
+                $this->tags  = \Idno\Core\Idno::site()->currentPage()->getInput('tags');
+                $access = \Idno\Core\Idno::site()->currentPage()->getInput('access');
                 $this->setAccess($access);
 
-                if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
+                if ($time = \Idno\Core\Idno::site()->currentPage()->getInput('created')) {
                     if ($time = strtotime($time)) {
                         $this->created = $time;
                     }
@@ -114,13 +114,13 @@
                                 $this->attachFile($media);
                                 $ok = true;
                             } else {
-                                \Idno\Core\site()->session()->addErrorMessage('Media wasn\'t attached.');
+                                \Idno\Core\Idno::site()->session()->addErrorMessage('Media wasn\'t attached.');
                             }
                         } else {
-                            \Idno\Core\site()->session()->addErrorMessage('This doesn\'t seem to be a media file .. ' . $_FILES['media']['type']);
+                            \Idno\Core\Idno::site()->session()->addErrorMessage('This doesn\'t seem to be a media file .. ' . $_FILES['media']['type']);
                         }
                     } else {
-                        \Idno\Core\site()->session()->addErrorMessage('We couldn\'t access your media. Please try again.');
+                        \Idno\Core\Idno::site()->session()->addErrorMessage('We couldn\'t access your media. Please try again.');
 
                         return false;
                     }
@@ -132,7 +132,7 @@
                 }
 
                 if ($this->save($new)) {
-                    \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getTitle() . ' ' . $this->getDescription()));
+                    \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getTitle() . ' ' . $this->getDescription()));
 
                     return true;
                 } else {

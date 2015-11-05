@@ -22,13 +22,13 @@
                 $user_token       = $user->getAPIkey();
 
                 if (!empty($indieauth_tokens[$token]) || $token == $user_token) {
-                    \Idno\Core\site()->session()->refreshSessionUser($user);
+                    \Idno\Core\Idno::site()->session()->refreshSessionUser($user);
                     if ($query = trim($this->getInput('q'))) {
                         switch ($query) {
                             case 'syndicate-to':
                                 echo json_encode([
-                                    'syndicate-to'          => \Idno\Core\site()->syndication()->getServiceAccountStrings(),
-                                    'syndicate-to-expanded' => \Idno\Core\site()->syndication()->getServiceAccountData()
+                                    'syndicate-to'          => \Idno\Core\Idno::site()->syndication()->getServiceAccountStrings(),
+                                    'syndicate-to-expanded' => \Idno\Core\Idno::site()->syndication()->getServiceAccountData()
                                 ], JSON_PRETTY_PRINT);
                                 break;
                         }
@@ -58,7 +58,7 @@
 
                 if (!empty($indieauth_tokens[$token]) || $token == $user_token) {
 
-                    \Idno\Core\site()->session()->refreshSessionUser($user);
+                    \Idno\Core\Idno::site()->session()->refreshSessionUser($user);
                     // If we're here, we're authorized
 
                     // Get details

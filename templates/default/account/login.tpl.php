@@ -9,7 +9,7 @@
         
         <div class="col-md-10 col-md-offset-1">
 
-        <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>session/login" method="post">
+        <form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>session/login" method="post">
             <div class="control-group">
                 <div class="controls">
                     <input type="text" id="inputEmail" name="email" placeholder="Your email address or username"
@@ -30,7 +30,7 @@
                         } else if (!empty($_SERVER['HTTP_REFERER'])) {
                             echo htmlspecialchars($_SERVER['HTTP_REFERER']);
                         } else {
-                            echo \Idno\Core\site()->config()->getDisplayURL();
+                            echo \Idno\Core\Idno::site()->config()->getDisplayURL();
                         }?>" />
                 </div>
             </div>
@@ -38,16 +38,16 @@
               <div class="control-group">
                 <div class="controls">
                     <?php
-                        if (\Idno\Core\site()->config()->open_registration == true && \Idno\Core\site()->config()->canAddUsers()) {
+                        if (\Idno\Core\Idno::site()->config()->open_registration == true && \Idno\Core\Idno::site()->config()->canAddUsers()) {
                     ?>
-                    <a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>account/register">New here? Register for an account.</a><br><br>
+                    <a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>account/register">New here? Register for an account.</a><br><br>
                     <?php
                         }
                     ?>
-                    <a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>account/password">Forgot your password?</a>
+                    <a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>account/password">Forgot your password?</a>
                 </div>
             </div>
-            <?= \Idno\Core\site()->actions()->signForm('/session/login') ?>
+            <?= \Idno\Core\Idno::site()->actions()->signForm('/session/login') ?>
         </form>
         </div>
 

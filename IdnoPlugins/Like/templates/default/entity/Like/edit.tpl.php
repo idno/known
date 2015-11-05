@@ -68,10 +68,10 @@
                 </div>
                 <?=$this->draw('entity/tags/input');?>
                 <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('bookmark'); ?>
-                <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to" value="<?= \Idno\Core\site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
+                <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to" value="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
                 <?= $this->draw('content/access'); ?>
                 <p class="button-bar">
-                    <?= \Idno\Core\site()->actions()->signForm('/like/edit') ?>
+                    <?= \Idno\Core\Idno::site()->actions()->signForm('/like/edit') ?>
                     <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
                     <input type="submit" class="btn btn-primary" value="Save"/>
 
@@ -91,7 +91,7 @@
                 $('.bookmark-title-spinner').show();
                 $.ajax({
                     dataType: "json",
-                    url: "<?=\Idno\Core\site()->config()->getDisplayURL()?>like/callback/",
+                    url: "<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>like/callback/",
                     data: {
                         url: $('.bookmark-url').val()
                     },

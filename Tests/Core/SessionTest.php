@@ -19,23 +19,23 @@ namespace Tests\Core {
             $this->assertTrue(is_object($user));
             
             // Has logon reported ok?
-            $this->assertTrue(is_object(\Idno\Core\site()->session()->logUserOn($user)));
+            $this->assertTrue(is_object(\Idno\Core\Idno::site()->session()->logUserOn($user)));
             
             // Verify logon
             $this->assertEquals($_SESSION['user_uuid'], $user->getUUID());
-            $this->assertTrue(is_object(\Idno\Core\site()->session()->currentUser()));
+            $this->assertTrue(is_object(\Idno\Core\Idno::site()->session()->currentUser()));
             
             //Verify logoff
-            \Idno\Core\site()->session()->logUserOff();
+            \Idno\Core\Idno::site()->session()->logUserOff();
             
             $this->assertTrue(empty($_SESSION['user_uuid']));
-            $this->assertFalse(is_object(\Idno\Core\site()->session()->currentUser()));
+            $this->assertFalse(is_object(\Idno\Core\Idno::site()->session()->currentUser()));
         }
         
         
         public static function tearDownAfterClass() {
             
-            \Idno\Core\site()->session()->logUserOff();
+            \Idno\Core\Idno::site()->session()->logUserOff();
             
             // Delete users, if we've created some but forgot to clean up
             if (\Tests\KnownTestCase::$testUser) \Tests\KnownTestCase::$testUser->delete();

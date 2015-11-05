@@ -11,11 +11,11 @@
             {
 
                 $this->adminGatekeeper();
-                $staticpages = \Idno\Core\site()->plugins()->get('StaticPages');
+                $staticpages = \Idno\Core\Idno::site()->plugins()->get('StaticPages');
                 $categories  = $staticpages->getCategories();
                 $pages       = $staticpages->getPagesAndCategories();
-                $body        = \Idno\Core\site()->template()->__(['categories' => $categories, 'pages' => $pages])->draw('staticpages/admin');
-                \Idno\Core\site()->template()->__([
+                $body        = \Idno\Core\Idno::site()->template()->__(['categories' => $categories, 'pages' => $pages])->draw('staticpages/admin');
+                \Idno\Core\Idno::site()->template()->__([
                     'title' => 'Pages', 'body' => $body
                 ])->drawPage();
 

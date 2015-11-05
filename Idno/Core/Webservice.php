@@ -85,7 +85,7 @@
                 curl_setopt($curl_handle, CURLOPT_HEADER, 1);
 
                 // Allow unsafe ssl verify
-                if (!empty(\Idno\Core\site()->config()->disable_ssl_verify)) {
+                if (!empty(\Idno\Core\Idno::site()->config()->disable_ssl_verify)) {
                     curl_setopt($curl_handle, CURLOPT_SSL_VERIFYPEER, 0);
                     curl_setopt($curl_handle, CURLOPT_SSL_VERIFYHOST, 0);
                 } else {
@@ -95,19 +95,19 @@
 
 
                 // If we're calling this function as a logged in user, then we need to store cookies in a cookiejar
-                if ($user = \Idno\Core\site()->session()->currentUser()) {
+                if ($user = \Idno\Core\Idno::site()->session()->currentUser()) {
                     // Save cookie to user specific cookie jar, using some level of obfuscation
-                    curl_setopt($curl_handle, CURLOPT_COOKIEJAR, \Idno\Core\site()->config()->cookie_jar . md5($user->getUUID() . \Idno\Core\site()->config()->site_secret));
+                    curl_setopt($curl_handle, CURLOPT_COOKIEJAR, \Idno\Core\Idno::site()->config()->cookie_jar . md5($user->getUUID() . \Idno\Core\Idno::site()->config()->site_secret));
                 }
 
                 // Proxy connection string provided
-                if (!empty(\Idno\Core\site()->config()->proxy_string)) {
-                    curl_setopt($curl_handle, CURLOPT_PROXY, \Idno\Core\site()->config()->proxy_string);
+                if (!empty(\Idno\Core\Idno::site()->config()->proxy_string)) {
+                    curl_setopt($curl_handle, CURLOPT_PROXY, \Idno\Core\Idno::site()->config()->proxy_string);
 
                     // If proxy type not specified by command string (as some settings can't be), allow for proxy type to be passed.
-                    if (!empty(\Idno\Core\site()->config()->proxy_type)) {
+                    if (!empty(\Idno\Core\Idno::site()->config()->proxy_type)) {
                         $type = 0;
-                        switch (\Idno\Core\site()->config()->proxy_type) {
+                        switch (\Idno\Core\Idno::site()->config()->proxy_type) {
 
                             case 'socks4':
                             case 'CURLPROXY_SOCKS4':
@@ -136,7 +136,7 @@
                 }
 
                 // Allow plugins and other services to extend headers, allowing for plugable authentication methods on calls
-                $new_headers = \Idno\Core\site()->triggerEvent('webservice:headers', array('headers' => $headers, 'verb' => $verb));
+                $new_headers = \Idno\Core\Idno::site()->triggerEvent('webservice:headers', array('headers' => $headers, 'verb' => $verb));
                 if (!empty($new_headers) && (is_array($new_headers))) {
                     if (empty($headers)) $headers = array();
                     $headers = array_merge($headers, $new_headers);
@@ -155,7 +155,7 @@
                 $content     = substr($buffer, $header_size);
 
                 if ($error = curl_error($curl_handle)) {
-                    \Idno\Core\site()->logging->log($error, LOGLEVEL_ERROR);
+                    \Idno\Core\Idno::site()->logging->log($error, LOGLEVEL_ERROR);
                 }
 
                 self::$lastRequest  = curl_getinfo($curl_handle, CURLINFO_HEADER_OUT);
@@ -244,7 +244,7 @@
                 try {
                     return curl_exec($ch);
                 } catch (\Exception $e) {
-                    \Idno\Core\site()->logging()->log($e->getMessage());
+                    \Idno\Core\Idno::site()->logging()->log($e->getMessage());
 
                     return false;
                 }

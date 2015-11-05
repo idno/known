@@ -6,15 +6,15 @@
 
             function registerPages() {
                 // Register settings page
-                \Idno\Core\site()->addPageHandler('account/firefox','\IdnoPlugins\Firefox\Pages\Account');
+                \Idno\Core\Idno::site()->addPageHandler('account/firefox','\IdnoPlugins\Firefox\Pages\Account');
 
                 // Handlers
-                \Idno\Core\site()->addPageHandler('firefox/share/?','\Idno\Pages\Entity\Share'); // Backwards compatibility
-                \Idno\Core\site()->addPageHandler('firefox/sidebar/?','\IdnoPlugins\Firefox\Pages\Sidebar');
+                \Idno\Core\Idno::site()->addPageHandler('firefox/share/?','\Idno\Pages\Entity\Share'); // Backwards compatibility
+                \Idno\Core\Idno::site()->addPageHandler('firefox/sidebar/?','\IdnoPlugins\Firefox\Pages\Sidebar');
 
                 /** Template extensions */
                 // Add Firefox to Tools and Apps screen
-                \Idno\Core\site()->template()->extendTemplate('account/settings/tools/list','account/firefox');
+                \Idno\Core\Idno::site()->template()->extendTemplate('account/settings/tools/list','account/firefox');
             }
 
         }

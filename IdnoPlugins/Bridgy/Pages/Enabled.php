@@ -9,7 +9,7 @@
 
             function getContent()
             {
-                $user = \Idno\Core\site()->session()->currentUser();
+                $user = \Idno\Core\Idno::site()->session()->currentUser();
                 // these will be set if this is a callback from bridgy
                 $service = $this->getInput('service');
 
@@ -22,7 +22,7 @@
                     $user->save();
                 }
 
-                $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'account/bridgy/');
+                $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'account/bridgy/');
             }
 
         }

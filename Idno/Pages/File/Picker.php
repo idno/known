@@ -18,7 +18,7 @@
                     $template = 'file/picker';
                 }
 
-                $t          = \Idno\Core\site()->template();
+                $t          = \Idno\Core\Idno::site()->template();
                 $t->title   = 'File picker';
                 $t->hidenav = true;
                 $t->body    = $t->draw($template);
@@ -27,13 +27,13 @@
 
             function post()
             {
-                if (\Idno\Core\site()->session()->isLoggedOn()) {
+                if (\Idno\Core\Idno::site()->session()->isLoggedOn()) {
                     if (!empty($_FILES['file']['tmp_name'])) {
-                        if (!\Idno\Core\site()->triggerEvent("file/upload", [], true)) {
+                        if (!\Idno\Core\Idno::site()->triggerEvent("file/upload", [], true)) {
                             exit;
                         }
                         if ($file = \Idno\Entities\File::createFromFile($_FILES['file']['tmp_name'], $_FILES['file']['name'], $_FILES['file']['type'], true)) {
-                            $t       = \Idno\Core\site()->template();
+                            $t       = \Idno\Core\Idno::site()->template();
                             $t->file = $file;
                             echo $t->draw('file/picker/donejs');
                             exit;

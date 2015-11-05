@@ -10,7 +10,7 @@
             function getContent() {
 
                 $this->adminGatekeeper();
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
                 $body = $t->draw('webhooks/admin/home');
                 $t->__(array('title' => 'Webhooks', 'body' => $body))->drawPage();
 
@@ -35,14 +35,14 @@
                                 }
                                 $webhook_syndication[] = array('url' => $hook, 'title' => $title);
                             } else {
-                                \Idno\Core\site()->session()->addErrorMessage($hook . " doesn't seem to be a valid URL.");
+                                \Idno\Core\Idno::site()->session()->addErrorMessage($hook . " doesn't seem to be a valid URL.");
                             }
                         }
                     }
                 }
-                \Idno\Core\site()->config->webhook_syndication = $webhook_syndication;
-                \Idno\Core\site()->config->save();
-                $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'admin/webhooks/');
+                \Idno\Core\Idno::site()->config->webhook_syndication = $webhook_syndication;
+                \Idno\Core\Idno::site()->config->save();
+                $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/webhooks/');
 
             }
 

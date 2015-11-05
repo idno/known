@@ -14,7 +14,7 @@
             Take your posts from other sites and bring them into your Known site.
         </p>
 
-        <form action="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/import/" method="post" enctype="multipart/form-data">
+        <form action="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>admin/import/" method="post" enctype="multipart/form-data">
 
             <h2>
                 WordPress
@@ -45,14 +45,14 @@
 
                     </span>
                 </label>
-                <?= \Idno\Core\site()->actions()->signForm('/admin/import') ?>
+                <?= \Idno\Core\Idno::site()->actions()->signForm('/admin/import') ?>
                 <input type="hidden" name="import_type" value="WordPress">
                 <input type="submit" class="btn " id="wordpress-submit" value="Import your data" style="display:none"><br>
             </p>
 
         </form>
 
-        <form action="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/import/" method="post" enctype="multipart/form-data">
+        <form action="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>admin/import/" method="post" enctype="multipart/form-data">
 
             <h2>
                 Blogger
@@ -83,7 +83,7 @@
 
                     </span>
                 </label>
-                <?= \Idno\Core\site()->actions()->signForm('/admin/import') ?>
+                <?= \Idno\Core\Idno::site()->actions()->signForm('/admin/import') ?>
                 <input type="hidden" name="import_type" value="Blogger">
                 <input type="submit" class="btn " id="blogger-submit" value="Import your data" style="display:none">
             </p>

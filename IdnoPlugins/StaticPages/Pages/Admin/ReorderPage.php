@@ -21,7 +21,7 @@
                     return;
                 }
 
-                if ($staticpages = \Idno\Core\site()->plugins()->get('StaticPages')) {
+                if ($staticpages = \Idno\Core\Idno::site()->plugins()->get('StaticPages')) {
 
                     $pages        = $staticpages->getPagesByCategory($page->category);
                     $old_position = array_search($page, $pages);

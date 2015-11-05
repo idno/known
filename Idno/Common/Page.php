@@ -58,35 +58,35 @@
                     header('X-Clacks-Overhead: GNU Terry Pratchett');
                 }
                 if ($template = $this->getInput('_t')) {
-                    if (\Idno\Core\site()->template()->templateTypeExists($template)) {
-                        \Idno\Core\site()->template()->setTemplateType($template);
+                    if (\Idno\Core\Idno::site()->template()->templateTypeExists($template)) {
+                        \Idno\Core\Idno::site()->template()->setTemplateType($template);
                     }
                 }
-                \Idno\Core\site()->setCurrentPage($this);
+                \Idno\Core\Idno::site()->setCurrentPage($this);
 
                 // Default exception handler
                 set_exception_handler(function ($exception) {
-                    $page = \Idno\Core\site()->currentPage();
+                    $page = \Idno\Core\Idno::site()->currentPage();
                     if (!empty($page))
                         $page->exception($exception);
 
                 });
 
-                \Idno\Core\site()->embedded();
+                \Idno\Core\Idno::site()->embedded();
             }
 
             function head()
             {
-                \Idno\Core\site()->session()->publicGatekeeper();
+                \Idno\Core\Idno::site()->session()->publicGatekeeper();
 
-                \Idno\Core\site()->template()->autodetectTemplateType();
+                \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
                 $this->parseJSONPayload();
 
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
 
-                \Idno\Core\site()->triggerEvent('page/head', array('page_class' => get_called_class(), 'arguments' => $arguments));
+                \Idno\Core\Idno::site()->triggerEvent('page/head', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
                 // Triggering GET content to call all the appropriate headers (web server should truncate the head request from body).
                 // This is the only way we can generate accurate expires and content length etc, but could be done more efficiently
@@ -104,17 +104,17 @@
             function get($params = array())
             {
 
-                \Idno\Core\site()->session()->publicGatekeeper();
+                \Idno\Core\Idno::site()->session()->publicGatekeeper();
 
-                \Idno\Core\site()->template()->autodetectTemplateType();
+                \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
                 $this->parseJSONPayload();
 
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
 
-                \Idno\Core\site()->triggerEvent('page/head', array('page' => $this));
-                \Idno\Core\site()->triggerEvent('page/get', array('page_class' => get_called_class(), 'arguments' => $arguments));
+                \Idno\Core\Idno::site()->triggerEvent('page/head', array('page' => $this));
+                \Idno\Core\Idno::site()->triggerEvent('page/get', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
                 $this->getContent();
 
@@ -130,24 +130,24 @@
              */
             function post()
             {
-                \Idno\Core\site()->session()->publicGatekeeper();
+                \Idno\Core\Idno::site()->session()->publicGatekeeper();
 
-                \Idno\Core\site()->template()->autodetectTemplateType();
+                \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
 
-                \Idno\Core\site()->triggerEvent('page/head', array('page' => $this));
-                \Idno\Core\site()->triggerEvent('page/post', array('page_class' => get_called_class(), 'arguments' => $arguments));
+                \Idno\Core\Idno::site()->triggerEvent('page/head', array('page' => $this));
+                \Idno\Core\Idno::site()->triggerEvent('page/post', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
-                if (\Idno\Core\site()->actions()->validateToken('', false)) {
+                if (\Idno\Core\Idno::site()->actions()->validateToken('', false)) {
                     $this->parseJSONPayload();
                     $return = $this->postContent();
                 } else {
                     throw new \Exception('The page you were on timed out.');
                 }
 
-                if (\Idno\Core\site()->session()->isAPIRequest()) {
+                if (\Idno\Core\Idno::site()->session()->isAPIRequest()) {
 
                     // If postContent hasn't forwarded itself, and returns null, then balance of probabilities is something went wrong.
                     // Either way, it's not safe to forward to the site root since this spits back json encoded front page and a 200 response.
@@ -159,12 +159,12 @@
                         }
 
                         // Say something, if nothing has been said
-                        $messages = \Idno\Core\site()->session()->getMessages();
+                        $messages = \Idno\Core\Idno::site()->session()->getMessages();
                         if (empty($messages)) {
-                            \Idno\Core\site()->session()->addErrorMessage("Couldn't say anything about execution, probably something went wrong");
+                            \Idno\Core\Idno::site()->session()->addErrorMessage("Couldn't say anything about execution, probably something went wrong");
                         }
 
-                        $t = \Idno\Core\site()->template();
+                        $t = \Idno\Core\Idno::site()->template();
                         echo $t->drawPage();
 
                     } else {
@@ -173,7 +173,7 @@
                             $this->setResponse(400);
                         }
 
-                        $t = \Idno\Core\site()->template();
+                        $t = \Idno\Core\Idno::site()->template();
                         echo $t->__(['result' => $return])->drawPage();
                     }
                 } else {
@@ -192,24 +192,24 @@
              */
             function put()
             {
-                \Idno\Core\site()->session()->publicGatekeeper();
+                \Idno\Core\Idno::site()->session()->publicGatekeeper();
 
-                \Idno\Core\site()->template()->autodetectTemplateType();
+                \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
 
-                \Idno\Core\site()->triggerEvent('page/head', array('page' => $this));
-                \Idno\Core\site()->triggerEvent('page/put', array('page_class' => get_called_class(), 'arguments' => $arguments));
+                \Idno\Core\Idno::site()->triggerEvent('page/head', array('page' => $this));
+                \Idno\Core\Idno::site()->triggerEvent('page/put', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
-                if (\Idno\Core\site()->actions()->validateToken('', false)) {
+                if (\Idno\Core\Idno::site()->actions()->validateToken('', false)) {
                     $this->parseJSONPayload();
                     $return = $this->putContent();
                 } else {
                     throw new \Exception('The page you were on timed out.');
                 }
 
-                if (\Idno\Core\site()->session()->isAPIRequest()) {
+                if (\Idno\Core\Idno::site()->session()->isAPIRequest()) {
 
                     // Ensure we always get a meaningful response from the api
                     if ($return === null) {
@@ -218,12 +218,12 @@
                         }
 
                         // Say something, if nothing has been said
-                        $messages = \Idno\Core\site()->session()->getMessages();
+                        $messages = \Idno\Core\Idno::site()->session()->getMessages();
                         if (empty($messages)) {
-                            \Idno\Core\site()->session()->addErrorMessage("Couldn't say anything about execution, probably something went wrong");
+                            \Idno\Core\Idno::site()->session()->addErrorMessage("Couldn't say anything about execution, probably something went wrong");
                         }
 
-                        $t = \Idno\Core\site()->template();
+                        $t = \Idno\Core\Idno::site()->template();
                         echo $t->drawPage();
 
                     } else {
@@ -232,7 +232,7 @@
                             $this->setResponse(400);
                         }
 
-                        $t = \Idno\Core\site()->template();
+                        $t = \Idno\Core\Idno::site()->template();
                         echo $t->__(['result' => $return])->drawPage();
                     }
 
@@ -251,24 +251,24 @@
              */
             function delete()
             {
-                \Idno\Core\site()->session()->publicGatekeeper();
+                \Idno\Core\Idno::site()->session()->publicGatekeeper();
 
-                \Idno\Core\site()->template()->autodetectTemplateType();
+                \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
 
-                \Idno\Core\site()->triggerEvent('page/head', array('page' => $this));
-                \Idno\Core\site()->triggerEvent('page/delete', array('page_class' => get_called_class(), 'arguments' => $arguments));
+                \Idno\Core\Idno::site()->triggerEvent('page/head', array('page' => $this));
+                \Idno\Core\Idno::site()->triggerEvent('page/delete', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
-                if (\Idno\Core\site()->actions()->validateToken('', false)) {
+                if (\Idno\Core\Idno::site()->actions()->validateToken('', false)) {
                     $this->parseJSONPayload();
                     $return = $this->deleteContent();
                 } else {
                     throw new \Exception('The page you were on timed out.');
                 }
 
-                if (\Idno\Core\site()->session()->isAPIRequest()) {
+                if (\Idno\Core\Idno::site()->session()->isAPIRequest()) {
 
                     // Ensure we always get a meaningful response from the api
                     if ($return === null) {
@@ -277,12 +277,12 @@
                         }
 
                         // Say something, if nothing has been said
-                        $messages = \Idno\Core\site()->session()->getMessages();
+                        $messages = \Idno\Core\Idno::site()->session()->getMessages();
                         if (empty($messages)) {
-                            \Idno\Core\site()->session()->addErrorMessage("Couldn't say anything about execution, probably something went wrong");
+                            \Idno\Core\Idno::site()->session()->addErrorMessage("Couldn't say anything about execution, probably something went wrong");
                         }
 
-                        $t = \Idno\Core\site()->template();
+                        $t = \Idno\Core\Idno::site()->template();
                         echo $t->drawPage();
 
                     } else {
@@ -291,7 +291,7 @@
                             $this->setResponse(400);
                         }
 
-                        $t = \Idno\Core\site()->template();
+                        $t = \Idno\Core\Idno::site()->template();
                         echo $t->__(['result' => $return])->drawPage();
                     }
 
@@ -309,9 +309,9 @@
              */
             function get_xhr()
             {
-                \Idno\Core\site()->session()->publicGatekeeper();
+                \Idno\Core\Idno::site()->session()->publicGatekeeper();
 
-                \Idno\Core\site()->template()->autodetectTemplateType();
+                \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
@@ -325,9 +325,9 @@
              */
             function post_xhr()
             {
-                \Idno\Core\site()->session()->publicGatekeeper();
+                \Idno\Core\Idno::site()->session()->publicGatekeeper();
 
-                \Idno\Core\site()->template()->autodetectTemplateType();
+                \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
@@ -342,9 +342,9 @@
              */
             function put_xhr()
             {
-                \Idno\Core\site()->session()->publicGatekeeper();
+                \Idno\Core\Idno::site()->session()->publicGatekeeper();
 
-                \Idno\Core\site()->template()->autodetectTemplateType();
+                \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
@@ -359,9 +359,9 @@
              */
             function delete_xhr()
             {
-                \Idno\Core\site()->session()->publicGatekeeper();
+                \Idno\Core\Idno::site()->session()->publicGatekeeper();
 
-                \Idno\Core\site()->template()->autodetectTemplateType();
+                \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
@@ -375,9 +375,9 @@
              */
             function webmention()
             {
-                \Idno\Core\site()->session()->publicGatekeeper();
+                \Idno\Core\Idno::site()->session()->publicGatekeeper();
 
-                \Idno\Core\site()->template()->autodetectTemplateType();
+                \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
                 $this->forward = false;
                 //$this->webmentionContent();
@@ -437,7 +437,7 @@
             {
                 $this->setResponse(410);
                 http_response_code($this->response);
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
                 $t->__(array('body' => $t->draw('pages/410'), 'title' => 'Gone, baby, gone'))->drawPage();
                 exit;
             }
@@ -449,7 +449,7 @@
             {
                 $this->setResponse(404);
                 http_response_code($this->response);
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
                 $t->__(array('body' => $t->draw('pages/404'), 'title' => 'Not found!'))->drawPage();
                 exit;
             }
@@ -461,7 +461,7 @@
             {
                 $this->setResponse(403);
                 http_response_code($this->response);
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
                 $t->__(array('body' => $t->draw('pages/403'), 'title' => 'Denied!'))->drawPage();
                 exit;
             }
@@ -471,7 +471,7 @@
             {
                 $this->setResponse(500);
                 http_response_code($this->response);
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
                 $t->__(array('body' => $t->__(array('exception' => $e))->draw('pages/500'), 'title' => 'Exception'))->drawPage();
                 exit;
             }
@@ -486,14 +486,14 @@
             function forward($location = '', $exit = true)
             {
                 if (empty($location)) {
-                    $location = \Idno\Core\site()->config()->getDisplayURL();
+                    $location = \Idno\Core\Idno::site()->config()->getDisplayURL();
                 }
                 if (!empty($this->forward)) {
-                    if (\Idno\Core\site()->template()->getTemplateType() != 'default') {
-                        $location = \Idno\Core\site()->template()->getURLWithVar('_t', \Idno\Core\site()->template()->getTemplateType(), $location);
+                    if (\Idno\Core\Idno::site()->template()->getTemplateType() != 'default') {
+                        $location = \Idno\Core\Idno::site()->template()->getURLWithVar('_t', \Idno\Core\Idno::site()->template()->getTemplateType(), $location);
                     }
                     if ($exit) {
-                        \Idno\Core\site()->session()->finishEarly();
+                        \Idno\Core\Idno::site()->session()->finishEarly();
                     }
 
                     /*
@@ -505,17 +505,17 @@
                     }
                     */
 
-                    if (!\Idno\Core\site()->config()->session_cookies) {
-                        $t = \Idno\Core\site()->template(); /* @var $t \Idno\Core\Template */
+                    if (!\Idno\Core\Idno::site()->config()->session_cookies) {
+                        $t = \Idno\Core\Idno::site()->template(); /* @var $t \Idno\Core\Template */
                         $location = $t->getURLWithVar('sid', session_id());
                     }
 
-                    if (\Idno\Core\site()->session()->isAPIRequest()) {
+                    if (\Idno\Core\Idno::site()->session()->isAPIRequest()) {
                         echo json_encode([
                             'location' => $location
                         ]);
                     }
-                    elseif (!\Idno\Core\site()->session()->isAPIRequest() || $this->response == 200) {
+                    elseif (!\Idno\Core\Idno::site()->session()->isAPIRequest() || $this->response == 200) {
                         header('Location: ' . $location);
                     }
                     
@@ -545,12 +545,12 @@
              */
             function gatekeeper()
             {
-                if (!\Idno\Core\site()->session()->isLoggedIn()) {
+                if (!\Idno\Core\Idno::site()->session()->isLoggedIn()) {
                     $this->setResponse(403);
 
                     // Forwarding loses the response code, so is only helpful if this is not an API request
-                    if (!\Idno\Core\site()->session()->isAPIRequest()) {
-                        $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']));
+                    if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
+                        $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']));
                     } else {
                         $this->deniedContent();
                     }
@@ -564,10 +564,10 @@
              */
             function createGatekeeper()
             {
-                if (!\Idno\Core\site()->canWrite()) {
+                if (!\Idno\Core\Idno::site()->canWrite()) {
                     $this->setResponse(403);
 
-                    if (!\Idno\Core\site()->session()->isAPIRequest()) {
+                    if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
                         $this->forward();
                     } else {
                         $this->deniedContent();
@@ -583,9 +583,9 @@
              */
             function reverseGatekeeper()
             {
-                if (\Idno\Core\site()->session()->isLoggedIn()) {
+                if (\Idno\Core\Idno::site()->session()->isLoggedIn()) {
                     $this->setResponse(403);
-                    if (!\Idno\Core\site()->session()->isAPIRequest()) {
+                    if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
                         $this->forward();
                     } else {
                         $this->deniedContent();
@@ -602,15 +602,15 @@
             function adminGatekeeper()
             {
                 $ok = false;
-                if (\Idno\Core\site()->session()->isLoggedIn()) {
-                    if (\Idno\Core\site()->session()->currentUser()->isAdmin()) {
+                if (\Idno\Core\Idno::site()->session()->isLoggedIn()) {
+                    if (\Idno\Core\Idno::site()->session()->currentUser()->isAdmin()) {
                         $ok = true;
                     }
                 }
                 if (!$ok) {
                     $this->setResponse(403);
 
-                    if (!\Idno\Core\site()->session()->isAPIRequest()) {
+                    if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
                         $this->forward();
                     } else {
                         $this->deniedContent();
@@ -623,7 +623,7 @@
              */
             function referrerGatekeeper()
             {
-                if (empty(\Idno\Core\site()->config()->ignore_referrer)) {
+                if (empty(\Idno\Core\Idno::site()->config()->ignore_referrer)) {
                     /*
                      * BW 2015-10-01 - it turns out enterprise proxy servers strip referrer for security reasons.
                      * As a result, I'm both commenting this out and telling people to change enterprise proxy server
@@ -632,7 +632,7 @@
                      * To be fair, users have the right to strip out their referrer value, in the same way they have
                      * the right to change their browser identification string. Probably another solution is required.
                      *
-                     * if (!\Idno\Core\site()->session()->isAPIRequest()) {
+                     * if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
                         $referrer = $this->getReferrer();
                         if (empty($referrer)) {
                             $this->deniedContent();
@@ -736,7 +736,7 @@
              */
             function sslGatekeeper()
             {
-                if (!static::isSSL() && empty(\Idno\Core\site()->config()->ignore_ssl_gatekeeper) && \Idno\Core\site()->config()->hasSSL()) {
+                if (!static::isSSL() && empty(\Idno\Core\Idno::site()->config()->ignore_ssl_gatekeeper) && \Idno\Core\Idno::site()->config()->hasSSL()) {
 
                     $url = str_replace('http://', 'https://', $this->currentUrl());
 
@@ -913,17 +913,17 @@
              */
             public function getIcon()
             {
-                $icon = \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k.png';
+                $icon = \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k.png';
 
-                if (\Idno\Core\site()->config()->user_avatar_favicons) {
-                    if ($user = \Idno\Core\site()->currentPage()->getOwner()) {
+                if (\Idno\Core\Idno::site()->config()->user_avatar_favicons) {
+                    if ($user = \Idno\Core\Idno::site()->currentPage()->getOwner()) {
                         if ($user instanceof \Idno\Entities\User) {
                             $icon = $user->getIcon();
                         }
                     }
                 }
 
-                return \Idno\Core\site()->triggerEvent('icon', ['object' => $this], $icon);
+                return \Idno\Core\Idno::site()->triggerEvent('icon', ['object' => $this], $icon);
             }
 
             /**
@@ -981,7 +981,7 @@
              */
             public function currentUrl($tokenise = false)
             {
-                $url         = parse_url(\Idno\Core\site()->config()->url);
+                $url         = parse_url(\Idno\Core\Idno::site()->config()->url);
                 $url['path'] = $_SERVER['REQUEST_URI'];
 
                 if ($tokenise) {

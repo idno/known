@@ -15,7 +15,7 @@
             {
 
                 // If we're logged in, accept input and save it to the cache
-                if (\Idno\Core\site()->session()->isLoggedOn()) {
+                if (\Idno\Core\Idno::site()->session()->isLoggedOn()) {
                     $user     = new User(); // Force events to be handled
                     $context  = $this->getInput('context');
                     $elements = $this->getInput('elements');

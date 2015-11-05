@@ -30,7 +30,7 @@
                     return $this->canonical;
                 }
                 if (($this->getID())) {
-                    return \Idno\Core\site()->config()->url . 'comic/' . $this->getID() . '/' . $this->getPrettyURLTitle();
+                    return \Idno\Core\Idno::site()->config()->url . 'comic/' . $this->getID() . '/' . $this->getPrettyURLTitle();
                 } else {
                     return parent::getURL();
                 }
@@ -55,18 +55,18 @@
                 }
 
                 if ($new) {
-                    if (!\Idno\Core\site()->triggerEvent("file/upload",[],true)) {
+                    if (!\Idno\Core\Idno::site()->triggerEvent("file/upload",[],true)) {
                         return false;
                     }
                 }
 
-                $body = \Idno\Core\site()->currentPage()->getInput('body');
+                $body = \Idno\Core\Idno::site()->currentPage()->getInput('body');
                 if (!empty($_FILES['comic']['tmp_name']) || !empty($this->_id)) {
                     $this->body        = $body;
-                    $this->title       = \Idno\Core\site()->currentPage()->getInput('title');
-                    $this->description = \Idno\Core\site()->currentPage()->getInput('description');
+                    $this->title       = \Idno\Core\Idno::site()->currentPage()->getInput('title');
+                    $this->description = \Idno\Core\Idno::site()->currentPage()->getInput('description');
 
-                    if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
+                    if ($time = \Idno\Core\Idno::site()->currentPage()->getInput('created')) {
                         if ($time = strtotime($time)) {
                             $this->created = $time;
                         }
@@ -86,12 +86,12 @@
                     $this->setAccess('PUBLIC');
                     if ($this->save($new)) {
 
-                        \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getDescription()));
+                        \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getDescription()));
 
                         return true;
                     }
                 } else {
-                    \Idno\Core\site()->session()->addErrorMessage('You can\'t save an empty comic.');
+                    \Idno\Core\Idno::site()->session()->addErrorMessage('You can\'t save an empty comic.');
                 }
 
                 return false;
@@ -100,7 +100,7 @@
 
             function deleteData()
             {
-                \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getDescription()));
+                \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getDescription()));
             }
 
         }

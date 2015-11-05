@@ -39,11 +39,11 @@
 
                 // Add some thumbs
                 $object['thumbnails'] = array();
-                $sizes                = \Idno\Core\site()->events()->dispatch('photo/thumbnail/getsizes', new \Idno\Core\Event(array('sizes' => array('large' => 800, 'medium' => 400, 'small' => 200))));
+                $sizes                = \Idno\Core\Idno::site()->events()->dispatch('photo/thumbnail/getsizes', new \Idno\Core\Event(array('sizes' => array('large' => 800, 'medium' => 400, 'small' => 200))));
                 $eventdata = $sizes->data();
                 foreach ($eventdata['sizes'] as $label => $size) {
                     $varname                      = "thumbnail_{$label}";
-                    $object['thumbnails'][$label] = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\site()->config()->url, $this->$varname);
+                    $object['thumbnails'][$label] = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\Idno::site()->config()->url, $this->$varname);
                 }
 
                 return $object;
@@ -63,18 +63,18 @@
                 }
 
                 if ($new) {
-                    if (!\Idno\Core\site()->triggerEvent("file/upload",[],true)) {
+                    if (!\Idno\Core\Idno::site()->triggerEvent("file/upload",[],true)) {
                         return false;
                     }
                 }
 
-                $this->title = \Idno\Core\site()->currentPage()->getInput('title');
-                $this->body  = \Idno\Core\site()->currentPage()->getInput('body');
-                $this->tags  = \Idno\Core\site()->currentPage()->getInput('tags');
-                $access = \Idno\Core\site()->currentPage()->getInput('access');
+                $this->title = \Idno\Core\Idno::site()->currentPage()->getInput('title');
+                $this->body  = \Idno\Core\Idno::site()->currentPage()->getInput('body');
+                $this->tags  = \Idno\Core\Idno::site()->currentPage()->getInput('tags');
+                $access = \Idno\Core\Idno::site()->currentPage()->getInput('access');
                 $this->setAccess($access);
 
-                if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
+                if ($time = \Idno\Core\Idno::site()->currentPage()->getInput('created')) {
                     if ($time = strtotime($time)) {
                         $this->created = $time;
                     }
@@ -104,7 +104,7 @@
                                 $this->attachFile($photo);
 
                                 // Now get some smaller thumbnails, with the option to override sizes
-                                $sizes = \Idno\Core\site()->events()->dispatch('photo/thumbnail/getsizes', new \Idno\Core\Event(array('sizes' => array('large' => 800, 'medium' => 400, 'small' => 200))));
+                                $sizes = \Idno\Core\Idno::site()->events()->dispatch('photo/thumbnail/getsizes', new \Idno\Core\Event(array('sizes' => array('large' => 800, 'medium' => 400, 'small' => 200))));
                                 $eventdata = $sizes->data();
                                 foreach ($eventdata['sizes'] as $label => $size) {
 
@@ -114,7 +114,7 @@
                                     if ($_FILES['photo']['type'] != 'image/gif') {
                                         if ($thumbnail = \Idno\Entities\File::createThumbnailFromFile($_FILES['photo']['tmp_name'], "{$filename}_{$label}", $size, false)) {
                                             $varname        = "thumbnail_{$label}";
-                                            $this->$varname = \Idno\Core\site()->config()->url . 'file/' . $thumbnail;
+                                            $this->$varname = \Idno\Core\Idno::site()->config()->url . 'file/' . $thumbnail;
 
                                             $varname        = "thumbnail_{$label}_id";
                                             $this->$varname = substr($thumbnail, 0, strpos($thumbnail, '/'));
@@ -123,20 +123,20 @@
                                 }
 
                             } else {
-                                \Idno\Core\site()->session()->addErrorMessage('Image wasn\'t attached.');
+                                \Idno\Core\Idno::site()->session()->addErrorMessage('Image wasn\'t attached.');
                             }
                         } else {
-                            \Idno\Core\site()->session()->addErrorMessage('This doesn\'t seem to be an image ..');
+                            \Idno\Core\Idno::site()->session()->addErrorMessage('This doesn\'t seem to be an image ..');
                         }
                     } else {
-                        \Idno\Core\site()->session()->addErrorMessage('We couldn\'t access your image. Please try again.');
+                        \Idno\Core\Idno::site()->session()->addErrorMessage('We couldn\'t access your image. Please try again.');
 
                         return false;
                     }
                 }
 
                 if ($this->save($new)) {
-                    \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getTitle() . ' ' . $this->getDescription()));
+                    \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getTitle() . ' ' . $this->getDescription()));
 
                     return true;
                 } else {

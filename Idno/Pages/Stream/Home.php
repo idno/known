@@ -12,7 +12,7 @@
 
                 if ($items = FeedItem::get()) {
 
-                    $t = \Idno\Core\site()->template();
+                    $t = \Idno\Core\Idno::site()->template();
                     $t->__(array(
                         'title' => 'Stream',
                         'body'  => $t->__(array(

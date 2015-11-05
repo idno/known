@@ -10,11 +10,11 @@
     </div>
     <div class="col-md-10 col-md-offset-1">
 
-        <form action="<?=\Idno\Core\site()->config()->getDisplayURL()?>account/password/reset" method="post" class="form-horizontal">
+        <form action="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>account/password/reset" method="post" class="form-horizontal">
 
             <div class="control-group">
                 <label class="control-label" for="inputEmail">Your email address<br />
-                    <small>The address associated with your <?=\Idno\Core\site()->config()->title?> account.</small></label>
+                    <small>The address associated with your <?=\Idno\Core\Idno::site()->config()->title?> account.</small></label>
                 <div class="controls">
                     <input type="email" id="inputEmail" placeholder="Email" class="form-control" name="email" value="<?=$vars['email']?>" required>
                 </div>
@@ -36,7 +36,7 @@
                 <div class="controls">
                     <button type="submit" class="btn btn-primary">Reset password</button>
                     <input type="hidden" name="code" value="<?=$vars['code']?>">
-                    <?= \Idno\Core\site()->actions()->signForm('/account/password/reset') ?>
+                    <?= \Idno\Core\Idno::site()->actions()->signForm('/account/password/reset') ?>
                 </div>
             </div>
 

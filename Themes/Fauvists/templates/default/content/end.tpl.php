@@ -7,8 +7,8 @@
     $has_liked = false;
     if ($like_annotations = $vars['object']->getAnnotations('like')) {
         foreach ($like_annotations as $like) {
-            if (\Idno\Core\site()->session()->isLoggedOn()) {
-                if ($like['owner_url'] == \Idno\Core\site()->session()->currentUser()->getDisplayURL()) {
+            if (\Idno\Core\Idno::site()->session()->isLoggedOn()) {
+                if ($like['owner_url'] == \Idno\Core\Idno::site()->session()->currentUser()->getDisplayURL()) {
                     $has_liked = true;
                 }
             }
@@ -35,7 +35,7 @@
                 <?= $this->draw('content/end/links') ?>
                 <?php
 
-                    if (\Idno\Core\site()->currentPage()->isPermalink() && \Idno\Core\site()->config()->indieweb_citation) {
+                    if (\Idno\Core\Idno::site()->currentPage()->isPermalink() && \Idno\Core\Idno::site()->config()->indieweb_citation) {
 
                         ?>
                         <span class="citation"><?= $vars['object']->getCitation() ?></span>
@@ -59,8 +59,8 @@
                 } else {
                     $heart .= ' ' . $likes . ' stars';
                 }
-                if (\Idno\Core\site()->session()->isLoggedOn()) {
-                    echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'annotation/post', $heart, ['type' => 'like', 'object' => $vars['object']->getUUID()], ['method' => 'POST', 'class' => 'stars']);
+                if (\Idno\Core\Idno::site()->session()->isLoggedOn()) {
+                    echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'annotation/post', $heart, ['type' => 'like', 'object' => $vars['object']->getUUID()], ['method' => 'POST', 'class' => 'stars']);
                 } else {
                     ?>
                     <a class="stars" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?= $heart ?></a></span>
@@ -89,7 +89,7 @@
         <br clear="all"/>
         <?php
 
-        if (\Idno\Core\site()->currentPage()->isPermalink()) {
+        if (\Idno\Core\Idno::site()->currentPage()->isPermalink()) {
 
             if (!empty($likes) || !empty($replies) || !empty($shares) || !empty($rsvps)) {
 
@@ -128,7 +128,7 @@
 
         } else {
 
-            if (\Idno\Core\site()->session()->isLoggedOn()) {
+            if (\Idno\Core\Idno::site()->session()->isLoggedOn()) {
                 echo $this->draw('entity/annotations/comment/mini');
             }
 

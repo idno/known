@@ -11,7 +11,7 @@
         </div>
     </div>
 </div>
-<form action="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/styles/" method="post" enctype="multipart/form-data">
+<form action="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>admin/styles/" method="post" enctype="multipart/form-data">
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 		<h2>Stylesheet editor</h2>
@@ -34,7 +34,7 @@
                     echo htmlspecialchars($vars['css']);
 
                 ?></textarea>
-            You can also <a href="<?= \Idno\Core\site()->config()->url ?>styles/site/">download
+            You can also <a href="<?= \Idno\Core\Idno::site()->config()->url ?>styles/site/">download
                 your stylesheet</a> to work on it locally.
         </div>
     </div>
@@ -43,7 +43,7 @@
         <div class="col-md-10 col-md-offset-1">
             <p>
                 <input type="submit" class="btn btn-primary code" value="Save stylesheet"/>
-                <?= \Idno\Core\site()->actions()->signForm(\Idno\Core\site()->config()->getDisplayURL() . 'admin/styles/') ?>
+                <?= \Idno\Core\Idno::site()->actions()->signForm(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/styles/') ?>
             </p>
         </div>
     </div>

@@ -32,7 +32,7 @@
                     return $this->canonical;
                 }
                 if (!($this->getSlug()) && ($this->getID())) {
-                    return \Idno\Core\site()->config()->url . 'rsvp/' . $this->getID() . '/';
+                    return \Idno\Core\Idno::site()->config()->url . 'rsvp/' . $this->getID() . '/';
                 } else {
                     return parent::getURL();
                 }
@@ -61,9 +61,9 @@
                 } else {
                     $new = false;
                 }
-                $body = \Idno\Core\site()->currentPage()->getInput('body');
-                $rsvp = \Idno\Core\site()->currentPage()->getInput('rsvp');
-                $access = \Idno\Core\site()->currentPage()->getInput('access');
+                $body = \Idno\Core\Idno::site()->currentPage()->getInput('body');
+                $rsvp = \Idno\Core\Idno::site()->currentPage()->getInput('rsvp');
+                $access = \Idno\Core\Idno::site()->currentPage()->getInput('access');
                 if (!empty($rsvp)) {
                     $this->body = $body;
                     $rsvp = strtolower($rsvp);
@@ -71,22 +71,22 @@
                         $rsvp = 'no';
                     }
                     $this->rsvp = $rsvp;
-                    $this->inreplyto = \Idno\Core\site()->currentPage()->getInput('inreplyto');
+                    $this->inreplyto = \Idno\Core\Idno::site()->currentPage()->getInput('inreplyto');
                     $this->setAccess($access);
                     if ($this->save($new)) {
-                        \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getDescription()));
-                        \Idno\Core\site()->session()->addMessage('Your RSVP was successfully saved.');
+                        \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getDescription()));
+                        \Idno\Core\Idno::site()->session()->addMessage('Your RSVP was successfully saved.');
                         return true;
                     }
                 } else {
-                    \Idno\Core\site()->session()->addErrorMessage('You can\'t save an RSVP with no status.');
+                    \Idno\Core\Idno::site()->session()->addErrorMessage('You can\'t save an RSVP with no status.');
                 }
                 return false;
 
             }
 
             function deleteData() {
-                \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getDescription()));
+                \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getDescription()));
             }
 
         }

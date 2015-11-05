@@ -10,7 +10,7 @@
 
             function getContent()
             {
-                $user = \Idno\Core\site()->session()->currentUser();
+                $user = \Idno\Core\Idno::site()->session()->currentUser();
                 $vars = array();
                 foreach (self::$SERVICES as $service) {
                     if ($user && isset($user->bridgy[$service])) {
@@ -28,7 +28,7 @@
                     }
                 }
 
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
                 $t->body = $t->__($vars)->draw('bridgy/account');
                 $t->title = 'Interactions';
                 $t->drawPage();

@@ -1,5 +1,5 @@
 <?php
-    if (\Idno\Core\site()->currentPage()->isPermalink()) {
+    if (\Idno\Core\Idno::site()->currentPage()->isPermalink()) {
         $rel = 'rel="in-reply-to"';
     } else {
         $rel = '';
@@ -16,7 +16,7 @@
     }
     if ($attachments = $vars['object']->getAttachments()) {
         foreach ($attachments as $attachment) {
-            //$mainsrc= \Idno\Core\site()->config()->getDisplayURL() . 'file/' . $attachment['_id'];
+            //$mainsrc= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'file/' . $attachment['_id'];
             $mainsrc = $attachment['url'];
             if (!empty($vars['object']->thumbnail_large)) {
                 $src = $vars['object']->thumbnail_large;
@@ -26,12 +26,12 @@
                 $src = $mainsrc;
             }
 
-            $src = \Idno\Core\site()->config()->sanitizeAttachmentURL($src);
-            $mainsrc = \Idno\Core\site()->config()->sanitizeAttachmentURL($mainsrc);
+            $src = \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($src);
+            $mainsrc = \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($mainsrc);
 
             // Patch to correct certain broken URLs caused by https://github.com/idno/known/issues/526
-            $src = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\site()->config()->getDisplayURL(), $src);
-            $mainsrc = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\site()->config()->getDisplayURL(), $mainsrc);
+            $src = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\Idno::site()->config()->getDisplayURL(), $src);
+            $mainsrc = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\Idno::site()->config()->getDisplayURL(), $mainsrc);
             
             ?>
             <p style="text-align: center">

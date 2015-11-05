@@ -15,7 +15,7 @@
             function getContent()
             {
                 $this->createGatekeeper(); // Logged-in only please
-                $t        = \Idno\Core\site()->template();
+                $t        = \Idno\Core\Idno::site()->template();
                 $t->body  = $t->draw('account/settings/following');
                 $t->title = 'Following settings';
                 $t->drawPage();

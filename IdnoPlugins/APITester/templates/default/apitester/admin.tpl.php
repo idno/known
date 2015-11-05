@@ -45,7 +45,7 @@
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
 
-        <form action="<?= \Idno\Core\site()->config()->url ?>admin/apitester/" method="post">
+        <form action="<?= \Idno\Core\Idno::site()->config()->url ?>admin/apitester/" method="post">
 
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
@@ -116,7 +116,7 @@
             </div>
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    <?= \Idno\Core\site()->actions()->signForm('admin/apitester') ?>
+                    <?= \Idno\Core\Idno::site()->actions()->signForm('admin/apitester') ?>
                     <input type="submit" class="btn btn-primary" value="Make API call"/>
                 </div>
             </div>
