@@ -786,10 +786,21 @@
             {
                 return [];
             }
+
+            /**
+             * Helper method that returns the current site object
+             * @return \Idno\Core\Idno $site
+             */
+            function &site()
+            {
+                return self::$site;
+            }
+
         }
 
         /**
          * Helper function that returns the current site object
+         * @deprecated
          * @return \Idno\Core\Idno $site
          */
         function &site()
