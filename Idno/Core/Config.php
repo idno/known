@@ -42,6 +42,8 @@
                 'alwaysplugins'        => array(),
                 'prerequisiteplugins'  => array(),
                 'directloadplugins'    => array(),
+                'hiddenthemes'         => array(),
+                'hiddenplugins'        => array(),
                 'items_per_page'       => 10, // Default items per page
                 'experimental'         => false, // A common way to enable experimental functions still in development
                 'multitenant'          => false,

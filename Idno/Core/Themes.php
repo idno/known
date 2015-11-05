@@ -85,9 +85,11 @@
                     foreach ($folders as $folder) {
                         if ($folder != '.' && $folder != '..') {
                             if (file_exists(\Idno\Core\site()->config()->path . '/Themes/' . $folder . '/theme.ini')) {
-                                $themes[$folder]                              = parse_ini_file(\Idno\Core\site()->config()->path . '/Themes/' . $folder . '/theme.ini', true);
-                                $themes[$folder]['Theme description']['path'] = \Idno\Core\site()->config()->path . '/Themes/' . $folder . '/';
-                                $themes[$folder]['Theme description']['url']  = \Idno\Core\site()->config()->getURL() . 'Themes/' . $folder . '/';
+                                if (!in_array($folder, site()->config()->hiddenthemes)) {
+                                    $themes[$folder]                              = parse_ini_file(\Idno\Core\site()->config()->path . '/Themes/' . $folder . '/theme.ini', true);
+                                    $themes[$folder]['Theme description']['path'] = \Idno\Core\site()->config()->path . '/Themes/' . $folder . '/';
+                                    $themes[$folder]['Theme description']['url']  = \Idno\Core\site()->config()->getURL() . 'Themes/' . $folder . '/';
+                                }
                             }
                         }
                     }

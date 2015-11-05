@@ -145,6 +145,22 @@
             }
 
             /**
+             * Is the specified plugin allowed to be displayed?
+             * @param $plugin
+             * @return bool
+             */
+            public function isVisible($plugin)
+            {
+                if (empty(site()->config()->hiddenplugins)) {
+                    return true;
+                }
+                if (!in_array($plugin, site()->config()->hiddenplugins)) {
+                    return true;
+                }
+                return false;
+            }
+
+            /**
              * Retrieves a list of stored plugins (but not necessarily loaded ones)
              * @return array
              */
