@@ -579,16 +579,19 @@
              */
             function setSlugResilient($slug, $max_pieces = 10)
             {
-                $slug = $this->prepare_slug($slug, $max_pieces);
+                // UUID max length is 255 chars; slug length <= 255 - (base URL + year + slash)
+                $max_chars = 245 - strlen(\Idno\Core\site()->config()->getDisplayURL());
+
+                $slug = $this->prepare_slug($slug, $max_pieces, $max_chars - 10);
                 if (empty($slug)) {
                     return false;
                 }
-                if ($this->setSlug($slug, $max_pieces)) {
+                if ($this->setSlug($slug, $max_pieces, $max_chars - 10)) {
                     return true;
                 }
                 // If we've got here, the slug exists, so we need to create a new version
                 $slug_extension = 1;
-                while (!($modified_slug = $this->setSlug($slug . '-' . $slug_extension, $max_pieces * 2))) {
+                while (!($modified_slug = $this->setSlug($slug . '-' . $slug_extension, $max_pieces * 2, $max_chars))) {
                     $slug_extension++;
                 }
 
@@ -599,9 +602,10 @@
              * Processes the text involved in a slug
              * @param $slug
              * @param int $max_pieces The maximum number of words in the slug (default: 10)
+             * @param int $max_chars The maximum number of characters in the slug (default: 255)
              * @return string
              */
-            function prepare_slug($slug, $max_pieces = 10)
+            function prepare_slug($slug, $max_pieces = 10, $max_chars = 255)
             {
                 $slug = trim($slug);
                 if (is_callable('mb_strtolower')) {
@@ -615,6 +619,7 @@
                 $slug = preg_replace("/[ ]+/u", ' ', $slug);
                 $slug = implode('-', array_slice(explode(' ', $slug), 0, $max_pieces));
                 $slug = str_replace(' ', '-', $slug);
+                $slug = substr($slug, 0, $max_chars);
                 if (empty($slug)) {
                     $slug = 'untitled';
                 }
@@ -630,16 +635,17 @@
              * the sanitized slug on success
              * @param string $slug
              * @param int $max_pieces The maximum number of words in the slug (default: 10)
+             * @param int $max_chars The maximum number of characters in the slug (default: 255)
              * @return bool
              */
-            function setSlug($slug, $max_pieces = 10)
+            function setSlug($slug, $max_pieces = 10, $max_chars = 255)
             {
 
                 $plugin_slug = \Idno\Core\site()->triggerEvent('entity/slug', array('object' => $this));
                 if (!empty($plugin_slug) && $plugin_slug !== true) {
                     return $plugin_slug;
                 }
-                $slug = $this->prepare_slug($slug);
+                $slug = $this->prepare_slug($slug, $max_pieces, $max_chars);
                 if (empty($slug)) {
                     return false;
                 }
@@ -788,7 +794,7 @@
 
                     if ($return = \Idno\Core\db()->deleteRecord($this->getID(), $this->collection)) {
                         $this->deleteData();
-                        
+
                         \Idno\Core\site()->triggerEvent('deleted', array('object' => $this));
 
                         return $return;
