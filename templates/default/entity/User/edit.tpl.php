@@ -15,7 +15,7 @@
             <div class="col-md-3">
                 <div class="text-center">
 
-                    <div id="photo-preview"><img src="<?= \Idno\Core\site()->session()->currentUser()->getIcon() ?>"
+                    <div id="photo-preview"><img src="<?= \Idno\Core\Idno::site()->session()->currentUser()->getIcon() ?>"
                                                  class="avatar img-circle"
                                                  alt="avatar" style="width: 100px"></div>
 
@@ -110,7 +110,7 @@
 
                 <div class="form-group">
                     <p>
-                        <?= \Idno\Core\site()->actions()->signForm('/profile/' . $vars['user']->getHandle()) ?>
+                        <?= \Idno\Core\Idno::site()->actions()->signForm('/profile/' . $vars['user']->getHandle()) ?>
                         <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
                         <input type="submit" class="btn btn-primary" value="Save Changes"/>
                     </p>

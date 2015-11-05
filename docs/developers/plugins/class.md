@@ -32,15 +32,15 @@ For example, the Status plugin contains the following registerPages() function (
 in the \IdnoPlugins\Status\Main class).
 
     function registerPages() {
-        \Idno\Core\site()->addPageHandler('/status/edit/?', '\IdnoPlugins\Status\Pages\Edit');
-        \Idno\Core\site()->addPageHandler('/status/edit/([A-Za-z0-9]+)/?', '\IdnoPlugins\Status\Pages\Edit');
-        \Idno\Core\site()->addPageHandler('/status/delete/([A-Za-z0-9]+)/?', '\IdnoPlugins\Status\Pages\Delete');
+        \Idno\Core\Idno::site()->addPageHandler('/status/edit/?', '\IdnoPlugins\Status\Pages\Edit');
+        \Idno\Core\Idno::site()->addPageHandler('/status/edit/([A-Za-z0-9]+)/?', '\IdnoPlugins\Status\Pages\Edit');
+        \Idno\Core\Idno::site()->addPageHandler('/status/delete/([A-Za-z0-9]+)/?', '\IdnoPlugins\Status\Pages\Delete');
     }
 
 This is also where plugins should [extend templates](../templating/extending.md). For example, this is how the
 `Checkin` plugin adds some mapping JavaScript to the HTML page header:
 
-    \Idno\Core\site()->template()->extendTemplate('shell/head','checkin/head');
+    \Idno\Core\Idno::site()->template()->extendTemplate('shell/head','checkin/head');
 
 ### registerEventHooks()
 

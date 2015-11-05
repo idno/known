@@ -17,11 +17,11 @@
                     $_SESSION['set_name'] = $set_name;
                 }
 
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
                 echo $t->__(array(
                     'body'     => $t->draw('onboarding/begin'),
                     'title'    => 'Welcome to Known',
-                    'messages' => \Idno\Core\site()->session()->getAndFlushMessages()
+                    'messages' => \Idno\Core\Idno::site()->session()->getAndFlushMessages()
                 ))->draw('shell/simple');
 
             }

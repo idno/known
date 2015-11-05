@@ -15,7 +15,7 @@
                     $object = new \IdnoPlugins\Checkin\Checkin();
                 }
 
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
                 $body = $t->__(array(
                     'object' => $object
                 ))->draw('entity/Checkin/edit');

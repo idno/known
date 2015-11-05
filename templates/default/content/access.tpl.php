@@ -7,7 +7,7 @@
         }
     }
 
-    if (!empty(\Idno\Core\site()->config()->show_privacy) || $access != 'PUBLIC') {
+    if (!empty(\Idno\Core\Idno::site()->config()->show_privacy) || $access != 'PUBLIC') {
 
         ?>
         <div class="access-control-block">
@@ -15,7 +15,7 @@
 
             <?php
 
-                //if (!empty(\Idno\Core\site()->config()->experimental)) {
+                //if (!empty(\Idno\Core\Idno::site()->config()->experimental)) {
 
             ?>
 
@@ -30,10 +30,10 @@
                         </li>
                         <li><a href="#" data-acl="SITE" class="acl-option"><i class="fa fa-lock"> </i> Members
                                 only</a></li>
-                        <li><a href="#" data-acl="<?= \Idno\Core\site()->session()->currentUserUUID() ?>"
+                        <li><a href="#" data-acl="<?= \Idno\Core\Idno::site()->session()->currentUserUUID() ?>"
                                class="acl-option"><i class="fa fa-lock"></i> Private</a></li>
                         <?php
-                            $acls = \Idno\Entities\AccessGroup::get(array('owner' => \Idno\Core\site()->session()->currentUserUUID()));
+                            $acls = \Idno\Entities\AccessGroup::get(array('owner' => \Idno\Core\Idno::site()->session()->currentUserUUID()));
                             if (!empty($acls)) {
                                 foreach ($acls as $acl) {
 

@@ -1,5 +1,5 @@
 <?php
-    $user = \Idno\Core\site()->session()->currentUser();
+    $user = \Idno\Core\Idno::site()->session()->currentUser();
 ?>
 <div class="row">
 
@@ -12,7 +12,7 @@
         <div class="explanation">
             <p>
                 Change your user account settings here. You may also want to <a
-                    href="<?= \Idno\Core\site()->session()->currentUser()->getDisplayURL() ?>/edit/">edit your
+                    href="<?= \Idno\Core\Idno::site()->session()->currentUser()->getDisplayURL() ?>/edit/">edit your
                     profile</a>.
             </p>
         </div>
@@ -21,7 +21,7 @@
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
 
-        <form class="navbar-form admin" action="<?=\Idno\Core\site()->config()->getDisplayURL()?>account/settings/" method="post">
+        <form class="navbar-form admin" action="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>account/settings/" method="post">
 
 
             <div class="row">
@@ -76,7 +76,7 @@
                 <button type="submit" class="btn btn-primary">Save updates</button>
             </div>
 
-            <?= \Idno\Core\site()->actions()->signForm('/account/settings') ?>
+            <?= \Idno\Core\Idno::site()->actions()->signForm('/account/settings') ?>
         </form>
 
 

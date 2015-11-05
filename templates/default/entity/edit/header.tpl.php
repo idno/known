@@ -1,6 +1,6 @@
 <?php
 
-    if ($page = \Idno\Core\site()->currentPage()) {
+    if ($page = \Idno\Core\Idno::site()->currentPage()) {
         if ($page->getInput('sharing')) {
 
             $share_type = $page->getInput('share_type');

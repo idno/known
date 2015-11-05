@@ -17,13 +17,13 @@
                 $this->adminGatekeeper(); // Admins only
 
                 $css = '';
-                if (!empty(\Idno\Core\site()->config()->styles)) {
-                    if (!empty(\Idno\Core\site()->config()->styles['css'])) {
-                        $css = \Idno\Core\site()->config()->styles['css'];
+                if (!empty(\Idno\Core\Idno::site()->config()->styles)) {
+                    if (!empty(\Idno\Core\Idno::site()->config()->styles['css'])) {
+                        $css = \Idno\Core\Idno::site()->config()->styles['css'];
                     }
                 }
 
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
                 $t->__(array(
                             'body'  => $t->__(array('css' => $css))->draw('styles/admin'),
                             'title' => 'Site Styles'
@@ -41,11 +41,11 @@
                 $css = trim(strip_tags($css));
 
                 $styles                             = array('css' => $css);
-                $config = \Idno\Core\site()->config;
+                $config = \Idno\Core\Idno::site()->config;
                 $config->styles = $styles;
-                \Idno\Core\site()->config = $config;
-                \Idno\Core\site()->config()->save();
-                $this->forward(\Idno\Core\site()->config()->getURL() . 'admin/styles/');
+                \Idno\Core\Idno::site()->config = $config;
+                \Idno\Core\Idno::site()->config()->save();
+                $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'admin/styles/');
             }
 
         }

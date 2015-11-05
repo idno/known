@@ -23,7 +23,7 @@
                     exit;
                 }
 
-                $this->forward(\Idno\Core\site()->config()->getDisplayURL());
+                $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL());
 
             }
 

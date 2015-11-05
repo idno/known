@@ -11,7 +11,7 @@
     </div>
 
 </div>
-<form action="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/footerjs/" class="form-horizontal" method="post">
+<form action="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>admin/footerjs/" class="form-horizontal" method="post">
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 		<h2>Code editor</h2>
@@ -20,13 +20,13 @@
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
 	                <p class="js-controls"><strong>Header code</strong></p>
-                    <textarea class="form-control" name="headerjs"><?=htmlspecialchars(\Idno\Core\site()->config()->headerjs)?></textarea>
+                    <textarea class="form-control" name="headerjs"><?=htmlspecialchars(\Idno\Core\Idno::site()->config()->headerjs)?></textarea>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
 	               <p class="js-controls"><strong>Footer code</strong></p> 
-                    <textarea name="footerjs" class="form-control"><?=htmlspecialchars(\Idno\Core\site()->config()->footerjs)?></textarea>
+                    <textarea name="footerjs" class="form-control"><?=htmlspecialchars(\Idno\Core\Idno::site()->config()->footerjs)?></textarea>
                 </div>
             </div>
             <div class="row">
@@ -36,5 +36,5 @@
 	                
                 </div>
             </div>
-            <?= \Idno\Core\site()->actions()->signForm('/admin/footerjs/')?>
+            <?= \Idno\Core\Idno::site()->actions()->signForm('/admin/footerjs/')?>
         </form>

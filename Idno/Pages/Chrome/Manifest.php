@@ -10,7 +10,7 @@
             function getContent()
             {
 
-                echo \Idno\Core\site()->template()->draw('chrome/manifest');
+                echo \Idno\Core\Idno::site()->template()->draw('chrome/manifest');
 
             }
 

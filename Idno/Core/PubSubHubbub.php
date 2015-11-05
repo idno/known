@@ -24,7 +24,7 @@
             {
 
                 // Hook into the "saved" event to publish to PuSH when an entity is saved
-                \Idno\Core\site()->addEventHook('saved', function (\Idno\Core\Event $event) {
+                \Idno\Core\Idno::site()->addEventHook('saved', function (\Idno\Core\Event $event) {
                     $eventdata = $event->data();
                     if ($object = $eventdata['object']) {
                         /* @var \Idno\Common\Entity $object */
@@ -37,7 +37,7 @@
                 });
 
                 // Add PuSH headers to the top of the page
-                \Idno\Core\site()->addEventHook('page/head', function (Event $event) {
+                \Idno\Core\Idno::site()->addEventHook('page/head', function (Event $event) {
 
                     if (!empty(site()->config()->hub)) {
                         $eventdata = $event->data();
@@ -48,7 +48,7 @@
                 });
 
                 // When we follow a user, try and subscribe to their hub
-                \Idno\Core\site()->addEventHook('follow', function (\Idno\Core\Event $event) {
+                \Idno\Core\Idno::site()->addEventHook('follow', function (\Idno\Core\Event $event) {
 
                     $eventdata = $event->data();
                     $user      = $eventdata['user'];
@@ -79,21 +79,21 @@
                                 $following->save();
 
                                 $return = \Idno\Core\Webservice::post($following->pubsub_hub, array(
-                                    'hub.callback' => \Idno\Core\site()->config->url . 'pubsub/callback/' . $user->getID() . '/' . $following->getID(), // Callback, unique to each subscriber
+                                    'hub.callback' => \Idno\Core\Idno::site()->config->url . 'pubsub/callback/' . $user->getID() . '/' . $following->getID(), // Callback, unique to each subscriber
                                     'hub.mode'     => 'subscribe',
                                     'hub.verify'   => 'async', // Backwards compatibility with v0.3 hubs
                                     'hub.topic'    => $feed, // Subscribe to rss
                                 ));
 
-                                \Idno\Core\site()->logging->log("Pubsub: " . print_r($return, true));
+                                \Idno\Core\Idno::site()->logging->log("Pubsub: " . print_r($return, true));
                             } else
-                                \Idno\Core\site()->logging->log("Pubsub: No hubs found");
+                                \Idno\Core\Idno::site()->logging->log("Pubsub: No hubs found");
                         }
                     }
                 });
 
                 // Send unfollow notification to their hub
-                \Idno\Core\site()->addEventHook('unfollow', function (\Idno\Core\Event $event) {
+                \Idno\Core\Idno::site()->addEventHook('unfollow', function (\Idno\Core\Event $event) {
 
                     $eventdata = $event->data();
                     $user      = $eventdata['user'];
@@ -115,13 +115,13 @@
                         $user->save();
 
                         $return = \Idno\Core\Webservice::post($following->pubsub_hub, array(
-                            'hub.callback' => \Idno\Core\site()->config->url . 'pubsub/callback/' . $user->getID() . '/' . $following->getID(), // Callback, unique to each subscriber
+                            'hub.callback' => \Idno\Core\Idno::site()->config->url . 'pubsub/callback/' . $user->getID() . '/' . $following->getID(), // Callback, unique to each subscriber
                             'hub.mode'     => 'unsubscribe',
                             'hub.verify'   => 'async', // Backwards compatibility with v0.3 hubs
                             'hub.topic'    => $following->pubsub_self
                         ));
 
-                        \Idno\Core\site()->logging->log("Pubsub: " . print_r($return, true));
+                        \Idno\Core\Idno::site()->logging->log("Pubsub: " . print_r($return, true));
                     }
                 });
             }
@@ -129,7 +129,7 @@
             function registerPages()
             {
                 // Create an endpoint for subscription pings
-                \Idno\Core\site()->addPageHandler('/pubsub/callback/([A-Za-z0-9]+)/([A-Za-z0-9]+)/?', '\Idno\Pages\Pubsubhubbub\Callback');
+                \Idno\Core\Idno::site()->addPageHandler('/pubsub/callback/([A-Za-z0-9]+)/([A-Za-z0-9]+)/?', '\Idno\Pages\Pubsubhubbub\Callback');
 
             }
 
@@ -239,14 +239,14 @@
              */
             static function publish($act_stream_post)
             {
-                if ($hub = \Idno\Core\site()->config()->hub) {
+                if ($hub = \Idno\Core\Idno::site()->config()->hub) {
 
                     if (!($act_stream_post instanceof ActivityStreamPost)) {
                         return false;
                     }
 
                     $object = $act_stream_post->getObject();
-                    $base   = \Idno\Core\site()->config()->getDisplayURL();
+                    $base   = \Idno\Core\Idno::site()->config()->getDisplayURL();
                     $feeds  = array();
 
                     // Check to make sure there's an entity
@@ -255,7 +255,7 @@
                     }
 
                     // homepage feed
-                    $homepage_types   = \Idno\Core\site()->config()->getHomepageContentTypes();
+                    $homepage_types   = \Idno\Core\Idno::site()->config()->getHomepageContentTypes();
                     $type_in_homepage = false;
                     if ($object instanceof Entity) {
                         if (in_array($object->getContentType(), $homepage_types)) {
@@ -283,11 +283,11 @@
                         foreach ($feeds as $feed) {
                             $encurls[] = urlencode($feed);
                             $encurls[] = urlencode(
-                                \Idno\Core\site()->template()->getURLWithVar('_t', 'rss', $feed));
+                                \Idno\Core\Idno::site()->template()->getURLWithVar('_t', 'rss', $feed));
                         }
 
                         $formdata = 'hub.mode=publish&hub.url=' . implode(',', $encurls);
-                        \Idno\Core\site()->logging()->log('Pinging ' . $hub . ' with data ' . $formdata);
+                        \Idno\Core\Idno::site()->logging()->log('Pinging ' . $hub . ' with data ' . $formdata);
                         \Idno\Core\Webservice::post($hub, $formdata, array(
                             'Content-Type' => 'application/x-www-form-urlencoded'));
                     }

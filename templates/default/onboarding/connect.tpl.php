@@ -10,7 +10,7 @@
 
         <div class="col-md-12 next-bar" align="center">
             <button class="btn btn-primary btn-lg btn-responsive"
-                    onclick="window.location = '<?= \Idno\Core\site()->config()->getDisplayURL() ?>begin/publish'; return false;">
+                    onclick="window.location = '<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>begin/publish'; return false;">
                 Continue
             </button>
         </div>

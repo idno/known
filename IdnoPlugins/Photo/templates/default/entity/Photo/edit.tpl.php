@@ -64,10 +64,10 @@
                 <?= $this->draw('entity/tags/input'); ?>
                 <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('image'); ?>
                 <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to"
-                                                                  value="<?= \Idno\Core\site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
+                                                                  value="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
                 <?= $this->draw('content/access'); ?>
                 <p class="button-bar ">
-                    <?= \Idno\Core\site()->actions()->signForm('/photo/edit') ?>
+                    <?= \Idno\Core\Idno::site()->actions()->signForm('/photo/edit') ?>
                     <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
                     <input type="submit" class="btn btn-primary" value="Publish"/>
                 </p>

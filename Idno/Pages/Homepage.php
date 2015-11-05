@@ -24,7 +24,7 @@
 
                 // Check for an empty site
                 if (!\Idno\Entities\User::get()) {
-                    $this->forward(\Idno\Core\site()->config()->getURL() . 'begin/');
+                    $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'begin/');
                 }
 
                 if (!empty($this->arguments[0])) { // If we're on the friendly content-specific URL
@@ -48,14 +48,14 @@
                 } else {
                     // If user has content-specific preferences, do something with $friendly_types
                     if (empty($query)) {
-                        $types = \Idno\Core\site()->config()->getHomepageContentTypes();
+                        $types = \Idno\Core\Idno::site()->config()->getHomepageContentTypes();
                     }
                 }
 
                 $search = array();
 
                 if (!empty($query)) {
-                    $search = \Idno\Core\site()->db()->createSearchArray($query);
+                    $search = \Idno\Core\Idno::site()->db()->createSearchArray($query);
                 }
 
                 if (empty($types)) {
@@ -66,8 +66,8 @@
                 }
 
                 $count = \Idno\Entities\ActivityStreamPost::countFromX($types, array());
-                $feed  = \Idno\Entities\ActivityStreamPost::getFromX($types, $search, array(), \Idno\Core\site()->config()->items_per_page, $offset);
-                if (\Idno\Core\site()->session()->isLoggedIn()) {
+                $feed  = \Idno\Entities\ActivityStreamPost::getFromX($types, $search, array(), \Idno\Core\Idno::site()->config()->items_per_page, $offset);
+                if (\Idno\Core\Idno::site()->session()->isLoggedIn()) {
                     $create = \Idno\Common\ContentType::getRegistered();
 
                     // If we can't create an object of this type, hide from the button bar
@@ -80,8 +80,8 @@
                     $create = false;
                 }
 
-                if (!empty(\Idno\Core\site()->config()->description)) {
-                    $description = \Idno\Core\site()->config()->description;
+                if (!empty(\Idno\Core\Idno::site()->config()->description)) {
+                    $description = \Idno\Core\Idno::site()->config()->description;
                 } else {
                     $description = 'An independent social website, powered by Known.';
                 }
@@ -94,13 +94,13 @@
                     }
                 }
 
-                if (!empty(\Idno\Core\site()->config()->homepagetitle)) {
-                    $title = \Idno\Core\site()->config()->homepagetitle;
+                if (!empty(\Idno\Core\Idno::site()->config()->homepagetitle)) {
+                    $title = \Idno\Core\Idno::site()->config()->homepagetitle;
                 } else {
-                    $title = \Idno\Core\site()->config()->title;
+                    $title = \Idno\Core\Idno::site()->config()->title;
                 }
 
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
                 $t->__(array(
 
                     'title'       => $title,

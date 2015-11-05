@@ -1,1 +1,1 @@
-<li <?php if ($_SERVER['REQUEST_URI'] == '/admin/footerjs/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/footerjs/">Custom JavaScript</a></li>
+<li <?php if ($_SERVER['REQUEST_URI'] == '/admin/footerjs/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>admin/footerjs/">Custom JavaScript</a></li>

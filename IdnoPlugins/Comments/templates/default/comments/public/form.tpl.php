@@ -2,12 +2,12 @@
 
     $object = $vars['object'];
 
-    if (!\Idno\Core\site()->session()->isLoggedOn() && $object instanceof \Idno\Common\Entity) {
+    if (!\Idno\Core\Idno::site()->session()->isLoggedOn() && $object instanceof \Idno\Common\Entity) {
         ?>
         <div class="row annotation-add">
             <div class="col-md-2 owner h-card hidden-sm hidden-xs">
                 <div class="u-url icon-container"><img class="u-photo"
-                                                       src="<?= \Idno\Core\site()->config()->getDisplayURL() ?>gfx/users/default-00.png"/>
+                                                       src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>gfx/users/default-00.png"/>
                 </div>
             </div>
             <div class="col-md-10 idno-comment-container" id="comment-form">
@@ -18,7 +18,7 @@
                 <textarea name="body" placeholder="Add a comment ..." class="form-control mentionable"></textarea>
 
                 <p style="text-align: right" id="comment-submit">
-                    <?= \Idno\Core\site()->actions()->signForm('annotation/post') ?>
+                    <?= \Idno\Core\Idno::site()->actions()->signForm('annotation/post') ?>
                 </p>
             </div>
         </div>
@@ -27,9 +27,9 @@
 
                 setTimeout(function() {
                     $('#extrafield').html('<input type="hidden" name="validator" value="<?=$object->getUUID()?>">');
-                    //$('#comment-form').prepend('<form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>comments/post" method="post">');
+                    //$('#comment-form').prepend('<form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>comments/post" method="post">');
                     //$('#comment-form').append('</form>');
-                    $('#comment-form').html('<form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>comments/post" method="post">' + $('#comment-form').html() + '</form>');
+                    $('#comment-form').html('<form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>comments/post" method="post">' + $('#comment-form').html() + '</form>');
                     $('#comment-submit').append('<input type="hidden" name="object" value="<?= $object->getUUID() ?>"><input type="hidden" name="type" value="reply"><input type="submit" class="btn btn-save" value="Leave Comment">');
                 },4000);
 

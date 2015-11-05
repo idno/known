@@ -13,7 +13,7 @@
 
                 $this->adminGatekeeper();
 
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
                 $t->__(array(
                     'title' => 'Import data',
                     'body'  => $t->draw('admin/import'),
@@ -29,15 +29,15 @@
                 $import_type = $this->getInput('import_type');
 
                 if (empty($_FILES['import'])) {
-                    \Idno\Core\site()->session()->addMessage("You need to upload an import file to continue.");
+                    \Idno\Core\Idno::site()->session()->addMessage("You need to upload an import file to continue.");
                 } else if (!($xml = @file_get_contents($_FILES['import']['tmp_name']))) {
-                    \Idno\Core\site()->session()->addMessage("We couldn't open the file you uploaded. Please try again.");
+                    \Idno\Core\Idno::site()->session()->addMessage("We couldn't open the file you uploaded. Please try again.");
                 } else {
-                    \Idno\Core\site()->session()->addMessage("Your {$import_type} import has started.");
+                    \Idno\Core\Idno::site()->session()->addMessage("Your {$import_type} import has started.");
                 }
 
                 session_write_close();
-                $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'admin/import/', false);
+                $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/import/', false);
 
                 ignore_user_abort(true);    // This is dangerous, but we need export to continue
 
@@ -67,7 +67,7 @@
                     $mail = new Email();
                     $mail->setHTMLBodyFromTemplate('admin/import');
                     $mail->setTextBodyFromTemplate('admin/import');
-                    $mail->addTo(\Idno\Core\site()->session()->currentUser()->email);
+                    $mail->addTo(\Idno\Core\Idno::site()->session()->currentUser()->email);
                     $mail->setSubject("Your data import has completed");
                     $mail->send();
                 }

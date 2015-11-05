@@ -19,7 +19,7 @@
             {
 
                 $this->reverseGatekeeper();
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
 
                 if ($sent = $this->getInput('sent')) {
                     $t->body  = $t->draw('account/password/sent');
@@ -45,7 +45,7 @@
 
                         $user->save(); // Save the recovery code to the user
 
-                        $t = clone \Idno\Core\site()->template();
+                        $t = clone \Idno\Core\Idno::site()->template();
                         $t->setTemplateType('email');
 
                         $email = new Email();
@@ -55,13 +55,13 @@
                         $email->setTextBodyFromTemplate('account/password', array('email' => $email_address, 'code' => $auth_code));
                         $email->send();
 
-                        $this->forward(\Idno\Core\site()->config()->getURL() . 'account/password/?sent=true');
+                        $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'account/password/?sent=true');
 
                     }
 
                 }
-                \Idno\Core\site()->session()->addErrorMessage("Oh no! We couldn't find an account associated with that email address.");
-                $this->forward(\Idno\Core\site()->config()->getURL() . 'account/password');
+                \Idno\Core\Idno::site()->session()->addErrorMessage("Oh no! We couldn't find an account associated with that email address.");
+                $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'account/password');
 
             }
 

@@ -33,8 +33,8 @@
 
             <?php
 
-                if (!empty(\Idno\Core\site()->config()->webhook_syndication)) {
-                    foreach(\Idno\Core\site()->config()->webhook_syndication as $webhook) {
+                if (!empty(\Idno\Core\Idno::site()->config()->webhook_syndication)) {
+                    foreach(\Idno\Core\Idno::site()->config()->webhook_syndication as $webhook) {
 
 ?>
 				<div class="row">
@@ -71,7 +71,7 @@
 	            	<a href="#" onclick="$('#morefields').append($('#field_template').html());"><i class="fa fa-plus"></i> Add another Webhook</a>
 	            </p>
             <p>
-                <?= \Idno\Core\site()->actions()->signForm('/admin/webhooks/') ?>
+                <?= \Idno\Core\Idno::site()->actions()->signForm('/admin/webhooks/') ?>
                 <input class="btn btn-primary" value="Save Webhooks" type="submit">
             </p>
 

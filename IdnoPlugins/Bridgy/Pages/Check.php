@@ -15,8 +15,8 @@
         {
             function getContent()
             {
-                $user = \Idno\Core\site()->session()->currentUser();
-                $t = \Idno\Core\site()->template();
+                $user = \Idno\Core\Idno::site()->session()->currentUser();
+                $t = \Idno\Core\Idno::site()->template();
                 $t->setTemplateType('json');
 
                 $t->changed = false;

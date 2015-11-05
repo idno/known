@@ -11,7 +11,7 @@
             {
 
                 $this->gatekeeper();
-                \Idno\Core\site()->reader()->parseAndSaveFeeds();
+                \Idno\Core\Idno::site()->reader()->parseAndSaveFeeds();
 
             }
 

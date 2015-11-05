@@ -1,6 +1,6 @@
 <script>
 
-    /*$.getJSON('<?=\Idno\Core\site()->config()->getDisplayURL()?>search/mentions.json', function(data) {
+    /*$.getJSON('<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>search/mentions.json', function(data) {
         $(".mentionable").mention({
             delimiter: '@',
             sensitive : true,

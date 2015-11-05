@@ -43,7 +43,7 @@
                     return $this->uuid;
                 }
                 if (!empty($this->_id)) {
-                    return \Idno\Core\site()->config()->url . 'view/' . $this->_id;
+                    return \Idno\Core\Idno::site()->config()->url . 'view/' . $this->_id;
                 }
             }
 

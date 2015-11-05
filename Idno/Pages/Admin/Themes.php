@@ -12,10 +12,10 @@
             function getContent()
             {
                 $this->adminGatekeeper(); // Admins only
-                $t        = \Idno\Core\site()->template();
+                $t        = \Idno\Core\Idno::site()->template();
                 $t->body  = $t->__(array(
-                    'themes_stored' => \Idno\Core\site()->themes()->getStored(),
-                    'theme'         => \Idno\Core\site()->themes()->get(),
+                    'themes_stored' => \Idno\Core\Idno::site()->themes()->getStored(),
+                    'theme'         => \Idno\Core\Idno::site()->themes()->get(),
                 ))->draw('admin/themes');
                 $t->title = 'Themes';
                 $t->drawPage();
@@ -33,10 +33,10 @@
                     (
                         preg_match('/^[a-zA-Z0-9]+$/', $theme) &&
                         (
-                            file_exists(\Idno\Core\site()->config()->path . '/Themes/' . $theme) ||
+                            file_exists(\Idno\Core\Idno::site()->config()->path . '/Themes/' . $theme) ||
                             (
                                 !empty($host) && (
-                                file_exists(\Idno\Core\site()->config()->path . '/hosts/' . $host . '/Themes/' . $theme)
+                                file_exists(\Idno\Core\Idno::site()->config()->path . '/hosts/' . $host . '/Themes/' . $theme)
                                 )
                             )
                         )
@@ -45,16 +45,16 @@
                 ) {
                     switch ($action) {
                         case 'install':
-                            \Idno\Core\site()->config->config['theme'] = $theme;
-                            //\Idno\Core\site()->session()->addMessage('The theme was enabled.');
+                            \Idno\Core\Idno::site()->config->config['theme'] = $theme;
+                            //\Idno\Core\Idno::site()->session()->addMessage('The theme was enabled.');
                             break;
                         case 'uninstall':
-                            \Idno\Core\site()->config->config['theme'] = '';
+                            \Idno\Core\Idno::site()->config->config['theme'] = '';
                             break;
                     }
-                    \Idno\Core\site()->config()->save();
+                    \Idno\Core\Idno::site()->config()->save();
                 }
-                $this->forward(\Idno\Core\site()->config()->getURL() . 'admin/themes/');
+                $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'admin/themes/');
             }
 
         }

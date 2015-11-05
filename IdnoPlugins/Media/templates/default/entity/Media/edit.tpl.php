@@ -54,10 +54,10 @@
             ])->draw('forms/input/richtext')?>
             <?=$this->draw('entity/tags/input');?>
             <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('media'); ?>
-            <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to" value="<?= \Idno\Core\site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
+            <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to" value="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
             <?= $this->draw('content/access'); ?>
             <p class="button-bar ">
-                <?= \Idno\Core\site()->actions()->signForm('/media/edit') ?>
+                <?= \Idno\Core\Idno::site()->actions()->signForm('/media/edit') ?>
                 <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();" />
                 <input type="submit" class="btn btn-primary" value="Publish" />
 

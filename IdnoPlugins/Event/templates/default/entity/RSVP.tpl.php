@@ -1,5 +1,5 @@
 <?php
-    if (\Idno\Core\site()->currentPage()->isPermalink()) {
+    if (\Idno\Core\Idno::site()->currentPage()->isPermalink()) {
         $rel = 'rel="in-reply-to" class="u-in-reply-to"';
     } else {
         $rel = '';

@@ -29,7 +29,7 @@
                             $autosave[$context][$name] = $value;
                             $user->autosave            = $autosave;
                             if ($user->save()) {
-                                \Idno\Core\site()->session()->refreshSessionUser($user);
+                                \Idno\Core\Idno::site()->session()->refreshSessionUser($user);
                             }
                         }
                     }
@@ -54,7 +54,7 @@
                             $autosave[$context] = $elements;
                             $user->autosave     = $autosave;
                             if ($user->save()) {
-                                \Idno\Core\site()->session()->refreshSessionUser($user);
+                                \Idno\Core\Idno::site()->session()->refreshSessionUser($user);
                             }
                         }
                     }

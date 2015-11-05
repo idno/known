@@ -22,13 +22,13 @@
 
             function registerEventHooks()
             {
-                \Idno\Core\site()->events()->addListener('syndicate', function (\Idno\Core\Event $event) {
+                \Idno\Core\Idno::site()->events()->addListener('syndicate', function (\Idno\Core\Event $event) {
 
                     $eventdata = $event->data();
                     if (!empty($eventdata['object'])) {
                         $content_type = $eventdata['object']->getActivityStreamsObjectType();
-                        if ($services = \Idno\Core\site()->syndication()->getServices($content_type)) {
-                            if ($selected_services = \Idno\Core\site()->currentPage()->getInput('syndication')) {
+                        if ($services = \Idno\Core\Idno::site()->syndication()->getServices($content_type)) {
+                            if ($selected_services = \Idno\Core\Idno::site()->currentPage()->getInput('syndication')) {
                                 if (!empty($selected_services) && is_array($selected_services)) {
                                     foreach ($selected_services as $selected_service) {
                                         $event->data()['syndication_account'] = false;
@@ -139,7 +139,7 @@
                     }
                 }
                 $this->checkers[$service] = $checker;
-                \Idno\Core\site()->template()->extendTemplate('content/syndication', 'content/syndication/' . $service);
+                \Idno\Core\Idno::site()->template()->extendTemplate('content/syndication', 'content/syndication/' . $service);
             }
 
             /**

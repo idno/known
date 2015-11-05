@@ -23,17 +23,17 @@
 
             function getContent()
             {
-                $user = \Idno\Core\site()->session()->currentUser();
+                $user = \Idno\Core\Idno::site()->session()->currentUser();
                 if (empty($user)) $this->noContent();
 
                 $this->setPermalink(); // This is a permalink
 
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
                 $t->__(array(
 
                     'title'       => $user->getTitle(),
                     'body'        => $t->__(array('user' => $user, 'items' => array(), 'count' => 0, 'offset' => 0))->draw('entity/User/profile'),
-                    'description' => 'The ' . \Idno\Core\site()->config()->title . ' profile for ' . $user->getTitle()
+                    'description' => 'The ' . \Idno\Core\Idno::site()->config()->title . ' profile for ' . $user->getTitle()
 
                 ))->drawPage();
             }

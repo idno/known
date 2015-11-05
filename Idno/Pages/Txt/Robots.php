@@ -14,7 +14,7 @@
 
             function getContent()
             {
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
                 echo $t->draw('txt/robots');
             }
 

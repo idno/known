@@ -51,7 +51,7 @@
                                 $description = $vars['user']->getDescription();
                                 if (!empty($description)) {
                                     echo '<div class="highlightedText">' . $this->autop($vars['user']->getDescription()) . '</div>';
-                                } else if ($vars['user']->getUUID() == \Idno\Core\site()->session()->currentUserUUID()) {
+                                } else if ($vars['user']->getUUID() == \Idno\Core\Idno::site()->session()->currentUserUUID()) {
                                     ?>
                                     <p class="highlightedText">
                                         A profile helps you describe yourself to other people on the site

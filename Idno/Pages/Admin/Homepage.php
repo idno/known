@@ -10,9 +10,9 @@
             function getContent()
             {
                 $this->createGatekeeper(); // Logged-in only please
-                $t                     = \Idno\Core\site()->template();
+                $t                     = \Idno\Core\Idno::site()->template();
                 $t->content_types      = \Idno\Common\ContentType::getRegistered();
-                $default_content_types = \Idno\Core\site()->config()->getHomepageContentTypes(); //\Idno\Core\site()->session()->currentUser()->settings['default_feed_content'];
+                $default_content_types = \Idno\Core\Idno::site()->config()->getHomepageContentTypes(); //\Idno\Core\Idno::site()->session()->currentUser()->settings['default_feed_content'];
 
                 if (empty($default_content_types)) {
                     foreach ($t->content_types as $content_type) {
@@ -29,21 +29,21 @@
             function postContent()
             {
                 $this->createGatekeeper(); // Logged-in only please
-                $user = \Idno\Core\site()->session()->currentUser();
+                $user = \Idno\Core\Idno::site()->session()->currentUser();
 
                 $default_feed_content = $this->getInput('default_feed_content');
                 if (empty($default_feed_content) || !is_array($default_feed_content)) {
                     $default_feed_content = false;
                 }
 
-                $config                       = \Idno\Core\site()->config;
+                $config                       = \Idno\Core\Idno::site()->config;
                 $config->default_feed_content = $default_feed_content;
-                \Idno\Core\site()->config     = $config;
+                \Idno\Core\Idno::site()->config     = $config;
 
-                if (\Idno\Core\site()->config->save()) {
-                    \Idno\Core\site()->session()->addMessage("The default homepage content types were saved.");
+                if (\Idno\Core\Idno::site()->config->save()) {
+                    \Idno\Core\Idno::site()->session()->addMessage("The default homepage content types were saved.");
                 }
-                $this->forward(\Idno\Core\site()->config()->getURL() . 'admin/homepage/');
+                $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'admin/homepage/');
             }
 
         }

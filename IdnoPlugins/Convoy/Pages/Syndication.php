@@ -8,9 +8,9 @@
 
                 $this->gatekeeper();
 
-                if (\Idno\Core\site()->hub()) {
+                if (\Idno\Core\Idno::site()->hub()) {
 
-                    $result = \Idno\Core\site()->hub()->makeCall('hub/user/syndication', [
+                    $result = \Idno\Core\Idno::site()->hub()->makeCall('hub/user/syndication', [
                         'content_type' => $this->getInput('content_type')
                     ]);
 
@@ -22,7 +22,7 @@
                     $content = '';
                 }
 
-                echo \Idno\Core\site()->template()->__(['content' => $content])->draw('content/syndication/embed');
+                echo \Idno\Core\Idno::site()->template()->__(['content' => $content])->draw('content/syndication/embed');
 
             }
 

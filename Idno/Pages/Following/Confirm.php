@@ -15,11 +15,11 @@
 
                 if ($url = $this->getInput('feed')) {
 
-                    if ($feed = \Idno\Core\site()->reader()->getFeedObject($url)) {
+                    if ($feed = \Idno\Core\Idno::site()->reader()->getFeedObject($url)) {
 
                         $items = $feed->retrieveItems();
 
-                        $t = \Idno\Core\site()->template();
+                        $t = \Idno\Core\Idno::site()->template();
                         $t->__(array(
                             'title' => 'Subscribe to ' . $feed->getTitle(),
                             'body'  => $t->__(array(
@@ -41,17 +41,17 @@
 
                 if ($url = $this->getInput('feed')) {
 
-                    if ($feed = \Idno\Core\site()->reader()->getFeedObject($url)) {
+                    if ($feed = \Idno\Core\Idno::site()->reader()->getFeedObject($url)) {
                         $subscription = new Subscription();
-                        $subscription->setOwner(\Idno\Core\site()->session()->currentUser());
+                        $subscription->setOwner(\Idno\Core\Idno::site()->session()->currentUser());
                         $subscription->setFeedURL($feed->getFeedURL());
-                        $subscription->setTitle(\Idno\Core\site()->session()->currentUser()->getHandle() . ' subscribed to ' . $feed->getTitle());
+                        $subscription->setTitle(\Idno\Core\Idno::site()->session()->currentUser()->getHandle() . ' subscribed to ' . $feed->getTitle());
                         if ($subscription->save()) {
-                            \Idno\Core\site()->session()->addMessage("You're following " . $feed->getTitle() . '!');
-                            $this->forward(\Idno\Core\site()->config()->getURL() . 'following/');
+                            \Idno\Core\Idno::site()->session()->addMessage("You're following " . $feed->getTitle() . '!');
+                            $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'following/');
                         }
                     }
-                    $this->forward(\Idno\Core\site()->config()->getURL() . 'following/confirm/?feed=' . urlencode($feed->url));
+                    $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'following/confirm/?feed=' . urlencode($feed->url));
 
                 }
 

@@ -15,7 +15,7 @@
             function getContent()
             {
                 $this->adminGatekeeper(); // Admins only
-                $t        = \Idno\Core\site()->template();
+                $t        = \Idno\Core\Idno::site()->template();
                 $t->body  = $t->draw('admin/dependencies');
                 $t->title = 'Dependencies';
                 $t->drawPage();

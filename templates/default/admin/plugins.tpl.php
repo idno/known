@@ -16,7 +16,7 @@
             $display = [];
             if (!empty($vars['plugins_stored']) && is_array($vars['plugins_stored'])) {
                 foreach($vars['plugins_stored'] as $shortname => $plugin) {
-                    if (\Idno\Core\site()->plugins()->isVisible($shortname)) {
+                    if (\Idno\Core\Idno::site()->plugins()->isVisible($shortname)) {
                         $plugin['shortname'] = $shortname;
                         $display[$plugin['Plugin description']['name']] = $this->__(array('plugin' => $plugin))->draw('admin/plugins/plugin');
                     }

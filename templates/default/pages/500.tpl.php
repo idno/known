@@ -20,7 +20,7 @@
             <p>
                 <a href="#" onclick="window.history.back();">Click here to go back and try again.</a>
             </p>
-            <?php if (($debug = \Idno\Core\site()->config()->debug) && (!empty($debug))) { ?>
+            <?php if (($debug = \Idno\Core\Idno::site()->config()->debug) && (!empty($debug))) { ?>
                 <p>
                     <small><a href="#" onclick="$('#details').show(); return false;">Click here to see the technical details.</a></small>
                 </p>

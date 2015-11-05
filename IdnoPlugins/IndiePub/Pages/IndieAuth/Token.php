@@ -53,8 +53,8 @@
                     parse_str($response['content'], $content);
                     if (!empty($content['me']) &&
                         (
-                            parse_url($content['me'], PHP_URL_HOST) == parse_url(\Idno\Core\site()->config()->getURL(), PHP_URL_HOST) ||
-                            'www.' . parse_url($content['me'], PHP_URL_HOST) == parse_url(\Idno\Core\site()->config()->getURL(), PHP_URL_HOST)
+                            parse_url($content['me'], PHP_URL_HOST) == parse_url(\Idno\Core\Idno::site()->config()->getURL(), PHP_URL_HOST) ||
+                            'www.' . parse_url($content['me'], PHP_URL_HOST) == parse_url(\Idno\Core\Idno::site()->config()->getURL(), PHP_URL_HOST)
                         )
                         ) {
 
@@ -77,8 +77,8 @@
                         );
                         $user->indieauth_tokens   = $indieauth_tokens;
                         $user->save();
-                        if (\Idno\Core\site()->session()->isLoggedOn() && $user->getUUID() == \Idno\Core\site()->session()->currentUser()->getUUID()) {
-                            \Idno\Core\site()->session()->refreshSessionUser($user);
+                        if (\Idno\Core\Idno::site()->session()->isLoggedOn() && $user->getUUID() == \Idno\Core\Idno::site()->session()->currentUser()->getUUID()) {
+                            \Idno\Core\Idno::site()->session()->refreshSessionUser($user);
                         }
 
                         // Output to the browser

@@ -15,7 +15,7 @@
                     $object = new \IdnoPlugins\Event\RSVP();
                 }
 
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
                 $body = $t->__(array(
                     'object' => $object,
                     'url' => $this->getInput('url')

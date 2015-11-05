@@ -20,18 +20,18 @@
         <link rel="feed" type="application/rss+xml" title="<?= htmlspecialchars($vars['title']) ?>"
               href="<?= $this->getURLWithVar('_t', 'rss'); ?>"/>
         <link rel="alternate feed" type="application/rss+xml"
-              title="<?= htmlspecialchars(\Idno\Core\site()->config()->title) ?>: all content"
-              href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>content/all?_t=rss"/>
-        <link rel="feed" type="text/html" title="<?= htmlspecialchars(\Idno\Core\site()->config()->title) ?>"
-              href="<?= \Idno\Core\site()->config()->getDisplayURL() ?>content/all"/>
+              title="<?= htmlspecialchars(\Idno\Core\Idno::site()->config()->title) ?>: all content"
+              href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>content/all?_t=rss"/>
+        <link rel="feed" type="text/html" title="<?= htmlspecialchars(\Idno\Core\Idno::site()->config()->title) ?>"
+              href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>content/all"/>
 
         <!-- Fonts -->
         <link rel="stylesheet"
-              href="<?= \Idno\Core\site()->config()->getStaticURL() ?>external/font-awesome/css/font-awesome.css">
+              href="<?= \Idno\Core\Idno::site()->config()->getStaticURL() ?>external/font-awesome/css/font-awesome.css">
 
         <!-- Webmention endpoint -->
-        <link href="<?= \Idno\Core\site()->config()->getURL() ?>webmention/" rel="http://webmention.org/"/>
-        <link href="<?= \Idno\Core\site()->config()->getURL() ?>webmention/" rel="webmention"/>
+        <link href="<?= \Idno\Core\Idno::site()->config()->getURL() ?>webmention/" rel="http://webmention.org/"/>
+        <link href="<?= \Idno\Core\Idno::site()->config()->getURL() ?>webmention/" rel="webmention"/>
 
         <?=$this->draw('shell/css');?>
 
@@ -40,13 +40,13 @@
             $opengraph = array(
                 'og:type'      => 'website',
                 'og:title'     => htmlspecialchars(strip_tags($vars['title'])),
-                'og:site_name' => htmlspecialchars(strip_tags(\Idno\Core\site()->config()->title)),
+                'og:site_name' => htmlspecialchars(strip_tags(\Idno\Core\Idno::site()->config()->title)),
                 'og:image'     => Idno\Core\site()->currentPage()->getIcon()
             );
 
-            if (\Idno\Core\site()->currentPage() && \Idno\Core\site()->currentPage()->isPermalink()) {
+            if (\Idno\Core\Idno::site()->currentPage() && \Idno\Core\Idno::site()->currentPage()->isPermalink()) {
 
-                $opengraph['og:url'] = \Idno\Core\site()->currentPage()->currentUrl();
+                $opengraph['og:url'] = \Idno\Core\Idno::site()->currentPage()->currentUrl();
 
                 if (!empty($vars['object'])) {
                     $owner  = $vars['object']->getOwner();
@@ -86,7 +86,7 @@
         <meta name="DC.title" content="<?= htmlspecialchars($vars['title']) ?>">
         <meta name="DC.description" content="<?= htmlspecialchars($vars['description']) ?>"><?php
 
-            if (\Idno\Core\site()->currentPage() && \Idno\Core\site()->currentPage()->isPermalink()) {
+            if (\Idno\Core\Idno::site()->currentPage() && \Idno\Core\Idno::site()->currentPage()->isPermalink()) {
                 /* @var \Idno\Common\Entity $object */
                 if ($object instanceof \Idno\Common\Entity) {
 

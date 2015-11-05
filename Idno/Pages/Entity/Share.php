@@ -22,7 +22,7 @@
 
                 $event = new \Idno\Core\Event();
                 $event->setResponse($url);
-                \Idno\Core\site()->events()->dispatch('url/shorten', $event);
+                \Idno\Core\Idno::site()->events()->dispatch('url/shorten', $event);
                 $short_url = $event->response();
 
                 if (!in_array($type, array('note', 'reply', 'rsvp', 'like', 'bookmark'))) {
@@ -66,7 +66,7 @@
                 }
 
                 if (!empty($content_type)) {
-                    if ($page = \Idno\Core\site()->getPageHandler('/' . $content_type->camelCase($content_type->getEntityClassName()) . '/edit')) {
+                    if ($page = \Idno\Core\Idno::site()->getPageHandler('/' . $content_type->camelCase($content_type->getEntityClassName()) . '/edit')) {
                         if ($share_type == 'note' /*&& !substr_count($url, 'twitter.com')*/) {
                             $page->setInput('body', $title . ' ' . $short_url);
                         } else {
@@ -84,7 +84,7 @@
                                 }
 
                                 // See if one of your registered twitter handles is present, if so remove it.
-                                $user = \Idno\Core\site()->session()->currentUser();
+                                $user = \Idno\Core\Idno::site()->session()->currentUser();
                                 if ((!empty($user->twitter)) && (is_array($user->twitter))) {
                                     $me = [];
                                     foreach ($user->twitter as $k => $v) {
@@ -103,7 +103,7 @@
                         $page->get();
                     }
                 } else {
-                    $t    = \Idno\Core\site()->template();
+                    $t    = \Idno\Core\Idno::site()->template();
                     $body = $t->__(array('share_type' => $share_type, 'content_type' => $content_type, 'sharing' => true))->draw('entity/share');
                     $t->__(array('title' => 'Share', 'body' => $body, 'hidenav' => $hide_nav))->drawPage();
                 }

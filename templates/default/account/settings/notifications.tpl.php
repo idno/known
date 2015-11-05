@@ -1,5 +1,5 @@
 <?php
-    $user = \Idno\Core\site()->session()->currentUser();
+    $user = \Idno\Core\Idno::site()->session()->currentUser();
     if (empty($user->notifications[email])) {
         $user->notifications[email] = 'none';
     }
@@ -17,7 +17,7 @@
                 Set how you'd like to be notified when someone stars or comments on your content.
             </p>
         </div>
-        <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>account/settings/notifications" method="post"
+        <form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>account/settings/notifications" method="post"
               class="form-horizontal"
               enctype="multipart/form-data">
 
@@ -72,7 +72,7 @@
                     <button type="submit" class="btn btn-primary">Save settings</button>
                 </div>
             </div>
-            <?= \Idno\Core\site()->actions()->signForm('/account/settings/notifications') ?>
+            <?= \Idno\Core\Idno::site()->actions()->signForm('/account/settings/notifications') ?>
         </form>
     </div>
 </div>

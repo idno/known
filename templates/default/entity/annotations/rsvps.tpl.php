@@ -9,7 +9,7 @@
             <div class="idno-annotation row">
                 <div class="idno-annotation-image col-md-1 hidden-sm">
                     <p>
-                        <a href="<?=$annotation['owner_url']?>" class="icon-container"><img src="<?=\Idno\Core\site()->config()->sanitizeAttachmentURL($annotation['owner_image'])?>" /></a>
+                        <a href="<?=$annotation['owner_url']?>" class="icon-container"><img src="<?=\Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($annotation['owner_image'])?>" /></a>
                     </p>
                 </div>
                 <div class="idno-annotation-content col-md-6">

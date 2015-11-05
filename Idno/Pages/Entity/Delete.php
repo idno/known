@@ -21,7 +21,7 @@
                 }
                 if (empty($object)) $this->forward(); // TODO: 404
 
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
                 $t->__(array(
 
                     'title' => $object->getTitle(),
@@ -39,7 +39,7 @@
                 }
                 if (empty($object)) $this->forward(); // TODO: 404
                 if ($object->delete()) {
-                    \Idno\Core\site()->session()->addMessage($object->getTitle() . ' was deleted.');
+                    \Idno\Core\Idno::site()->session()->addMessage($object->getTitle() . ' was deleted.');
                 }
                 $this->forward($_SERVER['HTTP_REFERER']);
             }

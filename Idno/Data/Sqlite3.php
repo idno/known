@@ -21,7 +21,7 @@
 
                 try {
 
-                    $connection_string = "sqlite:" . \Idno\Core\site()->config()->dbname;
+                    $connection_string = "sqlite:" . \Idno\Core\Idno::site()->config()->dbname;
                     $this->client      = new \PDO($connection_string);
                     $this->client->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
                     $this->client->exec("SELECT * from versions;"); // Quick and dirty check to see if database is installed TODO: do this better.
@@ -41,25 +41,25 @@
 
                     } else {
 
-                        if (!empty(\Idno\Core\site()->config()->forward_on_empty)) {
-                            header('Location: ' . \Idno\Core\site()->config()->forward_on_empty);
+                        if (!empty(\Idno\Core\Idno::site()->config()->forward_on_empty)) {
+                            header('Location: ' . \Idno\Core\Idno::site()->config()->forward_on_empty);
                             exit;
                         } else {
                             
                             http_response_code(500);
                             
-                            if (\Idno\Core\site()->config()->debug) {
+                            if (\Idno\Core\Idno::site()->config()->debug) {
                                 $message = '<p>' . $e->getMessage() . '</p>';
                                 $message .= '<p>' . $connection_string . '</p>';
                             }
                             error_log($e->getMessage());
-                            include \Idno\Core\site()->config()->path . '/statics/db.php';
+                            include \Idno\Core\Idno::site()->config()->path . '/statics/db.php';
                             exit;
                         }
                     }
                 }
 
-                $this->database = \Idno\Core\site()->config()->dbname;
+                $this->database = \Idno\Core\Idno::site()->config()->dbname;
                 $this->checkAndUpgradeSchema();
             }
 
@@ -94,7 +94,7 @@
                         return $statement->fetchAll(\PDO::FETCH_OBJ);
                     }
                 } catch (\Exception $e) {
-                    //\Idno\Core\site()->logging()->log($e->getMessage());
+                    //\Idno\Core\Idno::site()->logging()->log($e->getMessage());
                     error_log($e->getMessage());
                 }
 
@@ -107,7 +107,7 @@
             function handleSession()
             {
                 if (version_compare(phpversion(), '5.3', '>')) {
-                    $sessionHandler = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler(\Idno\Core\site()->db()->getClient(),
+                    $sessionHandler = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler(\Idno\Core\Idno::site()->db()->getClient(),
                         array(
                             'db_table'    => 'session',
                             'db_id_col'   => 'session_id',
@@ -170,7 +170,7 @@
                     $array['_id'] = md5(rand() . microtime(true));
                 }
                 if (empty($array['uuid'])) {
-                    $array['uuid'] = \Idno\Core\site()->config()->getURL() . 'view/' . $array['_id'];
+                    $array['uuid'] = \Idno\Core\Idno::site()->config()->getURL() . 'view/' . $array['_id'];
                 }
                 if (empty($array['owner'])) {
                     $array['owner'] = '';
@@ -179,7 +179,7 @@
                     $contents = json_encode($array);
                 } catch (\Exception $e) {
                     $contents = json_encode([]);
-                    \Idno\Core\site()->logging()->log($e->getMessage());
+                    \Idno\Core\Idno::site()->logging()->log($e->getMessage());
 
                     return false;
                 }
@@ -241,7 +241,7 @@
                                         $value = json_encode($value);
                                     } catch (\Exception $e) {
                                         $value = json_encode([]);
-                                        \Idno\Core\site()->logging()->log($e->getMessage());
+                                        \Idno\Core\Idno::site()->logging()->log($e->getMessage());
                                     }
                                 }
                                 if (empty($value)) {
@@ -256,7 +256,7 @@
                         return $array['_id'];
                     }
                 } catch (\Exception $e) {
-                    \Idno\Core\site()->logging()->log($e->getMessage());
+                    \Idno\Core\Idno::site()->logging()->log($e->getMessage());
                 }
 
                 return false;
@@ -278,7 +278,7 @@
                         return $statement->fetch(\PDO::FETCH_ASSOC);
                     }
                 } catch (\Exception $e) {
-                    \Idno\Core\site()->logging()->log($e->getMessage());
+                    \Idno\Core\Idno::site()->logging()->log($e->getMessage());
                 }
 
                 return false;
@@ -322,7 +322,7 @@
                         }
                     }
                 } catch (\Exception $e) {
-                    if (\Idno\Core\site()->session() == null)
+                    if (\Idno\Core\Idno::site()->session() == null)
                         die($e->getMessage());
                 }
 
@@ -395,7 +395,7 @@
                 }
 
                 // Make sure we're only getting objects that we're allowed to see
-                $readGroups                 = \Idno\Core\site()->session()->getReadAccessGroupIDs();
+                $readGroups                 = \Idno\Core\Idno::site()->session()->getReadAccessGroupIDs();
                 $query_parameters['access'] = array('$in' => $readGroups);
 
                 // Join the rest of the search query elements to this search
@@ -468,7 +468,7 @@
                     }
 
                 } catch (\Exception $e) {
-                    \Idno\Core\site()->logging()->log($e->getMessage());
+                    \Idno\Core\Idno::site()->logging()->log($e->getMessage());
 
                     return false;
                 }
@@ -639,7 +639,7 @@
                 }
 
                 // Make sure we're only getting objects that we're allowed to see
-                $readGroups                 = \Idno\Core\site()->session()->getReadAccessGroupIDs();
+                $readGroups                 = \Idno\Core\Idno::site()->session()->getReadAccessGroupIDs();
                 $query_parameters['access'] = array('$in' => $readGroups);
 
                 // Join the rest of the search query elements to this search
@@ -685,7 +685,7 @@
                     }
 
                 } catch (Exception $e) {
-                    \Idno\Core\site()->logging()->log($e->getMessage());
+                    \Idno\Core\Idno::site()->logging()->log($e->getMessage());
 
                     return false;
                 }
@@ -726,7 +726,7 @@
 
                 } catch (\Exception $e) {
 
-                    \Idno\Core\site()->logging()->log($e->getMessage());
+                    \Idno\Core\Idno::site()->logging()->log($e->getMessage());
 
                     return false;
 
@@ -770,7 +770,7 @@
          */
         function db()
         {
-            return \Idno\Core\site()->db();
+            return \Idno\Core\Idno::site()->db();
         }
 
     }

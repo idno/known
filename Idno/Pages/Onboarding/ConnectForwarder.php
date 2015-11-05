@@ -14,7 +14,7 @@
 
                 $this->gatekeeper();
 
-                $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'begin/connect');
+                $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'begin/connect');
 
             }
 

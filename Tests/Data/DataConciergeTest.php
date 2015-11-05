@@ -34,8 +34,8 @@ namespace Tests\Data {
          * Versions test (if applicable)
          */
         public function testVersions() {
-            if (is_callable([\Idno\Core\site()->db(), 'getVersions'])) {
-                $versions = \Idno\Core\site()->db()->getVersions();
+            if (is_callable([\Idno\Core\Idno::site()->db(), 'getVersions'])) {
+                $versions = \Idno\Core\Idno::site()->db()->getVersions();
                 
                 $this->assertTrue(is_array($versions));
             }
@@ -58,8 +58,8 @@ namespace Tests\Data {
          */
         public function testGetRecordByUUID() {
             $this->validateObject(
-                    \Idno\Core\site()->db()->rowToEntity(
-                            \Idno\Core\site()->db()->getRecordByUUID(self::$uuid)
+                    \Idno\Core\Idno::site()->db()->rowToEntity(
+                            \Idno\Core\Idno::site()->db()->getRecordByUUID(self::$uuid)
                     )
             );
         }
@@ -69,8 +69,8 @@ namespace Tests\Data {
          */
         public function testGetRecord() {
             $this->validateObject(
-                    \Idno\Core\site()->db()->rowToEntity(
-                            \Idno\Core\site()->db()->getRecord(self::$id)
+                    \Idno\Core\Idno::site()->db()->rowToEntity(
+                            \Idno\Core\Idno::site()->db()->getRecord(self::$id)
                     )
             );
         }
@@ -79,13 +79,13 @@ namespace Tests\Data {
          * Attempt to get any object
          */
         public function testGetAnyRecord() {
-            $obj = \Idno\Core\site()->db()->getAnyRecord();
+            $obj = \Idno\Core\Idno::site()->db()->getAnyRecord();
            
             $this->assertFalse(empty($obj));
             if (is_array($obj))
             {
                 print "WARNING: getAnyRecord for this DataConcierge returned an Array. This is inconsistent, but we're converting.";
-                $obj = \Idno\Core\site()->db()->rowToEntity($obj);
+                $obj = \Idno\Core\Idno::site()->db()->rowToEntity($obj);
             }
             
             $this->assertTrue(is_object($obj));
@@ -132,7 +132,7 @@ namespace Tests\Data {
         public function testSearchShort() {
             $search = array();
 
-            $search = \Idno\Core\site()->db()->createSearchArray("sear");
+            $search = \Idno\Core\Idno::site()->db()->createSearchArray("sear");
 
             $count = \Idno\Entities\GenericDataItem::countFromX('Idno\Entities\GenericDataItem', $search);
             $this->assertTrue(is_int($count));
@@ -165,7 +165,7 @@ namespace Tests\Data {
             
             $search = array();
 
-            $search = \Idno\Core\site()->db()->createSearchArray("language");
+            $search = \Idno\Core\Idno::site()->db()->createSearchArray("language");
 
             $count = \Idno\Entities\GenericDataItem::countFromX('Idno\Entities\GenericDataItem', $search);
             $this->assertTrue(is_int($count));

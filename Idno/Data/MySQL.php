@@ -19,33 +19,33 @@
             {
 
                 try {
-                    $connection_string = 'mysql:host=' . \Idno\Core\site()->config()->dbhost . ';dbname=' . \Idno\Core\site()->config()->dbname . ';charset=utf8';
-                    if (!empty(\Idno\Core\site()->config()->dbport)) {
-                        $connection_string .= ';port=' . \Idno\Core\site()->config()->dbport;
+                    $connection_string = 'mysql:host=' . \Idno\Core\Idno::site()->config()->dbhost . ';dbname=' . \Idno\Core\Idno::site()->config()->dbname . ';charset=utf8';
+                    if (!empty(\Idno\Core\Idno::site()->config()->dbport)) {
+                        $connection_string .= ';port=' . \Idno\Core\Idno::site()->config()->dbport;
                     }
-                    $this->client = new \PDO($connection_string, \Idno\Core\site()->config()->dbuser, \Idno\Core\site()->config()->dbpass, array(\PDO::MYSQL_ATTR_LOCAL_INFILE => 1));
+                    $this->client = new \PDO($connection_string, \Idno\Core\Idno::site()->config()->dbuser, \Idno\Core\Idno::site()->config()->dbpass, array(\PDO::MYSQL_ATTR_LOCAL_INFILE => 1));
                     $this->client->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
                     //$this->client->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
                 } catch (\Exception $e) {
                     error_log($e->getMessage());
-                    if (!empty(\Idno\Core\site()->config()->forward_on_empty)) {
-                        header('Location: ' . \Idno\Core\site()->config()->forward_on_empty);
+                    if (!empty(\Idno\Core\Idno::site()->config()->forward_on_empty)) {
+                        header('Location: ' . \Idno\Core\Idno::site()->config()->forward_on_empty);
                         exit;
                     } else {
                         
                         http_response_code(500);
                         
-                        if (\Idno\Core\site()->config()->debug) {
+                        if (\Idno\Core\Idno::site()->config()->debug) {
                             $message = '<p>' . $e->getMessage() . '</p>';
                             $message .= '<p>' . $connection_string . '</p>';
                         }
                         error_log($e->getMessage());
-                        include \Idno\Core\site()->config()->path . '/statics/db.php';
+                        include \Idno\Core\Idno::site()->config()->path . '/statics/db.php';
                         exit;
                     }
                 }
 
-                $this->database = \Idno\Core\site()->config()->dbname;
+                $this->database = \Idno\Core\Idno::site()->config()->dbname;
                 $this->checkAndUpgradeSchema();
 
             }
@@ -69,7 +69,7 @@
                                         $statement = $client->prepare($sql);
                                         $statement->execute();
                                     } catch (\Exception $e) {
-                                        //\Idno\Core\site()->logging()->log($e->getMessage());
+                                        //\Idno\Core\Idno::site()->logging()->log($e->getMessage());
                                         error_log($e->getMessage());
                                     }
                                 }
@@ -81,7 +81,7 @@
                                         $statement = $client->prepare($sql);
                                         $statement->execute();
                                     } catch (\Exception $e) {
-                                        //\Idno\Core\site()->logging()->log($e->getMessage());
+                                        //\Idno\Core\Idno::site()->logging()->log($e->getMessage());
                                         error_log($e->getMessage());
                                     }
                                 }
@@ -106,7 +106,7 @@
                         return $statement->fetchAll(\PDO::FETCH_OBJ);
                     }
                 } catch (\Exception $e) {
-                    //\Idno\Core\site()->logging()->log($e->getMessage());
+                    //\Idno\Core\Idno::site()->logging()->log($e->getMessage());
                     error_log($e->getMessage());
                 }
 
@@ -136,7 +136,7 @@
             function handleSession()
             {
                 if (version_compare(phpversion(), '5.3', '>')) {
-                    $sessionHandler = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler(\Idno\Core\site()->db()->getClient(),
+                    $sessionHandler = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler(\Idno\Core\Idno::site()->db()->getClient(),
                         array(
                             'db_table'    => 'session',
                             'db_id_col'   => 'session_id',
@@ -219,7 +219,7 @@
                     $array['_id'] = md5(rand() . microtime(true));
                 }
                 if (empty($array['uuid'])) {
-                    $array['uuid'] = \Idno\Core\site()->config()->getURL() . 'view/' . $array['_id'];
+                    $array['uuid'] = \Idno\Core\Idno::site()->config()->getURL() . 'view/' . $array['_id'];
                 }
                 if (empty($array['owner'])) {
                     $array['owner'] = '';
@@ -228,7 +228,7 @@
                     $contents = json_encode($array);
                 } catch (\Exception $e) {
                     $contents = json_encode([]);
-                    \Idno\Core\site()->logging()->log($e->getMessage());
+                    \Idno\Core\Idno::site()->logging()->log($e->getMessage());
 
                     return false;
                 }
@@ -297,7 +297,7 @@
                                         $value = json_encode($value);
                                     } catch (\Exception $e) {
                                         $value = json_encode([]);
-                                        \Idno\Core\site()->logging()->log($e->getMessage());
+                                        \Idno\Core\Idno::site()->logging()->log($e->getMessage());
                                     }
                                 }
                                 if (empty($value)) {
@@ -312,7 +312,7 @@
                         return $array['_id'];
                     }
                 } catch (\Exception $e) {
-                    \Idno\Core\site()->logging()->log($e->getMessage());
+                    \Idno\Core\Idno::site()->logging()->log($e->getMessage());
                 }
 
                 return false;
@@ -355,7 +355,7 @@
                         return $statement->fetch(\PDO::FETCH_ASSOC);
                     }
                 } catch (\Exception $e) {
-                    \Idno\Core\site()->logging()->log($e->getMessage());
+                    \Idno\Core\Idno::site()->logging()->log($e->getMessage());
                 }
 
                 return false;
@@ -422,7 +422,7 @@
                         }
                     }
                 } catch (\Exception $e) {
-                    if (\Idno\Core\site()->session() == null)
+                    if (\Idno\Core\Idno::site()->session() == null)
                         die($e->getMessage());
                 }
 
@@ -472,7 +472,7 @@
                 }
 
                 // Make sure we're only getting objects that we're allowed to see
-                $readGroups                 = \Idno\Core\site()->session()->getReadAccessGroupIDs();
+                $readGroups                 = \Idno\Core\Idno::site()->session()->getReadAccessGroupIDs();
                 $query_parameters['access'] = array('$in' => $readGroups);
 
                 // Join the rest of the search query elements to this search
@@ -541,7 +541,7 @@
                     }
 
                 } catch (\Exception $e) {
-                    \Idno\Core\site()->logging()->log($e->getMessage());
+                    \Idno\Core\Idno::site()->logging()->log($e->getMessage());
 
                     return false;
                 }
@@ -686,7 +686,7 @@
             function exportRecords($collection = 'entities')
             {
                 try {
-                    $file   = tempnam(\Idno\Core\site()->config()->getTempDir(), 'sqldump');
+                    $file   = tempnam(\Idno\Core\Idno::site()->config()->getTempDir(), 'sqldump');
                     $client = $this->client;
                     /* @var \PDO $client */
                     $statement = $client->prepare("select * from {$collection}");
@@ -699,7 +699,7 @@
                                 return '`' . $v . '`';
                             }, $fields);
                             $object = array_map(function ($v) {
-                                return \Idno\Core\site()->db()->getClient()->quote($v);
+                                return \Idno\Core\Idno::site()->db()->getClient()->quote($v);
                             }, $object);
                             $line   = 'insert into ' . $collection . ' ';
                             $line .= '(' . implode(',', $fields) . ')';
@@ -714,7 +714,7 @@
                                         return '`' . $v . '`';
                                     }, $fields);
                                     $object = array_map(function ($v) {
-                                        return \Idno\Core\site()->db()->getClient()->quote($v);
+                                        return \Idno\Core\Idno::site()->db()->getClient()->quote($v);
                                     }, $object);
                                     $line   = 'insert into metadata ';
                                     $line .= '(' . implode(',', $fields) . ')';
@@ -734,7 +734,7 @@
 
                     return $output;
                 } catch (\Exception $e) {
-                    \Idno\Core\site()->logging()->log($e->getMessage());
+                    \Idno\Core\Idno::site()->logging()->log($e->getMessage());
 
                     return false;
                 }
@@ -778,7 +778,7 @@
                 }
 
                 // Make sure we're only getting objects that we're allowed to see
-                $readGroups                 = \Idno\Core\site()->session()->getReadAccessGroupIDs();
+                $readGroups                 = \Idno\Core\Idno::site()->session()->getReadAccessGroupIDs();
                 $query_parameters['access'] = array('$in' => $readGroups);
 
                 // Join the rest of the search query elements to this search
@@ -821,7 +821,7 @@
                     }
 
                 } catch (Exception $e) {
-                    \Idno\Core\site()->logging()->log($e->getMessage());
+                    \Idno\Core\Idno::site()->logging()->log($e->getMessage());
 
                     return false;
                 }
@@ -862,7 +862,7 @@
 
                 } catch (\Exception $e) {
 
-                    \Idno\Core\site()->logging()->log($e->getMessage());
+                    \Idno\Core\Idno::site()->logging()->log($e->getMessage());
 
                     return false;
 
@@ -900,7 +900,7 @@
          */
         function db()
         {
-            return \Idno\Core\site()->db();
+            return \Idno\Core\Idno::site()->db();
         }
 
     }

@@ -70,7 +70,7 @@
                 site()->addPageHandler('/currentUser/?', '\Idno\Pages\Session\CurrentUser');
 
                 // Update the session on save, this is a shim until #46 is fixed properly with #49
-                \Idno\Core\site()->addEventHook('save', function (\Idno\Core\Event $event) {
+                \Idno\Core\Idno::site()->addEventHook('save', function (\Idno\Core\Event $event) {
 
                     $eventdata = $event->data();
                     $object    = $eventdata['object'];
@@ -375,9 +375,9 @@
 
                 if (!empty($_SERVER['HTTP_X_KNOWN_USERNAME']) && !empty($_SERVER['HTTP_X_KNOWN_SIGNATURE'])) {
 
-                    \Idno\Core\site()->session()->setIsAPIRequest(true);
-                    if (!\Idno\Common\Page::isSSL() && !\Idno\Core\site()->config()->disable_cleartext_warning) {
-                        \Idno\Core\site()->session()->addErrorMessage("Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini");
+                    \Idno\Core\Idno::site()->session()->setIsAPIRequest(true);
+                    if (!\Idno\Common\Page::isSSL() && !\Idno\Core\Idno::site()->config()->disable_cleartext_warning) {
+                        \Idno\Core\Idno::site()->session()->addErrorMessage("Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini");
                     }
 
                     $t = site()->currentPage()->getInput('_t');
@@ -393,7 +393,7 @@
 
                         if ($hmac == $compare_hmac) {
 
-                            \Idno\Core\site()->session()->logUserOn($user);
+                            \Idno\Core\Idno::site()->session()->logUserOn($user);
 
                             return $user;
 
@@ -404,10 +404,10 @@
 
                 // We're not logged in yet, so try and authenticate using other mechanism
                 if ($return = site()->triggerEvent('user/auth/api', [], false)) {
-                    \Idno\Core\site()->session()->setIsAPIRequest(true);
+                    \Idno\Core\Idno::site()->session()->setIsAPIRequest(true);
 
-                    if (!\Idno\Common\Page::isSSL() && !\Idno\Core\site()->config()->disable_cleartext_warning) {
-                        \Idno\Core\site()->session()->addErrorMessage("Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini");
+                    if (!\Idno\Common\Page::isSSL() && !\Idno\Core\Idno::site()->config()->disable_cleartext_warning) {
+                        \Idno\Core\Idno::site()->session()->addErrorMessage("Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini");
                     }
                 }
 
@@ -421,7 +421,7 @@
                     }
 
                     site()->logging()->log("API Login failure from $ip", LOGLEVEL_ERROR); 
-                    //\Idno\Core\site()->triggerEvent('login/failure/api'); // Can't be used until #918 is fixed.
+                    //\Idno\Core\Idno::site()->triggerEvent('login/failure/api'); // Can't be used until #918 is fixed.
                     
                     site()->currentPage()->deniedContent();
                 }
@@ -445,7 +445,7 @@
                 }
                 $return = $this->refreshSessionUser($user);
                 @session_regenerate_id(true);
-                return \Idno\Core\site()->triggerEvent('user/auth', array('user' => $user), $return);
+                return \Idno\Core\Idno::site()->triggerEvent('user/auth', array('user' => $user), $return);
             }
 
             /**
@@ -527,7 +527,7 @@
                         $class = get_class(site()->currentPage());
                         if (!site()->isPageHandlerPublic($class)) {
                             site()->currentPage()->setResponse(403);
-                            if (!\Idno\Core\site()->session()->isAPIRequest()) {
+                            if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
                                 site()->currentPage()->forward(site()->config()->getURL() . 'session/login/?fwd=' . urlencode($_SERVER['REQUEST_URI']));
                             } else {
                                 site()->currentPage()->deniedContent();

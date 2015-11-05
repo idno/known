@@ -13,7 +13,7 @@
                 $src = $url . 'preview.png';
             }
         } else {
-            $src = \Idno\Core\site()->config()->getDisplayURL() . 'gfx/themes/default.png';
+            $src = \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/themes/default.png';
         }
         if (!empty($src)) {
 
@@ -21,16 +21,16 @@
     <p><?php
 
             echo '<img src="' . $src . '" style="width: 100%">';
-            //echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'admin/themes/', '<img src="' . $src . '" style="width: 100%">', array('theme' => $vars['theme']['shortname'], 'action' => 'install'), array('class' => ''));
+            //echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/themes/', '<img src="' . $src . '" style="width: 100%">', array('theme' => $vars['theme']['shortname'], 'action' => 'install'), array('class' => ''));
 
         ?></p>
     <?php
         }
     ?>
-    <h4><?= $vars['theme']['Theme description']['name'] ?> <?php if (\Idno\Core\site()->themes()->get() == $vars['theme']['shortname']) {
+    <h4><?= $vars['theme']['Theme description']['name'] ?> <?php if (\Idno\Core\Idno::site()->themes()->get() == $vars['theme']['shortname']) {
             echo '(Selected)';
         } else {
-            echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'admin/themes/', 'Enable', array('theme' => $vars['theme']['shortname'], 'action' => 'install'), array('class' => 'pull-right btn btn-primary')); 
+            echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/themes/', 'Enable', array('theme' => $vars['theme']['shortname'], 'action' => 'install'), array('class' => 'pull-right btn btn-primary'));
         }
 ?></h4>
 

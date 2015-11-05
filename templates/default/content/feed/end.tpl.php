@@ -30,8 +30,8 @@
                     $heart_text = $likes . ' stars';
                 }
                 $heart = $heart_only . ' ' . $heart_text;
-                if (\Idno\Core\site()->session()->isLoggedOn()) {
-                    echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'annotation/post', $heart_only, array('type' => 'like', 'object' => $vars['object']->getUUID()), array('method' => 'POST', 'class' => 'stars'));
+                if (\Idno\Core\Idno::site()->session()->isLoggedOn()) {
+                    echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'annotation/post', $heart_only, array('type' => 'like', 'object' => $vars['object']->getUUID()), array('method' => 'POST', 'class' => 'stars'));
                     ?>
                     <a class="stars" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?= $heart_text ?></a>
                 <?php
@@ -61,7 +61,7 @@
         <br clear="all"/>
         <?php
 
-        if (\Idno\Core\site()->currentPage()->isPermalink()) {
+        if (\Idno\Core\Idno::site()->currentPage()->isPermalink()) {
 
             if (!empty($likes) || !empty($replies) || !empty($shares) || !empty($rsvps)) {
 
@@ -119,7 +119,7 @@
 
         } else {
 
-            if (\Idno\Core\site()->session()->isLoggedOn()) {
+            if (\Idno\Core\Idno::site()->session()->isLoggedOn()) {
                 echo $this->draw('entity/annotations/comment/mini');
             }
 

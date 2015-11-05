@@ -65,10 +65,10 @@
             function getCategoryTitle()
             {
                 if (!empty($this->category_title)) {
-                    return \Idno\Core\site()->language()->get($this->category_title);
+                    return \Idno\Core\Idno::site()->language()->get($this->category_title);
                 }
 
-                return \Idno\Core\site()->language()->get($this->getTitle());
+                return \Idno\Core\Idno::site()->language()->get($this->getTitle());
             }
 
             /**
@@ -77,7 +77,7 @@
              */
             function getTitle()
             {
-                return \Idno\Core\site()->language()->get($this->title);
+                return \Idno\Core\Idno::site()->language()->get($this->title);
             }
 
             /**
@@ -134,7 +134,7 @@
                         /* @var ContentType $contentType */
                         $categoryTitle = $contentType->getCategoryTitleSlug();
                         if ($friendly_name == str_replace(' ', '', trim(strtolower($categoryTitle)))) {
-                            return \Idno\Core\site()->language()->get($contentType->getCategoryTitle());
+                            return \Idno\Core\Idno::site()->language()->get($contentType->getCategoryTitle());
                         }
                     }
                 }
@@ -254,7 +254,7 @@
              */
             function getIcon()
             {
-                return \Idno\Core\site()->template()->draw('entity/' . $this->getEntityClassName() . '/icon');
+                return \Idno\Core\Idno::site()->template()->draw('entity/' . $this->getEntityClassName() . '/icon');
             }
 
             /**
@@ -298,7 +298,7 @@
              */
             function getEditURL()
             {
-                return \Idno\Core\site()->config()->url . $this->camelCase($this->getEntityClassName()) . '/edit';
+                return \Idno\Core\Idno::site()->config()->url . $this->camelCase($this->getEntityClassName()) . '/edit';
             }
 
         }

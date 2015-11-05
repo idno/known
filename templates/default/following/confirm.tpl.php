@@ -2,11 +2,11 @@
 
     <div class="col-md-10 col-md-offset-1">
 
-        <form action="<?=\Idno\Core\site()->config()->getDisplayURL()?>following/confirm/" method="post">
+        <form action="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>following/confirm/" method="post">
             <h1>
                 Follow <?=$vars['feed']->getTitle()?>? <input type="submit" class="btn btn-primary" value="Follow">
                 <input type="hidden" name="feed" value="<?=htmlspecialchars($vars['feed']->getDisplayURL())?>">
-                <?=\Idno\Core\site()->actions()->signForm('following/confirm')?>
+                <?=\Idno\Core\Idno::site()->actions()->signForm('following/confirm')?>
             </h1>
             <p class="explanation">
                 Here's the latest content.

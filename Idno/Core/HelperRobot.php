@@ -18,7 +18,7 @@
             function registerEventHooks()
             {
 
-                \Idno\Core\site()->addEventHook('saved', function (\Idno\Core\Event $event) {
+                \Idno\Core\Idno::site()->addEventHook('saved', function (\Idno\Core\Event $event) {
 
                     $eventdata = $event->data();
                     if ($object = $eventdata['object']) {

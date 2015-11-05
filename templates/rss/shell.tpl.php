@@ -22,18 +22,18 @@
     $rss->setAttribute('xmlns:itunes', 'http://www.itunes.com/dtds/podcast-1.0.dtd');
     $channel = $page->createElement('channel');
     $channel->appendChild($page->createElement('title',$vars['title']));
-    if (!empty(\Idno\Core\site()->config()->description)) {
+    if (!empty(\Idno\Core\Idno::site()->config()->description)) {
         $site_description = $page->createElement('description');
-        $site_description->appendChild($page->createCDATASection(\Idno\Core\site()->config()->description));
+        $site_description->appendChild($page->createCDATASection(\Idno\Core\Idno::site()->config()->description));
         $channel->appendChild($site_description);
         $site_description = $page->createElement('itunes:summary');
-        $site_description->appendChild($page->createCDATASection(\Idno\Core\site()->config()->description));
+        $site_description->appendChild($page->createCDATASection(\Idno\Core\Idno::site()->config()->description));
         $channel->appendChild($site_description);
     }
     $channel->appendChild($page->createElement('link',$this->getCurrentURLWithoutVar('_t')));
-    if (!empty(\Idno\Core\site()->config()->hub)) {
+    if (!empty(\Idno\Core\Idno::site()->config()->hub)) {
         $pubsub = $page->createElement('atom:link');
-        $pubsub->setAttribute('href',\Idno\Core\site()->config()->hub);
+        $pubsub->setAttribute('href',\Idno\Core\Idno::site()->config()->hub);
         $pubsub->setAttribute('rel', 'hub');
         $channel->appendChild($pubsub);
     }
@@ -88,7 +88,7 @@
              *
                 $webmentionItem = $page->createElement('atom:link');
                 $webmentionItem->setAttribute('rel', 'webmention');
-                $webmentionItem->setAttribute('href', \Idno\Core\site()->config()->getDisplayURL() . 'webmention/');
+                $webmentionItem->setAttribute('href', \Idno\Core\Idno::site()->config()->getDisplayURL() . 'webmention/');
                 $rssItem->appendChild($webmentionItem);
             */
             if ($attachments = $item->getAttachments()) {

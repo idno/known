@@ -107,7 +107,7 @@
              */
             function load()
             {
-                if ($config = \Idno\Core\site()->db()->getAnyRecord('config')) {
+                if ($config = \Idno\Core\Idno::site()->db()->getAnyRecord('config')) {
                     $this->default_config = false;
                     if ($config instanceof \Idno\Common\Entity) {
                         $config = $config->getAttributes();
@@ -223,7 +223,7 @@
                 unset($array['known_hubs']);
                 unset($array['directloadplugins']);
 
-                if (\Idno\Core\site()->db()->saveRecord('config', $array)) {
+                if (\Idno\Core\Idno::site()->db()->saveRecord('config', $array)) {
                     $this->init();
                     $this->load();
 
@@ -375,10 +375,10 @@
              */
             function sanitizeAttachmentURL($url)
             {
-                if (!empty(\Idno\Core\site()->config()->attachment_base_host)) {
+                if (!empty(\Idno\Core\Idno::site()->config()->attachment_base_host)) {
                     $host = parse_url($url, PHP_URL_HOST);
 
-                    return str_replace($host, \Idno\Core\site()->config()->attachment_base_host, $url);
+                    return str_replace($host, \Idno\Core\Idno::site()->config()->attachment_base_host, $url);
                 }
 
                 return $url;

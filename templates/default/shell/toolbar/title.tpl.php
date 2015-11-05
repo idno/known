@@ -1,3 +1,3 @@
 <?php
 
-    echo \Idno\Core\site()->config()->title;
+    echo \Idno\Core\Idno::site()->config()->title;

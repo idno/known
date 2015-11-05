@@ -2,9 +2,9 @@
 
     if (!empty($vars['contentTypes'])) {
 
-        if (\Idno\Core\site()->canWrite()) {
+        if (\Idno\Core\Idno::site()->canWrite()) {
             echo $this->draw('content/create');
-            if (!empty(\Idno\Core\site()->session()->currentUser()->robot_state)) {
+            if (!empty(\Idno\Core\Idno::site()->session()->currentUser()->robot_state)) {
                 echo $this->draw('robot/wizard');
             }
         }

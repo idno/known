@@ -38,8 +38,8 @@
                     $this->detectTemplateType();
                 }
 
-                assert('\Idno\Core\site()->config()->site_secret /* Site secret not set */');
-                \Bonita\Main::siteSecret(\Idno\Core\site()->config()->site_secret);
+                assert('\Idno\Core\Idno::site()->config()->site_secret /* Site secret not set */');
+                \Bonita\Main::siteSecret(\Idno\Core\Idno::site()->config()->site_secret);
 
                 $this->purifier = new Purifier();
 
@@ -107,7 +107,7 @@
              */
             function drawSyndication($content_type)
             {
-                return $this->__(array('services' => \Idno\Core\site()->syndication()->getServices($content_type), 'content_type' => $content_type))->draw('content/syndication');
+                return $this->__(array('services' => \Idno\Core\Idno::site()->syndication()->getServices($content_type), 'content_type' => $content_type))->draw('content/syndication');
             }
 
             /**
@@ -119,8 +119,8 @@
             function drawPagination($count, $items_per_page = null)
             {
 
-                if ($items_per_page == null) $items_per_page = \Idno\Core\site()->config()->items_per_page;
-                $page   = \Idno\Core\site()->currentPage();
+                if ($items_per_page == null) $items_per_page = \Idno\Core\Idno::site()->config()->items_per_page;
+                $page   = \Idno\Core\Idno::site()->currentPage();
                 $offset = (int)$page->getInput('offset');
                 if ($offset == 0 && $count < $items_per_page) {
                     return '';
@@ -293,7 +293,7 @@
                         return $matches[1];
                     }
 
-                    return '<a href="' . \Idno\Core\site()->config()->getDisplayURL() . 'tag/' . urlencode($tag) . '" class="p-category" rel="tag">' . $url . '</a>';
+                    return '<a href="' . \Idno\Core\Idno::site()->config()->getDisplayURL() . 'tag/' . urlencode($tag) . '" class="p-category" rel="tag">' . $url . '</a>';
                 }, $text);
 
                 return $r;
@@ -404,7 +404,7 @@
                         $username = ltrim($matches[1], '@');
 
                         if ($user = User::getByHandle($username)) {
-                            return '<a href="' . \Idno\Core\site()->config()->url . 'profile/' . urlencode($username) . '" >' . $url . '</a>';
+                            return '<a href="' . \Idno\Core\Idno::site()->config()->url . 'profile/' . urlencode($username) . '" >' . $url . '</a>';
                         } else {
                             return $url;
                         }
@@ -470,7 +470,7 @@
                     }
                 }
 
-                return \Idno\Core\site()->config()->getDisplayURL() . $request_uri;
+                return \Idno\Core\Idno::site()->config()->getDisplayURL() . $request_uri;
             }
 
             /**

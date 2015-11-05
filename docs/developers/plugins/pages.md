@@ -23,12 +23,12 @@ Note that:
 
 ### Defining a new page route
 
-You can define a new page route by calling `\Idno\Core\site()->addPageHandler($route, $class)`. For example, to create
+You can define a new page route by calling `\Idno\Core\Idno::site()->addPageHandler($route, $class)`. For example, to create
 a new page route that handles `http://yoursite.com/testpage/`, your `registerPages()` method might look something like:
 
     function registerPages()
     {
-        \Idno\Core\site()->addPageHandler('/about/?', '\IdnoPlugins\MyPluginName\Pages\MyPage');
+        \Idno\Core\Idno::site()->addPageHandler('/about/?', '\IdnoPlugins\MyPluginName\Pages\MyPage');
     }
 
 Here, your page class should be stored in the `/Pages/` subfolder of your plugin, with the filename `MyPage.php`.
@@ -37,13 +37,13 @@ Here, your page class should be stored in the `/Pages/` subfolder of your plugin
 
 Sometimes you want to override a page route that is provided by the core framework or another plugin. While you can use
 `addPageHandler()` here too, it's not guaranteed to take control of the route. Instead, you should use
-`\Idno\Core\site()->hijackPageHandler($route, $class)`.
+`\Idno\Core\Idno::site()->hijackPageHandler($route, $class)`.
 
 The syntax is the same:
 
     function registerPages()
     {
-        \Idno\Core\site()->hijackPageHandler('/existing/?', '\IdnoPlugins\MyPluginName\Pages\MyExistingPage');
+        \Idno\Core\Idno::site()->hijackPageHandler('/existing/?', '\IdnoPlugins\MyPluginName\Pages\MyExistingPage');
     }
 
 ### Making page URLs available publicly on non-public sites
@@ -56,8 +56,8 @@ examples used above, this would look like:
 
     function registerPages()
     {
-        \Idno\Core\site()->addPageHandler('/about/?', '\IdnoPlugins\MyPluginName\Pages\MyPage', true);
-        \Idno\Core\site()->hijackPageHandler('/existing/?', '\IdnoPlugins\MyPluginName\Pages\MyExistingPage', true);
+        \Idno\Core\Idno::site()->addPageHandler('/about/?', '\IdnoPlugins\MyPluginName\Pages\MyPage', true);
+        \Idno\Core\Idno::site()->hijackPageHandler('/existing/?', '\IdnoPlugins\MyPluginName\Pages\MyExistingPage', true);
     }
 
 ## Handling page loads
@@ -83,7 +83,7 @@ a simple [template](../templating/index.md), you could use:
 
     function getContent()
     {
-        $t = \Idno\Core\site()->template();
+        $t = \Idno\Core\Idno::site()->template();
         $t->body  = $t->draw('template/name/');
         $t->title = 'Title of your page';
         $t->drawPage();
@@ -95,7 +95,7 @@ Handling a POST request is very similar to handling GET requests. You just call 
 
     function postContent()
     {
-        $t = \Idno\Core\site()->template();
+        $t = \Idno\Core\Idno::site()->template();
         $t->body  = $t->draw('template/name/');
         $t->title = 'Title of your page';
         $t->drawPage();
@@ -139,7 +139,7 @@ For example, to forward the user to `/some/arbitrary/page`:
 
     function getContent()
     {
-        $this->forward(\Idno\Core\site()->getDisplayURL() . 'some/arbitrary/page/');
+        $this->forward(\Idno\Core\Idno::site()->getDisplayURL() . 'some/arbitrary/page/');
     }
 
 #### Require authentication

@@ -17,7 +17,7 @@
         <div class="explanation">Turn off content types to hide them from the homepage of your site.
         </div>
         <br>
-        <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/homepage" method="post"
+        <form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>admin/homepage" method="post"
               class="form-horizontal" enctype="multipart/form-data">
 
             <div class="control-group">
@@ -107,7 +107,7 @@
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </div>
-            <?= \Idno\Core\site()->actions()->signForm('/admin/homepage') ?>
+            <?= \Idno\Core\Idno::site()->actions()->signForm('/admin/homepage') ?>
 
         </form>
     </div>

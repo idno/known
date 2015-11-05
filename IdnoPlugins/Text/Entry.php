@@ -34,7 +34,7 @@
                 }
 
                 if (!$this->getSlug() && ($this->getID())) {
-                    return \Idno\Core\site()->config()->url . 'entry/' . $this->getID() . '/' . $this->getPrettyURLTitle();
+                    return \Idno\Core\Idno::site()->config()->url . 'entry/' . $this->getID() . '/' . $this->getPrettyURLTitle();
                 } else {
                     return parent::getURL();
                 }
@@ -73,16 +73,16 @@
                 } else {
                     $new = false;
                 }
-                $body = \Idno\Core\site()->currentPage()->getInput('body');
+                $body = \Idno\Core\Idno::site()->currentPage()->getInput('body');
                 if (!empty($body)) {
 
                     $this->body  = $body;
-                    $this->title = \Idno\Core\site()->currentPage()->getInput('title');
-                    $this->tags  = \Idno\Core\site()->currentPage()->getInput('tags');
-                    $access      = \Idno\Core\site()->currentPage()->getInput('access');
+                    $this->title = \Idno\Core\Idno::site()->currentPage()->getInput('title');
+                    $this->tags  = \Idno\Core\Idno::site()->currentPage()->getInput('tags');
+                    $access      = \Idno\Core\Idno::site()->currentPage()->getInput('access');
                     $this->setAccess($access);
 
-                    if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
+                    if ($time = \Idno\Core\Idno::site()->currentPage()->getInput('created')) {
                         if ($time = strtotime($time)) {
                             $this->created = $time;
                         }
@@ -93,12 +93,12 @@
                         $autosave = new Autosave();
                         $autosave->clearContext('entry');
 
-                        \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getTitle() . ' ' . $this->getDescription()));
+                        \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getTitle() . ' ' . $this->getDescription()));
 
                         return true;
                     }
                 } else {
-                    \Idno\Core\site()->session()->addErrorMessage('You can\'t save an empty entry.');
+                    \Idno\Core\Idno::site()->session()->addErrorMessage('You can\'t save an empty entry.');
                 }
 
                 return false;
@@ -107,7 +107,7 @@
 
             function deleteData()
             {
-                \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getTitle() . ' ' . $this->getDescription()));
+                \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getTitle() . ' ' . $this->getDescription()));
             }
 
         }

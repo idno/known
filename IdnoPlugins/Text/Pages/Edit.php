@@ -17,7 +17,7 @@
                     $object = new \IdnoPlugins\Text\Entry();
                 }
 
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
                 $body = $t->__(array(
                     'object' => $object
                 ))->draw('entity/Entry/edit');
@@ -48,7 +48,7 @@
 
                 if ($object->saveDataFromInput($this)) {
                     (new \Idno\Core\Autosave())->clearContext('entry');
-                    //$this->forward(\Idno\Core\site()->config()->getURL() . 'content/all/');
+                    //$this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'content/all/');
                     //$this->forward($object->getDisplayURL());
                     $forward = $this->getInput('forward-to', $object->getDisplayURL());
                     $this->forward($forward);

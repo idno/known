@@ -27,7 +27,7 @@ namespace Tests {
          * Site secret initialised and reasonably long. (Note, we can't check entropy here)
          */
         public function testSiteSecret() {
-            $this->assertTrue((strlen(\Idno\Core\site()->config()->site_secret)>=64));
+            $this->assertTrue((strlen(\Idno\Core\Idno::site()->config()->site_secret)>=64));
         }
     }
 }

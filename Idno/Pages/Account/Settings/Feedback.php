@@ -14,7 +14,7 @@
             function getContent()
             {
                 $this->createGatekeeper(); // Logged-in only please
-                $t        = \Idno\Core\site()->template();
+                $t        = \Idno\Core\Idno::site()->template();
                 $t->body  = $t->draw('account/settings/feedback');
                 $t->title = 'Send feedback';
                 $t->drawPage();
@@ -31,20 +31,20 @@
 
                     $web_client = new Webservice();
                     $results    = $web_client->post('https://withknown.com/vendor-services/feedback/', array(
-                        'url'     => \Idno\Core\site()->config()->getURL(),
-                        'title'   => \Idno\Core\site()->config()->getTitle(),
-                        'version' => \Idno\Core\site()->getVersion(),
-                        'public'  => \Idno\Core\site()->config()->isPublicSite(),
-                        'hub'     => \Idno\Core\site()->config()->known_hub,
+                        'url'     => \Idno\Core\Idno::site()->config()->getURL(),
+                        'title'   => \Idno\Core\Idno::site()->config()->getTitle(),
+                        'version' => \Idno\Core\Idno::site()->getVersion(),
+                        'public'  => \Idno\Core\Idno::site()->config()->isPublicSite(),
+                        'hub'     => \Idno\Core\Idno::site()->config()->known_hub,
                         'email'   => $email,
                         'message' => $message
                     ));
 
-                    \Idno\Core\site()->session()->addMessage("Thanks! We received your feedback.");
+                    \Idno\Core\Idno::site()->session()->addMessage("Thanks! We received your feedback.");
 
                 }
 
-                $this->forward(\Idno\Core\site()->config()->getURL() . 'account/settings/feedback/confirm/');
+                $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'account/settings/feedback/confirm/');
 
             }
 

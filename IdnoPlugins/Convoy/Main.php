@@ -5,37 +5,37 @@
         class Main extends \Idno\Common\Plugin {
 
             function registerPages() {
-                \Idno\Core\site()->addPageHandler('withknown/settings/?', '\IdnoPlugins\Convoy\Pages\Settings');
-                \Idno\Core\site()->hijackPageHandler('begin/connect/?', '\IdnoPlugins\Convoy\Pages\Connect');
-                \Idno\Core\site()->addPageHandler('account/settings/services/?', '\IdnoPlugins\Convoy\Pages\Services');
-                \Idno\Core\site()->addPageHandler('withknown/syndication/?', '\IdnoPlugins\Convoy\Pages\Syndication');
-                \Idno\Core\site()->addPageHandler('convoy/token/?', '\IdnoPlugins\Convoy\Pages\Token');
+                \Idno\Core\Idno::site()->addPageHandler('withknown/settings/?', '\IdnoPlugins\Convoy\Pages\Settings');
+                \Idno\Core\Idno::site()->hijackPageHandler('begin/connect/?', '\IdnoPlugins\Convoy\Pages\Connect');
+                \Idno\Core\Idno::site()->addPageHandler('account/settings/services/?', '\IdnoPlugins\Convoy\Pages\Services');
+                \Idno\Core\Idno::site()->addPageHandler('withknown/syndication/?', '\IdnoPlugins\Convoy\Pages\Syndication');
+                \Idno\Core\Idno::site()->addPageHandler('convoy/token/?', '\IdnoPlugins\Convoy\Pages\Token');
 
-                //if (\Idno\Core\site()->hub() || \Idno\Core\site()->session()->isAdmin()) {
-                \Idno\Core\site()->template()->extendTemplate('account/menu/items','convoy/account/menu', true);
+                //if (\Idno\Core\Idno::site()->hub() || \Idno\Core\Idno::site()->session()->isAdmin()) {
+                \Idno\Core\Idno::site()->template()->extendTemplate('account/menu/items','convoy/account/menu', true);
                 //}
 
                 if ($this->isConvoyEnabled()) {
-                    \Idno\Core\site()->session()->hub_connect = time();
-                    \Idno\Core\site()->known_hub = new \Idno\Core\Hub('https://domains.withknown.com/');
-                    \Idno\Core\site()->hub()->connect();
-                    \Idno\Core\site()->template()->extendTemplate('content/syndication','convoy/syndication');
-                    \Idno\Core\site()->template()->extendTemplate('content/syndication/embed', 'convoy/syndication/embed');
+                    \Idno\Core\Idno::site()->session()->hub_connect = time();
+                    \Idno\Core\Idno::site()->known_hub = new \Idno\Core\Hub('https://domains.withknown.com/');
+                    \Idno\Core\Idno::site()->hub()->connect();
+                    \Idno\Core\Idno::site()->template()->extendTemplate('content/syndication','convoy/syndication');
+                    \Idno\Core\Idno::site()->template()->extendTemplate('content/syndication/embed', 'convoy/syndication/embed');
                 }
             }
 
             function registerEventHooks() {
-                \Idno\Core\site()->addEventHook('syndicate', function (\Idno\Core\Event $event) {
+                \Idno\Core\Idno::site()->addEventHook('syndicate', function (\Idno\Core\Event $event) {
 
                     $object = $event->data()['object'];
                     $object_type = $event->data()['object_type'];
-                    $syndication = \Idno\Core\site()->currentPage()->getInput('syndication');
+                    $syndication = \Idno\Core\Idno::site()->currentPage()->getInput('syndication');
 
                     $object_array = $object->saveToArray();
                     $object_array['url'] = $object->getURL();
 
-                    if (\Idno\Core\site()->hub()) {
-                        $results = \Idno\Core\site()->hub()->makeCall('hub/user/syndication/post',[
+                    if (\Idno\Core\Idno::site()->hub()) {
+                        $results = \Idno\Core\Idno::site()->hub()->makeCall('hub/user/syndication/post',[
 
                             'object' => $object_array,
                             'object_type' => $object_type,
@@ -68,7 +68,7 @@
              * @return bool
              */
             function getConvoyToken() {
-                if ($token = \Idno\Core\site()->config()->convoy_token) {
+                if ($token = \Idno\Core\Idno::site()->config()->convoy_token) {
                     return $token;
                 }
                 return false;
@@ -79,16 +79,16 @@
              * @param $token
              */
             function saveConvoyToken($token) {
-                \Idno\Core\site()->config()->convoy_token = $token;
-                \Idno\Core\site()->config()->save();
+                \Idno\Core\Idno::site()->config()->convoy_token = $token;
+                \Idno\Core\Idno::site()->config()->save();
             }
 
             /**
              * Removes the Convoy token
              */
             function removeConvoyToken() {
-                \Idno\Core\site()->config()->convoy_token = false;
-                \Idno\Core\site()->config()->save();
+                \Idno\Core\Idno::site()->config()->convoy_token = false;
+                \Idno\Core\Idno::site()->config()->save();
             }
 
         }

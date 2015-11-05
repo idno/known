@@ -15,7 +15,7 @@
                     $object = new \IdnoPlugins\Photo\Photo();
                 }
 
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
                 $body = $t->__(array(
                     'object' => $object
                 ))->draw('entity/Photo/edit');

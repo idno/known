@@ -12,21 +12,21 @@
             function registerPages()
             {
 
-                \Idno\Core\site()->addPageHandler('/staticpages?/edit/?', 'IdnoPlugins\StaticPages\Pages\Edit');
-                \Idno\Core\site()->addPageHandler('/staticpages?/edit/([A-Za-z0-9]+)/?', '\IdnoPlugins\StaticPages\Pages\Edit');
-                \Idno\Core\site()->addPageHandler('/staticpages?/delete/([A-Za-z0-9]+)/?', '\IdnoPlugins\StaticPages\Pages\Delete');
-                \Idno\Core\site()->addPageHandler('/admin/staticpages/?', 'IdnoPlugins\StaticPages\Pages\Admin');
-                \Idno\Core\site()->addPageHandler('/admin/staticpages/add/?', 'IdnoPlugins\StaticPages\Pages\Admin\AddCategory');
-                \Idno\Core\site()->addPageHandler('/admin/staticpages/edit/?', 'IdnoPlugins\StaticPages\Pages\Admin\EditCategory');
-                \Idno\Core\site()->addPageHandler('/admin/staticpages/delete/?', 'IdnoPlugins\StaticPages\Pages\Admin\DeleteCategory');
-                \Idno\Core\site()->addPageHandler('/admin/staticpages/categories/?', 'IdnoPlugins\StaticPages\Pages\Admin\Categories');
-                \Idno\Core\site()->addPageHandler('/admin/staticpages/reorder/?', 'IdnoPlugins\StaticPages\Pages\Admin\ReorderCategory');
-                \Idno\Core\site()->addPageHandler('/admin/staticpages/reorder/page/?', 'IdnoPlugins\StaticPages\Pages\Admin\ReorderPage');
+                \Idno\Core\Idno::site()->addPageHandler('/staticpages?/edit/?', 'IdnoPlugins\StaticPages\Pages\Edit');
+                \Idno\Core\Idno::site()->addPageHandler('/staticpages?/edit/([A-Za-z0-9]+)/?', '\IdnoPlugins\StaticPages\Pages\Edit');
+                \Idno\Core\Idno::site()->addPageHandler('/staticpages?/delete/([A-Za-z0-9]+)/?', '\IdnoPlugins\StaticPages\Pages\Delete');
+                \Idno\Core\Idno::site()->addPageHandler('/admin/staticpages/?', 'IdnoPlugins\StaticPages\Pages\Admin');
+                \Idno\Core\Idno::site()->addPageHandler('/admin/staticpages/add/?', 'IdnoPlugins\StaticPages\Pages\Admin\AddCategory');
+                \Idno\Core\Idno::site()->addPageHandler('/admin/staticpages/edit/?', 'IdnoPlugins\StaticPages\Pages\Admin\EditCategory');
+                \Idno\Core\Idno::site()->addPageHandler('/admin/staticpages/delete/?', 'IdnoPlugins\StaticPages\Pages\Admin\DeleteCategory');
+                \Idno\Core\Idno::site()->addPageHandler('/admin/staticpages/categories/?', 'IdnoPlugins\StaticPages\Pages\Admin\Categories');
+                \Idno\Core\Idno::site()->addPageHandler('/admin/staticpages/reorder/?', 'IdnoPlugins\StaticPages\Pages\Admin\ReorderCategory');
+                \Idno\Core\Idno::site()->addPageHandler('/admin/staticpages/reorder/page/?', 'IdnoPlugins\StaticPages\Pages\Admin\ReorderPage');
 
-                \Idno\Core\site()->addPageHandler('/pages/([A-Za-z0-9\-\_]+)/?', 'IdnoPlugins\StaticPages\Pages\View');
+                \Idno\Core\Idno::site()->addPageHandler('/pages/([A-Za-z0-9\-\_]+)/?', 'IdnoPlugins\StaticPages\Pages\View');
 
-                \Idno\Core\site()->template()->extendTemplate('admin/menu/items', 'staticpages/admin/menu');
-                \Idno\Core\site()->template()->prependTemplate('shell/toolbar/links', 'staticpages/toolbar', true);
+                \Idno\Core\Idno::site()->template()->extendTemplate('admin/menu/items', 'staticpages/admin/menu');
+                \Idno\Core\Idno::site()->template()->prependTemplate('shell/toolbar/links', 'staticpages/toolbar', true);
 
             }
 
@@ -39,15 +39,15 @@
             function saveCategories($categories)
             {
 
-                if (\Idno\Core\site()->session()->isLoggedIn()) {
-                    if (\Idno\Core\site()->session()->currentUser()->isAdmin()) {
+                if (\Idno\Core\Idno::site()->session()->isLoggedIn()) {
+                    if (\Idno\Core\Idno::site()->session()->currentUser()->isAdmin()) {
 
                         if (is_array($categories)) {
                             $categories = implode("\n", $categories);
                         }
-                        \Idno\Core\site()->config->staticPages = ['categories' => $categories];
+                        \Idno\Core\Idno::site()->config->staticPages = ['categories' => $categories];
 
-                        return \Idno\Core\site()->config->save();
+                        return \Idno\Core\Idno::site()->config->save();
 
                     }
                 }
@@ -148,9 +148,9 @@
             function getCategories()
             {
 
-                if (!empty(\Idno\Core\site()->config()->staticPages['categories'])) {
+                if (!empty(\Idno\Core\Idno::site()->config()->staticPages['categories'])) {
                     // Take the categories record and split it into an array
-                    $categories = str_replace("\r", '', \Idno\Core\site()->config()->staticPages['categories']);
+                    $categories = str_replace("\r", '', \Idno\Core\Idno::site()->config()->staticPages['categories']);
                     $categories = explode("\n", $categories);
 
                     // Trim all categories first

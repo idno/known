@@ -9,7 +9,7 @@
             <p>
 
             </p>
-            <form action="<?=\Idno\Core\site()->config()->getDisplayURL()?>account/register" method="post" style="width: 100%" class="form-horizontal">
+            <form action="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>account/register" method="post" style="width: 100%" class="form-horizontal">
                 <div class="control-group">
                    <label class="control-label" for="inputUsername">Your name</label>
                     <div class="controls">
@@ -49,7 +49,7 @@
                         <input type="hidden" name="code" value="<?=htmlspecialchars($vars['code'])?>">
                     </div>
                 </div>
-                <?= \Idno\Core\site()->actions()->signForm('/account/register') ?>
+                <?= \Idno\Core\Idno::site()->actions()->signForm('/account/register') ?>
 
             </form>
         </div>

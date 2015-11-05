@@ -28,12 +28,12 @@
                 }
 
                 // Load webmention-client
-                require_once \Idno\Core\site()->config()->path . '/external/mention-client-php/src/IndieWeb/MentionClient.php';
+                require_once \Idno\Core\Idno::site()->config()->path . '/external/mention-client-php/src/IndieWeb/MentionClient.php';
 
                 // Proxy connection string provided
                 $proxystring = false;
-                if (!empty(\Idno\Core\site()->config()->proxy_string)) {
-                    $proxystring = \Idno\Core\site()->config()->proxy_string;
+                if (!empty(\Idno\Core\Idno::site()->config()->proxy_string)) {
+                    $proxystring = \Idno\Core\Idno::site()->config()->proxy_string;
                 }
 
                 $client = new \Idno\Core\MentionClient($pageURL, $text, $proxystring);
@@ -52,7 +52,7 @@
             {
 
                 // Load webmention-client
-                require_once \Idno\Core\site()->config()->path . '/external/mention-client-php/src/IndieWeb/MentionClient.php';
+                require_once \Idno\Core\Idno::site()->config()->path . '/external/mention-client-php/src/IndieWeb/MentionClient.php';
                 $client = new \Idno\Core\MentionClient($sourceURL);
 
                 return $client->sendWebmentionPayload($targetURL);
@@ -68,12 +68,12 @@
             {
 
                 // Load webmention-client
-                require_once \Idno\Core\site()->config()->path . '/external/mention-client-php/src/IndieWeb/MentionClient.php';
+                require_once \Idno\Core\Idno::site()->config()->path . '/external/mention-client-php/src/IndieWeb/MentionClient.php';
 
                 // Proxy connection string provided
                 $proxystring = false;
-                if (!empty(\Idno\Core\site()->config()->proxy_string)) {
-                    $proxystring = \Idno\Core\site()->config()->proxy_string;
+                if (!empty(\Idno\Core\Idno::site()->config()->proxy_string)) {
+                    $proxystring = \Idno\Core\Idno::site()->config()->proxy_string;
                 }
 
                 $client = new \Idno\Core\MentionClient($pageURL, $sourceBody, $proxystring);
@@ -202,9 +202,9 @@
                                                 // TODO: Don't update the cache image for every webmention
 
                                                 if ($icon = \Idno\Entities\File::createThumbnailFromFile($tmpfname, $name, 300)) {
-                                                    return \Idno\Core\site()->config()->url . 'file/' . (string)$icon;
+                                                    return \Idno\Core\Idno::site()->config()->url . 'file/' . (string)$icon;
                                                 } else if ($icon = \Idno\Entities\File::createFromFile($tmpfname, $name)) {
-                                                    return \Idno\Core\site()->config()->url . 'file/' . (string)$icon;
+                                                    return \Idno\Core\Idno::site()->config()->url . 'file/' . (string)$icon;
                                                 }
 
                                                 unlink($tmpfname);
@@ -228,19 +228,19 @@
 
             function registerPages()
             {
-                \Idno\Core\site()->addPageHandler('/webmention/?', '\Idno\Pages\Webmentions\Endpoint', true);
+                \Idno\Core\Idno::site()->addPageHandler('/webmention/?', '\Idno\Pages\Webmentions\Endpoint', true);
             }
 
             function registerEventHooks()
             {
 
                 // Add webmention headers to the top of the page
-                \Idno\Core\site()->addEventHook('page/head', function (Event $event) {
+                \Idno\Core\Idno::site()->addEventHook('page/head', function (Event $event) {
 
                     if (!empty(site()->config()->hub)) {
                         $eventdata = $event->data();
-                        header('Link: <' . \Idno\Core\site()->config()->getURL() . 'webmention/>; rel="http://webmention.org/"', false);
-                        header('Link: <' . \Idno\Core\site()->config()->getURL() . 'webmention/>; rel="webmention"', false);
+                        header('Link: <' . \Idno\Core\Idno::site()->config()->getURL() . 'webmention/>; rel="http://webmention.org/"', false);
+                        header('Link: <' . \Idno\Core\Idno::site()->config()->getURL() . 'webmention/>; rel="webmention"', false);
                     }
 
                 });

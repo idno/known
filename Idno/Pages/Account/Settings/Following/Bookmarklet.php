@@ -15,7 +15,7 @@
             function getContent()
             {
                 $this->createGatekeeper();
-                $user = \Idno\Core\site()->session()->currentUser();
+                $user = \Idno\Core\Idno::site()->session()->currentUser();
 
                 $u = $this->getInput('u');
 
@@ -26,7 +26,7 @@
 
                         if (isset($return['items'])) {
 
-                            $t     = \Idno\Core\site()->template();
+                            $t     = \Idno\Core\Idno::site()->template();
                             $body  = '';
                             $hcard = array();
 
@@ -48,7 +48,7 @@
                                 ];
 
                                 // Display a warning
-                                \Idno\Core\site()->session()->addErrorMessage('Page did not contain any <a href=\"http://microformats.org/wiki/microformats-2\">Microformats</a> markup... doing my best with what I have!');
+                                \Idno\Core\Idno::site()->session()->addErrorMessage('Page did not contain any <a href=\"http://microformats.org/wiki/microformats-2\">Microformats</a> markup... doing my best with what I have!');
 
                             }
 
@@ -119,7 +119,7 @@
             function postContent()
             {
                 $this->createGatekeeper();
-                $user = \Idno\Core\site()->session()->currentUser();
+                $user = \Idno\Core\Idno::site()->session()->currentUser();
 
                 if ($uuid = $this->getInput('uuid')) {
 
@@ -133,7 +133,7 @@
 
                         // No user found, so create it if it's remote
                         if (!\Idno\Entities\User::isLocalUUID($uuid)) {
-                            \Idno\Core\site()->logging->log("Creating new remote user", LOGLEVEL_DEBUG);
+                            \Idno\Core\Idno::site()->logging->log("Creating new remote user", LOGLEVEL_DEBUG);
 
                             $new_user = new \Idno\Entities\RemoteUser();
 
@@ -150,34 +150,34 @@
 
                         }
                     } else
-                        \Idno\Core\site()->logging->log("New user found as " . $new_user->uuid, LOGLEVEL_DEBUG);
+                        \Idno\Core\Idno::site()->logging->log("New user found as " . $new_user->uuid, LOGLEVEL_DEBUG);
 
                     if ($new_user) {
 
-                        \Idno\Core\site()->logging->log("Trying a follow", LOGLEVEL_DEBUG);
+                        \Idno\Core\Idno::site()->logging->log("Trying a follow", LOGLEVEL_DEBUG);
 
                         if ($user->addFollowing($new_user)) {
 
-                            \Idno\Core\site()->logging->log("User added to following", LOGLEVEL_DEBUG);
+                            \Idno\Core\Idno::site()->logging->log("User added to following", LOGLEVEL_DEBUG);
 
                             if ($user->save()) {
 
-                                \Idno\Core\site()->logging->log("Following saved", LOGLEVEL_DEBUG);
+                                \Idno\Core\Idno::site()->logging->log("Following saved", LOGLEVEL_DEBUG);
 
                                 // Ok, we've saved the new user, now, lets subscribe to their feeds
-                                if ($feed = \Idno\Core\site()->reader()->getFeedObject($new_user->getURL())) {
+                                if ($feed = \Idno\Core\Idno::site()->reader()->getFeedObject($new_user->getURL())) {
 
-                                    \Idno\Core\site()->session()->addMessage("You are now following " . $new_user->getTitle() . ', would you like to subscribe to their feed?');
+                                    \Idno\Core\Idno::site()->session()->addMessage("You are now following " . $new_user->getTitle() . ', would you like to subscribe to their feed?');
 
-                                    $this->forward(\Idno\Core\site()->config()->getURL() . 'following/confirm/?feed=' . urlencode($new_user->getURL()));
+                                    $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'following/confirm/?feed=' . urlencode($new_user->getURL()));
                                 }
 
-                                \Idno\Core\site()->session()->addMessage("You are now following " . $new_user->getTitle());
+                                \Idno\Core\Idno::site()->session()->addMessage("You are now following " . $new_user->getTitle());
 
                             }
                         } else {
-                            \Idno\Core\site()->logging->log('Could not follow user for some reason (probably already following)', LOGLEVEL_DEBUG);
-                            \Idno\Core\site()->session()->addErrorMessage('You\'re already following ' . $this->getInput('name'));
+                            \Idno\Core\Idno::site()->logging->log('Could not follow user for some reason (probably already following)', LOGLEVEL_DEBUG);
+                            \Idno\Core\Idno::site()->session()->addErrorMessage('You\'re already following ' . $this->getInput('name'));
                         }
                     } else
                         throw new \Exception('Sorry, that user doesn\'t exist!');

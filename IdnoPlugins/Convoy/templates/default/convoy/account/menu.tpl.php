@@ -1,1 +1,1 @@
-        <li <?php if ($_SERVER['REQUEST_URI'] == '/account/settings/services/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>account/settings/services/" >Connect Services</a></li>
+        <li <?php if ($_SERVER['REQUEST_URI'] == '/account/settings/services/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>account/settings/services/" >Connect Services</a></li>

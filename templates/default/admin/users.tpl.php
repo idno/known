@@ -87,15 +87,15 @@
                                                         ?>
                                                         <strong>Administrator</strong><br>
                                                         <?php
-                                                        if ($user->getUUID() != \Idno\Core\site()->session()->currentUserUUID()) {
-                                                            echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'admin/users', 'Remove rights', array('user' => $user->getUUID(), 'action' => 'remove_rights'), array('class' => ''));
+                                                        if ($user->getUUID() != \Idno\Core\Idno::site()->session()->currentUserUUID()) {
+                                                            echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/users', 'Remove rights', array('user' => $user->getUUID(), 'action' => 'remove_rights'), array('class' => ''));
                                                         } else {
                                                             echo 'Yes';
                                                         }
                                                     } else {
                                                         ?>
                                                         Standard member<br>
-                                                        <?= \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'admin/users', 'Make admin', array('user' => $user->getUUID(), 'action' => 'add_rights'), array('class' => '')); ?>
+                                                        <?= \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/users', 'Make admin', array('user' => $user->getUUID(), 'action' => 'add_rights'), array('class' => '')); ?>
                                                         <?php
                                                     }
                                                 }
@@ -107,13 +107,13 @@
                                     <p class="user-tbl">
                                         <small>
                                             <?php
-                                                if ($user->getUUID() != \Idno\Core\site()->session()->currentUserUUID()) {
-                                                    if (\Idno\Core\site()->config()->emailIsBlocked($user->email)) {
-                                                        echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'admin/users', '<i class="fa fa-check-circle-o"></i> Clear', array('blocked_emails' => $user->email, 'action' => 'unblock_emails'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? The user will be able to log in and post again.')) . '<br>';
+                                                if ($user->getUUID() != \Idno\Core\Idno::site()->session()->currentUserUUID()) {
+                                                    if (\Idno\Core\Idno::site()->config()->emailIsBlocked($user->email)) {
+                                                        echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/users', '<i class="fa fa-check-circle-o"></i> Clear', array('blocked_emails' => $user->email, 'action' => 'unblock_emails'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? The user will be able to log in and post again.')) . '<br>';
                                                     } else {
-                                                        echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'admin/users', '<i class="fa fa-ban"></i> Block', array('blocked_emails' => $user->email, 'action' => 'block_emails'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? The user will be logged out and will no longer be able to log in or post.')) . '<br>';
+                                                        echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/users', '<i class="fa fa-ban"></i> Block', array('blocked_emails' => $user->email, 'action' => 'block_emails'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? The user will be logged out and will no longer be able to log in or post.')) . '<br>';
                                                     }
-                                                    echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'admin/users', '<i class="fa fa-times"></i> Delete', array('user' => $user->getUUID(), 'action' => 'delete'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? This will delete this user and all their content.'));
+                                                    echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/users', '<i class="fa fa-times"></i> Delete', array('user' => $user->getUUID(), 'action' => 'delete'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? This will delete this user and all their content.'));
                                                 } else {
                                                     echo '&nbsp';
                                                 }
@@ -135,13 +135,13 @@
 </div>
 <?php
 
-    if (\Idno\Core\site()->config()->canAddUsers()) {
+    if (\Idno\Core\Idno::site()->config()->canAddUsers()) {
 
         ?>
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
 
-                <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/users" method="post">
+                <form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>admin/users" method="post">
 
                     <h3>Invite new users</h3>
 
@@ -154,7 +154,7 @@
                     <p>
                         <input type="submit" class="btn btn-primary" value="Send invite">
                         <input type="hidden" name="action" value="invite_users">
-                        <?= \Idno\Core\site()->actions()->signForm('/admin/users') ?>
+                        <?= \Idno\Core\Idno::site()->actions()->signForm('/admin/users') ?>
                     </p>
 
                 </form>
@@ -171,7 +171,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
 
-                <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/users" method="post">
+                <form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>admin/users" method="post">
 
                     <h3>Create a new user</h3>
 
@@ -195,7 +195,7 @@
                     <p>
                         <input type="submit" class="btn btn-primary" value="Add">
                         <input type="hidden" name="action" value="add_user">
-                        <?= \Idno\Core\site()->actions()->signForm('/admin/users') ?>
+                        <?= \Idno\Core\Idno::site()->actions()->signForm('/admin/users') ?>
                     </p>
 
                 </form>
@@ -237,12 +237,12 @@
                                         <small>
                                             <?php
 
-                                                echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'admin/users', '<i class="fa fa-refresh"></i> Resend', array('invitation_id' => $invitation->getID(), 'action' => 'resend_invitation'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? The user will receive a second email.')) . '<br>';
+                                                echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/users', '<i class="fa fa-refresh"></i> Resend', array('invitation_id' => $invitation->getID(), 'action' => 'resend_invitation'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? The user will receive a second email.')) . '<br>';
 
                                             ?>
                                             <?php
 
-                                                echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'admin/users', '<i class="fa fa-times"></i> Remove', array('invitation_id' => $invitation->getID(), 'action' => 'remove_invitation'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? The user won\'t be able to register.')) . '<br>';
+                                                echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/users', '<i class="fa fa-times"></i> Remove', array('invitation_id' => $invitation->getID(), 'action' => 'remove_invitation'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? The user won\'t be able to register.')) . '<br>';
 
                                             ?>
                                         </small>
@@ -265,7 +265,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
 
-                <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/users" method="post">
+                <form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>admin/users" method="post">
 
                     <h3>Block email addresses</h3>
 
@@ -279,7 +279,7 @@
                     <p>
                         <input type="submit" class="btn btn-primary" value="Block email addresses">
                         <input type="hidden" name="action" value="block_emails">
-                        <?= \Idno\Core\site()->actions()->signForm('/admin/users') ?>
+                        <?= \Idno\Core\Idno::site()->actions()->signForm('/admin/users') ?>
                     </p>
 
                 </form>
@@ -288,7 +288,7 @@
         </div>
         <?php
 
-        if ($blocked_emails = \Idno\Core\site()->config()->getBlockedEmails()) {
+        if ($blocked_emails = \Idno\Core\Idno::site()->config()->getBlockedEmails()) {
 
             ?>
             <div class="row">
@@ -314,7 +314,7 @@
                                         <small>
                                             <?php
 
-                                                echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'admin/users', '<i class="fa fa-times"></i> Remove block', array('blocked_emails' => $email, 'action' => 'unblock_emails'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? The user will be able to log in and post again.')) . '<br>';
+                                                echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/users', '<i class="fa fa-times"></i> Remove block', array('blocked_emails' => $email, 'action' => 'unblock_emails'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? The user will be able to log in and post again.')) . '<br>';
 
                                             ?>
                                         </small>

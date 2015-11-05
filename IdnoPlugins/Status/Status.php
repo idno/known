@@ -12,10 +12,10 @@
              */
             public static function factory()
             {
-                $inreplyto = \Idno\Core\site()->currentPage()->getInput('inreplyto');
-                $body      = \Idno\Core\site()->currentPage()->getInput('body');
+                $inreplyto = \Idno\Core\Idno::site()->currentPage()->getInput('inreplyto');
+                $body      = \Idno\Core\Idno::site()->currentPage()->getInput('body');
 
-                if (!empty(\Idno\Core\site()->config()->split_replies)) {
+                if (!empty(\Idno\Core\Idno::site()->config()->split_replies)) {
                     if (!empty($inreplyto)) {
                         return new Reply();
                     }
@@ -80,12 +80,12 @@
                 } else {
                     $new = false;
                 }
-                $body      = \Idno\Core\site()->currentPage()->getInput('body');
-                $inreplyto = \Idno\Core\site()->currentPage()->getInput('inreplyto');
-                $tags      = \Idno\Core\site()->currentPage()->getInput('tags');
-                $access    = \Idno\Core\site()->currentPage()->getInput('access');
+                $body      = \Idno\Core\Idno::site()->currentPage()->getInput('body');
+                $inreplyto = \Idno\Core\Idno::site()->currentPage()->getInput('inreplyto');
+                $tags      = \Idno\Core\Idno::site()->currentPage()->getInput('tags');
+                $access    = \Idno\Core\Idno::site()->currentPage()->getInput('access');
 
-                if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
+                if ($time = \Idno\Core\Idno::site()->currentPage()->getInput('created')) {
                     if ($time = strtotime($time)) {
                         $this->created = $time;
                     }
@@ -106,12 +106,12 @@
                     }
                     $this->setAccess($access);
                     if ($this->save($new)) {
-                        \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getDescription()));
+                        \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getDescription()));
 
                         return true;
                     }
                 } else {
-                    \Idno\Core\site()->session()->addErrorMessage('You can\'t save an empty status update.');
+                    \Idno\Core\Idno::site()->session()->addErrorMessage('You can\'t save an empty status update.');
                 }
 
                 return false;
@@ -120,7 +120,7 @@
 
             function deleteData()
             {
-                \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getDescription()));
+                \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getDescription()));
             }
 
         }

@@ -1,1 +1,1 @@
-<li <?php if ($_SERVER['REQUEST_URI'] == '/admin/webhooks/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\site()->config()->getURL()?>admin/webhooks/">Webhooks</a></li>
+<li <?php if ($_SERVER['REQUEST_URI'] == '/admin/webhooks/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\Idno::site()->config()->getURL()?>admin/webhooks/">Webhooks</a></li>

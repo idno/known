@@ -1,1 +1,1 @@
-<li <?php if ($_SERVER['REQUEST_URI'] == '/admin/styles/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/styles/">Custom CSS</a></li>
+<li <?php if ($_SERVER['REQUEST_URI'] == '/admin/styles/') echo 'class="active"'; ?>><a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>admin/styles/">Custom CSS</a></li>

@@ -16,7 +16,7 @@
                     $this->forward();
                 }
 
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
                 $body = $t->__(array(
                     'object' => $object
                 ))->draw('entity/Status/delete');
@@ -37,14 +37,14 @@
                 if (empty($object)) $this->forward();
                 if (!$object->canEdit()) {
                     $this->setResponse(403);
-                    \Idno\Core\site()->session()->addErrorMessage("You don't have permission to perform this task.");
+                    \Idno\Core\Idno::site()->session()->addErrorMessage("You don't have permission to perform this task.");
                     $this->forward();
                 }
 
                 if ($object->delete()) {
-                    \Idno\Core\site()->session()->addMessage('Your media was deleted.');
+                    \Idno\Core\Idno::site()->session()->addMessage('Your media was deleted.');
                 } else {
-                    \Idno\Core\site()->session()->addErrorMessage("We couldn't delete your media.");
+                    \Idno\Core\Idno::site()->session()->addErrorMessage("We couldn't delete your media.");
                 }
                 $this->forward($_SERVER['HTTP_REFERER']);
             }

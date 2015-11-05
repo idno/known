@@ -27,9 +27,9 @@
                 // Add a classloader to look for a package autoloader
                 // TODO: make sure this works with multitenant sites and plugins on an external path
                 spl_autoload_register(function ($class) {
-                    foreach (\Idno\Core\site()->config->config['plugins'] as $plugin) {
-                        if (file_exists(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $plugin . '/autoloader.php')) {
-                            include_once(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $plugin . '/autoloader.php');
+                    foreach (\Idno\Core\Idno::site()->config->config['plugins'] as $plugin) {
+                        if (file_exists(\Idno\Core\Idno::site()->config()->path . '/IdnoPlugins/' . $plugin . '/autoloader.php')) {
+                            include_once(\Idno\Core\Idno::site()->config()->path . '/IdnoPlugins/' . $plugin . '/autoloader.php');
                         }
                     }
                 });
@@ -167,13 +167,13 @@
             public function getStored()
             {
                 $plugins = array();
-                if ($folders = scandir(\Idno\Core\site()->config()->path . '/IdnoPlugins')) {
+                if ($folders = scandir(\Idno\Core\Idno::site()->config()->path . '/IdnoPlugins')) {
                     foreach ($folders as $folder) {
                         if ($folder != '.' && $folder != '..') {
-                            if (is_dir(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $folder)) {
-                                if (file_exists(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $folder . '/plugin.ini')) {
+                            if (is_dir(\Idno\Core\Idno::site()->config()->path . '/IdnoPlugins/' . $folder)) {
+                                if (file_exists(\Idno\Core\Idno::site()->config()->path . '/IdnoPlugins/' . $folder . '/plugin.ini')) {
                                     if ($this->isAllowed($folder)) {
-                                        $plugins[$folder] = parse_ini_file(\Idno\Core\site()->config()->path . '/IdnoPlugins/' . $folder . '/plugin.ini', true);
+                                        $plugins[$folder] = parse_ini_file(\Idno\Core\Idno::site()->config()->path . '/IdnoPlugins/' . $folder . '/plugin.ini', true);
                                     }
                                 }
                             }
@@ -182,13 +182,13 @@
                 }
                 if (defined('KNOWN_MULTITENANT_HOST')) {
                     $host = KNOWN_MULTITENANT_HOST;
-                    if (file_exists(\Idno\Core\site()->config()->path . '/hosts/' . $host . '/IdnoPlugins')) {
-                        if ($folders = scandir(\Idno\Core\site()->config()->path . '/hosts/' . $host . '/IdnoPlugins')) {
+                    if (file_exists(\Idno\Core\Idno::site()->config()->path . '/hosts/' . $host . '/IdnoPlugins')) {
+                        if ($folders = scandir(\Idno\Core\Idno::site()->config()->path . '/hosts/' . $host . '/IdnoPlugins')) {
                             foreach ($folders as $folder) {
                                 if ($folder != '.' && $folder != '..') {
-                                    if (file_exists(\Idno\Core\site()->config()->path . '/hosts/' . $host . '/IdnoPlugins/' . $folder . '/plugin.ini')) {
+                                    if (file_exists(\Idno\Core\Idno::site()->config()->path . '/hosts/' . $host . '/IdnoPlugins/' . $folder . '/plugin.ini')) {
                                         if ($this->isAllowed($folder)) {
-                                            $plugins[$folder] = parse_ini_file(\Idno\Core\site()->config()->path . '/hosts/' . $host . '/IdnoPlugins/' . $folder . '/plugin.ini', true);
+                                            $plugins[$folder] = parse_ini_file(\Idno\Core\Idno::site()->config()->path . '/hosts/' . $host . '/IdnoPlugins/' . $folder . '/plugin.ini', true);
                                         }
                                     }
                                 }

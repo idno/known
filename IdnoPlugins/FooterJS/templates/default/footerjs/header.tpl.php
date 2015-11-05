@@ -1,3 +1,3 @@
 <?php
 
-    echo \Idno\Core\site()->config()->headerjs;
+    echo \Idno\Core\Idno::site()->config()->headerjs;

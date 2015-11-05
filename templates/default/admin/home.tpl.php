@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
 	    
-        <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>admin/" class="navbar-form admin" method="post">
+        <form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>admin/" class="navbar-form admin" method="post">
 
             <div class="row">
                 <div class="col-md-10">
@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-md-4">
                     <input type="text" id="name" placeholder="Site name" class="input col-md-4 form-control" name="title"
-                           value="<?= htmlspecialchars(\Idno\Core\site()->config()->title) ?>">
+                           value="<?= htmlspecialchars(\Idno\Core\Idno::site()->config()->title) ?>">
                 </div>
                 <div class="col-md-6">
                     <p class="config-desc">Give your site a name!</p>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="col-md-4">
                     <input type="text" id="name" placeholder="Site description" class="input col-md-4 form-control" name="description"
-                           value="<?= htmlspecialchars(\Idno\Core\site()->config()->description) ?>">
+                           value="<?= htmlspecialchars(\Idno\Core\Idno::site()->config()->description) ?>">
                 </div>
                 <div class="col-md-6">
                     <p class="config-desc">What's your site about?</p>
@@ -51,7 +51,7 @@
                 </div>
                 <div class="col-md-4">
                     <input type="text" id="homepage-title" placeholder="Homepage title" class="input col-md-4 form-control" name="homepagetitle"
-                           value="<?= htmlspecialchars(\Idno\Core\site()->config()->homepagetitle) ?>">
+                           value="<?= htmlspecialchars(\Idno\Core\Idno::site()->config()->homepagetitle) ?>">
                 </div>
                 <div class="col-md-6">
                     <p class="config-desc">What should the browser display as the title on your homepage?<br>By default this is just your site title.</p>
@@ -66,7 +66,7 @@
                 </div>
                 <div class="col-md-4">
                     <input type="text" id="items_per_page" placeholder="10" class="input col-md-4 form-control" name="items_per_page"
-                           value="<?= htmlspecialchars(\Idno\Core\site()->config()->items_per_page) ?>">
+                           value="<?= htmlspecialchars(\Idno\Core\Idno::site()->config()->items_per_page) ?>">
                 </div>
                 <div class="col-md-6"><p class="config-desc">This is the number of content posts displayed on each page.</p>
                 </div>
@@ -91,7 +91,7 @@
                 <div class="config-toggle col-md-4">
                     <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
                            name="open_registration"
-                           value="true" <?php if (\Idno\Core\site()->config()->open_registration == true) echo 'checked'; ?>>
+                           value="true" <?php if (\Idno\Core\Idno::site()->config()->open_registration == true) echo 'checked'; ?>>
                 </div>
                 <div class="col-md-6">
                     <p class="config-desc">Allow registration if you want others to sign up for your site.</p>
@@ -100,7 +100,7 @@
 
             <?php
 
-                if (\Idno\Core\site()->config()->walled_garden == true || \Idno\Core\site()->config()->canMakeSitePrivate()) {
+                if (\Idno\Core\Idno::site()->config()->walled_garden == true || \Idno\Core\Idno::site()->config()->canMakeSitePrivate()) {
 
                     ?>
 
@@ -113,7 +113,7 @@
                         <div class="config-toggle col-md-4">
                             <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
                                    name="walled_garden" id="walled_garden"
-                                   value="true" <?php if (\Idno\Core\site()->config()->walled_garden == true) echo 'checked'; ?>>
+                                   value="true" <?php if (\Idno\Core\Idno::site()->config()->walled_garden == true) echo 'checked'; ?>>
                         </div>
                         <div class="col-md-6"><p class="config-desc">Content on a private site is only visible if you're
                                 logged in.</p>
@@ -127,7 +127,7 @@
 
             <?php
 
-                if (\Idno\Core\site()->config()->show_privacy == true || \Idno\Core\site()->config()->canMakeSitePrivate()) {
+                if (\Idno\Core\Idno::site()->config()->show_privacy == true || \Idno\Core\Idno::site()->config()->canMakeSitePrivate()) {
 
                     ?>
                     <!---------->
@@ -140,7 +140,7 @@
                         <div class="config-toggle col-md-4">
                             <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
                                    name="show_privacy" id="show_privacy"
-                                   value="true" <?php if (\Idno\Core\site()->config()->show_privacy == true) echo 'checked'; ?>>
+                                   value="true" <?php if (\Idno\Core\Idno::site()->config()->show_privacy == true) echo 'checked'; ?>>
                         </div>
                         <div class="col-md-6"><p class="config-desc">
                                 Show per-post privacy settings.
@@ -171,7 +171,7 @@
                 </div>
                 <div class="col-md-4">
                     <input type="url" id="hub" placeholder="PubSubHubbub hub address" class="input col-md-4 form-control" name="hub"
-                           value="<?= htmlspecialchars(\Idno\Core\site()->config()->hub) ?>">
+                           value="<?= htmlspecialchars(\Idno\Core\Idno::site()->config()->hub) ?>">
                 </div>
                 <div class="col-md-6">
                     <p class="config-desc">You can probably leave this as is.
@@ -191,7 +191,7 @@
                 <div class="config-toggle col-md-4">
                     <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
                            value="true" id="user_avatar_favicons"
-                           name="user_avatar_favicons" <?php if (\Idno\Core\site()->config()->user_avatar_favicons == true) echo 'checked'; ?>>
+                           name="user_avatar_favicons" <?php if (\Idno\Core\Idno::site()->config()->user_avatar_favicons == true) echo 'checked'; ?>>
                 </div>
                 <div class="col-md-6"><p class="config-desc">
                         This uses members' avatar images as the site favicon.
@@ -207,7 +207,7 @@
                 <div class="config-toggle col-md-4">
                     <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
                            name="indieweb_reference" id="include_permalinks"
-                           value="true" <?php if (\Idno\Core\site()->config()->indieweb_reference == true) echo 'checked'; ?>>
+                           value="true" <?php if (\Idno\Core\Idno::site()->config()->indieweb_reference == true) echo 'checked'; ?>>
                 </div>
                 <div class="col-md-6"><p class="config-desc">Always add a link back to your site when you
                         syndicate to external networks.</p>
@@ -225,7 +225,7 @@
                     <button type="submit" class="btn btn-primary">Save updates</button>
                 </div>
 
-            <?= \Idno\Core\site()->actions()->signForm('/admin/') ?>
+            <?= \Idno\Core\Idno::site()->actions()->signForm('/admin/') ?>
 
             <?=$this->draw('admin/home/footer/settings')?>
 

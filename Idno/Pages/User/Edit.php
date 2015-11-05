@@ -24,7 +24,7 @@
                     $this->deniedContent();
                 }
 
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
                 $t->__(array(
 
                     'title' => 'Edit profile: ' . $user->getTitle(),

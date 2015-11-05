@@ -8,28 +8,28 @@
         
         foreach($vars['services'] as $service) {
 
-            if (\Idno\Core\site()->syndication()->has($service)) {
+            if (\Idno\Core\Idno::site()->syndication()->has($service)) {
                 
                 $service_details[$service] = [];
 
                 $button = $this->draw('content/syndication/' . $service);
                 if (empty($button)) {
-                    if ($accounts = \Idno\Core\site()->syndication()->getServiceAccounts($service)) {
+                    if ($accounts = \Idno\Core\Idno::site()->syndication()->getServiceAccounts($service)) {
                         foreach($accounts as $account) {
                             
                             $service_details[$service][] = ['username' => $account['username'], 'name' => $account['name']];
                             
-                            $button .= $this->__(array('service' => $service, 'username' => $account['username'], 'name' => $account['name'], 'selected' => \Idno\Core\site()->triggerEvent('syndication/selected/' . $service, [
+                            $button .= $this->__(array('service' => $service, 'username' => $account['username'], 'name' => $account['name'], 'selected' => \Idno\Core\Idno::site()->triggerEvent('syndication/selected/' . $service, [
                                 'service' => $service,
                                 'username' => $account['username'],
-                                'reply-to' => \Idno\Core\site()->currentPage()->getInput('share_url')
+                                'reply-to' => \Idno\Core\Idno::site()->currentPage()->getInput('share_url')
                             ], false)))->draw('content/syndication/account');
                         }
                     } else {
-                        $button = $this->__(array('service' => $service, 'selected' => \Idno\Core\site()->triggerEvent('syndication/selected/' . $service, [
+                        $button = $this->__(array('service' => $service, 'selected' => \Idno\Core\Idno::site()->triggerEvent('syndication/selected/' . $service, [
                                 'service' => $service,
                                 'username' => $account['username'],
-                                'reply-to' => \Idno\Core\site()->currentPage()->getInput('share_url')
+                                'reply-to' => \Idno\Core\Idno::site()->currentPage()->getInput('share_url')
                             ], false)))->draw('content/syndication/button');
                     }
                 }

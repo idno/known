@@ -56,7 +56,7 @@
             {
                 ini_set('session.gc_probability', 1);
 
-                $sessionHandler = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\MongoDbSessionHandler(\Idno\Core\site()->db()->getClient(), [
+                $sessionHandler = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\MongoDbSessionHandler(\Idno\Core\Idno::site()->db()->getClient(), [
                     'database'   => 'idnosession',
                     'collection' => 'idnosession'
                 ]);
@@ -430,7 +430,7 @@
          */
         function db()
         {
-            return \Idno\Core\site()->db();
+            return \Idno\Core\Idno::site()->db();
         }
 
     }

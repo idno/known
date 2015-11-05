@@ -114,7 +114,7 @@
 
                 // No URL is a critical error, default base fallback is now a warning (Refs #526)
                 if (!$this->config->url) throw new \Exception('Known was unable to work out your base URL! You might try setting url="http://yourdomain.com/" in your config.ini');
-                if ($this->config->url == '/') \Idno\Core\site()->logging->log('Base URL has defaulted to "/" because Known was unable to detect your server name. '
+                if ($this->config->url == '/') \Idno\Core\Idno::site()->logging->log('Base URL has defaulted to "/" because Known was unable to detect your server name. '
                     . 'This may be because you\'re loading Known via a script. '
                     . 'Try setting url="http://yourdomain.com/" in your config.ini to remove this message', LOGLEVEL_WARNING);
 
@@ -129,8 +129,8 @@
                     $this->config->known_hub != $this->config->url
                 ) {
                     site()->session()->hub_connect = time();
-                    \Idno\Core\site()->known_hub   = new \Idno\Core\Hub($this->config->known_hub);
-                    \Idno\Core\site()->known_hub->connect();
+                    \Idno\Core\Idno::site()->known_hub   = new \Idno\Core\Hub($this->config->known_hub);
+                    \Idno\Core\Idno::site()->known_hub->connect();
                 }
 
                 site()->session()->APIlogin();
@@ -497,8 +497,8 @@
 
             function getPageHandler($path_info)
             {
-                if (substr_count($path_info, \Idno\Core\site()->config()->url)) {
-                    $path_info = '/' . str_replace(\Idno\Core\site()->config()->url, '', $path_info);
+                if (substr_count($path_info, \Idno\Core\Idno::site()->config()->url)) {
+                    $path_info = '/' . str_replace(\Idno\Core\Idno::site()->config()->url, '', $path_info);
                 }
                 if ($q = strpos($path_info, '?')) {
                     $path_info = substr($path_info, 0, $q);
@@ -613,10 +613,10 @@
             function canEdit($user_id = '')
             {
 
-                if (!\Idno\Core\site()->session()->isLoggedOn()) return false;
+                if (!\Idno\Core\Idno::site()->session()->isLoggedOn()) return false;
 
                 if (empty($user_id)) {
-                    $user_id = \Idno\Core\site()->session()->currentUserUUID();
+                    $user_id = \Idno\Core\Idno::site()->session()->currentUserUUID();
                 }
 
                 if ($user = \Idno\Entities\User::getByUUID($user_id)) {
@@ -641,10 +641,10 @@
 
             function canWrite($user_id = '')
             {
-                if (!\Idno\Core\site()->session()->isLoggedOn()) return false;
+                if (!\Idno\Core\Idno::site()->session()->isLoggedOn()) return false;
 
                 if (empty($user_id)) {
-                    $user_id = \Idno\Core\site()->session()->currentUserUUID();
+                    $user_id = \Idno\Core\Idno::site()->session()->currentUserUUID();
                 }
 
                 if ($user = \Idno\Entities\User::getByUUID($user_id)) {
@@ -696,20 +696,20 @@
 
                 // Set our defaults (TODO: Set these cleaner, perhaps through the template system)
                 $icons['defaults'] = [
-                    'default'     => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k.png',
-                    'default_16'  => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k_16.png',
-                    'default_32'  => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k_32.png',
-                    'default_64'  => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/logo_k_64.png',
+                    'default'     => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k.png',
+                    'default_16'  => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k_16.png',
+                    'default_32'  => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k_32.png',
+                    'default_64'  => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k_64.png',
 
                     // Apple logos
-                    'default_57'  => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-57x57.png',
-                    'default_72'  => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-72x72.png',
-                    'default_114' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-114x114.png',
-                    'default_144' => \Idno\Core\site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-144x144.png',
+                    'default_57'  => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-57x57.png',
+                    'default_72'  => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-72x72.png',
+                    'default_114' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-114x114.png',
+                    'default_144' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-144x144.png',
                 ];
 
                 // If we're on a page, see if that has a specific icon
-                if ($page = \Idno\Core\site()->currentPage()) {
+                if ($page = \Idno\Core\Idno::site()->currentPage()) {
                     if ($page_icons = $page->getIcon()) {
                         $icons['page'] = $page_icons;
                     }
@@ -791,7 +791,7 @@
              * Helper method that returns the current site object
              * @return \Idno\Core\Idno $site
              */
-            function &site()
+            static function &site()
             {
                 return self::$site;
             }

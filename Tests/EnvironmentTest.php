@@ -43,7 +43,7 @@
              * Assert that the configuration has been loaded correctly
              */
             function testKnownConfig() {
-                $this->assertFalse(\Idno\Core\site()->config()->isDefaultConfig());
+                $this->assertFalse(\Idno\Core\Idno::site()->config()->isDefaultConfig());
             }
         }
 

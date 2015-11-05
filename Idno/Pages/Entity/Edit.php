@@ -24,7 +24,7 @@
 
                 session_write_close();
 
-                $t = \Idno\Core\site()->template();
+                $t = \Idno\Core\Idno::site()->template();
                 $t->__(array(
 
                     'title' => $object->getTitle(),

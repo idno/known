@@ -155,7 +155,7 @@
                 <?= $this->draw('content/access'); ?>
 
                 <p class="button-bar " style="text-align: right">
-                    <?= \Idno\Core\site()->actions()->signForm('/staticpages/edit') ?>
+                    <?= \Idno\Core\Idno::site()->actions()->signForm('/staticpages/edit') ?>
                     <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
                     <input type="submit" class="btn btn-primary" value="Publish"/>
                 </p>
@@ -198,7 +198,7 @@
         function filePickerDialog(callback, value, meta) {
             tinymce.activeEditor.windowManager.open({
                 title: 'File Manager',
-                url: '<?=\Idno\Core\site()->config()->getDisplayURL()?>filepicker/?type=' + meta.filetype,
+                url: '<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>filepicker/?type=' + meta.filetype,
                 width: 650,
                 height: 550
             }, {

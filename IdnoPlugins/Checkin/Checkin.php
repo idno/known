@@ -38,16 +38,16 @@
                 } else {
                     $new = false;
                 }
-                $body         = \Idno\Core\site()->currentPage()->getInput('body');
-                $tags         = \Idno\Core\site()->currentPage()->getInput('tags');
-                $lat          = \Idno\Core\site()->currentPage()->getInput('lat');
-                $long         = \Idno\Core\site()->currentPage()->getInput('long');
-                $user_address = \Idno\Core\site()->currentPage()->getInput('user_address');
-                $placename    = \Idno\Core\site()->currentPage()->getInput('placename');
-                $tags         = \Idno\Core\site()->currentPage()->getInput('tags');
-                $access       = \Idno\Core\site()->currentPage()->getInput('access');
+                $body         = \Idno\Core\Idno::site()->currentPage()->getInput('body');
+                $tags         = \Idno\Core\Idno::site()->currentPage()->getInput('tags');
+                $lat          = \Idno\Core\Idno::site()->currentPage()->getInput('lat');
+                $long         = \Idno\Core\Idno::site()->currentPage()->getInput('long');
+                $user_address = \Idno\Core\Idno::site()->currentPage()->getInput('user_address');
+                $placename    = \Idno\Core\Idno::site()->currentPage()->getInput('placename');
+                $tags         = \Idno\Core\Idno::site()->currentPage()->getInput('tags');
+                $access       = \Idno\Core\Idno::site()->currentPage()->getInput('access');
 
-                if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
+                if ($time = \Idno\Core\Idno::site()->currentPage()->getInput('created')) {
                     if ($time = strtotime($time)) {
                         $this->created = $time;
                     }
@@ -64,13 +64,13 @@
                     $this->tags = $tags;
                     if ($this->save($new)) {
                         if ($new) {
-                            \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getTitle() . ' ' . $this->getDescription()));
+                            \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getTitle() . ' ' . $this->getDescription()));
                         }
 
                         return true;
                     }
                 } else {
-                    \Idno\Core\site()->session()->addErrorMessage('You can\'t save an empty checkin.');
+                    \Idno\Core\Idno::site()->session()->addErrorMessage('You can\'t save an empty checkin.');
                 }
 
                 return false;
@@ -79,7 +79,7 @@
 
             function deleteData()
             {
-                \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\site()->template()->parseURLs($this->getTitle() . ' ' . $this->getDescription()));
+                \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getTitle() . ' ' . $this->getDescription()));
             }
 
             /**
@@ -150,7 +150,7 @@
              */
             static function getNominatimEndpoint()
             {
-                if ($config = \Idno\Core\site()->config()->checkin) {
+                if ($config = \Idno\Core\Idno::site()->config()->checkin) {
                     if (!empty($config['endpoint'])) {
                         return $config['endpoint'];
                     }

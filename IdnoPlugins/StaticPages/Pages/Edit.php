@@ -19,7 +19,7 @@
                     $object = new \IdnoPlugins\StaticPages\StaticPage();
                 }
 
-                if ($staticpages = \Idno\Core\site()->plugins()->get('StaticPages')) {
+                if ($staticpages = \Idno\Core\Idno::site()->plugins()->get('StaticPages')) {
 
                     $categories = $staticpages->getCategories();
                     if (!empty($object->category)) {
@@ -28,13 +28,13 @@
                         $category = $this->getInput('category');
                     }
 
-                    $body = \Idno\Core\site()->template()->__([
+                    $body = \Idno\Core\Idno::site()->template()->__([
                         'categories' => $categories,
                         'category'   => $category,
                         'object'     => $object
                     ])->draw('entity/StaticPage/edit');
 
-                    \Idno\Core\site()->template()->__([
+                    \Idno\Core\Idno::site()->template()->__([
                         'title' => 'Edit page',
                         'body'  => $body
                     ])->drawPage();
