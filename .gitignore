@@ -7,7 +7,7 @@ Idno/.idea/.name
 
 *.iml
 
-/nbproject/private//nbproject/project.xml
+/nbproject/private/nbproject/project.xml
 /nbproject/project.properties
 /nbproject/private/
 /.htaccess
@@ -36,6 +36,7 @@ IdnoPlugins/Groups/
 IdnoPlugins/LTI/
 IdnoPlugins/GenericFile/
 IdnoPlugins/KQED/
+IdnoPlugins/CommunityClientAPI/
 
 Themes/Ansel/
 Themes/KQED/
