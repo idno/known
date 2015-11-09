@@ -42,7 +42,7 @@
   Order allow,deny
   Deny from all
 </Files>
-<Files ~ "sitemap.xml">
+<Files ~ "sitemap\.xml">
   Order allow,deny
   Allow from all
 </Files>
