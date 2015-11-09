@@ -27,6 +27,8 @@
                     }
                 }
 
+                $id = (string) $id;
+
                 $upload_file = $path . \Idno\Core\Idno::site()->config()->getFileBaseDirName() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3] . '/' . $id . '.file';
                 $data_file   = $path . \Idno\Core\Idno::site()->config()->getFileBaseDirName() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3] . '/' . $id . '.data';
 
