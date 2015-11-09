@@ -45,7 +45,7 @@
                         <input type="text" name="webhooks[]" value="<?=htmlspecialchars($webhook['url'])?>" placeholder="Webhook URL" class="form-control">
 					</div>
 					<div class="col-md-3" style="margin-top: 0.75em">
-                        <small><a href="#" onclick="$(this).closest('p').remove(); return false;"><i class="fa fa-times"></i> Remove this Webhook</a></small>
+                        <small><a href="#" onclick="$(this).closest('.row').remove(); return false;"><i class="fa fa-times"></i> Remove this Webhook</a></small>
 					</div>
 				</div>
 <?php
@@ -62,7 +62,7 @@
 	                <input type="text" value="" name="webhooks[]" placeholder="Webhook URL" class="form-control">
 				</div>
 				<div class="col-md-3" style="margin-top: 0.75em">
-	                <small><a href="#" onclick="$(this).closest('p').remove(); return false;"><i class="fa fa-times"></i> Remove this Webhook</a></small>
+	                <small><a href="#" onclick="$(this).closest('.row').remove(); return false;"><i class="fa fa-times"></i> Remove this Webhook</a></small>
 	        	</div>
             </div>
             <div id="morefields"></div>
