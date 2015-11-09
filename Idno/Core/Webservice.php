@@ -283,6 +283,19 @@
             {
                 $result = self::get($url);
 
+                // Checking for redirects (HTTP codes 301 and 302)
+                $redirect_count = 0;
+				while (($result['response'] == 302) || ($result['response'] == 301)) {
+				    $redirect_count += 1;
+				    if ($redirect_count >= 3) {
+				        // We have followed 3 redirections already…
+				        // This may be a redirect loop so we'd better drop it already.
+				        return false;
+				    }
+				    // The redirection URL is the "location" field of the header
+				    $result = self::get(http_parse_headers($result['header'])["location"]);
+				}
+
                 if ($result['error'] == "")
                     return $result['content'];
 
