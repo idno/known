@@ -16,23 +16,23 @@
             {
 
                 // Account management
-                site()->addPageHandler('/account/settings/?', '\Idno\Pages\Account\Settings');
-                site()->addPageHandler('/account/settings/notifications/?', '\Idno\Pages\Account\Settings\Notifications');
-                site()->addPageHandler('/account/settings/tools/?', '\Idno\Pages\Account\Settings\Tools');
-                site()->addPageHandler('/account/settings/following/?', '\Idno\Pages\Account\Settings\Following');
-                site()->addPageHandler('/account/settings/following/bookmarklet/?', '\Idno\Pages\Account\Settings\Following\Bookmarklet');
+                Idno::site()->addPageHandler('/account/settings/?', '\Idno\Pages\Account\Settings');
+                Idno::site()->addPageHandler('/account/settings/notifications/?', '\Idno\Pages\Account\Settings\Notifications');
+                Idno::site()->addPageHandler('/account/settings/tools/?', '\Idno\Pages\Account\Settings\Tools');
+                Idno::site()->addPageHandler('/account/settings/following/?', '\Idno\Pages\Account\Settings\Following');
+                Idno::site()->addPageHandler('/account/settings/following/bookmarklet/?', '\Idno\Pages\Account\Settings\Following\Bookmarklet');
 
                 // Basic registration; this is now always present, but the page will reject the user if registration
                 // is closed and a valid invitation code hasn't been provided
-                site()->addPageHandler('/account/register/?', '\Idno\Pages\Account\Register', true);
+                Idno::site()->addPageHandler('/account/register/?', '\Idno\Pages\Account\Register', true);
 
                 // Password requests
-                site()->addPagehandler('/account/password/?', '\Idno\Pages\Account\Password', true);
-                site()->addPagehandler('/account/password/reset/?', '\Idno\Pages\Account\Password\Reset', true);
+                Idno::site()->addPagehandler('/account/password/?', '\Idno\Pages\Account\Password', true);
+                Idno::site()->addPagehandler('/account/password/reset/?', '\Idno\Pages\Account\Password\Reset', true);
 
                 // Known feedback
-                site()->addPageHandler('/account/settings/feedback/?', '\Idno\Pages\Account\Settings\Feedback');
-                site()->addPageHandler('/account/settings/feedback/confirm/?', '\Idno\Pages\Account\Settings\FeedbackConfirm');
+                Idno::site()->addPageHandler('/account/settings/feedback/?', '\Idno\Pages\Account\Settings\Feedback');
+                Idno::site()->addPageHandler('/account/settings/feedback/confirm/?', '\Idno\Pages\Account\Settings\FeedbackConfirm');
 
             }
 
