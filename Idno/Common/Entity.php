@@ -620,6 +620,9 @@
                 $slug = implode('-', array_slice(explode(' ', $slug), 0, $max_pieces));
                 $slug = str_replace(' ', '-', $slug);
                 $slug = substr($slug, 0, $max_chars);
+                while (substr($slug,-1) == '-') {
+                    $slug = substr($slug, 0, strlen($slug) - 1);
+                }
                 if (empty($slug)) {
                     $slug = 'untitled';
                 }
