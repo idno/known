@@ -5,6 +5,7 @@
      */
 
     namespace IdnoPlugins\APITester\Pages {
+
         use Idno\Core\Webservice;
 
         /**
@@ -22,6 +23,7 @@
                 $key          = $this->getInput('key');
                 $username     = $this->getInput('username');
                 $json         = $this->getInput('json');
+                $method       = $this->getInput('method', 'GET');
                 $sent_request = '';
                 $response     = '';
 
@@ -33,7 +35,8 @@
                     $username     = $api_request['username'];
                     $json         = $api_request['json'];
                     $sent_request = $api_request['sent_request'];
-                    $response     = $api_request['response'];
+                    $response     = gzdecode($api_request['response']);
+                    $method       = $api_request['method'];
                     \Idno\Core\Idno::site()->session()->set('api_request', false);
                 }
 
@@ -57,7 +60,8 @@
                         'username'     => $username,
                         'json'         => $json,
                         'sent_request' => $sent_request,
-                        'response'     => $response
+                        'response'     => $response,
+                        'method'       => $method
                     ))->draw('apitester/admin');
                 } else {
                     $body = \Idno\Core\Idno::site()->template()->draw('apitester/nocurl');
@@ -82,6 +86,7 @@
                 $username         = $this->getInput('username');
                 $json             = $this->getInput('json');
                 $follow_redirects = $this->getInput('follow_redirects');
+                $method           = $this->getInput('method', 'GET');
                 $url              = \Idno\Core\Idno::site()->config()->getURL();
                 if (strripos($url, '/') == strlen($url) - 1) {
                     $url = substr($url, 0, strlen($url) - 1);
@@ -89,10 +94,17 @@
                 $url .= $request;
 
                 $client = new Webservice();
-                $result = $client->post($url, $json, array(
-                    'X-KNOWN-USERNAME: ' . $username,
-                    'X-KNOWN-SIGNATURE: ' . base64_encode(hash_hmac('sha256', $request, $key, true)),
-                ));
+                if ($method == 'POST') {
+                    $result = $client->post($url, $json, array(
+                        'X-KNOWN-USERNAME: ' . $username,
+                        'X-KNOWN-SIGNATURE: ' . base64_encode(hash_hmac('sha256', $request, $key, true)),
+                    ));
+                } else {
+                    $result = $client->get($url, null, array(
+                        'X-KNOWN-USERNAME: ' . $username,
+                        'X-KNOWN-SIGNATURE: ' . base64_encode(hash_hmac('sha256', $request, $key, true)),
+                    ));
+                }
 
                 $response     = Webservice::getLastResponse();
                 $sent_request = Webservice::getLastRequest() . $json;
@@ -103,7 +115,8 @@
                     'username'     => $username,
                     'json'         => $json,
                     'sent_request' => $sent_request,
-                    'response'     => $response
+                    'response'     => gzencode($response,9),
+                    'method'       => $method
                 );
                 \Idno\Core\Idno::site()->session()->set('api_request', $api_request);
 

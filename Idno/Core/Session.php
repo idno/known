@@ -380,16 +380,17 @@
                         \Idno\Core\Idno::site()->session()->addErrorMessage("Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini");
                     }
 
-                    $t = site()->currentPage()->getInput('_t');
+                    $t = \Idno\Core\Idno::site()->currentPage()->getInput('_t');
                     if (empty($t)) {
-                        site()->template()->setTemplateType('json');
+                        \Idno\Core\Idno::site()->template()->setTemplateType('json');
                     }
 
                     if ($user = \Idno\Entities\User::getByHandle($_SERVER['HTTP_X_KNOWN_USERNAME'])) {
 
                         $key          = $user->getAPIkey();
                         $hmac         = trim($_SERVER['HTTP_X_KNOWN_SIGNATURE']);
-                        $compare_hmac = base64_encode(hash_hmac('sha256', explode('?', $_SERVER['REQUEST_URI'])[0], $key, true));
+                        //$compare_hmac = base64_encode(hash_hmac('sha256', explode('?', $_SERVER['REQUEST_URI'])[0], $key, true));
+                        $compare_hmac = base64_encode(hash_hmac('sha256', ($_SERVER['REQUEST_URI']), $key, true));
 
                         if ($hmac == $compare_hmac) {
 
@@ -403,7 +404,7 @@
                 }
 
                 // We're not logged in yet, so try and authenticate using other mechanism
-                if ($return = site()->triggerEvent('user/auth/api', [], false)) {
+                if ($return = \Idno\Core\Idno::site()->triggerEvent('user/auth/api', [], false)) {
                     \Idno\Core\Idno::site()->session()->setIsAPIRequest(true);
 
                     if (!\Idno\Common\Page::isSSL() && !\Idno\Core\Idno::site()->config()->disable_cleartext_warning) {
@@ -420,10 +421,10 @@
                          $ip = trim($proxies[0]);
                     }
 
-                    site()->logging()->log("API Login failure from $ip", LOGLEVEL_ERROR); 
+                    \Idno\Core\Idno::site()->logging()->log("API Login failure from $ip", LOGLEVEL_ERROR);
                     //\Idno\Core\Idno::site()->triggerEvent('login/failure/api'); // Can't be used until #918 is fixed.
-                    
-                    site()->currentPage()->deniedContent();
+
+                    \Idno\Core\Idno::site()->currentPage()->deniedContent();
                 }
 
                 return $return;
@@ -439,7 +440,7 @@
 
             function logUserOn(\Idno\Entities\User $user)
             {
-                if (site()->config()->emailIsBlocked($user->email)) {
+                if (\Idno\Core\Idno::site()->config()->emailIsBlocked($user->email)) {
                     $this->logUserOff();
                     return false;
                 }
@@ -457,7 +458,7 @@
             {
                 if ($user = User::getByUUID($user->getUUID())) {
 
-                    if (site()->config()->emailIsBlocked($user->email)) {
+                    if (\Idno\Core\Idno::site()->config()->emailIsBlocked($user->email)) {
                         $this->logUserOff();
                         return false;
                     }
@@ -478,7 +479,7 @@
             {
                 if (!$this->currentUser() && !empty($_SESSION['user_uuid'])) {
                     if ($this->user = User::getByUUID($_SESSION['user_uuid'])) {
-                        if (site()->config()->emailIsBlocked($this->user->email)) {
+                        if (\Idno\Core\Idno::site()->config()->emailIsBlocked($this->user->email)) {
                             $this->logUserOff();
                         }
                     }
@@ -522,15 +523,15 @@
             function publicGatekeeper()
             {
 
-                if (!site()->config()->isPublicSite()) {
-                    if (!site()->session()->isLoggedOn()) {
+                if (!\Idno\Core\Idno::site()->config()->isPublicSite()) {
+                    if (!\Idno\Core\Idno::site()->session()->isLoggedOn()) {
                         $class = get_class(site()->currentPage());
-                        if (!site()->isPageHandlerPublic($class)) {
-                            site()->currentPage()->setResponse(403);
+                        if (!\Idno\Core\Idno::site()->isPageHandlerPublic($class)) {
+                            \Idno\Core\Idno::site()->currentPage()->setResponse(403);
                             if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
-                                site()->currentPage()->forward(site()->config()->getURL() . 'session/login/?fwd=' . urlencode($_SERVER['REQUEST_URI']));
+                                \Idno\Core\Idno::site()->currentPage()->forward(site()->config()->getURL() . 'session/login/?fwd=' . urlencode($_SERVER['REQUEST_URI']));
                             } else {
-                                site()->currentPage()->deniedContent();
+                                \Idno\Core\Idno::site()->currentPage()->deniedContent();
                             }
                         }
                     }

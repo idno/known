@@ -51,7 +51,7 @@
                 <div class="col-md-8 col-md-offset-2">
                     <p>
                         Some examples:
-                        <a href="?request=/status/edit&json=<?=urlencode(json_encode(array('body' => 'Status body')))?>">post a status</a>,
+                        <a href="?request=/status/edit&json=<?=urlencode(json_encode(array('body' => 'Status body')))?>&method=post">post a status</a>,
                         <a href="?request=/">get feed</a>
                     </p>
                 </div>
@@ -71,6 +71,25 @@
                         <a href="#" class="btn" onclick="return setResponseType('json')">JSON</a>
                         <a href="#" class="btn" onclick="return setResponseType('rss')">RSS</a>
                         <a href="#" class="btn" onclick="return setResponseType('default')">Default</a>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <label class="control-label-api">Method</label>
+                </div>
+                <div class="col-md-5">
+                    <p>
+                        <select name="method" class="btn">
+                            <option value="GET">GET</option>
+                            <option value="POST" <?php
+
+                                if (strtolower($vars['method']) == 'post') {
+                                    echo 'selected="selected"';
+                                }
+
+                                ?>>POST</option>
+                        </select>
                     </p>
                 </div>
             </div>
@@ -123,7 +142,9 @@
             <div class="row" style="margin-top: 2em">
                 <div class="col-md-8 col-md-offset-2">
                     <p>
-                        <strong>Technical details:</strong> API calls are a POST request  with the HTTP header X-KNOWN-USERNAME
+                        <strong>Technical details:</strong> API calls are a GET or POST request
+                        (for retrieval and publishing / deleting calls respectively)
+                        with the HTTP header X-KNOWN-USERNAME
                         set to the user's username, and X-KNOWN-SIGNATURE to be an HMAC signature, computed with
                         sha256, using the user's API key.
                     </p>

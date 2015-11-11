@@ -67,10 +67,12 @@
                             $req = $params;
                         }
 
-                        if (strpos($endpoint, '?') !== false) {
-                            $endpoint .= '&' . $req;
-                        } else {
-                            $endpoint .= '?' . $req;
+                        if (!empty($req)) {
+                            if (strpos($endpoint, '?') !== false) {
+                                $endpoint .= '&' . $req;
+                            } else {
+                                $endpoint .= '?' . $req;
+                            }
                         }
                         break;
                 }
