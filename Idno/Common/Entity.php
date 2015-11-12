@@ -2085,6 +2085,19 @@
             }
 
             /**
+             * Retrieves all annotations associated with this object
+             * @return array
+             */
+            function getAllAnnotations()
+            {
+                if (!empty($this->annotations) && is_array($this->annotations)) {
+                    return $this->annotations;
+                }
+
+                return array();
+            }
+
+            /**
              * Count the number of annotations of a particular subtype this entity has
              *
              * @param string $subtype Annotation type (eg 'comments')
