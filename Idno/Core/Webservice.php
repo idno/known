@@ -44,17 +44,20 @@
                 switch (strtolower($verb)) {
                     case 'post':
                         curl_setopt($curl_handle, CURLOPT_POST, 1);
-                        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $params);
+                        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, self::flattenArrayToQuery($params));
+                        curl_setopt($curl_handle, CURLOPT_HTTPHEADER, array("Content-type: multipart/form-data"));
                         $headers[] = 'Expect:';
                         break;
                     case 'put':
                         curl_setopt($curl_handle, CURLOPT_CUSTOMREQUEST, 'PUT'); // Override request type
-                        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $params);
+                        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, self::flattenArrayToQuery($params));
+                        curl_setopt($curl_handle, CURLOPT_HTTPHEADER, array("Content-type: multipart/form-data"));
                         break;
 
                     case 'delete':
                         curl_setopt($curl_handle, CURLOPT_CUSTOMREQUEST, 'DELETE'); // Override request type
-                        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $params);
+                        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, self::flattenArrayToQuery($params));
+                        curl_setopt($curl_handle, CURLOPT_HTTPHEADER, array("Content-type: multipart/form-data"));
                     case 'head':
                         if ($verb == 'head') curl_setopt($curl_handle, CURLOPT_NOBODY, true);
                     case 'get':
@@ -345,6 +348,19 @@
                 }
 
                 return false;
+            }
+
+            /**
+             * Takes a query array and flattens it for use in a POST request (etc)
+             * @param $params
+             * @return string
+             */
+            static function flattenArrayToQuery($params)
+            {
+                if (is_array($params) && !empty($params)) {
+                    return http_build_query($params);
+                }
+                return '';
             }
 
             /**
