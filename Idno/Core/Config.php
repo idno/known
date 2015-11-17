@@ -54,6 +54,7 @@
                 'static_url'           => false,
                 'user_avatar_favicons' => true,
                 'form_token_expiry'    => 21600,
+                'show_privacy'         => true
             );
 
             public $ini_config = array();
