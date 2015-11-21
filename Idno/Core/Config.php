@@ -121,9 +121,9 @@
                         unset($config['host']);
                         unset($config['feed']);
                         unset($config['uploadpath']);
-                        unset($config['initial_plugins']);
-                        unset($config['antiplugins']);
-                        unset($config['alwaysplugins']);
+                        //unset($config['initial_plugins']);
+                        //unset($config['antiplugins']);
+                        //unset($config['alwaysplugins']);
                         unset($config['session_path']);
                         unset($config['session_hash_function']);
                         unset($config['sessions_database']);
