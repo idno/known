@@ -157,12 +157,12 @@
                 if (empty($this->ini_config)) {
                     $this->ini_config = array();
                     if ($config = @parse_ini_file($this->path . '/config.ini')) {
-                        $this->ini_config = array_merge_recursive($config, $this->ini_config);
+                        $this->ini_config = array_merge($config, $this->ini_config);
                     }
                     if (file_exists($this->path . '/config.json')) {
                         if ($json = file_get_contents($this->path . '/config.json')) {
                             if ($json = json_decode($json, true)) {
-                                $this->ini_config = array_merge_recursive($this->ini_config, $json);
+                                $this->ini_config = array_replace_recursive($this->ini_config, $json);
                             }
                         }
                     }
@@ -172,7 +172,7 @@
                         unset($this->ini_config['initial_plugins']);  // Don't let plugin settings be merged
                         unset($this->ini_config['alwaysplugins']);
                         unset($this->ini_config['antiplugins']);
-                        $this->ini_config = array_merge_recursive($this->ini_config, $config);
+                        $this->ini_config = array_replace_recursive($this->ini_config, $config);
                     }
 
                     // Check environment variables and set as appropriate
@@ -285,7 +285,7 @@
 
                 if (!empty($this->initial_plugins)) {
                     if (!empty($this->default_plugins)) {
-                        $this->default_plugins = array_merge_recursive($this->default_plugins, $this->initial_plugins);
+                        $this->default_plugins = array_merge($this->default_plugins, $this->initial_plugins);
                     } else {
                         $this->default_plugins = $this->initial_plugins;
                     }
