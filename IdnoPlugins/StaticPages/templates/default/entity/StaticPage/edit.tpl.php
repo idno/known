@@ -124,7 +124,7 @@
                     <p style="margin-bottom: 20px">
                         <strong>Show the page title as a heading?</strong><br>
                         <label class="radio-inline">
-                            <input type="radio" name="optionsRadios" id="title-heading" value="0" <?php
+                            <input type="radio" name="hide_title" id="title-heading" value="0" <?php
 
                                 if (empty($hide_title)) {
                                     echo 'checked';
@@ -134,7 +134,7 @@
                             Yes
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="optionsRadios" id="title-heading" value="1" <?php
+                            <input type="radio" name="hide_title" id="title-heading" value="1" <?php
 
                                 if (!empty($hide_title)) {
                                     echo 'checked';
