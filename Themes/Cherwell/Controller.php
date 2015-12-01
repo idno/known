@@ -19,7 +19,9 @@
                             }
                         }
                         if (empty($profile_user)) {
-                            \Idno\Core\Idno::site()->currentPage()->setOwner(\Idno\Entities\User::getOne(['admin' => true]));
+                            if (\Idno\Entities\User::count(['admin' => true]) == 1) {
+                                \Idno\Core\Idno::site()->currentPage()->setOwner(\Idno\Entities\User::getOne(['admin' => true]));
+                            }
                         }
                     }
                 });

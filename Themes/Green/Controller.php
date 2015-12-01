@@ -10,7 +10,9 @@
             function init() {
                 \Idno\Core\Idno::site()->events()->addListener('page/get',function(\Idno\Core\Event $event) {
                     if ($event->data()['page_class'] == 'Idno\Pages\Homepage') {
-                        \Idno\Core\Idno::site()->currentPage()->setOwner(\Idno\Entities\User::getOne(['admin' => 1]));
+                        if (\Idno\Entities\User::count(['admin' => true]) == 1) {
+                            \Idno\Core\Idno::site()->currentPage()->setOwner(\Idno\Entities\User::getOne(['admin' => 1]));
+                        }
                     }
                 });
             }
