@@ -48,7 +48,7 @@
                 'experimental'         => false, // A common way to enable experimental functions still in development
                 'multitenant'          => false,
                 'default_config'       => true, // This is a trip-switch - changed to false if configuration is loaded from an ini file / the db
-                'loglevel'             => 5,
+                'log_level'            => 5,
                 'multi_syndication'    => true,
                 'wayback_machine'      => false,
                 'static_url'           => false,

@@ -27,7 +27,7 @@
             public $pagehandlers;
             public $public_pages;
             public $syndication;
-            public $logging;
+            public $logging; /* @var \Idno\Core\Logging $logging */
             public static $site; /* @var \Idno\Core\Idno $site */
             public $currentPage;
             public $known_hub;

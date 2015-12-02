@@ -33,6 +33,15 @@
                 $this->identifier      = $identifier;
                 $this->contexts        = [];
             }
+
+            /**
+             * Sets the log level
+             * @param $loglevel
+             */
+            public function setLogLevel($loglevel)
+            {
+                $this->loglevel_filter = $loglevel;
+            }
             
             /**
              * Set the context
