@@ -60,7 +60,7 @@
                     $this->validate();
                 } catch (\Exception $ex) {
                     // Session didn't validate, log & destroy
-                    error_log($ex->getMessage());
+                    Idno\Core\Idno::site()->logging->log($ex->getMessage(), LOGLEVEL_ERROR);
                     session_destroy();
                 }
 
