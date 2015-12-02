@@ -360,7 +360,7 @@
                 if (is_array($params) && !empty($params)) {
                     return http_build_query($params);
                 }
-                return '';
+                return $params;
             }
 
             /**
