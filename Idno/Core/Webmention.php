@@ -21,7 +21,7 @@
             static function pingMentions($pageURL, $text)
             {
 
-                if ($current_page = site()->currentPage()) {
+                if ($current_page = \Idno\Core\Idno::site()->currentPage()) {
                     if ($nowebmention = $current_page->getInput('nomention')) {
                         return true;
                     }
@@ -54,7 +54,6 @@
                 // Load webmention-client
                 require_once \Idno\Core\Idno::site()->config()->path . '/external/mention-client-php/src/IndieWeb/MentionClient.php';
                 $client = new \Idno\Core\MentionClient($sourceURL);
-
                 return $client->sendWebmentionPayload($targetURL);
             }
 
