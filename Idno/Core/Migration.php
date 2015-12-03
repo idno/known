@@ -413,13 +413,20 @@
                                 }
 
                                 self::importImagesFromBodyHTML($body, parse_url($item['link'], PHP_URL_HOST));
+                                if (empty($item['title']) && strlen($body) < 600) {
+	                                $object = new \IdnoPlugins\Status\Status();
+	                                $object->created = $published;
+	                                $object->body    = ($body);
+	                                $object->save(true);
 
-                                $object = new \IdnoPlugins\Text\Entry();
-                                $object->setTitle(html_entity_decode($title));
-                                $object->created = $published;
-                                $object->body    = ($body);
-                                $object->save(true);
+                                } else {
 
+	                                $object = new \IdnoPlugins\Text\Entry();
+	                                $object->setTitle(html_entity_decode($title));
+	                                $object->created = $published;
+	                                $object->body    = ($body);
+	                                $object->save(true);
+                                }
                             }
 
                         }
