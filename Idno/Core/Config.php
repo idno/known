@@ -519,6 +519,19 @@
             }
 
             /**
+             * Retrieve the description of this site
+             * @return string
+             */
+            function getDescription()
+            {
+                if (!empty($this->description)) {
+                    return $this->description;
+                }
+
+                return '';
+            }
+
+            /**
              * Returns the base folder name to use when storing files (usually the site host)
              * @return mixed|string
              */

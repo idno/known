@@ -24,10 +24,20 @@
     $channel->appendChild($page->createElement('title',$vars['title']));
     if (!empty(\Idno\Core\Idno::site()->config()->description)) {
         $site_description = $page->createElement('description');
-        $site_description->appendChild($page->createCDATASection(\Idno\Core\Idno::site()->config()->description));
+        if (empty($vars['nocdata'])) {
+            $site_description->appendChild($page->createCDATASection(\Idno\Core\Idno::site()->config()->description));
+        } else {
+            //$site_description->appendChild((\Idno\Core\Idno::site()->config()->description));
+            $site_description->textContent = \Idno\Core\Idno::site()->config()->getDescription();
+        }
         $channel->appendChild($site_description);
         $site_description = $page->createElement('itunes:summary');
-        $site_description->appendChild($page->createCDATASection(\Idno\Core\Idno::site()->config()->description));
+        if (empty($vars['nocdata'])) {
+            $site_description->appendChild($page->createCDATASection(\Idno\Core\Idno::site()->config()->description));
+        } else {
+            //$site_description->appendChild((\Idno\Core\Idno::site()->config()->description));
+            $site_description->textContent = \Idno\Core\Idno::site()->config()->getDescription();
+        }
         $channel->appendChild($site_description);
     }
     $channel->appendChild($page->createElement('link',$this->getCurrentURLWithoutVar('_t')));
@@ -77,7 +87,12 @@
             //$rssItem->appendChild($page->createElement('dc:creator', $owner->title));
             
             $description = $page->createElement('description');
-            $description->appendChild($page->createCDATASection($item->draw(true)));
+            if (empty($vars['nocdata'])) {
+                $description->appendChild($page->createCDATASection($item->draw(true)));
+            } else {
+                //$description->appendChild($page->create($item->draw(true)));
+                $description->textContent = $item->draw(true);
+            }
             $rssItem->appendChild($description);
             if (!empty($item->lat) && !empty($item->long)) {
                 $rssItem->appendChild($page->createElement('geo:lat', $item->lat));

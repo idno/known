@@ -429,9 +429,32 @@
 
             }
 
-            static function getWordPressXML()
+            /**
+             * Retrieve all posts as an RSS feed
+             * @param bool|true $hide_private
+             * @return bool|false|string
+             */
+            static function getExportRSS($hide_private = true)
             {
+                $types = \Idno\Common\ContentType::getRegisteredClasses();
+                if ($feed = \Idno\Entities\ActivityStreamPost::getFromX($types, [], array(), PHP_INT_MAX, 0)) {
+                    $rss_theme = new Template();
+                    $rss_theme->setTemplateType('rss');
+                    return $rss_theme->__(array(
 
+                        'title'       => Idno::site()->config()->getTitle(),
+                        'description' => Idno::site()->config()->getDescription(),
+                        'body'        => $rss_theme->__(array(
+                            'items'        => $feed,
+                            'offset'       => 0,
+                            'count'        => sizeof($feed),
+                            'subject'      => [],
+                            'nocdata'      => true,
+                        ))->draw('pages/home'),
+
+                    ))->drawPage(false);
+                }
+                return false;
             }
 
         }
