@@ -96,7 +96,6 @@
             if (empty($vars['nocdata'])) {
                 $description->appendChild($page->createCDATASection($item->draw(true)));
             } else {
-                //$description->appendChild($page->create($item->draw(true)));
                 $description->textContent = $item->draw(true);
             }
             $rssItem->appendChild($description);
