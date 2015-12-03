@@ -433,6 +433,26 @@
             }
 
             /**
+             * Returns a version of the current page URL with the specified variable removed from the address line
+             * @param string $variable_name
+             * @return string
+             */
+            function getURLWithoutVar($url, $variable_name)
+            {
+                if (empty($url)) {
+                    $url = $this->getCurrentURL();
+                }
+                $components = parse_url($url);
+                parse_str($components['query'], $url_var_array);
+                if (!empty($url_var_array[$variable_name])) unset($url_var_array[$variable_name]);
+                $components['query'] = http_build_query($url_var_array);
+                $url                 = $components['scheme'] . '://' . $components['host'] . $components['path'];
+                if (!empty($components['query'])) $url .= '?' . $components['query'];
+
+                return $url;
+            }
+
+            /**
              * Returns a version of the current page URL with the specified URL variable set to the specified value
              * @param $variable_name
              * @param $value

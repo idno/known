@@ -34,6 +34,10 @@
                 Idno::site()->addPageHandler('/account/settings/feedback/?', '\Idno\Pages\Account\Settings\Feedback');
                 Idno::site()->addPageHandler('/account/settings/feedback/confirm/?', '\Idno\Pages\Account\Settings\FeedbackConfirm');
 
+                // Per-user export
+                Idno::site()->addPageHandler('/account/export/?', '\Idno\Pages\Account\Export');
+                Idno::site()->addPageHandler('/account/export/rss/?', '\Idno\Pages\Account\Export\RSS');
+
             }
 
         }

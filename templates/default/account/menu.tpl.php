@@ -8,4 +8,6 @@
     <li <?php if ($_SERVER['REQUEST_URI'] == '/account/settings/tools/') echo 'class="active"'; ?> role="presentation">
         <a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>account/settings/tools/">Tools and Apps</a></li>
     <?= $this->draw('account/menu/items') ?>
+    <li <?php if ($_SERVER['REQUEST_URI'] == '/account/settings/tools/') echo 'class="active"'; ?> role="presentation">
+        <a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>account/export/">Export Data</a></li>
 </ul>

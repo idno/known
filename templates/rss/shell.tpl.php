@@ -11,6 +11,12 @@
         }
     }
 
+    if (empty($vars['base_url'])) {
+        $base_url = $this->getCurrentURLWithoutVar('_t');
+    } else {
+        $base_url = $this->getURLWithoutVar($vars['base_url'], '_t');
+    }
+
     $page = new DOMDocument();
     $page->formatOutput = true;
     $rss = $page->createElement('rss');
@@ -40,7 +46,7 @@
         }
         $channel->appendChild($site_description);
     }
-    $channel->appendChild($page->createElement('link',$this->getCurrentURLWithoutVar('_t')));
+    $channel->appendChild($page->createElement('link',$base_url));
     if (!empty(\Idno\Core\Idno::site()->config()->hub)) {
         $pubsub = $page->createElement('atom:link');
         $pubsub->setAttribute('href',\Idno\Core\Idno::site()->config()->hub);

@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
-	            <?php
+        <?php
 
             echo $this->draw('admin/menu');
 
@@ -50,6 +50,20 @@
             into content management systems like WordPress, or another Known site.
         </p>
         <form action="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>admin/export/rss" method="post">
+            <div class="row">
+                <div class="col-md-2">
+                    <p><label class="control-label" for="allposts"><strong>Include private posts?</strong></label></p>
+                </div>
+                <div class="config-toggle col-md-4">
+                    <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
+                           name="allposts" id="allposts"
+                           value="0">
+                </div>
+                <div class="col-md-6">
+                    <p class="config-desc">Platforms like WordPress may assume that all your posts should be displayed publicly.
+                        In order to protect your privacy, you may wish to just download your public posts.</p>
+                </div>
+            </div>
             <p>
                 <input type="submit" class="btn btn-primary" value="Download RSS file">
             </p>
@@ -58,9 +72,6 @@
                 echo \Idno\Core\Idno::site()->actions()->signForm(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/export/rss');
 
             ?>
-            <p>
-                <label><input type="checkbox" name="allposts" value="1"> Include private posts</label>
-            </p>
         </form>
 
     </div>

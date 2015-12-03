@@ -4,6 +4,7 @@
 
         use Idno\Common\Entity;
         use Idno\Entities\File;
+        use Idno\Entities\User;
 
         class Migration extends \Idno\Common\Component
         {
@@ -431,10 +432,11 @@
 
             /**
              * Retrieve all posts as an RSS feed
-             * @param bool|true $hide_private
+             * @param bool|true $hide_private Should we hide private posts? Default: true.
+             * @param string $user_uuid User UUID to export for. Default: all users.
              * @return bool|false|string
              */
-            static function getExportRSS($hide_private = true)
+            static function getExportRSS($hide_private = true, $user_uuid = '')
             {
                 $types = \Idno\Common\ContentType::getRegisteredClasses();
                 if ($hide_private) {
@@ -442,19 +444,33 @@
                 } else {
                     $groups = [];
                 }
-                if ($feed = \Idno\Entities\ActivityStreamPost::getFromX($types, [], array(), PHP_INT_MAX, 0, $groups)) {
+                if (!empty($user_uuid)) {
+                    $search = ['owner' => $user_uuid];
+                    if ($user = User::getByUUID($user_uuid)) {
+                        $title = $user->getTitle();
+                        $description = $user->getDescription();
+                        $base_url = $user_uuid;
+                    }
+                } else {
+                    $search = [];
+                    $title = Idno::site()->config()->getTitle();
+                    $description = Idno::site()->config()->getDescription();
+                    $base_url = Idno::site()->config()->getDisplayURL();
+                }
+                if ($feed = \Idno\Entities\ActivityStreamPost::getFromX($types, $search, array(), PHP_INT_MAX, 0, $groups)) {
                     $rss_theme = new Template();
                     $rss_theme->setTemplateType('rss');
                     return $rss_theme->__(array(
 
-                        'title'       => Idno::site()->config()->getTitle(),
-                        'description' => Idno::site()->config()->getDescription(),
+                        'title'       => $title,
+                        'description' => $description,
                         'body'        => $rss_theme->__(array(
                             'items'        => $feed,
                             'offset'       => 0,
                             'count'        => sizeof($feed),
                             'subject'      => [],
                             'nocdata'      => true,
+                            'base_url'     => $base_url
                         ))->draw('pages/home'),
 
                     ))->drawPage(false);
