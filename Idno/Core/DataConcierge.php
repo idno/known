@@ -214,10 +214,11 @@
              * @param int $limit Maximum number of records to return (default: 10)
              * @param int $offset Number of records to skip (default: 0)
              * @param string $collection Collection to query; default: entities
+             * @param array $readGroups Which ACL groups should we check? (default: everything the user can see)
              * @return array|false Array of elements or false, depending on success
              */
 
-            function getObjects($subtypes = '', $search = array(), $fields = array(), $limit = 10, $offset = 0, $collection = 'entities')
+            function getObjects($subtypes = '', $search = array(), $fields = array(), $limit = 10, $offset = 0, $collection = 'entities', $readGroups = [])
             {
 
                 // Initialize query parameters to be an empty array
@@ -246,7 +247,9 @@
                 }
 
                 // Make sure we're only getting objects that we're allowed to see
-                $readGroups                 = site()->session()->getReadAccessGroupIDs();
+                if (empty($readGroups)) {
+                    $readGroups                 = \Idno\Core\Idno::site()->session()->getReadAccessGroupIDs();
+                }
                 $query_parameters['access'] = array('$in' => $readGroups);
 
                 // Join the rest of the search query elements to this search

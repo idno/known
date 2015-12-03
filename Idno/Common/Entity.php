@@ -210,12 +210,13 @@
              * @param array $search List of filter terms (default: none)
              * @param array $fields List of fields to return (default: all)
              * @param int $limit Number of items to return (default: 10)
-             * @param int $offset Number of items to skip (default: 0
+             * @param int $offset Number of items to skip (default: 0)
+             * @param array $readGroups Which ACL groups should we check? (default: everything the user can see)
              * @return array
              */
-            static function getFromX($class, $search = array(), $fields = array(), $limit = 10, $offset = 0)
+            static function getFromX($class, $search = array(), $fields = array(), $limit = 10, $offset = 0, $readGroups = [])
             {
-                $result = \Idno\Core\Idno::site()->db()->getObjects($class, $search, $fields, $limit, $offset, static::$retrieve_collection);
+                $result = \Idno\Core\Idno::site()->db()->getObjects($class, $search, $fields, $limit, $offset, static::$retrieve_collection, $readGroups);
 
                 return $result;
             }
