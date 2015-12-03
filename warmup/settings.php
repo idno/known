@@ -18,9 +18,9 @@
     $mysql_pass  = getInput('mysql_pass');
     $mysql_name  = getInput('mysql_name');
     $upload_path = getInput('upload_path');
-    if (empty($mysql_host)) {
-        $mysql_host = 'localhost';
-    }
+    //if (empty($mysql_host)) {
+        //$mysql_host = 'localhost';
+    //}
 
     if (!empty($_SERVER['PHP_SELF'])) {
         if ($subdir = dirname(dirname($_SERVER['PHP_SELF']))) {
@@ -43,11 +43,16 @@
 
     if (!empty($mysql_name) && !empty($mysql_host)) {
         try {
-            $dbh = new PDO('mysql:host=' . $mysql_host . ';dbname=' . $mysql_name, $mysql_user, $mysql_pass);
+            $database_string = 'mysql:';
+            if (!empty($mysql_host)) {
+                $database_string .= 'host=' . $mysql_host . ';';
+            }
+            $database_string .= 'dbname=' . $mysql_name;
+            $dbh = new PDO($database_string, $mysql_user, $mysql_pass);
             if ($schema = @file_get_contents(dirname(dirname(__FILE__)) . '/schemas/mysql/mysql.sql')) {
                 $dbh->exec('use `' . $mysql_name . '`');
                 if (!$dbh->exec($schema)) {
-                    $messages .= '<p>We couldn\'t automaticall install the database schema.</p>';
+                    $messages .= '<p>We couldn\'t automatically install the database schema.</p>';
                     $ok = false;
                 }
             } else {
