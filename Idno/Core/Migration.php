@@ -404,7 +404,7 @@
                                     }
                                     foreach ($item['category'] as $category) {
                                         $category = strtolower(trim($category));
-                                        if ($category != 'general') {
+                                        if ($category != 'general' && $category != 'uncategorized') {
                                             $tags[] = '#' . preg_replace('/\W+/', '', $category);
                                         }
                                     }
