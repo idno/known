@@ -79,6 +79,7 @@
             $messages .= 'which prevents Known\'s .htaccess from doing its thing. We tried to fetch a URL that should redirect ';
             $messages .= 'to default.js, but got this response instead:</p>';
             $messages .= '<code><pre>' . htmlspecialchars($curl_result) . '</pre></code>';
+            $messages .= '<p>You can usually fix this by setting <code>AllowOverride All</code> in your Apache configuration.</p>';
             $ok = false;
         }
 
