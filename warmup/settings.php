@@ -44,7 +44,7 @@
     if (!empty($mysql_name) && !empty($mysql_host)) {
         try {
             $dbh = new PDO('mysql:host=' . $mysql_host . ';dbname=' . $mysql_name, $mysql_user, $mysql_pass);
-            if ($schema = @file_get_contents('../schemas/mysql/mysql.sql')) {
+            if ($schema = @file_get_contents(dirname(dirname(__FILE__)) . '/schemas/mysql/mysql.sql')) {
                 $dbh->exec('use `' . $mysql_name . '`');
                 if (!$dbh->exec($schema)) {
                     $messages .= '<p>We couldn\'t automaticall install the database schema.</p>';
