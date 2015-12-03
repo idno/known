@@ -44,9 +44,12 @@
     if (!empty($mysql_name) && !empty($mysql_host)) {
         try {
             $dbh = new PDO('mysql:host=' . $mysql_host . ';dbname=' . $mysql_name, $mysql_user, $mysql_pass);
-            if ($schema = @file_get_contents('../schemas/mysql/mysql.sql')) {
+            if ($schema = @file_get_contents(dirname(dirname(__FILE__)) . '/schemas/mysql/mysql.sql')) {
                 $dbh->exec('use `' . $mysql_name . '`');
-                $dbh->exec($schema);
+                if (!$dbh->exec($schema)) {
+                    $messages .= '<p>We couldn\'t automaticall install the database schema.</p>';
+                    $ok = false;
+                }
             } else {
                 $messages .= '<p>We couldn\'t find the schema doc.</p>';
                 $ok = false;
@@ -79,6 +82,7 @@
             $messages .= 'which prevents Known\'s .htaccess from doing its thing. We tried to fetch a URL that should redirect ';
             $messages .= 'to default.js, but got this response instead:</p>';
             $messages .= '<code><pre>' . htmlspecialchars($curl_result) . '</pre></code>';
+            $messages .= '<p>You can usually fix this by setting <code>AllowOverride All</code> in your Apache configuration.</p>';
             $ok = false;
         }
 
