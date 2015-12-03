@@ -437,7 +437,12 @@
             static function getExportRSS($hide_private = true)
             {
                 $types = \Idno\Common\ContentType::getRegisteredClasses();
-                if ($feed = \Idno\Entities\ActivityStreamPost::getFromX($types, [], array(), PHP_INT_MAX, 0)) {
+                if ($hide_private) {
+                    $groups = ['PUBLIC'];
+                } else {
+                    $groups = [];
+                }
+                if ($feed = \Idno\Entities\ActivityStreamPost::getFromX($types, [], array(), PHP_INT_MAX, 0, $groups)) {
                     $rss_theme = new Template();
                     $rss_theme->setTemplateType('rss');
                     return $rss_theme->__(array(
