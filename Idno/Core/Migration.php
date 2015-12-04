@@ -428,6 +428,26 @@
 	                                $object->body    = ($body);
 	                                $object->save(true);
                                 }
+
+                                if (!empty($item['wp:comment'])) {
+                                    if (!is_array($item['wp:comment'])) {
+                                        $item['wp:comment'] = [$item['wp:comment']];
+                                    }
+                                    foreach ($item['wp:comment'] as $comment_obj) {
+                                        $comment = (array)$comment_obj;
+                                         if ($object->addAnnotation('reply', 
+                                             $comment['comment_author'], 
+                                             $comment['comment_author_url'], 
+                                             '' , 
+                                             $comment['comment_content'], 
+                                             null,
+                                             strtotime($comment['comment_date_gmt']),
+                                             null
+                                         )) {
+                                                 $object->save(true);
+                                             }
+                                    }
+                                }
                             }
 
                         }
