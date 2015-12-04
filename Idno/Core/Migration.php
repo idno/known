@@ -442,7 +442,8 @@
                                              $comment['comment_content'], 
                                              null,
                                              strtotime($comment['comment_date_gmt']),
-                                             null
+                                             null,
+                                             false
                                          )) {
                                                  $object->save(true);
                                              }

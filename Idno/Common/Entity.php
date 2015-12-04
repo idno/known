@@ -1911,9 +1911,10 @@
              * @param string|null $annotation_url If included, the existing URL of this annotation
              * @param int $time The UNIX timestamp associated with this annotation (if set to 0, as is default, will be current time)
              * @param string $title The title associated with this annotation (blank by default)
+             * @param bool $send_notification Should this call trigger a notifiation? (Default: yes)
              * @return bool Depending on success
              */
-            function addAnnotation($subtype, $owner_name, $owner_url, $owner_image, $content, $annotation_url = null, $time = null, $title = '')
+            function addAnnotation($subtype, $owner_name, $owner_url, $owner_image, $content, $annotation_url = null, $time = null, $title = '', $send_notification = true)
             {
                 if (empty($subtype)) return false;
                 if (empty($annotation_url)) {
@@ -1958,55 +1959,57 @@
                     $owners = array($this->getOwnerID());
                 }
 
-                foreach ($owners as $owner_uuid) {
-                    if ($owner = User::getByUUID($owner_uuid)) {
+                if ($send_notification) {
+                    foreach ($owners as $owner_uuid) {
+                        if ($owner = User::getByUUID($owner_uuid)) {
 
-                        $send = true;
-                        switch ($subtype) {
-                            case 'mention':
-                            case 'reply':
-                                if ($owner_uuid == $this->getOwnerID()) {
-                                    $subject = $owner_name . ' replied to your post!';
-                                } else {
-                                    $subject = $owner_name . ' replied!';
-                                }
-                                $notification_template = 'content/notification/reply';
-                                $context               = 'reply';
-                                break;
-                            case 'like':
-                                if ($owner_uuid == $this->getOwnerID()) {
-                                    $subject = $owner_name . ' liked your post!';
-                                } else {
-                                    $send = false;
-                                }
-                                $notification_template = 'content/notification/like';
-                                $context               = 'like';
-                                break;
-                            case 'share':
-                                if ($owner_uuid == $this->getOwnerID()) {
-                                    $subject = $owner_name . ' reshared your post!';
-                                } else {
-                                    $send = false;
-                                }
-                                $notification_template = 'content/notification/share';
-                                $context               = 'share';
-                                break;
-                            case 'rsvp':
-                                $subject               = $owner_name . ' RSVPed!';
-                                $notification_template = 'content/notification/rsvp';
-                                $context               = 'rsvp';
-                                break;
-                        }
-
-                        if ($annotation['owner_url'] != $this->getOwner()->getURL() && $send == true && $post_existed == false) {
-                            if (empty($subject)) {
-                                $subject = '';
+                            $send = true;
+                            switch ($subtype) {
+                                case 'mention':
+                                case 'reply':
+                                    if ($owner_uuid == $this->getOwnerID()) {
+                                        $subject = $owner_name . ' replied to your post!';
+                                    } else {
+                                        $subject = $owner_name . ' replied!';
+                                    }
+                                    $notification_template = 'content/notification/reply';
+                                    $context               = 'reply';
+                                    break;
+                                case 'like':
+                                    if ($owner_uuid == $this->getOwnerID()) {
+                                        $subject = $owner_name . ' liked your post!';
+                                    } else {
+                                        $send = false;
+                                    }
+                                    $notification_template = 'content/notification/like';
+                                    $context               = 'like';
+                                    break;
+                                case 'share':
+                                    if ($owner_uuid == $this->getOwnerID()) {
+                                        $subject = $owner_name . ' reshared your post!';
+                                    } else {
+                                        $send = false;
+                                    }
+                                    $notification_template = 'content/notification/share';
+                                    $context               = 'share';
+                                    break;
+                                case 'rsvp':
+                                    $subject               = $owner_name . ' RSVPed!';
+                                    $notification_template = 'content/notification/rsvp';
+                                    $context               = 'rsvp';
+                                    break;
                             }
-                            if (!empty($notification_template) && !empty($context)) {
-                                $owner->notify($subject, $notification_template, $annotation, $context, $this);
-                            }
-                        }
 
+                            if ($annotation['owner_url'] != $this->getOwner()->getURL() && $send == true && $post_existed == false) {
+                                if (empty($subject)) {
+                                    $subject = '';
+                                }
+                                if (!empty($notification_template) && !empty($context) && $send_notification) {
+                                    $owner->notify($subject, $notification_template, $annotation, $context, $this);
+                                }
+                            }
+
+                        }
                     }
                 }
 
