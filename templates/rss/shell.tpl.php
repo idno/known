@@ -96,7 +96,12 @@
             if (empty($vars['nocdata'])) {
                 $description->appendChild($page->createCDATASection($item->draw(true)));
             } else {
-                $description->textContent = $item->draw(true);
+                //$description->appendChild($page->create($item->draw(true)));
+                //$description->textContent = $item->draw(true);
+                $tpl = new \DOMDocument;
+                $tpl->loadHtml($item->draw(true), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+                //$body->appendChild($dom->importNode($tpl->documentElement, TRUE));
+                $description->appendChild($page->importNode($tpl->documentElement, true));
             }
             $rssItem->appendChild($description);
             if (!empty($item->lat) && !empty($item->long)) {
