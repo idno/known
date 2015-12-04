@@ -22,7 +22,7 @@
             {
 
                 if ($current_page = \Idno\Core\Idno::site()->currentPage()) {
-                    if ($nowebmention = $current_page->getInput('nomention')) {
+                    if ($nowebmention = $current_page->getInput('nomention') || defined('KNOWN_NOMENTION')) {
                         return true;
                     }
                 }
