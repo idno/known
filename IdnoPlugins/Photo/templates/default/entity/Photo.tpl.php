@@ -26,12 +26,12 @@
                 $src = $mainsrc;
             }
 
-            $src = \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($src);
-            $mainsrc = \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($mainsrc);
-
             // Patch to correct certain broken URLs caused by https://github.com/idno/known/issues/526
             $src = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\Idno::site()->config()->getDisplayURL(), $src);
             $mainsrc = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\Idno::site()->config()->getDisplayURL(), $mainsrc);
+
+            $src = \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($src);
+            $mainsrc = \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($mainsrc);
             
             ?>
             <p style="text-align: center">
