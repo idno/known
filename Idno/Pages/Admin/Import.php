@@ -26,6 +26,8 @@
 
                 $this->adminGatekeeper();
 
+                define('KNOWN_NOMENTION', true);
+
                 $import_type = $this->getInput('import_type');
 
                 if (empty($_FILES['import'])) {
