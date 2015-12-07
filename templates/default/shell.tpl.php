@@ -11,8 +11,19 @@
 
     // Use appropriate language
     $lang = 'en';
-    if (!empty(\Idno\Core\Idno::site()->config()->lang))
+    if (!empty(\Idno\Core\Idno::site()->config()->lang)) {
         $lang = \Idno\Core\Idno::site()->config()->lang;
+    }
+
+    // Get instance of current page for use further down the page
+    $currentPage = \Idno\Core\Idno::site()->currentPage();
+    if (!empty($vars['object'])) {
+        $objectIcon = $vars['object']->getIcon();
+    } else {
+        $objectIcon = false;
+    }
+    $pageOwner = $currentPage->getOwner();
+
 ?>
 <!DOCTYPE html>
 <html lang="<?= $lang; ?>">
@@ -34,13 +45,13 @@
 
             ?>
             <!-- <link rel="manifest" href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>chrome/manifest.json"> -->
-        <?php
+            <?php
             if (Idno\Core\site()->isSecure()) {
-        ?>
-            <!-- <script>
+                ?>
+                <!-- <script>
                 window.addEventListener('load', function () {
                     if ('serviceWorker' in navigator) {
-                        navigator.serviceWorker.register('<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>chrome/service-worker.js', {scope: '/'})
+                        navigator.serviceWorker.register('<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>chrome/service-worker.js', {scope: '/'})
                             .then(function (r) {
                                 console.log('Registered service worker');
                             })
@@ -51,8 +62,8 @@
                     }
                 });
             </script> -->
-        <?php
-        }
+                <?php
+            }
 
         }
 
@@ -60,12 +71,12 @@
             'og:type'      => 'website',
             'og:title'     => htmlspecialchars(strip_tags($vars['title'])),
             'og:site_name' => htmlspecialchars(strip_tags(\Idno\Core\Idno::site()->config()->title)),
-            'og:image'     => Idno\Core\site()->currentPage()->getIcon()
+            'og:image'     => $currentPage->getIcon()
         );
 
-        if (\Idno\Core\Idno::site()->currentPage() && \Idno\Core\Idno::site()->currentPage()->isPermalink()) {
+        if ($currentPage->isPermalink()) {
 
-            $opengraph['og:url'] = \Idno\Core\Idno::site()->currentPage()->currentUrl();
+            $opengraph['og:url'] = $currentPage->currentUrl();
 
             if (!empty($vars['object'])) {
                 $owner  = $vars['object']->getOwner();
@@ -74,7 +85,7 @@
                 $opengraph['og:title']       = htmlspecialchars(strip_tags($vars['object']->getTitle()));
                 $opengraph['og:description'] = htmlspecialchars($vars['object']->getShortDescription());
                 $opengraph['og:type']        = 'article'; //htmlspecialchars($vars['object']->getActivityStreamsObjectType());
-                $opengraph['og:image']       = $vars['object']->getIcon(); //$owner->getIcon(); //Icon, for now set to being the author profile pic
+                $opengraph['og:image']       = $objectIcon; //$owner->getIcon(); //Icon, for now set to being the author profile pic
 
                 if ($icon = $vars['object']->getIcon()) {
                     if ($icon_file = \Idno\Entities\File::getByURL($icon)) {
@@ -94,8 +105,53 @@
 
         }
 
-        foreach ($opengraph as $key => $value)
+        foreach ($opengraph as $key => $value) {
             echo "<meta property=\"$key\" content=\"$value\" />\n";
+        }
+
+        if ($pageOwner && $currentPage->isPermalink()) {
+            $has_twitter_account = false;
+            if (!empty($pageOwner->profile['url'])) {
+                foreach ($pageOwner->profile['url'] as $profile_url) {
+                    if ($profile_url[0] == '@') {
+                        if (preg_match("/\@[a-z0-9_]+/i", $profile_url)) {
+                            $has_twitter_account = true;
+                            $twitter_account     = $profile_url;
+                            break;
+                        }
+                    }
+                    if (str_replace('www.', '', parse_url($profile_url, PHP_URL_HOST)) == 'twitter.com') {
+                        if (preg_match("/https?:\/\/(www\.)?twitter\.com\/(#!\/)?@?([^\/]*)/", $twitter_url, $matches)) {
+                            if (!empty($matches[3])) {
+                                $has_twitter_account = true;
+                                $twitter_account     = $matches[3];
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if ($has_twitter_account) {
+
+                $twitter_account = str_replace('@', '', $twitter_account);
+
+                ?>
+
+                <!-- Twitter card -->
+                <meta name="twitter:card" content="summary"/>
+                <meta name="twitter:site" content="@<?= $twitter_account ?>"/>
+                <meta name="twitter:title" content="<?= htmlspecialchars($vars['title']) ?>"/>
+                <meta name="twitter:description" content="<?= htmlspecialchars($vars['description']) ?>"/>
+
+                <?php
+
+                if (!empty($objectIcon)) {
+                    echo '<meta name="twitter:image" content="' . $objectIcon . '"/>' . "\n";
+                }
+
+            }
+        }
 
     ?>
 
@@ -105,7 +161,7 @@
     <meta name="DC.title" content="<?= htmlspecialchars($vars['title']) ?>">
     <meta name="DC.description" content="<?= htmlspecialchars($vars['description']) ?>"><?php
 
-        if (\Idno\Core\Idno::site()->currentPage() && \Idno\Core\Idno::site()->currentPage()->isPermalink()) {
+        if ($currentPage->isPermalink()) {
             /* @var \Idno\Common\Entity $object */
             if ($object instanceof \Idno\Common\Entity) {
 
@@ -138,14 +194,19 @@
     <script src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/jquery/' ?>jquery.min.js"></script>
 
     <!-- Le styles -->
-    <link href="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/css/bootstrap.min.css"
-          rel="stylesheet" />
-    <link href="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/css/bootstrap-theme.min.css" />
-    <script src="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
+    <link
+        href="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/css/bootstrap.min.css"
+        rel="stylesheet"/>
+    <link
+        href="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/css/bootstrap-theme.min.css"/>
+    <script
+        src="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
 
     <!-- Accessibility -->
-    <link rel="stylesheet" href="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'external/paypal-bootstrap-accessibility-plugin/' ?>plugins/css/bootstrap-accessibility_1.0.3.css">
-    <script  src="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'external/paypal-bootstrap-accessibility-plugin/' ?>plugins/js/bootstrap-accessibility_1.0.3.min.js"></script>
+    <link rel="stylesheet"
+          href="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'external/paypal-bootstrap-accessibility-plugin/' ?>plugins/css/bootstrap-accessibility_1.0.3.css">
+    <script
+        src="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'external/paypal-bootstrap-accessibility-plugin/' ?>plugins/js/bootstrap-accessibility_1.0.3.min.js"></script>
 
     <!-- Fonts -->
     <link rel="stylesheet"
@@ -157,8 +218,8 @@
             padding-top: 100px; /* 60px to make the container go all the way to the bottom of the topbar */
         }
     </style>
-    
-    <?=$this->draw('shell/css');?>
+
+    <?= $this->draw('shell/css'); ?>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -196,7 +257,7 @@
             foreach ($style as $css) {
                 ?>
                 <link href="<?= $css; ?>" rel="stylesheet">
-            <?php
+                <?php
             }
         }
     ?>
@@ -259,7 +320,7 @@
                 }
             </style>
             <div style="height: 1em;"><br/></div>
-        <?php
+            <?php
 
         } // End hidenav test
 
@@ -281,7 +342,7 @@
                         <?= $message['message'] ?>
                     </div>
 
-                <?php
+                    <?php
 
                 }
             }
@@ -305,7 +366,8 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script
     src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/jquery-timeago/' ?>jquery.timeago.js"></script>
-<script src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/jquery-pjax/' ?>jquery.pjax.js"></script>
+<script
+    src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/jquery-pjax/' ?>jquery.pjax.js"></script>
 <script src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/underscore/underscore-min.js' ?>"
         type="text/javascript"></script>
 <!--<script src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/mention/bootstrap-typeahead.js' ?>"
@@ -317,7 +379,7 @@
 <?php
 
     if (!empty(\Idno\Core\Idno::site()->config()->assets)) {
-        foreach(\Idno\Core\Idno::site()->config()->assets as $asset => $enabled) {
+        foreach (\Idno\Core\Idno::site()->config()->assets as $asset => $enabled) {
             if (!empty($enabled)) {
                 echo $this->draw('assets/' . $asset);
             }
@@ -328,12 +390,13 @@
 
         ?>
         <!-- WYSIWYG editor -->
-        <script src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>external/tinymce/js/tinymce/tinymce.min.js"
-                type="text/javascript"></script>
+        <script
+            src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>external/tinymce/js/tinymce/tinymce.min.js"
+            type="text/javascript"></script>
         <script
             src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>external/tinymce/js/tinymce/jquery.tinymce.min.js"
             type="text/javascript"></script>
-    <?php
+        <?php
 
     }
 
@@ -352,7 +415,7 @@
         foreach ($scripts as $script) {
             ?>
             <script src="<?= $script ?>"></script>
-        <?php
+            <?php
         }
     }
 ?>
@@ -401,26 +464,26 @@
             }
         });
     });
-    
+
     /**
      * Handle Soundcloud oEmbed code
      */
-    $(document).ready(function() {
-	$('div.soundcloud-embed').each(function(index) {
-	    var url = $(this).attr('data-url');
-	    var div = $(this);
-	    
-	    $.getJSON('https://soundcloud.com/oembed?callback=?',
-		    {
-			format: 'js',
-			url: url,
-			iframe: true
-		    },
-		function(data) {
-		    div.html(data['html']);
-		}
-	    );
-	});
+    $(document).ready(function () {
+        $('div.soundcloud-embed').each(function (index) {
+            var url = $(this).attr('data-url');
+            var div = $(this);
+
+            $.getJSON('https://soundcloud.com/oembed?callback=?',
+                {
+                    format: 'js',
+                    url: url,
+                    iframe: true
+                },
+                function (data) {
+                    div.html(data['html']);
+                }
+            );
+        });
     });
 
     /**
