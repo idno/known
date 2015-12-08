@@ -121,7 +121,7 @@
                         }
                     }
                     if (str_replace('www.', '', parse_url($profile_url, PHP_URL_HOST)) == 'twitter.com') {
-                        if (preg_match("/https?:\/\/(www\.)?twitter\.com\/(#!\/)?@?([^\/]*)/", $twitter_url, $matches)) {
+                        if (preg_match("/https?:\/\/(www\.)?twitter\.com\/(#!\/)?@?([^\/]*)/", $profile_url, $matches)) {
                             if (!empty($matches[3])) {
                                 $has_twitter_account = true;
                                 $twitter_account     = $matches[3];
