@@ -17,12 +17,16 @@
                     $object = new \IdnoPlugins\Text\Entry();
                 }
 
+                if ($owner = $object->getOwner()) {
+                    $this->setOwner($owner);
+                }
+
                 $t = \Idno\Core\Idno::site()->template();
                 $body = $t->__(array(
                     'object' => $object
                 ))->draw('entity/Entry/edit');
 
-                if (empty($vars['object']->_id)) {
+                if (empty($object->_id)) {
                     $title = 'Write an entry';
                 } else {
                     $title = 'Edit entry';

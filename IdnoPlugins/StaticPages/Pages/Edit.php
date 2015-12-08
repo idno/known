@@ -19,6 +19,10 @@
                     $object = new \IdnoPlugins\StaticPages\StaticPage();
                 }
 
+                if ($owner = $object->getOwner()) {
+                    $this->setOwner($owner);
+                }
+
                 if ($staticpages = \Idno\Core\Idno::site()->plugins()->get('StaticPages')) {
 
                     $categories = $staticpages->getCategories();

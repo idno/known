@@ -22,6 +22,10 @@
                 if (empty($object)) $this->forward(); // TODO: 404
                 if (!$object->canEdit()) $this->forward($object->getDisplayURL());
 
+                if ($owner = $object->getOwner()) {
+                    $this->setOwner($owner);
+                }
+
                 session_write_close();
 
                 $t = \Idno\Core\Idno::site()->template();

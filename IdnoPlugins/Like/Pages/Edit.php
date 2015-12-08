@@ -18,6 +18,10 @@
                     $object->pageTitle = ($object->getTitleFromURL($this->getInput('url')));
                 }
 
+                if ($owner = $object->getOwner()) {
+                    $this->setOwner($owner);
+                }
+
                 $t = \Idno\Core\Idno::site()->template();
                 $body = $t->__(array(
                     'object' => $object,
