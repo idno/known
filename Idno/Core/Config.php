@@ -355,8 +355,8 @@
                     $newuri = 'http:';
                 }
 
-                //return str_replace($urischeme . ':', $newuri, $url);
-                return str_replace($urischeme . ':', '', $url);
+                return str_replace($urischeme . ':', $newuri, $url);
+                //return str_replace($urischeme . ':', '', $url);
             }
 
             /**
