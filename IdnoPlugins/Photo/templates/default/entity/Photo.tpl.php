@@ -7,7 +7,7 @@
     if (!empty($vars['object']->tags)) {
         $vars['object']->body .= '<p class="tag-row"><i class="icon-tag"></i>' . $vars['object']->tags . '</p>';
     }
-    if (empty($vars['feed_view'])) {
+    if (empty($vars['feed_view']) && !empty($vars['object']->getTitle()) && $vars['object']->getTitle() != 'Untitled') {
         ?>
         <h2 class="photo-title p-name"><a
                 href="<?= $vars['object']->getDisplayURL(); ?>"><?= htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?></a>
