@@ -62,7 +62,6 @@ Third party libraries are licensed separately.
 ###Known also contains
 
 * Twitter Bootstrap, which is distributed under the Apache 2.0 license. Source: https://github.com/twitter/bootstrap
-* Bonita, which is distributed under the Apache 2.0 license. Source: https://github.com/benwerd/bonita
 * jQuery, which is distributed under the MIT License. Source: https://github.com/jquery/jquery
 * Portions of Symfony, which is distributed under the MIT license.
  * ClassLoader. Source: https://github.com/symfony/ClassLoader
