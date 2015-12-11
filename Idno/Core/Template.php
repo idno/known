@@ -504,6 +504,11 @@
                 if (empty($url)) {
                     $url = $this->getCurrentURL();
                 }
+                $blank_scheme = false;
+                if (substr($url,0,2) == '//') {
+                    $blank_scheme = true;
+                    $url = 'http:' . $url;
+                }
                 if ($components = parse_url($url)) {
                     if (!empty($components['query'])) {
                         parse_str($components['query'], $url_var_array);
@@ -514,6 +519,9 @@
                     $components['query']           = http_build_query($url_var_array);
                     $url                           = $components['scheme'] . '://' . $components['host'] . $components['path'];
                     if (!empty($components['query'])) $url .= '?' . $components['query'];
+                    if ($blank_scheme) {
+                        $url = str_replace($components['scheme'] . ':','',$url);
+                    }
                 }
 
                 return $url;
