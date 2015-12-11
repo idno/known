@@ -506,7 +506,8 @@
                     */
 
                     if (!\Idno\Core\Idno::site()->config()->session_cookies) {
-                        $t = \Idno\Core\Idno::site()->template(); /* @var $t \Idno\Core\Template */
+                        $t = \Idno\Core\Idno::site()->template();
+                        /* @var $t \Idno\Core\Template */
                         $location = $t->getURLWithVar('sid', session_id());
                     }
 
@@ -514,11 +515,10 @@
                         echo json_encode([
                             'location' => $location
                         ]);
-                    }
-                    elseif (!\Idno\Core\Idno::site()->session()->isAPIRequest() || $this->response == 200) {
+                    } elseif (!\Idno\Core\Idno::site()->session()->isAPIRequest() || $this->response == 200) {
                         header('Location: ' . $location);
                     }
-                    
+
                     if ($exit) {
                         exit;
                     }
@@ -856,17 +856,18 @@
             /**
              * Get the referrer information for the current page.
              */
-            function getReferrer() {
-                
+            function getReferrer()
+            {
+
                 $referrer = $_SERVER['HTTP_REFERER'];
-                
+
                 if (empty($referrer)) {
-                     // TODO: Try other ways - e.g. for nginx
+                    // TODO: Try other ways - e.g. for nginx
                 }
-                
+
                 return $referrer;
             }
-            
+
             /**
              * Detects whether the current web browser accepts the given content type.
              * @param string $contentType The MIME content type.
@@ -935,16 +936,17 @@
             {
                 header('Last-Modified: ' . \Idno\Core\Time::timestampToRFC2616($timestamp));
             }
-            
+
             /**
              * Simplify if modified since checks.
              * Set a 304 not modified if If-Modified-Since header is less than the given timestamp.
              * @param type $timestamp Timestamp to check
              */
-            public function lastModifiedGatekeeper($timestamp) {
+            public function lastModifiedGatekeeper($timestamp)
+            {
                 $headers = $this->getallheaders();
                 if (isset($headers['If-Modified-Since'])) {
-                    if (strtotime($headers['If-Modified-Since']) <= $timestamp) { 
+                    if (strtotime($headers['If-Modified-Since']) <= $timestamp) {
                         //header('HTTP/1.1 304 Not Modified');
                         //exit;
                     }

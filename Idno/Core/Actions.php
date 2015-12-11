@@ -22,7 +22,7 @@
              */
             public static function validateToken($action = '', $haltExecutionOnBadRequest = true)
             {
-                if (site()->session()->isAPIRequest()) {
+                if (Idno::site()->session()->isAPIRequest()) {
                     return true;
                 }
 

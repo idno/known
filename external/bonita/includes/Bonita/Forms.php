@@ -58,12 +58,14 @@
 					    }
 					}
 		 			
-		 			if (abs(time() - $time) < \Idno\Core\Idno::site()->config()->form_token_expiry)
-			 			if (self::token($action, $time) == $token) {
-			 				return true;
-			 			}
-		 			
-		 			if ($haltExecutionOnBadRequest) exit;
+		 			if (abs(time() - $time) < \Idno\Core\Idno::site()->config()->form_token_expiry) {
+						if (self::token($action, $time) == $token) {
+							return true;
+						}
+					}
+		 			if ($haltExecutionOnBadRequest) {
+						exit;
+					}
 		 			return false;
 		 		
 		 		}
