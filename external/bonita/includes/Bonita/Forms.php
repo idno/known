@@ -79,7 +79,7 @@
 				public static function formSubmitted() {
 				    
 				    if (isset($_REQUEST['__bTk']) && isset($_REQUEST['__bTs'])) {
-					return true;
+						return true;
 				    }
 				    return false;
 				    
