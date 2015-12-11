@@ -45,7 +45,7 @@
                         }
 
                     ?>
-                    <div class="bookmark-title-container" for="title" <?php if (empty($vars['object']->pageTitle) && empty($vars['object']->_id)) { ?>style="display:none"<?php } ?>>
+                    <div class="bookmark-title-container" for="title" <?php if (empty($vars['object']->pageTitle) && empty($vars['object']->_id) && (empty($vars['url']) && empty($vars['object']->body))) { ?>style="display:none"<?php } ?>>
                         <label for="title">
                         Page title<br/>
                         </label>

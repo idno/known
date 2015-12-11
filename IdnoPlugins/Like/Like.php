@@ -59,8 +59,9 @@
             function getTitleFromURL($Url){
                 $str = \Idno\Core\Webservice::file_get_contents($Url);
                 if(strlen($str) > 0){
-                    preg_match("/\<title\>(.*)\<\/title\>/siuU",$str,$title);
-                    return htmlspecialchars_decode($title[1]);
+                    if ($result = preg_match("/\<title\>(.*)\<\/title\>/siu",$str,$title)) {
+                        return htmlspecialchars_decode($title[1]);
+                    }
                 }
                 return '';
             }
