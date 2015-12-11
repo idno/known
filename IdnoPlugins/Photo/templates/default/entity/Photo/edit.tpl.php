@@ -41,27 +41,44 @@
 
                 ?>
 
-                <div class="content-form">
-                    <label for="title">
-                        Title</label>
-                    <input type="text" name="title" id="title"
-                           value="<?= htmlspecialchars($vars['object']->title) ?>" class="form-control"
-                           placeholder="Give it a title"/>
+                <div id="photo-details" style="<?php
+
+                    if (empty($vars['object']->_id)) {
+                        echo 'display:none';
+                    }
+
+                    ?>">
+
+                    <div class="content-form">
+                        <label for="title">
+                            Title</label>
+                        <input type="text" name="title" id="title"
+                               value="<?= htmlspecialchars($vars['object']->title) ?>" class="form-control"
+                               placeholder="Give it a title"/>
+                    </div>
+
+                    <?= $this->__([
+                        'name' => 'body',
+                        'value' => $vars['object']->body,
+                        'object' => $object,
+                        'wordcount' => false,
+                        'class' => 'wysiwyg-short',
+                        'height' => 100,
+                        'placeholder' => 'Describe your photo',
+                        'label' => 'Description'
+                    ])->draw('forms/input/richtext')?>
+
+                    <?= $this->draw('entity/tags/input'); ?>
 
                 </div>
+                <div id="photo-details-toggle" style="<?php if (!empty($vars['object']->_id)) {
+                        echo 'display:none';
+                    }?>">
+                    <p>
+                        <small><a href="#" onclick="$('#photo-details').show(); $('#photo-details-toggle').hide(); return false;">+ Add details</a></small>
+                    </p>
+                </div>
 
-                <?= $this->__([
-                    'name' => 'body',
-                    'value' => $vars['object']->body,
-                    'object' => $object,
-                    'wordcount' => false,
-                    'class' => 'wysiwyg-short',
-                    'height' => 100,
-                    'placeholder' => 'Describe your photo',
-                    'label' => 'Description'
-                ])->draw('forms/input/richtext')?>
-
-                <?= $this->draw('entity/tags/input'); ?>
                 <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('image'); ?>
                 <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to"
                                                                   value="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
