@@ -12,6 +12,7 @@
 
     namespace Idno\Common {
 
+        use Idno\Core\Idno;
         use Idno\Core\Webmention;
         use Idno\Entities\File;
         use Idno\Entities\User;
@@ -1948,6 +1949,14 @@
 
                 if ($send_notification) {
                     foreach ($owners as $owner_uuid) {
+
+                        if (Idno::site()->session()->isLoggedIn()) {
+                            if ($owner_uuid == Idno::site()->session()->currentUserUUID()) {
+                                // Don't bother sending a notification to the user performing the action
+                                continue;
+                            }
+                        }
+
                         if ($owner = User::getByUUID($owner_uuid)) {
 
                             $send = true;
