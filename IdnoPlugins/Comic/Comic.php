@@ -83,10 +83,12 @@
                             }
                         }
                     }
-                    $this->setAccess('PUBLIC');
+                    $this->setAccess(\Idno\Core\Idno::site()->currentPage()->getInput('access','PUBLIC'));
                     if ($this->save($new)) {
 
-                        \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getDescription()));
+                        if ($this->getAccess() == 'PUBLIC') {
+                            \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getDescription()));
+                        }
 
                         return true;
                     }
@@ -100,7 +102,9 @@
 
             function deleteData()
             {
-                \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getDescription()));
+                if ($this->getAccess() == 'PUBLIC') {
+                    \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getDescription()));
+                }
             }
 
         }

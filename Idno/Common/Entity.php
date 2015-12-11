@@ -461,19 +461,6 @@
                     \Idno\Core\Idno::site()->logging()->log("Had slug: " . $this->getSlug(), LOGLEVEL_DEBUG);
                 }
 
-                // Automatically set access
-                /*
-                 * Commenting this out because it was making users private! bw 2015.06.12
-                 *
-                $page = \Idno\Core\Idno::site()->currentPage();
-                if (!empty($page)) {
-                    $access = $page->getInput('access');
-                    if (!empty($access)) {
-                        $this->access = $access;
-                    }
-                }
-                */
-
                 // Force users to be public
                 if ($this instanceof User) {
                     $this->access = 'PUBLIC';

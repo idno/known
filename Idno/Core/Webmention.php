@@ -21,6 +21,11 @@
             static function pingMentions($pageURL, $text)
             {
 
+                // There's no point in sending webmentions to private resources
+                if (!Idno::site()->config()->isPublicSite()) {
+                    return false;
+                }
+
                 if ($current_page = \Idno\Core\Idno::site()->currentPage()) {
                     if ($nowebmention = $current_page->getInput('nomention') || defined('KNOWN_NOMENTION')) {
                         return true;

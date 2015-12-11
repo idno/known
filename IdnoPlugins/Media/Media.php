@@ -132,7 +132,10 @@
                 }
 
                 if ($this->save($new)) {
-                    \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getTitle() . ' ' . $this->getDescription()));
+
+                    if ($this->getAccess() == 'PUBLIC') {
+                        \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getTitle() . ' ' . $this->getDescription()));
+                    }
 
                     return true;
                 } else {

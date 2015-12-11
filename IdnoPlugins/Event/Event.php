@@ -71,7 +71,9 @@
 
                     $this->setAccess($access);
                     if ($this->save($new)) {
-                        \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getDescription()));
+                        if ($this->getAccess() == 'PUBLIC') {
+                            \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getDescription()));
+                        }
                         return true;
                     }
                 } else {
@@ -82,7 +84,9 @@
             }
 
             function deleteData() {
-                \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getDescription()));
+                if ($this->getAccess() == 'PUBLIC') {
+                    \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getDescription()));
+                }
             }
 
         }

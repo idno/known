@@ -74,7 +74,9 @@
                     $this->inreplyto = \Idno\Core\Idno::site()->currentPage()->getInput('inreplyto');
                     $this->setAccess($access);
                     if ($this->save($new)) {
-                        \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getDescription()));
+                        if ($access == 'PUBLIC') {
+                            \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getDescription()));
+                        }
                         \Idno\Core\Idno::site()->session()->addMessage('Your RSVP was successfully saved.');
                         return true;
                     }
@@ -86,7 +88,9 @@
             }
 
             function deleteData() {
-                \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getDescription()));
+                if ($this->getAccess() == 'PUBLIC') {
+                    \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getDescription()));
+                }
             }
 
         }
