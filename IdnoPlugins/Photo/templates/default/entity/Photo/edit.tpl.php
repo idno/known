@@ -72,9 +72,9 @@
 
                 </div>
                 <div id="photo-details-toggle" style="<?php
-                    /*if (!empty($vars['object']->_id)) {
+                    //if (!empty($vars['object']->_id)) {
                         echo 'display:none';
-                    }*/
+                    //}
                 ?>">
                     <p>
                         <small><a href="#" onclick="$('#photo-details').show(); $('#photo-details-toggle').hide(); return false;">+ Add details</a></small>
