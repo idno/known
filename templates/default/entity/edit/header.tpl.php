@@ -15,7 +15,7 @@
                     <ul class="nav nav-tabs">
                         <?php
 
-                            foreach(array('note' => 'Share', 'reply' => 'Reply', 'bookmark' => 'Bookmark', 'like' => 'Like', 'rsvp' => 'RSVP') as $variable => $label) {
+                            foreach(array('note' => 'Share', 'reply' => 'Reply', 'bookmark' => 'Bookmark', /*'like' => 'Like', */'rsvp' => 'RSVP') as $variable => $label) {
 
                                 if ($content_type = \Idno\Common\ContentType::getRegisteredForIndieWebPostType($variable)) {
 
