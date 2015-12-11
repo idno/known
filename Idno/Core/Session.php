@@ -22,37 +22,37 @@
                 ini_set('session.cookie_lifetime', 60 * 60 * 24 * 7); // Persistent cookies
                 ini_set('session.gc_maxlifetime', 60 * 60 * 24 * 7); // Garbage collection to match
 
-                if (site()->config()->session_cookies) {
+                if (Idno::site()->config()->session_cookies) {
                     header('P3P: CP="CAO PSA OUR"');
                     ini_set('session.cookie_httponly', true); // Restrict cookies to HTTP only (help reduce XSS attack profile)
                     ini_set('session.use_strict_mode', true); // Help mitigate session fixation
-                    if (site()->isSecure()) {
+                    if (Idno::site()->isSecure()) {
                         ini_set('session.cookie_secure', true); // Set secure cookies when site is secure
                     }
                 } else {
                     ini_set('session.use_only_cookies', 0);
                     ini_set("session.use_cookies",0);
-                    ini_set("session.use_trans_sid",1);
+                    ini_set("sessi:on.use_trans_sid",1);
                 }
 
                 // Using a more secure hashing algorithm for session IDs, if available
-                if (($hash = site()->config()->session_hash_function) && (in_array($hash, hash_algos()))) {
+                if (($hash = Idno::site()->config()->session_hash_function) && (in_array($hash, hash_algos()))) {
                     ini_set('session.hash_function', $hash);
                 }
 
-                if (site()->config()->sessions_database) {
-                    site()->db()->handleSession();
+                if (Idno::site()->config()->sessions_database) {
+                    Idno::site()->db()->handleSession();
                 } else {
-                    session_save_path(site()->config()->session_path);
+                    session_save_path(Idno::site()->config()->session_path);
                 }
 
-                session_name(site()->config->sessionname);
+                session_name(Idno::site()->config->sessionname);
                 session_start();
                 session_cache_limiter('public');
 
                 // Flag insecure sessions (so we can check state changes etc)
                 if (!isset($_SESSION['secure'])) {
-                    $_SESSION['secure'] = site()->isSecure();
+                    $_SESSION['secure'] = Idno::site()->isSecure();
                 }
 
                 // Validate session
@@ -65,9 +65,9 @@
                 }
 
                 // Session login / logout
-                site()->addPageHandler('/session/login', '\Idno\Pages\Session\Login', true);
-                site()->addPageHandler('/session/logout', '\Idno\Pages\Session\Logout');
-                site()->addPageHandler('/currentUser/?', '\Idno\Pages\Session\CurrentUser');
+                Idno::site()->addPageHandler('/session/login', '\Idno\Pages\Session\Login', true);
+                Idno::site()->addPageHandler('/session/logout', '\Idno\Pages\Session\Logout');
+                Idno::site()->addPageHandler('/currentUser/?', '\Idno\Pages\Session\CurrentUser');
 
                 // Update the session on save, this is a shim until #46 is fixed properly with #49
                 \Idno\Core\Idno::site()->addEventHook('save', function (\Idno\Core\Event $event) {
@@ -95,7 +95,7 @@
                 
                 // If this is an API request, we need to destroy the session afterwards. See #1028
                 register_shutdown_function(function () {
-                    $session = site()->session();
+                    $session = Idno::site()->session();
                     if ($session && $session->isAPIRequest()) {
                         $session->logUserOff();
                     }
@@ -109,7 +109,7 @@
             protected function validate()
             {
                 // Check for secure sessions being delivered insecurely, and vis versa
-                if ($_SESSION['secure'] != site()->isSecure()) {
+                if ($_SESSION['secure'] != Idno::site()->isSecure()) {
                     throw new \Exception ('Session funnybusiness: Secure session accessed insecurely, or an insecure session accessed over TLS.');
                 }
             }
@@ -525,11 +525,11 @@
 
                 if (!\Idno\Core\Idno::site()->config()->isPublicSite()) {
                     if (!\Idno\Core\Idno::site()->session()->isLoggedOn()) {
-                        $class = get_class(site()->currentPage());
+                        $class = get_class(Idno::site()->currentPage());
                         if (!\Idno\Core\Idno::site()->isPageHandlerPublic($class)) {
                             \Idno\Core\Idno::site()->currentPage()->setResponse(403);
                             if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
-                                \Idno\Core\Idno::site()->currentPage()->forward(site()->config()->getURL() . 'session/login/?fwd=' . urlencode($_SERVER['REQUEST_URI']));
+                                \Idno\Core\Idno::site()->currentPage()->forward(Idno::site()->config()->getURL() . 'session/login/?fwd=' . urlencode($_SERVER['REQUEST_URI']));
                             } else {
                                 \Idno\Core\Idno::site()->currentPage()->deniedContent();
                             }
