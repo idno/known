@@ -149,6 +149,35 @@
             }
 
             /**
+             * Make sure configuration values are what you'd expect
+             */
+            function sanitizeValues()
+            {
+
+                $this->url = $this->sanitizeURL($this->url);
+                $this->static_url = $this->sanitizeURL($this->static_url);
+
+            }
+
+            /**
+             * Given a URL, ensure it fits the content standards we need
+             * @param $url
+             * @return bool
+             */
+            function sanitizeURL($url)
+            {
+                if (!empty($url)) {
+                    if ($url_pieces = parse_url($url)) {
+                        if (substr($url, -1, 1) != '/') {
+                            $url .= '/';
+                        }
+                        return $url;
+                    }
+                }
+                return false;
+            }
+
+            /**
              * Load configuration from ini files
              */
             function loadIniFiles()
@@ -265,6 +294,7 @@
                 $this->wayback_machine           = false; // Automatically ping new pages on public sites to the Internet Archive
 
                 $this->loadIniFiles();
+                $this->sanitizeValues();
 
                 if (substr($this->host, 0, 4) == 'www.') {
                     $this->host = substr($this->host, 4);
