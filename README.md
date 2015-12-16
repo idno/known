@@ -1,4 +1,4 @@
-#Known: create a single site for all your content
+#Known: create a single site for all your content 
 
 ![Known - A publishing platform for everyone](https://withknown.com/img/home/screens.png)
 
