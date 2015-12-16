@@ -19,7 +19,7 @@ before_script:
   # Update and install base system
   - sudo apt-get update
   - sudo apt-get install -y --force-yes apache2 libapache2-mod-fastcgi make 
-  - sudo apt-get install -y --force-yes php5-dev php-pear php5-mysql php5-curl php5-gd php5-json php5-sqlite php5-pgsql
+  - sudo apt-get install -y --force-yes php5-dev php-pear php5-mysql php5-curl php5-gd php5-json php5-sqlite php5-pgsql php5-mongo
   # Enable php-fpm and Mongodb
   - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
   - sudo a2enmod rewrite actions fastcgi alias
