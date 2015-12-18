@@ -151,7 +151,7 @@
             /**
              * Make sure configuration values are what you'd expect
              */
-            function sanitizeValues()
+            protected function sanitizeValues()
             {
 
                 $this->url = $this->sanitizeURL($this->url);
