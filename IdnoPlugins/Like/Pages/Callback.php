@@ -14,6 +14,11 @@
 
                     $like = new Like();
                     $title = $like->getTitleFromURL($url);
+
+                    if (strlen($title) > 128) {
+                        $title = '';    // Don't return overlong titles
+                    }
+
                     $t = \Idno\Core\Idno::site()->template();
                     $t->setTemplateType('json');
                     $t->__([
