@@ -9,6 +9,8 @@
 
     namespace Idno\Data {
 
+        use Idno\Core\Idno;
+
         class MySQL extends \Idno\Core\DataConcierge
         {
 
@@ -661,7 +663,7 @@
                             if ($key == '$search') {
                                 if(!empty($value[0])) {
                                     $val = $value[0]; // The search query is always in $value position [0] for now
-                                    if (strlen($val) > 5) {
+                                    if (strlen($val) > 5 && !Idno::site()->config()->bypass_fulltext_search) {
                                         $subwhere[]                                  = "match (`search`) against (:nonmdvalue{$non_md_variables})";
                                         $variables[":nonmdvalue{$non_md_variables}"] = $val;
                                     } else {

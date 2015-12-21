@@ -13,48 +13,49 @@
         {
 
             public $config = array(
-                'database'             => 'mongodb',
-                'dbstring'             => 'mongodb://localhost:27017',
-                'dbname'               => 'known', // Default MongoDB database
-                'sessionname'          => 'known', // Default session name
-                'session_cookies'      => true,
-                'open_registration'    => true, // Can anyone register for this system?
-                'plugins'              => array( // Default plugins
-                                                 'Status',
-                                                 'Text',
-                                                 'Photo',
-                                                 'Like',
-                                                 'Checkin',
-                                                 'Media',
-                                                 'Firefox',
-                                                 'Bridgy',
-                                                 'FooterJS',
-                                                 'IndiePub',
-                                                 'Convoy',
-                                                 'Comments',
+                'database'               => 'mongodb',
+                'dbstring'               => 'mongodb://localhost:27017',
+                'dbname'                 => 'known', // Default MongoDB database
+                'sessionname'            => 'known', // Default session name
+                'session_cookies'        => true,
+                'open_registration'      => true, // Can anyone register for this system?
+                'plugins'                => array( // Default plugins
+                                                   'Status',
+                                                   'Text',
+                                                   'Photo',
+                                                   'Like',
+                                                   'Checkin',
+                                                   'Media',
+                                                   'Firefox',
+                                                   'Bridgy',
+                                                   'FooterJS',
+                                                   'IndiePub',
+                                                   'Convoy',
+                                                   'Comments',
                 ),
-                'assets'               => [      // Assets to be included
-                                                 'mediaelementplayer' => true,
-                                                 'fitvids'            => true,
+                'assets'                 => [      // Assets to be included
+                                                   'mediaelementplayer' => true,
+                                                   'fitvids'            => true,
                 ],
-                'themes'               => array(),
-                'antiplugins'          => array(),
-                'alwaysplugins'        => array(),
-                'prerequisiteplugins'  => array(),
-                'directloadplugins'    => array(),
-                'hiddenthemes'         => array(),
-                'hiddenplugins'        => array(),
-                'items_per_page'       => 10, // Default items per page
-                'experimental'         => false, // A common way to enable experimental functions still in development
-                'multitenant'          => false,
-                'default_config'       => true, // This is a trip-switch - changed to false if configuration is loaded from an ini file / the db
-                'log_level'            => 5,
-                'multi_syndication'    => true,
-                'wayback_machine'      => false,
-                'static_url'           => false,
-                'user_avatar_favicons' => true,
-                'form_token_expiry'    => 21600,
-                'show_privacy'         => true
+                'themes'                 => array(),
+                'antiplugins'            => array(),
+                'alwaysplugins'          => array(),
+                'prerequisiteplugins'    => array(),
+                'directloadplugins'      => array(),
+                'hiddenthemes'           => array(),
+                'hiddenplugins'          => array(),
+                'items_per_page'         => 10, // Default items per page
+                'experimental'           => false, // A common way to enable experimental functions still in development
+                'multitenant'            => false,
+                'default_config'         => true, // This is a trip-switch - changed to false if configuration is loaded from an ini file / the db
+                'log_level'              => 5,
+                'multi_syndication'      => true,
+                'wayback_machine'        => false,
+                'static_url'             => false,
+                'user_avatar_favicons'   => true,
+                'form_token_expiry'      => 21600,
+                'show_privacy'           => true,
+                'bypass_fulltext_search' => false,
             );
 
             public $ini_config = array();
@@ -133,6 +134,7 @@
                         unset($config['proxy_type']);
                         unset($config['disable_ssl_verify']);
                         unset($config['upload_tmp_dir']);
+                        unset($config['bypass_fulltext_search']);
                     }
                     if (is_array($config)) {
                         $this->config = array_merge($this->config, $config);
@@ -154,7 +156,7 @@
             protected function sanitizeValues()
             {
 
-                $this->url = $this->sanitizeURL($this->url);
+                $this->url        = $this->sanitizeURL($this->url);
                 $this->static_url = $this->sanitizeURL($this->static_url);
 
             }
@@ -171,9 +173,11 @@
                         if (substr($url, -1, 1) != '/') {
                             $url .= '/';
                         }
+
                         return $url;
                     }
                 }
+
                 return false;
             }
 
@@ -187,13 +191,13 @@
                     $this->ini_config = array();
                     if ($config = @parse_ini_file($this->path . '/config.ini')) {
                         $this->default_config = false;
-                        $this->ini_config = array_merge($config, $this->ini_config);
+                        $this->ini_config     = array_merge($config, $this->ini_config);
                     }
                     if (file_exists($this->path . '/config.json')) {
                         if ($json = file_get_contents($this->path . '/config.json')) {
                             if ($json = json_decode($json, true)) {
                                 $this->default_config = false;
-                                $this->ini_config = array_replace_recursive($this->ini_config, $json);
+                                $this->ini_config     = array_replace_recursive($this->ini_config, $json);
                             }
                         }
                     }
@@ -222,7 +226,7 @@
                 }
 
                 if (!empty($this->ini_config)) {
-                    $this->config         = array_replace_recursive($this->config, $this->ini_config);
+                    $this->config = array_replace_recursive($this->config, $this->ini_config);
                     //$this->default_config = false;
                 }
 
@@ -254,6 +258,7 @@
                 unset($array['known_hub']);
                 unset($array['known_hubs']);
                 unset($array['directloadplugins']);
+                unset($array['bypass_fulltext_search']);
 
                 if (\Idno\Core\Idno::site()->db()->saveRecord('config', $array)) {
                     $this->init();
