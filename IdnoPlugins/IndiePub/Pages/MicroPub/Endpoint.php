@@ -3,6 +3,8 @@
     namespace IdnoPlugins\IndiePub\Pages\MicroPub {
 
         use Idno\Common\ContentType;
+        use Idno\Entities\User;
+        use IdnoPlugins\IndiePub\Pages\IndieAuth\Token;
 
         class Endpoint extends \Idno\Common\Page
         {
@@ -10,6 +12,7 @@
             function get($params = array())
             {
 
+                $headers = $this->getallheaders();
                 if (!empty($headers['Authorization'])) {
                     $token = $headers['Authorization'];
                     $token = trim(str_replace('Bearer', '', $token));
@@ -17,12 +20,7 @@
                     $token = trim($token);
                 }
 
-                $user             = \Idno\Entities\User::getOne(array('admin' => true));
-                $indieauth_tokens = $user->indieauth_tokens;
-                $user_token       = $user->getAPIkey();
-
-                if (!empty($indieauth_tokens[$token]) || $token == $user_token) {
-                    \Idno\Core\Idno::site()->session()->refreshSessionUser($user);
+                if ($this->validateToken($token)) {
                     if ($query = trim($this->getInput('q'))) {
                         switch ($query) {
                             case 'syndicate-to':
@@ -34,19 +32,16 @@
                         }
                     }
                 }
-
-                $this->setResponse(403);
-                echo '?';
-
+                else {
+                    $this->setResponse(403);
+                    echo '?';
+                }
             }
 
             function post()
             {
 
-                $headers          = $this->getallheaders();
-                $user             = \Idno\Entities\User::getOne(array('admin' => true));
-                $indieauth_tokens = $user->indieauth_tokens;
-
+                $headers = $this->getallheaders();
                 if (!empty($headers['Authorization'])) {
                     $token = $headers['Authorization'];
                     $token = trim(str_replace('Bearer', '', $token));
@@ -54,11 +49,7 @@
                     $token = trim($token);
                 }
 
-                $user_token = $user->getAPIkey();
-
-                if (!empty($indieauth_tokens[$token]) || $token == $user_token) {
-
-                    \Idno\Core\Idno::site()->session()->refreshSessionUser($user);
+                if ($this->validateToken($token)) {
                     // If we're here, we're authorized
 
                     // Get details
@@ -148,6 +139,25 @@
 
             }
 
-        }
+            // Check that this token is either a user token or the
+            // site's API token, and log that user in if so.
+            private function validateToken($token)
+            {
+                if (!empty($token)) {
+                    $found = Token::findUserForToken($token);
+                    if (!empty($found)) {
+                        $user = $found['user'];
+                        \Idno\Core\Idno::site()->session()->refreshSessionUser($user);
+                        return true;
+                    }
+                    $user = \Idno\Entities\User::getOne(array('admin' => true));
+                    if ($token == $user->getAPIkey()) {
+                        \Idno\Core\Idno::site()->session()->refreshSessionUser($user);
+                        return true;
+                    }
+                }
+                return false;
+            }
 
+        }
     }
