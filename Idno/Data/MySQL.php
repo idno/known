@@ -274,6 +274,7 @@
                 $search = str_replace("\r", "", $search);
                 $search = str_replace("#", " #", $search);
                 $search = strtolower($search);
+                $search = Idno::site()->language()->uncurlQuotes($search);
 
                 $client = $this->client;
                 /* @var \PDO $client */
