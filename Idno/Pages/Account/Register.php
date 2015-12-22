@@ -103,7 +103,6 @@
                                 } else {
                                     \Idno\Core\Idno::site()->config()->title = $user->getTitle() . '\'s Known';
                                 }
-                                \Idno\Core\Idno::site()->config()->theme             = 'Solo';
                                 \Idno\Core\Idno::site()->config()->open_registration = false;
                                 \Idno\Core\Idno::site()->config()->from_email        = $user->email;
                                 \Idno\Core\Idno::site()->config()->save();
