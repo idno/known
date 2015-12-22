@@ -357,7 +357,10 @@
 
             function &language()
             {
-                return $this->language;
+                if (!empty($this->language)) {
+                    return $this->language;
+                }
+                return new Language();
             }
 
             /**
