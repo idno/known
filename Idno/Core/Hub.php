@@ -37,14 +37,14 @@
             function registerPages()
             {
                 // These pages will be called by the hub after registration
-                site()->addPageHandler('/hub/register/site/callback/?', 'Idno\Pages\Hub\Register\Site', true);
-                site()->addPageHandler('/hub/register/user/callback/?', 'Idno\Pages\Hub\Register\User', true);
+                \Idno\Core\Idno::site()->addPageHandler('/hub/register/site/callback/?', 'Idno\Pages\Hub\Register\Site', true);
+                \Idno\Core\Idno::site()->addPageHandler('/hub/register/user/callback/?', 'Idno\Pages\Hub\Register\User', true);
             }
 
             function registerEventHooks()
             {
                 // Register user on login
-                site()->addEventHook('login/success', function (\Idno\Core\Event $event) {
+                \Idno\Core\Idno::site()->addEventHook('login/success', function (\Idno\Core\Event $event) {
                     $eventdata = $event->data();
                     if ($user = $eventdata['user']) {
                         $this->registerUser($user);
@@ -61,7 +61,7 @@
             function registerUser($user = false)
             {
                 if (empty($user)) {
-                    $user = site()->session()->currentUser();
+                    $user = \Idno\Core\Idno::site()->session()->currentUser();
                 }
                 if ($user instanceof User) {
                     $user       = User::getByUUID($user->getUUID());
@@ -77,12 +77,12 @@
                     ));
 
                     if ($results['response'] == 401) {
-                        site()->config->hub_settings = false;
-                        site()->config->save();
+                        \Idno\Core\Idno::site()->config->hub_settings = false;
+                        \Idno\Core\Idno::site()->config->save();
                         $user->hub_settings = false;
                         $user->save();
-                        if ($user->getUUID() == site()->session()->currentUserUUID()) {
-                            site()->session()->refreshSessionUser($user);
+                        if ($user->getUUID() == \Idno\Core\Idno::site()->session()->currentUserUUID()) {
+                            \Idno\Core\Idno::site()->session()->refreshSessionUser($user);
                         }
                     }
 
@@ -99,11 +99,11 @@
              */
             function loadDetails()
             {
-                if (!empty(site()->config->hub_settings['auth_token']) && !empty(site()->config->hub_settings['secret'])) {
-                    $this->setAuthToken(site()->config->hub_settings['auth_token']);
-                    $this->setSecret(site()->config->hub_settings['secret']);
+                if (!empty(\Idno\Core\Idno::site()->config->hub_settings['auth_token']) && !empty(\Idno\Core\Idno::site()->config->hub_settings['secret'])) {
+                    $this->setAuthToken(\Idno\Core\Idno::site()->config->hub_settings['auth_token']);
+                    $this->setSecret(\Idno\Core\Idno::site()->config->hub_settings['secret']);
 
-                    return site()->config->hub_settings;
+                    return \Idno\Core\Idno::site()->config->hub_settings;
                 }
 
                 return false;
@@ -149,12 +149,12 @@
                 }
 
                 // If we have details, and we're logged in, connect
-                if (site()->session()->isLoggedOn()) {
+                if (\Idno\Core\Idno::site()->session()->isLoggedOn()) {
                     if (!empty($details)) {
                         try {
-                            if (!$this->userIsRegistered(site()->session()->currentUser())) {
+                            if (!$this->userIsRegistered(\Idno\Core\Idno::site()->session()->currentUser())) {
                                 \Idno\Core\Idno::site()->logging->log("User isn't registered on hub; registering ...");
-                                $this->registerUser(site()->session()->currentUser());
+                                $this->registerUser(\Idno\Core\Idno::site()->session()->currentUser());
                             }
                         } catch (\Exception $e) {
                             \Idno\Core\Idno::site()->logging->log($e->getMessage());
@@ -173,31 +173,31 @@
             function register()
             {
 
-                if (empty(site()->config->last_hub_ping)) {
+                if (empty(\Idno\Core\Idno::site()->config->last_hub_ping)) {
                     $last_ping = 0;
                 } else {
-                    $last_ping = site()->config->last_hub_ping;
+                    $last_ping = \Idno\Core\Idno::site()->config->last_hub_ping;
                 }
 
-                //if ($last_ping < (time() - 10)) { // Throttling registration pings to hub
+                if ($last_ping < (time() - 10)) { // Throttling registration pings to hub
 
-                $web_client = new Webservice();
+                    $web_client = new Webservice();
 
-                $results = $web_client->post($this->server . 'hub/site/register', array(
-                    'url'   => site()->config()->getURL(),
-                    'title' => site()->config()->getTitle(),
-                    'token' => $this->getRegistrationToken()
-                ));
+                    $results = $web_client->post($this->server . 'hub/site/register', array(
+                        'url'   => \Idno\Core\Idno::site()->config()->getURL(),
+                        'title' => \Idno\Core\Idno::site()->config()->getTitle(),
+                        'token' => $this->getRegistrationToken()
+                    ));
 
-                if ($results['response'] == 200) {
-                    site()->config->load();
-                    site()->config->last_hub_ping = time();
-                    site()->config->save();
+                    if ($results['response'] == 200) {
+                        \Idno\Core\Idno::site()->config->load();
+                        \Idno\Core\Idno::site()->config->last_hub_ping = time();
+                        \Idno\Core\Idno::site()->config->save();
 
-                    return true;
+                        return true;
+                    }
+
                 }
-
-                //}
 
                 return false;
             }
@@ -208,26 +208,26 @@
              */
             function getRegistrationToken()
             {
-                if (empty(site()->config->hub_settings)) {
-                    site()->config->hub_settings = array();
+                if (empty(\Idno\Core\Idno::site()->config->hub_settings)) {
+                    \Idno\Core\Idno::site()->config->hub_settings = array();
                 }
-                if (!empty(site()->config->hub_settings['registration_token'])) {
-                    if (!empty(site()->config->hub_settings['registration_token_expiry'])) {
-                        if (site()->config->hub_settings['registration_token_expiry'] > (time() - 600)) {
-                            return site()->config->hub_settings['registration_token'];
+                if (!empty(\Idno\Core\Idno::site()->config->hub_settings['registration_token'])) {
+                    if (!empty(\Idno\Core\Idno::site()->config->hub_settings['registration_token_expiry'])) {
+                        if (\Idno\Core\Idno::site()->config->hub_settings['registration_token_expiry'] > (time() - 600)) {
+                            return \Idno\Core\Idno::site()->config->hub_settings['registration_token'];
                         }
                     }
                 }
 
                 $token_generator                                   = new TokenProvider();
                 $token                                             = $token_generator->generateToken(32);
-                $config                                            = site()->config;
+                $config                                            = \Idno\Core\Idno::site()->config;
                 $config->hub_settings['registration_token']        = bin2hex($token);
                 $config->hub_settings['registration_token_expiry'] = time();
                 $config->save();
-                site()->config = $config;
+                \Idno\Core\Idno::site()->config = $config;
 
-                return site()->config->hub_settings['registration_token'];
+                return \Idno\Core\Idno::site()->config->hub_settings['registration_token'];
             }
 
             /**
@@ -238,8 +238,8 @@
             function userIsRegistered($user = false)
             {
                 if (empty($user)) {
-                    $user = site()->session()->currentUser();
-                    site()->session()->refreshSessionUser($user);
+                    $user = \Idno\Core\Idno::site()->session()->currentUser();
+                    \Idno\Core\Idno::site()->session()->refreshSessionUser($user);
                 }
                 if ($user instanceof User) {
                     if (!empty($user->hub_settings)) {
@@ -264,7 +264,7 @@
             {
 
                 if (!$user) {
-                    $user = site()->session()->currentUser();
+                    $user = \Idno\Core\Idno::site()->session()->currentUser();
                 }
 
                 if ($user instanceof User) {
@@ -297,9 +297,9 @@
              */
             function getRemoteLink($endpoint, $callback)
             {
-                $user = site()->session()->currentUser();
+                $user = \Idno\Core\Idno::site()->session()->currentUser();
                 $user = User::getByUUID($user->getUUID());
-                site()->session()->refreshSessionUser($user);
+                \Idno\Core\Idno::site()->session()->refreshSessionUser($user);
 
                 if ($this->userIsRegistered($user)) {
                     if (!empty($user->hub_settings['token'])) {
@@ -321,10 +321,10 @@
              */
             function saveDetails($token, $secret)
             {
-                site()->config->load();
-                site()->config->hub_settings['auth_token'] = $token;
-                site()->config->hub_settings['secret']     = $secret;
-                site()->config->save();
+                \Idno\Core\Idno::site()->config->load();
+                \Idno\Core\Idno::site()->config->hub_settings['auth_token'] = $token;
+                \Idno\Core\Idno::site()->config->hub_settings['secret']     = $secret;
+                \Idno\Core\Idno::site()->config->save();
                 $this->setAuthToken($token);
                 $this->setSecret($secret);
             }

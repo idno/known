@@ -28,6 +28,30 @@
             }
 
             /**
+             * Send a web services GET request to a specified URI endpoint
+             * @param string $endpoint The URI to send the GET request to
+             * @param array $params Optionally, an array of parameters to send (keys are the parameter names)
+             * @param array $headers Optionally, an array of headers to send with the request (keys are the header names)
+             * @return array
+             */
+            static function get($endpoint, array $params = null, array $headers = null)
+            {
+                return self::send('get', $endpoint, $params, $headers);
+            }
+
+            /**
+             * Send a web services HEAD request to a specified URI endpoint
+             * @param string $endpoint The URI to send the HEAD request to
+             * @param array $params Optionally, an array of parameters to send (keys are the parameter names)
+             * @param array $headers Optionally, an array of headers to send with the request (keys are the header names)
+             * @return array
+             */
+            static function head($endpoint, array $params = null, array $headers = null)
+            {
+                return self::send('head', $endpoint, $params, $headers);
+            }
+
+            /**
              * Send a web services request to a specified endpoint
              * @param string $verb The verb to send the request with; one of POST, GET, DELETE, PUT
              * @param string $endpoint The URI to send the request to
@@ -305,31 +329,6 @@
                     return $result['content'];
 
                 return false;
-            }
-
-            /**
-             * Send a web services GET request to a specified URI endpoint
-             * @param string $endpoint The URI to send the GET request to
-             * @param array $params Optionally, an array of parameters to send (keys are the parameter names)
-             * @param array $headers Optionally, an array of headers to send with the request (keys are the header names)
-             * @return array
-             */
-            static function get($endpoint, array $params = null, array $headers = null)
-            {
-                return self::send('get', $endpoint, $params, $headers);
-            }
-
-
-            /**
-             * Send a web services HEAD request to a specified URI endpoint
-             * @param string $endpoint The URI to send the HEAD request to
-             * @param array $params Optionally, an array of parameters to send (keys are the parameter names)
-             * @param array $headers Optionally, an array of headers to send with the request (keys are the header names)
-             * @return array
-             */
-            static function head($endpoint, array $params = null, array $headers = null)
-            {
-                return self::send('head', $endpoint, $params, $headers);
             }
 
             /**
