@@ -322,7 +322,9 @@
                         return false;
                     }
                     // The redirection URL is the "location" field of the header
-                    $result = self::get(http_parse_headers($result['header'])["location"]);
+                    $headers = http_parse_headers($result['header']);
+                    $headers = array_change_key_case($headers, CASE_LOWER); // Ensure standardised header array keys
+                    $result = self::get($headers["location"]);
                 }
 
                 if ($result['error'] == "")
