@@ -2,12 +2,12 @@
 
 Known _requires_ the following server components:
 
-+ A Web Server that supports URL rewriting (Apache + mod_rewrite recommended)
++ A Web Server that supports URL rewriting (Apache + mod_rewrite recommended).
 + If you are using Apache, you also need to make sure support for .htaccess is enabled (using [the AllowOverride All directive](https://help.ubuntu.com/community/EnablingUseOfApacheHtaccessFiles)).
-+ PHP 5.4 or above
-+ MongoDB, MySQL 5 or SQLite3
++ PHP 5.4 or above.
++ MongoDB, MySQL 5+ or SQLite3. We recommend MySQL.
 
-Known must be installed at the root of a domain, and does not currently support subdirectory installations. It does support subdomains, however.
+Known can either be installed at the root of a domain or subdomain, or in a subdirectory.
 
 If you use Apache 2.4, you either must install and activate:
 
@@ -54,6 +54,5 @@ Note that you may need to restart the web server after installing these componen
 Known _recommends_ the following extra server components:
 
 + Linux or UNIX-based server
-+ A PHP accelerator like eAccelerator
++ A PHP accelerator like opcode
 + A secure certificate (so connections to Known can be made secure)
-+ A server cache like Squid
