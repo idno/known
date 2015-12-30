@@ -8,7 +8,6 @@ pages:
 - ['install/upgrade.md', 'Installing and upgrading Known', 'Upgrading Known']
 - ['install/config.md', 'Installing and upgrading Known', 'Using config.ini']
 - ['install/sharedhost.md', 'Installing and upgrading Known', 'Instructions for common shared hosting providers']
-- ['install/sharedhost/arvixe.md', 'Installing and upgrading Known', 'Installing on Arvixe']
 - ['plugins/index.md', 'Plugins', 'Plugins']
 - ['plugins/project.md', 'Plugins', 'Known project plugins']
 - ['plugins/community.md', 'Plugins', 'Community plugins']

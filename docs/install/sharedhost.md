@@ -1,3 +1,4 @@
 # Installing Known on common shared hosting providers
 
-* [Arvixe](sharedhost/arvixe.md)
+* [Arvixe](https://withknown.com/guides/arvixe/)
+* [Reclaim Hosting](https://withknown.com/guides/reclaim/)
