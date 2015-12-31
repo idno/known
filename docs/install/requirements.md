@@ -54,5 +54,5 @@ Note that you may need to restart the web server after installing these componen
 Known _recommends_ the following extra server components:
 
 + Linux or UNIX-based server
-+ A PHP accelerator like opcode
++ A PHP accelerator like OPcache
 + A secure certificate (so connections to Known can be made secure)
