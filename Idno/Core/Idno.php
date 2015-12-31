@@ -133,7 +133,7 @@
                     \Idno\Core\Idno::site()->known_hub->connect();
                 }
 
-                site()->session()->APIlogin();
+                //site()->session()->APIlogin();
                 User::registerEvents();
                 site()->session()->refreshCurrentSessionuser();
             }
@@ -206,6 +206,8 @@
                 $this->plugins = new Plugins();
                 $this->themes  = new Themes();
 
+                // Refs #918 - Attempt API login after plugins have been booted.
+                site()->session()->APIlogin();
             }
 
             /**
