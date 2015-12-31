@@ -107,7 +107,9 @@
                 $this->helper_robot = new HelperRobot();
                 
                 // Attempt to create a cache object, making use of support present on the system
-                if (extension_loaded('xcache')) {
+                if (extension_loaded('apc'))
+                    $this->cache = new \Idno\Caching\APCuCache();
+                elseif (extension_loaded('xcache')) {
                     $this->cache = new \Idno\Caching\XCache();
                 }
                 // TODO: Support other persistent caching methods
