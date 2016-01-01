@@ -8,7 +8,7 @@ namespace Idno\Caching {
     class APCuCache extends PersistentCache {
         
         public function delete($key) {
-            apcu_dec('__known_apcu_size', strlen($this->load('__known_apcu_size')));
+            apcu_dec('__known_apcu_size', strlen($this->load($key)));
             
             return apcu_delete($key);
         }
