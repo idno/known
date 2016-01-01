@@ -8,7 +8,7 @@ namespace Idno\Caching {
     class XCache extends PersistentCache {
         
         public function delete($key) {
-            xcache_dec('__known_xcache_size', strlen($this->load('__known_xcache_size')));
+            xcache_dec('__known_xcache_size', strlen($this->load($key)));
             
             return xcache_unset($key);
         }
