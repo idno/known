@@ -92,7 +92,7 @@
                     }
 
                 });
-                
+
                 // If this is an API request, we need to destroy the session afterwards. See #1028
                 register_shutdown_function(function () {
                     $session = Idno::site()->session();
@@ -101,7 +101,7 @@
                     }
                 });
             }
-            
+
             /**
              * Validate the session.
              * @throws \Exception if the session is invalid.
@@ -364,21 +364,29 @@
             }
 
             /**
+             * Called at the beginning of each request handler, attempts to authorize the request.
+             *
              * Checks HTTP request headers to see if the request has been properly
-             * signed for API access, and if so, log the user on and return the user
+             * signed for API access.
+             *
+             * If this is not an API request, then check the session for the logged in user's credentials.
+             *
+             * Triggers "user/auth/request" to give plugins an opportunity to implement their own auth mechanism.
+             * Then "user/auth/success" or "user/auth/failure" depending on if a user was found for the provided credentials.
              *
              * @return \Idno\Entities\User|false The logged-in user, or false otherwise
+
              */
-
-            function APIlogin()
+            function tryAuthUser()
             {
+                // attempt to delegate auth to a plugin (note: plugin is responsible for calling setIsAPIRequest or not)
+                $return = \Idno\Core\Idno::site()->triggerEvent('user/auth/request', [], false);
 
-                if (!empty($_SERVER['HTTP_X_KNOWN_USERNAME']) && !empty($_SERVER['HTTP_X_KNOWN_SIGNATURE'])) {
+                // auth standard API requests
+                if (!$return && !empty($_SERVER['HTTP_X_KNOWN_USERNAME']) && !empty($_SERVER['HTTP_X_KNOWN_SIGNATURE'])) {
+                    \Idno\Core\Idno::site()->logging()->log("Attempting to auth via API credentials", LOGLEVEL_DEBUG);
 
-                    \Idno\Core\Idno::site()->session()->setIsAPIRequest(true);
-                    if (!\Idno\Common\Page::isSSL() && !\Idno\Core\Idno::site()->config()->disable_cleartext_warning) {
-                        \Idno\Core\Idno::site()->session()->addErrorMessage("Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini");
-                    }
+                    $this->setIsAPIRequest(true);
 
                     $t = \Idno\Core\Idno::site()->currentPage()->getInput('_t');
                     if (empty($t)) {
@@ -386,49 +394,54 @@
                     }
 
                     if ($user = \Idno\Entities\User::getByHandle($_SERVER['HTTP_X_KNOWN_USERNAME'])) {
-
+                        \Idno\Core\Idno::site()->logging()->log("API auth found user by username: " . $user->getName(), LOGLEVEL_DEBUG);
                         $key          = $user->getAPIkey();
                         $hmac         = trim($_SERVER['HTTP_X_KNOWN_SIGNATURE']);
                         //$compare_hmac = base64_encode(hash_hmac('sha256', explode('?', $_SERVER['REQUEST_URI'])[0], $key, true));
                         $compare_hmac = base64_encode(hash_hmac('sha256', ($_SERVER['REQUEST_URI']), $key, true));
 
                         if ($hmac == $compare_hmac) {
+                            \Idno\Core\Idno::site()->logging()->log("API auth verified signature for user: " . $user->getName(), LOGLEVEL_DEBUG);
+                            // TODO maybe this should set the current user without modifying $_SESSION?
+                            $return = $this->refreshSessionUser($user);
+                        } else {
+                            \Idno\Core\Idno::site()->logging()->log("API auth failed signature validation for user: " . $user->getName(), LOGLEVEL_DEBUG);
+                        }
+                    }
+                }
 
-                            \Idno\Core\Idno::site()->session()->logUserOn($user);
+                // auth via session credentials
+                if (!$return) {
+                    $this->refreshCurrentSessionuser();
+                    $return = $this->currentUser();
+                    if ($return) {
+                        \Idno\Core\Idno::site()->logging()->log("Authed user via session: " . $return->getName(), LOGLEVEL_DEBUG);
+                    }
+                }
 
-                            return $user;
-
+                if ($this->isAPIRequest()) {
+                    if (!\Idno\Common\Page::isSSL() && !\Idno\Core\Idno::site()->config()->disable_cleartext_warning) {
+                        $this->addErrorMessage("Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini");
+                    }
+                    // If this is an API request but we're not logged in, set page response code to access denied
+                    if (!$return) {
+                        $ip = $_SERVER['REMOTE_ADDR'];
+                        if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+                            $proxies = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']); // We are behind a proxy
+                            $ip = trim($proxies[0]);
                         }
 
+                        \Idno\Core\Idno::site()->logging()->log("API Login failure from $ip", LOGLEVEL_ERROR);
+                        \Idno\Core\Idno::site()->currentPage()->deniedContent();
                     }
                 }
 
-                // We're not logged in yet, so try and authenticate using other mechanism
-                if ($return = \Idno\Core\Idno::site()->triggerEvent('user/auth/api', [], false)) {
-                    \Idno\Core\Idno::site()->session()->setIsAPIRequest(true);
-
-                    if (!\Idno\Common\Page::isSSL() && !\Idno\Core\Idno::site()->config()->disable_cleartext_warning) {
-                        \Idno\Core\Idno::site()->session()->addErrorMessage("Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini");
-                    }
-                }
-
-                // If this is an API request but we're not logged in, set page response code to access denied
-                if ($this->isAPIRequest() && !$return) {
-                    
-                    $ip = $_SERVER['REMOTE_ADDR'];
-                    if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-                         $proxies = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']); // We are behind a proxy 
-                         $ip = trim($proxies[0]);
-                    }
-
-                    \Idno\Core\Idno::site()->logging()->log("API Login failure from $ip", LOGLEVEL_ERROR);
-                    //\Idno\Core\Idno::site()->triggerEvent('login/failure/api'); // Can't be used until #918 is fixed.
-
-                    \Idno\Core\Idno::site()->currentPage()->deniedContent();
-                }
+                $return = \Idno\Core\Idno::site()->triggerEvent($return ? "user/auth/success" : "user/auth/failure", array(
+                    "user" => $return,
+                    "is api" => $this->isAPIRequest(),
+                ), $return);
 
                 return $return;
-
             }
 
             /**
@@ -446,7 +459,7 @@
                 }
                 $return = $this->refreshSessionUser($user);
                 @session_regenerate_id(true);
-                return \Idno\Core\Idno::site()->triggerEvent('user/auth', array('user' => $user), $return);
+                return $return;
             }
 
             /**
