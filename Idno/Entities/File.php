@@ -79,7 +79,6 @@
                             imagesavealpha($image_copy, true);
                             imagecopyresampled($image_copy, $image, 0, 0, $offset_x, $offset_y, $new_width, $new_height, $original_width, $original_height);
 
-
                             $tmp_dir = dirname($file_path);
                             switch ($photo_information['mime']) {
                                 case 'image/jpeg':
