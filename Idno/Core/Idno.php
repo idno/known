@@ -35,6 +35,13 @@
             public $reader;
             public $cache;
 
+            function __construct()
+            {
+                parent::__construct();
+                // auth the user after all the plugins and pages have registered so they can respond to events
+                $this->session()->tryAuthUser();
+            }
+
             function init()
             {
                 self::$site       = $this;
@@ -105,7 +112,7 @@
                 $this->logging      = new Logging($this->config->log_level);
                 $this->reader       = new Reader();
                 $this->helper_robot = new HelperRobot();
-                
+
                 // Attempt to create a cache object, making use of support present on the system
                 if (extension_loaded('xcache')) {
                     $this->cache = new \Idno\Caching\XCache();
@@ -133,9 +140,7 @@
                     \Idno\Core\Idno::site()->known_hub->connect();
                 }
 
-                site()->session()->APIlogin();
                 User::registerEvents();
-                site()->session()->refreshCurrentSessionuser();
             }
 
             /**
@@ -254,12 +259,12 @@
             {
                 return $this->logging;
             }
-            
+
             /**
              * Return a persistent cache object.
              * @return \Idno\Caching\PersistentCache
              */
-            function &cache() 
+            function &cache()
             {
                 return $this->cache;
             }
