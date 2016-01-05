@@ -279,17 +279,21 @@
                 $client = $this->client;
                 /* @var \PDO $client */
 
+                $retval = false;
+                $benchmark_start = microtime(true);
                 try {
-
+                    $client->beginTransaction();
                     $statement = $client->prepare("insert into {$collection}
                                                     (`uuid`, `_id`, `entity_subtype`,`owner`, `contents`, `search`, `created`)
                                                     values
                                                     (:uuid, :id, :subtype, :owner, :contents, :search, :created)
                                                     on duplicate key update `uuid` = :uuid, `entity_subtype` = :subtype, `owner` = :owner, `contents` = :contents, `search` = :search, `created` = :created");
                     if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search, ':created' => $array['created']))) {
+                        $retval = $array['_id'];
                         if ($statement = $client->prepare("delete from metadata where _id = :id")) {
                             $statement->execute(array(':id' => $array['_id']));
                         }
+
                         foreach ($array as $key => $val) {
                             if (!is_array($val)) {
                                 $val = array($val);
@@ -311,14 +315,15 @@
                                 }
                             }
                         }
-
-                        return $array['_id'];
                     }
+                    $client->commit();
                 } catch (\Exception $e) {
                     \Idno\Core\Idno::site()->logging()->log($e->getMessage());
+                    $client->rollback();
                 }
 
-                return false;
+                \Idno\Core\Idno::site()->logging()->log('saveRecord(): insert or update took ' . (microtime(true) - $benchmark_start) . 's', LOGLEVEL_DEBUG);
+                return $retval;
             }
 
             /**
