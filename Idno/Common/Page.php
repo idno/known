@@ -140,7 +140,7 @@
                 \Idno\Core\Idno::site()->triggerEvent('page/head', array('page' => $this));
                 \Idno\Core\Idno::site()->triggerEvent('page/post', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
-                if (\Idno\Core\Idno::site()->actions()->validateToken('', false)) {
+                if (\Idno\Core\Idno::site()->session()->isAPIRequest() || \Idno\Core\Idno::site()->actions()->validateToken('', false)) {
                     $this->parseJSONPayload();
                     $return = $this->postContent();
                 } else {
