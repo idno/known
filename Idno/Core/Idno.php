@@ -103,13 +103,19 @@
                         }
                         break;
                 }
+
+                $this->logging      = new Logging();
                 $this->config->load();
+
+                if (isset($this->config->loglevel)) {
+                    $this->logging->setLogLevel($this->config->loglevel);
+                }
+
                 $this->session      = new Session();
                 $this->actions      = new Actions();
                 $this->template     = new Template();
                 $this->language     = new Language();
                 $this->syndication  = new Syndication();
-                $this->logging      = new Logging($this->config->log_level);
                 $this->reader       = new Reader();
                 $this->helper_robot = new HelperRobot();
 
