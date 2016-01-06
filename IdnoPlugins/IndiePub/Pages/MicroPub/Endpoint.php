@@ -6,8 +6,35 @@
         use Idno\Entities\User;
         use IdnoPlugins\IndiePub\Pages\IndieAuth\Token;
 
+        use DOMDocument;
+        use DOMXPath;
+
         class Endpoint extends \Idno\Common\Page
         {
+
+            private function getServiceAccountsFromHub()
+            {
+                $results = [];
+                if (\Idno\Core\Idno::site()->hub()) {
+                    $result = \Idno\Core\Idno::site()->hub()->makeCall('hub/user/syndication', [
+                        'content_type' => 'note',
+                    ]);
+                    if (!empty($result['content'])) {
+                        $content = $result['content'];
+
+                        // parse value from the inputs with name="syndication[]".
+                        // TODO consider serving JSON in addition to HTML from hub?
+                        $doc = new DOMDocument();
+                        $doc->loadHTML($content);
+                        $toggles = (new DOMXPath($doc))->query('//*[@name="syndication[]"]');
+
+                        foreach ($toggles as $toggle) {
+                            $results[] = $toggle->getAttribute('value');
+                        }
+                    }
+                }
+                return $results;
+            }
 
             function get($params = array())
             {
@@ -15,15 +42,20 @@
                 if ($query = trim($this->getInput('q'))) {
                     switch ($query) {
                     case 'syndicate-to':
+                        $account_strings = \Idno\Core\Idno::site()->syndication()->getServiceAccountStrings();
+                        $account_data    = \Idno\Core\Idno::site()->syndication()->getServiceAccountData();
+                        // TODO augment $account_data too
+                        $account_strings = array_merge($account_strings, $this->getServiceAccountsFromHub());
+
                         if ($this->isAcceptedContentType('application/json')) {
                             header('Content-Type: application/json');
                             echo json_encode([
-                                'syndicate-to'          => \Idno\Core\Idno::site()->syndication()->getServiceAccountStrings(),
-                                'syndicate-to-expanded' => \Idno\Core\Idno::site()->syndication()->getServiceAccountData(),
+                                'syndicate-to'          => $account_strings,
+                                'syndicate-to-expanded' => $account_data,
                             ], JSON_PRETTY_PRINT);
                         } else {
                             echo http_build_query([
-                                "syndicate-to" => \Idno\Core\Idno::site()->syndication()->getServiceAccountStrings(),
+                                "syndicate-to" => $account_strings,
                             ]);
                         }
                         break;
