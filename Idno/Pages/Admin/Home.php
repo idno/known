@@ -87,7 +87,7 @@
                 if (!empty($url)) \Idno\Core\Idno::site()->config->config['url'] = $url;
                 if (!empty($path)) \Idno\Core\Idno::site()->config->config['path'] = $path;
                 if (!empty($host)) \Idno\Core\Idno::site()->config->config['host'] = $host;
-                if (!empty($hub)) \Idno\Core\Idno::site()->config->config['hub'] = $hub;
+                \Idno\Core\Idno::site()->config->config['hub'] = $hub;
                 if (!empty($items_per_page) && is_int($items_per_page)) \Idno\Core\Idno::site()->config->config['items_per_page'] = $items_per_page;
                 \Idno\Core\Idno::site()->config->config['open_registration']    = $open_registration;
                 \Idno\Core\Idno::site()->config->config['walled_garden']        = $walled_garden;
