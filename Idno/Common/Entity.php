@@ -1996,7 +1996,10 @@
                                     break;
                             }
 
-                            if ($annotation['owner_url'] != $this->getOwner()->getURL() && $send == true && $post_existed == false) {
+                            if (
+                                /* $annotation['owner_url'] != $this->getOwner()->getURL() && */
+                                $send == true && $post_existed == false
+                            ) {
                                 if (empty($subject)) {
                                     $subject = '';
                                 }
