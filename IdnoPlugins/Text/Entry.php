@@ -56,12 +56,14 @@
              */
             function getIcon()
             {
-                $xpath = new \DOMXPath(@\DOMDocument::loadHTML($this->getDescription()));
-                $src   = $xpath->evaluate("string(//img/@src)");
-                if (!empty($src)) {
-                    return $src;
+                $doc = @\DOMDocument::loadHTML($this->getDescription());
+                if ($doc) {
+                    $xpath = new \DOMXPath($doc);
+                    $src   = $xpath->evaluate("string(//img/@src)");
+                    if (!empty($src)) {
+                        return $src;
+                    }
                 }
-
                 return parent::getIcon();
             }
 

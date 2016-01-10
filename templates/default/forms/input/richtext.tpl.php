@@ -139,6 +139,8 @@
     }
 
     // Autosave the title & body
-    autoSave('entry', ['title', '<?=$vars['name']?>']);
+    autoSave('entry', ['title', '<?=$vars['name']?>'], {
+      '<?=$vars['name']?>': '#<?=$unique_id?>',
+    });
 
 </script>

@@ -15,6 +15,12 @@
                     $object = \IdnoPlugins\Event\Event::getByID($this->arguments[0]);
                 } else {
                     $object = new \IdnoPlugins\Event\Event();
+                    $autosave = new \Idno\Core\Autosave();
+                    foreach (array(
+                        'title', 'summary', 'location', 'starttime', 'endtime', 'body'
+                    ) as $field) {
+                        $object->$field = $autosave->getValue('event', $field);
+                    }
                 }
 
                 if ($owner = $object->getOwner()) {

@@ -1,27 +1,4 @@
 <?=$this->draw('entity/edit/header');?>
-<?php
-
-    $autosave = new \Idno\Core\Autosave();
-    if (!($title = $vars['object']->title)) {
-        $title = $autosave->getValue('event','title');
-    }
-    if (!($summary = $vars['object']->summary)) {
-        $summary = $autosave->getValue('event','summary');
-    }
-    if (!($location = $vars['object']->location)) {
-        $location = $autosave->getValue('event','location');
-    }
-    if (!($starttime = $vars['object']->starttime)) {
-        $starttime = $autosave->getValue('event','starttime');
-    }
-    if (!($endtime = $vars['object']->endtime)) {
-        $endtime = $autosave->getValue('event','endtime');
-    }
-    if (!($body = $vars['object']->body)) {
-        $body = $autosave->getValue('event','body');
-    }
-
-?>
 <form action="<?=$vars['object']->getURL()?>" method="post">
 
     <div class="row">

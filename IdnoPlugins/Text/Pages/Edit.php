@@ -15,6 +15,12 @@
                     $object = \IdnoPlugins\Text\Entry::getByID($this->arguments[0]);
                 } else {
                     $object = new \IdnoPlugins\Text\Entry();
+                    $autosave = new \Idno\Core\Autosave();
+                    foreach (array(
+                        'title', 'body'
+                    ) as $field) {
+                        $object->$field = $autosave->getValue('entry', $field);
+                    }
                 }
 
                 if ($owner = $object->getOwner()) {
