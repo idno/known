@@ -64,17 +64,15 @@ function autoSave(context, elements, selectors) {
     var previousVal = {};
     setInterval(function () {
         var changed = {};
-        for (var element of elements) {
-            var selector, val;
+        for (var i = 0 ; i < elements.length ; i++) {
+            var element = elements[i];
+            var selector = "#" + element;
             if (selectors && element in selectors) {
                 selector = selectors[element];
-            } else {
-                selector = "#" + element;
             }
+            var val = false;
             if ($(selector).val() != previousVal[element]) {
                 val = $(selector).val();
-            } else {
-                val = false;
             }
             if (val !== false) {
                 changed[element] = val;
