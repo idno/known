@@ -44,8 +44,8 @@
 
             <?= $this->__([
                 'name' => 'body',
-                'value' => $body,
-                'object' => $object,
+                'value' => $vars['object']->body,
+                'object' => $vars['object'],
                 'wordcount' => false,
                 'height' => 250,
                 'class' => 'wysiwyg-short',
