@@ -414,9 +414,6 @@
                 if (!$return) {
                     $this->refreshCurrentSessionuser();
                     $return = $this->currentUser();
-                    if ($return) {
-                        \Idno\Core\Idno::site()->logging()->log("Authed user via session: " . $return->getName(), LOGLEVEL_DEBUG);
-                    }
                 }
 
                 if ($this->isAPIRequest()) {
