@@ -1,6 +1,10 @@
 <?php
 
-    $unique_id = 'body' . rand(0,9999);
+    if (!empty($vars['unique_id'])) {
+	    $unique_id = $vars['unique_id'];
+    } else {
+	    $unique_id = 'body' . rand(0,9999);
+    }
     if (!empty($vars['class'])) {
         $class = $vars['class'];
     } else {
@@ -137,10 +141,4 @@
             }
         });
     }
-
-    // Autosave the title & body
-    autoSave('entry', ['title', '<?=$vars['name']?>'], {
-      '<?=$vars['name']?>': '#<?=$unique_id?>',
-    });
-
 </script>
