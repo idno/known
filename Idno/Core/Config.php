@@ -390,7 +390,12 @@
                     $newuri = 'http:';
                 }
 
-                return str_replace($urischeme . ':', $newuri, $url);
+                $url = str_replace($urischeme . ':', $newuri, $url);
+                if (substr($url,0,1) == ':') {
+                    $url = substr($url, 1);
+                }
+
+                return $url;
                 //return str_replace($urischeme . ':', '', $url);
             }
 
