@@ -32,7 +32,7 @@
                 } else {
                     ini_set('session.use_only_cookies', 0);
                     ini_set("session.use_cookies",0);
-                    ini_set("sessi:on.use_trans_sid",1);
+                    ini_set("session.use_trans_sid",1);
                 }
 
                 // Using a more secure hashing algorithm for session IDs, if available
