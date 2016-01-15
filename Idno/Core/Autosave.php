@@ -51,7 +51,7 @@
                     if ($user = site()->session()->currentUser()) {
                         if (is_array($elements) && !empty($elements) && !empty($context)) {
                             $autosave           = $user->autosave;
-                            $autosave[$context] = $elements;
+                            $autosave[$context] = empty($autosave[$context]) ? $elements : array_merge($autosave[$context], $elements);
                             $user->autosave     = $autosave;
                             if ($user->save()) {
                                 \Idno\Core\Idno::site()->session()->refreshSessionUser($user);
