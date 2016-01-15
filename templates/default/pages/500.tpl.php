@@ -24,9 +24,9 @@
                 <p>
                     <small><a href="#" onclick="$('#details').show(); return false;">Click here to see the technical details.</a></small>
                 </p>
-                <div id="#details" style="display:none">
+                <div id="details" style="display:none">
                     <pre>
-                        <?= $vars['exception']->getTraceAsString(); ?>
+<?= $vars['exception'] ?>
                     </pre>
                 </div>
             <?php } ?>
