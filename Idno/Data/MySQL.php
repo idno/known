@@ -670,7 +670,12 @@
                                 if(!empty($value[0])) {
                                     $val = $value[0]; // The search query is always in $value position [0] for now
                                     if (strlen($val) > 5 && !Idno::site()->config()->bypass_fulltext_search) {
-                                        $subwhere[]                                  = "match (`search`) against (:nonmdvalue{$non_md_variables})";
+                                        if (Idno::site()->config()->boolean_search) {
+                                            $boolean = 'in boolean mode';
+                                        } else {
+                                            $boolean = '';
+                                        }
+                                        $subwhere[]                                  = "match (`search`) against (:nonmdvalue{$non_md_variables} {$boolean})";
                                         $variables[":nonmdvalue{$non_md_variables}"] = $val;
                                     } else {
                                         $subwhere[]                                  = "`search` like :nonmdvalue{$non_md_variables}";

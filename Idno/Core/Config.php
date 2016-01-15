@@ -18,6 +18,7 @@
                 'dbname'                 => 'known', // Default MongoDB database
                 'sessionname'            => 'known', // Default session name
                 'session_cookies'        => true,
+                'boolean_search'         => true, // Should search be boolean?
                 'open_registration'      => true, // Can anyone register for this system?
                 'plugins'                => array( // Default plugins
                                                    'Status',
