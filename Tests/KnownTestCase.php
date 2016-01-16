@@ -80,10 +80,15 @@ namespace Tests {
          * @return \Idno\Entities\User
          */
         public static function tearDownAfterClass() {
-            
             // Delete users, if we've created some but forgot to clean up
-            if (static::$testUser) static::$testUser->delete();
-            if (static::$testAdmin) static::$testAdmin->delete();
+            if (static::$testUser) {
+                static::$testUser->delete();
+                static::$testUser = false;
+            }
+            if (static::$testAdmin) {
+                static::$testAdmin->delete();
+                static::$testAdmin = false;
+            }
         }
     }
 

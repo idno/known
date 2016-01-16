@@ -32,13 +32,8 @@ namespace Tests\Core {
             $this->assertFalse(is_object(\Idno\Core\Idno::site()->session()->currentUser()));
         }
         
-        
         public static function tearDownAfterClass() {
-            
             \Idno\Core\Idno::site()->session()->logUserOff();
-            
-            // Delete users, if we've created some but forgot to clean up
-            if (\Tests\KnownTestCase::$testUser) \Tests\KnownTestCase::$testUser->delete();
         }
     }
     
