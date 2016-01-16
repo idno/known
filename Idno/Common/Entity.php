@@ -1492,18 +1492,16 @@
                 return $object;
             }
 
-            static function getPermalinkStructure()
-            {
-                if ($permalinks = \Idno\Core\Idno::site()->config()->permalinks) {
-                    return $permalinks;
-                }
-                // default
-                return '/:year/:slug';
-            }
-            
+            /**
+             * Get the routing regular expression for entities based
+             * on the configured permalink structure. By convention
+             * the route must contain one matching group that matches
+             * either the post ID or the post slug.
+             * @return string
+             */
             static function getPermalinkRoute()
             {
-                $parts = explode('/', static::getPermalinkStructure());
+                $parts = explode('/', \Idno\Core\Idno::site()->config()->getPermalinkStructure());
                 $result = implode('/', array_map(function ($part)
                 {
                     switch ($part) {
@@ -1539,7 +1537,7 @@
                 }
 
                 // build the permalink based on the configured structure
-                $parts = explode('/', static::getPermalinkStructure());
+                $parts = explode('/', \Idno\Core\Idno::site()->config()->getPermalinkStructure());
 
                 if (
                     (!in_array(':slug', $parts) || $this->getSlug()) &&
