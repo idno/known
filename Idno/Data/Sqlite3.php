@@ -165,6 +165,11 @@
                         return $array['_id'];
                     }
                 }*/
+                
+                $collections = $this->getAvailableCollections();
+                if (!in_array($collection, $collections)) {
+                    throw new \Exception("Unsupported collection $collection");
+                }
 
                 if (empty($array['_id'])) {
                     $array['_id'] = md5(rand() . microtime(true));
@@ -273,6 +278,11 @@
             function getRecordByUUID($uuid, $collection = 'entities')
             {
                 try {
+                    $collections = $this->getAvailableCollections();
+                    if (!in_array($collection, $collections)) {
+                        throw new \Exception("Unsupported collection $collection");
+                    }
+                
                     $statement = $this->client->prepare("select distinct {$collection}.* from " . $collection . " where uuid = :uuid");
                     if ($statement->execute(array(':uuid' => $uuid))) {
                         return $statement->fetch(\PDO::FETCH_ASSOC);
@@ -294,6 +304,11 @@
 
             function getRecord($id, $collection = 'entities')
             {
+                $collections = $this->getAvailableCollections();
+                if (!in_array($collection, $collections)) {
+                    throw new \Exception("Unsupported collection $collection");
+                }
+                
                 $statement = $this->client->prepare("select {$collection}.* from " . $collection . " where _id = :id");
                 if ($statement->execute(array(':id' => $id))) {
                     return $statement->fetch(\PDO::FETCH_ASSOC);
@@ -311,6 +326,11 @@
             function getAnyRecord($collection = 'entities')
             {
                 try {
+                    $collections = $this->getAvailableCollections();
+                    if (!in_array($collection, $collections)) {
+                        throw new \Exception("Unsupported collection $collection");
+                    }
+                
                     $statement = $this->client->prepare("select {$collection}.* from " . $collection . " limit 1");
                     if ($statement->execute()) {
                         if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
@@ -441,6 +461,11 @@
             {
                 try {
 
+                    $collections = $this->getAvailableCollections();
+                    if (!in_array($collection, $collections)) {
+                        throw new \Exception("Unsupported collection $collection");
+                    }
+                    
                     // Build query
                     $query            = "select distinct {$collection}.* from {$collection} ";
                     $variables        = array();
@@ -662,6 +687,11 @@
             {
                 try {
 
+                    $collections = $this->getAvailableCollections();
+                    if (!in_array($collection, $collections)) {
+                        throw new \Exception("Unsupported collection $collection");
+                    }
+                
                     // Build query
                     $query            = "select count(distinct {$collection}.uuid) as total from {$collection} ";
                     $variables        = array();
@@ -717,6 +747,11 @@
             function deleteRecord($id, $collection = 'entities')
             {
                 try {
+
+                    $collections = $this->getAvailableCollections();
+                    if (!in_array($collection, $collections)) {
+                        throw new \Exception("Unsupported collection $collection");
+                    }
 
                     $client = $this->client;
                     /* @var \PDO $client */
