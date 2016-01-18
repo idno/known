@@ -433,6 +433,11 @@
             function getAnyRecord($collection = 'entities')
             {
                 try {
+                    $collections = $this->getAvailableCollections();
+                    if (!in_array($collection, $collections)) {
+                        throw new \Exception("Unsupported collection $collection");
+                    }
+                
                     $statement = $this->client->prepare("select {$collection}.* from " . $collection . " limit 1");
                     if ($statement->execute()) {
                         if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
@@ -720,6 +725,11 @@
             function exportRecords($collection = 'entities')
             {
                 try {
+                    $collections = $this->getAvailableCollections();
+                    if (!in_array($collection, $collections)) {
+                        throw new \Exception("Unsupported collection $collection");
+                    }
+
                     $file   = tempnam(\Idno\Core\Idno::site()->config()->getTempDir(), 'sqldump');
                     $client = $this->client;
                     /* @var \PDO $client */
@@ -832,6 +842,11 @@
             {
                 try {
 
+                    $collections = $this->getAvailableCollections();
+                    if (!in_array($collection, $collections)) {
+                        throw new \Exception("Unsupported collection $collection");
+                    }
+                    
                     // Build query
                     $query            = "select count(distinct {$collection}.uuid) as total from {$collection} ";
                     $variables        = array();
@@ -885,6 +900,11 @@
             {
                 try {
 
+                    $collections = $this->getAvailableCollections();
+                    if (!in_array($collection, $collections)) {
+                        throw new \Exception("Unsupported collection $collection");
+                    }
+                    
                     $client = $this->client;
                     /* @var \PDO $client */
                     $statement = $client->prepare("delete from {$collection} where _id = :id");
