@@ -424,6 +424,18 @@
 
                 return array('$or' => array(array('body' => $regexObj), array('title' => $regexObj), array('tags' => $regexObj), array('description' => $regexObj)));
             }
+            
+            /**
+             * Internal function which returns an array of valid collections.
+             * @return array
+             */
+            protected function getAvailableCollections() {
+                return [
+                    'entities', 
+                    'config',
+                    'reader'
+                ];
+            }
 
         }
 
