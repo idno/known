@@ -362,6 +362,11 @@
             function getRecordByUUID($uuid, $collection = 'entities')
             {
                 try {
+                    $collections = $this->getAvailableCollections();
+                    if (!in_array($collection, $collections)) {
+                        throw new \Exception("Unsupported collection $collection");
+                    }
+                    
                     $statement = $this->client->prepare("select distinct {$collection}.* from " . $collection . " where uuid = :uuid");
                     if ($statement->execute(array(':uuid' => $uuid))) {
                         return $statement->fetch(\PDO::FETCH_ASSOC);
@@ -406,6 +411,11 @@
 
             function getRecord($id, $collection = 'entities')
             {
+                $collections = $this->getAvailableCollections();
+                if (!in_array($collection, $collections)) {
+                    throw new \Exception("Unsupported collection $collection");
+                }
+                
                 $statement = $this->client->prepare("select {$collection}.* from " . $collection . " where _id = :id");
                 if ($statement->execute(array(':id' => $id))) {
                     return $statement->fetch(\PDO::FETCH_ASSOC);
@@ -529,6 +539,10 @@
             function getRecords($fields, $parameters, $limit, $offset, $collection = 'entities')
             {
                 try {
+                    $collections = $this->getAvailableCollections();
+                    if (!in_array($collection, $collections)) {
+                        throw new \Exception("Unsupported collection $collection");
+                    }
 
                     // Build query
                     $query            = "select distinct {$collection}.* from {$collection} ";
