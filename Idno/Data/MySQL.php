@@ -216,6 +216,10 @@
                         return $array['_id'];
                     }
                 }*/
+                $collections = $this->getAvailableCollections();
+                if (!in_array($collection, $collections)) {
+                    throw new \Exception("Unsupported collection $collection");
+                }
 
                 if (empty($array['_id'])) {
                     $array['_id'] = md5(rand() . microtime(true));
