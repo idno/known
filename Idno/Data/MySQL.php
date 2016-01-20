@@ -216,10 +216,7 @@
                         return $array['_id'];
                     }
                 }*/
-                $collections = $this->getAvailableCollections();
-                if (!in_array($collection, $collections)) {
-                    throw new \Exception("Unsupported collection $collection");
-                }
+                $collection = $this->sanitiseCollection($collection);
 
                 if (empty($array['_id'])) {
                     $array['_id'] = md5(rand() . microtime(true));
@@ -362,10 +359,7 @@
             function getRecordByUUID($uuid, $collection = 'entities')
             {
                 try {
-                    $collections = $this->getAvailableCollections();
-                    if (!in_array($collection, $collections)) {
-                        throw new \Exception("Unsupported collection $collection");
-                    }
+                    $collection = $this->sanitiseCollection($collection);
                     
                     $statement = $this->client->prepare("select distinct {$collection}.* from " . $collection . " where uuid = :uuid");
                     if ($statement->execute(array(':uuid' => $uuid))) {
@@ -411,10 +405,7 @@
 
             function getRecord($id, $collection = 'entities')
             {
-                $collections = $this->getAvailableCollections();
-                if (!in_array($collection, $collections)) {
-                    throw new \Exception("Unsupported collection $collection");
-                }
+                $collection = $this->sanitiseCollection($collection);
                 
                 $statement = $this->client->prepare("select {$collection}.* from " . $collection . " where _id = :id");
                 if ($statement->execute(array(':id' => $id))) {
@@ -433,10 +424,7 @@
             function getAnyRecord($collection = 'entities')
             {
                 try {
-                    $collections = $this->getAvailableCollections();
-                    if (!in_array($collection, $collections)) {
-                        throw new \Exception("Unsupported collection $collection");
-                    }
+                    $collection = $this->sanitiseCollection($collection);
                 
                     $statement = $this->client->prepare("select {$collection}.* from " . $collection . " limit 1");
                     if ($statement->execute()) {
@@ -544,11 +532,8 @@
             function getRecords($fields, $parameters, $limit, $offset, $collection = 'entities')
             {
                 try {
-                    $collections = $this->getAvailableCollections();
-                    if (!in_array($collection, $collections)) {
-                        throw new \Exception("Unsupported collection $collection");
-                    }
-
+                    $collection = $this->sanitiseCollection($collection);
+                    
                     // Build query
                     $query            = "select distinct {$collection}.* from {$collection} ";
                     $variables        = array();
@@ -725,10 +710,7 @@
             function exportRecords($collection = 'entities')
             {
                 try {
-                    $collections = $this->getAvailableCollections();
-                    if (!in_array($collection, $collections)) {
-                        throw new \Exception("Unsupported collection $collection");
-                    }
+                    $collection = $this->sanitiseCollection($collection);
 
                     $file   = tempnam(\Idno\Core\Idno::site()->config()->getTempDir(), 'sqldump');
                     $client = $this->client;
@@ -842,10 +824,7 @@
             {
                 try {
 
-                    $collections = $this->getAvailableCollections();
-                    if (!in_array($collection, $collections)) {
-                        throw new \Exception("Unsupported collection $collection");
-                    }
+                    $collection = $this->sanitiseCollection($collection);
                     
                     // Build query
                     $query            = "select count(distinct {$collection}.uuid) as total from {$collection} ";
@@ -900,10 +879,7 @@
             {
                 try {
 
-                    $collections = $this->getAvailableCollections();
-                    if (!in_array($collection, $collections)) {
-                        throw new \Exception("Unsupported collection $collection");
-                    }
+                    $collection = $this->sanitiseCollection($collection);
                     
                     $client = $this->client;
                     /* @var \PDO $client */

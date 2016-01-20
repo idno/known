@@ -426,15 +426,11 @@
             }
             
             /**
-             * Internal function which returns an array of valid collections.
-             * @return array
+             * Internal function which ensures collections are sanitised.
+             * @return string Contents of $collection stripped of invalid characters.
              */
-            protected function getAvailableCollections() {
-                return [
-                    'entities', 
-                    'config',
-                    'reader'
-                ];
+            protected function sanitiseCollection($collection) {
+                return preg_replace("/[^a-zA-Z0-9\_]/", "", $collection);
             }
 
         }
