@@ -326,6 +326,9 @@
                 unset($_SESSION['user_uuid']);
                 unset($this->user);
                 
+                // Unset all session variables, as per PHP docs.
+                $_SESSION = [];
+                
                 // Really log the user off by destroying the cookie 
                 // See https://secure.php.net/manual/en/function.session-destroy.php
                 if (ini_get("session.use_cookies")) {
