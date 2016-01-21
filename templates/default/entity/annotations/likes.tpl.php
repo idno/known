@@ -22,7 +22,6 @@
                     </p>
                     <p><small><a href="<?=$permalink?>"><?=date('M d Y', $annotation['time']);?></a> on <a href="<?=$permalink?>"><?=parse_url($permalink, PHP_URL_HOST)?></a></small></p>
                 </div>
-            </div>
             <?php
                 $this->annotation_permalink = $locallink;
 
@@ -30,6 +29,7 @@
                     echo $this->draw('content/annotation/edit');
                 }
             ?>
+            </div>
         <?php
 
         }

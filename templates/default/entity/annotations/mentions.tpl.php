@@ -23,7 +23,7 @@
                             ?></a></p>
                     <p><small><a href="<?=htmlspecialchars($annotation['owner_url'])?>"><?=htmlentities($annotation['owner_name'], ENT_QUOTES, 'UTF-8')?></a>,
                             <a href="<?=$permalink?>"><?=date('M d Y', $annotation['time']);?></a>
-                            on <a href="<?=$permalink?>"><?=parse_url($permalink, PHP_URL_HOST)?></a></small></p></small></p>
+                            on <a href="<?=$permalink?>"><?=parse_url($permalink, PHP_URL_HOST)?></a></small></p>
                 </div>
                 <?php
                     $this->annotation_permalink = $locallink;
