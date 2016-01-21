@@ -7,6 +7,18 @@
         class Photo extends \Idno\Common\Entity
         {
 
+            // http://php.net/manual/en/features.file-upload.errors.php
+	        private static $FILE_UPLOAD_ERROR_CODES = array(
+		        UPLOAD_ERR_OK         => 'There is no error, the file uploaded with success',
+		        UPLOAD_ERR_INI_SIZE   => 'The uploaded file exceeds the upload_max_filesize directive in php.ini',
+		        UPLOAD_ERR_FORM_SIZE  => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form',
+		        UPLOAD_ERR_PARTIAL    => 'The uploaded file was only partially uploaded',
+		        UPLOAD_ERR_NO_FILE    => 'No file was uploaded',
+		        UPLOAD_ERR_NO_TMP_DIR => 'Missing a temporary folder',
+		        UPLOAD_ERR_CANT_WRITE => 'Failed to write file to disk.',
+		        UPLOAD_ERR_EXTENSION  => 'A PHP extension stopped the file upload.',
+	        );
+
             function getTitle()
             {
                 if (empty($this->title)) {
@@ -84,7 +96,7 @@
                 if ($new) {
                     if (!empty($_FILES['photo']['tmp_name'])) {
                         if (\Idno\Entities\File::isImage($_FILES['photo']['tmp_name']) || \Idno\Entities\File::isSVG($_FILES['photo']['tmp_name'], $_FILES['photo']['name'])) {
-                            
+
                             // Extract exif data so we can rotate
                             if (is_callable('exif_read_data') && $_FILES['photo']['type'] == 'image/jpeg') {
                                 try {
@@ -99,7 +111,7 @@
                             } else {
                                 $exif = false;
                             }
-                            
+
                             if ($photo = \Idno\Entities\File::createFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'], $_FILES['photo']['type'], true, true)) {
                                 $this->attachFile($photo);
 
@@ -112,7 +124,7 @@
 
                                     // Experiment: let's not save thumbnails for GIFs, in order to enable animated GIF posting.
                                     if ($_FILES['photo']['type'] != 'image/gif') {
-                                        if ($thumbnail = \Idno\Entities\File::createThumbnailFromFile($_FILES['photo']['tmp_name'], "{$filename}_{$label}", $size, false)) {
+	                                    if ($thumbnail = \Idno\Entities\File::createThumbnailFromFile($_FILES['photo']['tmp_name'], "{$filename}_{$label}", $size, false)) {
                                             $varname        = "thumbnail_{$label}";
                                             $this->$varname = \Idno\Core\Idno::site()->config()->url . 'file/' . $thumbnail;
 
@@ -129,8 +141,14 @@
                             \Idno\Core\Idno::site()->session()->addErrorMessage('This doesn\'t seem to be an image ..');
                         }
                     } else {
-                        \Idno\Core\Idno::site()->session()->addErrorMessage('We couldn\'t access your image. Please try again.');
-
+	                    // http://php.net/manual/en/features.file-upload.errors.php
+	                    $errcode = $_FILES['photo']['error'];
+	                    if (!empty($errcode) && !empty(self::$FILE_UPLOAD_ERROR_CODES[intval($errcode)])) {
+		                    $errmsg = self::$FILE_UPLOAD_ERROR_CODES[intval($errcode)];
+	                    } else {
+		                    $errmsg = 'We couldn\'t access your image for an unknown reason. Please try again.';
+	                    }
+	                    \Idno\Core\Idno::site()->session()->addErrorMessage($errmsg);
                         return false;
                     }
                 }
