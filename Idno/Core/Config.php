@@ -57,6 +57,7 @@
                 'form_token_expiry'      => 21600,
                 'show_privacy'           => true,
                 'bypass_fulltext_search' => false,
+                'permalink_structure'    => '/:year/:slug',
             );
 
             public $ini_config = array();
@@ -712,6 +713,19 @@
                 $temp = '/tmp/';
 
                 return $temp;
+            }
+
+            /**
+             * Get the configured permalink structure for posts in the
+             * format /:tag1/:tag2
+             * @return string
+             */
+            function getPermalinkStructure()
+            {
+                if  (empty($this->permalink_structure)) {
+                    return '/:year/:slug';
+                }
+                return $this->permalink_structure;
             }
 
             /**

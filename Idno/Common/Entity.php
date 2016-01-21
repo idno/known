@@ -1493,6 +1493,30 @@
             }
 
             /**
+             * Get the routing regular expression for entities based
+             * on the configured permalink structure. By convention
+             * the route must contain one matching group that matches
+             * either the post ID or the post slug.
+             * @return string
+             */
+            static function getPermalinkRoute()
+            {
+                $parts = explode('/', \Idno\Core\Idno::site()->config()->getPermalinkStructure());
+                $result = implode('/', array_map(function ($part)
+                {
+                    switch ($part) {
+                    case ':id': return '([A-Za-z0-9]+)';
+                    case ':slug': return '([\%A-Za-z0-9\-\_]+)';
+                    case ':year': return '[0-9]{4}';
+                    case ':month': return '[0-9]{2}';
+                    case ':day': return '[0-9]{2}';
+                    default: return $part;
+                    }
+                }, $parts));
+                return $result;
+            }
+            
+            /**
              * Return a website address to view this object (defaults to the UUID
              * of the object)
              *
@@ -1512,9 +1536,25 @@
                     return $this->canonical;
                 }
 
-                // If a slug has been set, use it
-                if ($slug = $this->getSlug()) {
-                    return \Idno\Core\Idno::site()->config()->getDisplayURL() . date('Y', $this->created) . '/' . $slug;
+                // build the permalink based on the configured structure
+                $parts = explode('/', \Idno\Core\Idno::site()->config()->getPermalinkStructure());
+
+                if (
+                    (!in_array(':slug', $parts) || $this->getSlug()) &&
+                    (!in_array(':id', $parts) || $this->getID()) 
+                ) {
+                    $path = implode('/', array_map(function ($part)
+                    {
+                        switch ($part) {
+                        case ':id':    return $this->getID();
+                        case ':slug':  return $this->getSlug();
+                        case ':year':  return strftime('%Y', $this->created);
+                        case ':month': return strftime('%m', $this->created);
+                        case ':day':   return strftime('%d', $this->created);
+                        default: return $part;
+                        }
+                    }, $parts));
+                    return \Idno\Core\Idno::site()->config()->getDisplayURL() . ltrim($path, '/');
                 }
 
                 $new = false;

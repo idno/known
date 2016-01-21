@@ -7,8 +7,8 @@
 </div>
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
-	    
-        <form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>admin/" class="navbar-form admin" method="post">
+
+        <form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>admin/" class="admin" method="post">
 
             <div class="row">
                 <div class="col-md-10">
@@ -71,6 +71,33 @@
                 <div class="col-md-6"><p class="config-desc">This is the number of content posts displayed on each page.</p>
                 </div>
             </div>
+
+            <!-------->
+
+            <div class="row">
+                <div class="col-md-2">
+                    <p><label class="control-label" for="permalink_structure"><strong>Permalink Structure</strong></label></p>
+                </div>
+                <div class="col-md-4">
+                    <?php foreach (array(
+                        '/:year/:slug' => '/:year/:slug <strong>(default)</strong>',
+                        '/:year/:month/:slug' => '/:year/:month/:slug',
+                        '/:year/:month/:day/:slug' => '/:year/:month/:day/:slug',
+                    ) as $value => $label) { ?>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="permalink_structure" value="<?=$value?>"
+                                  <?= \Idno\Core\Idno::site()->config()->getPermalinkStructure() == $value ? 'checked' : ''?> />
+                                <?=$label?>
+                            </label>
+                        </div>
+                    <?php } ?>
+                </div>
+                <div class="col-md-6"><p class="config-desc">How permalinks for individual posts are constructed.</p>
+                </div>
+            </div>
+
+
 
             <?=$this->draw('admin/home/settings/details')?>
 
@@ -152,7 +179,7 @@
                 }
 
                 echo $this->draw('admin/home/settings/privacy');
-                
+
             ?>
 
             <!---------->
@@ -233,5 +260,3 @@
     </div>
 
 </div>
-
-
