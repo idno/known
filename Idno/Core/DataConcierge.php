@@ -424,6 +424,14 @@
 
                 return array('$or' => array(array('body' => $regexObj), array('title' => $regexObj), array('tags' => $regexObj), array('description' => $regexObj)));
             }
+            
+            /**
+             * Internal function which ensures collections are sanitised.
+             * @return string Contents of $collection stripped of invalid characters.
+             */
+            protected function sanitiseCollection($collection) {
+                return preg_replace("/[^a-zA-Z0-9\_]/", "", $collection);
+            }
 
         }
 

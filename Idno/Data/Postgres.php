@@ -142,6 +142,7 @@
                         return $array['_id'];
                     }
                 }*/
+                $collection = $this->sanitiseCollection($collection);
 
                 if (empty($array['_id'])) {
                     $array['_id'] = md5(rand() . microtime(true));
@@ -271,6 +272,8 @@
             function getRecordByUUID($uuid, $collection = 'entities')
             {
                 try {
+                    $collection = $this->sanitiseCollection($collection);
+                    
                     $statement = $this->client->prepare("select distinct {$collection}.* from " . $collection . " where uuid = :uuid");
                     if ($statement->execute(array(':uuid' => $uuid))) {
                         return $statement->fetch(\PDO::FETCH_ASSOC);
@@ -315,6 +318,8 @@
 
             function getRecord($id, $collection = 'entities')
             {
+                $collection = $this->sanitiseCollection($collection);
+                
                 $statement = $this->client->prepare("select {$collection}.* from " . $collection . " where _id = :id");
                 if ($statement->execute(array(':id' => $id))) {
                     return $statement->fetch(\PDO::FETCH_ASSOC);
@@ -332,6 +337,8 @@
             function getAnyRecord($collection = 'entities')
             {
                 try {
+                    $collection = $this->sanitiseCollection($collection);
+                
                     $statement = $this->client->prepare("select {$collection}.* from " . $collection . " limit 1");
                     if ($statement->execute()) {
                         if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
@@ -438,7 +445,8 @@
             function getRecords($fields, $parameters, $limit, $offset, $collection = 'entities')
             {
                 try {
-
+                    $collection = $this->sanitiseCollection($collection);
+                    
                     // Build query
                     $query            = "select distinct {$collection}.* from {$collection} ";
                     $variables        = array();
@@ -667,6 +675,8 @@
             {
                 try {
 
+                    $collection = $this->sanitiseCollection($collection);
+                    
                     // Build query
                     $query            = "select count(distinct {$collection}.uuid) as total from {$collection} ";
                     $variables        = array();
@@ -719,6 +729,8 @@
             {
                 try {
 
+                    $collection = $this->sanitiseCollection($collection);
+                    
                     $client = $this->client;
                     /* @var \PDO $client */
                     $statement = $client->prepare("delete from {$collection} where _id = :id");
