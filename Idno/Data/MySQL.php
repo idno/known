@@ -832,7 +832,7 @@
                     $metadata_joins   = 0;
                     $non_md_variables = array();
                     $where            = $this->build_where_from_array($parameters, $variables, $metadata_joins, $non_md_variables, 'and', $collection);
-                    for ($i = 0; $i <= $metadata_joins; $i++) {
+                    for ($i = 1; $i <= $metadata_joins; $i++) {
                         $query .= " left join metadata md{$i} on md{$i}.entity = {$collection}.uuid ";
                     }
                     if (!empty($where)) {
