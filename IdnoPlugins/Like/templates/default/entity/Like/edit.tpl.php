@@ -59,7 +59,6 @@
                 <?= $this->__([
                     'name'        => 'description',
                     'value'       => $vars['object']->description,
-                    'object'      => $object,
                     'wordcount'   => false,
                     'class'       => 'wysiwyg-short',
                     'height'      => 250,
