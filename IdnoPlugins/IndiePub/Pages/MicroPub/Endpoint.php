@@ -115,7 +115,9 @@
                         } else {
                             $content_value = $content;
                         }
-                        $entity->setPosseLink('instagram',$posse_link);
+                        $posse_url = parse_url($posse_link);
+                        $posse_service = $posse_url['host'];
+                        $entity->setPosseLink($posse_service, $posse_link, '', '');
                         $this->setInput('title', $name);
                         $this->setInput('body', $content_value);
                         $this->setInput('inreplyto', $in_reply_to);
