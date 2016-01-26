@@ -1072,18 +1072,25 @@
 
             /**
              * Sets the POSSE link for this entity to a particular service
-             * @param $service
-             * @param $url
+             * @param $service The name of the service
+             * @param $url The URL of the post
+             * @param $identifier A human-readable identifier
+             * @param $account_id A Known-readable account identifier
              * @return bool
              */
-            function setPosseLink($service, $url, $identifier = '', $item_id = '')
+            function setPosseLink($service, $url, $identifier = '', $item_id = '', $account_id = '')
             {
                 if (!empty($service) && !empty($url)) {
                     $posse = $this->posse;
                     if (empty($identifier)) {
                         $identifier = $service;
                     }
-                    $posse[$service][] = array('url' => $url, 'identifier' => $identifier, 'item_id' => $item_id);
+                    $posse[$service][] = array(
+                        'url' => $url,
+                        'identifier' => $identifier,
+                        'item_id' => $item_id,
+                        'account_id' => $account_id
+                    );
                     $this->posse       = $posse;
 
                     return true;
