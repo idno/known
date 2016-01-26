@@ -74,6 +74,7 @@
                 $name        = $this->getInput('name');
                 $in_reply_to = $this->getInput('in-reply-to');
                 $syndicate   = $this->getInput('mp-syndicate-to', $this->getInput('syndicate-to'));
+                $posse_link  = $this->getInput('syndication');
                 $like_of     = $this->getInput('like-of');
                 $repost_of   = $this->getInput('repost-of');
 
@@ -114,7 +115,9 @@
                         } else {
                             $content_value = $content;
                         }
-
+                        $posse_url = parse_url($posse_link);
+                        $posse_service = $posse_url['host'];
+                        $entity->setPosseLink($posse_service, $posse_link, '', '');
                         $this->setInput('title', $name);
                         $this->setInput('body', $content_value);
                         $this->setInput('inreplyto', $in_reply_to);
