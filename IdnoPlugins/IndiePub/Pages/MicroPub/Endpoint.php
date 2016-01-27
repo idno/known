@@ -81,11 +81,26 @@
                     $type = 'article';
                     if (!empty($_FILES['photo'])) {
                         $type = 'photo';
-                        if (empty($name) && !empty($content)) {
-                            $name    = $content;
-                            $content = '';
+                    }
+                    else {
+                        $photo_url = $this->getInput('photo');
+                        if ($photo_url) {
+                            $type      = 'photo';
+                            $success   = $this->uploadFromUrl($photo_url);
+                            if (!$success) {
+                                \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
+                                $this->setResponse(500);
+                                echo "Failed uploading photo from $photo_url";
+                                exit;
+                            }
                         }
                     }
+
+                    if ($type == 'photo' && empty($name) && !empty($content)) {
+                        $name    = $content;
+                        $content = '';
+                    }
+
                     if (empty($name)) {
                         $type = 'note';
                     }
@@ -152,6 +167,45 @@
                     exit;
 
                 }
+            }
+
+            /**
+             * Micropub optionally allows uploading photos from a
+             * URL. This method downloads the file at a URL to a
+             * temporary location and puts it in the php $_FILES
+             * array.
+             */
+            private function uploadFromUrl($photo_url)
+            {
+                $pathinfo = pathinfo(parse_url($photo_url, PHP_URL_PATH));
+                switch ($pathinfo['extension']) {
+                case 'jpg':
+                case 'jpeg':
+                    $mimetype = 'image/jpeg';
+                    break;
+                case 'png':
+                    $mimetype = 'image/png';
+                    break;
+                case 'gif':
+                    $mimetype = 'image/gif';
+                    break;
+                }
+
+                $tmpname  = tempnam(sys_get_temp_dir(), 'indiepub_');
+                $fp       = fopen($photo_url, 'rb');
+                if ($fp) {
+                    $success = file_put_contents($tmpname, $fp);
+                    fclose($fp);
+                }
+                if ($success) {
+                    $_FILES['photo'] = [
+                        'tmp_name' => $tmpname,
+                        'name'     => $pathinfo['basename'],
+                        'size'     => filesize($tmpname),
+                        'type'     => $mimetype,
+                    ];
+                }
+                return $success;
             }
 
         }
