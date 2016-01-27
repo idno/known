@@ -44,7 +44,8 @@
                  return $t->drawPage();
             }
 
-            function postContent()
+            // note post instead of postContent to skip the CSRF token validation
+            function post()
             {
                 $code         = $this->getInput('code');
                 $client_id    = $this->getInput('client_id');
@@ -61,6 +62,12 @@
                     ));
                     exit;
                 }
+
+                $this->setResponse(400);
+                header('Content-Type: application/x-www-form-urlencoded');
+                echo http_build_query(array(
+                    'error' => 'Invalid auth code',
+                ));
             }
 
             static function findUserForCode($code)

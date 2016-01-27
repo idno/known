@@ -81,14 +81,12 @@
                     $type = 'article';
                     if (!empty($_FILES['photo'])) {
                         $type = 'photo';
-                    }
-                    else {
+                    } else {
                         $photo_url = $this->getInput('photo');
                         if ($photo_url) {
                             $type      = 'photo';
                             $success   = $this->uploadFromUrl($photo_url);
                             if (!$success) {
-                                \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
                                 $this->setResponse(500);
                                 echo "Failed uploading photo from $photo_url";
                                 exit;
@@ -116,9 +114,6 @@
                 if ($contentType = ContentType::getRegisteredForIndieWebPostType($type)) {
 
                     if ($entity = $contentType->createEntity()) {
-
-                        error_log(var_export($entity, true));
-
                         if (is_array($content)) {
                             $content_value = '';
                             if (!empty($content['html'])) {
@@ -148,7 +143,7 @@
                             \Idno\Core\Idno::site()->logging()->log("Setting syndication: $syndication");
                             $this->setInput('syndication', $syndication);
                         }
-                        if ($entity->saveDataFromInput()) {
+                        if ($entity->saveDataFromInput($this)) {
                             $this->setResponse(201);
                             header('Location: ' . $entity->getURL());
                             exit;
