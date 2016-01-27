@@ -44,11 +44,6 @@ namespace Tests\API {
             $this->assertTrue(!empty($content));
             $this->assertTrue($response == 200);
             
-//            $result = \Idno\Core\Webservice::post(\Idno\Core\Idno::site()->config()->url . '', [], [
-//				    'Accept: application/json',
-//				    'X-KNOWN-USERNAME: ' . \Idno\Core\site()->session()->currentUser()->known['username'],
-//				    'X-KNOWN-SIGNATURE: ' . base64_encode(hash_hmac('sha256', $action, \Idno\Core\site()->session()->currentUser()->known['known_api_key'], true)),
-//				]);
         }
     }
     
