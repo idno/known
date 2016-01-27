@@ -144,7 +144,7 @@
                     $this->parseJSONPayload();
                     $return = $this->postContent();
                 } else {
-                    throw new \Exception('The page you were on timed out.');
+                    throw new \Exception('Invalid CSRF token.');
                 }
 
                 if (\Idno\Core\Idno::site()->session()->isAPIRequest()) {
@@ -906,7 +906,10 @@
              */
             public function getAssets($class)
             {
-                return $this->assets[$class];
+                if (isset($this->assets[$class])) {
+                    return $this->assets[$class];
+                }
+                return false;
             }
 
             /**

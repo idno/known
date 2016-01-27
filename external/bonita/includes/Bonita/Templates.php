@@ -76,36 +76,36 @@
 				function draw($templateName, $returnBlank = true) {
 					$templateName = preg_replace('/^_[A-Z0-9\/]+/i','',$templateName);
 					if (!empty($templateName)) {
-					
+
 						// Add the Bonita base path to our additional paths list
 						$paths = \Bonita\Main::getPaths();
-						
+
 						// Add template types to an array; ensure we revert to default
 						$templateTypes = array($this->getTemplateType());
 						if ($this->fallbackToDefault)
 						{
 						    if ($this->getTemplateType() != 'default') $templateTypes[] = 'default';
 						}
-						
+
 						// Cycle through the additional paths and check for the template file
 						// - if it exists, break out of the foreach
 						foreach($templateTypes as $templateType)
 						foreach($paths as $basepath) {
 							$path = $basepath . '/templates/'.$templateType.'/' . $templateName . '.tpl.php';
 							if (file_exists($path)) {
-						
+
 								// Special vars:
 								$vars = $this->vars;
 								$t = $this;
-							
+
 								ob_start();
-								@include $path;
+								include $path;
 								return ob_get_clean();
-								
+
 								// Break out of the foreach path
 								// (although this code should be unreachable)
 								break;
-								
+
 							}
 						}
 					}
