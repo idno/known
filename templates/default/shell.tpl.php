@@ -362,7 +362,7 @@
 </div>
 <!-- Everything below this should be includes, not content -->
 
-<?php if (!empty($_SERVER["HTTP_X_PJAX"])): ?>
+<?php if (empty($_SERVER["HTTP_X_PJAX"])): ?>
 <!-- Le javascript -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script
