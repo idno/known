@@ -24,9 +24,14 @@
                 $state        = $this->getInput('state');
                 $scope        = $this->getInput('scope');
 
-                 if (empty($me) || parse_url($me, PHP_URL_HOST) != parse_url( $user->getURL(), PHP_URL_HOST)) {
+                if (empty($me)) {
                      $this->setResponse(403);
-                     echo $me.' does not match the logged in user '.$user->getURL().'.';
+                     echo "\"me\" parameter must be provided.";
+                     exit;
+                }
+                 if (parse_url($me, PHP_URL_HOST) != parse_url($user->getURL(), PHP_URL_HOST)) {
+                     $this->setResponse(403);
+                     echo "\"$me\" does not match the logged in user \"{$user->getURL()}\".";
                      exit;
                  }
 
@@ -44,7 +49,8 @@
                  return $t->drawPage();
             }
 
-            function postContent()
+            // note post instead of postContent to skip the CSRF token validation
+            function post()
             {
                 $code         = $this->getInput('code');
                 $client_id    = $this->getInput('client_id');
@@ -61,6 +67,12 @@
                     ));
                     exit;
                 }
+
+                $this->setResponse(400);
+                header('Content-Type: application/x-www-form-urlencoded');
+                echo http_build_query(array(
+                    'error' => 'Invalid auth code',
+                ));
             }
 
             static function findUserForCode($code)

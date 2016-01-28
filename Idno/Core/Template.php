@@ -231,7 +231,7 @@
             function sanitize_html($html)
             {
                 $html = site()->triggerEvent('text/filter', [], $html);
-                
+
                 return $html;
             }
 
@@ -461,7 +461,11 @@
             function getCurrentURLWithVar($variable_name, $value)
             {
                 $components = parse_url($this->getCurrentURL());
-                parse_str($components['query'], $url_var_array);
+                if (isset($components['query'])) {
+                    parse_str($components['query'], $url_var_array);
+                } else {
+                    $url_var_array = [];
+                }
                 $url_var_array[$variable_name] = $value;
                 $components['query'] = http_build_query($url_var_array);
                 $url                 = $components['scheme'] . '://' . $components['host'] . $components['path'];
