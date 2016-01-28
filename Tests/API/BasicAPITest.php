@@ -42,6 +42,7 @@ namespace Tests\API {
             
             $this->assertTrue(empty($result['error']));
             $this->assertTrue(!empty($content));
+            $this->assertTrue(!empty($content->location));
             $this->assertTrue($response == 200);
             
         }
