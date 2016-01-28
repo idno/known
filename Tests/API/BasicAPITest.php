@@ -26,7 +26,7 @@ namespace Tests\API {
         
         public function testAuthenticated() {
             
-            $user = \Tests\KnownTestCase::admin();
+            $user = \Tests\KnownTestCase::user();
             
             $result = \Idno\Core\Webservice::post(\Idno\Core\Idno::site()->config()->url . 'status/edit', [
                 'body' => "Making a nice test post via the api",
