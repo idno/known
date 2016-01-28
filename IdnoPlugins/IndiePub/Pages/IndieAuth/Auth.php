@@ -24,9 +24,14 @@
                 $state        = $this->getInput('state');
                 $scope        = $this->getInput('scope');
 
-                 if (empty($me) || parse_url($me, PHP_URL_HOST) != parse_url( $user->getURL(), PHP_URL_HOST)) {
+                if (empty($me)) {
                      $this->setResponse(403);
-                     echo $me.' does not match the logged in user '.$user->getURL().'.';
+                     echo "\"me\" parameter must be provided.";
+                     exit;
+                }
+                 if (parse_url($me, PHP_URL_HOST) != parse_url($user->getURL(), PHP_URL_HOST)) {
+                     $this->setResponse(403);
+                     echo "\"$me\" does not match the logged in user \"{$user->getURL()}\".";
                      exit;
                  }
 
