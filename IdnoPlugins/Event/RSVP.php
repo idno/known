@@ -73,7 +73,7 @@
                     $this->rsvp = $rsvp;
                     $this->inreplyto = \Idno\Core\Idno::site()->currentPage()->getInput('inreplyto');
                     $this->setAccess($access);
-                    if ($this->save($new)) {
+                    if ($this->publish($new)) {
                         if ($access == 'PUBLIC') {
                             \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getDescription()));
                         }

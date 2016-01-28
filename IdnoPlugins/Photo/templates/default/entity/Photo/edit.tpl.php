@@ -80,7 +80,7 @@
                     </p>
                 </div>
 
-                <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('image'); ?>
+                <?php echo $this->drawSyndication('image'); ?>
                 <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to"
                                                                   value="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
                 <?= $this->draw('content/access'); ?>
