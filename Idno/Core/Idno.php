@@ -369,7 +369,7 @@
              * @return \Idno\Core\Language
              */
 
-            function &language()
+            function language()
             {
                 if (empty($this->language)) {
                     $this->language = new Language();
