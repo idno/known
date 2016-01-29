@@ -18,9 +18,6 @@
     $mysql_pass  = getInput('mysql_pass');
     $mysql_name  = getInput('mysql_name');
     $upload_path = getInput('upload_path');
-    //if (empty($mysql_host)) {
-        //$mysql_host = 'localhost';
-    //}
 
     if (!empty($_SERVER['PHP_SELF'])) {
         if ($subdir = dirname(dirname($_SERVER['PHP_SELF']))) {
