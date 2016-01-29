@@ -199,7 +199,7 @@
 
             /**
              * Error message wrapper for addMessage()
-             * @param type $message
+             * @param string $message
              */
             function addErrorMessage($message)
             {
