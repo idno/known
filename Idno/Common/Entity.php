@@ -568,7 +568,7 @@
             function setSlugResilient($slug, $max_pieces = 10)
             {
                 // UUID max length is 255 chars; slug length <= 255 - (base URL + year + slash)
-                $max_chars = 245 - strlen(\Idno\Core\site()->config()->getDisplayURL());
+                $max_chars = 245 - strlen(\Idno\Core\Idno::site()->config()->getDisplayURL());
 
                 $slug = $this->prepareSlug($slug, $max_pieces, $max_chars - 10);
                 if (empty($slug)) {
@@ -603,8 +603,11 @@
                 }
                 $slug = strip_tags($slug);
                 $slug = preg_replace('|https?://[a-z\.0-9]+|', '', $slug);
-                $slug = preg_replace_callback("/([^A-Za-z0-9\%\-\_ ])/u", function($matches) {
+                $slug = preg_replace_callback("/([\p{L}]+)/u", function($matches) {
                     return rawurlencode(($matches[1]));
+                }, $slug);
+                $slug = preg_replace_callback("/([^A-Za-z0-9\p{L}\%\-\_ ])/u", function($matches) {
+                    return '';
                 }, $slug);
                 $slug = preg_replace("/[ ]+/u", ' ', $slug);
                 $slug = implode('-', array_slice(explode(' ', $slug), 0, $max_pieces));
