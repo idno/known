@@ -505,12 +505,6 @@
                     }
                     */
 
-                    if (!\Idno\Core\Idno::site()->config()->session_cookies) {
-                        $t = \Idno\Core\Idno::site()->template();
-                        /* @var $t \Idno\Core\Template */
-                        $location = $t->getURLWithVar('sid', session_id());
-                    }
-
                     if (\Idno\Core\Idno::site()->session()->isAPIRequest()) {
                         echo json_encode([
                             'location' => $location
