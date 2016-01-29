@@ -346,6 +346,7 @@
              */
             function isAdmin()
             {
+                if (\Idno\Core\Idno::site()->session()->isAPIRequest()) return false; // Refs #831 - limit admin access on API
                 if (!empty($this->admin)) return true;
 
                 return false;
