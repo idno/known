@@ -1768,7 +1768,7 @@
                         $this->removeAnnotation($source);
                         foreach ($mentions['mentions'] as $mention) {
                             if (!empty($mention['url'])) {
-                                $permalink = implode('', $mention['url']);
+                                $permalink = $mention['url'][0]; //implode('', $mention['url']);
                             } else {
                                 $permalink = $source;
                             }
