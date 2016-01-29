@@ -20,6 +20,7 @@
                 $code       = $this->getInput('code');
                 $email      = $this->getInput('email');
                 $onboarding = $this->getInput('onboarding');
+                $set_name   = $this->getInput('set_name');
 
                 if (empty(\Idno\Core\Idno::site()->config()->open_registration)) {
                     if (!\Idno\Core\Idno::site()->config()->canAddUsers()) {
@@ -38,7 +39,11 @@
                     $t->title = 'Create a new account';
                     $t->drawPage();
                 } else {
-                    $t->body  = $t->__(array('email' => $email, 'code' => $code, 'messages' => \Idno\Core\Idno::site()->session()->getAndFlushMessages()))->draw('onboarding/register');
+                    $t->body  = $t->__(array(
+                        'email' => $email,
+                        'code' => $code,
+                        'set_name' => $set_name,
+                        'messages' => \Idno\Core\Idno::site()->session()->getAndFlushMessages()))->draw('onboarding/register');
                     $t->title = 'Create a new account';
                     echo $t->draw('shell/simple');
                 }
@@ -53,6 +58,7 @@
                 $email      = trim($this->getInput('email'));
                 $code       = $this->getInput('code');
                 $onboarding = $this->getInput('onboarding');
+                $set_name   = $this->getInput('set_name');
                 
                 $this->referrerGatekeeper();
                 
@@ -98,8 +104,8 @@
                             $user->setAdmin(true);
                             $user->robot_state = '1'; // State for our happy robot helper
                             if (\Idno\Core\Idno::site()->config()->title == 'New Known site') {
-                                if (!empty($_SESSION['set_name'])) {
-                                    \Idno\Core\Idno::site()->config()->title = $_SESSION['set_name'];
+                                if (!empty($set_name)) {
+                                    \Idno\Core\Idno::site()->config()->title = $set_name;
                                 } else {
                                     \Idno\Core\Idno::site()->config()->title = $user->getTitle() . '\'s Known';
                                 }
