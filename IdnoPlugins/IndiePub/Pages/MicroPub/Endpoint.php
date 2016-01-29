@@ -68,6 +68,8 @@
                 $this->gatekeeper();
                 // If we're here, we're authorized
 
+                \Idno\Core\Idno::site()->triggerEvent('indiepub/post/start', ['page' => $this]);
+
                 // Get details
                 $type        = $this->getInput('h');
                 $content     = $this->getInput('content');
@@ -87,6 +89,7 @@
                             $type      = 'photo';
                             $success   = $this->uploadFromUrl($photo_url);
                             if (!$success) {
+                            	\Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
                                 $this->setResponse(500);
                                 echo "Failed uploading photo from $photo_url";
                                 exit;
@@ -144,10 +147,12 @@
                             $this->setInput('syndication', $syndication);
                         }
                         if ($entity->saveDataFromInput($this)) {
+                            \Idno\Core\Idno::site()->triggerEvent('indiepub/post/success', ['page' => $this, 'object' => $entity]);
                             $this->setResponse(201);
                             header('Location: ' . $entity->getURL());
                             exit;
                         } else {
+                            \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
                             $this->setResponse(500);
                             echo "Couldn't create {$type}";
                             exit;
@@ -156,7 +161,7 @@
                     }
 
                 } else {
-
+                    \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
                     $this->setResponse(500);
                     echo "Couldn't find content type {$type}";
                     exit;
