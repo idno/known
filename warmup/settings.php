@@ -49,8 +49,16 @@
             if ($schema = @file_get_contents(dirname(dirname(__FILE__)) . '/schemas/mysql/mysql.sql')) {
                 $dbh->exec('use `' . $mysql_name . '`');
                 if (!$dbh->exec($schema)) {
-                    $messages .= '<p>We couldn\'t automatically install the database schema.</p>';
-                    $ok = false;
+                    $err = $dbh->errorInfo();
+                    if ($err[0] === '00000') {
+                        // exec() might return false (no rows affected) and still have been successful
+                        // http://php.net/manual/en/pdo.exec.php#118156
+                    } else if ($err[0] === '01000') {
+                        $messages .= '<p>Installed database schema with warnings: '.$err[2].'.</p>';
+                    } else {
+                        $messages .= '<p>We couldn\'t automatically install the database schema: '.$err[2].'</p>';
+                        $ok = false;
+                    }
                 }
             } else {
                 $messages .= '<p>We couldn\'t find the schema doc.</p>';
@@ -124,7 +132,7 @@
         }
     }
 
-    if ($ok = true && !empty($upload_path) && !empty($mysql_name) && !empty($mysql_host)) {
+    if ($ok && !empty($upload_path) && !empty($mysql_name) && !empty($mysql_host)) {
         $ini_file = <<< END
 
 # This configuration file was created by Known's installer.
@@ -151,7 +159,7 @@ END;
             if ($fp = @fopen('../config.ini', 'w')) {
                 fwrite($fp, $ini_file);
                 fclose($fp);
-                header('Location: ../begin/register');
+                header('Location: ../begin/register?set_name='.urlencode($site_title));
                 exit;
             } else {
                 include 'writeconfig.php';

@@ -56,7 +56,7 @@
 				
 			/**
 			 * Chainable function to allow variables to be added as an array.
-			 * @param $vars Variables to add to the template (eg array('name1' => 'value1', 'name2' => 'value2'))
+			 * @param $vars array Variables to add to the template (eg array('name1' => 'value1', 'name2' => 'value2'))
 			 * @return \Bonita\Templates this template object
 			 */
 				function __($vars) {

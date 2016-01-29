@@ -1,8 +1,7 @@
 <?php
 
-    $messages = $vars['messages'];
-
-    if (!empty($messages)) {
+    if (!empty($vars['messages'])) {
+        $messages = $vars['messages'];
 
         ?>
         <div class="alerts">
