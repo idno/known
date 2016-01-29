@@ -14,19 +14,32 @@
 
                 $button = $this->draw('content/syndication/' . $service);
                 if (empty($button)) {
+                    $disabled = '';
                     if ($accounts = \Idno\Core\Idno::site()->syndication()->getServiceAccounts($service)) {
                         foreach($accounts as $account) {
                             
+                            // should be disabled?
+                            $posse_links = $vars['posseLinks'];
+                            $posse_service = $posse_links[$service];
+                            foreach ($posse_service as $key => $posse_account) {
+                                \Idno\Core\Idno::site()->logging()->log("mwe syndication.tpl.php posse: " . $posse_account['account_id'] . "===" . $account['name']);
+                                if ($posse_account['account_id'] === $account['name']) {
+                                    $disabled = 'disabled';
+                                }
+                            }
                             $service_details[$service][] = ['username' => $account['username'], 'name' => $account['name']];
                             
-                            $button .= $this->__(array('service' => $service, 'username' => $account['username'], 'name' => $account['name'], 'selected' => \Idno\Core\Idno::site()->triggerEvent('syndication/selected/' . $service, [
+                            $button .= $this->__(array('service' => $service, 'disabled' => $disabled, 'username' => $account['username'], 'name' => $account['name'], 'selected' => \Idno\Core\Idno::site()->triggerEvent('syndication/selected/' . $service, [
                                 'service' => $service,
                                 'username' => $account['username'],
                                 'reply-to' => \Idno\Core\Idno::site()->currentPage()->getInput('share_url')
                             ], false)))->draw('content/syndication/account');
                         }
                     } else {
-                        $button = $this->__(array('service' => $service, 'selected' => \Idno\Core\Idno::site()->triggerEvent('syndication/selected/' . $service, [
+                        // should be disabled?
+                        $posse_links = $vars['posseLinks'];
+                        // TODO: setting $disabled = 'disabled'; when appropiate
+                        $button = $this->__(array('service' => $service, 'disabled' => $disabled, 'selected' => \Idno\Core\Idno::site()->triggerEvent('syndication/selected/' . $service, [
                                 'service' => $service,
                                 'username' => $account['username'],
                                 'reply-to' => \Idno\Core\Idno::site()->currentPage()->getInput('share_url')

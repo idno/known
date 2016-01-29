@@ -79,8 +79,8 @@
                         <small><a href="#" onclick="$('#photo-details').show(); $('#photo-details-toggle').hide(); return false;">+ Add details</a></small>
                     </p>
                 </div>
-
-                <?php echo $this->drawSyndication('image'); ?>
+                
+                <?php echo $this->drawSyndication('image', $vars['object']->getPosseLinks()); ?>
                 <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to"
                                                                   value="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
                 <?= $this->draw('content/access'); ?>
