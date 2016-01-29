@@ -570,7 +570,7 @@
                 // UUID max length is 255 chars; slug length <= 255 - (base URL + year + slash)
                 $max_chars = 245 - strlen(\Idno\Core\site()->config()->getDisplayURL());
 
-                $slug = $this->prepare_slug($slug, $max_pieces, $max_chars - 10);
+                $slug = $this->prepareSlug($slug, $max_pieces, $max_chars - 10);
                 if (empty($slug)) {
                     return false;
                 }
@@ -593,7 +593,7 @@
              * @param int $max_chars The maximum number of characters in the slug (default: 255)
              * @return string
              */
-            function prepare_slug($slug, $max_pieces = 10, $max_chars = 255)
+            function prepareSlug($slug, $max_pieces = 10, $max_chars = 255)
             {
                 $slug = trim($slug);
                 if (is_callable('mb_strtolower')) {
@@ -603,7 +603,9 @@
                 }
                 $slug = strip_tags($slug);
                 $slug = preg_replace('|https?://[a-z\.0-9]+|', '', $slug);
-                $slug = preg_replace("/[^A-Za-z0-9\-\_ ]/u", '', $slug);
+                $slug = preg_replace_callback("/([^A-Za-z0-9\%\-\_ ])/u", function($matches) {
+                    return rawurlencode(($matches[1]));
+                }, $slug);
                 $slug = preg_replace("/[ ]+/u", ' ', $slug);
                 $slug = implode('-', array_slice(explode(' ', $slug), 0, $max_pieces));
                 $slug = str_replace(' ', '-', $slug);
@@ -636,7 +638,7 @@
                 if (!empty($plugin_slug) && $plugin_slug !== true) {
                     return $plugin_slug;
                 }
-                $slug = $this->prepare_slug($slug, $max_pieces, $max_chars);
+                $slug = $this->prepareSlug($slug, $max_pieces, $max_chars);
                 if (empty($slug)) {
                     return false;
                 }
