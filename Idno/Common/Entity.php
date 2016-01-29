@@ -466,8 +466,12 @@
                     $this->access = 'PUBLIC';
                 }
 
-                // Adding when this entity was created (if it's new) & updated
+                // If this post has hashtags, save them separately for later retrieval
+                if ($tags = $this->getTags()) {
+                    $this->hashtags = $tags;
+                }
 
+                // Adding when this entity was created (if it's new) & updated
                 if (empty($this->created)) {
                     $this->created = time();
                 }
