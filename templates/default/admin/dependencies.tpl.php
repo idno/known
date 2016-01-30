@@ -32,7 +32,10 @@
             including installation instructions.</small><br />
             <?php
 
-                foreach(array('curl','date','dom','fileinfo','gd','intl','json','libxml','mbstring','mongo','oauth','reflection','session','simplexml') as $extension) {
+                foreach(array(
+                            //'curl','date','dom','fileinfo','gd','intl','json','libxml','mbstring','mongo','oauth','reflection','session','simplexml'
+                            'curl','date','dom','gd','json','libxml','mbstring','pdo','pdo_mysql','reflection','session','simplexml', 'openssl'
+                        ) as $extension) {
 		     echo $this->__(array('extension' => $extension))->draw('admin/dependencies/extension');
                 }
 
