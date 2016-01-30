@@ -1,0 +1,104 @@
+{
+    "autolink": [
+        {
+            "expected": "This links to a weird domain <a class=\"auto-link\" href=\"http://deals.blackfriday\">deals.blackfriday</a>.",
+            "text": "This links to a weird domain deals.blackfriday."
+        },
+        {
+            "expected": "<a class=\"auto-link\" href=\"http://starts.with.a.link\">starts.with.a.link</a> and ends with <a href=\"https://kylewm.com/about#me\">HTML</a>.",
+            "text": "starts.with.a.link and ends with <a href=\"https://kylewm.com/about#me\">HTML</a>."
+        },
+        {
+            "expected": "includes <a class=\"auto-link\" href=\"http://ipad-capitalization.com\">Http://ipad-capitalization.com</a>",
+            "text": "includes Http://ipad-capitalization.com"
+        },
+        {
+            "expected": "a matched parenthesis: <a class=\"auto-link\" href=\"http://wikipedia.org/Python_(programming_language)\">http://wikipedia.org/Python_(programming_language)</a> and (an unmatched parenthesis <a class=\"auto-link\" href=\"https://en.wikipedia.org/wiki/Guido_van_Rossum\">https://en.wikipedia.org/wiki/Guido_van_Rossum</a>)",
+            "text": "a matched parenthesis: http://wikipedia.org/Python_(programming_language) and (an unmatched parenthesis https://en.wikipedia.org/wiki/Guido_van_Rossum)"
+        }
+    ],
+    "shorten": [
+        {
+            "permashortcitation": "ttk.me t4_93",
+            "permalink": "http://tantek.com/2015/014/t3/rel-tag-succeeded-web-html-specs",
+            "expected": "Despite Technorati dumping tag & blog search long ago, rel-tag succeeded on web, in #HTML spec https://html.spec.whatwg.org/multipage/semantics.html#linkTypes (ttk.me t4_93)",
+            "text": "Despite Technorati dumping tag & blog search long ago, rel-tag succeeded on web, in #HTML spec https://html.spec.whatwg.org/multipage/semantics.html#linkTypes"
+        },
+        {
+            "permashortcitation": "ttk.me t4_81",
+            "permalink": "http://tantek.com/2015/013/t1/names-ind-ie-indie-vc-not-indieweb",
+            "expected": "Despite names,\nind.ie&indie.vc are NOT #indieweb @indiewebcamp\nindiewebcamp.com/2014-review#Indie_Term_Re-use\n@iainspad @sashtown @thomatronic (ttk.me t4_81)",
+            "text": "Despite names,\nind.ie&indie.vc are NOT #indieweb @indiewebcamp\nindiewebcamp.com/2014-review#Indie_Term_Re-use\n@iainspad @sashtown @thomatronic"
+        },
+        {
+            "expected": "Si H\u00e4ren Engel duurch all, Haus Benn d\u00e9 blo, am wuel Kolrettchen Nuechtegall d\u00e9n. Nun en sch\u00e9i Milliounen, an wee drem d'Welt, do Ierd bl\u00e9nk",
+            "text": "Si H\u00e4ren Engel duurch all, Haus Benn d\u00e9 blo, am wuel Kolrettchen Nuechtegall d\u00e9n. Nun en sch\u00e9i Milliounen, an wee drem d'Welt, do Ierd bl\u00e9nk"
+        },
+        {
+            "expected": "Hey #indieweb, the coming storm of webmention Spam may not be far away. Those of us that have input fields to send\u2026 https://ben.thatmustbe.me/note/2015/1/31/1/",
+            "permalink": "https://ben.thatmustbe.me/note/2015/1/31/1/",
+            "permashortlink": "http://btmb.me/s/6q",
+            "text": "Hey #indieweb, the coming storm of webmention Spam may not be far away. Those of us that have input fields to send send webmentions manually may already be getting them. Look at the mentions on http://aaronparecki.com/articles/2015/01/22/1/why-not-json"
+        },
+        {
+            "expected": "anybody have a wedding ring with the date engraved in ISO 8601? I\u2019ll be damned if I\u2019m going to wear mm.dd.yyyy anywhere on my person.",
+            "permalink": "https://kylewm.com/2015/05/anybody-have-a-wedding-ring-with-the-date-engraved",
+            "text": "anybody have a wedding ring with the date engraved in ISO 8601? I\u2019ll be damned if I\u2019m going to wear mm.dd.yyyy anywhere on my person."
+        },
+        {
+            "expected": "ix freue mich auf die nebenan.hamburg morgen. ich spreche auch ne halbe stunde \u00fcbers #indieweb und\u2026 http://wirres.net/article/articleview/7773/1/6/",
+            "permalink": "http://wirres.net/article/articleview/7773/1/6/",
+            "permashortlink": "http://wirres.net/7773",
+            "text": "ix freue mich auf die nebenan.hamburg morgen. ich spreche auch ne halbe stunde \u00fcbers #indieweb und @reclaim_fm."
+        },
+        {
+            "expected": "@davewiner I stubbed a page on the wiki for https://indiewebcamp.com/River4. Edits/improvmnts from users are welcome! @kevinmarks @julien51 @aaronpk",
+            "text": "@davewiner I stubbed a page on the wiki for https://indiewebcamp.com/River4. Edits/improvmnts from users are welcome! @kevinmarks @julien51 @aaronpk"
+        },
+        {
+            "expected": "This is a long tweet with (foo.com/parenthesized-urls) and urls that wikipedia.org/Contain_(Parentheses), a url with a query string;foo.withknown.com/example?query=parameters",
+            "text": "This is a long tweet with (foo.com/parenthesized-urls) and urls that wikipedia.org/Contain_(Parentheses), a url with a query string;foo.withknown.com/example?query=parameters"
+        },
+        {
+            "expected": "This is a long tweet with (foo.com/parenthesized-urls) and urls that wikipedia.org/Contain_(Parentheses), that is one charc too long:\u2026",
+            "text": "This is a long tweet with (foo.com/parenthesized-urls) and urls that wikipedia.org/Contain_(Parentheses), that is one charc too long:foo.withknown.com/example?query=parameters"
+        },
+        {
+            "expected": "The Telegram Bot API is the best bot API ever. Everyone should learn from it, especially Matrix.org\u2026 https://unrelenting.technology/notes/2015-09-05-00-35-13",
+            "permalink": "https://unrelenting.technology/notes/2015-09-05-00-35-13",
+            "text": "The Telegram Bot API is the best bot API ever. Everyone should learn from it, especially Matrix.org, which currently requires a particular URL structure and registration files.",
+            "comment": "test case-insensitive link matching"
+        },
+        {
+            "text": "url http://foo.co/bar ellipsize http://foo.co/baz",
+            "target_length": 20,
+            "link_length": 5,
+            "expected": "url http://foo.co/bar ellipsize\u2026"
+        },
+        {
+            "text": "too long\nextra whitespace\tbut should include url",
+            "permalink": "http://obj.ca",
+            "target_length": 20,
+            "link_length": 5,
+            "expected": "too long\u2026 http://obj.ca"
+        },
+        {
+            "expected": "trailing slash http://www.foo.co/",
+            "target_length": 20,
+            "link_length": 5,
+            "text": "trailing slash http://www.foo.co/"
+        },
+        {
+            "expected": "The Article Title: http://example.com/article",
+            "permalink": "http://example.com/article",
+            "format_as_title": true,
+            "text": "The Article Title"
+        },
+        {
+            "expected": "The Article Title is Longer Than Will Fit in Just One Single Tweet, and I Find This Situation to be Awfully\u2026 https://example.org/article",
+            "permalink": "https://example.org/article",
+            "format_as_title": true,
+            "text": "The Article Title is Longer Than Will Fit in Just One Single Tweet, and I Find This Situation to be Awfully Frustrating; How About You?"
+        }
+    ]
+}
