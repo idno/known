@@ -12,9 +12,6 @@
         use Idno\Common\Entity;
         use Idno\Core\Email;
 
-        // We need the PHP 5.5 password API
-        require_once \Idno\Core\Idno::site()->config()->path . '/external/password_compat/lib/password.php';
-
         class User extends \Idno\Common\Entity implements \JsonSerializable
         {
 
@@ -332,7 +329,7 @@
             function generateAPIkey()
             {
                 $token = new \Idno\Core\TokenProvider();
-                
+
                 $apikey       = strtolower(substr(base64_encode($token->generateToken(32)), 12, 16));
                 $this->apikey = $apikey;
                 $this->save();
@@ -445,7 +442,7 @@
             function addPasswordRecoveryCode()
             {
                 $token = new \Idno\Core\TokenProvider();
-                
+
                 $auth_code                         = bin2hex($token->generateToken(16));
                 $this->password_recovery_code      = $auth_code;
                 $this->password_recovery_code_time = time();

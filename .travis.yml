@@ -46,6 +46,7 @@ before_script:
   - if [[ "$DB" == "sqlite3" ]]; then echo "PROVISIONING WITH Sqlite"; fi
   - if [[ "$DB" == "sqlite3" ]]; then sudo cp -f Tests/build/config_sqlite3.ini $TRAVIS_BUILD_DIR/config.ini; fi
   - sudo cp -f $TRAVIS_BUILD_DIR/htaccess.dist $TRAVIS_BUILD_DIR/.htaccess
+  - composer install
   # Restart services
   - sudo service apache2 restart
 
