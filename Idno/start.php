@@ -25,7 +25,7 @@
                 rawurlencode("Fatal error in Known install at {$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}") . "&body=" . rawurlencode($error_message) . "\">email us for more information</a>.";
 
             if (isset(\Idno\Core\Idno::site()->logging) && \Idno\Core\Idno::site()->logging)
-                \Idno\Core\Idno::site()->logging->log($error_message, LOGLEVEL_ERROR);
+                \Idno\Core\Idno::site()->logging->error($error_message);
             else
                 error_log($error_message);
 

@@ -14,7 +14,7 @@
 
                 $this->flushBrowser();
 
-                \Idno\Core\Idno::site()->logging->log("Loading the user registration callback", LOGLEVEL_DEBUG);
+                \Idno\Core\Idno::site()->logging->debug("Loading the user registration callback");
 
                 $contents   = $this->getInput('content');
                 $auth_token = $this->getInput('auth_token');

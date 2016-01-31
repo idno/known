@@ -178,7 +178,7 @@
                             } else {
                                 $syndication = array(trim(str_replace('.com', '', $syndicate)));
                             }
-                            \Idno\Core\Idno::site()->logging()->log("Setting syndication: $syndication");
+                            \Idno\Core\Idno::site()->logging()->info("Setting syndication: $syndication");
                             $this->setInput('syndication', $syndication);
                         }
                         if ($entity->saveDataFromInput()) {
