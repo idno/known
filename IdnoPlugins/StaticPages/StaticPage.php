@@ -35,6 +35,24 @@
                 return 0;
             }
 
+            function getSetAsHomepageURL()
+            {
+                return \Idno\Core\site()->config()->getDisplayURL() . $this->getClassSelector() . '/homepage/set/' . $this->getID();
+            }
+
+            function getClearHomepageURL()
+            {
+                return \Idno\Core\site()->config()->getDisplayURL() . $this->getClassSelector() . '/homepage/clear/' . $this->getID();
+            }
+
+            function isHomepage()
+            {
+                if ($staticpages = \Idno\Core\site()->plugins()->get('StaticPages')) {
+                    return $staticpages->getCurrentHomepageId() == $this->getID();
+                }
+                return false;
+            }
+
             function getActivityStreamsObjectType()
             {
                 return 'article';

@@ -1,3 +1,22 @@
+<style>
+    .home-icon {
+        display: block;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+    }
+
+    .home-icon:hover .no-hover,
+    .home-icon .hover {
+        display: none;
+    }
+
+    .home-icon:hover .hover,
+    .home-icon .no-hover {
+        display: inline;
+    }
+</style>
+
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
         <?= $this->draw('admin/menu') ?>
@@ -30,7 +49,8 @@
                 <table style="width: 100%; margin-bottom: 3em">
                     <thead>
                         <tr class="pages">
-                            <td class="pages" width="35%">Title</td>
+                            <td class="pages" width="5%">&nbsp;</td>
+                            <td class="pages" width="30%">Title</td>
                             <td class="pages" width="35%">Category</td>
                             <td class="pages" width="15%">&nbsp;</td>
                             <td class="pages" width="15%">&nbsp;</td>
@@ -53,11 +73,45 @@
                                         ?>
                                         <tr class="items" data-value="<?= $page->getID() ?>">
                                             <td>
+                                                <?php
+                                                if ($page->isHomepage()) {
+
+                                                    echo  \Idno\Core\site()->actions()->createLink($page->getClearHomepageURL(), '<icon class="fa fa-home no-hover"></icon><icon class="fa fa-times hover"></icon>', array(), array('method' => 'POST', 'class' => 'home-icon', 'title' => 'Clear Homepage', 'confirm' => true, 'confirm-text' => 'Are you sure you want to clear this from your homepage?'));
+
+                                                } else {
+
+                                                    echo  \Idno\Core\site()->actions()->createLink($page->getSetAsHomepageURL(), '<icon class="fa fa-home hover"></icon><div class="no-hover">&nbsp;</div>', array(), array('method' => 'POST', 'class' => 'home-icon', 'title' => 'Set as Homepage', 'confirm' => true, 'confirm-text' => 'Are you sure you want to set this page as your homepage?'));
+
+                                                }
+
+                                            ?>
+                                            </td>
+                                            <td>
                                                 <a href="<?= $page->getURL() ?>"><?= htmlspecialchars($page->getTitle()) ?></a>
                                             </td>
                                             <td>
                                                 <?= $category ?>
                                             </td>
+                                            <!--td>
+                                                <?php
+                                                if ($page->isHomepage()) {
+
+                                                    ?>
+                                                    <icon class="fa fa-times"></icon>
+                                                    <?=  \Idno\Core\site()->actions()->createLink($page->getClearHomepageURL(), 'Clear Homepage', array(), array('method' => 'POST', 'class' => 'edit', 'confirm' => true, 'confirm-text' => 'Are you sure you want to clear this from your homepage?'));?>
+                                                <?php
+
+                                                } else {
+
+                                                    ?>
+                                                    <icon class="fa fa-check"></icon>
+                                                    <?=  \Idno\Core\site()->actions()->createLink($page->getSetAsHomepageURL(), 'Set as Homepage', array(), array('method' => 'POST', 'class' => 'edit', 'confirm' => true, 'confirm-text' => 'Are you sure you want to set this page as your homepage?'));?>
+                                                <?php
+
+                                                }
+
+                                            ?>
+                                            </td-->
                                             <td>
                                                 <icon class="fa fa-pencil"></icon> <a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>staticpage/edit/<?= $page->_id ?>">Edit</a>
                                             </td>
