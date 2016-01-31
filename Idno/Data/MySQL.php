@@ -89,6 +89,18 @@
                                 }
                                 $newdate = 2015061501;
                             }
+                            if ($basedate < 2016013101) {
+                                if ($sql = @file_get_contents($schema_dir . '2016013101.sql')) {
+                                    try {
+                                        $statement = $client->prepare($sql);
+                                        $statement->execute();
+                                    } catch (\Exception $e) {
+                                        //\Idno\Core\Idno::site()->logging()->log($e->getMessage());
+                                        error_log($e->getMessage());
+                                    }
+                                }
+                                $newdate = 2016013101;
+                            }
                         }
                     }
                 }
