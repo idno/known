@@ -599,7 +599,7 @@
             }
 
             /**
-             * Retrieve a machine-readale version of Known's version number
+             * Retrieve a machine-readable version of Known's version number
              * @return string
              */
             function machineVersion()
