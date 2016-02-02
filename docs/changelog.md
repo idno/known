@@ -2,6 +2,29 @@
 
 Starting with version 0.6.4, this is a list of changes in the self-hosted, open source version of Known.
 
+0.9
+0.9.0.1
+0.9.0.2
+-------
+February 2, 2016
+
+* Significantly faster performance
+* Twitter card support
+* Support for non-Latin characters in post URLs and hashtags
+* Character count in status updates is now safe for Twitter URLs
+* Choose between a number of permalink URL styles
+* Export RSS for import into WordPress
+* Import WordPress comments
+* Improved search
+* Improved autosave
+* Improved bookmarks and bookmarklet
+* Improved indiepub and webmention functionality
+* Improved notifications
+* Navigation style fixes
+* Reliability improvements when posting long pieces
+* Fixed an issue where pressing "cancel" could close the window
+* Syndicated photos no longer list "untitled" in syndicated version when title is not set
+
 0.8.5
 -----
 October 13, 2015
