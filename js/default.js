@@ -122,3 +122,8 @@ function htmlEntityDecode(encodedString) {
     textArea.innerHTML = encodedString;
     return textArea.value;
 }
+
+function annotateContent() {
+    $(".h-entry").fitVids();
+    $("time.dt-published").timeago();
+}
