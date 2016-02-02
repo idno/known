@@ -3,6 +3,11 @@
  */
 
 
+function annotateContent() {
+    $(".h-entry").fitVids();
+    $("time.dt-published").timeago();
+}
+
 $(document).ready(function () {
     $.timeago.settings.cutoff = 30 * 24 * 60 * 60 * 1000; // 1 month
     annotateContent();

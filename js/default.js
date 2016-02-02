@@ -123,11 +123,6 @@ function htmlEntityDecode(encodedString) {
     return textArea.value;
 }
 
-function annotateContent() {
-    $(".h-entry").fitVids();
-    $("time.dt-published").timeago();
-}
-
 /*
  * Shim so that JS functions can get the current site URL
  * @deprecated Use known.config.displayUrl
