@@ -433,7 +433,7 @@
 
 </script>
 <script src="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'js/templates/default/shell.js?20160202' ?>"></script>
-<script src="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'js/templates/default/e.js?20160202' ?>"></script>
+<script src="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'js/templates/default/embeds.js?20160202' ?>"></script>
 
 <?= $this->draw('shell/footer', $vars) ?>
 
