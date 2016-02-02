@@ -3,9 +3,7 @@
 Starting with version 0.6.4, this is a list of changes in the self-hosted, open source version of Known.
 
 0.9
-0.9.0.1
-0.9.0.2
--------
+---
 February 2, 2016
 
 * Significantly faster performance
