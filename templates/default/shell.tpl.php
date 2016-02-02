@@ -228,6 +228,8 @@
         src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/js/html5shiv.js"></script>
     <![endif]-->
 
+    <?= $this->draw('js/known'); ?>
+    
     <!-- Default Known JavaScript -->
     <script src="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'js/default.js?20150406' ?>"></script>
 
@@ -424,14 +426,6 @@
 <!-- HTML5 form element support for legacy browsers -->
 <script src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/h5f/h5f.min.js' ?>"></script>
 
-<script>
-
-    // Shim so that JS functions can get the current site URL
-    function wwwroot() {
-        return '<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>';
-    }
-
-</script>
 <script src="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'js/templates/default/shell.js?20160202' ?>"></script>
 <script src="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'js/embeds.js?20160202' ?>"></script>
 

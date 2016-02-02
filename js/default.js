@@ -127,3 +127,11 @@ function annotateContent() {
     $(".h-entry").fitVids();
     $("time.dt-published").timeago();
 }
+
+/*
+ * Shim so that JS functions can get the current site URL
+ * @deprecated Use known.config.displayUrl
+ */
+function wwwroot() {
+    return known.config.displayUrl
+}
