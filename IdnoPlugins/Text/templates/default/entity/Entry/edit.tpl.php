@@ -3,6 +3,8 @@
     $autosave = new \Idno\Core\Autosave();
     if (!empty($vars['object']->body)) {
         $body = $vars['object']->body;
+    } else {
+        $body = '';
     }
     if (!empty($vars['object']->title)) {
         $title = $vars['object']->title;

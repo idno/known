@@ -369,7 +369,7 @@
              * @return \Idno\Core\Language
              */
 
-            function &language()
+            function language()
             {
                 if (empty($this->language)) {
                     $this->language = new Language();
@@ -586,7 +586,7 @@
              */
             function version()
             {
-                return '0.8.5';
+                return '0.9';
             }
 
             /**
@@ -604,7 +604,7 @@
              */
             function machineVersion()
             {
-                return '2015101301';
+                return '2016013001';
             }
 
             /**

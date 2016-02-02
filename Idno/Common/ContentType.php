@@ -270,11 +270,17 @@
 
             /**
              * Retrieves the name of the entity class associated with this content type
+             * @param bool $convert_slashes If set to true, converts \ slashes to / (false by default)
              * @return string
              */
-            function getEntityClass()
+            function getEntityClass($convert_slashes = false)
             {
-                return $this->entity_class;
+                $return = $this->entity_class;
+                if ($convert_slashes) {
+                    $return = str_replace('\\', '/', $return);
+                }
+
+                return $return;
             }
 
             /**
