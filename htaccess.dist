@@ -58,4 +58,4 @@
 AddType video/ogg .ogv
 AddType video/mp4 .mp4
 AddType video/webm .webm
-AddType audio/x-m4a .x-m4a
+AddType audio/x-m4a .m4a
