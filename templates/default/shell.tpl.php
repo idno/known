@@ -426,91 +426,14 @@
 
 <script>
 
-    function annotateContent() {
-        $(".h-entry").fitVids();
-        $("time.dt-published").timeago();
-    }
-
     // Shim so that JS functions can get the current site URL
     function wwwroot() {
         return '<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>';
     }
 
-    $(document).ready(function () {
-        $.timeago.settings.cutoff = 30 * 24 * 60 * 60 * 1000; // 1 month
-        annotateContent();
-    });
-
-    /**
-     * Handle Twitter tweet embedding
-     */
-    $(document).ready(function () {
-        $('div.twitter-embed').each(function (index) {
-            var url = $(this).attr('data-url');
-            var div = $(this);
-
-            $.ajax({
-                url: "https://api.twitter.com/1/statuses/oembed.json?url=" + url,
-                dataType: "jsonp",
-                success: function (data) {
-                    div.html(data['html']);
-                }
-            });
-        });
-
-        $('body').on('click', function (event, el) {
-            var clickTarget = event.target;
-
-            if (clickTarget.href && clickTarget.href.indexOf(window.location.origin) === -1) {
-                clickTarget.target = "_blank";
-            }
-        });
-    });
-
-    /**
-     * Handle Soundcloud oEmbed code
-     */
-    $(document).ready(function () {
-        $('div.soundcloud-embed').each(function (index) {
-            var url = $(this).attr('data-url');
-            var div = $(this);
-
-            $.getJSON('https://soundcloud.com/oembed?callback=?',
-                {
-                    format: 'js',
-                    url: url,
-                    iframe: true
-                },
-                function (data) {
-                    div.html(data['html']);
-                }
-            );
-        });
-    });
-
-    /**
-     * Better handle links in iOS web applications.
-     * This code (from the discussion here: https://gist.github.com/kylebarrow/1042026)
-     * will prevent internal links being opened up in safari when known is installed
-     * on an ios home screen.
-     */
-    (function (document, navigator, standalone) {
-        if ((standalone in navigator) && navigator[standalone]) {
-            var curnode, location = document.location, stop = /^(a|html)$/i;
-            document.addEventListener('click', function (e) {
-                curnode = e.target;
-                while (!(stop).test(curnode.nodeName)) {
-                    curnode = curnode.parentNode;
-                }
-                if ('href' in curnode && ( curnode.href.indexOf('http') || ~curnode.href.indexOf(location.host) ) && (!curnode.classList.contains('contentTypeButton'))) {
-                    e.preventDefault();
-                    location.href = curnode.href;
-                }
-            }, false);
-        }
-    })(document, window.navigator, 'standalone');
-
 </script>
+<script src="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'js/templates/default/shell.js?20160202' ?>"></script>
+<script src="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'js/templates/default/e.js?20160202' ?>"></script>
 
 <?= $this->draw('shell/footer', $vars) ?>
 
