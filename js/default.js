@@ -21,7 +21,15 @@ function bindControls() {
     $('.ignore-this').hide();
 }
 
+var isCreateFormVisible = false;
+
 function contentCreateForm(plugin) {
+    if (isCreateFormVisible) {
+        // Ignore additional clicks on create button
+        return;
+    }
+
+    isCreateFormVisible = true;
     $.ajax(wwwroot() + plugin + '/edit/', {
         dataType: 'html',
         success: function (data) {
@@ -34,12 +42,14 @@ function contentCreateForm(plugin) {
         },
         error: function (error) {
             $('#contentTypeButtonBar').slideDown(400);
+            isCreateFormVisible = false;
         }
 
     });
 }
 
 function hideContentCreateForm() {
+    isCreateFormVisible = false;
     if (window.contentPage == true) {
         $('#contentTypeButtonBar').slideDown(200);
         $('#contentCreate').slideUp(200);

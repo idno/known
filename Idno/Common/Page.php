@@ -144,7 +144,7 @@
                     $this->parseJSONPayload();
                     $return = $this->postContent();
                 } else {
-                    throw new \Exception('Invalid CSRF token.');
+                    throw new \Exception('Invalid token.');
                 }
 
                 if (\Idno\Core\Idno::site()->session()->isAPIRequest()) {

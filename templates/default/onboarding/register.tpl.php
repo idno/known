@@ -41,7 +41,7 @@
 
                     if (!empty($vars['set_name'])) {
                         ?>
-                        <input type="hidden" name="set_name" value="<?= htmlentities($set_name) ?>">
+                        <input type="hidden" name="set_name" value="<?= htmlentities($vars['set_name']) ?>">
                         <?php
                     }
 
