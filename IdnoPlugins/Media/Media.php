@@ -80,6 +80,7 @@
                                 'mpeg',
                                 'mp3',
                                 'vorbis'
+                                'x-m4a'
                             )
                         )
                         ) {
@@ -107,6 +108,9 @@
                                     case 'ogv':
                                         $media_file['type'] = 'audio/ogv';
                                         break;
+                                    case 'x-m4a':
+                                        $media_file['type'] = 'audio/x-m4a';
+                                        break;    
                                 }
                             }
                             $this->media_type = $media_file['type'];
