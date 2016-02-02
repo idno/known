@@ -92,7 +92,7 @@
             </div>
 
             <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to" value="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
-            <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('note'); ?>
+            <?php echo $this->drawSyndication('note', $vars['object']->getPosseLinks()); ?>
             <?= $this->draw('content/access'); ?>
 
             <p class="button-bar">
