@@ -254,7 +254,12 @@
              */
             function getIcon()
             {
-                return \Idno\Core\Idno::site()->template()->draw('entity/' . $this->getEntityClassName() . '/icon');
+                $t = \Idno\Core\Idno::site()->template();
+                $result = $t->draw('entity/' . $this->getEntityClass(true) . '/icon');
+                if (!$result) {
+                    $result = $t->draw('entity/' . $this->getEntityClassName() . '/icon');
+                }
+                return $result;
             }
 
             /**
