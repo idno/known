@@ -15,4 +15,12 @@
             </p>
         </div>
     </div>
+    
+    <?php
+    // Display the login form, if the user is not currently logged in. 
+    // If they're logged out, this is probably why they're denied.
+    if (!\Idno\Core\Idno::site()->session()->isLoggedIn()) { 
+        echo $this->__(['fwd' => $_SERVER['REQUEST_URI']])->draw('account/login'); 
+    } 
+    ?>
 </div>
