@@ -38,6 +38,7 @@ Additionally, Known requires the following PHP components:
 + curl
 + date
 + dom
++ exif
 + gd
 + json
 + libxml
