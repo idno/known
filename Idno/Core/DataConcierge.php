@@ -15,6 +15,12 @@
         class DataConcierge extends \Idno\Common\Component
         {
 
+            /**
+             * Escape sequences for sanitizing fields that will be stored in Mongo.
+             * Note that % must be first so that it doesn't double-escape previous sequences
+             */
+            private static $ESCAPE_SEQUENCES = ['%' => '%25', '$' => '%24', '.' => '%2E'];
+
             private $client = null;
             private $database = null;
 
@@ -107,6 +113,7 @@
                 if (empty($array['_id'])) {
                     unset($array['_id']);
                 }
+                $array = $this->sanitizeFields($array);
                 if ($result = $collection_obj->save($array, array('w' => 1))) {
                     if ($result['ok'] == 1) {
                         return $array['_id'];
@@ -147,7 +154,8 @@
 
             function getRecordByUUID($uuid, $collection = 'entities')
             {
-                return $this->database->$collection->findOne(array("uuid" => $uuid));
+                $raw = $this->database->$collection->findOne(array("uuid" => $uuid));
+                return $this->unsanitizeFields($raw);
             }
 
             /**
@@ -189,7 +197,9 @@
 
             function getRecord($id, $collection = 'entities')
             {
-                return $this->database->$collection->findOne(array("_id" => new \MongoId($id)));
+                $raw = $this->database->$collection->findOne(array("_id" => new \MongoId($id)));
+                return $this->unsanitizeFields($raw);
+
             }
 
             /**
@@ -200,7 +210,8 @@
              */
             function getAnyRecord($collection = 'entities')
             {
-                return $this->database->$collection->findOne();
+                $raw = $this->database->$collection->findOne();
+                return $this->unsanitizeFields($raw);
             }
 
             /**
@@ -300,8 +311,14 @@
                         }
                     }
                     $fields = $fieldscopy;
-                    if ($result = $this->database->$collection->find($parameters, $fields)->skip($offset)->limit($limit)->sort(array('created' => -1))) {
-                        return $result;
+                    $result = $this->database->$collection
+                            ->find($parameters, $fields)
+                            ->skip($offset)
+                            ->limit($limit)
+                            ->sort(array('created' => -1));
+
+                    if ($result) {
+                        return $this->unsanitizeFields($result);
                     }
                 } catch (\Exception $e) {
                     return false;
@@ -319,6 +336,7 @@
             {
                 try {
                     if ($result = $this->database->$collection->find()) {
+                        $result = $this->unsanitizeFields($result);
                         return json_encode(iterator_to_array($result));
                     }
                 } catch (\Exception $e) {
@@ -424,15 +442,65 @@
 
                 return array('$or' => array(array('body' => $regexObj), array('title' => $regexObj), array('tags' => $regexObj), array('description' => $regexObj)));
             }
-            
+
             /**
              * Internal function which ensures collections are sanitised.
              * @return string Contents of $collection stripped of invalid characters.
              */
-            protected function sanitiseCollection($collection) {
+            protected function sanitiseCollection($collection)
+            {
                 return preg_replace("/[^a-zA-Z0-9\_]/", "", $collection);
             }
 
+            /**
+             * Make an array safe for storage in Mongo. This means
+             * %-escaping all .'s and $'s.
+             *
+             * @param mixed $obj an array, scalar value, or null
+             * @return mixed
+             */
+            function sanitizeFields($obj)
+            {
+                if (is_array($obj)) {
+                    // TODO maybe avoid unnecessary object churn by only creating a new
+                    // array if a key (or nested array) is found that needs encoding.
+                    // The vast majority won't.
+                    $result = [];
+                    foreach ($obj as $k => $v) {
+                        $k = str_replace(array_keys(self::$ESCAPE_SEQUENCES), array_values(self::$ESCAPE_SEQUENCES), $k);
+                        $result[$k] = $this->sanitizeFields($v);
+                    }
+                    return $result;
+                } else if ($obj instanceof \Traversable) {
+                    // wrap iterator to sanitize lazily
+                    return new \Idno\Common\MappingIterator($obj, [$this, 'sanitizeFields']);
+                }
+
+                return $obj;
+            }
+
+            /**
+             * Restore an object's fields after removing it from
+             * storage.
+             *
+             * @param mixed $obj an array, scalar value, or null
+             * @return mixed
+             */
+            function unsanitizeFields($obj)
+            {
+                if (is_array($obj)) {
+                    $result = [];
+                    foreach ($obj as $k => $v) {
+                        $k = str_replace(array_values(self::$ESCAPE_SEQUENCES), array_keys(self::$ESCAPE_SEQUENCES), $k);
+                        $result[$k] = $this->unsanitizeFields($v);
+                    }
+                    return $result;
+                } else if ($obj instanceof \Traversable) {
+                    // wrap iterator to unsanitize lazily
+                    return new \Idno\Common\MappingIterator($obj, [$this, 'unsanitizeFields']);
+                }
+                return $obj;
+            }
         }
 
         /**
