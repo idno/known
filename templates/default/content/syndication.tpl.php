@@ -15,14 +15,11 @@
                 $button = $this->draw('content/syndication/' . $service);
                 if (empty($button)) {
                     $disabled = '';
+                    $posse_links = $vars['posseLinks'];
                     if ($accounts = \Idno\Core\Idno::site()->syndication()->getServiceAccounts($service)) {
                         foreach($accounts as $account) {
-                            
-                            // should be disabled?
-                            $posse_links = $vars['posseLinks'];
                             $posse_service = $posse_links[$service];
                             foreach ($posse_service as $key => $posse_account) {
-                                \Idno\Core\Idno::site()->logging()->log("mwe syndication.tpl.php posse: " . $posse_account['account_id'] . "===" . $account['name']);
                                 if ($posse_account['account_id'] === $account['name']) {
                                     $disabled = 'disabled';
                                 }
@@ -36,9 +33,9 @@
                             ], false)))->draw('content/syndication/account');
                         }
                     } else {
-                        // should be disabled?
-                        $posse_links = $vars['posseLinks'];
-                        // TODO: setting $disabled = 'disabled'; when appropiate
+                        if (array_key_exists($service, $posse_links)) {
+                            $disabled = 'disabled';
+                        }
                         $button = $this->__(array('service' => $service, 'disabled' => $disabled, 'selected' => \Idno\Core\Idno::site()->triggerEvent('syndication/selected/' . $service, [
                                 'service' => $service,
                                 //'username' => $account['username'],
