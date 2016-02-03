@@ -16,7 +16,7 @@
                 // If they're logged out, this is probably why they're denied.
                 if (!\Idno\Core\Idno::site()->session()->isLoggedIn()) { 
                     ?>
-                <a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']); ?>">Click here to log in.</a> 
+                <a id="soft-forward" href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']); ?>">Click here to log in, or wait a moment and you will be taken there...</a>                 
                 <?php
                 } else {
                 ?>
