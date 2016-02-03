@@ -11,16 +11,20 @@
         <div class="col-md-offset-1 col-md-10">
             <p class="p-summary">It looks like you don't have permission to view this content. Sorry!</p>
             <p>
+                <?php
+                // Display the login link, if the user is not currently logged in. 
+                // If they're logged out, this is probably why they're denied.
+                if (!\Idno\Core\Idno::site()->session()->isLoggedIn()) { 
+                    ?>
+                <a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']); ?>">Click here to log in.</a> 
+                <?php
+                } else {
+                ?>
                 <a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>">Click here to head back to the <?=\Idno\Core\Idno::site()->config()->title?> homepage</a>.
+                <?php } ?>
             </p>
         </div>
     </div>
     
-    <?php
-    // Display the login form, if the user is not currently logged in. 
-    // If they're logged out, this is probably why they're denied.
-    if (!\Idno\Core\Idno::site()->session()->isLoggedIn()) { 
-        echo $this->__(['fwd' => $_SERVER['REQUEST_URI']])->draw('account/login'); 
-    } 
-    ?>
+    
 </div>
