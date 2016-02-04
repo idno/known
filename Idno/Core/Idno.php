@@ -103,8 +103,11 @@
                         }
                         break;
                 }
-
+                
+                $knownlogger = new KnownLogger();
                 $this->logging      = new Logging();
+                //Set the Logger to known logger can be override by plugin.
+                $this->logging->setLogger($knownlogger);
                 $this->config->load();
 
                 if (isset($this->config->loglevel)) {
