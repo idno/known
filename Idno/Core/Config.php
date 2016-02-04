@@ -110,9 +110,8 @@
              */
             function load()
             {
-                if ($config = \Idno\Core\Idno::site()->db()->getAnyObject('config')) {
+                if ($config = \Idno\Core\Idno::site()->db()->getAnyRecord('config')) {
                     $this->default_config = false;
-                    $config = $config->getAttributes();
                     unset($config['dbname']); // Ensure we don't accidentally load protected data from db
                     unset($config['dbpass']);
                     unset($config['dbhost']);

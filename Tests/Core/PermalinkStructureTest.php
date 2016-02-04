@@ -11,7 +11,7 @@ namespace Tests\Core {
             $entity->setOwner($this->user());
             $entity->title = "The Title $rnd";
             $entity->body = 'Unlikely to be present elsewhere in the post template: hamstring baseball duckbill firecracker';
-            $entity->save($add_to_feed=true);
+            $entity->save(true);
             return $entity;
         }
 
