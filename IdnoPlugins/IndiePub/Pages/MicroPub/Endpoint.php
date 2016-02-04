@@ -79,6 +79,7 @@
                 $posse_link  = $this->getInput('syndication');
                 $like_of     = $this->getInput('like-of');
                 $repost_of   = $this->getInput('repost-of');
+                $categories    = $this->getInput('category');
 
                 if ($type == 'entry') {
                     $type = 'article';
@@ -113,6 +114,20 @@
                         $type = 'repost';
                     }
                 }
+                // setting all categories as hashtags into content field
+                if (is_array($categories)) {
+                    foreach ($categories as $category) {
+                        $content .= " #$category";
+                    }
+                    $title_words = explode(" ", $name);
+                    $name = "";
+                    foreach ($title_words as $word) {
+                        if (substr($word,0,1) !== "#") {
+                            $name .= "$word ";
+                        }
+                    }
+                }
+                
 
                 // Get an appropriate plugin, given the content type
                 if ($contentType = ContentType::getRegisteredForIndieWebPostType($type)) {
