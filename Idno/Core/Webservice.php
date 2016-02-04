@@ -184,7 +184,7 @@
                 $content     = substr($buffer, $header_size);
 
                 if ($error = curl_error($curl_handle)) {
-                    \Idno\Core\Idno::site()->logging->log($error, LOGLEVEL_ERROR);
+                    \Idno\Core\Idno::site()->logging->error('error send Webservice request', ['error' => $error]);
                 }
 
                 self::$lastRequest  = curl_getinfo($curl_handle, CURLINFO_HEADER_OUT);
@@ -273,7 +273,7 @@
                 try {
                     return curl_exec($ch);
                 } catch (\Exception $e) {
-                    \Idno\Core\Idno::site()->logging()->log($e->getMessage());
+                    \Idno\Core\Idno::site()->logging()->error('error sending Webservice request', ['error' => $e]);
 
                     return false;
                 }

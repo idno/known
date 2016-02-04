@@ -71,7 +71,7 @@
                                         $statement = $client->prepare($sql);
                                         $statement->execute();
                                     } catch (\Exception $e) {
-                                        //\Idno\Core\Idno::site()->logging()->log($e->getMessage());
+                                        //\Idno\Core\Idno::site()->logging()->error($e->getMessage());
                                         error_log($e->getMessage());
                                     }
                                 }
@@ -83,7 +83,7 @@
                                         $statement = $client->prepare($sql);
                                         $statement->execute();
                                     } catch (\Exception $e) {
-                                        //\Idno\Core\Idno::site()->logging()->log($e->getMessage());
+                                        //\Idno\Core\Idno::site()->logging()->error($e->getMessage());
                                         error_log($e->getMessage());
                                     }
                                 }
@@ -95,7 +95,7 @@
                                         $statement = $client->prepare($sql);
                                         $statement->execute();
                                     } catch (\Exception $e) {
-                                        //\Idno\Core\Idno::site()->logging()->log($e->getMessage());
+                                        //\Idno\Core\Idno::site()->logging()->error($e->getMessage());
                                         error_log($e->getMessage());
                                     }
                                 }
@@ -120,7 +120,7 @@
                         return $statement->fetchAll(\PDO::FETCH_OBJ);
                     }
                 } catch (\Exception $e) {
-                    //\Idno\Core\Idno::site()->logging()->log($e->getMessage());
+                    //\Idno\Core\Idno::site()->logging()->error($e->getMessage());
                     error_log($e->getMessage());
                 }
 
@@ -243,7 +243,7 @@
                     $contents = json_encode($array);
                 } catch (\Exception $e) {
                     $contents = json_encode([]);
-                    \Idno\Core\Idno::site()->logging()->log($e->getMessage());
+                    \Idno\Core\Idno::site()->logging()->error($e->getMessage());
 
                     return false;
                 }
@@ -317,7 +317,7 @@
                                         $value = json_encode($value);
                                     } catch (\Exception $e) {
                                         $value = json_encode([]);
-                                        \Idno\Core\Idno::site()->logging()->log($e->getMessage());
+                                        \Idno\Core\Idno::site()->logging()->error($e->getMessage());
                                     }
                                 }
                                 if (empty($value)) {
@@ -334,11 +334,11 @@
                     }
                     $client->commit();
                 } catch (\Exception $e) {
-                    \Idno\Core\Idno::site()->logging()->log($e->getMessage());
+                    \Idno\Core\Idno::site()->logging()->error($e->getMessage());
                     $client->rollback();
                 }
 
-                \Idno\Core\Idno::site()->logging()->log('saveRecord(): insert or update took ' . (microtime(true) - $benchmark_start) . 's', LOGLEVEL_DEBUG);
+                \Idno\Core\Idno::site()->logging()->debug('saveRecord(): insert or update took ' . (microtime(true) - $benchmark_start) . 's', LOGLEVEL_DEBUG);
                 return $retval;
             }
 
@@ -381,7 +381,7 @@
                         return $statement->fetch(\PDO::FETCH_ASSOC);
                     }
                 } catch (\Exception $e) {
-                    \Idno\Core\Idno::site()->logging()->log($e->getMessage());
+                    \Idno\Core\Idno::site()->logging()->error($e->getMessage());
                 }
 
                 return false;
@@ -575,7 +575,7 @@
                     }
 
                 } catch (\Exception $e) {
-                    \Idno\Core\Idno::site()->logging()->log($e->getMessage());
+                    \Idno\Core\Idno::site()->logging()->error($e->getMessage());
 
                     return false;
                 }
@@ -775,7 +775,7 @@
 
                     return $output;
                 } catch (\Exception $e) {
-                    \Idno\Core\Idno::site()->logging()->log($e->getMessage());
+                    \Idno\Core\Idno::site()->logging()->error($e->getMessage());
 
                     return false;
                 }
@@ -864,7 +864,7 @@
                     }
 
                 } catch (Exception $e) {
-                    \Idno\Core\Idno::site()->logging()->log($e->getMessage());
+                    \Idno\Core\Idno::site()->logging()->error($e->getMessage());
 
                     return false;
                 }
@@ -907,7 +907,7 @@
 
                 } catch (\Exception $e) {
 
-                    \Idno\Core\Idno::site()->logging()->log($e->getMessage());
+                    \Idno\Core\Idno::site()->logging()->error($e->getMessage());
 
                     return false;
 

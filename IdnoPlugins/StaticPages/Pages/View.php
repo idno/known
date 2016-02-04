@@ -64,7 +64,7 @@
                     }
                 }
                 if (empty($object)) {
-                    \Idno\Core\Idno::site()->logging->log("No object was found with ID {$this->arguments[0]}.", LOGLEVEL_ERROR);
+                    \Idno\Core\Idno::site()->logging->error("No object was found with ID {$this->arguments[0]}.");
 
                     return false;
                 }
