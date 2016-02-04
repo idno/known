@@ -110,35 +110,31 @@
              */
             function load()
             {
-                if ($config = \Idno\Core\Idno::site()->db()->getAnyRecord('config')) {
+                if ($config = \Idno\Core\Idno::site()->db()->getAnyObject('config')) {
                     $this->default_config = false;
-                    if ($config instanceof \Idno\Common\Entity) {
-                        $config = $config->getAttributes();
-                        unset($config['dbname']); // Ensure we don't accidentally load protected data from db
-                        unset($config['dbpass']);
-                        unset($config['dbhost']);
-                        unset($config['dbstring']);
-                        unset($config['path']);
-                        unset($config['url']);
-                        unset($config['host']);
-                        unset($config['feed']);
-                        unset($config['uploadpath']);
-                        //unset($config['initial_plugins']);
-                        //unset($config['antiplugins']);
-                        //unset($config['alwaysplugins']);
-                        unset($config['session_path']);
-                        unset($config['session_hash_function']);
-                        unset($config['sessions_database']);
-                        unset($config['cookie_jar']);
-                        unset($config['proxy_string']);
-                        unset($config['proxy_type']);
-                        unset($config['disable_ssl_verify']);
-                        unset($config['upload_tmp_dir']);
-                        unset($config['bypass_fulltext_search']);
-                    }
-                    if (is_array($config)) {
-                        $this->config = array_merge($this->config, $config);
-                    }
+                    $config = $config->getAttributes();
+                    unset($config['dbname']); // Ensure we don't accidentally load protected data from db
+                    unset($config['dbpass']);
+                    unset($config['dbhost']);
+                    unset($config['dbstring']);
+                    unset($config['path']);
+                    unset($config['url']);
+                    unset($config['host']);
+                    unset($config['feed']);
+                    unset($config['uploadpath']);
+                    //unset($config['initial_plugins']);
+                    //unset($config['antiplugins']);
+                    //unset($config['alwaysplugins']);
+                    unset($config['session_path']);
+                    unset($config['session_hash_function']);
+                    unset($config['sessions_database']);
+                    unset($config['cookie_jar']);
+                    unset($config['proxy_string']);
+                    unset($config['proxy_type']);
+                    unset($config['disable_ssl_verify']);
+                    unset($config['upload_tmp_dir']);
+                    unset($config['bypass_fulltext_search']);
+                    $this->config = array_merge($this->config, $config);
                 }
                 $this->loadIniFiles();
 
