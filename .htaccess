@@ -55,6 +55,7 @@
   Allow from all
 </Files>
 
+<IfModule mod_headers.c>
 # cache images and flash content for one day
 <FilesMatch ".(flv|gif|jpg|jpeg|png|ico|swf)$">
 Header set Cache-Control "max-age=86400"
@@ -64,6 +65,7 @@ Header set Cache-Control "max-age=86400"
 <FilesMatch ".(js|css|pdf|txt)$">
 Header set Cache-Control "max-age=86400"
 </FilesMatch>
+</IfModule>
 
 
 AddType video/ogg .ogv
