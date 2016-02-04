@@ -23,6 +23,7 @@
         $objectIcon = false;
     }
     $pageOwner = $currentPage->getOwner();
+    $description = isset($vars['description']) ? $vars['description'] : '';
 
 ?>
 <!DOCTYPE html>
@@ -32,7 +33,7 @@
     <title><?= htmlspecialchars($vars['title']); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="initial-scale=1.0" media="(device-height: 568px)"/>
-    <meta name="description" content="<?= htmlspecialchars(strip_tags($vars['description'])) ?>">
+    <meta name="description" content="<?= htmlspecialchars(strip_tags($description)) ?>">
     <meta name="generator" content="Known https://withknown.com">
     <meta http-equiv="Content-Language" content="<?= $lang; ?>">
 
@@ -113,7 +114,7 @@
             $has_twitter_account = false;
             if (!empty($pageOwner->profile['url'])) {
                 foreach ($pageOwner->profile['url'] as $profile_url) {
-                    if ($profile_url[0] == '@') {
+                    if (!empty($profile_url) && $profile_url[0] == '@') {
                         if (preg_match("/\@[a-z0-9_]+/i", $profile_url)) {
                             $has_twitter_account = true;
                             $twitter_account     = $profile_url;
@@ -159,7 +160,7 @@
     <!-- Dublin Core -->
     <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
     <meta name="DC.title" content="<?= htmlspecialchars($vars['title']) ?>">
-    <meta name="DC.description" content="<?= htmlspecialchars($vars['description']) ?>"><?php
+    <meta name="DC.description" content="<?= htmlspecialchars($description) ?>"><?php
 
         if ($currentPage->isPermalink()) {
             /* @var \Idno\Common\Entity $object */
@@ -361,7 +362,7 @@
 </div>
 <!-- Everything below this should be includes, not content -->
 
-<?php if (!$_SERVER["HTTP_X_PJAX"]): ?>
+<?php if (empty($_SERVER["HTTP_X_PJAX"])): ?>
 <!-- Le javascript -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script
@@ -436,6 +437,7 @@
     }
 
     $(document).ready(function () {
+        $.timeago.settings.cutoff = 30 * 24 * 60 * 60 * 1000; // 1 month
         annotateContent();
     });
 

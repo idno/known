@@ -58,8 +58,12 @@
 
                 // Load webmention-client
                 require_once \Idno\Core\Idno::site()->config()->path . '/external/mention-client-php/src/IndieWeb/MentionClient.php';
+
                 $client = new \Idno\Core\MentionClient($sourceURL);
-                return $client->sendWebmentionPayload($targetURL);
+
+                // $client->sendWebmentionPayload on its own would have no effect
+                // because no webmention endpoint has been discovered yet.
+                return $client->sendSupportedMentions($targetURL);
             }
 
             /**

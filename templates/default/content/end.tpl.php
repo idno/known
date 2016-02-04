@@ -25,7 +25,7 @@
             <p>
                 <a href="<?= $owner->getDisplayURL() ?>"><?= htmlentities(strip_tags($owner->getTitle()), ENT_QUOTES, 'UTF-8') ?></a>published this
                 <a class="u-url url" href="<?= $vars['object']->getDisplayURL() ?>" rel="permalink"><time class="dt-published"
-                          datetime="<?= date('c', $vars['object']->created) ?>"><?= date('c', $vars['object']->created) ?></time></a>
+                          datetime="<?= date(DATE_ISO8601, $vars['object']->created) ?>"><?= strftime('%d %b %Y', $vars['object']->created) ?></time></a>
                 <?php
 
                     if ($vars['object']->access != 'PUBLIC') {

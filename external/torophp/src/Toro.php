@@ -19,7 +19,7 @@ class Toro
                 $path_info = (strpos($_SERVER['REQUEST_URI'], '?') > 0) ? strstr($_SERVER['REQUEST_URI'], '?', true) : $_SERVER['REQUEST_URI'];
             }
         //}
-        
+
         $discovered_handler = null;
         $regex_matches = array();
 

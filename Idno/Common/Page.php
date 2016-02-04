@@ -144,7 +144,7 @@
                     $this->parseJSONPayload();
                     $return = $this->postContent();
                 } else {
-                    throw new \Exception('The page you were on timed out.');
+                    throw new \Exception('Invalid token.');
                 }
 
                 if (\Idno\Core\Idno::site()->session()->isAPIRequest()) {
@@ -504,12 +504,6 @@
                         throw new \Exception('Attempted to redirect page to a non local URL.');
                     }
                     */
-
-                    if (!\Idno\Core\Idno::site()->config()->session_cookies) {
-                        $t = \Idno\Core\Idno::site()->template();
-                        /* @var $t \Idno\Core\Template */
-                        $location = $t->getURLWithVar('sid', session_id());
-                    }
 
                     if (\Idno\Core\Idno::site()->session()->isAPIRequest()) {
                         echo json_encode([
@@ -906,7 +900,10 @@
              */
             public function getAssets($class)
             {
-                return $this->assets[$class];
+                if (isset($this->assets[$class])) {
+                    return $this->assets[$class];
+                }
+                return false;
             }
 
             /**
