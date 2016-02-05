@@ -153,11 +153,11 @@
                     if (!empty($details)) {
                         try {
                             if (!$this->userIsRegistered(\Idno\Core\Idno::site()->session()->currentUser())) {
-                                \Idno\Core\Idno::site()->logging->log("User isn't registered on hub; registering ...");
+                                \Idno\Core\Idno::site()->logging->info("User isn't registered on hub; registering ...");
                                 $this->registerUser(\Idno\Core\Idno::site()->session()->currentUser());
                             }
                         } catch (\Exception $e) {
-                            \Idno\Core\Idno::site()->logging->log($e->getMessage());
+                            \Idno\Core\Idno::site()->logging->error('Exception registering user on hub', ['error' => $e]);
                         }
                     }
                 }

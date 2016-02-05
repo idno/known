@@ -1,124 +1,147 @@
 <?php
 
-    /**
-     * Allow logging, with toggle support
-     *
-     * @package idno
-     * @subpackage core
-     */
+/**
+ * logging implimentation
+ *
+ * @package idno
+ * @subpackage core
+ */
 
-    namespace Idno\Core {
+namespace Idno\Core {
+use Psr\Log\LoggerInterface;
 
-        class Logging extends \Idno\Common\Component
-        {
-            public $loglevel_filter = 4;
-            private $identifier;
+    class Logging extends \Idno\Common\Component {
 
-            private $contexts = [];
-                
-            /**
-             * Create a basic logger to log to the PHP log.
-             *
-             * @param type $loglevel_filter Log levels to show 0 - off, 1 - errors, 2 - errors & warnings, 3 - errors, warnings and info, 4 - 3 + debug
-             * @param type $identifier Identify this site in the log (defaults to current domain)
-             */
-            public function __construct($loglevel_filter = 0, $identifier = null)
-            {
-                if (!$identifier) $identifier = \Idno\Core\Idno::site()->config->host;
-                if (isset(\Idno\Core\Idno::site()->config->loglevel)) {
-                    $loglevel_filter = \Idno\Core\Idno::site()->config->loglevel;
-                }
+        public $logger;
 
-                $this->loglevel_filter = $loglevel_filter;
-                $this->identifier      = $identifier;
-                $this->contexts        = [];
-            }
-
-            /**
-             * Sets the log level
-             * @param $loglevel
-             */
-            public function setLogLevel($loglevel)
-            {
-                $this->loglevel_filter = $loglevel;
-            }
-            
-            /**
-             * Set the context
-             */
-            public function setContext($context) {
-                $this->clearContexts();
-                $this->pushContext($context);
-            }
-            
-            /**
-             * Clear logging contexts.
-             */
-            public function clearContexts() {
-                $this->contexts = [];
-            }
-            
-            /**
-             * Push a context onto log.
-             * @param type $context
-             */
-            public function pushContext($context) {
-                array_push($this->contexts, trim($context));
-            }
-            
-            /**
-             * Remove a logging context from the stack
-             * @return context
-             */
-            public function popContext() {
-                return array_pop($this->contexts);
-            }
-
-            /**
-             * Write a message to the log.
-             * @param type $message
-             * @param type $level
-             */
-            public function log($message, $level = 3)
-            {
-
-                // See if this message isn't filtered out
-                if ($level <= $this->loglevel_filter) {
-
-                    // Construct log message
-
-                    // Trace for debug (when filtering is set to debug, always add a trace)
-                    $trace = "";
-                    if ($this->loglevel_filter == 4) {
-                        $backtrace = @debug_backtrace(false, 2);
-                        if ($backtrace) {
-                            // Never show this
-                            $backtrace = $backtrace[0];
-
-                            $trace = " [{$backtrace['file']}:{$backtrace['line']}]";
-                        }
-                    }
-
-                    // Level
-                    if ($level == 1) $level = "ERROR";
-                    if ($level == 2) $level = "WARNING";
-                    if ($level == 3) $level = "INFO";
-                    if ($level == 4) $level = "DEBUG";
-
-                    // Logging contexts
-                    $contexts = '';
-                    if (!empty($this->contexts)) {
-                        $contexts = ' ['.implode(';', $this->contexts).']';
-                    }
-                    
-                    error_log("Known ({$this->identifier}$contexts): $level - $message{$trace}");
-                }
-            }
+        /**
+         * Function to set the logger. 
+         * To be used by plugin to override default logger.
+         * @param LoggerInterface $logger
+         */
+        public function setLogger(LoggerInterface $logger) {
+            $this->logger = $logger;
         }
 
-        define('LOGLEVEL_OFF', 0);
-        define('LOGLEVEL_ERROR', 1);
-        define('LOGLEVEL_WARNING', 2);
-        define('LOGLEVEL_INFO', 3);
-        define('LOGLEVEL_DEBUG', 4);
+        /**
+         * Function to return the current logger instance
+         * @return type
+         */
+        public function getLogger() {
+            return $this->logger;
+        }
+
+        /**
+         * System is unusable.
+         *
+         * @param string $message
+         * @param array $context
+         * @return null
+         */
+        public function emergency($message, array $context = array()) {
+            return $this->logger->emergency($message, $context );
+        }
+
+        /**
+         * Action must be taken immediately.
+         *
+         * Example: Entire website down, database unavailable, etc. This should
+         * trigger the SMS alerts and wake you up.
+         *
+         * @param string $message
+         * @param array $context
+         * @return null
+         */
+        public function alert($message, array $context = array()) {
+            return $this->logger->alert($message, $context);
+        }
+
+        /**
+         * Critical conditions.
+         *
+         * Example: Application component unavailable, unexpected exception.
+         *
+         * @param string $message
+         * @param array $context
+         * @return null
+         */
+        public function critical($message, array $context = array()) {
+            return $this->logger->critical($message,$context);
+        }
+
+        /**
+         * Runtime errors that do not require immediate action but should typically
+         * be logged and monitored.
+         *
+         * @param string $message
+         * @param array $context
+         * @return null
+         */
+        public function error($message, array $context = array()) {
+            $this->logger->error($message, $context );
+        }
+
+        /**
+         * Exceptional occurrences that are not errors.
+         *
+         * Example: Use of deprecated APIs, poor use of an API, undesirable things
+         * that are not necessarily wrong.
+         *
+         * @param string $message
+         * @param array $context
+         * @return null
+         */
+        public function warning($message, array $context = array()) {
+            $this->logger->warning($message, $context );
+        }
+
+        /**
+         * Normal but significant events.
+         *
+         * @param string $message
+         * @param array $context
+         * @return null
+         */
+        public function notice($message, array $context = array()) {
+            $this->logger->notice($message, $context );
+        }
+
+        /**
+         * Interesting events.
+         *
+         * Example: User logs in, SQL logs.
+         *
+         * @param string $message
+         * @param array $context
+         * @return null
+         */
+        public function info($message, array $context = array()) {
+            $this->logger->info($message, $context );
+        }
+
+        /**
+         * Detailed debug information.
+         *
+         * @param string $message
+         * @param array $context
+         * @return null
+         */
+        public function debug($message, array $context = array()) {
+            $this->logger->debug($message,$context );
+        }
+
+        /**
+         * Logs with an arbitrary level.
+         *
+         * @param mixed $level
+         * @param string $message
+         * @param array $context
+         * @return null
+         */
+        public function log($level, $message, array $context = array()) {
+            $this->logger->log($level, $message, $context );
+        }
+
     }
+
+}
