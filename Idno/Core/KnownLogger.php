@@ -8,8 +8,10 @@
  */
 
 namespace Idno\Core {
+use Psr\Log\LoggerInterface;
+use \Psr\Log\AbstractLogger;
 
-    class KnownLogger extends \Psr\Log\AbstractLogger implements \Psr\Log\LoggerInterface {
+    class KnownLogger extends AbstractLogger implements LoggerInterface {
 
         public $loglevel_filter = 4;
         private $identifier;
@@ -39,7 +41,7 @@ namespace Idno\Core {
          * @param string $message
          * @param array $context
          */
-        public function log($level , $message, array $context = array()) {
+        public function log($level, $message, array $context = array()) {
 
             // See if this message isn't filtered out
             if ($level <= $this->loglevel_filter) {
@@ -57,7 +59,7 @@ namespace Idno\Core {
                     }
                 }
 
-               
+
 
                 // Logging contexts
 
@@ -67,8 +69,8 @@ namespace Idno\Core {
 
                 error_log("Known ({$this->identifier}$context): $level - $message{$trace}");
             }
-        }      
+        }
+
     }
 
-   
 }
