@@ -277,6 +277,7 @@
                 if (empty($array['entity_subtype'])) {
                     $array['entity_subtype'] = 'Idno\\Common\\Entity';
                 }
+
                 if (empty($array['created'])) {
                     $array['created'] = date("Y-m-d H:i:s", time());
                 } else {
@@ -378,33 +379,12 @@
 
                     $statement = $this->client->prepare("select distinct {$collection}.* from " . $collection . " where uuid = :uuid");
                     if ($statement->execute(array(':uuid' => $uuid))) {
-                        return $statement->fetch(\PDO::FETCH_ASSOC);
+                        if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
+                            return json_decode($row['contents'], true);
+                        }
                     }
                 } catch (\Exception $e) {
                     \Idno\Core\Idno::site()->logging()->log($e->getMessage());
-                }
-
-                return false;
-            }
-
-            /**
-             * Converts a database row into a Known entity
-             *
-             * @param array $row
-             * @return \Idno\Common\Entity
-             */
-            function rowToEntity($row)
-            {
-                if (!empty($row['entity_subtype']) && !empty($row['contents'])) {
-                    if (class_exists($row['entity_subtype'])) {
-
-                        $contents = (array)json_decode($row['contents'], true);
-
-                        $object = new $row['entity_subtype']();
-                        $object->loadFromArray($contents);
-
-                        return $object;
-                    }
                 }
 
                 return false;
@@ -424,7 +404,9 @@
 
                 $statement = $this->client->prepare("select {$collection}.* from " . $collection . " where _id = :id");
                 if ($statement->execute(array(':id' => $id))) {
-                    return $statement->fetch(\PDO::FETCH_ASSOC);
+                    if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
+                        return json_decode($row['contents'], true);
+                    }
                 }
 
                 return false;
@@ -444,7 +426,7 @@
                     $statement = $this->client->prepare("select {$collection}.* from " . $collection . " limit 1");
                     if ($statement->execute()) {
                         if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
-                            return $row;
+                            return json_decode($row['contents'], true);
                         }
                     }
                 } catch (\Exception $e) {
@@ -566,8 +548,14 @@
 
                     $statement = $client->prepare($query);
 
-                    if ($result = $statement->execute($variables)) {
-                        return $statement->fetchAll(\PDO::FETCH_ASSOC);
+                    if ($statement->execute($variables)) {
+                        if ($rows = $statement->fetchAll(\PDO::FETCH_ASSOC)) {
+                            $records = [];
+                            foreach ($rows as $row) {
+                                $records[] = json_decode($row['contents'], true);
+                            }
+                            return $records;
+                        }
                     }
 
                 } catch (\Exception $e) {
