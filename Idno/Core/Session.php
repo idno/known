@@ -55,6 +55,8 @@
                 } catch (\Exception $ex) {
                     // Session didn't validate, log & destroy
                     \Idno\Core\Idno::site()->logging->log($ex->getMessage(), LOGLEVEL_ERROR);
+                    
+                    $_SESSION = [];
                     session_destroy();
                 }
 
