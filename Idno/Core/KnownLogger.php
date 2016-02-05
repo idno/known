@@ -9,7 +9,7 @@
 
 namespace Idno\Core {
 use Psr\Log\LoggerInterface;
-use \Psr\Log\AbstractLogger;
+use Psr\Log\AbstractLogger;
 
     class KnownLogger extends AbstractLogger implements LoggerInterface {
 
