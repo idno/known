@@ -442,6 +442,17 @@
     });
 
     /**
+     * "Soft" forward a link on a page.
+     */
+    $(document).ready(function(){
+        var url = $('#soft-forward').attr('href');
+        
+        if (!!url) {
+            window.location = url;
+        }
+    });
+    
+    /**
      * Handle Twitter tweet embedding
      */
     $(document).ready(function () {
