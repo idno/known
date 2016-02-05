@@ -104,7 +104,7 @@
                         break;
                 }
 
-                $this->logging      = new Logging();
+                $this->logging     = new Logging();
                 $this->config->load();
 
                 if (isset($this->config->loglevel)) {
@@ -149,6 +149,11 @@
                 }
 
                 User::registerEvents();
+            }
+            
+             function setLogger(\Psr\Log\LoggerInterface $logger)
+            {
+                 $this->logger = $logger
             }
 
             /**
