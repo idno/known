@@ -45,9 +45,9 @@
                             header('Location: ' . \Idno\Core\Idno::site()->config()->forward_on_empty);
                             exit;
                         } else {
-                            
+
                             http_response_code(500);
-                            
+
                             if (\Idno\Core\Idno::site()->config()->debug) {
                                 $message = '<p>' . $e->getMessage() . '</p>';
                                 $message .= '<p>' . $connection_string . '</p>';
@@ -165,7 +165,7 @@
                         return $array['_id'];
                     }
                 }*/
-                
+
                 $collection = $this->sanitiseCollection($collection);
 
                 if (empty($array['_id'])) {
@@ -276,10 +276,12 @@
             {
                 try {
                     $collection = $this->sanitiseCollection($collection);
-                
+
                     $statement = $this->client->prepare("select distinct {$collection}.* from " . $collection . " where uuid = :uuid");
                     if ($statement->execute(array(':uuid' => $uuid))) {
-                        return $statement->fetch(\PDO::FETCH_ASSOC);
+                        if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
+                            return json_decode($row['contents'], true);
+                        }
                     }
                 } catch (\Exception $e) {
                     \Idno\Core\Idno::site()->logging()->error($e->getMessage());
@@ -299,10 +301,12 @@
             function getRecord($id, $collection = 'entities')
             {
                 $collection = $this->sanitiseCollection($collection);
-                
+
                 $statement = $this->client->prepare("select {$collection}.* from " . $collection . " where _id = :id");
                 if ($statement->execute(array(':id' => $id))) {
-                    return $statement->fetch(\PDO::FETCH_ASSOC);
+                    if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
+                        return json_decode($row['contents'], true);
+                    }
                 }
 
                 return false;
@@ -312,49 +316,22 @@
              * Retrieves ANY record from a collection
              *
              * @param string $collection
-             * @return mixed
+             * @return array
              */
             function getAnyRecord($collection = 'entities')
             {
                 try {
                     $collection = $this->sanitiseCollection($collection);
-                
+
                     $statement = $this->client->prepare("select {$collection}.* from " . $collection . " limit 1");
                     if ($statement->execute()) {
                         if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
-                            if ($obj = $this->rowToEntity($row)) {
-                                return $obj;
-                            }
-
-                            return $row;
+                            return json_decode($row['contents'], true);
                         }
                     }
                 } catch (\Exception $e) {
                     if (\Idno\Core\Idno::site()->session() == null)
                         die($e->getMessage());
-                }
-
-                return false;
-            }
-
-            /**
-             * Converts a database row into a Known entity
-             *
-             * @param array $row
-             * @return \Idno\Common\Entity
-             */
-            function rowToEntity($row)
-            {
-                if (!empty($row['entity_subtype']) && !empty($row['contents'])) {
-                    if (class_exists($row['entity_subtype'])) {
-
-                        $contents = (array)json_decode($row['contents'], true);
-
-                        $object = new $row['entity_subtype']();
-                        $object->loadFromArray($contents);
-
-                        return $object;
-                    }
                 }
 
                 return false;
@@ -450,7 +427,7 @@
                 try {
 
                     $collection = $this->sanitiseCollection($collection);
-                    
+
                     // Build query
                     $query            = "select distinct {$collection}.* from {$collection} ";
                     $variables        = array();
@@ -476,8 +453,14 @@
 
                     $statement = $client->prepare($query);
 
-                    if ($result = $statement->execute($variables)) {
-                        return $statement->fetchAll(\PDO::FETCH_ASSOC);
+                    if ($statement->execute($variables)) {
+                        if ($rows = $statement->fetchAll(\PDO::FETCH_ASSOC)) {
+                            $records = [];
+                            foreach($rows as $row) {
+                                $records[] = json_decode($row['contents'], true);
+                            }
+                            return $records;
+                        }
                     }
 
                 } catch (\Exception $e) {
@@ -673,7 +656,7 @@
                 try {
 
                     $collection = $this->sanitiseCollection($collection);
-                
+
                     // Build query
                     $query            = "select count(distinct {$collection}.uuid) as total from {$collection} ";
                     $variables        = array();
