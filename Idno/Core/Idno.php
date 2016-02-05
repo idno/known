@@ -107,9 +107,7 @@
                 $this->logging     = new Logging();
                 $this->config->load();
 
-                if (isset($this->config->loglevel)) {
-                    $this->logging->setLogLevel($this->config->loglevel);
-                }
+              
 
                 $this->session      = new Session();
                 $this->actions      = new Actions();
@@ -153,7 +151,7 @@
             
              function setLogger(\Psr\Log\LoggerInterface $logger)
             {
-                 $this->logger = $logger
+                 $this->logger = $logger;
             }
 
             /**

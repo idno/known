@@ -96,6 +96,8 @@
     $known_loader->registerNamespace('Bonita', dirname(dirname(__FILE__)) . '/external/bonita/includes');
 // Symfony is used for routing, observer design pattern support, and a bunch of other fun stuff
     $known_loader->registerNamespace('Symfony\Component', dirname(dirname(__FILE__)) . '/external');
+// Psr-3 Namespace
+    $known_loader->registerNamespace('Psr\Log', dirname(dirname(__FILE__)) . '/external/log');
 
 // Using Toro for URL routing
     require_once(dirname(dirname(__FILE__)) . '/external/torophp/src/Toro.php');
