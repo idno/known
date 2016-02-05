@@ -30,7 +30,6 @@ The plugin.ini file contains a number of text entries:
     [Plugin description]
     name =              "The name of the plugin"
     version =           "The plugin's version number"
-    url =               "URL to the repository where this plugin can be downloaded"
     author =            "Author's name"
     author_email =      "Author's email address"
     author_url =        "http://authors-url/"
@@ -39,27 +38,13 @@ The plugin.ini file contains a number of text entries:
 More may be added over time. These entries are displayed in Known's administration panel but may also be displayed in
 a future plugin directory.
 
-Plugin authors can include a `[requirements]` section with
-dependencies on PHP extensions and on other Known plugins (optionally
-specifying a minimum version of those plugins):
+Additionally, plugin authors can specify dependencies:
 
-    [requirements]
-    extension[] =       "php extension"
-    extension[] =       "second php extension"
-    plugin[] =          "Known plugin"
-    plugin[] =          "Another Known plugin,0.8"
+    extension[] = "php extension"
+    extension[] = "second php extension"
 
-The requirements section may also define a minimum PHP version and
-Known core version (called "idno" here for historical reasons).
-
-    php =               5.5
-    idno =              0.9
-
-This plugin requires PHP >= 5.5 or higher and Known >= 0.9.
-
-At this time, these requirements are informational only: You can still
-install a plugin whose requirements are not met, but there will be a
-little red notification on the plugins screen.
+    plugin[] = "Known plugin"
+    plugin[] = "Another Known plugin"
 
 ## Namespaces
 

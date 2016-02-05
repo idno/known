@@ -793,16 +793,15 @@
             function getInput($name, $default = null, callable $filter = null)
             {
                 if (!empty($name)) {
-                    $request = \Idno\Core\Input::getInput($name, $default, $filter);
-                    if (!empty($request)) {
-                        $value = $request;
+                    if (!empty($_REQUEST[$name])) {
+                        $value = $_REQUEST[$name];
                     } else if (!empty($this->data[$name])) {
                         $value = $this->data[$name];
                     }
                     if ((empty($value)) && (!empty($default)))
                         $value = $default;
                     if (!empty($value)) {
-                        if (isset($filter) && is_callable($filter) && empty($request)) {
+                        if (isset($filter) && is_callable($filter)) {
                             $value = call_user_func($filter, $name, $value);
                         }
 

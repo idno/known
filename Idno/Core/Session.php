@@ -54,7 +54,7 @@
                     $this->validate();
                 } catch (\Exception $ex) {
                     // Session didn't validate, log & destroy
-                    \Idno\Core\Idno::site()->logging->log($ex->getMessage(), LOGLEVEL_ERROR);
+                    \Idno\Core\Idno::site()->logging->error('Session failed to validate',['error' => $ex]);
                     session_destroy();
                 }
 
@@ -394,7 +394,7 @@
 
                 // auth standard API requests
                 if (!$return && !empty($_SERVER['HTTP_X_KNOWN_USERNAME']) && !empty($_SERVER['HTTP_X_KNOWN_SIGNATURE'])) {
-                    \Idno\Core\Idno::site()->logging()->log("Attempting to auth via API credentials", LOGLEVEL_DEBUG);
+                    \Idno\Core\Idno::site()->logging()->debug("Attempting to auth via API credentials");
 
                     $this->setIsAPIRequest(true);
 
@@ -404,18 +404,18 @@
                     }
 
                     if ($user = \Idno\Entities\User::getByHandle($_SERVER['HTTP_X_KNOWN_USERNAME'])) {
-                        \Idno\Core\Idno::site()->logging()->log("API auth found user by username: " . $user->getName(), LOGLEVEL_DEBUG);
+                        \Idno\Core\Idno::site()->logging()->debug("API auth found user by username: " . $user->getName());
                         $key          = $user->getAPIkey();
                         $hmac         = trim($_SERVER['HTTP_X_KNOWN_SIGNATURE']);
                         //$compare_hmac = base64_encode(hash_hmac('sha256', explode('?', $_SERVER['REQUEST_URI'])[0], $key, true));
                         $compare_hmac = base64_encode(hash_hmac('sha256', ($_SERVER['REQUEST_URI']), $key, true));
 
                         if ($hmac == $compare_hmac) {
-                            \Idno\Core\Idno::site()->logging()->log("API auth verified signature for user: " . $user->getName(), LOGLEVEL_DEBUG);
+                            \Idno\Core\Idno::site()->logging()->debug("API auth verified signature for user: " . $user->getName());
                             // TODO maybe this should set the current user without modifying $_SESSION?
                             $return = $this->refreshSessionUser($user);
                         } else {
-                            \Idno\Core\Idno::site()->logging()->log("API auth failed signature validation for user: " . $user->getName(), LOGLEVEL_DEBUG);
+                            \Idno\Core\Idno::site()->logging()->debug("API auth failed signature validation for user: " . $user->getName());
                         }
                     }
                 }
@@ -438,7 +438,7 @@
                             $ip = trim($proxies[0]);
                         }
 
-                        \Idno\Core\Idno::site()->logging()->log("API Login failure from $ip", LOGLEVEL_ERROR);
+                        \Idno\Core\Idno::site()->logging()->error("API Login failure from $ip");
                         \Idno\Core\Idno::site()->currentPage()->deniedContent();
                     }
                 }
@@ -547,12 +547,12 @@
                     if (!\Idno\Core\Idno::site()->session()->isLoggedOn()) {
                         $class = get_class(Idno::site()->currentPage());
                         if (!\Idno\Core\Idno::site()->isPageHandlerPublic($class)) {
-//                            \Idno\Core\Idno::site()->currentPage()->setResponse(403);
-//                            if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
-//                                \Idno\Core\Idno::site()->currentPage()->forward(Idno::site()->config()->getURL() . 'session/login/?fwd=' . urlencode($_SERVER['REQUEST_URI']));
-//                            } else {
+                            //\Idno\Core\Idno::site()->currentPage()->setResponse(403);
+                            //if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
+                             //   \Idno\Core\Idno::site()->currentPage()->forward(Idno::site()->config()->getURL() . 'session/login/?fwd=' . urlencode($_SERVER['REQUEST_URI']));
+                            //} else {
                                 \Idno\Core\Idno::site()->currentPage()->deniedContent();
-//                            }
+                           // }
                         }
                     }
                 }

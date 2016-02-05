@@ -9,7 +9,7 @@
 
     namespace Idno\Core {
 
-        class Logging extends \Idno\Common\Component
+        class Logging extends \Psr\Log\AbstractLogger implements \Psr\Log\LoggerInterface
         {
             public $loglevel_filter = 4;
             private $identifier;
@@ -34,57 +34,21 @@
                 $this->contexts        = [];
             }
 
-            /**
-             * Sets the log level
-             * @param $loglevel
-             */
-            public function setLogLevel($loglevel)
-            {
-                $this->loglevel_filter = $loglevel;
-            }
-            
-            /**
-             * Set the context
-             */
-            public function setContext($context) {
-                $this->clearContexts();
-                $this->pushContext($context);
-            }
-            
-            /**
-             * Clear logging contexts.
-             */
-            public function clearContexts() {
-                $this->contexts = [];
-            }
-            
-            /**
-             * Push a context onto log.
-             * @param type $context
-             */
-            public function pushContext($context) {
-                array_push($this->contexts, trim($context));
-            }
-            
-            /**
-             * Remove a logging context from the stack
-             * @return context
-             */
-            public function popContext() {
-                return array_pop($this->contexts);
-            }
+
 
             /**
              * Write a message to the log.
-             * @param type $message
-             * @param type $level
+             * @param string $level
+             * @param string $level
+             * @param array $context
              */
-            public function log($message, $level = 3)
+            public function log($level, $message ,array $context=array())
             {
 
                 // See if this message isn't filtered out
                 if ($level <= $this->loglevel_filter) {
-
+                    
+                    $this->contexts = $context;
                     // Construct log message
 
                     // Trace for debug (when filtering is set to debug, always add a trace)
@@ -106,12 +70,12 @@
                     if ($level == 4) $level = "DEBUG";
 
                     // Logging contexts
-                    $contexts = '';
+                    $context = '';
                     if (!empty($this->contexts)) {
-                        $contexts = ' ['.implode(';', $this->contexts).']';
+                        $context = ' ['.implode(';', $this->contexts).']';
                     }
                     
-                    error_log("Known ({$this->identifier}$contexts): $level - $message{$trace}");
+                    error_log("Known ({$this->identifier}$context): $level - $message{$trace}");
                 }
             }
         }

@@ -104,12 +104,10 @@
                         break;
                 }
 
-                $this->logging      = new Logging();
+                $this->logging     = new Logging();
                 $this->config->load();
 
-                if (isset($this->config->loglevel)) {
-                    $this->logging->setLogLevel($this->config->loglevel);
-                }
+              
 
                 $this->session      = new Session();
                 $this->actions      = new Actions();
@@ -149,6 +147,11 @@
                 }
 
                 User::registerEvents();
+            }
+            
+             function setLogger(\Psr\Log\LoggerInterface $logger)
+            {
+                 $this->logger = $logger;
             }
 
             /**
