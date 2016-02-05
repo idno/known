@@ -229,7 +229,7 @@
     <![endif]-->
 
     <!-- Default Known JavaScript -->
-    <script src="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'js/default.js?20150406' ?>"></script>
+    <script src="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'js/' . \Idno\Core\Idno::site()->machineVersion() . '/default.js' ?>"></script>
 
     <!-- To silo is human, to syndicate divine -->
     <link rel="alternate" type="application/rss+xml" title="<?= htmlspecialchars($vars['title']) ?>"
