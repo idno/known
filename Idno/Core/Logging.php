@@ -75,7 +75,7 @@
                         $context = ' ['.implode(';', $this->contexts).']';
                     }
                     
-                    error_log("Known ({$this->identifier}$contexts): $level - $message{$trace}");
+                    error_log("Known ({$this->identifier}$context): $level - $message{$trace}");
                 }
             }
         }
