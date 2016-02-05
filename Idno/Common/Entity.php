@@ -454,11 +454,11 @@
                             $title = md5(rand() . microtime(true));
                         }
                     }
-                    \Idno\Core\Idno::site()->logging()->log("Setting resilient slug", LOGLEVEL_DEBUG);
+                    \Idno\Core\Idno::site()->logging()->debug("Setting resilient slug");
                     $this->setSlugResilient($title);
-                    \Idno\Core\Idno::site()->logging()->log("Set resilient slug", LOGLEVEL_DEBUG);
+                    \Idno\Core\Idno::site()->logging()->debug("Set resilient slug");
                 } else {
-                    \Idno\Core\Idno::site()->logging()->log("Had slug: " . $this->getSlug(), LOGLEVEL_DEBUG);
+                    \Idno\Core\Idno::site()->logging()->debug("Had slug: " . $this->getSlug());
                 }
 
                 // Force users to be public
@@ -516,7 +516,7 @@
                         \Idno\Core\Idno::site()->events()->dispatch('syndicate', $event);
                     } catch (\Exception $e) {
                         \Idno\Core\Idno::site()->session()->addErrorMessage("There was a problem syndicating.");
-                        \Idno\Core\Idno::site()->logging()->log($e->getMessage());
+                        \Idno\Core\Idno::site()->logging()->error($e->getMessage());
                     }
                 }
             }

@@ -133,7 +133,7 @@
 
                         // No user found, so create it if it's remote
                         if (!\Idno\Entities\User::isLocalUUID($uuid)) {
-                            \Idno\Core\Idno::site()->logging->log("Creating new remote user", LOGLEVEL_DEBUG);
+                            \Idno\Core\Idno::site()->logging->debug("Creating new remote user");
 
                             $new_user = new \Idno\Entities\RemoteUser();
 
@@ -150,19 +150,19 @@
 
                         }
                     } else
-                        \Idno\Core\Idno::site()->logging->log("New user found as " . $new_user->uuid, LOGLEVEL_DEBUG);
+                        \Idno\Core\Idno::site()->logging->debug("New user found as " . $new_user->uuid);
 
                     if ($new_user) {
 
-                        \Idno\Core\Idno::site()->logging->log("Trying a follow", LOGLEVEL_DEBUG);
+                        \Idno\Core\Idno::site()->logging->debug("Trying a follow");
 
                         if ($user->addFollowing($new_user)) {
 
-                            \Idno\Core\Idno::site()->logging->log("User added to following", LOGLEVEL_DEBUG);
+                            \Idno\Core\Idno::site()->logging->debug("User added to following");
 
                             if ($user->save()) {
 
-                                \Idno\Core\Idno::site()->logging->log("Following saved", LOGLEVEL_DEBUG);
+                                \Idno\Core\Idno::site()->logging->debug("Following saved");
 
                                 // Ok, we've saved the new user, now, lets subscribe to their feeds
                                 if ($feed = \Idno\Core\Idno::site()->reader()->getFeedObject($new_user->getURL())) {
@@ -176,7 +176,7 @@
 
                             }
                         } else {
-                            \Idno\Core\Idno::site()->logging->log('Could not follow user for some reason (probably already following)', LOGLEVEL_DEBUG);
+                            \Idno\Core\Idno::site()->logging->debug('Could not follow user for some reason (probably already following)');
                             \Idno\Core\Idno::site()->session()->addErrorMessage('You\'re already following ' . $this->getInput('name'));
                         }
                     } else
