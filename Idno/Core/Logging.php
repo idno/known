@@ -40,9 +40,9 @@
              * Write a message to the log.
              * @param string $level
              * @param string $level
-             * @param string $context
+             * @param array $context
              */
-            public function log($level, $message ,$context=array())
+            public function log($level, $message ,array $context=array())
             {
 
                 // See if this message isn't filtered out
