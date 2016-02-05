@@ -64,8 +64,8 @@ namespace Idno\Core {
                     $level = "DEBUG";
                 // Logging contexts
                 $context='';
-                if (!empty($context)) {
-                    $context = ' [' . implode(';', $context) . ']';
+                if (!empty($this->contexts)) {
+                    $context = ' [' . implode(';', $this->contexts) . ']';
                 }
                 error_log("Known ({$this->identifier}$context): $level - $message{$trace}");
             }
