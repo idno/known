@@ -427,16 +427,36 @@
 
                 return '';
             }
-
+            
+            /**
+             * Publishes this entity - either creating a new entry, or
+             * overwriting the existing one. Then it will add it optionally
+             * to the feed
+             * Finally it will syndicate the entity
+             *
+             * @param bool $add_to_feed If set to true, will add this item to the activity stream feed if this object is being newly created
+             * @param string $feed_verb If this item is added to the feed, this is the verb that will be used
+             */   
+            function publish($add_to_feed = false, $feed_verb = 'post')
+            {
+                if ($this->save()) {
+                    if ($add_to_feed) {
+                        $this->addToFeed($feed_verb);
+                    }
+                    $this->syndicate();
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            
             /**
              * Saves this entity - either creating a new entry, or
              * overwriting the existing one.
              *
-             * @param bool $add_to_feed If set to true, will add this item to the activity stream feed if this object is being newly created
-             * @param string $feed_verb If this item is added to the feed, this is the verb that will be used
              */
 
-            function save($add_to_feed = false, $feed_verb = 'post')
+            function save()
             {
 
                 // Adding this entity's owner (if we don't know already)
@@ -489,10 +509,6 @@
                         $this->_id  = $result;
                         $this->uuid = $this->getUUID();
                         \Idno\Core\Idno::site()->db()->saveObject($this);
-                        if ($add_to_feed) {
-                            $this->addToFeed($feed_verb);
-                        }
-                        $this->syndicate();
                         \Idno\Core\Idno::site()->triggerEvent('saved', ['object' => $this]);
                     } else {
                         \Idno\Core\Idno::site()->triggerEvent('updated', ['object' => $this]);

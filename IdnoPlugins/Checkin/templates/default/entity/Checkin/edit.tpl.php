@@ -152,7 +152,7 @@
             ])->draw('forms/input/richtext')?>
             <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to" value="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
             <?=$this->draw('entity/tags/input');?>
-            <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('place'); ?>
+            <?php echo $this->drawSyndication('place', $vars['object']->getPosseLinks()); ?>
             <?= $this->draw('content/access'); ?>
             <p class="button-bar ">
                <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>

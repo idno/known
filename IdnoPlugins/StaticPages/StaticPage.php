@@ -115,7 +115,7 @@
                             $this->hide_title  = $hide_title;
                             $this->setAccess($access);
 
-                            if ($result = $this->save()) {
+                            if ($result = $this->publish()) {
                                 return true;
                             }
 

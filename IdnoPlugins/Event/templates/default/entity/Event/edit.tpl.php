@@ -43,7 +43,7 @@
                     <input type="text" name="endtime" id="endtime" placeholder="Type in the end day and time" value="<?=htmlspecialchars($vars['object']->endtime)?>" class="form-control" />
 
             </div>
-            <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('event'); ?>
+            <?php echo $this->drawSyndication('event', $vars['object']->getPosseLinks()); ?>
 
         </div>
         <div class="col-md-4 ">
