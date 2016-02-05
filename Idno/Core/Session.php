@@ -394,7 +394,7 @@
 
                 // auth standard API requests
                 if (!$return && !empty($_SERVER['HTTP_X_KNOWN_USERNAME']) && !empty($_SERVER['HTTP_X_KNOWN_SIGNATURE'])) {
-                    \Idno\Core\Idno::site()->logging()->log("Attempting to auth via API credentials", LOGLEVEL_DEBUG);
+                    \Idno\Core\Idno::site()->logging()->debug("Attempting to auth via API credentials");
 
                     $this->setIsAPIRequest(true);
 
@@ -404,18 +404,18 @@
                     }
 
                     if ($user = \Idno\Entities\User::getByHandle($_SERVER['HTTP_X_KNOWN_USERNAME'])) {
-                        \Idno\Core\Idno::site()->logging()->log("API auth found user by username: " . $user->getName(), LOGLEVEL_DEBUG);
+                        \Idno\Core\Idno::site()->logging()->debug("API auth found user by username: " . $user->getName());
                         $key          = $user->getAPIkey();
                         $hmac         = trim($_SERVER['HTTP_X_KNOWN_SIGNATURE']);
                         //$compare_hmac = base64_encode(hash_hmac('sha256', explode('?', $_SERVER['REQUEST_URI'])[0], $key, true));
                         $compare_hmac = base64_encode(hash_hmac('sha256', ($_SERVER['REQUEST_URI']), $key, true));
 
                         if ($hmac == $compare_hmac) {
-                            \Idno\Core\Idno::site()->logging()->log("API auth verified signature for user: " . $user->getName(), LOGLEVEL_DEBUG);
+                            \Idno\Core\Idno::site()->logging()->debug("API auth verified signature for user: " . $user->getName());
                             // TODO maybe this should set the current user without modifying $_SESSION?
                             $return = $this->refreshSessionUser($user);
                         } else {
-                            \Idno\Core\Idno::site()->logging()->log("API auth failed signature validation for user: " . $user->getName(), LOGLEVEL_DEBUG);
+                            \Idno\Core\Idno::site()->logging()->debug("API auth failed signature validation for user: " . $user->getName());
                         }
                     }
                 }
@@ -438,7 +438,7 @@
                             $ip = trim($proxies[0]);
                         }
 
-                        \Idno\Core\Idno::site()->logging()->log("API Login failure from $ip", LOGLEVEL_ERROR);
+                        \Idno\Core\Idno::site()->logging()->error("API Login failure from $ip");
                         \Idno\Core\Idno::site()->currentPage()->deniedContent();
                     }
                 }
