@@ -454,11 +454,11 @@
                             $title = md5(rand() . microtime(true));
                         }
                     }
-                    \Idno\Core\Idno::site()->logging()->debug("Setting resilient slug", LOGLEVEL_DEBUG);
+                    \Idno\Core\Idno::site()->logging()->debug("Setting resilient slug");
                     $this->setSlugResilient($title);
-                    \Idno\Core\Idno::site()->logging()->debug("Set resilient slug", LOGLEVEL_DEBUG);
+                    \Idno\Core\Idno::site()->logging()->debug("Set resilient slug");
                 } else {
-                    \Idno\Core\Idno::site()->logging()->debug("Had slug: " . $this->getSlug(), LOGLEVEL_DEBUG);
+                    \Idno\Core\Idno::site()->logging()->debug("Had slug: " . $this->getSlug());
                 }
 
                 // Force users to be public
