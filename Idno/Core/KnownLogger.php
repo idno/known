@@ -38,7 +38,7 @@ namespace Idno\Core {
          * @param string $message
          * @param array $context 
          */
-        public function log($level = 3, $message, array $context = array()) {
+        public function log($level , $message, array $context = array()) {
 
             // See if this message isn't filtered out
             if ($level <= $this->loglevel_filter) {
@@ -53,16 +53,7 @@ namespace Idno\Core {
                         $trace = " [{$backtrace['file']}:{$backtrace['line']}]";
                     }
                 }
-                // Level
-                if ($level == 1)
-                    $level = "ERROR";
-                if ($level == 2)
-                    $level = "WARNING";
-                if ($level == 3)
-                    $level = "INFO";
-                if ($level == 4)
-                    $level = "DEBUG";
-                // Logging contexts
+
                 $context='';
                 if (!empty($this->contexts)) {
                     $context = ' [' . implode(';', $this->contexts) . ']';
