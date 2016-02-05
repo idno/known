@@ -95,7 +95,10 @@
 // Bonita is being used for templating
     $known_loader->registerNamespace('Bonita', dirname(dirname(__FILE__)) . '/external/bonita/includes');
 //PSR Log Interface    
-    $known_loader->registerNamespace('PSR\Log', dirname(dirname(__FILE__)) . '/external');
+    include dirname(dirname(__FILE__)) . '/external/Psr/Log/LoggerInterface.php';
+    include dirname(dirname(__FILE__)) . '/external/Psr/Log/AbstractLogger.php';
+    include dirname(dirname(__FILE__)) . '/external/Psr/Log/LogLevel.php';
+
 // Symfony is used for routing, observer design pattern support, and a bunch of other fun stuff
     $known_loader->registerNamespace('Symfony\Component', dirname(dirname(__FILE__)) . '/external');
 

@@ -39,7 +39,7 @@ use Psr\Log\LoggerInterface;
          * @return null
          */
         public function emergency($message, array $context = array()) {
-            return $this->logger->emergency();
+            return $this->logger->emergency($message, $context );
         }
 
         /**
@@ -53,7 +53,7 @@ use Psr\Log\LoggerInterface;
          * @return null
          */
         public function alert($message, array $context = array()) {
-            return $this->logger->alert();
+            return $this->logger->alert($message, $context);
         }
 
         /**
@@ -66,7 +66,7 @@ use Psr\Log\LoggerInterface;
          * @return null
          */
         public function critical($message, array $context = array()) {
-            return $this->logger->critical();
+            return $this->logger->critical($message,$context);
         }
 
         /**
@@ -78,7 +78,7 @@ use Psr\Log\LoggerInterface;
          * @return null
          */
         public function error($message, array $context = array()) {
-            $this->logger->error();
+            $this->logger->error($message, $context );
         }
 
         /**
@@ -92,7 +92,7 @@ use Psr\Log\LoggerInterface;
          * @return null
          */
         public function warning($message, array $context = array()) {
-            $this->logger->warning();
+            $this->logger->warning($message, $context );
         }
 
         /**
@@ -103,7 +103,7 @@ use Psr\Log\LoggerInterface;
          * @return null
          */
         public function notice($message, array $context = array()) {
-            $this->logger->notice();
+            $this->logger->notice($message, $context );
         }
 
         /**
@@ -116,7 +116,7 @@ use Psr\Log\LoggerInterface;
          * @return null
          */
         public function info($message, array $context = array()) {
-            $this->logger->info();
+            $this->logger->info($message, $context );
         }
 
         /**
@@ -127,7 +127,7 @@ use Psr\Log\LoggerInterface;
          * @return null
          */
         public function debug($message, array $context = array()) {
-            $this->logger->debug();
+            $this->logger->debug($message,$context );
         }
 
         /**
@@ -139,7 +139,7 @@ use Psr\Log\LoggerInterface;
          * @return null
          */
         public function log($level, $message, array $context = array()) {
-            $this->logger->log();
+            $this->logger->log($level, $message, $context );
         }
 
     }

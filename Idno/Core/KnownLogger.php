@@ -8,10 +8,8 @@
  */
 
 namespace Idno\Core {
-use Psr\Log\LoggerInterface;
-use Psr\Log\AbstractLogger;
 
-    class KnownLogger extends AbstractLogger implements LoggerInterface {
+    class KnownLogger extends \Psr\Log\AbstractLogger implements \Psr\Log\LoggerInterface {
 
         public $loglevel_filter = 4;
         private $identifier;
@@ -29,7 +27,6 @@ use Psr\Log\AbstractLogger;
             if (isset(\Idno\Core\Idno::site()->config->loglevel)) {
                 $loglevel_filter = \Idno\Core\Idno::site()->config->loglevel;
             }
-
             $this->loglevel_filter = $loglevel_filter;
             $this->identifier = $identifier;
             $this->contexts = [];
@@ -39,13 +36,12 @@ use Psr\Log\AbstractLogger;
          * Write a message to the log.
          * @param string $level
          * @param string $message
-         * @param array $context
+         * @param array $context 
          */
-        public function log($level, $message, array $context = array()) {
+        public function log($level = 3, $message, array $context = array()) {
 
             // See if this message isn't filtered out
             if ($level <= $this->loglevel_filter) {
-
                 // Construct log message
                 // Trace for debug (when filtering is set to debug, always add a trace)
                 $trace = "";
@@ -54,23 +50,26 @@ use Psr\Log\AbstractLogger;
                     if ($backtrace) {
                         // Never show this
                         $backtrace = $backtrace[0];
-
                         $trace = " [{$backtrace['file']}:{$backtrace['line']}]";
                     }
                 }
-
-
-
+                // Level
+                if ($level == 1)
+                    $level = "ERROR";
+                if ($level == 2)
+                    $level = "WARNING";
+                if ($level == 3)
+                    $level = "INFO";
+                if ($level == 4)
+                    $level = "DEBUG";
                 // Logging contexts
-
+                $context='';
                 if (!empty($context)) {
-                    $context = ' [' . implode(';', $this->contexts) . ']';
+                    $context = ' [' . implode(';', $context) . ']';
                 }
-
                 error_log("Known ({$this->identifier}$context): $level - $message{$trace}");
             }
         }
-
-    }
-
-}
+} 
+}  
+  

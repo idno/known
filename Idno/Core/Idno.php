@@ -110,9 +110,7 @@
                 $this->logging->setLogger($knownlogger);
                 $this->config->load();
 
-                if (isset($this->config->loglevel)) {
-                    $this->logging->setLogLevel($this->config->loglevel);
-                }
+             
 
                 $this->session      = new Session();
                 $this->actions      = new Actions();
