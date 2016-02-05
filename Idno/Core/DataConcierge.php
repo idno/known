@@ -154,7 +154,7 @@
              * Converts a database row into an Idno entity
              *
              * @param array $row
-             * @return \Idno\Common\Entity
+             * @return \Idno\Common\Entity | false
              */
             function rowToEntity($row)
             {
@@ -196,11 +196,27 @@
              * Retrieves ANY record from a collection
              *
              * @param string $collection
-             * @return mixed
+             * @return array
              */
             function getAnyRecord($collection = 'entities')
             {
                 return $this->database->$collection->findOne();
+            }
+
+            /**
+             * Retrieves ANY object from a collection.
+             *
+             * @param string $collection
+             * @return \Idno\Common\Entity | false
+             */
+            function getAnyObject($collection = 'entities')
+            {
+                if ($row = $this->getAnyRecord($collection)) {
+                    if ($obj = $this->rowToEntity($row)) {
+                        return $obj;
+                    }
+                }
+                return false;
             }
 
             /**
@@ -424,7 +440,7 @@
 
                 return array('$or' => array(array('body' => $regexObj), array('title' => $regexObj), array('tags' => $regexObj), array('description' => $regexObj)));
             }
-            
+
             /**
              * Internal function which ensures collections are sanitised.
              * @return string Contents of $collection stripped of invalid characters.

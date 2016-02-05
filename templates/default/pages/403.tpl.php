@@ -11,8 +11,20 @@
         <div class="col-md-offset-1 col-md-10">
             <p class="p-summary">It looks like you don't have permission to view this content. Sorry!</p>
             <p>
+                <?php
+                // Display the login link, if the user is not currently logged in. 
+                // If they're logged out, this is probably why they're denied.
+                if (!\Idno\Core\Idno::site()->session()->isLoggedIn()) { 
+                    ?>
+                <a id="soft-forward" href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']); ?>">Click here to log in, or wait a moment and you will be taken there...</a>                 
+                <?php
+                } else {
+                ?>
                 <a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>">Click here to head back to the <?=\Idno\Core\Idno::site()->config()->title?> homepage</a>.
+                <?php } ?>
             </p>
         </div>
     </div>
+    
+    
 </div>

@@ -540,14 +540,14 @@
             function gatekeeper()
             {
                 if (!\Idno\Core\Idno::site()->session()->isLoggedIn()) {
-                    $this->setResponse(403);
+                    $this->deniedContent();
 
-                    // Forwarding loses the response code, so is only helpful if this is not an API request
-                    if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
-                        $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']));
-                    } else {
-                        $this->deniedContent();
-                    }
+//                    // Forwarding loses the response code, so is only helpful if this is not an API request
+//                    if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
+//                        $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']));
+//                    } else {
+//                        $this->deniedContent();
+//                    }
                 }
             }
 
@@ -559,13 +559,14 @@
             function createGatekeeper()
             {
                 if (!\Idno\Core\Idno::site()->canWrite()) {
-                    $this->setResponse(403);
-
-                    if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
-                        $this->forward();
-                    } else {
-                        $this->deniedContent();
-                    }
+                    $this->deniedContent();
+//                    $this->setResponse(403);
+//
+//                    if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
+//                        $this->forward();
+//                    } else {
+//                        $this->deniedContent();
+//                    }
                 }
                 $this->gatekeeper();
             }
@@ -578,12 +579,13 @@
             function reverseGatekeeper()
             {
                 if (\Idno\Core\Idno::site()->session()->isLoggedIn()) {
-                    $this->setResponse(403);
-                    if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
-                        $this->forward();
-                    } else {
-                        $this->deniedContent();
-                    }
+                    $this->deniedContent();
+//                    $this->setResponse(403);
+//                    if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
+//                        $this->forward();
+//                    } else {
+//                        $this->deniedContent();
+//                    }
 
                 }
             }
@@ -602,13 +604,14 @@
                     }
                 }
                 if (!$ok) {
-                    $this->setResponse(403);
-
-                    if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
-                        $this->forward();
-                    } else {
-                        $this->deniedContent();
-                    }
+                    $this->deniedContent();
+//                    $this->setResponse(403);
+//
+//                    if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
+//                        $this->forward();
+//                    } else {
+//                        $this->deniedContent();
+//                    }
                 }
             }
 
@@ -790,15 +793,16 @@
             function getInput($name, $default = null, callable $filter = null)
             {
                 if (!empty($name)) {
-                    if (!empty($_REQUEST[$name])) {
-                        $value = $_REQUEST[$name];
+                    $request = \Idno\Core\Input::getInput($name, $default, $filter);
+                    if (!empty($request)) {
+                        $value = $request;
                     } else if (!empty($this->data[$name])) {
                         $value = $this->data[$name];
                     }
                     if ((empty($value)) && (!empty($default)))
                         $value = $default;
                     if (!empty($value)) {
-                        if (isset($filter) && is_callable($filter)) {
+                        if (isset($filter) && is_callable($filter) && empty($request)) {
                             $value = call_user_func($filter, $name, $value);
                         }
 

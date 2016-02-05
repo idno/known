@@ -103,11 +103,14 @@
             /**
              * Draw syndication buttons relating to a particular content type
              * @param $content_type
+             * @param $posse_links containing Entity::getPosseLinks() 
              * @return \Bonita\false|string
              */
-            function drawSyndication($content_type)
+            function drawSyndication($content_type, $posse_links)
             {
-                return $this->__(array('services' => \Idno\Core\Idno::site()->syndication()->getServices($content_type), 'content_type' => $content_type))->draw('content/syndication');
+                return $this->__(array('services' => \Idno\Core\Idno::site()->syndication()->getServices($content_type), 
+                                       'content_type' => $content_type,
+                                       'posseLinks' => $posse_links))->draw('content/syndication');
             }
 
             /**
