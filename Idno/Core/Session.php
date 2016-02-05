@@ -547,12 +547,12 @@
                     if (!\Idno\Core\Idno::site()->session()->isLoggedOn()) {
                         $class = get_class(Idno::site()->currentPage());
                         if (!\Idno\Core\Idno::site()->isPageHandlerPublic($class)) {
-//                            \Idno\Core\Idno::site()->currentPage()->setResponse(403);
-//                            if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
-//                                \Idno\Core\Idno::site()->currentPage()->forward(Idno::site()->config()->getURL() . 'session/login/?fwd=' . urlencode($_SERVER['REQUEST_URI']));
-//                            } else {
+                            \Idno\Core\Idno::site()->currentPage()->setResponse(403);
+                            if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
+                                \Idno\Core\Idno::site()->currentPage()->forward(Idno::site()->config()->getURL() . 'session/login/?fwd=' . urlencode($_SERVER['REQUEST_URI']));
+                            } else {
                                 \Idno\Core\Idno::site()->currentPage()->deniedContent();
-//                            }
+                            }
                         }
                     }
                 }
