@@ -97,7 +97,7 @@
 // Symfony is used for routing, observer design pattern support, and a bunch of other fun stuff
     $known_loader->registerNamespace('Symfony\Component', dirname(dirname(__FILE__)) . '/external');
 //PSR Log Interface    
-    $known_loader->registerNamespace('PSR', dirname(dirname(__FILE__)) . '/external');
+    $known_loader->registerNamespace('PSR\Log', dirname(dirname(__FILE__)) . '/external');
 
 
 // Using Toro for URL routing
