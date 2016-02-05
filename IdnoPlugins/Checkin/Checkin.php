@@ -62,7 +62,7 @@
                     $this->address   = $user_address;
                     $this->setAccess($access);
                     $this->tags = $tags;
-                    if ($this->save($new)) {
+                    if ($this->publish($new)) {
                         if ($new && $access == 'PUBLIC') {
                             \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getTitle() . ' ' . $this->getDescription()));
                         }
