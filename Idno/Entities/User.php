@@ -95,22 +95,23 @@
                             if (empty($vars)) {
                                 $vars = array();
                             }
-                            $eventdata      = $event->data();
-                            $vars['object'] = $eventdata['object'];
 
-                            if (filter_var($user->email, FILTER_VALIDATE_EMAIL)) {
-                                $email = new Email();
-                                $email->setSubject($eventdata['message']);
-                                $email->setHTMLBodyFromTemplate($eventdata['message_template'], $vars);
-                                $email->setTextBodyFromTemplate($eventdata['message_template'], $vars);
-                                $email->addTo($user->email);
-                                $email->send();
+                            if (empty($user->notifications['ignored_domains']) || empty($vars['permalink']) || !in_array(parse_url($vars['permalink'], PHP_URL_HOST), $user->notifications['ignored_domains'])) {
+
+                                $eventdata      = $event->data();
+                                $vars['object'] = $eventdata['object'];
+
+                                if (filter_var($user->email, FILTER_VALIDATE_EMAIL)) {
+                                    $email = new Email();
+                                    $email->setSubject($eventdata['message']);
+                                    $email->setHTMLBodyFromTemplate($eventdata['message_template'], $vars);
+                                    $email->setTextBodyFromTemplate($eventdata['message_template'], $vars);
+                                    $email->addTo($user->email);
+                                    $email->send();
+                                }
                             }
-
                         }
-
                     }
-
                 });
 
             }
