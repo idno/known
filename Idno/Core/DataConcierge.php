@@ -21,7 +21,11 @@
             function init()
             {
                 try {
-                    $this->client = new \MongoClient(site()->config()->dbstring);
+                    $this->client = new \MongoClient(site()->config()->dbstring, array_filter([
+                        'authSource' => site()->config()->dbauthsrc,
+                        'username'   => site()->config()->dbuser,
+                        'password'   => site()->config()->dbpass,
+                    ]));
                 } catch (\MongoConnectionException $e) {
                     http_response_code(500);
                     echo '<p>Unfortunately we couldn\'t connect to the database:</p><p>' . $e->getMessage() . '</p>';
@@ -424,7 +428,7 @@
 
                 return array('$or' => array(array('body' => $regexObj), array('title' => $regexObj), array('tags' => $regexObj), array('description' => $regexObj)));
             }
-            
+
             /**
              * Internal function which ensures collections are sanitised.
              * @return string Contents of $collection stripped of invalid characters.
