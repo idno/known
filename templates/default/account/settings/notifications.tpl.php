@@ -22,7 +22,7 @@
               enctype="multipart/form-data">
 
             <div class="form-group">
-                <div class="col-md-6">
+                <div class="col-md-10">
                     <label> Send email notifications </label>
 
                     <div class="radio">
@@ -59,7 +59,7 @@
             </div>
 
             <div class="form-group">
-                <div class="col-md-6">
+                <div class="col-md-10">
                     <label>Ignored Domains</label>
                     Do not send notifications for interactions originating from these domains (one domain per line)
                     <textarea name="notifications[ignored_domains]" class="form-control"><?php
