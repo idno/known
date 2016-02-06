@@ -76,8 +76,10 @@
                 $name        = $this->getInput('name');
                 $in_reply_to = $this->getInput('in-reply-to');
                 $syndicate   = $this->getInput('mp-syndicate-to', $this->getInput('syndicate-to'));
+                $posse_link  = $this->getInput('syndication');
                 $like_of     = $this->getInput('like-of');
                 $repost_of   = $this->getInput('repost-of');
+                $categories    = $this->getInput('category');
 
                 if ($type == 'entry') {
                     $type = 'article';
@@ -112,6 +114,20 @@
                         $type = 'repost';
                     }
                 }
+                // setting all categories as hashtags into content field
+                if (is_array($categories)) {
+                    foreach ($categories as $category) {
+                        $content .= " #$category";
+                    }
+                    $title_words = explode(" ", $name);
+                    $name = "";
+                    foreach ($title_words as $word) {
+                        if (substr($word,0,1) !== "#") {
+                            $name .= "$word ";
+                        }
+                    }
+                }
+                
 
                 // Get an appropriate plugin, given the content type
                 if ($contentType = ContentType::getRegisteredForIndieWebPostType($type)) {
@@ -127,7 +143,9 @@
                         } else {
                             $content_value = $content;
                         }
-
+                        $posse_url = parse_url($posse_link);
+                        $posse_service = $posse_url['host'];
+                        $entity->setPosseLink($posse_service, $posse_link, '', '');
                         $this->setInput('title', $name);
                         $this->setInput('body', $content_value);
                         $this->setInput('inreplyto', $in_reply_to);
