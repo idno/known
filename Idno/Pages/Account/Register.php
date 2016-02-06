@@ -102,7 +102,7 @@
                         $user->setTitle($name);
                         if (!\Idno\Entities\User::get()) {
                             $user->setAdmin(true);
-                            $user->robot_state = '1'; // State for our happy robot helper
+                            $user->robot_state = '1';
                             if (\Idno\Core\Idno::site()->config()->title == 'New Known site') {
                                 if (!empty($set_name)) {
                                     \Idno\Core\Idno::site()->config()->title = $set_name;
@@ -152,7 +152,7 @@
                 }
 
                 if (!empty($user->_id)) {
-                    \Idno\Core\Idno::site()->session()->addMessage("You've registered! You're ready to get started. Why not add a status update to say hello?");
+                    \Idno\Core\Idno::site()->session()->addMessage("You've registered! You're ready to get started. Why not add a post to say hello?");
                     \Idno\Core\Idno::site()->session()->logUserOn($user);
                     if (empty($onboarding)) {
                         $this->forward();
