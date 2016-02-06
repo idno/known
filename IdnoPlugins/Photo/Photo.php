@@ -114,7 +114,7 @@
                                 if (!is_callable('exif_read_data')) {
                                     // Admins get a no-EXIF error
                                     if (\Idno\Core\Idno::site()->session()->isAdmin()) {
-                                        \Idno\Core\Idno::site()->logging()->log("Because your server doesn't provide EXIF support, Known can't preserve any rotation information in this image.");
+                                        //\Idno\Core\Idno::site()->logging()->log("Because your server doesn't provide EXIF support, Known can't preserve any rotation information in this image.");
                                         \Idno\Core\Idno::site()->session()->addErrorMessage("Because your server doesn't provide EXIF support, Known can't preserve any rotation information in this image.");
                                     }
                                 }
