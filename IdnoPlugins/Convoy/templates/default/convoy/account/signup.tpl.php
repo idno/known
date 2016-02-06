@@ -3,11 +3,11 @@
 
         <?= $this->draw('account/menu') ?>
 
-        <h1>
-            <img src="https://withknown.com/img/convoy/seamless.png" align="right">
+        <h1 style="text-align: center; margin: 1em">
             Connect to social media
         </h1>
-        <h2>
+        <h2 style="margin-bottom: 1em !important; margin-top: 1em !important">
+            <img src="https://withknown.com/img/convoy/seamless.png" align="right">
             Sign up with Convoy
         </h2>
         <p>
@@ -17,7 +17,7 @@
         <p>
             Connect to Twitter, Facebook, LinkedIn, Flickr and more - instantly.
         </p>
-        <p>
+        <p style="margin-top: 2em">
             <a href="https://withknown.com/convoy/?domain=<?=\Idno\Core\Idno::site()->config()->host?>" class="btn btn-primary">Get started</a>
         </p>
 
