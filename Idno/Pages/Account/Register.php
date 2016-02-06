@@ -154,11 +154,11 @@
                 if (!empty($user->_id)) {
                     \Idno\Core\Idno::site()->session()->addMessage("You've registered! You're ready to get started. Why not add a post to say hello?");
                     \Idno\Core\Idno::site()->session()->logUserOn($user);
-                    if (empty($onboarding)) {
-                        $this->forward();
-                    } else {
+                    //if (empty($onboarding)) {
+                    //    $this->forward();
+                    //} else {
                         $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'begin/profile');
-                    }
+                    //}
                 } else {
                     \Idno\Core\Idno::site()->session()->addMessageAtStart("We couldn't register you.");
                     $this->forward($_SERVER['HTTP_REFERER']);
