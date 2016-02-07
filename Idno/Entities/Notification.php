@@ -2,83 +2,139 @@
 
     /**
      * Notification representation
-     *
-     * @package idno
-     * @subpackage core
      */
 
     namespace Idno\Entities {
 
-        class Notification extends \Idno\Entities\Object
+        use Idno\Common\Entity;
+        use Idno\Entities\User;
+
+        class Notification extends \Idno\Common\Entity
         {
 
-            public $subject;
-            public $actor;
-            public $object;
-            public $url;
-
-            function getTitle()
+            /**
+             * Notifications aren't necessarily owned by the logged in
+             * user (which is the default for Entity), so we'll set
+             * the owner explicitly in the ctor
+             * @param \Idno\Entities\User $owner the user being notified
+             */
+            function __construct($owner)
             {
-                return '';
-            }
-
-            function getDescription()
-            {
-                return '';
+                parent::__construct();
+                $this->setOwner($owner);
+                $this->created = time();
             }
 
             /**
-             * Set this notification as read
+             * The short text message to notify the user with. (eg, a
+             * subject line.)
+             * @param string $message
              */
-            function setRead()
+            function setMessage($message)
             {
-                $this->read = 1;
+                $this->message = $message;
             }
 
             /**
-             * Mark this notification as unread
+             * A template name pointing to a longer version of the
+             * message with more detail.
+             * @param string $template
+             *
              */
-            function setUnread()
+            function setMessageTemplate($template)
             {
-                $this->read = 0;
+                $this->messageTemplate = $template;
             }
 
             /**
-             * Sets the body text of this notification
-             * @param string $body
+             * Is this an array {name:..., url:..., image:...}, a UUID, or either?
              */
-            function setBody($body)
+            function setActor($actor)
             {
-                $this->body = $body;
+                if ($actor instanceof User) {
+                    $this->actor = $actor->getUUID();
+                } else {
+                    $this->actor = $actor;
+                }
+            }
+
+            function getActor()
+            {
+                if (is_string($this->actor)) {
+                    return User::getByUUID($this->actor);
+                }
+                return $this->actor;
             }
 
             /**
-             * Has this notification been read?
-             * @return bool
+             * Optionally, a string describing the kind of action. eg,
+             * "comment", "like", "share", or "follow".
+             * @param string $verb
              */
+            function setVerb($verb)
+            {
+                $this->verb = $verb;
+            }
+
+            /**
+             * Optionally, an array describing the object of the
+             * action. eg, if this is a comment, the object will be
+             * the array that represents the annotation.
+             * Note: unlike ActivityStreamsPost, object is not usually an Entity.
+             * @param array|false $object
+             */
+            function setObject($object)
+            {
+                if ($object instanceof Entity) {
+                    $this->object = $object->getUUID();
+                } else {
+                    $this->object = $object;
+                }
+            }
+
+            function getObject()
+            {
+                if (is_string($this->object)) {
+                    return Entity::getByUUID($this->object);
+                }
+                return $this->object;
+            }
+
+            /**
+             * Optionally, the indirect object of the action. If this
+             * is a reply, this is the post that it is in-reply-to.
+             */
+            function setTarget($target)
+            {
+                if ($target instanceof Entity) {
+                    $this->target = $target->getUUID();
+                } else {
+                    $this->target = $target;
+                }
+            }
+
+            function getTarget()
+            {
+                if (is_string($this->target)) {
+                    return Entity::getByUUID($this->target);
+                }
+                return $this->target;
+            }
+
             function isRead()
             {
-                if (!empty($this->read)) {
-                    return true;
-                }
-
-                return false;
+                return $this->read;
             }
 
-            function save($add_to_feed = false, $feed_verb = 'post')
+            function markRead()
             {
-                if (empty($this->_id)) {
-                    $new = true;
-                } else {
-                    $new = false;
-                }
-                if ($new) {
-                    // TODO: email notification
-                }
-
-                return parent::save($add_to_feed, $feed_verb);
+                $this->read = true;
             }
 
+            function markUnread()
+            {
+                $this->read = false;
+            }
         }
 
     }

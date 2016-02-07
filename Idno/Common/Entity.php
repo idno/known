@@ -2100,8 +2100,17 @@
                                 if (empty($subject)) {
                                     $subject = '';
                                 }
+
                                 if (!empty($notification_template) && !empty($context) && $send_notification) {
-                                    $owner->notify($subject, $notification_template, $annotation, $context, $this);
+                                    $notif = new \Idno\Entities\Notification($owner);
+                                    $notif->setMessage($subject);
+                                    $notif->setMessageTemplate($notification_template);
+                                    $notif->setActor(['url' => $owner_url, 'image' => $owner_image, 'name' => $owner_name]);
+                                    $notif->setVerb($context);
+                                    $notif->setObject($annotation);
+                                    $notif->setTarget($this);
+                                    $notif->save();
+                                    $owner->notify($notif);
                                 }
                             }
 
