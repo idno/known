@@ -2105,7 +2105,7 @@
                                     $notif = new \Idno\Entities\Notification($owner);
                                     $notif->setMessage($subject);
                                     $notif->setMessageTemplate($notification_template);
-                                    $notif->setActor(['url' => $owner_url, 'image' => $owner_image, 'name' => $owner_name]);
+                                    $notif->setActor($owner_url);
                                     $notif->setVerb($context);
                                     $notif->setObject($annotation);
                                     $notif->setTarget($this);
