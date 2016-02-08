@@ -19,9 +19,11 @@
                     if ($accounts = \Idno\Core\Idno::site()->syndication()->getServiceAccounts($service)) {
                         foreach($accounts as $account) {
                             $posse_service = $posse_links[$service];
-                            foreach ($posse_service as $key => $posse_account) {
-                                if ($posse_account['account_id'] === $account['name']) {
-                                    $disabled = 'disabled';
+                            if (is_array($posse_service)) {
+                                foreach ($posse_service as $key => $posse_account) {
+                                    if ($posse_account['account_id'] === $account['name']) {
+                                        $disabled = 'disabled';
+                                    }
                                 }
                             }
                             $service_details[$service][] = ['username' => $account['username'], 'name' => $account['name']];
