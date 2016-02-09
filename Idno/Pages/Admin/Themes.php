@@ -6,6 +6,8 @@
 
     namespace Idno\Pages\Admin {
 
+        use Idno\Core\Idno;
+
         class Themes extends \Idno\Common\Page
         {
 
@@ -41,11 +43,12 @@
                             )
                         )
                     )
-                    || $theme == ''
+                    || $theme == 'default' || $theme == ''
                 ) {
                     switch ($action) {
                         case 'install':
                             \Idno\Core\Idno::site()->config->config['theme'] = $theme;
+                            Idno::site()->config()->theme = $theme;
                             //\Idno\Core\Idno::site()->session()->addMessage('The theme was enabled.');
                             break;
                         case 'uninstall':

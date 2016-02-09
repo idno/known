@@ -41,11 +41,25 @@ If your MongoDB installation accepts connections from localhost, and you’re ha
 
 If you’d like to use an alternative [MongoDB connection string](http://docs.mongodb.org/manual/reference/connection-string/), you can add that to ```config.ini``` like this:
 
-    [Database configuration]
-    dbstring = "Your MongoDB connection string"
-    dbname = "Your preferred Known database name"
+    dbstring  = "Your MongoDB connection string"
+    dbname    = "Your preferred Known database name (default=known)"
 
 You can also include a subset of these items, for example to just change the database name.
+
+By default, MongoDB will accept unauthenticated connections from localhost. If you've locked down your MongoDB to require authentication, you can set a username, password, and [authentication source](https://docs.mongodb.org/manual/core/security-users/#user-authentication-database):
+
+    dbuser    = "Your MongoDB user"
+    dbpass    = "Your MongoDB user's password"
+    dbauthsrc = "The database where this user is defined"
+
+When using authentication, your MongoDB user will need to be granted the ["readWrite"](https://docs.mongodb.org/manual/reference/built-in-roles/#readWrite) role on both the Known database and a database called `idnosession` where session information is stored. For example to create a user called "knownuser" in the "admin" database, you might run these commands on the Mongo command line:
+
+    use admin
+    db.createUser({user:"knownuser", pwd:"p@ssword", roles: [
+      {role: "readWrite", db: "known"},
+      {role: "readWrite", db: "idnosession"}
+    ]})
+
 
 ### If you’re using MySQL
 
@@ -102,4 +116,3 @@ Register and log in.
 ### Administer Known
 
 Once you’ve registered and logged in, click “Administration” in the menu bar. This will allow you to set some site configuration items, including the site name. You will also be able to enable some plugins from this screen. If you’re using Known as a blog or a closed community, you will probably also want to turn open registration off from here.
-

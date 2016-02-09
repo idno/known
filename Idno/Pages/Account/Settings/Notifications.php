@@ -28,6 +28,11 @@
 
                 $notifications = $this->getInput('notifications');
 
+                // split multi-line string into an array
+                if (isset($notifications['ignored_domains'])) {
+                    $notifications['ignored_domains'] = preg_split('/\s*[\n,]\s*/', $notifications['ignored_domains']);
+                }
+
                 $user->notifications = $notifications;
 
                 if ($user->save()) {

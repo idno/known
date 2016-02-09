@@ -90,7 +90,7 @@
                         }
                     }
 
-                    if ($this->save($new)) {
+                    if ($this->publish($new)) {
 
                         $autosave = new Autosave();
                         $autosave->clearContext('entry');

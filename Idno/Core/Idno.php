@@ -369,7 +369,7 @@
              * @return \Idno\Core\Language
              */
 
-            function &language()
+            function language()
             {
                 if (empty($this->language)) {
                     $this->language = new Language();
@@ -586,7 +586,7 @@
              */
             function version()
             {
-                return '0.8.5';
+                return '0.9.0.4';
             }
 
             /**
@@ -599,12 +599,12 @@
             }
 
             /**
-             * Retrieve a machine-readale version of Known's version number
+             * Retrieve a machine-readable version of Known's version number
              * @return string
              */
             function machineVersion()
             {
-                return '2015101301';
+                return '2016020602';
             }
 
             /**

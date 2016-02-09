@@ -3,9 +3,13 @@
     $autosave = new \Idno\Core\Autosave();
     if (!empty($vars['object']->body)) {
         $body = $vars['object']->body;
+    } else {
+        $body = '';
     }
     if (!empty($vars['object']->title)) {
         $title = $vars['object']->title;
+    } else {
+        $title = '';
     }
     if (!empty($vars['object'])) {
         $object = $vars['object'];
@@ -56,7 +60,7 @@
                 ])->draw('forms/input/richtext')?>
                 <?= $this->draw('entity/tags/input'); ?>
 
-                <?php if (empty($vars['object']->_id)) echo $this->drawSyndication('article'); ?>
+                <?php echo $this->drawSyndication('article', $vars['object']->getPosseLinks()); ?>
                 <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to" value="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
 
                 <?= $this->draw('content/access'); ?>

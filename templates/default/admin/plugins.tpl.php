@@ -6,9 +6,9 @@
 
         <div class="explanation">
             <p>
-                The plugins section allows you to add features to your site. These include new kinds of content, options to syndicate content to different sites,
-                and features to change the way Known behaves. To enable or disable a plugin, just click its enable or
-                disable button.
+                Plugins allow you to add features to your site. These include new kinds of content, options to syndicate
+                content to different sites, and features to change the way Known behaves. To enable or disable a plugin,
+                just click its enable or disable button.
             </p>
         </div>
         <?php

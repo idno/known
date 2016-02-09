@@ -14,7 +14,6 @@
 
         use Idno\Core\Idno;
         use Idno\Core\Webmention;
-        use Idno\Entities\File;
         use Idno\Entities\User;
 
         class Entity extends Component implements EntityInterface
@@ -428,16 +427,36 @@
 
                 return '';
             }
-
+            
+            /**
+             * Publishes this entity - either creating a new entry, or
+             * overwriting the existing one. Then it will add it optionally
+             * to the feed
+             * Finally it will syndicate the entity
+             *
+             * @param bool $add_to_feed If set to true, will add this item to the activity stream feed if this object is being newly created
+             * @param string $feed_verb If this item is added to the feed, this is the verb that will be used
+             */   
+            function publish($add_to_feed = false, $feed_verb = 'post')
+            {
+                if ($this->save()) {
+                    if ($add_to_feed) {
+                        $this->addToFeed($feed_verb);
+                    }
+                    $this->syndicate();
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            
             /**
              * Saves this entity - either creating a new entry, or
              * overwriting the existing one.
              *
-             * @param bool $add_to_feed If set to true, will add this item to the activity stream feed if this object is being newly created
-             * @param string $feed_verb If this item is added to the feed, this is the verb that will be used
              */
 
-            function save($add_to_feed = false, $feed_verb = 'post')
+            function save()
             {
 
                 // Adding this entity's owner (if we don't know already)
@@ -467,8 +486,12 @@
                     $this->access = 'PUBLIC';
                 }
 
-                // Adding when this entity was created (if it's new) & updated
+                // If this post has hashtags, save them separately for later retrieval
+                if ($tags = $this->getTags()) {
+                    $this->hashtags = $tags;
+                }
 
+                // Adding when this entity was created (if it's new) & updated
                 if (empty($this->created)) {
                     $this->created = time();
                 }
@@ -486,10 +509,6 @@
                         $this->_id  = $result;
                         $this->uuid = $this->getUUID();
                         \Idno\Core\Idno::site()->db()->saveObject($this);
-                        if ($add_to_feed) {
-                            $this->addToFeed($feed_verb);
-                        }
-                        $this->syndicate();
                         \Idno\Core\Idno::site()->triggerEvent('saved', ['object' => $this]);
                     } else {
                         \Idno\Core\Idno::site()->triggerEvent('updated', ['object' => $this]);
@@ -569,9 +588,9 @@
             function setSlugResilient($slug, $max_pieces = 10)
             {
                 // UUID max length is 255 chars; slug length <= 255 - (base URL + year + slash)
-                $max_chars = 245 - strlen(\Idno\Core\site()->config()->getDisplayURL());
+                $max_chars = 245 - strlen(\Idno\Core\Idno::site()->config()->getDisplayURL());
 
-                $slug = $this->prepare_slug($slug, $max_pieces, $max_chars - 10);
+                $slug = $this->prepareSlug($slug, $max_pieces, $max_chars - 10);
                 if (empty($slug)) {
                     return false;
                 }
@@ -594,7 +613,7 @@
              * @param int $max_chars The maximum number of characters in the slug (default: 255)
              * @return string
              */
-            function prepare_slug($slug, $max_pieces = 10, $max_chars = 255)
+            function prepareSlug($slug, $max_pieces = 10, $max_chars = 255)
             {
                 $slug = trim($slug);
                 if (is_callable('mb_strtolower')) {
@@ -604,12 +623,17 @@
                 }
                 $slug = strip_tags($slug);
                 $slug = preg_replace('|https?://[a-z\.0-9]+|', '', $slug);
-                $slug = preg_replace("/[^A-Za-z0-9\-\_ ]/u", '', $slug);
+                $slug = preg_replace_callback("/([\p{L}]+)/u", function($matches) {
+                    return rawurlencode(($matches[1]));
+                }, $slug);
+                $slug = preg_replace_callback("/([^A-Za-z0-9\p{L}\%\-\_ ])/u", function($matches) {
+                    return '';
+                }, $slug);
                 $slug = preg_replace("/[ ]+/u", ' ', $slug);
                 $slug = implode('-', array_slice(explode(' ', $slug), 0, $max_pieces));
                 $slug = str_replace(' ', '-', $slug);
                 $slug = substr($slug, 0, $max_chars);
-                while (substr($slug,-1) == '-') {
+                while (substr($slug, -1) == '-') {
                     $slug = substr($slug, 0, strlen($slug) - 1);
                 }
                 if (empty($slug)) {
@@ -637,7 +661,7 @@
                 if (!empty($plugin_slug) && $plugin_slug !== true) {
                     return $plugin_slug;
                 }
-                $slug = $this->prepare_slug($slug, $max_pieces, $max_chars);
+                $slug = $this->prepareSlug($slug, $max_pieces, $max_chars);
                 if (empty($slug)) {
                     return false;
                 }
@@ -787,6 +811,7 @@
                     if ($return = \Idno\Core\db()->deleteRecord($this->getID(), $this->collection)) {
                         $this->deleteData();
                         \Idno\Core\Idno::site()->triggerEvent('deleted', array('object' => $this));
+
                         return $return;
                     }
 
@@ -940,6 +965,7 @@
                     if (is_array($this->description)) {
                         $this->description = implode(' ', $this->description);
                     }
+
                     return $this->description;
                 }
 
@@ -955,6 +981,7 @@
                 if ($owner = $this->getOwner()) {
                     return $owner->getTitle();
                 }
+
                 return false;
             }
 
@@ -967,6 +994,7 @@
                 if ($owner = $this->getOwner()) {
                     return $owner->getURL();
                 }
+
                 return false;
             }
 
@@ -1072,18 +1100,25 @@
 
             /**
              * Sets the POSSE link for this entity to a particular service
-             * @param $service
-             * @param $url
+             * @param $service The name of the service
+             * @param $url The URL of the post
+             * @param $identifier A human-readable identifier
+             * @param $account_id A Known-readable account identifier
              * @return bool
              */
-            function setPosseLink($service, $url, $identifier = '', $item_id = '')
+            function setPosseLink($service, $url, $identifier = '', $item_id = '', $account_id = '')
             {
                 if (!empty($service) && !empty($url)) {
                     $posse = $this->posse;
                     if (empty($identifier)) {
                         $identifier = $service;
                     }
-                    $posse[$service][] = array('url' => $url, 'identifier' => $identifier, 'item_id' => $item_id);
+                    $posse[$service][] = array(
+                        'url'        => $url,
+                        'identifier' => $identifier,
+                        'item_id'    => $item_id,
+                        'account_id' => $account_id
+                    );
                     $this->posse       = $posse;
 
                     return true;
@@ -1419,9 +1454,13 @@
                     $params = ['object' => $this, 'feed_view' => $feed_view];
                 }
 
-                $return = $t->__($params)->draw('entity/' . $this->getClassName(), false);
+                $return = $t->__($params)->draw('entity/' . $this->getFullClassName(true), false);
+
                 if ($return === false) {
-                    $return = $t->__($params)->draw('entity/default');
+                    $return = $t->__($params)->draw('entity/' . $this->getClassName(), false);
+                    if ($return === false) {
+                        $return = $t->__($params)->draw('entity/default');
+                    }
                 }
 
                 return $return;
@@ -1437,9 +1476,17 @@
             {
                 $t = \Idno\Core\Idno::site()->template();
 
-                return $t->__(array(
+                $return = $t->__(array(
                     'object' => $this
-                ))->draw('entity/' . $this->getClassName() . '/edit');
+                ))->draw('entity/' . $this->getFullClassName(true) . '/edit');
+
+                if ($return === false) {
+                    $return = $t->__(array(
+                        'object' => $this
+                    ))->draw('entity/' . $this->getClassName() . '/edit');
+                }
+
+                return $return;
             }
 
             /**
@@ -1501,21 +1548,27 @@
              */
             static function getPermalinkRoute()
             {
-                $parts = explode('/', \Idno\Core\Idno::site()->config()->getPermalinkStructure());
-                $result = implode('/', array_map(function ($part)
-                {
+                $parts  = explode('/', \Idno\Core\Idno::site()->config()->getPermalinkStructure());
+                $result = implode('/', array_map(function ($part) {
                     switch ($part) {
-                    case ':id': return '([A-Za-z0-9]+)';
-                    case ':slug': return '([\%A-Za-z0-9\-\_]+)';
-                    case ':year': return '[0-9]{4}';
-                    case ':month': return '[0-9]{2}';
-                    case ':day': return '[0-9]{2}';
-                    default: return $part;
+                        case ':id':
+                            return '([A-Za-z0-9]+)';
+                        case ':slug':
+                            return '([\%A-Za-z0-9\-\_]+)';
+                        case ':year':
+                            return '[0-9]{4}';
+                        case ':month':
+                            return '[0-9]{2}';
+                        case ':day':
+                            return '[0-9]{2}';
+                        default:
+                            return $part;
                     }
                 }, $parts));
+
                 return $result;
             }
-            
+
             /**
              * Return a website address to view this object (defaults to the UUID
              * of the object)
@@ -1541,19 +1594,25 @@
 
                 if (
                     (!in_array(':slug', $parts) || $this->getSlug()) &&
-                    (!in_array(':id', $parts) || $this->getID()) 
+                    (!in_array(':id', $parts) || $this->getID())
                 ) {
-                    $path = implode('/', array_map(function ($part)
-                    {
+                    $path = implode('/', array_map(function ($part) {
                         switch ($part) {
-                        case ':id':    return $this->getID();
-                        case ':slug':  return $this->getSlug();
-                        case ':year':  return strftime('%Y', $this->created);
-                        case ':month': return strftime('%m', $this->created);
-                        case ':day':   return strftime('%d', $this->created);
-                        default: return $part;
+                            case ':id':
+                                return $this->getID();
+                            case ':slug':
+                                return $this->getSlug();
+                            case ':year':
+                                return strftime('%Y', $this->created);
+                            case ':month':
+                                return strftime('%m', $this->created);
+                            case ':day':
+                                return strftime('%d', $this->created);
+                            default:
+                                return $part;
                         }
                     }, $parts));
+
                     return \Idno\Core\Idno::site()->config()->getDisplayURL() . ltrim($path, '/');
                 }
 
@@ -1593,8 +1652,9 @@
             {
                 $url = $this->getURL();
                 if (\Idno\Core\Idno::site()->config()->unique_urls) {
-                    $url = \Idno\Core\Idno::site()->template()->getURLWithVar('rnd', rand(0,999999), $url);
+                    $url = \Idno\Core\Idno::site()->template()->getURLWithVar('rnd', rand(0, 999999), $url);
                 }
+
                 return $url;
             }
 
@@ -1731,7 +1791,7 @@
                         $this->removeAnnotation($source);
                         foreach ($mentions['mentions'] as $mention) {
                             if (!empty($mention['url'])) {
-                                $permalink = implode('', $mention['url']);
+                                $permalink = $mention['url'][0]; //implode('', $mention['url']);
                             } else {
                                 $permalink = $source;
                             }

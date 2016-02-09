@@ -103,11 +103,14 @@
             /**
              * Draw syndication buttons relating to a particular content type
              * @param $content_type
+             * @param $posse_links containing Entity::getPosseLinks() 
              * @return \Bonita\false|string
              */
-            function drawSyndication($content_type)
+            function drawSyndication($content_type, $posse_links)
             {
-                return $this->__(array('services' => \Idno\Core\Idno::site()->syndication()->getServices($content_type), 'content_type' => $content_type))->draw('content/syndication');
+                return $this->__(array('services' => \Idno\Core\Idno::site()->syndication()->getServices($content_type), 
+                                       'content_type' => $content_type,
+                                       'posseLinks' => $posse_links))->draw('content/syndication');
             }
 
             /**
@@ -231,7 +234,7 @@
             function sanitize_html($html)
             {
                 $html = site()->triggerEvent('text/filter', [], $html);
-                
+
                 return $html;
             }
 
@@ -461,7 +464,11 @@
             function getCurrentURLWithVar($variable_name, $value)
             {
                 $components = parse_url($this->getCurrentURL());
-                parse_str($components['query'], $url_var_array);
+                if (isset($components['query'])) {
+                    parse_str($components['query'], $url_var_array);
+                } else {
+                    $url_var_array = [];
+                }
                 $url_var_array[$variable_name] = $value;
                 $components['query'] = http_build_query($url_var_array);
                 $url                 = $components['scheme'] . '://' . $components['host'] . $components['path'];

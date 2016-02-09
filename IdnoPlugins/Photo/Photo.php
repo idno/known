@@ -102,7 +102,7 @@
                                 try {
                                     if (function_exists('exif_read_data')) {
                                         if ($exif = exif_read_data($_FILES['photo']['tmp_name'])) {
-                                            $this->exif = base64_encode(serialize($exif)); // Yes, this is rough, but exif contains binary data that can not be saved in mongo
+                                            $this->exif = base64_encode(serialize($exif)); // Yes, this is rough, but exif contains binary data that cannot be saved in mongo
                                         }
                                     }
                                 } catch (\Exception $e) {
@@ -110,6 +110,14 @@
                                 }
                             } else {
                                 $exif = false;
+
+                                if (!is_callable('exif_read_data')) {
+                                    // Admins get a no-EXIF error
+                                    if (\Idno\Core\Idno::site()->session()->isAdmin()) {
+                                        //\Idno\Core\Idno::site()->logging()->log("Because your server doesn't provide EXIF support, Known can't preserve any rotation information in this image.");
+                                        \Idno\Core\Idno::site()->session()->addErrorMessage("Because your server doesn't provide EXIF support, Known can't preserve any rotation information in this image.");
+                                    }
+                                }
                             }
 
                             if ($photo = \Idno\Entities\File::createFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'], $_FILES['photo']['type'], true, true)) {
@@ -153,7 +161,7 @@
                     }
                 }
 
-                if ($this->save($new)) {
+                if ($this->publish($new)) {
 
                     if ($this->getAccess() == 'PUBLIC') {
                         \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getTitle() . ' ' . $this->getDescription()));

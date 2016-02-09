@@ -68,6 +68,8 @@
                 $this->gatekeeper();
                 // If we're here, we're authorized
 
+                \Idno\Core\Idno::site()->triggerEvent('indiepub/post/start', ['page' => $this]);
+
                 // Get details
                 $type        = $this->getInput('h');
                 $content     = $this->getInput('content');
@@ -77,16 +79,31 @@
                 $posse_link  = $this->getInput('syndication');
                 $like_of     = $this->getInput('like-of');
                 $repost_of   = $this->getInput('repost-of');
+                $categories    = $this->getInput('category');
 
                 if ($type == 'entry') {
                     $type = 'article';
                     if (!empty($_FILES['photo'])) {
                         $type = 'photo';
-                        if (empty($name) && !empty($content)) {
-                            $name    = $content;
-                            $content = '';
+                    } else {
+                        $photo_url = $this->getInput('photo');
+                        if ($photo_url) {
+                            $type      = 'photo';
+                            $success   = $this->uploadFromUrl($photo_url);
+                            if (!$success) {
+                            	\Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
+                                $this->setResponse(500);
+                                echo "Failed uploading photo from $photo_url";
+                                exit;
+                            }
                         }
                     }
+
+                    if ($type == 'photo' && empty($name) && !empty($content)) {
+                        $name    = $content;
+                        $content = '';
+                    }
+
                     if (empty($name)) {
                         $type = 'note';
                     }
@@ -97,14 +114,25 @@
                         $type = 'repost';
                     }
                 }
+                // setting all categories as hashtags into content field
+                if (is_array($categories)) {
+                    foreach ($categories as $category) {
+                        $content .= " #$category";
+                    }
+                    $title_words = explode(" ", $name);
+                    $name = "";
+                    foreach ($title_words as $word) {
+                        if (substr($word,0,1) !== "#") {
+                            $name .= "$word ";
+                        }
+                    }
+                }
+                
 
                 // Get an appropriate plugin, given the content type
                 if ($contentType = ContentType::getRegisteredForIndieWebPostType($type)) {
 
                     if ($entity = $contentType->createEntity()) {
-
-                        error_log(var_export($entity, true));
-
                         if (is_array($content)) {
                             $content_value = '';
                             if (!empty($content['html'])) {
@@ -136,11 +164,13 @@
                             \Idno\Core\Idno::site()->logging()->log("Setting syndication: $syndication");
                             $this->setInput('syndication', $syndication);
                         }
-                        if ($entity->saveDataFromInput()) {
+                        if ($entity->saveDataFromInput($this)) {
+                            \Idno\Core\Idno::site()->triggerEvent('indiepub/post/success', ['page' => $this, 'object' => $entity]);
                             $this->setResponse(201);
                             header('Location: ' . $entity->getURL());
                             exit;
                         } else {
+                            \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
                             $this->setResponse(500);
                             echo "Couldn't create {$type}";
                             exit;
@@ -149,12 +179,51 @@
                     }
 
                 } else {
-
+                    \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
                     $this->setResponse(500);
                     echo "Couldn't find content type {$type}";
                     exit;
 
                 }
+            }
+
+            /**
+             * Micropub optionally allows uploading photos from a
+             * URL. This method downloads the file at a URL to a
+             * temporary location and puts it in the php $_FILES
+             * array.
+             */
+            private function uploadFromUrl($photo_url)
+            {
+                $pathinfo = pathinfo(parse_url($photo_url, PHP_URL_PATH));
+                switch ($pathinfo['extension']) {
+                case 'jpg':
+                case 'jpeg':
+                    $mimetype = 'image/jpeg';
+                    break;
+                case 'png':
+                    $mimetype = 'image/png';
+                    break;
+                case 'gif':
+                    $mimetype = 'image/gif';
+                    break;
+                }
+
+                $tmpname  = tempnam(sys_get_temp_dir(), 'indiepub_');
+                $fp       = fopen($photo_url, 'rb');
+                if ($fp) {
+                    $success = file_put_contents($tmpname, $fp);
+                    fclose($fp);
+                }
+                if ($success) {
+                    $_FILES['photo'] = [
+                        'tmp_name' => $tmpname,
+                        'name'     => $pathinfo['basename'],
+                        'size'     => filesize($tmpname),
+                        'type'     => $mimetype,
+                    ];
+                }
+                return $success;
             }
 
         }

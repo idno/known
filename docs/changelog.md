@@ -2,6 +2,42 @@
 
 Starting with version 0.6.4, this is a list of changes in the self-hosted, open source version of Known.
 
+0.9.0.3
+-------
+February 6, 2016
+
+* Improved user registration page and onboarding flow
+* Cleaned up some text pages
+* Fixed an issue where you couldn't change back to the default theme
+* Fixed a compatibility issue with Photos on PHP 5.4
+* Removed an EXIF error message
+* Retroactive POSSE
+* MongoDB fix for newer MongoDB versions
+* Updated diagnostics
+* Ability to shush notifications from certain domains
+* Minor default theme style changes
+
+0.9
+---
+February 2, 2016
+
+* Significantly faster performance
+* Twitter card support
+* Support for non-Latin characters in post URLs and hashtags
+* Character count in status updates is now safe for Twitter URLs
+* Choose between a number of permalink URL styles
+* Export RSS for import into WordPress
+* Import WordPress comments
+* Improved search
+* Improved autosave
+* Improved bookmarks and bookmarklet
+* Improved indiepub and webmention functionality
+* Improved notifications
+* Navigation style fixes
+* Reliability improvements when posting long pieces
+* Fixed an issue where pressing "cancel" could close the window
+* Syndicated photos no longer list "untitled" in syndicated version when title is not set
+
 0.8.5
 -----
 October 13, 2015
