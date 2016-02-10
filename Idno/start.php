@@ -56,64 +56,17 @@
         set_time_limit(120);
     }
 
-// We're making heavy use of the Symfony ClassLoader to load our classes
-    require_once(dirname(dirname(__FILE__)) . '/external/Symfony/Component/ClassLoader/UniversalClassLoader.php');
-    global $known_loader;
-    $known_loader = new \Symfony\Component\ClassLoader\UniversalClassLoader();
-
-    /**
-     * Retrieve the loader
-     * @return \Symfony\Component\ClassLoader\UniversalClassLoader
-     */
-    function &loader()
-    {
-        global $known_loader;
-
-        return $known_loader;
-    }
-
-// Register our main namespaces (all idno classes adhere to the PSR-0 standard)
-
-// idno trunk classes (i.e., the main framework) are in /idno
-    $known_loader->registerNamespace('Idno', dirname(dirname(__FILE__)));
 // Host for the purposes of extra paths
     if (!empty($_SERVER['HTTP_HOST'])) {
         $host = strtolower($_SERVER['HTTP_HOST']);
         $host = str_replace('www.', '', $host);
         define('KNOWN_MULTITENANT_HOST', $host);
-// idno plugins are located in /IdnoPlugins and must have their own namespace
-        $known_loader->registerNamespace('IdnoPlugins', array(dirname(dirname(__FILE__)), dirname(dirname(__FILE__)) . '/hosts/' . $host));
-// idno themes are located in /Themes and must have their own namespace
-        $known_loader->registerNamespace('Themes', array(dirname(dirname(__FILE__)), dirname(dirname(__FILE__)) . '/hosts/' . $host));
     }
+
+    require __DIR__.'/../vendor/autoload.php';
 
 // Shims
     include 'shims.php';
-
-// Register our external namespaces (PSR-0 compliant modules that we love, trust and need)
-
-// Bonita is being used for templating
-    $known_loader->registerNamespace('Bonita', dirname(dirname(__FILE__)) . '/external/bonita/includes');
-// Symfony is used for routing, observer design pattern support, and a bunch of other fun stuff
-    $known_loader->registerNamespace('Symfony\Component', dirname(dirname(__FILE__)) . '/external');
-
-// Using Toro for URL routing
-    require_once(dirname(dirname(__FILE__)) . '/external/torophp/src/Toro.php');
-
-// Using mf2 for microformats parsing, and webignition components to support it
-    $known_loader->registerNamespace('webignition\Url', dirname(dirname(__FILE__)) . '/external/webignition/url/src');
-    $known_loader->registerNamespace('webignition\AbsoluteUrlDeriver', dirname(dirname(__FILE__)) . '/external/webignition/absolute-url-deriver/src');
-    $known_loader->registerNamespace('webignition\NormalisedUrl', dirname(dirname(__FILE__)) . '/external/webignition/url/src');
-    $known_loader->registerNamespace('Mf2', dirname(dirname(__FILE__)) . '/external/mf2');
-
-// Using Simplepie for RSS and Atom parsing
-    include dirname(dirname(__FILE__)) . '/external/simplepie/autoloader.php';
-
-// Using HTMLPurifier for HTML sanitization
-    include dirname(dirname(__FILE__)) . '/external/htmlpurifier-lite/library/HTMLPurifier.auto.php';
-
-// Register the autoloader
-    $known_loader->register();
 
 // Register the idno-templates folder as the place to look for templates in Bonita
     \Bonita\Main::additionalPath(dirname(dirname(__FILE__)));

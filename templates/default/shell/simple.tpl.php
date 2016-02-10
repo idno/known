@@ -16,12 +16,12 @@
         <title><?= htmlspecialchars($vars['title']); ?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="viewport" content="initial-scale=1.0" media="(device-height: 568px)"/>
-        <meta name="description" content="<?= htmlspecialchars(strip_tags($vars['description'])) ?>">
+        <meta name="description" content="<?= htmlspecialchars(strip_tags(isset($vars['description']) ? $vars['description'] : '')) ?>">
         <meta name="generator" content="Known https://withknown.com">
         <?= $this->draw('shell/favicon'); ?>
         <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
         <meta name="DC.title" content="<?= htmlspecialchars($vars['title']) ?>">
-        <meta name="DC.description" content="<?= htmlspecialchars($vars['description']) ?>"><?php
+        <meta name="DC.description" content="<?=  htmlspecialchars(isset($vars['description']) ? $vars['description'] : '') ?>"><?php
 
             if (\Idno\Core\Idno::site()->currentPage() && \Idno\Core\Idno::site()->currentPage()->isPermalink()) {
                 $object = $vars['object'];

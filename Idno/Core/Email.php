@@ -11,7 +11,6 @@
             {
                 // Using SwiftMailer to establish a message
                 try {
-                    require_once \Idno\Core\Idno::site()->config()->path . '/external/swiftmailer/lib/swift_required.php';
                     $this->message = \Swift_Message::newInstance();
                 } catch (\Exception $e) {
                     \Idno\Core\Idno::site()->session()->addErrorMessage("Something went wrong and we couldn't create the email message to send.");

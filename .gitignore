@@ -49,3 +49,4 @@ configbackup.ini
 # Allow these previously excluded files
 !/external/fontello/config.json
 !/Uploads/readme.txt
+vendor

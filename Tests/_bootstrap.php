@@ -19,12 +19,9 @@ $_SERVER['SERVER_PORT'] = $port;
 
 
 try {
-    
+
     // Load Known framework
     require_once(dirname(dirname(__FILE__)) . '/Idno/start.php');
-    
-    // Register test classes with class loader
-    loader()->registerNamespace('Tests', dirname(dirname(__FILE__)));
 
     // TODO: Initialise and populate test DB
 

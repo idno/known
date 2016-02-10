@@ -20,7 +20,6 @@
              */
             static function pingMentions($pageURL, $text)
             {
-
                 // There's no point in sending webmentions to private resources
                 if (!Idno::site()->config()->isPublicSite()) {
                     return false;
@@ -32,18 +31,15 @@
                     }
                 }
 
-                // Load webmention-client
-                require_once \Idno\Core\Idno::site()->config()->path . '/external/mention-client-php/src/IndieWeb/MentionClient.php';
-
                 // Proxy connection string provided
-                $proxystring = false;
+                $client = new \Idno\Core\MentionClient();
                 if (!empty(\Idno\Core\Idno::site()->config()->proxy_string)) {
-                    $proxystring = \Idno\Core\Idno::site()->config()->proxy_string;
+                    $client->setProxy(\Idno\Core\Idno::site()->config()->proxy_string);
                 }
 
-                $client = new \Idno\Core\MentionClient($pageURL, $text, $proxystring);
-
-                return $client->sendSupportedMentions();
+                \Idno\Core\Idno::site()->logging()->log("Sending webmentions from $pageURL");
+                $result = $client->sendMentions($pageURL, $text);
+                \Idno\Core\Idno::site()->logging()->log("Sent webmentions; response: " . var_export($result, true));
             }
 
             /**
@@ -55,15 +51,14 @@
              */
             static function sendWebmentionPayload($sourceURL, $targetURL)
             {
-
-                // Load webmention-client
-                require_once \Idno\Core\Idno::site()->config()->path . '/external/mention-client-php/src/IndieWeb/MentionClient.php';
-
-                $client = new \Idno\Core\MentionClient($sourceURL);
-
-                // $client->sendWebmentionPayload on its own would have no effect
-                // because no webmention endpoint has been discovered yet.
-                return $client->sendSupportedMentions($targetURL);
+                \Idno\Core\Idno::site()->logging()->log("sending webmention from $sourceURL to $targetURL");
+                $client = new \Idno\Core\MentionClient();
+                if (!empty(\Idno\Core\Idno::site()->config()->proxy_string)) {
+                    $client->setProxy(\Idno\Core\Idno::site()->config()->proxy_string);
+                }
+                $result = $client->sendFirstSupportedMention($sourceURL, $targetURL);
+                \Idno\Core\Idno::site()->logging()->debug("sent webmention; response: " , var_export($result));
+                return $result;
             }
 
             /**
@@ -74,19 +69,12 @@
              */
             static function supportsMentions($pageURL, $sourceBody = false)
             {
-
-                // Load webmention-client
-                require_once \Idno\Core\Idno::site()->config()->path . '/external/mention-client-php/src/IndieWeb/MentionClient.php';
-
                 // Proxy connection string provided
-                $proxystring = false;
-                if (!empty(\Idno\Core\Idno::site()->config()->proxy_string)) {
-                    $proxystring = \Idno\Core\Idno::site()->config()->proxy_string;
-                }
-
                 $client = new \Idno\Core\MentionClient($pageURL, $sourceBody, $proxystring);
-
-                return $client->supportsWebmention($pageURL);
+                if (!empty(\Idno\Core\Idno::site()->config()->proxy_string)) {
+                    $client->setProxy(\Idno\Core\Idno::site()->config()->proxy_string);
+                }
+                return (bool) $client->discoverWebmentionEndpoint($pageURL);
             }
 
             /**
