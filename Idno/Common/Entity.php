@@ -2037,30 +2037,35 @@
 
                 \Idno\Core\Idno::site()->triggerEvent('annotation/add/' . $subtype, array('annotation' => $annotation, 'object' => $this));
 
-                if ($owners = $this->getAnnotationOwnerUUIDs(true)) {
-                    $owners[] = $this->getOwnerID();
-                    $owners   = array_unique($owners);
+                if ($recipients = $this->getAnnotationOwnerUUIDs(true)) {
+                    $recipients[] = $this->getOwnerID();
+                    $recipients   = array_unique($recipients);
                 } else {
-                    $owners = array($this->getOwnerID());
+                    $recipients = array($this->getOwnerID());
                 }
 
                 if ($send_notification) {
-                    foreach ($owners as $owner_uuid) {
+                    foreach ($recipients as $recipient_uuid) {
 
                         if (Idno::site()->session()->isLoggedIn()) {
-                            if ($owner_uuid == Idno::site()->session()->currentUserUUID()) {
+                            if ($recipient_uuid == Idno::site()->session()->currentUserUUID()) {
                                 // Don't bother sending a notification to the user performing the action
+                                // Note: for received webmentions, no user will ever be logged in, so this only applies to local comments
                                 continue;
                             }
                         }
+                        // Don't send a notification to the commenter
+                        if ($recipient_uuid === $owner_url) {
+                            continue;
+                        }
 
-                        if ($owner = User::getByUUID($owner_uuid)) {
+                        if ($recipient = User::getByUUID($recipient_uuid)) {
 
                             $send = true;
                             switch ($subtype) {
                                 case 'mention':
                                 case 'reply':
-                                    if ($owner_uuid == $this->getOwnerID()) {
+                                    if ($recipient_uuid == $this->getOwnerID()) {
                                         $subject = $owner_name . ' replied to your post!';
                                     } else {
                                         $subject = $owner_name . ' replied!';
@@ -2069,7 +2074,7 @@
                                     $context               = 'reply';
                                     break;
                                 case 'like':
-                                    if ($owner_uuid == $this->getOwnerID()) {
+                                    if ($recipient_uuid == $this->getOwnerID()) {
                                         $subject = $owner_name . ' liked your post!';
                                     } else {
                                         $send = false;
@@ -2078,7 +2083,7 @@
                                     $context               = 'like';
                                     break;
                                 case 'share':
-                                    if ($owner_uuid == $this->getOwnerID()) {
+                                    if ($recipient_uuid == $this->getOwnerID()) {
                                         $subject = $owner_name . ' reshared your post!';
                                     } else {
                                         $send = false;
@@ -2103,7 +2108,7 @@
 
                                 if (!empty($notification_template) && !empty($context) && $send_notification) {
                                     $notif = new \Idno\Entities\Notification();
-                                    $notif->setOwner($owner);
+                                    $notif->setOwner($recipient);
                                     $notif->setMessage($subject);
                                     $notif->setMessageTemplate($notification_template);
                                     $notif->setActor($owner_url);
@@ -2111,7 +2116,7 @@
                                     $notif->setObject($annotation);
                                     $notif->setTarget($this);
                                     $notif->save();
-                                    $owner->notify($notif);
+                                    $recipient->notify($notif);
                                 }
                             }
 

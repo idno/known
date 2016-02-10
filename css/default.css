@@ -1764,9 +1764,22 @@ textarea.form-control {
     max-width: 64px;
 }
 
-.notification .notification-avatar img {
+.notification.notification-unread .panel-heading {
+    color: #333;
+    font-weight: bold;
 }
 
+.notification.notification-read .panel-heading {
+    color: #666;
+    font-weight: normal;
+}
+
+.notification .panel-heading time {
+    float: right;
+}
+
+.notification .notification-avatar img {
+}
 
 .notification .notification-body {
     overflow: off;

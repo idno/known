@@ -13,13 +13,22 @@ namespace Idno\Pages\Account {
 
             $user = Idno::site()->session()->currentUser();
 
+            $limit = 10;
+            $offset = $this->getInput('offset', 0);
+
             $notifs = Notification::getFromX('Idno\Entities\Notification', [
-                'owner' => $user->getUUID(),
+                'owner'  => $user->getUUID(),
+            ], [], $limit, $offset);
+
+
+            $count = Notification::countFromX('Idno\Entities\Notification', [
+                'owner'  => $user->getUUID(),
             ]);
 
             $body = Idno::site()->template()->__([
                 'user'          => $user,
                 'notifications' => $notifs,
+                'count'         => $count,
             ])->draw('account/notifications');
 
             $page = Idno::site()->template()->__([
