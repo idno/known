@@ -2102,7 +2102,8 @@
                                 }
 
                                 if (!empty($notification_template) && !empty($context) && $send_notification) {
-                                    $notif = new \Idno\Entities\Notification($owner);
+                                    $notif = new \Idno\Entities\Notification();
+                                    $notif->setOwner($owner);
                                     $notif->setMessage($subject);
                                     $notif->setMessageTemplate($notification_template);
                                     $notif->setActor($owner_url);

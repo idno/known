@@ -13,19 +13,6 @@
         {
 
             /**
-             * Notifications aren't necessarily owned by the logged in
-             * user (which is the default for Entity), so we'll set
-             * the owner explicitly in the ctor
-             * @param \Idno\Entities\User $owner the user being notified
-             */
-            function __construct($owner)
-            {
-                parent::__construct();
-                $this->setOwner($owner);
-                $this->created = time();
-            }
-
-            /**
              * The short text message to notify the user with. (eg, a
              * subject line.)
              * @param string $message
@@ -33,6 +20,11 @@
             function setMessage($message)
             {
                 $this->message = $message;
+            }
+
+            function getMessage()
+            {
+                return $this->message;
             }
 
             /**
@@ -44,6 +36,11 @@
             function setMessageTemplate($template)
             {
                 $this->messageTemplate = $template;
+            }
+
+            function getMessageTemplate()
+            {
+                return $this->messageTemplate;
             }
 
             /**
@@ -135,6 +132,32 @@
             {
                 $this->read = false;
             }
+
+
+            function getURL() {
+                // If we have a URL override, use it
+                if (!empty($this->url)) {
+                    return $this->url;
+                }
+
+                if (!empty($this->canonical)) {
+                    return $this->canonical;
+                }
+                return \Idno\Core\Idno::site()->config()->url . 'view/' . $this->getID();
+            }
+
+            function saveDataFromInput($page)
+            {
+                $read = $page->getInput("read");
+                if ($read === 'true') {
+                    $this->markRead();
+                } else if ($read === 'false') {
+                    $this->markUnread();
+                }
+
+                $this->save();
+            }
+
         }
 
     }

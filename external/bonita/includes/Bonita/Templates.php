@@ -1,23 +1,23 @@
 <?php
 
 	/**
-	
+
 		The main Bonita template class.
-		
+
 		Handles templating.
-		
+
 		@package Bonita
 		@subpackage Templating
-	
+
 	*/
 
 	namespace Bonita {
 		class Templates {
-		
+
 			public $templateType = 'default';		// Which template are we using?
 			public $fallbackToDefault = true;		// Fallback to
 			public $vars = array();					// Template variables
-			
+
 			/**
 			 * Constructor allows copying; we're shunning use of clone here
 			 * You can also just instantiate Templates with a list of variables
@@ -30,7 +30,7 @@
 						$this->vars = $initial;
 					}
 				}
-			
+
 			/**
 			 * Magic method to set template variables
 			 * @param $name Name of variable to set
@@ -41,7 +41,7 @@
 						$this->vars[$name] = $value;
 					}
 				}
-			
+
 			/**
 			 * Magic method to get stored template variable
 			 * @param $name Name of variable to retrieve
@@ -53,7 +53,7 @@
 					}
 					return null;
 				}
-				
+
 			/**
 			 * Chainable function to allow variables to be added as an array.
 			 * @param $vars array Variables to add to the template (eg array('name1' => 'value1', 'name2' => 'value2'))
@@ -66,7 +66,7 @@
 					}
 					return $this;
 				}
-				
+
 			/**
 			 * Method to draw an actual template element
 			 * @param string $templateName Name of the template element to draw
@@ -84,7 +84,7 @@
 						$templateTypes = array($this->getTemplateType());
 						if ($this->fallbackToDefault)
 						{
-						    if ($this->getTemplateType() != 'default') $templateTypes[] = 'default';
+							if ($this->getTemplateType() != 'default') $templateTypes[] = 'default';
 						}
 
 						// Cycle through the additional paths and check for the template file
@@ -93,19 +93,17 @@
 						foreach($paths as $basepath) {
 							$path = $basepath . '/templates/'.$templateType.'/' . $templateName . '.tpl.php';
 							if (file_exists($path)) {
-
-								// Special vars:
-								$vars = $this->vars;
-								$t = $this;
-
-								ob_start();
-								include $path;
-								return ob_get_clean();
-
-								// Break out of the foreach path
-								// (although this code should be unreachable)
-								break;
-
+								// create an anonymous function for scoping
+								$fn = (function ($path, $vars, $t) {
+									// dump the variables into the local scope
+									foreach ($vars as $k => $v) {
+										${$k} = $v;
+									}
+									ob_start();
+									include $path;
+									return ob_get_clean();
+								});
+								return $fn($path, $this->vars, $this);
 							}
 						}
 					}
@@ -113,7 +111,7 @@
 					if ($returnBlank) return '';
 					return false;
 				}
-				
+
 			/**
 			 * Draws a list of PHP objects using a specified list template. Objects
 			 * must have a template of the form object/classname
@@ -128,7 +126,7 @@
 					}
 					return '';
 				}
-				
+
 			/**
 			 * Draws a single supplied PHP object. Objects should have a corresponding template
 			 * of the form object/classname
@@ -144,7 +142,7 @@
 					}
 					return '';
 				}
-				
+
 			/**
 			 * Takes some text and runs it through the current template's processor.
 			 * This is in the form of a template at processors/text, or processors/X where X
@@ -160,7 +158,7 @@
 					if (($result = $t->draw('processor/' . $processor, false)) !== false) return $result;
 					return $content;
 				}
-				
+
 			/**
 			 * Draws the shell template
 			 * @param $echo If set to true (by default), echoes the page; otherwise returns it
@@ -170,22 +168,22 @@
 
 						$content = $this->draw('shell');
 						header('Content-Length: ' . strlen($content));
-					    
+
 						// End session BEFORE we output any data
 						// session_write_close(); // Seems to cause some issues with Known, so commenting out for now
 
-						// Break long output to avoid a apache performance bug							
+						// Break long output to avoid a apache performance bug
 						$split_output = str_split($content, 1024);
 
 						foreach ($split_output as $chunk)
-						    echo $chunk;
+							echo $chunk;
 
 						exit;
 					}
 					else
 						return $this->draw('shell');
 				}
-				
+
 			/**
 			 * Returns the current template type
 			 * @return string Name of the current template ('default' by default)
@@ -193,7 +191,7 @@
 				function getTemplateType() {
 					return $this->templateType;
 				}
-				
+
 			/**
 			 * Sets the current template type
 			 * @param string $template The name of the template you wish to use
@@ -211,7 +209,7 @@
 			 * Does the specified template type exist?
 			 * @param string Name of the template type
 			 * @return true|false
-			 */				
+			 */
 				function templateTypeExists($templateType) {
 					$templateType = preg_replace('/^_[A-Z0-9\/]+/i','',$templateType);
 					if (!empty($templateType)) {
@@ -223,7 +221,7 @@
 					}
 					return false;
 				}
-				
+
 			/**
 			 * Detects templates based on the given browser string
 			 * (defaults, of course, to "default")
@@ -232,6 +230,6 @@
 					$device = \Bonita\Main::detectDevice();
 					return $this->setTemplateType($device);
 				}
-		
+
 		}
 	}
