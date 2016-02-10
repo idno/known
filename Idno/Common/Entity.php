@@ -427,7 +427,7 @@
 
                 return '';
             }
-            
+
             /**
              * Publishes this entity - either creating a new entry, or
              * overwriting the existing one. Then it will add it optionally
@@ -436,7 +436,7 @@
              *
              * @param bool $add_to_feed If set to true, will add this item to the activity stream feed if this object is being newly created
              * @param string $feed_verb If this item is added to the feed, this is the verb that will be used
-             */   
+             */
             function publish($add_to_feed = false, $feed_verb = 'post')
             {
                 if ($this->save()) {
@@ -449,7 +449,7 @@
                     return false;
                 }
             }
-            
+
             /**
              * Saves this entity - either creating a new entry, or
              * overwriting the existing one.
@@ -1908,6 +1908,7 @@
                                     $mention['content'] = $item['properties']['content'];
                                 }
                             } else if (!empty($item['properties']['summary'])) {
+                                // TODO properties are always arrays, are these checks unnecessary?
                                 if (is_array($item['properties']['summary'])) {
                                     $mention['content'] = \Idno\Core\Idno::site()->template()->sanitize_html(implode(' ', $item['properties']['summary']));
                                 } else {
@@ -1921,11 +1922,7 @@
                                 }
                             }
                             if (!empty($item['properties']['published'])) {
-                                if (is_array($item['properties']['published'])) {
-                                    $mention['created'] = @strtotime(array_shift(array_pop($item['properties']['published'])));
-                                } else {
-                                    $mention['created'] = @strtotime($item['properties']['content']);
-                                }
+                                $mention['created'] = strtotime($item['properties']['published'][0]);
                             }
                             if (empty($mention['created'])) {
                                 $mention['created'] = time();
