@@ -90,7 +90,7 @@
 
                         if (empty($user->notifications['email']) || $user->notifications['email'] == 'all' || ($user->notifications['email'] == 'comment' && in_array($notification->type, array('comment', 'reply')))) {
 
-                            if ($obj = $notification->getObject() && isset($obj['permalink'])) {
+                            if (($obj = $notification->getObject()) && isset($obj['permalink'])) {
                                 $permalink = $obj['permalink'];
                             }
 
