@@ -1785,3 +1785,16 @@ textarea.form-control {
     overflow: off;
     margin-left: 80px;
 }
+
+.notification blockquote {
+    font-size: 1em;
+}
+
+.unread-notification-count {
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #f00;
+    position: relative;
+    top: -0.5em;
+    left: -0.2em;
+}

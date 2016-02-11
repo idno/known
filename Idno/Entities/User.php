@@ -774,6 +774,21 @@
             }
 
             /**
+             * Look up the number of unread notifications for this user
+             *
+             * @return integer
+             */
+            public function countUnreadNotifications()
+            {
+                $count = Notification::countFromX('Idno\Entities\Notification', [
+                    'owner' => $this->getUUID(),
+                    'read'  => ['$not' => [true]],
+                ]);
+                error_log("counted unread notifications: $count");
+                return $count;
+            }
+
+            /**
              * Save form input
              * @param \Idno\Common\Page $page
              * @return bool|\Idno\Common\false|\Idno\Common\true|\Idno\Core\false|\Idno\Core\MongoID|null
