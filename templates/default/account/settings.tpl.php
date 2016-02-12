@@ -21,10 +21,10 @@
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
 
-        <form class="navbar-form admin" action="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>account/settings/" method="post">
+        <form class="form-horizontal admin" action="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>account/settings/" method="post">
 
 
-            <div class="row">
+            <div class="form-group">
                 <div class="col-md-2">
                     <label class="control-label" for="inputName">Your name</label>
                 </div>
@@ -36,7 +36,7 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="form-group">
                 <div class="col-md-2">
                     <label class="control-label" for="inputHandle">Your username</label>
                 </div>
@@ -47,7 +47,7 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="form-group">
                 <div class="col-md-2">
                     <label class="control-label" for="inputEmail">Your email address</label>
                 </div>
@@ -59,7 +59,7 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="form-group">
                 <div class="col-md-2">
                     <label class="control-label" for="inputPassword">Your password<br>
                     </label>

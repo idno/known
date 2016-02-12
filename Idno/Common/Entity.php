@@ -1102,7 +1102,8 @@
              * Sets the POSSE link for this entity to a particular service
              * @param $service The name of the service
              * @param $url The URL of the post
-             * @param $identifier A human-readable identifier
+             * @param $identifier A human-readable account identifier
+             * @param $item_id A Known-readable item identifier
              * @param $account_id A Known-readable account identifier
              * @return bool
              */
