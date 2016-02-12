@@ -814,11 +814,6 @@ textarea:focus, input[type="url"]:focus {
     outline: 0 none;
 }
 
-select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="tel"], input[type="color"], .uneditable-input {
-	margin-top: 5px;
-	margin-bottom: 10px;
-}
-
 .blank-footer {
     margin: auto;
     padding-top: 50px;

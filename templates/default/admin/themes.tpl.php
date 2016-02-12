@@ -12,9 +12,7 @@
 
             if (!empty($vars['themes_stored']) && is_array($vars['themes_stored'])) {
                 // Check for active theme
-                if (!empty($vars['theme'])){
-                    $currentTheme = $vars['theme'];
-                }
+                $currentTheme = !empty($vars['theme']) ? $vars['theme'] : false;
                 // Loop through the array to pull out active theme and draw it
                 foreach($vars['themes_stored'] as $shortname => $theme) {
                     $theme['shortname'] = $shortname;
