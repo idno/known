@@ -15,14 +15,12 @@
                 $inreplyto = \Idno\Core\Idno::site()->currentPage()->getInput('inreplyto');
                 $body      = \Idno\Core\Idno::site()->currentPage()->getInput('body');
 
-                if (!empty(\Idno\Core\Idno::site()->config()->split_replies)) {
-                    if (!empty($inreplyto)) {
-                        return new Reply();
-                    }
+                if (!empty($inreplyto)) {
+                    return new Reply();
+                }
 
-                    if ($body[0] == '@') {
-                        return new Reply();
-                    }
+                if ($body[0] == '@') {
+                    return new Reply();
                 }
 
                 return new Status();
