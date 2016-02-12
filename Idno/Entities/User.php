@@ -784,7 +784,6 @@
                     'owner' => $this->getUUID(),
                     'read'  => ['$not' => [true]],
                 ]);
-                error_log("counted unread notifications: $count");
                 return $count;
             }
 
