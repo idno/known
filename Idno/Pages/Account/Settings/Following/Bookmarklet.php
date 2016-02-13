@@ -17,7 +17,7 @@
                 $this->createGatekeeper();
                 $user = \Idno\Core\Idno::site()->session()->currentUser();
 
-                $u = $this->getInput('u');
+                $u = $this->getInput('u', $this->getInput('share_url', $this->getInput('url'))); // Try all variations of a URL
 
                 if ($content = \Idno\Core\Webservice::get($u)['content']) {
 
@@ -74,7 +74,7 @@
              * @param array $mf2
              * @param array $out
              */
-            private function findHcard(array $mf2, array &$out)
+            public function findHcard(array $mf2, array &$out)
             {
                 foreach ($mf2 as $item) {
                     // Find h-card
