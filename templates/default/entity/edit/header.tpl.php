@@ -15,9 +15,9 @@
                     <ul class="nav nav-tabs">
                         <?php
 
-                            foreach(array('note' => 'Share', 'reply' => 'Reply', 'bookmark' => 'Bookmark', /*'like' => 'Like', */'rsvp' => 'RSVP') as $variable => $label) {
+                            foreach(array('note' => 'Share', 'reply' => 'Reply', 'bookmark' => 'Bookmark', /*'like' => 'Like', */'rsvp' => 'RSVP', 'person' => 'Find Friends') as $variable => $label) {
 
-                                if ($content_type = \Idno\Common\ContentType::getRegisteredForIndieWebPostType($variable)) {
+                                if (($content_type = \Idno\Common\ContentType::getRegisteredForIndieWebPostType($variable)) || ($variable == 'person')) {
 
                                     ?>
                                     <li <?php if ($variable == $share_type) { ?>class="active"<?php } ?>>
