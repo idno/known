@@ -39,7 +39,7 @@ $nickname =  $properties['nickname'][0];
 		    <span class="p-name fn"><?= $name ?></span>
 		</p>
 	    </div>
-	    <div class="e-content entry-content">
+	    <div class="entry-content">
 		<?php
 		foreach ($urls as $url) {
 		    ?>
@@ -49,37 +49,48 @@ $nickname =  $properties['nickname'][0];
 		?>
                 <input type="hidden" name="photo" value="<?= htmlspecialchars($photo) ?>" />
                 
-		<div class="control-group">
-		    <label class="control-label" for="inputName">Name</label>
+		<div class="form-group">
+                    <div class="col-md-2">
+                        <label class="control-label" for="inputName">Name</label>
+                    </div>
 
-		    <div class="controls">
-			<input id="inputName" type="text" class="col-md-4" name="name" required
+		    <div class="col-md-8">
+			<input id="inputName" type="text" class="col-md-8" name="name" required
 			       value="<?= htmlspecialchars($name) ?>">
 		    </div>
+                    <div class="col-md-2">
+                    </div>
 		</div>
 		
-		<div class="control-group">
-		    <label class="control-label" for="inputNickname">Nickname</label>
-
-		    <div class="controls">
-			<input id="inputNickname" type="text" class="col-md-4" name="nickname" required placeholder="Handle (for your reference)"
+		<div class="form-group">
+                    <div class="col-md-2">
+                        <label class="control-label" for="inputNickname">Nickname</label>
+                    </div>
+		    <div class="col-md-8">
+			<input id="inputNickname" type="text" class="col-md-8" name="nickname" required placeholder="Handle (for your reference)"
 			       value="<?= htmlspecialchars($nickname) ?>">
 		    </div>
+                    <div class="col-md-2"></div>
 		</div>
 		
-		<div class="control-group">
-		    <label class="control-label" for="inputEmail">Email</label>
+		<div class="form-group">
+                    <div class="col-md-2">
+                        <label class="control-label" for="inputEmail">Email</label>
+                    </div>
 
-		    <div class="controls">
-			<input id="inputName" type="email" class="col-md-4" name="email" required
+		    <div class="col-md-8">
+			<input id="inputName" type="email" class="col-md-8" name="email" required
 			       value="<?= htmlspecialchars($email) ?>">
 		    </div>
+                    <div class="col-md-2"></div>
 		</div>
 		
-		<div class="control-group">
-		    <label class="control-label" for="inputUrl">Profile URL</label>
+		<div class="form-group">
+                    <div class="col-md-2">
+                        <label class="control-label" for="inputUrl">Profile URL</label>
+                    </div>
 		    
-		    <div class="controls">
+		    <div class="col-md-8">
 			<?php if (count($urls)>1) { ?>
 			<select name="uuid">
 			    <?php
@@ -96,9 +107,11 @@ $nickname =  $properties['nickname'][0];
 			<?php } ?>
 		    </div>
 
+                    <div class="col-md-2">
+                    </div>
 		</div>
 		
-		<div class="control-group">
+		<div class="form-group">
 		    <div class="controls">
 			<button type="submit" class="btn">Add as friend...</button>
 		    </div>
