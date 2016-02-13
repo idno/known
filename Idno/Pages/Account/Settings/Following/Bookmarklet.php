@@ -56,7 +56,7 @@
                                 $body .= $t->__(array('mf2' => $card))->draw('account/settings/following/mf2user');
 
                             // List user
-                            $t->body  = $body;
+                            $t->body  = $t->draw('entity/edit/header') . $body;
                             $t->title = 'Found users';
                             $t->drawPage();
                         }
@@ -74,7 +74,7 @@
              * @param array $mf2
              * @param array $out
              */
-            public function findHcard(array $mf2, array &$out)
+            private function findHcard(array $mf2, array &$out)
             {
                 foreach ($mf2 as $item) {
                     // Find h-card
