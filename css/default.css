@@ -145,6 +145,7 @@ img {
 
 .idno-entry .h-card .p-name {
     word-break: break-word;
+    word-wrap: break-word;
 }
 
 .idno-entry .hidden-phone .h-card .icon-container {
