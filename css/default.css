@@ -144,7 +144,7 @@ img {
 }
 
 .idno-entry .h-card .p-name {
-    word-break: break-word;
+    word-break: break-all;
     word-wrap: break-word;
 }
 
