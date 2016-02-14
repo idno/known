@@ -867,26 +867,6 @@
             }
 
             /**
-             * Return the creation date of this entity, relative to now.
-             * @return string
-             */
-            function getRelativePublishDate()
-            {
-                $distance = time() - $this->created;
-                if ($distance < 86400) {
-                    if ($distance < 60) {
-                        return $distance . 's';
-                    } else if ($distance < 3600) {
-                        return ceil($distance / 60) . 'm';
-                    } else {
-                        return ceil($distance / 60 / 60) . 'h';
-                    }
-                } else {
-                    return date('M d Y', $this->created);
-                }
-            }
-
-            /**
              * Set the access group of this object
              * @param mixed $access The ID of the access group or an AccessGroup object
              * return true|false
