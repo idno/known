@@ -143,6 +143,10 @@ img {
     line-height: 1.2em;
 }
 
+.idno-entry .h-card .p-name {
+    word-break: break-word;
+}
+
 .idno-entry .hidden-phone .h-card .icon-container {
     margin-bottom: 1em;
     width: 60px;
