@@ -21,7 +21,7 @@
 
             /**
              * Returns an instance of the database reference variable
-             * @return \MongoDB
+             * @return mixed
              */
             function getDatabase()
             {
