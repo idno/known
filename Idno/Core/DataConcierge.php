@@ -152,7 +152,7 @@
              * @param array $row
              * @return \Idno\Common\Entity | false
              */
-            protected function rowToEntity($row)
+            function rowToEntity($row)
             {
                 if (!empty($row['entity_subtype']))
                     if (class_exists($row['entity_subtype'])) {
