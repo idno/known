@@ -86,31 +86,8 @@
 
                 return false;
             }
-
-            /**
-             * Saves a record to the specified database collection
-             *
-             * @param string $collection
-             * @param array $array
-             * @return MongoID | false
-             */
-
-            function saveRecord($collection, $array)
-            {
-                $collection_obj = $this->database->selectCollection($collection);
-                if (empty($array['_id'])) {
-                    unset($array['_id']);
-                }
-                $array = $this->sanitizeFields($array);
-                if ($result = $collection_obj->save($array, array('w' => 1))) {
-                    if ($result['ok'] == 1) {
-                        return $array['_id'];
-                    }
-                }
-
-                return false;
-            }
-
+            
+            
             /**
              * Retrieves an Idno entity object by its UUID, casting it to the
              * correct class
@@ -131,7 +108,34 @@
 
                 return false;
             }
+            
+            
+            /**
+             * Retrieves ANY object from a collection.
+             *
+             * @param string $collection
+             * @return \Idno\Common\Entity | false
+             */
+            function getAnyObject($collection = 'entities')
+            {
+                if ($row = $this->getAnyRecord($collection)) {
+                    if ($obj = $this->rowToEntity($row)) {
+                        return $obj;
+                    }
+                }
+                return false;
+            }
+            
+            /**
+             * Saves a record to the specified database collection
+             *
+             * @param string $collection
+             * @param array $array
+             * @return id | false
+             */
+            abstract function saveRecord($collection, $array);
 
+            
             /**
              * Retrieves a record from the database by its UUID
              *
@@ -140,11 +144,8 @@
              * @return array
              */
 
-            function getRecordByUUID($uuid, $collection = 'entities')
-            {
-                $raw = $this->database->$collection->findOne(array("uuid" => $uuid));
-                return $this->unsanitizeFields($raw);
-            }
+            abstract function getRecordByUUID($uuid, $collection = 'entities');
+
 
             /**
              * Converts a database row into an Idno entity
@@ -164,16 +165,13 @@
 
                 return false;
             }
-
+            
             /**
              * Process the ID appropriately
              * @param $id
              * @return \MongoId
              */
-            function processID($id)
-            {
-                return new \MongoId($id);
-            }
+            abstract function processID($id);
 
             /**
              * Retrieves a record from the database by ID
@@ -183,12 +181,7 @@
              * @return array
              */
 
-            function getRecord($id, $collection = 'entities')
-            {
-                $raw = $this->database->$collection->findOne(array("_id" => new \MongoId($id)));
-                return $this->unsanitizeFields($raw);
-
-            }
+            abstract function getRecord($id, $collection = 'entities');
 
             /**
              * Retrieves ANY record from a collection
@@ -196,27 +189,7 @@
              * @param string $collection
              * @return array
              */
-            function getAnyRecord($collection = 'entities')
-            {
-                $raw = $this->database->$collection->findOne();
-                return $this->unsanitizeFields($raw);
-            }
-
-            /**
-             * Retrieves ANY object from a collection.
-             *
-             * @param string $collection
-             * @return \Idno\Common\Entity | false
-             */
-            function getAnyObject($collection = 'entities')
-            {
-                if ($row = $this->getAnyRecord($collection)) {
-                    if ($obj = $this->rowToEntity($row)) {
-                        return $obj;
-                    }
-                }
-                return false;
-            }
+            abstract function getAnyRecord($collection = 'entities');
 
             /**
              * Retrieve objects of a certain kind that we're allowed to see,
@@ -233,65 +206,8 @@
              * @return array|false Array of elements or false, depending on success
              */
 
-            function getObjects($subtypes = '', $search = array(), $fields = array(), $limit = 10, $offset = 0, $collection = 'entities', $readGroups = [])
-            {
-
-                // Initialize query parameters to be an empty array
-                $query_parameters = array();
-
-                // Ensure subtypes are recorded properly
-                // and remove subtypes that have an exclamation mark before them
-                // from consideration
-                if (!empty($subtypes)) {
-                    $not = array();
-                    if (!is_array($subtypes)) {
-                        $subtypes = array($subtypes);
-                    }
-                    foreach ($subtypes as $key => $subtype) {
-                        if (substr($subtype, 0, 1) == '!') {
-                            unset($subtypes[$key]);
-                            $not[] = substr($subtype, 1);
-                        }
-                    }
-                    if (!empty($subtypes)) {
-                        $query_parameters['entity_subtype']['$in'] = $subtypes;
-                    }
-                    if (!empty($not)) {
-                        $query_parameters['entity_subtype']['$not']['$in'] = $not;
-                    }
-                }
-
-                // Make sure we're only getting objects that we're allowed to see
-                if (empty($readGroups)) {
-                    $readGroups                 = \Idno\Core\Idno::site()->session()->getReadAccessGroupIDs();
-                }
-                $query_parameters['access'] = array('$in' => $readGroups);
-
-                // Join the rest of the search query elements to this search
-                $query_parameters = array_merge($query_parameters, $search);
-
-                // Prepare the fields array for searching, if required
-                if (!empty($fields) && is_array($fields)) {
-                    $fields = array_flip($fields);
-                    $fields = array_fill_keys($fields, true);
-                } else {
-                    $fields = array();
-                }
-
-                // Run the query
-                if ($results = $this->getRecords($fields, $query_parameters, $limit, $offset, $collection)) {
-                    $return = array();
-                    foreach ($results as $row) {
-                        $return[] = $this->rowToEntity($row);
-                    }
-
-                    return $return;
-                }
-
-                return false;
-
-            }
-
+            abstract function getObjects($subtypes = '', $search = array(), $fields = array(), $limit = 10, $offset = 0, $collection = 'entities', $readGroups = []);
+            
             /**
              * Retrieves a set of records from the database with given parameters, in
              * reverse chronological order
@@ -303,52 +219,14 @@
              * @return iterator|false Iterator or false, depending on success
              */
 
-            function getRecords($fields, $parameters, $limit, $offset, $collection = 'entities')
-            {
-                try {
-                    // Make search case insensitive
-                    $fieldscopy = $fields;
-                    foreach ($fields as $key => $value) {
-                        if (is_string($value)) {
-                            $val              = new \MongoRegex("/{$value}/i");
-                            $fieldscopy[$key] = $val;
-                        }
-                    }
-                    $fields = $fieldscopy;
-                    $result = $this->database->$collection
-                            ->find($parameters, $fields)
-                            ->skip($offset)
-                            ->limit($limit)
-                            ->sort(array('created' => -1));
-
-                    if ($result) {
-                        return $this->unsanitizeFields($result);
-                    }
-                } catch (\Exception $e) {
-                    return false;
-                }
-
-                return false;
-            }
+            abstract function getRecords($fields, $parameters, $limit, $offset, $collection = 'entities');
 
             /**
              * Export a collection to JSON.
              * @param string $collection
              * @return bool|string
              */
-            function exportRecords($collection = 'entities')
-            {
-                try {
-                    if ($result = $this->database->$collection->find()) {
-                        $result = $this->unsanitizeFields($result);
-                        return json_encode(iterator_to_array($result));
-                    }
-                } catch (\Exception $e) {
-                    return false;
-                }
-
-                return false;
-            }
+            abstract function exportRecords($collection = 'entities');
 
             /**
              * Count objects of a certain kind that we're allowed to see
@@ -357,44 +235,7 @@
              * @param array $search Any extra search terms in array format (eg array('foo' => 'bar')) (default: empty)
              * @param string $collection Collection to query; default: entities
              */
-            function countObjects($subtypes = '', $search = array(), $collection = 'entities')
-            {
-
-                // Initialize query parameters to be an empty array
-                $query_parameters = array();
-
-                // Ensure subtypes are recorded properly
-                // and remove subtypes that have an exclamation mark before them
-                // from consideration
-                if (!empty($subtypes)) {
-                    $not = array();
-                    if (!is_array($subtypes)) {
-                        $subtypes = array($subtypes);
-                    }
-                    foreach ($subtypes as $key => $subtype) {
-                        if (substr($subtype, 0, 1) == '!') {
-                            unset($subtypes[$key]);
-                            $not[] = substr($subtype, 1);
-                        }
-                    }
-                    if (!empty($subtypes)) {
-                        $query_parameters['entity_subtype']['$in'] = $subtypes;
-                    }
-                    if (!empty($not)) {
-                        $query_parameters['entity_subtype']['$not']['$in'] = $not;
-                    }
-                }
-
-                // Make sure we're only getting objects that we're allowed to see
-                $readGroups                 = site()->session()->getReadAccessGroupIDs();
-                $query_parameters['access'] = array('$in' => $readGroups);
-
-                // Join the rest of the search query elements to this search
-                $query_parameters = array_merge($query_parameters, $search);
-
-                return $this->countRecords($query_parameters, $collection);
-
-            }
+            abstract function countObjects($subtypes = '', $search = array(), $collection = 'entities');
 
             /**
              * Count the number of records that match the given parameters
@@ -402,50 +243,29 @@
              * @param string $collection The collection to interrogate (default: 'entities')
              * @return int
              */
-            function countRecords($parameters, $collection = 'entities')
-            {
-                if ($result = $this->database->$collection->count($parameters)) {
-                    return (int)$result;
-                }
-
-                return 0;
-            }
-
+            abstract function countRecords($parameters, $collection = 'entities');
+            
             /**
              * Remove an entity from the database
              * @param string $id
              * @return true|false
              */
-            function deleteRecord($id, $collection = 'entities')
-            {
-                return $this->database->$collection->remove(array("_id" => new \MongoId($id)));
-            }
-
+            abstract function deleteRecord($id, $collection = 'entities');
+            
             /**
              * Retrieve the filesystem associated with the current db, suitable for saving
              * and retrieving files
-             * @return bool|\MongoGridFS
+             * @return bool|filesystem
              */
-            function getFilesystem()
-            {
-                if ($grid = new \MongoGridFS($this->database)) {
-                    return $grid;
-                }
-
-                return false;
-            }
+            abstract function getFilesystem();
 
             /**
              * Given a text query, return an array suitable for adding into getFromX calls
              * @param $query
              * @return array
              */
-            function createSearchArray($query)
-            {
-                $regexObj = new \MongoRegex("/" . addslashes($query) . "/i");
+            abstract function createSearchArray($query);
 
-                return array('$or' => array(array('body' => $regexObj), array('title' => $regexObj), array('tags' => $regexObj), array('description' => $regexObj)));
-            }
 
             /**
              * Internal function which ensures collections are sanitised.
@@ -456,55 +276,6 @@
                 return preg_replace("/[^a-zA-Z0-9\_]/", "", $collection);
             }
 
-            /**
-             * Make an array safe for storage in Mongo. This means
-             * %-escaping all .'s and $'s.
-             *
-             * @param mixed $obj an array, scalar value, or null
-             * @return mixed
-             */
-            function sanitizeFields($obj)
-            {
-                if (is_array($obj)) {
-                    // TODO maybe avoid unnecessary object churn by only creating a new
-                    // array if a key (or nested array) is found that needs encoding.
-                    // The vast majority won't.
-                    $result = [];
-                    foreach ($obj as $k => $v) {
-                        $k = str_replace(array_keys(self::$ESCAPE_SEQUENCES), array_values(self::$ESCAPE_SEQUENCES), $k);
-                        $result[$k] = $this->sanitizeFields($v);
-                    }
-                    return $result;
-                } else if ($obj instanceof \Traversable) {
-                    // wrap iterator to sanitize lazily
-                    return new \Idno\Common\MappingIterator($obj, [$this, 'sanitizeFields']);
-                }
-
-                return $obj;
-            }
-
-            /**
-             * Restore an object's fields after removing it from
-             * storage.
-             *
-             * @param mixed $obj an array, scalar value, or null
-             * @return mixed
-             */
-            function unsanitizeFields($obj)
-            {
-                if (is_array($obj)) {
-                    $result = [];
-                    foreach ($obj as $k => $v) {
-                        $k = str_replace(array_values(self::$ESCAPE_SEQUENCES), array_keys(self::$ESCAPE_SEQUENCES), $k);
-                        $result[$k] = $this->unsanitizeFields($v);
-                    }
-                    return $result;
-                } else if ($obj instanceof \Traversable) {
-                    // wrap iterator to unsanitize lazily
-                    return new \Idno\Common\MappingIterator($obj, [$this, 'unsanitizeFields']);
-                }
-                return $obj;
-            }
         }
 
         /**
