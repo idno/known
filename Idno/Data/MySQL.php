@@ -24,6 +24,12 @@
             private $dbport;
             
             function __construct($dbuser = null, $dbpass = null, $dbname = null, $dbhost = null, $dbport = null) {
+                $this->dbuser = $dbuser;
+                $this->dbpass = $dbpass;
+                $this->dbname = $dbname;
+                $this->dbhost = $dbhost;
+                $this->dbport = $dbport;
+                
                 if (empty($dbuser)) {
                     $this->dbuser = \Idno\Core\Idno::site()->config()->dbuser;
                 }

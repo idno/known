@@ -23,6 +23,13 @@ namespace Idno\Data {
         private $dbpass;
 
         function __construct($dbstring = null, $dbuser = null, $dbpass = null, $dbname = null, $dbauthsrc = null) {
+            
+            $this->dbstring = $dbstring;
+            $this->dbuser = $dbuser;
+            $this->dbpass = $dbpass;
+            $this->dbname = $dbname;
+            $this->dbauthsrc = $dbauthsrc;
+            
             if (empty($dbstring)) {
                 $this->dbstring = site()->config()->dbstring;
             }
