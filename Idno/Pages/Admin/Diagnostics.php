@@ -66,6 +66,15 @@
                     'report' => [],
                 ];
 
+                // Check SSL
+                if (!\Idno\Core\Idno::site()->currentPage()->isSSL()) {
+                    $basics['status']                = 'Failure';
+                    $basics['report']['security'] = [
+                        'status' => 'Warning',
+                        'message' => 'Your site doesn\'t seem to be loaded with HTTPS. We strongly recommend using HTTPS to make your site secure and protect your privacy.'
+                    ];
+                }
+                
                 // Check PHP version (sometimes install can be
                 if (version_compare(phpversion(), '5.4') >= 0) {
                     $basics['report']['php-version'] = [
@@ -127,7 +136,7 @@
                         $basics['report']['upload-path']['status'] = 'Failure';
                     }
                 }
-
+                
                 return $basics;
             }
 

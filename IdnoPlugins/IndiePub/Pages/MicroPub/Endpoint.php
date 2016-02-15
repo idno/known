@@ -143,9 +143,10 @@
                         } else {
                             $content_value = $content;
                         }
-                        $posse_url = parse_url($posse_link);
-                        $posse_service = $posse_url['host'];
-                        $entity->setPosseLink($posse_service, $posse_link, '', '');
+                        if (!empty($posse_link)) {
+                            $posse_service = parse_url($posse_link, PHP_URL_HOST);
+                            $entity->setPosseLink($posse_service, $posse_link, '', '');
+                        }
                         $this->setInput('title', $name);
                         $this->setInput('body', $content_value);
                         $this->setInput('inreplyto', $in_reply_to);
