@@ -12,9 +12,6 @@
 
         class Sqlite3 extends \Idno\Core\DataConcierge
         {
-
-            private $client = null;
-            private $database = null;
             
             private $dbname;
             

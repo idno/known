@@ -11,10 +11,6 @@
 
         class Postgres extends \Idno\Core\DataConcierge
         {
-
-            private $client = null;
-            private $database = null;
-            
             private $dbname;
             private $dbuser;
             private $dbpass;
