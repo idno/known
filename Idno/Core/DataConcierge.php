@@ -18,12 +18,6 @@
             protected $client;
             protected $database;
             
-            /**
-             * Escape sequences for sanitizing fields that will be stored in Mongo.
-             * Note that % must be first so that it doesn't double-escape previous sequences
-             */
-            private static $ESCAPE_SEQUENCES = ['%' => '%25', '$' => '%24', '.' => '%2E'];
-
 
             /**
              * Returns an instance of the database reference variable
