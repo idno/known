@@ -782,7 +782,7 @@
             {
                 $count = Notification::countFromX('Idno\Entities\Notification', [
                     'owner' => $this->getUUID(),
-                    'read'  => ['$not' => [true]],
+                    'read'  => false,
                 ]);
                 return $count;
             }
