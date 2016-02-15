@@ -22,6 +22,7 @@ before_script:
   - sudo apt-get install -y --force-yes apache2 libapache2-mod-fastcgi make
   - sudo apt-get install -y --force-yes php5-dev php-pear php5-mysql php5-curl php5-gd php5-json php5-sqlite php5-pgsql
   # Enable php-fpm and Mongodb
+  - sudo cp Tests/build/www.conf ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/
   - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
   - sudo a2enmod rewrite actions fastcgi alias
   - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.0" ]]; then sudo printf "\n" | pecl install mongodb; fi
