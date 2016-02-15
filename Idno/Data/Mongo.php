@@ -360,7 +360,7 @@ namespace Idno\Data {
          * @param mixed $obj an array, scalar value, or null
          * @return mixed
          */
-        protected function sanitizeFields($obj) {
+        function sanitizeFields($obj) {
             if (is_array($obj)) {
                 // TODO maybe avoid unnecessary object churn by only creating a new
                 // array if a key (or nested array) is found that needs encoding.
@@ -386,7 +386,7 @@ namespace Idno\Data {
          * @param mixed $obj an array, scalar value, or null
          * @return mixed
          */
-        protected function unsanitizeFields($obj) {
+        function unsanitizeFields($obj) {
             if (is_array($obj)) {
                 $result = [];
                 foreach ($obj as $k => $v) {
