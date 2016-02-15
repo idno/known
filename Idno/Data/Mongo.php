@@ -297,7 +297,7 @@ namespace Idno\Data {
             }
 
             // Make sure we're only getting objects that we're allowed to see
-            $readGroups = site()->session()->getReadAccessGroupIDs();
+            $readGroups = \Idno\Core\Idno::site()->session()->getReadAccessGroupIDs();
             $query_parameters['access'] = array('$in' => $readGroups);
 
             // Join the rest of the search query elements to this search
