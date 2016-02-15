@@ -71,7 +71,7 @@
                 \Idno\Core\Idno::site()->triggerEvent('indiepub/post/start', ['page' => $this]);
 
                 // Get details
-                $type        = $this->getInput('h');
+                $type        = $this->getInput('h', 'entry');
                 $content     = $this->getInput('content');
                 $name        = $this->getInput('name');
                 $in_reply_to = $this->getInput('in-reply-to');
@@ -79,33 +79,29 @@
                 $posse_link  = $this->getInput('syndication');
                 $like_of     = $this->getInput('like-of');
                 $repost_of   = $this->getInput('repost-of');
-                $categories    = $this->getInput('category');
+                $categories  = $this->getInput('category');
 
                 if ($type == 'entry') {
-                    $type = 'article';
+                    $type = 'note';
+
                     if (!empty($_FILES['photo'])) {
                         $type = 'photo';
-                    } else {
-                        $photo_url = $this->getInput('photo');
-                        if ($photo_url) {
-                            $type      = 'photo';
-                            $success   = $this->uploadFromUrl($photo_url);
-                            if (!$success) {
-                            	\Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
-                                $this->setResponse(500);
-                                echo "Failed uploading photo from $photo_url";
-                                exit;
-                            }
+                    } else if ($photo_url = $this->getInput('photo')) {
+                        $type      = 'photo';
+                        $success   = $this->uploadFromUrl($photo_url);
+                        if (!$success) {
+                            \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
+                            $this->setResponse(500);
+                            echo "Failed uploading photo from $photo_url";
+                            exit;
                         }
+                    } else if (!empty($name)) {
+                        $type = 'article';
                     }
 
                     if ($type == 'photo' && empty($name) && !empty($content)) {
                         $name    = $content;
                         $content = '';
-                    }
-
-                    if (empty($name)) {
-                        $type = 'note';
                     }
                     if (!empty($like_of)) {
                         $type = 'like';
@@ -114,10 +110,14 @@
                         $type = 'repost';
                     }
                 }
+
                 // setting all categories as hashtags into content field
                 if (is_array($categories)) {
                     foreach ($categories as $category) {
-                        $content .= " #$category";
+                        $category = trim($category);
+                        if ($category) {
+                            $content .= " #$category";
+                        }
                     }
                     $title_words = explode(" ", $name);
                     $name = "";
@@ -127,11 +127,9 @@
                         }
                     }
                 }
-                
 
                 // Get an appropriate plugin, given the content type
                 if ($contentType = ContentType::getRegisteredForIndieWebPostType($type)) {
-
                     if ($entity = $contentType->createEntity()) {
                         if (is_array($content)) {
                             $content_value = '';
