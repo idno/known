@@ -31,19 +31,19 @@ namespace Idno\Data {
             $this->dbauthsrc = $dbauthsrc;
             
             if (empty($dbstring)) {
-                $this->dbstring = site()->config()->dbstring;
+                $this->dbstring = \Idno\Core\Idno::site()->config()->dbstring;
             }
             if (empty($dbuser)) {
-                $this->dbuser = site()->config()->dbuser;
+                $this->dbuser = \Idno\Core\Idno::site()->config()->dbuser;
             }
             if (empty($dbpass)) {
-                $this->dbpass = site()->config()->dbpass;
+                $this->dbpass = \Idno\Core\Idno::site()->config()->dbpass;
             }
             if (empty($dbname)) {
-                $this->dbname = site()->config()->dbname;
+                $this->dbname = \Idno\Core\Idno::site()->config()->dbname;
             }
             if (empty($dbauthsrc)) {
-                $this->dbauthsrc = site()->config()->dbauthsrc;
+                $this->dbauthsrc = \Idno\Core\Idno::site()->config()->dbauthsrc;
             }
             parent::__construct();
         }
