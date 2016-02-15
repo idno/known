@@ -23,14 +23,36 @@
 
             private $client = null;
             private $database = null;
+            
+            private $dbstring;
+            private $dbauthsrc;
+            private $dbname;
+            private $dbuser;
+            private $dbpass;
+            
+            function __construct(
+                    $dbstring = null,
+                    $dbuser = null,
+                    $dbpass = null,
+                    $dbname = null,
+                    $dbauthsrc = null
+            ) {
+                if (empty($dbstring)) $this->dbstring = site()->config()->dbstring;
+                if (empty($dbuser)) $this->dbuser = site()->config()->dbuser;
+                if (empty($dbpass)) $this->dbpass = site()->config()->dbpass;
+                if (empty($dbname)) $this->dbname = site()->config()->dbname;
+                if (empty($dbauthsrc)) $this->dbauthsrc = site()->config()->dbauthsrc;
+                
+                parent::__construct();
+            }
 
             function init()
             {
                 try {
-                    $this->client = new \MongoClient(site()->config()->dbstring, array_filter([
-                        'authSource' => site()->config()->dbauthsrc,
-                        'username'   => site()->config()->dbuser,
-                        'password'   => site()->config()->dbpass,
+                    $this->client = new \MongoClient($this->dbstring, array_filter([
+                        'authSource' => $this->dbauthsrc,
+                        'username'   => $this->dbuser,
+                        'password'   => $this->dbpass,
                     ]));
                 } catch (\MongoConnectionException $e) {
                     http_response_code(500);
@@ -38,7 +60,7 @@
                     exit;
                 }
 
-                $this->database = $this->client->selectDB(site()->config()->dbname);
+                $this->database = $this->client->selectDB($this->dbname);
             }
 
             /**
