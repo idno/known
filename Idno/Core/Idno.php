@@ -436,6 +436,8 @@
                     if ($public == true) {
                         $this->public_pages[] = $handler;
                     }
+                } else {
+                    $this->logging()->log("Could not add $pattern. $handler not found", LOGLEVEL_ERROR);
                 }
             }
 
