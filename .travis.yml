@@ -8,7 +8,7 @@ php:
 # Configure different DB environments
 env:
   - DB=mysql
-  - DB=mongo
+  - DB=mongodb
   - DB=sqlite3
   - DB=pgsql
 
@@ -24,7 +24,7 @@ before_script:
   # Enable php-fpm and Mongodb
   - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
   - sudo a2enmod rewrite actions fastcgi alias
-  - echo "extension = mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
   # Configure apache virtual hosts
