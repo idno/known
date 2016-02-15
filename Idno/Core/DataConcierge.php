@@ -37,12 +37,21 @@
                     $dbname = null,
                     $dbauthsrc = null
             ) {
-                if (empty($dbstring)) $this->dbstring = site()->config()->dbstring;
-                if (empty($dbuser)) $this->dbuser = site()->config()->dbuser;
-                if (empty($dbpass)) $this->dbpass = site()->config()->dbpass;
-                if (empty($dbname)) $this->dbname = site()->config()->dbname;
-                if (empty($dbauthsrc)) $this->dbauthsrc = site()->config()->dbauthsrc;
-                
+                if (empty($dbstring)) {
+                    $this->dbstring = site()->config()->dbstring;
+                }
+                if (empty($dbuser)) {
+                    $this->dbuser = site()->config()->dbuser;
+                }
+                if (empty($dbpass)) {
+                    $this->dbpass = site()->config()->dbpass;
+                }
+                if (empty($dbname)) {
+                    $this->dbname = site()->config()->dbname;
+                }
+                if (empty($dbauthsrc)) { 
+                    $this->dbauthsrc = site()->config()->dbauthsrc;
+                }
                 parent::__construct();
             }
 
