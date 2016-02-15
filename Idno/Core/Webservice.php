@@ -68,19 +68,19 @@
                 switch (strtolower($verb)) {
                     case 'post':
                         curl_setopt($curl_handle, CURLOPT_POST, 1);
-                        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, self::flattenArrayToQuery($params));
+                        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $params);
                         curl_setopt($curl_handle, CURLOPT_HTTPHEADER, array("Content-type: multipart/form-data"));
                         $headers[] = 'Expect:';
                         break;
                     case 'put':
                         curl_setopt($curl_handle, CURLOPT_CUSTOMREQUEST, 'PUT'); // Override request type
-                        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, self::flattenArrayToQuery($params));
+                        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $params);
                         curl_setopt($curl_handle, CURLOPT_HTTPHEADER, array("Content-type: multipart/form-data"));
                         break;
 
                     case 'delete':
                         curl_setopt($curl_handle, CURLOPT_CUSTOMREQUEST, 'DELETE'); // Override request type
-                        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, self::flattenArrayToQuery($params));
+                        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $params);
                         curl_setopt($curl_handle, CURLOPT_HTTPHEADER, array("Content-type: multipart/form-data"));
                     case 'head':
                         if ($verb == 'head') curl_setopt($curl_handle, CURLOPT_NOBODY, true);
