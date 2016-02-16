@@ -1936,11 +1936,6 @@
                                     $mention['url'] = $item['properties']['url'];
                                 }
                             }
-                            if (!empty($item['properties']['like']) && is_array($item['properties']['like'])) {
-                                if (in_array($target, static::getStringURLs($item['properties']['like']))) {
-                                    $mention['type'] = 'like';
-                                }
-                            }
                             if (!empty($item['properties']['like-of']) && is_array($item['properties']['like-of'])) {
                                 if (in_array($target, static::getStringURLs($item['properties']['like-of']))) {
                                     $mention['type'] = 'like';
@@ -1950,7 +1945,7 @@
                                 $mention['type']    = 'rsvp';
                                 $mention['content'] = implode(' ', $item['properties']['rsvp']);
                             }
-                            foreach (array('share', 'repost', 'repost-of') as $verb) {
+                            foreach (array('share', 'repost-of') as $verb) {
                                 if (!empty($item['properties'][$verb]) && is_array($item['properties'][$verb])) {
                                     if (in_array($target, static::getStringURLs($item['properties'][$verb]))) {
                                         $mention['type'] = 'share';
