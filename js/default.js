@@ -23,14 +23,14 @@ function bindControls() {
 
 var isCreateFormVisible = false;
 
-function contentCreateForm(plugin) {
+function contentCreateForm(plugin, editUrl) {
     if (isCreateFormVisible) {
         // Ignore additional clicks on create button
         return;
     }
 
     isCreateFormVisible = true;
-    $.ajax(wwwroot() + plugin + '/edit/', {
+    $.ajax(editUrl, {
         dataType: 'html',
         success: function (data) {
             $('#contentCreate').html(data).slideDown(400);

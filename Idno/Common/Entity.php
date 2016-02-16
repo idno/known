@@ -1632,7 +1632,7 @@
                     }
                 }
 
-                return \Idno\Core\Idno::site()->config()->getDisplayURL() . $this->getClassSelector() . '/edit';
+                return $this->getEditURL();
 
             }
 
