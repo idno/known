@@ -53,7 +53,7 @@
                 }
                 switch (trim(strtolower($this->config->database))) {
                     case 'mongodb':
-                        $this->db = new DataConcierge();
+                        $this->db = new \Idno\Data\Mongo();
                         break;
                     case 'mysql':
                         $this->db = new \Idno\Data\MySQL();
@@ -82,7 +82,7 @@
 							}
                         }
                         if (empty($this->db)) {
-                            $this->db = new DataConcierge();
+                            $this->db = new \Idno\Data\Mongo();
                         }
                         break;
                 }

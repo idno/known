@@ -12,16 +12,26 @@
 
         class Sqlite3 extends \Idno\Core\DataConcierge
         {
-
-            private $client = null;
-            private $database = null;
+            
+            private $dbname;
+            
+            function __construct($dbname = null) {
+                
+                $this->dbname = $dbname;
+                
+                if (empty($dbname)) {
+                    $this->dbname = \Idno\Core\Idno::site()->config()->dbname;
+                }
+                
+                parent::__construct();
+            }
 
             function init()
             {
 
                 try {
 
-                    $connection_string = "sqlite:" . \Idno\Core\Idno::site()->config()->dbname;
+                    $connection_string = "sqlite:" . $this->dbname;
                     $this->client      = new \PDO($connection_string);
                     $this->client->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
                     $this->client->exec("SELECT * from versions;"); // Quick and dirty check to see if database is installed TODO: do this better.
@@ -59,7 +69,7 @@
                     }
                 }
 
-                $this->database = \Idno\Core\Idno::site()->config()->dbname;
+                $this->database = $this->dbname;
                 $this->checkAndUpgradeSchema();
             }
 

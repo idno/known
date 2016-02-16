@@ -11,26 +11,55 @@
 
         class Postgres extends \Idno\Core\DataConcierge
         {
-
-            private $client = null;
-            private $database = null;
+            private $dbname;
+            private $dbuser;
+            private $dbpass;
+            private $dbhost;
+            private $dbport;
+            
+            function __construct($dbuser = null, $dbpass = null, $dbname = null, $dbhost = null, $dbport = null) {
+                
+                $this->dbuser = $dbuser;
+                $this->dbpass = $dbpass;
+                $this->dbname = $dbname;
+                $this->dbhost = $dbhost;
+                $this->dbport = $dbport;
+                
+                if (empty($dbuser)) {
+                    $this->dbuser = \Idno\Core\Idno::site()->config()->dbuser;
+                }
+                if (empty($dbpass)) {
+                    $this->dbpass = \Idno\Core\Idno::site()->config()->dbpass;
+                }
+                if (empty($dbname)) {
+                    $this->dbname = \Idno\Core\Idno::site()->config()->dbname;
+                }
+                if (empty($dbhost)) {
+                    $this->dbhost = \Idno\Core\Idno::site()->config()->dbhost;
+                }
+                if (empty($dbport)) {
+                    $this->dbport = \Idno\Core\Idno::site()->config()->dbport;
+                }
+                
+                parent::__construct();
+            }
 
             function init()
             {
 
                 try {
-                    $connection_string =  'pgsql:dbname=' . \Idno\Core\Idno::site()->config()->dbname;
-                    if (!empty(\Idno\Core\Idno::site()->config()->dbhost)) {
-                        $connection_string .= ';host=' . \Idno\Core\Idno::site()->config()->dbhost;
+                    $connection_string =  'pgsql:dbname=' . $this->dbname;
+                    if (!empty($this->dbhost)) {
+                        $connection_string .= ';host=' . $this->dbhost;
                     }
-                    if (!empty(\Idno\Core\Idno::site()->config()->dbport)) {
-                        $connection_string .= ';port=' . \Idno\Core\Idno::site()->config()->dbport;
+                    if (!empty($this->dbport)) {
+                        $connection_string .= ';port=' . $this->dbport;
                     }
-                    if (!empty(\Idno\Core\Idno::site()->config()->dbuser)) {
-                        $connection_string .= ';user=' . \Idno\Core\Idno::site()->config()->dbuser;
+                    if (!empty($this->dbuser)) {
+                        $connection_string .= ';user=' . $this->dbuser;
                     }
-                    if (!empty(\Idno\Core\Idno::site()->config()->dbpass)) {
-                        $connection_string .= ';password=' . \Idno\Core\Idno::site()->config()->dbpass;
+                    if (!empty($this->dbpass)) {
+                        $connection_string .= ';password=' . $this->dbpass;
                     }
                     $this->client = new \PDO($connection_string);
                     $this->client->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
@@ -53,7 +82,7 @@
                     }
                 }
 
-                $this->database = \Idno\Core\Idno::site()->config()->dbname;
+                $this->database = $this->dbname;
                 $this->checkAndUpgradeSchema();
 
             }
