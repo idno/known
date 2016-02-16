@@ -17,7 +17,7 @@ We've tested DreamHost's hosting platform and highly recommend it for supporting
 
 ###Installing
 
-Known is under active development and requires PHP 5.4+ with selected extensions, together with a supported database backend.
+Known is under active development and requires PHP 5.5+ with selected extensions, together with a supported database backend.
 
 If you are installing Known for use on your own website, we HIGHLY recommend using the installable packages
 from <https://withknown.com/opensource>. Installation will be much easier!
