@@ -285,7 +285,7 @@
                             $object->setTitle(html_entity_decode($item->get_title()));
                             $object->created = strtotime(($item->get_date("c")));
                             $object->body    = ($body);
-                            $object->save(true);
+                            $object->publish(true);
                         }
 
                     }
@@ -418,7 +418,7 @@
 	                                $object = new \IdnoPlugins\Status\Status();
 	                                $object->created = $published;
 	                                $object->body    = ($body);
-	                                $object->save(true);
+	                                $object->publish(true);
 
                                 } else {
 
@@ -426,7 +426,7 @@
 	                                $object->setTitle(html_entity_decode($title));
 	                                $object->created = $published;
 	                                $object->body    = ($body);
-	                                $object->save(true);
+	                                $object->publish(true);
                                 }
 
                                 if (!empty($item['wp:comment'])) {
@@ -445,7 +445,7 @@
                                              null,
                                              false
                                          )) {
-                                                 $object->save(true);
+                                                 $object->save();
                                              }
                                     }
                                 }
