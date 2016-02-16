@@ -3,127 +3,249 @@
     namespace IdnoPlugins\IndiePub\Pages\MicroPub {
 
         use Idno\Common\ContentType;
+        use Idno\Entities\User;
+        use IdnoPlugins\IndiePub\Pages\IndieAuth\Token;
+
+        use DOMDocument;
+        use DOMXPath;
 
         class Endpoint extends \Idno\Common\Page
         {
 
-            function get($params = array())
+            private function getServiceAccountsFromHub()
             {
+                $results = [];
+                if (\Idno\Core\Idno::site()->hub()) {
+                    $result = \Idno\Core\Idno::site()->hub()->makeCall('hub/user/syndication', [
+                        'content_type' => 'note',
+                    ]);
+                    if (!empty($result['content'])) {
+                        $content = $result['content'];
 
-                if (!empty($headers['Authorization'])) {
-                    $token = $headers['Authorization'];
-                    $token = trim(str_replace('Bearer', '', $token));
-                } else if ($token = $this->getInput('access_token')) {
-                    $token = trim($token);
-                }
+                        // parse value from the inputs with name="syndication[]".
+                        // TODO consider serving JSON in addition to HTML from hub?
+                        $doc = new DOMDocument();
+                        $doc->loadHTML($content);
+                        $toggles = (new DOMXPath($doc))->query('//*[@name="syndication[]"]');
 
-                $user       = \Idno\Entities\User::getOne(array('admin' => true));
-                $indieauth_tokens = $user->indieauth_tokens;
-                $user_token = $user->getAPIkey();
-
-                if (!empty($indieauth_tokens[$token]) || $token == $user_token) {
-                    \Idno\Core\site()->session()->refreshSessionUser($user);
-                    if ($query = trim($this->getInput('q'))) {
-                        switch ($query) {
-                            case 'syndicate-to':
-                                echo json_encode([
-                                    'syndicate-to'          => \Idno\Core\site()->syndication()->getServiceAccountStrings(),
-                                    'syndicate-to-expanded' => \Idno\Core\site()->syndication()->getServiceAccountData()
-                                ], JSON_PRETTY_PRINT);
-                                break;
+                        foreach ($toggles as $toggle) {
+                            $results[] = $toggle->getAttribute('value');
                         }
                     }
                 }
+                return $results;
+            }
 
-                $this->setResponse(403);
-                echo '?';
+            function get($params = array())
+            {
+                $this->gatekeeper();
+                if ($query = trim($this->getInput('q'))) {
+                    switch ($query) {
+                    case 'syndicate-to':
+                        $account_strings = \Idno\Core\Idno::site()->syndication()->getServiceAccountStrings();
+                        $account_data    = \Idno\Core\Idno::site()->syndication()->getServiceAccountData();
+                        // TODO augment $account_data too
+                        $account_strings = array_merge($account_strings, $this->getServiceAccountsFromHub());
 
+                        if ($this->isAcceptedContentType('application/json')) {
+                            header('Content-Type: application/json');
+                            echo json_encode([
+                                'syndicate-to'          => $account_strings,
+                                'syndicate-to-expanded' => $account_data,
+                            ], JSON_PRETTY_PRINT);
+                        } else {
+                            echo http_build_query([
+                                "syndicate-to" => $account_strings,
+                            ]);
+                        }
+                        break;
+                    }
+                }
             }
 
             function post()
             {
+                $this->gatekeeper();
+                // If we're here, we're authorized
 
-                $headers = $this->getallheaders();
-                $user    = \Idno\Entities\User::getOne(array('admin' => true));
-                $indieauth_tokens = $user->indieauth_tokens;
+                \Idno\Core\Idno::site()->triggerEvent('indiepub/post/start', ['page' => $this]);
 
-                if (!empty($headers['Authorization'])) {
-                    $token = $headers['Authorization'];
-                    $token = trim(str_replace('Bearer', '', $token));
-                } else if ($token = $this->getInput('access_token')) {
-                    $token = trim($token);
-                }
+                // Get details
+                $type        = $this->getInput('h');
+                $content     = $this->getInput('content');
+                $name        = $this->getInput('name');
+                $in_reply_to = $this->getInput('in-reply-to');
+                $syndicate   = $this->getInput('mp-syndicate-to', $this->getInput('syndicate-to'));
+                $posse_link  = $this->getInput('syndication');
+                $like_of     = $this->getInput('like-of');
+                $repost_of   = $this->getInput('repost-of');
+                $categories    = $this->getInput('category');
+		$location = $this->getInput('location');
+		$getInput = array($type, $content, $name, $in_reply_to, $syndicate, $posse_link, $like_of, $repost_of, $categories, $location);
+		\Idno\Core\Idno::site()->logging->log("IndiewebPost : " . print_r($getInput, true));
 
-                $user_token = $user->getAPIkey();
-
-                if (!empty($indieauth_tokens[$token]) || $token == $user_token) {
-
-                    \Idno\Core\site()->session()->refreshSessionUser($user);
-                    // If we're here, we're authorized
-
-                    // Get details
-                    $type        = $this->getInput('h');
-                    $content     = $this->getInput('content');
-                    $name        = $this->getInput('name');
-                    $in_reply_to = $this->getInput('in-reply-to');
-                    $syndicate   = $this->getInput('mp-syndicate-to');
-
-                    if ($type == 'entry') {
-                        if (!empty($_FILES['photo'])) {
-                            $type = 'photo';
-                            if (empty($name) && !empty($content)) {
-                                $name    = $content;
-                                $content = '';
-                            }
-                        } else if (empty($name)) {
-                            $type = 'note';
-                        } else {
-                            $type = 'article';
-                        }
-                    }
-
-                    // Get an appropriate plugin, given the content type
-                    if ($contentType = ContentType::getRegisteredForIndieWebPostType($type)) {
-
-                        if ($entity = $contentType->createEntity()) {
-
-                            $this->setInput('title', $name);
-                            $this->setInput('body', $content);
-                            $this->setInput('inreplyto', $in_reply_to);
-                            if ($created = $this->getInput('published')) {
-                                $this->setInput('created', $created);
-                            }
-                            if (!empty($syndicate)) {
-                                $syndication = array(trim(str_replace('.com', '', $syndicate)));
-                                $this->setInput('syndication', $syndication);
-                            }
-                            if ($entity->saveDataFromInput()) {
-                                //$this->setResponse(201);
-                                header('Location: ' . $entity->getURL());
-                                exit;
-                            } else {
-                                $this->setResponse(500);
-                                echo "Couldn't create {$type}";
-                                exit;
-                            }
-
-                        }
-
+                if ($type == 'entry') {
+                    $type = 'article';
+                    if (!empty($_FILES['photo'])) {
+                        $type = 'photo';
                     } else {
+                        $photo_url = $this->getInput('photo');
+                        if ($photo_url) {
+                            $type      = 'photo';
+                            $success   = $this->uploadFromUrl($photo_url);
+                            if (!$success) {
+                            	\Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
+                                $this->setResponse(500);
+                                echo "Failed uploading photo from $photo_url";
+                                exit;
+                            }
+                        }
+                    }
 
-                        $this->setResponse(500);
-                        echo "Couldn't find content type {$type}";
-                        exit;
+                    if ($type == 'photo' && empty($name) && !empty($content)) {
+                        $name    = $content;
+                        $content = '';
+                    }
+
+                    if (empty($name)) {
+                        $type = 'note';
+                    }
+		    if (!empty($location) ) {
+			$place_name = $this->getInput('place_name');
+			$type = 'checkin';
+			$latlong = explode(",",$location);
+			$lat = str_ireplace("geo:", "", $latlong[0]);
+			$long = $latlong[1];
+			$q = \IdnoPlugins\Checkin\Checkin::queryLatLong($lat, $long);
+			$user_address = $q['display_name'];
+		    }
+                    if (!empty($like_of)) {
+                        $type = 'like';
+                    }
+                    if (!empty($repost_of)) {
+                        $type = 'repost';
+                    }
+                }
+		$getInput = array($type, $content, $name, $in_reply_to, $syndicate, $posse_link, $like_of, $repost_of, $categories, $location);
+                // setting all categories as hashtags into content field
+                if (is_array($categories)) {
+                    foreach ($categories as $category) {
+                        $content .= " #$category";
+                    }
+                    $title_words = explode(" ", $name);
+                    $name = "";
+                    foreach ($title_words as $word) {
+                        if (substr($word,0,1) !== "#") {
+                            $name .= "$word ";
+                        }
+                    }
+                }
+                
+
+		$getInput = array($type, $content, $name, $in_reply_to, $syndicate, $posse_link, $like_of, $repost_of, $categories, $location);
+		\Idno\Core\Idno::site()->logging->log("IndiewebPost (2) : " . print_r($getInput, true));
+                // Get an appropriate plugin, given the content type
+                if ($contentType = ContentType::getRegisteredForIndieWebPostType($type)) {
+                \Idno\Core\Idno::site()->logging->log("IndiewebPost ContentType: " . print_r($contentType, true));  
+
+                    if ($entity = $contentType->createEntity()) {
+                        if (is_array($content)) {
+                            $content_value = '';
+                            if (!empty($content['html'])) {
+                                $content_value = $content['html'];
+                            } else if (!empty($content['value'])) {
+                                $content_value = $content['value'];
+                            }
+                        } else {
+                            $content_value = $content;
+                        }
+                        if (!empty($posse_link)) {
+                            $posse_service = parse_url($posse_link, PHP_URL_HOST);
+                            $entity->setPosseLink($posse_service, $posse_link, '', '');
+                        }
+                        $this->setInput('title', $name);
+                        $this->setInput('body', $content_value);
+                        $this->setInput('inreplyto', $in_reply_to);
+                        $this->setInput('like-of', $like_of);
+                        $this->setInput('repost-of', $repost_of);
+                        $this->setInput('access', 'PUBLIC');
+                        $this->setInput('lat', $lat);
+                        $this->setInput('long', $long);
+                        $this->setInput('user_address', "");
+                        $this->setInput('placename',$place_name);
+                        if ($created = $this->getInput('published')) {
+                            $this->setInput('created', $created);
+                        }
+                        if (!empty($syndicate)) {
+                            if (is_array($syndicate)) {
+                                $syndication = $syndicate;
+                            } else {
+                                $syndication = array(trim(str_replace('.com', '', $syndicate)));
+                            }
+                            $this->setInput('syndication', $syndication);
+                        }
+                        if ($entity->saveDataFromInput($this)) {
+                            \Idno\Core\Idno::site()->triggerEvent('indiepub/post/success', ['page' => $this, 'object' => $entity]);
+                            $this->setResponse(201);
+                            header('Location: ' . $entity->getURL());
+                            exit;
+                        } else {
+		\Idno\Core\Idno::site()->logging->log("IndiewebPost (savedata) : " . print_r((array)$this, true));
+                            \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
+                            $this->setResponse(500);
+                            echo "Couldn't create {$type}";
+                            exit;
+                        }
 
                     }
 
+                } else {
+                    \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
+                    $this->setResponse(500);
+                    echo "Couldn't find content type {$type}";
+                    exit;
+
+                }
+            }
+
+            /**
+             * Micropub optionally allows uploading photos from a
+             * URL. This method downloads the file at a URL to a
+             * temporary location and puts it in the php $_FILES
+             * array.
+             */
+            private function uploadFromUrl($photo_url)
+            {
+                $pathinfo = pathinfo(parse_url($photo_url, PHP_URL_PATH));
+                switch ($pathinfo['extension']) {
+                case 'jpg':
+                case 'jpeg':
+                    $mimetype = 'image/jpeg';
+                    break;
+                case 'png':
+                    $mimetype = 'image/png';
+                    break;
+                case 'gif':
+                    $mimetype = 'image/gif';
+                    break;
                 }
 
-                $this->setResponse(403);
-                echo 'Bad token';
-
+                $tmpname  = tempnam(sys_get_temp_dir(), 'indiepub_');
+                $fp       = fopen($photo_url, 'rb');
+                if ($fp) {
+                    $success = file_put_contents($tmpname, $fp);
+                    fclose($fp);
+                }
+                if ($success) {
+                    $_FILES['photo'] = [
+                        'tmp_name' => $tmpname,
+                        'name'     => $pathinfo['basename'],
+                        'size'     => filesize($tmpname),
+                        'type'     => $mimetype,
+                    ];
+                }
+                return $success;
             }
 
         }
-
     }
