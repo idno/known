@@ -21,7 +21,11 @@
                 \Idno\Core\Idno::site()->addPageHandler('/indieauth/approve/?', '\IdnoPlugins\IndiePub\Pages\IndieAuth\Approve',true);
                 \Idno\Core\Idno::site()->addPageHandler('/indieauth/token/?', '\IdnoPlugins\IndiePub\Pages\IndieAuth\Token',true);
                 \Idno\Core\Idno::site()->addPageHandler('/micropub/endpoint/?', '\IdnoPlugins\IndiePub\Pages\MicroPub\Endpoint',true);
+                \Idno\Core\Idno::site()->addPageHandler('/account/indiepub/?', '\IdnoPlugins\IndiePub\Pages\Account');
+                \Idno\Core\Idno::site()->addPageHandler('/account/indiepub/revoke/?', '\IdnoPlugins\IndiePub\Pages\Revoke');
+
                 \Idno\Core\Idno::site()->template()->extendTemplate('shell/head','indiepub/shell/head');
+                \Idno\Core\Idno::site()->template()->extendTemplate('account/menu/items', 'account/menu/items/indiepub');
 
                 header('Link: <'.\Idno\Core\Idno::site()->config()->getURL().'indieauth/auth>; rel="authorization_endpoint"');
                 header('Link: <'.\Idno\Core\Idno::site()->config()->getURL().'indieauth/token>; rel="token_endpoint"');
