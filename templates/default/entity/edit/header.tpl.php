@@ -15,7 +15,10 @@
                     <ul class="nav nav-tabs">
                         <?php
 
-                            foreach(array('note' => 'Share', 'reply' => 'Reply', 'bookmark' => 'Bookmark', /*'like' => 'Like', */'rsvp' => 'RSVP') as $variable => $label) {
+                            $postTypes = array('note' => 'Share', 'reply' => 'Reply', 'bookmark' => 'Bookmark', 'rsvp' => 'RSVP');
+                            $postTypes = \Idno\Core\Idno::site()->triggerEvent('share/types', ['types' => $postTypes], $postTypes);
+
+                            foreach($postTypes as $variable => $label) {
 
                                 if ($content_type = \Idno\Common\ContentType::getRegisteredForIndieWebPostType($variable)) {
 

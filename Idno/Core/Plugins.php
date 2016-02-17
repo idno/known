@@ -67,6 +67,8 @@
                         }
                     }
                 }
+
+                \Idno\Core\Idno::site()->triggerEvent('plugins/loaded');
             }
 
             /**
