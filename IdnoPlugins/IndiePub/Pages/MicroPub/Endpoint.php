@@ -80,6 +80,10 @@
                 $like_of     = $this->getInput('like-of');
                 $repost_of   = $this->getInput('repost-of');
                 $categories  = $this->getInput('category');
+      $mp_type     = $this->getInput('mp-type');
+      if (!empty($mp_type)) {
+         $type = $mp_type;
+      }
 
                 if ($type == 'entry') {
                     $type = 'note';
@@ -99,6 +103,16 @@
                         $type = 'article';
                     }
 
+          if ($type == 'checkin' ) {
+         $place_name = $this->getInput('place_name');
+         $location = $this->getInput('location');
+         $type = 'checkin';
+         $latlong = explode(",",$location);
+         $lat = str_ireplace("geo:", "", $latlong[0]);
+         $long = $latlong[1];
+         $q = \IdnoPlugins\Checkin\Checkin::queryLatLong($lat, $long);
+         $user_address = $q['display_name'];
+          }
                     if ($type == 'photo' && empty($name) && !empty($content)) {
                         $name    = $content;
                         $content = '';
@@ -117,6 +131,24 @@
                         $category = trim($category);
                         if ($category) {
                             $content .= " #$category";
+                $categories    = $this->getInput('category');
+      $location = $this->getInput('location');
+
+                if ($type == 'entry') {
+                    $type = 'article';
+                    if (!empty($_FILES['photo'])) {
+                        $type = 'photo';
+                    } else {
+                        $photo_url = $this->getInput('photo');
+                        if ($photo_url) {
+                            $type      = 'photo';
+                            $success   = $this->uploadFromUrl($photo_url);
+                            if (!$success) {
+                               \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
+                                $this->setResponse(500);
+                                echo "Failed uploading photo from $photo_url";
+                                exit;
+                            }
                         }
                     }
                     $title_words = explode(" ", $name);
@@ -127,6 +159,47 @@
                         }
                     }
                 }
+
+                // Get an appropriate plugin, given the content type
+                if ($contentType = ContentType::getRegisteredForIndieWebPostType($type)) {
+                    if ($type == 'photo' && empty($name) && !empty($content)) {
+                        $name    = $content;
+                        $content = '';
+                    }
+
+                    if (empty($name)) {
+                        $type = 'note';
+                    }
+          if (!empty($location) ) {
+         $place_name = $this->getInput('place_name');
+         $type = 'checkin';
+         $latlong = explode(",",$location);
+         $lat = str_ireplace("geo:", "", $latlong[0]);
+         $long = $latlong[1];
+         $q = \IdnoPlugins\Checkin\Checkin::queryLatLong($lat, $long);
+         $user_address = $q['display_name'];
+          }
+                    if (!empty($like_of)) {
+                        $type = 'like';
+                    }
+                    if (!empty($repost_of)) {
+                        $type = 'repost';
+                    }
+                }
+                // setting all categories as hashtags into content field
+                if (is_array($categories)) {
+                    foreach ($categories as $category) {
+                        $content .= " #$category";
+                    }
+                    $title_words = explode(" ", $name);
+                    $name = "";
+                    foreach ($title_words as $word) {
+                        if (substr($word,0,1) !== "#") {
+                            $name .= "$word ";
+                        }
+                    }
+                }
+                
 
                 // Get an appropriate plugin, given the content type
                 if ($contentType = ContentType::getRegisteredForIndieWebPostType($type)) {
@@ -151,6 +224,10 @@
                         $this->setInput('like-of', $like_of);
                         $this->setInput('repost-of', $repost_of);
                         $this->setInput('access', 'PUBLIC');
+                        $this->setInput('lat', $lat);
+                        $this->setInput('long', $long);
+                        $this->setInput('user_address', $user_address);
+                        $this->setInput('placename',$place_name);
                         if ($created = $this->getInput('published')) {
                             $this->setInput('created', $created);
                         }
@@ -160,7 +237,6 @@
                             } else {
                                 $syndication = array(trim(str_replace('.com', '', $syndicate)));
                             }
-                            \Idno\Core\Idno::site()->logging()->log("Setting syndication: $syndication");
                             $this->setInput('syndication', $syndication);
                         }
                         if ($entity->saveDataFromInput($this)) {
