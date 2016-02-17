@@ -52,7 +52,7 @@
     }
 
 // Set time limit if we're using less
-    if (ini_get('max_execution_time') < 120) {
+    if (ini_get('max_execution_time') < 120 && ini_get('safe_mode')) {
         set_time_limit(120);
     }
 
