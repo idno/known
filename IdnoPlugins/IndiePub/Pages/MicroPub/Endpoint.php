@@ -80,6 +80,10 @@
                 $like_of     = $this->getInput('like-of');
                 $repost_of   = $this->getInput('repost-of');
                 $categories  = $this->getInput('category');
+                $mp_type     = $this->getInput('mp-type');
+                if (!empty($mp_type)) {
+                   $type = $mp_type;
+                }
 
                 if ($type == 'entry') {
                     $type = 'note';
@@ -98,7 +102,14 @@
                     } else if (!empty($name)) {
                         $type = 'article';
                     }
-
+                      if ($type == 'checkin')  {
+                           $place_name = $this->getInput('place_name');
+                           $latlong = explode(",",$location);
+                           $lat = str_ireplace("geo:", "", $latlong[0]);
+                           $long = $latlong[1];
+                           $q = \IdnoPlugins\Checkin\Checkin::queryLatLong($lat, $long);
+                           $user_address = $q['display_name'];
+                      }
                     if ($type == 'photo' && empty($name) && !empty($content)) {
                         $name    = $content;
                         $content = '';
@@ -151,6 +162,10 @@
                         $this->setInput('like-of', $like_of);
                         $this->setInput('repost-of', $repost_of);
                         $this->setInput('access', 'PUBLIC');
+                        $this->setInput('lat', $lat);
+                        $this->setInput('long', $long);
+                        $this->setInput('user_address', $user_address);
+                        $this->setInput('placename',$place_name);
                         if ($created = $this->getInput('published')) {
                             $this->setInput('created', $created);
                         }
