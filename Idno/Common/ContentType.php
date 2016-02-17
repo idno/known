@@ -81,6 +81,21 @@
             }
 
             /**
+             * Retrieves the name of the entity class associated with this content type
+             * @param bool $convert_slashes If set to true, converts \ slashes to / (false by default)
+             * @return string
+             */
+            function getEntityClass($convert_slashes = false)
+            {
+                $return = $this->entity_class;
+                if ($convert_slashes) {
+                    $return = str_replace('\\', '/', $return);
+                }
+
+                return $return;
+            }
+
+            /**
              * Given a class name, retrieves a content type object
              * @param $class
              * @return bool|ContentType
@@ -230,7 +245,7 @@
             {
                 if ($registered = self::getRegistered()) {
                     foreach ($registered as $contentType) {
-                        if (in_array($type, (array) $contentType->indieWebContentType)) {
+                        if (in_array($type, (array)$contentType->indieWebContentType)) {
                             return $contentType;
                         }
                     }
@@ -246,11 +261,12 @@
              */
             function getIcon()
             {
-                $t = \Idno\Core\Idno::site()->template();
+                $t      = \Idno\Core\Idno::site()->template();
                 $result = $t->draw('entity/' . $this->getEntityClass(true) . '/icon');
                 if (!$result) {
                     $result = $t->draw('entity/' . $this->getEntityClassName() . '/icon');
                 }
+
                 return $result;
             }
 
@@ -263,21 +279,6 @@
                 $class = $this->getEntityClass();
 
                 return substr($class, strrpos($class, '\\') + 1);
-            }
-
-            /**
-             * Retrieves the name of the entity class associated with this content type
-             * @param bool $convert_slashes If set to true, converts \ slashes to / (false by default)
-             * @return string
-             */
-            function getEntityClass($convert_slashes = false)
-            {
-                $return = $this->entity_class;
-                if ($convert_slashes) {
-                    $return = str_replace('\\', '/', $return);
-                }
-
-                return $return;
             }
 
             /**

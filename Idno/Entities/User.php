@@ -243,12 +243,13 @@
                 }
 
                 if (!empty($tagline)) {
-                    $description = strip_tags($tagline);
+                    $description       = strip_tags($tagline);
                     $description_words = explode(' ', $description);
-                    $description = implode(' ', array_slice($description_words, 0, $words));
+                    $description       = implode(' ', array_slice($description_words, 0, $words));
                     if (sizeof($description_words) > $words) {
                         $description .= ' ...';
                     }
+
                     return $description;
                 }
 
@@ -785,6 +786,7 @@
                     'owner' => $this->getUUID(),
                     'read'  => false,
                 ]);
+
                 return $count;
             }
 

@@ -16,15 +16,16 @@
             private $dbpass;
             private $dbhost;
             private $dbport;
-            
-            function __construct($dbuser = null, $dbpass = null, $dbname = null, $dbhost = null, $dbport = null) {
-                
+
+            function __construct($dbuser = null, $dbpass = null, $dbname = null, $dbhost = null, $dbport = null)
+            {
+
                 $this->dbuser = $dbuser;
                 $this->dbpass = $dbpass;
                 $this->dbname = $dbname;
                 $this->dbhost = $dbhost;
                 $this->dbport = $dbport;
-                
+
                 if (empty($dbuser)) {
                     $this->dbuser = \Idno\Core\Idno::site()->config()->dbuser;
                 }
@@ -40,7 +41,7 @@
                 if (empty($dbport)) {
                     $this->dbport = \Idno\Core\Idno::site()->config()->dbport;
                 }
-                
+
                 parent::__construct();
             }
 
@@ -48,7 +49,7 @@
             {
 
                 try {
-                    $connection_string =  'pgsql:dbname=' . $this->dbname;
+                    $connection_string = 'pgsql:dbname=' . $this->dbname;
                     if (!empty($this->dbhost)) {
                         $connection_string .= ';host=' . $this->dbhost;
                     }
@@ -85,6 +86,45 @@
                 $this->database = $this->dbname;
                 $this->checkAndUpgradeSchema();
 
+            }
+
+            /**
+             * Checks the current schema version and upgrades if necessary
+             */
+            function checkAndUpgradeSchema()
+            {
+                if ($versions = $this->getVersions()) {
+                    foreach ($versions as $version) {
+                        if ($version->label == 'schema') {
+                            $basedate          = $newdate = (int)$version->value;
+                            $upgrade_sql_files = array();
+                            $schema_dir        = dirname(dirname(dirname(__FILE__))) . '/schemas/mysql/';
+                            $client            = $this->client;
+
+                        }
+                    }
+                }
+            }
+
+            /**
+             * Retrieve version information from the schema
+             * @return array|bool
+             */
+            function getVersions()
+            {
+                try {
+                    $client = $this->client;
+                    /* @var \PDO $client */
+                    $statement = $client->prepare("select * from versions");
+                    if ($statement->execute()) {
+                        return $statement->fetchAll(\PDO::FETCH_OBJ);
+                    }
+                } catch (\Exception $e) {
+                    //\Idno\Core\Idno::site()->logging()->log($e->getMessage());
+                    error_log($e->getMessage());
+                }
+
+                return false;
             }
 
             /**
@@ -187,9 +227,10 @@
                 } catch (\Exception $e) {
                     $contents = json_encode([]);
                     \Idno\Core\Idno::site()->logging()->log($e->getMessage());
+
                     return false;
                 }
-                $search   = '';
+                $search = '';
                 if (!empty($array['title'])) {
                     $search .= $array['title'] . ' ';
                 }
@@ -408,7 +449,7 @@
 
                 // Make sure we're only getting objects that we're allowed to see
                 if (empty($readGroups)) {
-                    $readGroups                 = \Idno\Core\Idno::site()->session()->getReadAccessGroupIDs();
+                    $readGroups = \Idno\Core\Idno::site()->session()->getReadAccessGroupIDs();
                 }
                 $query_parameters['access'] = array('$in' => $readGroups);
 
@@ -482,26 +523,18 @@
                             foreach ($rows as $row) {
                                 $records[] = json_decode($row['contents'], true);
                             }
+
                             return $records;
                         }
                     }
 
                 } catch (\Exception $e) {
                     \Idno\Core\Idno::site()->logging()->log($e->getMessage());
+
                     return false;
                 }
 
                 return false;
-            }
-
-            /**
-             * Export a collection as SQL.
-             * @param string $collection
-             * @return bool|string
-             */
-            function exportRecords($collection = 'entities')
-            {
-                // TODO
             }
 
             /**
@@ -616,8 +649,8 @@
 //                                    $subwhere[]                                  = "match (search) against (:nonmdvalue{$non_md_variables})";
 //                                    $variables[":nonmdvalue{$non_md_variables}"] = $val;
 //                                } else {
-                                    $subwhere[]                                  = "search like :nonmdvalue{$non_md_variables}";
-                                    $variables[":nonmdvalue{$non_md_variables}"] = '%' . $val . '%';
+                                $subwhere[]                                  = "search like :nonmdvalue{$non_md_variables}";
+                                $variables[":nonmdvalue{$non_md_variables}"] = '%' . $val . '%';
 //                                }
                                 $non_md_variables++;
                             }
@@ -629,6 +662,16 @@
                 }
 
                 return $where;
+            }
+
+            /**
+             * Export a collection as SQL.
+             * @param string $collection
+             * @return bool|string
+             */
+            function exportRecords($collection = 'entities')
+            {
+                // TODO
             }
 
             /**
@@ -713,6 +756,7 @@
 
                 } catch (Exception $e) {
                     \Idno\Core\Idno::site()->logging()->log($e->getMessage());
+
                     return false;
                 }
 
@@ -755,6 +799,7 @@
                 } catch (\Exception $e) {
 
                     \Idno\Core\Idno::site()->logging()->log($e->getMessage());
+
                     return false;
 
                 }
@@ -781,45 +826,6 @@
             function createSearchArray($query)
             {
                 return array('$search' => array($query));
-            }
-
-            /**
-             * Retrieve version information from the schema
-             * @return array|bool
-             */
-            function getVersions()
-            {
-                try {
-                    $client = $this->client;
-                    /* @var \PDO $client */
-                    $statement = $client->prepare("select * from versions");
-                    if ($statement->execute()) {
-                        return $statement->fetchAll(\PDO::FETCH_OBJ);
-                    }
-                } catch (\Exception $e) {
-                    //\Idno\Core\Idno::site()->logging()->log($e->getMessage());
-                    error_log($e->getMessage());
-                }
-
-                return false;
-            }
-
-            /**
-             * Checks the current schema version and upgrades if necessary
-             */
-            function checkAndUpgradeSchema()
-            {
-                if ($versions = $this->getVersions()) {
-                    foreach ($versions as $version) {
-                        if ($version->label == 'schema') {
-                            $basedate          = $newdate = (int)$version->value;
-                            $upgrade_sql_files = array();
-                            $schema_dir        = dirname(dirname(dirname(__FILE__))) . '/schemas/mysql/';
-                            $client            = $this->client;
-
-                        }
-                    }
-                }
             }
 
         }

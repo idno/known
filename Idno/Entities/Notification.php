@@ -7,7 +7,6 @@
     namespace Idno\Entities {
 
         use Idno\Common\Entity;
-        use Idno\Entities\User;
 
         class Notification extends \Idno\Common\Entity
         {
@@ -60,6 +59,7 @@
                 if (is_string($this->actor)) {
                     return User::getByUUID($this->actor);
                 }
+
                 return $this->actor;
             }
 
@@ -94,6 +94,7 @@
                 if (is_string($this->object)) {
                     return Entity::getByUUID($this->object);
                 }
+
                 return $this->object;
             }
 
@@ -115,6 +116,7 @@
                 if (is_string($this->target)) {
                     return Entity::getByUUID($this->target);
                 }
+
                 return $this->target;
             }
 
@@ -123,18 +125,8 @@
                 return $this->read;
             }
 
-            function markRead()
+            function getURL()
             {
-                $this->read = true;
-            }
-
-            function markUnread()
-            {
-                $this->read = false;
-            }
-
-
-            function getURL() {
                 // If we have a URL override, use it
                 if (!empty($this->url)) {
                     return $this->url;
@@ -143,6 +135,7 @@
                 if (!empty($this->canonical)) {
                     return $this->canonical;
                 }
+
                 return \Idno\Core\Idno::site()->config()->url . 'view/' . $this->getID();
             }
 
@@ -158,6 +151,16 @@
 
                     $this->save();
                 }
+            }
+
+            function markRead()
+            {
+                $this->read = true;
+            }
+
+            function markUnread()
+            {
+                $this->read = false;
             }
 
         }

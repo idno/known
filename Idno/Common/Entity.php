@@ -444,6 +444,7 @@
                         $this->addToFeed($feed_verb);
                     }
                     $this->syndicate();
+
                     return true;
                 } else {
                     return false;
@@ -623,10 +624,10 @@
                 }
                 $slug = strip_tags($slug);
                 $slug = preg_replace('|https?://[a-z\.0-9]+|', '', $slug);
-                $slug = preg_replace_callback("/([\p{L}]+)/u", function($matches) {
+                $slug = preg_replace_callback("/([\p{L}]+)/u", function ($matches) {
                     return rawurlencode(($matches[1]));
                 }, $slug);
-                $slug = preg_replace_callback("/([^A-Za-z0-9\p{L}\%\-\_ ])/u", function($matches) {
+                $slug = preg_replace_callback("/([^A-Za-z0-9\p{L}\%\-\_ ])/u", function ($matches) {
                     return '';
                 }, $slug);
                 $slug = preg_replace("/[ ]+/u", ' ', $slug);

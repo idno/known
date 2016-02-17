@@ -48,7 +48,7 @@
                 'experimental'           => false, // A common way to enable experimental functions still in development
                 'multitenant'            => false,
                 'default_config'         => true, // This is a trip-switch - changed to false if configuration is loaded from an ini file / the db
-                'loglevel'              => 5,
+                'loglevel'               => 5,
                 'multi_syndication'      => true,
                 'wayback_machine'        => false,
                 'static_url'             => false,
@@ -143,37 +143,6 @@
                     $this->site_secret = bin2hex($token_generator->generateToken(64));
                     $this->save();
                 }
-            }
-
-            /**
-             * Make sure configuration values are what you'd expect
-             */
-            protected function sanitizeValues()
-            {
-
-                $this->url        = $this->sanitizeURL($this->url);
-                $this->static_url = $this->sanitizeURL($this->static_url);
-
-            }
-
-            /**
-             * Given a URL, ensure it fits the content standards we need
-             * @param $url
-             * @return bool
-             */
-            function sanitizeURL($url)
-            {
-                if (!empty($url)) {
-                    if ($url_pieces = parse_url($url)) {
-                        if (substr($url, -1, 1) != '/') {
-                            $url .= '/';
-                        }
-
-                        return $url;
-                    }
-                }
-
-                return false;
             }
 
             /**
@@ -386,7 +355,7 @@
                 }
 
                 $url = str_replace($urischeme . ':', $newuri, $url);
-                if (substr($url,0,1) == ':') {
+                if (substr($url, 0, 1) == ':') {
                     $url = substr($url, 1);
                 }
 
@@ -405,6 +374,37 @@
                 } else {
                     return '/';
                 }
+            }
+
+            /**
+             * Make sure configuration values are what you'd expect
+             */
+            protected function sanitizeValues()
+            {
+
+                $this->url        = $this->sanitizeURL($this->url);
+                $this->static_url = $this->sanitizeURL($this->static_url);
+
+            }
+
+            /**
+             * Given a URL, ensure it fits the content standards we need
+             * @param $url
+             * @return bool
+             */
+            function sanitizeURL($url)
+            {
+                if (!empty($url)) {
+                    if ($url_pieces = parse_url($url)) {
+                        if (substr($url, -1, 1) != '/') {
+                            $url .= '/';
+                        }
+
+                        return $url;
+                    }
+                }
+
+                return false;
             }
 
             /**
@@ -457,20 +457,6 @@
             }
 
             /**
-             * Retrieve an array of email addresses that are blocked from registering on this site.
-             * @return array
-             */
-            function getBlockedEmails()
-            {
-                $emails = [];
-                if (!empty($this->blocked_emails)) {
-                    $emails = $this->blocked_emails;
-                }
-
-                return $emails;
-            }
-
-            /**
              * Adds an email address to the blocked list
              * @param $email
              * @return array|bool
@@ -485,6 +471,20 @@
                 }
 
                 return false;
+            }
+
+            /**
+             * Retrieve an array of email addresses that are blocked from registering on this site.
+             * @return array
+             */
+            function getBlockedEmails()
+            {
+                $emails = [];
+                if (!empty($this->blocked_emails)) {
+                    $emails = $this->blocked_emails;
+                }
+
+                return $emails;
             }
 
             /**
@@ -709,19 +709,6 @@
             }
 
             /**
-             * Get the configured permalink structure for posts in the
-             * format /:tag1/:tag2
-             * @return string
-             */
-            function getPermalinkStructure()
-            {
-                if  (empty($this->permalink_structure)) {
-                    return '/:year/:slug';
-                }
-                return $this->permalink_structure;
-            }
-
-            /**
              * Add a trailing slash to the ends of paths
              * @todo Further sanitization tasks
              * @param $path
@@ -734,6 +721,20 @@
                 }
 
                 return $path;
+            }
+
+            /**
+             * Get the configured permalink structure for posts in the
+             * format /:tag1/:tag2
+             * @return string
+             */
+            function getPermalinkStructure()
+            {
+                if (empty($this->permalink_structure)) {
+                    return '/:year/:slug';
+                }
+
+                return $this->permalink_structure;
             }
 
         }

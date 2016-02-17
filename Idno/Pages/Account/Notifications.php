@@ -1,50 +1,51 @@
 <?php
 
-namespace Idno\Pages\Account {
+    namespace Idno\Pages\Account {
 
-    use Idno\Core\Idno;
-    use Idno\Entities\Notification;
+        use Idno\Core\Idno;
+        use Idno\Entities\Notification;
 
-    class Notifications extends \Idno\Common\Page {
-
-        function getContent($params=array())
+        class Notifications extends \Idno\Common\Page
         {
-            $this->gatekeeper();
 
-            $user = Idno::site()->session()->currentUser();
+            function getContent($params = array())
+            {
+                $this->gatekeeper();
 
-            $limit = 10;
-            $offset = $this->getInput('offset', 0);
+                $user = Idno::site()->session()->currentUser();
 
-            $notifs = Notification::getFromX('Idno\Entities\Notification', [
-                'owner'  => $user->getUUID(),
-            ], [], $limit, $offset);
+                $limit  = 10;
+                $offset = $this->getInput('offset', 0);
+
+                $notifs = Notification::getFromX('Idno\Entities\Notification', [
+                    'owner' => $user->getUUID(),
+                ], [], $limit, $offset);
 
 
-            $count = Notification::countFromX('Idno\Entities\Notification', [
-                'owner'  => $user->getUUID(),
-            ]);
+                $count = Notification::countFromX('Idno\Entities\Notification', [
+                    'owner' => $user->getUUID(),
+                ]);
 
-            $body = Idno::site()->template()->__([
-                'user'          => $user,
-                'notifications' => $notifs,
-                'count'         => $count,
-            ])->draw('account/notifications');
+                $body = Idno::site()->template()->__([
+                    'user'          => $user,
+                    'notifications' => $notifs,
+                    'count'         => $count,
+                ])->draw('account/notifications');
 
-            $page = Idno::site()->template()->__([
-                'title' => 'Notifications',
-                'body'  => $body,
-            ])->drawPage(false);
+                $page = Idno::site()->template()->__([
+                    'title' => 'Notifications',
+                    'body'  => $body,
+                ])->drawPage(false);
 
-            // mark all notifications as seen
-            foreach($notifs as $notif) {
-                $notif->markRead();
-                $notif->save();
+                // mark all notifications as seen
+                foreach ($notifs as $notif) {
+                    $notif->markRead();
+                    $notif->save();
+                }
+
+                echo $page;
             }
 
-            echo $page;
         }
 
     }
-
-}

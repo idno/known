@@ -15,7 +15,7 @@
              */
             static function exportToFolder($dir = false)
             {
-                
+
                 set_time_limit(0);  // Switch off the time limit for PHP
                 Idno::site()->currentPage()->setPermalink(true);
 
@@ -65,10 +65,10 @@
                 $fields           = array();
                 $query_parameters = array('entity_subtype' => array('$not' => array('$in' => array('Idno\Entities\ActivityStreamPost'))));
                 $collection       = 'entities';
-                
-                $limit = 10;
+
+                $limit  = 10;
                 $offset = 0;
-                
+
                 while ($results = Idno::site()->db()->getRecords($fields, $query_parameters, $limit, $offset, $collection)) {
                     foreach ($results as $id => $row) {
 
@@ -79,15 +79,15 @@
                             if (empty($attachments)) {
                                 $attachments = [];
                             }
-                            foreach(['thumbnail','thumbnail_large'] as $thumbnail)
-                            if (!empty($object->$thumbnail)) {
-                                if (preg_match('/file\/([a-zA-Z0-9]+)\//', $object->$thumbnail, $matches)) {
-                                    $attachments[] = [
-                                        'url' => $object->$thumbnail,
-                                        '_id' => $matches[1]
-                                    ];
+                            foreach (['thumbnail', 'thumbnail_large'] as $thumbnail)
+                                if (!empty($object->$thumbnail)) {
+                                    if (preg_match('/file\/([a-zA-Z0-9]+)\//', $object->$thumbnail, $matches)) {
+                                        $attachments[] = [
+                                            'url' => $object->$thumbnail,
+                                            '_id' => $matches[1]
+                                        ];
+                                    }
                                 }
-                            }
                             if (!empty($attachments)) {
                                 foreach ($attachments as $key => $attachment) {
                                     if ($data = File::getFileDataFromAttachment($attachment)) {
@@ -135,7 +135,7 @@
                             gc_collect_cycles();    // Clean memory
                         }
                     }
-                    
+
                     $results = null;
                     $offset += $limit;
                 }
@@ -415,18 +415,18 @@
 
                                 self::importImagesFromBodyHTML($body, parse_url($item['link'], PHP_URL_HOST));
                                 if (empty($item['title']) && strlen($body) < 600) {
-	                                $object = new \IdnoPlugins\Status\Status();
-	                                $object->created = $published;
-	                                $object->body    = ($body);
-	                                $object->publish(true);
+                                    $object          = new \IdnoPlugins\Status\Status();
+                                    $object->created = $published;
+                                    $object->body    = ($body);
+                                    $object->publish(true);
 
                                 } else {
 
-	                                $object = new \IdnoPlugins\Text\Entry();
-	                                $object->setTitle(html_entity_decode($title));
-	                                $object->created = $published;
-	                                $object->body    = ($body);
-	                                $object->publish(true);
+                                    $object = new \IdnoPlugins\Text\Entry();
+                                    $object->setTitle(html_entity_decode($title));
+                                    $object->created = $published;
+                                    $object->body    = ($body);
+                                    $object->publish(true);
                                 }
 
                                 if (!empty($item['wp:comment'])) {
@@ -435,18 +435,19 @@
                                     }
                                     foreach ($item['wp:comment'] as $comment_obj) {
                                         $comment = (array)$comment_obj;
-                                         if ($object->addAnnotation('reply', 
-                                             $comment['comment_author'], 
-                                             $comment['comment_author_url'], 
-                                             '' , 
-                                             $comment['comment_content'], 
-                                             null,
-                                             strtotime($comment['comment_date_gmt']),
-                                             null,
-                                             false
-                                         )) {
-                                                 $object->save();
-                                             }
+                                        if ($object->addAnnotation('reply',
+                                            $comment['comment_author'],
+                                            $comment['comment_author_url'],
+                                            '',
+                                            $comment['comment_content'],
+                                            null,
+                                            strtotime($comment['comment_date_gmt']),
+                                            null,
+                                            false
+                                        )
+                                        ) {
+                                            $object->save();
+                                        }
                                     }
                                 }
                             }
@@ -475,34 +476,36 @@
                 if (!empty($user_uuid)) {
                     $search = ['owner' => $user_uuid];
                     if ($user = User::getByUUID($user_uuid)) {
-                        $title = $user->getTitle();
+                        $title       = $user->getTitle();
                         $description = $user->getDescription();
-                        $base_url = $user_uuid;
+                        $base_url    = $user_uuid;
                     }
                 } else {
-                    $search = [];
-                    $title = Idno::site()->config()->getTitle();
+                    $search      = [];
+                    $title       = Idno::site()->config()->getTitle();
                     $description = Idno::site()->config()->getDescription();
-                    $base_url = Idno::site()->config()->getDisplayURL();
+                    $base_url    = Idno::site()->config()->getDisplayURL();
                 }
                 if ($feed = \Idno\Entities\ActivityStreamPost::getFromX($types, $search, array(), PHP_INT_MAX, 0, $groups)) {
                     $rss_theme = new Template();
                     $rss_theme->setTemplateType('rss');
+
                     return $rss_theme->__(array(
 
                         'title'       => $title,
                         'description' => $description,
                         'body'        => $rss_theme->__(array(
-                            'items'        => $feed,
-                            'offset'       => 0,
-                            'count'        => sizeof($feed),
-                            'subject'      => [],
-                            'nocdata'      => true,
-                            'base_url'     => $base_url
+                            'items'    => $feed,
+                            'offset'   => 0,
+                            'count'    => sizeof($feed),
+                            'subject'  => [],
+                            'nocdata'  => true,
+                            'base_url' => $base_url
                         ))->draw('pages/home'),
 
                     ))->drawPage(false);
                 }
+
                 return false;
             }
 

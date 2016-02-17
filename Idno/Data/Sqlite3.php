@@ -12,17 +12,18 @@
 
         class Sqlite3 extends \Idno\Core\DataConcierge
         {
-            
+
             private $dbname;
-            
-            function __construct($dbname = null) {
-                
+
+            function __construct($dbname = null)
+            {
+
                 $this->dbname = $dbname;
-                
+
                 if (empty($dbname)) {
                     $this->dbname = \Idno\Core\Idno::site()->config()->dbname;
                 }
-                
+
                 parent::__construct();
             }
 
@@ -392,7 +393,7 @@
 
                 // Make sure we're only getting objects that we're allowed to see
                 if (empty($readGroups)) {
-                    $readGroups                 = \Idno\Core\Idno::site()->session()->getReadAccessGroupIDs();
+                    $readGroups = \Idno\Core\Idno::site()->session()->getReadAccessGroupIDs();
                 }
                 $query_parameters['access'] = array('$in' => $readGroups);
 
@@ -466,9 +467,10 @@
                     if ($statement->execute($variables)) {
                         if ($rows = $statement->fetchAll(\PDO::FETCH_ASSOC)) {
                             $records = [];
-                            foreach($rows as $row) {
+                            foreach ($rows as $row) {
                                 $records[] = json_decode($row['contents'], true);
                             }
+
                             return $records;
                         }
                     }

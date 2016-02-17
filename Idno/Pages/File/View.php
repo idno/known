@@ -22,7 +22,7 @@
                         $this->lastModifiedGatekeeper($modifiedts); // Set 304 and exit if we've not modified this object
                     }
                 }
-                
+
                 if (!empty($this->arguments[0])) {
                     $object = \Idno\Entities\File::getByID($this->arguments[0]);
                 }

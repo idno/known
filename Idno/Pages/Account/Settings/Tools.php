@@ -31,19 +31,19 @@
             function postContent()
             {
                 $this->createGatekeeper();
-                
+
                 \Idno\Core\Actions::validateToken(\Idno\Core\Idno::site()->currentPage()->currentUrl());
-                
+
                 $user = \Idno\Core\Idno::site()->session()->currentUser();
                 if (!empty($user)) {
-                    
+
                     switch ($this->getInput('_method')) {
-                        case 'revoke': 
+                        case 'revoke':
                             $user->apikey = null;
                             $user->getAPIkey();
                     }
                 }
-                
+
                 $this->forward($_SERVER['HTTP_REFERER']);
             }
 

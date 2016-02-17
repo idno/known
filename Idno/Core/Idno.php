@@ -27,8 +27,10 @@
             public $pagehandlers;
             public $public_pages;
             public $syndication;
-            public $logging; /* @var \Idno\Core\Logging $logging */
-            public static $site; /* @var \Idno\Core\Idno $site */
+            public $logging;
+            /* @var \Idno\Core\Logging $logging */
+            public static $site;
+            /* @var \Idno\Core\Idno $site */
             public $currentPage;
             public $known_hub;
             public $helper_robot;
@@ -70,16 +72,16 @@
                         break;
                     default:
                         if (class_exists("Idno\\Data\\{$this->config->database}")) {
-                            $db       = "Idno\\Data\\{$this->config->database}";
+                            $db = "Idno\\Data\\{$this->config->database}";
                             if (is_subclass_of($db, "Idno\\Core\\DataConcierge")) {
-								$this->db = new $db();
-							}
+                                $this->db = new $db();
+                            }
                         }
                         if (empty($this->db) && class_exists("{$this->config->database}")) {
-                            $db       = "{$this->config->database}";
+                            $db = "{$this->config->database}";
                             if (is_subclass_of($db, "Idno\\Core\\DataConcierge")) {
-								$this->db = new $db();
-							}
+                                $this->db = new $db();
+                            }
                         }
                         if (empty($this->db)) {
                             $this->db = new \Idno\Data\Mongo();
@@ -104,7 +106,7 @@
                         break;
                 }
 
-                $this->logging      = new Logging();
+                $this->logging = new Logging();
                 $this->config->load();
 
                 if (isset($this->config->loglevel)) {
@@ -143,8 +145,8 @@
                     !substr_count($_SERVER['REQUEST_URI'], '.') &&
                     $this->config->known_hub != $this->config->url
                 ) {
-                    site()->session()->hub_connect = time();
-                    \Idno\Core\Idno::site()->known_hub   = new \Idno\Core\Hub($this->config->known_hub);
+                    site()->session()->hub_connect     = time();
+                    \Idno\Core\Idno::site()->known_hub = new \Idno\Core\Hub($this->config->known_hub);
                     \Idno\Core\Idno::site()->known_hub->connect();
                 }
 
@@ -169,15 +171,15 @@
                 /** Individual entities / posting / deletion */
                 $this->addPageHandler('/view/([\%A-Za-z0-9]+)/?', '\Idno\Pages\Entity\View');
                 $this->addPageHandler('/s/([\%A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Shortlink');
-                $this->addPageHandler($permalink_route.'/?', '\Idno\Pages\Entity\View');
+                $this->addPageHandler($permalink_route . '/?', '\Idno\Pages\Entity\View');
                 $this->addPageHandler('/edit/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Edit');
                 $this->addPageHandler('/delete/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Delete');
                 $this->addPageHandler('/withdraw/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Withdraw');
 
                 /** Annotations */
                 $this->addPageHandler('/view/([A-Za-z0-9]+)/annotations/([A-Za-z0-9]+)?', '\Idno\Pages\Annotation\View');
-                $this->addPageHandler($permalink_route.'/annotations/([A-Za-z0-9]+)?', '\Idno\Pages\Annotation\View');
-                $this->addPageHandler($permalink_route.'/annotations/([A-Za-z0-9]+)/delete/?', '\Idno\Pages\Annotation\Delete'); // Delete annotation
+                $this->addPageHandler($permalink_route . '/annotations/([A-Za-z0-9]+)?', '\Idno\Pages\Annotation\View');
+                $this->addPageHandler($permalink_route . '/annotations/([A-Za-z0-9]+)/delete/?', '\Idno\Pages\Annotation\Delete'); // Delete annotation
                 $this->addPageHandler('/annotation/post/?', '\Idno\Pages\Annotation\Post');
 
                 /** Bookmarklets and sharing */
@@ -374,7 +376,7 @@
                 if (empty($this->language)) {
                     $this->language = new Language();
                 }
-                
+
                 return $this->language;
             }
 

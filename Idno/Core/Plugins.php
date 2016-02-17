@@ -41,7 +41,7 @@
                 }
 
                 if (!empty(\Idno\Core\Idno::site()->config()->prerequisiteplugins)) {
-                   \Idno\Core\Idno::site()->config()->prerequisiteplugins = array_unique(\Idno\Core\Idno::site()->config()->prerequisiteplugins);
+                    \Idno\Core\Idno::site()->config()->prerequisiteplugins = array_unique(\Idno\Core\Idno::site()->config()->prerequisiteplugins);
                     foreach (\Idno\Core\Idno::site()->config()->prerequisiteplugins as $plugin) {
                         if (is_subclass_of("IdnoPlugins\\{$plugin}\\Main", 'Idno\\Common\\Plugin')) {
                             $class = "IdnoPlugins\\{$plugin}\\Main";
@@ -52,12 +52,12 @@
                     }
                 }
                 if (!empty(\Idno\Core\Idno::site()->config()->alwaysplugins)) {
-                   \Idno\Core\Idno::site()->config->plugins = array_merge(\Idno\Core\Idno::site()->config->plugins,\Idno\Core\Idno::site()->config->alwaysplugins);
+                    \Idno\Core\Idno::site()->config->plugins = array_merge(\Idno\Core\Idno::site()->config->plugins, \Idno\Core\Idno::site()->config->alwaysplugins);
                 }
                 if (!empty(\Idno\Core\Idno::site()->config()->plugins)) {
-                   \Idno\Core\Idno::site()->config->plugins = array_unique(\Idno\Core\Idno::site()->config->plugins);
+                    \Idno\Core\Idno::site()->config->plugins = array_unique(\Idno\Core\Idno::site()->config->plugins);
                     foreach (\Idno\Core\Idno::site()->config()->plugins as $plugin) {
-                        if (!in_array($plugin,\Idno\Core\Idno::site()->config()->antiplugins)) {
+                        if (!in_array($plugin, \Idno\Core\Idno::site()->config()->antiplugins)) {
                             if (is_subclass_of("IdnoPlugins\\{$plugin}\\Main", 'Idno\\Common\\Plugin')) {
                                 $class = "IdnoPlugins\\{$plugin}\\Main";
                                 if (empty($this->plugins[$plugin])) {
@@ -121,32 +121,6 @@
             }
 
             /**
-             * Is the specified plugin allowed to be loaded?
-             * @param $plugin
-             * @return bool
-             */
-            public function isAllowed($plugin)
-            {
-                if (empty(\Idno\Core\Idno::site()->config()->antiplugins)) {
-                    return true;
-                }
-                if (!in_array($plugin,\Idno\Core\Idno::site()->config()->antiplugins)) {
-                    return true;
-                }
-                if (!empty(\Idno\Core\Idno::site()->config()->prerequisiteplugins)) {
-                    if (in_array($plugin,\Idno\Core\Idno::site()->config()->prerequisiteplugins)) {
-                        return true;
-                    }
-                }
-                if (!empty(\Idno\Core\Idno::site()->config()->alwaysplugins)) {
-                    if (in_array($plugin,\Idno\Core\Idno::site()->config()->alwaysplugins)) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-
-            /**
              * Is the specified plugin allowed to be displayed?
              * @param $plugin
              * @return bool
@@ -156,9 +130,10 @@
                 if (empty(\Idno\Core\Idno::site()->config()->hiddenplugins)) {
                     return true;
                 }
-                if (!in_array($plugin,\Idno\Core\Idno::site()->config()->hiddenplugins)) {
+                if (!in_array($plugin, \Idno\Core\Idno::site()->config()->hiddenplugins)) {
                     return true;
                 }
+
                 return false;
             }
 
@@ -201,6 +176,33 @@
                 ksort($plugins);
 
                 return $plugins;
+            }
+
+            /**
+             * Is the specified plugin allowed to be loaded?
+             * @param $plugin
+             * @return bool
+             */
+            public function isAllowed($plugin)
+            {
+                if (empty(\Idno\Core\Idno::site()->config()->antiplugins)) {
+                    return true;
+                }
+                if (!in_array($plugin, \Idno\Core\Idno::site()->config()->antiplugins)) {
+                    return true;
+                }
+                if (!empty(\Idno\Core\Idno::site()->config()->prerequisiteplugins)) {
+                    if (in_array($plugin, \Idno\Core\Idno::site()->config()->prerequisiteplugins)) {
+                        return true;
+                    }
+                }
+                if (!empty(\Idno\Core\Idno::site()->config()->alwaysplugins)) {
+                    if (in_array($plugin, \Idno\Core\Idno::site()->config()->alwaysplugins)) {
+                        return true;
+                    }
+                }
+
+                return false;
             }
 
             /**
