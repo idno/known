@@ -8,9 +8,13 @@ php:
 # Configure different DB environments
 env:
   - DB=mysql
-  - DB=mongodb
+  - DB=mongo
   - DB=sqlite3
   - DB=pgsql
+  
+matrix:
+    allow_failures:
+        - php: 7.0
 
 branches:
   only:
@@ -44,8 +48,8 @@ before_script:
   - if [[ "$DB" == "mysql" ]]; then mysql -e "CREATE DATABASE known_unittest;" -uroot; fi
   - if [[ "$DB" == "mysql" ]]; then mysql -e "GRANT ALL ON known_unittest.* TO 'travis'@'127.0.0.1';" -uroot; fi
   - if [[ "$DB" == "mysql" ]]; then mysql -e "USE known_unittest; SOURCE ./schemas/mysql/mysql.sql; show table status; show index from entities;" -utravis; fi
-  - if [[ "$DB" == "mongodb" ]]; then echo "PROVISIONING WITH MongoDB (default)"; fi
-  - if [[ "$DB" == "mongodb" ]]; then sudo cp -f Tests/build/config_default.ini $TRAVIS_BUILD_DIR/config.ini; fi
+  - if [[ "$DB" == "mongo" ]]; then echo "PROVISIONING WITH MongoDB (default)"; fi
+  - if [[ "$DB" == "mongo" ]]; then sudo cp -f Tests/build/config_default.ini $TRAVIS_BUILD_DIR/config.ini; fi
   - if [[ "$DB" == "sqlite3" ]]; then echo "PROVISIONING WITH Sqlite"; fi
   - if [[ "$DB" == "sqlite3" ]]; then sudo cp -f Tests/build/config_sqlite3.ini $TRAVIS_BUILD_DIR/config.ini; fi
   - sudo cp -f $TRAVIS_BUILD_DIR/htaccess.dist $TRAVIS_BUILD_DIR/.htaccess
