@@ -230,16 +230,8 @@
             {
                 if ($registered = self::getRegistered()) {
                     foreach ($registered as $contentType) {
-                        if (!empty($contentType->indieWebContentType)) {
-                            if (is_array($contentType->indieWebContentType)) {
-                                if (in_array($type, $contentType->indieWebContentType)) {
-                                    return $contentType;
-                                }
-                            } else {
-                                if ($type == $contentType->indieWebContentType) {
-                                    return $contentType;
-                                }
-                            }
+                        if (in_array($type, (array) $contentType->indieWebContentType)) {
+                            return $contentType;
                         }
                     }
                 }
