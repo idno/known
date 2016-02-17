@@ -2,81 +2,160 @@
 
     /**
      * Notification representation
-     *
-     * @package idno
-     * @subpackage core
      */
 
     namespace Idno\Entities {
 
-        class Notification extends \Idno\Entities\Object
+        use Idno\Common\Entity;
+        use Idno\Entities\User;
+
+        class Notification extends \Idno\Common\Entity
         {
 
-            public $subject;
-            public $actor;
-            public $object;
-            public $url;
-
-            function getTitle()
+            /**
+             * The short text message to notify the user with. (eg, a
+             * subject line.)
+             * @param string $message
+             */
+            function setMessage($message)
             {
-                return '';
+                $this->message = $message;
             }
 
-            function getDescription()
+            function getMessage()
             {
-                return '';
+                return $this->message;
             }
 
             /**
-             * Set this notification as read
+             * A template name pointing to a longer version of the
+             * message with more detail.
+             * @param string $template
+             *
              */
-            function setRead()
+            function setMessageTemplate($template)
             {
-                $this->read = 1;
+                $this->messageTemplate = $template;
+            }
+
+            function getMessageTemplate()
+            {
+                return $this->messageTemplate;
             }
 
             /**
-             * Mark this notification as unread
+             * Is this an array {name:..., url:..., image:...}, a UUID, or either?
              */
-            function setUnread()
+            function setActor($actor)
             {
-                $this->read = 0;
+                if ($actor instanceof User) {
+                    $this->actor = $actor->getUUID();
+                } else {
+                    $this->actor = $actor;
+                }
+            }
+
+            function getActor()
+            {
+                if (is_string($this->actor)) {
+                    return User::getByUUID($this->actor);
+                }
+                return $this->actor;
             }
 
             /**
-             * Sets the body text of this notification
-             * @param string $body
+             * Optionally, a string describing the kind of action. eg,
+             * "comment", "like", "share", or "follow".
+             * @param string $verb
              */
-            function setBody($body)
+            function setVerb($verb)
             {
-                $this->body = $body;
+                $this->verb = $verb;
             }
 
             /**
-             * Has this notification been read?
-             * @return bool
+             * Optionally, an array describing the object of the
+             * action. eg, if this is a comment, the object will be
+             * the array that represents the annotation.
+             * Note: unlike ActivityStreamsPost, object is not usually an Entity.
+             * @param array|false $object
              */
+            function setObject($object)
+            {
+                if ($object instanceof Entity) {
+                    $this->object = $object->getUUID();
+                } else {
+                    $this->object = $object;
+                }
+            }
+
+            function getObject()
+            {
+                if (is_string($this->object)) {
+                    return Entity::getByUUID($this->object);
+                }
+                return $this->object;
+            }
+
+            /**
+             * Optionally, the indirect object of the action. If this
+             * is a reply, this is the post that it is in-reply-to.
+             */
+            function setTarget($target)
+            {
+                if ($target instanceof Entity) {
+                    $this->target = $target->getUUID();
+                } else {
+                    $this->target = $target;
+                }
+            }
+
+            function getTarget()
+            {
+                if (is_string($this->target)) {
+                    return Entity::getByUUID($this->target);
+                }
+                return $this->target;
+            }
+
             function isRead()
             {
-                if (!empty($this->read)) {
-                    return true;
-                }
-
-                return false;
+                return $this->read;
             }
 
-            function save($add_to_feed = false, $feed_verb = 'post')
+            function markRead()
             {
-                if (empty($this->_id)) {
-                    $new = true;
-                } else {
-                    $new = false;
-                }
-                if ($new) {
-                    // TODO: email notification
+                $this->read = true;
+            }
+
+            function markUnread()
+            {
+                $this->read = false;
+            }
+
+
+            function getURL() {
+                // If we have a URL override, use it
+                if (!empty($this->url)) {
+                    return $this->url;
                 }
 
-                return parent::save($add_to_feed, $feed_verb);
+                if (!empty($this->canonical)) {
+                    return $this->canonical;
+                }
+                return \Idno\Core\Idno::site()->config()->url . 'view/' . $this->getID();
+            }
+
+            function saveDataFromInput($page)
+            {
+                $read = $page->getInput("read");
+                if ($read === 'true') {
+                    $this->markRead();
+                } else if ($read === 'false') {
+                    $this->markUnread();
+                }
+
+                $this->save();
             }
 
         }

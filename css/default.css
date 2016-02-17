@@ -14,7 +14,7 @@ h1,h2 {
 
 h2 {
     line-height: 1.2em;
-	margin-bottom: 10px !important; 
+	margin-bottom: 10px !important;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -125,8 +125,8 @@ img {
 	color: #333333;
 }
 
-.idno-object h1 a:hover, .idno-object h1 a:focus, 
-.idno-object h2 a:hover, .idno-object h2 a:focus, 
+.idno-object h1 a:hover, .idno-object h1 a:focus,
+.idno-object h2 a:hover, .idno-object h2 a:focus,
 .idno-object h3 a:hover, .idno-object h3 a:focus {
 	color: #999999;
 }
@@ -624,7 +624,7 @@ div.pane div.row:nth-of-type(odd) {
     background-color: #fafafa;
 }
 
-/** Sign In **/ 
+/** Sign In **/
 
 .btn-signin {
     background-color: #ffffff;
@@ -693,7 +693,7 @@ div.pane div.row:nth-of-type(odd) {
     text-shadow: none;
     background-repeat: repeat-x;
     border-radius: 4px;
-	
+
 }
 
 .btn-primary {
@@ -786,12 +786,12 @@ a:hover, a:focus {
 	color: #357ebd;
 }
 
-input[type="email"], input[type="password"], input[type="text"]  {	
+input[type="email"], input[type="password"], input[type="text"]  {
 	border: 1px solid #dddddd;
 	padding-top: 8px;
 	padding-bottom: 8px;
 	padding-left: 8px;
-	padding-right: 5px; 
+	padding-right: 5px;
 }
 
 input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focus {
@@ -1102,7 +1102,7 @@ p.feedback {
 }
 
 .feedback-btn {
-	width: 100%; 
+	width: 100%;
 	text-align: right;
 	padding-top: 20px;
 }
@@ -1430,7 +1430,7 @@ tr.pages {
 	border-bottom: 1px solid #000;
 	font-size: 1.2em;
 	font-weight: bold;
-	line-height: 42px;	
+	line-height: 42px;
 }
 
 tr.items {
@@ -1450,7 +1450,7 @@ tr.items {
 .btn-page {
 	margin-left: 10px;
 	padding: 4px 20px;
-	line-height: 28px;	
+	line-height: 28px;
 }
 
 .btn-add {
@@ -1535,15 +1535,15 @@ tr.items {
 	padding-top: 8px;
 }
 
-.config-toggle .btn-default:hover, 
-.config-toggle .btn-default:focus, 
-.config-toggle .btn-default:active, 
-.config-toggle .btn-default.active, 
+.config-toggle .btn-default:hover,
+.config-toggle .btn-default:focus,
+.config-toggle .btn-default:active,
+.config-toggle .btn-default.active,
 .config-toggle .open > .dropdown-toggle.btn-default {
     color: #999;
 }
 
-.config-toggle .btn:active, 
+.config-toggle .btn:active,
 .config-toggle .btn.active {
     background-image: none;
     box-shadow: none;
@@ -1557,10 +1557,10 @@ tr.items {
     text-shadow: none;
     background-image: none;
 }
-.config-toggle .btn-info:hover, 
-.config-toggle .btn-info:focus, 
-.config-toggle .btn-info:active, 
-.config-toggle .btn-info.active, 
+.config-toggle .btn-info:hover,
+.config-toggle .btn-info:focus,
+.config-toggle .btn-info:active,
+.config-toggle .btn-info.active,
 .config-toggle .open > .dropdown-toggle.btn-info {
     background-color: #357ebd;
     border-color: #357ebd;
@@ -1573,7 +1573,7 @@ tr.items {
 	color: #666;
 }
 
-.config-toggle .checkbox label .toggle, 
+.config-toggle .checkbox label .toggle,
 .config-toggle .checkbox-inline .toggle {
     margin-left: 5px;
     margin-right: 5px;
@@ -1588,15 +1588,15 @@ tr.items {
 }
 
 .bounce1 {
-  background-color: #af474f;	
+  background-color: #af474f;
 }
 
 .bounce2 {
-  background-color: #ffb280;	
+  background-color: #ffb280;
 }
 
 .bounce3 {
-  background-color: #ffcc66;	
+  background-color: #ffcc66;
 }
 
 .spinner > div {
@@ -1629,10 +1629,10 @@ tr.items {
 }
 
 @keyframes bouncedelay {
-  0%, 80%, 100% { 
+  0%, 80%, 100% {
     transform: scale(0.0);
     -webkit-transform: scale(0.0);
-  } 40% { 
+  } 40% {
     transform: scale(1.0);
     -webkit-transform: scale(1.0);
   }
@@ -1698,7 +1698,7 @@ audio {
 }
 
 .member-directory .light-description a,
-.member-directory .light-description {    
+.member-directory .light-description {
 	color: #888;
     margin-top: 0.5em;
 }
@@ -1711,14 +1711,14 @@ audio {
 .panel-default > .panel-heading {
     background-color: #f0f0f0;
     border-color: #f0f0f0;
-    color: #fff;
+    color: #333;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
     border-bottom: 1px solid #adadad;
 }
 .panel-default {
     border-color: #adadad;
-    border-radius: 0px; 
+    border-radius: 0px;
 }
 .panel-title {
 	color:#999;
@@ -1754,4 +1754,47 @@ textarea.form-control {
 }
 .file-upload small {
 	color:#666;
+}
+
+/* Notifications */
+
+.notification .notification-avatar {
+    float: left;
+    margin-right: 1em;
+    max-width: 64px;
+}
+
+.notification.notification-unread .panel-heading {
+    color: #333;
+    font-weight: bold;
+}
+
+.notification.notification-read .panel-heading {
+    color: #666;
+    font-weight: normal;
+}
+
+.notification .panel-heading time {
+    float: right;
+}
+
+.notification .notification-avatar img {
+}
+
+.notification .notification-body {
+    overflow: off;
+    margin-left: 80px;
+}
+
+.notification blockquote {
+    font-size: 1em;
+}
+
+.unread-notification-count {
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #f00;
+    position: relative;
+    top: -0.5em;
+    left: -0.2em;
 }
