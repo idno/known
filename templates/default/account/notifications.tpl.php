@@ -13,5 +13,6 @@
     $(function () {
         console.log($(".notification time"));
         $(".notification time").timeago();
+        enableNotifications();
     });
 </script>

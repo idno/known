@@ -123,36 +123,51 @@ function htmlEntityDecode(encodedString) {
     return textArea.value;
 }
 
+function doPoll() {
+    $.get(wwwroot() + '/account/new-notifications')
+        .done(function (data) {
+            console.log("Polling for new notifications succeeded");
+            console.log(data);
+            if (data.notifications.length > 0) {
+                var title = data.notifications[0].title;
+                var body  = data.notifications[0].body;
+                new Notification(title, {body: body});
+            }
+        })
+        .fail(function (data) {
+            console.log("Polling for new notifications failed");
+        });
+}
 
 $(function() {
+
     if (!isLoggedIn()) {
         return;
     }
 
     if (!("Notification" in window)) {
-        console.log("Notification API is not supported by this browser");
+        console.log("The Notification API is not supported by this browser");
         return;
-    }
-
-    function doPoll() {
-        $.get(wwwroot() + '/account/new-notifications')
-            .done(function (data) {
-                console.log("polling for new notifications: success!");
-                console.log(data);
-                if (data.notifications.length > 0) {
-                    var title = data.notifications[0].title;
-                    var body  = data.notifications[0].body;
-                    new Notification(title, {body: body});
-                }
-            })
-            .fail(function (data) {
-                console.log("polling for new notifications: failure!");
-            });
     }
 
     if (Notification.permission === 'granted') {
         setInterval(doPoll, 10000);
-    } else if (Notification.permission !== 'denied') {
+    }
+
+});
+
+function enableNotifications() {
+
+    if (!isLoggedIn()) {
+        return;
+    }
+
+    if (!("Notification" in window)) {
+        console.log("The Notification API is not supported by this browser");
+        return;
+    }
+
+    if (Notification.permission !== 'denied' && Notification.permission !== 'granted') {
         Notification.requestPermission(function (permission) {
             // If the user accepts, let's create a notification
             if (permission === "granted") {
@@ -161,4 +176,4 @@ $(function() {
         });
     }
 
-});
+}
