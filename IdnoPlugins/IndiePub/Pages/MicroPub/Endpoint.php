@@ -104,6 +104,7 @@
                     }
                       if ($type == 'checkin')  {
                            $place_name = $this->getInput('place_name');
+                           $location = $this->getInput('location');
                            $latlong = explode(",",$location);
                            $lat = str_ireplace("geo:", "", $latlong[0]);
                            $long = $latlong[1];
@@ -162,10 +163,12 @@
                         $this->setInput('like-of', $like_of);
                         $this->setInput('repost-of', $repost_of);
                         $this->setInput('access', 'PUBLIC');
-                        $this->setInput('lat', $lat);
-                        $this->setInput('long', $long);
-                        $this->setInput('user_address', $user_address);
-                        $this->setInput('placename',$place_name);
+                        if ($type ==  'checkin') {
+                            $this->setInput('lat', $lat);
+                            $this->setInput('long', $long);
+                            $this->setInput('user_address', $user_address);
+                            $this->setInput('placename',$place_name);
+                        }
                         if ($created = $this->getInput('published')) {
                             $this->setInput('created', $created);
                         }
