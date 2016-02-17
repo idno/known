@@ -81,7 +81,7 @@
                 $repost_of   = $this->getInput('repost-of');
                 $categories  = $this->getInput('category');
                 $mp_type     = $this->getInput('mp-type');
-                if (!empty($mp_type) {
+                if (!empty($mp_type)) {
                    $type = $mp_type;
                 }
 
@@ -102,7 +102,7 @@
                     } else if (!empty($name)) {
                         $type = 'article';
                     }
-                      if ($type == 'checkin') ) {
+                      if ($type == 'checkin')  {
                            $place_name = $this->getInput('place_name');
                            $latlong = explode(",",$location);
                            $lat = str_ireplace("geo:", "", $latlong[0]);
