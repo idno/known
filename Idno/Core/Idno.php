@@ -751,8 +751,8 @@
                 if (!empty(site()->config()->noping)) {
                     return '';
                 }
-                $web_client = new Webservice();
-                $results    = $web_client->post('https://withknown.com/vendor-services/messages/', array(
+                
+                $results    = Webservice::post('https://withknown.com/vendor-services/messages/', array(
                     'url'     => site()->config()->getURL(),
                     'title'   => site()->config()->getTitle(),
                     'version' => site()->getVersion(),
