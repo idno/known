@@ -104,6 +104,7 @@
                     }
                       if ($type == 'checkin')  {
                            $place_name = $this->getInput('place_name');
+                           $location = $this->getInput('location');
                            $latlong = explode(",",$location);
                            $lat = str_ireplace("geo:", "", $latlong[0]);
                            $long = $latlong[1];
