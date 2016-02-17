@@ -75,7 +75,7 @@
                     ];
                 }
 
-                // Check PHP version (sometimes install can be
+                // Check PHP version 
                 if (version_compare(phpversion(), '5.4') >= 0) {
                     $basics['report']['php-version'] = [
                         'status' => 'Ok'
