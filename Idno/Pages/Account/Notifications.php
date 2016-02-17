@@ -21,7 +21,6 @@
                     'owner' => $user->getUUID(),
                 ], [], $limit, $offset);
 
-
                 $count = Notification::countFromX('Idno\Entities\Notification', [
                     'owner' => $user->getUUID(),
                 ]);
