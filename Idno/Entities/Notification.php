@@ -146,16 +146,18 @@
                 return \Idno\Core\Idno::site()->config()->url . 'view/' . $this->getID();
             }
 
-            function saveDataFromInput($page)
+            function saveDataFromInput()
             {
-                $read = $page->getInput("read");
-                if ($read === 'true') {
-                    $this->markRead();
-                } else if ($read === 'false') {
-                    $this->markUnread();
-                }
+                if ($page = \Idno\Core\Idno::site()->currentPage()) {
+                    $read = $page->getInput("read");
+                    if ($read === 'true') {
+                        $this->markRead();
+                    } else if ($read === 'false') {
+                        $this->markUnread();
+                    }
 
-                $this->save();
+                    $this->save();
+                }
             }
 
         }

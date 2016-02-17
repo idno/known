@@ -178,7 +178,7 @@
                             \Idno\Core\Idno::site()->logging()->log("Setting syndication: $syndication");
                             $this->setInput('syndication', $syndication);
                         }
-                        if ($entity->saveDataFromInput($this)) {
+                        if ($entity->saveDataFromInput()) {
                             \Idno\Core\Idno::site()->triggerEvent('indiepub/post/success', ['page' => $this, 'object' => $entity]);
                             $this->setResponse(201);
                             header('Location: ' . $entity->getURL());

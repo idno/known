@@ -49,7 +49,7 @@
                     $object = new \IdnoPlugins\Event\RSVP();
                 }
 
-                if ($object->saveDataFromInput($this)) {
+                if ($object->saveDataFromInput()) {
                     $this->forward($object->getDisplayURL());
                 }
 

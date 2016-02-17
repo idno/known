@@ -109,7 +109,7 @@
                 }
 
                 if (empty($object)) $this->forward(); // TODO: 404
-                if ($object->saveDataFromInput($this)) {
+                if ($object->saveDataFromInput()) {
                     $this->forward($object->getDisplayURL());
                 }
                 $this->forward($_SERVER['HTTP_REFERER']);
