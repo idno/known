@@ -2,11 +2,13 @@
 
     namespace Idno\Core {
 
-        class Purifier extends \Idno\Common\Component {
+        class Purifier extends \Idno\Common\Component
+        {
 
             protected $purifier;
 
-            function init() {
+            function init()
+            {
 
                 $config = \HTMLPurifier_Config::createDefault();
                 $config->set('Cache.DefinitionImpl', null);
@@ -14,21 +16,23 @@
 
             }
 
-            function purify($html) {
+            function registerEventHooks()
+            {
+                \Idno\Core\Idno::site()->addEventHook('text/filter', function (\Idno\Core\Event $event) {
+
+                    $text = $event->response();
+
+                    $text = $this->purify($text);
+
+                    $event->setResponse($text);
+                });
+            }
+
+            function purify($html)
+            {
 
                 return $this->purifier->purify($html);
 
-            }
-
-            function registerEventHooks() {
-                \Idno\Core\Idno::site()->addEventHook('text/filter',function(\Idno\Core\Event $event) {
-                    
-		    $text = $event->response();
-		    
-		    $text = $this->purify($text);
-		    
-		    $event->setResponse($text);
-                });
             }
         }
 

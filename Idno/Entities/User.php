@@ -82,35 +82,35 @@
                 // Email notifications
                 \Idno\Core\Idno::site()->addEventHook('notify', function (\Idno\Core\Event $event) {
 
-                    $eventdata = $event->data();
-                    $user      = $eventdata['user'];
+                    $eventdata    = $event->data();
+                    $user         = $eventdata['user'];
+                    $notification = $eventdata['notification'];
 
-                    $eventdata = $event->data();
-                    if ($user instanceof User && $context = $eventdata['context']) {
+                    if ($user instanceof User) {
 
-                        if (empty($user->notifications['email']) || $user->notifications['email'] == 'all' || ($user->notifications['email'] == 'comment' && in_array($context, array('comment', 'reply')))) {
+                        if (empty($user->notifications['email']) || $user->notifications['email'] == 'all' || ($user->notifications['email'] == 'comment' && in_array($notification->type, array('comment', 'reply')))) {
 
-                            $eventdata = $event->data();
-                            $vars      = $eventdata['vars'];
-                            if (empty($vars)) {
-                                $vars = array();
-                            }
-                            $eventdata      = $event->data();
-                            $vars['object'] = $eventdata['object'];
-
-                            if (filter_var($user->email, FILTER_VALIDATE_EMAIL)) {
-                                $email = new Email();
-                                $email->setSubject($eventdata['message']);
-                                $email->setHTMLBodyFromTemplate($eventdata['message_template'], $vars);
-                                $email->setTextBodyFromTemplate($eventdata['message_template'], $vars);
-                                $email->addTo($user->email);
-                                $email->send();
+                            if (($obj = $notification->getObject()) && isset($obj['permalink'])) {
+                                $permalink = $obj['permalink'];
                             }
 
+                            if (empty($user->notifications['ignored_domains']) || empty($permalink) || !in_array(parse_url($permalink, PHP_URL_HOST), $user->notifications['ignored_domains'])) {
+                                if (filter_var($user->email, FILTER_VALIDATE_EMAIL)) {
+                                    $vars = [
+                                        'user'         => $user,
+                                        'notification' => $notification,
+                                    ];
+
+                                    $email = new Email();
+                                    $email->setSubject($notification->getMessage());
+                                    $email->setHTMLBodyFromTemplate($notification->getMessageTemplate(), $vars);
+                                    $email->setTextBodyFromTemplate($notification->getMessageTemplate(), $vars);
+                                    $email->addTo($user->email);
+                                    $email->send();
+                                }
+                            }
                         }
-
                     }
-
                 });
 
             }
@@ -243,12 +243,13 @@
                 }
 
                 if (!empty($tagline)) {
-                    $description = strip_tags($tagline);
+                    $description       = strip_tags($tagline);
                     $description_words = explode(' ', $description);
-                    $description = implode(' ', array_slice($description_words, 0, $words));
+                    $description       = implode(' ', array_slice($description_words, 0, $words));
                     if (sizeof($description_words) > $words) {
                         $description .= ' ...';
                     }
+
                     return $description;
                 }
 
@@ -332,7 +333,7 @@
             function generateAPIkey()
             {
                 $token = new \Idno\Core\TokenProvider();
-                
+
                 $apikey       = strtolower(substr(base64_encode($token->generateToken(32)), 12, 16));
                 $this->apikey = $apikey;
                 $this->save();
@@ -346,6 +347,7 @@
              */
             function isAdmin()
             {
+                if (\Idno\Core\Idno::site()->session()->isAPIRequest()) return false; // Refs #831 - limit admin access on API
                 if (!empty($this->admin)) return true;
 
                 return false;
@@ -445,7 +447,7 @@
             function addPasswordRecoveryCode()
             {
                 $token = new \Idno\Core\TokenProvider();
-                
+
                 $auth_code                         = bin2hex($token->generateToken(16));
                 $this->password_recovery_code      = $auth_code;
                 $this->password_recovery_code_time = time();
@@ -762,24 +764,30 @@
             /**
              * Hook to provide a method of notifying a user - for example, sending an email or displaying a popup.
              *
-             * @param string $message The short text message to notify the user with. (eg, a subject line.)
-             * @param string $message_template Optionally, a template name pointing to a longer version of the message with more detail.
-             * @param string $context Optionally, a string describing the kind of action. eg, "comment", "like" or "reshare".
-             * @param array $vars Optionally, variables to pass to the template.
-             * @param \Idno\Common\Entity|null $object Optionally, an object to pass
-             * @param array|null $params Optionally, any parameters to pass to the process. NB: this should be used rarely.
+             * @param \Idno\Entities\Notification $notification
+             * @param \Idno\Common\Entity|null $object
              */
-            public function notify($message, $message_template = '', $vars = array(), $context = '', $object = null, $params = null)
+            public function notify($notification)
             {
                 return \Idno\Core\Idno::site()->triggerEvent('notify', array(
-                    'user'             => $this,
-                    'message'          => $message,
-                    'context'          => $context,
-                    'vars'             => $vars,
-                    'message_template' => $message_template,
-                    'object'           => $object,
-                    'parameters'       => $params
+                    'user'         => $this,
+                    'notification' => $notification,
                 ));
+            }
+
+            /**
+             * Look up the number of unread notifications for this user
+             *
+             * @return integer
+             */
+            public function countUnreadNotifications()
+            {
+                $count = Notification::countFromX('Idno\Entities\Notification', [
+                    'owner' => $this->getUUID(),
+                    'read'  => false,
+                ]);
+
+                return $count;
             }
 
             /**

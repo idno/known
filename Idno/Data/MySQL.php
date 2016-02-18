@@ -14,18 +14,48 @@
         class MySQL extends \Idno\Core\DataConcierge
         {
 
-            private $client = null;
-            private $database = null;
+            private $dbname;
+            private $dbuser;
+            private $dbpass;
+            private $dbhost;
+            private $dbport;
+
+            function __construct($dbuser = null, $dbpass = null, $dbname = null, $dbhost = null, $dbport = null)
+            {
+                $this->dbuser = $dbuser;
+                $this->dbpass = $dbpass;
+                $this->dbname = $dbname;
+                $this->dbhost = $dbhost;
+                $this->dbport = $dbport;
+
+                if (empty($dbuser)) {
+                    $this->dbuser = \Idno\Core\Idno::site()->config()->dbuser;
+                }
+                if (empty($dbpass)) {
+                    $this->dbpass = \Idno\Core\Idno::site()->config()->dbpass;
+                }
+                if (empty($dbname)) {
+                    $this->dbname = \Idno\Core\Idno::site()->config()->dbname;
+                }
+                if (empty($dbhost)) {
+                    $this->dbhost = \Idno\Core\Idno::site()->config()->dbhost;
+                }
+                if (empty($dbport)) {
+                    $this->dbport = \Idno\Core\Idno::site()->config()->dbport;
+                }
+
+                parent::__construct();
+            }
 
             function init()
             {
 
                 try {
-                    $connection_string = 'mysql:host=' . \Idno\Core\Idno::site()->config()->dbhost . ';dbname=' . \Idno\Core\Idno::site()->config()->dbname . ';charset=utf8';
-                    if (!empty(\Idno\Core\Idno::site()->config()->dbport)) {
-                        $connection_string .= ';port=' . \Idno\Core\Idno::site()->config()->dbport;
+                    $connection_string = 'mysql:host=' . $this->dbhost . ';dbname=' . $this->dbname . ';charset=utf8';
+                    if (!empty($this->dbport)) {
+                        $connection_string .= ';port=' . $this->dbport;
                     }
-                    $this->client = new \PDO($connection_string, \Idno\Core\Idno::site()->config()->dbuser, \Idno\Core\Idno::site()->config()->dbpass, array(\PDO::MYSQL_ATTR_LOCAL_INFILE => 1));
+                    $this->client = new \PDO($connection_string, $this->dbuser, $this->dbpass, array(\PDO::MYSQL_ATTR_LOCAL_INFILE => 1));
                     $this->client->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
                     //$this->client->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
                 } catch (\Exception $e) {
@@ -47,7 +77,7 @@
                     }
                 }
 
-                $this->database = \Idno\Core\Idno::site()->config()->dbname;
+                $this->database = $this->dbname;
                 $this->checkAndUpgradeSchema();
 
             }
@@ -265,7 +295,7 @@
                 }
                 if (!empty($array['profile'])) {
                     if (is_array($array['profile'])) {
-                        foreach($array['profile'] as $profile_item) {
+                        foreach ($array['profile'] as $profile_item) {
                             if (is_array($profile_item)) {
 
                             } else {
@@ -293,7 +323,7 @@
                 $client = $this->client;
                 /* @var \PDO $client */
 
-                $retval = false;
+                $retval          = false;
                 $benchmark_start = microtime(true);
                 try {
                     $client->beginTransaction();
@@ -325,7 +355,7 @@
                                     $value = 0;
                                 }
                                 if (strlen($value) > 255) { // We only need to store the first 255 characters
-                                    $value = substr($value,0,255);
+                                    $value = substr($value, 0, 255);
                                 }
                                 if ($statement = $client->prepare("insert into metadata set `collection` = :collection, `entity` = :uuid, `_id` = :id, `name` = :name, `value` = :value")) {
                                     $statement->execute(array('collection' => $collection, ':uuid' => $array['uuid'], ':id' => $array['_id'], ':name' => $key, ':value' => $value));
@@ -340,6 +370,7 @@
                 }
 
                 \Idno\Core\Idno::site()->logging()->log('saveRecord(): insert or update took ' . (microtime(true) - $benchmark_start) . 's', LOGLEVEL_DEBUG);
+
                 return $retval;
             }
 
@@ -482,7 +513,7 @@
 
                 // Make sure we're only getting objects that we're allowed to see
                 if (empty($readGroups)) {
-                    $readGroups                 = \Idno\Core\Idno::site()->session()->getReadAccessGroupIDs();
+                    $readGroups = \Idno\Core\Idno::site()->session()->getReadAccessGroupIDs();
                 }
                 $query_parameters['access'] = array('$in' => $readGroups);
 
@@ -554,6 +585,7 @@
                             foreach ($rows as $row) {
                                 $records[] = json_decode($row['contents'], true);
                             }
+
                             return $records;
                         }
                     }
@@ -674,7 +706,7 @@
                                 $subwhere[] = $instring;
                             }
                             if ($key == '$search') {
-                                if(!empty($value[0])) {
+                                if (!empty($value[0])) {
                                     $val = $value[0]; // The search query is always in $value position [0] for now
                                     if (strlen($val) > 5 && !Idno::site()->config()->bypass_fulltext_search) {
                                         if (Idno::site()->config()->boolean_search) {

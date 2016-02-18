@@ -40,8 +40,8 @@
                     $t->drawPage();
                 } else {
                     $t->body  = $t->__(array(
-                        'email' => $email,
-                        'code' => $code,
+                        'email'    => $email,
+                        'code'     => $code,
                         'set_name' => $set_name,
                         'messages' => \Idno\Core\Idno::site()->session()->getAndFlushMessages()))->draw('onboarding/register');
                     $t->title = 'Create a new account';
@@ -59,9 +59,9 @@
                 $code       = $this->getInput('code');
                 $onboarding = $this->getInput('onboarding');
                 $set_name   = $this->getInput('set_name');
-                
+
                 $this->referrerGatekeeper();
-                
+
                 /*if (!\Idno\Common\Page::isSSL() && !\Idno\Core\Idno::site()->config()->disable_cleartext_warning) {
                     \Idno\Core\Idno::site()->session()->addErrorMessage("Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini");
                 }*/
@@ -102,7 +102,7 @@
                         $user->setTitle($name);
                         if (!\Idno\Entities\User::get()) {
                             $user->setAdmin(true);
-                            $user->robot_state = '1'; // State for our happy robot helper
+                            $user->robot_state = '1';
                             if (\Idno\Core\Idno::site()->config()->title == 'New Known site') {
                                 if (!empty($set_name)) {
                                     \Idno\Core\Idno::site()->config()->title = $set_name;
@@ -152,13 +152,13 @@
                 }
 
                 if (!empty($user->_id)) {
-                    \Idno\Core\Idno::site()->session()->addMessage("You've registered! You're ready to get started. Why not add a status update to say hello?");
+                    \Idno\Core\Idno::site()->session()->addMessage("You've registered! You're ready to get started. Why not add a post to say hello?");
                     \Idno\Core\Idno::site()->session()->logUserOn($user);
-                    if (empty($onboarding)) {
-                        $this->forward();
-                    } else {
-                        $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'begin/profile');
-                    }
+                    //if (empty($onboarding)) {
+                    //    $this->forward();
+                    //} else {
+                    $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'begin/profile');
+                    //}
                 } else {
                     \Idno\Core\Idno::site()->session()->addMessageAtStart("We couldn't register you.");
                     $this->forward($_SERVER['HTTP_REFERER']);

@@ -6,7 +6,8 @@
         use Idno\Core\Idno;
         use Idno\Core\Migration;
 
-        class RSS extends Page {
+        class RSS extends Page
+        {
 
             function postContent()
             {

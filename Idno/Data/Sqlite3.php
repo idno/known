@@ -13,15 +13,26 @@
         class Sqlite3 extends \Idno\Core\DataConcierge
         {
 
-            private $client = null;
-            private $database = null;
+            private $dbname;
+
+            function __construct($dbname = null)
+            {
+
+                $this->dbname = $dbname;
+
+                if (empty($dbname)) {
+                    $this->dbname = \Idno\Core\Idno::site()->config()->dbname;
+                }
+
+                parent::__construct();
+            }
 
             function init()
             {
 
                 try {
 
-                    $connection_string = "sqlite:" . \Idno\Core\Idno::site()->config()->dbname;
+                    $connection_string = "sqlite:" . $this->dbname;
                     $this->client      = new \PDO($connection_string);
                     $this->client->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
                     $this->client->exec("SELECT * from versions;"); // Quick and dirty check to see if database is installed TODO: do this better.
@@ -59,7 +70,7 @@
                     }
                 }
 
-                $this->database = \Idno\Core\Idno::site()->config()->dbname;
+                $this->database = $this->dbname;
                 $this->checkAndUpgradeSchema();
             }
 
@@ -382,7 +393,7 @@
 
                 // Make sure we're only getting objects that we're allowed to see
                 if (empty($readGroups)) {
-                    $readGroups                 = \Idno\Core\Idno::site()->session()->getReadAccessGroupIDs();
+                    $readGroups = \Idno\Core\Idno::site()->session()->getReadAccessGroupIDs();
                 }
                 $query_parameters['access'] = array('$in' => $readGroups);
 
@@ -456,9 +467,10 @@
                     if ($statement->execute($variables)) {
                         if ($rows = $statement->fetchAll(\PDO::FETCH_ASSOC)) {
                             $records = [];
-                            foreach($rows as $row) {
+                            foreach ($rows as $row) {
                                 $records[] = json_decode($row['contents'], true);
                             }
+
                             return $records;
                         }
                     }

@@ -12,6 +12,9 @@
  * Later json_encoded to ensure it's natively escaped.
  */
 $known = [
+    'session' => [
+        'loggedIn' => \Idno\Core\Idno::site()->session()->isLoggedIn(),
+    ],
     'config' => [
         'displayUrl' => \Idno\Core\Idno::site()->config()->getDisplayURL()
     ]

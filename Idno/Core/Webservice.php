@@ -28,30 +28,6 @@
             }
 
             /**
-             * Send a web services GET request to a specified URI endpoint
-             * @param string $endpoint The URI to send the GET request to
-             * @param array $params Optionally, an array of parameters to send (keys are the parameter names)
-             * @param array $headers Optionally, an array of headers to send with the request (keys are the header names)
-             * @return array
-             */
-            static function get($endpoint, array $params = null, array $headers = null)
-            {
-                return self::send('get', $endpoint, $params, $headers);
-            }
-
-            /**
-             * Send a web services HEAD request to a specified URI endpoint
-             * @param string $endpoint The URI to send the HEAD request to
-             * @param array $params Optionally, an array of parameters to send (keys are the parameter names)
-             * @param array $headers Optionally, an array of headers to send with the request (keys are the header names)
-             * @return array
-             */
-            static function head($endpoint, array $params = null, array $headers = null)
-            {
-                return self::send('head', $endpoint, $params, $headers);
-            }
-
-            /**
              * Send a web services request to a specified endpoint
              * @param string $verb The verb to send the request with; one of POST, GET, DELETE, PUT
              * @param string $endpoint The URI to send the request to
@@ -68,19 +44,19 @@
                 switch (strtolower($verb)) {
                     case 'post':
                         curl_setopt($curl_handle, CURLOPT_POST, 1);
-                        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, self::flattenArrayToQuery($params));
+                        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $params);
                         curl_setopt($curl_handle, CURLOPT_HTTPHEADER, array("Content-type: multipart/form-data"));
                         $headers[] = 'Expect:';
                         break;
                     case 'put':
                         curl_setopt($curl_handle, CURLOPT_CUSTOMREQUEST, 'PUT'); // Override request type
-                        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, self::flattenArrayToQuery($params));
+                        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $params);
                         curl_setopt($curl_handle, CURLOPT_HTTPHEADER, array("Content-type: multipart/form-data"));
                         break;
 
                     case 'delete':
                         curl_setopt($curl_handle, CURLOPT_CUSTOMREQUEST, 'DELETE'); // Override request type
-                        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, self::flattenArrayToQuery($params));
+                        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $params);
                         curl_setopt($curl_handle, CURLOPT_HTTPHEADER, array("Content-type: multipart/form-data"));
                     case 'head':
                         if ($verb == 'head') curl_setopt($curl_handle, CURLOPT_NOBODY, true);
@@ -280,6 +256,18 @@
             }
 
             /**
+             * Send a web services HEAD request to a specified URI endpoint
+             * @param string $endpoint The URI to send the HEAD request to
+             * @param array $params Optionally, an array of parameters to send (keys are the parameter names)
+             * @param array $headers Optionally, an array of headers to send with the request (keys are the header names)
+             * @return array
+             */
+            static function head($endpoint, array $params = null, array $headers = null)
+            {
+                return self::send('head', $endpoint, $params, $headers);
+            }
+
+            /**
              * Send a web services PUT request to a specified URI endpoint
              * @param string $endpoint The URI to send the PUT request to
              * @param mixed $params Optionally, an array of parameters to send (keys are the parameter names), or the raw body text (depending on Content-Type)
@@ -324,13 +312,25 @@
                     // The redirection URL is the "location" field of the header
                     $headers = http_parse_headers($result['header']);
                     $headers = array_change_key_case($headers, CASE_LOWER); // Ensure standardised header array keys
-                    $result = self::get($headers["location"]);
+                    $result  = self::get($headers["location"]);
                 }
 
                 if ($result['error'] == "")
                     return $result['content'];
 
                 return false;
+            }
+
+            /**
+             * Send a web services GET request to a specified URI endpoint
+             * @param string $endpoint The URI to send the GET request to
+             * @param array $params Optionally, an array of parameters to send (keys are the parameter names)
+             * @param array $headers Optionally, an array of headers to send with the request (keys are the header names)
+             * @return array
+             */
+            static function get($endpoint, array $params = null, array $headers = null)
+            {
+                return self::send('get', $endpoint, $params, $headers);
             }
 
             /**
@@ -361,6 +361,7 @@
                 if (is_array($params) && !empty($params)) {
                     return http_build_query($params);
                 }
+
                 return $params;
             }
 

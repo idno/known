@@ -65,11 +65,10 @@
                 }
                 if ($user instanceof User) {
                     $user       = User::getByUUID($user->getUUID());
-                    $web_client = new Webservice();
                     $contents   = json_encode($user);
                     $time       = time();
                     $details    = $this->loadDetails();
-                    $results    = $web_client->post($this->server . 'hub/user/register', array(
+                    $results    = Webservice::post($this->server . 'hub/user/register', array(
                         'content'    => $contents,
                         'time'       => $time,
                         'auth_token' => $details['auth_token'],
@@ -181,9 +180,7 @@
 
                 if ($last_ping < (time() - 10)) { // Throttling registration pings to hub
 
-                    $web_client = new Webservice();
-
-                    $results = $web_client->post($this->server . 'hub/site/register', array(
+                    $results = Webservice::post($this->server . 'hub/site/register', array(
                         'url'   => \Idno\Core\Idno::site()->config()->getURL(),
                         'title' => \Idno\Core\Idno::site()->config()->getTitle(),
                         'token' => $this->getRegistrationToken()
@@ -269,11 +266,10 @@
 
                 if ($user instanceof User) {
                     if ($this->userIsRegistered($user)) {
-                        $web_client = new Webservice();
                         $contents   = json_encode($contents);
                         $time       = time();
                         $details    = $user->hub_settings;
-                        $results    = $web_client->post($this->server . $endpoint, array(
+                        $results    = Webservice::post($this->server . $endpoint, array(
                             'content'    => $contents,
                             'time'       => $time,
                             'auth_token' => $details['token'],

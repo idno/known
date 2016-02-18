@@ -23,14 +23,14 @@ function bindControls() {
 
 var isCreateFormVisible = false;
 
-function contentCreateForm(plugin) {
+function contentCreateForm(plugin, editUrl) {
     if (isCreateFormVisible) {
         // Ignore additional clicks on create button
         return;
     }
 
     isCreateFormVisible = true;
-    $.ajax(wwwroot() + plugin + '/edit/', {
+    $.ajax(editUrl, {
         dataType: 'html',
         success: function (data) {
             $('#contentCreate').html(data).slideDown(400);
@@ -123,10 +123,86 @@ function htmlEntityDecode(encodedString) {
     return textArea.value;
 }
 
+/**
+ * "Soft" forward a link on a page.
+ */
+$(document).ready(function(){
+   var url = $('#soft-forward').attr('href');
+
+   if (!!url) {
+       window.location = url;
+   }
+});
+
 /*
  * Shim so that JS functions can get the current site URL
  * @deprecated Use known.config.displayUrl
  */
 function wwwroot() {
-    return known.config.displayUrl
+    return known.config.displayUrl;
+}
+/**
+ * Shim so JS functions can tell if this is a logged in session or not.
+ * @deprecated Use known.session.loggedin
+ * @returns {Boolean}
+ */
+function isLoggedIn() {
+    if (known.session.loggedIn) {
+        return true;
+    }
+    return false;
+}
+
+function doPoll() {
+    $.get(wwwroot() + '/account/new-notifications')
+        .done(function (data) {
+            console.log("Polling for new notifications succeeded");
+            console.log(data);
+            if (data.notifications.length > 0) {
+                var title = data.notifications[0].title;
+                var body  = data.notifications[0].body;
+                new Notification(title, {body: body});
+            }
+        })
+        .fail(function (data) {
+            console.log("Polling for new notifications failed");
+        });
+}
+
+$(function() {
+
+    if (!isLoggedIn()) {
+        return;
+    }
+
+    if (!("Notification" in window)) {
+        console.log("The Notification API is not supported by this browser");
+        return;
+    }
+
+    if (Notification.permission === 'granted') {
+        setInterval(doPoll, 10000);
+    }
+
+});
+
+function enableNotifications() {
+
+    if (!isLoggedIn()) {
+        return;
+    }
+
+    if (!("Notification" in window)) {
+        console.log("The Notification API is not supported by this browser");
+        return;
+    }
+
+    if (Notification.permission !== 'denied' && Notification.permission !== 'granted') {
+        Notification.requestPermission(function (permission) {
+            // If the user accepts, let's create a notification
+            if (permission === "granted") {
+                setInterval(doPoll, 10000);
+            }
+        });
+    }
 }

@@ -166,7 +166,8 @@
                                         }
 
                                         imagejpeg($image, $tmpfname);
-                                    } catch (\Exception $e) {}
+                                    } catch (\Exception $e) {
+                                    }
                                     break;
                             }
 
@@ -200,20 +201,6 @@
             }
 
             /**
-             * Given a file and an original file path, determines whether this file is an SVG
-             * @param $file_path
-             * @return bool
-             */
-            public static function isSVG($file_path, $original_file_path)
-            {
-                if (pathinfo($original_file_path, PATHINFO_EXTENSION) == 'svg') {
-                    return true; // TODO better SVG validation would be nice
-                }
-
-                return false;
-            }
-
-            /**
              * Retrieve a file by ID
              * @param string $id
              * @return \Idno\Common\Entity|\MongoGridFSFile|null
@@ -226,6 +213,20 @@
                     } catch (\Exception $e) {
                         \Idno\Core\Idno::site()->logging->log($e->getMessage(), LOGLEVEL_ERROR);
                     }
+                }
+
+                return false;
+            }
+
+            /**
+             * Given a file and an original file path, determines whether this file is an SVG
+             * @param $file_path
+             * @return bool
+             */
+            public static function isSVG($file_path, $original_file_path)
+            {
+                if (pathinfo($original_file_path, PATHINFO_EXTENSION) == 'svg') {
+                    return true; // TODO better SVG validation would be nice
                 }
 
                 return false;

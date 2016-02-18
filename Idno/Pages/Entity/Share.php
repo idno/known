@@ -25,7 +25,7 @@
                 \Idno\Core\Idno::site()->events()->dispatch('url/shorten', $event);
                 $short_url = $event->response();
 
-                if (!in_array($type, array('note', 'reply', 'rsvp', 'like', 'bookmark'))) {
+                if (!$type || !\Idno\Common\ContentType::getRegisteredForIndieWebPostType($type)) {
                     $share_type = 'note';
 
                     // Probe to see if this is something we can MF2 parse, before we do
@@ -33,10 +33,10 @@
                     if ($head = \Idno\Core\Webservice::head($url)) {
                         $headers = http_parse_headers($head['header']);
                     }
-                    
+
                     // Only MF2 Parse supported types
-                    if (preg_match('/text\/(html|plain)+/', $headers['Content-Type'])) {
-                        
+                    if (isset($headers['Content-Type']) && preg_match('/text\/(html|plain)+/', $headers['Content-Type'])) {
+
                         if ($content = \Idno\Core\Webservice::get($url)) {
                             if ($mf2 = \Idno\Core\Webmention::parseContent($content['content'])) {
                                 if (!empty($mf2['items'])) {
@@ -66,7 +66,8 @@
                 }
 
                 if (!empty($content_type)) {
-                    if ($page = \Idno\Core\Idno::site()->getPageHandler('/' . $content_type->camelCase($content_type->getEntityClassName()) . '/edit')) {
+
+                    if ($page = \Idno\Core\Idno::site()->getPageHandler($content_type->getEditURL())) {
                         if ($share_type == 'note' /*&& !substr_count($url, 'twitter.com')*/) {
                             $page->setInput('body', $title . ' ' . $short_url);
                         } else {

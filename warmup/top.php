@@ -1,7 +1,11 @@
 <?php
 
     if (file_exists('../config.ini')) {
-        header('Location: ../'); exit;
+        $config = file_get_contents('../config.ini');
+        $config = trim($config);
+        if (!empty($config)) {
+            header('Location: ../'); exit;
+        }
     }
 
     if (empty($title)) {

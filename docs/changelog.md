@@ -2,6 +2,21 @@
 
 Starting with version 0.6.4, this is a list of changes in the self-hosted, open source version of Known.
 
+0.9.0.3
+-------
+February 6, 2016
+
+* Improved user registration page and onboarding flow
+* Cleaned up some text pages
+* Fixed an issue where you couldn't change back to the default theme
+* Fixed a compatibility issue with Photos on PHP 5.4
+* Removed an EXIF error message
+* Retroactive POSSE
+* MongoDB fix for newer MongoDB versions
+* Updated diagnostics
+* Ability to shush notifications from certain domains
+* Minor default theme style changes
+
 0.9
 ---
 February 2, 2016

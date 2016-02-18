@@ -59,7 +59,7 @@
                     $object = new \IdnoPlugins\StaticPages\StaticPage();
                 }
 
-                if ($object->saveDataFromInput($this)) {
+                if ($object->saveDataFromInput()) {
                     $this->forward($object->getURL());
                 } else {
                     $this->forward($_SERVER['HTTP_REFERER']);

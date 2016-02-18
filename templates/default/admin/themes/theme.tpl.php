@@ -1,7 +1,16 @@
 <?php
 
-    $path = $vars['theme']['Theme description']['path'];
-    $url = $vars['theme']['Theme description']['url'];
+    $path = false;
+    $url = false;
+
+    if (!empty($vars['theme'])) {
+        if (!empty($vars['theme']['Theme description']['path'])) {
+            $path = $vars['theme']['Theme description']['path'];
+        }
+        if (!empty($vars['theme']['Theme description']['url'])) {
+            $url = $vars['theme']['Theme description']['url'];
+        }
+    }
 
 ?>
 <div class="col-md-4 theme">
@@ -13,6 +22,7 @@
                 $src = $url . 'preview.png';
             }
         } else {
+            $vars['theme']['shortname'] = 'default';
             $src = \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/themes/default.png';
         }
         if (!empty($src)) {

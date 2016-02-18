@@ -93,14 +93,13 @@
                 }
                 $url .= $request;
 
-                $client = new Webservice();
                 if ($method == 'POST') {
-                    $result = $client->post($url, $json, array(
+                    $result = Webservice::post($url, $json, array(
                         'X-KNOWN-USERNAME: ' . $username,
                         'X-KNOWN-SIGNATURE: ' . base64_encode(hash_hmac('sha256', $request, $key, true)),
                     ));
                 } else {
-                    $result = $client->get($url, null, array(
+                    $result = Webservice::get($url, null, array(
                         'X-KNOWN-USERNAME: ' . $username,
                         'X-KNOWN-SIGNATURE: ' . base64_encode(hash_hmac('sha256', $request, $key, true)),
                     ));

@@ -1,7 +1,7 @@
 <?php
     $user = \Idno\Core\Idno::site()->session()->currentUser();
-    if (empty($user->notifications[email])) {
-        $user->notifications[email] = 'none';
+    if (empty($user->notifications['email'])) {
+        $user->notifications['email'] = 'none';
     }
 ?>
 <div class="row">
@@ -21,48 +21,51 @@
               class="form-horizontal"
               enctype="multipart/form-data">
 
-            <div class="row">
-                <div class="col-md-6">
-                    <label class=""><strong>
-                            Send email notifications
-                        </strong>
-                    </label>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <label> Send email notifications </label>
+
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="notifications[email]" id="optionsRadios1"
+                                   value="all" <?php if ($user->notifications['email'] == 'all') {
+                                echo 'checked';
+                            } ?>>
+                            Whenever someone interacts with my content
+                        </label>
+                    </div>
+
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="notifications[email]" id="optionsRadios2"
+                                   value="comments" <?php if ($user->notifications['email'] == 'comments') {
+                                echo 'checked';
+                            } ?>>
+                            Only when someone comments on my content
+                        </label>
+                    </div>
+
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="notifications[email]" id="optionsRadios3"
+                                   value="none" <?php if ($user->notifications['email'] == 'none') {
+                                echo 'checked';
+                            } ?>>
+                            Never
+                        </label>
+                    </div>
+
                 </div>
             </div>
 
-            <div class="row">
-                <div class="radio col-md-6">
-                    <label>
-                        <input type="radio" name="notifications[email]" id="optionsRadios1"
-                               value="all" <?php if ($user->notifications[email] == 'all') {
-                            echo 'checked';
-                        } ?>>
-                        Whenever someone interacts with my content
-                    </label>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="radio col-md-6">
-                    <label>
-                        <input type="radio" name="notifications[email]" id="optionsRadios2"
-                               value="comments" <?php if ($user->notifications[email] == 'comments') {
-                            echo 'checked';
-                        } ?>>
-                        Only when someone comments on my content
-                    </label>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="radio col-md-6">
-                    <label>
-                        <input type="radio" name="notifications[email]" id="optionsRadios3"
-                               value="none" <?php if ($user->notifications[email] == 'none') {
-                            echo 'checked';
-                        } ?>>
-                        Never
-                    </label>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <label>Ignored Domains</label>
+                    Do not send notifications for interactions originating from these domains (one domain per line)
+                    <textarea name="notifications[ignored_domains]" class="form-control"><?php
+                       if (isset($user->notifications['ignored_domains'])) {
+                         echo implode(PHP_EOL, $user->notifications['ignored_domains']);
+                       } ?></textarea>
                 </div>
             </div>
 

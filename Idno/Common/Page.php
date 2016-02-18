@@ -75,6 +75,63 @@
                 \Idno\Core\Idno::site()->embedded();
             }
 
+            /**
+             * Retrieves input.
+             *
+             * @param string $name Name of the input variable
+             * @param mixed $default A default return value if no value specified (default: null)
+             * @param boolean $filter Whether or not to filter the variable for safety (default: null), you can pass
+             *                 a callable method, function or enclosure with a definition like function($name, $value), which
+             *                 will return the filtered result.
+             * @return mixed
+             */
+            function getInput($name, $default = null, callable $filter = null)
+            {
+                if (!empty($name)) {
+                    $request = \Idno\Core\Input::getInput($name, $default, $filter);
+                    if (!empty($request)) {
+                        $value = $request;
+                    } else if (!empty($this->data[$name])) {
+                        $value = $this->data[$name];
+                    }
+                    if ((empty($value)) && (!empty($default)))
+                        $value = $default;
+                    if (!empty($value)) {
+                        if (isset($filter) && is_callable($filter) && empty($request)) {
+                            $value = call_user_func($filter, $name, $value);
+                        }
+
+                        // TODO, we may want to add some sort of system wide default filter for when $filter is null
+
+                        return $value;
+                    }
+                }
+
+                return false;
+            }
+
+            function exception(\Exception $e)
+            {
+                $this->setResponse(500);
+                http_response_code($this->response);
+                $t = \Idno\Core\Idno::site()->template();
+                $t->__(array('body' => $t->__(array('exception' => $e))->draw('pages/500'), 'title' => 'Exception'))->drawPage();
+                exit;
+            }
+
+            /**
+             * Set the response code for the page. Note: this will be overridden
+             * if the main system response code is already not 200
+             *
+             * @param int $code
+             */
+            function setResponse($code)
+            {
+                $code           = (int)$code;
+                $this->response = $code;
+                http_response_code($this->response);
+            }
+
             function head()
             {
                 \Idno\Core\Idno::site()->session()->publicGatekeeper();
@@ -94,6 +151,66 @@
 
                 //if (http_response_code() != 200)
                 http_response_code($this->response);
+            }
+
+            /**
+             * Finds a JSON payload associated with the current page request
+             * and parses any variables into $this->data
+             */
+            function parseJSONPayload()
+            {
+
+                // First, let's see if we've been sent anything in form input
+                if (!empty($_REQUEST['json'])) {
+                    $json = trim($_REQUEST['json']);
+                    if ($parsed = @json_decode($json, true)) {
+                        $this->data = array_merge($parsed, $this->data());
+                    }
+                }
+
+                if ($_SERVER['REQUEST_METHOD'] != 'GET') {
+                    $body = @file_get_contents('php://input');
+                    $body = trim($body);
+                    if (!empty($body)) {
+                        if ($parsed = @json_decode($body, true)) {
+                            $this->data = array_merge($parsed, $this->data());
+                        }
+                    }
+                }
+
+            }
+
+            /**
+             * Provide access to page data
+             * @return array
+             */
+            function &data()
+            {
+                return $this->data;
+            }
+
+            /**
+             * To be extended by developers
+             */
+            function getContent()
+            {
+                $this->setResponse(501);
+            }
+
+            /**
+             * Automatically matches JSON/XMLHTTPRequest GET requests.
+             * Sets the template to JSON and then calls get().
+             */
+            function get_xhr()
+            {
+                \Idno\Core\Idno::site()->session()->publicGatekeeper();
+
+                \Idno\Core\Idno::site()->template()->autodetectTemplateType();
+
+                $arguments = func_get_args();
+                if (!empty($arguments)) $this->arguments = $arguments;
+                $this->xhr = true;
+                $this->get();
             }
 
             /**
@@ -121,6 +238,23 @@
                 if (http_response_code() != 200) {
                     http_response_code($this->response);
                 }
+            }
+
+            /**
+             * Automatically matches JSON/XMLHTTPRequest POST requests.
+             * Sets the template to JSON and then calls post().
+             */
+            function post_xhr()
+            {
+                \Idno\Core\Idno::site()->session()->publicGatekeeper();
+
+                \Idno\Core\Idno::site()->template()->autodetectTemplateType();
+
+                $arguments = func_get_args();
+                if (!empty($arguments)) $this->arguments = $arguments;
+                $this->xhr     = true;
+                $this->forward = false;
+                $this->post();
             }
 
             /**
@@ -186,6 +320,74 @@
             }
 
             /**
+             * To be extended by developers
+             */
+            function postContent()
+            {
+                $this->setResponse(501);
+            }
+
+            /**
+             * If this page is allowed to forward, send a header to move
+             * the browser on. Otherwise, do nothing
+             *
+             * @param string $location Location to forward to (eg "/foo/bar")
+             * @param bool $exit If set to true (which it is by default), execution finishes once the header is sent.
+             */
+            function forward($location = '', $exit = true)
+            {
+                if (empty($location)) {
+                    $location = \Idno\Core\Idno::site()->config()->getDisplayURL();
+                }
+                if (!empty($this->forward)) {
+                    if (\Idno\Core\Idno::site()->template()->getTemplateType() != 'default') {
+                        $location = \Idno\Core\Idno::site()->template()->getURLWithVar('_t', \Idno\Core\Idno::site()->template()->getTemplateType(), $location);
+                    }
+                    if ($exit) {
+                        \Idno\Core\Idno::site()->session()->finishEarly();
+                    }
+
+                    /*
+                     * TODO: find a more granular way to do this. But some Known functions depend on
+                     * redirection to other sites (eg a Known hub).
+
+                    if (!Entity::isLocalUUID($location)) {
+                        throw new \Exception('Attempted to redirect page to a non local URL.');
+                    }
+                    */
+
+                    if (\Idno\Core\Idno::site()->session()->isAPIRequest()) {
+                        echo json_encode([
+                            'location' => $location
+                        ]);
+                    } elseif (!\Idno\Core\Idno::site()->session()->isAPIRequest() || $this->response == 200) {
+                        header('Location: ' . $location);
+                    }
+
+                    if ($exit) {
+                        exit;
+                    }
+                }
+            }
+
+            /**
+             * Automatically matches JSON/XMLHTTPRequest PUT requests.
+             * Sets the template to JSON and then calls put().
+             */
+            function put_xhr()
+            {
+                \Idno\Core\Idno::site()->session()->publicGatekeeper();
+
+                \Idno\Core\Idno::site()->template()->autodetectTemplateType();
+
+                $arguments = func_get_args();
+                if (!empty($arguments)) $this->arguments = $arguments;
+                $this->xhr     = true;
+                $this->forward = false;
+                $this->put();
+            }
+
+            /**
              * Internal function used to handle PUT requests.
              * Performs some administration functions, checks for the
              * presence of a form token, and hands off to postContent().
@@ -242,6 +444,31 @@
 
                 if (http_response_code() != 200)
                     http_response_code($this->response);
+            }
+
+            /**
+             * To be extended by developers
+             */
+            function putContent()
+            {
+                $this->setResponse(501);
+            }
+
+            /**
+             * Automatically matches JSON/XMLHTTPRequest PUT requests.
+             * Sets the template to JSON and then calls delete().
+             */
+            function delete_xhr()
+            {
+                \Idno\Core\Idno::site()->session()->publicGatekeeper();
+
+                \Idno\Core\Idno::site()->template()->autodetectTemplateType();
+
+                $arguments = func_get_args();
+                if (!empty($arguments)) $this->arguments = $arguments;
+                $this->xhr     = true;
+                $this->forward = false;
+                $this->delete();
             }
 
             /**
@@ -304,70 +531,11 @@
             }
 
             /**
-             * Automatically matches JSON/XMLHTTPRequest GET requests.
-             * Sets the template to JSON and then calls get().
+             * To be extended by developers
              */
-            function get_xhr()
+            function deleteContent()
             {
-                \Idno\Core\Idno::site()->session()->publicGatekeeper();
-
-                \Idno\Core\Idno::site()->template()->autodetectTemplateType();
-
-                $arguments = func_get_args();
-                if (!empty($arguments)) $this->arguments = $arguments;
-                $this->xhr = true;
-                $this->get();
-            }
-
-            /**
-             * Automatically matches JSON/XMLHTTPRequest POST requests.
-             * Sets the template to JSON and then calls post().
-             */
-            function post_xhr()
-            {
-                \Idno\Core\Idno::site()->session()->publicGatekeeper();
-
-                \Idno\Core\Idno::site()->template()->autodetectTemplateType();
-
-                $arguments = func_get_args();
-                if (!empty($arguments)) $this->arguments = $arguments;
-                $this->xhr     = true;
-                $this->forward = false;
-                $this->post();
-            }
-
-            /**
-             * Automatically matches JSON/XMLHTTPRequest PUT requests.
-             * Sets the template to JSON and then calls put().
-             */
-            function put_xhr()
-            {
-                \Idno\Core\Idno::site()->session()->publicGatekeeper();
-
-                \Idno\Core\Idno::site()->template()->autodetectTemplateType();
-
-                $arguments = func_get_args();
-                if (!empty($arguments)) $this->arguments = $arguments;
-                $this->xhr     = true;
-                $this->forward = false;
-                $this->put();
-            }
-
-            /**
-             * Automatically matches JSON/XMLHTTPRequest PUT requests.
-             * Sets the template to JSON and then calls delete().
-             */
-            function delete_xhr()
-            {
-                \Idno\Core\Idno::site()->session()->publicGatekeeper();
-
-                \Idno\Core\Idno::site()->template()->autodetectTemplateType();
-
-                $arguments = func_get_args();
-                if (!empty($arguments)) $this->arguments = $arguments;
-                $this->xhr     = true;
-                $this->forward = false;
-                $this->delete();
+                $this->setResponse(501);
             }
 
             /**
@@ -381,38 +549,6 @@
 
                 $this->forward = false;
                 //$this->webmentionContent();
-            }
-
-            /**
-             * To be extended by developers
-             */
-            function getContent()
-            {
-                $this->setResponse(501);
-            }
-
-            /**
-             * To be extended by developers
-             */
-            function postContent()
-            {
-                $this->setResponse(501);
-            }
-
-            /**
-             * To be extended by developers
-             */
-            function putContent()
-            {
-                $this->setResponse(501);
-            }
-
-            /**
-             * To be extended by developers
-             */
-            function deleteContent()
-            {
-                $this->setResponse(501);
             }
 
             /**
@@ -455,71 +591,6 @@
             }
 
             /**
-             * You can't see this.
-             */
-            function deniedContent()
-            {
-                $this->setResponse(403);
-                http_response_code($this->response);
-                $t = \Idno\Core\Idno::site()->template();
-                $t->__(array('body' => $t->draw('pages/403'), 'title' => 'Denied!'))->drawPage();
-                exit;
-            }
-
-
-            function exception(\Exception $e)
-            {
-                $this->setResponse(500);
-                http_response_code($this->response);
-                $t = \Idno\Core\Idno::site()->template();
-                $t->__(array('body' => $t->__(array('exception' => $e))->draw('pages/500'), 'title' => 'Exception'))->drawPage();
-                exit;
-            }
-
-            /**
-             * If this page is allowed to forward, send a header to move
-             * the browser on. Otherwise, do nothing
-             *
-             * @param string $location Location to forward to (eg "/foo/bar")
-             * @param bool $exit If set to true (which it is by default), execution finishes once the header is sent.
-             */
-            function forward($location = '', $exit = true)
-            {
-                if (empty($location)) {
-                    $location = \Idno\Core\Idno::site()->config()->getDisplayURL();
-                }
-                if (!empty($this->forward)) {
-                    if (\Idno\Core\Idno::site()->template()->getTemplateType() != 'default') {
-                        $location = \Idno\Core\Idno::site()->template()->getURLWithVar('_t', \Idno\Core\Idno::site()->template()->getTemplateType(), $location);
-                    }
-                    if ($exit) {
-                        \Idno\Core\Idno::site()->session()->finishEarly();
-                    }
-
-                    /*
-                     * TODO: find a more granular way to do this. But some Known functions depend on
-                     * redirection to other sites (eg a Known hub).
-
-                    if (!Entity::isLocalUUID($location)) {
-                        throw new \Exception('Attempted to redirect page to a non local URL.');
-                    }
-                    */
-
-                    if (\Idno\Core\Idno::site()->session()->isAPIRequest()) {
-                        echo json_encode([
-                            'location' => $location
-                        ]);
-                    } elseif (!\Idno\Core\Idno::site()->session()->isAPIRequest() || $this->response == 200) {
-                        header('Location: ' . $location);
-                    }
-
-                    if ($exit) {
-                        exit;
-                    }
-                }
-            }
-
-            /**
              * Flushes content to the browser and continues page working asynchronously.
              */
             function flushBrowser()
@@ -530,25 +601,6 @@
                 @ob_end_flush();            // Return output to the browser
                 @ob_end_clean();
                 @flush();
-            }
-
-            /**
-             * Placed in pages to ensure that only logged-in users can
-             * get at them. Sets response code 401 and tries to forward
-             * to the front page.
-             */
-            function gatekeeper()
-            {
-                if (!\Idno\Core\Idno::site()->session()->isLoggedIn()) {
-                    $this->deniedContent();
-
-//                    // Forwarding loses the response code, so is only helpful if this is not an API request
-//                    if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
-//                        $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']));
-//                    } else {
-//                        $this->deniedContent();
-//                    }
-                }
             }
 
             /**
@@ -569,6 +621,37 @@
 //                    }
                 }
                 $this->gatekeeper();
+            }
+
+            /**
+             * You can't see this.
+             */
+            function deniedContent()
+            {
+                $this->setResponse(403);
+                http_response_code($this->response);
+                $t = \Idno\Core\Idno::site()->template();
+                $t->__(array('body' => $t->draw('pages/403'), 'title' => 'Denied!'))->drawPage();
+                exit;
+            }
+
+            /**
+             * Placed in pages to ensure that only logged-in users can
+             * get at them. Sets response code 401 and tries to forward
+             * to the front page.
+             */
+            function gatekeeper()
+            {
+                if (!\Idno\Core\Idno::site()->session()->isLoggedIn()) {
+                    $this->deniedContent();
+
+//                    // Forwarding loses the response code, so is only helpful if this is not an API request
+//                    if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
+//                        $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']));
+//                    } else {
+//                        $this->deniedContent();
+//                    }
+                }
             }
 
             /**
@@ -616,6 +699,14 @@
             }
 
             /**
+             * Because users of HTTP "referer" often can't spell.
+             */
+            function refererGatekeeper()
+            {
+                $this->referrerGatekeeper();
+            }
+
+            /**
              * Checks for an HTTP referrer; denies access if one doesn't exist
              */
             function referrerGatekeeper()
@@ -640,27 +731,6 @@
             }
 
             /**
-             * Because users of HTTP "referer" often can't spell.
-             */
-            function refererGatekeeper()
-            {
-                $this->referrerGatekeeper();
-            }
-
-            /**
-             * Set the response code for the page. Note: this will be overridden
-             * if the main system response code is already not 200
-             *
-             * @param int $code
-             */
-            function setResponse($code)
-            {
-                $code           = (int)$code;
-                $this->response = $code;
-                http_response_code($this->response);
-            }
-
-            /**
              * Is this page a permalink for an object? This should be set to 'true'
              * if it is.
              * @param bool $status Is this a permalink? Defaults to 'true'
@@ -680,29 +750,21 @@
             }
 
             /**
-             * Sets the given user as owner of this page
-             * @param $user
+             * Force connection over SSL.
+             * If a page is requested over HTTP, this function will issue a 307 redirect to force
+             * the connection over TLS. 307 is used to preserve POST data on a web services call.
              */
-            function setOwner($user)
+            function sslGatekeeper()
             {
-                if ($user instanceof \Idno\Entities\User) {
-                    $this->owner = $user;
-                }
-            }
+                if (!static::isSSL() && empty(\Idno\Core\Idno::site()->config()->ignore_ssl_gatekeeper) && \Idno\Core\Idno::site()->config()->hasSSL()) {
 
-            /**
-             * Retrieves the effective owner of this page, if one has been set
-             * @return bool|User
-             */
-            function getOwner()
-            {
-                if (!empty($this->owner)) {
-                    if ($this->owner instanceof \Idno\Entities\User) {
-                        return $this->owner;
-                    }
-                }
+                    $url = str_replace('http://', 'https://', $this->currentUrl());
 
-                return false;
+                    header("HTTP/1.1 307 Temporary Redirect");
+                    header("Location: $url");
+
+                    exit;
+                }
             }
 
             /**
@@ -727,92 +789,60 @@
             }
 
             /**
-             * Force connection over SSL.
-             * If a page is requested over HTTP, this function will issue a 307 redirect to force
-             * the connection over TLS. 307 is used to preserve POST data on a web services call.
-             */
-            function sslGatekeeper()
-            {
-                if (!static::isSSL() && empty(\Idno\Core\Idno::site()->config()->ignore_ssl_gatekeeper) && \Idno\Core\Idno::site()->config()->hasSSL()) {
-
-                    $url = str_replace('http://', 'https://', $this->currentUrl());
-
-                    header("HTTP/1.1 307 Temporary Redirect");
-                    header("Location: $url");
-
-                    exit;
-                }
-            }
-
-            /**
-             * Provide access to page data
-             * @return array
-             */
-            function &data()
-            {
-                return $this->data;
-            }
-
-            /**
-             * Finds a JSON payload associated with the current page request
-             * and parses any variables into $this->data
-             */
-            function parseJSONPayload()
-            {
-
-                // First, let's see if we've been sent anything in form input
-                if (!empty($_REQUEST['json'])) {
-                    $json = trim($_REQUEST['json']);
-                    if ($parsed = @json_decode($json, true)) {
-                        $this->data = array_merge($parsed, $this->data());
-                    }
-                }
-
-                if ($_SERVER['REQUEST_METHOD'] != 'GET') {
-                    $body = @file_get_contents('php://input');
-                    $body = trim($body);
-                    if (!empty($body)) {
-                        if ($parsed = @json_decode($body, true)) {
-                            $this->data = array_merge($parsed, $this->data());
-                        }
-                    }
-                }
-
-            }
-
-            /**
-             * Retrieves input.
+             * Return the full URL of the current page.
              *
-             * @param string $name Name of the input variable
-             * @param mixed $default A default return value if no value specified (default: null)
-             * @param boolean $filter Whether or not to filter the variable for safety (default: null), you can pass
-             *                 a callable method, function or enclosure with a definition like function($name, $value), which
-             *                 will return the filtered result.
-             * @return mixed
+             * @param $tokenise bool If true then an exploded tokenised version is returned.
+             * @return url|array
              */
-            function getInput($name, $default = null, callable $filter = null)
+            public function currentUrl($tokenise = false)
             {
-                if (!empty($name)) {
-                    $request = \Idno\Core\Input::getInput($name, $default, $filter);
-                    if (!empty($request)) {
-                        $value = $request;
-                    } else if (!empty($this->data[$name])) {
-                        $value = $this->data[$name];
-                    }
-                    if ((empty($value)) && (!empty($default)))
-                        $value = $default;
-                    if (!empty($value)) {
-                        if (isset($filter) && is_callable($filter) && empty($request)) {
-                            $value = call_user_func($filter, $name, $value);
-                        }
+                $url         = parse_url(\Idno\Core\Idno::site()->config()->url);
+                $url['path'] = $_SERVER['REQUEST_URI'];
 
-                        // TODO, we may want to add some sort of system wide default filter for when $filter is null
-
-                        return $value;
-                    }
+                if ($tokenise) {
+                    return $url;
                 }
 
-                return false;
+                return self::buildUrl($url);
+            }
+
+            /**
+             * Construct a URL from array components (basically an implementation of http_build_url() without PECL.
+             *
+             * @param array $url
+             * @return string
+             */
+            public static function buildUrl(array $url)
+            {
+                if (!empty($url['scheme']))
+                    $page = $url['scheme'] . "://";
+                else
+                    $page = '//';
+
+                // user/pass
+                if ((isset($url['user'])) && !empty($url['user']))
+                    $page .= $url['user'];
+                if ((isset($url['pass'])) && !empty($url['pass']))
+                    $page .= ":" . $url['pass'];
+                if (!empty($url['user']) || !empty($url['pass']))
+                    $page .= "@";
+
+                $page .= $url['host'];
+
+                if ((isset($url['port'])) && ($url['port']))
+                    $page .= ":" . $url['port'];
+
+                $page .= $url['path'];
+
+                if ((isset($url['query'])) && ($url['query']))
+                    $page .= "?" . $url['query'];
+
+
+                if ((isset($url['fragment'])) && ($url['fragment']))
+                    $page .= "#" . $url['fragment'];
+
+
+                return $page;
             }
 
             /**
@@ -828,27 +858,6 @@
                 if (!empty($name)) {
                     $this->data[$name] = $value;
                 }
-            }
-
-            /**
-             * Shim for running on nginx, which doesn't provide the
-             * getallheaders function
-             * @return array
-             */
-            function getallheaders()
-            {
-                if (function_exists('getallheaders')) {
-                    return getallheaders();
-                }
-
-                $headers = '';
-                foreach ($_SERVER as $name => $value) {
-                    if (substr($name, 0, 5) == 'HTTP_') {
-                        $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
-                    }
-                }
-
-                return $headers;
             }
 
             /**
@@ -884,6 +893,27 @@
             }
 
             /**
+             * Shim for running on nginx, which doesn't provide the
+             * getallheaders function
+             * @return array
+             */
+            function getallheaders()
+            {
+                if (function_exists('getallheaders')) {
+                    return getallheaders();
+                }
+
+                $headers = '';
+                foreach ($_SERVER as $name => $value) {
+                    if (substr($name, 0, 5) == 'HTTP_') {
+                        $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+                    }
+                }
+
+                return $headers;
+            }
+
+            /**
              * Set or add a file asset.
              * @param type $name Name of the asset (e.g. 'idno', 'jquery')
              * @param type $class Class of asset (e.g. 'javascript', 'css')
@@ -907,6 +937,7 @@
                 if (isset($this->assets[$class])) {
                     return $this->assets[$class];
                 }
+
                 return false;
             }
 
@@ -926,6 +957,32 @@
                 }
 
                 return \Idno\Core\Idno::site()->triggerEvent('icon', ['object' => $this], $icon);
+            }
+
+            /**
+             * Retrieves the effective owner of this page, if one has been set
+             * @return bool|User
+             */
+            function getOwner()
+            {
+                if (!empty($this->owner)) {
+                    if ($this->owner instanceof \Idno\Entities\User) {
+                        return $this->owner;
+                    }
+                }
+
+                return false;
+            }
+
+            /**
+             * Sets the given user as owner of this page
+             * @param $user
+             */
+            function setOwner($user)
+            {
+                if ($user instanceof \Idno\Entities\User) {
+                    $this->owner = $user;
+                }
             }
 
             /**
@@ -974,64 +1031,6 @@
 
                 // Now we've got our page url, match it against regex
                 return preg_match('#^/?' . $regex_string . '/?$#', $url);
-            }
-
-            /**
-             * Return the full URL of the current page.
-             *
-             * @param $tokenise bool If true then an exploded tokenised version is returned.
-             * @return url|array
-             */
-            public function currentUrl($tokenise = false)
-            {
-                $url         = parse_url(\Idno\Core\Idno::site()->config()->url);
-                $url['path'] = $_SERVER['REQUEST_URI'];
-
-                if ($tokenise) {
-                    return $url;
-                }
-
-                return self::buildUrl($url);
-            }
-
-
-            /**
-             * Construct a URL from array components (basically an implementation of http_build_url() without PECL.
-             *
-             * @param array $url
-             * @return string
-             */
-            public static function buildUrl(array $url)
-            {
-                if (!empty($url['scheme']))
-                    $page = $url['scheme'] . "://";
-                else
-                    $page = '//';
-
-                // user/pass
-                if ((isset($url['user'])) && !empty($url['user']))
-                    $page .= $url['user'];
-                if ((isset($url['pass'])) && !empty($url['pass']))
-                    $page .= ":" . $url['pass'];
-                if (!empty($url['user']) || !empty($url['pass']))
-                    $page .= "@";
-
-                $page .= $url['host'];
-
-                if ((isset($url['port'])) && ($url['port']))
-                    $page .= ":" . $url['port'];
-
-                $page .= $url['path'];
-
-                if ((isset($url['query'])) && ($url['query']))
-                    $page .= "?" . $url['query'];
-
-
-                if ((isset($url['fragment'])) && ($url['fragment']))
-                    $page .= "#" . $url['fragment'];
-
-
-                return $page;
             }
 
         }

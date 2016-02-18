@@ -15,6 +15,7 @@
                 if (empty($this->body)) {
                     return ' ';
                 }
+                return $this->body;
             }
 
             /**

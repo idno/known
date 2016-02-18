@@ -17,7 +17,8 @@
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="inputUsername">Choose a username</label>
+                    <label class="control-label" for="inputUsername">Choose a handle
+                        <br /><small>Handles identify you throughout the site. Something simple is best: for example, <em>janedoe</em>.</small></label>
                     <div class="controls">
                         <input type="text" id="inputUsername" placeholder="username" class="" style="width: 100%" name="handle" value="" autocapitalize="off">
                     </div>
@@ -29,11 +30,11 @@
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="inputEmail">Create a password</label>
+                    <label class="control-label" for="inputEmail">Create a password
+                        <br /><small>At least 7 characters please.</small></label>
                     
                     <div class="controls">
                         <input type="password" id="inputPassword" placeholder="secret-password" class="" style="width: 100%" name="password" >
-                        <br /><small>(at least 7 characters please)</small>
                     </div>
                     
                 </div>
