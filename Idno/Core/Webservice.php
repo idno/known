@@ -45,18 +45,20 @@
                     case 'post':
                         
                         // Check for old style @file uploads and try and convert them
-                        foreach ($params as $k => $v) {
-                            if ($v[0] == '@') {
-                                try {
-                                    
-                                    $cfile = self::fileToCurlFile($v);
-                                    if ($cfile) {
-                                        $params[$k] = $cfile;
-                                        curl_setopt($curl_handle, CURLOPT_SAFE_UPLOAD, true);
+                        if (!empty($params) && is_array($params)) {
+                            foreach ($params as $k => $v) {
+                                if ($v[0] == '@') {
+                                    try {
+
+                                        $cfile = self::fileToCurlFile($v);
+                                        if ($cfile) {
+                                            $params[$k] = $cfile;
+                                            curl_setopt($curl_handle, CURLOPT_SAFE_UPLOAD, true);
+                                        }
+                                    } catch (\Exception $ex) {
+                                        \Idno\Core\Idno::site()->logging->log($ex->getMessage(), LOGLEVEL_ERROR);
+                                        curl_setopt($curl_handle, CURLOPT_SAFE_UPLOAD, false);
                                     }
-                                } catch (\Exception $ex) {
-                                    \Idno\Core\Idno::site()->logging->log($ex->getMessage(), LOGLEVEL_ERROR);
-                                    curl_setopt($curl_handle, CURLOPT_SAFE_UPLOAD, false);
                                 }
                             }
                         }
