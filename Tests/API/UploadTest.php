@@ -12,7 +12,7 @@ namespace Tests\API {
         
         public function testUpload() {
             $user = \Tests\KnownTestCase::user();
-
+            
             $result = \Idno\Core\Webservice::post(\Idno\Core\Idno::site()->config()->url . 'photo/edit', [
                 'title' => 'A Photo upload',
                 'body' => "Uploading a pretty picture via the api",
