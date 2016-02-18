@@ -23,7 +23,7 @@
             {
                 $this->adminGatekeeper(); // Admins only
 
-                $email                                             = $this->getInput('from_email');
+                $email                                                   = $this->getInput('from_email');
                 \Idno\Core\Idno::site()->config->config['smtp_host']     = $this->getInput('smtp_host');
                 \Idno\Core\Idno::site()->config->config['smtp_username'] = $this->getInput('smtp_username');
                 \Idno\Core\Idno::site()->config->config['smtp_password'] = $this->getInput('smtp_password');

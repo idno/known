@@ -103,14 +103,14 @@
             /**
              * Draw syndication buttons relating to a particular content type
              * @param $content_type
-             * @param $posse_links containing Entity::getPosseLinks() 
+             * @param $posse_links containing Entity::getPosseLinks()
              * @return \Bonita\false|string
              */
             function drawSyndication($content_type, $posse_links)
             {
-                return $this->__(array('services' => \Idno\Core\Idno::site()->syndication()->getServices($content_type), 
+                return $this->__(array('services'     => \Idno\Core\Idno::site()->syndication()->getServices($content_type),
                                        'content_type' => $content_type,
-                                       'posseLinks' => $posse_links))->draw('content/syndication');
+                                       'posseLinks'   => $posse_links))->draw('content/syndication');
             }
 
             /**
@@ -227,6 +227,16 @@
             }
 
             /**
+             * Wrapper for those on UK spelling.
+             * @param $html
+             * @return mixed
+             */
+            function sanitise_html($html)
+            {
+                return $this->sanitize_html($html);
+            }
+
+            /**
              * Sanitize HTML in a large block of text, removing XSS and other vulnerabilities.
              * This works by calling the text/filter event, as well as any built-in purifier.
              * @param type $html
@@ -236,16 +246,6 @@
                 $html = site()->triggerEvent('text/filter', [], $html);
 
                 return $html;
-            }
-
-            /**
-             * Wrapper for those on UK spelling.
-             * @param $html
-             * @return mixed
-             */
-            function sanitise_html($html)
-            {
-                return $this->sanitize_html($html);
             }
 
             /**
@@ -436,6 +436,29 @@
             }
 
             /**
+             * Returns a sanitized version of the current page URL
+             * @return string
+             */
+            function getCurrentURL()
+            {
+                $base_url = site()->config()->getDisplayURL();
+                $path     = '';
+                if ($components = parse_url($base_url)) {
+                    if ($components['path'] != '/') {
+                        $path = substr($components['path'], 1);
+                    }
+                }
+                $request_uri = substr($_SERVER['REQUEST_URI'], 1);
+                if (!empty($path)) {
+                    if (substr($request_uri, 0, strlen($path)) == $path) {
+                        $request_uri = substr($request_uri, strlen($path));
+                    }
+                }
+
+                return \Idno\Core\Idno::site()->config()->getDisplayURL() . $request_uri;
+            }
+
+            /**
              * Returns a version of the current page URL with the specified variable removed from the address line
              * @param string $variable_name
              * @return string
@@ -470,34 +493,11 @@
                     $url_var_array = [];
                 }
                 $url_var_array[$variable_name] = $value;
-                $components['query'] = http_build_query($url_var_array);
-                $url                 = $components['scheme'] . '://' . $components['host'] . $components['path'];
+                $components['query']           = http_build_query($url_var_array);
+                $url                           = $components['scheme'] . '://' . $components['host'] . $components['path'];
                 if (!empty($components['query'])) $url .= '?' . $components['query'];
 
                 return $url;
-            }
-
-            /**
-             * Returns a sanitized version of the current page URL
-             * @return string
-             */
-            function getCurrentURL()
-            {
-                $base_url = site()->config()->getDisplayURL();
-                $path     = '';
-                if ($components = parse_url($base_url)) {
-                    if ($components['path'] != '/') {
-                        $path = substr($components['path'], 1);
-                    }
-                }
-                $request_uri = substr($_SERVER['REQUEST_URI'], 1);
-                if (!empty($path)) {
-                    if (substr($request_uri, 0, strlen($path)) == $path) {
-                        $request_uri = substr($request_uri, strlen($path));
-                    }
-                }
-
-                return \Idno\Core\Idno::site()->config()->getDisplayURL() . $request_uri;
             }
 
             /**
@@ -512,9 +512,9 @@
                     $url = $this->getCurrentURL();
                 }
                 $blank_scheme = false;
-                if (substr($url,0,2) == '//') {
+                if (substr($url, 0, 2) == '//') {
                     $blank_scheme = true;
-                    $url = 'http:' . $url;
+                    $url          = 'http:' . $url;
                 }
                 if ($components = parse_url($url)) {
                     if (!empty($components['query'])) {
@@ -527,7 +527,7 @@
                     $url                           = $components['scheme'] . '://' . $components['host'] . $components['path'];
                     if (!empty($components['query'])) $url .= '?' . $components['query'];
                     if ($blank_scheme) {
-                        $url = str_replace($components['scheme'] . ':','',$url);
+                        $url = str_replace($components['scheme'] . ':', '', $url);
                     }
                 }
 

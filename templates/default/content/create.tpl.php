@@ -16,7 +16,7 @@
 
                     <a class="contentTypeButton" id="<?= $entityType ?>Button"
                        href="<?= $contentType->getEditURL() ?>"
-                       onclick="contentCreateForm('<?= $entityType ?>'); return false;">
+                       onclick="event.preventDefault(); contentCreateForm('<?= $entityType ?>', '<?= $contentType->getEditURL() ?>'); return false;">
                         <span class="contentTypeLogo"><?= $contentType->getIcon() ?></span>
                         <?= $contentType->getTitle() ?>
                     </a>

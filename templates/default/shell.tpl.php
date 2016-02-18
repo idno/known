@@ -436,6 +436,10 @@
         return '<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>';
     }
 
+    function isLoggedIn() {
+        return <?=\Idno\Core\Idno::site()->session()->isLoggedIn() ? 'true' : 'false'?>;
+    }
+
     $(document).ready(function () {
         $.timeago.settings.cutoff = 30 * 24 * 60 * 60 * 1000; // 1 month
         annotateContent();
@@ -446,12 +450,12 @@
      */
     $(document).ready(function(){
         var url = $('#soft-forward').attr('href');
-        
+
         if (!!url) {
             window.location = url;
         }
     });
-    
+
     /**
      * Handle Twitter tweet embedding
      */

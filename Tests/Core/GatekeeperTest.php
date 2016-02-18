@@ -62,10 +62,10 @@ namespace Tests\Core {
 		'X-KNOWN-SIGNATURE: ' . base64_encode(hash_hmac('sha256', '/admin/', $user->getAPIkey(), true)),
 
             ]);
-            
+                        
             $response = $result['response'];
             $this->assertTrue(empty($result['error']));
-            $this->assertTrue($response == 200);
+            $this->assertTrue($response == 403); // Admins can't be admins, so we expect a 403
             
             \Idno\Core\Idno::site()->session()->logUserOff();
         }

@@ -56,7 +56,7 @@
                     $object = new \IdnoPlugins\Event\Event();
                 }
 
-                if ($object->saveDataFromInput($this)) {
+                if ($object->saveDataFromInput()) {
                     (new \Idno\Core\Autosave())->clearContext('event');
                     $forward = $this->getInput('forward-to', $object->getDisplayURL());
                     $this->forward($forward);

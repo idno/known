@@ -29,8 +29,7 @@
 
                 if (!empty($email) && !empty($message)) {
 
-                    $web_client = new Webservice();
-                    $results    = $web_client->post('https://withknown.com/vendor-services/feedback/', array(
+                    $results    = Webservice::post('https://withknown.com/vendor-services/feedback/', array(
                         'url'     => \Idno\Core\Idno::site()->config()->getURL(),
                         'title'   => \Idno\Core\Idno::site()->config()->getTitle(),
                         'version' => \Idno\Core\Idno::site()->getVersion(),

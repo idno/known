@@ -89,3 +89,4 @@ Third party libraries are licensed separately.
 * TinyMCE, a rich text editor, which is distributed under the LGPL License. Source: https://github.com/tinymce/tinymce
 * The Paypal Bootstrap Accessibility Plugin, which is distributed under the BSD License. Source: https://github.com/paypal/bootstrap-accessibility-plugin
 * HTMLPurifier, which is distributed under the LGPL License. Source: http://htmlpurifier.org
+* Wavesurfer, which is distrubuted under a Creative Commons Attribution 3.0 Unported License. Source: https://github.com/katspaugh/wavesurfer.js

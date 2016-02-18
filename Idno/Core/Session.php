@@ -55,7 +55,7 @@
                 } catch (\Exception $ex) {
                     // Session didn't validate, log & destroy
                     \Idno\Core\Idno::site()->logging->log($ex->getMessage(), LOGLEVEL_ERROR);
-                    
+
                     $_SESSION = [];
                     session_destroy();
                 }
@@ -321,10 +321,10 @@
             {
                 unset($_SESSION['user_uuid']);
                 unset($this->user);
-                
+
                 // Unset all session variables, as per PHP docs.
                 $_SESSION = [];
-                
+
                 // Really log the user off by destroying the cookie 
                 // See https://secure.php.net/manual/en/function.session-destroy.php
                 if (!defined('KNOWN_UNIT_TEST')) {
@@ -336,7 +336,7 @@
                         );
                     }
                 }
-                
+
                 @session_destroy();
 
                 return true;
@@ -387,7 +387,6 @@
              * Then "user/auth/success" or "user/auth/failure" depending on if a user was found for the provided credentials.
              *
              * @return \Idno\Entities\User|false The logged-in user, or false otherwise
-
              */
             function tryAuthUser()
             {
@@ -407,8 +406,8 @@
 
                     if ($user = \Idno\Entities\User::getByHandle($_SERVER['HTTP_X_KNOWN_USERNAME'])) {
                         \Idno\Core\Idno::site()->logging()->log("API auth found user by username: " . $user->getName(), LOGLEVEL_DEBUG);
-                        $key          = $user->getAPIkey();
-                        $hmac         = trim($_SERVER['HTTP_X_KNOWN_SIGNATURE']);
+                        $key  = $user->getAPIkey();
+                        $hmac = trim($_SERVER['HTTP_X_KNOWN_SIGNATURE']);
                         //$compare_hmac = base64_encode(hash_hmac('sha256', explode('?', $_SERVER['REQUEST_URI'])[0], $key, true));
                         $compare_hmac = base64_encode(hash_hmac('sha256', ($_SERVER['REQUEST_URI']), $key, true));
 
@@ -437,7 +436,7 @@
                         $ip = $_SERVER['REMOTE_ADDR'];
                         if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
                             $proxies = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']); // We are behind a proxy
-                            $ip = trim($proxies[0]);
+                            $ip      = trim($proxies[0]);
                         }
 
                         \Idno\Core\Idno::site()->logging()->log("API Login failure from $ip", LOGLEVEL_ERROR);
@@ -446,7 +445,7 @@
                 }
 
                 $return = \Idno\Core\Idno::site()->triggerEvent($return ? "user/auth/success" : "user/auth/failure", array(
-                    "user" => $return,
+                    "user"   => $return,
                     "is api" => $this->isAPIRequest(),
                 ), $return);
 
@@ -464,10 +463,12 @@
             {
                 if (\Idno\Core\Idno::site()->config()->emailIsBlocked($user->email)) {
                     $this->logUserOff();
+
                     return false;
                 }
                 $return = $this->refreshSessionUser($user);
                 @session_regenerate_id(true);
+
                 return $return;
             }
 
@@ -482,6 +483,7 @@
 
                     if (\Idno\Core\Idno::site()->config()->emailIsBlocked($user->email)) {
                         $this->logUserOff();
+
                         return false;
                     }
 
@@ -553,7 +555,7 @@
 //                            if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
 //                                \Idno\Core\Idno::site()->currentPage()->forward(Idno::site()->config()->getURL() . 'session/login/?fwd=' . urlencode($_SERVER['REQUEST_URI']));
 //                            } else {
-                                \Idno\Core\Idno::site()->currentPage()->deniedContent();
+                            \Idno\Core\Idno::site()->currentPage()->deniedContent();
 //                            }
                         }
                     }

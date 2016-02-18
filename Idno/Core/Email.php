@@ -160,10 +160,10 @@
                         $transport = \Swift_SmtpTransport::newInstance();
                     }
                     if (!empty (\Idno\Core\Idno::site()->config()->smtp_port)) {
-                        $transport->setPort (\Idno\Core\Idno::site()->config()->smtp_port);
+                        $transport->setPort(\Idno\Core\Idno::site()->config()->smtp_port);
                     }
                     if (!empty (\Idno\Core\Idno::site()->config()->smtp_secure)) {
-                        switch  (\Idno\Core\Idno::site()->config()->smtp_secure) {
+                        switch (\Idno\Core\Idno::site()->config()->smtp_secure) {
                             case 'tls':
                                 $transport->setEncryption('tls');
                                 break;
@@ -179,7 +179,7 @@
                         $this->message->setFrom($from_email, \Idno\Core\Idno::site()->config()->title);
                     }
 
-                    return $mailer->send (\Idno\Core\Idno::site()->triggerEvent('email/send', ['email' => $this], $this->message));
+                    return $mailer->send(\Idno\Core\Idno::site()->triggerEvent('email/send', ['email' => $this], $this->message));
 
                 } catch (\Exception $e) {
                     // Lets log errors rather than silently drop them

@@ -86,7 +86,7 @@
                 }
                 $this->setResponse(400); // Webmention failed.
                 if (empty($error)) {
-                    $error = 'unknown_error';
+                    $error      = 'unknown_error';
                     $error_text = 'Not all the required webmention variables were set.';
                 }
                 echo json_encode(array('error' => $error, 'error_text' => $error_text));
