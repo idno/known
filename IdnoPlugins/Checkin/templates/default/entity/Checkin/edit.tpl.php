@@ -65,17 +65,19 @@
 
     }
     <?php } else { ?>
-    
-    $(document).ready(function(){
+
+    $(document).ready(function() {
         $('#geoplaceholder').hide();
-        $('#lat').val('<?= $vars['object']->lat; ?>');
-        $('#long').val('<?= $vars['object']->long; ?>');
+
+        var lat = $('#lat').val() || 0;
+        var long = $('#long').val() || 0;
+
         $('#geofields').slideDown();
         if (typeof map === 'undefined') {
-            var map = L.map('checkinMap').setView([<?= $vars['object']->lat; ?>, <?= $vars['object']->long; ?>], 15);
+            var map = L.map('checkinMap').setView([lat, long], 15);
             var layer = new L.StamenTileLayer("toner-lite");
             map.addLayer(layer);
-            var marker = L.marker([<?= $vars['object']->lat; ?>, <?= $vars['object']->long; ?>],{dragging: true});
+            var marker = L.marker([lat, long],{dragging: true});
             marker.addTo(map);
             marker.dragging.enable();
             marker.on("dragend", function(e) {
@@ -105,7 +107,7 @@
                   ?>
 			</h4>
             <div id="geoplaceholder">
-                <p style="text-align: center; color: #4c93cb;">    
+                <p style="text-align: center; color: #4c93cb;">
                     Hang tight ... searching for your location.
                 </p>
 
@@ -125,8 +127,8 @@
                             Location<br>
                         </label>
                         <input type="text" name="placename" id="placename" class="form-control" placeholder="Where are you?" value="<?= htmlspecialchars($vars['object']->placename) ?>" />
-                        <input type="hidden" name="lat" id="lat"/>
-                        <input type="hidden" name="long" id="long"/>
+                        <input type="hidden" name="lat" id="lat" value="<?= $vars['object']->lat ?>"/>
+                        <input type="hidden" name="long" id="long" value="<?= $vars['object']->long ?>"/>
                     </p>
 
                     <p>
