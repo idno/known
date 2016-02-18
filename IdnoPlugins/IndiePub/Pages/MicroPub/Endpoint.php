@@ -102,14 +102,25 @@
                     } else if (!empty($name)) {
                         $type = 'article';
                     }
+                  }
                       if ($type == 'checkin')  {
                            $place_name = $this->getInput('place_name');
                            $location = $this->getInput('location');
+                           $photo = $this->getInput('photo');
                            $latlong = explode(",",$location);
                            $lat = str_ireplace("geo:", "", $latlong[0]);
                            $long = $latlong[1];
                            $q = \IdnoPlugins\Checkin\Checkin::queryLatLong($lat, $long);
                            $user_address = $q['display_name'];
+                    if (!empty($_FILES['photo'])) {
+                            $photoObject = \Idno\Entities\File::createFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'], $_FILES['photo']['type']); 
+                            $photo =  \Idno\Core\Idno::site()->config()->url . 'file/' .$photoObject;
+                     }
+                     if (!empty($photo)) {
+                               $c = $content;
+                               unset($content);
+                               $content['html'] = $c.'<p><img style="display: block; margin-left: auto; margin-right: auto;" src="'.$photo.'" alt="'.$place_name.'"  /></p>';
+                           }
                       }
                     if ($type == 'photo' && empty($name) && !empty($content)) {
                         $name    = $content;
@@ -121,14 +132,13 @@
                     if (!empty($repost_of)) {
                         $type = 'repost';
                     }
-                }
 
                 // setting all categories as hashtags into content field
                 if (is_array($categories)) {
                     foreach ($categories as $category) {
                         $category = trim($category);
                         if ($category) {
-                            $content .= " #$category";
+                            $hashtags .= " #$category";
                         }
                     }
                     $title_words = explode(" ", $name);
@@ -143,22 +153,23 @@
                 // Get an appropriate plugin, given the content type
                 if ($contentType = ContentType::getRegisteredForIndieWebPostType($type)) {
                     if ($entity = $contentType->createEntity()) {
+                        $hashtags = (!empty($hashtags) ? $hashtags : "");
                         if (is_array($content)) {
                             $content_value = '';
                             if (!empty($content['html'])) {
-                                $content_value = $content['html'];
+                                $content_value = $content['html'].$hashtags;
                             } else if (!empty($content['value'])) {
-                                $content_value = $content['value'];
+                                $content_value = $content['value'].$hashtags;
                             }
                         } else {
-                            $content_value = $content;
+                            $content_value = $content.$hashtags;
                         }
                         if (!empty($posse_link)) {
                             $posse_service = parse_url($posse_link, PHP_URL_HOST);
-                            $entity->setPosseLink($posse_service, $posse_link, '', '');
+                            $entity->setPosseLink(str_replace('.com','',$posse_service), $posse_link, '', '');
                         }
                         $this->setInput('title', $name);
-                        $this->setInput('body', $content_value);
+                        $this->setInput('body', $content_value.$hashtags);
                         $this->setInput('inreplyto', $in_reply_to);
                         $this->setInput('like-of', $like_of);
                         $this->setInput('repost-of', $repost_of);
