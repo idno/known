@@ -51,6 +51,6 @@
             }
 
         ?>
-        <?php echo $this->autop($this->parseURLs($this->parseHashtags($vars['object']->body),$rel)); ?>
+        <?php echo $this->autop($this->parseURLs($this->parseHashtags($vars['object']->body))); ?>
 
     </div>

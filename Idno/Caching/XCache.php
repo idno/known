@@ -1,34 +1,40 @@
 <?php
 
-namespace Idno\Caching {
+    namespace Idno\Caching {
 
-    /**
-     * Implement a persistent cache using XCache.
-     */
-    class XCache extends PersistentCache {
-        
-        public function delete($key) {
-            xcache_dec('__known_xcache_size', strlen($this->load($key)));
-            
-            return xcache_unset($key);
-        }
+        /**
+         * Implement a persistent cache using XCache.
+         */
+        class XCache extends PersistentCache
+        {
 
-        public function load($key) {
-            return xcache_get($key);
-        }
+            public function delete($key)
+            {
+                xcache_dec('__known_xcache_size', strlen($this->load($key)));
 
-        public function size() {
-            return (int)$this->load('__known_xcache_size');
-        }
-
-        public function store($key, $value) {
-            
-            if (xcache_set($key, $value)) {
-                xcache_inc('__known_xcache_size', strlen($value));
+                return xcache_unset($key);
             }
-            return false;
+
+            public function load($key)
+            {
+                return xcache_get($key);
+            }
+
+            public function size()
+            {
+                return (int)$this->load('__known_xcache_size');
+            }
+
+            public function store($key, $value)
+            {
+
+                if (xcache_set($key, $value)) {
+                    xcache_inc('__known_xcache_size', strlen($value));
+                }
+
+                return false;
+            }
+
         }
 
     }
-
-}

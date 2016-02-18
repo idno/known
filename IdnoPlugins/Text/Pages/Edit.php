@@ -56,7 +56,7 @@
                     $object = new \IdnoPlugins\Text\Entry();
                 }
 
-                if ($object->saveDataFromInput($this)) {
+                if ($object->saveDataFromInput()) {
                     (new \Idno\Core\Autosave())->clearContext('entry');
                     //$this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'content/all/');
                     //$this->forward($object->getDisplayURL());

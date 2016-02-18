@@ -36,9 +36,9 @@
                     $default_feed_content = false;
                 }
 
-                $config                       = \Idno\Core\Idno::site()->config;
-                $config->default_feed_content = $default_feed_content;
-                \Idno\Core\Idno::site()->config     = $config;
+                $config                         = \Idno\Core\Idno::site()->config;
+                $config->default_feed_content   = $default_feed_content;
+                \Idno\Core\Idno::site()->config = $config;
 
                 if (\Idno\Core\Idno::site()->config->save()) {
                     \Idno\Core\Idno::site()->session()->addMessage("The default homepage content types were saved.");

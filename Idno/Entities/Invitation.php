@@ -27,7 +27,7 @@
             function generateCode()
             {
                 $token = new \Idno\Core\TokenProvider();
-                
+
                 $this->code = $token->generateHexToken(16);
             }
 

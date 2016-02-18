@@ -19,7 +19,7 @@
 
                 $users       = User::get(array(), array(), 99999, 0); // TODO: make this more complete / efficient
                 $remoteusers = RemoteUser::get(array(), array(), 99999, 0);
-                $users = array_merge($users, $remoteusers);
+                $users       = array_merge($users, $remoteusers);
                 $invitations = Invitation::get();
 
                 $t        = \Idno\Core\Idno::site()->template();

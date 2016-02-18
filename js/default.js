@@ -23,14 +23,14 @@ function bindControls() {
 
 var isCreateFormVisible = false;
 
-function contentCreateForm(plugin) {
+function contentCreateForm(plugin, editUrl) {
     if (isCreateFormVisible) {
         // Ignore additional clicks on create button
         return;
     }
 
     isCreateFormVisible = true;
-    $.ajax(wwwroot() + plugin + '/edit/', {
+    $.ajax(editUrl, {
         dataType: 'html',
         success: function (data) {
             $('#contentCreate').html(data).slideDown(400);
@@ -121,4 +121,59 @@ function htmlEntityDecode(encodedString) {
     var textArea = document.createElement('textarea');
     textArea.innerHTML = encodedString;
     return textArea.value;
+}
+
+function doPoll() {
+    $.get(wwwroot() + '/account/new-notifications')
+        .done(function (data) {
+            console.log("Polling for new notifications succeeded");
+            console.log(data);
+            if (data.notifications.length > 0) {
+                var title = data.notifications[0].title;
+                var body  = data.notifications[0].body;
+                new Notification(title, {body: body});
+            }
+        })
+        .fail(function (data) {
+            console.log("Polling for new notifications failed");
+        });
+}
+
+$(function() {
+
+    if (!isLoggedIn()) {
+        return;
+    }
+
+    if (!("Notification" in window)) {
+        console.log("The Notification API is not supported by this browser");
+        return;
+    }
+
+    if (Notification.permission === 'granted') {
+        setInterval(doPoll, 10000);
+    }
+
+});
+
+function enableNotifications() {
+
+    if (!isLoggedIn()) {
+        return;
+    }
+
+    if (!("Notification" in window)) {
+        console.log("The Notification API is not supported by this browser");
+        return;
+    }
+
+    if (Notification.permission !== 'denied' && Notification.permission !== 'granted') {
+        Notification.requestPermission(function (permission) {
+            // If the user accepts, let's create a notification
+            if (permission === "granted") {
+                setInterval(doPoll, 10000);
+            }
+        });
+    }
+
 }

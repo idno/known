@@ -1,6 +1,6 @@
 <VirtualHost *:80>
   # [...]
-
+  ServerName localhost
   DocumentRoot %TRAVIS_BUILD_DIR%
 
   <Directory "%TRAVIS_BUILD_DIR%">

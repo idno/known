@@ -22,7 +22,7 @@
                         $this->lastModifiedGatekeeper($modifiedts); // Set 304 and exit if we've not modified this object
                     }
                 }
-                
+
                 if (!empty($this->arguments[0])) {
                     $object = \Idno\Common\Entity::getByID($this->arguments[0]);
                     if (empty($object)) {
@@ -107,8 +107,9 @@
                         $object = \Idno\Common\Entity::getBySlug($this->arguments[0]);
                     }
                 }
+
                 if (empty($object)) $this->forward(); // TODO: 404
-                if ($object->saveDataFromInput($this)) {
+                if ($object->saveDataFromInput()) {
                     $this->forward($object->getDisplayURL());
                 }
                 $this->forward($_SERVER['HTTP_REFERER']);

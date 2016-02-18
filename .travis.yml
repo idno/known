@@ -3,6 +3,7 @@ php:
  - 5.4
  - 5.5
  - 5.6
+ - 7.0
 
 # Configure different DB environments
 env:
@@ -10,6 +11,10 @@ env:
   - DB=mongo
   - DB=sqlite3
   - DB=pgsql
+  
+matrix:
+    allow_failures:
+        - php: 7.0
 
 branches:
   only:
@@ -21,9 +26,11 @@ before_script:
   - sudo apt-get install -y --force-yes apache2 libapache2-mod-fastcgi make
   - sudo apt-get install -y --force-yes php5-dev php-pear php5-mysql php5-curl php5-gd php5-json php5-sqlite php5-pgsql
   # Enable php-fpm and Mongodb
+  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.0" ]]; then sudo cp Tests/build/www.conf ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/; fi
   - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
   - sudo a2enmod rewrite actions fastcgi alias
-  - echo "extension = mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.0" ]]; then sudo printf "\n" | pecl install mongodb; fi
+  - if [[ ${TRAVIS_PHP_VERSION:0:3} != "7.0" ]]; then echo "extension = mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
   - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
   # Configure apache virtual hosts

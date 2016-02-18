@@ -5,7 +5,8 @@
         use Idno\Common\Page;
         use Idno\Core\Idno;
 
-        class Export extends Page {
+        class Export extends Page
+        {
 
             function getContent()
             {

@@ -15,7 +15,7 @@
             private $identifier;
 
             private $contexts = [];
-                
+
             /**
              * Create a basic logger to log to the PHP log.
              *
@@ -42,35 +42,39 @@
             {
                 $this->loglevel_filter = $loglevel;
             }
-            
+
             /**
              * Set the context
              */
-            public function setContext($context) {
+            public function setContext($context)
+            {
                 $this->clearContexts();
                 $this->pushContext($context);
             }
-            
+
             /**
              * Clear logging contexts.
              */
-            public function clearContexts() {
+            public function clearContexts()
+            {
                 $this->contexts = [];
             }
-            
+
             /**
              * Push a context onto log.
              * @param type $context
              */
-            public function pushContext($context) {
+            public function pushContext($context)
+            {
                 array_push($this->contexts, trim($context));
             }
-            
+
             /**
              * Remove a logging context from the stack
              * @return context
              */
-            public function popContext() {
+            public function popContext()
+            {
                 return array_pop($this->contexts);
             }
 
@@ -108,9 +112,9 @@
                     // Logging contexts
                     $contexts = '';
                     if (!empty($this->contexts)) {
-                        $contexts = ' ['.implode(';', $this->contexts).']';
+                        $contexts = ' [' . implode(';', $this->contexts) . ']';
                     }
-                    
+
                     error_log("Known ({$this->identifier}$contexts): $level - $message{$trace}");
                 }
             }

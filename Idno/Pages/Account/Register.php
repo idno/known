@@ -40,8 +40,8 @@
                     $t->drawPage();
                 } else {
                     $t->body  = $t->__(array(
-                        'email' => $email,
-                        'code' => $code,
+                        'email'    => $email,
+                        'code'     => $code,
                         'set_name' => $set_name,
                         'messages' => \Idno\Core\Idno::site()->session()->getAndFlushMessages()))->draw('onboarding/register');
                     $t->title = 'Create a new account';
@@ -59,9 +59,9 @@
                 $code       = $this->getInput('code');
                 $onboarding = $this->getInput('onboarding');
                 $set_name   = $this->getInput('set_name');
-                
+
                 $this->referrerGatekeeper();
-                
+
                 /*if (!\Idno\Common\Page::isSSL() && !\Idno\Core\Idno::site()->config()->disable_cleartext_warning) {
                     \Idno\Core\Idno::site()->session()->addErrorMessage("Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini");
                 }*/
@@ -157,7 +157,7 @@
                     //if (empty($onboarding)) {
                     //    $this->forward();
                     //} else {
-                        $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'begin/profile');
+                    $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'begin/profile');
                     //}
                 } else {
                     \Idno\Core\Idno::site()->session()->addMessageAtStart("We couldn't register you.");
