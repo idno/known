@@ -757,7 +757,8 @@
                     'title'   => site()->config()->getTitle(),
                     'version' => site()->getVersion(),
                     'public'  => site()->config()->isPublicSite(),
-                    'hub'     => site()->config()->known_hub
+                    'hub'     => site()->config()->known_hub,
+                    'phpversion' => phpversion()
                 ));
                 if ($results['response'] == 200) {
                     return $results['content'];
