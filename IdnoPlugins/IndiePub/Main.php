@@ -27,9 +27,9 @@
                 \Idno\Core\Idno::site()->template()->extendTemplate('shell/head','indiepub/shell/head');
                 \Idno\Core\Idno::site()->template()->extendTemplate('account/menu/items', 'account/menu/items/indiepub');
 
-                header('Link: <'.\Idno\Core\Idno::site()->config()->getURL().'indieauth/auth>; rel="authorization_endpoint"');
-                header('Link: <'.\Idno\Core\Idno::site()->config()->getURL().'indieauth/token>; rel="token_endpoint"');
-                header('Link: <'.\Idno\Core\Idno::site()->config()->getURL().'micropub/endpoint>; rel="micropub"');
+                header('Link: <'.\Idno\Core\Idno::site()->config()->getURL().'indieauth/auth>; rel="authorization_endpoint"', false);
+                header('Link: <'.\Idno\Core\Idno::site()->config()->getURL().'indieauth/token>; rel="token_endpoint"', false);
+                header('Link: <'.\Idno\Core\Idno::site()->config()->getURL().'micropub/endpoint>; rel="micropub"', false);
             }
 
             /**
