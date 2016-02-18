@@ -72,8 +72,7 @@
              */
             function retrieveItems()
             {
-                $ws = new Webservice();
-                if ($content = $ws->get($this->getFeedURL())) {
+                if ($content = Webservice::get($this->getFeedURL())) {
                     return \Idno\Core\Idno::site()->reader()->parseFeed($content['content'], $this->getFeedURL());
                 }
 
