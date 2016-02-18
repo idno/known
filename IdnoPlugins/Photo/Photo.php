@@ -144,9 +144,11 @@
 
                             } else {
                                 \Idno\Core\Idno::site()->session()->addErrorMessage('Image wasn\'t attached.');
+                                return false;
                             }
                         } else {
                             \Idno\Core\Idno::site()->session()->addErrorMessage('This doesn\'t seem to be an image ..');
+                            return false;
                         }
                     } else {
 	                    // http://php.net/manual/en/features.file-upload.errors.php
