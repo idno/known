@@ -137,8 +137,8 @@
                 if (!filter_var($url, FILTER_VALIDATE_URL)) {
                     return false;
                 }
-                $client = new Webservice();
-                if ($result = $client->get($url)) {
+                
+                if ($result = Webservice::get($url)) {
                     return $this->parseFeed($result['content'], $url);
                 }
 
@@ -160,8 +160,7 @@
                     return false;
                 }
 
-                $client = new Webservice();
-                if ($result = $client->get($url)) {
+                if ($result = Webservice::get($url)) {
 
                     $feed = array();
 
@@ -223,8 +222,7 @@
             function getFeedObject($url, $update = false)
             {
 
-                $wc  = new Webservice();
-                $url = $wc->sanitizeURL($url);
+                $url = Webservice::sanitizeURL($url);
                 if ($feed_details = $this->getFeedDetails($url)) {
                     if ($feed_array = Feed::get(array('feed_url' => $feed_details['url']))) {
                         foreach ($feed_array as $feed_item) {
