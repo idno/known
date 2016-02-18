@@ -79,6 +79,8 @@
                                 'ogg',
                                 'mpeg',
                                 'mp3',
+                                'm4a',
+                                'wav',
                                 'vorbis'
                             )
                         )
@@ -95,11 +97,17 @@
                                     case 'webm':
                                         $media_file['type'] = 'video/webm';
                                         break;
+                                    case 'wav':
+                                        $media_file['type'] = 'audio/wav';
+                                        break;
                                     case 'ogg':
                                         $media_file['type'] = 'audio/ogg';
                                         break;
                                     case 'mp3':
                                         $media_file['type'] = 'audio/mpeg';
+                                        break;
+                                    case 'm4a':
+                                        $media_file['type'] = 'audio/x-m4a';
                                         break;
                                     case 'mpeg':
                                         $media_file['type'] = 'video/mpeg';
