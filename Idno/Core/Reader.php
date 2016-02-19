@@ -36,9 +36,11 @@
                         $parser         = new \Mf2\Parser($html, $url);
                         $parsed_content = $parser->parse();
 
-                        return $this->mf2FeedToFeedItems($parsed_content, $url);
+                        if (!empty($parsed_content['items'])) {
+                            return $this->mf2FeedToFeedItems($parsed_content, $url);
+                        }
                     } catch (\Exception $e) {
-                        return false;
+                        Idno::site()->logging()->log($e->getMessage());
                     }
                 }
 
