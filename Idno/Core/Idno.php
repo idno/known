@@ -747,7 +747,7 @@
              */
             function getVendorMessages()
             {
-
+                
                 if (!empty(site()->config()->noping)) {
                     return '';
                 }
@@ -757,6 +757,7 @@
                     'title'   => site()->config()->getTitle(),
                     'version' => site()->getVersion(),
                     'public'  => site()->config()->isPublicSite(),
+                    'dbengine' => get_class(site()->db()),
                     'hub'     => site()->config()->known_hub
                 ));
                 if ($results['response'] == 200) {
