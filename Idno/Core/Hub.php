@@ -64,11 +64,11 @@
                     $user = \Idno\Core\Idno::site()->session()->currentUser();
                 }
                 if ($user instanceof User) {
-                    $user       = User::getByUUID($user->getUUID());
-                    $contents   = json_encode($user);
-                    $time       = time();
-                    $details    = $this->loadDetails();
-                    $results    = Webservice::post($this->server . 'hub/user/register', array(
+                    $user     = User::getByUUID($user->getUUID());
+                    $contents = json_encode($user);
+                    $time     = time();
+                    $details  = $this->loadDetails();
+                    $results  = Webservice::post($this->server . 'hub/user/register', array(
                         'content'    => $contents,
                         'time'       => $time,
                         'auth_token' => $details['auth_token'],
@@ -216,13 +216,14 @@
                     }
                 }
 
-                $token_generator                                   = new TokenProvider();
-                $token                                             = $token_generator->generateToken(32);
-                $config                                            = \Idno\Core\Idno::site()->config;
-                $config->hub_settings['registration_token']        = bin2hex($token);
-                $config->hub_settings['registration_token_expiry'] = time();
-                $config->save();
-                \Idno\Core\Idno::site()->config = $config;
+                $token_generator      = new TokenProvider();
+                $token                = $token_generator->generateToken(32);
+
+                \Idno\Core\Idno::site()->config->hub_settings = array(
+                    'registration_token' => bin2hex($token),
+                    'registration_token_expiry' => time()
+                );
+                \Idno\Core\Idno::site()->config->save();
 
                 return \Idno\Core\Idno::site()->config->hub_settings['registration_token'];
             }
@@ -266,10 +267,10 @@
 
                 if ($user instanceof User) {
                     if ($this->userIsRegistered($user)) {
-                        $contents   = json_encode($contents);
-                        $time       = time();
-                        $details    = $user->hub_settings;
-                        $results    = Webservice::post($this->server . $endpoint, array(
+                        $contents = json_encode($contents);
+                        $time     = time();
+                        $details  = $user->hub_settings;
+                        $results  = Webservice::post($this->server . $endpoint, array(
                             'content'    => $contents,
                             'time'       => $time,
                             'auth_token' => $details['token'],
