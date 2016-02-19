@@ -57,7 +57,9 @@
                                         }
                                     } catch (\Exception $ex) {
                                         \Idno\Core\Idno::site()->logging->log($ex->getMessage(), LOGLEVEL_ERROR);
-                                        curl_setopt($curl_handle, CURLOPT_SAFE_UPLOAD, false);
+                                        if (defined(CURLOPT_SAFE_UPLOAD)) { // 5.4 compat
+                                            curl_setopt($curl_handle, CURLOPT_SAFE_UPLOAD, false);
+                                        }
                                     }
                                 }
                             }
