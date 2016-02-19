@@ -292,7 +292,7 @@
                         return $matches[1];
                     }
 
-                    if (preg_match('/\#[A-Fa-f0-9]{6}/', $matches[1])) {
+                    if (preg_match('/\#[A-Fa-f0-9]{6}$/', $matches[1])) {
                         return $matches[1];
                     }
 
