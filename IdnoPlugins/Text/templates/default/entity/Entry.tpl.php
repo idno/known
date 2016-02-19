@@ -19,7 +19,7 @@
 
         }
 
-        if (empty($vars['feed_view'])) {
+        if (empty($vars['feed_view']) && empty($vars['object']->notime)) {
 
             ?>
             <p class="reading">
