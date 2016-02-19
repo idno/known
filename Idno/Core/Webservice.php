@@ -43,6 +43,28 @@
 
                 switch (strtolower($verb)) {
                     case 'post':
+                        
+                        // Check for old style @file uploads and try and convert them
+                        if (!empty($params) && is_array($params)) {
+                            foreach ($params as $k => $v) {
+                                if ($v[0] == '@') {
+                                    try {
+
+                                        $cfile = self::fileToCurlFile($v);
+                                        if ($cfile) {
+                                            $params[$k] = $cfile;
+                                            curl_setopt($curl_handle, CURLOPT_SAFE_UPLOAD, true);
+                                        }
+                                    } catch (\Exception $ex) {
+                                        \Idno\Core\Idno::site()->logging->log($ex->getMessage(), LOGLEVEL_ERROR);
+                                        if (defined('CURLOPT_SAFE_UPLOAD')) { // 5.4 compat
+                                            curl_setopt($curl_handle, CURLOPT_SAFE_UPLOAD, false);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
                         curl_setopt($curl_handle, CURLOPT_POST, 1);
                         curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $params);
                         curl_setopt($curl_handle, CURLOPT_HTTPHEADER, array("Content-type: multipart/form-data"));
@@ -383,6 +405,45 @@
                 return self::$lastResponse;
             }
 
+            /**
+             * Converts an "@" formatted file string into a CurlFile
+             * @param type $fileuploadstring
+             * @return CURLFile|false
+             */
+            static function fileToCurlFile($fileuploadstring) {
+                if ($fileuploadstring[0] == '@') {
+                    $bits = explode(';', $fileuploadstring);
+                    
+                    $file = $name = $mime = null;
+                  
+                    foreach ($bits as $bit) {
+                        // File
+                        if ($bit[0] == '@') {
+                            $file = trim($bit, '@ ;');
+                        }
+                        if (strpos($bit, 'filename')!==false) {
+                            $tmp = explode('=', $bit);
+                            $name = trim($tmp[1], ' ;');
+                        }
+                        if (strpos($bit, 'type')!==false) {
+                            $tmp = explode('=', $bit);
+                            $mime = trim($tmp[1], ' ;');
+                        }
+                        
+                    }
+                    
+                    if ($file) {
+                        
+                        if (class_exists('CURLFile')) {
+                            return new \CURLFile($file, $mime, $name);
+                        } else {
+                            throw new \Exception("CURLFile does not exist");
+                        }
+                    }
+                }
+                
+                return false;
+            }
         }
 
     }
