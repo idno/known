@@ -590,7 +590,7 @@
              */
             function version()
             {
-                return '0.9.0.4';
+                return '0.9.1';
             }
 
             /**
