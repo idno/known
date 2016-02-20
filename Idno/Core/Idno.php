@@ -27,10 +27,10 @@
             public $pagehandlers;
             public $public_pages;
             public $syndication;
+            /* @var \Psr\Log\LoggerInterface $logging */
             public $logging;
-            /* @var \Idno\Core\Logging $logging */
-            public static $site;
             /* @var \Idno\Core\Idno $site */
+            public static $site;
             public $currentPage;
             public $known_hub;
             public $helper_robot;
@@ -109,7 +109,7 @@
                 $this->logging = new Logging();
                 $this->config->load();
 
-                if (isset($this->config->loglevel)) {
+                if (isset($this->config->loglevel) && $this->logging instanceof Logging) {
                     $this->logging->setLogLevel($this->config->loglevel);
                 }
 
@@ -131,9 +131,9 @@
 
                 // No URL is a critical error, default base fallback is now a warning (Refs #526)
                 if (!$this->config->url) throw new \Exception('Known was unable to work out your base URL! You might try setting url="http://yourdomain.com/" in your config.ini');
-                if ($this->config->url == '/') \Idno\Core\Idno::site()->logging->log('Base URL has defaulted to "/" because Known was unable to detect your server name. '
+                if ($this->config->url == '/') $this->logging->warning('Base URL has defaulted to "/" because Known was unable to detect your server name. '
                     . 'This may be because you\'re loading Known via a script. '
-                    . 'Try setting url="http://yourdomain.com/" in your config.ini to remove this message', LOGLEVEL_WARNING);
+                    . 'Try setting url="http://yourdomain.com/" in your config.ini to remove this message');
 
                 // Connect to a Known hub if one is listed in the configuration file
                 // (and this isn't the hub!)
@@ -264,7 +264,7 @@
 
             /**
              * Returns the current logging interface
-             * @return \Idno\Core\Logging
+             * @return \Psr\Log\LoggerInterface
              */
             function &logging()
             {
@@ -439,7 +439,7 @@
                         $this->public_pages[] = $handler;
                     }
                 } else {
-                    $this->logging()->log("Could not add $pattern. $handler not found", LOGLEVEL_ERROR);
+                    $this->logging()->error("Could not add $pattern. $handler not found");
                 }
             }
 
@@ -751,7 +751,7 @@
                 if (!empty(site()->config()->noping)) {
                     return '';
                 }
-                
+
                 $results    = Webservice::post('https://withknown.com/vendor-services/messages/', array(
                     'url'     => site()->config()->getURL(),
                     'title'   => site()->config()->getTitle(),

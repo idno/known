@@ -85,9 +85,9 @@
                                     'hub.topic'    => $feed, // Subscribe to rss
                                 ));
 
-                                \Idno\Core\Idno::site()->logging->log("Pubsub: " . print_r($return, true));
+                                \Idno\Core\Idno::site()->logging->info("Pubsub subscribed", ['response' => $return]);
                             } else
-                                \Idno\Core\Idno::site()->logging->log("Pubsub: No hubs found");
+                                \Idno\Core\Idno::site()->logging->info("Pubsub: No hubs found");
                         }
                     }
                 });
@@ -121,7 +121,7 @@
                             'hub.topic'    => $following->pubsub_self
                         ));
 
-                        \Idno\Core\Idno::site()->logging->log("Pubsub: " . print_r($return, true));
+                        \Idno\Core\Idno::site()->logging->info("Pubsub unsubscribed.", ['response' => $return]);
                     }
                 });
             }
@@ -287,7 +287,7 @@
                         }
 
                         $formdata = 'hub.mode=publish&hub.url=' . implode(',', $encurls);
-                        \Idno\Core\Idno::site()->logging()->log('Pinging ' . $hub . ' with data ' . $formdata);
+                        \Idno\Core\Idno::site()->logging()->info('Pinging ' . $hub . ' with data ' . $formdata);
                         \Idno\Core\Webservice::post($hub, $formdata, array(
                             'Content-Type' => 'application/x-www-form-urlencoded'));
                     }

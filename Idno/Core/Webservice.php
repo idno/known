@@ -43,7 +43,7 @@
 
                 switch (strtolower($verb)) {
                     case 'post':
-                        
+
                         // Check for old style @file uploads and try and convert them
                         if (!empty($params) && is_array($params)) {
                             foreach ($params as $k => $v) {
@@ -56,7 +56,7 @@
                                             curl_setopt($curl_handle, CURLOPT_SAFE_UPLOAD, true);
                                         }
                                     } catch (\Exception $ex) {
-                                        \Idno\Core\Idno::site()->logging->log($ex->getMessage(), LOGLEVEL_ERROR);
+                                        \Idno\Core\Idno::site()->logging->error("Error sending $verb to $endpoint", ['error' => $ex]);
                                         if (defined('CURLOPT_SAFE_UPLOAD')) { // 5.4 compat
                                             curl_setopt($curl_handle, CURLOPT_SAFE_UPLOAD, false);
                                         }
@@ -64,7 +64,7 @@
                                 }
                             }
                         }
-                        
+
                         curl_setopt($curl_handle, CURLOPT_POST, 1);
                         curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $params);
                         curl_setopt($curl_handle, CURLOPT_HTTPHEADER, array("Content-type: multipart/form-data"));
@@ -182,7 +182,7 @@
                 $content     = substr($buffer, $header_size);
 
                 if ($error = curl_error($curl_handle)) {
-                    \Idno\Core\Idno::site()->logging->log($error, LOGLEVEL_ERROR);
+                    \Idno\Core\Idno::site()->logging->error('error send Webservice request', ['error' => $error]);
                 }
 
                 self::$lastRequest  = curl_getinfo($curl_handle, CURLINFO_HEADER_OUT);
@@ -271,7 +271,7 @@
                 try {
                     return curl_exec($ch);
                 } catch (\Exception $e) {
-                    \Idno\Core\Idno::site()->logging()->log($e->getMessage());
+                    \Idno\Core\Idno::site()->logging()->error('error sending Webservice request', ['error' => $e]);
 
                     return false;
                 }
@@ -413,9 +413,9 @@
             static function fileToCurlFile($fileuploadstring) {
                 if ($fileuploadstring[0] == '@') {
                     $bits = explode(';', $fileuploadstring);
-                    
+
                     $file = $name = $mime = null;
-                  
+
                     foreach ($bits as $bit) {
                         // File
                         if ($bit[0] == '@') {
@@ -429,11 +429,11 @@
                             $tmp = explode('=', $bit);
                             $mime = trim($tmp[1], ' ;');
                         }
-                        
+
                     }
-                    
+
                     if ($file) {
-                        
+
                         if (class_exists('CURLFile')) {
                             return new \CURLFile($file, $mime, $name);
                         } else {
@@ -441,7 +441,7 @@
                         }
                     }
                 }
-                
+
                 return false;
             }
         }

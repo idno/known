@@ -89,13 +89,13 @@
                         if (!@file_put_contents($data_file, $metadata)) {
                                 throw new \Exception("There was a problem saving the file's metadata");
                         }
-                    
+
                         return $id;
                     } catch (\Exception $e) {
 
                         // Ensure we capture the real error message
-                        \Idno\Core\Idno::site()->logging()->log($e->getMessage());
-                        
+                        \Idno\Core\Idno::site()->logging()->error('Exception while uploading file', ['error' => $e]);
+
                         \Idno\Core\Idno::site()->session()->addMessage("Something went wrong saving your file.");
                         if (\Idno\Core\Idno::site()->session()->isAdmin()) {
                             \Idno\Core\Idno::site()->session()->addMessage("Check that your upload directory is writeable by the web server and try again.");

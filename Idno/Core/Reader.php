@@ -40,7 +40,7 @@
                             return $this->mf2FeedToFeedItems($parsed_content, $url);
                         }
                     } catch (\Exception $e) {
-                        Idno::site()->logging()->log($e->getMessage());
+                        Idno::site()->logging()->error('Error parsing feed', ['error' => $e]);
                     }
                 }
 
@@ -139,7 +139,7 @@
                 if (!filter_var($url, FILTER_VALIDATE_URL)) {
                     return false;
                 }
-                
+
                 if ($result = Webservice::get($url)) {
                     return $this->parseFeed($result['content'], $url);
                 }

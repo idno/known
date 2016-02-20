@@ -14,7 +14,7 @@
 
                 $this->flushBrowser();
 
-                \Idno\Core\Idno::site()->logging->log('Site registration message received', LOGLEVEL_DEBUG);
+                \Idno\Core\Idno::site()->logging->debug('Site registration message received');
 
                 $token      = $this->getInput('token');
                 $auth_token = $this->getInput('auth_token');
