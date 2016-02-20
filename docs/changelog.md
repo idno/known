@@ -2,7 +2,20 @@
 
 Starting with version 0.6.4, this is a list of changes in the self-hosted, open source version of Known.
 
-0.9.0.3
+0.9.1
+-----
+February 20, 2016
+
+* Notifications
+* Improved webmention support
+* Improved RSS feed import
+* Pubsubhubbub now pings the homepage
+* Improved MongoDB compatibility
+* Fixed a bug with some hashtag links
+* Fixed an issue with APC caching detection
+* Logging interface is now PSR-3 compatible
+
+0.9.0.4
 -------
 February 6, 2016
 
