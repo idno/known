@@ -27,10 +27,10 @@
             public $pagehandlers;
             public $public_pages;
             public $syndication;
+            /* @var \Psr\Log\LoggerInterface $logging */
             public $logging;
-            /* @var \Idno\Core\Logging $logging */
-            public static $site;
             /* @var \Idno\Core\Idno $site */
+            public static $site;
             public $currentPage;
             public $known_hub;
             public $helper_robot;
@@ -109,7 +109,7 @@
                 $this->logging = new Logging();
                 $this->config->load();
 
-                if (isset($this->config->loglevel)) {
+                if (isset($this->config->loglevel) && $this->logging instanceof Logging) {
                     $this->logging->setLogLevel($this->config->loglevel);
                 }
 
@@ -264,7 +264,7 @@
 
             /**
              * Returns the current logging interface
-             * @return \Idno\Core\Logging
+             * @return \Psr\Log\LoggerInterface
              */
             function &logging()
             {
@@ -751,7 +751,7 @@
                 if (!empty(site()->config()->noping)) {
                     return '';
                 }
-                
+
                 $results    = Webservice::post('https://withknown.com/vendor-services/messages/', array(
                     'url'     => site()->config()->getURL(),
                     'title'   => site()->config()->getTitle(),
