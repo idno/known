@@ -138,7 +138,7 @@
                         if ($category) {
                             if (str_word_count($category) > 1) {
                                 $category = ucwords($category);
-                                $category = str_replace(" ","";$category);
+                                $category = str_replace(" ","",$category);
                             }
                             $hashtags .= " #$category";
                         }
