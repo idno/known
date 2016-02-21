@@ -23,8 +23,10 @@
                 ini_set('session.gc_maxlifetime', 60 * 60 * 24 * 7); // Garbage collection to match
 
                 header('P3P: CP="CAO PSA OUR"');
+                ini_set('session.use_only_cookies', true); // Only cookies for session
                 ini_set('session.cookie_httponly', true); // Restrict cookies to HTTP only (help reduce XSS attack profile)
                 ini_set('session.use_strict_mode', true); // Help mitigate session fixation
+                ini_set("session.use_trans_sid", false); // Prevent transparent IDs
                 if (Idno::site()->isSecure()) {
                     ini_set('session.cookie_secure', true); // Set secure cookies when site is secure
                 }
