@@ -35,7 +35,7 @@
             
             ?>
             <p style="text-align: center">
-                <a href="<?= $this->makeDisplayURL($mainsrc) ?>"><img src="<?= $this->makeDisplayURL($src) ?>" class="u-photo"/></a>
+                <a href="<?= $this->makeDisplayURL($mainsrc) ?>" data-title="<?= htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?>" data-footer="<?= htmlentities(strip_tags($vars['object']->body), ENT_QUOTES, 'UTF-8'); ?>"><img src="<?= $this->makeDisplayURL($src) ?>" class="u-photo"/></a>
             </p>
         <?php
         }
