@@ -15,6 +15,9 @@
                 \Idno\Core\Idno::site()->addPageHandler('/staticpages?/edit/?', 'IdnoPlugins\StaticPages\Pages\Edit');
                 \Idno\Core\Idno::site()->addPageHandler('/staticpages?/edit/([A-Za-z0-9]+)/?', '\IdnoPlugins\StaticPages\Pages\Edit');
                 \Idno\Core\Idno::site()->addPageHandler('/staticpages?/delete/([A-Za-z0-9]+)/?', '\IdnoPlugins\StaticPages\Pages\Delete');
+                \Idno\Core\Idno::site()->addPageHandler('/staticpages?/homepage/set/([A-Za-z0-9]+)/?', 'IdnoPlugins\StaticPages\Pages\SetHomepage');
+                \Idno\Core\Idno::site()->addPageHandler('/staticpages?/homepage/clear/([A-Za-z0-9]+)/?', 'IdnoPlugins\StaticPages\Pages\ClearHomepage');
+
                 \Idno\Core\Idno::site()->addPageHandler('/admin/staticpages/?', 'IdnoPlugins\StaticPages\Pages\Admin');
                 \Idno\Core\Idno::site()->addPageHandler('/admin/staticpages/add/?', 'IdnoPlugins\StaticPages\Pages\Admin\AddCategory');
                 \Idno\Core\Idno::site()->addPageHandler('/admin/staticpages/edit/?', 'IdnoPlugins\StaticPages\Pages\Admin\EditCategory');
@@ -25,9 +28,63 @@
 
                 \Idno\Core\Idno::site()->addPageHandler('/pages/([A-Za-z0-9\-\_]+)/?', 'IdnoPlugins\StaticPages\Pages\View');
 
+                // This makes sure that the homepage is accessible even when it is overridden.
+                \Idno\Core\Idno::site()->addPageHandler('/content/default/?', 'Idno\Pages\Homepage');
+
+                \Idno\Core\Idno::site()->hijackPageHandler('', 'IdnoPlugins\StaticPages\Pages\Homepage');
+                \Idno\Core\Idno::site()->hijackPageHandler('/', 'IdnoPlugins\StaticPages\Pages\Homepage');
+
                 \Idno\Core\Idno::site()->template()->extendTemplate('admin/menu/items', 'staticpages/admin/menu');
                 \Idno\Core\Idno::site()->template()->prependTemplate('shell/toolbar/links', 'staticpages/toolbar', true);
+            }
 
+            /**
+             * Sets a static page as the homepage, overwriting the current setting if one is set.
+             * @param $pageId
+             * @return bool
+             */
+            function setAsHomepage($pageId)
+            {
+
+                if (\Idno\Core\Idno::site()->session()->isLoggedIn()) {
+                    if (\Idno\Core\Idno::site()->session()->currentUser()->isAdmin()) {
+                        if (!empty(\Idno\Common\Entity::getByID($pageId))) {
+                            \Idno\Core\Idno::site()->config->staticPages['homepage'] = $pageId;
+                            return \Idno\Core\Idno::site()->config->save();
+                        }
+                    }
+                }
+
+                return false;
+
+            }
+
+            /**
+             * Removes a previously set static page from acting as the homepage. This will re-enable Known's default
+             * behavior.
+             * @return bool
+             */
+            function clearHomepage()
+            {
+
+                if (\Idno\Core\Idno::site()->session()->isLoggedIn()) {
+                    if (\Idno\Core\Idno::site()->session()->currentUser()->isAdmin()) {
+                        unset(\Idno\Core\Idno::site()->config->staticPages['homepage']);
+                        return \Idno\Core\Idno::site()->config->save();
+                    }
+                }
+
+                return false;
+
+            }
+
+            /**
+             * Gets the ID of the page which is currently acting as the homepage, if any is set.
+             * @return string
+             */
+            function getCurrentHomepageId()
+            {
+                return \Idno\Core\Idno::site()->config->staticPages['homepage'];
             }
 
             /**
@@ -45,7 +102,7 @@
                         if (is_array($categories)) {
                             $categories = implode("\n", $categories);
                         }
-                        \Idno\Core\Idno::site()->config->staticPages = ['categories' => $categories];
+                        \Idno\Core\Idno::site()->config->staticPages['categories'] = $categories;
 
                         return \Idno\Core\Idno::site()->config->save();
 
