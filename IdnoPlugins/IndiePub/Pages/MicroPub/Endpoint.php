@@ -167,7 +167,7 @@
                         }
                         if (!empty($posse_link)) {
                             $posse_service = parse_url($posse_link, PHP_URL_HOST);
-                            $entity->setPosseLink($posse_service, $posse_link, '', '');
+                            $entity->setPosseLink(str_replace('.com', '', $posse_service), $posse_link, '', '');
                         }
                         $hashtags = (empty($hashtags) ? "" : "<p>".$hashtags."</p>");
                         $photo    = (emtpy($photo) ? "" : "<p>".$photo."</p>");
