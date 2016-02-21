@@ -71,6 +71,21 @@
             }
 
             /**
+             * Offer a session handler for the current session
+             */
+            function handleSession()
+            {
+                ini_set('session.gc_probability', 1);
+
+                $sessionHandler = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\MongoDbSessionHandler(\Idno\Core\Idno::site()->db()->getClient(), [
+                    'database'   => 'idnosession',
+                    'collection' => 'idnosession'
+                ]);
+
+                session_set_save_handler($sessionHandler, true);
+            }
+
+            /**
              * Saves a record to the specified database collection
              *
              * @param string $collection
@@ -426,4 +441,3 @@
         }
 
     }
-

@@ -16,17 +16,6 @@
         {
 
             protected $client;
-            protected $database;
-            
-
-            /**
-             * Returns an instance of the database reference variable
-             * @return mixed
-             */
-            function getDatabase()
-            {
-                return $this->database;
-            }
 
             /**
              * Performs database optimizations, depending on engine
@@ -40,17 +29,7 @@
             /**
              * Offer a session handler for the current session
              */
-            function handleSession()
-            {
-                ini_set('session.gc_probability', 1);
-
-                $sessionHandler = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\MongoDbSessionHandler(\Idno\Core\Idno::site()->db()->getClient(), [
-                    'database'   => 'idnosession',
-                    'collection' => 'idnosession'
-                ]);
-
-                session_set_save_handler($sessionHandler, true);
-            }
+            abstract function handleSession();
 
             /**
              * Returns an instance of the database client reference variable
@@ -80,8 +59,8 @@
 
                 return false;
             }
-            
-            
+
+
             /**
              * Retrieves an Idno entity object by its UUID, casting it to the
              * correct class
@@ -102,8 +81,8 @@
 
                 return false;
             }
-            
-            
+
+
             /**
              * Retrieves ANY object from a collection.
              *
@@ -119,7 +98,7 @@
                 }
                 return false;
             }
-            
+
             /**
              * Saves a record to the specified database collection
              *
@@ -129,7 +108,7 @@
              */
             abstract function saveRecord($collection, $array);
 
-            
+
             /**
              * Retrieves a record from the database by its UUID
              *
@@ -159,7 +138,7 @@
 
                 return false;
             }
-            
+
             /**
              * Process the ID appropriately
              * @param $id
@@ -201,7 +180,7 @@
              */
 
             abstract function getObjects($subtypes = '', $search = array(), $fields = array(), $limit = 10, $offset = 0, $collection = 'entities', $readGroups = []);
-            
+
             /**
              * Retrieves a set of records from the database with given parameters, in
              * reverse chronological order
@@ -238,14 +217,14 @@
              * @return int
              */
             abstract function countRecords($parameters, $collection = 'entities');
-            
+
             /**
              * Remove an entity from the database
              * @param string $id
              * @return true|false
              */
             abstract function deleteRecord($id, $collection = 'entities');
-            
+
             /**
              * Retrieve the filesystem associated with the current db, suitable for saving
              * and retrieving files
