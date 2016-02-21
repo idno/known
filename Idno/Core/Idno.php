@@ -822,7 +822,7 @@
 
         /**
          * Helper function that returns the current site object
-         * @deprecated
+         * @deprecated Use \Idno\Core\Idno::site()
          * @return \Idno\Core\Idno $site
          */
         function &site()
