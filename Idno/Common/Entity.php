@@ -2008,6 +2008,11 @@
                     $annotations[$subtype] = array();
                 }
 
+                // Ask whether it's ok to save this annotation (allows filtering)
+                if (!\Idno\Core\Idno::site()->triggerEvent('annotation/save', array('annotation' => $annotation, 'object' => $this))) { 
+                    return false; // Something prevented the annotation from being saved.
+                }
+                
                 $annotations[$subtype][$local_url] = $annotation;
                 $this->annotations                 = $annotations;
                 $this->save();
