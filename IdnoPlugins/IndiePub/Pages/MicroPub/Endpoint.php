@@ -174,7 +174,7 @@
                         $hashtags = (empty($hashtags) ? "" : "<p>".$hashtags."</p>");
                         $htmlPhoto    = (empty($htmlPhoto) ? "" : "<p>".$htmlPhoto."</p>");
                         $this->setInput('title', $name);
-                        $this->setInput('body', $photo.$content_value.$hashtags);
+                        $this->setInput('body', $htmlPhoto.$content_value.$hashtags);
                         $this->setInput('inreplyto', $in_reply_to);
                         $this->setInput('like-of', $like_of);
                         $this->setInput('repost-of', $repost_of);
