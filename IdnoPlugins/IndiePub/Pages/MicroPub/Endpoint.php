@@ -102,6 +102,7 @@
                     } else if (!empty($name)) {
                         $type = 'article';
                     }
+                }
                       if ($type == 'checkin')  {
                            $place_name = $this->getInput('place_name');
                            $location = $this->getInput('location');
@@ -116,7 +117,7 @@
                                $photo = \Idno\Core\Idno::site()->config()->url . 'file/' . $id;
                            }
                            if (!empty($photo)) {
-                               $htmlPhoto = '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="' . $photo . '" alt="' . $place_name . '"  /></p>';
+                               $photo = '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="' . $photo . '" alt="' . $place_name . '"  /></p>';
                            }
                       }
                     if ($type == 'photo' && empty($name) && !empty($content)) {
@@ -129,7 +130,7 @@
                     if (!empty($repost_of)) {
                         $type = 'repost';
                     }
-                }
+                
 
                 // setting all categories as hashtags into content field
                 if (is_array($categories)) {
@@ -170,7 +171,7 @@
                             $entity->setPosseLink(str_replace('.com', '', $posse_service), $posse_link, '', '');
                         }
                         $hashtags = (empty($hashtags) ? "" : "<p>".$hashtags."</p>");
-                        $photo    = (emtpy($photo) ? "" : "<p>".$photo."</p>");
+                        $photo    = (empty($photo) ? "" : "<p>".$photo."</p>");
                         $this->setInput('title', $name);
                         $this->setInput('body', $photo.$content_value.$hashtags);
                         $this->setInput('inreplyto', $in_reply_to);
