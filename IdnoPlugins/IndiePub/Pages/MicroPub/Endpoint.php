@@ -117,7 +117,7 @@
                                $photo = \Idno\Core\Idno::site()->config()->url . 'file/' . $id;
                            }
                            if (!empty($photo)) {
-                               $htmlPhoto = '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="' . $photo . '" alt="' . $place_name . '"  /></p>';
+                               $photo = '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="' . $photo . '" alt="' . $place_name . '"  /></p>';
                            }
                       }
                     if ($type == 'photo' && empty($name) && !empty($content)) {
