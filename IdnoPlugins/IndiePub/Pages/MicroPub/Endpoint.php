@@ -170,7 +170,7 @@
                             $entity->setPosseLink(str_replace('.com', '', $posse_service), $posse_link, '', '');
                         }
                         $hashtags = (empty($hashtags) ? "" : "<p>".$hashtags."</p>");
-                        $photo    = (emtpy($photo) ? "" : "<p>".$photo."</p>");
+                        $photo    = (empty($photo) ? "" : "<p>".$photo."</p>");
                         $this->setInput('title', $name);
                         $this->setInput('body', $photo.$content_value.$hashtags);
                         $this->setInput('inreplyto', $in_reply_to);
