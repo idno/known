@@ -105,11 +105,19 @@
                       if ($type == 'checkin')  {
                            $place_name = $this->getInput('place_name');
                            $location = $this->getInput('location');
+                           $photo = $this->getInput('photo');
                            $latlong = explode(",",$location);
                            $lat = str_ireplace("geo:", "", $latlong[0]);
                            $long = $latlong[1];
                            $q = \IdnoPlugins\Checkin\Checkin::queryLatLong($lat, $long);
                            $user_address = $q['display_name'];
+                           if (!empty($_FILES['photo'])) {
+                               $id = \Idno\Entities\File::createFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'], $_FILES['photo']['type']) ;
+                               $photo = \Idno\Core\Idno::site()->config()->url . 'file/' . $id;
+                           }
+                           if (!empty($photo)) {
+                               $htmlPhoto = '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="' . $photo . '" alt="' . $place_name . '"  /></p>';
+                           }
                       }
                     if ($type == 'photo' && empty($name) && !empty($content)) {
                         $name    = $content;
@@ -128,7 +136,11 @@
                     foreach ($categories as $category) {
                         $category = trim($category);
                         if ($category) {
-                            $content .= " #$category";
+                            if (str_word_count($category) > 1) {
+                                $category = ucwords($category);
+                                $category = str_replace(" ","",$category);
+                            }
+                            $hashtags .= " #$category";
                         }
                     }
                     $title_words = explode(" ", $name);
@@ -155,10 +167,12 @@
                         }
                         if (!empty($posse_link)) {
                             $posse_service = parse_url($posse_link, PHP_URL_HOST);
-                            $entity->setPosseLink($posse_service, $posse_link, '', '');
+                            $entity->setPosseLink(str_replace('.com', '', $posse_service), $posse_link, '', '');
                         }
+                        $hashtags = (empty($hashtags) ? "" : "<p>".$hashtags."</p>");
+                        $photo    = (emtpy($photo) ? "" : "<p>".$photo."</p>");
                         $this->setInput('title', $name);
-                        $this->setInput('body', $content_value);
+                        $this->setInput('body', $photo.$content_value.$hashtags);
                         $this->setInput('inreplyto', $in_reply_to);
                         $this->setInput('like-of', $like_of);
                         $this->setInput('repost-of', $repost_of);
