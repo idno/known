@@ -102,6 +102,7 @@
                     } else if (!empty($name)) {
                         $type = 'article';
                     }
+                }
                       if ($type == 'checkin')  {
                            $place_name = $this->getInput('place_name');
                            $location = $this->getInput('location');
@@ -129,7 +130,7 @@
                     if (!empty($repost_of)) {
                         $type = 'repost';
                     }
-                }
+                
 
                 // setting all categories as hashtags into content field
                 if (is_array($categories)) {
