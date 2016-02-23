@@ -2,7 +2,7 @@
 - name: Add known config.ini
   template:
     src: "config.ini"
-    dest: "/home/vagrant/Known/config.ini"
+    dest: "/home/vagrant/Known/config.ini" mode=0644
 
 # - name: Add known htaccess
 #   template:
