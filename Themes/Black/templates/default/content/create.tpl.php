@@ -15,11 +15,11 @@
 
                     <a class="contentTypeButton" id="<?= $contentType->getClassSelector() ?>Button"
                        href="<?= $contentType->getEditURL() ?>"
-                       onclick="contentCreateForm('<?= $contentType->camelCase($contentType->getEntityClassName()) ?>'); return false;">
+                       onclick="event.preventDefault(); contentCreateForm('<?= $entityType ?>', '<?= $contentType->getEditURL() ?>'); return false;">
                         <span class="contentTypeLogo"><?= $contentType->getIcon() ?></span>
-                        
+
                     </a>
-                    
+
                     <!--<?= $contentType->getTitle() ?>-->
 
                 <?php
