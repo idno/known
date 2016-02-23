@@ -33,34 +33,6 @@ If you’re using Docker or other virtualized server environments, you will need
     KNOWN_DBPASS = "KnownDBPassword"
     KNOWN_DBHOST = "your.database.server"
 
-### If you’re using MongoDB
-
-If your MongoDB installation accepts connections from localhost, and you’re happy for your Known MongoDB database to be called Known, you can simply create a file called ```config.ini``` in the root of your installation containing:
-
-    database = "MongoDB"
-
-If you’d like to use an alternative [MongoDB connection string](http://docs.mongodb.org/manual/reference/connection-string/), you can add that to ```config.ini``` like this:
-
-    dbstring  = "Your MongoDB connection string"
-    dbname    = "Your preferred Known database name (default=known)"
-
-You can also include a subset of these items, for example to just change the database name.
-
-By default, MongoDB will accept unauthenticated connections from localhost. If you've locked down your MongoDB to require authentication, you can set a username, password, and [authentication source](https://docs.mongodb.org/manual/core/security-users/#user-authentication-database):
-
-    dbuser    = "Your MongoDB user"
-    dbpass    = "Your MongoDB user's password"
-    dbauthsrc = "The database where this user is defined"
-
-When using authentication, your MongoDB user will need to be granted the ["readWrite"](https://docs.mongodb.org/manual/reference/built-in-roles/#readWrite) role on both the Known database and a database called `idnosession` where session information is stored. For example to create a user called "knownuser" in the "admin" database, you might run these commands on the Mongo command line:
-
-    use admin
-    db.createUser({user:"knownuser", pwd:"p@ssword", roles: [
-      {role: "readWrite", db: "known"},
-      {role: "readWrite", db: "idnosession"}
-    ]})
-
-
 ### If you’re using MySQL
 
 Currently, MySQL users need to create a file called ```config.ini``` in the root of their installation. This should contain the following information:
@@ -76,6 +48,12 @@ If you need to use a non-standard database port, you can also select this:
     dbport = "Your database port"
 
 Additionally, you will need to create the database referred to in this configuration file, and ensure that it can be connected to using the user credentials you supply. For now, you will need to load the SQL schema stored in /schemas/mysql/mysql.sql.
+
+### If you’re using Postgres
+
+Postgres users follow the MySQL instructions above, but set your database engine as follows:
+
+    database = "Postgres"
 
 ### If you're using SQLite
 
@@ -104,6 +82,33 @@ Then, add the following to your config.ini file:
 Of course, replace the path with the path to your data folder.
 
 If you're using MySQL or SQLite, you must specify an upload directory if you want to store files, images or profile pictures.
+
+### If you’re using MongoDB
+
+If your MongoDB installation accepts connections from localhost, and you’re happy for your Known MongoDB database to be called Known, you can simply create a file called ```config.ini``` in the root of your installation containing:
+
+    database = "MongoDB"
+
+If you’d like to use an alternative [MongoDB connection string](http://docs.mongodb.org/manual/reference/connection-string/), you can add that to ```config.ini``` like this:
+
+    dbstring  = "Your MongoDB connection string"
+    dbname    = "Your preferred Known database name (default=known)"
+
+You can also include a subset of these items, for example to just change the database name.
+
+By default, MongoDB will accept unauthenticated connections from localhost. If you've locked down your MongoDB to require authentication, you can set a username, password, and [authentication source](https://docs.mongodb.org/manual/core/security-users/#user-authentication-database):
+
+    dbuser    = "Your MongoDB user"
+    dbpass    = "Your MongoDB user's password"
+    dbauthsrc = "The database where this user is defined"
+
+When using authentication, your MongoDB user will need to be granted the ["readWrite"](https://docs.mongodb.org/manual/reference/built-in-roles/#readWrite) role on both the Known database and a database called `idnosession` where session information is stored. For example to create a user called "knownuser" in the "admin" database, you might run these commands on the Mongo command line:
+
+    use admin
+    db.createUser({user:"knownuser", pwd:"p@ssword", roles: [
+      {role: "readWrite", db: "known"},
+      {role: "readWrite", db: "idnosession"}
+    ]})
 
 ### Load Known
 
