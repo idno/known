@@ -150,18 +150,20 @@
                             $not[] = substr($subtype, 1);
                         }
                     }
-                    if (!empty($subtypes)) {
-                        if (count($subtypes) === 1) {
-                            $query_parameters['entity_subtype'] = $subtypes[0];
-                        } else {
+                    if (count($subtypes) === 1) {
+                        // no need to check $not if there can only be one subtype
+                        $query_parameters['entity_subtype'] = $subtypes[0];
+                    } else {
+                        if (!empty($subtypes)) {
                             $query_parameters['entity_subtype']['$in'] = $subtypes;
                         }
-                    }
-                    if (!empty($not)) {
-                        if (count($not) === 1) {
-                            $query_parameters['entity_subtype']['$not'] = $not[0];
-                        } else {
-                            $query_parameters['entity_subtype']['$not']['$in'] = $not;
+                        // TODO else if? do we ever need to check both $in and $not $in?
+                        if (!empty($not)) {
+                            if (count($not) === 1) {
+                                $query_parameters['entity_subtype']['$not'] = $not[0];
+                            } else {
+                                $query_parameters['entity_subtype']['$not']['$in'] = $not;
+                            }
                         }
                     }
                 }
