@@ -26,9 +26,8 @@
                 // Check that both source and target are non-empty
                 if (!empty($vars['source']) && !empty($vars['target']) && $vars['source'] != $vars['target']) {
 
-                    // Sanitize source and target
-                    $source = urldecode($vars['source']);
-                    $target = urldecode($vars['target']);
+                    $source = $vars['source'];
+                    $target = $vars['target'];
 
                     // Remove anchors from target URL, but save them to '#' input so we can still reference them later
                     if (strpos($target, '#')) {
