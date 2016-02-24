@@ -139,6 +139,7 @@
                         $category = trim($category);
                         if ($category) {
                             if (str_word_count($category) > 1) {
+                                $category = str_replace("'"," ",$category);
                                 $category = ucwords($category);
                                 $category = str_replace(" ","",$category);
                             }
