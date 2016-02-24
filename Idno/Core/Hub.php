@@ -76,9 +76,9 @@
                     ));
 
                     if ($results['response'] == 401) {
-                        \Idno\Core\Idno::site()->config->hub_settings = false;
+                        \Idno\Core\Idno::site()->config->hub_settings = array();
                         \Idno\Core\Idno::site()->config->save();
-                        $user->hub_settings = false;
+                        $user->hub_settings = array();
                         $user->save();
                         if ($user->getUUID() == \Idno\Core\Idno::site()->session()->currentUserUUID()) {
                             \Idno\Core\Idno::site()->session()->refreshSessionUser($user);
@@ -205,7 +205,7 @@
              */
             function getRegistrationToken()
             {
-                if (empty(\Idno\Core\Idno::site()->config->hub_settings)) {
+                if (empty(\Idno\Core\Idno::site()->config->hub_settings) || !is_array(\Idno\Core\Idno::site()->config->hub_settings)) {
                     \Idno\Core\Idno::site()->config->hub_settings = array();
                 }
                 if (!empty(\Idno\Core\Idno::site()->config->hub_settings['registration_token'])) {
@@ -219,10 +219,13 @@
                 $token_generator      = new TokenProvider();
                 $token                = $token_generator->generateToken(32);
 
+                $hextoken = (string) bin2hex($token);
+
                 \Idno\Core\Idno::site()->config->hub_settings = array(
-                    'registration_token' => bin2hex($token),
+                    'registration_token' => (string) bin2hex($token),
                     'registration_token_expiry' => time()
                 );
+
                 \Idno\Core\Idno::site()->config->save();
 
                 return \Idno\Core\Idno::site()->config->hub_settings['registration_token'];
@@ -319,6 +322,9 @@
             function saveDetails($token, $secret)
             {
                 \Idno\Core\Idno::site()->config->load();
+                if (!is_array(\Idno\Core\Idno::site()->config->hub_settings)) {
+                    \Idno\Core\Idno::site()->config->hub_settings = array();
+                }
                 \Idno\Core\Idno::site()->config->hub_settings['auth_token'] = $token;
                 \Idno\Core\Idno::site()->config->hub_settings['secret']     = $secret;
                 \Idno\Core\Idno::site()->config->save();

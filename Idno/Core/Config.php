@@ -133,8 +133,9 @@
                     unset($config['disable_ssl_verify']);
                     unset($config['upload_tmp_dir']);
                     unset($config['bypass_fulltext_search']);
-                    $this->config = array_merge($this->config, $config);
+                    $this->config = array_replace_recursive($this->config, $config);
                 }
+
                 $this->loadIniFiles();
 
                 // If we don't have a site secret, create it
@@ -155,7 +156,7 @@
                     $this->ini_config = array();
                     if ($config = @parse_ini_file($this->path . '/config.ini')) {
                         $this->default_config = false;
-                        $this->ini_config     = array_merge($config, $this->ini_config);
+                        $this->ini_config     = array_replace_recursive($config, $this->ini_config);
                     }
                     if (file_exists($this->path . '/config.json')) {
                         if ($json = file_get_contents($this->path . '/config.json')) {
@@ -203,7 +204,7 @@
             function save()
             {
                 $array = $this->config;
-                unset($array['dbname']); // Don't save database a
+                unset($array['dbname']); // Don't save database name
                 unset($array['dbpass']);
                 unset($array['dbhost']);
                 unset($array['dbstring']);
@@ -227,7 +228,6 @@
                 if (\Idno\Core\Idno::site()->db()->saveRecord('config', $array)) {
                     $this->init();
                     $this->load();
-
                     return true;
                 }
 
