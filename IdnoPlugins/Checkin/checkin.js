@@ -1,3 +1,4 @@
+var CheckinMap, CheckinMarker;
 $(function () {
 
     function initMap(latitude, longitude) {
@@ -8,6 +9,8 @@ $(function () {
         var layer = new L.StamenTileLayer("toner-lite");
         map.addLayer(layer);
         var marker = L.marker([latitude, longitude],{dragging: true});
+        CheckinMap = map;
+        CheckinMarker = marker;
         marker.addTo(map);
         marker.dragging.enable();
         marker.on("dragend", function(e) {
