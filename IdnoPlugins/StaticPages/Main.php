@@ -84,7 +84,10 @@
              */
             function getCurrentHomepageId()
             {
-                return \Idno\Core\Idno::site()->config->staticPages['homepage'];
+                if (!empty(\Idno\Core\Idno::site()->config->staticPages['homepage'])) {
+                    return \Idno\Core\Idno::site()->config->staticPages['homepage'];
+                }
+                return false;
             }
 
             /**
