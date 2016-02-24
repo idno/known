@@ -5,8 +5,16 @@
     header('Link: <' . \Idno\Core\Idno::site()->config()->getDisplayURL() . 'webmention/>; rel="webmention"');
     header("Access-Control-Allow-Origin: *");
 
-    if (empty($vars['title']) && !empty($vars['description'])) {
-        $vars['title'] = implode(' ', array_slice(explode(' ', strip_tags($vars['description'])), 0, 10));
+    if (empty($vars['title'])) {
+        if (!empty($vars['description'])) {
+            $vars['title'] = implode(' ', array_slice(explode(' ', strip_tags($vars['description'])), 0, 10));
+        } else {
+            $vars['title'] = '';
+        }
+    }
+
+    if (empty($vars['description'])) {
+        $vars['description'] = '';
     }
 
 ?><!doctype html>
@@ -103,7 +111,7 @@
     ?>">
         <?= $vars['body'] ?>
         <?= $this->draw('shell/simple/footer', $vars) ?>
-        
+
         <!-- HTML5 form element support for legacy browsers -->
         <script src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/h5f/h5f.min.js' ?>"></script>
     </body>
