@@ -49,7 +49,7 @@
             public $owner = false;
 
             // Page assets that can be registered and set by plugins (javascript, css, etc)
-            public $assets = array();
+            private static $assets = array();
 
             function init()
             {
@@ -921,10 +921,10 @@
              */
             public function setAsset($name, $value, $class)
             {
-                if (!isset($this->assets) || !is_array($this->assets)) $this->assets = array();
-                if (!isset($this->assets[$class]) || !is_array($this->assets)) $this->assets[$class] = array();
-
-                $this->assets[$class][$name] = $value;
+                if (!isset(self::$assets) || !is_array(self::$assets)) self::$assets = array();
+                if (!isset(self::$assets[$class]) || !is_array(self::$assets)) self::$assets[$class] = array();
+      
+                self::$assets[$class][$name] = $value;
             }
 
             /**
@@ -934,8 +934,8 @@
              */
             public function getAssets($class)
             {
-                if (isset($this->assets[$class])) {
-                    return $this->assets[$class];
+                if (isset(self::$assets[$class])) {
+                    return self::$assets[$class];
                 }
 
                 return false;
