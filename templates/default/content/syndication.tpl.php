@@ -31,11 +31,21 @@
                             }
                             $service_details[$service][] = ['username' => $account['username'], 'name' => $account['name']];
 
-                            $button .= $this->__(array('service' => $service, 'disabled' => $disabled, 'username' => $account['username'], 'name' => $account['name'], 'selected' => \Idno\Core\Idno::site()->triggerEvent('syndication/selected/' . $service, [
-                                'service' => $service,
+                            // give plugins a chance to pre-select a service (e.g. if replying to a tweet, pre-select twitter)
+                            $preselect = \Idno\Core\Idno::site()->triggerEvent('syndication/selected/' . $service, [
+                                'service'  => $service,
                                 'username' => $account['username'],
                                 'reply-to' => \Idno\Core\Idno::site()->currentPage()->getInput('share_url')
-                            ], false)))->draw('content/syndication/account');
+                            ], false);
+
+                            $button .= $this->__([
+                                'service'  => $service,
+                                'disabled' => $disabled,
+                                'username' => $account['username'],
+                                'name'     => $account['name'],
+                                'details'  => $account,
+                                'selected' => $preselect,
+                            ])->draw('content/syndication/account');
                         }
                     } else {
                         $disabled = array_key_exists($service, $posse_links) ? 'disabled' : '';

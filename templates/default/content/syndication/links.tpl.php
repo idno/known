@@ -16,8 +16,11 @@
                 }
 
                 foreach($posse_links as $element) {
-                    $this->username = isset($element['account_id']) ? $element['account_id'] : false;
-                    $human_icon = $this->draw('content/syndication/icon/' . $service);
+                    $human_icon = $this->__([
+                        'username' => isset($element['account_id']) ? $element['account_id'] : false,
+                        'details'  => $element,
+                    ])->draw('content/syndication/icon/' . $service);
+
                     if (empty($human_icon)) {
                         $human_icon = $this->draw('content/syndication/icon/generic');
                     }

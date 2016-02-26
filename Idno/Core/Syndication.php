@@ -146,19 +146,20 @@
              * Registers an account on a particular service as being available. The service itself must also have been registered.
              * @param string $service The name of the service.
              * @param string $username The username or user identifier on the service.
-             * @param $display_name A human-readable name for this account.
+             * @param string $display_name A human-readable name for this account.
+             * @param array $other_properties An optional list of additional properties to include in the account record
              */
-            function registerServiceAccount($service, $username, $display_name)
+            function registerServiceAccount($service, $username, $display_name, $other_properties=array())
             {
                 $service = strtolower($service);
                 if (!empty($this->accounts[$service])) {
-                    foreach ($this->accounts[$service] as $key => $account) {
+                    foreach ($this->accounts[$service] as $idx => $account) {
                         if ($account['username'] == $username) {
-                            unset($this->accounts[$service][$key]); // Remove existing entry if it exists, so fresher one can be added
+                            unset($this->accounts[$service][$idx]); // Remove existing entry if it exists, so fresher one can be added
                         }
                     }
                 }
-                $this->accounts[$service][] = array('username' => $username, 'name' => $display_name);
+                $this->accounts[$service][] = array_merge($other_properties, ['username' => $username, 'name' => $display_name]);
             }
 
             /**
