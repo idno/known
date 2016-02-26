@@ -29,6 +29,7 @@ listings here do not imply endorsement by the Known project team in any way.
 * [Diaspora](https://github.com/Phyks/KnownDiaspora) – Crosspost content to a Diaspora site, by [Lukas Verney][]
 * [IRC](https://github.com/mapkyca/KnownIRC) – Post messages and links into IRC channels, 
     by [Marcus Povey][]
+* [IndieSyndicate](https://github.com/kylewm/KnownIndieSyndicate) – Syndicate via micropub, e.g. via [silo.pub](https://silo.pub), by [Kyle Mahan][]
 
 ### System and Security
 
