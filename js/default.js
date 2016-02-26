@@ -123,6 +123,36 @@ function htmlEntityDecode(encodedString) {
     return textArea.value;
 }
 
+/**
+ * "Soft" forward a link on a page.
+ */
+$(document).ready(function(){
+   var url = $('#soft-forward').attr('href');
+
+   if (!!url) {
+       window.location = url;
+   }
+});
+
+/*
+ * Shim so that JS functions can get the current site URL
+ * @deprecated Use known.config.displayUrl
+ */
+function wwwroot() {
+    return known.config.displayUrl;
+}
+/**
+ * Shim so JS functions can tell if this is a logged in session or not.
+ * @deprecated Use known.session.loggedin
+ * @returns {Boolean}
+ */
+function isLoggedIn() {
+    if (known.session.loggedIn) {
+        return true;
+    }
+    return false;
+}
+
 function doPoll() {
     $.get(wwwroot() + '/account/new-notifications')
         .done(function (data) {
@@ -175,5 +205,4 @@ function enableNotifications() {
             }
         });
     }
-
 }
