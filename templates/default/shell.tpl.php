@@ -333,6 +333,7 @@
 
     <div class="container page-body">
         <a name="pagecontent"></a>
+        <div id="page-messages">
         <?php
 
             if (!empty($messages)) {
@@ -351,6 +352,7 @@
             }
 
         ?>
+        </div>
         <?= $this->draw('shell/beforecontent') ?>
         <?= $vars['body'] ?>
         <?= $this->draw('shell/aftercontent') ?>
