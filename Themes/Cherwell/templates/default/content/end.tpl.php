@@ -123,6 +123,12 @@
 
     } else {
 
+        ?>
+        <div class="extra-metadata">
+            <?=$this->draw('content/syndication/links')?>
+        </div>
+        <?php
+
         if (\Idno\Core\Idno::site()->session()->isLoggedOn()) {
             echo $this->draw('entity/annotations/comment/mini');
         }

@@ -1824,3 +1824,9 @@ textarea.form-control {
 .idno-entry .idno-audio h2 {
     margin-top: 3px !important;
 }
+
+/* Serialized data */
+
+.extra-metadata {
+    display: none;
+}
