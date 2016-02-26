@@ -45,6 +45,7 @@
                     case 'post':
 
                         // Check for old style @file uploads and try and convert them
+                        /*
                         if (!empty($params) && is_array($params)) {
                             foreach ($params as $k => $v) {
                                 if ($v[0] == '@') {
@@ -55,6 +56,7 @@
                                             $params[$k] = $cfile;
                                             curl_setopt($curl_handle, CURLOPT_SAFE_UPLOAD, true);
                                         }
+
                                     } catch (\Exception $ex) {
                                         \Idno\Core\Idno::site()->logging->error("Error sending $verb to $endpoint", ['error' => $ex]);
                                         if (defined('CURLOPT_SAFE_UPLOAD')) { // 5.4 compat
@@ -63,7 +65,7 @@
                                     }
                                 }
                             }
-                        }
+                        }*/
 
                         curl_setopt($curl_handle, CURLOPT_POST, 1);
                         curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $params);
@@ -434,11 +436,14 @@
 
                     if ($file) {
 
-                        if (class_exists('CURLFile')) {
-                            return new \CURLFile($file, $mime, $name);
-                        } else {
-                            throw new \Exception("CURLFile does not exist");
+                        if (file_exists($file)) {
+                            if (class_exists('CURLFile')) {
+                                return new \CURLFile($file, $mime, $name);
+                            } else {
+                                throw new \Exception("CURLFile does not exist");
+                            }
                         }
+
                     }
                 }
 
