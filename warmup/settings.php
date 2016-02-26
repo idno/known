@@ -99,9 +99,13 @@
         curl_close($curl_handle);
     }
 
-    if (file_exists('../config.ini') && $ok) {
-        header('Location: ../begin/register?set_name=' . urlencode($site_title));
-        exit;
+    if ($ok) {
+        if (file_exists('../config.ini')) {
+            if ($config = @parse_ini_file('../config.ini')) {
+                header('Location: ../begin/register?set_name=' . urlencode($site_title));
+                exit;
+            }
+        }
     }
 
     if (!empty($upload_path)) {
