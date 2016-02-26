@@ -1,10 +1,10 @@
 <?php
 
     if (file_exists('../config.ini')) {
-        $config = file_get_contents('../config.ini');
-        $config = trim($config);
-        if (!empty($config)) {
-            header('Location: ../'); exit;
+        if ($config = @parse_ini_file('../config.ini')) {
+            if (!empty($config)) {
+                header('Location: ../'); exit;
+            }
         }
     }
 

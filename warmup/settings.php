@@ -201,8 +201,7 @@ END;
                 </p>
                 <p>
                     On this screen, we'll ask you how we should connect to your database, and where we should save
-                    uploaded files
-                    like user photos, pictures and audio.
+                    uploaded files like user photos, pictures and audio.
                 </p>
             <?php
 

@@ -155,14 +155,18 @@
                 if (empty($this->ini_config)) {
                     $this->ini_config = array();
                     if ($config = @parse_ini_file($this->path . '/config.ini')) {
-                        $this->default_config = false;
-                        $this->ini_config     = array_replace_recursive($config, $this->ini_config);
+                        if (!empty($config)) {
+                            $this->default_config = false;
+                            $this->ini_config     = array_replace_recursive($config, $this->ini_config);
+                        }
                     }
                     if (file_exists($this->path . '/config.json')) {
                         if ($json = file_get_contents($this->path . '/config.json')) {
                             if ($json = json_decode($json, true)) {
-                                $this->default_config = false;
-                                $this->ini_config     = array_replace_recursive($this->ini_config, $json);
+                                if (!empty($json)) {
+                                    $this->default_config = false;
+                                    $this->ini_config     = array_replace_recursive($this->ini_config, $json);
+                                }
                             }
                         }
                     }
