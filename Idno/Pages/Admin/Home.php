@@ -15,15 +15,7 @@
             function getContent()
             {
                 $this->adminGatekeeper(); // Admins only
-                register_shutdown_function(function () {
-                    $lastOptTime = empty(\Idno\Core\Idno::site()->config()->dboptimized) ? 0 : \Idno\Core\Idno::site()->config()->dboptimized;
-                    if (($time = time()) - $lastOptTime > 24 * 60 * 60) {
-                        \Idno\Core\Idno::site()->logging()->info("Optimizing database tables. Last run " . date('Y-m-d H:i:s', $lastOptTime));
-                        \Idno\Core\Idno::site()->db()->optimize();
-                        \Idno\Core\Idno::site()->config()->dboptimized = $time;
-                        \Idno\Core\Idno::site()->config()->save();
-                    }
-                });
+                
                 if ($messages = \Idno\Core\Idno::site()->getVendorMessages()) {
                     \Idno\Core\Idno::site()->session()->addMessage($messages);
                 }

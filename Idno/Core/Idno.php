@@ -217,6 +217,9 @@
                 $this->addPageHandler('/begin/connect/?', '\Idno\Pages\Onboarding\Connect');
                 $this->addPageHandler('/begin/connect\-forwarder/?', '\Idno\Pages\Onboarding\ConnectForwarder');
                 $this->addPageHandler('/begin/publish/?', '\Idno\Pages\Onboarding\Publish');
+                
+                /** Add some services */
+                $this->addPageHandler('/service/db/optimise/?', '\Idno\Pages\Service\Db\Optimise');
 
                 // These must be loaded last
                 $this->plugins = new Plugins();
