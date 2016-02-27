@@ -130,7 +130,7 @@
                 // TODO: Support other persistent caching methods
 
                 // No URL is a critical error, default base fallback is now a warning (Refs #526)
-                if (!$this->config->url) throw new \Exception('Known was unable to work out your base URL! You might try setting url="http://yourdomain.com/" in your config.ini');
+                if (!$this->config->url) throw new \RuntimeException('Known was unable to work out your base URL! You might try setting url="http://yourdomain.com/" in your config.ini');
                 if ($this->config->url == '/') $this->logging->warning('Base URL has defaulted to "/" because Known was unable to detect your server name. '
                     . 'This may be because you\'re loading Known via a script. '
                     . 'Try setting url="http://yourdomain.com/" in your config.ini to remove this message');
