@@ -21,6 +21,10 @@ namespace Idno\Core {
             $this->name = $name;
         }
 
+        /**
+         * Return curl parameters supported by your system.
+         * @return \CURLFile|string
+         */
         function getCurlParameters() {
 
             if (class_exists('CURLFile')) {
