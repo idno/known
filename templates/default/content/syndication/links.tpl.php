@@ -25,7 +25,12 @@
                         $human_icon = $this->draw('content/syndication/icon/generic');
                     }
 
-                    echo '<a href="' . $element['url'] . '" rel="syndication" class="u-syndication ' . $service . '">' . $human_icon . ' ' . $element['identifier'] . '</a> ';
+                    $rel_syndication = '';
+                    if (\Idno\Core\Idno::site()->currentPage()->isPermalink()) {
+                        $rel_syndication = ' rel="syndication"';
+                    }
+
+                    echo "<a href=\"{$element['url']}\"$rel_syndication class=\"u-syndication $service\">$human_icon {$element['identifier']}</a>";
                 }
             }
 
