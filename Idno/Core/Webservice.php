@@ -440,7 +440,7 @@
                             if (class_exists('CURLFile')) {
                                 return new \CURLFile($file, $mime, $name);
                             } else {
-                                throw new \Exception("CURLFile does not exist");
+                                throw new \Exception("Sorry, CURLFile is not supported by your version of PHP");
                             }
                         }
 
