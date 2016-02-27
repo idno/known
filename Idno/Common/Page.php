@@ -408,7 +408,7 @@
                     $this->parseJSONPayload();
                     $return = $this->putContent();
                 } else {
-                    throw new \RuntimeException('The page you were on timed out.');
+                    throw new \Idno\Exceptions\SecurityException('The page you were on timed out.');
                 }
 
                 if (\Idno\Core\Idno::site()->session()->isAPIRequest()) {
@@ -492,7 +492,7 @@
                     $this->parseJSONPayload();
                     $return = $this->deleteContent();
                 } else {
-                    throw new \RuntimeException('The page you were on timed out.');
+                    throw new \Idno\Exceptions\SecurityException('The page you were on timed out.');
                 }
 
                 if (\Idno\Core\Idno::site()->session()->isAPIRequest()) {
