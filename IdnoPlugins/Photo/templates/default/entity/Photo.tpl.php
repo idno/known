@@ -12,8 +12,11 @@
         <h2 class="photo-title p-name"><a
                 href="<?= $vars['object']->getDisplayURL(); ?>"><?= htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?></a>
         </h2>
+    <?php } ?>
+
+<div class="e-content entry-content">
+
     <?php
-    }
     if ($attachments = $vars['object']->getAttachments()) {
         foreach ($attachments as $attachment) {
             //$mainsrc= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'file/' . $attachment['_id'];
@@ -32,13 +35,14 @@
 
             $src = \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($src);
             $mainsrc = \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($mainsrc);
-            
+
             ?>
             <p style="text-align: center">
                 <a href="<?= $this->makeDisplayURL($mainsrc) ?>" data-title="<?= htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?>" data-footer="<?= htmlentities(strip_tags($vars['object']->body), ENT_QUOTES, 'UTF-8'); ?>"><img src="<?= $this->makeDisplayURL($src) ?>" class="u-photo"/></a>
             </p>
         <?php
         }
-    }
-?>
-<?= $this->autop($this->parseHashtags($this->parseURLs($vars['object']->body, $rel))) ?>
+    } ?>
+    <?= $this->autop($this->parseHashtags($this->parseURLs($vars['object']->body, $rel))) ?>
+
+</div>

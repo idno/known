@@ -7,53 +7,37 @@
 
 ?>
 
-<div class="">
+<div>
 
-    <h2 class="p-geo">
-        <?php
-            if (empty($vars['feed_view'])) {
-                ?>
-                <a href="<?= $object->getURL() ?>" class="p-name"><?= $object->getTitle() ?></a>
-            <?php
-
-            }
-
-            ?>
-        <span class="h-geo">
-            <data class="p-latitude" value="<?= $object->lat ?>"></data>
-            <data class="p-longitude" value="<?= $object->long ?>"></data>
-        </span>
+    <h2 class="p-name">
+        <?php if (empty($vars['feed_view'])) { ?>
+            <a href="<?= $object->getURL() ?>"><?= $object->getTitle() ?></a>
+        <?php } ?>
     </h2>
 
-<?php
+    <span class="p-geo h-geo">
+        <data class="p-name" value="<?= $object->placename ?>"></data>
+        <data class="p-latitude" value="<?= $object->lat ?>"></data>
+        <data class="p-longitude" value="<?= $object->long ?>"></data>
+    </span>
 
-    if (empty($vars['feed_view'])) {
-
-        ?>
+    <?php if (empty($vars['feed_view'])) { ?>
         <div id="map_<?= $object->_id ?>" style="height: 250px"></div>
-    <?php
-    }
-    ?>
-    <div class="p-map">
+    <?php } ?>
+
+    <div class="e-content entry-content">
         <?php
-            if (!empty($object->body)) {
-                echo $this->autop($this->parseURLs($this->parseHashtags($object->body)));
-            }
+        if (!empty($object->body)) {
+            echo $this->autop($this->parseURLs($this->parseHashtags($object->body)));
+        }
 
-            if (!empty($object->tags)) {
-                ?>
-
-                <p class="tag-row"><i class="icon-tag"></i> <?= $this->parseHashtags($object->tags) ?></p>
-
-            <?php } ?>
+        if (!empty($object->tags)) {?>
+            <p class="tag-row"><i class="icon-tag"></i> <?= $this->parseHashtags($object->tags) ?></p>
+        <?php } ?>
     </div>
 
 </div>
-<?php
-
-    if (empty($vars['feed_view'])) {
-
-        ?>
+<?php if (empty($vars['feed_view'])) { ?>
         <script>
             var map<?=$object->_id?> = L.map('map_<?=$object->_id?>', {
                 touchZoom: false,
@@ -68,5 +52,4 @@
             map<?=$object->_id?>.touchZoom.disable();
             map<?=$object->_id?>.doubleClickZoom.disable();
         </script>
-    <?php
-    }
+<?php }

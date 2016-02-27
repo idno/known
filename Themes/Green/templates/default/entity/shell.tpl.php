@@ -74,9 +74,7 @@
                         }
 
                     ?>
-                    <div class="e-content entry-content">
-                        <?php if (!empty($object)) echo $object->draw(); ?>
-                    </div>
+                    <?php if (!empty($object)) echo $object->draw(); ?>
                     <div class="footer">
                         <?= $this->draw('content/end') ?>
                     </div>

@@ -11,9 +11,7 @@
     }
 
 ?>
-<div class="">
-    <p class="p-name"><?= nl2br($this->parseURLs($this->parseHashtags($this->parseUsers(htmlentities(strip_tags($vars['object']->body), ENT_QUOTES, 'UTF-8') . $tags, $vars['object']->inreplyto)), $rel)) ?></p>
-</div>
+<p class="p-name e-content entry-content"><?= nl2br($this->parseURLs($this->parseHashtags($this->parseUsers(htmlentities(strip_tags($vars['object']->body), ENT_QUOTES, 'UTF-8') . $tags, $vars['object']->inreplyto)), $rel)) ?></p>
 <?php
     if (!substr_count(strtolower($vars['object']->body), '<img')) {
         echo $this->draw('entity/content/embed');
