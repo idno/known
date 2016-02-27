@@ -4,6 +4,18 @@
     } else {
         $rel = '';
     }
+    
+    if($this->getCurrentURL()===\Idno\Core\Idno::site()->config()->getDisplayURL() && strlen( $vars['object']->body) >= 300) 
+    {
+            $string = substr($vars['object']->body, 0,300);
+            if((strrpos($string, " ")) !== false ) {
+                
+            $string = substr($string, 0, strrpos($string, " "));
+            $vars['object']->body = $string."....".'<a href="'. $vars['object']->getDisplayURL().'">read full article</a>';
+              
+            }
+    }
+
     if (!empty($vars['object']->tags)) {
         $vars['object']->body .= '<p class="tag-row"><i class="icon-tag"></i>' . $vars['object']->tags . '</p>';
     }
