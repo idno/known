@@ -40,6 +40,10 @@
 
 
                 $curl_handle = curl_init();
+                // prevent curl from interpreting values starting with '@' as a filename.
+                if (defined('CURLOPT_SAFE_UPLOAD')) {
+                    curl_setopt($curl_handle, CURLOPT_SAFE_UPLOAD, TRUE);
+                }
 
                 switch (strtolower($verb)) {
                     case 'post':
