@@ -45,6 +45,9 @@ listings here do not imply endorsement by the Known project team in any way.
     by [Marcus Povey][]
 * [NIST Passwords](https://github.com/mapkyca/KnownNISTPasswords) – Enforce minimum entropy requirements for passwords, 
     by [Marcus Povey][]
+* [Akismet](https://github.com/mapkyca/KnownAkismet) – Wordpress Akismet spam filtering support for comments and webmentions, 
+    by [Marcus Povey][]
+
 
 ### Browser Integration and Apps
 
@@ -78,6 +81,10 @@ listings here do not imply endorsement by the Known project team in any way.
 * [Markdown](https://github.com/mapkyca/IdnoMarkdown) – Adds Markdown support for status and blog posts, 
    by [Marcus Povey][]
 * [InstagramShim](https://github.com/kylewm/KnownInstagramShim) – Sets POSSE links for Instagram photos imported via Micropub (e.g. using OwnYourGram), by [Kyle Mahan][]
+* [Lightbox](https://github.com/mapkyca/KnownLightbox) – Lightbox style popups for photos and pictures, 
+    by [Marcus Povey][]
+* [Emoji rendering](https://github.com/mapkyca/KnownEmoji) – Render Emoji characters (e.g. in Bridgy comments), 
+    by [Marcus Povey][]
 
 [Daniel Nix]: https://nxd4n.nixekinder.be
 [decsharing]: https://www.w3.org/community/decsharing/
