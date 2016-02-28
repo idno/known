@@ -8,9 +8,15 @@
            function init()
            {
              parent::init();
+             
              if(empty(\Idno\Core\Idno::site()->config()->truncate_character)){
-             \Idno\Core\Idno::site()->config()->truncate_character=200; //Default Truncate length
+             \Idno\Core\Idno::site()->config()->truncate_character=300; //Default Truncate length
              }
+             
+             if(empty(\Idno\Core\Idno::site()->config()->truncate)){
+             \Idno\Core\Idno::site()->config()->truncate=false; //Default Truncate 
+             }
+             
            }
 
 
