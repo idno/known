@@ -4,14 +4,17 @@
     } else {
         $rel = '';
     }
-          if($this->getCurrentURL()===\Idno\Core\Idno::site()->config()->getDisplayURL() && strlen( $vars['object']->body) >= 300) 
+          if(\Idno\Core\Idno::site()->config()->truncate === true){
+          $limit = \Idno\Core\Idno::site()->config->truncate_character;
+          if($this->getCurrentURL()===\Idno\Core\Idno::site()->config()->getDisplayURL() && strlen( $vars['object']->body) >= $limit) 
           {
-            $string = substr($vars['object']->body, 0,300);
+            $string = substr($vars['object']->body, 0,$limit);
             if((strrpos($string, " ")) !== false ) {
             $string = substr($string, 0, strrpos($string, " "));
             $vars['object']->body = $string."....".'<a
                     href="'. $vars['object']->getDisplayURL().'">read full article</a>';
-  }
+          }
+          }
           }
 
     if (!empty($vars['object']->tags)) {
