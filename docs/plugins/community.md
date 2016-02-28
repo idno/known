@@ -63,6 +63,8 @@ listings here do not imply endorsement by the Known project team in any way.
 ### Themes
 
 * [Material](https://github.com/physcocode/Material) – Google Material design style theme for known , by [Pranjal Pandey][]
+* [Nature](https://github.com/physcocode/nature) – Warm natural theme for known , by [Pranjal Pandey][]
+
 
 ### Misc
 
