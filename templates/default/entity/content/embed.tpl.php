@@ -22,6 +22,10 @@
         foreach ($matches[2] as $m) {
             // TODO: see if there's a way to embed YouTube channels
         }
+    } else if (preg_match_all('/(youtube\.com|youtu\.be)\/user\/([a-z0-9\-\_]+)/i', $body, $matches)) {
+        foreach ($matches[2] as $m) {
+            $embedded .= '<div><iframe class="youtube-player auto-link figure" width="600" height="420" style="border:0"  src="//www.youtube-nocookie.com/embed/?listType=user_uploads&list=' . $m . '"></iframe></div>';
+        }
     } else if (preg_match_all('/(youtube\.com|youtu\.be)\/([a-z0-9\-\_]+)/i', $body, $matches)) {
         foreach ($matches[2] as $m) {
             $embedded .= '<div><iframe class="youtube-player auto-link figure" width="600" height="420" style="border:0"  src="//www.youtube-nocookie.com/embed/' . $m . '"></iframe></div>';
