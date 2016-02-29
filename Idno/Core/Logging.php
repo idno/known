@@ -94,12 +94,12 @@
                     // Trace for debug (when filtering is set to debug, always add a trace)
                     $trace = "";
                     if ($this->loglevel_filter == LOGLEVEL_DEBUG) {
-                        $backtrace = @debug_backtrace(false, 2);
-                        if ($backtrace) {
-                            // Never show this
-                            $backtrace = $backtrace[0];
-
-                            $trace = " [{$backtrace['file']}:{$backtrace['line']}]";
+                        $backtrace = @debug_backtrace(false, 3);
+                        foreach (array_reverse($backtrace) as $frame) {
+                            if ($frame['class'] !== 'Idno\Core\Logging') {
+                                $trace = " [{$frame['file']}:{$frame['line']}]";
+                                break;
+                            }
                         }
                     }
 
