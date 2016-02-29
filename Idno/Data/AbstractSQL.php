@@ -145,7 +145,7 @@
                         $subtypes = array($subtypes);
                     }
                     foreach ($subtypes as $key => $subtype) {
-                        if (substr($subtype, 0, 1) == '!') {
+                        if (substr($subtype, 0, 1) === '!') {
                             unset($subtypes[$key]);
                             $not[] = substr($subtype, 1);
                         }
@@ -222,7 +222,7 @@
                         $subtypes = array($subtypes);
                     }
                     foreach ($subtypes as $key => $subtype) {
-                        if (substr($subtype, 0, 1) == '!') {
+                        if (substr($subtype, 0, 1) === '!') {
                             unset($subtypes[$key]);
                             $not[] = substr($subtype, 1);
                         }
