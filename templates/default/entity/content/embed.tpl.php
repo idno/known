@@ -13,7 +13,7 @@
     }
     if (preg_match_all('/(youtube\.com|youtu\.be)\/watch\?v=([a-z0-9\-\_]+)/i', $body, $matches)) {
         foreach ($matches[2] as $m) {
-            $embedded .= '<div><iframe class="youtube-player auto-link figure" width="600" height="420" style="border:0"  src="//www.youtube.com/embed/' . $m . '"></iframe></div>';
+            $embedded .= '<div><iframe class="youtube-player auto-link figure" width="600" height="420" style="border:0"  src="//www.youtube-nocookie.com/embed/' . $m . '"></iframe></div>';
         }
     } else if (
         preg_match_all('/(youtube\.com|youtu\.be)\/c\/([a-z0-9\-\_]+)/i', $body, $matches) ||
@@ -24,7 +24,7 @@
         }
     } else if (preg_match_all('/(youtube\.com|youtu\.be)\/([a-z0-9\-\_]+)/i', $body, $matches)) {
         foreach ($matches[2] as $m) {
-            $embedded .= '<div><iframe class="youtube-player auto-link figure" width="600" height="420" style="border:0"  src="//www.youtube.com/embed/' . $m . '"></iframe></div>';
+            $embedded .= '<div><iframe class="youtube-player auto-link figure" width="600" height="420" style="border:0"  src="//www.youtube-nocookie.com/embed/' . $m . '"></iframe></div>';
         }
     }
     if (preg_match_all('/vimeo\.com\/([0-9]+)/i', $body, $matches)) {
