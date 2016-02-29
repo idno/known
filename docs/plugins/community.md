@@ -62,7 +62,8 @@ listings here do not imply endorsement by the Known project team in any way.
 
 ### Themes
 
-...
+* [Material](https://github.com/physcocode/Material) – Google Material design style theme for known , by [Pranjal Pandey][]
+* [Nature](https://github.com/physcocode/nature) – Warm natural theme for known , by [Pranjal Pandey][]
 
 
 ### Misc
@@ -79,6 +80,7 @@ listings here do not imply endorsement by the Known project team in any way.
    by [Marcus Povey][]
 * [InstagramShim](https://github.com/kylewm/KnownInstagramShim) – Sets POSSE links for Instagram photos imported via Micropub (e.g. using OwnYourGram), by [Kyle Mahan][]
 
+[Pranjal Pandey]: https://www.github.com/physcocode
 [Daniel Nix]: https://nxd4n.nixekinder.be
 [decsharing]: https://www.w3.org/community/decsharing/
 [Jonathan LaCour]: https://cleverdevil.io
