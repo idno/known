@@ -56,7 +56,7 @@
             {
                 if ($versions = $this->getVersions()) {
                     foreach ($versions as $version) {
-                        if ($version->label == 'schema') {
+                        if ($version->label === 'schema') {
                             $basedate          = $newdate = (int)$version->value;
                             $upgrade_sql_files = array();
                             $schema_dir        = dirname(dirname(dirname(__FILE__))) . '/schemas/mysql/';
@@ -442,7 +442,7 @@
                         if (!is_array($value)) {
                             if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner', 'created'))) {
                                 $subwhere[] = "(`{$collection}`.`{$key}` = :nonmdvalue{$non_md_variables})";
-                                if ($key == 'created') {
+                                if ($key === 'created') {
                                     if (!is_int($value)) {
                                         $value = strtotime($value);
                                     }
@@ -527,10 +527,10 @@
                                 }
                                 $subwhere[] = $instring;
                             }
-                            if ($key == '$or') {
+                            if ($key === '$or') {
                                 $subwhere[] = "(" . $this->build_where_from_array($value, $variables, $metadata_joins, $non_md_variables, 'or', $collection) . ")";
                             }
-                            if ($key == '$search') {
+                            if ($key === '$search') {
                                 if (!empty($value[0])) {
                                     $val = $value[0]; // The search query is always in $value position [0] for now
                                     if (strlen($val) > 5 && !Idno::site()->config()->bypass_fulltext_search) {
