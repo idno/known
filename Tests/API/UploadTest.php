@@ -16,7 +16,7 @@ namespace Tests\API {
             $result = \Idno\Core\Webservice::post(\Idno\Core\Idno::site()->config()->url . 'photo/edit', [
                 'title' => 'A Photo upload',
                 'body' => "Uploading a pretty picture via the api",
-                'photo' => "@".dirname(__FILE__)."/".self::$file.";filename=Photo.jpg;type=image/jpeg"
+                'photo' => \Idno\Core\WebserviceFile::createFromCurlString("@".dirname(__FILE__)."/".self::$file.";filename=Photo.jpg;type=image/jpeg")
             ], [
 				    'Accept: application/json',
                                     'X-KNOWN-USERNAME: ' . $user->handle,
@@ -26,7 +26,7 @@ namespace Tests\API {
             print_r($result);
             $content = json_decode($result['content']);
             $response = $result['response'];
-            
+          
             $this->assertTrue(empty($result['error']));
             $this->assertTrue(!empty($content));
             $this->assertTrue(!empty($content->location));
