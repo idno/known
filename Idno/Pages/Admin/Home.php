@@ -16,9 +16,6 @@
             {
                 $this->adminGatekeeper(); // Admins only
                 
-                if ($messages = \Idno\Core\Idno::site()->getVendorMessages()) {
-                    \Idno\Core\Idno::site()->session()->addMessage($messages);
-                }
                 $t        = \Idno\Core\Idno::site()->template();
                 $t->body  = $t->__(array('vendor_messages' => $messages))->draw('admin/home');
                 $t->title = 'Administration';
