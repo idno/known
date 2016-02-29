@@ -90,6 +90,7 @@ listings here do not imply endorsement by the Known project team in any way.
 [Tim Owens]: http://timowens.io/
 [Tyler Gillies]: http://tylergillies.club/
 [Yann Sallou]: http://winds.fr/
+[Tino Kremer]: https://tinokremer.nl/
 
 ## Submissions
 
