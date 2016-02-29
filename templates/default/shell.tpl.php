@@ -228,6 +228,8 @@
         src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/js/html5shiv.js"></script>
     <![endif]-->
 
+    <?= $this->draw('js/known'); ?>
+    
     <!-- Default Known JavaScript -->
     <script src="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'js/' . \Idno\Core\Idno::site()->machineVersion() . '/default.js' ?>"></script>
 
@@ -331,6 +333,7 @@
 
     <div class="container page-body">
         <a name="pagecontent"></a>
+        <div id="page-messages">
         <?php
 
             if (!empty($messages)) {
@@ -349,6 +352,7 @@
             }
 
         ?>
+        </div>
         <?= $this->draw('shell/beforecontent') ?>
         <?= $vars['body'] ?>
         <?= $this->draw('shell/aftercontent') ?>
@@ -424,108 +428,8 @@
 <!-- HTML5 form element support for legacy browsers -->
 <script src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/h5f/h5f.min.js' ?>"></script>
 
-<script>
-
-    function annotateContent() {
-        $(".h-entry").fitVids();
-        $("time.dt-published").timeago();
-    }
-
-    // Shim so that JS functions can get the current site URL
-    function wwwroot() {
-        return '<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>';
-    }
-
-    function isLoggedIn() {
-        return <?=\Idno\Core\Idno::site()->session()->isLoggedIn() ? 'true' : 'false'?>;
-    }
-
-    $(document).ready(function () {
-        $.timeago.settings.cutoff = 30 * 24 * 60 * 60 * 1000; // 1 month
-        annotateContent();
-    });
-
-    /**
-     * "Soft" forward a link on a page.
-     */
-    $(document).ready(function(){
-        var url = $('#soft-forward').attr('href');
-
-        if (!!url) {
-            window.location = url;
-        }
-    });
-
-    /**
-     * Handle Twitter tweet embedding
-     */
-    $(document).ready(function () {
-        $('div.twitter-embed').each(function (index) {
-            var url = $(this).attr('data-url');
-            var div = $(this);
-
-            $.ajax({
-                url: "https://api.twitter.com/1/statuses/oembed.json?url=" + url,
-                dataType: "jsonp",
-                success: function (data) {
-                    div.html(data['html']);
-                }
-            });
-        });
-
-        $('body').on('click', function (event, el) {
-            var clickTarget = event.target;
-
-            if (clickTarget.href && clickTarget.href.indexOf(window.location.origin) === -1) {
-                clickTarget.target = "_blank";
-            }
-        });
-    });
-
-    /**
-     * Handle Soundcloud oEmbed code
-     */
-    $(document).ready(function () {
-        $('div.soundcloud-embed').each(function (index) {
-            var url = $(this).attr('data-url');
-            var div = $(this);
-
-            $.getJSON('https://soundcloud.com/oembed?callback=?',
-                {
-                    format: 'js',
-                    url: url,
-                    iframe: true
-                },
-                function (data) {
-                    div.html(data['html']);
-                }
-            );
-        });
-    });
-
-    /**
-     * Better handle links in iOS web applications.
-     * This code (from the discussion here: https://gist.github.com/kylebarrow/1042026)
-     * will prevent internal links being opened up in safari when known is installed
-     * on an ios home screen.
-     */
-    (function (document, navigator, standalone) {
-        if ((standalone in navigator) && navigator[standalone]) {
-            var curnode, location = document.location, stop = /^(a|html)$/i;
-            document.addEventListener('click', function (e) {
-                curnode = e.target;
-                while (!(stop).test(curnode.nodeName)) {
-                    curnode = curnode.parentNode;
-                }
-                if ('href' in curnode && ( curnode.href.indexOf('http') || ~curnode.href.indexOf(location.host) ) && (!curnode.classList.contains('contentTypeButton'))) {
-                    e.preventDefault();
-                    location.href = curnode.href;
-                }
-            }, false);
-        }
-    })(document, window.navigator, 'standalone');
-
-</script>
+<script src="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'js/'. \Idno\Core\Idno::site()->machineVersion() . '/templates/default/shell.js' ?>"></script>
+<script src="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'js/'. \Idno\Core\Idno::site()->machineVersion() . '/embeds.js' ?>"></script>
 
 <?= $this->draw('shell/footer', $vars) ?>
 
