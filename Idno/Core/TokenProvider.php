@@ -29,7 +29,7 @@
                 $bytes    = openssl_random_pseudo_bytes($length, $strength);
 
                 if (!$strength) {
-                    throw new \Exception("Token was generated using an a cryptographically weak algorithm, this probably means your version of OpenSSL is broken or very old.");
+                    throw new \Idno\Exceptions\ConfigurationException("Token was generated using an a cryptographically weak algorithm, this probably means your version of OpenSSL is broken or very old.");
                 }
 
                 return $bytes;

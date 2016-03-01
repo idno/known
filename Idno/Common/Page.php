@@ -278,7 +278,7 @@
                     $this->parseJSONPayload();
                     $return = $this->postContent();
                 } else {
-                    throw new \Exception('Invalid token.');
+                    throw new \RuntimeException('Invalid token.');
                 }
 
                 if (\Idno\Core\Idno::site()->session()->isAPIRequest()) {
@@ -352,7 +352,7 @@
                      * redirection to other sites (eg a Known hub).
 
                     if (!Entity::isLocalUUID($location)) {
-                        throw new \Exception('Attempted to redirect page to a non local URL.');
+                        throw new \RuntimeException('Attempted to redirect page to a non local URL.');
                     }
                     */
 
@@ -408,7 +408,7 @@
                     $this->parseJSONPayload();
                     $return = $this->putContent();
                 } else {
-                    throw new \Exception('The page you were on timed out.');
+                    throw new \Idno\Exceptions\SecurityException('The page you were on timed out.');
                 }
 
                 if (\Idno\Core\Idno::site()->session()->isAPIRequest()) {
@@ -492,7 +492,7 @@
                     $this->parseJSONPayload();
                     $return = $this->deleteContent();
                 } else {
-                    throw new \Exception('The page you were on timed out.');
+                    throw new \Idno\Exceptions\SecurityException('The page you were on timed out.');
                 }
 
                 if (\Idno\Core\Idno::site()->session()->isAPIRequest()) {

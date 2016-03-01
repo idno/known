@@ -403,6 +403,49 @@
                 return self::$lastResponse;
             }
 
+            /**
+             * Converts an "@" formatted file string into a CurlFile
+             * @param type $fileuploadstring
+             * @return CURLFile|false
+             */
+            static function fileToCurlFile($fileuploadstring) {
+                if ($fileuploadstring[0] == '@') {
+                    $bits = explode(';', $fileuploadstring);
+
+                    $file = $name = $mime = null;
+
+                    foreach ($bits as $bit) {
+                        // File
+                        if ($bit[0] == '@') {
+                            $file = trim($bit, '@ ;');
+                        }
+                        if (strpos($bit, 'filename')!==false) {
+                            $tmp = explode('=', $bit);
+                            $name = trim($tmp[1], ' ;');
+                        }
+                        if (strpos($bit, 'type')!==false) {
+                            $tmp = explode('=', $bit);
+                            $mime = trim($tmp[1], ' ;');
+                        }
+
+                    }
+
+                    if ($file) {
+
+                        if (file_exists($file)) {
+                            if (class_exists('CURLFile')) {
+                                return new \CURLFile($file, $mime, $name);
+                            } else {
+                                throw new \Idno\Exceptions\ConfigurationException("CURLFile does not exist");
+                            }
+                        }
+
+                    }
+                }
+
+                return false;
+            }
+
         }
 
     }

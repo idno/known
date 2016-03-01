@@ -34,7 +34,7 @@
                             $hcard = $this->removeDuplicateProfiles($hcard);
 
                             if (!count($hcard)) {
-                                //throw new \Exception("Sorry, could not find any users on that page, perhaps they need to mark up their profile in <a href=\"http://microformats.org/wiki/microformats-2\">Microformats</a>?"); // TODO: Add a manual way to add the user
+                                //throw new \RuntimeException("Sorry, could not find any users on that page, perhaps they need to mark up their profile in <a href=\"http://microformats.org/wiki/microformats-2\">Microformats</a>?"); // TODO: Add a manual way to add the user
 
                                 // No entry could be found, so lets fake one and allow manual entry
                                 $hcard[] = [
@@ -61,9 +61,9 @@
                             $t->drawPage();
                         }
                     } else
-                        throw new \Exception("Sorry, there was a problem parsing the page!");
+                        throw new \RuntimeException("Sorry, there was a problem parsing the page!");
                 } else
-                    throw new \Exception("Sorry, $u could not be retrieved!");
+                    throw new \RuntimeException("Sorry, $u could not be retrieved!");
 
                 // forward back
                 $this->forward($_SERVER['HTTP_REFERER']);
@@ -180,9 +180,9 @@
                             \Idno\Core\Idno::site()->session()->addErrorMessage('You\'re already following ' . $this->getInput('name'));
                         }
                     } else
-                        throw new \Exception('Sorry, that user doesn\'t exist!');
+                        throw new \RuntimeException('Sorry, that user doesn\'t exist!');
                 } else
-                    throw new \Exception("No UUID, please try that again!");
+                    throw new \RuntimeException("No UUID, please try that again!");
             }
 
         }
