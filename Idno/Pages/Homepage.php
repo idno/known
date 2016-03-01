@@ -61,12 +61,11 @@
                 if (empty($types)) {
                     $types = \Idno\Common\ContentType::getRegisteredClasses();
                 } else {
-                    if (!is_array($types)) $types = array($types);
-                    $types[] = '!Idno\Entities\ActivityStreamPost';
+                    $types = (array) $types;
                 }
 
-                $count = \Idno\Entities\ActivityStreamPost::countFromX($types, array());
-                $feed  = \Idno\Entities\ActivityStreamPost::getFromX($types, $search, array(), \Idno\Core\Idno::site()->config()->items_per_page, $offset);
+                $count = \Idno\Common\Entity::countFromX($types, array());
+                $feed  = \Idno\Common\Entity::getFromX($types, $search, array(), \Idno\Core\Idno::site()->config()->items_per_page, $offset);
                 if (\Idno\Core\Idno::site()->session()->isLoggedIn()) {
                     $create = \Idno\Common\ContentType::getRegistered();
 

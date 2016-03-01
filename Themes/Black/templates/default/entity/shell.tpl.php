@@ -1,49 +1,39 @@
 <?php
     $object = $vars['object'];
-    $subObject = $object->getObject();
-    /* @var \Idno\Entities\ActivityStreamPost $object */
-    /* @var \Idno\Common\Entity $subObject */
+    /* @var \Idno\Common\Entity $object */
 
-    if (!empty($object) && !empty($subObject)) {
-        if ($owner = $object->getActor()) {
+    if (!empty($object)) {
+        if ($owner = $object->getOwner()) {
             ?>
             <div class="row idno-entry idno-entry-<?php
-                if (preg_match('@\\\\([\w]+)$@', get_class($subObject), $matches)) {
+                if (preg_match('@\\\\([\w]+)$@', get_class($object), $matches)) {
                     echo strtolower($matches[1]);
                 }?>">
 
-                <div class="col-md-1 col-md-offset-1 owner h-card visible-md visible-lg">
-                    <p>
-                        <a href="<?= $owner->getDisplayURL() ?>" class="u-url icon-container">
-	                        <img class="u-photo" src="<?= $owner->getIcon() ?>"/></a><br/>
-                        <a href="<?= $owner->getDisplayURL() ?>" class="p-name u-url fn"><?= htmlentities(strip_tags($owner->getTitle()), ENT_QUOTES, 'UTF-8'); ?></a>
-                    </p>
-                </div>
-                
                 <div
-                    class="col-md-8 <?= $subObject->getMicroformats2ObjectType() ?> idno-<?= $subObject->getContentTypeCategorySlug() ?> idno-object idno-content">
-                    <!--<div class="visible-xs">
+                    class="col-md-8 col-md-offset-2 <?= $object->getMicroformats2ObjectType() ?> idno-<?= $object->getContentTypeCategorySlug() ?> idno-object idno-content">
+                    <div style="display: none"> <!-- This is useful for webmentions -->
                         <p class="p-author author h-card vcard">
                             <a href="<?= $owner->getDisplayURL() ?>" class="icon-container"><img
                                     class="u-logo logo u-photo photo" src="<?= $owner->getIcon() ?>"/></a>
-                            <a class="p-name fn u-url url" href="<?= $owner->getDisplayURL() ?>"><?= htmlentities(strip_tags($owner->getTitle()), ENT_QUOTES, 'UTF-8') ?></a>
+                            <a class="p-name fn u-url url" href="<?= $owner->getDisplayURL() ?>"><?= $owner->getTitle() ?></a>
                             <a class="u-url" href="<?= $owner->getDisplayURL() ?>">
-                                </a>
+                                <!-- This is here to force the hand of your MF2 parser --></a>
                         </p>
-                    </div>-->
+                    </div>
                     <?php
-                        if ($subObject->inreplyto) {
+                        if (($object->inreplyto)) {
                             ?>
                             <div class="reply-text">
                                 <?php
 
-                                    if (($subObject->replycontext)) {
+                                    if (($object->replycontext)) {
                                     } else {
 
-                                        if (!is_array($subObject->inreplyto)) {
-                                            $inreplyto = array($subObject->inreplyto);
+                                        if (!is_array($object->inreplyto)) {
+                                            $inreplyto = [$object->inreplyto];
                                         } else {
-                                            $inreplyto = $subObject->inreplyto;
+                                            $inreplyto = $object->inreplyto;
                                         }
 
                                         if (!empty($inreplyto)) {
@@ -85,7 +75,7 @@
 
                     ?>
                     <div class="e-content entry-content">
-                        <?php if (!empty($subObject)) echo $subObject->draw(); ?>
+                        <?php if (!empty($object)) echo $object->draw(); ?>
                     </div>
                     <div class="footer">
                         <?= $this->draw('content/end') ?>

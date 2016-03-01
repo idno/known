@@ -62,7 +62,7 @@
                                         <small><strong>Last update posted</strong>
                                             <br>
                                             <?php
-                                                if ($feed = \Idno\Entities\ActivityStreamPost::getFromX(null, ['owner' => $user->getUUID()], array(), 1, 0)) {
+                                                if ($feed = \Idno\Common\Entity::getFromX(null, ['owner' => $user->getUUID()], array(), 1, 0)) {
                                                     ?>
                                                     <time datetime="<?= date('r', $feed[0]->updated) ?>"
                                                           class="dt-published"><?= date('r', $feed[0]->updated) ?></time>
@@ -334,5 +334,3 @@
 
         ?>
         <?php
-
-

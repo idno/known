@@ -11,6 +11,7 @@
 
                 foreach ($vars['contentTypes'] as $contentType) {
                     /* @var Idno\Common\ContentType $contentType */
+                    $entityType = $contentType->camelCase($contentType->getEntityClassName());
                     ?>
 
                     <a class="contentTypeButton" id="<?= $contentType->getClassSelector() ?>Button"

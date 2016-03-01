@@ -486,7 +486,8 @@
              */
             function countPosts()
             {
-                return \Idno\Entities\ActivityStreamPost::countFromX('Idno\Entities\ActivityStreamPost', array('owner' => $this->getUUID()));
+                $types = \Idno\Common\ContentType::getRegisteredClasses();
+                return \Idno\Common\Entity::countFromX($types, array('owner' => $this->getUUID()));
             }
 
             /**

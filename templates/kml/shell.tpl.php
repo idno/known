@@ -22,9 +22,6 @@
     if (!empty($vars['items'])) {
         foreach($vars['items'] as $item) {
             if (!empty($item->lat) && !empty($item->long)) {
-                if ($item instanceof \Idno\Entities\ActivityStreamPost) {
-                    $item = $item->getObject();
-                }
                 $kmlItem = $page->createElement('Placemark');
                 if ($title = $item->getTitle()) {
                     $kmlItem->appendChild($page->createElement('name', $item->getTitle()));

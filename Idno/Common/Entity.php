@@ -350,26 +350,6 @@
             }
 
             /**
-             * Add this entity to the feed
-             * @param string $verb Verb to use (default: post)
-             * @param string $title Title to use. First variable is always subject; second is always title. Default: '%s posted %s'
-             * @return bool
-             */
-            function addToFeed($verb = 'post', $title = '%s posted %s')
-            {
-                $activityStreamPost = new \Idno\Entities\ActivityStreamPost();
-                $owner              = $this->getOwner();
-                $activityStreamPost->setOwner($owner);
-                $activityStreamPost->setActor($owner);
-                $activityStreamPost->setTitle(sprintf($title, $owner->getTitle(), $this->getTitle()));
-                $activityStreamPost->setVerb('post');
-                $activityStreamPost->setObject($this);
-                $activityStreamPost->created = $this->created;
-
-                return $activityStreamPost->save();
-            }
-
-            /**
              * Return the user that owns this entity
              *
              * @return \Idno\Entities\User
@@ -430,25 +410,17 @@
 
             /**
              * Publishes this entity - either creating a new entry, or
-             * overwriting the existing one. Then it will add it optionally
-             * to the feed
-             * Finally it will syndicate the entity
-             *
-             * @param bool $add_to_feed If set to true, will add this item to the activity stream feed if this object is being newly created
-             * @param string $feed_verb If this item is added to the feed, this is the verb that will be used
+             * overwriting the existing one. And then it will
+             * syndicate the entity.
              */
-            function publish($add_to_feed = false, $feed_verb = 'post')
+            function publish()
             {
                 if ($this->save()) {
-                    if ($add_to_feed) {
-                        $this->addToFeed($feed_verb);
-                    }
                     $this->syndicate();
-
+                    \Idno\Core\Idno::site()->triggerEvent('published', ['object' => $this]);
                     return true;
-                } else {
-                    return false;
                 }
+                return false;
             }
 
             /**
@@ -704,33 +676,6 @@
             }
 
             /**
-             * Retrieve the "post" activity stream post (if any) associated with this entity
-             * @param string $verb The associated verb - default is post, but may be blank
-             * @return array
-             */
-            function getRelatedFeedItems($verb = 'post')
-            {
-
-                $results = array();
-
-                if ($this instanceof \Idno\Entities\ActivityStreamPost && $this->verb == $verb) {
-                    $results[] = $this;
-                }
-
-                $search = array('object' => $this->getUUID());
-                if (!empty($verb)) {
-                    $search['verb'] = $verb;
-                }
-
-                $other_results = \Idno\Entities\ActivityStreamPost::get($search);
-
-                $return = array_merge($results, $other_results);
-
-                return $return;
-
-            }
-
-            /**
              * Attaches a file reference to this entity
              * @param \MongoGridFSFile $file_wrapper
              */
@@ -800,14 +745,7 @@
                 $event = new \Idno\Core\Event(array('object' => $this));
                 $event->setResponse(true);
                 if (\Idno\Core\Idno::site()->triggerEvent('delete', array('object' => $this))) {
-
                     $this->unsyndicate();
-
-                    if ($entries = \Idno\Entities\ActivityStreamPost::getByObjectUUID($this->getUUID())) {
-                        foreach ($entries as $entry) {
-                            $entry->delete();
-                        }
-                    }
 
                     if ($return = \Idno\Core\db()->deleteRecord($this->getID(), $this->collection)) {
                         $this->deleteData();

@@ -2,7 +2,6 @@
 
     namespace Idno\Core {
 
-        use Idno\Entities\ActivityStreamPost;
         use Idno\Entities\User;
 
         class HelperRobot extends \Idno\Common\Component
@@ -23,7 +22,7 @@
                     $eventdata = $event->data();
                     if ($object = $eventdata['object']) {
                         if (site()->session()->isLoggedOn()) {
-                            if (!($object instanceof User) && !($object instanceof ActivityStreamPost)) {
+                            if (!($object instanceof User)) {
                                 if (!empty(site()->session()->currentUser()->robot_state)) {
                                     $user = site()->session()->currentUser();
                                     switch ($user->robot_state) {
