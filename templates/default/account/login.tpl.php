@@ -6,46 +6,37 @@
         <h3 class="text-center">
             Sign in
         </h3>
-        
+
         <div class="col-md-10 col-md-offset-1">
 
-        <form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>session/login" method="post">
-            <div class="control-group">
-                <div class="controls">
-                    <input type="text" id="inputEmail" name="email" placeholder="Your email address or username"
-                           class="form-control">
+            <form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>session/login" method="post">
+                <div class="form-group">
+                    <input type="text" id="inputEmail" name="email" placeholder="Your email address or username" class="form-control">
                 </div>
-            </div>
-            <div class="control-group">
-                <div class="controls">
+                <div class="form-group">
                     <input type="password" id="inputPassword" name="password" placeholder="Password" class="form-control">
                 </div>
-            </div>
-            <div class="control-group">
-                <div class="controls">
+                <div class="form-group">
                     <button type="submit" class="btn btn-signin">Sign in</button>
                     <input type="hidden" name="fwd" value="<?php
-                        if (!empty($vars['fwd'])) {
-                            echo htmlspecialchars($vars['fwd']);
-                        } else if (!empty($_SERVER['HTTP_REFERER'])) {
-                            echo htmlspecialchars($_SERVER['HTTP_REFERER']);
-                        } else {
-                            echo \Idno\Core\Idno::site()->config()->getDisplayURL();
-                        }?>" />
+                                                           if (!empty($vars['fwd'])) {
+                                                               echo htmlspecialchars($vars['fwd']);
+                                                           } else if (!empty($_SERVER['HTTP_REFERER'])) {
+                                                               echo htmlspecialchars($_SERVER['HTTP_REFERER']);
+                                                           } else {
+                                                               echo \Idno\Core\Idno::site()->config()->getDisplayURL();
+                                                           }?>" />
                 </div>
-            </div>
-            
-              <div class="control-group">
-                <div class="controls">
+
+                <div class="form-group">
                     <?php
-                        if (\Idno\Core\Idno::site()->config()->open_registration == true && \Idno\Core\Idno::site()->config()->canAddUsers()) {
+                    if (\Idno\Core\Idno::site()->config()->open_registration == true && \Idno\Core\Idno::site()->config()->canAddUsers()) {
                     ?>
-                    <a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>account/register">New here? Register for an account.</a><br><br>
+                        <a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>account/register">New here? Register for an account.</a><br><br>
                     <?php
                         }
                     ?>
                     <a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>account/password">Forgot your password?</a>
-                </div>
             </div>
             <?= \Idno\Core\Idno::site()->actions()->signForm('/session/login') ?>
         </form>
