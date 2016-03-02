@@ -627,9 +627,7 @@
                 $slug = preg_replace_callback("/([\p{L}]+)/u", function ($matches) {
                     return rawurlencode(($matches[1]));
                 }, $slug);
-                $slug = preg_replace_callback("/([^A-Za-z0-9\p{L}\%\-\_ ])/u", function ($matches) {
-                    return '';
-                }, $slug);
+                $slug = preg_replace("/([^A-Za-z0-9\p{L}\-\_ ])/u", '', $slug);
                 $slug = preg_replace("/[ ]+/u", ' ', $slug);
                 $slug = implode('-', array_slice(explode(' ', $slug), 0, $max_pieces));
                 $slug = str_replace(' ', '-', $slug);
