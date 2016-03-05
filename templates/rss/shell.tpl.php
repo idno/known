@@ -46,7 +46,7 @@
         }
         $channel->appendChild($site_description);
     }
-    $channel->appendChild($page->createElement('link',$base_url));
+    $channel->appendChild($page->createElement('link', htmlspecialchars($base_url)));
     if (!empty(\Idno\Core\Idno::site()->config()->hub)) {
         $pubsub = $page->createElement('atom:link');
         $pubsub->setAttribute('href',\Idno\Core\Idno::site()->config()->hub);
