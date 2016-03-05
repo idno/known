@@ -35,7 +35,7 @@
             <div class="content-form">
                 <label for="body">
                     Any comments?</label>
-                    <textarea name="body" id="body" value="<?=htmlspecialchars($vars['object']->body)?>" class="form-control event" /></textarea>
+                    <textarea name="body" id="body" class="form-control event" /><?=htmlspecialchars($vars['object']->body)?></textarea>
             </div>
             <?=$this->draw('entity/tags/input');?>
             <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to" value="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
