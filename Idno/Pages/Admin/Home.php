@@ -17,7 +17,7 @@
                 $this->adminGatekeeper(); // Admins only
                 
                 $t        = \Idno\Core\Idno::site()->template();
-                $t->body  = $t->__(array('vendor_messages' => $messages))->draw('admin/home');
+                $t->body  = $t->draw('admin/home');
                 $t->title = 'Administration';
                 $t->drawPage();
             }
