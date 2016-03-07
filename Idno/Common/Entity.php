@@ -618,7 +618,7 @@
             {
                 $slug = trim($slug);
                 if (is_callable('mb_strtolower')) {
-                    $slug = mb_strtolower($slug);
+                    $slug = mb_strtolower($slug, 'UTF-8');
                 } else {
                     $slug = strtolower($slug);
                 }
