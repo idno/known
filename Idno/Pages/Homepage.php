@@ -27,6 +27,16 @@
                     $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'begin/');
                 }
 
+                // Set the homepage owner for single-user sites
+                if (!$this->getOwner() && \Idno\Core\Idno::site()->config()->single_user) {
+                    $owners = \Idno\Entities\User::get(['admin' => true]);
+                    if (count($owners) === 1) {
+                        $this->setOwner($owners[0]);
+                    } else {
+                        \Idno\Core\Idno::site()->logging()->warning('Expected exactly 1 admin user for single-user site; got '.count($owners));
+                    }
+                }
+
                 if (!empty($this->arguments[0])) { // If we're on the friendly content-specific URL
                     if ($friendly_types = explode('/', $this->arguments[0])) {
                         $friendly_types = array_filter($friendly_types);

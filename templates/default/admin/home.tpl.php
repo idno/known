@@ -76,6 +76,26 @@
 
             <div class="row">
                 <div class="col-md-2">
+                    <p><label class="control-label" for="single_user"><strong>Single user</strong></label>
+                    </p>
+                </div>
+                <div class="config-toggle col-md-4">
+                    <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
+                           value="true" id="single_user"
+                           name="single_user" <?php if (\Idno\Core\Idno::site()->config()->single_user) echo 'checked'; ?>>
+                </div>
+                <div class="col-md-6"><p class="config-desc">
+                        Is this a single-user site? If so, your profile information will be shown at the top of the homepage.
+                    </p>
+                </div>
+
+
+            </div>
+
+            <!-------->
+
+            <div class="row">
+                <div class="col-md-2">
                     <p><label class="control-label" for="permalink_structure"><strong>Permalink Structure</strong></label></p>
                 </div>
                 <div class="col-md-4">
@@ -265,14 +285,14 @@
      * Trigger service calls
      */
     $(document).ready(function(){
-       
+
        /* Optimise DB */
        $.get(wwwroot() + 'service/db/optimise');
-       
+
        /* Vendor messages */
        $.get(wwwroot() + 'service/vendor/messages', function(data, textstatus, xhr){
            addMessage(data);
        })
-       
+
     });
 </script>
