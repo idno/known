@@ -80,6 +80,7 @@
                 $like_of     = $this->getInput('like-of');
                 $repost_of   = $this->getInput('repost-of');
                 $categories  = $this->getInput('category');
+                $rsvp        = $this->getInput('rsvp');
                 $mp_type     = $this->getInput('mp-type');
                 if (!empty($mp_type)) {
                    $type = $mp_type;
@@ -103,34 +104,36 @@
                         $type = 'article';
                     }
                 }
-                      if ($type == 'checkin')  {
-                           $place_name = $this->getInput('place_name');
-                           $location = $this->getInput('location');
-                           $photo = $this->getInput('photo');
-                           $latlong = explode(",",$location);
-                           $lat = str_ireplace("geo:", "", $latlong[0]);
-                           $long = $latlong[1];
-                           $q = \IdnoPlugins\Checkin\Checkin::queryLatLong($lat, $long);
-                           $user_address = $q['display_name'];
-                           if (!empty($_FILES['photo'])) {
-                               $id = \Idno\Entities\File::createFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'], $_FILES['photo']['type']) ;
-                               $photo = \Idno\Core\Idno::site()->config()->url . 'file/' . $id;
-                           }
-                           if (!empty($photo)) {
-                               $htmlPhoto = '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="' . $photo . '" alt="' . $place_name . '"  /></p>';
-                           }
-                      }
-                    if ($type == 'photo' && empty($name) && !empty($content)) {
-                        $name    = $content;
-                        $content = '';
+                if ($type == 'checkin')  {
+                    $place_name = $this->getInput('place_name');
+                    $location = $this->getInput('location');
+                    $photo = $this->getInput('photo');
+                    $latlong = explode(",",$location);
+                    $lat = str_ireplace("geo:", "", $latlong[0]);
+                    $long = $latlong[1];
+                    $q = \IdnoPlugins\Checkin\Checkin::queryLatLong($lat, $long);
+                    $user_address = $q['display_name'];
+                    if (!empty($_FILES['photo'])) {
+                        $id = \Idno\Entities\File::createFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'], $_FILES['photo']['type']) ;
+                        $photo = \Idno\Core\Idno::site()->config()->url . 'file/' . $id;
                     }
-                    if (!empty($like_of)) {
-                        $type = 'like';
+                    if (!empty($photo)) {
+                        $htmlPhoto = '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="' . $photo . '" alt="' . $place_name . '"  /></p>';
                     }
-                    if (!empty($repost_of)) {
-                        $type = 'repost';
-                    }
-                
+                }
+                if ($type == 'photo' && empty($name) && !empty($content)) {
+                    $name    = $content;
+                    $content = '';
+                }
+                if (!empty($like_of)) {
+                    $type = 'like';
+                }
+                if (!empty($repost_of)) {
+                    $type = 'repost';
+                }
+                if (!empty($rsvp)) {
+                    $type = 'rsvp';
+                }
 
                 // setting all categories as hashtags into content field
                 if (is_array($categories)) {
@@ -179,6 +182,7 @@
                         $this->setInput('inreplyto', $in_reply_to);
                         $this->setInput('like-of', $like_of);
                         $this->setInput('repost-of', $repost_of);
+                        $this->setInput('rsvp', $rsvp);
                         $this->setInput('access', 'PUBLIC');
                         if ($type ==  'checkin') {
                             $this->setInput('lat', $lat);
