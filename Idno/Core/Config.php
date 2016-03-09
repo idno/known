@@ -57,6 +57,7 @@
                 'show_privacy'           => true,
                 'bypass_fulltext_search' => false,
                 'permalink_structure'    => '/:year/:slug',
+                'single_user'            => true,
             );
 
             public $ini_config = array();

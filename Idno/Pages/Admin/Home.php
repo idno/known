@@ -15,7 +15,7 @@
             function getContent()
             {
                 $this->adminGatekeeper(); // Admins only
-                
+
                 $t        = \Idno\Core\Idno::site()->template();
                 $t->body  = $t->draw('admin/home');
                 $t->title = 'Administration';
@@ -34,50 +34,17 @@
                     $host = parse_url($url, PHP_URL_HOST); // Host can be safely derived from URL
                 }
                 $hub                  = $this->getInput('hub'); // PuSH hub
-                $open_registration    = $this->getInput('open_registration');
-                $walled_garden        = $this->getInput('walled_garden');
-                $show_privacy         = $this->getInput('show_privacy');
-                $indieweb_citation    = $this->getInput('indieweb_citation');
-                $indieweb_reference   = $this->getInput('indieweb_reference');
-                $user_avatar_favicons = $this->getInput('user_avatar_favicons');
-                $wayback_machine      = $this->getInput('wayback_machine');
+                $open_registration    = $this->getInput('open_registration') === 'true';
+                $walled_garden        = $this->getInput('walled_garden') === 'true' && \Idno\Core\Idno::site()->config()->canMakeSitePrivate();
+                $show_privacy         = $this->getInput('show_privacy') === 'true';
+                $indieweb_citation    = $this->getInput('indieweb_citation') === 'true';
+                $indieweb_reference   = $this->getInput('indieweb_reference') === 'true';
+                $user_avatar_favicons = $this->getInput('user_avatar_favicons') === 'true';
+                $wayback_machine      = $this->getInput('wayback_machine') === 'true';
                 $items_per_page       = (int)$this->getInput('items_per_page');
+                $single_user          = $this->getInput('single_user') === 'true';
                 $permalink_structure  = $this->getInput('permalink_structure');
-                if ($open_registration == 'true') {
-                    $open_registration = true;
-                } else {
-                    $open_registration = false;
-                }
-                if ($walled_garden == 'true' && \Idno\Core\Idno::site()->config()->canMakeSitePrivate()) {
-                    $walled_garden = true;
-                } else {
-                    $walled_garden = false;
-                }
-                if ($show_privacy == 'true') {
-                    $show_privacy = true;
-                } else {
-                    $show_privacy = false;
-                }
-                if ($indieweb_citation == 'true') {
-                    $indieweb_citation = true;
-                } else {
-                    $indieweb_citation = false;
-                }
-                if ($indieweb_reference == 'true') {
-                    $indieweb_reference = true;
-                } else {
-                    $indieweb_reference = false;
-                }
-                if ($user_avatar_favicons == 'true') {
-                    $user_avatar_favicons = true;
-                } else {
-                    $user_avatar_favicons = false;
-                }
-                if ($wayback_machine == 'true') {
-                    $wayback_machine = true;
-                } else {
-                    $wayback_machine = false;
-                }
+
                 if (!empty($title)) \Idno\Core\Idno::site()->config->title = $title;
                 \Idno\Core\Idno::site()->config->homepagetitle = trim($homepagetitle);
                 if (!empty($description)) \Idno\Core\Idno::site()->config->description = $description;
@@ -93,6 +60,7 @@
                 \Idno\Core\Idno::site()->config->indieweb_reference   = $indieweb_reference;
                 \Idno\Core\Idno::site()->config->user_avatar_favicons = $user_avatar_favicons;
                 \Idno\Core\Idno::site()->config->wayback_machine      = $wayback_machine;
+                \Idno\Core\Idno::site()->config->single_user          = $single_user;
                 \Idno\Core\Idno::site()->config->permalink_structure  = $permalink_structure;
 
                 \Idno\Core\Idno::site()->triggerEvent('admin/home/save');

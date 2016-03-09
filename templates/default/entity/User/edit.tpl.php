@@ -73,7 +73,7 @@
                                 foreach ($urls as $url) {
                                     if (!empty($url)) {
                                         ?>
-                                        <div class="row">
+                                        <div class="form-group">
                                             <div class="col-md-10"><input type="text" name="profile[url][]" id="website"
                                                                           value="<?= htmlspecialchars($this->fixURL($url)) ?>"
                                                                           placeholder="http://" class="form-control"/>
