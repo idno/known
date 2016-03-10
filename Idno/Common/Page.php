@@ -19,7 +19,7 @@
 
         use Idno\Entities\User;
 
-        class Page extends \Idno\Common\Component
+        abstract class Page extends \Idno\Common\Component
         {
 
             // Property that defines whether this page may forward to
