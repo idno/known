@@ -576,7 +576,7 @@
                     return $this->currentPage;
                 }
 
-                return new Page();
+                return false;
             }
 
             /**
