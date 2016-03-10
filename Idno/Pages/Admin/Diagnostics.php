@@ -84,7 +84,7 @@
                     $basics['status']             = 'Failure';
                     $basics['report']['php-version'] = [
                         'status'  => 'Warning',
-                        'message' => 'You are running Known using a very old version of PHP (' . phpversion() . '), which is no longer supported by the manufacturer. Although Known will currently still run, we\'re likely to start phasing out support, so you should upgrade soon. You may need to ask your server administrator to upgrade PHP for you.'
+                        'message' => 'You are running Known using a very old version of PHP (' . phpversion() . '), which is no longer supported. Although Known will currently still install, some features will not work, so you should upgrade soon. You may need to ask your server administrator to upgrade PHP for you.'
                     ];
                 } else {
                     $basics['report']['php-version'] = [
