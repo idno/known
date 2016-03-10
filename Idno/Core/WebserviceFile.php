@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Utility wrapper around files
+ * Utility wrapper around files that will be used in web service calls
  *
  * @package idno
  * @subpackage core
