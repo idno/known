@@ -54,22 +54,24 @@
              */
             function getServices($content_type = false)
             {
+                $services = [];
+
                 if (!empty($content_type)) {
                     if (!empty($this->services[$content_type])) {
-                        return $this->services[$content_type];
+                        $services = $this->services[$content_type];
                     }
                 } else {
-                    $return = array();
                     if (!empty($this->services)) {
                         foreach ($this->services as $service) {
-                            $return = array_merge($return, $service);
+                            $services = array_merge($services, $service);
                         }
                     }
 
-                    return array_unique($return);
                 }
 
-                return array();
+                $services = Idno::site()->triggerEvent('syndication/services/get', ['services' => $services], $services);
+
+                return array_unique($services);
             }
 
             /**
@@ -98,11 +100,15 @@
              */
             function getServiceAccountsByService()
             {
+                $accounts = [];
+
                 if (!empty($this->accounts)) {
-                    return $this->accounts;
+                    $accounts = $this->accounts;
                 }
 
-                return array();
+                $accounts = Idno::site()->triggerEvent('syndication/accounts/get', [$accounts => $accounts], $accounts);
+
+                return $accounts;
             }
 
             /**
