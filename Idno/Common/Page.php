@@ -73,6 +73,9 @@
                 });
 
                 \Idno\Core\Idno::site()->embedded();
+                
+                // Trigger an event when a page is initialised, and currentPage is available
+                \Idno\Core\Idno::site()->triggerEvent('page/ready');
             }
 
             /**
