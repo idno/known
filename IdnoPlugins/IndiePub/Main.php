@@ -41,7 +41,7 @@
             private static function authenticate()
             {
                 $access_token = \Idno\Core\Input::getInput('access_token');
-                $headers = \Idno\Core\Idno::site()->currentPage()->getallheaders();
+                $headers = \Idno\Common\Page::getallheaders();
                 if (!empty($headers['Authorization'])) {
                     $token = $headers['Authorization'];
                     $token = trim(str_replace('Bearer', '', $token));

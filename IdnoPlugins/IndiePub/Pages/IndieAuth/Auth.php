@@ -17,7 +17,7 @@
                     exit;
                 }
 
-                $headers      = $this->getallheaders();
+                $headers      = self::getallheaders();
                 $me           = $this->getInput('me');
                 $client_id    = $this->getInput('client_id');
                 $redirect_uri = $this->getInput('redirect_uri');
