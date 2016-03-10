@@ -147,6 +147,7 @@ function wwwroot() {
  * @returns {Boolean}
  */
 function isLoggedIn() {
+    if (typeof known !== 'undefined')
     if (known.session.loggedIn) {
         return true;
     }
