@@ -401,7 +401,7 @@
 
                     $this->setIsAPIRequest(true);
 
-                    $t = \Idno\Core\Idno::site()->currentPage()->getInput('_t');
+                    $t = \Idno\Common\Page::getInput('_t');
                     if (empty($t)) {
                         \Idno\Core\Idno::site()->template()->setTemplateType('json');
                     }
