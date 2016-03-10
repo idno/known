@@ -26,12 +26,10 @@
                 // Users own their own profiles
                 $this->setOwner($user);
 
-                $types          = 'Idno\Entities\ActivityStreamPost';
-                $search['verb'] = 'post';
-
+                $types  = \Idno\Common\ContentType::getRegisteredClasses();
                 $offset = (int)$this->getInput('offset');
-                $count  = \Idno\Entities\ActivityStreamPost::countFromX($types, array('owner' => $user->getUUID()));
-                $feed   = \Idno\Entities\ActivityStreamPost::getFromX($types, array('owner' => $user->getUUID()), array(), \Idno\Core\Idno::site()->config()->items_per_page, $offset);
+                $count  = \Idno\Common\Entity::countFromX($types, array('owner' => $user->getUUID()));
+                $feed   = \Idno\Common\Entity::getFromX($types, array('owner' => $user->getUUID()), array(), \Idno\Core\Idno::site()->config()->items_per_page, $offset);
 
                 $last_modified = $user->updated;
                 if (!empty($feed) && is_array($feed)) {

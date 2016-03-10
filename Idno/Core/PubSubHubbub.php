@@ -10,7 +10,6 @@
     namespace Idno\Core {
 
         use Idno\Common\Entity;
-        use Idno\Entities\ActivityStreamPost;
 
         class PubSubHubbub extends \Idno\Common\Component
         {
@@ -23,15 +22,13 @@
             function registerEventHooks()
             {
 
-                // Hook into the "saved" event to publish to PuSH when an entity is saved
-                \Idno\Core\Idno::site()->addEventHook('saved', function (\Idno\Core\Event $event) {
+                // Hook into the "published" event to inform the PuSH hub when an entity is published
+                \Idno\Core\Idno::site()->addEventHook('published', function (\Idno\Core\Event $event) {
                     $eventdata = $event->data();
                     if ($object = $eventdata['object']) {
                         /* @var \Idno\Common\Entity $object */
-                        if ($object instanceof \Idno\Entities\ActivityStreamPost) {
-                            if ($object->isPublic()) {
-                                \Idno\Core\PubSubHubbub::publish($object);
-                            }
+                        if ($object->isPublic()) {
+                            \Idno\Core\PubSubHubbub::publish($object);
                         }
                     }
                 });
@@ -234,18 +231,13 @@
 
             /**
              * If this Known installation has a PubSubHubbub hub, send a publish notification to the hub
-             * @param ActivityStreamPost $act_stream_post
+             * @param \Idno\Common\Entity $object
              * @return array
              */
-            static function publish($act_stream_post)
+            static function publish($object)
             {
                 if ($hub = \Idno\Core\Idno::site()->config()->hub) {
 
-                    if (!($act_stream_post instanceof ActivityStreamPost)) {
-                        return false;
-                    }
-
-                    $object = $act_stream_post->getObject();
                     $base   = \Idno\Core\Idno::site()->config()->getDisplayURL();
                     $feeds  = array();
 

@@ -4,7 +4,7 @@
 
         foreach($vars['items'] as $entry) {
             if ($entry instanceof \Idno\Common\Entity) {
-                echo $this->__(array('object' => $entry->getRelatedFeedItems()))->draw('entity/shell');
+                echo $this->__(['object' => $entry])->draw('entity/shell');
             }
         }
 

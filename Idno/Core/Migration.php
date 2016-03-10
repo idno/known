@@ -63,7 +63,7 @@
 
                 // Let's export everything.
                 $fields           = array();
-                $query_parameters = array('entity_subtype' => array('$not' => array('$in' => array('Idno\Entities\ActivityStreamPost'))));
+                $query_parameters = array();
                 $collection       = 'entities';
 
                 $limit  = 10;
@@ -115,19 +115,10 @@
                                 }
                                 $object->attachments = $attachments;
                             }
-                            $activityStreamPost = new \Idno\Entities\ActivityStreamPost();
-                            if ($owner = $object->getOwner()) {
-                                $activityStreamPost->setOwner($owner);
-                                $activityStreamPost->setActor($owner);
-                                $activityStreamPost->setTitle(sprintf("%s posted %s", $owner->getTitle(), $object->getTitle()));
-                            }
-                            $activityStreamPost->setVerb('post');
-                            $activityStreamPost->setObject($object);
                             $json_object = json_encode($object);
                             file_put_contents($json_path . $object_name . '.json', $json_object);
                             $all_in_one_json[] = json_decode($json_object);
                             if (is_callable(array($object, 'draw'))) {
-                                //file_put_contents($html_path . $object_name . '.html', $activityStreamPost->draw());
                                 file_put_contents($html_path . $object_name . '.html', $object->draw());
                             }
                             //unset($results[$id]);
@@ -486,7 +477,7 @@
                     $description = Idno::site()->config()->getDescription();
                     $base_url    = Idno::site()->config()->getDisplayURL();
                 }
-                if ($feed = \Idno\Entities\ActivityStreamPost::getFromX($types, $search, array(), PHP_INT_MAX, 0, $groups)) {
+                if ($feed = \Idno\Common\Entity::getFromX($types, $search, array(), PHP_INT_MAX, 0, $groups)) {
                     $rss_theme = new Template();
                     $rss_theme->setTemplateType('rss');
 
