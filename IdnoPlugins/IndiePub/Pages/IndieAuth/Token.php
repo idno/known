@@ -15,7 +15,7 @@
                 if (!empty($headers['Authorization'])) {
                     $token = $headers['Authorization'];
                     $token = trim(str_replace('Bearer', '', $token));
-                    $found = findUserForToken($token);
+                    $found = self::findUserForToken($token);
 
                     if (!empty($found)) {
                         $this->setResponse(200);
