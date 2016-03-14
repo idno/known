@@ -106,7 +106,7 @@
                     $accounts = $this->accounts;
                 }
 
-                $accounts = Idno::site()->triggerEvent('syndication/accounts/get', [$accounts => $accounts], $accounts);
+                $accounts = Idno::site()->triggerEvent('syndication/accounts/get', ['accounts' => $accounts], $accounts);
 
                 return $accounts;
             }
