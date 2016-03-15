@@ -20,6 +20,11 @@
                 $title = $this->getInput('share_title', $this->getInput('title'));
                 $type  = $this->getInput('share_type');
 
+                // remove cruft added by mobile apps
+                if (preg_match('~\b(?:f|ht)tps?://[^\s]+\b~i', $url, $matches)) {
+                    $url = $matches[0];
+                }
+
                 $event = new \Idno\Core\Event();
                 $event->setResponse($url);
                 \Idno\Core\Idno::site()->events()->dispatch('url/shorten', $event);
