@@ -1621,13 +1621,15 @@
                 if ($source_content['response'] == 410) {
                     $this->removeAnnotation($source);
                     $this->save();
-                } else if (!empty($source_mf2) && !empty($source_mf2['items']) && is_array($source_mf2['items'])) {
+                    return true;
+                }
+                $return = false;
+                if (!empty($source_mf2) && !empty($source_mf2['items']) && is_array($source_mf2['items'])) {
 
                     // At this point, we don't know who owns the page or what the content is.
                     // First, we'll initialize some variables that we're interested in filling.
 
                     $mentions = array('owner' => array(), 'mentions' => array()); // Content owner and usable webmention items
-                    $return   = true; // Return value;
 
                     // Get the page title from the source content
                     $title = $source;
@@ -1685,6 +1687,7 @@
                     }
 
                     if (!empty($mentions['mentions']) && !empty($mentions['owner'])) {
+                        $return = true;
                         if (empty($mentions['owner']['photo'])) {
                             $mentions['owner']['photo'] = '';
                         }
@@ -1716,23 +1719,18 @@
                         }
                         $this->save();
 
-                        if ($return) {
-                            if ($this->isReply()) {
-                                $webmentions = new Webmention();
-                                if ($reply_urls = $this->getReplyToURLs()) {
-                                    foreach ($reply_urls as $reply_url) {
-                                        $webmentions->sendWebmentionPayload($this->getDisplayURL(), $reply_url);
-                                    }
+                        if ($return && $this->isReply()) {
+                            $webmentions = new Webmention();
+                            if ($reply_urls = $this->getReplyToURLs()) {
+                                foreach ($reply_urls as $reply_url) {
+                                    $webmentions->sendWebmentionPayload($this->getDisplayURL(), $reply_url);
                                 }
                             }
                         }
                     }
-
-                    return $return;
                 }
 
-                return true; // There were no IndieWeb webmentions to add
-
+                return $return;
             }
 
             /**

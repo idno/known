@@ -60,8 +60,8 @@
                                         $this->setResponse(202); // Webmention received a-ok.
                                         exit;
                                     } else {
-                                        $error      = 'target_not_supported';
-                                        $error_text = 'This is not webmentionable.';
+                                        $error      = 'source_not_supported';
+                                        $error_text = 'Could not interpret source as a comment.';
                                     }
                                 } else {
                                     $error      = 'no_link_found';
