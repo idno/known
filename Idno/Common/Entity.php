@@ -1612,7 +1612,7 @@
              *
              * @param string $source The source URL
              * @param string $target The target URL (i.e., the page on this site that was pinged)
-             * @param string $source_content The source page's HTML
+             * @param array $source_content The Webservice response from fetching the source page
              * @param array $source_mf2 Parsed Microformats 2 content from $source
              * @return bool Success
              */
@@ -1643,56 +1643,48 @@
                     }
 
                     // And then let's cycle through them!
+                    $hentrys = [];
+                    $hcards  = [];
 
-                    // A first pass for overall owner ...
                     foreach ($source_mf2['items'] as $item) {
-
-                        // Figure out what kind of Microformats 2 item we have
-                        if (!empty($item['type']) && is_array($item['type'])) {
-                            foreach ($item['type'] as $type) {
-
-                                switch ($type) {
-                                    case 'h-card':
-                                        if (!empty($item['properties'])) {
-                                            if (!empty($item['properties']['name'])) $mentions['owner']['name'] = $item['properties']['name'][0];
-                                            if (!empty($item['properties']['url'])) $mentions['owner']['url'] = $item['properties']['url'][0];
-                                            if (!empty($item['properties']['photo'])) {
-                                                //$mentions['owner']['photo'] = $item['properties']['photo'][0];
-
-                                                $tmpfname = tempnam(sys_get_temp_dir(), 'webmention_avatar');
-                                                file_put_contents($tmpfname, \Idno\Core\Webservice::file_get_contents($item['properties']['photo'][0]));
-
-                                                $name = md5($item['properties']['url'][0]);
-
-                                                // TODO: Don't update the cache image for every webmention
-
-                                                if ($icon = \Idno\Entities\File::createThumbnailFromFile($tmpfname, $name, 300)) {
-                                                    $mentions['owner']['photo'] = \Idno\Core\Idno::site()->config()->url . 'file/' . (string)$icon;
-                                                } else if ($icon = \Idno\Entities\File::createFromFile($tmpfname, $name)) {
-                                                    $mentions['owner']['photo'] = \Idno\Core\Idno::site()->config()->url . 'file/' . (string)$icon;
-                                                }
-
-                                                unlink($tmpfname);
-                                            }
-                                        }
-                                        break;
-                                }
-                                if (!empty($mentions['owner'])) {
-                                    break;
-                                }
-
+                        if (isset($item['type'])) {
+                            if (in_array('h-card', $item['type'])) {
+                                $hcards[] = $item;
+                            } else if (in_array('h-entry', $item['type'])) {
+                                $hentrys[] = $item;
                             }
                         }
-
                     }
 
-                    // And now a second pass for per-item owners and mentions ...
-                    foreach ($source_mf2['items'] as $item) {
-                        $mentions = $this->addWebmentionItem($item, $mentions, $source, $target, $title);
-                        if (!empty($item['type']) && is_array($item['type'])) {
+                    // primary h-entry on the page
+                    $primary = false;
+
+                    // if there is only one h-entry on the page, then it's primary
+                    if (count($hentrys) == 1) {
+                        $primary = $hentrys[0];
+                    }
+                    // if there are more entries, then looks like a feed, so we'll ignore it
+                    // ... unless one of the entry's "url" values is the current page
+                    else if (count($hentrys) > 1) {
+                        foreach ($hentrys as $hentry) {
+                            if (!empty($hentry['properties']['url']) && in_array($source, $hentry['properties']['url'])) {
+                                $primary = $hentry;
+                                break;
+                            }
                         }
                     }
-                    if (!empty($mentions['mentions']) && !empty($mentions['owner']) && !empty($mentions['owner']['url'])) {
+
+                    // Convert the h-entry to one or more mentions
+                    if ($primary) {
+                        $mentions = $this->addWebmentionItem($primary, $mentions, $source, $target, $title);
+                    }
+
+                    // If the mention didn't have an author, fill in based on the first top-level h-card
+                    if (empty($mentions['owner']) && $hcards) {
+                        $mentions['owner'] = $this->parseHCard($hcards[0]);
+                    }
+
+                    if (!empty($mentions['mentions']) && !empty($mentions['owner'])) {
                         if (empty($mentions['owner']['photo'])) {
                             $mentions['owner']['photo'] = '';
                         }
@@ -1706,12 +1698,14 @@
                             $mentions['title'] = '';
                         }
                         $this->removeAnnotation($source);
+
                         foreach ($mentions['mentions'] as $mention) {
                             if (!empty($mention['url'])) {
                                 $permalink = $mention['url'][0]; //implode('', $mention['url']);
                             } else {
                                 $permalink = $source;
                             }
+
                             // Special exemption for bridgy
                             if ((strpos($source, 'https://brid-gy.appspot.com/') !== false) && in_array($mention['type'], array('like', 'share', 'rsvp'))) {
                                 $permalink = \Idno\Core\Idno::site()->template()->getURLWithVar('known_from', $source, implode('', $mention['url']));
@@ -1775,36 +1769,16 @@
              */
             function addWebmentionItem($item, $mentions, $source, $target, $title = '')
             {
-                if (!empty($item['properties']['author'])) {
+                // per-entry author
+                if (isset($item['properties']['author'])) {
                     foreach ($item['properties']['author'] as $author) {
-                        if (!empty($author['type'])) {
-                            foreach ($author['type'] as $type) {
-                                if ($type == 'h-card') {
-                                    if (!empty($author['properties']['name'])) $mentions['owner']['name'] = $author['properties']['name'][0];
-                                    if (!empty($author['properties']['url'])) $mentions['owner']['url'] = $author['properties']['url'][0];
-                                    if (!empty($author['properties']['photo'])) {
-                                        //$mentions['owner']['photo'] = $author['properties']['photo'][0];
-
-                                        $tmpfname = tempnam(sys_get_temp_dir(), 'webmention_avatar');
-                                        file_put_contents($tmpfname, \Idno\Core\Webservice::file_get_contents($author['properties']['photo'][0]));
-
-                                        $name = md5($author['properties']['url'][0]);
-
-                                        // TODO: Don't update the cache image for every webmention
-
-                                        if ($icon = \Idno\Entities\File::createThumbnailFromFile($tmpfname, $name, 300)) {
-                                            $mentions['owner']['photo'] = \Idno\Core\Idno::site()->config()->url . 'file/' . (string)$icon;
-                                        } else if ($icon = \Idno\Entities\File::createFromFile($tmpfname, $name)) {
-                                            $mentions['owner']['photo'] = \Idno\Core\Idno::site()->config()->url . 'file/' . (string)$icon;
-                                        }
-
-                                        unlink($tmpfname);
-                                    }
-                                }
-                            }
+                        if (isset($author['type']) && in_array('h-card', $author['type'])) {
+                            $mentions['owner'] = $this->parseHCard($author);
+                            break;
                         }
                     }
                 }
+
                 if (!empty($item['type'])) {
                     if (in_array('h-entry', $item['type'])) {
 
@@ -1887,15 +1861,38 @@
 
                     }
                 }
-                if (in_array('h-feed', $item['type'])) {
-                    if (!empty($item['children'])) {
-                        foreach ($item['children'] as $child) {
-                            $mentions = $this->addWebmentionItem($child, $mentions, $source, $target, $title);
-                        }
-                    }
-                }
 
                 return $mentions;
+            }
+
+            private function parseHCard($hcard)
+            {
+                $owner = [];
+                if (!empty($hcard['properties']['name'])) {
+                    $owner['name'] = $hcard['properties']['name'][0];
+                }
+                if (!empty($hcard['properties']['url'])) {
+                    $owner['url'] = $hcard['properties']['url'][0];
+                }
+                if (!empty($hcard['properties']['photo'])) {
+                    //$owner['photo'] = $hcard['properties']['photo'][0];
+
+                    $tmpfname = tempnam(sys_get_temp_dir(), 'webmention_avatar');
+                    file_put_contents($tmpfname, \Idno\Core\Webservice::file_get_contents($hcard['properties']['photo'][0]));
+
+                    $name = md5($hcard['properties']['url'][0]);
+
+                    // TODO: Don't update the cache image for every webmention
+
+                    if ($icon = \Idno\Entities\File::createThumbnailFromFile($tmpfname, $name, 300)) {
+                        $owner['photo'] = \Idno\Core\Idno::site()->config()->url . 'file/' . (string)$icon;
+                    } else if ($icon = \Idno\Entities\File::createFromFile($tmpfname, $name)) {
+                        $owner['photo'] = \Idno\Core\Idno::site()->config()->url . 'file/' . (string)$icon;
+                    }
+
+                    unlink($tmpfname);
+                }
+                return $owner;
             }
 
             /**
