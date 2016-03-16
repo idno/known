@@ -168,7 +168,7 @@
                     }
                 }
 
-                if ($_SERVER['REQUEST_METHOD'] != 'GET') {
+                if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] != 'GET') {
                     $body = @file_get_contents('php://input');
                     $body = trim($body);
                     if (!empty($body)) {
