@@ -16,13 +16,28 @@
 
             http_response_code(500);
 
-            $error_message = "Fatal Error: {$error['file']}:{$error['line']} - \"{$error['message']}\", on page {$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}";
+            if (!empty($_SERVER['SERVER_NAME'])) {
+                $server_name = $_SERVER['SERVER_NAME'];
+            } else {
+                $server_name = '';
+            }
+            if (!empty($_SERVER['REQUEST_URI'])) {
+                $request_uri = $_SERVER['REQUEST_URI'];
+            } else {
+                $request_uri = '';
+            }
+
+            $error_message = "Fatal Error: {$error['file']}:{$error['line']} - \"{$error['message']}\", on page {$server_name}{$request_uri}";
 
             echo "<h1>Oh no! Known experienced a problem!</h1>";
             echo "<p>Known experienced a problem with this page and couldn't continue. The technical details are as follows:</p>";
             echo "<pre>$error_message</pre>";
-            echo "<p>If you like, you can <a href=\"mailto:hello@withknown.com?subject=" .
-                rawurlencode("Fatal error in Known install at {$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}") . "&body=" . rawurlencode($error_message) . "\">email us for more information</a>.";
+
+            if (file_exists(dirname(dirname(__FILE__)) . '/support.inc')) {
+                include dirname(dirname(__FILE__)) . '/support.inc';
+            } else {
+                echo '<p>If you continue to have problems, <a href="https://withknown.com/opensource" target="_blank">open source users have a number of resources available</a></p>.';
+            }
 
             if (isset(\Idno\Core\Idno::site()->logging) && \Idno\Core\Idno::site()->logging)
                 \Idno\Core\Idno::site()->logging->error($error_message);
