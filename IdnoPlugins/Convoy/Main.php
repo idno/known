@@ -2,6 +2,8 @@
 
     namespace IdnoPlugins\Convoy {
 
+        use Idno\Core\Input;
+
         class Main extends \Idno\Common\Plugin {
 
             function registerPages() {
@@ -29,7 +31,7 @@
 
                     $object = $event->data()['object'];
                     $object_type = $event->data()['object_type'];
-                    $syndication = \Idno\Core\Idno::site()->currentPage()->getInput('syndication');
+                    $syndication = Input::getInput('syndication');
 
                     $object_array = $object->saveToArray();
                     $object_array['url'] = $object->getURL();
