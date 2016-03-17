@@ -19,7 +19,7 @@
 
         use Idno\Entities\User;
 
-        class Page extends \Idno\Common\Component
+        abstract class Page extends \Idno\Common\Component
         {
 
             // Property that defines whether this page may forward to
@@ -73,6 +73,9 @@
                 });
 
                 \Idno\Core\Idno::site()->embedded();
+                
+                // Trigger an event when a page is initialised, and currentPage is available
+                \Idno\Core\Idno::site()->triggerEvent('page/ready');
             }
 
             /**
@@ -883,7 +886,7 @@
             function isAcceptedContentType($contentType)
             {
 
-                if ($headers = $this->getallheaders()) {
+                if ($headers = self::getallheaders()) {
                     if (!empty($headers['Accept'])) {
                         if (substr_count($headers['Accept'], $contentType)) return true;
                     }
@@ -897,7 +900,7 @@
              * getallheaders function
              * @return array
              */
-            function getallheaders()
+            static function getallheaders()
             {
                 if (function_exists('getallheaders')) {
                     return getallheaders();
@@ -1002,7 +1005,7 @@
              */
             public function lastModifiedGatekeeper($timestamp)
             {
-                $headers = $this->getallheaders();
+                $headers = self::getallheaders();
                 if (isset($headers['If-Modified-Since'])) {
                     if (strtotime($headers['If-Modified-Since']) <= $timestamp) {
                         //header('HTTP/1.1 304 Not Modified');

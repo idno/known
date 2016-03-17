@@ -40,12 +40,12 @@
              */
             private static function authenticate()
             {
-                $access_token = \Idno\Core\Idno::site()->currentPage()->getInput('access_token');
-                $headers = \Idno\Core\Idno::site()->currentPage()->getallheaders();
+                $access_token = \Idno\Core\Input::getInput('access_token');
+                $headers = \Idno\Common\Page::getallheaders();
                 if (!empty($headers['Authorization'])) {
                     $token = $headers['Authorization'];
                     $token = trim(str_replace('Bearer', '', $token));
-                } else if ($token = \Idno\Core\Idno::site()->currentPage()->getInput('access_token')) {
+                } else if ($token = \Idno\Core\Input::getInput('access_token')) {
                     $token = trim($token);
                 }
 

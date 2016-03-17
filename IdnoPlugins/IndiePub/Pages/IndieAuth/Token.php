@@ -11,7 +11,7 @@
             // GET requests verify a token
             function get($params = array())
             {
-                $headers = $this->getallheaders();
+                $headers = self::getallheaders();
                 if (!empty($headers['Authorization'])) {
                     $token = $headers['Authorization'];
                     $token = trim(str_replace('Bearer', '', $token));
