@@ -6,6 +6,10 @@
 
     namespace Idno\Pages {
 
+        use Idno\Core\Webmention;
+        use Idno\Entities\Notification;
+        use Idno\Entities\User;
+
         /**
          * Default class to serve the homepage
          */
@@ -125,6 +129,29 @@
                     ))->draw('pages/home'),
 
                 ))->drawPage();
+            }
+
+            /**
+             * A webmention to the homepage means someone mentioned our site's root.
+             */
+            function webmentionContent($source, $target, $source_response, $source_mf2)
+            {
+                // if this is a single-user site, let's forward on the root mention
+                // to their user page
+
+                \Idno\Core\Idno::site()->logging()->info("Received homepage mention from $source");
+
+                if (\Idno\Core\Idno::site()->config()->single_user) {
+                    $user = \Idno\Entities\User::getOne(['admin' => true]);
+                    if ($user) {
+                        $userPage = \Idno\Core\Idno::site()->getPageHandler($user->getURL());
+                        if ($userPage) {
+                            return $userPage->webmentionContent($source, $target, $source_response, $source_mf2);
+                        }
+                    }
+                }
+
+                return false;
             }
 
         }

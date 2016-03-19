@@ -74,7 +74,7 @@
 
             // Get webmention content and handle it
 
-            function webmentionContent($source, $target, $source_content, $source_mf2)
+            function webmentionContent($source, $target, $source_response, $source_mf2)
             {
                 if (!empty($this->arguments[0])) {
                     $object = \Idno\Common\Entity::getByID($this->arguments[0]);
@@ -91,7 +91,7 @@
                 $return = true;
 
                 if ($object instanceof \Idno\Common\Entity && $source != $target && $source != $object->getObjectURL()) {
-                    $return = $object->addWebmentions($source, $target, $source_content, $source_mf2);
+                    $return = $object->addWebmentions($source, $target, $source_response, $source_mf2);
                 }
 
                 return $return;

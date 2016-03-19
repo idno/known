@@ -6,6 +6,11 @@
 
     namespace Idno\Pages\User {
 
+        use Idno\Core\Idno;
+        use Idno\Core\Webmention;
+        use Idno\Entities\Notification;
+        use Idno\Entities\User;
+
         /**
          * Default class to serve the homepage
          */
@@ -83,6 +88,78 @@
                     \Idno\Core\Idno::site()->session()->addMessage($object->getTitle() . ' was deleted.');
                 }
                 $this->forward($_SERVER['HTTP_REFERER']);
+            }
+
+            /**
+             * A webmention to our profile page means someone mentioned us.
+             */
+            function webmentionContent($source, $target, $source_response, $source_mf2)
+            {
+                Idno::site()->logging()->info("received user mention from $target to $source");
+                if (empty($this->arguments)) {
+                    return false;
+                }
+
+                $user = User::getByHandle($this->arguments[0]);
+                if (empty($user)) {
+                    return false;
+                }
+
+                // if this is anything other than a normal mention (e.g. a delete), accept the wm, but do nothing
+                if ($source_response['response'] !== 200) {
+                    return true;
+                }
+
+                $title = Webmention::getTitleFromContent($source_response['content'], $source);
+
+                $mention = [
+                    'permalink' => $source,
+                    'title'     => $title,
+                ];
+
+                // look for the first and only h-entry or h-event on the page
+                $entry = Webmention::findRepresentativeHEntry($source_mf2, $source, ['h-entry', 'h-event']);
+                $card  = Webmention::findAuthorHCard($source_mf2, $source, $entry);
+
+                // try to get some more specific details of the mention from mf2 content
+                if ($entry) {
+                    if (!empty($entry['properties']['url'])) {
+                        $mention['permalink'] = $entry['properties']['url'][0];
+                    }
+                    if (!empty($entry['properties']['content'])) {
+                        $content = $entry['properties']['content'][0];
+                        $mention['content'] = Idno::site()->template()->sanitize_html(is_array($content) ? $content['html'] : $content);
+                    }
+                }
+
+                $sender_url = false;
+                if ($card) {
+                    if (!empty($card['properties']['url'])) {
+                        $sender_url = $card['properties']['url'][0];
+                        $mention['owner_url'] = $card['properties']['url'][0];
+                    }
+                    if (!empty($card['properties']['name'])) {
+                        $mention['owner_name'] = $card['properties']['name'][0];
+                    }
+                }
+
+                $message = 'You were mentioned';
+                if (isset($mention['owner_name'])) {
+                    $message .= ' by ' . $mention['owner_name'];
+                }
+                $message .= ' on ' . parse_url($mention['permalink'], PHP_URL_HOST);
+
+                $notif = new Notification();
+                $notif->setOwner($user);
+                $notif->setMessage($message);
+                $notif->setMessageTemplate('content/notification/mention');
+                $notif->setActor($sender_url);
+                $notif->setVerb('mention');
+                $notif->setObject($mention);
+                $notif->setTarget($user);
+                $notif->save();
+                $user->notify($notif);
+                return true;
             }
 
         }

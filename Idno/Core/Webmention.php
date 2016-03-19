@@ -139,6 +139,115 @@
             }
 
             /**
+             * Given a microformats document, find the "primary" item of a given type or types.
+             * Primary means either a) it is the only item of that type at the top level,
+             * or b) it is the first item that has the current page as its u-url
+             * @param array $mf2 parsed mf2 document
+             * @param string $url the source url of the document
+             * @param array or string $types the type or types of an item to consider
+             * @return the parsed mf2 item, or false
+             */
+            static function findRepresentativeHEntry($mf2, $url, $types=['h-entry'])
+            {
+                $types = (array) $types;
+
+                $items = [];
+                foreach ($mf2['items'] as $item) {
+                    foreach ($types as $type) {
+                        if (isset($item['type']) && in_array($type, $item['type'])) {
+                            $items[] = $item;
+                            break;
+                        }
+                    }
+                }
+
+                // if there is only one h-entry on the page, then it's primary
+                if (count($items) == 1) {
+                    return $items[0];
+                }
+
+                // if there are more items, then looks like a feed, so we'll ignore it
+                // ... unless one of the entry's "url" values is the current page
+                if (count($items) > 1) {
+                    foreach ($items as $item) {
+                        if (!empty($item['properties']['url']) && in_array($url, $item['properties']['url'])) {
+                            return $item;
+                        }
+                    }
+                }
+
+                return false;
+            }
+
+            /**
+             * Given a mf2 entry, try to find its author h-card. First check its "author"
+             * property. Then check the top-level h-cards. If there is one and only one, return it.
+             * @param array $mf2 the full parsed mf2 document
+             * @param string $url the url of the document
+             * @param array $item the mf2 item in question
+             * @return array|false an h-card representing the author of this document
+             */
+            static function findAuthorHCard($mf2, $url, $item)
+            {
+                if ($item && isset($item['properties']['author'])) {
+                    // look for an author h-card
+                    foreach ($item['properties']['author'] as $author) {
+                        if (is_array($author) && isset($author['type']) && in_array('h-card', $author['type'])) {
+                            return $author;
+                        }
+                    }
+                    // look for an author name or url
+                    foreach ($item['properties']['author'] as $author) {
+                        if (is_string($author)) {
+                            if (filter_var($author, FILTER_VALIDATE_URL)) {
+                                return ['type'       => ['h-card'],
+                                        'properties' => ['url' => [$author]]];
+                            } else {
+                                return ['type'       => ['h-card'],
+                                        'properties' => ['name' => [$author]]];
+                            }
+                        }
+                    }
+                }
+
+                // fallback to top-level hcard if there is 1 and only 1
+                // TODO follow http://indiewebcamp.com/authorship
+                $hcards = [];
+                foreach ($mf2['items'] as $item) {
+                    if (isset($item['type']) && in_array('h-card', $item['type'])) {
+                        $hcards[] = $item;
+                    }
+                }
+
+                if (count($hcards) === 1) {
+                    return $hcards[0];
+                }
+
+                return false;
+            }
+
+            /**
+             * Given a source and HTML content, return the value of the <title> tag
+             * @param string $source_content the fetched HTML content
+             * @param string $source url for the source
+             * @return string title of the document or its url if no title is found
+             */
+            static function getTitleFromContent($source_content, $source)
+            {
+                try {
+                    $dom = new \DOMDocument();
+                    $dom->loadHTML($source_content);
+                    $xpath = new \DOMXPath($dom);
+                    foreach ($xpath->query('//title') as $element) {
+                        return $element->textContent;
+                    }
+                } catch (\Exception $e) {
+                    // Do nothing
+                }
+                return $source; // url is the best we can do
+            }
+
+            /**
              * Given content, returns the type of action you can respond with
              * @param $content
              * @return string

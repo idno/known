@@ -560,13 +560,13 @@
              *
              * @param string $source The source URL (i.e., third-party site URL)
              * @param string $target The target URL (i.e., this page)
-             * @param string $source_content The full HTML content of the source URL
+             * @param array $source_response The Webservice response from fetching the source page
              * @param array $source_mf2 The full, parsed Microformats 2 content of the source URL
-             * @return bool
+             * @return bool true if this page accepts webmentions
              */
-            function webmentionContent($source, $target, $source_content, $source_mf2)
+            function webmentionContent($source, $target, $source_response, $source_mf2)
             {
-                return true;
+                return false;
             }
 
             /**
