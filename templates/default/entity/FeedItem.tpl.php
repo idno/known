@@ -24,8 +24,6 @@
                 <a href="<?= $item->getAuthorURL() ?>" class="icon-container"><img
                         class="u-logo logo u-photo photo" src="<?= $item->getAuthorPhoto() ?>"/></a>
                 <a class="p-name fn u-url url" href="<?= $item->getAuthorURL() ?>"><?= $item->getAuthorName() ?></a>
-                <a class="u-url" href="<?= $item->getAuthorURL() ?>">
-                    <!-- This is here to force the hand of your MF2 parser --></a>
             </p>
         </div>
         <div class="e-content entry-content">

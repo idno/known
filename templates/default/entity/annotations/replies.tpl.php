@@ -13,15 +13,17 @@
             </div>
             <div class="idno-annotation-content col-md-9">
                 <div class="p-summary e-content"><?=$this->autop($this->parseURLs(strip_tags($annotation['content'])));?></div>
-                <div class="h-card">
-                    <p><small><a href="<?=htmlspecialchars($annotation['owner_url'])?>" class="p-author p-name"><?=htmlentities($annotation['owner_name'], ENT_QUOTES, 'UTF-8')?></a>,
-                            <a href="<?=$permalink?>"><?=date('M d Y', $annotation['time']);?></a>
-                            on <a href="<?=$permalink?>" class="u-url"><?=parse_url($permalink, PHP_URL_HOST)?></a></small> <img src="<?=$annotation['owner_image']?>" class="u-photo" style="display:none"/></p></small></p>
-                </div>
+                <p><small>
+                    <span class="p-author h-card">
+                        <a class="u-photo" href="<?=$annotation['owner_image']?>"></a>
+                        <a class="p-name u-url" href="<?=htmlspecialchars($annotation['owner_url'])?>"><?=htmlentities($annotation['owner_name'], ENT_QUOTES, 'UTF-8')?></a></span>,
+                    <a href="<?=$permalink?>"><?=date('M d Y', $annotation['time']);?></a>
+                    on <a href="<?=$permalink?>" class="u-url"><?=parse_url($permalink, PHP_URL_HOST)?></a>
+                </small></p>
             </div>
             <?php
                 $this->annotation_permalink = $locallink;
-                
+
                 if ($vars['object']->canEditAnnotation($annotation)) {
                     echo $this->draw('content/annotation/edit');
                 }
