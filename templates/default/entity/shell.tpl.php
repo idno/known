@@ -8,9 +8,9 @@
             <div class="row idno-entry idno-entry-<?php
                 if (preg_match('@\\\\([\w]+)$@', get_class($object), $matches)) {
                     echo strtolower($matches[1]);
-                }?>">
+                }?> <?= $object->getMicroformats2ObjectType() ?> idno-<?= $object->getContentTypeCategorySlug() ?> idno-object">
 
-                <div class="col-md-1 col-md-offset-1 owner h-card visible-md visible-lg">
+                <div class="col-md-1 col-md-offset-1 owner p-author h-card visible-md visible-lg">
                     <p>
                         <a href="<?= $owner->getDisplayURL() ?>" class="u-url icon-container">
 	                        <img class="u-photo" src="<?= $owner->getIcon() ?>"/></a><br/>
@@ -19,7 +19,7 @@
                 </div>
 
                 <div
-                    class="col-md-8 <?= $object->getMicroformats2ObjectType() ?> idno-<?= $object->getContentTypeCategorySlug() ?> idno-object idno-content">
+                    class="col-md-8 idno-content">
                     <!--<div class="visible-xs">
                         <p class="p-author author h-card vcard">
                             <a href="<?= $owner->getDisplayURL() ?>" class="icon-container"><img
