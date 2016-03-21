@@ -473,6 +473,12 @@
                 $return = $this->refreshSessionUser($user);
                 @session_regenerate_id(true);
 
+                // user/auth/success event needs to be triggered here
+                $return = \Idno\Core\Idno::site()->triggerEvent($return ? "user/auth/success" : "user/auth/failure", array(
+                    "user"   => $return,
+                    "is api" => $this->isAPIRequest(),
+                ), $return);
+
                 return $return;
             }
 
