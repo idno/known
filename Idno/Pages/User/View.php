@@ -97,13 +97,17 @@
             {
                 Idno::site()->logging()->info("received user mention from $source to $target");
                 if (empty($this->arguments)) {
+                    Idno::site()->logging()->debug("could not process user mention, no pagehandler arguments");
                     return false;
                 }
 
                 $user = User::getByHandle($this->arguments[0]);
                 if (empty($user)) {
+                    Idno::site()->logging()->debug('could not process user mention, no user for handle ' . $this->arguments[0]);
                     return false;
                 }
+
+                Idno::site()->logging()->debug("found target user {$user->getHandle()}");
 
                 // if this is anything other than a normal mention (e.g. a delete), accept the wm, but do nothing
                 if ($source_response['response'] !== 200) {

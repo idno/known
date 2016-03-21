@@ -144,6 +144,7 @@
                 if (\Idno\Core\Idno::site()->config()->single_user) {
                     $user = \Idno\Entities\User::getOne(['admin' => true]);
                     if ($user) {
+                        \Idno\Core\Idno::site()->logging()->debug("Pass on webmention to solo user: {$user->getHandle()}");
                         $userPage = \Idno\Core\Idno::site()->getPageHandler($user->getURL());
                         if ($userPage) {
                             return $userPage->webmentionContent($source, $target, $source_response, $source_mf2);

@@ -50,27 +50,35 @@ EOD;
 
             /**
              * Test that in single-user mode, mentions of the homepage
-             * (with and without a slash) are handed off to the user
-             * profile page.
+             * are handed off to the user profile page.
              */
             function testWebmentionContentSingleUser()
             {
                 Idno::site()->config->single_user = true;
+                $target = Idno::site()->config()->getDisplayURL();
+                $notification = $this->doWebmentionContent($target);
+                $this->assertTrue($notification !== false);
+                $this->assertEquals('http://foo.bar', $notification['actor']);
+                $this->assertEquals('You were mentioned by Foo Bar on foo.bar', $notification['message']);
+                $this->assertEquals('Foo Bar', $notification['object']['owner_name']);
+                $this->assertEquals('http://foo.bar', $notification['object']['owner_url']);
+            }
 
-                $targets = [
-                    Idno::site()->config()->getDisplayURL(),
-                    rtrim(Idno::site()->config()->getDisplayURL(), '/'),
-                ];
 
-                foreach ($targets as $target) {
-                    error_log("Trying with target: $target");
-                    $notification = $this->doWebmentionContent($target);
-                    $this->assertTrue($notification !== false);
-                    $this->assertEquals('http://foo.bar', $notification['actor']);
-                    $this->assertEquals('You were mentioned by Foo Bar on foo.bar', $notification['message']);
-                    $this->assertEquals('Foo Bar', $notification['object']['owner_name']);
-                    $this->assertEquals('http://foo.bar', $notification['object']['owner_url']);
-                }
+            /**
+             * Test that in single-user mode without a trailing slash
+             * on the domain name
+             */
+            function testWebmentionContentSingleUserNoSlash()
+            {
+                Idno::site()->config->single_user = true;
+                $target = rtrim(Idno::site()->config()->getDisplayURL(), '/');
+                $notification = $this->doWebmentionContent($target);
+                $this->assertTrue($notification !== false);
+                $this->assertEquals('http://foo.bar', $notification['actor']);
+                $this->assertEquals('You were mentioned by Foo Bar on foo.bar', $notification['message']);
+                $this->assertEquals('Foo Bar', $notification['object']['owner_name']);
+                $this->assertEquals('http://foo.bar', $notification['object']['owner_url']);
             }
 
             /**
