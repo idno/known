@@ -22,8 +22,6 @@
 
             private function doWebmentionContent($target)
             {
-                $user = $this->user();
-
                 $notification = false;
                 Idno::site()->addEventHook('notify', function (Event $event) use (&$notification) {
                     $eventdata    = $event->data();
@@ -55,6 +53,7 @@ EOD;
             function testWebmentionContentSingleUser()
             {
                 Idno::site()->config->single_user = true;
+                $this->admin(); // make sure there is an admin user
                 $target = Idno::site()->config()->getDisplayURL();
                 $notification = $this->doWebmentionContent($target);
                 $this->assertTrue($notification !== false);
@@ -72,6 +71,7 @@ EOD;
             function testWebmentionContentSingleUserNoSlash()
             {
                 Idno::site()->config->single_user = true;
+                $this->admin(); // make sure there is an admin user
                 $target = rtrim(Idno::site()->config()->getDisplayURL(), '/');
                 $notification = $this->doWebmentionContent($target);
                 $this->assertTrue($notification !== false);
