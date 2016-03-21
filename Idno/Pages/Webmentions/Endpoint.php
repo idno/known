@@ -41,7 +41,7 @@
 
                     // If the target is a bare domain with no path, add /
                     $route = $target;
-                    if (empty(parse_url($route, PHP_URL_PATH))) {
+                    if (!parse_url($route, PHP_URL_PATH)) {
                         $route .= '/';
                     }
 
