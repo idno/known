@@ -24,7 +24,7 @@ $(function () {
 
     function queryLocation(latitude, longitude, cb) {
         $.ajax({
-            url: '/checkin/callback',
+            url: wwwroot() + '/checkin/callback',
             type: 'post',
             data: { lat: latitude.toString(), long: longitude.toString() }
         }).done(function (data) {
