@@ -139,17 +139,23 @@
                 // if this is a single-user site, let's forward on the root mention
                 // to their user page
 
-                \Idno\Core\Idno::site()->logging()->info("Received homepage mention from $source");
+                \Idno\Core\Idno::site()->logging()->info("received homepage mention from $source");
 
                 if (\Idno\Core\Idno::site()->config()->single_user) {
                     $user = \Idno\Entities\User::getOne(['admin' => true]);
                     if ($user) {
-                        \Idno\Core\Idno::site()->logging()->debug("Pass on webmention to solo user: {$user->getHandle()}");
+                        \Idno\Core\Idno::site()->logging()->debug("pass on webmention to solo user: {$user->getHandle()}");
                         $userPage = \Idno\Core\Idno::site()->getPageHandler($user->getURL());
                         if ($userPage) {
                             return $userPage->webmentionContent($source, $target, $source_response, $source_mf2);
+                        } else {
+                            \Idno\Core\Idno::site()->logging()->debug("failed to find a Page to serve route " . $user->getURL());
                         }
+                    } else {
+                        \Idno\Core\Idno::site()->logging()->debug("query for an admin-user failed to find one");
                     }
+                } else {
+                    \Idno\Core\Idno::site()->logging()->debug("disregarding mention to multi-user site");
                 }
 
                 return false;
