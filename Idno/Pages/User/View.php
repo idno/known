@@ -95,7 +95,7 @@
              */
             function webmentionContent($source, $target, $source_response, $source_mf2)
             {
-                Idno::site()->logging()->info("received user mention from $target to $source");
+                Idno::site()->logging()->info("received user mention from $source to $target");
                 if (empty($this->arguments)) {
                     return false;
                 }

@@ -161,8 +161,7 @@
                 $permalink_route = \Idno\Common\Entity::getPermalinkRoute();
 
                 /** Homepage */
-                $this->addPageHandler('', '\Idno\Pages\Homepage');
-                $this->addPageHandler('/', '\Idno\Pages\Homepage');
+                $this->addPageHandler('/?', '\Idno\Pages\Homepage');
                 $this->addPageHandler('/feed\.xml', '\Idno\Pages\Feed');
                 $this->addPageHandler('/feed/?', '\Idno\Pages\Feed');
                 $this->addPageHandler('/rss\.xml', '\Idno\Pages\Feed');
@@ -217,7 +216,7 @@
                 $this->addPageHandler('/begin/connect/?', '\Idno\Pages\Onboarding\Connect');
                 $this->addPageHandler('/begin/connect\-forwarder/?', '\Idno\Pages\Onboarding\ConnectForwarder');
                 $this->addPageHandler('/begin/publish/?', '\Idno\Pages\Onboarding\Publish');
-                
+
                 /** Add some services */
                 $this->addPageHandler('/service/db/optimise/?', '\Idno\Pages\Service\Db\Optimise');
                 $this->addPageHandler('/service/vendor/messages/?', '\Idno\Pages\Service\Vendor\Messages');
@@ -425,7 +424,7 @@
              * page handling syntax
              *
              * @param string $pattern The pattern to match
-             * @param callable $handler The handler callable that will serve the page
+             * @param string $handler The name of the Page class that will serve this route
              * @param bool $public If set to true, this page is always public, even on non-public sites
              */
 
@@ -452,7 +451,7 @@
              * page handling syntax - and ensures it will be handled first
              *
              * @param string $pattern The pattern to match
-             * @param callable $handler The handler callable that will serve the page
+             * @param string $handler The name of the Page class that will serve this route
              * @param bool $public If set to true, this page is always public, even on non-public sites
              */
             function hijackPageHandler($pattern, $handler, $public = false)
@@ -751,7 +750,7 @@
              */
             function getVendorMessages()
             {
-                
+
                 if (!empty(site()->config()->noping)) {
                     return '';
                 }

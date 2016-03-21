@@ -39,8 +39,14 @@
                         }
                     }
 
+                    // If the target is a bare domain with no path, add /
+                    $route = $target;
+                    if (empty(parse_url($route, PHP_URL_PATH))) {
+                        $route .= '/';
+                    }
+
                     // Get the page handler for target
-                    if ($page = \Idno\Core\Idno::site()->getPageHandler($target)) {
+                    if ($page = \Idno\Core\Idno::site()->getPageHandler($route)) {
                         // First of all, make sure the target page isn't the source page. Let's not webmention ourselves!
                         $webmention_ok = true;
                         if (\Idno\Common\Entity::isLocalUUID($source)) {

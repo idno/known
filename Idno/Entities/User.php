@@ -86,7 +86,7 @@
                     $user         = $eventdata['user'];
                     $notification = $eventdata['notification'];
 
-                    if ($user instanceof User) {
+                    if ($user instanceof User && !defined('KNOWN_UNIT_TEST')) {
 
                         if (empty($user->notifications['email']) || $user->notifications['email'] == 'all' || ($user->notifications['email'] == 'comment' && in_array($notification->type, array('comment', 'reply')))) {
 
