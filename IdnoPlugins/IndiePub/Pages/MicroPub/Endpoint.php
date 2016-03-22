@@ -172,8 +172,8 @@
                             $content_value = $content;
                         }
                         if (!empty($posse_link)) {
-                            $posse_service = parse_url($posse_link, PHP_URL_HOST);
-                            $entity->setPosseLink(str_replace('.com', '', $posse_service), $posse_link, '', '');
+                            $posse_service = preg_replace('/^(www\.|m\.)?(.+?)(\.com|\.org|\.net)?$/', '$2', parse_url($posse_link, PHP_URL_HOST));
+                            $entity->setPosseLink($posse_service, $posse_link, '', '');
                         }
                         $hashtags = (empty($hashtags) ? "" : "<p>".$hashtags."</p>");
                         $htmlPhoto    = (empty($htmlPhoto) ? "" : "<p>".$htmlPhoto."</p>");
