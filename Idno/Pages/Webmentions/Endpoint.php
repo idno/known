@@ -29,6 +29,8 @@
                     $source = $vars['source'];
                     $target = $vars['target'];
 
+                    \Idno\Core\Idno::site()->logging()->debug("received webmention from $source to $target");
+
                     // Remove anchors from target URL, but save them to '#' input so we can still reference them later
                     if (strpos($target, '#')) {
                         list($target, $fragment) = explode('#', $target, 2);
@@ -37,8 +39,14 @@
                         }
                     }
 
+                    // If the target is a bare domain with no path, add /
+                    $route = $target;
+                    if (!parse_url($route, PHP_URL_PATH)) {
+                        $route .= '/';
+                    }
+
                     // Get the page handler for target
-                    if ($page = \Idno\Core\Idno::site()->getPageHandler($target)) {
+                    if ($page = \Idno\Core\Idno::site()->getPageHandler($route)) {
                         // First of all, make sure the target page isn't the source page. Let's not webmention ourselves!
                         $webmention_ok = true;
                         if (\Idno\Common\Entity::isLocalUUID($source)) {
@@ -48,15 +56,17 @@
                                 }
                             }
                         }
+
                         // Check that source exists, parse it for mf2 content,
                         // and ensure that it genuinely mentions this page
                         if ($webmention_ok) {
-                            if ($source_content = \Idno\Core\Webservice::get($source)) {
-                                if (substr_count($source_content['content'], $target) || $source_content['response'] == 410) {
-                                    $source_mf2 = \Idno\Core\Webmention::parseContent($source_content['content'], $source);
+                            \Idno\Core\Idno::site()->logging()->debug("webmention is ok with target page " . get_class($page));
+                            if ($source_response = \Idno\Core\Webservice::get($source)) {
+                                if (substr_count($source_response['content'], $target) || $source_response['response'] == 410) {
+                                    $source_mf2 = \Idno\Core\Webmention::parseContent($source_response['content'], $source);
                                     // Set source and target information as input variables
                                     $page->setPermalink();
-                                    if ($page->webmentionContent($source, $target, $source_content, $source_mf2)) {
+                                    if ($page->webmentionContent($source, $target, $source_response, $source_mf2)) {
                                         $this->setResponse(202); // Webmention received a-ok.
                                         exit;
                                     } else {

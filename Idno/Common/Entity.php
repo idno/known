@@ -1612,13 +1612,13 @@
              *
              * @param string $source The source URL
              * @param string $target The target URL (i.e., the page on this site that was pinged)
-             * @param array $source_content The Webservice response from fetching the source page
+             * @param array $source_response The Webservice response from fetching the source page
              * @param array $source_mf2 Parsed Microformats 2 content from $source
              * @return bool Success
              */
-            function addWebmentions($source, $target, $source_content, $source_mf2)
+            function addWebmentions($source, $target, $source_response, $source_mf2)
             {
-                if ($source_content['response'] == 410) {
+                if ($source_response['response'] == 410) {
                     $this->removeAnnotation($source);
                     $this->save();
                     return true;
@@ -1632,58 +1632,15 @@
                     $mentions = array('owner' => array(), 'mentions' => array()); // Content owner and usable webmention items
 
                     // Get the page title from the source content
-                    $title = $source;
-                    try {
-                        $dom = new \DOMDocument();
-                        $dom->loadHTML($source_content['content']);
-                        $xpath = new \DOMXPath($dom);
-                        if ($xpath_title = $xpath->query('//title')->item(0)->textContent) {
-                            $title = $xpath_title;
-                        }
-                    } catch (\Exception $e) {
-                        // Do nothing
-                    }
-
-                    // And then let's cycle through them!
-                    $hentrys = [];
-                    $hcards  = [];
-
-                    foreach ($source_mf2['items'] as $item) {
-                        if (isset($item['type'])) {
-                            if (in_array('h-card', $item['type'])) {
-                                $hcards[] = $item;
-                            } else if (in_array('h-entry', $item['type'])) {
-                                $hentrys[] = $item;
-                            }
-                        }
-                    }
+                    $title   = Webmention::getTitleFromContent($source_response['content'], $source);
 
                     // primary h-entry on the page
-                    $primary = false;
-
-                    // if there is only one h-entry on the page, then it's primary
-                    if (count($hentrys) == 1) {
-                        $primary = $hentrys[0];
-                    }
-                    // if there are more entries, then looks like a feed, so we'll ignore it
-                    // ... unless one of the entry's "url" values is the current page
-                    else if (count($hentrys) > 1) {
-                        foreach ($hentrys as $hentry) {
-                            if (!empty($hentry['properties']['url']) && in_array($source, $hentry['properties']['url'])) {
-                                $primary = $hentry;
-                                break;
-                            }
-                        }
-                    }
+                    $primary = Webmention::findRepresentativeHEntry($source_mf2, $source, ['h-entry']);
+                    $author  = Webmention::findAuthorHCard($source_mf2, $source, $primary);
 
                     // Convert the h-entry to one or more mentions
                     if ($primary) {
-                        $mentions = $this->addWebmentionItem($primary, $mentions, $source, $target, $title);
-                    }
-
-                    // If the mention didn't have an author, fill in based on the first top-level h-card
-                    if (empty($mentions['owner']) && $hcards) {
-                        $mentions['owner'] = $this->parseHCard($hcards[0]);
+                        $mentions = $this->addWebmentionItem($primary, $author, $mentions, $source, $target, $title);
                     }
 
                     if (!empty($mentions['mentions']) && !empty($mentions['owner'])) {
@@ -1761,103 +1718,95 @@
             /**
              * Recursive helper function for parsing webmentions.
              *
-             * @param $item
-             * @param $mentions
-             * @return array
+             * @param array $item h-entry to interpret
+             * @param array $author h-card for the author of $item
+             * @param array $mentions
+             * @return array the modified mentions array
              */
-            function addWebmentionItem($item, $mentions, $source, $target, $title = '')
+            function addWebmentionItem($item, $author, $mentions, $source, $target, $title = '')
             {
-                // per-entry author
-                if (isset($item['properties']['author'])) {
-                    foreach ($item['properties']['author'] as $author) {
-                        if (isset($author['type']) && in_array('h-card', $author['type'])) {
-                            $mentions['owner'] = $this->parseHCard($author);
-                            break;
-                        }
-                    }
+                if ($author) {
+                    $mentions['owner'] = $this->parseHCard($author);
                 }
 
-                if (!empty($item['type'])) {
-                    if (in_array('h-entry', $item['type'])) {
-
-                        $mention = array();
-                        if (!empty($item['properties'])) {
-                            if (!empty($item['properties']['content'])) {
-                                $mention['content'] = '';
-                                if (is_array($item['properties']['content'])) {
-                                    foreach ($item['properties']['content'] as $content) {
-                                        if (!empty($content['value'])) {
-                                            $parsed_content = \Idno\Core\Idno::site()->template()->sanitize_html($content['value']);
-                                            if (!substr_count($mention['content'], $parsed_content)) {
-                                                $mention['content'] .= $parsed_content;
-                                            }
+                if ($item) {
+                    $mention = array();
+                    if (!empty($item['properties'])) {
+                        if (!empty($item['properties']['content'])) {
+                            $mention['content'] = '';
+                            if (is_array($item['properties']['content'])) {
+                                foreach ($item['properties']['content'] as $content) {
+                                    if (!empty($content['value'])) {
+                                        $parsed_content = \Idno\Core\Idno::site()->template()->sanitize_html($content['value']);
+                                        if (!substr_count($mention['content'], $parsed_content)) {
+                                            $mention['content'] .= $parsed_content;
                                         }
                                     }
-                                } else {
-                                    $mention['content'] = $item['properties']['content'];
                                 }
-                            } else if (!empty($item['properties']['summary'])) {
-                                // TODO properties are always arrays, are these checks unnecessary?
-                                if (is_array($item['properties']['summary'])) {
-                                    $mention['content'] = \Idno\Core\Idno::site()->template()->sanitize_html(implode(' ', $item['properties']['summary']));
-                                } else {
-                                    $mention['content'] = $item['properties']['summary'];
-                                }
-                            } else if (!empty($item['properties']['name'])) {
-                                if (is_array($item['properties']['name'])) {
-                                    $mention['content'] = \Idno\Core\Idno::site()->template()->sanitize_html(implode(' ', $item['properties']['name']));
-                                } else {
-                                    $mention['content'] = $item['properties']['name'];
-                                }
+                            } else {
+                                $mention['content'] = $item['properties']['content'];
                             }
-                            if (!empty($item['properties']['published'])) {
-                                $mention['created'] = strtotime($item['properties']['published'][0]);
+                        } else if (!empty($item['properties']['summary'])) {
+                            // TODO properties are always arrays, are these checks unnecessary?
+                            if (is_array($item['properties']['summary'])) {
+                                $mention['content'] = \Idno\Core\Idno::site()->template()->sanitize_html(implode(' ', $item['properties']['summary']));
+                            } else {
+                                $mention['content'] = $item['properties']['summary'];
                             }
-                            if (empty($mention['created'])) {
-                                $mention['created'] = time();
-                            }
-                            if (!empty($item['properties']['url'])) {
-                                if (!empty($item['properties']['uid'])) {
-                                    $mention['url'] = array_intersect($item['properties']['uid'], $item['properties']['url']);
-                                }
-                                if (empty($mention['url'])) {
-                                    $mention['url'] = $item['properties']['url'];
-                                }
-                            }
-                            if (!empty($item['properties']['like-of']) && is_array($item['properties']['like-of'])) {
-                                if (in_array($target, static::getStringURLs($item['properties']['like-of']))) {
-                                    $mention['type'] = 'like';
-                                }
-                            }
-                            if (!empty($item['properties']['rsvp']) && is_array($item['properties']['rsvp'])) {
-                                $mention['type']    = 'rsvp';
-                                $mention['content'] = implode(' ', $item['properties']['rsvp']);
-                            }
-                            foreach (array('share', 'repost-of') as $verb) {
-                                if (!empty($item['properties'][$verb]) && is_array($item['properties'][$verb])) {
-                                    if (in_array($target, static::getStringURLs($item['properties'][$verb]))) {
-                                        $mention['type'] = 'share';
-                                    }
-                                }
-                            }
-                            if (!empty($item['properties']['in-reply-to']) && is_array($item['properties']['in-reply-to'])) {
-                                if (in_array($target, static::getStringURLs($item['properties']['in-reply-to']))) {
-                                    $mention['type'] = 'reply';
-                                }
-                            }
-                            if (empty($mention['type'])) {
-                                $mention['type'] = 'mention';
+                        } else if (!empty($item['properties']['name'])) {
+                            if (is_array($item['properties']['name'])) {
+                                $mention['content'] = \Idno\Core\Idno::site()->template()->sanitize_html(implode(' ', $item['properties']['name']));
+                            } else {
+                                $mention['content'] = $item['properties']['name'];
                             }
                         }
-                        if (empty($mention['content'])) {
-                            $mention['content'] = '';
+                        if (!empty($item['properties']['published'])) {
+                            $mention['created'] = strtotime($item['properties']['published'][0]);
                         }
-                        $mention['title'] = $title;
-                        if (!empty($mention['type'])) {
-                            $mentions['mentions'][] = $mention;
+                        if (empty($mention['created'])) {
+                            $mention['created'] = time();
                         }
-
+                        if (!empty($item['properties']['url'])) {
+                            if (!empty($item['properties']['uid'])) {
+                                $mention['url'] = array_intersect($item['properties']['uid'], $item['properties']['url']);
+                            }
+                            if (empty($mention['url'])) {
+                                $mention['url'] = $item['properties']['url'];
+                            }
+                        }
+                        if (!empty($item['properties']['like-of']) && is_array($item['properties']['like-of'])) {
+                            if (in_array($target, static::getStringURLs($item['properties']['like-of']))) {
+                                $mention['type'] = 'like';
+                            }
+                        }
+                        if (!empty($item['properties']['rsvp']) && is_array($item['properties']['rsvp'])) {
+                            $mention['type']    = 'rsvp';
+                            $mention['content'] = implode(' ', $item['properties']['rsvp']);
+                        }
+                        foreach (array('share', 'repost-of') as $verb) {
+                            if (!empty($item['properties'][$verb]) && is_array($item['properties'][$verb])) {
+                                if (in_array($target, static::getStringURLs($item['properties'][$verb]))) {
+                                    $mention['type'] = 'share';
+                                }
+                            }
+                        }
+                        if (!empty($item['properties']['in-reply-to']) && is_array($item['properties']['in-reply-to'])) {
+                            if (in_array($target, static::getStringURLs($item['properties']['in-reply-to']))) {
+                                $mention['type'] = 'reply';
+                            }
+                        }
+                        if (empty($mention['type'])) {
+                            $mention['type'] = 'mention';
+                        }
                     }
+                    if (empty($mention['content'])) {
+                        $mention['content'] = '';
+                    }
+                    $mention['title'] = $title;
+                    if (!empty($mention['type'])) {
+                        $mentions['mentions'][] = $mention;
+                    }
+
                 }
 
                 return $mentions;

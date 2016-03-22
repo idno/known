@@ -2,7 +2,7 @@
 
     if (!empty($vars['annotations']) && is_array($vars['annotations'])) {
         foreach($vars['annotations'] as $locallink => $annotation) {
-	    
+
 	    $permalink = $annotation['permalink'] ? $annotation['permalink'] : $locallink;
 ?>
         <div class="idno-annotation row u-comment h-cite">
