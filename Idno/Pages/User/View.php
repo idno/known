@@ -154,15 +154,20 @@
                 $message .= ' on ' . parse_url($mention['permalink'], PHP_URL_HOST);
 
                 $notif = new Notification();
-                $notif->setOwner($user);
-                $notif->setMessage($message);
-                $notif->setMessageTemplate('content/notification/mention');
-                $notif->setActor($sender_url);
-                $notif->setVerb('mention');
-                $notif->setObject($mention);
-                $notif->setTarget($user);
-                $notif->save();
-                $user->notify($notif);
+                if ($notif->setNotificationKey(['mention', $user->getUUID(), $source, $target])) {
+                    $notif->setOwner($user);
+                    $notif->setMessage($message);
+                    $notif->setMessageTemplate('content/notification/mention');
+                    $notif->setActor($sender_url);
+                    $notif->setVerb('mention');
+                    $notif->setObject($mention);
+                    $notif->setTarget($user);
+                    $notif->save();
+                    $user->notify($notif);
+                } else {
+                    \Idno\Core\Idno::site()->logging()->debug("ignoring duplicate notification", ['source' => $source, 'target' => $target, 'user' => $user->getHandle()]);
+                }
+
                 return true;
             }
 

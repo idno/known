@@ -20,16 +20,14 @@
 
             }
 
-            private function doWebmentionContent($target)
+            private function doWebmentionContent($source, $target)
             {
                 $notification = false;
                 Idno::site()->addEventHook('notify', function (Event $event) use (&$notification) {
                     $eventdata    = $event->data();
                     $notification = $eventdata['notification'];
-
                 });
 
-                $source = 'http://foo.bar/mention';
                 $sourceContent = <<<EOD
 <div class="h-entry">
   <a class="p-author h-card" href="http://foo.bar">Foo Bar</a>
@@ -54,8 +52,10 @@ EOD;
             {
                 Idno::site()->config->single_user = true;
                 $this->admin(); // make sure there is an admin user
+                // uniquify source to make sure we get the notification
+                $source = 'http://foo.bar/homepage-mention-single-user-'.md5(time() . rand(0,9999));
                 $target = Idno::site()->config()->getDisplayURL();
-                $notification = $this->doWebmentionContent($target);
+                $notification = $this->doWebmentionContent($source, $target);
                 $this->assertTrue($notification !== false);
                 $this->assertEquals('http://foo.bar', $notification['actor']);
                 $this->assertEquals('You were mentioned by Foo Bar on foo.bar', $notification['message']);
@@ -72,8 +72,9 @@ EOD;
             {
                 Idno::site()->config->single_user = true;
                 $this->admin(); // make sure there is an admin user
+                $source = 'http://foo.bar/homepage-mention-single-user-no-slash-'.md5(time() . rand(0,9999));
                 $target = rtrim(Idno::site()->config()->getDisplayURL(), '/');
-                $notification = $this->doWebmentionContent($target);
+                $notification = $this->doWebmentionContent($source, $target);
                 $this->assertTrue($notification !== false);
                 $this->assertEquals('http://foo.bar', $notification['actor']);
                 $this->assertEquals('You were mentioned by Foo Bar on foo.bar', $notification['message']);
@@ -88,8 +89,9 @@ EOD;
             function testWebmentionContentMultiUser()
             {
                 Idno::site()->config->single_user = false;
+                $source = 'http://foo.bar/homepage-mention-multi-user-'.md5(time() . rand(0,9999));
                 $target = Idno::site()->config()->getDisplayURL();
-                $notification = $this->doWebmentionContent($target);
+                $notification = $this->doWebmentionContent($source, $target);
                 $this->assertFalse($notification);
             }
 

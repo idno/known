@@ -17,7 +17,7 @@
                     $notification = $eventdata['notification'];
                 });
 
-                $source = 'http://karenpage.com/looking-for-information';
+                $source = 'http://karenpage.com/looking-for-information-' . md5(time() . rand(0,9999));
                 $target = $user->getURL();
 
                 $sourceContent = <<<EOD
@@ -42,9 +42,10 @@ EOD;
                 $this->assertEquals('Karen Page', $notification['object']['owner_name']);
                 $this->assertEquals('http://karenpage.com/', $notification['object']['owner_url']);
 
-                return $notification;
-
-
+                // make sure second webmention for the same source does not create another notification
+                $notification = false;
+                $profile->webmentionContent($source, $target, $sourceResp, $sourceMf2);
+                $this->assertFalse($notification);
             }
 
         }
