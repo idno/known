@@ -859,7 +859,7 @@
                     if (!empty($this->tags)) {
                         $descr .= ' ' . $this->tags;
                     }
-                    if (preg_match_all('/(?<!=)(?<!["\'])(\#[A-Za-z0-9]+)/iu', $descr, $matches)) {
+                    if (preg_match_all('/(?<!=)(?<!["\'])(\#[A-Za-z0-9\_]+)/iu', $descr, $matches)) {
                         if (!empty($matches[0])) {
                             return $matches[0];
                         }

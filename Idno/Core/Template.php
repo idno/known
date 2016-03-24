@@ -284,7 +284,7 @@
             function parseHashtags($text)
             {
                 $text = (html_entity_decode($text));
-                $r    = preg_replace_callback('/(?<=^|[\>\s\n])(\#[\p{L}0-9]+)/u', function ($matches) {
+                $r    = preg_replace_callback('/(?<=^|[\>\s\n])(\#[\p{L}0-9\_]+)/u', function ($matches) {
                     $url = $matches[1];
                     $tag = str_replace('#', '', $matches[1]);
 
