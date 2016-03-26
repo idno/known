@@ -4,6 +4,7 @@
 
         use Idno\Core\Idno;
         use Idno\Core\Event;
+        use Idno\Core\Webservice;
 
         class HomepageTest extends \Tests\KnownTestCase {
 
@@ -17,7 +18,12 @@
 
                 // Make sure it's actually Known we're talking to
                 $this->assertContains('X-Powered-By: https://withknown.com', $http_response_header);
+            }
 
+            function test404Page()
+            {
+                $result = Webservice::get(Idno::site()->config()->getURL() . 'this-resource-does-not-exist');
+                $this->assertEquals(404, $result['response']);
             }
 
             private function doWebmentionContent($target)
