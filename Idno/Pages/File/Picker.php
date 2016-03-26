@@ -19,7 +19,7 @@
                 $t->title   = 'Image picker';
                 $t->hidenav = true;
                 $t->body    = $t->draw($template);
-                echo $t->draw('shell');
+                $t->drawPage();
             }
 
             function post()
