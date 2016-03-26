@@ -12,6 +12,25 @@
         {
 
             /**
+             * Set up a unique key for this notification so we can
+             * avoid sending repeat notifications for the same
+             * thing. e.g., for a webmention, [$source, $target].
+             *
+             * This affects the result of getURL()
+             *
+             * @param array $params
+             * @return true if the notification key represents a
+             * unique notification, false if we've seen this one
+             * before.
+             */
+            function setNotificationKey(array $params)
+            {
+                $this->notificationKey = md5(implode('|', $params));
+                $preexisting = self::getOne(['notificationKey' => $this->notificationKey]);
+                return $preexisting === false;
+            }
+
+            /**
              * The short text message to notify the user with. (eg, a
              * subject line.)
              * @param string $message
@@ -43,7 +62,8 @@
             }
 
             /**
-             * Is this an array {name:..., url:..., image:...}, a UUID, or either?
+             * @param string $actor URL (or UUID if local) of the
+             * person who initiated the action
              */
             function setActor($actor)
             {
@@ -134,6 +154,10 @@
 
                 if (!empty($this->canonical)) {
                     return $this->canonical;
+                }
+
+                if (!empty($this->notificationKey)) {
+                    return \Idno\Core\Idno::site()->config()->getDisplayURL() . 'notification/' . $this->notificationKey;
                 }
 
                 return \Idno\Core\Idno::site()->config()->url . 'view/' . $this->getID();

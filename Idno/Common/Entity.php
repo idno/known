@@ -1969,15 +1969,17 @@
 
                                 if (!empty($notification_template) && !empty($context) && $send_notification) {
                                     $notif = new \Idno\Entities\Notification();
-                                    $notif->setOwner($recipient);
-                                    $notif->setMessage($subject);
-                                    $notif->setMessageTemplate($notification_template);
-                                    $notif->setActor($owner_url);
-                                    $notif->setVerb($context);
-                                    $notif->setObject($annotation);
-                                    $notif->setTarget($this);
-                                    $notif->save();
-                                    $recipient->notify($notif);
+                                    if ($notif->setNotificationKey([$context, $recipient->getUUID(), $annotation_url])) {
+                                        $notif->setOwner($recipient);
+                                        $notif->setMessage($subject);
+                                        $notif->setMessageTemplate($notification_template);
+                                        $notif->setActor($owner_url);
+                                        $notif->setVerb($context);
+                                        $notif->setObject($annotation);
+                                        $notif->setTarget($this);
+                                        $notif->save();
+                                        $recipient->notify($notif);
+                                    }
                                 }
                             }
 
