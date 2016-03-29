@@ -352,17 +352,20 @@
              * Return a schema-less version of the given URL
              *
              * @param $url
+             * @param $match_host If set to true (default), only changes the URI if the host matches the site's host
              * @return mixed
              */
-            function makeDisplayURL($url)
+            function makeDisplayURL($url, $match_host = true)
             {
+                if (Idno::site()->config()->host != parse_url($url, PHP_URL_HOST) && $match_host == true) {
+                    return $url;
+                }
                 $scheme = parse_url($url, PHP_URL_SCHEME);
-                if (site()->isSecure()) {
+                if (\Idno\Core\Idno::site()->isSecure()) {
                     $newuri = 'https:';
                 } else {
                     $newuri = 'http:';
                 }
-
                 return str_replace($scheme . ':', $newuri, $url);
             }
 
