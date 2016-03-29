@@ -352,14 +352,24 @@
             {
 
                 // Add webmention headers to the top of the page
-                \Idno\Core\Idno::site()->addEventHook('page/head', function (Event $event) {
-
+                Idno::site()->addEventHook('page/head', function (Event $event) {
                     if (!empty(site()->config()->hub)) {
                         $eventdata = $event->data();
                         header('Link: <' . \Idno\Core\Idno::site()->config()->getURL() . 'webmention/>; rel="http://webmention.org/"', false);
                         header('Link: <' . \Idno\Core\Idno::site()->config()->getURL() . 'webmention/>; rel="webmention"', false);
                     }
+                });
 
+                Idno::site()->addEventHook('webmention/sendall', function (Event $event) {
+                    $data = $event->data();
+                    $result = self::pingMentions($data['source'], $data['text']);
+                    $event->setResponse($result);
+                });
+
+                Idno::site()->addEventHook('webmention/send', function (Event $event) {
+                    $data = $event->data();
+                    $result = self::sendWebmentionPayload($data['source'], $data['target']);
+                    $event->setResponse($result);
                 });
 
             }

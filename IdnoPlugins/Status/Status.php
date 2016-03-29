@@ -93,6 +93,7 @@
                     $this->body      = $body;
                     $this->inreplyto = $inreplyto;
                     $this->tags      = $tags;
+                    // TODO fetch syndicated reply targets asynchronously (or maybe on-demand, when syndicating?)
                     if (!empty($inreplyto)) {
                         if (is_array($inreplyto)) {
                             foreach ($inreplyto as $inreplytourl) {
@@ -106,7 +107,10 @@
                     if ($this->publish($new)) {
 
                         if ($this->getAccess() == 'PUBLIC') {
-                            \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getDescription()));
+                            \Idno\Core\Idno::site()->queue()->enqueue('default', 'webmention/sendall', [
+                                'source' => $this->getURL(),
+                                'text' => \Idno\Core\Idno::site()->template()->parseURLs($this->getDescription()),
+                            ]);
                         }
 
                         return true;

@@ -24,6 +24,7 @@
             public $actions;
             public $plugins;
             public $dispatcher;
+            public $queue;
             public $pagehandlers;
             public $public_pages;
             public $syndication;
@@ -48,6 +49,7 @@
             {
                 self::$site       = $this;
                 $this->dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
+                $this->queue      = new SynchronousQueue();
                 $this->config     = new Config();
                 if ($this->config->isDefaultConfig()) {
                     header('Location: ./warmup/');
@@ -245,6 +247,15 @@
             function &events()
             {
                 return $this->dispatcher;
+            }
+
+            /**
+             * Access to the EventQueue for dispatching events
+             * asynchronously
+             */
+            function &queue()
+            {
+                return $this->queue;
             }
 
             /**
@@ -801,7 +812,7 @@
             {
                 return
                     (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
-                    || $_SERVER['SERVER_PORT'] == 443
+                    || (!empty($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443)
                     || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https');
             }
 
