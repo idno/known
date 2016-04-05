@@ -23,7 +23,7 @@
             <p>
                 <a href="<?= $owner->getDisplayURL() ?>"><?= $owner->getTitle() ?></a>published this
                 <a class="u-url url" href="<?= $vars['object']->getDisplayURL() ?>" rel="permalink"><time class="dt-published"
-                          datetime="<?= date('c', $vars['object']->created) ?>"><?= date('c', $vars['object']->created) ?></time></a>
+                          datetime="<?= date('c', $vars['object']->created) ?>"><?= date('F j, Y', $vars['object']->created) ?></time></a>
                 <?php
 
                     if ($vars['object']->access != 'PUBLIC') {

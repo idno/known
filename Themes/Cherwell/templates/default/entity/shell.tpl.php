@@ -26,7 +26,7 @@
                         <p>
                             <a class="u-url url" href="<?= $object->getDisplayURL() ?>" rel="permalink">
                                 <time class="dt-published"
-                                      datetime="<?= date('c', $object->created) ?>"><?= date('c', $object->created) ?></time>
+                                      datetime="<?= date('c', $object->created) ?>"><?= date('F j, Y', $object->created) ?></time>
                             </a>
                         </p>
                     </div>
