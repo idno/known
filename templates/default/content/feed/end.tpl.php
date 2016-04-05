@@ -13,7 +13,7 @@
                 <a href="<?= $item->getAuthorURL() ?>"><?= $item->getAuthorName() ?></a>published this
                 <a class="u-url url" href="<?= $item->getDisplayURL() ?>" rel="permalink">
                     <time class="dt-published"
-                          datetime="<?= date('c', $item->created) ?>"><?= date('c', $item->created) ?></time>
+                          datetime="<?= date('c', $item->created) ?>"><?= date('F j, Y', $item->created) ?></time>
                 </a>
             </p>
         </div>
