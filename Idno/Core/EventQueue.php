@@ -54,7 +54,7 @@ abstract class EventQueue extends \Idno\Common\Component
         return $this->convertUUIDsToEntities(json_decode($str, true));
     }
 
-    private function convertEntitiesToUUIDs($args)
+    function convertEntitiesToUUIDs($args)
     {
         $result = [];
         foreach ($args as $key => $value) {
@@ -71,7 +71,7 @@ abstract class EventQueue extends \Idno\Common\Component
         return $result;
     }
 
-    private function convertUUIDsToEntities($args)
+    function convertUUIDsToEntities($args)
     {
         $result = [];
         foreach ($args as $key => $value) {
