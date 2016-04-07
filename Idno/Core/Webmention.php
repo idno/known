@@ -196,18 +196,6 @@
                             return $author;
                         }
                     }
-                    // look for an author name or url
-                    foreach ($item['properties']['author'] as $author) {
-                        if (is_string($author)) {
-                            if (filter_var($author, FILTER_VALIDATE_URL)) {
-                                return ['type'       => ['h-card'],
-                                        'properties' => ['url' => [$author]]];
-                            } else {
-                                return ['type'       => ['h-card'],
-                                        'properties' => ['name' => [$author]]];
-                            }
-                        }
-                    }
                 }
 
                 // fallback to top-level hcard if there is 1 and only 1
@@ -221,6 +209,21 @@
 
                 if (count($hcards) === 1) {
                     return $hcards[0];
+                }
+
+                if ($item && isset($item['properties']['author'])) {
+                    // look for an author name or url
+                    foreach ($item['properties']['author'] as $author) {
+                        if (is_string($author)) {
+                            if (filter_var($author, FILTER_VALIDATE_URL)) {
+                                return ['type'       => ['h-card'],
+                                        'properties' => ['url' => [$author]]];
+                            } else {
+                                return ['type'       => ['h-card'],
+                                        'properties' => ['name' => [$author]]];
+                            }
+                        }
+                    }
                 }
 
                 return false;
