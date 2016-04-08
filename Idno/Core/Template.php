@@ -256,22 +256,32 @@
              */
             function parseURLs($text, $code = '')
             {
-                $r = preg_replace_callback('/(?<!=)(?<!["\'])((ht|f)tps?:\/\/[^\s\r\n\t<>"\'\(\)]+)/i',
-                    create_function(
-                        '$matches',
-                        '
-                            $url = $matches[1];
-                            $punc = \'\';
-                            $last = substr($url, -1, 1);
-                            if (in_array($last, array(".", "!", ","))) {
-                                $punc = $last;
-                                $url = rtrim($url, ".!,");
-                            }
-                            $urltext = str_replace("/", "/<wbr />", $url);
-                            $code = str_replace("%URL%",$url,"' . addslashes($code) . '");
-                        return "<a href=\"{$url}\" {$code}>{$urltext}</a>{$punc}";
-                    '
-                    ), $text);
+                $r = preg_replace_callback('/(?<!=)(?<!["\'])((ht|f)tps?:\/\/[^\s<>"\']+)/i', function ($matches) use ($code) {
+                    $url = $matches[1];
+                    $punc = '';
+
+                    while ($url) {
+                        $last = substr($url, -1, 1);
+                        if (strstr('.!?,;:(', $last)
+                            // strip ) if there isn't a matching ( earlier in the url
+                            || ($last === ')' && !strstr($url, '('))) {
+                            $punc = $last . $punc;
+                            $url = substr($url, 0, -1);
+                        } else {
+                            break; // found a non-punctuation character
+                        }
+                    }
+
+                    $result = "<a href=\"$url\"";
+                    if ($code) {
+                        $result .= ' ' . str_replace("%URL%", $url, addslashes($code));
+                    }
+                    $result .= ">";
+                    $result .= str_replace('/', '/<wbr />', $url);
+                    $result .= "</a>$punc";
+                    return $result;
+
+                }, $text);
 
                 return $r;
             }
