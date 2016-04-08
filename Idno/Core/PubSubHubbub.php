@@ -250,7 +250,7 @@
                     $homepage_types   = \Idno\Core\Idno::site()->config()->getHomepageContentTypes();
                     $type_in_homepage = false;
                     if ($object instanceof Entity) {
-                        if (in_array($object->getContentType()->getEntityClass(), $homepage_types)) {
+                        if ($object->getContentType() && in_array($object->getContentType()->getEntityClass(), $homepage_types)) {
                             $type_in_homepage = true;
                         }
                     }
