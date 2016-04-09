@@ -135,7 +135,7 @@ class ParseDTTest extends PHPUnit_Framework_TestCase {
 	 * @group valueClass
 	 */
 	public function testAbbrYYYY_MM_DD__HH_MM() {
-		$input = '<div class="h-event"><span class="dt-start"><abbr class="value" title="2012-10-07">some day</a> at <span class="value">21:18</span></span></div>';
+		$input = '<div class="h-event"><span class="dt-start"><abbr class="value" title="2012-10-07">some day</abbr> at <span class="value">21:18</span></span></div>';
 		$parser = new Parser($input);
 		$output = $parser->parse();
 
@@ -155,4 +155,107 @@ class ParseDTTest extends PHPUnit_Framework_TestCase {
 		$this->assertArrayHasKey('start', $output['items'][0]['properties']);
 		$this->assertEquals('2012-10-07T21:00', $output['items'][0]['properties']['start'][0]);
 	}
+
+	/**
+	 * @group parseDT
+	 * @group valueClass
+	 */
+	public function testYYYY_MM_DD__HH_MMpm() {
+		$input = '<div class="h-event"><span class="dt-start"><span class="value">2012-10-07</span> at <span class="value">9:00pm</span></span></div>';
+		$parser = new Parser($input);
+		$output = $parser->parse();
+
+		$this->assertArrayHasKey('start', $output['items'][0]['properties']);
+		$this->assertEquals('2012-10-07T21:00', $output['items'][0]['properties']['start'][0]);
+	}
+
+	/**
+	 * @group parseDT
+	 * @group valueClass
+	 */
+	public function testYYYY_MM_DD__HH_MM_SSpm() {
+		$input = '<div class="h-event"><span class="dt-start"><span class="value">2012-10-07</span> at <span class="value">9:00:00pm</span></span></div>';
+		$parser = new Parser($input);
+		$output = $parser->parse();
+
+		$this->assertArrayHasKey('start', $output['items'][0]['properties']);
+		$this->assertEquals('2012-10-07T21:00:00', $output['items'][0]['properties']['start'][0]);
+	}
+
+	/**
+	 * This test name refers to the value-class used within the dt-end.
+	 * @group parseDT
+	 * @group valueClass
+	 */
+	public function testImpliedDTEndWithValueClass() {
+		$input = '<div class="h-event"> <span class="dt-start"><span class="value">2014-06-04</span> at <span class="value">18:30</span> <span class="dt-end"><span class="value">19:30</span></span></span> </div>';
+		$parser = new Parser($input);
+		$output = $parser->parse();
+
+		$this->assertArrayHasKey('start', $output['items'][0]['properties']);
+		$this->assertArrayHasKey('end', $output['items'][0]['properties']);
+		$this->assertEquals('2014-06-04T18:30', $output['items'][0]['properties']['start'][0]);
+		$this->assertEquals('2014-06-04T19:30', $output['items'][0]['properties']['end'][0]);
+	}
+
+	/**
+	 * This test name refers to the lack of value-class within the dt-end.
+	 * @group parseDT
+	 * @group valueClass
+	 */
+	public function testImpliedDTEndWithoutValueClass() {
+		$input = '<div class="h-event"> <span class="dt-start"><span class="value">2014-06-05</span> at <span class="value">18:31</span> <span class="dt-end">19:31</span></span> </div>';
+
+		$parser = new Parser($input);
+		$output = $parser->parse();
+
+		$this->assertArrayHasKey('start', $output['items'][0]['properties']);
+		$this->assertArrayHasKey('end', $output['items'][0]['properties']);
+		$this->assertEquals('2014-06-05T18:31', $output['items'][0]['properties']['start'][0]);
+		$this->assertEquals('2014-06-05T19:31', $output['items'][0]['properties']['end'][0]);
+	}
+
+	/**
+	 * @see https://github.com/indieweb/php-mf2/pull/46
+	 * @group parseDT
+	 * @group valueClass
+	 */
+	public function testImpliedDTEndUsingNonValueClassDTStart() {
+		$input = '<div class="h-event"> <time class="dt-start">2014-06-05T18:31</time> until <span class="dt-end">19:31</span></span> </div>';
+
+		$parser = new Parser($input);
+		$output = $parser->parse();
+
+		$this->assertArrayHasKey('start', $output['items'][0]['properties']);
+		$this->assertArrayHasKey('end', $output['items'][0]['properties']);
+		$this->assertEquals('2014-06-05T18:31', $output['items'][0]['properties']['start'][0]);
+		$this->assertEquals('2014-06-05T19:31', $output['items'][0]['properties']['end'][0]);
+	}
+
+	/**
+	 * @group parseDT
+	 * @group valueClass
+	 */
+	public function testDTStartOnly() {
+		$input = '<div class="h-event"> <span class="dt-start"><span class="value">2014-06-06</span> at <span class="value">18:32</span> </span> </div>';
+		$parser = new Parser($input);
+		$output = $parser->parse();
+
+		$this->assertArrayHasKey('start', $output['items'][0]['properties']);
+		$this->assertEquals('2014-06-06T18:32', $output['items'][0]['properties']['start'][0]);
+	}
+
+	/**
+	 * @group parseDT
+	 * @group valueClass
+	 */
+	public function testDTStartDateOnly() {
+		$input = '<div class="h-event"> <span class="dt-start"><span class="value">2014-06-07</span> </span> </div>';
+		$parser = new Parser($input);
+		$output = $parser->parse();
+
+		$this->assertArrayHasKey('start', $output['items'][0]['properties']);
+		$this->assertEquals('2014-06-07', $output['items'][0]['properties']['start'][0]);
+	}
+
 }

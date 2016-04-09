@@ -32,7 +32,7 @@ class MicroformatsWikiExamplesTest extends PHPUnit_Framework_TestCase {
 	"items": []
 }';
 		
-		$parser = new Parser($input);
+		$parser = new Parser($input, '', true);
 		$output = $parser->parse();
 		
 		$this->assertJsonStringEqualsJsonString(json_encode($output), $expected);
@@ -45,7 +45,8 @@ class MicroformatsWikiExamplesTest extends PHPUnit_Framework_TestCase {
 	"items": []
 }';
 		
-		$parser = new Parser($input);
+		$parser = new Parser($input, '', true);
+		$parser->jsonMode = true;
 		$output = $parser->parse();
 		
 		$this->assertJsonStringEqualsJsonString(json_encode($output), $expected);
@@ -65,7 +66,7 @@ class MicroformatsWikiExamplesTest extends PHPUnit_Framework_TestCase {
 	}
   }]
 }';
-		$parser = new Parser($input);
+		$parser = new Parser($input, '', true);
 		$output = $parser->parse();
 
 		$this->assertJsonStringEqualsJsonString(json_encode($output), $expected);
@@ -86,7 +87,7 @@ class MicroformatsWikiExamplesTest extends PHPUnit_Framework_TestCase {
 	}
   }]
 }';
-		$parser = new Parser($input);
+		$parser = new Parser($input, '', true);
 		$output = $parser->parse();
 
 		$this->assertJsonStringEqualsJsonString(json_encode($output), $expected);
@@ -107,7 +108,7 @@ class MicroformatsWikiExamplesTest extends PHPUnit_Framework_TestCase {
 	"photo": ["http://example.org/pic.jpg"]
   }
 }]}';
-		$parser = new Parser($input);
+		$parser = new Parser($input, '', true);
 		$output = $parser->parse();
 
 		$this->assertJsonStringEqualsJsonString(json_encode($output), $expected);
@@ -132,7 +133,7 @@ class MicroformatsWikiExamplesTest extends PHPUnit_Framework_TestCase {
 	"photo": ["https://s3.amazonaws.com/twitter_production/profile_images/53307499/180px-Rohit-sq_bigger.jpg"]
   }
 }]}';
-		$parser = new Parser($input);
+		$parser = new Parser($input, '', true);
 		$output = $parser->parse();
 
 		$this->assertJsonStringEqualsJsonString(json_encode($output), $expected);
@@ -179,7 +180,7 @@ class MicroformatsWikiExamplesTest extends PHPUnit_Framework_TestCase {
 	}
   }]
 }';
-		$parser = new Parser($input);
+		$parser = new Parser($input, '', true);
 		$output = $parser->parse();
 
 		$this->assertJsonStringEqualsJsonString(json_encode($output), $expected);
