@@ -212,9 +212,6 @@ class UrlTest extends PHPUnit_Framework_TestCase {
 			array('relative add host from base',
 				'http://www.example.com', 'server.php', 'http://www.example.com/server.php'),
 
-			array('relative add scheme host user from base',
-				'http://user:@www.example.com', 'server.php', 'http://user:@www.example.com/server.php'),
-
 			array('relative add scheme host pass from base',
 				'http://:pass@www.example.com', 'server.php', 'http://:pass@www.example.com/server.php'),
 
@@ -249,9 +246,21 @@ class UrlTest extends PHPUnit_Framework_TestCase {
 				'http://www.example.com/pathOne/', './jquery.js', 'http://www.example.com/pathOne/jquery.js'),
 
 			array('testAbsolutePathHasDotDirecoryAndSourceHasDirectoryWithoutTrailingSlash',
-				'http://www.example.com/pathOne', './jquery.js', 'http://www.example.com/jquery.js')
+				'http://www.example.com/pathOne', './jquery.js', 'http://www.example.com/jquery.js'),
+
+			array('testAbsolutePathIncludesPortNumber',
+				'http://example.com:8080/index.html', '/photo.jpg', 'http://example.com:8080/photo.jpg')
 
 		);
+
+		// PHP 5.4 and before returns a different result, but either are acceptable
+		if(PHP_MAJOR_VERSION <= 5 && PHP_MINOR_VERSION <= 4) {
+			$cases[] = array('relative add scheme host user from base',
+				'http://user:@www.example.com', 'server.php', 'http://user@www.example.com/server.php');
+		} else {
+			$cases[] = array('relative add scheme host user from base',
+				'http://user:@www.example.com', 'server.php', 'http://user:@www.example.com/server.php');
+		}
 
 		// Test cases from RFC
 		// http://tools.ietf.org/html/rfc3986#section-5.4

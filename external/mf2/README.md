@@ -1,5 +1,6 @@
-php-mf2
-=======
+# php-mf2
+
+[![Build Status](https://travis-ci.org/indieweb/php-mf2.png?branch=master)](http://travis-ci.org/indieweb/php-mf2)
 
 php-mf2 is a pure, generic [microformats-2](http://microformats.org/wiki/microformats-2) parser. It makes HTML as easy to consume as JSON.
 
@@ -7,20 +8,60 @@ Instead of having a hard-coded list of all the different microformats, it follow
 
 ## Installation
 
-Install php-mf2 with [Composer](http://getcomposer.org) by adding `"mf2/mf2": "0.2.*"` to the `require` object in your `composer.json` and running <kbd>php composer.phar update</kbd>.
+There are two ways of installing php-mf2. I **highly recommend** installing php-mf2 using [Composer](http://getcomposer.org). The rest of the documentation assumes that you have done so.
 
-You could install it by just downloading `/Mf2/Parser.php` and including that, but please use Composer. Seriously, it’s amazing.
+To install using Composer, run `./composer.phar require mf2/mf2:~0.3`
+
+If you can’t or don’t want to use Composer, then php-mf2 can be installed the old way by downloading [`/Mf2/Parser.php`](https://raw.githubusercontent.com/indieweb/php-mf2/master/Mf2/Parser.php), adding it to your project and requiring it from files you want to call its functions from, like this:
+
+```php
+<?php
+
+require_once 'Mf2/Parser.php';
+
+// Now all the functions documented below are available, for example:
+$mf = Mf2\fetch('https://waterpigs.co.uk');
+```
+
+### Signed Code Verification
+
+From v0.2.9, php-mf2’s version tags are signed using GPG by barnaby@waterpigs.co.uk. This allows you to cryptographically verify that you’re using the right code. To do so you will need my key — you don’t have it, get it like this:
+
+```bash
+gpg --recv-keys 7D49834B0416CFA3
+```
+
+Then verify the installed files like this:
+
+```bash
+# in your project root
+cd vendor/mf2/mf2
+git tag -v v0.3.0
+```
+
+If nothing went wrong, you should see the tag commit message, ending something like this:
+
+```
+gpg: Signature made Wed  6 Aug 10:04:20 2014 GMT using RSA key ID 2B2BBB65
+gpg: Good signature from "Barnaby Walters <barnaby@waterpigs.co.uk>"
+gpg:                 aka "[jpeg image of size 12805]"
+```
+
+Possible issues:
+
+* **Git complains that there’s no such tag**: check for a .git file in the source folder; odds are you have the prefer-dist setting enabled and composer is just extracting a zip rather than checking out from git.
+* **Git complains the gpg command doesn’t exist**: If you successfully imported my key then you obviously do have gpg installed, but you might have gpg2, whereas git looks for gpg. Solution: tell git which binary to use: `git config --global gpg.program 'gpg2'`
 
 ## Usage
 
-mf2 is PSR-0 autoloadable, so all you have to do to load it is:
+php-mf2 is PSR-0 autoloadable, so simply include Composer’s auto-generated autoload file (`/vendor/autoload.php`) and you can start using it. These two functions cover most situations:
 
-1. Include Composer’s auto-generated autoload file (`/vendor/autoload.php`)
-1. Call `Mf2\parse()` with the HTML (or a DOMDocument), and optionally the URL to resolve relative URLs against.
+* To fetch microformats from a URL, call `Mf2\fetch($url)`
+* To parse microformats from HTML, call `Mf2\parse($html, $url)`, where `$url` is the URL from which `$html` was loaded, if any. This parameter is required for correct relative URL parsing and must not be left out unless parsing HTML which is not loaded from the web.
 
 ## Examples
 
-### Parsing implied microformats2
+### Fetching microformats from a page
 
 ```php
 <?php
@@ -31,7 +72,24 @@ require '/vendor/autoload.php';
 
 use Mf2;
 
-$output = Mf2\parse('<p class="h-card">Barnaby Walters</p>');
+// (Above code (or equivalent) assumed in future examples)
+
+$mf = Mf2\fetch('http://microformats.org');
+
+foreach ($mf['items'] as $microformat) {
+	echo "A {$microformat['type'][0]} called {$microformat['properties']['name'][0]}\n";
+}
+
+```
+
+### Parsing microformats from a HTML string
+
+Here we demonstrate parsing of microformats2 implied property parsing, where an entire h-card with name and URL properties is created using a single `h-card` class.
+
+```php
+<?php
+
+$output = Mf2\parse('<a class="h-card" href="https://waterpigs.co.uk/">Barnaby Walters</a>');
 ```
 
 `$output` is a canonical microformats2 array structure like:
@@ -41,7 +99,8 @@ $output = Mf2\parse('<p class="h-card">Barnaby Walters</p>');
 	"items": [{
 		"type": ["h-card"],
 		"properties": {
-			"name": ["Barnaby Walters"]
+			"name": ["Barnaby Walters"],
+			"url": ["https://waterpigs.co.uk/"]
 		}
 	}],
 	"rels": {}
@@ -50,11 +109,11 @@ $output = Mf2\parse('<p class="h-card">Barnaby Walters</p>');
 
 If no microformats are found, `items` will be an empty array.
 
-Note that, whilst the property prefixes are stripped, the prefix of the `h-*` classname(s) in the "type" array are left on.
+Note that, whilst the property prefixes are stripped, the prefix of the `h-*` classname(s) in the "type" array are retained.
 
 ### Parsing a document with relative URLs
 
-Most of the time you’ll be getting your input HTML from a URL. You should pass that URL as the second parameter to `Mf2\parse()` so that any relative URLs in the document can be resolved. For example, say you got the following HTML from `http://example.com/`:
+Most of the time you’ll be getting your input HTML from a URL. You should pass that URL as the second parameter to `Mf2\parse()` so that any relative URLs in the document can be resolved. For example, say you got the following HTML from `http://example.org`:
 
 ```html
 <div class="h-card">
@@ -114,11 +173,28 @@ Protip: if you’re not bothered about the microformats2 data and just want rels
 ```php
 <?php
 
-use Mf2;
-
 $parser = new Mf2\Parser('<link rel="…');
 $relsAndAlternates = $parser->parseRelsAndAlternates();
 ```
+
+### Debugging Mf2\fetch
+
+`Mf2\fetch()` will attempt to parse any response served with “HTML” in the content-type, regardless of what the status code is. If it receives a non-HTML response it will return null.
+
+To learn what the HTTP status code for any request was, or learn more about the request, pass a variable name as the third parameter to `Mf2\fetch()` — this will be filled with the contents of `curl_getinfo()`, e.g:
+
+```php
+
+<?php
+
+$mf = Mf2\fetch('http://waterpigs.co.uk/this-page-doesnt-exist', true, $curlInfo);
+if ($curlInfo['http_code'] == '404') {
+	// This page doesn’t exist.
+}
+
+```
+
+If it was HTML then it is still parsed, as there are cases where error pages contain microformats — for example a deleted h-entry resulting in a 410 Gone response containing a stub h-entry with amn explanation for the deletion.
 
 ### Getting more control by creating a Parser object
 
@@ -144,6 +220,17 @@ $parser->parse(true, $elementIWant); // returns a document with only mfs under t
 
 ```
 
+### Generating output for JSON serialization with JSON-mode
+
+Due to a quirk with the way PHP arrays work, there is an edge case ([reported](https://github.com/indieweb/php-mf2/issues/29) by Tom Morris) in which a document with no rel values, when serialised as JSON, results in an empty object as the rels value rather than an empty array. Replacing this in code with a stdClass breaks PHP iteration over the values.
+
+As of version 0.2.6, the default behaviour is back to being PHP-friendly, so if you want to produce results specifically for serialisation as JSON (for example if you run a HTML -> JSON service, or want to run tests against JSON fixtures), enable JSON mode:
+
+```php
+// …by passing true as the third constructor:
+$jsonParser = new Mf2\Parser($html, $url, true);
+```
+
 ### Classic Microformats Markup
 
 php-mf2 has some support for parsing classic microformats markup. It’s enabled by default, but can be turned off by calling `Mf2\parse($html, $url, false);` or `$parser->parse(false);` if you’re instanciating a parser yourself.
@@ -167,23 +254,97 @@ TODO: move this section to a security/consumption best practises page on the wik
 
 ## Contributing
 
+Issues and bug reports are very welcome. If you know how to write tests then please do so as code always expresses problems and intent much better than English, and gives me a way of measuring whether or not fixes have actually solved your problem. If you don’t know how to write tests, don’t worry :) Just include as much useful information in the issue as you can.
+
 Pull requests very welcome, please try to maintain stylistic, structural and naming consistency with the existing codebase, and don’t be too upset if I make naming changes :)
 
-Please add tests which cover changes you plan to make or have made. I use PHPUnit, which is the de-facto standard for modern PHP development.
+### How to make a Pull Request
 
-At the very least, run the test suite before and after making your changes to make sure you haven’t broken anything.
+1. Fork the repo to your github account
+2. Clone a copy to your computer (simply installing php-mf2 using composer only works for using it, not developing it)
+3. Install the dev dependencies with `./composer.phar install`
+4. Run PHPUnit with `./vendor/bin/phpunit`
+5. Make your changes
+6. Add PHPUnit tests for your changes, either in an existing test file if suitable, or a new one
+7. Make sure your tests pass (`./vendor/bin/phpunit`), preferably using both PHP 5.3 and 5.4
+8. Go to your fork of the repo on github.com and make a pull request, preferably with a short summary, detailed description and references to issues/parsing specs as appropriate
+9. Bask in the warm feeling of having contributed to a piece of free software
 
-Issues/bug reports welcome. If you know how to write tests then please do so as code always expresses problems and intent much better than English, and gives me a way of measuring whether or not fixes have actually solved your problem. If you don’t know how to write tests, don’t worry :) Just include as much useful information in the issue as you can.
+### Testing
 
-## Testing
+There are currently two separate test suites: one, in `tests/Mf2`, is written in phpunit, containing many microformats parsing examples as well as internal parser tests and regression tests for specific issues over php-mf2’s history. Run it with `./vendor/bin/phpunit`.
 
-Tests are written in phpunit and are contained within `/tests/`. Running <kbd>bin/phpunit</kbd> from the root dir will run them all.
+The other, in `tests/test-suite`, is a custom test harness which hooks up php-mf2 to the cross-platform microformats test suite. Each test consists of a HTML file and a corresponding JSON file, and the suite can be run with `php ./tests/test-suite/test-suite.php`.
 
-There are enough tests to warrant putting them into separate suites for maintenance. They should be fairly self-explanatory.
-
-php-mf2 can also be hooked up to the official, cross-platform [microformats2 test suite](https://github.com/microformats/tests). TODO: write a guide on how to do this, make a public endpoint for people to look at the results
+Currently php-mf2 passes the majority of it’s own test case, and a good percentage of the cross-platform tests. Contributors should ALWAYS test against the PHPUnit suite to ensure any changes don’t negatively impact php-mf2, and SHOULD run the cross-platform suite, especially if you’re changing parsing behaviour.
 
 ### Changelog
+
+#### v0.3.0
+
+2016-03-14
+
+* Requires PHP 5.4 at minimum (PHP 5.3 is EOL)
+* Licensed under CC0 rather than MIT
+* Merges Pull requests #70, #73, #74, #75, #77, #80, #82, #83, #85 and #86.
+* Variety of small bug fixes and features including improved whitespace support, removal of style and script contents from plaintext properties
+* All PHPUnit tests passing finally
+
+Many thanks to @aaronpk, @diplix, @dissolve, @dymcx @gRegorLove, @jeena, @veganstraightedge and @voxpelli for all your hard work opening issues and sending and merging PRs!
+
+#### v0.2.12
+
+2015-07-12
+
+* Merges pull requests [#65](https://github.com/indieweb/php-mf2/pull/65), [#66](https://github.com/indieweb/php-mf2/pull/66) and [#67](https://github.com/indieweb/php-mf2/pull/67).
+* Fixes issue [#64](https://github.com/indieweb/php-mf2/issues/64).
+
+Many thanks to @aaronpk, @gRegorLove and @kylewm for contributions, @aaronpk and @kevinmarks for PR management and @tantek for issue reporting!
+
+#### v0.2.11
+
+2015-07-10
+
+#### v0.2.10
+
+2015-04-29
+
+* Merged [#58](https://github.com/indieweb/php-mf2/pull/58), fixing some parsing bugs and adding support for area element parsing. Thanks so much for your hard work and patience, <a class="h-card" href="http://ben.thatmustbe.me/">Ben</a>!
+
+#### v0.2.9
+
+2014-08-06
+
+* Added backcompat classmap for hProduct, associated tests
+* Started GPG signing version tags as barnaby@waterpigs.co.uk, fingerprint CBC7 7876 BF7C 9637 B6AE 77BA 7D49 834B 0416 CFA3
+
+#### v0.2.8
+
+2014-07-17
+
+* Fixed issue #51 causing php-mf2 to not work with PHP 5.3
+* Fixed issue #52 correctly handling the `<template>` element by ignoring it
+* Fixed issue #53 improving the plaintext parsing of `<img>` elements
+
+#### v0.2.7
+
+2014-06-18
+
+* Added `Mf2\fetch()` which fetches content from a URL and returns parsed microformats
+* Added implied `dt-end` discovery (thanks for all your hard work, @gRegorLove!)
+* Fixed issue causing classnames like `blah e- blah` to produce properties with numeric keys (thanks @aaronpk and @gRegorLove)
+* Fixed issue causing resolved URLs to not include port numbers (thanks @aaronpk)
+
+#### v0.2.6
+
+* Added JSON mode as long-term fix for #29
+* Fixed bug causing microformats nested under multiple property names to be parsed only once
+
+#### v0.2.5
+
+* Removed conditional replacing empty rel list with stdclass. Original purpose was to make JSON-encoding the output from the parser correct but it also caused Fatal Errors due to trying to treat stdclass as array.
+
+#### v0.2.4
 
 #### v0.2.3
 
@@ -264,3 +425,10 @@ php-mf2 can also be hooked up to the official, cross-platform [microformats2 tes
 
 * Added html-safe options
 * Added rel+rel-alternate parsing
+
+
+## License
+
+php-mf2 is dedicated to the public domain using Creative Commons -- CC0 1.0 Universal.
+
+http://creativecommons.org/publicdomain/zero/1.0

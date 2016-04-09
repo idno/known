@@ -160,7 +160,7 @@ class ParseImpliedTest extends PHPUnit_Framework_TestCase {
 	}]
 }';
 		
-		$parser = new Parser($input);
+		$parser = new Parser($input, '', true);
 		$output = $parser->parse();
 		
 		$this->assertJsonStringEqualsJsonString(json_encode($output), $expected);

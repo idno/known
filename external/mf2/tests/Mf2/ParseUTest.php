@@ -136,4 +136,56 @@ class ParseUTest extends PHPUnit_Framework_TestCase {
 		$result = Mf2\parse($input);
 		$this->assertEquals('http://example.com/right', $result['items'][0]['properties']['url'][0]);
 	}
+
+	/**
+	 * @group parseU
+	 */
+	public function testParseUHandlesAudio() {
+		$input = '<div class="h-entry"><audio class="u-audio" src="http://example.com/audio.mp3"></div>';
+		$parser = new Parser($input);
+		$output = $parser->parse();
+
+		$this->assertArrayHasKey('audio', $output['items'][0]['properties']);
+		$this->assertEquals('http://example.com/audio.mp3', $output['items'][0]['properties']['audio'][0]);
+	}
+
+	/**
+	 * @group parseU
+	 */
+	public function testParseUHandlesVideo() {
+		$input = '<div class="h-entry"><video class="u-video" src="http://example.com/video.mp4"></video></div>';
+		$parser = new Parser($input);
+		$output = $parser->parse();
+
+		$this->assertArrayHasKey('video', $output['items'][0]['properties']);
+		$this->assertEquals('http://example.com/video.mp4', $output['items'][0]['properties']['video'][0]);
+	}
+
+
+	/**
+	 * @group parseU
+	 */
+	public function testParseUHandlesSource() {
+		$input = '<div class="h-entry"><video><source class="u-video" src="http://example.com/video.mp4" type="video/mp4"><source class="u-video" src="http://example.com/video.ogg" type="video/ogg"></video></div>';
+		$parser = new Parser($input);
+		$output = $parser->parse();
+
+		$this->assertArrayHasKey('video', $output['items'][0]['properties']);
+		$this->assertEquals('http://example.com/video.mp4', $output['items'][0]['properties']['video'][0]);
+		$this->assertEquals('http://example.com/video.ogg', $output['items'][0]['properties']['video'][1]);
+	}
+
+	/**
+	 * @group parseU
+	 */
+	public function testParseUWithSpaces() {
+		$input = '<div class="h-card"><a class="u-url" href=" http://example.com ">Awesome example website</a></div>';
+		$parser = new Parser($input);
+		$output = $parser->parse();
+		
+		$this->assertArrayHasKey('url', $output['items'][0]['properties']);
+		$this->assertEquals('http://example.com', $output['items'][0]['properties']['url'][0]);
+	}
+	
+
 }

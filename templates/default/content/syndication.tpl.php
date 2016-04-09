@@ -33,9 +33,10 @@
 
                             // give plugins a chance to pre-select a service (e.g. if replying to a tweet, pre-select twitter)
                             $preselect = \Idno\Core\Idno::site()->triggerEvent('syndication/selected/' . $service, [
-                                'service'  => $service,
-                                'username' => $account['username'],
-                                'reply-to' => \Idno\Core\Idno::site()->currentPage()->getInput('share_url')
+                                'service'       => $service,
+                                'username'      => $account['username'],
+                                'reply-to'      => \Idno\Core\Idno::site()->currentPage()->getInput('share_url'),
+                                'syndicated-to' => \Idno\Core\Idno::site()->currentPage()->getInput('syndicatedto'),
                             ], false);
 
                             $button .= $this->__([
