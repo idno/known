@@ -94,21 +94,35 @@
              * adds and rel="syndication" URLs in the target to the array
              * @param $url
              * @param array $inreplyto
+             * @param array $response (optional) response from fetching $url
              * @return array
              */
-            static function addSyndicatedReplyTargets($url, $inreplyto = array())
+            static function addSyndicatedReplyTargets($url, $inreplyto = array(), $response = false)
             {
-                if (!is_array($inreplyto)) {
-                    $inreplyto = array($inreplyto);
+                $inreplyto = (array) $inreplyto;
+
+                if (!$response) {
+                    $response = \Idno\Core\Webservice::get($url);
                 }
-                if ($content = \Idno\Core\Webservice::get($url)) {
-                    if ($mf2 = self::parseContent($content['content'], $url)) {
-                        $mf2         = (array)$mf2;
-                        $mf2['rels'] = (array)$mf2['rels'];
+
+                if ($response && $response['response'] >= 200 && $response['response'] < 300) {
+                    if ($mf2 = self::parseContent($response['content'], $url)) {
+                        // first check rel-syndication
                         if (!empty($mf2['rels']['syndication'])) {
                             if (is_array($mf2['rels']['syndication'])) {
                                 foreach ($mf2['rels']['syndication'] as $syndication) {
                                     if (!in_array($syndication, $inreplyto) && !empty($syndication)) {
+                                        $inreplyto[] = $syndication;
+                                    }
+                                }
+                            }
+                        }
+
+                        // then look for u-syndication
+                        if ($entry = self::findRepresentativeHEntry($mf2, $url, ['h-entry', 'h-event'])) {
+                            if (!empty($entry['properties']['syndication'])) {
+                                foreach ($entry['properties']['syndication'] as $syndication) {
+                                    if (!in_array($syndication, $inreplyto) && is_string($syndication)) {
                                         $inreplyto[] = $syndication;
                                     }
                                 }

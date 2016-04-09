@@ -19,6 +19,7 @@
                 $url   = $this->getInput('share_url', $this->getInput('url'));
                 $title = $this->getInput('share_title', $this->getInput('title'));
                 $type  = $this->getInput('share_type');
+                $syndicatedto = [];
 
                 // remove cruft added by mobile apps
                 if (preg_match('~\b(?:f|ht)tps?://[^\s]+\b~i', $url, $matches)) {
@@ -42,8 +43,8 @@
                     // Only MF2 Parse supported types
                     if (isset($headers['Content-Type']) && preg_match('/text\/(html|plain)+/', $headers['Content-Type'])) {
 
-                        if ($content = \Idno\Core\Webservice::get($url)) {
-                            if ($mf2 = \Idno\Core\Webmention::parseContent($content['content'])) {
+                        if ($response = \Idno\Core\Webservice::get($url)) {
+                            if ($mf2 = \Idno\Core\Webmention::parseContent($response['content'])) {
                                 if (!empty($mf2['items'])) {
                                     foreach ($mf2['items'] as $item) {
                                         if (!empty($item['type'])) {
@@ -57,6 +58,8 @@
                                     }
                                 }
                             }
+
+                            $syndicatedto = \Idno\Core\Webmention::addSyndicatedReplyTargets($url, $syndicatedto, $response);
                         }
                     }
                 } else {
@@ -78,27 +81,34 @@
                         } else {
                             $page->setInput('short-url', $short_url);
                             $page->setInput('url', $url);
-                            if (substr_count($url, 'twitter.com')) {
-                                $atusers = [];
-                                preg_match("|https?://([a-z]+\.)?twitter\.com/(#!/)?@?([^/]*)|", $url, $matches);
-                                if (!empty($matches[3])) {
-                                    $atusers[] = '@' . $matches[3];
-//                                    $page->setInput('body', '@' . $matches[3] . ' ');
-                                }
-                                if (preg_match_all("|@([^\s^\)]+)|", $title, $matches)) {
-                                    $atusers = array_merge($atusers, $matches[0]);
-                                }
+                            $page->setInput('syndicatedto', $syndicatedto);
 
+                            // prefill the @-name of the person we're replying to
+                            $atusers = [];
+                            foreach (array_merge((array) $url, (array) $syndicatedto) as $tweeturl) {
+                                if (strstr($tweeturl, 'twitter.com') !== false) {
+                                    if (preg_match("|https?://([a-z]+\.)?twitter\.com/(#!/)?@?([^/]*)|", $tweeturl, $matches) && !empty($matches[3])) {
+                                        $atusers[] = '@' . $matches[3];
+                                    }
+                                    if (preg_match_all("|@([^\s^\)]+)|", $title, $matches)) {
+                                        $atusers = array_merge($atusers, $matches[0]);
+                                    }
+                                }
+                            }
+
+                            if ($atusers) {
                                 // See if one of your registered twitter handles is present, if so remove it.
                                 $user = \Idno\Core\Idno::site()->session()->currentUser();
-                                if ((!empty($user->twitter)) && (is_array($user->twitter))) {
+                                if (!empty($user->twitter) && is_array($user->twitter)) {
                                     $me = [];
                                     foreach ($user->twitter as $k => $v) {
-                                        $me[] = "@$k";
+                                        $me[] = '@' . $k;
                                     }
                                     $atusers = array_diff($atusers, $me);
                                 }
+                            }
 
+                            if ($atusers) {
                                 $atusers = array_unique($atusers);
                                 $page->setInput('body', implode(' ', $atusers) . ' ');
                             }
