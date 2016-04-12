@@ -1,0 +1,17 @@
+HTTP/1.1 200 OK
+Date: Wed, 09 Dec 2015 04:40:18 GMT
+Server: Apache
+Connection: close
+Vary: Accept-Encoding
+Content-Type: text/xml; charset=UTF-8
+
+<?xml version="1.0" ?>
+<methodResponse>
+  <params>
+    <param>
+      <value>
+        <string></string>
+      </value>
+    </param>
+  </params>
+</methodResponse>

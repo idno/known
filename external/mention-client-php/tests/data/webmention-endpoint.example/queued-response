@@ -1,0 +1,7 @@
+HTTP/1.1 202 Accepted
+Date: Wed, 09 Dec 2015 04:40:18 GMT
+Server: Apache
+Connection: close
+Vary: Accept-Encoding
+
+Webmention processing queued

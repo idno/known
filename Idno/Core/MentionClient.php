@@ -26,19 +26,17 @@
                 return $result['content'];
             }
 
-            protected function _fetchHead($url)
+            protected function _head($url)
             {
                 $response = Webservice::get($url);
+
+                $result = ['code' => $response['response']];
+
                 if (!empty($response['headers'])) {
-                    return $this->_parse_headers($response['headers']);
+                    $result['headers'] =  $this->_parse_headers($response['headers']);
                 }
 
-                return [];
-            }
-
-            protected function _fetchBody($url)
-            {
-                return self::_get($url);
+                return $result;
             }
 
             protected static function _get($url)
