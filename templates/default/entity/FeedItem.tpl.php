@@ -26,7 +26,9 @@
                 <a class="p-name fn u-url url" href="<?= $item->getAuthorURL() ?>"><?= $item->getAuthorName() ?></a>
             </p>
         </div>
-        <?=$this->autop($item->getBody())?>
+        <div class="idno-body">
+            <?=$this->autop($item->getBody())?>
+        </div>
         <div class="footer">
             <?= $this->draw('content/feed/end') ?>
         </div>

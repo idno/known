@@ -74,9 +74,11 @@
                         }
 
                     ?>
-                    <?php if (!empty($object)) echo $object->draw(); ?>
+                    <div class="idno-body">
+                      <?php if (!empty($object)) echo $object->draw(); ?>
+                    </div>
                     <div class="footer">
-                        <?= $this->draw('content/end') ?>
+                      <?= $this->draw('content/end') ?>
                     </div>
                 </div>
 

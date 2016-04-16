@@ -207,7 +207,7 @@ span.contentTypeLogo:hover {
     line-height: 1.3em !important;
 }
 
-.idno-object .e-content blockquote p {
+.idno-object .idno-body blockquote p {
     font-size: 1.3em;
     line-height: 1.6em;
     margin-bottom: 1em;
@@ -268,16 +268,16 @@ h3.register {
     padding: 0;
 }
 
-.idno-object .e-content {
+.idno-object .idno-body {
     font-size: 1.1em;
     line-height: 1.1em;
 }
 
-.e-content p {
+.idno-body p {
 	font-size: 1.1em;
 }
 
-.idno-object .e-content li {
+.idno-object .idno-body li {
 	font-size: 1.1em;
 }
 

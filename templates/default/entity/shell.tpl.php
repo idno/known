@@ -18,8 +18,7 @@
                     </p>
                 </div>
 
-                <div
-                    class="col-md-8 idno-content">
+                <div class="col-md-8 idno-content">
                     <!--<div class="visible-xs">
                         <p class="p-author author h-card vcard">
                             <a href="<?= $owner->getDisplayURL() ?>" class="icon-container"><img
@@ -82,7 +81,9 @@
                         }
 
                     ?>
-                    <?php if (!empty($object)) echo $object->draw(); ?>
+                    <div class="idno-body">
+                      <?php if (!empty($object)) echo $object->draw(); ?>
+                    </div>
                     <div class="footer">
                         <?= $this->draw('content/end') ?>
                     </div>
