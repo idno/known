@@ -51,7 +51,11 @@ class EntityTest extends \Tests\KnownTestCase {
         // borrowed this one from @nekr0z
         $this->assertEquals(
             '%D0%B4%D0%B0-%D1%8F-%D0%B6-%D0%B4%D0%B0%D0%B2%D0%B5%D1%87%D0%B0-%D0%B2-%D1%81%D0%BF%D0%BE%D1%80%D1%82%D0%BC%D0%B0%D1%81%D1%82%D0%B5%D1%80%D0%B5-%D0%B1%D1%8B%D0%BB',
-            $entity->prepareSlug('Да, я ж давеча в Спортмастере был...'));
+            $entity->prepareSlug('Да, я ж давеча в Спортмастере был'));
+        // don't truncate in the middle of a encoded character
+        $this->assertEquals(
+            '%D0%B4%D0%B0-%D1%8F',
+            $entity->prepareSlug('Да, я ж давеча в Спортмастере был', 10, 24));
         $this->assertEquals(
             'make-sure-spaces-are-collapsed-and-tags-are-stripped',
             $entity->prepareSlug('Make Sure    <b>Spaces</b> are  Collapsed and Tags  Are  <i>Stripped</i>'));
@@ -59,8 +63,9 @@ class EntityTest extends \Tests\KnownTestCase {
 
     function testSetSlugResilient()
     {
-        $title  = "IndieWebCamp Nürnberg 2016 is live!";
-        $slug   = "indiewebcamp-n%C3%BCrnberg-2016-is-live";
+        $unique = md5(time() . rand(0, 9999));
+        $title  = "IndieWebCamp Nürnberg $unique is live!";
+        $slug   = "indiewebcamp-n%C3%BCrnberg-$unique-is-live";
 
         $entity = new Entity();
         $entity->setSlugResilient($title);

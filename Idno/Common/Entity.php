@@ -594,9 +594,17 @@
                 $slug = preg_replace("/([^A-Za-z0-9%\p{L}\-\_ ])/u", '', $slug);
                 $slug = preg_replace("/[ ]+/u", ' ', $slug);
                 $slug = implode('-', array_slice(explode(' ', $slug), 0, $max_pieces));
-                $slug = rawurlencode($slug);
 
-                $slug = substr($slug, 0, $max_chars);
+                // trim the source string until the encoded string is <= max_chars
+                for ($chars = $max_chars ; $chars >= 0 ; $chars--) {
+                    $truncated = mb_substr($slug, 0, $chars, 'UTF-8');
+                    $encoded = rawurlencode(mb_substr($slug, 0, $chars, 'UTF-8'));
+                    if (strlen($encoded) <= $max_chars) {
+                        $slug = $encoded;
+                        break;
+                    }
+                }
+
                 while (substr($slug, -1) == '-') {
                     $slug = substr($slug, 0, strlen($slug) - 1);
                 }
