@@ -26,7 +26,7 @@
                 return $result['content'];
             }
 
-            protected function _head($url)
+            protected static function _head($url)
             {
                 $response = Webservice::get($url);
 
