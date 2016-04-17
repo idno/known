@@ -562,11 +562,6 @@
             {
                 // UUID max length is 255 chars; slug length <= 255 - (base URL + year + slash)
                 $max_chars = 245 - strlen(\Idno\Core\Idno::site()->config()->getDisplayURL());
-
-                $slug = $this->prepareSlug($slug, $max_pieces, $max_chars - 10);
-                if (empty($slug)) {
-                    return false;
-                }
                 if ($this->setSlug($slug, $max_pieces, $max_chars - 10)) {
                     return true;
                 }
@@ -611,7 +606,6 @@
                 if (is_callable('mb_convert_encoding')) {
                     $slug = mb_convert_encoding($slug, 'UTF-8', 'UTF-8');
                 }
-
                 return $slug;
             }
 

@@ -14,10 +14,9 @@ class EntityTest extends \Tests\KnownTestCase {
         $this->user()->save();
     }
 
-
     function tearDown()
     {
-        if (isset($entity->toDelete)) {
+        if (isset($this->toDelete)) {
             foreach ($this->toDelete as $entity) {
                 $entity->delete();
             }
@@ -56,6 +55,24 @@ class EntityTest extends \Tests\KnownTestCase {
         $this->assertEquals(
             'make-sure-spaces-are-collapsed-and-tags-are-stripped',
             $entity->prepareSlug('Make Sure    <b>Spaces</b> are  Collapsed and Tags  Are  <i>Stripped</i>'));
+    }
+
+    function testSetSlugResilient()
+    {
+        $title  = "IndieWebCamp Nürnberg 2016 is live!";
+        $slug   = "indiewebcamp-n%C3%BCrnberg-2016-is-live";
+
+        $entity = new Entity();
+        $entity->setSlugResilient($title);
+        $this->assertEquals($slug, $entity->getSlug());
+        $entity->save();
+        $this->toDelete[] = $entity;
+
+        $entity = new Entity();
+        $entity->setSlugResilient($title);
+        $this->assertEquals($slug . '-1', $entity->getSlug());
+        $entity->save();
+        $this->toDelete[] = $entity;
     }
 
     /**
