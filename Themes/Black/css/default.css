@@ -53,12 +53,12 @@ h1, h2, h3, h4, h5, h6 {
 	color: #494949;
 }
 
-.entry-content .photo-title a, .idno-posts h2.photo-title {
+.idno-body .photo-title a, .idno-posts h2.photo-title {
 	font-size: 32px;
-	margin:0; padding: 0;	
+	margin:0; padding: 0;
 }
 
-.entry-content .p-bookmark a, .idno-posts h2.p-bookmark {
+.idno-body .p-bookmark a, .idno-posts h2.p-bookmark {
 	font-size: 32px;
 	margin: 0; padding: 0;
 }
@@ -91,7 +91,7 @@ h2.photo-title a:hover, h2.photo-title a:focus {
 	color: #333333;
 }
 
-.entry-content h-geo a, .idno-posts h2.h-geo {
+.idno-body h-geo a, .idno-posts h2.h-geo {
     font-size: 32px;
     margin: 0;
     padding: 0;
@@ -143,21 +143,21 @@ li {
     font-size: 32px;
     margin: 0; padding: 0;
 }
-.entry-content blockquote {
+.idno-body blockquote {
     margin-top: 2em;
     margin-bottom: 2em;
     font-size: 0.9em;
     color: #444;
 }
 
-.entry-content blockquote p {
+.idno-body blockquote p {
     margin-top: 2em;
     margin-bottom: 2em;
     font-size: 0.9em;
     color: #888;
 }
 
-.idno-statusupdates .entry-content p {
+.idno-statusupdates .idno-body p {
     font-size: 22px;
     margin: 0; padding: 0;
 }
@@ -167,7 +167,7 @@ li {
 }
 
 .navbar-inverse .brand:hover, .navbar-inverse .nav > li > a:hover, .navbar-inverse .brand:focus, .navbar-inverse .nav > li > a:focus {
-    color: #666666; 
+    color: #666666;
 }
 
 .navbar-inverse .brand, .navbar-inverse .nav > li > a {
@@ -344,7 +344,7 @@ label, input, button, select, textarea {
 	margin-top: 10px;
 	margin-bottom: 10px;
 	color: #000000;
-	border: 2px solid #000000; 
+	border: 2px solid #000000;
 }
 
 .btn-save:hover, .btn-save:active, .btn-save:focus {
@@ -365,7 +365,7 @@ label, input, button, select, textarea {
 	margin-top: 10px;
 	margin-bottom: 10px;
 	color: #000000;
-	border: 2px solid #000000; 	
+	border: 2px solid #000000;
 }
 
 .btn-signin:hover, .btn-signin:active, .btn-signin:focus {

@@ -141,7 +141,7 @@ a.contentTypeButton:hover {
 	color: #363636;
 }
 
-.idno-statusupdates .entry-content p {
+.idno-statusupdates .idno-body p {
     font-size: 18px;
     margin: 0; padding: 0;
     font-weight: 400;
@@ -314,12 +314,12 @@ h1, h2, h3, h4, h5, h6 {
     border: none;
 }
 
-.entry-content .photo-title a, .idno-posts h2. photo-title {
+.idno-body .photo-title a, .idno-posts h2. photo-title {
 	font-size: 1.8em;
 	margin:0; padding: 0;	
 }
 
-.entry-content .p-bookmark a, .idno-posts h5.p-bookmark {
+.idno-body .p-bookmark a, .idno-posts h5.p-bookmark {
 	font-size: 24px;
 	margin: 0; padding: 0;
 }
@@ -332,7 +332,7 @@ h5.p-bookmark a:hover, h5.p-bookmark a:focus {
 	color: #333333;
 }
 
-.entry-content .h-geo a, .idno-posts h5.h-geo {
+.idno-body .h-geo a, .idno-posts h5.h-geo {
     font-size: 32px;
     margin: 0;
     padding: 0;
@@ -384,14 +384,14 @@ li {
     font-size: 32px;
     margin: 0; padding: 0;
 }
-.entry-content blockquote {
+.idno-body blockquote {
     margin-top: 2em;
     margin-bottom: 2em;
     font-size: 0.9em;
     color: #444;
 }
 
-.entry-content blockquote p {
+.idno-body blockquote p {
     margin-top: 2em;
     margin-bottom: 2em;
     font-size: 0.9em;

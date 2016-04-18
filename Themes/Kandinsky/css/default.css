@@ -34,7 +34,7 @@ h2 {
     line-height: 1.3em;
 }
 
-.entry-content .p-name a {
+.idno-body .p-name a {
     font-size: 1.3em;
     margin: 0; padding: 0;
     color: #9f111b;
@@ -50,13 +50,13 @@ h2 {
     font-size: 1.2em;
 }
 
-.entry-content .photo-title a,
+.idno-body .photo-title a,
 .idno-posts h2.photo-title {
     font-size: 1.2em;
     margin: 0; padding: 0;
 }
 
-.entry-content .p-bookmark a,
+.idno-body .p-bookmark a,
 .idno-posts h2.p-bookmark {
     font-size: 1.4em;
     margin: 0; padding: 0;
@@ -70,7 +70,7 @@ h1.p-profile, .p-profile a {
 	text-align: center;
 }
 
-.entry-content blockquote {
+.idno-body blockquote {
     margin-top: 2em;
     margin-bottom: 2em;
     font-size: 0.9em;
@@ -82,7 +82,7 @@ blockquote {
     padding: 0 0 0 15px;
 }
 
-.idno-statusupdates .entry-content p {
+.idno-statusupdates .idno-body p {
     font-size: 1.4em;
     margin: 0; padding: 0;
 }
@@ -274,12 +274,12 @@ h3.register {
 	padding-top: 20px;
 }
 
-.entry-content .photo-title a, .idno-posts h2.photo-title {
+.idno-body .photo-title a, .idno-posts h2.photo-title {
 	color: #9f111b;
 	font-size: 1.2em;
 }
 
-.entry-content .p-bookmark a, .idno-posts h2.p-bookmark {
+.idno-body .p-bookmark a, .idno-posts h2.p-bookmark {
 	color: #9f111b;
 	font-size: 1.2em;
 	font-family: "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
@@ -554,7 +554,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
     border-right: 5px solid rgba(0, 0, 0, 0);
 }
 
-.entry-content .p-name a {
+.idno-body .p-name a {
 	font-size: 1.0em;
 } 
 
@@ -566,7 +566,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 	text-align: center;
 }
 
-.entry-content .h-geo a, .idno-posts h2.h-geo {
+.idno-body .h-geo a, .idno-posts h2.h-geo {
     color: #9f111b;
     font-size: 1.2em;
 }
@@ -689,7 +689,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 	background-color:#9f111b;
 	border-color:#9f111b;
 }
-.entry-content .p-name a:hover, .entry-content .p-name a:focus {
+.idno-body .p-name a:hover, .idno-body .p-name a:focus {
     color: #af474f;
 }
 .jumbotron {
