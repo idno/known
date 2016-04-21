@@ -40,9 +40,6 @@
                 }
 
                 return $total;
-
             }
-
         }
-
     }

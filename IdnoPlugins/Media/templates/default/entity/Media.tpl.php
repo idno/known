@@ -37,7 +37,6 @@
                             progressColor: '#333',
                             cursorColor: '#aaa',
                             height: 100
-                            //barWidth: 1
                         });
                         wavesurfer<?=$player_id?>.load('<?=$mainsrc?>');
                         $('#waveform<?=$player_id?>').click(function() {
