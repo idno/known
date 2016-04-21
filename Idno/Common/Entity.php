@@ -1701,11 +1701,19 @@
                     if (is_array($annotations)) {
                         foreach ($annotations as $subtype => $array) {
                             if (is_array($array)) {
+                                // try to remove the annotation by its local /annotation url
                                 if (array_key_exists($annotation_url, $array)) {
                                     unset($annotations[$subtype][$annotation_url]);
                                     $this->annotations = $annotations;
-
                                     return true;
+                                }
+                                // try to remove the annotation by its source permalink
+                                foreach ($array as $local_url => $properties) {
+                                    if (isset($properties['permalink']) && $properties['permalink'] === $annotation_url) {
+                                        unset($annotations[$subtype][$local_url]);
+                                        $this->annotations = $annotations;
+                                        return true;
+                                    }
                                 }
                             }
                         }
