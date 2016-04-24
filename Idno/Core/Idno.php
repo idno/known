@@ -593,7 +593,7 @@
              */
             function version()
             {
-                return '0.9.1';
+                return '0.9.2';
             }
 
             /**
@@ -611,7 +611,7 @@
              */
             function machineVersion()
             {
-                return '2016020602';
+                return '2016042301';
             }
 
             /**

@@ -2,6 +2,20 @@
 
 Starting with version 0.6.4, this is a list of changes in the self-hosted, open source version of Known.
 
+0.9.2
+-----
+April 23, 2016
+
+* Any theme can be single or multi-user
+* Improved UI when replying to tweets
+* Improved support for non-Latin URLs
+* Better audio UI
+* Support "delete" webmentions
+* Improved support for receiving indieweb RSVPs
+* Database speed and efficiency enhancements
+* Better support for embedding YouTube videos
+* Numerous back-end fixes and improvements
+
 0.9.1
 -----
 February 20, 2016
