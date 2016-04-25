@@ -382,14 +382,30 @@
             }
 
             /**
+             * Returns the upload path for Known.
+             * @return string
+             */
+            function getUploadPath()
+            {
+                return $this->uploadpath;
+            }
+
+            /**
+             * Returns the installation path for Known.
+             * @return string
+             */
+            function getPath()
+            {
+                return $this->path;
+            }
+
+            /**
              * Make sure configuration values are what you'd expect
              */
             protected function sanitizeValues()
             {
-
                 $this->url        = $this->sanitizeURL($this->url);
                 $this->static_url = $this->sanitizeURL($this->static_url);
-
             }
 
             /**
