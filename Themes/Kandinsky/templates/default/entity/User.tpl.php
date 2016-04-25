@@ -7,7 +7,7 @@
                         <?= $this->draw('entity/User/profile/contact') ?>
                     </p>
 
-                    <p style="margin-bottom: 2em" clear="all"></p>
+                    <p style="margin-bottom: 2em" class="clearall"></p>
                 </div>
             </div>
         </div>

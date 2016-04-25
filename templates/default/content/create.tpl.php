@@ -26,7 +26,7 @@
                     }
 
                 ?>
-                <br clear="all" style="line-height: 0em"/>
+                <br class="clearall" style="line-height: 0em"/>
             </div>
             <?php
 

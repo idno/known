@@ -10,7 +10,7 @@ Here's what they said:<br>
 <blockquote>
     <a href="<?=$annotation['owner_url']?>"><img src="<?=$annotation['owner_image']?>" style="width: 100px; margin-right: 10px; margin-bottom: 10px" align="left"></a><?=$annotation['content']?>
 </blockquote>
-<br clear="all"><br>
+<br class="clearall"><br>
 <?php
 
     if (!empty($post)) {

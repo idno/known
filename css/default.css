@@ -24,6 +24,9 @@ h1, h2, h3, h4, h5, h6 {
 img {
     max-width: 100%;
 }
+.clearall {
+    clear: both;
+}
 .navbar-nav {
     padding-top: 5px;
 }
@@ -34,26 +37,21 @@ img {
 .navbar-nav > li > .dropdown-menu, .navbar-right .dropdown-menu {
 	margin-top: 5px;
 }
-
 .beforecontent {
     margin-bottom: 5em;
 }
-
 .idno-content  {
     background-color: #fff;
     padding: 1.5em;
     padding-bottom: 0;
     /*border: #dadada solid 1px;*/
 }
-
 .idno-content p {
     line-height: 1.5em !important;
 }
-
 .idno-content img {
     height: auto;
 }
-
 .e-content p {
 	font-family: Georgia,"Times New Roman",Times,serif;
 	font-size: 1.2em;

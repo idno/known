@@ -11,7 +11,7 @@ Here's what they said:<br>
 <blockquote>
     <?=$annotation['content']?>
 </blockquote>
-<br clear="all"><br>
+<br class="clearall"><br>
 <?php
 
     if (!empty($post)) {

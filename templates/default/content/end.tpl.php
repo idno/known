@@ -90,7 +90,7 @@
                     echo '<i class="fa fa-calendar-o"></i>' . $rsvps;
                 } ?></a>
         </div>
-        <br clear="all"/>
+        <br class="clearall"/>
         <?php
 
         if (\Idno\Core\Idno::site()->currentPage()->isPermalink()) {
