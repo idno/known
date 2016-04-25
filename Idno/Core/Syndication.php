@@ -31,12 +31,12 @@
                             if ($selected_services = \Idno\Core\Idno::site()->currentPage()->getInput('syndication')) {
                                 if (!empty($selected_services) && is_array($selected_services)) {
                                     foreach ($selected_services as $selected_service) {
-                                        $event->data()['syndication_account'] = false;
+                                        $eventdata['syndication_account'] = false;
                                         if (in_array($selected_service, $services)) {
-                                            site()->triggerEvent('post/' . $content_type . '/' . $selected_service, $eventdata);
+                                            site()->queue()->enqueue('default', 'post/' . $content_type . '/' . $selected_service, $eventdata);
                                         } else if ($implied_service = $this->getServiceByAccountString($selected_service)) {
                                             $eventdata['syndication_account'] = $this->getAccountFromAccountString($selected_service);
-                                            site()->triggerEvent('post/' . $content_type . '/' . $implied_service, $eventdata);
+                                            site()->queue()->enqueue('default', 'post/' . $content_type . '/' . $implied_service, $eventdata);
                                         }
                                     }
                                 }

@@ -1679,10 +1679,9 @@
                         $this->save();
 
                         if ($return && $this->isReply()) {
-                            $webmentions = new Webmention();
                             if ($reply_urls = $this->getReplyToURLs()) {
                                 foreach ($reply_urls as $reply_url) {
-                                    $webmentions->sendWebmentionPayload($this->getDisplayURL(), $reply_url);
+                                    Webmention::sendWebmentionPayload($this->getDisplayURL(), $reply_url);
                                 }
                             }
                         }
