@@ -12,7 +12,6 @@
     <meta name="viewport"
           content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
     <script src="https://cdn.ampproject.org/v0.js" async></script>
-    <!-- <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script> -->
     <style>body {
             opacity: 0
         }</style>
@@ -186,7 +185,10 @@
 <body>
 <?php
 
+    $purifier = new \Idno\Core\Purifier();
+
     $body = $this->draw('shell/beforecontent') . $vars['body'] . $this->draw('shell/aftercontent');
+    $body = $purifier->purify($body, true);
     $body = str_replace('<img', '<amp-img', $body);
     $body = str_replace('<iframe', '<amp-iframe', $body);
     $body = str_replace('class="container"', '', $body);
