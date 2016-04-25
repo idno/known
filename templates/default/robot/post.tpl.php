@@ -22,7 +22,7 @@
                     </p>
                 </div>
             </div>
-            <br clear="both">
+            <br class="clearall">
         </div>
     </div>
 </div>
