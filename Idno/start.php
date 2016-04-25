@@ -123,6 +123,7 @@
     $known_loader->registerNamespace('webignition\AbsoluteUrlDeriver', dirname(dirname(__FILE__)) . '/external/webignition/absolute-url-deriver/src');
     $known_loader->registerNamespace('webignition\NormalisedUrl', dirname(dirname(__FILE__)) . '/external/webignition/url/src');
     $known_loader->registerNamespace('Mf2', dirname(dirname(__FILE__)) . '/external/mf2');
+    $known_loader->registerNamespace('IndieWeb', dirname(dirname(__FILE__)) . '/external/mention-client-php/src');
 
 // Using Simplepie for RSS and Atom parsing
     include dirname(dirname(__FILE__)) . '/external/simplepie/autoloader.php';

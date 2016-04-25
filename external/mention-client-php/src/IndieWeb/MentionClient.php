@@ -3,142 +3,162 @@ namespace IndieWeb;
 
 class MentionClient {
 
-  private $_debugging = false;
-  private static $_debugStatic = false;
+  private static $_debugEnabled = false;
 
-  private $_sourceURL;
   private $_sourceBody;
 
   private $_links = array();
 
   private $_headers = array();
   private $_body = array();
+  private $_rels = array();
   private $_supportsPingback = array();
   private $_supportsWebmention = array();
   private $_pingbackServer = array();
   private $_webmentionServer = array();
 
-  private $_proxy = false;
-  private static $_proxyStatic = false;
-  
-  public function __construct($sourceURL, $sourceBody=false, $proxyString=false) {
-    $this->setProxy($proxyString);
-    $this->_sourceURL = $sourceURL;
-    if($sourceBody)
-      $this->_sourceBody = $sourceBody;
-    else
-      $this->_sourceBody = static::_get($sourceURL);
+  private static $_proxy = false;
 
-    // Find all external links in the source
-    preg_match_all("/<a[^>]+href=.(https?:\/\/[^'\"]+)/i", $this->_sourceBody, $matches);
-    $this->_links = array_unique($matches[1]);
-  }
-  
+  public $usemf2 = true; // for testing, can set this to false to avoid using the Mf2 parser
+
+  /**
+   * @codeCoverageIgnore
+   */
   public function setProxy($proxy_string) {
-      $this->_proxy = $proxy_string;
-      self::$_proxyStatic = $proxy_string;
+    self::$_proxy = $proxy_string;
   }
 
-  public function supportsPingback($target) {
+  public function discoverPingbackEndpoint($target) {
 
     if($this->c('supportsPingback', $target) === null) {
       $this->c('supportsPingback', $target, false);
 
-      // First try a HEAD request and look for X-Pingback header 
+      // First try a HEAD request and look for X-Pingback header
       if(!$this->c('headers', $target)) {
-        $this->c('headers', $target, $this->_fetchHead($target));
+        $head = static::_head($target);
+        $this->c('headers', $target, $head['headers']);
       }
 
       $headers = $this->c('headers', $target);
       if(array_key_exists('X-Pingback', $headers)) {
-        $this->_debug("Found pingback server in header");
+        self::_debug("Found pingback server in header");
         $this->c('pingbackServer', $target, $headers['X-Pingback']);
         $this->c('supportsPingback', $target, true);
       } else {
-        $this->_debug("No pingback server found in header, looking in the body now");
+        self::_debug("No pingback server found in header, looking in the body now");
         if(!$this->c('body', $target)) {
-          $this->c('body', $target, $this->_fetchBody($target));
+          $body = static::_get($target);
+          $this->c('body', $target, $body['body']);
+          $this->_parseBody($target, $body['body']);
         }
-        $body = $this->c('body', $target);
-        if(preg_match("/<link rel=\"pingback\" href=\"([^\"]+)\" ?\/?>/i", $body, $match)) {
-          $this->c('pingbackServer', $target, $match[1]);
-          $this->c('supportsPingback', $target, true);
+        if($rels=$this->c('rels', $target)) {
+          // If the mf2 parser is present, then rels will have been set, and use that instead
+          if(count($rels)) {
+            if(array_key_exists('pingback', $rels)) {
+              $this->c('pingbackServer', $target, $rels['pingback'][0]);
+              $this->c('supportsPingback', $target, true);
+            }
+          }
+        } else {
+          $body = $this->c('body', $target);
+          if(preg_match("/<link rel=\"pingback\" href=\"([^\"]+)\" ?\/?>/i", $body, $match)) {
+            $this->c('pingbackServer', $target, $match[1]);
+            $this->c('supportsPingback', $target, true);
+          }
         }
       }
 
-      $this->_debug("pingback server: " . $this->c('pingbackServer', $target));
+      self::_debug("pingback server: " . $this->c('pingbackServer', $target));
     }
 
-    return $this->c('supportsPingback', $target);
+    return $this->c('pingbackServer', $target);
   }
-  
-  public static function sendPingback($endpoint, $source, $target) {    
-    $payload = xmlrpc_encode_request('pingback.ping', array($source,  $target));
+
+  public static function sendPingbackToEndpoint($endpoint, $source, $target) {
+    self::_debug("Sending pingback now!");
+
+    $payload = static::xmlrpc_encode_request('pingback.ping', array($source,  $target));
 
     $response = static::_post($endpoint, $payload, array(
       'Content-type: application/xml'
     ));
 
-    if(is_array(xmlrpc_decode($response))):
-        return false;
-    elseif(is_string($response) && !empty($response)): 
-        return true;
-    endif;
+    if($response['code'] != 200 || empty($response['body']))
+      return false;
+
+     // collapse whitespace just to be safe
+     $body = strtolower(preg_replace('/\s+/', '', $response['body']));
+
+     // successful response MUST contain a single string
+     return $body && strpos($body, '<fault>') === false && strpos($body, '<string>') !== false;
   }
 
-  public function sendPingbackPayload($target) {
-    self::_debug_("Sending pingback now!");
+  public function sendPingback($sourceURL, $targetURL) {
 
-    $pingbackServer = $this->c('pingbackServer', $target);
-    $this->_debug("Sending to pingback server: " . $pingbackServer);
+    // If we haven't discovered the pingback endpoint yet, do it now
+    if($this->c('supportsPingback', $targetURL) === null) {
+      $this->discoverPingbackEndpoint($targetURL);
+    }
 
-    return self::sendPingback($pingbackServer, $this->_sourceURL, $target);
+    $pingbackServer = $this->c('pingbackServer', $targetURL);
+    if($pingbackServer) {
+      self::_debug("Sending to pingback server: " . $pingbackServer);
+      return self::sendPingbackToEndpoint($pingbackServer, $sourceURL, $targetURL);
+    } else {
+      return false;
+    }
   }
 
-  public function _findWebmentionEndpointInHTML($body, $targetURL=false) {
+  protected function _parseBody($target, $html) {
+    if(class_exists('\Mf2\Parser') && $this->usemf2) {
+      $parser = new \Mf2\Parser($html, $target);
+      list($rels, $alternates) = $parser->parseRelsAndAlternates();
+      $this->c('rels', $target, $rels);
+    }
+  }
+
+  protected function _findWebmentionEndpointInHTML($body, $targetURL=false) {
     $endpoint = false;
-    if(preg_match('/<(?:link|a)[ ]+href="([^"]+)"[ ]+rel="webmention"[ ]*\/?>/i', $body, $match)
-        || preg_match('/<(?:link|a)[ ]+rel="webmention"[ ]+href="([^"]+)"[ ]*\/?>/i', $body, $match)) {
-      $endpoint = $match[1];
-    } elseif(preg_match('/<(?:link|a)[ ]+href="([^"]+)"[ ]+rel="http:\/\/webmention\.org\/?"[ ]*\/?>/i', $body, $match)
-        || preg_match('/<(?:link|a)[ ]+rel="http:\/\/webmention\.org\/?"[ ]+href="([^"]+)"[ ]*\/?>/i', $body, $match)) {
+
+    $body = preg_replace('/<!--(.*)-->/Us', '', $body);
+    if(preg_match('/<(?:link|a)[ ]+href="([^"]*)"[ ]+rel="[^" ]* ?webmention ?[^" ]*"[ ]*\/?>/i', $body, $match)
+        || preg_match('/<(?:link|a)[ ]+rel="[^" ]* ?webmention ?[^" ]*"[ ]+href="([^"]*)"[ ]*\/?>/i', $body, $match)) {
       $endpoint = $match[1];
     }
-    if($endpoint && $targetURL && function_exists('\mf2\resolveUrl')) {
+    if($endpoint !== false && $targetURL && function_exists('\Mf2\resolveUrl')) {
       // Resolve the URL if it's relative
-      $endpoint = \mf2\resolveUrl($targetURL, $endpoint);
+      $endpoint = \Mf2\resolveUrl($targetURL, $endpoint);
     }
     return $endpoint;
   }
 
-  public function _findWebmentionEndpointInHeader($link_header, $targetURL=false) {
+  protected function _findWebmentionEndpointInHeader($link_header, $targetURL=false) {
     $endpoint = false;
-    if(preg_match('~<((?:https?://)?[^>]+)>; rel="webmention"~', $link_header, $match)) {
-      $endpoint = $match[1];
-    } elseif(preg_match('~<((?:https?://)?[^>]+)>; rel="http://webmention.org/?"~', $link_header, $match)) {
+    if(preg_match('~<((?:https?://)?[^>]+)>; rel="?(?:https?://webmention.org/?|webmention)"?~', $link_header, $match)) {
       $endpoint = $match[1];
     }
-    if($endpoint && $targetURL && function_exists('\mf2\resolveUrl')) {
+    if($endpoint && $targetURL && function_exists('\Mf2\resolveUrl')) {
       // Resolve the URL if it's relative
-      $endpoint = \mf2\resolveUrl($targetURL, $endpoint);
+      $endpoint = \Mf2\resolveUrl($targetURL, $endpoint);
     }
     return $endpoint;
   }
 
-  public function supportsWebmention($target) {
+  public function discoverWebmentionEndpoint($target) {
 
     if($this->c('supportsWebmention', $target) === null) {
       $this->c('supportsWebmention', $target, false);
 
-      // First try a HEAD request and look for Link header 
+      // First try a HEAD request and look for Link header
       if(!$this->c('headers', $target)) {
-        $this->c('headers', $target, $this->_fetchHead($target));
+        $head = static::_head($target);
+        $this->c('headers', $target, $head['headers']);
       }
 
       $headers = $this->c('headers', $target);
-      
+
       $link_header = false;
-      
+
       if(array_key_exists('Link', $headers)) {
         if(is_array($headers['Link'])) {
           $link_header = implode($headers['Link'], ", ");
@@ -148,135 +168,254 @@ class MentionClient {
       }
 
       if($link_header && ($endpoint=$this->_findWebmentionEndpointInHeader($link_header, $target))) {
-        $this->_debug("Found webmention server in header");
+        self::_debug("Found webmention server in header");
         $this->c('webmentionServer', $target, $endpoint);
         $this->c('supportsWebmention', $target, true);
       } else {
-        $this->_debug("No webmention server found in header, looking in the body now");
+        self::_debug("No webmention server found in header, looking in the body now");
         if(!$this->c('body', $target)) {
-          $this->c('body', $target, $this->_fetchBody($target));
+          $body = static::_get($target);
+          $this->c('body', $target, $body['body']);
+          $this->_parseBody($target, $body['body']);
         }
-        if($endpoint=$this->_findWebmentionEndpointInHTML($this->c('body', $target), $target)) {
-          $this->c('webmentionServer', $target, $endpoint);
-          $this->c('supportsWebmention', $target, true);
+        if($rels=$this->c('rels', $target)) {
+          // If the mf2 parser is present, then rels will have been set, so use that instead
+          if(count($rels)) {
+            if(array_key_exists('webmention', $rels)) {
+              $endpoint = $rels['webmention'][0];
+              $this->c('webmentionServer', $target, $endpoint);
+              $this->c('supportsWebmention', $target, true);
+            } elseif(array_key_exists('http://webmention.org/', $rels) || array_key_exists('http://webmention.org', $rels)) {
+              $endpoint = $rels[array_key_exists('http://webmention.org/', $rels) ? 'http://webmention.org/' : 'http://webmention.org'][0];
+              $this->c('webmentionServer', $target, $endpoint);
+              $this->c('supportsWebmention', $target, true);
+            }
+          }
+        } else {
+          if($endpoint=$this->_findWebmentionEndpointInHTML($this->c('body', $target), $target)) {
+            $this->c('webmentionServer', $target, $endpoint);
+            $this->c('supportsWebmention', $target, true);
+          }
         }
       }
 
-      $this->_debug("webmention server: " . $this->c('webmentionServer', $target));
+      self::_debug("webmention server: " . $this->c('webmentionServer', $target));
     }
 
-    return $this->c('supportsWebmention', $target);
+    return $this->c('webmentionServer', $target);
   }
-  
-  public static function sendWebmention($endpoint, $source, $target) {
-    
-    $payload = http_build_query(array(
+
+  public static function sendWebmentionToEndpoint($endpoint, $source, $target, $additional=array()) {
+
+    self::_debug("Sending webmention now!");
+
+    $payload = http_build_query(array_merge(array(
       'source' => $source,
       'target' => $target
-    ));
+    ), $additional));
 
-    $response = static::_post($endpoint, $payload, array(
+    return static::_post($endpoint, $payload, array(
       'Content-type: application/x-www-form-urlencoded',
       'Accept: application/json'
-    ), true);
-
-    // Return true if the remote endpoint accepted it
-    return in_array($response, array(200,202));
+    ));
   }
 
-  public function sendWebmentionPayload($target) {
-    
-    $this->_debug("Sending webmention now!");
+  public function sendWebmention($sourceURL, $targetURL, $additional=array()) {
 
-    $webmentionServer = $this->c('webmentionServer', $target);
-    $this->_debug("Sending to webmention server: " . $webmentionServer);
+    // If we haven't discovered the webmention endpoint yet, do it now
+    if($this->c('supportsWebmention', $targetURL) === null) {
+      $this->discoverWebmentionEndpoint($targetURL);
+    }
 
-    return self::sendWebmention($webmentionServer, $this->_sourceURL, $target);
+    $webmentionServer = $this->c('webmentionServer', $targetURL);
+    if($webmentionServer) {
+      self::_debug("Sending to webmention server: " . $webmentionServer);
+      return self::sendWebmentionToEndpoint($webmentionServer, $sourceURL, $targetURL, $additional);
+    } else {
+      return false;
+    }
   }
 
-  public function sendSupportedMentions($target=false) {
+  public static function findOutgoingLinks($input) {
+    // Find all outgoing links in the source
+    if(is_string($input)) {
+      preg_match_all("/<a[^>]+href=.(https?:\/\/[^'\"]+)/i", $input, $matches);
+      return array_unique($matches[1]);
+    } elseif(is_array($input) && array_key_exists('items', $input) && array_key_exists(0, $input['items'])) {
+      $links = array();
 
-    if($target == false) {
-      $totalAccepted = 0;
+      // Find links in the content HTML
+      $item = $input['items'][0];
 
-      foreach($this->_links as $link) {
-        $this->_debug("Checking $link");
-        $path = parse_url($link, PHP_URL_PATH);
-        $ext = pathinfo($path, PATHINFO_EXTENSION);
-        if (empty($ext) || !in_array($ext, ['jpg','jpeg','mp4','gif','pdf','png'])) {
-          $totalAccepted += $this->sendSupportedMentions($link);
+      if(array_key_exists('content', $item['properties'])) {
+        if(is_array($item['properties']['content'][0])) {
+          $html = $item['properties']['content'][0]['html'];
+          $links = array_merge($links, self::findOutgoingLinks($html));
+        } else {
+          $text = $item['properties']['content'][0];
+          $links = array_merge($links, self::findLinksInText($text));
         }
-        $this->_debug('');
       }
 
-      return $totalAccepted;
+      // Look at all properties of the item and collect all the ones that look like URLs
+      $links = array_merge($links, self::findLinksInJSON($item));
+
+      return array_unique($links);
+    } else {
+      return array();
     }
+  }
+
+  public static function findLinksInText($input) {
+    preg_match_all('/https?:\/\/[^ ]+/', $input, $matches);
+    return array_unique($matches[0]);
+  }
+
+  public static function findLinksInJSON($input) {
+    $links = array();
+    // This recursively iterates over the whole input array and searches for
+    // everything that looks like a URL regardless of its depth or property name
+    foreach(new \RecursiveIteratorIterator(new \RecursiveArrayIterator($input)) as $key => $value) {
+      if(substr($value, 0, 7) == 'http://' || substr($value, 0, 8) == 'https://')
+        $links[] = $value;
+    }
+    return $links;
+  }
+
+  public function sendMentions($sourceURL, $sourceBody=false) {
+    if($sourceBody) {
+      $this->_sourceBody = $sourceBody;
+      $this->_links = self::findOutgoingLinks($sourceBody);
+    } else {
+      $body = static::_get($sourceURL);
+      $this->_sourceBody = $body['body'];
+      $parsed = \Mf2\parse($this->_sourceBody, $sourceURL);
+      $this->_links = self::findOutgoingLinks($parsed);
+    }
+
+    $totalAccepted = 0;
+
+    foreach($this->_links as $target) {
+      self::_debug("Checking $target for webmention and pingback endpoints");
+
+      if($this->sendFirstSupportedMention($sourceURL, $target)) {
+        $totalAccepted++;
+      }
+    }
+
+    return $totalAccepted;
+  }
+
+  public function sendFirstSupportedMention($source, $target) {
 
     $accepted = false;
 
     // Look for a webmention endpoint first
-    if($this->supportsWebmention($target)) {
-      $accepted = $this->sendWebmentionPayload($target);
+    if($this->discoverWebmentionEndpoint($target)) {
+      $result = $this->sendWebmention($source, $target);
+      if($result &&
+        ($result['code'] == 200
+          || $result['code'] == 201
+          || $result['code'] == 202)) {
+        $accepted = 'webmention';
+      }
     // Only look for a pingback server if we didn't find a webmention server
-    } else 
-    if($this->supportsPingback($target)) {
-      $accepted = $this->sendPingbackPayload($target);
+    } else if($this->discoverPingbackEndpoint($target)) {
+      $result = $this->sendPingback($source, $target);
+      if($result) {
+        $accepted = 'pingback';
+      }
     }
 
-    if($accepted)
-      return 1;
-    else
-      return 0;
+    return $accepted;
   }
 
-  public function debug($enabled) {
-    $this->_debugging = $enabled;
-    self::enableDebug($enabled);
+  /**
+   * @codeCoverageIgnore
+   */
+  public static function enableDebug() {
+    self::$_debugEnabled = true;
   }
-  public static function enableDebug($enabled) {
-    self::$_debugStatic = $enabled;    
-  }
-  private function _debug($msg) {
-    if($this->_debugging)
-      echo "\t" . $msg . "\n";
-  }
-  private static function _debug_($msg) {
-    if(self::$_debugStatic)
+  /**
+   * @codeCoverageIgnore
+   */
+  private static function _debug($msg) {
+    if(self::$_debugEnabled)
       echo "\t" . $msg . "\n";
   }
 
-  protected function _fetchHead($url) {
-    $this->_debug("Fetching headers...");
+  /**
+   * @codeCoverageIgnore
+   */
+  protected static function _head($url) {
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
     curl_setopt($ch, CURLOPT_HEADER, true);
     curl_setopt($ch, CURLOPT_NOBODY, true);
-    if ($this->_proxy) curl_setopt($ch, CURLOPT_PROXY, $this->_proxy);
-    $response = curl_exec($ch);
-    return $this->_parse_headers($response);
-  }
-
-  protected function _fetchBody($url) {
-    $this->_debug("Fetching body...");
-    $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    if ($this->_proxy) curl_setopt($ch, CURLOPT_PROXY, $this->_proxy);
-    return curl_exec($ch);
+    if (self::$_proxy) curl_setopt($ch, CURLOPT_PROXY, self::$_proxy);
+    $response = curl_exec($ch);
+    return array(
+      'code' => curl_getinfo($ch, CURLINFO_HTTP_CODE),
+      'headers' => self::_parse_headers(trim($response)),
+    );
   }
 
-  public function _parse_headers($headers) {
+  /**
+   * @codeCoverageIgnore
+   */
+  protected static function _get($url) {
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HEADER, true);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    if (self::$_proxy) curl_setopt($ch, CURLOPT_PROXY, self::$_proxy);
+    $response = curl_exec($ch);
+    $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+    return array(
+      'code' => curl_getinfo($ch, CURLINFO_HTTP_CODE),
+      'headers' => self::_parse_headers(trim(substr($response, 0, $header_size))),
+      'body' => substr($response, $header_size)
+    );
+  }
+
+  /**
+   * @codeCoverageIgnore
+   */
+  protected static function _post($url, $body, $headers=array()) {
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_HEADER, true);
+    if (self::$_proxy) curl_setopt($ch, CURLOPT_PROXY, self::$_proxy);
+    $response = curl_exec($ch);
+    self::_debug($response);
+    $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+    return array(
+      'code' => curl_getinfo($ch, CURLINFO_HTTP_CODE),
+      'headers' => self::_parse_headers(trim(substr($response, 0, $header_size))),
+      'body' => substr($response, $header_size)
+    );
+  }
+
+  protected static function _parse_headers($headers) {
     $retVal = array();
     $fields = explode("\r\n", preg_replace('/\x0D\x0A[\x09\x20]+/', ' ', $headers));
     foreach($fields as $field) {
       if(preg_match('/([^:]+): (.+)/m', $field, $match)) {
-        //$match[1] = preg_replace('/(?<=^|[\x09\x20\x2D])./e', 'strtoupper("\0")', strtolower(trim($match[1])));
+        $match[1] = preg_replace_callback('/(?<=^|[\x09\x20\x2D])./', function($m) {
+          return strtoupper($m[0]);
+        }, strtolower(trim($match[1])));
+        // If there's already a value set for the header name being returned, turn it into an array and add the new value
         $match[1] = preg_replace_callback('/(?<=^|[\x09\x20\x2D])./', function($m) {
           return strtoupper($m[0]);
         }, strtolower(trim($match[1])));
         if(isset($retVal[$match[1]])) {
-          $retVal[$match[1]] = array($retVal[$match[1]], $match[2]);
+          if(!is_array($retVal[$match[1]]))
+            $retVal[$match[1]] = array($retVal[$match[1]]);
+          $retVal[$match[1]][] = $match[2];
         } else {
           $retVal[$match[1]] = trim($match[2]);
         }
@@ -285,26 +424,17 @@ class MentionClient {
     return $retVal;
   }
 
-  private static function _get($url) {
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    if (self::$_proxyStatic) curl_setopt($ch, CURLOPT_PROXY, self::$_proxyStatic);
-    return curl_exec($ch);
-  }
+  public static function xmlrpc_encode_request($method, $params) {
+    $xml  = '<?xml version="1.0"?>';
+    $xml .= '<methodCall>';
+    $xml .= '<methodName>'.htmlspecialchars($method).'</methodName>';
+    $xml .= '<params>';
+    foreach ($params as $param) {
+      $xml .= '<param><value><string>'.htmlspecialchars($param).'</string></value></param>';
+    }
+    $xml .= '</params></methodCall>';
 
-  private static function _post($url, $body, $headers=array(), $returnHTTPCode=false) {
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    if (self::$_proxyStatic) curl_setopt($ch, CURLOPT_PROXY, self::$_proxyStatic);
-    $response = curl_exec($ch);
-    self::_debug_($response);
-    if($returnHTTPCode)
-      return curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    else
-      return $response;
+    return $xml;
   }
 
   public function c($type, $url, $val=null) {
@@ -322,19 +452,4 @@ class MentionClient {
     return $this->{$key}[$url];
   }
 
-}
-
-if (!function_exists('xmlrpc_encode_request')) {
-  function xmlrpc_encode_request($method, $params) {
-    $xml  = '<?xml version="1.0"?>';
-    $xml .= '<methodCall>';
-    $xml .= '<methodName>'.htmlspecialchars($method).'</methodName>';
-    $xml .= '<params>';
-    foreach ($params as $param) {
-      $xml .= '<param><value><string>'.htmlspecialchars($param).'</string></value></param>';
-    }
-    $xml .= '</params></methodCall>';
-    
-    return $xml;
-  }
 }

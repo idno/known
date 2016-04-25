@@ -3,8 +3,8 @@
 include('src/IndieWeb/MentionClient.php');
 
 $url = 'https://github.com/aaronpk/mention-client';
-$client = new IndieWeb\MentionClient($url);
-$client->debug = true;
-$sent = $client->sendSupportedMentions();
+$client = new IndieWeb\MentionClient();
+$client->enableDebug();
+$sent = $client->sendMentions($url);
 
 echo "Sent $sent mentions\n";
