@@ -15,33 +15,33 @@
         class MentionClient extends \IndieWeb\MentionClient
         {
 
-            protected static function _post($url, $body, $headers = array(), $returnHTTPCode = false)
+            protected static function _post($url, $body, $headers = array())
             {
-
-                $result = Webservice::post($url, $body, $headers);
-
-                if ($returnHTTPCode)
-                    return $result['response'];
-
-                return $result['content'];
+                $response = Webservice::post($url, $body, $headers);
+                return [
+                    'code'    => $response['response'],
+                    'headers' => self::_parse_headers(isset($response['header']) ? $response['header'] : ''),
+                    'body'    => $response['content'],
+                ];
             }
 
             protected static function _head($url)
             {
-                $response = Webservice::get($url);
-
-                $result = ['code' => $response['response']];
-
-                if (!empty($response['headers'])) {
-                    $result['headers'] =  $this->_parse_headers($response['headers']);
-                }
-
-                return $result;
+                $response = Webservice::head($url);
+                return [
+                    'code'    => $response['response'],
+                    'headers' => self::_parse_headers(isset($response['header']) ? $response['header'] : ''),
+                ];
             }
 
             protected static function _get($url)
             {
-                return Webservice::get($url)['content'];
+                $response = Webservice::get($url);
+                return [
+                    'code'    => $response['response'],
+                    'headers' => self::_parse_headers(isset($response['header']) ? $response['header'] : ''),
+                    'body'    => $response['content'],
+                ];
             }
 
         }
