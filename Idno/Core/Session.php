@@ -444,7 +444,6 @@
                         }
 
                         \Idno\Core\Idno::site()->logging()->error("API Login failure from $ip");
-                        \Idno\Core\Idno::site()->currentPage()->deniedContent();
                     }
                 }
 
