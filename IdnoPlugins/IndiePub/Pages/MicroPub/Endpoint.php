@@ -39,7 +39,12 @@
 
                         foreach ($toggles as $toggle) {
                             $uid  = $toggle->getAttribute('value');
-                            $name = trim(strip_tags($toggle->getAttribute('data-on')));
+
+                            $account = strip_tags($toggle->getAttribute('data-on'));
+                            $service = ucwords(explode('::', $uid, 2)[0]);
+
+                            $name =  "$account on $service";
+                            $name = trim(preg_replace('/\s+/u', ' ', $name));
 
                             $account_strings[] = $uid;
                             $account_data[]    = ['uid' => $uid, 'name' => $name];
