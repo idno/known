@@ -50,15 +50,17 @@
                 }
 
                 if (!empty($token)) {
-                    \Idno\Core\Idno::site()->session()->setIsAPIRequest(true);
+                    
                     $found = Token::findUserForToken($token);
                     if (!empty($found)) {
+			\Idno\Core\Idno::site()->session()->setIsAPIRequest(true);
                         $user = $found['user'];
                         \Idno\Core\Idno::site()->session()->refreshSessionUser($user);
                         return $user;
                     }
                     $user = \Idno\Entities\User::getOne(array('admin' => true));
                     if ($token == $user->getAPIkey()) {
+			\Idno\Core\Idno::site()->session()->setIsAPIRequest(true);
                         \Idno\Core\Idno::site()->session()->refreshSessionUser($user);
                         return $user;
                     }
