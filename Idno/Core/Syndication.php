@@ -223,9 +223,8 @@
                     foreach ($services as $service_name => $service) {
                         foreach ($service as $account) {
                             $data[] = [
-                                'id'      => $service_name . '::' . $account['username'],
-                                'name'    => $account['name'],
-                                'service' => $service_name
+                                'uid'  => $service_name . '::' . $account['username'],
+                                'name' => $account['name'] . ' on ' . ucwords($service_name),
                             ];
                         }
                     }

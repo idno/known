@@ -12,13 +12,22 @@
         class Endpoint extends \Idno\Common\Page
         {
 
-            private function getServiceAccountsFromHub()
+            /**
+             * Fetch syndication endpoints from Convoy.
+             *
+             * @param array $account_strings flat list of syndication
+             *   IDs
+             * @param array $account_data list of complex account data
+             *   conforming to
+             *   http://micropub.net/draft/#syndication-targets
+             */
+            private function getServiceAccountsFromHub(&$account_strings, &$account_data)
             {
-                $results = [];
                 if (\Idno\Core\Idno::site()->hub()) {
                     $result = \Idno\Core\Idno::site()->hub()->makeCall('hub/user/syndication', [
                         'content_type' => 'note',
                     ]);
+
                     if (!empty($result['content'])) {
                         $content = $result['content'];
 
@@ -29,11 +38,19 @@
                         $toggles = (new DOMXPath($doc))->query('//*[@name="syndication[]"]');
 
                         foreach ($toggles as $toggle) {
-                            $results[] = $toggle->getAttribute('value');
+                            $uid  = $toggle->getAttribute('value');
+
+                            $account = strip_tags($toggle->getAttribute('data-on'));
+                            $service = ucwords(explode('::', $uid, 2)[0]);
+
+                            $name =  "$account on $service";
+                            $name = trim(preg_replace('/\s+/u', ' ', $name));
+
+                            $account_strings[] = $uid;
+                            $account_data[]    = ['uid' => $uid, 'name' => $name];
                         }
                     }
                 }
-                return $results;
             }
 
             function get($params = array())
@@ -44,14 +61,12 @@
                     case 'syndicate-to':
                         $account_strings = \Idno\Core\Idno::site()->syndication()->getServiceAccountStrings();
                         $account_data    = \Idno\Core\Idno::site()->syndication()->getServiceAccountData();
-                        // TODO augment $account_data too
-                        $account_strings = array_merge($account_strings, $this->getServiceAccountsFromHub());
+                        $this->getServiceAccountsFromHub($account_strings, $account_data);
 
                         if ($this->isAcceptedContentType('application/json')) {
                             header('Content-Type: application/json');
                             echo json_encode([
-                                'syndicate-to'          => $account_strings,
-                                'syndicate-to-expanded' => $account_data,
+                                'syndicate-to' => $account_data,
                             ], JSON_PRETTY_PRINT);
                         } else {
                             echo http_build_query([
