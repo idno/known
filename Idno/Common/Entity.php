@@ -699,6 +699,8 @@
                             $file->delete();
                         }
                     }
+		    
+		    $this->attachments = [];
                 }
             }
 
