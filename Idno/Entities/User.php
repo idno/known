@@ -529,6 +529,7 @@
             function countPosts()
             {
                 $types = \Idno\Common\ContentType::getRegisteredClasses();
+
                 return \Idno\Common\Entity::countFromX($types, array('owner' => $this->getUUID()));
             }
 
