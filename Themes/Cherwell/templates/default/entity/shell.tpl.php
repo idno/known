@@ -83,8 +83,8 @@
                         }
 
                     ?>
-                    <div class="e-content entry-content">
-                        <?php if (!empty($object)) echo $object->draw(); ?>
+                    <div class="idno-body">
+                      <?php if (!empty($object)) echo $object->draw(); ?>
                     </div>
                     <div class="footer">
                         <?= $this->draw('content/end') ?>

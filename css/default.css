@@ -24,9 +24,6 @@ h1, h2, h3, h4, h5, h6 {
 img {
     max-width: 100%;
 }
-.clearall {
-    clear: both;
-}
 .navbar-nav {
     padding-top: 5px;
 }
@@ -37,27 +34,32 @@ img {
 .navbar-nav > li > .dropdown-menu, .navbar-right .dropdown-menu {
 	margin-top: 5px;
 }
+
 .beforecontent {
     margin-bottom: 5em;
 }
+
 .idno-content  {
     background-color: #fff;
     padding: 1.5em;
     padding-bottom: 0;
     /*border: #dadada solid 1px;*/
 }
+
 .idno-content p {
     line-height: 1.5em !important;
 }
+
 .idno-content img {
     height: auto;
 }
-.e-content p {
+
+.idno-body p {
 	font-family: Georgia,"Times New Roman",Times,serif;
 	font-size: 1.2em;
 }
 
-.idno-object .e-content li {
+.idno-object .idno-body li {
 	font-family: Georgia,"Times New Roman",Times,serif;
 	font-size: 1.2em;
 	line-height: 1.4em;
@@ -188,7 +190,7 @@ img {
 
 }
 
-.idno-object .e-content {
+.idno-object .idno-body {
     overflow: auto;
     margin-bottom: 1em;
     padding-top: 0em;
@@ -196,7 +198,7 @@ img {
     font-size: 1em;
 }
 
-.idno-object .e-content blockquote p {
+.idno-object .idno-body blockquote p {
     font-size: 1.1em;
     line-height: 1.6em;
     margin-bottom: 1em;
@@ -256,7 +258,7 @@ img {
     text-align: left;
 }
 
-.h-cite .e-content {
+.h-cite .idno-body {
     margin-bottom: 0;
 }
 

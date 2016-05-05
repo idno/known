@@ -8,36 +8,37 @@
         $vars['object']->body .= '<p class="tag-row"><i class="icon-tag"></i>' . $vars['object']->tags . '</p>';
     }
 ?>
-<div>
-    <?php
-        if (empty($vars['feed_view'])) {
-            ?>
-            <h2 class="p-name"><a
-                    href="<?= $vars['object']->getDisplayURL() ?>"><?= htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?></a>
-            </h2>
-        <?php
 
-        }
-
-        if (empty($vars['feed_view']) && empty($vars['object']->notime)) {
-
-            ?>
-            <p class="reading">
-                <span class="vague"><?php
-
-                        $minutes = $vars['object']->getReadingTimeInMinutes();
-                        echo $minutes . ' min';
-
-                    ?> read </span>
-            </p>
-        <?php
-
-        }
-
-    ?>
+<?php
+    if (empty($vars['feed_view'])) {
+        ?>
+        <h2 class="p-name"><a
+                href="<?= $vars['object']->getDisplayURL() ?>"><?= htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?></a>
+        </h2>
     <?php
 
-        echo $this->__(['value' => $vars['object']->body, 'object' => $vars['object'], 'rel' => $rel])->draw('forms/output/richtext');
+    }
 
-    ?>
+    if (empty($vars['feed_view']) && empty($vars['object']->notime)) {
+
+        ?>
+        <p class="reading">
+            <span class="vague"><?php
+
+                    $minutes = $vars['object']->getReadingTimeInMinutes();
+                    echo $minutes . ' min';
+
+                ?> read </span>
+        </p>
+    <?php
+
+    }
+
+?>
+<div class="e-content entry-content">
+<?php
+
+    echo $this->__(['value' => $vars['object']->body, 'object' => $vars['object'], 'rel' => $rel])->draw('forms/output/richtext');
+
+?>
 </div>

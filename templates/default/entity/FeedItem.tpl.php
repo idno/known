@@ -26,7 +26,7 @@
                 <a class="p-name fn u-url url" href="<?= $item->getAuthorURL() ?>"><?= $item->getAuthorName() ?></a>
             </p>
         </div>
-        <div class="e-content entry-content">
+        <div class="idno-body">
             <?=$this->autop($item->getBody())?>
         </div>
         <div class="footer">

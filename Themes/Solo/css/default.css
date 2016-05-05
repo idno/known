@@ -13,18 +13,18 @@ a {
     box-shadow: none;
     border: none;
 }
-/*.entry-content .p-name a,*/
+/*.idno-body .p-name a,*/
 .idno-entry h2 {
     font-size: 1.8em;
     margin: 0; padding: 0;
 }
-.entry-content blockquote {
+.idno-body blockquote {
     margin-top: 2em;
     margin-bottom: 2em;
     font-size: 0.9em;
     color: #444;
 }
-.idno-statusupdates .entry-content p {
+.idno-statusupdates .idno-body p {
     font-size: 1.8em;
     margin: 0; padding: 0;
 }

@@ -63,8 +63,9 @@
         }
     }
 ?>
+<div class="e-content">
 <?= $this->autop($this->parseHashtags($this->parseURLs($vars['object']->body, $rel))) ?>
-
+</div>
 <?php
     if (!empty($vars['object']->tags)) {
 ?>
