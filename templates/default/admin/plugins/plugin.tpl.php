@@ -2,11 +2,20 @@
     $plugin_description = $vars['plugin']['Plugin description'];
     $shortname = $vars['plugin']['shortname'];
 
-    $requirements = null;
-    if (isset($vars['plugin']['requirements'])) {
-        $requirements = $vars['plugin']['requirements'];
+    // Construct requirements array
+    $requirements = [];
+    if (isset($plugin_description['php'])) {
+        $requirements['php'] = $plugin_description['php'];
     }
-
+    if (isset($plugin_description['idno'])) {
+        $requirements['idno'] = $plugin_description['idno'];
+    }
+    if (isset($plugin_description['extension'])) {
+        $requirements['extension'] = $plugin_description['extension'];
+    }
+    if (isset($plugin_description['plugin'])) {
+        $requirements['plugin'] = $plugin_description['plugin'];
+    }
 ?>
 <div class="well well-large">
     <div class="row">
