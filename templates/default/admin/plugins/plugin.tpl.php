@@ -7,8 +7,10 @@
     if (isset($plugin_description['php'])) {
         $requirements['php'] = $plugin_description['php'];
     }
-    if (isset($plugin_description['idno'])) {
-        $requirements['idno'] = $plugin_description['idno'];
+    if (isset($plugin_description['known'])) {
+        $requirements['known'] = $plugin_description['known'];
+    } else if (isset($plugin_description['idno'])) {
+        $requirements['known'] = $plugin_description['idno'];
     }
     if (isset($plugin_description['extension'])) {
         $requirements['extension'] = $plugin_description['extension'];
@@ -56,7 +58,7 @@
                     <div class="requirements">
 
                         <?php
-                            if (isset($requirements['idno'])) {
+                            if (isset($requirements['known'])) {
                                 ?>
                                 <p><label>Known
                                         Version: <?php echo $this->__(array('version' => $requirements['idno']))->draw('admin/dependencies/idno'); ?> </label>
