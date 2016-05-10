@@ -1,4 +1,4 @@
-<p class="p-pronoun pronoun small">
+<p class="pronoun small">
     <?php
 
         $pronoun_list = [];
