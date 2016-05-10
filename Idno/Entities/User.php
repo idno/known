@@ -221,8 +221,8 @@
             function getPronoun()
             {
                 $pronoun = [
-                    'oblique'    => $this->getPronounOblique(),
                     'nominative' => $this->getPronounNominative(),
+                    'oblique'    => $this->getPronounOblique(),
                     'possessive' => $this->getPronounPossessive()
                 ];
                 if (!sizeof(array_filter($pronoun))) return [];
