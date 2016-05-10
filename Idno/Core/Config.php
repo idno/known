@@ -58,6 +58,7 @@
                 'bypass_fulltext_search' => false,
                 'permalink_structure'    => '/:year/:slug',
                 'single_user'            => true,
+                'pedantic_mode'          => false, // When true, PHP errors (including notices) will throw exceptions.
             );
 
             public $ini_config = array();

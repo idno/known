@@ -36,12 +36,19 @@ namespace Idno\Core {
 
             // Set log to handle PHP errors
             set_error_handler(function ($errno, $errstr, $errfile, $errline, $errcontext) {
+                                
                 if (!(error_reporting() & $errno)) {
                     // This error code is not included in error_reporting
                     return;
                 }
                 
                 $message = "PHP [{$errno}] {$errstr} in {$errfile}:{$errline}";
+                
+                // Pedantic mode
+                if (\Idno\Core\Idno::site()->config()->pedantic_mode) {
+                    $this->error($message);
+                    throw new \ErrorException($message, 0, $errno, $errfile, $errline);
+                }
 
                 switch ($errno) {
                     case E_PARSE: 
