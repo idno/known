@@ -85,6 +85,8 @@ If you're using MySQL or SQLite, you must specify an upload directory if you wan
 
 ### If you’re using MongoDB
 
+** MongoDB support is deprecated, we recommend using one of the other DB Backends (MySQL is recommended) **
+
 If your MongoDB installation accepts connections from localhost, and you’re happy for your Known MongoDB database to be called Known, you can simply create a file called ```config.ini``` in the root of your installation containing:
 
     database = "MongoDB"
