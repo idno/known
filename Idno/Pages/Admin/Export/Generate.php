@@ -76,6 +76,8 @@
                         $mail->addTo(\Idno\Core\Idno::site()->session()->currentUser()->email);
                         $mail->setSubject("Your data export is ready");
                         $mail->send();
+                    } else {
+                        \Idno\Core\Idno::site()->logging()->error("There was a problem creating file {$path}{$filename}");
                     }
 
                     exit;
