@@ -29,25 +29,31 @@
 
                 // Make the temporary directory, or fail out
                 if (!@mkdir($dir . $name)) {
+                    \Idno\Core\Idno::site()->logging()->debug("Could not make temporary directory {$dir}{$name}");
                     return false;
                 }
                 $json_path = $dir . $name . DIRECTORY_SEPARATOR . 'json' . DIRECTORY_SEPARATOR;
                 if (!@mkdir($json_path)) {
+                    \Idno\Core\Idno::site()->logging()->debug("Could not make {$json_path}");
                     return false;
                 }
                 $html_path = $dir . $name . DIRECTORY_SEPARATOR . 'html' . DIRECTORY_SEPARATOR;
                 if (!@mkdir($html_path)) {
+                    \Idno\Core\Idno::site()->logging()->debug("Could not make {$html_path}");
                     return false;
                 }
                 $file_path = $dir . $name . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR;
                 if (!@mkdir($file_path)) {
+                    \Idno\Core\Idno::site()->logging()->debug("Could not make {$file_path}");
                     return false;
                 }
 
                 if (!@mkdir($file_path . 'readable', 0777, true)) {
+                    \Idno\Core\Idno::site()->logging()->debug("Could not make {$file_path}readable");
                     return false;
                 }
                 if (!@mkdir($file_path . 'uploads', 0777, true)) {
+                    \Idno\Core\Idno::site()->logging()->debug("Could not make {$file_path}uploads");
                     return false;
                 }
 
