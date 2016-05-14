@@ -80,6 +80,8 @@
 
                     exit;
 
+                } else {
+                    \Idno\Core\Idno::site()->logging()->error("Export did not return an archive path.");
                 }
 
             }
