@@ -171,9 +171,11 @@
                     $path .= DIRECTORY_SEPARATOR;
                 }
                 if (!file_exists($path . 'known.json')) {
+                    \Idno\Core\Idno::site()->logging()->debug("{$path}known.json file does not exist");
                     return false;
                 }
                 if (!class_exists('PharData')) {
+                    \Idno\Core\Idno::site()->logging()->debug("Phar support missing");
                     return false;
                 }
 
