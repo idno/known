@@ -1,6 +1,6 @@
-#Known: social publishing for groups and individuals
+#Known: a social group platform
 
-![Known - A social publishing platform for groups and individuals](https://withknown.com/img/home/screens.png)
+![Known - A social group platform](https://withknown.com/img/home/screens.png)
 
 ##Installation [![Build Status](https://travis-ci.org/idno/Known.svg?branch=master)](https://travis-ci.org/idno/Known)
 
