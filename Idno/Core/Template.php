@@ -548,6 +548,67 @@
             }
 
             /**
+             * Retrieves a set of contextual body classes suitable for including in a shell template
+             * @return string
+             */
+            function getBodyClasses()
+            {
+                $classes = '';
+                $classes .= (str_replace('\\', '_', strtolower(get_class(\Idno\Core\Idno::site()->currentPage()))));
+                if ($path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+                    if ($path = explode('/', $path)) {
+                        $page_class = '';
+                        foreach ($path as $element) {
+                            if (!empty($element)) {
+                                if (!empty($page_class)) {
+                                    $page_class .= '-';
+                                }
+                                $page_class .= $element;
+                                $classes .= ' page-' . $page_class;
+                            }
+                        }
+                    }
+                }
+                if (\Idno\Core\Idno::site()->session()->isLoggedIn()) {
+                    $classes .= ' logged-in';
+                } else {
+                    $classes .= ' logged-out';
+                }
+                return $classes;
+            }
+
+            /**
+             * Returns a version of this template with variable defaults set up for the shell
+             * @param $vars
+             * @return \Bonita\Templates
+             */
+            function formatShellVariables($vars)
+            {
+                // Get instance of current page for use further down the page
+                if ($vars['currentPage'] = \Idno\Core\Idno::site()->currentPage()) {
+                    $vars['pageOwner'] = $vars['currentPage']->getOwner();
+                }
+
+                if (!empty($currentPage)) {
+                    $vars['hidenav'] = \Idno\Core\Idno::site()->embedded();
+                }
+
+                $vars['description'] = isset($vars['description']) ? $vars['description'] : '';
+
+                if (empty($vars['title']) && !empty($vars['description'])) {
+                    $vars['title'] = implode(' ', array_slice(explode(' ', strip_tags($vars['description'])), 0, 10));
+                }
+
+                // Use appropriate language
+                $vars['lang'] = 'en';
+                if (!empty(\Idno\Core\Idno::site()->config()->lang)) {
+                    $vars['lang'] = \Idno\Core\Idno::site()->config()->lang;
+                }
+
+                return $this->__($vars);
+            }
+
+            /**
              * Sets the template type based on various environmental factors
              */
             function autodetectTemplateType()

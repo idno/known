@@ -9,11 +9,8 @@
 A fully-managed hosted service is provided at <https://withknown.com/>. It is always kept up to date with the latest
 version of Known.
 
-Exclusive web hosting sponsor:
-
-[![DreamHost](https://withknown.com/img/sponsor_dh_small.jpg)](http://dreamhost.com/redir.cgi?promo=known595&url=promo/hosting595/&utm_source=known&utm_medium=banner&utm_content=sponsorshared595&utm_campaign=shared)
-
-We've tested DreamHost's hosting platform and highly recommend it for supporting your Known site.
+If you want to install on your own web space, we recommend [Reclaim Hosting](https://portal.reclaimhosting.com/aff.php?aff=013),
+which includes one-click Known installation.
 
 ###Installing
 
