@@ -50,10 +50,10 @@ specifying a minimum version of those plugins):
     plugin[] =          "Another Known plugin,0.8"
 
 The requirements section may also define a minimum PHP version and
-Known core version (called "idno" here for historical reasons).
+Known core version.
 
     php =               5.5
-    idno =              0.9
+    known =              0.9
 
 This plugin requires PHP >= 5.5 or higher and Known >= 0.9.
 

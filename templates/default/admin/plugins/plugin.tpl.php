@@ -2,11 +2,22 @@
     $plugin_description = $vars['plugin']['Plugin description'];
     $shortname = $vars['plugin']['shortname'];
 
-    $requirements = null;
-    if (isset($vars['plugin']['requirements'])) {
-        $requirements = $vars['plugin']['requirements'];
+    // Construct requirements array
+    $requirements = [];
+    if (isset($plugin_description['php'])) {
+        $requirements['php'] = $plugin_description['php'];
     }
-
+    if (isset($plugin_description['known'])) {
+        $requirements['known'] = $plugin_description['known'];
+    } else if (isset($plugin_description['idno'])) {
+        $requirements['known'] = $plugin_description['idno'];
+    }
+    if (isset($plugin_description['extension'])) {
+        $requirements['extension'] = $plugin_description['extension'];
+    }
+    if (isset($plugin_description['plugin'])) {
+        $requirements['plugin'] = $plugin_description['plugin'];
+    }
 ?>
 <div class="well well-large">
     <div class="row">
@@ -47,7 +58,7 @@
                     <div class="requirements">
 
                         <?php
-                            if (isset($requirements['idno'])) {
+                            if (isset($requirements['known'])) {
                                 ?>
                                 <p><label>Known
                                         Version: <?php echo $this->__(array('version' => $requirements['idno']))->draw('admin/dependencies/idno'); ?> </label>
