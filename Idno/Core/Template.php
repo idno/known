@@ -257,16 +257,17 @@
             function parseURLs($text, $code = '')
             {
                 $r = preg_replace_callback('/(?<!=)(?<!["\'])((ht|f)tps?:\/\/[^\s<>"\']+)/i', function ($matches) use ($code) {
-                    $url = $matches[1];
+                    $url  = $matches[1];
                     $punc = '';
 
                     while ($url) {
                         $last = substr($url, -1, 1);
                         if (strstr('.!?,;:(', $last)
                             // strip ) if there isn't a matching ( earlier in the url
-                            || ($last === ')' && !strstr($url, '('))) {
+                            || ($last === ')' && !strstr($url, '('))
+                        ) {
                             $punc = $last . $punc;
-                            $url = substr($url, 0, -1);
+                            $url  = substr($url, 0, -1);
                         } else {
                             break; // found a non-punctuation character
                         }
@@ -279,6 +280,7 @@
                     $result .= ">";
                     $result .= str_replace('/', '/<wbr />', $url);
                     $result .= "</a>$punc";
+
                     return $result;
 
                 }, $text);
@@ -376,6 +378,7 @@
                 } else {
                     $newuri = 'http:';
                 }
+
                 return str_replace($scheme . ':', $newuri, $url);
             }
 
@@ -574,6 +577,7 @@
                 } else {
                     $classes .= ' logged-out';
                 }
+
                 return $classes;
             }
 
@@ -604,6 +608,9 @@
                 if (!empty(\Idno\Core\Idno::site()->config()->lang)) {
                     $vars['lang'] = \Idno\Core\Idno::site()->config()->lang;
                 }
+
+                if (empty($vars['title'])) $vars['title'] = '';
+                if (empty($vars['body'])) $vars['body'] = '';
 
                 return $this->__($vars);
             }

@@ -3,6 +3,8 @@
     $currentPage = \Idno\Core\Idno::site()->currentPage();
     $pageOwner = $currentPage->getOwner();
 
+    if (empty($vars['title'])) $vars['title'] = '';
+
     if (!empty($vars['object'])) {
         $objectIcon = $vars['object']->getIcon();
     } else {

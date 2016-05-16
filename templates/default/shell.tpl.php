@@ -36,7 +36,7 @@
         <a name="pagecontent"></a>
         <?php 
             echo $template->draw('shell/beforecontent');
-            echo $vars['body'];
+            if (!empty($vars['body'])) echo $vars['body'];
             echo $template->draw('shell/aftercontent');
         ?>
     </div>
