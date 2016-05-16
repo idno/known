@@ -335,6 +335,22 @@
             }
 
             /**
+             * Returns a snippet of plain text
+             * @param $text
+             * @param int $words
+             * @return array|string
+             */
+            function sampleText($text, $words = 32)
+            {
+                $formatted_text = trim(strip_tags($text));
+                $formatted_text = explode(' ', $formatted_text);
+                $formatted_text = array_slice($formatted_text, 0, $words);
+                $formatted_text = implode(' ', $formatted_text);
+                if (strlen($formatted_text) < strlen($text)) $formatted_text .= ' ...';
+                return $formatted_text;
+            }
+
+            /**
              * Given a URL, fixes it to have a prefix if it needs one
              * @param $url
              * @return string
