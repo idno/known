@@ -2000,6 +2000,28 @@
             }
 
             /**
+             * Has the specified user annotated this entity?
+             * @param $subtype
+             * @param bool $owner_url
+             * @return bool
+             */
+            function hasAnnotated($subtype, $owner_url = false)
+            {
+                if (!$owner_url) {
+                    if ($owner = Idno::site()->session()->currentUser()) {
+                        $owner_url = $owner->getDisplayURL();
+                    }
+                }
+                if (!$owner_url) return false;
+                if ($annotations = $this->getAnnotations($subtype)) {
+                    foreach($annotations as $annotation) {
+                        if ($annotation['owner_url'] == $owner_url) return true;
+                    }
+                }
+                return false;
+            }
+
+            /**
              * Determines whether the current user can edit the specified annotation
              * @param array|string $annotation
              * @return bool
