@@ -117,6 +117,9 @@
             {
                 $this->setResponse(500);
                 http_response_code($this->response);
+                
+                \Idno\Core\Idno::site()->logging()->critical($e->getMessage() . " [".$e->getFile().":".$e->getLine()."]");
+                
                 $t = \Idno\Core\Idno::site()->template();
                 $t->__(array('body' => $t->__(array('exception' => $e))->draw('pages/500'), 'title' => 'Exception'))->drawPage();
                 exit;
