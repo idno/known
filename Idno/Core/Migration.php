@@ -76,7 +76,7 @@
                 $offset = 0;
 
                 \Idno\Core\Idno::site()->logging()->debug("Exporting entities...");
-                while ($results = Idno::site()->db()->getRecords($fields, $query_parameters, $limit, $offset, $collection)) {
+                while ($results = Idno::site()->db()->getRecords($fields, $query_parameters, $limit, $offset, $collection)) {   
                     foreach ($results as $id => $row) {
 
                         $object = Idno::site()->db()->rowToEntity($row);
