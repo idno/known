@@ -75,6 +75,7 @@
                 $limit  = 10;
                 $offset = 0;
 
+                \Idno\Core\Idno::site()->logging()->debug("Exporting entities...");
                 while ($results = Idno::site()->db()->getRecords($fields, $query_parameters, $limit, $offset, $collection)) {
                     foreach ($results as $id => $row) {
 
@@ -137,6 +138,7 @@
                     $offset += $limit;
                 }
 
+                \Idno\Core\Idno::site()->logging()->debug("Generating export records...");
                 if ($exported_records = \Idno\Core\Idno::site()->db()->exportRecords()) {
                     if (site()->config()->database == 'mysql' || Idno::site()->config()->database == 'postgres') {
                         $export_ext = 'sql';
@@ -149,6 +151,7 @@
                 file_put_contents($dir . $name . DIRECTORY_SEPARATOR . 'entities.json', json_encode($all_in_one_json));
 
                 // As we're successful, return the unique name of the archive
+                \Idno\Core\Idno::site()->logging()->debug("Archive constructed at {$dir}{$name}");
                 return $dir . $name;
 
             }
@@ -190,6 +193,8 @@
                 $archive->buildFromDirectory($path);
 
                 //$archive->compress(\Phar::GZ);
+                
+                \Idno\Core\Idno::site()->logging()->debug("archiveExportFolder() completed");
 
                 return $archive->getPath();
 
