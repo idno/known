@@ -311,8 +311,8 @@
                         ->skip($offset)
                         ->limit($limit)
                         ->sort(array('created' => -1));
-
-                    if ($result) {
+                    
+                    if (($result) && (count(iterator_to_array($result))) ) {
                         return $this->unsanitizeFields($result);
                     }
                 } catch (\Exception $e) {
