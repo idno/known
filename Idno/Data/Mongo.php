@@ -69,6 +69,25 @@
 
                 $this->database = $this->client->selectDB($this->dbname);
             }
+            
+            /**
+             * Handle event hooks.
+             */
+            function registerEventHooks() {
+                parent::registerEventHooks();
+                
+                \Idno\Core\Idno::site()->addEventHook('upgrade', function (\Idno\Core\Event $event) {
+                    
+                    $new_version = $event->data()['new_version'];
+                    $last_update = $event->data()['last_update'];
+                    
+                    if ($last_update < 2016042301) {
+                        
+                        \Idno\Core\Idno::site()->logging()->debug("Mongo: Applying mongo upgrades - adding index.");
+                        $this->database->entities->createIndex(['created' => 1]);
+                    }
+                });
+            }
 
             /**
              * Offer a session handler for the current session
