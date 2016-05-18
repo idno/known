@@ -45,7 +45,11 @@
                 // Remove the previous export file
                 if (!empty(\Idno\Core\Idno::site()->config()->export_file_id)) {
                     if ($file = File::getByID(\Idno\Core\Idno::site()->config()->export_file_id)) {
-                        $file->remove();
+                        if ($file instanceof \MongoGridFSFile) {
+                            // TODO: Handle this correctly
+                        } else {
+                            $file->remove();
+                        }
                         \Idno\Core\Idno::site()->config()->export_file_id  = false;
                         \Idno\Core\Idno::site()->config()->export_filename = false;
                         \Idno\Core\Idno::site()->config()->save();
