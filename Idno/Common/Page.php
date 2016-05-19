@@ -56,7 +56,6 @@
                 if (!defined('KNOWN_UNIT_TEST')) { // Don't do header stuff in unit tests
                     header('X-Powered-By: https://withknown.com');
                     header('X-Clacks-Overhead: GNU Terry Pratchett');
-                    header('Accept-Ranges: bytes');
                 }
                 if ($template = $this->getInput('_t')) {
                     if (\Idno\Core\Idno::site()->template()->templateTypeExists($template)) {
