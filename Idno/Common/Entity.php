@@ -217,7 +217,7 @@
             static function getFromX($class, $search = array(), $fields = array(), $limit = 10, $offset = 0, $readGroups = [])
             {
                 $result = \Idno\Core\Idno::site()->db()->getObjects($class, $search, $fields, $limit, $offset, static::$retrieve_collection, $readGroups);
-
+                if (is_array($result)) $result = array_filter($result);
                 return $result;
             }
 
