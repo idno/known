@@ -83,7 +83,7 @@ namespace Idno\Pages\File {
                     }
                 }
                 
-                \Idno\Core\Idno::site()->logging()->debug("Partial content request for $c_start - $c_end bytes from $end available bytes");
+                \Idno\Core\Idno::site()->logging()->debug("Partial content request for $c_start - $c_end bytes from $size available bytes");
                 
                 // Validate range
                 if (
