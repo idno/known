@@ -48,7 +48,8 @@
 
                 if (\Idno\Core\Idno::site()->session()->isLoggedIn()) {
                     if (\Idno\Core\Idno::site()->session()->currentUser()->isAdmin()) {
-                        if (!empty(\Idno\Common\Entity::getByID($pageId))) {
+                        $obj = \Idno\Common\Entity::getByID($pageId);
+                        if (!empty($obj)) {
                             \Idno\Core\Idno::site()->config->staticPages['homepage'] = $pageId;
                             return \Idno\Core\Idno::site()->config->save();
                         }
