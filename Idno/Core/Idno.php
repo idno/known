@@ -43,6 +43,7 @@
                 parent::__construct();
                 // auth the user after all the plugins and pages have registered so they can respond to events
                 $this->session()->tryAuthUser();
+                $this->upgrade();
             }
 
             function init()
@@ -814,6 +815,35 @@
                     (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
                     || (!empty($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443)
                     || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https');
+            }
+            
+            /**
+             * Apply updates.
+             */
+            function upgrade() {
+                
+                $last_update = 0;
+                if (!empty($this->config()->update_version)) {
+                    $last_update = $this->config()->update_version;
+                }
+                $machine_version = $this->getMachineVersion();
+                
+                if ($last_update < $machine_version) {
+                
+                    if ($this->triggerEvent('upgrade', [
+                        'last_update' => $last_update,
+                        'new_version' => $machine_version
+                    ])) {
+                    
+                        // Save updated
+                        $this->config()->update_version = $machine_version;
+                        $this->config()->save();
+                        
+                        $this->logging()->info("Known upgraded from $last_update to $machine_version");
+                    } else {
+                        $this->logging()->error("There was a problem applying an update.");
+                    }
+                }
             }
 
             /**
