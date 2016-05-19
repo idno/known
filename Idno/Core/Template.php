@@ -501,7 +501,8 @@
                     $url = $this->getCurrentURL();
                 }
                 $components = parse_url($url);
-                parse_str($components['query'], $url_var_array);
+                $url_var_array = [];
+                if (!empty($components['query'])) parse_str($components['query'], $url_var_array);
                 if (!empty($url_var_array[$variable_name])) unset($url_var_array[$variable_name]);
                 $components['query'] = http_build_query($url_var_array);
                 $url                 = $components['scheme'] . '://' . $components['host'] . $components['path'];

@@ -477,10 +477,10 @@
                     $description = Idno::site()->config()->getDescription();
                     $base_url    = Idno::site()->config()->getDisplayURL();
                 }
-                if ($feed = \Idno\Common\Entity::getFromX($types, $search, array(), PHP_INT_MAX, 0, $groups)) {
+                if ($feed = \Idno\Common\Entity::getFromX($types, $search, array(), PHP_INT_MAX-1, 0, $groups)) {
                     $rss_theme = new Template();
                     $rss_theme->setTemplateType('rss');
-
+                    
                     return $rss_theme->__(array(
 
                         'title'       => $title,

@@ -57,7 +57,7 @@
                 <div class="config-toggle col-md-4">
                     <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
                            name="allposts" id="allposts"
-                           value="0">
+                           value="1">
                 </div>
                 <div class="col-md-6">
                     <p class="config-desc">Platforms like WordPress may assume that all your posts should be displayed publicly.
