@@ -68,27 +68,19 @@
                 Idno::site()->addPageHandler('/session/logout', '\Idno\Pages\Session\Logout');
                 Idno::site()->addPageHandler('/currentUser/?', '\Idno\Pages\Session\CurrentUser');
 
-                // Update the session on save, this is a shim until #46 is fixed properly with #49
+                // Update the session on save if we're saving the current user
                 \Idno\Core\Idno::site()->addEventHook('save', function (\Idno\Core\Event $event) {
 
                     $eventdata = $event->data();
                     $object    = $eventdata['object'];
-                    if ((!empty($this->user)) && ($this->user instanceof User)) {
-                        $user_uuid = $object->getUUID() == $this->user->getUUID();
-                    } else {
-                        $user_uuid = false;
-                    }
-                    if ($object instanceof Entity) {
-                        $object_uuid = $object->getUUID();
-                    } else {
-                        $object_uuid = false;
-                    }
-                    if ((!empty($object)) && ($object instanceof \Idno\Entities\User) // Object is a user
-                        && ((!empty($_SESSION['user_uuid'])) && (($object_uuid != $user_uuid) && $object_uuid !== false))
-                    ) // And we're not trying a user change (avoids a possible exploit)
-                    {
-                        $this->user = $this->refreshSessionUser($object);
-                    }
+
+                    if (empty($object) || empty($this->user) ||
+                        !($object instanceof User) || !($this->user instanceof User)) return;
+
+                    if ($object->getUUID() != $this->user->getUUID()) return;
+                    if ($object->getUUID() != $_SESSION['user_uuid']) return;
+
+                    $this->user = $this->refreshSessionUser($object);
 
                 });
 
