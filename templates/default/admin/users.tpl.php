@@ -62,7 +62,8 @@
                                         <small><strong>Last update posted</strong>
                                             <br>
                                             <?php
-                                                if ($feed = \Idno\Common\Entity::getFromX(null, ['owner' => $user->getUUID()], array(), 1, 0)) {
+                                                $feed = \Idno\Common\Entity::getFromX(null, ['owner' => $user->getUUID()], array(), 1, 0);
+                                                if (!empty($feed) && is_array($feed)) {
                                                     ?>
                                                     <time datetime="<?= date('r', $feed[0]->updated) ?>"
                                                           class="dt-published"><?= date('r', $feed[0]->updated) ?></time>
