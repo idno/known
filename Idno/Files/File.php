@@ -56,6 +56,12 @@
              * @return string
              */
             abstract function getFilename();
+            
+            /**
+             * Return the file's size in bytes.
+             * @return int
+             */
+            abstract function getSize();
 
             /* Delete this file
              * @return bool
