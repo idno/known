@@ -29,25 +29,31 @@
 
                 // Make the temporary directory, or fail out
                 if (!@mkdir($dir . $name)) {
+                    \Idno\Core\Idno::site()->logging()->debug("Could not make temporary directory {$dir}{$name}");
                     return false;
                 }
                 $json_path = $dir . $name . DIRECTORY_SEPARATOR . 'json' . DIRECTORY_SEPARATOR;
                 if (!@mkdir($json_path)) {
+                    \Idno\Core\Idno::site()->logging()->debug("Could not make {$json_path}");
                     return false;
                 }
                 $html_path = $dir . $name . DIRECTORY_SEPARATOR . 'html' . DIRECTORY_SEPARATOR;
                 if (!@mkdir($html_path)) {
+                    \Idno\Core\Idno::site()->logging()->debug("Could not make {$html_path}");
                     return false;
                 }
                 $file_path = $dir . $name . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR;
                 if (!@mkdir($file_path)) {
+                    \Idno\Core\Idno::site()->logging()->debug("Could not make {$file_path}");
                     return false;
                 }
 
                 if (!@mkdir($file_path . 'readable', 0777, true)) {
+                    \Idno\Core\Idno::site()->logging()->debug("Could not make {$file_path}readable");
                     return false;
                 }
                 if (!@mkdir($file_path . 'uploads', 0777, true)) {
+                    \Idno\Core\Idno::site()->logging()->debug("Could not make {$file_path}uploads");
                     return false;
                 }
 
@@ -69,7 +75,8 @@
                 $limit  = 10;
                 $offset = 0;
 
-                while ($results = Idno::site()->db()->getRecords($fields, $query_parameters, $limit, $offset, $collection)) {
+                \Idno\Core\Idno::site()->logging()->debug("Exporting entities...");
+                while ($results = Idno::site()->db()->getRecords($fields, $query_parameters, $limit, $offset, $collection)) {   
                     foreach ($results as $id => $row) {
 
                         $object = Idno::site()->db()->rowToEntity($row);
@@ -131,6 +138,7 @@
                     $offset += $limit;
                 }
 
+                \Idno\Core\Idno::site()->logging()->debug("Generating export records...");
                 if ($exported_records = \Idno\Core\Idno::site()->db()->exportRecords()) {
                     if (site()->config()->database == 'mysql' || Idno::site()->config()->database == 'postgres') {
                         $export_ext = 'sql';
@@ -143,6 +151,7 @@
                 file_put_contents($dir . $name . DIRECTORY_SEPARATOR . 'entities.json', json_encode($all_in_one_json));
 
                 // As we're successful, return the unique name of the archive
+                \Idno\Core\Idno::site()->logging()->debug("Archive constructed at {$dir}{$name}");
                 return $dir . $name;
 
             }
@@ -165,9 +174,11 @@
                     $path .= DIRECTORY_SEPARATOR;
                 }
                 if (!file_exists($path . 'known.json')) {
+                    \Idno\Core\Idno::site()->logging()->debug("{$path}known.json file does not exist");
                     return false;
                 }
                 if (!class_exists('PharData')) {
+                    \Idno\Core\Idno::site()->logging()->debug("Phar support missing");
                     return false;
                 }
 
@@ -182,6 +193,8 @@
                 $archive->buildFromDirectory($path);
 
                 //$archive->compress(\Phar::GZ);
+                
+                \Idno\Core\Idno::site()->logging()->debug("archiveExportFolder() completed");
 
                 return $archive->getPath();
 

@@ -45,7 +45,11 @@
                 // Remove the previous export file
                 if (!empty(\Idno\Core\Idno::site()->config()->export_file_id)) {
                     if ($file = File::getByID(\Idno\Core\Idno::site()->config()->export_file_id)) {
-                        $file->remove();
+                        if ($file instanceof \MongoGridFSFile) {
+                            // TODO: Handle this correctly
+                        } else {
+                            $file->remove();
+                        }
                         \Idno\Core\Idno::site()->config()->export_file_id  = false;
                         \Idno\Core\Idno::site()->config()->export_filename = false;
                         \Idno\Core\Idno::site()->config()->save();
@@ -76,10 +80,14 @@
                         $mail->addTo(\Idno\Core\Idno::site()->session()->currentUser()->email);
                         $mail->setSubject("Your data export is ready");
                         $mail->send();
+                    } else {
+                        \Idno\Core\Idno::site()->logging()->error("There was a problem creating file {$path}{$filename}");
                     }
 
                     exit;
 
+                } else {
+                    \Idno\Core\Idno::site()->logging()->error("Export did not return an archive path.");
                 }
 
             }
