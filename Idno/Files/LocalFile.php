@@ -18,6 +18,12 @@
                     return file_get_contents($this->internal_filename);
                 }
             }
+            
+            function getSize() {
+                if (file_exists($this->internal_filename)) {
+                    return filesize($this->internal_filename);
+                }
+            }
 
             /**
              * Output the contents of the file to the buffer
