@@ -1,5 +1,6 @@
 var CheckinMap, CheckinMarker;
 
+$(function() {
 function initMap(latitude, longitude) {
     $('#geoplaceholder').hide();
     $('#geofields').slideDown();
@@ -54,7 +55,6 @@ function handleErrorFromNavigator(err) {
 var latitude = $('#lat').val(),
 	longitude = $('#long').val();
 
-$(document).ready(function () {
     if (latitude && longitude) {
 	initMap(latitude, longitude);
     } else {
