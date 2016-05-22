@@ -650,13 +650,6 @@
             {
                 if (!\Idno\Core\Idno::site()->session()->isLoggedIn()) {
                     $this->deniedContent();
-
-//                    // Forwarding loses the response code, so is only helpful if this is not an API request
-//                    if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
-//                        $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']));
-//                    } else {
-//                        $this->deniedContent();
-//                    }
                 }
             }
 
@@ -669,13 +662,6 @@
             {
                 if (\Idno\Core\Idno::site()->session()->isLoggedIn()) {
                     $this->deniedContent();
-//                    $this->setResponse(403);
-//                    if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
-//                        $this->forward();
-//                    } else {
-//                        $this->deniedContent();
-//                    }
-
                 }
             }
 
@@ -694,13 +680,6 @@
                 }
                 if (!$ok) {
                     $this->deniedContent();
-//                    $this->setResponse(403);
-//
-//                    if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
-//                        $this->forward();
-//                    } else {
-//                        $this->deniedContent();
-//                    }
                 }
             }
 
@@ -714,27 +693,10 @@
 
             /**
              * Checks for an HTTP referrer; denies access if one doesn't exist
+             * (deprecated)
              */
             function referrerGatekeeper()
-            {
-                if (empty(\Idno\Core\Idno::site()->config()->ignore_referrer)) {
-                    /*
-                     * BW 2015-10-01 - it turns out enterprise proxy servers strip referrer for security reasons.
-                     * As a result, I'm both commenting this out and telling people to change enterprise proxy server
-                     * vendor.
-                     *
-                     * To be fair, users have the right to strip out their referrer value, in the same way they have
-                     * the right to change their browser identification string. Probably another solution is required.
-                     *
-                     * if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
-                        $referrer = $this->getReferrer();
-                        if (empty($referrer)) {
-                            $this->deniedContent();
-                        }
-                    }
-                    */
-                }
-            }
+            {}
 
             /**
              * Is this page a permalink for an object? This should be set to 'true'
