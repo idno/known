@@ -617,14 +617,7 @@
             function createGatekeeper()
             {
                 if (!\Idno\Core\Idno::site()->canWrite()) {
-                    $this->deniedContent();
-//                    $this->setResponse(403);
-//
-//                    if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
-//                        $this->forward();
-//                    } else {
-//                        $this->deniedContent();
-//                    }
+                    $this->deniedContent('');
                 }
                 $this->gatekeeper();
             }
@@ -632,12 +625,12 @@
             /**
              * You can't see this.
              */
-            function deniedContent()
+            function deniedContent($title = '')
             {
                 $this->setResponse(403);
                 http_response_code($this->response);
                 $t = \Idno\Core\Idno::site()->template();
-                $t->__(array('body' => $t->draw('pages/403'), 'title' => 'Denied!'))->drawPage();
+                $t->__(array('body' => $t->draw('pages/403'), 'title' => $title))->drawPage();
                 exit;
             }
 
@@ -649,14 +642,7 @@
             function gatekeeper()
             {
                 if (!\Idno\Core\Idno::site()->session()->isLoggedIn()) {
-                    $this->deniedContent();
-
-//                    // Forwarding loses the response code, so is only helpful if this is not an API request
-//                    if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
-//                        $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']));
-//                    } else {
-//                        $this->deniedContent();
-//                    }
+                    $this->deniedContent('');
                 }
             }
 
@@ -668,14 +654,7 @@
             function reverseGatekeeper()
             {
                 if (\Idno\Core\Idno::site()->session()->isLoggedIn()) {
-                    $this->deniedContent();
-//                    $this->setResponse(403);
-//                    if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
-//                        $this->forward();
-//                    } else {
-//                        $this->deniedContent();
-//                    }
-
+                    $this->deniedContent('');
                 }
             }
 
@@ -693,14 +672,7 @@
                     }
                 }
                 if (!$ok) {
-                    $this->deniedContent();
-//                    $this->setResponse(403);
-//
-//                    if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
-//                        $this->forward();
-//                    } else {
-//                        $this->deniedContent();
-//                    }
+                    $this->deniedContent('');
                 }
             }
 
