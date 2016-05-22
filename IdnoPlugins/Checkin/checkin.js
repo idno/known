@@ -1,5 +1,4 @@
 var CheckinMap, CheckinMarker;
-$(function () {
 
     function initMap(latitude, longitude) {
         $('#geoplaceholder').hide();
@@ -46,9 +45,11 @@ $(function () {
         queryLocation(latitude, longitude, initMap.bind(this, latitude, longitude));
     }
 
-    function handleErrorFromNavigator() {
+    function handleErrorFromNavigator(err) {
+	$('#geoplaceholder').html('<p>Could not find your location: '+err.message +'</p>');
     }
 
+$(document).ready(function() {
     var latitude = $('#lat').val(),
         longitude = $('#long').val();
 
@@ -58,10 +59,10 @@ $(function () {
         if (navigator.geolocation) {
             // If so, get the current position and feed it to handlePositionFromNavigator
             // (or handleErrorFromNavigator if there was a problem)
-            navigator.geolocation.getCurrentPosition(handlePositionFromNavigator, handleErrorFromNavigator, {enableHighAccuracy: true});
+            navigator.geolocation.getCurrentPosition(handlePositionFromNavigator, handleErrorFromNavigator, {enableHighAccuracy: true, timeout:10000});
         } else {
             // If the browser isn't geo-capable, tell the user.
             $('#geoplaceholder').html('<p>Oh no! It looks like your browser does not support geolocation.</p>');
         }
     }
-});
+    });
