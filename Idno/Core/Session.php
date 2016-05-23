@@ -9,7 +9,6 @@
 
     namespace Idno\Core {
 
-        use Idno\Common\Entity;
         use Idno\Entities\User;
 
         class Session extends \Idno\Common\Component
@@ -75,7 +74,8 @@
                     $object    = $eventdata['object'];
 
                     if (empty($object) || empty($this->user) ||
-                        !($object instanceof User) || !($this->user instanceof User)) return;
+                        !($object instanceof User) || !($this->user instanceof User)
+                    ) return;
 
                     if ($object->getUUID() != $this->user->getUUID()) return;
                     if ($object->getUUID() != $_SESSION['user_uuid']) return;
@@ -191,7 +191,43 @@
                 if (empty($_SESSION['messages'])) {
                     $_SESSION['messages'] = array();
                 }
-                $_SESSION['messages'][] = array('message' => $message, 'message_type' => $message_type);
+                $_SESSION['messages'][] = $this->getStructuredMessage($message, $message_type);
+            }
+
+            /**
+             * Draw a message
+             * @param $message
+             * @param string $message_type
+             * @return string
+             */
+            function drawMessage($message, $message_type = 'alert-info')
+            {
+                return Idno::site()->template()
+                    ->__(['message' => $this->getStructuredMessage($message, $message_type)])
+                    ->draw('shell/messages/message');
+            }
+
+            /**
+             * Draw a message from a message structure
+             * @param array $message
+             * @return string
+             */
+            function drawStructuredMessage($message)
+            {
+                return Idno::site()->template()
+                    ->__(['message' => $message])
+                    ->draw('shell/messages/message');
+            }
+
+            /**
+             * Turns a string message into a message structure
+             * @param $message
+             * @param string $message_type
+             * @return array
+             */
+            function getStructuredMessage($message, $message_type = 'alert-info')
+            {
+                return ['message' => $message, 'message_type' => $message_type];
             }
 
             /**

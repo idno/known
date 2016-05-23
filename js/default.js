@@ -9,6 +9,12 @@
  */
 
 /**
+ * Globals
+ */
+
+var isCreateFormVisible = false;
+
+/**
  *** Content creation
  */
 
@@ -20,8 +26,6 @@ function bindControls() {
     $('.syndication-toggle input[type=checkbox]').bootstrapToggle();
     $('.ignore-this').hide();
 }
-
-var isCreateFormVisible = false;
 
 function contentCreateForm(plugin, editUrl) {
     if (isCreateFormVisible) {
@@ -74,7 +78,7 @@ function autoSave(context, elements, selectors) {
     var previousVal = {};
     setInterval(function () {
         var changed = {};
-        for (var i = 0 ; i < elements.length ; i++) {
+        for (var i = 0; i < elements.length; i++) {
             var element = elements[i];
             var selector = "#" + element;
             if (selectors && element in selectors) {
@@ -96,20 +100,29 @@ function autoSave(context, elements, selectors) {
                     "elements": changed,
                     "names": elements
                 },
-                function() {
+                function () {
                 }
             );
         }
     }, 10000);
 }
 
+/**
+ * Strip HTML from string
+ * @param html
+ * @returns {string}
+ */
 function knownStripHTML(html) {
     var tmp = document.createElement("DIV");
     tmp.innerHTML = html;
     return tmp.textContent || tmp.innerText || "";
 }
 
-function inIframe () {
+/**
+ * Are we in an iFrame?
+ * @returns {boolean}
+ */
+function inIframe() {
     try {
         return window.self !== window.top;
     } catch (e) {
@@ -117,22 +130,16 @@ function inIframe () {
     }
 }
 
+/**
+ * Decode HTML elements
+ * @param encodedString
+ * @returns {string}
+ */
 function htmlEntityDecode(encodedString) {
     var textArea = document.createElement('textarea');
     textArea.innerHTML = encodedString;
     return textArea.value;
 }
-
-/**
- * "Soft" forward a link on a page.
- */
-$(document).ready(function(){
-   var url = $('#soft-forward').attr('href');
-
-   if (!!url) {
-       window.location = url;
-   }
-});
 
 /*
  * Shim so that JS functions can get the current site URL
@@ -141,6 +148,7 @@ $(document).ready(function(){
 function wwwroot() {
     return known.config.displayUrl;
 }
+
 /**
  * Shim so JS functions can tell if this is a logged in session or not.
  * @deprecated Use known.session.loggedin
@@ -148,20 +156,23 @@ function wwwroot() {
  */
 function isLoggedIn() {
     if (typeof known !== 'undefined')
-    if (known.session.loggedIn) {
-        return true;
-    }
+        if (known.session.loggedIn) {
+            return true;
+        }
     return false;
 }
 
+/**
+ * Poll for new notifications
+ */
 function doPoll() {
-    $.get(wwwroot() + '/account/new-notifications')
+    $.get(known.config.displayUrl + '/account/new-notifications')
         .done(function (data) {
             console.log("Polling for new notifications succeeded");
             console.log(data);
             if (data.notifications.length > 0) {
                 var title = data.notifications[0].title;
-                var body  = data.notifications[0].body;
+                var body = data.notifications[0].body;
                 new Notification(title, {body: body});
             }
         })
@@ -170,9 +181,8 @@ function doPoll() {
         });
 }
 
-$(function() {
-
-    if (!isLoggedIn()) {
+function enableNotifications(opt_dontAsk) {
+    if (!known.session.loggedIn) {
         return;
     }
 
@@ -181,29 +191,29 @@ $(function() {
         return;
     }
 
-    if (Notification.permission === 'granted') {
-        setInterval(doPoll, 10000);
-    }
-
-});
-
-function enableNotifications() {
-
-    if (!isLoggedIn()) {
-        return;
-    }
-
-    if (!("Notification" in window)) {
-        console.log("The Notification API is not supported by this browser");
-        return;
-    }
-
-    if (Notification.permission !== 'denied' && Notification.permission !== 'granted') {
+    if (Notification.permission !== 'denied' && Notification.permission !== 'granted' && !opt_dontAsk) {
         Notification.requestPermission(function (permission) {
             // If the user accepts, let's create a notification
             if (permission === "granted") {
                 setInterval(doPoll, 10000);
             }
         });
+    } else if (Notification.permission === 'granted') {
+        setInterval(doPoll, 10000);
     }
 }
+
+/**
+ * Actions to perform on page load
+ */
+$(document).ready(function () {
+    var url = $('#soft-forward').attr('href');
+
+    if (!!url) {
+        window.location = url;
+    }
+
+    if (known.session.loggedIn) {
+        enableNotifications(true);
+    }
+});
