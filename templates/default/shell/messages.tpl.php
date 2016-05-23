@@ -3,7 +3,7 @@
 
         if (!empty($vars['messages'])) {
             foreach ($vars['messages'] as $message) {
-                echo \Idno\Core\Idno::site()->session()->drawMessage($message);
+                echo \Idno\Core\Idno::site()->session()->drawStructuredMessage($message);
             }
         }
 
