@@ -31,14 +31,16 @@
 
     <?= $template->draw('shell/nav'); ?>
 
-    <div class="container page-body">
-        <?= $template->draw('shell/messages') ?>
-        <a name="pagecontent"></a>
-        <?php 
-            echo $template->draw('shell/beforecontent');
-            if (!empty($vars['body'])) echo $vars['body'];
-            echo $template->draw('shell/aftercontent');
-        ?>
+    <div class="page-container">
+        <div class="container page-body">
+            <?= $template->draw('shell/messages') ?>
+            <a name="pagecontent"></a>
+            <?php
+                echo $template->draw('shell/beforecontent');
+                if (!empty($vars['body'])) echo $vars['body'];
+                echo $template->draw('shell/aftercontent');
+            ?>
+        </div>
     </div>
 
     <?= $template->draw('shell/aftercontainer') ?>
