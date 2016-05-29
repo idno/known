@@ -424,6 +424,9 @@
                             // Find and replace twitter
                             if (strpos($in_reply_to, 'twitter.com') !== false) {
                                 return '<a href="https://twitter.com/' . urlencode(ltrim($matches[1], '@')) . '" >' . $url . '</a>';
+                            // Activate github
+                            } else if (strpos($in_reply_to, 'github.com') !== false) {
+                                return '<a href="https://github.com/' . urlencode(ltrim($matches[1], '@')) . '" >' . $url . '</a>';
                             } else {
                                 return $url;
                             }
