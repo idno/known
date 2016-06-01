@@ -418,7 +418,7 @@
                         if (is_array($in_reply_to))
                             $in_reply_to = $in_reply_to[0];
 
-                        $r = preg_replace_callback('/(?<=^|[\>\s\n])(\@[\w0-9\_]+)/i', function ($matches) use ($in_reply_to) {
+                        $r = preg_replace_callback('/(?<=^|[\>\s\n\.])(\@[\w0-9\_]+)/i', function ($matches) use ($in_reply_to) {
                             $url = $matches[1];
 
                             // Find and replace twitter
