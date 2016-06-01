@@ -12,6 +12,10 @@
 
     namespace Idno\Data {
 
+        /**
+         * Mongo DB support.
+         * @deprecated MongoDB support is being phased out, please use MySQL.
+         */
         class Mongo extends \Idno\Core\DataConcierge
         {
 

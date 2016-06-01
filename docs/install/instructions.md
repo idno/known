@@ -21,7 +21,7 @@ You can place the platform on your web host by:
 
 ### Use the automatic installer
 
-If you’re using a MySQL back-end, you can get started by pointing your browser at your Known site address. If you want to use MongoDB, you’ll need to create the configuration file manually, as described below.
+If you’re using a MySQL back-end, you can get started by pointing your browser at your Known site address. If you want to use MongoDB (or another database backend), you’ll need to create the configuration file manually, as described below.
 
 ### Use environment variables
 
@@ -84,6 +84,8 @@ Of course, replace the path with the path to your data folder.
 If you're using MySQL or SQLite, you must specify an upload directory if you want to store files, images or profile pictures.
 
 ### If you’re using MongoDB
+
+** MongoDB support is deprecated, we recommend using one of the other DB Backends (MySQL is recommended) **
 
 If your MongoDB installation accepts connections from localhost, and you’re happy for your Known MongoDB database to be called Known, you can simply create a file called ```config.ini``` in the root of your installation containing:
 
