@@ -832,15 +832,6 @@
                 $this->access = $access;
 
                 return true;
-                /*if (
-                    $access instanceof \Idno\Entities\AccessGroup ||
-                    ($access = \Idno\Core\Idno::site()->db()->getObject($access) && $access instanceof \Idno\Entities\AccessGroup)
-                ) {
-                    $this->access = $access->getUUID();
-
-                    return true;
-                }*/
-                //return false;
             }
 
             /**
@@ -849,7 +840,6 @@
              */
             function getPrettyURLTitle()
             {
-                //$clean = iconv('UTF-8', 'ASCII//TRANSLIT', $this->getTitle());
                 $clean = preg_replace("/[^a-zA-Z0-9\/_| -]/u", '', $this->getTitle());
                 $clean = strtolower(trim($clean, '_'));
                 $clean = preg_replace("/[\/_| -]+/u", '-', $clean);
