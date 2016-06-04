@@ -848,6 +848,15 @@
             }
 
             /**
+             * Get the name of this entity type
+             * @return string
+             */
+            function getEntityTypeName()
+            {
+                return substr(get_class($this), strrpos(get_class($this), '\\') + 1);
+            }
+
+            /**
              * Return an array of hashtags (if any) present in this entity's description.
              * @return array
              */
