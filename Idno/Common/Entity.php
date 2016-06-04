@@ -218,6 +218,7 @@
             {
                 $result = \Idno\Core\Idno::site()->db()->getObjects($class, $search, $fields, $limit, $offset, static::$retrieve_collection, $readGroups);
                 if (is_array($result)) $result = array_filter($result);
+
                 return $result;
             }
 
@@ -418,8 +419,10 @@
                 if ($this->save()) {
                     $this->syndicate();
                     \Idno\Core\Idno::site()->triggerEvent('published', ['object' => $this]);
+
                     return true;
                 }
+
                 return false;
             }
 
@@ -596,9 +599,9 @@
                 $slug = implode('-', array_slice(explode(' ', $slug), 0, $max_pieces));
 
                 // trim the source string until the encoded string is <= max_chars
-                for ($chars = $max_chars ; $chars >= 0 ; $chars--) {
+                for ($chars = $max_chars; $chars >= 0; $chars--) {
                     $truncated = mb_substr($slug, 0, $chars, 'UTF-8');
-                    $encoded = rawurlencode(mb_substr($slug, 0, $chars, 'UTF-8'));
+                    $encoded   = rawurlencode(mb_substr($slug, 0, $chars, 'UTF-8'));
                     if (strlen($encoded) <= $max_chars) {
                         $slug = $encoded;
                         break;
@@ -614,6 +617,7 @@
                 if (is_callable('mb_convert_encoding')) {
                     $slug = mb_convert_encoding($slug, 'UTF-8', 'UTF-8');
                 }
+
                 return $slug;
             }
 
@@ -699,8 +703,8 @@
                             $file->delete();
                         }
                     }
-		    
-		    $this->attachments = [];
+
+                    $this->attachments = [];
                 }
             }
 
@@ -1027,7 +1031,7 @@
              * @param array $other_properties (optional) additional properties to store with the link
              * @return bool
              */
-            function setPosseLink($service, $url, $identifier = '', $item_id = '', $account_id = '', $other_properties=array())
+            function setPosseLink($service, $url, $identifier = '', $item_id = '', $account_id = '', $other_properties = array())
             {
                 if (!empty($service) && !empty($url)) {
                     $posse = $this->posse;
@@ -1416,7 +1420,7 @@
              */
             public function jsonSerialize()
             {
-                $object = array(
+                $object           = array(
                     'id'          => $this->getUUID(),
                     'content'     => strip_tags($this->getDescription()),
                     'formattedContent'
@@ -1426,6 +1430,20 @@
                     'published'   => date(\DateTime::RFC3339, $this->created),
                     'url'         => $this->getURL()
                 );
+                $extra_properties = [
+                    'lat'       => 'latitude',
+                    'long'      => 'longitude',
+                    'placename' => 'placeName',
+                    'address'   => 'address',
+                    'tags'      => 'tags',
+                    'username'  => 'username'
+                ];
+
+                foreach ($extra_properties as $property => $parameter_name) {
+                    if (!empty($this->$property)) {
+                        $object[$parameter_name] = $this->$property;
+                    }
+                }
 
                 if (isset($this->posse)) {
                     $object['syndication'] = $this->posse;
@@ -1625,6 +1643,7 @@
                 if ($source_response['response'] == 410) {
                     $this->removeAnnotation($source);
                     $this->save();
+
                     return true;
                 }
                 $return = false;
@@ -1636,7 +1655,7 @@
                     $mentions = array('owner' => array(), 'mentions' => array()); // Content owner and usable webmention items
 
                     // Get the page title from the source content
-                    $title   = Webmention::getTitleFromContent($source_response['content'], $source);
+                    $title = Webmention::getTitleFromContent($source_response['content'], $source);
 
                     // primary h-entry on the page
                     $primary = Webmention::findRepresentativeHEntry($source_mf2, $source, ['h-entry']);
@@ -1708,6 +1727,7 @@
                                 if (array_key_exists($annotation_url, $array)) {
                                     unset($annotations[$subtype][$annotation_url]);
                                     $this->annotations = $annotations;
+
                                     return true;
                                 }
                                 // try to remove the annotation by its source permalink
@@ -1715,6 +1735,7 @@
                                     if (isset($properties['permalink']) && $properties['permalink'] === $annotation_url) {
                                         unset($annotations[$subtype][$local_url]);
                                         $this->annotations = $annotations;
+
                                         return true;
                                     }
                                 }
@@ -1850,6 +1871,7 @@
 
                     unlink($tmpfname);
                 }
+
                 return $owner;
             }
 
@@ -2016,10 +2038,11 @@
                 }
                 if (!$owner_url) return false;
                 if ($annotations = $this->getAnnotations($subtype)) {
-                    foreach($annotations as $annotation) {
+                    foreach ($annotations as $annotation) {
                         if ($annotation['owner_url'] == $owner_url) return true;
                     }
                 }
+
                 return false;
             }
 
