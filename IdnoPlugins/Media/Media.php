@@ -71,8 +71,9 @@
                     // This is awful, but unfortunately, browsers can't be trusted to send the right mimetype.
                     $ext = pathinfo($_FILES['media']['name'], PATHINFO_EXTENSION);
                     if (!empty($ext)) {
+                        $ext = strtolower($ext);
                         if (in_array($ext,
-                            array(
+                            [
                                 'mp4',
                                 'mov',
                                 'webm',
@@ -81,9 +82,8 @@
                                 'mp3',
                                 'm4a',
                                 'wav',
-                                'vorbis',
-                                'quicktime'
-                            )
+                                'vorbis'
+                            ]
                         )
                         ) {
                             $media_file = $_FILES['media'];
