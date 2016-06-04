@@ -81,7 +81,8 @@
                                 'mp3',
                                 'm4a',
                                 'wav',
-                                'vorbis'
+                                'vorbis',
+                                'quicktime'
                             )
                         )
                         ) {
