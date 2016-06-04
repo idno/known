@@ -618,13 +618,6 @@
             {
                 if (!\Idno\Core\Idno::site()->canWrite()) {
                     $this->deniedContent();
-//                    $this->setResponse(403);
-//
-//                    if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
-//                        $this->forward();
-//                    } else {
-//                        $this->deniedContent();
-//                    }
                 }
                 $this->gatekeeper();
             }
@@ -632,12 +625,12 @@
             /**
              * You can't see this.
              */
-            function deniedContent()
+            function deniedContent($title = '')
             {
                 $this->setResponse(403);
                 http_response_code($this->response);
                 $t = \Idno\Core\Idno::site()->template();
-                $t->__(array('body' => $t->draw('pages/403'), 'title' => 'Denied!'))->drawPage();
+                $t->__(array('body' => $t->draw('pages/403'), 'title' => $title))->drawPage();
                 exit;
             }
 
