@@ -11,7 +11,7 @@
     if ($currentPage->isPermalink()) {
         /* @var \Idno\Common\Entity $object */
         if ($vars['object'] instanceof \Idno\Common\Entity) {
-
+            $object = $vars['object'];
             if ($creator = $object->getOwner()) {
                 ?>
                 <meta name="DC.creator" content="<?= htmlentities($creator->getTitle()) ?>"><?php
