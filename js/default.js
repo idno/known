@@ -170,6 +170,7 @@ function doPoll() {
         .done(function (data) {
             console.log("Polling for new notifications succeeded");
             console.log(data);
+            if (data.notifications)
             if (data.notifications.length > 0) {
                 var title = data.notifications[0].title;
                 var body = data.notifications[0].body;

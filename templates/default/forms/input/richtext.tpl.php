@@ -20,6 +20,11 @@
     } else {
         $placeholder = 'Tell your story';
     }
+    if (!empty($vars['value'])) {
+        $value = $this->autop($vars['value']);
+    } else {
+        $value = '';
+    }
 
 ?>
 <p style="float: right">
@@ -39,7 +44,7 @@
 ?>
     <br class="clearall">
     <textarea name="<?=$vars['name']?>"  placeholder="<?=htmlspecialchars($placeholder);?>" style="height:<?=$height?>px"
-          class="bodyInput mentionable wysiwyg form-control <?=$class?>" id="<?=$unique_id?>"><?= (htmlspecialchars($this->autop($vars['value']))) ?></textarea>
+          class="bodyInput mentionable wysiwyg form-control <?=$class?>" id="<?=$unique_id?>"><?= (htmlspecialchars($value)) ?></textarea>
 
 <?php
 
