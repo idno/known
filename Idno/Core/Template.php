@@ -76,6 +76,14 @@
                     $result .= $this->rendered_extensions[$templateName];
                 }
 
+                if ($templateName == 'shell' && !empty(Idno::site()->config()->filter_shell)) {
+                    if (is_array(Idno::site()->config()->filter_shell)) {
+                        foreach(Idno::site()->config()->filter_shell as $search => $replace) {
+                            $result = str_replace($search, $replace, $result);
+                        }
+                    }
+                }
+
                 if (!empty($result)) return $result;
                 if ($returnBlank) return '';
 

@@ -230,6 +230,7 @@
                 unset($array['known_hubs']);
                 unset($array['directloadplugins']);
                 unset($array['bypass_fulltext_search']);
+                unset($array['filter_shell']);
 
                 if (\Idno\Core\Idno::site()->db()->saveRecord('config', $array)) {
                     $this->init();
