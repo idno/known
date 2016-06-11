@@ -534,9 +534,7 @@
 
             function getPageHandler($path_info)
             {
-                if (substr_count($path_info, \Idno\Core\Idno::site()->config()->url)) {
-                    $path_info = '/' . str_replace(\Idno\Core\Idno::site()->config()->url, '', $path_info);
-                }
+                $path_info = parse_url($path_info, PHP_URL_PATH);
                 if ($q = strpos($path_info, '?')) {
                     $path_info = substr($path_info, 0, $q);
                 }
