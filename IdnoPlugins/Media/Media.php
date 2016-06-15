@@ -29,6 +29,15 @@
             }
 
             /**
+             * Extend delete to remove attached media
+             */
+            function delete()
+            {
+                $this->deleteAttachments();
+                return parent::delete();
+            }
+
+            /**
              * Saves changes to this object based on user input
              * @return bool
              */
