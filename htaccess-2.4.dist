@@ -1,0 +1,78 @@
+# Known .htaccess file
+
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    #RewriteBase /
+
+    RewriteCond %{ENV:BASE} ^$
+    RewriteCond $1::%{REQUEST_URI} ^(.*)::(.*?)\1$
+    RewriteRule ^(.*)$ - [ENV=BASE:%2]
+
+    RewriteRule ^js/canary\.js$ %{ENV:BASE}/js/default.js [L]
+
+    # The query string cache trick doesn't really work, so use rewrite rules instead
+    RewriteRule ^js/[0-9]+/(.*)$ %{ENV:BASE}/js/$1 [L]    
+    RewriteRule ^css/[0-9]+/(.*)$ %{ENV:BASE}/css/$1 [L]    
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ %{ENV:BASE}/index.php?/$1 [L,QSA]
+    RewriteRule ^Uploads.* - [F]
+</IfModule>
+<IfModule mod_php5.c>
+    php_value upload_max_filesize 1000M
+    php_value post_max_size 1080M
+</IfModule>
+<Files  ~ "\.dist$">
+  Require all denied
+</Files>
+<Files ~ "known\.php">
+  Require all denied
+</Files>
+<Files  ~ "\.known">
+  Require all denied
+</Files>
+<Files  ~ "\.ini$">
+  Require all denied
+</Files>
+<Files ~ "\.yml$">
+  Require all denied
+</Files>
+<Files ~ "\.xml$">
+  Require all denied
+</Files>
+<Files ~ "sitemap\.xml">
+  Require all granted
+</Files>
+<Files ~ "feed\.xml">
+  Require all granted
+</Files>
+<Files ~ "rss\.xml">
+  Require all granted
+</Files>
+#<Files ~ "\.php$">
+#  Require all denied
+#</Files>
+<Files ~ "warmup\/*\.*">
+  Require all granted
+</Files>
+<Files ~ "index\.php">
+  Require all granted
+</Files>
+
+<IfModule mod_headers.c>
+# cache images and flash content for one day
+<FilesMatch ".(flv|gif|jpg|jpeg|png|ico|swf)$">
+Header set Cache-Control "max-age=86400"
+</FilesMatch>
+
+# cache text, css, and javascript files for one day
+<FilesMatch ".(js|css|pdf|txt)$">
+Header set Cache-Control "max-age=86400"
+</FilesMatch>
+</IfModule>
+
+
+AddType video/ogg .ogv
+AddType video/mp4 .mp4
+AddType video/webm .webm
