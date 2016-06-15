@@ -61,15 +61,7 @@
                 return $object;
             }
 
-            /**
-             * Extend delete to remove attached images
-             */
-            function delete()
-            {
-                $this->deleteAttachments();
-                return parent::delete();
-            }
-
+           
             /**
              * Saves changes to this object based on user input
              * @return bool
