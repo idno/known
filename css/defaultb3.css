@@ -393,6 +393,16 @@ p.user-tbl {
 .form-control.mentionable {
 	margin-bottom: 1em;
 }
+.edit-page-actions {
+	text-align: right;
+}
+.page-action {
+	padding-left: 2em;
+}
+.page-action [class^="fa fa-"], .page-action [class*=" fa fa-"] {
+    width: 1.5em;
+    text-align: left;
+}
 
 
 
