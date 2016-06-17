@@ -5,9 +5,9 @@
             if ($vars['object']->canEdit()) {
 
         ?>
-       <div class="row">
-        <div class="col-md-12" style="text-align: right;">
-        <span>
+       <div class="row edit-page-actions">
+        <div class="col-md-12">
+        <span class="page-action">
             <i class="fa fa-cog"></i> <a href="<?=\Idno\Core\Idno::site()->config()->getURL()?>admin/staticpages/">Manage pages</a>
         </span>
 	    <?php
@@ -16,8 +16,8 @@
 
 ?>
 
-        <span style="padding-left: 25px;"><i class="fa fa-pencil"></i> <a href="<?=$vars['object']->getEditURL()?>" class="edit">Edit</a></span>
-        <span style="padding-left: 25px;"><i class="fa fa-trash-o"></i>
+        <span class="page-action"><i class="fa fa-pencil"></i> <a href="<?=$vars['object']->getEditURL()?>" class="edit">Edit</a></span>
+        <span class="page-action"><i class="fa fa-trash-o"></i>
         <?=  \Idno\Core\Idno::site()->actions()->createLink($vars['object']->getDeleteURL(), 'Delete', array(), array('method' => 'POST', 'class' => 'edit', 'confirm' => true, 'confirm-text' => 'Are you sure you want to permanently delete this entry?'));?></span>
 
 <?php
