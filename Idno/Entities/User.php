@@ -367,6 +367,30 @@
             }
 
             /**
+             * Can a specified user (either an explicitly specified user ID
+             * or the currently logged-in user if this is left blank) edit
+             * this user?
+             *
+             * @param string $user_id
+             * @return true|false
+             */
+
+            function canEdit($user_id = '')
+            {
+
+                if (!parent::canEdit($user_id)) return false;
+
+                if (empty($user_id)) {
+                    $user_id = \Idno\Core\Idno::site()->session()->currentUserUUID();
+                }
+
+                if ($user_id == $this->getUUID()) return true;
+
+                return \Idno\Core\Idno::site()->triggerEvent('canEdit/user', ['object' => $this, 'user_id' => $user_id], false);
+
+            }
+
+            /**
              * Retrieve the URL required to edit this user
              * @return string
              */
