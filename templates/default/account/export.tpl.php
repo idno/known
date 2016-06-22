@@ -21,15 +21,15 @@
             </p>
 
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <p><label class="control-label" for="allposts"><strong>Include private posts?</strong></label></p>
                 </div>
-                <div class="config-toggle col-md-4">
+                <div class="config-toggle col-md-2">
                     <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
                            name="allposts" id="allposts"
                            value="0">
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <p class="config-desc">Platforms like WordPress may assume that all your posts should be displayed publicly.
                         In order to protect your privacy, you may wish to just download your public posts.</p>
                 </div>
