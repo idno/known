@@ -1220,7 +1220,7 @@ select, input[type="file"] {
 }
 
 .config-desc {
-	padding-top: 12px;
+	padding-top: 6px;
 	font-size: small;
 	color: #888888;
 }
