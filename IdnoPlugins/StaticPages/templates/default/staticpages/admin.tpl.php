@@ -34,7 +34,7 @@
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
         <p class="pages">
-            <a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>staticpages/edit/?category=<?= urlencode($category) ?>"
+            <a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>staticpages/edit/"
                class="btn btn-primary btn-add">Add new page</a>
         </p>
     </div>
