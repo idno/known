@@ -62,15 +62,20 @@
                         $result .= parent::draw($template, $returnBlank);
                     }
                 }
-                if (!empty($this->replacements[$templateName]) && $replacements == true) {
-                    $result .= parent::draw($this->replacements[$templateName], $returnBlank);
-                } else {
-                    $result .= parent::draw($templateName, $returnBlank);
-                }
-                if (!empty($this->extensions[$templateName])) {
-                    foreach ($this->extensions[$templateName] as $template) {
-                        $result .= parent::draw($template, $returnBlank);
+                $replaced = false;
+                foreach(['*', $this->getTemplateType()] as $templateType) {
+                    if (!empty($this->replacements[$templateName][$templateType]) && $replacements == true) {
+                        $result .= parent::draw($this->replacements[$templateName][$templateType], $returnBlank);
+                        $replaced = true;
                     }
+                    if (!empty($this->extensions[$templateName][$templateType])) {
+                        foreach ($this->extensions[$templateName][$templateType] as $template) {
+                            $result .= parent::draw($template, $returnBlank);
+                        }
+                    }
+                }
+                if (!$replaced) {
+                    $result .= parent::draw($templateName, $returnBlank);
                 }
                 if (!empty($this->rendered_extensions[$templateName])) {
                     $result .= $this->rendered_extensions[$templateName];
@@ -151,15 +156,15 @@
              * @param string $extensionTemplateName
              * @param bool $to_front If set, this will add the template to the beginning of the template queue
              */
-            function extendTemplate($templateName, $extensionTemplateName, $to_front = false)
+            function extendTemplate($templateName, $extensionTemplateName, $to_front = false, $templateType = '*')
             {
-                if (empty($this->extensions[$templateName])) {
-                    $this->extensions[$templateName] = array();
+                if (empty($this->extensions[$templateName][$templateType])) {
+                    $this->extensions[$templateName][$templateType] = array();
                 }
                 if ($to_front) {
-                    array_unshift($this->extensions[$templateName], $extensionTemplateName);
+                    array_unshift($this->extensions[$templateName][$templateType], $extensionTemplateName);
                 } else {
-                    $this->extensions[$templateName][] = $extensionTemplateName;
+                    $this->extensions[$templateName][$templateType][] = $extensionTemplateName;
                 }
             }
 
@@ -196,12 +201,12 @@
              * @param string $templateName
              * @param string $extensionTemplateName
              */
-            function replaceTemplate($templateName, $replacementTemplateName)
+            function replaceTemplate($templateName, $replacementTemplateName, $templateType = '*')
             {
-                if (empty($this->replacements[$templateName])) {
-                    $this->replacements[$templateName] = array();
+                if (empty($this->replacements[$templateName][$templateType])) {
+                    $this->replacements[$templateName][$templateType] = array();
                 }
-                $this->replacements[$templateName] = $replacementTemplateName;
+                $this->replacements[$templateName][$templateType] = $replacementTemplateName;
             }
 
             /**
