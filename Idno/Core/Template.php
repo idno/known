@@ -195,7 +195,6 @@
              *
              * @param string $templateName
              * @param string $extensionTemplateName
-             * @param bool $to_front If set, this will add the template to the beginning of the template queue
              */
             function replaceTemplate($templateName, $replacementTemplateName)
             {
