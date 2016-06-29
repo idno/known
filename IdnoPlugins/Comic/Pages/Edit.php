@@ -20,9 +20,11 @@
                 }
 
                 $t = \Idno\Core\Idno::site()->template();
-                $body = $t->__(array(
+                $edit_body = $t->__(array(
                     'object' => $object
                 ))->draw('entity/Comic/edit');
+
+                $body = $t->__(['body' => $edit_body])->draw('entity/editwrapper');
 
                 if (empty($object)) {
                     $title = 'Post a comic';

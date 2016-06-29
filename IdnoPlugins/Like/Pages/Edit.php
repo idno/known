@@ -23,10 +23,12 @@
                 }
 
                 $t = \Idno\Core\Idno::site()->template();
-                $body = $t->__(array(
+                $edit_body = $t->__(array(
                     'object' => $object,
                     'url' => $this->getInput('url')
                 ))->draw('entity/Like/edit');
+
+                $body = $t->__(['body' => $edit_body])->draw('entity/editwrapper');
 
                 if (!empty($this->xhr)) {
                     echo $body;

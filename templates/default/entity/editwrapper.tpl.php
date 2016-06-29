@@ -1,3 +1,7 @@
 <?php
 
-    echo $vars['object']->drawEdit();
+    if (!empty($vars['body'])) {
+        echo $vars['body'];
+    } else {
+        echo $vars['object']->drawEdit();
+    }

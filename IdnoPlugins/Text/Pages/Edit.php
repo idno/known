@@ -28,9 +28,11 @@
                 }
 
                 $t = \Idno\Core\Idno::site()->template();
-                $body = $t->__(array(
+                $edit_body = $t->__(array(
                     'object' => $object
                 ))->draw('entity/Entry/edit');
+
+                $body = $t->__(['body' => $edit_body])->draw('entity/editwrapper');
 
                 if (empty($object->_id)) {
                     $title = 'Write an entry';
