@@ -32,9 +32,10 @@
                 $t->__(array(
 
                     'title' => $object->getTitle(),
-                    'body'  => $object->drawEdit()
+                    'body'        => $t->__(['object' => $object])->draw('entity/editwrapper'),
 
                 ))->drawPage();
+
             }
 
         }
