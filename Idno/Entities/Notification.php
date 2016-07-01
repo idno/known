@@ -7,6 +7,7 @@
     namespace Idno\Entities {
 
         use Idno\Common\Entity;
+        use Idno\Core\Idno;
 
         class Notification extends \Idno\Common\Entity
         {
@@ -38,6 +39,7 @@
             function setMessage($message)
             {
                 $this->message = $message;
+                $this->setTitle($message);
             }
 
             function getMessage()
@@ -131,6 +133,10 @@
                 }
             }
 
+            /**
+             * Retrieve the indirect object of the action
+             * @return bool|Entity
+             */
             function getTarget()
             {
                 if (is_string($this->target)) {
@@ -140,9 +146,29 @@
                 return $this->target;
             }
 
+            /**
+             * Has this notification been read?
+             * @return bool
+             */
             function isRead()
             {
                 return $this->read;
+            }
+
+            /**
+             * Mark this notification as read
+             */
+            function markRead()
+            {
+                $this->read = true;
+            }
+
+            /**
+             * Mark this notification as unread
+             */
+            function markUnread()
+            {
+                $this->read = false;
             }
 
             function getURL()
@@ -177,14 +203,21 @@
                 }
             }
 
-            function markRead()
+            /**
+             * Count the number of unread notifications for the specified user
+             *
+             * @param bool $user Optionally, a user to check for; otherwise checks current user
+             * @return int
+             */
+            static function countUnread($user = false)
             {
-                $this->read = true;
-            }
+                if (!$user) $user = Idno::site()->session()->currentUser();
+                if (!($user instanceof User)) return 0;
 
-            function markUnread()
-            {
-                $this->read = false;
+                return self::countFromX('Idno\Entities\Notification', [
+                    'owner' => $user->getUUID(),
+                    'read' => false
+                ]);
             }
 
         }
