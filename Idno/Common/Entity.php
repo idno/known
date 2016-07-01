@@ -1992,7 +1992,6 @@
                             }
 
                             if (
-                                /* $annotation['owner_url'] != $this->getOwner()->getURL() && */
                                 $send == true && $post_existed == false
                             ) {
                                 if (empty($subject)) {
@@ -2009,6 +2008,7 @@
                                         $notif->setVerb($context);
                                         $notif->setObject($annotation);
                                         $notif->setTarget($this);
+                                        $notif->read = false;
                                         $notif->save();
                                         $recipient->notify($notif);
                                     }

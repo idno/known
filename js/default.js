@@ -215,6 +215,7 @@ $(document).ready(function () {
     }
 
     if (known.session.loggedIn) {
-        enableNotifications(true);
+        //TODO(ben) re-enable in a smarter way
+        //enableNotifications(true);
     }
 });
