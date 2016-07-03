@@ -113,7 +113,7 @@
                 return false;
             }
 
-            function exception(\Exception $e)
+            function exception($e)
             {
                 $this->setResponse(500);
                 http_response_code($this->response);
