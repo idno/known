@@ -9,7 +9,7 @@
     <div class="row annotation-add">
         <div class="col-md-2 owner h-card visible-md visible-lg">
             <a href="<?= $user->getDisplayURL() ?>" class="u-url icon-container"><img class="u-photo"
-                                                                                src="<?= $user->getIcon() ?>"/></a>
+                                                                                      src="<?= $user->getIcon() ?>"/></a>
         </div>
         <div class="col-md-10 idno-comment-container">
             <form action="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>annotation/post" method="post">

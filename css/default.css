@@ -24,6 +24,9 @@ h1, h2, h3, h4, h5, h6 {
 img {
     max-width: 100%;
 }
+.clearall {
+    clear: both;
+}
 .navbar-nav {
     padding-top: 5px;
 }
@@ -315,6 +318,10 @@ img {
 .idno-annotation {
     font-size: 1.1em;
     margin-bottom: 1em;
+}
+
+.annotation-add {
+    margin-top: 1em;
 }
 
 .annotation-add-mini .icon-container,
