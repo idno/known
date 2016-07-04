@@ -6,6 +6,8 @@
 
     namespace Idno\Pages\Entity {
 
+        use Idno\Core\Idno;
+
         /**
          * Default class to serve the homepage
          */
@@ -37,7 +39,10 @@
                 if (!empty($this->arguments[0])) {
                     $object = \Idno\Common\Entity::getByID($this->arguments[0]);
                 }
-                if (empty($object)) $this->forward(); // TODO: 404
+                if (empty($object)) {
+                    Idno::site()->session()->addMessage("We couldn't find the post to delete.");
+                    $this->forward();
+                } // TODO: 404
                 if ($object->delete()) {
                     \Idno\Core\Idno::site()->session()->addMessage($object->getTitle() . ' was deleted.');
                 }
