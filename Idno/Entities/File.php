@@ -25,6 +25,15 @@
 
                 $thumbnail = false;
 
+                // Rotate image where appropriate
+                if (is_callable('exif_read_data')) {
+                    try {
+                        if ($exif = exif_read_data($file_path)) {
+                            if (!empty($exif['Orientation'])) $orientation = $exif['Orientation'];
+                        }
+                    } catch (\Exception $e) {}
+                }
+
                 if ($photo_information = getimagesize($file_path)) {
                     if ($photo_information[0] > $max_dimension || $photo_information[1] > $max_dimension) {
                         switch ($photo_information['mime']) {
@@ -43,6 +52,19 @@
                                 break;
                         }
                         if (!empty($image)) {
+                            if (isset($orientation)) {
+                                switch ($orientation) {
+                                    case 8:
+                                        $image = imagerotate($image, 90, 0);
+                                        break;
+                                    case 3:
+                                        $image = imagerotate($image, 180, 0);
+                                        break;
+                                    case 6:
+                                        $image = imagerotate($image, -90, 0);
+                                        break;
+                                }
+                            }
                             if ($photo_information[0] > $photo_information[1]) {
                                 $width  = $max_dimension;
                                 $height = round($photo_information[1] * ($max_dimension / $photo_information[0]));
