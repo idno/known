@@ -65,28 +65,30 @@
                                         break;
                                 }
                             }
-                            if ($photo_information[0] > $photo_information[1]) {
+                            $existing_width = imagesx($image);
+                            $existing_height = imagesy($image);
+                            if ($existing_width > $existing_height) {
                                 $width  = $max_dimension;
-                                $height = round($photo_information[1] * ($max_dimension / $photo_information[0]));
+                                $height = round($existing_height * ($max_dimension / $existing_width));
                             } else {
                                 $height = $max_dimension;
-                                $width  = round($photo_information[0] * ($max_dimension / $photo_information[1]));
+                                $width  = round($existing_width * ($max_dimension / $existing_height));
                             }
                             if ($square) {
                                 if ($width > $height) {
                                     $new_height      = $max_dimension;
                                     $new_width       = $max_dimension;
-                                    $original_height = $photo_information[1];
-                                    $original_width  = $photo_information[1];
-                                    $offset_x        = round(($photo_information[0] - $photo_information[1]) / 2);
+                                    $original_height = $existing_height;
+                                    $original_width  = $existing_height;
+                                    $offset_x        = round(($existing_width - $existing_height) / 2);
                                     $offset_y        = 0;
                                 } else {
                                     $new_height      = $max_dimension;
                                     $new_width       = $max_dimension;
-                                    $original_height = $photo_information[0];
-                                    $original_width  = $photo_information[0];
+                                    $original_height = $existing_width;
+                                    $original_width  = $existing_width;
                                     $offset_x        = 0;
-                                    $offset_y        = round(($photo_information[1] - $photo_information[0]) / 2);
+                                    $offset_y        = round(($existing_height - $existing_width) / 2);
                                 }
                             } else {
                                 $new_height      = $height;
