@@ -5,6 +5,7 @@
         $rel = '';
     }
     if (!empty($vars['object']->tags)) {
+        $tags = is_array($vars['object']->tags) ? implode(', ' . $vars['object']->tags) : $vars['object']->tags;
         $vars['object']->body .= '<p class="tag-row"><i class="icon-tag"></i>' . $vars['object']->tags . '</p>';
     }
 ?>
