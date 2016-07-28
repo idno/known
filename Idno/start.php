@@ -11,8 +11,10 @@
     register_shutdown_function(function () {
         $error = error_get_last();
         if ($error["type"] == E_ERROR) {
-
-            ob_clean();
+            
+            try {
+                ob_clean();
+            } catch (ErrorException $e) {}
 
             http_response_code(500);
 
