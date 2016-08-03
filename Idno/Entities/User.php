@@ -710,7 +710,7 @@
                 if ($groups = \Idno\Core\Idno::site()->db()->getRecords(array('uuid' => true),
                     array(
                         'entity_subtype'         => 'Idno\\Entities\\AccessGroup',
-                        'members.' . $permission => $this->getUUID()),
+                        $permission => $this->getUUID()),
                     PHP_INT_MAX,
                     0)
                 ) {
