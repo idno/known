@@ -1,10 +1,13 @@
 <?php
-
+ 
     $access = 'PUBLIC';
     if (!empty($vars['object'])) {
         if (!empty($vars['object']->access)) {
             $access = $vars['object']->access;
         }
+    } 
+    if (!empty($vars['default-access'])) {
+        $access = $vars['default-access'];
     }
 
     if (!empty(\Idno\Core\Idno::site()->config()->show_privacy) || $access != 'PUBLIC') {
