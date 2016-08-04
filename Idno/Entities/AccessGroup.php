@@ -121,9 +121,12 @@
              */
             function removeMember($user_id, $access = 'read')
             {
-                if (!empty($this->members) && is_array($this->members) && $key = array_search($user_id, $this->members)) {
-                    unset($this->$access[$key]);
-
+                $key = array_search($user_id, $this->$access);
+                
+                if (!empty($this->$access) && is_array($this->$access) && $key !== false) { 
+                    //unset($this->$access[$key]);
+                    array_splice($this->$access, $key, 1);
+                    
                     return true;
                 }
 
