@@ -217,8 +217,10 @@
              */
             public static function isImage($file_path)
             {
-                if ($photo_information = getimagesize($file_path)) {
-                    return true;
+                if (!empty($file_path)) {
+                    if ($photo_information = getimagesize($file_path)) {
+                        return true;
+                    }
                 }
 
                 return false;
