@@ -18,12 +18,10 @@
              */
             function __construct()
             {
-                $this->members = array(
-                    'read'  => array(\Idno\Core\Idno::site()->session()->currentUser()->getUUID()),
-                    'write' => array(\Idno\Core\Idno::site()->session()->currentUser()->getUUID()),
-                    'admin' => array(\Idno\Core\Idno::site()->session()->currentUser()->getUUID())
-                );
-
+                $this->read  = array(\Idno\Core\Idno::site()->session()->currentUser()->getUUID());
+                $this->write = array(\Idno\Core\Idno::site()->session()->currentUser()->getUUID());
+                $this->admin = array(\Idno\Core\Idno::site()->session()->currentUser()->getUUID());
+                
                 return parent::__construct();
             }
 
@@ -54,7 +52,7 @@
             function isMember($user_id = '', $access = 'read')
             {
                 if (empty($user_id)) $user_id = \Idno\Core\Idno::site()->session()->currentUser()->uuid;
-                if (!empty($this->members[$access]) && is_array($this->members[$access]) && array_search($user_id, $this->members[$access])) {
+                if (!empty($this->$access) && is_array($this->$access) && array_search($user_id, $this->$access)) {
                     return true;
                 }
 
@@ -87,7 +85,7 @@
             {
                 if ($this->canEdit()) {
                     if (($user = \Idno\Core\Idno::site()->db()->getObject($user_id)) && ($user instanceof User)) {
-                        $this->members[$access][] = $user_id;
+                        array_push($this->$access, $user_id);
 
                         return true;
                     }
@@ -121,7 +119,7 @@
             function removeMember($user_id, $access = 'read')
             {
                 if (!empty($this->members) && is_array($this->members) && $key = array_search($user_id, $this->members)) {
-                    unset($this->members[$access][$key]);
+                    unset($this->$access[$key]);
 
                     return true;
                 }
