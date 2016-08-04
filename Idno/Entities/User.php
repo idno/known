@@ -735,6 +735,59 @@
             }
 
             /**
+             * Does this user have the given permission.
+             * @param string $permission
+             */
+            function hasPermission($permission) {
+                $permissions = $this->permissions;
+                if (empty($permissions)) {
+                    $permissions = [];
+                }
+                
+                $key = array_search($permission, $permissions); 
+                
+                if (!empty($key))
+                    return true;
+                
+                return false;
+            }
+            
+            /**
+             * Grant access to a specific permission.
+             * @param string $permission
+             */
+            function grantPermission($permission) {
+                
+                $permissions = $this->permissions;
+                if (empty($permissions)) {
+                    $permissions = [];
+                }
+                
+                $permissions[$permissions];
+                
+                $this->permissions = array_unique($permissions);
+                
+                return $this->save();
+            }
+            
+            /**
+             * Revoke a given permission.
+             * @param type $permission
+             */
+            function revokePermission($permission) {
+                $permissions = $this->permissions;
+                if (empty($permissions)) {
+                    $permissions = [];
+                }
+                
+                if ($key = array_search($permission, $permissions)) {
+                    unset($permissions[$key]);
+                }
+                
+                return $this->save();
+            }
+            
+            /**
              * Users are activity streams objects of type "person".
              *
              * @return string
