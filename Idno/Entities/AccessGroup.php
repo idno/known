@@ -85,9 +85,12 @@
             {
                 if ($this->canEdit()) {
                     if (($user = \Idno\Core\Idno::site()->db()->getObject($user_id)) && ($user instanceof User)) {
-                        array_push($this->$access, $user_id);
-
+                        if (!$this->isMember($user_id, $access)) {
+                            array_push($this->$access, $user_id);
+                        }
+                         
                         return true;
+                        
                     }
                 }
 
