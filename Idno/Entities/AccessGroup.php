@@ -52,7 +52,7 @@
             function isMember($user_id = '', $access = 'read')
             {
                 if (empty($user_id)) $user_id = \Idno\Core\Idno::site()->session()->currentUser()->uuid;
-                if (!empty($this->$access) && is_array($this->$access) && array_search($user_id, $this->$access)) {
+                if (!empty($this->$access) && is_array($this->$access) && (array_search($user_id, $this->$access)!==false)) {
                     return true;
                 }
 
