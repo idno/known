@@ -52,7 +52,7 @@
             function isMember($user_id = '', $access = 'read')
             {
                 if (empty($user_id)) $user_id = \Idno\Core\Idno::site()->session()->currentUser()->uuid;
-                if (!empty($this->$access) && is_array($this->$access) && array_search($user_id, $this->$access)) {
+                if (!empty($this->$access) && is_array($this->$access) && (array_search($user_id, $this->$access)!==false)) {
                     return true;
                 }
 
@@ -85,9 +85,12 @@
             {
                 if ($this->canEdit()) {
                     if (($user = \Idno\Core\Idno::site()->db()->getObject($user_id)) && ($user instanceof User)) {
-                        array_push($this->$access, $user_id);
-
+                        if (!$this->isMember($user_id, $access)) {
+                            array_push($this->$access, $user_id);
+                        }
+                         
                         return true;
+                        
                     }
                 }
 
@@ -118,9 +121,12 @@
              */
             function removeMember($user_id, $access = 'read')
             {
-                if (!empty($this->members) && is_array($this->members) && $key = array_search($user_id, $this->members)) {
-                    unset($this->$access[$key]);
-
+                $key = array_search($user_id, $this->$access);
+                
+                if (!empty($this->$access) && is_array($this->$access) && $key !== false) { 
+                    //unset($this->$access[$key]);
+                    array_splice($this->$access, $key, 1);
+                    
                     return true;
                 }
 
