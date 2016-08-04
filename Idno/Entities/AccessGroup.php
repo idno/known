@@ -83,7 +83,7 @@
              */
             function addMember($user_id, $access = 'read')
             {
-                if ($this->canEdit()) {
+                //if ($this->canEdit()) {
                     if (($user = \Idno\Core\Idno::site()->db()->getObject($user_id)) && ($user instanceof User)) {
                         if (!$this->isMember($user_id, $access)) {
                             array_push($this->$access, $user_id);
@@ -92,7 +92,7 @@
                         return true;
                         
                     }
-                }
+              //  }
 
                 return false;
             }
