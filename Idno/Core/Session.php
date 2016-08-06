@@ -101,7 +101,8 @@
             {
                 // Check for secure sessions being delivered insecurely, and vis versa
                 if ($_SESSION['secure'] != Idno::site()->isSecure()) {
-                    throw new \Idno\Exceptions\SecurityException('Session funnybusiness: Secure session accessed insecurely, or an insecure session accessed over TLS.');
+                    $message = Idno::site()->isSecure() ? 'Insecure session accessed securely' : 'Secure session accessed insecurely';
+                    throw new \Idno\Exceptions\SecurityException('Session funnybusiness: ' . $message);
                 }
             }
 
