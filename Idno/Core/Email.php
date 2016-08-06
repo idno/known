@@ -183,7 +183,7 @@
 
                 } catch (\Exception $e) {
                     // Lets log errors rather than silently drop them
-                    \Idno\Core\Idno::site()->logging()->error('Error sending mail', ['error' => $e]);
+                    \Idno\Core\Idno::site()->logging()->error('Error sending mail', ['error' => $e->getMessage()]);
                 }
 
                 return 0;

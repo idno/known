@@ -55,7 +55,7 @@
                     $this->validate();
                 } catch (\Exception $ex) {
                     // Session didn't validate, log & destroy
-                    \Idno\Core\Idno::site()->logging->error('Error validating session', ['error' => $ex]);
+                    \Idno\Core\Idno::site()->logging->error('Error validating session', ['error' => $ex->getMessage()]);
                     header('X-KNOWN-DEBUG: Tilt!');
 
                     $_SESSION = [];
