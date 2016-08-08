@@ -763,7 +763,7 @@
                     $permissions = [];
                 }
                 
-                $permissions[$permissions];
+                $permissions[$permission];
                 
                 $this->permissions = array_unique($permissions);
                 
