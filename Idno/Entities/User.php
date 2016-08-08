@@ -780,9 +780,12 @@
                     $permissions = [];
                 }
                 
-                if ($key = array_search($permission, $permissions)) {
+                $key = array_search($permission, $permissions);
+                if ($key !== false) {
                     unset($permissions[$key]);
                 }
+                
+                $this->permissions = array_unique($permissions);
                 
                 return $this->save();
             }
