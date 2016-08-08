@@ -739,14 +739,14 @@
              * @param string $permission
              */
             function hasPermission($permission) {
-                $permissions = $this->permissions;
+                $permissions = $this->permissions; 
                 if (empty($permissions)) {
                     $permissions = [];
                 }
                 
                 $key = array_search($permission, $permissions); 
                 
-                if (!empty($key))
+                if ($key!==false)
                     return true;
                 
                 return false;
