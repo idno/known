@@ -335,3 +335,5 @@
 
         ?>
         <?php
+
+        echo $this->draw('admin/users/extensions');
