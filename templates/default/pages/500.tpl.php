@@ -4,12 +4,6 @@
         <div class="col-md-offset-1 col-md-10">
             <h1 class="p-name">
                 Oh no! Something went wrong.
-                <?php /*
-                <?php if (!empty($vars['exception'])) { ?>
-                Ooops! <?= get_class($vars['exception']); ?>
-                <?php } else { ?>
-                Oh no! Something went wrong.
-                <?php } ?> */ ?>
             </h1>
         </div>
     </div>
