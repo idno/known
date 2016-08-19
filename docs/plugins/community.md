@@ -87,6 +87,7 @@ listings here do not imply endorsement by the Known project team in any way.
     by [Marcus Povey][]
 * [Emoji rendering](https://github.com/mapkyca/KnownEmoji) – Render Emoji characters (e.g. in Bridgy comments), 
     by [Marcus Povey][]
+* [Short Profile](https://github.com/egoexpress/known-shortprofile) – Cleans up the URLs displayed in the profile page. Also adds some additional icons, by [Björn Stierand][]  
 
 [Pranjal Pandey]: https://www.github.com/physcocode
 [Daniel Nix]: https://nxd4n.nixekinder.be
@@ -100,6 +101,7 @@ listings here do not imply endorsement by the Known project team in any way.
 [Tyler Gillies]: http://tylergillies.club/
 [Yann Sallou]: http://winds.fr/
 [Tino Kremer]: https://tinokremer.nl/
+[Björn Stierand]: https://bjoern.stierand.org/
 
 ## Submissions
 
