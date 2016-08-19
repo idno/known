@@ -739,14 +739,14 @@
              * @param string $permission
              */
             function hasPermission($permission) {
-                $permissions = $this->permissions;
+                $permissions = $this->permissions; 
                 if (empty($permissions)) {
                     $permissions = [];
                 }
                 
                 $key = array_search($permission, $permissions); 
                 
-                if (!empty($key))
+                if ($key!==false)
                     return true;
                 
                 return false;
@@ -763,7 +763,7 @@
                     $permissions = [];
                 }
                 
-                $permissions[$permissions];
+                $permissions[] = $permission;
                 
                 $this->permissions = array_unique($permissions);
                 
@@ -780,9 +780,12 @@
                     $permissions = [];
                 }
                 
-                if ($key = array_search($permission, $permissions)) {
+                $key = array_search($permission, $permissions);
+                if ($key !== false) {
                     unset($permissions[$key]);
                 }
+                
+                $this->permissions = array_unique($permissions);
                 
                 return $this->save();
             }
