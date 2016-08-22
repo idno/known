@@ -99,7 +99,8 @@
 }
 
 .control-label {
-	padding-top: 12px;
+	padding-top: 6px;
+	margin-bottom: 15px;
 }
 
 .controls-save {
