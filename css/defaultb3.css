@@ -10,7 +10,7 @@
 }
 
 .nav-tabs {
-    border-bottom: none;
+	border-bottom: medium none;
 }
 
 .nav-tabs > li.active > a, 
@@ -24,7 +24,22 @@
 .nav-tabs > li.active > a {
 	color:#222222;
 	font-weight: 400;
-    margin-top: 1px;
+    /*margin-top: 1px;*/
+}
+
+.group-nav .nav {
+	padding-bottom: 8px;
+}
+
+.group-nav .nav-tabs {
+    border-bottom: 2px solid #ddd;
+}
+.group-nav .nav.nav-tabs li.active a,
+.group-nav .nav.nav-tabs li.focus a {
+	border-bottom: 2px solid #000;
+	padding-bottom: 6px;
+	padding-right: 0;
+	margin-right: 8px;
 }
 
 .nav-tabs > li > a:hover {
