@@ -21,6 +21,7 @@
 
             function getContent()
             {
+
                 if (!empty($this->arguments[0])) {
                     $user = \Idno\Entities\User::getByHandle($this->arguments[0]);
                 }
@@ -31,7 +32,7 @@
                 // Users own their own profiles
                 $this->setOwner($user);
 
-                $types  = \Idno\Common\ContentType::getRegisteredClasses();
+                $types  = ['IdnoPlugins\Status\Status', 'IdnoPlugins\Text\Entry'];
                 $offset = (int)$this->getInput('offset');
                 $count  = \Idno\Common\Entity::countFromX($types, array('owner' => $user->getUUID()));
                 $feed   = \Idno\Common\Entity::getFromX($types, array('owner' => $user->getUUID()), array(), \Idno\Core\Idno::site()->config()->items_per_page, $offset);
@@ -98,12 +99,14 @@
                 Idno::site()->logging()->info("received user mention from $source to $target");
                 if (empty($this->arguments)) {
                     Idno::site()->logging()->debug("could not process user mention, no pagehandler arguments");
+
                     return false;
                 }
 
                 $user = User::getByHandle($this->arguments[0]);
                 if (empty($user)) {
                     Idno::site()->logging()->debug('could not process user mention, no user for handle ' . $this->arguments[0]);
+
                     return false;
                 }
 
@@ -131,7 +134,7 @@
                         $mention['permalink'] = $entry['properties']['url'][0];
                     }
                     if (!empty($entry['properties']['content'])) {
-                        $content = $entry['properties']['content'][0];
+                        $content            = $entry['properties']['content'][0];
                         $mention['content'] = Idno::site()->template()->sanitize_html(is_array($content) ? $content['html'] : $content);
                     }
                 }
@@ -139,7 +142,7 @@
                 $sender_url = false;
                 if ($card) {
                     if (!empty($card['properties']['url'])) {
-                        $sender_url = $card['properties']['url'][0];
+                        $sender_url           = $card['properties']['url'][0];
                         $mention['owner_url'] = $card['properties']['url'][0];
                     }
                     if (!empty($card['properties']['name'])) {

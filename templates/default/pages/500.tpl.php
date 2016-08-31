@@ -3,7 +3,7 @@
 
         <div class="col-md-offset-1 col-md-10">
             <h1 class="p-name">
-                Oh no! Something went wrong.
+                Something went wrong.
             </h1>
         </div>
     </div>
@@ -12,7 +12,9 @@
         <div class="col-md-offset-1 col-md-10">
             <p class="p-summary"><?= $vars['exception']->getMessage(); ?></p>
             <p>
-                <a href="#" onclick="window.history.back();">Click here to go back and try again.</a>
+                <a href="#" onclick="window.history.back();">Click here to try again,</a> or
+                <a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>">click here to go back
+                to the homepage</a>.
             </p>
             <?php if (($debug = \Idno\Core\Idno::site()->config()->debug) && (!empty($debug))) { ?>
                 <p>

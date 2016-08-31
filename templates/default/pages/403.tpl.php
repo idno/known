@@ -22,7 +22,7 @@
             </div>
             <div class="row">
                 <div class="col-md-offset-1 col-md-10">
-                    <p class="p-summary">It looks like you don't have permission to view this content. Sorry!</p>
+                    <p class="p-summary">It looks like you don't have permission to view this content. </p>
                     <p>
                         <a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>">Click here to head back to
                             the <?= \Idno\Core\Idno::site()->config()->title ?> homepage</a>.
