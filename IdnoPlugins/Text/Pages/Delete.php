@@ -11,10 +11,8 @@
                 // Are we loading an entity?
                 if (!empty($this->arguments)) {
                     $object = \IdnoPlugins\Text\Entry::getByID($this->arguments[0]);
-                } else {
-                    // TODO 404
-                    $this->forward();
                 }
+                if (empty($object)) $this->forward();
 
                 $t = \Idno\Core\Idno::site()->template();
                 $body = $t->__(array(
