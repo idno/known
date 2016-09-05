@@ -116,7 +116,6 @@
                                     // Admins get a no-EXIF error
                                     if (\Idno\Core\Idno::site()->session()->isAdmin()) {
                                         \Idno\Core\Idno::site()->logging()->log("Because your server doesn't provide EXIF support, Known can't preserve any rotation information in this image.");
-                                        //\Idno\Core\Idno::site()->session()->addErrorMessage("Because your server doesn't provide EXIF support, Known can't preserve any rotation information in this image.");
                                     }
                                 }
                             }
@@ -131,7 +130,6 @@
 
                                     $filename = $_FILES['photo']['name'];
 
-                                    // Experiment: let's not save thumbnails for GIFs, in order to enable animated GIF posting.
                                     if ($_FILES['photo']['type'] != 'image/gif') {
 	                                    if ($thumbnail = \Idno\Entities\File::createThumbnailFromFile($_FILES['photo']['tmp_name'], "{$filename}_{$label}", $size, false)) {
                                             $varname        = "thumbnail_{$label}";
