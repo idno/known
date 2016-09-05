@@ -32,11 +32,15 @@
                         $category = $this->getInput('category');
                     }
 
-                    $body = \Idno\Core\Idno::site()->template()->__([
+                    $t = \Idno\Core\Idno::site()->template();
+
+                    $edit_body = $t->__([
                         'categories' => $categories,
                         'category'   => $category,
                         'object'     => $object
                     ])->draw('entity/StaticPage/edit');
+
+                    $body = $t->__(['body' => $edit_body])->draw('entity/editwrapper');
 
                     \Idno\Core\Idno::site()->template()->__([
                         'title' => 'Edit page',

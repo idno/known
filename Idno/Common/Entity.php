@@ -757,7 +757,6 @@
 
                         return $return;
                     }
-
                 }
 
                 return false;
