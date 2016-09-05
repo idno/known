@@ -80,7 +80,7 @@
         }
 
         var regex = /\S+/g;
-        var wordCount = knownStripHTML(value.trim()).split(' ').length; //value.trim().replace(regex, ' ').split(' ').length;
+        var wordCount = knownStripHTML(value).replace(/\n/g,' ').trim().split(' ').length;
         var totalChars = value.length;
         var charCount = value.trim().length;
         var charCountNoSpace = value.replace(regex, '').length;
