@@ -21,7 +21,7 @@
         $placeholder = 'Tell your story';
     }
     if (!empty($vars['value'])) {
-        $value = $this->autop($vars['value']);
+        $value = $vars['value'];
     } else {
         $value = '';
     }
