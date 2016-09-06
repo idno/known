@@ -446,6 +446,23 @@
                 return false;
             }
 
+            /**
+             * Utility method to produce URL save base64 encoding.
+             * @param type $string
+             * @return string
+             */
+            static function base64UrlEncode($string) {
+                return strtr(base64_encode($string), '+/=', '-_,');
+            }
+
+            /**
+             * Utility method to decode URL save base64 encoding.
+             * @param type $string
+             * @return string
+             */
+            static function base64UrlDecode($string) {
+                return base64_decode(strtr($string, '-_,', '+/='));
+            }
         }
 
     }
