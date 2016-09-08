@@ -143,7 +143,7 @@
              * @param $page optionally, the contents of the page at $url
              * @todo replace this with xpath.
              */
-            private function discoverHubs($url, $page = '')
+            protected function discoverHubs($url, $page = '')
             {
 
                 $hubs = array();
@@ -188,7 +188,7 @@
              * @param type $url
              * @return type
              */
-            private function findFeed($url, $data = null)
+            protected function findFeed($url, $data = null)
             {
                 $feed = null;
 
@@ -212,7 +212,7 @@
              * This method will find a link self on a feed, finding the feed first
              * @param type $url
              */
-            private function findSelf($url)
+            protected function findSelf($url)
             {
 
                 $self = null;
