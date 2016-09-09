@@ -4,6 +4,9 @@
     RewriteEngine on
     #RewriteBase /
 
+    RewriteCond %{HTTP:Authorization} ^(.+)$
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
     RewriteCond %{ENV:BASE} ^$
     RewriteCond $1::%{REQUEST_URI} ^(.*)::(.*?)\1$
     RewriteRule ^(.*)$ - [ENV=BASE:%2]
