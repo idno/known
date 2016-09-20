@@ -447,7 +447,7 @@
             }
 
             /**
-             * Utility method to produce URL save base64 encoding.
+             * Utility method to produce URL safe base64 encoding.
              * @param type $string
              * @return string
              */
@@ -456,7 +456,7 @@
             }
 
             /**
-             * Utility method to decode URL save base64 encoding.
+             * Utility method to decode URL safe base64 encoding.
              * @param type $string
              * @return string
              */
