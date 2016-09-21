@@ -184,10 +184,10 @@
                             if (!empty($content['html'])) {
                                 $content_value = $content['html'];
                             } else if (!empty($content['value'])) {
-                                $content_value = $content['value'];
+                                $content_value = htmlspecialchars($content['value']);
                             }
                         } else {
-                            $content_value = $content;
+                            $content_value = htmlspecialchars($content);
                         }
                         if (!empty($posse_link)) {
                             $posse_service = preg_replace('/^(www\.|m\.)?(.+?)(\.com|\.org|\.net)?$/', '$2', parse_url($posse_link, PHP_URL_HOST));
