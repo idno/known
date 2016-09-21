@@ -91,7 +91,7 @@
                 $name        = $this->getInput('name');
                 $in_reply_to = $this->getInput('in-reply-to');
                 $syndicate   = $this->getInput('mp-syndicate-to', $this->getInput('syndicate-to'));
-                $posse_link  = $this->getInput('syndication');
+                $posse_links = $this->getInput('syndication');
                 $like_of     = $this->getInput('like-of');
                 $repost_of   = $this->getInput('repost-of');
                 $categories  = $this->getInput('category');
@@ -102,6 +102,9 @@
                 }
                 if (is_string($categories)) {
                     $categories = (array) $categories;
+                }
+                if (is_string($posse_links)) {
+                    $posse_links = (array) $posse_links;
                 }
 
                 if ($type == 'entry') {
@@ -189,9 +192,13 @@
                         } else {
                             $content_value = $content;
                         }
-                        if (!empty($posse_link)) {
-                            $posse_service = preg_replace('/^(www\.|m\.)?(.+?)(\.com|\.org|\.net)?$/', '$2', parse_url($posse_link, PHP_URL_HOST));
-                            $entity->setPosseLink($posse_service, $posse_link, '', '');
+                        if (is_array($posse_links) && count($posse_links) > 0) {
+                            foreach ($posse_links as $posse_link) {
+                                if (!empty($posse_link)) {
+                                    $posse_service = preg_replace('/^(www\.|m\.)?(.+?)(\.com|\.org|\.net)?$/', '$2', parse_url($posse_link, PHP_URL_HOST));
+                                    $entity->setPosseLink($posse_service, $posse_link, '', '');
+                                }
+                            }
                         }
                         $hashtags = (empty($hashtags) ? "" : "<p>".$hashtags."</p>");
                         $htmlPhoto    = (empty($htmlPhoto) ? "" : "<p>".$htmlPhoto."</p>");
