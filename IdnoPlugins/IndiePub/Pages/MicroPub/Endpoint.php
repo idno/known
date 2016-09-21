@@ -100,6 +100,9 @@
                 if (!empty($mp_type)) {
                    $type = $mp_type;
                 }
+                if (is_string($categories)) {
+                    $categories = (array) $categories;
+                }
 
                 if ($type == 'entry') {
                     $type = 'note';
