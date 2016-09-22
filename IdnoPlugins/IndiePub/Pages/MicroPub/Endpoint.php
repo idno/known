@@ -85,6 +85,22 @@
 
                 \Idno\Core\Idno::site()->triggerEvent('indiepub/post/start', ['page' => $this]);
 
+                $action = $this->getInput('action', 'create');
+                switch ($action) {
+                case 'create':
+                    $this->postCreate();
+                    break;
+                case 'delete':
+                    $this->postDelete();
+                    break;
+                default:
+                    $this->error(501, 'not_implemented', 'Action not implemented');
+                }
+            }
+
+            function postCreate()
+            {
+
                 // Get details
                 $type        = $this->getInput('h', 'entry');
                 if ($type == 'annotation') {
@@ -312,6 +328,33 @@
                 }
                 $entity->save();
                 $this->setResponse(204);
+                exit();
+            }
+
+            function postDelete()
+            {
+                $url = $this->getInput('url');
+                if (!filter_var($url, FILTER_VALIDATE_URL)) {
+                    \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
+                    $this->error(400, 'invalid_request', 'URL is invalid');
+                }
+
+                $entity = \Idno\Common\Entity::getByUUID($url);
+                if ($entity === false) {
+                    \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
+                    $this->error(400, 'not_found');
+                }
+
+                $owner       = $entity->attributes['owner'];
+                $currentUser = \Idno\Core\Idno::site()->session()->currentUserUUID();
+                if ($owner !== $currentUser) {
+                    \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this, 'object' => $entity]);
+                    $this->error(403, 'forbidden');
+                }
+
+                $entity->delete();
+                $this->setResponse(204);
+                \Idno\Core\Idno::site()->triggerEvent('indiepub/post/success', ['page' => $this, 'object' => $entity]);
                 exit();
             }
 
