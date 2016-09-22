@@ -82,6 +82,7 @@
                 $tags = \Idno\Core\Idno::site()->currentPage()->getInput('tags');
                 $title = \Idno\Core\Idno::site()->currentPage()->getInput('title');
                 $access = \Idno\Core\Idno::site()->currentPage()->getInput('access');
+                $bookmarkof = \Idno\Core\Idno::site()->currentPage()->getInput('bookmark-of');
                 $likeof = \Idno\Core\Idno::site()->currentPage()->getInput('like-of');
                 $repostof = \Idno\Core\Idno::site()->currentPage()->getInput('repost-of');
 
@@ -92,9 +93,13 @@
                 }
 
                 $body = trim($body);
-                if(filter_var($body, FILTER_VALIDATE_URL) || filter_var($likeof, FILTER_VALIDATE_URL) || filter_var($repostof, FILTER_VALIDATE_URL)){
-                    if (!empty($body) || !empty($likeof) || !empty($repostof)) {
+                if(filter_var($body, FILTER_VALIDATE_URL) || filter_var($bookmarkof, FILTER_VALIDATE_URL) || filter_var($likeof, FILTER_VALIDATE_URL) || filter_var($repostof, FILTER_VALIDATE_URL)){
+                    if (!empty($body) || !empty($bookmarkof) || !empty($likeof) || !empty($repostof)) {
                         $this->body = $body;
+                        if (!empty($bookmarkof)) {
+                            $this->body = $bookmarkof;
+                            $this->bookmarkof = $bookmarkof;
+                        }
                         if (!empty($likeof)) {
                             $this->body = $likeof;
                             $this->likeof = $likeof;
