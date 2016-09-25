@@ -307,7 +307,14 @@
              */
             function parseHashtags($text)
             {
-                $text = (html_entity_decode($text));
+                //decode &auml; to ä, but keep < > and & characters
+                $text = html_entity_decode(
+                    str_replace(
+                        ['&amp;', '&lt;', '&gt;'],
+                        ['&amp;amp;', '&amp;lt;', '&amp;gt;'],
+                        $text
+                    )
+                );
                 $r    = preg_replace_callback('/(?<=^|[\>\s\n])(\#[\p{L}0-9\_]+)/u', function ($matches) {
                     $url = $matches[1];
                     $tag = str_replace('#', '', $matches[1]);
