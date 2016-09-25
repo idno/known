@@ -87,6 +87,10 @@
 
                 // Get details
                 $type        = $this->getInput('h', 'entry');
+                if ($type == 'annotation') {
+                    return $this->postCreateAnnotation();
+                }
+
                 $content     = $this->getInput('content');
                 $name        = $this->getInput('name');
                 $in_reply_to = $this->getInput('in-reply-to');
@@ -248,6 +252,67 @@
                     exit;
 
                 }
+            }
+
+            /**
+             * Add a "like" or a "reply" to a post
+             */
+            function postCreateAnnotation()
+            {
+                $url       = $this->getInput('url');
+                $content   = $this->getInput('content');
+                $type      = $this->getInput('type');
+                $username  = $this->getInput('username');
+                $userurl   = $this->getInput('userurl');
+                $userphoto = $this->getInput('userphoto');
+
+                $notEmpty = array('url', 'type', 'username', 'userurl', 'userphoto');
+                foreach ($notEmpty as $varName) {
+                    if ($$varName == '') {
+                        $this->error(
+                            400, 'invalid_request',
+                            '"' . $varName . '" must not be empty'
+                        );
+                    }
+                }
+                if (!filter_var($url, FILTER_VALIDATE_URL)) {
+                    $this->error(400, 'invalid_request', 'URL is invalid');
+                }
+                $entity = \Idno\Common\Entity::getByUUID($url);
+                if ($entity === false) {
+                    $this->error(400, 'not_found');
+                }
+
+                if ($type !== 'like' && $type !== 'reply') {
+                    $this->error(
+                        400, 'invalid_request',
+                        'Annotation type must be "like" or "reply"'
+                    );
+                }
+                if ($type === 'reply' && $content == '') {
+                    $this->error(
+                        400, 'invalid_request', '"content" must not be empty'
+                    );
+                }
+                if (!filter_var($userurl, FILTER_VALIDATE_URL)) {
+                    $this->error(400, 'invalid_request', '"userurl" is invalid');
+                }
+                if (!filter_var($userphoto, FILTER_VALIDATE_URL)) {
+                    $this->error(400, 'invalid_request', '"userphoto" is invalid');
+                }
+
+                $ok = $entity->addAnnotation(
+                    $type, $username, $userurl, $userphoto, $content
+                );
+                if (!$ok) {
+                    $this->error(
+                        500, 'internal_error',
+                        'Saving annotation failed'
+                    );
+                }
+                $entity->save();
+                $this->setResponse(204);
+                exit();
             }
 
             /**
