@@ -203,6 +203,16 @@
                     }
 
                 }
+                
+                if (empty($feed)) {
+                    if (preg_match_all('#<link[^>]+type="application/atom\+xml"[^>]*>#is', $data, $rawMatches)) {
+
+                    if (preg_match('#href="([^"]+)"#i', $rawMatches[0][0], $rawUrl)) {
+                        $feed = $rawUrl[1];
+                    }
+
+                }
+                }
 
                 return $feed;
             }
