@@ -80,6 +80,9 @@
 
             function post()
             {
+                //fail-by-default in case of unhandled errors
+                $this->setResponse(500);
+
                 $this->gatekeeper();
                 // If we're here, we're authorized
 
@@ -121,9 +124,10 @@
                         $success   = $this->uploadFromUrl($photo_url);
                         if (!$success) {
                             \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
-                            $this->setResponse(500);
-                            echo "Failed uploading photo from $photo_url";
-                            exit;
+                            $this->error(
+                                400, 'invalid_request',
+                                "Failed uploading photo from $photo_url"
+                            );
                         }
                     } else if (!empty($name)) {
                         $type = 'article';
@@ -238,19 +242,20 @@
                             exit;
                         } else {
                             \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
-                            $this->setResponse(500);
-                            echo "Couldn't create {$type}";
-                            exit;
+                            $this->error(
+                                400, 'invalid_request',
+                                "Couldn't create {$type}"
+                            );
                         }
 
                     }
 
                 } else {
                     \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
-                    $this->setResponse(500);
-                    echo "Couldn't find content type {$type}";
-                    exit;
-
+                    $this->error(
+                        400, 'invalid_request',
+                        "Couldn't find content type {$type}"
+                    );
                 }
             }
 
@@ -313,6 +318,43 @@
                 $entity->save();
                 $this->setResponse(204);
                 exit();
+            }
+
+            /**
+             * Reply with a micropub error response and exit.
+             *
+             * @param int    $statusCode  HTTP status code
+             * @param string $error       Micropub error code
+             * @param string $description Human-readable error description
+             *
+             * @return void
+             */
+            protected function error($statusCode, $error, $description)
+            {
+                $site = \Idno\Core\Idno::site();
+                $msgs = $site->session()->getMessages();
+                foreach ($msgs as $msg) {
+                    if ($msg['message_type'] == 'alert-danger') {
+                        $description .= ': ' . $msg['message'];
+                    }
+                }
+
+                $this->setResponse($statusCode);
+                $tplVars = array(
+                    'error'             => $error,
+                    'error_description' => $description,
+                );
+                $site->template()->setTemplateType('json');
+                $site->template()->__($tplVars)->drawPage();
+                exit();
+            }
+
+            /**
+             * Override normal "forbidden" page
+             */
+            function deniedContent($title = '')
+            {
+                $this->error(403, 'forbidden', $title);
             }
 
             /**
