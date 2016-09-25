@@ -11,7 +11,18 @@ $user = Idno::site()->session()->currentUser();
     <?= $this->draw('account/menu') ?>
     <h1>IndiePub Accounts</h1>
 
-    <?php foreach ((array) $user->indieauth_tokens as $token => $details) { ?>
+    
+    <?php 
+    if (empty($user->indieauth_tokens)) {
+        ?>
+        <div class="explanation">
+            <p>
+                There are currently no IndiePub accounts associated with this site.
+            </p>
+        </div>
+    <?php
+    } else {
+        foreach ((array) $user->indieauth_tokens as $token => $details) { ?>
         <div class="panel panel-default">
             <div class="panel-heading">
                 Client ID: <a href="<?= $details['client_id'] ?>" target="_blank"><?= $details['client_id'] ?></a>
@@ -31,6 +42,8 @@ $user = Idno::site()->session()->currentUser();
                 </form>
             </div>
         </div>
-    <?php } ?>
+    <?php 
+        }
+    }?>
 
 </div>
