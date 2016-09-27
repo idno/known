@@ -41,9 +41,14 @@ IdnoPlugins/*
 !IdnoPlugins/Text/
 !IdnoPlugins/Webhooks/
 
-Themes/Ansel/
-Themes/KQED/
-Themes/Paul/
+Themes/*
+!Themes/Black/
+!Themes/Cherwell
+!Themes/Fauvists
+!Themes/Green
+!Themes/Kandinsky
+!Themes/Solo
+!Themes/index.html
 
 error_log
 
