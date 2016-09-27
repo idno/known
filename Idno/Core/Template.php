@@ -29,8 +29,8 @@
             // Keep track of the HTML purifier
             public $purifier = false;
 
-            /**
-             * On construction, detect the template type
+
+            /**             * On construction, detect the template type
              */
             function __construct($template = false)
             {
