@@ -16,22 +16,11 @@
             function getContent()
             {
                 $headers      = self::getallheaders();
-                $me           = $this->getInput('me', false);
-                $client_id    = $this->getInput('client_id', false);
-                $redirect_uri = $this->getInput('redirect_uri', false);
-                $state        = $this->getInput('state', false);
-                $scope        = $this->getInput('scope', false);
-
-                if ($me === false
-                    && $client_id === false
-                    && $redirect_uri === false
-                    && $state === false
-                    && $scope === false
-                ) {
-                     $this->setResponse(200);
-                     echo "This is an IndieAuth endpoint.\n";
-                     exit;
-                }
+                $me           = $this->getInput('me');
+                $client_id    = $this->getInput('client_id');
+                $redirect_uri = $this->getInput('redirect_uri');
+                $state        = $this->getInput('state');
+                $scope        = $this->getInput('scope');
 
                 if (empty($me)) {
                      $this->setResponse(403);
