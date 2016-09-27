@@ -6,29 +6,45 @@
 
         class Auth extends \Idno\Common\Page
         {
+            function __construct()
+            {
+                parent::__construct();
+                header('IndieAuth: authorization_endpoint');
+            }
 
             // GET requests show the login page
             function getContent()
             {
-                // if me is not the logged in user, they'll need to enter their password
-                if (!($user = \Idno\Core\site()->session()->currentUser())) {
-                    // Do login and redirect workflow
-                    $this->forward('/session/login?fwd=' . urlencode($this->currentUrl()));
-                    exit;
-                }
-
                 $headers      = self::getallheaders();
-                $me           = $this->getInput('me');
-                $client_id    = $this->getInput('client_id');
-                $redirect_uri = $this->getInput('redirect_uri');
-                $state        = $this->getInput('state');
-                $scope        = $this->getInput('scope');
+                $me           = $this->getInput('me', false);
+                $client_id    = $this->getInput('client_id', false);
+                $redirect_uri = $this->getInput('redirect_uri', false);
+                $state        = $this->getInput('state', false);
+                $scope        = $this->getInput('scope', false);
+
+                if ($me === false
+                    && $client_id === false
+                    && $redirect_uri === false
+                    && $state === false
+                    && $scope === false
+                ) {
+                     $this->setResponse(200);
+                     echo "This is an IndieAuth endpoint.\n";
+                     exit;
+                }
 
                 if (empty($me)) {
                      $this->setResponse(403);
                      echo "\"me\" parameter must be provided.";
                      exit;
                 }
+                // not logged in? they'll need to enter their password
+                if (!($user = \Idno\Core\site()->session()->currentUser())) {
+                    // Do login and redirect workflow
+                    $this->forward('/session/login?fwd=' . urlencode($this->currentUrl()));
+                    exit;
+                }
+
                  if (parse_url($me, PHP_URL_HOST) != parse_url($user->getURL(), PHP_URL_HOST)) {
                      $this->setResponse(403);
                      echo "\"$me\" does not match the logged in user \"{$user->getURL()}\".";
