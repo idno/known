@@ -110,7 +110,7 @@
                     }
                 }
 
-                return false;
+                return null;
             }
 
             function exception($e)
