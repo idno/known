@@ -169,10 +169,12 @@
                 }
 
                 // Make sure we're only getting objects that we're allowed to see
-                if (empty($readGroups)) {
-                    $readGroups = \Idno\Core\Idno::site()->session()->getReadAccessGroupIDs();
+                if (!\Idno\Core\site()->session()->isAdmin()) {
+                    if (empty($readGroups)) {
+                        $readGroups = \Idno\Core\Idno::site()->session()->getReadAccessGroupIDs();
+                    }
+                    $query_parameters['access'] = array('$in' => $readGroups);
                 }
-                $query_parameters['access'] = array('$in' => $readGroups);
 
                 // Join the rest of the search query elements to this search
                 $query_parameters = array_merge($query_parameters, $search);
@@ -246,8 +248,10 @@
                 }
 
                 // Make sure we're only getting objects that we're allowed to see
-                $readGroups                 = \Idno\Core\Idno::site()->session()->getReadAccessGroupIDs();
-                $query_parameters['access'] = array('$in' => $readGroups);
+                if (!\Idno\Core\site()->session()->isAdmin()) {
+                    $readGroups                 = \Idno\Core\Idno::site()->session()->getReadAccessGroupIDs();
+                    $query_parameters['access'] = array('$in' => $readGroups);
+                }
 
                 // Join the rest of the search query elements to this search
                 $query_parameters = array_merge($query_parameters, $search);
