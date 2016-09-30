@@ -13,7 +13,7 @@ namespace Tests\Data {
         
         protected function newObject($owner, $access = 'PUBLIC') {
             $obj = new \Idno\Entities\GenericDataItem();
-            $obj->setDatatype('UnitTestObject');
+            $obj->setDatatype('UnitTestObjectAccessGroup');
             $obj->setTitle("Unit Test Search Object");
             $obj->variable1 = 'test';
             $obj->variable2 = 'test again';
