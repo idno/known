@@ -18,9 +18,15 @@
              */
             function __construct()
             {
-                $this->read  = array(\Idno\Core\Idno::site()->session()->currentUser()->getUUID());
-                $this->write = array(\Idno\Core\Idno::site()->session()->currentUser()->getUUID());
-                $this->admin = array(\Idno\Core\Idno::site()->session()->currentUser()->getUUID());
+                if (\Idno\Core\Idno::site()->session()->currentUser()) {
+                    $this->read  = array(\Idno\Core\Idno::site()->session()->currentUser()->getUUID());
+                    $this->write = array(\Idno\Core\Idno::site()->session()->currentUser()->getUUID());
+                    $this->admin = array(\Idno\Core\Idno::site()->session()->currentUser()->getUUID());
+                } else {
+                    $this->read  = [];
+                    $this->write = [];
+                    $this->admin = [];
+                }
                 
                 return parent::__construct();
             }
