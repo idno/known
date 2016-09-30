@@ -114,14 +114,14 @@
             statusbar: false,
             menubar: false,
             height: <?=$height?>,
-            toolbar: 'styleselect | bold italic | link image | blockquote bullist numlist | alignleft aligncenter alignright | code',
+            toolbar: 'bold italic | link image | blockquote bullist numlist | alignleft aligncenter | code',
             plugins: 'code link image autoresize',
             relative_urls : false,
             remove_script_host : false,
             convert_urls : true,
             valid_children : "+body[style]",
             invalid_elements: 'div,section,span',
-            valid_styles : 'font-style,color',
+            valid_styles : 'font-style,color,text-align',
             file_picker_callback: function (callback, value, meta) {
                 filePickerDialog(callback, value, meta);
             },
