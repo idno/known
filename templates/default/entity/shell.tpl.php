@@ -82,7 +82,13 @@
 
                     ?>
                     <div class="idno-body">
-                      <?php if (!empty($object)) echo $object->draw(); ?>
+                      <?php
+                          if (!empty($vars['body'])) {
+                            echo $vars['body'];
+                          } else if (!empty($object)) {
+                              echo $object->draw();
+                          }
+                      ?>
                     </div>
                     <div class="footer">
                         <?= $this->draw('content/end') ?>
