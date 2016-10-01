@@ -9,8 +9,6 @@
 
     namespace Idno\Data {
 
-        use Idno\Core\Idno;
-
         abstract class AbstractSQL extends \Idno\Core\DataConcierge
         {
 
@@ -169,7 +167,7 @@
                 }
 
                 // Make sure we're only getting objects that we're allowed to see
-                if (!\Idno\Core\site()->session()->isAdmin()) {
+                if (!\Idno\Core\Idno::site()->session()->isAdmin()) {
                     if (empty($readGroups)) {
                         $readGroups = \Idno\Core\Idno::site()->session()->getReadAccessGroupIDs();
                     }
