@@ -155,7 +155,6 @@
                         if (!empty($subtypes)) {
                             $query_parameters['entity_subtype']['$in'] = $subtypes;
                         }
-                        // TODO else if? do we ever need to check both $in and $not $in?
                         if (!empty($not)) {
                             if (count($not) === 1) {
                                 $query_parameters['entity_subtype']['$not'] = $not[0];
