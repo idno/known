@@ -24,7 +24,6 @@
                     }
                     $this->client = new \PDO($connection_string, $this->dbuser, $this->dbpass, array(\PDO::MYSQL_ATTR_LOCAL_INFILE => 1));
                     $this->client->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-                    //$this->client->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
                 } catch (\Exception $e) {
                     error_log($e->getMessage());
                     if (!empty(\Idno\Core\Idno::site()->config()->forward_on_empty)) {
@@ -68,7 +67,6 @@
                                         $statement = $client->prepare($sql);
                                         $statement->execute();
                                     } catch (\Exception $e) {
-                                        //\Idno\Core\Idno::site()->logging()->error($e->getMessage());
                                         error_log($e->getMessage());
                                     }
                                 }
@@ -80,7 +78,6 @@
                                         $statement = $client->prepare($sql);
                                         $statement->execute();
                                     } catch (\Exception $e) {
-                                        //\Idno\Core\Idno::site()->logging()->error($e->getMessage());
                                         error_log($e->getMessage());
                                     }
                                 }
@@ -92,7 +89,6 @@
                                         $statement = $client->prepare($sql);
                                         $statement->execute();
                                     } catch (\Exception $e) {
-                                        //\Idno\Core\Idno::site()->logging()->log($e->getMessage());
                                         error_log($e->getMessage());
                                     }
                                 }
@@ -158,13 +154,6 @@
 
             function saveRecord($collection, $array)
             {
-                /*
-                $collection_obj = $this->database->selectCollection($collection);
-                if ($result = $collection_obj->save($array, array('w' => 1))) {
-                    if ($result['ok'] == 1) {
-                        return $array['_id'];
-                    }
-                }*/
                 $collection = $this->sanitiseCollection($collection);
 
                 if (empty($array['_id'])) {
@@ -491,7 +480,7 @@
                                         $non_md_variables++;
                                     } else {
                                         $metadata_joins++;
-                                        $notstring = "(md{$metadata_joins}.`name`    = :name{$metadata_joins} and md{$metadata_joins}.`collection` = '{$collection}' and md{$metadata_joins}.`value` != :nonmdvalue{$non_md_variables})";
+                                        $notstring                                   = "(md{$metadata_joins}.`name`    = :name{$metadata_joins} and md{$metadata_joins}.`collection` = '{$collection}' and md{$metadata_joins}.`value` != :nonmdvalue{$non_md_variables})";
                                         $variables[":name{$metadata_joins}"]         = $key;
                                         $variables[":nonmdvalue{$non_md_variables}"] = $value['$not'];
                                         $non_md_variables++;
