@@ -1385,13 +1385,9 @@
 
                 if (!empty($suffix)) $suffix = '/' . $suffix;
 
-                $return = $t->__($params)->draw('entity/' . $this->getFullClassName(true) . $suffix, false);
-
+                $return = $t->__($params)->draw('entity/' . $this->getClassName() . $suffix, false);
                 if ($return === false) {
-                    $return = $t->__($params)->draw('entity/' . $this->getClassName() . $suffix, false);
-                    if ($return === false) {
-                        $return = $t->__($params)->draw('entity/default');
-                    }
+                    $return = $t->__($params)->draw('entity/default');
                 }
 
                 return $return;
