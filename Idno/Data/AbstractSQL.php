@@ -9,8 +9,6 @@
 
     namespace Idno\Data {
 
-        use Idno\Core\Idno;
-
         abstract class AbstractSQL extends \Idno\Core\DataConcierge
         {
 
@@ -157,7 +155,6 @@
                         if (!empty($subtypes)) {
                             $query_parameters['entity_subtype']['$in'] = $subtypes;
                         }
-                        // TODO else if? do we ever need to check both $in and $not $in?
                         if (!empty($not)) {
                             if (count($not) === 1) {
                                 $query_parameters['entity_subtype']['$not'] = $not[0];
@@ -169,7 +166,7 @@
                 }
 
                 // Make sure we're only getting objects that we're allowed to see
-                if (!\Idno\Core\site()->session()->isAdmin()) {
+                if (!\Idno\Core\Idno::site()->session()->isAdmin()) {
                     if (empty($readGroups)) {
                         $readGroups = \Idno\Core\Idno::site()->session()->getReadAccessGroupIDs();
                     }

@@ -450,11 +450,11 @@
                             $title = md5(rand() . microtime(true));
                         }
                     }
-                    \Idno\Core\Idno::site()->logging()->debug("Setting resilient slug");
+                    //\Idno\Core\Idno::site()->logging()->debug("Setting resilient slug");
                     $this->setSlugResilient($title);
-                    \Idno\Core\Idno::site()->logging()->debug("Set resilient slug");
+                    //\Idno\Core\Idno::site()->logging()->debug("Set resilient slug");
                 } else {
-                    \Idno\Core\Idno::site()->logging()->debug("Had slug: " . $this->getSlug());
+                    //\Idno\Core\Idno::site()->logging()->debug("Had slug: " . $this->getSlug());
                 }
 
                 // Force users to be public
@@ -1363,17 +1363,19 @@
             /**
              * Draws this entity using the generic template entity/EntityClass
              * (note that the namespace is stripped) and the current default template.
-             * If entity/EntityClass doesn't exist, the template entity/template
-             * is tried as a fallback.
+             * If entity/EntityClass doesn't exist, the template entity/templateType
+             * is tried as a fallback (eg entity/default or entity/rss).
              *
              * @param $feed_view If set to true, draws a version of the entity suitable for including in a feed, eg
              *                   RSS (false by default)
+             * @param $prefix If set, adds a suffix to the template name. eg entity/Entry becomes entity/Entry/suffix.
+             *                   If the template doesn't exist, the template will still fall back to entity/templateType.
              *
              * @return string The rendered entity.
              */
-            function draw($feed_view = false)
+            function draw($feed_view = false, $suffix = '')
             {
-                $t = \Idno\Core\Idno::site()->template();
+                $t = clone \Idno\Core\Idno::site()->template();
 
                 if ($this instanceof User) {
                     $params = ['user' => $this, 'feed_view' => $feed_view];
@@ -1381,13 +1383,11 @@
                     $params = ['object' => $this, 'feed_view' => $feed_view];
                 }
 
-                $return = $t->__($params)->draw('entity/' . $this->getFullClassName(true), false);
+                if (!empty($suffix)) $suffix = '/' . $suffix;
 
+                $return = $t->__($params)->draw('entity/' . $this->getClassName() . $suffix, false);
                 if ($return === false) {
-                    $return = $t->__($params)->draw('entity/' . $this->getClassName(), false);
-                    if ($return === false) {
-                        $return = $t->__($params)->draw('entity/default');
-                    }
+                    $return = $t->__($params)->draw('entity/default');
                 }
 
                 return $return;

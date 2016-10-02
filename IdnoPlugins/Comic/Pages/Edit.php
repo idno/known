@@ -15,6 +15,8 @@
                     $object = new \IdnoPlugins\Comic\Comic();
                 }
 
+                if (!$object) $this->noContent();
+
                 if ($owner = $object->getOwner()) {
                     $this->setOwner($owner);
                 }

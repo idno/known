@@ -115,6 +115,7 @@
                 $in_reply_to = $this->getInput('in-reply-to');
                 $syndicate   = $this->getInput('mp-syndicate-to', $this->getInput('syndicate-to'));
                 $posse_links = $this->getInput('syndication');
+                $bookmark_of = $this->getInput('bookmark-of');
                 $like_of     = $this->getInput('like-of');
                 $repost_of   = $this->getInput('repost-of');
                 $categories  = $this->getInput('category');
@@ -169,6 +170,9 @@
                 if ($type == 'photo' && empty($name) && !empty($content)) {
                     $name    = $content;
                     $content = '';
+                }
+                if (!empty($bookmark_of)) {
+                    $type = 'bookmark';
                 }
                 if (!empty($like_of)) {
                     $type = 'like';
@@ -229,6 +233,7 @@
                         $this->setInput('title', $name);
                         $this->setInput('body', $htmlPhoto.$content_value.$hashtags);
                         $this->setInput('inreplyto', $in_reply_to);
+                        $this->setInput('bookmark-of', $bookmark_of);
                         $this->setInput('like-of', $like_of);
                         $this->setInput('repost-of', $repost_of);
                         $this->setInput('rsvp', $rsvp);
