@@ -15,6 +15,8 @@
                     $object = new \IdnoPlugins\Media\Media();
                 }
 
+                if (!$object) $this->noContent();
+
                 if ($owner = $object->getOwner()) {
                     $this->setOwner($owner);
                 }
