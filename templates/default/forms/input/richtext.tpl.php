@@ -121,7 +121,7 @@
             convert_urls : true,
             valid_children : "+body[style]",
             invalid_elements: 'div,section',
-            valid_styles : 'font-style,color,text-align,text-decoration',
+            valid_styles : 'font-style,color,text-align,text-decoration,float',
             file_picker_callback: function (callback, value, meta) {
                 filePickerDialog(callback, value, meta);
             },
