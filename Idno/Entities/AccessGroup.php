@@ -21,7 +21,7 @@
                 $this->read  = array(\Idno\Core\Idno::site()->session()->currentUser()->getUUID());
                 $this->write = array(\Idno\Core\Idno::site()->session()->currentUser()->getUUID());
                 $this->admin = array(\Idno\Core\Idno::site()->session()->currentUser()->getUUID());
-                
+
                 return parent::__construct();
             }
 
@@ -52,7 +52,7 @@
             function isMember($user_id = '', $access = 'read')
             {
                 if (empty($user_id)) $user_id = \Idno\Core\Idno::site()->session()->currentUser()->uuid;
-                if (!empty($this->$access) && is_array($this->$access) && (array_search($user_id, $this->$access)!==false)) {
+                if (!empty($this->$access) && is_array($this->$access) && (array_search($user_id, $this->$access) !== false)) {
                     return true;
                 }
 
@@ -83,17 +83,14 @@
              */
             function addMember($user_id, $access = 'read')
             {
-                //if ($this->canEdit()) {
-                    if (($user = \Idno\Core\Idno::site()->db()->getObject($user_id)) && ($user instanceof User)) {
-                        if (!$this->isMember($user_id, $access)) {
-                            array_push($this->$access, $user_id);
-                        }
-                         
-                        return true;
-                        
+                if (($user = \Idno\Core\Idno::site()->db()->getObject($user_id)) && ($user instanceof User)) {
+                    if (!$this->isMember($user_id, $access)) {
+                        array_push($this->$access, $user_id);
+                        $this->$access = array_unique($this->$access);
                     }
-              //  }
 
+                    return true;
+                }
                 return false;
             }
 
@@ -122,11 +119,10 @@
             function removeMember($user_id, $access = 'read')
             {
                 $key = array_search($user_id, $this->$access);
-                
-                if (!empty($this->$access) && is_array($this->$access) && $key !== false) { 
-                    //unset($this->$access[$key]);
+
+                if (!empty($this->$access) && is_array($this->$access) && $key !== false) {
                     array_splice($this->$access, $key, 1);
-                    
+
                     return true;
                 }
 
