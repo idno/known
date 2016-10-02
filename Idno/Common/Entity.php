@@ -1375,7 +1375,7 @@
              */
             function draw($feed_view = false, $suffix = '')
             {
-                $t = \Idno\Core\Idno::site()->template();
+                $t = clone \Idno\Core\Idno::site()->template();
 
                 if ($this instanceof User) {
                     $params = ['user' => $this, 'feed_view' => $feed_view];
