@@ -25,7 +25,7 @@ namespace Tests\Data {
         {
             if (get_called_class() === 'Tests\Data\AccessGroupTest') {
                 // Create acl
-                static::$acl = new \Idno\Entities\AccessGroup();
+                self::$acl = new \Idno\Entities\AccessGroup();
 
 
                 // Create user B
@@ -37,7 +37,7 @@ namespace Tests\Data {
 
                 $user->save();
 
-                static::$testUserB = $user;
+                self::$testUserB = $user;
             }
             
         }
@@ -48,11 +48,11 @@ namespace Tests\Data {
             $old = $this->swapUser($user);
             
             // Add to acl
-            static::$acl->addMember($user->getUUID());
-            static::$acl->save();
+            self::$acl->addMember($user->getUUID());
+            self::$acl->save();
             
             $obj = $this->newObject($user, static::$acl->getUUID());
-            $obj->save(); 
+            $obj->save();
             
             // Swap user
             $a = $this->swapUser(static::$testUserB);
@@ -80,7 +80,7 @@ namespace Tests\Data {
         
         public static function tearDownAfterClass()
         {
-            static::$acl->delete(); 
+            self::$acl->delete(); 
         }
     }
     
