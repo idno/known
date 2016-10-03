@@ -15,8 +15,6 @@ namespace Tests\Data {
             $obj = new \Idno\Entities\GenericDataItem();
             $obj->setDatatype('UnitTestObjectAccessGroup');
             $obj->setTitle("Unit Test Search Object");
-            $obj->variable1 = 'test';
-            $obj->variable2 = 'test again';
             $obj->setOwner($owner);
             $obj->setAccess($access);
             $id = $obj->save();
