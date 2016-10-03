@@ -16,18 +16,20 @@ namespace Tests\Data {
 
         public static function setUpBeforeClass()
         {
-            $obj = new \Idno\Entities\GenericDataItem();
-            $obj->setDatatype('UnitTestObject');
-            $obj->setTitle("Unit Test Search Object");
-            $obj->variable1 = 'test';
-            $obj->variable2 = 'test again';
-            $id = $obj->save();
+            if (get_called_class() === 'Tests\Data\DataConciergeTest') {
+                $obj = new \Idno\Entities\GenericDataItem();
+                $obj->setDatatype('UnitTestObject');
+                $obj->setTitle("Unit Test Search Object");
+                $obj->variable1 = 'test';
+                $obj->variable2 = 'test again';
+                $id = $obj->save();
 
-            // Save for later retrieval
-            self::$id = $id;
-            self::$uuid = $obj->getUUID();
-            self::$url = $obj->getUrl();
-            self::$object = $obj;
+                // Save for later retrieval
+                self::$id = $id;
+                self::$uuid = $obj->getUUID();
+                self::$url = $obj->getUrl();
+                self::$object = $obj;
+            }
         }
 
         /**
