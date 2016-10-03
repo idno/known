@@ -32,10 +32,10 @@ namespace Tests\Data {
             
             // Create user B
             $user = new \Idno\Entities\User();
-            $user->handle = 'testuser';
+            $user->handle = 'testuserb';
             $user->email = 'hello@withknown.com';
             $user->setPassword(md5(rand())); // Set password to something random to mitigate security holes if cleanup fails
-            $user->setTitle('Test User');
+            $user->setTitle('Test User B');
 
             $user->save();
 
