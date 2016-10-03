@@ -79,7 +79,7 @@ namespace Tests {
          * Swap the currently logged in user.
          * @param \Idno\Entities\User $user
          */
-        protected function swapUser(\Idno\Entities\User $user) {
+        protected function swapUser($user) {
             
             $current = \Idno\Core\site()->session()->currentUser();
             \Idno\Core\site()->session()->logUserOff();
