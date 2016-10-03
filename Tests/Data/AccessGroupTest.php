@@ -52,6 +52,7 @@ namespace Tests\Data {
             static::$acl->save();
             
             $obj = $this->newObject($user, static::$acl->getUUID());
+            $obj->save(); 
             
             // Swap user
             $a = $this->swapUser(static::$testUserB);
