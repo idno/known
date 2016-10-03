@@ -51,11 +51,11 @@ namespace Tests\Data {
             self::$acl->addMember($user->getUUID());
             self::$acl->save();
             
-            $obj = $this->newObject($user, static::$acl->getUUID());
+            $obj = $this->newObject($user, self::$acl->getUUID());
             $obj->save();
             
             // Swap user
-            $a = $this->swapUser(static::$testUserB);
+            $a = $this->swapUser(self::$testUserB);
             
             // Check that B can't access object
             $tmp = \Idno\Entities\GenericDataItem::getByUUID($obj->getUUID());
