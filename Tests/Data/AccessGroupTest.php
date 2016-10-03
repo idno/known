@@ -61,7 +61,8 @@ namespace Tests\Data {
             // Check that A can
             $b = $this->swapUser($a);
             $tmp = \Idno\Entities\GenericDataItem::getByUUID($obj->getUUID());
-            $this->assertFalse(empty($tmp));
+            var_export($tmp);
+            $this->assertTrue(!empty($tmp));
             
             // Check Admin can always read
             $admin = $this->admin();
