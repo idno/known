@@ -23,20 +23,22 @@ namespace Tests\Data {
         
         public static function setupBeforeClass()
         {
-            // Create acl
-            static::$acl = new \Idno\Entities\AccessGroup();
-            
-            
-            // Create user B
-            $user = new \Idno\Entities\User();
-            $user->handle = 'testuserb';
-            $user->email = 'hello@withknown.com';
-            $user->setPassword(md5(rand())); // Set password to something random to mitigate security holes if cleanup fails
-            $user->setTitle('Test User B');
+            if (get_called_class() === 'Tests\Data\AccessGroupTest') {
+                // Create acl
+                static::$acl = new \Idno\Entities\AccessGroup();
 
-            $user->save();
 
-            static::$testUserB = $user;
+                // Create user B
+                $user = new \Idno\Entities\User();
+                $user->handle = 'testuserb';
+                $user->email = 'hello@withknown.com';
+                $user->setPassword(md5(rand())); // Set password to something random to mitigate security holes if cleanup fails
+                $user->setTitle('Test User B');
+
+                $user->save();
+
+                static::$testUserB = $user;
+            }
             
         }
         
