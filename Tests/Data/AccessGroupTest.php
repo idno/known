@@ -17,7 +17,6 @@ namespace Tests\Data {
             $obj->setTitle("Unit Test Search Object");
             $obj->setOwner($owner);
             $obj->setAccess($access);
-            $id = $obj->save();
             
             return $obj;
         }
