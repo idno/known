@@ -267,7 +267,7 @@
                     $client->rollback();
                 }
 
-                \Idno\Core\Idno::site()->logging()->debug('saveRecord(): insert or update took ' . (microtime(true) - $benchmark_start) . 's');
+                //\Idno\Core\Idno::site()->logging()->debug('saveRecord(): insert or update took ' . (microtime(true) - $benchmark_start) . 's');
 
                 return $retval;
             }
