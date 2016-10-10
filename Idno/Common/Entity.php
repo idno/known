@@ -755,7 +755,8 @@
                         $this->deleteData();
                         \Idno\Core\Idno::site()->triggerEvent('deleted', array('object' => $this));
 
-                      if(!empty($this->getAttachments()))
+                      $attachments = $this->getAttachments();
+                      if(!empty($attachments))
                       {
                         $this->deleteAttachments();
                       }
