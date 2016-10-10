@@ -14,7 +14,7 @@ namespace Tests\Data {
         protected function newObject($owner, $access = 'PUBLIC') {
             $obj = new \Idno\Entities\GenericDataItem();
             $obj->setDatatype('UnitTestObjectAccessGroup');
-            $obj->setTitle("Unit Test Search Object");
+            $obj->setTitle("Search object for ACL Test");
             $obj->setOwner($owner);
             $obj->setAccess($access);
             
