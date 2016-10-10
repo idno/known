@@ -15,14 +15,16 @@ namespace Tests\Data {
         public static $fts_objects;
 
         public static function setUpBeforeClass()
-        {            
+        {          
             if (get_called_class() === 'Tests\Data\DataConciergeTest') {
                 $obj = new \Idno\Entities\GenericDataItem();
                 $obj->setDatatype('UnitTestObject');
                 $obj->setTitle("Unit Test Search Object");
                 $obj->variable1 = 'test';
                 $obj->variable2 = 'test again';
-                $id = $obj->save();
+                
+                //echo "\n\n\nabout to save"; 
+                $id = $obj->save(); //die($id);
 
                 // Save for later retrieval
                 self::$id = $id;
@@ -58,7 +60,7 @@ namespace Tests\Data {
         /**
          * Attempt to retrieve record by UUID.
          */
-        public function testGetRecordByUUID() {
+        public function testGetRecordByUUID() { 
             $this->validateObject(
                     \Idno\Core\Idno::site()->db()->rowToEntity(
                             \Idno\Core\Idno::site()->db()->getRecordByUUID(self::$uuid)
@@ -69,7 +71,7 @@ namespace Tests\Data {
         /**
          * Attempt to retrieve record by ID.
          */
-        public function testGetRecord() {
+        public function testGetRecord() { 
             $this->validateObject(
                     \Idno\Core\Idno::site()->db()->rowToEntity(
                             \Idno\Core\Idno::site()->db()->getRecord(self::$id)
