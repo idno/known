@@ -74,6 +74,12 @@ namespace Tests\Data {
             $tmp = \Idno\Entities\GenericDataItem::getByUUID($obj->getUUID());
             $this->assertFalse(empty($tmp));
             
+            
+            // Test objects in this UUID
+            $objs = \Idno\Entities\AccessGroup::getByAccessGroup(self::$acl->getUUID());
+            $this->assertTrue(count($objs) == 1);
+            
+            
             $obj->delete();
             
             // Restore old user if there was one
