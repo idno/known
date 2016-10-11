@@ -78,6 +78,39 @@ namespace Tests\Data {
             $this->swapUser($old);
         }
         
+        // Create an owner only object
+        public function testOwnerOnly() {
+            $user = $this->user();
+            $old = $this->swapUser($user);
+            
+            // Create user only object
+            $obj = $this->newObject($user, $user->getUUID());
+            $obj->save();
+            
+            // Swap user
+            $a = $this->swapUser(self::$testUserB);
+            
+            // Check that B can't access object
+            $tmp = \Idno\Entities\GenericDataItem::getByUUID($obj->getUUID());
+            $this->assertTrue(empty($tmp));
+            
+            // Check that A can
+            $b = $this->swapUser($a);
+            $tmp = \Idno\Entities\GenericDataItem::getByUUID($obj->getUUID());
+            var_export($tmp);
+            $this->assertTrue(!empty($tmp));
+            
+            // Check Admin can always read
+            $admin = $this->admin();
+            $this->swapUser($admin);
+            
+            $tmp = \Idno\Entities\GenericDataItem::getByUUID($obj->getUUID());
+            $this->assertFalse(empty($tmp));
+            
+            // Restore old user if there was one
+            $this->swapUser($old);
+        }
+        
         public static function tearDownAfterClass()
         {
             self::$acl->delete(); 
