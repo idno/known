@@ -74,6 +74,8 @@ namespace Tests\Data {
             $tmp = \Idno\Entities\GenericDataItem::getByUUID($obj->getUUID());
             $this->assertFalse(empty($tmp));
             
+            $obj->delete();
+            
             // Restore old user if there was one
             $this->swapUser($old);
         }
@@ -106,6 +108,8 @@ namespace Tests\Data {
             
             $tmp = \Idno\Entities\GenericDataItem::getByUUID($obj->getUUID());
             $this->assertFalse(empty($tmp));
+            
+            $obj->delete();
             
             // Restore old user if there was one
             $this->swapUser($old);
