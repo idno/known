@@ -15,19 +15,23 @@ namespace Tests\Data {
         public static $fts_objects;
 
         public static function setUpBeforeClass()
-        {
-            $obj = new \Idno\Entities\GenericDataItem();
-            $obj->setDatatype('UnitTestObject');
-            $obj->setTitle("Unit Test Search Object");
-            $obj->variable1 = 'test';
-            $obj->variable2 = 'test again';
-            $id = $obj->save();
+        {          
+            if (get_called_class() === 'Tests\Data\DataConciergeTest') {
+                $obj = new \Idno\Entities\GenericDataItem();
+                $obj->setDatatype('UnitTestObject');
+                $obj->setTitle("Unit Test Search Object");
+                $obj->variable1 = 'test';
+                $obj->variable2 = 'test again';
+                
+                //echo "\n\n\nabout to save"; 
+                $id = $obj->save(); //die($id);
 
-            // Save for later retrieval
-            self::$id = $id;
-            self::$uuid = $obj->getUUID();
-            self::$url = $obj->getUrl();
-            self::$object = $obj;
+                // Save for later retrieval
+                self::$id = $id;
+                self::$uuid = $obj->getUUID();
+                self::$url = $obj->getUrl();
+                self::$object = $obj;
+            }
         }
 
         /**
@@ -56,7 +60,7 @@ namespace Tests\Data {
         /**
          * Attempt to retrieve record by UUID.
          */
-        public function testGetRecordByUUID() {
+        public function testGetRecordByUUID() { 
             $this->validateObject(
                     \Idno\Core\Idno::site()->db()->rowToEntity(
                             \Idno\Core\Idno::site()->db()->getRecordByUUID(self::$uuid)
@@ -67,7 +71,7 @@ namespace Tests\Data {
         /**
          * Attempt to retrieve record by ID.
          */
-        public function testGetRecord() {
+        public function testGetRecord() { 
             $this->validateObject(
                     \Idno\Core\Idno::site()->db()->rowToEntity(
                             \Idno\Core\Idno::site()->db()->getRecord(self::$id)
@@ -190,8 +194,11 @@ namespace Tests\Data {
          * Helper function to validate object.
          */
         protected function validateObject($obj) {
-
+            
+            var_export($obj); 
+            var_export(self::$uuid);
             $this->assertTrue($obj instanceof \Idno\Entities\GenericDataItem);
+            
             $this->assertEquals("".self::$object->getID(), "".$obj->getID());
             $this->assertEquals("".self::$id, "".$obj->getID());
             $this->assertEquals(self::$uuid, $obj->getUUID());
@@ -199,9 +206,9 @@ namespace Tests\Data {
         }
 
         public static function tearDownAfterClass() {
-            if (static::$object) static::$object->delete();
-            if (static::$fts_objects) {
-                foreach (static::$fts_objects as $obj) {
+            if (self::$object) self::$object->delete();
+            if (self::$fts_objects) {
+                foreach (self::$fts_objects as $obj) {
                     $obj->delete();
                 }
             }
