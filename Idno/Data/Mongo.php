@@ -32,6 +32,19 @@
 
             function __construct($dbstring = null, $dbuser = null, $dbpass = null, $dbname = null, $dbauthsrc = null)
             {
+                
+                // Add library namespace
+                require_once(dirname(dirname(dirname(__FILE__))) . '/external/mongo-php-library/src/functions.php');
+                spl_autoload_register(function($class) {
+                    $class = str_replace('\\', DIRECTORY_SEPARATOR, $class);
+                    $class = str_replace('MongoDB/', '', $class);
+                    
+                    $basedir = dirname(dirname(dirname(__FILE__))) . '/external/mongo-php-library/src/';
+                    if (file_exists($basedir.$class.'.php')) { error_log("Loading {$basedir}{$class}.php");
+                        include_once($basedir.$class.'.php');
+                    }
+                });
+                
 
                 $this->dbstring  = $dbstring;
                 $this->dbuser    = $dbuser;
@@ -60,7 +73,7 @@
             function init()
             {
                 try {
-                    $this->client = new \MongoClient($this->dbstring, array_filter([
+                    $this->client = new \MongoDB\Client($this->dbstring, array_filter([
                         'authSource' => $this->dbauthsrc,
                         'username'   => $this->dbuser,
                         'password'   => $this->dbpass,
@@ -71,7 +84,7 @@
                     exit;
                 }
 
-                $this->database = $this->client->selectDB($this->dbname);
+                $this->database = $this->client->selectDatabase($this->dbname);
             }
             
             /**
@@ -95,17 +108,19 @@
 
             /**
              * Offer a session handler for the current session
+             * @deprecated Mongo can no longer handle sessions.
              */
             function handleSession()
             {
-                ini_set('session.gc_probability', 1);
-
-                $sessionHandler = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\MongoDbSessionHandler(\Idno\Core\Idno::site()->db()->getClient(), [
-                    'database'   => 'idnosession',
-                    'collection' => 'idnosession'
-                ]);
-
-                session_set_save_handler($sessionHandler, true);
+                return false; 
+//                ini_set('session.gc_probability', 1);
+//
+//                $sessionHandler = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\MongoDbSessionHandler(\Idno\Core\Idno::site()->db()->getClient(), [
+//                    'database'   => 'idnosession',
+//                    'collection' => 'idnosession'
+//                ]);
+//
+//                session_set_save_handler($sessionHandler, true);
             }
 
             /**
@@ -135,28 +150,31 @@
              * Make an array safe for storage in Mongo. This means
              * %-escaping all .'s and $'s.
              *
+             * @deprecated Going to assume that the upstream mongo library handles this.
              * @param mixed $obj an array, scalar value, or null
              * @return mixed
              */
             function sanitizeFields($obj)
             {
-                if (is_array($obj)) {
-                    // TODO maybe avoid unnecessary object churn by only creating a new
-                    // array if a key (or nested array) is found that needs encoding.
-                    // The vast majority won't.
-                    $result = [];
-                    foreach ($obj as $k => $v) {
-                        $k          = str_replace(array_keys(self::$ESCAPE_SEQUENCES), array_values(self::$ESCAPE_SEQUENCES), $k);
-                        $result[$k] = $this->sanitizeFields($v);
-                    }
-
-                    return $result;
-                } else if ($obj instanceof \Traversable) {
-                    // wrap iterator to sanitize lazily
-                    return new \Idno\Common\MappingIterator($obj, [$this, 'sanitizeFields']);
-                }
-
                 return $obj;
+                
+//                if (is_array($obj)) {
+//                    // TODO maybe avoid unnecessary object churn by only creating a new
+//                    // array if a key (or nested array) is found that needs encoding.
+//                    // The vast majority won't.
+//                    $result = [];
+//                    foreach ($obj as $k => $v) {
+//                        $k          = str_replace(array_keys(self::$ESCAPE_SEQUENCES), array_values(self::$ESCAPE_SEQUENCES), $k);
+//                        $result[$k] = $this->sanitizeFields($v);
+//                    }
+//
+//                    return $result;
+//                } else if ($obj instanceof \Traversable) {
+//                    // wrap iterator to sanitize lazily
+//                    return new \Idno\Common\MappingIterator($obj, [$this, 'sanitizeFields']);
+//                }
+//
+//                return $obj;
             }
 
             /**
@@ -178,24 +196,42 @@
              * storage.
              *
              * @param mixed $obj an array, scalar value, or null
+             * @deprecated Going to assume that the upstream mongo library now handles this, now converts between mongo library values and array. TODO: Find a better way to return array.
              * @return mixed
              */
             function unsanitizeFields($obj)
             {
-                if (is_array($obj)) {
-                    $result = [];
-                    foreach ($obj as $k => $v) {
-                        $k          = str_replace(array_values(self::$ESCAPE_SEQUENCES), array_keys(self::$ESCAPE_SEQUENCES), $k);
-                        $result[$k] = $this->unsanitizeFields($v);
-                    }
-
-                    return $result;
-                } else if ($obj instanceof \Traversable) {
-                    // wrap iterator to unsanitize lazily
-                    return new \Idno\Common\MappingIterator($obj, [$this, 'unsanitizeFields']);
+                if ($obj instanceof \MongoDB\Model\BSONArray) {
+                    return (array)$obj;
                 }
-
+                else if ($obj instanceof \MongoDB\Model\BSONDocument) {
+                    
+                    $obj = (array)$obj;
+                    foreach ($obj as $k => $v) {
+                        $obj[$k] = $this->unsanitizeFields($v);
+                    }
+                } else if (is_array($obj)) {
+                    foreach ($obj as $k => $v) {
+                        $obj[$k] = $this->unsanitizeFields($v);
+                    }
+                }
+                
                 return $obj;
+                
+//                if (is_array($obj)) {
+//                    $result = [];
+//                    foreach ($obj as $k => $v) {
+//                        $k          = str_replace(array_values(self::$ESCAPE_SEQUENCES), array_keys(self::$ESCAPE_SEQUENCES), $k);
+//                        $result[$k] = $this->unsanitizeFields($v);
+//                    }
+//
+//                    return $result;
+//                } else if ($obj instanceof \Traversable) {
+//                    // wrap iterator to unsanitize lazily
+//                    return new \Idno\Common\MappingIterator($obj, [$this, 'unsanitizeFields']);
+//                }
+
+                //return $obj;
             }
 
             /**
@@ -297,7 +333,7 @@
                 }
 
                 // Run the query
-                if ($results = $this->getRecords($fields, $query_parameters, $limit, $offset, $collection)) {
+                if ($results = $this->getRecords($fields, $query_parameters, $limit, $offset, $collection)) {                 
                     $return = array();
                     foreach ($results as $row) {
                         $return[] = $this->rowToEntity($row);
@@ -331,16 +367,25 @@
                         }
                     }
                     $fields = $fieldscopy;
-                    $result = $this->database->$collection
-                        ->find($parameters, $fields)
-                        ->skip($offset)
-                        ->limit($limit)
-                        ->sort(array('created' => -1));
                     
-                    if (($result) && (count(iterator_to_array($result))) ) {
-                        return $this->unsanitizeFields($result);
+                    if (empty($fields)) {
+                        $fields = [];
                     }
-                } catch (\Exception $e) {
+                    $fields['limit'] = $limit;
+                    $fields['skip'] = $offset;
+                    $fields['sort'] = array('created' => -1);
+                    
+                    $result = $this->database->$collection
+                        ->find($parameters, $fields);
+                            
+//                        ->skip($offset)
+//                        ->limit($limit)
+//                        ->sort(array('created' => -1));
+                    $iterator = iterator_to_array($result);
+                    if ($result && count($iterator)) { 
+                        return $this->unsanitizeFields($iterator);
+                    }
+                } catch (\Exception $e) { die($e->getMessage());
                     return false;
                 }
 
