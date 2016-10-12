@@ -5,6 +5,8 @@
         class MongoDBFile extends File
         {
 
+            private $bucket;
+            
             /**
              * Get this file's contents. For larger files this might not be wise.
              * @return mixed|string
@@ -59,6 +61,12 @@
             function getFilename()
             {
          
+            }
+            
+            
+            public function setBucket($bucket) {
+                
+                $this->bucket = $bucket;
             }
 
         }
