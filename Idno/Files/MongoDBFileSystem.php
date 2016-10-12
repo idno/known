@@ -29,6 +29,8 @@
                     $data = \Idno\Core\site()->db()->unsanitizeFields($array[0]);
                     
                     $file = new \Idno\Files\MongoDBFile();
+                    $file->setBucket($this->gridfs_object);
+                    
                     $file->_id               = $_id;
                     
                     foreach ($data as $k => $v) {
