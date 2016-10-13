@@ -13,11 +13,29 @@
              */
             function getBytes()
             {
-         
+                $contents = '';
+                $handle = $this->getResource();
+                while (!feof($handle)) {
+                    $contents .= fread($handle, 8192);
+                }
+                fclose($handle);
+                
+                return $handle;
             }
             
             function getSize() {
-         
+                if ($f = $this->getResource()) {
+                
+                    fseek($f, -1, SEEK_END);
+                    
+                    $size = ftell($f);
+                    
+                    fclose($f);
+                    
+                    return $size;
+                }
+                
+                return false;
             }
 
             /**
@@ -26,7 +44,11 @@
              */
             function passThroughBytes()
             {
-         
+                if ($file_handle = $this->getResource()) {
+                    ob_end_flush();
+                    fpassthru($file_handle);
+                    fclose($file_handle);
+                }
             }
 
             /**
@@ -35,7 +57,9 @@
              */
             function getResource()
             {
-         
+                $resource = $this->bucket->openDownloadStream(new \MongoDB\BSON\ObjectID($this->_id));
+                
+                return $resource;
             }
 
             /**
@@ -43,6 +67,11 @@
              */
             function delete()
             {
+                try {
+                    return $this->bucket->delete(new \MongoDB\BSON\ObjectID($this->_id));
+                } catch (\Exception $e) {
+                    \Idno\Core\site()->logging()->debug($e->getMessage());
+                }
             }
 
             /**
@@ -52,6 +81,19 @@
              */
             function write($path)
             {
+                try {
+                    if ($out = fopen($path, 'wb')) {
+                        $this->bucket->downloadToStream(new \MongoDB\BSON\ObjectID($this->_id), $out);
+                        
+                        fclose($out);
+                        
+                        return true;
+                    }
+                } catch (\Exception $e) {
+                    \Idno\Core\site()->logging()->debug($e->getMessage());
+                }
+                
+                return false;
             }
 
             /**
@@ -60,7 +102,7 @@
              */
             function getFilename()
             {
-         
+                return $this->filename;
             }
             
             
