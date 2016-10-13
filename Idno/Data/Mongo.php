@@ -278,7 +278,7 @@
              */
             function getAnyRecord($collection = 'entities')
             {
-                $raw = $this->database->$collection->findOne();
+                $raw = $this->database->$collection->findOne([], ['sort' => ['created' => -1]]);
 
                 return $this->unsanitizeFields($raw);
             }
