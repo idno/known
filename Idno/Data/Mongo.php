@@ -493,7 +493,7 @@
              */
             function deleteRecord($id, $collection = 'entities')
             {
-                return $this->database->$collection->remove(array("_id" => new \MongoDB\BSON\ObjectID($id)));
+                return $this->database->$collection->deleteOne(array("_id" => new \MongoDB\BSON\ObjectID($id)));
             }
 
             /**
