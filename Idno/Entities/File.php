@@ -196,7 +196,7 @@
                             }
 
                         }
-
+                        
                         if ($id = $fs->storeFile($file_path, $metadata, $metadata)) {
                             if (!$return_object) {
                                 return $id;
