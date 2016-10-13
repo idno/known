@@ -20,19 +20,22 @@
                 }
                 fclose($handle);
                 
-                return $handle;
+                return $contents;
             }
             
             function getSize() {
                 if ($f = $this->getResource()) {
-                
-                    fseek($f, -1, SEEK_END);
                     
-                    $size = ftell($f);
+//                    fseek($f, -1, SEEK_END);
+//                    
+//                    $size = ftell($f);
+//                    
+//                    fclose($f);
+//                    
+//                    return $size;
                     
-                    fclose($f);
-                    
-                    return $size;
+                    // There has to be a better way
+                    return strlen($this->getBytes());
                 }
                 
                 return false;
@@ -111,6 +114,6 @@
                 $this->bucket = $bucket;
             }
 
-        }
-
     }
+
+}

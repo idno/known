@@ -33,6 +33,20 @@
                     
                     $file->_id               = $_id;
                     
+                    
+                    // Normalise new object storage
+                    if (isset($data['metadata'])) {
+                        foreach ($data['metadata'] as $k => $v) {
+                            if ($k != '_id') { // Prevent objects from clobbering the ID
+                                $file->metadata[$k] = $v;
+                            }
+                        }
+                        
+                        unset($data['metadata']);
+                    }
+                    
+                    //$file->file['length'] = filesize($upload_file);
+                    
                     foreach ($data as $k => $v) {
                         if ($k != '_id') { // Prevent objects from clobbering the ID
                             $file->metadata[$k] = $v;
@@ -42,6 +56,9 @@
                             $file->metadata[$k] = $v->__toString();
                         }
                     }
+                    
+                    $file->file = $file->metadata;
+                    $file->file['_id']    = $_id;
                     
                     return $file;                    
                     
@@ -59,10 +76,12 @@
                     if ($source = fopen($file_path, 'rb')) {
                         
                         $id = $bucket->uploadFromStream($file_path, $source, [
-                            'metadata' => new \MongoDB\Model\BSONDocument($metadata)
+                            'metadata' => $metadata//new \MongoDB\Model\BSONDocument($metadata)
                         ]);
                         
-                        fclose($upload);
+                        fclose($source);
+                        
+                        return "$id";
                     }
                 } catch (\Exception $ex) {
                     \Idno\Core\site()->logging()->debug($ex->getMessage());
