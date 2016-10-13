@@ -40,7 +40,7 @@
                     $class = str_replace('MongoDB/', '', $class);
                     
                     $basedir = dirname(dirname(dirname(__FILE__))) . '/external/mongo-php-library/src/';
-                    if (file_exists($basedir.$class.'.php')) { error_log("Loading {$basedir}{$class}.php");
+                    if (file_exists($basedir.$class.'.php')) { 
                         include_once($basedir.$class.'.php');
                     }
                 });
@@ -137,8 +137,20 @@
                     unset($array['_id']);
                 }
                 $array = $this->sanitizeFields($array);
-                if ($result = $collection_obj->save($array, array('w' => 1))) {
-                    if ($result['ok'] == 1) {
+                
+                if (empty($array['_id'])) {
+                    if ($result = $collection_obj->insertOne($array, array('w' => 1))) { 
+
+                        if ($result->isAcknowledged() && ($result->getInsertedCount() > 0)){
+
+                            $array['_id'] = $result->getInsertedId();
+                            
+                            return $array['_id'];
+                        }
+                    } 
+                } else {
+                    // We already have an ID, we need to replace the existing one
+                    if ($result = $collection_obj->findOneAndReplace(['_id' => $array['_id']], $array)) {
                         return $array['_id'];
                     }
                 }
@@ -241,7 +253,8 @@
              */
             function processID($id)
             {
-                return new \MongoId($id);
+                return $id;
+                //return new \MongoId($id);
             }
 
             /**
@@ -491,7 +504,7 @@
              */
             function getFilesystem()
             {
-                if ($grid = new \MongoGridFS($this->database)) {
+                if ($grid = new \Idno\Files\MongoDBFileSystem($this->client->getManager(), $this->dbname)) {
                     return $grid;
                 }
 
