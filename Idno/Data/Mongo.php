@@ -517,7 +517,7 @@
              */
             function createSearchArray($query)
             {
-                $regexObj = new \MongoRegex("/" . addslashes($query) . "/i");
+                $regexObj = new \MongoDB\BSON\Regex("/" . addslashes($query) . "/i");
 
                 return array('$or' => array(array('body' => $regexObj), array('title' => $regexObj), array('tags' => $regexObj), array('description' => $regexObj)));
             }
