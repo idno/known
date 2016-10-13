@@ -35,14 +35,14 @@
                     
                     foreach ($data as $k => $v) {
                         if ($k != '_id') { // Prevent objects from clobbering the ID
-                            $file->$k = $v;
+                            $file->metadata[$k] = $v;
                         }
                         
                         if ($v instanceof \MongoDB\BSON\UTCDateTime) { // Handle MongoDB dates
-                            $file->$k = $v->__toString();
+                            $file->metadata[$k] = $v->__toString();
                         }
                     }
-
+                    
                     return $file;                    
                     
                 }
@@ -52,6 +52,23 @@
 
             public function storeFile($file_path, $metadata, $options) {
 
+                $bucket = $this->gridfs_object;
+                
+                try {
+                    
+                    if ($source = fopen($file_path, 'rb')) {
+                        
+                        $id = $bucket->uploadFromStream($file_path, $source, [
+                            'metadata' => new \MongoDB\Model\BSONDocument($metadata)
+                        ]);
+                        
+                        fclose($upload);
+                    }
+                } catch (\Exception $ex) {
+                    \Idno\Core\site()->logging()->debug($ex->getMessage());
+                }
+                
+                return false;
             }
 
         }
