@@ -56,7 +56,7 @@
              * @param $file_path
              * @param $metadata
              * @param $options
-             * @return new file id
+             * @return \Idno\Files\File
              */
             public function storeFile($file_path, $metadata, $options)
             {
