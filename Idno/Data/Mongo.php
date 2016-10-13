@@ -249,12 +249,11 @@
             /**
              * Process the ID appropriately
              * @param $id
-             * @return \MongoId
+             * @return \MongoDB\BSON\ObjectID
              */
             function processID($id)
             {
-                return $id;
-                //return new \MongoId($id);
+                return new \MongoDB\BSON\ObjectID($id);
             }
 
             /**
@@ -266,7 +265,7 @@
              */
             function getRecord($id, $collection = 'entities')
             {
-                $raw = $this->database->$collection->findOne(array("_id" => new \MongoId($id)));
+                $raw = $this->database->$collection->findOne(array("_id" => new \MongoDB\BSON\ObjectID($id)));
 
                 return $this->unsanitizeFields($raw);
             }
@@ -494,7 +493,7 @@
              */
             function deleteRecord($id, $collection = 'entities')
             {
-                return $this->database->$collection->remove(array("_id" => new \MongoId($id)));
+                return $this->database->$collection->remove(array("_id" => new \MongoDB\BSON\ObjectID($id)));
             }
 
             /**
