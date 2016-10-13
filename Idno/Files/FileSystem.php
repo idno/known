@@ -23,7 +23,7 @@
              * @param $file_path
              * @param $metadata
              * @param $options
-             * @return \Idno\Files\File
+             * @return new file ID
              */
             abstract function storeFile($file_path, $metadata, $options);
 
