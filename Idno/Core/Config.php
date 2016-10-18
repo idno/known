@@ -19,12 +19,7 @@
                 'sessionname'            => 'known', // Default session name
                 'boolean_search'         => true, // Should search be boolean?
                 'open_registration'      => true, // Can anyone register for this system?
-                'plugins'                => array( // Default plugins
-                                                   'Firefox',
-                                                   'FooterJS',
-                                                   'IndiePub',
-                                                   'Convoy'
-                ),
+                'plugins'                => array(), // Default plugins
                 'assets'                 => [      // Assets to be included
                                                    'mediaelementplayer' => true,
                                                    'fitvids'            => true,
@@ -133,6 +128,10 @@
                     $config['plugins'][] = 'Status';
                     $config['plugins'][] = 'Text';
                     $config['plugins'][] = 'Photo';
+                    $config['plugins'][] = 'Firefox';
+                    $config['plugins'][] = 'FooterJS';
+                    $config['plugins'][] = 'IndiePub';
+                    $config['plugins'][] = 'Convoy';
                 }
 
                 $this->loadIniFiles();
