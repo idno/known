@@ -65,7 +65,7 @@
                         if ($version->label === 'schema') {
                             $basedate          = $newdate = (int)$version->value;
                             $upgrade_sql_files = array();
-                            $schema_dir        = dirname(dirname(dirname(__FILE__))) . '/schemas/mysql/';
+                            $schema_dir        = dirname(dirname(dirname(__FILE__))) . '/schemas/postgres/';
                             $client            = $this->client;
 
                             if ($basedate < 2016102001) {
