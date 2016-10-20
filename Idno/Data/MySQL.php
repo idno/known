@@ -235,7 +235,7 @@
                 $retval          = false;
                 $benchmark_start = microtime(true);
                 try {
-                    $client->beginTransaction();
+                    //$client->beginTransaction();
                     $statement = $client->prepare("insert into {$collection}
                                                     (`uuid`, `_id`, `entity_subtype`,`owner`, `contents`, `search`, `created`)
                                                     values
@@ -272,10 +272,10 @@
                             }
                         }
                     }
-                    $client->commit();
+                    //$client->commit();
                 } catch (\Exception $e) {
                     \Idno\Core\Idno::site()->logging()->error($e->getMessage());
-                    $client->rollback();
+                    //$client->rollback();
                 }
 
                 //\Idno\Core\Idno::site()->logging()->debug('saveRecord(): insert or update took ' . (microtime(true) - $benchmark_start) . 's');
