@@ -105,4 +105,4 @@ CREATE TABLE IF NOT EXISTS `session` (
     PRIMARY KEY (`session_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-REPLACE INTO `versions` VALUES('schema', '2014100801');
+REPLACE INTO `versions` VALUES('schema', '2016102001');
