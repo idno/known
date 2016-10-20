@@ -12,6 +12,8 @@
 namespace Symfony\Component\ClassLoader\Tests;
 
 use Symfony\Component\ClassLoader\ClassCollectionLoader;
+use Symfony\Component\ClassLoader\Tests\Fixtures\DeclaredClass;
+use Symfony\Component\ClassLoader\Tests\Fixtures\WarmedClass;
 
 require_once __DIR__.'/Fixtures/ClassesWithParents/GInterface.php';
 require_once __DIR__.'/Fixtures/ClassesWithParents/CInterface.php';
@@ -22,26 +24,20 @@ class ClassCollectionLoaderTest extends \PHPUnit_Framework_TestCase
 {
     public function testTraitDependencies()
     {
-        if (version_compare(phpversion(), '5.4', '<')) {
-            $this->markTestSkipped('Requires PHP > 5.4');
-
-            return;
-        }
-
         require_once __DIR__.'/Fixtures/deps/traits.php';
 
         $r = new \ReflectionClass('Symfony\Component\ClassLoader\ClassCollectionLoader');
         $m = $r->getMethod('getOrderedClasses');
         $m->setAccessible(true);
 
-        $ordered = $m->invoke('Symfony\Component\ClassLoader\ClassCollectionLoader', array('CTFoo'));
+        $ordered = $m->invoke(null, array('CTFoo'));
 
         $this->assertEquals(
             array('TD', 'TC', 'TB', 'TA', 'TZ', 'CTFoo'),
             array_map(function ($class) { return $class->getName(); }, $ordered)
         );
 
-        $ordered = $m->invoke('Symfony\Component\ClassLoader\ClassCollectionLoader', array('CTBar'));
+        $ordered = $m->invoke(null, array('CTBar'));
 
         $this->assertEquals(
             array('TD', 'TZ', 'TC', 'TB', 'TA', 'CTBar'),
@@ -65,7 +61,7 @@ class ClassCollectionLoaderTest extends \PHPUnit_Framework_TestCase
         $m = $r->getMethod('getOrderedClasses');
         $m->setAccessible(true);
 
-        $ordered = $m->invoke('Symfony\Component\ClassLoader\ClassCollectionLoader', $classes);
+        $ordered = $m->invoke(null, $classes);
 
         $this->assertEquals($expected, array_map(function ($class) { return $class->getName(); }, $ordered));
     }
@@ -100,12 +96,6 @@ class ClassCollectionLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testClassWithTraitsReordering(array $classes)
     {
-        if (version_compare(phpversion(), '5.4', '<')) {
-            $this->markTestSkipped('Requires PHP > 5.4');
-
-            return;
-        }
-
         require_once __DIR__.'/Fixtures/ClassesWithParents/ATrait.php';
         require_once __DIR__.'/Fixtures/ClassesWithParents/BTrait.php';
         require_once __DIR__.'/Fixtures/ClassesWithParents/CTrait.php';
@@ -128,7 +118,7 @@ class ClassCollectionLoaderTest extends \PHPUnit_Framework_TestCase
         $m = $r->getMethod('getOrderedClasses');
         $m->setAccessible(true);
 
-        $ordered = $m->invoke('Symfony\Component\ClassLoader\ClassCollectionLoader', $classes);
+        $ordered = $m->invoke(null, $classes);
 
         $this->assertEquals($expected, array_map(function ($class) { return $class->getName(); }, $ordered));
     }
@@ -144,6 +134,32 @@ class ClassCollectionLoaderTest extends \PHPUnit_Framework_TestCase
                 'ClassesWithParents\\E',
             )),
         );
+    }
+
+    public function testFixClassWithTraitsOrdering()
+    {
+        require_once __DIR__.'/Fixtures/ClassesWithParents/CTrait.php';
+        require_once __DIR__.'/Fixtures/ClassesWithParents/F.php';
+        require_once __DIR__.'/Fixtures/ClassesWithParents/G.php';
+
+        $classes = array(
+            'ClassesWithParents\\F',
+            'ClassesWithParents\\G',
+        );
+
+        $expected = array(
+            'ClassesWithParents\\CTrait',
+            'ClassesWithParents\\F',
+            'ClassesWithParents\\G',
+        );
+
+        $r = new \ReflectionClass('Symfony\Component\ClassLoader\ClassCollectionLoader');
+        $m = $r->getMethod('getOrderedClasses');
+        $m->setAccessible(true);
+
+        $ordered = $m->invoke(null, $classes);
+
+        $this->assertEquals($expected, array_map(function ($class) { return $class->getName(); }, $ordered));
     }
 
     /**
@@ -184,12 +200,12 @@ class ClassCollectionLoaderTest extends \PHPUnit_Framework_TestCase
             array("namespace   Bar ;\nclass Foo {}\n", "namespace   Bar\n{\nclass Foo {}\n}\n"),
             array("namespace Foo\Bar;\nclass Foo {}\n", "namespace Foo\Bar\n{\nclass Foo {}\n}\n"),
             array("namespace Foo\Bar\Bar\n{\nclass Foo {}\n}\n", "namespace Foo\Bar\Bar\n{\nclass Foo {}\n}\n"),
-            array("namespace\n{\nclass Foo {}\n}\n", "namespace\n{\nclass Foo {}\n}\n"),
+            array("\nnamespace\n{\nclass Foo {}\n\$namespace=123;}\n", "\nnamespace\n{\nclass Foo {}\n\$namespace=123;}\n"),
         );
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function testUnableToLoadClassException()
     {
@@ -202,44 +218,46 @@ class ClassCollectionLoaderTest extends \PHPUnit_Framework_TestCase
 
     public function testCommentStripping()
     {
-        if (is_file($file = sys_get_temp_dir().'/bar.php')) {
+        if (is_file($file = __DIR__.'/bar.php')) {
             unlink($file);
         }
         spl_autoload_register($r = function ($class) {
             if (0 === strpos($class, 'Namespaced') || 0 === strpos($class, 'Pearlike_')) {
-                require_once __DIR__.'/Fixtures/'.str_replace(array('\\', '_'), '/', $class).'.php';
+                @require_once __DIR__.'/Fixtures/'.str_replace(array('\\', '_'), '/', $class).'.php';
             }
         });
 
+        $strictTypes = defined('HHVM_VERSION') ? '' : "\nnamespace {require __DIR__.'/Fixtures/Namespaced/WithStrictTypes.php';}";
+
         ClassCollectionLoader::load(
-            array('Namespaced\\WithComments', 'Pearlike_WithComments'),
-            sys_get_temp_dir(),
+            array('Namespaced\\WithComments', 'Pearlike_WithComments', $strictTypes ? 'Namespaced\\WithStrictTypes' : 'Namespaced\\WithComments'),
+            __DIR__,
             'bar',
             false
         );
 
         spl_autoload_unregister($r);
 
-        $this->assertEquals(<<<EOF
+        $this->assertEquals(<<<'EOF'
 namespace Namespaced
 {
 class WithComments
 {
-public static \$loaded = true;
+public static $loaded = true;
 }
-\$string ='string shoult not be   modified {\$string}';
-\$heredoc = (<<<HD
+$string ='string should not be   modified {$string}';
+$heredoc = (<<<HD
 
 
-Heredoc should not be   modified {\$string}
+Heredoc should not be   modified {$string}
 
 
 HD
 );
-\$nowdoc =<<<'ND'
+$nowdoc =<<<'ND'
 
 
-Nowdoc should not be   modified {\$string}
+Nowdoc should not be   modified {$string}
 
 
 ND
@@ -249,12 +267,46 @@ namespace
 {
 class Pearlike_WithComments
 {
-public static \$loaded = true;
+public static $loaded = true;
 }
 }
 EOF
-        , str_replace("<?php \n", '', file_get_contents($file)));
+            .$strictTypes,
+            str_replace(array("<?php \n", '\\\\'), array('', '/'), file_get_contents($file))
+        );
 
         unlink($file);
+    }
+
+    public function testInline()
+    {
+        $this->assertTrue(class_exists(WarmedClass::class, true));
+
+        @unlink($cache = sys_get_temp_dir().'/inline.php');
+
+        $classes = array(WarmedClass::class);
+        $excluded = array(DeclaredClass::class);
+
+        ClassCollectionLoader::inline($classes, $cache, $excluded);
+
+        $this->assertSame(<<<'EOTXT'
+<?php 
+namespace Symfony\Component\ClassLoader\Tests\Fixtures
+{
+interface WarmedInterface
+{
+}
+}
+namespace Symfony\Component\ClassLoader\Tests\Fixtures
+{
+class WarmedClass extends DeclaredClass implements WarmedInterface
+{
+}
+}
+EOTXT
+            , file_get_contents($cache)
+        );
+
+        unlink($cache);
     }
 }
