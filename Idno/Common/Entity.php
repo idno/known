@@ -427,6 +427,28 @@
             }
 
             /**
+             * Set the published status of this object, for use with searches.
+             * @param string $status The status, default "published". Other values may be "draft" or "scheduled".
+             */
+            public function setPublishStatus($status = 'published') {
+                
+                $status = trim($status);
+                
+                $this->publish_status = $status;
+                
+            }
+            
+            /**
+             * Return the publish status of this object.
+             * @return string
+             */
+            public function getPublishStatus() {
+                
+                return $this->publish_status;
+                
+            }
+            
+            /**
              * Saves this entity - either creating a new entry, or
              * overwriting the existing one.
              *
