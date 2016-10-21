@@ -1293,12 +1293,6 @@
                 if ($access == 'PUBLIC') return true;
                 if ($access == 'SITE' && \Idno\Core\Idno::site()->session()->isLoggedIn()) return true;
                 if ($this->getOwnerID() == $user_id) return true;
-                
-                if ($user = User::getByUUID($user_id)) {
-                    if ($user->isAdmin()) {
-                        return true;
-                    }
-                }
 
                 if ($access instanceof \Idno\Entities\AccessGroup) {
                     
