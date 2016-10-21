@@ -83,6 +83,12 @@
                     $this->tags  = \Idno\Core\Idno::site()->currentPage()->getInput('tags');
                     $access      = \Idno\Core\Idno::site()->currentPage()->getInput('access');
                     $this->setAccess($access);
+                    
+                    // Make Entry publish status aware
+                    $publish_status = \Idno\Core\Idno::site()->currentPage()->getInput('publish_status', 'published');
+                    if (!empty($publish_status)) {
+                        $this->setPublishStatus($publish_status);
+                    }
 
                     if ($time = \Idno\Core\Idno::site()->currentPage()->getInput('created')) {
                         if ($time = strtotime($time)) {
