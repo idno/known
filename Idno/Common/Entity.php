@@ -494,6 +494,11 @@
                     $this->created = time();
                 }
                 $this->updated = time();
+                
+                // Set published status if not already set
+                if (empty($this->publish_status)) {
+                    $this->setPublishStatus('published');
+                }
 
                 // Save it to the database
 
