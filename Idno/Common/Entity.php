@@ -416,7 +416,7 @@
              */
             function publish()
             {
-                if ($this->save()) {
+                if ($this->save() && ($this->getPublishStatus() == 'published')) {
                     $this->syndicate();
                     \Idno\Core\Idno::site()->triggerEvent('published', ['object' => $this]);
 
