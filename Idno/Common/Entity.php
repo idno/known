@@ -449,6 +449,36 @@
             }
             
             /**
+             * Return whether this object is in your ACLs.
+             * @return bool: True if this object is in your ACLS, false if not (and by deduction, you're seeing this because you're an admin)
+             */
+            public function inACL($user_id = '') {
+                if (empty($user_id)) {
+                    $user_id = \Idno\Core\Idno::site()->session()->currentUserUUID();
+                }
+                $access = $this->getAccess();
+
+                if ($access == 'PUBLIC') return true;
+                if ($access == 'SITE' && \Idno\Core\Idno::site()->session()->isLoggedIn()) return true;
+                if ($this->getOwnerID() == $user_id) return true;
+                
+                if ($access instanceof \Idno\Entities\AccessGroup) {
+                    
+                    // If the user is a regular member of the access group
+                    if ($access->isMember($user_id)) {
+                        return \Idno\Core\Idno::site()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
+                    }
+                    
+                    // If the user is an ADMIN member of the access group
+                    if ($access->isMember($user_id, 'admin')) {
+                        return \Idno\Core\Idno::site()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
+                    }
+                }
+
+                return false;
+            }
+            
+            /**
              * Saves this entity - either creating a new entry, or
              * overwriting the existing one.
              *
