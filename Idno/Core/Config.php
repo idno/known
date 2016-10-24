@@ -116,6 +116,7 @@
                     unset($config['session_path']);
                     unset($config['session_hash_function']);
                     unset($config['sessions_database']);
+                    unset($config['sessions_storage']);
                     unset($config['cookie_jar']);
                     unset($config['proxy_string']);
                     unset($config['proxy_type']);
@@ -218,6 +219,7 @@
                 unset($array['session_path']); // Don't save the session path in the database
                 unset($array['session_hash_function']); // Don't save the session hash to database, we want the ability to upgrade
                 unset($array['sessions_database']); // Don't want to save sessions in database
+                unset($array['sessions_storage']); // Don't want to save sessions storage in db
                 unset($array['cookie_jar']); // Don't save the cookie path in the database
                 unset($array['proxy_string']);
                 unset($array['proxy_type']);
