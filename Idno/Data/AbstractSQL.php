@@ -10,6 +10,7 @@
     namespace Idno\Data {
 
         abstract class AbstractSQL extends \Idno\Core\DataConcierge
+            implements \Idno\Common\SessionStorageInterface
         {
 
             protected $dbname;
