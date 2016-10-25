@@ -86,7 +86,11 @@
             $rssItem->appendChild($page->createElement('pubDate',date(DATE_RSS,$item->created)));
 
             $owner = $item->getOwner();
-            $rssItem->appendChild($page->createElement('author', "{$owner->title}"));
+            if (!empty($owner)) {
+                $rssItem->appendChild($page->createElement('author', "{$owner->title}"));
+            } else {
+                $rssItem->appendChild($page->createElement('author', "Deleted User"));
+            }
             //$rssItem->appendChild($page->createElement('dc:creator', $owner->title));
 
             $description = $page->createElement('description');
