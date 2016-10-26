@@ -170,6 +170,9 @@
                 if (empty($array['entity_subtype'])) {
                     $array['entity_subtype'] = 'Idno\\Common\\Entity';
                 }
+                if (empty($array['publish_status'])) {
+                    $array['publish_status'] = 'published';
+                }
                 if (empty($array['created'])) {
                     $array['created'] = date("Y-m-d H:i:s", time());
                 } else {
@@ -189,8 +192,8 @@
                     $statement = $client->prepare("insert or replace into {$collection}
                                                     (`uuid`, `_id`, `entity_subtype`,`owner`, `created`, `contents`)
                                                     values
-                                                    (:uuid, :id, :subtype, :owner, :created, :contents)");
-                    if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':created' => $array['created']))) {
+                                                    (:uuid, :id, :subtype, :owner, :created, :contents, :status)");
+                    if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':status' => $array['publish_status'], ':created' => $array['created']))) {
 
                         // Update FTS Lookup
                         $statement = $client->prepare("insert or replace into {$collection}_search
