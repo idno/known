@@ -70,7 +70,7 @@
                         if ($version->label === 'schema') {
                             $basedate          = $newdate = (int)$version->value;
                             $upgrade_sql_files = array();
-                            $schema_dir        = dirname(dirname(dirname(__FILE__))) . '/schemas/sqllite3/';
+                            $schema_dir        = dirname(dirname(dirname(__FILE__))) . '/schemas/sqlite3/';
                             $client            = $this->client;
                         }
                     }
