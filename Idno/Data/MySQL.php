@@ -96,11 +96,17 @@
                             }
                             if ($basedate < 2016102601) {
                                 if ($sql = @file_get_contents($schema_dir . '2016102601.sql')) {
-                                    try {
-                                        $statement = $client->prepare($sql);
-                                        $statement->execute();
-                                    } catch (\Exception $e) {
-                                        error_log($e->getMessage());
+                                    $statements = explode(";\n", $sql); // Explode statements; only mysql can support multiple statements per line, and then only badly.
+                                    foreach ($statements as $sql) {
+                                        $sql = trim($sql);
+                                        if (!empty($sql)) {
+                                            try {
+                                                $statement = $client->prepare($sql);
+                                                $statement->execute();
+                                            } catch (\Exception $e) {
+                                                error_log($e->getMessage());
+                                            }
+                                        }
                                     }
                                 }
                                 $newdate = 2016102601;
