@@ -222,6 +222,9 @@
                 if (empty($array['entity_subtype'])) {
                     $array['entity_subtype'] = 'Idno\\Common\\Entity';
                 }
+                if (empty($array['publish_status'])) {
+                    $array['publish_status'] = 'published';
+                }
 
                 if (empty($array['created'])) {
                     $array['created'] = date("Y-m-d H:i:s", time());
@@ -243,11 +246,11 @@
                 try {
                     $client->beginTransaction();
                     $statement = $client->prepare("insert into {$collection}
-                                                    (`uuid`, `_id`, `entity_subtype`,`owner`, `contents`, `search`, `created`)
+                                                    (`uuid`, `_id`, `entity_subtype`,`owner`, `contents`, `search`, `publish_status`, `created`)
                                                     values
-                                                    (:uuid, :id, :subtype, :owner, :contents, :search, :created)
-                                                    on duplicate key update `uuid` = :uuid, `entity_subtype` = :subtype, `owner` = :owner, `contents` = :contents, `search` = :search, `created` = :created");
-                    if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search, ':created' => $array['created']))) {
+                                                    (:uuid, :id, :subtype, :owner, :contents, :search, :publish_status, :created)
+                                                    on duplicate key update `uuid` = :uuid, `entity_subtype` = :subtype, `owner` = :owner, `contents` = :contents, `search` = :search, `publish_status` = :publish_status, `created` = :created");
+                    if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search, ':publish_status' => $array['publish_status'], ':created' => $array['created']))) {
                         $retval = $array['_id'];
                         if ($statement = $client->prepare("delete from metadata where _id = :id")) {
                             $statement->execute(array(':id' => $array['_id']));
