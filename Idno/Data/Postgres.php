@@ -143,6 +143,9 @@
                 if (empty($array['entity_subtype'])) {
                     $array['entity_subtype'] = 'Idno\\Common\\Entity';
                 }
+                if (empty($array['publish_status'])) {
+                    $array['publish_status'] = 'published';
+                }
                 if (empty($array['created'])) {
                     $array['created'] = date("Y-m-d H:i:s", time());
                 } else {
@@ -163,15 +166,15 @@
                     // Postgres 9.5 will have "on conflict do update"
                     $upsert = "update {$collection}
                                set uuid=:uuid, entity_subtype=:subtype, owner=:owner,
-                               contents=:contents, search=:search where _id=:id";
+                               contents=:contents, search=:search, publish_status=:status where _id=:id";
                     $insert = "insert into {$collection}
-                               (uuid, _id, owner, entity_subtype, contents, search)
-                               select :uuid, :id, :owner, :subtype, :contents, :search";
+                               (uuid, _id, owner, entity_subtype, contents, search, publish_status)
+                               select :uuid, :id, :owner, :subtype, :contents, :search, :status";
 
                     $statement = $client->prepare("with upsert as (${upsert} returning *)
                                                    ${insert} where not exists (select * from upsert)");
 
-                    if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search))) {
+                    if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search, ':status' => $array['publish_status']))) {
                         if ($statement = $client->prepare("delete from metadata where _id = :id")) {
                             $statement->execute(array(':id' => $array['_id']));
                         }
