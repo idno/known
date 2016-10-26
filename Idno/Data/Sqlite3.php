@@ -190,7 +190,7 @@
                 try {
 
                     $statement = $client->prepare("insert or replace into {$collection}
-                                                    (`uuid`, `_id`, `entity_subtype`,`owner`, `created`, `contents`)
+                                                    (`uuid`, `_id`, `entity_subtype`,`owner`, `created`, `contents`, `publish_status`)
                                                     values
                                                     (:uuid, :id, :subtype, :owner, :created, :contents, :status)");
                     if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':status' => $array['publish_status'], ':created' => $array['created']))) {
