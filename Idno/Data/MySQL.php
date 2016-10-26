@@ -459,7 +459,7 @@
                             if (!empty($value['$not'])) {
                                 if (!empty($value['$not']['$in'])) {
 
-                                    if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner'))) {
+                                    if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner', 'publish_status'))) {
                                         $notstring = "`{$collection}`.`$key` not in (";
                                         $i         = 0;
                                         foreach ($value['$not']['$in'] as $val) {
@@ -485,7 +485,7 @@
                                         $notstring .= "))";
                                     }
                                 } else {
-                                    if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner'))) {
+                                    if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner', 'publish_status'))) {
                                         $notstring                                   = "`{$collection}`.`$key` != :nonmdvalue{$non_md_variables}";
                                         $variables[":nonmdvalue{$non_md_variables}"] = $value['$not'];
                                         $non_md_variables++;
@@ -500,7 +500,7 @@
                                 $subwhere[] = $notstring;
                             }
                             if (!empty($value['$in'])) {
-                                if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner'))) {
+                                if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner', 'publish_status'))) {
                                     $instring = "`{$collection}`.`$key` in (";
                                     $i        = 0;
                                     foreach ($value['$in'] as $val) {
