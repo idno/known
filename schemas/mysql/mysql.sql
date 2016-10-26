@@ -14,10 +14,12 @@ CREATE TABLE IF NOT EXISTS `config` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `contents` longblob NOT NULL,
   `search` longtext NOT NULL,
+  `publish_status` varchar(255) NOT NULL DEFAULT 'published',
   PRIMARY KEY (`uuid`),
   KEY `owner` (`owner`,`created`),
   KEY `_id` (`_id`),
-  KEY `entity_subtype` (`entity_subtype`)
+  KEY `entity_subtype` (`entity_subtype`),
+  KEY `publish_status` (`publish_status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -34,10 +36,12 @@ CREATE TABLE IF NOT EXISTS `entities` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `contents` longblob NOT NULL,
   `search` longtext NOT NULL,
+  `publish_status` varchar(255) NOT NULL DEFAULT 'published',
   PRIMARY KEY (`uuid`),
   UNIQUE KEY `_id` (`_id`),
   KEY `owner` (`owner`,`created`),
   KEY `entity_subtype` (`entity_subtype`),
+  KEY `publish_status` (`publish_status`),
   FULLTEXT KEY `search` (`search`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -55,10 +59,12 @@ CREATE TABLE IF NOT EXISTS `reader` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `contents` longblob NOT NULL,
   `search` longtext NOT NULL,
+  `publish_status` varchar(255) NOT NULL DEFAULT 'published',
   PRIMARY KEY (`uuid`),
   UNIQUE KEY `_id` (`_id`),
   KEY `owner` (`owner`,`created`),
   KEY `entity_subtype` (`entity_subtype`),
+  KEY `publish_status` (`publish_status`),
   FULLTEXT KEY `search` (`search`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -104,4 +110,4 @@ CREATE TABLE IF NOT EXISTS `session` (
     PRIMARY KEY (`session_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-REPLACE INTO `versions` VALUES('schema', '2014100801');
+REPLACE INTO `versions` VALUES('schema', '2016102601');
