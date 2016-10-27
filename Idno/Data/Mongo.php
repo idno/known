@@ -171,23 +171,6 @@
             {
                 return $obj;
                 
-//                if (is_array($obj)) {
-//                    // TODO maybe avoid unnecessary object churn by only creating a new
-//                    // array if a key (or nested array) is found that needs encoding.
-//                    // The vast majority won't.
-//                    $result = [];
-//                    foreach ($obj as $k => $v) {
-//                        $k          = str_replace(array_keys(self::$ESCAPE_SEQUENCES), array_values(self::$ESCAPE_SEQUENCES), $k);
-//                        $result[$k] = $this->sanitizeFields($v);
-//                    }
-//
-//                    return $result;
-//                } else if ($obj instanceof \Traversable) {
-//                    // wrap iterator to sanitize lazily
-//                    return new \Idno\Common\MappingIterator($obj, [$this, 'sanitizeFields']);
-//                }
-//
-//                return $obj;
             }
 
             /**
@@ -231,20 +214,6 @@
                 
                 return $obj;
                 
-//                if (is_array($obj)) {
-//                    $result = [];
-//                    foreach ($obj as $k => $v) {
-//                        $k          = str_replace(array_values(self::$ESCAPE_SEQUENCES), array_keys(self::$ESCAPE_SEQUENCES), $k);
-//                        $result[$k] = $this->unsanitizeFields($v);
-//                    }
-//
-//                    return $result;
-//                } else if ($obj instanceof \Traversable) {
-//                    // wrap iterator to unsanitize lazily
-//                    return new \Idno\Common\MappingIterator($obj, [$this, 'unsanitizeFields']);
-//                }
-
-                //return $obj;
             }
 
             /**
@@ -391,9 +360,6 @@
                     $result = $this->database->$collection
                         ->find($parameters, $fields);
                             
-//                        ->skip($offset)
-//                        ->limit($limit)
-//                        ->sort(array('created' => -1));
                     $iterator = iterator_to_array($result);
                     if ($result && count($iterator)) { 
                         return $this->unsanitizeFields($iterator);
