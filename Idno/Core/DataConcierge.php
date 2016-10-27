@@ -123,13 +123,14 @@
              */
             function rowToEntity($row)
             {
-                if (!empty($row['entity_subtype']))
+                if (!empty($row['entity_subtype'])) { 
                     if (class_exists($row['entity_subtype'])) {
                         $object = new $row['entity_subtype']();
                         $object->loadFromArray($row);
 
                         return $object;
-                    }
+                    } 
+                }
 
                 return false;
             }

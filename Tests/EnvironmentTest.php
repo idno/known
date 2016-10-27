@@ -24,8 +24,8 @@
                     $this->assertTrue(extension_loaded($extension));
                 }
                 
-                echo "Checking available DB (mysql, mongo, sqlite, pgsql)\n";
-                $this->assertTrue(extension_loaded('mysql') || extension_loaded('mongo') || extension_loaded('sqlite') || extension_loaded('pgsql'));
+                echo "Checking available DB (mysql, mongodb, sqlite, pgsql)\n";
+                $this->assertTrue(extension_loaded('mysql') || extension_loaded('mongodb') || extension_loaded('sqlite') || extension_loaded('pgsql'));
             }
             
             /** 
