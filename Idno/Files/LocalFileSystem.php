@@ -66,7 +66,7 @@
                     $metadata = json_encode($metadata);
 
                     // Generate a random ID
-                    $id = md5(time() . $metadata);
+                    $id = md5(rand() . microtime(true) . $metadata);
 
                     // Generate save path
                     if ($path[sizeof($path) - 1] != '/') {

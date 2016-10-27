@@ -19,20 +19,7 @@
                 'sessionname'            => 'known', // Default session name
                 'boolean_search'         => true, // Should search be boolean?
                 'open_registration'      => true, // Can anyone register for this system?
-                'plugins'                => array( // Default plugins
-                                                   'Status',
-                                                   'Text',
-                                                   'Photo',
-                                                   'Like',
-                                                   'Checkin',
-                                                   'Media',
-                                                   'Firefox',
-                                                   'Bridgy',
-                                                   'FooterJS',
-                                                   'IndiePub',
-                                                   'Convoy',
-                                                   'Comments',
-                ),
+                'plugins'                => array(), // Default plugins
                 'assets'                 => [      // Assets to be included
                                                    'mediaelementplayer' => true,
                                                    'fitvids'            => true,
@@ -129,6 +116,7 @@
                     unset($config['session_path']);
                     unset($config['session_hash_function']);
                     unset($config['sessions_database']);
+                    unset($config['sessions_storage']);
                     unset($config['cookie_jar']);
                     unset($config['proxy_string']);
                     unset($config['proxy_type']);
@@ -136,6 +124,15 @@
                     unset($config['upload_tmp_dir']);
                     unset($config['bypass_fulltext_search']);
                     $this->config = array_replace_recursive($this->config, $config);
+                } else {
+                    // If we don't have a saved config, this is a new site. Set some plugin defaults
+                    $config['plugins'][] = 'Status';
+                    $config['plugins'][] = 'Text';
+                    $config['plugins'][] = 'Photo';
+                    $config['plugins'][] = 'Firefox';
+                    $config['plugins'][] = 'FooterJS';
+                    $config['plugins'][] = 'IndiePub';
+                    $config['plugins'][] = 'Convoy';
                 }
 
                 $this->loadIniFiles();
@@ -222,6 +219,7 @@
                 unset($array['session_path']); // Don't save the session path in the database
                 unset($array['session_hash_function']); // Don't save the session hash to database, we want the ability to upgrade
                 unset($array['sessions_database']); // Don't want to save sessions in database
+                unset($array['sessions_storage']); // Don't want to save sessions storage in db
                 unset($array['cookie_jar']); // Don't save the cookie path in the database
                 unset($array['proxy_string']);
                 unset($array['proxy_type']);

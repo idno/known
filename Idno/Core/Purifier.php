@@ -9,8 +9,13 @@
 
             function init()
             {
+                $upload_dir = Idno::site()->config()->getUploadPath();
+                if (empty($upload_dir)) {
+                    $upload_dir = \Idno\Core\Idno::site()->config()->getTempDir();
+                }
+                
                 $config = \HTMLPurifier_Config::createDefault();
-                $config->set('Cache.SerializerPath', Idno::site()->config()->getUploadPath());
+                $config->set('Cache.SerializerPath', $upload_dir);
                 $this->purifier = new \HTMLPurifier($config);
             }
 

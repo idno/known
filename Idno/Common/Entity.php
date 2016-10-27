@@ -416,7 +416,7 @@
              */
             function publish()
             {
-                if ($this->save()) {
+                if ($this->save() && ($this->getPublishStatus() == 'published')) {
                     $this->syndicate();
                     \Idno\Core\Idno::site()->triggerEvent('published', ['object' => $this]);
 
@@ -426,6 +426,58 @@
                 return false;
             }
 
+            /**
+             * Set the published status of this object, for use with searches.
+             * @param string $status The status, default "published". Other values may be "draft" or "scheduled".
+             */
+            public function setPublishStatus($status = 'published') {
+                
+                $status = trim($status);
+                
+                $this->publish_status = $status;
+                
+            }
+            
+            /**
+             * Return the publish status of this object.
+             * @return string
+             */
+            public function getPublishStatus() {
+                
+                return $this->publish_status;
+                
+            }
+            
+            /**
+             * Return whether this object is in your ACLs.
+             * @return bool: True if this object is in your ACLS, false if not (and by deduction, you're seeing this because you're an admin)
+             */
+            public function inACL($user_id = '') {
+                if (empty($user_id)) {
+                    $user_id = \Idno\Core\Idno::site()->session()->currentUserUUID();
+                }
+                $access = $this->getAccess();
+
+                if ($access == 'PUBLIC') return true;
+                if ($access == 'SITE' && \Idno\Core\Idno::site()->session()->isLoggedIn()) return true;
+                if ($this->getOwnerID() == $user_id) return true;
+                
+                if ($access instanceof \Idno\Entities\AccessGroup) {
+                    
+                    // If the user is a regular member of the access group
+                    if ($access->isMember($user_id)) {
+                        return \Idno\Core\Idno::site()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
+                    }
+                    
+                    // If the user is an ADMIN member of the access group
+                    if ($access->isMember($user_id, 'admin')) {
+                        return \Idno\Core\Idno::site()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
+                    }
+                }
+
+                return false;
+            }
+            
             /**
              * Saves this entity - either creating a new entry, or
              * overwriting the existing one.
@@ -472,6 +524,11 @@
                     $this->created = time();
                 }
                 $this->updated = time();
+                
+                // Set published status if not already set
+                if (empty($this->publish_status)) {
+                    $this->setPublishStatus('published');
+                }
 
                 // Save it to the database
 
@@ -1229,17 +1286,19 @@
                 if ($this->getOwnerID() == $user_id) return true;
                 
                 // Check against access groups
-                $access = $this->getAccess();
-                if ($access instanceof \Idno\Entities\AccessGroup) {
-                    
-                    // If the user has been added to write
-                    if ($access->isMember($user_id, 'write')) {
-                        return \Idno\Core\Idno::site()->triggerEvent('canEdit', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
-                    }
-                    
-                    // If the user is an ADMIN member of the access group
-                    if ($access->isMember($user_id, 'admin')) {
-                        return \Idno\Core\Idno::site()->triggerEvent('canEdit', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
+                if ($this->getPublishStatus() == 'published') {
+                    $access = $this->getAccess();
+                    if ($access instanceof \Idno\Entities\AccessGroup) {
+
+                        // If the user has been added to write
+                        if ($access->isMember($user_id, 'write')) {
+                            return \Idno\Core\Idno::site()->triggerEvent('canEdit', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
+                        }
+
+                        // If the user is an ADMIN member of the access group
+                        if ($access->isMember($user_id, 'admin')) {
+                            return \Idno\Core\Idno::site()->triggerEvent('canEdit', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
+                        }
                     }
                 }
 
@@ -1266,17 +1325,25 @@
                 if ($access == 'PUBLIC') return true;
                 if ($access == 'SITE' && \Idno\Core\Idno::site()->session()->isLoggedIn()) return true;
                 if ($this->getOwnerID() == $user_id) return true;
-
-                if ($access instanceof \Idno\Entities\AccessGroup) {
-                    
-                    // If the user is a regular member of the access group
-                    if ($access->isMember($user_id)) {
-                        return \Idno\Core\Idno::site()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
+                
+                if ($user = User::getByUUID($user_id)) {
+                    if ($user->isAdmin()) {
+                        return true;
                     }
-                    
-                    // If the user is an ADMIN member of the access group
-                    if ($access->isMember($user_id, 'admin')) {
-                        return \Idno\Core\Idno::site()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
+                }
+
+                if ($this->getPublishStatus() == 'published') {
+                    if ($access instanceof \Idno\Entities\AccessGroup) {
+
+                        // If the user is a regular member of the access group
+                        if ($access->isMember($user_id)) {
+                            return \Idno\Core\Idno::site()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
+                        }
+
+                        // If the user is an ADMIN member of the access group
+                        if ($access->isMember($user_id, 'admin')) {
+                            return \Idno\Core\Idno::site()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
+                        }
                     }
                 }
 

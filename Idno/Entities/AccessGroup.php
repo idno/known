@@ -134,6 +134,27 @@
 
                 return false;
             }
+            
+            /**
+             * Get entities by access group.
+             * @param mixed $access_group
+             * @param type $search
+             * @param type $fields
+             * @param type $limit
+             * @param type $offset
+             * @return boolean
+             */
+            static function getByAccessGroup($access_group, $search = array(), $fields = array(), $limit = 10, $offset = 0)
+            {
+                if (!empty($access_group)) {
+                    
+                    $search = array_merge($search, ['access' => $access_group]);
+
+                    return \Idno\Core\Idno::site()->db()->getObjects('', $search, $fields, $limit, $offset, static::$retrieve_collection);
+                }
+                
+                return false;
+            }
 
         }
 
