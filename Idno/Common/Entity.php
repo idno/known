@@ -1286,17 +1286,19 @@
                 if ($this->getOwnerID() == $user_id) return true;
                 
                 // Check against access groups
-                $access = $this->getAccess();
-                if ($access instanceof \Idno\Entities\AccessGroup) {
-                    
-                    // If the user has been added to write
-                    if ($access->isMember($user_id, 'write')) {
-                        return \Idno\Core\Idno::site()->triggerEvent('canEdit', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
-                    }
-                    
-                    // If the user is an ADMIN member of the access group
-                    if ($access->isMember($user_id, 'admin')) {
-                        return \Idno\Core\Idno::site()->triggerEvent('canEdit', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
+                if ($this->getPublishStatus() == 'published') {
+                    $access = $this->getAccess();
+                    if ($access instanceof \Idno\Entities\AccessGroup) {
+
+                        // If the user has been added to write
+                        if ($access->isMember($user_id, 'write')) {
+                            return \Idno\Core\Idno::site()->triggerEvent('canEdit', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
+                        }
+
+                        // If the user is an ADMIN member of the access group
+                        if ($access->isMember($user_id, 'admin')) {
+                            return \Idno\Core\Idno::site()->triggerEvent('canEdit', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
+                        }
                     }
                 }
 
@@ -1330,16 +1332,18 @@
                     }
                 }
 
-                if ($access instanceof \Idno\Entities\AccessGroup) {
-                    
-                    // If the user is a regular member of the access group
-                    if ($access->isMember($user_id)) {
-                        return \Idno\Core\Idno::site()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
-                    }
-                    
-                    // If the user is an ADMIN member of the access group
-                    if ($access->isMember($user_id, 'admin')) {
-                        return \Idno\Core\Idno::site()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
+                if ($this->getPublishStatus() == 'published') {
+                    if ($access instanceof \Idno\Entities\AccessGroup) {
+
+                        // If the user is a regular member of the access group
+                        if ($access->isMember($user_id)) {
+                            return \Idno\Core\Idno::site()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
+                        }
+
+                        // If the user is an ADMIN member of the access group
+                        if ($access->isMember($user_id, 'admin')) {
+                            return \Idno\Core\Idno::site()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
+                        }
                     }
                 }
 
