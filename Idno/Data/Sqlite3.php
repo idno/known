@@ -70,8 +70,27 @@
                         if ($version->label === 'schema') {
                             $basedate          = $newdate = (int)$version->value;
                             $upgrade_sql_files = array();
-                            $schema_dir        = dirname(dirname(dirname(__FILE__))) . '/schemas/sqllite3/';
+                            $schema_dir        = dirname(dirname(dirname(__FILE__))) . '/schemas/sqlite3/';
                             $client            = $this->client;
+                            
+                            
+                            if ($basedate < 2016102601) {
+                                if ($sql = @file_get_contents($schema_dir . '2016102601.sql')) {
+                                    $statements = explode(";\n", $sql); // Explode statements; only mysql can support multiple statements per line.
+                                    foreach ($statements as $sql) {
+                                        $sql = trim($sql);
+                                        if (!empty($sql)) {
+                                            try {
+                                                $statement = $client->prepare($sql);
+                                                $statement->execute();
+                                            } catch (\Exception $e) {
+                                                error_log($e->getMessage());
+                                            }
+                                        }
+                                    }
+                                }
+                                $newdate = 2016102601;
+                            }
                         }
                     }
                 }
@@ -151,6 +170,9 @@
                 if (empty($array['entity_subtype'])) {
                     $array['entity_subtype'] = 'Idno\\Common\\Entity';
                 }
+                if (empty($array['publish_status'])) {
+                    $array['publish_status'] = 'published';
+                }
                 if (empty($array['created'])) {
                     $array['created'] = date("Y-m-d H:i:s", time());
                 } else {
@@ -168,10 +190,10 @@
                 try {
 
                     $statement = $client->prepare("insert or replace into {$collection}
-                                                    (`uuid`, `_id`, `entity_subtype`,`owner`, `created`, `contents`)
+                                                    (`uuid`, `_id`, `entity_subtype`,`owner`, `created`, `contents`, `publish_status`)
                                                     values
-                                                    (:uuid, :id, :subtype, :owner, :created, :contents)");
-                    if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':created' => $array['created']))) {
+                                                    (:uuid, :id, :subtype, :owner, :created, :contents, :status)");
+                    if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':status' => $array['publish_status'], ':created' => $array['created']))) {
 
                         // Update FTS Lookup
                         $statement = $client->prepare("insert or replace into {$collection}_search
@@ -394,7 +416,7 @@
                         } else {
                             if (!empty($value['$not'])) {
                                 if (!empty($value['$not']['$in'])) {
-                                    if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner'))) {
+                                    if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner', 'publish_status'))) {
                                         $notstring = "`{$collection}`.`$key` not in(";
                                         $i         = 0;
                                         foreach ($value['$not']['$in'] as $val) {
@@ -422,7 +444,7 @@
                                 }
                                 // simple $not
                                 else {
-                                    if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner'))) {
+                                    if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner', 'publish_status'))) {
                                         $notstring                                   = "`{$collection}`.`$key` != :nonmdvalue{$non_md_variables}";
                                         $variables[":nonmdvalue{$non_md_variables}"] = $value['$not'];
                                         $non_md_variables++;
@@ -437,7 +459,7 @@
                                 $subwhere[] = $notstring;
                             }
                             if (!empty($value['$in'])) {
-                                if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner'))) {
+                                if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner', 'publish_status'))) {
                                     $instring = "`{$collection}`.`$key` in (";
                                     $i        = 0;
                                     foreach ($value['$in'] as $val) {
