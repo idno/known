@@ -12,7 +12,7 @@
 
     namespace Idno\Core {
 
-        abstract class DataConcierge extends \Idno\Common\Component
+        abstract class DataConcierge extends \Idno\Common\Component 
         {
 
             protected $client;
@@ -25,11 +25,6 @@
             {
                 return true;
             }
-
-            /**
-             * Offer a session handler for the current session
-             */
-            abstract function handleSession();
 
             /**
              * Returns an instance of the database client reference variable

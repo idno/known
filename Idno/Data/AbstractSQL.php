@@ -10,6 +10,7 @@
     namespace Idno\Data {
 
         abstract class AbstractSQL extends \Idno\Core\DataConcierge
+            implements \Idno\Common\SessionStorageInterface
         {
 
             protected $dbname;
@@ -82,6 +83,8 @@
                     );
 
                     session_set_save_handler($sessionHandler, true);
+                    
+                    //return true;
                 }
             }
 

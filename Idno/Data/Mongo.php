@@ -17,6 +17,7 @@
          * @deprecated MongoDB support is being phased out, please use MySQL.
          */
         class Mongo extends \Idno\Core\DataConcierge
+            implements \Idno\Common\SessionStorageInterface
         {
 
             /**
@@ -106,6 +107,8 @@
                 ]);
 
                 session_set_save_handler($sessionHandler, true);
+                
+                return true;
             }
 
             /**

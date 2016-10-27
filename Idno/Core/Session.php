@@ -15,6 +15,8 @@
         {
 
             private $user;
+            
+            private $storageHandler = false;
 
             function init()
             {
@@ -35,9 +37,35 @@
                     ini_set('session.hash_function', $hash);
                 }
 
-                if (Idno::site()->config()->sessions_database) {
-                    Idno::site()->db()->handleSession();
-                } else {
+                $sessions_handled = false;
+                
+                // If we're storing sessions in the database, then try to store it.
+                if ((!$sessions_handled) && (Idno::site()->config()->sessions_database)) {
+                    $db = Idno::site()->db();
+                    if ($db instanceof \Idno\Common\SessionStorageInterface) {
+                        if ($db->handleSession()) {
+                            $this->storageHandler = $db;
+                            $sessions_handled = true;
+                        }
+                    }
+                } 
+                
+                // Try a pluggable session storage handler
+                if ((!$sessions_handled) && (Idno::site()->config()->sessions_storage)) {
+                    $storage_class = Idno::site()->config()->sessions_storage;
+                    if (class_exists("{$storage_class}")) {
+                        if (is_subclass_of($storage_class, "Idno\\Common\\SessionStorageInterface")) {
+                            $storage_class = new $storage_class();
+                            if ($storage_class->handleSession()) {
+                                $this->storageHandler = $storage_class;
+                                $sessions_handled = true;
+                            }
+                        }
+                    }
+                }
+                
+                // Fallback to files if no other session storage handler has been defined
+                if (!$sessions_handled) { 
                     session_save_path(Idno::site()->config()->session_path);
                 }
 
