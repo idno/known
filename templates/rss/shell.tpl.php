@@ -80,13 +80,17 @@
                 }
             }
             $rssItem = $page->createElement('item');
-            $rssItem->appendChild($page->createElement('title',$title));
+            $rssItem->appendChild($page->createElement('title', htmlentities(strip_tags($title), ENT_QUOTES, 'UTF-8')));
             $rssItem->appendChild($page->createElement('link',$item->getSyndicationURL()));
             $rssItem->appendChild($page->createElement('guid',$item->getUUID()));
             $rssItem->appendChild($page->createElement('pubDate',date(DATE_RSS,$item->created)));
 
             $owner = $item->getOwner();
-            $rssItem->appendChild($page->createElement('author', "{$owner->title}"));
+            if (!empty($owner)) {
+                $rssItem->appendChild($page->createElement('author', "{$owner->title}"));
+            } else {
+                $rssItem->appendChild($page->createElement('author', "Deleted User"));
+            }
             //$rssItem->appendChild($page->createElement('dc:creator', $owner->title));
 
             $description = $page->createElement('description');

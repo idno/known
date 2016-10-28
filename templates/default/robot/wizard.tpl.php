@@ -69,3 +69,5 @@
             }
         }
     }
+    
+    unset($this->vars['body']);

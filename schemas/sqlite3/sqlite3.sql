@@ -13,11 +13,13 @@ CREATE TABLE IF NOT EXISTS config (
   owner varchar(255) NOT NULL,
   entity_subtype varchar(64) NOT NULL,
   created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  contents longblob NOT NULL
+  contents longblob NOT NULL,
+  publish_status varchar(255) NOT NULL DEFAULT 'published'
 );
 CREATE INDEX IF NOT EXISTS _id ON config (_id);
 CREATE INDEX IF NOT EXISTS owner ON config (owner);
 CREATE INDEX IF NOT EXISTS entity_subtype ON config (entity_subtype);
+CREATE INDEX IF NOT EXISTS publish_status ON config (publish_status);
 
 CREATE VIRTUAL TABLE config_search USING fts4 (
   uuid varchar(255) NOT NULL PRIMARY KEY,
@@ -36,11 +38,13 @@ CREATE TABLE IF NOT EXISTS entities (
   owner varchar(255) NOT NULL,
   entity_subtype varchar(64) NOT NULL,
   created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  contents longblob NOT NULL
+  contents longblob NOT NULL,
+  publish_status varchar(255) NOT NULL DEFAULT 'published'
 );
 
 CREATE INDEX IF NOT EXISTS owner ON entities (owner, created);
 CREATE INDEX IF NOT EXISTS entity_subtype ON entities (entity_subtype);
+CREATE INDEX IF NOT EXISTS publish_status ON entities (publish_status);
 
 CREATE VIRTUAL TABLE entities_search USING fts4 (
   uuid varchar(255) NOT NULL PRIMARY KEY,
@@ -60,11 +64,13 @@ CREATE TABLE IF NOT EXISTS reader (
   owner varchar(255) NOT NULL,
   entity_subtype varchar(64) NOT NULL,
   created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  contents blob NOT NULL
+  contents blob NOT NULL,
+  publish_status varchar(255) NOT NULL DEFAULT 'published'
 );
 
 CREATE INDEX IF NOT EXISTS owner ON reader (owner, created);
 CREATE INDEX IF NOT EXISTS entity_subtype ON reader (entity_subtype);
+CREATE INDEX IF NOT EXISTS publish_status ON reader (publish_status);
 
 CREATE VIRTUAL TABLE reader_search USING fts4 (
   uuid varchar(255) NOT NULL PRIMARY KEY,
@@ -114,4 +120,4 @@ CREATE TABLE IF NOT EXISTS session (
     session_time int(11) NOT NULL
 );
 
-REPLACE INTO `versions` VALUES('schema', '2016102001');
+REPLACE INTO `versions` VALUES('schema', '2016102601');

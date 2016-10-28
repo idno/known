@@ -94,6 +94,7 @@
                                 }
                                 $newdate = 2016013101;
                             }
+
                             if ($basedate < 2016102001) {
                                 if ($sql = @file_get_contents($schema_dir . '2016102001.sql')) {
                                     try {
@@ -104,6 +105,24 @@
                                     }
                                 }
                                 $newdate = 2016102001;
+                            }
+
+                            if ($basedate < 2016102601) {
+                                if ($sql = @file_get_contents($schema_dir . '2016102601.sql')) {
+                                    $statements = explode(";\n", $sql); // Explode statements; only mysql can support multiple statements per line, and then only badly.
+                                    foreach ($statements as $sql) {
+                                        $sql = trim($sql);
+                                        if (!empty($sql)) {
+                                            try {
+                                                $statement = $client->prepare($sql);
+                                                $statement->execute();
+                                            } catch (\Exception $e) {
+                                                error_log($e->getMessage());
+                                            }
+                                        }
+                                    }
+                                }
+                                $newdate = 2016102601;
                             }
                         }
                     }
@@ -216,6 +235,9 @@
                 if (empty($array['entity_subtype'])) {
                     $array['entity_subtype'] = 'Idno\\Common\\Entity';
                 }
+                if (empty($array['publish_status'])) {
+                    $array['publish_status'] = 'published';
+                }
 
                 if (empty($array['created'])) {
                     $array['created'] = date("Y-m-d H:i:s", time());
@@ -237,11 +259,11 @@
                 try {
                     //$client->beginTransaction();
                     $statement = $client->prepare("insert into {$collection}
-                                                    (`uuid`, `_id`, `entity_subtype`,`owner`, `contents`, `search`, `created`)
+                                                    (`uuid`, `_id`, `entity_subtype`,`owner`, `contents`, `search`, `publish_status`, `created`)
                                                     values
-                                                    (:uuid, :id, :subtype, :owner, :contents, :search, :created)
-                                                    on duplicate key update `uuid` = :uuid, `entity_subtype` = :subtype, `owner` = :owner, `contents` = :contents, `search` = :search, `created` = :created");
-                    if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search, ':created' => $array['created']))) {
+                                                    (:uuid, :id, :subtype, :owner, :contents, :search, :publish_status, :created)
+                                                    on duplicate key update `uuid` = :uuid, `entity_subtype` = :subtype, `owner` = :owner, `contents` = :contents, `search` = :search, `publish_status` = :publish_status, `created` = :created");
+                    if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search, ':publish_status' => $array['publish_status'], ':created' => $array['created']))) {
                         $retval = $array['_id'];
                         if ($statement = $client->prepare("delete from metadata where _id = :id")) {
                             $statement->execute(array(':id' => $array['_id']));
@@ -459,7 +481,7 @@
                             if (!empty($value['$not'])) {
                                 if (!empty($value['$not']['$in'])) {
 
-                                    if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner'))) {
+                                    if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner', 'publish_status'))) {
                                         $notstring = "`{$collection}`.`$key` not in (";
                                         $i         = 0;
                                         foreach ($value['$not']['$in'] as $val) {
@@ -485,7 +507,7 @@
                                         $notstring .= "))";
                                     }
                                 } else {
-                                    if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner'))) {
+                                    if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner', 'publish_status'))) {
                                         $notstring                                   = "`{$collection}`.`$key` != :nonmdvalue{$non_md_variables}";
                                         $variables[":nonmdvalue{$non_md_variables}"] = $value['$not'];
                                         $non_md_variables++;
@@ -500,7 +522,7 @@
                                 $subwhere[] = $notstring;
                             }
                             if (!empty($value['$in'])) {
-                                if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner'))) {
+                                if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner', 'publish_status'))) {
                                     $instring = "`{$collection}`.`$key` in (";
                                     $i        = 0;
                                     foreach ($value['$in'] as $val) {

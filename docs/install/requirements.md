@@ -43,7 +43,7 @@ Additionally, Known requires the following PHP components:
 + json
 + libxml
 + mbstring
-+ mongo or mysql (depending on database backend)
++ mongodb or mysql (depending on database backend)
 + reflection
 + session
 + xmlrpc
