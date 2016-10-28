@@ -43,7 +43,13 @@
             {
                 if ($basic_html) {
                     $config = \HTMLPurifier_Config::createDefault();
-                    $config->set('Cache.SerializerPath', Idno::site()->config()->getUploadPath());
+                    
+                    $upload_dir = Idno::site()->config()->getUploadPath();
+                    if (empty($upload_dir)) {
+                        $upload_dir = \Idno\Core\Idno::site()->config()->getTempDir();
+                    }
+                    
+                    $config->set('Cache.SerializerPath', $upload_dir);
                     $config->set('CSS.AllowedProperties', []);
                     $config->set('HTML.TidyRemove', 'br@clear');
                     $purifier = new \HTMLPurifier($config);
