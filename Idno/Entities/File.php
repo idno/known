@@ -281,8 +281,11 @@
             static function getByURL($url)
             {
                 if (substr_count($url, \Idno\Core\Idno::site()->config()->getDisplayURL() . 'file/')) {
-                    $url = str_replace(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'file/', '', $url);
-
+                    
+                    if (preg_match('#'.\Idno\Core\Idno::site()->config()->getDisplayURL() ."file\/([a-zA-Z0-9]+)+#", $url, $matches)) {
+                        $url = $matches[1];
+                    }
+                    
                     return self::getByID($url);
                 }
 
