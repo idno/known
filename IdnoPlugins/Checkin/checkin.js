@@ -13,6 +13,11 @@ function initMap(latitude, longitude) {
     CheckinMarker = marker;
     marker.addTo(map);
     marker.dragging.enable();
+    
+    // Set base values
+    $('#lat').val(latitude.toString());
+    $('#long').val(longitude.toString());
+    
     marker.on("dragend", function (e) {
 	var coords = e.target.getLatLng();
 	console.log(coords);
