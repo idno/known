@@ -766,6 +766,21 @@
 
                 return self::buildUrl($url);
             }
+            
+            /**
+             * Helper function to see if the given Known base path matches the current page URL.
+             * This is useful for setting active on menus in subdirectory installs.
+             * @param type $path Path, relative to the Known base
+             * @return bool
+             */
+            public function doesPathMatch($path) {
+                
+                $path = \Idno\Core\Idno::site()->config()->url . trim($path, ' /') . '/';
+                
+                $current = $this->currentUrl();
+                
+                return $path == $current;
+            }
 
             /**
              * Construct a URL from array components (basically an implementation of http_build_url() without PECL.
