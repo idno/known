@@ -775,11 +775,10 @@
              */
             public function doesPathMatch($path) {
                 
-                $path = \Idno\Core\Idno::site()->config()->url . trim($path, ' /') . '/';
+                $path = parse_url(\Idno\Core\Idno::site()->config()->url . trim($path, ' /') . '/');
+                $current = $this->currentUrl(true);
                 
-                $current = $this->currentUrl();
-                
-                return $path == $current;
+                return trim($path['path'], ' /') == trim($current['path'], ' /');
             }
 
             /**
