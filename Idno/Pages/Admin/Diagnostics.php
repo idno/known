@@ -106,7 +106,7 @@
                 $basics['report']['php-extensions']['message'] = trim($basics['report']['php-extensions']['message'], ' ,') . ' missing.';
 
                 // Check upload directory (if set)
-                $basics['report']['upload-path'] = ['status' => 'Ok'];
+                $basics['report']['upload-path'] = ['status' => 'Ok', 'message' => ''];
                 $upload_path                     = \Idno\Core\Idno::site()->config()->uploadpath;
                 if (!empty($upload_path)) {
                     if ($upload_path = realpath($upload_path)) {
