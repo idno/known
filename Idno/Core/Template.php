@@ -447,7 +447,12 @@
                             } else if (strpos($in_reply_to, 'github.com') !== false) {
                                 return '<a href="https://github.com/' . urlencode(ltrim($matches[1], '@')) . '" >' . $url . '</a>';
                             } else {
-                                return $url;
+                                return \Idno\Core\Idno::site()->triggerEvent("template/parseusers", [
+                                    'in_reply_to' => $in_reply_to,
+                                    'in_reply_to_domain' => parse_url($in_reply_to, PHP_URL_HOST),
+                                    'username' => ltrim($matches[1], '@'),
+                                    'match' => $url
+                                ], $url);
                             }
                         }, $text);
 
