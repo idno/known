@@ -76,7 +76,7 @@
                 }
 
                 // Check PHP version 
-                if (version_compare(phpversion(), '5.5') >= 0) {
+                if (version_compare(phpversion(), '5.6') >= 0) {
                     $basics['report']['php-version'] = [
                         'status' => 'Ok'
                     ];
@@ -84,7 +84,7 @@
                     $basics['status']             = 'Failure';
                     $basics['report']['php-version'] = [
                         'status'  => 'Warning',
-                        'message' => 'You are running Known using a very old version of PHP (' . phpversion() . '), which is no longer supported. Although Known will currently still install, some features will not work, so you should upgrade soon. You may need to ask your server administrator to upgrade PHP for you.'
+                        'message' => 'You are running Known using a very old version of PHP (' . phpversion() . '), which is no longer actively supported. Although Known will currently still install, some features may not work, so you should upgrade soon. You may need to ask your server administrator to upgrade PHP for you.'
                     ];
                 } else {
                     $basics['report']['php-version'] = [
