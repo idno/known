@@ -25,6 +25,14 @@ function initMap(latitude, longitude) {
 	$('#long').val(coords.lng.toString());
 	queryLocation(coords.lat, coords.lng);
     });
+    
+    $('#user_address').change(function() {
+	queryAddress($('#user_address').val(), function() {
+	    map.remove();
+	    initMap($('#lat').val(), $('#long').val());
+	});
+	
+    });
 }
 
 function queryLocation(latitude, longitude, cb) {
@@ -36,6 +44,24 @@ function queryLocation(latitude, longitude, cb) {
 	console.log(data);
 	$('#lat').val(latitude);
 	$('#long').val(longitude);
+	$('#placename').val(data.name);
+	$('#address').val(data.display_name);
+	$('#user_address').val(data.display_name);
+	if (cb) {
+	    cb();
+	}
+    });
+}
+
+function queryAddress(address, cb) {
+    $.ajax({
+	url: wwwroot() + 'checkin/callback',
+	type: 'post',
+	data: {address: address.toString()}
+    }).done(function (data) {
+	console.log(data);
+	$('#lat').val(data.latitude);
+	$('#long').val(data.longitude);
 	$('#placename').val(data.name);
 	$('#address').val(data.display_name);
 	$('#user_address').val(data.display_name);

@@ -20,6 +20,11 @@
                 if (!empty($lat) && (!empty($long))) {
                     echo json_encode(\IdnoPlugins\Checkin\Checkin::queryLatLong($lat, $long));
                 }
+                
+                $address = $this->getInput('address');
+                if (!empty($address)) {
+                    echo json_encode(\IdnoPlugins\Checkin\Checkin::queryAddress($address));
+                }
             }
 
         }
