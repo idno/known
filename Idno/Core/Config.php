@@ -110,7 +110,6 @@
                     unset($config['host']);
                     unset($config['feed']);
                     unset($config['uploadpath']);
-                    //unset($config['initial_plugins']);
                     unset($config['antiplugins']);
                     unset($config['alwaysplugins']);
                     unset($config['session_path']);
@@ -195,7 +194,6 @@
 
                 if (!empty($this->ini_config)) {
                     $this->config = array_replace_recursive($this->config, $this->ini_config);
-                    //$this->default_config = false;
                 }
 
             }
@@ -276,7 +274,9 @@
 
                 if ($this->multitenant) {
                     $dbname       = $this->dbname;
-                    $this->dbname = preg_replace('/[^0-9a-z\.\-\_]/i', '', $this->host);
+                    $host         = $this->host;
+                    if (!empty($this->staging_host_suffix)) $host = str_replace($this->staging_host_suffix, '', $host);
+                    $this->dbname = preg_replace('/[^0-9a-z\.\-\_]/i', '', $host);
 
                     // Known now defaults to not including periods in database names for multitenant installs. Add
                     // 'multitenant_periods = true' to config.ini if you wish to override this.
