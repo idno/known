@@ -52,6 +52,10 @@
                             $file->metadata[$k] = $v;
                         }
                         
+                        if ($k == 'filename') {
+                            $file->metadata[$k] = basename($v);
+                        }
+                        
                         if ($v instanceof \MongoDB\BSON\UTCDateTime) { // Handle MongoDB dates
                             $file->metadata[$k] = $v->__toString();
                         }
@@ -70,7 +74,7 @@
             public function storeFile($file_path, $metadata, $options) {
 
                 $bucket = $this->gridfs_object;
-                
+                error_log("Storing $file_path with " . print_r($metadata, true));
                 try {
                     
                     if ($source = fopen($file_path, 'rb')) {
