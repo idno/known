@@ -13,12 +13,25 @@ function initMap(latitude, longitude) {
     CheckinMarker = marker;
     marker.addTo(map);
     marker.dragging.enable();
+    
+    // Set base values
+    $('#lat').val(latitude.toString());
+    $('#long').val(longitude.toString());
+    
     marker.on("dragend", function (e) {
 	var coords = e.target.getLatLng();
 	console.log(coords);
 	$('#lat').val(coords.lat.toString());
 	$('#long').val(coords.lng.toString());
 	queryLocation(coords.lat, coords.lng);
+    });
+    
+    $('#user_address').change(function() {
+	queryAddress($('#user_address').val(), function() {
+	    map.remove();
+	    initMap($('#lat').val(), $('#long').val());
+	});
+	
     });
 }
 
@@ -31,6 +44,24 @@ function queryLocation(latitude, longitude, cb) {
 	console.log(data);
 	$('#lat').val(latitude);
 	$('#long').val(longitude);
+	$('#placename').val(data.name);
+	$('#address').val(data.display_name);
+	$('#user_address').val(data.display_name);
+	if (cb) {
+	    cb();
+	}
+    });
+}
+
+function queryAddress(address, cb) {
+    $.ajax({
+	url: wwwroot() + 'checkin/callback',
+	type: 'post',
+	data: {address: address.toString()}
+    }).done(function (data) {
+	console.log(data);
+	$('#lat').val(data.latitude);
+	$('#long').val(data.longitude);
 	$('#placename').val(data.name);
 	$('#address').val(data.display_name);
 	$('#user_address').val(data.display_name);
