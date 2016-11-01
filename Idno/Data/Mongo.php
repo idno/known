@@ -104,6 +104,28 @@
                         \Idno\Core\Idno::site()->logging()->debug("Mongo: Applying mongo upgrades - adding index.");
                         $this->database->entities->createIndex(['created' => 1]);
                     }
+                    if ($last_update < 2016110101) {
+                        \Idno\Core\Idno::site()->logging()->debug("Mongo: Applying mongo upgrades - adding publish_status backfill.");
+
+                        $limit = 25;
+                        $offset = 0;
+
+                        set_time_limit(0);
+
+                        while ($results = \Idno\Common\Entity::getFromAll([], [], $limit, $offset)) {
+
+                            foreach ($results as $item) {
+
+                                if (empty($item->publish_status)) {
+                                    \Idno\Core\Idno::site()->logging()->debug("Setting publish status on " . get_class($item) . " " . $item->getUUID());
+                                    $item->setPublishStatus();
+                                    $item->save();
+                                }
+                            }
+
+                            $offset += $limit;
+                        }
+                    }
                 });
             }
 
