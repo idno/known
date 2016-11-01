@@ -34,8 +34,8 @@
 
                 $types  = ['IdnoPlugins\Status\Status', 'IdnoPlugins\Text\Entry'];
                 $offset = (int)$this->getInput('offset');
-                $count  = \Idno\Common\Entity::countFromX($types, array('owner' => $user->getUUID()));
-                $feed   = \Idno\Common\Entity::getFromX($types, array('owner' => $user->getUUID()), array(), \Idno\Core\Idno::site()->config()->items_per_page, $offset);
+                $count  = \Idno\Common\Entity::countFromX($types, array('owner' => $user->getUUID(), 'publish_status' => 'published'));
+                $feed   = \Idno\Common\Entity::getFromX($types, array('owner' => $user->getUUID(), 'publish_status' => 'published'), array(), \Idno\Core\Idno::site()->config()->items_per_page, $offset);
 
                 $last_modified = $user->updated;
                 if (!empty($feed) && is_array($feed)) {
