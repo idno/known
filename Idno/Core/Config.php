@@ -275,7 +275,6 @@
                 if ($this->multitenant) {
                     $dbname       = $this->dbname;
                     $host         = $this->host;
-                    if (!empty($this->staging_host_suffix)) $host = str_replace($this->staging_host_suffix, '', $host);
                     $this->dbname = preg_replace('/[^0-9a-z\.\-\_]/i', '', $host);
 
                     // Known now defaults to not including periods in database names for multitenant installs. Add
@@ -301,7 +300,6 @@
                 }
 
                 date_default_timezone_set($this->timezone);
-                //setlocale(LC_ALL, 'en_US.UTF8');
             }
 
             /**
