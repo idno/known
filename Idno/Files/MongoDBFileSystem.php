@@ -79,7 +79,7 @@
                     
                     if ($source = fopen($file_path, 'rb')) {
                         
-                        $id = $bucket->uploadFromStream($file_path, $source, [
+                        $id = $bucket->uploadFromStream($metadata['filename'], $source, [
                             'metadata' => $metadata//new \MongoDB\Model\BSONDocument($metadata)
                         ]);
                         

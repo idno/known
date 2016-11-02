@@ -110,7 +110,7 @@
              * Count the number of objects of any specified class(es) that we're allowed to see
              *
              * @param array|string $class Class(es) to search (blank for all)
-             * @param array $search
+             * @param array $search List of filter terms (default: none)
              * @return int
              */
             static function countFromX($class, $search = array())
