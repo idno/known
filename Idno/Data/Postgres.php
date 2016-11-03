@@ -68,24 +68,33 @@
                             $schema_dir        = dirname(dirname(dirname(__FILE__))) . '/schemas/mysql/';
                             $client            = $this->client;
 
-                            
-                            if ($basedate < 2016102601) {
-                                if ($sql = @file_get_contents($schema_dir . '2016102601.sql')) {
-                                    $statements = explode(";\n", $sql); // Explode statements; only mysql can support multiple statements per line.
-                                    foreach ($statements as $sql) {
-                                        $sql = trim($sql);
-                                        if (!empty($sql)) {
-                                            try {
-                                                $statement = $client->prepare($sql);
-                                                $statement->execute();
-                                            } catch (\Exception $e) {
-                                                error_log($e->getMessage());
+                            foreach ([
+                                // List upgrades, add yours to the end
+                                2016102601,
+                                2016110301
+                            ] as $date) {
+                                if ($basedate < $date) {
+                                    if ($sql = @file_get_contents($schema_dir . $date . '.sql')) {
+                                        
+                                        error_log("Applying schema updates from {$schema_dir}{$date}.sql");
+                                        
+                                        $statements = explode(";\n", $sql); // Explode statements; only mysql can support multiple statements per line, and then only badly.
+                                        foreach ($statements as $sql) {
+                                            $sql = trim($sql);
+                                            if (!empty($sql)) {
+                                                try {
+                                                    $statement = $client->prepare($sql);
+                                                    $statement->execute();
+                                                } catch (\Exception $e) {
+                                                    error_log($e->getMessage());
+                                                }
                                             }
                                         }
                                     }
+                                    $newdate = $date;
                                 }
-                                $newdate = 2016102601;
                             }
+                            
                         }
                     }
                 }

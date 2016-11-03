@@ -119,4 +119,4 @@ CREATE TABLE IF NOT EXISTS session (
     session_time int(11) NOT NULL
 );
 
-REPLACE INTO `versions` VALUES('schema', '2016102601');
+REPLACE INTO `versions` VALUES('schema', '2016110301');
