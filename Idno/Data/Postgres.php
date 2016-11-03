@@ -75,6 +75,9 @@
                             ] as $date) {
                                 if ($basedate < $date) {
                                     if ($sql = @file_get_contents($schema_dir . $date . '.sql')) {
+                                        
+                                        error_log("Applying schema updates from {$schema_dir}{$date}.sql");
+                                        
                                         $statements = explode(";\n", $sql); // Explode statements; only mysql can support multiple statements per line, and then only badly.
                                         foreach ($statements as $sql) {
                                             $sql = trim($sql);
