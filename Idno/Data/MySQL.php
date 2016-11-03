@@ -53,7 +53,9 @@
              */
             function checkAndUpgradeSchema()
             {
-                if ($versions = $this->getVersions()) {
+                $versions = $this->getVersions();
+                if (!$versions) $versions = [(object)['label' => 'schema', 'value' => 0]];
+                if ($versions) {
                     foreach ($versions as $version) {
                         if ($version->label === 'schema') {
                             $basedate          = $newdate = (int)$version->value;
