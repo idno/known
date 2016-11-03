@@ -19,6 +19,9 @@ namespace Tests\API {
             $response = $result['response'];
 
             $this->assertTrue(empty($result['error']));
+            if (empty($content)) {
+                var_export($content);
+            }
             $this->assertTrue(!empty($content));
             $this->assertTrue($response == 200);
 

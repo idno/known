@@ -25,10 +25,10 @@ class AutoExpireFlashBag implements FlashBagInterface
      *
      * @var array
      */
-    private $flashes = array();
+    private $flashes = array('display' => array(), 'new' => array());
 
     /**
-     * The storage key for flashes in the session
+     * The storage key for flashes in the session.
      *
      * @var string
      */
@@ -37,12 +37,11 @@ class AutoExpireFlashBag implements FlashBagInterface
     /**
      * Constructor.
      *
-     * @param string $storageKey The key used to store flashes in the session.
+     * @param string $storageKey The key used to store flashes in the session
      */
     public function __construct($storageKey = '_sf2_flashes')
     {
         $this->storageKey = $storageKey;
-        $this->flashes = array('display' => array(), 'new' => array());
     }
 
     /**

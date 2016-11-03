@@ -96,6 +96,19 @@
                                 }
                                 $newdate = 2016013101;
                             }
+
+                            if ($basedate < 2016102001) {
+                                if ($sql = @file_get_contents($schema_dir . '2016102001.sql')) {
+                                    try {
+                                        $statement = $client->prepare($sql);
+                                        $statement->execute();
+                                    } catch (\Exception $e) {
+                                        error_log($e->getMessage());
+                                    }
+                                }
+                                $newdate = 2016102001;
+                            }
+
                             if ($basedate < 2016102601) {
                                 if ($sql = @file_get_contents($schema_dir . '2016102601.sql')) {
                                     $statements = explode(";\n", $sql); // Explode statements; only mysql can support multiple statements per line, and then only badly.
@@ -246,7 +259,7 @@
                 $retval          = false;
                 $benchmark_start = microtime(true);
                 try {
-                    $client->beginTransaction();
+                    //$client->beginTransaction();
                     $statement = $client->prepare("insert into {$collection}
                                                     (`uuid`, `_id`, `entity_subtype`,`owner`, `contents`, `search`, `publish_status`, `created`)
                                                     values
@@ -283,10 +296,10 @@
                             }
                         }
                     }
-                    $client->commit();
+                    //$client->commit();
                 } catch (\Exception $e) {
                     \Idno\Core\Idno::site()->logging()->error($e->getMessage());
-                    $client->rollback();
+                    //$client->rollback();
                 }
 
                 //\Idno\Core\Idno::site()->logging()->debug('saveRecord(): insert or update took ' . (microtime(true) - $benchmark_start) . 's');

@@ -72,18 +72,40 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     public function getLoadNonexistentClassTests()
     {
         return array(
-            array('\\Pearlike3_Bar', '\\Pearlike3_Bar', '->loadClass() loads non exising Pearlike3_Bar class with a leading slash'),
+            array('\\Pearlike3_Bar', '\\Pearlike3_Bar', '->loadClass() loads non existing Pearlike3_Bar class with a leading slash'),
         );
     }
 
-    public function testAddPrefix()
+    public function testAddPrefixSingle()
     {
         $loader = new ClassLoader();
         $loader->addPrefix('Foo', __DIR__.DIRECTORY_SEPARATOR.'Fixtures');
         $loader->addPrefix('Foo', __DIR__.DIRECTORY_SEPARATOR.'Fixtures');
         $prefixes = $loader->getPrefixes();
         $this->assertArrayHasKey('Foo', $prefixes);
+        $this->assertCount(1, $prefixes['Foo']);
+    }
+
+    public function testAddPrefixesSingle()
+    {
+        $loader = new ClassLoader();
+        $loader->addPrefixes(array('Foo' => array('foo', 'foo')));
+        $loader->addPrefixes(array('Foo' => array('foo')));
+        $prefixes = $loader->getPrefixes();
+        $this->assertArrayHasKey('Foo', $prefixes);
+        $this->assertCount(1, $prefixes['Foo'], print_r($prefixes, true));
+    }
+
+    public function testAddPrefixMulti()
+    {
+        $loader = new ClassLoader();
+        $loader->addPrefix('Foo', 'foo');
+        $loader->addPrefix('Foo', 'bar');
+        $prefixes = $loader->getPrefixes();
+        $this->assertArrayHasKey('Foo', $prefixes);
         $this->assertCount(2, $prefixes['Foo']);
+        $this->assertContains('foo', $prefixes['Foo']);
+        $this->assertContains('bar', $prefixes['Foo']);
     }
 
     public function testUseIncludePath()

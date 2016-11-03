@@ -73,8 +73,10 @@
         set_time_limit(120);
     }
 
-// We're making heavy use of the Symfony ClassLoader to load our classes
-    require_once(dirname(dirname(__FILE__)) . '/external/Symfony/Component/ClassLoader/UniversalClassLoader.php');
+// We're making heavy use of the Symfony ClassLoader to load our classes 
+    require_once(dirname(dirname(__FILE__)) . '/external/Symfony/Component/ClassLoader/ClassLoader.php');
+    require_once(dirname(__FILE__) . '/classloader.php');
+
     global $known_loader;
     $known_loader = new \Symfony\Component\ClassLoader\UniversalClassLoader();
 
@@ -106,7 +108,7 @@
 
 // Shims
     include 'shims.php';
-
+    
 // Register our external namespaces (PSR-0 compliant modules that we love, trust and need)
 
 // Bonita is being used for templating

@@ -156,7 +156,7 @@ class TextDescriptor extends Descriptor
             $this->writeText("\n");
             $this->writeText('<comment>Help:</comment>', $options);
             $this->writeText("\n");
-            $this->writeText(' '.str_replace("\n", "\n ", $help), $options);
+            $this->writeText('  '.str_replace("\n", "\n  ", $help), $options);
             $this->writeText("\n");
         }
     }
@@ -173,7 +173,7 @@ class TextDescriptor extends Descriptor
             $width = $this->getColumnWidth($description->getCommands());
 
             foreach ($description->getCommands() as $command) {
-                $this->writeText(sprintf("%-${width}s %s", $command->getName(), $command->getDescription()), $options);
+                $this->writeText(sprintf("%-{$width}s %s", $command->getName(), $command->getDescription()), $options);
                 $this->writeText("\n");
             }
         } else {
@@ -198,6 +198,8 @@ class TextDescriptor extends Descriptor
             }
 
             // add commands by namespace
+            $commands = $description->getCommands();
+
             foreach ($description->getNamespaces() as $namespace) {
                 if (!$describedNamespace && ApplicationDescription::GLOBAL_NAMESPACE !== $namespace['id']) {
                     $this->writeText("\n");
@@ -205,9 +207,13 @@ class TextDescriptor extends Descriptor
                 }
 
                 foreach ($namespace['commands'] as $name) {
-                    $this->writeText("\n");
-                    $spacingWidth = $width - strlen($name);
-                    $this->writeText(sprintf('  <info>%s</info>%s%s', $name, str_repeat(' ', $spacingWidth), $description->getCommand($name)->getDescription()), $options);
+                    if (isset($commands[$name])) {
+                        $this->writeText("\n");
+                        $spacingWidth = $width - strlen($name);
+                        $command = $commands[$name];
+                        $commandAliases = $this->getCommandAliasesText($command);
+                        $this->writeText(sprintf('  <info>%s</info>%s%s', $name, str_repeat(' ', $spacingWidth), $commandAliases.$command->getDescription()), $options);
+                    }
                 }
             }
 
@@ -227,6 +233,25 @@ class TextDescriptor extends Descriptor
     }
 
     /**
+     * Formats command aliases to show them in the command description.
+     * 
+     * @param Command $command
+     * 
+     * @return string
+     */
+    private function getCommandAliasesText($command)
+    {
+        $text = '';
+        $aliases = $command->getAliases();
+
+        if ($aliases) {
+            $text = '['.implode('|', $aliases).'] ';
+        }
+
+        return $text;
+    }
+
+    /**
      * Formats input option/argument default value.
      *
      * @param mixed $default
@@ -235,7 +260,7 @@ class TextDescriptor extends Descriptor
      */
     private function formatDefaultValue($default)
     {
-        return json_encode($default, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        return str_replace('\\\\', '\\', json_encode($default, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
     }
 
     /**

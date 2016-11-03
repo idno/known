@@ -65,13 +65,14 @@
                         if ($version->label === 'schema') {
                             $basedate          = $newdate = (int)$version->value;
                             $upgrade_sql_files = array();
-                            $schema_dir        = dirname(dirname(dirname(__FILE__))) . '/schemas/mysql/';
+                            $schema_dir        = dirname(dirname(dirname(__FILE__))) . '/schemas/postgres/';
                             $client            = $this->client;
 
-                            
-                            if ($basedate < 2016102601) {
-                                if ($sql = @file_get_contents($schema_dir . '2016102601.sql')) {
-                                    $statements = explode(";\n", $sql); // Explode statements; only mysql can support multiple statements per line.
+                            if ($basedate < 2016102001) {
+                                if ($sql = @file_get_contents($schema_dir . '2016102001.sql')) {
+                                    
+                                    $statements = explode(";\n", $sql);
+                                    
                                     foreach ($statements as $sql) {
                                         $sql = trim($sql);
                                         if (!empty($sql)) {
@@ -83,8 +84,32 @@
                                             }
                                         }
                                     }
-                                }
+                                }    
+                                    
+                                $newdate = 2016102001;
+                            }
+
+                            
+                            if ($basedate < 2016102601) {
+                                if ($sql = @file_get_contents($schema_dir . '2016102601.sql')) {
+                                    $statements = explode(";\n", $sql); // Explode statements; only mysql can support multiple statements per line.
+
+                                    foreach ($statements as $sql) {
+                                        $sql = trim($sql);
+                                        if (!empty($sql)) {
+                                            try {
+                                                $statement = $client->prepare($sql);
+                                                $statement->execute();
+                                            } catch (\Exception $e) {
+                                                error_log($e->getMessage());
+                                            }
+                                        }
+                                    }
+
+                                } 
+
                                 $newdate = 2016102601;
+
                             }
                         }
                     }
