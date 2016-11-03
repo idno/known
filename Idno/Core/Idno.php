@@ -621,7 +621,7 @@
              */
             function machineVersion()
             {
-                return '2016042301';
+                return '2016110101';
             }
 
             /**
