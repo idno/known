@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS versions (
 );
 
 DELETE FROM versions WHERE label = 'schema';
-INSERT INTO versions VALUES('schema', '2016102601');
+INSERT INTO versions VALUES('schema', '2016110301');
 
 --
 -- Session handling table
