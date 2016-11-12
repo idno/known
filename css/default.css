@@ -169,6 +169,10 @@ img {
     height: auto;
 }
 
+.idno-entry .p-author {
+    text-align: center !important;
+}
+
 .idno-object a.edit {
     margin-left: 1em;
     color: #333 !important;
