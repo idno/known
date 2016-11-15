@@ -169,10 +169,6 @@ img {
     height: auto;
 }
 
-.idno-entry .p-author {
-    text-align: center !important;
-}
-
 .idno-object a.edit {
     margin-left: 1em;
     color: #333 !important;
@@ -292,9 +288,8 @@ img {
 
 .p-author {
     font-size: 1em !important;
-    text-align: left !important;
+    /*text-align: left !important;*/
     padding-bottom: 0.25em;
-    border-bottom: #eee solid 1px;
 }
 
 .p-author img {
