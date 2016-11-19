@@ -23,6 +23,9 @@
             public $collection = 'entities';
             static $retrieve_collection = 'entities';
 
+            // Optional entity cache
+            static $entity_cache = [];
+
             // Store the entity's attributes
             public $attributes = array(
                 'access' => 'PUBLIC' // All entites are public by default
@@ -235,12 +238,24 @@
             /**
              * Retrieve a single record by its UUID
              * @param string $uuid
+             * @param bool $cached Retrieve a cached version if one exists.
              * @return bool|Entity
              */
 
-            static function getByUUID($uuid)
+            static function getByUUID($uuid, $cached = true)
             {
-                return static::getOneFromAll(array('uuid' => $uuid));
+                if (!empty(self::$entity_cache[$uuid]) && $cached) return self::$entity_cache[$uuid];
+                self::$entity_cache[$uuid] = static::getOneFromAll(array('uuid' => $uuid));
+                return self::$entity_cache[$uuid];
+            }
+
+            /**
+             * Invalidate the cache for a particular entity
+             * @param $uuid
+             */
+            static function invalidateCache($uuid)
+            {
+                if (isset(self::$entity_cache[$uuid])) unset(self::$entity_cache[$uuid]);
             }
 
             /**
@@ -547,6 +562,7 @@
                         \Idno\Core\Idno::site()->triggerEvent('updated', ['object' => $this]);
                     }
 
+                    self::invalidateCache($this->uuid);
                     return $this->_id;
                 } else {
                     return false;
@@ -2201,10 +2217,10 @@
              * @param string $subtype The type of annotation. eg, 'comment'
              * @return array
              */
-            function getAnnotations($subtype)
+            function getAnnotations($subtype, $rationalize = true)
             {
                 if (!empty($this->annotations) && is_array($this->annotations) && !empty($this->annotations[$subtype])) {
-                    return $this->annotations[$subtype];
+                    return self::rationalizeAnnotationSubArray($this->annotations[$subtype]);
                 }
 
                 return array();
@@ -2236,6 +2252,48 @@
                 }
 
                 return 0;
+            }
+
+            /**
+             * Rationalize annotations by updating author details for annotations when authors are local users
+             */
+            function setLocalAuthorsForAnnotations()
+            {
+                $this->annotations = self::rationalizeAnnotations($this->annotations);
+            }
+
+            /**
+             * Rationalize an annotations array by updating author details for annotations when authors are local users
+             * @param $annotations_array
+             * @return mixed
+             */
+            static function rationalizeAnnotations($annotations_array)
+            {
+                if (!empty($annotations_array)) {
+                    foreach($annotations_array as $annotation_type_key => $annotation_type) {
+                        $annotation_type = self::rationalizeAnnotationSubArray($annotation_type);
+                    }
+                }
+                return $annotations_array;
+            }
+
+            /**
+             * Rationalize a subsection of an annotations array (eg for replies, likes, etc) so internal user names,
+             * icons, etc are up to date
+             * @param $annotations_sub_array
+             * @return mixed
+             */
+            static function rationalizeAnnotationSubArray($annotations_sub_array)
+            {
+                foreach($annotations_sub_array as $annotations_sub_array_key => $annotation) {
+                    if (self::isLocalUUID($annotation['owner_url'])) {
+                        if ($owner = self::getByUUID($annotation['owner_url'])) {
+                            $annotations_sub_array[$annotations_sub_array_key]['owner_name'] = $owner->getTitle();
+                            $annotations_sub_array[$annotations_sub_array_key]['owner_image'] = $owner->getIcon();
+                        }
+                    }
+                }
+                return $annotations_sub_array;
             }
 
             /**

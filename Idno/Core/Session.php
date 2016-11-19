@@ -549,7 +549,7 @@
              */
             function refreshSessionUser(\Idno\Entities\User $user)
             {
-                if ($user = User::getByUUID($user->getUUID())) {
+                if ($user = User::getByUUID($user->getUUID(), false)) {
 
                     if (\Idno\Core\Idno::site()->config()->emailIsBlocked($user->email)) {
                         $this->logUserOff();
