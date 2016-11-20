@@ -91,7 +91,7 @@
                     $this->save();
                     $message = new Email();
                     $message->addTo($email);
-                    $message->setSubject(\Idno\Core\Idno::site()->session()->currentUser()->getTitle() . " has invited you to join " . \Idno\Core\Idno::site()->config()->title . '!');
+                    $message->setSubject("You've been invited to join " . \Idno\Core\Idno::site()->config()->title);
                     $message->setHTMLBodyFromTemplate('account/invite', array('email' => $email, 'code' => $this->code, 'inviter' => \Idno\Core\Idno::site()->session()->currentUser()->getTitle()));
                     $message->setTextBodyFromTemplate('account/invite', array('email' => $email, 'code' => $this->code, 'inviter' => \Idno\Core\Idno::site()->session()->currentUser()->getTitle()));
                     if (!empty($from_email)) {
