@@ -58,14 +58,16 @@
 
                         <!-- ### END CONTENT ### -->
 
-                        <hr>
+                        <hr style="border-top: 1px solid #cccccc;">
 
                         <?php
                             $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
                             $path = str_replace('/','_',$path);
                         ?>
 
-                        <em style="font-style:italic; font-size: 12px; color: #aaa;">Powered by <a href="https://withknown.com/?utm_source=transactional&utm_medium=email&utm_campaign=e<?=$path?>" style="color: #73b2e3; text-decoration: none;">Known</a>, the best way to publish content, discuss ideas, and share from a space you own.</em>
+						<p style="text-align: center; margin-top: 15px;">
+                        <em style="font-style:italic; font-size: 12px; color: #aaa; text-decoration: center;">Powered by <a href="https://withknown.com/?utm_source=transactional&utm_medium=email&utm_campaign=e<?=$path?>" style="color: #73B2E3; text-decoration: none;">Known</a>.</em>
+						</p>
                         <br><br>
 
                     </td>
@@ -75,6 +77,11 @@
 
         </td>
     </tr>
+    <tr>
+	    <td align="center" valign="top" bgcolor="#ebebeb" style="background-color: #ebebeb; padding-bottom: 3em;">
+		    <p style="color: #999999; font-size: 12px;">Known, Inc. 421 Bryant St, San Francisco, CA, 94107</p>
+	    </td>
+    </tr>    
 </table>
 <!--/100% wrapper-->
 <br>
