@@ -38,17 +38,6 @@
 
             <div class="form-group">
                 <div class="col-md-3">
-                    <label class="control-label" for="inputHandle">Your username</label>
-                </div>
-                <div class="col-md-4">
-                    <?= $this->__(['id' => 'inputHandle', 'value' => $user->handle, 'class' => 'input col-md-4 form-control', 'name' => 'handle', 'placeholder' => 'Your username'])->draw('forms/input/text'); ?>
-                </div>
-                <div class="col-md-5">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-3">
                     <label class="control-label" for="inputEmail">Your email address</label>
                 </div>
                 <div class="col-md-4">
