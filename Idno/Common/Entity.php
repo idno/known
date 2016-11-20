@@ -245,8 +245,9 @@
             static function getByUUID($uuid, $cached = true)
             {
                 if (!empty(self::$entity_cache[$uuid]) && $cached) return self::$entity_cache[$uuid];
-                self::$entity_cache[$uuid] = static::getOneFromAll(array('uuid' => $uuid));
-                return self::$entity_cache[$uuid];
+                $return = static::getOneFromAll(array('uuid' => $uuid));
+                if ($return instanceof Entity) self::$entity_cache[$uuid] = $return;
+                return $return;
             }
 
             /**
