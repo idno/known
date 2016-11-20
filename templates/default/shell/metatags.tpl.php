@@ -7,3 +7,11 @@
 <meta name="generator" content="Known https://withknown.com">
 <meta http-equiv="Content-Language" content="<?= $vars['lang']; ?>">
 <meta http-equiv="Status" content="<?=\Idno\Core\Idno::site()->currentPage()->response;?>"/>
+<?php
+
+    // Optionally, pages can send a "noindex" header to indicate they don't want to be indexed by search engines
+    if (!empty($vars['noindex'])) {
+        ?><meta name="robots" content="noindex" /><?php
+    }
+
+?>
