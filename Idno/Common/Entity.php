@@ -1349,7 +1349,7 @@
                     }
                 }
 
-                if ($this->getPublishStatus() == 'published') {
+                //if ($this->getPublishStatus() == 'published') {
                     if ($access instanceof \Idno\Entities\AccessGroup) {
 
                         // If the user is a regular member of the access group
@@ -1362,7 +1362,7 @@
                             return \Idno\Core\Idno::site()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
                         }
                     }
-                }
+                //}
 
                 return \Idno\Core\Idno::site()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id), false);
             }
