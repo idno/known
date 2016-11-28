@@ -34,13 +34,13 @@
             <div class="content-form">
                 <label for="starttime">
                     Start day and time</label>
-                    <input type="text" name="starttime" id="starttime" placeholder="Type in the start day and time" value="<?=htmlspecialchars($vars['object']->starttime)?>" class="form-control" />
+                <input type="datetime-local" name="starttime" id="starttime" placeholder="Type in the start day and time" value="<?=htmlspecialchars($vars['object']->starttime)?>" class="form-control" />
 
             </div>
             <div class="content-form">
                 <label for="endtime">
                     End day and time</label>
-                    <input type="text" name="endtime" id="endtime" placeholder="Type in the end day and time" value="<?=htmlspecialchars($vars['object']->endtime)?>" class="form-control" />
+                    <input type="datetime-local" name="endtime" id="endtime" placeholder="Type in the end day and time" value="<?=htmlspecialchars($vars['object']->endtime)?>" class="form-control" />
 
             </div>
             <?php echo $this->drawSyndication('event', $vars['object']->getPosseLinks()); ?>
