@@ -76,11 +76,11 @@
                                                 <?php
                                                 if ($page->isHomepage()) {
 
-                                                    echo  \Idno\Core\site()->actions()->createLink($page->getClearHomepageURL(), '<icon class="fa fa-home no-hover"></icon><icon class="fa fa-times hover"></icon>', array(), array('method' => 'POST', 'class' => 'home-icon', 'title' => 'Clear Homepage', 'confirm' => true, 'confirm-text' => 'Are you sure you want to clear this from your homepage?'));
+                                                    echo  \Idno\Core\Idno::site()->actions()->createLink($page->getClearHomepageURL(), '<icon class="fa fa-home no-hover"></icon><icon class="fa fa-times hover"></icon>', array(), array('method' => 'POST', 'class' => 'home-icon', 'title' => 'Clear Homepage', 'confirm' => true, 'confirm-text' => 'Are you sure you want to clear this from your homepage?'));
 
                                                 } else {
 
-                                                    echo  \Idno\Core\site()->actions()->createLink($page->getSetAsHomepageURL(), '<icon class="fa fa-home hover"></icon><div class="no-hover">&nbsp;</div>', array(), array('method' => 'POST', 'class' => 'home-icon', 'title' => 'Set as Homepage', 'confirm' => true, 'confirm-text' => 'Are you sure you want to set this page as your homepage?'));
+                                                    echo  \Idno\Core\Idno::site()->actions()->createLink($page->getSetAsHomepageURL(), '<icon class="fa fa-home hover"></icon><div class="no-hover">&nbsp;</div>', array(), array('method' => 'POST', 'class' => 'home-icon', 'title' => 'Set as Homepage', 'confirm' => true, 'confirm-text' => 'Are you sure you want to set this page as your homepage?'));
 
                                                 }
 
@@ -98,14 +98,14 @@
 
                                                     ?>
                                                     <icon class="fa fa-times"></icon>
-                                                    <?=  \Idno\Core\site()->actions()->createLink($page->getClearHomepageURL(), 'Clear Homepage', array(), array('method' => 'POST', 'class' => 'edit', 'confirm' => true, 'confirm-text' => 'Are you sure you want to clear this from your homepage?'));?>
+                                                    <?=  \Idno\Core\Idno::site()->actions()->createLink($page->getClearHomepageURL(), 'Clear Homepage', array(), array('method' => 'POST', 'class' => 'edit', 'confirm' => true, 'confirm-text' => 'Are you sure you want to clear this from your homepage?'));?>
                                                 <?php
 
                                                 } else {
 
                                                     ?>
                                                     <icon class="fa fa-check"></icon>
-                                                    <?=  \Idno\Core\site()->actions()->createLink($page->getSetAsHomepageURL(), 'Set as Homepage', array(), array('method' => 'POST', 'class' => 'edit', 'confirm' => true, 'confirm-text' => 'Are you sure you want to set this page as your homepage?'));?>
+                                                    <?=  \Idno\Core\Idno::site()->actions()->createLink($page->getSetAsHomepageURL(), 'Set as Homepage', array(), array('method' => 'POST', 'class' => 'edit', 'confirm' => true, 'confirm-text' => 'Are you sure you want to set this page as your homepage?'));?>
                                                 <?php
 
                                                 }
