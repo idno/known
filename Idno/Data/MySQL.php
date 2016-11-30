@@ -433,7 +433,7 @@
                     $subwhere = array();
                     foreach ($params as $key => $value) {
                         if (!is_array($value)) {
-                            if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner', 'created'))) {
+                            if (in_array($key, $this->getSchemaFields())) {
                                 $subwhere[] = "(`{$collection}`.`{$key}` = :nonmdvalue{$non_md_variables})";
                                 if ($key === 'created') {
                                     if (!is_int($value)) {
@@ -452,7 +452,7 @@
                             if (!empty($value['$not'])) {
                                 if (!empty($value['$not']['$in'])) {
 
-                                    if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner', 'publish_status'))) {
+                                    if (in_array($key, $this->getSchemaFields())) {
                                         $notstring = "`{$collection}`.`$key` not in (";
                                         $i         = 0;
                                         foreach ($value['$not']['$in'] as $val) {
@@ -478,7 +478,7 @@
                                         $notstring .= "))";
                                     }
                                 } else {
-                                    if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner', 'publish_status'))) {
+                                    if (in_array($key, $this->getSchemaFields())) {
                                         $notstring                                   = "`{$collection}`.`$key` != :nonmdvalue{$non_md_variables}";
                                         $variables[":nonmdvalue{$non_md_variables}"] = $value['$not'];
                                         $non_md_variables++;
@@ -493,7 +493,7 @@
                                 $subwhere[] = $notstring;
                             }
                             if (!empty($value['$in'])) {
-                                if (in_array($key, array('uuid', '_id', 'entity_subtype', 'owner', 'publish_status'))) {
+                                if (in_array($key, $this->getSchemaFields())) {
                                     $instring = "`{$collection}`.`$key` in (";
                                     $i        = 0;
                                     foreach ($value['$in'] as $val) {

@@ -47,6 +47,15 @@
             }
 
             /**
+             * Retrieve built-in fields that shouldn't be searched using metadata
+             * @return array
+             */
+            function getSchemaFields()
+            {
+                return array('uuid', '_id', 'entity_subtype', 'owner', 'publish_status');
+            }
+
+            /**
              * Retrieve version information from the schema
              * @return array|bool
              */
