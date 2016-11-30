@@ -25,7 +25,7 @@
                 if (version_compare(phpversion(), '5.6') >= 0) {
                     $class = 'success';
                     $text = 'You are running PHP version ' . phpversion() . '.';
-                } else if (version_compare(phpversion(), '5.4') >= 0) {
+                } else if (version_compare(phpversion(), '5.5') >= 0) {
                     $class = 'warning';
                     $text = 'You are running Known using a very old version of PHP (' . phpversion() . '), which is no longer actively supported. Although Known will currently still install, some features may not work, so you should upgrade soon. You may need to ask your server administrator to upgrade PHP for you.';
                 } else {
