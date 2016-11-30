@@ -580,7 +580,7 @@
                 $this->setResponse(410);
                 http_response_code($this->response);
                 $t = \Idno\Core\Idno::site()->template();
-                $t->__(array('body' => $t->draw('pages/410'), 'title' => 'Gone, baby, gone'))->drawPage();
+                $t->__(array('body' => $t->draw('pages/410'), 'title' => 'This page is gone.'))->drawPage();
                 exit;
             }
 
@@ -592,7 +592,7 @@
                 $this->setResponse(404);
                 http_response_code($this->response);
                 $t = \Idno\Core\Idno::site()->template();
-                $t->__(array('body' => $t->draw('pages/404'), 'title' => 'Not found!'))->drawPage();
+                $t->__(array('body' => $t->draw('pages/404'), 'title' => 'This page can\'t be found.'))->drawPage();
                 exit;
             }
 
