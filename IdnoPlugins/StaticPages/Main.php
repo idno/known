@@ -31,8 +31,10 @@
                 // This makes sure that the homepage is accessible even when it is overridden.
                 \Idno\Core\Idno::site()->addPageHandler('/content/default/?', 'Idno\Pages\Homepage');
 
-                \Idno\Core\Idno::site()->hijackPageHandler('', 'IdnoPlugins\StaticPages\Pages\Homepage');
-                \Idno\Core\Idno::site()->hijackPageHandler('/', 'IdnoPlugins\StaticPages\Pages\Homepage');
+                if (!empty($this->getCurrentHomepageId())) {
+                    \Idno\Core\Idno::site()->hijackPageHandler('', 'IdnoPlugins\StaticPages\Pages\Homepage');
+                    \Idno\Core\Idno::site()->hijackPageHandler('/', 'IdnoPlugins\StaticPages\Pages\Homepage');
+                }
 
                 \Idno\Core\Idno::site()->template()->extendTemplate('admin/menu/items', 'staticpages/admin/menu');
                 \Idno\Core\Idno::site()->template()->prependTemplate('shell/toolbar/links', 'staticpages/toolbar', true);

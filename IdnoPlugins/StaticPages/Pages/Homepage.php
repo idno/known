@@ -19,21 +19,13 @@
                             $object = \Idno\Common\Entity::getBySlug($staticpages->getCurrentHomepageId());
                         }
 
-                        if (empty($object)) {
-                            $this->goneContent();
+                        // If the object doesn't exist or is invalid, unset the homepage and reload
+                        if (empty($object) || !($object instanceof \IdnoPlugins\StaticPages\StaticPage) || !$object->canRead()) {
+                            $staticpages->clearHomepage();
+                            $this->forward('/');
                         }
 
-                        // From here, we know the object is set
-
-                        // Ensure we're talking about pages ...
-                        if (!($object instanceof \IdnoPlugins\StaticPages\StaticPage)) {
-                            $this->goneContent();
-                        }
-
-                        // Check that we can see it
-                        if (!$object->canRead()) {
-                            $this->deniedContent();
-                        }
+                        if (!$object->canRead()) $this->goneContent();
 
                         // Forward if necessary
                         if (!empty($object->forward_url) && !\Idno\Core\Idno::site()->session()->isAdmin()) {
@@ -51,7 +43,6 @@
                             'description' => $object->getShortDescription()
 
                         ))->drawPage();
-
                     }
 
                 }
