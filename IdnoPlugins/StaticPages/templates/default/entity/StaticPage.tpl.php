@@ -7,7 +7,7 @@
             <div class="row edit-page-actions">
                 <div class="col-md-12">
         <span class="page-action">
-            <i class="fa fa-cog"></i> <a href="<?= \Idno\Core\Idno::site()->config()->getURL() ?>admin/staticpages/">Manage pages</a>
+        	<a href="<?= \Idno\Core\Idno::site()->config()->getURL() ?>admin/staticpages/"><i class="fa fa-cog"></i>Manage pages</a>
         </span>
                     <?php
 
@@ -15,10 +15,12 @@
 
                             ?>
 
-                            <span class="page-action"><i class="fa fa-pencil"></i> <a
-                                    href="<?= $vars['object']->getEditURL() ?>" class="edit">Edit</a></span>
-                            <span class="page-action"><i class="fa fa-trash-o"></i>
-                            <?= \Idno\Core\Idno::site()->actions()->createLink($vars['object']->getDeleteURL(), 'Delete', array(), array('method' => 'POST', 'class' => 'edit', 'confirm' => true, 'confirm-text' => 'Are you sure you want to permanently delete this entry?')); ?></span>
+                            <span class="page-action">
+                            	<a href="<?= $vars['object']->getEditURL() ?>" class="edit"><i class="fa fa-pencil"></i>Edit</a>
+                            </span>
+                            <span class="page-action">
+                            <?= \Idno\Core\Idno::site()->actions()->createLink($vars['object']->getDeleteURL(), '<i class="fa fa-trash-o"></i>Delete', array(), array('method' => 'POST', 'class' => 'edit', 'confirm' => true, 'confirm-text' => 'Are you sure you want to permanently delete this entry?')); ?>
+                            </span>
                             <?php
 
                         }

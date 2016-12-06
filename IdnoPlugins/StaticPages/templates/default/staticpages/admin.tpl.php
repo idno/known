@@ -15,6 +15,9 @@
     .home-icon .no-hover {
         display: inline;
     }
+    .home-icon:hover {
+	    text-decoration: none;
+    }
 </style>
 
 <div class="row">
@@ -49,9 +52,9 @@
                 <table style="width: 100%; margin-bottom: 3em">
                     <thead>
                         <tr class="pages">
-                            <td class="pages" width="5%">&nbsp;</td>
                             <td class="pages" width="30%">Title</td>
-                            <td class="pages" width="35%">Category</td>
+                            <td class="pages" width="30%">Category</td>
+                            <td class="pages" width="10%">&nbsp;</td>                            
                             <td class="pages" width="15%">&nbsp;</td>
                             <td class="pages" width="15%">&nbsp;</td>
                         </tr>
@@ -73,50 +76,31 @@
                                         ?>
                                         <tr class="items" data-value="<?= $page->getID() ?>">
                                             <td>
-                                                <?php
-                                                if ($page->isHomepage()) {
-
-                                                    echo  \Idno\Core\Idno::site()->actions()->createLink($page->getClearHomepageURL(), '<icon class="fa fa-home no-hover"></icon><icon class="fa fa-times hover"></icon>', array(), array('method' => 'POST', 'class' => 'home-icon', 'title' => 'Clear Homepage', 'confirm' => true, 'confirm-text' => 'Are you sure you want to clear this from your homepage?'));
-
-                                                } else {
-
-                                                    echo  \Idno\Core\Idno::site()->actions()->createLink($page->getSetAsHomepageURL(), '<icon class="fa fa-home hover"></icon><div class="no-hover">&nbsp;</div>', array(), array('method' => 'POST', 'class' => 'home-icon', 'title' => 'Set as Homepage', 'confirm' => true, 'confirm-text' => 'Are you sure you want to set this page as your homepage?'));
-
-                                                }
-
-                                            ?>
-                                            </td>
-                                            <td>
                                                 <a href="<?= $page->getURL() ?>"><?= htmlspecialchars($page->getTitle()) ?></a>
                                             </td>
                                             <td>
                                                 <?= $category ?>
                                             </td>
-                                            <!--td>
+
+                                            <td>
                                                 <?php
                                                 if ($page->isHomepage()) {
 
-                                                    ?>
-                                                    <icon class="fa fa-times"></icon>
-                                                    <?=  \Idno\Core\Idno::site()->actions()->createLink($page->getClearHomepageURL(), 'Clear Homepage', array(), array('method' => 'POST', 'class' => 'edit', 'confirm' => true, 'confirm-text' => 'Are you sure you want to clear this from your homepage?'));?>
-                                                <?php
+                                                    echo  \Idno\Core\Idno::site()->actions()->createLink($page->getClearHomepageURL(), '<icon class="fa fa-home no-hover"></icon><icon class="fa fa-times hover"></icon>', array(), array('method' => 'POST', 'class' => 'home-icon', 'title' => 'Remove as homepage', 'confirm' => true, 'confirm-text' => 'Are you sure you want to remove this page from your homepage?'));
 
                                                 } else {
 
-                                                    ?>
-                                                    <icon class="fa fa-check"></icon>
-                                                    <?=  \Idno\Core\Idno::site()->actions()->createLink($page->getSetAsHomepageURL(), 'Set as Homepage', array(), array('method' => 'POST', 'class' => 'edit', 'confirm' => true, 'confirm-text' => 'Are you sure you want to set this page as your homepage?'));?>
-                                                <?php
+                                                    echo  \Idno\Core\Idno::site()->actions()->createLink($page->getSetAsHomepageURL(), '<icon class="fa fa-home hover"></icon><div class="no-hover">&nbsp</div>', array(), array('method' => 'POST', 'class' => 'home-icon', 'title' => 'Make homepage', 'confirm' => true, 'confirm-text' => 'Are you sure you want to make this page your homepage?'));
 
                                                 }
 
                                             ?>
-                                            </td-->
+                                            </td>                                            
                                             <td>
-                                                <icon class="fa fa-pencil"></icon> <a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>staticpage/edit/<?= $page->_id ?>">Edit</a>
+                                            	<a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>staticpage/edit/<?= $page->_id ?>" title="Edit page"><icon class="fa fa-pencil"></icon>Edit</a>
                                             </td>
-                                            <td><icon class="fa fa-trash-o"></icon>
-                                                <?=  \Idno\Core\Idno::site()->actions()->createLink($page->getDeleteURL(), 'Delete', array(), array('method' => 'POST', 'class' => 'edit', 'confirm' => true, 'confirm-text' => 'Are you sure you want to permanently delete this page?'));?>
+                                            <td>
+                                                <?=  \Idno\Core\Idno::site()->actions()->createLink($page->getDeleteURL(), '<icon class="fa fa-trash-o"></icon>Delete', array(), array('method' => 'POST', 'class' => 'edit', 'title' => 'Delete page', 'confirm' => true, 'confirm-text' => 'Are you sure you want to permanently delete this page?'));?>
                                             </td>
                                         </tr>
                                     <?php
