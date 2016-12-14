@@ -390,7 +390,7 @@
             {
                 $this->title = $title;
             }
-
+            
             /**
              * Retrieve a short description for this entity
              * @return string
@@ -971,6 +971,15 @@
 
                 return '';
             }
+            
+            /**
+             * Set the description.
+             * @param string $description
+             */
+            function setDescription($description)
+            {
+                $this->description = $description;
+            }
 
             /**
              * Retrieves this object's author name
@@ -1010,6 +1019,16 @@
 
                 return '';
             }
+         
+            /**
+             * Set the body
+             * @param string $body
+             */
+            function setBody($body) {
+                $this->body = $body;
+                $this->getBody();
+            }
+
 
             /**
              * Get the URIs of all images in this entity's body HTML
