@@ -4,15 +4,34 @@
 
     // Load Symfony
     require_once((dirname(__FILE__)) . '/external/Symfony/Component/ClassLoader/UniversalClassLoader.php');
+    global $known_loader;
     $known_loader = new \Symfony\Component\ClassLoader\UniversalClassLoader();
     $known_loader->registerNamespace('Symfony\Component', (dirname(__FILE__)) . '/external');
     $known_loader->register();
+    
+    /**
+     * Retrieve the loader
+     * @return \Symfony\Component\ClassLoader\UniversalClassLoader
+     */
+    function &loader()
+    {
+        global $known_loader;
+
+        return $known_loader;
+    }
 
     // Register console namespace
     use Symfony\Component\Console\Application;
 
     // Create new console application
+    global $console;
     $console = new Application();
+    
+    function &application() {
+        global $console;
+        
+        return $console;
+    }
 
     // Load any plugin functions
     $directory = dirname(__FILE__) . '/ConsolePlugins/';
