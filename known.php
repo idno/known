@@ -33,13 +33,21 @@
         return $console;
     }
 
+    $known_loader->registerNamespace('Idno', dirname(__FILE__) );
+    $known_loader->registerNamespace('ConsolePlugins',  dirname(__FILE__) );
+    
     // Load any plugin functions
     $directory = dirname(__FILE__) . '/ConsolePlugins/';
     if ($scanned_directory = array_diff(scandir($directory), array('..', '.'))) {
         foreach ($scanned_directory as $file) {
-            if (is_dir($file)) {
-                if (file_exists($directory . $file . '/Main.php')) {
-                    @include($directory . $file . '/Main.php');
+            if (is_dir($directory . $file)) {
+                $class = "ConsolePlugins\\$file\\Main"; 
+                if (class_exists($class)) {
+                    $c = new $class(); 
+                    $console->register($c->getCommand())
+                            ->setDescription($c->getDescription())
+                            ->setDefinition($c->getParameters())
+                            ->setCode([$c, 'execute']);
                 }
             }
         }
