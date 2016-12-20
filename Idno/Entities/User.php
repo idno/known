@@ -671,7 +671,7 @@
                     $return = array_merge($return, $groups);
                 }
 
-                return \Idno\Core\Idno::site()->triggerEvent("permission:$permission:entities", [], $return);
+                return \Idno\Core\Idno::site()->triggerEvent("permission:$permission:entities", ['user' => $this], $return);
             }
 
             /**
@@ -719,7 +719,7 @@
                     }
                 }
 
-                return \Idno\Core\Idno::site()->triggerEvent("permission:$permission:ids", [], $return);
+                return \Idno\Core\Idno::site()->triggerEvent("permission:$permission:ids", ['user' => $this], $return);
             }
 
             /**
