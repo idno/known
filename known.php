@@ -1,26 +1,69 @@
 #!/usr/bin/php -q
-
 <?php
+
+    define('KNOWN_CONSOLE', 'true');
 
     // Load Symfony
     require_once((dirname(__FILE__)) . '/external/Symfony/Component/ClassLoader/UniversalClassLoader.php');
+    global $known_loader;
     $known_loader = new \Symfony\Component\ClassLoader\UniversalClassLoader();
     $known_loader->registerNamespace('Symfony\Component', (dirname(__FILE__)) . '/external');
     $known_loader->register();
+    
+    /**
+     * Retrieve the loader
+     * @return \Symfony\Component\ClassLoader\UniversalClassLoader
+     */
+    function &loader()
+    {
+        global $known_loader;
+
+        return $known_loader;
+    }
 
     // Register console namespace
     use Symfony\Component\Console\Application;
 
     // Create new console application
+    global $console;
     $console = new Application();
+    
+    function &application() {
+        global $console;
+        
+        return $console;
+    }
 
+    // Known core namespaces
+    $known_loader->registerNamespace('Idno', dirname(__FILE__) );
+    $known_loader->registerNamespace('ConsolePlugins',  dirname(__FILE__) );
+    
+    // Implement the PSR-3 logging interface
+    $known_loader->registerNamespace('Psr\Log', dirname(__FILE__) . '/external/log');
+    
+    // Symfony is used for routing, observer design pattern support, and a bunch of other fun stuff
+    $known_loader->registerNamespace('Symfony\Component', dirname(__FILE__) . '/external');
+    
+    
+    // TODO: FIND A WAY TO NOT LOAD THESE FOR CONSOLE
+    // Bonita is being used for templating (although console plugins shouldn't really need this)
+    $known_loader->registerNamespace('Bonita', dirname(__FILE__) . '/external/bonita/includes');
+    // Using HTMLPurifier for HTML sanitization
+    include dirname(__FILE__) . '/external/htmlpurifier-lite/library/HTMLPurifier.auto.php';
+    ///////////////////
+    
     // Load any plugin functions
     $directory = dirname(__FILE__) . '/ConsolePlugins/';
     if ($scanned_directory = array_diff(scandir($directory), array('..', '.'))) {
         foreach ($scanned_directory as $file) {
-            if (is_dir($file)) {
-                if (file_exists($directory . $file . '/Main.php')) {
-                    @include($directory . $file . '/Main.php');
+            if (is_dir($directory . $file)) {
+                $class = "ConsolePlugins\\$file\\Main"; 
+                if (class_exists($class)) {
+                    $c = new $class(); 
+                    $console->register($c->getCommand())
+                            ->setDescription($c->getDescription())
+                            ->setDefinition($c->getParameters())
+                            ->setCode([$c, 'execute']);
                 }
             }
         }
@@ -63,5 +106,12 @@
             $output->writeln(file_get_contents(dirname(__FILE__) . '/version.known'));
         });
 
+    // Boot known
+        try {
+            $idno         = new Idno\Core\Idno();
+        } catch (\Exception $e) {
+            
+        }
+        
     // Run the application
     $console->run();
