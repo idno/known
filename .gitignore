@@ -17,6 +17,8 @@ Idno/.idea/.name
 /.DS_Store
 /*/.DS_Store
 
+/codedocs/
+
 config.ini
 *.json
 tests/_output/*
