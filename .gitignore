@@ -9,12 +9,15 @@ Idno/.idea/.name
 /nbproject/private/nbproject/project.xml
 /nbproject/project.properties
 /nbproject/private/
+/**/nbproject/
 /.htaccess
 /doc/output/
 /Uploads/*
 
 /.DS_Store
 /*/.DS_Store
+
+/codedocs/
 
 config.ini
 *.json
