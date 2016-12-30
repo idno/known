@@ -878,6 +878,8 @@
                                 list($accept, $q) = explode(';q=', $accept);
                             }
                             
+                            while (in_array($q, $types)) { $q -= 000000000001;} // fudge to give equal values order priority. TODO: do this a better way
+                            
                             $types[$accept] = $q;
                         }
                         
