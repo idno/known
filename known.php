@@ -70,6 +70,25 @@
             }
         }
     }
+    
+    // Allow regular plugins to contain a ConsoleMain.php
+    $directory = dirname(__FILE__) . '/IdnoPlugins/';
+    if ($scanned_directory = array_diff(scandir($directory), array('..', '.'))) {
+        foreach ($scanned_directory as $file) {
+            if (is_dir($directory . $file)) {
+                $class = "IdnoPlugins\\$file\\ConsoleMain"; 
+                if (class_exists($class)) {
+                    $c = new $class(); 
+                    if ($c instanceof \Idno\Common\ConsolePlugin) {
+                        $console->register($c->getCommand())
+                                ->setDescription($c->getDescription())
+                                ->setDefinition($c->getParameters())
+                                ->setCode([$c, 'execute']);
+                    } 
+                }
+            }
+        }
+    }
 
     $console
         ->register('makeconfig')
