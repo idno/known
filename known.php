@@ -60,10 +60,12 @@
                 $class = "ConsolePlugins\\$file\\Main"; 
                 if (class_exists($class)) {
                     $c = new $class(); 
-                    $console->register($c->getCommand())
-                            ->setDescription($c->getDescription())
-                            ->setDefinition($c->getParameters())
-                            ->setCode([$c, 'execute']);
+                    if ($c instanceof \Idno\Common\ConsolePlugin) {
+                        $console->register($c->getCommand())
+                                ->setDescription($c->getDescription())
+                                ->setDefinition($c->getParameters())
+                                ->setCode([$c, 'execute']);
+                    } 
                 }
             }
         }
