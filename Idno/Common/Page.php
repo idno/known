@@ -853,14 +853,41 @@
             /**
              * Detects whether the current web browser accepts the given content type.
              * @param string $contentType The MIME content type.
+             * @param bool $ignore_priority If true, the 'q' parameter is ignored and the method returns true if 
+             *             $contentType appears anywhere in the accept header (original behaviour), otherwise it'll 
+             *             return true only if it's the highest value parameter. See #1622
              * @return bool
              */
-            function isAcceptedContentType($contentType)
+            function isAcceptedContentType($contentType, $ignore_priority = false)
             {
 
                 if ($headers = self::getallheaders()) {
-                    if (!empty($headers['Accept'])) {
-                        if (substr_count($headers['Accept'], $contentType)) return true;
+                    
+                    if ($ignore_priority) {
+                        if (!empty($headers['Accept'])) {
+                            if (substr_count($headers['Accept'], $contentType)) return true;
+                        }
+                    } else {
+                        $types = [];
+                        $accepts = explode(',', $headers['Accept']);
+
+                        foreach ($accepts as $accept) {
+                            $q = 1; // default value
+                            
+                            if (strpos($accept, ';q=')) {
+                                list($accept, $q) = explode(';q=', $accept);
+                            }
+                            
+                            while (in_array($q, $types)) { $q -= 000000000001;} // fudge to give equal values order priority. TODO: do this a better way
+                            
+                            $types[$accept] = $q;
+                        }
+                        
+                        arsort($types);
+                        
+                        foreach ($types as $type => $value) {
+                            return $type == $contentType;
+                        }
                     }
                 }
 
