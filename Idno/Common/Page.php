@@ -69,6 +69,9 @@
                     $page = \Idno\Core\Idno::site()->currentPage();
                     if (!empty($page))
                         $page->exception($exception);
+                    
+                    else 
+                        \Idno\Core\site ()->logging ()->error ($exception->getMessage());
 
                 });
 
