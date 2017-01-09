@@ -22,8 +22,7 @@
             }
 
             function postContent()
-            {
-
+            {                    
                 $this->adminGatekeeper();
 
                 define('KNOWN_NOMENTION', true);
@@ -68,7 +67,7 @@
                 if ($imported) {
                     \Idno\Core\Idno::site()->logging()->info("Completed import successfully, sending email to ". \Idno\Core\Idno::site()->session()->currentUser()->email);
                     
-                    $mail = new Email();
+                    $mail = new \Idno\Core\Email();
                     $mail->setHTMLBodyFromTemplate('admin/import');
                     $mail->setTextBodyFromTemplate('admin/import');
                     $mail->addTo(\Idno\Core\Idno::site()->session()->currentUser()->email);
