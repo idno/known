@@ -294,6 +294,8 @@
 
                     }
 
+                    // for now, lets assume a successful save
+                    return true;
                 }
 
             }
@@ -457,6 +459,9 @@
                             }
 
                         }
+                        
+                        // For now, lets assume that everything saved ok
+                        return true;
                     }
 
                 }
