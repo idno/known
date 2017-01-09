@@ -8,6 +8,7 @@ listings here do not imply endorsement by the Known project team in any way.
 
 ### Content types
 
+* [Video] (https://github.com/cweiske/withknownVideo) – Post videos to your Known site, by [Christian Weiske][]
 * [Video](https://github.com/tjgillies/Video) – Post videos to your Known site, by [Tyler Gillies][]
 * [Recipe](https://github.com/cleverdevil/Known-Recipes) – Post recipes to your Known site, by [Jonathan LaCour][]
 * [Review](https://github.com/cleverdevil/Known-Reviews) – Post reviews to your Known site, by [Jonathan LaCour][]
@@ -103,6 +104,7 @@ listings here do not imply endorsement by the Known project team in any way.
 [Yann Sallou]: http://winds.fr/
 [Tino Kremer]: https://tinokremer.nl/
 [Björn Stierand]: https://bjoern.stierand.org/
+[Christian Weiske]: https://cweiske.de/
 
 ## Submissions
 
