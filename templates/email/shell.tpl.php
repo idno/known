@@ -66,7 +66,7 @@
                         ?>
 
 						<p style="text-align: center; margin-top: 15px;">
-                        <em style="font-style:italic; font-size: 12px; color: #aaa; text-decoration: center;">Powered by <a href="https://withknown.com/?utm_source=transactional&utm_medium=email&utm_campaign=e<?=$path?>" style="color: #73B2E3; text-decoration: none;">Known</a>.</em>
+                        <em style="font-style:italic; font-size: 12px; color: #aaa; text-decoration: center;">Powered by <a href="https://withknown.com/?utm_source=transactional&utm_medium=email&utm_campaign=e<?=$path?>" style="color: #4c93cb; text-decoration: none;">Known</a>.</em>
 						</p>
                         <br><br>
 

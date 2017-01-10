@@ -27,10 +27,10 @@
     }
 
 ?>
-<p style="float: right">
+<!--<p style="float: right">
     <small>
         <a href="#" onclick="tinymce.EditorManager.execCommand('mceRemoveEditor',true, '<?= $unique_id; ?>'); $('#plainTextSwitch').hide(); $('#richTextSwitch').show(); return false;" id="plainTextSwitch">Switch to plain text editor</a>
-        <a href="#" onclick="makeRichText('#<?=$unique_id?>'); $('#plainTextSwitch').show(); $('#richTextSwitch').hide(); return false;" id="richTextSwitch" style="display:none">Switch to rich text editor</a></small></p>
+        <a href="#" onclick="makeRichText('#<?=$unique_id?>'); $('#plainTextSwitch').show(); $('#richTextSwitch').hide(); return false;" id="richTextSwitch" style="display:none">Switch to rich text editor</a></small></p>-->
 <?php
 
     if (!empty($vars['label'])) {
@@ -42,7 +42,7 @@
     }
 
 ?>
-    <br class="clearall">
+    <!--<br class="clearall">-->
     <textarea name="<?=$vars['name']?>"  placeholder="<?=htmlspecialchars($placeholder);?>" style="height:<?=$height?>px"
           class="bodyInput mentionable wysiwyg form-control <?=$class?>" id="<?=$unique_id?>"><?= (htmlspecialchars($value)) ?></textarea>
 
@@ -59,7 +59,7 @@
     } else {
 
     ?>
-    <br>
+    <!--<br>-->
     <?php
 
     }
