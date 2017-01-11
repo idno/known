@@ -194,6 +194,10 @@
                 }
 
                 if (!empty($this->ini_config)) {
+                    
+                    if (isset($this->config['initial_plugins']))
+			unset($this->ini_config['initial_plugins']);
+		    
                     $this->config = array_replace_recursive($this->config, $this->ini_config);
                 }
 
