@@ -124,6 +124,11 @@
                     unset($config['upload_tmp_dir']);
                     unset($config['bypass_fulltext_search']);
                     $this->config = array_replace_recursive($this->config, $config);
+		    
+		    // Crufty hack to allow plugins to be toggled - loaded plugins ALWAYS take precidence (#1427)
+		    if (!empty($config['plugins'])) {
+			$this->config['plugins'] = $config['plugins'];
+		    }
                 } else {
                     // If we don't have a saved config, this is a new site. Set some plugin defaults
                     $config['plugins'][] = 'Status';
@@ -136,7 +141,7 @@
                 }
 
                 $this->loadIniFiles();
-
+		
                 // If we don't have a site secret, create it
                 if (!isset($this->site_secret)) {
                     $token_generator   = new TokenProvider();
@@ -193,7 +198,7 @@
                     unset($this->ini_config['host']); // Host should always come from URL
                 }
 
-                if (!empty($this->ini_config)) {
+                if (!empty($this->ini_config)) {	    
                     $this->config = array_replace_recursive($this->config, $this->ini_config);
                 }
 
