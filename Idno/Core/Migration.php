@@ -363,6 +363,8 @@
                 if (!($text = \Idno\Core\Idno::site()->plugins()->get('Text'))) {
                     return false;
                 }
+                
+                libxml_use_internal_errors(true);
 
                 if ($data = simplexml_load_string($xml, null, LIBXML_NOCDATA)) {
 
@@ -465,6 +467,12 @@
                     }
 
                 }
+                
+                foreach (libxml_get_errors() as $error) {
+                    \Idno\Core\Idno::site()->logging()->error($error->message);
+                }
+
+                libxml_clear_errors();
 
             }
 
