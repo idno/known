@@ -291,7 +291,8 @@
                             $object->setTitle(html_entity_decode($item->get_title()));
                             $object->created = strtotime(($item->get_date("c")));
                             $object->body    = ($body);
-                            $object->publish(true);
+                            //$object->publish(true);
+                            $object->save();
                             
                             $imported++;
                         }
