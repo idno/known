@@ -423,18 +423,21 @@
 
                                 self::importImagesFromBodyHTML($body, parse_url($item['link'], PHP_URL_HOST));
                                 if (empty($item['title']) && strlen($body) < 600) {
+                                    \Idno\Core\Idno::site()->logging()->debug("Creating new Status post");
                                     $object          = new \IdnoPlugins\Status\Status();
                                     $object->created = $published;
                                     $object->body    = ($body);
-                                    $object->publish(true);
+                                    $object->save();
+                                    //$object->publish(true);
 
                                 } else {
-
+                                    \Idno\Core\Idno::site()->logging()->debug("Creating new Entry from '$title'");
                                     $object = new \IdnoPlugins\Text\Entry();
                                     $object->setTitle(html_entity_decode($title));
                                     $object->created = $published;
                                     $object->body    = ($body);
-                                    $object->publish(true);
+                                    $object->save();
+                                    //$object->publish(true);
                                 }
 
                                 if (!empty($item['wp:comment'])) {
@@ -458,7 +461,7 @@
                                         }
                                     }
                                 }
-                            }
+                            } 
 
                         }
                         
