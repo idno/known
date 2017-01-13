@@ -77,8 +77,16 @@
                     $mail->addTo(\Idno\Core\Idno::site()->session()->currentUser()->email);
                     $mail->setSubject("Your data import has completed");
                     $mail->send();
-                } else
+                } else {
                     \Idno\Core\Idno::site()->logging()->error("Import completed, but may not have been successful");
+                    
+                    $mail = new \Idno\Core\Email();
+                    $mail->setHTMLBodyFromTemplate('admin/import_failure');
+                    $mail->setTextBodyFromTemplate('admin/import_failure');
+                    $mail->addTo(\Idno\Core\Idno::site()->session()->currentUser()->email);
+                    $mail->setSubject("There was a problem with your data import");
+                    $mail->send();
+                }
                 
                 exit; // prevent forward
             }
