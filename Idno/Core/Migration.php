@@ -249,6 +249,8 @@
                 $xml_parser->set_raw_data($xml);
                 $xml_parser->init();
 
+                $imported = 0;
+                
                 if ($items = $xml_parser->get_items()) {
 
                     foreach ($items as $item) {
@@ -290,12 +292,15 @@
                             $object->created = strtotime(($item->get_date("c")));
                             $object->body    = ($body);
                             $object->publish(true);
+                            
+                            $imported++;
                         }
 
                     }
 
                     // for now, lets assume a successful save
-                    return true;
+                    if ($imported > 0)
+                        return true;
                 }
 
             }
@@ -373,6 +378,8 @@
 
                     unset($namespace_data);
                     unset($xml);
+                    
+                    $imported = 0;
 
                     if (!empty($data->channel->item)) {
                         foreach ($data->channel->item as $item_structure) {
@@ -428,7 +435,9 @@
                                     $object->created = $published;
                                     $object->body    = ($body);
                                     $object->save();
-                                    //$object->publish(true);
+                                    //$object->publish(true); // Pingig probably a bad idea for imports, plus it is vvvvveeeeeeeerrrrrrrrrryyyyyyy slow
+                                    
+                                    $imported++;
 
                                 } else {
                                     \Idno\Core\Idno::site()->logging()->debug("Creating new Entry from '$title'");
@@ -438,6 +447,8 @@
                                     $object->body    = ($body);
                                     $object->save();
                                     //$object->publish(true);
+                                    
+                                    $imported++;
                                 }
 
                                 if (!empty($item['wp:comment'])) {
@@ -465,8 +476,9 @@
 
                         }
                         
-                        // For now, lets assume that everything saved ok
-                        return true;
+                        // For now, lets assume that everything saved ok, if something was imported
+                        if ($imported > 0)
+                            return true;
                     }
 
                 }
