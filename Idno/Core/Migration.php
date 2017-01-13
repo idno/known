@@ -484,6 +484,7 @@
 
                 }
                 
+                // Catch and log any XML parsing errors and report them
                 foreach (libxml_get_errors() as $error) {
                     \Idno\Core\Idno::site()->logging()->error($error->message);
                 }
