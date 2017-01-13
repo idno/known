@@ -516,7 +516,7 @@
                             'offset'   => 0,
                             'count'    => sizeof($feed),
                             'subject'  => [],
-                            'nocdata'  => true,
+                            //'nocdata'  => true,
                             'base_url' => $base_url
                         ))->draw('pages/home'),
 
