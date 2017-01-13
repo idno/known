@@ -54,15 +54,19 @@
                 set_time_limit(0);          // Eliminate time limit - this could take a while
 
                 $imported = false;
-                switch (strtolower($import_type)) {
+                try {
+                    switch (strtolower($import_type)) {
 
-                    case 'blogger':
-                        $imported = Migration::importBloggerXML($xml);
-                        break;
-                    case 'wordpress':
-                        $imported = Migration::importWordPressXML($xml);
-                        break;
+                        case 'blogger':
+                            $imported = Migration::importBloggerXML($xml);
+                            break;
+                        case 'wordpress':
+                            $imported = Migration::importWordPressXML($xml);
+                            break;
 
+                    }
+                } catch (\Exception $e) {
+                    \Idno\Core\Idno::site()->logging()->error($e->getMessage());
                 }
                 if ($imported) {
                     \Idno\Core\Idno::site()->logging()->info("Completed import successfully, sending email to ". \Idno\Core\Idno::site()->session()->currentUser()->email);
@@ -73,8 +77,16 @@
                     $mail->addTo(\Idno\Core\Idno::site()->session()->currentUser()->email);
                     $mail->setSubject("Your data import has completed");
                     $mail->send();
-                } else
+                } else {
                     \Idno\Core\Idno::site()->logging()->error("Import completed, but may not have been successful");
+                    
+                    $mail = new \Idno\Core\Email();
+                    $mail->setHTMLBodyFromTemplate('admin/import_failure');
+                    $mail->setTextBodyFromTemplate('admin/import_failure');
+                    $mail->addTo(\Idno\Core\Idno::site()->session()->currentUser()->email);
+                    $mail->setSubject("There was a problem with your data import");
+                    $mail->send();
+                }
                 
                 exit; // prevent forward
             }

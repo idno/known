@@ -249,6 +249,8 @@
                 $xml_parser->set_raw_data($xml);
                 $xml_parser->init();
 
+                $imported = 0;
+                
                 if ($items = $xml_parser->get_items()) {
 
                     foreach ($items as $item) {
@@ -289,13 +291,17 @@
                             $object->setTitle(html_entity_decode($item->get_title()));
                             $object->created = strtotime(($item->get_date("c")));
                             $object->body    = ($body);
-                            $object->publish(true);
+                            //$object->publish(true);
+                            $object->save();
+                            
+                            $imported++;
                         }
 
                     }
 
                     // for now, lets assume a successful save
-                    return true;
+                    if ($imported > 0)
+                        return true;
                 }
 
             }
@@ -363,6 +369,8 @@
                 if (!($text = \Idno\Core\Idno::site()->plugins()->get('Text'))) {
                     return false;
                 }
+                
+                libxml_use_internal_errors(true);
 
                 if ($data = simplexml_load_string($xml, null, LIBXML_NOCDATA)) {
 
@@ -371,6 +379,8 @@
 
                     unset($namespace_data);
                     unset($xml);
+                    
+                    $imported = 0;
 
                     if (!empty($data->channel->item)) {
                         foreach ($data->channel->item as $item_structure) {
@@ -421,18 +431,25 @@
 
                                 self::importImagesFromBodyHTML($body, parse_url($item['link'], PHP_URL_HOST));
                                 if (empty($item['title']) && strlen($body) < 600) {
+                                    \Idno\Core\Idno::site()->logging()->debug("Creating new Status post");
                                     $object          = new \IdnoPlugins\Status\Status();
                                     $object->created = $published;
                                     $object->body    = ($body);
-                                    $object->publish(true);
+                                    $object->save();
+                                    //$object->publish(true); // Pingig probably a bad idea for imports, plus it is vvvvveeeeeeeerrrrrrrrrryyyyyyy slow
+                                    
+                                    $imported++;
 
                                 } else {
-
+                                    \Idno\Core\Idno::site()->logging()->debug("Creating new Entry from '$title'");
                                     $object = new \IdnoPlugins\Text\Entry();
                                     $object->setTitle(html_entity_decode($title));
                                     $object->created = $published;
                                     $object->body    = ($body);
-                                    $object->publish(true);
+                                    $object->save();
+                                    //$object->publish(true);
+                                    
+                                    $imported++;
                                 }
 
                                 if (!empty($item['wp:comment'])) {
@@ -456,15 +473,23 @@
                                         }
                                     }
                                 }
-                            }
+                            } 
 
                         }
                         
-                        // For now, lets assume that everything saved ok
-                        return true;
+                        // For now, lets assume that everything saved ok, if something was imported
+                        if ($imported > 0)
+                            return true;
                     }
 
                 }
+                
+                // Catch and log any XML parsing errors and report them
+                foreach (libxml_get_errors() as $error) {
+                    \Idno\Core\Idno::site()->logging()->error($error->message);
+                }
+
+                libxml_clear_errors();
 
             }
 
@@ -508,7 +533,7 @@
                             'offset'   => 0,
                             'count'    => sizeof($feed),
                             'subject'  => [],
-                            'nocdata'  => true,
+                            //'nocdata'  => true,
                             'base_url' => $base_url
                         ))->draw('pages/home'),
 
