@@ -85,6 +85,10 @@
             $rssItem->appendChild($page->createElement('guid',$item->getUUID()));
             $rssItem->appendChild($page->createElement('pubDate',date(DATE_RSS,$item->created)));
 
+            // Needed for WP import into Known
+            $rssItem->appendChild($page->createElement('wp:post_type', 'post'));
+            $rssItem->appendChild($page->createElement('wp:status', 'publish'));
+            
             $owner = $item->getOwner();
             if (!empty($owner)) {
                 $rssItem->appendChild($page->createElement('author', "{$owner->title}"));
