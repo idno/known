@@ -54,15 +54,19 @@
                 set_time_limit(0);          // Eliminate time limit - this could take a while
 
                 $imported = false;
-                switch (strtolower($import_type)) {
+                try {
+                    switch (strtolower($import_type)) {
 
-                    case 'blogger':
-                        $imported = Migration::importBloggerXML($xml);
-                        break;
-                    case 'wordpress':
-                        $imported = Migration::importWordPressXML($xml);
-                        break;
+                        case 'blogger':
+                            $imported = Migration::importBloggerXML($xml);
+                            break;
+                        case 'wordpress':
+                            $imported = Migration::importWordPressXML($xml);
+                            break;
 
+                    }
+                } catch (\Exception $e) {
+                    \Idno\Core\Idno::site()->logging()->error($e->getMessage());
                 }
                 if ($imported) {
                     \Idno\Core\Idno::site()->logging()->info("Completed import successfully, sending email to ". \Idno\Core\Idno::site()->session()->currentUser()->email);
