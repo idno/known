@@ -40,6 +40,11 @@
                         $headers = http_parse_headers($head['header']);
                     }
 
+                    // In cases where there's a 30x redirect, it is possible to get multiple content type headers, for now let's assume the final destination is valid. (#1596)
+                    if (is_array($headers['Content-Type'])) {
+                        $headers['Content-Type'] = end($headers['Content-Type']);
+                    }
+                    
                     // Only MF2 Parse supported types
                     if (isset($headers['Content-Type']) && preg_match('/text\/(html|plain)+/', $headers['Content-Type'])) {
 
