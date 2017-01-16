@@ -152,6 +152,7 @@
                         // Attempt to find if this is a local object
                         if ($context = $this->findObjectByUrl($this->body)) {
                             $this->object_context_uuid = $context->getUUID();
+                            \Idno\Core\Idno::site()->logging()->debug("Object context for {$this->body} found as {$this->object_context_uuid}");
                         }
                         
                         $this->setAccess($access);
@@ -162,11 +163,11 @@
                             return true;
                         }
                     } else {
-                        error_log("No URL");
+                        \Idno\Core\Idno::site()->logging()->error("No URL");
                         \Idno\Core\Idno::site()->session()->addErrorMessage('You can\'t bookmark an empty URL.');
                     }
                 } else {
-                    error_log("Invalid URL");
+                    \Idno\Core\Idno::site()->logging()->error("Invalid URL");
                     \Idno\Core\Idno::site()->session()->addErrorMessage('That doesn\'t look like a valid URL.');
                 }
                 return false;
