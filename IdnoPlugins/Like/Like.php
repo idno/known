@@ -65,6 +65,30 @@
                 }
                 return '';
             }
+            
+            /**
+             * Attempt to find an object, if any, associated with a URL.
+             * When bookmarking a local url, this method will attempt to find an object context 
+             * to attach to the 'like' entry. 
+             * @param type $url
+             * @return false|\Idno\Common\Entity
+             */
+            protected function findObjectByUrl($url) {
+                
+                if (\Idno\Common\Entity::isLocalUUID($url)) {
+                    if ($object = \Idno\Common\Entity::getByUUID($url))
+                        return $object;
+                    
+                    if ($object = \Idno\Common\Entity::getByShortURL($url))
+                        return $object;
+                    
+                    
+                    // TODO: More complete get by url scheme
+                    
+                }
+                
+                return false;
+            }
 
             /**
              * Saves changes to this object based on user input
@@ -124,6 +148,13 @@
                             \Idno\Core\Idno::site()->session()->addErrorMessage('You need to specify a title.');
                             return false;
                         }
+                        
+                        // Attempt to find if this is a local object
+                        if ($context = $this->findObjectByUrl($this->body)) {
+                            $this->object_context_uuid = $context->getUUID();
+                            \Idno\Core\Idno::site()->logging()->debug("Object context for {$this->body} found as {$this->object_context_uuid}");
+                        }
+                        
                         $this->setAccess($access);
                         if ($this->publish($new)) {
                             if ($this->getAccess() == 'PUBLIC') {
@@ -132,11 +163,11 @@
                             return true;
                         }
                     } else {
-                        error_log("No URL");
+                        \Idno\Core\Idno::site()->logging()->error("No URL");
                         \Idno\Core\Idno::site()->session()->addErrorMessage('You can\'t bookmark an empty URL.');
                     }
                 } else {
-                    error_log("Invalid URL");
+                    \Idno\Core\Idno::site()->logging()->error("Invalid URL");
                     \Idno\Core\Idno::site()->session()->addErrorMessage('That doesn\'t look like a valid URL.');
                 }
                 return false;
