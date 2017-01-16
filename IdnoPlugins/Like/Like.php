@@ -75,7 +75,7 @@
              */
             protected function findObjectByUrl($url) {
                 
-                if (\Idno\Common\Entity::isLocalUUID($uuid)) {
+                if (\Idno\Common\Entity::isLocalUUID($url)) {
                     if ($object = \Idno\Common\Entity::getByUUID($url))
                         return $object;
                     
