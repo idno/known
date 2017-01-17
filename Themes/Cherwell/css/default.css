@@ -205,3 +205,6 @@ body.page-share {
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
 	color:#999;
 }
+.idno-entry .p-author {
+    text-align: left !important;
+}
