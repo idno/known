@@ -19,7 +19,7 @@
                 // Create diagnostics report
                 if ($this->xhr) {
 
-                    $report = "Known Diagnostics: Version " . \Idno\Core\Idno::site()->version() . "\nDate: " . date('r') . "\n\n";
+                    $report = "Known Diagnostics: Version " . \Idno\Core\Idno::site()->version() . ' (' . \Idno\Core\Idno::site()->getMachineVersion() . ") \nDate: " . date('r') . "\n\n";
                     $report .= "*** WARNING: This report contains sensitive information. Be careful about how you transmit it, and to whom. ***\n\n";
                     $report .= "Basics:\n-------\n\n";
 
@@ -38,8 +38,9 @@
                     $config                       = \Idno\Core\Idno::site()->config();
                     $config->config['dbpass']     = '** REDACTED **';
                     $config->ini_config['dbpass'] = '** REDACTED **';
+                    $config->config['site_secret']     = '** REDACTED **';
 
-                    $report .= "Running config:\n---------------\n" . var_export($config, true) . "\n\n";
+                    $report .= "\nRunning config:\n---------------\n" . var_export($config, true) . "\n\n";
                     $report .= "\$_SESSION:\n----------\n" . var_export($_SESSION, true) . "\n\n";
                     $report .= "\$_SERVER:\n---------\n" . var_export($_SERVER, true) . "\n\n";
 
