@@ -26,6 +26,7 @@
     $rss->setAttribute('xmlns:geo', 'http://www.w3.org/2003/01/geo/wgs84_pos#');
     $rss->setAttribute('xmlns:dc', 'http://purl.org/dc/elements/1.1/');
     $rss->setAttribute('xmlns:itunes', 'http://www.itunes.com/dtds/podcast-1.0.dtd');
+    $rss->setAttribute('xmlns:wp', 'http://wordpress.org/export/1.2/');
     $channel = $page->createElement('channel');
     $channel->appendChild($page->createElement('title',$vars['title']));
     if (!empty(\Idno\Core\Idno::site()->config()->description)) {
