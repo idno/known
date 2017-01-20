@@ -55,7 +55,7 @@
                             $payload['text'] = $object->getTitle() . ' <' . $object->getURL() . '>';
                             $payload['title'] = $object->getTitle();
 
-                            Webservice::post($hook_url, json_encode($payload));
+                            Webservice::post($hook_url, json_encode($payload), ['Content-Type: application/json']);
 
                         }
                     }
