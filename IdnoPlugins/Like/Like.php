@@ -171,6 +171,8 @@
                         // Archive this, if 
                         if ($new && \Idno\Core\Idno::site()->currentPage()->getInput('archive', 'y')) {
                             $this->archiveWayback($this->body);
+                            
+                            $this->waybackArchive = time();
                         }
                         
                         $this->setAccess($access);
