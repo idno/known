@@ -65,7 +65,21 @@
                     'placeholder' => 'This page is great because ...',
                     'label'       => 'Description and hashtags'
                 ])->draw('forms/input/richtext') ?>
+                
+                <?php if (empty($vars['object']->_id)) { ?>
+                <div class="bookmark-archive-container" for="archive">
+                    <p><label for="archive">
+                        Save link to archive.org
+                        
+                         <input type="checkbox" name="archive" id="archive" 
+                           value="y" class=" bookmark-archive" checked />
+                    </label>
+                       
+                    </p>
+                </div>
+                <?php } ?>
             </div>
+            
             <?= $this->draw('entity/tags/input'); ?>
             <?php echo $this->drawSyndication('bookmark', $vars['object']->getPosseLinks()); ?>
             <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to"
