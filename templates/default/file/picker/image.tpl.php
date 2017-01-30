@@ -19,7 +19,8 @@
                                                 id="photo-filename">Select an image</span>
                                             <input type="file" name="file" id="photo"
                                                    class="col-md-9"
-                                                   accept="image/*;capture=camera"
+                                                   accept="image/*"
+                                                   capture="camera"
                                                    onchange="photoPreview(this)"/>
                                         </span>
                 </label>
