@@ -24,7 +24,8 @@
                         <span id="photo-filename">Select a user picture</span>
                             <input type="file" name="avatar" id="photo"
                                    class="form-control"
-                                   accept="image/*;capture=camera"
+                                   accept="image/*"
+                                   capture="camera"
                                    onchange="photoPreview(this)"/>
 
                         </span>

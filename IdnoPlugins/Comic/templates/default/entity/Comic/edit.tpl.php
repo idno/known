@@ -18,7 +18,7 @@
                                     <span class="btn btn-primary btn-file">
                                         <i class="fa fa-upload"></i>
 										<span id="photo-filename">Select a comic</span> 
-                                        <input type="file" name="comic" id="comic" class="form-control" accept="image/*;capture=camera" onchange="comicPreview(this)"/>
+                                        <input type="file" name="comic" id="comic" class="form-control" accept="image/*" capture="camera" onchange="comicPreview(this)"/>
 
                                     </span>
                             </label>

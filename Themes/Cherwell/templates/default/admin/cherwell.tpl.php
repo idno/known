@@ -36,7 +36,7 @@
                     <span class="btn btn-primary btn-file">
                     <i class="fa fa-camera"></i>
                     <span id="photo-filename">Upload a new image</span>
-                    <input type="file" name="background" id="photo" class="col-md-9" accept="image/*;capture=camera"
+                    <input type="file" name="background" id="photo" class="col-md-9" accept="image/*" capture="camera"
                            onchange="photoPreview(this)"/>
                     </span>
                 </label>

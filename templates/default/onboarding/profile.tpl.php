@@ -14,7 +14,7 @@
             <div class="upload">
                 <span class="camera btn-file" type="button" value="Add a photo of yourself">
                     <span id="photo-filename">Add a photo of yourself</span>
-                    <input type="file" name="avatar" id="photo" class="col-md-9" accept="image/*;capture=camera"
+                    <input type="file" name="avatar" id="photo" class="col-md-9" accept="image/*" capture="camera"
                            onchange="photoPreview(this)"/>
                 </span>
             </div>
