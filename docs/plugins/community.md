@@ -33,6 +33,8 @@ listings here do not imply endorsement by the Known project team in any way.
     by [Marcus Povey][]
 * [IndieSyndicate](https://github.com/kylewm/KnownIndieSyndicate) – Syndicate via Micropub and Webmention, by [Kyle Mahan][]
 * [Pinboard](https://github.com/egoexpress/known-pinboard) - Syndicate your bookmarks to [Pinboard.in](https://pinboard.in), by [Björn Stierand][]
+* [Archive.org/WayBackMachine](https://github.com/mapkyca/KnownWaybackMachine) – Provides Wayback Machine archive.org support for Known, 
+    by [Marcus Povey][]
 
 ### System and Security
 
