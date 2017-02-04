@@ -1,7 +1,6 @@
-Your data is ready!
+Your data import is done!
 ===================
 
-We've taken the data you supplied and turned it into Known posts! Photos that you had previously
-uploaded to the service and embedded into your posts have also been imported.
+We've taken the data you uploaded and turned it into Known posts. Enjoy!
 
 Visit your site: <?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>

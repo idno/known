@@ -19,9 +19,7 @@
         </h2>
 
         <p class="explanation">
-            Known gives you an archive containing all of your site's data. The export includes every file you upload, every site user, and
-            every post you publish. You can then import these into other Known sites or process them using other
-            software.
+            Export your content to a zip file. This archive contains all of your site's data, including every file uploaded, every site user, and every post published. You can import data from this archive into other Known sites or platforms.
         </p>
         <?php
 
@@ -42,25 +40,25 @@
         ?>
 
         <h2 style="margin-top: 3em">
-            Export to WordPress
+            Export to RSS
         </h2>
 
         <p class="explanation">
-            You can download an RSS version of every post in your Known site. This file is suitable for importing
-            into content management systems like WordPress, or another Known site.
+            You can download an RSS file of every post from your Known site. This is suitable for importing
+            into another Known site or WordPress site.
         </p>
         <form action="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>admin/export/rss" method="post">
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <p><label class="control-label" for="allposts"><strong>Include private posts?</strong></label></p>
                 </div>
-                <div class="config-toggle col-md-4">
+                <div class="config-toggle col-md-3">
                     <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
                            name="allposts" id="allposts"
                            value="1">
                 </div>
                 <div class="col-md-6">
-                    <p class="config-desc">Platforms like WordPress may assume that all your posts should be displayed publicly.
+                    <p class="config-desc">Some platforms may assume that all your posts should be displayed publicly.
                         In order to protect your privacy, you may wish to just download your public posts.</p>
                 </div>
             </div>

@@ -34,7 +34,7 @@
                 } else if (!($xml = @file_get_contents($_FILES['import']['tmp_name']))) {
                     \Idno\Core\Idno::site()->session()->addErrorMessage("We couldn't open the file you uploaded. Please try again.");
                 } else {
-                    \Idno\Core\Idno::site()->session()->addMessage("Your {$import_type} import has started.");
+                    \Idno\Core\Idno::site()->session()->addMessage("Your import has started. We'll email you when it's done.");
                 }
 
                 session_write_close();
@@ -75,7 +75,7 @@
                     $mail->setHTMLBodyFromTemplate('admin/import');
                     $mail->setTextBodyFromTemplate('admin/import');
                     $mail->addTo(\Idno\Core\Idno::site()->session()->currentUser()->email);
-                    $mail->setSubject("Your data import has completed");
+                    $mail->setSubject("Known - Your data import is complete");
                     $mail->send();
                 } else {
                     \Idno\Core\Idno::site()->logging()->error("Import completed, but may not have been successful");
@@ -84,7 +84,7 @@
                     $mail->setHTMLBodyFromTemplate('admin/import_failure');
                     $mail->setTextBodyFromTemplate('admin/import_failure');
                     $mail->addTo(\Idno\Core\Idno::site()->session()->currentUser()->email);
-                    $mail->setSubject("There was a problem with your data import");
+                    $mail->setSubject("Known - Problem with your import");
                     $mail->send();
                 }
                 
