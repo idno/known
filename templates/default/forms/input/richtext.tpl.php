@@ -96,7 +96,7 @@
     
 /*
 
-TODO: File uploads, counter, read time etc
+TODO: File uploads
 
     counter = function () {
 
@@ -182,7 +182,12 @@ TODO: File uploads, counter, read time etc
     $(document).ready(function() {
         /* Build quill */
         var quill = new Quill('#<?= $unique_id; ?>_editor', {
-          modules: { toolbar: true },
+          modules: { toolbar: [
+            [{ header: [1, 2, false] }],
+            ['bold', 'italic', 'underline', 'blockquote'],
+            [{list: 'ordered'}, {list: 'bullet'}],
+            ['image', 'video', 'link']
+            ] },
           placeholder: "<?=htmlspecialchars($placeholder);?>",
           theme: 'snow'
         });
