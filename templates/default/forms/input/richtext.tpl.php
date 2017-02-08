@@ -43,10 +43,10 @@
 
 ?>
     <!--<br class="clearall">-->
-    <textarea id="<?=$vars['name']?>" name="<?=$vars['name']?>"  placeholder="<?=htmlspecialchars($placeholder);?>" style="display: none;"
+    <textarea id="<?= $unique_id ?>" name="<?=$vars['name']?>"  placeholder="<?=htmlspecialchars($placeholder);?>" style="display: none;"
           class="bodyInput mentionable wysiwyg form-control <?=$class?>" id="<?=$unique_id?>"><?= (htmlspecialchars($value)) ?></textarea>
           
-          <div id="<?=$vars['name']?>_editor" style="height:<?=$height?>px"></div>
+          <div id="<?= $unique_id ?>_editor" style="height:<?=$height?>px"></div>
 
 <?php
 
@@ -69,6 +69,31 @@
 ?>
 
 <script>
+    
+    counter = function () {
+
+        var value = $('#<?=$unique_id?>').text();
+        if (value.length == 0) {
+            $('#totalWords').html(0);
+            $('#totalChars').html(0);
+            $('#charCount').html(0);
+            $('#charCountNoSpace').html(0);
+            return;
+        }
+
+        var regex = /\S+/g;
+        var wordCount = knownStripHTML(value).replace(/\n/g,' ').trim().split(' ').length;
+        var totalChars = value.length;
+        var charCount = value.trim().length;
+        var charCountNoSpace = value.replace(regex, '').length;
+
+        $('#totalWords<?=$unique_id?>').html(wordCount);
+        $('#totalChars<?=$unique_id?>').html(totalChars);
+        $('#charCount<?=$unique_id?>').html(charCount);
+        $('#charCountNoSpace<?=$unique_id?>').html(charCountNoSpace);
+
+    };
+    
 /*
 
 TODO: File uploads, counter, read time etc
@@ -156,18 +181,20 @@ TODO: File uploads, counter, read time etc
     
     $(document).ready(function() {
         /* Build quill */
-        var quill = new Quill('#<?=$vars['name']?>_editor', {
+        var quill = new Quill('#<?= $unique_id; ?>_editor', {
           modules: { toolbar: true },
           placeholder: "<?=htmlspecialchars($placeholder);?>",
           theme: 'snow'
         });
         
         /* Initialise with content */
-        $('#<?=$vars['name']?>_editor div.ql-editor').html($('#<?=$vars['name']?>').text());
+        $('#<?= $unique_id ?>_editor div.ql-editor').html($('#<?= $unique_id; ?>').text());
         
         /* Handle text change */
         quill.on('text-change', function() {
-          $('#<?=$vars['name']?>').text($('#<?=$vars['name']?>_editor div.ql-editor').html()); // This is a horrible hack.
+          $('#<?= $unique_id ?>').text($('#<?= $unique_id; ?>_editor div.ql-editor').html()); // This is a horrible hack.
+          
+          counter();
         });
     });
 </script>
