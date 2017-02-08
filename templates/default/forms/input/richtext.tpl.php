@@ -43,8 +43,10 @@
 
 ?>
     <!--<br class="clearall">-->
-    <textarea name="<?=$vars['name']?>"  placeholder="<?=htmlspecialchars($placeholder);?>" style="height:<?=$height?>px"
+    <textarea id="<?=$vars['name']?>" name="<?=$vars['name']?>"  placeholder="<?=htmlspecialchars($placeholder);?>" style="display: none;"
           class="bodyInput mentionable wysiwyg form-control <?=$class?>" id="<?=$unique_id?>"><?= (htmlspecialchars($value)) ?></textarea>
+          
+          <div id="<?=$vars['name']?>_editor" style="height:<?=$height?>px"></div>
 
 <?php
 
@@ -67,6 +69,9 @@
 ?>
 
 <script>
+/*
+
+TODO: File uploads, counter, read time etc
 
     counter = function () {
 
@@ -147,5 +152,16 @@
                 callback(url);
             }
         });
-    }
+    }*/
+    
+  /* Build quill */
+  var quill = new Quill('#<?=$vars['name']?>_editor', {
+    modules: { toolbar: true },
+    theme: 'snow'
+  });
+  
+  /* Handle text change */
+  quill.on('text-change', function() {
+    $('#<?=$vars['name']?>').text($('#<?=$vars['name']?>_editor div.ql-editor').html()); // This is a horrible hack.
+  });
 </script>
