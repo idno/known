@@ -154,14 +154,19 @@ TODO: File uploads, counter, read time etc
         });
     }*/
     
-  /* Build quill */
-  var quill = new Quill('#<?=$vars['name']?>_editor', {
-    modules: { toolbar: true },
-    theme: 'snow'
-  });
-  
-  /* Handle text change */
-  quill.on('text-change', function() {
-    $('#<?=$vars['name']?>').text($('#<?=$vars['name']?>_editor div.ql-editor').html()); // This is a horrible hack.
-  });
+    $(document).ready(function() {
+        /* Build quill */
+        var quill = new Quill('#<?=$vars['name']?>_editor', {
+          modules: { toolbar: true },
+          theme: 'snow'
+        });
+        
+        /* Initialise with content */
+        $('#<?=$vars['name']?>_editor div.ql-editor').html($('#<?=$vars['name']?>').text());
+        
+        /* Handle text change */
+        quill.on('text-change', function() {
+          $('#<?=$vars['name']?>').text($('#<?=$vars['name']?>_editor div.ql-editor').html()); // This is a horrible hack.
+        });
+    });
 </script>
