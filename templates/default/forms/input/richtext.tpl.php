@@ -158,6 +158,7 @@ TODO: File uploads, counter, read time etc
         /* Build quill */
         var quill = new Quill('#<?=$vars['name']?>_editor', {
           modules: { toolbar: true },
+          placeholder: "<?=htmlspecialchars($placeholder);?>",
           theme: 'snow'
         });
         
