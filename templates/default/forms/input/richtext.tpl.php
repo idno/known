@@ -43,8 +43,10 @@
 
 ?>
     <!--<br class="clearall">-->
-    <textarea name="<?=$vars['name']?>"  placeholder="<?=htmlspecialchars($placeholder);?>" style="height:<?=$height?>px"
+    <textarea id="<?= $unique_id ?>" name="<?=$vars['name']?>"  placeholder="<?=htmlspecialchars($placeholder);?>" style="display: none;"
           class="bodyInput mentionable wysiwyg form-control <?=$class?>" id="<?=$unique_id?>"><?= (htmlspecialchars($value)) ?></textarea>
+          
+          <div id="<?= $unique_id ?>_editor" style="height:<?=$height?>px"></div>
 
 <?php
 
@@ -67,6 +69,34 @@
 ?>
 
 <script>
+    
+    counter = function () {
+
+        var value = $('#<?=$unique_id?>').text();
+        if (value.length == 0) {
+            $('#totalWords').html(0);
+            $('#totalChars').html(0);
+            $('#charCount').html(0);
+            $('#charCountNoSpace').html(0);
+            return;
+        }
+
+        var regex = /\S+/g;
+        var wordCount = knownStripHTML(value).replace(/\n/g,' ').trim().split(' ').length;
+        var totalChars = value.length;
+        var charCount = value.trim().length;
+        var charCountNoSpace = value.replace(regex, '').length;
+
+        $('#totalWords<?=$unique_id?>').html(wordCount);
+        $('#totalChars<?=$unique_id?>').html(totalChars);
+        $('#charCount<?=$unique_id?>').html(charCount);
+        $('#charCountNoSpace<?=$unique_id?>').html(charCountNoSpace);
+
+    };
+    
+/*
+
+TODO: File uploads
 
     counter = function () {
 
@@ -147,5 +177,29 @@
                 callback(url);
             }
         });
-    }
+    }*/
+    
+    $(document).ready(function() {
+        /* Build quill */
+        var quill = new Quill('#<?= $unique_id; ?>_editor', {
+          modules: { toolbar: [
+            [{ header: [1, 2, false] }],
+            ['bold', 'italic', 'underline', 'blockquote'],
+            [{list: 'ordered'}, {list: 'bullet'}],
+            ['image', 'video', 'link']
+            ] },
+          placeholder: "<?=htmlspecialchars($placeholder);?>",
+          theme: 'snow'
+        });
+        
+        /* Initialise with content */
+        $('#<?= $unique_id ?>_editor div.ql-editor').html($('#<?= $unique_id; ?>').text());
+        
+        /* Handle text change */
+        quill.on('text-change', function() {
+          $('#<?= $unique_id ?>').text($('#<?= $unique_id; ?>_editor div.ql-editor').html()); // This is a horrible hack.
+          
+          counter();
+        });
+    });
 </script>
