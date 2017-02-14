@@ -18,7 +18,7 @@
     if (!empty($vars['placeholder'])) {
         $placeholder = $vars['placeholder'];
     } else {
-        $placeholder = 'Tell your story';
+        $placeholder = 'Share something brilliant...';
     }
     if (!empty($vars['value'])) {
         $value = $vars['value'];

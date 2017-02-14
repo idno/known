@@ -54,7 +54,7 @@
                     'wordcount' => false,
                     'class' => 'wysiwyg',
                     'height' => 100,
-                    'placeholder' => 'Tell your story',
+                    'placeholder' => 'Share something brilliant...',
                     'label' => 'Body'
                 ])->draw('forms/input/richtext')?>
 
