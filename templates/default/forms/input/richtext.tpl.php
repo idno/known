@@ -44,7 +44,7 @@
 ?>
     <!--<br class="clearall">-->
     <textarea id="<?= $unique_id ?>" name="<?=$vars['name']?>"  placeholder="<?=htmlspecialchars($placeholder);?>" style="display: none;"
-          class="bodyInput mentionable wysiwyg form-control <?=$class?>" id="<?=$unique_id?>"><?= (htmlspecialchars($value)) ?></textarea>
+          class="bodyInput mentionable wysiwyg form-control <?=$class?>" id="<?=$unique_id?>"><?= (htmlspecialchars(str_replace("\n",'',$value))) ?></textarea>
           
           <div id="<?= $unique_id ?>_editor" style="height:<?=$height?>px"></div>
 
