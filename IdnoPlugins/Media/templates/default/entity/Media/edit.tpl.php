@@ -40,7 +40,7 @@
                     Title</label>
                     <input type="text" name="title" id="title" placeholder="Give it a title" value="<?=htmlspecialchars($vars['object']->title)?>" class="form-control" />
 
-            </idv>
+            </div>
 
             <?= $this->__([
                 'name' => 'body',

@@ -95,6 +95,7 @@
     };
        
     $(document).ready(function() {
+
         /* Build quill */
         var quill = new Quill('#<?= $unique_id; ?>_editor', {
           modules: { toolbar: [
@@ -104,7 +105,7 @@
             ['image', 'video', 'link']
             ] },
           placeholder: "<?=htmlspecialchars($placeholder);?>",
-          theme: 'snow'
+          theme: 'snow'          
         });
         
         /* Initialise with content */

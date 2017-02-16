@@ -18,7 +18,7 @@
 
             <div class="content-form">
                 <label for="body">
-                    Page address</label>
+                    Link Address</label>
                 <input required type="url" name="body" id="body" placeholder="http://...."
                        value="<?php if (empty($vars['url'])) {
                            echo htmlspecialchars($vars['object']->body);
@@ -48,7 +48,7 @@
                 <div class="bookmark-title-container" for="title"
                      <?php if (empty($vars['object']->pageTitle) && empty($vars['object']->_id) && (empty($vars['url']) && empty($vars['object']->body))) { ?>style="display:none"<?php } ?>>
                     <label for="title">
-                        Page title<br/>
+                        Title<br/>
                     </label>
                     <input required type="text" name="title" id="title" placeholder="Page name"
                            value="<?php
@@ -62,8 +62,8 @@
                     'wordcount'   => false,
                     'class'       => 'wysiwyg-short',
                     'height'      => 250,
-                    'placeholder' => 'This page is great because ...',
-                    'label'       => 'Description and hashtags'
+                    'placeholder' => 'Add notes to your bookmark...',
+                    'label'       => 'Description'
                 ])->draw('forms/input/richtext') ?>
             </div>
             <?= $this->draw('entity/tags/input'); ?>
