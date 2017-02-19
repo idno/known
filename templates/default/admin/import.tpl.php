@@ -17,10 +17,10 @@
         <form action="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>admin/import/" method="post" enctype="multipart/form-data">
 
             <h2>
-                WordPress
+                Known / WordPress
             </h2>
             <p>
-                Upload a WordPress XML file and turn it into Known posts.
+                Upload a Known or WordPress XML file and turn it into Known posts.
                 <small>(Experimental) <a href="#" onclick="$('#wordpress-explanation').show(); return false;">How do I get my WordPress XML file?</a></small>
             </p>
             <div id="wordpress-explanation" class="well" style="display:none">
@@ -40,7 +40,7 @@
                     <span class="btn btn-primary btn-file" id="wordpress-filename-wrapper">
                         <span id="wordpress-filename">Select your WordPress export file</span> <input type="file" name="import" id="wordpress-file"
                                                                                                   class="span9"
-                                                                                                  accept=".xml,.atom"
+                                                                                                  accept=".xml,.atom,.rss"
                                                                                                   onchange="$('#wordpress-filename').html($('#wordpress-file').val()); $('#wordpress-filename-wrapper').css('background-color','#aaa'); $('#wordpress-filename-wrapper').css('border','0'); $('#wordpress-submit').show(); $('#wordpress-submit').addClass('btn-primary')"/>
 
                     </span>
