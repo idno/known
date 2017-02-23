@@ -158,7 +158,7 @@
 
                 if (empty($this->ini_config)) {
                     $this->ini_config = array();
-                    if ($config = @parse_ini_file($this->path . '/config.ini')) {
+                    if ($config = @parse_ini_file($this->path . '/config.ini', true)) {
                         if (!empty($config)) {
                             $this->default_config = false;
                             $this->ini_config     = array_replace_recursive($config, $this->ini_config);
@@ -176,7 +176,7 @@
                     }
 
                     // Per domain configuration
-                    if ($config = @parse_ini_file($this->path . '/' . $this->host . '.ini')) {
+                    if ($config = @parse_ini_file($this->path . '/' . $this->host . '.ini', true)) {
                         unset($this->ini_config['initial_plugins']);  // Don't let plugin settings be merged
                         unset($this->ini_config['alwaysplugins']);
                         unset($this->ini_config['antiplugins']);
