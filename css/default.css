@@ -597,7 +597,7 @@ span.contentTypeLogo {
     right: 0;
     min-width: 100%;
     min-height: 100%;
-    font-size: 999px;
+    /*font-size: 999px;*/
     text-align: right;
     filter: alpha(opacity=0);
     opacity: 0;
@@ -1833,4 +1833,10 @@ textarea.form-control {
 
 .extra-metadata {
     display: none;
+}
+.import {
+	margin-top: 2em;
+}
+.import h3 {
+	margin-top: 0;
 }
