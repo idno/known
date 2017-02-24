@@ -19,14 +19,37 @@
 
                 <?php
 
-                    if (empty($vars['object']->_id)) {
+                   // if (empty($vars['object']->_id)) {
 
                         ?>
-                        <div id="photo-preview"></div>
+                        <div id="photo-preview"><?php if (!empty($vars['object']->_id)) {
+                            
+                            $attachments = $vars['object']->getAttachments(); // TODO: Handle multiple
+                            $attachment = $attachments[0];
+                        
+                            $mainsrc = $attachment['url'];
+                            if (!empty($vars['object']->thumbnail_large)) {
+                                $src = $vars['object']->thumbnail_large;
+                            } else if (!empty($vars['object']->thumbnail)) { // Backwards compatibility
+                                $src = $vars['object']->thumbnail;
+                            } else {
+                                $src = $mainsrc;
+                            }
+
+                            // Patch to correct certain broken URLs caused by https://github.com/idno/known/issues/526
+                            $src = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\Idno::site()->config()->getDisplayURL(), $src);
+                            $mainsrc = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\Idno::site()->config()->getDisplayURL(), $mainsrc);
+
+                            $src = \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($src);
+                            $mainsrc = \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($mainsrc);
+                            
+                        
+                            ?><img src="<?=  $this->makeDisplayURL($src) ?>" id="photopreview" style="width: 400px"><?php
+                        } ?></div>
                         <p>
                                 <span class="btn btn-primary btn-file">
                                         <i class="fa fa-camera"></i> <span
-                                        id="photo-filename">Select a photo</span> <input type="file" name="photo"
+                                        id="photo-filename"><?php if (empty($vars['object']->_id)) { ?>Select a photo<?php } else { ?>Choose different photo<?php } ?></span> <input type="file" name="photo"
                                                                                          id="photo"
                                                                                          class="col-md-9 form-control"
                                                                                          accept="image/*"
@@ -38,7 +61,7 @@
 
                     <?php
 
-                    }
+                  //  }
 
                 ?>
 
