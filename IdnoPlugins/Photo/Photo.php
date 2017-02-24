@@ -94,8 +94,12 @@
                 }
 
                 // Get photo
-                if ($new) {
+                //if ($new) {
                     if (!empty($_FILES['photo']['tmp_name'])) {
+                        
+                        // Replace any existing photos
+                        $this->deleteAttachments();
+                        
                         if (\Idno\Entities\File::isImage($_FILES['photo']['tmp_name']) || \Idno\Entities\File::isSVG($_FILES['photo']['tmp_name'], $_FILES['photo']['name'])) {
 
                             // Extract exif data so we can rotate
@@ -154,13 +158,20 @@
 	                    $errcode = $_FILES['photo']['error'];
 	                    if (!empty($errcode) && !empty(self::$FILE_UPLOAD_ERROR_CODES[intval($errcode)])) {
 		                    $errmsg = self::$FILE_UPLOAD_ERROR_CODES[intval($errcode)];
+                                    
+                                    // No file is ok, if this is not new
+                                    if (intval($errcode) == UPLOAD_ERR_NO_FILE && !$new) {
+                                        $errmsg = null;
+                                    }
 	                    } else {
-		                    $errmsg = 'We couldn\'t access your image for an unknown reason. Please try again.';
+                                $errmsg = 'We couldn\'t access your image for an unknown reason. Please try again.';
 	                    }
-	                    \Idno\Core\Idno::site()->session()->addErrorMessage($errmsg);
-                        return false;
+                            if (!empty($errmsg)) {
+                                \Idno\Core\Idno::site()->session()->addErrorMessage($errmsg);
+                                return false;
+                            }
                     }
-                }
+                //}
 
                 if ($this->publish($new)) {
 
