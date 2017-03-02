@@ -17,7 +17,11 @@ $known = [
     ],
     'config' => [
         'displayUrl' => \Idno\Core\Idno::site()->config()->getDisplayURL()
-    ]
+    ],
+    'page' => [
+        'currentUrl' => \Idno\Core\Idno::site()->currentPage()->currentUrl(),
+        'currentUrlFragments' => \Idno\Core\Idno::site()->currentPage()->currentUrl(true),
+    ],
 ];
 
 ?>
