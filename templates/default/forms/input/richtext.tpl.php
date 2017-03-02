@@ -43,10 +43,8 @@
 
 ?>
     <!--<br class="clearall">-->
-    <textarea id="<?= $unique_id ?>" name="<?=$vars['name']?>"  placeholder="<?=htmlspecialchars($placeholder);?>" style="display: none;"
-          class="bodyInput mentionable wysiwyg form-control <?=$class?>" id="<?=$unique_id?>"><?= (htmlspecialchars(str_replace("\n",'',$value))) ?></textarea>
-          
-          <div id="<?= $unique_id ?>_editor" style="height:<?=$height?>px"></div>
+    <textarea name="<?=$vars['name']?>"  placeholder="<?=htmlspecialchars($placeholder);?>" style="height:<?=$height?>px"
+          class="bodyInput mentionable wysiwyg form-control <?=$class?>" id="<?=$unique_id?>"><?= (htmlspecialchars($value)) ?></textarea>
 
 <?php
 
@@ -69,7 +67,7 @@
 ?>
 
 <script>
-    
+
     counter = function () {
 
         var value = $('#<?=$unique_id?>').text();
@@ -93,29 +91,62 @@
         $('#charCountNoSpace<?=$unique_id?>').html(charCountNoSpace);
 
     };
-       
-    $(document).ready(function() {
 
-        /* Build quill */
-        var quill = new Quill('#<?= $unique_id; ?>_editor', {
-          modules: { toolbar: [
-            [{ header: [1, 2, false] }],
-            ['bold', 'italic', 'underline', 'blockquote'],
-            [{list: 'ordered'}, {list: 'bullet'}],
-            ['image', 'video', 'link']
-            ] },
-          placeholder: "<?=htmlspecialchars($placeholder);?>",
-          theme: 'snow'          
-        });
-        
-        /* Initialise with content */
-        $('#<?= $unique_id ?>_editor div.ql-editor').html($('#<?= $unique_id; ?>').text());
-        
-        /* Handle text change */
-        quill.on('text-change', function() {
-          $('#<?= $unique_id ?>').text($('#<?= $unique_id; ?>_editor div.ql-editor').html()); // This is a horrible hack.
-          
-          counter();
-        });
+    $(document).ready(function () {
+        $('#<?=$unique_id?>').change(counter);
+        $('#<?=$unique_id?>').keydown(counter);
+        $('#<?=$unique_id?>').keypress(counter);
+        $('#<?=$unique_id?>').keyup(counter);
+        $('#<?=$unique_id?>').blur(counter);
+        $('#<?=$unique_id?>').focus(counter);
+        counter();
     });
+
+    $(document).ready(function () {
+        makeRichText('#<?=$unique_id?>');
+    });
+
+    function makeRichText(container) {
+        $(container).tinymce({
+            selector: 'textarea',
+            theme: 'modern',
+            skin: 'light',
+            statusbar: false,
+            menubar: false,
+            height: <?=$height?>,
+            toolbar: 'styleselect | bold italic | link image | blockquote bullist numlist | alignleft aligncenter alignright | code',
+            plugins: 'code link image autoresize',
+            relative_urls : false,
+            remove_script_host : false,
+            convert_urls : true,
+            valid_children : "+body[style]",
+            invalid_elements: 'div,section',
+            valid_styles : 'font-style,color,text-align,text-decoration,float,display,margin-left,margin-right',
+            file_picker_callback: function (callback, value, meta) {
+                filePickerDialog(callback, value, meta);
+            },
+            setup: function(ed) {
+                ed.on('keyup', function(e) {
+                    //console.log('Editor contents was modified. Contents: ' + ed.getContent());
+                    //check_submit();
+                    counter();
+                });
+            }
+        });
+    }
+
+    function filePickerDialog(callback, value, meta) {
+        tinymce.activeEditor.windowManager.open({
+            title: 'File Manager',
+            //url: '<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>filepicker/?type=' + meta.filetype,
+            url: '<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>filepicker/?type=image',
+            width: 650,
+            height: 550
+        }, {
+            oninsert: function (url) {
+                callback(url);
+            }
+        });
+
+    }
 </script>

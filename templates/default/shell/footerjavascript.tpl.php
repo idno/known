@@ -8,9 +8,11 @@
         ?>
         <!-- WYSIWYG editor -->
         <script
-            src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>external/quill/quill.min.js"
+            src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>external/tinymce/js/tinymce/tinymce.min.js"
             type="text/javascript"></script>
-        
+        <script
+            src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>external/tinymce/js/tinymce/jquery.tinymce.min.js"
+            type="text/javascript"></script>
         <?php
 
     }

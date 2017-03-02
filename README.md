@@ -88,4 +88,3 @@ Third party libraries are licensed separately.
 * HTMLPurifier, which is distributed under the LGPL License. Source: http://htmlpurifier.org
 * Wavesurfer, which is distrubuted under a Creative Commons Attribution 3.0 Unported License. Source: https://github.com/katspaugh/wavesurfer.js
 * MongoDB-PHP-Library, which is distributed under the Apache 2 Licence. Source: https://github.com/mongodb/mongo-php-library
-* Quilljs, which is distributed under the BSD 3-clause Licence. Source: https://github.com/quilljs/quill

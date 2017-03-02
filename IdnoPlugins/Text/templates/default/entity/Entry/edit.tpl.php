@@ -68,7 +68,7 @@
                 <p class="button-bar ">
 
                     <?= \Idno\Core\Idno::site()->actions()->signForm('/entry/edit') ?>
-                    <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
+                    <input type="button" class="btn btn-cancel" value="Cancel" onclick="tinymce.EditorManager.execCommand('mceRemoveEditor',true, 'body'); hideContentCreateForm();"/>
                     <input type="submit" class="btn btn-primary" value="Publish"/>
 
                 </p>
