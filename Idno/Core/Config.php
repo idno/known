@@ -13,7 +13,7 @@
         {
 
             public $config = array(
-                'database'               => 'mongodb',
+                'database'               => 'mysql',
                 'dbstring'               => 'mongodb://localhost:27017',
                 'dbname'                 => 'known', // Default MongoDB database
                 'sessionname'            => 'known', // Default session name
