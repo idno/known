@@ -33,7 +33,6 @@
 
             function __construct($dbstring = null, $dbuser = null, $dbpass = null, $dbname = null, $dbauthsrc = null)
             {
-                
                 // Add library namespace
                 require_once(dirname(dirname(dirname(__FILE__))) . '/external/mongo-php-library/src/functions.php');
                 spl_autoload_register(function($class) {
