@@ -56,6 +56,10 @@
                     header('Location: ./warmup/');
                     exit; // Load the installer
                 }
+
+                // We need to load initial values from the .ini files
+                $this->config()->loadIniFiles();
+
                 switch (trim(strtolower($this->config->database))) {
                     case 'mongodb':
                         $this->db = new \Idno\Data\Mongo();

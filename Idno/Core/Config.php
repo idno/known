@@ -155,7 +155,6 @@
              */
             function loadIniFiles()
             {
-
                 if (empty($this->ini_config)) {
                     $this->ini_config = array();
                     if ($config = @parse_ini_file($this->path . '/config.ini', true)) {
@@ -201,7 +200,6 @@
                 if (!empty($this->ini_config)) {
                     $this->config = array_replace_recursive($this->config, $this->ini_config);
                 }
-
             }
 
             /**
