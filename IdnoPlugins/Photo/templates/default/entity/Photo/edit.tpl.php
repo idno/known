@@ -44,7 +44,7 @@
                             $mainsrc = \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($mainsrc);
                             
                         
-                            ?><img src="<?=  $this->makeDisplayURL($src) ?>" id="photopreview" style="width: 400px"><?php
+                            ?><img src="<?=  $this->makeDisplayURL($src) ?>" id="photopreview"><?php
                         } ?></div>
                         <p>
                                 <span class="btn btn-primary btn-file">

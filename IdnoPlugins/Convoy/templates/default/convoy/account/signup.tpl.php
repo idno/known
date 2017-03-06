@@ -3,7 +3,7 @@
 
         <?= $this->draw('account/menu') ?>
 
-        <h1 style="text-align: center; margin: 1em">
+        <h1>
             Connect to social media
         </h1>
         <h2 style="margin-bottom: 1em !important; margin-top: 1em !important">
