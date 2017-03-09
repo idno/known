@@ -27,6 +27,10 @@
                     case 'facebook.com':        $icon = 'fa fa-facebook'; break;
                     case 'plus.google.com':     $icon = 'fa fa-google-plus'; break;
                     case 'linkedin.com':        $icon = 'fa fa-linkedin'; break;
+                    case 'reddit.com':          $icon = 'fa fa-reddit'; break;
+                    case 'instagram.com':       $icon = 'fa fa-instagram'; break;
+                    case 'paypal.me':
+                    case 'paypal.com':          $icon = 'fa fa-paypal'; break;
                     default:                    $icon = 'fa fa-link'; break;
 
                 }
