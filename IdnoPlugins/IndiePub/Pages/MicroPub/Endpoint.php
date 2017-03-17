@@ -161,6 +161,20 @@
                         }
                     }
 
+                    if (!empty($_FILES['audio'])) {
+                        $type = 'audio';
+			$_FILES['media'] = $_FILES['audio'];
+                    } else if ($audio_url = $this->getInput('audio')) {
+                        $type      = 'audio';
+                        $success   = $this->uploadFromUrl('audio', $audio_url);
+                        if (!$success) {
+                            \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
+                            $this->setResponse(500);
+                            echo "Failed uploading audio from $audio_url";
+                            exit;
+                        }
+                    }
+
                     if ($type == 'note' && !empty($name)) {
                         $type = 'article';
                     }
@@ -182,7 +196,7 @@
                         $htmlPhoto = '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="' . $photo . '" alt="' . $place_name . '"  /></p>';
                     }
                 }
-                if (($type == 'photo' || $type == 'video') && empty($name) && !empty($content)) {
+                if (($type == 'photo' || $type == 'video' || $type == 'audio') && empty($name) && !empty($content)) {
                     $name    = $content;
                     $content = '';
                 }
