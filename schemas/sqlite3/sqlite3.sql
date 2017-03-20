@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS metadata (
   entity varchar(255) NOT NULL,
   _id varchar(32) NOT NULL,
   collection varchar(64) NOT NULL,
-  name varchar(32) NOT NULL,
+  name varchar(64) NOT NULL,
   value text NOT NULL
 );
 
@@ -119,4 +119,4 @@ CREATE TABLE IF NOT EXISTS session (
     session_time int(11) NOT NULL
 );
 
-REPLACE INTO `versions` VALUES('schema', '2016110301');
+REPLACE INTO `versions` VALUES('schema', '2017032001');
