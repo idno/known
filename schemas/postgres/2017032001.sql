@@ -1,5 +1,3 @@
 
-ALTER TABLE metadata ALTER COLUMN name TYPE varchar(64);
-
-DELETE FROM versions WHERE label = 'schema';
-INSERT INTO versions VALUES('schema', '2017032001');
+ALTER TABLE `metadata` MODIFY `name` varchar(64) NOT NULL;
+REPLACE INTO `versions` VALUES('schema', '2017032001');
