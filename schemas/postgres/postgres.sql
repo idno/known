@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS metadata (
   entity varchar(255) NOT NULL,
   _id varchar(32) NOT NULL,
   collection varchar(64) NOT NULL,
-  name varchar(32) NOT NULL,
+  name varchar(64) NOT NULL,
   value text NOT NULL
 );
 
@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS versions (
 );
 
 DELETE FROM versions WHERE label = 'schema';
-INSERT INTO versions VALUES('schema', '2016110301');
+INSERT INTO versions VALUES('schema', '2017032001');
 
 --
 -- Session handling table
