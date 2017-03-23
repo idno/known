@@ -1,5 +1,8 @@
 <?php
 
+
+require_once(dirname(__FILE__) . '/_shims.php');
+
 define('KNOWN_UNIT_TEST', true);
 
 // Set some environment: Use export KNOWN_DOMAIN / KNOWN_PORT to override from the command line
