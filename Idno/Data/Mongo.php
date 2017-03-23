@@ -33,6 +33,15 @@
 
             function __construct($dbstring = null, $dbuser = null, $dbpass = null, $dbname = null, $dbauthsrc = null)
             {
+                // Check for library, and show a more friendly error message
+                if (!extension_loaded('mongodb')) {
+                    
+                    $message = "It looks like you don't have the new mongodb driver installed (<a href=\"https://secure.php.net/manual/en/set.mongodb.php\">https://secure.php.net/manual/en/set.mongodb.php</a>)\n\n";
+                    $message .= "Make sure you have it installed and configured, e.g. by running \"pecl install mongodb;\"";
+                    
+                    throw new \Idno\Exceptions\ConfigurationException($message);
+                }
+                
                 // Add library namespace
                 require_once(dirname(dirname(dirname(__FILE__))) . '/external/mongo-php-library/src/functions.php');
                 spl_autoload_register(function($class) {
