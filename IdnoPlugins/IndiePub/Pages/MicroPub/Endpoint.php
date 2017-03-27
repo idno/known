@@ -156,6 +156,14 @@
                         $user_address = implode(', ', $parts);
                         $lat = !empty($checkin['properties']['latitude']) ? $checkin['properties']['latitude'][0] : null;
                         $long = !empty($checkin['properties']['longitude']) ? $checkin['properties']['longitude'][0] : null;
+
+                        if (!empty($photo_url)) {
+                            if($this->uploadFromUrl('photo', $photo_url)) {
+                                $id = \Idno\Entities\File::createFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'], $_FILES['photo']['type']) ;
+                                $local_photo = \Idno\Core\Idno::site()->config()->url . 'file/' . $id;
+                                $htmlPhoto = '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="' . $local_photo . '" alt="' . $place_name . '"  /></p>';
+                            }
+                        }
                     }
 
                 } else {
