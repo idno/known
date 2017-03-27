@@ -199,8 +199,24 @@
              */
             function sanitizeFields($obj)
             {
+                //return $obj;
+                if (is_array($obj)) {
+                    // TODO maybe avoid unnecessary object churn by only creating a new
+                    // array if a key (or nested array) is found that needs encoding.
+                    // The vast majority won't.
+                    $result = [];
+                    foreach ($obj as $k => $v) {
+                        $k          = str_replace(array_keys(self::$ESCAPE_SEQUENCES), array_values(self::$ESCAPE_SEQUENCES), $k);
+                        $result[$k] = $this->sanitizeFields($v);
+                    }
+
+                    return $result;
+                } else if ($obj instanceof \Traversable) {
+                    // wrap iterator to sanitize lazily
+                    return new \Idno\Common\MappingIterator($obj, [$this, 'sanitizeFields']);
+                }
+
                 return $obj;
-                
             }
 
             /**
@@ -227,6 +243,22 @@
              */
             function unsanitizeFields($obj)
             {
+//                if ($obj instanceof \MongoDB\Model\BSONArray) {
+//                    return (array)$obj;
+//                }
+//                else if ($obj instanceof \MongoDB\Model\BSONDocument) {
+//                    
+//                    $obj = (array)$obj;
+//                    foreach ($obj as $k => $v) {
+//                        $obj[$k] = $this->unsanitizeFields($v);
+//                    }
+//                } else if (is_array($obj)) {
+//                    foreach ($obj as $k => $v) {
+//                        $obj[$k] = $this->unsanitizeFields($v);
+//                    }
+//                }
+//                
+//                return $obj;
                 if ($obj instanceof \MongoDB\Model\BSONArray) {
                     return (array)$obj;
                 }
@@ -237,9 +269,13 @@
                         $obj[$k] = $this->unsanitizeFields($v);
                     }
                 } else if (is_array($obj)) {
+                    $result = [];
                     foreach ($obj as $k => $v) {
-                        $obj[$k] = $this->unsanitizeFields($v);
+                        $k          = str_replace(array_values(self::$ESCAPE_SEQUENCES), array_keys(self::$ESCAPE_SEQUENCES), $k);
+                        $result[$k] = $this->unsanitizeFields($v);
                     }
+                    
+                    return $result;
                 }
                 
                 return $obj;
