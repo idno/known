@@ -142,6 +142,22 @@
                         $content = $this->getJSONInput('summary');
                     }
 
+                    // Handle JSON checkins
+                    if($checkin = $this->getJSONInput('checkin')) {
+                        $type = 'checkin';
+                        $place_name = $checkin['properties']['name'][0];
+                        $fields = array('street-address', 'locality', 'region', 'country-name', 'postal-code');
+                        $parts = array();
+                        foreach($fields as $f) {
+                            if(!empty($checkin['properties'][$f])) {
+                                $parts[] = $checkin['properties'][$f][0];
+                            }
+                        }
+                        $user_address = implode(', ', $parts);
+                        $lat = !empty($checkin['properties']['latitude']) ? $checkin['properties']['latitude'][0] : null;
+                        $long = !empty($checkin['properties']['longitude']) ? $checkin['properties']['longitude'][0] : null;
+                    }
+
                 } else {
                     // Get details
                     $type        = $this->getInput('h', 'entry');
@@ -208,7 +224,7 @@
                         $type = 'article';
                     }
                 }
-                if ($type == 'checkin')  {
+                if ($type == 'checkin' && !$this->jsoninput)  {
                     // This is legacy for form-encoded requests. Likely the only server sending this request is OwnYourCheckin.
                     $place_name = $this->getInput('place_name');
                     $location = $this->getInput('location');
@@ -247,14 +263,16 @@
                 if (is_array($categories)) {
                     $hashtags = "";
                     foreach ($categories as $category) {
-                        $category = trim($category);
-                        if ($category) {
-                            if (str_word_count($category) > 1) {
-                                $category = str_replace("'"," ",$category);
-                                $category = ucwords($category);
-                                $category = str_replace(" ","",$category);
+                        if(is_string($category)) { // in JSON requests, category may be an h-card, e.g. person tags
+                            $category = trim($category);
+                            if ($category) {
+                                if (str_word_count($category) > 1) {
+                                    $category = str_replace("'"," ",$category);
+                                    $category = ucwords($category);
+                                    $category = str_replace(" ","",$category);
+                                }
+                                $hashtags .= " #$category";
                             }
-                            $hashtags .= " #$category";
                         }
                     }
                     $title_words = explode(" ", $name);
