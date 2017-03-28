@@ -646,7 +646,7 @@
                 }
                 // If we've got here, the slug exists, so we need to create a new version
                 $slug_extension = 1;
-                while (!($modified_slug = $this->setSlug($slug . '-' . $slug_extension, $max_pieces * 2, $max_chars))) {
+                while (!($modified_slug = $this->setSlug($slug, $max_pieces * 2, $max_chars, $slug_extension))) {
                     $slug_extension++;
                 }
 
@@ -658,9 +658,10 @@
              * @param $slug
              * @param int $max_pieces The maximum number of words in the slug (default: 10)
              * @param int $max_chars The maximum number of characters in the slug (default: 255)
+             * @param string $slug_extension a value to append on the end of the slug, in case of a prior duplicate
              * @return string
              */
-            function prepareSlug($slug, $max_pieces = 10, $max_chars = 255)
+            function prepareSlug($slug, $max_pieces = 10, $max_chars = 255, $slug_extension = '')
             {
                 $slug = trim($slug);
                 if (is_callable('mb_strtolower')) {
@@ -673,7 +674,7 @@
                 $slug = preg_replace("/([^A-Za-z0-9%\p{L}\-\_ ])/u", '', $slug);
                 $slug = preg_replace("/[ ]+/u", ' ', $slug);
                 $slug = implode('-', array_slice(explode(' ', $slug), 0, $max_pieces));
-
+                
                 // trim the source string until the encoded string is <= max_chars
                 for ($chars = $max_chars; $chars >= 0; $chars--) {
                     $truncated = mb_substr($slug, 0, $chars, 'UTF-8');
@@ -683,6 +684,8 @@
                         break;
                     }
                 }
+                if (!empty($slug_extension))
+                    $slug.= '-' . $slug_extension;
 
                 while (substr($slug, -1) == '-') {
                     $slug = substr($slug, 0, strlen($slug) - 1);
@@ -703,16 +706,17 @@
              * @param string $slug
              * @param int $max_pieces The maximum number of words in the slug (default: 10)
              * @param int $max_chars The maximum number of characters in the slug (default: 255)
+             * @param string $slug_extension a value to append on the end of the slug, in case of a prior duplicate
              * @return bool
              */
-            function setSlug($slug, $max_pieces = 10, $max_chars = 255)
+            function setSlug($slug, $max_pieces = 10, $max_chars = 255, $slug_extension = '')
             {
-
                 $plugin_slug = \Idno\Core\Idno::site()->triggerEvent('entity/slug', array('object' => $this));
                 if (!empty($plugin_slug) && $plugin_slug !== true) {
                     return $plugin_slug;
                 }
-                $slug = $this->prepareSlug($slug, $max_pieces, $max_chars);
+                $slug = $this->prepareSlug($slug, $max_pieces, $max_chars, $slug_extension);
+                
                 if (empty($slug)) {
                     return false;
                 }
