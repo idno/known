@@ -604,12 +604,28 @@
             }
 
             /**
+             * Parse version details from version file.
+             */
+            protected function parseVersionFile() {
+                
+                $versionfile = dirname(dirname(dirname(__FILE__))) . '/version.known';
+                
+                if (!file_exists($versionfile))
+                    throw new \Idno\Exceptions\ConfigurationException("Version file $versionfile could not be found, Known doesn't appear to be installed correctly.");
+                
+                return @parse_ini_file($versionfile);
+                
+            }
+            
+            /**
              * Retrieve this version of Known's version number
              * @return string
              */
             function version()
             {
-                return '0.9.2';
+                $version = $this->parseVersionFile();
+                
+                return $version['version'];
             }
 
             /**
@@ -627,11 +643,13 @@
              */
             function machineVersion()
             {
-                return '2016110101';
+                $version = $this->parseVersionFile();
+                
+                return $version['build'];
             }
 
             /**
-             * Alias for getMachineVersion
+             * Alias for machineVersion
              * @return string
              */
             function getMachineVersion()
