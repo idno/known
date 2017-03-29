@@ -631,7 +631,7 @@
             }
 
             /**
-             * Alias for getMachineVersion
+             * Alias for machineVersion
              * @return string
              */
             function getMachineVersion()
