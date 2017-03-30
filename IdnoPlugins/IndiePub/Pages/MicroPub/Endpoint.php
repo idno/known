@@ -123,6 +123,7 @@
                     $mp_type     = null;
                     $photo_url   = $this->getJSONInput('photo');
                     $video_url   = $this->getJSONInput('video');
+                    $audio_url   = $this->getJSONInput('audio');
 
                     // Since Known does not support multiple photos or videos, use the first if more than one was given.
                     if(is_array($photo_url) && array_key_exists(0, $photo_url)) {
@@ -135,6 +136,10 @@
 
                     if(is_array($video_url) && array_key_exists(0, $video_url)) {
                         $video_url = $video_url[0];
+                    }                    
+
+                    if(is_array($audio_url) && array_key_exists(0, $audio_url)) {
+                        $audio_url = $audio_url[0];
                     }                    
 
                     // If no content was specified, use the summary to provide a reasonable fallback behavior.
@@ -186,6 +191,7 @@
                     $mp_type     = $this->getInput('mp-type');
                     $photo_url   = $this->getInput('photo');
                     $video_url   = $this->getInput('video');
+                    $audio_url   = $this->getInput('audio');
                 }
 
                 if (!empty($mp_type)) {
@@ -230,10 +236,13 @@
 
                     if (!empty($_FILES['audio'])) {
                         $type = 'audio';
-			$_FILES['media'] = $_FILES['audio'];
-                    } else if ($audio_url = $this->getInput('audio')) {
+                        // alias the file because IdnoPlugins/Media/Media.php expects "media"
+			            $_FILES['media'] = $_FILES['audio'];
+                    } else if ($audio_url) {
                         $type      = 'audio';
                         $success   = $this->uploadFromUrl('audio', $audio_url);
+                        // alias the file because IdnoPlugins/Media/Media.php expects "media"
+                        $_FILES['media'] = $_FILES['audio'];
                         if (!$success) {
                             \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
                             $this->setResponse(500);
