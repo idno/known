@@ -8,7 +8,7 @@ listings here do not imply endorsement by the Known project team in any way.
 
 ### Content types
 
-* [Video] (https://github.com/cweiske/withknownVideo) – Post videos to your Known site, by [Christian Weiske][]
+* [Video](https://github.com/cweiske/withknownVideo) – Post videos to your Known site, by [Christian Weiske][]
 * [Video](https://github.com/tjgillies/Video) – Post videos to your Known site, by [Tyler Gillies][]
 * [Recipe](https://github.com/cleverdevil/Known-Recipes) – Post recipes to your Known site, by [Jonathan LaCour][]
 * [Review](https://github.com/cleverdevil/Known-Reviews) – Post reviews to your Known site, by [Jonathan LaCour][]
@@ -24,7 +24,7 @@ listings here do not imply endorsement by the Known project team in any way.
 * [Diigo](https://github.com/timmmmyboy/Diigo) – Syndicate your bookmarks to Diigo, by [Tim Owens][]
 * [Github](https://github.com/mapkyca/KnownGithub) – Create issues and reply to comments on Github, all from your own site, 
     by [Marcus Povey][]
-* [App.net](https://github.com/mapkyca/KnownAppNet) – Syndicate to App.net, 
+* [App.net](https://github.com/mapkyca/KnownAppNet) – Syndicate to App.net (note: ADN shut down on 2017-03-15), 
     by [Marcus Povey][]
 * [Known Crosspost](https://github.com/mapkyca/KnownKnown) – Crosspost content to another Known site via the API, 
     by [Marcus Povey][]
@@ -35,6 +35,8 @@ listings here do not imply endorsement by the Known project team in any way.
 * [Pinboard](https://github.com/egoexpress/known-pinboard) - Syndicate your bookmarks to [Pinboard.in](https://pinboard.in), by [Björn Stierand][]
 * [Archive.org/WayBackMachine](https://github.com/mapkyca/KnownWaybackMachine) – Provides Wayback Machine archive.org support for Known, 
     by [Marcus Povey][]
+* [Pnut.io](https://github.com/dg01d/KnownPnut) – Syndicate to [pnut.io](https://pnut.io/), 
+    by [Daniel Goldsmith][] 
 
 ### System and Security
 
@@ -107,6 +109,7 @@ listings here do not imply endorsement by the Known project team in any way.
 [Tino Kremer]: https://tinokremer.nl/
 [Björn Stierand]: https://bjoern.stierand.org/
 [Christian Weiske]: https://cweiske.de/
+[Daniel Goldsmith]: https://ascraeus.org/
 
 ## Submissions
 

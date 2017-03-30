@@ -112,6 +112,10 @@ When using authentication, your MongoDB user will need to be granted the ["readW
       {role: "readWrite", db: "idnosession"}
     ]})
 
+#### Upgrading from old mongo driver
+
+If you're upgrading from an older release (0.9.2 and below) you will need to install the new [PHP mongodb driver](https://secure.php.net/manual/en/set.mongodb.php).
+
 ### Load Known
 
 Launch Known in a web browser.

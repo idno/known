@@ -72,7 +72,8 @@
                                 2015061501,
                                 2016013101,
                                 2016102601,
-                                2016110301
+                                2016110301,
+                                2017032001,
                             ] as $date) {
                                 if ($basedate < $date) {
                                     if ($sql = @file_get_contents($schema_dir . $date . '.sql')) {
