@@ -561,6 +561,8 @@
                 if ($fp) {
                     $success = file_put_contents($tmpname, $fp);
                     fclose($fp);
+                } else {
+                    $success = false;
                 }
                 if ($success) {
                     $_FILES[$type] = [
