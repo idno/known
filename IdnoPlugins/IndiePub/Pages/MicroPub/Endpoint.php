@@ -223,9 +223,13 @@
 
                     if (!empty($_FILES['video'])) {
                         $type = 'video';
+                        // alias the file because IdnoPlugins/Media/Media.php expects "media"
+                        $_FILES['media'] = $_FILES['video'];
                     } else if ($video_url) {
                         $type      = 'video';
                         $success   = $this->uploadFromUrl('video', $video_url);
+                        // alias the file because IdnoPlugins/Media/Media.php expects "media"
+                        $_FILES['media'] = $_FILES['video'];
                         if (!$success) {
                             \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
                             $this->setResponse(500);
