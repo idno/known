@@ -25,12 +25,14 @@
                 if ($this->hasWebhooks()) {
                     if (!empty(\Idno\Core\Idno::site()->config()->webhook_syndication)) {
                         foreach(\Idno\Core\Idno::site()->config()->webhook_syndication as $hook) {
+                            if (!empty($hook['url']))
                                 \Idno\Core\Idno::site()->syndication()->registerServiceAccount('webhooks', $hook['url'], $hook['title']);
                         }
                     }
                     if (\Idno\Core\Idno::site()->session()->isLoggedIn()) {
                         if (!empty(\Idno\Core\Idno::site()->session()->currentUser()->webhook_syndication)) {
                             foreach(\Idno\Core\Idno::site()->session()->currentUser()->webhook_syndication as $hook) {
+                                if (!empty($hook['url']))
                                     \Idno\Core\Idno::site()->syndication()->registerServiceAccount('webhooks', $hook['url'], $hook['title']);
                             }
                         }
