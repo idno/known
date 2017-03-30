@@ -35,6 +35,7 @@
 
                 if (!empty(\Idno\Core\Idno::site()->config()->webhook_syndication)) {
                     foreach(\Idno\Core\Idno::site()->config()->webhook_syndication as $webhook) {
+                        if (!empty($webhook['title']) && !empty($webhook['url'])) {
 
 ?>
 				<div class="row">
@@ -49,6 +50,7 @@
 					</div>
 				</div>
 <?php
+                        }
 
                     }
                 }
