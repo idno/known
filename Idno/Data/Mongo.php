@@ -193,7 +193,6 @@
              * Make an array safe for storage in Mongo. This means
              * %-escaping all .'s and $'s.
              *
-             * @deprecated Going to assume that the upstream mongo library handles this.
              * @param mixed $obj an array, scalar value, or null
              * @return mixed
              */
@@ -238,7 +237,6 @@
              * storage.
              *
              * @param mixed $obj an array, scalar value, or null
-             * @deprecated Going to assume that the upstream mongo library now handles this, now converts between mongo library values and array. TODO: Find a better way to return array.
              * @return mixed
              */
             function unsanitizeFields($obj)
