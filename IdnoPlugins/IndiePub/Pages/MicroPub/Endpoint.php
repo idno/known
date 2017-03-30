@@ -103,24 +103,91 @@
 
             function postCreate()
             {
+                // If the request is sent with a JSON content type parse the JSON input instead of form input
+                if(isset($_SERVER['CONTENT_TYPE']) && $_SERVER['CONTENT_TYPE'] == 'application/json') {
+                    $input = file_get_contents('php://input');
+                    $this->jsoninput = json_decode($input, true);
+                    $type = !empty($this->jsoninput['type'][0]) ? $this->jsoninput['type'][0] : 'h-entry';
+                    $type = str_replace('h-', '', $type);
 
-                // Get details
-                $type        = $this->getInput('h', 'entry');
-                if ($type == 'annotation') {
-                    return $this->postCreateAnnotation();
+                    $content     = $this->getJSONInput('content');
+                    $name        = $this->getJSONInput('name');
+                    $in_reply_to = $this->getJSONInput('in-reply-to');
+                    $syndicate   = $this->getJSONInput('mp-syndicate-to');
+                    $posse_links = $this->getJSONInput('syndication');
+                    $bookmark_of = $this->getJSONInput('bookmark-of');
+                    $like_of     = $this->getJSONInput('like-of');
+                    $repost_of   = $this->getJSONInput('repost-of');
+                    $categories  = $this->getJSONInput('category');
+                    $rsvp        = $this->getJSONInput('rsvp');
+                    $mp_type     = null;
+                    $photo_url   = $this->getJSONInput('photo');
+                    $video_url   = $this->getJSONInput('video');
+
+                    // Since Known does not support multiple photos or videos, use the first if more than one was given.
+                    if(is_array($photo_url) && array_key_exists(0, $photo_url)) {
+                        $photo_url = $photo_url[0];
+                    } elseif(is_array($photo_url) && array_key_exists('value', $photo_url)) {
+                        // TODO: save the image alt text somewhere and render it in the photo
+                        // $alt_text = $photo_url['alt'];
+                        $photo_url = $photo_url['value'];
+                    }
+
+                    if(is_array($video_url) && array_key_exists(0, $video_url)) {
+                        $video_url = $video_url[0];
+                    }                    
+
+                    // If no content was specified, use the summary to provide a reasonable fallback behavior.
+                    if(empty($content)) {
+                        $content = $this->getJSONInput('summary');
+                    }
+
+                    // Handle JSON checkins
+                    if($checkin = $this->getJSONInput('checkin')) {
+                        $type = 'checkin';
+                        $place_name = $checkin['properties']['name'][0];
+                        $fields = array('street-address', 'locality', 'region', 'country-name', 'postal-code');
+                        $parts = array();
+                        foreach($fields as $f) {
+                            if(!empty($checkin['properties'][$f])) {
+                                $parts[] = $checkin['properties'][$f][0];
+                            }
+                        }
+                        $user_address = implode(', ', $parts);
+                        $lat = !empty($checkin['properties']['latitude']) ? $checkin['properties']['latitude'][0] : null;
+                        $long = !empty($checkin['properties']['longitude']) ? $checkin['properties']['longitude'][0] : null;
+
+                        if (!empty($photo_url)) {
+                            if($this->uploadFromUrl('photo', $photo_url)) {
+                                $id = \Idno\Entities\File::createFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'], $_FILES['photo']['type']) ;
+                                $local_photo = \Idno\Core\Idno::site()->config()->url . 'file/' . $id;
+                                $htmlPhoto = '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="' . $local_photo . '" alt="' . $place_name . '"  /></p>';
+                            }
+                        }
+                    }
+
+                } else {
+                    // Get details
+                    $type        = $this->getInput('h', 'entry');
+                    if ($type == 'annotation') {
+                        return $this->postCreateAnnotation();
+                    }
+
+                    $content     = $this->getInput('content');
+                    $name        = $this->getInput('name');
+                    $in_reply_to = $this->getInput('in-reply-to');
+                    $syndicate   = $this->getInput('mp-syndicate-to', $this->getInput('syndicate-to'));
+                    $posse_links = $this->getInput('syndication');
+                    $bookmark_of = $this->getInput('bookmark-of');
+                    $like_of     = $this->getInput('like-of');
+                    $repost_of   = $this->getInput('repost-of');
+                    $categories  = $this->getInput('category');
+                    $rsvp        = $this->getInput('rsvp');
+                    $mp_type     = $this->getInput('mp-type');
+                    $photo_url   = $this->getInput('photo');
+                    $video_url   = $this->getInput('video');
                 }
 
-                $content     = $this->getInput('content');
-                $name        = $this->getInput('name');
-                $in_reply_to = $this->getInput('in-reply-to');
-                $syndicate   = $this->getInput('mp-syndicate-to', $this->getInput('syndicate-to'));
-                $posse_links = $this->getInput('syndication');
-                $bookmark_of = $this->getInput('bookmark-of');
-                $like_of     = $this->getInput('like-of');
-                $repost_of   = $this->getInput('repost-of');
-                $categories  = $this->getInput('category');
-                $rsvp        = $this->getInput('rsvp');
-                $mp_type     = $this->getInput('mp-type');
                 if (!empty($mp_type)) {
                    $type = $mp_type;
                 }
@@ -136,7 +203,7 @@
 
                     if (!empty($_FILES['photo'])) {
                         $type = 'photo';
-                    } else if ($photo_url = $this->getInput('photo')) {
+                    } else if ($photo_url) {
                         $type      = 'photo';
                         $success   = $this->uploadFromUrl('photo', $photo_url);
                         if (!$success) {
@@ -150,7 +217,7 @@
 
                     if (!empty($_FILES['video'])) {
                         $type = 'video';
-                    } else if ($video_url = $this->getInput('video')) {
+                    } else if ($video_url) {
                         $type      = 'video';
                         $success   = $this->uploadFromUrl('video', $video_url);
                         if (!$success) {
@@ -165,7 +232,8 @@
                         $type = 'article';
                     }
                 }
-                if ($type == 'checkin')  {
+                if ($type == 'checkin' && !$this->jsoninput)  {
+                    // This is legacy for form-encoded requests. Likely the only server sending this request is OwnYourCheckin.
                     $place_name = $this->getInput('place_name');
                     $location = $this->getInput('location');
                     $photo = $this->getInput('photo');
@@ -203,14 +271,16 @@
                 if (is_array($categories)) {
                     $hashtags = "";
                     foreach ($categories as $category) {
-                        $category = trim($category);
-                        if ($category) {
-                            if (str_word_count($category) > 1) {
-                                $category = str_replace("'"," ",$category);
-                                $category = ucwords($category);
-                                $category = str_replace(" ","",$category);
+                        if(is_string($category)) { // in JSON requests, category may be an h-card, e.g. person tags
+                            $category = trim($category);
+                            if ($category) {
+                                if (str_word_count($category) > 1) {
+                                    $category = str_replace("'"," ",$category);
+                                    $category = ucwords($category);
+                                    $category = str_replace(" ","",$category);
+                                }
+                                $hashtags .= " #$category";
                             }
-                            $hashtags .= " #$category";
                         }
                     }
                     $title_words = explode(" ", $name);
@@ -478,6 +548,24 @@
                     ];
                 }
                 return $success;
+            }
+
+            private function getJSONInput($name, $default = null) 
+            {
+                if(empty($this->jsoninput))
+                    return null;
+
+                if(!empty($this->jsoninput['properties'][$name])) {
+                    $val = $this->jsoninput['properties'][$name];
+                    // Return single value so that it matches form-encoded behavior
+                    if(is_array($val) && array_key_exists(0, $val) && count($val) == 1) {
+                        return $val[0];
+                    } else {
+                        return $val;
+                    }
+                }
+
+                return $default;
             }
 
         }
