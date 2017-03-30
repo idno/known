@@ -16,3 +16,7 @@ Regarding the language in PHP doc blocks:
 * Explain the purpose of the method or class as clearly as you can. For example, "loads ClassName by property_name" is bad; "loads objects that have a property called property_name" is much better.
 * "Just read the code" isn't a good idea, and we don't like it.
 * That said, clear, simple code is good :)
+
+## Other considerations
+
+* Notice errors are bad, please develop your code with ```pedantic_mode = true;``` set in your config.ini
