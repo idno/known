@@ -12,6 +12,7 @@ listings here do not imply endorsement by the Known project team in any way.
 * [Video](https://github.com/tjgillies/Video) – Post videos to your Known site, by [Tyler Gillies][]
 * [Recipe](https://github.com/cleverdevil/Known-Recipes) – Post recipes to your Known site, by [Jonathan LaCour][]
 * [Review](https://github.com/cleverdevil/Known-Reviews) – Post reviews to your Known site, by [Jonathan LaCour][]
+* [Food](https://github.com/cleverdevil/Known-Food) – Log your eating and drinking to your Known site, by [Jonathan LaCour][]
 * [Reactions](https://github.com/kylewm/KnownReactions) – Indieweb–style likes and reposts, by [Kyle Mahan][] 
 * [Journal](https://github.com/tinokremer/KnownJournal) - Post journal entries to your Known site, by [Tino Kremer][]
 
