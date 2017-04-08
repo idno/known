@@ -1,10 +1,10 @@
-#Known: a social group platform
+# Known: a social group platform
 
 ![Known - A social group platform](https://withknown.com/img/home/screens.png)
 
-##Installation [![Build Status](https://travis-ci.org/idno/Known.svg?branch=master)](https://travis-ci.org/idno/Known)
+## Installation [![Build Status](https://travis-ci.org/idno/Known.svg?branch=master)](https://travis-ci.org/idno/Known)
 
-###One-click Known sites
+### One-click Known sites
 
 A fully-managed hosted service is provided at <https://withknown.com/>. It is always kept up to date with the latest
 version of Known.
@@ -12,7 +12,7 @@ version of Known.
 If you want to install on your own web space, we recommend [Reclaim Hosting](https://portal.reclaimhosting.com/aff.php?aff=013),
 which includes one-click Known installation.
 
-###Installing
+### Installing
 
 Known is under active development and requires PHP 5.4+ with selected extensions, together with a supported database backend.
 
@@ -23,13 +23,13 @@ You can also opt to check out the bleeding edge code from the git repository: <h
 
 Detailed installation instructions: <http://docs.withknown.com/en/latest/install/index.html>
 
-###Support us
+### Support us
 
 * [Star us on GitHub](https://github.com/idno/known)
 * [Like us on alternativeto.net](http://alternativeto.net/software/known/)
 * [Contribute](CONTRIBUTORS.md)
 
-###Get support
+### Get support
 
 * Try the open source mailing list: <https://groups.google.com/forum/#!forum/known-dev>
 * Commercial support is available: <https://withknown.com/services>
@@ -43,7 +43,7 @@ Detailed installation instructions: <http://docs.withknown.com/en/latest/install
 
 For details on contributing to the Known project, please read [CONTRIBUTORS.md](CONTRIBUTORS.md).
 
-##Copyright and License
+## Copyright and License
 
 Except for included third-party projects, Known is (c) Known, Inc.
 
@@ -56,7 +56,7 @@ Logos of external services are (c) their respective owners. All rights reserved.
 
 Third party libraries are licensed separately.
 
-###Known also contains
+### Known also contains
 
 * Twitter Bootstrap, which is distributed under the Apache 2.0 license. Source: https://github.com/twitter/bootstrap
 * jQuery, which is distributed under the MIT License. Source: https://github.com/jquery/jquery
