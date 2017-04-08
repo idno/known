@@ -101,8 +101,8 @@ namespace Idno\Pages\File {
                 header('Content-Length: ' . ($c_end-$c_start));
                 header("Content-Range: bytes $c_start-$c_end/$size");
                 
-                if ($stream = $object->getResource()) {
-                    fseek($stream, $c_start);
+                if ($stream = $object->getResource()) { 
+                    @fseek($stream, $c_start);
                     echo fread($stream, $c_end-$c_start);
                 }
                 
