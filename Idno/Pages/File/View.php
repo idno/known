@@ -101,9 +101,18 @@ namespace Idno\Pages\File {
                 header('Content-Length: ' . ($c_end-$c_start));
                 header("Content-Range: bytes $c_start-$c_end/$size");
                 
+                \Idno\Core\Idno::site()->logging()->debug('Content-Length: ' . ($c_end-$c_start));
+                \Idno\Core\Idno::site()->logging()->debug("Content-Range: bytes $c_start-$c_end/$size");
+                
                 if ($stream = $object->getResource()) { 
                     @fseek($stream, $c_start);
-                    echo fread($stream, $c_end-$c_start);
+                    $buffer = "";
+                    while ( strlen($buffer)< $c_end-$c_start) {
+                        $buffer .= fread($stream, $c_end-strlen($buffer));
+                    }
+                    //$data =  fread($stream, $c_end-$c_start); 
+                                    
+                    echo $buffer;
                 }
                 
             } else {
