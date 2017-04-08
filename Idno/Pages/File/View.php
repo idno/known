@@ -62,7 +62,7 @@ namespace Idno\Pages\File {
 
                 $size = $object->getSize();
                 $start = 0;
-                $end = $size - 1;
+                $end = $size; // - 1;
 
                 $c_start = $start;
                 $c_end = $end;
