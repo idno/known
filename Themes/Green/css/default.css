@@ -52,8 +52,8 @@ h2 {
     margin: 0; padding: 0;
 }
 
-.idno-body .p-bookmark a,
-.idno-posts h2.p-bookmark {
+.idno-body .idno-bookmark a,
+.idno-posts h2.idno-bookmark {
     font-size: 1.4em;
     margin: 0; padding: 0;
 }
@@ -260,7 +260,7 @@ h3.register {
 	font-size: 1.2em;
 }
 
-.idno-body .p-bookmark a, .idno-posts h2.p-bookmark {
+.idno-body .idno-bookmark a, .idno-posts h2.idno-bookmark {
 	color: #333333;
 	font-size: 1.2em;
 	font-family: "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;

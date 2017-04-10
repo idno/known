@@ -25,7 +25,7 @@
         if (empty($vars['feed_view'])) {
 
             ?>
-            <h2 class="p-bookmark"><?=$icon?><a href="<?= $vars['object']->body; ?>" rel="bookmark"
+            <h2 class="idno-bookmark"><?=$icon?><a href="<?= $vars['object']->body; ?>" class="u-bookmark-of" rel="bookmark"
                                       target="_blank"><?= $this->parseURLs(htmlentities(strip_tags($body)), $rel) ?></a>
             </h2>
         <?php
