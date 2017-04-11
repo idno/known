@@ -158,6 +158,9 @@
                 }
                 try {
                     $contents = json_encode($array);
+                    
+                    if (json_last_error() != JSON_ERROR_NONE)
+                        throw new \Exception(json_last_error_msg());
                 } catch (\Exception $e) {
                     $contents = json_encode([]);
                     \Idno\Core\Idno::site()->logging()->error($e->getMessage());
@@ -223,6 +226,9 @@
                                 if (is_array($value) || is_object($value)) {
                                     try {
                                         $value = json_encode($value);
+                                        
+                                        if (json_last_error() != JSON_ERROR_NONE)
+                                            throw new \Exception(json_last_error_msg());
                                     } catch (\Exception $e) {
                                         $value = json_encode([]);
                                         \Idno\Core\Idno::site()->logging()->error($e->getMessage());
