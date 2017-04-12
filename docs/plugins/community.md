@@ -95,6 +95,7 @@ listings here do not imply endorsement by the Known project team in any way.
 * [Emoji rendering](https://github.com/mapkyca/KnownEmoji) – Render Emoji characters (e.g. in Bridgy comments), 
     by [Marcus Povey][]
 * [Short Profile](https://github.com/egoexpress/known-shortprofile) – Cleans up the URLs displayed in the profile page. Also adds some additional icons, by [Björn Stierand][]  
+* [Cleverdevil Customizations](https://github.com/cleverdevil/CleverCustomize) – A small collection of customizations, by [Jonathan LaCour][]
 
 [Pranjal Pandey]: https://www.github.com/physcocode
 [Daniel Nix]: https://nxd4n.nixekinder.be
