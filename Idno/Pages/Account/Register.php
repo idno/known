@@ -89,7 +89,14 @@
                         preg_match('/^[a-zA-Z0-9_]{1,}$/', $handle) &&
                         !substr_count($handle, '/') &&
                         $password == $password2 &&
-                        \Idno\Entities\User::checkNewPasswordStrength($password)
+                        \Idno\Entities\User::checkNewPasswordStrength($password) &&
+                        \Idno\Core\Idno::site()->triggerEvent('user/register/validate', [
+                            'name' => $name,
+                            'handle' => $handle,
+                            'email' => $email,
+                            'password' => $password,
+                            'password2' => $password2
+                        ], true)
                     ) {
                         $user         = new \Idno\Entities\User();
                         $user->email  = $email;
