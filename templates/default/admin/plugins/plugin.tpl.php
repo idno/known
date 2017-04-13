@@ -12,6 +12,9 @@
     } else if (isset($plugin_description['idno'])) {
         $requirements['known'] = $plugin_description['idno'];
     }
+    if (isset($plugin_description['build'])) {
+        $requirements['build'] = $plugin_description['build'];
+    }
     if (isset($plugin_description['extension'])) {
         $requirements['extension'] = $plugin_description['extension'];
     }
@@ -61,7 +64,17 @@
                             if (isset($requirements['known'])) {
                                 ?>
                                 <p><label>Known
-                                        Version: <?php echo $this->__(array('version' => $requirements['idno']))->draw('admin/dependencies/idno'); ?> </label>
+                                        Version: <?php echo $this->__(array('version' => $requirements['known']))->draw('admin/dependencies/idno'); ?> </label>
+                                </p>
+                            <?php
+                            }
+                        ?>
+                                
+                        <?php
+                            if (isset($requirements['build'])) {
+                                ?>
+                                <p><label>Known
+                                        Build: <?php echo $this->__(array('version' => $requirements['build']))->draw('admin/dependencies/build'); ?> </label>
                                 </p>
                             <?php
                             }

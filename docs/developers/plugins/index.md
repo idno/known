@@ -57,6 +57,13 @@ Known core version.
 
 This plugin requires PHP >= 5.5 or higher and Known >= 0.9.
 
+You can also further refine the known requirements by specifying a build version.
+
+    build =   2017020301
+
+Which will specify a Known install with a machine version (build) greater than or
+equal to 2017020301.
+
 At this time, these requirements are informational only: You can still
 install a plugin whose requirements are not met, but there will be a
 little red notification on the plugins screen.
