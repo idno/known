@@ -61,7 +61,7 @@
                             if (isset($requirements['known'])) {
                                 ?>
                                 <p><label>Known
-                                        Version: <?php echo $this->__(array('version' => $requirements['idno']))->draw('admin/dependencies/idno'); ?> </label>
+                                        Version: <?php echo $this->__(array('version' => $requirements['known']))->draw('admin/dependencies/idno'); ?> </label>
                                 </p>
                             <?php
                             }
