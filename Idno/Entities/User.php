@@ -266,6 +266,8 @@
             {
                 $handle = trim($handle);
                 $handle = strtolower($handle);
+                $handle = preg_replace("/[^a-zA-Z0-9\-\_]/", "", $handle);
+                
                 if (!empty($handle) && ctype_alnum($handle)) {
                     if (!self::getByHandle($handle)) {
                         $this->handle = $handle;
