@@ -187,6 +187,12 @@
                 return $this->handle;
             }
 
+			/**
+			 * Get this user's full name.
+			 * Alias for getTitle()
+			 */
+			function getName() { return $this->getTitle(); }
+
             /**
              * Retrieves user by email address
              * @param string $email
@@ -274,6 +280,12 @@
 
                 return false;
             }
+            
+            /**
+             * Set this user's name.
+             * Alias for setTitle().
+             */
+            function setName($name) { return $this->setTitle($name); }
 
             /**
              * Retrieves user by handle
