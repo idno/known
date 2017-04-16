@@ -1,0 +1,16 @@
+---
+- name: Add known config.ini
+  template:
+    src: "config.ini"
+    dest: "/home/vagrant/Known/config.ini"
+
+- name: Add known htaccess
+  template:
+    src: ".htaccess"
+    dest: "/home/vagrant/Known/.htaccess"
+
+- name: Change permissions to allow uploading
+  file: path=/var/www/Known/Uploads mode=0777
+
+- name: Import database schema
+  mysql_db: name=known state=import target=/var/www/Known/schemas/mysql/mysql.sql

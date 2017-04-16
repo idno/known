@@ -1,0 +1,10 @@
+- name: Setup WithKnown Development Environment
+  hosts: all
+  sudo: true
+
+  roles:
+    - common
+    - apache
+    - php
+    - mysql
+    - known

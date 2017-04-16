@@ -1,0 +1,28 @@
+---
+- name: Install MySQL
+  action: apt pkg={{item}} state=installed
+  with_items:
+    - mysql-server
+    - php5-mysql
+    - python-mysqldb
+
+- name: Get list of hosts for the anonymous user
+  command: mysql -NBe 'SELECT Host FROM mysql.user WHERE User = ""'
+  register: mysql_anonymous_hosts
+  changed_when: false
+
+- name: Remove anonymous MySQL users
+  mysql_user:
+     name: ""
+     host: "{{ item }}"
+     state: absent
+  with_items: mysql_anonymous_hosts.stdout_lines
+
+- name: Remove MySQL test database
+  mysql_db: "name='test' state=absent"
+
+- name: Add MySQL database for Known
+  mysql_db: "name='known' state=present"
+
+- name: Create MySQL user for Known
+  mysql_user: name=known password=12345 priv=known.*:ALL state=present
