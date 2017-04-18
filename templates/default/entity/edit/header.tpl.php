@@ -15,12 +15,13 @@
                     <ul class="nav nav-tabs">
                         <?php
 
-                            $postTypes = array('note' => 'Share', 'reply' => 'Reply', 'bookmark' => 'Bookmark', 'rsvp' => 'RSVP');
+
+                            $postTypes = array('note' => 'Share', 'reply' => 'Reply', 'bookmark' => 'Bookmark', 'rsvp' => 'RSVP', 'person' => 'Find Friends');
                             $postTypes = \Idno\Core\Idno::site()->triggerEvent('share/types', ['types' => $postTypes], $postTypes);
 
                             foreach($postTypes as $variable => $label) {
 
-                                if ($content_type = \Idno\Common\ContentType::getRegisteredForIndieWebPostType($variable)) {
+                                if (($content_type = \Idno\Common\ContentType::getRegisteredForIndieWebPostType($variable)) || ($variable == 'person')) {
 
                                     ?>
                                     <li <?php if ($variable == $share_type) { ?>class="active"<?php } ?>>

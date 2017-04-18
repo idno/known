@@ -30,8 +30,9 @@
                 $event->setResponse($url);
                 \Idno\Core\Idno::site()->events()->dispatch('url/shorten', $event);
                 $short_url = $event->response();
+                
+                if (($type != 'person') && (!$type || !\Idno\Common\ContentType::getRegisteredForIndieWebPostType($type))) {
 
-                if (!$type || !\Idno\Common\ContentType::getRegisteredForIndieWebPostType($type)) {
                     $share_type = 'note';
 
                     // Probe to see if this is something we can MF2 parse, before we do
@@ -58,6 +59,9 @@
                                             }
                                             if (in_array('h-event', $item['type'])) {
                                                 $share_type = 'rsvp';
+                                            }
+                                            if (in_array('h-card', $item['type'])) { // TODO: We want to probably collect these recursively
+                                                $share_type = 'person'; // No standard indieweb type for this, so lets be human
                                             }
                                         }
                                     }
@@ -122,7 +126,17 @@
                         $page->setInput('sharing', true);
                         $page->setInput('share_type', $share_type);
                         $page->get();
-                    }
+                        
+                    } 
+                } else if ($share_type == 'person') {
+                    // Handle hcard types
+                    $page = new \Idno\Pages\Account\Settings\Following\Bookmarklet();
+                    $page->setInput('u', $url);
+                    $page->setInput('hidenav', $hide_nav);
+                    $page->setInput('sharing', true);
+                    $page->setInput('share_type', $share_type);
+                    $page->get();
+
                 } else {
                     $t    = \Idno\Core\Idno::site()->template();
                     $body = $t->__(array('share_type' => $share_type, 'content_type' => $content_type, 'sharing' => true))->draw('entity/share');

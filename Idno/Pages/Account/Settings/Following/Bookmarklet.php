@@ -17,7 +17,7 @@
                 $this->createGatekeeper();
                 $user = \Idno\Core\Idno::site()->session()->currentUser();
 
-                $u = $this->getInput('u');
+                $u = $this->getInput('u', $this->getInput('share_url', $this->getInput('url'))); // Try all variations of a URL
 
                 if ($content = \Idno\Core\Webservice::get($u)['content']) {
 
@@ -56,7 +56,7 @@
                                 $body .= $t->__(array('mf2' => $card))->draw('account/settings/following/mf2user');
 
                             // List user
-                            $t->body  = $body;
+                            $t->body  = $t->draw('entity/edit/header') . $body;
                             $t->title = 'Found users';
                             $t->drawPage();
                         }
