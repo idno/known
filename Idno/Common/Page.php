@@ -379,6 +379,11 @@
                                 
                             if (!empty($trace[1]))
                                 $call_trace .= ", called by {$trace[1]['function']} in {$trace[1]['file']}:{$trace[1]['line']}";
+                                
+                            $log = \Idno\Core\Idno::site()->logging();
+                            if (!empty($log)) {
+                                $log->debug($call_trace);
+                            }
                         }
                     }
 
