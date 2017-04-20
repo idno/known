@@ -39,6 +39,7 @@ listings here do not imply endorsement by the Known project team in any way.
     by [Marcus Povey][]
 * [Pnut.io](https://github.com/dg01d/KnownPnut) – Syndicate to [pnut.io](https://pnut.io/), 
     by [Daniel Goldsmith][] 
+* [Mastodon](https://github.com/danito/KnownMastodon) - Syndicate to Mastodon, by [Daniel Nix][]
 
 ### System and Security
 
@@ -97,6 +98,7 @@ listings here do not imply endorsement by the Known project team in any way.
     by [Marcus Povey][]
 * [Short Profile](https://github.com/egoexpress/known-shortprofile) – Cleans up the URLs displayed in the profile page. Also adds some additional icons, by [Björn Stierand][]  
 * [Cleverdevil Customizations](https://github.com/cleverdevil/CleverCustomize) – A small collection of customizations, by [Jonathan LaCour][]
+* [MastodonEmbed](https://github.com/danito/KnownEmbedMastodon) - Embed Mastodon status , by [Daniel Nix][]
 
 [Pranjal Pandey]: https://www.github.com/physcocode
 [Daniel Nix]: https://nxd4n.nixekinder.be
