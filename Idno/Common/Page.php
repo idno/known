@@ -364,12 +364,34 @@
                         throw new \RuntimeException('Attempted to redirect page to a non local URL.');
                     }
                     */
+                    
+                    $call_trace = null;
+                    $config = \Idno\Core\Idno::site()->config();
+                    if (!empty($config->forward_trace) && $config->forward_trace) {
+                        
+                        $trace = debug_backtrace();
+                        if (!empty($trace[1])) {
+                            
+                            $call_trace = "";
+                            
+                            if (!empty($trace[0]))
+                                $call_trace .= "Forward at {$trace[0]['file']}:{$trace[0]['line']}";
+                                
+                            if (!empty($trace[1]))
+                                $call_trace .= ", called by {$trace[1]['function']} in {$trace[1]['file']}:{$trace[1]['line']}";
+                        }
+                    }
 
                     if (\Idno\Core\Idno::site()->session()->isAPIRequest()) {
-                        echo json_encode([
+                        $location = [
                             'location' => $location
-                        ]);
+                        ];
+                        if (!empty($call_trace))
+                            $location['trace'] = $call_trace;
+                        echo json_encode($location);
                     } elseif (!\Idno\Core\Idno::site()->session()->isAPIRequest() || $this->response == 200) {
+                        if (!empty($call_trace))
+                            header('X-Known-Forward-Trace: ' . $call_trace);
                         header('Location: ' . $location);
                     }
 
