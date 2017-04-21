@@ -473,6 +473,42 @@
                                 }
                                 $subwhere[] = $instring;
                             }
+                            if (!empty($value['$<'])) {
+                                $val = $value['$<'];
+                                if (in_array($key, $this->getSchemaFields())) {
+                                    $subwhere[] = "({$collection}.{$key} < :nonmdvalue{$non_md_variables})";
+                                    if ($key === 'created') {
+                                        if (!is_int($value)) {
+                                            $value = strtotime($value);
+                                        }
+                                    }
+                                    $variables[":nonmdvalue{$non_md_variables}"] = $value;
+                                    $non_md_variables++;
+                                } else {
+                                    $metadata_joins++;
+                                    $subwhere[]                           = "(md{$metadata_joins}.name = :name{$metadata_joins} and md{$metadata_joins}.value < :value{$metadata_joins} and md{$metadata_joins}.collection = '{$collection}')";
+                                    $variables[":name{$metadata_joins}"]  = $key;
+                                    $variables[":value{$metadata_joins}"] = $value;
+                                }
+                            }
+                            if (!empty($value['$>'])) {
+                                $val = $value['$>'];
+                                if (in_array($key, $this->getSchemaFields())) {
+                                    $subwhere[] = "({$collection}.{$key} > :nonmdvalue{$non_md_variables})";
+                                    if ($key === 'created') {
+                                        if (!is_int($value)) {
+                                            $value = strtotime($value);
+                                        }
+                                    }
+                                    $variables[":nonmdvalue{$non_md_variables}"] = $value;
+                                    $non_md_variables++;
+                                } else {
+                                    $metadata_joins++;
+                                    $subwhere[]                           = "(md{$metadata_joins}.name = :name{$metadata_joins} and md{$metadata_joins}.value > :value{$metadata_joins} and md{$metadata_joins}.collection = '{$collection}')";
+                                    $variables[":name{$metadata_joins}"]  = $key;
+                                    $variables[":value{$metadata_joins}"] = $value;
+                                }
+                            }
                             if ($key === '$or') {
                                 $subwhere[] = "(" . $this->build_where_from_array($value, $variables, $metadata_joins, $non_md_variables, 'or', $collection) . ")";
                             }
