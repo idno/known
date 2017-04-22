@@ -273,14 +273,18 @@
                     
                     $obj = (array)$obj;
                     foreach ($obj as $k => $v) {
+                        $orig_k = $k;
                         $k          = str_replace(array_values(self::$ESCAPE_SEQUENCES), array_keys(self::$ESCAPE_SEQUENCES), $k);
                         $obj[$k] = $this->unsanitizeFields($v);
+                        if ($k!=$orig_k) unset($obj[$orig_k]);
                     }
                 } else if (is_array($obj)) {
                     $result = [];
                     foreach ($obj as $k => $v) {
+                        $orig_k = $k;
                         $k          = str_replace(array_values(self::$ESCAPE_SEQUENCES), array_keys(self::$ESCAPE_SEQUENCES), $k);
                         $result[$k] = $this->unsanitizeFields($v);
+                        if ($k!=$orig_k) unset($obj[$orig_k]);
                     }
                     
                     return $result;
