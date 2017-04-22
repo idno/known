@@ -257,13 +257,11 @@
 //                }
 //                
 //                return $obj;
-                if ($obj instanceof \MongoDB\Model\BSONArray) {
-                    return (array)$obj;
-                }
-                else if ($obj instanceof \MongoDB\Model\BSONDocument) {
+                if (($obj instanceof \MongoDB\Model\BSONArray) || ($obj instanceof \MongoDB\Model\BSONDocument)) {
                     
                     $obj = (array)$obj;
                     foreach ($obj as $k => $v) {
+                        $k          = str_replace(array_values(self::$ESCAPE_SEQUENCES), array_keys(self::$ESCAPE_SEQUENCES), $k);
                         $obj[$k] = $this->unsanitizeFields($v);
                     }
                 } else if (is_array($obj)) {
