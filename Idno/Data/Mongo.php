@@ -203,10 +203,22 @@
                     // TODO maybe avoid unnecessary object churn by only creating a new
                     // array if a key (or nested array) is found that needs encoding.
                     // The vast majority won't.
+                    
+                    
                     $result = [];
                     foreach ($obj as $k => $v) {
-                        $k          = str_replace(array_keys(self::$ESCAPE_SEQUENCES), array_values(self::$ESCAPE_SEQUENCES), $k);
+                        // Attempt to prevent double encoding
+                        $encoded = false;
+                        foreach (array_values(self::$ESCAPE_SEQUENCES) as $esc) {
+                            if (strpos($k, $esc)!==false) {$encoded = true; error_log("Is encoded");}
+                        }
+                                                
+                        if (!$encoded) {
+                            $k          = str_replace(array_keys(self::$ESCAPE_SEQUENCES), array_values(self::$ESCAPE_SEQUENCES), $k);
+                        }
+                        
                         $result[$k] = $this->sanitizeFields($v);
+                        
                     }
 
                     return $result;
