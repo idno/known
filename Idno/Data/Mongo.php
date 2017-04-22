@@ -207,7 +207,7 @@
                     
                     $result = [];
                     foreach ($obj as $k => $v) {
-                        // Attempt to prevent double encoding
+                        // Attempt to prevent double encoding (open question: can this be done better?)
                         $encoded = false;
                         foreach (array_values(self::$ESCAPE_SEQUENCES) as $esc) {
                             if (strpos($k, $esc)!==false) {$encoded = true; error_log("Is encoded");}
