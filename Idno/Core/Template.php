@@ -488,7 +488,7 @@
                 parse_str($components['query'], $url_var_array);
                 if (!empty($url_var_array[$variable_name])) unset($url_var_array[$variable_name]);
                 $components['query'] = http_build_query($url_var_array);
-                $url                 = $components['scheme'] . '://' . $components['host'] . ($components['port'] ? ':' . $components['port'] : '') . $components['path'];
+                $url                 = $components['scheme'] . '://' . $components['host'] . (!empty($components['port']) ? ':' . $components['port'] : '') . $components['path'];
                 if (!empty($components['query'])) $url .= '?' . $components['query'];
 
                 return $url;
