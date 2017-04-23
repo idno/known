@@ -203,10 +203,22 @@
                     // TODO maybe avoid unnecessary object churn by only creating a new
                     // array if a key (or nested array) is found that needs encoding.
                     // The vast majority won't.
+                    
+                    
                     $result = [];
                     foreach ($obj as $k => $v) {
-                        $k          = str_replace(array_keys(self::$ESCAPE_SEQUENCES), array_values(self::$ESCAPE_SEQUENCES), $k);
+                        // Attempt to prevent double encoding (open question: can this be done better?)
+                        $encoded = false;
+                        foreach (array_values(self::$ESCAPE_SEQUENCES) as $esc) {
+                            if (strpos($k, $esc)!==false) {$encoded = true; error_log("Is encoded");}
+                        }
+                                                
+                        if (!$encoded) {
+                            $k          = str_replace(array_keys(self::$ESCAPE_SEQUENCES), array_values(self::$ESCAPE_SEQUENCES), $k);
+                        }
+                        
                         $result[$k] = $this->sanitizeFields($v);
+                        
                     }
 
                     return $result;
@@ -257,20 +269,22 @@
 //                }
 //                
 //                return $obj;
-                if ($obj instanceof \MongoDB\Model\BSONArray) {
-                    return (array)$obj;
-                }
-                else if ($obj instanceof \MongoDB\Model\BSONDocument) {
+                if (($obj instanceof \MongoDB\Model\BSONArray) || ($obj instanceof \MongoDB\Model\BSONDocument)) {
                     
                     $obj = (array)$obj;
                     foreach ($obj as $k => $v) {
+                        $orig_k = $k;
+                        $k          = str_replace(array_values(self::$ESCAPE_SEQUENCES), array_keys(self::$ESCAPE_SEQUENCES), $k);
                         $obj[$k] = $this->unsanitizeFields($v);
+                        if ($k!=$orig_k) unset($obj[$orig_k]);
                     }
                 } else if (is_array($obj)) {
                     $result = [];
                     foreach ($obj as $k => $v) {
+                        $orig_k = $k;
                         $k          = str_replace(array_values(self::$ESCAPE_SEQUENCES), array_keys(self::$ESCAPE_SEQUENCES), $k);
                         $result[$k] = $this->unsanitizeFields($v);
+                        if ($k!=$orig_k) unset($obj[$orig_k]);
                     }
                     
                     return $result;
