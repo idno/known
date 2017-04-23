@@ -123,6 +123,7 @@
                     $mp_type     = null;
                     $photo_url   = $this->getJSONInput('photo');
                     $video_url   = $this->getJSONInput('video');
+                    $audio_url   = $this->getJSONInput('audio');
 
                     // Since Known does not support multiple photos or videos, use the first if more than one was given.
                     if(is_array($photo_url) && array_key_exists(0, $photo_url)) {
@@ -135,6 +136,10 @@
 
                     if(is_array($video_url) && array_key_exists(0, $video_url)) {
                         $video_url = $video_url[0];
+                    }                    
+
+                    if(is_array($audio_url) && array_key_exists(0, $audio_url)) {
+                        $audio_url = $audio_url[0];
                     }                    
 
                     // If no content was specified, use the summary to provide a reasonable fallback behavior.
@@ -186,6 +191,7 @@
                     $mp_type     = $this->getInput('mp-type');
                     $photo_url   = $this->getInput('photo');
                     $video_url   = $this->getInput('video');
+                    $audio_url   = $this->getInput('audio');
                 }
 
                 if (!empty($mp_type)) {
@@ -217,13 +223,34 @@
 
                     if (!empty($_FILES['video'])) {
                         $type = 'video';
+                        // alias the file because IdnoPlugins/Media/Media.php expects "media"
+                        $_FILES['media'] = $_FILES['video'];
                     } else if ($video_url) {
                         $type      = 'video';
                         $success   = $this->uploadFromUrl('video', $video_url);
+                        // alias the file because IdnoPlugins/Media/Media.php expects "media"
+                        $_FILES['media'] = $_FILES['video'];
                         if (!$success) {
                             \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
                             $this->setResponse(500);
                             echo "Failed uploading video from $video_url";
+                            exit;
+                        }
+                    }
+
+                    if (!empty($_FILES['audio'])) {
+                        $type = 'audio';
+                        // alias the file because IdnoPlugins/Media/Media.php expects "media"
+			            $_FILES['media'] = $_FILES['audio'];
+                    } else if ($audio_url) {
+                        $type      = 'audio';
+                        $success   = $this->uploadFromUrl('audio', $audio_url);
+                        // alias the file because IdnoPlugins/Media/Media.php expects "media"
+                        $_FILES['media'] = $_FILES['audio'];
+                        if (!$success) {
+                            \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
+                            $this->setResponse(500);
+                            echo "Failed uploading audio from $audio_url";
                             exit;
                         }
                     }
@@ -250,7 +277,7 @@
                         $htmlPhoto = '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="' . $photo . '" alt="' . $place_name . '"  /></p>';
                     }
                 }
-                if (($type == 'photo' || $type == 'video') && empty($name) && !empty($content)) {
+                if (($type == 'photo' || $type == 'video' || $type == 'audio') && empty($name) && !empty($content)) {
                     $name    = $content;
                     $content = '';
                 }
@@ -538,6 +565,8 @@
                 if ($fp) {
                     $success = file_put_contents($tmpname, $fp);
                     fclose($fp);
+                } else {
+                    $success = false;
                 }
                 if ($success) {
                     $_FILES[$type] = [
