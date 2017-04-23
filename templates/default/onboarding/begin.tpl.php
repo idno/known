@@ -10,15 +10,15 @@
         <div class="container" style="margin-bottom: 1 em; margin-top: 2em">
             <div class="row row-centered">
                 <div class="scoot col-centered col-max">
-                    <img class="img-responsive" src="../../../gfx/onboarding/kite.png" alt="Take a picture"
+                    <img class="img-responsive" src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>gfx/onboarding/kite.png" alt="Take a picture"
                          width="100%">
                 </div>
                 <div class="scoot col-centered col-max">
-                    <img class="img-responsive" src="../../../gfx/onboarding/text.png" alt="Share a message"
+                    <img class="img-responsive" src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>gfx/onboarding/text.png" alt="Share a message"
                          width="100%">
                 </div>
                 <div class="scoot col-centered col-max">
-                    <img class="img-responsive" src="../../../gfx/onboarding/map.png" alt="Save your location"
+                    <img class="img-responsive" src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>gfx/onboarding/map.png" alt="Save your location"
                          width="100%">
                 </div>
             </div>
