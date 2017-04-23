@@ -898,25 +898,27 @@
                             if (substr_count($headers['Accept'], $contentType)) return true;
                         }
                     } else {
-                        $types = [];
-                        $accepts = explode(',', $headers['Accept']);
+                        if (!empty($headers['Accept'])) { 
+                            $types = [];
+                            $accepts = explode(',', $headers['Accept']);
 
-                        foreach ($accepts as $accept) {
-                            $q = 1; // default value
-                            
-                            if (strpos($accept, ';q=')) {
-                                list($accept, $q) = explode(';q=', $accept);
+                            foreach ($accepts as $accept) {
+                                $q = 1; // default value
+
+                                if (strpos($accept, ';q=')) {
+                                    list($accept, $q) = explode(';q=', $accept);
+                                }
+
+                                while (in_array($q, $types)) { $q -= 000000000001;} // fudge to give equal values order priority. TODO: do this a better way
+
+                                $types[$accept] = $q;
                             }
-                            
-                            while (in_array($q, $types)) { $q -= 000000000001;} // fudge to give equal values order priority. TODO: do this a better way
-                            
-                            $types[$accept] = $q;
-                        }
-                        
-                        arsort($types);
-                        
-                        foreach ($types as $type => $value) {
-                            return $type == $contentType;
+
+                            arsort($types);
+
+                            foreach ($types as $type => $value) {
+                                return $type == $contentType;
+                            }
                         }
                     }
                 }
