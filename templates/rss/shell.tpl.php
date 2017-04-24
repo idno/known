@@ -92,9 +92,9 @@
             
             $owner = $item->getOwner();
             if (!empty($owner)) {
-                $rssItem->appendChild($page->createElement('author', "{$owner->title}"));
+                $rssItem->appendChild($page->createElement('dc:creator', "{$owner->title}"));
             } else {
-                $rssItem->appendChild($page->createElement('author', "Deleted User"));
+                $rssItem->appendChild($page->createElement('dc:creator', "Deleted User"));
             }
             //$rssItem->appendChild($page->createElement('dc:creator', $owner->title));
 
