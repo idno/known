@@ -1,5 +1,7 @@
 <?php
 
+    $template = $this->formatShellVariables($vars);
+    $vars = $template->vars;
     header('Content-type: application/rss+xml');
     unset($vars['body']);
 
@@ -28,7 +30,8 @@
     $rss->setAttribute('xmlns:itunes', 'http://www.itunes.com/dtds/podcast-1.0.dtd');
     $rss->setAttribute('xmlns:wp', 'http://wordpress.org/export/1.2/');
     $channel = $page->createElement('channel');
-    $channel->appendChild($page->createElement('title',$vars['title']));
+    $channel->appendChild($page->createElement('title',  htmlspecialchars($vars['title'])));
+    $channel->appendChild($page->createElement('itunes:author', htmlspecialchars($vars['title'])));
     if (!empty(\Idno\Core\Idno::site()->config()->description)) {
         $site_description = $page->createElement('description');
         if (empty($vars['nocdata'])) {
@@ -48,6 +51,19 @@
         $channel->appendChild($site_description);
     }
     $channel->appendChild($page->createElement('link', htmlspecialchars($base_url)));
+    $channel->appendChild($page->createElement('language', $vars['lang']));
+    
+    if (!empty(\Idno\Core\Idno::site()->config()->itunes_category)) {
+        $category = $page->createElement('itunes:category');
+        $category->setAttribute('text', \Idno\Core\Idno::site()->config()->itunes_category);
+        $channel->appendChild($category);
+    } 
+    if (!empty(\Idno\Core\Idno::site()->config()->itunes_explicit)) {
+        $channel->appendChild($page->createElement('itunes:explicit', \Idno\Core\Idno::site()->config()->itunes_explicit));
+    } else {
+        $channel->appendChild($page->createElement('itunes:explicit', 'No'));
+    }
+    
     if (!empty(\Idno\Core\Idno::site()->config()->hub)) {
         $pubsub = $page->createElement('atom:link');
         $pubsub->setAttribute('href',\Idno\Core\Idno::site()->config()->hub);
@@ -92,9 +108,9 @@
             
             $owner = $item->getOwner();
             if (!empty($owner)) {
-                $rssItem->appendChild($page->createElement('author', "{$owner->title}"));
+                $rssItem->appendChild($page->createElement('dc:creator', "{$owner->title}"));
             } else {
-                $rssItem->appendChild($page->createElement('author', "Deleted User"));
+                $rssItem->appendChild($page->createElement('dc:creator', "Deleted User"));
             }
             //$rssItem->appendChild($page->createElement('dc:creator', $owner->title));
 
