@@ -81,7 +81,7 @@
                 }
             }
             $rssItem = $page->createElement('item');
-            $rssItem->appendChild($page->createElement('title', strip_tags($title)));
+            $rssItem->appendChild($page->createElement('title', htmlspecialchars($title)));
             $rssItem->appendChild($page->createElement('link',$item->getSyndicationURL()));
             $rssItem->appendChild($page->createElement('guid',$item->getUUID()));
             $rssItem->appendChild($page->createElement('pubDate',date(DATE_RSS,$item->created)));
