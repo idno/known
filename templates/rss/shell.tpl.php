@@ -1,5 +1,7 @@
 <?php
 
+    $template = $this->formatShellVariables($vars);
+    $vars = $template->vars;
     header('Content-type: application/rss+xml');
     unset($vars['body']);
 
@@ -48,6 +50,7 @@
         $channel->appendChild($site_description);
     }
     $channel->appendChild($page->createElement('link', htmlspecialchars($base_url)));
+    $channel->appendChild($page->createElement('language', $vars['lang']));
     if (!empty(\Idno\Core\Idno::site()->config()->hub)) {
         $pubsub = $page->createElement('atom:link');
         $pubsub->setAttribute('href',\Idno\Core\Idno::site()->config()->hub);
