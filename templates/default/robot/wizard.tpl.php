@@ -12,24 +12,24 @@
             echo $this->__(array(
                 'body' =>
                     "Welcome to your new Known site! " .
-                    "I'm Aleph, your very own welcome robot. Let's get started by <a href=\"#\" onclick=\"contentCreateForm('status'); return false;\">adding your first status update</a>! "
+                    "I'm Aleph, your very own welcome robot. Let's get started by <a href=\"#\" onclick=\"event.preventDefault(); contentCreateForm('status', '".\Idno\Core\Idno::site()->config()->getDisplayURL()."status/edit/'); return false;\">adding your first status update</a>! "
 
                     //"about what you did today. Just select the icon above."
             ))->draw('robot/post');
             break;
         case '2a':
             echo $this->__(array(
-                'body' => "Beep! That was a great update. Why not <a href=\"{$facebookurl}\" target=\"blank\" onclick=\"window.open('{$facebookurl}', 'newwindow', 'width=600, height=350'); return false;\">share your new website on Facebook</a> and <a href=\"{$twitterurl}\">Twitter</a> so your friends know about it?</a>\n\nI bet you've got some great photos. <a href=\"#\" onclick=\"contentCreateForm('photo'); return false;\">Try posting one</a>!"
+                'body' => "Beep! That was a great update. Why not <a href=\"{$facebookurl}\" target=\"blank\" onclick=\"window.open('{$facebookurl}', 'newwindow', 'width=600, height=350'); return false;\">share your new website on Facebook</a> and <a href=\"{$twitterurl}\">Twitter</a> so your friends know about it?</a>\n\nI bet you've got some great photos. <a href=\"#\" onclick=\"event.preventDefault(); contentCreateForm('photo', '".\Idno\Core\Idno::site()->config()->getDisplayURL()."photo/edit/'); return false;\">Try posting one</a>!"
             ))->draw('robot/post');
             break;
         case '2b':
             echo $this->__(array(
-                'body' => "Zeep! That was a great update. Why not <a href=\"{$facebookurl}\" target=\"blank\" onclick=\"window.open('{$facebookurl}', 'newwindow', 'width=600, height=350'); return false;\">share your new website on Facebook</a> and <a href=\"{$twitterurl}\">Twitter</a> so your friends know about it?</a>\n\nI bet you've got some great photos. <a href=\"#\" onclick=\"contentCreateForm('photo'); return false;\">Try posting one</a>!"
+                'body' => "Zeep! That was a great update. Why not <a href=\"{$facebookurl}\" target=\"blank\" onclick=\"window.open('{$facebookurl}', 'newwindow', 'width=600, height=350'); return false;\">share your new website on Facebook</a> and <a href=\"{$twitterurl}\">Twitter</a> so your friends know about it?</a>\n\nI bet you've got some great photos. <a href=\"#\" onclick=\"event.preventDefault(); contentCreateForm('photo', '".\Idno\Core\Idno::site()->config()->getDisplayURL()."photo/edit/'); return false;\">Try posting one</a>!"
             ))->draw('robot/post');
             break;
         case '2c':
             echo $this->__(array(
-                'body' => "Beep boop! That was a great update. Why not <a href=\"{$facebookurl}\" target=\"blank\" onclick=\"window.open('{$facebookurl}', 'newwindow', 'width=600, height=350'); return false;\">share your new website on Facebook</a> and <a href=\"{$twitterurl}\">Twitter</a> so your friends know about it?</a>\n\nI bet you've got some great photos. <a href=\"#\" onclick=\"contentCreateForm('photo'); return false;\">Try posting one</a>!"
+                'body' => "Beep boop! That was a great update. Why not <a href=\"{$facebookurl}\" target=\"blank\" onclick=\"window.open('{$facebookurl}', 'newwindow', 'width=600, height=350'); return false;\">share your new website on Facebook</a> and <a href=\"{$twitterurl}\">Twitter</a> so your friends know about it?</a>\n\nI bet you've got some great photos. <a href=\"#\" onclick=\"event.preventDefault(); contentCreateForm('photo', '".\Idno\Core\Idno::site()->config()->getDisplayURL()."photo/edit/'); return false;\">Try posting one</a>!"
             ))->draw('robot/post');
             break;
         case "3a":
