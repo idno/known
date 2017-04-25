@@ -527,8 +527,8 @@
                                 }
                                 $subwhere[] = $instring;
                             }
-                            if (!empty($value['$<'])) {
-                                $val = $value['$<'];
+                            if (!empty($value['$lt'])) {
+                                $val = $value['$lt'];
                                 if (in_array($key, $this->getSchemaFields())) {
                                     $subwhere[] = "(`{$collection}`.`{$key}` < :nonmdvalue{$non_md_variables})";
                                     if ($key === 'created') {
@@ -545,8 +545,8 @@
                                     $variables[":value{$metadata_joins}"] = $val;
                                 }
                             }
-                            if (!empty($value['$>'])) {
-                                $val = $value['$>'];
+                            if (!empty($value['$gt'])) {
+                                $val = $value['$gt'];
                                 if (in_array($key, $this->getSchemaFields())) {
                                     $subwhere[] = "(`{$collection}`.`{$key}` > :nonmdvalue{$non_md_variables})";
                                     if ($key === 'created') {
