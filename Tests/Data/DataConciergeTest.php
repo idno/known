@@ -22,6 +22,7 @@ namespace Tests\Data {
                 $obj->setTitle("Unit Test Search Object");
                 $obj->variable1 = 'test';
                 $obj->variable2 = 'test again';
+		$obj->rangeVariable = 'b';		
                 
                 //echo "\n\n\nabout to save"; 
                 $id = $obj->save(); //die($id);
@@ -128,6 +129,29 @@ namespace Tests\Data {
             $this->assertTrue(is_array($objs));
             $this->validateObject($objs[0]);
         }
+	
+	/* testing range queries – note: metadata variables are strored as TEXT in SQL backends */
+	public function testGetByRange() {
+	    $search = array();
+	    $search['rangeVariable'] = array();
+	    $search['rangeVariable']['$lt'] = 'c';
+	    $search['rangeVariable']['$gt'] = 'a';
+	    
+            $count = \Idno\Entities\GenericDataItem::countFromX('Idno\Entities\GenericDataItem', $search);
+	    $this->assertTrue(is_int($count));
+	    $this->assertTrue($count == 1);
+	}
+
+        public function testGetByRangeNoResults() {
+	    $search = array();
+	    $search['rangeVariable'] = array();
+	    $search['rangeVariable']['$lt'] = 'e';
+	    $search['rangeVariable']['$gt'] = 'c';
+	    
+            $count = \Idno\Entities\GenericDataItem::countFromX('Idno\Entities\GenericDataItem', $search);
+	    $this->assertTrue(is_int($count));
+	    $this->assertTrue($count == 0);
+	}
 
         public function testSearchShort() {
             $search = array();
