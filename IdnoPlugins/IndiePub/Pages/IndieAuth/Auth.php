@@ -60,9 +60,8 @@
                 $code         = $this->getInput('code');
                 $client_id    = $this->getInput('client_id');
                 $redirect_uri = $this->getInput('redirect_uri');
-                $state        = $this->getInput('state');
 
-                $verified = Auth::verifyCode($code, $client_id, $redirect_uri, $state);
+                $verified = Auth::verifyCode($code, $client_id, $redirect_uri);
                 if ($verified['valid']) {
                     $this->setResponse(200);
                     header('Content-Type: application/x-www-form-urlencoded');
@@ -117,7 +116,7 @@
             }
 
             // verify the code from login; note that this is called from the micropub client, so the session won't have any user data
-            static function verifyCode($code, $client_id, $redirect_uri, $state)
+            static function verifyCode($code, $client_id, $redirect_uri)
             {
                 $found = Auth::findUserForCode($code);
                 if (empty($found)) {
@@ -150,12 +149,6 @@
                     return array(
                         'valid'  => false,
                         'reason' => 'client_id does not match',
-                    );
-                }
-                if ($state != $data['state']) {
-                    return array(
-                        'valid'  => false,
-                        'reason' => 'state does not match',
                     );
                 }
                 return array(
