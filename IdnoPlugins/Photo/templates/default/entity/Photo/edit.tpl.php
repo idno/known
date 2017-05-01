@@ -53,7 +53,7 @@
                                                                                          id="photo"
                                                                                          class="col-md-9 form-control"
                                                                                          accept="image/*"
-                                                                                         capture="camera"
+                                                                                         <?php /* capture="camera" */ ?>
                                                                                          onchange="photoPreview(this)"/>
 
                                     </span>
