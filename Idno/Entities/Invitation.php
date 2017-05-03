@@ -78,6 +78,21 @@
 
                 return false;
             }
+            
+            /**
+             * A cleanup utility method to remove all invitations associated with a given email address
+             * @param string $email
+             */
+            static function removeByEmail($email) {
+                
+                if ($result = \Idno\Core\Idno::site()->db()->getObjects(get_called_class(), array('email' => $email), null, PHP_INT_MAX)) {
+                    foreach ($result as $row) {
+                        $row->delete();
+                    }
+                }
+                
+                return true;
+            }
 
             /**
              * Saves this invitation and sends it to the appropriate email address
