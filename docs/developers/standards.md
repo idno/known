@@ -17,6 +17,5 @@ Regarding the language in PHP doc blocks:
 * "Just read the code" isn't a good idea, and we don't like it.
 * That said, clear, simple code is good :)
 
-## Other considerations
-
-* Notice errors are bad, please develop your code with ```pedantic_mode = true;``` set in your config.ini
+!!! note "Note"
+    Notice errors are bad, please develop your code with ```pedantic_mode = true;``` set in your config.ini
