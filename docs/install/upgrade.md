@@ -18,7 +18,5 @@ installation directory, you may need to perform the following additional steps:
 
 Thanks to [Chris Aldich](http://stream.boffosocko.com/2015/upgrading-withknown-on-ones-own-server) for this point.
 
-## Upgrading Mongo
-
-Previous releases of Known used a now deprecated mongo driver. If you are running your site on Mongo, you will first need to make sure that
-you have installed the new [PHP MongoDB driver](https://secure.php.net/manual/en/set.mongodb.php).
+!!! warning "MongoDB Users"
+    Previous releases of Known (<0.9.5) used a now deprecated mongo driver. If you are running your site on Mongo, you will first need to make sure that you have installed the new [PHP MongoDB driver](https://secure.php.net/manual/en/set.mongodb.php).

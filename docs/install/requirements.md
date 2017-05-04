@@ -48,7 +48,8 @@ Additionally, Known requires the following PHP components:
 + session
 + xmlrpc
 
-Note that you may need to restart the web server after installing these components. Known’s installer will tell you if a required module isn’t available.
+!!! note "Note" 
+    You may need to restart the web server after installing these components. Known’s installer will tell you if a required module isn’t available.
 
 ## Recommendations
 

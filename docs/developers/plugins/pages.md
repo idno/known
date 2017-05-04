@@ -15,11 +15,9 @@ process when the plugin is loaded.
 There are two main methods to define new page routes. In each case, a regular expression is used to define the URL route
 itself, and the name of a class that inherits `\Idno\Common\Page` that will handle the route is supplied.
 
-Note that:
-
-* Page route regular expressions start with a preceding slash ("/"), and should be agnostic about whether they end with
-  a slash.
-* All page classes must extend `\Idno\Common\Page` and be stored in the `/Pages/` subfolder of your plugin.
+!!! note "Note"
+    * Page route regular expressions start with a preceding slash ("/"), and should be agnostic about whether they end with a slash.
+    * All page classes must extend `\Idno\Common\Page` and be stored in the `/Pages/` subfolder of your plugin.
 
 ### Defining a new page route
 
@@ -101,8 +99,8 @@ Handling a POST request is very similar to handling GET requests. You just call 
         $t->drawPage();
     }
 
-Note, however, that you can't simply call a POST request in Known. You need to [sign your requests](forms.md)
-otherwise Known will reject your content.
+!!! warning "Warning"
+    You can't simply call a POST request in Known. You need to [sign your requests](forms.md) otherwise Known will reject your content.
 
 Because POST requests [can accept JSON or POST data](forms.md) via an API call or a standard form submission, every
 page in Known that accepts POST requests is also an API endpoint.
@@ -110,8 +108,8 @@ page in Known that accepts POST requests is also an API endpoint.
 If your POST request is being submitted via JSON, the response template will automatically be set to JSON, and any
 response data will come back to the user as structured JSON.
 
-Note that browser-based POST requests will automatically forward the user to the homepage after execution unless the
-user is forwarded elsewhere first.
+!!! note "Note" 
+    Browser-based POST requests will automatically forward the user to the homepage after execution unless the user is forwarded elsewhere first.
 
 ### Useful methods
 

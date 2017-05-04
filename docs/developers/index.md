@@ -1,7 +1,5 @@
 # Known for Developers
 
-## A note about the developer documentation
-
 We want Known to be as easy to extend and develop for as it is to use. This documentation is a work in progress, and
 we welcome contributions. See [the open source community](../community/index.md) for details on how you can get involved.
 
@@ -14,3 +12,4 @@ we welcome contributions. See [the open source community](../community/index.md)
 * [Plugins](plugins/index.md)
 * [Templating](templating/index.md)
 * [Themes](themes/index.md)
+* [API](plugins/api.md)

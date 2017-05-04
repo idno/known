@@ -62,5 +62,5 @@ All pages that are accessible via the web interface are also API endpoints, so f
 POST request to ```/status/edit``` with the same form values as that submitted when submitting the form via your web browser, you will create a new 
 status update.
 
-Many pages report some basic information about them by making GET requests, so for example, making a GET request to the same ```/status/edit``` endpoint will 
-return, among other things, available syndication methods and the type of object being created.
+!!! note "Note"
+    Many pages report some basic information about them by making GET requests, so for example, making a GET request to the same ```/status/edit``` endpoint will return, among other things, available syndication methods and the type of object being created.
