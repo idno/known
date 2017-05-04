@@ -16,7 +16,7 @@ There are two main methods to define new page routes. In each case, a regular ex
 itself, and the name of a class that inherits `\Idno\Common\Page` that will handle the route is supplied.
 
 !!! note "Note"
-    * Page route regular expressions start with a preceding slash ("/"), and should be agnostic about whether they end with a slash.
+    * Page route regular expressions start with a preceding slash ("/"), and should be agnostic about whether they end with a slash (i.e. end your regexp with "/?").
     * All page classes must extend `\Idno\Common\Page` and be stored in the `/Pages/` subfolder of your plugin.
 
 ### Defining a new page route
