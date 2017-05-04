@@ -9,6 +9,7 @@ pages:
 - ['install/config.md', 'Installing and upgrading Known', 'Using config.ini']
 - ['install/sharedhost.md', 'Installing and upgrading Known', 'Instructions for common shared hosting providers']
 - ['install/debugging.md', 'Installing and upgrading Known', 'Debugging Known']
+- ['install/troubleshooting.md', 'Installing and upgrading Known', 'Troubleshooting your installation']
 - ['plugins/index.md', 'Plugins', 'Plugins']
 - ['plugins/project.md', 'Plugins', 'Known project plugins']
 - ['plugins/community.md', 'Plugins', 'Community plugins']
