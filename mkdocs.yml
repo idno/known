@@ -1,5 +1,7 @@
 site_name: Known Documentation
 theme: readthedocs
+markdown_extensions:
+ - admonition
 pages:
 - ['index.md', 'Known Documentation']
 - ['install/index.md', 'Installing and upgrading Known', 'Introduction']
