@@ -382,6 +382,11 @@
 
             function logUserOff()
             {
+                
+                \Idno\Core\Idno::site()->triggerEvent("user/logoff", array(
+                    "user"   => $this->user,
+                ));
+                
                 unset($_SESSION['user_uuid']);
                 unset($this->user);
 
@@ -404,10 +409,6 @@
 
                 @session_destroy();
                 
-                \Idno\Core\Idno::site()->triggerEvent("user/logoff", array(
-                    "user"   => $this->user,
-                ));
-
                 return true;
             }
 
