@@ -403,6 +403,10 @@
                 }
 
                 @session_destroy();
+                
+                \Idno\Core\Idno::site()->triggerEvent("user/logoff", array(
+                    "user"   => $this->user,
+                ));
 
                 return true;
             }
@@ -538,6 +542,10 @@
                     "user"   => $return,
                     "is api" => $this->isAPIRequest(),
                 ), $return);
+                
+                \Idno\Core\Idno::site()->triggerEvent("user/logon", array(
+                    "user"   => $return,
+                ));
 
                 return $return;
             }
