@@ -384,7 +384,7 @@
             {
                 
                 \Idno\Core\Idno::site()->triggerEvent("user/logoff", array(
-                    "user"   => $this->user,
+                    "user"   => !empty($this->user) ? $this->user : null,
                 ));
                 
                 unset($_SESSION['user_uuid']);
