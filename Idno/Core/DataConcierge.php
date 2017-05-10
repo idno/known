@@ -247,7 +247,7 @@
              * Used to verify that a ID hasn't been seen before.
              * @return tombstone|false
              */
-            abstract function getTombstoneByID($slug);
+            abstract function getTombstoneByID($id);
 
             /**
              * Retrieve the filesystem associated with the current db, suitable for saving
