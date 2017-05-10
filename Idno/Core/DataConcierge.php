@@ -220,6 +220,34 @@
              * @return true|false
              */
             abstract function deleteRecord($id, $collection = 'entities');
+            
+            /**
+             * Create a tombstone for this entity.
+             * @param entity The entity.
+             * @return bool
+             */
+            abstract function createTombstone($object);
+            
+            /**
+             * Retrieve a tombstone by UUID.
+             * Used to verify that a UUID hasn't been seen before.
+             * @return tombstone|false
+             */
+            abstract function getTombstoneByUUID($uuid);
+            
+            /**
+             * Retrieve a tombstone by Slug.
+             * Used to verify that a slug hasn't been seen before.
+             * @return tombstone|false
+             */
+            abstract function getTombstoneBySlug($slug);
+            
+            /**
+             * Retrieve a tombstone by ID.
+             * Used to verify that a ID hasn't been seen before.
+             * @return tombstone|false
+             */
+            abstract function getTombstoneByID($slug);
 
             /**
              * Retrieve the filesystem associated with the current db, suitable for saving
