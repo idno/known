@@ -13,7 +13,7 @@ namespace Tests\Data {
         public static $url;
 
         public static $fts_objects;
-
+        
         public static function setUpBeforeClass()
         {          
             if (get_called_class() === 'Tests\Data\DataConciergeTest') {
@@ -214,6 +214,44 @@ namespace Tests\Data {
             $this->assertTrue($cnt > 0);
         }
 
+        public function testTombstones() {
+            
+            // create object
+            $obj = new \Idno\Entities\GenericDataItem();
+            $obj->setDatatype('UnitTestObject');
+            $obj->setTitle("This is a test obj to test object tombstoning");
+            
+            $id = $obj->save();
+            $uuid = $obj->getUUID();
+            $slug = $obj->getSlug();
+            
+            // delete object
+            $obj->delete();
+            
+            // check its tombstone by uuid, id and slug
+            $ts = \Idno\Core\Idno::site()->db()->getTombstoneByID($id);
+            $this->assertTrue($ts->id == $id);
+            
+            $ts = \Idno\Core\Idno::site()->db()->getTombstoneByUUID($uuid);
+            $this->assertTrue($ts->uuid == $uuid);
+            
+            $ts = \Idno\Core\Idno::site()->db()->getTombstoneBySlug($slug);
+            $this->assertTrue($ts->slug == $slug);
+            
+            // attempt recreate object (should recreate but check slug is different)
+            $obj = new \Idno\Entities\GenericDataItem();
+            $obj->setDatatype('UnitTestObject');
+            $obj->setTitle("This is a test obj to test object tombstoning");
+            $id = $obj->save();
+            
+            $this->assertTrue($id != $obj->getID());
+            $this->assertTrue($uuid != $obj->getUUID());
+            $this->assertTrue($slug != $obj->getSlug());
+            
+        }
+        
+        
+        
         /**
          * Helper function to validate object.
          */
