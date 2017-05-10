@@ -53,7 +53,7 @@
                     'value' => $vars['object']->body,
                     'wordcount' => false,
                     'class' => 'wysiwyg',
-                    'height' => 100,
+                    'height' => 500,
                     'placeholder' => 'Share something brilliant...',
                     'label' => 'Body'
                 ])->draw('forms/input/richtext')?>
