@@ -548,6 +548,14 @@
                     $this->setPublishStatus('published');
                 }
 
+                // Check new object UUIDs against tombstone
+                if (empty($this->_id)) {
+                    if (\Idno\Core\Idno::site()->db()->getTombstoneByUUID($this->getUUID())) {
+                        \Idno\Core\Idno::site()->logging()->debug($this->getUUID() . ' was found in tombstones.');
+                        return false;
+                    }
+                }
+                
                 // Save it to the database
 
                 if (\Idno\Core\Idno::site()->triggerEvent('save', array('object' => $this))) { // dispatch('save', $event)->response()) {
