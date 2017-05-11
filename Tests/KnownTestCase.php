@@ -30,7 +30,7 @@ namespace Tests {
 
             // No user there, so create one
             $user = new \Idno\Entities\User();
-            $user->handle = 'testuser' . microtime(true);
+            $user->handle = 'testuser';// . microtime(true);
             $user->email = 'hello@withknown.com';
             $user->setPassword(md5(rand())); // Set password to something random to mitigate security holes if cleanup fails
             $user->setTitle('Test User');
@@ -62,7 +62,7 @@ namespace Tests {
 
             // No user there, so create one
             $user = new \Idno\Entities\User();
-            $user->handle = 'testadmin' .microtime(true);
+            $user->handle = 'testadmin'; //.microtime(true);
             $user->email = 'hello@withknown.com';
             $user->setPassword(md5(rand())); // Set password to something random to mitigate security holes if cleanup fails
             $user->setTitle('Test Admin User');
