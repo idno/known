@@ -77,9 +77,9 @@
                 if (!empty($this->uuid)) {
                     return $this->uuid;
                 }
-                if ($url = $this->getURL(true)) {
-                    return $url;
-                }
+//                if ($url = $this->getURL(true)) { // Using URLs here is a bad plan. UUIDs must always be unique, even across time...
+//                    return $url;
+//                }
                 if (!empty($this->_id)) {
                     return \Idno\Core\Idno::site()->config()->url . 'view/' . $this->_id;
                 }
