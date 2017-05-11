@@ -120,34 +120,6 @@
             }
 
             /**
-             * Returns an instance of the database reference variable
-             * @return string;
-             */
-            function getDatabase()
-            {
-                return $this->database;
-            }
-
-            /**
-             * Returns an instance of the database client reference variable
-             * @return \PDO
-             */
-            function getClient()
-            {
-                return $this->client;
-            }
-
-            /**
-             * MySQL doesn't need the ID to be processed.
-             * @param $id
-             * @return string
-             */
-            function processID($id)
-            {
-                return $id;
-            }
-
-            /**
              * Saves a record to the specified database collection
              *
              * @param string $collection
