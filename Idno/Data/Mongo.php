@@ -134,6 +134,12 @@
                             $offset += $limit;
                         }
                     }
+                    if ($last_update < 2017051101) {
+                        \Idno\Core\Idno::site()->logging()->debug("Mongo: Applying mongo upgrades - adding tombstoning and indexes.");
+                        $this->database->tombstones->createIndex(['id' => 1]);
+                        $this->database->tombstones->createIndex(['uuid' => 1]);
+                        $this->database->tombstones->createIndex(['slug' => 1]);
+                    }
                 });
             }
 
