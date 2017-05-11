@@ -310,7 +310,7 @@
                     $statement = $this->client->prepare("select distinct tombstones.* from tombstones where id = :id");
                     if ($statement->execute(array(':id' => $id))) {
                         if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
-                            return new \Idno\Common\Tombstone($raw['uuid'], $raw['id'], $raw['slug']);
+                            return new \Idno\Common\Tombstone($row['uuid'], $row['id'], $row['slug']);
                         }
                     }
                 } catch (\Exception $e) {
@@ -326,7 +326,7 @@
                     $statement = $this->client->prepare("select distinct tombstones.* from tombstones where slug = :slug");
                     if ($statement->execute(array(':slug' => $slug))) {
                         if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
-                            return new \Idno\Common\Tombstone($raw['uuid'], $raw['id'], $raw['slug']);
+                            return new \Idno\Common\Tombstone($row['uuid'], $row['id'], $row['slug']);
                         }
                     }
                 } catch (\Exception $e) {
@@ -342,7 +342,7 @@
                     $statement = $this->client->prepare("select distinct tombstones.* from tombstones where uuid = :uuid");
                     if ($statement->execute(array(':uuid' => $uuid))) {
                         if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
-                            return new \Idno\Common\Tombstone($raw['uuid'], $raw['id'], $raw['slug']);
+                            return new \Idno\Common\Tombstone($row['uuid'], $row['id'], $row['slug']);
                         }
                     }
                 } catch (\Exception $e) {
