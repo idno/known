@@ -251,6 +251,7 @@ namespace Tests\Data {
             $this->assertTrue($uuid != $obj2->getUUID());
             $this->assertTrue($slug != $obj2->getSlug());
             
+            $obj2->delete();
         }
         
         
