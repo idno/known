@@ -127,7 +127,7 @@
             
             /**
              * Generate a new ID for SQL storage.
-             * @todo ensure uniqueness against collection and tombstones
+             * @todo ensure uniqueness against collection and tombstones, although collisions should be v.rare
              */
             protected function generateNewID($collection) {
                 return md5(rand() . microtime(true));
