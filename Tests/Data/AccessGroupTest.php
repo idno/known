@@ -30,7 +30,7 @@ namespace Tests\Data {
 
                 // Create user B
                 $user = new \Idno\Entities\User();
-                $user->handle = 'testuserb';
+                $user->handle = 'testuserb';//.microtime(true);
                 $user->email = 'hello@withknown.com';
                 $user->setPassword(md5(rand())); // Set password to something random to mitigate security holes if cleanup fails
                 $user->setTitle('Test User B');

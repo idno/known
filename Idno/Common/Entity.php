@@ -77,9 +77,9 @@
                 if (!empty($this->uuid)) {
                     return $this->uuid;
                 }
-                if ($url = $this->getURL(true)) {
-                    return $url;
-                }
+//                if ($url = $this->getURL(true)) { // Using URLs here is a bad plan. UUIDs must always be unique
+//                    return $url;
+//                }
                 if (!empty($this->_id)) {
                     return \Idno\Core\Idno::site()->config()->url . 'view/' . $this->_id;
                 }
@@ -548,6 +548,14 @@
                     $this->setPublishStatus('published');
                 }
 
+                // Check new object UUIDs against tombstone
+                if (empty($this->_id)) {
+                    if (\Idno\Core\Idno::site()->db()->getTombstoneByUUID($this->getUUID())) {
+                        \Idno\Core\Idno::site()->logging()->debug($this->getUUID() . ' was found in tombstones.');
+                        return false;
+                    }
+                }
+                
                 // Save it to the database
 
                 if (\Idno\Core\Idno::site()->triggerEvent('save', array('object' => $this))) { // dispatch('save', $event)->response()) {
@@ -720,6 +728,12 @@
                 if (empty($slug)) {
                     return false;
                 }
+                
+                // Check that slug doesn't belong to a tombstoned entity
+                if ($tombstone = \Idno\Core\Idno::site()->db()->getTombstoneBySlug($slug)) {
+                    return false; // Slug has been tombstoned, don't use. Force a regeneration if caused by setSlugResilient
+                }
+                
                 if ($entity = \Idno\Common\Entity::getBySlug($slug)) {
                     if ($entity->getUUID() != $this->getUUID()) {
                         return false;
@@ -835,11 +849,15 @@
                         $this->deleteData();
                         \Idno\Core\Idno::site()->triggerEvent('deleted', array('object' => $this));
 
-                      $attachments = $this->getAttachments();
-                      if(!empty($attachments))
-                      {
-                        $this->deleteAttachments();
-                      }
+                        $attachments = $this->getAttachments();
+                        if(!empty($attachments))
+                        {
+                          $this->deleteAttachments();
+                        }
+
+                        // Create tombstone
+                        \Idno\Core\db()->createTombstone($this);
+                        
                         return $return;
                     }
                 }

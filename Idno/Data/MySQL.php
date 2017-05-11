@@ -74,6 +74,7 @@
                                 2016102601,
                                 2016110301,
                                 2017032001,
+                                2017051101,
                             ] as $date) {
                                 if ($basedate < $date) {
                                     if ($sql = @file_get_contents($schema_dir . $date . '.sql')) {
@@ -119,34 +120,6 @@
             }
 
             /**
-             * Returns an instance of the database reference variable
-             * @return string;
-             */
-            function getDatabase()
-            {
-                return $this->database;
-            }
-
-            /**
-             * Returns an instance of the database client reference variable
-             * @return \PDO
-             */
-            function getClient()
-            {
-                return $this->client;
-            }
-
-            /**
-             * MySQL doesn't need the ID to be processed.
-             * @param $id
-             * @return string
-             */
-            function processID($id)
-            {
-                return $id;
-            }
-
-            /**
              * Saves a record to the specified database collection
              *
              * @param string $collection
@@ -159,7 +132,7 @@
                 $collection = $this->sanitiseCollection($collection);
 
                 if (empty($array['_id'])) {
-                    $array['_id'] = md5(rand() . microtime(true));
+                    $array['_id'] = $this->generateNewID($collection);
                 }
                 if (empty($array['uuid'])) {
                     $array['uuid'] = \Idno\Core\Idno::site()->config()->getURL() . 'view/' . $array['_id'];
@@ -733,6 +706,40 @@
 
                 return false;
             }
+
+            public function createTombstone($object) {
+                
+                $_id = md5(rand() . microtime(true));
+                $array = [
+                    '_id' => $_id,
+                    'id' => $object->getID(),
+                    'uuid' => $object->getUUID(),
+                    'slug' => $object->getSlug()
+                ];
+                                
+                $client = $this->client;
+                /* @var \PDO $client */
+
+                $retval          = false;
+                try {
+                    $client->beginTransaction();
+                    $statement = $client->prepare("insert into tombstones
+                                                    (`_id`, `id`, `uuid`, `slug`)
+                                                    values
+                                                    (:_id, :id, :uuid, :slug)
+                                                    on duplicate key update `id` = :id, `uuid` = :uuid, `slug` = :slug");
+                    if ($statement->execute(array(':_id' => $array['_id'], ':id' => $array['id'], ':uuid' => $array['uuid'], ':slug' => $array['slug']))) {
+                        $retval = $array['_id'];
+                    }
+                    $client->commit();
+                } catch (\Exception $e) {
+                    \Idno\Core\Idno::site()->logging()->error($e->getMessage());
+                    $client->rollback();
+                }
+
+                return $retval;
+            }
+
 
         }
 
