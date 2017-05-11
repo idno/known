@@ -734,6 +734,40 @@
                 return false;
             }
 
+            public function createTombstone($object) {
+                
+                $_id = md5(rand() . microtime(true));
+                $array = [
+                    '_id' => $_id,
+                    'id' => $object->getID(),
+                    'uuid' => $object->getUUID(),
+                    'slug' => $object->getSlug()
+                ];
+                                
+                $client = $this->client;
+                /* @var \PDO $client */
+
+                $retval          = false;
+                try {
+                    $client->beginTransaction();
+                    $statement = $client->prepare("insert into tombstones
+                                                    (`_id`, `id`, `uuid`, `slug`)
+                                                    values
+                                                    (:_id, :id, :uuid, :slug)
+                                                    on duplicate key update `id` = :id, `uuid` = :uuid, `slug` = :slug");
+                    if ($statement->execute(array(':_id' => $array['_id'], ':id' => $array['id'], ':uuid' => $array['uuid'], ':slug' => $array['slug']))) {
+                        $retval = $array['_id'];
+                    }
+                    $client->commit();
+                } catch (\Exception $e) {
+                    \Idno\Core\Idno::site()->logging()->error($e->getMessage());
+                    $client->rollback();
+                }
+
+                return $retval;
+            }
+
+
         }
 
     }
