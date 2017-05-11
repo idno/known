@@ -540,6 +540,82 @@
             {
                 return $this->database->$collection->deleteOne(array("_id" => new \MongoDB\BSON\ObjectID($id)));
             }
+            
+            /**
+             * Create a tombstone for this entity.
+             * @param entity The entity.
+             * @return bool
+             */
+            function createTombstone($object) {
+                
+                $collection_obj = $this->database->selectCollection('tombstones');
+                $array = $this->sanitizeFields([
+                    'id' => $object->getID(),
+                    'uuid' => $object->getUUID(),
+                    'slug' => $object->getSlug()
+                ]);
+                
+                if (empty($array['_id'])) {
+                    if ($result = $collection_obj->insertOne($array, array('w' => 1))) { 
+
+                        if ($result->isAcknowledged() && ($result->getInsertedCount() > 0)){
+
+                            $array['_id'] = $result->getInsertedId();
+                            
+                            return $array['_id'];
+                        }
+                    } 
+                } else {
+                    // We already have an ID, we need to replace the existing one
+                    if ($result = $collection_obj->findOneAndReplace(['_id' => $array['_id']], $array)) {
+                        return $array['_id'];
+                    }
+                }
+
+                return false;
+            }
+            
+            /**
+             * Retrieve a tombstone by UUID.
+             * Used to verify that a UUID hasn't been seen before.
+             * @return tombstone|false
+             */
+            function getTombstoneByUUID($uuid) {
+                if ($raw = $this->database->tombstones->findOne(array("uuid" => $uuid)))
+                {
+                    $raw = $this->unsanitizeFields($raw);
+                    
+                    return new \Idno\Common\Tombstone($raw['uuid'], $raw['id'], $raw['slug']);
+                }
+            }
+            
+            /**
+             * Retrieve a tombstone by Slug.
+             * Used to verify that a slug hasn't been seen before.
+             * @return tombstone|false
+             */
+            function getTombstoneBySlug($slug) {
+                if ($raw = $this->database->tombstones->findOne(array("slug" => $slug))) 
+                {
+                    $raw = $this->unsanitizeFields($raw);
+                    
+                    return new \Idno\Common\Tombstone($raw['uuid'], $raw['id'], $raw['slug']);
+                }
+            }
+            
+            /**
+             * Retrieve a tombstone by ID.
+             * Used to verify that a ID hasn't been seen before.
+             * @return tombstone|false
+             */
+            function getTombstoneByID($id) {
+                if ($raw = $this->database->tombstones->findOne(array("id" => $id)))
+                {
+                    $raw = $this->unsanitizeFields($raw);
+                    
+                    return new \Idno\Common\Tombstone($raw['uuid'], $raw['id'], $raw['slug']);
+                }
+            }
 
             /**
              * Retrieve the filesystem associated with the current db, suitable for saving
