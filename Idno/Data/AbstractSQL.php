@@ -303,6 +303,54 @@
                 return array('$search' => array($query));
             }
 
+            
+            public function getTombstoneByID($id) {
+                try {
+                    
+                    $statement = $this->client->prepare("select distinct tombstones.* from tombstones where id = :id");
+                    if ($statement->execute(array(':id' => $id))) {
+                        if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
+                            return new \Idno\Common\Tombstone($raw['uuid'], $raw['id'], $raw['slug']);
+                        }
+                    }
+                } catch (\Exception $e) {
+                    \Idno\Core\Idno::site()->logging()->error($e->getMessage());
+                }
+
+                return false;
+            }
+
+            public function getTombstoneBySlug($slug) {
+                try {
+                    
+                    $statement = $this->client->prepare("select distinct tombstones.* from tombstones where slug = :slug");
+                    if ($statement->execute(array(':slug' => $slug))) {
+                        if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
+                            return new \Idno\Common\Tombstone($raw['uuid'], $raw['id'], $raw['slug']);
+                        }
+                    }
+                } catch (\Exception $e) {
+                    \Idno\Core\Idno::site()->logging()->error($e->getMessage());
+                }
+
+                return false;
+            }
+
+            public function getTombstoneByUUID($uuid) {
+                try {
+                    
+                    $statement = $this->client->prepare("select distinct tombstones.* from tombstones where uuid = :uuid");
+                    if ($statement->execute(array(':uuid' => $uuid))) {
+                        if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
+                            return new \Idno\Common\Tombstone($raw['uuid'], $raw['id'], $raw['slug']);
+                        }
+                    }
+                } catch (\Exception $e) {
+                    \Idno\Core\Idno::site()->logging()->error($e->getMessage());
+                }
+
+                return false;
+            }
         }
 
     }
