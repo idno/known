@@ -643,6 +643,35 @@
             {
                 return false; // TODO
             }
+
+            public function createTombstone($object) {
+                $_id = md5(rand() . microtime(true));
+                $array = [
+                    '_id' => $_id,
+                    'id' => $object->getID(),
+                    'uuid' => $object->getUUID(),
+                    'slug' => $object->getSlug()
+                ];
+
+                $client = $this->client;
+                /* @var \PDO $client */
+
+                $retval          = false;
+                try {
+                    $statement = $client->prepare("insert or replace into tombstones
+                                                    (`_id`, `id`, `uuid`, `slug`)
+                                                    values
+                                                    (:_id, :id, :uuid, :slug)");
+                    if ($statement->execute(array(':_id' => $array['_id'], ':id' => $array['id'], ':uuid' => $array['uuid'], ':slug' => $array['slug']))) {
+                        $retval = $array['_id'];
+                    }
+                } catch (\Exception $e) {
+                    \Idno\Core\Idno::site()->logging()->error($e->getMessage());
+                }
+
+                return $retval;
+            }
+
         }
 
     }
