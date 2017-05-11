@@ -633,7 +633,7 @@
                 $retval          = false;
                 try {
                     $upsert = "update tombstones
-                               set uuid=:uuid, id=:id, slug=:slug,
+                               set uuid=:uuid, id=:id, slug=:slug
                                where _id=:_id";
                     $insert = "insert into tombstones
                                    (_id, id, uuid, slug)
