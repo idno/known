@@ -720,6 +720,12 @@
                 if (empty($slug)) {
                     return false;
                 }
+                
+                // Check that slug doesn't belong to a tombstoned entity
+                if ($tombstone = \Idno\Core\Idno::site()->db()->getTombstoneBySlug($slug)) {
+                    return false; // Slug has been tombstoned, don't use. Force a regeneration if caused by setSlugResilient
+                }
+                
                 if ($entity = \Idno\Common\Entity::getBySlug($slug)) {
                     if ($entity->getUUID() != $this->getUUID()) {
                         return false;
@@ -835,11 +841,15 @@
                         $this->deleteData();
                         \Idno\Core\Idno::site()->triggerEvent('deleted', array('object' => $this));
 
-                      $attachments = $this->getAttachments();
-                      if(!empty($attachments))
-                      {
-                        $this->deleteAttachments();
-                      }
+                        $attachments = $this->getAttachments();
+                        if(!empty($attachments))
+                        {
+                          $this->deleteAttachments();
+                        }
+
+                        // Create tombstone
+                        \Idno\Core\db()->createTombstone($this);
+                        
                         return $return;
                     }
                 }

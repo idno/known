@@ -23,12 +23,12 @@
                     $this->client->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
                     $this->client->exec("SELECT * from versions;"); // Quick and dirty check to see if database is installed TODO: do this better.
 
-                } catch (\Exception $e) {
+                } catch (\Exception $e) { 
                     if (strpos($e->getMessage(), 'no such table') !== false) {
                         // Database not installed, try and install it to dbname
                         $dbh      = new \PDO($connection_string);
                         $filename = dirname(dirname(dirname(__FILE__))) . '/schemas/sqlite3/sqlite3.sql';
-                        if (file_exists($filename)) {
+                        if (file_exists($filename)) { 
                             $dbh->exec(@file_get_contents($filename));
                         } else {
                             http_response_code(500);
@@ -79,6 +79,7 @@
                                 2016102601,
                                 2016110301,
                                 2017032001,
+                                2017051101,
                             ] as $date) {
                                 if ($basedate < $date) {
                                     if ($sql = @file_get_contents($schema_dir . $date . '.sql')) {
@@ -148,7 +149,7 @@
                 $collection = $this->sanitiseCollection($collection);
 
                 if (empty($array['_id'])) {
-                    $array['_id'] = md5(rand() . microtime(true));
+                    $array['_id'] = $this->generateNewID($collection);
                 }
                 if (empty($array['uuid'])) {
                     $array['uuid'] = \Idno\Core\Idno::site()->config()->getURL() . 'view/' . $array['_id'];
@@ -643,6 +644,35 @@
             {
                 return false; // TODO
             }
+
+            public function createTombstone($object) {
+                $_id = md5(rand() . microtime(true));
+                $array = [
+                    '_id' => $_id,
+                    'id' => $object->getID(),
+                    'uuid' => $object->getUUID(),
+                    'slug' => $object->getSlug()
+                ];
+
+                $client = $this->client;
+                /* @var \PDO $client */
+
+                $retval          = false;
+                try {
+                    $statement = $client->prepare("insert or replace into tombstones
+                                                    (`_id`, `id`, `uuid`, `slug`)
+                                                    values
+                                                    (:_id, :id, :uuid, :slug)");
+                    if ($statement->execute(array(':_id' => $array['_id'], ':id' => $array['id'], ':uuid' => $array['uuid'], ':slug' => $array['slug']))) {
+                        $retval = $array['_id'];
+                    }
+                } catch (\Exception $e) {
+                    \Idno\Core\Idno::site()->logging()->error($e->getMessage());
+                }
+
+                return $retval;
+            }
+
         }
 
     }
