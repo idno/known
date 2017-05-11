@@ -23,12 +23,12 @@
                     $this->client->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
                     $this->client->exec("SELECT * from versions;"); // Quick and dirty check to see if database is installed TODO: do this better.
 
-                } catch (\Exception $e) {
+                } catch (\Exception $e) { 
                     if (strpos($e->getMessage(), 'no such table') !== false) {
                         // Database not installed, try and install it to dbname
                         $dbh      = new \PDO($connection_string);
                         $filename = dirname(dirname(dirname(__FILE__))) . '/schemas/sqlite3/sqlite3.sql';
-                        if (file_exists($filename)) {
+                        if (file_exists($filename)) { 
                             $dbh->exec(@file_get_contents($filename));
                         } else {
                             http_response_code(500);
