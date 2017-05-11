@@ -124,6 +124,14 @@
             {
                 return $id;
             }
+            
+            /**
+             * Generate a new ID for SQL storage.
+             * @todo ensure uniqueness against collection and tombstones
+             */
+            function generateNewID($collection) {
+                return md5(rand() . microtime(true));
+            }
 
             /**
              * Retrieve objects of a certain kind that we're allowed to see,
