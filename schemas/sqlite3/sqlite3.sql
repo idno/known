@@ -123,7 +123,7 @@ CREATE TABLE IF NOT EXISTS session (
 -- Table structure for table `tombstones`
 --
 
-CREATE TABLE IF NOT EXISTS reader (
+CREATE TABLE IF NOT EXISTS tombstones (
   _id varchar(32) NOT NULL UNIQUE,
   id varchar(32) NOT NULL,
   uuid varchar(255) NOT NULL PRIMARY KEY,
