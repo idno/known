@@ -229,24 +229,27 @@ namespace Tests\Data {
             $obj->delete();
             
             // check its tombstone by uuid, id and slug
-            $ts = \Idno\Core\Idno::site()->db()->getTombstoneByID($id);
-            $this->assertTrue($ts->id == $id);
-            
             $ts = \Idno\Core\Idno::site()->db()->getTombstoneByUUID($uuid);
+            $this->assertTrue(!empty($ts));
             $this->assertTrue($ts->uuid == $uuid);
             
+            $ts = \Idno\Core\Idno::site()->db()->getTombstoneByID($id);
+            $this->assertTrue(!empty($ts));
+            $this->assertTrue($ts->id == $id);
+                        
             $ts = \Idno\Core\Idno::site()->db()->getTombstoneBySlug($slug);
-            $this->assertTrue($ts->slug == $slug);
+            $this->assertTrue(!empty($ts));
+            $this->assertTrue($ts->slug == $slug); 
             
             // attempt recreate object (should recreate but check slug is different)
-            $obj = new \Idno\Entities\GenericDataItem();
-            $obj->setDatatype('UnitTestObject');
-            $obj->setTitle("This is a test obj to test object tombstoning");
-            $id = $obj->save();
+            $obj2 = new \Idno\Entities\GenericDataItem();
+            $obj2->setDatatype('UnitTestObject');
+            $obj2->setTitle("This is a test obj to test object tombstoning");
+            $obj2->save();
             
-            $this->assertTrue($id != $obj->getID());
-            $this->assertTrue($uuid != $obj->getUUID());
-            $this->assertTrue($slug != $obj->getSlug());
+            $this->assertTrue($id != $obj2->getID());
+            $this->assertTrue($uuid != $obj2->getUUID());
+            $this->assertTrue($slug != $obj2->getSlug());
             
         }
         
