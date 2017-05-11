@@ -17,6 +17,13 @@ namespace Idno\Common {
         public $id;
         public $slug;
                         
+        public function __construct($uuid, $id, $slug) {
+            $this->uuid = $uuid;
+            $this->id = $id;
+            $this->slug = $slug;
+            
+            parent::__construct();
+        }
     }
 
 }
