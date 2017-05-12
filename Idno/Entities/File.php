@@ -189,7 +189,7 @@
                                             }
                                             
                                             $metadata['width']= imagesx($image);
-                                            $metadata['height'] = imagesy($image); error_log("HERE".print_r($metadata, true));
+                                            $metadata['height'] = imagesy($image); 
                                         }
 
                                         imagejpeg($image, $tmpfname);
