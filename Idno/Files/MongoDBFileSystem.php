@@ -74,7 +74,7 @@
             public function storeFile($file_path, $metadata, $options) {
 
                 $bucket = $this->gridfs_object;
-                error_log("Storing $file_path with " . print_r($metadata, true));
+               
                 try {
                     
                     if ($source = fopen($file_path, 'rb')) {
