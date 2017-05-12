@@ -36,6 +36,8 @@
     </div>
 </form>
 <script>
+    
+    
     //if (typeof photoPreview !== function) {
     function photoPreview(input) {
 
@@ -43,9 +45,15 @@
             var reader = new FileReader();
 
             reader.onload = function (e) {
+                
                 $('#photo-preview').html('<img src="" id="photopreview" style="height: 200px">');
                 $('#photo-filename').html('Choose a different image');
                 $('#photopreview').attr('src', e.target.result);
+                
+                var exif = EXIF.readFromBinaryFile(base64ToArrayBuffer(this.result));
+    
+                exifRotateImg('#photopreview', exif.Orientation);
+                
                 $('#photopreview').show();
                 $('#upload-button').show();
             }

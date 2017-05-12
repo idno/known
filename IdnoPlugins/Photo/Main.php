@@ -10,6 +10,13 @@
                 \Idno\Core\Idno::site()->addPageHandler('/photo/delete/([A-Za-z0-9]+)/?', '\IdnoPlugins\Photo\Pages\Delete');
             }
 
+            function registerEventHooks() {
+                \Idno\Core\Idno::site()->addEventHook('page/get', function (\Idno\Core\Event $event) { 
+                    \Idno\Core\Idno::site()->currentPage()->setAsset("image", \Idno\Core\Idno::site()->config()->getDisplayURL() . 'js/image.js', 'javascript');
+                    \Idno\Core\Idno::site()->currentPage()->setAsset("exif-js", \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/exif-js/exif.js', 'javascript');
+                });
+            }
+            
             /**
              * Get the total file usage
              * @param bool $user
