@@ -15,25 +15,41 @@ function base64ToArrayBuffer(base64) {
 
 /**
  * Transform an img ID based on the passed exif orientation.
- * @param {type} imgid 
- * @param {type} exif.Orientation
+ * @param string imgid ID of the image to rotate
+ * @param exif.Orientation exif_orientation The orientation data from exif
+ * @param string containerdiv the containing div
  * @returns {undefined}
  */
-function exifRotateImg(imgid, exif_orientation) {
+function exifRotateImg(imgid, exif_orientation, containerdiv) {
+    
+    var h = $(imgid).height();
+    var w = $(imgid).width();
     
     switch(exif_orientation){
 
 	case 8:
 	    var angle = -90;
+	    
+	    $(imgid).css('transform-origin', '0 0');
 	    $(imgid).css('transform', 'rotate(' + angle + 'deg)');
+	    $(imgid).css('margin-left', '100%');
+	    //$(containerdiv).css("width",h+"px");
+	    $(containerdiv).css("width",w+"px");
+	    $(containerdiv).css("height",w+"px");
 	    break;
 	case 3:
 	    var angle = 180;
+	    $(imgid).css('transform-origin', '0 0');
 	    $(imgid).css('transform', 'rotate(' + angle + 'deg)');
 	    break;
 	case 6:
 	    var angle = 90;
+	    $(imgid).css('transform-origin', '0 0');
+	    $(imgid).css('margin-left', '100%');
 	    $(imgid).css('transform', 'rotate(' + angle + 'deg)');
+	    //$(containerdiv).css("width",h+"px");
+	    $(containerdiv).css("width",w+"px");
+	    $(containerdiv).css("height",w+"px");
 	    break;
      }
 }
