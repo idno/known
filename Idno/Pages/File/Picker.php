@@ -14,6 +14,9 @@
             function getContent()
             {
 
+                $this->setAsset("image", \Idno\Core\Idno::site()->config()->getDisplayURL() . 'js/image.js', 'javascript');
+                $this->setAsset("exif-js", \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/exif-js/exif.js', 'javascript');
+                
                 $template   = 'file/picker/image';
                 $t          = \Idno\Core\Idno::site()->template();
                 $t->title   = 'Image picker';

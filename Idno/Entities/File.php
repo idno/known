@@ -51,7 +51,7 @@
                                 imagecolortransparent($image, $background);
                                 break;
                         }
-                        if (!empty($image)) { error_log("OIriantation $orientation");
+                        if (!empty($image)) {
                             if (isset($orientation)) {
                                 switch ($orientation) {
                                     case 8:

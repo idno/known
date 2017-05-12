@@ -125,8 +125,13 @@
                 var reader = new FileReader();
 
                 reader.onload = function (e) {
-                    $('#photo-preview').html('<img src="" id="photopreview" style="display:none; width: 400px">');
+                    $('#photo-preview').html('<img src="" id="photopreview" style="display:none; width: 400px;">');
                     $('#photo-filename').html('Choose different photo');
+                    
+                    var exif = EXIF.readFromBinaryFile(base64ToArrayBuffer(this.result));
+    
+                    exifRotateImg('#photopreview', exif.Orientation, '#photo-preview');
+                
                     $('#photopreview').attr('src', e.target.result);
                     $('#photopreview').show();
                 }
