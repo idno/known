@@ -52,7 +52,7 @@
                 
                 var exif = EXIF.readFromBinaryFile(base64ToArrayBuffer(this.result));
     
-                exifRotateImg('#photopreview', exif.Orientation);
+                exifRotateImg('#photopreview', exif.Orientation, '#photo-preview');
                 
                 $('#photopreview').show();
                 $('#upload-button').show();
