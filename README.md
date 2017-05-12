@@ -89,4 +89,3 @@ Third party libraries are licensed separately.
 * Wavesurfer, which is distrubuted under a Creative Commons Attribution 3.0 Unported License. Source: https://github.com/katspaugh/wavesurfer.js
 * MongoDB-PHP-Library, which is distributed under the Apache 2 Licence. Source: https://github.com/mongodb/mongo-php-library
 * Exif-js, which is distributed under the MIT Licence. Source: https://github.com/exif-js/exif-js
-* Binaryajax, which is distributed under the MPL License. Source: https://github.com/jseidelin/binaryajax
