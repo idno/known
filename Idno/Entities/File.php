@@ -29,7 +29,7 @@
                 if (is_callable('exif_read_data')) {
                     try {
                         if ($exif = exif_read_data($file_path)) {
-                            if (!empty($exif['Orientation'])) $orientation = $exif['Orientation'];
+                            if (!empty($exif['Orientation'])) $orientation = $exif['Orientation']; 
                         }
                     } catch (\Exception $e) {}
                 }
@@ -51,7 +51,7 @@
                                 imagecolortransparent($image, $background);
                                 break;
                         }
-                        if (!empty($image)) {
+                        if (!empty($image)) { error_log("OIriantation $orientation");
                             if (isset($orientation)) {
                                 switch ($orientation) {
                                     case 8:
@@ -93,8 +93,8 @@
                             } else {
                                 $new_height      = $height;
                                 $new_width       = $width;
-                                $original_height = $photo_information[1];
-                                $original_width  = $photo_information[0];
+                                $original_height = $existing_height;//$photo_information[1];
+                                $original_width  = $existing_width; //$photo_information[0];
                                 $offset_x        = 0;
                                 $offset_y        = 0;
                             }
@@ -187,10 +187,14 @@
                                                         break;
                                                 }
                                             }
+                                            
+                                            $metadata['width']= imagesx($image);
+                                            $metadata['height'] = imagesy($image); 
                                         }
 
                                         imagejpeg($image, $tmpfname);
                                     } catch (\Exception $e) {
+                                        \Idno\Core\Idno::site()->logging()->error($e->getMessage());
                                     }
                                     break;
                             }

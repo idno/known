@@ -33,11 +33,16 @@
                             $return = false;
                             $file   = false;
                             if ($file = \Idno\Entities\File::createThumbnailFromFile($_FILES['file']['tmp_name'], $_FILES['file']['name'], 1024)) {
+                                
+                                \Idno\Core\Idno::site()->logging()->debug("Creating new file from thumbnail as {$file}");
+                                
                                 $return           = true;
                                 $returnfile       = new \stdClass;
                                 $returnfile->file = ['_id' => $file];
                                 $file             = $returnfile;
-                            } else if ($file = \Idno\Entities\File::createFromFile($_FILES['file']['tmp_name'], $_FILES['file']['name'], $_FILES['file']['type'], true)) {
+                            } else if ($file = \Idno\Entities\File::createFromFile($_FILES['file']['tmp_name'], $_FILES['file']['name'], $_FILES['file']['type'], true, true)) {
+                                \Idno\Core\Idno::site()->logging()->debug("Creating new file");
+                                
                                 $return = true;
                             }
                             if ($return) {
