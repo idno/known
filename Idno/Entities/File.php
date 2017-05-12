@@ -29,7 +29,7 @@
                 if (is_callable('exif_read_data')) {
                     try {
                         if ($exif = exif_read_data($file_path)) {
-                            if (!empty($exif['Orientation'])) $orientation = $exif['Orientation'];
+                            if (!empty($exif['Orientation'])) $orientation = $exif['Orientation']; 
                         }
                     } catch (\Exception $e) {}
                 }
@@ -187,10 +187,14 @@
                                                         break;
                                                 }
                                             }
+                                            
+                                            $metadata['width']= imagesx($image);
+                                            $metadata['height'] = imagesy($image); error_log("HERE".print_r($metadata, true));
                                         }
 
                                         imagejpeg($image, $tmpfname);
                                     } catch (\Exception $e) {
+                                        \Idno\Core\Idno::site()->logging()->error($e->getMessage());
                                     }
                                     break;
                             }
