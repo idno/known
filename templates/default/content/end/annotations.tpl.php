@@ -1,17 +1,14 @@
 <?php
 
-    if ($replies = $vars['object']->getAnnotations('reply')) {
-        echo $this->__(array('annotations' => $replies))->draw('entity/annotations/replies');
+    foreach (['reply'   => 'replies',
+              'like'    => 'likes',
+              'share'   => 'shares',
+              'rsvp'    => 'rsvps',
+              'mention' => 'mentions'] as $annotationType => $templateName) {
+
+        if ($annotations = $vars['object']->getAnnotations($annotationType)) {
+            echo $this->__(array('annotations' => $annotations))->draw('entity/annotations/' . $templateName);
+        }
+
     }
-    if ($likes = $vars['object']->getAnnotations('like')) {
-        echo $this->__(array('annotations' => $likes))->draw('entity/annotations/likes');
-    }
-    if ($shares = $vars['object']->getAnnotations('share')) {
-        echo $this->__(array('annotations' => $shares))->draw('entity/annotations/shares');
-    }
-    if ($rsvps = $vars['object']->getAnnotations('rsvp')) {
-        echo $this->__(array('annotations' => $rsvps))->draw('entity/annotations/rsvps');
-    }
-    if ($mentions = $vars['object']->getAnnotations('mention')) {
-        echo $this->__(array('annotations' => $mentions))->draw('entity/annotations/mentions');
-    }
+
