@@ -58,16 +58,16 @@ h1, h2, h3, h4, h5, h6 {
 	margin:0; padding: 0;
 }
 
-.idno-body .p-bookmark a, .idno-posts h2.p-bookmark {
+.idno-body .idno-bookmark a, .idno-posts h2.idno-bookmark {
 	font-size: 32px;
 	margin: 0; padding: 0;
 }
 
-h2.p-bookmark a {
+h2.idno-bookmark a {
 	color: #000000;
 }
 
-h2.p-bookmark a:hover, h2.p-bookmark a:focus {
+h2.idno-bookmark a:hover, h2.idno-bookmark a:focus {
 	color: #333333;
 }
 
