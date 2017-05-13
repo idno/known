@@ -44,6 +44,8 @@
         'og:image'     => $currentPage->getIcon()
     );
 
+    if (!empty($vars['description'])) $opengraph['og:description'] = $vars['description'];
+
     if ($currentPage->isPermalink()) {
 
         $opengraph['og:url'] = $currentPage->currentUrl();
