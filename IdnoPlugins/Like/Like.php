@@ -60,7 +60,7 @@
                 $str = \Idno\Core\Webservice::file_get_contents($Url);
                 if(strlen($str) > 0){
                     if ($result = preg_match("/\<title\>(.*)\<\/title\>/siu",$str,$title)) {
-                        return htmlspecialchars_decode($title[1]);
+                        return html_entity_decode($title[1], ENT_QUOTES | ENT_XML1, 'UTF-8');
                     }
                 }
                 return '';
