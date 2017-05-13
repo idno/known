@@ -13,7 +13,7 @@
         {
 
             /**
-             * Fetch syndication endpoints from Convoy.
+             * Fetch syndication endpoints from a Known hub.
              *
              * @param array $account_strings flat list of syndication
              *   IDs
