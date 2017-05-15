@@ -91,6 +91,19 @@
             }
 
             /**
+             * Archive a mentioned URL with the wayback machine
+             * @param type $url
+             */
+            protected function archiveWayback($url) {
+                
+                \Idno\Core\Idno::site()->logging()->debug("Attempting to archive $url to the wayback machine.");
+                
+                $result = \Idno\Core\Webservice::get("https://web.archive.org/save/" . $url);
+                
+                //\Idno\Core\Idno::site()->logging()->debug("Wayback result is " . print_r($result, true));
+            }
+            
+            /**
              * Saves changes to this object based on user input
              * @return true|false
              */
@@ -153,6 +166,13 @@
                         if ($context = $this->findObjectByUrl($this->body)) {
                             $this->object_context_uuid = $context->getUUID();
                             \Idno\Core\Idno::site()->logging()->debug("Object context for {$this->body} found as {$this->object_context_uuid}");
+                        }
+                        
+                        // Archive this, if 
+                        if ($new && \Idno\Core\Idno::site()->currentPage()->getInput('archive', 'y')) {
+                            $this->archiveWayback($this->body);
+                            
+                            $this->waybackArchive = time();
                         }
                         
                         $this->setAccess($access);
