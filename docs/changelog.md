@@ -2,6 +2,22 @@
 
 Starting with version 0.6.4, this is a list of changes in the self-hosted, open source version of Known.
 
+0.9.9
+-----
+May 15, 2017
+
+* A simpler user registration experience
+* Fixed image preview rotation
+* Removed Convoy
+* Improved indieweb support
+* Improved migration support
+* Advanced access control internal API
+* Design and layout fixes
+* Better error pages
+* Support for PHP 7
+* Deprecated support for MongoDB
+* Countless fixes and speed improvements in the background
+
 0.9.2
 -----
 April 23, 2016
