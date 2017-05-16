@@ -159,7 +159,22 @@ namespace Idno\Core {
                     $message .= ' ' . $context;
                 }
 
-                error_log("Known ({$this->identifier}): $level - $message{$trace}");
+                $logline = "Known ({$this->identifier}): $level - $message{$trace}";
+                error_log($logline);
+                
+                // Have we enabled local capture (not recommended, but handy for debugging situations where you can't retrieve apache/php logs)
+                if (!empty(\Idno\Core\Idno::site()->config()->capture_logs) && \Idno\Core\Idno::site()->config()->capture_logs) {
+                    $f = fopen(\Idno\Core\Idno::site()->config()->getTempDir() . \Idno\Core\Idno::site()->config()->host . '.log', 'a');
+                    
+                    // Make threadsafe
+                    if (flock($f, LOCK_EX)) {
+                        fwrite($f, date('r') . ": $logline\n");
+                        fflush($f);
+                        flock($f, LOCK_UN);
+                    }
+                    
+                    fclose($f);
+                }
             }
         }
 

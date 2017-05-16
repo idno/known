@@ -9,5 +9,8 @@
   <li <?php if (\Idno\Core\Idno::site()->currentPage()->doesPathMatch('/admin/export/')) echo 'class="active"'; ?> role="presentation"><a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>admin/export/" >Export</a></li>
   <li <?php if (\Idno\Core\Idno::site()->currentPage()->doesPathMatch('/admin/import/')) echo 'class="active"'; ?> role="presentation"><a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>admin/import/" >Import</a></li>
   <li <?php if (\Idno\Core\Idno::site()->currentPage()->doesPathMatch('/admin/diagnostics/')) echo 'class="active"'; ?> role="presentation"><a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>admin/diagnostics/">Diagnostics</a></li>
+  <?php if (!empty(\Idno\Core\Idno::site()->config()->capture_logs) && \Idno\Core\Idno::site()->config()->capture_logs) { ?>
+    <li <?php if (\Idno\Core\Idno::site()->currentPage()->doesPathMatch('/admin/logs/')) echo 'class="active"'; ?> role="presentation"><a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>admin/logs/">Captured Logs</a></li>
+  <?php } ?>
   <li <?php if (\Idno\Core\Idno::site()->currentPage()->doesPathMatch('/admin/about/')) echo 'class="active"'; ?> role="presentation"><a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>admin/about/">About</a></li>
 </ul>
