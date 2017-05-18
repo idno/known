@@ -49,6 +49,10 @@ specifying a minimum version of those plugins):
     plugin[] =          "Known plugin"
     plugin[] =          "Another Known plugin,0.8"
 
+
+!!! note "Note"
+    Your plugin name is the name of the plugin's main directory/namespace, e.g. ```Status``` for the status plugin.
+
 The requirements section may also define a minimum PHP version and
 Known core version.
 
