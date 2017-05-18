@@ -4,23 +4,14 @@
 
     // Construct requirements array
     $requirements = [];
-    if (isset($plugin_description['php'])) {
-        $requirements['php'] = $plugin_description['php'];
+    foreach(['php', 'known', 'idno', 'build', 'extension', 'plugin'] as $field) {
+        if (isset($vars['plugin']['requirements'][$field]))
+            $requirements[$field] = $vars['plugin']['requirements'][$field];
+        else if (isset($plugin_description[$field]))
+            $requirements[$field] = $plugin_description[$field];
     }
-    if (isset($plugin_description['known'])) {
-        $requirements['known'] = $plugin_description['known'];
-    } else if (isset($plugin_description['idno'])) {
-        $requirements['known'] = $plugin_description['idno'];
-    }
-    if (isset($plugin_description['build'])) {
-        $requirements['build'] = $plugin_description['build'];
-    }
-    if (isset($plugin_description['extension'])) {
-        $requirements['extension'] = $plugin_description['extension'];
-    }
-    if (isset($plugin_description['plugin'])) {
-        $requirements['plugin'] = $plugin_description['plugin'];
-    }
+    
+    
 ?>
 <div class="well well-large">
     <div class="row">
@@ -103,14 +94,14 @@
                             }
                         ?>
 
-                        <?php
-                            if (isset($requirements['plugin'])) {
+                        <?php 
+                            if (isset($requirements['plugin'])) { 
                                 if (!is_array($requirements['plugin']))
                                     $requirements['plugin'] = array($requirements['plugin']);
                                 ?>
                                 <p><label>Plugins: <?php
                                             foreach ($requirements['plugin'] as $plugin) {
-                                                list($plugin, $version) = explode(',', $plugin);
+                                                @list($plugin, $version) = explode(',', $plugin);
                                                 echo $this->__(array('plugin' => $plugin, 'version' => $version))->draw('admin/dependencies/plugin');
                                             }
                                         ?> </label></p>
