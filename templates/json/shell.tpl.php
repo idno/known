@@ -106,6 +106,8 @@
                 unset($feedItem['content_html']);
             } else if ($item instanceof \IdnoPlugins\Photo\Photo) {
                 $feedItem['_indieweb']['type'] = 'photo';
+                $feedItem['content_html'] = $feedItem['content_text'];
+                unset($feedItem['content_text']);
             } else if ($item instanceof \IdnoPlugins\Text\Entry) {
                 $feedItem['_indieweb']['type'] = 'entry';
                 $feedItem['content_html'] = $feedItem['content_text'];
