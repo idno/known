@@ -377,8 +377,14 @@
                             if (!empty($trace[0]))
                                 $call_trace .= "Forward at {$trace[0]['file']}:{$trace[0]['line']}";
                                 
-                            if (!empty($trace[1]))
-                                $call_trace .= ", called by {$trace[1]['function']} in {$trace[1]['file']}:{$trace[1]['line']}";
+                            if (!empty($trace[1])) {
+                                $trace_file = 'UNKNOWN';
+                                if (!empty($trace[1]['file'])) $trace_file = $trace[1]['file'];
+                                $trace_line = 'xxx';
+                                if (!empty($trace[1]['line'])) $trace_line = $trace[1]['line'];
+                                
+                                $call_trace .= ", called by {$trace[1]['function']} in {$trace_file}:{$trace_line}";
+                            }
                                 
                             $log = \Idno\Core\Idno::site()->logging();
                             if (!empty($log)) {
