@@ -139,7 +139,7 @@ namespace Idno\Core {
                 $trace = "";
                 if ($this->loglevel_filter == LOGLEVEL_DEBUG) {
                     $backtrace = @debug_backtrace(false, 3);
-                    foreach (array_reverse($backtrace) as $frame) {
+                    foreach (array_reverse($backtrace) as $frame) { 
                         if (isset($frame['class']) && isset($frame['file']) && isset($frame['line']) && $frame['class'] !== 'Idno\Core\Logging') {
                             $trace = " [{$frame['file']}:{$frame['line']}]";
                             break;
@@ -159,8 +159,17 @@ namespace Idno\Core {
                     $message .= ' ' . $context;
                 }
 
-                $logline = "Known ({$this->identifier}): $level - $message{$trace}";
-                error_log($logline);
+                $lines = 0;
+                $message = explode("\n", $message); 
+                foreach ($message as $log) {
+                    $logline = "Known ({$this->identifier}): $level - $log";
+                    
+                    if ($lines == count($message)-1)
+                        $logline.=$trace;
+                    
+                    error_log($logline);
+                    $lines ++;
+                }
                 
                 // Have we enabled local capture (not recommended, but handy for debugging situations where you can't retrieve apache/php logs)
                 if (!empty(\Idno\Core\Idno::site()->config()->capture_logs) && \Idno\Core\Idno::site()->config()->capture_logs) {
