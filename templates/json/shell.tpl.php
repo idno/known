@@ -70,11 +70,12 @@
                 $feedItem['author']['avatar'] = $owner->getIcon();
             }
 
-            $feedItem['content_html'] = $item->draw();
-            $feedItem['content_text'] = $item->getBody();
+            $feedItem['content_html'] = $item->getBody();
 
             $feedItem['_indieweb'] = array();
-            if ($item instanceof \IdnoPlugins\Like\Like) {
+            if (method_exists($item, 'getMetadataForFeed')) {
+                $feedItem['_indieweb'] = $item->getMetadataForFeed();
+            } else if ($item instanceof \IdnoPlugins\Like\Like) {
                 $feedItem['external_url'] = $item->getBody();
                 unset($feedItem['content_text']);
                 if (!empty($item->repostof)) {
@@ -106,12 +107,13 @@
                 unset($feedItem['content_html']);
             } else if ($item instanceof \IdnoPlugins\Photo\Photo) {
                 $feedItem['_indieweb']['type'] = 'photo';
-                $feedItem['content_html'] = $feedItem['content_text'];
-                unset($feedItem['content_text']);
             } else if ($item instanceof \IdnoPlugins\Text\Entry) {
                 $feedItem['_indieweb']['type'] = 'entry';
-                $feedItem['content_html'] = $feedItem['content_text'];
-                unset($feedItem['content_text']);
+            } else {
+                $type = $item->getContentTypeTitle();
+                $feedItem['_indieweb']['type'] = strtolower($type);
+                $feedItem['title'] = $type . ": " . $feedItem['title'];
+                $feedItem['content_html'] = $item->draw();
             }
 
             if ($attachments = $item->getAttachments()) {
