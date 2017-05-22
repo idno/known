@@ -431,8 +431,8 @@
                     if (empty($fields)) {
                         $fields = [];
                     }
-                    $fields['limit'] = $limit;
-                    $fields['skip'] = $offset;
+                    $fields['limit'] = (int) $limit;
+                    $fields['skip'] = (int) $offset;
                     $fields['sort'] = array('created' => -1);
                     
                     $result = $this->database->$collection
