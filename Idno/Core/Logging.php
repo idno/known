@@ -140,7 +140,7 @@ namespace Idno\Core {
                 if ($this->loglevel_filter == LOGLEVEL_DEBUG) {
                     $backtrace = @debug_backtrace(false, 3);
                     foreach (array_reverse($backtrace) as $frame) { 
-                        if (isset($frame['class']) && isset($frame['file']) && isset($frame['line']) && $frame['class'] !== 'Idno\Core\Logging') {
+                        if (isset($frame['class']) && isset($frame['file']) && isset($frame['line']) /*&& $frame['class'] !== 'Idno\Core\Logging'*/) {
                             $trace = " [{$frame['file']}:{$frame['line']}]";
                             break;
                         }
