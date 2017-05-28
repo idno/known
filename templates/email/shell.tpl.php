@@ -18,7 +18,7 @@
         table {border-spacing:0;}
         table td {border-collapse:collapse;}
         .yshortcuts a {border-bottom: none !important;}
-
+        span.preheader { display: none !important; }
 
         /* Constrain email width for small screens */
         @media screen and (max-width: 600px) {
@@ -37,8 +37,11 @@
 
     </style>
 </head>
-<body style="margin:0; padding:10px 0;" bgcolor="#ebebeb" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-
+<body style="margin:0; padding:10px 0;" bgcolor="#ebebeb" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"><?php
+if (!empty($vars['preheader'])) {
+    ?><span class="preheader"><?= $vars['preheader']; ?></span><?php
+}
+?>
 <br>
 
 <!-- 100% wrapper (grey background) -->
