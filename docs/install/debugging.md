@@ -10,4 +10,4 @@ To get more detailed logs, you can try adding ``` logging = 4 ``` in your config
 
 # Diagnostics
 
-Admin users have access to various diagnostics which may shed light on any issues you may find, go to "Site Configuration" and click on "Diagnostics"
+Admin users have access to various diagnostics which may shed light on any issues you may find, go to "Site Configuration" and click on "Diagnostics". Be aware these reports will contain sensitive information, so be careful to whom you disclose them, and never post them publicly on the internet!
