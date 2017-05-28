@@ -162,7 +162,7 @@ namespace Idno\Core {
                 $lines = 0;
                 $message = explode("\n", $message); 
                 foreach ($message as $log) {
-                    $logline = "Known ({$this->identifier}): $level - $log";
+                    $logline = "Known ({$this->identifier}): $level - " . rtrim($log);
                     
                     if ($lines == count($message)-1)
                         $logline.=$trace;
