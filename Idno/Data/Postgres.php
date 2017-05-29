@@ -121,7 +121,7 @@
                 $collection = $this->sanitiseCollection($collection);
 
                 if (empty($array['_id'])) {
-                    $array['_id'] = md5(rand() . microtime(true));
+                    $array['_id'] = md5(mt_rand() . microtime(true));
                 }
                 if (empty($array['uuid'])) {
                     $array['uuid'] = \Idno\Core\Idno::site()->config()->getURL() . 'view/' . $array['_id'];

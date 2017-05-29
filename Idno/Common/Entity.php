@@ -517,7 +517,7 @@
                 if (!$this->getSlug() && empty($this->_id)) {
                     if (!($title = $this->getTitle())) {
                         if (!($title = $this->getDescription())) {
-                            $title = md5(rand() . microtime(true));
+                            $title = md5(mt_rand() . microtime(true));
                         }
                     }
                     //\Idno\Core\Idno::site()->logging()->debug("Setting resilient slug");
@@ -1221,10 +1221,10 @@
                     return $short;
                 }
 
-                $seed = rand(0, 99999999);
+                $seed = mt_rand(); //rand(0, 99999999);
                 $code = shorten($seed);
                 while ($entity = static::getByShortURL($code)) {
-                    $code = shorten(rand(0, 99999999));
+                    $code = shorten(mt_rand()); //shorten(rand(0, 99999999));
                 }
                 $this->shorturl = $code;
                 $this->save();
@@ -1725,7 +1725,8 @@
             {
                 $url = $this->getURL();
                 if (\Idno\Core\Idno::site()->config()->unique_urls) {
-                    $url = \Idno\Core\Idno::site()->template()->getURLWithVar('rnd', rand(0, 999999), $url);
+                    //$url = \Idno\Core\Idno::site()->template()->getURLWithVar('rnd', rand(0, 999999), $url);
+                    $url = \Idno\Core\Idno::site()->template()->getURLWithVar('rnd', mt_rand(), $url);
                 }
 
                 return $url;
