@@ -20,7 +20,7 @@
                     $this->forward();
                 }
 
-                $fwd = $this->getInput('fwd'); // Forward to a new page?
+                $fwd = \Idno\Core\Webservice::base64UrlDecode($this->getInput('fwd')); // Forward to a new page?
                 if ($fwd == \Idno\Core\Idno::site()->config()->url . 'session/login') {
                     $fwd = '';
                 }
@@ -36,7 +36,7 @@
                 $fwd = $this->getInput('fwd'); // Forward to a new page?
                 if (empty($fwd)) {
                     $fwd = \Idno\Core\Idno::site()->config()->url;
-                }
+                } 
 
                 $this->referrerGatekeeper();
 
@@ -50,16 +50,16 @@
                 if ($user instanceof \Idno\Entities\User) {
                     if ($user->checkPassword(trim($this->getInput('password')))) {
                         \Idno\Core\Idno::site()->triggerEvent('login/success', array('user' => $user)); // Trigger an event for auditing
-                        \Idno\Core\Idno::site()->session()->logUserOn($user);
+                        \Idno\Core\Idno::site()->session()->logUserOn($user); 
                         $this->forward($fwd);
                     } else {
                         \Idno\Core\Idno::site()->session()->addErrorMessage("Oops! It looks like your password isn't correct. Please try again.");
                         \Idno\Core\Idno::site()->triggerEvent('login/failure', array('user' => $user));
-                        $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login/?fwd=' . urlencode($fwd));
+                        $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login/?fwd=' . \Idno\Core\Webservice::base64UrlEncode($fwd));
                     }
                 } else {
                     \Idno\Core\Idno::site()->session()->addErrorMessage("Oops! We couldn't find your username or email address. Please check you typed it correctly and try again.");
-                    $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login/?fwd=' . urlencode($fwd));
+                    $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login/?fwd=' . \Idno\Core\Webservice::base64UrlEncode($fwd));
                 }
             }
 

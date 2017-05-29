@@ -4,7 +4,7 @@
     if (!\Idno\Core\Idno::site()->session()->isLoggedIn()) {
         ?>
         <a id="soft-forward"
-           href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login?fwd=' . urlencode($_SERVER['REQUEST_URI']); ?>">Click
+           href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login?fwd=' . Idno\Core\Webservice::base64UrlEncode($_SERVER['REQUEST_URI']); ?>">Click
             here to log in.</a>
         <script>
             $('#soft-forward').hide();  // JS users will be forwarded anyway
