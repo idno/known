@@ -23,6 +23,10 @@ namespace Tests {
             $this->assertTrue($cstrong);
         }
         
+        public function testRandomEntropy() {
+            $this->assertTrue(getrandmax() > 32767);
+        }
+        
         /**
          * Site secret initialised and reasonably long. (Note, we can't check entropy here)
          */
