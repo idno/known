@@ -31,7 +31,7 @@
                     }
                     if (($value===null) && ($default!==null))
                         $value = $default;
-                    if (!$value!==null) {error_log("$name here");
+                    if (!$value!==null) {
                         if (isset($filter) && is_callable($filter)) {
                             $value = call_user_func($filter, $name, $value);
                         }
