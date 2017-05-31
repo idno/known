@@ -12,8 +12,12 @@
                 $this->gatekeeper();
                 if ($url = $this->getInput('url')) {
 
+                    \Idno\Core\Idno::site()->logging()->debug("Attempting to pull title from $url");
+                    
                     $like = new Like();
                     $title = $like->getTitleFromURL($url);
+                    
+                    \Idno\Core\Idno::site()->logging()->debug("Title has been pulled: $title");
 
                     if (strlen($title) > 128) {
                         $title = '';    // Don't return overlong titles
