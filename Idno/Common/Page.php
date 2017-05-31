@@ -94,15 +94,16 @@
             function getInput($name, $default = null, callable $filter = null)
             {
                 if (!empty($name)) {
+                    $value = null;
                     $request = \Idno\Core\Input::getInput($name, $default, $filter);
                     if (!empty($request)) {
                         $value = $request;
                     } else if (!empty($this->data[$name])) {
                         $value = $this->data[$name];
                     }
-                    if ((empty($value)) && (!empty($default)))
+                    if ((!$value===null) && ($default!==null))
                         $value = $default;
-                    if (!empty($value)) {
+                    if (!$value!==null) {
                         if (isset($filter) && is_callable($filter) && empty($request)) {
                             $value = call_user_func($filter, $name, $value);
                         }
@@ -113,7 +114,7 @@
                     }
                 }
 
-                return false;
+                return null;
             }
 
             function exception($e)
