@@ -29,7 +29,7 @@
 
             ?>
             <h2 class="idno-bookmark"><?=$icon?><a href="<?= $vars['object']->body; ?>" class="<?= $class ?> p-name"
-                target="_blank"><?= $this->parseURLs(htmlentities(strip_tags($body)), $rel) ?></a>
+                target="_blank"><?= $this->parseURLs(htmlentities(strip_tags($body))) ?></a>
             </h2>
         <?php
 
