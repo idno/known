@@ -18,6 +18,17 @@
                 return $this->body;
             }
 
+            function getMetadataForFeed()
+            {
+                return array(
+                    'type' => 'checkin',
+                    'latitude' => $this->lat,
+                    'longitude' => $this->long,
+                    'placename' => $this->placename,
+                    'address' => $this->address
+                );
+            }
+
             /**
              * Status objects have type 'note'
              * @return 'note'

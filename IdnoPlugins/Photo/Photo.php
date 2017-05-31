@@ -42,6 +42,11 @@
                 return 'image';
             }
 
+            function getMetadataForFeed()
+            {
+                return array('type' => 'photo');
+            }
+
             /**
              * Extend json serialisable to include some extra data
              */

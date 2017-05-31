@@ -66,6 +66,11 @@
                 return 'note';
             }
 
+            function getMetadataForFeed() 
+            {
+                return array('type' => 'status');
+            }
+
             /**
              * Saves changes to this object based on user input
              * @return true|false

@@ -67,6 +67,27 @@
             }
             
             /**
+             * Return metadata for feeds.
+             */
+            function getMetadataForFeed() {
+                $meta = array();
+                if (!empty($this->repostof)) {
+                    $meta['repost-of'] = $this->repostof;
+                    $meta['type'] = 'repost';
+                } else if (!empty($this->likeof)) {
+                    $meta['like-of'] = $this->likeof;
+                    $meta['type'] = 'like';
+                } else if (!empty($this->bookmarkof)) {
+                    $meta['bookmark-of'] = $this->bookmarkof;
+                    $meta['type'] = 'bookmark';
+                } else {
+                    $meta['bookmark-of'] = $this->getBody();
+                    $meta['type'] = 'bookmark';
+                }
+                return $meta;
+            }
+
+            /**
              * Attempt to find an object, if any, associated with a URL.
              * When bookmarking a local url, this method will attempt to find an object context 
              * to attach to the 'like' entry. 
