@@ -58,7 +58,7 @@
                 return array(
                     'type' => 'rsvp',
                     'rsvp' => $this->rsvp,
-                    'in-reply-to' => $this->in-reply-to
+                    'in-reply-to' => $this->inreplyto
                 );
             }
 
