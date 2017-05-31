@@ -101,7 +101,7 @@
                     } else if (!empty($this->data[$name])) {
                         $value = $this->data[$name];
                     }
-                    if ((!$value===null) && ($default!==null))
+                    if (($value===null) && ($default!==null))
                         $value = $default;
                     if (!$value!==null) {
                         if (isset($filter) && is_callable($filter) && empty($request)) {
