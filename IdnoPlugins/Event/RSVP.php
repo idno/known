@@ -57,7 +57,8 @@
             function getMetadataForFeed() {
                 return array(
                     'type' => 'rsvp',
-                    'rsvp' => $this->rsvp
+                    'rsvp' => $this->rsvp,
+                    'in-reply-to' => $this->in-reply-to
                 );
             }
 
