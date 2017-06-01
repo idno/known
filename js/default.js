@@ -14,6 +14,25 @@
 
 var isCreateFormVisible = false;
 
+/** Known object */
+function Security() {}
+
+/** Perform a HEAD request on the current page and pass the token to a given callback */
+Security.getCSRFToken = function(callback) {
+    
+    $.ajax({
+        type: "HEAD",
+        url: known.currentPageUrl,
+    }).done(function(message,text,jqXHR){
+        var token = jqXHR.getResponseHeader('X-Known-CSRF-Token');
+	var ts = jqXHR.getResponseHeader('X-Known-CSRF-Ts');
+	
+	callback(token, ts);
+    });
+}
+
+
+
 /**
  *** Content creation
  */

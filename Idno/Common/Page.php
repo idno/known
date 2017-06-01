@@ -142,6 +142,26 @@
                 http_response_code($this->response);
             }
 
+            function head_xhr() {
+                \Idno\Core\Idno::site()->session()->publicGatekeeper();
+
+                \Idno\Core\Idno::site()->template()->autodetectTemplateType();
+
+                $arguments = func_get_args();
+                if (!empty($arguments)) $this->arguments = $arguments;
+                $this->xhr = true;
+                
+                // Generate CSRF token for javascript queries (see #1727)
+                $action = '/' . trim($this->currentUrl(true)['path'], ' /');
+                $time = time();
+                $token = \Bonita\Forms::token($action, $time);
+
+                header('X-Known-CSRF-Ts: ' . $time);
+                header('X-Known-CSRF-Token: ' . $token);
+                
+                $this->head();
+            }
+            
             function head()
             {
                 \Idno\Core\Idno::site()->session()->publicGatekeeper();
@@ -154,11 +174,11 @@
                 if (!empty($arguments)) $this->arguments = $arguments;
 
                 \Idno\Core\Idno::site()->triggerEvent('page/head', array('page_class' => get_called_class(), 'arguments' => $arguments));
-
+                
                 // Triggering GET content to call all the appropriate headers (web server should truncate the head request from body).
                 // This is the only way we can generate accurate expires and content length etc, but could be done more efficiently
                 $this->getContent();
-
+                
                 //if (http_response_code() != 200)
                 http_response_code($this->response);
             }
