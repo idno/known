@@ -18,11 +18,14 @@ var isCreateFormVisible = false;
 function Security() {}
 
 /** Perform a HEAD request on the current page and pass the token to a given callback */
-Security.getCSRFToken = function(callback) {
+Security.getCSRFToken = function(callback, pageurl) {
+    
+    if (pageurl == undefined)
+	pageurl = known.currentPageUrl;
     
     $.ajax({
         type: "HEAD",
-        url: known.currentPageUrl,
+        url: pageurl,
     }).done(function(message,text,jqXHR){
         var token = jqXHR.getResponseHeader('X-Known-CSRF-Token');
 	var ts = jqXHR.getResponseHeader('X-Known-CSRF-Ts');
