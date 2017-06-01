@@ -29,7 +29,7 @@
             {
 
                 $time        = time();
-                $this->token = sha1($this->targetURL . $time . \Bonita\Main::getSiteSecret());
+                $this->token = static::token($this->targetURL, $time); //sha1($this->targetURL . $time . \Bonita\Main::getSiteSecret());
                 $this->time  = $time;
                 parent::draw($templateName, $returnBlank);
 
