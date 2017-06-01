@@ -23,6 +23,9 @@ namespace Tests {
             $this->assertTrue($cstrong);
         }
         
+        /**
+         * Some platforms (Windows I'm looking at you) only return a 32 bit randmax.
+         */
         public function testRandomEntropy() {
             $this->assertTrue(getrandmax() > 32767);
         }
@@ -32,6 +35,18 @@ namespace Tests {
          */
         public function testSiteSecret() {
             $this->assertTrue((strlen(\Idno\Core\Idno::site()->config()->site_secret)>=64));
+        }
+        
+        /**
+         * Some configurations seem to advertise algorithms which they don't support, this causes problems.
+         */
+        public function testAlgortihms() {
+            
+            foreach (hash_algos() as $algo) {
+                $secret = "secret";
+                
+                $this->assertTrue(!empty(hash($algo, $secret)));
+            }
         }
     }
 }
