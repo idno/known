@@ -37,6 +37,15 @@ namespace Tests {
             $this->assertTrue((strlen(\Idno\Core\Idno::site()->config()->site_secret)>=64));
         }
         
+        
+        /**
+         * Bonita now requires sha256
+         */
+        public function testAssertSha256() {
+            
+            $this->assertTrue(in_array('sha256', hash_algos()));
+        }
+        
         /**
          * Some configurations seem to advertise algorithms which they don't support, this causes problems.
          */
@@ -48,5 +57,6 @@ namespace Tests {
                 $this->assertTrue(!empty(hash($algo, $secret)));
             }
         }
+        
     }
 }
