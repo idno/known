@@ -152,7 +152,7 @@
                 $this->xhr = true;
                 
                 // Generate CSRF token for javascript queries (see #1727)
-                $action = '/' . trim($this->currentUrl(true)['path'], ' /');
+                $action = $this->currentUrl();
                 $time = time();
                 $token = \Bonita\Forms::token($action, $time);
 
