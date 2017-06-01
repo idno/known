@@ -14,7 +14,7 @@
 
 var isCreateFormVisible = false;
 
-/** Known object */
+/** Known security object */
 function Security() {}
 
 /** Perform a HEAD request on the current page and pass the token to a given callback */
