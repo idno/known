@@ -686,6 +686,10 @@
             {
                 $this->setResponse(403);
                 http_response_code($this->response);
+                
+                header_remove('X-Known-CSRF-Ts');
+                header_remove('X-Known-CSRF-Token');
+                
                 $t = \Idno\Core\Idno::site()->template();
                 $t->__(array('body' => $t->draw('pages/403'), 'title' => $title))->drawPage();
                 exit;
