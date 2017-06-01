@@ -68,7 +68,12 @@
 
             function getMetadataForFeed() 
             {
-                return array('type' => 'status');
+                $meta = array('type' => 'status');
+                if ($this->inreplyto) {
+                    $meta['in-reply-to'] = $this->inreplyto;
+                    $meta['type'] = 'reply';
+                }
+                return $meta;
             }
 
             /**

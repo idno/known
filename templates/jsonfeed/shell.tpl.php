@@ -70,23 +70,20 @@
                 $feedItem['author']['avatar'] = $owner->getIcon();
             }
 
-            $feedItem['content_html'] = $item->getBody();
-
-            $feedItem['_meta'] = array();
-            if (method_exists($item, 'getMetadataForFeed')) {
-                $feedItem['_meta'] = $item->getMetadataForFeed();
-            } else {
-                $type = $item->getContentTypeTitle();
-                $feedItem['_meta']['type'] = strtolower($type);
-                $feedItem['title'] = $type . ": " . $feedItem['title'];
-                $feedItem['content_html'] = $item->draw();
-            }
+            $feedItem['_meta'] = $item->getMetadataForFeed();
+            $feedItem['content_html'] = $item->draw(true);
             
             if ($item instanceof \IdnoPlugins\Like\Like) {
                 $feedItem['external_url'] = $item->getBody();
+                $feedItem['url'] = $item->getUUID();
                 unset($feedItem['content_text']);
             } else if ($item instanceof \IdnoPlugins\Status\Reply) {
                 $feedItem['external_url'] = $item->inreplyto;
+            } else if ($item instanceof \IdnoPlugins\Status\Status) {
+                $feedItem['content_text'] = $feedItem['title'];
+                if ($item->inreplyto) $feedItem['external_url'] = $item->inreplyto;
+                unset($feedItem['content_html']);
+                unset($feedItem['title']);
             } else if ($item instanceof \IdnoPlugins\Checkin\Checkin) {
                 $feedItem['content_text'] = $item->getTitle();
                 unset($feedItem['content_html']);
