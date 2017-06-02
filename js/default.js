@@ -24,13 +24,13 @@ Security.getCSRFToken = function(callback, pageurl) {
 	pageurl = known.currentPageUrl;
     
     $.ajax({
-        type: "HEAD",
-        url: pageurl,
+        type: "GET",
+        data: { url: pageurl },
+	url: known.config.displayUrl + 'service/security/csrftoken/'
     }).done(function(message,text,jqXHR){
-        var token = jqXHR.getResponseHeader('X-Known-CSRF-Token');
-	var ts = jqXHR.getResponseHeader('X-Known-CSRF-Ts');
+        
 	
-	callback(token, ts);
+	callback(message.token, message.time);
     });
 }
 
