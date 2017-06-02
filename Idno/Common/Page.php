@@ -704,6 +704,15 @@
             }
 
             /**
+             * Ensure this can only be called via xhr.
+             */
+            function xhrGatekeeper() {
+                if (!$this->xhr) {
+                    $this->deniedContent();
+                }
+            }
+            
+            /**
              * Placed in pages to ensure that only logged-in users can
              * get at them. Sets response code 401 and tries to forward
              * to the front page.
