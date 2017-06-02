@@ -229,6 +229,7 @@
                 /** Add some services */
                 $this->addPageHandler('/service/db/optimise/?', '\Idno\Pages\Service\Db\Optimise');
                 $this->addPageHandler('/service/vendor/messages/?', '\Idno\Pages\Service\Vendor\Messages');
+                $this->addPageHandler('/service/security/csrftoken/?', '\Idno\Pages\Service\Security\CSRFToken');
 
                 // These must be loaded last
                 $this->plugins = new Plugins();
