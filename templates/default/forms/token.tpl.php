@@ -24,7 +24,7 @@
            form.find('input[name=__bTk]').val(token);
            form.find('input[name=__bTs]').val(ts);
            
-        }, form.attr('action'));
+        }, form.find('input[name=__bTa]').val());
         
     }, 300000); // update form token every 5 minutes
 </script>
