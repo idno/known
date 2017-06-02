@@ -4,10 +4,6 @@
 
         $tokenid = "tid".md5(mt_rand());
         
-        // Normalise tokens
-        if (strpos($vars['action'], 'http')!==0) {
-            $vars['action'] = \Idno\Core\Idno::site()->config()->getDisplayURL() . trim($vars['action'], ' /');
-        }
 ?>
 <div style="display: none;" id="<?= $tokenid; ?>"></div>
 <input type="hidden" name="__bTs" value="<?=$vars['time']?>" />
@@ -24,7 +20,7 @@
            form.find('input[name=__bTk]').val(token);
            form.find('input[name=__bTs]').val(ts);
            
-        }, form.attr('action'));
+        }, form.find('input[name=__bTa]').val());
         
     }, 300000); // update form token every 5 minutes
 </script>
