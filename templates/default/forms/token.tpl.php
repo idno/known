@@ -4,10 +4,6 @@
 
         $tokenid = "tid".md5(mt_rand());
         
-        // Normalise tokens
-        if (strpos($vars['action'], 'http')!==0) {
-            $vars['action'] = \Idno\Core\Idno::site()->config()->getDisplayURL() . trim($vars['action'], ' /');
-        }
 ?>
 <div style="display: none;" id="<?= $tokenid; ?>"></div>
 <input type="hidden" name="__bTs" value="<?=$vars['time']?>" />
