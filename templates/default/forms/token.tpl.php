@@ -26,5 +26,5 @@
            
         }, form.attr('action'));
         
-    }, 60*60*5*1000); // update form token every 5 minutes
+    }, 300000); // update form token every 5 minutes
 </script>
