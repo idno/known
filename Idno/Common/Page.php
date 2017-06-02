@@ -150,15 +150,7 @@
                 $arguments = func_get_args();
                 if (!empty($arguments)) $this->arguments = $arguments;
                 $this->xhr = true;
-                
-                // Generate CSRF token for javascript queries (see #1727)
-                $action = $this->currentUrl();
-                $time = time();
-                $token = \Bonita\Forms::token($action, $time);
-
-                header('X-Known-CSRF-Ts: ' . $time);
-                header('X-Known-CSRF-Token: ' . $token);
-                
+                                
                 $this->head();
             }
             
