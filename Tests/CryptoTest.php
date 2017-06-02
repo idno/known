@@ -54,7 +54,8 @@ namespace Tests {
             foreach (hash_algos() as $algo) {
                 $secret = "secret";
                 
-                $this->assertTrue(!empty(hash($algo, $secret)));
+                $result = hash($algo, $secret);
+                $this->assertTrue(!empty($result));
             }
         }
         

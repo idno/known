@@ -106,7 +106,8 @@
             public static function token($action, $time)
             {
                 $hmac = hash_hmac('sha256', $action, \Bonita\Main::getSiteSecret(), true);
-                $hmac = hash_hmac('sha256', $time, $hmac);
+                $hmac = hash_hmac('sha256', $time, $hmac, true);
+                $hmac = hash_hmac('sha256', session_id(), $hmac);
                 
                 return $hmac;
                 //return sha1($action . $time . \Bonita\Main::getSiteSecret());

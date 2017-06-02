@@ -142,6 +142,26 @@
                 http_response_code($this->response);
             }
 
+            function head_xhr() {
+                \Idno\Core\Idno::site()->session()->publicGatekeeper();
+
+                \Idno\Core\Idno::site()->template()->autodetectTemplateType();
+
+                $arguments = func_get_args();
+                if (!empty($arguments)) $this->arguments = $arguments;
+                $this->xhr = true;
+                
+                // Generate CSRF token for javascript queries (see #1727)
+                $action = $this->currentUrl();
+                $time = time();
+                $token = \Bonita\Forms::token($action, $time);
+
+                header('X-Known-CSRF-Ts: ' . $time);
+                header('X-Known-CSRF-Token: ' . $token);
+                
+                $this->head();
+            }
+            
             function head()
             {
                 \Idno\Core\Idno::site()->session()->publicGatekeeper();
@@ -154,11 +174,11 @@
                 if (!empty($arguments)) $this->arguments = $arguments;
 
                 \Idno\Core\Idno::site()->triggerEvent('page/head', array('page_class' => get_called_class(), 'arguments' => $arguments));
-
+                
                 // Triggering GET content to call all the appropriate headers (web server should truncate the head request from body).
                 // This is the only way we can generate accurate expires and content length etc, but could be done more efficiently
                 $this->getContent();
-
+                
                 //if (http_response_code() != 200)
                 http_response_code($this->response);
             }
@@ -616,6 +636,10 @@
             {
                 $this->setResponse(410);
                 http_response_code($this->response);
+                
+                header_remove('X-Known-CSRF-Ts');
+                header_remove('X-Known-CSRF-Token');
+                
                 $t = \Idno\Core\Idno::site()->template();
                 $t->__(array('body' => $t->draw('pages/410'), 'title' => 'This page is gone.'))->drawPage();
                 exit;
@@ -628,6 +652,10 @@
             {
                 $this->setResponse(404);
                 http_response_code($this->response);
+                
+                header_remove('X-Known-CSRF-Ts');
+                header_remove('X-Known-CSRF-Token');
+                
                 $t = \Idno\Core\Idno::site()->template();
                 $t->__(array('body' => $t->draw('pages/404'), 'title' => 'This page can\'t be found.'))->drawPage();
                 exit;
@@ -666,6 +694,10 @@
             {
                 $this->setResponse(403);
                 http_response_code($this->response);
+                
+                header_remove('X-Known-CSRF-Ts');
+                header_remove('X-Known-CSRF-Token');
+                
                 $t = \Idno\Core\Idno::site()->template();
                 $t->__(array('body' => $t->draw('pages/403'), 'title' => $title))->drawPage();
                 exit;

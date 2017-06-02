@@ -41,7 +41,7 @@
                 'wayback_machine'        => false,
                 'static_url'             => false,
                 'user_avatar_favicons'   => true,
-                'form_token_expiry'      => 21600,
+                'form_token_expiry'      => 3600,
                 'show_privacy'           => true,
                 'bypass_fulltext_search' => false,
                 'permalink_structure'    => '/:year/:slug',
