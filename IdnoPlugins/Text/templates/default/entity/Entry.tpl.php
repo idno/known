@@ -4,6 +4,19 @@
     } else {
         $rel = '';
     }
+          if(\Idno\Core\Idno::site()->config()->truncate === true){
+          $limit = \Idno\Core\Idno::site()->config->truncate_character;
+          if($this->getCurrentURL()===\Idno\Core\Idno::site()->config()->getDisplayURL() && strlen( $vars['object']->body) >= $limit) 
+          {
+            $string = substr($vars['object']->body, 0,$limit);
+            if((strrpos($string, " ")) !== false ) {
+            $string = substr($string, 0, strrpos($string, " "));
+            $vars['object']->body = $string."....".'<a
+                    href="'. $vars['object']->getDisplayURL().'">read full article</a>';
+          }
+          }
+          }
+
     if (!empty($vars['object']->tags)) {
         $tags = is_array($vars['object']->tags) ? implode(', ' , $vars['object']->tags) : $vars['object']->tags;
         $vars['object']->body .= '<p class="tag-row"><i class="icon-tag"></i>' . $tags . '</p>';
