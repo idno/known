@@ -14,6 +14,8 @@
         } else {
             $json['title'] = 'Known site';
         }
+    } else {
+        $json['title'] = $vars['description'];
     }
 
     if (empty($vars['base_url'])) {
