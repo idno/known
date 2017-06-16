@@ -155,7 +155,9 @@
                         }
                     } else {
 	                    // http://php.net/manual/en/features.file-upload.errors.php
-	                    $errcode = $_FILES['photo']['error'];
+                            $errcode = null;
+	                    if (!empty($_FILES['photo']['error']))
+                                    $errcode = $_FILES['photo']['error'];
 	                    if (!empty($errcode) && !empty(self::$FILE_UPLOAD_ERROR_CODES[intval($errcode)])) {
 		                    $errmsg = self::$FILE_UPLOAD_ERROR_CODES[intval($errcode)];
                                     
