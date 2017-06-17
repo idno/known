@@ -475,7 +475,8 @@
                     }
 
                     if ($user = \Idno\Entities\User::getByHandle($_SERVER['HTTP_X_KNOWN_USERNAME'])) {
-                        \Idno\Core\Idno::site()->logging()->debug("API auth found user by username: " . $user->getName());
+                        \Idno\Core\Idno::site()->logging()->debug("API auth found user by username: {$_SERVER['HTTP_X_KNOWN_USERNAME']} - " . $user->getName());
+                        
                         $key  = $user->getAPIkey();
                         $hmac = trim($_SERVER['HTTP_X_KNOWN_SIGNATURE']);
                         //$compare_hmac = base64_encode(hash_hmac('sha256', explode('?', $_SERVER['REQUEST_URI'])[0], $key, true));
@@ -487,7 +488,11 @@
                             $return = $this->refreshSessionUser($user);
                         } else {
                             \Idno\Core\Idno::site()->logging()->debug("API auth failed signature validation for user: " . $user->getName());
+                            \Idno\Core\Idno::site()->logging()->debug("Expected signature formed over base64_encode(hash_hmac('sha256', '{$_SERVER['REQUEST_URI']}', \$key, true)) = '$compare_hmac', but got '$hmac'. ");
+                            \Idno\Core\Idno::site()->logging()->debug("Please read http://docs.withknown.com/en/latest/developers/plugins/api/ for further details.");
                         }
+                    } else {
+                        \Idno\Core\Idno::site()->logging()->debug("API User given in X_KNOWN_USERNAME ('{$_SERVER['HTTP_X_KNOWN_USERNAME']}') could not be found.");
                     }
                 }
 
