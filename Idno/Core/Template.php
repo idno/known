@@ -11,7 +11,7 @@
 
         use Idno\Entities\User;
 
-        class Template extends \Bonita\Templates
+        class Template extends \Idno\Core\Bonita\Templates
         {
 
             // We'll keep track of extensions to templates here
@@ -39,7 +39,7 @@
                 }
 
                 assert('\Idno\Core\Idno::site()->config()->site_secret /* Site secret not set */');
-                \Bonita\Main::siteSecret(\Idno\Core\Idno::site()->config()->site_secret);
+                \Idno\Core\Bonita\Main::siteSecret(\Idno\Core\Idno::site()->config()->site_secret);
 
                 $this->purifier = new Purifier();
 
@@ -52,7 +52,7 @@
              * @param string $templateName
              * @param bool $returnBlank Should we return a blank string if the template doesn't exist? (Defaults to true)
              * @param book $replacements Should we honor template replacements? (Defaults to true)
-             * @return \Bonita\false|string
+             * @return \Idno\Core\Bonita\false|string
              */
             function draw($templateName, $returnBlank = true, $replacements = true)
             {
@@ -117,7 +117,7 @@
              * Draw syndication buttons relating to a particular content type
              * @param $content_type
              * @param $posse_links containing Entity::getPosseLinks()
-             * @return \Bonita\false|string
+             * @return \Idno\Core\Bonita\false|string
              */
             function drawSyndication($content_type, $posse_links = [])
             {
@@ -628,7 +628,7 @@
             /**
              * Returns a version of this template with variable defaults set up for the shell
              * @param $vars
-             * @return \Bonita\Templates
+             * @return \Idno\Core\Bonita\Templates
              */
             function formatShellVariables($vars)
             {

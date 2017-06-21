@@ -11,7 +11,7 @@
      * @subpackage Forms
      */
 
-    namespace Bonita {
+    namespace Idno\Core\Bonita {
         class Forms extends Templates
         {
 
@@ -29,7 +29,7 @@
             {
 
                 $time        = time();
-                $this->token = static::token($this->targetURL, $time); //sha1($this->targetURL . $time . \Bonita\Main::getSiteSecret());
+                $this->token = static::token($this->targetURL, $time); 
                 $this->time  = $time;
                 parent::draw($templateName, $returnBlank);
 
@@ -105,12 +105,11 @@
              */
             public static function token($action, $time)
             {
-                $hmac = hash_hmac('sha256', $action, \Bonita\Main::getSiteSecret(), true);
+                $hmac = hash_hmac('sha256', $action, \Idno\Core\Bonita\Main::getSiteSecret(), true);
                 $hmac = hash_hmac('sha256', $time, $hmac, true);
                 $hmac = hash_hmac('sha256', session_id(), $hmac);
                 
                 return $hmac;
-                //return sha1($action . $time . \Bonita\Main::getSiteSecret());
             }
 
         }

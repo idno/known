@@ -9,7 +9,7 @@
 
     namespace Idno\Core {
 
-        class Actions extends \Bonita\Forms
+        class Actions extends \Idno\Core\Bonita\Forms
         {
 
             /**

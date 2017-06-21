@@ -11,7 +11,7 @@
 
 	*/
 
-	namespace Bonita {
+	namespace Idno\Core\Bonita {
 		class Templates {
 
 			public $templateType = 'default';		// Which template are we using?
@@ -23,7 +23,7 @@
 			 * You can also just instantiate Templates with a list of variables
 			 */
 				function __construct($initial = false) {
-					if ($initial instanceof \Bonita\Templates) {
+					if ($initial instanceof \Idno\Core\Bonita\Templates) {
 						$this->vars = $initial->vars;
 						$this->templateType = $initial->templateType;
 					} else if (is_array($initial)) {
@@ -78,7 +78,7 @@
 					if (!empty($templateName)) {
 
 						// Add the Bonita base path to our additional paths list
-						$paths = \Bonita\Main::getPaths();
+						$paths = \Idno\Core\Bonita\Main::getPaths();
 
 						// Add template types to an array; ensure we revert to default
 						$templateTypes = array($this->getTemplateType());
@@ -120,7 +120,7 @@
 			 */
 				function drawList($items, $style = 'stream') {
 					if (is_array($items) && !empty($items) && !empty($style)) {
-						$t = new \Bonita\Templates($this);
+						$t = new \Idno\Core\Bonita\Templates($this);
 						$t->items = $items;
 						return $t->draw('list/'. $style);
 					}
@@ -135,7 +135,7 @@
 			 */
 				function drawObject($object) {
 					if (is_object($object)) {
-						$t = new \Bonita\Templates($this);
+						$t = new \Idno\Core\Bonita\Templates($this);
 						$t->object = $object;
 						if (($result = $t->draw('object/' . get_class($object), false)) !== false) return $result;
 						if ($object instanceof BonDrawable) return $t->draw('object/default');
@@ -152,7 +152,7 @@
 			 * @return string Formatted content (or the input content if the processor doesn't exist)
 			 */
 				function process($content, $processor = 'text') {
-					$t = new \Bonita\Templates();
+					$t = new \Idno\Core\Bonita\Templates();
 					$t->content = $content;
 					$t->setTemplateType($this->getTemplateType());
 					if (($result = $t->draw('processor/' . $processor, false)) !== false) return $result;
@@ -213,7 +213,7 @@
 				function templateTypeExists($templateType) {
 					$templateType = preg_replace('/^_[A-Z0-9\/]+/i','',$templateType);
 					if (!empty($templateType)) {
-						$paths = \Bonita\Main::getPaths();
+						$paths = \Idno\Core\Bonita\Main::getPaths();
 						foreach($paths as $basepath) {
 							$path = $basepath . '/templates/'.$templateType.'/';
 							if (file_exists($path))  return true;
@@ -227,7 +227,7 @@
 			 * (defaults, of course, to "default")
 			 */
 				function detectTemplateType() {
-					$device = \Bonita\Main::detectDevice();
+					$device = \Idno\Core\Bonita\Main::detectDevice();
 					return $this->setTemplateType($device);
 				}
 

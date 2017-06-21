@@ -16,7 +16,7 @@
 	 * BonDrawable interface for objects to be automatically drawable.
 	 */
 	
-	 namespace Bonita {
+	 namespace Idno\Core\Bonita {
 		interface Drawable {
 		
 			public function getTitle();

@@ -16,7 +16,7 @@ namespace Idno\Pages\Service\Security {
             
             // Generate CSRF token for javascript queries (see #1727)
             $time = time();
-            $token = \Bonita\Forms::token($action, $time);
+            $token = \Idno\Core\Bonita\Forms::token($action, $time);
             
             header('Content-type: application/json');
             echo json_encode([

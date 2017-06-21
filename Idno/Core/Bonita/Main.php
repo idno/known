@@ -8,7 +8,7 @@
 	
 	 */
 	 
-	 namespace Bonita {
+	 namespace Idno\Core\Bonita {
 		 class Main {
 
 			/** Configuration variables **/
