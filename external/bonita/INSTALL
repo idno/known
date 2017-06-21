@@ -1,7 +1,0 @@
-Bonita requires PHP 5.2+.
-
-To use in its most basic setting, place the whole Bonita folder into
-your web project and include start.php. 
-
-More sophisticated instructions - e.g. for inclusion in plugin-based
-systems, or for using multiple templates - coming soon.
