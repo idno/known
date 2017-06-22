@@ -368,6 +368,34 @@
                 if (strlen($formatted_text) < strlen($text)) $formatted_text .= ' ...';
                 return $formatted_text;
             }
+            
+            /**
+             * Return a snippet of plain text based on a number of characters.
+             * @param type $text
+             * @param type $chars
+             */
+            function sampleTextChars($text, $chars = 250, $dots = '...') {
+                $text = trim(strip_tags($text));
+                $length = strlen($text);
+
+                // Short circuit if number of text is less than max chars
+                if ($length <= $chars) 
+                    return $text;
+                
+                $formatted_text = substr($text, 0, $chars);
+                $space = strrpos($formatted_text, ' ', 0);
+
+                // No space, don't crop
+                if ($space === false) 
+                    $space = $chars;
+                
+                $formatted_text = trim(substr($formatted_text, 0, $space));
+
+                if ($length != strlen($formatted_text)) 
+                    $formatted_text .= $dots;
+                
+                return $formatted_text;
+            }
 
             /**
              * Given a URL, fixes it to have a prefix if it needs one
