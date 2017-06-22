@@ -1,4 +1,12 @@
-/* CSS changes for Boostrap 3 migration */
+/* 
+CSS changes for Boostrap 3 migration 
+
+IMPORTANT:
+ This file isn't loaded directly, for changes to show you must generate a minified
+ version. E.g.
+
+    yui-compressor defaultb3.css > defaultb3.min.css
+*/
 .nav-tabs.nav > li > a {
 	color: #777777;
 	font-weight: 300;

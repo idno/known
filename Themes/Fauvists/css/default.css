@@ -1,3 +1,11 @@
+/*
+ IMPORTANT:
+ This file isn't loaded directly, for changes to show you must generate a minified
+ version. E.g.
+
+    yui-compressor default.css > default.min.css
+*/    
+
 .idno_pages_session_login { 
 	background: url(../img/maurer.jpg) no-repeat center center fixed; 
 	-webkit-background-size: cover;

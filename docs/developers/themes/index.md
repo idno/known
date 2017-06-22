@@ -72,6 +72,9 @@ You would then create a new template file in `/Themes/PDXCarpet/templates/defaul
 
 Finally, you'd create a normal static CSS file in `/Themes/PDXCarpet/css/default.css`.
 
+!!! note "Note"
+    While it's not required, it is recommended to create a minified version of your CSS file and link to that, e.g. ```yui-compressor default.css > default.min.css```
+
 ## Reference themes
 
 Known ships with several reference themes. We recommend you take a look at the `Solo` theme to see how a simple alternative theme is put together.

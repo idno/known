@@ -14,7 +14,7 @@
             function getContent()
             {
 
-                $this->setAsset("image", \Idno\Core\Idno::site()->config()->getDisplayURL() . 'js/image.js', 'javascript');
+                $this->setAsset("image", \Idno\Core\Idno::site()->config()->getDisplayURL() . 'js/image.min.js', 'javascript');
                 $this->setAsset("exif-js", \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/exif-js/exif.min.js', 'javascript');
                 
                 $template   = 'file/picker/image';
