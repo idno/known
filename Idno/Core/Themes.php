@@ -27,10 +27,10 @@
                     if (defined('KNOWN_MULTITENANT_HOST')) {
                         $host = KNOWN_MULTITENANT_HOST;
                         if (file_exists(\Idno\Core\Idno::site()->config()->path . '/hosts/' . $host . '/Themes/' . $this->theme)) {
-                            \Bonita\Main::additionalPath(site()->config()->path . '/hosts/' . $host . '/Themes/' . $this->theme);
+                            \Idno\Core\Bonita\Main::additionalPath(site()->config()->path . '/hosts/' . $host . '/Themes/' . $this->theme);
                             $config = parse_ini_file(\Idno\Core\Idno::site()->config()->path . '/hosts/' . $host . '/Themes/' . $this->theme . '/theme.ini', true);
                         } else if (file_exists(\Idno\Core\Idno::site()->config()->path . '/Themes/' . $this->theme . '/theme.ini')) {
-                            \Bonita\Main::additionalPath(site()->config()->path . '/Themes/' . $this->theme);
+                            \Idno\Core\Bonita\Main::additionalPath(site()->config()->path . '/Themes/' . $this->theme);
                             $config = parse_ini_file(\Idno\Core\Idno::site()->config()->path . '/Themes/' . $this->theme . '/theme.ini', true);
                         }
                     }

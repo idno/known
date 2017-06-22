@@ -109,8 +109,6 @@
 
 // Register our external namespaces (PSR-0 compliant modules that we love, trust and need)
 
-// Bonita is being used for templating
-    $known_loader->registerNamespace('Bonita', dirname(dirname(__FILE__)) . '/external/bonita/includes');
 // Symfony is used for routing, observer design pattern support, and a bunch of other fun stuff
     $known_loader->registerNamespace('Symfony\Component', dirname(dirname(__FILE__)) . '/external');
 
@@ -137,7 +135,7 @@
     $known_loader->register();
 
 // Register the idno-templates folder as the place to look for templates in Bonita
-    \Bonita\Main::additionalPath(dirname(dirname(__FILE__)));
+    \Idno\Core\Bonita\Main::additionalPath(dirname(dirname(__FILE__)));
 
 // Init main system classes
 

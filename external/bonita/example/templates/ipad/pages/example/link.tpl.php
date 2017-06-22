@@ -1,1 +1,0 @@
-<a href="?t=rss">Click here to get the RSS version of this page</a>, <a href="?t=default">or here to get the default version</a>. Right now you're looking at the iPad-specific version.

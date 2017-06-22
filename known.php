@@ -46,8 +46,7 @@
     
     
     // TODO: FIND A WAY TO NOT LOAD THESE FOR CONSOLE
-    // Bonita is being used for templating (although console plugins shouldn't really need this)
-    $known_loader->registerNamespace('Bonita', dirname(__FILE__) . '/external/bonita/includes');
+    
     // Using HTMLPurifier for HTML sanitization
     include dirname(__FILE__) . '/external/htmlpurifier-lite/library/HTMLPurifier.auto.php';
     ///////////////////
