@@ -36,5 +36,14 @@ namespace Idno\Stats {
             throw new \RuntimeException("Timer $timer has not been started.");
         }
         
+        /**
+         * Shorthand to log a given timer to the debug log.
+         * @param type $timer
+         */
+        public static function logTimer($timer) {
+            
+            \Idno\Core\Idno::site()->logging()->debug("Timer $timer has been running for " . self::value($timer) . ' seconds.');
+        }
+        
     }
 }
