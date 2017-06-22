@@ -1,1 +1,1 @@
-<link href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>Themes/Solo/css/default.css" rel="stylesheet">
+<link href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>Themes/Solo/css/default.min.css" rel="stylesheet">
