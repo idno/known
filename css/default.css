@@ -1,6 +1,12 @@
 /**
-    Default Known CSS
-*/
+ Default Known CSS
+
+ IMPORTANT:
+ This file isn't loaded directly, for changes to show you must generate a minified
+ version. E.g.
+
+    yui-compressor default.css > default.min.css
+ */
 
 body {
     background-color: #ffffff;
