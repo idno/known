@@ -1,5 +1,11 @@
 /* 
  * Javascript used by the main page shell.
+ * 
+ * IMPORTANT:
+ * This file isn't loaded directly, for changes to show you must generate a minified
+ * version. E.g.
+ *
+ *   yui-compressor shell.js > shell.min.js
  */
 
 

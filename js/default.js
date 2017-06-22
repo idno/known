@@ -4,6 +4,12 @@
  If you need to add your own JavaScript, the best thing to do is to create your own js files
  and reference them from a custom plugin or template.
 
+ IMPORTANT:
+ This file isn't loaded directly, for changes to show you must generate a minified
+ version. E.g.
+
+    yui-compressor default.js > default.min.js
+
  @package idno
  @subpackage core
  */

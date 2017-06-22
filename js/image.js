@@ -1,4 +1,14 @@
 /**
+ * Image manipulation and exif functions
+ * 
+ * IMPORTANT:
+ * This file isn't loaded directly, for changes to show you must generate a minified
+ * version. E.g.
+ *
+ *   yui-compressor image.js > image.min.js
+ */
+
+/**
  * Convert base 64 encoded data into an array/image buffer.
  * From: https://stackoverflow.com/questions/24010310/using-exif-and-binaryfile-get-an-error
  */
