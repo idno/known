@@ -28,4 +28,6 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+Modified by Marcus Povey <marcus@marcus-povey.co.uk> & Ben Werdmuller <ben@withknown.com> for the Known project, details: 
+https://github.com/idno/Known/commits/master/IdnoPlugins/Checkin/external/stamen-maps/tile.stamen.js
 

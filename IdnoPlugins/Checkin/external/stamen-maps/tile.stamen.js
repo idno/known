@@ -2,6 +2,9 @@
 
 /*
  * tile.stamen.js v1.2.3
+ * 
+ * Modified by Marcus Povey <marcus@marcus-povey.co.uk> & Ben Werdmuller <ben@withknown.com> for the Known project, details: 
+ * https://github.com/idno/Known/commits/master/IdnoPlugins/Checkin/external/stamen-maps/tile.stamen.js
  */
 
 var SUBDOMAINS = "a. b. c. d.".split(" "),
