@@ -151,6 +151,7 @@
 
                 </div>
 
+                <?= $this->draw('content/extra'); ?>
                 <?= $this->draw('content/access'); ?>
 
                 <p class="button-bar " style="text-align: right">

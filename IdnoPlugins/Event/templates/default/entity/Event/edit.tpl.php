@@ -66,6 +66,7 @@
         </div>
 
         <div class="col-md-8 col-md-offset-2">
+            <?= $this->draw('content/extra'); ?>
 	        <?= $this->draw('content/access'); ?>
             <p class="button-bar">
                 <?= \Idno\Core\Idno::site()->actions()->signForm('/event/edit') ?>

@@ -54,6 +54,7 @@
             <?=$this->draw('entity/tags/input');?>
             <?php echo $this->drawSyndication('media', $vars['object']->getPosseLinks()); ?>
             <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to" value="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
+            <?= $this->draw('content/extra'); ?>
             <?= $this->draw('content/access'); ?>
             <p class="button-bar ">
                 <?= \Idno\Core\Idno::site()->actions()->signForm('/media/edit') ?>
