@@ -6,17 +6,15 @@
 
 ### One-click Known sites
 
-A fully-managed hosted service is provided at <https://withknown.com/>. It is always kept up to date with the latest
-version of Known.
-
 If you want to install on your own web space, we recommend [Reclaim Hosting](https://portal.reclaimhosting.com/aff.php?aff=013),
-which includes one-click Known installation.
+which includes one-click Known installation. Known is also known to work on [DreamHost](https://dreamhost.com), a high-quality
+web hosting provider.
 
 ### Installing
 
 Known is under active development and requires PHP 5.6+ with selected extensions, together with a supported database backend.
 
-If you are installing Known for use on your own website, we HIGHLY recommend using the installable packages
+If you are installing Known for use on your own website, we _highly_ recommend using the installable packages
 from <https://withknown.com/opensource>. Installation will be much easier!
 
 You can also opt to check out the bleeding edge code from the git repository: <https://github.com/idno/Known>
