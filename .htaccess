@@ -75,19 +75,6 @@
   Allow from all
 </Files>
 
-<IfModule mod_headers.c>
-# cache images and flash content for one day
-<FilesMatch ".(flv|gif|jpg|jpeg|png|ico|swf)$">
-Header set Cache-Control "max-age=86400"
-</FilesMatch>
-
-# cache text, css, and javascript files for one day
-<FilesMatch ".(js|css|pdf|txt)$">
-Header set Cache-Control "max-age=86400"
-</FilesMatch>
-</IfModule>
-
-
 AddType video/ogg .ogv
 AddType video/mp4 .mp4
 AddType video/webm .webm
