@@ -434,9 +434,10 @@
              */
             function publish()
             {
+                \Idno\Core\Idno::site()->triggerEvent('publish', ['object' => &$this]);
                 if ($this->save() && ($this->getPublishStatus() == 'published')) {
                     $this->syndicate();
-                    \Idno\Core\Idno::site()->triggerEvent('published', ['object' => $this]);
+                    \Idno\Core\Idno::site()->triggerEvent('published', ['object' => &$this]);
 
                     return true;
                 }
