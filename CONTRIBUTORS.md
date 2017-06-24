@@ -7,7 +7,7 @@ Core team
 ---------
 
 * Ben Werdmuller http://werd.io
-* Erin Jo Richey http://erinjo.is
+* Erin Jo Richey http://erinjorichey.com
 
 Homepage: https://withknown.com/
 Team Known site: http://stream.withknown.com/
