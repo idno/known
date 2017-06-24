@@ -66,6 +66,16 @@
                 return 'note';
             }
 
+            function getMetadataForFeed() 
+            {
+                $meta = array('type' => 'status');
+                if ($this->inreplyto) {
+                    $meta['in-reply-to'] = $this->inreplyto;
+                    $meta['type'] = 'reply';
+                }
+                return $meta;
+            }
+
             /**
              * Saves changes to this object based on user input
              * @return true|false

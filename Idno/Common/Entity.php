@@ -1493,6 +1493,18 @@
             }
 
             /**
+             * Generate a base metadata array for use in feeds.
+             *
+             * @return array
+             */
+            function getMetadataForFeed()
+            {
+                $meta = array();
+                $meta['type'] = strtolower($this->getContentTypeTitle());
+                return $meta;
+            }
+
+            /**
              * Draws this entity using the generic template entity/EntityClass
              * (note that the namespace is stripped) and the current default template.
              * If entity/EntityClass doesn't exist, the template entity/templateType

@@ -54,6 +54,14 @@
                 return 'h-entry';
             }
 
+            function getMetadataForFeed() {
+                return array(
+                    'type' => 'rsvp',
+                    'rsvp' => $this->rsvp,
+                    'in-reply-to' => $this->inreplyto
+                );
+            }
+
             function saveDataFromInput() {
 
                 if (empty($this->_id)) {

@@ -49,6 +49,11 @@
             {
                 return 'article';
             }
+            
+            function getMetadataForFeed()
+            {
+                return array('type' => 'entry');
+            }
 
             /**
              * Retrieve icon

@@ -14,6 +14,8 @@
         } else {
             $json['title'] = 'Known site';
         }
+    } else {
+        $json['title'] = $vars['description'];
     }
 
     if (empty($vars['base_url'])) {
@@ -70,50 +72,23 @@
                 $feedItem['author']['avatar'] = $owner->getIcon();
             }
 
-            $feedItem['content_html'] = $item->getBody();
-
-            $feedItem['_indieweb'] = array();
-            if (method_exists($item, 'getMetadataForFeed')) {
-                $feedItem['_indieweb'] = $item->getMetadataForFeed();
-            } else if ($item instanceof \IdnoPlugins\Like\Like) {
+            $feedItem['_meta'] = $item->getMetadataForFeed();
+            $feedItem['content_html'] = $item->draw(true);
+            
+            if ($item instanceof \IdnoPlugins\Like\Like) {
                 $feedItem['external_url'] = $item->getBody();
+                $feedItem['url'] = $item->getUUID();
                 unset($feedItem['content_text']);
-                if (!empty($item->repostof)) {
-                    $feedItem['_indieweb']['repost-of'] = $item->repostof;
-                    $feedItem['_indieweb']['type'] = 'repost';
-                } else if (!empty($item->likeof)) {
-                    $feedItem['_indieweb']['like-of'] = $item->likeof;
-                    $feedItem['_indieweb']['type'] = 'like';
-                } else if (!empty($item->bookmarkof)) {
-                    $feedItem['_indieweb']['bookmark-of'] = $item->bookmarkof;
-                    $feedItem['_indieweb']['type'] = 'bookmark';
-                } else {
-                    $feedItem['_indieweb']['bookmark-of'] = $item->getBody();
-                    $feedItem['_indieweb']['type'] = 'bookmark';
-                }
             } else if ($item instanceof \IdnoPlugins\Status\Reply) {
                 $feedItem['external_url'] = $item->inreplyto;
-                $feedItem['_indieweb']['type'] = 'reply';
-                $feedItem['_indieweb']['in-reply-to'] = $item->inreplyto;
             } else if ($item instanceof \IdnoPlugins\Status\Status) {
-                $feedItem['_indieweb']['type'] = 'status';
+                $feedItem['content_text'] = $feedItem['title'];
+                if ($item->inreplyto) $feedItem['external_url'] = $item->inreplyto;
+                unset($feedItem['content_html']);
+                unset($feedItem['title']);
             } else if ($item instanceof \IdnoPlugins\Checkin\Checkin) {
-                $feedItem['_indieweb']['type'] = 'checkin';
-                $feedItem['_indieweb']['latitude'] = $item->lat;
-                $feedItem['_indieweb']['longitude'] = $item->long;
-                $feedItem['_indieweb']['name'] = $item->placename;
-                $feedItem['_indieweb']['address'] = $item->address;
                 $feedItem['content_text'] = $item->getTitle();
                 unset($feedItem['content_html']);
-            } else if ($item instanceof \IdnoPlugins\Photo\Photo) {
-                $feedItem['_indieweb']['type'] = 'photo';
-            } else if ($item instanceof \IdnoPlugins\Text\Entry) {
-                $feedItem['_indieweb']['type'] = 'entry';
-            } else {
-                $type = $item->getContentTypeTitle();
-                $feedItem['_indieweb']['type'] = strtolower($type);
-                $feedItem['title'] = $type . ": " . $feedItem['title'];
-                $feedItem['content_html'] = $item->draw();
             }
 
             if ($attachments = $item->getAttachments()) {
