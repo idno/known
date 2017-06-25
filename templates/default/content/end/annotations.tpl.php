@@ -1,9 +1,10 @@
 <?php
 
-    foreach (['reply'   => 'replies',
+    foreach ([
+              'rsvp'    => 'rsvps',
               'like'    => 'likes',
               'share'   => 'shares',
-              'rsvp'    => 'rsvps',
+              'reply'   => 'replies',
               'mention' => 'mentions'] as $annotationType => $templateName) {
 
         if ($annotations = $vars['object']->getAnnotations($annotationType)) {

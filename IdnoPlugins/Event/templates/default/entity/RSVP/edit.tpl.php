@@ -26,9 +26,9 @@
                 <label for="rsvp">
                     Are you going?</label>
                     <select class="form-control" name="rsvp" id="rsvp">
-                        <option value="yes" <?php if ($vars['object']->rsvp == 'yes') echo "checked"; ?>>Yes :-)</option>
-                        <option value="no" <?php if ($vars['object']->rsvp == 'no') echo "checked"; ?>>No :-(</option>
-                        <option value="maybe" <?php if ($vars['object']->rsvp == 'maybe') echo "checked"; ?>>Maybe :-/</option>
+                        <option value="yes" <?php if ($vars['object']->rsvp == 'yes') echo "checked"; ?>>Yes: I am attending this event</option>
+                        <option value="no" <?php if ($vars['object']->rsvp == 'no') echo "checked"; ?>>No: I am not attending this event</option>
+                        <option value="maybe" <?php if ($vars['object']->rsvp == 'maybe') echo "checked"; ?>>Maybe: I might attend this event</option>
                     </select>
             </div>
 

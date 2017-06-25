@@ -4,10 +4,14 @@
         usort($vars['annotations'], function($a, $b) {
             return ($a['time'] < $b['time']) ? -1 : 1;
         });
+
+        $rsvps_by_response = ['yes' => '', 'maybe' => '', 'no' => '', 'etc' => ''];
+
         foreach($vars['annotations'] as $locallink => $annotation) {
+            $permalink = !empty($annotation['permalink']) ? $annotation['permalink'] : $locallink;
+            $rsvp = !empty($annotation['rsvp']) ? strtolower(trim($annotation['rsvp'])) : 'etc';
 
-            $permalink = $annotation['permalink'] ? $annotation['permalink'] : $locallink;
-
+            ob_start();
             ?>
             <div class="idno-annotation row">
                 <div class="idno-annotation-image col-md-1 hidden-sm">
@@ -17,13 +21,44 @@
                 </div>
                 <div class="idno-annotation-content col-md-6">
                     <p>
-                        <a href="<?=htmlspecialchars($annotation['owner_url'])?>"><?=htmlentities($annotation['owner_name'], ENT_QUOTES, 'UTF-8')?></a>
-                        RSVPed <strong><?=$annotation['content']?></strong>
+                        <strong><?=$annotation['content']?></strong>
                     </p>
                     <p><small><a href="<?=$permalink?>"><?=date('M d Y', $annotation['time']);?></a> on <a href="<?=$permalink?>"><?=parse_url($permalink, PHP_URL_HOST)?></a></small></p>
                 </div>
             </div>
         <?php
+            $rsvps_by_response[$rsvp] .= ob_get_clean();
+        }
+
+        foreach($rsvps_by_response as $rsvp => $list) {
+
+            if (!empty($list)) {
+                switch($rsvp) {
+                    case 'yes':
+                        $title = 'Attending';
+                        break;
+                    case 'maybe':
+                        $title = 'Maybe attending';
+                        break;
+                    case 'no':
+                        $title = 'Not attending';
+                        break;
+                    case 'etc':
+                        $title = 'Other responses';
+                        break;
+                }
+
+                ?>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <p>
+                                <strong><?=$title;?></strong>
+                            </p>
+                        </div>
+                    </div>
+                <?php
+                echo $list;
+            }
 
         }
     }

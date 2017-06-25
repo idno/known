@@ -58,8 +58,9 @@
             <div class="content-form">
                 <label for="body">
                     Description</label>
-                    <textarea name="body" id="body" class="form-control event bodyInput mentionable" placeholder="Describe the event" required><?=htmlspecialchars($vars['object']->body)?></textarea>
-
+                    <?=$this->__([
+                        'height' => '100', 'name' => 'body', 'value' => $vars['object']->body
+                    ])->draw('forms/input/richtext');?>
             </div>
             <?=$this->draw('entity/tags/input');?>
             <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to" value="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>

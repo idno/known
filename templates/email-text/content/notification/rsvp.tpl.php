@@ -14,8 +14,8 @@ Here's what they said:
     if (!empty($post)) {
 
         ?>
-View post: <?=$post->getDisplayURL()?>
-    <?php
+        View post: <?=$post->getDisplayURL()?>
+        <?php
 
     }
 

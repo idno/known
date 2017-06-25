@@ -403,6 +403,9 @@
                 $username  = $this->getInput('username');
                 $userurl   = $this->getInput('userurl');
                 $userphoto = $this->getInput('userphoto');
+                $rsvp      = $this->getInput('rsvp');
+
+                $verbs = ['like','reply','rsvp'];
 
                 $notEmpty = array('url', 'type', 'username', 'userurl', 'userphoto');
                 foreach ($notEmpty as $varName) {
@@ -421,11 +424,11 @@
                     $this->error(400, 'not_found');
                 }
 
-                if ($type !== 'like' && $type !== 'reply') {
+                if (in_array($type, $verbs)) {
                     $this->error(
-                        400, 'invalid_request',
-                        'Annotation type must be "like" or "reply"'
-                    );
+                        400,
+                        'invalid_request',
+                        'Annotation type must be one of: ' . implode(', ', $verbs));
                 }
                 if ($type === 'reply' && $content == '') {
                     $this->error(
@@ -439,8 +442,13 @@
                     $this->error(400, 'invalid_request', '"userphoto" is invalid');
                 }
 
+                $fields = [];
+                if ($type == 'rsvp' && !empty($rsvp)) {
+                    $fields['rsvp'] = $rsvp;
+                }
+
                 $ok = $entity->addAnnotation(
-                    $type, $username, $userurl, $userphoto, $content
+                    $type, $username, $userurl, $userphoto, $content, null, null, '', $fields
                 );
                 if (!$ok) {
                     $this->error(

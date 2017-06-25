@@ -1,39 +1,54 @@
 <?php
-    if (empty($vars['feed_view'])) {
+if (empty($vars['feed_view'])) {
 
-        ?>
-        <h2 class="p-name">
-            <a href="<?= $vars['object']->getDisplayURL() ?>"
-               class="u-url"><?= htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?></a>
-        </h2>
+    ?>
+    <h2 class="p-name">
+        <a href="<?= $vars['object']->getDisplayURL() ?>"
+           class="u-url"><?= htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?></a>
+    </h2>
     <?php
 
-    }
+}
+$starttime = strtotime($vars['object']->starttime);
+$endtime = strtotime($vars['object']->endtime);
+$timeformat = 'l, jS F Y h:i A';
 ?>
 <div class="well">
     <p class="p-summary">
-        <?= htmlentities(strip_tags($vars['object']->summary), ENT_QUOTES, 'UTF-8');?>
+        <strong><?= htmlentities(strip_tags($vars['object']->summary), ENT_QUOTES, 'UTF-8'); ?></strong>
     </p>
     <p>
-        Location: <span class="p-location"><?= htmlentities(strip_tags($vars['object']->location), ENT_QUOTES, 'UTF-8'); ?></span>
+        Location: <span
+                class="p-location"><?= htmlentities(strip_tags($vars['object']->location), ENT_QUOTES, 'UTF-8'); ?></span>
     </p>
     <?php if (!empty($vars['object']->starttime)) { ?>
         <p>
-            Time: <time class="dt-start" datetime="<?=date('c',strtotime($vars['object']->starttime))?>"><?=$vars['object']->starttime?></time>
+            <time class="dt-start"
+                  datetime="<?= date('c', $starttime) ?>"><?=date($timeformat, $starttime)?></time>
+            <?php
+
+            if ($endtime && $endtime < $starttime + 86400) {
+                ?>- <time class="dt-end"
+                  datetime="<?= date('c', $endtime) ?>"><?=date('h:i A', $endtime);?></time><?php
+            }
+
+            ?>
         </p>
-    <?php
+        <?php
     }
     ?>
-    <?php if (!empty($vars['object']->endtime)) { ?>
-        <p>
-            Ends: <time class="dt-end" datetime="<?=date('c',strtotime($vars['object']->endtime))?>"><?=$vars['object']->endtime?></time>
-        </p>
     <?php
+        if ($endtime && $endtime >= $starttime + 86400) {
+    ?>
+        <p>
+            Ends:
+            <time class="dt-end"
+                  datetime="<?= date('c', $endtime) ?>"><?= date($timeformat, $endtime) ?></time>
+        </p>
+        <?php
     }
     ?>
 </div>
 <div class="e-content">
-    <?php
-        echo $this->autop($this->parseHashtags($this->parseURLs($vars['object']->body))); //TODO: a better rendering algorithm
-    ?>
+    <?= $this->autop($this->parseHashtags($this->parseURLs($vars['object']->body))) ?>
 </div>

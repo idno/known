@@ -98,7 +98,6 @@
             if (!empty($likes) || !empty($replies) || !empty($shares) || !empty($rsvps) || !empty($mentions)) {
 
                 ?>
-
                 <div class="annotations">
 
                     <a name="comments"></a>
@@ -109,7 +108,6 @@
                     ?>
 
                 </div>
-
             <?php
 
             }

@@ -466,6 +466,7 @@
                                             null,
                                             strtotime($comment['comment_date_gmt']),
                                             null,
+                                            [],
                                             false
                                         )
                                         ) {
