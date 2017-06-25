@@ -1,6 +1,9 @@
 <?php
 
     if (!empty($vars['annotations']) && is_array($vars['annotations'])) {
+        usort($vars['annotations'], function($a, $b) {
+            return ($a['time'] < $b['time']) ? -1 : 1;
+        });
         foreach($vars['annotations'] as $locallink => $annotation) {
 
             $permalink = $annotation['permalink'] ? $annotation['permalink'] : $locallink;
