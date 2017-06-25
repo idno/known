@@ -57,12 +57,19 @@
             {
                 $this->gatekeeper();
                 if ($query = trim($this->getInput('q'))) {
-                    switch ($query) {
-                    case 'syndicate-to':
-                        $account_strings = \Idno\Core\Idno::site()->syndication()->getServiceAccountStrings();
-                        $account_data    = \Idno\Core\Idno::site()->syndication()->getServiceAccountData();
-                        $this->getServiceAccountsFromHub($account_strings, $account_data);
+                    $account_strings = \Idno\Core\Idno::site()->syndication()->getServiceAccountStrings();
+                    $account_data    = \Idno\Core\Idno::site()->syndication()->getServiceAccountData();
+                    $this->getServiceAccountsFromHub($account_strings, $account_data);
 
+                    switch ($query) {
+                    case 'config':
+                        header('Content-Type: application/json');
+                        echo json_encode([
+                            'media-endpoint' => \Idno\Core\Idno::site()->config()->url . 'micropub/endpoint',
+                            'syndicate-to' => $account_strings,
+                        ], JSON_PRETTY_PRINT);
+                        break;
+                    case 'syndicate-to':
                         if ($this->isAcceptedContentType('application/json')) {
                             header('Content-Type: application/json');
                             echo json_encode([
@@ -87,6 +94,14 @@
                 // If we're here, we're authorized
 
                 \Idno\Core\Idno::site()->triggerEvent('indiepub/post/start', ['page' => $this]);
+                
+                // are we handling a media endpoint request?
+                if (empty($this->getInput('action'))) {
+                    if (isset($_SERVER['CONTENT_TYPE']) && strpos($_SERVER['CONTENT_TYPE'], 'multipart/form-data') == 0 && !empty($_FILES['file'])) {
+                        $this->postMedia();
+                        return;
+                    }
+                }
 
                 $action = $this->getInput('action', 'create');
                 switch ($action) {
@@ -98,6 +113,20 @@
                     break;
                 default:
                     $this->error(501, 'not_implemented', 'Action not implemented');
+                }
+            }
+
+            function postMedia()
+            {
+                $id = \Idno\Entities\File::createFromFile($_FILES['file']['tmp_name'], $_FILES['file']['name'], $_FILES['file']['type']);
+
+                if (!empty($id)) {
+                    $local_photo = \Idno\Core\Idno::site()->config()->url . 'file/' . $id;
+                    \Idno\Core\Idno::site()->triggerEvent('indiepub/post/success', ['page' => $this, 'object' => $entity]);
+                    $this->setResponse(201);
+                    header('Location: ' . $local_photo);
+                } else {
+                    $this->error(400, 'cannot_save_media', 'Problem saving media');
                 }
             }
 
