@@ -6,6 +6,9 @@
 <link rel="alternate feed" type="application/rss+xml"
       title="<?= htmlspecialchars(\Idno\Core\Idno::site()->config()->title) ?>: all content"
       href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>content/all?_t=rss"/>
+<link rel="alternate" type="application/json"
+      title="<?= htmlspecialchars(\Idno\Core\Idno::site()->config()->title) ?>: all content"
+      href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>content/all?_t=rss" />
 <link rel="feed" type="text/html" title="<?= htmlspecialchars(\Idno\Core\Idno::site()->config()->title) ?>"
       href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>content/all"/>
 
@@ -17,4 +20,3 @@
     <!-- Pubsubhubbub -->
     <link href="<?= \Idno\Core\Idno::site()->config()->hub ?>" rel="hub"/>
 <?php } ?>
-
