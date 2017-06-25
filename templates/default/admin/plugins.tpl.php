@@ -29,3 +29,27 @@
     </div>
 
 </div>
+<script>
+    var pluginFunction = function(e) {
+        e.preventDefault();
+        var form = $(this).closest('form');
+        var formData = {};
+        form.serializeArray().map(function(x){formData[x.name] = x.value;});
+        $.ajax(form.attr('action'), {
+            method: 'POST',
+            dataType: 'html',
+            data: formData
+        })
+            .done(function(data, status, xhr) {
+                $.ajax(form.attr('action'))
+                    .done(function(data) {
+                        var div = '#' + formData.container;
+                        var result = $(data).find(div);
+                        $(div).html(result.html());
+                        $(div + ' .plugin-button').on('click', pluginFunction);
+                    });
+            });
+    };
+
+    $('.plugin-button').on('click', pluginFunction);
+</script>

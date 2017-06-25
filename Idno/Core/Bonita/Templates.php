@@ -175,9 +175,7 @@ namespace Idno\Core\Bonita {
                 $content = $this->draw('shell');
                 header('Content-Length: ' . strlen($content));
 
-                // End session BEFORE we output any data
-                // session_write_close(); // Seems to cause some issues with Known, so commenting out for now
-                // Break long output to avoid a apache performance bug
+                // Break long output to avoid an Apache performance bug
                 $split_output = str_split($content, 1024);
 
                 foreach ($split_output as $chunk)

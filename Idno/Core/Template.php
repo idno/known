@@ -104,7 +104,7 @@
             {
 
                 // Get messages and flush session
-                $this->messages = site()->session()->getAndFlushMessages();
+                $this->messages = \Idno\Core\Idno::site()->session()->getAndFlushMessages();
 
                 // End session BEFORE we output any data
                 session_write_close();

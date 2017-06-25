@@ -414,8 +414,7 @@
                             $location['trace'] = $call_trace;
                         echo json_encode($location);
                     } elseif (!\Idno\Core\Idno::site()->session()->isAPIRequest() || $this->response == 200) {
-                        if (!empty($call_trace))
-                            header('X-Known-Forward-Trace: ' . $call_trace);
+                        if (!empty($call_trace)) header('X-Known-Forward-Trace: ' . $call_trace);
                         header('Location: ' . $location);
                     }
 

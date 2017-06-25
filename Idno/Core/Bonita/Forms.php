@@ -40,7 +40,6 @@ namespace Idno\Core\Bonita {
          * @return true|false
          */
         public static function validateToken($action = '', $haltExecutionOnBadRequest = true) {
-
             if (empty($_REQUEST['__bTs']) || empty($_REQUEST['__bTk'])) {
                 if ($haltExecutionOnBadRequest)
                     exit;

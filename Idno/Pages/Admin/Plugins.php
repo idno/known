@@ -28,7 +28,7 @@
             {
                 $this->adminGatekeeper(); // Admins only
                 $plugin = $this->getInput('plugin');
-                $action = $this->getInput('action');
+                $action = $this->getInput('plugin_action');
                 if (defined('KNOWN_MULTITENANT_HOST')) {
                     $host = KNOWN_MULTITENANT_HOST;
                 }
@@ -60,7 +60,7 @@
                     \Idno\Core\Idno::site()->config->config['plugins'] = array_unique(\Idno\Core\Idno::site()->config->config['plugins']);
                     \Idno\Core\Idno::site()->config()->save();
                 }
-                $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'admin/plugins/');
+                $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/plugins/');
             }
 
         }
