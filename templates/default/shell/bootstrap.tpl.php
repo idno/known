@@ -1,5 +1,5 @@
 <!-- We need jQuery at the top of the page -->
-<script src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/jquery/' ?>jquery.min.js"></script>
+<script src="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'external/jquery/' ?>jquery-3.2.1.min.js"></script>
 
 <!-- Le styles -->
 <link
