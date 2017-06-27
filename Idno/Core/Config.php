@@ -338,6 +338,28 @@
                     $url .= '/'; // A naive default base URL
                     return $url;
                 }
+                
+                $domain = getenv('KNOWN_DOMAIN');
+                if (!empty($domain)) {
+                    // Server domain specified in environment variable, for cases when SERVER_NAME isn't specified.
+                    // This allows things like the console plugins to access the correct site when using domain
+                    // specific configurations.
+                    
+                    $url = (\Idno\Common\Page::isSSL() ? 'https://' : 'http://') . $domain;
+                    $port = getenv('KNOWN_PORT');
+                    if (!$port)
+                        $port = 80;
+                    
+                    if ($port != 80 && $port != 443) {
+                        $url .= ':' . $port;
+                    }
+                    
+                    if (defined('KNOWN_SUBDIRECTORY')) {
+                        $url .= '/' . KNOWN_SUBDIRECTORY;
+                    }
+                    $url .= '/'; // A naive default base URL
+                    return $url;
+                }
 
                 // No servername set, try something else
                 // TODO: Detect servername using other methods (but don't use HTTP_HOST)
