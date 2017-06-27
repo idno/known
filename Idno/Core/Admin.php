@@ -29,6 +29,7 @@
                 site()->addPageHandler('/admin/export/rss/?', '\Idno\Pages\Admin\Export\RSS');
                 site()->addPageHandler('/admin/import/?', '\Idno\Pages\Admin\Import');
                 site()->addPageHandler('/admin/diagnostics/?', '\Idno\Pages\Admin\Diagnostics');
+                site()->addPageHandler('/admin/statistics/?', '\Idno\Pages\Admin\Statistics');
                 
                 if (!empty(\Idno\Core\Idno::site()->config()->capture_logs) && \Idno\Core\Idno::site()->config()->capture_logs) { 
                     site()->addPageHandler('/admin/logs/?', '\Idno\Pages\Admin\Logs');
