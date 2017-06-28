@@ -30,19 +30,17 @@
         </ul>
         <div class="tab-content">
             <?php
-            $n = 0;
             foreach ($vars['statistics'] as $tab => $report) {
                 
                 $sanitised_tab = strtolower(str_replace(' ', '', $tab));
                 
                 ?>
-                <div role="tabpanel1" class="tab-pane <?= $n==0 ? 'active' : '' ?>" id="stats-<?= $sanitised_tab; ?>">
+                <div role="tabpanel1" class="tab-pane <?= (empty($vars['tab']) || $vars['tab'] == 'Basic') ? 'active' : '' ?>" id="stats-<?= $sanitised_tab; ?>">
                     <?= $this->__([
                         'report' => $report
                     ])->draw('admin/statistics/report'); ?>
                 </div>
                 <?php
-                $n++;
             }
             ?>
         </div>
