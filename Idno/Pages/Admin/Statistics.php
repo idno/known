@@ -8,7 +8,7 @@ namespace Idno\Pages\Admin {
             $this->adminGatekeeper(); // Admins only
             $tab = $this->getInput('tab');
             
-            $stats = \Idno\Core\Statistics::gather();
+            $stats = \Idno\Core\Statistics::gather($tab);
             
             if (empty($stats) || !is_array($stats))
                 throw new \RuntimeException("Something went wrong, either no statistics were returned or it wasn't in the correct format.");
