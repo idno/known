@@ -35,6 +35,9 @@ function exifRotateImg(imgid, exif_orientation, containerdiv) {
     var h = $(imgid).height();
     var w = $(imgid).width();
     
+    if (w == 0) w = 300;
+    if (h == 0) h = 200;
+    
     switch(exif_orientation){
 
 	case 8:
