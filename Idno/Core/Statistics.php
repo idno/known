@@ -23,15 +23,21 @@
             
             /**
              * Gather statistics.
+             * @param $report string Named report to gather, or empty for all.
              * @return array
              */
-            public static function gather() {
-                $stats = [
-                    'Basic' => static::basic(),
-                    
-                ];
+            public static function gather($report = null) {
                 
-                return \Idno\Core\Idno::site()->triggerEvent('statistics/gather', [], $stats);
+                $stats = [];
+                
+                // Add Basic report
+                if (empty($report) || $report == 'Basic') {
+                    $stats['Basic'] = static::basic();
+                }
+                
+                return \Idno\Core\Idno::site()->triggerEvent('statistics/gather', [
+                    'report' => $report
+                ], $stats);
             }
 
         }
