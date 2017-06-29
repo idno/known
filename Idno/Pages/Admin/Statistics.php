@@ -16,7 +16,11 @@ namespace Idno\Pages\Admin {
             if ($this->xhr) {
 
                 header('Content-type: application/json');
-                echo json_encode($stats);
+                
+                if (!empty($tab) && isset($stats[$tab]))
+                    echo json_encode($stats[$tab]);
+                else
+                    echo json_encode($stats);
                 
             } else {
                 $t = \Idno\Core\Idno::site()->template();
