@@ -17,10 +17,7 @@ namespace Idno\Pages\Admin {
 
                 header('Content-type: application/json');
                 
-                if (!empty($tab) && isset($stats[$tab]))
-                    echo json_encode($stats[$tab]);
-                else
-                    echo json_encode($stats);
+                echo json_encode($stats);
                 
             } else {
                 $t = \Idno\Core\Idno::site()->template();
