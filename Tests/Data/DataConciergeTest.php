@@ -224,6 +224,9 @@ namespace Tests\Data {
             $this->assertEquals("".$obj->getID(), "".$obj2->getID());
             $this->assertEquals("".$id, "".$obj2->getID());
             
+            // Attempt to use index
+            $retrieval = \Idno\Entities\GenericDataItem::getFromX('Idno\Entities\GenericDataItem', ['body' => 'Long Post']);
+            
         }
 
         public function testCountObjects() {
