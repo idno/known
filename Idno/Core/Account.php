@@ -23,7 +23,7 @@
                 Idno::site()->addPageHandler('/account/settings/following/bookmarklet/?', '\Idno\Pages\Account\Settings\Following\Bookmarklet');
 
                 Idno::site()->addPageHandler('/account/notifications/?', '\Idno\Pages\Account\Notifications');
-                Idno::site()->addPageHandler('/account/new-notifications/?', '\Idno\Pages\Account\NewNotifications');
+                Idno::site()->addPageHandler('/service/notifications/new-notifications/?', '\Idno\Pages\Service\Notifications\NewNotifications');
 
                 // Basic registration; this is now always present, but the page will reject the user if registration
                 // is closed and a valid invitation code hasn't been provided

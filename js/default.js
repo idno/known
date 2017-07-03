@@ -41,6 +41,55 @@ Security.getCSRFToken = function(callback, pageurl) {
 }
 
 
+/** Known notifications */
+function Notifications() {}
+
+
+/**
+ * Poll for new notifications
+ */
+Notifications.poll = function() {
+    $.get(known.config.displayUrl + 'service/notifications/new-notifications')
+        .done(function (data) {
+            console.log("Polling for new notifications succeeded");
+            console.log(data);
+            if (data.notifications)
+            if (data.notifications.length > 0) {
+                var title = data.notifications[0].title;
+                var body = data.notifications[0].body;
+                new Notification(title, {body: body});
+            }
+        })
+        .fail(function (data) {
+            console.log("Polling for new notifications failed");
+    });
+}
+
+Notifications.enable = function(opt_dontAsk) {
+    if (!known.session.loggedIn) {
+        return;
+    }
+
+    if (!("Notification" in window)) {
+        console.log("The Notification API is not supported by this browser");
+        return;
+    }
+
+    if (Notification.permission !== 'denied' && Notification.permission !== 'granted' && !opt_dontAsk) {
+        Notification.requestPermission(function (permission) {
+            // If the user accepts, let's create a notification
+            if (permission === "granted") {
+                setInterval(Notifications.poll, 10000);
+            }
+        });
+    } else if (Notification.permission === 'granted') {
+        setInterval(Notifications.poll, 10000);
+    }
+}
+
+// Backwards compatibility for those who already have notifications installed
+function doPoll() { Notifications.poll(); }
+
 
 /**
  *** Content creation
@@ -191,48 +240,6 @@ function isLoggedIn() {
 }
 
 /**
- * Poll for new notifications
- */
-function doPoll() {
-    $.get(known.config.displayUrl + '/account/new-notifications')
-        .done(function (data) {
-            console.log("Polling for new notifications succeeded");
-            console.log(data);
-            if (data.notifications)
-            if (data.notifications.length > 0) {
-                var title = data.notifications[0].title;
-                var body = data.notifications[0].body;
-                new Notification(title, {body: body});
-            }
-        })
-        .fail(function (data) {
-            console.log("Polling for new notifications failed");
-        });
-}
-
-function enableNotifications(opt_dontAsk) {
-    if (!known.session.loggedIn) {
-        return;
-    }
-
-    if (!("Notification" in window)) {
-        console.log("The Notification API is not supported by this browser");
-        return;
-    }
-
-    if (Notification.permission !== 'denied' && Notification.permission !== 'granted' && !opt_dontAsk) {
-        Notification.requestPermission(function (permission) {
-            // If the user accepts, let's create a notification
-            if (permission === "granted") {
-                setInterval(doPoll, 10000);
-            }
-        });
-    } else if (Notification.permission === 'granted') {
-        setInterval(doPoll, 10000);
-    }
-}
-
-/**
  * Actions to perform on page load
  */
 $(document).ready(function () {
@@ -244,6 +251,6 @@ $(document).ready(function () {
 
     if (known.session.loggedIn) {
         //TODO(ben) re-enable in a smarter way
-        //enableNotifications(true);
+        //Notifications.enable(true);
     }
 });

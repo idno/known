@@ -14,7 +14,7 @@
 
                 $user = Idno::site()->session()->currentUser();
 
-                $limit  = 10;
+                $limit  = 25;
                 $offset = $this->getInput('offset', 0);
 
                 $notifs = Notification::getFromX('Idno\Entities\Notification', [
@@ -27,7 +27,7 @@
 
                 $body = Idno::site()->template()->__([
                     'user'          => $user,
-                    'notifications' => $notifs,
+                    'items'         => $notifs,
                     'count'         => $count,
                 ])->draw('account/notifications');
 

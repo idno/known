@@ -10,8 +10,8 @@
 </div>
 
 <?php
-    if (!empty($notifications)) {
-        foreach ($notifications as $notif) {
+    if (!empty($items)) {
+        foreach ($items as $notif) {
             echo $t->__(['notification' => $notif])->draw($notif->getMessageTemplate());
         }
     } else {
@@ -42,6 +42,6 @@
     $(function () {
         console.log($(".notification time"));
         $(".notification time").timeago();
-        enableNotifications();
+        Notifications.enable();
     });
 </script>

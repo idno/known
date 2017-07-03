@@ -13,7 +13,7 @@
     </a>
     <ul class="dropdown-menu">
         <li><a href="<?=\Idno\Core\Idno::site()->session()->currentUser()->getDisplayURL()?>">Profile</a></li>
-        <!--<li><a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>account/notifications">Notifications</a></li>-->
+        <li><a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>account/notifications">Notifications</a></li>
         <?=$this->draw('shell/toolbar/personal/items')?>
         <li><a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>account/settings/">Account Settings</a></li>
         <?php if (\Idno\Core\Idno::site()->session()->currentUser()->isAdmin()) { ?>

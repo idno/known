@@ -1,6 +1,6 @@
 <?php
 
-    namespace Idno\Pages\Account {
+    namespace Idno\Pages\Service\Notifications {
 
         use Idno\Core\Idno;
         use Idno\Entities\Notification;

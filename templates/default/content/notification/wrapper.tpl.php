@@ -21,18 +21,18 @@
                 </div>
                 <div class="footer">
                     <div class="permalink">
-                        <span class="notification-icon"><?= $icon ?></span>
-                        <a href="<?= $annotation['owner_url'] ?>"><?= $annotation['owner_name'] ?></a> <?= $interaction ?>
-                        <a href="<?= $post->getDisplayURL(); ?>"><?= $post->getNotificationTitle() ?></a>
-                        <time datetime="<?= date('c', $notification->created) ?>"
-                              class="dt-published"><?= strftime('%c', $notification->created) ?></time>
+                            <?php /*<span class="notification-icon"><?= $icon ?></span> */ ?>
+                            <a href="<?= $annotation['owner_url'] ?>"><?= $annotation['owner_name'] ?></a> <?= $interaction ?>
+                            <a href="<?= $post->getDisplayURL(); ?>"><?= \Idno\Core\Idno::site()->template()->sampleTextChars($post->getNotificationTitle(), 60); ?></a>
+                            <time datetime="<?= date('c', $notification->created) ?>"
+                                  class="dt-published"><?= strftime('%c', $notification->created) ?></time>                 
                         <?php
 
                             if (!empty($verb)) {
 
                                 ?>
-                                <a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>status/edit?url=<?= urlencode($annotation['permalink']) ?>"
-                                   class="edit"><?= $verb ?></a>
+                            <a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>status/edit?url=<?= urlencode($annotation['permalink']) ?>"
+                                   class="edit pull-right"><i class="fa fa-commenting-o"> </i><?= $verb ?></a>                
                                 <?php
 
                             }
