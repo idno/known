@@ -1800,6 +1800,17 @@ textarea.form-control {
     font-size: 1em;
 }
 
+.notification .icon-container {
+    width: 30px;
+    height: 30px;
+}
+
+.notification .idno-content {
+    padding: 0.1em;
+    border-bottom: 1px dotted #ccc;
+    padding-bottom: 20px;
+}
+
 .unread-notification-count {
     font-size: 0.8em;
     font-weight: bold;
