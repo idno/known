@@ -27,7 +27,7 @@
 
                 $body = Idno::site()->template()->__([
                     'user'          => $user,
-                    'notifications' => $notifs,
+                    'items'         => $notifs,
                     'count'         => $count,
                 ])->draw('account/notifications');
 
