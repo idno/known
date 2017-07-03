@@ -49,7 +49,7 @@ function Notifications() {}
  * Poll for new notifications
  */
 Notifications.poll = function() {
-    $.get(known.config.displayUrl + 'account/new-notifications')
+    $.get(known.config.displayUrl + 'service/notifications/new-notifications')
         .done(function (data) {
             console.log("Polling for new notifications succeeded");
             console.log(data);
