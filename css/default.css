@@ -1774,12 +1774,12 @@ textarea.form-control {
     max-width: 64px;
 }
 
-.notification.notification-unread .panel-heading {
+.notification.notification-unread  {
     color: #333;
     font-weight: bold;
 }
 
-.notification.notification-read .panel-heading {
+.notification.notification-read  {
     color: #666;
     font-weight: normal;
 }
