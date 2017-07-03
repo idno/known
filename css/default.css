@@ -1811,6 +1811,10 @@ textarea.form-control {
     padding-bottom: 20px;
 }
 
+.notification .permalink {
+    width: 100%;
+}
+
 .unread-notification-count {
     font-size: 0.8em;
     font-weight: bold;
