@@ -35,7 +35,7 @@
 
     }
 
-    echo $t->drawPagination($vars['count']);
+    echo $t->drawPagination($vars['count'], $vars['items_per_page']);
 ?>
 
 <script>

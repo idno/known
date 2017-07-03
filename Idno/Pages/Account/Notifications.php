@@ -29,6 +29,7 @@
                     'user'          => $user,
                     'items'         => $notifs,
                     'count'         => $count,
+                    'items_per_page'  => $limit
                 ])->draw('account/notifications');
 
                 $page = Idno::site()->template()->__([
