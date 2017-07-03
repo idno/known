@@ -14,7 +14,7 @@
 
                 $user = Idno::site()->session()->currentUser();
 
-                $limit  = 10;
+                $limit  = 25;
                 $offset = $this->getInput('offset', 0);
 
                 $notifs = Notification::getFromX('Idno\Entities\Notification', [
