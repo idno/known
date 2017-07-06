@@ -245,6 +245,20 @@
                 return preg_replace("/[^a-zA-Z0-9\_]/", "", $collection);
             }
 
+            /**
+             * Utility function which normalises a variable into an array.
+             * Sometimes you want to be sure you always have an array, but sometimes array values are saved as a single value if they e.g. contain only one value.
+             * @param mixed $variable
+             */
+            public static function normaliseArray($variable) {
+                
+                $return = $variable;
+                if (empty($return)) $return = [];
+                if (!empty($return) && !is_array($return))
+                    $return = [$return];
+                
+                return $return;
+            }
         }
 
         /**
