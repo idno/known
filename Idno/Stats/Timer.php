@@ -42,7 +42,7 @@ namespace Idno\Stats {
          */
         public static function logTimer($timer) {
             
-            \Idno\Core\Idno::site()->logging()->debug("Timer $timer has been running for " . self::value($timer) . ' seconds.');
+            \Idno\Core\Idno::site()->logging()->debug("Timer $timer has been running for " . static::value($timer) . ' seconds.');
         }
         
     }
