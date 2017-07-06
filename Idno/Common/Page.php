@@ -632,7 +632,7 @@
                 header_remove('X-Known-CSRF-Token');
                 
                 $t = \Idno\Core\Idno::site()->template();
-                $t->__(array('body' => $t->draw('pages/410'), 'title' => 'This page is gone.'))->drawPage();
+                $t->__(array('body' => $t->draw('pages/410'), 'title' => 'This content isn\'t here.'))->drawPage();
                 exit;
             }
 

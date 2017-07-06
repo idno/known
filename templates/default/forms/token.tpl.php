@@ -5,7 +5,8 @@
         $tokenid = "tid".md5(mt_rand());
         
 ?>
-<div style="display: none;" id="<?= $tokenid; ?>"></div>
+<!--This causing all button bars to break out of their containing p-tag with right alignment and become left aligned. Is there a fix?
+<div style="display: none;" id="<?= $tokenid; ?>"></div>-->
 <input type="hidden" name="__bTs" value="<?=$vars['time']?>" />
 <input type="hidden" name="__bTk" value="<?=\Idno\Core\Bonita\Forms::token($vars['action'],$vars['time'])?>" />
 <input type="hidden" name="__bTa" value="<?=htmlentities($vars['action'])?>" />
@@ -24,3 +25,4 @@
         
     }, 300000); // update form token every 5 minutes
 </script>
+
