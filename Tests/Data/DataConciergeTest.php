@@ -206,6 +206,32 @@ namespace Tests\Data {
                 }
             }
         }
+        
+        /**
+         * Attempting to replicate #1790
+         */
+        public function testLargePost() {
+            
+            $obj = new \Idno\Entities\GenericDataItem();
+            $obj->setDatatype('LongPost');
+            $obj->setTitle("A Long post title");
+            $obj->randomvar = str_pad("A Long Post ", 10240, 'x');
+            $id = $obj->save();
+            
+            $obj2 = \Idno\Entities\GenericDataItem::getByID($id);
+            $this->assertTrue($obj2 instanceof \Idno\Entities\GenericDataItem);
+            
+            $this->assertEquals("".$obj->getID(), "".$obj2->getID());
+            $this->assertEquals("".$id, "".$obj2->getID());
+            
+            // Attempt to use index
+            $retrieval = \Idno\Entities\GenericDataItem::getFromX('Idno\Entities\GenericDataItem', ['randomvar' => $obj->randomvar]);
+            
+            $this->assertTrue(($retrieval[0]->getID() == $id));
+            
+            $obj->delete();
+            
+        }
 
         public function testCountObjects() {
             $cnt = \Idno\Entities\GenericDataItem::count(['variable1' => 'test']);
@@ -219,8 +245,8 @@ namespace Tests\Data {
          */
         protected function validateObject($obj) {
             
-            var_export($obj); 
-            var_export(self::$uuid);
+            //var_export($obj); 
+            //var_export(self::$uuid);
             $this->assertTrue($obj instanceof \Idno\Entities\GenericDataItem);
             
             $this->assertEquals("".self::$object->getID(), "".$obj->getID());
