@@ -134,6 +134,10 @@
                 elseif (extension_loaded('xcache')) {
                     $this->cache = new \Idno\Caching\XCache();
                 }
+                else {
+                    // Ensure there is always a cache available
+                    $this->cache = new \Idno\Caching\FilesystemCache();
+                } 
                 // TODO: Support other persistent caching methods
 
                 // No URL is a critical error, default base fallback is now a warning (Refs #526)
