@@ -32,7 +32,8 @@ namespace Idno\Caching {
         }
 
         public function load($key) {
-            return file_get_contents(self::$path .  sha1($key));
+            if (file_exists(self::$path .  sha1($key)))
+                return file_get_contents(self::$path .  sha1($key));
         }
 
         public function size() {
@@ -46,7 +47,7 @@ namespace Idno\Caching {
         }
 
         public function store($key, $value) {
-            
+            @mkdir(self::$path, 0700);
             file_put_contents(self::$path . sha1($key), $value);
             
         }
