@@ -41,8 +41,11 @@ namespace Idno\Stats {
          * @param type $timer
          */
         public static function logTimer($timer) {
-            
-            \Idno\Core\Idno::site()->logging()->debug(get_called_class() . " $timer has been running for " . static::value($timer) . ' seconds.');
+            try {
+                \Idno\Core\Idno::site()->logging()->debug(get_called_class() . " $timer has been running for " . static::value($timer) . ' seconds.');
+            } catch (\Exception $e) {
+                \Idno\Core\Idno::site()->logging()->debug($e->getMessage());
+            }
         }
         
     }
