@@ -16,13 +16,6 @@
 
             function getContent()
             {
-                // Check modified ts
-                if ($cache = \Idno\Core\Idno::site()->cache()) {
-                    if ($modifiedts = $cache->load("{$this->arguments[0]}_modified_ts")) {
-                        $this->lastModifiedGatekeeper($modifiedts); // Set 304 and exit if we've not modified this object
-                    }
-                }
-
                 if (!empty($this->arguments[0])) {
                     $object = \Idno\Common\Entity::getByID($this->arguments[0]);
                     if (empty($object)) {
@@ -47,6 +40,8 @@
 
                 $this->setOwner($object->getOwner());
                 $this->setPermalink(); // This is a permalink
+                
+                $this->lastModifiedGatekeeper($object->updated); // 304 if we've not updated the object
 
                 // We need to set pragma and expires headers
                 //header("Pragma: private");
@@ -58,9 +53,9 @@
 
                 //header('Expires: ' . date(\DateTime::RFC1123, time() + (86400 * 30))); // Cache for 30 days!
                 $this->setLastModifiedHeader($object->updated); // Say when this was last modified
-                if ($cache = \Idno\Core\Idno::site()->cache()) {
-                    $cache->store("{$this->arguments[0]}_modified_ts", $object->updated);
-                }
+//                if ($cache = \Idno\Core\Idno::site()->cache()) {
+//                    $cache->store("{$this->arguments[0]}_modified_ts", $object->updated);
+//                }
 
                 $t = \Idno\Core\Idno::site()->template();
                 $t->__(array(
