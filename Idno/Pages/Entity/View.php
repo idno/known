@@ -53,9 +53,9 @@
 
                 //header('Expires: ' . date(\DateTime::RFC1123, time() + (86400 * 30))); // Cache for 30 days!
                 $this->setLastModifiedHeader($object->updated); // Say when this was last modified
-                if ($cache = \Idno\Core\Idno::site()->cache()) {
-                    $cache->store("{$this->arguments[0]}_modified_ts", $object->updated);
-                }
+//                if ($cache = \Idno\Core\Idno::site()->cache()) {
+//                    $cache->store("{$this->arguments[0]}_modified_ts", $object->updated);
+//                }
 
                 $t = \Idno\Core\Idno::site()->template();
                 $t->__(array(
