@@ -50,14 +50,14 @@
 
                 // We need to set pragma and expires headers
                 //header("Pragma: private");
-                header("Cache-Control: no-store, no-cache, must-revalidate"); // HTTP/1.1
-                header("Cache-Control: post-check=0, pre-check=0", false);
-                header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
-                header("Pragma: no-cache"); // HTTP/1.0
-                header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); // Last modified right now
+//                header("Cache-Control: no-store, no-cache, must-revalidate"); // HTTP/1.1
+//                header("Cache-Control: post-check=0, pre-check=0", false);
+//                header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
+//                header("Pragma: no-cache"); // HTTP/1.0
+//                header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); // Last modified right now
 
                 //header('Expires: ' . date(\DateTime::RFC1123, time() + (86400 * 30))); // Cache for 30 days!
-                //$this->setLastModifiedHeader($object->updated); // Say when this was last modified
+                $this->setLastModifiedHeader($object->updated); // Say when this was last modified
                 if ($cache = \Idno\Core\Idno::site()->cache()) {
                     $cache->store("{$this->arguments[0]}_modified_ts", $object->updated);
                 }
