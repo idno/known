@@ -25,7 +25,7 @@ Detailed installation instructions: <http://docs.withknown.com/en/latest/install
 
 * [Star us on GitHub](https://github.com/idno/known)
 * [Like us on alternativeto.net](http://alternativeto.net/software/known/)
-* [Contribute](CONTRIBUTORS.md)
+* [Contribute](CONTRIBUTING.md)
 
 ### Get support
 
@@ -39,7 +39,7 @@ Detailed installation instructions: <http://docs.withknown.com/en/latest/install
 * Join the development mailing list: <https://groups.google.com/forum/#!forum/known-dev>
 * Join the IRC channel: [#knownchat](https://webchat.freenode.net/?channels=knownchat) on Freenode
 
-For details on contributing to the Known project, please read [CONTRIBUTORS.md](CONTRIBUTORS.md).
+For details on contributing to the Known project, please read [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Copyright and License
 
