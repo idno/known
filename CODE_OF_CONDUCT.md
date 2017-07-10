@@ -16,7 +16,7 @@ for any Known-related events you may choose to run.
 As with all aspects of Known, we encourage you to submit suggested changes
 via GitHub: https://github.com/idno/idno/
 
-If you're wondering about how you can contribute, please see CONTRIBUTORS.md,
+If you're wondering about how you can contribute, please see CONTRIBUTING.md,
 or go ahead and email us: hello@withknown.com. We'll be delighted to hear from
 you.
 
