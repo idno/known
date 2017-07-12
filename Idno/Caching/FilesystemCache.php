@@ -28,7 +28,7 @@ namespace Idno\Caching {
         }
         
         public function delete($key) {
-            unlink(self::$path . '/' . sha1($key));
+            @unlink(self::$path . '/' . sha1($key));
         }
 
         public function load($key) {
