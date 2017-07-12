@@ -40,10 +40,51 @@ Security.getCSRFToken = function(callback, pageurl) {
     });
 }
 
+/** Refresh all security tokens */
+Security.refreshTokens = function() {
+    
+    $('.known-security-token').each(function() {
+	var form = $(this).closest('form');
+
+	Security.getCSRFToken(function(token, ts) {
+
+	   form.find('input[name=__bTk]').val(token);
+	   form.find('input[name=__bTs]').val(ts);
+
+	}, form.find('input[name=__bTa]').val());
+    });
+}
+
+setInterval(function() { Security.refreshTokens(); }, 300000); 
+
+/** 
+ * Initialise ACL controls
+ */
+Security.activateACLControls = function() {
+    $('.acl-ctrl-option').each(function () {
+	if ($(this).data('acl') == $(this).closest('.access-control-block').find('input').val()) {
+	    $(this).closest('.btn-group').find('.dropdown-toggle').html($(this).html() + ' <span class="caret"></span>');
+	}
+    });
+    $('.acl-ctrl-option').on('click', function () {
+	$(this).closest('.access-control-block').find('input').val($(this).data('acl'));
+	$(this).closest('.btn-group').find('.dropdown-toggle').html($(this).html() + ' <span class="caret"></span>');
+	$(this).closest('.btn-group').find('.dropdown-toggle').click();
+    });
+}
+
+$(document).ready(function() {
+    Security.activateACLControls();
+});
+
+/** 
+ * Ini
+ * @returns {undefined}
+ */
+
 
 /** Known notifications */
 function Notifications() {}
-
 
 /**
  * Poll for new notifications
@@ -96,7 +137,7 @@ function doPoll() { Notifications.poll(); }
  */
 
 function bindControls() {
-    $('.acl-option').click(function () {
+    $('.acl-ctrl-option').click(function () {
         $('#access-control-id').val($(this).attr('data-acl'));
         $('#acl-text').html($(this).html());
     });

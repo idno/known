@@ -8,11 +8,13 @@
  *   yui-compressor image.js > image.min.js
  */
 
+function Image() {}
+
 /**
  * Convert base 64 encoded data into an array/image buffer.
  * From: https://stackoverflow.com/questions/24010310/using-exif-and-binaryfile-get-an-error
  */
-function base64ToArrayBuffer(base64) {
+Image.base64ToArrayBuffer = function(base64) {
     base64 = base64.replace(/^data\:([^\;]+)\;base64,/gmi, '');
     var binaryString = atob(base64);
     var len = binaryString.length;
@@ -24,13 +26,20 @@ function base64ToArrayBuffer(base64) {
 }
 
 /**
+ * Wrapper.
+ * @@description Use Image.base64ToArrayBuffer
+ */
+function base64ToArrayBuffer(base64) { return Image.base64ToArrayBuffer(base64); }
+
+
+/**
  * Transform an img ID based on the passed exif orientation.
  * @param string imgid ID of the image to rotate
  * @param exif.Orientation exif_orientation The orientation data from exif
  * @param string containerdiv the containing div
  * @returns {undefined}
  */
-function exifRotateImg(imgid, exif_orientation, containerdiv) {
+Image.exifRotateImg = function(imgid, exif_orientation, containerdiv) {
     
     var h = $(imgid).height();
     var w = $(imgid).width();
@@ -66,3 +75,9 @@ function exifRotateImg(imgid, exif_orientation, containerdiv) {
 	    break;
      }
 }
+
+/**
+ * Wrapper.
+ * @@description Use Image.exifRotateImg
+ */
+function exifRotateImg(imgid, exif_orientation, containerdiv) { Image.exifRotateImg(imgid, exif_orientation, containerdiv); }

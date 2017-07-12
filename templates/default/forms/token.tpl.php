@@ -5,23 +5,7 @@
         $tokenid = "tid".md5(mt_rand());
         
 ?>
-<span style="display: none;" id="<?= $tokenid; ?>"></span>
+<span class="known-security-token" style="display: none;" id="<?= $tokenid; ?>"></span>
 <input type="hidden" name="__bTs" value="<?=$vars['time']?>" />
 <input type="hidden" name="__bTk" value="<?=\Idno\Core\Bonita\Forms::token($vars['action'],$vars['time'])?>" />
 <input type="hidden" name="__bTa" value="<?=htmlentities($vars['action'])?>" />
-<script>
-
-    setInterval(function() {
-        
-        var form = $('#<?= $tokenid; ?>').closest('form');
-        
-        Security.getCSRFToken(function(token, ts) {
-           
-           form.find('input[name=__bTk]').val(token);
-           form.find('input[name=__bTs]').val(ts);
-           
-        }, form.find('input[name=__bTa]').val());
-        
-    }, 300000); // update form token every 5 minutes
-</script>
-
