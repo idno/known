@@ -36,6 +36,8 @@ function addErrorMessage(message)
     addMessage(message, 'alert-danger');
 }
 
+
+/** Configure timeago and adjust videos in content */
 function annotateContent() {
     $(".h-entry").fitVids();
     $("time.dt-published").timeago();
@@ -45,7 +47,6 @@ $(document).ready(function () {
     $.timeago.settings.cutoff = 30 * 24 * 60 * 60 * 1000; // 1 month
     annotateContent();
 });
-
 
 /**
  * Better handle links in iOS web applications.
