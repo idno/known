@@ -9,12 +9,14 @@
     if (!empty($vars['default-access'])) {
         $access = $vars['default-access'];
     }
+    
+    $id_code = 'acl-' . md5(mt_rand());
 
     if (!empty(\Idno\Core\Idno::site()->config()->show_privacy) || $access != 'PUBLIC') {
 
         ?>
         <div class="access-control-block">
-            <input type="hidden" name="access" id="access-control-id" value="<?= htmlspecialchars($access); ?>"/>
+            <input type="hidden" name="access" id="access-control-id-<?= $id_code; ?>" value="<?= htmlspecialchars($access); ?>"/>
 
             <?php
 
@@ -22,9 +24,9 @@
 
             ?>
 
-            <div id="access-control" class="acl">
+            <div id="access-control-<?= $id_code; ?>" class="acl">
                 <div class="btn-group">
-                    <a class="btn btn-info access dropdown-toggle" data-toggle="dropdown" href="#" id="access-button">
+                    <a class="btn btn-info access dropdown-toggle" data-toggle="dropdown" href="#" id="access-button-<?= $id_code; ?>">
                         <span id="acl-text"><i class="fa fa-globe"> </i> Public</span>
                         <span class="caret"></span>
                     </a>
@@ -64,15 +66,15 @@
 
             $(document).ready(function () {
                 $('.acl-option').each(function () {
-                    if ($(this).data('acl') == $('#access-control-id').val()) {
-                        $('#access-button').html($(this).html() + ' <span class="caret"></span>');
+                    if ($(this).data('acl') == $(this).closest('.access-control-block').find('input').val()) {
+                        $(this).closest('.btn-group').find('.dropdown-toggle').html($(this).html() + ' <span class="caret"></span>');
                     }
                 })
             });
             $('.acl-option').on('click', function () {
-                $('#access-control-id').val($(this).data('acl'));
-                $('#access-button').html($(this).html() + ' <span class="caret"></span>');
-                $('#access-button').click();
+                $(this).closest('.access-control-block').find('input').val($(this).data('acl'));
+                $(this).closest('.btn-group').find('.dropdown-toggle').html($(this).html() + ' <span class="caret"></span>');
+                $(this).closest('.btn-group').find('.dropdown-toggle').click();
                 //return false;
             });
 
