@@ -31,11 +31,11 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#" data-acl="PUBLIC" class="acl-option"><i class="fa fa-globe"> </i> <?=\Idno\Core\Idno::site()->language()->get('Public')?></a>
+                        <li><a href="#" data-acl="PUBLIC" class="acl-ctrl-option"><i class="fa fa-globe"> </i> <?=\Idno\Core\Idno::site()->language()->get('Public')?></a>
                         </li>
-                        <li><a href="#" data-acl="SITE" class="acl-option"><i class="fa fa-lock"> </i> <?=\Idno\Core\Idno::site()->language()->get('Members only')?></a></li>
+                        <li><a href="#" data-acl="SITE" class="acl-ctrl-option"><i class="fa fa-lock"> </i> <?=\Idno\Core\Idno::site()->language()->get('Members only')?></a></li>
                         <li><a href="#" data-acl="<?= \Idno\Core\Idno::site()->session()->currentUserUUID() ?>"
-                               class="acl-option"><i class="fa fa-lock"></i> <?=\Idno\Core\Idno::site()->language()->get('Private')?></a></li>
+                               class="acl-ctrl-option"><i class="fa fa-lock"></i> <?=\Idno\Core\Idno::site()->language()->get('Private')?></a></li>
                         <?php
                             $acls = \Idno\Entities\AccessGroup::get(array('owner' => \Idno\Core\Idno::site()->session()->currentUserUUID()));
                             if (!empty($acls)) {
@@ -45,7 +45,7 @@
                                     if ($acl->access_group_type == 'FOLLOWING')
                                         $icon = 'fa fa-users';
                                     ?>
-                                    <li><a href="#" data-acl="<?= $acl->getUUID(); ?>" class="acl-option"><i
+                                    <li><a href="#" data-acl="<?= $acl->getUUID(); ?>" class="acl-ctrl-option"><i
                                                 class="<?= $icon; ?>"> </i> <?= $acl->title; ?></a></li>
                                 <?php
                                 }
@@ -62,23 +62,6 @@
             ?>
 
         </div>
-        <script>
-
-            $(document).ready(function () {
-                $('.acl-option').each(function () {
-                    if ($(this).data('acl') == $(this).closest('.access-control-block').find('input').val()) {
-                        $(this).closest('.btn-group').find('.dropdown-toggle').html($(this).html() + ' <span class="caret"></span>');
-                    }
-                })
-            });
-            $('.acl-option').on('click', function () {
-                $(this).closest('.access-control-block').find('input').val($(this).data('acl'));
-                $(this).closest('.btn-group').find('.dropdown-toggle').html($(this).html() + ' <span class="caret"></span>');
-                $(this).closest('.btn-group').find('.dropdown-toggle').click();
-                //return false;
-            });
-
-        </script>
 
     <?php
 
