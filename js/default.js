@@ -40,10 +40,26 @@ Security.getCSRFToken = function(callback, pageurl) {
     });
 }
 
+/** Refresh all security tokens */
+Security.refreshTokens = function() {
+    
+    $('.known-security-token').each(function() {
+	var form = $(this).closest('form');
+
+	Security.getCSRFToken(function(token, ts) {
+
+	   form.find('input[name=__bTk]').val(token);
+	   form.find('input[name=__bTs]').val(ts);
+
+	}, form.find('input[name=__bTa]').val());
+    });
+}
+
+setInterval(function() { Security.refreshTokens(); }, 300000); 
+
 
 /** Known notifications */
 function Notifications() {}
-
 
 /**
  * Poll for new notifications
