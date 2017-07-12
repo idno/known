@@ -76,10 +76,6 @@
                 //return false;
             });
 
-            $('#access-control-id').on('change', function () {
-
-            });
-
         </script>
 
     <?php
