@@ -158,7 +158,7 @@ function doPoll() { Notifications.poll(); }
 // If we've granted permission (via the notifications page), then lets configure a poll for new notifications
 $(document).ready(function(){ 
     if (Notifications.isEnabled()) {
-	Notifications.enable(false); // Don't pester asking for permission, only do that on notifications page
+	Notifications.enable(true); // Don't pester asking for permission, only do that on notifications page
     }
 });
 
