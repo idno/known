@@ -92,8 +92,8 @@ function Notifications() {}
 Notifications.poll = function() {
     $.get(known.config.displayUrl + 'service/notifications/new-notifications')
         .done(function (data) {
-            console.log("Polling for new notifications succeeded");
-            console.log(data);
+            //console.log("Polling for new notifications succeeded");
+            //console.log(data);
             if (data.notifications)
             if (data.notifications.length > 0) {
                 var title = data.notifications[0].title;
@@ -106,8 +106,8 @@ Notifications.poll = function() {
             }
         })
         .fail(function (data) {
-            console.log("Polling for new notifications failed");
-    });
+            //console.log("Polling for new notifications failed");
+	});
 }
 
 Notifications.enable = function(opt_dontAsk) {
@@ -132,8 +132,35 @@ Notifications.enable = function(opt_dontAsk) {
     }
 }
 
+/**
+ * Have notifications been granted?
+ * @returns {Boolean}
+ */
+Notifications.isEnabled = function() {
+    if (!known.session.loggedIn) {
+        return false;
+    }
+    
+    if (!("Notification" in window)) {
+        console.log("The Notification API is not supported by this browser");
+        return false;
+    }
+    if (Notification.permission === 'granted') {
+        return true;
+    }
+    
+    return false;
+}
+
 // Backwards compatibility for those who already have notifications installed
 function doPoll() { Notifications.poll(); }
+
+// If we've granted permission (via the notifications page), then lets configure a poll for new notifications
+$(document).ready(function(){ 
+    if (Notifications.isEnabled()) {
+	Notifications.enable(false); // Don't pester asking for permission, only do that on notifications page
+    }
+});
 
 
 /**
