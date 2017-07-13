@@ -21,6 +21,7 @@
 
                 $notifs = Notification::getFromX('Idno\Entities\Notification', [
                     'owner' => $user->getUUID(),
+                    'created' => ['$gt' => $last_time]
                 ]);
 
                 $notifs = array_filter($notifs, function ($notif) use ($last_time) {
@@ -36,10 +37,12 @@
                 $arr = array_map(function ($notif) {
                     Idno::site()->template()->setTemplateType('email-text');
                     $body = Idno::site()->template()->__(['notification' => $notif])->draw($notif->getMessageTemplate());
-
+                    $annotation = $notif->getObject();
+                    
                     return [
                         'title'   => $notif->getMessage(),
                         'body'    => $body,
+                        'icon'    => $annotation['owner_image'],
                         'created' => date('c', $notif->created),
                     ];
                 }, $notifs);
