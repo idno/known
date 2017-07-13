@@ -124,11 +124,11 @@ Notifications.enable = function(opt_dontAsk) {
         Notification.requestPermission(function (permission) {
             // If the user accepts, let's create a notification
             if (permission === "granted") {
-                setInterval(Notifications.poll, 10000);
+                setInterval(Notifications.poll, 30000);
             }
         });
     } else if (Notification.permission === 'granted') {
-        setInterval(Notifications.poll, 10000);
+        setInterval(Notifications.poll, 30000);
     }
 }
 
