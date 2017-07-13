@@ -42,6 +42,7 @@
     $(function () {
         console.log($(".notification time"));
         $(".notification time").timeago();
-        Notifications.enable();
+                
+        if (!Notifications.isEnabled()) { Notifications.enable(); } // Only enable (and prompt for enable) on this page.
     });
 </script>
