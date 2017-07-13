@@ -98,7 +98,11 @@ Notifications.poll = function() {
             if (data.notifications.length > 0) {
                 var title = data.notifications[0].title;
                 var body = data.notifications[0].body;
-                new Notification(title, {body: body});
+		var icon = data.notifications[0].icon;
+                new Notification(title, {
+		    icon: icon,
+		    body: body
+		});
             }
         })
         .fail(function (data) {
