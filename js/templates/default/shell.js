@@ -9,7 +9,7 @@
  */
 
 
-
+function Template() {}
 
 /**
  * Add a notice info
@@ -17,7 +17,7 @@
  * @param {type} message_type
  * @returns {undefined}
  */
-function addMessage(message, message_type)
+Template.addMessage = function(message, message_type)
 {
     if (message_type === undefined) {
 	message_type = 'alert-info';
@@ -28,15 +28,17 @@ function addMessage(message, message_type)
                         message + '</div>');
 }
 
+
 /**
  * Add an error message
  * @param {type} message
  * @returns {undefined}
  */
-function addErrorMessage(message)
-{
-    addMessage(message, 'alert-danger');
-}
+Template.addErrorMessage = function(message) { Template.addMessage(message, 'alert-danger'); }
+
+
+function addMessage(message, message_type) { Template.addMessage(); }
+function addErrorMessage(message) { Template.addErrorMessage(message); }
 
 
 /** Configure timeago and adjust videos in content */
