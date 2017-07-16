@@ -50,7 +50,6 @@
             {
                 self::$site       = $this;
                 $this->dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
-                $this->queue      = new SynchronousQueue();
                 $this->config     = new Config();
                 if ($this->config->isDefaultConfig()) {
                     header('Location: ./warmup/');
@@ -114,6 +113,7 @@
                 $this->syndication  = new Syndication();
                 $this->reader       = new Reader();
                 $this->helper_robot = new HelperRobot();
+                $this->queue      = $this->componentFactory($this->config->event_queue, "Idno\\Core\\EventQueue", "Idno\\Core\\", "Idno\\Core\\SynchronousQueue");
 
                 // Attempt to create a cache object, making use of support present on the system
                 if (extension_loaded('apc') && ini_get('apc.enabled'))
