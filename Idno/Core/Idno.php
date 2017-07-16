@@ -906,9 +906,11 @@
                 }
                 
                 // Now try and create it
-                if (is_subclass_of($class, $expectedBaseClass)) {
-                    $component = new $class();
-                } 
+                if (!empty($class)) {
+                    if (is_subclass_of($class, $expectedBaseClass)) {
+                        $component = new $class();
+                    } 
+                }
                 
                 // Do we have a class yet? otherwise try a default
                 if (empty($component)) {
