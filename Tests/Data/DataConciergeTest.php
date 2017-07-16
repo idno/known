@@ -215,7 +215,7 @@ namespace Tests\Data {
             $obj = new \Idno\Entities\GenericDataItem();
             $obj->setDatatype('LongPost');
             $obj->setTitle("A Long post title");
-            $obj->randomvar = str_pad("A Long Post ", 10240, 'x');
+            $obj->randomvar = str_pad("A Long Post ", 2000000, 'x');
             $id = $obj->save();
             
             $obj2 = \Idno\Entities\GenericDataItem::getByID($id);
