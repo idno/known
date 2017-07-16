@@ -65,13 +65,19 @@ class AsynchronousQueue extends EventQueue
         
         try {
         
-            $user = \Idno\Entities\User::getByUUID($event->runAsContext);
-            if (empty($user))
-                throw new \RuntimeException("Invalid user ($event->runAsContext) given for runAsContext, aborting");
+            $username = "ANONYMOUS";
             
-            \Idno\Core\Idno::site()->session()->logUserOn($user);
+            if (!empty($event->runAsContext)) {
+                $user = \Idno\Entities\User::getByUUID($event->runAsContext);
+                if (empty($user))
+                    throw new \RuntimeException("Invalid user ($event->runAsContext) given for runAsContext, aborting");
 
-            \Idno\Core\Idno::site()->logging()->info("Dispatching event " . $event->getID() . ": {$event->event} as ".$user->getName()." queued at " . date('r', $event->queuedTs));
+                \Idno\Core\Idno::site()->session()->logUserOn($user);
+                
+                $username = $user->getName();
+            }
+
+            \Idno\Core\Idno::site()->logging()->info("Dispatching event " . $event->getID() . ": {$event->event} as $username queued at " . date('r', $event->queuedTs));
             //\Idno\Core\Idno::site()->logging()->debug(print_r($event, true));
             $result = \Idno\Core\Idno::site()->triggerEvent($event->event, unserialize($event->eventData));
             
