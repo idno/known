@@ -892,10 +892,7 @@
                 
                 // Try full namespace
                 if (class_exists($className)) {
-                    if (class_exists($class)) {
-                        $class = $className;
-                    
-                    }
+                    $class = $className;
                 }
                 
                 // Attempt base class creation
