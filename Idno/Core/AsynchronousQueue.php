@@ -102,7 +102,6 @@ class AsynchronousQueue extends EventQueue
                 '&lt' => time() - $timeago
             ],
             'complete' => true,
-            'access' => ''
         ])) {
             
             foreach($events as $event) {
