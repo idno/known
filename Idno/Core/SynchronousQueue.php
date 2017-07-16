@@ -17,7 +17,7 @@ class SynchronousQueue extends EventQueue
 
     function isComplete($id)
     {
-        return isset($this->resuts[$id]);
+        return isset($this->results[$id]);
     }
 
     function getResult($id)

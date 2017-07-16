@@ -61,6 +61,7 @@
                 $this->config()->loadIniFiles();
 
                 switch (trim(strtolower($this->config->database))) {
+                    case 'mongo':
                     case 'mongodb':
                         $this->db = new \Idno\Data\Mongo();
                         break;
@@ -78,21 +79,7 @@
                         $this->db = new \Idno\Data\MySQL();
                         break;
                     default:
-                        if (class_exists("Idno\\Data\\{$this->config->database}")) {
-                            $db = "Idno\\Data\\{$this->config->database}";
-                            if (is_subclass_of($db, "Idno\\Core\\DataConcierge")) {
-                                $this->db = new $db();
-                            }
-                        }
-                        if (empty($this->db) && class_exists("{$this->config->database}")) {
-                            $db = "{$this->config->database}";
-                            if (is_subclass_of($db, "Idno\\Core\\DataConcierge")) {
-                                $this->db = new $db();
-                            }
-                        }
-                        if (empty($this->db)) {
-                            $this->db = new \Idno\Data\Mongo();
-                        }
+                        $this->db = $this->componentFactory($this->config->database, "Idno\\Core\\DataConcierge", "Idno\\Data\\", "Idno\\Data\\MySQL");
                         break;
                 }
 
@@ -891,6 +878,55 @@
                 return self::$site;
             }
 
+            /**
+             * Attempt to construct a component.
+             * This allows for config configurable, and plugin extensible, system conponents, without the need for a lot of repeat typing.
+             * @param string $className Class name of component, either partial or full namespace
+             * @param string $expectedBaseClass Class type to verify newly created component against
+             * @param string $defaultClassNameBase If a full namespace is not provided in $configValue, use this value as base class namespace
+             * @param string $defaultClass If class could not be constructed, return a new instance of this class name
+             */
+            public function componentFactory($className, $expectedBaseClass = "Idno\\Common\\Component" , $defaultClassNameBase = "Idno\\Core\\", $defaultClass = null) {
+                
+                $component = null;
+                
+                // Try full namespace
+                if (class_exists($className)) {
+                    $class = $className;
+                }
+                
+                // Attempt base class creation
+                if (empty($class)) {
+                    if (class_exists($defaultClassNameBase . $className)) {
+                        $class = $defaultClassNameBase . $className;
+                    }
+                }
+                
+                // Now try and create it
+                if (!empty($class)) {
+                    if (is_subclass_of($class, $expectedBaseClass)) {
+                        $component = new $class();
+                    } 
+                }
+                
+                // Do we have a class yet? otherwise try a default
+                if (empty($component)) {
+                
+                    if (!empty($defaultClass)) {
+
+                        if (is_string($defaultClass)) 
+                            $component = new $defaultClass();
+                        else
+                            $component = $defaultClass;
+                        
+                        // validate
+                        if (!is_subclass_of($component, $expectedBaseClass))
+                                $component = null;
+                    }
+                }
+                
+                return $component;
+            }
         }
 
         /**
