@@ -227,6 +227,7 @@ namespace Tests\Data {
             // Attempt to use index
             $retrieval = \Idno\Entities\GenericDataItem::getFromX('Idno\Entities\GenericDataItem', ['randomvar' => $obj->randomvar]);
             
+            $this->assertTrue(!empty($retrieval));
             $this->assertTrue(($retrieval[0]->getID() == $id));
             
             $obj->delete();
