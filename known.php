@@ -44,6 +44,12 @@
     // Symfony is used for routing, observer design pattern support, and a bunch of other fun stuff
     $known_loader->registerNamespace('Symfony\Component', dirname(__FILE__) . '/external');
     
+    $known_loader->registerNamespace('webignition\Url', dirname(__FILE__) . '/external/webignition/url/src');
+    $known_loader->registerNamespace('webignition\AbsoluteUrlDeriver', dirname(__FILE__) . '/external/webignition/absolute-url-deriver/src');
+    $known_loader->registerNamespace('webignition\NormalisedUrl', dirname(__FILE__) . '/external/webignition/url/src');
+    $known_loader->registerNamespace('Mf2', dirname(__FILE__) . '/external/mf2');
+    $known_loader->registerNamespace('IndieWeb', dirname(__FILE__) . '/external/mention-client-php/src');
+    
     
     // TODO: FIND A WAY TO NOT LOAD THESE FOR CONSOLE
     
@@ -129,8 +135,13 @@
     // Boot known
         try {
             $idno         = new Idno\Core\Idno();
+            $account      = new Idno\Core\Account();
+            $admin        = new Idno\Core\Admin();
+            $webfinger    = new Idno\Core\Webfinger();
+            $webmention   = new Idno\Core\Webmention();
+            $pubsubhubbub = new Idno\Core\PubSubHubbub();
         } catch (\Exception $e) {
-            
+            error_log($e->getMessage());
         }
         
     // Run the application
