@@ -215,7 +215,8 @@ namespace Tests\Data {
             $obj = new \Idno\Entities\GenericDataItem();
             $obj->setDatatype('LongPost');
             $obj->setTitle("A Long post title");
-            $obj->randomvar = str_pad("A Long Post ", 2000000, 'x');
+            $key = str_pad("A Long Post ", 2000000, 'x');
+            $obj->randomvar = $key;
             $id = $obj->save();
             
             $obj2 = \Idno\Entities\GenericDataItem::getByID($id);
@@ -225,7 +226,7 @@ namespace Tests\Data {
             $this->assertEquals("".$id, "".$obj2->getID());
             
             // Attempt to use index
-            $retrieval = \Idno\Entities\GenericDataItem::getFromX('Idno\Entities\GenericDataItem', ['randomvar' => $obj->randomvar]);
+            $retrieval = \Idno\Entities\GenericDataItem::getFromX('Idno\Entities\GenericDataItem', ['randomvar' => $key]);
             
             $this->assertTrue(!empty($retrieval));
             $this->assertTrue(($retrieval[0]->getID() == $id));
