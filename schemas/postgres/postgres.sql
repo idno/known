@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS metadata (
 
 
 CREATE INDEX m_entity ON metadata (entity,name);
-CREATE INDEX m_value ON metadata (value);
+CREATE INDEX m_value ON metadata (md5(value));
 CREATE INDEX m_name ON metadata (name);
 CREATE INDEX m_collection ON metadata (collection);
 CREATE INDEX m__id ON metadata (_id);
