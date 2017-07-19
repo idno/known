@@ -474,7 +474,9 @@
                         \Idno\Core\Idno::site()->template()->setTemplateType('json');
                     }
 
-                    if ($user = \Idno\Entities\User::getByHandle($_SERVER['HTTP_X_KNOWN_USERNAME'])) {
+                    $user = \Idno\Entities\User::getByHandle($_SERVER['HTTP_X_KNOWN_USERNAME']);
+                    if (empty($user)) \Idno\Entities\User::getByEmail($_SERVER['HTTP_X_KNOWN_USERNAME']);
+                    if (!empty($user)) {
                         \Idno\Core\Idno::site()->logging()->debug("API auth found user by username: {$_SERVER['HTTP_X_KNOWN_USERNAME']} - " . $user->getName());
                         
                         $key  = $user->getAPIkey();
