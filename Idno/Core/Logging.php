@@ -318,7 +318,7 @@ namespace Idno\Core {
                         $vars = [
                             'site' => $config->getDisplayURL(),
                             'message' => $message,
-                            'user' => ''
+                            'user' => 'UNKNOWN'
                         ];
                         
                         if (!empty(\Idno\Core\Idno::site()->session()->currentUserUUID()))
