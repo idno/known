@@ -7,7 +7,7 @@
     <?= $vars['message']; ?>
 </pre>
 <br><br>
-
+Logged in user was <?= $vars['user']; ?>
 <br>
 <br>
 <br>

@@ -317,8 +317,12 @@ namespace Idno\Core {
                         
                         $vars = [
                             'site' => $config->getDisplayURL(),
-                            'message' => $message
+                            'message' => $message,
+                            'user' => ''
                         ];
+                        
+                        if (!empty(\Idno\Core\Idno::site()->session()->currentUserUUID()))
+                            $vars['user'] = \Idno\Core\Idno::site()->session()->currentUserUUID();
                         
                         $email = new Email();
                         if (!empty($title))
