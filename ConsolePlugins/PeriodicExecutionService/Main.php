@@ -6,7 +6,26 @@ namespace ConsolePlugins\PeriodicExecutionService {
         
         public static $run = true;
         
-        
+        /**
+         * Each fork needs its own connection to the DB, otherwise it shares the parent's ... which lies madness.
+         */
+        private function reinitialiseDB() {
+            switch (trim(strtolower(\Idno\Core\Idno::site()->config()->database))) {
+                case 'mongo':
+                case 'mongodb':
+                    \Idno\Core\Idno::site()->db = new \Idno\Data\Mongo();
+                    break;
+                case 'mysql':
+                    \Idno\Core\Idno::site()->db = new \Idno\Data\MySQL();
+                    break;
+                case 'beanstalk-mysql': // A special instance of MYSQL designed for use with Amazon Elastic Beanstalk
+                    \Idno\Core\Idno::site()->db = new \Idno\Data\MySQL();
+                    break;
+                default:
+                    \Idno\Core\Idno::site()->db = $this->componentFactory(\Idno\Core\Idno::site()->config()->database, "Idno\\Core\\DataConcierge", "Idno\\Data\\", "Idno\\Data\\MySQL");
+                    break;
+            }
+        }
         
         public function execute(\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) {
             
@@ -36,6 +55,9 @@ namespace ConsolePlugins\PeriodicExecutionService {
                 } else {
                     // Child
                     $output->writeln("Starting $queue queue processor.");
+                    
+                    $output->writeln("Opening new DB connection");
+                    $this->reinitialiseDB();
                     
                     while (self::$run) {
                     
