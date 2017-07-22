@@ -63,9 +63,18 @@ namespace ConsolePlugins\PeriodicExecutionService {
                     
                         $output->writeln("Triggering any events on the $queue queue...");
                         if ($events = \Idno\Entities\AsynchronousQueuedEvent::getPendingFromQueue($queue)) {
+                            
+                            // Dispatch one, delete the rest (avoid duplicates)
+                            try {
+                                $eventqueue->dispatch($events[0]);
+                            } catch (\Exception $ex) {
+                                \Idno\Core\Idno::site()->logging()->error($ex->getMessage());
+                            }
+                            
                             foreach ($events as $evnt) {
                                 try {
-                                    $eventqueue->dispatch($evnt);
+                                    if (!empty($evnt))
+                                        $evnt->delete();
                                 } catch (\Exception $ex) {
                                     \Idno\Core\Idno::site()->logging()->error($ex->getMessage());
                                 }
