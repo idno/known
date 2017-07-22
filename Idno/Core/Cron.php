@@ -16,7 +16,7 @@ namespace Idno\Core {
         /**
          * Most common time periods
          */
-        public $events = [
+        public static $events = [
             'minute' => 60, // 60
             'hourly' => 3600, // 3600
             'daily' => 86400 // 86400
@@ -31,7 +31,7 @@ namespace Idno\Core {
             if (!$eventqueue instanceof \Idno\Core\AsynchronousQueue)
                 throw new \RuntimeException("Cron support can't run unless Known's queue is Asynchronous!");
 
-            foreach ($this->events as $period => $interval) {
+            foreach (self::$events as $period => $interval) {
 
                 // Register repeat handlers
                 \Idno\Core\Idno::site()->addEventHook('cron/' . $period, function (\Idno\Core\Event $event) use ($period) {
