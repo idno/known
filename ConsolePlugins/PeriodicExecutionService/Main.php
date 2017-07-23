@@ -6,6 +6,8 @@ namespace ConsolePlugins\PeriodicExecutionService {
         
         public static $run = true;
         
+        public $cron;
+        
         /**
          * Each fork needs its own connection to the DB, otherwise it shares the parent's ... which lies madness.
          */
@@ -31,6 +33,9 @@ namespace ConsolePlugins\PeriodicExecutionService {
             
             define("KNOWN_EVENT_QUEUE_SERVICE", true);
             
+            // Initialise cron
+            $this->cron = new Cron();
+            
             $eventqueue = \Idno\Core\Idno::site()->queue();
             if (!$eventqueue instanceof \Idno\Core\AsynchronousQueue) throw new \RuntimeException("Service can't run unless Known's queue is Asynchronous!");
         
@@ -45,7 +50,7 @@ namespace ConsolePlugins\PeriodicExecutionService {
             $output->writeln('Starting Periodic Execution Service');
             
             
-            foreach (\Idno\Core\Cron::$events as $queue => $period) {
+            foreach (Cron::$events as $queue => $period) {
                 
                 $pid = pcntl_fork();
                 if ($pid == -1) {
@@ -82,6 +87,7 @@ namespace ConsolePlugins\PeriodicExecutionService {
                         }
 
                         sleep($period);
+                        $eventqueue->gc(300, $queue);
                     }
                 }
             
