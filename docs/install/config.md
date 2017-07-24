@@ -7,8 +7,11 @@ However, sometimes you may wish to add values here.
 
 Config.ini files use the [INI file format](https://en.wikipedia.org/wiki/INI_file).
 
-You can also use yourdomain.ini: for example, if your site was stored at yourdomain.com, you could have a supplemental
-config.ini file at yourdomain.com.ini. This is most useful in combination with the **multitenant** setting.
+!!! note "Per-domain configuration"
+    You can also use ```yourdomain.ini```, in addition to ```config.ini```: for example, if your site was stored at yourdomain.com, you could have a supplemental
+    config.ini file at yourdomain.com.ini. This is most useful in combination with the **multitenant** setting. 
+
+    Per domain configuration files are loaded after ```config.ini``` is processed.
 
 ## Example config.ini file
 
