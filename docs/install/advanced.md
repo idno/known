@@ -31,5 +31,3 @@ Next, you need to run the Known event queue dispatching service using the Known 
     ```
     export KNOWN_DOMAIN='your.domain.name'
     ```
-
-service queue
