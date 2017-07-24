@@ -174,6 +174,8 @@ function bindControls() {
     });
     $('.syndication-toggle input[type=checkbox]').bootstrapToggle();
     $('.ignore-this').hide();
+    
+    $('#contentCreate .form-control').first().focus();
 }
 
 function contentCreateForm(plugin, editUrl) {

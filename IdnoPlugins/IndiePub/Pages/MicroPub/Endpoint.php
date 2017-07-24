@@ -96,7 +96,8 @@
                 \Idno\Core\Idno::site()->triggerEvent('indiepub/post/start', ['page' => $this]);
                 
                 // are we handling a media endpoint request?
-                if (empty($this->getInput('action'))) {
+                $action = $this->getInput('action');
+                if (empty($action)) {
                     if (isset($_SERVER['CONTENT_TYPE']) && strpos($_SERVER['CONTENT_TYPE'], 'multipart/form-data') == 0 && !empty($_FILES['file'])) {
                         $this->postMedia();
                         return;
