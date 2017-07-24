@@ -45,6 +45,12 @@
                 \Idno\Core\Idno::site()->logging->error($error_message);
             else
                 error_log($error_message);
+            
+            try {
+                \Idno\Core\Logging::oopsAlert($error_message, 'Oh no! Known experienced a problem!');
+            } catch (Exception $ex) {
+                error_log($ex->getMessage());
+            }
 
             exit;
         }
@@ -144,4 +150,4 @@
     $admin        = new Idno\Core\Admin();
     $webfinger    = new Idno\Core\Webfinger();
     $webmention   = new Idno\Core\Webmention();
-    $pubsubhubbub = new Idno\Core\PubSubHubbub();
+    $pubsubhubbub = new Idno\Core\PubSubHubbub(); 

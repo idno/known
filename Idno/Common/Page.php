@@ -124,6 +124,12 @@
                 
                 \Idno\Core\Idno::site()->logging()->critical($e->getMessage() . " [".$e->getFile().":".$e->getLine()."]");
                 
+                try {
+                    \Idno\Core\Logging::oopsAlert($e->getMessage() . " [".$e->getFile().":".$e->getLine()."]", get_class($e));
+                } catch (Exception $ex) {
+                    error_log($ex->getMessage());
+                }
+                
                 $t = \Idno\Core\Idno::site()->template();
                 $t->__(array('body' => $t->__(array('exception' => $e))->draw('pages/500'), 'title' => 'Exception'))->drawPage();
                 exit;
