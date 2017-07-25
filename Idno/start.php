@@ -40,6 +40,11 @@
             } else {
                 echo '<p>If you continue to have problems, <a href="https://withknown.com/opensource" target="_blank">open source users have a number of resources available</a></p>.';
             }
+            
+            $stats = \Idno\Core\Idno::site()->statistics();
+            if (!empty($stats)) {
+                $stats->increment("error.fatal");
+            }
 
             if (isset(\Idno\Core\Idno::site()->logging) && \Idno\Core\Idno::site()->logging)
                 \Idno\Core\Idno::site()->logging->error($error_message);
