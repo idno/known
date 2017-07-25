@@ -317,6 +317,11 @@
 
             function triggerEvent($eventName, $data = array(), $default = true)
             {
+                $stats = $this->statistics();
+                if (!empty($stats)) {
+                    $stats->increment ("event.$eventName");
+                }
+                
                 $event = new Event($data);
                 $event->setResponse($default);
                 $event = $this->events()->dispatch($eventName, $event);
