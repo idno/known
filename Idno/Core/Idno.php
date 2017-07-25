@@ -118,11 +118,11 @@
                 $this->statistics   = $this->componentFactory($this->config->statistics_collector, "Idno\\Stats\\StatisticsCollector", "Idno\\Stats\\", "Idno\\Stats\\DummyStatisticsCollector");
                 
                 // Log some page statistics
-                \Idno\Stats\Timer::start('page');
+                \Idno\Stats\Timer::start('script');
                 register_shutdown_function(function () {
                     $stats = \Idno\Core\Idno::site()->statistics();
                     if (!empty($stats)) {
-                        $stats->timing('timer.page', \Idno\Stats\Timer::value('page'));
+                        $stats->timing('timer.script', \Idno\Stats\Timer::value('script'));
                     }
                 });
                 
