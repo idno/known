@@ -134,6 +134,11 @@ namespace Idno\Core {
             // See if this message isn't filtered out
             if ($this->passesFilter($level)) {
 
+                $stats = \Idno\Core\Idno::site()->statistics();
+                if (!empty($stats)) {
+                    $stats->increment("log.$level");
+                }
+                
                 // Construct log message
                 // Trace for debug (when filtering is set to debug, always add a trace)
                 $trace = "";
