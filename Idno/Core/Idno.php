@@ -116,7 +116,7 @@
                 $this->helper_robot = new HelperRobot();
                 $this->queue        = $this->componentFactory($this->config->event_queue, "Idno\\Core\\EventQueue", "Idno\\Core\\", "Idno\\Core\\SynchronousQueue");
                 $this->statistics   = $this->componentFactory($this->config->statistics_collector, "Idno\\Stats\\StatisticsCollector", "Idno\\Stats\\", "Idno\\Stats\\DummyStatisticsCollector");
-
+                
                 // Attempt to create a cache object, making use of support present on the system
                 if (extension_loaded('apc') && ini_get('apc.enabled'))
                     $this->cache = new \Idno\Caching\APCuCache();
