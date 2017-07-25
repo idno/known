@@ -127,6 +127,11 @@
                 $stats = \Idno\Core\Idno::site()->statistics();
                 if (!empty($stats)) {
                     $stats->increment("error.exception");
+
+                try {
+                    \Idno\Core\Logging::oopsAlert($e->getMessage() . " [".$e->getFile().":".$e->getLine()."]", get_class($e));
+                } catch (Exception $ex) {
+                    error_log($ex->getMessage());
                 }
                 
                 $t = \Idno\Core\Idno::site()->template();

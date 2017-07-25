@@ -299,6 +299,48 @@ namespace Idno\Core {
         public function debug($message, array $context = array()) {
             $this->log(LogLevel::DEBUG, $message, $context);
         }
+        
+        
+        /**
+         * (attempt) to send, if configured, a message when a fatal error occurs, or an exception is caught.
+         * @param type $message
+         * @param type $title
+         */
+        public static function oopsAlert($message, $title = "") {
+            
+            $config = \Idno\Core\idno::site()->config();
+            
+            if (!empty($config) && !empty($config->oops_notify)) {
+            
+                $notify = $config->oops_notify;
+                if (!is_array($notify)) $notify = [$notify];
+                
+                $title = $config->host . ": $title";
+                
+                foreach ($notify as $emailaddress) {
+                    if (filter_var($emailaddress, FILTER_VALIDATE_EMAIL)) {
+                        
+                        $vars = [
+                            'site' => $config->getDisplayURL(),
+                            'message' => $message,
+                            'user' => 'UNKNOWN'
+                        ];
+                        
+                        if (!empty(\Idno\Core\Idno::site()->session()->currentUserUUID()))
+                            $vars['user'] = \Idno\Core\Idno::site()->session()->currentUserUUID();
+                        
+                        $email = new Email();
+                        if (!empty($title))
+                            $email->setSubject($title);
+                        $email->setHTMLBodyFromTemplate('admin/oops', $vars);
+                        $email->setTextBodyFromTemplate('admin/oops', $vars);
+                        $email->addTo($emailaddress);
+                        $email->send();
+                        
+                    }
+                }
+            }
+        }
 
     }
 

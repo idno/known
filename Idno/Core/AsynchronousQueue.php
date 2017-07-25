@@ -99,16 +99,21 @@ class AsynchronousQueue extends EventQueue
     /** 
      * Garbage collect old completed event
      */
-    function gc($timeago = 300) {
+    function gc($timeago = 300, $queue = null) {
         
         \Idno\Core\Idno::site()->logging()->debug("Garbage collecting...");
         
-        if ($events = \Idno\Entities\AsynchronousQueuedEvent::get([
+        $search = [
             'completedTs' => [
                 '&lt' => time() - $timeago
             ],
             'complete' => true,
-        ])) {
+        ];
+        
+        if (!empty($queue))
+            $search['queue'] = $queue;
+        
+        if ($events = \Idno\Entities\AsynchronousQueuedEvent::get($search)) {
             
             foreach($events as $event) {
                 

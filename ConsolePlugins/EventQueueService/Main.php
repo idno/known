@@ -28,11 +28,11 @@ namespace ConsolePlugins\EventQueueService {
             if ($pid == -1) {
                  throw new \RuntimeException("Could not fork a new process");
             } else if ($pid) {
-                \Idno\Core\Idno::site()->logging()->info('Starting GC thread');
+                \Idno\Core\Idno::site()->logging()->info('Starting GC thread for ' . $queue);
                 
                 while(self::$run) {
                     sleep(300);
-                    $eventqueue->gc();
+                    $eventqueue->gc(300, $queue);
                 }
                
             } else {
