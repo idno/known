@@ -983,7 +983,7 @@
              */
             static function getallheaders()
             {
-                $headers = '';
+                $headers = array();
                 foreach ($_SERVER as $name => $value) {
                     if (substr($name, 0, 14) == 'REDIRECT_HTTP_') {
                         $name = substr($name, 9);
