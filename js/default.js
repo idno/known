@@ -175,6 +175,8 @@ function bindControls() {
     $('.syndication-toggle input[type=checkbox]').bootstrapToggle();
     $('.ignore-this').hide();
     
+    Security.activateACLControls();
+    
     $('#contentCreate .form-control').first().focus();
 }
 
