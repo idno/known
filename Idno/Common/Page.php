@@ -124,6 +124,11 @@
                 
                 \Idno\Core\Idno::site()->logging()->critical($e->getMessage() . " [".$e->getFile().":".$e->getLine()."]");
                 
+                $stats = \Idno\Core\Idno::site()->statistics();
+                if (!empty($stats)) {
+                    $stats->increment("error.exception");
+                }
+
                 try {
                     \Idno\Core\Logging::oopsAlert($e->getMessage() . " [".$e->getFile().":".$e->getLine()."]", get_class($e));
                 } catch (Exception $ex) {

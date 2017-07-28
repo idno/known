@@ -37,6 +37,7 @@
             public $helper_robot;
             public $reader;
             public $cache;
+            public $statistics;
 
             function __construct()
             {
@@ -114,7 +115,17 @@
                 $this->reader       = new Reader();
                 $this->helper_robot = new HelperRobot();
                 $this->queue        = $this->componentFactory($this->config->event_queue, "Idno\\Core\\EventQueue", "Idno\\Core\\", "Idno\\Core\\SynchronousQueue");
-
+                $this->statistics   = $this->componentFactory($this->config->statistics_collector, "Idno\\Stats\\StatisticsCollector", "Idno\\Stats\\", "Idno\\Stats\\DummyStatisticsCollector");
+                
+                // Log some page statistics
+                \Idno\Stats\Timer::start('script');
+                register_shutdown_function(function () {
+                    $stats = \Idno\Core\Idno::site()->statistics();
+                    if (!empty($stats)) {
+                        $stats->timing('timer.script', \Idno\Stats\Timer::value('script'));
+                    }
+                });
+                
                 // Attempt to create a cache object, making use of support present on the system
                 if (extension_loaded('apc') && ini_get('apc.enabled'))
                     $this->cache = new \Idno\Caching\APCuCache();
@@ -251,6 +262,7 @@
             /**
              * Access to the EventQueue for dispatching events
              * asynchronously
+             * @return \Idno\Core\EventQueue
              */
             function &queue()
             {
@@ -292,6 +304,15 @@
             {
                 return $this->cache;
             }
+            
+            /**
+             * Return a statistics collector
+             * @return \Idno\Stats\StatisticsCollector
+             */
+            function &statistics()
+            {
+                return $this->statistics;
+            }
 
             /**
              * Shortcut to trigger an event: supply the event name and
@@ -305,6 +326,11 @@
 
             function triggerEvent($eventName, $data = array(), $default = true)
             {
+                $stats = $this->statistics();
+                if (!empty($stats)) {
+                    $stats->increment ("event.$eventName");
+                }
+                
                 $event = new Event($data);
                 $event->setResponse($default);
                 $event = $this->events()->dispatch($eventName, $event);
