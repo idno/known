@@ -941,7 +941,8 @@
             function isAcceptedContentType($contentType, $ignore_priority = false)
             {
 
-                if ($headers = self::getallheaders()) {
+                $headers = self::getallheaders();
+                if (!empty($headers)) {
                     
                     if ($ignore_priority) {
                         if (!empty($headers['Accept'])) {
