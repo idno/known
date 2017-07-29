@@ -40,6 +40,11 @@ namespace Idno\Pages\Service\Web {
                     $object->$key = $urnfurled;
                     $object->save();
                     
+                    // Pre-render (for javascript)
+                    $template = new Template();
+                    $template->setTemplateType('default');
+                    $unfurled['rendered'] = $template->__(['unfurled-url' => $unfurled])->draw('content/unfurledurl');
+                    
                     echo json_encode($unfurled);
                 }
                 
