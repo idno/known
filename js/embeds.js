@@ -50,16 +50,44 @@ $(document).ready(function () {
 
 function Unfurl() {}
 
-Unfurl.fetch = function (url, object_id, callback) {
+/**
+ * Attempt to unfurl a url, extracting, title, open graph and oembed information
+ * @param {type} url URL to unfurl
+ * @param {type} callback Callback which will receive the success return
+ */
+Unfurl.fetch = function (url, callback) {
 
     $.getJSON(known.config.displayUrl + 'service/web/unfurl/',
-	    {
-		object_id: object_id,
-		url: url
-	    },
-	    function (data) {
-		callback(data);
-		
-	    }
+	{
+	    url: url
+	},
+	function (data) {
+	    callback(data);
+
+	}
     );
+}
+
+/**
+ * Extract all urls in the text.
+ * @param {type} text
+ * @returns array
+ */
+Unfurl.getUrls = function (text) {
+    var urlRegex = new RegExp("(https?:\/\/[^\s]+)", "g");
+    
+    return text.match(urlRegex);
+}
+
+/**
+ * Find the first url in the text.
+ * @param {type} text
+ * @returns {Unfurl.getFirstUrl.urls}
+ */
+Unfurl.getFirstUrl = function (text) {
+    
+    var urls = Unfurl.getUrls(text);
+    
+    if (urls.length > 0)
+	return urls[0];
 }
