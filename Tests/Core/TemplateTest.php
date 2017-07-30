@@ -11,7 +11,7 @@
                 // adapted test cases from brevity (Known requires the http(s) prefix)
                 $testcases = [
                     [
-                        "expected" => "This links to a weird domain <a href=\"http://deals.blackfriday\">http:/<wbr />/<wbr />deals.blackfriday</a>.",
+                        "expected" => "This links to a weird domain <a href=\"http://deals.blackfriday\">http://<wbr />deals.blackfriday</a>.",
                         "text"     => "This links to a weird domain http://deals.blackfriday."
                     ], [
                         "expected" => "<a href=\"http://starts.with.a.link\">http:/<wbr />/<wbr />starts.with.a.link</a> and ends with <a href=\"https://kylewm.com/about#me\">HTML</a>.",
