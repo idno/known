@@ -65,6 +65,20 @@ namespace Idno\Entities {
                 if (preg_match("#<$basic>(.*?)</$basic>#siu", $content, $matches))
                     $ogp[$basic] = trim($matches[1], " \n");
             }
+            $metas = $doc->getElementsByTagName('meta');
+            if (!empty($metas)) {
+                for ($n = 0; $n < $metas->length; $n++) {
+
+                    $meta = $metas->item($n);
+                    
+                    if (strtolower($meta->getAttribute('name')) == 'description') {
+                        $ogp['description'] = $meta->getAttribute('content');
+                    }
+                    if (strtolower($meta->getAttribute('name')) == 'keywords') {
+                        $ogp['keywords'] = $meta->getAttribute('content');
+                    }
+                }
+            }
 
             return $ogp;
         }
@@ -92,7 +106,7 @@ namespace Idno\Entities {
                 }
                 
                 $this->data = $unfurled;
-                $this->url = $url;
+                $this->source_url = $url;
 
                 return true;
             }
