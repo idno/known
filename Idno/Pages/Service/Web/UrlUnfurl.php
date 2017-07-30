@@ -11,6 +11,7 @@ namespace Idno\Pages\Service\Web {
             
             //$this->gatekeeper(); // Gatekeeper to ensure this service isn't abused by third parties/ UPDATE: Needs to be accessible to logged out users, TODO, find a way to prevent abuse
             $this->xhrGatekeeper();
+            $this->tokenGatekeeper();
 
             $url = trim($this->getInput('url'));
             $forcenew = $this->getInput('forcenew', false);

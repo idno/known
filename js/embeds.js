@@ -57,15 +57,19 @@ function Unfurl() {}
  */
 Unfurl.fetch = function (url, callback) {
 
-    $.getJSON(known.config.displayUrl + 'service/web/unfurl/',
-	    {
-		url: url
-	    },
-	    function (data) {
-		callback(data);
+    Security.getCSRFToken(function(token, ts) {
+	$.getJSON(known.config.displayUrl + 'service/web/unfurl/',
+		{
+		    url: url,
+		    __bTk: token,
+		    __bTs: ts
+		},
+		function (data) {
+		    callback(data);
 
-	    }
-    );
+		}
+	);
+    }, known.config.displayUrl + 'service/web/unfurl/');
 }
 
 /**
