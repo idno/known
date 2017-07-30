@@ -6,14 +6,15 @@ namespace Idno\Pages\Service\Web {
 
         function getContent() {
 
+            \Idno\Core\Idno::site()->template()->setTemplateType('json');
+            header('Content-type: application/json');
+            
             $this->gatekeeper(); // Gatekeeper to ensure this service isn't abused by third parties
             //$this->xhrGatekeeper();
 
             $url = trim($this->getInput('url'));
             $forcenew = $this->getInput('forcenew', false);
-
-            \Idno\Core\Idno::site()->template()->setTemplateType('json');
-            header('Content-type: application/json');
+            
 
             if (empty($url))
                 throw new \RuntimeException("You need to specify a working URL");
@@ -24,6 +25,7 @@ namespace Idno\Pages\Service\Web {
                 $unfurled = $object->data;
                 $template = new \Idno\Core\Template();
                 $template->setTemplateType('default');
+                $unfurled['id'] = $object->getID();
                 $unfurled['rendered'] = $template->__(['object' => $object])->draw('entity/UnfurledUrl');
                 
                 echo json_encode($unfurled);
@@ -44,6 +46,7 @@ namespace Idno\Pages\Service\Web {
             $unfurled = $object->data;
             $template = new \Idno\Core\Template();
             $template->setTemplateType('default');
+            $unfurled['id'] = $object->getID();
             $unfurled['rendered'] = $template->__(['object' => $object])->draw('entity/UnfurledUrl');
 
             echo json_encode($unfurled);
