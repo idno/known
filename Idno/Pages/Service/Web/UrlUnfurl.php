@@ -9,8 +9,8 @@ namespace Idno\Pages\Service\Web {
             \Idno\Core\Idno::site()->template()->setTemplateType('json');
             header('Content-type: application/json');
             
-            $this->gatekeeper(); // Gatekeeper to ensure this service isn't abused by third parties
-            //$this->xhrGatekeeper();
+            //$this->gatekeeper(); // Gatekeeper to ensure this service isn't abused by third parties/ UPDATE: Needs to be accessible to logged out users, TODO, find a way to prevent abuse
+            $this->xhrGatekeeper();
 
             $url = trim($this->getInput('url'));
             $forcenew = $this->getInput('forcenew', false);
