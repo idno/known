@@ -115,7 +115,7 @@ namespace Idno\Entities {
         }
         
         public static function getBySourceURL($url) {
-            return static::getOne(['url' => $url]);
+            return static::getOne(['source_url' => $url]);
         }
 
     }
