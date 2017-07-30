@@ -10,7 +10,6 @@ namespace Idno\Pages\Service\Web {
             //$this->xhrGatekeeper();
 
             $url = trim($this->getInput('url'));
-            $objid = $this->getInput('object_id');
             $forcenew = $this->getInput('forcenew', false);
 
             \Idno\Core\Idno::site()->template()->setTemplateType('json');
@@ -19,33 +18,33 @@ namespace Idno\Pages\Service\Web {
             if (empty($url))
                 throw new \RuntimeException("You need to specify a working URL");
 
-            $object = null;
-            if (!empty($objid)) {
-                $object = \Idno\Common\Entity::getByID($objid);
+            // Try and get UnfurledURL entity
+            $object = \Idno\Entities\UnfurledUrl::getBySourceURL($url);
+            if (!$forcenew && !empty($object)) {
+                $unfurled = $object->data;
+                $template = new \Idno\Core\Template();
+                $template->setTemplateType('default');
+                $unfurled['rendered'] = $template->__(['object' => $object])->draw('entity/UnfurledUrl');
+                
+                echo json_encode($unfurled);
+                
+                exit;
             }
-
-            $key = 'unfurl-data-' . md5($url);
-
-            if (!$forcenew) {
-                if (!empty($object->$key)) {
-                    echo json_encode($object->$key);
-                    exit;
-                }
-            }
-
-            $unfurled = \Idno\Core\Url::unfurl($url);
-            if (empty($unfurled))
+            
+            $object = new \Idno\Entities\UnfurledUrl();
+            $object->setAccess('PUBLIC');
+            $result = $object->unfurl($url);
+            
+            if (!$result)
                 throw new \RuntimeException("Url $url could not be unfurled");
 
-            if (!empty($object)) {
-                $object->$key = $urnfurled;
-                $object->save();
-            }
-
+            $object->save();
+            
             // Pre-render (for javascript)
+            $unfurled = $object->data;
             $template = new \Idno\Core\Template();
             $template->setTemplateType('default');
-            $unfurled['rendered'] = $template->__(['unfurled-url' => $unfurled])->draw('content/unfurledurl');
+            $unfurled['rendered'] = $template->__(['object' => $object])->draw('entity/UnfurledUrl');
 
             echo json_encode($unfurled);
         }

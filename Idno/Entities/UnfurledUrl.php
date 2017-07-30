@@ -1,10 +1,10 @@
 <?php
 
-namespace Idno\Core {
+namespace Idno\Entities {
 
     use Idno\Common\Component;
 
-    class Url extends Component {
+    class UnfurledUrl extends Object {
 
         /**
          * Copied and modified from https://github.com/mapkyca/php-ogp, extract information from graph headers
@@ -73,28 +73,35 @@ namespace Idno\Core {
          * Unfurl and unpack a url, extracting title, description, open-graph and oembed
          * @param type $url
          */
-        public static function unfurl($url) {
+        public function unfurl($url) {
 
+            $url = trim($url);
             $unfurled = [];
 
-            $contents = Webservice::file_get_contents($url);
+            $contents = \Idno\Core\Webservice::file_get_contents($url);
             if (!empty($contents)) {
 
                 // Extract OpenGraph/Facebook/Twitter stuff
                 $graphheaders = self::parseHeaders($contents);
                 if (!empty($graphheaders)) {
                     
-                    // Tag on URL
-                    $unfurled['url'] = $url;
-                    
                     // Unfurled url
                     $unfurled = array_merge($unfurled, $graphheaders);
                 
                 
                 }
-            }
+                
+                $this->data = $unfurled;
+                $this->url = $url;
 
-            return $unfurled;
+                return true;
+            }
+            
+            return false;
+        }
+        
+        public static function getBySourceURL($url) {
+            return static::getOne(['url' => $url]);
         }
 
     }
