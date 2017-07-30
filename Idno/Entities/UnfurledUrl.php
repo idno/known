@@ -98,8 +98,9 @@ namespace Idno\Entities {
                     'instagram.com',
                     'soundcloud.com',
                     'twitter.com',
-                    'vimeo.com'
-                    
+                    'vimeo.com',
+                    'amazon.com',
+                    'amazon.co.uk',
                 ]);
             }
             
