@@ -1861,3 +1861,20 @@ textarea.form-control {
 .import h3 {
 	margin-top: 0;
 }
+
+
+/* URL Unfurling */
+
+.idno-entry div.unfurled-url {
+    margin-top: 30px;
+}
+
+div.unfurled-url {
+    border: #ddd dotted 1px;
+    padding: 15px;
+}
+
+div.unfurled-url h2 {
+    font-size: 1.4em;
+    
+}
