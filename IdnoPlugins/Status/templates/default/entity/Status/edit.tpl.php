@@ -46,6 +46,10 @@
 
                 echo $this->draw('entity/tags/input');
 
+                ?>
+            <div class="unfurl col-md-12" style="display:none;" data-url=""></div>
+            <?php
+                
             // Set focus so you can start typing straight away (on shares)
             if (\Idno\Core\Idno::site()->currentPage()->getInput('share_url')) {
             ?>
@@ -138,6 +142,14 @@
     $(document).ready(function () {
         $('#body').keyup(function () {
             count_chars();
+        });
+        
+        $('#body').change(function () {
+            var url = Unfurl.getFirstUrl($(this).val());
+            var unfurl = $(this).closest('form').find('.unfurl');
+            console.log(url);
+            unfurl.attr('data-url', url);
+            Unfurl.unfurl(unfurl);
         });
 
         // Make in reply to a little less painful

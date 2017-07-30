@@ -74,7 +74,8 @@ Unfurl.fetch = function (url, callback) {
  * @returns array
  */
 Unfurl.getUrls = function (text) {
-    var urlRegex = new RegExp("(https?:\/\/[^\s]+)", "g");
+    console.log(text);
+    var urlRegex = new RegExp('(https?:\/\/[^\\s]+)', "gi");
 
     return text.match(urlRegex);
 }
@@ -87,9 +88,11 @@ Unfurl.getUrls = function (text) {
 Unfurl.getFirstUrl = function (text) {
 
     var urls = Unfurl.getUrls(text);
-
-    if (urls.length > 0)
+console.log(urls);
+    if ((urls != undefined) && (urls.length > 0))
 	return urls[0];
+    
+    return '';
 }
 
 /**
