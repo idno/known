@@ -290,7 +290,7 @@
                         $result .= ' ' . str_replace("%URL%", $url, addslashes($code));
                     }
                     $result .= ">";
-                    $result .= str_replace('/', '/<wbr />', $url);
+                    $result .= preg_replace('/([\/=]+)/', '${1}<wbr />', $url);
                     $result .= "</a>$punc";
 
                     return $result;
