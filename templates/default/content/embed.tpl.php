@@ -79,7 +79,7 @@
                         $found = true;
             }
             if (!$found) {
-                $embedded .= "<div class=\"unfurl\" style=\"display:none;\" data-url=\"".htmlentities($m)."\"></div>";
+                $embedded .= "<div class=\"unfurl col-md-12\" style=\"display:none;\" data-url=\"".htmlentities($m)."\"></div>";
                 break;
             }
         }
