@@ -58,13 +58,13 @@ function Unfurl() {}
 Unfurl.fetch = function (url, callback) {
 
     $.getJSON(known.config.displayUrl + 'service/web/unfurl/',
-	{
-	    url: url
-	},
-	function (data) {
-	    callback(data);
+	    {
+		url: url
+	    },
+	    function (data) {
+		callback(data);
 
-	}
+	    }
     );
 }
 
@@ -75,7 +75,7 @@ Unfurl.fetch = function (url, callback) {
  */
 Unfurl.getUrls = function (text) {
     var urlRegex = new RegExp("(https?:\/\/[^\s]+)", "g");
-    
+
     return text.match(urlRegex);
 }
 
@@ -85,9 +85,62 @@ Unfurl.getUrls = function (text) {
  * @returns {Unfurl.getFirstUrl.urls}
  */
 Unfurl.getFirstUrl = function (text) {
-    
+
     var urls = Unfurl.getUrls(text);
-    
+
     if (urls.length > 0)
 	return urls[0];
 }
+
+/**
+ * Initialise any oembeds found in a specific control.
+ * @param {type} control
+ * @returns {undefined}
+ */
+Unfurl.initOembed = function (control) {
+    var oembed = control.find('div.oembed');
+    if (oembed != undefined) {
+	var dataurl = oembed.attr('data-url');
+
+	if (dataurl != undefined) {
+
+	    console.log("Fetching oembed code from " + dataurl);
+	    $.getJSON(dataurl,
+		    {
+			
+		    },
+		    function (data) {
+			oembed.html(data['html']);
+		    }
+	    );
+	}
+    }
+}
+
+/**
+ * Unfurl a specific embedded control
+ * @param {type} control
+ * @returns {undefined}
+ */
+Unfurl.unfurl = function (control) {
+    var url = control.attr('data-url');
+    
+    if (url != undefined) {
+	Unfurl.fetch(url, function(data) {
+	   control.html(data.rendered);
+	   control.show();
+	   Unfurl.initOembed(control);
+	});
+    }
+}
+
+
+Unfurl.unfurlAll = function () {
+    $('div.unfurl').each(function () {
+	Unfurl.unfurl($(this));
+    });
+}
+
+$(document).ready(function () {
+    Unfurl.unfurlAll();
+});
