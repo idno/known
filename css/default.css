@@ -1877,7 +1877,11 @@ div.unfurled-url {
 
 div.unfurled-url .basics h2 {
     font-size: 1.4em;
-    margin-top: 10px;
+    margin-top: 15px;
+}
+
+div.unfurled-url .basics .byline {
+    text-transform: uppercase;
 }
 
 div.unfurled-url .basics .image {
