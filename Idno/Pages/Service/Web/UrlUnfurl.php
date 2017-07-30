@@ -33,7 +33,8 @@ namespace Idno\Pages\Service\Web {
                 exit;
             }
             
-            $object = new \Idno\Entities\UnfurledUrl();
+            if (empty($object))
+                $object = new \Idno\Entities\UnfurledUrl();
             $object->setAccess('PUBLIC');
             $result = $object->unfurl($url);
             
