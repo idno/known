@@ -11,13 +11,13 @@
                 // adapted test cases from brevity (Known requires the http(s) prefix)
                 $testcases = [
                     [
-                        "expected" => "This links to a weird domain <a href=\"http://deals.blackfriday\">http:/<wbr />/<wbr />deals.blackfriday</a>.",
+                        "expected" => "This links to a weird domain <a href=\"http://deals.blackfriday\">http://<wbr />deals.blackfriday</a>.",
                         "text"     => "This links to a weird domain http://deals.blackfriday."
                     ], [
-                        "expected" => "<a href=\"http://starts.with.a.link\">http:/<wbr />/<wbr />starts.with.a.link</a> and ends with <a href=\"https://kylewm.com/about#me\">HTML</a>.",
+                        "expected" => "<a href=\"http://starts.with.a.link\">http://<wbr />starts.with.a.link</a> and ends with <a href=\"https://kylewm.com/about#me\">HTML</a>.",
                         "text"     => "http://starts.with.a.link and ends with <a href=\"https://kylewm.com/about#me\">HTML</a>."
                     ], [
-                        "expected" => "a matched parenthesis: <a href=\"http://wikipedia.org/Python_(programming_language)\">http:/<wbr />/<wbr />wikipedia.org/<wbr />Python_(programming_language)</a> and (an unmatched parenthesis <a href=\"https://en.wikipedia.org/wiki/Guido_van_Rossum\">https:/<wbr />/<wbr />en.wikipedia.org/<wbr />wiki/<wbr />Guido_van_Rossum</a>)",
+                        "expected" => "a matched parenthesis: <a href=\"http://wikipedia.org/Python_(programming_language)\">http://<wbr />wikipedia.org/<wbr />Python_(programming_language)</a> and (an unmatched parenthesis <a href=\"https://en.wikipedia.org/wiki/Guido_van_Rossum\">https://<wbr />en.wikipedia.org/<wbr />wiki/<wbr />Guido_van_Rossum</a>)",
                         "text"     => "a matched parenthesis: http://wikipedia.org/Python_(programming_language) and (an unmatched parenthesis https://en.wikipedia.org/wiki/Guido_van_Rossum)"
                     ],
                 ];
