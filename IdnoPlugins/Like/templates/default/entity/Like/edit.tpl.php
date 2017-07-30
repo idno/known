@@ -56,6 +56,8 @@
                            ?>" class="form-control bookmark-title"/>
                 </div>
 
+                <div class="unfurl col-md-12" style="display:none;" data-url=""></div>
+                
                 <?= $this->__([
                     'name'        => 'description',
                     'value'       => $vars['object']->description,
@@ -72,6 +74,8 @@
                                                               value="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
             <?= $this->draw('content/extra'); ?>
             <?= $this->draw('content/access'); ?>
+            
+    
             <p class="button-bar">
                 <?= \Idno\Core\Idno::site()->actions()->signForm('/like/edit') ?>
                 <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
@@ -81,6 +85,7 @@
         </div>
 
     </div>
+    
 </form>
 <?= $this->draw('entity/edit/footer'); ?>
 <script language="javascript">
@@ -101,6 +106,11 @@
                         $('.bookmark-title').val(htmlEntityDecode(data.value));
                         $('.bookmark-spinner-container').html(" ");
                         $('.bookmark-title-container').show();
+                        
+                        var unfurl = $('.bookmark-url').closest('form').find('.unfurl');
+                        unfurl.attr('data-url', $('.bookmark-url').val());
+                        Unfurl.unfurl(unfurl);
+                        
                     },
                     error: function () {
                         $('.bookmark-spinner-container').html(" ");
