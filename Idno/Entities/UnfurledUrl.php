@@ -84,6 +84,24 @@ namespace Idno\Entities {
         }
 
         /**
+         * Basic security, don't allow every domain to push oembed.
+         */
+        public function isOEmbedWhitelisted() {
+            
+            $host = parse_url($this->source_url, PHP_URL_HOST);
+            
+            if (!empty($host)) {
+                $host = str_replace('www.', '', $host);
+                return in_array($host, [
+                    'youtube.com',
+                    
+                ]);
+            }
+            
+            return false;
+        }
+        
+        /**
          * Unfurl and unpack a url, extracting title, description, open-graph and oembed
          * @param type $url
          */
