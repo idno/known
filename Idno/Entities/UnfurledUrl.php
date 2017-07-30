@@ -94,6 +94,11 @@ namespace Idno\Entities {
                 $host = str_replace('www.', '', $host);
                 return in_array($host, [
                     'youtube.com',
+                    'youtu.be',
+                    'instagram.com',
+                    'soundcloud.com',
+                    'twitter.com',
+                    'vimeo.com'
                     
                 ]);
             }
