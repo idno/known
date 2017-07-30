@@ -105,13 +105,15 @@ Unfurl.initOembed = function (control) {
 	if (dataurl != undefined) {
 
 	    console.log("Fetching oembed code from " + dataurl);
-	    $.getJSON(dataurl,
-		    {
-			
-		    },
-		    function (data) {
+	    $.ajax({
+		url: dataurl,
+		dataType: 'jsonp',
+		success: function (data) {
+			console.log("Got a response back");
 			oembed.html(data['html']);
+			oembed.closest('.unfurled-url').find('.basics').hide(); // Hide basics, since we have an oembed
 		    }
+		}
 	    );
 	}
     }
