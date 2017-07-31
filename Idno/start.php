@@ -38,7 +38,7 @@
             if (file_exists(dirname(dirname(__FILE__)) . '/support.inc')) {
                 include dirname(dirname(__FILE__)) . '/support.inc';
             } else {
-                echo '<p>If you continue to have problems, <a href="https://withknown.com/opensource" target="_blank">open source users have a number of resources available</a></p>.';
+                echo '<p>If you continue to have problems, <a href="https://withknown.com/opensource" target="_blank">open source users have a number of resources available.</a></p>';
             }
             
             $stats = \Idno\Core\Idno::site()->statistics();
