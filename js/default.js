@@ -176,6 +176,7 @@ function bindControls() {
     $('.ignore-this').hide();
     
     Security.activateACLControls();
+    Template.enableFormCandy();
     
     $('#contentCreate .form-control').first().focus();
 }

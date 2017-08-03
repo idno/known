@@ -40,6 +40,20 @@ Template.addErrorMessage = function(message) { Template.addMessage(message, 'ale
 function addMessage(message, message_type) { Template.addMessage(); }
 function addErrorMessage(message) { Template.addErrorMessage(message); }
 
+/** Enable some form candy, like ctrl+enter submit */
+Template.enableFormCandy = function() {
+    
+    $('.ctrl-enter-submit').keypress(function(event){
+	var keyCode = (event.which ? event.which : event.keyCode);  
+	
+	if ((keyCode == 10 || keyCode == 13) && event.ctrlKey) {
+	    
+	    $(this).closest('form').submit();
+	}
+    });
+    
+}
+
 
 /** Configure timeago and adjust videos in content */
 function annotateContent() {
@@ -83,4 +97,9 @@ $(document).ready(function(){
             clickTarget.target = "_blank";
         }
     });
+});
+
+// Enable ctrl+enter submit for certain forms
+$(document).ready(function(){
+    Template.enableFormCandy();
 });

@@ -35,7 +35,7 @@
                 ?>
             </h4>
 
-            <textarea required name="body" id="body" class="content-entry mentionable form-control" placeholder="Share a quick note or comment. You can use links and #hashtags."><?php
+            <textarea required name="body" id="body" class="content-entry mentionable form-control ctrl-enter-submit" placeholder="Share a quick note or comment. You can use links and #hashtags."><?php
 
                 if (!empty($vars['body'])) {
                     echo htmlspecialchars($vars['body']);
