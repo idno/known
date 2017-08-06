@@ -28,19 +28,47 @@
 
                 $this->setOwner($object->getOwner());
 
-                $permalink  = $object->getUrl() . '/annotations/' . $this->arguments[1];
-                $annotation = $object->getAnnotation($permalink);
-                $subtype    = $object->getAnnotationSubtype($permalink);
+                // Specific annotation being requested
+                if (!empty($this->arguments[1])) {
+                    $permalink  = $object->getUrl() . '/annotations/' . $this->arguments[1];
+                    $annotation = $object->getAnnotation($permalink);
+                    $subtype    = $object->getAnnotationSubtype($permalink);
+                
 
-                $this->setPermalink(); // This is a permalink
-                $t = \Idno\Core\Idno::site()->template();
-                $t->__(array(
+                    $this->setPermalink(); // This is a permalink
+                    $t = \Idno\Core\Idno::site()->template();
+                    $t->__(array(
 
-                    'title'       => $object->getTitle(),
-                    'body'        => $t->__(array('annotation' => $annotation, 'subtype' => $subtype, 'permalink' => $permalink, 'object' => $object))->draw('entity/annotations/shell'),
-                    'description' => $object->getShortDescription()
+                        'title'       => $object->getTitle(),
+                        'body'        => $t->__(array('annotation' => $annotation, 'subtype' => $subtype, 'permalink' => $permalink, 'object' => $object))->draw('entity/annotations/shell'),
+                        'description' => $object->getShortDescription()
 
-                ))->drawPage();
+                    ))->drawPage();
+                } else {
+                    // List annotations for object
+                    
+                    $t = \Idno\Core\Idno::site()->template();
+                    
+                    $annotations = $object->getAllAnnotations();
+                    $body = "";
+                    
+                    foreach ($annotations as $subtype => $list) {
+                        
+                        foreach ($list as $permalink => $annotation) {
+                            $body .= $t->__(array('annotation' => $annotation, 'subtype' => $subtype, 'permalink' => $permalink, 'object' => $object))->draw('entity/annotations/shell');
+                        }
+                    }
+                   
+                    
+                    $t->__(array(
+
+                        'title'       => $object->getTitle(),
+                        'body'        => $body,
+                        'description' => $object->getShortDescription()
+
+                    ))->drawPage();
+                    
+                }
             }
 
         }
