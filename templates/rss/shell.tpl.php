@@ -83,7 +83,7 @@
     }
 
     // If we have a feed, add the items
-    if (!empty($vars['items'])) {
+    if (!empty($vars['items'])) { 
         foreach($vars['items'] as $item) {
             if (!($item instanceof \Idno\Common\Entity)) {
                 continue;
@@ -153,6 +153,32 @@
                     $rssItem->appendChild($tagItem);
                 }
             }
+            $channel->appendChild($rssItem);
+        }
+    } 
+    
+    // See if we have any annotations 
+    else if (!empty($vars['annotations'])) {
+        
+        foreach ($vars['annotations'] as $annotation) {
+            $title = "By: " . $annotation['owner_name'];
+            
+            $rssItem = $page->createElement('item');
+            $rssItem->appendChild($page->createElement('title', htmlspecialchars($title)));
+            $rssItem->appendChild($page->createElement('link', $annotation['permalink']));
+            $rssItem->appendChild($page->createElement('guid', $annotation['permalink']));
+            $rssItem->appendChild($page->createElement('pubDate',date(DATE_RSS, $annotation['time'])));
+
+            $rssItem->appendChild($page->createElement('dc:creator', $annotation['owner_name']));
+            
+            //$rssItem->appendChild($page->createElement('dc:creator', $owner->title));
+
+            $description = $page->createElement('description');
+            if (empty($vars['nocdata'])) {
+                $description->appendChild($page->createCDATASection(empty($annotation['content']) ? '' : $annotation['content']));
+            } 
+            $rssItem->appendChild($description);
+            
             $channel->appendChild($rssItem);
         }
     }

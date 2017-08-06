@@ -51,6 +51,7 @@
                     
                     $annotations = $object->getAllAnnotations();
                     $body = "";
+                    $items = [];
                     
                     foreach ($annotations as $subtype => $list) {
                         
@@ -62,13 +63,20 @@
                             unset($t->vars['action']);
                             unset($t->vars['subtype']);
                             unset($t->vars['permalink']);
+                            
+                            if ($t->getTemplateType() == 'rss')
+                                unset($t->vars['object']);
+                            
+                            $items[] = $annotation;
                         }
                     }
-                   
                     
+                    if ($t->getTemplateType() == 'rss')
+                        $t->vars['annotations'] = $items;
+                   
                     $t->__(array(
 
-                        'title'       => $object->getTitle(),
+                        'title'       => "Annotations on: " .$object->getTitle(),
                         'body'        => $body,
                         'description' => $object->getShortDescription()
 
