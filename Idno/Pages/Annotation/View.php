@@ -56,6 +56,12 @@
                         
                         foreach ($list as $permalink => $annotation) {
                             $body .= $t->__(array('annotation' => $annotation, 'subtype' => $subtype, 'permalink' => $permalink, 'object' => $object))->draw('entity/annotations/shell');
+                            unset($t->vars['annotation']);
+                            unset($t->vars['annotation_permalink']);
+                            unset($t->vars['annotations']);
+                            unset($t->vars['action']);
+                            unset($t->vars['subtype']);
+                            unset($t->vars['permalink']);
                         }
                     }
                    
