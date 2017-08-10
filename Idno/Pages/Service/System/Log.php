@@ -11,7 +11,7 @@ namespace Idno\Pages\Service\System {
             $message = $this->getInput('message');
             $level = $this->getInput('level', 'INFO');
             
-            $message = 'Javascript Runtime: ' . $message;
+            $message = 'Client Runtime: ' . $message;
             
             $stats = \Idno\Core\Idno::site()->statistics();
             
@@ -21,7 +21,7 @@ namespace Idno\Pages\Service\System {
                 case 'EXCEPTION':
                 case 'ERROR': 
                     \Idno\Core\Idno::site()->logging()->error($message);
-            echo "logged $message";        
+            
                     // Lets log an explicit stat
                     if (!empty($stats)) {
                         $stats->increment("javascript.error");
