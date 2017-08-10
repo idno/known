@@ -50,9 +50,13 @@
                 $('#photo-filename').html('Choose a different image');
                 $('#photopreview').attr('src', e.target.result);
                 
-                var exif = EXIF.readFromBinaryFile(base64ToArrayBuffer(this.result));
-    
-                Image.exifRotateImg('#photopreview', exif.Orientation, '#photo-preview');
+                try {
+                    var exif = EXIF.readFromBinaryFile(base64ToArrayBuffer(this.result));
+
+                    Image.exifRotateImg('#photopreview', exif.Orientation, '#photo-preview');
+                } catch (error) {
+                    console.error(error);
+                }
                 
                 $('#photopreview').show();
                 $('#upload-button').show();
