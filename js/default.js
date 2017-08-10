@@ -107,8 +107,6 @@ Logger.log = function (message, level) {
 	    console.log(level + ": " + message);
     }
 
-    console.log(level.toUpperCase() + ': ' + message);
-
     Security.getCSRFToken(function (token, ts) {
 	$.ajax({
 	    type: "POST",
