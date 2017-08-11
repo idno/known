@@ -309,6 +309,10 @@ img {
     margin-top: 4em;
 }
 
+.pagination-disabled {
+    display: none !important;
+}
+
 .idno-annotation .icon-container {
     width: 35px;
     height: 35px;
@@ -1860,4 +1864,31 @@ textarea.form-control {
 }
 .import h3 {
 	margin-top: 0;
+}
+
+
+.page-admin-users .users-list {
+    margin-bottom: 10px;
+}
+
+.page-admin-users  .pane {
+    height: 30em;
+}
+
+.users-pagination {
+    clear: both;
+}
+
+.users-pagination li.newer span {
+    display:none;
+}
+.users-pagination li.newer a:after {
+    content: "\00ab";
+}
+
+.users-pagination li.older span {
+    display:none;
+}
+.users-pagination li.older a:after {
+    content: "\00bb"; 
 }

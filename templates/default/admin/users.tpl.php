@@ -17,18 +17,18 @@
         <h3>Manage site users</h3>
 
         <p>
-            Your site has <strong><?= sizeof($vars['users']) ?></strong> user<?php if (sizeof($vars['users']) != 1) {
+            Your site has <strong><?= $vars['count'] ?></strong> user<?php if ($vars['count'] != 1) {
                 echo 's';
             } ?>.
         </p>
     </div>
 </div>
 <div class="row">
-    <div class="pane col-md-10 col-md-offset-1">
+    <div class="pane users-list col-md-10 col-md-offset-1">
 
         <?php
-            if (!empty($vars['users']) && is_array($vars['users'])) {
-                foreach ($vars['users'] as $user) {
+            if (!empty($vars['items']) && is_array($vars['items'])) {
+                foreach ($vars['items'] as $user) {
                     if ($user instanceof \Idno\Entities\User) {
                         $handle = $user->getHandle();
                         if (!empty($handle)) {
@@ -132,7 +132,11 @@
         ?>
 
     </div>
-
+    <div class="users-pagination">
+    <?php if (!empty($vars['count'])) {
+            echo $this->drawPagination($vars['count'], $vars['items_per_page']);
+        } ?>
+    </div>
 </div>
 <?php
 
