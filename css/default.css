@@ -309,6 +309,10 @@ img {
     margin-top: 4em;
 }
 
+.pagination-disabled {
+    display: none !important;
+}
+
 .idno-annotation .icon-container {
     width: 35px;
     height: 35px;

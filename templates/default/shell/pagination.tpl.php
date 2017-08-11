@@ -17,8 +17,8 @@
 
         <div class="pager">
             <ul>
-                <?php if ($vars['offset'] > 0) { ?><li class="newer"><a href="<?=$this->getURLWithVar('offset', $prev_offset);?>" title="Newer" rel="next"><span>&laquo; Newer</span></a></li><?php } ?>
-                <?php if ($vars['offset'] <= $vars['count'] - $items_per_page) { ?><li class="older"><a href="<?=$this->getURLWithVar('offset', $next_offset);?>" title="Older" rel="prev"><span>Older &raquo;</span></a></li><?php } ?>
+                <li class="newer <?php if ($vars['offset'] == 0) echo "pagination-disabled" ?>"><a href="<?=$this->getURLWithVar('offset', $prev_offset);?>" title="Newer" rel="next"><span>&laquo; Newer</span></a></li>
+                <li class="older <?php if ($vars['offset'] > $vars['count'] - $items_per_page) echo "pagination-disabled"?>"><a href="<?=$this->getURLWithVar('offset', $next_offset);?>" title="Older" rel="prev"><span>Older &raquo;</span></a></li>
             </ul>
         </div>
 
