@@ -98,10 +98,13 @@ Template.enablePagination = function() {
 	if (new_offset > count - limit)    
 	    oldercontrol.addClass('pagination-disabled');
 
-
+	
 	// Fetch new url
 	source = source + "?offset=" + new_offset.toString() + "&limit=" + limit.toString();
 	control.load(source); 
+	
+	// Reset scrollbars
+	control.scrollTop(0);
     });
 }
 
