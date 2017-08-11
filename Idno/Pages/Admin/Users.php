@@ -16,14 +16,19 @@
             function getContent()
             {
                 $this->adminGatekeeper(); // Admins only
+                
+                $offset = $this->getInput('offset', 0);
+                $limit = $this->getInput('limit', 25);
 
-                $users       = User::get(array(), array(), 99999, 0); // TODO: make this more complete / efficient
-                $remoteusers = RemoteUser::get(array(), array(), 99999, 0);
-                $users       = array_merge($users, $remoteusers);
+                //$users       = User::get(array(), array(), 99999, 0); // TODO: make this more complete / efficient
+                //$remoteusers = RemoteUser::get(array(), array(), 99999, 0);
+                $users = User::getFromX(["Idno\\Entities\\User", "Idno\\Entities\\RemoteUser"], [], [], $limit, $offset);
+                $count = User::countFromX(["Idno\\Entities\\User", "Idno\\Entities\\RemoteUser"]);
+                
                 $invitations = Invitation::get();
 
                 $t        = \Idno\Core\Idno::site()->template();
-                $t->body  = $t->__(array('users' => $users, 'invitations' => $invitations))->draw('admin/users');
+                $t->body  = $t->__(array('items' => $users, 'invitations' => $invitations, 'count' => $count, 'items_per_page' => $limit))->draw('admin/users');
                 $t->title = 'User Management';
                 $t->drawPage();
 
