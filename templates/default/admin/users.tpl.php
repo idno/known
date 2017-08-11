@@ -24,7 +24,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="pane col-md-10 col-md-offset-1">
+    <div class="pane users-list col-md-10 col-md-offset-1">
 
         <?php
             if (!empty($vars['items']) && is_array($vars['items'])) {
