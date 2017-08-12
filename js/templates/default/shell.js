@@ -87,24 +87,32 @@ Template.enablePagination = function() {
 	    if (new_offset > (count - 1)) new_offset = count - 1;
 	}
 
-	// Update controls
-	settings.attr('data-offset', new_offset.toString());
-
-	// Show buttons if necessary
-	newercontrol.removeClass('pagination-disabled');
-	oldercontrol.removeClass('pagination-disabled');
-	if (new_offset == 0)
-	    newercontrol.addClass('pagination-disabled');
-	if (new_offset > count - limit)    
-	    oldercontrol.addClass('pagination-disabled');
 
 	
 	// Fetch new url
-	source = source + "?offset=" + new_offset.toString() + "&limit=" + limit.toString();
-	control.load(source); 
+	//source = source + "?offset=" + new_offset.toString() + "&limit=" + limit.toString();
+	control.load(source, {
+	    offset: new_offset.toString(),
+	    limit: limit.toString()
+	}, function(responseText, status, xhr){
+	    if (status != 'error') {
+		
+		// Update controls
+		settings.attr('data-offset', new_offset.toString());
+
+		// Show buttons if necessary
+		newercontrol.removeClass('pagination-disabled');
+		oldercontrol.removeClass('pagination-disabled');
+		if (new_offset == 0)
+		    newercontrol.addClass('pagination-disabled');
+		if (new_offset > count - limit)    
+		    oldercontrol.addClass('pagination-disabled');
+		
+		// Reset scrollbars
+		control.scrollTop(0);
+	    }
+	}); 
 	
-	// Reset scrollbars
-	control.scrollTop(0);
     });
 }
 
