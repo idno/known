@@ -54,6 +54,65 @@ Template.enableFormCandy = function() {
     
 }
 
+/** Enable AJAX powered pagination */
+Template.enablePagination = function() {
+    $('.pager-xhr a').click(function(e) {
+            
+	e.preventDefault();
+
+	var settings = $(this).closest('.pager-xhr');
+	var offset = parseInt(settings.attr('data-offset'));
+	var limit = parseInt(settings.attr('data-limit'));
+	var count = parseInt(settings.attr('data-count'));
+	var control = $('#' + settings.attr('data-control-id'));
+	var source = settings.attr('data-source-url');
+	var direction = $(this).attr('rel');
+
+	var newercontrol = $(this).closest('.pager-xhr').find('li.newer');
+	var oldercontrol = $(this).closest('.pager-xhr').find('li.older');
+
+	// Normalise source, removing get vars (TODO: Do this nicer to preserve non pagination vars
+	source = source.split('?')[0];
+
+	var new_offset;
+
+	if (direction == 'next') {
+
+	    new_offset = offset - limit;
+	    if (new_offset < 0) new_offset = 0;
+
+	} else {
+
+	    new_offset = offset + limit;
+	    if (new_offset > (count - 1)) new_offset = count - 1;
+	}
+
+
+	
+	// Fetch new url
+	source = source + "?offset=" + new_offset.toString() + "&limit=" + limit.toString();
+	control.load(source, function(responseText, status, xhr){
+	    if (status != 'error') {
+		
+		// Update controls
+		settings.attr('data-offset', new_offset.toString());
+
+		// Show buttons if necessary
+		newercontrol.removeClass('pagination-disabled');
+		oldercontrol.removeClass('pagination-disabled');
+		if (new_offset == 0)
+		    newercontrol.addClass('pagination-disabled');
+		if (new_offset > count - limit)    
+		    oldercontrol.addClass('pagination-disabled');
+		
+		// Reset scrollbars
+		control.scrollTop(0);
+	    }
+	}); 
+	
+    });
+}
+
 
 /** Configure timeago and adjust videos in content */
 function annotateContent() {
@@ -102,4 +161,5 @@ $(document).ready(function(){
 // Enable ctrl+enter submit for certain forms
 $(document).ready(function(){
     Template.enableFormCandy();
+    Template.enablePagination();
 });
