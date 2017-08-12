@@ -90,11 +90,8 @@ Template.enablePagination = function() {
 
 	
 	// Fetch new url
-	//source = source + "?offset=" + new_offset.toString() + "&limit=" + limit.toString();
-	control.load(source, {
-	    offset: new_offset.toString(),
-	    limit: limit.toString()
-	}, function(responseText, status, xhr){
+	source = source + "?offset=" + new_offset.toString() + "&limit=" + limit.toString();
+	control.load(source, function(responseText, status, xhr){
 	    if (status != 'error') {
 		
 		// Update controls
