@@ -220,47 +220,49 @@
                 </div>
             </div>
             <div class="row">
-                <div class="pane col-md-10 col-md-offset-1">
-                    <?php
-
-                        foreach ($vars['invitations'] as $invitation) {
-
-                            ?>
-                            <div class="row ">
-                                <div class="col-lg-3 ">
-                                    <p class="user-tbl">
-                                        <?= $invitation->email ?>
-                                    </p>
-                                </div>
-                                <div class="col-lg-3 ">
-                                    <p class="user-tbl">
-                                        <small><strong>Sent</strong><br>
-                                        <time datetime="<?= date('r', $invitation->created) ?>"
-                                              class="dt-published"><?= date('r', $invitation->created) ?></time></small>
-                                    </p>
-                                </div>
-                                <div class="col-lg-5">
-                                    <p class="user-tbl" style="text-align: right">
-                                        <small>
-                                            <?php
-
-                                                echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/users', '<i class="fa fa-refresh"></i> Resend', array('invitation_id' => $invitation->getID(), 'action' => 'resend_invitation'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? The user will receive a second email.')) . '<br>';
-
-                                            ?>
-                                            <?php
-
-                                                echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/users', '<i class="fa fa-times"></i> Remove', array('invitation_id' => $invitation->getID(), 'action' => 'remove_invitation'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? The user won\'t be able to register.')) . '<br>';
-
-                                            ?>
-                                        </small>
-                                    </p>
-                                </div>
-                            </div>
-                            <?php
-
-                        }
-
-                    ?>
+                <div class="col-md-10 col-md-offset-1">
+	                <div class="pane">
+	                    <?php
+	
+	                        foreach ($vars['invitations'] as $invitation) {
+	
+	                            ?>
+	                            <div class="row ">
+	                                <div class="col-lg-3 ">
+	                                    <p class="user-tbl">
+	                                        <?= $invitation->email ?>
+	                                    </p>
+	                                </div>
+	                                <div class="col-lg-3 ">
+	                                    <p class="user-tbl">
+	                                        <small><strong>Sent</strong><br>
+	                                        <time datetime="<?= date('r', $invitation->created) ?>"
+	                                              class="dt-published"><?= date('r', $invitation->created) ?></time></small>
+	                                    </p>
+	                                </div>
+	                                <div class="col-lg-5">
+	                                    <p class="user-tbl" style="text-align: right">
+	                                        <small>
+	                                            <?php
+	
+	                                                echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/users', '<i class="fa fa-refresh"></i> Resend', array('invitation_id' => $invitation->getID(), 'action' => 'resend_invitation'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? The user will receive a second email.')) . '<br>';
+	
+	                                            ?>
+	                                            <?php
+	
+	                                                echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/users', '<i class="fa fa-times"></i> Remove', array('invitation_id' => $invitation->getID(), 'action' => 'remove_invitation'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? The user won\'t be able to register.')) . '<br>';
+	
+	                                            ?>
+	                                        </small>
+	                                    </p>
+	                                </div>
+	                            </div>
+	                            <?php
+	
+	                        }
+	
+	                    ?>
+	                </div>
                 </div>
             </div>
 
@@ -304,35 +306,37 @@
                 </div>
             </div>
             <div class="row">
-                <div class="pane col-md-10 col-md-offset-1">
-                    <?php
-
-                        foreach ($blocked_emails as $email) {
-
-                            ?>
-                            <div class="row ">
-                                <div class="col-sm-4 col-xs-12">
-                                    <p class="user-tbl">
-                                        <?= $email ?>
-                                    </p>
-                                </div>
-                                <div class="col-sm-8 col-xs-12">
-                                    <p class="user-tbl" style="text-align: right">
-                                        <small>
-                                            <?php
-
-                                                echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/users', '<i class="fa fa-times"></i> Remove block', array('blocked_emails' => $email, 'action' => 'unblock_emails'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? The user will be able to log in and post again.')) . '<br>';
-
-                                            ?>
-                                        </small>
-                                    </p>
-                                </div>
-                            </div>
-                            <?php
-
-                        }
-
-                    ?>
+                <div class="col-md-10 col-md-offset-1">
+	                <div class="pane">
+	                    <?php
+	
+	                        foreach ($blocked_emails as $email) {
+	
+	                            ?>
+	                            <div class="row ">
+	                                <div class="col-sm-4 col-xs-12">
+	                                    <p class="user-tbl">
+	                                        <?= $email ?>
+	                                    </p>
+	                                </div>
+	                                <div class="col-sm-8 col-xs-12">
+	                                    <p class="user-tbl" style="text-align: right">
+	                                        <small>
+	                                            <?php
+	
+	                                                echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/users', '<i class="fa fa-times"></i> Remove block', array('blocked_emails' => $email, 'action' => 'unblock_emails'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? The user will be able to log in and post again.')) . '<br>';
+	
+	                                            ?>
+	                                        </small>
+	                                    </p>
+	                                </div>
+	                            </div>
+	                            <?php
+	
+	                        }
+	
+	                    ?>
+	                </div>
                 </div>
             </div>
             <?php
