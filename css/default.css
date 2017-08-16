@@ -628,6 +628,7 @@ span.contentTypeLogo {
     overflow-y: scroll;
     height: 15em;
     border: 1px #ddd solid;
+    padding: 0 10px;
 }
 
 div.pane div.row:nth-of-type(even) {
@@ -999,9 +1000,9 @@ small {
 .pager li > a, .pager li > span {
     background-color: #73b2e3;
     border: 3px solid #73b2e3;
-    border-radius: 0;
+    border-radius: 4px;
     display: inline-block;
-    padding: 8px 24px;
+    padding: 6px 24px;
     color: #ffffff;
     font-size: 1.2em;
 }
@@ -1883,12 +1884,12 @@ textarea.form-control {
     display:none;
 }
 .users-pagination li.newer a:after {
-    content: "\00ab";
+    content: "\00ab Previous";
 }
 
 .users-pagination li.older span {
     display:none;
 }
 .users-pagination li.older a:after {
-    content: "\00bb"; 
+    content: "Next \00bb"; 
 }

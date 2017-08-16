@@ -24,7 +24,8 @@
     </div>
 </div>
 <div class="row">
-    <div id="users-list" class="pane users-list col-md-10 col-md-offset-1">
+    <div class="col-md-10 col-md-offset-1">
+	    <div id="users-list" class="pane users-list">
 
         <?php
             if (!empty($vars['items']) && is_array($vars['items'])) {
@@ -130,6 +131,7 @@
                 }
             }
         ?>
+	    </div>
 
     </div>
     <div class="users-pagination">
@@ -143,29 +145,29 @@
     if (\Idno\Core\Idno::site()->config()->canAddUsers()) {
 
         ?>
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
 
-                <form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>admin/users" method="post">
+        <form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>admin/users" method="post">
 
-                    <h3>Invite new users</h3>
+            <h3>Invite new users</h3>
 
-                    <p>
-                        To invite new users to the site, enter one or more email addresses below.
-                    </p>
+            <p>
+                To invite new users to the site, enter one or more email addresses below.
+            </p>
 
-                    <textarea name="invitation_emails" class="form-control" placeholder="friend@email.com"></textarea>
+            <textarea name="invitation_emails" class="form-control" placeholder="friend@email.com"></textarea>
 
-                    <p>
-                        <input type="submit" class="btn btn-primary" value="Send invite">
-                        <input type="hidden" name="action" value="invite_users">
-                        <?= \Idno\Core\Idno::site()->actions()->signForm('/admin/users') ?>
-                    </p>
+            <p>
+                <input type="submit" class="btn btn-primary" value="Send invite">
+                <input type="hidden" name="action" value="invite_users">
+                <?= \Idno\Core\Idno::site()->actions()->signForm('/admin/users') ?>
+            </p>
 
-                </form>
+        </form>
 
-            </div>
-        </div>
+    </div>
+</div>
 
         <?php
 
