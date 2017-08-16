@@ -23,9 +23,12 @@ Template.addMessage = function(message, message_type)
 	message_type = 'alert-info';
     }
     
-    $('div#page-messages').append('<div class="alert ' + message_type + ' col-md-10 col-md-offset-1">' +
-                        '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-                        message + '</div>');
+    if (message !== undefined) {
+    
+	$('div#page-messages').append('<div class="alert ' + message_type + ' col-md-10 col-md-offset-1">' +
+			    '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+			    message + '</div>');
+    }
 }
 
 
