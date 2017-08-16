@@ -23,9 +23,12 @@ Template.addMessage = function(message, message_type)
 	message_type = 'alert-info';
     }
     
-    $('div#page-messages').append('<div class="alert ' + message_type + ' col-md-10 col-md-offset-1">' +
-                        '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-                        message + '</div>');
+    if (message !== undefined) {
+    
+	$('div#page-messages').append('<div class="alert ' + message_type + ' col-md-10 col-md-offset-1">' +
+			    '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+			    message + '</div>');
+    }
 }
 
 
@@ -113,6 +116,11 @@ Template.enablePagination = function() {
     });
 }
 
+Template.enableRichTextRequired = function () {
+   
+   // TODO
+}
+
 
 /** Configure timeago and adjust videos in content */
 function annotateContent() {
@@ -162,4 +170,5 @@ $(document).ready(function(){
 $(document).ready(function(){
     Template.enableFormCandy();
     Template.enablePagination();
+    Template.enableRichTextRequired();
 });
