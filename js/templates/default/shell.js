@@ -116,6 +116,26 @@ Template.enablePagination = function() {
     });
 }
 
+Template.enableRichTextRequired = function () {
+    $('textarea.validation-required').each(function(index){
+	
+	var name = $(this).attr('name');
+	
+	if ($(this).val().length == 0) {
+	    $(this).closest('form').submit(function(e){
+	    
+		console.error(name + ' is empty');
+		
+		e.preventDefault();
+		return false;
+		
+	    });
+	    
+	}
+	
+    });
+}
+
 
 /** Configure timeago and adjust videos in content */
 function annotateContent() {
@@ -165,4 +185,5 @@ $(document).ready(function(){
 $(document).ready(function(){
     Template.enableFormCandy();
     Template.enablePagination();
+    Template.enableRichTextRequired();
 });
