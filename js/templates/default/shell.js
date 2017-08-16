@@ -117,23 +117,8 @@ Template.enablePagination = function() {
 }
 
 Template.enableRichTextRequired = function () {
-    $('textarea.validation-required').each(function(index){
-	
-	var name = $(this).attr('name');
-	
-	if ($(this).val().length == 0) {
-	    $(this).closest('form').submit(function(e){
-	    
-		console.error(name + ' is empty');
-		
-		e.preventDefault();
-		return false;
-		
-	    });
-	    
-	}
-	
-    });
+   
+   // TODO
 }
 
 
