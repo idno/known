@@ -25,10 +25,6 @@
     } else {
         $value = '';
     }
-    $required = "";
-    if (!empty($vars['required'])) {
-        $required = "required";
-    }
 
 ?>
 <!--<p style="float: right">
@@ -48,7 +44,7 @@
 ?>
     <!--<br class="clearall">-->
     <textarea name="<?=$vars['name']?>"  placeholder="<?=htmlspecialchars($placeholder);?>" style="height:<?=$height?>px"
-          class="bodyInput mentionable wysiwyg form-control <?=$class?>" id="<?=$unique_id?>" <?= $required; ?>><?= (htmlspecialchars($value)) ?></textarea>
+          class="bodyInput mentionable wysiwyg form-control <?=$class?> <?php if (!empty($vars['required'])) echo 'validation-required'; ?>" id="<?=$unique_id?>"><?= (htmlspecialchars($value)) ?></textarea>
 
 <?php
 
