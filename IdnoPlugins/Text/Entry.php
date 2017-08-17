@@ -9,7 +9,7 @@
 
             function getTitle()
             {
-                if (empty($this->title)) return 'Untitled';
+                if (empty($this->title)) return '';
 
                 return $this->title;
             }
