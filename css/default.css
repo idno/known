@@ -1884,12 +1884,19 @@ textarea.form-control {
     display:none;
 }
 .users-pagination li.newer a:after {
-    content: "\00ab Previous";
+    content: "Previous";
 }
 
 .users-pagination li.older span {
     display:none;
 }
 .users-pagination li.older a:after {
-    content: "Next \00bb"; 
+    content: "Next"; 
+}
+
+.user-pagination {
+	margin-top: 10px;
+}
+.user-pagination .pager {
+	margin: 0;
 }
