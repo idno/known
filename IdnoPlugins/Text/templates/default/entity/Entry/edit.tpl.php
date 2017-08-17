@@ -48,7 +48,7 @@
 
                 <div class="content-form">
                     <label for="title">Title</label>
-                    <input type="text" name="title" id="title" placeholder="Give it a title" value="<?= htmlspecialchars($title) ?>" class="form-control"/>
+                    <input type="text" name="title" id="title" placeholder="Give it a title" value="<?= htmlspecialchars($title) ?>" class="form-control" required />
                 </div>
 
                 <?= $this->__([
