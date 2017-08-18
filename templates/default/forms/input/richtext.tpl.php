@@ -152,9 +152,6 @@
     }
 </script>
 <?php
-// Prevent bonita leakage
-foreach (['unique_id', 'class', 'height', 'placeholder', 'value', 'required'] as $var)
-    unset($this->vars[$var]);
 
 // Expose this control to the api
 $this->documentFormControl($name, [
@@ -163,4 +160,8 @@ $this->documentFormControl($name, [
     'required' => !empty($vars['required']),
     'description' => $placeholder
 ]);
+
+// Prevent bonita leakage
+foreach (['unique_id', 'class', 'height', 'placeholder', 'value', 'required', 'wordcount', 'name', 'value'] as $var)
+    unset($this->vars[$var]);
 ?>
