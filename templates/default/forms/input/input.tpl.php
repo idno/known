@@ -74,5 +74,11 @@ if (!empty($published['alt'])) {
     $published['description'] = $published['placeholder'];
     unset($published['alt']); unset($published['placeholder']);
 }
+
+// Prevent bonita polution
+foreach ($fields_and_defaults as $field) 
+    unset($this->vars[$field]);
+
+// Document form
 $this->documentFormControl($vars['name'], $published);
 ?>
