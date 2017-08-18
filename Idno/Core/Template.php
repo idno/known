@@ -146,6 +146,22 @@
                 }
 
             }
+            
+            /**
+             * Document a form control and make it easily discoverable by the API.
+             * @param type $name
+             * @param type $values
+             */
+            function documentFormControl($name, $values = []) {
+                $vars = [];
+                if (!empty($this->vars['api-fields'])) {
+                    $vars = $this->vars['api-fields'];
+                }
+                
+                $vars[$name] = $values;
+                
+                $this->__(['api-fields' => $vars]);
+            }
 
             /**
              * Extend a template with another template. eg, template "plugin/atemplate"
