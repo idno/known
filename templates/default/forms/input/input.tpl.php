@@ -24,6 +24,7 @@ $fields_and_defaults = array(
     'onclick' => false,
     'onfocus' => false,
     'onblur' => false,
+    'onchange' => false,
 );
 
 // We always want a unique ID
