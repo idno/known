@@ -6,6 +6,7 @@ $fields_and_defaults = array(
     'id' => false,
     'autocomplete' => false,
     'autofocus' => false,
+    'accept' => false,
     'checked' => false,
     'disabled' => false,
     'min' => false,
