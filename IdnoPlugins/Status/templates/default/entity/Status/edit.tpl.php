@@ -35,13 +35,22 @@
                 ?>
             </h4>
 
-            <textarea required name="body" id="body" class="content-entry mentionable form-control ctrl-enter-submit" placeholder="Share a quick note or comment. You can use links and #hashtags."><?php
-
+            <?php 
+                $body = ""; 
                 if (!empty($vars['body'])) {
-                    echo htmlspecialchars($vars['body']);
+                    $body = $vars['body'];
                 } else {
-                    echo htmlspecialchars($vars['object']->body);
-                } ?></textarea>
+                    $body = $vars['object']->body;
+                } ?>
+            <?= $this->__([
+                'unique_id' => 'body',
+                'name' => 'body',
+                'placeholder' => "Share a quick note or comment. You can use links and #hashtags.",
+                'required' => true,
+                'class' => 'content-entry ctrl-enter-submit',
+                'value' => $body,
+                'height' => 140
+            ])->draw('forms/input/longtext'); ?>
             <?php
 
                 echo $this->draw('entity/tags/input');
