@@ -34,19 +34,28 @@ if (!isset($vars['id'])) {
 ?>
 <input
 <?php
+
+$published = [];
+
 foreach ($fields_and_defaults as $field => $default) {
     if (isset($vars[$field])) {
-        if ($vars[$field] === true)
+        if ($vars[$field] === true) {
             echo "$field ";
-        else
-            echo "$field=\"{$vars[$field]}\" ";
+            $published[$field] = true;
+        } else {
+            echo "$field=\"{$vars[$field]}\" "; 
+            $published[$field] = $vars[$field];
+        }
     }
     else {
         if ($default !== false) {
-            if ($default === true)
+            if ($default === true) {
                 echo "$field ";
-            else
+                $published[$field] = true;
+            } else {
                 echo "$field=\"$default\" ";
+                $published[$field] = $default;
+            }
         }
     }
 }
@@ -56,3 +65,14 @@ foreach ($fields_and_defaults as $field => $default) {
 <?php if (isset($vars['alt'])) { ?>alt="<?php echo htmlentities($vars['alt'], ENT_QUOTES, 'UTF-8'); ?>" <?php } // Alt is a special case ?>
     value="<?php echo htmlentities($vars['value'], ENT_QUOTES, 'UTF-8'); ?>"
     /> 
+<?php
+// Ensure this is documented in the api get
+if (!empty($published['alt'])) {
+    $published['description'] = $published['alt'];
+    unset($published['alt']); unset($published['placeholder']);
+} else if (!empty($published['placeholder'])) {
+    $published['description'] = $published['placeholder'];
+    unset($published['alt']); unset($published['placeholder']);
+}
+$this->documentFormControl($vars['name'], $published);
+?>
