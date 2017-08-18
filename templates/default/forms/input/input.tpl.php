@@ -75,10 +75,10 @@ if (!empty($published['alt'])) {
     unset($published['alt']); unset($published['placeholder']);
 }
 
-// Prevent bonita polution
-foreach ($fields_and_defaults as $field) 
-    unset($this->vars[$field]);
-
 // Document form
 $this->documentFormControl($vars['name'], $published);
+
+// Prevent bonita polution
+foreach (array_merge($fields_and_defaults, ['placeholder' => false, 'value' => '']) as $field => $default) 
+    unset($this->vars[$field]);
 ?>
