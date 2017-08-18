@@ -154,13 +154,13 @@
              */
             function documentFormControl($name, $values = []) {
                 $vars = [];
-                if (!empty($this->vars['api-fields'])) {
-                    $vars = $this->vars['api-fields'];
+                if (!empty($this->vars['form-fields'])) {
+                    $vars = $this->vars['form-fields'];
                 }
                 
                 $vars[$name] = $values;
                 
-                $this->__(['api-fields' => $vars]);
+                $this->__(['form-fields' => $vars]);
             }
 
             /**
