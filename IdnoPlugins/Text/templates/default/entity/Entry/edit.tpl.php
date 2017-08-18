@@ -48,7 +48,7 @@
 
                 <div class="content-form">
                     <label for="title">Title</label>
-                    <input type="text" name="title" id="title" placeholder="Give it a title" value="<?= htmlspecialchars($title) ?>" class="form-control" required />
+                    <?= $this->__(['name' => 'title', 'placeholder' => 'Give it a title', 'id' => 'title', 'value' => $title, 'required' => true, 'class' => 'form-control'])->draw('forms/input/input'); ?>
                 </div>
 
                 <?= $this->__([
@@ -61,7 +61,9 @@
                 <?= $this->draw('entity/tags/input'); ?>
 
                 <?php echo $this->drawSyndication('article', $vars['object']->getPosseLinks()); ?>
-                <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to" value="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
+                <?php if (empty($vars['object']->_id)) { 
+                    $this->__(['name' => 'forward-to', 'value' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'])->draw('forms/input/hidden');
+                } ?>
 
                 <?= $this->draw('content/extra'); ?>
                 <?= $this->draw('content/access'); ?>
