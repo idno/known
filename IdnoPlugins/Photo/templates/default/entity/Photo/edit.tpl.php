@@ -109,8 +109,9 @@
                 </div>
                 
                 <?php echo $this->drawSyndication('image', $vars['object']->getPosseLinks()); ?>
-                <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to"
-                                                                  value="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
+                <?php if (empty($vars['object']->_id)) { 
+                    $this->__(['name' => 'forward-to', 'value' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'])->draw('forms/input/hidden');
+                } ?>
                 <?= $this->draw('content/extra'); ?>
                 <?= $this->draw('content/access'); ?>
                 <p class="button-bar ">
