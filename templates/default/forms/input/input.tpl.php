@@ -38,6 +38,10 @@ if (!isset($vars['id'])) {
 <?php
 
 $published = [];
+if (isset($vars['placeholder']))
+    $published['placeholder'] = $vars['placeholder'];
+if (isset($vars['alt']))
+    $published['alt'] = $vars['alt'];
 
 foreach ($fields_and_defaults as $field => $default) {
     if (isset($vars[$field])) {
