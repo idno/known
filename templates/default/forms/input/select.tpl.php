@@ -1,7 +1,6 @@
 <?php
 // Define possible fields and their defaults, a boolean FALSE means don't show if not present
 $fields_and_defaults = array(
-    'type' => 'text',
     'name' => false,
     'id' => false,
     'autocomplete' => false,
@@ -34,14 +33,18 @@ if (!isset($vars['id'])) {
     $vars['id'] = $vars['name'] . "_$input_id";
 }
 ?>
-<input
+<select
 <?php
 
-$published = [];
+$published = [
+    'type' => 'select'
+];
 if (isset($vars['placeholder']))
     $published['placeholder'] = $vars['placeholder'];
 if (isset($vars['alt']))
     $published['alt'] = $vars['alt'];
+if (isset($vars['description']))
+    $published['description'] = $vars['description'];
 
 foreach ($fields_and_defaults as $field => $default) {
     if (isset($vars[$field])) {
@@ -66,17 +69,19 @@ foreach ($fields_and_defaults as $field => $default) {
     }
 }
 ?>
-    class="input <?php echo isset($vars['class']) ? $vars['class'] : 'input-' . (isset($vars['type']) ? $vars['type'] : 'text'); ?>"
-<?php if (isset($vars['placeholder'])) { ?>placeholder="<?php echo htmlentities($vars['placeholder'], ENT_QUOTES, 'UTF-8'); ?>" <?php } // Placeholder is a special case ?>
-<?php if (isset($vars['alt'])) { ?>alt="<?php echo htmlentities($vars['alt'], ENT_QUOTES, 'UTF-8'); ?>" <?php } // Alt is a special case ?>
-    value="<?php if (isset($vars['value'])) echo htmlentities($vars['value'], ENT_QUOTES, 'UTF-8'); ?>"
-    /> 
+    class="input <?php echo isset($vars['class']) ? $vars['class'] : 'input-select'; ?>"
+    value="<?php if (isset($vars['value'])) echo htmlentities($vars['value'], ENT_QUOTES, 'UTF-8'); ?>"> 
+    <?php 
+    foreach ($vars['options'] as $option => $label) {
+        ?>
+    <option value="<?= $option; ?>" <?php if ($value == $option) echo 'selected' ?>><?= htmlentities($label, ENT_QUOTES, 'UTF-8'); ?></option>
+    <?php
+    }
+    ?>
+</select>    
 <?php
 // Ensure this is documented in the api get
-if (!empty($published['alt'])) {
-    $published['description'] = $published['alt'];
-    unset($published['alt']); unset($published['placeholder']);
-} else if (!empty($published['placeholder'])) {
+if (!empty($published['placeholder'])) {
     $published['description'] = $published['placeholder'];
     unset($published['alt']); unset($published['placeholder']);
 }
@@ -85,6 +90,6 @@ if (!empty($published['alt'])) {
 $this->documentFormControl($vars['name'], $published);
 
 // Prevent bonita polution
-foreach (array_merge($fields_and_defaults, ['placeholder' => false, 'value' => '']) as $field => $default) 
+foreach (array_merge($fields_and_defaults, ['placeholder' => false, 'value' => '', 'options' => '']) as $field => $default) 
     unset($this->vars[$field]);
 ?>

@@ -17,18 +17,19 @@
         <h3>Manage site users</h3>
 
         <p>
-            Your site has <strong><?= sizeof($vars['users']) ?></strong> user<?php if (sizeof($vars['users']) != 1) {
+            Your site has <strong><?= $vars['count'] ?></strong> user<?php if ($vars['count'] != 1) {
                 echo 's';
             } ?>.
         </p>
     </div>
 </div>
 <div class="row">
-    <div class="pane col-md-10 col-md-offset-1">
+    <div class="col-md-10 col-md-offset-1">
+	    <div id="users-list" class="pane users-list">
 
         <?php
-            if (!empty($vars['users']) && is_array($vars['users'])) {
-                foreach ($vars['users'] as $user) {
+            if (!empty($vars['items']) && is_array($vars['items'])) {
+                foreach ($vars['items'] as $user) {
                     if ($user instanceof \Idno\Entities\User) {
                         $handle = $user->getHandle();
                         if (!empty($handle)) {
@@ -130,38 +131,43 @@
                 }
             }
         ?>
+	    </div>
 
     </div>
-
+    <div class="users-pagination">
+    <?php if (!empty($vars['count'])) {
+            echo $this->drawPagination($vars['count'], $vars['items_per_page']);
+        } ?>
+    </div>
 </div>
 <?php
 
     if (\Idno\Core\Idno::site()->config()->canAddUsers()) {
 
         ?>
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
 
-                <form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>admin/users" method="post">
+        <form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>admin/users" method="post">
 
-                    <h3>Invite new users</h3>
+            <h3>Invite new users</h3>
 
-                    <p>
-                        To invite new users to the site, enter one or more email addresses below.
-                    </p>
+            <p>
+                To invite new users to the site, enter one or more email addresses below.
+            </p>
 
-                    <textarea name="invitation_emails" class="form-control" placeholder="friend@email.com"></textarea>
+            <textarea name="invitation_emails" class="form-control" placeholder="friend@email.com"></textarea>
 
-                    <p>
-                        <input type="submit" class="btn btn-primary" value="Send invite">
-                        <input type="hidden" name="action" value="invite_users">
-                        <?= \Idno\Core\Idno::site()->actions()->signForm('/admin/users') ?>
-                    </p>
+            <p>
+                <input type="submit" class="btn btn-primary" value="Send invite">
+                <input type="hidden" name="action" value="invite_users">
+                <?= \Idno\Core\Idno::site()->actions()->signForm('/admin/users') ?>
+            </p>
 
-                </form>
+        </form>
 
-            </div>
-        </div>
+    </div>
+</div>
 
         <?php
 
@@ -214,47 +220,49 @@
                 </div>
             </div>
             <div class="row">
-                <div class="pane col-md-10 col-md-offset-1">
-                    <?php
-
-                        foreach ($vars['invitations'] as $invitation) {
-
-                            ?>
-                            <div class="row ">
-                                <div class="col-lg-3 ">
-                                    <p class="user-tbl">
-                                        <?= $invitation->email ?>
-                                    </p>
-                                </div>
-                                <div class="col-lg-3 ">
-                                    <p class="user-tbl">
-                                        <small><strong>Sent</strong><br>
-                                        <time datetime="<?= date('r', $invitation->created) ?>"
-                                              class="dt-published"><?= date('r', $invitation->created) ?></time></small>
-                                    </p>
-                                </div>
-                                <div class="col-lg-5">
-                                    <p class="user-tbl" style="text-align: right">
-                                        <small>
-                                            <?php
-
-                                                echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/users', '<i class="fa fa-refresh"></i> Resend', array('invitation_id' => $invitation->getID(), 'action' => 'resend_invitation'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? The user will receive a second email.')) . '<br>';
-
-                                            ?>
-                                            <?php
-
-                                                echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/users', '<i class="fa fa-times"></i> Remove', array('invitation_id' => $invitation->getID(), 'action' => 'remove_invitation'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? The user won\'t be able to register.')) . '<br>';
-
-                                            ?>
-                                        </small>
-                                    </p>
-                                </div>
-                            </div>
-                            <?php
-
-                        }
-
-                    ?>
+                <div class="col-md-10 col-md-offset-1">
+	                <div class="pane">
+	                    <?php
+	
+	                        foreach ($vars['invitations'] as $invitation) {
+	
+	                            ?>
+	                            <div class="row ">
+	                                <div class="col-lg-3 ">
+	                                    <p class="user-tbl">
+	                                        <?= $invitation->email ?>
+	                                    </p>
+	                                </div>
+	                                <div class="col-lg-3 ">
+	                                    <p class="user-tbl">
+	                                        <small><strong>Sent</strong><br>
+	                                        <time datetime="<?= date('r', $invitation->created) ?>"
+	                                              class="dt-published"><?= date('r', $invitation->created) ?></time></small>
+	                                    </p>
+	                                </div>
+	                                <div class="col-lg-5">
+	                                    <p class="user-tbl" style="text-align: right">
+	                                        <small>
+	                                            <?php
+	
+	                                                echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/users', '<i class="fa fa-refresh"></i> Resend', array('invitation_id' => $invitation->getID(), 'action' => 'resend_invitation'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? The user will receive a second email.')) . '<br>';
+	
+	                                            ?>
+	                                            <?php
+	
+	                                                echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/users', '<i class="fa fa-times"></i> Remove', array('invitation_id' => $invitation->getID(), 'action' => 'remove_invitation'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? The user won\'t be able to register.')) . '<br>';
+	
+	                                            ?>
+	                                        </small>
+	                                    </p>
+	                                </div>
+	                            </div>
+	                            <?php
+	
+	                        }
+	
+	                    ?>
+	                </div>
                 </div>
             </div>
 
@@ -298,35 +306,37 @@
                 </div>
             </div>
             <div class="row">
-                <div class="pane col-md-10 col-md-offset-1">
-                    <?php
-
-                        foreach ($blocked_emails as $email) {
-
-                            ?>
-                            <div class="row ">
-                                <div class="col-sm-4 col-xs-12">
-                                    <p class="user-tbl">
-                                        <?= $email ?>
-                                    </p>
-                                </div>
-                                <div class="col-sm-8 col-xs-12">
-                                    <p class="user-tbl" style="text-align: right">
-                                        <small>
-                                            <?php
-
-                                                echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/users', '<i class="fa fa-times"></i> Remove block', array('blocked_emails' => $email, 'action' => 'unblock_emails'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? The user will be able to log in and post again.')) . '<br>';
-
-                                            ?>
-                                        </small>
-                                    </p>
-                                </div>
-                            </div>
-                            <?php
-
-                        }
-
-                    ?>
+                <div class="col-md-10 col-md-offset-1">
+	                <div class="pane">
+	                    <?php
+	
+	                        foreach ($blocked_emails as $email) {
+	
+	                            ?>
+	                            <div class="row ">
+	                                <div class="col-sm-4 col-xs-12">
+	                                    <p class="user-tbl">
+	                                        <?= $email ?>
+	                                    </p>
+	                                </div>
+	                                <div class="col-sm-8 col-xs-12">
+	                                    <p class="user-tbl" style="text-align: right">
+	                                        <small>
+	                                            <?php
+	
+	                                                echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/users', '<i class="fa fa-times"></i> Remove block', array('blocked_emails' => $email, 'action' => 'unblock_emails'), array('class' => '', 'confirm' => true, 'confirm-text' => 'Are you sure? The user will be able to log in and post again.')) . '<br>';
+	
+	                                            ?>
+	                                        </small>
+	                                    </p>
+	                                </div>
+	                            </div>
+	                            <?php
+	
+	                        }
+	
+	                    ?>
+	                </div>
                 </div>
             </div>
             <?php

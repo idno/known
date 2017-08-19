@@ -23,9 +23,12 @@ Template.addMessage = function(message, message_type)
 	message_type = 'alert-info';
     }
     
-    $('div#page-messages').append('<div class="alert ' + message_type + ' col-md-10 col-md-offset-1">' +
-                        '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-                        message + '</div>');
+    if (message !== undefined) {
+    
+	$('div#page-messages').append('<div class="alert ' + message_type + ' col-md-10 col-md-offset-1">' +
+			    '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+			    message + '</div>');
+    }
 }
 
 
@@ -39,6 +42,84 @@ Template.addErrorMessage = function(message) { Template.addMessage(message, 'ale
 
 function addMessage(message, message_type) { Template.addMessage(); }
 function addErrorMessage(message) { Template.addErrorMessage(message); }
+
+/** Enable some form candy, like ctrl+enter submit */
+Template.enableFormCandy = function() {
+    
+    $('.ctrl-enter-submit').keypress(function(event){
+	var keyCode = (event.which ? event.which : event.keyCode);  
+	
+	if ((keyCode == 10 || keyCode == 13) && event.ctrlKey) {
+	    
+	    $(this).closest('form').submit();
+	}
+    });
+    
+}
+
+/** Enable AJAX powered pagination */
+Template.enablePagination = function() {
+    $('.pager-xhr a').click(function(e) {
+            
+	e.preventDefault();
+
+	var settings = $(this).closest('.pager-xhr');
+	var offset = parseInt(settings.attr('data-offset'));
+	var limit = parseInt(settings.attr('data-limit'));
+	var count = parseInt(settings.attr('data-count'));
+	var control = $('#' + settings.attr('data-control-id'));
+	var source = settings.attr('data-source-url');
+	var direction = $(this).attr('rel');
+
+	var newercontrol = $(this).closest('.pager-xhr').find('li.newer');
+	var oldercontrol = $(this).closest('.pager-xhr').find('li.older');
+
+	// Normalise source, removing get vars (TODO: Do this nicer to preserve non pagination vars
+	source = source.split('?')[0];
+
+	var new_offset;
+
+	if (direction == 'next') {
+
+	    new_offset = offset - limit;
+	    if (new_offset < 0) new_offset = 0;
+
+	} else {
+
+	    new_offset = offset + limit;
+	    if (new_offset > (count - 1)) new_offset = count - 1;
+	}
+
+
+	
+	// Fetch new url
+	source = source + "?offset=" + new_offset.toString() + "&limit=" + limit.toString();
+	control.load(source, function(responseText, status, xhr){
+	    if (status != 'error') {
+		
+		// Update controls
+		settings.attr('data-offset', new_offset.toString());
+
+		// Show buttons if necessary
+		newercontrol.removeClass('pagination-disabled');
+		oldercontrol.removeClass('pagination-disabled');
+		if (new_offset == 0)
+		    newercontrol.addClass('pagination-disabled');
+		if (new_offset > count - limit)    
+		    oldercontrol.addClass('pagination-disabled');
+		
+		// Reset scrollbars
+		control.scrollTop(0);
+	    }
+	}); 
+	
+    });
+}
+
+Template.enableRichTextRequired = function () {
+   
+   // TODO
+}
 
 
 /** Configure timeago and adjust videos in content */
@@ -83,4 +164,11 @@ $(document).ready(function(){
             clickTarget.target = "_blank";
         }
     });
+});
+
+// Enable ctrl+enter submit for certain forms
+$(document).ready(function(){
+    Template.enableFormCandy();
+    Template.enablePagination();
+    Template.enableRichTextRequired();
 });

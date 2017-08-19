@@ -49,12 +49,13 @@
                         <p>
                                 <span class="btn btn-primary btn-file">
                                         <i class="fa fa-camera"></i> <span
-                                        id="photo-filename"><?php if (empty($vars['object']->_id)) { ?>Select a photo<?php } else { ?>Choose different photo<?php } ?></span> <input type="file" name="photo"
-                                                                                         id="photo"
-                                                                                         class="col-md-9 form-control"
-                                                                                         accept="image/*"
-                                                                                         <?php /* capture="camera" */ ?>
-                                                                                         onchange="photoPreview(this)"/>
+                                        id="photo-filename"><?php if (empty($vars['object']->_id)) { ?>Select a photo<?php } else { ?>Choose different photo<?php } ?></span> 
+                                        <?= $this->__([
+                                            'name' => 'photo', 
+                                            'id' => 'photo', 
+                                            'accept' => 'image/*',
+                                            'onchange' => 'photoPreview(this)',
+                                            'class' => 'form-control col-md-9'])->draw('forms/input/file'); ?>
 
                                     </span>
                         </p>
@@ -76,9 +77,12 @@
                     <div class="content-form">
                         <label for="title">
                             Title</label>
-                        <input type="text" name="title" id="title"
-                               value="<?= htmlspecialchars($vars['object']->title) ?>" class="form-control"
-                               placeholder="Give it a title"/>
+                        <?= $this->__([
+                            'name' => 'title', 
+                            'id' => 'title', 
+                            'placeholder' => 'Give it a title', 
+                            'value' => $vars['object']->title, 
+                            'class' => 'form-control'])->draw('forms/input/input'); ?>
                     </div>
 
                     <?= $this->__([
@@ -105,8 +109,9 @@
                 </div>
                 
                 <?php echo $this->drawSyndication('image', $vars['object']->getPosseLinks()); ?>
-                <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to"
-                                                                  value="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
+                <?php if (empty($vars['object']->_id)) { 
+                    $this->__(['name' => 'forward-to', 'value' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'])->draw('forms/input/hidden');
+                } ?>
                 <?= $this->draw('content/extra'); ?>
                 <?= $this->draw('content/access'); ?>
                 <p class="button-bar ">
@@ -128,10 +133,14 @@
                 reader.onload = function (e) {
                     $('#photo-preview').html('<img src="" id="photopreview" style="display:none; width: 400px;">');
                     $('#photo-filename').html('Choose different photo');
-                    
-                    var exif = EXIF.readFromBinaryFile(base64ToArrayBuffer(this.result));
-    
-                    exifRotateImg('#photopreview', exif.Orientation, '#photo-preview');
+                 
+                    try {
+                        var exif = EXIF.readFromBinaryFile(base64ToArrayBuffer(this.result));
+
+                        exifRotateImg('#photopreview', exif.Orientation, '#photo-preview');
+                    } catch (error) {
+                        console.error(error);
+                    }
                 
                     $('#photopreview').attr('src', e.target.result);
                     $('#photopreview').show();

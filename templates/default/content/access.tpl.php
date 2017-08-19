@@ -68,9 +68,14 @@
     } else {
 
         ?>
-        <input type="hidden" name="access" id="access-control-id" value="<?= htmlspecialchars($access); ?>"/>
+        <input type="hidden" name="access" id="access-control-id-<?= $id_code; ?>" value="<?= htmlspecialchars($access); ?>"/>
         <?php
 
     }
 
+    /** Document the control for the api */
+    $this->documentFormControl('access', [
+        'id' => 'access-control-id-' .$id_code,
+        'description' => 'Access control',
+    ]);
 ?>

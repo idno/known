@@ -318,7 +318,7 @@ namespace Idno\Core {
                 $title = $config->host . ": $title";
                 
                 foreach ($notify as $emailaddress) {
-                    if (filter_var($emailaddress, FILTER_VALIDATE_EMAIL)) {
+                    if (!empty($emailaddress) && filter_var($emailaddress, FILTER_VALIDATE_EMAIL)) {
                         
                         $vars = [
                             'site' => $config->getDisplayURL(),
@@ -326,7 +326,8 @@ namespace Idno\Core {
                             'user' => 'UNKNOWN'
                         ];
                         
-                        if (!empty(\Idno\Core\Idno::site()->session()->currentUserUUID()))
+                        $uuid = \Idno\Core\Idno::site()->session()->currentUserUUID();
+                        if (!empty($uuid))
                             $vars['user'] = \Idno\Core\Idno::site()->session()->currentUserUUID();
                         
                         $email = new Email();

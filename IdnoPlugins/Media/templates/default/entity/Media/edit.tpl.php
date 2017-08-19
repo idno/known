@@ -26,7 +26,13 @@
                 ?>
                 <label>
                     <span class="btn btn-primary btn-file">
-                        <i class="fa fa-play-circle"></i> <span id="media-filename">Upload audio</span> <input type="file" name="media" id="media" class="col-md-9" accept="audio/*;video/*;capture=microphone" onchange="$('#media-filename').html($(this).val())" />
+                        <i class="fa fa-play-circle"></i> <span id="media-filename">Upload audio</span> 
+                        <?= $this->__([
+                                            'name' => 'media', 
+                                            'id' => 'media', 
+                                            'accept' => 'audio/*;video/*;capture=microphone',
+                                            'onchange' => "$('#media-filename').html($(this).val())",
+                                            'class' => 'col-md-9'])->draw('forms/input/file'); ?>
                     </span>
                 </label>
                 <?php
@@ -38,7 +44,12 @@
             <div class="content-form">
                 <label for="title">
                     Title</label>
-                    <input type="text" name="title" id="title" placeholder="Give it a title" value="<?=htmlspecialchars($vars['object']->title)?>" class="form-control" />
+                    <?= $this->__([
+                            'name' => 'title', 
+                            'id' => 'title', 
+                            'placeholder' => 'Give it a title', 
+                            'value' => $vars['object']->title, 
+                            'class' => 'form-control'])->draw('forms/input/input'); ?>
 
             </div>
 

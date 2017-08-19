@@ -130,20 +130,44 @@
              * Draws generic pagination suitable for placing somewhere on a page (offset is drawn from the 'offset' input variable)
              * @param int $count Number of items in total (across all pages)
              * @param int $items_per_page Number of items you're displaying per page
+             * @param array $vars Additional template variables
              * @return string
              */
-            function drawPagination($count, $items_per_page = null)
+            function drawPagination($count, $items_per_page = null, array $vars = [])
             {
-
+                if (empty($vars)) $vars = [];
                 if ($items_per_page == null) $items_per_page = \Idno\Core\Idno::site()->config()->items_per_page;
                 $page   = \Idno\Core\Idno::site()->currentPage();
                 $offset = (int)$page->getInput('offset');
                 if ($offset == 0 && $count < $items_per_page) {
                     return '';
                 } else {
-                    return $this->__(array('count' => $count, 'offset' => $offset, 'items_per_page' => $items_per_page))->draw('shell/pagination');
+                    return $this->__(array_merge(array('count' => $count, 'offset' => $offset, 'items_per_page' => $items_per_page), $vars))->draw('shell/pagination');
                 }
 
+            }
+            
+            /**
+             * Document a form control and make it easily discoverable by the API.
+             * @param type $name Name of the control 
+             * @param type $values Array of form value. Common are 'type', 'description', 'id'
+             */
+            function documentFormControl($name, $values = []) {
+                $vars = [];
+                if (!empty($this->vars['form-fields'])) {
+                    $vars = $this->vars['form-fields'];
+                }
+                
+                if (isset($vars[$name])) {
+                    $tmp = [$vars[$name]];
+                    $tmp[] = $values;
+                    
+                    $vars[$name] = $tmp;
+                } else {
+                    $vars[$name] = $values;
+                }
+                
+                $this->__(['form-fields' => $vars]);
             }
 
             /**
@@ -290,7 +314,7 @@
                         $result .= ' ' . str_replace("%URL%", $url, addslashes($code));
                     }
                     $result .= ">";
-                    $result .= preg_replace('/([\/=]+)/', '${1}<wbr />', $url);
+                    $result .= preg_replace('/([\/=]+)/', '${1}<wbr />', Template::sampleTextChars($url, 100));
                     $result .= "</a>$punc";
 
                     return $result;

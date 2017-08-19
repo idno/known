@@ -21,4 +21,12 @@
         </span>
     <?php
 
+        $this->documentFormControl("syndication[]", [
+            'type' => 'checkbox',
+            'disabled' => !empty($vars['disabled']),
+            'id' => "syndication_{$vars['service']}_{$identifier}_toggle",
+            'service' => $vars['service'],
+            'username' => htmlentities($vars['username']),   
+            'checked' => $vars['selected'] == true
+        ]);
     }

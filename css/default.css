@@ -309,6 +309,10 @@ img {
     margin-top: 4em;
 }
 
+.pagination-disabled {
+    display: none !important;
+}
+
 .idno-annotation .icon-container {
     width: 35px;
     height: 35px;
@@ -624,6 +628,7 @@ span.contentTypeLogo {
     overflow-y: scroll;
     height: 15em;
     border: 1px #ddd solid;
+    padding: 0 10px;
 }
 
 div.pane div.row:nth-of-type(even) {
@@ -995,9 +1000,9 @@ small {
 .pager li > a, .pager li > span {
     background-color: #73b2e3;
     border: 3px solid #73b2e3;
-    border-radius: 0;
+    border-radius: 4px;
     display: inline-block;
-    padding: 8px 24px;
+    padding: 6px 24px;
     color: #ffffff;
     font-size: 1.2em;
 }
@@ -1892,4 +1897,38 @@ div.unfurled-url .basics .image img {
     object-fit: cover;
     width: 100%;
     height: 100%;
+}
+    
+/** Pagination **/
+.page-admin-users .users-list {
+    margin-bottom: 10px;
+}
+
+.page-admin-users  .pane {
+    height: 30em;
+}
+
+.users-pagination {
+    clear: both;
+}
+
+.users-pagination li.newer span {
+    display:none;
+}
+.users-pagination li.newer a:after {
+    content: "Previous";
+}
+
+.users-pagination li.older span {
+    display:none;
+}
+.users-pagination li.older a:after {
+    content: "Next"; 
+}
+
+.user-pagination {
+	margin-top: 10px;
+}
+.user-pagination .pager {
+	margin: 0;
 }

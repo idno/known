@@ -19,12 +19,22 @@
             <div class="content-form">
                 <label for="body">
                     Link Address</label>
-                <input required type="url" name="body" id="body" placeholder="http://...."
-                       value="<?php if (empty($vars['url'])) {
-                           echo htmlspecialchars($vars['object']->body);
-                       } else {
-                           echo htmlspecialchars($vars['url']);
-                       } ?>" class="form-control bookmark-url"/>
+                <?php
+                $value = "";
+                if (empty($vars['url'])) {
+                    $value = $vars['object']->body;
+                } else {
+                    $value = $vars['url'];
+                }
+                echo $this->__([
+                    'name' => 'body',
+                    'id' => 'body',
+                    'placeholder' => "http://....",
+                    'class' => "form-control bookmark-url",
+                    'value' => $value,
+                    'required' => true
+                ])->draw('forms/input/url');
+                ?>
                 </label>
                 <?php
 
@@ -50,10 +60,14 @@
                     <label for="title">
                         Title<br/>
                     </label>
-                    <input required type="text" name="title" id="title" placeholder="Page name"
-                           value="<?php
-                               echo htmlspecialchars($vars['object']->pageTitle);
-                           ?>" class="form-control bookmark-title"/>
+                    <?= $this->__([
+                            'name' => 'title', 
+                            'id' => 'title', 
+                            'placeholder' => 'Page name', 
+                            'value' => $vars['object']->pageTitle, 
+                            'required' => true,
+                            'class' => 'form-control bookmark-title'])->draw('forms/input/input'); ?>
+                    
                 </div>
 
                 <div class="unfurl col-md-12" style="display:none;" data-url=""></div>
@@ -70,8 +84,9 @@
             </div>
             <?= $this->draw('entity/tags/input'); ?>
             <?php echo $this->drawSyndication('bookmark', $vars['object']->getPosseLinks()); ?>
-            <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to"
-                                                              value="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
+            <?php if (empty($vars['object']->_id)) { 
+                $this->__(['name' => 'forward-to', 'value' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'])->draw('forms/input/hidden');
+            } ?>
             <?= $this->draw('content/extra'); ?>
             <?= $this->draw('content/access'); ?>
             

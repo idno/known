@@ -44,7 +44,7 @@
 ?>
     <!--<br class="clearall">-->
     <textarea name="<?=$vars['name']?>"  placeholder="<?=htmlspecialchars($placeholder);?>" style="height:<?=$height?>px"
-          class="bodyInput mentionable wysiwyg form-control <?=$class?>" id="<?=$unique_id?>"><?= (htmlspecialchars($value)) ?></textarea>
+          class="bodyInput mentionable wysiwyg form-control <?=$class?> <?php if (!empty($vars['required'])) echo 'validation-required'; ?>" id="<?=$unique_id?>"><?= (htmlspecialchars($value)) ?></textarea>
 
 <?php
 
@@ -65,6 +65,7 @@
     }
 
 ?>
+    
 
 <script>
 
@@ -150,3 +151,17 @@
 
     }
 </script>
+<?php
+
+// Expose this control to the api
+$this->documentFormControl($name, [
+    'type' => 'richtext',
+    'id' => $unique_id,
+    'required' => !empty($vars['required']),
+    'description' => $placeholder
+]);
+
+// Prevent bonita leakage
+foreach (['unique_id', 'class', 'height', 'placeholder', 'value', 'required', 'wordcount', 'name', 'value'] as $var)
+    unset($this->vars[$var]);
+?>
