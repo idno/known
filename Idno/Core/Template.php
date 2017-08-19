@@ -158,7 +158,14 @@
                     $vars = $this->vars['form-fields'];
                 }
                 
-                $vars[$name] = $values;
+                if (isset($vars[$name])) {
+                    $tmp = [$vars[$name]];
+                    $tmp[] = $values;
+                    
+                    $vars[$name] = $tmp;
+                } else {
+                    $vars[$name] = $values;
+                }
                 
                 $this->__(['form-fields' => $vars]);
             }
