@@ -146,6 +146,29 @@
                 }
 
             }
+            
+            /**
+             * Document a form control and make it easily discoverable by the API.
+             * @param type $name Name of the control 
+             * @param type $values Array of form value. Common are 'type', 'description', 'id'
+             */
+            function documentFormControl($name, $values = []) {
+                $vars = [];
+                if (!empty($this->vars['form-fields'])) {
+                    $vars = $this->vars['form-fields'];
+                }
+                
+                if (isset($vars[$name])) {
+                    $tmp = [$vars[$name]];
+                    $tmp[] = $values;
+                    
+                    $vars[$name] = $tmp;
+                } else {
+                    $vars[$name] = $values;
+                }
+                
+                $this->__(['form-fields' => $vars]);
+            }
 
             /**
              * Extend a template with another template. eg, template "plugin/atemplate"

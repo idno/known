@@ -34,4 +34,19 @@
 <br class="clearall">
 <textarea name="<?=$vars['name']?>"  placeholder="<?=htmlspecialchars($placeholder);?>" style="height:<?=$height?>px"
           class="bodyInput mentionable form-control <?=$class?>" id="<?=$unique_id?>" <?= $required; ?>><?= (htmlspecialchars($value)) ?></textarea>
+<?php
 
+// Expose this control to the api
+$this->documentFormControl($name, [
+    'type' => 'longtext',
+    'id' => $unique_id,
+    'required' => !empty($required),
+    'description' => $placeholder
+]);
+
+
+// Prevent bonita leakage
+foreach (['unique_id', 'class', 'height', 'placeholder', 'value', 'required', 'name', 'value'] as $var)
+    unset($this->vars[$var]);
+
+?>
