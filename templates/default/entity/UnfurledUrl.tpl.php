@@ -27,7 +27,7 @@ if (!empty($object->data['og']['og:image']))
 <div class="row unfurled-url" id="<?= $vars['id']; ?>" data-url="<?= htmlentities($object->source_url, ENT_QUOTES, 'UTF-8'); ?>">
     <div class="basics">
         <?php if (!empty($image)) { ?>
-            <div class="image"><a href="<?= htmlentities($object->source_url, ENT_QUOTES, 'UTF-8'); ?>"><img src="<?= htmlentities($image); ?>"/></a></div>
+            <div class="image"><a href="<?= htmlentities($object->source_url, ENT_QUOTES, 'UTF-8'); ?>"><img src="<?= $this->getProxiedImageUrl(htmlentities($image)); ?>"/></a></div>
         <?php } ?>
         <h2><a href="<?= htmlentities($object->source_url, ENT_QUOTES, 'UTF-8'); ?>"><?= htmlentities($title, ENT_QUOTES, 'UTF-8'); ?></a></h2>
         <?php if (!empty($description)) { ?><blockquote class="description"><?= htmlentities($description, ENT_QUOTES, 'UTF-8'); ?></blockquote><?php } ?>
