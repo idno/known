@@ -318,6 +318,19 @@
              */
             static function file_get_contents($url)
             {
+                $result = self::file_get_contents_ex($url);
+
+                if (!empty($result) && ($result['error'] == ""))
+                    return $result['content'];
+
+                return false;
+            }
+            
+            /**
+             * Identical to Webservice::file_get_contents(), except that this function returns the full context - headers and all.
+             * @param type $url
+             */
+            static function file_get_contents_ex($url) {
                 $result = self::get($url);
 
                 // Checking for redirects (HTTP codes 301 and 302)
@@ -334,11 +347,8 @@
                     $headers = array_change_key_case($headers, CASE_LOWER); // Ensure standardised header array keys
                     $result  = self::get($headers["location"]);
                 }
-
-                if ($result['error'] == "")
-                    return $result['content'];
-
-                return false;
+                
+                return $result;
             }
 
             /**
