@@ -1,6 +1,6 @@
 <?php
 
-namespace Idno\Pages\Service\System {
+namespace Idno\Pages\Service\Web {
 
     class ImageProxy extends \Idno\Common\Page {
         
