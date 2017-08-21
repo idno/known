@@ -46,8 +46,10 @@ namespace Idno\Pages\Service\System {
             try {
                 
                 $cache = $this->getCache();
+                //$url = $this->getInput('url')
+                $url = $this->arguments[0];        
                 
-                if ($url = $this->getInput('url')) {
+                if (!empty($url)) {
 
                     if ($url = \Idno\Core\Webservice::base64UrlDecode($url)) {
 
