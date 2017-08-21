@@ -657,7 +657,7 @@
                     return $url;
                 
                 // Map to local
-                return \Idno\Core\Idno::site()->config()->getDisplayURL() . '/service/system/imageproxy/?img=' . Webservice::base64UrlEncode($url);
+                return \Idno\Core\Idno::site()->config()->getDisplayURL() . '/service/system/imageproxy/?url=' . Webservice::base64UrlEncode($url);
                 
             }
 
