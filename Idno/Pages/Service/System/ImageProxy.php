@@ -58,6 +58,7 @@ namespace Idno\Pages\Service\System {
                             $now = time();
                             $stored_ts = $meta['stored_ts'];
                             $this->lastModifiedGatekeeper($stored_ts);
+                            header('Expires: ' . \Idno\Core\Time::timestampToRFC2616($meta['expires_ts']));
                             
                             // See if this has expired
                             if ($meta['expires_ts'] >= $now) {
@@ -70,6 +71,8 @@ namespace Idno\Pages\Service\System {
                                     
                                     $content = $cache->load(sha1($url));
                                     header('Content-Length: ' . strlen($content));
+                                    header("Pragma: cache");
+                                    header("Cache-Control: max-age=" . ($meta['expires_ts'] - time()));
 
                                     // Break long output to avoid an Apache performance bug
                                     $split_output = str_split($content, 1024);
@@ -99,7 +102,7 @@ namespace Idno\Pages\Service\System {
                             
                             // See if we have an expiry
                             $expires_ts = time() + (60*60*24); // Default: try again in one day.
-                            if (preg_match('/Expires: (.*)/', $result['headers'], $matches)) {
+                            if (preg_match('/Expires: (.*)/', $result['header'], $matches)) {
                                 if (!empty($matches[1])) {
 
                                     \Idno\Core\Idno::site()->logging()->debug("Found upstream Expires time of " . $matches[1]);
@@ -112,6 +115,7 @@ namespace Idno\Pages\Service\System {
                                 }
                             }
                             
+                            $meta['stored_ts'] = time();
                             $meta['expires_ts'] = $expires_ts;
                             $meta['status'] = $result['response'];
                             
@@ -126,6 +130,7 @@ namespace Idno\Pages\Service\System {
                             // We got absolutely nothing back, lets save nothing
                             \Idno\Core\Idno::site()->logging()->debug("Got absolutely nothing back from $url, faking it.");
                             $meta['status'] = 404;
+                            $meta['stored_ts'] = time();
                             $meta['expires_ts'] = time() + (60*60*24); // Try again in one day.
                         }
                             
@@ -138,6 +143,10 @@ namespace Idno\Pages\Service\System {
                         \Idno\Core\Idno::site()->logging()->debug("Returning image $url");
                                     
                         header('Content-Length: ' . strlen($content));
+                        $this->setLastModifiedHeader($meta['stored_ts']);
+                        header('Expires: ' . \Idno\Core\Time::timestampToRFC2616($meta['expires_ts']));
+                        header("Pragma: cache");
+                        header("Cache-Control: max-age=" . ($meta['expires_ts'] - time()));
 
                         // Break long output to avoid an Apache performance bug
                         $split_output = str_split($content, 1024);
