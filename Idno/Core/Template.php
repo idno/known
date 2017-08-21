@@ -645,6 +645,21 @@
 
                 return $url;
             }
+            
+            /**
+             * Convert a remote image URL into one addressing the local image proxying service.
+             * @param type $url
+             */
+            public function getProxiedImageUrl($url) {
+                
+                // Local urls, just relay.
+                if (\Idno\Common\Entity::isLocalUUID($url))
+                    return $url;
+                
+                // Map to local
+                return \Idno\Core\Idno::site()->config()->getDisplayURL() . 'service/system/imageproxy/' . Webservice::base64UrlEncode($url);
+                
+            }
 
             /**
              * Retrieves a set of contextual body classes suitable for including in a shell template
