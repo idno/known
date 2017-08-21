@@ -75,7 +75,6 @@ namespace Idno\Pages\Service\Web {
                                     header('Content-Length: ' . strlen($content));
                                     header("Pragma: cache");
                                     header("Cache-Control: max-age=" . ($meta['expires_ts'] - time()));
-                                    header("X-Known-ImageProxy: HIT");
 
                                     // Break long output to avoid an Apache performance bug
                                     $split_output = str_split($content, 1024);
@@ -150,7 +149,6 @@ namespace Idno\Pages\Service\Web {
                         header('Expires: ' . \Idno\Core\Time::timestampToRFC2616($meta['expires_ts']));
                         header("Pragma: cache");
                         header("Cache-Control: max-age=" . ($meta['expires_ts'] - time()));
-                        header("X-Known-ImageProxy: MISS");
 
                         // Break long output to avoid an Apache performance bug
                         $split_output = str_split($content, 1024);
