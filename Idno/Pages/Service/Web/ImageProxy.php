@@ -11,6 +11,26 @@ namespace Idno\Pages\Service\Web {
             
         }
         
+        protected function outputContent($content, $meta) {
+                       
+            $this->setLastModifiedHeader($meta['stored_ts']);
+            header('Expires: ' . \Idno\Core\Time::timestampToRFC2616($meta['expires_ts']));
+            header("Pragma: cache");
+            header("Cache-Control: max-age=" . ($meta['expires_ts'] - time()));
+            
+            if (strlen($content)>0) {
+                header('Content-Length: ' . strlen($content));
+                if (!empty($meta['mime']))
+                    header("Content-Type: " . $meta['mime']);
+
+                // Break long output to avoid an Apache performance bug
+                $split_output = str_split($content, 1024);
+
+                foreach ($split_output as $chunk)
+                    echo $chunk;
+            }
+        }
+        
         /**
          * Delete any cached content 
          */
@@ -60,7 +80,6 @@ namespace Idno\Pages\Service\Web {
                             $now = time();
                             $stored_ts = $meta['stored_ts'];
                             $this->lastModifiedGatekeeper($stored_ts);
-                            header('Expires: ' . \Idno\Core\Time::timestampToRFC2616($meta['expires_ts']));
                             
                             // See if this has expired
                             if ($meta['expires_ts'] >= $now) {
@@ -72,16 +91,9 @@ namespace Idno\Pages\Service\Web {
                                     \Idno\Core\Idno::site()->logging()->debug("Returning cached image $url");
                                     
                                     $content = $cache->load(sha1($url));
-                                    header('Content-Length: ' . strlen($content));
-                                    header("Pragma: cache");
-                                    header("Cache-Control: max-age=" . ($meta['expires_ts'] - time()));
-                                    header("X-Known-ImageProxy: HIT");
-
-                                    // Break long output to avoid an Apache performance bug
-                                    $split_output = str_split($content, 1024);
                                     
-                                    foreach ($split_output as $chunk)
-                                        echo $chunk;
+                                    // Output the image
+                                    $this->outputContent($content, $meta);
                                     
                                 } else {
                                     $this->setResponse($meta['status']); // Previously there was a problem getting this image, lets return that status code and try again when the error expires
@@ -118,9 +130,20 @@ namespace Idno\Pages\Service\Web {
                                 }
                             }
                             
+                            // See if we have a content type
+                            $mime = "application/octet-stream";
+                            if (preg_match('/Content-Type: (.*)/', $result['header'], $matches)) {
+                                if (!empty($matches[1])) {
+
+                                    \Idno\Core\Idno::site()->logging()->debug("Found upstream Content-Type of " . $matches[1]);
+                                    $mime = $matches[1];
+                                }
+                            }
+                            
                             $meta['stored_ts'] = time();
                             $meta['expires_ts'] = $expires_ts;
                             $meta['status'] = $result['response'];
+                            $meta['mime'] = $mime;
                             
                             if ($result['response'] == 200) {
                                 
@@ -145,19 +168,9 @@ namespace Idno\Pages\Service\Web {
                             
                         \Idno\Core\Idno::site()->logging()->debug("Returning image $url");
                                     
-                        header('Content-Length: ' . strlen($content));
-                        $this->setLastModifiedHeader($meta['stored_ts']);
-                        header('Expires: ' . \Idno\Core\Time::timestampToRFC2616($meta['expires_ts']));
-                        header("Pragma: cache");
-                        header("Cache-Control: max-age=" . ($meta['expires_ts'] - time()));
-                        header("X-Known-ImageProxy: MISS");
-
-                        // Break long output to avoid an Apache performance bug
-                        $split_output = str_split($content, 1024);
-
-                        foreach ($split_output as $chunk)
-                            echo $chunk;
-            
+                        $this->outputContent($content, $meta);
+                        
+                        
                         exit;
                         
                     } else {
