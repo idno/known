@@ -16,6 +16,8 @@
         {
 
             protected $client;
+            
+            private $ignoreAccess = false;
 
             /**
              * Performs database optimizations, depending on engine
@@ -92,6 +94,26 @@
                     }
                 }
                 return false;
+            }
+            
+            /**
+             * Temporarily set the ability to disable access controls.
+             * @param bool $value True to ignore
+             * @return bool The previous value
+             */
+            function setIgnoreAccess($value) {
+                $old = $this->ignoreAccess;
+                
+                $this->ignoreAccess = $value;
+                
+                return $old;
+            }
+            
+            /**
+             * Return the current status.
+             */
+            function getIgnoreAccess() {
+                return $this->ignoreAccess;
             }
 
             /**
