@@ -119,7 +119,6 @@ Template.enablePagination = function() {
 Template.enableRichTextRequired = function () {
 
     $('textarea.validation-required').each(function(){
-	console.log('binding controls');
 	var form = $(this).closest('form');
 	var alert = form.find('div.alert');
 	var content = $(this);
