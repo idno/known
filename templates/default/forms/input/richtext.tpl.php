@@ -47,8 +47,10 @@
     <textarea name="<?=$vars['name']?>"  placeholder="<?=htmlspecialchars($placeholder);?>" style="height:<?=$height?>px"
           class="bodyInput mentionable wysiwyg form-control <?=$class?> <?php if (!empty($vars['required'])) echo 'validation-required'; ?>" id="<?=$unique_id?>"><?= (htmlspecialchars($value)) ?></textarea>
 
-          
-    <div class="required-text alert alert-danger" style="display:none;">Please complete this field!</div>
+    <?php
+    if (!empty($vars['required'])) { ?>
+        <div class="required-text alert alert-danger" style="display:none;">Please complete this field!</div>
+    <?php } ?>
 <?php
 
     if (!empty($vars['wordcount'])) {
