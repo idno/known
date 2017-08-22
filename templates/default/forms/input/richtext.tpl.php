@@ -42,10 +42,13 @@
     }
 
 ?>
+<div class="richtext-container">
     <!--<br class="clearall">-->
     <textarea name="<?=$vars['name']?>"  placeholder="<?=htmlspecialchars($placeholder);?>" style="height:<?=$height?>px"
           class="bodyInput mentionable wysiwyg form-control <?=$class?> <?php if (!empty($vars['required'])) echo 'validation-required'; ?>" id="<?=$unique_id?>"><?= (htmlspecialchars($value)) ?></textarea>
 
+          
+    <div class="required-text alert alert-danger" style="display:none;">Please complete this field!</div>
 <?php
 
     if (!empty($vars['wordcount'])) {
@@ -54,6 +57,7 @@
         <div class="wordcount" id="result">
             Total words <strong><span id="totalWords<?=$unique_id?>">0</span></strong>
         </div>
+</div>
 <?php
 
     } else {
