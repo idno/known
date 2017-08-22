@@ -157,6 +157,18 @@ namespace Tests\Data {
             $this->swapUser($old);
         }
         
+        public function testACLBypass() {
+            
+            $db = \Idno\Core\Idno::site()->db();
+            
+            $old = $db->setIgnoreAccess(true);
+            $this->assertTrue($db->getIgnoreAccess());
+            
+            $old = $db->setIgnoreAccess($old);
+            $this->assertFalse($db->getIgnoreAccess());
+            
+        }
+        
         public static function tearDownAfterClass()
         {
             self::$acl->delete(); 
