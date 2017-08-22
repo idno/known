@@ -59,7 +59,6 @@
         <div class="wordcount" id="result">
             Total words <strong><span id="totalWords<?=$unique_id?>">0</span></strong>
         </div>
-</div>
 <?php
 
     } else {
@@ -71,7 +70,7 @@
     }
 
 ?>
-    
+</div>    
 
 <script>
 
