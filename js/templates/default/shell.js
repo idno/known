@@ -127,7 +127,7 @@ Template.enableRichTextRequired = function () {
 	    if (content.val().length == 0) {
 		e.preventDefault();
 		
-		console.log(content.attr('name') + ' is blank');
+		console.error("Required richtext field " + content.attr('name') + ' is blank, preventing form submission');
 		
 		alert.show().focus();
 	    }
