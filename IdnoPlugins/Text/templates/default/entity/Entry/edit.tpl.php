@@ -56,7 +56,8 @@
                     'unique_id' => $unique_id,
                     'value' => $body,
                     'object' => $object,
-                    'wordcount' => true
+                    'wordcount' => true,
+                    'required' => true
                 ])->draw('forms/input/richtext')?>
                 <?= $this->draw('entity/tags/input'); ?>
 

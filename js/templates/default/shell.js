@@ -117,8 +117,23 @@ Template.enablePagination = function() {
 }
 
 Template.enableRichTextRequired = function () {
-   
-   // TODO
+
+    $('textarea.validation-required').each(function(){
+	var form = $(this).closest('form');
+	var alert = form.find('div.alert');
+	var content = $(this);
+	
+	form.submit(function(e){
+	    if (content.val().length == 0) {
+		e.preventDefault();
+		
+		console.error("Required richtext field " + content.attr('name') + ' is blank, preventing form submission');
+		
+		alert.show().focus();
+	    }
+	});
+	
+    });
 }
 
 

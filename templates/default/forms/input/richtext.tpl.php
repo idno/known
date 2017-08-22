@@ -42,10 +42,15 @@
     }
 
 ?>
+<div class="richtext-container">
     <!--<br class="clearall">-->
     <textarea name="<?=$vars['name']?>"  placeholder="<?=htmlspecialchars($placeholder);?>" style="height:<?=$height?>px"
           class="bodyInput mentionable wysiwyg form-control <?=$class?> <?php if (!empty($vars['required'])) echo 'validation-required'; ?>" id="<?=$unique_id?>"><?= (htmlspecialchars($value)) ?></textarea>
 
+    <?php
+    if (!empty($vars['required'])) { ?>
+        <div class="required-text alert alert-danger" style="display:none;">Please complete this field!</div>
+    <?php } ?>
 <?php
 
     if (!empty($vars['wordcount'])) {
@@ -65,7 +70,7 @@
     }
 
 ?>
-    
+</div>    
 
 <script>
 
@@ -162,6 +167,6 @@ $this->documentFormControl($name, [
 ]);
 
 // Prevent bonita leakage
-foreach (['unique_id', 'class', 'height', 'placeholder', 'value', 'required', 'wordcount', 'name', 'value'] as $var)
+foreach (['unique_id', 'class', 'height', 'placeholder', 'value', 'required', 'wordcount', 'name', 'value', 'required'] as $var)
     unset($this->vars[$var]);
 ?>
