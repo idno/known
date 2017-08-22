@@ -6,7 +6,7 @@
             
             var richrequiredcomplete = true;
             
-            $('textarea.validation-required').each(function(){
+            $(this).find('textarea.validation-required').each(function(){
                 if ($(this).val().length == 0) {
                     richrequiredcomplete = false;
                 }
