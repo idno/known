@@ -162,6 +162,6 @@ $this->documentFormControl($name, [
 ]);
 
 // Prevent bonita leakage
-foreach (['unique_id', 'class', 'height', 'placeholder', 'value', 'required', 'wordcount', 'name', 'value'] as $var)
+foreach (['unique_id', 'class', 'height', 'placeholder', 'value', 'required', 'wordcount', 'name', 'value', 'required'] as $var)
     unset($this->vars[$var]);
 ?>
