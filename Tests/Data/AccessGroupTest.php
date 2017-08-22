@@ -121,6 +121,46 @@ namespace Tests\Data {
             $this->swapUser($old);
         }
         
+        /** 
+         * Ensure duplicate slugs aren't possible with ACLed entities, see https://github.com/idno/Known/issues/1864
+         */
+        public function testSlugGeneration() {
+            
+            $user = $this->user();
+            $old = $this->swapUser($user);
+            
+            // First object
+            $obj = new \IdnoPlugins\Status\Status();
+            $obj->body = "example";
+            $obj->setAccess($user->getUUID());
+            $id1 = $obj->save();
+            
+            // Second object
+            $a = $this->swapUser(self::$testUserB);
+            $obj2 = new \IdnoPlugins\Status\Status();
+            $obj2->body = "example";
+            $obj2->setAccess('PUBLIC');
+            $id2 = $obj2->save();
+            
+            // Retrieve objects again
+            $obj2_2 = \IdnoPlugins\Status\Status::getByID($id2);
+            
+            
+            // Make sure they don't have the same URL
+            $this->assertFalse($obj->getUrl() == $obj2_2->getUrl());
+            
+            
+            // Delete first object
+            $obj2->delete();
+            
+            // Delete second object
+            $this->swapUser($a);
+            $obj->delete();
+            
+            // Restore old user if there was one
+            $this->swapUser($old);
+        }
+        
         public static function tearDownAfterClass()
         {
             self::$acl->delete(); 
