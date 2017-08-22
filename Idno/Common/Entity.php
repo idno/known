@@ -724,7 +724,12 @@ namespace Idno\Common {
             if (empty($slug)) {
                 return false;
             }
-            if ($entity = \Idno\Common\Entity::getBySlug($slug)) {
+            
+            $ia = \Idno\Core\Idno::site()->db()->setIgnoreAccess(true);
+            $entity = \Idno\Common\Entity::getBySlug($slug);
+            $ia = \Idno\Core\Idno::site()->db()->setIgnoreAccess($ia);
+            
+            if (!empty($entity)) {
                 if ($entity->getUUID() != $this->getUUID()) {
                     return false;
                 }
