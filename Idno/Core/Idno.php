@@ -232,6 +232,7 @@
                 $this->addPageHandler('/service/db/optimise/?', '\Idno\Pages\Service\Db\Optimise');
                 $this->addPageHandler('/service/vendor/messages/?', '\Idno\Pages\Service\Vendor\Messages');
                 $this->addPageHandler('/service/security/csrftoken/?', '\Idno\Pages\Service\Security\CSRFToken');
+                $this->addPageHandler('/service/web/imageproxy/([^\/]+)/?', '\Idno\Pages\Service\Web\ImageProxy');
                 $this->addPageHandler('/service/system/log/?', '\Idno\Pages\Service\System\Log');
 
                 // These must be loaded last
