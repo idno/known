@@ -49,7 +49,7 @@
 
     <?php
     if (!empty($vars['required'])) { ?>
-        <div class="required-text alert alert-danger" style="display:none;">Please complete this field!</div>
+        <div class="required-text alert alert-danger" style="display:none;">Please complete this field.</div>
     <?php } ?>
 <?php
 
