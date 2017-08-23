@@ -120,10 +120,14 @@ Template.enableRichTextRequired = function () {
 
     $('textarea.validation-required').each(function(){
 	var form = $(this).closest('form');
-	var alert = form.find('div.alert');
 	var content = $(this);
+	var alert = $(this).closest('div.richtext-container').find('div.alert');
 	
 	form.submit(function(e){
+	    
+	    // Hide, if we've previously tried to submit.
+	    alert.hide();
+	    
 	    if (content.val().length == 0) {
 		e.preventDefault();
 		
