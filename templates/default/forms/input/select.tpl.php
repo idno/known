@@ -32,12 +32,24 @@ if (!isset($vars['id'])) {
     $input_id ++;
     $vars['id'] = $vars['name'] . "_$input_id";
 }
+
+// Fudge multiple selectopr name
+if (!empty($vars['multiple'])) {
+    $vars['name'] = $vars['name'].'[]';
+}
+
+// Handle multiple values
+if (!is_array($vars['value'])) {
+    $vars['value'] = [$vars['value']];
+}
+
 ?>
 <select
 <?php
 
 $published = [
-    'type' => 'select'
+    'type' => 'select',
+    'multiple' => !empty($vars['multiple'])
 ];
 if (isset($vars['placeholder']))
     $published['placeholder'] = $vars['placeholder'];
@@ -69,12 +81,11 @@ foreach ($fields_and_defaults as $field => $default) {
     }
 }
 ?>
-    class="input <?php echo isset($vars['class']) ? $vars['class'] : 'input-select'; ?>"
-    value="<?php if (isset($vars['value'])) echo htmlentities($vars['value'], ENT_QUOTES, 'UTF-8'); ?>"> 
+    class="input <?php echo isset($vars['class']) ? $vars['class'] : 'input-select'; ?>">
     <?php 
     foreach ($vars['options'] as $option => $label) {
         ?>
-    <option value="<?= $option; ?>" <?php if ($value == $option) echo 'selected' ?>><?= htmlentities($label, ENT_QUOTES, 'UTF-8'); ?></option>
+    <option value="<?= $option; ?>" <?php if (in_array($option, $vars['value'])) echo 'selected' ?>><?= htmlentities($label, ENT_QUOTES, 'UTF-8'); ?></option>
     <?php
     }
     ?>
