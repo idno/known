@@ -93,10 +93,9 @@ namespace Idno\Core {
             if (!file_exists($filename))
                 throw new \RuntimeException("Language file '$filename' could not be found");
             
-            $language = parse_ini_file($filename);
+            $language = @parse_ini_file($filename);
             
             return $this->addTranslations($language);
-            
         }
 
         /**
