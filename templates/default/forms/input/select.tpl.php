@@ -26,6 +26,9 @@ $fields_and_defaults = array(
     'onchange' => false,
 );
 
+if (!isset($vars['blank-default']))
+    $vars['blank-default'] = true;
+
 // We always want a unique ID
 global $input_id;
 if (!isset($vars['id'])) {
