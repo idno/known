@@ -71,6 +71,9 @@ foreach ($fields_and_defaults as $field => $default) {
 ?>
     class="input <?php echo isset($vars['class']) ? $vars['class'] : 'input-select'; ?>"
     value="<?php if (isset($vars['value'])) echo htmlentities($vars['value'], ENT_QUOTES, 'UTF-8'); ?>"> 
+    <?php if (!empty($vars['blank-default'])) { ?>
+    <option></option>
+    <?php } ?>
     <?php 
     foreach ($vars['options'] as $option => $label) {
         ?>
@@ -90,6 +93,6 @@ if (!empty($published['placeholder'])) {
 $this->documentFormControl($vars['name'], $published);
 
 // Prevent bonita polution
-foreach (array_merge($fields_and_defaults, ['placeholder' => false, 'value' => '', 'options' => '']) as $field => $default) 
+foreach (array_merge($fields_and_defaults, ['placeholder' => false, 'value' => '', 'options' => '', 'blank-default']) as $field => $default) 
     unset($this->vars[$field]);
 ?>
