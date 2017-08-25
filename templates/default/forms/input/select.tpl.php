@@ -26,7 +26,7 @@ $fields_and_defaults = array(
     'onchange' => false,
 );
 
-if (!isset($vars['blank-default']) && (!empty($vars['multiple'])))
+if (!isset($vars['blank-default']) && (empty($vars['multiple'])))
     $vars['blank-default'] = true;
 
 // We always want a unique ID
