@@ -84,7 +84,7 @@ foreach ($fields_and_defaults as $field => $default) {
     }
 }
 ?>
-    class="input <?php echo isset($vars['class']) ? $vars['class'] : 'input-select'; ?>"
+    class="input <?php echo isset($vars['class']) ? $vars['class'] : 'input-select'; ?>">
     <?php if (!empty($vars['blank-default'])) { ?>
     <option></option>
     <?php } ?>
