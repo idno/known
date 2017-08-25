@@ -4,6 +4,7 @@
         'notification' => $notification,
         'interaction' => 'liked',
         'icon' => '<i class="fa fa-star"></i>',
-        'verb' => ''
+        'verb' => '',
+        'hide-body' => true
     ])->draw('content/notification/wrapper');
 
