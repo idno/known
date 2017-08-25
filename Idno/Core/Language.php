@@ -7,7 +7,25 @@
         class Language extends Component
         {
 
-            public $strings = [];
+            private $strings = [];
+            private $language;
+            
+            /**
+             * Construct a language object
+             * @param type $language
+             */
+            public function __construct($language = null) {
+                
+                if (empty($language))
+                    $language = self::detectBrowserLanguage ();
+                
+                if (empty($language))
+                    $language = 'en';
+                
+                $this->language = strtolower($language);
+                
+                parent::__construct();
+            }
 
             /**
              * Shortcut for addTranslation
@@ -66,6 +84,13 @@
 
                 return false;
             }
+            
+            /**
+             * Return the current language code for this object.
+             */
+            public function getLanguage() {
+                return $this->language;
+            }
 
             /**
              * Replace curly quotes with uncurly quotes
@@ -107,6 +132,12 @@
                 return $string;
             }
 
+            /**
+             * Detect current language from browser string
+             */
+            public static function detectBrowserLanguage() {
+                return substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+            }
         }
 
     }
