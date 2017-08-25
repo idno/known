@@ -54,6 +54,15 @@
 
                 return false;
             }
+            
+            /**
+             * Simplify adding translation strings.
+             * @param array $strings Associated array of "string" => "translation"
+             */
+            function addTranslations(array $strings) {
+                foreach ($strings as $string => $translation)
+                    $this->add($string, $translation);
+            }
 
             /**
              * Shortcut for getTranslation.
