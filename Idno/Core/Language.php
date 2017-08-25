@@ -84,6 +84,20 @@ namespace Idno\Core {
             foreach ($strings as $string => $translation)
                 $this->add($string, $translation);
         }
+        
+        /**
+         * Load translations from a .ini formatted string=translation file.
+         * @param type $filename
+         */
+        function load($filename) {
+            if (!file_exists($filename))
+                throw new \RuntimeException("Language file '$filename' could not be found");
+            
+            $language = parse_ini_file($filename);
+            
+            return $this->addTranslations($language);
+            
+        }
 
         /**
          * Shortcut for getTranslation.
