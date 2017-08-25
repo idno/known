@@ -119,6 +119,16 @@ namespace Idno\Core {
         public function getLanguage() {
             return $this->language;
         }
+        
+        /**
+         * Return a translated string, substituting variables in subs in the format of sprintf.
+         * @param type $string String to translate
+         * @param array $subs List of substitution variables to be used in the translated string
+         * @return string
+         */
+        public function write($string, array $subs = []) {
+            return sprintf($this->get($string), $subs);
+        }
 
         /**
          * Replace curly quotes with uncurly quotes
