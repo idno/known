@@ -48,7 +48,8 @@
                                 'yes' => 'Yes: I am attending this event',
                                 'no' => 'No: I am not attending this event',
                                 'maybe' => 'Maybe: I might attend this event'
-                            ]
+                            ],
+                            'required' => true
                         ])->draw('forms/input/select'); ?>
             </div>
 
