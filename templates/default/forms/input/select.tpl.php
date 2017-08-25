@@ -26,6 +26,9 @@ $fields_and_defaults = array(
     'onchange' => false,
 );
 
+if (!isset($vars['blank-default']))
+    $vars['blank-default'] = true;
+
 // We always want a unique ID
 global $input_id;
 if (!isset($vars['id'])) {
@@ -81,7 +84,10 @@ foreach ($fields_and_defaults as $field => $default) {
     }
 }
 ?>
-    class="input <?php echo isset($vars['class']) ? $vars['class'] : 'input-select'; ?>">
+    class="input <?php echo isset($vars['class']) ? $vars['class'] : 'input-select'; ?>"
+    <?php if (!empty($vars['blank-default'])) { ?>
+    <option></option>
+    <?php } ?>
     <?php 
     foreach ($vars['options'] as $option => $label) {
         ?>
@@ -101,6 +107,6 @@ if (!empty($published['placeholder'])) {
 $this->documentFormControl($vars['name'], $published);
 
 // Prevent bonita polution
-foreach (array_merge($fields_and_defaults, ['placeholder' => false, 'value' => '', 'options' => '']) as $field => $default) 
+foreach (array_merge($fields_and_defaults, ['placeholder' => false, 'value' => '', 'options' => '', 'blank-default']) as $field => $default) 
     unset($this->vars[$field]);
 ?>
