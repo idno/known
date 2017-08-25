@@ -39,6 +39,7 @@ if (!isset($vars['id'])) {
 // Fudge multiple selectopr name
 if (!empty($vars['multiple'])) {
     $vars['name'] = $vars['name'].'[]';
+    $vars['class'] .= ' select-multiple';
 }
 
 // Handle multiple values
