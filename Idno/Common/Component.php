@@ -51,6 +51,13 @@
             function registerPages()
             {
             }
+            
+            /**
+             * Register any translation strings or language files for the current language.
+             */
+            function registerTranslations() 
+            {   
+            }
 
             /**
              * Helper function that gets the full class name of this entity
