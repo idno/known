@@ -51,6 +51,15 @@ namespace Idno\Core {
         }
 
         /**
+         * Alias for $this->write();
+         * @param string $string String to translate
+         * @param array $subs Substitutions in the
+         */
+        function _($string, array $subs = []) {
+            return $this->write($string, $subs);
+        }
+        
+        /**
          * Shortcut for addTranslation
          * @param $string
          * @param $translation
@@ -182,9 +191,11 @@ namespace Idno\Core {
         }
 
         /**
-         * Detect current language from browser string
+         * Detect current language from browser string.
+         * 
+         * TODO: Put more logic here, with better fallbacks.
          */
-        public static function detectBrowserLanguage() {
+        public static function detectBrowserLanguage() { 
             return substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
         }
 
