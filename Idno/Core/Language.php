@@ -95,6 +95,18 @@ namespace Idno\Core {
         }
         
         /**
+         * Register a translation.
+         * Register translation strings. It is safe to provide Translation objects for multiple languages, only translations for
+         * $this->getLanguage() will be loaded.
+         * @param \Idno\Core\Translation $translation
+         */
+        public function register(Translation $translation) {
+            if ($translation->getLanguage() == $this->getLanguage()) {
+                $this->addTranslations($translation->getStrings());
+            }
+        }
+        
+        /**
          * Shortcut for getTranslation.
          * @param $string
          * @param bool|true $failover
