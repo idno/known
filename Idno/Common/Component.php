@@ -17,6 +17,7 @@
                 $this->init();
                 $this->registerEventHooks();
                 $this->registerPages();
+                $this->registerTranslations();
             }
 
             /**
