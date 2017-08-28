@@ -26,6 +26,7 @@ pages:
 - ['developers/templating/index.md', 'Known for developers', 'Templating']
 - ['developers/templating/extending.md', 'Known for developers', 'Extending templates']
 - ['developers/themes/index.md', 'Known for developers', 'Themes']
+- ['developers/languages/index.md', 'Known for developers', 'Translating Known']
 - ['community/index.md', 'Open Source community', 'Introduction']
 - ['community/contributors.md', 'Open Source community', 'Contributors']
 - ['community/harassment.md', 'Open Source community', 'Anti-harassment policy']
