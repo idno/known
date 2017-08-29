@@ -90,8 +90,7 @@ namespace Idno\Core {
          * @param array $strings Associated array of "string" => "translation"
          */
         function addTranslations(array $strings) {
-            foreach ($strings as $string => $translation)
-                $this->add($string, $translation);
+            $this->strings = array_merge($this->strings, $strings);
         }
         
         /**
