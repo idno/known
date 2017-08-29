@@ -17,6 +17,7 @@
                 $this->init();
                 $this->registerEventHooks();
                 $this->registerPages();
+                $this->registerTranslations();
             }
 
             /**
@@ -50,6 +51,13 @@
              */
             function registerPages()
             {
+            }
+            
+            /**
+             * Register any translation strings or language files for the current language.
+             */
+            function registerTranslations() 
+            {   
             }
 
             /**

@@ -410,8 +410,7 @@
              * Return the language handler associated with this site
              * @return \Idno\Core\Language
              */
-
-            function language()
+            function &language()
             {
                 if (empty($this->language)) {
                     $this->language = new Language();
