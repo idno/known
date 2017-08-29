@@ -39,8 +39,10 @@ namespace Tests\Core {
             echo "English: " . $english->_('Hello!');
             echo "\nFrench: " . $french->_('Hello!');
             
-            $this->assertFalse(empty($english->_('Hello!')));
-            $this->assertFalse(empty($french->_('Hello!')));
+            $txt = $english->_('Hello!');
+            $this->assertFalse(empty($txt));
+            $txt2 = $french->_('Hello!');
+            $this->assertFalse(empty($txt2));
             $this->assertFalse($french->_('Hello!') == $english->_('Hello!'));
         }
 
