@@ -918,15 +918,17 @@
                 
                 // Try full namespace
                 if (class_exists($className)) {
-                    $class = $className;
+                    if (is_subclass_of($className, $expectedBaseClass)) {
+                        $class = $className;
+                    }
                 }
                 
                 // Attempt base class creation
                 if (empty($class)) {
                     if (class_exists($defaultClassNameBase . $className)) {
-                        $class = $defaultClassNameBase . $className;
-                    }
-                }
+                        $class = $defaultClassNameBase . $className; 
+                    } 
+                } 
                 
                 // Now try and create it
                 if (!empty($class)) {
