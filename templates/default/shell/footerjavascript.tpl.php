@@ -45,5 +45,5 @@
 <!-- HTML5 form element support for legacy browsers -->
 <script src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/h5f/h5f.min.js' ?>"></script>
 
-<script src="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'js/'. \Idno\Core\Idno::site()->getMachineVersion().'/templates/default/shell.min.js' ?>"></script>
-<script src="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'js/'. \Idno\Core\Idno::site()->getMachineVersion().'/embeds.min.js' ?>"></script>
+<script src="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'js/templates/default/shell.min.js' ?>"></script>
+<script src="<?= \Idno\Core\Idno::site()->config()->getStaticURL() . 'js/embeds.min.js' ?>"></script>
