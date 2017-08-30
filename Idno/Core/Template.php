@@ -149,8 +149,8 @@
             
             /**
              * Document a form control and make it easily discoverable by the API.
-             * @param type $name
-             * @param type $values
+             * @param type $name Name of the control 
+             * @param type $values Array of form value. Common are 'type', 'description', 'id'
              */
             function documentFormControl($name, $values = []) {
                 $vars = [];
@@ -158,7 +158,14 @@
                     $vars = $this->vars['form-fields'];
                 }
                 
-                $vars[$name] = $values;
+                if (isset($vars[$name])) {
+                    $tmp = [$vars[$name]];
+                    $tmp[] = $values;
+                    
+                    $vars[$name] = $tmp;
+                } else {
+                    $vars[$name] = $values;
+                }
                 
                 $this->__(['form-fields' => $vars]);
             }

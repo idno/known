@@ -154,6 +154,32 @@ namespace Idno\Common {
         {
             return \Idno\Core\Idno::site()->db()->getObjects(get_called_class(), $search, $fields, $limit, $offset, static::$retrieve_collection);
         }
+        
+        /**
+         * Wrapper around a number of getBy.. methods.
+         * This method will attempt to retrieve an entity a number of different ways, basically because I found myself
+         * using IDs and UUIDs interchangably, which caused issues.
+         * @param string|url $identifier
+         * @return Entity|false
+         */
+        static function getByX($identifier) {
+            
+            $object = null;
+            
+            if (empty($object))
+                $object = static::getByID($identifier);
+            
+            if (empty($object))
+                $object = static::getByUUID($identifier);
+            
+            if (empty($object))
+                $object = static::getBySlug($identifier);
+            
+            if (empty($object))
+                $object = static::getByShortURL($identifier);
+            
+            return $object;
+        }
 
         /**
          * Retrieve a single record by its database ID
@@ -724,7 +750,12 @@ namespace Idno\Common {
             if (empty($slug)) {
                 return false;
             }
-            if ($entity = \Idno\Common\Entity::getBySlug($slug)) {
+            
+            $ia = \Idno\Core\Idno::site()->db()->setIgnoreAccess(true);
+            $entity = \Idno\Common\Entity::getBySlug($slug);
+            $ia = \Idno\Core\Idno::site()->db()->setIgnoreAccess($ia);
+            
+            if (!empty($entity)) {
                 if ($entity->getUUID() != $this->getUUID()) {
                     return false;
                 }

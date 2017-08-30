@@ -33,17 +33,34 @@
                         <label for="placename">
                             Location<br>
                         </label>
-                        <input type="text" name="placename" id="placename" class="form-control" placeholder="Where are you?" value="<?= htmlspecialchars($vars['object']->placename) ?>" />
-                        <input type="hidden" name="lat" id="lat" value="<?= $vars['object']->lat ?>"/>
-                        <input type="hidden" name="long" id="long" value="<?= $vars['object']->long ?>"/>
+                        <?= $this->__([
+                            'name' => 'placename', 
+                            'id' => 'placename', 
+                            'placeholder' => "Where are you?",
+                            'value' => $vars['object']->placename, 
+                            'class' => 'form-control'])->draw('forms/input/input'); ?>
+                        <?= $this->__([
+                            'name' => 'lat', 
+                            'id' => 'lat',
+                            'value' => $vars['object']->lat])->draw('forms/input/hidden'); ?>
+                        <?= $this->__([
+                            'name' => 'long', 
+                            'id' => 'long',
+                            'value' => $vars['object']->long])->draw('forms/input/hidden'); ?>
                     </p>
 
                     <p>
                         <label for="user_address">Address<br>
                             <small>You can edit the address if it's wrong.</small>
                         </label>
-                        <input type="text" name="user_address" id="user_address" class="form-control" value="<?= htmlspecialchars($vars['object']->address) ?>"/>
-                        <input type="hidden" name="address" id="address" />
+                        <?= $this->__([
+                            'name' => 'user_address', 
+                            'id' => 'user_address', 
+                            'value' => $vars['object']->address, 
+                            'class' => 'form-control'])->draw('forms/input/input'); ?>
+                        <?= $this->__([
+                            'name' => 'address', 
+                            'id' => 'address'])->draw('forms/input/hidden'); ?>
                     </p>
 
                     <div id="checkinMap" style="height: 250px" ></div>

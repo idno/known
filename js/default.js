@@ -246,6 +246,7 @@ function bindControls() {
 
     Security.activateACLControls();
     Template.enableFormCandy();
+    Template.enableRichTextRequired();
 
     $('#contentCreate .form-control').first().focus();
 }
