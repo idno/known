@@ -88,7 +88,7 @@
             </div>
             <?=$this->draw('entity/tags/input');?>
             <?php if (empty($vars['object']->_id)) { 
-                $this->__(['name' => 'forward-to', 'value' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'])->draw('forms/input/hidden');
+                echo $this->__(['name' => 'forward-to', 'value' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'])->draw('forms/input/hidden');
             } ?>
         </div>
 

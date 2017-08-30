@@ -64,7 +64,9 @@
             ])->draw('forms/input/richtext')?>
             <?=$this->draw('entity/tags/input');?>
             <?php echo $this->drawSyndication('media', $vars['object']->getPosseLinks()); ?>
-            <?php if (empty($vars['object']->_id)) { ?><input type="hidden" name="forward-to" value="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'; ?>" /><?php } ?>
+            <?php if (empty($vars['object']->_id)) { 
+                echo $this->__(['name' => 'forward-to', 'value' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'])->draw('forms/input/hidden');
+            } ?>
             <?= $this->draw('content/extra'); ?>
             <?= $this->draw('content/access'); ?>
             <p class="button-bar ">
