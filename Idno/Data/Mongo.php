@@ -380,6 +380,9 @@
                     }
                     $query_parameters['access'] = array('$in' => $readGroups);
                 }
+                
+                if ($this->getIgnoreAccess())
+                    unset($query_parameters['access']);
 
                 // Join the rest of the search query elements to this search
                 $query_parameters = array_merge($query_parameters, $search);

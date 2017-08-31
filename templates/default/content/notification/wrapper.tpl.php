@@ -16,9 +16,11 @@
             </div>
             <div
                 class="col-md-8 idno-notification-reply idno-object idno-content">
-                <div class="e-content entry-content">
-                    <?= $this->autop($annotation['content']); ?>
-                </div>
+                <?php if (empty($vars['hide-body'])) { ?>
+                    <div class="e-content entry-content">
+                        <?= $this->autop($annotation['content']); ?>
+                    </div>
+                <?php } ?>
                 <div class="footer">
                     <div class="permalink">
                             <?php /*<span class="notification-icon"><?= $icon ?></span> */ ?>
@@ -50,3 +52,5 @@
         <?php
 
     }
+    
+    unset($this->vars['hide-body']);

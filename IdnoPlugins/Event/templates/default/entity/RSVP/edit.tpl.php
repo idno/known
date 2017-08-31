@@ -48,7 +48,8 @@
                                 'yes' => 'Yes: I am attending this event',
                                 'no' => 'No: I am not attending this event',
                                 'maybe' => 'Maybe: I might attend this event'
-                            ]
+                            ],
+                            'required' => true
                         ])->draw('forms/input/select'); ?>
             </div>
 
@@ -65,7 +66,7 @@
             </div>
             <?=$this->draw('entity/tags/input');?>
             <?php if (empty($vars['object']->_id)) { 
-                $this->__(['name' => 'forward-to', 'value' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'])->draw('forms/input/hidden');
+                echo $this->__(['name' => 'forward-to', 'value' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'])->draw('forms/input/hidden');
             } ?>
             <?php echo $this->drawSyndication('note', $vars['object']->getPosseLinks()); ?>
             <?= $this->draw('content/extra'); ?>

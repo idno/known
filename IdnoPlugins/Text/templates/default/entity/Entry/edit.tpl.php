@@ -56,13 +56,14 @@
                     'unique_id' => $unique_id,
                     'value' => $body,
                     'object' => $object,
-                    'wordcount' => true
+                    'wordcount' => true,
+                    'required' => true
                 ])->draw('forms/input/richtext')?>
                 <?= $this->draw('entity/tags/input'); ?>
 
                 <?php echo $this->drawSyndication('article', $vars['object']->getPosseLinks()); ?>
                 <?php if (empty($vars['object']->_id)) { 
-                    $this->__(['name' => 'forward-to', 'value' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'])->draw('forms/input/hidden');
+                    echo $this->__(['name' => 'forward-to', 'value' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'])->draw('forms/input/hidden');
                 } ?>
 
                 <?= $this->draw('content/extra'); ?>
