@@ -70,7 +70,7 @@
                     
                 </div>
 
-                <div class="unfurl col-md-12" style="display:none;" data-url=""></div>
+                <?= $this->draw('content/unfurl'); ?>
                 
                 <?= $this->__([
                     'name'        => 'description',

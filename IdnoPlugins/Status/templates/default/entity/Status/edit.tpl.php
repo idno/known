@@ -55,9 +55,7 @@
 
                 echo $this->draw('entity/tags/input');
 
-                ?>
-            <div class="unfurl col-md-12" style="display:none;" data-url=""></div>
-            <?php
+                echo $this->draw('content/unfurl');
                 
             // Set focus so you can start typing straight away (on shares)
             if (\Idno\Core\Idno::site()->currentPage()->getInput('share_url')) {

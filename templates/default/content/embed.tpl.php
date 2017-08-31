@@ -79,7 +79,7 @@
                         $found = true;
             }
             if (!$found) {
-                $embedded .= "<div class=\"unfurl col-md-12\" style=\"display:none;\" data-url=\"".htmlentities($m)."\"></div>";
+                $embedded .= $this->__(['data-url' => $m])->draw('content/unfurl');//"<div class=\"unfurl col-md-12\" style=\"display:none;\" data-url=\"".htmlentities($m)."\"></div>";
                 break;
             }
         }
