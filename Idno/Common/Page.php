@@ -715,6 +715,19 @@
             }
             
             /**
+             * Ensure that a page is passed valid tokens.
+             * This is useful for api endpoints.
+             */
+            function tokenGatekeeper() {
+                $url = $this->currentUrl();
+                $bits = explode('?', $url);
+                $url = $bits[0];
+                if (!\Idno\Core\Idno::site()->actions()->validateToken($url, false)) {
+                    $this->deniedContent();
+                }
+            }
+            
+            /**
              * Placed in pages to ensure that only logged-in users can
              * get at them. Sets response code 401 and tries to forward
              * to the front page.
