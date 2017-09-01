@@ -38,11 +38,18 @@ if (!empty($object->data['og']['og:image']))
     
     <?php
     // Load oembed html if ok
+    if (!empty($object->data['oembed']['jsonp']) && $object->isOEmbedWhitelisted()) {
+        
+        $url = $object->data['oembed']['jsonp'][0];
+        ?>
+    <div class="oembed" data-url="<?= htmlentities($url); ?>" data-format="jsonp"></div>
+        <?php
+    }
     if (!empty($object->data['oembed']['json']) && $object->isOEmbedWhitelisted()) {
         
         $url = $object->data['oembed']['json'][0];
         ?>
-    <div class="oembed" data-url="<?= htmlentities($url); ?>" data-format="jsonp"></div>
+    <div class="oembed" data-url="<?= htmlentities($url); ?>" data-format="json"></div>
         <?php
     } else if (!empty($object->data['oembed']['xml']) && $object->isOEmbedWhitelisted()) {
         
