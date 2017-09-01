@@ -57,19 +57,21 @@ function Unfurl() {}
  */
 Unfurl.fetch = function (url, callback) {
 
-    Security.getCSRFToken(function(token, ts) {
-	$.getJSON(known.config.displayUrl + 'service/web/unfurl/',
-		{
-		    url: url,
-		    __bTk: token,
-		    __bTs: ts
-		},
-		function (data) {
-		    callback(data);
+    if (url.length > 0) {
+	Security.getCSRFToken(function(token, ts) {
+	    $.getJSON(known.config.displayUrl + 'service/web/unfurl/',
+		    {
+			url: url,
+			__bTk: token,
+			__bTs: ts
+		    },
+		    function (data) {
+			callback(data);
 
-		}
-	);
-    }, known.config.displayUrl + 'service/web/unfurl/');
+		    }
+	    );
+	}, known.config.displayUrl + 'service/web/unfurl/');
+    }
 }
 
 /**
