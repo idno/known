@@ -123,7 +123,7 @@ namespace Idno\Pages\Service\Web {
                                     \Idno\Core\Idno::site()->logging()->debug("Found upstream Expires time of " . $matches[1]);
 
                                     $expires_ts = strtotime($matches[1]);
-                                    if (empty($expires_ts) || $expires_ts < time()) {
+                                    if (empty($expires_ts) || ($expires_ts < time()) || ($expires_ts < time()-3600)) {  // If no expires, past expires, or really short expires then use expires of 1 day
                                         \Idno\Core\Idno::site()->logging()->debug("Invalid Expires or expires in the past");
                                         $expires_ts = time() + (60*60*24); // Error (no valid time or time in the past), reverting back to default
                                     }
