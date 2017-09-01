@@ -42,20 +42,13 @@
             $urls[] = $m;
         }
     }
-    if (preg_match_all('/https?:\/\/twitter\.com\/[^\s]+\/status\/[^\s]+\/?/i', $body, $matches)) {
-
-        foreach ($matches[0] as $m) {
-            $embedded .= '<div id="sc_' . md5($m) . '" class="twitter-embed" data-url="' . $m . '"></div>';
-            $urls[] = $m;
-        }
-    }
-    if (preg_match_all('/https?:\/\/soundcloud\.com\/[^\s]+\/?/i', $body, $matches)) {
-
-        foreach ($matches[0] as $m) {
-            $embedded .= '<div id="sc_'.md5($m).'" class="soundcloud-embed" data-url="'.$m.'"></div>';
-            $urls[] = $m;
-        }
-    }
+//    if (preg_match_all('/https?:\/\/twitter\.com\/[^\s]+\/status\/[^\s]+\/?/i', $body, $matches)) {
+//
+//        foreach ($matches[0] as $m) {
+//            $embedded .= '<div id="sc_' . md5($m) . '" class="twitter-embed" data-url="' . $m . '"></div>';
+//            $urls[] = $m;
+//        }
+//    }
     if (preg_match_all('/https?:\/\/(www\.)?instagram\.com\/p\/([A-Za-z0-9\-\_]+)\/?/i', $body, $matches)) {
 
         foreach ($matches[0] as $m) {

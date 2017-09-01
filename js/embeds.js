@@ -8,46 +8,6 @@
  */
 
 
-
-/**
- * Handle Twitter tweet embedding
- */
-$(document).ready(function () {
-    $('div.twitter-embed').each(function (index) {
-	var url = $(this).attr('data-url');
-	var div = $(this);
-
-	$.ajax({
-	    url: "https://api.twitter.com/1/statuses/oembed.json?url=" + url,
-	    dataType: "jsonp",
-	    success: function (data) {
-		div.html(data['html']);
-	    }
-	});
-    });
-});
-
-/**
- * Handle Soundcloud oEmbed code
- */
-$(document).ready(function () {
-    $('div.soundcloud-embed').each(function (index) {
-	var url = $(this).attr('data-url');
-	var div = $(this);
-
-	$.getJSON('https://soundcloud.com/oembed?callback=?',
-		{
-		    format: 'js',
-		    url: url,
-		    iframe: true
-		},
-		function (data) {
-		    div.html(data['html']);
-		}
-	);
-    });
-});
-
 function Unfurl() {}
 
 /**
@@ -110,16 +70,35 @@ Unfurl.initOembed = function (control) {
     var oembed = control.find('div.oembed');
     if (oembed != undefined) {
 	var dataurl = oembed.attr('data-url');
+	var format = oembed.attr('data-format');
 
 	if (dataurl != undefined) {
 
-	    console.log("Fetching oembed code from " + dataurl);
+	    console.log("Fetching oembed code from " + dataurl + " using " + format);
 	    $.ajax({
 		url: dataurl,
-		dataType: 'jsonp',
+		dataType: format,
 		success: function (data) {
 			console.log("Got a response back");
-			oembed.html(data['html']);
+			
+			if (format == 'xml') {
+			    
+			    console.log("XML Format");
+			    
+			    var $xml = $(data);
+			    var txt = $xml.find("html").text();
+			    
+			    if (txt.indexOf('CDATA') > -1) {
+				txt = txt.substr(9, txt.length-12);
+			    }
+			
+			    oembed.html(txt);
+			} else {
+			    console.log("JSON Format");
+			    
+			    oembed.html(data['html']);
+			}
+			
 			oembed.closest('.unfurled-url').find('.basics').hide(); // Hide basics, since we have an oembed
 		    }
 		}
