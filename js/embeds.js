@@ -94,7 +94,7 @@ Unfurl.initOembed = function (control) {
 
 	if (dataurl != undefined) {
 
-	    console.log("Fetching oembed code from " + dataurl);
+	    console.log("Fetching oembed code from " + dataurl + " using " + format);
 	    $.ajax({
 		url: dataurl,
 		dataType: format,
@@ -102,6 +102,9 @@ Unfurl.initOembed = function (control) {
 			console.log("Got a response back");
 			
 			if (format == 'xml') {
+			    
+			    console.log("XML Format");
+			    
 			    var $xml = $(data);
 			    var txt = $xml.find("html").text();
 			    
@@ -111,6 +114,8 @@ Unfurl.initOembed = function (control) {
 			
 			    oembed.html(txt);
 			} else {
+			    console.log("JSON Format");
+			    
 			    oembed.html(data['html']);
 			}
 			

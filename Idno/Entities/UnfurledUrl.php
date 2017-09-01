@@ -51,7 +51,7 @@ namespace Idno\Entities {
                     if (strtolower($meta->getAttribute('rel')) == 'alternate') {
                         
                         if (in_array(strtolower($meta->getAttribute('type')), ['application/json+oembed'])) {
-                            $ogp['oembed']['json'][] = $meta->getAttribute('href');
+                            $ogp['oembed']['jsonp'][] = $meta->getAttribute('href');
                         }
                         if (in_array(strtolower($meta->getAttribute('type')), ['text/json+oembed'])) {
                             $ogp['oembed']['json'][] = $meta->getAttribute('href');
