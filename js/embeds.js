@@ -110,16 +110,30 @@ Unfurl.initOembed = function (control) {
     var oembed = control.find('div.oembed');
     if (oembed != undefined) {
 	var dataurl = oembed.attr('data-url');
+	var format = oembed.attr('data-format');
 
 	if (dataurl != undefined) {
 
 	    console.log("Fetching oembed code from " + dataurl);
 	    $.ajax({
 		url: dataurl,
-		dataType: 'jsonp',
+		dataType: format,
 		success: function (data) {
 			console.log("Got a response back");
-			oembed.html(data['html']);
+			
+			if (format == 'xml') {
+			    var $xml = $(data);
+			    var txt = $xml.find("html").text();
+			    
+			    if (txt.indexOf('CDATA') > -1) {
+				txt = txt.substr(9, txt.length-12);
+			    }
+			
+			    oembed.html(txt);
+			} else {
+			    oembed.html(data['html']);
+			}
+			
 			oembed.closest('.unfurled-url').find('.basics').hide(); // Hide basics, since we have an oembed
 		    }
 		}
