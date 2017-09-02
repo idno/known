@@ -130,7 +130,7 @@ namespace Idno\Entities {
                     $unfurled = array_merge($unfurled, $graphheaders);
                 
                     // See if there's any mf2 in content
-                    $parser = new \Mf2\Parser($content, $url);
+                    $parser = new \Mf2\Parser($contents, $url);
                     try {
                         $mf2 = $parser->parse();
                         if (!empty($mf2))
