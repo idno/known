@@ -7,7 +7,13 @@
     <?= $vars['message']; ?>
 </pre>
 <br><br>
-Logged in user was <?= $vars['user']; ?>
+Logged in user was <?= $vars['user']; ?> <br>
+
+Agent: <?= $_SERVER['HTTP_USER_AGENT']; ?> <br>
+
+QS: <?= $_SERVER['QUERY_STRING']; ?> <br>
+
+Referrer: <?= $_SERVER['HTTP_REFERER']; ?> <br>
 <br>
 <br>
 <br>
