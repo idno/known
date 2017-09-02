@@ -9,11 +9,11 @@
 <br><br>
 Logged in user was <?= $vars['user']; ?> <br>
 
-Agent: <?= $_SERVER['HTTP_USER_AGENT']; ?> <br>
+Agent: <?= $vars['agent']; ?> <br>
 
-QS: <?= $_SERVER['QUERY_STRING']; ?> <br>
+QS: <?= $vars['qs'] ?> <br>
 
-Referrer: <?= $_SERVER['HTTP_REFERER']; ?> <br>
+Referrer: <?= $vars['referrer']; ?> <br>
 <br>
 <br>
 <br>
