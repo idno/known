@@ -136,7 +136,7 @@ namespace Idno\Entities {
                         if (!empty($mf2))
                             $unfurled['mf2'] = $mf2;
                     } catch (\Exception $e) {
-                        
+                        \Idno\Core\Idno::site()->logging()->debug($e->getMessage());
                     }
                 }
                 
