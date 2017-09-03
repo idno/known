@@ -45,6 +45,11 @@ namespace Idno\Pages\Service\Web {
 
                         $cache->delete(sha1($url));
                         $cache->delete(sha1($url).'_meta');
+                        
+                        echo json_encode([
+                            'url' => $url,
+                            'status' => true
+                        ]);
 
                     } else {
                         throw new \RuntimeException("There was a problem decoding the url");
