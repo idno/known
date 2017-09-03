@@ -11,6 +11,23 @@
 
         class File
         {
+            
+            /**
+             * Write data to temporary file.
+             * This function writes a temporary file, returning filename on success.
+             * @param type $data
+             */
+            public static function writeTmpFile($data) {
+                $tmpname = tempnam(\Idno\Core\Idno::site()->config()->getTempDir(), 'known');
+                
+                if ($tmpname) {
+                    file_put_contents($tmpname, $data);
+                    
+                    return $tmpname;
+                }
+                
+                return false;
+            }
 
             /**
              * Given a path to an image on disk, generates and saves a thumbnail with maximum dimension $max_dimension.
