@@ -234,6 +234,8 @@
                 $this->addPageHandler('/service/security/csrftoken/?', '\Idno\Pages\Service\Security\CSRFToken');
                 $this->addPageHandler('/service/web/unfurl/?', '\Idno\Pages\Service\Web\UrlUnfurl');
                 $this->addPageHandler('/service/web/imageproxy/([^\/]+)/?', '\Idno\Pages\Service\Web\ImageProxy');
+                $this->addPageHandler('/service/web/imageproxy/([^\/]+)/([^\/]+]+)/?', '\Idno\Pages\Service\Web\ImageProxy'); // With transform (default normal)
+                $this->addPageHandler('/service/web/imageproxy/([^\/]+)/([^\/]+]+)/([0-9]+)/?', '\Idno\Pages\Service\Web\ImageProxy'); // With transform (default normal), and maxwidth
                 $this->addPageHandler('/service/system/log/?', '\Idno\Pages\Service\System\Log');
 
                 // These must be loaded last
