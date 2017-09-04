@@ -38,18 +38,36 @@ namespace Idno\Pages\Service\Web {
             
             try {
                 $cache = $this->getCache();
+                
+                $url = $this->arguments[0];        
+                
+                $proxyparams = "";
+                $maxsize = "";
+                if (!empty($this->arguments[1]))
+                    $maxsize = (int)$this->arguments[1];
+                if (!empty($maxsize))
+                    $proxyparams .= ((strpos($proxyparams, '?')===false)? '?':'&') . "maxsize=$maxsize";
 
-                if ($url = $this->getInput('url')) {
+                $transform = "";
+                if (!empty($this->arguments[2]))
+                    $transform = strtolower($this->arguments[2]);
+                if ($transform == 'none')
+                    $transform = "";
+                if (!empty($transform))
+                    $proxyparams .= ((strpos($proxyparams, '?')===false)? '?':'&') . "transform=$transform";
+
+                if ($url) {
 
                     if ($url = \Idno\Core\Webservice::base64UrlDecode($url)) {
 
-                        $cache->delete(sha1($url));
-                        $cache->delete(sha1($url).'_meta');
+                        $cache->delete(sha1("{$url}{$proxyparams}"));
+                        $cache->delete(sha1("{$url}{$proxyparams}").'_meta');
                         
                         echo json_encode([
                             'url' => $url,
                             'status' => true
                         ]);
+                        exit;
 
                     } else {
                         throw new \RuntimeException("There was a problem decoding the url");
@@ -183,6 +201,8 @@ namespace Idno\Pages\Service\Web {
                                         
                                 }
                                 
+                                $content = $result['content']; // Unmodified image, as a fallback
+                                
                                 if ($square || (!empty($maxsize))) {
                                     
                                     if (empty($maxsize)) {
@@ -204,6 +224,8 @@ namespace Idno\Pages\Service\Web {
                                             $file = \Idno\Entities\File::getByID($id);
                                             $content = $file->getBytes();
                                             $file->delete();
+                                        } else {
+                                            \Idno\Core\Idno::site()->logging()->debug("There was a problem generating a thumbnail, returning original");
                                         }
 
                                         unlink($tmp);
@@ -211,9 +233,7 @@ namespace Idno\Pages\Service\Web {
                                         \Idno\Core\Idno::site()->logging()->debug("Image is SVG, transformation/resize not possible, returning original");
                                     }
 
-                                } else {
-                                    $content = $result['content']; // Unmodified image
-                                }
+                                } 
                                 
                             }
                             
@@ -225,7 +245,9 @@ namespace Idno\Pages\Service\Web {
                             $meta['expires_ts'] = time() + (60*60*24); // Try again in one day.
                         }
                             
-                        \Idno\Core\Idno::site()->logging()->debug("Storing " . strlen($content) . ' bytes of content.');
+                        $size = strlen($content);
+                        if ($size == 0) throw new \RuntimeException("Looks like something went wrong, image was zero bytes big!");
+                        \Idno\Core\Idno::site()->logging()->debug("Storing " . $size . ' bytes of content.');
                         \Idno\Core\Idno::site()->logging()->debug('Meta: ' . print_r($meta, true));
                         
                         $cache->store(sha1("{$url}{$proxyparams}"), $content);
