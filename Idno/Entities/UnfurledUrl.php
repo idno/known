@@ -129,7 +129,15 @@ namespace Idno\Entities {
                     // Unfurled url
                     $unfurled = array_merge($unfurled, $graphheaders);
                 
-                
+                    // See if there's any mf2 in content
+                    $parser = new \Mf2\Parser($contents, $url);
+                    try {
+                        $mf2 = $parser->parse();
+                        if (!empty($mf2))
+                            $unfurled['mf2'] = $mf2;
+                    } catch (\Exception $e) {
+                        \Idno\Core\Idno::site()->logging()->debug($e->getMessage());
+                    }
                 }
                 
                 $this->data = $unfurled;

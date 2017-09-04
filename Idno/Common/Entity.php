@@ -2041,22 +2041,8 @@ namespace Idno\Common {
                 $owner['url'] = $hcard['properties']['url'][0];
             }
             if (!empty($hcard['properties']['photo'])) {
-                //$owner['photo'] = $hcard['properties']['photo'][0];
-
-                $tmpfname = tempnam(sys_get_temp_dir(), 'webmention_avatar');
-                file_put_contents($tmpfname, \Idno\Core\Webservice::file_get_contents($hcard['properties']['photo'][0]));
-
-                $name = md5($hcard['properties']['url'][0]);
-
-                // TODO: Don't update the cache image for every webmention
-
-                if ($icon = \Idno\Entities\File::createThumbnailFromFile($tmpfname, $name, 300)) {
-                    $owner['photo'] = \Idno\Core\Idno::site()->config()->url . 'file/' . (string)$icon;
-                } else if ($icon = \Idno\Entities\File::createFromFile($tmpfname, $name)) {
-                    $owner['photo'] = \Idno\Core\Idno::site()->config()->url . 'file/' . (string)$icon;
-                }
-
-                unlink($tmpfname);
+                               
+                $owner['photo'] =  \Idno\Core\Idno::site()->template()->getProxiedImageUrl($hcard['properties']['photo'][0], 300, 'square');
             }
 
             return $owner;

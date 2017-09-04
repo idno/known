@@ -323,13 +323,26 @@ namespace Idno\Core {
                         $vars = [
                             'site' => $config->getDisplayURL(),
                             'message' => $message,
-                            'user' => 'UNKNOWN'
+                            'user' => 'UNKNOWN',
+                            
+                            'agent' => '',
+                            'qs' => '',
+                            'referrer' => ''
                         ];
                         
                         $uuid = \Idno\Core\Idno::site()->session()->currentUserUUID();
                         if (!empty($uuid))
                             $vars['user'] = \Idno\Core\Idno::site()->session()->currentUserUUID();
                         
+                        if (!empty($_SERVER['HTTP_USER_AGENT']))
+                            $vars['agent'] = $_SERVER['HTTP_USER_AGENT'];
+                        
+                        if (!empty($_SERVER['QUERY_STRING']))
+                            $vars['qs'] = $_SERVER['QUERY_STRING'];
+                        
+                        if (!empty($_SERVER['HTTP_REFERER']))
+                            $vars['referrer'] = $_SERVER['HTTP_REFERER'];
+                                                    
                         $email = new Email();
                         if (!empty($title))
                             $email->setSubject($title);

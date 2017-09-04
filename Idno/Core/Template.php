@@ -648,16 +648,27 @@
             
             /**
              * Convert a remote image URL into one addressing the local image proxying service.
-             * @param type $url
+             * @param url $url
+             * @param int Maximum dimensions of proxied image
+             * @param string Transformations. Currently only 'square' is supported.
+             * @return URL
              */
-            public function getProxiedImageUrl($url) {
+            public function getProxiedImageUrl($url, $maxsize = null, $transform = null) {
                 
                 // Local urls, just relay.
                 if (\Idno\Common\Entity::isLocalUUID($url))
                     return $url;
                 
                 // Map to local
-                return \Idno\Core\Idno::site()->config()->getDisplayURL() . 'service/web/imageproxy/' . Webservice::base64UrlEncode($url);
+                $proxied_url = \Idno\Core\Idno::site()->config()->getDisplayURL() . 'service/web/imageproxy/' . Webservice::base64UrlEncode($url);
+                
+                if (!empty($maxsize))
+                    $proxied_url .= '/' . (int)$maxsize;
+                
+                if (!empty($transform))
+                    $proxied_url .= '/' . $transform;
+                
+                return $proxied_url;
                 
             }
 

@@ -7,3 +7,9 @@ An error occured on you Known site <?= $vars['site']; ?>!
 
 
 Logged in user was <?= $vars['user']; ?>
+
+Agent: <?= $vars['agent']; ?>
+
+QS: <?= $vars['qs'] ?> 
+
+Referrer: <?= $vars['referrer']; ?> 

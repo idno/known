@@ -7,7 +7,13 @@
     <?= $vars['message']; ?>
 </pre>
 <br><br>
-Logged in user was <?= $vars['user']; ?>
+Logged in user was <?= $vars['user']; ?> <br>
+
+Agent: <?= $vars['agent']; ?> <br>
+
+QS: <?= $vars['qs'] ?> <br>
+
+Referrer: <?= $vars['referrer']; ?> <br>
 <br>
 <br>
 <br>

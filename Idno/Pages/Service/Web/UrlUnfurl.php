@@ -3,6 +3,30 @@
 namespace Idno\Pages\Service\Web {
 
     class UrlUnfurl extends \Idno\Common\Page {
+        
+        function deleteContent() {
+            
+            \Idno\Core\Idno::site()->template()->setTemplateType('json');
+            header('Content-type: application/json');
+            
+            $this->xhrGatekeeper();
+            $this->tokenGatekeeper();
+            
+            $url = trim($this->getInput('url'));
+
+            if (empty($url))
+                throw new \RuntimeException("You need to specify a working URL");
+
+            // Try and get UnfurledURL entity
+            if ($object = \Idno\Entities\UnfurledUrl::getBySourceURL($url)) {
+                echo json_encode([
+                    'url' => $url,
+                    'status' => $object->delete()
+                ]);
+            } else {
+                $this->noContent();
+            }
+        }
 
         function getContent() {
 
