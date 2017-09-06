@@ -14,10 +14,12 @@ namespace Idno\Core {
          * @param type $language
          */
         public function __construct($language = null) {
-            
-            if ($user = \Idno\Core\Idno::site()->session()->currentUser()) {
-                if (!empty($user->language))
-                    return $user->language;
+            $session = \Idno\Core\Idno::site()->session();
+            if (!empty($session)) {
+                if ($user = \Idno\Core\Idno::site()->session()->currentUser()) {
+                    if (!empty($user->language))
+                        return $user->language;
+                }
             }
 
             if (empty($language))
