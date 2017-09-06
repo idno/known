@@ -25,7 +25,16 @@
 <?php
 
     $form = ob_get_clean();
-    \Idno\Core\Idno::site()->template()->extendTemplateWithContent('shell/footer', $form);
+    if (\Idno\Core\Idno::site()->currentPage()->xhr) {
+        global $template_postponed_link_actions; // HORRIBLE HACK, to allow links to be active in xhr inserted controls. There *must* be a better way.
+        
+        if (empty($template_postponed_link_actions))
+            $template_postponed_link_actions = "";
+        
+        $template_postponed_link_actions .= $form;
+    } else {
+        \Idno\Core\Idno::site()->template()->extendTemplateWithContent('shell/footer', $form);
+    }
 
     // Prevent scope pollution
     unset($this->vars['confirm-text']);
