@@ -18,7 +18,7 @@
                 $this->adminGatekeeper(); // Admins only
                 
                 $offset = $this->getInput('offset', 0);
-                $limit = $this->getInput('limit', 25);
+                $limit = $this->getInput('limit', 100);
 
                 //$users       = User::get(array(), array(), 99999, 0); // TODO: make this more complete / efficient
                 //$remoteusers = RemoteUser::get(array(), array(), 99999, 0);
