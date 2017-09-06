@@ -85,6 +85,6 @@ if (!empty($published['alt'])) {
 $this->documentFormControl($vars['name'], $published);
 
 // Prevent bonita polution
-foreach (array_merge($fields_and_defaults, ['placeholder' => false, 'value' => '']) as $field => $default) 
+foreach (array_merge($fields_and_defaults, ['placeholder' => false, 'value' => '', 'class' => '']) as $field => $default) 
     unset($this->vars[$field]);
 ?>

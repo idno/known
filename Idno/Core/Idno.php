@@ -213,6 +213,7 @@
                 $this->addPageHandler('/search/?', '\Idno\Pages\Search\Forward');
                 $this->addPageHandler('/search/mentions\.json', '\Idno\Pages\Search\Mentions');
                 $this->addPageHandler('/tag/([^\s]+)\/?', '\Idno\Pages\Search\Tags');
+		$this->addPageHandler('/search/users/?', '\Idno\Pages\Search\User');
 
                 /** robots.txt */
                 $this->addPageHandler('/robots\.txt', '\Idno\Pages\Txt\Robots');
