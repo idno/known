@@ -23,8 +23,4 @@
         });
     });
 </script>
-<div id="submit-spinner" class="spinner" style="display:none">
-  <div class="bounce1"></div>
-  <div class="bounce2"></div>
-  <div class="bounce3"></div>
-</div>
+<?= $this->__(['id' => 'submit-spinner'])->draw('entity/edit/spinner'); ?>
