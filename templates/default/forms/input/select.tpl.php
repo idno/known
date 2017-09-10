@@ -29,6 +29,9 @@ $fields_and_defaults = array(
 if (!isset($vars['blank-default']) && (empty($vars['multiple'])))
     $vars['blank-default'] = true;
 
+if (empty($vars['options']))
+    $vars['options'] = [];
+
 // We always want a unique ID
 global $input_id;
 if (!isset($vars['id'])) {
