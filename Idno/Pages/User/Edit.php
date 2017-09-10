@@ -16,6 +16,8 @@
 
             function getContent()
             {
+                $this->setAsset("timezones-js", \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/timezones/dist/timezones.min.js', 'javascript');
+                
                 if (!empty($this->arguments[0])) {
                     $user = \Idno\Entities\User::getByHandle($this->arguments[0]);
                 }
