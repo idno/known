@@ -60,9 +60,7 @@
                     }
                 }
                 
-                if (!empty($timezone)) {
-                    $user->timezone = $timezone;
-                }
+                $user->timezone = $timezone;
 
                 if ($user->save()) {
                     \Idno\Core\Idno::site()->session()->addMessage("Your details were saved.");
