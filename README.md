@@ -89,3 +89,5 @@ Third party libraries are licensed separately.
 * Exif-js, which is distributed under the MIT Licence. Source: https://github.com/exif-js/exif-js
 * Fragmentions, distributed under the CC0 1.0 Universal Licence: https://github.com/chapmanu/fragmentions
 * Timezones, distributed under the MIT Licence. Source: https://github.com/firstandthird/timezones
+* Moment, distributed under the MIT Licence. Source: https://github.com/moment/moment/
+* Moment Timezone, distributed under the MIT Licence. Source: https://github.com/moment/moment-timezone/
