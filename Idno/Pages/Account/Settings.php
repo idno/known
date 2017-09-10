@@ -14,6 +14,9 @@
 
             function getContent()
             {
+                
+                $this->setAsset("timezones-js", \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/timezones/dist/timezones.min.js', 'javascript');
+                
                 $this->createGatekeeper(); // Logged-in only please
                 $t        = \Idno\Core\Idno::site()->template();
                 $t->body  = $t->draw('account/settings');
