@@ -14,7 +14,8 @@
 
             function getContent()
             {
-                
+                $this->setAsset("moment-js", \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/moment/min/moment-with-locales.min.js', 'javascript');
+                $this->setAsset("moment-timezones-js", \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/moment-timezone/builds/moment-timezone-with-data.min.js', 'javascript');
                 $this->setAsset("timezones-js", \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/timezones/dist/timezones.min.js', 'javascript');
                 
                 $this->createGatekeeper(); // Logged-in only please
@@ -32,6 +33,7 @@
                 $email    = $this->getInput('email');
                 $password = trim($this->getInput('password'));
                 $username = trim($this->getInput('handle'));
+                $timezone = trim($this->getInput('timezone'));
 
                 /*if (!\Idno\Common\Page::isSSL() && !\Idno\Core\Idno::site()->config()->disable_cleartext_warning) {
                     \Idno\Core\Idno::site()->session()->addErrorMessage("Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini");
@@ -60,6 +62,10 @@
                     } else {
                         \Idno\Core\Idno::site()->session()->addErrorMessage('Sorry, your password is too weak');
                     }
+                }
+                
+                if (!empty($timezone)) {
+                    $user->timezone = $timezone;
                 }
 
                 if ($user->save()) {
