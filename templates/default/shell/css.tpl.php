@@ -1,5 +1,5 @@
-<link href="<?= \Idno\Core\Idno::site()->config()->getStaticURL() ?>css/default.min.css" rel="stylesheet">
-<link href="<?= \Idno\Core\Idno::site()->config()->getStaticURL() ?>css/defaultb3.min.css" rel="stylesheet">
+<link href="<?= \Idno\Core\Idno::site()->config()->getStaticURL() ?>css/<?= $this->getModifiedTS('css/default.min.css'); ?>/default.min.css" rel="stylesheet">
+<link href="<?= \Idno\Core\Idno::site()->config()->getStaticURL() ?>css/<?= $this->getModifiedTS('css/defaultb3.min.css'); ?>/defaultb3.min.css" rel="stylesheet">
 
 <!-- Syndication -->
 <link
