@@ -20,8 +20,14 @@ if (!empty($vars['class']))
 ?>"> 
     <form action="<?= $vars['source-url']; ?>">
         <div class="search-controls">
-
-            <?=
+            <div class="input-group">
+                <input name="query" type="text" class="form-control" placeholder="Enter user name, name or email address to begin searching..." aria-describedby="search">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary" id="search"><i class="fa fa-search"></i></button>
+                </span>
+                
+                
+                <?=
             $this->__([
                 'name' => 'template',
                 'value' => $vars['render-template']
@@ -60,11 +66,7 @@ if (!empty($vars['class']))
                 'name' => 'count'
             ])->draw('forms/input/hidden');
             ?>
-
-            <input name="query" type="text" class="form-control" placeholder="Enter user name, name or email address to begin searching..." aria-describedby="search">
-            <?php /* <button type="submit" class="btn btn-primary" id="search"><i class="fa fa-search"></i></button> */ ?>
-
-
+            </div>
         </div>
     </form>
 
@@ -115,9 +117,6 @@ foreach (['source-url', 'control-id', 'render-template', 'name', 'id'] as $varia
 
     var query = form.find("input[name='query']");
     
-    // Prevent form submission on enter
-    form.submit(function(e){ e.preventDefault(); });
-
     function executeSearch(form) {
 
         var query = form.find("input[name='query']");
@@ -215,6 +214,11 @@ foreach (['source-url', 'control-id', 'render-template', 'name', 'id'] as $varia
 
 
     query.change(function () {
+        form_actual.submit();
+    });
+
+    form_actual.submit(function(e) { 
+        e.preventDefault();
         executeSearch(form_actual);
     });
 
