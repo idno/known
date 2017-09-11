@@ -11,6 +11,7 @@
 
         class Plugin extends Component
         {
+            private $manifest;
 
             function init()
             {
@@ -45,6 +46,37 @@
                 return 0;
             }
 
+            /**
+             * Parse and return the manifest.
+             */
+            public function getManifest() 
+            {
+                if (!empty($this->manifest))
+                    return $this->manifest;
+                
+                $reflection = new \ReflectionClass(get_called_class());
+
+                $definitionPath = $reflection->getFileName();
+                
+                $this->manifest = parse_ini_file(dirname($definitionPath) . '/plugin.ini');
+                
+                return $this->manifest;
+            }
+            
+            /**
+             * Return the version of this plugin.
+             * @return type
+             * @throws \Idno\Exceptions\ConfigurationException
+             */
+            public function getVersion() 
+            {
+                $manifest = $this->getManifest();
+                
+                if (empty($manifest['version']))
+                    throw new \Idno\Exceptions\ConfigurationException('Plugin ' . get_class($this) . ' doesn\'t have a version');
+                
+                return $manifest['version'];
+            }
         }
 
     }
