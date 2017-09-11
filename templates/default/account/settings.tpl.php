@@ -60,6 +60,26 @@
                     Leave this blank if you don't want to change it.
                 </div>
             </div>
+            
+            <div class="form-group">
+                <div class="col-md-3">
+                    <label class="control-label" for="inputTimezone">Your timezone<br>
+                    </label>
+                </div>
+                <div class="col-md-4">
+                    <?= $this->__([
+                        'id' => 'inputTimezone', 
+                        'class' => 'input-timezone input col-md-4 form-control', 
+                        'blank-default' => true, 
+                        'name' => 'timezone', 
+                        'placeholder' => 'Timezone', 
+                        'value' => $user->timezone
+                    ])->draw('forms/input/timezones'); ?>
+                </div>
+                <div class="col-md-5 config-desc">
+                    Specify your timezone.
+                </div>
+            </div>
 
             <div class="controls-save">
                 <button type="submit" class="btn btn-primary">Save updates</button>
