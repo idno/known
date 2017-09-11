@@ -114,6 +114,9 @@ foreach (['source-url', 'control-id', 'render-template', 'name', 'id'] as $varia
     var form_actual = form.find('form');
 
     var query = form.find("input[name='query']");
+    
+    // Prevent form submission on enter
+    form.submit(function(e){ e.preventDefault(); });
 
     function executeSearch(form) {
 
