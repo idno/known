@@ -671,6 +671,21 @@
                 return $proxied_url;
                 
             }
+            
+            /**
+             * Get the modified time of a Known file.
+             * Primarily used by cache busting, this method returns when a file was last modified.
+             * @param type $file The file, relative to the known path.
+             */
+            public function getModifiedTS($file) {
+                $file = trim($file, '/ ');
+                
+                $path = \Idno\Core\Idno::site()->config()->getPath();
+                
+                $ts = filemtime($path . '/' . $file);
+                
+                return (int)$ts;
+            }
 
             /**
              * Retrieves a set of contextual body classes suitable for including in a shell template
