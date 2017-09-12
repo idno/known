@@ -136,11 +136,12 @@ foreach (['source-url', 'control-id', 'render-template', 'name', 'id'] as $varia
                 form.closest('div').find('.results').html(data.rendered);
 
                 // Handle pagination
-                form.find('.pager li').addClass('pagination-disabled');
+                form.closest('div').find('.pager li').addClass('pagination-disabled');
                 if (offset > 0)
-                    form.find('.pager li.newer').removeClass('pagination-disabled');
-                if (offset + limit <= data.count)
-                    form.find('.pager li.older').removeClass('pagination-disabled');
+                    form.closest('div').find('.pager li.newer').removeClass('pagination-disabled');
+                if (offset + limit <= data.count) {
+                    form.closest('div').find('.pager li.older').removeClass('pagination-disabled');
+                }
             }
         });
 
