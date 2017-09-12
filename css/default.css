@@ -1936,3 +1936,10 @@ div.unfurled-url .basics .image img {
 .user-pagination .pager {
 	margin: 0;
 }
+.search-controls {
+	padding-bottom: 15px;
+}
+.search-controls .btn {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
