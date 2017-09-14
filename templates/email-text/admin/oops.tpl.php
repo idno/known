@@ -1,7 +1,7 @@
 Ooops!
 ======
 
-An error occured on you Known site <?= $vars['site']; ?>!
+An error occured on your Known site <?= $vars['site']; ?>!
 
 <?= $vars['message']; ?>
 
