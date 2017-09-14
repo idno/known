@@ -101,7 +101,7 @@
              * @param bool $value True to ignore
              * @return bool The previous value
              */
-            function setIgnoreAccess($value) {
+            function setIgnoreAccess($value = true) {
                 $old = $this->ignoreAccess;
                 
                 $this->ignoreAccess = $value;
