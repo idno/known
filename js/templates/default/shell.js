@@ -116,6 +116,10 @@ Template.enablePagination = function() {
     });
 }
 
+/**
+ * Enable html5 like "required" support for rich text input controls.
+ * @returns {undefined}
+ */
 Template.enableRichTextRequired = function () {
 
     $('textarea.validation-required').each(function(){
@@ -140,6 +144,15 @@ Template.enableRichTextRequired = function () {
     });
 }
 
+/**
+ * Enable fallback image for broken images.
+ */
+Template.enableImageFallback = function () {
+    $("img").on("error", function(){
+	console.error("Loading fallback image " + known.config.displayUrl + 'gfx/users/default.png');
+        $(this).attr('src', known.config.displayUrl + 'gfx/users/default.png');
+    });
+}
 
 /** Configure timeago and adjust videos in content */
 function annotateContent() {
@@ -190,4 +203,5 @@ $(document).ready(function(){
     Template.enableFormCandy();
     Template.enablePagination();
     Template.enableRichTextRequired();
+    Template.enableImageFallback();
 });

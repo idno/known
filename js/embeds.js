@@ -120,6 +120,7 @@ Unfurl.unfurl = function (control) {
 	   control.html(data.rendered);
 	   control.show();
 	   Unfurl.initOembed(control);
+	   Template.enableImageFallback(); // Reactivate image fallback for broken images
 	});
     }
 }
