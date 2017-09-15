@@ -12,6 +12,10 @@ namespace Idno\Entities {
          */
         private static function parseHeaders($content) {
             $doc = new \DOMDocument();
+            
+            if (strpos($content, 'xml encoding=')===false)
+                $content = '<?xml encoding="utf-8" ?>' . $content;
+                    
             @$doc->loadHTML($content);
 
             $interested_in = ['og', 'fb', 'twitter']; // Open graph namespaces we're interested in (open graph + extensions)
