@@ -12,6 +12,10 @@ namespace Idno\Entities {
          */
         private static function parseHeaders($content) {
             $doc = new \DOMDocument();
+            
+            if (strpos($content, 'xml encoding=')===false)
+                $content = '<?xml encoding="utf-8" ?>' . $content;
+                    
             @$doc->loadHTML($content);
 
             $interested_in = ['og', 'fb', 'twitter']; // Open graph namespaces we're interested in (open graph + extensions)
@@ -67,6 +71,8 @@ namespace Idno\Entities {
             foreach (['title'] as $basic) {
                 if (preg_match("#<$basic>(.*?)</$basic>#siu", $content, $matches))
                     $ogp[$basic] = trim($matches[1], " \n");
+//                $items = $doc->getElementsByTagName($basic);
+//                $ogp[$basic] = $items->item(0)->nodeValue;
             }
             $metas = $doc->getElementsByTagName('meta');
             if (!empty($metas)) {
