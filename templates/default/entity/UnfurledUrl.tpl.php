@@ -29,8 +29,8 @@ if (!empty($object->data['og']['og:image']))
         <?php if (!empty($image)) { ?>
             <div class="image"><a href="<?= htmlentities($object->source_url, ENT_QUOTES, 'UTF-8'); ?>"><img src="<?= $this->getProxiedImageUrl(htmlentities($image)); ?>"/></a></div>
         <?php } ?>
-        <h3><a href="<?= htmlentities($object->source_url, ENT_QUOTES, 'UTF-8'); ?>"><?= htmlentities(utf8_decode($title), ENT_QUOTES, 'UTF-8'); ?></a></h3>
-        <?php if (!empty($description)) { ?><blockquote class="description"><?= htmlentities(utf8_decode($description), ENT_QUOTES, 'UTF-8'); ?></blockquote><?php } ?>
+        <h3><a href="<?= htmlentities($object->source_url, ENT_QUOTES, 'UTF-8'); ?>"><?= htmlentities($title, ENT_QUOTES, 'UTF-8'); ?></a></h3>
+        <?php if (!empty($description)) { ?><blockquote class="description"><?= htmlentities($description, ENT_QUOTES, 'UTF-8'); ?></blockquote><?php } ?>
 
         <!--<div class="byline"><a href="<?= htmlentities($object->source_url, ENT_QUOTES, 'UTF-8'); ?>"><?= htmlentities(parse_url($object->source_url, PHP_URL_HOST), ENT_QUOTES, 'UTF-8'); ?></a></div>-->
     
