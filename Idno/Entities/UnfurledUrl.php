@@ -71,8 +71,6 @@ namespace Idno\Entities {
             foreach (['title'] as $basic) {
                 if (preg_match("#<$basic>(.*?)</$basic>#siu", $content, $matches))
                     $ogp[$basic] = trim($matches[1], " \n");
-//                $items = $doc->getElementsByTagName($basic);
-//                $ogp[$basic] = $items->item(0)->nodeValue;
             }
             $metas = $doc->getElementsByTagName('meta');
             if (!empty($metas)) {
