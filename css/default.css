@@ -308,6 +308,9 @@ img {
     text-align: center;
     margin-top: 4em;
 }
+.users-search .pager {
+	margin-top: 1em;
+}
 
 .pagination-disabled {
     display: none !important;
