@@ -93,7 +93,7 @@
                 }
                 
                 // See if there's a console subdir, for multiple sub commands
-                $scanned = scandir($directory . $file . '/Console/');
+                $scanned = @scandir($directory . $file . '/Console/');
                 if (!empty($scanned) && $scanned_sub_directory = array_diff($scanned, array('..', '.'))) {
                     foreach ($scanned_sub_directory as $file2) {
                         $class2 = "IdnoPlugins\\$file\\Console\\$file2"; 
