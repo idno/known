@@ -96,7 +96,8 @@
                 $scanned = @scandir($directory . $file . '/Console/');
                 if (!empty($scanned) && $scanned_sub_directory = array_diff($scanned, array('..', '.'))) {
                     foreach ($scanned_sub_directory as $file2) {
-                        $class2 = "IdnoPlugins\\$file\\Console\\$file2"; 
+                        $class2 = "IdnoPlugins\\$file\\Console\\$file2";                        
+                        $class2 = str_replace('.php', '', $class2);
                         if (class_exists($class2)) {
                             $c = new $class2(); 
                             if ($c instanceof \Idno\Common\ConsolePlugin) {
