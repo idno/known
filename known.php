@@ -91,6 +91,22 @@
                                 ->setCode([$c, 'execute']);
                     } 
                 }
+                
+                // See if there's a console subdir, for multiple sub commands
+                if ($scanned_sub_directory = array_diff(scandir($directory . $file . '/Console/'), array('..', '.'))) {
+                    foreach ($scanned_sub_directory as $file2) {
+                        $class2 = "IdnoPlugins\\$file\\Console\\$file2"; 
+                        if (class_exists($class2)) {
+                            $c = new $class2(); 
+                            if ($c instanceof \Idno\Common\ConsolePlugin) {
+                                $console->register($c->getCommand())
+                                        ->setDescription($c->getDescription())
+                                        ->setDefinition($c->getParameters())
+                                        ->setCode([$c, 'execute']);
+                            } 
+                        }
+                    }
+                }
             }
         }
     }
