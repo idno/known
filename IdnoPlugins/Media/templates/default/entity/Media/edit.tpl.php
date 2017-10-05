@@ -19,14 +19,10 @@
         	</h4>
 
             <p>
-                <?php
-
-                    if (empty($vars['object']->_id)) {
-
-                ?>
+                
                 <label>
                     <span class="btn btn-primary btn-file">
-                        <i class="fa fa-play-circle"></i> <span id="media-filename">Upload audio</span> 
+                        <i class="fa fa-play-circle"></i> <span id="media-filename"><?php if (empty($vars['object']->_id)) { ?>Upload audio<?php } else { ?>Choose different audio<?php } ?></span> 
                         <?= $this->__([
                                             'name' => 'media', 
                                             'id' => 'media', 
@@ -35,11 +31,7 @@
                                             'class' => 'col-md-9'])->draw('forms/input/file'); ?>
                     </span>
                 </label>
-                <?php
-
-                    }
-
-                ?>
+                
             </p>
             <div class="content-form">
                 <label for="title">

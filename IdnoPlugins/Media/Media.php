@@ -67,7 +67,8 @@
                 }
 
                 // Get media
-                if ($new) {
+                //if ($new) {
+                if (!empty($_FILES['media']['tmp_name'])) {
                     // This is awful, but unfortunately, browsers can't be trusted to send the right mimetype.
                     $ext = pathinfo($_FILES['media']['name'], PATHINFO_EXTENSION);
                     if (!empty($ext)) {
@@ -119,6 +120,10 @@
                                 }
                             }
                             $this->media_type = $media_file['type'];
+                            
+                            // Replace any existing photos
+                            $this->deleteAttachments();
+                            
                             if ($media = \Idno\Entities\File::createFromFile($media_file['tmp_name'], $media_file['name'], $media_file['type'], true)) {
                                 $this->attachFile($media);
                                 $ok = true;
