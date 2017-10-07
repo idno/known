@@ -462,12 +462,7 @@
                 try {
                     if ($result = $this->getRecords([], [], $limit, $offset, $collection))
                     {
-                        $return = "";
-                        foreach ($result as $r) {
-                            $return .= json_encode($r);
-                        }
-                        
-                        return $return;
+                        return json_encode($result);
                     }
                 } catch (\Exception $e) {
                     return false;
