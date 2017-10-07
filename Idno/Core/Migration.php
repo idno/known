@@ -61,7 +61,11 @@
 
                 $config = array(
                     'url'   => Idno::site()->config()->getURL(),
-                    'title' => Idno::site()->config()->getTitle()
+                    'title' => Idno::site()->config()->getTitle(),
+                    
+                    // Include some version info in case we change the export format
+                    'version' => Idno::site()->getVersion(),
+                    'build' => Idno::site()->getMachineVersion(),
                 );
 
                 file_put_contents($dir . $name . DIRECTORY_SEPARATOR . 'known.json', json_encode($config));
@@ -76,6 +80,10 @@
                 $offset = 0;
 
                 \Idno\Core\Idno::site()->logging()->debug("Exporting entities...");
+                
+                $f = fopen($dir . $name . DIRECTORY_SEPARATOR . 'entities.json', 'wb');
+                fwrite($f, '[');
+                
                 while ($results = Idno::site()->db()->getRecords($fields, $query_parameters, $limit, $offset, $collection)) {   
                     foreach ($results as $id => $row) {
 
@@ -124,7 +132,9 @@
                             }
                             $json_object = json_encode($object);
                             file_put_contents($json_path . $object_name . '.json', $json_object);
-                            $all_in_one_json[] = json_decode($json_object);
+                            //$all_in_one_json[] = json_decode($json_object);
+                            fwrite($f, $json_object . ',');
+                            
                             if (is_callable(array($object, 'draw'))) {
                                 file_put_contents($html_path . $object_name . '.html', $object->draw());
                             }
@@ -137,18 +147,34 @@
                     $results = null;
                     $offset += $limit;
                 }
-
+                
+                fwrite($f, '{}]'); // Fudge to allow json decode
+                fclose($f);
+                
+                
+                
                 \Idno\Core\Idno::site()->logging()->debug("Generating export records...");
-                if ($exported_records = \Idno\Core\Idno::site()->db()->exportRecords()) {
-                    if (site()->config()->database == 'mysql' || Idno::site()->config()->database == 'postgres') {
-                        $export_ext = 'sql';
-                    } else {
-                        $export_ext = 'json';
-                    }
-                    file_put_contents($dir . $name . DIRECTORY_SEPARATOR . 'exported_data.' . $export_ext, $exported_records);
+                $db = \Idno\Core\Idno::site()->db();
+                if ($db instanceof \Idno\Data\AbstractSQL) {
+                    $export_ext = 'sql';
+                } else {
+                    $export_ext = 'json';
                 }
+                
+                $limit = 10;
+                $offset = 0;
+                $f = fopen($dir . $name . DIRECTORY_SEPARATOR . 'exported_data.' . $export_ext, 'wb');
+                fwrite($f, '[');
+                while ($exported_records = \Idno\Core\Idno::site()->db()->exportRecords('entities', $limit, $offset)) {
+                    
+                    fwrite($f, trim($exported_records, '[],') . ',');
+                    
+                    $offset += $limit;
+                }
+                fwrite($f, '{}]'); // Fudge to allow json decode
+                fclose($f);
 
-                file_put_contents($dir . $name . DIRECTORY_SEPARATOR . 'entities.json', json_encode($all_in_one_json));
+                //file_put_contents($dir . $name . DIRECTORY_SEPARATOR . 'entities.json', json_encode($all_in_one_json));
 
                 // As we're successful, return the unique name of the archive
                 \Idno\Core\Idno::site()->logging()->debug("Archive constructed at {$dir}{$name}");
