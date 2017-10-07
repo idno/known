@@ -599,15 +599,17 @@
              * @param string $collection
              * @return bool|string
              */
-            function exportRecords($collection = 'entities')
+            function exportRecords($collection = 'entities', $limit = 10, $offset = 0)
             {
                 try {
                     $collection = $this->sanitiseCollection($collection);
+                    $limit = (int)$limit;
+                    $offset = (int)$offset;
 
                     $file   = tempnam(\Idno\Core\Idno::site()->config()->getTempDir(), 'sqldump');
                     $client = $this->client;
                     /* @var \PDO $client */
-                    $statement = $client->prepare("select * from {$collection}");
+                    $statement = $client->prepare("select * from {$collection} limit {$offset},{$limit}");
                     $output    = '';
                     if ($response = $statement->execute()) {
                         while ($object = $statement->fetch(\PDO::FETCH_ASSOC)) {
