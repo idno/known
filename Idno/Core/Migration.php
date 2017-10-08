@@ -581,8 +581,9 @@
                     foreach ($feed as $item) {
                         
                         $tmp = new \DOMDocument();
+                        $tmp->formatOutput = true;
                         
-                        fwrite($f, $tmp->saveXML($tmp->importNode($item->rssSerialise(), true)));
+                        fwrite($f, $tmp->saveXML($tmp->importNode($item->rssSerialise(), true)) . "\n");
                     }
                     
                     $offset += $limit;
