@@ -83,6 +83,9 @@
     }
 
     // If we have a feed, add the items
+    
+    $channel->appendChild($page->createComment('##KNOWNFEEDITEMS##')); // Helper for export, mark where feed items will be inserted so we can render these in chunks
+    
     if (!empty($vars['items'])) { 
         foreach($vars['items'] as $item) {
             if (!($item instanceof \Idno\Common\Entity)) {
