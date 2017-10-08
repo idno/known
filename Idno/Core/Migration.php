@@ -167,11 +167,15 @@
                 fwrite($f, '[');
                 while ($exported_records = \Idno\Core\Idno::site()->db()->exportRecords('entities', $limit, $offset)) {
                     
-                    fwrite($f, trim($exported_records, '[],') . ',');
+                    if ($export_ext == 'json')
+                        fwrite($f, trim($exported_records, '[],') . ',');
+                    else
+                        fwrite($f, $exported_records);
                     
                     $offset += $limit;
                 }
-                fwrite($f, '{}]'); // Fudge to allow json decode
+                if ($export_ext == 'json')
+                    fwrite($f, '{}]'); // Fudge to allow json decode
                 fclose($f);
 
                 //file_put_contents($dir . $name . DIRECTORY_SEPARATOR . 'entities.json', json_encode($all_in_one_json));
