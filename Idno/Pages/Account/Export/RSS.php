@@ -24,7 +24,18 @@
                     $hide_private = false;
                 }
 
-                echo Migration::getExportRSS($hide_private, Idno::site()->session()->currentUserUUID());
+                if ($f = Migration::getExportRSS($hide_private, Idno::site()->session()->currentUserUUID())) {
+
+                    $stats = fstat($f);
+                    
+                    header('Content-Length: ' . $stats['size']);
+                    
+                    while ($content = fgets($f)) {
+                        echo $content;
+                    }
+
+                    fclose($f);
+                }
                 exit;
 
             }

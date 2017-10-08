@@ -528,7 +528,7 @@
              * Retrieve all posts as an RSS feed
              * @param bool|true $hide_private Should we hide private posts? Default: true.
              * @param string $user_uuid User UUID to export for. Default: all users.
-             * @return bool|false|string
+             * @return resource a file pointer resource on success, false on error
              */
             static function getExportRSS($hide_private = true, $user_uuid = '')
             {
@@ -551,27 +551,114 @@
                     $description = Idno::site()->config()->getDescription();
                     $base_url    = Idno::site()->config()->getDisplayURL();
                 }
-                if ($feed = \Idno\Common\Entity::getFromX($types, $search, array(), PHP_INT_MAX-1, 0, $groups)) {
-                    $rss_theme = new Template();
-                    $rss_theme->setTemplateType('rss');
-                    
-                    return $rss_theme->__(array(
-
-                        'title'       => $title,
-                        'description' => $description,
-                        'body'        => $rss_theme->__(array(
-                            'items'    => $feed,
-                            'offset'   => 0,
-                            'count'    => sizeof($feed),
-                            'subject'  => [],
-                            //'nocdata'  => true,
-                            'base_url' => $base_url
-                        ))->draw('pages/home'),
-
-                    ))->drawPage(false);
+                
+                // If $folder is false or doesn't exist, use the temporary directory and ensure it has a slash on the end of it
+                $dir = Idno::site()->config()->getTempDir();
+                
+                $name = md5(time() . rand(0, 9999) . Idno::site()->config()->getURL());
+                
+                // Make the temporary directory, or fail out
+                if (!@mkdir($dir . $name)) {
+                    \Idno\Core\Idno::site()->logging()->debug("Could not make temporary directory {$dir}{$name}");
+                    return false;
                 }
+                
+                $rss_path = $dir . $name . DIRECTORY_SEPARATOR . 'rss' . DIRECTORY_SEPARATOR;
+                
+                if (!@mkdir($rss_path)) {
+                    \Idno\Core\Idno::site()->logging()->debug("Could not make temporary directory {$rss_path}");
+                    return false;
+                }
+                
+                // Create export of items
+                $limit = 10;
+                $offset = 0;
+                
+                $f = fopen($rss_path . 'items.rss.fragment', 'wb');
+                
+                while ($feed = \Idno\Common\Entity::getFromX($types, $search, array(), $limit, $offset, $groups)) {
+                    
+                    foreach ($feed as $item) {
+                        
+                        $tmp = new \DOMDocument();
+                        
+                        fwrite($f, $tmp->saveXML($tmp->importNode($item->rssSerialise(), true)));
+                    }
+                    
+                    $offset += $limit;
+                }
+                
+                fclose($f);
+                
+                // Build the empty export template
+                $rss_theme = new Template();
+                $rss_theme->setTemplateType('rss');
 
-                return false;
+                file_put_contents($rss_path . 'template.rss.fragment', $rss_theme->__(array(
+
+                    'title'       => $title,
+                    'description' => $description,
+                    'body'        => $rss_theme->__(array(
+                        'items'    => $feed,
+                        'offset'   => 0,
+                        'count'    => sizeof($feed),
+                        'subject'  => [],
+                        //'nocdata'  => true,
+                        'base_url' => $base_url
+                    ))->draw('pages/home'),
+
+                ))->drawPage(false));
+                
+                // Now construct full rss
+                $f = fopen($rss_path . 'export.rss', 'wb');
+                
+                $f_template = fopen($rss_path . 'template.rss.fragment', 'rb');
+                
+                while ($content = fgets($f_template)) {
+                    
+                    // Write out the content
+                    fwrite($f, $content);
+                    
+                    // We've found our insertion point, so we need to mix in our second file.
+                    if (strpos($content, '<!--##KNOWNFEEDITEMS##-->')!==false) {
+                        $f_items = fopen($rss_path . 'items.rss.fragment', 'rb');
+                
+                        while ($items = fgets($f_items)) {
+                            fwrite($f, $items);
+                        }
+                        
+                        fclose($f_items);
+                    }
+                }
+                
+                fclose($f_template);
+                
+                fclose($f);
+                
+                // Got here, open a readable file pointer
+                return fopen($rss_path . 'export.rss', 'r');
+                
+//                if ($feed = \Idno\Common\Entity::getFromX($types, $search, array(), PHP_INT_MAX-1, 0, $groups)) {
+//                    $rss_theme = new Template();
+//                    $rss_theme->setTemplateType('rss');
+//                    
+//                    return $rss_theme->__(array(
+//
+//                        'title'       => $title,
+//                        'description' => $description,
+//                        'body'        => $rss_theme->__(array(
+//                            'items'    => $feed,
+//                            'offset'   => 0,
+//                            'count'    => sizeof($feed),
+//                            'subject'  => [],
+//                            //'nocdata'  => true,
+//                            'base_url' => $base_url
+//                        ))->draw('pages/home'),
+//
+//                    ))->drawPage(false);
+//                }
+//
+//                return false;
             }
 
         }
