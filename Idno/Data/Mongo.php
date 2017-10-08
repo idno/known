@@ -457,13 +457,12 @@
              * @param string $collection
              * @return bool|string
              */
-            function exportRecords($collection = 'entities')
+            function exportRecords($collection = 'entities', $limit = 10, $offset = 0)
             {
                 try {
-                    if ($result = $this->database->$collection->find()) {
-                        $result = $this->unsanitizeFields($result);
-
-                        return json_encode(iterator_to_array($result));
+                    if ($result = $this->getRecords([], [], $limit, $offset, $collection))
+                    {
+                        return json_encode($result);
                     }
                 } catch (\Exception $e) {
                     return false;

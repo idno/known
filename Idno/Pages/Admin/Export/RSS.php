@@ -23,7 +23,18 @@
                     $hide_private = false;
                 }
 
-                echo Migration::getExportRSS($hide_private);
+                if ($f = Migration::getExportRSS($hide_private)) {
+                    
+                    $stats = fstat($f);
+                    
+                    header('Content-Length: ' . $stats['size']);
+                    
+                    while ($content = fgets($f)) {
+                        echo $content;
+                    }
+
+                    fclose($f);
+                }
                 exit;
 
             }

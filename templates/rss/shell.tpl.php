@@ -83,77 +83,16 @@
     }
 
     // If we have a feed, add the items
+    
+    $channel->appendChild($page->createComment('##KNOWNFEEDITEMS##')); // Helper for export, mark where feed items will be inserted so we can render these in chunks
+    
     if (!empty($vars['items'])) { 
         foreach($vars['items'] as $item) {
             if (!($item instanceof \Idno\Common\Entity)) {
                 continue;
             }
-            $title = $item->getTitle();
-            if (empty($title)) {
-                if ($description = $item->getShortDescription(5)) {
-                    $title = $description;
-                } else {
-                    $title = 'New ' . $item->getContentTypeTitle();
-                }
-            }
-            $rssItem = $page->createElement('item');
-            $rssItem->appendChild($page->createElement('title', htmlspecialchars($title)));
-            $rssItem->appendChild($page->createElement('link',$item->getSyndicationURL()));
-            $rssItem->appendChild($page->createElement('guid',$item->getUUID()));
-            $rssItem->appendChild($page->createElement('pubDate',date(DATE_RSS,$item->created)));
-
-            // Needed for WP import into Known
-            $rssItem->appendChild($page->createElement('wp:post_type', 'post'));
-            $rssItem->appendChild($page->createElement('wp:status', 'publish'));
             
-            $owner = $item->getOwner();
-            if (!empty($owner)) {
-                $rssItem->appendChild($page->createElement('dc:creator', "{$owner->title}"));
-            } else {
-                $rssItem->appendChild($page->createElement('dc:creator', "Deleted User"));
-            }
-            //$rssItem->appendChild($page->createElement('dc:creator', $owner->title));
-
-            $description = $page->createElement('description');
-            if (empty($vars['nocdata'])) {
-                $description->appendChild($page->createCDATASection($item->draw(true)));
-            } else {
-                //$description->appendChild($page->create($item->draw(true)));
-                //$description->textContent = $item->draw(true);
-                $tpl = new \DOMDocument;
-                $tpl->loadHtml($item->draw(true), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-                //$body->appendChild($dom->importNode($tpl->documentElement, TRUE));
-                $description->appendChild($page->importNode($tpl->documentElement, true));
-            }
-            $rssItem->appendChild($description);
-            if (!empty($item->lat) && !empty($item->long)) {
-                $rssItem->appendChild($page->createElement('geo:lat', $item->lat));
-                $rssItem->appendChild($page->createElement('geo:long', $item->long));
-            }
-            /*
-             * Some feed readers choke on references to webmention, so this is removed for now
-             *
-                $webmentionItem = $page->createElement('atom:link');
-                $webmentionItem->setAttribute('rel', 'webmention');
-                $webmentionItem->setAttribute('href', \Idno\Core\Idno::site()->config()->getDisplayURL() . 'webmention/');
-                $rssItem->appendChild($webmentionItem);
-            */
-            if ($attachments = $item->getAttachments()) {
-                foreach($attachments as $attachment) {
-                    $enclosureItem = $page->createElement('enclosure');
-                    $enclosureItem->setAttribute('url', $attachment['url']);
-                    $enclosureItem->setAttribute('type', $attachment['mime-type']);
-                    $enclosureItem->setAttribute('length', $attachment['length']);
-                    $rssItem->appendChild($enclosureItem);
-                }
-            }
-            if ($tags = $item->getTags()) {
-                foreach($tags as $tag) {
-                    $tagItem = $page->createElement('category', $tag);
-                    $rssItem->appendChild($tagItem);
-                }
-            }
-            $channel->appendChild($rssItem);
+            $channel->appendChild($page->importNode($item->rssSerialise($vars), true));
         }
     } 
     

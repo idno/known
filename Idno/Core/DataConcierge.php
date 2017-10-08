@@ -215,9 +215,11 @@
             /**
              * Export a collection to JSON.
              * @param string $collection
+             * @param int $limit
+             * @param int $offset
              * @return bool|string
              */
-            abstract function exportRecords($collection = 'entities');
+            abstract function exportRecords($collection = 'entities', $limit = 10, $offset = 0);
 
             /**
              * Count objects of a certain kind that we're allowed to see
