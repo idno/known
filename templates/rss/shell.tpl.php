@@ -92,7 +92,7 @@
                 continue;
             }
             
-            $channel->appendChild($item->rssSerialise($page, $vars));
+            $channel->appendChild($page->importNode($item->rssSerialise($vars), true));
         }
     } 
     

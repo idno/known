@@ -13,11 +13,10 @@ namespace Idno\Common {
         
         /**
          * Serialise an item into a rss compatible DOMElement.
-         * @param \DOMDocument $page DOMDocument passed to this entity
          * @param array $params Optional params
          * @return \DOMElement
          */
-        public function rssSerialise(\DOMDocument &$page, array $params = []);
+        public function rssSerialise(array $params = []);
         
     }
 

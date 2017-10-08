@@ -1659,10 +1659,12 @@ namespace Idno\Common {
             return $object;
         }
         
-        public function rssSerialise(\DOMDocument &$page, array $vars = []) {
+        public function rssSerialise(array $vars = []) {
             
             $item = $this;
-                        
+            
+            $page = new \DOMDocument();
+                 
             $title = $item->getTitle();
             if (empty($title)) {
                 if ($description = $item->getShortDescription(5)) {
