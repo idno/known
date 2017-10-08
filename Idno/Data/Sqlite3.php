@@ -639,7 +639,7 @@
                 return false;
             }
 
-            public function exportRecords($collection = 'entities')
+            public function exportRecords($collection = 'entities', $limit = 10, $offset = 0)
             {
                 return false; // TODO
             }

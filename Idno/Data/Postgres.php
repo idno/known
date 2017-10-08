@@ -538,7 +538,7 @@
              * @param string $collection
              * @return bool|string
              */
-            function exportRecords($collection = 'entities')
+            function exportRecords($collection = 'entities', $limit = 10, $offset = 0)
             {
                 // TODO
             }
