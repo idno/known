@@ -12,7 +12,7 @@
 
     namespace Idno\Common {
 
-        interface EntityInterface extends \JsonSerializable, \ArrayAccess
+        interface EntityInterface extends \JsonSerializable, \ArrayAccess, RSSSerialisable
         {
 
         }
