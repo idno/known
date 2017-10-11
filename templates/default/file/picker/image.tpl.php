@@ -18,9 +18,8 @@
                                             <i class="fa fa-camera"></i> <span
                                                 id="photo-filename">Select an image</span>
                                             <input type="file" name="file" id="photo"
-                                                   class="col-md-9"
+                                                   class="form-control col-md-9"
                                                    accept="image/*"
-                                                   capture="camera"
                                                    onchange="photoPreview(this)"/>
                                         </span>
                 </label>
