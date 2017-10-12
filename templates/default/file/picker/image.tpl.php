@@ -1,6 +1,6 @@
 <form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>filepicker/" method="post"
       enctype="multipart/form-data">
-    <div class="row">
+    <div class="row file-picker">
         <div class="col-md-10 col-md-offset-1">
             <div style="text-align: center">
                 <h2>
