@@ -52,7 +52,7 @@
                 try {
                     var exif = EXIF.readFromBinaryFile(base64ToArrayBuffer(this.result));
 
-                    Image.exifRotateImg('#photopreview', exif.Orientation, '#photo-preview');
+                    ImageTools.exifRotateImg('#photopreview', exif.Orientation, '#photo-preview');
                 } catch (error) {
                     console.error(error);
                 }
