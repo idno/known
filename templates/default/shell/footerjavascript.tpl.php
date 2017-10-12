@@ -34,11 +34,13 @@
     }
     // Load javascript assets
     if ((\Idno\Core\Idno::site()->currentPage()) && $scripts = \Idno\Core\Idno::site()->currentPage->getAssets('javascript')) {
+        echo "<!-- Begin asset javascript -->";
         foreach ($scripts as $script) {
             ?>
             <script src="<?= $script ?>"></script>
             <?php
         }
+        echo "<!-- End asset javascript -->";
     }
 ?>
 
