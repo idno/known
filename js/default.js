@@ -143,6 +143,7 @@ Logger.errorHandler = function (error) {
 	message += '\n' + stack;
     }
 
+    console.error(error);
     Logger.log(message, 'ERROR');
 }
 
