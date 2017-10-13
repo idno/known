@@ -15,9 +15,10 @@
             <div class="col-md-3">
                 <div class="text-center">
 
-                    <div id="photo-preview"><img src="<?= \Idno\Core\Idno::site()->session()->currentUser()->getIcon() ?>"
-                                                 class="avatar img-circle"
-                                                 alt="avatar" style="width: 100px"></div>
+                    <div id="photo-preview"><img
+                            src="<?= \Idno\Core\Idno::site()->session()->currentUser()->getIcon() ?>"
+                            class="avatar img-circle"
+                            alt="avatar" style="width: 100px"></div>
 
                         <span class="btn btn-primary btn-file">
                             <i class="fa fa-camera"></i> 
@@ -41,20 +42,50 @@
                            value="<?= htmlspecialchars($vars['user']->getTitle()) ?>">
                 </div>
 
-                <!--<div class="form-group">
-                    <label class="control-label" for="tagline">Short description</label>
-                    <input class="form-control" type="text" id="tagline" name="profile[tagline]"
-                           value="<?= htmlspecialchars($vars['user']->getShortDescription()) ?>">
-                </div>-->
-
                 <div class="form-group">
                     <label class="control-label" for="body">About you</label><br>
 
                     <textarea name="profile[description]" id="body"
                               class="form-control bodyInput"><?= htmlspecialchars($vars['user']->getDescription()) ?></textarea>
-
-
                 </div>
+
+                <?php
+
+                    // For now, this is only available to users who explicitly switch pronouns on.
+                    if (\Idno\Core\Idno::site()->config()->enable_pronouns) {
+
+                ?>
+                <div class="form-group form-pronoun">
+                    <p>
+                        <label for="pronoun">Your pronoun</label><br>
+                        <small>Your pronoun lets people know how to address you.</small>
+                    </p>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input name="profile[pronoun-nominative]" id="pronoun"
+                                   class="form-control textInput"
+                                   value="<?= htmlspecialchars($vars['user']->getPronounNominative()) ?>"
+                                   placeholder="she">
+                        </div>
+                        <div class="col-md-4">
+                            <input name="profile[pronoun-oblique]" id="pronoun"
+                                   class="form-control textInput"
+                                   value="<?= htmlspecialchars($vars['user']->getPronounOblique()) ?>"
+                                   placeholder="her">
+                        </div>
+                        <div class="col-md-4">
+                            <input name="profile[pronoun-possessive]" id="pronoun"
+                                   class="form-control textInput"
+                                   value="<?= htmlspecialchars($vars['user']->getPronounPossessive()) ?>"
+                                   placeholder="hers">
+                        </div>
+                    </div>
+                </div>
+                <?php
+
+                    }
+
+                ?>
 
                 <div class="form-group">
                     <p>
@@ -85,7 +116,7 @@
                                                 </small>
                                             </div>
                                         </div>
-                                    <?php
+                                        <?php
                                     }
                                 }
                             }
@@ -96,7 +127,7 @@
                                 <input type="text" name="profile[url][]" id="title" value="" placeholder="http://"
                                        class="form-control"/></div>
                             <div class="col-md-2" style="margin-top: 0.75em">
-                                <small >
+                                <small>
                                     <a href="#" onclick="$(this).parent().parent().parent().remove(); return false;">Remove</a>
                                 </small>
                             </div>

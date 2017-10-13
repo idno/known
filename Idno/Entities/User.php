@@ -188,6 +188,48 @@
             }
 
             /**
+             * Retrieve this user's oblique pronoun
+             * @return string
+             */
+            function getPronounOblique()
+            {
+                return !empty($this->profile['pronoun-oblique']) ? $this->profile['pronoun-oblique'] : '';
+            }
+
+            /**
+             * Retrieve this user's nominative pronoun
+             * @return string
+             */
+            function getPronounNominative()
+            {
+                return !empty($this->profile['pronoun-nominative']) ? $this->profile['pronoun-nominative'] : '';
+            }
+
+            /**
+             * Retrieve this user's possessive pronoun
+             * @return string
+             */
+            function getPronounPossessive()
+            {
+                return !empty($this->profile['pronoun-possessive']) ? $this->profile['pronoun-possessive'] : '';
+            }
+
+            /**
+             * Retrieve this user's pronouns
+             * @return array
+             */
+            function getPronoun()
+            {
+                $pronoun = [
+                    'nominative' => $this->getPronounNominative(),
+                    'oblique'    => $this->getPronounOblique(),
+                    'possessive' => $this->getPronounPossessive()
+                ];
+                if (!sizeof(array_filter($pronoun))) return [];
+                return $pronoun;
+            }
+
+            /**
              * Retrieves user by email address
              * @param string $email
              * @return User|false Depending on success
@@ -511,6 +553,7 @@
             function countPosts()
             {
                 $types = \Idno\Common\ContentType::getRegisteredClasses();
+
                 return \Idno\Common\Entity::countFromX($types, array('owner' => $this->getUUID()));
             }
 

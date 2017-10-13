@@ -22,24 +22,20 @@
             <div class="col-md-4 namebadge">
                 <p>
                     <a href="<?= $vars['user']->getDisplayURL() ?>" class="u-url icon-container"><img class="u-photo"
-                                                                                               src="<?= $vars['user']->getIcon() ?>"/></a>
+                        src="<?= $vars['user']->getIcon() ?>"/></a>
                 </p>
+                <?php
 
-                        <?php
-
-                            if ($vars['user']->canEdit() && $vars['user']->getUUID() == \Idno\Core\Idno::site()->session()->currentUserUUID()) {
-                                // If you're wondering, this is wrapped in an h1 tag to keep it aligned with
-                                // the user's name over in the next div. TODO: find a better way to do this
-                                // that retains visual consistency.
-                                ?>
-                                <h1><a href="<?= $vars['user']->getEditURL() ?>" class="btn btn-default">Edit profile</a></h1>
-                            <?php
-
-                            }
-
+                    if ($vars['user']->canEdit() && $vars['user']->getUUID() == \Idno\Core\Idno::site()->session()->currentUserUUID()) {
+                        // If you're wondering, this is wrapped in an h1 tag to keep it aligned with
+                        // the user's name over in the next div. TODO: find a better way to do this
+                        // that retains visual consistency.
                         ?>
-                    </div>
-            
+                        <h1><a href="<?= $vars['user']->getEditURL() ?>" class="btn btn-default">Edit profile</a></h1>
+                        <?php
+                    }
+                ?>
+            </div>
             <div class="col-md-8 namebadge-profile">
                 <div class="row">
                     <div class="col-md-12">
@@ -63,10 +59,12 @@
                                         <a href="<?= $vars['user']->getDisplayURL() ?>/edit/">Click here to fill in your
                                             profile information.</a>
                                     </p>
-                                <?php
+                                    <?php
+                                }
+                                if (($pronoun_forms = $vars['user']->getPronoun()) && \Idno\Core\Idno::site()->config()->enable_pronouns) {
+                                    echo $this->__(['pronouns' => $pronoun_forms])->draw('entity/User/profile/pronouns');
                                 }
                             ?></div>
-
                         <?= $this->draw('entity/User/profile/fields') ?>
                     </div>
                 </div>
