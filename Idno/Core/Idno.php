@@ -679,6 +679,17 @@
             {
                 return $this->machineVersion();
             }
+            
+            /**
+             * Retrieve a unique fingerprint for the site and the build version, without 
+             * giving away the detailed version number
+             */
+            function getBuildFingerprint() {
+                $hmac = hash_hmac('sha256', $this->getMachineVersion(), \Idno\Core\Idno::site()->config()->site_secret, true);
+                $hmac = hash_hmac('sha256', $this->getVersion(), $hmac);
+                
+                return $hmac;
+            }
 
             /**
              * Can a specified user (either an explicitly specified user ID
