@@ -4,8 +4,7 @@
  If you need to add your own JavaScript, the best thing to do is to create your own js files
  and reference them from a custom plugin or template.
  
- IMPORTANT:
- This file isn't loaded directly, for changes to show you must generate a minified
+ IMPORTANT: This file isn't loaded directly, for changes to show you must generate a minified
  version. E.g.
  
  yui-compressor default.js > default.min.js
@@ -290,47 +289,6 @@ function hideContentCreateForm() {
     }
 }
 
-/**
- * Periodically send the current values of this form to the server.
- *
- * @param string context Usually the type of entity being saved. We keep one autosave
- *     for each unique context.
- * @param array elements The elements to save, e.g. ["title", "body"].
- * @param object selectors (optional) A mapping from element name to its unique
- *     JQuery-style selector. If no mapping is provided, defaults to "#element";
- */
-function autoSave(context, elements, selectors) {
-    var previousVal = {};
-    setInterval(function () {
-	var changed = {};
-	for (var i = 0; i < elements.length; i++) {
-	    var element = elements[i];
-	    var selector = "#" + element;
-	    if (selectors && element in selectors) {
-		selector = selectors[element];
-	    }
-	    var val = false;
-	    if ($(selector).val() != previousVal[element]) {
-		val = $(selector).val();
-	    }
-	    if (val !== false) {
-		changed[element] = val;
-		previousVal[element] = val;
-	    }
-	}
-	if (Object.keys(changed).length > 0) {
-	    $.post(wwwroot() + 'autosave/',
-		    {
-			"context": context,
-			"elements": changed,
-			"names": elements
-		    },
-		    function () {
-		    }
-	    );
-	}
-    }, 10000);
-}
 
 /**
  * Strip HTML from string
