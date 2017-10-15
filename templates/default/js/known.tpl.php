@@ -14,6 +14,7 @@
 $known = [
     'session' => [
         'loggedIn' => \Idno\Core\Idno::site()->session()->isLoggedIn(),
+        'admin' => \Idno\Core\Idno::site()->session()->isAdmin()
     ],
     'config' => [
         'displayUrl' => \Idno\Core\Idno::site()->config()->getDisplayURL()
