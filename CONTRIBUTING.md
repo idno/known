@@ -11,8 +11,6 @@ Please also read our [code of conduct](CODE_OF_CONDUCT.md).
 Contributors to Known
 =====================
 
-The following individuals have made major contributions to Known.
-
 Core team
 ---------
 
@@ -25,8 +23,6 @@ Team Known site: http://stream.withknown.com/
 Community contributors
 ----------------------
 
-We now use GitHub to list contributors:
-
-https://github.com/idno/Known/graphs/contributors
+See https://github.com/idno/Known/graphs/contributors
 
 
