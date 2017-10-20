@@ -38,7 +38,7 @@
 
             ?>
             <div class="photo-view">
-                <a href="<?= $vars['object']->getDisplayURL(); ?>" 
+                <a href="<?= \Idno\Core\Idno::site()->currentPage()->isPermalink() ? $this->makeDisplayURL($mainsrc) : $vars['object']->getDisplayURL(); ?>" 
                    data-original-img="<?= $this->makeDisplayURL($mainsrc) ?>"
                    data-title="<?= htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?>" 
                    data-footer="<?= htmlentities(strip_tags($vars['object']->body), ENT_QUOTES, 'UTF-8'); ?>"><img src="<?= $this->makeDisplayURL($src) ?>" class="u-photo" alt="<?= htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?>" /></a>
