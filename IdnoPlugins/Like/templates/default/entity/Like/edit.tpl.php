@@ -29,7 +29,7 @@
                 echo $this->__([
                     'name' => 'body',
                     'id' => 'body',
-                    'placeholder' => "http://....",
+                    'placeholder' => "https://....",
                     'class' => "form-control bookmark-url",
                     'value' => $value,
                     'required' => true
