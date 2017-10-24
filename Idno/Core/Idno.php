@@ -627,69 +627,33 @@
             }
 
             /**
-             * Parse version details from version file.
-             */
-            protected function parseVersionFile() {
-                
-                $versionfile = dirname(dirname(dirname(__FILE__))) . '/version.known';
-                
-                if (!file_exists($versionfile))
-                    throw new \Idno\Exceptions\ConfigurationException("Version file $versionfile could not be found, Known doesn't appear to be installed correctly.");
-                
-                return @parse_ini_file($versionfile);
-                
-            }
-            
-            /**
              * Retrieve this version of Known's version number
              * @return string
+             * @deprecated Use Version::version();
              */
-            function version()
-            {
-                $version = $this->parseVersionFile();
-                
-                return $version['version'];
-            }
+            function version() { return Version::version(); }
 
             /**
              * Alias for version()
              * @return string
+             * @deprecated Use Version::version();
              */
-            function getVersion()
-            {
-                return $this->version();
-            }
+            function getVersion() { return $this->version(); }
 
             /**
              * Retrieve a machine-readable version of Known's version number
              * @return string
+             * @deprecated Use Version::build();
              */
-            function machineVersion()
-            {
-                $version = $this->parseVersionFile();
-                
-                return $version['build'];
-            }
+            function machineVersion() { return Version::build(); }
 
             /**
              * Alias for machineVersion
              * @return string
+             * @deprecated Use Version::build();
              */
-            function getMachineVersion()
-            {
-                return $this->machineVersion();
-            }
+            function getMachineVersion() { return $this->machineVersion(); }
             
-            /**
-             * Retrieve a unique fingerprint for the site and the build version, without 
-             * giving away the detailed version number
-             */
-            function getBuildFingerprint() {
-                $hmac = hash_hmac('sha256', $this->getMachineVersion(), \Idno\Core\Idno::site()->config()->site_secret, true);
-                $hmac = hash_hmac('sha256', $this->getVersion(), $hmac);
-                
-                return $hmac;
-            }
 
             /**
              * Can a specified user (either an explicitly specified user ID

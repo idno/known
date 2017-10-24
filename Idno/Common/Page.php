@@ -56,7 +56,7 @@
                 if (!defined('KNOWN_UNIT_TEST')) { // Don't do header stuff in unit tests
                     header('X-Powered-By: https://withknown.com');
                     header('X-Clacks-Overhead: GNU Terry Pratchett');
-                    header('X-Known-Build-Fingerprint: ' . \Idno\Core\Idno::site()->getBuildFingerprint());
+                    header('X-Known-Build-Fingerprint: ' . \Idno\Core\Version::fingerprint());
                 }
                 if ($template = $this->getInput('_t')) {
                     if (\Idno\Core\Idno::site()->template()->templateTypeExists($template)) {
