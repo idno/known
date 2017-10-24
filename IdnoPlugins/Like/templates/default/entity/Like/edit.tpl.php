@@ -29,7 +29,7 @@
                 echo $this->__([
                     'name' => 'body',
                     'id' => 'body',
-                    'placeholder' => "http://....",
+                    'placeholder' => "https://....",
                     'class' => "form-control bookmark-url",
                     'value' => $value,
                     'required' => true
@@ -43,11 +43,7 @@
                         ?>
 
                         <div class="bookmark-spinner-container">
-                            <div class="spinner bookmark-title-spinner" style="display:none">
-                                <div class="bounce1"></div>
-                                <div class="bounce2"></div>
-                                <div class="bounce3"></div>
-                            </div>
+                            <?= $this->__(['class' => 'bookmark-title-spinner'])->draw('entity/edit/spinner'); ?>
                         </div>
 
                         <?php
