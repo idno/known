@@ -25,7 +25,7 @@ namespace Idno\Core {
         }
 
         /**
-         * Retrieve a field from the version.
+         * Retrieve a field from the version file.
          * @param string $field
          * @return boolean|string
          */
