@@ -311,6 +311,17 @@
                 // Can't find
                 return false;
             }
+            
+            /**
+             * Retrieve users by admins.
+             * @param type $limit
+             * @param type $offset
+             * @return type
+             */
+            static function getAdmins($limit = 10, $offset)
+            {
+                return User::get(['admin' => true], [], $limit, $offset);
+            }
 
             /**
              * Returns this user's unique key for use with the API, and generates a new one if they don't
