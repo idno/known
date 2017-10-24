@@ -35,6 +35,17 @@
                     site()->addPageHandler('/admin/logs/?', '\Idno\Pages\Admin\Logs');
                 }
             }
+           
+            /**
+             * Retrieve users by admins.
+             * @param type $limit
+             * @param type $offset
+             * @return type
+             */
+            static function getAdmins($limit = 10, $offset)
+            {
+                return \Idno\Entities\User::get(['admin' => true], [], $limit, $offset);
+            }
 
         }
 

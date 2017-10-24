@@ -618,15 +618,6 @@
             }
 
             /**
-             * Retrieves admins for this site
-             * @return array
-             */
-            function getAdmins()
-            {
-                return User::get(['admin' => true], [], 9999);
-            }
-
-            /**
              * Retrieve this version of Known's version number
              * @return string
              * @deprecated Use Version::version();
