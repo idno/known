@@ -150,7 +150,7 @@
                     // Now we've saved it and got an ID, if it's a video, let's call out to enquue a transcode
                     if (strpos($this->media_type, 'video') !== false) {
                         \Idno\Core\Idno::site()->queue()->enqueue('default', 'video/transcode', [
-                            'object' => $this
+                            'uuid' => $this->getUUID()
                         ]);
                     }
                     
