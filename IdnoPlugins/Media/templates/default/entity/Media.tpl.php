@@ -16,18 +16,32 @@
     <?php
     }
     if (empty($vars['feed_view'])) {
+        
         if ($attachments = $vars['object']->getAttachments()) {
-            foreach ($attachments as $attachment) {
-                $mainsrc = $attachment['url'];
-                if (substr($attachment['mime-type'], 0, 5) == 'video') {
-                    ?>
-                    <p style="text-align: center">
-                        <video src="<?= $this->makeDisplayURL($mainsrc) ?>" class="u-video known-media-element" controls preload="none" style="width: 100%"></video>
-                    </p>
-                    <?php
-
-                } else {
-
+            
+            if (substr($vars['object']->media_type, 0, 5) == 'video') {
+                // Video
+                ?>
+                <p style="text-align: center">
+                    <video class="u-video known-media-element" controls preload="none" style="width: 100%">
+                        <?php
+                        foreach ($attachments as $attachment) {
+                            $mainsrc = $attachment['url'];
+                            
+                            ?>
+                            <source src="<?= $mainsrc ?>" type="<?= $attachment['mime-type']; ?>">
+                            Sorry, your browser does not support the video tag.
+                            <?php
+                        }
+                        ?>
+                    </video>
+                </p>
+                <?php
+            } else {
+                // Audio
+                foreach ($attachments as $attachment) {
+                    $mainsrc = $attachment['url'];
+                    
                     ?>
                     <div id="waveform<?=$player_id?>" class="waveform-player"></div>
                     <script>
@@ -57,7 +71,6 @@
                         });
                     </script>
                     <?php
-
                 }
             }
         }
