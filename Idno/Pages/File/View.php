@@ -60,8 +60,8 @@ namespace Idno\Pages\File {
                 $start = 0;
                 $end = $size; // - 1;
 
-                $c_start = $start;
-                $c_end = $end;
+                $c_start = (empty($start) || $end < abs(intval($start))) ? 0 : max(abs(intval($start)),0);//$start;
+                $c_end = (empty($end)) ? ($size - 1) : min(abs(intval($end)),($size - 1)); //$end;
 
                 // Parse range
                 list(, $range) = explode('=', $_SERVER['HTTP_RANGE'], 2);
@@ -88,6 +88,7 @@ namespace Idno\Pages\File {
                         ($c_start < 0) // Start less than zero
                 ) {
                     $this->setResponse(416);
+                    \Idno\Core\Idno::site()->logging()->debug('Requested Range Not Satisfiable');
                     header('HTTP/1.1 416 Requested Range Not Satisfiable');
                     exit;
                 }
@@ -109,6 +110,8 @@ namespace Idno\Pages\File {
                     //$data =  fread($stream, $c_end-$c_start); 
                                     
                     echo $buffer;
+                } else {
+                    \Idno\Core\Idno::site()->logging()->error('Could not open stream.');
                 }
                 
             } else {
