@@ -30,10 +30,11 @@
                             
                             ?>
                             <source src="<?= $mainsrc ?>" type="<?= $attachment['mime-type']; ?>">
-                            Sorry, your browser does not support the video tag.
                             <?php
                         }
                         ?>
+                            
+                            Sorry, your browser does not support the video tag.
                     </video>
                 </p>
                 <?php
