@@ -147,6 +147,13 @@
 
                 if ($this->publish($new)) {
 
+                    // Now we've saved it and got an ID, if it's a video, let's call out to enquue a transcode
+                    if (strpos($this->media_type, 'video') !== false) {
+                        \Idno\Core\Idno::site()->queue()->enqueue('default', 'video/transcode', [
+                            'uuid' => $this->getUUID()
+                        ]);
+                    }
+                    
                     if ($this->getAccess() == 'PUBLIC') {
                         \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getTitle() . ' ' . $this->getDescription()));
                     }

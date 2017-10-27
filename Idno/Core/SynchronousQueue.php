@@ -10,8 +10,13 @@ class SynchronousQueue extends EventQueue
     function enqueue($queueName, $eventName, array $eventData)
     {
         $id     = md5(microtime(true) . mt_rand() . $eventName);
-        $result = Idno::site()->triggerEvent($eventName, $eventData);
-        $this->results[$id] = $result;
+        try {
+            $result = Idno::site()->triggerEvent($eventName, $eventData);
+            $this->results[$id] = $result;
+        } catch (\Exception $e) {
+            \Idno\Core\Idno::site()->logging()->error($e->getMessage());
+            $this->results[$id] = false;
+        }
         return $id;
     }
 
