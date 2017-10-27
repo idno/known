@@ -43,3 +43,6 @@ After completing the configuration step for enabling the [Asynchronous Event Que
 ```
 
 Once running, this service will periodically trigger an event to which code can listen to. Available events are ```cron/minute```, ```cron/hourly``` and ```cron/daily```.
+
+!!! note "Service User"
+    You should run both ```service-event-queue``` and ```service-cron``` as the webserver user so that it can read and write to files. On Debian this is usually ```www-data```.
