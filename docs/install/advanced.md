@@ -22,7 +22,7 @@ event_queue = 'AsynchronousQueue'
 Next, you need to run the Known event queue dispatching service using the Known console tool:
 
 ```
-./known service-event-queue
+sudo -u www-data KNOWN_DOMAIN='your.domain' ./known service-event-queue
 ```
 
 !!! note "Per-domain configuration"
@@ -39,7 +39,7 @@ Sometimes it is desirable to execute actions in the background and periodic inte
 After completing the configuration step for enabling the [Asynchronous Event Queue](#asynchronous-event-queue), you can then run the Known console periodic execution service:
 
 ```
-./known.php service-cron
+sudo -u www-data KNOWN_DOMAIN='your.domain' ./known.php service-cron
 ```
 
 Once running, this service will periodically trigger an event to which code can listen to. Available events are ```cron/minute```, ```cron/hourly``` and ```cron/daily```.
