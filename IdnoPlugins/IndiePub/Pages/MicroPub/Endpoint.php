@@ -451,10 +451,10 @@
                 }
                 $entity = \Idno\Common\Entity::getByUUID($url);
                 if ($entity === false) {
-                    $this->error(400, 'not_found');
+                    $this->error(400, 'not_found', 'Post not found');
                 }
 
-                if (in_array($type, $verbs)) {
+                if (!in_array($type, $verbs)) {
                     $this->error(
                         400,
                         'invalid_request',
