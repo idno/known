@@ -36,7 +36,7 @@ namespace ConsolePlugins\EventQueueService {
                 }
                
             } else {
-                \Idno\Core\Idno::site()->logging()->info('Starting Asynchronous event processor on queue: ' . $queue. ", polling ever $pollperiod seconds");
+                \Idno\Core\Idno::site()->logging()->info('Starting Asynchronous event processor on queue: ' . $queue. ", polling every $pollperiod seconds");
                 
                 while(self::$run) {
                 
