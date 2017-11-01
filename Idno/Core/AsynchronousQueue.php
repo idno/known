@@ -8,16 +8,6 @@ namespace Idno\Core;
  */
 class AsynchronousQueue extends EventQueue
 {
-    
-    function __construct() {
-        
-        $db = \Idno\Core\Idno::site()->db();
-        if ($db instanceof \Idno\Data\Mongo)
-            throw new \RuntimeException("Sorry, Asynchronous event queues are not currently supported on MongoDB, due to this bug: https://github.com/mongodb/mongo-php-driver/issues/270");
-        
-        parent::__construct();
-    }
-
     function enqueue($queueName, $eventName, array $eventData)
     {
         if (empty($queueName))
