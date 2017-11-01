@@ -102,6 +102,30 @@
             function registerEventHooks() {
                 parent::registerEventHooks();
                 
+                // Diagnostics
+                \Idno\Core\Idno::site()->addEventHook('diagnostics/basics', function (\Idno\Core\Event $event) {
+                    $basics = $event->response();
+                    
+                    try {
+                        // See if your mongo driver has https://github.com/mongodb/mongo-php-driver/issues/270
+                        $a = [
+                            '_id' => new \MongoDB\BSON\ObjectID('000000000000000000000001'),
+                            'test' => 1,
+                            'aa' => [
+                                'b' => 1,
+                            ]
+                        ];
+
+                        $b = serialize($a);
+                    } catch (\Exception $ex) {
+                        $basics['report']['mongo-bson']['message'] = "Your MongoDB driver doesn't support BSON serialisation, some functionality will not work correctly. You could try upgrading your driver - 'pecl install mongodb'.";
+                        $basics['report']['mongo-bson']['status'] = 'Warning';
+                    }
+                        
+                    
+                    $event->setResponse($basics);
+                });
+                
                 \Idno\Core\Idno::site()->addEventHook('upgrade', function (\Idno\Core\Event $event) {
                     
                     $new_version = $event->data()['new_version'];
