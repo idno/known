@@ -36,7 +36,7 @@ namespace ConsolePlugins\EventQueueService {
                 }
                
             } else {
-                \Idno\Core\Idno::site()->logging()->info('Starting Asynchronous event processor on queue: ' . $queue. ", polling ever $pollperiod seconds");
+                \Idno\Core\Idno::site()->logging()->info('Starting Asynchronous event processor on queue: ' . $queue. ", polling every $pollperiod seconds");
                 
                 while(self::$run) {
                 
@@ -68,7 +68,7 @@ namespace ConsolePlugins\EventQueueService {
         public function getParameters() {
             return [
                 new \Symfony\Component\Console\Input\InputArgument('queue', \Symfony\Component\Console\Input\InputArgument::OPTIONAL, 'Queue to process', 'default'),
-                new \Symfony\Component\Console\Input\InputArgument('pollperiod', \Symfony\Component\Console\Input\InputArgument::OPTIONAL, 'How often should the service poll the queue', 60),
+                new \Symfony\Component\Console\Input\InputArgument('pollperiod', \Symfony\Component\Console\Input\InputArgument::OPTIONAL, 'How often should the service poll the queue', 20),
             ];
         }
 
