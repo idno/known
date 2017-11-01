@@ -118,7 +118,7 @@
 
                         $b = serialize($a);
                     } catch (\Exception $ex) {
-                        $basics['report']['mongo-bson']['message'] = "Your MongoDB driver doesn't support BSON serialisation, some functionality has been disabled. You could try upgrading your driver - 'pecl install mongodb'.";
+                        $basics['report']['mongo-bson']['message'] = "Your MongoDB driver doesn't support BSON serialisation, some functionality will not work correctly. You could try upgrading your driver - 'pecl install mongodb'.";
                         $basics['report']['mongo-bson']['status'] = 'Warning';
                     }
                         
