@@ -17,7 +17,7 @@ namespace Idno\Entities {
         }
             
         public static function getPendingFromQueue($queue = 'default', $limit = 10, $offset = 0) {
-            return self::get(['queue' => $queue, 'complete' => ['$not' => true]], [], $limit, $offset);
+            return self::get(['queue' => $queue, 'complete' => ['$not' => ['$in' => [true]]]], [], $limit, $offset);
         }
         
         public static function getFromQueue($queue = 'default', $limit = 10, $offset = 0) {
