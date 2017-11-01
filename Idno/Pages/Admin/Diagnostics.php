@@ -45,7 +45,7 @@
                     $report .= "\$_SERVER:\n---------\n" . var_export($_SERVER, true) . "\n\n";
 
                     // Hook so other plugins and subsystems can add their own data to the report.
-                    $report = \Idno\Core\Idno::site()->triggerEvent('diagnostics/generate', [], $report);
+                    $report = \Idno\Core\Idno::site()->triggerEvent('diagnostics/report', [], $report);
 
                     echo $report;
                     exit;
@@ -144,7 +144,7 @@
                     }
                 }
 
-                return $basics;
+                return \Idno\Core\Idno::site()->triggerEvent('diagnostics/basics', [], $basics);;
             }
 
         }
