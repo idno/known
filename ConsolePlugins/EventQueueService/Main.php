@@ -68,7 +68,7 @@ namespace ConsolePlugins\EventQueueService {
         public function getParameters() {
             return [
                 new \Symfony\Component\Console\Input\InputArgument('queue', \Symfony\Component\Console\Input\InputArgument::OPTIONAL, 'Queue to process', 'default'),
-                new \Symfony\Component\Console\Input\InputArgument('pollperiod', \Symfony\Component\Console\Input\InputArgument::OPTIONAL, 'How often should the service poll the queue', 60),
+                new \Symfony\Component\Console\Input\InputArgument('pollperiod', \Symfony\Component\Console\Input\InputArgument::OPTIONAL, 'How often should the service poll the queue', 20),
             ];
         }
 
