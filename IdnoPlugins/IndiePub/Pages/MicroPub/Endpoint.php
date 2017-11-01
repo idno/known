@@ -449,12 +449,14 @@
                 if (!filter_var($url, FILTER_VALIDATE_URL)) {
                     $this->error(400, 'invalid_request', 'URL is invalid');
                 }
-                $entity = \Idno\Common\Entity::getByUUID($url);
+
+                $slug = end(explode('/', $url));
+                $entity = \Idno\Common\Entity::getBySlug($slug);
                 if ($entity === false) {
-                    $this->error(400, 'not_found');
+                    $this->error(400, 'not_found', 'Post not found');
                 }
 
-                if (in_array($type, $verbs)) {
+                if (!in_array($type, $verbs)) {
                     $this->error(
                         400,
                         'invalid_request',
