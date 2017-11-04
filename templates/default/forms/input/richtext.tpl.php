@@ -51,77 +51,27 @@
     if (!empty($vars['required'])) { ?>
         <div class="required-text alert alert-danger" style="display:none;">Please complete this field.</div>
     <?php } ?>
-<?php
 
-    if (!empty($vars['wordcount'])) {
-
-?>
-        <div class="wordcount" id="result">
-            Total words <strong><span id="totalWords<?=$unique_id?>">0</span></strong>
-        </div>
-<?php
-
-    } else {
-
-    ?>
-    <!--<br>-->
-    <?php
-
-    }
-
-?>
 </div>    
 
 <script>
 
-    counter = function () {
-
-        var value = $('#<?=$unique_id?>').text();
-        if (value.length == 0) {
-            $('#totalWords').html(0);
-            $('#totalChars').html(0);
-            $('#charCount').html(0);
-            $('#charCountNoSpace').html(0);
-            return;
-        }
-
-        var regex = /\S+/g;
-        var wordCount = knownStripHTML(value).replace(/\n/g,' ').trim().split(' ').length;
-        var totalChars = value.length;
-        var charCount = value.trim().length;
-        var charCountNoSpace = value.replace(regex, '').length;
-
-        $('#totalWords<?=$unique_id?>').html(wordCount);
-        $('#totalChars<?=$unique_id?>').html(totalChars);
-        $('#charCount<?=$unique_id?>').html(charCount);
-        $('#charCountNoSpace<?=$unique_id?>').html(charCountNoSpace);
-
-    };
 
     $(document).ready(function () {
-        $('#<?=$unique_id?>').change(counter);
-        $('#<?=$unique_id?>').keydown(counter);
-        $('#<?=$unique_id?>').keypress(counter);
-        $('#<?=$unique_id?>').keyup(counter);
-        $('#<?=$unique_id?>').blur(counter);
-        $('#<?=$unique_id?>').focus(counter);
-        counter();
-    });
-
-    $(document).ready(function () {
-        makeRichText('#<?=$unique_id?>');
+       makeRichText('#<?=$unique_id?>');     
     });
 
     function makeRichText(container) {
-        $(container).tinymce({
-            selector: 'textarea',
+        tinymce.init({
+            selector: container,
             theme: 'modern',
-            skin: 'light',
-            statusbar: false,
+            <?php if (!empty($vars['wordcount'])) { ?> statusbar: true, <?php } ?>
+            branding: false,
             menubar: false,
             height: <?=$height?>,
+            autoresize_min_height: <?=$height?>,
             toolbar: 'styleselect | bold italic | link image | blockquote bullist numlist | alignleft aligncenter alignright | code',
-            plugins: 'code link image autoresize',
+            plugins: 'code link image lists autoresize<?php if (!empty($vars['wordcount'])) { echo " wordcount"; } ?>',
             relative_urls : false,
             remove_script_host : false,
             convert_urls : true,
@@ -132,11 +82,9 @@
                 filePickerDialog(callback, value, meta);
             },
             setup: function(ed) {
-                ed.on('keyup', function(e) {
-                    //console.log('Editor contents was modified. Contents: ' + ed.getContent());
-                    //check_submit();
-                    counter();
-                });
+            },
+            mobile: {
+                theme: 'mobile'
             }
         });
     }
