@@ -84,9 +84,11 @@
 <?= $this->draw('entity/edit/footer'); ?>
 <script>
 
-    // Autosave the title & body
-    autoSave('entry', ['title', 'body'], {
-      'body': '#<?=$unique_id?>',
+    $(document).ready(function(){
+        // Autosave the title & body
+        autoSave('entry', ['title', 'body'], {
+          'body': '#<?=$unique_id?>',
+        });
     });
 
 </script>
