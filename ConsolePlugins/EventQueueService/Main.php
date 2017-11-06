@@ -24,37 +24,41 @@ namespace ConsolePlugins\EventQueueService {
                 \Idno\Core\Idno::site()->logging()->info('Shutting down, this may take a little while...');
             });
             
-            $pid = pcntl_fork();
-            if ($pid == -1) {
-                 throw new \RuntimeException("Could not fork a new process");
-            } else if ($pid) {
-                \Idno\Core\Idno::site()->logging()->info('Starting GC thread for ' . $queue);
-                
-                while(self::$run) {
-                    sleep(300);
-                    $eventqueue->gc(300, $queue);
-                }
-               
-            } else {
-                \Idno\Core\Idno::site()->logging()->info('Starting Asynchronous event processor on queue: ' . $queue. ", polling every $pollperiod seconds");
-                
-                while(self::$run) {
-                
-                    \Idno\Core\Idno::site()->logging()->debug('Polling queue...');
-                    
-                    if ($events = \Idno\Entities\AsynchronousQueuedEvent::getPendingFromQueue($queue)) {
-                        foreach ($events as $evnt) {
-                            try {
-                                $eventqueue->dispatch($evnt);
-                            } catch (\Exception $ex) {
-                                \Idno\Core\Idno::site()->logging()->error($ex->getMessage());
+            try {
+                $pid = pcntl_fork();
+                if ($pid == -1) {
+                     throw new \RuntimeException("Could not fork a new process");
+                } else if ($pid) {
+                    \Idno\Core\Idno::site()->logging()->info('Starting GC thread for ' . $queue);
+
+                    while(self::$run) {
+                        sleep(300);
+                        $eventqueue->gc(300, $queue);
+                    }
+
+                } else {
+                    \Idno\Core\Idno::site()->logging()->info('Starting Asynchronous event processor on queue: ' . $queue. ", polling every $pollperiod seconds");
+
+                    while(self::$run) {
+
+                        \Idno\Core\Idno::site()->logging()->debug('Polling queue...');
+
+                        if ($events = \Idno\Entities\AsynchronousQueuedEvent::getPendingFromQueue($queue)) {
+                            foreach ($events as $evnt) {
+                                try {
+                                    $eventqueue->dispatch($evnt);
+                                } catch (\Exception $ex) {
+                                    \Idno\Core\Idno::site()->logging()->error($ex->getMessage());
+                                }
                             }
                         }
+
+                        sleep($pollperiod);
                     }
-                    
-                    sleep($pollperiod);
-                }
-            } 
+                } 
+            } catch (\Exception $e) {
+                \Idno\Core\Idno::site()->logging()->error($e->getMessage());
+            }
        }
 
         public function getCommand() {
