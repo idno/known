@@ -67,7 +67,7 @@ class AsynchronousQueue extends EventQueue
                 $username = $user->getName();
             }
 
-            \Idno\Core\Idno::site()->logging()->info("Dispatching event " . $event->getID() . ": {$event->event} as $username queued at " . date('r', $event->queuedTs));
+            \Idno\Core\Idno::site()->logging()->info("[".date('r')."] Dispatching event " . $event->getID() . ": {$event->event} as $username queued at " . date('r', $event->queuedTs));
             //\Idno\Core\Idno::site()->logging()->debug(print_r($event, true));
             $result = \Idno\Core\Idno::site()->triggerEvent($event->event, unserialize($event->eventData));
             
@@ -91,7 +91,7 @@ class AsynchronousQueue extends EventQueue
      */
     function gc($timeago = 300, $queue = null) {
         
-        \Idno\Core\Idno::site()->logging()->debug("Garbage collecting...");
+        \Idno\Core\Idno::site()->logging()->debug("[".date('r')."] Garbage collecting...");
         
         $search = [
             'completedTs' => [
