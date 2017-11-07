@@ -287,6 +287,9 @@ namespace Idno\Common {
         static function getByURL($url, $cached = true) {
             if (isset(self::$entity_cache[$url]) && $cached) return self::$entity_cache[$url];
             
+            if (!self::isLocalUUID($url))
+                return false;
+            
             $return = \Idno\Core\Idno::site()->triggerEvent('object/getbyurl', [
                 'url' => $url
             ], false);
