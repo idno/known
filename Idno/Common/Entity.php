@@ -43,6 +43,8 @@ namespace Idno\Common {
                     $this->setOwner(\Idno\Core\Idno::site()->session()->currentUser());
                 }
             }
+            
+            parent::__construct();
         }
 
         /**
