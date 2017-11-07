@@ -73,7 +73,8 @@ namespace Idno\Common {
 
                     if (!$found) {
                         
-                        $slug = end(explode('/', $url));
+                        $bits = explode('/', $url);
+                        $slug = end($bits);
                         
                         if ($result = static::getBySlug($slug)) {
                             $event->setResponse($result);
