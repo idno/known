@@ -46,6 +46,43 @@ namespace Idno\Common {
             
             parent::__construct();
         }
+        
+        public function registerEventHooks() {
+            
+            // Attempt to find content by URL
+            \Idno\Core\Idno::site()->addEventHook('object/getbyurl', function (\Idno\Core\Event $event) {
+                
+                $url = $event->data()['url'];
+                $object = $event->response();
+                
+                if (!empty($url) && empty($object)) {
+                    
+                    $found = false;
+                    
+                    if ($result = static::getOneFromAll(array('url' => $url))) {
+                        $event->setResponse($result);
+                        $found = true;
+                    }
+                    
+                    if (!$found) {
+                        if ($result = static::getOneFromAll(array('canonical' => $url))) {
+                            $event->setResponse($result);
+                            $found = true;
+                        }
+                    }
+
+                    if (!$found) {
+                        
+                        $slug = end(explode('/', $url));
+                        
+                        if ($result = static::getBySlug($slug)) {
+                            $event->setResponse($result);
+                            $found = true;
+                        }
+                    }
+                }
+            });
+        }
 
         /**
          * Set the owner of this entity to a particular user
