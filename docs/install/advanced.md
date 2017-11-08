@@ -50,3 +50,6 @@ Once running, this service will periodically trigger an event to which code can 
 
 !!! note "Service User"
     You should run both ```service-event-queue``` and ```service-cron``` as the webserver user so that it can read and write to files. On Debian this is usually ```www-data```.
+
+!!! warning "Updating Known"
+    When you update Known core or any plugins (especially syndication plugins), it is important to restart your cron service to take advantage of the new code!
