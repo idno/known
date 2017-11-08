@@ -32,6 +32,10 @@ sudo -u www-data KNOWN_DOMAIN='your.domain' ./known service-event-queue
     export KNOWN_DOMAIN='your.domain.name'
     ```
 
+!!! warning "Updating Known"
+    When you update Known core or any plugins (especially syndication plugins), it is important to restart your event queue so that
+    the queue runs the updated code.
+
 ## Periodic Execution Service
 
 Sometimes it is desirable to execute actions in the background and periodic intervals, the advanced periodic execution services allows you to do this.
