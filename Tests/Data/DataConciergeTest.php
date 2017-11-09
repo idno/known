@@ -109,6 +109,12 @@ namespace Tests\Data {
 
             $this->validateObject($obj);
         }
+        
+        public function testGetByURL() {
+            $obj = \Idno\Entities\GenericDataItem::getByURL(self::$url);
+
+            $this->validateObject($obj);
+        }
 
         public function testGetByMetadata() {
 

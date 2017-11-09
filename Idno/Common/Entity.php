@@ -46,6 +46,44 @@ namespace Idno\Common {
             
             parent::__construct();
         }
+        
+        public function registerEventHooks() {
+            
+            // Attempt to find content by URL
+            \Idno\Core\Idno::site()->addEventHook('object/getbyurl', function (\Idno\Core\Event $event) {
+                
+                $url = $event->data()['url'];
+                $object = $event->response();
+                
+                if (!empty($url) && empty($object)) {
+                    
+                    $found = false;
+                    
+                    if ($result = static::getOneFromAll(array('url' => $url))) {
+                        $event->setResponse($result);
+                        $found = true;
+                    }
+                    
+                    if (!$found) {
+                        if ($result = static::getOneFromAll(array('canonical' => $url))) {
+                            $event->setResponse($result);
+                            $found = true;
+                        }
+                    }
+
+                    if (!$found) {
+                        
+                        $bits = explode('/', $url);
+                        $slug = end($bits);
+                        
+                        if ($result = static::getBySlug($slug)) {
+                            $event->setResponse($result);
+                            $found = true;
+                        }
+                    }
+                }
+            });
+        }
 
         /**
          * Set the owner of this entity to a particular user
@@ -275,6 +313,30 @@ namespace Idno\Common {
             if (!empty(self::$entity_cache[$uuid]) && $cached) return self::$entity_cache[$uuid];
             $return = static::getOneFromAll(array('uuid' => $uuid));
             if ($return instanceof Entity) self::$entity_cache[$uuid] = $return;
+            return $return;
+        }
+        
+        /**
+         * Attempt to retrieve an entity by it's url (not the same as UUID).
+         * This function will try and get an entity by a URL, calling out to an event (object/getbyurl) to allow for extension.
+         * Important, this is not always going to be 100%, since urls are not guaranteed unique for all time in the database, although they almost
+         * always are, they don't have the same guarantees as UUIDs or IDs.
+         * @param type $url
+         * @return \Idno\Common\Entity|false
+         */
+        static function getByURL($url, $cached = true) {
+            if (isset(self::$entity_cache[$url]) && $cached) return self::$entity_cache[$url];
+            
+            if (!self::isLocalUUID($url))
+                return false;
+            
+            $return = \Idno\Core\Idno::site()->triggerEvent('object/getbyurl', [
+                'url' => $url
+            ], false);
+            
+            if (!empty($return))
+                self::$entity_cache[$url] = $return;
+            
             return $return;
         }
 
