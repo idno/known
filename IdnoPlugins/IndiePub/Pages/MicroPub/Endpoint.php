@@ -450,7 +450,8 @@
                     $this->error(400, 'invalid_request', 'URL is invalid');
                 }
 
-                $slug = end(explode('/', $url));
+                $bits = explode('/', $url);
+                $slug = end($bits);
                 $entity = \Idno\Common\Entity::getBySlug($slug);
                 if ($entity === false) {
                     $this->error(400, 'not_found', 'Post not found');
