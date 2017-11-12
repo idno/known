@@ -19,15 +19,7 @@ namespace Idno\Caching {
         public function load($key) {
 
             if (isset(self::$staticCache[$key])) {
-                if (\Idno\Core\Idno::site()->config()->debug) {
-                    \Idno\Core\Idno::site()->logging->debug("Loading $key");
-                }
-
                 return self::$staticCache[$key];
-            }
-
-            if (\Idno\Core\Idno::site()->config()->debug) {
-                \Idno\Core\Idno::site()->logging->debug("$key not cached");
             }
 
             return false;
@@ -38,8 +30,6 @@ namespace Idno\Caching {
         }
 
         public function store($key, $value) {
-            if (\Idno\Core\Idno::site()->config()->debug)
-                \Idno\Core\Idno::site()->logging->debug("Caching $key");
 
             self::$staticCache[$key] = $value;
 
