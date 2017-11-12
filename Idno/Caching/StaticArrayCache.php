@@ -3,10 +3,10 @@
 namespace Idno\Caching {
 
     /**
-     * A version of MemoryCache which uses a shared array, this means it's safe to use "$foo = new MemoryCache()" and still have access
+     * A version of ArrayCache which uses a shared array, this means it's safe to use "$foo = new StaticArrayCache()" and still have access
      * to values set elsewhere in the system.
      */
-    class StaticArrayCache extends MemoryCache {
+    class StaticArrayCache extends ArrayCache {
 
         private static $staticCache = [];
 
