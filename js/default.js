@@ -168,12 +168,19 @@ Notifications.poll = function () {
 			    var body = data.notifications[i].body;
 			    var icon = data.notifications[i].icon;
 			    var link = data.notifications[i].link;
-			    var notification = new Notification(title, {
-				icon: icon,
-				body: body
-			    });
-			    notification.onclick = function(e) {
-				window.location.href = link;
+			    try {
+				var notification = new Notification(title, {
+				    icon: icon,
+				    body: body,
+				    data: link
+				});
+				notification.onclick = function(e) {
+				    window.location.href = link;
+				}
+			    } catch (e) {
+				// We have to use service worker, as New doesn't work
+				
+				// TODO : Implement
 			    }
 			}
 		    }
@@ -192,6 +199,11 @@ Notifications.enable = function (opt_dontAsk) {
 	console.log("The Notification API is not supported by this browser");
 	return;
     }
+    
+    // New method click handling
+    self.addEventListener('notificationclick', function(event) {
+	window.location.href = event.notification.data;
+    });
     
     if (Notification.permission !== 'denied' && Notification.permission !== 'granted' && !opt_dontAsk) {
 	Notification.requestPermission(function (permission) {
