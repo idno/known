@@ -163,13 +163,19 @@ Notifications.poll = function () {
 		//console.log(data);
 		if (data.notifications)
 		    if (data.notifications.length > 0) {
-			var title = data.notifications[0].title;
-			var body = data.notifications[0].body;
-			var icon = data.notifications[0].icon;
-			new Notification(title, {
-			    icon: icon,
-			    body: body
-			});
+			for (i = 0; i < data.notifications.length; i++) {
+			    var title = data.notifications[i].title;
+			    var body = data.notifications[i].body;
+			    var icon = data.notifications[i].icon;
+			    var link = data.notifications[i].link;
+			    var notification = new Notification(title, {
+				icon: icon,
+				body: body
+			    });
+			    notification.onclick = function(e) {
+				window.location.href = link;
+			    }
+			}
 		    }
 	    })
 	    .fail(function (data) {
@@ -186,7 +192,7 @@ Notifications.enable = function (opt_dontAsk) {
 	console.log("The Notification API is not supported by this browser");
 	return;
     }
-
+    
     if (Notification.permission !== 'denied' && Notification.permission !== 'granted' && !opt_dontAsk) {
 	Notification.requestPermission(function (permission) {
 	    // If the user accepts, let's create a notification
