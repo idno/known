@@ -15,7 +15,7 @@ namespace Idno\Pages\Service\Notifications {
             $last_time = $user->last_notification_time;
             if (!$last_time) {
                 $last_time = 0;
-            }    $last_time = 0;
+            }
 
             $notifs = Notification::getFromX('Idno\Entities\Notification', [
                         'owner' => $user->getUUID(),
