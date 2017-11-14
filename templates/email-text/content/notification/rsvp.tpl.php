@@ -20,3 +20,6 @@ Here's what they said:
     }
 
 ?>
+<?php
+    unset($this->vars['notification']);
+?>

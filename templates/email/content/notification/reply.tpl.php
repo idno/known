@@ -25,3 +25,6 @@ Here's what they said:<br>
     }
 
 ?>
+<?php
+    unset($this->vars['notification']);
+?>
