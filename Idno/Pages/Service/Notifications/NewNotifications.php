@@ -15,7 +15,7 @@ namespace Idno\Pages\Service\Notifications {
             $last_time = $user->last_notification_time;
             if (!$last_time) {
                 $last_time = 0;
-            }
+            }    $last_time = 0;
 
             $notifs = Notification::getFromX('Idno\Entities\Notification', [
                         'owner' => $user->getUUID(),
@@ -41,6 +41,7 @@ namespace Idno\Pages\Service\Notifications {
                         'body' => $body,
                         'icon' => $annotation['owner_image'],
                         'created' => date('c', $notif->created),
+                        'link' => (empty($notif->url)) ? \Idno\Core\Idno::site()->config()->getDisplayURL() . 'account/notifications' : $notif->url
                     ];
                 }, $notifs);
             } else {
