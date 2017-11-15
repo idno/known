@@ -748,6 +748,7 @@
                     'default_16'  => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k_16.png',
                     'default_32'  => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k_32.png',
                     'default_36'  => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k_36.png',
+                    'default_48'  => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k_48.png',
                     'default_64'  => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k_64.png',
 
                     // Apple logos
