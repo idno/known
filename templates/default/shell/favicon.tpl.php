@@ -2,7 +2,10 @@
 
     $icons = Idno\Core\site()->getSiteIcons();
     $page_icon = $icons['page'];
-    $page_icon_mime = (strpos($page_icon, '.jpg') !== false) ? 'image/jpg' : 'image/png';
+    
+    $mimebits = explode('.', $page_icon);
+    $page_icon_mime = 'image/' . end($mimebits);
+            
  
 ?>
 
