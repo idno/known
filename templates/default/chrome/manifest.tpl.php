@@ -4,6 +4,12 @@
 
     $icons = \Idno\Core\Idno::site()->getSiteIcons();
     
+    // Calculate application scope, match that of service worker
+    $scope = '/';
+    $url = parse_url(\Idno\Core\Idno::site()->config()->getDisplayURL());
+    if (!empty($url['path']))
+        $scope = $url['path'];
+    
     $manifest = [
         'name' => \Idno\Core\Idno::site()->config()->getTitle(),
         'short_name' => \Idno\Core\Idno::site()->config()->getTitle(),
@@ -11,7 +17,8 @@
             
         ],
         'start_url' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login',
-        'display' => 'standalone'
+        'display' => 'standalone',
+        'scope' => $scope
     ];
             
     // Crufty, but slightly more extendable icons
