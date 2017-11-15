@@ -14,4 +14,4 @@
         $vars['exception'] = $e;
     }
     
-    echo json_encode($vars);
+    echo json_encode($vars, JSON_PRETTY_PRINT);

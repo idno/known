@@ -41,6 +41,7 @@ namespace Idno\Pages\Service\Notifications {
                         'body' => $body,
                         'icon' => $annotation['owner_image'],
                         'created' => date('c', $notif->created),
+                        'link' => (empty($notif->url)) ? \Idno\Core\Idno::site()->config()->getDisplayURL() . 'account/notifications' : $notif->link
                     ];
                 }, $notifs);
             } else {

@@ -163,13 +163,26 @@ Notifications.poll = function () {
 		//console.log(data);
 		if (data.notifications)
 		    if (data.notifications.length > 0) {
-			var title = data.notifications[0].title;
-			var body = data.notifications[0].body;
-			var icon = data.notifications[0].icon;
-			new Notification(title, {
-			    icon: icon,
-			    body: body
-			});
+			for (i = 0; i < data.notifications.length; i++) {
+			    var title = data.notifications[i].title;
+			    var body = data.notifications[i].body;
+			    var icon = data.notifications[i].icon;
+			    var link = data.notifications[i].link;
+			    try {
+				var notification = new Notification(title, {
+				    icon: icon,
+				    body: body,
+				    data: link
+				});
+				notification.onclick = function(e) {
+				    window.location.href = link;
+				}
+			    } catch (e) {
+				// We have to use service worker, as New doesn't work
+				
+				// TODO : Implement
+			    }
+			}
 		    }
 	    })
 	    .fail(function (data) {
@@ -186,7 +199,12 @@ Notifications.enable = function (opt_dontAsk) {
 	console.log("The Notification API is not supported by this browser");
 	return;
     }
-
+    
+    // New method click handling
+    self.addEventListener('notificationclick', function(event) {
+	window.location.href = event.notification.data;
+    });
+    
     if (Notification.permission !== 'denied' && Notification.permission !== 'granted' && !opt_dontAsk) {
 	Notification.requestPermission(function (permission) {
 	    // If the user accepts, let's create a notification
