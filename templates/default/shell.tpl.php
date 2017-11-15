@@ -13,6 +13,7 @@
     echo $template->draw('shell/metatags'); 
     echo $template->draw('shell/icons'); 
     echo $template->draw('shell/favicon'); 
+    echo $template->draw('shell/webapp'); 
     echo $template->draw('shell/opengraph'); 
     echo $template->draw('shell/dublincore'); 
     echo $template->draw('shell/amp'); 

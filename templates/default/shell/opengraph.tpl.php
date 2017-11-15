@@ -11,32 +11,6 @@
         $objectIcon = false;
     }
 
-    if (\Idno\Core\Idno::site()->session()->isLoggedIn()) {
-
-        ?>
-        <!-- <link rel="manifest" href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>chrome/manifest.json"> -->
-        <?php
-        if (Idno\Core\site()->isSecure()) {
-            ?>
-            <!-- <script>
-                window.addEventListener('load', function () {
-                    if ('serviceWorker' in navigator) {
-                        navigator.serviceWorker.register('<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>chrome/service-worker.js', {scope: '/'})
-                            .then(function (r) {
-                                console.log('Registered service worker');
-                            })
-                            .catch(function (whut) {
-                                console.error('Could not register service worker');
-                                console.error(whut);
-                            });
-                    }
-                });
-            </script> -->
-            <?php
-        }
-
-    }
-
     $opengraph = array(
         'og:type'      => 'website',
         'og:title'     => htmlspecialchars(strip_tags($vars['title'])),

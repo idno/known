@@ -198,6 +198,9 @@
 
                 /** Mobile integrations */
                 $this->addPageHandler('/chrome/manifest\.json', '\Idno\Pages\Chrome\Manifest', true);
+                
+                /** Service worker */
+                $this->addPageHandler('/service-worker(\.min)?\.js', '\Idno\Pages\Chrome\ServiceWorker', true);
 
                 /** Files */
                 $this->addPageHandler('/file/upload/?', '\Idno\Pages\File\Upload', true);
@@ -759,13 +762,18 @@
                     'default'     => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k.png',
                     'default_16'  => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k_16.png',
                     'default_32'  => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k_32.png',
+                    'default_36'  => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k_36.png',
+                    'default_48'  => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k_48.png',
                     'default_64'  => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k_64.png',
+                    'default_96'  => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k_96.png',
 
                     // Apple logos
                     'default_57'  => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-57x57.png',
                     'default_72'  => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-72x72.png',
                     'default_114' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-114x114.png',
                     'default_144' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-144x144.png',
+                    
+                    'default_192' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k_192.png',
                 ];
 
                 // If we're on a page, see if that has a specific icon
