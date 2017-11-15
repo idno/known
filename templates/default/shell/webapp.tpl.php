@@ -20,7 +20,16 @@ if (Idno\Core\site()->isSecure()) {
     <script>
         window.addEventListener('load', function () {
     	if ('serviceWorker' in navigator) {
-    	    navigator.serviceWorker.register('<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>service-worker.min.js', {scope: '/'})
+    	    navigator.serviceWorker.register('<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>service-worker.min.js', {
+                scope: '<?php 
+                    // Work out scope
+                    $url = parse_url(\Idno\Core\Idno::site()->config()->getDisplayURL());
+                    if (empty($url['path']))
+                        echo '/';
+                    else
+                        echo $url['path'];
+                ?>'
+            })
     		    .then(function (r) {
     			console.log('Registered service worker');
     		    })
