@@ -2,7 +2,8 @@
 
     namespace Idno\Caching {
 
-        abstract class Cache
+        abstract class Cache 
+            extends \Idno\Common\Component
             implements \ArrayAccess
         {
 
