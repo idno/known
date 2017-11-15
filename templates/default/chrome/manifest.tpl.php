@@ -10,7 +10,7 @@
         'icons' => [
             
         ],
-        'start_url' => \Idno\Core\Idno::site()->config()->getDisplayURL(),
+        'start_url' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login',
         'display' => 'standalone'
     ];
             
