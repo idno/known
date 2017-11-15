@@ -198,6 +198,9 @@
 
                 /** Mobile integrations */
                 $this->addPageHandler('/chrome/manifest\.json', '\Idno\Pages\Chrome\Manifest', true);
+                
+                /** Service worker */
+                $this->addPageHandler('/service-worker(\.min)?\.js', '\Idno\Pages\Chrome\ServiceWorker', true);
 
                 /** Files */
                 $this->addPageHandler('/file/upload/?', '\Idno\Pages\File\Upload', true);
