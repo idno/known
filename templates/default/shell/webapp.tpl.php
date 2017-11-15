@@ -15,7 +15,7 @@ $page_icon_mime = (strpos($page_icon, '.jpg') !== false) ? 'image/jpg' : 'image/
 <link rel="manifest" href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>chrome/manifest.json">
 
 <?php
-if (Idno\Core\site()->isSecure()) {
+if (\Idno\Core\Idno::site()->isSecure() && \Idno\Core\Idno::site()->session()->isLoggedIn()) {
     ?>
     <script>
         window.addEventListener('load', function () {
