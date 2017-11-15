@@ -622,28 +622,40 @@
              * @return string
              * @deprecated Use Version::version();
              */
-            function version() { return Version::version(); }
+            function version() { 
+                trigger_error("Idno::version() has been deprecated, use Version::version()");
+                return Version::version(); 
+            }
 
             /**
              * Alias for version()
              * @return string
              * @deprecated Use Version::version();
              */
-            function getVersion() { return $this->version(); }
+            function getVersion() { 
+                trigger_error("Idno::getVersion() has been deprecated, use Version::version()");
+                return $this->version(); 
+            }
 
             /**
              * Retrieve a machine-readable version of Known's version number
              * @return string
              * @deprecated Use Version::build();
              */
-            function machineVersion() { return Version::build(); }
+            function machineVersion() { 
+                trigger_error("Idno::machineVersion() has been deprecated, use Version::build()");
+                return Version::build(); 
+            }
 
             /**
              * Alias for machineVersion
              * @return string
              * @deprecated Use Version::build();
              */
-            function getMachineVersion() { return $this->machineVersion(); }
+            function getMachineVersion() { 
+                trigger_error("Idno::getMachineVersion() has been deprecated, use Version::build()");
+                return $this->machineVersion(); 
+            }
             
 
             /**
@@ -837,7 +849,7 @@
                 if (!empty($this->config()->update_version)) {
                     $last_update = $this->config()->update_version;
                 }
-                $machine_version = $this->getMachineVersion();
+                $machine_version = Version::build();
                 
                 if ($last_update < $machine_version) {
                 
