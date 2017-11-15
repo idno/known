@@ -9,6 +9,10 @@
         class MemoryCache
             extends ArrayCache
         {
-            
+            public function __construct() {
+                trigger_error("MemoryCache has been deprecated, use ArrayCache");
+                
+                parent::__construct();
+            }
         }
     }
