@@ -754,6 +754,8 @@
                     'default_72'  => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-72x72.png',
                     'default_114' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-114x114.png',
                     'default_144' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-144x144.png',
+                    
+                    'default_192' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k_192.png',
                 ];
 
                 // If we're on a page, see if that has a specific icon
