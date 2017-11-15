@@ -2,42 +2,31 @@
 
     header("Content-type: application/json");
 
-?>
-{
-"name": "<?=htmlspecialchars(\Idno\Core\Idno::site()->config()->getTitle())?>",
-"short_name": "<?=htmlspecialchars(\Idno\Core\Idno::site()->config()->getTitle())?>",
-"icons": [
-{
-"src": "<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>gfx/logos/logo_k_36.png",
-"sizes": "36x36",
-"type": "image/png"
-},
-{
-"src": "<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>gfx/logos/logo_k_48.png",
-"sizes": "48x48",
-"type": "image/png"
-},
-{
-"src": "<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>gfx/logos/logo_k_72.png",
-"sizes": "72x72",
-"type": "image/png"
-},
-{
-"src": "<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>gfx/logos/logo_k_96.png",
-"sizes": "96x96",
-"type": "image/png"
-},
-{
-"src": "<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>gfx/logos/logo_k_144.png",
-"sizes": "144x144",
-"type": "image/png"
-},
-{
-"src": "<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>gfx/logos/logo_k_192.png",
-"sizes": "192x192",
-"type": "image/png"
-}
-],
-"start_url": "../",
-"display": "standalone"
-}
+    $icons = \Idno\Core\Idno::site()->getSiteIcons();
+    
+    $manifest = [
+        'name' => \Idno\Core\Idno::site()->config()->getTitle(),
+        'short_name' => \Idno\Core\Idno::site()->config()->getTitle(),
+        'icons' => [
+            
+        ],
+        'start_url' => \Idno\Core\Idno::site()->config()->getDisplayURL(),
+        'display' => 'standalone'
+    ];
+            
+    // Crufty, but slightly more extendable icons
+    foreach (['36', '48', '72', '96', '144', '192'] as $size) {
+        
+        $namebits = explode('.', $icons['defaults']['default_'.$size]);
+        
+        $entry = [
+            'src' => $icons['defaults']['default_'.$size],
+            'sizes' => $size.'x'.$size, // Assume square for now.
+            'type' => 'image/' . end($namebits)
+        ];
+        
+        
+        $manifest['icons'][] = $entry;
+    }
+    
+    echo json_encode($manifest, JSON_PRETTY_PRINT);
