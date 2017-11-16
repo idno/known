@@ -27,7 +27,7 @@ ImageTools.base64ToArrayBuffer = function(base64) {
 
 /**
  * Wrapper.
- * @@description Use Image.base64ToArrayBuffer
+ * @description Use Image.base64ToArrayBuffer
  */
 function base64ToArrayBuffer(base64) { return ImageTools.base64ToArrayBuffer(base64); }
 

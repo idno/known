@@ -351,6 +351,7 @@ function htmlEntityDecode(encodedString) {
  * @deprecated Use known.config.displayUrl
  */
 function wwwroot() {
+    Logger.deprecated("wwwroot() is deprecated, use known.config.displayUrl");
     return known.config.displayUrl;
 }
 
@@ -360,6 +361,7 @@ function wwwroot() {
  * @returns {Boolean}
  */
 function isLoggedIn() {
+    Logger.deprecated("isLoggedIn() is deprecated, use known.session.loggedin");
     if (typeof known !== 'undefined')
 	if (known.session.loggedIn) {
 	    return true;
@@ -376,7 +378,7 @@ $(document).ready(function () {
     if (!!url) {
 	window.location = url;
     }
-
+    
     if (known.session.loggedIn) {
 	//TODO(ben) re-enable in a smarter way
 	//Notifications.enable(true);
