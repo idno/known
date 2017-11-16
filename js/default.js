@@ -133,6 +133,10 @@ Logger.error = function(message) {
     Logger.log(message, 'ERROR');
 }
 
+Logger.deprecated = function(message) {
+    Logger.info('DEPRECATED ' + message);
+}
+
 Logger.errorHandler = function (error) {
 
     var stack = error.error.stack;
