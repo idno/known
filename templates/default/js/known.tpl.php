@@ -17,7 +17,8 @@ $known = [
         'admin' => \Idno\Core\Idno::site()->session()->isAdmin()
     ],
     'config' => [
-        'displayUrl' => \Idno\Core\Idno::site()->config()->getDisplayURL()
+        'displayUrl' => \Idno\Core\Idno::site()->config()->getDisplayURL(),
+        'debug' => !empty(\Idno\Core\Idno::site()->config()->debug)
     ],
     'page' => [
         'currentUrl' => \Idno\Core\Idno::site()->currentPage()->currentUrl(),
@@ -27,6 +28,5 @@ $known = [
 
 ?>
 <script>
-    var known = <?= json_encode($known); ?>;
-    
+    var known = <?= json_encode($known); ?>; 
 </script>
