@@ -335,17 +335,6 @@ function inIframe() {
     }
 }
 
-/**
- * Decode HTML elements
- * @param encodedString
- * @returns {string}
- */
-function htmlEntityDecode(encodedString) {
-    var textArea = document.createElement('textarea');
-    textArea.innerHTML = encodedString;
-    return textArea.value;
-}
-
 /*
  * Shim so that JS functions can get the current site URL
  * @deprecated Use known.config.displayUrl
