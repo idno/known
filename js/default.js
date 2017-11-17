@@ -311,18 +311,6 @@ function hideContentCreateForm() {
     }
 }
 
-
-/**
- * Strip HTML from string
- * @param html
- * @returns {string}
- */
-function knownStripHTML(html) {
-    var tmp = document.createElement("DIV");
-    tmp.innerHTML = html;
-    return tmp.textContent || tmp.innerText || "";
-}
-
 /**
  * Are we in an iFrame?
  * @returns {boolean}
