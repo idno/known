@@ -27,10 +27,7 @@
     }
 
 ?>
-<!--<p style="float: right">
-    <small>
-        <a href="#" onclick="tinymce.EditorManager.execCommand('mceRemoveEditor',true, '<?= $unique_id; ?>'); $('#plainTextSwitch').hide(); $('#richTextSwitch').show(); return false;" id="plainTextSwitch">Switch to plain text editor</a>
-        <a href="#" onclick="makeRichText('#<?=$unique_id?>'); $('#plainTextSwitch').show(); $('#richTextSwitch').hide(); return false;" id="richTextSwitch" style="display:none">Switch to rich text editor</a></small></p>-->
+
 <?php
 
     if (!empty($vars['label'])) {
@@ -51,62 +48,10 @@
     if (!empty($vars['required'])) { ?>
         <div class="required-text alert alert-danger" style="display:none;">Please complete this field.</div>
     <?php } ?>
-<?php
-
-    if (!empty($vars['wordcount'])) {
-
-?>
-        <div class="wordcount" id="result">
-            Total words <strong><span id="totalWords<?=$unique_id?>">0</span></strong>
-        </div>
-<?php
-
-    } else {
-
-    ?>
-    <!--<br>-->
-    <?php
-
-    }
-
-?>
+        <br />
 </div>    
 
 <script>
-
-    counter = function () {
-
-        var value = $('#<?=$unique_id?>').text();
-        if (value.length == 0) {
-            $('#totalWords').html(0);
-            $('#totalChars').html(0);
-            $('#charCount').html(0);
-            $('#charCountNoSpace').html(0);
-            return;
-        }
-
-        var regex = /\S+/g;
-        var wordCount = knownStripHTML(value).replace(/\n/g,' ').trim().split(' ').length;
-        var totalChars = value.length;
-        var charCount = value.trim().length;
-        var charCountNoSpace = value.replace(regex, '').length;
-
-        $('#totalWords<?=$unique_id?>').html(wordCount);
-        $('#totalChars<?=$unique_id?>').html(totalChars);
-        $('#charCount<?=$unique_id?>').html(charCount);
-        $('#charCountNoSpace<?=$unique_id?>').html(charCountNoSpace);
-
-    };
-
-    $(document).ready(function () {
-        $('#<?=$unique_id?>').change(counter);
-        $('#<?=$unique_id?>').keydown(counter);
-        $('#<?=$unique_id?>').keypress(counter);
-        $('#<?=$unique_id?>').keyup(counter);
-        $('#<?=$unique_id?>').blur(counter);
-        $('#<?=$unique_id?>').focus(counter);
-        counter();
-    });
 
     $(document).ready(function () {
         makeRichText('#<?=$unique_id?>');
@@ -118,10 +63,15 @@
             theme: 'modern',
             skin: 'light',
             statusbar: false,
+            <?php if (!empty($vars['wordcount'])) { 
+                ?>statusbar: true, <?php 
+            } else { 
+                ?>statusbar: false,<?php } ?>
+            branding: false,
             menubar: false,
             height: <?=$height?>,
             toolbar: 'styleselect | bold italic | link image | blockquote bullist numlist | alignleft aligncenter alignright | code',
-            plugins: 'code link image autoresize',
+            plugins: 'code link image autoresize <?php if (!empty($vars['wordcount'])) { echo " wordcount"; } ?>',
             relative_urls : false,
             remove_script_host : false,
             convert_urls : true,
@@ -131,13 +81,6 @@
             file_picker_callback: function (callback, value, meta) {
                 filePickerDialog(callback, value, meta);
             },
-            setup: function(ed) {
-                ed.on('keyup', function(e) {
-                    //console.log('Editor contents was modified. Contents: ' + ed.getContent());
-                    //check_submit();
-                    counter();
-                });
-            }
         });
     }
 

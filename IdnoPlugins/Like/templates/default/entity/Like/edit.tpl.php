@@ -114,7 +114,7 @@
                         url: $('.bookmark-url').val()
                     },
                     success: function (data) {
-                        $('.bookmark-title').val(htmlEntityDecode(data.value));
+                        $('.bookmark-title').val(data.value);
                         $('.bookmark-spinner-container').html(" ");
                         $('.bookmark-title-container').show();
                         

@@ -196,6 +196,77 @@ Template.autoSave = function (context, elements, selectors) {
     }, 10000);
 }
 
+/**
+ *** Content creation
+ */
+
+Template.isCreateFormVisible = false;
+
+Template.bindControls = function() {
+    $('.acl-ctrl-option').click(function () {
+	$('#access-control-id').val($(this).attr('data-acl'));
+	$('#acl-text').html($(this).html());
+    });
+    $('.syndication-toggle input[type=checkbox]').bootstrapToggle();
+    $('.ignore-this').hide();
+
+    Security.activateACLControls();
+    Template.enableFormCandy();
+    Template.enableRichTextRequired();
+
+    $('#contentCreate .form-control').first().focus();
+}
+
+function bindControls() {
+    Template.bindControls();
+}
+
+Template.initContentCreateForm = function(plugin, editUrl) {
+    if (Template.isCreateFormVisible) {
+	// Ignore additional clicks on create button
+	return;
+    }
+
+    Template.isCreateFormVisible = true;
+    $.ajax(editUrl, {
+	dataType: 'html',
+	success: function (data) {
+	    $('#contentCreate').html(data).slideDown(400);
+	    $('#contentTypeButtonBar').slideUp(400);
+	    window.contentCreateType = plugin;
+	    window.contentPage = true;
+
+	    bindControls();
+	},
+	error: function (error) {
+	    $('#contentTypeButtonBar').slideDown(400);
+	    Template.isCreateFormVisible = false;
+	}
+
+    });
+}
+
+function contentCreateForm(plugin, editUrl) {
+    Template.initContentCreateForm(plugin, editUrl);
+}
+
+Template.hideContentCreateForm = function() {
+    Template.isCreateFormVisible = false;
+    if (window.contentPage == true) {
+	$('#contentTypeButtonBar').slideDown(200);
+	$('#contentCreate').slideUp(200);
+    } else {
+	//window.close(); // Will only fire for child windows
+	if (window.history.length > 1) {
+	    window.history.back();
+	}
+    }
+}
+
+function hideContentCreateForm() {
+    Template.hideContentCreateForm();
+}
+
 
 /**
  * Periodically send the current values of this form to the server.

@@ -13,12 +13,6 @@
  @subpackage core
  */
 
-/**
- * Globals
- */
-
-var isCreateFormVisible = false;
-
 /** Known security object */
 function Security() {}
 
@@ -252,99 +246,6 @@ $(document).ready(function () {
 	Notifications.enable(true); // Don't pester asking for permission, only do that on notifications page
     }
 });
-
-
-/**
- *** Content creation
- */
-
-function bindControls() {
-    $('.acl-ctrl-option').click(function () {
-	$('#access-control-id').val($(this).attr('data-acl'));
-	$('#acl-text').html($(this).html());
-    });
-    $('.syndication-toggle input[type=checkbox]').bootstrapToggle();
-    $('.ignore-this').hide();
-
-    Security.activateACLControls();
-    Template.enableFormCandy();
-    Template.enableRichTextRequired();
-
-    $('#contentCreate .form-control').first().focus();
-}
-
-function contentCreateForm(plugin, editUrl) {
-    if (isCreateFormVisible) {
-	// Ignore additional clicks on create button
-	return;
-    }
-
-    isCreateFormVisible = true;
-    $.ajax(editUrl, {
-	dataType: 'html',
-	success: function (data) {
-	    $('#contentCreate').html(data).slideDown(400);
-	    $('#contentTypeButtonBar').slideUp(400);
-	    window.contentCreateType = plugin;
-	    window.contentPage = true;
-
-	    bindControls();
-	},
-	error: function (error) {
-	    $('#contentTypeButtonBar').slideDown(400);
-	    isCreateFormVisible = false;
-	}
-
-    });
-}
-
-function hideContentCreateForm() {
-    isCreateFormVisible = false;
-    if (window.contentPage == true) {
-	$('#contentTypeButtonBar').slideDown(200);
-	$('#contentCreate').slideUp(200);
-    } else {
-	//window.close(); // Will only fire for child windows
-	if (window.history.length > 1) {
-	    window.history.back();
-	}
-    }
-}
-
-
-/**
- * Strip HTML from string
- * @param html
- * @returns {string}
- */
-function knownStripHTML(html) {
-    var tmp = document.createElement("DIV");
-    tmp.innerHTML = html;
-    return tmp.textContent || tmp.innerText || "";
-}
-
-/**
- * Are we in an iFrame?
- * @returns {boolean}
- */
-function inIframe() {
-    try {
-	return window.self !== window.top;
-    } catch (e) {
-	return true;
-    }
-}
-
-/**
- * Decode HTML elements
- * @param encodedString
- * @returns {string}
- */
-function htmlEntityDecode(encodedString) {
-    var textArea = document.createElement('textarea');
-    textArea.innerHTML = encodedString;
-    return textArea.value;
-}
 
 /*
  * Shim so that JS functions can get the current site URL
