@@ -311,18 +311,6 @@ function hideContentCreateForm() {
     }
 }
 
-/**
- * Are we in an iFrame?
- * @returns {boolean}
- */
-function inIframe() {
-    try {
-	return window.self !== window.top;
-    } catch (e) {
-	return true;
-    }
-}
-
 /*
  * Shim so that JS functions can get the current site URL
  * @deprecated Use known.config.displayUrl
