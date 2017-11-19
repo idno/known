@@ -18,7 +18,7 @@
             You can also <a href="https://withknown.com/opensource/?utm_source=admin&utm_medium=installation">learn more about our open source project.</a>
         </p>
         <p>
-            Version: <?= \Idno\Core\Idno::site()->version(); ?>
+            Version: <?= \Idno\Core\Version::version(); ?>
         </p>
     </div>
 </div>
