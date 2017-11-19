@@ -1,6 +1,6 @@
 <?php 
-$details = \Idno\Core\Idno::site()->version(). " installed";
-if (version_compare(\Idno\Core\Idno::site()->version(), strtolower($vars['version'])) < 0) {
+$details = \Idno\Core\Version::version(). " installed";
+if (version_compare(\Idno\Core\Version::version(), strtolower($vars['version'])) < 0) {
     $label = 'label-danger';
     $details = $vars['version'] . " - ($details)";
 } else {
