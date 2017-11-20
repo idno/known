@@ -186,7 +186,7 @@ class MrClay_AutoP {
 
             // inside affected elements, we want to trim leading whitespace from
             // the first text node
-            $ltrimFirstTextNode = false;
+            $ltrimFirstTextNode = true;
 
             // should we open a new AUTOP element to move inline elements into?
             $openP = true;
