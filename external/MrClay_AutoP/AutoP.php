@@ -262,7 +262,8 @@ class MrClay_AutoP {
                             $inlinesToProcess[] = $tmpNode;
                         }
                         $node = $node->nextSibling;
-                        $autop->appendChild($tmpNode);
+                        $ltrimFirstTextNode = false;
+                        $autop->appendChild($tmpNode);                        
                         continue;
                     }
                 }
