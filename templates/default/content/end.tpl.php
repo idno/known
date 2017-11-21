@@ -52,7 +52,7 @@
 	    <span class="annotate-icon">
             <?php
                 if (!$has_liked) {
-                    $heart_only = '<i class="fa fa-star-o"></i>';
+                    $heart_only = '<i class="fa fa-star-o" title="Star this!"></i>';
                 } else {
                     $heart_only = '<i class="fa fa-star"></i>';
                 }
