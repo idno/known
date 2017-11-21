@@ -334,7 +334,7 @@
             {
                 $token = new \Idno\Core\TokenProvider();
 
-                $apikey       = strtolower(substr(base64_encode($token->generateToken(32)), 12, 16));
+                $apikey       = strtolower(base64_encode($token->generateToken(24)));
                 $this->apikey = $apikey;
                 $this->save();
 

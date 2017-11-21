@@ -57,16 +57,29 @@
 
 <div class="row" style="margin-top: 2em">
 
-    <div class="col-md-4 col-md-offset-1">
+    <div class="col-md-10 col-md-offset-1">
 
         <h2>API</h2>
-        <p>
-            <form id="apikey_form"><?= $t->__(['action' => '/account/settings/tools/'])->draw('forms/token')?>
-            Your API key: <input type="text" id="apikey" class="span4" name="apikey"
-                                 value="Click to show" readonly></form> <?php
+        
+        <div class="form-group">
+            <div class="col-md-2">
+                <label class="control-label">Your API key: </label>
+            </div>
+            <div class="col-md-8">
+                
+                <form id="apikey_form"><?= $t->__(['action' => '/account/settings/tools/'])->draw('forms/token')?>
+                    <input type="text" id="apikey" class=" form-control" name="apikey" value="Click to show" readonly></form>
+            </div>
+
+            <div class="col-md-1">
+                 <?php
                                  if (!empty($user->apikey)) {
                                      echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->currentPage()->currentUrl(), 'Revoke', array('_method' => 'revoke'), array('method' => 'POST', 'class' => 'btn btn-danger', 'confirm' => true, 'confirm-text' => 'Revoking this key will mean you must update any applications that use this key!'));
                                  } ?>
+            </div>
+        </div>
+        <p>
+            
         </p>
 
     </div>
