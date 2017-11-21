@@ -25,6 +25,7 @@
             {
 
                 $this->createGatekeeper(); // User is logged in and can post content
+                $return = 0;
 
                 // Get variables
                 $body        = $this->getInput('body');
@@ -54,10 +55,18 @@
                         if ($object->addAnnotation($type, $user->getTitle(), $user->getURL(), $user->getIcon(), $body)) {
                             $object->save();
                         }
+                    } 
+                    
+                    if ($this->xhr) {
+                        echo json_encode('ok');
+                        exit; 
                     }
+                    
                     $this->forward($object->getDisplayURL() . '#comments');
                 }
 
+                if ($this->xhr)
+                    echo json_encode('error');
             }
 
         }
