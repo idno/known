@@ -477,6 +477,7 @@
             function parseUsers($text, $in_reply_to = null)
             {
 
+                $usermatch_regex = '/(?<=^|[\>\s\n\.])(\@[\w0-9\_]+)/i';
                 $r = $text;
 
                 if (!empty($in_reply_to)) {
@@ -489,8 +490,8 @@
                         if (is_array($in_reply_to))
                             $in_reply_to = $in_reply_to[0];
 
-                        $r = preg_replace_callback('/(?<=^|[\>\s\n\.])(\@[\w0-9\_]+)/i', function ($matches) use ($in_reply_to) {
-                            $url = $matches[1];
+                        $r = preg_replace_callback($usermatch_regex, function ($matches) use ($in_reply_to) {
+                            $url = $matches[1]; 
 
                             // Find and replace twitter
                             if (strpos($in_reply_to, 'twitter.com') !== false) {
@@ -512,10 +513,10 @@
 
                 } else {
                     // No in-reply, so we assume a local user
-                    $r = preg_replace_callback('/(?<=^|[\>\s\n])(\@[A-Za-z0-9\_]+)/i', function ($matches) {
+                    $r = preg_replace_callback($usermatch_regex, function ($matches) {
                         $url = $matches[1];
 
-                        $username = ltrim($matches[1], '@');
+                        $username = ltrim($matches[1], '@'); 
 
                         if ($user = User::getByHandle($username)) {
                             return '<a href="' . \Idno\Core\Idno::site()->config()->url . 'profile/' . urlencode($username) . '" >' . $url . '</a>';

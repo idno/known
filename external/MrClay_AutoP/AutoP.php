@@ -8,6 +8,9 @@
  * In DIV elements, Ps are only added when there would be at
  * least two of them.
  *
+ * 2017/11/20: Modified to avoid https://github.com/mrclay/old-misc/issues/7
+ *      Marcus Povey <marcus@marcus-povey.co.uk>
+ * 
  * @author Steve Clay <steve@mrclay.org>
  * @license http://www.opensource.org/licenses/mit-license.php  MIT License
  */
@@ -259,7 +262,8 @@ class MrClay_AutoP {
                             $inlinesToProcess[] = $tmpNode;
                         }
                         $node = $node->nextSibling;
-                        $autop->appendChild($tmpNode);
+                        $ltrimFirstTextNode = false;
+                        $autop->appendChild($tmpNode);                        
                         continue;
                     }
                 }
