@@ -7,7 +7,7 @@
     if (empty($vars['method']) || !in_array($vars['method'],array('GET','POST','PUT','DELETE'))) $vars['method'] = 'POST';
 
 ?>
-<a <?php if (!empty($vars['class'])) { ?> class="<?=$vars['class'];?>" <?php } ?> <?php if (!empty($vars['title'])) { ?> title="<?=$vars['title'];?>" <?php } ?> href="<?=($vars['url'])?>" onclick="<?php 
+<a data-form-id="<?= $uniqueID; ?>" <?php if (!empty($vars['class'])) { ?> class="<?=$vars['class'];?>" <?php } ?> <?php if (!empty($vars['title'])) { ?> title="<?=$vars['title'];?>" <?php } ?> href="<?=($vars['url'])?>" onclick="<?php 
     if ($vars['confirm']) {
         ?>if (confirm('<?= addslashes($vars['confirm-text']); ?>')) { $('#<?=$uniqueID?>').submit(); return false; } else { return false; } <?php
     } else {
@@ -44,4 +44,5 @@
     unset($this->vars['method']);
     unset($this->vars['data']);
     unset($this->vars['label']);
+    unset($this->vars['id']);
 ?>
