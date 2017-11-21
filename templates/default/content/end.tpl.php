@@ -49,10 +49,10 @@
             </p>
         </div>
         <div class="interactions">
-	        <span class="annotate-icon">
+	    <span class="annotate-icon">
             <?php
                 if (!$has_liked) {
-                    $heart_only = '<i class="fa fa-star-o"></i>';
+                    $heart_only = '<i class="fa fa-star-o" title="Star this!"></i>';
                 } else {
                     $heart_only = '<i class="fa fa-star"></i>';
                 }
@@ -63,16 +63,28 @@
                 }
                 $heart = $heart_only . ' ' . $heart_text;
                 if (\Idno\Core\Idno::site()->session()->isLoggedOn()) {
-					echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'annotation/post', $heart_only, ['type' => 'like', 'object' => $vars['object']->getUUID()], ['method' => 'POST', 'class' => 'stars']);
+                    echo \Idno\Core\Idno::site()->actions()->createLink(
+                        \Idno\Core\Idno::site()->config()->getDisplayURL() . 'annotation/post', 
+                        $heart_only, 
+                        [
+                            'type' => 'like', 
+                            'object' => $vars['object']->getUUID()
+                        ], 
+                        [
+                            'method' => 'POST', 
+                            'class' => 'stars-toggle'
+                        ]
+                    );
             ?>
-           <a class="stars" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?= $heart_text ?></a></span>
+                    <a class="stars" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?= $heart_text ?></a>
         <?php
-        } else {
+                } else {
             ?>
-            <a class="stars" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?= $heart ?></a></span>
+                    <a class="stars" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?= $heart ?></a>
         <?php
-        }
+                }
             ?>
+            </span>
            <span class="annotate-icon"> <a class="comments" href="<?= $vars['object']->getDisplayURL() ?>#comments"><i class="fa fa-comments"></i> <?php
 
                     //echo $replies;

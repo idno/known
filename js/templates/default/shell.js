@@ -43,6 +43,34 @@ Template.addErrorMessage = function(message) { Template.addMessage(message, 'ale
 function addMessage(message, message_type) { Template.addMessage(); }
 function addErrorMessage(message) { Template.addErrorMessage(message); }
 
+/** Enable stars toggle */
+Template.activateStarToggle = function() {
+    $('.interactions .annotate-icon a.stars-toggle').each(function () {
+	
+	var form = $(this).attr('data-form-id');
+	var star = $(this).find('i.fa');
+	
+	$('#' + form).submit(function(e){
+	    e.preventDefault();
+	    
+	    $.ajax({
+		type: "POST",
+		url: $(this).attr('action'),
+		data: $(this).serialize(),
+		success: function(data) {
+		    
+		    if (star.hasClass('fa-star-o')) {
+			star.removeClass('fa-star-o').addClass('fa-star');
+		    } else {
+			star.removeClass('fa-star').addClass('fa-star-o');
+		    }
+		}
+	    });
+	});
+    });
+}
+
+
 /** Enable some form candy, like ctrl+enter submit */
 Template.enableFormCandy = function() {
     
@@ -214,6 +242,7 @@ Template.bindControls = function() {
     Template.enableFormCandy();
     Template.enableRichTextRequired();
 
+    // Candy: set focus to first entry on a form.
     $('#contentCreate .form-control').first().focus();
 }
 
@@ -286,6 +315,8 @@ function annotateContent() {
 $(document).ready(function () {
     $.timeago.settings.cutoff = 30 * 24 * 60 * 60 * 1000; // 1 month
     annotateContent();
+    
+    Template.activateStarToggle();
 });
 
 /**
