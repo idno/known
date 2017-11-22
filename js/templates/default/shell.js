@@ -49,6 +49,7 @@ Template.activateStarToggle = function() {
 	
 	var form = $(this).attr('data-form-id');
 	var star = $(this).find('i.fa');
+	var startext = star.closest('span.annotate-icon').find('a.stars');
 	
 	$('#' + form).submit(function(e){
 	    e.preventDefault();
@@ -64,6 +65,8 @@ Template.activateStarToggle = function() {
 		    } else {
 			star.removeClass('fa-star').addClass('fa-star-o');
 		    }
+		    
+		    startext.text(data.text);
 		}
 	    });
 	});
