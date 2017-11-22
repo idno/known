@@ -25,8 +25,9 @@
             {
 
                 $this->createGatekeeper(); // User is logged in and can post content
-                $return = 0;
-
+                
+                \Idno\Core\Idno::site()->template()->setTemplateType('json'); // Set template
+                
                 // Get variables
                 $body        = $this->getInput('body');
                 $object_uuid = $this->getInput('object');
@@ -58,15 +59,25 @@
                     } 
                     
                     if ($this->xhr) {
-                        echo json_encode('ok');
-                        exit; 
+                        
+                        $likes = $object->countAnnotations('like');
+                        if ($likes == 1) {
+                            $heart_text = 'star';
+                        } else {
+                            $heart_text = 'stars';
+                        }
+                        
+                        \Idno\Core\Idno::site()->template()->__([
+                            'number' => $likes,
+                            'text' => "$likes $heart_text"
+                        ])->drawPage();
                     }
                     
                     $this->forward($object->getDisplayURL() . '#comments');
                 }
 
-                if ($this->xhr)
-                    echo json_encode('error');
+                // Missing object, error
+                $this->goneContent ();
             }
 
         }
