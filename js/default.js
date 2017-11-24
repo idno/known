@@ -252,7 +252,7 @@ $(document).ready(function () {
  * @deprecated Use known.config.displayUrl
  */
 function wwwroot() {
-    Logger.deprecated("wwwroot() is deprecated, use known.config.displayUrl");
+    //Logger.deprecated("wwwroot() is deprecated, use known.config.displayUrl");
     return known.config.displayUrl;
 }
 
@@ -262,7 +262,7 @@ function wwwroot() {
  * @returns {Boolean}
  */
 function isLoggedIn() {
-    Logger.deprecated("isLoggedIn() is deprecated, use known.session.loggedin");
+    //Logger.deprecated("isLoggedIn() is deprecated, use known.session.loggedin");
     if (typeof known !== 'undefined')
 	if (known.session.loggedIn) {
 	    return true;

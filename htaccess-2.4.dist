@@ -22,10 +22,6 @@
     RewriteRule ^(.*)$ %{ENV:BASE}/index.php?/$1 [L,QSA]
     RewriteRule ^Uploads.* - [F]
 </IfModule>
-<IfModule mod_php5.c>
-    php_value upload_max_filesize 1000M
-    php_value post_max_size 1080M
-</IfModule>
 <Files  ~ "\.dist$">
   Require all denied
 </Files>
