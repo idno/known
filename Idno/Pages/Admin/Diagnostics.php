@@ -19,7 +19,7 @@
                 // Create diagnostics report
                 if ($this->xhr) {
 
-                    $report = "Known Diagnostics: Version " . \Idno\Core\Idno::site()->version() . ' (' . \Idno\Core\Idno::site()->getMachineVersion() . ") \nDate: " . date('r') . "\n\n";
+                    $report = "Known Diagnostics: Version " . \Idno\Core\Version::version() . ' (' . \Idno\Core\Version::build() . ") \nDate: " . date('r') . "\n\n";
                     $report .= "*** WARNING: This report contains sensitive information. Be careful about how you transmit it, and to whom. ***\n\n";
                     $report .= "Basics:\n-------\n\n";
 
@@ -77,11 +77,11 @@
                 }
 
                 // Check PHP version 
-                if (version_compare(phpversion(), '5.6') >= 0) {
+                if (version_compare(phpversion(), '7.0') >= 0) {
                     $basics['report']['php-version'] = [
                         'status' => 'Ok'
                     ];
-                } else if (version_compare(phpversion(), '5.4') >= 0) {
+                } else if (version_compare(phpversion(), '5.6') >= 0) {
                     $basics['status']             = 'Failure';
                     $basics['report']['php-version'] = [
                         'status'  => 'Warning',
