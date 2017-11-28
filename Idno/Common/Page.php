@@ -312,6 +312,20 @@
                     $this->parseJSONPayload();
                     $return = $this->postContent();
                 } else {
+                
+                    \Idno\Core\Idno::site()->logging()->error("Token could not be generated:\n\nDebug:". print_r([
+                        'time' => $_REQUEST['__bTs'],
+                        'token' => \Idno\Core\TokenProvider::truncateToken($_REQUEST['__bTk']),
+                        'action' => $_REQUEST['__bTa'],
+                        'session_id' => session_id(),
+                        'expected-token' => \Idno\Core\TokenProvider::truncateToken(
+                                \Idno\Core\Bonita\Forms::token($_REQUEST['__bTa'], $_REQUEST['__bTs'])
+                        ),
+                        'expected-token-no-action' => \Idno\Core\TokenProvider::truncateToken(
+                                \Idno\Core\Bonita\Forms::token('', $_REQUEST['__bTs'])
+                        )
+                    ],true));
+                    
                     throw new \RuntimeException('Invalid token.');
                 }
 
