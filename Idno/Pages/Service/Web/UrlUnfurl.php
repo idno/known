@@ -53,7 +53,7 @@ namespace Idno\Pages\Service\Web {
                 $unfurled['id'] = $object->getID();
                 $unfurled['rendered'] = $template->__(['object' => $object])->draw('entity/UnfurledUrl');
                 
-                echo json_encode($unfurled);
+                echo json_encode($unfurled, JSON_PRETTY_PRINT);
                 
                 exit;
             }
@@ -75,7 +75,7 @@ namespace Idno\Pages\Service\Web {
             $unfurled['id'] = $object->getID();
             $unfurled['rendered'] = $template->__(['object' => $object])->draw('entity/UnfurledUrl');
 
-            echo json_encode($unfurled);
+            echo json_encode($unfurled, JSON_PRETTY_PRINT);
         }
 
     }
