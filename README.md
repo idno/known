@@ -88,3 +88,4 @@ Third party libraries are licensed separately.
 * MongoDB-PHP-Library, which is distributed under the Apache 2 Licence. Source: https://github.com/mongodb/mongo-php-library
 * Exif-js, which is distributed under the MIT Licence. Source: https://github.com/exif-js/exif-js
 * Fragmentions, distributed under the CC0 1.0 Universal Licence: https://github.com/chapmanu/fragmentions
+* PHP-OGP, distributed under the GPL2 Licence. Source: https://github.com/mapkyca/php-ogp
