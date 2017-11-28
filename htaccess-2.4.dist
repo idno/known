@@ -25,6 +25,9 @@
 <Files  ~ "\.dist$">
   Require all denied
 </Files>
+<Files ~ "composer\.lock">
+  Require all denied
+</Files>
 <Files ~ "known\.php">
   Require all denied
 </Files>
