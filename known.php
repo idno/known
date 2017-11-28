@@ -72,6 +72,18 @@
                                 ->setCode([$c, 'execute']);
                     } 
                 }
+            } else {
+                $stubclass = "ConsolePlugins\\$file";
+                $stubclass = str_replace('.php', '', $stubclass);
+                if (class_exists($stubclass)) {
+                    $c = new $stubclass(); 
+                    if ($c instanceof \Idno\Common\ConsolePlugin) {
+                        $console->register($c->getCommand())
+                                ->setDescription($c->getDescription())
+                                ->setDefinition($c->getParameters())
+                                ->setCode([$c, 'execute']);
+                    } 
+                }
             }
         }
     }
