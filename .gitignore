@@ -3,6 +3,7 @@
 Idno/.idea/.name
 
 .vagrant
+.elasticbeanstalk
 
 *.iml
 
