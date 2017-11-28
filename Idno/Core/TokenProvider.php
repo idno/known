@@ -34,6 +34,17 @@
 
                 return $bytes;
             }
+            
+            /**
+             * Helper that will return a partially redacted token for output.
+             * Sometimes it is necessary to output a token, but you might not want 
+             * to output the whole thing since all you really want to know is if they're similar to another.
+             * @param string $token
+             * @return retacted token
+             */
+            public static function truncateToken($token) {
+                return substr($token, 0, 3) . '[...]' . substr($token, -5);
+            }
 
         }
 
