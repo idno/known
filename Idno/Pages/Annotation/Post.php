@@ -26,7 +26,9 @@
 
                 $this->createGatekeeper(); // User is logged in and can post content
                 
-                \Idno\Core\Idno::site()->template()->setTemplateType('json'); // Set template
+                if ($this->xhr) {
+                    \Idno\Core\Idno::site()->template()->setTemplateType('json'); // Set template
+                }
                 
                 // Get variables
                 $body        = $this->getInput('body');
