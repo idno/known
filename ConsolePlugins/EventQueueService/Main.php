@@ -60,24 +60,32 @@ namespace ConsolePlugins\EventQueueService {
                 } else {
                     \Idno\Core\Idno::site()->logging()->info('Starting Asynchronous event processor on queue: ' . $queue. ", polling every $pollperiod seconds");
 
-                    // Reinitialise DB
-                    $this->reinitialiseDB();
-                    
-                    while(self::$run) {
+                    while (self::$run) {
+                        
+                        try {
+                            // Reinitialise DB
+                            $this->reinitialiseDB();
 
-                        \Idno\Core\Idno::site()->logging()->debug('Polling queue...');
+                            while(self::$run) {
 
-                        if ($events = \Idno\Entities\AsynchronousQueuedEvent::getPendingFromQueue($queue)) {
-                            foreach ($events as $evnt) {
-                                try {
-                                    $eventqueue->dispatch($evnt);
-                                } catch (\Exception $ex) {
-                                    \Idno\Core\Idno::site()->logging()->error($ex->getMessage());
+                                \Idno\Core\Idno::site()->logging()->debug('Polling queue...');
+
+                                if ($events = \Idno\Entities\AsynchronousQueuedEvent::getPendingFromQueue($queue)) {
+                                    foreach ($events as $evnt) {
+                                        try {
+                                            $eventqueue->dispatch($evnt);
+                                        } catch (\Exception $ex) {
+                                            \Idno\Core\Idno::site()->logging()->error($ex->getMessage());
+                                        }
+                                    }
                                 }
-                            }
-                        }
 
-                        sleep($pollperiod);
+                                sleep($pollperiod);
+                            }
+                        
+                        } catch (\Exception $e) {
+                            \Idno\Core\Idno::site()->logging()->error($e->getMessage());
+                        }                    
                     }
                 } 
             } catch (\Exception $e) {
