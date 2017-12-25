@@ -19,7 +19,7 @@
                 'sessionname'            => 'known', // Default session name
                 'boolean_search'         => true, // Should search be boolean?
                 'open_registration'      => true, // Can anyone register for this system?
-                'initial_plugins'        => array('Status', 'Text', 'Photo', 'Firefox', 'FooterJS', 'IndiePub', 'Styles'),
+                'initial_plugins'        => array('Status', 'Text', 'Photo', 'Event', 'Firefox', 'FooterJS', 'IndiePub', 'Styles'),
                 'plugins'                => array(), // Default plugins
                 'assets'                 => [      // Assets to be included
                                                    'mediaelementplayer' => true,
