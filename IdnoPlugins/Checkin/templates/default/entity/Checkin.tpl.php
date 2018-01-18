@@ -15,7 +15,7 @@
         <?php } ?>
     </h2>
 
-    <span class="p-geo h-geo">
+    <span class="p-location u-checkin h-card">
         <data class="p-name" value="<?= $object->placename ?>"></data>
         <data class="p-latitude" value="<?= $object->lat ?>"></data>
         <data class="p-longitude" value="<?= $object->long ?>"></data>
