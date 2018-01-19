@@ -69,9 +69,9 @@
                     session_save_path(Idno::site()->config()->session_path);
                 }
 
+                session_cache_limiter('public');
                 session_name(Idno::site()->config->sessionname);
                 session_start();
-                session_cache_limiter('public');
 
                 // Flag insecure sessions (so we can check state changes etc)
                 if (!isset($_SESSION['secure'])) {
