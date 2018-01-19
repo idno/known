@@ -9,7 +9,7 @@
 
     namespace Idno\Entities {
 
-        class Object extends \Idno\Common\Entity
+        class BaseObject extends \Idno\Common\Entity
         {
 
 
