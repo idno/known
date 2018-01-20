@@ -11,7 +11,7 @@
 
             // Property containing the entity class associated with this content type (default is generic object type)
             static public $registered = array();
-            public $entity_class = 'Idno\\Entities\\Object';
+            public $entity_class = 'Idno\\Entities\\BaseObject';
             public $handler_class = 'Idno\\Common\\ContentType';
             public $title = 'Content type';
             public $indieWebContentType = array();
