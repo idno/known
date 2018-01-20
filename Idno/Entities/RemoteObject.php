@@ -9,7 +9,7 @@
 
     namespace Idno\Entities {
 
-        class RemoteObject extends \Idno\Entities\Object implements \JsonSerializable
+        class RemoteObject extends \Idno\Entities\BaseObject implements \JsonSerializable
         {
 
             public function save($add_to_feed = false, $feed_verb = 'post')

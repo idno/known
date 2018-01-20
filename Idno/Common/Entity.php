@@ -16,7 +16,7 @@ namespace Idno\Common {
     use Idno\Core\Webmention;
     use Idno\Entities\User;
 
-    class Entity extends Component implements EntityInterface
+    abstract class Entity extends Component implements EntityInterface
     {
 
         // Which collection should this be stored in?
