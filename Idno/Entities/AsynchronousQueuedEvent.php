@@ -5,7 +5,7 @@ namespace Idno\Entities {
     /**
      * Represents a queued event stored in the AsynchronousQueue.
      */
-    class AsynchronousQueuedEvent extends \Idno\Entities\Object {
+    class AsynchronousQueuedEvent extends \Idno\Entities\BaseObject {
          
         public function save($add_to_feed = false, $feed_verb = 'post')
         {

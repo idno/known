@@ -4,7 +4,7 @@ namespace Idno\Entities {
 
     use Idno\Common\Component;
 
-    class UnfurledUrl extends Object {
+    class UnfurledUrl extends BaseObject {
 
         /**
          * Copied and modified from https://github.com/mapkyca/php-ogp, extract information from graph headers

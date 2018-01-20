@@ -10,7 +10,7 @@
 
     namespace Idno\Entities {
 
-        class GenericDataItem extends \Idno\Entities\Object
+        class GenericDataItem extends \Idno\Entities\BaseObject
         {
             /**
              * Retrieve a bit of generic data by it's data type
