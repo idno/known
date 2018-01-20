@@ -25,7 +25,7 @@ class EntityTest extends \Tests\KnownTestCase {
 
     public function testPrepareSlug()
     {
-        $entity = new GenericDataItem();
+        $entity = new GenericDataItem(); $entity->setDatatype('data-slug-test');
         $this->assertEquals(
             'test-a-simple-title',
             $entity->prepareSlug('Test a Simple Title'));
@@ -67,13 +67,13 @@ class EntityTest extends \Tests\KnownTestCase {
         $title  = "IndieWebCamp Nürnberg $unique is live!";
         $slug   = "indiewebcamp-n%C3%BCrnberg-$unique-is-live";
 
-        $entity = new GenericDataItem();
+        $entity = new GenericDataItem();  $entity->setDatatype('data-slug-test');
         $entity->setSlugResilient($title);
         $this->assertEquals($slug, $entity->getSlug());
         $entity->save();
         $this->toDelete[] = $entity;
 
-        $entity = new GenericDataItem();
+        $entity = new GenericDataItem();  $entity->setDatatype('data-slug-test');
         $entity->setSlugResilient($title);
         $this->assertEquals($slug . '-1', $entity->getSlug());
         $entity->save();
@@ -85,7 +85,7 @@ class EntityTest extends \Tests\KnownTestCase {
      */
     function testAddWebmentions_SimpleReply()
     {
-        $entity = new GenericDataItem();
+        $entity = new GenericDataItem();  $entity->setDatatype('data-slug-test');
         $entity->setOwner($this->user());
         $entity->title = "This will be the target of our webmention";
         $entity->publish();
@@ -124,7 +124,7 @@ EOD;
      */
     function testAddWebmentions_OtherTypes()
     {
-        $entity = new GenericDataItem();
+        $entity = new GenericDataItem(); $entity->setDatatype('data-slug-test');
         $entity->setOwner($this->user());
         $entity->title = "This will be the target of our webmention";
         $entity->publish();
@@ -215,7 +215,7 @@ EOD
      */
     function testAddWebmentions_RemoteFeed()
     {
-        $entity = new GenericDataItem();
+        $entity = new GenericDataItem(); $entity->setDatatype('data-slug-test');
         $entity->setOwner($this->user());
         $entity->title = "This post will be the webmention target";
         $entity->publish();
@@ -262,7 +262,7 @@ EOD;
     function testAddWebmentions_LocalFeed()
     {
         for ($i = 0 ; $i < 5 ; $i++) {
-            $entity = new GenericDataItem();
+            $entity = new GenericDataItem(); $entity->setDatatype('data-slug-test');
             $entity->setOwner($this->user());
             $entity->title = "This post will be the webmention target";
             $entity->publish();
