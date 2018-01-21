@@ -11,6 +11,7 @@
 
             function getContent()
             {
+                $this->setNoCache();
                 $this->adminGatekeeper(); // Admins only
 
                 // Generate basic diagnostics for report

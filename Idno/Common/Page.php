@@ -1098,6 +1098,15 @@
             }
 
             /**
+             * Set headers to ensure that the current page is not cached.
+             */
+            public function setNoCache() {
+                header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+                header("Cache-Control: post-check=0, pre-check=0", false);
+                header("Pragma: no-cache");
+            }
+            
+            /**
              * Set the last updated header for this page.
              * Takes a unix timestamp and outputs it as RFC2616 date.
              * @param int $timestamp Unix timestamp.
