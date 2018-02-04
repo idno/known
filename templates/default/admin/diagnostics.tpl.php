@@ -47,7 +47,7 @@
         </div>
     
         <div id="diagnostics-report" style="display: none;">
-            <small><pre>
+            <small><pre style="overflow: auto; height: 500px;">
                 </pre></small>
         </div>
 
