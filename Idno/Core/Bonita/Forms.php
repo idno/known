@@ -52,6 +52,9 @@ namespace Idno\Core\Bonita {
                 if (!empty($_REQUEST['__bTa'])) {
                     $action = $_REQUEST['__bTa'];
                 } else {
+                    
+                    \Idno\Core\Idno::site()->logging()->debug("No action in token");
+                    
                     if ($haltExecutionOnBadRequest) {
                         exit;
                     }
@@ -64,6 +67,8 @@ namespace Idno\Core\Bonita {
                 if (self::token($action, $time) == $token) {
                     return true;
                 }
+            } else {
+                \Idno\Core\Idno::site()->logging()->debug("Token for $action has expired");
             }
             if ($haltExecutionOnBadRequest) {
                 exit;
