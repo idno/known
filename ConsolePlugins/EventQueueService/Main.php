@@ -52,9 +52,13 @@ namespace ConsolePlugins\EventQueueService {
                 } else if ($pid) {
                     \Idno\Core\Idno::site()->logging()->info('Starting GC thread for ' . $queue);
 
-                    while(self::$run) {
-                        sleep(300);
-                        $eventqueue->gc(300, $queue);
+                    try {
+                        while(self::$run) {
+                            sleep(300);
+                            $eventqueue->gc(300, $queue);
+                        }
+                    } catch (\Exception $e) {
+                        \Idno\Core\Idno::site()->logging()->error($e->getMessage());
                     }
 
                 } else {
