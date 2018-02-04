@@ -68,7 +68,7 @@ namespace Idno\Core\Bonita {
                     return true;
                 }
             } else {
-                \Idno\Core\Idno::site()->logging()->debug("Token for $action has expired");
+                \Idno\Core\Idno::site()->logging()->debug("Token for $action has expired - ts = " . date('r', $time));
             }
             if ($haltExecutionOnBadRequest) {
                 exit;
