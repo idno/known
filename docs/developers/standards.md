@@ -1,6 +1,4 @@
 
-# Coding standards
-
 ## The basics
 
 * American spelling is preferred for method and variable names. eg, "color" is better than "colour" and "sanitize" is better than "sanitise".
