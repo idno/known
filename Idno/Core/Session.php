@@ -69,7 +69,7 @@
                     session_save_path(Idno::site()->config()->session_path);
                 }
 
-                session_cache_limiter('public');
+                // session_cache_limiter('public // TODO: Reintroduce when page endpoints have set no-expire as appropriate
                 session_name(Idno::site()->config->sessionname);
                 session_start();
 
