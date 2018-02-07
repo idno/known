@@ -8,7 +8,6 @@ We have a few core rules for legibility:
 * All method names should use camelCase; all variable names should use snake_case.
 * American spelling is preferred for method and variable names. eg, "color" is better than "colour" and "sanitize" is better than "sanitise".
 * Use PHP doc blocks for every method, *except* inherited methods, where they are optional. Use your best judgment here.
-* No short "if" statements: for clarity, please always use { } brackets.
 * Lay your code out as beautifully as you can. We're in favor of beautifiers!
 
 Regarding the language in PHP doc blocks:
