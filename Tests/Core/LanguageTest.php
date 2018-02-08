@@ -2,7 +2,7 @@
 
 namespace Tests\Core {
 
-    class EnglishTest extends \Idno\Core\Translation {
+    class EnglishTest extends \Idno\Core\ArrayKeyTranslation {
 
         public function getStrings() {
             return [
@@ -12,7 +12,7 @@ namespace Tests\Core {
 
     }
 
-    class FrenchTest extends \Idno\Core\Translation {
+    class FrenchTest extends \Idno\Core\ArrayKeyTranslation {
 
         public function getStrings() {
             return [

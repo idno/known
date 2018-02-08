@@ -9,7 +9,7 @@ method hook.
 
 ## Adding a translation for a language
 
-It is possible to add single strings, one by one, for the current language, however the easiest way to register multiple strings is to extend ```Idno/Core/Translation``` for each language you want to translate, and then implement its ```getStrings()``` method.
+In order to add a translation, you need to register a ```Translation``` object for a given language short code. To do this you need to extend ```Idno/Core/ArrayKeyTranslation``` for each language you want to translate, and then implement its ```getStrings()``` method.
 
 It is then possible to add them all at once for each language (this way, Known will automatically select the appropriate translation for the loaded language).
 

@@ -31,9 +31,9 @@ namespace Idno\Core {
         }
         
         /**
-         * @return array An associative array of "string" => "translation"
+         * Return a specific string.
          */
-        abstract public function getStrings();
+        abstract public function getString($key);
         
     }
     

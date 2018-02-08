@@ -6,7 +6,19 @@ namespace Idno\Core {
 
     class Language extends Component {
 
+        /**
+         * Language associated array of translation objects.
+         * @var type 
+         */
+        private $translations = [];
+        
+        // @deprecated
         private $strings = [];
+        
+        /**
+         * Current language
+         * @var type 
+         */
         private $language;
 
         /**
@@ -35,6 +47,7 @@ namespace Idno\Core {
 
         /**
          * Magic method to set language variables
+         * @deprecated Add a Translation object using register
          */
         function __set($string, $translation) {
             if (!empty($string)) {
@@ -52,6 +65,7 @@ namespace Idno\Core {
         /**
          * Chainable function to allow variables to be added as an array.
          * @param $vars array Associated array of "string" => "translation"
+         * @deprecated Add a Translation object using register
          */
         function __($strings) {
             $this->addTranslations($strings);
@@ -71,6 +85,7 @@ namespace Idno\Core {
          * @param $string
          * @param $translation
          * @return bool
+         * @deprecated Add a Translation object using register
          */
         function add($string, $translation) {
             return $this->addTranslation($string, $translation);
@@ -81,6 +96,7 @@ namespace Idno\Core {
          * @param $string
          * @param $translation
          * @return bool
+         * @deprecated Add a Translation object using register
          */
         function addTranslation($string, $translation) {
             if (!empty($string) && is_string($string)) {
@@ -95,6 +111,7 @@ namespace Idno\Core {
         /**
          * Simplify adding translation strings.
          * @param array $strings Associated array of "string" => "translation"
+         * @deprecated Add a Translation object using register
          */
         function addTranslations(array $strings) {
             $this->strings = array_merge($this->strings, $strings);
@@ -108,7 +125,8 @@ namespace Idno\Core {
          */
         public function register(Translation $translation) {
             if ($translation->getLanguage() == $this->getLanguage()) {
-                $this->addTranslations($translation->getStrings());
+                //$this->addTranslations($translation->getStrings());
+                $this->translations[] = $translation;
             }
         }
         
@@ -130,9 +148,19 @@ namespace Idno\Core {
          * @return string|bool
          */
         function getTranslation($string, $failover = true) {
+            
+            // Look through translation objects
+            foreach ($this->translations as $translation) {
+                $value = $translation->getString($string);
+                if (!empty($value))
+                    return $value;
+            }
+            
+            // Look through locally added strings (deprecated).
             if (!empty($this->strings[$string])) {
                 return $this->strings[$string];
             }
+            
             if ($failover) {
                 return $string;
             }
