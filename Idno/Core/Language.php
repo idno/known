@@ -199,10 +199,21 @@ namespace Idno\Core {
          * Detect current language from browser string.
          * 
          * TODO: Put more logic here, with better fallbacks.
+         * @param bool $full if true, the full locale is returned, e.g. en_GB
          */
-        public static function detectBrowserLanguage() { 
-            if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE']))
-                return substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+        public static function detectBrowserLanguage($full = false) { 
+            
+            $length = 2; // Short form
+            if ($full)
+                $length = 5;
+            
+            $lang = "";
+            
+            if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+                $lang = preg_replace("/[^a-zA-Z\-_\s]/", "", substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, $length));
+            }
+            
+            return $lang;
         }
 
     }
