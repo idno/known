@@ -317,6 +317,7 @@
                         'time' => $_REQUEST['__bTs'],
                         'token' => \Idno\Core\TokenProvider::truncateToken($_REQUEST['__bTk']),
                         'action' => $_REQUEST['__bTa'],
+                        'site_secret' => \Idno\Core\TokenProvider::truncateToken(\Idno\Core\Idno::site()->config()->site_secret),
                         'session_id' => \Idno\Core\TokenProvider::truncateToken(session_id()),
                         'expected-token' => \Idno\Core\TokenProvider::truncateToken(
                                 \Idno\Core\Bonita\Forms::token($_REQUEST['__bTa'], $_REQUEST['__bTs'])
