@@ -199,6 +199,7 @@ namespace Idno\Core {
          * Detect current language from browser string.
          * 
          * TODO: Put more logic here, with better fallbacks.
+         * @param bool $full if true, the full locale is returned, e.g. en_GB
          */
         public static function detectBrowserLanguage($full = false) { 
             
