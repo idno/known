@@ -201,8 +201,14 @@ namespace Idno\Core {
          * TODO: Put more logic here, with better fallbacks.
          */
         public static function detectBrowserLanguage() { 
-            if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE']))
-                return substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+            
+            $lang = "";
+            
+            if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+                $lang = preg_replace("/[^a-zA-Z\-_\s]/", "", substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2));
+            }
+            
+            return $lang;
         }
 
     }
