@@ -10,6 +10,8 @@ namespace Idno\Pages\Service\Notifications {
         function getContent($params = array()) {
             $this->gatekeeper();
 
+            $this->setNoCache();
+            
             $user = Idno::site()->session()->currentUser();
 
             $last_time = $user->last_notification_time;

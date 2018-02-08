@@ -7,6 +7,7 @@ namespace Idno\Pages\Service\Security {
         function getContent() {
             
             $this->xhrGatekeeper();
+            $this->setNoCache();
             
             $action = $this->getInput('url');
             if (empty($action))
