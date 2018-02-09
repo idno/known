@@ -30,7 +30,7 @@ before_script:
   # Update and install base system
   - sudo apt-get update
   - sudo apt-get install -y --force-yes apache2 libapache2-mod-fastcgi make libxml2-utils curl
-  - if [[ ${TRAVIS_PHP_VERSION:0:1} == "7" ]]; then sudo apt-get install -y --force-yes php-dev php-pear php-mysql php-curl php-gd php-json php-sqlite php-pgsql; fi
+  - if [[ ${TRAVIS_PHP_VERSION:0:1} == "7" ]]; then sudo apt-get install -y --force-yes php-dev php-pear php-mysql php-curl php-gd php-json php-sqlite3 php-pgsql; fi
   - if [[ ${TRAVIS_PHP_VERSION:0:1} == "5" ]]; then sudo apt-get install -y --force-yes php5-dev php-pear php5-mysql php5-curl php5-gd php5-json php5-sqlite php5-pgsql; fi
   - sudo a2enmod headers
   # Enable php-fpm and Mongodb
