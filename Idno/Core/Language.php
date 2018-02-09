@@ -160,6 +160,15 @@ namespace Idno\Core {
             if (!empty($this->strings[$string])) {
                 return $this->strings[$string];
             }
+           
+            // If we're in lang_debug mode, lets flag untranslated strings
+            if (!empty(\Idno\Core\Idno::site()->config()->lang_debug)) {
+                \Idno\Core\Idno::site()->triggerEvent('language/translation/missing-string', [
+                    'string' => $string,
+                    'language' => $this->language
+                ]);
+            }
+            
             
             if ($failover) {
                 return $string;
