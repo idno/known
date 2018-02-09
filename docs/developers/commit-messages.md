@@ -8,6 +8,16 @@ This subject line should give a brief note of WHAT you changed, e.g.
 Adds reset button to post form 
 ```
 
+### Add your project to the subject
+
+If your commit is part of a logical sub project, add it to your subject, e.g.
+
+```
+PHP 7.2 compatibility: Changing out sizeof for strlen
+```
+
+Use your best judgement, but think about how to find relevant commits when scanning a change log.
+
 ## Explain why
 
 Unless immediately obvious, because the "why" part was included in the subject e.g. 
