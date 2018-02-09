@@ -69,7 +69,7 @@
                     $id = md5(mt_rand() . microtime(true) . $metadata);
 
                     // Generate save path
-                    if ($path[sizeof($path) - 1] != '/') {
+                    if (substr($path, -1) != '/') {
                         $path .= '/';
                     }
                     $upload_file = $path . \Idno\Core\Idno::site()->config()->getFileBaseDirName() . '/' . $id[0] . '/' . $id[1] . '/' . $id[2] . '/' . $id[3] . '/' . $id . '.file';

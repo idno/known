@@ -34,10 +34,14 @@
                 // Set the homepage owner for single-user sites
                 if (!$this->getOwner() && \Idno\Core\Idno::site()->config()->single_user) {
                     $owners = \Idno\Entities\User::get(['admin' => true]);
-                    if (count($owners) === 1) {
+                    if (!empty($owners) && count($owners) === 1) {
                         $this->setOwner($owners[0]);
                     } else {
-                        \Idno\Core\Idno::site()->logging()->warning('Expected exactly 1 admin user for single-user site; got '.count($owners));
+                        $number = 0;
+                        if (!empty($owners)) {
+                            $number = count($owners);
+                        }
+                        \Idno\Core\Idno::site()->logging()->warning("Expected exactly 1 admin user for single-user site; got $number");
                     }
                 }
 
