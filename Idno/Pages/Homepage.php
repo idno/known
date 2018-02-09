@@ -37,7 +37,11 @@
                     if (!empty($owners) && count($owners) === 1) {
                         $this->setOwner($owners[0]);
                     } else {
-                        \Idno\Core\Idno::site()->logging()->warning('Expected exactly 1 admin user for single-user site; got '.count($owners));
+                        $number = 0;
+                        if (!empty($owners)) {
+                            $number = count($owners);
+                        }
+                        \Idno\Core\Idno::site()->logging()->warning("Expected exactly 1 admin user for single-user site; got $number");
                     }
                 }
 
