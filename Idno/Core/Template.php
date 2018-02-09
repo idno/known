@@ -38,7 +38,6 @@
                     $this->detectTemplateType();
                 }
 
-                assert('\Idno\Core\Idno::site()->config()->site_secret /* Site secret not set */');
                 \Idno\Core\Bonita\Main::siteSecret(\Idno\Core\Idno::site()->config()->site_secret);
 
                 $this->purifier = new Purifier();
