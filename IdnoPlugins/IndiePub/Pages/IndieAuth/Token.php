@@ -36,6 +36,7 @@
                 $redirect_uri = $this->getInput('redirect_uri');
                 $state        = $this->getInput('state');
                 $client_id    = $this->getInput('client_id');
+                $scope        = $this->getInput('scope');
 
                 $verified = Auth::verifyCode($code, $client_id, $redirect_uri, $state);
                 if ($verified['valid']===true) {
@@ -52,7 +53,7 @@
                     $indieauth_tokens[$token] = array(
                         'me'           => $me,
                         'redirect_uri' => $redirect_uri,
-                        'scope'        => 'post',
+                        'scope'        => $scope,
                         'client_id'    => $client_id,
                         'issued_at'    => time(),
                         'nonce'        => mt_rand(1000000, pow(2, 30))
@@ -68,7 +69,7 @@
                     header('Content-Type: application/x-www-form-urlencoded');
                     echo http_build_query(array(
                         'access_token' => $token,
-                        'scope'        => 'post',
+                        'scope'        => $scope,
                         'me'           => $me,
                     ));
                     exit;
