@@ -2,13 +2,13 @@
 
     <div class="col-md-10 col-md-offset-1">
 	<?=$this->draw('admin/menu')?>
-        <h1>Plugins</h1>
+        <h1<?= \Idno\Core\Idno::site()->language()->_('Plugins'); ?></h1>
 
         <div class="explanation">
             <p>
-                Plugins allow you to add features to your site. These include new kinds of content, options to syndicate
+                <?= \Idno\Core\Idno::site()->language()->_('Plugins allow you to add features to your site. These include new kinds of content, options to syndicate
                 content to different sites, and features to change the way Known behaves. To enable or disable a plugin,
-                just click its enable or disable button.
+                just click its enable or disable button.'); ?>
             </p>
         </div>
         <?php

@@ -1,12 +1,12 @@
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
         <?= $this->draw('admin/menu') ?>
-        <h1>Log capture</h1>
+        <h1><?= \Idno\Core\Idno::site()->language()->_('Log capture'); ?></h1>
 
 
         <div class="explanation">
             <p>
-                This page provides you with captured PHP logs. These contain sensitive information, so be very careful how you disclose the information and to whom.
+                <?= \Idno\Core\Idno::site()->language()->_('This page provides you with captured PHP logs. These contain sensitive information, so be very careful how you disclose the information and to whom.'); ?>
             </p>
         </div>
         
@@ -16,7 +16,7 @@
                 </pre></small>
         </div>
 
-        <span class="btn btn-primary" id="logs-report-run">Refresh...</span>
+        <span class="btn btn-primary" id="logs-report-run"><?= \Idno\Core\Idno::site()->language()->_('Refresh...'); ?></span>
 
     </div>
 

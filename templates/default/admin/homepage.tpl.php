@@ -3,18 +3,18 @@
     <div class="col-md-10 col-md-offset-1">
 	            <?= $this->draw('admin/menu') ?>
         <h1>
-            Homepage content
+            <?= \Idno\Core\Idno::site()->language()->_('Homepage content'); ?>
         </h1>
 
         <div class="explanation">
             <p>
-	            Here you can choose what content visitors see on your site homepage. By default, all published content appears on the main page.
-	            If you want to hide some content types from the main page, you can turn them off below.
+	            <?= \Idno\Core\Idno::site()->language()->_('Here you can choose what content visitors see on your site homepage. By default, all published content appears on the main page.
+	            If you want to hide some content types from the main page, you can turn them off below.'); ?>
             </p>
         </div>
 
 		
-        <div class="explanation">Turn off content types to hide them from the homepage of your site.
+        <div class="explanation"><?= \Idno\Core\Idno::site()->language()->_('Turn off content types to hide them from the homepage of your site.'); ?>
         </div>
         <br>
         <form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>admin/homepage" method="post"
@@ -104,7 +104,7 @@
             
             <div class="control-group">
                 <div class="">
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary"><?= \Idno\Core\Idno::site()->language()->_('Save'); ?></button>
                 </div>
             </div>
             <?= \Idno\Core\Idno::site()->actions()->signForm('/admin/homepage') ?>

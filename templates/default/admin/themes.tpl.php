@@ -1,11 +1,11 @@
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
 	    <?=$this->draw('admin/menu')?>
-        <h1>Themes</h1>
+        <h1><?= \Idno\Core\Idno::site()->language()->_('Themes'); ?></h1>
         <div class="explanation">
             <p>
-                Themes allow you to change the way your site looks.
-                The following themes are installed.
+                <?= \Idno\Core\Idno::site()->language()->_('Themes allow you to change the way your site looks.
+                The following themes are installed.'); ?>
             </p>
         </div>
         <?php

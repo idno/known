@@ -1,12 +1,12 @@
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
         <?= $this->draw('admin/menu') ?>
-        <h1>Statistics</h1>
+        <h1><?= \Idno\Core\Idno::site()->language()->_('Statistics'); ?></h1>
 
 
         <div class="explanation">
             <p>
-                This page provides you with information and statistics about your Known site.
+                <?= \Idno\Core\Idno::site()->language()->_('This page provides you with information and statistics about your Known site.'); ?>
             </p>
         </div>
 

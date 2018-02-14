@@ -38,14 +38,14 @@
         }
     ?>
     <h4><?= $vars['theme']['Theme description']['name'] ?> <?php if (\Idno\Core\Idno::site()->themes()->get() == $vars['theme']['shortname']) {
-            echo '(Selected)';
+            echo \Idno\Core\Idno::site()->language()->_('(Selected)');
         } else {
-            echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/themes/', 'Enable', array('theme' => $vars['theme']['shortname'], 'action' => 'install'), array('class' => 'pull-right btn btn-primary'));
+            echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/themes/', \Idno\Core\Idno::site()->language()->_('Enable'), array('theme' => $vars['theme']['shortname'], 'action' => 'install'), array('class' => 'pull-right btn btn-primary'));
         }
 ?></h4>
 
     <p>
-        <strong>Version <?= $vars['theme']['Theme description']['version'] ?></strong> by
+        <strong>Version <?= $vars['theme']['Theme description']['version'] ?></strong> <?= \Idno\Core\Idno::site()->language()->_('by'); ?>
         <a href="<?= $vars['theme']['Theme description']['author_url'] ?>"><?= $vars['theme']['Theme description']['author'] ?></a>
     </p>
 

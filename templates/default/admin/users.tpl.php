@@ -1,12 +1,12 @@
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
         <?= $this->draw('admin/menu') ?>
-        <h1>Users</h1>
+        <h1><?= \Idno\Core\Idno::site()->language()->_('Users'); ?></h1>
 
 
         <div class="explanation">
             <p>
-                View the users registered for your site, and invite new users to join.
+                <?= \Idno\Core\Idno::site()->language()->_('View the users registered for your site, and invite new users to join.'); ?>
             </p>
 
         </div>
@@ -14,11 +14,13 @@
 </div>
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
-        <h3>Manage site users</h3>
+        <h3><?= \Idno\Core\Idno::site()->language()->_('Manage site users'); ?></h3>
 
         <p>
-            Your site has <strong><?= $vars['count'] ?></strong> user<?php if ($vars['count'] != 1) {
-                echo 's';
+            <?= \Idno\Core\Idno::site()->language()->_('Your site has'); ?> <strong><?= $vars['count'] ?></strong> <?php if ($vars['count'] != 1) {
+                echo \Idno\Core\Idno::site()->language()->_('users');
+            } else {
+                echo \Idno\Core\Idno::site()->language()->_('user');
             } ?>.
         </p>
     </div>
@@ -40,16 +42,16 @@
 
         <form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>admin/users" method="post">
 
-            <h3>Invite new users</h3>
+            <h3><?= \Idno\Core\Idno::site()->language()->_('Invite new users'); ?></h3>
 
             <p>
-                To invite new users to the site, enter one or more email addresses below.
+                <?= \Idno\Core\Idno::site()->language()->_('To invite new users to the site, enter one or more email addresses below.'); ?>
             </p>
 
             <textarea name="invitation_emails" class="form-control" placeholder="friend@email.com"></textarea>
 
             <p>
-                <input type="submit" class="btn btn-primary" value="Send invite">
+                <input type="submit" class="btn btn-primary" value="<?= \Idno\Core\Idno::site()->language()->_('Send invite'); ?>">
                 <input type="hidden" name="action" value="invite_users">
                 <?= \Idno\Core\Idno::site()->actions()->signForm('/admin/users') ?>
             </p>
@@ -106,7 +108,7 @@
 
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
-                    <h3>Invitations</h3>
+                    <h3><?= \Idno\Core\Idno::site()->language()->_('Invitations'); ?></h3>
                 </div>
             </div>
             <div class="row">
@@ -125,7 +127,7 @@
 	                                </div>
 	                                <div class="col-lg-3 ">
 	                                    <p class="user-tbl">
-	                                        <small><strong>Sent</strong><br>
+	                                        <small><strong><?= \Idno\Core\Idno::site()->language()->_('Sent'); ?></strong><br>
 	                                        <time datetime="<?= date('r', $invitation->created) ?>"
 	                                              class="dt-published"><?= date('r', $invitation->created) ?></time></small>
 	                                    </p>
@@ -166,17 +168,17 @@
 
                 <form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>admin/users" method="post">
 
-                    <h3>Block email addresses</h3>
+                    <h3><?= \Idno\Core\Idno::site()->language()->_('Block email addresses'); ?></h3>
 
                     <p>
-                        By blocking email addresses, you prevent people using those email addresses from registering on
-                        your site. Enter the email addresses you want to block below.
+                        <?= \Idno\Core\Idno::site()->language()->_('By blocking email addresses, you prevent people using those email addresses from registering on
+                        your site. Enter the email addresses you want to block below.'); ?>
                     </p>
 
                     <textarea name="blocked_emails" class="form-control" placeholder="user@email.com"></textarea>
 
                     <p>
-                        <input type="submit" class="btn btn-primary" value="Block email addresses">
+                        <input type="submit" class="btn btn-primary" value="<?= \Idno\Core\Idno::site()->language()->_('Block email addresses'); ?>">
                         <input type="hidden" name="action" value="block_emails">
                         <?= \Idno\Core\Idno::site()->actions()->signForm('/admin/users') ?>
                     </p>
@@ -192,7 +194,7 @@
             ?>
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
-                    <h3>Blocked email addresses</h3>
+                    <h3><?= \Idno\Core\Idno::site()->language()->_('Blocked email addresses'); ?></h3>
                 </div>
             </div>
             <div class="row">

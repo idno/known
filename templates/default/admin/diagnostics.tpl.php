@@ -1,12 +1,12 @@
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
         <?= $this->draw('admin/menu') ?>
-        <h1>Diagnostics</h1>
+        <h1><?= \Idno\Core\Idno::site()->language()->_('Diagnostics'); ?></h1>
 
 
         <div class="explanation">
             <p>
-                This page provides you with information that may help you or others diagnose any problems you may be experiencing with your Known install.
+                <?= \Idno\Core\Idno::site()->language()->_('This page provides you with information that may help you or others diagnose any problems you may be experiencing with your Known install.'); ?>
             </p>
         </div>
         
@@ -39,7 +39,7 @@
             } else {
                 ?>
                 
-            <div class="alert alert-success">Basic checks on installation discovered no problems.</div>
+            <div class="alert alert-success"><?= \Idno\Core\Idno::site()->language()->_('Basic checks on installation discovered no problems.'); ?></div>
             
                 <?php
             }
@@ -51,7 +51,7 @@
                 </pre></small>
         </div>
 
-        <span class="btn btn-primary" id="diagnostics-report-run">Generate detailed report</span>
+        <span class="btn btn-primary" id="diagnostics-report-run"><?= \Idno\Core\Idno::site()->language()->_('Generate detailed report'); ?></span>
 
     </div>
 
