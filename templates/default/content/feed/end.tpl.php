@@ -10,7 +10,7 @@
 
         <div class="permalink">
             <p>
-                <a href="<?= $item->getAuthorURL() ?>"><?= $item->getAuthorName() ?></a>published this
+                <a href="<?= $item->getAuthorURL() ?>"><?= $item->getAuthorName() ?></a><?= \Idno\Core\Idno::site()->language()->_('published this') ?>
                 <a class="u-url url" href="<?= $item->getDisplayURL() ?>" rel="permalink">
                     <time class="dt-published"
                           datetime="<?= date('c', $item->created) ?>"><?= date('F j, Y', $item->created) ?></time>
@@ -25,9 +25,9 @@
                     $heart_only = '<i class="fa fa-star"></i>';
                 }
                 if ($likes == 1) {
-                    $heart_text = '1 star';
+                    $heart_text = '1 ' . \Idno\Core\Idno::site()->language()->_('star');
                 } else {
-                    $heart_text = $likes . ' stars';
+                    $heart_text = $likes . ' ' . \Idno\Core\Idno::site()->language()->_('stars');
                 }
                 $heart = $heart_only . ' ' . $heart_text;
                 if (\Idno\Core\Idno::site()->session()->isLoggedOn()) {
@@ -45,9 +45,9 @@
 
                     //echo $replies;
                     if ($replies == 1) {
-                        echo '1 comment';
+                        echo '1 ' . \Idno\Core\Idno::site()->language()->_('comment');
                     } else {
-                        echo $replies . ' comments';
+                        echo $replies . ' ' . \Idno\Core\Idno::site()->language()->_('comments');
                     }
 
                 ?></a>
@@ -103,7 +103,7 @@
                     <a name="posse"></a>
 
                     <p>
-                        Also on:
+                        <?= \Idno\Core\Idno::site()->language()->_('Also on'); ?>:
                         <?php
 
                             foreach ($posse as $service => $url) {
