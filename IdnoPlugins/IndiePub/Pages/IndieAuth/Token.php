@@ -36,7 +36,6 @@
                 $redirect_uri = $this->getInput('redirect_uri');
                 $state        = $this->getInput('state');
                 $client_id    = $this->getInput('client_id');
-                $scope        = $this->getInput('scope');
 
                 $verified = Auth::verifyCode($code, $client_id, $redirect_uri, $state);
                 if ($verified['valid']===true) {
@@ -53,7 +52,7 @@
                     $indieauth_tokens[$token] = array(
                         'me'           => $me,
                         'redirect_uri' => $redirect_uri,
-                        'scope'        => $scope,
+                        'scope'        => $verified['scope'],
                         'client_id'    => $client_id,
                         'issued_at'    => time(),
                         'nonce'        => mt_rand(1000000, pow(2, 30))
@@ -63,13 +62,13 @@
                     if (\Idno\Core\Idno::site()->session()->isLoggedOn() && $user->getUUID() == \Idno\Core\Idno::site()->session()->currentUser()->getUUID()) {
                         \Idno\Core\Idno::site()->session()->refreshSessionUser($user);
                     }
-
+                    
                     // Output to the browser
                     $this->setResponse(200);
                     header('Content-Type: application/x-www-form-urlencoded');
                     echo http_build_query(array(
                         'access_token' => $token,
-                        'scope'        => $scope,
+                        'scope'        => $verified['scope'],
                         'me'           => $me,
                     ));
                     exit;
