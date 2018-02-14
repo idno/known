@@ -16,7 +16,7 @@
                     <div id="photo-preview" ></div>
                                         <span class="btn btn-primary btn-file">
                                             <i class="fa fa-camera"></i> <span
-                                                id="photo-filename">Select an image</span>
+                                                id="photo-filename"><?= \Idno\Core\Idno::site()->language()->_('Select an image'); ?></span>
                                             <input type="file" name="file" id="photo"
                                                    class="form-control col-md-9"
                                                    accept="image/*"
@@ -26,7 +26,7 @@
 
                 <p>
                     <?= \Idno\Core\Idno::site()->actions()->signForm('/filepicker/'); ?>
-                    <input type="submit" value="Upload this image" class="btn btn-primary" style="display:none"
+                    <input type="submit" value="<?= \Idno\Core\Idno::site()->language()->_('Upload this image'); ?>" class="btn btn-primary" style="display:none"
                            id="upload-button">
                 </p>
 
