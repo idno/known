@@ -3,11 +3,11 @@
 
         <div class="col-md-offset-1 col-md-5">
             <h1 class="p-name" style="margin-bottom: 2em;">
-                Sorry, this content isn't here anymore.
+               <?= \Idno\Core\Idno::site()->language()->_("Sorry, this content isn't here anymore."); ?>
             </h1>
-            <p>You may be wondering where it went, but we can't tell you. It's a secret.</p>
+            <p><?= \Idno\Core\Idno::site()->language()->_("You may be wondering where it went, but we can't tell you. It's a secret."); ?></p>
             <p>
-                Maybe you'd like to head back to the <a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>"><?=\Idno\Core\Idno::site()->config()->title?> homepage</a> instead.
+                <?= \Idno\Core\Idno::site()->language()->_("Maybe you'd like to head back to the"); ?> <a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>"><?=\Idno\Core\Idno::site()->config()->title?> <?= \Idno\Core\Idno::site()->language()->_('homepage'); ?></a> <?= \Idno\Core\Idno::site()->language()->_('instead.'); ?>
             </p>            
         </div>
         <div class="col-md-5">
