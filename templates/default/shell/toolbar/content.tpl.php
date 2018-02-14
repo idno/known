@@ -23,7 +23,7 @@
                         if (!empty($friendly_name)) {
                             echo $friendly_name;
                         } else {
-                            echo 'Filter content';
+                            echo \Idno\Core\Idno::site()->language()->_('Filter content');
                         }
 
                     ?>
