@@ -13,12 +13,12 @@
         </div>
         <div class="col-md-10 idno-comment-container">
             <form action="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>annotation/post" method="post">
-                <textarea name="body" placeholder="Add a comment ..." class="form-control mentionable ctrl-enter-submit"></textarea>
+                <textarea name="body" placeholder="<?= \Idno\Core\Idno::site()->language()->_('Add a comment ...'); ?>" class="form-control mentionable ctrl-enter-submit"></textarea>
                 <p style="text-align: right">
                     <?= \Idno\Core\Idno::site()->actions()->signForm('annotation/post') ?>
                     <input type="hidden" name="object" value="<?=$object->getUUID()?>">
                     <input type="hidden" name="type" value="reply">
-                    <input type="submit" class="btn btn-save" value="Leave Comment">
+                    <input type="submit" class="btn btn-save" value="<?= \Idno\Core\Idno::site()->language()->_('Leave Comment'); ?>">
                 </p>
             </form>
         </div>

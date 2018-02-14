@@ -24,7 +24,7 @@
 
                                     ?>
                                     <li <?php if ($variable == $share_type) { ?>class="active"<?php } ?>>
-                                        <a href="<?=$this->getURLWithVar('share_type', $variable);?>"><?=$label?></a>
+                                        <a href="<?=$this->getURLWithVar('share_type', $variable);?>"><?= \Idno\Core\Idno::site()->language()->_($label); ?></a>
                                     </li>
                                     <?php
 

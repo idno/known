@@ -14,7 +14,9 @@
             echo $this->__(['object' => $item])->draw('entity/shell');
         }
     } else {
-        echo '<div class="row"><div class="col-md-8 col-md-offset-2"><p>Nothing found.</p></div></div>';
+        ?>
+        <div class="row"><div class="col-md-8 col-md-offset-2"><p><?= \Idno\Core\Idno::site()->language()->_('Nothing found.'); ?></p></div></div>';
+        <?php
     }
 
     echo $this->drawPagination($vars['count']);

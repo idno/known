@@ -6,7 +6,7 @@
 
         ?>
         <p>
-            This content can't be shared right now.
+            <?= \Idno\Core\Idno::site()->language()->_("This content can't be shared right now."); ?>
         </p>
     <?php
 
