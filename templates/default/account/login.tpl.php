@@ -1,23 +1,23 @@
 <div class="row">
     <div class="col-md-6 col-md-offset-3 well text-center">
 
-		<h2 class="text-center welcome">Welcome back!</h2>
+		<h2 class="text-center welcome"><?= \Idno\Core\Idno::site()->language()->_('Welcome back!'); ?></h2>
 
         <h3 class="text-center">
-            Sign in
+            <?= \Idno\Core\Idno::site()->language()->_('Sign in'); ?>
         </h3>
 
         <div class="col-md-10 col-md-offset-1">
 
             <form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>session/login" method="post">
                 <div class="form-group">
-                    <input type="text" id="inputEmail" name="email" placeholder="Your email address or username" class="form-control">
+                    <input type="text" id="inputEmail" name="email" placeholder="<?= \Idno\Core\Idno::site()->language()->_('Your email address or username'); ?>" class="form-control">
                 </div>
                 <div class="form-group">
-                    <input type="password" id="inputPassword" name="password" placeholder="Password" class="form-control">
+                    <input type="password" id="inputPassword" name="password" placeholder="<?= \Idno\Core\Idno::site()->language()->_('Password'); ?>" class="form-control">
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-signin">Sign in</button>
+                    <button type="submit" class="btn btn-signin"><?= \Idno\Core\Idno::site()->language()->_('Sign in'); ?></button>
                     <input type="hidden" name="fwd" value="<?php
                                                            if (!empty($vars['fwd'])) {
                                                                echo htmlspecialchars($vars['fwd']);
@@ -32,11 +32,11 @@
                     <?php
                     if (\Idno\Core\Idno::site()->config()->open_registration == true && \Idno\Core\Idno::site()->config()->canAddUsers()) {
                     ?>
-                        <a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>account/register">New here? Register for an account.</a><br><br>
+                        <a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>account/register"><?= \Idno\Core\Idno::site()->language()->_('New here? Register for an account.'); ?></a><br><br>
                     <?php
                         }
                     ?>
-                    <a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>account/password">Forgot your password?</a>
+                    <a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>account/password"><?= \Idno\Core\Idno::site()->language()->_('Forgot your password?'); ?></a>
             </div>
             <?= \Idno\Core\Idno::site()->actions()->signForm('/session/login') ?>
         </form>

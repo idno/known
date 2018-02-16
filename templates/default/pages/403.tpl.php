@@ -4,8 +4,7 @@
     if (!\Idno\Core\Idno::site()->session()->isLoggedIn()) {
         ?>
         <a id="soft-forward"
-           href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login?fwd=' . Idno\Core\Webservice::base64UrlEncode($_SERVER['REQUEST_URI']); ?>">Click
-            here to log in.</a>
+           href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login?fwd=' . Idno\Core\Webservice::base64UrlEncode($_SERVER['REQUEST_URI']); ?>"><?= \Idno\Core\Idno::site()->language()->_('Click here to log in.'); ?></a>
         <script>
             $('#soft-forward').hide();  // JS users will be forwarded anyway
         </script>
@@ -16,11 +15,11 @@
             <div class="row" style="margin-bottom: 2em; margin-top: 6em">
                 <div class="col-md-offset-1 col-md-5">
                     <h1 class="p-name" style="margin-bottom: 2em;">
-                        Hold on. You don't have access to this content.
+                        <?= \Idno\Core\Idno::site()->language()->_("Hold on. You don't have access to this content."); ?>
                     </h1>
-                    <p>It's nothing personal. You just don't have the right permissions to see what's here. </p>
+                    <p><?= \Idno\Core\Idno::site()->language()->_("It's nothing personal. You just don't have the right permissions to see what's here."); ?></p>
                     <p>
-                        Find something else to view on the <a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>"><?= \Idno\Core\Idno::site()->config()->title ?> homepage</a>.
+                        <?= \Idno\Core\Idno::site()->language()->_('Find something else to view on the'); ?> <a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>"><?= \Idno\Core\Idno::site()->config()->title ?> <?= \Idno\Core\Idno::site()->language()->_('homepage'); ?></a>.
                     </p>                    
                 </div>
                 <div class="col-md-5">

@@ -15,7 +15,7 @@
                     </p>
                 </div>
                 <div class="idno-annotation-content col-md-6">
-                    <p>Mentioned in: <a href="<?=$permalink?>"><?php
+                    <p><?= \Idno\Core\Idno::site()->language()->_('Mentioned in'); ?>: <a href="<?=$permalink?>"><?php
 
                                 if (!empty($annotation['title'])) {
                                     echo $annotation['title'];

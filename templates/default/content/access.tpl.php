@@ -31,11 +31,11 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#" data-acl="PUBLIC" class="acl-ctrl-option"><i class="fa fa-globe"> </i> <?=\Idno\Core\Idno::site()->language()->get('Public')?></a>
+                        <li><a href="#" data-acl="PUBLIC" class="acl-ctrl-option"><i class="fa fa-globe"> </i> <?=\Idno\Core\Idno::site()->language()->_('Public')?></a>
                         </li>
-                        <li><a href="#" data-acl="SITE" class="acl-ctrl-option"><i class="fa fa-lock"> </i> <?=\Idno\Core\Idno::site()->language()->get('Members only')?></a></li>
+                        <li><a href="#" data-acl="SITE" class="acl-ctrl-option"><i class="fa fa-lock"> </i> <?=\Idno\Core\Idno::site()->language()->_('Members only')?></a></li>
                         <li><a href="#" data-acl="<?= \Idno\Core\Idno::site()->session()->currentUserUUID() ?>"
-                               class="acl-ctrl-option"><i class="fa fa-lock"></i> <?=\Idno\Core\Idno::site()->language()->get('Private')?></a></li>
+                               class="acl-ctrl-option"><i class="fa fa-lock"></i> <?=\Idno\Core\Idno::site()->language()->_('Private')?></a></li>
                         <?php
                             $acls = \Idno\Entities\AccessGroup::get(array('owner' => \Idno\Core\Idno::site()->session()->currentUserUUID()));
                             if (!empty($acls)) {

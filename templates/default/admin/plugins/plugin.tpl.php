@@ -31,9 +31,9 @@ foreach (['php', 'known', 'idno', 'build', 'extension', 'plugin'] as $field) {
                 <?php
 
                 if (array_key_exists($shortname, $vars['plugins_loaded'])) {
-                    echo '<span class="label label-success">Enabled</span>';
+                    echo '<span class="label label-success">' . \Idno\Core\Idno::site()->language()->_('Enabled') . '</span>';
                 } else {
-                    echo '<span class="label">Disabled</span>';
+                    echo '<span class="label">' . \Idno\Core\Idno::site()->language()->_('Disabled') . '</span>';
                 }
 
                 ?>
@@ -52,8 +52,7 @@ foreach (['php', 'known', 'idno', 'build', 'extension', 'plugin'] as $field) {
                     <?php
                     if (isset($requirements['known'])) {
                         ?>
-                        <p><label>Known
-                                Version: <?php echo $this->__(array('version' => $requirements['known']))->draw('admin/dependencies/idno'); ?> </label>
+                        <p><label><?= \Idno\Core\Idno::site()->language()->_('Known Version'); ?>: <?php echo $this->__(array('version' => $requirements['known']))->draw('admin/dependencies/idno'); ?> </label>
                         </p>
                         <?php
                     }
@@ -62,8 +61,7 @@ foreach (['php', 'known', 'idno', 'build', 'extension', 'plugin'] as $field) {
                     <?php
                     if (isset($requirements['build'])) {
                         ?>
-                        <p><label>Known
-                                Build: <?php echo $this->__(array('version' => $requirements['build']))->draw('admin/dependencies/build'); ?> </label>
+                        <p><label><?= \Idno\Core\Idno::site()->language()->_('Known Build'); ?>: <?php echo $this->__(array('version' => $requirements['build']))->draw('admin/dependencies/build'); ?> </label>
                         </p>
                         <?php
                     }
@@ -72,8 +70,7 @@ foreach (['php', 'known', 'idno', 'build', 'extension', 'plugin'] as $field) {
                     <?php
                     if (isset($requirements['php'])) {
                         ?>
-                        <p><label>PHP
-                                Version: <?php echo $this->__(array('version' => $requirements['php']))->draw('admin/dependencies/php'); ?> </label>
+                        <p><label><?= \Idno\Core\Idno::site()->language()->_('PHP Version'); ?>: <?php echo $this->__(array('version' => $requirements['php']))->draw('admin/dependencies/php'); ?> </label>
                         </p>
                         <?php
                     }
@@ -84,7 +81,7 @@ foreach (['php', 'known', 'idno', 'build', 'extension', 'plugin'] as $field) {
                         if (!is_array($requirements['extension']))
                             $requirements['extension'] = array($requirements['extension']);
                         ?>
-                        <p><label>Extensions: <?php
+                        <p><label><?= \Idno\Core\Idno::site()->language()->_('Extensions'); ?>: <?php
                                 foreach ($requirements['extension'] as $extension)
                                     echo $this->__(array('extension' => $extension))->draw('admin/dependencies/extension');
                                 ?> </label></p>
@@ -97,7 +94,7 @@ foreach (['php', 'known', 'idno', 'build', 'extension', 'plugin'] as $field) {
                         if (!is_array($requirements['plugin']))
                             $requirements['plugin'] = array($requirements['plugin']);
                         ?>
-                        <p><label>Plugins: <?php
+                        <p><label><?= \Idno\Core\Idno::site()->language()->_('Plugins'); ?>: <?php
                                 foreach ($requirements['plugin'] as $plugin) {
                                     @list($plugin, $version) = explode(',', $plugin);
                                     echo $this->__(array('plugin' => $plugin, 'version' => $version))->draw('admin/dependencies/plugin');

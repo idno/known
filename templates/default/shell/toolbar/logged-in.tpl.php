@@ -12,12 +12,12 @@
         <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
-        <li><a href="<?=\Idno\Core\Idno::site()->session()->currentUser()->getDisplayURL()?>">Profile</a></li>
-        <li><a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>account/notifications">Notifications</a></li>
+        <li><a href="<?=\Idno\Core\Idno::site()->session()->currentUser()->getDisplayURL()?>"><?= \Idno\Core\Idno::site()->language()->_('Profile'); ?></a></li>
+        <li><a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>account/notifications"><?= \Idno\Core\Idno::site()->language()->_('Notifications'); ?></a></li>
         <?=$this->draw('shell/toolbar/personal/items')?>
-        <li><a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>account/settings/">Account Settings</a></li>
+        <li><a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>account/settings/"><?= \Idno\Core\Idno::site()->language()->_('Account Settings'); ?></a></li>
         <?php if (\Idno\Core\Idno::site()->session()->currentUser()->isAdmin()) { ?>
-            <li><a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>admin/">Site Configuration</a></li>
+            <li><a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>admin/"><?= \Idno\Core\Idno::site()->language()->_('Site Configuration'); ?></a></li>
         <?php } ?>
         <?php
 
@@ -45,7 +45,7 @@
                 <?php }
                     */
         ?>
-        <li><a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>account/settings/feedback/" ><i class="fa fa-heart" title="Leave feedback"></i> Feedback</a></li>
+        <li><a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>account/settings/feedback/" ><i class="fa fa-heart" title="<?= \Idno\Core\Idno::site()->language()->_('Leave feedback'); ?>"></i> <?= \Idno\Core\Idno::site()->language()->_('Feedback'); ?></a></li>
         <?=$this->draw('shell/toolbar/logout')?>
     </ul>
 

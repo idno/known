@@ -18,7 +18,7 @@
                 <div class="idno-annotation-content col-md-6">
                     <p>
                         <a href="<?=htmlspecialchars($annotation['owner_url'])?>"><?=htmlentities($annotation['owner_name'], ENT_QUOTES, 'UTF-8')?></a>
-                        <a href="<?=$permalink?>">reshared this post</a>
+                        <a href="<?=$permalink?>"><?= \Idno\Core\Idno::site()->language()->_('reshared this post'); ?></a>
                     </p>
                     <p><small><a href="<?=$permalink?>"><?=date('M d Y', $annotation['time']);?></a> on <a href="<?=$permalink?>"><?=parse_url($permalink, PHP_URL_HOST)?></a></small></p>
                 </div>

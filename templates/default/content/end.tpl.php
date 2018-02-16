@@ -23,7 +23,7 @@
 
         <div class="permalink">
             <p>
-                <a href="<?= $owner->getDisplayURL() ?>"><?= htmlentities(strip_tags($owner->getTitle()), ENT_QUOTES, 'UTF-8') ?></a>published this
+                <a href="<?= $owner->getDisplayURL() ?>"><?= htmlentities(strip_tags($owner->getTitle()), ENT_QUOTES, 'UTF-8') ?></a><?= \Idno\Core\Idno::site()->language()->_('published this'); ?>
                 <a class="u-url url" href="<?= $vars['object']->getDisplayURL() ?>" rel="permalink"><time class="dt-published"
                           datetime="<?= date(DATE_ISO8601, $vars['object']->created) ?>"><?= strftime('%d %b %Y', $vars['object']->created) ?></time></a>
                 <?php
@@ -52,14 +52,17 @@
 	    <span class="annotate-icon">
             <?php
                 if (!$has_liked) {
-                    $heart_only = '<i class="fa fa-star-o" title="Star this!"></i>';
+                    $star = \Idno\Core\Idno::site()->language()->_('Star this!');
+                    $heart_only = '<i class="fa fa-star-o" title="'.$star.'"></i>';
                 } else {
                     $heart_only = '<i class="fa fa-star"></i>';
                 }
                 if ($likes == 1) {
-                    $heart_text = '1 star';
+                    $star = \Idno\Core\Idno::site()->language()->_('star');
+                    $heart_text = '1 ' . $star;
                 } else {
-                    $heart_text = $likes . ' stars';
+                    $star = \Idno\Core\Idno::site()->language()->_('stars');
+                    $heart_text = $likes . ' ' . $star;
                 }
                 $heart = $heart_only . ' ' . $heart_text;
                 if (\Idno\Core\Idno::site()->session()->isLoggedOn()) {
@@ -89,9 +92,9 @@
 
                     //echo $replies;
                     if ($replies == 1) {
-                        echo '1 comment';
+                        echo '1 ' . \Idno\Core\Idno::site()->language()->_('comment');
                     } else {
-                        echo $replies . ' comments';
+                        echo $replies . ' ' . \Idno\Core\Idno::site()->language()->_('comments');
                     }
 
                 ?></a></span>

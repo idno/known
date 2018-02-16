@@ -18,7 +18,7 @@
     if (!empty($vars['placeholder'])) {
         $placeholder = $vars['placeholder'];
     } else {
-        $placeholder = 'Share something brilliant...';
+        $placeholder = \Idno\Core\Idno::site()->language()->_('Share something brilliant...');
     }
     if (!empty($vars['value'])) {
         $value = $vars['value'];

@@ -1,10 +1,10 @@
-<a href="#maincontent" style="display:none">Skip to main content</a>
+<a href="#maincontent" style="display:none"><?= \Idno\Core\Idno::site()->language()->_('Skip to main content'); ?></a>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
+                <span class="sr-only"><?= \Idno\Core\Idno::site()->language()->_('Toggle navigation'); ?></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>

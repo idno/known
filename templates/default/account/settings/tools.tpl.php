@@ -6,11 +6,11 @@
     <div class="col-md-10 col-md-offset-1">
         <?= $this->draw('account/menu') ?>
         <h1>
-            Tools and Apps
+            <?= \Idno\Core\Idno::site()->language()->_('Tools and Apps'); ?>
         </h1>
 
         <div>
-            <h2>Bookmarklet</h2>
+            <h2><?= \Idno\Core\Idno::site()->language()->_('Bookmarklet'); ?></h2>
         </div>
     </div>
 </div>
@@ -19,8 +19,8 @@
 <div class="row">
 	<div class="col-md-4 col-md-offset-1">
             <p>
-                The Known bookmarklet is the best way to save links, reply to posts, and share articles.</p> 
-                <p>Just drag the bookmarklet button below into your browser's Bookmark Bar. 
+                <?= \Idno\Core\Idno::site()->language()->_('The Known bookmarklet is the best way to save links, reply to posts, and share articles.'); ?></p> 
+                <p><?= \Idno\Core\Idno::site()->language()->_("Just drag the bookmarklet button below into your browser's Bookmark Bar."); ?>
             </p>
             <p>
                 <?=$this->draw('entity/bookmarklet'); ?>             </p>
@@ -39,16 +39,15 @@
 	</div>
 	<div class="col-md-4 col-md-offset-1">
         <p>
-            <strong>Don't see a bookmarks bar?</strong>
+            <strong><?= \Idno\Core\Idno::site()->language()->_("Don't see a bookmarks bar?"); ?></strong>
         </p>
         <p>
-            Sometimes web browsers have their bookmarked links bar hidden by default. Here's how to reveal it:</p>
+            <?= \Idno\Core\Idno::site()->language()->_("Sometimes web browsers have their bookmarked links bar hidden by default. Here's how to reveal it:"); ?></p>
 			<p>
-            <strong>Chrome:</strong> Select <em>Always Show Bookmarks Bar</em> from the <em>View</em> menu.<br>
-            <strong>Firefox:</strong> Select <em>View</em>, then <em>Toolbars</em>, and make sure
-            <em>Bookmarks Toolbar</em> is checked.<br>
-            <strong>Internet Explorer:</strong> Select <em>Tools</em>, then make sure <em>Favorites Bar</em> is
-            checked.
+            <strong><?= \Idno\Core\Idno::site()->language()->_('Chrome'); ?>:</strong> <?= \Idno\Core\Idno::site()->language()->_('Select <em>Always Show Bookmarks Bar</em> from the <em>View</em> menu.'); ?><br>
+            <strong><?= \Idno\Core\Idno::site()->language()->_('Firefox'); ?>:</strong> <?= \Idno\Core\Idno::site()->language()->_('Select <em>View</em>, then <em>Toolbars</em>, and make sure'); ?>
+            <em><?= \Idno\Core\Idno::site()->language()->_('Bookmarks Toolbar'); ?></em> <?= \Idno\Core\Idno::site()->language()->_('is checked.'); ?><br>
+            <strong><?= \Idno\Core\Idno::site()->language()->_('Internet Explorer'); ?>:</strong> <?= \Idno\Core\Idno::site()->language()->_('Select <em>Tools</em>, then make sure <em>Favorites Bar</em> is checked.'); ?>
         </p>
     </div>
 </div>
@@ -63,7 +62,7 @@
         
         <div class="form-group">
             <div class="col-md-2">
-                <label class="control-label">Your API key: </label>
+                <label class="control-label"><?= \Idno\Core\Idno::site()->language()->_('Your API key'); ?>: </label>
             </div>
             <div class="col-md-8">
                 
@@ -74,7 +73,7 @@
             <div class="col-md-1">
                  <?php
                                  if (!empty($user->apikey)) {
-                                     echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->currentPage()->currentUrl(), 'Revoke', array('_method' => 'revoke'), array('method' => 'POST', 'class' => 'btn btn-danger', 'confirm' => true, 'confirm-text' => 'Revoking this key will mean you must update any applications that use this key!'));
+                                     echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->currentPage()->currentUrl(), \Idno\Core\Idno::site()->language()->_('Revoke'), array('_method' => 'revoke'), array('method' => 'POST', 'class' => 'btn btn-danger', 'confirm' => true, 'confirm-text' => \Idno\Core\Idno::site()->language()->_('Revoking this key will mean you must update any applications that use this key!')));
                                  } ?>
             </div>
         </div>

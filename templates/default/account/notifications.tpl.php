@@ -1,9 +1,9 @@
 <div class="row">
     <div class="col-lg-10 col-lg-offset-1">
 
-        <h1>Notifications</h1>
+        <h1<?= \Idno\Core\Idno::site()->language()->_('Notifications'); ?></h1>
         <p class="explanation">
-            The notifications screen shows you who has interacted with your content.
+            <?= \Idno\Core\Idno::site()->language()->_('The notifications screen shows you who has interacted with your content.'); ?>
         </p>
 
     </div>
@@ -22,7 +22,7 @@
     <div class="col-lg-10 col-lg-offset-1">
 
         <p>
-            You don't have any notifications yet. But we love you anyway!
+            <?= \Idno\Core\Idno::site()->language()->_("You don't have any notifications yet. But we love you anyway!"); ?>
         </p>
         <p style="text-align: center">
             <img src="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>gfx/robots/feedback.png">

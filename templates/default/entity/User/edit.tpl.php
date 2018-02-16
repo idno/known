@@ -1,10 +1,9 @@
 <div class="container col-md-11 col-md-offset-1">
     <div class="row beforecontent">
-        <h1>Edit your profile</h1>
+        <h1><?= \Idno\Core\Idno::site()->language()->_('Edit your profile'); ?></h1>
 
         <p>
-            Your profile is how other users see you across the site. It's up to you how much or how little
-            information you choose to provide.
+            <?= \Idno\Core\Idno::site()->language()->_("Your profile is how other users see you across the site. It's up to you how much or how little information you choose to provide."); ?>
         </p>
     </div>
 
@@ -21,7 +20,7 @@
 
                         <span class="btn btn-primary btn-file">
                             <i class="fa fa-camera"></i> 
-                        <span id="photo-filename">Select a user picture</span>
+                        <span id="photo-filename"><?= \Idno\Core\Idno::site()->language()->_('Select a user picture'); ?></span>
                             <input type="file" name="avatar" id="photo"
                                    class="form-control"
                                    accept="image/*"
@@ -58,9 +57,8 @@
 
                 <div class="form-group">
                     <p>
-                        <label for="website">
-                            Your websites</label><br>
-                        <small>Other places on the web where people can find you.</small>
+                        <label for="website"><?= \Idno\Core\Idno::site()->language()->_('Your websites'); ?></label><br>
+                        <small><?= \Idno\Core\Idno::site()->language()->_('Other places on the web where people can find you.'); ?></small>
                     </p>
                     <div id="websitelist">
                         <?php

@@ -4,12 +4,12 @@
 
         <form action="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>following/confirm/" method="post">
             <h1>
-                Follow <?=$vars['feed']->getTitle()?>? <input type="submit" class="btn btn-primary" value="Follow">
+                Follow <?=$vars['feed']->getTitle()?>? <input type="submit" class="btn btn-primary" value="<?= \Idno\Core\Idno::site()->language()->_('Follow'); ?>">
                 <input type="hidden" name="feed" value="<?=htmlspecialchars($vars['feed']->getDisplayURL())?>">
                 <?=\Idno\Core\Idno::site()->actions()->signForm('following/confirm')?>
             </h1>
             <p class="explanation">
-                Here's the latest content.
+                <?= \Idno\Core\Idno::site()->language()->_("Here's the latest content."); ?>
             </p>
         </form>
 

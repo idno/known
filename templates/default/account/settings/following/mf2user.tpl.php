@@ -52,7 +52,7 @@ $nickname =  $properties['nickname'][0];
                 <input type="hidden" name="photo" value="<?= htmlspecialchars($photo) ?>" />
                 
 		<div class="control-group">
-		    <label class="control-label" for="inputName">Name</label>
+		    <label class="control-label" for="inputName"><?= \Idno\Core\Idno::site()->language()->_('Name'); ?></label>
 
 		    <div class="controls">
 			<input id="inputName" type="text" class="col-md-4" name="name" required
@@ -61,16 +61,16 @@ $nickname =  $properties['nickname'][0];
 		</div>
 		
 		<div class="control-group">
-		    <label class="control-label" for="inputNickname">Nickname</label>
+		    <label class="control-label" for="inputNickname"><?= \Idno\Core\Idno::site()->language()->_('Nickname'); ?></label>
 
 		    <div class="controls">
-			<input id="inputNickname" type="text" class="col-md-4" name="nickname" required placeholder="Handle (for your reference)"
+			<input id="inputNickname" type="text" class="col-md-4" name="nickname" required placeholder="<?= \Idno\Core\Idno::site()->language()->_('Handle (for your reference)'); ?>"
 			       value="<?= htmlspecialchars($nickname) ?>">
 		    </div>
 		</div>
 		
 		<div class="control-group">
-		    <label class="control-label" for="inputEmail">Email</label>
+		    <label class="control-label" for="inputEmail"><?= \Idno\Core\Idno::site()->language()->_('Email'); ?></label>
 
 		    <div class="controls">
 			<input id="inputName" type="email" class="col-md-4" name="email" required
@@ -79,7 +79,7 @@ $nickname =  $properties['nickname'][0];
 		</div>
 		
 		<div class="control-group">
-		    <label class="control-label" for="inputUrl">Profile URL</label>
+		    <label class="control-label" for="inputUrl"><?= \Idno\Core\Idno::site()->language()->_('Profile URL'); ?></label>
 		    
 		    <div class="controls">
 			<?php if (count($urls)>1) { ?>
@@ -102,7 +102,7 @@ $nickname =  $properties['nickname'][0];
 		
 		<div class="control-group">
 		    <div class="controls">
-			<button type="submit" class="btn">Add as friend...</button>
+			<button type="submit" class="btn"><?= \Idno\Core\Idno::site()->language()->_('Add as friend...'); ?></button>
 		    </div>
 		</div>
 	    </div>

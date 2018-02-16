@@ -35,16 +35,16 @@
             if (!empty($list)) {
                 switch($rsvp) {
                     case 'yes':
-                        $title = 'Attending';
+                        $title = \Idno\Core\Idno::site()->language()->_('Attending');
                         break;
                     case 'maybe':
-                        $title = 'Maybe attending';
+                        $title = \Idno\Core\Idno::site()->language()->_('Maybe attending');
                         break;
                     case 'no':
-                        $title = 'Not attending';
+                        $title = \Idno\Core\Idno::site()->language()->_('Not attending');
                         break;
                     case 'etc':
-                        $title = 'Other responses';
+                        $title = \Idno\Core\Idno::site()->language()->_('Other responses');
                         break;
                 }
 

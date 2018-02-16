@@ -21,7 +21,7 @@ if (!empty($vars['class']))
     <form action="<?= $vars['source-url']; ?>">
         <div class="search-controls">
             <div class="input-group">
-                <input name="query" type="text" class="form-control" placeholder="Search by name, email address, or username" aria-describedby="search">
+                <input name="query" type="text" class="form-control" placeholder="<?= \Idno\Core\Idno::site()->language()->_('Search by name, email address, or username'); ?>" aria-describedby="search">
                 <span class="input-group-btn">
                     <button type="submit" class="btn btn-primary" id="search"><i class="fa fa-search"></i></button>
                 </span>

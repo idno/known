@@ -1,1 +1,1 @@
-<li><a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>account/register">Register</a></li>
+<li><a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>account/register"><?= \Idno\Core\Idno::site()->language()->_('Register'); ?></a></li>
