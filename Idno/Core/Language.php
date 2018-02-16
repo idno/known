@@ -191,7 +191,7 @@ namespace Idno\Core {
          * @return string
          */
         public function write($string, array $subs = []) {
-            return sprintf($this->get($string), $subs);
+            return vsprintf($this->get($string), $subs);
         }
 
         /**
