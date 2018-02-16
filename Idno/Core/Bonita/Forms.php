@@ -64,6 +64,9 @@ namespace Idno\Core\Bonita {
             }
 
             if (abs(time() - $time) < \Idno\Core\Idno::site()->config()->form_token_expiry) {
+                
+                \Idno\Core\Idno::site()->logging()->debug("Token for $action has a valid time " . date('r', $time));
+                
                 if (self::token($action, $time) == $token) {
                     return true;
                 }
@@ -100,6 +103,9 @@ namespace Idno\Core\Bonita {
          * @return true|false
          */
         public static function token($action, $time) {
+            
+            // Normalise action by stripping get line
+            $action = explode('?', $action)[0];
             
             $hmac = hash_hmac('sha256', $action, \Idno\Core\Bonita\Main::getSiteSecret(), true);
             $hmac = hash_hmac('sha256', $time, $hmac, true);
