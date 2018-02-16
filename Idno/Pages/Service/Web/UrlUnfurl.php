@@ -39,14 +39,13 @@ namespace Idno\Pages\Service\Web {
 
             $url = trim($this->getInput('url'));
             $forcenew = $this->getInput('forcenew', false);
-            
 
             if (empty($url))
                 throw new \RuntimeException("You need to specify a working URL");
 
             // Try and get UnfurledURL entity
             $object = \Idno\Entities\UnfurledUrl::getBySourceURL($url);
-            if (!$forcenew && !empty($object)) {
+            if (!$forcenew && !empty($object)) { 
                 $unfurled = $object->data;
                 $template = new \Idno\Core\Template();
                 $template->setTemplateType('default');

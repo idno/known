@@ -108,6 +108,64 @@ Unfurl.initOembed = function (control) {
 }
 
 /**
+ * 
+ * @param {type} control
+ * @returns {undefined}Enable edit controls on unfurl links.
+ */
+Unfurl.enableControls = function (control) {
+    
+    var url = control.attr('data-url');
+    var unfurlblock = control.closest('.unfurl-block');
+    var refresh = unfurlblock.find('.unfurl-edit a.refresh');
+    var remove = unfurlblock.find('.unfurl-edit a.delete');
+    
+    refresh.click(function(e){
+	
+	Security.getCSRFToken(function(token, ts) {
+	    $.ajax(known.config.displayUrl + 'service/web/unfurl/', {
+		dataType: 'json',
+		method: 'GET',
+		data: {
+		    url: url,
+		    forcenew: true,
+		    __bTk: token,
+		    __bTs: ts
+		},
+		success: function (data) {
+		    console.log("Refreshed");
+		    control.fadeOut().fadeIn();
+		    Unfurl.unfurl(control);
+		}
+	    });
+	}, known.config.displayUrl + 'service/web/unfurl/');
+	
+	e.preventDefault();
+    });
+    
+    
+    
+    remove.click(function(e){
+	
+	Security.getCSRFToken(function(token, ts) {
+	    $.ajax(known.config.displayUrl + 'service/web/unfurl/remove/'  + unfurlblock.attr('data-parent-object') + '/', {
+		dataType: 'json',
+		method: 'POST',
+		data: {
+		    __bTk: token,
+		    __bTs: ts
+		},
+		success: function (data) {
+		    console.log("Refresh: deleted");
+		    unfurlblock.fadeOut();
+		}
+	    });
+	}, known.config.displayUrl + 'service/web/unfurl/remove/' + unfurlblock.attr('data-parent-object') + '/');
+	
+	e.preventDefault();
+    });
+}
+
+/**
  * Unfurl a specific embedded control
  * @param {type} control
  * @returns {undefined}
@@ -121,6 +179,7 @@ Unfurl.unfurl = function (control) {
 	   control.show();
 	   Unfurl.initOembed(control);
 	   Template.enableImageFallback(); // Reactivate image fallback for broken images
+	   Unfurl.enableControls(control);
 	});
     }
 }
