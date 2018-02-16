@@ -19,7 +19,7 @@
                 $state        = $this->getInput('state');
                 $scope        = $this->getInput('scope');
 
-                if (!empty($me) && parse_url($me, PHP_URL_HOST) == parse_url( $user->getURL(), PHP_URL_HOST)) {
+                if (!empty($me) && parse_url($me, PHP_URL_HOST) == parse_url( $user->getIndieAuthURL(), PHP_URL_HOST)) {
                     $indieauth_codes = $user->indieauth_codes;
                     if (empty($indieauth_codes)) {
                         $indieauth_codes = array();
