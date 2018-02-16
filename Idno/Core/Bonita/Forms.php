@@ -64,6 +64,9 @@ namespace Idno\Core\Bonita {
             }
 
             if (abs(time() - $time) < \Idno\Core\Idno::site()->config()->form_token_expiry) {
+                
+                \Idno\Core\Idno::site()->logging()->debug("Token for $action has a valid time " . date('r', $time));
+                
                 if (self::token($action, $time) == $token) {
                     return true;
                 }
@@ -101,16 +104,20 @@ namespace Idno\Core\Bonita {
          */
         public static function token($action, $time) {
             
+            // Normalise action by stripping get line
+            $action = explode('?', $action)[0];
+            
+            $hmac = hash_hmac('sha256', $action, \Idno\Core\Bonita\Main::getSiteSecret(), true);
+            $hmac = hash_hmac('sha256', $time, $hmac, true);
+            $hmac = hash_hmac('sha256', session_id(), $hmac);
+            
             \Idno\Core\Idno::site()->logging()->debug("Generating CSRF token for {$action} over: ". print_r([
                 'action' => $action,
                 'time' => $time,
                 'site_secret' => \Idno\Core\TokenProvider::truncateToken(\Idno\Core\Idno::site()->config()->site_secret),
                 'session_id' => \Idno\Core\TokenProvider::truncateToken(session_id()),
+                'token' => \Idno\Core\TokenProvider::truncateToken($hmac),
             ], true));
-            
-            $hmac = hash_hmac('sha256', $action, \Idno\Core\Bonita\Main::getSiteSecret(), true);
-            $hmac = hash_hmac('sha256', $time, $hmac, true);
-            $hmac = hash_hmac('sha256', session_id(), $hmac);
 
             return $hmac;
         }
