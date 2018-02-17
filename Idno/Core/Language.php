@@ -97,7 +97,7 @@ namespace Idno\Core {
             // Look through translation objects
             foreach ($this->translations as $translation) {
                 $value = $translation->getString($string);
-                if (!empty($value))
+                if (!empty($value) && ($value != $string))
                     return $value;
             }
             
