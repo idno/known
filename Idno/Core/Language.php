@@ -100,12 +100,7 @@ namespace Idno\Core {
                 if (!empty($value) && ($value != $string))
                     return $value;
             }
-            
-            // Look through locally added strings (deprecated).
-            if (!empty($this->strings[$string])) {
-                return $this->strings[$string];
-            }
-           
+                       
             // If we're in lang_debug mode, lets flag untranslated strings
             if (!empty(\Idno\Core\Idno::site()->config()->lang_debug)) {
                 \Idno\Core\Idno::site()->triggerEvent('language/translation/missing-string', [
