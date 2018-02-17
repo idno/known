@@ -11,10 +11,7 @@ namespace Idno\Core {
          * @var type 
          */
         private $translations = [];
-        
-        // @deprecated
-        private $strings = [];
-        
+                
         /**
          * Current language
          * @var type 
@@ -50,29 +47,10 @@ namespace Idno\Core {
         }
 
         /**
-         * Magic method to set language variables
-         * @deprecated Add a Translation object using register
-         */
-        function __set($string, $translation) {
-            if (!empty($string)) {
-                $this->add($string, $translation);
-            }
-        }
-
-        /**
          * Magic method to get stored language variable
          */
         function __get($string) {
             return $this->get($string);
-        }
-
-        /**
-         * Chainable function to allow variables to be added as an array.
-         * @param $vars array Associated array of "string" => "translation"
-         * @deprecated Add a Translation object using register
-         */
-        function __($strings) {
-            $this->addTranslations($strings);
         }
 
         /**
@@ -82,43 +60,6 @@ namespace Idno\Core {
          */
         function _($string, array $subs = []) {
             return $this->write($string, $subs);
-        }
-        
-        /**
-         * Shortcut for addTranslation
-         * @param $string
-         * @param $translation
-         * @return bool
-         * @deprecated Add a Translation object using register
-         */
-        function add($string, $translation) {
-            return $this->addTranslation($string, $translation);
-        }
-
-        /**
-         * Adds a translation to this language's corpus
-         * @param $string
-         * @param $translation
-         * @return bool
-         * @deprecated Add a Translation object using register
-         */
-        function addTranslation($string, $translation) {
-            if (!empty($string) && is_string($string)) {
-                $this->strings[$string] = $translation;
-
-                return true;
-            }
-
-            return false;
-        }
-
-        /**
-         * Simplify adding translation strings.
-         * @param array $strings Associated array of "string" => "translation"
-         * @deprecated Add a Translation object using register
-         */
-        function addTranslations(array $strings) {
-            $this->strings = array_merge($this->strings, $strings);
         }
         
         /**
