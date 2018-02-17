@@ -640,17 +640,7 @@
             function getVersion() { 
                 trigger_error("Idno::getVersion() has been deprecated, use Version::version()");
                 return $this->version(); 
-            }
-
-            /**
-             * Retrieve a machine-readable version of Known's version number
-             * @return string
-             * @deprecated Use Version::build();
-             */
-            function machineVersion() { 
-                trigger_error("Idno::machineVersion() has been deprecated, use Version::build()");
-                return Version::build(); 
-            }          
+            }        
 
             /**
              * Can a specified user (either an explicitly specified user ID
