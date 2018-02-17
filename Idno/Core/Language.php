@@ -42,6 +42,10 @@ namespace Idno\Core {
 
             $this->language = $language;
             
+            // Set locale, now we have one.
+            putenv("LANG=" . $language);
+            setlocale(LC_ALL, $language);
+            
             parent::__construct();
         }
 
