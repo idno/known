@@ -26,14 +26,14 @@ namespace Tests\Core {
 
         public function testLanguageString() {
 
-            $english = new \Idno\Core\Language('en');
-            $french = new \Idno\Core\Language('fr');
+            $english = new \Idno\Core\Language('en_GB');
+            $french = new \Idno\Core\Language('fr_FR');
             
-            $english->register(new EnglishTest('en'));
-            $english->register(new FrenchTest('fr'));
+            $english->register(new EnglishTest('en_GB'));
+            $english->register(new FrenchTest('fr_FR'));
             
-            $french->register(new EnglishTest('en'));
-            $french->register(new FrenchTest('fr'));
+            $french->register(new EnglishTest('en_GB'));
+            $french->register(new FrenchTest('fr_FR'));
             
             
             echo "English: " . $english->_('Hello!');
