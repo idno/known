@@ -29,3 +29,42 @@ E.g.
 ```
 echo \Idno\Core\Idno::site()->language()->_('This is the string to translate');
 ```
+
+## Gettext support
+
+Known also now supports [gettext](https://en.wikipedia.org/wiki/Gettext), which is a widely supported localisation platform.
+
+### Creating .POT file
+
+The first step, after you've used ```\Idno\Core\Idno::site()->language()->_()``` to write your strings, is to generate a POT template translation file. To do this, in ```/languages/``` there's a helpful script, go into this directory and run the script
+
+```
+./makepot.sh /path/to/your/plugin > /path/to/your/plugin/languages/
+```
+
+This will parse all your plugin's PHP files and extract translatable strings.
+
+### Creating your translation
+
+Open up your .POT file with a suitable tool, e.g. [poedit](https://poedit.net/), and save your .mo and .po files as ```/path/to/your/plugin/languages/*LOCALE*/LC_MESSAGES/*DOMAIN*.mo|po```, where:
+
+* LOCALE is the locale you're writing for, e.g. pt_BR
+* DOMAIN is the domain, e.g. your plugin name 'myplugin'
+
+### Registering your translation
+
+In your plugin, register your language by registering a new ```GetTextTranslation``` class, passing the path of your languages directory, and the domain you used.
+
+So, for the above example this might look like:
+
+```
+function registerTranslations() 
+{
+    \Idno\Core\Idno::site()->language()->language()->register(
+        new \Idno\Core\GetTextTranslation(
+            'myplugin',
+            dirname(__FILE__) . '/languages/'
+        )
+    );   
+}
+```
