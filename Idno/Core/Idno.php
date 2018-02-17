@@ -623,47 +623,6 @@
             }
 
             /**
-             * Retrieve this version of Known's version number
-             * @return string
-             * @deprecated Use Version::version();
-             */
-            function version() { 
-                trigger_error("Idno::version() has been deprecated, use Version::version()");
-                return Version::version(); 
-            }
-
-            /**
-             * Alias for version()
-             * @return string
-             * @deprecated Use Version::version();
-             */
-            function getVersion() { 
-                trigger_error("Idno::getVersion() has been deprecated, use Version::version()");
-                return $this->version(); 
-            }
-
-            /**
-             * Retrieve a machine-readable version of Known's version number
-             * @return string
-             * @deprecated Use Version::build();
-             */
-            function machineVersion() { 
-                trigger_error("Idno::machineVersion() has been deprecated, use Version::build()");
-                return Version::build(); 
-            }
-
-            /**
-             * Alias for machineVersion
-             * @return string
-             * @deprecated Use Version::build();
-             */
-            function getMachineVersion() { 
-                trigger_error("Idno::getMachineVersion() has been deprecated, use Version::build()");
-                return $this->machineVersion(); 
-            }
-            
-
-            /**
              * Can a specified user (either an explicitly specified user ID
              * or the currently logged-in user if this is left blank) edit
              * this entity?

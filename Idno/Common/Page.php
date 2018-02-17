@@ -813,21 +813,6 @@
             }
 
             /**
-             * Because users of HTTP "referer" often can't spell.
-             */
-            function refererGatekeeper()
-            {
-                $this->referrerGatekeeper();
-            }
-
-            /**
-             * Checks for an HTTP referrer; denies access if one doesn't exist
-             * (deprecated)
-             */
-            function referrerGatekeeper()
-            {}
-
-            /**
              * Is this page a permalink for an object? This should be set to 'true'
              * if it is.
              * @param bool $status Is this a permalink? Defaults to 'true'
