@@ -111,6 +111,7 @@
                 $this->actions      = new Actions();
                 $this->template     = new Template();
                 $this->language     = new Language();
+                    $this->language()->register(new GetTextTranslation()); // Register default gettext translations
                 $this->syndication  = new Syndication();
                 $this->reader       = new Reader();
                 $this->helper_robot = new HelperRobot();
