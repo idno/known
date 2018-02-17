@@ -633,16 +633,6 @@
             }
 
             /**
-             * Alias for version()
-             * @return string
-             * @deprecated Use Version::version();
-             */
-            function getVersion() { 
-                trigger_error("Idno::getVersion() has been deprecated, use Version::version()");
-                return $this->version(); 
-            }        
-
-            /**
              * Can a specified user (either an explicitly specified user ID
              * or the currently logged-in user if this is left blank) edit
              * this entity?
