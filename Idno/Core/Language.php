@@ -56,12 +56,13 @@ namespace Idno\Core {
         }
 
         /**
-         * Alias for $this->write();
-         * @param string $string String to translate
-         * @param array $subs Substitutions in the
+         * Return a translated string, substituting variables in subs in the format of sprintf.
+         * @param type $string String to translate
+         * @param array $subs List of substitution variables to be used in the translated string
+         * @return string
          */
-        function _($string, array $subs = []) {
-            return $this->write($string, $subs);
+        public function _($string, array $subs = []) {
+            return vsprintf($this->get($string), $subs);
         }
         
         /**
@@ -126,16 +127,6 @@ namespace Idno\Core {
             return $this->language;
         }
         
-        /**
-         * Return a translated string, substituting variables in subs in the format of sprintf.
-         * @param type $string String to translate
-         * @param array $subs List of substitution variables to be used in the translated string
-         * @return string
-         */
-        public function write($string, array $subs = []) {
-            return vsprintf($this->get($string), $subs);
-        }
-
         /**
          * Replace curly quotes with uncurly quotes
          * @param $string
