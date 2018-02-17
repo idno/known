@@ -650,18 +650,7 @@
             function machineVersion() { 
                 trigger_error("Idno::machineVersion() has been deprecated, use Version::build()");
                 return Version::build(); 
-            }
-
-            /**
-             * Alias for machineVersion
-             * @return string
-             * @deprecated Use Version::build();
-             */
-            function getMachineVersion() { 
-                trigger_error("Idno::getMachineVersion() has been deprecated, use Version::build()");
-                return $this->machineVersion(); 
-            }
-            
+            }          
 
             /**
              * Can a specified user (either an explicitly specified user ID
