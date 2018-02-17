@@ -20,14 +20,19 @@ namespace Idno\Core {
         
         /**
          * Create this translation, for the defined language.
-         * @param type $language Which language is this for? Default 'en'
+         * @param type $language Which language is this for? Default 'en_US'
          */
-        public function __construct($language = 'en') {
+        public function __construct($language = 'en_US') {
             $this->language = $language;
         }
         
-        public function getLanguage() {
-            return $this->language;
+        /**
+         * Can this object provide the given language.
+         * @param type $language
+         * @return bool
+         */
+        public function canProvide($language) {
+            return $this->language == $language;
         }
         
         /**

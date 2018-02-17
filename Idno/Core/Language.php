@@ -11,10 +11,7 @@ namespace Idno\Core {
          * @var type 
          */
         private $translations = [];
-        
-        // @deprecated
-        private $strings = [];
-        
+                
         /**
          * Current language
          * @var type 
@@ -38,21 +35,17 @@ namespace Idno\Core {
                 $language = self::detectBrowserLanguage();
 
             if (empty($language))
-                $language = 'en';
+                $language = 'en_US';
 
-            $this->language = strtolower($language);
-
+            $this->language = $language;
+            
+            // Set locale, now we have one.
+            putenv("LANG=" . $language);
+            putenv("LANGUAGE=" . $language);
+            putenv("LC_ALL=" . $language);
+            setlocale(LC_ALL, $language);
+            
             parent::__construct();
-        }
-
-        /**
-         * Magic method to set language variables
-         * @deprecated Add a Translation object using register
-         */
-        function __set($string, $translation) {
-            if (!empty($string)) {
-                $this->add($string, $translation);
-            }
         }
 
         /**
@@ -63,58 +56,13 @@ namespace Idno\Core {
         }
 
         /**
-         * Chainable function to allow variables to be added as an array.
-         * @param $vars array Associated array of "string" => "translation"
-         * @deprecated Add a Translation object using register
+         * Return a translated string, substituting variables in subs in the format of sprintf.
+         * @param type $string String to translate
+         * @param array $subs List of substitution variables to be used in the translated string
+         * @return string
          */
-        function __($strings) {
-            $this->addTranslations($strings);
-        }
-
-        /**
-         * Alias for $this->write();
-         * @param string $string String to translate
-         * @param array $subs Substitutions in the
-         */
-        function _($string, array $subs = []) {
-            return $this->write($string, $subs);
-        }
-        
-        /**
-         * Shortcut for addTranslation
-         * @param $string
-         * @param $translation
-         * @return bool
-         * @deprecated Add a Translation object using register
-         */
-        function add($string, $translation) {
-            return $this->addTranslation($string, $translation);
-        }
-
-        /**
-         * Adds a translation to this language's corpus
-         * @param $string
-         * @param $translation
-         * @return bool
-         * @deprecated Add a Translation object using register
-         */
-        function addTranslation($string, $translation) {
-            if (!empty($string) && is_string($string)) {
-                $this->strings[$string] = $translation;
-
-                return true;
-            }
-
-            return false;
-        }
-
-        /**
-         * Simplify adding translation strings.
-         * @param array $strings Associated array of "string" => "translation"
-         * @deprecated Add a Translation object using register
-         */
-        function addTranslations(array $strings) {
-            $this->strings = array_merge($this->strings, $strings);
+        public function _($string, array $subs = []) {
+            return vsprintf($this->get($string), $subs);
         }
         
         /**
@@ -124,7 +72,7 @@ namespace Idno\Core {
          * @param \Idno\Core\Translation $translation
          */
         public function register(Translation $translation) {
-            if ($translation->getLanguage() == $this->getLanguage()) {
+            if ($translation->canProvide($this->getLanguage())) {
                 //$this->addTranslations($translation->getStrings());
                 $this->translations[] = $translation;
             }
@@ -152,15 +100,10 @@ namespace Idno\Core {
             // Look through translation objects
             foreach ($this->translations as $translation) {
                 $value = $translation->getString($string);
-                if (!empty($value))
+                if (!empty($value) && ($value != $string))
                     return $value;
             }
-            
-            // Look through locally added strings (deprecated).
-            if (!empty($this->strings[$string])) {
-                return $this->strings[$string];
-            }
-           
+                       
             // If we're in lang_debug mode, lets flag untranslated strings
             if (!empty(\Idno\Core\Idno::site()->config()->lang_debug)) {
                 \Idno\Core\Idno::site()->triggerEvent('language/translation/missing-string', [
@@ -184,16 +127,6 @@ namespace Idno\Core {
             return $this->language;
         }
         
-        /**
-         * Return a translated string, substituting variables in subs in the format of sprintf.
-         * @param type $string String to translate
-         * @param array $subs List of substitution variables to be used in the translated string
-         * @return string
-         */
-        public function write($string, array $subs = []) {
-            return vsprintf($this->get($string), $subs);
-        }
-
         /**
          * Replace curly quotes with uncurly quotes
          * @param $string
@@ -238,7 +171,7 @@ namespace Idno\Core {
          * TODO: Put more logic here, with better fallbacks.
          * @param bool $full if true, the full locale is returned, e.g. en_GB
          */
-        public static function detectBrowserLanguage($full = false) { 
+        public static function detectBrowserLanguage($full = true) { 
             
             $length = 2; // Short form
             if ($full)
