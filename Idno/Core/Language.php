@@ -38,7 +38,7 @@ namespace Idno\Core {
                 $language = self::detectBrowserLanguage();
 
             if (empty($language))
-                $language = 'en';
+                $language = 'en_US';
 
             $this->language = strtolower($language);
 
@@ -238,7 +238,7 @@ namespace Idno\Core {
          * TODO: Put more logic here, with better fallbacks.
          * @param bool $full if true, the full locale is returned, e.g. en_GB
          */
-        public static function detectBrowserLanguage($full = false) { 
+        public static function detectBrowserLanguage($full = true) { 
             
             $length = 2; // Short form
             if ($full)
