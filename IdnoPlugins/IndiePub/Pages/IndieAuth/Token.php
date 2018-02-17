@@ -32,7 +32,6 @@
             {
                 // Get parameters
                 $code         = $this->getInput('code');
-                $me           = $this->getInput('me');
                 $redirect_uri = $this->getInput('redirect_uri');
                 $state        = $this->getInput('state');
                 $client_id    = $this->getInput('client_id');
@@ -50,7 +49,7 @@
                     // Generate access token and save it to the user
                     $token                    = md5(rand(0, 99999) . time() . $user->getUUID() . $client_id . $state . rand(0, 999999));
                     $indieauth_tokens[$token] = array(
-                        'me'           => $me,
+                        'me'           => $verified['me'],
                         'redirect_uri' => $redirect_uri,
                         'scope'        => $verified['scope'],
                         'client_id'    => $client_id,
@@ -69,7 +68,7 @@
                     echo http_build_query(array(
                         'access_token' => $token,
                         'scope'        => $verified['scope'],
-                        'me'           => $me,
+                        'me'           => $verified['me'],
                     ));
                     exit;
 

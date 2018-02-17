@@ -167,6 +167,19 @@
 
                 return \Idno\Core\Idno::site()->config()->getDisplayURL() . 'profile/' . $this->getHandle();
             }
+ 
+            /**
+             * Get the IndieAuth identity URL for this user
+             * @return string
+             */
+            function getIndieAuthURL()
+            {
+                if (\Idno\Core\Idno::site()->config()->single_user) {
+                    return \Idno\Core\Idno::site()->config()->getDisplayURL();
+                }
+
+                return $this->getURL(); 
+            }
 
             /**
              * Wrapper for getURL for consistency

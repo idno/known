@@ -3,6 +3,7 @@
     namespace IdnoPlugins\IndiePub\Pages\IndieAuth {
 
         use Idno\Entities\User;
+        use Idno\Core;
 
         class Auth extends \Idno\Common\Page
         {
@@ -34,13 +35,13 @@
                     exit;
                 }
 
-                 if (parse_url($me, PHP_URL_HOST) != parse_url($user->getURL(), PHP_URL_HOST)) {
+                 if (parse_url($me, PHP_URL_HOST) != parse_url($user->getIndieAuthURL(), PHP_URL_HOST)) {
                      $this->setResponse(403);
-                     echo "\"$me\" does not match the logged in user \"{$user->getURL()}\".";
+                     echo "\"$me\" does not match the logged in user \"{$user->getIndieAuthURL()}\".";
                      exit;
                  }
 
-                 $me_prime = $user->getURL();
+                 $me_prime = $user->getIndieAuthURL();
                  $t        = \Idno\Core\site()->template();
                  $t->body  = $t->__(array(
                      'me'           => $me_prime,
@@ -151,6 +152,7 @@
                         'reason' => 'client_id does not match',
                     );
                 }
+
                 return array(
                     'valid'  => true,
                     'user'   => $user,
