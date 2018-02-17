@@ -1,0 +1,1405 @@
+#: ../templates/default/content/feed/end.tpl.php:7
+msgid "published this"
+msgstr ""
+
+#: ../templates/default/content/feed/end.tpl.php:21
+msgid "star"
+msgstr ""
+
+#: ../templates/default/content/feed/end.tpl.php:23
+msgid "stars"
+msgstr ""
+
+#: ../templates/default/content/feed/end.tpl.php:46
+msgid "comment"
+msgstr ""
+
+#: ../templates/default/content/feed/end.tpl.php:49
+msgid "comments"
+msgstr ""
+
+#: ../templates/default/content/feed/end.tpl.php:95
+msgid "Also on"
+msgstr ""
+
+#: ../templates/default/content/annotation/edit.tpl.php:5
+msgid "Delete"
+msgstr ""
+
+#: ../templates/default/content/end.tpl.php:44
+msgid "Star this!"
+msgstr ""
+
+#: ../templates/default/content/unfurl.tpl.php:12
+msgid "Refresh preview"
+msgstr ""
+
+#: ../templates/default/content/unfurl.tpl.php:15
+msgid "Remove preview"
+msgstr ""
+
+#: ../templates/default/content/edit.tpl.php:6
+msgid "Edit"
+msgstr ""
+
+#: ../templates/default/content/edit.tpl.php:11
+msgid "Are you sure you want to permanently delete this entry?"
+msgstr ""
+
+#: ../templates/default/content/access.tpl.php:27
+msgid "Public"
+msgstr ""
+
+#: ../templates/default/content/access.tpl.php:31
+msgid "Members only"
+msgstr ""
+
+#: ../templates/default/content/access.tpl.php:37
+msgid "Private"
+msgstr ""
+
+#: ../templates/default/admin/home.tpl.php:11
+msgid "Site Details"
+msgstr ""
+
+#: ../templates/default/admin/home.tpl.php:16
+msgid "Site name"
+msgstr ""
+
+#: ../templates/default/admin/home.tpl.php:26
+msgid "Give your site a name!"
+msgstr ""
+
+#: ../templates/default/admin/home.tpl.php:32
+msgid "Site summary"
+msgstr ""
+
+#: ../templates/default/admin/home.tpl.php:36
+msgid "Site description"
+msgstr ""
+
+#: ../templates/default/admin/home.tpl.php:44
+msgid "What's your site about?"
+msgstr ""
+
+#: ../templates/default/admin/home.tpl.php:50
+msgid "Homepage title"
+msgstr ""
+
+#: ../templates/default/admin/home.tpl.php:63
+msgid "What should the browser display as the title on your homepage?<br>By default this is just your site title."
+msgstr ""
+
+#: ../templates/default/admin/home.tpl.php:71
+msgid "Items per page"
+msgstr ""
+
+#: ../templates/default/admin/home.tpl.php:80
+msgid "This is the number of content posts displayed on each page."
+msgstr ""
+
+#: ../templates/default/admin/home.tpl.php:97
+msgid "Is this a single-user site? If so, your profile information will be shown at the top of the homepage."
+msgstr ""
+
+#: ../templates/default/admin/home.tpl.php:127
+msgid "How permalinks for individual posts are constructed."
+msgstr ""
+
+#: ../templates/default/admin/home.tpl.php:134
+msgid "Registration and privacy"
+msgstr ""
+
+#: ../templates/default/admin/home.tpl.php:141
+msgid "Allow registration"
+msgstr ""
+
+#: ../templates/default/admin/home.tpl.php:153
+msgid "Allow registration if you want others to sign up for your site."
+msgstr ""
+
+#: ../templates/default/admin/home.tpl.php:163
+msgid "Make site private"
+msgstr ""
+
+#: ../templates/default/admin/home.tpl.php:176
+msgid "Content on a private site is only visible if you're logged in."
+msgstr ""
+
+#: ../templates/default/admin/home.tpl.php:189
+msgid "Per-post privacy"
+msgstr ""
+
+#: ../templates/default/admin/home.tpl.php:204
+msgid "Show per-post privacy settings."
+msgstr ""
+
+#: ../templates/default/admin/home.tpl.php:213
+msgid "Technical Settings"
+msgstr ""
+
+#: ../templates/default/admin/home.tpl.php:217
+msgid "PubSubHubbub hub"
+msgstr ""
+
+#: ../templates/default/admin/home.tpl.php:217
+msgid "PubSubHubbub hub address"
+msgstr ""
+
+#: ../templates/default/admin/home.tpl.php:217
+msgid "You can probably leave this as is."
+msgstr ""
+
+#: ../templates/default/admin/home.tpl.php:217
+msgid "Learn more about PuSH"
+msgstr ""
+
+#: ../templates/default/admin/home.tpl.php:217
+msgid "Avatar as icon"
+msgstr ""
+
+#: ../templates/default/admin/home.tpl.php:217
+msgid "This uses members' avatar images as the site favicon."
+msgstr ""
+
+#: ../templates/default/admin/home.tpl.php:217
+msgid "Include permalinks"
+msgstr ""
+
+#: ../templates/default/admin/home.tpl.php:217
+msgid "Always add a link back to your site when you syndicate to external networks."
+msgstr ""
+
+#: ../templates/default/admin/home.tpl.php:217
+msgid "Save updates"
+msgstr ""
+
+#: ../templates/default/admin/export/wait.tpl.php:3
+msgid "An archive of your data is being created. Please check again in a few minutes."
+msgstr ""
+
+#: ../templates/default/admin/export/generate.tpl.php:7
+msgid "Create archive"
+msgstr ""
+
+#: ../templates/default/admin/export/generate.tpl.php:13
+msgid "It may take a while to generate your archive. You can leave this page while it's working. Once the export file is complete, this page will update, and you'll be able to download the archive right here."
+msgstr ""
+
+#: ../templates/default/admin/export/download.tpl.php:6
+msgid "Download your data"
+msgstr ""
+
+#: ../templates/default/admin/export/download.tpl.php:7
+msgid "Generated"
+msgstr ""
+
+#: ../templates/default/admin/export/download.tpl.php:13
+msgid "You can also regenerate a new copy of your data archive."
+msgstr ""
+
+#: ../templates/default/admin/export/download.tpl.php:20
+msgid "Re-archive your data"
+msgstr ""
+
+#: ../templates/default/admin/plugins.tpl.php:4
+msgid "Plugins"
+msgstr ""
+
+#: ../templates/default/admin/plugins.tpl.php:7
+msgid "Plugins allow you to add features to your site. These include new kinds of content, options to syndicate
+                content to different sites, and features to change the way Known behaves. To enable or disable a plugin,
+                just click its enable or disable button."
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:5
+msgid "Import content"
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:7
+msgid "Import your content from other sites into Known. All imported content will be treated at a post, with a title and body content."
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:20
+msgid "Known"
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:22
+msgid "Upload a Known RSS export file and turn it into Known posts."
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:26
+msgid "How do I get my Known RSS file?"
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:30
+msgid "To get your Known RSS file"
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:33
+msgid "Log into your Known site"
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:35
+msgid "Click on Site Configuration"
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:38
+msgid "Click on Export"
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:40
+msgid "Download your RSS file"
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:46
+msgid "Select Known export file"
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:62
+msgid "Import your data"
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:74
+msgid "WordPress"
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:76
+msgid "Upload a WordPress XML file and turn it into Known posts."
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:79
+msgid "How do I get my WordPress XML file?"
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:84
+msgid "To get your WordPress XML file"
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:87
+msgid "Log into your WordPress site"
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:89
+msgid "Click on Tools"
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:93
+msgid "Click to export posts"
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:95
+msgid "Click"
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:96
+msgid "Download Export File"
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:102
+msgid "Select WordPress export file"
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:132
+msgid "Blogger"
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:134
+msgid "Upload a Blogger XML file and turn it into Known posts."
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:137
+msgid "How do I get my Blogger XML file?"
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:142
+msgid "To get your Blogger XML file"
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:145
+msgid "Log into Blogger, and click on your blog title"
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:148
+msgid "Click on Settings"
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:150
+msgid "Click on Other"
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:152
+msgid "Click on Export Posts at the top of your page"
+msgstr ""
+
+#: ../templates/default/admin/import.tpl.php:154
+msgid "Click on Export Blog"
+msgstr ""
+
+#: ../templates/default/admin/about.tpl.php:6
+msgid "About Known"
+msgstr ""
+
+#: ../templates/default/admin/about.tpl.php:17
+msgid "is a social publishing platform for groups and individuals."
+msgstr ""
+
+#: ../templates/default/admin/about.tpl.php:21
+msgid "Known Services"
+msgstr ""
+
+#: ../templates/default/admin/about.tpl.php:23
+msgid "are available."
+msgstr ""
+
+#: ../templates/default/admin/about.tpl.php:24
+msgid "You can also"
+msgstr ""
+
+#: ../templates/default/admin/about.tpl.php:27
+msgid "learn more about our open source project."
+msgstr ""
+
+#: ../templates/default/admin/menu.tpl.php:7
+msgid "Site configuration"
+msgstr ""
+
+#: ../templates/default/admin/menu.tpl.php:18
+msgid "Themes"
+msgstr ""
+
+#: ../templates/default/admin/menu.tpl.php:24
+msgid "Homepage"
+msgstr ""
+
+#: ../templates/default/admin/menu.tpl.php:30
+msgid "Email"
+msgstr ""
+
+#: ../templates/default/admin/menu.tpl.php:36
+msgid "Users"
+msgstr ""
+
+#: ../templates/default/admin/menu.tpl.php:42
+msgid "Export"
+msgstr ""
+
+#: ../templates/default/admin/menu.tpl.php:48
+msgid "Import"
+msgstr ""
+
+#: ../templates/default/admin/menu.tpl.php:55
+msgid "Statistics"
+msgstr ""
+
+#: ../templates/default/admin/menu.tpl.php:61
+msgid "Diagnostics"
+msgstr ""
+
+#: ../templates/default/admin/menu.tpl.php:70
+msgid "Captured Logs"
+msgstr ""
+
+#: ../templates/default/admin/menu.tpl.php:75
+msgid "About"
+msgstr ""
+
+#: ../templates/default/admin/themes.tpl.php:7
+msgid "Themes allow you to change the way your site looks.
+                The following themes are installed."
+msgstr ""
+
+#: ../templates/default/admin/users.tpl.php:7
+msgid "View the users registered for your site, and invite new users to join."
+msgstr ""
+
+#: ../templates/default/admin/users.tpl.php:11
+msgid "Manage site users"
+msgstr ""
+
+#: ../templates/default/admin/users.tpl.php:14
+msgid "Your site has"
+msgstr ""
+
+#: ../templates/default/admin/users.tpl.php:17
+msgid "users"
+msgstr ""
+
+#: ../templates/default/admin/users.tpl.php:19
+msgid "user"
+msgstr ""
+
+#: ../templates/default/admin/users.tpl.php:28
+msgid "Invite new users"
+msgstr ""
+
+#: ../templates/default/admin/users.tpl.php:30
+msgid "To invite new users to the site, enter one or more email addresses below."
+msgstr ""
+
+#: ../templates/default/admin/users.tpl.php:38
+msgid "Send invite"
+msgstr ""
+
+#: ../templates/default/admin/users.tpl.php:79
+msgid "Invitations"
+msgstr ""
+
+#: ../templates/default/admin/users.tpl.php:96
+msgid "Sent"
+msgstr ""
+
+#: ../templates/default/admin/users.tpl.php:143
+msgid "Block email addresses"
+msgstr ""
+
+#: ../templates/default/admin/users.tpl.php:146
+msgid "By blocking email addresses, you prevent people using those email addresses from registering on
+                        your site. Enter the email addresses you want to block below."
+msgstr ""
+
+#: ../templates/default/admin/users.tpl.php:166
+msgid "Blocked email addresses"
+msgstr ""
+
+#: ../templates/default/admin/export.tpl.php:5
+msgid "Export content"
+msgstr ""
+
+#: ../templates/default/admin/export.tpl.php:9
+msgid "Export your published Known content as an RSS file. You can import this file into Known or WordPress."
+msgstr ""
+
+#: ../templates/default/admin/export.tpl.php:13
+msgid "Generate RSS file"
+msgstr ""
+
+#: ../templates/default/admin/export.tpl.php:20
+msgid "Include private posts?"
+msgstr ""
+
+#: ../templates/default/admin/export.tpl.php:29
+msgid "Some platforms may assume that your content should be displayed publicly. To protect your privacy, you may wish to only download your public content."
+msgstr ""
+
+#: ../templates/default/admin/export.tpl.php:36
+msgid "Download file"
+msgstr ""
+
+#: ../templates/default/admin/home/description.tpl.php:5
+msgid "On this page you can change the basic settings for your site,
+        like the site name and the number of posts visible on each page."
+msgstr ""
+
+#: ../templates/default/admin/themes/theme.tpl.php:29
+msgid "(Selected)"
+msgstr ""
+
+#: ../templates/default/admin/themes/theme.tpl.php:32
+msgid "Enable"
+msgstr ""
+
+#: ../templates/default/admin/themes/theme.tpl.php:39
+msgid "by"
+msgstr ""
+
+#: ../templates/default/admin/diagnostics.tpl.php:7
+msgid "This page provides you with information that may help you or others diagnose any problems you may be experiencing with your Known install."
+msgstr ""
+
+#: ../templates/default/admin/diagnostics.tpl.php:35
+msgid "Basic checks on installation discovered no problems."
+msgstr ""
+
+#: ../templates/default/admin/diagnostics.tpl.php:44
+msgid "Generate detailed report"
+msgstr ""
+
+#: ../templates/default/admin/email.tpl.php:4
+msgid "Email settings"
+msgstr ""
+
+#: ../templates/default/admin/email.tpl.php:7
+msgid "Known tries to send email using your server's default email settings. If you'd like it to do
+                something else - for example, if you'd like to send email using an external provider - enter the
+                new SMTP settings below. You can also"
+msgstr ""
+
+#: ../templates/default/admin/email.tpl.php:16
+msgid "change your notification settings"
+msgstr ""
+
+#: ../templates/default/admin/email.tpl.php:24
+msgid "Fill in the site email address if you would like your site to send email."
+msgstr ""
+
+#: ../templates/default/admin/email.tpl.php:31
+msgid "Site email address"
+msgstr ""
+
+#: ../templates/default/admin/email.tpl.php:41
+msgid "This is the address that every notification will be sent from."
+msgstr ""
+
+#: ../templates/default/admin/email.tpl.php:47
+msgid "You can often leave the following settings blank. However, you may wish to set them if you're
+                        using a third-party service to send email."
+msgstr ""
+
+#: ../templates/default/admin/email.tpl.php:57
+msgid "SMTP host"
+msgstr ""
+
+#: ../templates/default/admin/email.tpl.php:67
+msgid "This is the address of the server that will send email for you."
+msgstr ""
+
+#: ../templates/default/admin/email.tpl.php:73
+msgid "SMTP username"
+msgstr ""
+
+#: ../templates/default/admin/email.tpl.php:82
+msgid "If your mail server needs a username, enter it here."
+msgstr ""
+
+#: ../templates/default/admin/email.tpl.php:88
+msgid "SMTP password"
+msgstr ""
+
+#: ../templates/default/admin/email.tpl.php:98
+msgid "If your mail server needs a password, enter it here."
+msgstr ""
+
+#: ../templates/default/admin/email.tpl.php:103
+msgid "SMTP port"
+msgstr ""
+
+#: ../templates/default/admin/email.tpl.php:120
+msgid "This is normally 25 or 587."
+msgstr ""
+
+#: ../templates/default/admin/email.tpl.php:126
+msgid "Secure connection"
+msgstr ""
+
+#: ../templates/default/admin/email.tpl.php:149
+msgid "Select yes if you use secure logins to your mail server."
+msgstr ""
+
+#: ../templates/default/admin/email.tpl.php:155
+msgid "Save settings"
+msgstr ""
+
+#: ../templates/default/admin/email.tpl.php:168
+msgid "Send a test message to"
+msgstr ""
+
+#: ../templates/default/admin/email.tpl.php:173
+msgid "To address"
+msgstr ""
+
+#: ../templates/default/admin/email.tpl.php:181
+msgid "Check your email settings by sending a test email."
+msgstr ""
+
+#: ../templates/default/admin/email.tpl.php:188
+msgid "Test settings"
+msgstr ""
+
+#: ../templates/default/admin/statistics.tpl.php:7
+msgid "This page provides you with information and statistics about your Known site."
+msgstr ""
+
+#: ../templates/default/admin/homepage.tpl.php:5
+msgid "Homepage content"
+msgstr ""
+
+#: ../templates/default/admin/homepage.tpl.php:7
+msgid "Here you can choose what content visitors see on your site homepage. By default, all published content appears on the main page.
+	            If you want to hide some content types from the main page, you can turn them off below."
+msgstr ""
+
+#: ../templates/default/admin/homepage.tpl.php:15
+msgid "Turn off content types to hide them from the homepage of your site."
+msgstr ""
+
+#: ../templates/default/admin/homepage.tpl.php:103
+msgid "Save"
+msgstr ""
+
+#: ../templates/default/admin/logs.tpl.php:4
+msgid "Log capture"
+msgstr ""
+
+#: ../templates/default/admin/logs.tpl.php:7
+msgid "This page provides you with captured PHP logs. These contain sensitive information, so be very careful how you disclose the information and to whom."
+msgstr ""
+
+#: ../templates/default/admin/logs.tpl.php:17
+msgid "Refresh..."
+msgstr ""
+
+#: ../templates/default/admin/plugins/plugin.tpl.php:28
+msgid "Enabled"
+msgstr ""
+
+#: ../templates/default/admin/plugins/plugin.tpl.php:31
+msgid "Disabled"
+msgstr ""
+
+#: ../templates/default/admin/plugins/plugin.tpl.php:43
+msgid "Known Version"
+msgstr ""
+
+#: ../templates/default/admin/plugins/plugin.tpl.php:52
+msgid "Known Build"
+msgstr ""
+
+#: ../templates/default/admin/plugins/plugin.tpl.php:61
+msgid "PHP Version"
+msgstr ""
+
+#: ../templates/default/admin/plugins/plugin.tpl.php:73
+msgid "Extensions"
+msgstr ""
+
+#: ../templates/default/entity/share.tpl.php:4
+msgid "This content can't be shared right now."
+msgstr ""
+
+#: ../templates/default/entity/search.tpl.php:12
+msgid "Nothing found."
+msgstr ""
+
+#: ../templates/default/entity/User.tpl.php:62
+msgid "A profile helps you describe yourself to other people on the site and on the web. You haven't described yourself yet."
+msgstr ""
+
+#: ../templates/default/entity/User.tpl.php:68
+msgid "Click here to fill in your profile information."
+msgstr ""
+
+#: ../templates/default/entity/User/edit.tpl.php:4
+msgid "Edit your profile"
+msgstr ""
+
+#: ../templates/default/entity/User/edit.tpl.php:6
+msgid "Your profile is how other users see you across the site. It's up to you how much or how little information you choose to provide."
+msgstr ""
+
+#: ../templates/default/entity/User/edit.tpl.php:25
+msgid "Select a user picture"
+msgstr ""
+
+#: ../templates/default/entity/User/edit.tpl.php:61
+msgid "Your websites"
+msgstr ""
+
+#: ../templates/default/entity/User/edit.tpl.php:63
+msgid "Other places on the web where people can find you."
+msgstr ""
+
+#: ../templates/default/entity/annotations/mentions.tpl.php:19
+msgid "Mentioned in"
+msgstr ""
+
+#: ../templates/default/entity/annotations/likes.tpl.php:26
+msgid "liked this post"
+msgstr ""
+
+#: ../templates/default/entity/annotations/rsvps.tpl.php:35
+msgid "Attending"
+msgstr ""
+
+#: ../templates/default/entity/annotations/rsvps.tpl.php:38
+msgid "Maybe attending"
+msgstr ""
+
+#: ../templates/default/entity/annotations/rsvps.tpl.php:42
+msgid "Not attending"
+msgstr ""
+
+#: ../templates/default/entity/annotations/rsvps.tpl.php:45
+msgid "Other responses"
+msgstr ""
+
+#: ../templates/default/entity/annotations/shares.tpl.php:23
+msgid "reshared this post"
+msgstr ""
+
+#: ../templates/default/entity/annotations/comment/main.tpl.php:16
+msgid "Add a comment ..."
+msgstr ""
+
+#: ../templates/default/entity/annotations/comment/main.tpl.php:26
+msgid "Leave Comment"
+msgstr ""
+
+#: ../templates/default/shell/toolbar/content/all.tpl.php:4
+msgid "All content"
+msgstr ""
+
+#: ../templates/default/shell/toolbar/content/default.tpl.php:4
+msgid "Default content"
+msgstr ""
+
+#: ../templates/default/shell/toolbar/login.tpl.php:4
+msgid "Sign in"
+msgstr ""
+
+#: ../templates/default/shell/toolbar/content.tpl.php:19
+msgid "Filter content"
+msgstr ""
+
+#: ../templates/default/shell/toolbar/logout.tpl.php:5
+msgid "Sign out"
+msgstr ""
+
+#: ../templates/default/shell/toolbar/logged-in.tpl.php:16
+msgid "Profile"
+msgstr ""
+
+#: ../templates/default/shell/toolbar/logged-in.tpl.php:19
+msgid "Notifications"
+msgstr ""
+
+#: ../templates/default/shell/toolbar/logged-in.tpl.php:23
+msgid "Account Settings"
+msgstr ""
+
+#: ../templates/default/shell/toolbar/logged-in.tpl.php:28
+msgid "Site Configuration"
+msgstr ""
+
+#: ../templates/default/shell/toolbar/logged-in.tpl.php:65
+msgid "Leave feedback"
+msgstr ""
+
+#: ../templates/default/shell/toolbar/logged-in.tpl.php:66
+msgid "Feedback"
+msgstr ""
+
+#: ../templates/default/shell/toolbar/register.tpl.php:4
+msgid "Register"
+msgstr ""
+
+#: ../templates/default/shell/toolbar/main.tpl.php:3
+msgid "Skip to main content"
+msgstr ""
+
+#: ../templates/default/shell/toolbar/main.tpl.php:11
+msgid "Toggle navigation"
+msgstr ""
+
+#: ../templates/default/file/picker/image.tpl.php:21
+msgid "Select an image"
+msgstr ""
+
+#: ../templates/default/file/picker/image.tpl.php:33
+msgid "Upload this image"
+msgstr ""
+
+#: ../templates/default/pages/500.tpl.php:6
+msgid "Something went wrong."
+msgstr ""
+
+#: ../templates/default/pages/500.tpl.php:13
+msgid "Click here to try again"
+msgstr ""
+
+#: ../templates/default/pages/500.tpl.php:15
+msgid "or"
+msgstr ""
+
+#: ../templates/default/pages/500.tpl.php:18
+msgid "click here to go back to the homepage"
+msgstr ""
+
+#: ../templates/default/pages/500.tpl.php:24
+msgid "Click here to see the technical details."
+msgstr ""
+
+#: ../templates/default/pages/500.tpl.php:33
+msgid "Oh no! Something went wrong."
+msgstr ""
+
+#: ../templates/default/pages/404.tpl.php:7
+msgid "Oops! We couldn't find it."
+msgstr ""
+
+#: ../templates/default/pages/404.tpl.php:8
+msgid "Whatever you were looking for, it's not here. It might have been moved, deleted, or it doesn't exist. Or the robots ate it. That's always a possibility too."
+msgstr ""
+
+#: ../templates/default/pages/404.tpl.php:13
+msgid "Maybe you'll find something interesting if you head back to the"
+msgstr ""
+
+#: ../templates/default/pages/404.tpl.php:18
+msgid "homepage"
+msgstr ""
+
+#: ../templates/default/pages/403.tpl.php:10
+msgid "Click here to log in."
+msgstr ""
+
+#: ../templates/default/pages/403.tpl.php:20
+msgid "Hold on. You don't have access to this content."
+msgstr ""
+
+#: ../templates/default/pages/403.tpl.php:23
+msgid "It's nothing personal. You just don't have the right permissions to see what's here."
+msgstr ""
+
+#: ../templates/default/pages/403.tpl.php:27
+msgid "Find something else to view on the"
+msgstr ""
+
+#: ../templates/default/pages/home/nocontent.tpl.php:7
+msgid "We couldn't find anything that matches your search."
+msgstr ""
+
+#: ../templates/default/pages/410.tpl.php:7
+msgid "Sorry, this content isn't here anymore."
+msgstr ""
+
+#: ../templates/default/pages/410.tpl.php:9
+msgid "You may be wondering where it went, but we can't tell you. It's a secret."
+msgstr ""
+
+#: ../templates/default/pages/410.tpl.php:12
+msgid "Maybe you'd like to head back to the"
+msgstr ""
+
+#: ../templates/default/pages/410.tpl.php:18
+msgid "instead."
+msgstr ""
+
+#: ../templates/default/forms/usersearch.tpl.php:17
+msgid "Search by name, email address, or username"
+msgstr ""
+
+#: ../templates/default/forms/components/usersearch/user.tpl.php:18
+msgid "Joined"
+msgstr ""
+
+#: ../templates/default/forms/components/usersearch/user.tpl.php:24
+msgid "Last update posted"
+msgstr ""
+
+#: ../templates/default/forms/components/usersearch/user.tpl.php:32
+msgid "Never"
+msgstr ""
+
+#: ../templates/default/forms/components/usersearch/user.tpl.php:38
+msgid "Remote member"
+msgstr ""
+
+#: ../templates/default/forms/components/usersearch/user.tpl.php:41
+msgid "Administrator"
+msgstr ""
+
+#: ../templates/default/forms/components/usersearch/user.tpl.php:47
+msgid "Remove rights"
+msgstr ""
+
+#: ../templates/default/forms/components/usersearch/user.tpl.php:51
+msgid "Yes"
+msgstr ""
+
+#: ../templates/default/forms/components/usersearch/user.tpl.php:53
+msgid "Standard member"
+msgstr ""
+
+#: ../templates/default/forms/components/usersearch/user.tpl.php:57
+msgid "Make admin"
+msgstr ""
+
+#: ../templates/default/forms/components/usersearch/user.tpl.php:70
+msgid "Clear"
+msgstr ""
+
+#: ../templates/default/forms/components/usersearch/user.tpl.php:74
+msgid "Are you sure? The user will be able to log in and post again."
+msgstr ""
+
+#: ../templates/default/forms/components/usersearch/user.tpl.php:79
+msgid "Block"
+msgstr ""
+
+#: ../templates/default/forms/components/usersearch/user.tpl.php:83
+msgid "Are you sure? The user will be logged out and will no longer be able to log in or post."
+msgstr ""
+
+#: ../templates/default/forms/components/usersearch/user.tpl.php:93
+msgid "Are you sure? This will delete this user and all their content."
+msgstr ""
+
+#: ../templates/default/forms/input/richtext.tpl.php:11
+msgid "Share something brilliant..."
+msgstr ""
+
+#: ../templates/default/account/login.tpl.php:4
+msgid "Welcome back!"
+msgstr ""
+
+#: ../templates/default/account/login.tpl.php:14
+msgid "Your email address or username"
+msgstr ""
+
+#: ../templates/default/account/login.tpl.php:19
+msgid "Password"
+msgstr ""
+
+#: ../templates/default/account/login.tpl.php:47
+msgid "New here? Register for an account."
+msgstr ""
+
+#: ../templates/default/account/login.tpl.php:53
+msgid "Forgot your password?"
+msgstr ""
+
+#: ../templates/default/account/settings.tpl.php:9
+msgid "Change your user account settings here. You may also want to"
+msgstr ""
+
+#: ../templates/default/account/settings.tpl.php:13
+msgid "edit your profile"
+msgstr ""
+
+#: ../templates/default/account/settings.tpl.php:23
+msgid "Your name"
+msgstr ""
+
+#: ../templates/default/account/settings.tpl.php:35
+msgid "Your email address"
+msgstr ""
+
+#: ../templates/default/account/settings.tpl.php:46
+msgid "Site notifications will be sent here."
+msgstr ""
+
+#: ../templates/default/account/settings.tpl.php:52
+msgid "Your password"
+msgstr ""
+
+#: ../templates/default/account/settings.tpl.php:64
+msgid "Leave this blank if you don't want to change it."
+msgstr ""
+
+#: ../templates/default/account/settings.tpl.php:70
+msgid "Your timezone"
+msgstr ""
+
+#: ../templates/default/account/settings.tpl.php:79
+msgid "Timezone"
+msgstr ""
+
+#: ../templates/default/account/settings.tpl.php:84
+msgid "Specify your timezone."
+msgstr ""
+
+#: ../templates/default/account/menu.tpl.php:7
+msgid "Settings"
+msgstr ""
+
+#: ../templates/default/account/menu.tpl.php:14
+msgid "Email notifications"
+msgstr ""
+
+#: ../templates/default/account/menu.tpl.php:21
+msgid "Tools and Apps"
+msgstr ""
+
+#: ../templates/default/account/menu.tpl.php:27
+msgid "Export Data"
+msgstr ""
+
+#: ../templates/default/account/notifications.tpl.php:6
+msgid "The notifications screen shows you who has interacted with your content."
+msgstr ""
+
+#: ../templates/default/account/notifications.tpl.php:14
+msgid "You don't have any notifications yet. But we love you anyway!"
+msgstr ""
+
+#: ../templates/default/account/settings/tools.tpl.php:8
+msgid "Bookmarklet"
+msgstr ""
+
+#: ../templates/default/account/settings/tools.tpl.php:12
+msgid "The Known bookmarklet is the best way to save links, reply to posts, and share articles."
+msgstr ""
+
+#: ../templates/default/account/settings/tools.tpl.php:15
+msgid "Just drag the bookmarklet button below into your browser's Bookmark Bar."
+msgstr ""
+
+#: ../templates/default/account/settings/tools.tpl.php:30
+msgid "Don't see a bookmarks bar?"
+msgstr ""
+
+#: ../templates/default/account/settings/tools.tpl.php:32
+msgid "Sometimes web browsers have their bookmarked links bar hidden by default. Here's how to reveal it:"
+msgstr ""
+
+#: ../templates/default/account/settings/tools.tpl.php:36
+msgid "Chrome"
+msgstr ""
+
+#: ../templates/default/account/settings/tools.tpl.php:38
+msgid "Select <em>Always Show Bookmarks Bar</em> from the <em>View</em> menu."
+msgstr ""
+
+#: ../templates/default/account/settings/tools.tpl.php:41
+msgid "Firefox"
+msgstr ""
+
+#: ../templates/default/account/settings/tools.tpl.php:43
+msgid "Select <em>View</em>, then <em>Toolbars</em>, and make sure"
+msgstr ""
+
+#: ../templates/default/account/settings/tools.tpl.php:45
+msgid "Bookmarks Toolbar"
+msgstr ""
+
+#: ../templates/default/account/settings/tools.tpl.php:47
+msgid "is checked."
+msgstr ""
+
+#: ../templates/default/account/settings/tools.tpl.php:49
+msgid "Internet Explorer"
+msgstr ""
+
+#: ../templates/default/account/settings/tools.tpl.php:51
+msgid "Select <em>Tools</em>, then make sure <em>Favorites Bar</em> is checked."
+msgstr ""
+
+#: ../templates/default/account/settings/tools.tpl.php:60
+msgid "Your API key"
+msgstr ""
+
+#: ../templates/default/account/settings/tools.tpl.php:74
+msgid "Revoke"
+msgstr ""
+
+#: ../templates/default/account/settings/tools.tpl.php:77
+msgid "Revoking this key will mean you must update any applications that use this key!"
+msgstr ""
+
+#: ../templates/default/account/settings/notifications.tpl.php:11
+msgid "Set how you'd like to be notified when someone stars or comments on your content."
+msgstr ""
+
+#: ../templates/default/account/settings/notifications.tpl.php:21
+msgid "Send email notifications"
+msgstr ""
+
+#: ../templates/default/account/settings/notifications.tpl.php:30
+msgid "Whenever someone interacts with my content"
+msgstr ""
+
+#: ../templates/default/account/settings/notifications.tpl.php:41
+msgid "Only when someone comments on my content"
+msgstr ""
+
+#: ../templates/default/account/settings/notifications.tpl.php:59
+msgid "Ignored Domains"
+msgstr ""
+
+#: ../templates/default/account/settings/notifications.tpl.php:61
+msgid "Do not send notifications for interactions originating from these domains (one domain per line)"
+msgstr ""
+
+#: ../templates/default/account/settings/feedback.tpl.php:4
+msgid "Share your feedback"
+msgstr ""
+
+#: ../templates/default/account/settings/feedback.tpl.php:7
+msgid "Want to share something with the Known team? We'd love to read your thoughts, suggestions, or ideas.
+            We will personally read all of your feedback."
+msgstr ""
+
+#: ../templates/default/account/settings/feedback.tpl.php:18
+msgid "From"
+msgstr ""
+
+#: ../templates/default/account/settings/feedback.tpl.php:27
+msgid "Feedback for the Known team"
+msgstr ""
+
+#: ../templates/default/account/settings/feedback.tpl.php:30
+msgid "Let us know what you think."
+msgstr ""
+
+#: ../templates/default/account/settings/feedback.tpl.php:38
+msgid "Send feedback"
+msgstr ""
+
+#: ../templates/default/account/settings/following.tpl.php:4
+msgid "Following..."
+msgstr ""
+
+#: ../templates/default/account/settings/following.tpl.php:7
+msgid "Manage your subscriptions here. These users can also be given access to private content you produce on your site. "
+msgstr ""
+
+#: ../templates/default/account/settings/following.tpl.php:12
+msgid "Use this bookmarklet to make is easy to add new friends."
+msgstr ""
+
+#: ../templates/default/account/settings/feedback/confirm.tpl.php:4
+msgid "Message received!"
+msgstr ""
+
+#: ../templates/default/account/settings/feedback/confirm.tpl.php:7
+msgid "Thanks for sending along your thoughts. We'll read them right away."
+msgstr ""
+
+#: ../templates/default/account/settings/feedback/confirm.tpl.php:16
+msgid "Feedback is a gift.  For more information about Known,"
+msgstr ""
+
+#: ../templates/default/account/settings/feedback/confirm.tpl.php:19
+msgid "please visit our homepage"
+msgstr ""
+
+#: ../templates/default/account/settings/following/bookmarklet.tpl.php:6
+msgid "Add as friend..."
+msgstr ""
+
+#: ../templates/default/account/settings/following/mf2user.tpl.php:42
+msgid "Name"
+msgstr ""
+
+#: ../templates/default/account/settings/following/mf2user.tpl.php:50
+msgid "Nickname"
+msgstr ""
+
+#: ../templates/default/account/settings/following/mf2user.tpl.php:54
+msgid "Handle (for your reference)"
+msgstr ""
+
+#: ../templates/default/account/settings/following/mf2user.tpl.php:66
+msgid "Profile URL"
+msgstr ""
+
+#: ../templates/default/account/password/reset.tpl.php:4
+msgid "Reset your password"
+msgstr ""
+
+#: ../templates/default/account/password/reset.tpl.php:6
+msgid "To change your password, enter your new password below:"
+msgstr ""
+
+#: ../templates/default/account/password/reset.tpl.php:16
+msgid "The address associated with your %s account."
+msgstr ""
+
+#: ../templates/default/account/password/reset.tpl.php:26
+msgid "New password (7 characters or more)"
+msgstr ""
+
+#: ../templates/default/account/password/reset.tpl.php:33
+msgid "Retype password"
+msgstr ""
+
+#: ../templates/default/account/password/reset.tpl.php:35
+msgid "We ask you to enter the password twice to protect against typos."
+msgstr ""
+
+#: ../templates/default/account/password/reset.tpl.php:46
+msgid "Reset password"
+msgstr ""
+
+#: ../templates/default/account/password/sent.tpl.php:4
+msgid "Your password reset email has been sent"
+msgstr ""
+
+#: ../templates/default/account/password/sent.tpl.php:8
+msgid "Check your inbox! You'll find an email containing a special link that will help you reset your password."
+msgstr ""
+
+#: ../templates/default/account/password/sent.tpl.php:11
+msgid "Did you remember your password? That's okay too. You can"
+msgstr ""
+
+#: ../templates/default/account/password/sent.tpl.php:16
+msgid "click here to sign in."
+msgstr ""
+
+#: ../templates/default/account/password.tpl.php:6
+msgid "Forgot your password? Don't worry! It happens to the best of us."
+msgstr ""
+
+#: ../templates/default/account/password.tpl.php:8
+msgid "Just enter the email address associated with your %s account below, and we'll send you a top secret
+            link to your email account so that you can create a new password."
+msgstr ""
+
+#: ../templates/default/account/password.tpl.php:29
+msgid "Send password reset email"
+msgstr ""
+
+#: ../templates/default/account/export.tpl.php:5
+msgid "Export your data"
+msgstr ""
+
+#: ../templates/default/account/export.tpl.php:11
+msgid "You can download an RSS version of everything you've posted on this site. This file is suitable for
+                importing into content management systems like WordPress, or another Known site."
+msgstr ""
+
+#: ../templates/default/account/export.tpl.php:29
+msgid "Platforms like WordPress may assume that all your posts should be displayed publicly.
+                        In order to protect your privacy, you may wish to just download your public posts."
+msgstr ""
+
+#: ../templates/default/account/export.tpl.php:36
+msgid "Download RSS Feed"
+msgstr ""
+
+#: ../templates/default/account/register.tpl.php:4
+msgid "Hello there!"
+msgstr ""
+
+#: ../templates/default/account/register.tpl.php:6
+msgid "Create a new account to get started."
+msgstr ""
+
+#: ../templates/default/account/register.tpl.php:23
+msgid "Choose a handle"
+msgstr ""
+
+#: ../templates/default/account/register.tpl.php:25
+msgid "Handles identify you throughout the site. Something simple is best: for example"
+msgstr ""
+
+#: ../templates/default/account/register.tpl.php:30
+msgid "username"
+msgstr ""
+
+#: ../templates/default/account/register.tpl.php:47
+msgid "Create a password"
+msgstr ""
+
+#: ../templates/default/account/register.tpl.php:49
+msgid "At least 7 characters please."
+msgstr ""
+
+#: ../templates/default/account/register.tpl.php:55
+msgid "secret-password"
+msgstr ""
+
+#: ../templates/default/account/register.tpl.php:61
+msgid "Your password again"
+msgstr ""
+
+#: ../templates/default/account/register.tpl.php:72
+msgid "Create Account"
+msgstr ""
+
+#: ../templates/default/onboarding/connect.tpl.php:3
+msgid "Share to social"
+msgstr ""
+
+#: ../templates/default/onboarding/connect.tpl.php:6
+msgid "Connect your accounts to easily share content with people across the web."
+msgstr ""
+
+#: ../templates/default/onboarding/connect.tpl.php:15
+msgid "Continue"
+msgstr ""
+
+#: ../templates/default/onboarding/connect.tpl.php:18
+msgid "Don't worry, you can always connect these later."
+msgstr ""
+
+#: ../templates/default/onboarding/begin.tpl.php:7
+msgid "Known is your space for sharing content and discussing ideas."
+msgstr ""
+
+#: ../templates/default/onboarding/begin.tpl.php:16
+msgid "Take a picture"
+msgstr ""
+
+#: ../templates/default/onboarding/begin.tpl.php:22
+msgid "Share a message"
+msgstr ""
+
+#: ../templates/default/onboarding/begin.tpl.php:29
+msgid "Save your location"
+msgstr ""
+
+#: ../templates/default/onboarding/begin.tpl.php:40
+msgid "Get started"
+msgstr ""
+
+#: ../templates/default/onboarding/begin.tpl.php:45
+msgid "Already have an account? Sign in."
+msgstr ""
+
+#: ../templates/default/onboarding/register.tpl.php:13
+msgid "Choose a username"
+msgstr ""
+
+#: ../templates/default/onboarding/register.tpl.php:29
+msgid "(at least 7 characters please)"
+msgstr ""
+
+#: ../templates/default/onboarding/profile.tpl.php:4
+msgid "Create your profile"
+msgstr ""
+
+#: ../templates/default/onboarding/profile.tpl.php:17
+msgid "Add a photo of yourself"
+msgstr ""
+
+#: ../templates/default/onboarding/profile.tpl.php:27
+msgid "Ben Franklin"
+msgstr ""
+
+#: ../templates/default/onboarding/profile.tpl.php:31
+msgid "Your short bio"
+msgstr ""
+
+#: ../templates/default/onboarding/profile.tpl.php:35
+msgid "I fly kites..."
+msgstr ""
+
+#: ../templates/default/onboarding/profile.tpl.php:41
+msgid "Your other websites"
+msgstr ""
+
+#: ../templates/default/onboarding/profile.tpl.php:43
+msgid "(a blog, a portfolio, Twitter, Facebook, etc)"
+msgstr ""
+
+#: ../templates/default/onboarding/profile.tpl.php:52
+msgid "Add another website"
+msgstr ""
+
+#: ../templates/default/following/home.tpl.php:4
+msgid "Following"
+msgstr ""
+
+#: ../templates/default/following/home.tpl.php:11
+msgid "Follow another site"
+msgstr ""
+
+#: ../templates/default/following/home.tpl.php:22
+msgid "You're not following anyone yet."
+msgstr ""
+
+#: ../templates/default/following/confirm.tpl.php:8
+msgid "Follow"
+msgstr ""
+
+#: ../templates/default/following/confirm.tpl.php:15
+msgid "Here's the latest content."
+msgstr ""
+
+#: ../templates/default/following/add.tpl.php:4
+msgid "Add the address of a site to follow"
+msgstr ""
+

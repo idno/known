@@ -6,4 +6,4 @@
 #   makepot.sh directory > language.pot
 #
 
-find $1 -type f -regex ".*\.php" | xargs -i{} sh -c "cat {} | php processfile.php {}"
+find $1 -type f -regex ".*\.php" | php processfile.php
