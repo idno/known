@@ -16,8 +16,8 @@ It is then possible to add them all at once for each language (this way, Known w
 E.g.
 
 ```
-\Idno\Core\Idno::site()->language()->register(new \IdnoPlugins\Example\Languages\English('en'));
-\Idno\Core\Idno::site()->language()->register(new \IdnoPlugins\Example\Languages\French('fr'));
+\Idno\Core\Idno::site()->language()->register(new \IdnoPlugins\Example\Languages\English('en_GB'));
+\Idno\Core\Idno::site()->language()->register(new \IdnoPlugins\Example\Languages\French('fr_FR'));
 ```
 
 ## Using a translation
