@@ -818,31 +818,6 @@
             }
 
             /**
-             * Get a user's settings for default content types on their homepage (or all the content types registered
-             * if none have been listed).
-             *
-             * THIS IS A LEGACY FUNCTION AND DUE FOR REMOVAL.
-             * @deprecated
-             *
-             * @return array
-             */
-            function getDefaultContentTypes()
-            {
-                $friendly_types = array();
-                if ($temp_types = $this->settings['default_feed_content']) {
-                    if (is_array($temp_types)) {
-                        foreach ($temp_types as $temp_type) {
-                            if ($content_type_class = \Idno\Common\ContentType::categoryTitleToClass($temp_type)) {
-                                $friendly_types[] = $content_type_class;
-                            }
-                        }
-                    }
-                }
-
-                return $friendly_types;
-            }
-
-            /**
              * Return the total size of all files owned by this user
              * @return int
              */
