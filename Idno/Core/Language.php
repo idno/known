@@ -40,8 +40,8 @@ namespace Idno\Core {
             if (empty($language))
                 $language = 'en_US';
 
-            $this->language = strtolower($language);
-
+            $this->language = $language;
+            
             parent::__construct();
         }
 
