@@ -128,7 +128,7 @@ namespace Idno\Core {
          * @param \Idno\Core\Translation $translation
          */
         public function register(Translation $translation) {
-            if ($translation->getLanguage() == $this->getLanguage()) {
+            if ($translation->canProvide($this->getLanguage())) {
                 //$this->addTranslations($translation->getStrings());
                 $this->translations[] = $translation;
             }

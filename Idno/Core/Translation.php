@@ -26,8 +26,13 @@ namespace Idno\Core {
             $this->language = $language;
         }
         
-        public function getLanguage() {
-            return $this->language;
+        /**
+         * Can this object provide the given language.
+         * @param type $language
+         * @return bool
+         */
+        public function canProvide($language) {
+            return $this->language == $language;
         }
         
         /**
