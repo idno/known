@@ -136,6 +136,15 @@
 
                 return \Idno\Core\Idno::site()->template()->__(array('user' => $this))->draw('entity/User/icon');
             }
+            
+            /**
+             * Return the user's current timezone.
+             * @return type
+             */
+            function getTimezone() 
+            {
+                return $this->timezone;
+            }
 
             /**
              * A friendly alias for getTitle.
