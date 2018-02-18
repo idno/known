@@ -62,6 +62,17 @@
                             'class' => 'form-control'])->draw('forms/input/datetime-local'); ?>
                     
             </div>
+            <div class="content-form">
+                <label for="timezone">
+                    Time zone</label>
+                <?= $this->__([
+                            'name' => 'timezone', 
+                            'id' => 'timezone', 
+                            'required' => true,
+                            'value' => empty($vars['object']->timezone) ? \Idno\Core\Idno::site()->session()->currentUser()->getTimezone() : $vars['object']->timezone, 
+                            'class' => 'form-control'])->draw('forms/input/timezones'); ?>
+                    
+            </div>
             <?php echo $this->drawSyndication('event', $vars['object']->getPosseLinks()); ?>
 
         </div>

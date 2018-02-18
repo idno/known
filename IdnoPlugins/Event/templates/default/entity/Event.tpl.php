@@ -48,6 +48,12 @@ $timeformat = 'l, jS F Y h:i A';
         <?php
     }
     ?>
+    <?php if (!empty($vars['object']->timezone)) { ?>
+    <p>
+        Time Zone:
+        <?= $this->__(['value' => $vars['object']->timezone])->draw('forms/output/timezones'); ?>
+    </p>
+    <?php } ?>
 </div>
 <div class="e-content">
     <?= $this->autop($this->parseHashtags($this->parseURLs($vars['object']->body))) ?>
