@@ -61,6 +61,7 @@
                     $this->location = \Idno\Core\Idno::site()->currentPage()->getInput('location');
                     $this->starttime = \Idno\Core\Idno::site()->currentPage()->getInput('starttime');
                     $this->endtime = \Idno\Core\Idno::site()->currentPage()->getInput('endtime');
+                    $this->timezone = \Idno\Core\Idno::site()->currentPage()->getInput('timezone');
                     $access = \Idno\Core\Idno::site()->currentPage()->getInput('access');
 
                     if ($time = \Idno\Core\Idno::site()->currentPage()->getInput('created')) {
