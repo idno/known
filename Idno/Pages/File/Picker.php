@@ -55,7 +55,7 @@
                                 exit;
                             }
                         } else {
-                            Idno::site()->session()->addErrorMessage("You can only upload images.");
+                            Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("You can only upload images."));
                         }
                     }
                     $this->forward($_SERVER['HTTP_REDIRECT']);

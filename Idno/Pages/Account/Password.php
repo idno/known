@@ -60,7 +60,7 @@
                     }
 
                 }
-                \Idno\Core\Idno::site()->session()->addErrorMessage("Oh no! We couldn't find an account associated with that email address.");
+                \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("Oh no! We couldn't find an account associated with that email address."));
                 $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'account/password');
 
             }

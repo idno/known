@@ -367,7 +367,7 @@
                         // Say something, if nothing has been said
                         $messages = \Idno\Core\Idno::site()->session()->getMessages();
                         if (empty($messages)) {
-                            \Idno\Core\Idno::site()->session()->addErrorMessage("Something went wrong.");
+                            \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("Something went wrong."));
                         }
 
                         $t = \Idno\Core\Idno::site()->template();
@@ -528,7 +528,7 @@
                         // Say something, if nothing has been said
                         $messages = \Idno\Core\Idno::site()->session()->getMessages();
                         if (empty($messages)) {
-                            \Idno\Core\Idno::site()->session()->addErrorMessage("Couldn't say anything about execution, probably something went wrong");
+                            \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("Couldn't say anything about execution, probably something went wrong"));
                         }
 
                         $t = \Idno\Core\Idno::site()->template();
@@ -614,7 +614,7 @@
                         // Say something, if nothing has been said
                         $messages = \Idno\Core\Idno::site()->session()->getMessages();
                         if (empty($messages)) {
-                            \Idno\Core\Idno::site()->session()->addErrorMessage("Couldn't say anything about execution, probably something went wrong");
+                            \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("Couldn't say anything about execution, probably something went wrong"));
                         }
 
                         $t = \Idno\Core\Idno::site()->template();

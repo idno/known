@@ -48,7 +48,7 @@
                                 ];
 
                                 // Display a warning
-                                \Idno\Core\Idno::site()->session()->addErrorMessage('Page did not contain any <a href=\"http://microformats.org/wiki/microformats-2\">Microformats</a> markup... doing my best with what I have!');
+                                \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_('Page did not contain any <a href=\"http://microformats.org/wiki/microformats-2\">Microformats</a> markup... doing my best with what I have!'));
 
                             }
 
@@ -177,7 +177,7 @@
                             }
                         } else {
                             \Idno\Core\Idno::site()->logging->debug('Could not follow user for some reason (probably already following)');
-                            \Idno\Core\Idno::site()->session()->addErrorMessage('You\'re already following ' . $this->getInput('name'));
+                            \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_('You\'re already following %s', [$this->getInput('name')]));
                         }
                     } else
                         throw new \RuntimeException('Sorry, that user doesn\'t exist!');

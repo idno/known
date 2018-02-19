@@ -51,12 +51,12 @@
                         \Idno\Core\Idno::site()->session()->logUserOn($user); 
                         $this->forward($fwd);
                     } else {
-                        \Idno\Core\Idno::site()->session()->addErrorMessage("Oops! It looks like your password isn't correct. Please try again.");
+                        \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("Oops! It looks like your password isn't correct. Please try again."));
                         \Idno\Core\Idno::site()->triggerEvent('login/failure', array('user' => $user));
                         $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login/?fwd=' . \Idno\Core\Webservice::base64UrlEncode($fwd));
                     }
                 } else {
-                    \Idno\Core\Idno::site()->session()->addErrorMessage("Oops! We couldn't find your username or email address. Please check you typed it correctly and try again.");
+                    \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("Oops! We couldn't find your username or email address. Please check you typed it correctly and try again."));
                     $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login/?fwd=' . \Idno\Core\Webservice::base64UrlEncode($fwd));
                 }
             }
