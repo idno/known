@@ -53,7 +53,7 @@
 
                 if (!empty($password)) {
                     if (\Idno\Entities\User::checkNewPasswordStrength($password)) {
-                        \Idno\Core\Idno::site()->session()->addMessage("Your password has been updated.");
+                        \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("Your password has been updated."));
                         $user->setPassword($password);
                     } else {
                         \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_('Sorry, your password is too weak'));
@@ -63,7 +63,7 @@
                 $user->timezone = $timezone;
 
                 if ($user->save()) {
-                    \Idno\Core\Idno::site()->session()->addMessage("Your details were saved.");
+                    \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("Your details were saved."));
                 }
                 $this->forward($_SERVER['HTTP_REFERER']);
             }

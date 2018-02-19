@@ -157,7 +157,7 @@
                 }
 
                 if (!empty($user->_id)) {
-                    \Idno\Core\Idno::site()->session()->addMessage("You've registered! You're ready to get started. Why not add a post to say hello?");
+                    \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("You've registered! You're ready to get started. Why not add a post to say hello?"));
                     \Idno\Core\Idno::site()->session()->logUserOn($user);
                     $this->forward();
                 } else {

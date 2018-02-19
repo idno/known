@@ -45,7 +45,7 @@
 
                 $object->unsyndicate();
 
-                \Idno\Core\Idno::site()->session()->addMessage("We removed copies on all the syndicated sites.");
+                \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("We removed copies on all the syndicated sites."));
 
                 $this->forward($object->getDisplayURL());
 

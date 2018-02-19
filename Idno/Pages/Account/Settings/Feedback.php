@@ -39,7 +39,7 @@
                         'message' => $message
                     ));
 
-                    \Idno\Core\Idno::site()->session()->addMessage("Thanks! We received your feedback.");
+                    \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("Thanks! We received your feedback."));
 
                 }
 

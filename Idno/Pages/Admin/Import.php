@@ -34,7 +34,7 @@
                 } else if (!($xml = @file_get_contents($_FILES['import']['tmp_name']))) {
                     \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("We couldn't open the file you uploaded. Please try again."));
                 } else {
-                    \Idno\Core\Idno::site()->session()->addMessage("Your import has started. We'll email you when it's done.");
+                    \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("Your import has started. We'll email you when it's done."));
                 }
 
                 session_write_close();

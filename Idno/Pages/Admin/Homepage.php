@@ -41,7 +41,7 @@
                 \Idno\Core\Idno::site()->config = $config;
 
                 if (\Idno\Core\Idno::site()->config->save()) {
-                    \Idno\Core\Idno::site()->session()->addMessage("The default homepage content types were saved.");
+                    \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("The default homepage content types were saved."));
                 }
                 $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'admin/homepage/');
             }

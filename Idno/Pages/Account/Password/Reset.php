@@ -55,7 +55,7 @@
                             $user->setPassword($password);
                             $user->clearPasswordRecoveryCode();
                             $user->save();
-                            \Idno\Core\Idno::site()->session()->addMessage("Your password was reset!");
+                            \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("Your password was reset!"));
 
                         }
 

@@ -23,7 +23,7 @@
                     $message->setTextBodyFromTemplate('admin/emailtest');
 
                     if ($message->send()) {
-                        \Idno\Core\Idno::site()->session()->addMessage("Test email sent to $email");
+                        \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("Test email sent to %s", [$email]));
                     } else {
                         \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("There was a problem sending a test message to %s.", [$email]));
                     }

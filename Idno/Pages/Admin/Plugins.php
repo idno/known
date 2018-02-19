@@ -46,14 +46,14 @@
                             if (!empty(\Idno\Core\Idno::site()->config()->external_plugin_path) && file_exists(\Idno\Core\Idno::site()->config()->external_plugin_path . '/IdnoPlugins/' . $plugin)) {
                                 \Idno\Core\Idno::site()->config->config['directloadplugins'][$plugin] = \Idno\Core\Idno::site()->config()->external_plugin_path . '/IdnoPlugins/' . $plugin;
                             }
-                            \Idno\Core\Idno::site()->session()->addMessage('The plugin was enabled.');
+                            \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_('The plugin was enabled.'));
                             break;
                         case 'uninstall':
                             if (($key = array_search($plugin, \Idno\Core\Idno::site()->config->config['plugins'])) !== false) {
                                 \Idno\Core\Idno::site()->triggerEvent('plugin/unload/' . $plugin);
                                 unset(\Idno\Core\Idno::site()->config->config['plugins'][$key]);
                                 unset(\Idno\Core\Idno::site()->config->config['directloadplugins'][$key]);
-                                \Idno\Core\Idno::site()->session()->addMessage('The plugin was disabled.');
+                                \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_('The plugin was disabled.'));
                             }
                             break;
                     }

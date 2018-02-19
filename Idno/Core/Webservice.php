@@ -231,7 +231,7 @@
 
                         do {
                             curl_setopt($rch, CURLOPT_URL, $newurl);
-                            site()->session()->addMessage("Checking " . $newurl);
+                            site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("Checking %s", [$newurl]));
                             $header = curl_exec($rch);
                             if (curl_errno($rch)) {
                                 $code = 0;
