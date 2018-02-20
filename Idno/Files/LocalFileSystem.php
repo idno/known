@@ -84,10 +84,10 @@
                         }
 
                         if (!@copy($file_path, $upload_file)) {
-                            throw new \RuntimeException("There was a problem storing the file data.");
+                            throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("There was a problem storing the file data."));
                         }
                         if (!@file_put_contents($data_file, $metadata)) {
-                                throw new \RuntimeException("There was a problem saving the file's metadata");
+                                throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("There was a problem saving the file's metadata"));
                         }
 
                         return $id;

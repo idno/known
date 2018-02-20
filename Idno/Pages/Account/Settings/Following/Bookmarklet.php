@@ -34,7 +34,7 @@
                             $hcard = $this->removeDuplicateProfiles($hcard);
 
                             if (!count($hcard)) {
-                                //throw new \RuntimeException("Sorry, could not find any users on that page, perhaps they need to mark up their profile in <a href=\"http://microformats.org/wiki/microformats-2\">Microformats</a>?"); // TODO: Add a manual way to add the user
+                                //throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("Sorry, could not find any users on that page, perhaps they need to mark up their profile in <a href=\"http://microformats.org/wiki/microformats-2\">Microformats</a>?")); // TODO: Add a manual way to add the user
 
                                 // No entry could be found, so lets fake one and allow manual entry
                                 $hcard[] = [
@@ -61,9 +61,9 @@
                             $t->drawPage();
                         }
                     } else
-                        throw new \RuntimeException("Sorry, there was a problem parsing the page!");
+                        throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("Sorry, there was a problem parsing the page!"));
                 } else
-                    throw new \RuntimeException("Sorry, $u could not be retrieved!");
+                    throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("Sorry, %s could not be retrieved!", [$u]));
 
                 // forward back
                 $this->forward($_SERVER['HTTP_REFERER']);
@@ -146,7 +146,7 @@
                             // TODO: Get a profile URL - get it from passed photo variable, upload to local and treat as avatar.
 
                             if (!$new_user->save())
-                                throw new \Exception ("There was a problem saving the new remote user.");
+                                throw new \Exception (\Idno\Core\Idno::site()->language()->_("There was a problem saving the new remote user."));
 
                         }
                     } else
@@ -180,9 +180,9 @@
                             \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_('You\'re already following %s', [$this->getInput('name')]));
                         }
                     } else
-                        throw new \RuntimeException('Sorry, that user doesn\'t exist!');
+                        throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Sorry, that user doesn\'t exist!'));
                 } else
-                    throw new \RuntimeException("No UUID, please try that again!");
+                    throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("No UUID, please try that again!"));
             }
 
         }

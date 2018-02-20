@@ -51,7 +51,7 @@ class AsynchronousQueue extends EventQueue
     function dispatch(\Idno\Entities\AsynchronousQueuedEvent &$event) {
         
         if (!defined("KNOWN_EVENT_QUEUE_SERVICE"))
-            throw new \RuntimeException("You can not dispatch asynchronous events from within the web app, please run the service");
+            throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("You can not dispatch asynchronous events from within the web app, please run the service"));
         
         try {
         
@@ -60,7 +60,7 @@ class AsynchronousQueue extends EventQueue
             if (!empty($event->runAsContext)) {
                 $user = \Idno\Entities\User::getByUUID($event->runAsContext);
                 if (empty($user))
-                    throw new \RuntimeException("Invalid user ($event->runAsContext) given for runAsContext, aborting");
+                    throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("Invalid user (%s) given for runAsContext, aborting", [$event->runAsContext]));
 
                 \Idno\Core\Idno::site()->session()->logUserOn($user);
                 

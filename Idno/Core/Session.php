@@ -133,7 +133,7 @@
                 // Check for secure sessions being delivered insecurely, and vis versa
                 /*if (isset($_SESSION['secure']) && $_SESSION['secure'] != Idno::site()->isSecure()) {
                     $message = Idno::site()->isSecure() ? 'Insecure session accessed securely' : 'Secure session accessed insecurely';
-                    throw new \Idno\Exceptions\SecurityException('Session funnybusiness: ' . $message);
+                    throw new \Idno\Exceptions\SecurityException(\Idno\Core\Idno::site()->language()->_('Session funnybusiness: ', [$message));
                 }*/
             }
 

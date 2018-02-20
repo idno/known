@@ -15,7 +15,7 @@ namespace Idno\Pages\Service\Web {
             $url = trim($this->getInput('url'));
 
             if (empty($url))
-                throw new \RuntimeException("You need to specify a working URL");
+                throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("You need to specify a working URL"));
 
             // Try and get UnfurledURL entity
             if ($object = \Idno\Entities\UnfurledUrl::getBySourceURL($url)) {
@@ -41,7 +41,7 @@ namespace Idno\Pages\Service\Web {
             $forcenew = $this->getInput('forcenew', false);
 
             if (empty($url))
-                throw new \RuntimeException("You need to specify a working URL");
+                throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("You need to specify a working URL"));
 
             // Try and get UnfurledURL entity
             $object = \Idno\Entities\UnfurledUrl::getBySourceURL($url);
@@ -63,7 +63,7 @@ namespace Idno\Pages\Service\Web {
             $result = $object->unfurl($url);
             
             if (!$result)
-                throw new \RuntimeException("Url $url could not be unfurled");
+                throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("Url %s could not be unfurled", [$url]));
 
             $object->save();
             

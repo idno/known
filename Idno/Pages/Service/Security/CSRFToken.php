@@ -11,7 +11,7 @@ namespace Idno\Pages\Service\Security {
             
             $action = $this->getInput('url');
             if (empty($action))
-                throw new \RuntimeException("URL missing");
+                throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("URL missing"));
             
             \Idno\Core\Idno::site()->logging()->debug("Updating token for $action");
             
