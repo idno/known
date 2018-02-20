@@ -87,6 +87,8 @@
 
             function post()
             {
+                \Idno\Core\Idno::site()->template()->setTemplateType('json');
+                
                 //fail-by-default in case of unhandled errors
                 $this->setResponse(500);
 
@@ -326,8 +328,8 @@
 
                 // setting all categories as hashtags into content field
                 if (is_array($categories)) {
-                    $hashtags = "";
-                    foreach ($categories as $category) {
+                    //$hashtags = "";
+                    foreach ($categories as $key => $category) {
                         if(is_string($category)) { // in JSON requests, category may be an h-card, e.g. person tags
                             $category = trim($category);
                             if ($category) {
@@ -336,7 +338,8 @@
                                     $category = ucwords($category);
                                     $category = str_replace(" ","",$category);
                                 }
-                                $hashtags .= " #$category";
+                                //$hashtags .= " #$category";
+                                $categories[$key] = " #$category";
                             }
                         }
                     }
@@ -370,16 +373,17 @@
                                 }
                             }
                         }
-                        $hashtags = (empty($hashtags) ? "" : "<p>".$hashtags."</p>");
+                        //$hashtags = (empty($hashtags) ? "" : "<p>".$hashtags."</p>");
                         $htmlPhoto    = (empty($htmlPhoto) ? "" : "<p>".$htmlPhoto."</p>");
                         $this->setInput('title', $name);
-                        $this->setInput('body', $htmlPhoto.$content_value.$hashtags);
+                        $this->setInput('body', $htmlPhoto.$content_value);
                         $this->setInput('inreplyto', $in_reply_to);
                         $this->setInput('bookmark-of', $bookmark_of);
                         $this->setInput('like-of', $like_of);
                         $this->setInput('repost-of', $repost_of);
                         $this->setInput('rsvp', $rsvp);
                         $this->setInput('access', 'PUBLIC');
+                        $this->setInput('tags', $categories);
                         if ($type ==  'checkin') {
                             $this->setInput('lat', $lat);
                             $this->setInput('long', $long);

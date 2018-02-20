@@ -7,6 +7,9 @@
         $rel = '';
     }*/
     if (!empty($vars['object']->tags)) {
+        if (is_array($vars['object']->tags))
+            $tags = '<p class="tag-row"><i class="icon-tag"></i>' . implode(' ', $vars['object']->tags) . '</p>';
+        else
         /*$vars['object']->body .= */ $tags = '<p class="tag-row"><i class="icon-tag"></i>' . $vars['object']->tags . '</p>';
     }
 
