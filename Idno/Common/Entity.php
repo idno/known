@@ -1046,7 +1046,10 @@ namespace Idno\Common {
         {
             if ($descr = $this->getDescription()) {
                 if (!empty($this->tags)) {
-                    $descr .= ' ' . $this->tags;
+                    if (is_array($this->tags))
+                        $descr .= ' ' . implode(' ', $this->tags);
+                    else
+                        $descr .= ' ' . $this->tags;
                 }
                 if (preg_match_all('/(?<!=)(?<!["\'])(\#[A-Za-z0-9\_]+)/iu', $descr, $matches)) {
                     if (!empty($matches[0])) {
