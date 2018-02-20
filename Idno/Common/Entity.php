@@ -677,7 +677,7 @@ namespace Idno\Common {
                     \Idno\Core\Idno::site()->events()->dispatch('post/' . $this->getActivityStreamsObjectType(), $event);
                     \Idno\Core\Idno::site()->events()->dispatch('syndicate', $event);
                 } catch (\Exception $e) {
-                    \Idno\Core\Idno::site()->session()->addErrorMessage("There was a problem syndicating.");
+                    \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("There was a problem syndicating."));
                     \Idno\Core\Idno::site()->logging()->error($e->getMessage());
                 }
             }

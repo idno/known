@@ -48,7 +48,7 @@
                                 ];
 
                                 // Display a warning
-                                \Idno\Core\Idno::site()->session()->addErrorMessage('Page did not contain any <a href=\"http://microformats.org/wiki/microformats-2\">Microformats</a> markup... doing my best with what I have!');
+                                \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_('Page did not contain any <a href=\"http://microformats.org/wiki/microformats-2\">Microformats</a> markup... doing my best with what I have!'));
 
                             }
 
@@ -167,17 +167,17 @@
                                 // Ok, we've saved the new user, now, lets subscribe to their feeds
                                 if ($feed = \Idno\Core\Idno::site()->reader()->getFeedObject($new_user->getURL())) {
 
-                                    \Idno\Core\Idno::site()->session()->addMessage("You are now following " . $new_user->getTitle() . ', would you like to subscribe to their feed?');
+                                    \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_('You are now following %s, would you like to subscribe to their feed?', [$new_user->getTitle()]));
 
                                     $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'following/confirm/?feed=' . urlencode($new_user->getURL()));
                                 }
 
-                                \Idno\Core\Idno::site()->session()->addMessage("You are now following " . $new_user->getTitle());
+                                \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("You are now following %s", [$new_user->getTitle()]));
 
                             }
                         } else {
                             \Idno\Core\Idno::site()->logging->debug('Could not follow user for some reason (probably already following)');
-                            \Idno\Core\Idno::site()->session()->addErrorMessage('You\'re already following ' . $this->getInput('name'));
+                            \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_('You\'re already following %s', [$this->getInput('name')]));
                         }
                     } else
                         throw new \RuntimeException('Sorry, that user doesn\'t exist!');

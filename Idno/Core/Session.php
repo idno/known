@@ -506,7 +506,7 @@
 
                 if ($this->isAPIRequest()) {
                     if (!\Idno\Common\Page::isSSL() && !\Idno\Core\Idno::site()->config()->disable_cleartext_warning) {
-                        $this->addErrorMessage("Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini");
+                        $this->addErrorMessage(\Idno\Core\Idno::site()->language()->_("Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini"));
                     }
                     // If this is an API request but we're not logged in, set page response code to access denied
                     if (!$return) {

@@ -21,7 +21,7 @@
                 \Idno\Core\Idno::site()->triggerEvent('logout/success', array('user' => \Idno\Core\Idno::site()->session()->currentUser())); // Trigger an event for auditing
 
                 $result = \Idno\Core\Idno::site()->session()->logUserOff();
-                \Idno\Core\Idno::site()->session()->addMessage("You've signed out. See you soon!");
+                \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("You've signed out. See you soon!"));
                 $this->forward($_SERVER['HTTP_REFERER']);
 
                 return $result;

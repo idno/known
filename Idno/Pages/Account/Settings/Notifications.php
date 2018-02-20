@@ -36,7 +36,7 @@
                 $user->notifications = $notifications;
 
                 if ($user->save()) {
-                    \Idno\Core\Idno::site()->session()->addMessage("Your notification preferences were saved.");
+                    \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("Your notification preferences were saved."));
                 }
                 $this->forward($_SERVER['HTTP_REFERER']);
             }

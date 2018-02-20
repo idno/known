@@ -40,11 +40,11 @@
                     $object = \Idno\Common\Entity::getByID($this->arguments[0]);
                 }
                 if (empty($object)) {
-                    Idno::site()->session()->addMessage("We couldn't find the post to delete.");
+                    Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("We couldn't find the post to delete."));
                     $this->forward();
                 } // TODO: 404
                 if ($object->delete()) {
-                    \Idno\Core\Idno::site()->session()->addMessage($object->getTitle() . ' was deleted.');
+                    \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_('%s was deleted.', [$object->getTitle()]));
                 }
                 $this->forward($_SERVER['HTTP_REFERER']);
             }
