@@ -446,7 +446,7 @@
                             if (class_exists('CURLFile')) {
                                 return new \CURLFile($file, $mime, $name);
                             } else {
-                                throw new \Idno\Exceptions\ConfigurationException("Your version of PHP doesn't support CURLFile.");
+                                throw new \Idno\Exceptions\ConfigurationException(\Idno\Core\Idno::site()->language()->_("Your version of PHP doesn't support CURLFile."));
                             }
                         }
 

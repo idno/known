@@ -350,7 +350,7 @@
                 
                     $this->debugLogToken();
                     
-                    throw new \RuntimeException('Invalid token.');
+                    throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Invalid token.'));
                 }
 
                 if (\Idno\Core\Idno::site()->session()->isAPIRequest()) {
@@ -424,7 +424,7 @@
                      * redirection to other sites (eg a Known hub).
 
                     if (!Entity::isLocalUUID($location)) {
-                        throw new \RuntimeException('Attempted to redirect page to a non local URL.');
+                        throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Attempted to redirect page to a non local URL.'));
                     }
                     */
                     
@@ -514,7 +514,7 @@
                 } else {
                     $this->debugLogToken();
                     
-                    throw new \Idno\Exceptions\SecurityException('The page you were on timed out.');
+                    throw new \Idno\Exceptions\SecurityException(\Idno\Core\Idno::site()->language()->_('The page you were on timed out.'));
                 }
 
                 if (\Idno\Core\Idno::site()->session()->isAPIRequest()) {
@@ -600,7 +600,7 @@
                 } else {
                     $this->debugLogToken();
                     
-                    throw new \Idno\Exceptions\SecurityException('The page you were on timed out.');
+                    throw new \Idno\Exceptions\SecurityException(\Idno\Core\Idno::site()->language()->_('The page you were on timed out.'));
                 }
 
                 if (\Idno\Core\Idno::site()->session()->isAPIRequest()) {

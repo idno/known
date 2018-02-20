@@ -73,7 +73,7 @@
                 $manifest = $this->getManifest();
                 
                 if (empty($manifest['version']))
-                    throw new \Idno\Exceptions\ConfigurationException('Plugin ' . get_class($this) . ' doesn\'t have a version');
+                    throw new \Idno\Exceptions\ConfigurationException(\Idno\Core\Idno::site()->language()->_('Plugin %s doesn\'t have a version', [get_class($this)]));
                 
                 return $manifest['version'];
             }

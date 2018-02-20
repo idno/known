@@ -70,11 +70,11 @@ namespace Idno\Pages\Service\Web {
                         exit;
 
                     } else {
-                        throw new \RuntimeException("There was a problem decoding the url");
+                        throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("There was a problem decoding the url"));
                     }
                     
                 } else {
-                    throw new \RuntimeException("No url specified");
+                    throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("No url specified"));
                 }
                 
             } catch (\Exception $e) {
@@ -215,7 +215,7 @@ namespace Idno\Pages\Service\Web {
                                     \Idno\Core\Idno::site()->logging()->debug("Transforming image: Maxsize=$maxsize, Square=" . var_export($square, true));
                                     
                                     $tmp = \Idno\Entities\File::writeTmpFile($result['content']);
-                                    if (!$tmp) throw new \RuntimeException("Could not save temporary file");
+                                    if (!$tmp) throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("Could not save temporary file"));
                                     
                                     if (!\Idno\Entities\File::isSVG($tmp, $tmp)) {
                                     
@@ -246,7 +246,7 @@ namespace Idno\Pages\Service\Web {
                         }
                             
                         $size = strlen($content);
-                        if ($size == 0) throw new \RuntimeException("Looks like something went wrong, image was zero bytes big!");
+                        if ($size == 0) throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("Looks like something went wrong, image was zero bytes big!"));
                         \Idno\Core\Idno::site()->logging()->debug("Storing " . $size . ' bytes of content.');
                         \Idno\Core\Idno::site()->logging()->debug('Meta: ' . print_r($meta, true));
                         
@@ -261,11 +261,11 @@ namespace Idno\Pages\Service\Web {
                         exit;
                         
                     } else {
-                        throw new \RuntimeException("There was a problem decoding the url");
+                        throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("There was a problem decoding the url"));
                     }
                     
                 } else {
-                    throw new \RuntimeException("No url specified");
+                    throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("No url specified"));
                 }
             
             } catch (\Exception $e) {

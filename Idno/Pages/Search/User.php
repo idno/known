@@ -18,11 +18,11 @@ namespace Idno\Pages\Search {
             
             // Sanitise
             if ($sort != 'created' && $sort != 'name') {
-                throw new \RuntimeException("Invalid sort type $sort");
+                throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("Invalid sort type %s", [$sort]));
             }
             
             if ($order != 'asc' && $order != 'desc') {
-                throw new \RuntimeException("Invalid sort order $order");
+                throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("Invalid sort order %s", [$order]));
             }
             
  	    
