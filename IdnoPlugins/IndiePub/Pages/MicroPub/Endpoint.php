@@ -87,6 +87,8 @@
 
             function post()
             {
+                \Idno\Core\Idno::site()->template()->setTemplateType('json');
+                
                 //fail-by-default in case of unhandled errors
                 $this->setResponse(500);
 
