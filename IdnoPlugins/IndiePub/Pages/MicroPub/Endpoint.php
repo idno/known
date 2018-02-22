@@ -179,6 +179,10 @@
                         $content = $this->getJSONInput('summary');
                     }
 
+                    if ($created = $this->getJSONInput('published')) {
+                        $this->setInput('created', $created);
+                    }
+
                     // Handle JSON checkins
                     if($checkin = $this->getJSONInput('checkin')) {
                         $type = 'checkin';
