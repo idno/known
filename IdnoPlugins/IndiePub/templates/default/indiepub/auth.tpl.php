@@ -9,11 +9,11 @@
 
       <p>
         <?php
-        echo 'You are logged in as '.\Idno\Core\site()->session()->currentUser()->getHandle().'. ';
+        echo \Idno\Core\Idno::site()->language()->_('You are logged in as %s.', [\Idno\Core\site()->session()->currentUser()->getHandle()]);
         if (empty($vars['scope'])) {
-          echo 'Authenticate to '.$vars['client_id'].'?';
+          echo \Idno\Core\Idno::site()->language()->_('Authenticate to %s?', [$vars['client_id']]);
         } else {
-          echo 'Authorize '.$vars['client_id'].' to access this site with the scope(s) '.$vars['scope'].'?';
+          echo \Idno\Core\Idno::site()->language()->_('Authorize %s to access this site with the scope(s) %s?', [$vars['client_id'], $vars['scope']]);
         }
         ?>
       </p>
@@ -21,9 +21,9 @@
       <div class="control-group">
         <div class="controls">
           <button type="submit" class="btn btn-primary">
-            <?= empty($vars['scope']) ? 'Authenticate' : 'Authorize'; ?>
+            <?= empty($vars['scope']) ? \Idno\Core\Idno::site()->language()->_('Authenticate') : \Idno\Core\Idno::site()->language()->_('Authorize'); ?>
           </button>
-          <a class="btn btn-cancel" href="<?=$vars['redirect_uri']?>">Cancel</a>
+          <a class="btn btn-cancel" href="<?=$vars['redirect_uri']?>"><?= \Idno\Core\Idno::site()->language()->_('Cancel'); ?></a>
         </div>
       </div>
 
