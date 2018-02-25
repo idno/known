@@ -7,15 +7,15 @@
                 <?php
 
                     if (empty($vars['object']->_id)) {
-                        ?>New Location<?php
+                        ?><?= \Idno\Core\Idno::site()->language()->_('New Location'); ?><?php
                     } else {
-                        ?>Edit Location<?php
+                        ?><?= \Idno\Core\Idno::site()->language()->_('Edit Location'); ?><?php
                     }
                   ?>
 	    </h4>
             <div id="geoplaceholder">
                 <p style="text-align: center; color: #4c93cb;">
-                    Hang tight ... searching for your location.
+                    <?= \Idno\Core\Idno::site()->language()->_('Hang tight ... searching for your location.'); ?>
                 </p>
 
                 <div class="geospinner">
@@ -31,12 +31,12 @@
 
                     <p>
                         <label for="placename">
-                            Location<br>
+                            <?= \Idno\Core\Idno::site()->language()->_('Location'); ?><br>
                         </label>
                         <?= $this->__([
                             'name' => 'placename', 
                             'id' => 'placename', 
-                            'placeholder' => "Where are you?",
+                            'placeholder' => \Idno\Core\Idno::site()->language()->_("Where are you?"),
                             'value' => $vars['object']->placename, 
                             'class' => 'form-control'])->draw('forms/input/input'); ?>
                         <?= $this->__([
@@ -50,8 +50,8 @@
                     </p>
 
                     <p>
-                        <label for="user_address">Address<br>
-                            <small>You can edit the address if it's wrong.</small>
+                        <label for="user_address"><?= \Idno\Core\Idno::site()->language()->_('Address'); ?><br>
+                            <small><?= \Idno\Core\Idno::site()->language()->_("You can edit the address if it's wrong."); ?></small>
                         </label>
                         <?= $this->__([
                             'name' => 'user_address', 
@@ -74,7 +74,7 @@
                 'class' => 'wysiwyg-short',
                 'height' => 100,
                 'placeholder' => '',
-                'label' => 'Description'
+                'label' => \Idno\Core\Idno::site()->language()->_('Description')
             ])->draw('forms/input/richtext')?>
             <?php if (empty($vars['object']->_id)) { 
                 echo $this->__(['name' => 'forward-to', 'value' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'])->draw('forms/input/hidden');
@@ -86,7 +86,7 @@
             <p class="button-bar ">
                <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
                 <?= \Idno\Core\Idno::site()->actions()->signForm('/checkin/edit') ?>
-                <input type="submit" class="btn btn-primary" value="<?php if (empty($vars['object']->_id)) { ?>Publish<?php } else { ?>Save<?php } ?>"/>
+                <input type="submit" class="btn btn-primary" value="<?php if (empty($vars['object']->_id)) { ?><?= \Idno\Core\Idno::site()->language()->_('Publish'); ?><?php } else { ?><?= \Idno\Core\Idno::site()->language()->_('Save'); ?><?php } ?>"/>
 
             </p>
         </div>
