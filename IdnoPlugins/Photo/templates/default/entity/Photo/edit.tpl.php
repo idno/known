@@ -9,9 +9,9 @@
                     <?php
 
                         if (empty($vars['object']->_id)) {
-                            ?>New Photo<?php
+                            ?><?= \Idno\Core\Idno::site()->language()->_('New Photo'); ?><?php
                         } else {
-                            ?>Edit Photo<?php
+                            ?><?= \Idno\Core\Idno::site()->language()->_('Edit Photo'); ?><?php
                         }
 
                     ?>
@@ -49,7 +49,7 @@
                         <p>
                                 <span class="btn btn-primary btn-file">
                                         <i class="fa fa-camera"></i> <span
-                                        id="photo-filename"><?php if (empty($vars['object']->_id)) { ?>Select a photo<?php } else { ?>Choose different photo<?php } ?></span> 
+                                        id="photo-filename"><?php if (empty($vars['object']->_id)) { ?><?= \Idno\Core\Idno::site()->language()->_('Select a photo'); ?><?php } else { ?><?= \Idno\Core\Idno::site()->language()->_('Choose different photo'); ?><?php } ?></span> 
                                         <?= $this->__([
                                             'name' => 'photo', 
                                             'id' => 'photo', 
@@ -80,7 +80,7 @@
                         <?= $this->__([
                             'name' => 'title', 
                             'id' => 'title', 
-                            'placeholder' => 'Give it a title', 
+                            'placeholder' => \Idno\Core\Idno::site()->language()->_('Give it a title'), 
                             'value' => $vars['object']->title, 
                             'class' => 'form-control'])->draw('forms/input/input'); ?>
                     </div>
@@ -91,8 +91,8 @@
                         'wordcount' => false,
                         'class' => 'wysiwyg-short',
                         'height' => 100,
-                        'placeholder' => 'Describe your photo',
-                        'label' => 'Description'
+                        'placeholder' => \Idno\Core\Idno::site()->language()->_('Describe your photo'),
+                        'label' => \Idno\Core\Idno::site()->language()->_('Description')
                     ])->draw('forms/input/richtext')?>
 
                     <?= $this->draw('entity/tags/input'); ?>
@@ -104,7 +104,7 @@
                     //}
                 ?>">
                     <p>
-                        <small><a href="#" onclick="$('#photo-details').show(); $('#photo-details-toggle').hide(); return false;">+ Add details</a></small>
+                        <small><a href="#" onclick="$('#photo-details').show(); $('#photo-details-toggle').hide(); return false;">+ <?= \Idno\Core\Idno::site()->language()->_('Add details'); ?></a></small>
                     </p>
                 </div>
                 
@@ -116,8 +116,8 @@
                 <?= $this->draw('content/access'); ?>
                 <p class="button-bar ">
                     <?= \Idno\Core\Idno::site()->actions()->signForm('/photo/edit') ?>
-                    <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
-                    <input type="submit" class="btn btn-primary" value="Publish"/>
+                    <input type="button" class="btn btn-cancel" value="<?= \Idno\Core\Idno::site()->language()->_('Cancel'); ?>" onclick="hideContentCreateForm();"/>
+                    <input type="submit" class="btn btn-primary" value="<?= \Idno\Core\Idno::site()->language()->_('Publish'); ?>"/>
                 </p>
             </div>
 
@@ -132,7 +132,7 @@
 
                 reader.onload = function (e) {
                     $('#photo-preview').html('<img src="" id="photopreview" style="display:none; width: 400px;">');
-                    $('#photo-filename').html('Choose different photo');
+                    $('#photo-filename').html('<?= \Idno\Core\Idno::site()->language()->_('Choose different photo'); ?>');
                  
                     try {
                         var exif = EXIF.readFromBinaryFile(base64ToArrayBuffer(this.result));
