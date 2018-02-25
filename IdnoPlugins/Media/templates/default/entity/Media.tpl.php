@@ -34,7 +34,7 @@
                         }
                         ?>
                             
-                            Sorry, your browser does not support the video tag.
+                            <?= \Idno\Core\Idno::site()->language()->_('Sorry, your browser does not support the video tag.'); ?>
                     </video>
                 </p>
                 <?php
