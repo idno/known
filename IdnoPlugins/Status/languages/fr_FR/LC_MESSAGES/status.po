@@ -1,0 +1,41 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr\n"
+
+#: ../IdnoPlugins/Status/templates/default/entity/Status/edit.tpl.php:13
+msgid "New Status Update"
+msgstr "Le New Statuuus"
+
+#: ../IdnoPlugins/Status/templates/default/entity/Status/edit.tpl.php:13
+msgid "Edit Status Update"
+msgstr ""
+
+#: ../IdnoPlugins/Status/templates/default/entity/Status/edit.tpl.php:13
+msgid "Share a quick note or comment. You can use links and #hashtags."
+msgstr ""
+
+#: ../IdnoPlugins/Status/templates/default/entity/Status/edit.tpl.php:13
+msgid "Reply to a site"
+msgstr ""
+
+#: ../IdnoPlugins/Status/templates/default/entity/Status/edit.tpl.php:13
+msgid "Remove URL"
+msgstr ""
+
+#: ../IdnoPlugins/Status/templates/default/entity/Status/edit.tpl.php:13
+msgid "Cancel"
+msgstr ""
+
+#: ../IdnoPlugins/Status/templates/default/entity/Status/edit.tpl.php:13
+msgid "Publish"
+msgstr ""
