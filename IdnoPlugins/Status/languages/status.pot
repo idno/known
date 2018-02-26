@@ -1,0 +1,28 @@
+#: ../IdnoPlugins/Status/templates/default/entity/Status/edit.tpl.php:13
+msgid "New Status Update"
+msgstr ""
+
+#: ../IdnoPlugins/Status/templates/default/entity/Status/edit.tpl.php:13
+msgid "Edit Status Update"
+msgstr ""
+
+#: ../IdnoPlugins/Status/templates/default/entity/Status/edit.tpl.php:13
+msgid "Share a quick note or comment. You can use links and #hashtags."
+msgstr ""
+
+#: ../IdnoPlugins/Status/templates/default/entity/Status/edit.tpl.php:13
+msgid "Reply to a site"
+msgstr ""
+
+#: ../IdnoPlugins/Status/templates/default/entity/Status/edit.tpl.php:13
+msgid "Remove URL"
+msgstr ""
+
+#: ../IdnoPlugins/Status/templates/default/entity/Status/edit.tpl.php:13
+msgid "Cancel"
+msgstr ""
+
+#: ../IdnoPlugins/Status/templates/default/entity/Status/edit.tpl.php:13
+msgid "Publish"
+msgstr ""
+
