@@ -60,7 +60,7 @@ So, for the above example this might look like:
 ```
 function registerTranslations() 
 {
-    \Idno\Core\Idno::site()->language()->language()->register(
+    \Idno\Core\Idno::site()->language()->register(
         new \Idno\Core\GetTextTranslation(
             'myplugin',
             dirname(__FILE__) . '/languages/'
