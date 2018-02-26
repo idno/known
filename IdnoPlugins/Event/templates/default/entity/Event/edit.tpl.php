@@ -7,9 +7,9 @@
 				                <?php
 
                     if (empty($vars['object']->_id)) {
-                        ?>New Event<?php
+                        ?><?= \Idno\Core\Idno::site()->language()->_('New Event'); ?><?php
                     } else {
-                        ?>Edit Event<?php
+                        ?><?= \Idno\Core\Idno::site()->language()->_('Edit Event'); ?><?php
                     }
                   ?>
 			</h4></div>
@@ -18,11 +18,11 @@
         
             <div class="content-form">
                 <label for="title">
-                    Event name</label>
+                    <?= \Idno\Core\Idno::site()->language()->_('Event name'); ?></label>
                     <?= $this->__([
                             'name' => 'title', 
                             'id' => 'title', 
-                            'placeholder' => 'Give it a name', 
+                            'placeholder' => \Idno\Core\Idno::site()->language()->_('Give it a name'), 
                             'value' => $vars['object']->title, 
                             'class' => 'form-control'])->draw('forms/input/input'); ?>
 
@@ -32,39 +32,39 @@
         <div class="col-md-4 col-md-offset-2">
             <div class="content-form">
                 <label for="location">
-                    Location</label>
+                    <?= \Idno\Core\Idno::site()->language()->_('Location'); ?></label>
                      <?= $this->__([
                             'name' => 'location', 
                             'id' => 'location', 
-                            'placeholder' => 'Where will it take place?', 
+                            'placeholder' => \Idno\Core\Idno::site()->language()->_('Where will it take place?'), 
                             'value' => $vars['object']->location, 
                             'class' => 'form-control'])->draw('forms/input/input'); ?>
 
             </div>
             <div class="content-form">
                 <label for="starttime">
-                    Start day and time</label>
+                    <?= \Idno\Core\Idno::site()->language()->_('Start day and time'); ?></label>
                 <?= $this->__([
                             'name' => 'starttime', 
                             'id' => 'starttime', 
-                            'placeholder' => 'Type in the start day and time?', 
+                            'placeholder' => \Idno\Core\Idno::site()->language()->_('Type in the start day and time?'), 
                             'value' => $vars['object']->starttime, 
                             'class' => 'form-control'])->draw('forms/input/datetime-local'); ?>
             </div>
             <div class="content-form">
                 <label for="endtime">
-                    End day and time</label>
+                    <?= \Idno\Core\Idno::site()->language()->_('End day and time'); ?></label>
                 <?= $this->__([
                             'name' => 'endtime', 
                             'id' => 'endtime', 
-                            'placeholder' => 'Type in the end day and time', 
+                            'placeholder' => \Idno\Core\Idno::site()->language()->_('Type in the end day and time'), 
                             'value' => $vars['object']->endtime, 
                             'class' => 'form-control'])->draw('forms/input/datetime-local'); ?>
                     
             </div>
             <div class="content-form">
                 <label for="timezone">
-                    Time zone</label>
+                    <?= \Idno\Core\Idno::site()->language()->_('Time zone'); ?></label>
                 <?= $this->__([
                             'name' => 'timezone', 
                             'id' => 'timezone', 
@@ -80,11 +80,11 @@
 	        
 	        <div class="content-form">
                 <label for="summary">
-                    Brief summary</label>
+                    <?= \Idno\Core\Idno::site()->language()->_('Brief summary'); ?></label>
                     <?= $this->__([
                             'name' => 'summary', 
                             'id' => 'summary', 
-                            'placeholder' => 'What\'s this about?', 
+                            'placeholder' => \Idno\Core\Idno::site()->language()->_("What's this about?"), 
                             'value' => $vars['object']->summary, 
                             'class' => 'form-control'])->draw('forms/input/input'); ?>
 
@@ -92,7 +92,7 @@
 
             <div class="content-form">
                 <label for="body">
-                    Description</label>
+                    <?= \Idno\Core\Idno::site()->language()->_('Description'); ?></label>
                     <?=$this->__([
                         'height' => '100', 'name' => 'body', 'value' => $vars['object']->body
                     ])->draw('forms/input/richtext');?>
@@ -108,8 +108,8 @@
 	        <?= $this->draw('content/access'); ?>
             <p class="button-bar">
                 <?= \Idno\Core\Idno::site()->actions()->signForm('/event/edit') ?>
-                <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();" />
-                <input type="submit" class="btn btn-primary" value="Save" />
+                <input type="button" class="btn btn-cancel" value="<?= \Idno\Core\Idno::site()->language()->_('Cancel'); ?>" onclick="hideContentCreateForm();" />
+                <input type="submit" class="btn btn-primary" value="<?= \Idno\Core\Idno::site()->language()->_('Save'); ?>" />
 
             </p>
         </div>

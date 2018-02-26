@@ -18,7 +18,7 @@ $timeformat = 'l, jS F Y h:i A';
         <strong><?= htmlentities(strip_tags($vars['object']->summary), ENT_QUOTES, 'UTF-8'); ?></strong>
     </p>
     <p>
-        Location: <span
+        <?= \Idno\Core\Idno::site()->language()->_('Location'); ?>: <span
                 class="p-location"><?= htmlentities(strip_tags($vars['object']->location), ENT_QUOTES, 'UTF-8'); ?></span>
     </p>
     <?php if (!empty($vars['object']->starttime)) { ?>
@@ -41,7 +41,7 @@ $timeformat = 'l, jS F Y h:i A';
         if ($endtime && $endtime >= $starttime + 86400) {
     ?>
         <p>
-            Ends:
+            <?= \Idno\Core\Idno::site()->language()->_('Ends'); ?>:
             <time class="dt-end"
                   datetime="<?= date('c', $endtime) ?>"><?= date($timeformat, $endtime) ?></time>
         </p>
@@ -50,7 +50,7 @@ $timeformat = 'l, jS F Y h:i A';
     ?>
     <?php if (!empty($vars['object']->timezone)) { ?>
     <p>
-        Time Zone:
+        <?= \Idno\Core\Idno::site()->language()->_('Time Zone'); ?>:
         <?= $this->__(['value' => $vars['object']->timezone])->draw('forms/output/timezones'); ?>
     </p>
     <?php } ?>

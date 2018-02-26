@@ -240,9 +240,11 @@
             function getPagesByCategory($category)
             {
                 $pages = StaticPage::get(['category' => $category], [], PHP_INT_MAX);
-                usort($pages, function ($left, $right) {
-                    return $right->getPriority() - $left->getPriority();
-                });
+                if (!empty($pages)) {
+                    usort($pages, function ($left, $right) {
+                        return $right->getPriority() - $left->getPriority();
+                    });
+                }
 
                 return $pages;
             }

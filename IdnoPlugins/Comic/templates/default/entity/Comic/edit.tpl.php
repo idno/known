@@ -12,12 +12,12 @@
 
                         ?>
                         <h4>
-                            Upload a comic
+                            <?= \Idno\Core\Idno::site()->language()->_('Upload a comic'); ?>
                             </h4>
                                 <div id="photo-preview"></div>
                                     <span class="btn btn-primary btn-file">
                                         <i class="fa fa-upload"></i>
-										<span id="photo-filename">Select a comic</span> 
+										<span id="photo-filename"><?= \Idno\Core\Idno::site()->language()->_('Select a comic'); ?></span> 
                                         <input type="file" name="comic" id="comic" class="form-control" accept="image/*" capture="camera" onchange="comicPreview(this)"/>
 
                                     </span>
@@ -31,13 +31,13 @@
             </p>
             <div class="content-form">
                 <label for="title">
-                    Title</label>
-                    <input type="text" name="title" id="title" value="<?=htmlspecialchars($vars['object']->title)?>" class="form-control" placeholder="This is displayed in feeds" />
+                    <?= \Idno\Core\Idno::site()->language()->_('Title'); ?></label>
+                    <input type="text" name="title" id="title" value="<?=htmlspecialchars($vars['object']->title)?>" class="form-control" placeholder="<?= \Idno\Core\Idno::site()->language()->_('This is displayed in feeds'); ?>" />
             </div>
             <div class="content-form">
                 <label for="description">
-                    Comic description</label>
-                    <textarea name="description" id="description" class="form-control bodyInput" placeholder="This is displayed when the image isn't available"><?=htmlspecialchars($vars['object']->description)?></textarea>
+                    <?= \Idno\Core\Idno::site()->language()->_('Comic description'); ?></label>
+                    <textarea name="description" id="description" class="form-control bodyInput" placeholder="<?= \Idno\Core\Idno::site()->language()->_("This is displayed when the image isn't available"); ?>"><?=htmlspecialchars($vars['object']->description)?></textarea>
 
             </div>
             <div class="content-form">
@@ -69,7 +69,7 @@
 
                 reader.onload = function (e) {
                     $('#photo-preview').html('<img src="" id="photopreview" style="display:none; width: 400px">');
-                    $('#photo-filename').html('Choose different comic');
+                    $('#photo-filename').html('<?= \Idno\Core\Idno::site()->language()->_('Choose different comic'); ?>');
                     $('#photopreview').attr('src', e.target.result);
                     $('#photopreview').show();
                 }

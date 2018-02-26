@@ -24,11 +24,11 @@
     <div class="col-md-10 col-md-offset-1">
         <?= $this->draw('admin/menu') ?>
         <h1>
-            Pages
+            <?= \Idno\Core\Idno::site()->language()->_('Pages'); ?>
         </h1>
 
         <p class="explanation">
-            Pages are a great way to add content to your site that you want to keep separate from your stream of normal posts and updates.  Common examples of pages include an about page, a contact page, or a resume.
+            <?= \Idno\Core\Idno::site()->language()->_('Pages are a great way to add content to your site that you want to keep separate from your stream of normal posts and updates.  Common examples of pages include an about page, a contact page, or a resume.'); ?>
         </p>
 
     </div>
@@ -38,7 +38,7 @@
     <div class="col-md-10 col-md-offset-1">
         <p class="pages">
             <a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>staticpages/edit/"
-               class="btn btn-primary btn-add">Add new page</a>
+               class="btn btn-primary btn-add"><?= \Idno\Core\Idno::site()->language()->_('Add new page'); ?></a>
         </p>
     </div>
 </div>
@@ -52,8 +52,8 @@
                 <table style="width: 100%; margin-bottom: 3em">
                     <thead>
                         <tr class="pages">
-                            <td class="pages" width="30%">Title</td>
-                            <td class="pages" width="30%">Category</td>
+                            <td class="pages" width="30%"><?= \Idno\Core\Idno::site()->language()->_('Title'); ?></td>
+                            <td class="pages" width="30%"><?= \Idno\Core\Idno::site()->language()->_('Category'); ?></td>
                             <td class="pages" width="10%">&nbsp;</td>                            
                             <td class="pages" width="15%">&nbsp;</td>
                             <td class="pages" width="15%">&nbsp;</td>
@@ -86,21 +86,21 @@
                                                 <?php
                                                 if ($page->isHomepage()) {
 
-                                                    echo  \Idno\Core\Idno::site()->actions()->createLink($page->getClearHomepageURL(), '<icon class="fa fa-home no-hover"></icon><icon class="fa fa-times hover"></icon>', array(), array('method' => 'POST', 'class' => 'home-icon', 'title' => 'Remove as homepage', 'confirm' => true, 'confirm-text' => 'Are you sure you want to remove this page from your homepage?'));
+                                                    echo  \Idno\Core\Idno::site()->actions()->createLink($page->getClearHomepageURL(), '<icon class="fa fa-home no-hover"></icon><icon class="fa fa-times hover"></icon>', array(), array('method' => 'POST', 'class' => 'home-icon', 'title' => \Idno\Core\Idno::site()->language()->_('Remove as homepage'), 'confirm' => true, 'confirm-text' => \Idno\Core\Idno::site()->language()->_('Are you sure you want to remove this page from your homepage?')));
 
                                                 } else {
 
-                                                    echo  \Idno\Core\Idno::site()->actions()->createLink($page->getSetAsHomepageURL(), '<icon class="fa fa-home hover"></icon><div class="no-hover">&nbsp</div>', array(), array('method' => 'POST', 'class' => 'home-icon', 'title' => 'Make homepage', 'confirm' => true, 'confirm-text' => 'Are you sure you want to make this page your homepage?'));
+                                                    echo  \Idno\Core\Idno::site()->actions()->createLink($page->getSetAsHomepageURL(), '<icon class="fa fa-home hover"></icon><div class="no-hover">&nbsp</div>', array(), array('method' => 'POST', 'class' => 'home-icon', 'title' => \Idno\Core\Idno::site()->language()->_('Make homepage'), 'confirm' => true, 'confirm-text' => \Idno\Core\Idno::site()->language()->_('Are you sure you want to make this page your homepage?')));
 
                                                 }
 
                                             ?>
                                             </td>                                            
                                             <td>
-                                            	<a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>staticpage/edit/<?= $page->_id ?>" title="Edit page"><icon class="fa fa-pencil"></icon>Edit</a>
+                                            	<a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>staticpage/edit/<?= $page->_id ?>" title="<?= \Idno\Core\Idno::site()->language()->_('Edit page'); ?>"><icon class="fa fa-pencil"></icon><?= \Idno\Core\Idno::site()->language()->_('Edit'); ?></a>
                                             </td>
                                             <td>
-                                                <?=  \Idno\Core\Idno::site()->actions()->createLink($page->getDeleteURL(), '<icon class="fa fa-trash-o"></icon>Delete', array(), array('method' => 'POST', 'class' => 'edit', 'title' => 'Delete page', 'confirm' => true, 'confirm-text' => 'Are you sure you want to permanently delete this page?'));?>
+                                                <?=  \Idno\Core\Idno::site()->actions()->createLink($page->getDeleteURL(), '<icon class="fa fa-trash-o"></icon>' . \Idno\Core\Idno::site()->language()->_('Delete'), array(), array('method' => 'POST', 'class' => 'edit', 'title' => \Idno\Core\Idno::site()->language()->_('Delete page'), 'confirm' => true, 'confirm-text' => \Idno\Core\Idno::site()->language()->_('Are you sure you want to permanently delete this page?')));?>
                                             </td>
                                         </tr>
                                     <?php
@@ -128,11 +128,11 @@
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
         <h2>
-            Categories
+            <?= \Idno\Core\Idno::site()->language()->_('Categories'); ?>
         </h2>
 
         <p class="explanation">
-            If you plan on adding many pages, you may want to group them under categories.  However, you don’t have to assign a page to a category.
+            <?= \Idno\Core\Idno::site()->language()->_('If you plan on adding many pages, you may want to group them under categories.  However, you don’t have to assign a page to a category.'); ?>
         </p>
     </div>
 </div>
@@ -140,7 +140,7 @@
     <div class="col-md-10 col-md-offset-1">
 
         <p class="pages" id="add-category-button">
-            <a href="#" class="btn btn-primary btn-add" onclick="$('#add-category-button').hide(); $('#add-category').show(); return false;">Add new category</a>
+            <a href="#" class="btn btn-primary btn-add" onclick="$('#add-category-button').hide(); $('#add-category').show(); return false;"><?= \Idno\Core\Idno::site()->language()->_('Add new category'); ?></a>
         </p>
     </div>
 </div>
@@ -150,8 +150,8 @@
         <div id="add-category" style="display:none">
 
             <form class="form-inline" action="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>admin/staticpages/add/" method="post">
-                <input id="pages-add" class="form-control" type="text" name="category" placeholder="Name of category to add">
-                <input type="submit" class="btn btn-primary btn-page" value="Add">
+                <input id="pages-add" class="form-control" type="text" name="category" placeholder="<?= \Idno\Core\Idno::site()->language()->_('Name of category to add'); ?>">
+                <input type="submit" class="btn btn-primary btn-page" value="<?= \Idno\Core\Idno::site()->language()->_('Add'); ?>">
                 <?= \Idno\Core\Idno::site()->actions()->signForm('/admin/staticpages/add') ?>
             </form>
 
@@ -165,8 +165,8 @@
                 <table style="width: 100%; margin-bottom: 3em">
                     <thead>
                         <tr class="pages">
-                            <td width="35%">Category Name</td>
-                            <td width="35%">Count</td>
+                            <td width="35%"><?= \Idno\Core\Idno::site()->language()->_('Category Name'); ?></td>
+                            <td width="35%"><?= \Idno\Core\Idno::site()->language()->_('Count'); ?></td>
                             <td width="15%">&nbsp;</td>
                             <td width="15%">&nbsp;</td>
                         </tr>
@@ -200,7 +200,7 @@
 
                                             ?>
                                             <i class="fa fa-pencil"></i>
-                                            <a href="#" onclick="$('#category-name-<?=$unique_id?>').hide(); $('#edit-category-<?=$unique_id?>').show(); return false;">Edit</a>
+                                            <a href="#" onclick="$('#category-name-<?=$unique_id?>').hide(); $('#edit-category-<?=$unique_id?>').show(); return false;"><?= \Idno\Core\Idno::site()->language()->_('Edit'); ?></a>
                                         <?php
 
                                         }
@@ -213,7 +213,7 @@
                                         if ($category != 'No Category') {
 
                                     ?><i class="fa fa-trash-o"></i>
-                                    <?=  \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/staticpages/delete/', 'Delete', array('category' => $category), array('method' => 'POST', 'class' => 'edit', 'confirm' => true, 'confirm-text' => 'Are you sure you want to permanently delete this category?'));?>
+                                    <?=  \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/staticpages/delete/', \Idno\Core\Idno::site()->language()->_('Delete'), array('category' => $category), array('method' => 'POST', 'class' => 'edit', 'confirm' => true, 'confirm-text' => \Idno\Core\Idno::site()->language()->_('Are you sure you want to permanently delete this category?')));?>
                                         <?php
 
                                         }

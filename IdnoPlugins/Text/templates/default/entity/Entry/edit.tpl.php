@@ -33,13 +33,13 @@
                     if (empty($vars['object']->_id)) {
 
                         ?>
-                        <h4>New Post</h4>
+                        <h4><?= \Idno\Core\Idno::site()->language()->_('New Post'); ?></h4>
                     <?php
 
                     } else {
 
                         ?>
-                        <h4>Edit Post</h4>
+                        <h4><?= \Idno\Core\Idno::site()->language()->_('Edit Post'); ?></h4>
                     <?php
 
                     }
@@ -47,8 +47,8 @@
                 ?>
 
                 <div class="content-form">
-                    <label for="title">Title</label>
-                    <?= $this->__(['name' => 'title', 'placeholder' => 'Give it a title', 'id' => 'title', 'value' => $title, 'required' => true, 'class' => 'form-control'])->draw('forms/input/input'); ?>
+                    <label for="title"><?= \Idno\Core\Idno::site()->language()->_('Title'); ?></label>
+                    <?= $this->__(['name' => 'title', 'placeholder' => \Idno\Core\Idno::site()->language()->_('Give it a title'), 'id' => 'title', 'value' => $title, 'required' => true, 'class' => 'form-control'])->draw('forms/input/input'); ?>
                 </div>
 
                 <?= $this->__([
@@ -72,8 +72,8 @@
                 <p class="button-bar ">
 
                     <?= \Idno\Core\Idno::site()->actions()->signForm('/entry/edit') ?>
-                    <input type="button" class="btn btn-cancel" value="Cancel" onclick="tinymce.EditorManager.execCommand('mceRemoveEditor',true, 'body'); hideContentCreateForm();"/>
-                    <input type="submit" class="btn btn-primary" value="Publish"/>
+                    <input type="button" class="btn btn-cancel" value="<?= \Idno\Core\Idno::site()->language()->_('Cancel'); ?>" onclick="tinymce.EditorManager.execCommand('mceRemoveEditor',true, 'body'); hideContentCreateForm();"/>
+                    <input type="submit" class="btn btn-primary" value="<?= \Idno\Core\Idno::site()->language()->_('Publish'); ?>"/>
 
                 </p>
 

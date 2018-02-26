@@ -27,13 +27,13 @@
                     if (empty($vars['object']->_id)) {
 
                         ?>
-                        <h4>New Page</h4>
+                        <h4><?= \Idno\Core\Idno::site()->language()->_('New Page'); ?></h4>
                     <?php
 
                     } else {
 
                         ?>
-                        <h4>Edit Page</h4>
+                        <h4><?= \Idno\Core\Idno::site()->language()->_('Edit Page'); ?></h4>
                     <?php
 
                     }
@@ -41,8 +41,8 @@
                 ?>
                 <p>
                     <label for="title">
-                        Title</label>
-                    <input type="text" name="title" id="title" placeholder="Give it a title"
+                        <?= \Idno\Core\Idno::site()->language()->_('Title'); ?></label>
+                    <input type="text" name="title" id="title" placeholder="<?= \Idno\Core\Idno::site()->language()->_('Give it a title'); ?>"
                            value="<?= htmlspecialchars($title) ?>" class="form-control"/>
                 </p>
 
@@ -54,19 +54,19 @@
                     'wordcount' => false,
                     'class' => 'wysiwyg',
                     'height' => 500,
-                    'placeholder' => 'Share something brilliant...',
-                    'label' => 'Body'
+                    'placeholder' => \Idno\Core\Idno::site()->language()->_('Share something brilliant...'),
+                    'label' => \Idno\Core\Idno::site()->language()->_('Body')
                 ])->draw('forms/input/richtext')?>
 
                 <?= $this->draw('entity/tags/input'); ?>
 
                 <div class="page-cat">
                     <label>
-                        Parent category</label><br>
+                        <?= \Idno\Core\Idno::site()->language()->_('Parent category'); ?></label><br>
                     <select name="category" class="selectpicker">
                         <option <?php if ($vars['category'] == 'No Category') {
                             echo 'selected';
-                        } ?>>No Category
+                        } ?>><?= \Idno\Core\Idno::site()->language()->_('No Category'); ?>
                         </option>
                         <?php
 
@@ -90,7 +90,7 @@
                 <p id="show-options">
                     <small><a href="#" onclick="$('#moreoptions').toggle(); $('#show-options').hide(); return false;"><i
                                 class="fa fa-plus"></i>
-                            Show advanced options</a></small>
+                            <?= \Idno\Core\Idno::site()->language()->_('Show advanced options'); ?></a></small>
                 </p>
                 <div id="moreoptions" <?php
                     if (empty($hide_title) && empty($forward_url)) {
@@ -104,24 +104,21 @@
                         <small><a href="#"
                                   onclick="$('#moreoptions').toggle(); $('#show-options').show(); return false;"><i
                                     class="fa fa-minus"></i>
-                                Hide advanced options</a></small>
+                                <?= \Idno\Core\Idno::site()->language()->_('Hide advanced options'); ?></a></small>
                     </p>
 
                     <div>
                         <p>
                             <label for="forward_url">
-                                Forward URL</label>
+                                <?= \Idno\Core\Idno::site()->language()->_('Forward URL'); ?></label>
                             <input type="text" name="forward_url" id="forward_url"
-                                   placeholder="Website to forward users to"
+                                   placeholder="<?= \Idno\Core\Idno::site()->language()->_('Website to forward users to'); ?>"
                                    value="<?= htmlspecialchars($forward_url) ?>" class="form-control"/>
-                            <small>Most of the time, you should leave this blank. Include a URL here if you want users
-                                to
-                                be forwarded to an external page instead of displaying page content.
-                            </small>
+                            <small><?= \Idno\Core\Idno::site()->language()->_('Most of the time, you should leave this blank. Include a URL here if you want users to be forwarded to an external page instead of displaying page content.'); ?></small>
                         </p>
                     </div>
                     <p style="margin-bottom: 20px">
-                        <strong>Show the page title as a heading?</strong><br>
+                        <strong><?= \Idno\Core\Idno::site()->language()->_('Show the page title as a heading?'); ?></strong><br>
                         <label class="radio-inline">
                             <input type="radio" name="hide_title" id="title-heading" value="0" <?php
 
@@ -156,8 +153,8 @@
 
                 <p class="button-bar " style="text-align: right">
                     <?= \Idno\Core\Idno::site()->actions()->signForm('/staticpages/edit') ?>
-                    <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
-                    <input type="submit" class="btn btn-primary" value="Publish"/>
+                    <input type="button" class="btn btn-cancel" value="<?= \Idno\Core\Idno::site()->language()->_('Cancel'); ?>" onclick="hideContentCreateForm();"/>
+                    <input type="submit" class="btn btn-primary" value="<?= \Idno\Core\Idno::site()->language()->_('Publish'); ?>"/>
                 </p>
 
             </div>

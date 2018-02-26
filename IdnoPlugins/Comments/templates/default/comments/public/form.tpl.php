@@ -12,17 +12,17 @@
             </div>
             <div class="col-md-10 idno-comment-container" id="comment-form">
                 <div class="form-group">
-                    <input type="text" name="name" class="form-control" placeholder="Your name" required>
+                    <input type="text" name="name" class="form-control" placeholder="<?= \Idno\Core\Idno::site()->language()->_('Your name'); ?>" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" name="url" class="form-control" placeholder="Your website address">
+                    <input type="text" name="url" class="form-control" placeholder="<?= \Idno\Core\Idno::site()->language()->_('Your website address'); ?>">
                 </div>
                 <div class="form-group">
-                    <input type="text" name="url-2" class="form-control" placeholder="You probably shouldn't fill this in" style="display: none;" >
+                    <input type="text" name="url-2" class="form-control" placeholder="<?= \Idno\Core\Idno::site()->language()->_("You probably shouldn't fill this in"); ?>" style="display: none;" >
                 </div>
                 <div id="extrafield" style="display:none"></div>
                 <div class="form-group">
-                    <textarea name="body" placeholder="Add a comment ..." class="form-control mentionable"></textarea>
+                    <textarea name="body" placeholder="<?= \Idno\Core\Idno::site()->language()->_('Add a comment ...'); ?>" class="form-control mentionable"></textarea>
                 </div>
                 <p style="text-align: right" id="comment-submit">
                     <?= \Idno\Core\Idno::site()->actions()->signForm('annotation/post') ?>
@@ -37,7 +37,7 @@
                     //$('#comment-form').prepend('<form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>comments/post" method="post">');
                     //$('#comment-form').append('</form>');
                     $('#comment-form').html('<form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>comments/post" method="post">' + $('#comment-form').html() + '</form>');
-                    $('#comment-submit').append('<input type="hidden" name="object" value="<?= $object->getUUID() ?>"><input type="hidden" name="type" value="reply"><input type="submit" class="btn btn-save" value="Leave Comment">');
+                    $('#comment-submit').append('<input type="hidden" name="object" value="<?= $object->getUUID() ?>"><input type="hidden" name="type" value="reply"><input type="submit" class="btn btn-save" value="<?= \Idno\Core\Idno::site()->language()->_('Leave Comment'); ?>">');
                 },4000);
 
             })

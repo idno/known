@@ -8,9 +8,9 @@
                 <?php
 
                     if (empty($vars['object']->_id)) {
-                        ?>New Bookmark<?php
+                        ?><?= \Idno\Core\Idno::site()->language()->_('New Bookmark'); ?><?php
                     } else {
-                        ?>Edit Bookmark<?php
+                        ?><?= \Idno\Core\Idno::site()->language()->_('Edit Bookmark'); ?><?php
                     }
 
                 ?>
@@ -18,7 +18,7 @@
 
             <div class="content-form">
                 <label for="body">
-                    Link Address</label>
+                    <?= \Idno\Core\Idno::site()->language()->_('Link Address'); ?></label>
                 <?php
                 $value = "";
                 if (empty($vars['url'])) {
@@ -54,12 +54,12 @@
                 <div class="bookmark-title-container" for="title"
                      <?php if (empty($vars['object']->pageTitle) && empty($vars['object']->_id) && (empty($vars['url']) && empty($vars['object']->body))) { ?>style="display:none"<?php } ?>>
                     <label for="title">
-                        Title<br/>
+                        <?= \Idno\Core\Idno::site()->language()->_('Title'); ?><br/>
                     </label>
                     <?= $this->__([
                             'name' => 'title', 
                             'id' => 'title', 
-                            'placeholder' => 'Page name', 
+                            'placeholder' => \Idno\Core\Idno::site()->language()->_('Page name'), 
                             'value' => $vars['object']->pageTitle, 
                             'required' => true,
                             'class' => 'form-control bookmark-title'])->draw('forms/input/input'); ?>
@@ -74,8 +74,8 @@
                     'wordcount'   => false,
                     'class'       => 'wysiwyg-short',
                     'height'      => 250,
-                    'placeholder' => 'Add notes to your bookmark...',
-                    'label'       => 'Description'
+                    'placeholder' => \Idno\Core\Idno::site()->language()->_('Add notes to your bookmark...'),
+                    'label'       => \Idno\Core\Idno::site()->language()->_('Description')
                 ])->draw('forms/input/richtext') ?>
             </div>
             <?= $this->draw('entity/tags/input'); ?>
@@ -89,8 +89,8 @@
     
             <p class="button-bar">
                 <?= \Idno\Core\Idno::site()->actions()->signForm('/like/edit') ?>
-                <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
-                <input type="submit" class="btn btn-primary" value="Save"/>
+                <input type="button" class="btn btn-cancel" value="<?= \Idno\Core\Idno::site()->language()->_('Cancel'); ?>" onclick="hideContentCreateForm();"/>
+                <input type="submit" class="btn btn-primary" value="<?= \Idno\Core\Idno::site()->language()->_('Save'); ?>"/>
 
             </p>
         </div>

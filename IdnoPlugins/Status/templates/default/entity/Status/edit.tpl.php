@@ -27,9 +27,9 @@
                 <?php
 
                     if (empty($vars['object']->_id)) {
-                        ?>New Status Update<?php
+                        ?><?= \Idno\Core\Idno::site()->language()->_('New Status Update'); ?><?php
                     } else {
-                        ?>Edit Status Update<?php
+                        ?><?= \Idno\Core\Idno::site()->language()->_('Edit Status Update'); ?><?php
                     }
 
                 ?>
@@ -45,7 +45,7 @@
             <?= $this->__([
                 'unique_id' => 'body',
                 'name' => 'body',
-                'placeholder' => "Share a quick note or comment. You can use links and #hashtags.",
+                'placeholder' => \Idno\Core\Idno::site()->language()->_("Share a quick note or comment. You can use links and #hashtags."),
                 'required' => true,
                 'class' => 'content-entry ctrl-enter-submit',
                 'value' => $body,
@@ -79,7 +79,7 @@
             <p>
                 <small><a id="inreplyto-add" href="#"
                           onclick="$('#inreplyto').append('<span><input required type=&quot;url&quot; name=&quot;inreplyto[]&quot; value=&quot;&quot; placeholder=&quot;Add the URL that you\'re replying to&quot; class=&quot;form-control&quot; onchange=&quot;adjust_content(this.value)&quot; /> <small><a href=&quot;#&quot; onclick=&quot;$(this).parent().parent().remove(); return false;&quot;><icon class=&quot;fa fa-times&quot;></icon> Remove URL</a></small><br /></span>'); return false;"><i class="fa fa-reply"></i>
-                        Reply to a site</a></small>
+                        <?= \Idno\Core\Idno::site()->language()->_('Reply to a site'); ?></a></small>
             </p>
 
 
@@ -94,7 +94,7 @@
                                        class="form-control inreplyto" value="<?= htmlspecialchars($inreplyto) ?>" onchange="adjust_content(this.value)"/>
                                 <small><a href="#"
                                           onclick="$(this).parent().parent().remove(); return false;"><i class="fa fa-times"></i>
-                                          Remove URL</a></small>
+                                          <?= \Idno\Core\Idno::site()->language()->_('Remove URL'); ?></a></small>
                             </p>
                         <?php
                         }
@@ -111,8 +111,8 @@
 
             <p class="button-bar">
                 <?= \Idno\Core\Idno::site()->actions()->signForm('/status/edit') ?>
-                <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
-                <input type="submit" class="btn btn-primary" value="Publish"/>
+                <input type="button" class="btn btn-cancel" value="<?= \Idno\Core\Idno::site()->language()->_('Cancel'); ?>" onclick="hideContentCreateForm();"/>
+                <input type="submit" class="btn btn-primary" value="<?= \Idno\Core\Idno::site()->language()->_('Publish'); ?>"/>
             </p>
         </div>
         <div class="col-md-2">

@@ -5,7 +5,7 @@
     </p>
     <p>
         <?= \Idno\Core\Idno::site()->actions()->signForm('/admin/staticpages') ?>
-        <input type="submit" class="btn btn-primary" value="Save">
+        <input type="submit" class="btn btn-primary" value="<?= \Idno\Core\Idno::site()->language()->_('Save'); ?>">
     </p>
 
 </form>

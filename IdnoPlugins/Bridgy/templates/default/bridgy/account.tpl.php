@@ -3,23 +3,19 @@
     <div class="col-md-10 col-md-offset-1">
 
         <?= $this->draw('account/menu') ?>
-        <h1>Social Interactions</h1>
-        <h2>Connect with Bridgy</h2>
+        <h1><?= \Idno\Core\Idno::site()->language()->_('Social Interactions'); ?></h1>
+        <h2><?= \Idno\Core\Idno::site()->language()->_('Connect with Bridgy'); ?></h2>
 
     </div>
 
     <div class="col-md-10 col-md-offset-1">
 
         <p class="explanation">
-            <a href="https://www.brid.gy">Bridgy</a> is a service that pulls social interactions - such as likes and
-            retweets - back to your website.</p>
+            <a href="https://www.brid.gy"><?= \Idno\Core\Idno::site()->language()->_('Bridgy'); ?></a> <?= \Idno\Core\Idno::site()->language()->_('is a service that pulls social interactions - such as likes and retweets - back to your website.'); ?></p>
 
-        <p class="explanation">If you send content from Known to Facebook or Twitter, use Bridgy to save comments and
-            interactions from those networks to the original post on your Known site.</p>
+        <p class="explanation"><?= \Idno\Core\Idno::site()->language()->_('If you send content from Known to Facebook or Twitter, use Bridgy to save comments and interactions from those networks to the original post on your Known site.'); ?></p>
 
-        <p class="explanation">To get started, activate Bridgy for the social network.
-
-        </p>
+        <p class="explanation"><?= \Idno\Core\Idno::site()->language()->_('To get started, activate Bridgy for the social network.'); ?></p>
 
     </div>
 
@@ -33,10 +29,10 @@
             <input type="hidden" name="key" value="<?=$vars['facebook_key']?>" />
             <input type="hidden" name="callback" value="<?=\Idno\Core\Idno::site()->config()->getDisplayURL() . 'account/bridgy/disabled/?service=facebook'?>" />
             <p>
-                <button class="connect fb connected">Facebook + Bridgy connected</button>
+                <button class="connect fb connected"><?= \Idno\Core\Idno::site()->language()->_('Facebook + Bridgy connected'); ?></button>
             </p>
             <p>
-                Bridgy is pulling in comments and likes from Facebook. Click to disable.
+                <?= \Idno\Core\Idno::site()->language()->_('Bridgy is pulling in comments and likes from Facebook. Click to disable.'); ?>
             </p>
         </form>
         <?php } else { ?>
@@ -45,11 +41,10 @@
             <input type="hidden" name="callback" value="<?=\Idno\Core\Idno::site()->config()->getDisplayURL() . 'account/bridgy/enabled/?service=facebook'?>" />
             <input type="hidden" name="user_url" value="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>" />
             <p>
-                <button class="connect fb">
-                Activate Facebook + Bridgy</button>
+                <button class="connect fb"><?= \Idno\Core\Idno::site()->language()->_('Activate Facebook + Bridgy'); ?></button>
             </p>
             <p>
-                Bridgy pulls in comments and likes from Facebook.
+                <?= \Idno\Core\Idno::site()->language()->_('Bridgy pulls in comments and likes from Facebook.'); ?>
             </p>
         </form>
         <?php } ?>
@@ -60,10 +55,10 @@
             <input type="hidden" name="key" value="<?=$vars['twitter_key']?>" />
             <input type="hidden" name="callback" value="<?=\Idno\Core\Idno::site()->config()->getDisplayURL() . 'account/bridgy/disabled/?service=twitter'?>" />
             <p>
-                <button class="connect fb connected">Twitter + Bridgy connected</button>
+                <button class="connect fb connected"><?= \Idno\Core\Idno::site()->language()->_('Twitter + Bridgy connected'); ?></button>
             </p>
             <p>
-                Bridgy is pulling in replies, favorites, and retweets from Twitter. Click to disable.
+                <?= \Idno\Core\Idno::site()->language()->_('Bridgy is pulling in replies, favorites, and retweets from Twitter. Click to disable.'); ?>
             </p>
         </form>
         <?php } else { ?>
@@ -72,11 +67,10 @@
             <input type="hidden" name="callback" value="<?=\Idno\Core\Idno::site()->config()->getDisplayURL() . 'account/bridgy/enabled/?service=twitter'?>" />
             <input type="hidden" name="user_url" value="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>" />
             <p>
-                <button class="connect tw">
-                Activate Twitter + Bridgy</button>
+                <button class="connect tw"><?= \Idno\Core\Idno::site()->language()->_('Activate Twitter + Bridgy'); ?></button>
             </p>
             <p>
-                Bridgy pulls in replies, favorites, and retweets from Twitter.
+                <?= \Idno\Core\Idno::site()->language()->_('Bridgy pulls in replies, favorites, and retweets from Twitter.'); ?>
             </p>
         </form>
         <?php } ?>
