@@ -45,7 +45,7 @@
                     $body = $t->__(['body' => $edit_body])->draw('entity/editwrapper');
 
                     \Idno\Core\Idno::site()->template()->__([
-                        'title' => 'Edit page',
+                        'title' => \Idno\Core\Idno::site()->language()->_('Edit page'),
                         'body'  => $body
                     ])->drawPage();
 
