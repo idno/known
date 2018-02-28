@@ -29,9 +29,9 @@
                 $body = $t->__(['body' => $edit_body])->draw('entity/editwrapper');
 
                 if (empty($object)) {
-                    $title = 'Upload a picture';
+                    $title = \Idno\Core\Idno::site()->language()->_('Upload a picture');
                 } else {
-                    $title = 'Edit picture details';
+                    $title = \Idno\Core\Idno::site()->language()->_('Edit picture details');
                 }
 
                 if (!empty($this->xhr)) {
