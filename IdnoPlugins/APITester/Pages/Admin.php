@@ -68,7 +68,7 @@
                 }
 
                 \Idno\Core\Idno::site()->template()->__(array(
-                    'title' => "API Tester",
+                    'title' => \Idno\Core\Idno::site()->language()->_("API Tester"),
                     'body'  => $body,
                 ))->drawPage();
 
