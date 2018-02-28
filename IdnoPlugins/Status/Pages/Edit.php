@@ -32,9 +32,9 @@
                 $body = $t->__(['body' => $edit_body])->draw('entity/editwrapper');
 
                 if (empty($object)) {
-                    $title = 'What are you up to?';
+                    $title = \Idno\Core\Idno::site()->language()->_('What are you up to?');
                 } else {
-                    $title = 'Edit status update';
+                    $title = \Idno\Core\Idno::site()->language()->_('Edit status update');
                 }
 
                 if (!empty($this->xhr)) {

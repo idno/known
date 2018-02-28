@@ -24,7 +24,7 @@
                 if (!empty($this->xhr)) {
                     echo $body;
                 } else {
-                    $t->__(array('body' => $body, 'title' => "Delete " . $object->getTitle()))->drawPage();
+                    $t->__(array('body' => $body, 'title' => \Idno\Core\Idno::site()->language()->_("Delete %s", [$object->getTitle()])))->drawPage();
                 }
             }
 
@@ -37,14 +37,14 @@
                 if (empty($object)) $this->forward();
                 if (!$object->canEdit()) {
                     $this->setResponse(403);
-                    \Idno\Core\Idno::site()->session()->addErrorMessage("You don't have permission to perform this task.");
+                    \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("You don't have permission to perform this task."));
                     $this->forward();
                 }
 
                 if ($object->delete()) {
-                    \Idno\Core\Idno::site()->session()->addMessage('Your status update was deleted.');
+                    \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_('Your status update was deleted.'));
                 } else {
-                    \Idno\Core\Idno::site()->session()->addErrorMessage("We couldn't delete " . $object->getTitle() . ".");
+                    \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("We couldn't delete %s.", [$object->getTitle()]));
                 }
                 $this->forward($_SERVER['HTTP_REFERER']);
             }
