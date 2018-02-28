@@ -17,13 +17,13 @@ class Revoke extends Page {
 
         if (!token) {
             $this->setResponse(400);
-            Idno::site()->session()->addErrorMessage("Nothing to revoke.");
+            Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("Nothing to revoke."));
             return $this->forward($accturl);
         }
 
         if (!$user->indieauth_tokens || !isset($user->indieauth_tokens[$token])) {
             $this->setResponse(400);
-            Idno::site()->session()->addErrorMessage("No IndiePub account with that token.");
+            Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("No IndiePub account with that token."));
             return $this->forward($accturl);
         }
 
