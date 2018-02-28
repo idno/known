@@ -17,7 +17,7 @@
                 $this->adminGatekeeper(); // Admins only
                 $t = \Idno\Core\Idno::site()->template();
                 $body = $t->draw('admin/footerjs');
-                $t->__(array('title' => 'Footer Javascript', 'body' => $body))->drawPage();
+                $t->__(array('title' => \Idno\Core\Idno::site()->language()->_('Footer Javascript'), 'body' => $body))->drawPage();
             }
 
             function postContent() {
@@ -27,7 +27,7 @@
                 \Idno\Core\Idno::site()->config->config['footerjs'] = $footerjs;
                 \Idno\Core\Idno::site()->config->config['headerjs'] = $headerjs;
                 \Idno\Core\Idno::site()->config()->save();
-                \Idno\Core\Idno::site()->session()->addMessage('Your Header & Footer Javascript details were saved.');
+                \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_('Your Header & Footer Javascript details were saved.'));
                 $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/footerjs/');
             }
 
