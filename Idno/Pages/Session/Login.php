@@ -26,7 +26,7 @@
                 }
                 $t        = \Idno\Core\Idno::site()->template();
                 $t->body  = $t->__(array('fwd' => $fwd))->draw('account/login');
-                $t->title = 'Sign in';
+                $t->title = \Idno\Core\Idno::site()->language()->_('Sign in');
                 $t->drawPage();
             }
 

@@ -22,7 +22,7 @@ namespace Idno\Pages\Admin {
             } else {
                 $t = \Idno\Core\Idno::site()->template();
                 $t->body = $t->__(['statistics' => $stats, 'tab' => $this->getInput('tab', $report)])->draw('admin/statistics');
-                $t->title = 'Statistics';
+                $t->title = \Idno\Core\Idno::site()->language()->_('Statistics');
                 $t->drawPage();
             }
         }

@@ -57,7 +57,7 @@
 
                             // List user
                             $t->body  = $body;
-                            $t->title = 'Found users';
+                            $t->title = \Idno\Core\Idno::site()->language()->_('Found users');
                             $t->drawPage();
                         }
                     } else

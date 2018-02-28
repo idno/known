@@ -36,7 +36,7 @@
                 $t = \Idno\Core\Idno::site()->template();
                 if (empty($onboarding)) {
                     $t->body  = $t->__(array('email' => $email, 'code' => $code))->draw('account/register');
-                    $t->title = 'Create a new account';
+                    $t->title = \Idno\Core\Idno::site()->language()->_('Create a new account');
                     $t->drawPage();
                 } else {
                     $t->body  = $t->__(array(
@@ -44,7 +44,7 @@
                         'code'     => $code,
                         'set_name' => $set_name,
                         'messages' => \Idno\Core\Idno::site()->session()->getAndFlushMessages()))->draw('onboarding/register');
-                    $t->title = 'Create a new account';
+                    $t->title = \Idno\Core\Idno::site()->language()->_('Create a new account');
                     echo $t->draw('shell/simple');
                 }
             }

@@ -14,7 +14,7 @@ namespace Idno\Pages\Admin {
 
                 $t = \Idno\Core\Idno::site()->template();
                 $t->body = $t->__([])->draw('admin/logs');
-                $t->title = 'Log capture';
+                $t->title = \Idno\Core\Idno::site()->language()->_('Log capture');
                 $t->drawPage();
             }
         }

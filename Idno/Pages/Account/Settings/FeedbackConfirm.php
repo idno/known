@@ -14,7 +14,7 @@
                 $this->createGatekeeper(); // Logged-in only please
                 $t        = \Idno\Core\Idno::site()->template();
                 $t->body  = $t->draw('account/settings/feedback/confirm');
-                $t->title = 'Thank you for your feedback!';
+                $t->title = \Idno\Core\Idno::site()->language()->_('Thank you for your feedback!');
                 $t->drawPage();
             }
 

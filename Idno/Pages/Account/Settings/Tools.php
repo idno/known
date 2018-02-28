@@ -23,7 +23,7 @@
                 } else {
                     $t        = \Idno\Core\Idno::site()->template();
                     $t->body  = $t->draw('account/settings/tools');
-                    $t->title = 'Tools and Apps';
+                    $t->title = \Idno\Core\Idno::site()->language()->_('Tools and Apps');
                     $t->drawPage();
                 }
             }
