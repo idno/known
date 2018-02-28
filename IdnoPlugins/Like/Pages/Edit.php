@@ -10,10 +10,10 @@
 
                 // Are we loading an entity?
                 if (!empty($this->arguments)) {
-                    $title = 'Edit bookmark';
+                    $title = \Idno\Core\Idno::site()->language()->_('Edit bookmark');
                     $object = \IdnoPlugins\Like\Like::getByID($this->arguments[0]);
                 } else {
-                    $title = 'New bookmark';
+                    $title = \Idno\Core\Idno::site()->language()->_('New bookmark');
                     $object = new \IdnoPlugins\Like\Like();
                     $object->pageTitle = ($object->getTitleFromURL($this->getInput('url')));
                 }
