@@ -37,9 +37,9 @@
                 $body = $t->__(['body' => $edit_body])->draw('entity/editwrapper');
 
                 if (empty($object->_id)) {
-                    $title = 'Write an entry';
+                    $title = \Idno\Core\Idno::site()->language()->_('Write an entry');
                 } else {
-                    $title = 'Edit entry';
+                    $title = \Idno\Core\Idno::site()->language()->_('Edit entry');
                 }
 
                 if (!empty($this->xhr)) {
