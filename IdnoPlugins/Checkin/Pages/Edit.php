@@ -27,9 +27,9 @@
                 ))->draw('entity/Checkin/edit');
 
                 if (empty($object)) {
-                    $title = 'Where are you?';
+                    $title = \Idno\Core\Idno::site()->language()->_('Where are you?');
                 } else {
-                    $title = 'Edit checkin';
+                    $title = \Idno\Core\Idno::site()->language()->_('Edit checkin');
                 }
 
                 if (!empty($this->xhr)) {
