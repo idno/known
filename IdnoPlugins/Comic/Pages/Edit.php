@@ -29,9 +29,9 @@
                 $body = $t->__(['body' => $edit_body])->draw('entity/editwrapper');
 
                 if (empty($object)) {
-                    $title = 'Post a comic';
+                    $title = \Idno\Core\Idno::site()->language()->_('Post a comic');
                 } else {
-                    $title = 'Edit comic description';
+                    $title = \Idno\Core\Idno::site()->language()->_('Edit comic description');
                 }
 
                 if (!empty($this->xhr)) {

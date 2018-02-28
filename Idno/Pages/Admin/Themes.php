@@ -19,7 +19,7 @@
                     'themes_stored' => \Idno\Core\Idno::site()->themes()->getStored(),
                     'theme'         => \Idno\Core\Idno::site()->themes()->get(),
                 ))->draw('admin/themes');
-                $t->title = 'Themes';
+                $t->title = \Idno\Core\Idno::site()->language()->_('Themes');
                 $t->drawPage();
             }
 

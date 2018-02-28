@@ -29,7 +29,7 @@
 
                 $t        = \Idno\Core\Idno::site()->template();
                 $t->body  = $t->__(array('items' => $users, 'invitations' => $invitations, 'count' => $count, 'items_per_page' => $limit))->draw('admin/users');
-                $t->title = 'User Management';
+                $t->title = \Idno\Core\Idno::site()->language()->_('User Management');
                 $t->drawPage();
 
             }

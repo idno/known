@@ -53,7 +53,7 @@
                 } else {
                     $t        = \Idno\Core\Idno::site()->template();
                     $t->body  = $t->__(['basics' => $basics])->draw('admin/diagnostics');
-                    $t->title = 'Diagnostics';
+                    $t->title = \Idno\Core\Idno::site()->language()->_('Diagnostics');
                     $t->drawPage();
                 }
             }

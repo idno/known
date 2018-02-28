@@ -26,9 +26,9 @@
                 ))->draw('entity/RSVP/edit');
 
                 if (empty($object)) {
-                    $title = 'Write an RSVP';
+                    $title = \Idno\Core\Idno::site()->language()->_('Write an RSVP');
                 } else {
-                    $title = 'Edit RSVP';
+                    $title = \Idno\Core\Idno::site()->language()->_('Edit RSVP');
                 }
 
                 if (!empty($this->xhr)) {

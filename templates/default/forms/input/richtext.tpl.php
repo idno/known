@@ -46,7 +46,7 @@
 
     <?php
     if (!empty($vars['required'])) { ?>
-        <div class="required-text alert alert-danger" style="display:none;">Please complete this field.</div>
+        <div class="required-text alert alert-danger" style="display:none;"><?= \Idno\Core\Idno::site()->language()->_('Please complete this field.'); ?></div>
     <?php } ?>
         <br />
 </div>    
@@ -112,4 +112,3 @@ $this->documentFormControl($name, [
 // Prevent bonita leakage
 foreach (['unique_id', 'class', 'height', 'placeholder', 'value', 'required', 'wordcount', 'name', 'value', 'required'] as $var)
     unset($this->vars[$var]);
-?>

@@ -29,9 +29,9 @@
                 $body = $t->__(['body' => $edit_body])->draw('entity/editwrapper');
 
                 if (empty($object)) {
-                    $title = 'Upload audio';
+                    $title = \Idno\Core\Idno::site()->language()->_('Upload audio');
                 } else {
-                    $title = 'Edit audio details';
+                    $title = \Idno\Core\Idno::site()->language()->_('Edit audio details');
                 }
 
                 if (!empty($this->xhr)) {

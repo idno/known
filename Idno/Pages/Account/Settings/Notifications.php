@@ -17,7 +17,7 @@
                 $this->createGatekeeper(); // Logged-in only please
                 $t        = \Idno\Core\Idno::site()->template();
                 $t->body  = $t->draw('account/settings/notifications');
-                $t->title = 'Notification settings';
+                $t->title = \Idno\Core\Idno::site()->language()->_('Notification settings');
                 $t->drawPage();
             }
 

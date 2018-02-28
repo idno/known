@@ -26,7 +26,7 @@
                     $t = \Idno\Core\Idno::site()->template();
                     $t->setTemplateType('json');
                     $t->__([
-                        'title' => 'URL to page title callback',
+                        'title' => \Idno\Core\Idno::site()->language()->_('URL to page title callback'),
                         'body' => '',
                         'value' => trim($title)
                     ])->drawPage();

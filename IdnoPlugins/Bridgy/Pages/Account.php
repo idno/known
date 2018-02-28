@@ -30,7 +30,7 @@
 
                 $t = \Idno\Core\Idno::site()->template();
                 $t->body = $t->__($vars)->draw('bridgy/account');
-                $t->title = 'Interactions';
+                $t->title = \Idno\Core\Idno::site()->language()->_('Interactions');
                 $t->drawPage();
             }
 

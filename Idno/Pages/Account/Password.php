@@ -23,10 +23,10 @@
 
                 if ($sent = $this->getInput('sent')) {
                     $t->body  = $t->draw('account/password/sent');
-                    $t->title = 'Password recovery email sent';
+                    $t->title = \Idno\Core\Idno::site()->language()->_('Password recovery email sent');
                 } else {
                     $t->body  = $t->draw('account/password');
-                    $t->title = 'Recover password';
+                    $t->title = \Idno\Core\Idno::site()->language()->_('Recover password');
                 }
 
                 $t->drawPage();

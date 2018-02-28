@@ -18,7 +18,7 @@
 
                 $t        = \Idno\Core\Idno::site()->template();
                 $t->body  = $t->draw('admin/home');
-                $t->title = 'Administration';
+                $t->title = \Idno\Core\Idno::site()->language()->_('Administration');
                 $t->drawPage();
             }
 

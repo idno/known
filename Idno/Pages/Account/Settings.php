@@ -17,7 +17,7 @@
                 $this->createGatekeeper(); // Logged-in only please
                 $t        = \Idno\Core\Idno::site()->template();
                 $t->body  = $t->draw('account/settings');
-                $t->title = 'Account settings';
+                $t->title = \Idno\Core\Idno::site()->language()->_('Account settings');
                 $t->drawPage();
             }
 

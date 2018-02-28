@@ -20,7 +20,7 @@
                     'plugins_stored' => \Idno\Core\Idno::site()->plugins()->getStored(),
                     'plugins_loaded' => \Idno\Core\Idno::site()->plugins()->getLoaded(),
                 ))->draw('admin/plugins');
-                $t->title = 'Plugins';
+                $t->title = \Idno\Core\Idno::site()->language()->_('Plugins');
                 $t->drawPage();
             }
 

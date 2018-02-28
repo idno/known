@@ -24,7 +24,7 @@
 
                         $t        = \Idno\Core\Idno::site()->template();
                         $t->body  = $t->__(array('email' => $email, 'code' => $code))->draw('account/password/reset');
-                        $t->title = 'Reset password';
+                        $t->title = \Idno\Core\Idno::site()->language()->_('Reset password');
 
                         $t->drawPage();
                         exit;

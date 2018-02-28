@@ -14,7 +14,7 @@
                 $this->adminGatekeeper(); // Admins only
                 $t        = \Idno\Core\Idno::site()->template();
                 $t->body  = $t->draw('admin/email');
-                $t->title = 'Email';
+                $t->title = \Idno\Core\Idno::site()->language()->_('Email');
                 $t->drawPage();
 
             }
