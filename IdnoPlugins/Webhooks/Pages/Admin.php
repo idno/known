@@ -12,7 +12,7 @@
                 $this->adminGatekeeper();
                 $t = \Idno\Core\Idno::site()->template();
                 $body = $t->draw('webhooks/admin/home');
-                $t->__(array('title' => 'Webhooks', 'body' => $body))->drawPage();
+                $t->__(array('title' => \Idno\Core\Idno::site()->language()->_('Webhooks'), 'body' => $body))->drawPage();
 
             }
 
@@ -35,7 +35,7 @@
                                 }
                                 $webhook_syndication[] = array('url' => $hook, 'title' => $title);
                             } else {
-                                \Idno\Core\Idno::site()->session()->addErrorMessage($hook . " doesn't seem to be a valid URL.");
+                                \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("%s doesn't seem to be a valid URL.", [$hook]));
                             }
                         }
                     }
