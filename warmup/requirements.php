@@ -37,7 +37,7 @@
             ?>
             <div class="component <?=$class?>">
 
-                <h3>PHP 5.4 or above</h3>
+                <h3>PHP 7.0 or above</h3>
                 <p>
                     <?=$text?>
                 </p>
