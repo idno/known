@@ -3,6 +3,15 @@
     namespace IdnoPlugins\Media {
 
         class Main extends \Idno\Common\Plugin {
+            
+            function registerTranslations() {
+
+                \Idno\Core\Idno::site()->language()->register(
+                    new \Idno\Core\GetTextTranslation(
+                        'media', dirname(__FILE__) . '/languages/'
+                    )
+                );
+            }
 
             function registerPages() {
                 \Idno\Core\Idno::site()->addPageHandler('/media/edit/?', '\IdnoPlugins\Media\Pages\Edit');
