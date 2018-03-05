@@ -1,0 +1,28 @@
+#: ../IdnoPlugins/Comic/templates/default/entity/Comic/edit.tpl.php:9
+msgid "Upload a comic"
+msgstr ""
+
+#: ../IdnoPlugins/Comic/templates/default/entity/Comic/edit.tpl.php:9
+msgid "Select a comic"
+msgstr ""
+
+#: ../IdnoPlugins/Comic/templates/default/entity/Comic/edit.tpl.php:9
+msgid "Title"
+msgstr ""
+
+#: ../IdnoPlugins/Comic/templates/default/entity/Comic/edit.tpl.php:9
+msgid "This is displayed in feeds"
+msgstr ""
+
+#: ../IdnoPlugins/Comic/templates/default/entity/Comic/edit.tpl.php:9
+msgid "Comic description"
+msgstr ""
+
+#: ../IdnoPlugins/Comic/templates/default/entity/Comic/edit.tpl.php:9
+msgid "This is displayed when the image isn't available"
+msgstr ""
+
+#: ../IdnoPlugins/Comic/templates/default/entity/Comic/edit.tpl.php:9
+msgid "Choose different comic"
+msgstr ""
+
