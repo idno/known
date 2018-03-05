@@ -25,6 +25,15 @@
                 \Idno\Common\ContentType::register('\IdnoPlugins\Event\RSVPContentType');
 
             }
+            
+            function registerTranslations() {
+
+                \Idno\Core\Idno::site()->language()->register(
+                    new \Idno\Core\GetTextTranslation(
+                        'event', dirname(__FILE__) . '/languages/'
+                    )
+                );
+            }
         }
 
     }
