@@ -8,6 +8,15 @@
         {
 
             public $cats_and_pages = [];
+            
+            function registerTranslations() {
+
+                \Idno\Core\Idno::site()->language()->register(
+                    new \Idno\Core\GetTextTranslation(
+                        'staticpages', dirname(__FILE__) . '/languages/'
+                    )
+                );
+            }
 
             function registerPages()
             {

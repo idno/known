@@ -1,0 +1,24 @@
+#: ../IdnoPlugins/FooterJS/templates/default/admin/footerjs/menu.tpl.php:4
+msgid "Custom JavaScript"
+msgstr ""
+
+#: ../IdnoPlugins/FooterJS/templates/default/admin/footerjs.tpl.php:5
+msgid "This editor lets you easily customize your website using a combination of JavaScript and HTML in the header and footer. You can use this space to add code to your site pages for things like analytics, page optimization, and customer tracking."
+msgstr ""
+
+#: ../IdnoPlugins/FooterJS/templates/default/admin/footerjs.tpl.php:7
+msgid "Code editor"
+msgstr ""
+
+#: ../IdnoPlugins/FooterJS/templates/default/admin/footerjs.tpl.php:7
+msgid "Header code"
+msgstr ""
+
+#: ../IdnoPlugins/FooterJS/templates/default/admin/footerjs.tpl.php:7
+msgid "Footer code"
+msgstr ""
+
+#: ../IdnoPlugins/FooterJS/templates/default/admin/footerjs.tpl.php:7
+msgid "Save code"
+msgstr ""
+

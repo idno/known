@@ -16,6 +16,15 @@
                 \Idno\Core\Idno::site()->addPageHandler('/account/bridgy/check/?','IdnoPlugins\Bridgy\Pages\Check');
 
             }
+            
+            function registerTranslations() {
+
+                \Idno\Core\Idno::site()->language()->register(
+                    new \Idno\Core\GetTextTranslation(
+                        'bridgy', dirname(__FILE__) . '/languages/'
+                    )
+                );
+            }
 
         }
 

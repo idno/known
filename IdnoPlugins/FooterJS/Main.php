@@ -12,5 +12,14 @@
                 \Idno\Core\Idno::site()->template()->extendTemplate('admin/menu/items','admin/footerjs/menu');
             }
         }
+        
+        function registerTranslations() {
+
+            \Idno\Core\Idno::site()->language()->register(
+                new \Idno\Core\GetTextTranslation(
+                    'footerjs', dirname(__FILE__) . '/languages/'
+                )
+            );
+        }
 
     }

@@ -7,6 +7,15 @@
         use Idno\Core\Webservice;
 
         class Main extends Plugin {
+            
+            function registerTranslations() {
+
+                \Idno\Core\Idno::site()->language()->register(
+                    new \Idno\Core\GetTextTranslation(
+                        'webhooks', dirname(__FILE__) . '/languages/'
+                    )
+                );
+            }
 
             function registerPages() {
 

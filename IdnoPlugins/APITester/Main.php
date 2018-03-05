@@ -9,6 +9,15 @@
 
                 \Idno\Core\Idno::site()->template()->extendTemplate('admin/menu/items', 'apitester/admin/menu');
             }
+            
+            function registerTranslations() {
+
+                \Idno\Core\Idno::site()->language()->register(
+                    new \Idno\Core\GetTextTranslation(
+                        'apitester', dirname(__FILE__) . '/languages/'
+                    )
+                );
+            }
 
         }
 

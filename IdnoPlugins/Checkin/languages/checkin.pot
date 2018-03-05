@@ -1,0 +1,40 @@
+#: ../IdnoPlugins/Checkin/templates/default/entity/Checkin/edit.tpl.php:7
+msgid "New Location"
+msgstr ""
+
+#: ../IdnoPlugins/Checkin/templates/default/entity/Checkin/edit.tpl.php:9
+msgid "Edit Location"
+msgstr ""
+
+#: ../IdnoPlugins/Checkin/templates/default/entity/Checkin/edit.tpl.php:12
+msgid "Hang tight ... searching for your location."
+msgstr ""
+
+#: ../IdnoPlugins/Checkin/templates/default/entity/Checkin/edit.tpl.php:12
+msgid "Location"
+msgstr ""
+
+#: ../IdnoPlugins/Checkin/templates/default/entity/Checkin/edit.tpl.php:12
+msgid "Where are you?"
+msgstr ""
+
+#: ../IdnoPlugins/Checkin/templates/default/entity/Checkin/edit.tpl.php:12
+msgid "Address"
+msgstr ""
+
+#: ../IdnoPlugins/Checkin/templates/default/entity/Checkin/edit.tpl.php:12
+msgid "You can edit the address if it's wrong."
+msgstr ""
+
+#: ../IdnoPlugins/Checkin/templates/default/entity/Checkin/edit.tpl.php:12
+msgid "Description"
+msgstr ""
+
+#: ../IdnoPlugins/Checkin/templates/default/entity/Checkin/edit.tpl.php:12
+msgid "Publish"
+msgstr ""
+
+#: ../IdnoPlugins/Checkin/templates/default/entity/Checkin/edit.tpl.php:12
+msgid "Save"
+msgstr ""
+

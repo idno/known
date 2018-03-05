@@ -16,6 +16,15 @@
                 // Add Firefox to Tools and Apps screen
                 \Idno\Core\Idno::site()->template()->extendTemplate('account/settings/tools/list','account/firefox');
             }
+            
+            function registerTranslations() {
+
+                \Idno\Core\Idno::site()->language()->register(
+                    new \Idno\Core\GetTextTranslation(
+                        'firefox', dirname(__FILE__) . '/languages/'
+                    )
+                );
+            }
 
         }
 

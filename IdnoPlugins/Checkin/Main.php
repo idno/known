@@ -11,6 +11,15 @@
 
                 \Idno\Core\Idno::site()->template()->extendTemplate('shell/head','checkin/head');
             }
+            
+            function registerTranslations() {
+
+                \Idno\Core\Idno::site()->language()->register(
+                    new \Idno\Core\GetTextTranslation(
+                        'checkin', dirname(__FILE__) . '/languages/'
+                    )
+                );
+            }
         }
 
     }

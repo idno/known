@@ -1,0 +1,24 @@
+#: ../IdnoPlugins/Text/templates/default/entity/Entry/edit.tpl.php:9
+msgid "New Post"
+msgstr ""
+
+#: ../IdnoPlugins/Text/templates/default/entity/Entry/edit.tpl.php:9
+msgid "Edit Post"
+msgstr ""
+
+#: ../IdnoPlugins/Text/templates/default/entity/Entry/edit.tpl.php:9
+msgid "Title"
+msgstr ""
+
+#: ../IdnoPlugins/Text/templates/default/entity/Entry/edit.tpl.php:9
+msgid "Give it a title"
+msgstr ""
+
+#: ../IdnoPlugins/Text/templates/default/entity/Entry/edit.tpl.php:9
+msgid "Cancel"
+msgstr ""
+
+#: ../IdnoPlugins/Text/templates/default/entity/Entry/edit.tpl.php:9
+msgid "Publish"
+msgstr ""
+

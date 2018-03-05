@@ -7,6 +7,14 @@
         class Main extends \Idno\Common\Plugin
         {
 
+            function registerTranslations() {
+
+                \Idno\Core\Idno::site()->language()->register(
+                    new \Idno\Core\GetTextTranslation(
+                        'indiepub', dirname(__FILE__) . '/languages/'
+                    )
+                );
+            }
 
             function registerEventHooks()
             {

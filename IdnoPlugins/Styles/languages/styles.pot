@@ -1,0 +1,40 @@
+#: ../IdnoPlugins/Styles/templates/default/styles/admin/menu.tpl.php:4
+msgid "Custom CSS"
+msgstr ""
+
+#: ../IdnoPlugins/Styles/templates/default/styles/admin.tpl.php:7
+msgid "The site styles CSS editor lets you easily modify the visual style of your Known site by overriding the default CSS. With Custom CSS, you have more control over the fonts, colors, and visual impact of your site."
+msgstr ""
+
+#: ../IdnoPlugins/Styles/templates/default/styles/admin.tpl.php:7
+msgid "Stylesheet editor"
+msgstr ""
+
+#: ../IdnoPlugins/Styles/templates/default/styles/admin.tpl.php:7
+msgid "Add your changes to Known's core CSS below."
+msgstr ""
+
+#: ../IdnoPlugins/Styles/templates/default/styles/admin.tpl.php:7
+msgid "Do you have an existing stylesheet that you'd like to use? Import a CSS file from your computer."
+msgstr ""
+
+#: ../IdnoPlugins/Styles/templates/default/styles/admin.tpl.php:7
+msgid "Upload a stylesheet"
+msgstr ""
+
+#: ../IdnoPlugins/Styles/templates/default/styles/admin.tpl.php:7
+msgid "You can also"
+msgstr ""
+
+#: ../IdnoPlugins/Styles/templates/default/styles/admin.tpl.php:7
+msgid "download your stylesheet"
+msgstr ""
+
+#: ../IdnoPlugins/Styles/templates/default/styles/admin.tpl.php:7
+msgid "to work on it locally."
+msgstr ""
+
+#: ../IdnoPlugins/Styles/templates/default/styles/admin.tpl.php:7
+msgid "Save stylesheet"
+msgstr ""
+

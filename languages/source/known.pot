@@ -114,11 +114,11 @@ msgstr ""
 msgid "Allow registration"
 msgstr ""
 
-#: ../templates/default/admin/home.tpl.php:153
+#: ../templates/default/admin/home.tpl.php:152
 msgid "Allow registration if you want others to sign up for your site."
 msgstr ""
 
-#: ../templates/default/admin/home.tpl.php:163
+#: ../templates/default/admin/home.tpl.php:164
 msgid "Make site private"
 msgstr ""
 
@@ -134,43 +134,43 @@ msgstr ""
 msgid "Show per-post privacy settings."
 msgstr ""
 
-#: ../templates/default/admin/home.tpl.php:213
+#: ../templates/default/admin/home.tpl.php:212
 msgid "Technical Settings"
 msgstr ""
 
-#: ../templates/default/admin/home.tpl.php:217
+#: ../templates/default/admin/home.tpl.php:218
 msgid "PubSubHubbub hub"
 msgstr ""
 
-#: ../templates/default/admin/home.tpl.php:217
+#: ../templates/default/admin/home.tpl.php:218
 msgid "PubSubHubbub hub address"
 msgstr ""
 
-#: ../templates/default/admin/home.tpl.php:217
+#: ../templates/default/admin/home.tpl.php:218
 msgid "You can probably leave this as is."
 msgstr ""
 
-#: ../templates/default/admin/home.tpl.php:217
+#: ../templates/default/admin/home.tpl.php:218
 msgid "Learn more about PuSH"
 msgstr ""
 
-#: ../templates/default/admin/home.tpl.php:217
+#: ../templates/default/admin/home.tpl.php:218
 msgid "Avatar as icon"
 msgstr ""
 
-#: ../templates/default/admin/home.tpl.php:217
+#: ../templates/default/admin/home.tpl.php:218
 msgid "This uses members' avatar images as the site favicon."
 msgstr ""
 
-#: ../templates/default/admin/home.tpl.php:217
+#: ../templates/default/admin/home.tpl.php:218
 msgid "Include permalinks"
 msgstr ""
 
-#: ../templates/default/admin/home.tpl.php:217
+#: ../templates/default/admin/home.tpl.php:218
 msgid "Always add a link back to your site when you syndicate to external networks."
 msgstr ""
 
-#: ../templates/default/admin/home.tpl.php:217
+#: ../templates/default/admin/home.tpl.php:218
 msgid "Save updates"
 msgstr ""
 
@@ -598,7 +598,7 @@ msgstr ""
 msgid "To address"
 msgstr ""
 
-#: ../templates/default/admin/email.tpl.php:181
+#: ../templates/default/admin/email.tpl.php:180
 msgid "Check your email settings by sending a test email."
 msgstr ""
 
@@ -1401,5 +1401,433 @@ msgstr ""
 
 #: ../templates/default/following/add.tpl.php:4
 msgid "Add the address of a site to follow"
+msgstr ""
+
+#: ../Idno/Caching/FilesystemCache.php:19
+msgid "No domain specified for cache"
+msgstr ""
+
+#: ../Idno/Core/Session.php:182
+msgid "Session funnybusiness: "
+msgstr ""
+
+#: ../Idno/Core/Session.php:182
+msgid "Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini"
+msgstr ""
+
+#: ../Idno/Core/Email.php:21
+msgid "Something went wrong and we couldn't create the email message to send."
+msgstr ""
+
+#: ../Idno/Core/Time.php:94
+msgid "hour"
+msgstr ""
+
+#: ../Idno/Core/Time.php:98
+msgid "hours"
+msgstr ""
+
+#: ../Idno/Core/Time.php:106
+msgid "minute"
+msgstr ""
+
+#: ../Idno/Core/Time.php:110
+msgid "minutes"
+msgstr ""
+
+#: ../Idno/Core/Time.php:115
+msgid "ahead"
+msgstr ""
+
+#: ../Idno/Core/Time.php:116
+msgid "behind"
+msgstr ""
+
+#: ../Idno/Core/Webservice.php:182
+msgid "Checking %s"
+msgstr ""
+
+#: ../Idno/Core/Webservice.php:182
+msgid "Your version of PHP doesn't support CURLFile."
+msgstr ""
+
+#: ../Idno/Core/TokenProvider.php:41
+msgid "Token was generated using an a cryptographically weak algorithm, this probably means your version of OpenSSL is broken or very old."
+msgstr ""
+
+#: ../Idno/Core/AsynchronousQueue.php:58
+msgid "You can not dispatch asynchronous events from within the web app, please run the service"
+msgstr ""
+
+#: ../Idno/Core/AsynchronousQueue.php:71
+msgid "Invalid user (%s) given for runAsContext, aborting"
+msgstr ""
+
+#: ../Idno/Stats/Timer.php:30
+msgid "Timer %s has not been started."
+msgstr ""
+
+#: ../Idno/Pages/Search/User.php:27
+msgid "Invalid sort type %s"
+msgstr ""
+
+#: ../Idno/Pages/Search/User.php:35
+msgid "Invalid sort order %s"
+msgstr ""
+
+#: ../Idno/Pages/Following/Add.php:28
+msgid "We couldn't find a feed at that site."
+msgstr ""
+
+#: ../Idno/Pages/Following/Confirm.php:60
+msgid "You're following %s!"
+msgstr ""
+
+#: ../Idno/Pages/Annotation/Delete.php:41
+msgid "The annotation was deleted."
+msgstr ""
+
+#: ../Idno/Pages/Service/Security/CSRFToken.php:13
+msgid "URL missing"
+msgstr ""
+
+#: ../Idno/Pages/Service/Web/ImageProxy.php:88
+msgid "There was a problem decoding the url"
+msgstr ""
+
+#: ../Idno/Pages/Service/Web/ImageProxy.php:93
+msgid "No url specified"
+msgstr ""
+
+#: ../Idno/Pages/Service/Web/ImageProxy.php:182
+msgid "Could not save temporary file"
+msgstr ""
+
+#: ../Idno/Pages/Service/Web/ImageProxy.php:182
+msgid "Looks like something went wrong, image was zero bytes big!"
+msgstr ""
+
+#: ../Idno/Pages/Service/Web/UrlUnfurl.php:19
+msgid "You need to specify a working URL"
+msgstr ""
+
+#: ../Idno/Pages/Service/Web/UrlUnfurl.php:84
+msgid "Url %s could not be unfurled"
+msgstr ""
+
+#: ../Idno/Pages/Entity/View.php:151
+msgid "%s was deleted."
+msgstr ""
+
+#: ../Idno/Pages/Entity/Delete.php:43
+msgid "We couldn't find the post to delete."
+msgstr ""
+
+#: ../Idno/Pages/Entity/Withdraw.php:63
+msgid "We removed copies on all the syndicated sites."
+msgstr ""
+
+#: ../Idno/Pages/File/Picker.php:89
+msgid "You can only upload images."
+msgstr ""
+
+#: ../Idno/Pages/Session/Login.php:74
+msgid "Oops! It looks like your password isn't correct. Please try again."
+msgstr ""
+
+#: ../Idno/Pages/Session/Login.php:89
+msgid "Oops! We couldn't find your username or email address. Please check you typed it correctly and try again."
+msgstr ""
+
+#: ../Idno/Pages/Session/Logout.php:24
+msgid "You've signed out. See you soon!"
+msgstr ""
+
+#: ../Idno/Pages/Admin/Import.php:31
+msgid "You need to upload an import file to continue."
+msgstr ""
+
+#: ../Idno/Pages/Admin/Import.php:40
+msgid "We couldn't open the file you uploaded. Please try again."
+msgstr ""
+
+#: ../Idno/Pages/Admin/Import.php:47
+msgid "Your import has started. We'll email you when it's done."
+msgstr ""
+
+#: ../Idno/Pages/Admin/Users.php:65
+msgid "%s was given administration rights."
+msgstr ""
+
+#: ../Idno/Pages/Admin/Users.php:78
+msgid "%s was stripped of their administration rights."
+msgstr ""
+
+#: ../Idno/Pages/Admin/Users.php:91
+msgid "%s was removed from your site."
+msgstr ""
+
+#: ../Idno/Pages/Admin/Users.php:132
+msgid "%d invitations were sent."
+msgstr ""
+
+#: ../Idno/Pages/Admin/Users.php:137
+msgid "Your invitation was sent."
+msgstr ""
+
+#: ../Idno/Pages/Admin/Users.php:143
+msgid "Something went wrong and we couldn't send emails to your recipients."
+msgstr ""
+
+#: ../Idno/Pages/Admin/Users.php:149
+msgid "No email addresses were found or all the people you invited are already members of this site."
+msgstr ""
+
+#: ../Idno/Pages/Admin/Users.php:166
+msgid "The invitation was removed."
+msgstr ""
+
+#: ../Idno/Pages/Admin/Users.php:182
+msgid "The invitation was resent."
+msgstr ""
+
+#: ../Idno/Pages/Admin/Users.php:182
+msgid "You can't add any more users to your site."
+msgstr ""
+
+#: ../Idno/Pages/Admin/Users.php:182
+msgid "Please make sure your passwords match and aren't empty."
+msgstr ""
+
+#: ../Idno/Pages/Admin/Users.php:182
+msgid "Please enter a username and email address."
+msgstr ""
+
+#: ../Idno/Pages/Admin/Users.php:182
+msgid "Please create a username."
+msgstr ""
+
+#: ../Idno/Pages/Admin/Users.php:182
+msgid "Your username is too long."
+msgstr ""
+
+#: ../Idno/Pages/Admin/Users.php:182
+msgid "Usernames can't contain a slash ('/"
+msgstr ""
+
+#: ../Idno/Pages/Admin/Users.php:182
+msgid "Unfortunately, someone is already using that username. Please choose another."
+msgstr ""
+
+#: ../Idno/Pages/Admin/Users.php:182
+msgid "Hey, it looks like there's already an account with that email address. Did you forget your login?"
+msgstr ""
+
+#: ../Idno/Pages/Admin/Users.php:182
+msgid "That doesn't seem like it's a valid email address."
+msgstr ""
+
+#: ../Idno/Pages/Admin/Users.php:182
+msgid "User %s was created. You may wish to email them to let them know."
+msgstr ""
+
+#: ../Idno/Pages/Admin/Users.php:182
+msgid "%d emails were blocked."
+msgstr ""
+
+#: ../Idno/Pages/Admin/Users.php:182
+msgid "The email address was blocked."
+msgstr ""
+
+#: ../Idno/Pages/Admin/Users.php:182
+msgid "No email addresses were found."
+msgstr ""
+
+#: ../Idno/Pages/Admin/Users.php:182
+msgid "%d emails were unblocked."
+msgstr ""
+
+#: ../Idno/Pages/Admin/Users.php:182
+msgid "The email address was unblocked."
+msgstr ""
+
+#: ../Idno/Pages/Admin/Homepage.php:66
+msgid "The default homepage content types were saved."
+msgstr ""
+
+#: ../Idno/Pages/Admin/Themes.php:69
+msgid "The theme was enabled."
+msgstr ""
+
+#: ../Idno/Pages/Admin/EmailTest.php:31
+msgid "Test email sent to %s"
+msgstr ""
+
+#: ../Idno/Pages/Admin/EmailTest.php:38
+msgid "There was a problem sending a test message to %s."
+msgstr ""
+
+#: ../Idno/Pages/Admin/Statistics.php:16
+msgid "Something went wrong, either no statistics were returned or it wasn't in the correct format."
+msgstr ""
+
+#: ../Idno/Pages/Admin/Plugins.php:79
+msgid "The plugin was enabled."
+msgstr ""
+
+#: ../Idno/Pages/Admin/Plugins.php:96
+msgid "The plugin was disabled."
+msgstr ""
+
+#: ../Idno/Pages/Account/Password.php:71
+msgid "Oh no! We couldn't find an account associated with that email address."
+msgstr ""
+
+#: ../Idno/Pages/Account/Settings/Following/Bookmarklet.php:42
+msgid "Sorry, could not find any users on that page, perhaps they need to mark up their profile in <a href=\\"http://microformats.org/wiki/microformats-2\\">Microformats</a>?"
+msgstr ""
+
+#: ../Idno/Pages/Account/Settings/Following/Bookmarklet.php:75
+msgid "Page did not contain any <a href=\\"http://microformats.org/wiki/microformats-2\\">Microformats</a> markup... doing my best with what I have!"
+msgstr ""
+
+#: ../Idno/Pages/Account/Settings/Following/Bookmarklet.php:94
+msgid "Sorry, there was a problem parsing the page!"
+msgstr ""
+
+#: ../Idno/Pages/Account/Settings/Following/Bookmarklet.php:98
+msgid "Sorry, %s could not be retrieved!"
+msgstr ""
+
+#: ../Idno/Pages/Account/Settings/Following/Bookmarklet.php:182
+msgid "There was a problem saving the new remote user."
+msgstr ""
+
+#: ../Idno/Pages/Account/Settings/Following/Bookmarklet.php:182
+msgid "You are now following %s, would you like to subscribe to their feed?"
+msgstr ""
+
+#: ../Idno/Pages/Account/Settings/Following/Bookmarklet.php:182
+msgid "You are now following %s"
+msgstr ""
+
+#: ../Idno/Pages/Account/Settings/Following/Bookmarklet.php:182
+msgid "You\'re already following %s"
+msgstr ""
+
+#: ../Idno/Pages/Account/Settings/Following/Bookmarklet.php:182
+msgid "Sorry, that user doesn\'t exist!"
+msgstr ""
+
+#: ../Idno/Pages/Account/Settings/Following/Bookmarklet.php:182
+msgid "No UUID, please try that again!"
+msgstr ""
+
+#: ../Idno/Pages/Account/Settings/Feedback.php:55
+msgid "Thanks! We received your feedback."
+msgstr ""
+
+#: ../Idno/Pages/Account/Settings/Notifications.php:48
+msgid "Your notification preferences were saved."
+msgstr ""
+
+#: ../Idno/Pages/Account/Register.php:31
+msgid "This site is closed to new users."
+msgstr ""
+
+#: ../Idno/Pages/Account/Register.php:43
+msgid "Your invitation doesn't seem to be valid, or has expired."
+msgstr ""
+
+#: ../Idno/Pages/Account/Register.php:182
+msgid "Usernames can only have letters, numbers and underscores."
+msgstr ""
+
+#: ../Idno/Pages/Account/Register.php:182
+msgid "Please check that your passwords match and that your password is at least 7 characters long."
+msgstr ""
+
+#: ../Idno/Pages/Account/Register.php:182
+msgid "You've registered! You're ready to get started. Why not add a post to say hello?"
+msgstr ""
+
+#: ../Idno/Pages/Account/Password/Reset.php:38
+msgid "The password reset code wasn't valid. They expire after three hours, so you might need to try again."
+msgstr ""
+
+#: ../Idno/Pages/Account/Password/Reset.php:74
+msgid "Your password was reset!"
+msgstr ""
+
+#: ../Idno/Pages/Account/Password/Reset.php:80
+msgid "Sorry, your passwords either don\'t match, or are too weak"
+msgstr ""
+
+#: ../Idno/Pages/Account/Settings.php:70
+msgid "Someone is already using %s as their email address."
+msgstr ""
+
+#: ../Idno/Pages/Account/Settings.php:80
+msgid "Your password has been updated."
+msgstr ""
+
+#: ../Idno/Pages/Account/Settings.php:87
+msgid "Sorry, your password is too weak"
+msgstr ""
+
+#: ../Idno/Pages/Account/Settings.php:94
+msgid "Your details were saved."
+msgstr ""
+
+#: ../Idno/Common/Entity.php:182
+msgid "There was a problem syndicating."
+msgstr ""
+
+#: ../Idno/Common/Plugin.php:82
+msgid "Plugin %s doesn\'t have a version"
+msgstr ""
+
+#: ../Idno/Common/Page.php:182
+msgid "Invalid token."
+msgstr ""
+
+#: ../Idno/Common/Page.php:182
+msgid "Something went wrong."
+msgstr ""
+
+#: ../Idno/Common/Page.php:182
+msgid "Attempted to redirect page to a non local URL."
+msgstr ""
+
+#: ../Idno/Common/Page.php:182
+msgid "The page you were on timed out."
+msgstr ""
+
+#: ../Idno/Common/Page.php:182
+msgid "Couldn't say anything about execution, probably something went wrong"
+msgstr ""
+
+#: ../Idno/Entities/GenericDataItem.php:48
+msgid "GenericDataItem classes must have a datatype label set."
+msgstr ""
+
+#: ../Idno/Files/LocalFileSystem.php:123
+msgid "There was a problem storing the file data."
+msgstr ""
+
+#: ../Idno/Files/LocalFileSystem.php:131
+msgid "There was a problem saving the file's metadata"
+msgstr ""
+
+#: ../Idno/Files/LocalFileSystem.php:142
+msgid "Something went wrong saving your file."
+msgstr ""
+
+#: ../Idno/Files/LocalFileSystem.php:148
+msgid "Check that your upload directory is writeable by the web server and try again."
+msgstr ""
+
+#: ../Idno/Data/Mongo.php:49
+msgid "It looks like you don't have the new mongodb driver installed (<a href=\\"https://secure.php.net/manual/en/set.mongodb.php\\">https://secure.php.net/manual/en/set.mongodb.php</a>)\n\nMake sure you have it installed and configured, e.g. by running \\"pecl install mongodb;\\""
 msgstr ""
 
