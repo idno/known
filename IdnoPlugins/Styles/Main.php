@@ -17,6 +17,15 @@
                     \Idno\Core\Idno::site()->template()->extendTemplate('shell/head/final', 'styles/shell/head');
                 }
             }
+            
+            function registerTranslations() {
+
+                \Idno\Core\Idno::site()->language()->register(
+                    new \Idno\Core\GetTextTranslation(
+                        'styles', dirname(__FILE__) . '/languages/'
+                    )
+                );
+            }
         }
 
     }
