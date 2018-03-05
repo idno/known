@@ -1,0 +1,56 @@
+#: ../IdnoPlugins/IndiePub/templates/default/account/indiepub.tpl.php:7
+msgid "IndiePub Accounts"
+msgstr ""
+
+#: ../IdnoPlugins/IndiePub/templates/default/account/indiepub.tpl.php:10
+msgid "There are currently no IndiePub accounts associated with this site."
+msgstr ""
+
+#: ../IdnoPlugins/IndiePub/templates/default/account/indiepub.tpl.php:12
+msgid "Client ID"
+msgstr ""
+
+#: ../IdnoPlugins/IndiePub/templates/default/account/indiepub.tpl.php:12
+msgid "Authorized"
+msgstr ""
+
+#: ../IdnoPlugins/IndiePub/templates/default/account/indiepub.tpl.php:12
+msgid "with the scope"
+msgstr ""
+
+#: ../IdnoPlugins/IndiePub/templates/default/account/indiepub.tpl.php:12
+msgid "Token"
+msgstr ""
+
+#: ../IdnoPlugins/IndiePub/templates/default/account/indiepub.tpl.php:12
+msgid "Revoke Access"
+msgstr ""
+
+#: ../IdnoPlugins/IndiePub/templates/default/account/menu/items/indiepub.tpl.php:4
+msgid "IndiePub"
+msgstr ""
+
+#: ../IdnoPlugins/IndiePub/templates/default/indiepub/auth.tpl.php:8
+msgid "You are logged in as %s."
+msgstr ""
+
+#: ../IdnoPlugins/IndiePub/templates/default/indiepub/auth.tpl.php:10
+msgid "Authenticate to %s?"
+msgstr ""
+
+#: ../IdnoPlugins/IndiePub/templates/default/indiepub/auth.tpl.php:12
+msgid "Authorize %s to access this site with the scope(s) %s?"
+msgstr ""
+
+#: ../IdnoPlugins/IndiePub/templates/default/indiepub/auth.tpl.php:12
+msgid "Authenticate"
+msgstr ""
+
+#: ../IdnoPlugins/IndiePub/templates/default/indiepub/auth.tpl.php:12
+msgid "Authorize"
+msgstr ""
+
+#: ../IdnoPlugins/IndiePub/templates/default/indiepub/auth.tpl.php:12
+msgid "Cancel"
+msgstr ""
+
