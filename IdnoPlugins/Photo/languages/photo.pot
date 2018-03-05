@@ -1,0 +1,40 @@
+#: ../IdnoPlugins/Photo/templates/default/entity/Photo/edit.tpl.php:9
+msgid "New Photo"
+msgstr ""
+
+#: ../IdnoPlugins/Photo/templates/default/entity/Photo/edit.tpl.php:10
+msgid "Edit Photo"
+msgstr ""
+
+#: ../IdnoPlugins/Photo/templates/default/entity/Photo/edit.tpl.php:10
+msgid "Select a photo"
+msgstr ""
+
+#: ../IdnoPlugins/Photo/templates/default/entity/Photo/edit.tpl.php:10
+msgid "Choose different photo"
+msgstr ""
+
+#: ../IdnoPlugins/Photo/templates/default/entity/Photo/edit.tpl.php:10
+msgid "Give it a title"
+msgstr ""
+
+#: ../IdnoPlugins/Photo/templates/default/entity/Photo/edit.tpl.php:10
+msgid "Describe your photo"
+msgstr ""
+
+#: ../IdnoPlugins/Photo/templates/default/entity/Photo/edit.tpl.php:10
+msgid "Description"
+msgstr ""
+
+#: ../IdnoPlugins/Photo/templates/default/entity/Photo/edit.tpl.php:10
+msgid "Add details"
+msgstr ""
+
+#: ../IdnoPlugins/Photo/templates/default/entity/Photo/edit.tpl.php:10
+msgid "Cancel"
+msgstr ""
+
+#: ../IdnoPlugins/Photo/templates/default/entity/Photo/edit.tpl.php:10
+msgid "Publish"
+msgstr ""
+

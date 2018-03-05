@@ -3,6 +3,15 @@
     namespace IdnoPlugins\Photo {
 
         class Main extends \Idno\Common\Plugin {
+            
+            function registerTranslations() {
+
+                \Idno\Core\Idno::site()->language()->register(
+                    new \Idno\Core\GetTextTranslation(
+                        'photo', dirname(__FILE__) . '/languages/'
+                    )
+                );
+            }
 
             function registerPages() {
                 \Idno\Core\Idno::site()->addPageHandler('/photo/edit/?', '\IdnoPlugins\Photo\Pages\Edit');
