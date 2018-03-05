@@ -1,0 +1,36 @@
+#: ../IdnoPlugins/Like/templates/default/entity/Like/edit.tpl.php:8
+msgid "New Bookmark"
+msgstr ""
+
+#: ../IdnoPlugins/Like/templates/default/entity/Like/edit.tpl.php:10
+msgid "Edit Bookmark"
+msgstr ""
+
+#: ../IdnoPlugins/Like/templates/default/entity/Like/edit.tpl.php:10
+msgid "Link Address"
+msgstr ""
+
+#: ../IdnoPlugins/Like/templates/default/entity/Like/edit.tpl.php:10
+msgid "Title"
+msgstr ""
+
+#: ../IdnoPlugins/Like/templates/default/entity/Like/edit.tpl.php:10
+msgid "Page name"
+msgstr ""
+
+#: ../IdnoPlugins/Like/templates/default/entity/Like/edit.tpl.php:10
+msgid "Add notes to your bookmark..."
+msgstr ""
+
+#: ../IdnoPlugins/Like/templates/default/entity/Like/edit.tpl.php:10
+msgid "Description"
+msgstr ""
+
+#: ../IdnoPlugins/Like/templates/default/entity/Like/edit.tpl.php:10
+msgid "Cancel"
+msgstr ""
+
+#: ../IdnoPlugins/Like/templates/default/entity/Like/edit.tpl.php:10
+msgid "Save"
+msgstr ""
+

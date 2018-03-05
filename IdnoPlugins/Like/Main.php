@@ -10,6 +10,15 @@
                 \Idno\Core\Idno::site()->addPageHandler('/like/delete/([A-Za-z0-9]+)/?', '\IdnoPlugins\Like\Pages\Delete');
                 \Idno\Core\Idno::site()->addPageHandler('/bookmark/([A-Za-z0-9]+)/.*', '\Idno\Pages\Entity\View');
             }
+            
+            function registerTranslations() {
+
+                \Idno\Core\Idno::site()->language()->register(
+                    new \Idno\Core\GetTextTranslation(
+                        'like', dirname(__FILE__) . '/languages/'
+                    )
+                );
+            }
         }
 
     }
