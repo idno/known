@@ -24,15 +24,6 @@
     // Register console namespace
     use Symfony\Component\Console\Application;
 
-    // Create new console application
-    global $console;
-    $console = new Application();
-    
-    function &application() {
-        global $console;
-        
-        return $console;
-    }
 
     // Known core namespaces
     $known_loader->registerNamespace('Idno', dirname(__FILE__) );
@@ -56,6 +47,17 @@
     // Using HTMLPurifier for HTML sanitization
     include dirname(__FILE__) . '/external/htmlpurifier-lite/library/HTMLPurifier.auto.php';
     ///////////////////
+    
+    
+    // Create new console application
+    global $console;
+    $console = new Application('Known Console', \Idno\Core\Version::version());
+    
+    function &application() {
+        global $console;
+        
+        return $console;
+    }
     
     // Load any plugin functions
     $directory = dirname(__FILE__) . '/ConsolePlugins/';
