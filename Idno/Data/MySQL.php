@@ -342,7 +342,7 @@
                 try {
                     $collection = $this->sanitiseCollection($collection);
 
-                    $statement = $this->client->prepare("select {$collection}.* from " . $collection . " limit 1");
+                    $statement = $this->client->prepare("select {$collection}.* from " . $collection . " order by created desc limit 1");
                     if ($statement->execute()) {
                         if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
                             return json_decode($row['contents'], true);
