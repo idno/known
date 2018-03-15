@@ -294,7 +294,7 @@
                 else 
                     $tk = $_REQUEST['__bTk'];
                 
-                \Idno\Core\Idno::site()->logging()->error("Token was not valid:\n\nDebug:". print_r([
+                $debug = [
                     'time' => $ts,
                     'token' => \Idno\Core\TokenProvider::truncateToken($tk),
                     'action' => $ta,
@@ -306,7 +306,8 @@
                     'expected-token-no-action' => \Idno\Core\TokenProvider::truncateToken(
                             \Idno\Core\Bonita\Forms::token('', $ts)
                     )
-                ],true));
+                ];
+                \Idno\Core\Idno::site()->logging()->error("Token was not valid:\n\nDebug:". print_r($debug, true));
             }
 
             /**
