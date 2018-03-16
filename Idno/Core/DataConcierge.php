@@ -145,13 +145,17 @@
              */
             function rowToEntity($row)
             {
-                if (!empty($row['entity_subtype'])) { 
-                    if (class_exists($row['entity_subtype'])) {
-                        $object = new $row['entity_subtype']();
-                        $object->loadFromArray($row);
+                try {
+                    if (!empty($row['entity_subtype'])) { 
+                        if (class_exists($row['entity_subtype'])) {
+                            $object = new $row['entity_subtype']();
+                            $object->loadFromArray($row);
 
-                        return $object;
-                    } 
+                            return $object;
+                        } 
+                    }
+                } catch (\Error $e) {
+                    \Idno\Core\Idno::site()->logging()->error($e->getMessage());
                 }
 
                 return false;
