@@ -872,6 +872,7 @@ namespace Idno\Common {
                 'url' => \Idno\Core\Idno::site()->config()->url . 'file/' . $file['_id'] . '/' . urlencode($file['filename']), 
                 'mime-type' => $file['mime_type'], 
                 'length' => $file['length'],
+                'filename' => $file['filename'],
             ];
             $this->attachments = $attachments;
         }
