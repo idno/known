@@ -45,6 +45,20 @@
                 $mainsrc = \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($mainsrc);
                 ?>
                 <div class="existing-photo">
+                    <?php if ($vars['object']->canEdit() && empty($vars['hide-delete'])) { ?>
+                    <span class="delete-control">
+                        <?= \Idno\Core\Idno::site()->actions()->createLink(
+                                \Idno\Core\Idno::site()->config()->getDisplayURL() . 'attachment/' . $vars['object']->getId() . '/' . $attachment['_id'] . '/', 
+                                '<i class="fa fa-trash-o"></i>', 
+                                [], 
+                                [
+                                    'method' => 'POST', 
+                                    'class' => 'edit', 
+                                    'confirm' => true, 
+                                    'confirm-text' => \Idno\Core\Idno::site()->language()->_("Are you sure you want to permanently delete this?")
+                                ]); ?>
+                    </span>
+                    <?php } ?>
                     <img src="<?= $this->makeDisplayURL($src) ?>" class="existing"/>
                 </div>
         <?php     

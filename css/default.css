@@ -1037,6 +1037,13 @@ small {
     object-fit: cover;
 }
 
+.existing-photo .delete-control {
+    font-size: 1.5em;
+    position: absolute;
+    background-color: aliceblue;
+    padding-left: 5px;
+}
+
 .multiple-images .photo-view {
     padding: 5px;
     float: left;
