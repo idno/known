@@ -892,6 +892,26 @@ namespace Idno\Common {
                 $this->attachments = [];
             }
         }
+        
+        /**
+         * Delete a single attachment by its id
+         * @param type $id
+         */
+        function deleteAttachment($id) {
+            if ($attachments = $this->getAttachments()) {
+                foreach ($attachments as $key => $attachment) {
+                    if ($id == $attachment['_id']) {
+                        if ($file = \Idno\Entities\File::getByID($attachment['_id'])) {
+                            $file->delete();
+                        }
+                    }
+                    
+                    unset($attachments[$key]);
+                }
+                
+                $this->attachments = $attachments;
+            }
+        }
 
         /**
          * Returns an array of attachments to this entity.
