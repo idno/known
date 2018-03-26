@@ -25,11 +25,14 @@
                     $this->deniedContent ();
                 
                 if (!empty($this->arguments[1])) {
-                    $attachment_id = \Idno\Common\Entity::getByID($this->arguments[1]);
+                    $attachment_id = $this->arguments[1];
+                    
+                    $object->deleteAttachment($attachment_id);
+                    $object->save();
+                } else {
+                    $this->noContent();
                 }
                 
-                $object->deleteAttachment($attachment_id);
-                $object->save();
                 
                 $this->forward($_SERVER['HTTP_REFERER']);
             }
