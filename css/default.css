@@ -1016,8 +1016,13 @@ small {
 	color: #4c93cb;
 }
 
-#photo-preview {
+#photo-preview,
+.photo-preview {
 	margin-bottom: 20px;
+}
+
+.photo-preview {
+	margin-top: 20px;
 }
 
 .note-editor .note-toolbar {

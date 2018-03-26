@@ -8,7 +8,8 @@
         $multiple = true;
 ?>
 <div class="image-file-input">
-    <div class="photo-preview" id="<?= $vars['id']; ?>_preview"><?php
+    <div class="photo-preview-existing">
+        <?php 
         if (!empty($vars['object']->_id)) {
 
             $attachments = $vars['object']->getAttachments(); // TODO: Handle multiple
@@ -39,12 +40,14 @@
             $src = \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($src);
             $mainsrc = \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($mainsrc);
             ?>
-            <img id="<?= $vars['id']; ?>_img" src="<?= $this->makeDisplayURL($src) ?>" class="existing" />
+            <img src="<?= $this->makeDisplayURL($src) ?>" class="existing"/>
         <?php     
         }
         ?>
-            <img id="<?= $vars['id']; ?>_img" src="" class="preview" style="display:none; width: 400px;" />
-        </div>
+    </div>
+    <div class="photo-preview" id="<?= $vars['id']; ?>_preview">
+        <img id="<?= $vars['id']; ?>_img" src="" class="preview" style="display:none; width: 400px;" />
+    </div>
     <p>
         <span class="btn btn-primary btn-file">
             <i class="fa fa-camera"></i> 

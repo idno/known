@@ -194,7 +194,7 @@ Template.activateImagePreview = function (input) {
     
     var photopane = $(input).closest('div.image-file-input').find('div.photo-preview');
     var filetext = $(input).closest('div.image-file-input').find('span.photo-filename'); 
-    var img = $(input).closest('div.image-file-input').find('img.preview');
+    var img = $(input).closest('div.image-file-input').find('.preview');
 
     if (input.files && input.files[0]) { 
 	var reader = new FileReader();
