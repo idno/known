@@ -1,3 +1,13 @@
+ <?php
+ 
+    $attachments = $vars['object']->getAttachments(); // TODO: Handle multiple
+    $multiple = false; 
+    $num_pics = count($attachments);
+    if ($num_pics > 1)
+        $multiple = true;
+    $cnt = 0; 
+?>
+
 <?= $this->draw('entity/edit/header'); ?>
     <form action="<?= $vars['object']->getURL() ?>" method="post" enctype="multipart/form-data">
 
@@ -17,7 +27,7 @@
                     ?>
                 </h4>
                 
-                <div class="photo-files">
+                <div class="photo-files <?php if ($multiple) echo "multiple-images"; ?>" data-num-pics="<?= $num_pics; ?>">
                     <?php for ($n = 0; $n < 10; $n++) { ?>
                         <div class="image-file" data-number="<?= $n; ?>" style="<?php if ($n > 0) echo 'display: none;'; ?>">
                             <?= $this->__([

@@ -100,7 +100,10 @@
 
                 // Get photo
                 //if ($new) {
-                    $files = \Idno\Core\Input::getFiles('photo');
+                    $files = array_filter(\Idno\Core\Input::getFiles('photo'), function($var) {
+                        return !empty($var['tmp_name']); // Filter non-filled in elements
+                    });
+                    
                     
                     // Replace any existing photos
 //                    if (!empty($files[0]['tmp_name'])) {

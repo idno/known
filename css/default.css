@@ -1023,6 +1023,18 @@ small {
 
 .photo-preview {
 	margin-top: 20px;
+	clear: both;
+}
+
+.multiple-images .photo-preview-existing .existing-photo {
+    margin: 5px;
+    margin-bottom: 10px;
+    float: left;
+}
+.multiple-images .photo-preview-existing .existing-photo img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
 }
 
 .multiple-images .photo-view {
