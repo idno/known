@@ -36,6 +36,8 @@
 
             function postContent()
             {
+                $this->gatekeeper();
+                
                 if (!empty($this->arguments[0])) {
                     $object = \Idno\Common\Entity::getByID($this->arguments[0]);
                 }
@@ -43,6 +45,9 @@
                     Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("We couldn't find the post to delete."));
                     $this->forward();
                 } // TODO: 404
+                if (!$object->canEdit())
+                    $this->deniedContent ();
+                
                 if ($object->delete()) {
                     \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_('%s was deleted.', [$object->getTitle()]));
                 }
