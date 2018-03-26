@@ -102,12 +102,15 @@
                 //if ($new) {
                     $files = \Idno\Core\Input::getFiles('photo');
                     
+                    // Replace any existing photos
+                    if (!empty($files[0]['tmp_name'])) {
+                        $this->deleteAttachments(); // TODO: Allow edit/removal of existing photos
+                    }
+                    
                     foreach ($files as $_file) {
 
                         if (!empty($_file['tmp_name'])) {
-                            // Replace any existing photos
-                            //$this->deleteAttachments();
-
+                            
                             if (\Idno\Entities\File::isImage($_file['tmp_name']) || \Idno\Entities\File::isSVG($_file['tmp_name'], $_file['name'])) {
 
                                 // Extract exif data so we can rotate
