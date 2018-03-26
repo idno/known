@@ -5,6 +5,7 @@
     $num_pics = count($attachments);
     if ($num_pics > 1)
         $multiple = true;
+    $cnt = 0;
             
     if (\Idno\Core\Idno::site()->currentPage()->isPermalink()) {
         $rel = 'rel="in-reply-to"';
@@ -26,6 +27,20 @@
     <?php
     if (!empty($attachments)) {
         foreach ($attachments as $attachment) {
+            
+            if (!\Idno\Core\Idno::site()->currentPage()->isPermalink()) {
+                if ($cnt == 5 && $num_pics>$cnt) {
+                    ?>
+    <div class="photo-view photo-view-more">
+        <a href="<?= $vars['object']->getDisplayURL(); ?>"><?= \Idno\Core\Idno::site()->language()->_('%d more...', [($num_pics-$cnt)]); ?></a>
+    </div>
+                
+                    <?php
+                    break;
+                } else if ($cnt>5) {
+                    break;
+                }
+            }
             //$mainsrc= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'file/' . $attachment['_id'];
             $mainsrc = $attachment['url'];
             
@@ -59,6 +74,7 @@
                    data-footer="<?= htmlentities(strip_tags($vars['object']->body), ENT_QUOTES, 'UTF-8'); ?>"><img src="<?= $this->makeDisplayURL($src) ?>" class="u-photo" alt="<?= htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?>" /></a>
             </div>
         <?php
+            $cnt ++;
         }
     } ?>
     <?= $this->autop($this->parseHashtags($this->parseURLs($vars['object']->body, $rel))) ?>
