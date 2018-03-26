@@ -26,13 +26,22 @@
                             
                             $attachments = $vars['object']->getAttachments(); // TODO: Handle multiple
                             $attachment = $attachments[0];
+                            $filename = $attachment['filename'];
                         
                             $mainsrc = $attachment['url'];
-                            if (!empty($vars['object']->thumbnail_large)) {
+                            if (!empty($vars['object']->thumbs_large) && !empty($vars['object']->thumbs_large[$filename])) {
+                                $src = $vars['object']->thumbs_large[$filename]['url'];
+                            
+                            // Old style
+                            } else if (!empty($vars['object']->thumbnail_large)) {
                                 $src = $vars['object']->thumbnail_large;
+                                
+                            // Really old style
                             } else if (!empty($vars['object']->thumbnail)) { // Backwards compatibility
                                 $src = $vars['object']->thumbnail;
-                            } else {
+                            
+                            // Fallback
+                            } else {die('fallback');
                                 $src = $mainsrc;
                             }
 
@@ -66,13 +75,7 @@
 
                 ?>
 
-                <div id="photo-details" style="<?php
-
-                    /*if (empty($vars['object']->_id)) {
-                        echo 'display:none';
-                    }*/
-
-                    ?>">
+                <div id="photo-details">
 
                     <div class="content-form">
                         <label for="title">
@@ -97,15 +100,6 @@
 
                     <?= $this->draw('entity/tags/input'); ?>
 
-                </div>
-                <div id="photo-details-toggle" style="<?php
-                    //if (!empty($vars['object']->_id)) {
-                        echo 'display:none';
-                    //}
-                ?>">
-                    <p>
-                        <small><a href="#" onclick="$('#photo-details').show(); $('#photo-details-toggle').hide(); return false;">+ <?= \Idno\Core\Idno::site()->language()->_('Add details'); ?></a></small>
-                    </p>
                 </div>
                 
                 <?php echo $this->drawSyndication('image', $vars['object']->getPosseLinks()); ?>

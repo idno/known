@@ -146,12 +146,16 @@
                                         $filename = $_file['name'];
 
                                         if ($_file['type'] != 'image/gif') {
-                                                if ($thumbnail = \Idno\Entities\File::createThumbnailFromFile($_file['tmp_name'], "{$filename}_{$label}", $size, false)) {
-                                                $varname        = "thumbnail_{$label}";
-                                                $this->$varname = \Idno\Core\Idno::site()->config()->url . 'file/' . $thumbnail;
-
-                                                $varname        = "thumbnail_{$label}_id";
-                                                $this->$varname = substr($thumbnail, 0, strpos($thumbnail, '/'));
+                                            if ($thumbnail = \Idno\Entities\File::createThumbnailFromFile($_file['tmp_name'], "{$filename}_{$label}", $size, false)) {
+                                                // New style thumbnails
+                                                $varname        =   "thumbs_{$label}";
+                                                if (empty($this->$varname))
+                                                    $this->$varname = [];
+                                                
+                                                $this->$varname[$filename] = [
+                                                    'id'    => substr($thumbnail, 0, strpos($thumbnail, '/')),
+                                                    'url'   => \Idno\Core\Idno::site()->config()->url . 'file/' . $thumbnail,
+                                                ];
                                             }
                                         }
                                     }
