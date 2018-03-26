@@ -51,7 +51,7 @@
                                         <i class="fa fa-camera"></i> <span
                                         id="photo-filename"><?php if (empty($vars['object']->_id)) { ?><?= \Idno\Core\Idno::site()->language()->_('Select a photo'); ?><?php } else { ?><?= \Idno\Core\Idno::site()->language()->_('Choose different photo'); ?><?php } ?></span> 
                                         <?= $this->__([
-                                            'name' => 'photo', 
+                                            'name' => 'photo[]', 
                                             'id' => 'photo', 
                                             'accept' => 'image/*',
                                             'onchange' => 'photoPreview(this)',
