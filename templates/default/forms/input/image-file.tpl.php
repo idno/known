@@ -1,5 +1,5 @@
 <?php
-
+ 
     if (empty($vars['id']))
         $vars['id'] = 'photo-' . md5(rand());
     
@@ -16,7 +16,7 @@
         <?php 
         if (!empty($vars['object']->_id) && !$hide_existing) {
 
-            $attachments = $vars['object']->getAttachments(); // TODO: Handle multiple
+            $attachments = $vars['object']->getAttachments();
             foreach ($attachments as $attachment) {
                 $filename = $attachment['filename'];
 
@@ -44,7 +44,9 @@
                 $src = \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($src);
                 $mainsrc = \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($mainsrc);
                 ?>
-                <img src="<?= $this->makeDisplayURL($src) ?>" class="existing"/>
+                <div class="existing-photo">
+                    <img src="<?= $this->makeDisplayURL($src) ?>" class="existing"/>
+                </div>
         <?php     
             }
         }
