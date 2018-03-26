@@ -1025,6 +1025,17 @@ small {
 	margin-top: 20px;
 }
 
+.multiple-images .photo-view {
+    padding: 5px;
+    float: left;
+}
+.multiple-images .photo-view img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+
 .note-editor .note-toolbar {
     background-color: #ffffff !important;
 }
