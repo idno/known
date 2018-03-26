@@ -186,6 +186,42 @@ Template.enableImageFallback = function () {
 }
 
 /**
+ * Enable image preview on image file controls.
+ * @returns {undefined}
+ */
+Template.activateImagePreview = function (input) {
+
+    
+    var photopane = $(input).closest('div.image-file-input').find('div.photo-preview');
+    var filetext = $(input).closest('div.image-file-input').find('span.photo-filename'); 
+    var img = $(input).closest('div.image-file-input').find('img.preview');
+
+    if (input.files && input.files[0]) { 
+	var reader = new FileReader();
+
+	reader.onload = function (e) {
+	    	    
+	    filetext.html(filetext.attr('data-nexttext'));
+
+	    try {
+		var exif = EXIF.readFromBinaryFile(base64ToArrayBuffer(this.result));
+
+		ImageTools.exifRotateImg('#'+img.attr('id'), exif.Orientation, '#'+photopane.attr('id'));
+	    } catch (error) {
+		console.error(error);
+	    }
+
+	    
+	    img.attr('src', e.target.result);
+	    img.show();
+	}
+
+	reader.readAsDataURL(input.files[0]);
+    }
+}
+
+
+/**
  * Periodically send the current values of this form to the server.
  *
  * @param string context Usually the type of entity being saved. We keep one autosave
@@ -244,7 +280,7 @@ Template.bindControls = function() {
     Security.activateACLControls();
     Template.enableFormCandy();
     Template.enableRichTextRequired();
-
+    
     // Candy: set focus to first entry on a form.
     $('#contentCreate .form-control').first().focus();
 }
