@@ -1,4 +1,11 @@
 <?php
+
+    $attachments = $vars['object']->getAttachments();
+    $multiple = false;
+    $num_pics = count($attachments);
+    if ($num_pics > 1)
+        $multiple = true;
+            
     if (\Idno\Core\Idno::site()->currentPage()->isPermalink()) {
         $rel = 'rel="in-reply-to"';
     } else {
@@ -14,10 +21,10 @@
         </h2>
     <?php } ?>
 
-<div class="e-content entry-content">
+<div class="e-content entry-content <?php if ($multiple) echo "multiple-images"; ?>" data-num-pics="<?= $num_pics; ?>">
 
     <?php
-    if ($attachments = $vars['object']->getAttachments()) {
+    if (!empty($attachments)) {
         foreach ($attachments as $attachment) {
             //$mainsrc= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'file/' . $attachment['_id'];
             $mainsrc = $attachment['url'];
