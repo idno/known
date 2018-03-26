@@ -900,13 +900,14 @@ namespace Idno\Common {
         function deleteAttachment($id) {
             if ($attachments = $this->getAttachments()) {
                 foreach ($attachments as $key => $attachment) {
-                    if ($id == $attachment['_id']) {
+                    if ($id == (string)$attachment['_id']) {
                         if ($file = \Idno\Entities\File::getByID($attachment['_id'])) {
                             $file->delete();
                         }
+                        
+                        unset($attachments[$key]);
                     }
                     
-                    unset($attachments[$key]);
                 }
                 
                 $this->attachments = $attachments;
