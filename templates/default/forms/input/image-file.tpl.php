@@ -6,42 +6,47 @@
     $multiple = false;
     if (strpos($vars['name'], '[]') !== false)
         $multiple = true;
+    
+    $hide_existing = false;
+    if (!empty($vars['hide-existing']))
+        $hide_existing = true;
 ?>
 <div class="image-file-input">
     <div class="photo-preview-existing">
         <?php 
-        if (!empty($vars['object']->_id)) {
+        if (!empty($vars['object']->_id) && !$hide_existing) {
 
             $attachments = $vars['object']->getAttachments(); // TODO: Handle multiple
-            $attachment = $attachments[0];
-            $filename = $attachment['filename'];
+            foreach ($attachments as $attachment) {
+                $filename = $attachment['filename'];
 
-            $mainsrc = $attachment['url'];
-            if (!empty($vars['object']->thumbs_large) && !empty($vars['object']->thumbs_large[$filename])) {
-                $src = $vars['object']->thumbs_large[$filename]['url'];
+                $mainsrc = $attachment['url'];
+                if (!empty($vars['object']->thumbs_large) && !empty($vars['object']->thumbs_large[$filename])) {
+                    $src = $vars['object']->thumbs_large[$filename]['url'];
 
-                // Old style
-            } else if (!empty($vars['object']->thumbnail_large)) {
-                $src = $vars['object']->thumbnail_large;
+                    // Old style
+                } else if (!empty($vars['object']->thumbnail_large)) {
+                    $src = $vars['object']->thumbnail_large;
 
-                // Really old style
-            } else if (!empty($vars['object']->thumbnail)) { // Backwards compatibility
-                $src = $vars['object']->thumbnail;
+                    // Really old style
+                } else if (!empty($vars['object']->thumbnail)) { // Backwards compatibility
+                    $src = $vars['object']->thumbnail;
 
-                // Fallback
-            } else {
-                $src = $mainsrc;
-            }
+                    // Fallback
+                } else {
+                    $src = $mainsrc;
+                }
 
-            // Patch to correct certain broken URLs caused by https://github.com/idno/known/issues/526
-            $src = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\Idno::site()->config()->getDisplayURL(), $src);
-            $mainsrc = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\Idno::site()->config()->getDisplayURL(), $mainsrc);
+                // Patch to correct certain broken URLs caused by https://github.com/idno/known/issues/526
+                $src = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\Idno::site()->config()->getDisplayURL(), $src);
+                $mainsrc = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\Idno::site()->config()->getDisplayURL(), $mainsrc);
 
-            $src = \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($src);
-            $mainsrc = \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($mainsrc);
-            ?>
-            <img src="<?= $this->makeDisplayURL($src) ?>" class="existing"/>
+                $src = \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($src);
+                $mainsrc = \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($mainsrc);
+                ?>
+                <img src="<?= $this->makeDisplayURL($src) ?>" class="existing"/>
         <?php     
+            }
         }
         ?>
     </div>

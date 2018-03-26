@@ -103,9 +103,9 @@
                     $files = \Idno\Core\Input::getFiles('photo');
                     
                     // Replace any existing photos
-                    if (!empty($files[0]['tmp_name'])) {
-                        $this->deleteAttachments(); // TODO: Allow edit/removal of existing photos
-                    }
+//                    if (!empty($files[0]['tmp_name'])) {
+//                        $this->deleteAttachments(); // TODO: Allow edit/removal of existing photos
+//                    }
                     
                     foreach ($files as $_file) {
 

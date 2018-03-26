@@ -18,7 +18,14 @@
                 </h4>
                 
                 <div class="photo-files">
-                    <?= $this->__(['name' => 'photo[]'])->draw('forms/input/image-file'); ?>
+                    <?php for ($n = 0; $n < 10; $n++) { ?>
+                        <div class="image-file" data-number="<?= $n; ?>" style="<?php if ($n > 0) echo 'display: none;'; ?>">
+                            <?= $this->__([
+                                'name' => 'photo[]',
+                                'hide-existing' => $n > 0
+                            ])->draw('forms/input/image-file'); ?>
+                        </div>
+                    <?php } ?>
                 </div>
 
                 <div id="photo-details">
@@ -63,5 +70,15 @@
 
         </div>
     </form>
-    
+<script>
+    $(document).ready(function () {
+        $('.photo-files input').change(function(){
+            var number = parseInt($(this).closest('div.image-file').attr('data-number'));
+            number = number + 1;
+            console.log("Showing item " + number);
+            $('.photo-files .image-file[data-number='+number.toString()+']').show();
+        });
+    } );
+</script>    
+
 <?= $this->draw('entity/edit/footer'); ?>
