@@ -32,7 +32,8 @@
                         <div class="image-file" data-number="<?= $n; ?>" style="<?php if ($n > 0) echo 'display: none;'; ?>">
                             <?= $this->__([
                                 'name' => 'photo[]',
-                                'hide-existing' => $n > 0
+                                'hide-existing' => $n > 0,
+                                'hide-delete' => $n > 0
                             ])->draw('forms/input/image-file'); ?>
                         </div>
                     <?php } ?>
