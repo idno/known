@@ -88,7 +88,7 @@
                 } else {
                     $new = false;
                 }
-                $body      = \Idno\Core\Idno::site()->currentPage()->getInput('body');
+                $body      = \Idno\Core\Idno::site()->currentPage()->getInput('body'); 
                 $inreplyto = \Idno\Core\Idno::site()->currentPage()->getInput('inreplyto');
                 $tags      = \Idno\Core\Idno::site()->currentPage()->getInput('tags');
                 $access    = \Idno\Core\Idno::site()->currentPage()->getInput('access');
@@ -99,7 +99,7 @@
                     }
                 }
 
-                if (!empty($body)) {
+                if (!empty($body) || ('0' === $body)) {
                     $this->body      = $body;
                     $this->inreplyto = $inreplyto;
                     $this->tags      = $tags;
