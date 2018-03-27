@@ -97,9 +97,9 @@
                 if (!empty($name)) {
                     $value = null;
                     $request = \Idno\Core\Input::getInput($name, $default, $filter);
-                    if (!empty($request)) {
+                    if ($request !== null) {
                         $value = $request;
-                    } else if (!empty($this->data[$name])) {
+                    } else if (isset($this->data[$name])) {
                         $value = $this->data[$name];
                     }
                     if (($value===null) && ($default!==null))
