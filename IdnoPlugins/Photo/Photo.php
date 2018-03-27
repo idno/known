@@ -59,8 +59,12 @@
                 $sizes                = \Idno\Core\Idno::site()->events()->dispatch('photo/thumbnail/getsizes', new \Idno\Core\Event(array('sizes' => array('large' => 800, 'medium' => 400, 'small' => 200))));
                 $eventdata = $sizes->data();
                 foreach ($eventdata['sizes'] as $label => $size) {
-                    $varname                      = "thumbnail_{$label}";
-                    $object['thumbnails'][$label] = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\Idno::site()->config()->url, $this->$varname);
+                    $varname                      = "thumbs_{$label}";
+                    foreach ($this->$varname as $filename => $data) {
+                        $object['thumbnails'][$label][$filename] = [
+                            'url' => preg_replace('/^(https?:\/\/\/)/', \Idno\Core\Idno::site()->config()->url, $data['url'])
+                        ];
+                    }
                 }
 
                 return $object;
