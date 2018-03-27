@@ -26,7 +26,7 @@
             {
                 if (!empty($name)) {
                     $value = null;
-                    if (!empty($_REQUEST[$name])) {
+                    if (isset($_REQUEST[$name])) {
                         $value = $_REQUEST[$name];
                     }
                     if (($value===null) && ($default!==null))
