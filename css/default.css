@@ -1016,9 +1016,65 @@ small {
 	color: #4c93cb;
 }
 
-#photo-preview {
+#photo-preview,
+.photo-preview {
 	margin-bottom: 20px;
 }
+
+.photo-preview {
+	margin-top: 20px;
+	clear: both;
+}
+
+.multiple-images .photo-preview-existing .existing-photo {
+    margin: 5px;
+    margin-bottom: 10px;
+    float: left;
+}
+.multiple-images .photo-preview-existing .existing-photo img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.existing-photo .delete-control {
+    font-size: 1.5em;
+    position: absolute;
+    background-color: aliceblue;
+    padding-left: 5px;
+}
+
+.multiple-images .photo-view {
+    padding: 5px;
+    float: left;
+}
+.multiple-images .photo-view img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.multiple-images .photo-view-more {
+    margin: 5px;
+    float: left;
+    background-color: #eee;
+    border: 2px solid #aaa;
+    text-align: center;
+    font-size: 2em;
+    width: 200px;
+    height: 200px;
+    position: relative;
+}
+
+.multiple-images .photo-view-more a {
+    color: #aaa;
+    position: absolute;      
+    top: 50%;                
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+
 
 .note-editor .note-toolbar {
     background-color: #ffffff !important;

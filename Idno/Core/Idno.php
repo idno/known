@@ -186,6 +186,8 @@
                 $this->addPageHandler('/edit/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Edit');
                 $this->addPageHandler('/delete/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Delete');
                 $this->addPageHandler('/withdraw/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Withdraw');
+                
+                $this->addPageHandler('/attachment/([A-Za-z0-9]+)/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Attachment\Delete');
 
                 /** Annotations */
                 $this->addPageHandler('/view/([A-Za-z0-9]+)/annotations/([A-Za-z0-9]+)?', '\Idno\Pages\Annotation\View');

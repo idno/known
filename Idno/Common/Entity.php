@@ -867,7 +867,13 @@ namespace Idno\Common {
                 $this->attachments = array();
             }
             $attachments = $this->attachments;
-            $attachments[] = array('_id' => $file['_id'], 'url' => \Idno\Core\Idno::site()->config()->url . 'file/' . $file['_id'] . '/' . urlencode($file['filename']), 'mime-type' => $file['mime_type'], 'length' => $file['length']);
+            $attachments[] = [
+                '_id' => $file['_id'], 
+                'url' => \Idno\Core\Idno::site()->config()->url . 'file/' . $file['_id'] . '/' . urlencode($file['filename']), 
+                'mime-type' => $file['mime_type'], 
+                'length' => $file['length'],
+                'filename' => $file['filename'],
+            ];
             $this->attachments = $attachments;
         }
 
@@ -884,6 +890,27 @@ namespace Idno\Common {
                 }
 
                 $this->attachments = [];
+            }
+        }
+        
+        /**
+         * Delete a single attachment by its id
+         * @param type $id
+         */
+        function deleteAttachment($id) {
+            if ($attachments = $this->getAttachments()) {
+                foreach ($attachments as $key => $attachment) {
+                    if ($id == (string)$attachment['_id']) {
+                        if ($file = \Idno\Entities\File::getByID($attachment['_id'])) {
+                            $file->delete();
+                        }
+                        
+                        unset($attachments[$key]);
+                    }
+                    
+                }
+                
+                $this->attachments = $attachments;
             }
         }
 

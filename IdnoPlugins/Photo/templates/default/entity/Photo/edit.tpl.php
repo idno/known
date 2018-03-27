@@ -1,3 +1,13 @@
+ <?php
+ 
+    $attachments = $vars['object']->getAttachments(); // TODO: Handle multiple
+    $multiple = false; 
+    $num_pics = count($attachments);
+    if ($num_pics > 1)
+        $multiple = true;
+    $cnt = 0; 
+?>
+
 <?= $this->draw('entity/edit/header'); ?>
     <form action="<?= $vars['object']->getURL() ?>" method="post" enctype="multipart/form-data">
 
@@ -16,63 +26,20 @@
 
                     ?>
                 </h4>
+                
+                <div class="photo-files <?php if ($multiple) echo "multiple-images"; ?>" data-num-pics="<?= $num_pics; ?>">
+                    <?php for ($n = 0; $n < 10; $n++) { ?>
+                        <div class="image-file" data-number="<?= $n; ?>" style="<?php if ($n > 0) echo 'display: none;'; ?>">
+                            <?= $this->__([
+                                'name' => 'photo[]',
+                                'hide-existing' => $n > 0,
+                                'hide-delete' => $n > 0
+                            ])->draw('forms/input/image-file'); ?>
+                        </div>
+                    <?php } ?>
+                </div>
 
-                <?php
-
-                   // if (empty($vars['object']->_id)) {
-
-                        ?>
-                        <div id="photo-preview"><?php if (!empty($vars['object']->_id)) {
-                            
-                            $attachments = $vars['object']->getAttachments(); // TODO: Handle multiple
-                            $attachment = $attachments[0];
-                        
-                            $mainsrc = $attachment['url'];
-                            if (!empty($vars['object']->thumbnail_large)) {
-                                $src = $vars['object']->thumbnail_large;
-                            } else if (!empty($vars['object']->thumbnail)) { // Backwards compatibility
-                                $src = $vars['object']->thumbnail;
-                            } else {
-                                $src = $mainsrc;
-                            }
-
-                            // Patch to correct certain broken URLs caused by https://github.com/idno/known/issues/526
-                            $src = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\Idno::site()->config()->getDisplayURL(), $src);
-                            $mainsrc = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\Idno::site()->config()->getDisplayURL(), $mainsrc);
-
-                            $src = \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($src);
-                            $mainsrc = \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($mainsrc);
-                            
-                        
-                            ?><img src="<?=  $this->makeDisplayURL($src) ?>" id="photopreview"><?php
-                        } ?></div>
-                        <p>
-                                <span class="btn btn-primary btn-file">
-                                        <i class="fa fa-camera"></i> <span
-                                        id="photo-filename"><?php if (empty($vars['object']->_id)) { ?><?= \Idno\Core\Idno::site()->language()->_('Select a photo'); ?><?php } else { ?><?= \Idno\Core\Idno::site()->language()->_('Choose different photo'); ?><?php } ?></span> 
-                                        <?= $this->__([
-                                            'name' => 'photo', 
-                                            'id' => 'photo', 
-                                            'accept' => 'image/*',
-                                            'onchange' => 'photoPreview(this)',
-                                            'class' => 'form-control col-md-9'])->draw('forms/input/file'); ?>
-
-                                    </span>
-                        </p>
-
-                    <?php
-
-                  //  }
-
-                ?>
-
-                <div id="photo-details" style="<?php
-
-                    /*if (empty($vars['object']->_id)) {
-                        echo 'display:none';
-                    }*/
-
-                    ?>">
+                <div id="photo-details">
 
                     <div class="content-form">
                         <label for="title">
@@ -98,15 +65,6 @@
                     <?= $this->draw('entity/tags/input'); ?>
 
                 </div>
-                <div id="photo-details-toggle" style="<?php
-                    //if (!empty($vars['object']->_id)) {
-                        echo 'display:none';
-                    //}
-                ?>">
-                    <p>
-                        <small><a href="#" onclick="$('#photo-details').show(); $('#photo-details-toggle').hide(); return false;">+ <?= \Idno\Core\Idno::site()->language()->_('Add details'); ?></a></small>
-                    </p>
-                </div>
                 
                 <?php echo $this->drawSyndication('image', $vars['object']->getPosseLinks()); ?>
                 <?php if (empty($vars['object']->_id)) { 
@@ -123,32 +81,15 @@
 
         </div>
     </form>
-    <script>
-        //if (typeof photoPreview !== function) {
-        function photoPreview(input) {
+<script>
+    $(document).ready(function () {
+        $('.photo-files input').change(function(){
+            var number = parseInt($(this).closest('div.image-file').attr('data-number'));
+            number = number + 1;
+            console.log("Showing item " + number);
+            $('.photo-files .image-file[data-number='+number.toString()+']').show();
+        });
+    } );
+</script>    
 
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    $('#photo-preview').html('<img src="" id="photopreview" style="display:none; width: 400px;">');
-                    $('#photo-filename').html('<?= \Idno\Core\Idno::site()->language()->_('Choose different photo'); ?>');
-                 
-                    try {
-                        var exif = EXIF.readFromBinaryFile(base64ToArrayBuffer(this.result));
-
-                        exifRotateImg('#photopreview', exif.Orientation, '#photo-preview');
-                    } catch (error) {
-                        console.error(error);
-                    }
-                
-                    $('#photopreview').attr('src', e.target.result);
-                    $('#photopreview').show();
-                }
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-        //}
-    </script>
 <?= $this->draw('entity/edit/footer'); ?>

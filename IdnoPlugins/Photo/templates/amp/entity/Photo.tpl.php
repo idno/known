@@ -18,7 +18,14 @@
         foreach ($attachments as $attachment) {
             //$mainsrc= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'file/' . $attachment['_id'];
             $mainsrc = $attachment['url'];
-            if (!empty($vars['object']->thumbnail_large)) {
+            $filename = "";
+            if (!empty($attachment['filename']))
+                $filename = $attachment['filename'];
+            if (!empty($vars['object']->thumbs_large) && !empty($vars['object']->thumbs_large[$filename])) {
+                $src = $vars['object']->thumbs_large[$filename]['url'];
+
+            // Old style
+            } else if (!empty($vars['object']->thumbnail_large)) {
                 $src = $vars['object']->thumbnail_large;
             } else if (!empty($vars['object']->thumbnail)) { // Backwards compatibility
                 $src = $vars['object']->thumbnail;
