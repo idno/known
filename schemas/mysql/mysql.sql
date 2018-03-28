@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `metadata` (
   `_id` varchar(32) NOT NULL,
   `collection` varchar(64) NOT NULL,
   `name` varchar(64) NOT NULL,
-  `value` text NOT NULL,
+  `value` longtext NOT NULL,
   KEY `entity` (`entity`,`name`),
   KEY `value` (`value`(255)),
   KEY `name` (`name`),
@@ -110,4 +110,4 @@ CREATE TABLE IF NOT EXISTS `session` (
     PRIMARY KEY (`session_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-REPLACE INTO `versions` VALUES('schema', '2017032001');
+REPLACE INTO `versions` VALUES('schema', '2017071701');

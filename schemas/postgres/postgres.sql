@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS metadata (
 
 
 CREATE INDEX m_entity ON metadata (entity,name);
-CREATE INDEX m_value ON metadata (value);
+CREATE INDEX m_value ON metadata (md5(value));
 CREATE INDEX m_name ON metadata (name);
 CREATE INDEX m_collection ON metadata (collection);
 CREATE INDEX m__id ON metadata (_id);
@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS versions (
 );
 
 DELETE FROM versions WHERE label = 'schema';
-INSERT INTO versions VALUES('schema', '2017032001');
+INSERT INTO versions VALUES('schema', '2017071701');
 
 --
 -- Session handling table
