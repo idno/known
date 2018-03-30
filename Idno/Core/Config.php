@@ -155,30 +155,38 @@
             function loadIniFiles()
             {
                 if (empty($this->ini_config)) {
+                    
                     $this->ini_config = array();
-                    if ($config = @parse_ini_file($this->path . '/config.ini', true)) {
-                        if (!empty($config)) {
-                            $this->default_config = false;
-                            $this->ini_config     = array_replace_recursive($config, $this->ini_config);
+                    
+                    foreach ([
+                        $this->path,
+                        $this->path . '/configuration'
+                    ] as $path) {
+                        
+                        if ($config = @parse_ini_file($path . '/config.ini', true)) {
+                            if (!empty($config)) {
+                                $this->default_config = false;
+                                $this->ini_config     = array_replace_recursive($config, $this->ini_config);
+                            }
                         }
-                    }
-                    if (file_exists($this->path . '/config.json')) {
-                        if ($json = file_get_contents($this->path . '/config.json')) {
-                            if ($json = json_decode($json, true)) {
-                                if (!empty($json)) {
-                                    $this->default_config = false;
-                                    $this->ini_config     = array_replace_recursive($this->ini_config, $json);
+                        if (file_exists($path . '/config.json')) {
+                            if ($json = file_get_contents($path . '/config.json')) {
+                                if ($json = json_decode($json, true)) {
+                                    if (!empty($json)) {
+                                        $this->default_config = false;
+                                        $this->ini_config     = array_replace_recursive($this->ini_config, $json);
+                                    }
                                 }
                             }
                         }
-                    }
 
-                    // Per domain configuration
-                    if ($config = @parse_ini_file($this->path . '/' . $this->host . '.ini', true)) {
-                        unset($this->ini_config['initial_plugins']);  // Don't let plugin settings be merged
-                        unset($this->ini_config['alwaysplugins']);
-                        unset($this->ini_config['antiplugins']);
-                        $this->ini_config = array_replace_recursive($this->ini_config, $config);
+                        // Per domain configuration
+                        if ($config = @parse_ini_file($path . '/' . $this->host . '.ini', true)) {
+                            unset($this->ini_config['initial_plugins']);  // Don't let plugin settings be merged
+                            unset($this->ini_config['alwaysplugins']);
+                            unset($this->ini_config['antiplugins']);
+                            $this->ini_config = array_replace_recursive($this->ini_config, $config);
+                        }
                     }
 
                     // Check environment variables and set as appropriate

@@ -14,6 +14,7 @@ Idno/.idea/.name
 /.htaccess
 /doc/output/
 /Uploads/*
+/configuration/
 
 /.DS_Store
 /*/.DS_Store
