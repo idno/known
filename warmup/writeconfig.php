@@ -22,7 +22,7 @@
                 Make sure your <code>Uploads</code> directory is set to allow your web server to save files to it.
             </li>
             <li>
-                Create a new file called <code>config.ini</code> at the root of your Known installation,
+                Create a new file called <code>config.ini</code> in /configuration/ of your Known installation,
                 with the following contents.
             </li>
         </ul>
