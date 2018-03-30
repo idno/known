@@ -100,10 +100,15 @@
     }
 
     if ($ok) {
-        if (file_exists('../config.ini')) {
-            if ($config = @parse_ini_file('../config.ini')) {
-                header('Location: ../begin/register?set_name=' . urlencode($site_title));
-                exit;
+        foreach ([
+            dirname(dirname(__FILE__)) . '/config.ini',
+            dirname(dirname(__FILE__)) . '/configuration/config.ini'
+        ] as $location) {
+            if (file_exists($location)) {
+                if ($config = @parse_ini_file($location)) {
+                    header('Location: ../begin/register?set_name=' . urlencode($site_title));
+                    exit;
+                }
             }
         }
     }
