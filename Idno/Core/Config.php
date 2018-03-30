@@ -159,8 +159,8 @@
                     $this->ini_config = array();
                     
                     foreach ([
-                        $this->path,
-                        $this->path . '/configuration'
+                        $this->path,                    // Check old location (Warning: @deprecated and will be removed in future installs)
+                        $this->path . '/configuration'  // Check for configuration in the new location
                     ] as $path) {
                         
                         if ($config = @parse_ini_file($path . '/config.ini', true)) {
