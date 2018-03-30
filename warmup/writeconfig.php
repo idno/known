@@ -16,8 +16,8 @@
             To continue:
         </p>
         <ul>
-            <li>Rename the file called <code>htaccess.dist</code> at the root of your Known installation to
-                <code>.htaccess</code>.</li>
+            <li>Rename the file called <code>htaccess.dist</code> in /warmup/webserver-configs/htaccess.dist of your Known installation to
+                <code>.htaccess</code> in the root of your Known install.</li>
             <li>
                 Make sure your <code>Uploads</code> directory is set to allow your web server to save files to it.
             </li>
