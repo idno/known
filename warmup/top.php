@@ -1,9 +1,14 @@
 <?php
 
-    if (file_exists('../config.ini')) {
-        if ($config = @parse_ini_file('../config.ini')) {
-            if (!empty($config)) {
-                header('Location: ../'); exit;
+    foreach ([
+        dirname(dirname(__FILE__)) . '/config.ini',
+        dirname(dirname(__FILE__)) . '/configuration/config.ini'
+    ] as $location) {
+        if (file_exists($location)) {
+            if ($config = @parse_ini_file($location)) {
+                if (!empty($config)) {
+                    header('Location: ../'); exit;
+                }
             }
         }
     }
