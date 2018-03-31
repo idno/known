@@ -28,7 +28,7 @@
                 ini_set('session.cookie_httponly', true); // Restrict cookies to HTTP only (help reduce XSS attack profile)
                 ini_set('session.use_strict_mode', true); // Help mitigate session fixation
                 ini_set("session.use_trans_sid", false); // Prevent transparent IDs
-                if (Idno::site()->isSecure()) {
+                if (\Idno\Common\Page::isSSL()) {
                     ini_set('session.cookie_secure', true); // Set secure cookies when site is secure
                 }
 
@@ -75,7 +75,7 @@
 
                 // Flag insecure sessions (so we can check state changes etc)
                 if (!isset($_SESSION['secure'])) {
-                    $_SESSION['secure'] = Idno::site()->isSecure();
+                    $_SESSION['secure'] = \Idno\Common\Page::isSSL();
                 }
 
                 // Validate session
