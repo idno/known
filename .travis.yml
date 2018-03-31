@@ -47,14 +47,14 @@ before_script:
   - if [[ "$DB" == "pgsql" ]]; then echo "PROVISIONING WITH PostgreSQL"; fi
   - if [[ "$DB" == "pgsql" ]]; then sudo cp -f Tests/build/config_pgsql.ini $TRAVIS_BUILD_DIR/config.ini; fi
   - if [[ "$DB" == "pgsql" ]]; then psql -c 'create database known_unittest;' -U postgres; fi
-  - if [[ "$DB" == "pgsql" ]]; then psql -U postgres -d known_unittest -a -f ./schemas/postgres/postgres.sql; fi
+  - if [[ "$DB" == "pgsql" ]]; then psql -U postgres -d known_unittest -a -f ./warmup/schemas/postgres/postgres.sql; fi
   - if [[ "$DB" == "pgsql" ]]; then psql -d known_unittest -c '\dt;' -U postgres; fi
   - if [[ "$DB" == "mysql" ]]; then echo "PROVISIONING WITH MySQL"; fi
   - if [[ "$DB" == "mysql" ]]; then sudo cp -f Tests/build/config_mysql.ini $TRAVIS_BUILD_DIR/config.ini; fi
   - if [[ "$DB" == "mysql" ]]; then mysql --version; fi
   - if [[ "$DB" == "mysql" ]]; then mysql -e "CREATE DATABASE known_unittest;" -uroot; fi
   - if [[ "$DB" == "mysql" ]]; then mysql -e "GRANT ALL ON known_unittest.* TO 'travis'@'127.0.0.1';" -uroot; fi
-  - if [[ "$DB" == "mysql" ]]; then mysql -e "USE known_unittest; SOURCE ./schemas/mysql/mysql.sql; show table status; show index from entities;" -utravis; fi
+  - if [[ "$DB" == "mysql" ]]; then mysql -e "USE known_unittest; SOURCE ./warmup/schemas/mysql/mysql.sql; show table status; show index from entities;" -utravis; fi
   - if [[ "$DB" == "mongo" ]]; then echo "PROVISIONING WITH MongoDB (default)"; fi
   - if [[ "$DB" == "mongo" ]]; then sudo cp -f Tests/build/config_default.ini $TRAVIS_BUILD_DIR/config.ini; fi
   - if [[ "$DB" == "sqlite3" ]]; then echo "PROVISIONING WITH Sqlite"; fi
