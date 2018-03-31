@@ -46,7 +46,7 @@
             }
             $database_string .= 'dbname=' . $mysql_name;
             $dbh = new PDO($database_string, $mysql_user, $mysql_pass);
-            if ($schema = @file_get_contents(dirname(dirname(__FILE__)) . '/schemas/mysql/mysql.sql')) {
+            if ($schema = @file_get_contents(dirname(__FILE__) . '/schemas/mysql/mysql.sql')) {
                 $dbh->exec('use `' . $mysql_name . '`');
                 if (!$dbh->exec($schema)) {
                     $err = $dbh->errorInfo();
@@ -160,10 +160,10 @@ END;
         try {
             if (file_exists(dirname(dirname(__FILE__)) . '/.htaccess')) {
                 if ($fp = @fopen(dirname(dirname(__FILE__)) . '/.htaccess', 'a')) {
-                    fwrite($fp, "\n\n\n" . file_get_contents(dirname(dirname(__FILE__)) . '/htaccess.dist'));
+                    fwrite($fp, "\n\n\n" . file_get_contents(dirname(__FILE__) . '/webserver-configs/htaccess.dist'));
                 }
             } else {
-                @rename(dirname(dirname(__FILE__)) . '/htaccess.dist', dirname(dirname(__FILE__)) . '/.htaccess');
+                @rename(dirname(__FILE__) . '/webserver-configs/htaccess.dist', dirname(dirname(__FILE__)) . '/.htaccess');
             }
             if ($fp = @fopen(dirname(dirname(__FILE__)). '/configuration/config.ini', 'w')) {
                 fwrite($fp, $ini_file);
