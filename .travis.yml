@@ -59,7 +59,7 @@ before_script:
   - if [[ "$DB" == "mongo" ]]; then sudo cp -f Tests/build/config_default.ini $TRAVIS_BUILD_DIR/config.ini; fi
   - if [[ "$DB" == "sqlite3" ]]; then echo "PROVISIONING WITH Sqlite"; fi
   - if [[ "$DB" == "sqlite3" ]]; then sudo cp -f Tests/build/config_sqlite3.ini $TRAVIS_BUILD_DIR/config.ini; fi
-  - sudo cp -f $TRAVIS_BUILD_DIR/htaccess.dist $TRAVIS_BUILD_DIR/.htaccess
+  - sudo cp -f $TRAVIS_BUILD_DIR/warmup/webserver-configs/htaccess.dist $TRAVIS_BUILD_DIR/.htaccess
   # Restart services
   - sudo service apache2 restart
 
