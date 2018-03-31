@@ -69,7 +69,7 @@
                 ];
 
                 // Check SSL
-                if (!\Idno\Core\Idno::site()->currentPage()->isSSL()) {
+                if (!\Idno\Common\Page::isSSL()) {
                     $basics['status']             = 'Failure';
                     $basics['report']['security'] = [
                         'status'  => 'Warning',

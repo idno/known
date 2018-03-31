@@ -385,7 +385,7 @@
             {
                 $url       = $this->getURL();
                 $urischeme = parse_url($url, PHP_URL_SCHEME);
-                if (Idno::site()->isSecure()) {
+                if (\Idno\Common\Page::isSSL()) {
                     $newuri = 'https:';
                 } else {
                     $newuri = 'http:';

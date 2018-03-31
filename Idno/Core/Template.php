@@ -459,7 +459,7 @@
                     return $url;
                 }
                 $scheme = parse_url($url, PHP_URL_SCHEME);
-                if (\Idno\Core\Idno::site()->isSecure()) {
+                if (\Idno\Common\Page::isSSL()) {
                     $newuri = 'https:';
                 } else {
                     $newuri = 'http:';
