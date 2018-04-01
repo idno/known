@@ -18,7 +18,8 @@
                 echo "Checking extensions\n";
                 foreach ([
                          //    'curl','date','dom','gd','json','libxml','mbstring','mysql','reflection','session','simplexml', 'openssl'
-                         'curl','date','dom','gd','json','libxml','mbstring','pdo','pdo_mysql','reflection','session','simplexml', 'openssl'
+                         //'curl','date','dom','gd','json','libxml','mbstring','pdo','pdo_mysql','reflection','session','simplexml', 'openssl'
+                         \Idno\Core\Installer::requiredModules()
                          ] as $extension) {
                     echo "$extension\n";
                     $this->assertTrue(extension_loaded($extension));

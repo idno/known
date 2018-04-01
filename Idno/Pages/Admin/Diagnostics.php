@@ -78,11 +78,12 @@
                 }
 
                 // Check PHP version 
-                if (version_compare(phpversion(), '7.0') >= 0) {
+                $phpversion = \Idno\Core\Installer::checkPHPVersion();
+                if ($phpversion == 'ok') {
                     $basics['report']['php-version'] = [
                         'status' => 'Ok'
                     ];
-                } else if (version_compare(phpversion(), '5.6') >= 0) {
+                } else if ($phpversion == 'warn') {
                     $basics['status']             = 'Failure';
                     $basics['report']['php-version'] = [
                         'status'  => 'Warning',
@@ -98,7 +99,7 @@
 
                 // Check installed extensions
                 $basics['report']['php-extensions'] = ['status' => 'Ok', 'message' => 'PHP Extension(s): '];
-                foreach (['curl', 'date', 'dom', 'gd', 'json', 'libxml', 'mbstring', 'pdo', 'reflection', 'session', 'simplexml', 'openssl'] as $extension) {
+                foreach (\Idno\Core\Installer::requiredModules() as $extension) {
                     if (!extension_loaded($extension)) {
                         $basics['report']['php-extensions']['message'] .= "$extension, ";
                         $basics['report']['php-extensions']['status'] = 'Failure';
