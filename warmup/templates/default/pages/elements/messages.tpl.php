@@ -1,6 +1,6 @@
 <?php
 
-    if (!empty($messages)) {
+    if (!empty($vars['messages'])) {
 
         ?>
         <div class="alerts">
