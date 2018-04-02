@@ -32,7 +32,7 @@
              * Assert that configuration files have been installed correctly
              */
             function testKnownConfigFileExists() {
-                $this->assertTrue(file_exists(dirname(dirname(__FILE__)). '/config.ini'));
+                $this->assertTrue(file_exists(dirname(dirname(__FILE__)). '/configuration/config.ini'));
             }
             
             /** 
