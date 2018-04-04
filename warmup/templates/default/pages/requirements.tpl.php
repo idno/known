@@ -2,10 +2,8 @@
 
     $title = 'Requirements';
 
-    include 'top.php';
-
     $ok = true;
-    $sslrequired = false; // Only warn for now, later we might want to make SSL a requirement
+    $sslrequired = $vars['ssl-required']; // Only warn for now, later we might want to make SSL a requirement
 
 ?>
 
@@ -21,11 +19,11 @@
         <div class="components">
 
             <?php
-
-                if (version_compare(phpversion(), '7.0') >= 0) {
+                $phpversion = Idno\Core\Installer::checkPHPVersion();
+                if ($phpversion == 'ok') {
                     $class = 'success';
                     $text = 'You are running PHP version ' . phpversion() . '.';
-                } else if (version_compare(phpversion(), '5.6') >= 0) {
+                } else if ($phpversion == 'warn') {
                     $class = 'warning';
                     $text = 'You are running Known using a very old version of PHP (' . phpversion() . '), which is no longer actively supported. Although Known will currently still install, some features may not work, so you should upgrade soon. You may need to ask your server administrator to upgrade PHP for you.';
                 } else {
@@ -37,7 +35,7 @@
             ?>
             <div class="component <?=$class?>">
 
-                <h3>PHP 7.0 or above</h3>
+                <h3>PHP version</h3>
                 <p>
                     <?=$text?>
                 </p>
@@ -45,28 +43,8 @@
             </div>
             
             <?php
-                /* 
-                 * Check whether you're installing on a secure connection (and presumably your site is secure).
-                 * This is a warning for now, in future this might be a hard fail. 
-                 */
-            
-                function isTLS() {
-                    if (isset($_SERVER['HTTPS'])) {
-                        if ($_SERVER['HTTPS'] == '1')
-                            return true;
-                        if (strtolower($_SERVER['HTTPS'] == 'on'))
-                            return true;
-                    } else if (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == '443'))
-                        return true;
-
-                    if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
-                        return true;
-                    }
-
-                    return false;
-                }
                 
-                if (isTLS()) {
+                if (Idno\Common\Page::isSSL()) {
                     $class = 'success';
                     $text = 'You are running Known on a secure site.';
                 } else {
@@ -89,8 +67,7 @@
             <?php
 
                 if (function_exists('apache_get_modules')) {
-                    $modules = apache_get_modules();
-                    if (in_array('mod_rewrite', apache_get_modules())) {
+                    if (Idno\Core\Installer::rewriteAvailable()) {
                         $class = 'success';
                         $text = 'mod_rewrite is installed and enabled.';
                     } else {
@@ -121,7 +98,7 @@
                 <?php
                 }
 
-                $extensions = array('curl','date','dom','gd','json','libxml','mbstring','pdo','pdo_mysql','reflection','session','simplexml', 'openssl');
+                $extensions = Idno\Core\Installer::requiredModules();
                 asort($extensions);
                 foreach($extensions as $extension) {
                     if (extension_loaded($extension)) {
@@ -155,7 +132,7 @@
         ?>
         <div class="submit page-bottom">
             <p>
-                <a class="btn btn-primary btn-lg btn-responsive" href="settings.php">Hooray! Let's get you set up.</a>
+                <a class="btn btn-primary btn-lg btn-responsive" href="?stage=settings">Hooray! Let's get you set up.</a>
             </p>
             <p>
                 <small><a href="http://docs.withknown.com/">Want to get set up manually? Here's our documentation.</a></small>
@@ -186,9 +163,3 @@
 ?>
 
     </div>
-
-<?php
-
-    include 'bottom.php';
-
-?>
