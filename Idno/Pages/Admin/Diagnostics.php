@@ -76,7 +76,12 @@
                             'status'  => 'Warning',
                             'message' => 'Your build of Known is behind the latest version from Github, if you\'re having problems you might try updating to the latest version!<br /> <a href="https://github.com/idno/Known" target="_blank">Update now.</a>'
                         ];
+                    } else {
+                        $basics['report']['version'] = [
+                            'status'  => 'Ok'
+                        ];
                     }
+                        
                 }
                 
                 // Check SSL
