@@ -8,7 +8,7 @@ namespace Idno\Pages\Service\Vendor {
             $this->adminGatekeeper(); // Admins only
             $this->setNoCache();
 
-            if ($messages = \Idno\Core\Idno::site()->getVendorMessages()) {
+            if ($messages = \Idno\Core\Vendor::getMessages()) {
                 echo json_encode($messages);
             }
         }
