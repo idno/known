@@ -68,6 +68,22 @@
                     'report' => [],
                 ];
 
+                // Check Known version
+                if ($remoteVersion = \Idno\Core\RemoteVersion::build()) { 
+                    if (\Idno\Core\Version::build() < $remoteVersion) {
+                        $basics['status']             = 'Failure';
+                        $basics['report']['version'] = [
+                            'status'  => 'Warning',
+                            'message' => 'Your build of Known is behind the latest version from Github, if you\'re having problems you might try updating to the latest version!<br /> <a href="https://github.com/idno/Known" target="_blank">Update now.</a>'
+                        ];
+                    } else {
+                        $basics['report']['version'] = [
+                            'status'  => 'Ok'
+                        ];
+                    }
+                        
+                }
+                
                 // Check SSL
                 if (!\Idno\Common\Page::isSSL()) {
                     $basics['status']             = 'Failure';
