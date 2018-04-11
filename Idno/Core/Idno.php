@@ -753,26 +753,13 @@
             /**
              * Retrieve notices (eg notifications that a new version has been released) from Known HQ
              * @return mixed
+             * @deprecated Use Vendor::getMessages()
              */
             function getVendorMessages()
             {
+                \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: Use Vendor::getMessages()");
 
-                if (!empty(site()->config()->noping)) {
-                    return '';
-                }
-
-                $results    = Webservice::post('https://withknown.com/vendor-services/messages/', array(
-                    'url'     => site()->config()->getURL(),
-                    'title'   => site()->config()->getTitle(),
-                    'version' => site()->getVersion(),
-                    'public'  => site()->config()->isPublicSite(),
-                    'phpversion' => phpversion(),
-                    'dbengine' => get_class(site()->db()),
-                    'hub'     => site()->config()->known_hub
-                ));
-                if ($results['response'] == 200) {
-                    return $results['content'];
-                }
+                return Vendor::getMessages();
 
             }
 

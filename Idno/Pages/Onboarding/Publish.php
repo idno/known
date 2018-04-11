@@ -15,7 +15,7 @@
                 $this->gatekeeper();
 
                 $user = \Idno\Core\Idno::site()->session()->currentUser();
-                if ($messages = \Idno\Core\Idno::site()->getVendorMessages()) {
+                if ($messages = \Idno\Core\Vendor::getMessages()) {
                     \Idno\Core\Idno::site()->session()->addMessage($messages);
                 }
 
