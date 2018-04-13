@@ -65,7 +65,7 @@ namespace Idno\Core\Bonita {
 
             if (abs(time() - $time) < \Idno\Core\Idno::site()->config()->form_token_expiry) {
                 
-                \Idno\Core\Idno::site()->logging()->debug("Token for $action has a valid time " . date('r', $time));
+                // \Idno\Core\Idno::site()->logging()->debug("Token for $action has a valid time " . date('r', $time));
                 
                 if (self::token($action, $time) == $token) {
                     return true;
@@ -118,7 +118,7 @@ namespace Idno\Core\Bonita {
                 'session_id' => \Idno\Core\TokenProvider::truncateToken(session_id()),
                 'token' => \Idno\Core\TokenProvider::truncateToken($hmac),
             ];
-            \Idno\Core\Idno::site()->logging()->debug("Generating CSRF token for {$action} over: ". print_r($debug, true));
+            // \Idno\Core\Idno::site()->logging()->debug("Generating CSRF token for {$action} over: ". print_r($debug, true));
 
             return $hmac;
         }
