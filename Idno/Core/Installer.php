@@ -16,7 +16,23 @@ namespace Idno\Core {
         /**
          * Is known installed (warmup complete - configuration correct)
          */
-        abstract public function isInstalled();
+        public function isInstalled() {
+
+            foreach ([
+                $this->root_path . '/config.ini',
+                $this->root_path . '/configuration/config.ini'
+            ] as $location) {
+                if (file_exists($location)) {
+                    if ($config = @parse_ini_file($location)) {
+                        if (!empty($config)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
 
         /**
          * Run installation
