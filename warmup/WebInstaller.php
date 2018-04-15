@@ -17,25 +17,7 @@ class WebInstaller extends \Idno\Core\Installer {
         
         parent::__construct();
     }
-    
-    public function isInstalled() {
         
-        foreach ([
-            dirname(dirname(__FILE__)) . '/config.ini',
-            dirname(dirname(__FILE__)) . '/configuration/config.ini'
-        ] as $location) {
-            if (file_exists($location)) {
-                if ($config = @parse_ini_file($location)) {
-                    if (!empty($config)) {
-                        return true;
-                    }
-                }
-            }
-        }
-        
-        return false;
-    }
-    
     public function rewriteWorking() {
         if (!empty($_SERVER['PHP_SELF'])) {
             if ($subdir = dirname(dirname($_SERVER['PHP_SELF']))) {
