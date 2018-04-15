@@ -195,7 +195,7 @@ END;
                 $this->writeConfig($ini_file);
                 
                 
-                $output->writeln("Your site should now be installed, enjoy!");
+                $output->writeln("Your site should now be installed, visit your site to create your first user, enjoy!");
             });
             
         $this->application->run();
