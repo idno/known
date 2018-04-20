@@ -61,33 +61,41 @@ namespace ConsolePlugins\PeriodicExecutionService {
                     // Child
                     $output->writeln("Starting $queue queue processor.");
                     
-                    $output->writeln("Opening new DB connection");
-                    $this->reinitialiseDB();
                     
-                    while (self::$run) {
-                    
-                        $output->writeln("Triggering any events on the $queue queue...");
-                        if ($events = \Idno\Entities\AsynchronousQueuedEvent::getPendingFromQueue($queue)) {
-                            
-                            // Dispatch one, delete the rest (avoid duplicates)
-                            try {
-                                $eventqueue->dispatch($events[0]);
-                            } catch (\Exception $ex) {
-                                \Idno\Core\Idno::site()->logging()->error($ex->getMessage());
-                            }
-                            
-                            foreach ($events as $evnt) {
-                                try {
-                                    if (!empty($evnt))
-                                        $evnt->delete();
-                                } catch (\Exception $ex) {
-                                    \Idno\Core\Idno::site()->logging()->error($ex->getMessage());
+                    try {
+                        while (self::$run) {
+                        
+                            $output->writeln("Opening new DB connection");
+                            $this->reinitialiseDB();
+
+                            while (self::$run) {
+
+                                $output->writeln("Triggering any events on the $queue queue...");
+                                if ($events = \Idno\Entities\AsynchronousQueuedEvent::getPendingFromQueue($queue)) {
+
+                                    // Dispatch one, delete the rest (avoid duplicates)
+                                    try {
+                                        $eventqueue->dispatch($events[0]);
+                                    } catch (\Exception $ex) {
+                                        \Idno\Core\Idno::site()->logging()->error($ex->getMessage());
+                                    }
+
+                                    foreach ($events as $evnt) {
+                                        try {
+                                            if (!empty($evnt))
+                                                $evnt->delete();
+                                        } catch (\Exception $ex) {
+                                            \Idno\Core\Idno::site()->logging()->error($ex->getMessage());
+                                        }
+                                    }
                                 }
+
+                                sleep($period);
+                                $eventqueue->gc(300, $queue);
                             }
                         }
-
-                        sleep($period);
-                        $eventqueue->gc(300, $queue);
+                    } catch (\Error $e) {
+                        \Idno\Core\Idno::site()->logging()->error($e->getMessage());
                     }
                 }
             
