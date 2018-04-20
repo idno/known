@@ -57,7 +57,7 @@ namespace ConsolePlugins\EventQueueService {
                             sleep(300);
                             $eventqueue->gc(300, $queue);
                         }
-                    } catch (\Exception $e) {
+                    } catch (\Error $e) {
                         \Idno\Core\Idno::site()->logging()->error($e->getMessage());
                     }
 
@@ -87,7 +87,7 @@ namespace ConsolePlugins\EventQueueService {
                                 sleep($pollperiod);
                             }
                         
-                        } catch (\Exception $e) {
+                        } catch (\Error $e) {
                             \Idno\Core\Idno::site()->logging()->error($e->getMessage());
                         }                    
                     }
