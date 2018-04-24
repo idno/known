@@ -97,9 +97,10 @@
             /**
              * Draws the page shell.
              * @param bool $echo
+             * @param $shell Optional override of the page shell template to be used
              * @return false|string
              */
-            function drawPage($echo = true)
+            function drawPage($echo = true, $shell = 'shell')
             {
 
                 // Get messages and flush session
@@ -108,7 +109,7 @@
                 // End session BEFORE we output any data
                 session_write_close();
 
-                return parent::drawPage($echo);
+                return parent::drawPage($echo, $shell);
 
             }
 
