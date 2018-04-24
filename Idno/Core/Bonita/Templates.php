@@ -168,11 +168,12 @@ namespace Idno\Core\Bonita {
         /**
          * Draws the shell template
          * @param $echo If set to true (by default), echoes the page; otherwise returns it
+         * @param $shell Optional override of the page shell template to be used
          */
-        function drawPage($echo = true) {
+        function drawPage($echo = true, $shell = 'shell') {
             if ($echo) {
 
-                $content = $this->draw('shell');
+                $content = $this->draw($shell);
                 header('Content-Length: ' . strlen($content));
 
                 // Break long output to avoid an Apache performance bug
@@ -183,7 +184,7 @@ namespace Idno\Core\Bonita {
 
                 exit;
             } else
-                return $this->draw('shell');
+                return $this->draw($shell);
         }
 
         /**
