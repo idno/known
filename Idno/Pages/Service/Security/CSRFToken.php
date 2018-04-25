@@ -13,7 +13,7 @@ namespace Idno\Pages\Service\Security {
             if (empty($action))
                 throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("URL missing"));
             
-            \Idno\Core\Idno::site()->logging()->debug("Updating token for $action");
+            //\Idno\Core\Idno::site()->logging()->debug("Updating token for $action");
             
             // Generate CSRF token for javascript queries (see #1727)
             $time = time();
