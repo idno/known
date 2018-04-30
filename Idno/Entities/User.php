@@ -838,6 +838,27 @@
 
                 return $bytes;
             }
+            
+            /**
+             * Flag this user for "Restricted Processing" as defined under the GDPR
+             * @see https://techblog.bozho.net/gdpr-practical-guide-developers/
+             * @param type $restrict
+             */
+            public function setRestrictedProcessing($restrict = true) {
+                $this->restrictedProcessing = $restrict;
+            }
+            
+            /**
+             * Get the "Restricted processing" status of this user.
+             * @return boolean
+             */
+            public function getRestrictedProcessing() {
+                
+                if (!empty($this->restrictedProcessing))
+                    return true;
+                
+                return false;
+            }
 
             /**
              * Hook to provide a method of notifying a user - for example, sending an email or displaying a popup.
