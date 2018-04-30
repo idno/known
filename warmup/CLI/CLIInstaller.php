@@ -72,6 +72,7 @@ class CLIInstaller extends \Idno\Core\Installer {
             ->register('install')
             ->setDescription('Install Known')
             ->setDefinition([
+                new \Symfony\Component\Console\Input\InputArgument('config', \Symfony\Component\Console\Input\InputArgument::OPTIONAL, 'Specify the output config to write, this could be config.ini (default) or my.domain.ini for a domain specific config.', 'config.ini'),
                 new \Symfony\Component\Console\Input\InputArgument('manifest', \Symfony\Component\Console\Input\InputArgument::OPTIONAL, 'Configuration manifest. If not provided, you will be prompted for settings.'),
             ])
             ->setCode(function (\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) {
@@ -124,6 +125,11 @@ class CLIInstaller extends \Idno\Core\Installer {
                     $this->config = @parse_ini_file($filename);
                 }
                 
+                // Load config name
+                $config_name = $input->getArgument('config');
+                if (empty($config_name)) {
+                    $config_name = 'config.ini';
+                }
                 
                 // Gather settings
                 if (empty($this->config['site_title'])) {
@@ -192,7 +198,7 @@ uploadpath = '{$this->config['upload_path']}'
 
 END;
             
-                $this->writeConfig($ini_file);
+                $this->writeConfig($ini_file, $config_name);
                 
                 
                 $output->writeln("Your site should now be installed, visit your site to create your first user, enjoy!");
