@@ -73,7 +73,7 @@ class CLIInstaller extends \Idno\Core\Installer {
             ->setDescription('Install Known')
             ->setDefinition([
                 new \Symfony\Component\Console\Input\InputArgument('config', \Symfony\Component\Console\Input\InputArgument::OPTIONAL, 'Specify the output config to write, this could be config.ini (default) or my.domain.ini for a domain specific config.', 'config.ini'),
-                new \Symfony\Component\Console\Input\InputArgument('manifest', \Symfony\Component\Console\Input\InputArgument::OPTIONAL, 'Configuration manifest. If not provided, you will be prompted for settings.'),
+                new \Symfony\Component\Console\Input\InputArgument('manifest', \Symfony\Component\Console\Input\InputArgument::OPTIONAL, 'Configuration manifest. If not provided, you will be prompted for settings.', ''),
             ])
             ->setCode(function (\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) {
                 
@@ -122,7 +122,9 @@ class CLIInstaller extends \Idno\Core\Installer {
                 
                 // Load manifest if given
                 if ($filename = $input->getArgument('manifest')) {
-                    $this->config = @parse_ini_file($filename);
+                    if (file_exists($filename)) {
+                        $this->config = @parse_ini_file($filename);
+                    }
                 }
                 
                 // Load config name
