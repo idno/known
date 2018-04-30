@@ -98,7 +98,7 @@ namespace Idno\Core {
          */
         protected function writeConfig($ini_file, $name = 'config.ini') {
             
-            if ($fp = @fopen($this->root_path. '/configuration/config.ini', 'w')) {
+            if ($fp = @fopen($this->root_path. '/configuration/' . $name, 'w')) {
                 fwrite($fp, $ini_file);
                 fclose($fp);
                 
