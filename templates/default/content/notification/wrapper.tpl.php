@@ -18,7 +18,9 @@
                 class="col-md-8 idno-notification-reply idno-object idno-content">
                 <?php if (empty($vars['hide-body'])) { ?>
                     <div class="e-content entry-content">
+                        <?php if (!empty($annotation['content'])) { ?>
                         <?= $this->autop($this->parseURLs($this->parseHashtags($this->parseUsers(htmlentities($annotation['content'], ENT_QUOTES, 'UTF-8'))))); ?>
+                        <?php } ?>
                     </div>
                 <?php } ?>
                 <div class="footer">

@@ -8,6 +8,8 @@
  *   yui-compressor image.js > image.min.js
  */
 
+"use strict";
+
 function ImageTools() {}
 
 /**
