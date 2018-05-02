@@ -13,6 +13,8 @@
  @subpackage core
  */
 
+"use strict";
+
 /** Known security object */
 function Security() {}
 

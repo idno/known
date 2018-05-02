@@ -7,6 +7,7 @@
  *   yui-compressor embeds.js > embeds.min.js
  */
 
+"use strict";
 
 function Unfurl() {}
 

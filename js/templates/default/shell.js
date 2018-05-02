@@ -8,6 +8,7 @@
  *   yui-compressor shell.js > shell.min.js
  */
 
+"use strict";
 
 function Template() {}
 
