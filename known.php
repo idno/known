@@ -162,6 +162,12 @@
         ->setDefinition([])
         ->setCode(function (\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) {
             $output->writeln(file_get_contents(dirname(__FILE__) . '/version.known'));
+            
+            $remoteVersion = \Idno\Core\RemoteVersion::build();
+            if (\Idno\Core\Version::build() < $remoteVersion) {
+                $version = \Idno\Core\RemoteVersion::version();
+                $output->writeln("WARNING: Your build of Known is behind the latest version from Github ($version - $remoteVersion), if you're having problems you might try updating to the latest version!\nUpdate now: https://github.com/idno/Known\n");
+            }
         });
 
     // Boot known
