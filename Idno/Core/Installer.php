@@ -196,7 +196,8 @@ namespace Idno\Core {
                 'reflection',
                 'session',
                 'simplexml',
-                'openssl'
+                'openssl',
+                'gettext',
             ];
         }
 
