@@ -8,6 +8,7 @@ namespace Idno\Core {
     class GetTextTranslation extends Translation {
         
         private $domain;
+        private $canProvide;
 
         /**
          * Create a GetText translation.
@@ -19,35 +20,43 @@ namespace Idno\Core {
                 $domain = 'known',
                 $path = ''
         ) {
-            // Empty domain, that's a problem
-            if (empty($domain)) {
-                throw new \RuntimeException('You must specify a language domain, "known" for core translations, or "yourpluginname", for a plugin');
+            if (!extension_loaded('gettext')) {
+                $this->canProvide = false;
+                return;
             }
 
-            // Empty path, so lets set a standard base path
+            // If we've got here, gettext is installed and we can provide translations
+            $this->canProvide = true;
+
+            // We can't provide translations with no specified translation domain.
+            if (empty($domain)) {
+                throw new \RuntimeException('You must specify a language domain: "known" for core translations, or "yourpluginname", for a plugin');
+            }
+
+            // If the path for translations is empty, set a standard base path
             if (empty($path)) { 
                 $path = \Idno\Core\Idno::site()->config()->getPath() . '/languages/';
             }
             
-            // Normalise path
+            // Normalize path
             $path = rtrim($path, '/') . '/';
             
-            // Normalise domain
+            // Normalize domain
             $domain = preg_replace("/[^a-zA-Z0-9\-\_\s]/", "", $domain);
             $this->domain = $domain;
 
             // Set domain
             bindtextdomain($domain, $path);
             bind_textdomain_codeset($domain, 'UTF-8');
-            
         }
         
         public function canProvide($language) {
-            return true; // Gettext can always provide translations
+
+            return $this->canProvide;
         }
 
         public function getString($key) {
-            return dgettext($this->domain, $key); // Get a specific translation, from this object's domain
+            return $this->canProvide ? dgettext($this->domain, $key) : $key; // Get a specific translation, from this object's domain
         }
 
     }
