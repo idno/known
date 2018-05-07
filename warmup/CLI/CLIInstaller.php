@@ -34,7 +34,7 @@ class CLIInstaller extends \Idno\Core\Installer {
         'mysql_name' => '"Database name"',
         'mysql_user' => '"Database username"',
         'mysql_pass' => '"Database password"',
-        'mysql_host' => '"Database host, usually \'localhost\'"',
+        'mysql_host' => '"Database host (usually \'localhost\')"',
         'upload_path' => '"Upload path"',
     ];
     
@@ -80,7 +80,7 @@ class CLIInstaller extends \Idno\Core\Installer {
                 $helper = new Symfony\Component\Console\Helper\QuestionHelper();
                 
                 if ($this->isInstalled())
-                    throw new \Exception("Sorry, it seems that Known is already installed.");
+                    throw new \Exception("Known is already installed.");
                 
                 
                 // Check requirements
@@ -203,7 +203,7 @@ END;
                 $this->writeConfig($ini_file, $config_name);
                 
                 
-                $output->writeln("Your site should now be installed, visit your site to create your first user, enjoy!");
+                $output->writeln("Your site should now be installed. Visit your site to create your first user!");
             });
             
         $this->application->run();
