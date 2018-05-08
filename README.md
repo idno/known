@@ -30,7 +30,6 @@ Detailed installation instructions: <http://docs.withknown.com/en/latest/install
 ### Get support
 
 * Try the open source mailing list: <https://groups.google.com/forum/#!forum/known-dev>
-* Commercial support is available: <https://withknown.com/services>
 
 ## Community links
 
