@@ -90,7 +90,7 @@
                     $basics['status']             = 'Failure';
                     $basics['report']['security'] = [
                         'status'  => 'Warning',
-                        'message' => 'Your site doesn\'t seem to be loaded with HTTPS. We strongly recommend using HTTPS to make your site secure and protect your privacy.'
+                        'message' => 'Your site doesn\'t seem to be loaded over HTTPS. We strongly recommend using HTTPS to make your site secure and protect your privacy.'
                     ];
                 }
 
