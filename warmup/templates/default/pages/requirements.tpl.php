@@ -54,7 +54,7 @@
                     } else {
                         $class = 'warning';
                     }
-                    $text = 'Your site doesn\'t seem to be loaded with HTTPS. We strongly recommend using HTTPS to make your site secure and protect your privacy.';
+                    $text = 'Your site doesn\'t seem to be loaded over HTTPS. We strongly recommend using HTTPS to make your site secure and protect your privacy.';
                 }
             ?>
             <div class="component <?= $class ?>">
