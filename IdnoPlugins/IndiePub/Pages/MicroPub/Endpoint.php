@@ -156,6 +156,7 @@
                     $photo_url   = $this->getJSONInput('photo');
                     $video_url   = $this->getJSONInput('video');
                     $audio_url   = $this->getJSONInput('audio');
+                    $visibility  = $this->getJSONInput('visibility');
 
                     // Since Known does not support multiple photos or videos, use the first if more than one was given.
                     if(is_array($photo_url) && array_key_exists(0, $photo_url)) {
@@ -386,7 +387,12 @@
                         $this->setInput('like-of', $like_of);
                         $this->setInput('repost-of', $repost_of);
                         $this->setInput('rsvp', $rsvp);
-                        $this->setInput('access', 'PUBLIC');
+                        if ($visibility == 'private') {
+                            $currentUser = \Idno\Core\Idno::site()->session()->currentUserUUID();
+                            $this->setInput('access', $currentUser);
+                        } else {
+                            $this->setInput('access', 'PUBLIC');
+                        }
                         $this->setInput('tags', $categories);
                         if ($type ==  'checkin') {
                             $this->setInput('lat', $lat);
