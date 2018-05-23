@@ -42,10 +42,11 @@
         
         }
         
+        
+        
         if (!empty($vars['object']->tags)) {
-        ?>
-            <p class="tag-row"><i class="icon-tag"></i><?=$this->parseURLs($this->parseHashtags(htmlentities(strip_tags($vars['object']->tags))))?></p>
-        <?php
+        
+            echo $this->__(['tags' => $vars['object']->tags])->draw('forms/output/tags');
         }
 
     ?>
