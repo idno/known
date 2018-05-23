@@ -29,6 +29,7 @@
                     case 'linkedin.com':        $icon = 'fa fa-linkedin'; break;
                     case 'reddit.com':          $icon = 'fa fa-reddit'; break;
                     case 'instagram.com':       $icon = 'fa fa-instagram'; break;
+                    case 'pinterest.com':       $icon = 'fa fa-pinterest'; break;
                     case 'paypal.me':
                     case 'paypal.com':          $icon = 'fa fa-paypal'; break;
                     case 'flickr.com':          $icon = 'fa fa-flickr'; break;
