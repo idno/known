@@ -4,9 +4,11 @@
     } else {
         $rel = '';
     }
+    $tags = "";
     if (!empty($vars['object']->tags)) {
-        $tags = is_array($vars['object']->tags) ? implode(', ' , $vars['object']->tags) : $vars['object']->tags;
-        $vars['object']->body .= '<p class="tag-row"><i class="icon-tag"></i>' . $tags . '</p>';
+//        $tags = is_array($vars['object']->tags) ? implode(', ' , $vars['object']->tags) : $vars['object']->tags;
+//        $vars['object']->body .= '<p class="tag-row"><i class="icon-tag"></i>' . $tags . '</p>';
+        $tags = $this->__(['tags' => $vars['object']->tags])->draw('forms/output/tags');
     }
 ?>
 
@@ -39,7 +41,7 @@
 <div class="e-content entry-content">
 <?php
 
-    echo $this->__(['value' => $vars['object']->body, 'object' => $vars['object'], 'rel' => $rel])->draw('forms/output/richtext');
+    echo $this->__(['value' => $vars['object']->body, 'object' => $vars['object'], 'rel' => $rel])->draw('forms/output/richtext') . $tags;
 
 ?>
 </div>
