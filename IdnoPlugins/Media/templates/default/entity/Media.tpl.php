@@ -7,6 +7,10 @@
     } else {
         $rel = '';
     }
+    $tags = "";
+    if (!empty($vars['object']->tags)) {
+        $tags = $this->__(['tags' => $vars['object']->tags])->draw('forms/output/tags');
+    }
     if (empty($vars['feed_view'])) {
         ?>
         <div class="audio-play-wrapper"><a href="#" id="player<?=$player_id?>" class="audio-play-button"><i class="fa fa-play"></i></a></div>
@@ -78,12 +82,6 @@
     }
 ?>
 <div class="e-content">
-<?= $this->autop($this->parseHashtags($this->parseURLs($vars['object']->body, $rel))) ?>
+<?= $this->autop($this->parseHashtags($this->parseURLs($vars['object']->body, $rel))) . $tags; ?>
 </div>
-<?php
-    if (!empty($vars['object']->tags)) {
-?>
 
-<p class="tag-row"><i class="icon-tag"></i> <?=$this->parseHashtags($vars['object']->tags)?></p>
-
-<?php }
