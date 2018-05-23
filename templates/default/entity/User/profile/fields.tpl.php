@@ -31,6 +31,7 @@
                     case 'instagram.com':       $icon = 'fa fa-instagram'; break;
                     case 'paypal.me':
                     case 'paypal.com':          $icon = 'fa fa-paypal'; break;
+                    case 'flickr.com':          $icon = 'fa fa-flickr'; break;
                     default:                    $icon = 'fa fa-link'; break;
 
                 }
