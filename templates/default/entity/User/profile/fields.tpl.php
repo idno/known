@@ -33,6 +33,7 @@
                     case 'paypal.com':          $icon = 'fa fa-paypal'; break;
                     case 'flickr.com':          $icon = 'fa fa-flickr'; break;
                     case 'youtube.com':         $icon = 'fa fa-youtube'; break;
+                    case 'angel.co':            $icon = 'fa fa-angellist'; break;
                     default:                    $icon = 'fa fa-link'; break;
 
                 }
