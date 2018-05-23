@@ -31,9 +31,9 @@
             echo $this->autop($this->parseURLs($this->parseHashtags($object->body)));
         }
 
-        if (!empty($object->tags)) {?>
-            <p class="tag-row"><i class="icon-tag"></i> <?= $this->parseHashtags($object->tags) ?></p>
-        <?php } ?>
+        if (!empty($object->tags)) {
+            echo $this->__(['tags' => $object->tags])->draw('forms/output/tags');
+        } ?>
     </div>
 
 </div>

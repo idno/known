@@ -12,8 +12,11 @@
     } else {
         $rel = '';
     }
+    
+    $tags = "";
     if (!empty($vars['object']->tags)) {
-        $vars['object']->body .= '<p class="tag-row"><i class="icon-tag"></i>' . $vars['object']->tags . '</p>';
+        $tags = $this->__(['tags' => $vars['object']->tags])->draw('forms/output/tags');
+        
     }
     if (empty($vars['feed_view']) && $vars['object']->getTitle() && $vars['object']->getTitle() != 'Untitled') {
         ?>
@@ -77,6 +80,6 @@
             $cnt ++;
         }
     } ?>
-    <?= $this->autop($this->parseHashtags($this->parseURLs($vars['object']->body, $rel))) ?>
+    <?= $this->autop($this->parseHashtags($this->parseURLs($vars['object']->body, $rel))) . $tags ?>
 
 </div>
