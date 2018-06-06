@@ -198,13 +198,13 @@
                         $user_address = implode(', ', $parts);
                         $lat = !empty($checkin['properties']['latitude']) ? $checkin['properties']['latitude'][0] : null;
                         $long = !empty($checkin['properties']['longitude']) ? $checkin['properties']['longitude'][0] : null;
-
-                        if (!empty($photo_url)) {
-                            if($this->uploadFromUrl('photo', $photo_url)) {
-                                $id = \Idno\Entities\File::createFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'], $_FILES['photo']['type']) ;
-                                $local_photo = \Idno\Core\Idno::site()->config()->url . 'file/' . $id;
-                                $htmlPhoto = '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="' . $local_photo . '" alt="' . $place_name . '"  /></p>';
-                            }
+                    }
+                    
+                    if (!empty($photo_url)) {
+                        if($this->uploadFromUrl('photo', $photo_url)) {
+                            $id = \Idno\Entities\File::createFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'], $_FILES['photo']['type']) ;
+                            $local_photo = \Idno\Core\Idno::site()->config()->url . 'file/' . $id;
+                            $htmlPhoto = '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="' . $local_photo . '" alt="' . $place_name . '"  /></p>';
                         }
                     }
 
@@ -306,14 +306,18 @@
                     $long = $latlong[1];
                     $q = \IdnoPlugins\Checkin\Checkin::queryLatLong($lat, $long);
                     $user_address = $q['display_name'];
-                    if (!empty($_FILES['photo'])) {
-                        $id = \Idno\Entities\File::createFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'], $_FILES['photo']['type']) ;
-                        $photo = \Idno\Core\Idno::site()->config()->url . 'file/' . $id;
-                    }
+                    
+                }
+                
+                if (!empty($_FILES['photo'])) {
+                    $id = \Idno\Entities\File::createFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'], $_FILES['photo']['type']) ;
+                    $photo = \Idno\Core\Idno::site()->config()->url . 'file/' . $id;
+                 
                     if (!empty($photo)) {
                         $htmlPhoto = '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="' . $photo . '" alt="' . $place_name . '"  /></p>';
                     }
                 }
+                
                 if (($type == 'photo' || $type == 'video' || $type == 'audio') && empty($name) && !empty($content)) {
                     $name    = $content;
                     $content = '';
