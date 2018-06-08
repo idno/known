@@ -1,1 +1,1 @@
-<i class="fa fa-comment-o"></i>
+<i class="fa fa-comment"></i>
