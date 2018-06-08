@@ -36,7 +36,7 @@
 
                                 ?>
                             <a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>status/edit?url=<?= urlencode($annotation['permalink']) ?>"
-                                   class="edit pull-right"><i class="fa fa-commenting-o"> </i><?= $verb ?></a>                
+                                   class="edit pull-right"><i class="far fa-comment-dots"> </i><?= $verb ?></a>                
                                 <?php
 
                             }

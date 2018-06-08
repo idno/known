@@ -49,7 +49,7 @@
                     <span class="delete-control">
                         <?= \Idno\Core\Idno::site()->actions()->createLink(
                                 \Idno\Core\Idno::site()->config()->getDisplayURL() . 'attachment/' . $vars['object']->getId() . '/' . $attachment['_id'] . '/', 
-                                '<i class="fa fa-trash-o"></i>', 
+                                '<i class="far fa-trash-alt"></i>', 
                                 [], 
                                 [
                                     'method' => 'POST', 
