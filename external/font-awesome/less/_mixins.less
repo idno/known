@@ -1,9 +1,9 @@
 // Mixins
 // --------------------------
 
-@mixin fa-icon {
-  -webkit-font-smoothing: antialiased;
+.fa-icon() {
   -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
   display: inline-block;
   font-style: normal;
   font-variant: normal;
@@ -12,14 +12,14 @@
   vertical-align: -.125em;
 }
 
-@mixin fa-icon-rotate($degrees, $rotation) {
-  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=#{$rotation})";
-  transform: rotate($degrees);
+.fa-icon-rotate(@degrees, @rotation) {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=@{rotation})";
+  transform: rotate(@degrees);
 }
 
-@mixin fa-icon-flip($horiz, $vert, $rotation) {
-  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=#{$rotation}, mirror=1)";
-  transform: scale($horiz, $vert);
+.fa-icon-flip(@horiz, @vert, @rotation) {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=@{rotation}, mirror=1)";
+  transform: scale(@horiz, @vert);
 }
 
 
@@ -27,9 +27,9 @@
 //
 // See: http://a11yproject.com/posts/how-to-hide-content/
 
-@mixin sr-only {
+.sr-only() {
   border: 0;
-  clip: rect(0, 0, 0, 0);
+  clip: rect(0,0,0,0);
   height: 1px;
   margin: -1px;
   overflow: hidden;
@@ -44,7 +44,7 @@
 //
 // Credit: HTML5 Boilerplate
 
-@mixin sr-only-focusable {
+.sr-only-focusable() {
   &:active,
   &:focus {
     clip: auto;

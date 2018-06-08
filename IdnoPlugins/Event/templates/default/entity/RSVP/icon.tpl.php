@@ -1,1 +1,1 @@
-<i class="fa fa-calendar-o"></i>
+<i class="far fa-calendar-alt"></i>

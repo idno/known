@@ -1,1 +1,1 @@
-<i class="fa fa-picture-o"></i>
+<i class="fa fa-image"></i>

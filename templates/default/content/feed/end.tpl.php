@@ -20,7 +20,7 @@
         <div class="interactions">
             <?php
                 if (!$has_liked) {
-                    $heart_only = '<i class="fa fa-star-o"></i>';
+                    $heart_only = '<i class="far fa-star"></i>';
                 } else {
                     $heart_only = '<i class="fa fa-star"></i>';
                 }
