@@ -5,7 +5,7 @@
 
     if (!empty($vars['object']->likeof)) {
         $class = "u-like-of";
-        $icon = '<i class="fa fa-star-o"></i> ';
+        $icon = '<i class="fa fa-thumbs-up"></i> ';
     }
     elseif (!empty($vars['object']->repostof)) {
         $class = "u-repost-of";
@@ -13,6 +13,7 @@
     }
     else {
         $class = "u-bookmark-of";
+        $icon = '<i class="fa fa-bookmark"></i> ';
     }
 
     if (!empty($vars['object']->pageTitle)) {
