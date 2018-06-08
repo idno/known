@@ -15,7 +15,7 @@
         // We need the PHP 5.5 password API
         require_once \Idno\Core\Idno::site()->config()->path . '/external/password_compat/lib/password.php';
 
-        class User extends \Idno\Common\Entity implements \JsonSerializable
+        class User extends \Idno\Common\Entity 
         {
 
             /**
