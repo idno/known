@@ -30,12 +30,13 @@
                     case 'reddit.com':          $icon = 'fab fa-reddit'; break;
                     case 'instagram.com':       $icon = 'fab fa-instagram'; break;
                     case 'pinterest.com':       $icon = 'fab fa-pinterest'; break;
-                    case 'soundcloud.com':       $icon = 'fab fa-soundcloud'; break;
+                    case 'soundcloud.com':      $icon = 'fab fa-soundcloud'; break;
                     case 'paypal.me':
                     case 'paypal.com':          $icon = 'fab fa-paypal'; break;
                     case 'flickr.com':          $icon = 'fab fa-flickr'; break;
                     case 'youtube.com':         $icon = 'fab fa-youtube'; break;
                     case 'angel.co':            $icon = 'fab fa-angellist'; break;
+                    case 'patreon.com':         $icon = 'fab fa-patreon'; break;
                     default:                    $icon = 'fa fa-link'; break;
 
                 }
