@@ -50,9 +50,9 @@
 	         <span class="annotate-icon">
             <?php
                 if (!$has_liked) {
-                    $heart = '<i class="fa fa-star-o"></i>';
+                    $heart = '<i class="far fa-star"></i>';
                 } else {
-                    $heart = '<i class="fa fa-star"></i>';
+                    $heart = '<i class="fas fa-star"></i>';
                 }
                 if ($likes == 1) {
                     $heart .= ' 1 star';
