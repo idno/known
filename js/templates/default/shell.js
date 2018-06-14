@@ -61,10 +61,10 @@ Template.activateStarToggle = function() {
 		data: $(this).serialize(),
 		success: function(data) {
 		    
-		    if (star.hasClass('fa-star-o')) {
-			star.removeClass('fa-star-o').addClass('fa-star');
+		    if (star.hasClass('fa-star') && star.hasClass('far')) {
+			star.removeClass('far').addClass('fas');
 		    } else {
-			star.removeClass('fa-star').addClass('fa-star-o');
+			star.removeClass('fas').addClass('far');
 		    }
 		    
 		    startext.text(data.text);
