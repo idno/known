@@ -392,7 +392,9 @@ $(document).ready(function(){
     });
 });
 
-// Enable ctrl+enter submit for certain forms
+/**
+ * Initialise some template features.
+ */
 $(document).ready(function(){
     Template.enableFormCandy();
     Template.enablePagination();
