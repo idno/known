@@ -56,7 +56,13 @@
 
                 // Add some thumbs
                 $object['thumbnails'] = array();
-                $sizes                = \Idno\Core\Idno::site()->events()->dispatch('photo/thumbnail/getsizes', new \Idno\Core\Event(array('sizes' => array('large' => 800, 'medium' => 400, 'small' => 200))));
+                $sizes = \Idno\Core\Idno::site()->events()->dispatch('photo/thumbnail/getsizes', new \Idno\Core\Event([
+                    'sizes' => [
+                        'large' => 800, 
+                        'medium' => 400, 
+                        'small' => 200,
+                    ]
+                ]));
                 $eventdata = $sizes->data();
                 foreach ($eventdata['sizes'] as $label => $size) {
                     $varname                      = "thumbs_{$label}";
