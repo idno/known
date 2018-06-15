@@ -15,5 +15,14 @@
         }
     }
 
+    if (!empty($vars['exception'])) {
+        $e = [
+            'class' => get_class($vars['exception']),
+            'message' => $vars['exception']->getMessage(),
+            'file' => $vars['exception']->getFile(),
+            'line' => $vars['exception']->getLine()
+        ];
+        $vars['exception'] = $e;
+    }
 
     echo $callback . "(".json_encode($vars).")";
