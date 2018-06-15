@@ -352,13 +352,6 @@ function annotateContent() {
     $("time.dt-published").timeago();
 }
 
-$(document).ready(function () {
-    $.timeago.settings.cutoff = 30 * 24 * 60 * 60 * 1000; // 1 month
-    annotateContent();
-    
-    Template.activateStarToggle();
-});
-
 /**
  * Better handle links in iOS web applications.
  * This code (from the discussion here: https://gist.github.com/kylebarrow/1042026)
@@ -392,10 +385,16 @@ $(document).ready(function(){
     });
 });
 
-// Enable ctrl+enter submit for certain forms
+/**
+ * Initialise some template features.
+ */
 $(document).ready(function(){
+    $.timeago.settings.cutoff = 30 * 24 * 60 * 60 * 1000; // 1 month
+    annotateContent();
+    
     Template.enableFormCandy();
     Template.enablePagination();
     Template.enableRichTextRequired();
     Template.enableImageFallback();
+    Template.activateStarToggle();
 });
