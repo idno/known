@@ -109,6 +109,41 @@ namespace Idno\Core {
         }
         
         /**
+         * Generate a configuration file from a template.
+         * @param array $params Name => Value array of configuration values, e.g. "dbname" => "known"
+         * @return string The built ini file
+         */
+        protected function buildConfig(array $params = []) {
+            
+            // Set some defaults
+            $defaults = [
+                'build' => Version::build(),
+                'version' => Version::version(),
+                
+                'dbname' => 'known',
+                'dbhost' => 'localhost',
+                
+                'filesystem' => 'local',
+                'uploadpath' => $this->root_path . '/Uploads/'
+            ];
+            
+            // Merge parameters into defaults
+            $params = array_merge($defaults, $params);
+            
+            // Load template
+            $template = file_get_contents($this->root_path . '/warmup/webserver-configs/config.ini.template');
+            if (empty($template))
+                throw new \Idno\Exceptions\ConfigurationException('Configuration template could not be loaded.');
+            
+            // Build config output
+            foreach ($params as $name => $value) {
+                $template = str_replace("%{$name}%", $value, $template);
+            }
+            
+            return $template;
+        }
+        
+        /**
          * Install the mysql DB schema
          * @param type $host
          * @param type $dbname

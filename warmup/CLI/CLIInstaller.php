@@ -47,6 +47,30 @@ class CLIInstaller extends \Idno\Core\Installer {
     public function run() {
 
         $this->application
+            ->register('makeconfig')
+            ->setDescription('Write a configuration file from a manifest')
+            ->setDefinition([
+                new \Symfony\Component\Console\Input\InputArgument('manifest', \Symfony\Component\Console\Input\InputArgument::REQUIRED, 'Manifest to use as a template'),
+            ])
+            ->setCode(function (\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) {
+                
+                if ($filename = $input->getArgument('manifest')) {
+                    if (file_exists($filename)) {
+                        $this->config = @parse_ini_file($filename);
+                    }
+                }
+                
+                echo $this->buildConfig([
+                    'dbname' => $this->config['mysql_name'],
+                    'dbpass' => $this->config['mysql_pass'],
+                    'dbuser' => $this->config['mysql_user'],
+                    'dbhost' => $this->config['mysql_host'],
+                    'uploadpath' => $this->config['upload_path'],
+                ]);
+                
+            });
+                
+        $this->application
             ->register('generate-manifest')
             ->setDescription('Generate a template install manifest')
             ->setDefinition([
@@ -185,20 +209,13 @@ class CLIInstaller extends \Idno\Core\Installer {
                 
                 $this->writeApacheConfig();
                 
-                $ini_file = <<< END
-
-# This configuration file was created by Known's installer.
-
-database = 'MySQL'
-dbname = '{$this->config['mysql_name']}'
-dbpass = '{$this->config['mysql_pass']}'
-dbuser = '{$this->config['mysql_user']}'
-dbhost = '{$this->config['mysql_host']}'
-
-filesystem = 'local'
-uploadpath = '{$this->config['upload_path']}'
-
-END;
+                $ini_file = $this->buildConfig([
+                    'dbname' => $this->config['mysql_name'],
+                    'dbpass' => $this->config['mysql_pass'],
+                    'dbuser' => $this->config['mysql_user'],
+                    'dbhost' => $this->config['mysql_host'],
+                    'uploadpath' => $this->config['upload_path'],
+                ]);
             
                 $this->writeConfig($ini_file, $config_name);
                 

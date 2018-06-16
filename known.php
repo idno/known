@@ -128,35 +128,6 @@
     }
 
     $console
-        ->register('makeconfig')
-        ->setDescription('Attempts to write configuration variables to a Known config.ini file')
-        ->setDefinition([
-            new \Symfony\Component\Console\Input\InputArgument('dbuser', \Symfony\Component\Console\Input\InputArgument::REQUIRED, 'Database username'),
-            new \Symfony\Component\Console\Input\InputArgument('dbpass', \Symfony\Component\Console\Input\InputArgument::REQUIRED, 'Database password'),
-            new \Symfony\Component\Console\Input\InputArgument('dbname', \Symfony\Component\Console\Input\InputArgument::REQUIRED, 'Database name'),
-            new \Symfony\Component\Console\Input\InputArgument('database', \Symfony\Component\Console\Input\InputArgument::OPTIONAL, 'Database type', 'mysql'),
-            new \Symfony\Component\Console\Input\InputArgument('dbhost', \Symfony\Component\Console\Input\InputArgument::OPTIONAL, 'Database hostname', 'localhost'),
-            new \Symfony\Component\Console\Input\InputArgument('filename', \Symfony\Component\Console\Input\InputArgument::OPTIONAL, 'Configuration filename', 'config.ini'),
-        ])
-        ->setCode(function (\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) {
-            if ($fp = fopen($input->getArgument('filename'), 'w')) {
-
-                fwrite($fp, "[Database configuration]\n");
-                fwrite($fp, "database=" . $input->getArgument('database') . "\n");
-                fwrite($fp, "dbhost=" . $input->getArgument('dbhost') . "\n");
-                fwrite($fp, "dbname=" . $input->getArgument('dbname') . "\n");
-                fwrite($fp, "dbuser=" . $input->getArgument('dbuser') . "\n");
-                fwrite($fp, "dbpass=" . $input->getArgument('dbpass') . "\n");
-                fclose($fp);
-
-            } else {
-
-                $output->writeln("Couldn't open " . $input->getArgument('filename'));
-
-            }
-        });
-
-    $console
         ->register('version')
         ->setDescription('Returns the current Known version as defined in version.known')
         ->setDefinition([])

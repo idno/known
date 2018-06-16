@@ -1,0 +1,14 @@
+#
+# This configuration file was created by Known's installer.
+# Known version: %version% - %build%
+#
+
+database = 'MySQL'
+dbname = '%dbname%'
+dbpass = '%dbpass%'
+dbuser = '%dbuser%'
+dbhost = '%dbhost%'
+
+filesystem = '%filesystem%'
+uploadpath = '%uploadpath%'
+
