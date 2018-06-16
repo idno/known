@@ -119,6 +119,7 @@ namespace Idno\Core {
             $defaults = [
                 'build' => Version::build(),
                 'version' => Version::version(),
+                'datetime' => date('r'),
                 
                 'dbname' => 'known',
                 'dbhost' => 'localhost',
