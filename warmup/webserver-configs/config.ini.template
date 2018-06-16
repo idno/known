@@ -1,6 +1,7 @@
 #
 # This configuration file was created by Known's installer.
 # Known version: %version% - %build%
+# Built: %datetime%
 #
 
 database = 'MySQL'
