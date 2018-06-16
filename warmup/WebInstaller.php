@@ -127,20 +127,13 @@ class WebInstaller extends \Idno\Core\Installer {
         
             try {
 
-                $ini_file = <<< END
-
-# This configuration file was created by Known's installer.
-
-database = 'MySQL'
-dbname = '{$mysql_name}'
-dbpass = '{$mysql_pass}'
-dbuser = '{$mysql_user}'
-dbhost = '{$mysql_host}'
-
-filesystem = 'local'
-uploadpath = '{$upload_path}'
-
-END;
+                $ini_file = $this->buildConfig([
+                    'dbname' => $mysql_name,
+                    'dbpass' => $mysql_pass,
+                    'dbuser' => $mysql_user,
+                    'dbhost' => $mysql_host,
+                    'uploadpath' => $upload_path,
+                ]);
             
                 $this->writeConfig($ini_file);
 
