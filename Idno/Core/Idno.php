@@ -128,16 +128,13 @@
                 });
                 
                 // Attempt to create a cache object, making use of support present on the system
+                $cache_default = "Idno\\Caching\\FilesystemCache";
                 if (extension_loaded('apc') && ini_get('apc.enabled'))
-                    $this->cache = new \Idno\Caching\APCuCache();
+                    $cache_default = "Idno\\Caching\\APCuCache";
                 elseif (extension_loaded('xcache')) {
-                    $this->cache = new \Idno\Caching\XCache();
+                    $cache_default = "Idno\\Caching\\XCache";
                 }
-                else {
-                    // Ensure there is always a cache available
-                    $this->cache = new \Idno\Caching\FilesystemCache();
-                } 
-                // TODO: Support other persistent caching methods
+                $this->cache = $this->componentFactory($this->config->cache, "Idno\\Caching\\Cache", "Idno\\Caching\\", $cache_default);
 
                 // No URL is a critical error, default base fallback is now a warning (Refs #526)
                 if (!defined('KNOWN_CONSOLE')) {
