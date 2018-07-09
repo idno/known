@@ -76,7 +76,7 @@
                 $this->setResponse(400);
                 header('Content-Type: application/x-www-form-urlencoded');
                 echo http_build_query(array(
-                    'error' => 'Invalid auth code',
+                    'error' => $verified['reason'] ? $verified['reason'] : 'Invalid auth code',
                 ));
             }
 
