@@ -76,7 +76,7 @@
                 $this->setResponse(400);
                 header('Content-Type: application/x-www-form-urlencoded');
                 echo http_build_query(array(
-                    'error' => 'Invalid auth code',
+                    'error' => $verified['reason'] ? $verified['reason'] : 'Invalid auth code',
                 ));
             }
 
@@ -135,18 +135,27 @@
 
                 $elapsed = time() - $data['issued_at'];
                 if ($elapsed > 10 * 60) {
+                    
+                    \Idno\Core\Idno::site()->logging()->error("Auth code (issued at ".date('r', $data['issued_at']).") has expired");
+                    
                     return array(
                         'valid'  => false,
                         'reason' => 'authentication code has expired',
                     );
                 }
                 if ($redirect_uri != $data['redirect_uri']) {
+                    
+                    \Idno\Core\Idno::site()->logging()->error("Redirect url ($redirect_uri) does not match {$data['redirect_uri']}");
+                    
                     return array(
                         'valid'  => false,
                         'reason' => 'redirect_uri does not match',
                     );
                 }
                 if ($client_id != $data['client_id']) {
+                    
+                    \Idno\Core\Idno::site()->logging()->error("Client ID ($client_id) does not match {$data['client_id']}");
+                    
                     return array(
                         'valid'  => false,
                         'reason' => 'client_id does not match',
