@@ -43,8 +43,57 @@ class CLIInstaller extends \Idno\Core\Installer {
         
         parent::__construct();
     }
+    
+    protected function requirements(\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) {
+        $output->writeln("Checking requirements...");
+                
+        $phpversion = Idno\Core\Installer::checkPHPVersion();
+        if ($phpversion == 'ok') {
+            $output->writeln("\tYou are running PHP version " . phpversion() . '.');
+        } else if ($phpversion == 'warn') {
+            $output->writeln("\tYou are running Known using a very old version of PHP (" . phpversion() . '), which is no longer actively supported. Although Known will currently still install, some features may not work, so you should upgrade soon. You may need to ask your server administrator to upgrade PHP for you.');
+        } else {
+            throw new \Exception('You are running PHP version ' . phpversion() . ', which cannot run Known. You may need to ask your server administrator to upgrade PHP for you.');
+        }
+
+
+        if (function_exists('apache_get_modules')) {
+            if (Idno\Core\Installer::rewriteAvailable()) {
+                $output->writeln("\tmod_rewrite is installed and enabled.");
+            } else {
+                throw new \Exception('mod_rewrite is not installed. Known cannot process page URLs without it.');
+            }
+        } else {
+            $output->writeln("\tWe couldn't detect if mod_rewrite was installed, probably because you're using the CLI installer. Known cannot process page URLs without it, so take care!");
+        }
+
+        $output->writeln("\tChecking extensions...");
+        $extensions = Idno\Core\Installer::requiredModules();
+        asort($extensions);
+        foreach($extensions as $extension) {
+            if (extension_loaded($extension)) {
+                $output->writeln("\t\t$extension extension is installed.");
+            } else {
+                throw new \Exception("$extension extension is not installed.");
+
+            }
+        }
+        
+        $output->writeln(" ");
+    }
         
     public function run() {
+        
+        $this->application
+            ->register('check-requirements')
+            ->setDescription('Check system requirements')
+            ->setDefinition([
+            ])
+            ->setCode(function (\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) {
+                
+                $this->requirements($input, $output);
+                
+            });
 
         $this->application
             ->register('makeconfig')
@@ -108,42 +157,8 @@ class CLIInstaller extends \Idno\Core\Installer {
                 
                 
                 // Check requirements
-                $output->writeln("Checking requirements...");
-                
-                $phpversion = Idno\Core\Installer::checkPHPVersion();
-                if ($phpversion == 'ok') {
-                    $output->writeln("\tYou are running PHP version " . phpversion() . '.');
-                } else if ($phpversion == 'warn') {
-                    $output->writeln("\tYou are running Known using a very old version of PHP (" . phpversion() . '), which is no longer actively supported. Although Known will currently still install, some features may not work, so you should upgrade soon. You may need to ask your server administrator to upgrade PHP for you.');
-                } else {
-                    throw new \Exception('You are running PHP version ' . phpversion() . ', which cannot run Known. You may need to ask your server administrator to upgrade PHP for you.');
-                }
-                
-                
-                if (function_exists('apache_get_modules')) {
-                    if (Idno\Core\Installer::rewriteAvailable()) {
-                        $output->writeln("\tmod_rewrite is installed and enabled.");
-                    } else {
-                        throw new \Exception('mod_rewrite is not installed. Known cannot process page URLs without it.');
-                    }
-                } else {
-                    $output->writeln("\tWe couldn't detect if mod_rewrite was installed, probably because you're using the CLI installer. Known cannot process page URLs without it, so take care!");
-                }
-                
-                $output->writeln("\tChecking extensions...");
-                $extensions = Idno\Core\Installer::requiredModules();
-                asort($extensions);
-                foreach($extensions as $extension) {
-                    if (extension_loaded($extension)) {
-                        $output->writeln("\t\t$extension extension is installed.");
-                    } else {
-                        throw new \Exception("$extension extension is not installed.");
-                        
-                    }
-                }
-                
-                $output->writeln(" ");
-                
+                $this->requirements($input, $output);
+                                
                 // Load manifest if given
                 if ($filename = $input->getArgument('manifest')) {
                     if (file_exists($filename)) {
