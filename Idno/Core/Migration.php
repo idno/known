@@ -638,28 +638,6 @@
                 
                 // Got here, open a readable file pointer
                 return fopen($rss_path . 'export.rss', 'r');
-                
-//                if ($feed = \Idno\Common\Entity::getFromX($types, $search, array(), PHP_INT_MAX-1, 0, $groups)) {
-//                    $rss_theme = new Template();
-//                    $rss_theme->setTemplateType('rss');
-//                    
-//                    return $rss_theme->__(array(
-//
-//                        'title'       => $title,
-//                        'description' => $description,
-//                        'body'        => $rss_theme->__(array(
-//                            'items'    => $feed,
-//                            'offset'   => 0,
-//                            'count'    => sizeof($feed),
-//                            'subject'  => [],
-//                            //'nocdata'  => true,
-//                            'base_url' => $base_url
-//                        ))->draw('pages/home'),
-//
-//                    ))->drawPage(false);
-//                }
-//
-//                return false;
             }
 
         }
