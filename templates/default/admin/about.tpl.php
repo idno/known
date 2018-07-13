@@ -14,8 +14,7 @@
     <div class="col-md-5">
         <p style="font-size: 1.6em"><a href="https://withknown.com/?utm_source=admin&utm_medium=installation"><?= \Idno\Core\Idno::site()->language()->_('Known'); ?></a> <?= \Idno\Core\Idno::site()->language()->_('is a social publishing platform for groups and individuals.'); ?></p>
         <p class="explanation">
-            <a href="https://withknown.com/services/?utm_source=admin&utm_medium=installation"><?= \Idno\Core\Idno::site()->language()->_('Known Services'); ?></a> <?= \Idno\Core\Idno::site()->language()->_('are available.'); ?>
-            <?= \Idno\Core\Idno::site()->language()->_('You can also'); ?> <a href="https://withknown.com/opensource/?utm_source=admin&utm_medium=installation"><?= \Idno\Core\Idno::site()->language()->_('learn more about our open source project.'); ?></a>
+            <a href="https://withknown.com/opensource/?utm_source=admin&utm_medium=installation"><?= \Idno\Core\Idno::site()->language()->_('Open source project details'); ?></a>
         </p>
         <p>
             Version: <?= \Idno\Core\Version::version(); ?>

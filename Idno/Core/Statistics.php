@@ -3,6 +3,8 @@
     namespace Idno\Core {
 
         use Idno\Common\Component;
+        use Idno\Common\ContentType;
+        use Idno\Common\Plugin;
 
         class Statistics extends Component
         {
@@ -13,9 +15,7 @@
                 
                 $types = \Idno\Common\ContentType::getRegisteredClasses(); 
                 foreach ($types as $type) {
-                    
                     $basics[$type] = call_user_func([$type, 'count']);
-                    
                 }
                 
                 return $basics;
