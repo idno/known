@@ -172,15 +172,6 @@ namespace Tests\Data {
             $this->assertTrue($count == 0);
         }
 
-        public function testDeleteById()
-        {
-            $obj = \Idno\Entities\GenericDataItem::getByID(self::$id);
-            $this->validateObject($obj);
-            $obj->delete();
-            $obj = \Idno\Entities\GenericDataItem::getByID(self::$id);
-            $this->assertTrue(empty($obj));
-        }
-
         public function testSearchShort()
         {
             $search = array();

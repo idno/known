@@ -100,7 +100,9 @@
              */
             function load()
             {
-                if ($config = \Idno\Core\Idno::site()->db()->getAnyRecord('config')) {
+                $config = Idno::site()->db()->getRecord('config', 'config');
+                if (!$config) $config = \Idno\Core\Idno::site()->db()->getAnyRecord('config');
+                if ($config) {
                     $this->default_config = false;
                     unset($config['dbname']); // Ensure we don't accidentally load protected data from db
                     unset($config['dbpass']);
@@ -238,6 +240,8 @@
                 unset($array['directloadplugins']);
                 unset($array['bypass_fulltext_search']);
                 unset($array['filter_shell']);
+
+                $array['_id'] = 'config'; // Hardcode configuration ID
 
                 if (\Idno\Core\Idno::site()->db()->saveRecord('config', $array)) {
                     $this->init();

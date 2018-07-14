@@ -319,13 +319,17 @@
 
             function getRecord($id, $collection = 'entities')
             {
-                $collection = $this->sanitiseCollection($collection);
+                try {
+                    $collection = $this->sanitiseCollection($collection);
 
-                $statement = $this->client->prepare("select {$collection}.* from " . $collection . " where _id = :id");
-                if ($statement->execute(array(':id' => $id))) {
-                    if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
-                        return json_decode($row['contents'], true);
+                    $statement = $this->client->prepare("select {$collection}.* from " . $collection . " where _id = :id");
+                    if ($statement->execute(array(':id' => $id))) {
+                        if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
+                            return json_decode($row['contents'], true);
+                        }
                     }
+                }  catch (\Exception $e) {
+                    \Idno\Core\Idno::site()->logging()->error($e->getMessage());
                 }
 
                 return false;
