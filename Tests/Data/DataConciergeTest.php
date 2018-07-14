@@ -5,7 +5,8 @@ namespace Tests\Data {
     /**
      * Test the currently configured DataConcierge.
      */
-    class DataConciergeTest extends \Tests\KnownTestCase {
+    class DataConciergeTest extends \Tests\KnownTestCase
+    {
 
         public static $object;
         public static $uuid;
@@ -15,15 +16,15 @@ namespace Tests\Data {
         public static $fts_objects;
 
         public static function setUpBeforeClass()
-        {          
+        {
             if (get_called_class() === 'Tests\Data\DataConciergeTest') {
                 $obj = new \Idno\Entities\GenericDataItem();
                 $obj->setDatatype('UnitTestObject');
                 $obj->setTitle("Unit Test Search Object");
                 $obj->variable1 = 'test';
                 $obj->variable2 = 'test again';
-		$obj->rangeVariable = 'b';		
-                
+                $obj->rangeVariable = 'b';
+
                 //echo "\n\n\nabout to save"; 
                 $id = $obj->save(); //die($id);
 
@@ -38,7 +39,8 @@ namespace Tests\Data {
         /**
          * Versions test (if applicable)
          */
-        public function testVersions() {
+        public function testVersions()
+        {
             if (is_callable([\Idno\Core\Idno::site()->db(), 'getVersions'])) {
                 $versions = \Idno\Core\Idno::site()->db()->getVersions();
 
@@ -49,7 +51,8 @@ namespace Tests\Data {
         /**
          * Create an object.
          */
-        public function testCreateObject() {
+        public function testCreateObject()
+        {
             // Verify
             $this->assertFalse(empty(self::$id));
             $this->assertTrue(is_string(self::$uuid));
@@ -61,29 +64,32 @@ namespace Tests\Data {
         /**
          * Attempt to retrieve record by UUID.
          */
-        public function testGetRecordByUUID() { 
+        public function testGetRecordByUUID()
+        {
             $this->validateObject(
-                    \Idno\Core\Idno::site()->db()->rowToEntity(
-                            \Idno\Core\Idno::site()->db()->getRecordByUUID(self::$uuid)
-                    )
+                \Idno\Core\Idno::site()->db()->rowToEntity(
+                    \Idno\Core\Idno::site()->db()->getRecordByUUID(self::$uuid)
+                )
             );
         }
 
         /**
          * Attempt to retrieve record by ID.
          */
-        public function testGetRecord() { 
+        public function testGetRecord()
+        {
             $this->validateObject(
-                    \Idno\Core\Idno::site()->db()->rowToEntity(
-                            \Idno\Core\Idno::site()->db()->getRecord(self::$id)
-                    )
+                \Idno\Core\Idno::site()->db()->rowToEntity(
+                    \Idno\Core\Idno::site()->db()->getRecord(self::$id)
+                )
             );
         }
 
         /**
          * Attempt to get any object
          */
-        public function testGetAnyRecord() {
+        public function testGetAnyRecord()
+        {
             $arr = \Idno\Core\Idno::site()->db()->getAnyRecord();
 
             $this->assertFalse(empty($arr));
@@ -95,7 +101,8 @@ namespace Tests\Data {
         /**
          * Test getByID
          */
-        public function testGetById() {
+        public function testGetById()
+        {
             $obj = \Idno\Entities\GenericDataItem::getByID(self::$id);
 
             $this->validateObject($obj);
@@ -104,19 +111,22 @@ namespace Tests\Data {
         /**
          * Test getByID
          */
-        public function testGetByUUID() {
+        public function testGetByUUID()
+        {
             $obj = \Idno\Entities\GenericDataItem::getByUUID(self::$uuid);
 
             $this->validateObject($obj);
         }
-        
-        public function testGetByURL() {
+
+        public function testGetByURL()
+        {
             $obj = \Idno\Entities\GenericDataItem::getByURL(self::$url);
 
             $this->validateObject($obj);
         }
 
-        public function testGetByMetadata() {
+        public function testGetByMetadata()
+        {
 
             $null = \Idno\Entities\GenericDataItem::get(['variable1' => 'not']);
             $this->assertTrue(empty($null));
@@ -126,7 +136,8 @@ namespace Tests\Data {
             $this->validateObject($objs[0]);
         }
 
-        public function testGetByMetadataMulti() {
+        public function testGetByMetadataMulti()
+        {
 
             $null = \Idno\Entities\GenericDataItem::get(['variable1' => 'test', 'variable2' => 'not']);
             $this->assertTrue(empty($null));
@@ -135,31 +146,43 @@ namespace Tests\Data {
             $this->assertTrue(is_array($objs));
             $this->validateObject($objs[0]);
         }
-	
-	/* testing range queries – note: metadata variables are strored as TEXT in SQL backends */
-	public function testGetByRange() {
-	    $search = array();
-	    $search['rangeVariable'] = array();
-	    $search['rangeVariable']['$lt'] = 'c';
-	    $search['rangeVariable']['$gt'] = 'a';
-	    
-            $count = \Idno\Entities\GenericDataItem::countFromX('Idno\Entities\GenericDataItem', $search);
-	    $this->assertTrue(is_int($count));
-	    $this->assertTrue($count == 1);
-	}
 
-        public function testGetByRangeNoResults() {
-	    $search = array();
-	    $search['rangeVariable'] = array();
-	    $search['rangeVariable']['$lt'] = 'e';
-	    $search['rangeVariable']['$gt'] = 'c';
-	    
-            $count = \Idno\Entities\GenericDataItem::countFromX('Idno\Entities\GenericDataItem', $search);
-	    $this->assertTrue(is_int($count));
-	    $this->assertTrue($count == 0);
-	}
+        /* testing range queries – note: metadata variables are strored as TEXT in SQL backends */
+        public function testGetByRange()
+        {
+            $search = array();
+            $search['rangeVariable'] = array();
+            $search['rangeVariable']['$lt'] = 'c';
+            $search['rangeVariable']['$gt'] = 'a';
 
-        public function testSearchShort() {
+            $count = \Idno\Entities\GenericDataItem::countFromX('Idno\Entities\GenericDataItem', $search);
+            $this->assertTrue(is_int($count));
+            $this->assertTrue($count == 1);
+        }
+
+        public function testGetByRangeNoResults()
+        {
+            $search = array();
+            $search['rangeVariable'] = array();
+            $search['rangeVariable']['$lt'] = 'e';
+            $search['rangeVariable']['$gt'] = 'c';
+
+            $count = \Idno\Entities\GenericDataItem::countFromX('Idno\Entities\GenericDataItem', $search);
+            $this->assertTrue(is_int($count));
+            $this->assertTrue($count == 0);
+        }
+
+        public function testDeleteById()
+        {
+            $obj = \Idno\Entities\GenericDataItem::getByID(self::$id);
+            $this->validateObject($obj);
+            $obj->delete();
+            $obj = \Idno\Entities\GenericDataItem::getByID(self::$id);
+            $this->assertTrue(empty($obj));
+        }
+
+        public function testSearchShort()
+        {
             $search = array();
 
             $search = \Idno\Core\Idno::site()->db()->createSearchArray("sear");
@@ -168,12 +191,13 @@ namespace Tests\Data {
             $this->assertTrue(is_int($count));
             $this->assertTrue($count > 0);
 
-            $feed  = \Idno\Entities\GenericDataItem::getFromX('Idno\Entities\GenericDataItem', $search);
+            $feed = \Idno\Entities\GenericDataItem::getFromX('Idno\Entities\GenericDataItem', $search);
             $this->assertTrue(is_array($feed));
             $this->assertTrue(($feed[0] instanceof \Idno\Entities\GenericDataItem));
         }
 
-        public function testSearchLong() {
+        public function testSearchLong()
+        {
 
             /** Create couple of FTS objects, since MySQL FTS tables operate in natural language mode */
             $obj = new \Idno\Entities\GenericDataItem();
@@ -201,7 +225,7 @@ namespace Tests\Data {
             $this->assertTrue(is_int($count));
             $this->assertTrue($count > 0);
 
-            $feed  = \Idno\Entities\GenericDataItem::getFromX('Idno\Entities\GenericDataItem', $search);
+            $feed = \Idno\Entities\GenericDataItem::getFromX('Idno\Entities\GenericDataItem', $search);
             $this->assertTrue(is_array($feed));
             $this->assertTrue(($feed[0] instanceof \Idno\Entities\GenericDataItem));
 
@@ -213,7 +237,8 @@ namespace Tests\Data {
             }
         }
 
-        public function testCountObjects() {
+        public function testCountObjects()
+        {
             $cnt = \Idno\Entities\GenericDataItem::count(['variable1' => 'test']);
 
             $this->assertTrue(is_int($cnt));
@@ -223,19 +248,21 @@ namespace Tests\Data {
         /**
          * Helper function to validate object.
          */
-        protected function validateObject($obj) {
-            
-            var_export($obj); 
+        protected function validateObject($obj)
+        {
+
+            var_export($obj);
             var_export(self::$uuid);
             $this->assertTrue($obj instanceof \Idno\Entities\GenericDataItem);
-            
-            $this->assertEquals("".self::$object->getID(), "".$obj->getID());
-            $this->assertEquals("".self::$id, "".$obj->getID());
+
+            $this->assertEquals("" . self::$object->getID(), "" . $obj->getID());
+            $this->assertEquals("" . self::$id, "" . $obj->getID());
             $this->assertEquals(self::$uuid, $obj->getUUID());
             $this->assertEquals(self::$url, $obj->getUrl());
         }
 
-        public static function tearDownAfterClass() {
+        public static function tearDownAfterClass()
+        {
             if (self::$object) self::$object->delete();
             if (self::$fts_objects) {
                 foreach (self::$fts_objects as $obj) {
