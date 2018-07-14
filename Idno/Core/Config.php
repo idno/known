@@ -324,16 +324,6 @@
             protected function detectBaseURL()
             {
 
-                // If Sandstorm has supplied a base URL (called a base path in their nomenclature), use this
-                if (!empty($_SERVER['X-Sandstorm-Base-Path'])) {
-                    $base_url = $_SERVER['X-Sandstorm-Base-Path'];
-                    if (substr($base_url, -1) != '/') {
-                        $base_url .= '/';
-                    }
-
-                    return $base_url;
-                }
-
                 // Otherwise, use the standard server name header
                 if (!empty($_SERVER['SERVER_NAME'])) {
 
