@@ -250,6 +250,13 @@
             abstract function deleteRecord($id, $collection = 'entities');
 
             /**
+             * Remove all entities from the database
+             * @param string $collection
+             * @return mixed
+             */
+            abstract function deleteAllRecords($collection);
+
+            /**
              * Retrieve the filesystem associated with the current db, suitable for saving
              * and retrieving files
              * @return bool|filesystem

@@ -736,6 +736,31 @@
                 return false;
             }
 
+            /**
+             * Remove all entities from a collection from the database
+             * @param string $collection
+             * @return bool
+             */
+            function deleteAllRecords($collection)
+            {
+                try {
+                    if (empty($collection)) return false;
+                    $collection = $this->sanitiseCollection($collection);
+
+                    $client = $this->client;
+                    /* @var \PDO $client */
+                    $statement = $client->prepare("delete from {$collection}");
+                    if ($statement->execute()) {
+                        if ($statement = $client->prepare("delete from metadata where collection = :collection")) {
+                            return $statement->execute([':collection' => $collection]);
+                        }
+                    }
+                } catch (\Exception $e) {
+                    \Idno\Core\Idno::site()->logging()->error($e->getMessage());
+                    return false;
+                }
+            }
+
         }
 
     }

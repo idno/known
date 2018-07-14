@@ -564,6 +564,17 @@
             }
 
             /**
+             * Removes all items from a collection
+             * @param string $collection
+             * @return bool
+             */
+            function deleteAllRecords($collection)
+            {
+                if (empty($collection)) return false;
+                return $this->database->$collection->drop();
+            }
+
+            /**
              * Retrieve the filesystem associated with the current db, suitable for saving
              * and retrieving files
              * @return bool|\MongoGridFS
