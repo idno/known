@@ -2,7 +2,7 @@
 
     <div class="col-md-10 col-md-offset-1">
 	<?=$this->draw('admin/menu')?>
-        <h1<?= \Idno\Core\Idno::site()->language()->_('Plugins'); ?></h1>
+        <h1><?= \Idno\Core\Idno::site()->language()->_('Plugins'); ?></h1>
 
         <div class="explanation">
             <p>
