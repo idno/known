@@ -9,7 +9,7 @@
 
     namespace Idno\Entities {
 
-        class RemoteUser extends \Idno\Entities\User implements \JsonSerializable
+        class RemoteUser extends \Idno\Entities\User 
         {
 
             public function save($add_to_feed = false, $feed_verb = 'post')
