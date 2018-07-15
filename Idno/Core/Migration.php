@@ -64,8 +64,8 @@
                     'title' => Idno::site()->config()->getTitle(),
                     
                     // Include some version info in case we change the export format
-                    'version' => Idno::site()->getVersion(),
-                    'build' => Idno::site()->getMachineVersion(),
+                    'version' => \Idno\Core\Version::version(),
+                    'build' => \Idno\Core\Version::build(),
                 );
 
                 file_put_contents($dir . $name . DIRECTORY_SEPARATOR . 'known.json', json_encode($config));

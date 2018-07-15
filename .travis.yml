@@ -8,14 +8,13 @@ php:
 # Configure different DB environments
 env:
   - DB=mysql
-#  - DB=mongo
+  - DB=mongo
   - DB=sqlite3
   - DB=pgsql
   
 matrix:
     allow_failures:
         - php: 5.6
-        - php: 7.2
 
 branches:
   only:
@@ -64,6 +63,13 @@ before_script:
 
 services:
   - mongodb
+  
+addons:
+  apt:
+    sources:
+      - mongodb-3.4-precise
+    packages:
+      - mongodb-org-server
 
 after_failure:
   - sudo cat $TRAVIS_BUILD_DIR/apache-error.log

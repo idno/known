@@ -32,7 +32,7 @@
                     $results    = Webservice::post('https://withknown.com/vendor-services/feedback/', array(
                         'url'     => \Idno\Core\Idno::site()->config()->getURL(),
                         'title'   => \Idno\Core\Idno::site()->config()->getTitle(),
-                        'version' => \Idno\Core\Idno::site()->getVersion(),
+                        'version' => \Idno\Core\Version::version(),
                         'public'  => \Idno\Core\Idno::site()->config()->isPublicSite(),
                         'hub'     => \Idno\Core\Idno::site()->config()->known_hub,
                         'email'   => $email,
