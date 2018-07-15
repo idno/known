@@ -8,7 +8,7 @@ php:
 # Configure different DB environments
 env:
   - DB=mysql
-#  - DB=mongo
+  - DB=mongo
   - DB=sqlite3
   - DB=pgsql
   
