@@ -100,7 +100,7 @@
              */
             function load()
             {
-                /*$config = Idno::site()->db()->getRecord('config', 'config');*/ // MP: Removed as not compatible with Mongo. If hard coded IDs are absolutely necessary, find another way.
+                /*$config = Idno::site()->db()->getRecord('config', 'config');*/ // MP: Removed as not compatible with Mongo. If hard coded IDs are absolutely necessary, another way needs to be found.
                 if (empty($config)) $config = \Idno\Core\Idno::site()->db()->getAnyRecord('config');
                 if ($config) {
                     $this->default_config = false;
@@ -241,7 +241,7 @@
                 unset($array['bypass_fulltext_search']);
                 unset($array['filter_shell']);
 
-                /* $array['_id'] = 'config'; // Hardcode configuration ID */ // MP: Removed as not compatible with Mongo. If hard coded IDs are absolutely necessary, find another way.
+                /* $array['_id'] = 'config'; // Hardcode configuration ID */ // MP: Removed as not compatible with Mongo. If hard coded IDs are absolutely necessary, another way needs to be found.
 
                 if (\Idno\Core\Idno::site()->db()->saveRecord('config', $array)) {
                     $this->init();
