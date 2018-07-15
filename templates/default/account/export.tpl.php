@@ -16,8 +16,7 @@
                 Export to WordPress
             </h2>-->
             <p class="explanation">
-                <?= \Idno\Core\Idno::site()->language()->_("You can download an RSS version of everything you've posted on this site. This file is suitable for
-                importing into content management systems like WordPress, or another Known site."); ?>
+                <?= \Idno\Core\Idno::site()->language()->_("You can download an RSS version of everything you've posted on this site. This file is suitable for importing into content management systems like WordPress, or another Known site."); ?>
             </p>
 
             <div class="row">
@@ -30,8 +29,7 @@
                            value="0">
                 </div>
                 <div class="col-md-7">
-                    <p class="config-desc"><?= \Idno\Core\Idno::site()->language()->_('Platforms like WordPress may assume that all your posts should be displayed publicly.
-                        In order to protect your privacy, you may wish to just download your public posts.'); ?></p>
+                    <p class="config-desc"><?= \Idno\Core\Idno::site()->language()->_('Platforms like WordPress may assume that all your posts should be displayed publicly. In order to protect your privacy, you may wish to just download your public posts.'); ?></p>
                 </div>
             </div>
             <div class="">

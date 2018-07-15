@@ -15,7 +15,7 @@
             <?= \Idno\Core\Idno::site()->language()->_("Check your inbox! You'll find an email containing a special link that will help you reset your password."); ?>
         </p>
         <p>
-            <?= \Idno\Core\Idno::site()->language()->_("Did you remember your password? That's okay too. You can"); ?> <a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>session/login"><?= \Idno\Core\Idno::site()->language()->_('click here to sign in.'); ?></a>
+            <?= \Idno\Core\Idno::site()->language()->_("Did you remember your password? That's okay too. You can <a href=\"%s\">click here to sign in.</a>", [\Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login']); ?>
         </p>
 
     </div>

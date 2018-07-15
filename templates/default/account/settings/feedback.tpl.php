@@ -6,17 +6,16 @@
         </h1>
         <!--<?= $this->draw('account/menu') ?>-->
         <p class="explanation">
-            <?= \Idno\Core\Idno::site()->language()->_("Want to share something with the Known team? We'd love to read your thoughts, suggestions, or ideas.
-            We will personally read all of your feedback."); ?>
+            <?= \Idno\Core\Idno::site()->language()->_("Want to share something with the Known team? We'd love to read your thoughts, suggestions, or ideas. We will personally read all of your feedback."); ?>
         </p>
-
+        
     </div>
 </div>
 
 <form class="form-horizontal" action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>account/settings/feedback"
       method="post">
-<div class="row">
-    <div class="col-md-10 col-md-offset-1">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
 
             <p class="feedback">
                 <strong><?= \Idno\Core\Idno::site()->language()->_('From'); ?>:</strong> <?= \Idno\Core\Idno::site()->session()->currentUser()->email ?>
@@ -40,6 +39,7 @@
                 </div>
 
 
+            </div>
+        </div>
     </div>
-
 </form>

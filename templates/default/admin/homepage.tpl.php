@@ -8,8 +8,7 @@
 
         <div class="explanation">
             <p>
-	            <?= \Idno\Core\Idno::site()->language()->_('Here you can choose what content visitors see on your site homepage. By default, all published content appears on the main page.
-	            If you want to hide some content types from the main page, you can turn them off below.'); ?>
+	            <?= \Idno\Core\Idno::site()->language()->_('Here you can choose what content visitors see on your site homepage. By default, all published content appears on the main page. If you want to hide some content types from the main page, you can turn them off below.'); ?>
             </p>
         </div>
 

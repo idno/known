@@ -19,7 +19,7 @@
                     </h1>
                     <p><?= \Idno\Core\Idno::site()->language()->_("It's nothing personal. You just don't have the right permissions to see what's here."); ?></p>
                     <p>
-                        <?= \Idno\Core\Idno::site()->language()->_('Find something else to view on the'); ?> <a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>"><?= \Idno\Core\Idno::site()->config()->title ?> <?= \Idno\Core\Idno::site()->language()->_('homepage'); ?></a>.
+                        <?= \Idno\Core\Idno::site()->language()->_('Find something else to view on the <a href="%s">%s homepage</a>.', [\Idno\Core\Idno::site()->config()->getDisplayURL(), \Idno\Core\Idno::site()->config()->title]); ?>
                     </p>                    
                 </div>
                 <div class="col-md-5">

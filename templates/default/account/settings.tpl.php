@@ -11,8 +11,7 @@
 
         <div class="explanation">
             <p>
-                <?= \Idno\Core\Idno::site()->language()->_('Change your user account settings here. You may also want to'); ?> <a
-                    href="<?= \Idno\Core\Idno::site()->session()->currentUser()->getDisplayURL() ?>/edit/"><?= \Idno\Core\Idno::site()->language()->_('edit your profile'); ?></a>.
+                <?= \Idno\Core\Idno::site()->language()->_('Change your user account settings here. You may also want to <a href="%s">edit your profile</a>.', [\Idno\Core\Idno::site()->session()->currentUser()->getDisplayURL() . '/edit/']); ?>
             </p>
         </div>
     </div>

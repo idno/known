@@ -8,7 +8,7 @@
 	
 	<div class="explanation">
             <p>
-                <?= \Idno\Core\Idno::site()->language()->_('Manage your subscriptions here. These users can also be given access to private content you produce on your site. '); ?>
+                <?= \Idno\Core\Idno::site()->language()->_('Manage your subscriptions here. These users can also be given access to private content you produce on your site.'); ?>
             </p>
         </div>
 	
