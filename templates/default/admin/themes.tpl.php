@@ -4,8 +4,7 @@
         <h1><?= \Idno\Core\Idno::site()->language()->_('Themes'); ?></h1>
         <div class="explanation">
             <p>
-                <?= \Idno\Core\Idno::site()->language()->_('Themes allow you to change the way your site looks.
-                The following themes are installed.'); ?>
+                <?= \Idno\Core\Idno::site()->language()->_('Themes allow you to change the way your site looks. The following themes are installed.'); ?>
             </p>
         </div>
         <?php
