@@ -7,7 +7,7 @@
             </h1>
             <p><?= \Idno\Core\Idno::site()->language()->_("You may be wondering where it went, but we can't tell you. It's a secret."); ?></p>
             <p>
-                <?= \Idno\Core\Idno::site()->language()->_("Maybe you'd like to head back to the"); ?> <a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>"><?=\Idno\Core\Idno::site()->config()->title?> <?= \Idno\Core\Idno::site()->language()->_('homepage'); ?></a> <?= \Idno\Core\Idno::site()->language()->_('instead.'); ?>
+                <?= \Idno\Core\Idno::site()->language()->_("Maybe you'd like to head back to the <a href=\"%s\">%s homepage</a> instead.", [\Idno\Core\Idno::site()->config()->getDisplayURL(), \Idno\Core\Idno::site()->config()->title]); ?>
             </p>            
         </div>
         <div class="col-md-5">
