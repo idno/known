@@ -12,8 +12,7 @@
         <div class="col-md-offset-1 col-md-10">
             <p class="p-summary"><?= $vars['exception']->getMessage(); ?></p>
             <p>
-                <a href="#" onclick="window.history.back();"><?= \Idno\Core\Idno::site()->language()->_('Click here to try again'); ?>,</a> <?= \Idno\Core\Idno::site()->language()->_('or'); ?>
-                <a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>"><?= \Idno\Core\Idno::site()->language()->_('click here to go back to the homepage'); ?></a>.
+                <?= \Idno\Core\Idno::site()->language()->_('<a href="#" onclick="window.history.back();">Click here to try again</a> or <a href="%s">click here to go back to the homepage</a>.', [\Idno\Core\Idno::site()->config()->getDisplayURL()]); ?>
             </p>
             <?php if (($debug = \Idno\Core\Idno::site()->config()->debug) && (!empty($debug))) { ?>
                 <p>
