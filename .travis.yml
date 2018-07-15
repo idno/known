@@ -64,6 +64,13 @@ before_script:
 
 services:
   - mongodb
+  
+addons:
+  apt:
+    sources:
+      - mongodb-3.4-precise
+    packages:
+      - mongodb-org-server
 
 after_failure:
   - sudo cat $TRAVIS_BUILD_DIR/apache-error.log
