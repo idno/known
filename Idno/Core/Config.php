@@ -241,7 +241,7 @@
                 unset($array['bypass_fulltext_search']);
                 unset($array['filter_shell']);
 
-                $array['_id'] = 'config'; // Hardcode configuration ID
+                /* $array['_id'] = 'config'; // Hardcode configuration ID */
 
                 if (\Idno\Core\Idno::site()->db()->saveRecord('config', $array)) {
                     $this->init();
