@@ -7,8 +7,7 @@
         </h1>
         <p>
             <?= \Idno\Core\Idno::site()->language()->_("Forgot your password? Don't worry! It happens to the best of us."); ?></p> 
-           <p><?= \Idno\Core\Idno::site()->language()->_("Just enter the email address associated with your %s account below, and we'll send you a top secret
-            link to your email account so that you can create a new password.", [\Idno\Core\Idno::site()->config()->title]); ?>
+           <p><?= \Idno\Core\Idno::site()->language()->_("Just enter the email address associated with your %s account below, and we'll send you a top secret link to your email account so that you can create a new password.", [\Idno\Core\Idno::site()->config()->title]); ?>
         </p>
 
 
