@@ -41,7 +41,7 @@ namespace Idno\Core {
 
         /**
          * Return the human readable version.
-         * @return type
+         * @return boolean|string
          */
         public static function version() {
             return static::get('version');

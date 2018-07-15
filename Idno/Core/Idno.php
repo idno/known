@@ -897,6 +897,14 @@
                 
                 return $component;
             }
+
+            /**
+             * Get the current version
+             * @return boolean|string
+             */
+            public function getVersion() {
+                return Version::version();
+            }
         }
 
         /**
