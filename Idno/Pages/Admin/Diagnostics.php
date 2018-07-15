@@ -128,7 +128,7 @@
                 // Check for configuration bug
                 $configs = \Idno\Core\Idno::site()->db()->getRecords([], [], PHP_INT_MAX, 0, 'config');
                 if (count($configs) != 1) {
-                    $basics['report']['configuration']['message'] = count($configs) . ' Config entries found in database, there should be only one!';
+                    $basics['report']['configuration']['message'] = count($configs) . ' Config entries found in database, there should be only one. This is almost certainly not a cause for concern.';
                     $basics['report']['configuration']['status'] = 'Warning';
                     $basics['status'] = 'Failure';
                 }
