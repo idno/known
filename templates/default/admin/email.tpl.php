@@ -6,10 +6,7 @@
 
         <div class="explanation">
             <p>
-                <?= \Idno\Core\Idno::site()->language()->_("Known tries to send email using your server's default email settings. If you'd like it to do
-                something else - for example, if you'd like to send email using an external provider - enter the
-                new SMTP settings below. You can also"); ?>
-                <a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>account/settings/notifications/"><?= \Idno\Core\Idno::site()->language()->_('change your notification settings'); ?></a>.
+                <?= \Idno\Core\Idno::site()->language()->_("Known tries to send email using your server's default email settings. If you'd like it to do something else - for example, if you'd like to send email using an external provider - enter the new SMTP settings below. You can also <a href=\"%s\">change your notification settings</a>.", [\Idno\Core\Idno::site()->config()->getDisplayURL() . 'account/settings/notifications/']); ?>
             </p>
         </div>
     </div>
@@ -40,8 +37,7 @@
             <div class="row">
                 <div class="col-md-12 email-settings">
                     <p>
-                        <?= \Idno\Core\Idno::site()->language()->_("You can often leave the following settings blank. However, you may wish to set them if you're
-                        using a third-party service to send email."); ?>
+                        <?= \Idno\Core\Idno::site()->language()->_("You can often leave the following settings blank. However, you may wish to set them if you're using a third-party service to send email."); ?>
                     </p>
                 </div>
             </div>
