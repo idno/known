@@ -126,7 +126,7 @@
                 $basics['report']['php-extensions']['message'] = trim($basics['report']['php-extensions']['message'], ' ,') . ' missing.';
                 
                 // Check for configuration bug
-                $configs = \Idno\Core\Idno::site()->db()->getRecords([], [], 10, 0, 'config');
+                $configs = \Idno\Core\Idno::site()->db()->getRecords([], [], PHP_INT_MAX, 0, 'config');
                 if (count($configs) != 1) {
                     $basics['report']['configuration']['message'] = count($configs) . ' Config entries found in database, there should be only one!';
                     $basics['report']['configuration']['status'] = 'Warning';
