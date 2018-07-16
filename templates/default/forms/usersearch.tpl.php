@@ -99,8 +99,8 @@ if (!empty($vars['class']))
 
     <div class="pager">
         <ul>
-            <li class="newer pagination-disabled"><a href="#" title="Previous" rel="prev"><span>&laquo; Prev</span></a></li>
-            <li class="older pagination-disabled"><a href="#" title="Next" rel="next"><span>Next &raquo;</span></a></li>
+            <li class="newer pagination-disabled"><a href="#" title="Previous" rel="prev"><span>&laquo; <?= \Idno\Core\Idno::site()->language()->_('Prev'); ?></span></a></li>
+            <li class="older pagination-disabled"><a href="#" title="Next" rel="next"><span><?= \Idno\Core\Idno::site()->language()->_('Next'); ?> &raquo;</span></a></li>
         </ul>
     </div>
 </div>
