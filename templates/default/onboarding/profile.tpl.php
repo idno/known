@@ -34,8 +34,8 @@
                     <label class="control-label" for="inputWebsite"><?= \Idno\Core\Idno::site()->language()->_('Your other websites'); ?>
                         <small><?= \Idno\Core\Idno::site()->language()->_('(a blog, a portfolio, Twitter, Facebook, etc)'); ?></small>
                         <br/></label>
-                    <input name="profile[url][]" type="text" class="profile-input" id="website"
-                           placeholder="http://..."/>
+                    <input name="profile[url][]" type="url" class="profile-input" id="website"
+                           placeholder="https://..."/>
                 </span>
                 <a href="#" onclick="$('#websites').append($('#website-template').html()); return false;"><?= \Idno\Core\Idno::site()->language()->_('Add another website'); ?></a>
             </p>
