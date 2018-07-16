@@ -76,8 +76,8 @@ if (!empty($vars['class']))
                 Sort <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="#" data-sort="created">By creation date</a></li>
-                <li><a href="#" data-sort="name">By name</a></li>
+                <li><a href="#" data-sort="created"><?= \Idno\Core\Idno::site()->language()->_('By creation date'); ?></a></li>
+                <li><a href="#" data-sort="name"><?= \Idno\Core\Idno::site()->language()->_('By name'); ?></a></li>
             </ul>
         </div>
 
@@ -86,8 +86,8 @@ if (!empty($vars['class']))
                 Order <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="#" data-sort="asc">Ascending</a></li>
-                <li><a href="#" data-sort="desc">Descending</a></li>
+                <li><a href="#" data-sort="asc"><?= \Idno\Core\Idno::site()->language()->_('Ascending'); ?></a></li>
+                <li><a href="#" data-sort="desc"><?= \Idno\Core\Idno::site()->language()->_('Descending'); ?></a></li>
             </ul>
         </div>
     </div>
@@ -99,8 +99,8 @@ if (!empty($vars['class']))
 
     <div class="pager">
         <ul>
-            <li class="newer pagination-disabled"><a href="#" title="Previous" rel="prev"><span>&laquo; Prev</span></a></li>
-            <li class="older pagination-disabled"><a href="#" title="Next" rel="next"><span>Next &raquo;</span></a></li>
+            <li class="newer pagination-disabled"><a href="#" title="Previous" rel="prev"><span>&laquo; <?= \Idno\Core\Idno::site()->language()->_('Prev'); ?></span></a></li>
+            <li class="older pagination-disabled"><a href="#" title="Next" rel="next"><span><?= \Idno\Core\Idno::site()->language()->_('Next'); ?> &raquo;</span></a></li>
         </ul>
     </div>
 </div>

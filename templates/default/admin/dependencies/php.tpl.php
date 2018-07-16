@@ -1,5 +1,5 @@
 <?php 
-$details = phpversion() . " installed";
+$details = \Idno\Core\Idno::site()->language()->_('%s installed', [phpversion()]);
 if (version_compare(phpversion(), $vars['version']) < 0) {
     $label = 'label-danger';
     $details = $vars['version'] . " - ($details)";

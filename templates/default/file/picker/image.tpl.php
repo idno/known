@@ -46,7 +46,7 @@
             reader.onload = function (e) {
                 
                 $('#photo-preview').html('<img src="" id="photopreview" style="height: 200px">');
-                $('#photo-filename').html('Choose a different image');
+                $('#photo-filename').html('<?= \Idno\Core\Idno::site()->language()->_('Choose a different image'); ?>');
                 $('#photopreview').attr('src', e.target.result);
                 
                 try {

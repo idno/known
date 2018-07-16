@@ -34,8 +34,8 @@
                     <label class="control-label" for="inputWebsite"><?= \Idno\Core\Idno::site()->language()->_('Your other websites'); ?>
                         <small><?= \Idno\Core\Idno::site()->language()->_('(a blog, a portfolio, Twitter, Facebook, etc)'); ?></small>
                         <br/></label>
-                    <input name="profile[url][]" type="text" class="profile-input" id="website"
-                           placeholder="http://..."/>
+                    <input name="profile[url][]" type="url" class="profile-input" id="website"
+                           placeholder="https://..."/>
                 </span>
                 <a href="#" onclick="$('#websites').append($('#website-template').html()); return false;"><?= \Idno\Core\Idno::site()->language()->_('Add another website'); ?></a>
             </p>
@@ -46,8 +46,8 @@
                     <input type="hidden" name="onboarding" value="1"/>
                 </div>
         </form>
-        <div id="website-template" style="display:none"><input name="profile[url][]" type="text" class="profile-input"
-                                                               id="website" placeholder="http://..."/></div>
+        <div id="website-template" style="display:none"><input name="profile[url][]" type="url" class="profile-input"
+                                                               id="website" placeholder="https://..."/></div>
 
     </div>
 </div>
@@ -62,7 +62,7 @@
 
             reader.onload = function (e) {
                 $('#photo-preview').html('<img src="" id="photopreview" style="display:none; width: 150px">');
-                $('#photo-filename').html('Choose different photo');
+                $('#photo-filename').html('<?= \Idno\Core\Idno::site()->language()->_('Choose different photo'); ?>');
                 $('#photopreview').attr('src', e.target.result);
                 $('#photopreview').show();
             }

@@ -35,7 +35,7 @@
             <div class="col-md-8 personal-info">
 
                 <div class="form-group">
-                    <label class="control-label" for="name">Your name</label>
+                    <label class="control-label" for="name"><?= \Idno\Core\Idno::site()->language()->_('Your name'); ?></label>
                     <input class="form-control" type="text" id="name" name="name"
                            value="<?= htmlspecialchars($vars['user']->getTitle()) ?>">
                 </div>
@@ -47,7 +47,7 @@
                 </div>-->
 
                 <div class="form-group">
-                    <label class="control-label" for="body">About you</label><br>
+                    <label class="control-label" for="body"><?= \Idno\Core\Idno::site()->language()->_('About you'); ?></label><br>
 
                     <textarea name="profile[description]" id="body"
                               class="form-control bodyInput"><?= htmlspecialchars($vars['user']->getDescription()) ?></textarea>
@@ -73,13 +73,13 @@
                                     if (!empty($url)) {
                                         ?>
                                         <div class="form-group">
-                                            <div class="col-md-10"><input type="text" name="profile[url][]" id="website"
+                                            <div class="col-md-10"><input type="url" name="profile[url][]" id="website"
                                                                           value="<?= htmlspecialchars($this->fixURL($url)) ?>"
-                                                                          placeholder="http://" class="form-control"/>
+                                                                          placeholder="https://" class="form-control"/>
                                             </div>
                                             <div class="col-md-2" style="margin-top: 0.75em">
                                                 <small><a href="#"
-                                                          onclick="$(this).parent().parent().parent().remove(); return false;">Remove</a>
+                                                          onclick="$(this).parent().parent().parent().remove(); return false;"><?= \Idno\Core\Idno::site()->language()->_('Remove');?></a>
                                                 </small>
                                             </div>
                                         </div>
@@ -91,11 +91,11 @@
                         ?>
                         <div class="row">
                             <div class="col-md-10">
-                                <input type="text" name="profile[url][]" id="title" value="" placeholder="http://"
+                                <input type="url" name="profile[url][]" id="title" value="" placeholder="https://"
                                        class="form-control"/></div>
                             <div class="col-md-2" style="margin-top: 0.75em">
                                 <small >
-                                    <a href="#" onclick="$(this).parent().parent().parent().remove(); return false;">Remove</a>
+                                    <a href="#" onclick="$(this).parent().parent().parent().remove(); return false;"><?= \Idno\Core\Idno::site()->language()->_('Remove'); ?></a>
                                 </small>
                             </div>
                         </div>
@@ -103,15 +103,15 @@
                     <p>
                         <small><a href="#"
                                   onclick="$('#websitelist').append($('#form-website-template').html()); return false;">+
-                                Add more</a></small>
+                                <?= \Idno\Core\Idno::site()->language()->_('Add more'); ?></a></small>
                     </p>
                 </div>
 
                 <div class="form-group">
                     <p>
                         <?= \Idno\Core\Idno::site()->actions()->signForm('/profile/' . $vars['user']->getHandle()) ?>
-                        <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
-                        <input type="submit" class="btn btn-primary" value="Save Changes"/>
+                        <input type="button" class="btn btn-cancel" value="<?= \Idno\Core\Idno::site()->language()->_('Cancel'); ?>" onclick="hideContentCreateForm();"/>
+                        <input type="submit" class="btn btn-primary" value="<?= \Idno\Core\Idno::site()->language()->_('Save Changes'); ?>"/>
                     </p>
 
 
@@ -128,7 +128,7 @@
                        class="form-control"/></div>
             <div class="col-md-2" style="margin-top: 0.75em">
                 <small>
-                    <a href="#" onclick="$(this).parent().parent().parent().remove(); return false;">Remove</a>
+                    <a href="#" onclick="$(this).parent().parent().parent().remove(); return false;"><?= \Idno\Core\Idno::site()->language()->_('Remove'); ?></a>
                 </small>
             </div>
         </div>
