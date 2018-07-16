@@ -27,7 +27,7 @@ if ($version && !empty($details) && $v_value<0)
     }
     
     if (($version && $v_value<0) || ($version && empty($details)))
-	echo " (v$version required)";
+	echo " " . \Idno\Core\Idno::site()->language()->_('(v%s required)', [$version]);
     
     
 ?></span> 
