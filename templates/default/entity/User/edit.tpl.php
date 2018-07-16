@@ -75,7 +75,7 @@
                                         <div class="form-group">
                                             <div class="col-md-10"><input type="url" name="profile[url][]" id="website"
                                                                           value="<?= htmlspecialchars($this->fixURL($url)) ?>"
-                                                                          placeholder="http://" class="form-control"/>
+                                                                          placeholder="https://" class="form-control"/>
                                             </div>
                                             <div class="col-md-2" style="margin-top: 0.75em">
                                                 <small><a href="#"
@@ -91,7 +91,7 @@
                         ?>
                         <div class="row">
                             <div class="col-md-10">
-                                <input type="url" name="profile[url][]" id="title" value="" placeholder="http://"
+                                <input type="url" name="profile[url][]" id="title" value="" placeholder="https://"
                                        class="form-control"/></div>
                             <div class="col-md-2" style="margin-top: 0.75em">
                                 <small >
