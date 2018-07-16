@@ -6,4 +6,4 @@ if (extension_loaded($extension)) {
 } else {
     $label = 'label-danger';
 }
-?><span class="label <?= $label ?>"><a href="http://php.net/<?= urlencode($extension) ?>" target="_blank" style="color: #fff"><?= $extension ?></a></span> 
+?><span class="label <?= $label ?>"><a href="https://php.net/<?= urlencode($extension) ?>" target="_blank" style="color: #fff"><?= $extension ?></a></span> 
