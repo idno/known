@@ -62,7 +62,7 @@
 
             reader.onload = function (e) {
                 $('#photo-preview').html('<img src="" id="photopreview" style="display:none; width: 150px">');
-                $('#photo-filename').html('Choose different photo');
+                $('#photo-filename').html('<?= \Idno\Core\Idno::site()->language()->_('Choose different photo'); ?>');
                 $('#photopreview').attr('src', e.target.result);
                 $('#photopreview').show();
             }
