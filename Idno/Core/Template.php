@@ -309,7 +309,7 @@
                         }
                     }
 
-                    $result = "<a href=\"$url\"";
+                    $result = "<a href=\"" . $this->getProxiedUrl($url) ."\"";
                     if (!\Idno\Common\Entity::isLocalUUID($url)) {
                         $result .= " target=\"_blank\" ";
                     }
@@ -648,6 +648,15 @@
                 }
 
                 return $url;
+            }
+            
+            /**
+             * Return a proxied URL
+             * @param string $url
+             * @return URL
+             */
+            public function getProxiedUrl($url) {
+                 return \Idno\Core\Idno::site()->config()->getDisplayURL() . 'service/web/urlproxy/?url=' . urlencode($url);
             }
             
             /**
