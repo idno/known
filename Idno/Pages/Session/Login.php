@@ -35,7 +35,7 @@
 
                 $fwd = $this->getInput('fwd'); // Forward to a new page?
                 if (empty($fwd)) {
-                    $fwd = \Idno\Core\Idno::site()->config()->url;
+                    $fwd = \Idno\Core\Idno::site()->config()->getDisplayURL();
                 } 
 
                 if ($user = \Idno\Entities\User::getByHandle($this->getInput('email'))) {

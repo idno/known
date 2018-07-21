@@ -100,7 +100,6 @@
              */
             function load()
             {
-                /*$config = Idno::site()->db()->getRecord('config', 'config');*/ // MP: Removed as not compatible with Mongo. If hard coded IDs are absolutely necessary, another way needs to be found.
                 if (empty($config)) $config = \Idno\Core\Idno::site()->db()->getAnyRecord('config');
                 if ($config) {
                     $this->default_config = false;
@@ -133,15 +132,19 @@
                     }
                 } else {
                     // If we don't have a saved config, this is a new site. Set some plugin defaults
-                    $config['plugins'][] = 'Status';
-                    $config['plugins'][] = 'Text';
-                    $config['plugins'][] = 'Photo';
-                    $config['plugins'][] = 'Firefox';
-                    $config['plugins'][] = 'FooterJS';
-                    $config['plugins'][] = 'IndiePub';
+                    if (!is_array($this->config)) $this->config = [];
+                    if (!is_array($this->config['plugins'])) $this->config['plugins'] = [];
+                    $this->config['plugins'][] = 'Status';
+                    $this->config['plugins'][] = 'Text';
+                    $this->config['plugins'][] = 'Photo';
+                    $this->config['plugins'][] = 'Firefox';
+                    $this->config['plugins'][] = 'FooterJS';
+                    $this->config['plugins'][] = 'IndiePub';
                 }
 
                 $this->loadIniFiles();
+
+                $this->config['plugins'] = array_unique($this->config['plugins']);
 
                 // If we don't have a site secret, create it
                 if (!isset($this->site_secret)) {
