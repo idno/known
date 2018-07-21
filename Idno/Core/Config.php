@@ -314,6 +314,7 @@
                         $this->default_plugins = $this->initial_plugins;
                     }
                 }
+                $this->default_plugins = array_unique($this->default_plugins);
                 if (!empty($this->default_plugins)) {
                     $this->plugins = $this->default_plugins;
                 }
