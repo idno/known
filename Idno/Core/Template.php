@@ -309,7 +309,7 @@
                         }
                     }
 
-                    $result = "<a href=\"" . $this->getProxiedUrl($url) ."\"";
+                    $result = "<a href=\"" . $url ."\"";
                     if (!\Idno\Common\Entity::isLocalUUID($url)) {
                         $result .= " target=\"_blank\" ";
                     }
