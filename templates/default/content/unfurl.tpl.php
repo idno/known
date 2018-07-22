@@ -1,7 +1,7 @@
 <?php
 $dataurl = "";
 if (!empty($vars['data-url']))
-    $dataurl = htmlentities(\Idno\Core\Idno::site ()->template()->getProxiedUrl($vars['data-url']));
+    $dataurl = htmlentities(vars['data-url']);
 
 if (empty($vars['object']->hide_preview)) { ?>
 <div class="unfurl-block" data-parent-object="<?= $vars['object']->_id; ?>">

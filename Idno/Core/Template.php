@@ -651,15 +651,6 @@
             }
             
             /**
-             * Return a proxied URL
-             * @param string $url
-             * @return URL
-             */
-            public function getProxiedUrl($url) {
-                 return \Idno\Core\Idno::site()->config()->getDisplayURL() . 'service/web/urlproxy/?url=' . urlencode($url);
-            }
-            
-            /**
              * Convert a remote image URL into one addressing the local image proxying service.
              * @param url $url
              * @param int Maximum dimensions of proxied image
