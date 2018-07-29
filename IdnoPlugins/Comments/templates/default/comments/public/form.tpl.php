@@ -15,7 +15,7 @@
                     <input type="text" name="name" class="form-control" placeholder="<?= \Idno\Core\Idno::site()->language()->_('Your name'); ?>" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" name="url" class="form-control" placeholder="<?= \Idno\Core\Idno::site()->language()->_('Your website address'); ?>">
+                    <input type="url" name="url" class="form-control" placeholder="<?= \Idno\Core\Idno::site()->language()->_('Your website address'); ?>">
                 </div>
                 <div class="form-group">
                     <input type="text" name="url-2" class="form-control" placeholder="<?= \Idno\Core\Idno::site()->language()->_("You probably shouldn't fill this in"); ?>" style="display: none;" >
