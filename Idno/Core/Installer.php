@@ -174,6 +174,7 @@ namespace Idno\Core {
             $dbscheme = "";
             switch ($schema) {
                 
+                case 'sqlite3' : $dbscheme = 'sqlite'; break;
                 case 'postgres': $dbscheme = 'pgsql'; break;
                 default:
                     $dbscheme = $schema;
