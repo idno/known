@@ -121,6 +121,7 @@ namespace Idno\Core {
                 'version' => Version::version(),
                 'datetime' => date('r'),
                 
+                'database' => 'MySQL',
                 'dbname' => 'known',
                 'dbhost' => 'localhost',
                 
