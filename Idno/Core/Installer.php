@@ -183,7 +183,7 @@ namespace Idno\Core {
                     $sql = trim($sql);
                     if (!empty($sql)) {
                         try {
-                            $statement = $client->prepare($sql);
+                            $statement = $dbh->prepare($sql);
                             $statement->execute();
                         } catch (\Exception $e) {
                             $err = $dbh->errorInfo();
