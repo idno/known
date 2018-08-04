@@ -161,18 +161,20 @@ namespace Idno\Core {
                 $pass,
                 $schema = 'mysql'
         ) {
+            
+            $dbname = preg_replace("/[^a-zA-Z0-9\_\.]/", "", $dbname); // Sanitise $dbname
+            $schema = preg_replace("/[^a-zA-Z0-9\_\.]/", "", strtolower($schema)); // Sanitise $schema
+            
             // Skip schema install for mongo, not necessary
             if ($schema == 'mongo' || $schema == 'mongodb')
                 return true;
-            
-            $dbname = preg_replace("/[^a-zA-Z0-9\_\.]/", "", $dbname); // Sanitise $dbname
             
             $database_string = $schema . ':';
             $database_string .= 'host=' . $host . ';';
             $database_string .= 'dbname=' . $dbname;
 
             $dbh = new \PDO($database_string, $user, $pass);
-            if ($schema = @file_get_contents($this->root_path . '/warmup/schemas/mysql/mysql.sql')) {
+            if ($schema = @file_get_contents("{$this->root_path}/warmup/schemas/$schema/$schema.sql")) {
                 $dbh->exec('use `' . $dbname . '`');
                 if (!$dbh->exec($schema)) {
                     $err = $dbh->errorInfo();
