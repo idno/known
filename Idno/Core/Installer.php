@@ -170,7 +170,16 @@ namespace Idno\Core {
             if ($schema == 'mongo' || $schema == 'mongodb')
                 return true;
             
-            $database_string = $schema . ':';
+            // Crufty hack to alias schemas if they're different from class. TODO: do this nicer
+            $dbscheme = "";
+            switch ($schema) {
+                
+                case 'postgres': $dbscheme = 'pgsql'; break;
+                default:
+                    $dbscheme = $schema;
+            }
+            
+            $database_string = $dbscheme . ':';
             $database_string .= 'host=' . $host . ';';
             $database_string .= 'dbname=' . $dbname;
 
