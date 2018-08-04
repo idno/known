@@ -4,7 +4,7 @@
 # Built: %datetime%
 #
 
-database = 'MySQL'
+database = '%database%'
 dbname = '%dbname%'
 dbpass = '%dbpass%'
 dbuser = '%dbuser%'

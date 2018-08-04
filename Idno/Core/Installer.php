@@ -121,6 +121,7 @@ namespace Idno\Core {
                 'version' => Version::version(),
                 'datetime' => date('r'),
                 
+                'database' => 'MySQL',
                 'dbname' => 'known',
                 'dbhost' => 'localhost',
                 
@@ -161,26 +162,47 @@ namespace Idno\Core {
                 $pass,
                 $schema = 'mysql'
         ) {
-            $dbname = preg_replace("/[^a-zA-Z0-9\_\.]/", "", $dbname); // Sanitise $dbname
             
-            $database_string = $schema . ':';
+            $dbname = preg_replace("/[^a-zA-Z0-9\_\.]/", "", $dbname); // Sanitise $dbname
+            $schema = preg_replace("/[^a-zA-Z0-9\_\.]/", "", strtolower($schema)); // Sanitise $schema
+            
+            // Skip schema install for mongo, not necessary
+            if ($schema == 'mongo' || $schema == 'mongodb')
+                return true;
+            
+            // Crufty hack to alias schemas if they're different from class. TODO: do this nicer
+            $dbscheme = "";
+            switch ($schema) {
+                
+                case 'sqlite3' : $dbscheme = 'sqlite'; break;
+                case 'postgres': $dbscheme = 'pgsql'; break;
+                default:
+                    $dbscheme = $schema;
+            }
+            
+            $database_string = $dbscheme . ':';
             $database_string .= 'host=' . $host . ';';
             $database_string .= 'dbname=' . $dbname;
 
             $dbh = new \PDO($database_string, $user, $pass);
-            if ($schema = @file_get_contents($this->root_path . '/warmup/schemas/mysql/mysql.sql')) {
-                $dbh->exec('use `' . $dbname . '`');
-                if (!$dbh->exec($schema)) {
-                    $err = $dbh->errorInfo();
-                    if ($err[0] === '00000') {
-                        // exec() might return false (no rows affected) and still have been successful
-                        // http://php.net/manual/en/pdo.exec.php#118156
-                    } else if ($err[0] === '01000') {
-                        error_log('INSTALLATION WARNING: Installed database schema with warnings: '.$err[2]);
-                    } else {
-                        throw new \RuntimeException('We couldn\'t automatically install the database schema: '.$err[2]);
+            $dbh->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            
+            if ($sql = @file_get_contents("{$this->root_path}/warmup/schemas/$schema/$schema.sql")) {
+                
+                $statements = explode(";\n", $sql); // Explode statements; only mysql can support multiple statements per line, and then not safely.
+                foreach ($statements as $sql) {
+                    $sql = trim($sql);
+                    if (!empty($sql)) {
+                        try {
+                            $statement = $dbh->prepare($sql);
+                            $statement->execute();
+                        } catch (\Exception $e) {
+                            $err = $dbh->errorInfo();
+                            throw new \RuntimeException('We couldn\'t automatically install the database schema: '.$err[2]);
+                        }
                     }
                 }
+                
             } else {
                 throw new \RuntimeException("We couldn't find the schema doc.");
             }
