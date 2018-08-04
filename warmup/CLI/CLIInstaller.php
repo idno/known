@@ -31,6 +31,7 @@ class CLIInstaller extends \Idno\Core\Installer {
     private $config = [];
     private $expected_manifest = [
         'site_title' => '"Site title"',
+        'database' => '"Database type, usually \'MySQL\'"',
         'mysql_name' => '"Database name"',
         'mysql_user' => '"Database username"',
         'mysql_pass' => '"Database password"',
@@ -115,6 +116,7 @@ class CLIInstaller extends \Idno\Core\Installer {
                     'dbuser' => $this->config['mysql_user'],
                     'dbhost' => $this->config['mysql_host'],
                     'uploadpath' => $this->config['upload_path'],
+                    'database' => $this->config['database'],
                 ]);
                 
             });
@@ -179,6 +181,11 @@ class CLIInstaller extends \Idno\Core\Installer {
                     $this->config['site_title'] = $helper->ask($input, $output, $question);
                 }
                 
+                if (empty($this->config['database'])) {
+                    $question = new Symfony\Component\Console\Question\Question('Please enter the database type: ', 'MySQL');
+
+                    $this->config['database'] = $helper->ask($input, $output, $question);
+                }
                 
                 if (empty($this->config['mysql_name'])) {
                     $question = new Symfony\Component\Console\Question\Question('Please enter the name of the database: ', 'known');
@@ -219,7 +226,9 @@ class CLIInstaller extends \Idno\Core\Installer {
                     $this->config['mysql_host'], 
                     $this->config['mysql_name'], 
                     $this->config['mysql_user'], 
-                    $this->config['mysql_pass']
+                    $this->config['mysql_pass'],
+                        
+                    $this->config['database']
                 );
                 
                 $this->writeApacheConfig();
@@ -230,6 +239,7 @@ class CLIInstaller extends \Idno\Core\Installer {
                     'dbuser' => $this->config['mysql_user'],
                     'dbhost' => $this->config['mysql_host'],
                     'uploadpath' => $this->config['upload_path'],
+                    'database' => $this->config['database'],
                 ]);
             
                 $this->writeConfig($ini_file, $config_name);
