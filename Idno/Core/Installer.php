@@ -161,6 +161,10 @@ namespace Idno\Core {
                 $pass,
                 $schema = 'mysql'
         ) {
+            // Skip schema install for mongo, not necessary
+            if ($schema == 'mongo' || $schema == 'mongodb')
+                return true;
+            
             $dbname = preg_replace("/[^a-zA-Z0-9\_\.]/", "", $dbname); // Sanitise $dbname
             
             $database_string = $schema . ':';
