@@ -3,9 +3,7 @@ CSS changes for Boostrap 3 migration
 
 IMPORTANT:
  This file isn't loaded directly, for changes to show you must generate a minified
- version. E.g.
-
-    yui-compressor defaultb3.css > defaultb3.min.css
+ version by executing the Gruntfile. See: http://docs.withknown.com/en/latest/developers/build/
 */
 .nav-tabs.nav > li > a {
 	color: #777777;
