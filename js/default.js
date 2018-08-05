@@ -174,7 +174,7 @@ Notifications.poll = function () {
 				});
 				notification.onclick = function(e) {
 				    window.location.href = link;
-				}
+				};
 			    } catch (e) {
 				// We have to use service worker, as New doesn't work
 				
