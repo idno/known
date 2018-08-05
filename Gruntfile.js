@@ -55,7 +55,8 @@ module.exports = function (grunt) {
 		    known: false,
 		    "setTimeout": true, 
 		    "setInterval": true,
-		    window: true
+		    window: true,
+		    Notification: true
 		}
 	    }
 	},
