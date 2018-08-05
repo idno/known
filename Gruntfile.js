@@ -31,10 +31,17 @@ module.exports = function (grunt) {
 		    }]
 	    }
 	},
+	csslint: {
+	    options: {
+		quiet: true,
+		ids: false
+	    },
+	    src: ['css/*.css']
+	},
 	jshint: {
 	    // define the files to lint
 	    files: [
-		'Gruntfile.js', 
+		'Gruntfile.js',
 		'js/default.js',
 		'js/embeds.js',
 		'js/image.js',
@@ -54,10 +61,10 @@ module.exports = function (grunt) {
 		    known: false,
 		    wwwroot: true,
 		    base64ToArrayBuffer: true,
-		    
+
 		    EXIF: true,
 		    self: true,
-		    
+
 		    Security: true,
 		    Template: true,
 		    ImageTools: true,
@@ -78,9 +85,10 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-csslint');
 
 // Tests
-    grunt.registerTask('test', ['jshint']); 
+    grunt.registerTask('test', ['csslint', 'jshint']);
 
 // Default task(s).
     grunt.registerTask('default', ['uglify', 'cssmin']);
