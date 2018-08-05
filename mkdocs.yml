@@ -19,6 +19,7 @@ pages:
 - ['developers/index.md', 'Known for developers', 'Introduction']
 - ['developers/standards.md', 'Known for developers', 'Coding standards']
 - ['developers/commit-messages.md', 'Known for developers', 'Good Commit Messages']
+- ['developers/build.md', 'Known for developers', 'Building Known']
 - ['developers/plugins/index.md', 'Known for developers', 'Plugins']
 - ['developers/plugins/class.md', 'Known for developers', 'The plugin class']
 - ['developers/plugins/pages.md', 'Known for developers', 'Adding pages to your plugins']
