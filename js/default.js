@@ -14,7 +14,7 @@
 "use strict";
 
 /** Known security object */
-function Security() {}
+var Security = Security || {};
 
 /** Perform a HEAD request on the current page and pass the token to a given callback */
 Security.getCSRFToken = function (callback, pageurl) {
@@ -31,7 +31,7 @@ Security.getCSRFToken = function (callback, pageurl) {
 
 	callback(message.token, message.time);
     });
-}
+};
 
 /** Refresh all security tokens */
 Security.refreshTokens = function () {
@@ -46,7 +46,7 @@ Security.refreshTokens = function () {
 
 	}, form.find('input[name=__bTa]').val());
     });
-}
+};
 
 setInterval(function () {
     Security.refreshTokens();
@@ -66,7 +66,7 @@ Security.activateACLControls = function () {
 	$(this).closest('.btn-group').find('.dropdown-toggle').html($(this).html() + ' <span class="caret"></span>');
 	$(this).closest('.btn-group').find('.dropdown-toggle').click();
     });
-}
+};
 
 $(document).ready(function () {
     Security.activateACLControls();
@@ -74,7 +74,7 @@ $(document).ready(function () {
 
 
 /** Known Javascript logging */
-function Logger() {}
+var Logger = Logger || {};
 
 Logger.log = function (message, level) {
 
@@ -113,23 +113,23 @@ Logger.log = function (message, level) {
 	});
     }, known.config.displayUrl + 'service/system/log/');
 
-}
+};
 
 Logger.info = function(message) {
     Logger.log(message, 'INFO');
-}
+};
 
 Logger.warn = function(message) {
     Logger.log(message, 'WARN');
-}
+};
 
 Logger.error = function(message) {
     Logger.log(message, 'ERROR');
-}
+};
 
 Logger.deprecated = function(message) {
     Logger.info('DEPRECATED ' + message);
-}
+};
 
 Logger.errorHandler = function (error) {
 
@@ -142,14 +142,14 @@ Logger.errorHandler = function (error) {
 
     console.error(error);
     Logger.log(message, 'ERROR');
-}
+};
 
 /** Default error/exception handler */
 window.addEventListener('error', function (e) { Logger.errorHandler(e); });
 
 
 /** Known notifications */
-function Notifications() {}
+var Notifications = Notifications || {};
 
 /**
  * Poll for new notifications
@@ -161,7 +161,7 @@ Notifications.poll = function () {
 		//console.log(data);
 		if (data.notifications)
 		    if (data.notifications.length > 0) {
-			for (i = 0; i < data.notifications.length; i++) {
+			for (var i = 0; i < data.notifications.length; i++) {
 			    var title = data.notifications[i].title;
 			    var body = data.notifications[i].body;
 			    var icon = data.notifications[i].icon;
@@ -174,7 +174,7 @@ Notifications.poll = function () {
 				});
 				notification.onclick = function(e) {
 				    window.location.href = link;
-				}
+				};
 			    } catch (e) {
 				// We have to use service worker, as New doesn't work
 				
@@ -186,7 +186,7 @@ Notifications.poll = function () {
 	    .fail(function (data) {
 		//console.log("Polling for new notifications failed");
 	    });
-}
+};
 
 Notifications.enable = function (opt_dontAsk) {
     if (!known.session.loggedIn) {
@@ -213,7 +213,7 @@ Notifications.enable = function (opt_dontAsk) {
     } else if (Notification.permission === 'granted') {
 	setInterval(Notifications.poll, 30000);
     }
-}
+};
 
 /**
  * Have notifications been granted?
@@ -233,7 +233,7 @@ Notifications.isEnabled = function () {
     }
 
     return false;
-}
+};
 
 // Backwards compatibility for those who already have notifications installed
 function doPoll() {
