@@ -31,7 +31,7 @@ Security.getCSRFToken = function (callback, pageurl) {
 
 	callback(message.token, message.time);
     });
-}
+};
 
 /** Refresh all security tokens */
 Security.refreshTokens = function () {
@@ -46,7 +46,7 @@ Security.refreshTokens = function () {
 
 	}, form.find('input[name=__bTa]').val());
     });
-}
+};
 
 setInterval(function () {
     Security.refreshTokens();
@@ -66,7 +66,7 @@ Security.activateACLControls = function () {
 	$(this).closest('.btn-group').find('.dropdown-toggle').html($(this).html() + ' <span class="caret"></span>');
 	$(this).closest('.btn-group').find('.dropdown-toggle').click();
     });
-}
+};
 
 $(document).ready(function () {
     Security.activateACLControls();
@@ -113,23 +113,23 @@ Logger.log = function (message, level) {
 	});
     }, known.config.displayUrl + 'service/system/log/');
 
-}
+};
 
 Logger.info = function(message) {
     Logger.log(message, 'INFO');
-}
+};
 
 Logger.warn = function(message) {
     Logger.log(message, 'WARN');
-}
+};
 
 Logger.error = function(message) {
     Logger.log(message, 'ERROR');
-}
+};
 
 Logger.deprecated = function(message) {
     Logger.info('DEPRECATED ' + message);
-}
+};
 
 Logger.errorHandler = function (error) {
 
@@ -142,7 +142,7 @@ Logger.errorHandler = function (error) {
 
     console.error(error);
     Logger.log(message, 'ERROR');
-}
+};
 
 /** Default error/exception handler */
 window.addEventListener('error', function (e) { Logger.errorHandler(e); });
@@ -186,7 +186,7 @@ Notifications.poll = function () {
 	    .fail(function (data) {
 		//console.log("Polling for new notifications failed");
 	    });
-}
+};
 
 Notifications.enable = function (opt_dontAsk) {
     if (!known.session.loggedIn) {
@@ -213,7 +213,7 @@ Notifications.enable = function (opt_dontAsk) {
     } else if (Notification.permission === 'granted') {
 	setInterval(Notifications.poll, 30000);
     }
-}
+};
 
 /**
  * Have notifications been granted?
@@ -233,7 +233,7 @@ Notifications.isEnabled = function () {
     }
 
     return false;
-}
+};
 
 // Backwards compatibility for those who already have notifications installed
 function doPoll() {
