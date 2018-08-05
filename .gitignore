@@ -6,6 +6,8 @@ Idno/.idea/.name
 .vagrant
 .elasticbeanstalk
 
+node_modules
+
 *.iml
 
 /nbproject/private/nbproject/project.xml
