@@ -2,9 +2,7 @@
  * Embedding code for various platforms
  * IMPORTANT:
  * This file isn't loaded directly, for changes to show you must generate a minified
- * version. E.g.
- *
- *   yui-compressor embeds.js > embeds.min.js
+ * version by executing the Gruntfile. See: http://docs.withknown.com/en/latest/developers/build/
  */
 
 "use strict";

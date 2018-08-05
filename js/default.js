@@ -5,9 +5,7 @@
  and reference them from a custom plugin or template.
  
  IMPORTANT: This file isn't loaded directly, for changes to show you must generate a minified
- version. E.g.
- 
- yui-compressor default.js > default.min.js
+ version by executing the Gruntfile. See: http://docs.withknown.com/en/latest/developers/build/
  
  @package idno
  @subpackage core
