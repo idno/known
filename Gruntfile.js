@@ -57,7 +57,11 @@ module.exports = function (grunt) {
 		    "setInterval": true,
 		    window: true,
 		    Notification: true,
-		    self: true
+		    self: true,
+		    
+		    Security: true,
+		    Template: true,
+		    ImageTools: true,
 		}
 	    }
 	},
