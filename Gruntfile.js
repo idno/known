@@ -53,16 +53,23 @@ module.exports = function (grunt) {
 		    document: true,
 		    "$": false,
 		    known: false,
+		    wwwroot: true,
+		    base64ToArrayBuffer: true,
 		    "setTimeout": true, 
 		    "setInterval": true,
 		    window: true,
 		    Notification: true,
+		    FileReader: true,
+		    EXIF: true,
 		    self: true,
+		    Uint8Array: true,
+		    atob: true,
 		    
 		    Security: true,
 		    Template: true,
 		    ImageTools: true,
-		}
+		},
+		node: true,
 	    }
 	},
 	watch: {
