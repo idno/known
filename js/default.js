@@ -14,7 +14,7 @@
 "use strict";
 
 /** Known security object */
-function Security() {}
+var Security = Security || {};
 
 /** Perform a HEAD request on the current page and pass the token to a given callback */
 Security.getCSRFToken = function (callback, pageurl) {
@@ -74,7 +74,7 @@ $(document).ready(function () {
 
 
 /** Known Javascript logging */
-function Logger() {}
+var Logger = Logger || {};
 
 Logger.log = function (message, level) {
 
@@ -149,7 +149,7 @@ window.addEventListener('error', function (e) { Logger.errorHandler(e); });
 
 
 /** Known notifications */
-function Notifications() {}
+var Notifications = Notifications || {};
 
 /**
  * Poll for new notifications
@@ -161,7 +161,7 @@ Notifications.poll = function () {
 		//console.log(data);
 		if (data.notifications)
 		    if (data.notifications.length > 0) {
-			for (i = 0; i < data.notifications.length; i++) {
+			for (var i = 0; i < data.notifications.length; i++) {
 			    var title = data.notifications[i].title;
 			    var body = data.notifications[i].body;
 			    var icon = data.notifications[i].icon;
