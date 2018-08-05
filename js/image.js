@@ -8,7 +8,7 @@
 
 "use strict";
 
-function ImageTools() {}
+var ImageTools = ImageTools || {};
 
 /**
  * Convert base 64 encoded data into an array/image buffer.
