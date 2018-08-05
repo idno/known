@@ -46,12 +46,16 @@ module.exports = function (grunt) {
 	    options: {
 		// more options here if you want to override JSHint defaults
 		globals: {
+		    browser: true,
 		    jQuery: true,
 		    console: true,
 		    module: true,
 		    document: true,
 		    "$": false,
-		    known: false
+		    known: false,
+		    "setTimeout": true, 
+		    "setInterval": true,
+		    window: true
 		}
 	    }
 	},
