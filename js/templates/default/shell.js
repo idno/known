@@ -8,7 +8,7 @@
 
 "use strict";
 
-function Template() {}
+var Template = Template || {};
 
 /**
  * Add a notice info
