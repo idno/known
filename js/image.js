@@ -23,7 +23,7 @@ ImageTools.base64ToArrayBuffer = function(base64) {
 	bytes[i] = binaryString.charCodeAt(i);
     }
     return bytes.buffer;
-}
+};
 
 /**
  * Wrapper.
@@ -74,7 +74,7 @@ ImageTools.exifRotateImg = function(imgid, exif_orientation, containerdiv) {
 	    $(containerdiv).css("height",w+"px");
 	    break;
      }
-}
+};
 
 /**
  * Wrapper.
