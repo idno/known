@@ -394,7 +394,7 @@ textarea {
 }
 
 input:hover,
-input:focus, {
+input:focus {
     background-color: white;
 }
 
