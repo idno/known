@@ -7,7 +7,7 @@
 
 "use strict";
 
-function Unfurl() {}
+var Unfurl = Unfurl || {};
 
 /**
  * Attempt to unfurl a url, extracting, title, open graph and oembed information
