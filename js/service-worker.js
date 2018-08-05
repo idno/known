@@ -5,9 +5,7 @@
  * by applications which want to provide a more useful service worker thread.
  * 
  * IMPORTANT:  This file isn't loaded directly, for changes to show you must generate a minified
- * version. E.g.
- *
- *   yui-compressor service-worker.js > service-worker.min.js
+ * version by executing the Gruntfile. See: http://docs.withknown.com/en/latest/developers/build/
  */
 
 "use strict";
