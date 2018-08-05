@@ -30,12 +30,46 @@ module.exports = function (grunt) {
 			ext: '.min.css'
 		    }]
 	    }
+	},
+	jshint: {
+	    // define the files to lint
+	    files: [
+		'Gruntfile.js', 
+		'js/default.js',
+		'js/embeds.js',
+		'js/image.js',
+		'js/service-worker.js',
+		'js/templates/default/shell.js'
+	    ],
+
+	    // configure JSHint (documented at http://www.jshint.com/docs/)
+	    options: {
+		// more options here if you want to override JSHint defaults
+		globals: {
+		    jQuery: true,
+		    console: true,
+		    module: true,
+		    document: true,
+		    "$": false,
+		    known: false
+		}
+	    }
+	},
+	watch: {
+	    files: ['<%= jshint.files %>'],
+	    tasks: ['jshint']
 	}
+
     });
 
-// Load the plugin that provides the "uglify" task.
+// Load the plugins
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+
+// Tests
+    grunt.registerTask('test', ['jshint']); 
 
 // Default task(s).
     grunt.registerTask('default', ['uglify', 'cssmin']);
