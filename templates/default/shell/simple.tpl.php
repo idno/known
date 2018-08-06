@@ -54,7 +54,7 @@
               href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>content/all?_t=rss"/>
         <link href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>webmention/" rel="http://webmention.org/"/>
         <link href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>webmention/" rel="webmention"/>
-        <link href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>css/simple.css" rel="stylesheet">
+        <link href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>css/simple.min.css" rel="stylesheet">
         <link href="//fonts.googleapis.com/css?family=Pontano+Sans" rel="stylesheet" type="text/css">
 		<link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel='stylesheet' type='text/css'>
         <script src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/jquery/' ?>jquery.min.js"></script>
@@ -66,7 +66,7 @@
 
         ?>
 
-                <link href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/css/bootstrap.css"
+                <link href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/css/bootstrap.min.css"
                       rel="stylesheet">
                 <link rel="stylesheet"
                       href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>external/font-awesome/css/fontawesome.min.css">
