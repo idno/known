@@ -14,10 +14,7 @@ web hosting provider.
 
 Known is under active development and requires PHP 7+ with selected extensions, together with a supported database backend.
 
-If you are installing Known for use on your own website, we _highly_ recommend using the installable packages
-from <https://withknown.com/opensource>. Installation will be much easier!
-
-You can also opt to check out the bleeding edge code from the git repository: <https://github.com/idno/Known>
+You can opt to check out the bleeding edge code from the git repository: <https://github.com/idno/Known>
 
 Detailed installation instructions: <http://docs.withknown.com/en/latest/install/index.html>
 
