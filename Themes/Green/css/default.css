@@ -21,10 +21,6 @@ a:hover, a:focus {
 	color: #8cbf99
 }
 
- {
-    box-shadow: none;
-    border: none;
-}
 
 /*li {
     line-height: 1.8em !important;
