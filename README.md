@@ -2,7 +2,7 @@
 
 ![Known - A social group platform](https://withknown.com/img/home/screens.png)
 
-## Installation 
+## Installation [![Build Status](https://travis-ci.org/idno/Known.svg?branch=master)](https://travis-ci.org/idno/Known)
 
 ### One-click Known sites
 
