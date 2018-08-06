@@ -18,6 +18,8 @@ You can opt to check out the bleeding edge code from the git repository: <https:
 
 Detailed installation instructions: <http://docs.withknown.com/en/latest/install/index.html>
 
+_Unofficial_ install packages, which are periodically built from the latest code, are available: <https://www.marcus-povey.co.uk/known/>
+
 ### Support us
 
 * [Star us on GitHub](https://github.com/idno/known)
