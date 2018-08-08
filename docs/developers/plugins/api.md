@@ -57,7 +57,7 @@ $signature = base64_encode(
 
 ## Working examples
 
-Here are a few examples, using CURL, for calling common API endpoints available on most Known installations (assuming the appropriate plugins are activated).
+Here are a few examples, using cURL, for calling common API endpoints available on most Known installations (assuming the appropriate plugins are activated).
 
 ### Making a Status post
 
