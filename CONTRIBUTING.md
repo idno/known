@@ -18,7 +18,6 @@ Core team
 * Erin Jo Richey http://erinjorichey.com
 
 Homepage: https://withknown.com/
-Team Known site: http://stream.withknown.com/
 
 Community contributors
 ----------------------
