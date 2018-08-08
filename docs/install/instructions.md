@@ -1,6 +1,6 @@
 # Installation instructions
 
-##Before you begin
+## Before you begin
 
 If you’re running Known in production, we highly recommend that you download the installation package from [withknown.com](https://withknown.com).
 
