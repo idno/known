@@ -25,7 +25,7 @@ If you want to run the (almost) latest and greatest code, but aren't able to tra
 
 ### Use the automatic installer
 
-If you’re using a MySQL back-end, you can get started by pointing your browser at your Known site address. If you want to use MongoDB (or another database backend), you’ll need to create the configuration file manually, as described below.
+If you’re using a MySQL back-end, you can get started by pointing your browser at your Known site address. If you want to use MongoDB (or another database backend), you’ll need to create the configuration file manually, as described below, or use the CLI installer.
 
 ### Use environment variables
 
