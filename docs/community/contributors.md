@@ -9,8 +9,6 @@ The following individuals have made major contributions to Known.
 
 Homepage: [https://withknown.com/](https://withknown.com/)
 
-Team Known site: [http://stream.withknown.com/](http://stream.withknown.com/)
-
 ## Community contributors
 
 [https://github.com/idno/Known/graphs/contributors](https://github.com/idno/Known/graphs/contributors)
