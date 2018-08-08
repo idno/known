@@ -89,6 +89,19 @@ module.exports = function (grunt) {
 
 // Tests
     grunt.registerTask('test', ['csslint', 'jshint']);
+    
+// Build language pack
+    grunt.registerTask('build-lang', '', function(){
+	
+	const { execSync } = require('child_process');
+	
+	execSync('touch ./languages/source/known.pot'); // Make sure it exists, if we're going to remove (for broken builds)
+	execSync('rm ./languages/source/known.pot'); // Remove existing
+	
+	execSync('find ./Idno -type f -regex ".*\.php" | php ./languages/processfile.php >> ./languages/source/known.pot'); // Build from idno core
+	execSync('find ./templates -type f -regex ".*\.php" | php ./languages/processfile.php >> ./languages/source/known.pot'); // Build from templates
+	
+    });
 
 // Default task(s).
     grunt.registerTask('default', ['uglify', 'cssmin']);
