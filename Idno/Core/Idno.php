@@ -241,7 +241,6 @@
                 $this->addPageHandler('/service/web/imageproxy/([^\/]+)/?', '\Idno\Pages\Service\Web\ImageProxy');
                 $this->addPageHandler('/service/web/imageproxy/([^\/]+)/([0-9]+)/?', '\Idno\Pages\Service\Web\ImageProxy'); // With scale
                 $this->addPageHandler('/service/web/imageproxy/([^\/]+)/([0-9]+)/([^\/]+)/?', '\Idno\Pages\Service\Web\ImageProxy'); // With scale, with transform
-                $this->addPageHandler('/service/web/urlproxy/?', '\Idno\Pages\Service\Web\UrlProxy');
                 $this->addPageHandler('/service/system/log/?', '\Idno\Pages\Service\System\Log');
 
                 // These must be loaded last
