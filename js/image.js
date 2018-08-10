@@ -79,6 +79,6 @@ ImageTools.exifRotateImg = function(imgid, exif_orientation, containerdiv) {
 
 /**
  * Wrapper.
- * @@description Use Image.exifRotateImg
+ * @description Use Image.exifRotateImg
  */
 function exifRotateImg(imgid, exif_orientation, containerdiv) { ImageTools.exifRotateImg(imgid, exif_orientation, containerdiv); }
