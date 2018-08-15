@@ -16,6 +16,7 @@
 /** Known security object */
 var Security = Security || {};
 
+/** Cached tokens */
 Security.tokens = [];
 
 /** Perform a HEAD request on the current page and pass the token to a given callback */
