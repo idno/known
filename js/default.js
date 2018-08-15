@@ -16,11 +16,23 @@
 /** Known security object */
 var Security = Security || {};
 
+Security.tokens = [];
+
 /** Perform a HEAD request on the current page and pass the token to a given callback */
 Security.getCSRFToken = function (callback, pageurl) {
 
     if (pageurl == undefined)
 	pageurl = known.currentPageUrl;
+    
+    var time = Math.floor(Date.now() / 1000);
+    
+    for (var i = 0; i < Security.tokens.length; i ++) {
+	if ((Security.tokens[i].url == pageurl) && (Security.tokens[i].time > time - 100)) {
+	    console.log('Returning cached token for ' + pageurl);
+	    
+	    callback(Security.tokens[i].token, Security.tokens[i].time);
+	}
+    }
 
     $.ajax({
 	type: "GET",
@@ -28,6 +40,11 @@ Security.getCSRFToken = function (callback, pageurl) {
 	url: known.config.displayUrl + 'service/security/csrftoken/'
     }).done(function (message, text, jqXHR) {
 
+	Security.tokens.push({
+	    token: message.token,
+	    time: message.time,
+	    url: pageurl
+	});
 
 	callback(message.token, message.time);
     });
