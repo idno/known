@@ -44,6 +44,10 @@ The first step, after you've used ```\Idno\Core\Idno::site()->language()->_()```
 
 This will parse all your plugin's PHP files and extract translatable strings.
 
+!!! note "Note"
+    If you have added a new translation string to Known's core code or templates, you should use the Grunt ```build-lang``` task to update the ```known.pot``` file.
+
+
 ### Creating your translation
 
 Open up your .POT file with a suitable tool, e.g. [poedit](https://poedit.net/), and save your .mo and .po files as ```/path/to/your/plugin/languages/*LOCALE*/LC_MESSAGES/*DOMAIN*.mo|po```, where:
