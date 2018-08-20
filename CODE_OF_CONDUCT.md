@@ -56,5 +56,5 @@ Get in touch with the core team
 -------------------------------
 
 * Generic email:  hello@withknown.com
-* Ben Werdmuller: ben@withknown.com, +1 (312) 488-9373
+* Ben Werdmuller: ben@benwerd.com, +1 (510) 283-3321
 * Erin Jo Richey: erin@withknown.com
