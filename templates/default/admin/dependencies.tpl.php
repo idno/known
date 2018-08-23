@@ -16,7 +16,7 @@
     <div class="col-md-5 col-md-offset-1">
         <h3><?= \Idno\Core\Idno::site()->language()->_('PHP');?></h3>
         <p>
-            <?= \Idno\Core\Idno::site()->language()->_('Version 7.0 or greater');?><br />
+            <?= \Idno\Core\Idno::site()->language()->_('Version %s or greater', ['7.0']);?><br />
             <?php
 
                 echo $this->__(array('version' => 7.0))->draw('admin/dependencies/php');

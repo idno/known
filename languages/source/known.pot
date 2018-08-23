@@ -927,7 +927,7 @@ msgid "PHP"
 msgstr ""
 
 #: ./templates/default/admin/dependencies.tpl.php:17
-msgid "Version 7.0 or greater"
+msgid "Version %s or greater"
 msgstr ""
 
 #: ./templates/default/admin/dependencies.tpl.php:22
