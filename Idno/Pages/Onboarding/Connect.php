@@ -22,7 +22,7 @@
                 $t = \Idno\Core\Idno::site()->template();
                 echo $t->__(array(
 
-                    'title'    => "Connect some networks",
+                    'title'    => \Idno\Core\Idno::site()->language()->_("Connect some networks"),
                     'body'     => $t->__(array('user' => $user))->draw('onboarding/connect'),
                     'messages' => \Idno\Core\Idno::site()->session()->getAndFlushMessages()
 
