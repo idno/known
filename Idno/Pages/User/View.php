@@ -50,7 +50,7 @@
 
                     'title'       => $user->getTitle(),
                     'body'        => $t->__(array('user' => $user, 'items' => $feed, 'count' => $count, 'offset' => $offset))->draw('entity/User/profile'),
-                    'description' => 'The ' . \Idno\Core\Idno::site()->config()->title . ' profile for ' . $user->getTitle()
+                    'description' => \Idno\Core\Idno::site()->language()->_('The %s profile for %s', \Idno\Core\Idno::site()->config()->title, $user->getTitle())
 
                 ))->drawPage();
             }
