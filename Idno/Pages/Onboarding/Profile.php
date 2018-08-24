@@ -19,7 +19,7 @@
                 $t = \Idno\Core\Idno::site()->template();
                 echo $t->__(array(
 
-                    'title'    => "Create your profile",
+                    'title'    => \Idno\Core\Idno::site()->language()->_("Create your profile"),
                     'body'     => $t->__(array('user' => $user))->draw('onboarding/profile'),
                     'messages' => \Idno\Core\Idno::site()->session()->getAndFlushMessages()
 

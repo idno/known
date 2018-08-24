@@ -20,7 +20,7 @@
                 $t = \Idno\Core\Idno::site()->template();
                 echo $t->__(array(
                     'body'     => $t->draw('onboarding/begin'),
-                    'title'    => 'Welcome to Known',
+                    'title'    => \Idno\Core\Idno::site()->language()->_('Welcome to Known'),
                     'messages' => \Idno\Core\Idno::site()->session()->getAndFlushMessages()
                 ))->draw('shell/simple');
 

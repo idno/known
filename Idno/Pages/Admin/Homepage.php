@@ -22,7 +22,7 @@
 
                 $t->default_content_types = $default_content_types;
                 $t->body                  = $t->draw('admin/homepage');
-                $t->title                 = 'Homepage';
+                $t->title                 = \Idno\Core\Idno::site()->language()->_('Homepage');
                 $t->drawPage();
             }
 

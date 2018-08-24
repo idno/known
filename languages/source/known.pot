@@ -66,6 +66,22 @@ msgstr ""
 msgid "Invalid sort order %s"
 msgstr ""
 
+#: ./Idno/Pages/Onboarding/Begin.php:21
+msgid "Welcome to Known"
+msgstr ""
+
+#: ./Idno/Pages/Onboarding/Profile.php:18
+msgid "Create your profile"
+msgstr ""
+
+#: ./Idno/Pages/Onboarding/Connect.php:23
+msgid "Connect some networks"
+msgstr ""
+
+#: ./Idno/Pages/Following/Home.php:17
+msgid "Following"
+msgstr ""
+
 #: ./Idno/Pages/Following/Add.php:29
 msgid "We couldn't find a feed at that site."
 msgstr ""
@@ -138,19 +154,31 @@ msgstr ""
 msgid "Oops! We couldn't find your username or email address. Please check you typed it correctly and try again."
 msgstr ""
 
+#: ./Idno/Pages/Session/CurrentUser.php:39
+msgid "The %s profile for %s"
+msgstr ""
+
 #: ./Idno/Pages/Session/Logout.php:25
 msgid "You've signed out. See you soon!"
 msgstr ""
 
-#: ./Idno/Pages/Admin/Import.php:32
+#: ./Idno/Pages/Webmentions/Endpoint.php:15
+msgid "Webmention endpoint"
+msgstr ""
+
+#: ./Idno/Pages/Admin/Import.php:14
+msgid "Import data"
+msgstr ""
+
+#: ./Idno/Pages/Admin/Import.php:34
 msgid "You need to upload an import file to continue."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Import.php:41
+#: ./Idno/Pages/Admin/Import.php:43
 msgid "We couldn't open the file you uploaded. Please try again."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Import.php:48
+#: ./Idno/Pages/Admin/Import.php:50
 msgid "Your import has started. We'll email you when it's done."
 msgstr ""
 
@@ -258,8 +286,16 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: ./Idno/Pages/Admin/Homepage.php:68
+#: ./Idno/Pages/Admin/Homepage.php:39
+msgid "Homepage"
+msgstr ""
+
+#: ./Idno/Pages/Admin/Homepage.php:69
 msgid "The default homepage content types were saved."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Export.php:13
+msgid "Export data"
 msgstr ""
 
 #: ./Idno/Pages/Admin/Home.php:18
@@ -316,6 +352,10 @@ msgstr ""
 
 #: ./Idno/Pages/Admin/Diagnostics.php:87
 msgid "Diagnostics"
+msgstr ""
+
+#: ./Idno/Pages/User/Edit.php:29
+msgid "Edit profile: %s"
 msgstr ""
 
 #: ./Idno/Pages/Account/Password.php:23
@@ -402,6 +442,10 @@ msgstr ""
 msgid "Thank you for your feedback!"
 msgstr ""
 
+#: ./Idno/Pages/Account/Export.php:14
+msgid "Export Data"
+msgstr ""
+
 #: ./Idno/Pages/Account/Register.php:32
 msgid "This site is closed to new users."
 msgstr ""
@@ -440,6 +484,10 @@ msgstr ""
 
 #: ./Idno/Pages/Account/Password/Reset.php:84
 msgid "Sorry, your passwords either don\'t match, or are too weak"
+msgstr ""
+
+#: ./Idno/Pages/Account/Notifications.php:43
+msgid "Notifications"
 msgstr ""
 
 #: ./Idno/Pages/Account/Settings.php:20

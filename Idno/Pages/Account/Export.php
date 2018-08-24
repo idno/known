@@ -17,7 +17,7 @@
 
                 $t->__(
                     [
-                        'title' => 'Export Data',
+                        'title' => \Idno\Core\Idno::site()->language()->_('Export Data'),
                         'body'  => $t->draw('account/export')
                     ]
                 )->drawPage();

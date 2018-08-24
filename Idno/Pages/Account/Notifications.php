@@ -33,7 +33,7 @@
                 ])->draw('account/notifications');
 
                 $page = Idno::site()->template()->__([
-                    'title' => 'Notifications',
+                    'title' => \Idno\Core\Idno::site()->language()->_('Notifications'),
                     'body'  => $body,
                 ])->drawPage(false);
 

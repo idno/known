@@ -15,7 +15,7 @@
 
                 $t = \Idno\Core\Idno::site()->template();
                 $t->__(array(
-                    'title' => 'Import data',
+                    'title' => \Idno\Core\Idno::site()->language()->_('Import data'),
                     'body'  => $t->draw('admin/import'),
                 ))->drawPage();
 
