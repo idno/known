@@ -15,7 +15,10 @@
             function getContent()
             {
                 $t = \Idno\Core\Idno::site()->template();
-                $t->__(array('title' => 'Webmention endpoint', 'body' => $t->draw('pages/webmention')))->drawPage();
+                $t->__([
+                    'title' => \Idno\Core\Idno::site()->language()->_('Webmention endpoint'), 
+                    'body' => $t->draw('pages/webmention')
+                ])->drawPage();
             }
 
             function post()
