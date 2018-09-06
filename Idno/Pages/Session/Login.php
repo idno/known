@@ -21,7 +21,7 @@
                 }
 
                 $fwd = \Idno\Core\Webservice::base64UrlDecode($this->getInput('fwd')); // Forward to a new page?
-                if ($fwd == \Idno\Core\Idno::site()->config()->url . 'session/login') {
+                if ($fwd == \Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login') {
                     $fwd = '';
                 }
                 $t        = \Idno\Core\Idno::site()->template();
