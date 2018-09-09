@@ -1,0 +1,10 @@
+{
+    "name": "idno/Known",
+    "description": "A social publishing platform.",
+    "type" : "project",
+    "require": {
+	"php": ">=7.0"
+    },
+    "license": "Apache-2.0",
+    "keywords" : ["blogging", "publishing", "social"]
+}
