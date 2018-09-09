@@ -30,6 +30,18 @@
   Order allow,deny
   Deny from all
 </Files>
+<Files ~ "composer\.json">
+  Order allow,deny
+  Deny from all
+</Files>
+<Files ~ "package\.json">
+  Order allow,deny
+  Deny from all
+</Files>
+<Files ~ "Gruntfile\.js">
+  Order allow,deny
+  Deny from all
+</Files>
 <Files ~ "known\.php">
   Order allow,deny
   Deny from all
