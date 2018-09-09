@@ -28,6 +28,15 @@
 <Files ~ "composer\.lock">
   Require all denied
 </Files>
+<Files ~ "composer\.json">
+  Require all denied
+</Files>
+<Files ~ "package\.json">
+  Require all denied
+</Files>
+<Files ~ "Gruntfile\.js">
+  Require all denied
+</Files>
 <Files ~ "known\.php">
   Require all denied
 </Files>
