@@ -1,0 +1,15 @@
+{
+    "name": "idno/Known",
+    "description": "A social publishing platform.",
+    "type" : "project",
+    "require": {
+	"php": ">=7.0"
+    },
+    "license": "Apache-2.0",
+    "keywords" : ["blogging", "publishing", "social"],
+    "support": {
+	"forum": "https://groups.google.com/forum/#!forum/known-dev",
+	"docs": "http://docs.withknown.com",
+	"irc": "https://webchat.freenode.net/?channels=knownchat"
+    }
+}
