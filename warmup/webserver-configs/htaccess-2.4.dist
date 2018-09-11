@@ -1,4 +1,4 @@
-# Known .htaccess file
+## BEGIN Known Webserver Config
 
 <IfModule mod_rewrite.c>
     RewriteEngine on
@@ -74,3 +74,5 @@
 AddType video/ogg .ogv
 AddType video/mp4 .mp4
 AddType video/webm .webm
+
+## END Known Webserver Config
