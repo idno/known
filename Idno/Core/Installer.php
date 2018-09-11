@@ -40,6 +40,28 @@ namespace Idno\Core {
         abstract public function run();
 
         /**
+         * When given a file, create a backup of it.
+         * @param type $file
+         */
+        protected function backupFile($file) {
+            
+            if (file_exists($file)) {
+            
+                $datepart = date('Ymd');
+                $versionpart = 1;
+
+                do {
+                    $version = $datepart . sprintf('%02d', $versionpart);
+                    $newname = "$file.$version.bak";
+                    $versionpart ++;
+                } while (file_exists($newname));
+
+                @copy($file, $newname); // Create a backup
+                
+            }
+        }
+        
+        /**
          * Check that the upload directory exists and is readable and writable
          * @param type $upload_path
          * @return boolean
@@ -61,32 +83,61 @@ namespace Idno\Core {
         }
         
         /**
-         * Write the htaccess.
-         * @todo Is this even necessary? Logic seems weird to me...
-         */
-        protected function writeHTAccess() {
-            if (file_exists($this->root_path . '/.htaccess')) {
-                if ($fp = @fopen($this->root_path . '/.htaccess', 'a')) {
-                    fwrite($fp, "\n\n\n" . file_get_contents($this->root_path . '/warmup/webserver-configs/htaccess.dist'));
-                }
-            } else {
-                @rename($this->root_path . '/warmup/webserver-configs/htaccess.dist', $this->root_path . '/.htaccess');
-            }
-        }
-        
-        /**
          * Write an apache config
          * 
          * @todo Necessary?
-         * @todo Handle nginx?
+         * @todo Handle nginx & Apache 2.4?
          */
         protected function writeApacheConfig() {
+            
+            $begin_mark = "## BEGIN Known Webserver Config (don't remove)";
+            $end_mark = "## END Known Webserver Config (don't remove)";
+            
             if (file_exists($this->root_path . '/.htaccess')) {
-                if ($fp = @fopen($this->root_path . '/.htaccess', 'a')) {
-                    fwrite($fp, "\n\n\n" . file_get_contents($this->root_path . '/warmup/webserver-configs/htaccess.dist'));
+                if (is_writable($this->root_path . '/.htaccess')) {
+                    
+                    $this->backupFile($this->root_path . '/.htaccess'); // Create a backup of the old file, for safety
+                    
+                    $in2 = fopen($this->root_path . '/warmup/webserver-configs/htaccess.dist', 'r');
+                    $in = fopen($this->root_path . '/.htaccess', 'r'); 
+                        
+                    $out = "";
+                    
+                    $ismerging = false;
+                    
+                    while ($line = fgets($in)) {
+                        
+                        if (strpos($line, $begin_mark) !== false) {
+                            $ismerging = true; 
+                        }
+                        
+                        // Merging or not, we need to write
+                        if ($ismerging) {
+                            
+                            while ($mergedline = fgets($in2)) {
+                                $out .= $mergedline;
+                            }
+                            
+                            do { // fast forward merging file to end of merge
+                                $line = fgets($in);
+                            } while (!feof($in) && (strpos($line, $end_mark) === false));
+                            
+                            $ismerging = false;
+                        } else {
+                            $out .= $line;
+                        }
+                        
+                    }
+                    
+                    file_put_contents($this->root_path . '/.htaccess', $out);
+                                        
+                    fclose($in);
+                    fclose($in2);
+                    
                 }
+                
             } else {
-                @rename($this->root_path . '/warmup/webserver-configs/htaccess.dist', $this->root_path . '/.htaccess');
+                @copy($this->root_path . '/warmup/webserver-configs/htaccess.dist', $this->root_path . '/.htaccess');
             }
         }
         
@@ -98,7 +149,10 @@ namespace Idno\Core {
          */
         protected function writeConfig($ini_file, $name = 'config.ini') {
             
+            $this->backupFile($this->root_path. '/configuration/' . $name); // Create a backup of the existing file, if any.
+            
             if ($fp = @fopen($this->root_path. '/configuration/' . $name, 'w')) {
+                                
                 fwrite($fp, $ini_file);
                 fclose($fp);
                 

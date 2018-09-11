@@ -9,6 +9,7 @@ Idno/.idea/.name
 node_modules
 
 *.iml
+*.bak
 
 /nbproject/private/nbproject/project.xml
 /nbproject/project.properties
