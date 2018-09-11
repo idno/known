@@ -45,16 +45,20 @@ namespace Idno\Core {
          */
         protected function backupFile($file) {
             
-            $datepart = date('Ymd');
-            $versionpart = 1;
+            if (file_exists($file)) {
             
-            do {
-                $version = $datepart . sprintf('%02d', $versionpart);
-                $newname = "$file.$version.bak";
-                $versionpart ++;
-            } while (file_exists($newname));
-         
-            @copy($file, $newname); // Create a backup
+                $datepart = date('Ymd');
+                $versionpart = 1;
+
+                do {
+                    $version = $datepart . sprintf('%02d', $versionpart);
+                    $newname = "$file.$version.bak";
+                    $versionpart ++;
+                } while (file_exists($newname));
+
+                @copy($file, $newname); // Create a backup
+                
+            }
         }
         
         /**
