@@ -78,7 +78,7 @@ namespace Idno\Core {
          * Write an apache config
          * 
          * @todo Necessary?
-         * @todo Handle nginx?
+         * @todo Handle nginx & Apache 2.4?
          */
         protected function writeApacheConfig() {
             if (file_exists($this->root_path . '/.htaccess')) {
