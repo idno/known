@@ -92,6 +92,8 @@ namespace Idno\Core {
             if (file_exists($this->root_path . '/.htaccess')) {
                 if (is_writable($this->root_path . '/.htaccess')) {
                     
+                    $this->backupFile($this->root_path . '/.htaccess'); // Create a backup of the old file, for safety
+                    
                     $in2 = fopen($this->root_path . '/warmup/webserver-configs/htaccess.dist', 'r');
                     $in = fopen($this->root_path . '/.htaccess', 'r'); 
                         
@@ -144,6 +146,9 @@ namespace Idno\Core {
         protected function writeConfig($ini_file, $name = 'config.ini') {
             
             if ($fp = @fopen($this->root_path. '/configuration/' . $name, 'w')) {
+                
+                $this->backupFile($this->root_path. '/configuration/' . $name); // Create a backup of the existing file, if any.
+                
                 fwrite($fp, $ini_file);
                 fclose($fp);
                 
