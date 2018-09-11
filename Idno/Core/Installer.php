@@ -110,7 +110,6 @@ namespace Idno\Core {
                             
                             do { // fast forward merging file to end of merge
                                 $line = fgets($in);
-                                echo "Reading between line $line";
                             } while (!feof($in) && (strpos($line, $end_mark) === false));
                             
                             $ismerging = false;
