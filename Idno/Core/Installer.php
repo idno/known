@@ -79,20 +79,6 @@ namespace Idno\Core {
         }
         
         /**
-         * Write the htaccess.
-         * @todo Is this even necessary? Logic seems weird to me...
-         */
-        protected function writeHTAccess() {
-            if (file_exists($this->root_path . '/.htaccess')) {
-                if ($fp = @fopen($this->root_path . '/.htaccess', 'a')) {
-                    fwrite($fp, "\n\n\n" . file_get_contents($this->root_path . '/warmup/webserver-configs/htaccess.dist'));
-                }
-            } else {
-                @rename($this->root_path . '/warmup/webserver-configs/htaccess.dist', $this->root_path . '/.htaccess');
-            }
-        }
-        
-        /**
          * Write an apache config
          * 
          * @todo Necessary?
