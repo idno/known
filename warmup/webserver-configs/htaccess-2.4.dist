@@ -52,6 +52,9 @@
 <Files ~ "\.xml$">
   Require all denied
 </Files>
+<Files ~ "\.bak$">
+  Require all denied
+</Files>
 <Files ~ "sitemap\.xml">
   Require all granted
 </Files>
