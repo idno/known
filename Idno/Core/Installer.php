@@ -86,7 +86,7 @@ namespace Idno\Core {
                     fwrite($fp, "\n\n\n" . file_get_contents($this->root_path . '/warmup/webserver-configs/htaccess.dist'));
                 }
             } else {
-                @rename($this->root_path . '/warmup/webserver-configs/htaccess.dist', $this->root_path . '/.htaccess');
+                @copy($this->root_path . '/warmup/webserver-configs/htaccess.dist', $this->root_path . '/.htaccess');
             }
         }
         
