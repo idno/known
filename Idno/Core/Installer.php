@@ -40,6 +40,24 @@ namespace Idno\Core {
         abstract public function run();
 
         /**
+         * When given a file, create a backup of it.
+         * @param type $file
+         */
+        protected function backupFile($file) {
+            
+            $datepart = date('Ymd');
+            $versionpart = 1;
+            
+            do {
+                $version = $datepart . sprintf('%02d', $versionpart);
+                $newname = "$file.$version.bak";
+                $versionpart ++;
+            } while (file_exists($newname));
+         
+            @copy($file, $newname); // Create a backup
+        }
+        
+        /**
          * Check that the upload directory exists and is readable and writable
          * @param type $upload_path
          * @return boolean
