@@ -149,10 +149,10 @@ namespace Idno\Core {
          */
         protected function writeConfig($ini_file, $name = 'config.ini') {
             
+            $this->backupFile($this->root_path. '/configuration/' . $name); // Create a backup of the existing file, if any.
+            
             if ($fp = @fopen($this->root_path. '/configuration/' . $name, 'w')) {
-                
-                $this->backupFile($this->root_path. '/configuration/' . $name); // Create a backup of the existing file, if any.
-                
+                                
                 fwrite($fp, $ini_file);
                 fclose($fp);
                 
