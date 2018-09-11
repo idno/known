@@ -81,10 +81,52 @@ namespace Idno\Core {
          * @todo Handle nginx & Apache 2.4?
          */
         protected function writeApacheConfig() {
+            
+            $begin_mark = "## BEGIN Known Webserver Config (don't remove)";
+            $end_mark = "## END Known Webserver Config (don't remove)";
+            
             if (file_exists($this->root_path . '/.htaccess')) {
-                if ($fp = @fopen($this->root_path . '/.htaccess', 'a')) {
-                    fwrite($fp, "\n\n\n" . file_get_contents($this->root_path . '/warmup/webserver-configs/htaccess.dist'));
+                if (is_writable($this->root_path . '/.htaccess')) {
+                    
+                    $in2 = fopen($this->root_path . '/warmup/webserver-configs/htaccess.dist', 'r');
+                    $in = fopen($this->root_path . '/.htaccess', 'r'); 
+                        
+                    $out = "";
+                    
+                    $ismerging = false;
+                    
+                    while ($line = fgets($in)) {
+                        
+                        if (strpos($line, $begin_mark) !== false) {
+                            $ismerging = true; 
+                        }
+                        
+                        // Merging or not, we need to write
+                        if ($ismerging) {
+                            
+                            while ($mergedline = fgets($in2)) {
+                                $out .= $mergedline;
+                            }
+                            
+                            do { // fast forward merging file to end of merge
+                                $line = fgets($in);
+                                echo "Reading between line $line";
+                            } while (!feof($in) && (strpos($line, $end_mark) === false));
+                            
+                            $ismerging = false;
+                        } else {
+                            $out .= $line;
+                        }
+                        
+                    }
+                    
+                    file_put_contents($this->root_path . '/.htaccess', $out);
+                                        
+                    fclose($in);
+                    fclose($in2);
+                    
                 }
+                
             } else {
                 @copy($this->root_path . '/warmup/webserver-configs/htaccess.dist', $this->root_path . '/.htaccess');
             }
