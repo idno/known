@@ -1,104 +1,104 @@
-#: ../IdnoPlugins/APITester/templates/default/apitester/admin/menu.tpl.php:4
+#: ./Pages/Admin.php:6
 msgid "API Tester"
 msgstr ""
 
-#: ../IdnoPlugins/APITester/templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:6
 msgid "This API tester helps you use Known's built-in API functionality. Every page in Known is also an API endpoint, which means you can access it using third-party applications as well as through as web browser."
 msgstr ""
 
-#: ../IdnoPlugins/APITester/templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:6
 msgid "Your last API request"
 msgstr ""
 
-#: ../IdnoPlugins/APITester/templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:6
 msgid "The API response"
 msgstr ""
 
-#: ../IdnoPlugins/APITester/templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:6
 msgid "Hide this"
 msgstr ""
 
-#: ../IdnoPlugins/APITester/templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:6
 msgid "Some examples"
 msgstr ""
 
-#: ../IdnoPlugins/APITester/templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:6
 msgid "post a status"
 msgstr ""
 
-#: ../IdnoPlugins/APITester/templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:6
 msgid "get feed"
 msgstr ""
 
-#: ../IdnoPlugins/APITester/templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:6
 msgid "Request"
 msgstr ""
 
-#: ../IdnoPlugins/APITester/templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:6
 msgid "JSON"
 msgstr ""
 
-#: ../IdnoPlugins/APITester/templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:6
 msgid "RSS"
 msgstr ""
 
-#: ../IdnoPlugins/APITester/templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:6
 msgid "Default"
 msgstr ""
 
-#: ../IdnoPlugins/APITester/templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:6
 msgid "Method"
 msgstr ""
 
-#: ../IdnoPlugins/APITester/templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:6
 msgid "Username"
 msgstr ""
 
-#: ../IdnoPlugins/APITester/templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:6
 msgid "API key"
 msgstr ""
 
-#: ../IdnoPlugins/APITester/templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:6
 msgid "JSON payload"
 msgstr ""
 
-#: ../IdnoPlugins/APITester/templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:6
 msgid "Follow redirects"
 msgstr ""
 
-#: ../IdnoPlugins/APITester/templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:6
 msgid "Make API call"
 msgstr ""
 
-#: ../IdnoPlugins/APITester/templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:6
 msgid "Technical details"
 msgstr ""
 
-#: ../IdnoPlugins/APITester/templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:6
 msgid "API calls are a GET or POST request (for retrieval and publishing / deleting calls respectively) with the HTTP header X-KNOWN-USERNAME set to the user's username, and X-KNOWN-SIGNATURE to be an HMAC signature, computed with sha256, using the user's API key."
 msgstr ""
 
-#: ../IdnoPlugins/APITester/templates/default/apitester/nocurl.tpl.php:6
+#: ./templates/default/apitester/nocurl.tpl.php:6
 msgid "The API Tester requires the"
 msgstr ""
 
-#: ../IdnoPlugins/APITester/templates/default/apitester/nocurl.tpl.php:6
+#: ./templates/default/apitester/nocurl.tpl.php:6
 msgid "curl"
 msgstr ""
 
-#: ../IdnoPlugins/APITester/templates/default/apitester/nocurl.tpl.php:6
+#: ./templates/default/apitester/nocurl.tpl.php:6
 msgid "extension"
 msgstr ""
 
-#: ../IdnoPlugins/APITester/templates/default/apitester/nocurl.tpl.php:6
+#: ./templates/default/apitester/nocurl.tpl.php:6
 msgid "See the"
 msgstr ""
 
-#: ../IdnoPlugins/APITester/templates/default/apitester/nocurl.tpl.php:6
+#: ./templates/default/apitester/nocurl.tpl.php:6
 msgid "dependencies page"
 msgstr ""
 
-#: ../IdnoPlugins/APITester/templates/default/apitester/nocurl.tpl.php:6
+#: ./templates/default/apitester/nocurl.tpl.php:6
 msgid "for more information about system dependencies."
 msgstr ""
 
