@@ -1,164 +1,184 @@
-#: ../IdnoPlugins/StaticPages/templates/default/entity/StaticPage/edit.tpl.php:15
-msgid "New Page"
+#: ./Pages/View.php:24
+msgid "%s was deleted."
 msgstr ""
 
-#: ../IdnoPlugins/StaticPages/templates/default/entity/StaticPage/edit.tpl.php:17
-msgid "Edit Page"
+#: ./Pages/Delete.php:24
+msgid "Delete %s"
 msgstr ""
 
-#: ../IdnoPlugins/StaticPages/templates/default/entity/StaticPage/edit.tpl.php:20
-msgid "Title"
+#: ./Pages/Delete.php:24
+msgid "You don't have permission to perform this task."
 msgstr ""
 
-#: ../IdnoPlugins/StaticPages/templates/default/entity/StaticPage/edit.tpl.php:22
-msgid "Give it a title"
+#: ./Pages/Delete.php:24
+msgid "Your page was deleted."
 msgstr ""
 
-#: ../IdnoPlugins/StaticPages/templates/default/entity/StaticPage/edit.tpl.php:24
-msgid "Share something brilliant..."
+#: ./Pages/Delete.php:24
+msgid "We couldn't delete %s."
 msgstr ""
 
-#: ../IdnoPlugins/StaticPages/templates/default/entity/StaticPage/edit.tpl.php:24
-msgid "Body"
-msgstr ""
-
-#: ../IdnoPlugins/StaticPages/templates/default/entity/StaticPage/edit.tpl.php:24
-msgid "Parent category"
-msgstr ""
-
-#: ../IdnoPlugins/StaticPages/templates/default/entity/StaticPage/edit.tpl.php:24
-msgid "No Category"
-msgstr ""
-
-#: ../IdnoPlugins/StaticPages/templates/default/entity/StaticPage/edit.tpl.php:24
-msgid "Show advanced options"
-msgstr ""
-
-#: ../IdnoPlugins/StaticPages/templates/default/entity/StaticPage/edit.tpl.php:24
-msgid "Hide advanced options"
-msgstr ""
-
-#: ../IdnoPlugins/StaticPages/templates/default/entity/StaticPage/edit.tpl.php:24
-msgid "Forward URL"
-msgstr ""
-
-#: ../IdnoPlugins/StaticPages/templates/default/entity/StaticPage/edit.tpl.php:24
-msgid "Website to forward users to"
-msgstr ""
-
-#: ../IdnoPlugins/StaticPages/templates/default/entity/StaticPage/edit.tpl.php:24
-msgid "Most of the time, you should leave this blank. Include a URL here if you want users to be forwarded to an external page instead of displaying page content."
-msgstr ""
-
-#: ../IdnoPlugins/StaticPages/templates/default/entity/StaticPage/edit.tpl.php:24
-msgid "Show the page title as a heading?"
-msgstr ""
-
-#: ../IdnoPlugins/StaticPages/templates/default/entity/StaticPage/edit.tpl.php:24
-msgid "Cancel"
-msgstr ""
-
-#: ../IdnoPlugins/StaticPages/templates/default/entity/StaticPage/edit.tpl.php:24
-msgid "Publish"
-msgstr ""
-
-#: ../IdnoPlugins/StaticPages/templates/default/entity/StaticPage.tpl.php:8
-msgid "Manage pages"
-msgstr ""
-
-#: ../IdnoPlugins/StaticPages/templates/default/entity/StaticPage.tpl.php:14
-msgid "Edit"
-msgstr ""
-
-#: ../IdnoPlugins/StaticPages/templates/default/entity/StaticPage.tpl.php:18
-msgid "Delete"
-msgstr ""
-
-#: ../IdnoPlugins/StaticPages/templates/default/entity/StaticPage.tpl.php:20
-msgid "Are you sure you want to permanently delete this entry?"
-msgstr ""
-
-#: ../IdnoPlugins/StaticPages/templates/default/entity/StaticPage.tpl.php:24
-msgid "You are seeing this page because you are a site administrator. Other users will be forwarded to"
-msgstr ""
-
-#: ../IdnoPlugins/StaticPages/templates/default/staticpages/admin/menu.tpl.php:5
-msgid "Pages"
-msgstr ""
-
-#: ../IdnoPlugins/StaticPages/templates/default/staticpages/admin/categories.tpl.php:10
-msgid "Save"
-msgstr ""
-
-#: ../IdnoPlugins/StaticPages/templates/default/staticpages/admin.tpl.php:14
-msgid "Pages are a great way to add content to your site that you want to keep separate from your stream of normal posts and updates.  Common examples of pages include an about page, a contact page, or a resume."
-msgstr ""
-
-#: ../IdnoPlugins/StaticPages/templates/default/staticpages/admin.tpl.php:20
-msgid "Add new page"
-msgstr ""
-
-#: ../IdnoPlugins/StaticPages/templates/default/staticpages/admin.tpl.php:24
-msgid "Category"
-msgstr ""
-
-#: ../IdnoPlugins/StaticPages/templates/default/staticpages/admin.tpl.php:24
-msgid "Remove as homepage"
-msgstr ""
-
-#: ../IdnoPlugins/StaticPages/templates/default/staticpages/admin.tpl.php:24
-msgid "Are you sure you want to remove this page from your homepage?"
-msgstr ""
-
-#: ../IdnoPlugins/StaticPages/templates/default/staticpages/admin.tpl.php:24
-msgid "Make homepage"
-msgstr ""
-
-#: ../IdnoPlugins/StaticPages/templates/default/staticpages/admin.tpl.php:24
-msgid "Are you sure you want to make this page your homepage?"
-msgstr ""
-
-#: ../IdnoPlugins/StaticPages/templates/default/staticpages/admin.tpl.php:24
+#: ./Pages/Edit.php:24
 msgid "Edit page"
 msgstr ""
 
-#: ../IdnoPlugins/StaticPages/templates/default/staticpages/admin.tpl.php:24
+#: ./Pages/Admin.php:21
+msgid "Pages"
+msgstr ""
+
+#: ./templates/default/entity/StaticPage/edit.tpl.php:22
+msgid "New Page"
+msgstr ""
+
+#: ./templates/default/entity/StaticPage/edit.tpl.php:24
+msgid "Edit Page"
+msgstr ""
+
+#: ./templates/default/entity/StaticPage/edit.tpl.php:24
+msgid "Title"
+msgstr ""
+
+#: ./templates/default/entity/StaticPage/edit.tpl.php:24
+msgid "Give it a title"
+msgstr ""
+
+#: ./templates/default/entity/StaticPage/edit.tpl.php:24
+msgid "Share something brilliant..."
+msgstr ""
+
+#: ./templates/default/entity/StaticPage/edit.tpl.php:24
+msgid "Body"
+msgstr ""
+
+#: ./templates/default/entity/StaticPage/edit.tpl.php:24
+msgid "Parent category"
+msgstr ""
+
+#: ./templates/default/entity/StaticPage/edit.tpl.php:24
+msgid "No Category"
+msgstr ""
+
+#: ./templates/default/entity/StaticPage/edit.tpl.php:24
+msgid "Show advanced options"
+msgstr ""
+
+#: ./templates/default/entity/StaticPage/edit.tpl.php:24
+msgid "Hide advanced options"
+msgstr ""
+
+#: ./templates/default/entity/StaticPage/edit.tpl.php:24
+msgid "Forward URL"
+msgstr ""
+
+#: ./templates/default/entity/StaticPage/edit.tpl.php:24
+msgid "Website to forward users to"
+msgstr ""
+
+#: ./templates/default/entity/StaticPage/edit.tpl.php:24
+msgid "Most of the time, you should leave this blank. Include a URL here if you want users to be forwarded to an external page instead of displaying page content."
+msgstr ""
+
+#: ./templates/default/entity/StaticPage/edit.tpl.php:24
+msgid "Show the page title as a heading?"
+msgstr ""
+
+#: ./templates/default/entity/StaticPage/edit.tpl.php:24
+msgid "Cancel"
+msgstr ""
+
+#: ./templates/default/entity/StaticPage/edit.tpl.php:24
+msgid "Publish"
+msgstr ""
+
+#: ./templates/default/entity/StaticPage.tpl.php:14
+msgid "Manage pages"
+msgstr ""
+
+#: ./templates/default/entity/StaticPage.tpl.php:21
+msgid "Edit"
+msgstr ""
+
+#: ./templates/default/entity/StaticPage.tpl.php:24
+msgid "Delete"
+msgstr ""
+
+#: ./templates/default/entity/StaticPage.tpl.php:24
+msgid "Are you sure you want to permanently delete this entry?"
+msgstr ""
+
+#: ./templates/default/entity/StaticPage.tpl.php:24
+msgid "You are seeing this page because you are a site administrator. Other users will be forwarded to"
+msgstr ""
+
+#: ./templates/default/staticpages/admin/categories.tpl.php:16
+msgid "Save"
+msgstr ""
+
+#: ./templates/default/staticpages/admin.tpl.php:20
+msgid "Pages are a great way to add content to your site that you want to keep separate from your stream of normal posts and updates.  Common examples of pages include an about page, a contact page, or a resume."
+msgstr ""
+
+#: ./templates/default/staticpages/admin.tpl.php:24
+msgid "Add new page"
+msgstr ""
+
+#: ./templates/default/staticpages/admin.tpl.php:24
+msgid "Category"
+msgstr ""
+
+#: ./templates/default/staticpages/admin.tpl.php:24
+msgid "Remove as homepage"
+msgstr ""
+
+#: ./templates/default/staticpages/admin.tpl.php:24
+msgid "Are you sure you want to remove this page from your homepage?"
+msgstr ""
+
+#: ./templates/default/staticpages/admin.tpl.php:24
+msgid "Make homepage"
+msgstr ""
+
+#: ./templates/default/staticpages/admin.tpl.php:24
+msgid "Are you sure you want to make this page your homepage?"
+msgstr ""
+
+#: ./templates/default/staticpages/admin.tpl.php:24
 msgid "Delete page"
 msgstr ""
 
-#: ../IdnoPlugins/StaticPages/templates/default/staticpages/admin.tpl.php:24
+#: ./templates/default/staticpages/admin.tpl.php:24
 msgid "Are you sure you want to permanently delete this page?"
 msgstr ""
 
-#: ../IdnoPlugins/StaticPages/templates/default/staticpages/admin.tpl.php:24
+#: ./templates/default/staticpages/admin.tpl.php:24
 msgid "Categories"
 msgstr ""
 
-#: ../IdnoPlugins/StaticPages/templates/default/staticpages/admin.tpl.php:24
+#: ./templates/default/staticpages/admin.tpl.php:24
 msgid "If you plan on adding many pages, you may want to group them under categories.  However, you don’t have to assign a page to a category."
 msgstr ""
 
-#: ../IdnoPlugins/StaticPages/templates/default/staticpages/admin.tpl.php:24
+#: ./templates/default/staticpages/admin.tpl.php:24
 msgid "Add new category"
 msgstr ""
 
-#: ../IdnoPlugins/StaticPages/templates/default/staticpages/admin.tpl.php:24
+#: ./templates/default/staticpages/admin.tpl.php:24
 msgid "Name of category to add"
 msgstr ""
 
-#: ../IdnoPlugins/StaticPages/templates/default/staticpages/admin.tpl.php:24
+#: ./templates/default/staticpages/admin.tpl.php:24
 msgid "Add"
 msgstr ""
 
-#: ../IdnoPlugins/StaticPages/templates/default/staticpages/admin.tpl.php:24
+#: ./templates/default/staticpages/admin.tpl.php:24
 msgid "Category Name"
 msgstr ""
 
-#: ../IdnoPlugins/StaticPages/templates/default/staticpages/admin.tpl.php:24
+#: ./templates/default/staticpages/admin.tpl.php:24
 msgid "Count"
 msgstr ""
 
-#: ../IdnoPlugins/StaticPages/templates/default/staticpages/admin.tpl.php:24
+#: ./templates/default/staticpages/admin.tpl.php:24
 msgid "Are you sure you want to permanently delete this category?"
 msgstr ""
 
