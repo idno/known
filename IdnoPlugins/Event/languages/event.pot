@@ -1,112 +1,140 @@
-#: ../IdnoPlugins/Event/templates/default/entity/Event.tpl.php:13
-msgid "Location"
+#: ./Pages/Delete.php:16
+msgid "Delete %s"
 msgstr ""
 
-#: ../IdnoPlugins/Event/templates/default/entity/Event.tpl.php:16
-msgid "Ends"
+#: ./Pages/Delete.php:16
+msgid "You don't have permission to perform this task."
 msgstr ""
 
-#: ../IdnoPlugins/Event/templates/default/entity/Event.tpl.php:16
-msgid "Time Zone"
+#: ./Pages/Delete.php:16
+msgid "%s was deleted."
 msgstr ""
 
-#: ../IdnoPlugins/Event/templates/default/entity/RSVP/edit.tpl.php:8
-msgid "New RSVP"
+#: ./Pages/Delete.php:16
+msgid "We couldn't delete %s."
 msgstr ""
 
-#: ../IdnoPlugins/Event/templates/default/entity/RSVP/edit.tpl.php:10
+#: ./Pages/RSVP/Edit.php:16
+msgid "Write an RSVP"
+msgstr ""
+
+#: ./Pages/RSVP/Edit.php:16
 msgid "Edit RSVP"
 msgstr ""
 
-#: ../IdnoPlugins/Event/templates/default/entity/RSVP/edit.tpl.php:16
+#: ./Pages/Edit.php:16
+msgid "Write an event"
+msgstr ""
+
+#: ./Pages/Edit.php:16
+msgid "Edit event"
+msgstr ""
+
+#: ./templates/default/entity/Event.tpl.php:16
+msgid "Location"
+msgstr ""
+
+#: ./templates/default/entity/Event.tpl.php:16
+msgid "Ends"
+msgstr ""
+
+#: ./templates/default/entity/Event.tpl.php:16
+msgid "Time Zone"
+msgstr ""
+
+#: ./templates/default/entity/RSVP/edit.tpl.php:11
+msgid "New RSVP"
+msgstr ""
+
+#: ./templates/default/entity/RSVP/edit.tpl.php:16
 msgid "What's the URL of the event you're responding to?"
 msgstr ""
 
-#: ../IdnoPlugins/Event/templates/default/entity/RSVP/edit.tpl.php:16
+#: ./templates/default/entity/RSVP/edit.tpl.php:16
 msgid "The website address of the event"
 msgstr ""
 
-#: ../IdnoPlugins/Event/templates/default/entity/RSVP/edit.tpl.php:16
+#: ./templates/default/entity/RSVP/edit.tpl.php:16
 msgid "Are you going?"
 msgstr ""
 
-#: ../IdnoPlugins/Event/templates/default/entity/RSVP/edit.tpl.php:16
+#: ./templates/default/entity/RSVP/edit.tpl.php:16
 msgid "Yes: I am attending this event"
 msgstr ""
 
-#: ../IdnoPlugins/Event/templates/default/entity/RSVP/edit.tpl.php:16
+#: ./templates/default/entity/RSVP/edit.tpl.php:16
 msgid "No: I am not attending this event"
 msgstr ""
 
-#: ../IdnoPlugins/Event/templates/default/entity/RSVP/edit.tpl.php:16
+#: ./templates/default/entity/RSVP/edit.tpl.php:16
 msgid "Maybe: I might attend this event"
 msgstr ""
 
-#: ../IdnoPlugins/Event/templates/default/entity/RSVP/edit.tpl.php:16
+#: ./templates/default/entity/RSVP/edit.tpl.php:16
 msgid "Any comments?"
 msgstr ""
 
-#: ../IdnoPlugins/Event/templates/default/entity/RSVP/edit.tpl.php:16
+#: ./templates/default/entity/RSVP/edit.tpl.php:16
 msgid "Say something here..."
 msgstr ""
 
-#: ../IdnoPlugins/Event/templates/default/entity/RSVP/edit.tpl.php:16
+#: ./templates/default/entity/RSVP/edit.tpl.php:16
 msgid "Cancel"
 msgstr ""
 
-#: ../IdnoPlugins/Event/templates/default/entity/RSVP/edit.tpl.php:16
+#: ./templates/default/entity/RSVP/edit.tpl.php:16
 msgid "Save"
 msgstr ""
 
-#: ../IdnoPlugins/Event/templates/default/entity/Event/edit.tpl.php:8
+#: ./templates/default/entity/Event/edit.tpl.php:11
 msgid "New Event"
 msgstr ""
 
-#: ../IdnoPlugins/Event/templates/default/entity/Event/edit.tpl.php:10
+#: ./templates/default/entity/Event/edit.tpl.php:16
 msgid "Edit Event"
 msgstr ""
 
-#: ../IdnoPlugins/Event/templates/default/entity/Event/edit.tpl.php:16
+#: ./templates/default/entity/Event/edit.tpl.php:16
 msgid "Event name"
 msgstr ""
 
-#: ../IdnoPlugins/Event/templates/default/entity/Event/edit.tpl.php:16
+#: ./templates/default/entity/Event/edit.tpl.php:16
 msgid "Give it a name"
 msgstr ""
 
-#: ../IdnoPlugins/Event/templates/default/entity/Event/edit.tpl.php:16
+#: ./templates/default/entity/Event/edit.tpl.php:16
 msgid "Where will it take place?"
 msgstr ""
 
-#: ../IdnoPlugins/Event/templates/default/entity/Event/edit.tpl.php:16
+#: ./templates/default/entity/Event/edit.tpl.php:16
 msgid "Start day and time"
 msgstr ""
 
-#: ../IdnoPlugins/Event/templates/default/entity/Event/edit.tpl.php:16
+#: ./templates/default/entity/Event/edit.tpl.php:16
 msgid "Type in the start day and time?"
 msgstr ""
 
-#: ../IdnoPlugins/Event/templates/default/entity/Event/edit.tpl.php:16
+#: ./templates/default/entity/Event/edit.tpl.php:16
 msgid "End day and time"
 msgstr ""
 
-#: ../IdnoPlugins/Event/templates/default/entity/Event/edit.tpl.php:16
+#: ./templates/default/entity/Event/edit.tpl.php:16
 msgid "Type in the end day and time"
 msgstr ""
 
-#: ../IdnoPlugins/Event/templates/default/entity/Event/edit.tpl.php:16
+#: ./templates/default/entity/Event/edit.tpl.php:16
 msgid "Time zone"
 msgstr ""
 
-#: ../IdnoPlugins/Event/templates/default/entity/Event/edit.tpl.php:16
+#: ./templates/default/entity/Event/edit.tpl.php:16
 msgid "Brief summary"
 msgstr ""
 
-#: ../IdnoPlugins/Event/templates/default/entity/Event/edit.tpl.php:16
+#: ./templates/default/entity/Event/edit.tpl.php:16
 msgid "What's this about?"
 msgstr ""
 
-#: ../IdnoPlugins/Event/templates/default/entity/Event/edit.tpl.php:16
+#: ./templates/default/entity/Event/edit.tpl.php:16
 msgid "Description"
 msgstr ""
 
