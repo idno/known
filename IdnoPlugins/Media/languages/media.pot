@@ -1,44 +1,64 @@
-#: ../IdnoPlugins/Media/templates/default/entity/Media/edit.tpl.php:8
-msgid "New Audio"
+#: ./Pages/Delete.php:11
+msgid "Delete %s"
 msgstr ""
 
-#: ../IdnoPlugins/Media/templates/default/entity/Media/edit.tpl.php:11
-msgid "Edit Audio"
+#: ./Pages/Delete.php:11
+msgid "You don't have permission to perform this task."
 msgstr ""
 
-#: ../IdnoPlugins/Media/templates/default/entity/Media/edit.tpl.php:11
+#: ./Pages/Delete.php:11
+msgid "Your media was deleted."
+msgstr ""
+
+#: ./Pages/Delete.php:11
+msgid "We couldn't delete your media."
+msgstr ""
+
+#: ./Pages/Edit.php:11
 msgid "Upload audio"
 msgstr ""
 
-#: ../IdnoPlugins/Media/templates/default/entity/Media/edit.tpl.php:11
+#: ./Pages/Edit.php:11
+msgid "Edit audio details"
+msgstr ""
+
+#: ./templates/default/entity/Media/edit.tpl.php:11
+msgid "New Audio"
+msgstr ""
+
+#: ./templates/default/entity/Media/edit.tpl.php:11
+msgid "Edit Audio"
+msgstr ""
+
+#: ./templates/default/entity/Media/edit.tpl.php:11
 msgid "Choose different audio"
 msgstr ""
 
-#: ../IdnoPlugins/Media/templates/default/entity/Media/edit.tpl.php:11
+#: ./templates/default/entity/Media/edit.tpl.php:11
 msgid "Title"
 msgstr ""
 
-#: ../IdnoPlugins/Media/templates/default/entity/Media/edit.tpl.php:11
+#: ./templates/default/entity/Media/edit.tpl.php:11
 msgid "Give it a title"
 msgstr ""
 
-#: ../IdnoPlugins/Media/templates/default/entity/Media/edit.tpl.php:11
+#: ./templates/default/entity/Media/edit.tpl.php:11
 msgid "Describe your audio"
 msgstr ""
 
-#: ../IdnoPlugins/Media/templates/default/entity/Media/edit.tpl.php:11
+#: ./templates/default/entity/Media/edit.tpl.php:11
 msgid "Description"
 msgstr ""
 
-#: ../IdnoPlugins/Media/templates/default/entity/Media/edit.tpl.php:11
+#: ./templates/default/entity/Media/edit.tpl.php:11
 msgid "Cancel"
 msgstr ""
 
-#: ../IdnoPlugins/Media/templates/default/entity/Media/edit.tpl.php:11
+#: ./templates/default/entity/Media/edit.tpl.php:11
 msgid "Publish"
 msgstr ""
 
-#: ../IdnoPlugins/Media/templates/default/entity/Media.tpl.php:11
+#: ./templates/default/entity/Media.tpl.php:11
 msgid "Sorry, your browser does not support the video tag."
 msgstr ""
 
