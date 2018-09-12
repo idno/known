@@ -53,16 +53,15 @@ module.exports = function (grunt) {
 // Tests
     grunt.registerTask('test', ['jshint']);
     
-// Build language pack
+// Build language pack (todo: find a cleaner way)
     grunt.registerTask('build-lang', '', function(){
 	
 	const { execSync } = require('child_process');
 	
-	execSync('touch ./languages/source/known.pot'); // Make sure it exists, if we're going to remove (for broken builds)
-	execSync('rm ./languages/source/known.pot'); // Remove existing
+	execSync('touch ./languages/checkin.pot'); // Make sure it exists, if we're going to remove (for broken builds)
+	execSync('rm ./languages/checkin.pot'); // Remove existing
 	
-	execSync('find ./Idno -type f -regex ".*\.php" | php ./languages/processfile.php >> ./languages/source/known.pot'); // Build from idno core
-	execSync('find ./templates -type f -regex ".*\.php" | php ./languages/processfile.php >> ./languages/source/known.pot'); // Build from templates
+	execSync('find . -type f -regex ".*\.php" | php ../../languages/processfile.php >> ./languages/checkin.pot'); // Build from idno core
 	
     });
 
