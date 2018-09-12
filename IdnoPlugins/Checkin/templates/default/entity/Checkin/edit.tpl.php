@@ -96,4 +96,4 @@
 
 <?=$this->draw('entity/edit/footer');?>
 
-<script src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>IdnoPlugins/Checkin/checkin.js"></script>
+<script src="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>IdnoPlugins/Checkin/checkin.min.js"></script>
