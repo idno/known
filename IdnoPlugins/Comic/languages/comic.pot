@@ -1,28 +1,52 @@
-#: ../IdnoPlugins/Comic/templates/default/entity/Comic/edit.tpl.php:9
+#: ./Pages/Delete.php:9
+msgid "Delete "
+msgstr ""
+
+#: ./Pages/Delete.php:9
+msgid "You don't have permission to perform this task."
+msgstr ""
+
+#: ./Pages/Delete.php:9
+msgid "%s was deleted."
+msgstr ""
+
+#: ./Pages/Delete.php:9
+msgid "We couldn't delete %s."
+msgstr ""
+
+#: ./Pages/Edit.php:9
+msgid "Post a comic"
+msgstr ""
+
+#: ./Pages/Edit.php:9
+msgid "Edit comic description"
+msgstr ""
+
+#: ./templates/default/entity/Comic/edit.tpl.php:9
 msgid "Upload a comic"
 msgstr ""
 
-#: ../IdnoPlugins/Comic/templates/default/entity/Comic/edit.tpl.php:9
+#: ./templates/default/entity/Comic/edit.tpl.php:9
 msgid "Select a comic"
 msgstr ""
 
-#: ../IdnoPlugins/Comic/templates/default/entity/Comic/edit.tpl.php:9
+#: ./templates/default/entity/Comic/edit.tpl.php:9
 msgid "Title"
 msgstr ""
 
-#: ../IdnoPlugins/Comic/templates/default/entity/Comic/edit.tpl.php:9
+#: ./templates/default/entity/Comic/edit.tpl.php:9
 msgid "This is displayed in feeds"
 msgstr ""
 
-#: ../IdnoPlugins/Comic/templates/default/entity/Comic/edit.tpl.php:9
+#: ./templates/default/entity/Comic/edit.tpl.php:9
 msgid "Comic description"
 msgstr ""
 
-#: ../IdnoPlugins/Comic/templates/default/entity/Comic/edit.tpl.php:9
+#: ./templates/default/entity/Comic/edit.tpl.php:9
 msgid "This is displayed when the image isn't available"
 msgstr ""
 
-#: ../IdnoPlugins/Comic/templates/default/entity/Comic/edit.tpl.php:9
+#: ./templates/default/entity/Comic/edit.tpl.php:9
 msgid "Choose different comic"
 msgstr ""
 
