@@ -27,13 +27,31 @@ module.exports = function (grunt) {
 		    }]
 	    }
 	},
-	
+	jshint: {
+	    // define the files to lint
+	    files: [
+		'checkin.js'
+	    ],
+
+	    // configure JSHint (documented at http://www.jshint.com/docs/)
+	    options: {
+		// more options here if you want to override JSHint defaults
+		globals: {
+		},
+		node: true,
+		browser: true,
+	    }
+	}
 
     });
 
 // Load the plugins
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+    
+// Tests
+    grunt.registerTask('test', ['jshint']);
     
 // Build language pack
     grunt.registerTask('build-lang', '', function(){
