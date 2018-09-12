@@ -1,40 +1,56 @@
-#: ../IdnoPlugins/Photo/templates/default/entity/Photo/edit.tpl.php:9
+#: ./Pages/Delete.php:9
+msgid "Delete %s"
+msgstr ""
+
+#: ./Pages/Delete.php:9
+msgid "You don't have permission to perform this task."
+msgstr ""
+
+#: ./Pages/Delete.php:9
+msgid "Your photo was deleted."
+msgstr ""
+
+#: ./Pages/Delete.php:9
+msgid "We couldn't delete your photo."
+msgstr ""
+
+#: ./Pages/Edit.php:9
+msgid "Upload a picture"
+msgstr ""
+
+#: ./Pages/Edit.php:9
+msgid "Edit picture details"
+msgstr ""
+
+#: ./templates/default/entity/Photo/edit.tpl.php:9
 msgid "New Photo"
 msgstr ""
 
-#: ../IdnoPlugins/Photo/templates/default/entity/Photo/edit.tpl.php:10
+#: ./templates/default/entity/Photo/edit.tpl.php:9
 msgid "Edit Photo"
 msgstr ""
 
-#: ../IdnoPlugins/Photo/templates/default/entity/Photo/edit.tpl.php:10
-msgid "Select a photo"
-msgstr ""
-
-#: ../IdnoPlugins/Photo/templates/default/entity/Photo/edit.tpl.php:10
-msgid "Choose different photo"
-msgstr ""
-
-#: ../IdnoPlugins/Photo/templates/default/entity/Photo/edit.tpl.php:10
+#: ./templates/default/entity/Photo/edit.tpl.php:9
 msgid "Give it a title"
 msgstr ""
 
-#: ../IdnoPlugins/Photo/templates/default/entity/Photo/edit.tpl.php:10
+#: ./templates/default/entity/Photo/edit.tpl.php:9
 msgid "Describe your photo"
 msgstr ""
 
-#: ../IdnoPlugins/Photo/templates/default/entity/Photo/edit.tpl.php:10
+#: ./templates/default/entity/Photo/edit.tpl.php:9
 msgid "Description"
 msgstr ""
 
-#: ../IdnoPlugins/Photo/templates/default/entity/Photo/edit.tpl.php:10
-msgid "Add details"
-msgstr ""
-
-#: ../IdnoPlugins/Photo/templates/default/entity/Photo/edit.tpl.php:10
+#: ./templates/default/entity/Photo/edit.tpl.php:9
 msgid "Cancel"
 msgstr ""
 
-#: ../IdnoPlugins/Photo/templates/default/entity/Photo/edit.tpl.php:10
+#: ./templates/default/entity/Photo/edit.tpl.php:9
 msgid "Publish"
+msgstr ""
+
+#: ./templates/default/entity/Photo.tpl.php:9
+msgid "%d more..."
 msgstr ""
 
