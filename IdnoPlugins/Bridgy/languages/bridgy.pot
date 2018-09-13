@@ -1,76 +1,76 @@
-#: ../IdnoPlugins/Bridgy/templates/default/bridgy/account.tpl.php:5
-msgid "Social Interactions"
-msgstr ""
-
-#: ../IdnoPlugins/Bridgy/templates/default/bridgy/account.tpl.php:6
-msgid "Connect with Bridgy"
-msgstr ""
-
-#: ../IdnoPlugins/Bridgy/templates/default/bridgy/account.tpl.php:10
-msgid "Bridgy"
-msgstr ""
-
-#: ../IdnoPlugins/Bridgy/templates/default/bridgy/account.tpl.php:10
-msgid "is a service that pulls social interactions - such as likes and retweets - back to your website."
-msgstr ""
-
-#: ../IdnoPlugins/Bridgy/templates/default/bridgy/account.tpl.php:10
-msgid "If you send content from Known to Facebook or Twitter, use Bridgy to save comments and interactions from those networks to the original post on your Known site."
-msgstr ""
-
-#: ../IdnoPlugins/Bridgy/templates/default/bridgy/account.tpl.php:10
-msgid "To get started, activate Bridgy for the social network."
-msgstr ""
-
-#: ../IdnoPlugins/Bridgy/templates/default/bridgy/account.tpl.php:10
-msgid "Facebook + Bridgy connected"
-msgstr ""
-
-#: ../IdnoPlugins/Bridgy/templates/default/bridgy/account.tpl.php:10
-msgid "Bridgy is pulling in comments and likes from Facebook. Click to disable."
-msgstr ""
-
-#: ../IdnoPlugins/Bridgy/templates/default/bridgy/account.tpl.php:10
-msgid "Activate Facebook + Bridgy"
-msgstr ""
-
-#: ../IdnoPlugins/Bridgy/templates/default/bridgy/account.tpl.php:10
-msgid "Bridgy pulls in comments and likes from Facebook."
-msgstr ""
-
-#: ../IdnoPlugins/Bridgy/templates/default/bridgy/account.tpl.php:10
-msgid "Twitter + Bridgy connected"
-msgstr ""
-
-#: ../IdnoPlugins/Bridgy/templates/default/bridgy/account.tpl.php:10
-msgid "Bridgy is pulling in replies, favorites, and retweets from Twitter. Click to disable."
-msgstr ""
-
-#: ../IdnoPlugins/Bridgy/templates/default/bridgy/account.tpl.php:10
-msgid "Activate Twitter + Bridgy"
-msgstr ""
-
-#: ../IdnoPlugins/Bridgy/templates/default/bridgy/account.tpl.php:10
-msgid "Bridgy pulls in replies, favorites, and retweets from Twitter."
-msgstr ""
-
-#: ../IdnoPlugins/Bridgy/templates/default/bridgy/menu.tpl.php:5
+#: ./Pages/Account.php:10
 msgid "Interactions"
 msgstr ""
 
-#: ../IdnoPlugins/Bridgy/templates/default/bridgy/facebook.tpl.php:9
+#: ./templates/default/bridgy/account.tpl.php:7
+msgid "Social Interactions"
+msgstr ""
+
+#: ./templates/default/bridgy/account.tpl.php:9
+msgid "Connect with Bridgy"
+msgstr ""
+
+#: ./templates/default/bridgy/account.tpl.php:10
+msgid "Bridgy"
+msgstr ""
+
+#: ./templates/default/bridgy/account.tpl.php:10
+msgid "is a service that pulls social interactions - such as likes and retweets - back to your website."
+msgstr ""
+
+#: ./templates/default/bridgy/account.tpl.php:10
+msgid "If you send content from Known to Facebook or Twitter, use Bridgy to save comments and interactions from those networks to the original post on your Known site."
+msgstr ""
+
+#: ./templates/default/bridgy/account.tpl.php:10
+msgid "To get started, activate Bridgy for the social network."
+msgstr ""
+
+#: ./templates/default/bridgy/account.tpl.php:10
+msgid "Facebook + Bridgy connected"
+msgstr ""
+
+#: ./templates/default/bridgy/account.tpl.php:10
+msgid "Bridgy is pulling in comments and likes from Facebook. Click to disable."
+msgstr ""
+
+#: ./templates/default/bridgy/account.tpl.php:10
+msgid "Activate Facebook + Bridgy"
+msgstr ""
+
+#: ./templates/default/bridgy/account.tpl.php:10
+msgid "Bridgy pulls in comments and likes from Facebook."
+msgstr ""
+
+#: ./templates/default/bridgy/account.tpl.php:10
+msgid "Twitter + Bridgy connected"
+msgstr ""
+
+#: ./templates/default/bridgy/account.tpl.php:10
+msgid "Bridgy is pulling in replies, favorites, and retweets from Twitter. Click to disable."
+msgstr ""
+
+#: ./templates/default/bridgy/account.tpl.php:10
+msgid "Activate Twitter + Bridgy"
+msgstr ""
+
+#: ./templates/default/bridgy/account.tpl.php:10
+msgid "Bridgy pulls in replies, favorites, and retweets from Twitter."
+msgstr ""
+
+#: ./templates/default/bridgy/facebook.tpl.php:10
 msgid "Connect Brid.gy"
 msgstr ""
 
-#: ../IdnoPlugins/Bridgy/templates/default/bridgy/facebook.tpl.php:10
+#: ./templates/default/bridgy/facebook.tpl.php:10
 msgid "Brid.gy imports comments and likes from Facebook and stores them on your Known site."
 msgstr ""
 
-#: ../IdnoPlugins/Bridgy/templates/default/bridgy/twitter.tpl.php:9
+#: ./templates/default/bridgy/twitter.tpl.php:10
 msgid "Import replies and retweets"
 msgstr ""
 
-#: ../IdnoPlugins/Bridgy/templates/default/bridgy/twitter.tpl.php:10
+#: ./templates/default/bridgy/twitter.tpl.php:10
 msgid "Brid.gy imports replies, favorites and retweets from Twitter and stores them on your Known site."
 msgstr ""
 
