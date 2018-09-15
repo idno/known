@@ -83,8 +83,6 @@ namespace ConsolePlugins\EventQueueService {
                     while (self::$run) {
                         
                         try {
-                            // Reinitialise DB
-                            $this->reinitialiseDB();
 
                             while(self::$run) {
 
