@@ -8,6 +8,8 @@ namespace Idno\Pages\Service\Cron {
             
             \Idno\Core\Idno::site()->template()->setTemplateType('json');
             
+            \Idno\Core\Service::gatekeeper();
+            
             $period = $this->arguments[0];
             
             if (empty($period)) {
