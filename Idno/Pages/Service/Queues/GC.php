@@ -8,12 +8,13 @@ namespace Idno\Pages\Service\Queues {
         
         public function getContent() {
             
-            
             Idno::site()->template()->setTemplateType('json');
             
-            $eventqueue = \Idno\Core\Idno::site()->queue();
-            if (!$eventqueue instanceof \Idno\Core\AsynchronousQueue) throw new \RuntimeException("Service can't run unless Known's queue is Asynchronous!");
+            \Idno\Core\Service::gatekeeper();
             
+            $eventqueue = \Idno\Core\Idno::site()->queue();
+            if (!$eventqueue instanceof \Idno\Core\AsynchronousQueue) 
+                throw new \RuntimeException("Service can't run unless Known's queue is Asynchronous!");
             
             $queue = $this->getInput('queue', 'default');
             
