@@ -242,6 +242,7 @@
                 $this->addPageHandler('/service/web/imageproxy/([^\/]+)/([0-9]+)/?', '\Idno\Pages\Service\Web\ImageProxy'); // With scale
                 $this->addPageHandler('/service/web/imageproxy/([^\/]+)/([0-9]+)/([^\/]+)/?', '\Idno\Pages\Service\Web\ImageProxy'); // With scale, with transform
                 $this->addPageHandler('/service/system/log/?', '\Idno\Pages\Service\System\Log');
+                $this->addPageHandler('/service/cron/([^\/]+)/?', '\Idno\Pages\Service\Cron\Dispatch');                
 
                 // These must be loaded last
                 $this->plugins = new Plugins();
