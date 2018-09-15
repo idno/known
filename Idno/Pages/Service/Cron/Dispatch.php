@@ -21,6 +21,8 @@ namespace Idno\Pages\Service\Cron {
             }
             
             try {
+                \Idno\Core\Idno::site()->logging()->debug("Triggering events for cron/$period");
+                
                 \Idno\Core\Idno::site()->triggerEvent("cron/$period");
             } catch (\Exception $e) {
                 \Idno\Core\Idno::site()->session()->addErrorMessage("There was a problem executing cron/$period: " . $e->getMessage());
