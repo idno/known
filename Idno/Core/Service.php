@@ -9,7 +9,7 @@
 
 namespace Idno\Core {
 
-    class Service extends Component {
+    class Service extends \Idno\Common\Component {
 
         /**
          * Check that a page is being accessed by a local service.
