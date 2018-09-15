@@ -5,45 +5,7 @@ namespace ConsolePlugins\EventQueueService {
     class Main extends \Idno\Common\ConsolePlugin {
         
         public static $run = true;
-        
-        public function call($endpoint) {
-            
-            if (empty($endpoint))
-                throw new \RuntimeException('No endpoint given');
-            
-            \Idno\Core\Idno::site()->logging()->debug("Calling $endpoint");
-            
-            $signature = \Idno\Core\Service::generateToken($endpoint);
-                            
-            if ($result = \Idno\Core\Webservice::get($endpoint, [], [
-                'X-KNOWN-SERVICE-SIGNATURE: ' . $signature
-            ])) {
-
-                $error = $result['response'];
-                $content = json_decode($result['content']);
-                
-                if ($error != 200) {
-                                    
-                    if (empty($content))
-                        throw new \RuntimeException('Response from service endpoint was not json');
-                    
-                    if (!empty($content->exception->message))
-                        throw new \RuntimeException($content->exception->message);
-                    
-                } else {
-                    
-                    // Response is ok
-                    return $content;
-                }
-                
-            } else {
-                throw new \RuntimeException('No result from endpoint.');
-            }
-
-            return false;
-            
-        }
-        
+               
         public function execute(\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) {
             
             $queue = $input->getArgument('queue');
@@ -70,7 +32,7 @@ namespace ConsolePlugins\EventQueueService {
                         while(self::$run) {
                             sleep(300);
                             
-                            $this->call(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'service/queue/gc/');
+                            \Idno\Core\Service::call('/service/queue/gc/');
                             
                         }
                     } catch (\Error $e) {
@@ -90,11 +52,11 @@ namespace ConsolePlugins\EventQueueService {
 
                                 \Idno\Core\Idno::site()->logging()->debug('Polling queue...');
                                 
-                                if ($events = $this->call(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'service/queue/list/')) {
+                                if ($events = \Idno\Core\Service::call('/service/queue/list/')) {
                                     foreach ($events->queue as $event) {
                                         try {
                                             \Idno\Core\Idno::site()->logging()->info("Dispatching event $event");
-                                            $this->call(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'service/queue/dispatch/' . $event);
+                                            \Idno\Core\Service::call('/service/queue/dispatch/' . $event);
                                         } catch (\Exception $ex) {
                                             \Idno\Core\Idno::site()->logging()->error($ex->getMessage());
                                         }

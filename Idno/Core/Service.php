@@ -46,6 +46,52 @@ namespace Idno\Core {
             return hash_hmac('sha256', $url, $site_secret);
         }
 
+        /**
+         * Call a service endpoint
+         * @param type $endpoint
+         * @return boolean
+         * @throws \RuntimeException
+         */
+        public static function call($endpoint) {
+            
+            if (empty($endpoint))
+                throw new \RuntimeException('No endpoint given');
+            
+            if (strpos($endpoint, 'http')===false) // Handle variation in endpoint call
+                $endpoint = \Idno\Core\Idno::site()->config()->getDisplayURL() . ltrim($endpoint, '/');
+            
+            \Idno\Core\Idno::site()->logging()->debug("Calling $endpoint");
+            
+            $signature = \Idno\Core\Service::generateToken($endpoint);
+                            
+            if ($result = \Idno\Core\Webservice::get($endpoint, [], [
+                'X-KNOWN-SERVICE-SIGNATURE: ' . $signature
+            ])) {
+
+                $error = $result['response'];
+                $content = json_decode($result['content']);
+                
+                if ($error != 200) {
+                                    
+                    if (empty($content))
+                        throw new \RuntimeException('Response from service endpoint was not json');
+                    
+                    if (!empty($content->exception->message))
+                        throw new \RuntimeException($content->exception->message);
+                    
+                } else {
+                    
+                    // Response is ok
+                    return $content;
+                }
+                
+            } else {
+                throw new \RuntimeException('No result from endpoint.');
+            }
+
+            return false;
+            
+        }
     }
 
 }
