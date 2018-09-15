@@ -5,38 +5,14 @@ namespace ConsolePlugins\EventQueueService {
     class Main extends \Idno\Common\ConsolePlugin {
         
         public static $run = true;
-        
-        /**
-         * Each fork needs its own connection to the DB, otherwise it shares the parent's ... which lies madness.
-         */
-        private function reinitialiseDB() {
-            switch (trim(strtolower(\Idno\Core\Idno::site()->config()->database))) {
-                case 'mongo':
-                case 'mongodb':
-                    \Idno\Core\Idno::site()->db = new \Idno\Data\Mongo();
-                    break;
-                case 'mysql':
-                    \Idno\Core\Idno::site()->db = new \Idno\Data\MySQL();
-                    break;
-                case 'beanstalk-mysql': // A special instance of MYSQL designed for use with Amazon Elastic Beanstalk
-                    \Idno\Core\Idno::site()->db = new \Idno\Data\MySQL();
-                    break;
-                default:
-                    \Idno\Core\Idno::site()->db = $this->componentFactory(\Idno\Core\Idno::site()->config()->database, "Idno\\Core\\DataConcierge", "Idno\\Data\\", "Idno\\Data\\MySQL");
-                    break;
-            }
-        }
-        
+               
         public function execute(\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) {
             
             $queue = $input->getArgument('queue');
             $pollperiod = (int)$input->getArgument('pollperiod');
             
             define("KNOWN_EVENT_QUEUE_SERVICE", true);
-            
-            $eventqueue = \Idno\Core\Idno::site()->queue();
-            if (!$eventqueue instanceof \Idno\Core\AsynchronousQueue) throw new \RuntimeException("Service can't run unless Known's queue is Asynchronous!");
-        
+                    
             // Set up shutdown listener
             
             pcntl_signal(SIGTERM, function($signo) {
@@ -55,7 +31,9 @@ namespace ConsolePlugins\EventQueueService {
                     try {
                         while(self::$run) {
                             sleep(300);
-                            $eventqueue->gc(300, $queue);
+                            
+                            \Idno\Core\Service::call('/service/queue/gc/');
+                            
                         }
                     } catch (\Error $e) {
                         \Idno\Core\Idno::site()->logging()->error($e->getMessage());
@@ -67,17 +45,16 @@ namespace ConsolePlugins\EventQueueService {
                     while (self::$run) {
                         
                         try {
-                            // Reinitialise DB
-                            $this->reinitialiseDB();
 
                             while(self::$run) {
 
                                 \Idno\Core\Idno::site()->logging()->debug('Polling queue...');
-
-                                if ($events = \Idno\Entities\AsynchronousQueuedEvent::getPendingFromQueue($queue)) {
-                                    foreach ($events as $evnt) {
+                                
+                                if ($events = \Idno\Core\Service::call('/service/queue/list/')) {
+                                    foreach ($events->queue as $event) {
                                         try {
-                                            $eventqueue->dispatch($evnt);
+                                            \Idno\Core\Idno::site()->logging()->info("Dispatching event $event");
+                                            \Idno\Core\Service::call('/service/queue/dispatch/' . $event);
                                         } catch (\Exception $ex) {
                                             \Idno\Core\Idno::site()->logging()->error($ex->getMessage());
                                         }
