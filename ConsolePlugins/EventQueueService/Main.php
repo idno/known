@@ -6,25 +6,42 @@ namespace ConsolePlugins\EventQueueService {
         
         public static $run = true;
         
-        /**
-         * Each fork needs its own connection to the DB, otherwise it shares the parent's ... which lies madness.
-         */
-        private function reinitialiseDB() {
-            switch (trim(strtolower(\Idno\Core\Idno::site()->config()->database))) {
-                case 'mongo':
-                case 'mongodb':
-                    \Idno\Core\Idno::site()->db = new \Idno\Data\Mongo();
-                    break;
-                case 'mysql':
-                    \Idno\Core\Idno::site()->db = new \Idno\Data\MySQL();
-                    break;
-                case 'beanstalk-mysql': // A special instance of MYSQL designed for use with Amazon Elastic Beanstalk
-                    \Idno\Core\Idno::site()->db = new \Idno\Data\MySQL();
-                    break;
-                default:
-                    \Idno\Core\Idno::site()->db = $this->componentFactory(\Idno\Core\Idno::site()->config()->database, "Idno\\Core\\DataConcierge", "Idno\\Data\\", "Idno\\Data\\MySQL");
-                    break;
+        public function call($endpoint) {
+            
+            if (empty($endpoint))
+                throw new \RuntimeException('No endpoint given');
+            
+            \Idno\Core\Idno::site()->logging()->debug("Calling $endpoint");
+            
+            $signature = \Idno\Core\Service::generateToken($endpoint);
+                            
+            if ($result = \Idno\Core\Webservice::get($endpoint, [], [
+                'X-KNOWN-SERVICE-SIGNATURE: ' . $signature
+            ])) {
+
+                $error = $result['response'];
+                $content = json_decode($result['content']);
+                
+                if ($error != 200) {
+                                    
+                    if (empty($content))
+                        throw new \RuntimeException('Response from service endpoint was not json');
+                    
+                    if (!empty($content->exception->message))
+                        throw new \RuntimeException($content->exception->message);
+                    
+                } else {
+                    
+                    // Response is ok
+                    return $content;
+                }
+                
+            } else {
+                throw new \RuntimeException('No result from endpoint.');
             }
+
+            return false;
+            
         }
         
         public function execute(\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) {
@@ -33,10 +50,7 @@ namespace ConsolePlugins\EventQueueService {
             $pollperiod = (int)$input->getArgument('pollperiod');
             
             define("KNOWN_EVENT_QUEUE_SERVICE", true);
-            
-            $eventqueue = \Idno\Core\Idno::site()->queue();
-            if (!$eventqueue instanceof \Idno\Core\AsynchronousQueue) throw new \RuntimeException("Service can't run unless Known's queue is Asynchronous!");
-        
+                    
             // Set up shutdown listener
             
             pcntl_signal(SIGTERM, function($signo) {
@@ -55,7 +69,9 @@ namespace ConsolePlugins\EventQueueService {
                     try {
                         while(self::$run) {
                             sleep(300);
-                            $eventqueue->gc(300, $queue);
+                            
+                            $this->call(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'service/queue/gc/');
+                            
                         }
                     } catch (\Error $e) {
                         \Idno\Core\Idno::site()->logging()->error($e->getMessage());
@@ -67,17 +83,16 @@ namespace ConsolePlugins\EventQueueService {
                     while (self::$run) {
                         
                         try {
-                            // Reinitialise DB
-                            $this->reinitialiseDB();
 
                             while(self::$run) {
 
                                 \Idno\Core\Idno::site()->logging()->debug('Polling queue...');
-
-                                if ($events = \Idno\Entities\AsynchronousQueuedEvent::getPendingFromQueue($queue)) {
-                                    foreach ($events as $evnt) {
+                                
+                                if ($events = $this->call(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'service/queue/list/')) {
+                                    foreach ($events->queue as $event) {
                                         try {
-                                            $eventqueue->dispatch($evnt);
+                                            \Idno\Core\Idno::site()->logging()->info("Dispatching event $event");
+                                            $this->call(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'service/queue/dispatch/' . $event);
                                         } catch (\Exception $ex) {
                                             \Idno\Core\Idno::site()->logging()->error($ex->getMessage());
                                         }
