@@ -8,6 +8,11 @@ namespace Idno\Core;
  */
 class AsynchronousQueue extends EventQueue
 {
+    function registerPages() {
+        \Idno\Core\Idno::site()->addPageHandler('/service/queue/list/?', '\Idno\Pages\Service\Queues\Queue');
+        \Idno\Core\Idno::site()->addPageHandler('/service/queue/dispatch/([A-Za-z0-9]+)/?', '\Idno\Pages\Service\Queues\Dispatch');
+    }
+    
     function enqueue($queueName, $eventName, array $eventData)
     {
         if (empty($queueName))
@@ -49,10 +54,7 @@ class AsynchronousQueue extends EventQueue
      * @param \Idno\Entities\AsynchronousQueuedEvent $event
      */
     function dispatch(\Idno\Entities\AsynchronousQueuedEvent &$event) {
-        
-        if (!defined("KNOWN_EVENT_QUEUE_SERVICE"))
-            throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("You can not dispatch asynchronous events from within the web app, please run the service"));
-        
+                
         try {
         
             $username = "ANONYMOUS";
@@ -68,7 +70,7 @@ class AsynchronousQueue extends EventQueue
             }
 
             \Idno\Core\Idno::site()->logging()->info("[".date('r')."] Dispatching event " . $event->getID() . ": {$event->event} as $username queued at " . date('r', $event->queuedTs));
-            //\Idno\Core\Idno::site()->logging()->debug(print_r($event, true));
+            
             $result = \Idno\Core\Idno::site()->triggerEvent($event->event, unserialize($event->eventData));
             
             $event->result = serialize($result);
