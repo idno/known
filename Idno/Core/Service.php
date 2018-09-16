@@ -40,6 +40,8 @@ namespace Idno\Core {
             if (empty($site_secret))
                 throw new \Idno\Exceptions\ConfigurationException(\Idno\Core\Idno::site()->language()->_('Missing site secret'));
 
+            $url = explode('?', $url)[0];
+            
             if (empty($url))
                 throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Url not provided to token generation.'));
 
