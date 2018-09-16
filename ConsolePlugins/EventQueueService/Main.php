@@ -54,7 +54,9 @@ namespace ConsolePlugins\EventQueueService {
                                     foreach ($events->queue as $event) {
                                         try {
                                             \Idno\Core\Idno::site()->logging()->info("Dispatching event $event");
-                                            \Idno\Core\Service::call('/service/queue/dispatch/' . $event);
+                                            //\Idno\Core\Service::call('/service/queue/dispatch/' . $event);
+                                            
+                                            system(escapeshellcmd("./known.php event-queue-manage $queue dispatch $event"));
                                         } catch (\Exception $ex) {
                                             \Idno\Core\Idno::site()->logging()->error($ex->getMessage());
                                         }
