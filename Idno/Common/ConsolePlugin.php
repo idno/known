@@ -19,6 +19,8 @@ namespace Idno\Common {
 
             $this->init();
             $this->registerEventHooks();
+            
+            $this->registerTranslations();
         }
         
         function init() {}
