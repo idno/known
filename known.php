@@ -59,6 +59,19 @@
         return $console;
     }
     
+    
+    // Boot known
+        try {
+            $idno         = new Idno\Core\Idno();
+            $account      = new Idno\Core\Account();
+            $admin        = new Idno\Core\Admin();
+            $webfinger    = new Idno\Core\Webfinger();
+            $webmention   = new Idno\Core\Webmention();
+            $pubsubhubbub = new Idno\Core\PubSubHubbub();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+        }
+    
     // Load any plugin functions
     $directory = dirname(__FILE__) . '/ConsolePlugins/';
     if ($scanned_directory = array_diff(scandir($directory), array('..', '.'))) {
@@ -129,7 +142,7 @@
 
     $console
         ->register('version')
-        ->setDescription('Returns the current Known version as defined in version.known')
+        ->setDescription(\Idno\Core\Idno::site()->language()->_('Returns the current Known version as defined in version.known'))
         ->setDefinition([])
         ->setCode(function (\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) {
             $output->writeln(file_get_contents(dirname(__FILE__) . '/version.known'));
@@ -137,21 +150,10 @@
             $remoteVersion = \Idno\Core\RemoteVersion::build();
             if (\Idno\Core\Version::build() < $remoteVersion) {
                 $version = \Idno\Core\RemoteVersion::version();
-                $output->writeln("WARNING: Your build of Known is behind the latest version from Github ($version - $remoteVersion). If you're having problems, you may want to try updating to the latest version.\nUpdate now: https://github.com/idno/Known\n");
+                $output->writeln(\Idno\Core\Idno::site()->language()->_("WARNING: Your build of Known is behind the latest version from Github (%s - %s). If you're having problems, you may want to try updating to the latest version.\nUpdate now: https://github.com/idno/Known\n", [$version, $remoteVersion]));
             }
         });
 
-    // Boot known
-        try {
-            $idno         = new Idno\Core\Idno();
-            $account      = new Idno\Core\Account();
-            $admin        = new Idno\Core\Admin();
-            $webfinger    = new Idno\Core\Webfinger();
-            $webmention   = new Idno\Core\Webmention();
-            $pubsubhubbub = new Idno\Core\PubSubHubbub();
-        } catch (\Exception $e) {
-            error_log($e->getMessage());
-        }
         
     // Run the application
     $console->run();
