@@ -3,6 +3,15 @@
 namespace ConsolePlugins\Statistics {
 
     class Main extends \Idno\Common\ConsolePlugin {
+        
+        function registerTranslations() {
+
+            \Idno\Core\Idno::site()->language()->register(
+                new \Idno\Core\GetTextTranslation(
+                    'statistics', dirname(__FILE__) . '/languages/'
+                )
+            );
+        }
 
         protected function writeReport($output, $report, $level = 1) {
 
@@ -29,7 +38,7 @@ namespace ConsolePlugins\Statistics {
         }
 
         public function execute(\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) {
-            $output->writeln("Gathering statistics for " . \Idno\Core\Idno::site()->config()->getURL());
+            $output->writeln(\Idno\Core\Idno::site()->language()->_("Gathering statistics for %s", [\Idno\Core\Idno::site()->config()->getURL()]));
             $output->writeln("");
 
             $report = \Idno\Core\Statistics::gather();
@@ -42,7 +51,7 @@ namespace ConsolePlugins\Statistics {
         }
 
         public function getDescription() {
-            return 'Retrieve admin statistics from your Known site';
+            return \Idno\Core\Idno::site()->language()->_('Retrieve admin statistics from your Known site');
         }
 
         public function getParameters() {
