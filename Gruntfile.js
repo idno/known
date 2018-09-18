@@ -100,6 +100,7 @@ module.exports = function (grunt) {
 	
 	execSync('find ./Idno -type f -regex ".*\.php" | php ./languages/processfile.php >> ./languages/source/known.pot'); // Build from idno core
 	execSync('find ./templates -type f -regex ".*\.php" | php ./languages/processfile.php >> ./languages/source/known.pot'); // Build from templates
+	execSync('echo ./known.php | php ./languages/processfile.php >> ./languages/source/known.pot'); // Build from templates
 	
     });
 
