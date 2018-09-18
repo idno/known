@@ -183,6 +183,21 @@ namespace Idno\Core {
                 $lang = preg_replace("/[^a-zA-Z\-_\s]/", "", substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, $length));
             }
             
+            // If running as console app, detect via environment
+            if (defined('KNOWN_CONSOLE')) {
+             
+                $lang = getenv('LANGUAGE');
+                if (empty($lang))
+                    $lang = getenv('LANG');
+                
+                if (preg_match('/[a-z]{2}_[A-Z]{2}/', $lang, $matches)) {
+                    $lang = $matches[0];
+                    if (!$full)
+                        $lang = explode('_', $lang)[0];
+                    
+                }
+            }
+            
             return $lang;
         }
 
