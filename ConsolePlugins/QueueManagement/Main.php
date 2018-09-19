@@ -36,7 +36,9 @@ namespace ConsolePlugins\QueueManagement {
                 
                 case 'list':
                 default:
-                    if ($events = \Idno\Core\Service::call('/service/queue/list/')) {
+                    if ($events = \Idno\Core\Service::call('/service/queue/list/', [
+                        'queue' => $queue
+                    ])) {
                         
                         $output->writeln("Contents of '$queue' queue");
                         

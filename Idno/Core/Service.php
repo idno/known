@@ -40,6 +40,8 @@ namespace Idno\Core {
             if (empty($site_secret))
                 throw new \Idno\Exceptions\ConfigurationException(\Idno\Core\Idno::site()->language()->_('Missing site secret'));
 
+            $url = explode('?', $url)[0];
+            
             if (empty($url))
                 throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Url not provided to token generation.'));
 
@@ -52,7 +54,7 @@ namespace Idno\Core {
          * @return boolean
          * @throws \RuntimeException
          */
-        public static function call($endpoint) {
+        public static function call($endpoint, $params = []) {
             
             if (empty($endpoint))
                 throw new \RuntimeException('No endpoint given');
@@ -64,7 +66,7 @@ namespace Idno\Core {
             
             $signature = \Idno\Core\Service::generateToken($endpoint);
                             
-            if ($result = \Idno\Core\Webservice::get($endpoint, [], [
+            if ($result = \Idno\Core\Webservice::get($endpoint, $params, [
                 'X-KNOWN-SERVICE-SIGNATURE: ' . $signature
             ])) {
                  $error = $result['response'];

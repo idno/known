@@ -58,7 +58,7 @@ msgstr ""
 msgid "Missing site secret"
 msgstr ""
 
-#: ./Idno/Core/Service.php:61
+#: ./Idno/Core/Service.php:62
 msgid "Url not provided to token generation."
 msgstr ""
 

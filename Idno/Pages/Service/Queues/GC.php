@@ -18,6 +18,8 @@ namespace Idno\Pages\Service\Queues {
             
             $queue = $this->getInput('queue', 'default');
             
+            \Idno\Core\Idno::site()->logging()->debug("Garbage Collecting event queue $queue");
+                        
             $eventqueue->gc(300, $queue);
             
             Idno::site()->template()->__([

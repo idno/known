@@ -16,6 +16,8 @@ namespace Idno\Pages\Service\Queues {
             $offset = $this->getInput('offset', 0);
             $queue = $this->getInput('queue', 'default');
             
+            \Idno\Core\Idno::site()->logging()->debug("Displaying event queue from $queue");
+            
             $array = [];
             $queue_list = \Idno\Entities\AsynchronousQueuedEvent::getPendingFromQueue($queue, $limit, $offset);
             foreach ($queue_list as $event) {
