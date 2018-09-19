@@ -26,6 +26,9 @@ namespace ConsolePlugins\PeriodicExecutionService {
             $output->writeln('Starting Periodic Execution Service');
             
             
+            if (!\Idno\Core\Service::isFunctionAvailable('system'))
+                throw new \RuntimeException('Sorry, your hosting environment does not support functionality (the "system" function) necessary to support this action.');
+            
             foreach (Cron::$events as $queue => $period) {
                 
                 $pid = pcntl_fork();

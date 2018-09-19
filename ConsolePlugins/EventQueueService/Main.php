@@ -21,6 +21,9 @@ namespace ConsolePlugins\EventQueueService {
                 \Idno\Core\Idno::site()->logging()->info('Shutting down, this may take a little while...');
             });
             
+            if (!\Idno\Core\Service::isFunctionAvailable('system'))
+                throw new \RuntimeException('Sorry, your hosting environment does not support functionality (the "system" function) necessary to support this action.');
+            
             try {
                 $pid = pcntl_fork();
                 if ($pid == -1) {
