@@ -92,6 +92,26 @@ namespace Idno\Core {
              return false;
             
         }
+        
+        /**
+         * Returns true if given system call is available (i.e. not in disable_functions).
+         * @param type $func
+         * @return boolean
+         */
+        public static function isFunctionAvailable($func) {
+            if (!is_callable($func))
+                return false;
+            
+            // https://stackoverflow.com/questions/4033841/how-to-test-if-php-system-function-is-allowed-and-not-turned-off-for-security
+            // is_callable does not check disabled functions.
+            $disabled = ini_get('disable_functions');
+            if ($disabled) {
+                $disabled = explode(',', $disabled);
+                $disabled = array_map('trim', $disabled);
+                return !in_array($func, $disabled);
+            }
+            return true;
+        }
 
     }
 

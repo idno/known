@@ -1,0 +1,36 @@
+#: ./Cron.php:32
+msgid "Sorry, this functionality can not be activated unless you are running with an asynchronous message queue."
+msgstr ""
+
+#: ./Main.php:21
+msgid "SIGTERM received, shutting down."
+msgstr ""
+
+#: ./Main.php:23
+msgid "Shutting down, this may take a little while..."
+msgstr ""
+
+#: ./Main.php:30
+msgid "Sorry, your hosting environment does not support functionality (the \"system\" function) necessary to support this action."
+msgstr ""
+
+#: ./Main.php:36
+msgid "Could not fork a new process"
+msgstr ""
+
+#: ./Main.php:41
+msgid "Starting %s queue processor."
+msgstr ""
+
+#: ./Main.php:49
+msgid "Triggering any events on the %s queue..."
+msgstr ""
+
+#: ./Main.php:56
+msgid "Dispatching event %s"
+msgstr ""
+
+#: ./Main.php:88
+msgid "Begin the cron service"
+msgstr ""
+
