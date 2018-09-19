@@ -5,6 +5,15 @@ namespace ConsolePlugins\EventQueueService {
     class Main extends \Idno\Common\ConsolePlugin {
         
         public static $run = true;
+        
+        function registerTranslations() {
+
+            \Idno\Core\Idno::site()->language()->register(
+                new \Idno\Core\GetTextTranslation(
+                    'eventqueueservice', dirname(__FILE__) . '/languages/'
+                )
+            );
+        }
                 
         public function execute(\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) {
             
