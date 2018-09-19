@@ -1,0 +1,12 @@
+#: ./Main.php:2
+msgid "You said... %s"
+msgstr ""
+
+#: ./Main.php:2
+msgid "Example plugin to show how to use the console plugin interface"
+msgstr ""
+
+#: ./Main.php:2
+msgid "Text to echo"
+msgstr ""
+
