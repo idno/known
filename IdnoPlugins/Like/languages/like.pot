@@ -1,36 +1,64 @@
-#: ../IdnoPlugins/Like/templates/default/entity/Like/edit.tpl.php:8
+#: ./Pages/Callback.php:29
+msgid "URL to page title callback"
+msgstr ""
+
+#: ./Pages/Delete.php:27
+msgid "Delete %s"
+msgstr ""
+
+#: ./Pages/Delete.php:40
+msgid "You don't have permission to perform this task."
+msgstr ""
+
+#: ./Pages/Delete.php:45
+msgid "Your bookmark was deleted."
+msgstr ""
+
+#: ./Pages/Delete.php:47
+msgid "We couldn't delete %s."
+msgstr ""
+
+#: ./Pages/Edit.php:13
+msgid "Edit bookmark"
+msgstr ""
+
+#: ./Pages/Edit.php:16
+msgid "New bookmark"
+msgstr ""
+
+#: ./templates/default/entity/Like/edit.tpl.php:11
 msgid "New Bookmark"
 msgstr ""
 
-#: ../IdnoPlugins/Like/templates/default/entity/Like/edit.tpl.php:10
+#: ./templates/default/entity/Like/edit.tpl.php:13
 msgid "Edit Bookmark"
 msgstr ""
 
-#: ../IdnoPlugins/Like/templates/default/entity/Like/edit.tpl.php:10
+#: ./templates/default/entity/Like/edit.tpl.php:21
 msgid "Link Address"
 msgstr ""
 
-#: ../IdnoPlugins/Like/templates/default/entity/Like/edit.tpl.php:10
+#: ./templates/default/entity/Like/edit.tpl.php:57
 msgid "Title"
 msgstr ""
 
-#: ../IdnoPlugins/Like/templates/default/entity/Like/edit.tpl.php:10
+#: ./templates/default/entity/Like/edit.tpl.php:62
 msgid "Page name"
 msgstr ""
 
-#: ../IdnoPlugins/Like/templates/default/entity/Like/edit.tpl.php:10
+#: ./templates/default/entity/Like/edit.tpl.php:77
 msgid "Add notes to your bookmark..."
 msgstr ""
 
-#: ../IdnoPlugins/Like/templates/default/entity/Like/edit.tpl.php:10
+#: ./templates/default/entity/Like/edit.tpl.php:78
 msgid "Description"
 msgstr ""
 
-#: ../IdnoPlugins/Like/templates/default/entity/Like/edit.tpl.php:10
+#: ./templates/default/entity/Like/edit.tpl.php:92
 msgid "Cancel"
 msgstr ""
 
-#: ../IdnoPlugins/Like/templates/default/entity/Like/edit.tpl.php:10
+#: ./templates/default/entity/Like/edit.tpl.php:93
 msgid "Save"
 msgstr ""
 

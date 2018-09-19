@@ -1,56 +1,56 @@
-#: ./Pages/Delete.php:9
+#: ./Pages/Delete.php:27
 msgid "Delete %s"
 msgstr ""
 
-#: ./Pages/Delete.php:9
+#: ./Pages/Delete.php:40
 msgid "You don't have permission to perform this task."
 msgstr ""
 
-#: ./Pages/Delete.php:9
+#: ./Pages/Delete.php:45
 msgid "Your photo was deleted."
 msgstr ""
 
-#: ./Pages/Delete.php:9
+#: ./Pages/Delete.php:47
 msgid "We couldn't delete your photo."
 msgstr ""
 
-#: ./Pages/Edit.php:9
+#: ./Pages/Edit.php:32
 msgid "Upload a picture"
 msgstr ""
 
-#: ./Pages/Edit.php:9
+#: ./Pages/Edit.php:34
 msgid "Edit picture details"
 msgstr ""
 
-#: ./templates/default/entity/Photo/edit.tpl.php:9
+#: ./templates/default/entity/Photo/edit.tpl.php:22
 msgid "New Photo"
 msgstr ""
 
-#: ./templates/default/entity/Photo/edit.tpl.php:9
+#: ./templates/default/entity/Photo/edit.tpl.php:24
 msgid "Edit Photo"
 msgstr ""
 
-#: ./templates/default/entity/Photo/edit.tpl.php:9
+#: ./templates/default/entity/Photo/edit.tpl.php:50
 msgid "Give it a title"
 msgstr ""
 
-#: ./templates/default/entity/Photo/edit.tpl.php:9
+#: ./templates/default/entity/Photo/edit.tpl.php:61
 msgid "Describe your photo"
 msgstr ""
 
-#: ./templates/default/entity/Photo/edit.tpl.php:9
+#: ./templates/default/entity/Photo/edit.tpl.php:62
 msgid "Description"
 msgstr ""
 
-#: ./templates/default/entity/Photo/edit.tpl.php:9
+#: ./templates/default/entity/Photo/edit.tpl.php:77
 msgid "Cancel"
 msgstr ""
 
-#: ./templates/default/entity/Photo/edit.tpl.php:9
+#: ./templates/default/entity/Photo/edit.tpl.php:78
 msgid "Publish"
 msgstr ""
 
-#: ./templates/default/entity/Photo.tpl.php:9
+#: ./templates/default/entity/Photo.tpl.php:38
 msgid "%d more..."
 msgstr ""
 

@@ -1,56 +1,56 @@
-#: ./Pages/Delete.php:11
+#: ./Pages/Delete.php:16
 msgid "You don't have permission to perform this task."
 msgstr ""
 
-#: ./Pages/Delete.php:11
+#: ./Pages/Delete.php:21
 msgid "Your checkin was deleted."
 msgstr ""
 
-#: ./Pages/Delete.php:11
+#: ./Pages/Delete.php:23
 msgid "We couldn't delete %s."
 msgstr ""
 
-#: ./Pages/Edit.php:11
+#: ./Pages/Edit.php:30
 msgid "Where are you?"
 msgstr ""
 
-#: ./Pages/Edit.php:11
+#: ./Pages/Edit.php:32
 msgid "Edit checkin"
 msgstr ""
 
-#: ./templates/default/entity/Checkin/edit.tpl.php:11
+#: ./templates/default/entity/Checkin/edit.tpl.php:10
 msgid "New Location"
 msgstr ""
 
-#: ./templates/default/entity/Checkin/edit.tpl.php:11
+#: ./templates/default/entity/Checkin/edit.tpl.php:12
 msgid "Edit Location"
 msgstr ""
 
-#: ./templates/default/entity/Checkin/edit.tpl.php:11
+#: ./templates/default/entity/Checkin/edit.tpl.php:18
 msgid "Hang tight ... searching for your location."
 msgstr ""
 
-#: ./templates/default/entity/Checkin/edit.tpl.php:11
+#: ./templates/default/entity/Checkin/edit.tpl.php:34
 msgid "Location"
 msgstr ""
 
-#: ./templates/default/entity/Checkin/edit.tpl.php:11
+#: ./templates/default/entity/Checkin/edit.tpl.php:53
 msgid "Address"
 msgstr ""
 
-#: ./templates/default/entity/Checkin/edit.tpl.php:11
+#: ./templates/default/entity/Checkin/edit.tpl.php:54
 msgid "You can edit the address if it's wrong."
 msgstr ""
 
-#: ./templates/default/entity/Checkin/edit.tpl.php:11
+#: ./templates/default/entity/Checkin/edit.tpl.php:77
 msgid "Description"
 msgstr ""
 
-#: ./templates/default/entity/Checkin/edit.tpl.php:11
+#: ./templates/default/entity/Checkin/edit.tpl.php:89
 msgid "Publish"
 msgstr ""
 
-#: ./templates/default/entity/Checkin/edit.tpl.php:11
+#: ./templates/default/entity/Checkin/edit.tpl.php:89
 msgid "Save"
 msgstr ""
 
