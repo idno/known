@@ -8,6 +8,12 @@ namespace Idno\Core;
  */
 class AsynchronousQueue extends EventQueue
 {
+    function registerPages() {
+        \Idno\Core\Idno::site()->addPageHandler('/service/queue/list/?', '\Idno\Pages\Service\Queues\Queue');
+        //\Idno\Core\Idno::site()->addPageHandler('/service/queue/dispatch/([A-Za-z0-9]+)/?', '\Idno\Pages\Service\Queues\Dispatch');
+        \Idno\Core\Idno::site()->addPageHandler('/service/queue/gc/?', '\Idno\Pages\Service\Queues\GC');
+    }
+    
     function enqueue($queueName, $eventName, array $eventData)
     {
         if (empty($queueName))
@@ -50,9 +56,15 @@ class AsynchronousQueue extends EventQueue
      */
     function dispatch(\Idno\Entities\AsynchronousQueuedEvent &$event) {
         
-        if (!defined("KNOWN_EVENT_QUEUE_SERVICE"))
-            throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("You can not dispatch asynchronous events from within the web app, please run the service"));
+        if (empty($event))
+            throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('No event passed'));
         
+        if (!($event instanceof \Idno\Entities\AsynchronousQueuedEvent))
+            throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Event passed is not a queued event, and so can\'t be dispatched'));
+        
+        if ($event->complete)
+            throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Sorry, this event has already been dispatched (but not yet cleaned up)'));
+                
         try {
         
             $username = "ANONYMOUS";
@@ -68,7 +80,7 @@ class AsynchronousQueue extends EventQueue
             }
 
             \Idno\Core\Idno::site()->logging()->info("[".date('r')."] Dispatching event " . $event->getID() . ": {$event->event} as $username queued at " . date('r', $event->queuedTs));
-            //\Idno\Core\Idno::site()->logging()->debug(print_r($event, true));
+            
             $result = \Idno\Core\Idno::site()->triggerEvent($event->event, unserialize($event->eventData));
             
             $event->result = serialize($result);

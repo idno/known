@@ -2,11 +2,11 @@
 msgid "No domain specified for cache"
 msgstr ""
 
-#: ./Idno/Core/Session.php:184
+#: ./Idno/Core/Session.php:188
 msgid "Session funnybusiness: "
 msgstr ""
 
-#: ./Idno/Core/Session.php:184
+#: ./Idno/Core/Session.php:188
 msgid "Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini"
 msgstr ""
 
@@ -14,7 +14,7 @@ msgstr ""
 msgid "Something went wrong and we couldn't create the email message to send."
 msgstr ""
 
-#: ./Idno/Core/Time.php:97
+#: ./Idno/Core/Time.php:98
 msgid "hour"
 msgstr ""
 
@@ -38,7 +38,7 @@ msgstr ""
 msgid "behind"
 msgstr ""
 
-#: ./Idno/Core/Webservice.php:184
+#: ./Idno/Core/Webservice.php:188
 msgid "Your version of PHP doesn't support CURLFile."
 msgstr ""
 
@@ -46,11 +46,35 @@ msgstr ""
 msgid "Token was generated using an a cryptographically weak algorithm, this probably means your version of OpenSSL is broken or very old."
 msgstr ""
 
-#: ./Idno/Core/AsynchronousQueue.php:60
-msgid "You can not dispatch asynchronous events from within the web app, please run the service"
+#: ./Idno/Core/Service.php:23
+msgid "Missing X-Known-Service-Signature, service call is not possible."
 msgstr ""
 
-#: ./Idno/Core/AsynchronousQueue.php:73
+#: ./Idno/Core/Service.php:34
+msgid "Sorry, signature doesn\'t match up."
+msgstr ""
+
+#: ./Idno/Core/Service.php:57
+msgid "Missing site secret"
+msgstr ""
+
+#: ./Idno/Core/Service.php:61
+msgid "Url not provided to token generation."
+msgstr ""
+
+#: ./Idno/Core/AsynchronousQueue.php:72
+msgid "No event passed"
+msgstr ""
+
+#: ./Idno/Core/AsynchronousQueue.php:77
+msgid "Event passed is not a queued event, and so can\'t be dispatched"
+msgstr ""
+
+#: ./Idno/Core/AsynchronousQueue.php:83
+msgid "Sorry, this event has already been dispatched (but not yet cleaned up)"
+msgstr ""
+
+#: ./Idno/Core/AsynchronousQueue.php:95
 msgid "Invalid user (%s) given for runAsContext, aborting"
 msgstr ""
 
@@ -106,11 +130,11 @@ msgstr ""
 msgid "No url specified"
 msgstr ""
 
-#: ./Idno/Pages/Service/Web/ImageProxy.php:184
+#: ./Idno/Pages/Service/Web/ImageProxy.php:188
 msgid "Could not save temporary file"
 msgstr ""
 
-#: ./Idno/Pages/Service/Web/ImageProxy.php:184
+#: ./Idno/Pages/Service/Web/ImageProxy.php:188
 msgid "Looks like something went wrong, image was zero bytes big!"
 msgstr ""
 
@@ -122,7 +146,7 @@ msgstr ""
 msgid "Url %s could not be unfurled"
 msgstr ""
 
-#: ./Idno/Pages/Entity/View.php:156
+#: ./Idno/Pages/Entity/View.php:155
 msgid "%s was deleted."
 msgstr ""
 
@@ -138,7 +162,7 @@ msgstr ""
 msgid "We removed copies on all the syndicated sites."
 msgstr ""
 
-#: ./Idno/Pages/File/Picker.php:92
+#: ./Idno/Pages/File/Picker.php:93
 msgid "You can only upload images."
 msgstr ""
 
@@ -150,7 +174,7 @@ msgstr ""
 msgid "Oops! It looks like your password isn't correct. Please try again."
 msgstr ""
 
-#: ./Idno/Pages/Session/Login.php:93
+#: ./Idno/Pages/Session/Login.php:94
 msgid "Oops! We couldn't find your username or email address. Please check you typed it correctly and try again."
 msgstr ""
 
@@ -202,7 +226,7 @@ msgstr ""
 msgid "%d invitations were sent."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:142
+#: ./Idno/Pages/Admin/Users.php:143
 msgid "Your invitation was sent."
 msgstr ""
 
@@ -210,7 +234,7 @@ msgstr ""
 msgid "Something went wrong and we couldn't send emails to your recipients."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:156
+#: ./Idno/Pages/Admin/Users.php:155
 msgid "No email addresses were found or all the people you invited are already members of this site."
 msgstr ""
 
@@ -218,67 +242,67 @@ msgstr ""
 msgid "The invitation was removed."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:184
+#: ./Idno/Pages/Admin/Users.php:188
 msgid "The invitation was resent."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:184
+#: ./Idno/Pages/Admin/Users.php:188
 msgid "You can't add any more users to your site."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:184
+#: ./Idno/Pages/Admin/Users.php:188
 msgid "Please make sure your passwords match and aren't empty."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:184
+#: ./Idno/Pages/Admin/Users.php:188
 msgid "Please enter a username and email address."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:184
+#: ./Idno/Pages/Admin/Users.php:188
 msgid "Please create a username."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:184
+#: ./Idno/Pages/Admin/Users.php:188
 msgid "Your username is too long."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:184
+#: ./Idno/Pages/Admin/Users.php:188
 msgid "Usernames can't contain a slash ('/"
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:184
+#: ./Idno/Pages/Admin/Users.php:188
 msgid "Unfortunately, someone is already using that username. Please choose another."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:184
+#: ./Idno/Pages/Admin/Users.php:188
 msgid "Hey, it looks like there's already an account with that email address. Did you forget your login?"
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:184
+#: ./Idno/Pages/Admin/Users.php:188
 msgid "That doesn't seem like it's a valid email address."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:184
+#: ./Idno/Pages/Admin/Users.php:188
 msgid "User %s was created. You may wish to email them to let them know."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:184
+#: ./Idno/Pages/Admin/Users.php:188
 msgid "%d emails were blocked."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:184
+#: ./Idno/Pages/Admin/Users.php:188
 msgid "The email address was blocked."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:184
+#: ./Idno/Pages/Admin/Users.php:188
 msgid "No email addresses were found."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:184
+#: ./Idno/Pages/Admin/Users.php:188
 msgid "%d emails were unblocked."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:184
+#: ./Idno/Pages/Admin/Users.php:188
 msgid "The email address was unblocked."
 msgstr ""
 
@@ -366,7 +390,7 @@ msgstr ""
 msgid "Recover password"
 msgstr ""
 
-#: ./Idno/Pages/Account/Password.php:75
+#: ./Idno/Pages/Account/Password.php:76
 msgid "Oh no! We couldn't find an account associated with that email address."
 msgstr ""
 
@@ -390,27 +414,27 @@ msgstr ""
 msgid "Sorry, %s could not be retrieved!"
 msgstr ""
 
-#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:184
+#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:188
 msgid "There was a problem saving the new remote user."
 msgstr ""
 
-#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:184
+#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:188
 msgid "You are now following %s, would you like to subscribe to their feed?"
 msgstr ""
 
-#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:184
+#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:188
 msgid "You are now following %s"
 msgstr ""
 
-#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:184
+#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:188
 msgid "You\'re already following %s"
 msgstr ""
 
-#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:184
+#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:188
 msgid "Sorry, that user doesn\'t exist!"
 msgstr ""
 
-#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:184
+#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:188
 msgid "No UUID, please try that again!"
 msgstr ""
 
@@ -454,19 +478,19 @@ msgstr ""
 msgid "Your invitation doesn't seem to be valid, or has expired."
 msgstr ""
 
-#: ./Idno/Pages/Account/Register.php:60
+#: ./Idno/Pages/Account/Register.php:61
 msgid "Create a new account"
 msgstr ""
 
-#: ./Idno/Pages/Account/Register.php:184
+#: ./Idno/Pages/Account/Register.php:188
 msgid "Usernames can only have letters, numbers and underscores."
 msgstr ""
 
-#: ./Idno/Pages/Account/Register.php:184
+#: ./Idno/Pages/Account/Register.php:188
 msgid "Please check that your passwords match and that your password is at least 7 characters long."
 msgstr ""
 
-#: ./Idno/Pages/Account/Register.php:184
+#: ./Idno/Pages/Account/Register.php:188
 msgid "You've registered! You're ready to get started. Why not add a post to say hello?"
 msgstr ""
 
@@ -510,7 +534,7 @@ msgstr ""
 msgid "Your details were saved."
 msgstr ""
 
-#: ./Idno/Common/Entity.php:184
+#: ./Idno/Common/Entity.php:188
 msgid "There was a problem syndicating."
 msgstr ""
 
@@ -518,23 +542,23 @@ msgstr ""
 msgid "Plugin %s doesn\'t have a version"
 msgstr ""
 
-#: ./Idno/Common/Page.php:184
+#: ./Idno/Common/Page.php:188
 msgid "Invalid token."
 msgstr ""
 
-#: ./Idno/Common/Page.php:184
+#: ./Idno/Common/Page.php:188
 msgid "Something went wrong."
 msgstr ""
 
-#: ./Idno/Common/Page.php:184
+#: ./Idno/Common/Page.php:188
 msgid "Attempted to redirect page to a non local URL."
 msgstr ""
 
-#: ./Idno/Common/Page.php:184
+#: ./Idno/Common/Page.php:188
 msgid "The page you were on timed out."
 msgstr ""
 
-#: ./Idno/Common/Page.php:184
+#: ./Idno/Common/Page.php:188
 msgid "Couldn't say anything about execution, probably something went wrong"
 msgstr ""
 
@@ -542,11 +566,11 @@ msgstr ""
 msgid "GenericDataItem classes must have a datatype label set."
 msgstr ""
 
-#: ./Idno/Files/LocalFileSystem.php:127
+#: ./Idno/Files/LocalFileSystem.php:126
 msgid "There was a problem storing the file data."
 msgstr ""
 
-#: ./Idno/Files/LocalFileSystem.php:135
+#: ./Idno/Files/LocalFileSystem.php:134
 msgid "There was a problem saving the file's metadata"
 msgstr ""
 
