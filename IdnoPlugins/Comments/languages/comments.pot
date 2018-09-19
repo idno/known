@@ -1,20 +1,20 @@
-#: ./templates/default/comments/public/form.tpl.php:4
+#: ./templates/default/comments/public/form.tpl.php:15
 msgid "Your name"
 msgstr ""
 
-#: ./templates/default/comments/public/form.tpl.php:4
+#: ./templates/default/comments/public/form.tpl.php:18
 msgid "Your website address"
 msgstr ""
 
-#: ./templates/default/comments/public/form.tpl.php:4
+#: ./templates/default/comments/public/form.tpl.php:21
 msgid "You probably shouldn't fill this in"
 msgstr ""
 
-#: ./templates/default/comments/public/form.tpl.php:4
+#: ./templates/default/comments/public/form.tpl.php:25
 msgid "Add a comment ..."
 msgstr ""
 
-#: ./templates/default/comments/public/form.tpl.php:4
+#: ./templates/default/comments/public/form.tpl.php:40
 msgid "Leave Comment"
 msgstr ""
 

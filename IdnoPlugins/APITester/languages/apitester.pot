@@ -1,104 +1,104 @@
-#: ./Pages/Admin.php:6
+#: ./Pages/Admin.php:71
 msgid "API Tester"
 msgstr ""
 
-#: ./templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:11
 msgid "This API tester helps you use Known's built-in API functionality. Every page in Known is also an API endpoint, which means you can access it using third-party applications as well as through as web browser."
 msgstr ""
 
-#: ./templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:24
 msgid "Your last API request"
 msgstr ""
 
-#: ./templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:29
 msgid "The API response"
 msgstr ""
 
-#: ./templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:34
 msgid "Hide this"
 msgstr ""
 
-#: ./templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:52
 msgid "Some examples"
 msgstr ""
 
-#: ./templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:53
 msgid "post a status"
 msgstr ""
 
-#: ./templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:54
 msgid "get feed"
 msgstr ""
 
-#: ./templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:60
 msgid "Request"
 msgstr ""
 
-#: ./templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:70
 msgid "JSON"
 msgstr ""
 
-#: ./templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:71
 msgid "RSS"
 msgstr ""
 
-#: ./templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:72
 msgid "Default"
 msgstr ""
 
-#: ./templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:78
 msgid "Method"
 msgstr ""
 
-#: ./templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:97
 msgid "Username"
 msgstr ""
 
-#: ./templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:108
 msgid "API key"
 msgstr ""
 
-#: ./templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:118
 msgid "JSON payload"
 msgstr ""
 
-#: ./templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:131
 msgid "Follow redirects"
 msgstr ""
 
-#: ./templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:138
 msgid "Make API call"
 msgstr ""
 
-#: ./templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:144
 msgid "Technical details"
 msgstr ""
 
-#: ./templates/default/apitester/admin.tpl.php:6
+#: ./templates/default/apitester/admin.tpl.php:145
 msgid "API calls are a GET or POST request (for retrieval and publishing / deleting calls respectively) with the HTTP header X-KNOWN-USERNAME set to the user's username, and X-KNOWN-SIGNATURE to be an HMAC signature, computed with sha256, using the user's API key."
 msgstr ""
 
-#: ./templates/default/apitester/nocurl.tpl.php:6
+#: ./templates/default/apitester/nocurl.tpl.php:11
 msgid "The API Tester requires the"
 msgstr ""
 
-#: ./templates/default/apitester/nocurl.tpl.php:6
+#: ./templates/default/apitester/nocurl.tpl.php:11
 msgid "curl"
 msgstr ""
 
-#: ./templates/default/apitester/nocurl.tpl.php:6
+#: ./templates/default/apitester/nocurl.tpl.php:11
 msgid "extension"
 msgstr ""
 
-#: ./templates/default/apitester/nocurl.tpl.php:6
+#: ./templates/default/apitester/nocurl.tpl.php:12
 msgid "See the"
 msgstr ""
 
-#: ./templates/default/apitester/nocurl.tpl.php:6
+#: ./templates/default/apitester/nocurl.tpl.php:12
 msgid "dependencies page"
 msgstr ""
 
-#: ./templates/default/apitester/nocurl.tpl.php:6
+#: ./templates/default/apitester/nocurl.tpl.php:13
 msgid "for more information about system dependencies."
 msgstr ""
 

@@ -1,32 +1,32 @@
-#: ./Pages/Admin.php:7
+#: ./Pages/Admin.php:20
 msgid "Footer Javascript"
 msgstr ""
 
-#: ./Pages/Admin.php:7
+#: ./Pages/Admin.php:30
 msgid "Your Header & Footer Javascript details were saved."
 msgstr ""
 
-#: ./templates/default/admin/footerjs/menu.tpl.php:7
+#: ./templates/default/admin/footerjs/menu.tpl.php:1
 msgid "Custom JavaScript"
 msgstr ""
 
-#: ./templates/default/admin/footerjs.tpl.php:7
+#: ./templates/default/admin/footerjs.tpl.php:9
 msgid "This editor lets you easily customize your website using a combination of JavaScript and HTML in the header and footer. You can use this space to add code to your site pages for things like analytics, page optimization, and customer tracking."
 msgstr ""
 
-#: ./templates/default/admin/footerjs.tpl.php:7
+#: ./templates/default/admin/footerjs.tpl.php:18
 msgid "Code editor"
 msgstr ""
 
-#: ./templates/default/admin/footerjs.tpl.php:7
+#: ./templates/default/admin/footerjs.tpl.php:23
 msgid "Header code"
 msgstr ""
 
-#: ./templates/default/admin/footerjs.tpl.php:7
+#: ./templates/default/admin/footerjs.tpl.php:29
 msgid "Footer code"
 msgstr ""
 
-#: ./templates/default/admin/footerjs.tpl.php:7
+#: ./templates/default/admin/footerjs.tpl.php:36
 msgid "Save code"
 msgstr ""
 

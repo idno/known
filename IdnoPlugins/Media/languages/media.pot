@@ -1,64 +1,64 @@
-#: ./Pages/Delete.php:11
+#: ./Pages/Delete.php:27
 msgid "Delete %s"
 msgstr ""
 
-#: ./Pages/Delete.php:11
+#: ./Pages/Delete.php:40
 msgid "You don't have permission to perform this task."
 msgstr ""
 
-#: ./Pages/Delete.php:11
+#: ./Pages/Delete.php:45
 msgid "Your media was deleted."
 msgstr ""
 
-#: ./Pages/Delete.php:11
+#: ./Pages/Delete.php:47
 msgid "We couldn't delete your media."
 msgstr ""
 
-#: ./Pages/Edit.php:11
+#: ./Pages/Edit.php:32
 msgid "Upload audio"
 msgstr ""
 
-#: ./Pages/Edit.php:11
+#: ./Pages/Edit.php:34
 msgid "Edit audio details"
 msgstr ""
 
-#: ./templates/default/entity/Media/edit.tpl.php:11
+#: ./templates/default/entity/Media/edit.tpl.php:13
 msgid "New Audio"
 msgstr ""
 
-#: ./templates/default/entity/Media/edit.tpl.php:11
+#: ./templates/default/entity/Media/edit.tpl.php:15
 msgid "Edit Audio"
 msgstr ""
 
-#: ./templates/default/entity/Media/edit.tpl.php:11
+#: ./templates/default/entity/Media/edit.tpl.php:25
 msgid "Choose different audio"
 msgstr ""
 
-#: ./templates/default/entity/Media/edit.tpl.php:11
+#: ./templates/default/entity/Media/edit.tpl.php:38
 msgid "Title"
 msgstr ""
 
-#: ./templates/default/entity/Media/edit.tpl.php:11
+#: ./templates/default/entity/Media/edit.tpl.php:42
 msgid "Give it a title"
 msgstr ""
 
-#: ./templates/default/entity/Media/edit.tpl.php:11
+#: ./templates/default/entity/Media/edit.tpl.php:54
 msgid "Describe your audio"
 msgstr ""
 
-#: ./templates/default/entity/Media/edit.tpl.php:11
+#: ./templates/default/entity/Media/edit.tpl.php:55
 msgid "Description"
 msgstr ""
 
-#: ./templates/default/entity/Media/edit.tpl.php:11
+#: ./templates/default/entity/Media/edit.tpl.php:66
 msgid "Cancel"
 msgstr ""
 
-#: ./templates/default/entity/Media/edit.tpl.php:11
+#: ./templates/default/entity/Media/edit.tpl.php:67
 msgid "Publish"
 msgstr ""
 
-#: ./templates/default/entity/Media.tpl.php:11
+#: ./templates/default/entity/Media.tpl.php:41
 msgid "Sorry, your browser does not support the video tag."
 msgstr ""
 
