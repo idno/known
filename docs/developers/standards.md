@@ -61,8 +61,13 @@ Use PHP doc blocks for every method, *except* inherited methods, where they are 
 * "Just read the code" isn't a good idea, and we don't like it.
 * That said, clear, simple code is good :)
 
+## PHP Files
+
+* Use Unix line endings
+* End your file with a single blank line
+* You should never end your .php file with ```?>```, as this leads to fragile code.
+
 ## PHP tags
 
 * Open your PHP blocks with ```<?php```, and close with ```?>```
 * Shorthand ```<?=``` is ok in templates
-* You should never end your .php file with ```?>```, as this leads to fragile code.
