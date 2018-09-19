@@ -1,0 +1,44 @@
+#: ./Main.php:19
+msgid "SIGTERM received, shutting down."
+msgstr ""
+
+#: ./Main.php:21
+msgid "Shutting down, this may take a little while..."
+msgstr ""
+
+#: ./Main.php:25
+msgid "Sorry, your hosting environment does not support functionality (the \"system\" function) necessary to support this action."
+msgstr ""
+
+#: ./Main.php:30
+msgid "Could not fork a new process"
+msgstr ""
+
+#: ./Main.php:32
+msgid "Starting GC thread for %s"
+msgstr ""
+
+#: ./Main.php:46
+msgid "Starting Asynchronous event processor on queue: %s, polling every %d seconds"
+msgstr ""
+
+#: ./Main.php:54
+msgid "Polling queue..."
+msgstr ""
+
+#: ./Main.php:59
+msgid "Dispatching event %s"
+msgstr ""
+
+#: ./Main.php:87
+msgid "Begin the Asynchronous event queue dispatcher service"
+msgstr ""
+
+#: ./Main.php:92
+msgid "Queue to process"
+msgstr ""
+
+#: ./Main.php:93
+msgid "How often should the service poll the queue"
+msgstr ""
+
