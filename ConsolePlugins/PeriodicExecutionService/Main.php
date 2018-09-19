@@ -7,6 +7,15 @@ namespace ConsolePlugins\PeriodicExecutionService {
         public static $run = true;
         
         public $cron;
+        
+        function registerTranslations() {
+
+            \Idno\Core\Idno::site()->language()->register(
+                new \Idno\Core\GetTextTranslation(
+                    'periodicexecutionservice', dirname(__FILE__) . '/languages/'
+                )
+            );
+        }
                 
         public function execute(\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) {
             
