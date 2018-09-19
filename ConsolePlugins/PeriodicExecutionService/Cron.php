@@ -29,7 +29,7 @@ namespace ConsolePlugins\PeriodicExecutionService  {
 
             $eventqueue = \Idno\Core\Idno::site()->queue();
             if (!$eventqueue instanceof \Idno\Core\AsynchronousQueue)
-                throw new \RuntimeException("Cron support can't run unless Known's queue is Asynchronous!");
+                throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Sorry, this functionality can not be activated unless you are running with an asynchronous message queue.'));
 
             foreach (self::$events as $period => $interval) {
 

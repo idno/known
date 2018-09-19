@@ -18,27 +18,27 @@ namespace ConsolePlugins\PeriodicExecutionService {
             // Set up shutdown listener
             
             pcntl_signal(SIGTERM, function($signo) {
-                \Idno\Core\Idno::site()->logging()->debug('SIGTERM received, shutting down.');
+                \Idno\Core\Idno::site()->logging()->debug(\Idno\Core\Idno::site()->language()->_('SIGTERM received, shutting down.'));
                 \ConsolePlugins\EventQueueService\Main::$run = false;
-                $output->writeln('Shutting down, this may take a little while...'); 
+                $output->writeln(\Idno\Core\Idno::site()->language()->_('Shutting down, this may take a little while...')); 
             });
             
             $output->writeln('Starting Periodic Execution Service');
             
             
             if (!\Idno\Core\Service::isFunctionAvailable('system'))
-                throw new \RuntimeException('Sorry, your hosting environment does not support functionality (the "system" function) necessary to support this action.');
+                throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Sorry, your hosting environment does not support functionality (the "system" function) necessary to support this action.'));
             
             foreach (Cron::$events as $queue => $period) {
                 
                 $pid = pcntl_fork();
                 if ($pid == -1) {
-                     throw new \RuntimeException("Could not fork a new process");
+                     throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Could not fork a new process'));
                 } else if ($pid) {
                     
                 } else {
                     // Child
-                    $output->writeln("Starting $queue queue processor.");
+                    $output->writeln(\Idno\Core\Idno::site()->language()->_('Starting %s queue processor.', [$queue]));
                     
                     
                     try {
@@ -46,14 +46,14 @@ namespace ConsolePlugins\PeriodicExecutionService {
 
                             while (self::$run) {
 
-                                $output->writeln("Triggering any events on the $queue queue...");
+                                $output->writeln(\Idno\Core\Idno::site()->language()->_('Triggering any events on the %s queue...', [$queue]));
                                 if ($events = \Idno\Core\Service::call('/service/queue/list/', [
                                     'queue' => $queue
                                 ])) {
 
                                     foreach ($events->queue as $event) {
                                         try {
-                                            \Idno\Core\Idno::site()->logging()->info("Dispatching event $event");
+                                            \Idno\Core\Idno::site()->logging()->info(\Idno\Core\Idno::site()->language()->_('Dispatching event %s', [$event]));
                                             //\Idno\Core\Service::call('/service/queue/dispatch/' . $event);
                                             
                                             system(escapeshellcmd("./known.php event-queue-manage $queue dispatch $event"));
@@ -85,7 +85,7 @@ namespace ConsolePlugins\PeriodicExecutionService {
         }
 
         public function getDescription() {
-            return 'Begin the cron service';
+            return \Idno\Core\Idno::site()->language()->_('Begin the cron service');
         }
 
         public function getParameters() {
