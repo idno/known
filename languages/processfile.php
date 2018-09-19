@@ -20,7 +20,7 @@ foreach ($filenames as $filename) {
 
                 $string = $translation[0];
                 $offset = $translation[1];
-                $linenumber = getLineNumber($in, $offset);
+                $linenumber = getLineNumber($file, $offset);
 
                 $normalised_string = str_replace('"', '\"', $string);
 
