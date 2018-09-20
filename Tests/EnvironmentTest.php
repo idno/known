@@ -10,7 +10,7 @@
             function testPHPVersion() {
                 $this->assertTrue(version_compare(phpversion(), '5.4', '>='));
             }
-            
+
             /**
              * Assert that required extension modules are present
              */
@@ -28,21 +28,7 @@
                 echo "Checking available DB (mysql, mongodb, sqlite, pgsql)\n";
                 $this->assertTrue(extension_loaded('mysql') || extension_loaded('mongodb') || extension_loaded('sqlite') || extension_loaded('pgsql'));
             }
-            
-            /** 
-             * Assert that configuration files have been installed correctly
-             */
-            function testKnownConfigFileExists() {
-                $this->assertTrue(file_exists(dirname(dirname(__FILE__)). '/configuration/config.ini'));
-            }
-            
-            /** 
-             * Assert that htaccess is there
-             */
-            function testHTAccessExists() {
-                $this->assertTrue(file_exists(dirname(dirname(__FILE__)). '/.htaccess'));
-            }
-            
+
             /**
              * Assert that the configuration has been loaded correctly
              */
@@ -52,4 +38,3 @@
         }
 
     }
-    
