@@ -79,7 +79,7 @@ namespace Idno\Core {
                 if ($error != 200) {
                                     
                     if (empty($content))
-                        throw new \RuntimeException('Response from service endpoint was not json');
+                        throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Response from service endpoint was not json'));
                     
                     if (!empty($content->exception->message))
                         throw new \RuntimeException($content->exception->message);
@@ -91,7 +91,7 @@ namespace Idno\Core {
                 }
                 
             } else {
-                throw new \RuntimeException('No result from endpoint.');
+                throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('No result from endpoint.'));
             }
              return false;
             
