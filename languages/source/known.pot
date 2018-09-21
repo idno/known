@@ -50,31 +50,39 @@ msgstr ""
 msgid "Missing X-Known-Service-Signature, service call is not possible."
 msgstr ""
 
-#: ./Idno/Core/Service.php:25
-msgid "Sorry, signature doesn\'t match up."
+#: ./Idno/Core/Service.php:30
+msgid "Sorry, signature doesn\'t match up - %s != %s from currentUrl(%s)"
 msgstr ""
 
-#: ./Idno/Core/Service.php:41
+#: ./Idno/Core/Service.php:51
 msgid "Missing site secret"
 msgstr ""
 
-#: ./Idno/Core/Service.php:46
+#: ./Idno/Core/Service.php:56
 msgid "Url not provided to token generation."
 msgstr ""
 
-#: ./Idno/Core/AsynchronousQueue.php:60
+#: ./Idno/Core/Service.php:90
+msgid "Response from service endpoint was not json"
+msgstr ""
+
+#: ./Idno/Core/Service.php:102
+msgid "No result from endpoint."
+msgstr ""
+
+#: ./Idno/Core/AsynchronousQueue.php:59
 msgid "No event passed"
 msgstr ""
 
-#: ./Idno/Core/AsynchronousQueue.php:63
+#: ./Idno/Core/AsynchronousQueue.php:62
 msgid "Event passed is not a queued event, and so can\'t be dispatched"
 msgstr ""
 
-#: ./Idno/Core/AsynchronousQueue.php:66
+#: ./Idno/Core/AsynchronousQueue.php:65
 msgid "Sorry, this event has already been dispatched (but not yet cleaned up)"
 msgstr ""
 
-#: ./Idno/Core/AsynchronousQueue.php:75
+#: ./Idno/Core/AsynchronousQueue.php:74
 msgid "Invalid user (%s) given for runAsContext, aborting"
 msgstr ""
 
