@@ -21,8 +21,18 @@ namespace Idno\Core {
             if (empty($service_signature))
                 throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Missing X-Known-Service-Signature, service call is not possible.'));
 
-            if ($service_signature != static::generateToken(\Idno\Core\Idno::site()->currentPage()->currentUrl()))
-                throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Sorry, signature doesn\'t match up.'));
+            $generated_token = static::generateToken(\Idno\Core\Idno::site()->currentPage()->currentUrl());
+            
+            if ($service_signature != $generated_token) {
+                
+                \Idno\Core\Idno::site()->logging()->debug("Passed signature '$service_signature' does not match generated token '$generated_token' formed over " . \Idno\Core\Idno::site()->currentPage()->currentUrl());
+                
+                throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Sorry, signature doesn\'t match up - %s != %s from currentUrl(%s)', [
+                    TokenProvider::truncateToken($service_signature),
+                    TokenProvider::truncateToken($generated_token),
+                    \Idno\Core\Idno::site()->currentPage()->currentUrl()
+                ]));
+            }
 
             return true;
         }
@@ -44,6 +54,8 @@ namespace Idno\Core {
             
             if (empty($url))
                 throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Url not provided to token generation.'));
+            
+            \Idno\Core\Idno::site()->logging()->debug("Generating token over $url using site secret " . TokenProvider::truncateToken($site_secret));
 
             return hash_hmac('sha256', $url, $site_secret);
         }
@@ -69,13 +81,13 @@ namespace Idno\Core {
             if ($result = \Idno\Core\Webservice::get($endpoint, $params, [
                 'X-KNOWN-SERVICE-SIGNATURE: ' . $signature
             ])) {
-                 $error = $result['response'];
+                $error = $result['response'];
                 $content = json_decode($result['content']);
                 
                 if ($error != 200) {
                                     
                     if (empty($content))
-                        throw new \RuntimeException('Response from service endpoint was not json');
+                        throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Response from service endpoint was not json'));
                     
                     if (!empty($content->exception->message))
                         throw new \RuntimeException($content->exception->message);
@@ -87,7 +99,7 @@ namespace Idno\Core {
                 }
                 
             } else {
-                throw new \RuntimeException('No result from endpoint.');
+                throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('No result from endpoint.'));
             }
              return false;
             
