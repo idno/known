@@ -42,6 +42,10 @@ namespace Idno\Core {
 
             $url = explode('?', $url)[0];
             
+            // Normalise url for token generation
+            $url = str_replace('https://', '', $url);
+            $url = str_replace('http://', '', $url);
+            
             if (empty($url))
                 throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Url not provided to token generation.'));
 
@@ -69,13 +73,13 @@ namespace Idno\Core {
             if ($result = \Idno\Core\Webservice::get($endpoint, $params, [
                 'X-KNOWN-SERVICE-SIGNATURE: ' . $signature
             ])) {
-                 $error = $result['response'];
+                $error = $result['response'];
                 $content = json_decode($result['content']);
                 
                 if ($error != 200) {
                                     
                     if (empty($content))
-                        throw new \RuntimeException('Response from service endpoint was not json');
+                        throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Response from service endpoint was not json'));
                     
                     if (!empty($content->exception->message))
                         throw new \RuntimeException($content->exception->message);
@@ -87,7 +91,7 @@ namespace Idno\Core {
                 }
                 
             } else {
-                throw new \RuntimeException('No result from endpoint.');
+                throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('No result from endpoint.'));
             }
              return false;
             
