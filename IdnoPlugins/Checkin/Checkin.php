@@ -7,7 +7,7 @@
 
             function getTitle()
             {
-                return 'Checked into ' . $this->placename;
+                return \Idno\Core\Idno::site()->languages('Checked into %s', [$this->placename]);
             }
 
             function getDescription()
