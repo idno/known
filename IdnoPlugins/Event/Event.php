@@ -5,7 +5,7 @@
         class Event extends \Idno\Common\Entity {
 
             function getTitle() {
-                if (empty($this->title)) return 'Untitled';
+                if (empty($this->title)) return \Idno\Core\Idno::site()->_('Untitled');
                 return $this->title;
             }
 
