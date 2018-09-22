@@ -42,6 +42,10 @@ namespace Idno\Core {
 
             $url = explode('?', $url)[0];
             
+            // Normalise url for token generation
+            $url = str_replace('https://', '', $url);
+            $url = str_replace('http://', '', $url);
+            
             if (empty($url))
                 throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Url not provided to token generation.'));
 
