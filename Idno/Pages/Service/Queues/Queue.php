@@ -21,7 +21,7 @@ namespace Idno\Pages\Service\Queues {
             $array = [];
             $queue_list = \Idno\Entities\AsynchronousQueuedEvent::getPendingFromQueue($queue, $limit, $offset);
             foreach ($queue_list as $event) {
-                $array[] = $event->getID();
+                $array[] = (string)$event->getID();
             }
             
             Idno::site()->template()->__([
