@@ -73,7 +73,7 @@ namespace Idno\Core {
             if ($result = \Idno\Core\Webservice::get($endpoint, $params, [
                 'X-KNOWN-SERVICE-SIGNATURE: ' . $signature
             ])) {
-                 $error = $result['response'];
+                $error = $result['response'];
                 $content = json_decode($result['content']);
                 
                 if ($error != 200) {
