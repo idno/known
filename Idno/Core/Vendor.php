@@ -2,13 +2,15 @@
 
 namespace Idno\Core {
 
-    class Vendor extends \Idno\Common\Component {
+    class Vendor extends \Idno\Common\Component
+    {
 
         /**
          * Retrieve notices (eg notifications that a new version has been released) from Known HQ
          * @return string
          */
-        public static function getMessages() {
+        public static function getMessages()
+        {
 
             if (!empty(\Idno\Core\Idno::site()->config()->noping)) {
                 return '';
@@ -23,11 +25,11 @@ namespace Idno\Core {
                         'dbengine' => get_class(\Idno\Core\Idno::site()->db()),
                         'hub' => \Idno\Core\Idno::site()->config()->known_hub,
             ]);
-             
+
             if ($results['response'] == 200) {
                 return $results['content'];
             }
-            
+
             return '';
         }
 

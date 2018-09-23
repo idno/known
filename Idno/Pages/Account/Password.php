@@ -4,68 +4,68 @@
      * Recover a forgotten password
      */
 
-    namespace Idno\Pages\Account {
+namespace Idno\Pages\Account {
 
-        use Idno\Core\Email;
-        use Idno\Entities\User;
+    use Idno\Core\Email;
+    use Idno\Entities\User;
 
-        /**
-         * Default class to serve the password recovery page
-         */
-        class Password extends \Idno\Common\Page
+    /**
+     * Default class to serve the password recovery page
+     */
+    class Password extends \Idno\Common\Page
+    {
+
+        function getContent()
         {
 
-            function getContent()
-            {
+            $this->reverseGatekeeper();
+            $t = \Idno\Core\Idno::site()->template();
 
-                $this->reverseGatekeeper();
-                $t = \Idno\Core\Idno::site()->template();
-
-                if ($sent = $this->getInput('sent')) {
-                    $t->body  = $t->draw('account/password/sent');
-                    $t->title = \Idno\Core\Idno::site()->language()->_('Password recovery email sent');
-                } else {
-                    $t->body  = $t->draw('account/password');
-                    $t->title = \Idno\Core\Idno::site()->language()->_('Recover password');
-                }
-
-                $t->drawPage();
-
+            if ($sent = $this->getInput('sent')) {
+                $t->body  = $t->draw('account/password/sent');
+                $t->title = \Idno\Core\Idno::site()->language()->_('Password recovery email sent');
+            } else {
+                $t->body  = $t->draw('account/password');
+                $t->title = \Idno\Core\Idno::site()->language()->_('Recover password');
             }
 
-            function postContent()
-            {
+            $t->drawPage();
 
-                $this->reverseGatekeeper();
-                $email_address = $this->getInput('email');
+        }
 
-                if ($user = User::getByEmail($email_address)) {
+        function postContent()
+        {
 
-                    if ($auth_code = $user->addPasswordRecoveryCode()) {
+            $this->reverseGatekeeper();
+            $email_address = $this->getInput('email');
 
-                        $user->save(); // Save the recovery code to the user
+            if ($user = User::getByEmail($email_address)) {
 
-                        $t = clone \Idno\Core\Idno::site()->template();
-                        $t->setTemplateType('email');
+                if ($auth_code = $user->addPasswordRecoveryCode()) {
 
-                        $email = new Email();
-                        $email->setSubject("Password reset");
-                        $email->addTo($user->email);
-                        $email->setHTMLBody($t->__(array('email' => $email_address, 'code' => $auth_code))->draw('account/password'));
-                        $email->setTextBodyFromTemplate('account/password', array('email' => $email_address, 'code' => $auth_code));
-                        $email->send();
+                    $user->save(); // Save the recovery code to the user
 
-                        $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'account/password/?sent=true');
+                    $t = clone \Idno\Core\Idno::site()->template();
+                    $t->setTemplateType('email');
 
-                    }
+                    $email = new Email();
+                    $email->setSubject("Password reset");
+                    $email->addTo($user->email);
+                    $email->setHTMLBody($t->__(array('email' => $email_address, 'code' => $auth_code))->draw('account/password'));
+                    $email->setTextBodyFromTemplate('account/password', array('email' => $email_address, 'code' => $auth_code));
+                    $email->send();
+
+                    $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'account/password/?sent=true');
 
                 }
-                \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("Oh no! We couldn't find an account associated with that email address."));
-                $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'account/password');
 
             }
+            \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("Oh no! We couldn't find an account associated with that email address."));
+            $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'account/password');
 
         }
 
     }
-    
+
+}
+

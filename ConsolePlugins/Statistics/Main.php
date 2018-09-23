@@ -2,9 +2,11 @@
 
 namespace ConsolePlugins\Statistics {
 
-    class Main extends \Idno\Common\ConsolePlugin {
-        
-        function registerTranslations() {
+    class Main extends \Idno\Common\ConsolePlugin
+    {
+
+        function registerTranslations()
+        {
 
             \Idno\Core\Idno::site()->language()->register(
                 new \Idno\Core\GetTextTranslation(
@@ -13,7 +15,8 @@ namespace ConsolePlugins\Statistics {
             );
         }
 
-        protected function writeReport($output, $report, $level = 1) {
+        protected function writeReport($output, $report, $level = 1)
+        {
 
             foreach ($report as $label => $value) {
 
@@ -37,7 +40,8 @@ namespace ConsolePlugins\Statistics {
             }
         }
 
-        public function execute(\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) {
+        public function execute(\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output)
+        {
             $output->writeln(\Idno\Core\Idno::site()->language()->_("Gathering statistics for %s", [\Idno\Core\Idno::site()->config()->getURL()]));
             $output->writeln("");
 
@@ -46,15 +50,18 @@ namespace ConsolePlugins\Statistics {
             $this->writeReport($output, $report);
         }
 
-        public function getCommand() {
+        public function getCommand()
+        {
             return 'statistics';
         }
 
-        public function getDescription() {
+        public function getDescription()
+        {
             return \Idno\Core\Idno::site()->language()->_('Retrieve admin statistics from your Known site');
         }
 
-        public function getParameters() {
+        public function getParameters()
+        {
             return [
             ];
         }

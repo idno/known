@@ -1,16 +1,18 @@
 <?php
 
-    namespace IdnoPlugins\Status {
+namespace IdnoPlugins\Status {
 
-        class Reply extends \IdnoPlugins\Status\Status {
+    class Reply extends \IdnoPlugins\Status\Status
+    {
 
-            function getMetadataForFeed() {
-                return array(
-                    'type' => 'reply',
-                    'in-reply-to' => $this->inreplyto
-                );
-            }
-
+        function getMetadataForFeed()
+        {
+            return array(
+                'type' => 'reply',
+                'in-reply-to' => $this->inreplyto
+            );
         }
 
     }
+
+}

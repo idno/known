@@ -1,20 +1,20 @@
 <?php
 
-    namespace Idno\Pages\Chrome {
+namespace Idno\Pages\Chrome {
 
-        use Idno\Common\Page;
+    use Idno\Common\Page;
 
-        class Manifest extends Page
+    class Manifest extends Page
+    {
+
+        function getContent()
         {
 
-            function getContent()
-            {
-
-                echo \Idno\Core\Idno::site()->template()->draw('chrome/manifest');
-
-            }
+            echo \Idno\Core\Idno::site()->template()->draw('chrome/manifest');
 
         }
 
     }
-    
+
+}
+

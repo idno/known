@@ -25,7 +25,7 @@ namespace Tests\Data {
                 $obj->variable2 = 'test again';
                 $obj->rangeVariable = 'b';
 
-                //echo "\n\n\nabout to save"; 
+                //echo "\n\n\nabout to save";
                 $id = $obj->save(); //die($id);
 
                 // Save for later retrieval
@@ -206,7 +206,6 @@ namespace Tests\Data {
             $id = $obj2->save();
 
             self::$fts_objects = [$obj, $obj2];
-
 
             $search = array();
 

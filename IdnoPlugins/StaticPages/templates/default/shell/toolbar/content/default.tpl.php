@@ -2,11 +2,11 @@
 
     $url = \Idno\Core\Idno::site()->config()->getDisplayURL();
 
-    if ($staticpages = \Idno\Core\Idno::site()->plugins()->get('StaticPages')) {
-        if (!empty($staticpages->getCurrentHomepageId())) {
-            $url .= 'content/default/';
-        }
+if ($staticpages = \Idno\Core\Idno::site()->plugins()->get('StaticPages')) {
+    if (!empty($staticpages->getCurrentHomepageId())) {
+        $url .= 'content/default/';
     }
+}
 
     $url .= $vars['search'];
 
@@ -14,4 +14,3 @@
 
     echo $this->__(array( 'url' => $url, 'title' => $title ))->draw('shell/toolbar/content/entry');
 
-?>

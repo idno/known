@@ -8,8 +8,8 @@ $user = Idno::site()->session()->currentUser();
 <div class="row">
     <div class="col-md-offset-1 col-md-10">
 
-        <?= $this->draw('account/menu') ?>
-        <h1><?= \Idno\Core\Idno::site()->language()->_('IndiePub Accounts'); ?></h1>
+        <?php echo $this->draw('account/menu') ?>
+        <h1><?php echo \Idno\Core\Idno::site()->language()->_('IndiePub Accounts'); ?></h1>
 
 
         <?php
@@ -17,32 +17,32 @@ $user = Idno::site()->session()->currentUser();
             ?>
             <div class="explanation">
                 <p>
-                    <?= \Idno\Core\Idno::site()->language()->_('There are currently no IndiePub accounts associated with this site.'); ?>
+                    <?php echo \Idno\Core\Idno::site()->language()->_('There are currently no IndiePub accounts associated with this site.'); ?>
                 </p>
             </div>
-        <?php
+            <?php
         } else {
             foreach ((array) $user->indieauth_tokens as $token => $details) { ?>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <?= \Idno\Core\Idno::site()->language()->_('Client ID'); ?>: <a href="<?= $details['client_id'] ?>" target="_blank"><?= $details['client_id'] ?></a>
+                    <?php echo \Idno\Core\Idno::site()->language()->_('Client ID'); ?>: <a href="<?php echo $details['client_id'] ?>" target="_blank"><?php echo $details['client_id'] ?></a>
                 </div>
                 <div class="panel-body" >
                     <p>
-                        <?= \Idno\Core\Idno::site()->language()->_('Authorized'); ?> <strong><?= strftime('%Y-%m-%d', $details['issued_at']) ?></strong>
-                        <?= \Idno\Core\Idno::site()->language()->_('with the scope'); ?> <strong><?= $details['scope'] ?></strong>.
+                        <?php echo \Idno\Core\Idno::site()->language()->_('Authorized'); ?> <strong><?php echo strftime('%Y-%m-%d', $details['issued_at']) ?></strong>
+                        <?php echo \Idno\Core\Idno::site()->language()->_('with the scope'); ?> <strong><?php echo $details['scope'] ?></strong>.
                     </p>
                     <p>
-                      <?= \Idno\Core\Idno::site()->language()->_('Token'); ?>: <?= substr($token, 0, 5) ?>&hellip;
+                      <?php echo \Idno\Core\Idno::site()->language()->_('Token'); ?>: <?php echo substr($token, 0, 5) ?>&hellip;
                     </p>
-                    <form action="<?= Idno::site()->config()->getDisplayURL() ?>account/indiepub/revoke" method="POST">
-                        <input name="token" type="hidden" value="<?= $token ?>">
-                        <button class="btn btn-warning" type="submit"><?= \Idno\Core\Idno::site()->language()->_('Revoke Access'); ?></button>
-                        <?= Idno::site()->actions()->signForm('account/indiepub/revoke') ?>
+                    <form action="<?php echo Idno::site()->config()->getDisplayURL() ?>account/indiepub/revoke" method="POST">
+                        <input name="token" type="hidden" value="<?php echo $token ?>">
+                        <button class="btn btn-warning" type="submit"><?php echo \Idno\Core\Idno::site()->language()->_('Revoke Access'); ?></button>
+                        <?php echo Idno::site()->actions()->signForm('account/indiepub/revoke') ?>
                     </form>
                 </div>
             </div>
-        <?php
+                <?php
             }
         }?>
 

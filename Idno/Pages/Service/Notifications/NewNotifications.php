@@ -5,13 +5,15 @@ namespace Idno\Pages\Service\Notifications {
     use Idno\Core\Idno;
     use Idno\Entities\Notification;
 
-    class NewNotifications extends \Idno\Common\Page {
+    class NewNotifications extends \Idno\Common\Page
+    {
 
-        function getContent($params = array()) {
+        function getContent($params = array())
+        {
             $this->gatekeeper();
 
             $this->setNoCache();
-            
+
             $user = Idno::site()->session()->currentUser();
 
             $last_time = $user->last_notification_time;
@@ -23,7 +25,6 @@ namespace Idno\Pages\Service\Notifications {
                         'owner' => $user->getUUID(),
                         'created' => ['$gt' => $last_time]
             ]);
-
 
             if ($notifs) {
                 $notifs = array_filter($notifs, function ($notif) use ($last_time) {

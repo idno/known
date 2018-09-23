@@ -71,7 +71,7 @@ foreach ($fields_and_defaults as $field => $default) {
             echo "$field ";
             $published[$field] = true;
         } else {
-            echo "$field=\"{$vars[$field]}\" "; 
+            echo "$field=\"{$vars[$field]}\" ";
             $published[$field] = $vars[$field];
         }
     }
@@ -92,11 +92,11 @@ foreach ($fields_and_defaults as $field => $default) {
     <?php if (!empty($vars['blank-default'])) { ?>
     <option></option>
     <?php } ?>
-    <?php 
+    <?php
     foreach ($vars['options'] as $option => $label) {
         ?>
-    <option value="<?= $option; ?>" <?php if (in_array($option, $vars['value'])) echo 'selected' ?>><?= htmlentities($label, ENT_QUOTES, 'UTF-8'); ?></option>
-    <?php
+    <option value="<?php echo $option; ?>" <?php if (in_array($option, $vars['value'])) echo 'selected' ?>><?php echo htmlentities($label, ENT_QUOTES, 'UTF-8'); ?></option>
+        <?php
     }
     ?>
 </select>    
@@ -111,6 +111,5 @@ if (!empty($published['placeholder'])) {
 $this->documentFormControl($vars['name'], $published);
 
 // Prevent bonita polution
-foreach (array_merge($fields_and_defaults, ['placeholder' => false, 'value' => '', 'options' => '', 'blank-default' => '', 'class' => '']) as $field => $default) 
+foreach (array_merge($fields_and_defaults, ['placeholder' => false, 'value' => '', 'options' => '', 'blank-default' => '', 'class' => '']) as $field => $default)
     unset($this->vars[$field]);
-?>

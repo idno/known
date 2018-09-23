@@ -1,10 +1,11 @@
 <?php
 
-    namespace Themes\Kandinsky {
+namespace Themes\Kandinsky {
 
-        class Controller extends \Idno\Common\Theme {
-
-        }
+    class Controller extends \Idno\Common\Theme
+    {
 
     }
-    
+
+}
+

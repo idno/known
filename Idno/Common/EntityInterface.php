@@ -10,12 +10,12 @@
      * @subpackage core
      */
 
-    namespace Idno\Common {
+namespace Idno\Common {
 
-        interface EntityInterface extends \JsonSerializable, \ArrayAccess, RSSSerialisable
-        {
-
-        }
+    interface EntityInterface extends \JsonSerializable, \ArrayAccess, RSSSerialisable
+    {
 
     }
-    
+
+}
+

@@ -1,4 +1,4 @@
-<?= $this->draw('js/mentions') ?>
+<?php echo $this->draw('js/mentions') ?>
 <script>
     /* Handle submit button */
     $(document).ready(function() {
@@ -23,4 +23,4 @@
         });
     });
 </script>
-<?= $this->__(['id' => 'submit-spinner'])->draw('entity/edit/spinner'); ?>
+<?php echo $this->__(['id' => 'submit-spinner'])->draw('entity/edit/spinner');

@@ -2,14 +2,16 @@
 
 namespace Idno\Core {
 
-    class Version extends \Idno\Common\Component {
+    class Version extends \Idno\Common\Component
+    {
 
         private static $details = [];
 
         /**
          * Parse version details from version file.
          */
-        protected static function parse() {
+        protected static function parse()
+        {
 
             if (!empty(static::$details))
                 return static::$details;
@@ -29,7 +31,8 @@ namespace Idno\Core {
          * @param string $field
          * @return boolean|string
          */
-        public static function get($field) {
+        public static function get($field)
+        {
 
             $version = static::parse();
 
@@ -43,7 +46,8 @@ namespace Idno\Core {
          * Return the human readable version.
          * @return boolean|string
          */
-        public static function version() {
+        public static function version()
+        {
             return static::get('version');
         }
 
@@ -51,15 +55,17 @@ namespace Idno\Core {
          * Return the machine version.
          * @return type
          */
-        public static function build() {
+        public static function build()
+        {
             return static::get('build');
         }
 
         /**
-         * Retrieve a unique fingerprint for the site and the build version, without 
+         * Retrieve a unique fingerprint for the site and the build version, without
          * giving away the detailed version number
          */
-        public static function fingerprint() {
+        public static function fingerprint()
+        {
             $hmac = hash_hmac('sha256', static::build(), \Idno\Core\Idno::site()->config()->site_secret, true);
             $hmac = hash_hmac('sha256', static::version(), $hmac);
 

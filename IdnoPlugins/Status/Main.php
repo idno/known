@@ -2,9 +2,11 @@
 
 namespace IdnoPlugins\Status {
 
-    class Main extends \Idno\Common\Plugin {
+    class Main extends \Idno\Common\Plugin
+    {
 
-        function registerPages() {
+        function registerPages()
+        {
             \Idno\Core\Idno::site()->addPageHandler('/status/edit/?', '\IdnoPlugins\Status\Pages\Edit');
             \Idno\Core\Idno::site()->addPageHandler('/status/edit/([A-Za-z0-9]+)/?', '\IdnoPlugins\Status\Pages\Edit');
             \Idno\Core\Idno::site()->addPageHandler('/reply/edit/?', '\IdnoPlugins\Status\Pages\Edit');
@@ -13,13 +15,15 @@ namespace IdnoPlugins\Status {
             \Idno\Core\Idno::site()->addPageHandler('/reply/delete/([A-Za-z0-9]+)/?', '\IdnoPlugins\Status\Pages\Delete');
         }
 
-        function registerContentTypes() {
+        function registerContentTypes()
+        {
             parent::registerContentTypes();
 
             \Idno\Common\ContentType::register($this->getNamespace() . '\\RepliesContentType');
         }
 
-        function registerTranslations() {
+        function registerTranslations()
+        {
 
             \Idno\Core\Idno::site()->language()->register(
                 new \Idno\Core\GetTextTranslation(

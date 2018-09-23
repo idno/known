@@ -4,21 +4,21 @@
      * User profile editing for onboarding
      */
 
-    namespace Idno\Pages\Onboarding {
+namespace Idno\Pages\Onboarding {
 
-        class ConnectForwarder extends \Idno\Common\Page
+    class ConnectForwarder extends \Idno\Common\Page
+    {
+
+        function getContent()
         {
 
-            function getContent()
-            {
+            $this->gatekeeper();
 
-                $this->gatekeeper();
-
-                $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'begin/connect');
-
-            }
+            $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'begin/connect');
 
         }
 
     }
-    
+
+}
+

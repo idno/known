@@ -9,7 +9,8 @@
 
 namespace Idno\Stats {
 
-    abstract class StatisticsCollector extends \Idno\Common\Component {
+    abstract class StatisticsCollector extends \Idno\Common\Component
+    {
 
         /**
          * Set timing values
@@ -29,7 +30,7 @@ namespace Idno\Stats {
 
         /**
          * A "Set" is a count of unique events.
-         * 
+         *
          * @param string $stat The metric to set.
          * @param float $value The value for the stats.
          * */

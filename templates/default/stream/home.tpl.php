@@ -1,18 +1,17 @@
 <?php
 
-    if (!empty($vars['items'])) {
+if (!empty($vars['items'])) {
 
-        foreach($vars['items'] as $item) {
+    foreach($vars['items'] as $item) {
 
-            /* @var \Idno\Entities\Reader\FeedItem $item */
-            ?>
+        /* @var \Idno\Entities\Reader\FeedItem $item */
+        ?>
 
-            <?=$item->draw()?>
+        <?php echo $item->draw()?>
 
         <?php
 
-        }
-
     }
 
-?>
+}
+

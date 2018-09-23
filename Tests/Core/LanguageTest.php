@@ -2,9 +2,11 @@
 
 namespace Tests\Core {
 
-    class EnglishTest extends \Idno\Core\ArrayKeyTranslation {
+    class EnglishTest extends \Idno\Core\ArrayKeyTranslation
+    {
 
-        public function getStrings() {
+        public function getStrings()
+        {
             return [
                 'Hello!' => 'Hello!'
             ];
@@ -12,9 +14,11 @@ namespace Tests\Core {
 
     }
 
-    class FrenchTest extends \Idno\Core\ArrayKeyTranslation {
+    class FrenchTest extends \Idno\Core\ArrayKeyTranslation
+    {
 
-        public function getStrings() {
+        public function getStrings()
+        {
             return [
                 'Hello!' => 'Bonjour!'
             ];
@@ -22,23 +26,24 @@ namespace Tests\Core {
 
     }
 
-    class LanguageTest extends \Tests\KnownTestCase {
+    class LanguageTest extends \Tests\KnownTestCase
+    {
 
-        public function testLanguageString() {
+        public function testLanguageString()
+        {
 
             $english = new \Idno\Core\Language('en_GB');
             $french = new \Idno\Core\Language('fr_FR');
-            
+
             $english->register(new EnglishTest('en_GB'));
             $english->register(new FrenchTest('fr_FR'));
-            
+
             $french->register(new EnglishTest('en_GB'));
             $french->register(new FrenchTest('fr_FR'));
-            
-            
+
             echo "English: " . $english->_('Hello!');
             echo "\nFrench: " . $french->_('Hello!');
-            
+
             $txt = $english->_('Hello!');
             $this->assertFalse(empty($txt));
             $txt2 = $french->_('Hello!');

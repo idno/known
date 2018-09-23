@@ -8,13 +8,13 @@ if (!isset($vars['start-hidden']))
 if (empty($vars['class']))
     $vars['class'] = '';
 ?>
-<div id="<?= $vars['id']; ?>" class="spinner <?= $vars['class']; ?>" <?php if ($vars['start-hidden'] === true) { ?>style="display:none"<?php } ?>>
+<div id="<?php echo $vars['id']; ?>" class="spinner <?php echo $vars['class']; ?>" <?php if ($vars['start-hidden'] === true) { ?>style="display:none"<?php
+} ?>>
   <div class="bounce1"></div>
   <div class="bounce2"></div>
   <div class="bounce3"></div>
 </div>
-<?php 
+<?php
 unset($this->vars['id']);
 unset($this->vars['class']);
 unset($this->vars['start-hidden']);
-?>

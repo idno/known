@@ -1,32 +1,32 @@
 <?php
 
-    namespace IdnoPlugins\StaticPages\Pages\Admin {
+namespace IdnoPlugins\StaticPages\Pages\Admin {
 
-        use Idno\Common\Page;
+    use Idno\Common\Page;
 
-        class EditCategory extends Page
+    class EditCategory extends Page
+    {
+
+        function getContent()
+        {
+            $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'admin/staticpages/');
+        }
+
+        function postContent()
         {
 
-            function getContent()
-            {
-                $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'admin/staticpages/');
-            }
+            $category     = $this->getInput('category');
+            $new_category = $this->getInput('new_category');
+            if ($staticpages = \Idno\Core\Idno::site()->plugins()->get('StaticPages')) {
 
-            function postContent()
-            {
-
-                $category     = $this->getInput('category');
-                $new_category = $this->getInput('new_category');
-                if ($staticpages = \Idno\Core\Idno::site()->plugins()->get('StaticPages')) {
-
-                    $staticpages->editCategory($category, $new_category);
-
-                }
-                $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'admin/staticpages/');
+                $staticpages->editCategory($category, $new_category);
 
             }
+            $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'admin/staticpages/');
 
         }
 
     }
-    
+
+}
+

@@ -6,104 +6,104 @@
     $likes = $vars['object']->countAnnotations('like');
     $mentions = $vars['object']->countAnnotations('mention');
     $has_liked = false;
-    if ($like_annotations = $vars['object']->getAnnotations('like')) {
-        foreach ($like_annotations as $like) {
-            if (\Idno\Core\Idno::site()->session()->isLoggedOn()) {
-                if ($like['owner_url'] == \Idno\Core\Idno::site()->session()->currentUser()->getDisplayURL()) {
-                    $has_liked = true;
-                }
+if ($like_annotations = $vars['object']->getAnnotations('like')) {
+    foreach ($like_annotations as $like) {
+        if (\Idno\Core\Idno::site()->session()->isLoggedOn()) {
+            if ($like['owner_url'] == \Idno\Core\Idno::site()->session()->currentUser()->getDisplayURL()) {
+                $has_liked = true;
             }
         }
     }
+}
     $owner = $vars['object']->getOwner();
 
-    if (!empty($owner)) {
+if (!empty($owner)) {
 
-        ?>
+    ?>
 
         <div class="permalink">
             <p>
-                <a href="<?= $owner->getDisplayURL() ?>"><?= htmlentities(strip_tags($owner->getTitle()), ENT_QUOTES, 'UTF-8') ?></a><?= \Idno\Core\Idno::site()->language()->_('published this'); ?>
-                <a class="u-url url" href="<?= $vars['object']->getDisplayURL() ?>" rel="permalink"><time class="dt-published"
-                          datetime="<?= date(DATE_ISO8601, $vars['object']->created) ?>"><?= strftime('%d %b %Y', $vars['object']->created) ?></time></a>
+                <a href="<?php echo $owner->getDisplayURL() ?>"><?php echo htmlentities(strip_tags($owner->getTitle()), ENT_QUOTES, 'UTF-8') ?></a><?php echo \Idno\Core\Idno::site()->language()->_('published this'); ?>
+                <a class="u-url url" href="<?php echo $vars['object']->getDisplayURL() ?>" rel="permalink"><time class="dt-published"
+                          datetime="<?php echo date(DATE_ISO8601, $vars['object']->created) ?>"><?php echo strftime('%d %b %Y', $vars['object']->created) ?></time></a>
+            <?php
+
+            if ($vars['object']->access != 'PUBLIC') {
+                ?><i class="fa fa-lock"> </i><?php
+            }
+
+            ?>
+                <?php echo $this->draw('content/edit') ?>
+                <?php echo $this->draw('content/end/links') ?>
                 <?php
 
-                    if ($vars['object']->access != 'PUBLIC') {
-                        ?><i class="fa fa-lock"> </i><?php
-                    }
+                if (\Idno\Core\Idno::site()->currentPage()->isPermalink() && \Idno\Core\Idno::site()->config()->indieweb_citation) {
 
-                ?>
-                <?= $this->draw('content/edit') ?>
-                <?= $this->draw('content/end/links') ?>
-                <?php
-
-                    if (\Idno\Core\Idno::site()->currentPage()->isPermalink() && \Idno\Core\Idno::site()->config()->indieweb_citation) {
-
-                        ?>
-                        <span class="citation"><?= $vars['object']->getCitation() ?></span>
+                    ?>
+                        <span class="citation"><?php echo $vars['object']->getCitation() ?></span>
                     <?php
 
-                    }
+                }
 
                 ?>
             </p>
         </div>
         <div class="interactions">
-	    <span class="annotate-icon">
+        <span class="annotate-icon">
             <?php
-                if (!$has_liked) {
-                    $star = \Idno\Core\Idno::site()->language()->_('Star this!');
-                    $heart_only = '<i class="far fa-star" title="'.$star.'"></i>';
-                } else {
-                    $heart_only = '<i class="fa fa-star"></i>';
-                }
-                if ($likes == 1) {
-                    $star = \Idno\Core\Idno::site()->language()->_('star');
-                    $heart_text = '1 ' . $star;
-                } else {
-                    $star = \Idno\Core\Idno::site()->language()->_('stars');
-                    $heart_text = $likes . ' ' . $star;
-                }
-                $heart = $heart_only . ' ' . $heart_text;
-                if (\Idno\Core\Idno::site()->session()->isLoggedOn()) {
-                    echo \Idno\Core\Idno::site()->actions()->createLink(
-                        \Idno\Core\Idno::site()->config()->getDisplayURL() . 'annotation/post', 
-                        $heart_only, 
-                        [
-                            'type' => 'like', 
-                            'object' => $vars['object']->getUUID()
-                        ], 
-                        [
-                            'method' => 'POST', 
-                            'class' => 'stars-toggle'
-                        ]
-                    );
-            ?>
-                    <a class="stars" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?= $heart_text ?></a>
-        <?php
-                } else {
-            ?>
-                    <a class="stars" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?= $heart ?></a>
-        <?php
-                }
+            if (!$has_liked) {
+                $star = \Idno\Core\Idno::site()->language()->_('Star this!');
+                $heart_only = '<i class="far fa-star" title="'.$star.'"></i>';
+            } else {
+                $heart_only = '<i class="fa fa-star"></i>';
+            }
+            if ($likes == 1) {
+                $star = \Idno\Core\Idno::site()->language()->_('star');
+                $heart_text = '1 ' . $star;
+            } else {
+                $star = \Idno\Core\Idno::site()->language()->_('stars');
+                $heart_text = $likes . ' ' . $star;
+            }
+            $heart = $heart_only . ' ' . $heart_text;
+            if (\Idno\Core\Idno::site()->session()->isLoggedOn()) {
+                echo \Idno\Core\Idno::site()->actions()->createLink(
+                    \Idno\Core\Idno::site()->config()->getDisplayURL() . 'annotation/post',
+                    $heart_only,
+                    [
+                        'type' => 'like',
+                        'object' => $vars['object']->getUUID()
+                    ],
+                    [
+                        'method' => 'POST',
+                        'class' => 'stars-toggle'
+                    ]
+                );
+                ?>
+                    <a class="stars" href="<?php echo $vars['object']->getDisplayURL() ?>#comments"><?php echo $heart_text ?></a>
+                <?php
+            } else {
+                ?>
+                    <a class="stars" href="<?php echo $vars['object']->getDisplayURL() ?>#comments"><?php echo $heart ?></a>
+                <?php
+            }
             ?>
             </span>
-           <span class="annotate-icon"> <a class="comments" href="<?= $vars['object']->getDisplayURL() ?>#comments"><i class="fa fa-comments"></i> <?php
+           <span class="annotate-icon"> <a class="comments" href="<?php echo $vars['object']->getDisplayURL() ?>#comments"><i class="fa fa-comments"></i> <?php
 
-                    //echo $replies;
-                    if ($replies == 1) {
-                        echo '1 ' . \Idno\Core\Idno::site()->language()->_('comment');
-                    } else {
-                        echo $replies . ' ' . \Idno\Core\Idno::site()->language()->_('comments');
-                    }
+                //echo $replies;
+            if ($replies == 1) {
+                echo '1 ' . \Idno\Core\Idno::site()->language()->_('comment');
+            } else {
+                echo $replies . ' ' . \Idno\Core\Idno::site()->language()->_('comments');
+            }
 
-                ?></a></span>
-            <a class="shares" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?php if ($shares = $vars['object']->countAnnotations('share')) {
+            ?></a></span>
+            <a class="shares" href="<?php echo $vars['object']->getDisplayURL() ?>#comments"><?php if ($shares = $vars['object']->countAnnotations('share')) {
                     echo '<i class="fa fa-retweet"></i>' . $shares;
-                } ?></a>
-            <a class="shares" href="<?= $vars['object']->getDisplayURL() ?>#comments"><?php if ($rsvps = $vars['object']->countAnnotations('rsvp')) {
+           } ?></a>
+            <a class="shares" href="<?php echo $vars['object']->getDisplayURL() ?>#comments"><?php if ($rsvps = $vars['object']->countAnnotations('rsvp')) {
                     echo '<i class="fa fa-calendar-o"></i>' . $rsvps;
-                } ?></a>
+           } ?></a>
         </div>
         <br class="clearall"/>
         <?php
@@ -116,14 +116,14 @@
                 <div class="annotations">
 
                     <a name="comments"></a>
-                    <?= $this->draw('content/end/annotations') ?>
+                    <?php echo $this->draw('content/end/annotations') ?>
                     <?php
                         unset($this->vars['annotations']);
                         unset($this->vars['annotation_permalink']);
                     ?>
 
                 </div>
-            <?php
+                <?php
 
             }
 
@@ -135,7 +135,7 @@
 
             ?>
             <div class="extra-metadata">
-                <?=$this->draw('content/syndication/links')?>
+                <?php echo $this->draw('content/syndication/links')?>
             </div>
             <?php
 
@@ -144,6 +144,5 @@
             }
 
         }
-    }
+}
 
-?>

@@ -2,9 +2,11 @@
 
 namespace Idno\Pages\Admin {
 
-    class Logs extends \Idno\Common\Page {
+    class Logs extends \Idno\Common\Page
+    {
 
-        function getContent() {
+        function getContent()
+        {
             $this->adminGatekeeper(); // Admins only
             // Retrieved via API, so just dump logs
             if ($this->xhr || \Idno\Core\Idno::site()->session()->isAPIRequest()) {

@@ -4,41 +4,41 @@
      * User profile
      */
 
-    namespace Idno\Pages\Session {
+namespace Idno\Pages\Session {
 
-        /**
-         * Default class to serve the homepage
-         */
-        class CurrentUser extends \Idno\Common\Page
+    /**
+     * Default class to serve the homepage
+     */
+    class CurrentUser extends \Idno\Common\Page
+    {
+
+        // Handle GET requests to the entity
+
+        function postContent()
         {
+            return $this->getContent();
+        }
 
-            // Handle GET requests to the entity
+        // Handle POST requests to the entity
 
-            function postContent()
-            {
-                return $this->getContent();
-            }
+        function getContent()
+        {
+            $user = \Idno\Core\Idno::site()->session()->currentUser();
+            if (empty($user)) $this->noContent();
 
-            // Handle POST requests to the entity
+            $this->setPermalink(); // This is a permalink
 
-            function getContent()
-            {
-                $user = \Idno\Core\Idno::site()->session()->currentUser();
-                if (empty($user)) $this->noContent();
+            $t = \Idno\Core\Idno::site()->template();
+            $t->__(array(
 
-                $this->setPermalink(); // This is a permalink
+                'title'       => $user->getTitle(),
+                'body'        => $t->__(array('user' => $user, 'items' => array(), 'count' => 0, 'offset' => 0))->draw('entity/User/profile'),
+                'description' =>  \Idno\Core\Idno::site()->language()->_('The %s profile for %s', [\Idno\Core\Idno::site()->config()->title, $user->getTitle()])
 
-                $t = \Idno\Core\Idno::site()->template();
-                $t->__(array(
-
-                    'title'       => $user->getTitle(),
-                    'body'        => $t->__(array('user' => $user, 'items' => array(), 'count' => 0, 'offset' => 0))->draw('entity/User/profile'),
-                    'description' =>  \Idno\Core\Idno::site()->language()->_('The %s profile for %s', [\Idno\Core\Idno::site()->config()->title, $user->getTitle()])
-
-                ))->drawPage();
-            }
-
+            ))->drawPage();
         }
 
     }
-    
+
+}
+

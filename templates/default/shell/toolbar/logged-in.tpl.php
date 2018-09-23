@@ -1,23 +1,23 @@
-<?=$this->draw('shell/toolbar/logged-in/items')?>
+<?php echo $this->draw('shell/toolbar/logged-in/items')?>
 <!--<ul class="nav navbar-nav">-->
 <li class="dropdown">
     <a class="dropdown-toggle" data-toggle="dropdown" href="">
-        <?= htmlspecialchars(\Idno\Core\Idno::site()->session()->currentUser()->getTitle())?>
+        <?php echo htmlspecialchars(\Idno\Core\Idno::site()->session()->currentUser()->getTitle())?>
         <?php
             $notifs = \Idno\Core\Idno::site()->session()->currentUser()->countUnreadNotifications();
-            if ($notifs > 0) {
-                echo "<span class=\"unread-notification-count\">$notifs</span>";
-            }
+        if ($notifs > 0) {
+            echo "<span class=\"unread-notification-count\">$notifs</span>";
+        }
         ?>
         <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
-        <li><a href="<?=\Idno\Core\Idno::site()->session()->currentUser()->getDisplayURL()?>"><?= \Idno\Core\Idno::site()->language()->_('Profile'); ?></a></li>
-        <li><a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>account/notifications"><?= \Idno\Core\Idno::site()->language()->_('Notifications'); ?></a></li>
-        <?=$this->draw('shell/toolbar/personal/items')?>
-        <li><a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>account/settings/"><?= \Idno\Core\Idno::site()->language()->_('Account Settings'); ?></a></li>
+        <li><a href="<?php echo \Idno\Core\Idno::site()->session()->currentUser()->getDisplayURL()?>"><?php echo \Idno\Core\Idno::site()->language()->_('Profile'); ?></a></li>
+        <li><a href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>account/notifications"><?php echo \Idno\Core\Idno::site()->language()->_('Notifications'); ?></a></li>
+        <?php echo $this->draw('shell/toolbar/personal/items')?>
+        <li><a href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>account/settings/"><?php echo \Idno\Core\Idno::site()->language()->_('Account Settings'); ?></a></li>
         <?php if (\Idno\Core\Idno::site()->session()->currentUser()->isAdmin()) { ?>
-            <li><a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>admin/"><?= \Idno\Core\Idno::site()->language()->_('Site Configuration'); ?></a></li>
+            <li><a href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>admin/"><?php echo \Idno\Core\Idno::site()->language()->_('Site Configuration'); ?></a></li>
         <?php } ?>
         <?php
 
@@ -45,8 +45,8 @@
                 <?php }
                     */
         ?>
-        <li><a href="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>account/settings/feedback/" ><i class="fa fa-heart" title="<?= \Idno\Core\Idno::site()->language()->_('Leave feedback'); ?>"></i> <?= \Idno\Core\Idno::site()->language()->_('Feedback'); ?></a></li>
-        <?=$this->draw('shell/toolbar/logout')?>
+        <li><a href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>account/settings/feedback/" ><i class="fa fa-heart" title="<?php echo \Idno\Core\Idno::site()->language()->_('Leave feedback'); ?>"></i> <?php echo \Idno\Core\Idno::site()->language()->_('Feedback'); ?></a></li>
+        <?php echo $this->draw('shell/toolbar/logout')?>
     </ul>
 
 

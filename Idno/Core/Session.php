@@ -7,647 +7,647 @@
      * @subpackage core
      */
 
-    namespace Idno\Core {
+namespace Idno\Core {
 
-        use Idno\Entities\User;
+    use Idno\Entities\User;
 
-        class Session extends \Idno\Common\Component
+    class Session extends \Idno\Common\Component
+    {
+
+        private $user;
+
+        private $storageHandler = false;
+
+        function init()
         {
+            ini_set('session.cookie_lifetime', 60 * 60 * 24 * 7); // Persistent cookies
+            ini_set('session.gc_maxlifetime', 60 * 60 * 24 * 7); // Garbage collection to match
 
-            private $user;
-            
-            private $storageHandler = false;
+            header('P3P: CP="CAO PSA OUR"');
+            ini_set('session.use_only_cookies', true); // Only cookies for session
+            ini_set('session.cookie_httponly', true); // Restrict cookies to HTTP only (help reduce XSS attack profile)
+            ini_set('session.use_strict_mode', true); // Help mitigate session fixation
+            ini_set("session.use_trans_sid", false); // Prevent transparent IDs
+            if (\Idno\Common\Page::isSSL()) {
+                ini_set('session.cookie_secure', true); // Set secure cookies when site is secure
+            }
 
-            function init()
-            {
-                ini_set('session.cookie_lifetime', 60 * 60 * 24 * 7); // Persistent cookies
-                ini_set('session.gc_maxlifetime', 60 * 60 * 24 * 7); // Garbage collection to match
+            // Using a more secure hashing algorithm for session IDs, if available
+            if (($hash = Idno::site()->config()->session_hash_function) && (in_array($hash, hash_algos()))) {
+                ini_set('session.hash_function', $hash);
+            }
 
-                header('P3P: CP="CAO PSA OUR"');
-                ini_set('session.use_only_cookies', true); // Only cookies for session
-                ini_set('session.cookie_httponly', true); // Restrict cookies to HTTP only (help reduce XSS attack profile)
-                ini_set('session.use_strict_mode', true); // Help mitigate session fixation
-                ini_set("session.use_trans_sid", false); // Prevent transparent IDs
-                if (\Idno\Common\Page::isSSL()) {
-                    ini_set('session.cookie_secure', true); // Set secure cookies when site is secure
+            $sessions_handled = false;
+
+            // If we're storing sessions in the database, then try to store it.
+            if ((!$sessions_handled) && (Idno::site()->config()->sessions_database)) {
+                $db = Idno::site()->db();
+                if ($db instanceof \Idno\Common\SessionStorageInterface) {
+                    if ($db->handleSession()) {
+                        $this->storageHandler = $db;
+                        $sessions_handled = true;
+                    }
                 }
+            }
 
-                // Using a more secure hashing algorithm for session IDs, if available
-                if (($hash = Idno::site()->config()->session_hash_function) && (in_array($hash, hash_algos()))) {
-                    ini_set('session.hash_function', $hash);
-                }
-
-                $sessions_handled = false;
-                
-                // If we're storing sessions in the database, then try to store it.
-                if ((!$sessions_handled) && (Idno::site()->config()->sessions_database)) {
-                    $db = Idno::site()->db();
-                    if ($db instanceof \Idno\Common\SessionStorageInterface) {
-                        if ($db->handleSession()) {
-                            $this->storageHandler = $db;
+            // Try a pluggable session storage handler
+            if ((!$sessions_handled) && (Idno::site()->config()->sessions_storage)) {
+                $storage_class = Idno::site()->config()->sessions_storage;
+                if (class_exists("{$storage_class}")) {
+                    if (is_subclass_of($storage_class, "Idno\\Common\\SessionStorageInterface")) {
+                        $storage_class = new $storage_class();
+                        if ($storage_class->handleSession()) {
+                            $this->storageHandler = $storage_class;
                             $sessions_handled = true;
                         }
                     }
-                } 
-                
-                // Try a pluggable session storage handler
-                if ((!$sessions_handled) && (Idno::site()->config()->sessions_storage)) {
-                    $storage_class = Idno::site()->config()->sessions_storage;
-                    if (class_exists("{$storage_class}")) {
-                        if (is_subclass_of($storage_class, "Idno\\Common\\SessionStorageInterface")) {
-                            $storage_class = new $storage_class();
-                            if ($storage_class->handleSession()) {
-                                $this->storageHandler = $storage_class;
-                                $sessions_handled = true;
-                            }
-                        }
-                    }
-                }
-                
-                // Fallback to files if no other session storage handler has been defined
-                if (!$sessions_handled) { 
-                    session_save_path(Idno::site()->config()->session_path);
-                }
-
-                // session_cache_limiter('public // TODO: Reintroduce when page endpoints have set no-expire as appropriate
-                session_name(Idno::site()->config->sessionname);
-                session_start();
-
-                // Flag insecure sessions (so we can check state changes etc)
-                if (!isset($_SESSION['secure'])) {
-                    $_SESSION['secure'] = \Idno\Common\Page::isSSL();
-                }
-
-                // Validate session
-                try {
-                    $this->validate();
-                } catch (\Exception $ex) {
-                    // Session didn't validate, log & destroy
-                    \Idno\Core\Idno::site()->logging->error('Error validating session', ['error' => $ex->getMessage()]);
-                    header('X-KNOWN-DEBUG: Tilt!');
-
-                    $_SESSION = [];
-                    session_destroy();
-                }
-
-                // Session login / logout
-                Idno::site()->addPageHandler('/session/login', '\Idno\Pages\Session\Login', true);
-                Idno::site()->addPageHandler('/session/logout', '\Idno\Pages\Session\Logout');
-                Idno::site()->addPageHandler('/currentUser/?', '\Idno\Pages\Session\CurrentUser');
-
-                // Update the session on save if we're saving the current user
-                \Idno\Core\Idno::site()->addEventHook('save', function (\Idno\Core\Event $event) {
-
-                    $eventdata = $event->data();
-                    $object    = $eventdata['object'];
-
-                    if (empty($object) || empty($this->user) ||
-                        !($object instanceof User) || !($this->user instanceof User)
-                    ) return;
-
-                    if ($object->getUUID() != $this->user->getUUID()) return;
-                    
-                    if (!empty($_SESSION['user_uuid'])) {
-                        if ($object->getUUID() != $_SESSION['user_uuid']) return;
-                    }
-
-                    $this->user = $this->refreshSessionUser($object);
-
-                });
-
-                // If this is an API request, we need to destroy the session afterwards. See #1028
-                register_shutdown_function(function () {
-                    $session = Idno::site()->session();
-                    if ($session && $session->isAPIRequest()) {
-                        $session->logUserOff();
-                    }
-                });
-            }
-
-            /**
-             * Validate the session.
-             * @throws \Exception if the session is invalid.
-             */
-            protected function validate()
-            {
-                // Check for secure sessions being delivered insecurely, and vis versa
-                /*if (isset($_SESSION['secure']) && $_SESSION['secure'] != Idno::site()->isSecure()) {
-                    $message = Idno::site()->isSecure() ? 'Insecure session accessed securely' : 'Secure session accessed insecurely';
-                    throw new \Idno\Exceptions\SecurityException(\Idno\Core\Idno::site()->language()->_('Session funnybusiness: ', [$message));
-                }*/
-            }
-
-            /**
-             * Kill the session.
-             */
-            function finishEarly()
-            {
-                session_write_close();
-            }
-
-            /**
-             * Get the UUID of the currently logged-in user, or false if
-             * we're logged out
-             *
-             * @return mixed
-             */
-
-            function currentUserUUID()
-            {
-                if ($this->isLoggedOn()) {
-                    return $this->currentUser()->getUUID();
-                }
-
-                return false;
-            }
-
-            /**
-             * Wrapper function for isLoggedIn()
-             * @see Idno\Core\Session::isLoggedIn()
-             * @return true|false
-             */
-
-            function isLoggedOn()
-            {
-                return $this->isLoggedIn();
-            }
-
-            /**
-             * Is a user logged into the current session?
-             * @return true|false
-             */
-            function isLoggedIn()
-            {
-                if (!empty($this->user) && $this->user instanceof \Idno\Entities\User) {
-                    return true;
-                }
-
-                return false;
-            }
-
-            /**
-             * Returns true if a user is logged into the current session, and they're an admin.
-             * @return bool
-             */
-            function isAdmin()
-            {
-                if ($this->isLoggedIn()) {
-                    return $this->currentUser()->isAdmin();
-                }
-
-                return false;
-            }
-
-            /**
-             * Returns the currently logged-in user, if any
-             * @return \Idno\Entities\User
-             */
-
-            function currentUser()
-            {
-                if (!empty($this->user)) {
-                    return $this->user;
-                }
-
-                return false;
-            }
-
-            /**
-             * Adds a message to the queue to be delivered to the user as soon as is possible
-             * @param string $message The text of the message
-             * @param string $message_type This type of message; this will be added to the displayed message class, or returned as data
-             */
-
-            function addMessage($message, $message_type = 'alert-info')
-            {
-                if (empty($_SESSION['messages'])) {
-                    $_SESSION['messages'] = array();
-                }
-                $_SESSION['messages'][] = $this->getStructuredMessage($message, $message_type);
-            }
-
-            /**
-             * Draw a message
-             * @param $message
-             * @param string $message_type
-             * @return string
-             */
-            function drawMessage($message, $message_type = 'alert-info')
-            {
-                return Idno::site()->template()
-                    ->__(['message' => $this->getStructuredMessage($message, $message_type)])
-                    ->draw('shell/messages/message');
-            }
-
-            /**
-             * Draw a message from a message structure
-             * @param array $message
-             * @return string
-             */
-            function drawStructuredMessage($message)
-            {
-                return Idno::site()->template()
-                    ->__(['message' => $message])
-                    ->draw('shell/messages/message');
-            }
-
-            /**
-             * Turns a string message into a message structure
-             * @param $message
-             * @param string $message_type
-             * @return array
-             */
-            function getStructuredMessage($message, $message_type = 'alert-info')
-            {
-                return ['message' => $message, 'message_type' => $message_type];
-            }
-
-            /**
-             * Error message wrapper for addMessage()
-             * @param string $message
-             */
-            function addErrorMessage($message)
-            {
-                $this->addMessage($message, 'alert-danger');
-            }
-
-            /**
-             * Adds a message to the queue to be delivered to the user as soon as is possible, ensuring it's at the beginning of the list
-             * @param string $message The text of the message
-             * @param string $message_type This type of message; this will be added to the displayed message class, or returned as data
-             */
-
-            function addMessageAtStart($message, $message_type = 'alert-info')
-            {
-                if (empty($_SESSION['messages'])) {
-                    $_SESSION['messages'] = array();
-                }
-                array_unshift($_SESSION['messages'], array('message' => $message, 'message_type' => $message_type));
-            }
-
-            /**
-             * Retrieve any messages from the session, remove them from the session, and return them
-             * @return array
-             */
-            function getAndFlushMessages()
-            {
-                $messages = $this->getMessages();
-                $this->flushMessages();
-
-                return $messages;
-            }
-
-            /**
-             * Retrieve any messages waiting for the user in the session
-             * @return array
-             */
-            function getMessages()
-            {
-                if (!empty($_SESSION['messages'])) {
-                    return $_SESSION['messages'];
-                } else {
-                    return array();
                 }
             }
 
-            /**
-             * Remove any messages from the session
-             */
-            function flushMessages()
-            {
-                $messages                       = array();
-                $_SESSION['messages']           = $messages;
-                $_SESSION['last_message_flush'] = date('r', time());
+            // Fallback to files if no other session storage handler has been defined
+            if (!$sessions_handled) {
+                session_save_path(Idno::site()->config()->session_path);
             }
 
-            /**
-             * Get access groups the current user is allowed to write to
-             * @return array
-             */
+            // session_cache_limiter('public // TODO: Reintroduce when page endpoints have set no-expire as appropriate
+            session_name(Idno::site()->config->sessionname);
+            session_start();
 
-            function getWriteAccessGroups()
-            {
-                if ($this->isLoggedOn()) {
-                    return $this->currentUser()->getWriteAccessGroups();
-                }
-
-                return array();
+            // Flag insecure sessions (so we can check state changes etc)
+            if (!isset($_SESSION['secure'])) {
+                $_SESSION['secure'] = \Idno\Common\Page::isSSL();
             }
 
-            /**
-             * Get IDs of the access groups the current user is allowed to write to
-             * @return array
-             */
+            // Validate session
+            try {
+                $this->validate();
+            } catch (\Exception $ex) {
+                // Session didn't validate, log & destroy
+                \Idno\Core\Idno::site()->logging->error('Error validating session', ['error' => $ex->getMessage()]);
+                header('X-KNOWN-DEBUG: Tilt!');
 
-            function getWriteAccessGroupIDs()
-            {
-                if ($this->isLoggedOn())
-                    return $this->currentUser()->getWriteAccessGroups();
-
-                return array();
-            }
-
-            /**
-             * Get access groups the current user (if any) is allowed to read from
-             * @return array
-             */
-
-            function getReadAccessGroups()
-            {
-                if ($this->isLoggedOn())
-                    return $this->currentUser()->getReadAccessGroups();
-
-                return array('PUBLIC');
-            }
-
-            /**
-             * Get IDs of the access groups the current user (if any) is allowed to read from
-             * @return array
-             */
-
-            function getReadAccessGroupIDs()
-            {
-                $group = array('PUBLIC');
-                if ($this->isLoggedOn()) {
-                    $group = $this->currentUser()->getReadAccessGroupIDs();
-                }
-
-                return $group;
-            }
-
-            /**
-             * Log the current session user off
-             * @return true
-             */
-
-            function logUserOff()
-            {
-                
-                \Idno\Core\Idno::site()->triggerEvent("user/logoff", array(
-                    "user"   => !empty($this->user) ? $this->user : null,
-                ));
-                
-                unset($_SESSION['user_uuid']);
-                unset($this->user);
-
-                // Unset all session variables, as per PHP docs.
                 $_SESSION = [];
+                session_destroy();
+            }
 
-                // Really log the user off by destroying the cookie
-                // See https://secure.php.net/manual/en/function.session-destroy.php
-                if (!defined('KNOWN_UNIT_TEST')) {
-                    if (!$this->isAPIRequest()) { // #1365 - we need to destroy the session, but resetting cookie causes problems with the api
-                        if (ini_get("session.use_cookies")) {
-                            $params = session_get_cookie_params();
-                            setcookie(session_name(), '', time() - 42000,
-                                $params["path"], $params["domain"],
-                                $params["secure"], $params["httponly"]
-                            );
-                        }
-                    }
+            // Session login / logout
+            Idno::site()->addPageHandler('/session/login', '\Idno\Pages\Session\Login', true);
+            Idno::site()->addPageHandler('/session/logout', '\Idno\Pages\Session\Logout');
+            Idno::site()->addPageHandler('/currentUser/?', '\Idno\Pages\Session\CurrentUser');
+
+            // Update the session on save if we're saving the current user
+            \Idno\Core\Idno::site()->addEventHook('save', function (\Idno\Core\Event $event) {
+
+                $eventdata = $event->data();
+                $object    = $eventdata['object'];
+
+                if (empty($object) || empty($this->user) ||
+                    !($object instanceof User) || !($this->user instanceof User)
+                ) return;
+
+                if ($object->getUUID() != $this->user->getUUID()) return;
+
+                if (!empty($_SESSION['user_uuid'])) {
+                    if ($object->getUUID() != $_SESSION['user_uuid']) return;
                 }
 
-                @session_destroy();
-                
+                $this->user = $this->refreshSessionUser($object);
+
+            });
+
+            // If this is an API request, we need to destroy the session afterwards. See #1028
+            register_shutdown_function(function () {
+                $session = Idno::site()->session();
+                if ($session && $session->isAPIRequest()) {
+                    $session->logUserOff();
+                }
+            });
+        }
+
+        /**
+         * Validate the session.
+         * @throws \Exception if the session is invalid.
+         */
+        protected function validate()
+        {
+            // Check for secure sessions being delivered insecurely, and vis versa
+            /*if (isset($_SESSION['secure']) && $_SESSION['secure'] != Idno::site()->isSecure()) {
+                $message = Idno::site()->isSecure() ? 'Insecure session accessed securely' : 'Secure session accessed insecurely';
+                throw new \Idno\Exceptions\SecurityException(\Idno\Core\Idno::site()->language()->_('Session funnybusiness: ', [$message));
+            }*/
+        }
+
+        /**
+         * Kill the session.
+         */
+        function finishEarly()
+        {
+            session_write_close();
+        }
+
+        /**
+         * Get the UUID of the currently logged-in user, or false if
+         * we're logged out
+         *
+         * @return mixed
+         */
+
+        function currentUserUUID()
+        {
+            if ($this->isLoggedOn()) {
+                return $this->currentUser()->getUUID();
+            }
+
+            return false;
+        }
+
+        /**
+         * Wrapper function for isLoggedIn()
+         * @see Idno\Core\Session::isLoggedIn()
+         * @return true|false
+         */
+
+        function isLoggedOn()
+        {
+            return $this->isLoggedIn();
+        }
+
+        /**
+         * Is a user logged into the current session?
+         * @return true|false
+         */
+        function isLoggedIn()
+        {
+            if (!empty($this->user) && $this->user instanceof \Idno\Entities\User) {
                 return true;
             }
 
-            /**
-             * Set a piece of session data
-             * @param string $name
-             * @param mixed $value
-             */
-            function set($name, $value)
-            {
-                $_SESSION[$name] = $value;
+            return false;
+        }
+
+        /**
+         * Returns true if a user is logged into the current session, and they're an admin.
+         * @return bool
+         */
+        function isAdmin()
+        {
+            if ($this->isLoggedIn()) {
+                return $this->currentUser()->isAdmin();
             }
 
-            /**
-             * Retrieve the session data with key $name, if it exists
-             * @param string $name
-             * @return mixed
-             */
-            function get($name)
-            {
-                if (!empty($_SESSION[$name])) {
-                    return $_SESSION[$name];
-                } else {
-                    return false;
+            return false;
+        }
+
+        /**
+         * Returns the currently logged-in user, if any
+         * @return \Idno\Entities\User
+         */
+
+        function currentUser()
+        {
+            if (!empty($this->user)) {
+                return $this->user;
+            }
+
+            return false;
+        }
+
+        /**
+         * Adds a message to the queue to be delivered to the user as soon as is possible
+         * @param string $message The text of the message
+         * @param string $message_type This type of message; this will be added to the displayed message class, or returned as data
+         */
+
+        function addMessage($message, $message_type = 'alert-info')
+        {
+            if (empty($_SESSION['messages'])) {
+                $_SESSION['messages'] = array();
+            }
+            $_SESSION['messages'][] = $this->getStructuredMessage($message, $message_type);
+        }
+
+        /**
+         * Draw a message
+         * @param $message
+         * @param string $message_type
+         * @return string
+         */
+        function drawMessage($message, $message_type = 'alert-info')
+        {
+            return Idno::site()->template()
+                ->__(['message' => $this->getStructuredMessage($message, $message_type)])
+                ->draw('shell/messages/message');
+        }
+
+        /**
+         * Draw a message from a message structure
+         * @param array $message
+         * @return string
+         */
+        function drawStructuredMessage($message)
+        {
+            return Idno::site()->template()
+                ->__(['message' => $message])
+                ->draw('shell/messages/message');
+        }
+
+        /**
+         * Turns a string message into a message structure
+         * @param $message
+         * @param string $message_type
+         * @return array
+         */
+        function getStructuredMessage($message, $message_type = 'alert-info')
+        {
+            return ['message' => $message, 'message_type' => $message_type];
+        }
+
+        /**
+         * Error message wrapper for addMessage()
+         * @param string $message
+         */
+        function addErrorMessage($message)
+        {
+            $this->addMessage($message, 'alert-danger');
+        }
+
+        /**
+         * Adds a message to the queue to be delivered to the user as soon as is possible, ensuring it's at the beginning of the list
+         * @param string $message The text of the message
+         * @param string $message_type This type of message; this will be added to the displayed message class, or returned as data
+         */
+
+        function addMessageAtStart($message, $message_type = 'alert-info')
+        {
+            if (empty($_SESSION['messages'])) {
+                $_SESSION['messages'] = array();
+            }
+            array_unshift($_SESSION['messages'], array('message' => $message, 'message_type' => $message_type));
+        }
+
+        /**
+         * Retrieve any messages from the session, remove them from the session, and return them
+         * @return array
+         */
+        function getAndFlushMessages()
+        {
+            $messages = $this->getMessages();
+            $this->flushMessages();
+
+            return $messages;
+        }
+
+        /**
+         * Retrieve any messages waiting for the user in the session
+         * @return array
+         */
+        function getMessages()
+        {
+            if (!empty($_SESSION['messages'])) {
+                return $_SESSION['messages'];
+            } else {
+                return array();
+            }
+        }
+
+        /**
+         * Remove any messages from the session
+         */
+        function flushMessages()
+        {
+            $messages                       = array();
+            $_SESSION['messages']           = $messages;
+            $_SESSION['last_message_flush'] = date('r', time());
+        }
+
+        /**
+         * Get access groups the current user is allowed to write to
+         * @return array
+         */
+
+        function getWriteAccessGroups()
+        {
+            if ($this->isLoggedOn()) {
+                return $this->currentUser()->getWriteAccessGroups();
+            }
+
+            return array();
+        }
+
+        /**
+         * Get IDs of the access groups the current user is allowed to write to
+         * @return array
+         */
+
+        function getWriteAccessGroupIDs()
+        {
+            if ($this->isLoggedOn())
+                return $this->currentUser()->getWriteAccessGroups();
+
+            return array();
+        }
+
+        /**
+         * Get access groups the current user (if any) is allowed to read from
+         * @return array
+         */
+
+        function getReadAccessGroups()
+        {
+            if ($this->isLoggedOn())
+                return $this->currentUser()->getReadAccessGroups();
+
+            return array('PUBLIC');
+        }
+
+        /**
+         * Get IDs of the access groups the current user (if any) is allowed to read from
+         * @return array
+         */
+
+        function getReadAccessGroupIDs()
+        {
+            $group = array('PUBLIC');
+            if ($this->isLoggedOn()) {
+                $group = $this->currentUser()->getReadAccessGroupIDs();
+            }
+
+            return $group;
+        }
+
+        /**
+         * Log the current session user off
+         * @return true
+         */
+
+        function logUserOff()
+        {
+
+            \Idno\Core\Idno::site()->triggerEvent("user/logoff", array(
+                "user"   => !empty($this->user) ? $this->user : null,
+            ));
+
+            unset($_SESSION['user_uuid']);
+            unset($this->user);
+
+            // Unset all session variables, as per PHP docs.
+            $_SESSION = [];
+
+            // Really log the user off by destroying the cookie
+            // See https://secure.php.net/manual/en/function.session-destroy.php
+            if (!defined('KNOWN_UNIT_TEST')) {
+                if (!$this->isAPIRequest()) { // #1365 - we need to destroy the session, but resetting cookie causes problems with the api
+                    if (ini_get("session.use_cookies")) {
+                        $params = session_get_cookie_params();
+                        setcookie(session_name(), '', time() - 42000,
+                            $params["path"], $params["domain"],
+                            $params["secure"], $params["httponly"]
+                        );
+                    }
                 }
             }
 
-            /**
-             * Remove data with key $name from the session
-             * @param $name
-             */
-            function remove($name)
-            {
-                unset($_SESSION[$name]);
+            @session_destroy();
+
+            return true;
+        }
+
+        /**
+         * Set a piece of session data
+         * @param string $name
+         * @param mixed $value
+         */
+        function set($name, $value)
+        {
+            $_SESSION[$name] = $value;
+        }
+
+        /**
+         * Retrieve the session data with key $name, if it exists
+         * @param string $name
+         * @return mixed
+         */
+        function get($name)
+        {
+            if (!empty($_SESSION[$name])) {
+                return $_SESSION[$name];
+            } else {
+                return false;
             }
+        }
 
-            /**
-             * Called at the beginning of each request handler, attempts to authorize the request.
-             *
-             * Checks HTTP request headers to see if the request has been properly
-             * signed for API access.
-             *
-             * If this is not an API request, then check the session for the logged in user's credentials.
-             *
-             * Triggers "user/auth/request" to give plugins an opportunity to implement their own auth mechanism.
-             * Then "user/auth/success" or "user/auth/failure" depending on if a user was found for the provided credentials.
-             *
-             * @return \Idno\Entities\User|false The logged-in user, or false otherwise
-             */
-            function tryAuthUser()
-            {
-                // attempt to delegate auth to a plugin (note: plugin is responsible for calling setIsAPIRequest or not)
-                $return = \Idno\Core\Idno::site()->triggerEvent('user/auth/request', [], false);
+        /**
+         * Remove data with key $name from the session
+         * @param $name
+         */
+        function remove($name)
+        {
+            unset($_SESSION[$name]);
+        }
 
-                // auth standard API requests
-                if (!$return && !empty($_SERVER['HTTP_X_KNOWN_USERNAME']) && !empty($_SERVER['HTTP_X_KNOWN_SIGNATURE'])) {
-                    \Idno\Core\Idno::site()->logging()->debug("Attempting to auth via API credentials");
+        /**
+         * Called at the beginning of each request handler, attempts to authorize the request.
+         *
+         * Checks HTTP request headers to see if the request has been properly
+         * signed for API access.
+         *
+         * If this is not an API request, then check the session for the logged in user's credentials.
+         *
+         * Triggers "user/auth/request" to give plugins an opportunity to implement their own auth mechanism.
+         * Then "user/auth/success" or "user/auth/failure" depending on if a user was found for the provided credentials.
+         *
+         * @return \Idno\Entities\User|false The logged-in user, or false otherwise
+         */
+        function tryAuthUser()
+        {
+            // attempt to delegate auth to a plugin (note: plugin is responsible for calling setIsAPIRequest or not)
+            $return = \Idno\Core\Idno::site()->triggerEvent('user/auth/request', [], false);
 
-                    $this->setIsAPIRequest(true);
+            // auth standard API requests
+            if (!$return && !empty($_SERVER['HTTP_X_KNOWN_USERNAME']) && !empty($_SERVER['HTTP_X_KNOWN_SIGNATURE'])) {
+                \Idno\Core\Idno::site()->logging()->debug("Attempting to auth via API credentials");
 
-                    $t = \Idno\Core\Input::getInput('_t');
-                    if (empty($t)) {
-                        \Idno\Core\Idno::site()->template()->setTemplateType('json');
-                    }
+                $this->setIsAPIRequest(true);
 
-                    $user = \Idno\Entities\User::getByHandle($_SERVER['HTTP_X_KNOWN_USERNAME']);
-                    if (empty($user)) $user = \Idno\Entities\User::getByEmail($_SERVER['HTTP_X_KNOWN_USERNAME']);
-                    if (!empty($user)) {
-                        \Idno\Core\Idno::site()->logging()->debug("API auth found user by username: {$_SERVER['HTTP_X_KNOWN_USERNAME']} - " . $user->getName());
-                        
-                        $key  = $user->getAPIkey();
-                        $hmac = trim($_SERVER['HTTP_X_KNOWN_SIGNATURE']);
-                        //$compare_hmac = base64_encode(hash_hmac('sha256', explode('?', $_SERVER['REQUEST_URI'])[0], $key, true));
-                        $compare_hmac = base64_encode(hash_hmac('sha256', ($_SERVER['REQUEST_URI']), $key, true));
+                $t = \Idno\Core\Input::getInput('_t');
+                if (empty($t)) {
+                    \Idno\Core\Idno::site()->template()->setTemplateType('json');
+                }
 
-                        if ($hmac == $compare_hmac) {
-                            \Idno\Core\Idno::site()->logging()->debug("API auth verified signature for user: " . $user->getName());
-                            // TODO maybe this should set the current user without modifying $_SESSION?
-                            $return = $this->refreshSessionUser($user);
-                        } else {
-                            \Idno\Core\Idno::site()->logging()->debug("API auth failed signature validation for user: " . $user->getName());
-                            \Idno\Core\Idno::site()->logging()->debug("Expected signature formed over base64_encode(hash_hmac('sha256', '{$_SERVER['REQUEST_URI']}', \$key, true)) = '$compare_hmac', but got '$hmac'. ");
-                            \Idno\Core\Idno::site()->logging()->debug("Please read http://docs.withknown.com/en/latest/developers/plugins/api/ for further details.");
-                        }
+                $user = \Idno\Entities\User::getByHandle($_SERVER['HTTP_X_KNOWN_USERNAME']);
+                if (empty($user)) $user = \Idno\Entities\User::getByEmail($_SERVER['HTTP_X_KNOWN_USERNAME']);
+                if (!empty($user)) {
+                    \Idno\Core\Idno::site()->logging()->debug("API auth found user by username: {$_SERVER['HTTP_X_KNOWN_USERNAME']} - " . $user->getName());
+
+                    $key  = $user->getAPIkey();
+                    $hmac = trim($_SERVER['HTTP_X_KNOWN_SIGNATURE']);
+                    //$compare_hmac = base64_encode(hash_hmac('sha256', explode('?', $_SERVER['REQUEST_URI'])[0], $key, true));
+                    $compare_hmac = base64_encode(hash_hmac('sha256', ($_SERVER['REQUEST_URI']), $key, true));
+
+                    if ($hmac == $compare_hmac) {
+                        \Idno\Core\Idno::site()->logging()->debug("API auth verified signature for user: " . $user->getName());
+                        // TODO maybe this should set the current user without modifying $_SESSION?
+                        $return = $this->refreshSessionUser($user);
                     } else {
-                        \Idno\Core\Idno::site()->logging()->debug("API User given in X_KNOWN_USERNAME ('{$_SERVER['HTTP_X_KNOWN_USERNAME']}') could not be found.");
+                        \Idno\Core\Idno::site()->logging()->debug("API auth failed signature validation for user: " . $user->getName());
+                        \Idno\Core\Idno::site()->logging()->debug("Expected signature formed over base64_encode(hash_hmac('sha256', '{$_SERVER['REQUEST_URI']}', \$key, true)) = '$compare_hmac', but got '$hmac'. ");
+                        \Idno\Core\Idno::site()->logging()->debug("Please read http://docs.withknown.com/en/latest/developers/plugins/api/ for further details.");
                     }
+                } else {
+                    \Idno\Core\Idno::site()->logging()->debug("API User given in X_KNOWN_USERNAME ('{$_SERVER['HTTP_X_KNOWN_USERNAME']}') could not be found.");
                 }
-
-                // auth via session credentials
-                if (!$return) {
-                    $this->refreshCurrentSessionuser();
-                    $return = $this->currentUser();
-                }
-
-                if ($this->isAPIRequest()) {
-                    if (!\Idno\Common\Page::isSSL() && !\Idno\Core\Idno::site()->config()->disable_cleartext_warning) {
-                        $this->addErrorMessage(\Idno\Core\Idno::site()->language()->_("Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini"));
-                    }
-                    // If this is an API request but we're not logged in, set page response code to access denied
-                    if (!$return) {
-                        $ip = $_SERVER['REMOTE_ADDR'];
-                        if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-                            $proxies = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']); // We are behind a proxy
-                            $ip      = trim($proxies[0]);
-                        }
-
-                        \Idno\Core\Idno::site()->logging()->error("API Login failure from $ip");
-                    }
-                }
-
-                $return = \Idno\Core\Idno::site()->triggerEvent($return ? "user/auth/success" : "user/auth/failure", array(
-                    "user"   => $return,
-                    "is api" => $this->isAPIRequest(),
-                ), $return);
-
-                return $return;
             }
 
-            /**
-             * Log the specified user on (note that this is NOT the same as taking the user's auth credentials)
-             *
-             * @param \Idno\Entities\User $user
-             * @return \Idno\Entities\User
-             */
+            // auth via session credentials
+            if (!$return) {
+                $this->refreshCurrentSessionuser();
+                $return = $this->currentUser();
+            }
 
-            function logUserOn(\Idno\Entities\User $user)
-            {
+            if ($this->isAPIRequest()) {
+                if (!\Idno\Common\Page::isSSL() && !\Idno\Core\Idno::site()->config()->disable_cleartext_warning) {
+                    $this->addErrorMessage(\Idno\Core\Idno::site()->language()->_("Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini"));
+                }
+                // If this is an API request but we're not logged in, set page response code to access denied
+                if (!$return) {
+                    $ip = $_SERVER['REMOTE_ADDR'];
+                    if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+                        $proxies = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']); // We are behind a proxy
+                        $ip      = trim($proxies[0]);
+                    }
+
+                    \Idno\Core\Idno::site()->logging()->error("API Login failure from $ip");
+                }
+            }
+
+            $return = \Idno\Core\Idno::site()->triggerEvent($return ? "user/auth/success" : "user/auth/failure", array(
+                "user"   => $return,
+                "is api" => $this->isAPIRequest(),
+            ), $return);
+
+            return $return;
+        }
+
+        /**
+         * Log the specified user on (note that this is NOT the same as taking the user's auth credentials)
+         *
+         * @param \Idno\Entities\User $user
+         * @return \Idno\Entities\User
+         */
+
+        function logUserOn(\Idno\Entities\User $user)
+        {
+            if (\Idno\Core\Idno::site()->config()->emailIsBlocked($user->email)) {
+                $this->logUserOff();
+
+                return false;
+            }
+            $return = $this->refreshSessionUser($user);
+            @session_regenerate_id(true);
+
+            // user/auth/success event needs to be triggered here
+            $return = \Idno\Core\Idno::site()->triggerEvent($return ? "user/auth/success" : "user/auth/failure", array(
+                "user"   => $return,
+                "is api" => $this->isAPIRequest(),
+            ), $return);
+
+            \Idno\Core\Idno::site()->triggerEvent("user/logon", array(
+                "user"   => $return,
+            ));
+
+            return $return;
+        }
+
+        /**
+         * Refresh the user currently stored in the session
+         * @param \Idno\Entities\User $user
+         * @return \Idno\Entities\User
+         */
+        function refreshSessionUser(\Idno\Entities\User $user)
+        {
+            if ($user = User::getByUUID($user->getUUID(), false)) {
+
                 if (\Idno\Core\Idno::site()->config()->emailIsBlocked($user->email)) {
                     $this->logUserOff();
 
                     return false;
                 }
-                $return = $this->refreshSessionUser($user);
-                @session_regenerate_id(true);
 
-                // user/auth/success event needs to be triggered here
-                $return = \Idno\Core\Idno::site()->triggerEvent($return ? "user/auth/success" : "user/auth/failure", array(
-                    "user"   => $return,
-                    "is api" => $this->isAPIRequest(),
-                ), $return);
-                
-                \Idno\Core\Idno::site()->triggerEvent("user/logon", array(
-                    "user"   => $return,
-                ));
+                $_SESSION['user_uuid'] = $user->getUUID();
+                $this->user            = $user;
 
-                return $return;
+                return $user;
             }
 
-            /**
-             * Refresh the user currently stored in the session
-             * @param \Idno\Entities\User $user
-             * @return \Idno\Entities\User
-             */
-            function refreshSessionUser(\Idno\Entities\User $user)
-            {
-                if ($user = User::getByUUID($user->getUUID(), false)) {
+            return false;
+        }
 
-                    if (\Idno\Core\Idno::site()->config()->emailIsBlocked($user->email)) {
-                        $this->logUserOff();
-
-                        return false;
-                    }
-
-                    $_SESSION['user_uuid'] = $user->getUUID();
-                    $this->user            = $user;
-
-                    return $user;
-                }
-
-                return false;
-            }
-
-            /**
-             * If we're logged in, refresh the current session user.
-             */
-            function refreshCurrentSessionuser()
-            {
-                if (!$this->currentUser() && !empty($_SESSION['user_uuid'])) {
-                    if ($this->user = User::getByUUID($_SESSION['user_uuid'])) {
-                        if (\Idno\Core\Idno::site()->config()->emailIsBlocked($this->user->email)) {
-                            $this->logUserOff();
-                        }
-                    }
-                } else if ($this->isLoggedIn()) {
-                    $user_uuid = $this->currentUserUUID();
-                    if ($user = User::getByUUID($user_uuid)) {
-                        $this->refreshSessionUser($user);
-                    } else {
+        /**
+         * If we're logged in, refresh the current session user.
+         */
+        function refreshCurrentSessionuser()
+        {
+            if (!$this->currentUser() && !empty($_SESSION['user_uuid'])) {
+                if ($this->user = User::getByUUID($_SESSION['user_uuid'])) {
+                    if (\Idno\Core\Idno::site()->config()->emailIsBlocked($this->user->email)) {
                         $this->logUserOff();
                     }
                 }
-            }
-
-            /**
-             * Sets whether this session is an API request or a manual browse
-             * @param boolean $is_api_request
-             */
-            function setIsAPIRequest($is_api_request)
-            {
-                $is_api_request             = (bool)$is_api_request;
-                $_SESSION['is_api_request'] = $is_api_request;
-            }
-
-            /**
-             * Is this session an API request?
-             * @return bool
-             */
-            function isAPIRequest()
-            {
-                if (!empty($_SESSION['is_api_request'])) {
-                    return true;
+            } else if ($this->isLoggedIn()) {
+                $user_uuid = $this->currentUserUUID();
+                if ($user = User::getByUUID($user_uuid)) {
+                    $this->refreshSessionUser($user);
+                } else {
+                    $this->logUserOff();
                 }
+            }
+        }
 
-                return false;
+        /**
+         * Sets whether this session is an API request or a manual browse
+         * @param boolean $is_api_request
+         */
+        function setIsAPIRequest($is_api_request)
+        {
+            $is_api_request             = (bool)$is_api_request;
+            $_SESSION['is_api_request'] = $is_api_request;
+        }
+
+        /**
+         * Is this session an API request?
+         * @return bool
+         */
+        function isAPIRequest()
+        {
+            if (!empty($_SESSION['is_api_request'])) {
+                return true;
             }
 
-            /**
-             * If the current user isn't logged in and this isn't a public site, and this hasn't been defined as an
-             * always-public page, forward to the login page!
-             */
-            function publicGatekeeper()
-            {
+            return false;
+        }
 
-                if (!\Idno\Core\Idno::site()->config()->isPublicSite()) {
-                    if (!\Idno\Core\Idno::site()->session()->isLoggedOn()) {
-                        $class = get_class(Idno::site()->currentPage());
-                        if (!\Idno\Core\Idno::site()->isPageHandlerPublic($class)) {
-//                            \Idno\Core\Idno::site()->currentPage()->setResponse(403);
-//                            if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
-//                                \Idno\Core\Idno::site()->currentPage()->forward(Idno::site()->config()->getURL() . 'session/login/?fwd=' . urlencode($_SERVER['REQUEST_URI']));
-//                            } else {
-                            \Idno\Core\Idno::site()->currentPage()->deniedContent();
-//                            }
-                        }
+        /**
+         * If the current user isn't logged in and this isn't a public site, and this hasn't been defined as an
+         * always-public page, forward to the login page!
+         */
+        function publicGatekeeper()
+        {
+
+            if (!\Idno\Core\Idno::site()->config()->isPublicSite()) {
+                if (!\Idno\Core\Idno::site()->session()->isLoggedOn()) {
+                    $class = get_class(Idno::site()->currentPage());
+                    if (!\Idno\Core\Idno::site()->isPageHandlerPublic($class)) {
+                        //                            \Idno\Core\Idno::site()->currentPage()->setResponse(403);
+                        //                            if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
+                        //                                \Idno\Core\Idno::site()->currentPage()->forward(Idno::site()->config()->getURL() . 'session/login/?fwd=' . urlencode($_SERVER['REQUEST_URI']));
+                        //                            } else {
+                        \Idno\Core\Idno::site()->currentPage()->deniedContent();
+                        //                            }
                     }
                 }
             }
-
         }
 
     }
+
+}

@@ -2,10 +2,12 @@
 
 namespace Idno\Pages\Service\Web {
 
-    class RemovePreview extends \Idno\Common\Page {
+    class RemovePreview extends \Idno\Common\Page
+    {
 
-        function postContent() {
-            
+        function postContent()
+        {
+
             $this->gatekeeper();
 
             \Idno\Core\Idno::site()->template()->setTemplateType('json');
@@ -24,11 +26,11 @@ namespace Idno\Pages\Service\Web {
             if (!$object->canEdit()) {
                 $this->deniedContent();
             }
-            
+
             $object->hide_preview = true;
-            
+
             echo json_encode($object->save());
-            
+
         }
 
     }

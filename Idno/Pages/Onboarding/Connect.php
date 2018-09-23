@@ -4,36 +4,36 @@
      * User profile editing for onboarding
      */
 
-    namespace Idno\Pages\Onboarding {
+namespace Idno\Pages\Onboarding {
 
-        class Connect extends \Idno\Common\Page
+    class Connect extends \Idno\Common\Page
+    {
+
+        function getContent()
         {
 
-            function getContent()
-            {
+            $this->gatekeeper();
 
-                $this->gatekeeper();
+            //if ($services = \Idno\Core\Idno::site()->syndication()->getServices()) {
+            $user = \Idno\Core\Idno::site()->session()->currentUser();
 
-                //if ($services = \Idno\Core\Idno::site()->syndication()->getServices()) {
-                $user = \Idno\Core\Idno::site()->session()->currentUser();
+            $_SESSION['onboarding_passthrough'] = true;
 
-                $_SESSION['onboarding_passthrough'] = true;
+            $t = \Idno\Core\Idno::site()->template();
+            echo $t->__(array(
 
-                $t = \Idno\Core\Idno::site()->template();
-                echo $t->__(array(
+                'title'    => \Idno\Core\Idno::site()->language()->_("Connect some networks"),
+                'body'     => $t->__(array('user' => $user))->draw('onboarding/connect'),
+                'messages' => \Idno\Core\Idno::site()->session()->getAndFlushMessages()
 
-                    'title'    => \Idno\Core\Idno::site()->language()->_("Connect some networks"),
-                    'body'     => $t->__(array('user' => $user))->draw('onboarding/connect'),
-                    'messages' => \Idno\Core\Idno::site()->session()->getAndFlushMessages()
-
-                ))->draw('shell/simple');
-                //} else {
-                //    $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'begin/publish');
-                //}
-
-            }
+            ))->draw('shell/simple');
+            //} else {
+            //    $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'begin/publish');
+            //}
 
         }
 
     }
-    
+
+}
+

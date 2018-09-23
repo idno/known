@@ -5,7 +5,8 @@ namespace IdnoPlugins\IndiePub\Pages;
 use Idno\Core\Idno;
 use Idno\Common\Page;
 
-class Account extends Page {
+class Account extends Page
+{
 
     function getContent($params=array())
     {

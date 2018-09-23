@@ -5,11 +5,11 @@
 
     if (empty($vars['title'])) $vars['title'] = '';
 
-    if (!empty($vars['object'])) {
-        $objectIcon = $vars['object']->getIcon();
-    } else {
-        $objectIcon = false;
-    }
+if (!empty($vars['object'])) {
+    $objectIcon = $vars['object']->getIcon();
+} else {
+    $objectIcon = false;
+}
 
     $opengraph = array(
         'og:type'      => 'website',
@@ -86,9 +86,9 @@
 
             <!-- Twitter card -->
             <meta name="twitter:card" content="summary"/>
-            <meta name="twitter:site" content="@<?= $twitter_account ?>"/>
-            <meta name="twitter:title" content="<?= htmlspecialchars($vars['title']) ?>"/>
-            <meta name="twitter:description" content="<?= htmlspecialchars($vars['description']) ?>"/>
+            <meta name="twitter:site" content="@<?php echo $twitter_account ?>"/>
+            <meta name="twitter:title" content="<?php echo htmlspecialchars($vars['title']) ?>"/>
+            <meta name="twitter:description" content="<?php echo htmlspecialchars($vars['description']) ?>"/>
 
             <?php
 
@@ -99,4 +99,3 @@
         }
     }
 
-?>

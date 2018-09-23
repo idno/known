@@ -4,21 +4,21 @@
      * Robots.txt
      */
 
-    namespace Idno\Pages\Txt {
+namespace Idno\Pages\Txt {
 
-        /**
-         * Default class to serve the homepage
-         */
-        class Robots extends \Idno\Common\Page
+    /**
+     * Default class to serve the homepage
+     */
+    class Robots extends \Idno\Common\Page
+    {
+
+        function getContent()
         {
-
-            function getContent()
-            {
-                $t = \Idno\Core\Idno::site()->template();
-                echo $t->draw('txt/robots');
-            }
-
+            $t = \Idno\Core\Idno::site()->template();
+            echo $t->draw('txt/robots');
         }
 
     }
-    
+
+}
+

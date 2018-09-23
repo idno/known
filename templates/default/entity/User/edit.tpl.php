@@ -1,26 +1,26 @@
 <div class="container col-md-11 col-md-offset-1">
     <div class="row beforecontent">
-        <h1><?= \Idno\Core\Idno::site()->language()->_('Edit your profile'); ?></h1>
+        <h1><?php echo \Idno\Core\Idno::site()->language()->_('Edit your profile'); ?></h1>
 
         <p>
-            <?= \Idno\Core\Idno::site()->language()->_("Your profile is how other users see you across the site. It's up to you how much or how little information you choose to provide."); ?>
+            <?php echo \Idno\Core\Idno::site()->language()->_("Your profile is how other users see you across the site. It's up to you how much or how little information you choose to provide."); ?>
         </p>
     </div>
 
-    <form class="form-horizontal" role="form" action="<?= $vars['user']->getDisplayURL() ?>" method="post"
+    <form class="form-horizontal" role="form" action="<?php echo $vars['user']->getDisplayURL() ?>" method="post"
           enctype="multipart/form-data">
         <div class="row">
             <!-- left column -->
             <div class="col-md-3">
                 <div class="text-center">
 
-                    <div id="photo-preview"><img src="<?= \Idno\Core\Idno::site()->session()->currentUser()->getIcon() ?>"
+                    <div id="photo-preview"><img src="<?php echo \Idno\Core\Idno::site()->session()->currentUser()->getIcon() ?>"
                                                  class="avatar img-circle"
                                                  alt="avatar" style="width: 100px"></div>
 
                         <span class="btn btn-primary btn-file">
                             <i class="fa fa-camera"></i> 
-                        <span id="photo-filename"><?= \Idno\Core\Idno::site()->language()->_('Select a user picture'); ?></span>
+                        <span id="photo-filename"><?php echo \Idno\Core\Idno::site()->language()->_('Select a user picture'); ?></span>
                             <input type="file" name="avatar" id="photo"
                                    class="form-control"
                                    accept="image/*"
@@ -35,58 +35,58 @@
             <div class="col-md-8 personal-info">
 
                 <div class="form-group">
-                    <label class="control-label" for="name"><?= \Idno\Core\Idno::site()->language()->_('Your name'); ?></label>
+                    <label class="control-label" for="name"><?php echo \Idno\Core\Idno::site()->language()->_('Your name'); ?></label>
                     <input class="form-control" type="text" id="name" name="name"
-                           value="<?= htmlspecialchars($vars['user']->getTitle()) ?>">
+                           value="<?php echo htmlspecialchars($vars['user']->getTitle()) ?>">
                 </div>
 
                 <!--<div class="form-group">
                     <label class="control-label" for="tagline">Short description</label>
                     <input class="form-control" type="text" id="tagline" name="profile[tagline]"
-                           value="<?= htmlspecialchars($vars['user']->getShortDescription()) ?>">
+                           value="<?php echo htmlspecialchars($vars['user']->getShortDescription()) ?>">
                 </div>-->
 
                 <div class="form-group">
-                    <label class="control-label" for="body"><?= \Idno\Core\Idno::site()->language()->_('About you'); ?></label><br>
+                    <label class="control-label" for="body"><?php echo \Idno\Core\Idno::site()->language()->_('About you'); ?></label><br>
 
                     <textarea name="profile[description]" id="body"
-                              class="form-control bodyInput"><?= htmlspecialchars($vars['user']->getDescription()) ?></textarea>
+                              class="form-control bodyInput"><?php echo htmlspecialchars($vars['user']->getDescription()) ?></textarea>
 
 
                 </div>
 
                 <div class="form-group">
                     <p>
-                        <label for="website"><?= \Idno\Core\Idno::site()->language()->_('Your websites'); ?></label><br>
-                        <small><?= \Idno\Core\Idno::site()->language()->_('Other places on the web where people can find you.'); ?></small>
+                        <label for="website"><?php echo \Idno\Core\Idno::site()->language()->_('Your websites'); ?></label><br>
+                        <small><?php echo \Idno\Core\Idno::site()->language()->_('Other places on the web where people can find you.'); ?></small>
                     </p>
                     <div id="websitelist">
                         <?php
 
-                            if (!empty($vars['user']->profile['url'])) {
-                                if (!is_array($vars['user']->profile['url'])) {
-                                    $urls = array($vars['user']->profile['url']);
-                                } else {
-                                    $urls = $vars['user']->profile['url'];
-                                }
-                                foreach ($urls as $url) {
-                                    if (!empty($url)) {
-                                        ?>
+                        if (!empty($vars['user']->profile['url'])) {
+                            if (!is_array($vars['user']->profile['url'])) {
+                                $urls = array($vars['user']->profile['url']);
+                            } else {
+                                $urls = $vars['user']->profile['url'];
+                            }
+                            foreach ($urls as $url) {
+                                if (!empty($url)) {
+                                    ?>
                                         <div class="form-group">
                                             <div class="col-md-10"><input type="url" name="profile[url][]" id="website"
-                                                                          value="<?= htmlspecialchars($this->fixURL($url)) ?>"
+                                                                          value="<?php echo htmlspecialchars($this->fixURL($url)) ?>"
                                                                           placeholder="https://" class="form-control"/>
                                             </div>
                                             <div class="col-md-2" style="margin-top: 0.75em">
                                                 <small><a href="#"
-                                                          onclick="$(this).parent().parent().parent().remove(); return false;"><?= \Idno\Core\Idno::site()->language()->_('Remove');?></a>
+                                                          onclick="$(this).parent().parent().parent().remove(); return false;"><?php echo \Idno\Core\Idno::site()->language()->_('Remove');?></a>
                                                 </small>
                                             </div>
                                         </div>
                                     <?php
-                                    }
                                 }
                             }
+                        }
 
                         ?>
                         <div class="row">
@@ -95,7 +95,7 @@
                                        class="form-control"/></div>
                             <div class="col-md-2" style="margin-top: 0.75em">
                                 <small >
-                                    <a href="#" onclick="$(this).parent().parent().parent().remove(); return false;"><?= \Idno\Core\Idno::site()->language()->_('Remove'); ?></a>
+                                    <a href="#" onclick="$(this).parent().parent().parent().remove(); return false;"><?php echo \Idno\Core\Idno::site()->language()->_('Remove'); ?></a>
                                 </small>
                             </div>
                         </div>
@@ -103,15 +103,15 @@
                     <p>
                         <small><a href="#"
                                   onclick="$('#websitelist').append($('#form-website-template').html()); return false;">+
-                                <?= \Idno\Core\Idno::site()->language()->_('Add more'); ?></a></small>
+                                <?php echo \Idno\Core\Idno::site()->language()->_('Add more'); ?></a></small>
                     </p>
                 </div>
 
                 <div class="form-group">
                     <p>
-                        <?= \Idno\Core\Idno::site()->actions()->signForm('/profile/' . $vars['user']->getHandle()) ?>
-                        <input type="button" class="btn btn-cancel" value="<?= \Idno\Core\Idno::site()->language()->_('Cancel'); ?>" onclick="hideContentCreateForm();"/>
-                        <input type="submit" class="btn btn-primary" value="<?= \Idno\Core\Idno::site()->language()->_('Save Changes'); ?>"/>
+                        <?php echo \Idno\Core\Idno::site()->actions()->signForm('/profile/' . $vars['user']->getHandle()) ?>
+                        <input type="button" class="btn btn-cancel" value="<?php echo \Idno\Core\Idno::site()->language()->_('Cancel'); ?>" onclick="hideContentCreateForm();"/>
+                        <input type="submit" class="btn btn-primary" value="<?php echo \Idno\Core\Idno::site()->language()->_('Save Changes'); ?>"/>
                     </p>
 
 
@@ -128,7 +128,7 @@
                        class="form-control"/></div>
             <div class="col-md-2" style="margin-top: 0.75em">
                 <small>
-                    <a href="#" onclick="$(this).parent().parent().parent().remove(); return false;"><?= \Idno\Core\Idno::site()->language()->_('Remove'); ?></a>
+                    <a href="#" onclick="$(this).parent().parent().parent().remove(); return false;"><?php echo \Idno\Core\Idno::site()->language()->_('Remove'); ?></a>
                 </small>
             </div>
         </div>

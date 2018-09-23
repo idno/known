@@ -1,19 +1,19 @@
 <div style="font-weight: bold; font-size: 30px; line-height: 32px; color: #333" align="center">
-    An error occured on your Known site <?= $vars['site']; ?>!
+    An error occured on your Known site <?php echo $vars['site']; ?>!
 </div><br>
 <hr/>
 <br>
 <pre>
-    <?= $vars['message']; ?>
+    <?php echo $vars['message']; ?>
 </pre>
 <br><br>
-Logged in user was <?= $vars['user']; ?> <br>
+Logged in user was <?php echo $vars['user']; ?> <br>
 
-Agent: <?= $vars['agent']; ?> <br>
+Agent: <?php echo $vars['agent']; ?> <br>
 
-QS: <?= $vars['qs'] ?> <br>
+QS: <?php echo $vars['qs'] ?> <br>
 
-Referrer: <?= $vars['referrer']; ?> <br>
+Referrer: <?php echo $vars['referrer']; ?> <br>
 <br>
 <br>
 <br>

@@ -1,7 +1,7 @@
 <div class="row">
 
     <div class="col-md-10 col-md-offset-1">
-        <?= $this->draw('admin/menu') ?>
+        <?php echo $this->draw('admin/menu') ?>
                 <h1>Cherwell Theme Options</h1>
         <div class="explanation">
             <p>
@@ -12,7 +12,7 @@
 
 </div>
 
-<form id="bgform" action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>admin/cherwell/" method="post"
+<form id="bgform" action="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>admin/cherwell/" method="post"
       enctype="multipart/form-data">
 
     <div class="row">
@@ -25,7 +25,7 @@
         <div class="col-md-6 col-md-offset-1">
 
             <p>
-                <img src="<?= \Themes\Cherwell\Controller::getBackgroundImageURL() ?>"
+                <img src="<?php echo \Themes\Cherwell\Controller::getBackgroundImageURL() ?>"
                      style="width: 50%; float: left; margin-right: 10px; margin-bottom: 10px" id="photopreview">
             </p>
         </div>
@@ -43,19 +43,19 @@
             </p>
 
             <p>
-                <?= \Idno\Core\Idno::site()->actions()->signForm(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/cherwell/') ?>
+                <?php echo \Idno\Core\Idno::site()->actions()->signForm(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/cherwell/') ?>
                 <input type="submit" class="btn btn-primary" value="Save">
                 <input type="hidden" name="action" value="" id="action">
                 <?php
 
-                    if (!empty(\Idno\Core\Idno::site()->config->cherwell['bg_id'])) {
+                if (!empty(\Idno\Core\Idno::site()->config->cherwell['bg_id'])) {
 
-                        ?>
+                    ?>
                         <input type="button" class="btn" value="Restore default image"
                                onclick="$('#action').val('clear'); $('#bgform').submit();">
                     <?php
 
-                    }
+                }
 
                 ?>
             </p>
@@ -65,36 +65,36 @@
         <div class="col-md-6 col-md-offset-1" style="margin-top: 1em">
             <?php
 
-                if (!empty($vars['users'])) {
+            if (!empty($vars['users'])) {
 
-                    ?>
+                ?>
                     <p>
                         Choose whose profile is displayed on the homepage:
                     </p>
                     <select name="profile_user">
-                        <?php
+                    <?php
 
-                            foreach ($vars['users'] as $user) {
-                                ?>
-                                <option value="<?= $user->handle ?>" <?php
+                    foreach ($vars['users'] as $user) {
+                        ?>
+                                <option value="<?php echo $user->handle ?>" <?php
 
-                                    if (!empty(\Idno\Core\Idno::site()->config->cherwell['profile_user'])) {
-                                        if ($user->handle == \Idno\Core\Idno::site()->config->cherwell['profile_user']) {
-                                            echo 'selected';
-                                        }
+                                if (!empty(\Idno\Core\Idno::site()->config->cherwell['profile_user'])) {
+                                    if ($user->handle == \Idno\Core\Idno::site()->config->cherwell['profile_user']) {
+                                        echo 'selected';
                                     }
+                                }
 
-                                ?>><?= $user->getTitle() ?> (<?= $user->handle ?>)
+                                ?>><?php echo $user->getTitle() ?> (<?php echo $user->handle ?>)
                                 </option>
                             <?php
-                            }
+                    }
 
-                        ?>
+                    ?>
                     </select><br>
                     <input type="submit" class="btn btn-primary" value="Save">
                 <?php
 
-                }
+            }
 
             ?>
         </div>

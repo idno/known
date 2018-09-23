@@ -2,17 +2,17 @@
     /* @var \IdnoPlugins\Comic\Comic $object */
     $object = $vars['object'];
 
-    foreach($object->getAttachments() as $attachment) {
+foreach($object->getAttachments() as $attachment) {
 
-?>
+    ?>
 
         <p>
-            <img src="<?=$attachment['url']?>" width="<?=$object->width?>" height="<?=$object->height?>" alt="<?=htmlspecialchars(strip_tags($object->description));?>">
+            <img src="<?php echo $attachment['url']?>" width="<?php echo $object->width?>" height="<?php echo $object->height?>" alt="<?php echo htmlspecialchars(strip_tags($object->description));?>">
         </p>
 
-<?php
+    <?php
 
-    }
+}
 ?>
 
-<?php echo $this->autop($this->parseHashtags($vars['object']->body)); //TODO: a better rendering algorithm ?>
+<?php echo $this->autop($this->parseHashtags($vars['object']->body)); //TODO: a better rendering algorithm

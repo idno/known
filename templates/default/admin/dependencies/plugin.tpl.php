@@ -19,15 +19,15 @@ if ($loaded_plugin) {
 }
 
 if ($version && !empty($details) && $v_value<0)
-	$label = 'label-danger';
+    $label = 'label-danger';
 
-?><span class="label <?= $label ?>"><?= $plugin ?><?php
-    if (!empty($details)) {
-	echo " v".$details['Plugin description']['version'];
-    }
-    
+?><span class="label <?php echo $label ?>"><?php echo $plugin ?><?php
+if (!empty($details)) {
+    echo " v".$details['Plugin description']['version'];
+}
+
     if (($version && $v_value<0) || ($version && empty($details)))
-	echo " " . \Idno\Core\Idno::site()->language()->_('(v%s required)', [$version]);
-    
-    
+    echo " " . \Idno\Core\Idno::site()->language()->_('(v%s required)', [$version]);
+
+
 ?></span> 

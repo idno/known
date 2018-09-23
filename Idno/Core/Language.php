@@ -4,17 +4,18 @@ namespace Idno\Core {
 
     use Idno\Common\Component;
 
-    class Language extends Component {
+    class Language extends Component
+    {
 
         /**
          * Language associated array of translation objects.
-         * @var type 
+         * @var type
          */
         private $translations = [];
-                
+
         /**
          * Current language
-         * @var type 
+         * @var type
          */
         private $language;
 
@@ -22,7 +23,8 @@ namespace Idno\Core {
          * Construct a language object
          * @param type $language
          */
-        public function __construct($language = null) {
+        public function __construct($language = null)
+        {
             $session = \Idno\Core\Idno::site()->session();
             if (!empty($session)) {
                 if ($user = \Idno\Core\Idno::site()->session()->currentUser()) {
@@ -38,20 +40,21 @@ namespace Idno\Core {
                 $language = 'en_US';
 
             $this->language = $language;
-            
+
             // Set locale, now we have one.
             putenv("LANG=" . $language);
             putenv("LANGUAGE=" . $language);
             putenv("LC_ALL=" . $language);
             setlocale(LC_ALL, $language);
-            
+
             parent::__construct();
         }
 
         /**
          * Magic method to get stored language variable
          */
-        function __get($string) {
+        function __get($string)
+        {
             return $this->get($string);
         }
 
@@ -61,30 +64,33 @@ namespace Idno\Core {
          * @param array $subs List of substitution variables to be used in the translated string
          * @return string
          */
-        public function _($string, array $subs = []) {
+        public function _($string, array $subs = [])
+        {
             return vsprintf($this->get($string), $subs);
         }
-        
+
         /**
          * Register a translation.
          * Register translation strings. It is safe to provide Translation objects for multiple languages, only translations for
          * $this->getLanguage() will be loaded.
          * @param \Idno\Core\Translation $translation
          */
-        public function register(Translation $translation) {
+        public function register(Translation $translation)
+        {
             if ($translation->canProvide($this->getLanguage())) {
                 //$this->addTranslations($translation->getStrings());
                 $this->translations[] = $translation;
             }
         }
-        
+
         /**
          * Shortcut for getTranslation.
          * @param $string
          * @param bool|true $failover
          * @return bool|string
          */
-        function get($string, $failover = true) {
+        function get($string, $failover = true)
+        {
             return $this->getTranslation($string, $failover);
         }
 
@@ -95,15 +101,16 @@ namespace Idno\Core {
          * @param bool|true $failover
          * @return string|bool
          */
-        function getTranslation($string, $failover = true) {
-            
+        function getTranslation($string, $failover = true)
+        {
+
             // Look through translation objects
             foreach ($this->translations as $translation) {
                 $value = $translation->getString($string);
                 if (!empty($value) && ($value != $string))
                     return $value;
             }
-                       
+
             // If we're in lang_debug mode, lets flag untranslated strings
             if (!empty(\Idno\Core\Idno::site()->config()->lang_debug)) {
                 \Idno\Core\Idno::site()->triggerEvent('language/translation/missing-string', [
@@ -111,8 +118,7 @@ namespace Idno\Core {
                     'language' => $this->language
                 ]);
             }
-            
-            
+
             if ($failover) {
                 return $string;
             }
@@ -123,16 +129,18 @@ namespace Idno\Core {
         /**
          * Return the current language code for this object.
          */
-        public function getLanguage() {
+        public function getLanguage()
+        {
             return $this->language;
         }
-        
+
         /**
          * Replace curly quotes with uncurly quotes
          * @param $string
          * @return mixed
          */
-        function uncurlQuotes($string) {
+        function uncurlQuotes($string)
+        {
             $chr_map = array(
                 // Windows codepage 1252
                 "\xC2\x82" => "'", // U+0082⇒U+201A single low-9 quotation mark
@@ -167,37 +175,38 @@ namespace Idno\Core {
 
         /**
          * Detect current language from browser string.
-         * 
+         *
          * TODO: Put more logic here, with better fallbacks.
          * @param bool $full if true, the full locale is returned, e.g. en_GB
          */
-        public static function detectBrowserLanguage($full = true) { 
-            
+        public static function detectBrowserLanguage($full = true)
+        {
+
             $length = 2; // Short form
             if ($full)
                 $length = 5;
-            
+
             $lang = "";
-            
+
             if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
                 $lang = preg_replace("/[^a-zA-Z\-_\s]/", "", substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, $length));
             }
-            
+
             // If running as console app, detect via environment
             if (defined('KNOWN_CONSOLE')) {
-             
+
                 $lang = getenv('LANGUAGE');
                 if (empty($lang))
                     $lang = getenv('LANG');
-                
+
                 if (preg_match('/[a-z]{2}_[A-Z]{2}/', $lang, $matches)) {
                     $lang = $matches[0];
                     if (!$full)
                         $lang = explode('_', $lang)[0];
-                    
+
                 }
             }
-            
+
             return $lang;
         }
 

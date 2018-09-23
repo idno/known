@@ -17,7 +17,8 @@
 
 namespace Idno\Core\Bonita {
 
-    interface Drawable {
+    interface Drawable
+    {
 
         public function getTitle();
 

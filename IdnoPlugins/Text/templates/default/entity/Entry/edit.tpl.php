@@ -1,27 +1,27 @@
-<?= $this->draw('entity/edit/header'); ?>
+<?php echo $this->draw('entity/edit/header'); ?>
 <?php
     $autosave = new \Idno\Core\Autosave();
-    if (!empty($vars['object']->body)) {
-        $body = $vars['object']->body;
-    } else {
-        $body = '';
-    }
-    if (!empty($vars['object']->title)) {
-        $title = $vars['object']->title;
-    } else {
-        $title = '';
-    }
-    if (!empty($vars['object'])) {
-        $object = $vars['object'];
-    } else {
-        $object = false;
-    }
+if (!empty($vars['object']->body)) {
+    $body = $vars['object']->body;
+} else {
+    $body = '';
+}
+if (!empty($vars['object']->title)) {
+    $title = $vars['object']->title;
+} else {
+    $title = '';
+}
+if (!empty($vars['object'])) {
+    $object = $vars['object'];
+} else {
+    $object = false;
+}
     $unique_id = 'body'.rand(0, 9999);
 
     /* @var \Idno\Core\Template $this */
 
 ?>
-    <form action="<?= $vars['object']->getURL() ?>" method="post">
+    <form action="<?php echo $vars['object']->getURL() ?>" method="post">
 
         <div class="row">
 
@@ -30,28 +30,28 @@
 
                 <?php
 
-                    if (empty($vars['object']->_id)) {
+                if (empty($vars['object']->_id)) {
 
-                        ?>
-                        <h4><?= \Idno\Core\Idno::site()->language()->_('New Post'); ?></h4>
+                    ?>
+                        <h4><?php echo \Idno\Core\Idno::site()->language()->_('New Post'); ?></h4>
                     <?php
 
-                    } else {
+                } else {
 
-                        ?>
-                        <h4><?= \Idno\Core\Idno::site()->language()->_('Edit Post'); ?></h4>
+                    ?>
+                        <h4><?php echo \Idno\Core\Idno::site()->language()->_('Edit Post'); ?></h4>
                     <?php
 
-                    }
+                }
 
                 ?>
 
                 <div class="content-form">
-                    <label for="title"><?= \Idno\Core\Idno::site()->language()->_('Title'); ?></label>
-                    <?= $this->__(['name' => 'title', 'placeholder' => \Idno\Core\Idno::site()->language()->_('Give it a title'), 'id' => 'title', 'value' => $title, 'required' => true, 'class' => 'form-control'])->draw('forms/input/input'); ?>
+                    <label for="title"><?php echo \Idno\Core\Idno::site()->language()->_('Title'); ?></label>
+                    <?php echo $this->__(['name' => 'title', 'placeholder' => \Idno\Core\Idno::site()->language()->_('Give it a title'), 'id' => 'title', 'value' => $title, 'required' => true, 'class' => 'form-control'])->draw('forms/input/input'); ?>
                 </div>
 
-                <?= $this->__([
+                <?php echo $this->__([
                     'name' => 'body',
                     'unique_id' => $unique_id,
                     'value' => $body,
@@ -59,21 +59,21 @@
                     'wordcount' => true,
                     'required' => true
                 ])->draw('forms/input/richtext')?>
-                <?= $this->draw('entity/tags/input'); ?>
+                <?php echo $this->draw('entity/tags/input'); ?>
 
                 <?php echo $this->drawSyndication('article', $vars['object']->getPosseLinks()); ?>
-                <?php if (empty($vars['object']->_id)) { 
+                <?php if (empty($vars['object']->_id)) {
                     echo $this->__(['name' => 'forward-to', 'value' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'])->draw('forms/input/hidden');
                 } ?>
 
-                <?= $this->draw('content/extra'); ?>
-                <?= $this->draw('content/access'); ?>
+                <?php echo $this->draw('content/extra'); ?>
+                <?php echo $this->draw('content/access'); ?>
 
                 <p class="button-bar ">
 
-                    <?= \Idno\Core\Idno::site()->actions()->signForm('/entry/edit') ?>
-                    <input type="button" class="btn btn-cancel" value="<?= \Idno\Core\Idno::site()->language()->_('Cancel'); ?>" onclick="tinymce.EditorManager.execCommand('mceRemoveEditor',true, 'body'); hideContentCreateForm();"/>
-                    <input type="submit" class="btn btn-primary" value="<?= \Idno\Core\Idno::site()->language()->_('Publish'); ?>"/>
+                    <?php echo \Idno\Core\Idno::site()->actions()->signForm('/entry/edit') ?>
+                    <input type="button" class="btn btn-cancel" value="<?php echo \Idno\Core\Idno::site()->language()->_('Cancel'); ?>" onclick="tinymce.EditorManager.execCommand('mceRemoveEditor',true, 'body'); hideContentCreateForm();"/>
+                    <input type="submit" class="btn btn-primary" value="<?php echo \Idno\Core\Idno::site()->language()->_('Publish'); ?>"/>
 
                 </p>
 
@@ -81,13 +81,13 @@
 
         </div>
     </form>
-<?= $this->draw('entity/edit/footer'); ?>
+<?php echo $this->draw('entity/edit/footer'); ?>
 <script>
 
     $(document).ready(function(){
         // Autosave the title & body
         autoSave('entry', ['title', 'body'], {
-          'body': '#<?=$unique_id?>',
+          'body': '#<?php echo $unique_id?>',
         });
     });
 

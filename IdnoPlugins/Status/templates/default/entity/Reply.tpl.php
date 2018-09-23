@@ -1,1 +1,1 @@
-<?= $this->draw('entity/Status'); ?>
+<?php echo $this->draw('entity/Status');

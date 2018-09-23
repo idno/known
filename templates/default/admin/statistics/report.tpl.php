@@ -14,8 +14,8 @@ foreach ($report as $label => $value) {
         ?>
 
         <div class="form-group">
-            <h<?= $level; ?>><?= $label ?></h<?= $level; ?>>
-            <?= $this->__(['report' => $value, 'level' => $level + 1])->draw('admin/statistics/report'); ?>
+            <h<?php echo $level; ?>><?php echo $label ?></h<?php echo $level; ?>>
+            <?php echo $this->__(['report' => $value, 'level' => $level + 1])->draw('admin/statistics/report'); ?>
         </div>
 
         <?php
@@ -28,10 +28,10 @@ foreach ($report as $label => $value) {
 
         <div class="form-group">
             <div class="col-md-3">
-                <label class="control-label" for="inputName"><?= $label; ?></label>
+                <label class="control-label" for="inputName"><?php echo $label; ?></label>
             </div>
             <div class="col-md-9">
-                <pre><?= $value; ?></pre>
+                <pre><?php echo $value; ?></pre>
             </div>
         </div>
         <?php

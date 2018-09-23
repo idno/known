@@ -11,11 +11,11 @@ foreach (['php', 'known', 'idno', 'build', 'extension', 'plugin'] as $field) {
         $requirements[$field] = $plugin_description[$field];
 }
 ?>
-<div class="well well-large" id="plugin-<?=strtolower($shortname)?>">
+<div class="well well-large" id="plugin-<?php echo strtolower($shortname)?>">
     <div class="row">
         <div class="col-md-2">
             <p>
-                <strong><?= $plugin_description['name'] ?></strong> <?= $plugin_description['version'] ?><br/>
+                <strong><?php echo $plugin_description['name'] ?></strong> <?php echo $plugin_description['version'] ?><br/>
                 <small>
                     by <a href="<?php
 
@@ -25,7 +25,7 @@ foreach (['php', 'known', 'idno', 'build', 'extension', 'plugin'] as $field) {
                         echo '#';
                     }
 
-                    ?>"><?= $plugin_description['author'] ?></a>
+                    ?>"><?php echo $plugin_description['author'] ?></a>
                 </small>
                 <br/>
                 <?php
@@ -52,7 +52,7 @@ foreach (['php', 'known', 'idno', 'build', 'extension', 'plugin'] as $field) {
                     <?php
                     if (isset($requirements['known'])) {
                         ?>
-                        <p><label><?= \Idno\Core\Idno::site()->language()->_('Known Version'); ?>: <?php echo $this->__(array('version' => $requirements['known']))->draw('admin/dependencies/idno'); ?> </label>
+                        <p><label><?php echo \Idno\Core\Idno::site()->language()->_('Known Version'); ?>: <?php echo $this->__(array('version' => $requirements['known']))->draw('admin/dependencies/idno'); ?> </label>
                         </p>
                         <?php
                     }
@@ -61,7 +61,7 @@ foreach (['php', 'known', 'idno', 'build', 'extension', 'plugin'] as $field) {
                     <?php
                     if (isset($requirements['build'])) {
                         ?>
-                        <p><label><?= \Idno\Core\Idno::site()->language()->_('Known Build'); ?>: <?php echo $this->__(array('version' => $requirements['build']))->draw('admin/dependencies/build'); ?> </label>
+                        <p><label><?php echo \Idno\Core\Idno::site()->language()->_('Known Build'); ?>: <?php echo $this->__(array('version' => $requirements['build']))->draw('admin/dependencies/build'); ?> </label>
                         </p>
                         <?php
                     }
@@ -70,7 +70,7 @@ foreach (['php', 'known', 'idno', 'build', 'extension', 'plugin'] as $field) {
                     <?php
                     if (isset($requirements['php'])) {
                         ?>
-                        <p><label><?= \Idno\Core\Idno::site()->language()->_('PHP Version'); ?>: <?php echo $this->__(array('version' => $requirements['php']))->draw('admin/dependencies/php'); ?> </label>
+                        <p><label><?php echo \Idno\Core\Idno::site()->language()->_('PHP Version'); ?>: <?php echo $this->__(array('version' => $requirements['php']))->draw('admin/dependencies/php'); ?> </label>
                         </p>
                         <?php
                     }
@@ -81,10 +81,10 @@ foreach (['php', 'known', 'idno', 'build', 'extension', 'plugin'] as $field) {
                         if (!is_array($requirements['extension']))
                             $requirements['extension'] = array($requirements['extension']);
                         ?>
-                        <p><label><?= \Idno\Core\Idno::site()->language()->_('Extensions'); ?>: <?php
+                        <p><label><?php echo \Idno\Core\Idno::site()->language()->_('Extensions'); ?>: <?php
                                 foreach ($requirements['extension'] as $extension)
                                     echo $this->__(array('extension' => $extension))->draw('admin/dependencies/extension');
-                                ?> </label></p>
+                        ?> </label></p>
                         <?php
                     }
                     ?>
@@ -94,12 +94,12 @@ foreach (['php', 'known', 'idno', 'build', 'extension', 'plugin'] as $field) {
                         if (!is_array($requirements['plugin']))
                             $requirements['plugin'] = array($requirements['plugin']);
                         ?>
-                        <p><label><?= \Idno\Core\Idno::site()->language()->_('Plugins'); ?>: <?php
-                                foreach ($requirements['plugin'] as $plugin) {
-                                    @list($plugin, $version) = explode(',', $plugin);
-                                    echo $this->__(array('plugin' => $plugin, 'version' => $version))->draw('admin/dependencies/plugin');
-                                }
-                                ?> </label></p>
+                        <p><label><?php echo \Idno\Core\Idno::site()->language()->_('Plugins'); ?>: <?php
+                        foreach ($requirements['plugin'] as $plugin) {
+                            @list($plugin, $version) = explode(',', $plugin);
+                            echo $this->__(array('plugin' => $plugin, 'version' => $version))->draw('admin/dependencies/plugin');
+                        }
+                        ?> </label></p>
                         <?php
                     }
                     ?>
@@ -113,28 +113,28 @@ foreach (['php', 'known', 'idno', 'build', 'extension', 'plugin'] as $field) {
             if (!in_array($shortname, \Idno\Core\Idno::site()->config()->alwaysplugins)) {
                 if (array_key_exists($shortname, $vars['plugins_loaded'])) {
                     ?>
-                    <form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>admin/plugins/"
+                    <form action="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>admin/plugins/"
                           method="post">
                         <p>
-                            <input type="hidden" name="plugin" value="<?= $shortname ?>"/>
-                            <input type="hidden" name="container" value="plugin-<?= strtolower($shortname) ?>"/>
+                            <input type="hidden" name="plugin" value="<?php echo $shortname ?>"/>
+                            <input type="hidden" name="container" value="plugin-<?php echo strtolower($shortname) ?>"/>
                             <input type="hidden" name="plugin_action" value="uninstall"/>
                             <input class="btn btn-default plugin-button" type="submit" value="Disable"/>
                         </p>
-                        <?= \Idno\Core\Idno::site()->actions()->signForm(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/plugins/') ?>
+                        <?php echo \Idno\Core\Idno::site()->actions()->signForm(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/plugins/') ?>
                     </form>
                     <?php
                 } else {
                     ?>
-                    <form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>admin/plugins/"
+                    <form action="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>admin/plugins/"
                           method="post">
                         <p>
-                            <input type="hidden" name="plugin" value="<?= $shortname ?>"/>
-                            <input type="hidden" name="container" value="plugin-<?= strtolower($shortname) ?>"/>
+                            <input type="hidden" name="plugin" value="<?php echo $shortname ?>"/>
+                            <input type="hidden" name="container" value="plugin-<?php echo strtolower($shortname) ?>"/>
                             <input type="hidden" name="plugin_action" value="install"/>
                             <input class="btn btn-primary plugin-button" type="submit" value="Enable"/>
                         </p>
-                        <?= \Idno\Core\Idno::site()->actions()->signForm(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/plugins/') ?>
+                        <?php echo \Idno\Core\Idno::site()->actions()->signForm(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/plugins/') ?>
                     </form>
                     <?php
                 }

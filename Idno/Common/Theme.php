@@ -7,19 +7,19 @@
      * @subpackage core
      */
 
-    namespace Idno\Common {
+namespace Idno\Common {
 
-        class Theme extends Component
+    class Theme extends Component
+    {
+
+        function init()
         {
+            $result = parent::init();
 
-            function init()
-            {
-                $result = parent::init();
-
-                return $result;
-            }
-
+            return $result;
         }
 
     }
-    
+
+}
+

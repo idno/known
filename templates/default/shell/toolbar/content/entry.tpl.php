@@ -1,12 +1,12 @@
 <li>
-    <a href="<?= $vars['url'] ?>">
+    <a href="<?php echo $vars['url'] ?>">
         <span class="dropdown-menu-icon"><?php
-            if (!empty($vars['icon'])) {
-                echo $vars['icon'];
-            } else {
-                echo '&nbsp;';
-            }
+        if (!empty($vars['icon'])) {
+            echo $vars['icon'];
+        } else {
+            echo '&nbsp;';
+        }
         ?></span>
-        <?= $vars['title'] ?>
+        <?php echo $vars['title'] ?>
     </a>
 </li>

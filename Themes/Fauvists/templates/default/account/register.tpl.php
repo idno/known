@@ -9,7 +9,7 @@
             <p>
 
             </p>
-            <form action="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>account/register" method="post" style="width: 100%" class="form-horizontal">
+            <form action="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>account/register" method="post" style="width: 100%" class="form-horizontal">
                 <div class="control-group">
                    <label class="control-label" for="inputUsername">Your name</label>
                     <div class="controls">
@@ -25,7 +25,7 @@
                 <div class="control-group">
                     <label class="control-label" for="inputEmail">Your email address</label>
                     <div class="controls">
-                        <input type="email" id="inputEmail" placeholder="you@email.com" class="" style="width: 100%" name="email" value="<?=htmlentities($vars['email'])?>" autocapitalize="off">
+                        <input type="email" id="inputEmail" placeholder="you@email.com" class="" style="width: 100%" name="email" value="<?php echo htmlentities($vars['email'])?>" autocapitalize="off">
                     </div>
                 </div>
                 <div class="control-group">
@@ -46,10 +46,10 @@
                 <div class="control-group">
                     <div class="controls">
                         <button type="submit" class="btn btn-reg">Create Account</button>
-                        <input type="hidden" name="code" value="<?=htmlspecialchars($vars['code'])?>">
+                        <input type="hidden" name="code" value="<?php echo htmlspecialchars($vars['code'])?>">
                     </div>
                 </div>
-                <?= \Idno\Core\Idno::site()->actions()->signForm('/account/register') ?>
+                <?php echo \Idno\Core\Idno::site()->actions()->signForm('/account/register') ?>
 
             </form>
         </div>

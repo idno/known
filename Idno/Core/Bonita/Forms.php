@@ -13,17 +13,20 @@
 
 namespace Idno\Core\Bonita {
 
-    class Forms extends Templates {
+    class Forms extends Templates
+    {
 
         /**
          *  Attaches a target URL to the form.
          * @param string $targetURL URL for the form to point to
          */
-        public function setTarget($targetURL) {
+        public function setTarget($targetURL)
+        {
             $this->targetURL = $targetURL;
         }
 
-        public function draw($templateName, $returnBlank = true) {
+        public function draw($templateName, $returnBlank = true)
+        {
 
             $time = time();
             $this->token = static::token($this->targetURL, $time);
@@ -39,7 +42,8 @@ namespace Idno\Core\Bonita {
          * @param boolean $haltExecutionOnBadRequest If set to true, the function halts all execution if the form doesn't validate. (True by default.)
          * @return true|false
          */
-        public static function validateToken($action = '', $haltExecutionOnBadRequest = true) {
+        public static function validateToken($action = '', $haltExecutionOnBadRequest = true)
+        {
             if (empty($_REQUEST['__bTs']) || empty($_REQUEST['__bTk'])) {
                 if ($haltExecutionOnBadRequest)
                     exit;
@@ -52,9 +56,9 @@ namespace Idno\Core\Bonita {
                 if (!empty($_REQUEST['__bTa'])) {
                     $action = $_REQUEST['__bTa'];
                 } else {
-                    
+
                     \Idno\Core\Idno::site()->logging()->debug("No action in token");
-                    
+
                     if ($haltExecutionOnBadRequest) {
                         exit;
                     }
@@ -64,9 +68,9 @@ namespace Idno\Core\Bonita {
             }
 
             if (abs(time() - $time) < \Idno\Core\Idno::site()->config()->form_token_expiry) {
-                
+
                 // \Idno\Core\Idno::site()->logging()->debug("Token for $action has a valid time " . date('r', $time));
-                
+
                 if (self::token($action, $time) == $token) {
                     return true;
                 }
@@ -85,7 +89,8 @@ namespace Idno\Core\Bonita {
          *
          * @return true|false
          */
-        public static function formSubmitted() {
+        public static function formSubmitted()
+        {
 
             if (isset($_REQUEST['__bTk']) && isset($_REQUEST['__bTs'])) {
                 return true;
@@ -102,15 +107,16 @@ namespace Idno\Core\Bonita {
          *
          * @return true|false
          */
-        public static function token($action, $time) {
-            
+        public static function token($action, $time)
+        {
+
             // Normalise action by stripping get line
             $action = explode('?', $action)[0];
-            
+
             $hmac = hash_hmac('sha256', $action, \Idno\Core\Bonita\Main::getSiteSecret(), true);
             $hmac = hash_hmac('sha256', $time, $hmac, true);
             $hmac = hash_hmac('sha256', session_id(), $hmac);
-            
+
             $debug = [
                 'action' => $action,
                 'time' => $time,
