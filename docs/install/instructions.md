@@ -39,7 +39,7 @@ If you’re using Docker or other virtualized server environments, you will need
 
 ### If you’re using MySQL
 
-Currently, MySQL users need to create a file called ```config.ini``` in the root of their installation. This should contain the following information:
+Currently, MySQL users need to create a file called ```config.ini``` in you ```/configuration/``` directory. This should contain the following information:
 
     database = "MySQL"
     dbname = "Your MySQL database name"
