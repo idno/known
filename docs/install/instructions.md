@@ -131,3 +131,7 @@ Register and log in.
 ### Administer Known
 
 Once you’ve registered and logged in, click “Administration” in the menu bar. This will allow you to set some site configuration items, including the site name. You will also be able to enable some plugins from this screen. If you’re using Known as a blog or a closed community, you will probably also want to turn open registration off from here.
+
+## Command Line Installation
+
+A command line installer is available, which is useful for installing Known over slow connections or in a scripted environment. Details can be found [here](cliinstaller.md).
