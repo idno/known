@@ -4,14 +4,15 @@ $in = file_get_contents("php://stdin");
 $filenames = explode("\n", $in);
 $handled = [];
 
-function getLineNumber($content, $charpos) {
+function getLineNumber($content, $charpos)
+{
     list($before) = str_split($content, $charpos); // fetches all the text before the match
 
     return strlen($before) - strlen(str_replace("\n", "", $before)) + 1;
 }
 
 foreach ($filenames as $filename) {
-    
+
     $file = @file_get_contents($filename);
 
     if (!empty($file)) {

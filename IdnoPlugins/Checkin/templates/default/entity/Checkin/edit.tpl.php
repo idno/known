@@ -87,8 +87,9 @@
                <input type="button" class="btn btn-cancel" value="Cancel" onclick="hideContentCreateForm();"/>
                 <?php echo \Idno\Core\Idno::site()->actions()->signForm('/checkin/edit') ?>
                 <input type="submit" class="btn btn-primary" value="<?php if (empty($vars['object']->_id)) { ?><?php echo \Idno\Core\Idno::site()->language()->_('Publish'); ?><?php
-               } else { ?><?php echo \Idno\Core\Idno::site()->language()->_('Save'); ?><?php
-} ?>"/>
+               } else {
+                   ?><?php echo \Idno\Core\Idno::site()->language()->_('Save'); ?><?php
+               } ?>"/>
 
             </p>
         </div>

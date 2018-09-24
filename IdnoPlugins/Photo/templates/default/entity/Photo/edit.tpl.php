@@ -1,15 +1,15 @@
- <?php
- 
+<?php
+
     $attachments = $vars['object']->getAttachments(); // TODO: Handle multiple
-    $multiple = false; 
+    $multiple = false;
     $num_pics = count($attachments);
     if ($num_pics > 1)
         $multiple = true;
-    $cnt = 0; 
+    $cnt = 0;
 ?>
 
-<?= $this->draw('entity/edit/header'); ?>
-    <form action="<?= $vars['object']->getURL() ?>" method="post" enctype="multipart/form-data">
+<?php echo $this->draw('entity/edit/header'); ?>
+    <form action="<?php echo $vars['object']->getURL() ?>" method="post" enctype="multipart/form-data">
 
         <div class="row">
 
@@ -18,19 +18,19 @@
                 <h4>
                     <?php
 
-                        if (empty($vars['object']->_id)) {
-                            ?><?= \Idno\Core\Idno::site()->language()->_('New Photo'); ?><?php
-                        } else {
-                            ?><?= \Idno\Core\Idno::site()->language()->_('Edit Photo'); ?><?php
-                        }
+                    if (empty($vars['object']->_id)) {
+                        ?><?php echo \Idno\Core\Idno::site()->language()->_('New Photo'); ?><?php
+                    } else {
+                        ?><?php echo \Idno\Core\Idno::site()->language()->_('Edit Photo'); ?><?php
+                    }
 
                     ?>
                 </h4>
                 
-                <div class="photo-files <?php if ($multiple) echo "multiple-images"; ?>" data-num-pics="<?= $num_pics; ?>">
+                <div class="photo-files <?php if ($multiple) echo "multiple-images"; ?>" data-num-pics="<?php echo $num_pics; ?>">
                     <?php for ($n = 0; $n < 10; $n++) { ?>
-                        <div class="image-file" data-number="<?= $n; ?>" style="<?php if ($n > 0) echo 'display: none;'; ?>">
-                            <?= $this->__([
+                        <div class="image-file" data-number="<?php echo $n; ?>" style="<?php if ($n > 0) echo 'display: none;'; ?>">
+                            <?php echo $this->__([
                                 'name' => 'photo[]',
                                 'hide-existing' => $n > 0,
                                 'hide-delete' => $n > 0
@@ -44,15 +44,15 @@
                     <div class="content-form">
                         <label for="title">
                             Title</label>
-                        <?= $this->__([
-                            'name' => 'title', 
-                            'id' => 'title', 
-                            'placeholder' => \Idno\Core\Idno::site()->language()->_('Give it a title'), 
-                            'value' => $vars['object']->title, 
-                            'class' => 'form-control'])->draw('forms/input/input'); ?>
+                        <?php echo $this->__([
+                            'name' => 'title',
+                            'id' => 'title',
+                            'placeholder' => \Idno\Core\Idno::site()->language()->_('Give it a title'),
+                            'value' => $vars['object']->title,
+                        'class' => 'form-control'])->draw('forms/input/input'); ?>
                     </div>
 
-                    <?= $this->__([
+                    <?php echo $this->__([
                         'name' => 'body',
                         'value' => $vars['object']->body,
                         'wordcount' => false,
@@ -62,20 +62,20 @@
                         'label' => \Idno\Core\Idno::site()->language()->_('Description')
                     ])->draw('forms/input/richtext')?>
 
-                    <?= $this->draw('entity/tags/input'); ?>
+                    <?php echo $this->draw('entity/tags/input'); ?>
 
                 </div>
                 
                 <?php echo $this->drawSyndication('image', $vars['object']->getPosseLinks()); ?>
-                <?php if (empty($vars['object']->_id)) { 
+                <?php if (empty($vars['object']->_id)) {
                     echo $this->__(['name' => 'forward-to', 'value' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'])->draw('forms/input/hidden');
                 } ?>
-                <?= $this->draw('content/extra'); ?>
-                <?= $this->draw('content/access'); ?>
+                <?php echo $this->draw('content/extra'); ?>
+                <?php echo $this->draw('content/access'); ?>
                 <p class="button-bar ">
-                    <?= \Idno\Core\Idno::site()->actions()->signForm('/photo/edit') ?>
-                    <input type="button" class="btn btn-cancel" value="<?= \Idno\Core\Idno::site()->language()->_('Cancel'); ?>" onclick="hideContentCreateForm();"/>
-                    <input type="submit" class="btn btn-primary" value="<?= \Idno\Core\Idno::site()->language()->_('Publish'); ?>"/>
+                    <?php echo \Idno\Core\Idno::site()->actions()->signForm('/photo/edit') ?>
+                    <input type="button" class="btn btn-cancel" value="<?php echo \Idno\Core\Idno::site()->language()->_('Cancel'); ?>" onclick="hideContentCreateForm();"/>
+                    <input type="submit" class="btn btn-primary" value="<?php echo \Idno\Core\Idno::site()->language()->_('Publish'); ?>"/>
                 </p>
             </div>
 
@@ -92,4 +92,4 @@
     } );
 </script>    
 
-<?= $this->draw('entity/edit/footer'); ?>
+<?php echo $this->draw('entity/edit/footer');
