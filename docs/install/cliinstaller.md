@@ -51,3 +51,5 @@ If you want to generate a config file, but without going through the full instal
 ```
 ./CLIInstaller.php makeconfig /path/to/manifest > /path/to/new-config.ini
 ```
+
+This will output the new config to stdOut. You can save it to an ini file as appropriate!
