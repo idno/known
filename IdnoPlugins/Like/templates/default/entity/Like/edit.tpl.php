@@ -1,5 +1,5 @@
-<?= $this->draw('entity/edit/header'); ?>
-<form action="<?= $vars['object']->getURL() ?>" method="post">
+<?php echo $this->draw('entity/edit/header'); ?>
+<form action="<?php echo $vars['object']->getURL() ?>" method="post">
 
     <div class="row">
 
@@ -7,18 +7,18 @@
             <h4>
                 <?php
 
-                    if (empty($vars['object']->_id)) {
-                        ?><?= \Idno\Core\Idno::site()->language()->_('New Bookmark'); ?><?php
-                    } else {
-                        ?><?= \Idno\Core\Idno::site()->language()->_('Edit Bookmark'); ?><?php
-                    }
+                if (empty($vars['object']->_id)) {
+                    ?><?php echo \Idno\Core\Idno::site()->language()->_('New Bookmark'); ?><?php
+                } else {
+                    ?><?php echo \Idno\Core\Idno::site()->language()->_('Edit Bookmark'); ?><?php
+                }
 
                 ?>
             </h4>
 
             <div class="content-form">
                 <label for="body">
-                    <?= \Idno\Core\Idno::site()->language()->_('Link Address'); ?></label>
+                    <?php echo \Idno\Core\Idno::site()->language()->_('Link Address'); ?></label>
                 <?php
                 $value = "";
                 if (empty($vars['url'])) {
@@ -38,37 +38,37 @@
                 </label>
                 <?php
 
-                    if (empty($vars['url'])) {
+                if (empty($vars['url'])) {
 
-                        ?>
+                    ?>
 
-                        <div class="bookmark-spinner-container">
-                            <?= $this->__(['class' => 'bookmark-title-spinner'])->draw('entity/edit/spinner'); ?>
-                        </div>
+                    <div class="bookmark-spinner-container">
+                        <?php echo $this->__(['class' => 'bookmark-title-spinner'])->draw('entity/edit/spinner'); ?>
+                    </div>
 
-                        <?php
+                    <?php
 
-                    }
+                }
 
                 ?>
                 <div class="bookmark-title-container" for="title"
                      <?php if (empty($vars['object']->pageTitle) && empty($vars['object']->_id) && (empty($vars['url']) && empty($vars['object']->body))) { ?>style="display:none"<?php } ?>>
                     <label for="title">
-                        <?= \Idno\Core\Idno::site()->language()->_('Title'); ?><br/>
+                        <?php echo \Idno\Core\Idno::site()->language()->_('Title'); ?><br/>
                     </label>
-                    <?= $this->__([
-                            'name' => 'title', 
-                            'id' => 'title', 
-                            'placeholder' => \Idno\Core\Idno::site()->language()->_('Page name'), 
-                            'value' => $vars['object']->pageTitle, 
+                    <?php echo $this->__([
+                            'name' => 'title',
+                            'id' => 'title',
+                            'placeholder' => \Idno\Core\Idno::site()->language()->_('Page name'),
+                            'value' => $vars['object']->pageTitle,
                             'required' => true,
                             'class' => 'form-control bookmark-title'])->draw('forms/input/input'); ?>
                     
                 </div>
 
-                <?= $this->draw('content/unfurl'); ?>
+                <?php echo $this->draw('content/unfurl'); ?>
                 
-                <?= $this->__([
+                <?php echo $this->__([
                     'name'        => 'description',
                     'value'       => $vars['object']->description,
                     'wordcount'   => false,
@@ -78,19 +78,19 @@
                     'label'       => \Idno\Core\Idno::site()->language()->_('Description')
                 ])->draw('forms/input/richtext') ?>
             </div>
-            <?= $this->draw('entity/tags/input'); ?>
+            <?php echo $this->draw('entity/tags/input'); ?>
             <?php echo $this->drawSyndication('bookmark', $vars['object']->getPosseLinks()); ?>
             <?php if (empty($vars['object']->_id)) { 
                 echo $this->__(['name' => 'forward-to', 'value' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'])->draw('forms/input/hidden');
             } ?>
-            <?= $this->draw('content/extra'); ?>
-            <?= $this->draw('content/access'); ?>
+            <?php echo $this->draw('content/extra'); ?>
+            <?php echo $this->draw('content/access'); ?>
             
     
             <p class="button-bar">
-                <?= \Idno\Core\Idno::site()->actions()->signForm('/like/edit') ?>
-                <input type="button" class="btn btn-cancel" value="<?= \Idno\Core\Idno::site()->language()->_('Cancel'); ?>" onclick="hideContentCreateForm();"/>
-                <input type="submit" class="btn btn-primary" value="<?= \Idno\Core\Idno::site()->language()->_('Save'); ?>"/>
+                <?php echo \Idno\Core\Idno::site()->actions()->signForm('/like/edit') ?>
+                <input type="button" class="btn btn-cancel" value="<?php echo \Idno\Core\Idno::site()->language()->_('Cancel'); ?>" onclick="hideContentCreateForm();"/>
+                <input type="submit" class="btn btn-primary" value="<?php echo \Idno\Core\Idno::site()->language()->_('Save'); ?>"/>
 
             </p>
         </div>
@@ -98,7 +98,7 @@
     </div>
     
 </form>
-<?= $this->draw('entity/edit/footer'); ?>
+<?php echo $this->draw('entity/edit/footer'); ?>
 <script language="javascript">
 
     $(document).ready(function () {
@@ -109,7 +109,7 @@
                 $('.bookmark-title-spinner').show();
                 $.ajax({
                     dataType: "json",
-                    url: "<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>like/callback/",
+                    url: "<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL(); ?>like/callback/",
                     data: {
                         url: $('.bookmark-url').val()
                     },
