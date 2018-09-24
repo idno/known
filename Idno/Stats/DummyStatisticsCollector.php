@@ -8,18 +8,34 @@
  */
 
 namespace Idno\Stats {
-    
-    class DummyStatisticsCollector extends StatisticsCollector {
-        
-        public function decrement($stat) { return true; }
-            
-        public function gauge($stat, $value) { return true; }
 
-        public function increment($stat) { return true; }
+    class DummyStatisticsCollector extends StatisticsCollector
+    {
 
-        public function set($stat, $value) { return true; }
+        public function decrement($stat)
+        {
+            return true;
+        }
 
-        public function timing($stat, $time) { return true; }
+        public function gauge($stat, $value)
+        {
+            return true;
+        }
+
+        public function increment($stat)
+        {
+            return true;
+        }
+
+        public function set($stat, $value)
+        {
+            return true;
+        }
+
+        public function timing($stat, $time)
+        {
+            return true;
+        }
 
     }
 }

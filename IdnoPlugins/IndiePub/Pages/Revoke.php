@@ -5,7 +5,8 @@ namespace IdnoPlugins\IndiePub\Pages;
 use Idno\Core\Idno;
 use Idno\Common\Page;
 
-class Revoke extends Page {
+class Revoke extends Page
+{
 
     function postContent()
     {

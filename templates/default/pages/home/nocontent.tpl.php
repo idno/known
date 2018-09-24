@@ -7,11 +7,11 @@
                 <p>
 
 
-                    <?= \Idno\Core\Idno::site()->language()->_("We couldn't find anything that matches your search."); ?>
+                    <?php echo \Idno\Core\Idno::site()->language()->_("We couldn't find anything that matches your search."); ?>
 
                 </p>
             </div>
         </div>
     </div>
-<?php
+    <?php
 }

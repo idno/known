@@ -43,27 +43,28 @@ namespace Idno\Common {
                     $this->setOwner(\Idno\Core\Idno::site()->session()->currentUser());
                 }
             }
-            
+
             parent::__construct();
         }
-        
-        public function registerEventHooks() {
-            
+
+        public function registerEventHooks()
+        {
+
             // Attempt to find content by URL
             \Idno\Core\Idno::site()->addEventHook('object/getbyurl', function (\Idno\Core\Event $event) {
-                
+
                 $url = $event->data()['url'];
                 $object = $event->response();
-                
+
                 if (!empty($url) && empty($object)) {
-                    
+
                     $found = false;
-                    
+
                     if ($result = static::getOneFromAll(array('url' => $url))) {
                         $event->setResponse($result);
                         $found = true;
                     }
-                    
+
                     if (!$found) {
                         if ($result = static::getOneFromAll(array('canonical' => $url))) {
                             $event->setResponse($result);
@@ -72,10 +73,10 @@ namespace Idno\Common {
                     }
 
                     if (!$found) {
-                        
+
                         $bits = explode('/', $url);
                         $slug = end($bits);
-                        
+
                         if ($result = static::getBySlug($slug)) {
                             $event->setResponse($result);
                             $found = true;
@@ -117,9 +118,9 @@ namespace Idno\Common {
             if (!empty($this->uuid)) {
                 return $this->uuid;
             }
-//                if ($url = $this->getURL(true)) { // Using URLs here is a bad plan. UUIDs must always be unique, even across time...
-//                    return $url;
-//                }
+            //                if ($url = $this->getURL(true)) { // Using URLs here is a bad plan. UUIDs must always be unique, even across time...
+            //                    return $url;
+            //                }
             if (!empty($this->_id)) {
                 return \Idno\Core\Idno::site()->config()->url . 'view/' . $this->_id;
             }
@@ -194,7 +195,7 @@ namespace Idno\Common {
         {
             return \Idno\Core\Idno::site()->db()->getObjects(get_called_class(), $search, $fields, $limit, $offset, static::$retrieve_collection);
         }
-        
+
         /**
          * Wrapper around a number of getBy.. methods.
          * This method will attempt to retrieve an entity a number of different ways, basically because I found myself
@@ -202,22 +203,23 @@ namespace Idno\Common {
          * @param string|url $identifier
          * @return Entity|false
          */
-        static function getByX($identifier) {
-            
+        static function getByX($identifier)
+        {
+
             $object = null;
-            
+
             if (empty($object))
                 $object = static::getByID($identifier);
-            
+
             if (empty($object))
                 $object = static::getByUUID($identifier);
-            
+
             if (empty($object))
                 $object = static::getBySlug($identifier);
-            
+
             if (empty($object))
                 $object = static::getByShortURL($identifier);
-            
+
             return $object;
         }
 
@@ -315,7 +317,7 @@ namespace Idno\Common {
             if ($return instanceof Entity) self::$entity_cache[$uuid] = $return;
             return $return;
         }
-        
+
         /**
          * Attempt to retrieve an entity by it's url (not the same as UUID).
          * This function will try and get an entity by a URL, calling out to an event (object/getbyurl) to allow for extension.
@@ -324,19 +326,20 @@ namespace Idno\Common {
          * @param type $url
          * @return \Idno\Common\Entity|false
          */
-        static function getByURL($url, $cached = true) {
+        static function getByURL($url, $cached = true)
+        {
             if (isset(self::$entity_cache[$url]) && $cached) return self::$entity_cache[$url];
-            
+
             if (!self::isLocalUUID($url))
                 return false;
-            
+
             $return = \Idno\Core\Idno::site()->triggerEvent('object/getbyurl', [
                 'url' => $url
             ], false);
-            
+
             if (!empty($return))
                 self::$entity_cache[$url] = $return;
-            
+
             return $return;
         }
 
@@ -814,11 +817,11 @@ namespace Idno\Common {
             if (empty($slug)) {
                 return false;
             }
-            
+
             $ia = \Idno\Core\Idno::site()->db()->setIgnoreAccess(true);
             $entity = \Idno\Common\Entity::getBySlug($slug);
             $ia = \Idno\Core\Idno::site()->db()->setIgnoreAccess($ia);
-            
+
             if (!empty($entity)) {
                 if ($entity->getUUID() != $this->getUUID()) {
                     return false;
@@ -868,9 +871,9 @@ namespace Idno\Common {
             }
             $attachments = $this->attachments;
             $attachments[] = [
-                '_id' => $file['_id'], 
-                'url' => \Idno\Core\Idno::site()->config()->url . 'file/' . $file['_id'] . '/' . urlencode($file['filename']), 
-                'mime-type' => $file['mime_type'], 
+                '_id' => $file['_id'],
+                'url' => \Idno\Core\Idno::site()->config()->url . 'file/' . $file['_id'] . '/' . urlencode($file['filename']),
+                'mime-type' => $file['mime_type'],
                 'length' => $file['length'],
                 'filename' => $file['filename'],
             ];
@@ -892,24 +895,25 @@ namespace Idno\Common {
                 $this->attachments = [];
             }
         }
-        
+
         /**
          * Delete a single attachment by its id
          * @param type $id
          */
-        function deleteAttachment($id) {
+        function deleteAttachment($id)
+        {
             if ($attachments = $this->getAttachments()) {
                 foreach ($attachments as $key => $attachment) {
                     if ($id == (string)$attachment['_id']) {
                         if ($file = \Idno\Entities\File::getByID($attachment['_id'])) {
                             $file->delete();
                         }
-                        
+
                         unset($attachments[$key]);
                     }
-                    
+
                 }
-                
+
                 $this->attachments = $attachments;
             }
         }
@@ -1752,13 +1756,14 @@ namespace Idno\Common {
 
             return $object;
         }
-        
-        public function rssSerialise(array $vars = []) {
-            
+
+        public function rssSerialise(array $vars = [])
+        {
+
             $item = $this;
-            
+
             $page = new \DOMDocument();
-                 
+
             $title = $item->getTitle();
             if (empty($title)) {
                 if ($description = $item->getShortDescription(5)) {
@@ -1769,14 +1774,14 @@ namespace Idno\Common {
             }
             $rssItem = $page->createElement('item');
             $rssItem->appendChild($page->createElement('title', htmlspecialchars($title)));
-            $rssItem->appendChild($page->createElement('link',$item->getSyndicationURL()));
-            $rssItem->appendChild($page->createElement('guid',$item->getUUID()));
-            $rssItem->appendChild($page->createElement('pubDate',date(DATE_RSS,$item->created)));
+            $rssItem->appendChild($page->createElement('link', $item->getSyndicationURL()));
+            $rssItem->appendChild($page->createElement('guid', $item->getUUID()));
+            $rssItem->appendChild($page->createElement('pubDate', date(DATE_RSS, $item->created)));
 
             // Needed for WP import into Known
             $rssItem->appendChild($page->createElement('wp:post_type', 'post'));
             $rssItem->appendChild($page->createElement('wp:status', 'publish'));
-            
+
             $owner = $item->getOwner();
             if (!empty($owner)) {
                 $rssItem->appendChild($page->createElement('dc:creator', "{$owner->title}"));
@@ -1824,7 +1829,7 @@ namespace Idno\Common {
                     $rssItem->appendChild($tagItem);
                 }
             }
-            
+
             return $rssItem;
         }
 
@@ -2210,7 +2215,7 @@ namespace Idno\Common {
                 $owner['url'] = $hcard['properties']['url'][0];
             }
             if (!empty($hcard['properties']['photo'])) {
-                               
+
                 $owner['photo'] =  \Idno\Core\Idno::site()->template()->getProxiedImageUrl($hcard['properties']['photo'][0], 300, 'square');
             }
 
@@ -2610,7 +2615,7 @@ namespace Idno\Common {
         {
             return $this->attributes;
         }
-        
+
     }
 
 }

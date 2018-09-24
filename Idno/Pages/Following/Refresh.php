@@ -1,21 +1,21 @@
 <?php
 
-    namespace Idno\Pages\Following {
+namespace Idno\Pages\Following {
 
-        use Idno\Common\Page;
+    use Idno\Common\Page;
 
-        class Refresh extends Page
+    class Refresh extends Page
+    {
+
+        function getContent()
         {
 
-            function getContent()
-            {
-
-                $this->gatekeeper();
-                \Idno\Core\Idno::site()->reader()->parseAndSaveFeeds();
-
-            }
+            $this->gatekeeper();
+            \Idno\Core\Idno::site()->reader()->parseAndSaveFeeds();
 
         }
 
     }
-    
+
+}
+

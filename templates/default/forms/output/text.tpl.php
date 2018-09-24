@@ -1,3 +1,3 @@
 <?php
 
-echo htmlentities($vars['value'], ENT_QUOTES, 'UTF-8'); 
+echo htmlentities($vars['value'], ENT_QUOTES, 'UTF-8');

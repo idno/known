@@ -1,15 +1,16 @@
 <?php
 
-    namespace Tests\Core {
+namespace Tests\Core {
 
-        use Idno\Core\Webmention;
+    use Idno\Core\Webmention;
 
-        class WebmentionTest extends \Tests\KnownTestCase {
+    class WebmentionTest extends \Tests\KnownTestCase
+    {
 
-            function testAddSyndicatedReplyTargets()
-            {
-                // test u-syndication
-                $doc = <<<EOD
+        function testAddSyndicatedReplyTargets()
+        {
+            // test u-syndication
+            $doc = <<<EOD
 <div class="h-entry">
   <span class="p-name e-content">This is a post</span>
   <a class="u-url" href="http://foo.bar/post">permalink</a>
@@ -18,11 +19,11 @@
 </div>
 EOD;
 
-                $result = Webmention::addSyndicatedReplyTargets('http://foo.bar/post', [], ['response' => 200, 'content' => $doc]);
-                $this->assertEquals(['https://twitter.com/foobar/12345', 'https://www.facebook.com/foobar/posts/12345'], $result);
+            $result = Webmention::addSyndicatedReplyTargets('http://foo.bar/post', [], ['response' => 200, 'content' => $doc]);
+            $this->assertEquals(['https://twitter.com/foobar/12345', 'https://www.facebook.com/foobar/posts/12345'], $result);
 
-                // test rel-syndication
-                $doc = <<<EOD
+            // test rel-syndication
+            $doc = <<<EOD
 <head>
   <link rel="syndication" href="https://twitter.com/foobar/12345" />
   <link rel="syndication" href="https://www.facebook.com/foobar/posts/12345" />
@@ -35,11 +36,11 @@ EOD;
 </body>
 EOD;
 
-                $result = Webmention::addSyndicatedReplyTargets('http://foo.bar/post', [], ['response' => 200, 'content' => $doc]);
-                $this->assertEquals(['https://twitter.com/foobar/12345', 'https://www.facebook.com/foobar/posts/12345'], $result);
-            }
-
+            $result = Webmention::addSyndicatedReplyTargets('http://foo.bar/post', [], ['response' => 200, 'content' => $doc]);
+            $this->assertEquals(['https://twitter.com/foobar/12345', 'https://www.facebook.com/foobar/posts/12345'], $result);
         }
 
     }
-    
+
+}
+

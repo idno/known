@@ -2,7 +2,7 @@
 
 /**
  * Cron functionality.
- * 
+ *
  * This requires AsynchronousQueue support, and a service installed to process each queue.
  *
  * @package idno
@@ -11,7 +11,8 @@
 
 namespace ConsolePlugins\PeriodicExecutionService  {
 
-    class Cron extends \Idno\Common\Component {
+    class Cron extends \Idno\Common\Component
+    {
 
         /**
          * Most common time periods
@@ -22,7 +23,8 @@ namespace ConsolePlugins\PeriodicExecutionService  {
             'daily' => 86400 // 86400
         ];
 
-        function registerEventHooks() {
+        function registerEventHooks()
+        {
 
             if (!defined('KNOWN_CONSOLE'))
                 return;

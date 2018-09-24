@@ -9,15 +9,16 @@
 
 namespace Idno\Common {
 
-    interface RSSSerialisable {
-        
+    interface RSSSerialisable
+    {
+
         /**
          * Serialise an item into a rss compatible DOMElement.
          * @param array $params Optional params
          * @return \DOMElement
          */
         public function rssSerialise(array $params = []);
-        
+
     }
 
 }

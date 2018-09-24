@@ -1,23 +1,23 @@
 <div class="row">
 
     <div class="col-md-10 col-md-offset-1">
-	            <?=$this->draw('admin/menu')?>
-        <h1 style="margin-top: 1em; margin-bottom: 1em; text-align: center"><?= \Idno\Core\Idno::site()->language()->_('About Known'); ?></h1>
+                <?php echo $this->draw('admin/menu')?>
+        <h1 style="margin-top: 1em; margin-bottom: 1em; text-align: center"><?php echo \Idno\Core\Idno::site()->language()->_('About Known'); ?></h1>
 
     </div>
 
 </div>
 <div class="row" style="margin-top: 1em">
     <div class="col-md-1 col-md-offset-3 col-xs-3">
-        <a href="https://withknown.com"><img src="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>gfx/logos/logo_k.png" style="width: 70px; border: 0"></a>
+        <a href="https://withknown.com"><img src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>gfx/logos/logo_k.png" style="width: 70px; border: 0"></a>
     </div>
     <div class="col-md-5">
-        <p style="font-size: 1.6em"><a href="https://withknown.com/?utm_source=admin&utm_medium=installation"><?= \Idno\Core\Idno::site()->language()->_('Known'); ?></a> <?= \Idno\Core\Idno::site()->language()->_('is a social publishing platform for groups and individuals.'); ?></p>
+        <p style="font-size: 1.6em"><a href="https://withknown.com/?utm_source=admin&utm_medium=installation"><?php echo \Idno\Core\Idno::site()->language()->_('Known'); ?></a> <?php echo \Idno\Core\Idno::site()->language()->_('is a social publishing platform for groups and individuals.'); ?></p>
         <p class="explanation">
-            <a href="https://withknown.com/opensource/?utm_source=admin&utm_medium=installation"><?= \Idno\Core\Idno::site()->language()->_('Open source project details'); ?></a>
+            <a href="https://withknown.com/opensource/?utm_source=admin&utm_medium=installation"><?php echo \Idno\Core\Idno::site()->language()->_('Open source project details'); ?></a>
         </p>
         <p>
-            <?= \Idno\Core\Idno::site()->language()->_('Version: %s', [\Idno\Core\Version::version()]); ?>
+            <?php echo \Idno\Core\Idno::site()->language()->_('Version: %s', [\Idno\Core\Version::version()]); ?>
         </p>
     </div>
 </div>

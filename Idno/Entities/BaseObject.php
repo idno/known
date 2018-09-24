@@ -7,11 +7,11 @@
      * @subpackage core
      */
 
-    namespace Idno\Entities {
+namespace Idno\Entities {
 
-        abstract class BaseObject extends \Idno\Common\Entity
-        {
-        }
-
+    abstract class BaseObject extends \Idno\Common\Entity
+    {
     }
-    
+
+}
+

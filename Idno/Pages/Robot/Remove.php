@@ -1,27 +1,27 @@
 <?php
 
-    namespace Idno\Pages\Robot {
+namespace Idno\Pages\Robot {
 
-        class Remove extends \Idno\Common\Page
+    class Remove extends \Idno\Common\Page
+    {
+
+        function getContent()
         {
 
-            function getContent()
-            {
+        }
 
-            }
+        function postContent()
+        {
 
-            function postContent()
-            {
-
-                $this->gatekeeper();
-                $user              = \Idno\Core\Idno::site()->session()->currentUser();
-                $user->robot_state = 0;
-                $user->save();
-                $this->forward($_SERVER['HTTP_REFERER']);
-
-            }
+            $this->gatekeeper();
+            $user              = \Idno\Core\Idno::site()->session()->currentUser();
+            $user->robot_state = 0;
+            $user->save();
+            $this->forward($_SERVER['HTTP_REFERER']);
 
         }
 
     }
-    
+
+}
+

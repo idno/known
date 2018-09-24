@@ -9,22 +9,26 @@
 
 namespace Idno\Common {
 
-    abstract class ConsolePlugin extends Plugin {
+    abstract class ConsolePlugin extends Plugin
+    {
 
         protected $console;
 
-        function __construct() {
+        function __construct()
+        {
 
             $this->console = application();
 
             $this->init();
             $this->registerEventHooks();
-            
+
             $this->registerTranslations();
         }
-        
-        function init() {}
-        
+
+        function init()
+        {
+        }
+
         /**
          * Return a string defining the command name to execute.
          */
@@ -37,7 +41,7 @@ namespace Idno\Common {
          * Return an array of \Symfony\Component\Console\Input\InputArgument defining the parameters to use.
          */
         abstract function getParameters();
-        
+
         /**
          * Execute the command
          */

@@ -1,40 +1,42 @@
 <?php
 
     // Generate a unique ID for this form and link
-	$uniqueID = uniqid('f');
+    $uniqueID = uniqid('f');
 
     // Get HTTP method (GET, POST, PUT and DELETE supported for now)
-    if (empty($vars['method']) || !in_array($vars['method'],array('GET','POST','PUT','DELETE'))) $vars['method'] = 'POST';
+    if (empty($vars['method']) || !in_array($vars['method'], array('GET','POST','PUT','DELETE'))) $vars['method'] = 'POST';
 
 ?>
-<a data-form-id="<?= $uniqueID; ?>" <?php if (!empty($vars['class'])) { ?> class="<?=$vars['class'];?>" <?php } ?> <?php if (!empty($vars['title'])) { ?> title="<?=$vars['title'];?>" <?php } ?> href="<?=($vars['url'])?>" onclick="<?php 
-    if ($vars['confirm']) {
-        ?>if (confirm('<?= addslashes($vars['confirm-text']); ?>')) { $('#<?=$uniqueID?>').submit(); return false; } else { return false; } <?php
-    } else {
-        ?>$('#<?=$uniqueID?>').submit(); return false; <?php
-    } ?>"><?=($vars['label'])?></a>
+<a data-form-id="<?php echo $uniqueID; ?>" <?php if (!empty($vars['class'])) { ?> class="<?php echo $vars['class'];?>" <?php
+} ?> <?php if (!empty($vars['title'])) { ?> title="<?php echo $vars['title'];?>" <?php
+} ?> href="<?php echo ($vars['url'])?>" onclick="<?php
+if ($vars['confirm']) {
+    ?>if (confirm('<?php echo addslashes($vars['confirm-text']); ?>')) { $('#<?php echo $uniqueID?>').submit(); return false; } else { return false; } <?php
+} else {
+    ?>$('#<?php echo $uniqueID?>').submit(); return false; <?php
+} ?>"><?php echo ($vars['label'])?></a>
 <?php
 
     ob_start();
 
 ?>
-<form action="<?=($vars['url'])?>" style="display: none; margin: 0; padding: 0" id="<?=$uniqueID?>" method="<?=$vars['method']?>">
-    <textarea name="json"><?=htmlspecialchars(json_encode($vars['data']))?></textarea>
-    <?=  \Idno\Core\Idno::site()->actions()->signForm($vars['url']);?>
+<form action="<?php echo ($vars['url'])?>" style="display: none; margin: 0; padding: 0" id="<?php echo $uniqueID?>" method="<?php echo $vars['method']?>">
+    <textarea name="json"><?php echo htmlspecialchars(json_encode($vars['data']))?></textarea>
+    <?php echo  \Idno\Core\Idno::site()->actions()->signForm($vars['url']);?>
 </form>
 <?php
 
     $form = ob_get_clean();
-    if (\Idno\Core\Idno::site()->currentPage()->xhr) {
-        global $template_postponed_link_actions; // HORRIBLE HACK, to allow links to be active in xhr inserted controls. There *must* be a better way.
-        
-        if (empty($template_postponed_link_actions))
-            $template_postponed_link_actions = "";
-        
-        $template_postponed_link_actions .= $form;
-    } else {
-        \Idno\Core\Idno::site()->template()->extendTemplateWithContent('shell/footer', $form);
-    }
+if (\Idno\Core\Idno::site()->currentPage()->xhr) {
+    global $template_postponed_link_actions; // HORRIBLE HACK, to allow links to be active in xhr inserted controls. There *must* be a better way.
+
+    if (empty($template_postponed_link_actions))
+        $template_postponed_link_actions = "";
+
+    $template_postponed_link_actions .= $form;
+} else {
+    \Idno\Core\Idno::site()->template()->extendTemplateWithContent('shell/footer', $form);
+}
 
     // Prevent scope pollution
     unset($this->vars['confirm-text']);
@@ -45,4 +47,3 @@
     unset($this->vars['data']);
     unset($this->vars['label']);
     unset($this->vars['id']);
-?>

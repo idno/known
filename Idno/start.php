@@ -11,10 +11,11 @@
     register_shutdown_function(function () {
         $error = error_get_last();
         if ($error["type"] == E_ERROR) {
-            
+
             try {
                 ob_clean();
-            } catch (ErrorException $e) {}
+            } catch (ErrorException $e) {
+            }
 
             http_response_code(500);
 
@@ -40,7 +41,7 @@
             } else {
                 echo '<p>If you continue to have problems, <a href="https://withknown.com/opensource" target="_blank">open source users have a number of resources available.</a></p>';
             }
-            
+
             $stats = \Idno\Core\Idno::site()->statistics();
             if (!empty($stats)) {
                 $stats->increment("error.fatal");
@@ -50,7 +51,7 @@
                 \Idno\Core\Idno::site()->logging->error($error_message);
             else
                 error_log($error_message);
-            
+
             try {
                 \Idno\Core\Logging::oopsAlert($error_message, 'Oh no! Known experienced a problem!');
             } catch (Exception $ex) {
@@ -61,7 +62,7 @@
         }
     });
 
-// This is a good time to see if we're running in a subdirectory
+    // This is a good time to see if we're running in a subdirectory
     if (!defined('KNOWN_UNIT_TEST')) {
         if (!empty($_SERVER['PHP_SELF'])) {
             if ($subdir = dirname($_SERVER['PHP_SELF'])) {
@@ -79,12 +80,12 @@
         }
     }
 
-// Set time limit if we're using less
+    // Set time limit if we're using less
     if (ini_get('max_execution_time') < 120 && ini_get('safe_mode')) {
         set_time_limit(120);
     }
 
-// We're making heavy use of the Symfony ClassLoader to load our classes
+    // We're making heavy use of the Symfony ClassLoader to load our classes
     require_once(dirname(dirname(__FILE__)) . '/external/Symfony/Component/ClassLoader/UniversalClassLoader.php');
     global $known_loader;
     $known_loader = new \Symfony\Component\ClassLoader\UniversalClassLoader();
@@ -100,59 +101,59 @@
         return $known_loader;
     }
 
-// Register our main namespaces (all idno classes adhere to the PSR-0 standard)
+    // Register our main namespaces (all idno classes adhere to the PSR-0 standard)
 
-// idno trunk classes (i.e., the main framework) are in /idno
+    // idno trunk classes (i.e., the main framework) are in /idno
     $known_loader->registerNamespace('Idno', dirname(dirname(__FILE__)));
-// Host for the purposes of extra paths
+    // Host for the purposes of extra paths
     if (!empty($_SERVER['HTTP_HOST'])) {
         $host = strtolower($_SERVER['HTTP_HOST']);
         $host = str_replace('www.', '', $host);
         define('KNOWN_MULTITENANT_HOST', $host);
-// idno plugins are located in /IdnoPlugins and must have their own namespace
+        // idno plugins are located in /IdnoPlugins and must have their own namespace
         $known_loader->registerNamespace('IdnoPlugins', array(dirname(dirname(__FILE__)), dirname(dirname(__FILE__)) . '/hosts/' . $host));
-// idno themes are located in /Themes and must have their own namespace
+        // idno themes are located in /Themes and must have their own namespace
         $known_loader->registerNamespace('Themes', array(dirname(dirname(__FILE__)), dirname(dirname(__FILE__)) . '/hosts/' . $host));
     }
 
-// Shims
+    // Shims
     include 'shims.php';
 
-// Register our external namespaces (PSR-0 compliant modules that we love, trust and need)
+    // Register our external namespaces (PSR-0 compliant modules that we love, trust and need)
 
-// Symfony is used for routing, observer design pattern support, and a bunch of other fun stuff
+    // Symfony is used for routing, observer design pattern support, and a bunch of other fun stuff
     $known_loader->registerNamespace('Symfony\Component', dirname(dirname(__FILE__)) . '/external');
 
-// Implement the PSR-3 logging interface
+    // Implement the PSR-3 logging interface
     $known_loader->registerNamespace('Psr\Log', dirname(dirname(__FILE__)) . '/external/log');
 
-// Using Toro for URL routing
+    // Using Toro for URL routing
     require_once(dirname(dirname(__FILE__)) . '/external/torophp/src/Toro.php');
 
-// Using mf2 for microformats parsing, and webignition components to support it
+    // Using mf2 for microformats parsing, and webignition components to support it
     $known_loader->registerNamespace('webignition\Url', dirname(dirname(__FILE__)) . '/external/webignition/url/src');
     $known_loader->registerNamespace('webignition\AbsoluteUrlDeriver', dirname(dirname(__FILE__)) . '/external/webignition/absolute-url-deriver/src');
     $known_loader->registerNamespace('webignition\NormalisedUrl', dirname(dirname(__FILE__)) . '/external/webignition/url/src');
     $known_loader->registerNamespace('Mf2', dirname(dirname(__FILE__)) . '/external/mf2');
     $known_loader->registerNamespace('IndieWeb', dirname(dirname(__FILE__)) . '/external/mention-client-php/src');
 
-// Using Simplepie for RSS and Atom parsing
+    // Using Simplepie for RSS and Atom parsing
     include dirname(dirname(__FILE__)) . '/external/simplepie/autoloader.php';
 
-// Using HTMLPurifier for HTML sanitization
+    // Using HTMLPurifier for HTML sanitization
     include dirname(dirname(__FILE__)) . '/external/htmlpurifier-lite/library/HTMLPurifier.auto.php';
 
-// Register the autoloader
+    // Register the autoloader
     $known_loader->register();
 
-// Register the idno-templates folder as the place to look for templates in Bonita
+    // Register the idno-templates folder as the place to look for templates in Bonita
     \Idno\Core\Bonita\Main::additionalPath(dirname(dirname(__FILE__)));
 
-// Init main system classes
+    // Init main system classes
 
     $idno         = new Idno\Core\Idno();
     $account      = new Idno\Core\Account();
     $admin        = new Idno\Core\Admin();
     $webfinger    = new Idno\Core\Webfinger();
     $webmention   = new Idno\Core\Webmention();
-    $pubsubhubbub = new Idno\Core\PubSubHubbub(); 
+    $pubsubhubbub = new Idno\Core\PubSubHubbub();

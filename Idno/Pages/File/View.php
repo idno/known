@@ -9,11 +9,13 @@ namespace Idno\Pages\File {
     /**
      * Default class to serve the homepage
      */
-    class View extends \Idno\Common\Page {
+    class View extends \Idno\Common\Page
+    {
 
         // Handle GET requests to the entity
 
-        function getContent() {
+        function getContent()
+        {
 
             if (!empty($this->arguments[0])) {
                 $object = \Idno\Entities\File::getByID($this->arguments[0]);
@@ -21,7 +23,6 @@ namespace Idno\Pages\File {
 
             if (empty($object))
                 $this->noContent();
-
 
             session_write_close();  // Close the session early
             //header("Pragma: public");
@@ -37,14 +38,14 @@ namespace Idno\Pages\File {
             }
 
             $this->lastModifiedGatekeeper($upload_ts); // 304 if we've not updated the object
-            
+
             header("Pragma: public");
             header("Cache-Control: public");
             header('Expires: ' . date(\DateTime::RFC1123, time() + (86400 * 30))); // Cache files for 30 days!
             $this->setLastModifiedHeader($upload_ts);
-//            if ($cache = \Idno\Core\Idno::site()->cache()) {
-//                $cache->store("{$this->arguments[0]}_modified_ts", $upload_ts);
-//            }
+            //            if ($cache = \Idno\Core\Idno::site()->cache()) {
+            //                $cache->store("{$this->arguments[0]}_modified_ts", $upload_ts);
+            //            }
             if (!empty($object->file['mime_type'])) {
                 header('Content-type: ' . $object->file['mime_type']);
             } else {
@@ -60,8 +61,8 @@ namespace Idno\Pages\File {
                 $start = 0;
                 $end = $size; // - 1;
 
-                $c_start = (empty($start) || $end < abs(intval($start))) ? 0 : max(abs(intval($start)),0);//$start;
-                $c_end = (empty($end)) ? ($size - 1) : min(abs(intval($end)),($size - 1)); //$end;
+                $c_start = (empty($start) || $end < abs(intval($start))) ? 0 : max(abs(intval($start)), 0);//$start;
+                $c_end = (empty($end)) ? ($size - 1) : min(abs(intval($end)), ($size - 1)); //$end;
 
                 // Parse range
                 list(, $range) = explode('=', $_SERVER['HTTP_RANGE'], 2);
@@ -73,14 +74,14 @@ namespace Idno\Pages\File {
                     // Range form "123-" or "123-345"
                     $range = explode('-', $range);
                     $c_start = (int)$range[0];
-                    
+
                     if (isset($range[1]) && is_numeric($range[1])) {
                         $c_end = (int)$range[1];
                     }
                 }
-                
+
                 \Idno\Core\Idno::site()->logging()->debug("Partial content request for $c_start - $c_end bytes from $size available bytes");
-                
+
                 // Validate range
                 if (
                         ($c_start > $c_end) || // Start after end
@@ -92,32 +93,32 @@ namespace Idno\Pages\File {
                     header('HTTP/1.1 416 Requested Range Not Satisfiable');
                     exit;
                 }
-                
+
                 // Now output headers and partial content
                 $this->setResponse(206);
                 header('Content-Length: ' . ($c_end-$c_start));
                 header("Content-Range: bytes $c_start-$c_end/$size");
-                
+
                 \Idno\Core\Idno::site()->logging()->debug('Content-Length: ' . ($c_end-$c_start));
                 \Idno\Core\Idno::site()->logging()->debug("Content-Range: bytes $c_start-$c_end/$size");
-                
-                if ($stream = $object->getResource()) { 
+
+                if ($stream = $object->getResource()) {
                     @fseek($stream, $c_start);
                     $buffer = "";
                     while ( strlen($buffer)< $c_end-$c_start) {
                         $buffer .= fread($stream, $c_end-strlen($buffer));
                     }
-                    //$data =  fread($stream, $c_end-$c_start); 
-                                    
+                    //$data =  fread($stream, $c_end-$c_start);
+
                     echo $buffer;
                 } else {
                     \Idno\Core\Idno::site()->logging()->error('Could not open stream.');
                 }
-                
+
             } else {
-                
+
                 header('Content-Length: ' . $object->getSize());
-            
+
                 if (is_callable(array($object, 'passThroughBytes'))) {
                     $object->passThroughBytes();
                 } else {

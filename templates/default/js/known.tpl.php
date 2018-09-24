@@ -1,14 +1,14 @@
 <?php
 
-/* 
+/*
  * Constructs a copy of the Known environment and make it available to javascript.
- * 
+ *
  * @todo: Add more information as necessary
  * @todo: Consider doing this via ajax.
  */
 
 /**
- * Environment array. 
+ * Environment array.
  * Later json_encoded to ensure it's natively escaped.
  */
 $known = [
@@ -28,5 +28,5 @@ $known = [
 
 ?>
 <script>
-    var known = <?= json_encode($known); ?>; 
+    var known = <?php echo json_encode($known); ?>; 
 </script>

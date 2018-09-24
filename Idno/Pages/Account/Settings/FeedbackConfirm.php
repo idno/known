@@ -4,21 +4,21 @@
      * Change user settings
      */
 
-    namespace Idno\Pages\Account\Settings {
+namespace Idno\Pages\Account\Settings {
 
-        class FeedbackConfirm extends \Idno\Common\Page
+    class FeedbackConfirm extends \Idno\Common\Page
+    {
+
+        function getContent()
         {
-
-            function getContent()
-            {
-                $this->createGatekeeper(); // Logged-in only please
-                $t        = \Idno\Core\Idno::site()->template();
-                $t->body  = $t->draw('account/settings/feedback/confirm');
-                $t->title = \Idno\Core\Idno::site()->language()->_('Thank you for your feedback!');
-                $t->drawPage();
-            }
-
+            $this->createGatekeeper(); // Logged-in only please
+            $t        = \Idno\Core\Idno::site()->template();
+            $t->body  = $t->draw('account/settings/feedback/confirm');
+            $t->title = \Idno\Core\Idno::site()->language()->_('Thank you for your feedback!');
+            $t->drawPage();
         }
 
     }
-    
+
+}
+

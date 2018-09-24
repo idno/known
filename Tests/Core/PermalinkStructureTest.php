@@ -2,11 +2,12 @@
 
 namespace Tests\Core {
 
-    class PermalinkStructureTest extends \Tests\KnownTestCase {
+    class PermalinkStructureTest extends \Tests\KnownTestCase
+    {
 
         private function createEntry()
         {
-            $rnd = rand(0,9999).'-'.time();
+            $rnd = rand(0, 9999).'-'.time();
             $entity = new \IdnoPlugins\Text\Entry();
             $entity->setOwner($this->user());
             $entity->title = "The Title $rnd";
@@ -38,7 +39,6 @@ namespace Tests\Core {
             $this->assertEquals("$base$year/$month/$slug", $entity->getURL());
             $contents = file_get_contents($entity->getURL());
             $this->assertContains('hamstring baseball duckbill firecracker', $contents);
-
 
             $entity->delete();
         }

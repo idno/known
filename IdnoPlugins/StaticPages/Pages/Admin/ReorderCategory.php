@@ -1,59 +1,57 @@
 <?php
 
-    namespace IdnoPlugins\StaticPages\Pages\Admin {
+namespace IdnoPlugins\StaticPages\Pages\Admin {
 
-        use Idno\Common\Page;
+    use Idno\Common\Page;
 
-        class ReorderCategory extends Page
+    class ReorderCategory extends Page
+    {
+
+        function post()
         {
+            $this->adminGatekeeper();
 
-            function post()
-            {
-                $this->adminGatekeeper();
+            $category = $this->getInput('category');
+            $position = intval($this->getInput('position'));
+            if ($staticpages = \Idno\Core\Idno::site()->plugins()->get('StaticPages')) {
 
-                $category = $this->getInput('category');
-                $position = intval($this->getInput('position'));
-                if ($staticpages = \Idno\Core\Idno::site()->plugins()->get('StaticPages')) {
+                $categories   = $staticpages->getCategories();
+                $old_position = array_search($category, $categories);
+                if ($old_position === false ||
+                    $position < 0 ||
+                    $position >= count($categories)
+                ) {
 
-                    $categories   = $staticpages->getCategories();
-                    $old_position = array_search($category, $categories);
-                    if ($old_position === false ||
-                        $position < 0 ||
-                        $position >= count($categories)
-                    ) {
+                    // Invalid Request
+                    $this->setResponse(400);
 
-                        // Invalid Request
-                        $this->setResponse(400);
+                } else {
 
-                    } else {
-
-                        // Remap categories
-                        $new_categories = [];
-                        if ($position > $old_position) {
-                            foreach ($categories as $k => $v) {
-                                if ($k != $old_position) {
-                                    $new_categories[] = $v;
-                                }
-                                if ($k == $position) {
-                                    $new_categories[] = $category;
-                                }
+                    // Remap categories
+                    $new_categories = [];
+                    if ($position > $old_position) {
+                        foreach ($categories as $k => $v) {
+                            if ($k != $old_position) {
+                                $new_categories[] = $v;
                             }
-                        } else {
-                            foreach ($categories as $k => $v) {
-                                if ($k == $position) {
-                                    $new_categories[] = $category;
-                                }
-                                if ($k != $old_position) {
-                                    $new_categories[] = $v;
-                                }
+                            if ($k == $position) {
+                                $new_categories[] = $category;
                             }
                         }
-                        $staticpages->saveCategories($new_categories);
-
-                        // Accepted
-                        $this->setResponse(202);
-
+                    } else {
+                        foreach ($categories as $k => $v) {
+                            if ($k == $position) {
+                                $new_categories[] = $category;
+                            }
+                            if ($k != $old_position) {
+                                $new_categories[] = $v;
+                            }
+                        }
                     }
+                    $staticpages->saveCategories($new_categories);
+
+                    // Accepted
+                    $this->setResponse(202);
 
                 }
 
@@ -62,3 +60,5 @@
         }
 
     }
+
+}

@@ -5,8 +5,9 @@ namespace Idno\Core {
     /**
      * Translate via GetText.
      */
-    class GetTextTranslation extends Translation {
-        
+    class GetTextTranslation extends Translation
+    {
+
         private $domain;
         private $canProvide;
 
@@ -19,7 +20,8 @@ namespace Idno\Core {
         public function __construct(
                 $domain = 'known',
                 $path = ''
-        ) {
+        )
+        {
             if (!extension_loaded('gettext')) {
                 $this->canProvide = false;
                 return;
@@ -34,13 +36,13 @@ namespace Idno\Core {
             }
 
             // If the path for translations is empty, set a standard base path
-            if (empty($path)) { 
+            if (empty($path)) {
                 $path = \Idno\Core\Idno::site()->config()->getPath() . '/languages/';
             }
-            
+
             // Normalize path
             $path = rtrim($path, '/') . '/';
-            
+
             // Normalize domain
             $domain = preg_replace("/[^a-zA-Z0-9\-\_\s]/", "", $domain);
             $this->domain = $domain;
@@ -49,13 +51,15 @@ namespace Idno\Core {
             bindtextdomain($domain, $path);
             bind_textdomain_codeset($domain, 'UTF-8');
         }
-        
-        public function canProvide($language) {
+
+        public function canProvide($language)
+        {
 
             return $this->canProvide;
         }
 
-        public function getString($key) {
+        public function getString($key)
+        {
             return $this->canProvide ? dgettext($this->domain, $key) : $key; // Get a specific translation, from this object's domain
         }
 

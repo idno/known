@@ -2,9 +2,11 @@
 
 namespace Idno\Pages\Service\Db {
 
-    class Optimise extends \Idno\Common\Page {
+    class Optimise extends \Idno\Common\Page
+    {
 
-        function getContent() {
+        function getContent()
+        {
             $this->adminGatekeeper(); // Admins only
 
             $lastOptTime = empty(\Idno\Core\Idno::site()->config()->dboptimized) ? 0 : \Idno\Core\Idno::site()->config()->dboptimized;
@@ -13,7 +15,7 @@ namespace Idno\Pages\Service\Db {
                 \Idno\Core\Idno::site()->db()->optimize();
                 \Idno\Core\Idno::site()->config()->dboptimized = $time;
                 \Idno\Core\Idno::site()->config()->save();
-                
+
                 echo json_encode('optimised');
             }
         }

@@ -14,58 +14,58 @@ if (empty($vars['source-url']))
 if (empty($vars['render-template']))
     $vars['render-template'] = 'forms/components/usersearch/user';
 ?>
-<div id="<?= $vars['id']; ?>" class="users-search <?php
+<div id="<?php echo $vars['id']; ?>" class="users-search <?php
 if (!empty($vars['class']))
     echo $vars['class'];
 ?>"> 
-    <form action="<?= $vars['source-url']; ?>">
+    <form action="<?php echo $vars['source-url']; ?>">
         <div class="search-controls">
             <div class="input-group">
-                <input name="query" type="text" class="form-control" placeholder="<?= \Idno\Core\Idno::site()->language()->_('Search by name, email address, or username'); ?>" aria-describedby="search">
+                <input name="query" type="text" class="form-control" placeholder="<?php echo \Idno\Core\Idno::site()->language()->_('Search by name, email address, or username'); ?>" aria-describedby="search">
                 <span class="input-group-btn">
                     <button type="submit" class="btn btn-primary" id="search"><i class="fa fa-search"></i></button>
                 </span>
                 
                 
-                <?=
-            $this->__([
-                'name' => 'template',
-                'value' => $vars['render-template']
-            ])->draw('forms/input/hidden');
-            ?>
+                <?php echo
+                $this->__([
+                    'name' => 'template',
+                    'value' => $vars['render-template']
+                ])->draw('forms/input/hidden');
+?>
 
-            <?=
+            <?php echo
             $this->__([
                 'name' => 'sort',
                 'value' => 'created'
             ])->draw('forms/input/hidden');
-            ?>
+?>
 
-            <?=
+            <?php echo
             $this->__([
                 'name' => 'order',
                 'value' => 'desc'
             ])->draw('forms/input/hidden');
-            ?>
+?>
 
-            <?=
+            <?php echo
             $this->__([
                 'name' => 'offset',
                 'value' => 0
             ])->draw('forms/input/hidden');
-            ?>
+?>
 
-            <?=
+            <?php echo
             $this->__([
                 'name' => 'limit',
                 'value' => 100
             ])->draw('forms/input/hidden');
-            ?>
-            <?=
+?>
+            <?php echo
             $this->__([
                 'name' => 'count'
             ])->draw('forms/input/hidden');
-            ?>
+?>
             </div>
         </div>
     </form>
@@ -76,8 +76,8 @@ if (!empty($vars['class']))
                 Sort <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="#" data-sort="created"><?= \Idno\Core\Idno::site()->language()->_('By creation date'); ?></a></li>
-                <li><a href="#" data-sort="name"><?= \Idno\Core\Idno::site()->language()->_('By name'); ?></a></li>
+                <li><a href="#" data-sort="created"><?php echo \Idno\Core\Idno::site()->language()->_('By creation date'); ?></a></li>
+                <li><a href="#" data-sort="name"><?php echo \Idno\Core\Idno::site()->language()->_('By name'); ?></a></li>
             </ul>
         </div>
 
@@ -86,8 +86,8 @@ if (!empty($vars['class']))
                 Order <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="#" data-sort="asc"><?= \Idno\Core\Idno::site()->language()->_('Ascending'); ?></a></li>
-                <li><a href="#" data-sort="desc"><?= \Idno\Core\Idno::site()->language()->_('Descending'); ?></a></li>
+                <li><a href="#" data-sort="asc"><?php echo \Idno\Core\Idno::site()->language()->_('Ascending'); ?></a></li>
+                <li><a href="#" data-sort="desc"><?php echo \Idno\Core\Idno::site()->language()->_('Descending'); ?></a></li>
             </ul>
         </div>
     </div>
@@ -99,8 +99,8 @@ if (!empty($vars['class']))
 
     <div class="pager">
         <ul>
-            <li class="newer pagination-disabled"><a href="#" title="Previous" rel="prev"><span>&laquo; <?= \Idno\Core\Idno::site()->language()->_('Prev'); ?></span></a></li>
-            <li class="older pagination-disabled"><a href="#" title="Next" rel="next"><span><?= \Idno\Core\Idno::site()->language()->_('Next'); ?> &raquo;</span></a></li>
+            <li class="newer pagination-disabled"><a href="#" title="Previous" rel="prev"><span>&laquo; <?php echo \Idno\Core\Idno::site()->language()->_('Prev'); ?></span></a></li>
+            <li class="older pagination-disabled"><a href="#" title="Next" rel="next"><span><?php echo \Idno\Core\Idno::site()->language()->_('Next'); ?> &raquo;</span></a></li>
         </ul>
     </div>
 </div>
@@ -112,7 +112,7 @@ foreach (['source-url', 'control-id', 'render-template', 'name', 'id'] as $varia
 
 <script>
 
-    var form = $('#<?= $vars['id']; ?>');
+    var form = $('#<?php echo $vars['id']; ?>');
     var form_actual = form.find('form');
 
     var query = form.find("input[name='query']");

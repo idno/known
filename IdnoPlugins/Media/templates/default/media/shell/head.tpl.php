@@ -1,1 +1,1 @@
-<script src="<?=\Idno\Core\Idno::site()->config()->getDisplayURL()?>IdnoPlugins/Media/external/wavesurfer/dist/wavesurfer.min.js"></script>
+<script src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>IdnoPlugins/Media/external/wavesurfer/dist/wavesurfer.min.js"></script>

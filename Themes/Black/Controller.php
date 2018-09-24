@@ -1,10 +1,11 @@
 <?php
 
-    namespace Themes\Black {
+namespace Themes\Black {
 
-        class Controller extends \Idno\Common\Theme {
-
-        }
+    class Controller extends \Idno\Common\Theme
+    {
 
     }
-    
+
+}
+

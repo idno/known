@@ -4,171 +4,171 @@
      * User profile
      */
 
-    namespace Idno\Pages\User {
+namespace Idno\Pages\User {
 
-        use Idno\Core\Idno;
-        use Idno\Core\Webmention;
-        use Idno\Entities\Notification;
-        use Idno\Entities\User;
+    use Idno\Core\Idno;
+    use Idno\Core\Webmention;
+    use Idno\Entities\Notification;
+    use Idno\Entities\User;
 
-        /**
-         * Default class to serve the homepage
-         */
-        class View extends \Idno\Common\Page
+    /**
+     * Default class to serve the homepage
+     */
+    class View extends \Idno\Common\Page
+    {
+
+        // Handle GET requests to the entity
+
+        function getContent()
         {
 
-            // Handle GET requests to the entity
-
-            function getContent()
-            {
-
-                if (!empty($this->arguments[0])) {
-                    $user = \Idno\Entities\User::getByHandle($this->arguments[0]);
-                }
-                if (empty($user)) {
-                    $this->noContent();
-                }
-
-                // Users own their own profiles
-                $this->setOwner($user);
-
-                $types  = ['IdnoPlugins\Status\Status', 'IdnoPlugins\Text\Entry'];
-                $offset = (int)$this->getInput('offset');
-                $count  = \Idno\Common\Entity::countFromX($types, array('owner' => $user->getUUID(), 'publish_status' => 'published'));
-                $feed   = \Idno\Common\Entity::getFromX($types, array('owner' => $user->getUUID(), 'publish_status' => 'published'), array(), \Idno\Core\Idno::site()->config()->items_per_page, $offset);
-
-                $last_modified = $user->updated;
-                if (!empty($feed) && is_array($feed)) {
-                    if ($feed[0]->updated > $last_modified) {
-                        $last_modified = $feed[0]->updated;
-                    }
-                }
-                $this->setLastModifiedHeader($last_modified);
-
-                $t = \Idno\Core\Idno::site()->template();
-                $t->__(array(
-
-                    'title'       => $user->getTitle(),
-                    'body'        => $t->__(array('user' => $user, 'items' => $feed, 'count' => $count, 'offset' => $offset))->draw('entity/User/profile'),
-                    'description' => \Idno\Core\Idno::site()->language()->_('The %s profile for %s', [\Idno\Core\Idno::site()->config()->title, $user->getTitle()])
-
-                ))->drawPage();
+            if (!empty($this->arguments[0])) {
+                $user = \Idno\Entities\User::getByHandle($this->arguments[0]);
+            }
+            if (empty($user)) {
+                $this->noContent();
             }
 
-            // Handle POST requests to the entity
+            // Users own their own profiles
+            $this->setOwner($user);
 
-            function postContent()
-            {
-                if (!empty($this->arguments[0])) {
-                    $user = \Idno\Entities\User::getByHandle($this->arguments[0]);
+            $types  = ['IdnoPlugins\Status\Status', 'IdnoPlugins\Text\Entry'];
+            $offset = (int)$this->getInput('offset');
+            $count  = \Idno\Common\Entity::countFromX($types, array('owner' => $user->getUUID(), 'publish_status' => 'published'));
+            $feed   = \Idno\Common\Entity::getFromX($types, array('owner' => $user->getUUID(), 'publish_status' => 'published'), array(), \Idno\Core\Idno::site()->config()->items_per_page, $offset);
+
+            $last_modified = $user->updated;
+            if (!empty($feed) && is_array($feed)) {
+                if ($feed[0]->updated > $last_modified) {
+                    $last_modified = $feed[0]->updated;
                 }
-                if (empty($user)) $this->forward(); // TODO: 404
-                if ($user->saveDataFromInput()) {
-                    if ($onboarding = $this->getInput('onboarding')) {
-                        $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'begin/publish');
-                    }
-                    $this->forward($user->getURL());
+            }
+            $this->setLastModifiedHeader($last_modified);
+
+            $t = \Idno\Core\Idno::site()->template();
+            $t->__(array(
+
+                'title'       => $user->getTitle(),
+                'body'        => $t->__(array('user' => $user, 'items' => $feed, 'count' => $count, 'offset' => $offset))->draw('entity/User/profile'),
+                'description' => \Idno\Core\Idno::site()->language()->_('The %s profile for %s', [\Idno\Core\Idno::site()->config()->title, $user->getTitle()])
+
+            ))->drawPage();
+        }
+
+        // Handle POST requests to the entity
+
+        function postContent()
+        {
+            if (!empty($this->arguments[0])) {
+                $user = \Idno\Entities\User::getByHandle($this->arguments[0]);
+            }
+            if (empty($user)) $this->forward(); // TODO: 404
+            if ($user->saveDataFromInput()) {
+                if ($onboarding = $this->getInput('onboarding')) {
+                    $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'begin/publish');
                 }
-                $this->forward($_SERVER['HTTP_REFERER']);
+                $this->forward($user->getURL());
+            }
+            $this->forward($_SERVER['HTTP_REFERER']);
+        }
+
+        // Handle DELETE requests to the entity
+
+        function deleteContent()
+        {
+            if (!empty($this->arguments[0])) {
+                $object = \Idno\Common\Entity::getByID($this->arguments[0]);
+            }
+            if (empty($object)) $this->forward(); // TODO: 404
+            if ($object->delete()) {
+                \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_('%s was deleted.', [$object->getTitle()]));
+            }
+            $this->forward($_SERVER['HTTP_REFERER']);
+        }
+
+        /**
+         * A webmention to our profile page means someone mentioned us.
+         */
+        function webmentionContent($source, $target, $source_response, $source_mf2)
+        {
+            Idno::site()->logging()->info("received user mention from $source to $target");
+            if (empty($this->arguments)) {
+                Idno::site()->logging()->debug("could not process user mention, no pagehandler arguments");
+
+                return false;
             }
 
-            // Handle DELETE requests to the entity
+            $user = User::getByHandle($this->arguments[0]);
+            if (empty($user)) {
+                Idno::site()->logging()->debug('could not process user mention, no user for handle ' . $this->arguments[0]);
 
-            function deleteContent()
-            {
-                if (!empty($this->arguments[0])) {
-                    $object = \Idno\Common\Entity::getByID($this->arguments[0]);
-                }
-                if (empty($object)) $this->forward(); // TODO: 404
-                if ($object->delete()) {
-                    \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_('%s was deleted.',[$object->getTitle()]));
-                }
-                $this->forward($_SERVER['HTTP_REFERER']);
+                return false;
             }
 
-            /**
-             * A webmention to our profile page means someone mentioned us.
-             */
-            function webmentionContent($source, $target, $source_response, $source_mf2)
-            {
-                Idno::site()->logging()->info("received user mention from $source to $target");
-                if (empty($this->arguments)) {
-                    Idno::site()->logging()->debug("could not process user mention, no pagehandler arguments");
+            Idno::site()->logging()->debug("found target user {$user->getHandle()}");
 
-                    return false;
-                }
-
-                $user = User::getByHandle($this->arguments[0]);
-                if (empty($user)) {
-                    Idno::site()->logging()->debug('could not process user mention, no user for handle ' . $this->arguments[0]);
-
-                    return false;
-                }
-
-                Idno::site()->logging()->debug("found target user {$user->getHandle()}");
-
-                // if this is anything other than a normal mention (e.g. a delete), accept the wm, but do nothing
-                if ($source_response['response'] !== 200) {
-                    return true;
-                }
-
-                $title = Webmention::getTitleFromContent($source_response['content'], $source);
-
-                $mention = [
-                    'permalink' => $source,
-                    'title'     => $title,
-                ];
-
-                // look for the first and only h-entry or h-event on the page
-                $entry = Webmention::findRepresentativeHEntry($source_mf2, $source, ['h-entry', 'h-event']);
-                $card  = Webmention::findAuthorHCard($source_mf2, $source, $entry);
-
-                // try to get some more specific details of the mention from mf2 content
-                if ($entry) {
-                    if (!empty($entry['properties']['url'])) {
-                        $mention['permalink'] = $entry['properties']['url'][0];
-                    }
-                    if (!empty($entry['properties']['content'])) {
-                        $content            = $entry['properties']['content'][0];
-                        $mention['content'] = Idno::site()->template()->sanitize_html(is_array($content) ? $content['html'] : $content);
-                    }
-                }
-
-                $sender_url = false;
-                if ($card) {
-                    if (!empty($card['properties']['url'])) {
-                        $sender_url           = $card['properties']['url'][0];
-                        $mention['owner_url'] = $card['properties']['url'][0];
-                    }
-                    if (!empty($card['properties']['name'])) {
-                        $mention['owner_name'] = $card['properties']['name'][0];
-                    }
-                }
-
-                $message = 'You were mentioned';
-                if (isset($mention['owner_name'])) {
-                    $message .= ' by ' . $mention['owner_name'];
-                }
-                $message .= ' on ' . parse_url($mention['permalink'], PHP_URL_HOST);
-
-                $notif = new Notification();
-                if ($notif->setNotificationKey(['mention', $user->getUUID(), $source, $target])) {
-                    $notif->setOwner($user);
-                    $notif->setMessage($message);
-                    $notif->setMessageTemplate('content/notification/mention');
-                    $notif->setActor($sender_url);
-                    $notif->setVerb('mention');
-                    $notif->setObject($mention);
-                    $notif->setTarget($user);
-                    $notif->save();
-                    $user->notify($notif);
-                } else {
-                    \Idno\Core\Idno::site()->logging()->debug("ignoring duplicate notification", ['source' => $source, 'target' => $target, 'user' => $user->getHandle()]);
-                }
-
+            // if this is anything other than a normal mention (e.g. a delete), accept the wm, but do nothing
+            if ($source_response['response'] !== 200) {
                 return true;
             }
 
+            $title = Webmention::getTitleFromContent($source_response['content'], $source);
+
+            $mention = [
+                'permalink' => $source,
+                'title'     => $title,
+            ];
+
+            // look for the first and only h-entry or h-event on the page
+            $entry = Webmention::findRepresentativeHEntry($source_mf2, $source, ['h-entry', 'h-event']);
+            $card  = Webmention::findAuthorHCard($source_mf2, $source, $entry);
+
+            // try to get some more specific details of the mention from mf2 content
+            if ($entry) {
+                if (!empty($entry['properties']['url'])) {
+                    $mention['permalink'] = $entry['properties']['url'][0];
+                }
+                if (!empty($entry['properties']['content'])) {
+                    $content            = $entry['properties']['content'][0];
+                    $mention['content'] = Idno::site()->template()->sanitize_html(is_array($content) ? $content['html'] : $content);
+                }
+            }
+
+            $sender_url = false;
+            if ($card) {
+                if (!empty($card['properties']['url'])) {
+                    $sender_url           = $card['properties']['url'][0];
+                    $mention['owner_url'] = $card['properties']['url'][0];
+                }
+                if (!empty($card['properties']['name'])) {
+                    $mention['owner_name'] = $card['properties']['name'][0];
+                }
+            }
+
+            $message = 'You were mentioned';
+            if (isset($mention['owner_name'])) {
+                $message .= ' by ' . $mention['owner_name'];
+            }
+            $message .= ' on ' . parse_url($mention['permalink'], PHP_URL_HOST);
+
+            $notif = new Notification();
+            if ($notif->setNotificationKey(['mention', $user->getUUID(), $source, $target])) {
+                $notif->setOwner($user);
+                $notif->setMessage($message);
+                $notif->setMessageTemplate('content/notification/mention');
+                $notif->setActor($sender_url);
+                $notif->setVerb('mention');
+                $notif->setObject($mention);
+                $notif->setTarget($user);
+                $notif->save();
+                $user->notify($notif);
+            } else {
+                \Idno\Core\Idno::site()->logging()->debug("ignoring duplicate notification", ['source' => $source, 'target' => $target, 'user' => $user->getHandle()]);
+            }
+
+            return true;
         }
 
     }
+
+}

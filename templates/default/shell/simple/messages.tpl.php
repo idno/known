@@ -1,28 +1,28 @@
 <?php
 
-    if (!empty($vars['messages'])) {
-        $messages = $vars['messages'];
+if (!empty($vars['messages'])) {
+    $messages = $vars['messages'];
 
-        ?>
+    ?>
         <div class="alerts">
-            <?php
+        <?php
 
-                foreach ($messages as $message) {
+        foreach ($messages as $message) {
 
-                    ?>
+            ?>
 
-                    <div class="alert <?= $message['message_type'] ?>">
-                        <?= $this->autop($message['message']) ?>
+                    <div class="alert <?php echo $message['message_type'] ?>">
+                <?php echo $this->autop($message['message']) ?>
                     </div>
 
                 <?php
 
-                }
+        }
 
-            ?>
+        ?>
         </div>
     <?php
 
-    }
+}
 
 

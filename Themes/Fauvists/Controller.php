@@ -1,10 +1,11 @@
 <?php
 
-    namespace Themes\Fauvists {
+namespace Themes\Fauvists {
 
-        class Controller extends \Idno\Common\Theme {
-
-        }
+    class Controller extends \Idno\Common\Theme
+    {
 
     }
-    
+
+}
+

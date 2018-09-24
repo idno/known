@@ -4,26 +4,26 @@
      * User profile editing for onboarding
      */
 
-    namespace Idno\Pages\Onboarding {
+namespace Idno\Pages\Onboarding {
 
-        class Publish extends \Idno\Common\Page
+    class Publish extends \Idno\Common\Page
+    {
+
+        function getContent()
         {
 
-            function getContent()
-            {
+            $this->gatekeeper();
 
-                $this->gatekeeper();
-
-                $user = \Idno\Core\Idno::site()->session()->currentUser();
-                if ($messages = \Idno\Core\Vendor::getMessages()) {
-                    \Idno\Core\Idno::site()->session()->addMessage($messages);
-                }
-
-                $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL());
-
+            $user = \Idno\Core\Idno::site()->session()->currentUser();
+            if ($messages = \Idno\Core\Vendor::getMessages()) {
+                \Idno\Core\Idno::site()->session()->addMessage($messages);
             }
+
+            $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL());
 
         }
 
     }
-    
+
+}
+

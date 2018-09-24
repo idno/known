@@ -10,7 +10,8 @@
 
 namespace Idno\Core\Bonita {
 
-    class Main {
+    class Main
+    {
 
         /** Configuration variables * */
         static $path = '';      // The path of the Bonita base
@@ -27,7 +28,8 @@ namespace Idno\Core\Bonita {
          * Returns whether or not we're running off the cache
          * @return true|false
          */
-        static function cached() {
+        static function cached()
+        {
             return self::$cache;
         }
 
@@ -37,7 +39,8 @@ namespace Idno\Core\Bonita {
          * @param string $path A full path
          * @return true|false Depending on success
          */
-        static function additionalPath($path) {
+        static function additionalPath($path)
+        {
             if (self::cached())
                 return false;
             if (!empty($path) && is_dir($path)) {
@@ -51,7 +54,8 @@ namespace Idno\Core\Bonita {
          * Get any saved additional paths (or an empty array if there aren't any)
          * @return array
          */
-        static function getAdditionalPaths() {
+        static function getAdditionalPaths()
+        {
             return self::$additionalPaths;
         }
 
@@ -59,7 +63,8 @@ namespace Idno\Core\Bonita {
          * Gets all saved paths, including the main Bonita path
          * @return array
          */
-        static function getPaths() {
+        static function getPaths()
+        {
             $paths = self::getAdditionalPaths();
             $paths[] = self::$path;
             return $paths;
@@ -68,7 +73,8 @@ namespace Idno\Core\Bonita {
         /**
          * Sets the site secret
          */
-        public static function siteSecret($secret) {
+        public static function siteSecret($secret)
+        {
             self::$secret = $secret;
         }
 
@@ -76,7 +82,8 @@ namespace Idno\Core\Bonita {
          * Retrieves the site secret
          * @return string The site secret
          */
-        public static function getSiteSecret() {
+        public static function getSiteSecret()
+        {
             return self::$secret;
         }
 
@@ -86,7 +93,8 @@ namespace Idno\Core\Bonita {
          *
          * @return string A string describing the device OS, or "default" by default
          */
-        static function detectDevice() {
+        static function detectDevice()
+        {
             if (empty($_SERVER['HTTP_USER_AGENT']))
                 return 'default';
             $ua = $_SERVER['HTTP_USER_AGENT'];

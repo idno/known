@@ -39,7 +39,7 @@
 </head>
 <body style="margin:0; padding:10px 0;" bgcolor="#ebebeb" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"><?php
 if (!empty($vars['preheader'])) {
-    ?><span class="preheader"><?= $vars['preheader']; ?></span><?php
+    ?><span class="preheader"><?php echo $vars['preheader']; ?></span><?php
 }
 ?>
 <br>
@@ -57,7 +57,7 @@ if (!empty($vars['preheader'])) {
 
                         <!-- ### BEGIN CONTENT ### -->
 
-                        <?=$vars['body']?>
+                        <?php echo $vars['body']?>
 
                         <!-- ### END CONTENT ### -->
 
@@ -65,12 +65,12 @@ if (!empty($vars['preheader'])) {
 
                         <?php
                             $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-                            $path = str_replace('/','_',$path);
+                            $path = str_replace('/', '_', $path);
                         ?>
 
-						<p style="text-align: center; margin-top: 15px;">
-                        <em style="font-style:italic; font-size: 12px; color: #aaa; text-decoration: center;">Powered by <a href="https://withknown.com/?utm_source=transactional&utm_medium=email&utm_campaign=e<?=$path?>" style="color: #4c93cb; text-decoration: none;">Known</a>.</em>
-						</p>
+                        <p style="text-align: center; margin-top: 15px;">
+                        <em style="font-style:italic; font-size: 12px; color: #aaa; text-decoration: center;">Powered by <a href="https://withknown.com/?utm_source=transactional&utm_medium=email&utm_campaign=e<?php echo $path?>" style="color: #4c93cb; text-decoration: none;">Known</a>.</em>
+                        </p>
                         <br><br>
 
                     </td>
@@ -81,9 +81,9 @@ if (!empty($vars['preheader'])) {
         </td>
     </tr>
     <tr>
-	    <td align="center" valign="top" bgcolor="#ebebeb" style="background-color: #ebebeb; padding-bottom: 3em;">
-		    <p style="color: #999999; font-size: 12px;">Known, Inc. 421 Bryant St, San Francisco, CA, 94107</p>
-	    </td>
+        <td align="center" valign="top" bgcolor="#ebebeb" style="background-color: #ebebeb; padding-bottom: 3em;">
+            <p style="color: #999999; font-size: 12px;">Known, Inc. 421 Bryant St, San Francisco, CA, 94107</p>
+        </td>
     </tr>    
 </table>
 <!--/100% wrapper-->

@@ -2,7 +2,8 @@
 
 namespace Tests {
 
-    class KnownTestCase extends \PHPUnit_Framework_TestCase {
+    class KnownTestCase extends \PHPUnit_Framework_TestCase
+    {
 
         /// Admin user
         public static $testAdmin;
@@ -14,7 +15,8 @@ namespace Tests {
          * Return a test user, creating it if necessary.
          * @return \Idno\Entities\User
          */
-        protected function &user() {
+        protected function &user()
+        {
 
             // Have we already got a user?
             if (static::$testUser)
@@ -46,7 +48,8 @@ namespace Tests {
          * Return an admin test user, creating it if necessary.
          * @return \Idno\Entities\User
          */
-        protected function &admin() {
+        protected function &admin()
+        {
 
             // Have we already got a user?
             if (static::$testAdmin)
@@ -74,20 +77,21 @@ namespace Tests {
 
             return $user;
         }
-        
+
         /**
          * Swap the currently logged in user.
          * @param \Idno\Entities\User $user
          */
-        protected function swapUser($user) {
-            
+        protected function swapUser($user)
+        {
+
             $current = \Idno\Core\site()->session()->currentUser();
             \Idno\Core\site()->session()->logUserOff();
-            
+
             if (!empty($user)) {
                 \Idno\Core\site()->session()->logUserOn($user);
             }
-            
+
             return $current;
         }
 

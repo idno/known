@@ -49,7 +49,7 @@ foreach ($fields_and_defaults as $field => $default) {
             echo "$field ";
             $published[$field] = true;
         } else {
-            echo "$field=\"{$vars[$field]}\" "; 
+            echo "$field=\"{$vars[$field]}\" ";
             $published[$field] = $vars[$field];
         }
     }
@@ -67,8 +67,10 @@ foreach ($fields_and_defaults as $field => $default) {
 }
 ?>
     class="input <?php echo isset($vars['class']) ? $vars['class'] : 'input-' . (isset($vars['type']) ? $vars['type'] : 'text'); ?>"
-<?php if (isset($vars['placeholder'])) { ?>placeholder="<?php echo htmlentities($vars['placeholder'], ENT_QUOTES, 'UTF-8'); ?>" <?php } // Placeholder is a special case ?>
-<?php if (isset($vars['alt'])) { ?>alt="<?php echo htmlentities($vars['alt'], ENT_QUOTES, 'UTF-8'); ?>" <?php } // Alt is a special case ?>
+<?php if (isset($vars['placeholder'])) { ?>placeholder="<?php echo htmlentities($vars['placeholder'], ENT_QUOTES, 'UTF-8'); ?>" <?php
+} // Placeholder is a special case ?>
+<?php if (isset($vars['alt'])) { ?>alt="<?php echo htmlentities($vars['alt'], ENT_QUOTES, 'UTF-8'); ?>" <?php
+} // Alt is a special case ?>
     value="<?php if (isset($vars['value'])) echo htmlentities($vars['value'], ENT_QUOTES, 'UTF-8'); ?>"
     /> 
 <?php
@@ -85,6 +87,5 @@ if (!empty($published['alt'])) {
 $this->documentFormControl($vars['name'], $published);
 
 // Prevent bonita polution
-foreach (array_merge($fields_and_defaults, ['placeholder' => false, 'value' => '', 'class' => '']) as $field => $default) 
+foreach (array_merge($fields_and_defaults, ['placeholder' => false, 'value' => '', 'class' => '']) as $field => $default)
     unset($this->vars[$field]);
-?>

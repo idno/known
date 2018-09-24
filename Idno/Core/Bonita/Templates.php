@@ -13,7 +13,8 @@
 
 namespace Idno\Core\Bonita {
 
-    class Templates {
+    class Templates
+    {
 
         public $templateType = 'default';  // Which template are we using?
         public $fallbackToDefault = true;  // Fallback to
@@ -24,7 +25,8 @@ namespace Idno\Core\Bonita {
          * You can also just instantiate Templates with a list of variables
          */
 
-        function __construct($initial = false) {
+        function __construct($initial = false)
+        {
             if ($initial instanceof \Idno\Core\Bonita\Templates) {
                 $this->vars = $initial->vars;
                 $this->templateType = $initial->templateType;
@@ -38,7 +40,8 @@ namespace Idno\Core\Bonita {
          * @param $name Name of variable to set
          * @param $value Value
          */
-        function __set($name, $value) {
+        function __set($name, $value)
+        {
             if (!empty($name)) {
                 $this->vars[$name] = $value;
             }
@@ -49,7 +52,8 @@ namespace Idno\Core\Bonita {
          * @param $name Name of variable to retrieve
          * @return mixed Variable value or null on failure
          */
-        function __get($name) {
+        function __get($name)
+        {
             if (array_key_exists($name, $this->vars)) {
                 return $this->vars[$name];
             }
@@ -61,7 +65,8 @@ namespace Idno\Core\Bonita {
          * @param $vars array Variables to add to the template (eg array('name1' => 'value1', 'name2' => 'value2'))
          * @return \Bonita\Templates this template object
          */
-        function __($vars) {
+        function __($vars)
+        {
             if (!empty($vars) && is_array($vars)) {
                 foreach ($vars as $var => $value)
                     $this->$var = $value;
@@ -75,7 +80,8 @@ namespace Idno\Core\Bonita {
          * @param boolean $returnBlank If true, returns a blank string on failure; otherwise false
          * @return string|false Rendered template element or false, depending on $returnBlank
          */
-        function draw($templateName, $returnBlank = true) {
+        function draw($templateName, $returnBlank = true)
+        {
             $templateName = preg_replace('/^_[A-Z0-9\/]+/i', '', $templateName);
             if (!empty($templateName)) {
 
@@ -92,22 +98,22 @@ namespace Idno\Core\Bonita {
                 // Cycle through the additional paths and check for the template file
                 // - if it exists, break out of the foreach
                 foreach ($templateTypes as $templateType)
-                    foreach ($paths as $basepath) {
-                        $path = $basepath . '/templates/' . $templateType . '/' . $templateName . '.tpl.php';
-                        if (file_exists($path)) {
-                            // create an anonymous function for scoping
-                            $fn = (function ($path, $vars, $t) {
-                                // dump the variables into the local scope
-                                foreach ($vars as $k => $v) {
-                                    ${$k} = $v;
-                                }
-                                ob_start();
-                                include $path;
-                                return ob_get_clean();
-                            });
-                            return $fn($path, $this->vars, $this);
-                        }
+                foreach ($paths as $basepath) {
+                    $path = $basepath . '/templates/' . $templateType . '/' . $templateName . '.tpl.php';
+                    if (file_exists($path)) {
+                        // create an anonymous function for scoping
+                        $fn = (function ($path, $vars, $t) {
+                            // dump the variables into the local scope
+                            foreach ($vars as $k => $v) {
+                                ${$k} = $v;
+                            }
+                            ob_start();
+                            include $path;
+                            return ob_get_clean();
+                        });
+                        return $fn($path, $this->vars, $this);
                     }
+                }
             }
             // If we've got here, just return a blank string; the template doesn't exist
             if ($returnBlank)
@@ -121,7 +127,8 @@ namespace Idno\Core\Bonita {
          * @param $items An array of PHP objects
          * @return string
          */
-        function drawList($items, $style = 'stream') {
+        function drawList($items, $style = 'stream')
+        {
             if (is_array($items) && !empty($items) && !empty($style)) {
                 $t = new \Idno\Core\Bonita\Templates($this);
                 $t->items = $items;
@@ -136,7 +143,8 @@ namespace Idno\Core\Bonita {
          * @param $item PHP object
          * @return string
          */
-        function drawObject($object) {
+        function drawObject($object)
+        {
             if (is_object($object)) {
                 $t = new \Idno\Core\Bonita\Templates($this);
                 $t->object = $object;
@@ -156,7 +164,8 @@ namespace Idno\Core\Bonita {
          * @param $processor Optionally, the processor you want to use (default: text)
          * @return string Formatted content (or the input content if the processor doesn't exist)
          */
-        function process($content, $processor = 'text') {
+        function process($content, $processor = 'text')
+        {
             $t = new \Idno\Core\Bonita\Templates();
             $t->content = $content;
             $t->setTemplateType($this->getTemplateType());
@@ -170,7 +179,8 @@ namespace Idno\Core\Bonita {
          * @param $echo If set to true (by default), echoes the page; otherwise returns it
          * @param $shell Optional override of the page shell template to be used
          */
-        function drawPage($echo = true, $shell = 'shell') {
+        function drawPage($echo = true, $shell = 'shell')
+        {
             if ($echo) {
 
                 $content = $this->draw($shell);
@@ -191,7 +201,8 @@ namespace Idno\Core\Bonita {
          * Returns the current template type
          * @return string Name of the current template ('default' by default)
          */
-        function getTemplateType() {
+        function getTemplateType()
+        {
             return $this->templateType;
         }
 
@@ -199,7 +210,8 @@ namespace Idno\Core\Bonita {
          * Sets the current template type
          * @param string $template The name of the template you wish to use
          */
-        function setTemplateType($templateType) {
+        function setTemplateType($templateType)
+        {
             $templateType = preg_replace('/^_[A-Z0-9\/]+/i', '', $templateType);
             if ($this->templateTypeExists($templateType)) {
                 $this->templateType = $templateType;
@@ -213,7 +225,8 @@ namespace Idno\Core\Bonita {
          * @param string Name of the template type
          * @return true|false
          */
-        function templateTypeExists($templateType) {
+        function templateTypeExists($templateType)
+        {
             $templateType = preg_replace('/^_[A-Z0-9\/]+/i', '', $templateType);
             if (!empty($templateType)) {
                 $paths = \Idno\Core\Bonita\Main::getPaths();
@@ -230,7 +243,8 @@ namespace Idno\Core\Bonita {
          * Detects templates based on the given browser string
          * (defaults, of course, to "default")
          */
-        function detectTemplateType() {
+        function detectTemplateType()
+        {
             $device = \Idno\Core\Bonita\Main::detectDevice();
             return $this->setTemplateType($device);
         }

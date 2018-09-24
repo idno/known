@@ -1,26 +1,26 @@
 <?php
 
-    namespace Idno\Pages\Following {
+namespace Idno\Pages\Following {
 
-        use Idno\Common\Page;
+    use Idno\Common\Page;
 
-        class Home extends Page
+    class Home extends Page
+    {
+
+        function getContent()
         {
 
-            function getContent()
-            {
+            $this->gatekeeper();
+            $subscriptions = \Idno\Core\Idno::site()->reader()->getUserSubscriptions(\Idno\Core\Idno::site()->session()->currentUserUUID());
 
-                $this->gatekeeper();
-                $subscriptions = \Idno\Core\Idno::site()->reader()->getUserSubscriptions(\Idno\Core\Idno::site()->session()->currentUserUUID());
-
-                \Idno\Core\Idno::site()->template()->__(array(
-                    'title' => \Idno\Core\Idno::site()->language()->_('Following'),
-                    'body'  => \Idno\Core\Idno::site()->template()->__(array('subscriptions' => $subscriptions))->draw('following/home')
-                ))->drawPage();
-
-            }
+            \Idno\Core\Idno::site()->template()->__(array(
+                'title' => \Idno\Core\Idno::site()->language()->_('Following'),
+                'body'  => \Idno\Core\Idno::site()->template()->__(array('subscriptions' => $subscriptions))->draw('following/home')
+            ))->drawPage();
 
         }
 
     }
-    
+
+}
+

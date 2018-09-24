@@ -9,7 +9,8 @@ namespace Idno\Common {
     /**
      * Define a Known interface for storing Sessions
      */
-    interface SessionStorageInterface {
+    interface SessionStorageInterface
+    {
 
         /**
          * Offer a session handler for the current session.

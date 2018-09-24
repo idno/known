@@ -1,15 +1,15 @@
 Ooops!
 ======
 
-An error occured on your Known site <?= $vars['site']; ?>!
+An error occured on your Known site <?php echo $vars['site']; ?>!
 
-<?= $vars['message']; ?>
+<?php echo $vars['message']; ?>
 
 
-Logged in user was <?= $vars['user']; ?>
+Logged in user was <?php echo $vars['user']; ?>
 
-Agent: <?= $vars['agent']; ?>
+Agent: <?php echo $vars['agent']; ?>
 
-QS: <?= $vars['qs'] ?> 
+QS: <?php echo $vars['qs'] ?> 
 
-Referrer: <?= $vars['referrer']; ?> 
+Referrer: <?php echo $vars['referrer'];

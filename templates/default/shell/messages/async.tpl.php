@@ -4,5 +4,5 @@
 
 ?>
 <script>
-    addMessage('<?=addslashes($message['message']);?>','<?=addslashes($message['message_type']);?>');
+    addMessage('<?php echo addslashes($message['message']);?>','<?php echo addslashes($message['message_type']);?>');
 </script>

@@ -5,4 +5,3 @@
 
     echo $this->__(array( 'url' => $url, 'title' => $title ))->draw('shell/toolbar/content/entry');
 
-?>

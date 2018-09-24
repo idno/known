@@ -5,13 +5,13 @@ if (!empty($vars['tags'])) {
         <p class="tag-row">
             <i class="fa fa-tag"></i>
             <?php foreach ($vars['tags'] as $tag) { ?>
-            <a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL(); ?>tag/<?= urlencode($tag); ?>" class="p-category" rel="tag"><?= $tag ?></a>
+            <a href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL(); ?>tag/<?php echo urlencode($tag); ?>" class="p-category" rel="tag"><?php echo $tag ?></a>
             <?php } ?>
         </p> 
         <?php
     } else {
         ?>
-        <i class="fa fa-tag"></i><a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL(); ?>tag/<?= urlencode($vars['tags']); ?>" class="p-category" rel="tag"><?= $vars['tags'] ?></a>
+        <i class="fa fa-tag"></i><a href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL(); ?>tag/<?php echo urlencode($vars['tags']); ?>" class="p-category" rel="tag"><?php echo $vars['tags'] ?></a>
         <?php
     }
 }
