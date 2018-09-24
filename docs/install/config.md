@@ -1,6 +1,6 @@
 # Using config.ini to configure Known
 
-Known is configured through config.ini, a simple file that is stored in the root of your Known installation.
+Known is configured through config.ini, a simple file that is stored in the ```/configuration``` directory.
 
 Usually, config.ini is created automatically during installation. There is no need to create a config.ini file manually.
 However, sometimes you may wish to add values here.

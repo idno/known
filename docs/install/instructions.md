@@ -39,7 +39,7 @@ If you’re using Docker or other virtualized server environments, you will need
 
 ### If you’re using MySQL
 
-Currently, MySQL users need to create a file called ```config.ini``` in the root of their installation. This should contain the following information:
+Currently, MySQL users need to create a file called ```config.ini``` in you ```/configuration/``` directory. This should contain the following information:
 
     database = "MySQL"
     dbname = "Your MySQL database name"
@@ -131,3 +131,7 @@ Register and log in.
 ### Administer Known
 
 Once you’ve registered and logged in, click “Administration” in the menu bar. This will allow you to set some site configuration items, including the site name. You will also be able to enable some plugins from this screen. If you’re using Known as a blog or a closed community, you will probably also want to turn open registration off from here.
+
+## Command Line Installation
+
+A command line installer is available, which is useful for installing Known over slow connections or in a scripted environment. Details can be found [here](cliinstaller.md).
