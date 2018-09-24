@@ -49,7 +49,7 @@ If you just want to check that your server has the necessary requirements to run
 If you want to generate a config file, but without going through the full install (useful if you want to generate a new domain config in a script), you can use the following command to do so
 
 ```
-./CLIInstaller.php makeconfig /path/to/manifest > /path/to/new-config.ini
+./CLIInstaller.php makeconfig /path/to/manifest 
 ```
 
 This will output the new config to stdOut. You can save it to an ini file as appropriate!
