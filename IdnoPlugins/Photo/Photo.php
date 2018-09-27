@@ -22,7 +22,7 @@ namespace IdnoPlugins\Photo {
         function getTitle()
         {
             if (empty($this->title)) {
-                return 'Untitled';
+                return \Idno\Core\Idno::site()->language()->_('Untitled');
             } else {
                 return $this->title;
             }
