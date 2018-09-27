@@ -8,7 +8,7 @@ namespace IdnoPlugins\Media {
         function getTitle()
         {
             if (empty($this->title)) {
-                return 'Untitled';
+                return  \Idno\Core\Idno::site()->language()->_('Untitled');
             } else {
                 return $this->title;
             }
@@ -128,13 +128,13 @@ namespace IdnoPlugins\Media {
                             $this->attachFile($media);
                             $ok = true;
                         } else {
-                            \Idno\Core\Idno::site()->session()->addErrorMessage('Media wasn\'t attached.');
+                            \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_('Media wasn\'t attached.'));
                         }
                     } else {
-                        \Idno\Core\Idno::site()->session()->addErrorMessage('This doesn\'t seem to be a media file .. ' . $_FILES['media']['type']);
+                        \Idno\Core\Idno::site()->session()->addErrorMessage( \Idno\Core\Idno::site()->language()->_('This doesn\'t seem to be a media file .. %s', [$_FILES['media']['type']]));
                     }
                 } else {
-                    \Idno\Core\Idno::site()->session()->addErrorMessage('We couldn\'t access your media. Please try again.');
+                    \Idno\Core\Idno::site()->session()->addErrorMessage( \Idno\Core\Idno::site()->language()->_('We couldn\'t access your media. Please try again.'));
 
                     return false;
                 }
