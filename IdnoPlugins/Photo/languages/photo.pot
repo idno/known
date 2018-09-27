@@ -58,3 +58,15 @@ msgstr ""
 msgid "Untitled"
 msgstr ""
 
+#: ./Photo.php:178
+msgid "Image wasn\'t attached."
+msgstr ""
+
+#: ./Photo.php:182
+msgid "This doesn\'t seem to be an image..."
+msgstr ""
+
+#: ./Photo.php:199
+msgid "We couldn\'t access your image for an unknown reason. Please try again."
+msgstr ""
+
