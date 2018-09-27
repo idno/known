@@ -69,7 +69,7 @@ namespace IdnoPlugins\Checkin {
                 $this->lat       = $lat;
                 $this->long      = $long;
                 $this->placename = $placename;
-                $this->title     = 'Checked into ' . $placename;
+                $this->title     = \Idno\Core\Idno::site()->language()->_('Checked into %s', [$placename]);
                 $this->body      = $body;
                 $this->address   = $user_address;
                 $this->setAccess($access);
