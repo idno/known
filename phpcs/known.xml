@@ -9,6 +9,10 @@
         <exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine"/>
         <exclude name="Zend.NamingConventions.ValidVariableName.NotCamelCaps"/>
         <exclude name="Zend.NamingConventions.ValidVariableName.StringVarNotCamelCaps"/>
+        <exclude name="Generic.PHP.DisallowShortOpenTag" />
+        <exclude name="Squiz.Functions.GlobalFunction.Found" />
+        <exclude name="Zend.NamingConventions.ValidVariableName.ContainsNumbers" />
+        <exclude name="Zend.NamingConventions.ValidVariableName.MemberVarNotCamelCaps" />
     </rule>
     <rule ref="Generic.WhiteSpace.ScopeIndent">
         <properties>
