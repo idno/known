@@ -13,13 +13,17 @@ namespace IdnoPlugins\Comments\Pages {
         function postContent()
         {
 
+            $name_field = md5(\Idno\Core\Idno::site()->config()->site_secret . 'name');
+            $url_field = md5(\Idno\Core\Idno::site()->config()->site_secret . 'url');
+
             $body      = strip_tags($this->getInput('body'));
-            $name      = strip_tags($this->getInput('name'));
-            $url       = trim($this->getInput('url'));
-            $url2       = trim($this->getInput('url-2'));
+            $name      = strip_tags($this->getInput($name_field));
+            $url       = trim($this->getInput($url_field));
+            $url2      = $this->getInput('url');
+            $name2     = $this->getInput('name');
             $validator = $this->getInput('validator');
 
-            if (!empty($url2)) {
+            if (!empty($url2) || !empty($name2)) {
                 $this->deniedContent();
             }
 
