@@ -13,8 +13,8 @@ namespace IdnoPlugins\Comments\Pages {
         function postContent()
         {
 
-            $name_field = md5(\Idno\Core\Idno::site()->config()->site_secret . 'name');
-            $url_field = md5(\Idno\Core\Idno::site()->config()->site_secret . 'url');
+            $name_field = \Idno\Core\Bonita\Forms::obfuscateField('name');
+            $url_field = \Idno\Core\Bonita\Forms::obfuscateField('url');
 
             $body      = strip_tags($this->getInput('body'));
             $name      = strip_tags($this->getInput($name_field));
