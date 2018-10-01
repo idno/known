@@ -52,9 +52,9 @@ we'd like to know your thought process behind what you wrote, and why you did so
 
 This will help future developers, maybe even you, so be kind to your future self!
 
-### PHP doc blocks:
+### phpDocumentor blocks
 
-Use PHP doc blocks for every method, *except* inherited methods, where they are optional. Use your best judgment here.
+Use [phpDocumentor blocks](http://docs.phpdoc.org/references/phpdoc/basic-syntax.html) for every method, *except* inherited methods, where they are optional. Use your best judgment here.
 
 * Explain the purpose of the method or class as clearly as you can. For example, "loads ClassName by property_name" is bad; 
   "loads objects that have a property called property_name" is much better.

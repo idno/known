@@ -3,3 +3,10 @@ theme: readthedocs
 markdown_extensions:
  - admonition
 repo_url: https://github.com/idno/known/
+nav:
+- Home: 'index.md'
+- Installing and Upgrading Known: 'install/index.md'
+- Plugins: 'plugins/index.md'
+- Known for Developers: 'developers/index.md'
+- Open Source Community: 'community/index.md'
+- What's New in Known?: 'changelog.md'

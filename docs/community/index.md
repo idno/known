@@ -1,4 +1,4 @@
-# Open source community
+# Open Source Community
 
 Known is an open source application. That means that you have the following freedoms:
 

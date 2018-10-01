@@ -1,4 +1,4 @@
-# Changes by version
+# Changes by Version
 
 Starting with version 0.6.4, this is a list of changes in the self-hosted, open source version of Known.
 

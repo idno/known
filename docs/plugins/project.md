@@ -1,4 +1,4 @@
-# Project plugins
+# Official Plugins
 
 The following plugins for Known were created by the core project team but not released as part of the main package.
 This is usually because the plugins are not considered to be core functionality, but may also be because they are

@@ -1,4 +1,4 @@
-# Using config.ini to configure Known
+# Using config.ini to Configure Known
 
 Known is configured through config.ini, a simple file that is stored in the ```/configuration``` directory.
 
