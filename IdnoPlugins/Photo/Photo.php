@@ -22,7 +22,7 @@ namespace IdnoPlugins\Photo {
         function getTitle()
         {
             if (empty($this->title)) {
-                return 'Untitled';
+                return \Idno\Core\Idno::site()->language()->_('Untitled');
             } else {
                 return $this->title;
             }
@@ -175,28 +175,28 @@ namespace IdnoPlugins\Photo {
                             }
 
                         } else {
-                            \Idno\Core\Idno::site()->session()->addErrorMessage('Image wasn\'t attached.');
+                            \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_('Image wasn\'t attached.'));
                             return false;
                         }
                     } else {
-                        \Idno\Core\Idno::site()->session()->addErrorMessage('This doesn\'t seem to be an image ..');
+                        \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_('This doesn\'t seem to be an image...'));
                         return false;
                     }
 
                 } else {
-                                // http://php.net/manual/en/features.file-upload.errors.php
-                                $errcode = null;
-                                if (!empty($_file['error']))
-                                        $errcode = $_file['error'];
+                    // http://php.net/manual/en/features.file-upload.errors.php
+                    $errcode = null;
+                    if (!empty($_file['error']))
+                        $errcode = $_file['error'];
                     if (!empty($errcode) && !empty(self::$FILE_UPLOAD_ERROR_CODES[intval($errcode)])) {
-                            $errmsg = self::$FILE_UPLOAD_ERROR_CODES[intval($errcode)];
+                        $errmsg = self::$FILE_UPLOAD_ERROR_CODES[intval($errcode)];
 
-                            // No file is ok, if this is not new
+                        // No file is ok, if this is not new
                         if (intval($errcode) == UPLOAD_ERR_NO_FILE && !$new) {
-                                $errmsg = null;
+                            $errmsg = null;
                         }
                     } else {
-                        $errmsg = 'We couldn\'t access your image for an unknown reason. Please try again.';
+                        $errmsg = \Idno\Core\Idno::site()->language()->_('We couldn\'t access your image for an unknown reason. Please try again.');
                     }
                     if (!empty($errmsg)) {
                         \Idno\Core\Idno::site()->session()->addErrorMessage($errmsg);

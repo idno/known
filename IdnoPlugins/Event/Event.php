@@ -7,7 +7,7 @@ namespace IdnoPlugins\Event {
 
         function getTitle()
         {
-            if (empty($this->title)) return 'Untitled';
+            if (empty($this->title)) return \Idno\Core\Idno::site()->language()->_('Untitled');
             return $this->title;
         }
 
@@ -85,7 +85,7 @@ namespace IdnoPlugins\Event {
                     return true;
                 }
             } else {
-                \Idno\Core\Idno::site()->session()->addErrorMessage('You can\'t save an event with no description.');
+                \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_('You can\'t save an event with no description.'));
             }
             return false;
 

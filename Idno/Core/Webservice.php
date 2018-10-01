@@ -98,6 +98,12 @@ namespace Idno\Core {
                     }
                     break;
             }
+            
+            // Check HSTS - if so, rewrite the endpoint to use HTTPS
+            if (static::isHSTS($endpoint)) {
+                $endpoint = str_replace('http://', 'https://', $endpoint);
+                \Idno\Core\Idno::site()->logging()->debug("HSTS Found, so endpoint call is now going to $endpoint");
+            }
 
             curl_setopt($curl_handle, CURLOPT_URL, $endpoint);
             curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 5);
@@ -171,7 +177,7 @@ namespace Idno\Core {
 
             $buffer      = self::webservice_exec($curl_handle);
             $http_status = curl_getinfo($curl_handle, CURLINFO_HTTP_CODE);
-
+            
             // Get HTTP Header / body
             $header_size = curl_getinfo($curl_handle, CURLINFO_HEADER_SIZE);
             $header      = substr($buffer, 0, $header_size);
@@ -180,13 +186,21 @@ namespace Idno\Core {
             if ($error = curl_error($curl_handle)) {
                 \Idno\Core\Idno::site()->logging->error('error send Webservice request', ['error' => $error]);
             }
+            
+            // See if we have a HSTS header and store
+            static::checkForHSTSHeader($endpoint, $header);
 
             self::$lastRequest  = curl_getinfo($curl_handle, CURLINFO_HEADER_OUT);
             self::$lastResponse = $content;
 
             curl_close($curl_handle);
 
-            return array('header' => $header, 'content' => $content, 'response' => $http_status, 'error' => $error);
+            return [
+                'header' => $header, 
+                'content' => $content, 
+                'response' => $http_status, 
+                'error' => $error,
+            ];
         }
 
         /**
@@ -426,6 +440,106 @@ namespace Idno\Core {
         static function base64UrlDecode($string)
         {
             return base64_decode(strtr($string, '-_,', '+/='));
+        }
+        
+        /**
+         * Check whether a given url has valid HSTS stored for it
+         * @todo Handle includeSubDomains
+         * @param type $url
+         */
+        public static function isHSTS($url) {
+            
+            // Get the domain
+            $domain = parse_url($url, PHP_URL_HOST);
+            
+            $cache = \Idno\Core\Idno::site()->cache();
+                
+            if (!empty($cache)) {
+                
+                if ($status = $cache->load($domain)) {
+                
+                    if ($status = unserialize($status)) {
+                    
+                        \Idno\Core\Idno::site()->logging()->debug("$domain has previously had HSTS");
+                        
+                        $return = true;
+                                                
+                        // Check max-age
+                        if (time() > ($status['stored_ts'] + $status['max-age'])) {
+                            \Idno\Core\Idno::site()->logging()->debug("HSTS header has expired");
+                            $return = false;
+                        }
+                        
+                        return $return;
+                    }
+                    
+                }
+                
+            }
+            
+            return false;
+        }
+        
+        /**
+         * Parse out HSTS headers, and if a url has HSTS headers, that status is cached.
+         * @param string $url The endpoint url
+         * @param string|array $headers
+         */
+        public static function checkForHSTSHeader($url, $headers) {
+            
+            \Idno\Core\Idno::site()->logging()->debug("Checking for HSTS headers");
+            
+            if (!is_array($headers))
+                $headers = explode("\n", $headers);
+            
+            if (static::isHSTS($url)) {
+                \Idno\Core\Idno::site()->logging()->debug("Valid HSTS found, no need to store");
+                return; // Valid HSTS already availible, no need to parse headers
+            }
+            
+            $status = null;
+            \Idno\Core\Idno::site()->logging()->debug("Valid HSTS found, no need to store" . print_r($headers, true));
+            // Parse out
+            if (!empty($headers)) {
+                foreach ($headers as $line) {
+                    
+                    if (stripos($line, 'Strict-Transport-Security:')!==false){
+                        
+                        \Idno\Core\Idno::site()->logging()->debug("HSTS headers found in response");
+                        
+                        $max_age = 0;
+                        if (preg_match('/max-age=([0-9]+)/', $line, $matches)) {
+                            $max_age = (int)$matches[1];
+                        }
+                        
+                        $includesubdomains = false;
+                        if (stripos($line, 'includeSubDomains')!==false) {
+                            $includesubdomains = true;
+                        }
+                        
+                        $status = [
+                            'stored_ts' => time(),
+                            'max-age' => $max_age,
+                            'includeSubDomains' => $includesubdomains
+                        ];
+                        
+                        \Idno\Core\Idno::site()->logging()->debug("HSTS Headers are " . print_r($status, true));
+                    }
+                    
+                }
+            }
+            
+            // Cache status
+            if (!empty($status)) {
+                
+                $cache = \Idno\Core\Idno::site()->cache();
+                
+                if (!empty($cache)) {
+                    \Idno\Core\Idno::site()->logging()->debug("Caching result for " . parse_url($url, PHP_URL_HOST));
+                    
+                    $cache->store( parse_url($url, PHP_URL_HOST), serialize($status));
+                }
+            }
         }
     }
 
