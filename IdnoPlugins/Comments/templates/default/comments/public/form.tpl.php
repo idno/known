@@ -2,8 +2,8 @@
 
     $object = $vars['object'];
 
-    $name_field = md5(\Idno\Core\Idno::site()->config()->site_secret . 'name');
-    $url_field = md5(\Idno\Core\Idno::site()->config()->site_secret . 'url');
+    $name_field = \Idno\Core\Bonita\Forms::obfuscateField('name');
+    $url_field = \Idno\Core\Bonita\Forms::obfuscateField('url');
 
 if (!\Idno\Core\Idno::site()->session()->isLoggedOn() && $object instanceof \Idno\Common\Entity) {
     ?>
