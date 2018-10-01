@@ -1,5 +1,4 @@
-Anti-Harassment Policy
-======================
+# Anti-Harassment Policy
 
 We want everyone to feel comfortable contributing to the Known project.
 As such, we want to make sure that we are clear about our rules as a

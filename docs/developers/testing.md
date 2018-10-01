@@ -1,4 +1,4 @@
-# Unit testing
+# Unit Testing
 
 Known has a number of PHP unit tests that can be run in order to check that things are working correctly, and to protect against any code regression.
 

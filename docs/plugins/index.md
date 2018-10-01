@@ -1,4 +1,4 @@
-# Known plugins
+# Known Plugins
 
-* [Project plugins](project.md)
+* [Official plugins](project.md)
 * [Community plugins](community.md)

@@ -1,4 +1,4 @@
-# System requirements
+# System Requirements
 
 Known _requires_ the following server components:
 

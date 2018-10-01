@@ -16,7 +16,3 @@
 
 * [Using logs](debugging.md)
 * [Diagnostics](debugging.md)
-
-# Troubleshooting
-
-* [Troubleshooting Known](troubleshooting.md)

@@ -1,4 +1,4 @@
-# Community plugins
+# Community Plugins
 
 The following plugins were created by members of the open source community. Like any open source plugin directory,
 listings here do not imply endorsement by the Known project team in any way.
