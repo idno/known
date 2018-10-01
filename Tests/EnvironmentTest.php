@@ -24,12 +24,12 @@ namespace Tests {
                      //'curl','date','dom','gd','json','libxml','mbstring','pdo','pdo_mysql','reflection','session','simplexml', 'openssl'
                      \Idno\Core\Installer::requiredModules()
                       as $extension) {
-                echo "$extension\n";
+                echo "$extension " .var_export(extension_loaded($extension), true). "\n";
                 $this->assertTrue(extension_loaded($extension));
             }
 
             echo "Checking available DB (mysql, mongodb, sqlite, pgsql)\n";
-            $this->assertTrue(extension_loaded('mysql') || extension_loaded('mongodb') || extension_loaded('sqlite') || extension_loaded('pgsql'));
+            $this->assertTrue(extension_loaded('pdo_mysql') || extension_loaded('mongodb') || extension_loaded('pdo_sqlite') || extension_loaded('pdo_pgsql'));
         }
 
         /**
