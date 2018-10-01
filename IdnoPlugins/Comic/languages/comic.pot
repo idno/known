@@ -1,24 +1,24 @@
-#: ./Pages/Delete.php:27
+#: ./Pages/Delete.php:29
 msgid "Delete "
 msgstr ""
 
-#: ./Pages/Delete.php:40
+#: ./Pages/Delete.php:43
 msgid "You don't have permission to perform this task."
 msgstr ""
 
-#: ./Pages/Delete.php:45
+#: ./Pages/Delete.php:48
 msgid "%s was deleted."
 msgstr ""
 
-#: ./Pages/Delete.php:47
+#: ./Pages/Delete.php:50
 msgid "We couldn't delete %s."
 msgstr ""
 
-#: ./Pages/Edit.php:32
+#: ./Pages/Edit.php:34
 msgid "Post a comic"
 msgstr ""
 
-#: ./Pages/Edit.php:34
+#: ./Pages/Edit.php:36
 msgid "Edit comic description"
 msgstr ""
 
@@ -48,5 +48,13 @@ msgstr ""
 
 #: ./templates/default/entity/Comic/edit.tpl.php:72
 msgid "Choose different comic"
+msgstr ""
+
+#: ./Comic.php:10
+msgid "Untitled"
+msgstr ""
+
+#: ./Comic.php:96
+msgid "You can\'t save an empty comic."
 msgstr ""
 

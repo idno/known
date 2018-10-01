@@ -1,24 +1,24 @@
-#: ./Pages/Delete.php:27
+#: ./Pages/Delete.php:29
 msgid "Delete %s"
 msgstr ""
 
-#: ./Pages/Delete.php:40
+#: ./Pages/Delete.php:43
 msgid "You don't have permission to perform this task."
 msgstr ""
 
-#: ./Pages/Delete.php:45
+#: ./Pages/Delete.php:48
 msgid "Your status update was deleted."
 msgstr ""
 
-#: ./Pages/Delete.php:47
+#: ./Pages/Delete.php:50
 msgid "We couldn't delete %s."
 msgstr ""
 
-#: ./Pages/Edit.php:35
+#: ./Pages/Edit.php:37
 msgid "What are you up to?"
 msgstr ""
 
-#: ./Pages/Edit.php:37
+#: ./Pages/Edit.php:39
 msgid "Edit status update"
 msgstr ""
 

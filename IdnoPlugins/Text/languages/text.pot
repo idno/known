@@ -1,24 +1,24 @@
-#: ./Pages/Delete.php:25
+#: ./Pages/Delete.php:27
 msgid "Delete %s"
 msgstr ""
 
-#: ./Pages/Delete.php:38
+#: ./Pages/Delete.php:41
 msgid "You don't have permission to perform this task."
 msgstr ""
 
-#: ./Pages/Delete.php:43
+#: ./Pages/Delete.php:46
 msgid "%s was deleted."
 msgstr ""
 
-#: ./Pages/Delete.php:45
+#: ./Pages/Delete.php:48
 msgid "We couldn't delete %s."
 msgstr ""
 
-#: ./Pages/Edit.php:40
+#: ./Pages/Edit.php:42
 msgid "Write an entry"
 msgstr ""
 
-#: ./Pages/Edit.php:42
+#: ./Pages/Edit.php:44
 msgid "Edit entry"
 msgstr ""
 
@@ -44,5 +44,9 @@ msgstr ""
 
 #: ./templates/default/entity/Entry/edit.tpl.php:76
 msgid "Publish"
+msgstr ""
+
+#: ./Entry.php:116
+msgid "You can\'t save an empty entry."
 msgstr ""
 

@@ -1,24 +1,24 @@
-#: ./Pages/Delete.php:27
+#: ./Pages/Delete.php:29
 msgid "Delete %s"
 msgstr ""
 
-#: ./Pages/Delete.php:40
+#: ./Pages/Delete.php:43
 msgid "You don't have permission to perform this task."
 msgstr ""
 
-#: ./Pages/Delete.php:45
+#: ./Pages/Delete.php:48
 msgid "Your media was deleted."
 msgstr ""
 
-#: ./Pages/Delete.php:47
+#: ./Pages/Delete.php:50
 msgid "We couldn't delete your media."
 msgstr ""
 
-#: ./Pages/Edit.php:32
+#: ./Pages/Edit.php:34
 msgid "Upload audio"
 msgstr ""
 
-#: ./Pages/Edit.php:34
+#: ./Pages/Edit.php:36
 msgid "Edit audio details"
 msgstr ""
 
@@ -60,5 +60,21 @@ msgstr ""
 
 #: ./templates/default/entity/Media.tpl.php:41
 msgid "Sorry, your browser does not support the video tag."
+msgstr ""
+
+#: ./Media.php:11
+msgid "Untitled"
+msgstr ""
+
+#: ./Media.php:131
+msgid "Media wasn\'t attached."
+msgstr ""
+
+#: ./Media.php:134
+msgid "This doesn\'t seem to be a media file .. %s"
+msgstr ""
+
+#: ./Media.php:137
+msgid "We couldn\'t access your media. Please try again."
 msgstr ""
 

@@ -113,7 +113,7 @@ namespace IdnoPlugins\Text {
                     return true;
                 }
             } else {
-                \Idno\Core\Idno::site()->session()->addErrorMessage('You can\'t save an empty entry.');
+                \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_('You can\'t save an empty entry.'));
             }
 
             return false;

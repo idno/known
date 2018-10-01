@@ -7,7 +7,7 @@ namespace IdnoPlugins\Checkin {
 
         function getTitle()
         {
-            return 'Checked into ' . $this->placename;
+            return \Idno\Core\Idno::site()->languages('Checked into %s', [$this->placename]);
         }
 
         function getDescription()
@@ -69,7 +69,7 @@ namespace IdnoPlugins\Checkin {
                 $this->lat       = $lat;
                 $this->long      = $long;
                 $this->placename = $placename;
-                $this->title     = 'Checked into ' . $placename;
+                $this->title     = \Idno\Core\Idno::site()->language()->_('Checked into %s', [$placename]);
                 $this->body      = $body;
                 $this->address   = $user_address;
                 $this->setAccess($access);
@@ -82,7 +82,7 @@ namespace IdnoPlugins\Checkin {
                     return true;
                 }
             } else {
-                \Idno\Core\Idno::site()->session()->addErrorMessage('You can\'t save an empty checkin.');
+                \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_('You can\'t save an empty checkin.'));
             }
 
             return false;

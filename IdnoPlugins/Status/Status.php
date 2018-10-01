@@ -30,7 +30,7 @@ namespace IdnoPlugins\Status {
         {
             $title = trim($this->getShortDescription(7));
             if (empty($title)) {
-                $title = 'Status update';
+                $title = \Idno\Core\Idno::site()->language('Status update');
             } else if ($title != trim($this->getShortDescription())) $title .= ' ...';
 
             return $title;
@@ -126,7 +126,7 @@ namespace IdnoPlugins\Status {
                     return true;
                 }
             } else {
-                \Idno\Core\Idno::site()->session()->addErrorMessage('You can\'t save an empty status update.');
+                \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language('You can\'t save an empty status update.'));
             }
 
             return false;
