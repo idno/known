@@ -119,7 +119,7 @@ foreach (['php', 'known', 'idno', 'build', 'extension', 'plugin'] as $field) {
                             <input type="hidden" name="plugin" value="<?php echo $shortname ?>"/>
                             <input type="hidden" name="container" value="plugin-<?php echo strtolower($shortname) ?>"/>
                             <input type="hidden" name="plugin_action" value="uninstall"/>
-                            <input class="btn btn-default plugin-button" type="submit" value="Disable"/>
+                            <input class="btn btn-primary plugin-button" type="submit" value="Disable"/>
                         </p>
                         <?php echo \Idno\Core\Idno::site()->actions()->signForm(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/plugins/') ?>
                     </form>
@@ -132,7 +132,7 @@ foreach (['php', 'known', 'idno', 'build', 'extension', 'plugin'] as $field) {
                             <input type="hidden" name="plugin" value="<?php echo $shortname ?>"/>
                             <input type="hidden" name="container" value="plugin-<?php echo strtolower($shortname) ?>"/>
                             <input type="hidden" name="plugin_action" value="install"/>
-                            <input class="btn btn-primary plugin-button" type="submit" value="Enable"/>
+                            <input class="btn btn-default plugin-button" type="submit" value="Enable"/>
                         </p>
                         <?php echo \Idno\Core\Idno::site()->actions()->signForm(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/plugins/') ?>
                     </form>
