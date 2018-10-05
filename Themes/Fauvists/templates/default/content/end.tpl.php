@@ -21,7 +21,7 @@ if (!empty($owner)) {
     ?>
         <div class="permalink">
             <p>
-                <a href="<?php echo $owner->getDisplayURL() ?>"><?php echo $owner->getTitle() ?></a>published this
+                <a href="<?php echo $owner->getDisplayURL() ?>"><?php echo $owner->getTitle() ?></a><?= \Idno\Core\Idno::site()->language()->_('published this'); ?>
                 <a class="u-url url" href="<?php echo $vars['object']->getDisplayURL() ?>" rel="permalink"><time class="dt-published"
                           datetime="<?php echo date('c', $vars['object']->created) ?>"><?php echo date('F j, Y', $vars['object']->created) ?></time></a>
             <?php
