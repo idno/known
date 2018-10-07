@@ -174,8 +174,9 @@ namespace IdnoPlugins\Checkin {
             return 'http://nominatim.openstreetmap.org/';
         }
 
-        public function jsonLDSerialise(array $params = array()): array {
-            
+        public function jsonLDSerialise(array $params = array()): array
+        {
+
             $json = [
                 "@context" => "http://schema.org",
                 "@type" => "CheckInAction",
@@ -194,7 +195,7 @@ namespace IdnoPlugins\Checkin {
                     ],
                 ],
             ];
-            
+
             return $json;
         }
 
