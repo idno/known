@@ -950,7 +950,8 @@ namespace Idno\Entities {
             return $data;
         }
 
-        public function jsonLDSerialise(array $params = array()): array {
+        public function jsonLDSerialise(array $params = array()): array
+        {
             $json = [
                 '@context' => 'http://schema.org',
                 '@type' => 'Person',
@@ -961,7 +962,7 @@ namespace Idno\Entities {
             if (!empty($this->profile['url'])) {
                 $json['sameAs'] = $this->profile['url'];
             }
-            
+
             return $json;
         }
 
