@@ -127,7 +127,8 @@ namespace IdnoPlugins\Text {
             }
         }
 
-        public function jsonLDSerialise(array $params = array()): array {
+        public function jsonLDSerialise(array $params = array()): array
+        {
             $json = [
                 "@context" => "http://schema.org",
                 "@type" => 'BlogPosting',
@@ -142,8 +143,7 @@ namespace IdnoPlugins\Text {
                 'url' => $this->getUrl(),
                 'image' => $this->getIcon()
             ];
-            
-            
+
             return $json;
         }
 
