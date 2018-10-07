@@ -13,6 +13,7 @@ namespace Idno\Entities {
     use Idno\Core\Email;
 
     class User extends \Idno\Common\Entity
+        implements \Idno\Common\JSONLDSerialisable
     {
 
         /**
@@ -949,6 +950,20 @@ namespace Idno\Entities {
             return $data;
         }
 
+        public function jsonLDSerialise(array $params = array()): array {
+            $json = [
+                '@context' => 'http://schema.org',
+                '@type' => 'Person',
+                'email' => $this->email,
+                'image' => $this->getIcon(),
+                'url' => $this->getURL(),
+            ];
+            if (!empty($this->profile['url'])) {
+                $json['sameAs'] = $this->profile['url'];
+            }
+            
+            return $json;
+        }
 
     }
 
