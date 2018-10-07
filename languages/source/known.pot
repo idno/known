@@ -1,4 +1,4 @@
-#: ./Idno/Caching/FilesystemCache.php:18
+#: ./Idno/Caching/FilesystemCache.php:20
 msgid "No domain specified for cache"
 msgstr ""
 
@@ -14,31 +14,31 @@ msgstr ""
 msgid "Something went wrong and we couldn't create the email message to send."
 msgstr ""
 
-#: ./Idno/Core/Time.php:85
+#: ./Idno/Core/Time.php:89
 msgid "hour"
 msgstr ""
 
-#: ./Idno/Core/Time.php:87
+#: ./Idno/Core/Time.php:91
 msgid "hours"
 msgstr ""
 
-#: ./Idno/Core/Time.php:93
+#: ./Idno/Core/Time.php:97
 msgid "minute"
 msgstr ""
 
-#: ./Idno/Core/Time.php:95
+#: ./Idno/Core/Time.php:99
 msgid "minutes"
 msgstr ""
 
-#: ./Idno/Core/Time.php:99
+#: ./Idno/Core/Time.php:103
 msgid "ahead"
 msgstr ""
 
-#: ./Idno/Core/Time.php:99
+#: ./Idno/Core/Time.php:103
 msgid "behind"
 msgstr ""
 
-#: ./Idno/Core/Webservice.php:401
+#: ./Idno/Core/Webservice.php:415
 msgid "Your version of PHP doesn't support CURLFile."
 msgstr ""
 
@@ -46,47 +46,55 @@ msgstr ""
 msgid "Token was generated using an a cryptographically weak algorithm, this probably means your version of OpenSSL is broken or very old."
 msgstr ""
 
-#: ./Idno/Core/Service.php:22
+#: ./Idno/Core/Service.php:24
 msgid "Missing X-Known-Service-Signature, service call is not possible."
 msgstr ""
 
-#: ./Idno/Core/Service.php:25
+#: ./Idno/Core/Service.php:27
 msgid "Sorry, signature doesn\'t match up."
 msgstr ""
 
-#: ./Idno/Core/Service.php:41
+#: ./Idno/Core/Service.php:44
 msgid "Missing site secret"
 msgstr ""
 
-#: ./Idno/Core/Service.php:46
+#: ./Idno/Core/Service.php:53
 msgid "Url not provided to token generation."
 msgstr ""
 
-#: ./Idno/Core/AsynchronousQueue.php:60
+#: ./Idno/Core/Service.php:86
+msgid "Response from service endpoint was not json"
+msgstr ""
+
+#: ./Idno/Core/Service.php:98
+msgid "No result from endpoint."
+msgstr ""
+
+#: ./Idno/Core/AsynchronousQueue.php:61
 msgid "No event passed"
 msgstr ""
 
-#: ./Idno/Core/AsynchronousQueue.php:63
+#: ./Idno/Core/AsynchronousQueue.php:64
 msgid "Event passed is not a queued event, and so can\'t be dispatched"
 msgstr ""
 
-#: ./Idno/Core/AsynchronousQueue.php:66
+#: ./Idno/Core/AsynchronousQueue.php:67
 msgid "Sorry, this event has already been dispatched (but not yet cleaned up)"
 msgstr ""
 
-#: ./Idno/Core/AsynchronousQueue.php:75
+#: ./Idno/Core/AsynchronousQueue.php:76
 msgid "Invalid user (%s) given for runAsContext, aborting"
 msgstr ""
 
-#: ./Idno/Stats/Timer.php:36
+#: ./Idno/Stats/Timer.php:39
 msgid "Timer %s has not been started."
 msgstr ""
 
-#: ./Idno/Pages/Search/User.php:21
+#: ./Idno/Pages/Search/User.php:23
 msgid "Invalid sort type %s"
 msgstr ""
 
-#: ./Idno/Pages/Search/User.php:25
+#: ./Idno/Pages/Search/User.php:27
 msgid "Invalid sort order %s"
 msgstr ""
 
@@ -118,31 +126,31 @@ msgstr ""
 msgid "The annotation was deleted."
 msgstr ""
 
-#: ./Idno/Pages/Service/Security/CSRFToken.php:14
+#: ./Idno/Pages/Service/Security/CSRFToken.php:16
 msgid "URL missing"
 msgstr ""
 
-#: ./Idno/Pages/Service/Web/ImageProxy.php:73
+#: ./Idno/Pages/Service/Web/ImageProxy.php:77
 msgid "There was a problem decoding the url"
 msgstr ""
 
-#: ./Idno/Pages/Service/Web/ImageProxy.php:77
+#: ./Idno/Pages/Service/Web/ImageProxy.php:81
 msgid "No url specified"
 msgstr ""
 
-#: ./Idno/Pages/Service/Web/ImageProxy.php:218
+#: ./Idno/Pages/Service/Web/ImageProxy.php:222
 msgid "Could not save temporary file"
 msgstr ""
 
-#: ./Idno/Pages/Service/Web/ImageProxy.php:249
+#: ./Idno/Pages/Service/Web/ImageProxy.php:253
 msgid "Looks like something went wrong, image was zero bytes big!"
 msgstr ""
 
-#: ./Idno/Pages/Service/Web/UrlUnfurl.php:18
+#: ./Idno/Pages/Service/Web/UrlUnfurl.php:20
 msgid "You need to specify a working URL"
 msgstr ""
 
-#: ./Idno/Pages/Service/Web/UrlUnfurl.php:66
+#: ./Idno/Pages/Service/Web/UrlUnfurl.php:69
 msgid "Url %s could not be unfurled"
 msgstr ""
 
@@ -350,7 +358,7 @@ msgstr ""
 msgid "There was a problem sending a test message to %s."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Logs.php:17
+#: ./Idno/Pages/Admin/Logs.php:19
 msgid "Log capture"
 msgstr ""
 
@@ -534,7 +542,7 @@ msgstr ""
 msgid "Your details were saved."
 msgstr ""
 
-#: ./Idno/Common/Entity.php:680
+#: ./Idno/Common/Entity.php:691
 msgid "There was a problem syndicating."
 msgstr ""
 
@@ -542,23 +550,23 @@ msgstr ""
 msgid "Plugin %s doesn\'t have a version"
 msgstr ""
 
-#: ./Idno/Common/Page.php:354
+#: ./Idno/Common/Page.php:356
 msgid "Invalid token."
 msgstr ""
 
-#: ./Idno/Common/Page.php:371
+#: ./Idno/Common/Page.php:373
 msgid "Something went wrong."
 msgstr ""
 
-#: ./Idno/Common/Page.php:428
+#: ./Idno/Common/Page.php:430
 msgid "Attempted to redirect page to a non local URL."
 msgstr ""
 
-#: ./Idno/Common/Page.php:518
+#: ./Idno/Common/Page.php:520
 msgid "The page you were on timed out."
 msgstr ""
 
-#: ./Idno/Common/Page.php:532
+#: ./Idno/Common/Page.php:534
 msgid "Couldn't say anything about execution, probably something went wrong"
 msgstr ""
 
@@ -566,19 +574,51 @@ msgstr ""
 msgid "GenericDataItem classes must have a datatype label set."
 msgstr ""
 
-#: ./Idno/Files/LocalFileSystem.php:87
+#: ./Idno/Files/FileSystem.php:53
+msgid "There is no error, the file uploaded with success"
+msgstr ""
+
+#: ./Idno/Files/FileSystem.php:54
+msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini"
+msgstr ""
+
+#: ./Idno/Files/FileSystem.php:55
+msgid "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form"
+msgstr ""
+
+#: ./Idno/Files/FileSystem.php:56
+msgid "The uploaded file was only partially uploaded"
+msgstr ""
+
+#: ./Idno/Files/FileSystem.php:57
+msgid "No file was uploaded"
+msgstr ""
+
+#: ./Idno/Files/FileSystem.php:58
+msgid "Missing a temporary folder"
+msgstr ""
+
+#: ./Idno/Files/FileSystem.php:59
+msgid "Failed to write file to disk."
+msgstr ""
+
+#: ./Idno/Files/FileSystem.php:60
+msgid "A PHP extension stopped the file upload."
+msgstr ""
+
+#: ./Idno/Files/LocalFileSystem.php:86
 msgid "There was a problem storing the file data."
 msgstr ""
 
-#: ./Idno/Files/LocalFileSystem.php:90
+#: ./Idno/Files/LocalFileSystem.php:89
 msgid "There was a problem saving the file's metadata"
 msgstr ""
 
-#: ./Idno/Files/LocalFileSystem.php:99
+#: ./Idno/Files/LocalFileSystem.php:98
 msgid "Something went wrong saving your file."
 msgstr ""
 
-#: ./Idno/Files/LocalFileSystem.php:101
+#: ./Idno/Files/LocalFileSystem.php:100
 msgid "Check that your upload directory is writeable by the web server and try again."
 msgstr ""
 
@@ -1111,11 +1151,11 @@ msgstr ""
 msgid "This page provides you with information that may help you or others diagnose any problems you may be experiencing with your Known install."
 msgstr ""
 
-#: ./templates/default/admin/diagnostics.tpl.php:42
+#: ./templates/default/admin/diagnostics.tpl.php:45
 msgid "Basic checks on installation discovered no problems."
 msgstr ""
 
-#: ./templates/default/admin/diagnostics.tpl.php:54
+#: ./templates/default/admin/diagnostics.tpl.php:57
 msgid "Generate detailed report"
 msgstr ""
 
@@ -2047,11 +2087,11 @@ msgstr ""
 msgid "Add the address of a site to follow"
 msgstr ""
 
-#: ./known.php:145
+#: ./known.php:146
 msgid "Returns the current Known version as defined in version.known"
 msgstr ""
 
-#: ./known.php:153
+#: ./known.php:154
 msgid "WARNING: Your build of Known is behind the latest version from Github (%s - %s). If you're having problems, you may want to try updating to the latest version.\nUpdate now: https://github.com/idno/Known\n"
 msgstr ""
 
