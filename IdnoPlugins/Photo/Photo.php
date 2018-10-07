@@ -177,7 +177,7 @@ namespace IdnoPlugins\Photo {
                     $errcode = null;
                     if (!empty($_file['error']))
                         $errcode = $_file['error'];
-                    
+
                     $errmsg = \Idno\Files\FileSystem::getUploadErrorCodeMessage($errcode);
                     if (!empty($errcode) && !empty($errmsg)) {
 
@@ -209,7 +209,8 @@ namespace IdnoPlugins\Photo {
 
         }
 
-        public function jsonLDSerialise(array $params = array()): array {
+        public function jsonLDSerialise(array $params = array()): array
+        {
             $json = [
                 "@context" => "http://schema.org",
                 "@type" => 'Photograph',
@@ -224,16 +225,16 @@ namespace IdnoPlugins\Photo {
                 'url' => $this->getUrl(),
                 'mainEntityOfPage' => $this->getUrl(),
             ];
-            
+
             $attachments = $this->getAttachments();
             $attachment = $attachments[0];
 
             $mainsrc = $attachment['url'];
             $mainsrc = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\Idno::site()->config()->getDisplayURL(), $mainsrc);
             $mainsrc = \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($mainsrc);
-            
+
             $json['image'] = $mainsrc;
-            
+
             return $json;
         }
 
