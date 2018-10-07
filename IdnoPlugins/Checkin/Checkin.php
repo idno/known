@@ -186,12 +186,12 @@ namespace IdnoPlugins\Checkin {
                 'location' => [
                     '@type' => 'Place',
                     'address' => $this->address,
-                    'name' => $this->placename
-                ],
-                "geo" => [
-                    "@type" => "GeoCoordinates",
-                    "latitude" => $this->lat,
-                    "longitude" => $this->long
+                    'name' => $this->placename,
+                    "geo" => [
+                        "@type" => "GeoCoordinates",
+                        "latitude" => $this->lat,
+                        "longitude" => $this->long
+                    ],
                 ],
             ];
             
