@@ -8,18 +8,6 @@ namespace IdnoPlugins\Photo {
         implements \Idno\Common\JSONLDSerialisable
     {
 
-        // http://php.net/manual/en/features.file-upload.errors.php
-        private static $FILE_UPLOAD_ERROR_CODES = array(
-                UPLOAD_ERR_OK         => 'There is no error, the file uploaded with success',
-                UPLOAD_ERR_INI_SIZE   => 'The uploaded file exceeds the upload_max_filesize directive in php.ini',
-                UPLOAD_ERR_FORM_SIZE  => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form',
-                UPLOAD_ERR_PARTIAL    => 'The uploaded file was only partially uploaded',
-                UPLOAD_ERR_NO_FILE    => 'No file was uploaded',
-                UPLOAD_ERR_NO_TMP_DIR => 'Missing a temporary folder',
-                UPLOAD_ERR_CANT_WRITE => 'Failed to write file to disk.',
-                UPLOAD_ERR_EXTENSION  => 'A PHP extension stopped the file upload.',
-            );
-
         function getTitle()
         {
             if (empty($this->title)) {
@@ -189,8 +177,8 @@ namespace IdnoPlugins\Photo {
                     $errcode = null;
                     if (!empty($_file['error']))
                         $errcode = $_file['error'];
-                    if (!empty($errcode) && !empty(self::$FILE_UPLOAD_ERROR_CODES[intval($errcode)])) {
-                        $errmsg = self::$FILE_UPLOAD_ERROR_CODES[intval($errcode)];
+                    if (!empty($errcode) && !empty(\Idno\Files\FileSystem::$FILE_UPLOAD_ERROR_CODES[intval($errcode)])) {
+                        $errmsg = \Idno\Files\FileSystem::$FILE_UPLOAD_ERROR_CODES[intval($errcode)];
 
                         // No file is ok, if this is not new
                         if (intval($errcode) == UPLOAD_ERR_NO_FILE && !$new) {
