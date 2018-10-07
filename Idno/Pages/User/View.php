@@ -31,6 +31,7 @@ namespace Idno\Pages\User {
 
             // Users own their own profiles
             $this->setOwner($user);
+            $this->setPermalink(); // This is a permalink
 
             $types  = ['IdnoPlugins\Status\Status', 'IdnoPlugins\Text\Entry'];
             $offset = (int)$this->getInput('offset');
