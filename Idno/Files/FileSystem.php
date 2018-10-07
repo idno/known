@@ -10,7 +10,7 @@ namespace Idno\Files {
 
     abstract class FileSystem
     {
-        
+
         /**
          * Find a file.
          * @param $_id
@@ -26,16 +26,17 @@ namespace Idno\Files {
          * @return id of file
          */
         abstract function storeFile($file_path, $metadata, $options);
-        
+
         /**
          * Get a translated error message for PHP Upload errors.
          * @param int $code
          * @see http://php.net/manual/en/features.file-upload.errors.php
          */
-        public static function getUploadErrorCodeMessage($code) {
-            
+        public static function getUploadErrorCodeMessage($code)
+        {
+
             $code = intval($code);
-            
+
             $array = [
                 UPLOAD_ERR_OK         => 'There is no error, the file uploaded with success',
                 UPLOAD_ERR_INI_SIZE   => 'The uploaded file exceeds the upload_max_filesize directive in php.ini',
@@ -46,7 +47,7 @@ namespace Idno\Files {
                 UPLOAD_ERR_CANT_WRITE => 'Failed to write file to disk.',
                 UPLOAD_ERR_EXTENSION  => 'A PHP extension stopped the file upload.',
             ];
-            
+
             $language = \Idno\Core\Idno::site()->language();
             if (!empty($language)) {
                 $array = [
@@ -60,8 +61,8 @@ namespace Idno\Files {
                     UPLOAD_ERR_EXTENSION  => $language->_('A PHP extension stopped the file upload.'),
                 ];
             }
-            
-            return $array[$code];            
+
+            return $array[$code];
         }
 
     }
