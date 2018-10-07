@@ -34,6 +34,8 @@ namespace Idno\Files {
          */
         public static function getUploadErrorCodeMessage($code) {
             
+            $code = intval($code);
+            
             $language = \Idno\Core\Idno::site()->language();
             if (!empty($language)) {
                 return [
