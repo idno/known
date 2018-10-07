@@ -131,22 +131,22 @@ namespace IdnoPlugins\Media {
                             \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_('Media wasn\'t attached.'));
                         }
                     } else {
-                        \Idno\Core\Idno::site()->session()->addErrorMessage( \Idno\Core\Idno::site()->language()->_('This doesn\'t seem to be a media file .. %s', [$_FILES['media']['type']]));
+                        \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_('This doesn\'t seem to be a media file .. %s', [$_FILES['media']['type']]));
                     }
                 } else {
-                    \Idno\Core\Idno::site()->session()->addErrorMessage( \Idno\Core\Idno::site()->language()->_('We couldn\'t access your media. Please try again.'));
+                    \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_('We couldn\'t access your media. Please try again.'));
 
                     return false;
                 }
             } else if ($new) {
-                
+
                 $errcode = null;
                 if (!empty($_FILES['media']['error']))
                     $errcode = $_FILES['media']['error'];
-                
+
                 $errmsg = \Idno\Files\FileSystem::getUploadErrorCodeMessage($errcode);
                 if (!empty($errcode) && !empty($errmsg)) {
-                    
+
                     // No file is ok, if this is not new
                     if (intval($errcode) == UPLOAD_ERR_NO_FILE && !$new) {
                         $errmsg = null;
@@ -185,44 +185,45 @@ namespace IdnoPlugins\Media {
 
         }
 
-        public function jsonLDSerialise(array $params = array()): array {
-            
+        public function jsonLDSerialise(array $params = array()): array
+        {
+
             $json = [
                 "@context" => "http://schema.org/",
-                
+
                 "name" => $this->getTitle(),
                 "@id" => $this->getUUID(),
                 "datePublished" => date('c', $this->getCreatedTime()),
                 "description" => $this->body,
-                
-//                "thumbnailURL" => "http://placehold.it/350x150",
-//                "thumbnail" => "http://placehold.it/350x150",
-                
+
+            //                "thumbnailURL" => "http://placehold.it/350x150",
+            //                "thumbnail" => "http://placehold.it/350x150",
+
                 "uploadDate" => date('c', $this->getCreatedTime()),
                 'author' => [
                     "@type" => "Person",
                     "name" => $this->getOwner()->getName()
                 ],
                 'encodingFormat' => $this->media_type,
-                
+
             ];
-            
+
             if ($attachments = $this->getAttachments()) {
                 $attachment = $attachments[0];
 
                 $mainsrc = $attachment['url'];
                 $mainsrc = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\Idno::site()->config()->getDisplayURL(), $mainsrc);
                 $mainsrc = \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($mainsrc);
-                
+
                 $json['contentUrl'] = $mainsrc;
             }
-            
+
             if (substr($vars['object']->media_type, 0, 5) == 'video') {
                 $json['@type'] = 'VideoObject';
             } else {
                 $json['@type'] = 'AudioObject';
             }
-            
+
             return $json;
         }
 
