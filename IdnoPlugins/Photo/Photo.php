@@ -173,12 +173,13 @@ namespace IdnoPlugins\Photo {
                     }
 
                 } else {
-                    // http://php.net/manual/en/features.file-upload.errors.php
+
                     $errcode = null;
                     if (!empty($_file['error']))
                         $errcode = $_file['error'];
-                    if (!empty($errcode) && !empty(\Idno\Files\FileSystem::$FILE_UPLOAD_ERROR_CODES[intval($errcode)])) {
-                        $errmsg = \Idno\Files\FileSystem::$FILE_UPLOAD_ERROR_CODES[intval($errcode)];
+                    
+                    $errmsg = \Idno\Files\FileSystem::getUploadErrorCodeMessage($errcode);
+                    if (!empty($errcode) && !empty($errmsg)) {
 
                         // No file is ok, if this is not new
                         if (intval($errcode) == UPLOAD_ERR_NO_FILE && !$new) {
