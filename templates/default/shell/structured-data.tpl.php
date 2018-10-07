@@ -31,7 +31,16 @@ if (!empty($pageOwner)) {
 }
 
 // We're a permalink, so use specific permalink info
-if ($currentPage->isPermalink()) {
+if ($currentPage->isPermalink()) { 
+    if (!empty($vars['user']) && $vars['user'] instanceof Idno\Entities\User) {
+    
+        $object = $vars['user'];
+        if (is_callable([$object, 'jsonLDSerialise'])) {
+        
+            $jsonld = $object->jsonLDSerialise();
+            
+        }
+    } 
     if (!empty($vars['object'])) {
     
         $object = $vars['object'];
@@ -40,8 +49,10 @@ if ($currentPage->isPermalink()) {
             $jsonld = $object->jsonLDSerialise();
             
         }
-    }
-}
+    } 
+    
+    
+} 
 
 if (!empty($jsonld)) {
     ?>
