@@ -138,6 +138,24 @@ namespace IdnoPlugins\Media {
 
                     return false;
                 }
+            } else if ($new) {
+                $errcode = null;
+                if (!empty($_FILES['media']['error']))
+                    $errcode = $_FILES['media']['error'];
+                if (!empty($errcode) && !empty(\Idno\Files\FileSystem::$FILE_UPLOAD_ERROR_CODES[intval($errcode)])) {
+                    $errmsg = \Idno\Files\FileSystem::$FILE_UPLOAD_ERROR_CODES[intval($errcode)];
+
+                    // No file is ok, if this is not new
+                    if (intval($errcode) == UPLOAD_ERR_NO_FILE && !$new) {
+                        $errmsg = null;
+                    }
+                } else {
+                    $errmsg = \Idno\Core\Idno::site()->language()->_('We couldn\'t access your media for an unknown reason. Please try again.');
+                }
+                if (!empty($errmsg)) {
+                    \Idno\Core\Idno::site()->session()->addErrorMessage($errmsg);
+                    return false;
+                }
             }
 
             // If a media file wasn't attached, don't save the file.
