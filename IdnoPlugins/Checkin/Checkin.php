@@ -170,7 +170,7 @@ namespace IdnoPlugins\Checkin {
                 }
             }
 
-            return 'http://nominatim.openstreetmap.org/';
+            return 'https://nominatim.openstreetmap.org/';
         }
 
     }
