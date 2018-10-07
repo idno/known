@@ -5,7 +5,8 @@ namespace Idno\Common;
 /**
  * JSON+LD Serialisable interface
  */
-interface JSONLDSerialisable {
+interface JSONLDSerialisable
+{
 
     /**
      * Serialise a object to a Structured Data schema.
