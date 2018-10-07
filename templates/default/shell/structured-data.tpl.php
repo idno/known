@@ -9,8 +9,28 @@ if (!empty($vars['object'])) {
     $objectIcon = false;
 }
 
-$jsonld = null;
+// Default to a webpage (https://jsonld.com/web-page/)
+$jsonld = [
+    "@context" => "http://schema.org", 
+    "@type" => "WebSite", 
+    "url" => $currentPage->currentUrl(), 
+    "name" => $vars['title'],
+    "description" => $vars['description'],
+    "publisher" => \Idno\Core\Idno::site()->config()->title,
+    "potentialAction" => [ 
+        "@type" => "SearchAction", 
+        "target" => \Idno\Core\Idno::site()->config()->getDisplayURL() . "content/all/?q={search_term}", 
+        "query-input" => "required name=search_term"  
+    ]
+];
+if (!empty($pageOwner)) {
+    $jsonld['author'] = [
+      "@type" => "Person",
+      "name" => $pageOwner->getName()
+    ];
+}
 
+// We're a permalink, so use specific permalink info
 if ($currentPage->isPermalink()) {
     if (!empty($vars['object'])) {
     
@@ -25,9 +45,10 @@ if ($currentPage->isPermalink()) {
 
 if (!empty($jsonld)) {
     ?>
+
 <!-- JSON+LD Structured Data -->
 <script type="application/ld+json">
-    <?= json_encode($jsonld, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES); ?>
+<?= json_encode($jsonld, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES); ?>
 </script>
 <?php
 }
