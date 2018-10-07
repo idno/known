@@ -2,7 +2,7 @@
 
 namespace IdnoPlugins\Media {
 
-    class Media extends \Idno\Common\Entity
+    class Media extends \Idno\Common\Entity implements \Idno\Common\JSONLDSerialisable
     {
 
         function getTitle()
@@ -163,6 +163,47 @@ namespace IdnoPlugins\Media {
                 return false;
             }
 
+        }
+
+        public function jsonLDSerialise(array $params = array()): array {
+            
+            $json = [
+                "@context" => "http://schema.org/",
+                
+                "name" => $this->getTitle(),
+                "@id" => $this->getUUID(),
+                "datePublished" => date('c', $this->getCreatedTime()),
+                "description" => $this->body,
+                
+//                "thumbnailURL" => "http://placehold.it/350x150",
+//                "thumbnail" => "http://placehold.it/350x150",
+                
+                "uploadDate" => date('c', $this->getCreatedTime()),
+                'author' => [
+                    "@type" => "Person",
+                    "name" => $this->getOwner()->getName()
+                ],
+                'encodingFormat' => $this->media_type,
+                
+            ];
+            
+            if ($attachments = $this->getAttachments()) {
+                $attachment = $attachments[0];
+
+                $mainsrc = $attachment['url'];
+                $mainsrc = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\Idno::site()->config()->getDisplayURL(), $mainsrc);
+                $mainsrc = \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($mainsrc);
+                
+                $json['contentUrl'] = $mainsrc;
+            }
+            
+            if (substr($vars['object']->media_type, 0, 5) == 'video') {
+                $json['@type'] = 'VideoObject';
+            } else {
+                $json['@type'] = 'AudioObject';
+            }
+            
+            return $json;
         }
 
     }
