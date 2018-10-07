@@ -5,6 +5,7 @@ namespace IdnoPlugins\Photo {
     use Idno\Entities\File;
 
     class Photo extends \Idno\Common\Entity
+        implements \Idno\Common\JSONLDSerialisable
     {
 
         // http://php.net/manual/en/features.file-upload.errors.php
@@ -217,6 +218,34 @@ namespace IdnoPlugins\Photo {
                 return false;
             }
 
+        }
+
+        public function jsonLDSerialise(array $params = array()): array {
+            $json = [
+                "@context" => "http://schema.org",
+                "@type" => 'Photograph',
+                'dateCreated' => date('c', $this->getCreatedTime()),
+                'datePublished' => date('c', $this->getCreatedTime()),
+                'author' => [
+                    "@type" => "Person",
+                    "name" => $this->getOwner()->getName()
+                ],
+                'name' => $this->getTitle(),
+                'description' => $this->body,
+                'url' => $this->getUrl(),
+                'mainEntityOfPage' => $this->getUrl(),
+            ];
+            
+            $attachments = $this->getAttachments();
+            $attachment = $attachments[0];
+
+            $mainsrc = $attachment['url'];
+            $mainsrc = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\Idno::site()->config()->getDisplayURL(), $mainsrc);
+            $mainsrc = \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($mainsrc);
+            
+            $json['image'] = $mainsrc;
+            
+            return $json;
         }
 
     }
