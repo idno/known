@@ -4,7 +4,7 @@
     $url = \Idno\Core\Idno::site()->session()->currentUser()->getDisplayURL();
 
     $facebookurl = "https://www.facebook.com/sharer/sharer.php?u=".urlencode(\Idno\Core\Idno::site()->config()->getDisplayURL());
-    $twitterurl = "https://twitter.com/intent/tweet?text=".urlencode("Check out my new @withknown site!")."&url=".urlencode(\Idno\Core\Idno::site()->config()->getDisplayURL())."&source=webclient";
+    $twitterurl = "https://twitter.com/intent/tweet?text=".urlencode(\Idno\Core\Idno::site()->language()->_("Check out my new @withknown site!"))."&url=".urlencode(\Idno\Core\Idno::site()->config()->getDisplayURL())."&source=webclient";
 
 switch (\Idno\Core\Idno::site()->session()->currentUser()->robot_state) {
 
