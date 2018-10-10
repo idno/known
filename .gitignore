@@ -10,6 +10,7 @@ node_modules
 
 *.iml
 *.bak
+test.php
 
 /nbproject/private/nbproject/project.xml
 /nbproject/project.properties
