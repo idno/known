@@ -9,4 +9,4 @@ Get started with *<?php echo \Idno\Core\Idno::site()->config()->title?>* by sett
 
 Sign up now: <?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>account/register/?email=<?php echo urlencode($vars['email'])?>&code=<?php echo urlencode($vars['code'])?>
 
-If you have any questions at all, please don't hesitate to contact us by sending an email to <?php echo \Idno\Core\Idno::site()->config()->from_email
+If you have any questions at all, please don't hesitate to contact us by sending an email to <?php echo \Idno\Core\Idno::site()->config()->from_email;
