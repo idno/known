@@ -16,7 +16,7 @@
                     <p>
                         <?php
 
-                            echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'robot/remove', "Power down robots. I can take it from here.");
+                            echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'robot/remove', \Idno\Core\Idno::site()->language()->_("Power down robots. I can take it from here."));
 
                         ?>
                     </p>
