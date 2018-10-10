@@ -19,7 +19,7 @@ if ($like_annotations = $vars['object']->getAnnotations('like')) {
 ?>
 <div class="permalink">
     <p>
-        <a href="<?php echo $owner->getDisplayURL()?>"><?php echo $owner->getTitle()?></a>published this
+        <a href="<?php echo $owner->getDisplayURL()?>"><?php echo $owner->getTitle()?></a><?= \Idno\Core\Idno::site()->language()->_('published this'); ?>
         <a class="u-url url" href="<?php echo $vars['object']->getDisplayURL() ?>" rel="permalink"><time class="dt-published"
                   datetime="<?php echo date('c', $vars['object']->created) ?>"><?php echo date('F j, Y', $vars['object']->created) ?></time></a>
         <?php
@@ -69,9 +69,9 @@ if ($like_annotations = $vars['object']->getAnnotations('like')) {
 
             //echo $replies;
             if ($replies == 1) {
-                echo '1 comment';
+                echo \Idno\Core\Idno::site()->language()->_('1 comment');
             } else {
-                echo $replies . ' comments';
+                echo \Idno\Core\Idno::site()->language()->_('%d comments', [$replies]);
             }
 
             ?></a></span>

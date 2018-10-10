@@ -5,7 +5,7 @@
                 <h1>Cherwell Theme Options</h1>
         <div class="explanation">
             <p>
-                Update your background image and other display settings.
+                <?= \Idno\Core\Idno::site()->language()->_('Update your background image and other display settings.'); ?>
             </p>
         </div>
     </div>
@@ -19,7 +19,7 @@
 
         <div class="col-md-6 col-md-offset-1">
             <p>
-                Change your background image:
+                <?= \Idno\Core\Idno::site()->language()->_('Change your background image:'); ?>
             </p>
         </div>
         <div class="col-md-6 col-md-offset-1">
@@ -69,7 +69,7 @@
 
                 ?>
                     <p>
-                        Choose whose profile is displayed on the homepage:
+                        <?= \Idno\Core\Idno::site()->language()->_('Choose whose profile is displayed on the homepage:'); ?>
                     </p>
                     <select name="profile_user">
                     <?php
@@ -110,7 +110,7 @@
             var reader = new FileReader();
 
             reader.onload = function (e) {
-                $('#photo-filename').html('Choose a different photo');
+                $('#photo-filename').html('<?= \Idno\Core\Idno::site()->language()->_('Choose a different photo'); ?>');
                 $('#photopreview').attr('src', e.target.result);
                 $('#photopreview').show();
             }

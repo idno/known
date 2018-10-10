@@ -51,10 +51,8 @@
                         } else if ($vars['user']->getUUID() == \Idno\Core\Idno::site()->session()->currentUserUUID()) {
                             ?>
                                     <p class="highlightedText">
-                                        A profile helps you describe yourself to other people on the site
-                                        and on the web. You haven't described yourself yet.
-                                        <a href="<?php echo $vars['user']->getDisplayURL() ?>/edit/">Click here to fill in your
-                                            profile information.</a>
+                                        <?= \Idno\Core\Idno::site()->language()->_('A profile helps you describe yourself to other people on the site and on the web. You haven\'t described yourself yet.'); ?>
+                                        <a href="<?php echo $vars['user']->getDisplayURL() ?>/edit/"><?= \Idno\Core\Idno::site()->language()->_('Click here to fill in your profile information.'); ?></a>
                                     </p>
                                 <?php
                         }

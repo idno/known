@@ -48,9 +48,9 @@ if ($like_annotations = $vars['object']->getAnnotations('like')) {
         $heart_only = '<i class="fas fa-star"></i>';
     }
     if ($likes == 1) {
-        $heart_text = '1 star';
+        $heart_text = \Idno\Core\Idno::site()->language()->_('1 star');
     } else {
-        $heart_text = $likes . ' stars';
+        $heart_text = \Idno\Core\Idno::site()->language()->_('%d stars', [$likes]);
     }
         $heart = $heart_only . ' ' . $heart_text;
     if (\Idno\Core\Idno::site()->session()->isLoggedOn()) {

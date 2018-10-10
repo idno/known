@@ -46,6 +46,16 @@ namespace Themes\Cherwell {
             }
 
         }
+        
+        function registerTranslations()
+        {
+
+            \Idno\Core\Idno::site()->language()->register(
+                new \Idno\Core\GetTextTranslation(
+                    'cherwell', dirname(__FILE__) . '/languages/'
+                )
+            );
+        }
 
     }
 
