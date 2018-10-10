@@ -171,7 +171,7 @@ namespace IdnoPlugins\Checkin {
                 }
             }
 
-            return 'http://nominatim.openstreetmap.org/';
+            return 'https://nominatim.openstreetmap.org/';
         }
 
         public function jsonLDSerialise(array $params = array()): array
