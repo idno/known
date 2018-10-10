@@ -15,6 +15,7 @@
     echo $template->draw('shell/favicon');
     echo $template->draw('shell/webapp');
     echo $template->draw('shell/opengraph');
+    echo $template->draw('shell/structured-data');
     echo $template->draw('shell/dublincore');
     echo $template->draw('shell/amp');
     echo $template->draw('shell/bootstrap');

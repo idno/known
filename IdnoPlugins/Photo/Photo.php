@@ -5,19 +5,8 @@ namespace IdnoPlugins\Photo {
     use Idno\Entities\File;
 
     class Photo extends \Idno\Common\Entity
+        implements \Idno\Common\JSONLDSerialisable
     {
-
-        // http://php.net/manual/en/features.file-upload.errors.php
-        private static $FILE_UPLOAD_ERROR_CODES = array(
-                UPLOAD_ERR_OK         => 'There is no error, the file uploaded with success',
-                UPLOAD_ERR_INI_SIZE   => 'The uploaded file exceeds the upload_max_filesize directive in php.ini',
-                UPLOAD_ERR_FORM_SIZE  => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form',
-                UPLOAD_ERR_PARTIAL    => 'The uploaded file was only partially uploaded',
-                UPLOAD_ERR_NO_FILE    => 'No file was uploaded',
-                UPLOAD_ERR_NO_TMP_DIR => 'Missing a temporary folder',
-                UPLOAD_ERR_CANT_WRITE => 'Failed to write file to disk.',
-                UPLOAD_ERR_EXTENSION  => 'A PHP extension stopped the file upload.',
-            );
 
         function getTitle()
         {
@@ -184,12 +173,13 @@ namespace IdnoPlugins\Photo {
                     }
 
                 } else {
-                    // http://php.net/manual/en/features.file-upload.errors.php
+
                     $errcode = null;
                     if (!empty($_file['error']))
                         $errcode = $_file['error'];
-                    if (!empty($errcode) && !empty(self::$FILE_UPLOAD_ERROR_CODES[intval($errcode)])) {
-                        $errmsg = self::$FILE_UPLOAD_ERROR_CODES[intval($errcode)];
+
+                    $errmsg = \Idno\Files\FileSystem::getUploadErrorCodeMessage($errcode);
+                    if (!empty($errcode) && !empty($errmsg)) {
 
                         // No file is ok, if this is not new
                         if (intval($errcode) == UPLOAD_ERR_NO_FILE && !$new) {
@@ -217,6 +207,35 @@ namespace IdnoPlugins\Photo {
                 return false;
             }
 
+        }
+
+        public function jsonLDSerialise(array $params = array()): array
+        {
+            $json = [
+                "@context" => "http://schema.org",
+                "@type" => 'Photograph',
+                'dateCreated' => date('c', $this->getCreatedTime()),
+                'datePublished' => date('c', $this->getCreatedTime()),
+                'author' => [
+                    "@type" => "Person",
+                    "name" => $this->getOwner()->getName()
+                ],
+                'name' => $this->getTitle(),
+                'description' => $this->body,
+                'url' => $this->getUrl(),
+                'mainEntityOfPage' => $this->getUrl(),
+            ];
+
+            $attachments = $this->getAttachments();
+            $attachment = $attachments[0];
+
+            $mainsrc = $attachment['url'];
+            $mainsrc = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\Idno::site()->config()->getDisplayURL(), $mainsrc);
+            $mainsrc = \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($mainsrc);
+
+            $json['image'] = $mainsrc;
+
+            return $json;
         }
 
     }

@@ -503,12 +503,13 @@ namespace Idno\Common {
 
             return get_class($this) . ' ' . $this->_id;
         }
-        
+
         /**
          * Return the created timestamp of the entity.
          * @return unix timestamp
          */
-        function getCreatedTime() {
+        function getCreatedTime()
+        {
             return $this->created;
         }
 

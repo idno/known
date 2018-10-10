@@ -4,7 +4,7 @@ namespace IdnoPlugins\Text {
 
     use Idno\Core\Autosave;
 
-    class Entry extends \Idno\Common\Entity
+    class Entry extends \Idno\Common\Entity implements \Idno\Common\JSONLDSerialisable
     {
 
         function getTitle()
@@ -125,6 +125,26 @@ namespace IdnoPlugins\Text {
             if ($this->getAccess() == 'PUBLIC') {
                 \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getTitle() . ' ' . $this->getDescription()));
             }
+        }
+
+        public function jsonLDSerialise(array $params = array()): array
+        {
+            $json = [
+                "@context" => "http://schema.org",
+                "@type" => 'BlogPosting',
+                'dateCreated' => date('c', $this->getCreatedTime()),
+                'datePublished' => date('c', $this->getCreatedTime()),
+                'author' => [
+                    "@type" => "Person",
+                    "name" => $this->getOwner()->getName()
+                ],
+                'headline' => $this->getTitle(),
+                'description' => $this->body,
+                'url' => $this->getUrl(),
+                'image' => $this->getIcon()
+            ];
+
+            return $json;
         }
 
     }

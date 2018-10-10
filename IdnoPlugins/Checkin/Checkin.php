@@ -3,6 +3,7 @@
 namespace IdnoPlugins\Checkin {
 
     class Checkin extends \Idno\Common\Entity
+        implements \Idno\Common\JSONLDSerialisable
     {
 
         function getTitle()
@@ -171,6 +172,31 @@ namespace IdnoPlugins\Checkin {
             }
 
             return 'http://nominatim.openstreetmap.org/';
+        }
+
+        public function jsonLDSerialise(array $params = array()): array
+        {
+
+            $json = [
+                "@context" => "http://schema.org",
+                "@type" => "CheckInAction",
+                'agent' => [
+                    "@type" => "Person",
+                    "name" => $this->getOwner()->getName()
+                ],
+                'location' => [
+                    '@type' => 'Place',
+                    'address' => $this->address,
+                    'name' => $this->placename,
+                    "geo" => [
+                        "@type" => "GeoCoordinates",
+                        "latitude" => $this->lat,
+                        "longitude" => $this->long
+                    ],
+                ],
+            ];
+
+            return $json;
         }
 
     }
