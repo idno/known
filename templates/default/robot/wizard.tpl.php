@@ -9,43 +9,71 @@
 switch (\Idno\Core\Idno::site()->session()->currentUser()->robot_state) {
 
     case '1':
-        echo $this->__(array(
-            'body' =>
-                "Welcome to your new Known site! " .
-                "I'm Aleph, your very own welcome robot. Let's get started by <a href=\"#\" onclick=\"event.preventDefault(); contentCreateForm('status', '".\Idno\Core\Idno::site()->config()->getDisplayURL()."status/edit/'); return false;\">adding your first status update</a>! "
-
-                //"about what you did today. Just select the icon above."
-        ))->draw('robot/post');
+        echo $this->__([
+            'body' => str_replace('{{baseurl}}', \Idno\Core\Idno::site()->config()->getDisplayURL(), \Idno\Core\Idno::site()->language()->_("Welcome to your new Known site! I'm Aleph, your very own welcome robot. Let's get started by <a href=\"#\" onclick=\"event.preventDefault(); contentCreateForm('status', '{{baseurl}}status/edit/'); return false;\">adding your first status update</a>!"))
+        ])->draw('robot/post');
         break;
     case '2a':
-        echo $this->__(array(
-            'body' => "Beep! That was a great update. Why not <a href=\"{$facebookurl}\" target=\"blank\" onclick=\"window.open('{$facebookurl}', 'newwindow', 'width=600, height=350'); return false;\">share your new website on Facebook</a> and <a href=\"{$twitterurl}\">Twitter</a> so your friends know about it?</a>\n\nI bet you've got some great photos. <a href=\"#\" onclick=\"event.preventDefault(); contentCreateForm('photo', '".\Idno\Core\Idno::site()->config()->getDisplayURL()."photo/edit/'); return false;\">Try posting one</a>!"
-        ))->draw('robot/post');
+        echo $this->__([
+            'body' => str_replace([
+                '{{baseurl}}',
+                '{{facebookurl}}',
+                '{{twitterurl}}'
+            ], [
+                \Idno\Core\Idno::site()->config()->getDisplayURL(),
+                $facebookurl,
+                $twitterurl
+            ], \Idno\Core\Idno::site()->language()->_("Beep! That was a great update. Why not <a href=\"{{facebookurl}}\" target=\"blank\" onclick=\"window.open('{{facebookurl}}', 'newwindow', 'width=600, height=350'); return false;\">share your new website on Facebook</a> and <a href=\"{{twitterurl}}\">Twitter</a> so your friends know about it?</a>\n\nI bet you've got some great photos. <a href=\"#\" onclick=\"event.preventDefault(); contentCreateForm('photo', '{{baseurl}}photo/edit/'); return false;\">Try posting one</a>!"))
+        ])->draw('robot/post');
         break;
     case '2b':
-        echo $this->__(array(
-            'body' => "Zeep! That was a great update. Why not <a href=\"{$facebookurl}\" target=\"blank\" onclick=\"window.open('{$facebookurl}', 'newwindow', 'width=600, height=350'); return false;\">share your new website on Facebook</a> and <a href=\"{$twitterurl}\">Twitter</a> so your friends know about it?</a>\n\nI bet you've got some great photos. <a href=\"#\" onclick=\"event.preventDefault(); contentCreateForm('photo', '".\Idno\Core\Idno::site()->config()->getDisplayURL()."photo/edit/'); return false;\">Try posting one</a>!"
-        ))->draw('robot/post');
+        echo $this->__([
+            'body' => str_replace([
+                '{{baseurl}}',
+                '{{facebookurl}}',
+                '{{twitterurl}}'
+            ], [
+                \Idno\Core\Idno::site()->config()->getDisplayURL(),
+                $facebookurl,
+                $twitterurl
+            ], \Idno\Core\Idno::site()->language()->_("Zeep! That was a great update. Why not <a href=\"{{facebookurl}}\" target=\"blank\" onclick=\"window.open('{{facebookurl}}', 'newwindow', 'width=600, height=350'); return false;\">share your new website on Facebook</a> and <a href=\"{{twitterurl}}\">Twitter</a> so your friends know about it?</a>\n\nI bet you've got some great photos. <a href=\"#\" onclick=\"event.preventDefault(); contentCreateForm('photo', '{{baseurl}}photo/edit/'); return false;\">Try posting one</a>!"))
+        ])->draw('robot/post');
         break;
     case '2c':
-        echo $this->__(array(
-            'body' => "Beep boop! That was a great update. Why not <a href=\"{$facebookurl}\" target=\"blank\" onclick=\"window.open('{$facebookurl}', 'newwindow', 'width=600, height=350'); return false;\">share your new website on Facebook</a> and <a href=\"{$twitterurl}\">Twitter</a> so your friends know about it?</a>\n\nI bet you've got some great photos. <a href=\"#\" onclick=\"event.preventDefault(); contentCreateForm('photo', '".\Idno\Core\Idno::site()->config()->getDisplayURL()."photo/edit/'); return false;\">Try posting one</a>!"
-        ))->draw('robot/post');
+        echo $this->__([
+            'body' => str_replace([
+                '{{baseurl}}',
+                '{{facebookurl}}',
+                '{{twitterurl}}'
+            ], [
+                \Idno\Core\Idno::site()->config()->getDisplayURL(),
+                $facebookurl,
+                $twitterurl
+            ], \Idno\Core\Idno::site()->language()->_("Beep boop! That was a great update. Why not <a href=\"{{facebookurl}}\" target=\"blank\" onclick=\"window.open('{{facebookurl}}', 'newwindow', 'width=600, height=350'); return false;\">share your new website on Facebook</a> and <a href=\"{{twitterurl}}\">Twitter</a> so your friends know about it?</a>\n\nI bet you've got some great photos. <a href=\"#\" onclick=\"event.preventDefault(); contentCreateForm('photo', '{{baseurl}}photo/edit/'); return false;\">Try posting one</a>!"))
+        ])->draw('robot/post');
         break;
     case "3a":
-        echo $this->__(array(
-            'body' => "Beepity boop! That was a great picture. Did you see that you can also <a href=\"".\Idno\Core\Idno::site()->session()->currentUser()->getDisplayURL()."/edit\">update your profile</a>?"
-        ))->draw('robot/post');
+        echo $this->__([
+            'body' => str_replace('{{userurl}}', \Idno\Core\Idno::site()->session()->currentUser()->getDisplayURL(), \Idno\Core\Idno::site()->language()->_("Beepity boop! That was a great picture. Did you see that you can also <a href=\"{{userurl}}/edit\">update your profile</a>?"))
+        ])->draw('robot/post');
         break;
     case "3b":
-        echo $this->__(array(
-            'body' => "Boopity beep! Did you see that you can also <a href=\"".\Idno\Core\Idno::site()->session()->currentUser()->getDisplayURL()."/edit\">update your profile</a>?"
-        ))->draw('robot/post');
+        echo $this->__([
+            'body' => str_replace('{{userurl}}', \Idno\Core\Idno::site()->session()->currentUser()->getDisplayURL(), \Idno\Core\Idno::site()->language()->_("Boopity beep! Did you see that you can also <a href=\"{{userurl}}/edit\">update your profile</a>?"))
+        ])->draw('robot/post');
         break;
     case '4':
-        echo $this->__(array(
-            'body' => "01011001 01101111 00100000 01111001 01101111 00100000 01111001 01101111 \n\nThat's how you say hello where I come from. I wanted to remind you that you can also <a href=\"".\Idno\Core\Idno::site()->config()->getDisplayURL()."admin/themes/\">change the theme of your site</a>. If you ever have feedback, you can <a href=\"".\Idno\Core\Idno::site()->config()->getDisplayURL()."account/settings/feedback/\">send a message to my human creators</a>."
-        ))->draw('robot/post');
+        echo $this->__([
+            'body' => str_replace([
+                '{{baseurl}}',
+                '{{facebookurl}}',
+                '{{twitterurl}}'
+            ], [
+                \Idno\Core\Idno::site()->config()->getDisplayURL(),
+                $facebookurl,
+                $twitterurl
+            ], \Idno\Core\Idno::site()->language()->_("01011001 01101111 00100000 01111001 01101111 00100000 01111001 01101111 \n\nThat's how you say hello where I come from. I wanted to remind you that you can also <a href=\"{{baseurl}}admin/themes/\">change the theme of your site</a>. If you ever have feedback, you can <a href=\"{{baseurl}}account/settings/feedback/\">send a message to my human creators</a>."))
+        ])->draw('robot/post');
         break;
 
 }
@@ -70,4 +98,5 @@ if (\Idno\Core\Idno::site()->currentPage() instanceof \Idno\Pages\Homepage) {
     }
 }
 
-    unset($this->vars['body']);
+unset($this->vars['body']);
+
