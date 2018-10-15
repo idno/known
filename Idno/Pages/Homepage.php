@@ -91,6 +91,9 @@ namespace Idno\Pages {
 
                 // If we can't create an object of this type, hide from the button bar
                 foreach ($create as $key => $obj) {
+                    
+                    $obj->editUrl = $obj->getEditURL(); // Helper for API clients: handle flexible site configuration
+                    
                     if (!$obj->createable) {
                         unset($create[$key]);
                     }
