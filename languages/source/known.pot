@@ -542,7 +542,7 @@ msgstr ""
 msgid "Your details were saved."
 msgstr ""
 
-#: ./Idno/Common/Entity.php:691
+#: ./Idno/Common/Entity.php:692
 msgid "There was a problem syndicating."
 msgstr ""
 
@@ -574,35 +574,35 @@ msgstr ""
 msgid "GenericDataItem classes must have a datatype label set."
 msgstr ""
 
-#: ./Idno/Files/FileSystem.php:53
+#: ./Idno/Files/FileSystem.php:54
 msgid "There is no error, the file uploaded with success"
 msgstr ""
 
-#: ./Idno/Files/FileSystem.php:54
+#: ./Idno/Files/FileSystem.php:55
 msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini"
 msgstr ""
 
-#: ./Idno/Files/FileSystem.php:55
+#: ./Idno/Files/FileSystem.php:56
 msgid "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form"
 msgstr ""
 
-#: ./Idno/Files/FileSystem.php:56
+#: ./Idno/Files/FileSystem.php:57
 msgid "The uploaded file was only partially uploaded"
 msgstr ""
 
-#: ./Idno/Files/FileSystem.php:57
+#: ./Idno/Files/FileSystem.php:58
 msgid "No file was uploaded"
 msgstr ""
 
-#: ./Idno/Files/FileSystem.php:58
+#: ./Idno/Files/FileSystem.php:59
 msgid "Missing a temporary folder"
 msgstr ""
 
-#: ./Idno/Files/FileSystem.php:59
+#: ./Idno/Files/FileSystem.php:60
 msgid "Failed to write file to disk."
 msgstr ""
 
-#: ./Idno/Files/FileSystem.php:60
+#: ./Idno/Files/FileSystem.php:61
 msgid "A PHP extension stopped the file upload."
 msgstr ""
 
@@ -1279,28 +1279,32 @@ msgstr ""
 msgid "Refresh..."
 msgstr ""
 
-#: ./templates/default/admin/plugins/plugin.tpl.php:34
+#: ./templates/default/admin/plugins/plugin.tpl.php:35
 msgid "Enabled"
 msgstr ""
 
-#: ./templates/default/admin/plugins/plugin.tpl.php:36
+#: ./templates/default/admin/plugins/plugin.tpl.php:37
 msgid "Disabled"
 msgstr ""
 
-#: ./templates/default/admin/plugins/plugin.tpl.php:55
+#: ./templates/default/admin/plugins/plugin.tpl.php:56
 msgid "Known Version"
 msgstr ""
 
-#: ./templates/default/admin/plugins/plugin.tpl.php:64
+#: ./templates/default/admin/plugins/plugin.tpl.php:67
 msgid "Known Build"
 msgstr ""
 
-#: ./templates/default/admin/plugins/plugin.tpl.php:73
+#: ./templates/default/admin/plugins/plugin.tpl.php:78
 msgid "PHP Version"
 msgstr ""
 
-#: ./templates/default/admin/plugins/plugin.tpl.php:84
+#: ./templates/default/admin/plugins/plugin.tpl.php:91
 msgid "Extensions"
+msgstr ""
+
+#: ./templates/default/admin/plugins/plugin.tpl.php:134
+msgid "Disable"
 msgstr ""
 
 #: ./templates/default/entity/share.tpl.php:9
@@ -1473,6 +1477,42 @@ msgstr ""
 
 #: ./templates/default/file/picker/image.tpl.php:49
 msgid "Choose a different image"
+msgstr ""
+
+#: ./templates/default/robot/post.tpl.php:19
+msgid "Power down robots. I can take it from here."
+msgstr ""
+
+#: ./templates/default/robot/wizard.tpl.php:7
+msgid "Check out my new @withknown site!"
+msgstr ""
+
+#: ./templates/default/robot/wizard.tpl.php:13
+msgid "Welcome to your new Known site! I'm Aleph, your very own welcome robot. Let's get started by <a href=\\"#\\" onclick=\\"event.preventDefault(); contentCreateForm('status"
+msgstr ""
+
+#: ./templates/default/robot/wizard.tpl.php:26
+msgid "Beep! That was a great update. Why not <a href=\\"{{facebookurl}}\\" target=\\"blank\\" onclick=\\"window.open('{{facebookurl}}"
+msgstr ""
+
+#: ./templates/default/robot/wizard.tpl.php:39
+msgid "Zeep! That was a great update. Why not <a href=\\"{{facebookurl}}\\" target=\\"blank\\" onclick=\\"window.open('{{facebookurl}}"
+msgstr ""
+
+#: ./templates/default/robot/wizard.tpl.php:52
+msgid "Beep boop! That was a great update. Why not <a href=\\"{{facebookurl}}\\" target=\\"blank\\" onclick=\\"window.open('{{facebookurl}}"
+msgstr ""
+
+#: ./templates/default/robot/wizard.tpl.php:57
+msgid "Beepity boop! That was a great picture. Did you see that you can also <a href=\\"{{userurl}}/edit\\">update your profile</a>?"
+msgstr ""
+
+#: ./templates/default/robot/wizard.tpl.php:62
+msgid "Boopity beep! Did you see that you can also <a href=\\"{{userurl}}/edit\\">update your profile</a>?"
+msgstr ""
+
+#: ./templates/default/robot/wizard.tpl.php:75
+msgid "01011001 01101111 00100000 01111001 01101111 00100000 01111001 01101111 \n\nThat's how you say hello where I come from. I wanted to remind you that you can also <a href=\\"{{baseurl}}admin/themes/\\">change the theme of your site</a>. If you ever have feedback, you can <a href=\\"{{baseurl}}account/settings/feedback/\\">send a message to my human creators</a>."
 msgstr ""
 
 #: ./templates/default/pages/500.tpl.php:6
