@@ -32,7 +32,7 @@ namespace Idno\Pages\Session {
             $t->__(array(
 
                 'title'       => $user->getTitle(),
-                'body'        => $t->__(array('user' => $user, 'items' => array(), 'count' => 0, 'offset' => 0))->draw('entity/User/profile'),
+                'body'        => $t->__(array('user' => $user))->draw('entity/User/profile'),
                 'description' =>  \Idno\Core\Idno::site()->language()->_('The %s profile for %s', [\Idno\Core\Idno::site()->config()->title, $user->getTitle()])
 
             ))->drawPage();
