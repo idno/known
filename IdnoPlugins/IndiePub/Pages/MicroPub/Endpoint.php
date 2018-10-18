@@ -157,7 +157,12 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
                 $video_url   = $this->getJSONInput('video');
                 $audio_url   = $this->getJSONInput('audio');
                 $visibility  = $this->getJSONInput('visibility');
-
+                
+                // Handle visibility
+                if(is_array($visibility) && array_key_exists(0, $visibility)) {
+                    $visibility = $visibility[0];
+                }
+                
                 // Since Known does not support multiple photos or videos, use the first if more than one was given.
                 if(is_array($photo_url) && array_key_exists(0, $photo_url)) {
                     $photo_url = $photo_url[0];
