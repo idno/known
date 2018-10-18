@@ -1716,6 +1716,7 @@ namespace Idno\Common {
                 'displayName' => $this->getTitle(),
                 'objectType' => $this->getActivityStreamsObjectType(),
                 'published' => date(\DateTime::RFC3339, $this->created),
+                'updated' => date(\DateTime::RFC3339, $this->updated),
                 'url' => $this->getURL()
             );
             $extra_properties = [
