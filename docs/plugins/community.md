@@ -14,7 +14,6 @@ listings here do not imply endorsement by the Known project team in any way.
 * [Food](https://github.com/cleverdevil/Known-Food) – Log your eating and drinking to your Known site, by [Jonathan LaCour][]
 * [Watching](https://github.com/cleverdevil/Known-Watching) - Log what you watch (movies and TV) to your Known site, including an experimental Plex webhook, by [Jonathan LaCour][]
 * [Reactions](https://github.com/kylewm/KnownReactions) – Indieweb–style likes and reposts, by [Kyle Mahan][] 
-* [Journal](https://github.com/tinokremer/KnownJournal) - Post journal entries to your Known site, by [Tino Kremer][]
 
 ### Syndication plugins
 
