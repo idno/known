@@ -155,8 +155,8 @@ namespace Idno\Core {
         function documentFormControl($name, $values = [])
         {
             $vars = [];
-            if (!empty($this->vars['form-fields'])) {
-                $vars = $this->vars['form-fields'];
+            if (!empty($this->vars['formFields'])) {
+                $vars = $this->vars['formFields'];
             }
 
             if (isset($vars[$name])) {
@@ -168,7 +168,7 @@ namespace Idno\Core {
                 $vars[$name] = $values;
             }
 
-            $this->__(['form-fields' => $vars]);
+            $this->__(['formFields' => $vars]);
         }
 
         /**
