@@ -160,12 +160,12 @@ namespace Idno\Core {
             }
 
             if (isset($vars[$name])) {
-                $tmp = [$vars[$name]];
-                $tmp[] = $values;
-
-                $vars[$name] = $tmp;
+                $vars[$name][] = $values;
             } else {
-                $vars[$name] = $values;
+                if (strpos($name, '[')===false)
+                    $vars[$name] = $values;
+                else
+                    $vars[$name][] = $values;
             }
 
             $this->__(['formFields' => $vars]);
