@@ -67,6 +67,9 @@ if (!empty($vars['services'])) {
     unset($this->vars['service']);
     unset($this->vars['username']);
     unset($this->vars['name']);
+    unset($this->vars['details']);
+    unset($this->vars['selected']);
+    unset($this->vars['disabled']);
 
     // Output service details for API
     $this->vars['services'] = $service_details;
