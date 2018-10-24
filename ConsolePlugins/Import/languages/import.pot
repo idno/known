@@ -1,0 +1,28 @@
+#: ./Main.php:28
+msgid "Import file %s could not be found."
+msgstr ""
+
+#: ./Main.php:42
+msgid "%s is an unrecognised import type"
+msgstr ""
+
+#: ./Main.php:48
+msgid "Completed import successfully"
+msgstr ""
+
+#: ./Main.php:52
+msgid "Import completed, but may not have been successful"
+msgstr ""
+
+#: ./Main.php:64
+msgid "Import posts from WordPress, Blogger etc"
+msgstr ""
+
+#: ./Main.php:70
+msgid "Import type: wordpress, blogger"
+msgstr ""
+
+#: ./Main.php:71
+msgid "Location of the export file/directory"
+msgstr ""
+
