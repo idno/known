@@ -1,5 +1,4 @@
-Anti-Harassment Policy
-======================
+# Code of Conduct
 
 We want everyone to feel comfortable contributing to the Known project.
 As such, we want to make sure that we are clear about our rules as a
@@ -20,8 +19,8 @@ If you're wondering about how you can contribute, please see CONTRIBUTING.md,
 or go ahead and email us: hello@withknown.com. We'll be delighted to hear from
 you.
 
-The short version
------------------
+## The short version
+
 Known is dedicated to providing a harassment-free community for everyone,
 regardless of gender, gender identity and expression, sexual orientation,
 disability, physical appearance, body size, race, or religion. We do not
@@ -31,8 +30,8 @@ chat and mailing lists. Community participants violating these rules may be
 sanctioned or expelled from the community at the discretion of the core
 team.
 
-The long version
-----------------
+## The long version
+
 Harassment includes offensive verbal comments related to gender, gender
 identity and expression, sexual orientation, disability, physical appearance,
 body size, race, religion, sexual images in community spaces, deliberate
@@ -52,9 +51,7 @@ moderators, authorities or local law enforcement, or otherwise assist those
 experiencing harassment to feel safe while they are participating in the
 community. We value your contributions.
 
-Get in touch with the core team
--------------------------------
+## Get in touch with the core team
 
 * Generic email:  hello@withknown.com
 * Ben Werdmuller: ben@benwerd.com, +1 (510) 283-3321
-* Erin Jo Richey: erin@withknown.com
