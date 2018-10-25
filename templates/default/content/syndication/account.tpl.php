@@ -26,7 +26,8 @@ if (!empty($vars['service']) && !empty($vars['username'])) {
         'disabled' => !empty($vars['disabled']),
         'id' => "syndication_{$vars['service']}_{$identifier}_toggle",
         'service' => $vars['service'],
-        'username' => htmlentities($vars['username']),
+        'username' => $vars['username'],
+        'name' => $vars['name'],
         'checked' => $vars['selected'] == true
     ]);
 }
