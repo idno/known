@@ -198,6 +198,7 @@ namespace Idno\Common {
             // First, let's see if we've been sent anything in form input
             if (!empty($_REQUEST['json'])) {
                 $json = trim($_REQUEST['json']);
+                $json = str_replace('[]"', '"', $json); // Fake PHP's array conversion
                 if ($parsed = @json_decode($json, true)) {
                     $this->data = array_merge($parsed, $this->data());
                 }
@@ -206,6 +207,8 @@ namespace Idno\Common {
             if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] != 'GET') {
                 $body = @file_get_contents('php://input');
                 $body = trim($body);
+                $body = str_replace('[]"', '"', $body); // Fake PHP's array conversion
+                
                 if (!empty($body)) {
                     if ($parsed = @json_decode($body, true)) {
                         $this->data = array_merge($parsed, $this->data());
