@@ -19,7 +19,7 @@ namespace Idno\Core {
             'sessionname'            => 'known', // Default session name
             'boolean_search'         => true, // Should search be boolean?
             'open_registration'      => true, // Can anyone register for this system?
-            'initial_plugins'        => array('Status', 'Text', 'Photo', 'Event', 'Firefox', 'FooterJS', 'IndiePub', 'Styles'),
+            'initial_plugins'        => array('Status', 'Text', 'Photo', 'IndiePub'),
             'plugins'                => array(), // Default plugins
             'assets'                 => [      // Assets to be included
                                                'mediaelementplayer' => true,
@@ -137,8 +137,6 @@ namespace Idno\Core {
                 $this->config['plugins'][] = 'Status';
                 $this->config['plugins'][] = 'Text';
                 $this->config['plugins'][] = 'Photo';
-                $this->config['plugins'][] = 'Firefox';
-                $this->config['plugins'][] = 'FooterJS';
                 $this->config['plugins'][] = 'IndiePub';
             }
 
