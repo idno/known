@@ -4,7 +4,7 @@
  * Geolocation callback
  */
 
-namespace IdnoPlugins\Checkin\Pages {
+namespace Idno\Pages\Service\Geo {
 
     /**
      * Default class to serve the geolocation callback
@@ -12,7 +12,7 @@ namespace IdnoPlugins\Checkin\Pages {
     class Geocoder extends \Idno\Common\Page
     {
 
-        function post()
+        function getContent()
         {
 
             $this->gatekeeper(); // Logged-in users only
