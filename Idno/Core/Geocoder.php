@@ -37,7 +37,7 @@ namespace Idno\Core {
          * @param $longitude
          * @return bool|mixed
          */
-        static function queryLatLong($latitude, $longitude)
+        function queryLatLong($latitude, $longitude)
         {
 
             $query    = $this->getEndpoint() . "reverse?lat={$latitude}&lon={$longitude}&format=json&zoom=18";
