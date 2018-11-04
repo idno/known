@@ -12,20 +12,23 @@ namespace Idno\Core {
     /**
      * Default Geocoder tool.
      */
-    class Geocoder extends \Idno\Common\Component {
-        
-        public function __construct() {
+    class Geocoder extends \Idno\Common\Component
+    {
+
+        public function __construct()
+        {
             parent::__construct();
         }
-        
+
         /**
          * Get the endpoint for the geocoder.
          * @return string
          */
-        protected function getEndpoint() {
+        protected function getEndpoint()
+        {
             return 'https://nominatim.openstreetmap.org/';
         }
-        
+
         /**
          * Given a latitude and longitude, reverse geocode it into a structure including name, address,
          * city, etc
@@ -87,7 +90,7 @@ namespace Idno\Core {
             return false;
 
         }
-        
+
     }
 
 }
