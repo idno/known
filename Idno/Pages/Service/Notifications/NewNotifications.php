@@ -31,7 +31,8 @@ namespace Idno\Pages\Service\Notifications {
                     return $notif->created > $last_time;
                 });
 
-                $user->last_notification_time = $notifs[0]->created;
+                if (!empty($notifs[0]->created))
+                    $user->last_notification_time = $notifs[0]->created;
                 $user->save();
 
                 $arr = array_map(function ($notif) {
