@@ -92,7 +92,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
             //fail-by-default in case of unhandled errors
             $this->setResponse(500);
 
-            $this->gatekeeper();
+         //   $this->gatekeeper();
             // If we're here, we're authorized
 
             \Idno\Core\Idno::site()->triggerEvent('indiepub/post/start', ['page' => $this]);
@@ -252,7 +252,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
                 if (!empty($_FILES['photo'])) {
                     $type = 'photo';
                 } else if ($photo_url) {
-                    $type      = 'photo';
+                    $type      = 'photo'; 
                     $success   = $this->uploadFromUrl('photo', $photo_url);
                     if (!$success) {
                         \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
@@ -315,11 +315,11 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
             }
 
             if (!empty($_FILES['photo'])) {
-                $id = \Idno\Entities\File::createFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'], $_FILES['photo']['type']);
+                $id = \Idno\Entities\File::createFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'], $_FILES['photo']['type']); 
                 $photo = \Idno\Core\Idno::site()->config()->url . 'file/' . $id;
 
                 if (!empty($photo)) {
-                    $htmlPhoto = '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="' . $photo . '" alt="' . $place_name . '"  /></p>';
+                    //$htmlPhoto = '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="' . $photo . '" alt="' . $place_name . '"  /></p>';
                 }
             }
 
@@ -367,8 +367,8 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
             }
 
             // Get an appropriate plugin, given the content type
-            if ($contentType = ContentType::getRegisteredForIndieWebPostType($type)) {
-                if ($entity = $contentType->createEntity()) {
+            if ($contentType = ContentType::getRegisteredForIndieWebPostType($type)) { 
+                if ($entity = $contentType->createEntity()) { 
                     if (is_array($content)) {
                         $content_value = '';
                         if (!empty($content['html'])) {
