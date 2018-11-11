@@ -92,7 +92,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
             //fail-by-default in case of unhandled errors
             $this->setResponse(500);
 
-         //   $this->gatekeeper();
+            $this->gatekeeper();
             // If we're here, we're authorized
 
             \Idno\Core\Idno::site()->triggerEvent('indiepub/post/start', ['page' => $this]);
