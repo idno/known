@@ -142,15 +142,15 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
                 $type = !empty($this->jsoninput['type'][0]) ? $this->jsoninput['type'][0] : 'h-entry';
                 $type = str_replace('h-', '', $type);
 
-                $content     = $this->getJSONInput('content');
-                $name        = $this->getJSONInput('name');
+                $content     = $this->getJSONInput('content', $this->getJSONInput('description'));
+                $name        = $this->getJSONInput('name', $this->getJSONInput('title'));
                 $in_reply_to = $this->getJSONInput('in-reply-to');
-                $syndicate   = $this->getJSONInput('mp-syndicate-to');
+                $syndicate   = $this->getJSONInput('mp-syndicate-to', $this->getJSONInput('syndicate-to'));
                 $posse_links = $this->getJSONInput('syndication');
                 $bookmark_of = $this->getJSONInput('bookmark-of');
                 $like_of     = $this->getJSONInput('like-of');
                 $repost_of   = $this->getJSONInput('repost-of');
-                $categories  = $this->getJSONInput('category');
+                $categories  = $this->getJSONInput('category', $this->getJSONInput('tags'));
                 $rsvp        = $this->getJSONInput('rsvp');
                 $mp_type     = null;
                 $photo_url   = $this->getJSONInput('photo');
@@ -220,15 +220,15 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
                     return $this->postCreateAnnotation();
                 }
 
-                $content     = $this->getInput('content');
-                $name        = $this->getInput('name');
+                $content     = $this->getInput('content', $this->getInput('description'));
+                $name        = $this->getInput('name', $this->getInput('title'));
                 $in_reply_to = $this->getInput('in-reply-to');
                 $syndicate   = $this->getInput('mp-syndicate-to', $this->getInput('syndicate-to'));
                 $posse_links = $this->getInput('syndication');
                 $bookmark_of = $this->getInput('bookmark-of');
                 $like_of     = $this->getInput('like-of');
                 $repost_of   = $this->getInput('repost-of');
-                $categories  = $this->getInput('category');
+                $categories  = $this->getInput('category', $this->getInput('tags'));
                 $rsvp        = $this->getInput('rsvp');
                 $mp_type     = $this->getInput('mp-type');
                 $photo_url   = $this->getInput('photo');
@@ -409,6 +409,9 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
                         $this->setInput('user_address', $user_address);
                         $this->setInput('placename', $place_name);
                     }
+                    if ($type == 'bookmark') {
+                        $this->setInput('description', $content_value);
+                    }
                     if ($created = $this->getInput('published')) {
                         $this->setInput('created', $created);
                     }
@@ -423,7 +426,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
                     }
                     if ($entity->saveDataFromInput()) {
                         \Idno\Core\Idno::site()->triggerEvent('indiepub/post/success', ['page' => $this, 'object' => $entity]);
-                        $this->setResponse(201);
+                        $this->setResponse(201);die(print_r($entity));
                         header('Location: ' . $entity->getURL());
                         exit;
                     } else {
