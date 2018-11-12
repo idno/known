@@ -43,7 +43,7 @@ switch ($var) {
 ## Error handling
 
 * Notice errors are errors, please develop your code with ```pedantic_mode = true;``` set in your config.ini
-* Unless there's a VERY good reason you can explain, never use the '@' error suppression operator.
+* Unless there's a VERY good reason you can explain (and should explain) in comments, never use the '@' error suppression operator.
 
 ## Comments
 
