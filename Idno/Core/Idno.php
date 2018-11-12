@@ -190,6 +190,7 @@ namespace Idno\Core {
             $this->addPageHandler('/view/([A-Za-z0-9]+)/annotations/([A-Za-z0-9]+)?', '\Idno\Pages\Annotation\View');
             $this->addPageHandler($permalink_route . '/annotations/([A-Za-z0-9]+)?', '\Idno\Pages\Annotation\View');
             $this->addPageHandler($permalink_route . '/annotations/([A-Za-z0-9]+)/delete/?', '\Idno\Pages\Annotation\Delete'); // Delete annotation
+            $this->addPageHandler($permalink_route .'/annotation/delete/?', '\Idno\Pages\Annotation\Delete'); // Delete annotation alternate
             $this->addPageHandler('/annotation/post/?', '\Idno\Pages\Annotation\Post');
 
             /** Bookmarklets and sharing */
