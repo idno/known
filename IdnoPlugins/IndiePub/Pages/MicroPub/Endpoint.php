@@ -426,7 +426,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
                     }
                     if ($entity->saveDataFromInput()) {
                         \Idno\Core\Idno::site()->triggerEvent('indiepub/post/success', ['page' => $this, 'object' => $entity]);
-                        $this->setResponse(201);die(print_r($entity));
+                        $this->setResponse(201);
                         header('Location: ' . $entity->getURL());
                         exit;
                     } else {
