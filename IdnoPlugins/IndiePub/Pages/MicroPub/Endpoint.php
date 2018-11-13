@@ -128,6 +128,13 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
                 \Idno\Core\Idno::site()->triggerEvent('indiepub/post/success', ['page' => $this, 'object' => $entity]);
                 $this->setResponse(201);
                 header('Location: ' . $local_photo);
+
+                /* return body with the URL to the photo, based upon Accept header */
+                if ($this->isAcceptedContentType('application/json')) {
+                    echo json_encode(['url' => $local_photo], JSON_PRETTY_PRINT);
+                } else {
+                    echo $local_photo;
+                }
             } else {
                 $this->error(400, 'cannot_save_media', 'Problem saving media');
             }
