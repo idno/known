@@ -21,4 +21,5 @@
         </properties>
     </rule>
     <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace" />
+    <exclude-pattern type="relative-root">/external/*</exclude-pattern>
 </ruleset>
