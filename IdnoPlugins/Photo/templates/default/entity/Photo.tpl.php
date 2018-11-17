@@ -7,7 +7,8 @@
         $multiple = true;
     $cnt = 0;
 
-if (\Idno\Core\Idno::site()->currentPage()->isPermalink()) {
+    $currentPage = \Idno\Core\Idno::site()->currentPage();
+if (!empty($currentPage) && \Idno\Core\Idno::site()->currentPage()->isPermalink()) {
     $rel = 'rel="in-reply-to"';
 } else {
     $rel = '';
