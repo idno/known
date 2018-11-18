@@ -1,0 +1,16 @@
+#: ./Main.php:52
+msgid "Archive generated at %s"
+msgstr ""
+
+#: ./Main.php:55
+msgid "Export did not return an archive path."
+msgstr ""
+
+#: ./Main.php:67
+msgid "Export posts to a number of formats"
+msgstr ""
+
+#: ./Main.php:73
+msgid "Location of the directory to export to"
+msgstr ""
+
