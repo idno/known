@@ -171,7 +171,11 @@ namespace Idno\Core {
             $limit = 10;
             $offset = 0;
             $f = fopen($dir . $name . DIRECTORY_SEPARATOR . 'exported_data.' . $export_ext, 'wb');
-            fwrite($f, '[');
+            
+            if ($export_ext == 'json')
+                fwrite($f, '[');
+            
+            
             while ($exported_records = \Idno\Core\Idno::site()->db()->exportRecords('entities', $limit, $offset)) {
 
                 if ($export_ext == 'json')
