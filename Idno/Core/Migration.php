@@ -142,7 +142,7 @@ namespace Idno\Core {
 
                         if (is_callable(array($object, 'draw'))) {
                             try {
-                                $html = $object->draw();
+                                $html = trim($object->draw());
                                 if (!empty($html)) {
                                     file_put_contents($html_path . $object_name . '.html', $html);
                                 }
