@@ -142,7 +142,10 @@ namespace Idno\Core {
 
                         if (is_callable(array($object, 'draw'))) {
                             try {
-                                file_put_contents($html_path . $object_name . '.html', $object->draw());
+                                $html = $object->draw();
+                                if (!empty($html)) {
+                                    file_put_contents($html_path . $object_name . '.html', $html);
+                                }
                             } catch (\Error $e) { // Sometimes calling draw will break since some of the expected context is unavailable at this point. Don't let this kill the whole export.
                                 \Idno\Core\Idno::site()->logging()->debug($e->getMessage());
                             }
