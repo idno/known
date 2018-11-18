@@ -44,8 +44,8 @@ namespace ConsolePlugins\Export {
           
             if ($path = Migration::createCompressedArchive($directory)) {
 
-                \Idno\Core\Idno::site()->config()->export_filename    = $filename;
-                \Idno\Core\Idno::site()->config()->export_file_id     = $file;
+                \Idno\Core\Idno::site()->config()->export_filename    = $path;
+                \Idno\Core\Idno::site()->config()->export_file_id     = 1;
                 \Idno\Core\Idno::site()->config()->export_in_progress = 0;
                 \Idno\Core\Idno::site()->config()->save();
 
