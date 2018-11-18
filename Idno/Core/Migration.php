@@ -63,18 +63,19 @@ namespace Idno\Core {
             }
 
             // If we've made it here, we've created a temporary directory with the hash name
-
-            $config = array(
+            
+            // Write some details about the export
+            file_put_contents($dir . $name . DIRECTORY_SEPARATOR . 'known.json', json_encode([
                 'url' => Idno::site()->config()->getURL(),
                 'title' => Idno::site()->config()->getTitle(),
                 // Include some version info in case we change the export format
                 'version' => \Idno\Core\Version::version(),
                 'build' => \Idno\Core\Version::build(),
-            );
-
-            file_put_contents($dir . $name . DIRECTORY_SEPARATOR . 'known.json', json_encode($config, JSON_PRETTY_PRINT));
-            $all_in_one_json = '';
-
+            ], JSON_PRETTY_PRINT));
+            
+            // We now also want to output the current loaded config
+            file_put_contents($dir . $name . DIRECTORY_SEPARATOR . 'config.json', json_encode(\Idno\Core\Idno::site()->config(), JSON_PRETTY_PRINT));
+            
             // Let's export everything.
             $fields = array();
             $query_parameters = array();
@@ -137,7 +138,7 @@ namespace Idno\Core {
                         }
                         $json_object = json_encode($object, JSON_PRETTY_PRINT);
                         file_put_contents($json_path . $object_name . '.json', $json_object);
-                        //$all_in_one_json[] = json_decode($json_object);
+                        
                         fwrite($f, $json_object . ',');
 
                         if (is_callable(array($object, 'draw'))) {
@@ -192,7 +193,6 @@ namespace Idno\Core {
                 fwrite($f, '{}]'); // Fudge to allow json decode
             fclose($f);
 
-            //file_put_contents($dir . $name . DIRECTORY_SEPARATOR . 'entities.json', json_encode($all_in_one_json));
             // As we're successful, return the unique name of the archive
             \Idno\Core\Idno::site()->logging()->debug("Archive constructed at {$dir}{$name}");
             return $dir . $name;
