@@ -88,6 +88,8 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
         function post()
         {
             \Idno\Core\Idno::site()->template()->setTemplateType('json');
+            
+            \Idno\Core\Idno::site()->logging()->debug("MicroPub endpoint pinged: " . print_r($_POST, true));
 
             //fail-by-default in case of unhandled errors
             $this->setResponse(500);
