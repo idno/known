@@ -90,6 +90,9 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
             \Idno\Core\Idno::site()->template()->setTemplateType('json');
             
             \Idno\Core\Idno::site()->logging()->debug("MicroPub endpoint pinged: " . print_r($_POST, true));
+            if(isset($_SERVER['CONTENT_TYPE']) && $_SERVER['CONTENT_TYPE'] == 'application/json') {
+                \Idno\Core\Idno::site()->logging()->debug("JSON Payload: " . print_r(json_decode(file_get_contents('php://input')), true));
+            }
 
             //fail-by-default in case of unhandled errors
             $this->setResponse(500);
