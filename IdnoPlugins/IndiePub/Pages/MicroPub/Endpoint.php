@@ -66,7 +66,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
                         header('Content-Type: application/json');
                         echo json_encode([
                             'media-endpoint' => \Idno\Core\Idno::site()->config()->url . 'micropub/endpoint',
-                            'syndicate-to' => $account_strings,
+                            'syndicate-to' => $account_data,
                         ], JSON_PRETTY_PRINT);
                         break;
                     case 'syndicate-to':
@@ -88,6 +88,11 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
         function post()
         {
             \Idno\Core\Idno::site()->template()->setTemplateType('json');
+            
+            \Idno\Core\Idno::site()->logging()->debug("MicroPub endpoint pinged: " . print_r($_REQUEST, true));
+            if(isset($_SERVER['CONTENT_TYPE']) && $_SERVER['CONTENT_TYPE'] == 'application/json') {
+                \Idno\Core\Idno::site()->logging()->debug("JSON Payload: " . print_r(json_decode(file_get_contents('php://input')), true));
+            }
 
             //fail-by-default in case of unhandled errors
             $this->setResponse(500);

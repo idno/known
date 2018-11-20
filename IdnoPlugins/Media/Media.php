@@ -185,7 +185,7 @@ namespace IdnoPlugins\Media {
 
         }
 
-        public function jsonLDSerialise(array $params = array()): array
+        public function jsonLDSerialise(array $params = array())
         {
 
             $json = [

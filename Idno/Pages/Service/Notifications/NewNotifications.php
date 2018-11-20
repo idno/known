@@ -36,11 +36,11 @@ namespace Idno\Pages\Service\Notifications {
                 $user->save();
 
                 $arr = array_filter(array_map(function ($notif) {
-                    
+
                     $target = $notif->getTarget();
-                    
+
                     if (!empty($target)) { // Ensure that notifications on unavailable targets are not rendered
-                        
+
                         Idno::site()->template()->setTemplateType('email-text');
                         $body = Idno::site()->template()->__(['notification' => $notif])->draw($notif->getMessageTemplate());
                         $annotation = $notif->getObject();
@@ -52,7 +52,7 @@ namespace Idno\Pages\Service\Notifications {
                             'created' => date('c', $notif->created),
                             'link' => (empty($notif->url)) ? \Idno\Core\Idno::site()->config()->getDisplayURL() . 'account/notifications' : $notif->link
                         ];
-                        
+
                     }
                 }, $notifs));
             } else {

@@ -2,7 +2,8 @@
 
     $player_id = rand(0, 9999);
 
-if (\Idno\Core\Idno::site()->currentPage()->isPermalink()) {
+$currentPage = \Idno\Core\Idno::site()->currentPage();
+if (!empty($currentPage) && \Idno\Core\Idno::site()->currentPage()->isPermalink()) {
     $rel = 'rel="in-reply-to"';
 } else {
     $rel = '';
