@@ -481,7 +481,7 @@ namespace Idno\Data {
             try {
                 if ($result = $this->getRecords([], [], $limit, $offset, $collection))
                 {
-                    return json_encode($result);
+                    return json_encode($result, JSON_PRETTY_PRINT);
                 }
             } catch (\Exception $e) {
                 return false;
