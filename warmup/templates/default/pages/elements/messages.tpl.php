@@ -1,13 +1,13 @@
 <?php
 
-    if (!empty($vars['messages'])) {
+if (!empty($vars['messages'])) {
 
-        ?>
-        <div class="alerts">
-            <div class="alert">
-                <?=$messages?>
-            </div>
+    ?>
+    <div class="alerts">
+        <div class="alert">
+            <?=$messages?>
+        </div>
         </div>
     <?php
 
-    }
+}

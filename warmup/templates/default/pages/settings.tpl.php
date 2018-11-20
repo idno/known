@@ -10,7 +10,7 @@
     $mysql_pass  = $vars['mysql_pass'];
     $mysql_name  = $vars['mysql_name'];
     $upload_path = $vars['upload_path'];
-    
+
     ?>
 
 <div id="form-div">
@@ -22,23 +22,23 @@
 
     <?php
 
-        if (!empty($messages)) {
-            echo $this->__([
-                'messages' => $messages
-            ])->draw('pages/elements/messages');
-        } else {
+    if (!empty($messages)) {
+        echo $this->__([
+            'messages' => $messages
+        ])->draw('pages/elements/messages');
+    } else {
 
-            ?>
-            <p>
-                Great! You have everything you need to get started.
-            </p>
-            <p>
-                On this screen, we'll ask you how we should connect to your database, and where we should save
-                uploaded files like user photos, pictures and audio.
-            </p>
+        ?>
+        <p>
+            Great! You have everything you need to get started.
+        </p>
+        <p>
+            On this screen, we'll ask you how we should connect to your database, and where we should save
+            uploaded files like user photos, pictures and audio.
+        </p>
         <?php
 
-        }
+    }
 
     ?>
 
