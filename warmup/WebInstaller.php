@@ -38,30 +38,28 @@ class WebInstaller extends \Idno\Core\Installer {
             $subdir = '/' . $subdir;
         }
         
-        if (function_exists('apache_get_version')) {
-            $host = strtolower($_SERVER['HTTP_HOST']);
-            if (!empty(Idno\Common\Page::isSSL())) {
-                $schema = 'https://';
-            } else {
-                $schema = 'http://';
-            }
-
-            $curl_handle = curl_init();
-            curl_setopt($curl_handle, CURLOPT_URL, $schema . $host . $subdir . '/js/canary.js');
-            curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($curl_handle, CURLOPT_HEADER, 1);
-
-            $curl_result = curl_exec($curl_handle);
-            $curl_status = curl_getinfo($curl_handle, CURLINFO_HTTP_CODE);
-
-            if ($curl_status < 200 || $curl_status > 299) {
-                return false;
-            }
-
-            curl_close($curl_handle);
-            
-            return true;
+        $host = strtolower($_SERVER['HTTP_HOST']);
+        if (!empty(Idno\Common\Page::isSSL())) {
+            $schema = 'https://';
+        } else {
+            $schema = 'http://';
         }
+
+        $curl_handle = curl_init();
+        curl_setopt($curl_handle, CURLOPT_URL, $schema . $host . $subdir . '/js/canary.js');
+        curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl_handle, CURLOPT_HEADER, 1);
+
+        $curl_result = curl_exec($curl_handle);
+        $curl_status = curl_getinfo($curl_handle, CURLINFO_HTTP_CODE);
+
+        if ($curl_status < 200 || $curl_status > 299) {
+            return false;
+        }
+
+        curl_close($curl_handle);
+
+        return true;
     }
     
     protected function pageSettings() {
