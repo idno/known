@@ -4,8 +4,8 @@ The following individuals have made major contributions to Known.
 
 ## Core team
 
-* Ben Werdmuller [http://werd.io](http://werd.io)
-* Erin Jo Richey [http://erinjorichey.com/](http://erinjorichey.com/)
+* Ben Werdmuller [https://werd.io](https://werd.io)
+* Erin Jo Richey [https://erinjorichey.com/](https://erinjorichey.com/)
 
 Homepage: [https://withknown.com/](https://withknown.com/)
 
