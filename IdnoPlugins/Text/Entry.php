@@ -127,7 +127,7 @@ namespace IdnoPlugins\Text {
             }
         }
 
-        public function jsonLDSerialise(array $params = array()): array
+        public function jsonLDSerialise(array $params = array())
         {
             $json = [
                 "@context" => "http://schema.org",
