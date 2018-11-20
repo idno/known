@@ -66,7 +66,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
                         header('Content-Type: application/json');
                         echo json_encode([
                             'media-endpoint' => \Idno\Core\Idno::site()->config()->url . 'micropub/endpoint',
-                            'syndicate-to' => $account_strings,
+                            'syndicate-to' => $account_data,
                         ], JSON_PRETTY_PRINT);
                         break;
                     case 'syndicate-to':
