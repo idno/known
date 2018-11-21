@@ -246,6 +246,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
                 $photo_url   = $this->getInput('photo');
                 $video_url   = $this->getInput('video');
                 $audio_url   = $this->getInput('audio');
+                $visibility   = $this->getInput('visibility');
             }
 
             if (!empty($mp_type)) {
