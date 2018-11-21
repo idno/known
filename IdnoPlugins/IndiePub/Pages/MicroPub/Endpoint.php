@@ -130,7 +130,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
 
             if (!empty($id)) {
                 $local_photo = \Idno\Core\Idno::site()->config()->url . 'file/' . $id;
-                \Idno\Core\Idno::site()->triggerEvent('indiepub/post/success', ['page' => $this, 'object' => $entity]);
+                //\Idno\Core\Idno::site()->triggerEvent('indiepub/post/success', ['page' => $this, 'object' => $entity]); // MP: Removing here, since the object hasn't actually been created yet, and this would trigger this multiple times
                 $this->setResponse(201);
                 header('Location: ' . $local_photo);
 
