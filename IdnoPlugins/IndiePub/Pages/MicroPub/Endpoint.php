@@ -221,7 +221,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
                     if($this->uploadFromUrl('photo', $photo_url)) {
                         $id = \Idno\Entities\File::createFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'], $_FILES['photo']['type']);
                         $local_photo = \Idno\Core\Idno::site()->config()->url . 'file/' . $id;
-                        $htmlPhoto = '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="' . $local_photo . '" alt="' . $place_name . '"  /></p>';
+                        //$htmlPhoto = '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="' . $local_photo . '" alt="' . $place_name . '"  /></p>';
                     }
                 }
 
