@@ -68,6 +68,17 @@ namespace Idno\Core {
         {
             return vsprintf($this->get($string), $subs);
         }
+        
+        /**
+         * Return an ESCAPED translated string, substituting variables in subs in the format of sprintf.
+         * @param type $string String to translate
+         * @param array $subs List of substitution variables to be used in the translated string
+         * @return string
+         */
+        public function esc_($string, array $subs = []) 
+        {
+            return htmlentities($this->_($string, $subs), ENT_QUOTES, 'UTF-8');
+        }
 
         /**
          * Register a translation.
