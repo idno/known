@@ -14,8 +14,8 @@ Contributors to Known
 Core team
 ---------
 
-* Ben Werdmuller http://werd.io
-* Erin Jo Richey http://erinjorichey.com
+* Ben Werdmuller https://werd.io
+* Erin Jo Richey https://erinjorichey.com
 
 Homepage: https://withknown.com/
 
