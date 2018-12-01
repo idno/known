@@ -130,7 +130,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
 
             if (!empty($id)) {
                 $local_photo = \Idno\Core\Idno::site()->config()->url . 'file/' . $id;
-                \Idno\Core\Idno::site()->triggerEvent('indiepub/post/success', ['page' => $this, 'object' => $entity]);
+                //\Idno\Core\Idno::site()->triggerEvent('indiepub/post/success', ['page' => $this, 'object' => $entity]); // MP: Removing here, since the object hasn't actually been created yet, and this would trigger this multiple times
                 $this->setResponse(201);
                 header('Location: ' . $local_photo);
 
@@ -221,7 +221,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
                     if($this->uploadFromUrl('photo', $photo_url)) {
                         $id = \Idno\Entities\File::createFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'], $_FILES['photo']['type']);
                         $local_photo = \Idno\Core\Idno::site()->config()->url . 'file/' . $id;
-                        $htmlPhoto = '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="' . $local_photo . '" alt="' . $place_name . '"  /></p>';
+                        //$htmlPhoto = '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="' . $local_photo . '" alt="' . $place_name . '"  /></p>';
                     }
                 }
 
@@ -246,6 +246,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
                 $photo_url   = $this->getInput('photo');
                 $video_url   = $this->getInput('video');
                 $audio_url   = $this->getInput('audio');
+                $visibility   = $this->getInput('visibility');
             }
 
             if (!empty($mp_type)) {
