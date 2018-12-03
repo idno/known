@@ -67,7 +67,7 @@ Log levels to show:
 3 - errors, warnings and info, 4 - 3 + debug
 
 **debug**<br>
-Enable debugging of various sorts.
+Enable debugging output.
 
 ## Other config.ini directives
 
