@@ -54,7 +54,7 @@ The full path used by Known to upload files. This path must be writeable by the 
 
 **smtp_host, smtp_port, smtp_username, smtp_secure, from_email**<br>
 Configuration for SMTP server.  Without these set (here or in the UI)
-it will be impossible to do password recovery emails.
+it will be impossible to send password recovery emails.
 'smtp_secure' should be 'tls' or 'ssl'.
 
 **loglevel**<br>
