@@ -52,6 +52,18 @@ If you are using MongoDB, you can leave this option blank to use GridFS storage.
 **uploadpath**<br>
 The full path used by Known to upload files. This path must be writeable by the web server.
 
+**smtp_host, smtp_port, smtp_username, smtp_secure, from_email**<br>
+Configuration for SMTP server.  Without these set (here or in the UI)
+it will be impossible to do password recovery emails.
+'smtp_secure' should be 'tls' or 'ssl'.
+
+**loglevel**<br>
+Log levels to show 0 - off, 1 - errors, 2 - errors & warnings,
+3 - errors, warnings and info, 4 - 3 + debug
+
+**debug**<br>
+Enable debugging of various sorts.
+
 ## Other config.ini directives
 
 **alwaysplugins[]**<br>
