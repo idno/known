@@ -64,7 +64,7 @@
             </h3>
 
             <p class="control-label">
-                Known needs a single MySQL database, with a user that can connect to it. We recommend that this
+                Known needs a single MySQL database, with a MySQL user that can connect to it. We recommend that this
                 is a user you have created just for Known, rather than one you share with other applications.
                 <br><br>
                 You should create your database before entering the details here. If you're using a shared host,
