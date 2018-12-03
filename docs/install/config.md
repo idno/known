@@ -58,7 +58,12 @@ it will be impossible to send password recovery emails.
 'smtp_secure' should be 'tls' or 'ssl'.
 
 **loglevel**<br>
-Log levels to show 0 - off, 1 - errors, 2 - errors & warnings,
+Log levels to show:
+* 0 - off
+* 1 - errors
+* 2 - errors & warnings
+* 3 - errors, warnings, & useful information
+* 4 - errors, warnings, useful information, & debugging output
 3 - errors, warnings and info, 4 - 3 + debug
 
 **debug**<br>
