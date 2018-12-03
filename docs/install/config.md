@@ -64,7 +64,6 @@ Log levels to show:
 * 2 - errors & warnings
 * 3 - errors, warnings, & useful information
 * 4 - errors, warnings, useful information, & debugging output
-3 - errors, warnings and info, 4 - 3 + debug
 
 **debug**<br>
 Enable debugging output.
