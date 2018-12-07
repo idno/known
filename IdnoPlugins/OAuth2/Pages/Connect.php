@@ -20,7 +20,7 @@ namespace IdnoPlugins\OAuth2\Pages {
 		$t->drawPage();
 	    }
 	    else
-		throw new \Exception("Could not load client associated with $client_id");
+		throw new \Exception(\Idno\Core\Idno::site()->language()->_("Could not load client associated with %s", [$client_id]));
 	}
 
 	function postContent() {

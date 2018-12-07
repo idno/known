@@ -1,0 +1,144 @@
+#: ./Pages/Token.php:19
+msgid "Required parameter grant_type is missing!"
+msgstr ""
+
+#: ./Pages/Token.php:29
+msgid "Required parameter refresh_token is missing!"
+msgstr ""
+
+#: ./Pages/Token.php:32
+msgid "Sorry, that refresh token appears to be invalid!"
+msgstr ""
+
+#: ./Pages/Token.php:37
+msgid "Invalid state given"
+msgstr ""
+
+#: ./Pages/Token.php:58
+msgid "Server problem, couldn't refresh token. Try again in a bit..."
+msgstr ""
+
+#: ./Pages/Token.php:67
+msgid "Required parameter client_id is missing!"
+msgstr ""
+
+#: ./Pages/Token.php:71
+msgid "I have no knowledge of the application identified by %s"
+msgstr ""
+
+#: ./Pages/Token.php:75
+msgid "Sorry, unknown or expired code!"
+msgstr ""
+
+#: ./Pages/Token.php:86
+msgid "Sorry, redirect_uri doesn't match the one given before!"
+msgstr ""
+
+#: ./Pages/Token.php:103
+msgid "Server problem, couldn't generate new tokens. Try again in a bit..."
+msgstr ""
+
+#: ./Pages/Authorisation.php:17
+msgid "Required parameter response_type is missing!"
+msgstr ""
+
+#: ./Pages/Authorisation.php:22
+msgid "Sorry, implicit grant is currently not supported."
+msgstr ""
+
+#: ./Pages/Authorisation.php:55
+msgid "Sorry, this code has been seen before!"
+msgstr ""
+
+#: ./Pages/Authorisation.php:59
+msgid "Bang, code incorrect"
+msgstr ""
+
+#: ./Pages/Account/Applications.php:14
+msgid "Manage OAuth2 Applications"
+msgstr ""
+
+#: ./Pages/Account/Applications.php:29
+msgid "New application %s created!"
+msgstr ""
+
+#: ./Pages/Account/Applications.php:31
+msgid "Problem creating new application..."
+msgstr ""
+
+#: ./Pages/Account/Applications.php:37
+msgid "%s was removed."
+msgstr ""
+
+#: ./Pages/Connect.php:23
+msgid "Could not load client associated with %s"
+msgstr ""
+
+#: ./templates/default/oauth2/forms/connect.tpl.php:4
+msgid "Authorise connection to %s"
+msgstr ""
+
+#: ./templates/default/oauth2/forms/connect.tpl.php:13
+msgid "Application has asked to connect to your account with the following privileges %s, do you want to allow it?"
+msgstr ""
+
+#: ./templates/default/oauth2/forms/connect.tpl.php:15
+msgid "Application has asked to connect to your account, do you want to allow it?"
+msgstr ""
+
+#: ./templates/default/oauth2/forms/connect.tpl.php:22
+msgid "Cancel"
+msgstr ""
+
+#: ./templates/default/account/oauth2/menu.tpl.php:1
+msgid "OAuth2 Applications"
+msgstr ""
+
+#: ./templates/default/account/oauth2.tpl.php:14
+msgid "These are your OAuth2 Applications, which you or others can use to connect third party applications to."
+msgstr ""
+
+#: ./templates/default/account/oauth2.tpl.php:23
+msgid "Your application name"
+msgstr ""
+
+#: ./templates/default/account/oauth2.tpl.php:26
+msgid "New Application name"
+msgstr ""
+
+#: ./templates/default/account/oauth2.tpl.php:29
+msgid "Generate new keys..."
+msgstr ""
+
+#: ./templates/default/account/oauth2.tpl.php:43
+msgid "Your Applications"
+msgstr ""
+
+#: ./templates/default/account/oauth2.tpl.php:64
+msgid "App Key"
+msgstr ""
+
+#: ./templates/default/account/oauth2.tpl.php:67
+msgid "Secret"
+msgstr ""
+
+#: ./templates/default/account/oauth2.tpl.php:75
+msgid "Are you sure? This will delete this application."
+msgstr ""
+
+#: ./Main.php:62
+msgid "Token scope doesn't match that which was previously granted!"
+msgstr ""
+
+#: ./Main.php:69
+msgid "Token user could not be retrieved."
+msgstr ""
+
+#: ./Main.php:72
+msgid "Access token %s has expired."
+msgstr ""
+
+#: ./Main.php:75
+msgid "Access token %s does not match any stored token."
+msgstr ""
+

@@ -1,1 +1,1 @@
-<li <?php if ($_SERVER['REQUEST_URI'] == '/account/oauth2/') echo 'class="active"'; ?>><a href="/account/oauth2/">OAuth2 Applications</a></li>
+<li <?php if ($_SERVER['REQUEST_URI'] == '/account/oauth2/') echo 'class="active"'; ?>><a href="/account/oauth2/"><?= \Idno\Core\Idno::site()->language()->_('OAuth2 Applications'); ?></a></li>

@@ -3,6 +3,16 @@
 namespace IdnoPlugins\OAuth2 {
 
     class Main extends \Idno\Common\Plugin {
+        
+        function registerTranslations()
+        {
+
+            \Idno\Core\Idno::site()->language()->register(
+                new \Idno\Core\GetTextTranslation(
+                    'oauth2', dirname(__FILE__) . '/languages/'
+                )
+            );
+        }
 
 	function registerPages() {
 	    \Idno\Core\site()->addPageHandler('/oauth2/authorise/?', '\IdnoPlugins\OAuth2\Pages\Authorisation');
@@ -49,20 +59,20 @@ namespace IdnoPlugins\OAuth2 {
 			    
 			    // Double check scope
 			    if ($owner->oauth2[$token->key]['scope'] != $token->scope) 
-				throw new \Exception("Token scope doesn't match that which was previously granted!");
+				throw new \Exception(\Idno\Core\Idno::site()->language()->_("Token scope doesn't match that which was previously granted!"));
 			    
 			    return $owner;
 			    
 			} else {
 			    \Idno\Core\site()->triggerEvent('login/failure', array('user' => $owner));
 			    
-			    throw new \Exception("Token user could not be retrieved.");
+			    throw new \Exception(\Idno\Core\Idno::site()->language()->_("Token user could not be retrieved."));
 			}
 		    } else {
-			throw new \Exception("Access token $access_token has expired.");
+			throw new \Exception(\Idno\Core\Idno::site()->language()->_("Access token %s has expired.", [$access_token]));
 		    }
 		} else {
-		    throw new \Exception("Access token $access_token does not match any stored token.", LOGLEVEL_ERROR);
+		    throw new \Exception(\Idno\Core\Idno::site()->language()->_("Access token %s does not match any stored token.", [$access_token]));
 		}
 	    }
 	}

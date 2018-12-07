@@ -7,11 +7,11 @@ namespace IdnoPlugins\OAuth2\Pages\Account {
 	function getContent() {
 	    $this->gatekeeper();
 
-	    $apps = \IdnoPlugins\OAuth2\Application::get(['owner' => \Idno\Core\site()->session()->currentUserUUID()], array(), 99999, 0); // TODO: make this more complete / efficient
+	    $apps = \IdnoPlugins\OAuth2\Application::get(['owner' => \Idno\Core\site()->session()->currentUserUUID()], array(), PHP_INT_MAX, 0); // TODO: make this more complete / efficient
 
 	    $t = \Idno\Core\site()->template();
 	    $t->body = $t->__(array('applications' => $apps))->draw('account/oauth2');
-	    $t->title = 'Manage OAuth2 Applications';
+	    $t->title = \Idno\Core\Idno::site()->language()->_('Manage OAuth2 Applications');
 	    $t->drawPage();
 	}
 
@@ -26,15 +26,15 @@ namespace IdnoPlugins\OAuth2\Pages\Account {
 		    $app = \IdnoPlugins\OAuth2\Application::newApplication($this->getInput('name'));
 
 		    if ($app->save())
-			\Idno\Core\site()->session()->addMessage("New application " . $app->getTitle() . " created!");
+			\Idno\Core\site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("New application %s created!", [$app->getTitle()]));
 		    else
-			\Idno\Core\site()->session()->addErrorMessage("Problem creating new application...");
+			\Idno\Core\site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("Problem creating new application..."));
 		    break;
 		case 'delete' :
 		    $uuid = $this->getInput('app_uuid');
 		    if ($app = \IdnoPlugins\OAuth2\Application::getByUUID($uuid)) {
 			if ($app->delete()) {
-			    \Idno\Core\site()->session()->addMessage($app->getTitle() . " was removed.");
+			    \Idno\Core\site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("%s was removed.", [$app->getTitle()]));
 			}
 		    }
 		    break;

@@ -14,12 +14,12 @@ namespace IdnoPlugins\OAuth2\Pages {
 		    $client_id = $this->getInput('client_id');
 		    $redirect_uri = $this->getInput('redirect_uri');
 		    
-		    if (!$response_type) throw new \IdnoPlugins\OAuth2\OAuth2Exception("Required parameter response_type is missing!", 'invalid_request', $state);
-		    if (!$client_id) throw new \IdnoPlugins\OAuth2\OAuth2Exception("Required parameter client_id is missing!", 'invalid_request', $state);
+		    if (!$response_type) throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Required parameter response_type is missing!"), 'invalid_request', $state);
+		    if (!$client_id) throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Required parameter client_id is missing!"), 'invalid_request', $state);
 		    
 		    switch ($response_type) {
 			
-			case 'token': throw new \IdnoPlugins\OAuth2\OAuth2Exception("Sorry, implicit grant is currently not supported.", 'unsupported_response_type', $state); 
+			case 'token': throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Sorry, implicit grant is currently not supported."), 'unsupported_response_type', $state); 
 			    break;
 			
 			case 'code':
@@ -35,7 +35,7 @@ namespace IdnoPlugins\OAuth2\Pages {
 			    
 			    // Check Application
 			    if (!\IdnoPlugins\OAuth2\Application::getOne(['key' => $client_id]))
-				throw new \IdnoPlugins\OAuth2\OAuth2Exception("I have no knowledge of the application identified by $client_id", 'unauthorized_client', $state);
+				throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("I have no knowledge of the application identified by %s", [$client_id]), 'unauthorized_client', $state);
 			    
 			    // Authenticate user
 			    if (!$user = \Idno\Core\site()->session()->currentUser()) {
@@ -52,11 +52,11 @@ namespace IdnoPlugins\OAuth2\Pages {
 			    
 			    // Check code 
 			    if ($code->getOne(['code' => $code]))
-				throw new \IdnoPlugins\OAuth2\OAuth2Exception("Sorry, this code has been seen before!", 'access_denied', $state);
+				throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Sorry, this code has been seen before!"), 'access_denied', $state);
 			    
 			    
 			    // Save code so we've not seen it before
-			    if (!$code->save()) throw new \IdnoPlugins\OAuth2\OAuth2Exception("Bang, code incorrect", 'invalid_request', $state);
+			    if (!$code->save()) throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Bang, code incorrect"), 'invalid_request', $state);
 			    
 			    // Forward or echo
 			    if ($redirect_uri) {
