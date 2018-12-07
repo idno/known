@@ -7,8 +7,8 @@ namespace IdnoPlugins\OAuth2 {
     {
 
         /**
-     * Generate a new keypair
-     */
+         * Generate a new keypair
+         */
         public function generateKeypair()
         {
             $this->key = hash('sha256', mt_rand() . microtime(true) . $this->getTitle());
@@ -16,10 +16,10 @@ namespace IdnoPlugins\OAuth2 {
         }
 
         /**
-     * Helper function to create a new application with a new keypair.
-     * @param type $title
-     * @return \IdnoPlugins\OAuth2\Application
-     */
+         * Helper function to create a new application with a new keypair.
+         * @param type $title
+         * @return \IdnoPlugins\OAuth2\Application
+         */
         public static function newApplication($title)
         {
             $app = new Application();
@@ -30,9 +30,9 @@ namespace IdnoPlugins\OAuth2 {
         }
 
         /**
-     * Saves changes to this object based on user input
-     * @return true|false
-     */
+         * Saves changes to this object based on user input
+         * @return true|false
+         */
         function saveDataFromInput()
         {
 

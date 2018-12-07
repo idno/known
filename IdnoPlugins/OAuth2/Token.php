@@ -20,8 +20,8 @@ namespace IdnoPlugins\OAuth2 {
         }
 
         /**
-     * Check whether a token is valid (i.e. not expired) and that an application with the given key exists.
-     */
+         * Check whether a token is valid (i.e. not expired) and that an application with the given key exists.
+         */
         function isValid()
         {
 
@@ -30,9 +30,9 @@ namespace IdnoPlugins\OAuth2 {
         }
 
         /**
-     * Saves changes to this object based on user input
-     * @return true|false
-     */
+         * Saves changes to this object based on user input
+         * @return true|false
+         */
         function saveDataFromInput()
         {
 
