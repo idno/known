@@ -1,8 +1,9 @@
 <div class="row">
 
     <div class="col-md-10 col-md-offset-1">
+        <?= $this->draw('account/menu') ?>
         <h3><?= \Idno\Core\Idno::site()->language()->_('Manage OAuth2 Applications'); ?></h3>
-	<?= $this->draw('account/menu') ?>
+	
     </div>
 
 </div>
