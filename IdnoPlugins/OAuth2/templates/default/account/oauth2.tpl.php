@@ -76,7 +76,7 @@
 	    		<p><small>
 				    <?php
 				    if ($app->canEdit()) {
-					echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'account/oauth2', 'Delete', array('app_uuid' => $app->getUUID(), 'action' => 'delete'), array('class' => '', 'confirm' => true, 'confirm-text' => \Idno\Core\Idno::site()->language()->_('Are you sure? This will delete this application.')));
+					echo \Idno\Core\site()->actions()->createLink(\Idno\Core\site()->config()->getDisplayURL() . 'account/oauth2', \Idno\Core\Idno::site()->language()->_('Delete'), array('app_uuid' => $app->getUUID(), 'action' => 'delete'), array('class' => '', 'confirm' => true, 'confirm-text' => \Idno\Core\Idno::site()->language()->_('Are you sure? This will delete this application.')));
 				    } else {
 					echo '&nbsp';
 				    }

@@ -94,35 +94,39 @@ msgstr ""
 msgid "OAuth2 Applications"
 msgstr ""
 
-#: ./templates/default/account/oauth2.tpl.php:14
+#: ./templates/default/account/oauth2.tpl.php:15
 msgid "These are your OAuth2 Applications, which you or others can use to connect third party applications to."
 msgstr ""
 
-#: ./templates/default/account/oauth2.tpl.php:23
+#: ./templates/default/account/oauth2.tpl.php:25
 msgid "Your application name"
 msgstr ""
 
-#: ./templates/default/account/oauth2.tpl.php:26
+#: ./templates/default/account/oauth2.tpl.php:29
 msgid "New Application name"
 msgstr ""
 
-#: ./templates/default/account/oauth2.tpl.php:29
+#: ./templates/default/account/oauth2.tpl.php:33
 msgid "Generate new keys..."
 msgstr ""
 
-#: ./templates/default/account/oauth2.tpl.php:43
+#: ./templates/default/account/oauth2.tpl.php:47
 msgid "Your Applications"
 msgstr ""
 
-#: ./templates/default/account/oauth2.tpl.php:64
+#: ./templates/default/account/oauth2.tpl.php:68
 msgid "App Key"
 msgstr ""
 
-#: ./templates/default/account/oauth2.tpl.php:67
+#: ./templates/default/account/oauth2.tpl.php:71
 msgid "Secret"
 msgstr ""
 
-#: ./templates/default/account/oauth2.tpl.php:75
+#: ./templates/default/account/oauth2.tpl.php:79
+msgid "Delete"
+msgstr ""
+
+#: ./templates/default/account/oauth2.tpl.php:79
 msgid "Are you sure? This will delete this application."
 msgstr ""
 
