@@ -20,13 +20,16 @@
         <form action="/account/oauth2/" class="form-horizontal" method="post">
 	    <input type="hidden" name="action" value="create" />
 
-	    <div class="control-group">
-		<label class="control-label" for="inputName"><?= \Idno\Core\Idno::site()->language()->_('Your application name'); ?></label>
+	    <div class="form-group">
+                <div class="col-md-3">
+                    <label class="control-label" for="inputName"><?= \Idno\Core\Idno::site()->language()->_('Your application name'); ?></label>
+                </div>
 
-		<div class="controls">
+		<div class="col-md-4">
 		    <input type="text" id="inputName" placeholder="<?= \Idno\Core\Idno::site()->language()->_('New Application name'); ?>" name="name"
 			   value="" required>
-		    
+                </div>
+                <div class="col-md-5">
 		    <button type="submit" class="btn btn-primary btn-large"><?= \Idno\Core\Idno::site()->language()->_('Generate new keys...'); ?></button>
 		</div>
 
@@ -44,7 +47,7 @@
 	<h3><?= \Idno\Core\Idno::site()->language()->_('Your Applications'); ?></h3>
 	
     </div>
-    <div class="pane col-md-10 col-md-offset-1">
+    <div class="pane col-md-8 col-md-offset-1">
 	
 
 	<?php
