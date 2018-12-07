@@ -48,6 +48,7 @@ IdnoPlugins/*
 !IdnoPlugins/Styles/
 !IdnoPlugins/Text/
 !IdnoPlugins/Webhooks/
+!IdnoPlugins/OAuth2/
 
 Themes/*
 !Themes/Black/
