@@ -18,7 +18,9 @@ namespace IdnoPlugins\OAuth2\Pages {
                     $redirect_uri = $this->getInput('redirect_uri');
 
                     if (!$grant_type)
-                    throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Required parameter grant_type is missing!"), 'invalid_request', $state);
+                    {
+                        throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Required parameter grant_type is missing!"), 'invalid_request', $state);
+                    }
 
                     switch ($grant_type) {
 
@@ -28,15 +30,21 @@ namespace IdnoPlugins\OAuth2\Pages {
                             $refresh_token = $this->getInput('refresh_token');
 
                             if (!$refresh_token)
-                            throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Required parameter refresh_token is missing!"), 'invalid_request', $state);
+                            {
+                                throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Required parameter refresh_token is missing!"), 'invalid_request', $state);
+                            }
 
-                            if (!($token = \IdnoPlugins\OAuth2\Token::getOne([/*'key' => $client_id, */'refresh_token' => $refresh_token])))
-                            throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Sorry, that refresh token appears to be invalid!"), 'invalid_grant', $state);
+                            if (!($token = \IdnoPlugins\OAuth2\Token::getOne([/*'key' => $client_id, */'refresh_token' => $refresh_token]))) 
+                            {
+                                throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Sorry, that refresh token appears to be invalid!"), 'invalid_grant', $state);
+                            }
 
                             // Check state on object
                             if ($token->state) {
-                                if ($token->state != $state)
-                                throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Invalid state given"), 'access_denied', $state);
+                                if ($token->state != $state) 
+                                {
+                                    throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Invalid state given"), 'access_denied', $state);
+                                }
                             }
 
                             // OK so far, so generate new token
@@ -57,7 +65,9 @@ namespace IdnoPlugins\OAuth2\Pages {
                                 echo json_encode($newtoken);
                             }
                             else
-                            throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Server problem, couldn't refresh token. Try again in a bit..."), 'invalid_grant', $state);
+                            {
+                                throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Server problem, couldn't refresh token. Try again in a bit..."), 'invalid_grant', $state);
+                            }
 
                             break;
 
@@ -66,26 +76,36 @@ namespace IdnoPlugins\OAuth2\Pages {
                         default:
 
                             if (!$client_id)
-                            throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Required parameter client_id is missing!"), 'invalid_request', $state);
+                            {
+                                throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Required parameter client_id is missing!"), 'invalid_request', $state);
+                            }
 
                             // Check Application
                             if (!\IdnoPlugins\OAuth2\Application::getOne(['key' => $client_id]))
-                            throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("I have no knowledge of the application identified by %s", [$client_id]), 'unauthorized_client', $state);
+                            {
+                                throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("I have no knowledge of the application identified by %s", [$client_id]), 'unauthorized_client', $state);
+                            }
 
                             // Check code
                             if ((!($code_obj = \IdnoPlugins\OAuth2\Code::getOne(['code' => $code, 'key' => $client_id]))) || ($code_obj->expires < time()))
-                            throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Sorry, unknown or expired code!"), 'invalid_grant', $state);
+                            {
+                                throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Sorry, unknown or expired code!"), 'invalid_grant', $state);
+                            }
 
                             // Check state on object
                             if ($code_obj->state) {
                                 if ($code_obj->state != $state)
-                                throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Invalid state given"), 'access_denied', $state);
+                                {
+                                    throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Invalid state given"), 'access_denied', $state);
+                                }
                             }
 
                             // Check redirect
                             if ($code_obj->redirect_uri) {
                                 if ($code_obj->redirect_uri != $redirect_uri)
-                                throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Sorry, redirect_uri doesn't match the one given before!"), 'access_denied', $state);
+                                {
+                                    throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Sorry, redirect_uri doesn't match the one given before!"), 'access_denied', $state);
+                                }
                             }
 
                             // OK so far, so generate new token
@@ -102,7 +122,9 @@ namespace IdnoPlugins\OAuth2\Pages {
                             $token->setOwner($code_obj->getOwner());
 
                             if (!$token->save())
-                            throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Server problem, couldn't generate new tokens. Try again in a bit..."), 'invalid_grant', $state);
+                            {
+                                throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Server problem, couldn't generate new tokens. Try again in a bit..."), 'invalid_grant', $state);
+                            }
 
                             echo json_encode($token);
                     }

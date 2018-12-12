@@ -21,8 +21,10 @@ namespace IdnoPlugins\OAuth2\Pages {
                 $t->title = 'Authorise connection...';
                 $t->drawPage();
             }
-            else
-            throw new \Exception(\Idno\Core\Idno::site()->language()->_("Could not load client associated with %s", [$client_id]));
+            else 
+            {
+                throw new \Exception(\Idno\Core\Idno::site()->language()->_("Could not load client associated with %s", [$client_id]));
+            }
         }
 
         function postContent()
@@ -35,13 +37,14 @@ namespace IdnoPlugins\OAuth2\Pages {
             $scope = $this->getInput('scope');
 
             $user->oauth2 = [
-            $client_id => [
-            'scope' => $scope
-            ]
+                $client_id => [
+                    'scope' => $scope
+                ]
             ];
 
-            if ($user->save())
-            $this->forward($this->getInput('fwd'));
+            if ($user->save()) {
+                $this->forward($this->getInput('fwd'));
+            }
 
         }
 

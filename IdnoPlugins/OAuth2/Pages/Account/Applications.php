@@ -28,10 +28,11 @@ namespace IdnoPlugins\OAuth2\Pages\Account {
                 case 'create' :
                     $app = \IdnoPlugins\OAuth2\Application::newApplication($this->getInput('name'));
 
-                    if ($app->save())
-                    \Idno\Core\site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("New application %s created!", [$app->getTitle()]));
-                    else
-                    \Idno\Core\site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("Problem creating new application..."));
+                    if ($app->save()) {
+                        \Idno\Core\site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("New application %s created!", [$app->getTitle()]));
+                    } else {
+                        \Idno\Core\site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("Problem creating new application..."));
+                    }
                     break;
                 case 'delete' :
                     $uuid = $this->getInput('app_uuid');

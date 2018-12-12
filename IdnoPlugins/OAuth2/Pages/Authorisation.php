@@ -37,8 +37,9 @@ namespace IdnoPlugins\OAuth2\Pages {
                             $code->redirect_uri = $redirect_uri;
 
                             // Check Application
-                            if (!\IdnoPlugins\OAuth2\Application::getOne(['key' => $client_id]))
-                            throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("I have no knowledge of the application identified by %s", [$client_id]), 'unauthorized_client', $state);
+                            if (!\IdnoPlugins\OAuth2\Application::getOne(['key' => $client_id])) {
+                                throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("I have no knowledge of the application identified by %s", [$client_id]), 'unauthorized_client', $state);
+                            }
 
                             // Authenticate user
                             if (!$user = \Idno\Core\site()->session()->currentUser()) {
