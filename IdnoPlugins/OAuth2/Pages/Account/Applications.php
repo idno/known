@@ -43,7 +43,7 @@ namespace IdnoPlugins\OAuth2\Pages\Account {
                     break;
             }
 
-            $this->forward(\Idno\Core\site()->config()->getURL() . 'account/oauth2/');
+            $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'account/oauth2/');
         }
 
     }
