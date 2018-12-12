@@ -11,16 +11,16 @@ if (!empty($vars['object'])) {
 
 // Default to a webpage (https://jsonld.com/web-page/)
 $jsonld = [
-    "@context" => "http://schema.org", 
-    "@type" => "WebSite", 
-    "url" => $currentPage->currentUrl(), 
+    "@context" => "http://schema.org",
+    "@type" => "WebSite",
+    "url" => $currentPage->currentUrl(),
     "name" => $vars['title'],
     "description" => $vars['description'],
     "publisher" => \Idno\Core\Idno::site()->config()->title,
-    "potentialAction" => [ 
-        "@type" => "SearchAction", 
-        "target" => \Idno\Core\Idno::site()->config()->getDisplayURL() . "content/all/?q={search_term}", 
-        "query-input" => "required name=search_term"  
+    "potentialAction" => [
+        "@type" => "SearchAction",
+        "target" => \Idno\Core\Idno::site()->config()->getDisplayURL() . "content/all/?q={search_term}",
+        "query-input" => "required name=search_term"
     ]
 ];
 if (!empty($pageOwner)) {
@@ -31,28 +31,28 @@ if (!empty($pageOwner)) {
 }
 
 // We're a permalink, so use specific permalink info
-if ($currentPage->isPermalink()) { 
+if ($currentPage->isPermalink()) {
     if (!empty($vars['user']) && $vars['user'] instanceof Idno\Entities\User) {
-    
+
         $object = $vars['user'];
         if (is_callable([$object, 'jsonLDSerialise'])) {
-        
+
             $jsonld = $object->jsonLDSerialise();
-            
+
         }
-    } 
+    }
     if (!empty($vars['object'])) {
-    
+
         $object = $vars['object'];
         if (is_callable([$object, 'jsonLDSerialise'])) {
-        
+
             $jsonld = $object->jsonLDSerialise();
-            
+
         }
-    } 
-    
-    
-} 
+    }
+
+
+}
 
 if (!empty($jsonld)) {
     ?>

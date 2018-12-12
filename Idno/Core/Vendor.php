@@ -17,13 +17,7 @@ namespace Idno\Core {
             }
 
             $results = Webservice::post('https://withknown.com/vendor-services/messages/', [
-                        'url' => \Idno\Core\Idno::site()->config()->getURL(),
-                        'title' => \Idno\Core\Idno::site()->config()->getTitle(),
                         'version' => Version::version(),
-                        'public' => \Idno\Core\Idno::site()->config()->isPublicSite(),
-                        'phpversion' => phpversion(),
-                        'dbengine' => get_class(\Idno\Core\Idno::site()->db()),
-                        'hub' => \Idno\Core\Idno::site()->config()->known_hub,
             ]);
 
             if ($results['response'] == 200) {

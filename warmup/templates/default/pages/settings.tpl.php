@@ -10,7 +10,7 @@
     $mysql_pass  = $vars['mysql_pass'];
     $mysql_name  = $vars['mysql_name'];
     $upload_path = $vars['upload_path'];
-    
+
     ?>
 
 <div id="form-div">
@@ -22,23 +22,23 @@
 
     <?php
 
-        if (!empty($messages)) {
-            echo $this->__([
-                'messages' => $messages
-            ])->draw('pages/elements/messages');
-        } else {
+    if (!empty($messages)) {
+        echo $this->__([
+            'messages' => $messages
+        ])->draw('pages/elements/messages');
+    } else {
 
-            ?>
-            <p>
-                Great! You have everything you need to get started.
-            </p>
-            <p>
-                On this screen, we'll ask you how we should connect to your database, and where we should save
-                uploaded files like user photos, pictures and audio.
-            </p>
+        ?>
+        <p>
+            Great! You have everything you need to get started.
+        </p>
+        <p>
+            On this screen, we'll ask you how we should connect to your database, and where we should save
+            uploaded files like user photos, pictures and audio.
+        </p>
         <?php
 
-        }
+    }
 
     ?>
 
@@ -64,7 +64,7 @@
             </h3>
 
             <p class="control-label">
-                Known needs a single MySQL database, with a user that can connect to it. We recommend that this
+                Known needs a single MySQL database, with a MySQL user that can connect to it. We recommend that this
                 is a user you have created just for Known, rather than one you share with other applications.
                 <br><br>
                 You should create your database before entering the details here. If you're using a shared host,

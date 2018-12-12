@@ -1,5 +1,5 @@
 /**
- * Gruntfile for Checkin
+ * Gruntfile for Export
  */
 
 module.exports = function (grunt) {
@@ -14,10 +14,10 @@ module.exports = function (grunt) {
 	
 	const { execSync } = require('child_process');
 	
-	execSync('touch ./languages/apitester.pot'); // Make sure it exists, if we're going to remove (for broken builds)
-	execSync('rm ./languages/apitester.pot'); // Remove existing
+	execSync('touch ./languages/export.pot'); // Make sure it exists, if we're going to remove (for broken builds)
+	execSync('rm ./languages/export.pot'); // Remove existing
 	
-	execSync('find . -type f -regex ".*\.php" | php ../../languages/processfile.php >> ./languages/apitester.pot'); 
+	execSync('find . -type f -regex ".*\.php" | php ../../languages/processfile.php >> ./languages/export.pot'); 
 	
     });
 

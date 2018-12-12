@@ -35,9 +35,7 @@ IdnoPlugins/*
 !IdnoPlugins/APITester/
 !IdnoPlugins/Bridgy/
 !IdnoPlugins/Checkin/
-!IdnoPlugins/Comic/
 !IdnoPlugins/Comments/
-!IdnoPlugins/Convoy/
 !IdnoPlugins/Event/
 !IdnoPlugins/Firefox/
 !IdnoPlugins/FooterJS/

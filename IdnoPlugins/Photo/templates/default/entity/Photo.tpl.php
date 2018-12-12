@@ -9,15 +9,16 @@
 
     $lightBoxEnabled = !!\Idno\Core\Idno::site()->plugins()->get('Lightbox');
 
-    $isPermalink = \Idno\Core\Idno::site()->currentPage()->isPermalink();
+    $currentPage = \Idno\Core\Idno::site()->currentPage();
+    $isPermalink = (!empty($currentPage) && $currentPage->isPermalink());
 
     $title = htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8');
     $isNotUntitled = ($title !== 'Untitled');
 
-
-    $rel = '';
 if ($isPermalink) {
     $rel = 'rel="in-reply-to"';
+} else {
+    $rel = '';
 }
 
     $tags = "";

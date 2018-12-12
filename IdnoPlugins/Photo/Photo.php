@@ -101,9 +101,15 @@ namespace IdnoPlugins\Photo {
 
             // Get photo
             //if ($new) {
-                $files = array_filter(\Idno\Core\Input::getFiles('photo'), function($var) {
-                    return !empty($var['tmp_name']); // Filter non-filled in elements
-                });
+                $files = \Idno\Core\Input::getFiles('photo');
+                
+                if (!isset($files['name'])) {
+                    $files = array_filter($files, function($var) {
+                        return !empty($var['tmp_name']); // Filter non-filled in elements
+                    });
+                } else {
+                    $files = [$files]; // Handle situations where we aren't handling array of photos
+                }
 
                 // Replace any existing photos
             //                    if (!empty($files[0]['tmp_name'])) {
@@ -209,7 +215,7 @@ namespace IdnoPlugins\Photo {
 
         }
 
-        public function jsonLDSerialise(array $params = array()): array
+        public function jsonLDSerialise(array $params = array())
         {
             $json = [
                 "@context" => "http://schema.org",

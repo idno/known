@@ -1,0 +1,9 @@
+#
+# Assigning ownership of project modules
+# https://help.github.com/articles/about-codeowners/
+#
+
+# Default code owners, matches here for code review if nothing else is described.
+*	@benwerd @mapkyca
+
+# Other project / submodule components listed below...

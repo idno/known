@@ -190,6 +190,7 @@ namespace Idno\Core {
             $this->addPageHandler('/view/([A-Za-z0-9]+)/annotations/([A-Za-z0-9]+)?', '\Idno\Pages\Annotation\View');
             $this->addPageHandler($permalink_route . '/annotations/([A-Za-z0-9]+)?', '\Idno\Pages\Annotation\View');
             $this->addPageHandler($permalink_route . '/annotations/([A-Za-z0-9]+)/delete/?', '\Idno\Pages\Annotation\Delete'); // Delete annotation
+            $this->addPageHandler($permalink_route .'/annotation/delete/?', '\Idno\Pages\Annotation\Delete'); // Delete annotation alternate
             $this->addPageHandler('/annotation/post/?', '\Idno\Pages\Annotation\Post');
 
             /** Bookmarklets and sharing */
@@ -242,6 +243,7 @@ namespace Idno\Core {
             $this->addPageHandler('/service/web/imageproxy/([^\/]+)/([0-9]+)/?', '\Idno\Pages\Service\Web\ImageProxy'); // With scale
             $this->addPageHandler('/service/web/imageproxy/([^\/]+)/([0-9]+)/([^\/]+)/?', '\Idno\Pages\Service\Web\ImageProxy'); // With scale, with transform
             $this->addPageHandler('/service/system/log/?', '\Idno\Pages\Service\System\Log');
+            $this->addPageHandler('/service/geo/geocoder/?', '\Idno\Pages\Service\Geo\Geocoder');
 
             // These must be loaded last
             $this->plugins = new Plugins();

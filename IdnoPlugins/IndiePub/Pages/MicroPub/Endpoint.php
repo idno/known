@@ -66,7 +66,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
                         header('Content-Type: application/json');
                         echo json_encode([
                             'media-endpoint' => \Idno\Core\Idno::site()->config()->url . 'micropub/endpoint',
-                            'syndicate-to' => $account_strings,
+                            'syndicate-to' => $account_data,
                         ], JSON_PRETTY_PRINT);
                         break;
                     case 'syndicate-to':
@@ -88,6 +88,11 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
         function post()
         {
             \Idno\Core\Idno::site()->template()->setTemplateType('json');
+            
+            \Idno\Core\Idno::site()->logging()->debug("MicroPub endpoint pinged: " . print_r($_REQUEST, true));
+            if(isset($_SERVER['CONTENT_TYPE']) && $_SERVER['CONTENT_TYPE'] == 'application/json') {
+                \Idno\Core\Idno::site()->logging()->debug("JSON Payload: " . print_r(json_decode(file_get_contents('php://input')), true));
+            }
 
             //fail-by-default in case of unhandled errors
             $this->setResponse(500);
@@ -125,9 +130,16 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
 
             if (!empty($id)) {
                 $local_photo = \Idno\Core\Idno::site()->config()->url . 'file/' . $id;
-                \Idno\Core\Idno::site()->triggerEvent('indiepub/post/success', ['page' => $this, 'object' => $entity]);
+                //\Idno\Core\Idno::site()->triggerEvent('indiepub/post/success', ['page' => $this, 'object' => $entity]); // MP: Removing here, since the object hasn't actually been created yet, and this would trigger this multiple times
                 $this->setResponse(201);
                 header('Location: ' . $local_photo);
+
+                /* return body with the URL to the photo, based upon Accept header */
+                if ($this->isAcceptedContentType('application/json')) {
+                    echo json_encode(['url' => $local_photo], JSON_PRETTY_PRINT);
+                } else {
+                    echo $local_photo;
+                }
             } else {
                 $this->error(400, 'cannot_save_media', 'Problem saving media');
             }
@@ -142,15 +154,15 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
                 $type = !empty($this->jsoninput['type'][0]) ? $this->jsoninput['type'][0] : 'h-entry';
                 $type = str_replace('h-', '', $type);
 
-                $content     = $this->getJSONInput('content');
-                $name        = $this->getJSONInput('name');
+                $content     = $this->getJSONInput('content', $this->getJSONInput('description'));
+                $name        = $this->getJSONInput('name', $this->getJSONInput('title'));
                 $in_reply_to = $this->getJSONInput('in-reply-to');
-                $syndicate   = $this->getJSONInput('mp-syndicate-to');
+                $syndicate   = $this->getJSONInput('mp-syndicate-to', $this->getJSONInput('syndicate-to'));
                 $posse_links = $this->getJSONInput('syndication');
                 $bookmark_of = $this->getJSONInput('bookmark-of');
                 $like_of     = $this->getJSONInput('like-of');
                 $repost_of   = $this->getJSONInput('repost-of');
-                $categories  = $this->getJSONInput('category');
+                $categories  = $this->getJSONInput('category', $this->getJSONInput('tags'));
                 $rsvp        = $this->getJSONInput('rsvp');
                 $mp_type     = null;
                 $photo_url   = $this->getJSONInput('photo');
@@ -209,7 +221,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
                     if($this->uploadFromUrl('photo', $photo_url)) {
                         $id = \Idno\Entities\File::createFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'], $_FILES['photo']['type']);
                         $local_photo = \Idno\Core\Idno::site()->config()->url . 'file/' . $id;
-                        $htmlPhoto = '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="' . $local_photo . '" alt="' . $place_name . '"  /></p>';
+                        //$htmlPhoto = '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="' . $local_photo . '" alt="' . $place_name . '"  /></p>';
                     }
                 }
 
@@ -220,20 +232,21 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
                     return $this->postCreateAnnotation();
                 }
 
-                $content     = $this->getInput('content');
-                $name        = $this->getInput('name');
+                $content     = $this->getInput('content', $this->getInput('description'));
+                $name        = $this->getInput('name', $this->getInput('title'));
                 $in_reply_to = $this->getInput('in-reply-to');
                 $syndicate   = $this->getInput('mp-syndicate-to', $this->getInput('syndicate-to'));
                 $posse_links = $this->getInput('syndication');
                 $bookmark_of = $this->getInput('bookmark-of');
                 $like_of     = $this->getInput('like-of');
                 $repost_of   = $this->getInput('repost-of');
-                $categories  = $this->getInput('category');
+                $categories  = $this->getInput('category', $this->getInput('tags'));
                 $rsvp        = $this->getInput('rsvp');
                 $mp_type     = $this->getInput('mp-type');
                 $photo_url   = $this->getInput('photo');
                 $video_url   = $this->getInput('video');
                 $audio_url   = $this->getInput('audio');
+                $visibility   = $this->getInput('visibility');
             }
 
             if (!empty($mp_type)) {
@@ -252,7 +265,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
                 if (!empty($_FILES['photo'])) {
                     $type = 'photo';
                 } else if ($photo_url) {
-                    $type      = 'photo';
+                    $type      = 'photo'; 
                     $success   = $this->uploadFromUrl('photo', $photo_url);
                     if (!$success) {
                         \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
@@ -315,11 +328,11 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
             }
 
             if (!empty($_FILES['photo'])) {
-                $id = \Idno\Entities\File::createFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'], $_FILES['photo']['type']);
+                $id = \Idno\Entities\File::createFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'], $_FILES['photo']['type']); 
                 $photo = \Idno\Core\Idno::site()->config()->url . 'file/' . $id;
 
                 if (!empty($photo)) {
-                    $htmlPhoto = '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="' . $photo . '" alt="' . $place_name . '"  /></p>';
+                    //$htmlPhoto = '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="' . $photo . '" alt="' . $place_name . '"  /></p>';
                 }
             }
 
@@ -367,8 +380,8 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
             }
 
             // Get an appropriate plugin, given the content type
-            if ($contentType = ContentType::getRegisteredForIndieWebPostType($type)) {
-                if ($entity = $contentType->createEntity()) {
+            if ($contentType = ContentType::getRegisteredForIndieWebPostType($type)) { 
+                if ($entity = $contentType->createEntity()) { 
                     if (is_array($content)) {
                         $content_value = '';
                         if (!empty($content['html'])) {
@@ -408,6 +421,9 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
                         $this->setInput('long', $long);
                         $this->setInput('user_address', $user_address);
                         $this->setInput('placename', $place_name);
+                    }
+                    if ($type == 'bookmark') {
+                        $this->setInput('description', $content_value);
                     }
                     if ($created = $this->getInput('published')) {
                         $this->setInput('created', $created);
