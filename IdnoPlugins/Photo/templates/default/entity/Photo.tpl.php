@@ -77,9 +77,7 @@ if (empty($vars['feed_view']) && $vars['object']->getTitle() && $isNotUntitled) 
             $mainsrc = \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($mainsrc);
             ?>
             <div class="photo-view">
-                <a href="<?php
-                    echo ($lightBoxEnabled || $isPermalink) ? $this->makeDisplayURL($mainsrc) : $vars['object']->getDisplayURL();
-                   ?>" 
+                <a href="<?php echo ($isPermalink) ? $this->makeDisplayURL($mainsrc) : $vars['object']->getDisplayURL(); ?>" 
                    <?php if ($lightBoxEnabled) { ?>
                    data-toggle="lightbox"
                    data-remote="<?php echo $this->makeDisplayURL($mainsrc) ?>"
