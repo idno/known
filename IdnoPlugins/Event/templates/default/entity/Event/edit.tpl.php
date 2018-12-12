@@ -93,7 +93,7 @@
                 <label for="body">
                     <?php echo \Idno\Core\Idno::site()->language()->_('Description'); ?></label>
                     <?php echo $this->__([
-                        'height' => '100', 'name' => 'body', 'value' => $vars['object']->body
+                        'height' => '100', 'name' => 'body', 'value' => $vars['object']->body, 'required' => true
                     ])->draw('forms/input/richtext');?>
             </div>
             <?php echo $this->draw('entity/tags/input');?>
