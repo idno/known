@@ -82,6 +82,7 @@ if (empty($vars['feed_view']) && $vars['object']->getTitle() && $isNotUntitled) 
                    ?>" 
                    <?php if ($lightBoxEnabled) { ?>
                    data-toggle="lightbox"
+                   data-remote="<?php echo $this->makeDisplayURL($mainsrc) ?>"
                    <?php } ?>
                    data-gallery="<?php echo $vars['object']->_id . $title; ?>"
                    data-original-img="<?php echo $this->makeDisplayURL($mainsrc) ?>"
