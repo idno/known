@@ -45,9 +45,9 @@ namespace IdnoPlugins\Event\Pages\RSVP {
             }
 
             if ($object->delete()) {
-                \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_('%s was deleted.', [$object->getTitle()]));
+                \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->esc_('%s was deleted.', [$object->getTitle()]));
             } else {
-                \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("We couldn't delete %s.", [$object->getTitle()]));
+                \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->esc_("We couldn't delete %s.", [$object->getTitle()]));
             }
             $this->forward($_SERVER['HTTP_REFERER']);
         }

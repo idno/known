@@ -49,7 +49,7 @@ namespace Idno\Pages\Entity {
                 $this->deniedContent();
 
             if ($object->delete()) {
-                \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_('%s was deleted.', [$object->getTitle()]));
+                \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->esc_('%s was deleted.', [$object->getTitle()]));
             }
             $this->forward($_SERVER['HTTP_REFERER']);
         }

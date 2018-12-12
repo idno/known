@@ -47,7 +47,7 @@ namespace Idno\Pages\Admin {
                     if ($user = User::getByUUID($uuid)) {
                         $user->setAdmin(true);
                         $user->save();
-                        \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("%s was given administration rights.", [$user->getTitle()]));
+                        \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->esc_("%s was given administration rights.", [$user->getTitle()]));
                     }
                     break;
                 case 'remove_rights':
@@ -55,14 +55,14 @@ namespace Idno\Pages\Admin {
                     if ($user = User::getByUUID($uuid)) {
                         $user->setAdmin(false);
                         $user->save();
-                        \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("%s was stripped of their administration rights.", [$user->getTitle()]));
+                        \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->esc_("%s was stripped of their administration rights.", [$user->getTitle()]));
                     }
                     break;
                 case 'delete':
                     $uuid = $this->getInput('user');
                     if ($user = User::getByUUID($uuid)) {
                         if ($user->delete()) {
-                            \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("%s was removed from your site.", [$user->getTitle()]));
+                            \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->esc_("%s was removed from your site.", [$user->getTitle()]));
                         }
                     }
                     break;
@@ -88,7 +88,7 @@ namespace Idno\Pages\Admin {
                     }
 
                     if ($invitation_count > 1) {
-                        \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("%d invitations were sent.", [$invitation_count]));
+                        \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->esc_("%d invitations were sent.", [$invitation_count]));
                     } else if ($invitation_count == 1) {
                         \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("Your invitation was sent."));
                     } else if ($invitations_sent == 0 && $invitation_count > 0) {
@@ -179,7 +179,7 @@ namespace Idno\Pages\Admin {
                     }
 
                     if (!empty($user->_id)) {
-                        \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("User %s was created. You may wish to email them to let them know.", [$user->getHandle()]));
+                        \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->esc_("User %s was created. You may wish to email them to let them know.", [$user->getHandle()]));
                     } else {
                         \Idno\Core\Idno::site()->session()->addMessageAtStart("We couldn't register that user.");
                     }
@@ -202,7 +202,7 @@ namespace Idno\Pages\Admin {
                     }
 
                     if ($block_count > 1) {
-                        \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("%d emails were blocked.", [$block_count]));
+                        \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->esc_("%d emails were blocked.", [$block_count]));
                     } else if ($block_count == 1) {
                         \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("The email address was blocked."));
                     } else {
@@ -227,9 +227,9 @@ namespace Idno\Pages\Admin {
                     }
 
                     if ($block_count > 1) {
-                        \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("%d emails were unblocked.", [$block_count]));
+                        \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->esc_("%d emails were unblocked.", [$block_count]));
                     } else if ($block_count == 1) {
-                        \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("The email address was unblocked."));
+                        \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->esc_("The email address was unblocked."));
                     } else {
                         \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("No email addresses were found."));
                     }

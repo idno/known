@@ -47,7 +47,7 @@ namespace Idno\Pages\Account {
                 if (!\Idno\Entities\User::getByEmail($email)) {
                     $user->email = $email;
                 } else {
-                    \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_('Someone is already using %s as their email address.', [$email]));
+                    \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->esc_('Someone is already using %s as their email address.', [$email]));
                 }
             }
 
