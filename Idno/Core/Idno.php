@@ -212,6 +212,7 @@ namespace Idno\Core {
             /** Users */
             $this->addPageHandler('/profile/([^\/]+)/?', '\Idno\Pages\User\View');
             $this->addPageHandler('/profile/([^\/]+)/edit/?', '\Idno\Pages\User\Edit');
+            $this->addPageHandler('/profile/([^\/]+)/([A-Za-z\-\/]+)+', '\Idno\Pages\User\View');
 
             /** Search */
             $this->addPageHandler('/search/?', '\Idno\Pages\Search\Forward');
