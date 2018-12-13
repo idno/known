@@ -33,12 +33,12 @@ namespace Idno\Pages\User {
             $this->setOwner($user);
             $this->setPermalink(); // This is a permalink
 
-             if (!empty($this->arguments[1])) { // If we're on the friendly content-specific URL
+            if (!empty($this->arguments[1])) { // If we're on the friendly content-specific URL
                 if ($friendly_types = explode('/', $this->arguments[1])) {
                     $friendly_types = array_filter($friendly_types);
-                    
+
                     $types = array();
-                    
+
                     // Run through the URL parameters and set content types appropriately
                     foreach ($friendly_types as $friendly_type) {
                         if ($friendly_type == 'all') {
