@@ -33,7 +33,26 @@ namespace Idno\Pages\User {
             $this->setOwner($user);
             $this->setPermalink(); // This is a permalink
 
-            $types  = ['IdnoPlugins\Status\Status', 'IdnoPlugins\Text\Entry'];
+            if (!empty($this->arguments[1])) { // If we're on the friendly content-specific URL
+                if ($friendly_types = explode('/', $this->arguments[1])) {
+                    $friendly_types = array_filter($friendly_types);
+
+                    $types = array();
+
+                    // Run through the URL parameters and set content types appropriately
+                    foreach ($friendly_types as $friendly_type) {
+                        if ($friendly_type == 'all') {
+                            $types = \Idno\Common\ContentType::getRegisteredClasses();
+                            break;
+                        }
+                        if ($content_type_class = \Idno\Common\ContentType::categoryTitleToClass($friendly_type)) {
+                            $types[] = $content_type_class;
+                        }
+                    }
+                }
+            } else {
+                $types  = ['IdnoPlugins\Status\Status', 'IdnoPlugins\Text\Entry'];
+            }
             $offset = (int)$this->getInput('offset');
             $count  = \Idno\Common\Entity::countFromX($types, array('owner' => $user->getUUID(), 'publish_status' => 'published'));
             $feed   = \Idno\Common\Entity::getFromX($types, array('owner' => $user->getUUID(), 'publish_status' => 'published'), array(), \Idno\Core\Idno::site()->config()->items_per_page, $offset);
