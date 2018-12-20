@@ -42,7 +42,7 @@ namespace Idno\Core {
          * @param type $offset
          * @return type
          */
-        static function getAdmins($limit = 10, $offset)
+        static function getAdmins($limit = 10, $offset = 0)
         {
             return \Idno\Entities\User::get(['admin' => true], [], $limit, $offset);
         }
