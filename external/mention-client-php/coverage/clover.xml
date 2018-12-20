@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1449682053">
+  <project timestamp="1449682053">
+    <package name="IndieWeb">
+      <file name="/Users/aaronpk/Code/mention-client-php/src/IndieWeb/MentionClient.php">
+        <class name="MentionClient" namespace="IndieWeb">
+          <metrics methods="22" coveredmethods="10" conditionals="0" coveredconditionals="0" statements="219" coveredstatements="138" elements="241" coveredelements="148"/>
+        </class>
+        <line num="21" type="method" name="setProxy" crap="2" count="0"/>
+        <line num="22" type="stmt" count="0"/>
+        <line num="23" type="stmt" count="0"/>
+        <line num="25" type="method" name="discoverPingbackEndpoint" crap="6" count="3"/>
+        <line num="27" type="stmt" count="3"/>
+        <line num="28" type="stmt" count="3"/>
+        <line num="31" type="stmt" count="3"/>
+        <line num="32" type="stmt" count="2"/>
+        <line num="33" type="stmt" count="2"/>
+        <line num="34" type="stmt" count="2"/>
+        <line num="36" type="stmt" count="3"/>
+        <line num="37" type="stmt" count="3"/>
+        <line num="38" type="stmt" count="2"/>
+        <line num="39" type="stmt" count="2"/>
+        <line num="40" type="stmt" count="2"/>
+        <line num="41" type="stmt" count="2"/>
+        <line num="42" type="stmt" count="1"/>
+        <line num="43" type="stmt" count="1"/>
+        <line num="44" type="stmt" count="1"/>
+        <line num="45" type="stmt" count="1"/>
+        <line num="46" type="stmt" count="1"/>
+        <line num="47" type="stmt" count="1"/>
+        <line num="48" type="stmt" count="1"/>
+        <line num="49" type="stmt" count="1"/>
+        <line num="50" type="stmt" count="1"/>
+        <line num="51" type="stmt" count="1"/>
+        <line num="54" type="stmt" count="3"/>
+        <line num="55" type="stmt" count="3"/>
+        <line num="57" type="stmt" count="3"/>
+        <line num="60" type="method" name="sendPingbackToEndpoint" crap="7.02" count="4"/>
+        <line num="61" type="stmt" count="4"/>
+        <line num="63" type="stmt" count="4"/>
+        <line num="65" type="stmt" count="4"/>
+        <line num="67" type="stmt" count="4"/>
+        <line num="69" type="stmt" count="4"/>
+        <line num="70" type="stmt" count="4"/>
+        <line num="72" type="stmt" count="3"/>
+        <line num="74" type="stmt" count="3"/>
+        <line num="75" type="stmt" count="3"/>
+        <line num="77" type="stmt" count="2"/>
+        <line num="78" type="stmt" count="2"/>
+        <line num="80" type="stmt" count="1"/>
+        <line num="81" type="stmt" count="1"/>
+        <line num="83" type="stmt" count="0"/>
+        <line num="86" type="method" name="sendPingback" crap="12" count="0"/>
+        <line num="89" type="stmt" count="0"/>
+        <line num="90" type="stmt" count="0"/>
+        <line num="91" type="stmt" count="0"/>
+        <line num="93" type="stmt" count="0"/>
+        <line num="94" type="stmt" count="0"/>
+        <line num="95" type="stmt" count="0"/>
+        <line num="96" type="stmt" count="0"/>
+        <line num="98" type="stmt" count="0"/>
+        <line num="102" type="method" name="_findWebmentionEndpointInHTML" crap="9.00" count="17"/>
+        <line num="103" type="stmt" count="17"/>
+        <line num="104" type="stmt" count="17"/>
+        <line num="105" type="stmt" count="17"/>
+        <line num="106" type="stmt" count="17"/>
+        <line num="107" type="stmt" count="17"/>
+        <line num="108" type="stmt" count="0"/>
+        <line num="109" type="stmt" count="0"/>
+        <line num="110" type="stmt" count="0"/>
+        <line num="111" type="stmt" count="17"/>
+        <line num="113" type="stmt" count="4"/>
+        <line num="114" type="stmt" count="4"/>
+        <line num="115" type="stmt" count="17"/>
+        <line num="118" type="method" name="_findWebmentionEndpointInHeader" crap="6" count="8"/>
+        <line num="119" type="stmt" count="8"/>
+        <line num="120" type="stmt" count="8"/>
+        <line num="121" type="stmt" count="5"/>
+        <line num="122" type="stmt" count="8"/>
+        <line num="123" type="stmt" count="3"/>
+        <line num="124" type="stmt" count="3"/>
+        <line num="125" type="stmt" count="8"/>
+        <line num="127" type="stmt" count="5"/>
+        <line num="128" type="stmt" count="5"/>
+        <line num="129" type="stmt" count="8"/>
+        <line num="132" type="method" name="discoverWebmentionEndpoint" crap="9" count="6"/>
+        <line num="134" type="stmt" count="6"/>
+        <line num="135" type="stmt" count="6"/>
+        <line num="138" type="stmt" count="6"/>
+        <line num="139" type="stmt" count="3"/>
+        <line num="140" type="stmt" count="3"/>
+        <line num="141" type="stmt" count="3"/>
+        <line num="143" type="stmt" count="6"/>
+        <line num="145" type="stmt" count="6"/>
+        <line num="147" type="stmt" count="6"/>
+        <line num="148" type="stmt" count="4"/>
+        <line num="149" type="stmt" count="2"/>
+        <line num="150" type="stmt" count="2"/>
+        <line num="151" type="stmt" count="2"/>
+        <line num="153" type="stmt" count="4"/>
+        <line num="155" type="stmt" count="6"/>
+        <line num="156" type="stmt" count="4"/>
+        <line num="157" type="stmt" count="4"/>
+        <line num="158" type="stmt" count="4"/>
+        <line num="159" type="stmt" count="4"/>
+        <line num="160" type="stmt" count="2"/>
+        <line num="161" type="stmt" count="2"/>
+        <line num="162" type="stmt" count="2"/>
+        <line num="163" type="stmt" count="2"/>
+        <line num="164" type="stmt" count="2"/>
+        <line num="165" type="stmt" count="2"/>
+        <line num="166" type="stmt" count="2"/>
+        <line num="167" type="stmt" count="2"/>
+        <line num="168" type="stmt" count="2"/>
+        <line num="171" type="stmt" count="6"/>
+        <line num="172" type="stmt" count="6"/>
+        <line num="174" type="stmt" count="6"/>
+        <line num="177" type="method" name="sendWebmentionToEndpoint" crap="1" count="3"/>
+        <line num="179" type="stmt" count="3"/>
+        <line num="181" type="stmt" count="3"/>
+        <line num="182" type="stmt" count="3"/>
+        <line num="184" type="stmt" count="3"/>
+        <line num="186" type="stmt" count="3"/>
+        <line num="187" type="stmt" count="3"/>
+        <line num="189" type="stmt" count="3"/>
+        <line num="192" type="method" name="sendWebmention" crap="12" count="0"/>
+        <line num="195" type="stmt" count="0"/>
+        <line num="196" type="stmt" count="0"/>
+        <line num="197" type="stmt" count="0"/>
+        <line num="199" type="stmt" count="0"/>
+        <line num="200" type="stmt" count="0"/>
+        <line num="201" type="stmt" count="0"/>
+        <line num="202" type="stmt" count="0"/>
+        <line num="204" type="stmt" count="0"/>
+        <line num="208" type="method" name="findOutgoingLinks" crap="7.01" count="4"/>
+        <line num="210" type="stmt" count="4"/>
+        <line num="211" type="stmt" count="2"/>
+        <line num="212" type="stmt" count="2"/>
+        <line num="213" type="stmt" count="3"/>
+        <line num="214" type="stmt" count="3"/>
+        <line num="217" type="stmt" count="3"/>
+        <line num="219" type="stmt" count="3"/>
+        <line num="220" type="stmt" count="1"/>
+        <line num="221" type="stmt" count="1"/>
+        <line num="222" type="stmt" count="1"/>
+        <line num="223" type="stmt" count="1"/>
+        <line num="224" type="stmt" count="1"/>
+        <line num="225" type="stmt" count="1"/>
+        <line num="227" type="stmt" count="1"/>
+        <line num="230" type="stmt" count="3"/>
+        <line num="232" type="stmt" count="3"/>
+        <line num="234" type="stmt" count="0"/>
+        <line num="238" type="method" name="findLinksInText" crap="1" count="1"/>
+        <line num="239" type="stmt" count="1"/>
+        <line num="240" type="stmt" count="1"/>
+        <line num="243" type="method" name="findLinksInJSON" crap="4" count="4"/>
+        <line num="244" type="stmt" count="4"/>
+        <line num="247" type="stmt" count="4"/>
+        <line num="248" type="stmt" count="4"/>
+        <line num="249" type="stmt" count="4"/>
+        <line num="250" type="stmt" count="4"/>
+        <line num="251" type="stmt" count="4"/>
+        <line num="254" type="method" name="sendMentions" crap="12" count="0"/>
+        <line num="255" type="stmt" count="0"/>
+        <line num="256" type="stmt" count="0"/>
+        <line num="257" type="stmt" count="0"/>
+        <line num="258" type="stmt" count="0"/>
+        <line num="259" type="stmt" count="0"/>
+        <line num="260" type="stmt" count="0"/>
+        <line num="261" type="stmt" count="0"/>
+        <line num="262" type="stmt" count="0"/>
+        <line num="265" type="stmt" count="0"/>
+        <line num="267" type="stmt" count="0"/>
+        <line num="268" type="stmt" count="0"/>
+        <line num="270" type="stmt" count="0"/>
+        <line num="271" type="stmt" count="0"/>
+        <line num="273" type="stmt" count="0"/>
+        <line num="276" type="method" name="sendFirstSupportedMention" crap="20" count="0"/>
+        <line num="278" type="stmt" count="0"/>
+        <line num="281" type="stmt" count="0"/>
+        <line num="282" type="stmt" count="0"/>
+        <line num="284" type="stmt" count="0"/>
+        <line num="285" type="stmt" count="0"/>
+        <line num="286" type="stmt" count="0"/>
+        <line num="287" type="stmt" count="0"/>
+        <line num="290" type="stmt" count="0"/>
+        <line num="292" type="stmt" count="0"/>
+        <line num="295" type="method" name="enableDebug" crap="2" count="0"/>
+        <line num="296" type="stmt" count="0"/>
+        <line num="297" type="stmt" count="0"/>
+        <line num="298" type="method" name="_debug" crap="2" count="16"/>
+        <line num="299" type="stmt" count="16"/>
+        <line num="300" type="stmt" count="16"/>
+        <line num="301" type="stmt" count="16"/>
+        <line num="303" type="method" name="_head" crap="6" count="0"/>
+        <line num="304" type="stmt" count="0"/>
+        <line num="305" type="stmt" count="0"/>
+        <line num="306" type="stmt" count="0"/>
+        <line num="307" type="stmt" count="0"/>
+        <line num="308" type="stmt" count="0"/>
+        <line num="309" type="stmt" count="0"/>
+        <line num="311" type="stmt" count="0"/>
+        <line num="312" type="stmt" count="0"/>
+        <line num="313" type="stmt" count="0"/>
+        <line num="316" type="method" name="_get" crap="6" count="0"/>
+        <line num="317" type="stmt" count="0"/>
+        <line num="318" type="stmt" count="0"/>
+        <line num="319" type="stmt" count="0"/>
+        <line num="320" type="stmt" count="0"/>
+        <line num="321" type="stmt" count="0"/>
+        <line num="322" type="stmt" count="0"/>
+        <line num="324" type="stmt" count="0"/>
+        <line num="325" type="stmt" count="0"/>
+        <line num="326" type="stmt" count="0"/>
+        <line num="327" type="stmt" count="0"/>
+        <line num="330" type="method" name="_post" crap="6" count="0"/>
+        <line num="331" type="stmt" count="0"/>
+        <line num="332" type="stmt" count="0"/>
+        <line num="333" type="stmt" count="0"/>
+        <line num="334" type="stmt" count="0"/>
+        <line num="335" type="stmt" count="0"/>
+        <line num="336" type="stmt" count="0"/>
+        <line num="337" type="stmt" count="0"/>
+        <line num="338" type="stmt" count="0"/>
+        <line num="339" type="stmt" count="0"/>
+        <line num="340" type="stmt" count="0"/>
+        <line num="342" type="stmt" count="0"/>
+        <line num="343" type="stmt" count="0"/>
+        <line num="344" type="stmt" count="0"/>
+        <line num="345" type="stmt" count="0"/>
+        <line num="348" type="method" name="_parse_headers" crap="5" count="18"/>
+        <line num="349" type="stmt" count="18"/>
+        <line num="350" type="stmt" count="18"/>
+        <line num="351" type="stmt" count="18"/>
+        <line num="352" type="stmt" count="18"/>
+        <line num="354" type="stmt" count="18"/>
+        <line num="355" type="stmt" count="18"/>
+        <line num="357" type="method" name="anonymous function" crap="1" count="18"/>
+        <line num="358" type="stmt" count="18"/>
+        <line num="359" type="stmt" count="18"/>
+        <line num="360" type="stmt" count="18"/>
+        <line num="361" type="stmt" count="3"/>
+        <line num="362" type="stmt" count="3"/>
+        <line num="363" type="stmt" count="3"/>
+        <line num="364" type="stmt" count="3"/>
+        <line num="365" type="stmt" count="18"/>
+        <line num="367" type="stmt" count="18"/>
+        <line num="368" type="stmt" count="18"/>
+        <line num="369" type="stmt" count="18"/>
+        <line num="372" type="method" name="c" crap="3" count="9"/>
+        <line num="374" type="stmt" count="9"/>
+        <line num="376" type="stmt" count="9"/>
+        <line num="377" type="stmt" count="9"/>
+        <line num="378" type="stmt" count="9"/>
+        <line num="380" type="stmt" count="9"/>
+        <line num="381" type="stmt" count="9"/>
+        <line num="382" type="stmt" count="9"/>
+        <line num="384" type="stmt" count="9"/>
+        <line num="389" type="stmt" count="1"/>
+        <line num="391" type="stmt" count="0"/>
+        <line num="392" type="stmt" count="0"/>
+        <line num="393" type="stmt" count="0"/>
+        <line num="394" type="stmt" count="0"/>
+        <line num="395" type="stmt" count="0"/>
+        <line num="396" type="stmt" count="0"/>
+        <line num="397" type="stmt" count="0"/>
+        <line num="398" type="stmt" count="0"/>
+        <line num="400" type="stmt" count="0"/>
+        <line num="402" type="stmt" count="0"/>
+        <metrics loc="402" ncloc="372" classes="1" methods="22" coveredmethods="10" conditionals="0" coveredconditionals="0" statements="239" coveredstatements="148" elements="261" coveredelements="158"/>
+      </file>
+    </package>
+    <metrics files="1" loc="402" ncloc="372" classes="1" methods="22" coveredmethods="10" conditionals="0" coveredconditionals="0" statements="239" coveredstatements="148" elements="261" coveredelements="158"/>
+  </project>
+</coverage>
