@@ -54,7 +54,7 @@ if (empty($vars['user']) && !empty($vars['object'])) {
                         <div class="e-note"><?php
                                 $description = $vars['user']->getDescription();
                         if (!empty($description)) {
-                            echo '<div class="highlightedText">' . $this->autop($vars['user']->getDescription()) . '</div>';
+                            echo '<div class="highlightedText">' . $this->__(['value' => $description])->draw('forms/output/richtext') . '</div>';
                         } else if ($vars['user']->getUUID() == \Idno\Core\Idno::site()->session()->currentUserUUID()) {
                             ?>
                                     <p class="highlightedText">

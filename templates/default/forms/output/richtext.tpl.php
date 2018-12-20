@@ -5,5 +5,11 @@ if (!empty($vars['rel'])) {
 } else {
     $rel = '';
 }
-    echo $this->autop($this->parseURLs($this->parseHashtags($vars['value']), $rel));
+    echo $this->autop(
+            $this->parseURLs(
+                    $this->parseHashtags(
+                            $this->purifier->purify($vars['value'])
+                    ), $rel
+                )
+            );
 
