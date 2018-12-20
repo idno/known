@@ -107,6 +107,18 @@ Link: <http://aaronparecki.com/>; rel=\"me\"\r
     $this->assertEquals('http://target.example.com/empty-string.html', $endpoint);
   }
 
+  public function testDiscoverWebmentionEndpointIsPathRelative() {
+    $target = 'http://target.example.com/relative/path-relative-endpoint.html';
+    $endpoint = $this->client->discoverWebmentionEndpoint($target);
+    $this->assertEquals('http://target.example.com/relative/relative', $endpoint);
+  }
+
+  public function testDiscoverEndpointAfterRedirected() {
+    $target = 'http://target.example.com/redirect.html';
+    $endpoint = $this->client->discoverWebmentionEndpoint($target);
+    $this->assertEquals('http://target.example.com/relative/webmention', $endpoint);
+  }
+
   public function testDiscoverWebmentionEndpointInWebmentionRocksTest1() {
     $target = "http://target.example.com/webmention-rocks-test-1.html";
     $endpoint = $this->client->discoverWebmentionEndpoint($target);
