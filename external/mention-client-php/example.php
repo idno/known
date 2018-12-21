@@ -1,5 +1,4 @@
 <?php
-
 // Note: if installing with composer you should require 'vendor/autoload.php' instead
 include('src/IndieWeb/MentionClient.php');
 
