@@ -7,7 +7,6 @@ namespace IndieWeb;
 class MentionClientTest extends MentionClient {
 
   public static $dataDir = null;
-  private static $_redirects_remaining;
 
   public function __call($method, $args) {
     $method = new \ReflectionMethod('IndieWeb\MentionClient', $method);
@@ -21,18 +20,15 @@ class MentionClientTest extends MentionClient {
     return $method->invokeArgs(null, $args);
   }
 
-  protected static function _head($url, $headers=array()) {
-    self::$_redirects_remaining = 5;
+  protected static function _head($url) {
     $response = self::_read_file($url);
     return array(
       'code' => $response['code'],
-      'headers' => $response['headers'],
-      'url' => $response['url']
+      'headers' => $response['headers']
     );
   }
 
-  protected static function _get($url, $headers=array()) {
-    self::$_redirects_remaining = 5;
+  protected static function _get($url) {
     return self::_read_file($url);
   }
 
@@ -64,32 +60,11 @@ class MentionClientTest extends MentionClient {
     }
 
     $headers = preg_replace('/HTTP\/1\.1 \d+ .+/', '', $headers);
-    $parsedHeaders = self::_parse_headers($headers);
-
-    if(($code == 302 || $code == 301) && array_key_exists('Location', $parsedHeaders)) {
-      $effectiveUrl = \mf2\resolveUrl($url, $parsedHeaders['Location']);
-      if(self::$_redirects_remaining > 0) {
-        self::$_redirects_remaining--;
-        return self::_read_file($effectiveUrl);
-      } else {
-        return [
-          'code' => 0,
-          'headers' => $parsedHeaders,
-          'body' => $body,
-          'error' => 'too_many_redirects',
-          'error_description' => '',
-          'url' => $effectiveUrl
-        ];
-      }
-    } else {
-      $effectiveUrl = $url;
-    }
 
     return array(
       'code' => $code,
-      'headers' => $parsedHeaders,
-      'body' => $body,
-      'url' => $effectiveUrl
+      'headers' => self::_parse_headers($headers),
+      'body' => $body
     );
   }
 }
