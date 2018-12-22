@@ -12,7 +12,7 @@
             <p class="username">
                 <label class="control-label" for="inputUsername"><?php echo \Idno\Core\Idno::site()->language()->_('Choose a username'); ?><br/></label>
                 <input name="handle" type="text" class="feedback-input" placeholder="username" id="username"
-                       autocapitalize="off" required/>
+                       autocapitalize="off" autocorrect="off" spellcheck="false" required/>
             </p>
 
             <p class="email">

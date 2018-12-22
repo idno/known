@@ -20,7 +20,7 @@
                     <label class="control-label" for="inputUsername"><?php echo \Idno\Core\Idno::site()->language()->_('Choose a handle'); ?>
                         <br /><small><?php echo \Idno\Core\Idno::site()->language()->_('Handles identify you throughout the site. Something simple is best: for example, <em>janedoe</em>.'); ?></small></label>
                     <div class="controls">
-                        <input type="text" id="inputUsername" placeholder="<?php echo \Idno\Core\Idno::site()->language()->_('username'); ?>" class="" style="width: 100%" name="handle" value="" autocapitalize="off">
+                        <input type="text" id="inputUsername" placeholder="<?php echo \Idno\Core\Idno::site()->language()->_('username'); ?>" class="" style="width: 100%" name="handle" value="" autocapitalize="off" autocorrect="off" spellcheck="false">
                     </div>
                 </div>
                 <div class="control-group">
