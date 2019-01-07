@@ -47,7 +47,7 @@ namespace IdnoPlugins\Like\Pages {
             if ($object->delete()) {
                 \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_('Your bookmark was deleted.'));
             } else {
-                \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("We couldn't delete %s.", [$object->getTitle()]));
+                \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->esc_("We couldn't delete %s.", [$object->getTitle()]));
             }
             $this->forward($_SERVER['HTTP_REFERER']);
         }

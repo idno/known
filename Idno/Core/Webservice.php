@@ -113,6 +113,7 @@ namespace Idno\Core {
             curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($curl_handle, CURLINFO_HEADER_OUT, 1);
             curl_setopt($curl_handle, CURLOPT_HEADER, 1);
+            curl_setopt($curl_handle, CURLOPT_NOPROGRESS, 0);
 
             // Allow unsafe ssl verify
             if (!empty(\Idno\Core\Idno::site()->config()->disable_ssl_verify)) {
@@ -128,6 +129,18 @@ namespace Idno\Core {
                 // Save cookie to user specific cookie jar, using some level of obfuscation
                 curl_setopt($curl_handle, CURLOPT_COOKIEJAR, \Idno\Core\Idno::site()->config()->cookie_jar . md5($user->getUUID() . \Idno\Core\Idno::site()->config()->site_secret));
             }
+            
+            // Set a maximum file size for downloads (ht: https://www.reddit.com/r/PHP/comments/641uud/is_there_any_easy_way_to_limit_curl_via_php_so_it/)
+            $sizeLimit = 1024 * 1024 * 10; // Default 10 MB
+            if (!empty(\Idno\Core\Idno::site()->config()->webservice_max_download)) {
+                $sizeLimit = \Idno\Core\Idno::site()->config()->webservice_max_download;
+            }
+            
+            curl_setopt($curl_handle, CURLOPT_PROGRESSFUNCTION, function ($curl_handle, $totalBytes, $receivedBytes) use ($sizeLimit) {
+                if ($totalBytes > $sizeLimit) {
+                    return 1; // return non-zero value to abort transfer
+                }
+            });
 
             // Proxy connection string provided
             if (!empty(\Idno\Core\Idno::site()->config()->proxy_string)) {

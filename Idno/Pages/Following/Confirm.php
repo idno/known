@@ -47,7 +47,7 @@ namespace Idno\Pages\Following {
                     $subscription->setFeedURL($feed->getFeedURL());
                     $subscription->setTitle(\Idno\Core\Idno::site()->session()->currentUser()->getHandle() . ' subscribed to ' . $feed->getTitle());
                     if ($subscription->save()) {
-                        \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("You're following %s!", [$feed->getTitle()]));
+                        \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->esc_("You're following %s!", [$feed->getTitle()]));
                         $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'following/');
                     }
                 }

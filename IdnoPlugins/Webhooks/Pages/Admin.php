@@ -38,7 +38,7 @@ namespace IdnoPlugins\Webhooks\Pages
                             }
                             $webhook_syndication[] = array('url' => $hook, 'title' => $title);
                         } else {
-                            \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("%s doesn't seem to be a valid URL.", [$hook]));
+                            \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->esc_("%s doesn't seem to be a valid URL.", [$hook]));
                         }
                     }
                 }

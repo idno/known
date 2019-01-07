@@ -35,6 +35,24 @@ namespace IdnoPlugins\Photo {
         {
             return array('type' => 'photo');
         }
+        
+        /**
+         * Retrieve icon
+         * @return mixed|string
+         */
+        function getIcon()
+        {
+            $urls = [];
+            if (!empty($this->thumbs_large)) {
+                foreach ($this->thumbs_large as $filename => $data) {
+                    $urls[] = preg_replace('/^(https?:\/\/\/)/', \Idno\Core\Idno::site()->config()->url, $data['url']);
+                }
+            }
+            if (!empty($urls)) {
+                return $urls[0];
+            }
+            return parent::getIcon();
+        }
 
         /**
          * Extend json serialisable to include some extra data
