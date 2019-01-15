@@ -8,7 +8,8 @@ if ($object) {
             <div class="row idno-entry idno-entry-<?php
             if (preg_match('@\\\\([\w]+)$@', get_class($object), $matches)) {
                 echo strtolower($matches[1]);
-            }?> <?php echo $object->getMicroformats2ObjectType() ?> idno-<?php echo $object->getContentTypeCategorySlug() ?> idno-object">
+            }?> <?php echo $object->getMicroformats2ObjectType() ?> idno-<?php echo $object->getContentTypeCategorySlug() ?> idno-object"
+            <?php echo $this->getDataHTMLAttributesForObjectType($object->getActivityStreamsObjectType()); ?>>
 
                 <div class="col-md-1 col-md-offset-1 owner p-author h-card visible-md visible-lg">
                     <p>
