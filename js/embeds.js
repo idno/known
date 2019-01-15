@@ -117,6 +117,9 @@ Unfurl.enableControls = function (control) {
     var unfurlblock = control.closest('.unfurl-block');
     var refresh = unfurlblock.find('.unfurl-edit a.refresh');
     var remove = unfurlblock.find('.unfurl-edit a.delete');
+    var editblock = unfurlblock.find('.unfurl-edit');
+    
+    editblock.show();
     
     refresh.click(function(e){
 	
