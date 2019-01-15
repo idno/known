@@ -26,6 +26,9 @@ namespace Idno\Core {
         // We can also extend templates with HTML or other content
         public $rendered_extensions = array();
 
+        // Keep track of data attributes to add to objects of certain types
+        public $object_data = [];
+
         // Keep track of the HTML purifier
         public $purifier = false;
 
@@ -247,6 +250,48 @@ namespace Idno\Core {
             } else {
                 $this->rendered_extensions[$templateName] .= $content;
             }
+        }
+
+        /**
+         * Stores data attributes to be attached to a particular object type
+         * @param $objectType An activity streams object type ('article', 'note', 'photo', etc)
+         * @param $label
+         * @param $value
+         */
+        function addDataToObjectType($objectType, $label, $value)
+        {
+            if (empty($this->object_data[$objectType])) {
+                $this->object_data[$objectType] = [$label => $value];
+            } else {
+                $this->object_data[$objectType][$label] = $value;
+            }
+        }
+
+        /**
+         * Returns an array of data attributes to be attached to a particular object type
+         * @param $objectType An activity streams object type ('article', 'note', 'photo', etc)
+         * @return array
+         */
+        function getDataForObjectType($objectType)
+        {
+            if (!empty($this->object_data[$objectType])) return $this->object_data[$objectType];
+            return [];
+        }
+
+        /**
+         * Returns a string of data attributes to be attached to the HTML of a particular object type
+         * @param $objectType
+         * @return string
+         */
+        function getDataHTMLAttributesForObjectType($objectType)
+        {
+            $attributes = [];
+            if ($data = $this->getDataForObjectType($objectType)) {
+                foreach($data as $label => $value) {
+                    $attributes[] = 'data-' . $label . '="'.addslashes($value).'"';
+                }
+            }
+            return implode(' ', $attributes);
         }
 
         /**

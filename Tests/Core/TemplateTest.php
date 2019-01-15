@@ -31,6 +31,18 @@ namespace Tests\Core {
 
         }
 
+        function testDataAttributes()
+        {
+
+            $t = new Template();
+            $t->addDataToObjectType('testobject', 'foo', 'bar');
+            $t->addDataToObjectType('testobject', 'foo2', '"What?!"');
+            $t->addDataToObjectType('testobject2', 'foo3', '!');
+
+            $this->assertEquals('data-foo="bar" data-foo2="\"What?!\""', $t->getDataHTMLAttributesForObjectType('testobject'));
+
+        }
+
     }
 
 }
