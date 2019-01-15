@@ -5,43 +5,45 @@
     $num_pics = count($attachments);
     if ($num_pics > 1)
         $multiple = true;
-    $cnt = 0;
+    $photoCount = 0;
 
     $currentPage = \Idno\Core\Idno::site()->currentPage();
-if (!empty($currentPage) && \Idno\Core\Idno::site()->currentPage()->isPermalink()) {
-    $rel = 'rel="in-reply-to"';
-} else {
-    $rel = '';
-}
+    if (!empty($currentPage) && \Idno\Core\Idno::site()->currentPage()->isPermalink()) {
+        $rel = 'rel="in-reply-to"';
+    } else {
+        $rel = '';
+    }
 
     $tags = "";
-if (!empty($vars['object']->tags)) {
-    $tags = $this->__(['tags' => $vars['object']->tags])->draw('forms/output/tags');
+    if (!empty($vars['object']->tags)) {
+        $tags = $this->__(['tags' => $vars['object']->tags])->draw('forms/output/tags');
 
-}
-if (empty($vars['feed_view']) && $vars['object']->getTitle() && $vars['object']->getTitle() != 'Untitled') {
-    ?>
-        <h2 class="photo-title p-name"><a
+    }
+    if (empty($vars['feed_view']) && $vars['object']->getTitle() && $vars['object']->getTitle() != 'Untitled') {
+
+?>
+    <h2 class="photo-title p-name"><a
                 href="<?php echo $vars['object']->getDisplayURL(); ?>"><?php echo htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?></a>
-        </h2>
+    </h2>
 <?php } ?>
 
-<div class="e-content entry-content <?php if ($multiple) echo "multiple-images"; ?>" data-num-pics="<?php echo $num_pics; ?>">
+<div class="e-content entry-content <?php if ($multiple) echo "multiple-images"; ?>"
+     data-num-pics="<?php echo $num_pics; ?>">
 
     <?php
     if (!empty($attachments)) {
         foreach ($attachments as $attachment) {
 
             if (!empty($currentPage) && !\Idno\Core\Idno::site()->currentPage()->isPermalink()) {
-                if ($cnt == 5 && $num_pics>$cnt) {
+                if ($photoCount == 5 && $num_pics > $photoCount) {
                     ?>
-    <div class="photo-view photo-view-more">
-        <a href="<?php echo $vars['object']->getDisplayURL(); ?>"><?php echo \Idno\Core\Idno::site()->language()->_('%d more...', [($num_pics-$cnt)]); ?></a>
-    </div>
-                
+                    <div class="photo-view photo-view-more">
+                        <a href="<?php echo $vars['object']->getDisplayURL(); ?>"><?php echo \Idno\Core\Idno::site()->language()->_('%d more...', [($num_pics - $photoCount)]); ?></a>
+                    </div>
+
                     <?php
                     break;
-                } else if ($cnt>5) {
+                } else if ($photoCount > 5) {
                     break;
                 }
             }
@@ -71,14 +73,16 @@ if (empty($vars['feed_view']) && $vars['object']->getTitle() && $vars['object']-
 
             ?>
             <div class="photo-view">
-                <a href="<?php echo (!empty($currentPage) && \Idno\Core\Idno::site()->currentPage()->isPermalink()) ? $this->makeDisplayURL($mainsrc) : $vars['object']->getDisplayURL(); ?>" 
+                <a href="<?php echo (!empty($currentPage) && \Idno\Core\Idno::site()->currentPage()->isPermalink()) ? $this->makeDisplayURL($mainsrc) : $vars['object']->getDisplayURL(); ?>"
                    data-gallery="<?php echo htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?>"
                    data-original-img="<?php echo $this->makeDisplayURL($mainsrc) ?>"
-                   data-title="<?php echo htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?>" 
-                   data-footer="<?php echo htmlentities(strip_tags($vars['object']->body), ENT_QUOTES, 'UTF-8'); ?>"><img src="<?php echo $this->makeDisplayURL($src) ?>" class="u-photo" alt="<?php echo htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?>" /></a>
+                   data-title="<?php echo htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?>"
+                   data-footer="<?php echo htmlentities(strip_tags($vars['object']->body), ENT_QUOTES, 'UTF-8'); ?>"><img
+                            src="<?php echo $this->makeDisplayURL($src) ?>" class="u-photo"
+                            alt="<?php echo htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?>"/></a>
             </div>
             <?php
-            $cnt ++;
+            $photoCount++;
         }
     } ?>
     <?php echo $this->autop($this->parseHashtags($this->parseURLs($vars['object']->body, $rel))) . $tags ?>
