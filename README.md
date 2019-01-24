@@ -22,6 +22,10 @@ _Unofficial_ install packages, which are periodically built from the latest code
 
 ### Support us
 
+If you find this project useful, and you really want to support us, you can now fund us on OpenCollective.
+
+[![OpenCollective](https://www.marcus-povey.co.uk/wp-content/opencollective.png)](https://opencollective.com/known)
+
 * [Star us on GitHub](https://github.com/idno/known)
 * [Like us on alternativeto.net](http://alternativeto.net/software/known/)
 * [Contribute](CONTRIBUTING.md)
