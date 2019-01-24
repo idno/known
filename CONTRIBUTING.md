@@ -1,6 +1,7 @@
 How can I contribute?
 =====================
 
+* Help fund the project via Open Collective https://opencollective.com/known
 * Visit Known on GitHub: https://github.com/idno/Known
 * Submit pull requests
 * Check and file issues
