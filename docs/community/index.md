@@ -20,6 +20,8 @@ to come join in.
 The best first step is to [join our development mailing list](https://groups.google.com/forum/#!forum/known-dev). Despite
 the name, it's not just for developers!
 
+You can also help fund the project by joining us at [OpenCollective](https://opencollective.com/known)!
+
 ## A safe space for everyone to contribute
 
 We want the Known community to be a safe space for everyone to participate.
