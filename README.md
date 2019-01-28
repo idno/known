@@ -1,5 +1,6 @@
 # Known: a social group platform
-
+[![Backers on Open Collective](https://opencollective.com/known/backers/badge.svg)](#backers)
+ [![Sponsors on Open Collective](https://opencollective.com/known/sponsors/badge.svg)](#sponsors) 
 ![Known - A social group platform](https://withknown.com/img/home/screens.png)
 
 ## Installation [![Build Status](https://travis-ci.org/idno/Known.svg?branch=master)](https://travis-ci.org/idno/Known)
@@ -40,6 +41,36 @@ _Unofficial_ install packages, which are periodically built from the latest code
 * Join the IRC channel: [#knownchat](https://webchat.freenode.net/?channels=knownchat) on Freenode
 
 For details on contributing to the Known project, please read [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/idno/known/graphs/contributors"><img src="https://opencollective.com/known/contributors.svg?width=890&button=false" /></a>
+
+
+## Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/known#backer)]
+
+<a href="https://opencollective.com/known#backers" target="_blank"><img src="https://opencollective.com/known/backers.svg?width=890"></a>
+
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/known#sponsor)]
+
+<a href="https://opencollective.com/known/sponsor/0/website" target="_blank"><img src="https://opencollective.com/known/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/known/sponsor/1/website" target="_blank"><img src="https://opencollective.com/known/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/known/sponsor/2/website" target="_blank"><img src="https://opencollective.com/known/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/known/sponsor/3/website" target="_blank"><img src="https://opencollective.com/known/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/known/sponsor/4/website" target="_blank"><img src="https://opencollective.com/known/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/known/sponsor/5/website" target="_blank"><img src="https://opencollective.com/known/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/known/sponsor/6/website" target="_blank"><img src="https://opencollective.com/known/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/known/sponsor/7/website" target="_blank"><img src="https://opencollective.com/known/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/known/sponsor/8/website" target="_blank"><img src="https://opencollective.com/known/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/known/sponsor/9/website" target="_blank"><img src="https://opencollective.com/known/sponsor/9/avatar.svg"></a>
+
+
 
 ## Copyright and License
 
