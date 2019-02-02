@@ -22,6 +22,10 @@ namespace Idno\Core {
                 'maps.google.com/'
             ];
 
+            if (!empty(Idno::site()->config()->allowedIframes) && is_array(Idno::site()->config()->allowedIframes)) {
+                $allowedIframes = array_merge($allowedIframes, Idno::site()->config()->allowedIframes);
+            }
+
             $config = \HTMLPurifier_Config::createDefault();
             $config->set('Cache.SerializerPath', $upload_dir);
             $config->set('HTML.SafeIframe', true);
