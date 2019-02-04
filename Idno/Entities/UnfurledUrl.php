@@ -38,6 +38,7 @@ namespace Idno\Entities {
                     'vimeo.com',
                     'amazon.com',
                     'amazon.co.uk',
+                    'radiopublic.com',
                 ]);
             }
 
