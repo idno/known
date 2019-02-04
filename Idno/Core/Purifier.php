@@ -14,8 +14,22 @@ namespace Idno\Core {
                 $upload_dir = \Idno\Core\Idno::site()->config()->getTempDir();
             }
 
+            $allowedIframes = [
+                'www.youtube.com/embed/',
+                'player.vimeo.com/video/',
+                'embed.radiopublic.com/e',
+                'w.soundcloud.com/player/',
+                'maps.google.com/'
+            ];
+
+            if (!empty(Idno::site()->config()->allowedIframes) && is_array(Idno::site()->config()->allowedIframes)) {
+                $allowedIframes = array_merge($allowedIframes, Idno::site()->config()->allowedIframes);
+            }
+
             $config = \HTMLPurifier_Config::createDefault();
             $config->set('Cache.SerializerPath', $upload_dir);
+            $config->set('HTML.SafeIframe', true);
+            $config->set('URI.SafeIframeRegexp', '%^https?://('.implode($allowedIframes,'|').')%');
             $this->purifier = new \HTMLPurifier($config);
         }
 
