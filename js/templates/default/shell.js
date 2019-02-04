@@ -79,7 +79,7 @@ Template.enableFormCandy = function() {
     $('.ctrl-enter-submit').keypress(function(event){
 	var keyCode = (event.which ? event.which : event.keyCode);  
 	
-	if ((keyCode == 10 || keyCode == 13) && event.ctrlKey) {
+	if ((keyCode == 10 || keyCode == 13) && (event.ctrlKey || event.metaKey)) {
 	    
 	    $(this).closest('form').submit();
 	}
