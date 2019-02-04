@@ -99,9 +99,30 @@ Unfurl.initOembed = function (control) {
 			}
 			
 			oembed.closest('.unfurled-url').find('.basics').hide(); // Hide basics, since we have an oembed
-		    }
+		    },
+		error: function(data) {
+
+		    console.error("Problem fetching oembed as " + format + " trying to map a different way...");
+
+		    if (format == 'jsonp') 
+			format = 'json';
+		    else if (format == 'json')
+			format = 'jsonp';
+		    
+		    $.ajax({
+			url: dataurl,
+			dataType: format,
+			success: function (data) {
+			
+			    oembed.html(data['html']);
+			    oembed.closest('.unfurled-url').find('.basics').hide();
+			},
+			error: function(data) {
+			    console.error("Giving up trying to fetch oembed url " + dataurl + " as " + format);
+			}
+		    });
 		}
-	    );
+	    });
 	}
     }
 };

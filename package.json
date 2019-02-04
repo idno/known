@@ -8,5 +8,16 @@
     "grunt-contrib-jshint": "^1.1.0",
     "grunt-contrib-uglify": "^0.5.1",
     "grunt-contrib-watch": "^1.1.0"
+  },
+  "dependencies": {
+    "opencollective-postinstall": "^2.0.1",
+    "opencollective": "^1.0.3"
+  },
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/known"
+  },
+  "scripts": {
+    "postinstall": "opencollective-postinstall"
   }
 }

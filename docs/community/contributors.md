@@ -15,6 +15,7 @@ Homepage: [https://withknown.com/](https://withknown.com/)
 
 ## How can I contribute?
 
+* Help fund the project via [Open Collective](https://opencollective.com/known)
 * Visit Known on GitHub: [https://github.com/idno/known](https://github.com/idno/known)
 * Check and file issues
 * Submit pull requests
