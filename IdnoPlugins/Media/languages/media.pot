@@ -15,23 +15,23 @@ msgid "We couldn't delete your media."
 msgstr ""
 
 #: ./Pages/Edit.php:34
-msgid "Upload audio"
+msgid "Upload media"
 msgstr ""
 
 #: ./Pages/Edit.php:36
-msgid "Edit audio details"
+msgid "Edit media details"
 msgstr ""
 
 #: ./templates/default/entity/Media/edit.tpl.php:13
-msgid "New Audio"
+msgid "New Media"
 msgstr ""
 
 #: ./templates/default/entity/Media/edit.tpl.php:15
-msgid "Edit Audio"
+msgid "Edit Media"
 msgstr ""
 
 #: ./templates/default/entity/Media/edit.tpl.php:25
-msgid "Choose different audio"
+msgid "Choose different media"
 msgstr ""
 
 #: ./templates/default/entity/Media/edit.tpl.php:38
@@ -43,7 +43,7 @@ msgid "Give it a title"
 msgstr ""
 
 #: ./templates/default/entity/Media/edit.tpl.php:54
-msgid "Describe your audio"
+msgid "Describe your media"
 msgstr ""
 
 #: ./templates/default/entity/Media/edit.tpl.php:55

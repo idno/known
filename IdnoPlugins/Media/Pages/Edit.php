@@ -31,9 +31,9 @@ namespace IdnoPlugins\Media\Pages {
             $body = $t->__(['body' => $edit_body])->draw('entity/editwrapper');
 
             if (empty($object)) {
-                $title = \Idno\Core\Idno::site()->language()->_('Upload audio');
+                $title = \Idno\Core\Idno::site()->language()->_('Upload media');
             } else {
-                $title = \Idno\Core\Idno::site()->language()->_('Edit audio details');
+                $title = \Idno\Core\Idno::site()->language()->_('Edit media details');
             }
 
             if (!empty($this->xhr)) {

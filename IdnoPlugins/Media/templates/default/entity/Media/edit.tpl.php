@@ -10,9 +10,9 @@
                 <?php
 
                 if (empty($vars['object']->_id)) {
-                    ?><?php echo \Idno\Core\Idno::site()->language()->_('New Audio'); ?><?php
+                    ?><?php echo \Idno\Core\Idno::site()->language()->_('New Media'); ?><?php
                 } else {
-                    ?><?php echo \Idno\Core\Idno::site()->language()->_('Edit Audio'); ?><?php
+                    ?><?php echo \Idno\Core\Idno::site()->language()->_('Edit Media'); ?><?php
                 }
 
                 ?>
@@ -22,7 +22,7 @@
                 
                 <label>
                     <span class="btn btn-primary btn-file">
-                        <i class="fa fa-play-circle"></i> <span id="media-filename"><?php if (empty($vars['object']->_id)) { ?><?php echo \Idno\Core\Idno::site()->language()->_('Upload audio'); ?><?php } else { ?><?php echo \Idno\Core\Idno::site()->language()->_('Choose different audio'); ?><?php } ?></span> 
+                        <i class="fa fa-play-circle"></i> <span id="media-filename"><?php if (empty($vars['object']->_id)) { ?><?php echo \Idno\Core\Idno::site()->language()->_('Upload media'); ?><?php } else { ?><?php echo \Idno\Core\Idno::site()->language()->_('Choose different media'); ?><?php } ?></span> 
                         <?php echo $this->__([
                         'name' => 'media',
                         'id' => 'media',
@@ -51,7 +51,7 @@
                 'wordcount' => false,
                 'height' => 250,
                 'class' => 'wysiwyg-short',
-                'placeholder' => \Idno\Core\Idno::site()->language()->_('Describe your audio'),
+                'placeholder' => \Idno\Core\Idno::site()->language()->_('Describe your media'),
                 'label' => \Idno\Core\Idno::site()->language()->_('Description'),
             ])->draw('forms/input/richtext')?>
             <?php echo $this->draw('entity/tags/input');?>
