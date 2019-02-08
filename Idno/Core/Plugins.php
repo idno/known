@@ -35,6 +35,18 @@ namespace Idno\Core {
                 }
             });
             
+            // Autoloader to handle plugins in IdnoPlugins.local
+            spl_autoload_register(function ($class) {
+                $class = str_replace('IdnoPlugins\\', '', $class);
+                $class = str_replace('\\', DIRECTORY_SEPARATOR, $class);
+                
+
+                $basedir = dirname(dirname(dirname(__FILE__))) . '/IdnoPlugins.local/';
+                if (file_exists($basedir.$class.'.php')) {
+                    include_once($basedir.$class.'.php');
+                }
+            });
+            
             if (!empty(\Idno\Core\Idno::site()->config()->directloadplugins)) {
                 foreach (\Idno\Core\Idno::site()->config()->directloadplugins as $plugin => $folder) {
                     @include $folder . '/Main.php';
