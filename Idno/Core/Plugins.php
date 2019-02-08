@@ -290,6 +290,11 @@ namespace Idno\Core {
             return $usage;
         }
         
+        /**
+         * Enable a specific plugin
+         * @param string $plugin
+         * @return boolean
+         */
         public function enable($plugin) {
             
             if (!$this->exists($plugin))
@@ -308,6 +313,11 @@ namespace Idno\Core {
             return true;
         }
         
+        /**
+         * Disable a plugin
+         * @param string $plugin The plugin
+         * @return boolean
+         */
         public function disable($plugin) {
             
             if (!$this->exists($plugin))
@@ -324,6 +334,11 @@ namespace Idno\Core {
             }
         }
         
+        /**
+         * Returns whether the selected plugin exists.
+         * @param string $plugin
+         * @return boolean
+         */
         public function exists($plugin) {
             
             if (defined('KNOWN_MULTITENANT_HOST')) {
