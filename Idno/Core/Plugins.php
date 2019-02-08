@@ -34,19 +34,18 @@ namespace Idno\Core {
                     }
                 }
             });
-            
+
             // Autoloader to handle plugins in IdnoPlugins.local
             spl_autoload_register(function ($class) {
                 $class = str_replace('IdnoPlugins\\', '', $class);
                 $class = str_replace('\\', DIRECTORY_SEPARATOR, $class);
-                
 
                 $basedir = dirname(dirname(dirname(__FILE__))) . '/IdnoPlugins.local/';
                 if (file_exists($basedir.$class.'.php')) {
                     include_once($basedir.$class.'.php');
                 }
             });
-            
+
             if (!empty(\Idno\Core\Idno::site()->config()->directloadplugins)) {
                 foreach (\Idno\Core\Idno::site()->config()->directloadplugins as $plugin => $folder) {
                     @include $folder . '/Main.php';
@@ -70,16 +69,16 @@ namespace Idno\Core {
             }
             if (!empty(\Idno\Core\Idno::site()->config()->plugins)) {
                 \Idno\Core\Idno::site()->config->plugins = array_unique(\Idno\Core\Idno::site()->config->plugins);
-                foreach (\Idno\Core\Idno::site()->config()->plugins as $plugin) { 
+                foreach (\Idno\Core\Idno::site()->config()->plugins as $plugin) {
                     if (!in_array($plugin, \Idno\Core\Idno::site()->config()->antiplugins)) {
                         if (is_subclass_of("IdnoPlugins\\{$plugin}\\Main", 'Idno\\Common\\Plugin')) {
                             $class = "IdnoPlugins\\{$plugin}\\Main";
                             if (empty($this->plugins[$plugin])) {
                                 $this->plugins[$plugin] = new $class();
                             }
-                        } 
+                        }
                     }
-                } 
+                }
             }
 
             \Idno\Core\Idno::site()->triggerEvent('plugins/loaded');
@@ -289,37 +288,39 @@ namespace Idno\Core {
 
             return $usage;
         }
-        
+
         /**
          * Enable a specific plugin
          * @param string $plugin
          * @return boolean
          */
-        public function enable($plugin) {
-            
+        public function enable($plugin)
+        {
+
             if (!$this->exists($plugin))
                 return false;
-            
+
             \Idno\Core\Idno::site()->triggerEvent('plugin/load/' . $plugin);
-            
+
             \Idno\Core\Idno::site()->config->config['plugins'][] = $plugin;
             if (!empty(\Idno\Core\Idno::site()->config()->external_plugin_path) && file_exists(\Idno\Core\Idno::site()->config()->external_plugin_path . '/IdnoPlugins/' . $plugin)) {
                 \Idno\Core\Idno::site()->config->config['directloadplugins'][$plugin] = \Idno\Core\Idno::site()->config()->external_plugin_path . '/IdnoPlugins/' . $plugin;
             }
-            
+
             \Idno\Core\Idno::site()->config->config['plugins'] = array_unique(\Idno\Core\Idno::site()->config->config['plugins']);
             \Idno\Core\Idno::site()->config()->save();
-            
+
             return true;
         }
-        
+
         /**
          * Disable a plugin
          * @param string $plugin The plugin
          * @return boolean
          */
-        public function disable($plugin) {
-            
+        public function disable($plugin)
+        {
+
             if (!$this->exists($plugin))
                 return false;
             if (($key = array_search($plugin, \Idno\Core\Idno::site()->config->config['plugins'])) !== false) {
@@ -329,24 +330,25 @@ namespace Idno\Core {
 
                 \Idno\Core\Idno::site()->config->config['plugins'] = array_unique(\Idno\Core\Idno::site()->config->config['plugins']);
                 \Idno\Core\Idno::site()->config()->save();
-                
+
                 return true;
             }
         }
-        
+
         /**
          * Returns whether the selected plugin exists.
          * @param string $plugin
          * @return boolean
          */
-        public function exists($plugin) {
-            
+        public function exists($plugin)
+        {
+
             if (defined('KNOWN_MULTITENANT_HOST')) {
                 $host = KNOWN_MULTITENANT_HOST;
-            } 
-            
+            }
+
             if (!preg_match('/^[a-zA-Z0-9]+$/', $plugin))
-            { 
+            {
                 return false;
             }
             if (
@@ -354,10 +356,10 @@ namespace Idno\Core {
                     (file_exists(\Idno\Core\Idno::site()->config()->path . '/IdnoPlugins.local/' . $plugin)) ||
                     (!empty(\Idno\Core\Idno::site()->config()->external_plugin_path) && file_exists(\Idno\Core\Idno::site()->config()->external_plugin_path . '/IdnoPlugins/' . $plugin)) ||
                     (!empty($host) && file_exists(\Idno\Core\Idno::site()->config()->path . '/hosts/' . $host . '/IdnoPlugins/' . $plugin))
-            ) { 
+            ) {
                  return true;
-            } 
-            
+            }
+
             return false;
         }
 
