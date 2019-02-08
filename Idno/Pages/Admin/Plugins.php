@@ -31,7 +31,7 @@ namespace Idno\Pages\Admin {
             $action = $this->getInput('plugin_action');
             if (defined('KNOWN_MULTITENANT_HOST')) {
                 $host = KNOWN_MULTITENANT_HOST;
-            } 
+            }
             if (
                 preg_match('/^[a-zA-Z0-9]+$/', $plugin) &&
                 (
@@ -42,7 +42,7 @@ namespace Idno\Pages\Admin {
                     case 'install':
                         if (\Idno\Core\Idno::site()->plugins()->enable($plugin)) {
                             \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_('The plugin was enabled.'));
-                            
+
                             echo json_encode([
                                 'action' => $action,
                                 'status' => true,
@@ -50,10 +50,10 @@ namespace Idno\Pages\Admin {
                             ]);
                             exit;
                         }
-                        
+
                         break;
                     case 'uninstall':
-                        
+
                         if (\Idno\Core\Idno::site()->plugins()->disable($plugin)) {
                             \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_('The plugin was disabled.'));
 
@@ -64,12 +64,12 @@ namespace Idno\Pages\Admin {
                             ]);
                             exit;
                         }
-                        
+
                         break;
                 }
-                
+
             }
-            
+
             echo json_encode([
                 'action' => $action,
                 'status' => false,
