@@ -23,18 +23,7 @@ namespace Idno\Core {
          */
         public function init()
         {
-
-            // Add a classloader to look for a package autoloader
-            // TODO: make sure this works with multitenant sites and plugins on an external path
-            spl_autoload_register(function ($class) {
-                if (!empty(\Idno\Core\Idno::site()->config->config['plugins']))
-                foreach (\Idno\Core\Idno::site()->config->config['plugins'] as $plugin) {
-                    if (file_exists(\Idno\Core\Idno::site()->config()->path . '/IdnoPlugins/' . $plugin . '/autoloader.php')) {
-                        include_once(\Idno\Core\Idno::site()->config()->path . '/IdnoPlugins/' . $plugin . '/autoloader.php');
-                    }
-                }
-            });
-
+            
             if (!empty(\Idno\Core\Idno::site()->config()->directloadplugins)) {
                 foreach (\Idno\Core\Idno::site()->config()->directloadplugins as $plugin => $folder) {
                     @include $folder . '/Main.php';
