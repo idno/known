@@ -164,16 +164,15 @@ namespace Idno\Core {
                         if (is_dir(\Idno\Core\Idno::site()->config()->path . '/IdnoPlugins/' . $folder)) {
                             if ($this->isAllowed($folder)) {
 
-                                if (!is_array($plugins[$folder]))
-                                    $plugins[$folder]= [];
-
                                 // See if we can load some values from a package.json
                                 if (file_exists(\Idno\Core\Idno::site()->config()->path . '/IdnoPlugins/' . $folder . '/package.json')) {
+                                    $plugins[$folder]= [];
                                     $plugins[$folder]['Plugin description'] = array_replace_recursive($plugins[$folder], json_decode(file_get_contents(\Idno\Core\Idno::site()->config()->path . '/IdnoPlugins/' . $folder . '/package.json'), true));
                                 }
 
                                 // Get stuff from plugin.ini
                                 if (file_exists(\Idno\Core\Idno::site()->config()->path . '/IdnoPlugins/' . $folder . '/plugin.ini')) {
+                                    $plugins[$folder]= [];
                                     $plugins[$folder] = array_replace_recursive($plugins[$folder], parse_ini_file(\Idno\Core\Idno::site()->config()->path . '/IdnoPlugins/' . $folder . '/plugin.ini', true));
                                 }
                             }
@@ -189,16 +188,15 @@ namespace Idno\Core {
                             if ($folder != '.' && $folder != '..') {
                                 if ($this->isAllowed($folder)) {
 
-                                    if (!is_array($plugins[$folder]))
-                                        $plugins[$folder]= [];
-
                                     // See if we can load some values from a package.json
                                     if (file_exists(\Idno\Core\Idno::site()->config()->path . '/hosts/' . $host . '/IdnoPlugins/' . $folder . '/package.json')) {
+                                        $plugins[$folder]= [];
                                         $plugins[$folder]['Plugin description'] = array_replace_recursive($plugins[$folder], json_decode(file_get_contents(\Idno\Core\Idno::site()->config()->path . '/hosts/' . $host . '/IdnoPlugins/' . $folder . '/package.json'), true));
                                     }
 
                                     // Get stuff from plugin.ini
                                     if (file_exists(\Idno\Core\Idno::site()->config()->path . '/hosts/' . $host . '/IdnoPlugins/' . $folder . '/plugin.ini')) {
+                                        $plugins[$folder]= [];
                                         $plugins[$folder] = array_replace_recursive($plugins[$folder], $plugins[$folder] = parse_ini_file(\Idno\Core\Idno::site()->config()->path . '/hosts/' . $host . '/IdnoPlugins/' . $folder . '/plugin.ini', true));
                                     }
                                 }
@@ -213,16 +211,15 @@ namespace Idno\Core {
                         if (is_dir(\Idno\Core\Idno::site()->config()->path . '/IdnoPlugins.local/' . $folder)) {
                             if ($this->isAllowed($folder)) {
 
-                                if (!is_array($plugins[$folder]))
-                                    $plugins[$folder]= [];
-
                                 // See if we can load some values from a package.json
                                 if (file_exists(\Idno\Core\Idno::site()->config()->path . '/IdnoPlugins.local/' . $folder . '/package.json')) {
+                                    $plugins[$folder]= [];
                                     $plugins[$folder]['Plugin description'] = array_replace_recursive($plugins[$folder], json_decode(file_get_contents(\Idno\Core\Idno::site()->config()->path . '/IdnoPlugins.local/' . $folder . '/package.json'), true));
                                 }
 
                                 // Get stuff from plugin.ini
                                 if (file_exists(\Idno\Core\Idno::site()->config()->path . '/IdnoPlugins.local/' . $folder . '/plugin.ini')) {
+                                    $plugins[$folder]= [];
                                     $plugins[$folder] = array_replace_recursive($plugins[$folder], parse_ini_file(\Idno\Core\Idno::site()->config()->path . '/IdnoPlugins.local/' . $folder . '/plugin.ini', true));
                                 }
                             }
