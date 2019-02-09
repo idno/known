@@ -7,6 +7,9 @@
 	<testsuite name="Plugins">
 	    <directory>./IdnoPlugins/*/Tests/</directory>
     	</testsuite>
+	<testsuite name="Local Plugins">
+	    <directory>./IdnoPlugins.local/*/Tests/</directory>
+    	</testsuite>
     </testsuites>
     <php>
         <ini name="display_errors" value="On" />
