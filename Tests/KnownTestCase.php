@@ -98,7 +98,7 @@ namespace Tests {
         /**
          * Set settings.
          */
-        public static function setupBeforeClass()
+        public static function setUpBeforeClass()
         {
             \Idno\Core\Idno::site()->config()->hub = '';
         }
