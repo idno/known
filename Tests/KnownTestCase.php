@@ -2,7 +2,7 @@
 
 namespace Tests {
 
-    class KnownTestCase extends \PHPUnit_Framework_TestCase
+    class KnownTestCase extends \PHPUnit\Framework\TestCase
     {
 
         /// Admin user
