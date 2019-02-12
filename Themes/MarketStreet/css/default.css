@@ -60,6 +60,10 @@ blockquote {
     margin: 21px;
 }
 
+.idno-object .dt-published {
+    margin: 0;
+}
+
 .edit-pane {
     background-color: rgba(255,255,255,0.95);
     padding: 1.6em;
@@ -70,7 +74,7 @@ blockquote {
     font-size: 46px;
     margin: 0 !important;
     padding: 0 !important;
-    margin-bottom: 0.5em !important;
+    margin-bottom: 42px !important;
 }
 
 .idno-content .icon-container {
@@ -112,7 +116,11 @@ blockquote {
     text-transform: uppercase;
 }
 
-.idno-content .datestamp p a time, .idno-content .datestamp p a:hover {
+.idno-content .datestamp a, .idno-content .datestamp a:hover {
+    color: #bbb !important;
+}
+
+.idno-content .vague {
     color: #bbb !important;
 }
 
