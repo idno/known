@@ -43,6 +43,10 @@ blockquote {
     line-height: 1.6 !important;
 }
 
+.idno-content .idno-body p {
+    margin: 0 0 26px;
+}
+
 .idno-content .idno-body blockquote {
     border: none;
     padding: 0;
