@@ -176,25 +176,28 @@ a.contentTypeButton:hover {
 .profile {
     padding: 1.5em;
     font-weight: normal;
-    color: #fff;
+    color: #000;
     text-align: center;
     margin-bottom: 0.5em;
-    background-color: rgba(0,0,0,0.7);
-    border-radius: 15px;
+    background-color: #fff;
 }
 
 .profile .namebadge .icon-container {
-    border: 5px #fff solid;
+    border: 5px #ccc solid;
+}
+
+.profile p {
+    font-family: 'Merriweather', serif;
 }
 
 .profile a {
-    color: #fff;
-    font-weight: bold;
+    color: #333;
 }
 
 .profile .btn {
     color: #333;
-    background-color: #fff;
+    background-color: #eee;
+    font-family: Helvetica, Arial, sans-serif;
 }
 
 body.page-share {
