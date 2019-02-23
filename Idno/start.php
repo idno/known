@@ -131,12 +131,6 @@
     // Symfony is used for routing, observer design pattern support, and a bunch of other fun stuff
     $known_loader->registerNamespace('Symfony\Component', dirname(dirname(__FILE__)) . '/external');
 
-    // Implement the PSR-3 logging interface
-    $known_loader->registerNamespace('Psr\Log', dirname(dirname(__FILE__)) . '/external/log');
-
-    // Using Toro for URL routing
-    require_once(dirname(dirname(__FILE__)) . '/external/torophp/src/Toro.php');
-
     // Using mf2 for microformats parsing, and webignition components to support it
     $known_loader->registerNamespace('webignition\Url', dirname(dirname(__FILE__)) . '/external/webignition/url/src');
     $known_loader->registerNamespace('webignition\AbsoluteUrlDeriver', dirname(dirname(__FILE__)) . '/external/webignition/absolute-url-deriver/src');
