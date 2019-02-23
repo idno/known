@@ -85,6 +85,13 @@
         set_time_limit(120);
     }
 
+    // Load external libraries
+    if (file_exists(dirname(dirname(__FILE__)) . '/vendor/autoload.php')) {
+        require_once(dirname(dirname(__FILE__)) . '/vendor/autoload.php');
+    } else {
+        die('Could not find autoload.php, did you run "composer install" ..?');
+    }
+    
     // We're making heavy use of the Symfony ClassLoader to load our classes
     require_once(dirname(dirname(__FILE__)) . '/external/Symfony/Component/ClassLoader/UniversalClassLoader.php');
     global $known_loader;

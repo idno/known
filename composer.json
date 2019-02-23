@@ -4,9 +4,12 @@
     "type" : "project",
     "homepage" : "https://withknown.com/",
     "require": {
-	"php": ">=7.0"
+	"php": ">=7.0",
+        "mapkyca/php-ogp": "dev-master"
     },
     "license": "Apache-2.0",
+    "prefer-stable": true,
+    "minimum-stability": "dev",
     "readme" : "README.md",
     "keywords" : ["blogging", "publishing", "social", "indieweb", "community"],
     "support": {
