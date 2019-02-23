@@ -36,9 +36,6 @@ function &loader()
     $known_loader->registerNamespace('Idno', dirname(__FILE__));
     $known_loader->registerNamespace('ConsolePlugins', dirname(__FILE__));
 
-    // Implement the PSR-3 logging interface
-    $known_loader->registerNamespace('Psr\Log', dirname(__FILE__) . '/external/log');
-
     // Symfony is used for routing, observer design pattern support, and a bunch of other fun stuff
     $known_loader->registerNamespace('Symfony\Component', dirname(__FILE__) . '/external');
 
