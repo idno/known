@@ -23,7 +23,7 @@ namespace Tests\Data {
             return $obj;
         }
 
-        public static function setUpBeforeClass()
+        public static function setUpBeforeClass():void
         {
             if (get_called_class() === 'Tests\Data\AccessGroupTest') {
                 // Create acl

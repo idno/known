@@ -15,7 +15,7 @@ namespace Tests\Data {
 
         public static $fts_objects;
 
-        public static function setUpBeforeClass()
+        public static function setUpBeforeClass():void
         {
             if (get_called_class() === 'Tests\Data\DataConciergeTest') {
                 $obj = new \Idno\Entities\GenericDataItem();
