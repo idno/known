@@ -6,15 +6,16 @@
     "require": {
 	"php": ">=7.0",
         "mapkyca/php-ogp": "dev-master",
-        "psr/log": "^1.1",
+        "psr/log": "1.1",
         "torophp/torophp": "dev-master",
-        "mf2/mf2": "^0.4.6",
+        "mf2/mf2": "0.4.6",
         "swiftmailer/swiftmailer": "5.2.1",
-        "webignition/absolute-url-deriver": "^1.5",
-        "webignition/url": "^1.5",
-        "fortawesome/font-awesome": "^5.7",
+        "webignition/absolute-url-deriver": "1.5.2",
+        "webignition/url": "1.9.8",
+        "fortawesome/font-awesome": "5.7",
         "twbs/bootstrap": "3.3.2",
-        "components/jquery": "3.2.1"
+        "components/jquery": "3.2.1",
+        "ezyang/htmlpurifier": "4.10"
     },
     "license": "Apache-2.0",
     "prefer-stable": true,
