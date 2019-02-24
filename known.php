@@ -39,9 +39,6 @@ function &loader()
     // Symfony is used for routing, observer design pattern support, and a bunch of other fun stuff
     $known_loader->registerNamespace('Symfony\Component', dirname(__FILE__) . '/external');
 
-    $known_loader->registerNamespace('webignition\Url', dirname(__FILE__) . '/external/webignition/url/src');
-    $known_loader->registerNamespace('webignition\AbsoluteUrlDeriver', dirname(__FILE__) . '/external/webignition/absolute-url-deriver/src');
-    $known_loader->registerNamespace('webignition\NormalisedUrl', dirname(__FILE__) . '/external/webignition/url/src');
     $known_loader->registerNamespace('IndieWeb', dirname(__FILE__) . '/external/mention-client-php/src');
 
 
