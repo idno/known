@@ -94,6 +94,19 @@ namespace Tests {
 
             return $current;
         }
+        
+        /**
+         * COMPATIBILITY SHIM for PHPUNIT < 8
+         * @param type $string1
+         * @param type $string2
+         * @return type
+         */
+        public function assertStringContainsString($string1, $string2) {
+            if (!method_exists(get_parent_class($this), 'assertStringContainsString'))
+                return $this->assertContains($string1, $string2);
+            
+            return parent::assertStringContainsString($string1, $string2);
+        }
 
         /**
          * Set settings.
