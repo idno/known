@@ -8,7 +8,7 @@ To begin with, make sure your server satisfies the [System requirements](require
 
 Some of the technologies involved are a little bit new, so you may have to ask for your web host to install them specially. We want to help you pick a great host that works well with Known, so we'll be creating a list of the ones that will just work, out of the box.
 
-##Upload Known files
+## Upload Known files
 
 Known releases stable installation packages from [withknown.com](https://withknown.com) in both .zip and .tar.gz formats. If you are using Known for any purpose other than development, this is the recommended source for Known installations.
 
@@ -16,6 +16,9 @@ You can place the platform on your web host by:
 
 + Downloading the latest package from [the Known homepage](https://withknown.com/). This is by far the easiest option. If you’ve uploaded the files inside the archive to your web host, you can skip to the configuration section of these documents, below.
 * If you have more control over your server, you can also use Git to clone the code from [our repository](https://github.com/idno/known). Git is a technical source code management system that is out of scope for this guide, so if in doubt, use point one.
+
+!!! note "Note"
+    Known's dependencies are now retrieved by ```composer``` when downloading the project directly from GitHub. If you've installed Known from the git repo, you will need to run ```composer install``` from your Known directory.
 
 ### Alternative Packages
 
