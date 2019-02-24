@@ -302,8 +302,8 @@ namespace Idno\Core {
         function autop($html)
         {
             $html = site()->triggerEvent('text/format', [], $html);
-            require_once dirname(dirname(dirname(__FILE__))) . '/external/MrClay_AutoP/AutoP.php';
-            $autop = new \MrClay_AutoP();
+            
+            $autop = new \mapkyca\autop\MrClayAutoP();
 
             return $autop->process($html);
         }
