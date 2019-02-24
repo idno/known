@@ -26,7 +26,6 @@ before_script:
   - sudo chown -R travis:travis /var/lib/apache2/fastcgi
   - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/www.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/www.conf
   - sudo a2enmod rewrite actions fastcgi alias
-  - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
   # Enable mongo extension
   - echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; 
   # Enable vhost
@@ -50,6 +49,7 @@ before_script:
   - if [[ "$DB" == "sqlite3" ]]; then sudo cp -f Tests/build/config_sqlite3.ini $TRAVIS_BUILD_DIR/configuration/config.ini; fi
   - sudo cp -f $TRAVIS_BUILD_DIR/warmup/webserver-configs/htaccess.dist $TRAVIS_BUILD_DIR/.htaccess
   # Restart services
+  - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
   - sudo service apache2 restart
 
 services:
