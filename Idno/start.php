@@ -129,9 +129,6 @@
 
     $known_loader->registerNamespace('IndieWeb', dirname(dirname(__FILE__)) . '/external/mention-client-php/src');
 
-    // Using Simplepie for RSS and Atom parsing
-    include dirname(dirname(__FILE__)) . '/external/simplepie/autoloader.php';
-
     // Register the autoloader
     $known_loader->register();
 
