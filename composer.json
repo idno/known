@@ -10,8 +10,8 @@
         "torophp/torophp": "dev-master",
         "mf2/mf2": "^0.4.6",
         "swiftmailer/swiftmailer": "5.2.1",
-        "webignition/absolute-url-deriver": "^3.0",
-        "webignition/url": "^3.0",
+        "webignition/absolute-url-deriver": "^2.0",
+        "webignition/url": "^2.0",
         "fortawesome/font-awesome": "^5.7"
     },
     "license": "Apache-2.0",
