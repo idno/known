@@ -8,7 +8,8 @@
         "mapkyca/php-ogp": "dev-master",
         "psr/log": "^1.1",
         "torophp/torophp": "dev-master",
-        "mf2/mf2": "^0.4.6"
+        "mf2/mf2": "^0.4.6",
+        "swiftmailer/swiftmailer": "5.2.1"
     },
     "license": "Apache-2.0",
     "prefer-stable": true,
