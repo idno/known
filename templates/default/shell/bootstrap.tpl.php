@@ -18,7 +18,7 @@
 
 <!-- Fonts -->
 <link rel="stylesheet"
-          href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>external/font-awesome/css/fontawesome-all.min.css">
+          href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/fortawesome/font-awesome/css/all.min.css">
 
 <style>
     body {
