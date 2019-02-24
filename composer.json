@@ -30,7 +30,8 @@
         "twbs/bootstrap": "3.3.2",
         "components/jquery": "3.2.1",
         "ezyang/htmlpurifier": "4.10",
-	"h5f/h5f": "master"
+	"h5f/h5f": "master",
+        "rmm5t/jquery-timeago": "1.6.4"
     },
     "license": "Apache-2.0",
     "prefer-stable": true,
