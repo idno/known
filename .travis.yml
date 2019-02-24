@@ -17,7 +17,7 @@ branches:
 before_script:
   # Update and install base system
   - sudo apt-get update
-  - sudo apt-get install -y --force-yes apache2 libapache2-mod-fastcgi make libxml2-utils curl php-sqlite3
+  - sudo apt-get install -y --force-yes apache2 libapache2-mod-fastcgi make libxml2-utils curl
   - sudo a2enmod headers
   # Enable php-fpm
   - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
