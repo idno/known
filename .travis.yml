@@ -60,6 +60,8 @@ before_script:
   - sudo cp -f $TRAVIS_BUILD_DIR/warmup/webserver-configs/htaccess.dist $TRAVIS_BUILD_DIR/.htaccess
   # Restart services
   - sudo service apache2 restart
+  # Ensure composer has installed dependancies
+  - composer install
 
 services:
   - mongodb
