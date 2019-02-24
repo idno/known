@@ -45,7 +45,7 @@ if ((\Idno\Core\Idno::site()->currentPage()) && $scripts = \Idno\Core\Idno::site
 ?>
 
 <!-- HTML5 form element support for legacy browsers -->
-<script src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/h5f/h5f.min.js' ?>"></script>
+<script src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>vendor/h5f/h5f/h5f.min.js"></script>
 
 <script src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>js/<?php echo $this->getModifiedTS('js/templates/default/shell.min.js'); ?>/templates/default/shell.min.js"></script>
 <script src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>js/<?php echo $this->getModifiedTS('js/embeds.min.js'); ?>/embeds.min.js"></script>

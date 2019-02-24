@@ -3,6 +3,20 @@
     "description": "A social publishing platform.",
     "type" : "project",
     "homepage" : "https://withknown.com/",
+    "repositories": [
+	{
+	    "type": "package",
+	    "package": {
+		"name": "h5f/h5f",
+		"version": "master",
+		"source": { 
+		    "type": "git",
+		    "url": "https://github.com/ryanseddon/H5F.git",
+		    "reference": "master"
+		}
+	    }
+	}
+    ],
     "require": {
 	"php": ">=7.0",
         "mapkyca/php-ogp": "dev-master",
@@ -12,10 +26,11 @@
         "swiftmailer/swiftmailer": "5.2.1",
         "webignition/absolute-url-deriver": "1.5.2",
         "webignition/url": "1.9.8",
-        "fortawesome/font-awesome": "5.7",
+        "fortawesome/font-awesome": "5.7.2",
         "twbs/bootstrap": "3.3.2",
         "components/jquery": "3.2.1",
-        "ezyang/htmlpurifier": "4.10"
+        "ezyang/htmlpurifier": "4.10",
+	"h5f/h5f": "master"
     },
     "license": "Apache-2.0",
     "prefer-stable": true,
