@@ -66,7 +66,7 @@ if (empty($vars['description'])) {
 
             ?>
 
-                <link href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/css/bootstrap.min.css"
+                <link href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>vendor/twbs/bootstrap/dist/css/bootstrap.min.css"
                       rel="stylesheet">
                 <link rel="stylesheet"
                       href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>vendor/fortawesome/font-awesome/css/fontawesome.min.css">

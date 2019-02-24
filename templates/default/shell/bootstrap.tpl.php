@@ -3,12 +3,12 @@
 
 <!-- Le styles -->
 <link
-    href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/css/bootstrap.min.css"
+    href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/twbs/bootstrap/dist/css/bootstrap.min.css"
     rel="stylesheet"/>
 <link
-    href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/css/bootstrap-theme.min.css"/>
+    href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/twbs/bootstrap/dist/css/bootstrap-theme.min.css"/>
 <script
-    src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
+    src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
 
 <!-- Accessibility -->
 <link rel="stylesheet"
