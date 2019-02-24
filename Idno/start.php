@@ -93,7 +93,6 @@
     }
     
     // We're making heavy use of the Symfony ClassLoader to load our classes
-    require_once(dirname(dirname(__FILE__)) . '/external/Symfony/Component/ClassLoader/UniversalClassLoader.php');
     global $known_loader;
     $known_loader = new \Symfony\Component\ClassLoader\UniversalClassLoader();
 

@@ -11,7 +11,6 @@
     }
         
     // Load Symfony
-    require_once((dirname(__FILE__)) . '/external/Symfony/Component/ClassLoader/UniversalClassLoader.php');
     global $known_loader;
     $known_loader = new \Symfony\Component\ClassLoader\UniversalClassLoader();
     $known_loader->registerNamespace('Symfony\Component', (dirname(__FILE__)) . '/external');
