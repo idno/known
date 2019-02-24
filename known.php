@@ -41,14 +41,6 @@ function &loader()
 
     $known_loader->registerNamespace('IndieWeb', dirname(__FILE__) . '/external/mention-client-php/src');
 
-
-    // TODO: FIND A WAY TO NOT LOAD THESE FOR CONSOLE
-
-    // Using HTMLPurifier for HTML sanitization
-    include dirname(__FILE__) . '/external/htmlpurifier-lite/library/HTMLPurifier.auto.php';
-    ///////////////////
-
-
     // Create new console application
     global $console;
     $console = new Application('Known Console', \Idno\Core\Version::version());

@@ -136,9 +136,6 @@
     // Using Simplepie for RSS and Atom parsing
     include dirname(dirname(__FILE__)) . '/external/simplepie/autoloader.php';
 
-    // Using HTMLPurifier for HTML sanitization
-    include dirname(dirname(__FILE__)) . '/external/htmlpurifier-lite/library/HTMLPurifier.auto.php';
-
     // Register the autoloader
     $known_loader->register();
 
