@@ -7,7 +7,8 @@
 	"php": ">=7.0",
         "mapkyca/php-ogp": "dev-master",
         "psr/log": "^1.1",
-        "torophp/torophp": "dev-master"
+        "torophp/torophp": "dev-master",
+        "mf2/mf2": "^0.4.6"
     },
     "license": "Apache-2.0",
     "prefer-stable": true,

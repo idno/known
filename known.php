@@ -42,7 +42,6 @@ function &loader()
     $known_loader->registerNamespace('webignition\Url', dirname(__FILE__) . '/external/webignition/url/src');
     $known_loader->registerNamespace('webignition\AbsoluteUrlDeriver', dirname(__FILE__) . '/external/webignition/absolute-url-deriver/src');
     $known_loader->registerNamespace('webignition\NormalisedUrl', dirname(__FILE__) . '/external/webignition/url/src');
-    $known_loader->registerNamespace('Mf2', dirname(__FILE__) . '/external/mf2');
     $known_loader->registerNamespace('IndieWeb', dirname(__FILE__) . '/external/mention-client-php/src');
 
 
