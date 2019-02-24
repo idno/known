@@ -8,10 +8,10 @@ if (\Idno\Core\Idno::site()->session()->isLoggedIn()) {
     ?>
         <!-- WYSIWYG editor -->
         <script
-            src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>external/tinymce/js/tinymce/tinymce.min.js"
+            src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>vendor/tinymce/tinymce/tinymce.min.js"
             type="text/javascript"></script>
         <script
-            src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>external/tinymce/js/tinymce/jquery.tinymce.min.js"
+            src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>vendor/tinymce/tinymce/jquery.tinymce.min.js"
             type="text/javascript"></script>
         <?php
 

@@ -61,7 +61,7 @@ if (!empty($vars['label'])) {
         $(container).tinymce({
             selector: 'textarea',
             theme: 'modern',
-            skin: 'light',
+            skin: 'lightgray',
             statusbar: false,
             <?php if (!empty($vars['wordcount'])) {
                 ?>statusbar: true, <?php

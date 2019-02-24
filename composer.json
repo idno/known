@@ -31,7 +31,8 @@
         "components/jquery": "3.2.1",
         "ezyang/htmlpurifier": "4.10",
 	"h5f/h5f": "master",
-        "rmm5t/jquery-timeago": "1.6.4"
+        "rmm5t/jquery-timeago": "1.6.4",
+        "tinymce/tinymce": "4.1.7"
     },
     "license": "Apache-2.0",
     "prefer-stable": true,
