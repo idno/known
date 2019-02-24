@@ -31,14 +31,14 @@ namespace Tests\Core {
             $this->assertEquals('/:year/:slug', \Idno\Core\Idno::site()->config()->getPermalinkStructure());
             $this->assertEquals("$base$year/$slug", $entity->getURL());
             $contents = file_get_contents($entity->getURL());
-            $this->assertContains('hamstring baseball duckbill firecracker', $contents);
+            $this->assertStringContainsString('hamstring baseball duckbill firecracker', $contents);
 
             // /year/month/slug
             \Idno\Core\Idno::site()->config()->permalink_structure = '/:year/:month/:slug';
             \Idno\Core\Idno::site()->config()->save();
             $this->assertEquals("$base$year/$month/$slug", $entity->getURL());
             $contents = file_get_contents($entity->getURL());
-            $this->assertContains('hamstring baseball duckbill firecracker', $contents);
+            $this->assertStringContainsString('hamstring baseball duckbill firecracker', $contents);
 
             $entity->delete();
         }
