@@ -106,7 +106,7 @@ namespace Tests {
         /**
          * Clean up framework.
          */
-        public static function tearDownAfterClass()
+        public static function tearDownAfterClass():void
         {
             // Delete users, if we've created some but forgot to clean up
             if (static::$testUser) {

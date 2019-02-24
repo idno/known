@@ -171,7 +171,7 @@ namespace Tests\Data {
 
         }
 
-        public static function tearDownAfterClass()
+        public static function tearDownAfterClass():void
         {
             self::$acl->delete();
         }

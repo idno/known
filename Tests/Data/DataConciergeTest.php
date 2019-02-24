@@ -251,7 +251,7 @@ namespace Tests\Data {
             $this->assertEquals(self::$url, $obj->getUrl());
         }
 
-        public static function tearDownAfterClass()
+        public static function tearDownAfterClass():void
         {
             if (self::$object) self::$object->delete();
             if (self::$fts_objects) {
