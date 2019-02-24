@@ -127,9 +127,6 @@
 
     // Register our external namespaces (PSR-0 compliant modules that we love, trust and need)
 
-    // Symfony is used for routing, observer design pattern support, and a bunch of other fun stuff
-    $known_loader->registerNamespace('Symfony\Component', dirname(dirname(__FILE__)) . '/external');
-    
     $known_loader->registerNamespace('IndieWeb', dirname(dirname(__FILE__)) . '/external/mention-client-php/src');
 
     // Using Simplepie for RSS and Atom parsing

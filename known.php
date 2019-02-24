@@ -13,7 +13,6 @@
     // Load Symfony
     global $known_loader;
     $known_loader = new \Symfony\Component\ClassLoader\UniversalClassLoader();
-    $known_loader->registerNamespace('Symfony\Component', (dirname(__FILE__)) . '/external');
     $known_loader->register();
 
     /**
