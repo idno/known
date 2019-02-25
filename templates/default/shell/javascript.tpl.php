@@ -4,5 +4,5 @@
 <script src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>js/<?php echo $this->getModifiedTS('js/default.min.js'); ?>/default.min.js"></script>
 
 <script
-    src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>external/bootstrap-toggle/js/bootstrap-toggle.js"></script>
+    src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/minhur/bootstrap-toggle/js/bootstrap-toggle.js"></script>
 
