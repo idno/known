@@ -15,7 +15,7 @@ namespace Idno\Pages\File {
         {
 
             $this->setAsset("image", \Idno\Core\Idno::site()->config()->getDisplayURL() . 'js/image.min.js', 'javascript');
-            $this->setAsset("exif-js", \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/exif-js/exif.min.js', 'javascript');
+            $this->setAsset("exif-js", \Idno\Core\Idno::site()->config()->getDisplayURL() . 'vendor/exif-js/exif-js/exif.js', 'javascript');
 
             $template   = 'file/picker/image';
             $t          = \Idno\Core\Idno::site()->template();

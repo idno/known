@@ -51,6 +51,18 @@
 		    "reference": "7900336"
 		}
 	    }
+	},
+	{
+	    "type": "package",
+	    "package": {
+		"name": "exif-js/exif-js",
+		"version": "2.3.0",
+		"source": { 
+		    "type": "git",
+		    "url": "https://github.com/exif-js/exif-js.git",
+		    "reference": "a10f3d5"
+		}
+	    }
 	}
     ],
     "require": {
@@ -77,7 +89,8 @@
         "mapkyca/mrclay_autop_known": "dev-master",
 	"jashkenas/underscore": "1.6.0",
 	"paypal/bootstrap-accessibility-plugin": "1.0.3",
-	"minhur/bootstrap-toggle": "2.2.0"
+	"minhur/bootstrap-toggle": "2.2.0",
+	"exif-js/exif-js": "2.3.0"
     },
     "license": "Apache-2.0",
     "prefer-stable": true,
