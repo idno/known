@@ -27,6 +27,18 @@
 		    "reference": "1f4bf62"
 		}
 	    }
+	},
+	{
+	    "type": "package",
+	    "package": {
+		"name": "paypal/bootstrap-accessibility-plugin",
+		"version": "1.0.3",
+		"source": { 
+		    "type": "git",
+		    "url": "https://github.com/paypal/bootstrap-accessibility-plugin.git",
+		    "reference": "f7aab3b"
+		}
+	    }
 	}
     ],
     "require": {
@@ -51,7 +63,8 @@
         "symfony/http-foundation": "2.3.0",
         "simplepie/simplepie": "1.4",
         "mapkyca/mrclay_autop_known": "dev-master",
-	"jashkenas/underscore": "1.6.0"
+	"jashkenas/underscore": "1.6.0",
+	"paypal/bootstrap-accessibility-plugin": "1.0.3"
     },
     "license": "Apache-2.0",
     "prefer-stable": true,
