@@ -41,8 +41,6 @@ listings here do not imply endorsement by the Known project team in any way.
 
 ### System and Security
 
-* [HTML Output sanitisation](https://github.com/mapkyca/KnownHTMLPurifier) – Provides HTML Purifier user output sanitisation, 
-    by [Marcus Povey][]
 * [Two Factor Authentication](https://github.com/mapkyca/Known2FA) – Two factor authentication for logins, 
     by [Marcus Povey][]
 * [Sitemap.xml](https://github.com/mapkyca/KnownSitemap) – Automatically generate a sitemap.xml for your site, 

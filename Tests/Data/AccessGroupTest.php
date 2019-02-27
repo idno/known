@@ -23,7 +23,7 @@ namespace Tests\Data {
             return $obj;
         }
 
-        public static function setupBeforeClass()
+        public static function setUpBeforeClass():void
         {
             if (get_called_class() === 'Tests\Data\AccessGroupTest') {
                 // Create acl
@@ -171,7 +171,7 @@ namespace Tests\Data {
 
         }
 
-        public static function tearDownAfterClass()
+        public static function tearDownAfterClass():void
         {
             self::$acl->delete();
         }
