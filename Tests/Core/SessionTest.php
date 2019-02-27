@@ -34,7 +34,7 @@ namespace Tests\Core {
             $this->assertFalse(is_object(\Idno\Core\Idno::site()->session()->currentUser()));
         }
 
-        public static function tearDownAfterClass()
+        public static function tearDownAfterClass():void
         {
             \Idno\Core\Idno::site()->session()->logUserOff();
         }

@@ -2,7 +2,7 @@
 
 namespace Tests {
 
-    class KnownTestCase extends \PHPUnit_Framework_TestCase
+    class KnownTestCase extends \PHPUnit\Framework\TestCase
     {
 
         /// Admin user
@@ -94,11 +94,12 @@ namespace Tests {
 
             return $current;
         }
+        
 
         /**
          * Set settings.
          */
-        public static function setupBeforeClass()
+        public static function setUpBeforeClass():void
         {
             \Idno\Core\Idno::site()->config()->hub = '';
         }
@@ -106,7 +107,7 @@ namespace Tests {
         /**
          * Clean up framework.
          */
-        public static function tearDownAfterClass()
+        public static function tearDownAfterClass():void
         {
             // Delete users, if we've created some but forgot to clean up
             if (static::$testUser) {

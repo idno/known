@@ -1,7 +1,5 @@
 language: php
-dist: precise
 php:
- - 5.6
  - 7.1
  - 7.2
 
@@ -12,10 +10,6 @@ env:
   - DB=sqlite3
   - DB=pgsql
   
-matrix:
-    allow_failures:
-        - php: 5.6
-
 branches:
   only:
     - master
@@ -24,23 +18,19 @@ before_script:
   # Update and install base system
   - sudo apt-get update
   - sudo apt-get install -y --force-yes apache2 libapache2-mod-fastcgi make libxml2-utils curl
-  #- if [[ ${TRAVIS_PHP_VERSION:0:1} == "7" ]]; then sudo apt-get install -y --force-yes php-dev php-pear php-mysql php-curl php-gd php-json php-sqlite3 php-pgsql; fi
-  #- if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.0" ]]; then sudo apt-get install -y --force-yes php7.0-dev php-pear php7.0-mysql php7.0-curl php7.0-gd php7.0-json php7.0-sqlite3 php7.0-pgsql; fi
-  #- if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.1" ]]; then sudo apt-get install -y --force-yes php7.1-dev php-pear php7.1-mysql php7.1-curl php7.1-gd php7.1-json php7.1-sqlite3 php7.1-pgsql; fi
-  #- if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" ]]; then sudo apt-get install -y --force-yes php7.2-dev php-pear php7.2-mysql php7.2-curl php7.2-gd php7.2-json php7.2-sqlite3 php7.2-pgsql; fi
-  - if [[ ${TRAVIS_PHP_VERSION:0:1} == "5" ]]; then sudo apt-get install -y --force-yes php5-dev php-pear php5-mysql php5-curl php5-gd php5-json php5-sqlite php5-pgsql; fi
   - sudo a2enmod headers
-  # Enable php-fpm and Mongodb
-  - if [[ ${TRAVIS_PHP_VERSION:0:1} == "7" ]]; then sudo cp Tests/build/www.conf ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/; fi
+  # Enable php-fpm
   - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
-  - sudo a2enmod rewrite actions fastcgi alias
-  #- if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.0" ]]; then sudo printf "\n" | pecl install mongodb; fi
-  - echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; 
   - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
-  # Configure apache virtual hosts
-  - sudo cp -f Tests/build/travis-ci-apache /etc/apache2/sites-available/default
-  - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
+  - sudo sed -i -e "s,www-data,travis,g" /etc/apache2/envvars
+  - sudo chown -R travis:travis /var/lib/apache2/fastcgi
+  - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/www.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/www.conf
+  - sudo a2enmod rewrite actions fastcgi alias
+  # Enable mongo extension
+  - echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; 
+  # Enable vhost
+  - sudo cp -f Tests/build/travis-ci-apache /etc/apache2/sites-available/000-default.conf
+  - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/000-default.conf
   # Configure Known
   - if [[ "$DB" == "pgsql" ]]; then echo "PROVISIONING WITH PostgreSQL"; fi
   - if [[ "$DB" == "pgsql" ]]; then sudo cp -f Tests/build/config_pgsql.ini $TRAVIS_BUILD_DIR/configuration/config.ini; fi
@@ -59,6 +49,7 @@ before_script:
   - if [[ "$DB" == "sqlite3" ]]; then sudo cp -f Tests/build/config_sqlite3.ini $TRAVIS_BUILD_DIR/configuration/config.ini; fi
   - sudo cp -f $TRAVIS_BUILD_DIR/warmup/webserver-configs/htaccess.dist $TRAVIS_BUILD_DIR/.htaccess
   # Restart services
+  - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
   - sudo service apache2 restart
 
 services:
