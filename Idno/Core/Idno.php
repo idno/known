@@ -89,13 +89,16 @@ namespace Idno\Core {
                     break;
                 default:
                     
-                    $this->filesystem = $this->componentFactory($this->config->filesystem, "Idno\\Files\\FileSystem", "Idno\\Files\\", "Idno\\Files\\LocalFileSystem");
-                    
                     if (empty($this->filesystem)) {
                         if ($fs = $this->db()->getFilesystem()) {
                             $this->filesystem = $fs;
                         }
                     }
+                    
+                    if (!empty($this->config->filesystem)) {
+                        $this->filesystem = $this->componentFactory($this->config->filesystem, "Idno\\Files\\FileSystem", "Idno\\Files\\", "Idno\\Files\\LocalFileSystem");
+                    }
+                    
                     break;
             }
 
