@@ -67,18 +67,6 @@
 		    "reference": "a10f3d5"
 		}
 	    }
-	},
-	{
-	    "type": "package",
-	    "package": {
-		"name": "mediaelement/mediaelement",
-		"version": "4.2.6",
-		"source": { 
-		    "type": "git",
-		    "url": "https://github.com/mediaelement/mediaelement.git",
-		    "reference": "212dbf5"
-		}
-	    }
 	}
     ],
     "require": {
@@ -107,7 +95,7 @@
 	"paypal/bootstrap-accessibility-plugin": "1.0.3",
 	"minhur/bootstrap-toggle": "2.2.0",
 	"exif-js/exif-js": "2.3.0",
-	"mediaelement/mediaelement": "4.2.6"
+	"npm-asset/mediaelement": "4.2.6"
     },
     "license": "Apache-2.0",
     "prefer-stable": true,
