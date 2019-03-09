@@ -61,7 +61,7 @@ if (!empty($vars['label'])) {
         $(container).tinymce({
             selector: 'textarea',
             theme: 'modern',
-            skin: 'lightgray',
+            skin_url: '<?= \Idno\Core\Idno::site()->config()->getDisplayURL(); ?>vendor/bower-asset/tinymce-skin-modern-light-flat/light/',
             statusbar: false,
             <?php if (!empty($vars['wordcount'])) {
                 ?>statusbar: true, <?php
