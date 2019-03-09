@@ -86,8 +86,8 @@ if (empty($vars['description'])) {
         ?>
 
         <!-- Syndication -->
-        <link href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>vendor/minhur/bootstrap-toggle/css/bootstrap2-toggle.min.css" rel="stylesheet" />
-        <script src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>vendor/minhur/bootstrap-toggle/js/bootstrap2-toggle.min.js"></script>
+        <link href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>vendor/npm-asset/bootstrap-toggle/css/bootstrap2-toggle.min.css" rel="stylesheet" />
+        <script src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>vendor/npm-asset/bootstrap-toggle/js/bootstrap2-toggle.min.js"></script>
 
     </head>
     <body class="<?php

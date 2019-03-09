@@ -43,18 +43,6 @@
 		    "reference": "f7aab3b"
 		}
 	    }
-	},
-	{
-	    "type": "package",
-	    "package": {
-		"name": "minhur/bootstrap-toggle",
-		"version": "2.2.0",
-		"source": { 
-		    "type": "git",
-		    "url": "https://github.com/minhur/bootstrap-toggle.git",
-		    "reference": "7900336"
-		}
-	    }
 	}
     ],
     "require": {
@@ -81,7 +69,7 @@
         "mapkyca/mrclay_autop_known": "dev-master",
 	"jashkenas/underscore": "1.6.0",
 	"paypal/bootstrap-accessibility-plugin": "1.0.3",
-	"minhur/bootstrap-toggle": "2.2.0",
+	"npm-asset/bootstrap-toggle": "2.2.0",
 	"npm-asset/exif-js": "2.3.0",
 	"npm-asset/mediaelement": "4.2.6"
     },

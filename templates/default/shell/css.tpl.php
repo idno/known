@@ -3,7 +3,7 @@
 
 <!-- Syndication -->
 <link
-    href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/minhur/bootstrap-toggle/css/bootstrap-toggle.min.css"
+    href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/npm-asset/bootstrap-toggle/css/bootstrap-toggle.min.css"
     rel="stylesheet"/>
 
 <!-- Mention styles -->
