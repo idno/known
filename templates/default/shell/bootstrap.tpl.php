@@ -12,9 +12,9 @@
 
 <!-- Accessibility -->
 <link rel="stylesheet"
-      href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/paypal/bootstrap-accessibility-plugin/plugins/css/bootstrap-accessibility.css">
+      href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/npm-asset/bootstrap-accessibility-plugin/plugins/css/bootstrap-accessibility.css">
 <script
-    src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/paypal/bootstrap-accessibility-plugin/plugins/js/bootstrap-accessibility.min.js"></script>
+    src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/npm-asset/bootstrap-accessibility-plugin/plugins/js/bootstrap-accessibility.min.js"></script>
 
 <!-- Fonts -->
 <link rel="stylesheet"

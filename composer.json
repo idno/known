@@ -19,18 +19,6 @@
 		    "reference": "master"
 		}
 	    }
-	},
-	{
-	    "type": "package",
-	    "package": {
-		"name": "paypal/bootstrap-accessibility-plugin",
-		"version": "1.0.3",
-		"source": { 
-		    "type": "git",
-		    "url": "https://github.com/paypal/bootstrap-accessibility-plugin.git",
-		    "reference": "f7aab3b"
-		}
-	    }
 	}
     ],
     "require": {
@@ -56,7 +44,7 @@
         "simplepie/simplepie": "1.4",
         "mapkyca/mrclay_autop_known": "dev-master",
 	"npm-asset/underscore": "1.6.0",
-	"paypal/bootstrap-accessibility-plugin": "1.0.3",
+	"npm-asset/bootstrap-accessibility-plugin": "1.0.6",
 	"npm-asset/bootstrap-toggle": "2.2.0",
 	"npm-asset/exif-js": "2.3.0",
 	"npm-asset/mediaelement": "4.2.6"
