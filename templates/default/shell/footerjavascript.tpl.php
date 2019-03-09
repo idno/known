@@ -21,7 +21,7 @@ if (\Idno\Core\Idno::site()->session()->isLoggedIn()) {
 
 <script
     src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>vendor/rmm5t/jquery-timeago/jquery.timeago.js"></script>
-<script src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>vendor/jashkenas/underscore/underscore-min.js"
+<script src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>vendor/npm-asset/underscore/underscore-min.js"
         type="text/javascript"></script>
 <!--<script src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/mention/bootstrap-typeahead.js' ?>"
         type="text/javascript"></script>

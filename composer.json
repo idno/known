@@ -23,18 +23,6 @@
 	{
 	    "type": "package",
 	    "package": {
-		"name": "jashkenas/underscore",
-		"version": "1.6.0",
-		"source": { 
-		    "type": "git",
-		    "url": "https://github.com/jashkenas/underscore.git",
-		    "reference": "1f4bf62"
-		}
-	    }
-	},
-	{
-	    "type": "package",
-	    "package": {
 		"name": "paypal/bootstrap-accessibility-plugin",
 		"version": "1.0.3",
 		"source": { 
@@ -67,7 +55,7 @@
         "symfony/http-foundation": "2.3.0",
         "simplepie/simplepie": "1.4",
         "mapkyca/mrclay_autop_known": "dev-master",
-	"jashkenas/underscore": "1.6.0",
+	"npm-asset/underscore": "1.6.0",
 	"paypal/bootstrap-accessibility-plugin": "1.0.3",
 	"npm-asset/bootstrap-toggle": "2.2.0",
 	"npm-asset/exif-js": "2.3.0",
