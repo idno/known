@@ -48,7 +48,8 @@
 	"npm-asset/bootstrap-toggle": "2.2.0",
 	"npm-asset/exif-js": "2.3.0",
 	"npm-asset/mediaelement": "4.2.6",
-        "bower-asset/tinymce-skin-modern-light-flat": "1.0.0"
+        "bower-asset/tinymce-skin-modern-light-flat": "1.0.0",
+        "npm-asset/vanilla-fitvids": "1.1.0"
     },
     "license": "Apache-2.0",
     "prefer-stable": true,
