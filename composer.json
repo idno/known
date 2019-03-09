@@ -5,6 +5,10 @@
     "homepage" : "https://withknown.com/",
     "repositories": [
 	{
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        },
+	{
 	    "type": "package",
 	    "package": {
 		"name": "h5f/h5f",
