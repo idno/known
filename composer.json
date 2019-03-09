@@ -7,19 +7,7 @@
 	{
             "type": "composer",
             "url": "https://asset-packagist.org"
-        },
-	{
-	    "type": "package",
-	    "package": {
-		"name": "h5f/h5f",
-		"version": "master",
-		"source": { 
-		    "type": "git",
-		    "url": "https://github.com/ryanseddon/H5F.git",
-		    "reference": "master"
-		}
-	    }
-	}
+        }
     ],
     "require": {
 	"php": ">=7.0",
@@ -34,7 +22,7 @@
         "twbs/bootstrap": "3.3.2",
         "components/jquery": "3.2.1",
         "ezyang/htmlpurifier": "4.10",
-	"h5f/h5f": "master",
+	"npm-asset/h5f": "1.1.1",
         "rmm5t/jquery-timeago": "1.6.4",
         "tinymce/tinymce": "4.1.7",
         "symfony/class-loader": "2.3.0",
