@@ -10,6 +10,10 @@
 
 namespace Idno\Data {
 
+    /**
+     * SQLite3 support.
+     * @deprecated SQLite3 support is being phased out, please use MySQL
+     */
     class Sqlite3 extends AbstractSQL
     {
 
