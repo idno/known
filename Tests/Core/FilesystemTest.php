@@ -21,7 +21,7 @@ namespace Tests\Core {
             $loaded = $filesystem->findOne($id);
             
             $this->assertNotEmpty($loaded);
-            $this->assertEquals($content, $loaded);
+            $this->assertEquals($content, $loaded->getBytes());
             
         }
     }
