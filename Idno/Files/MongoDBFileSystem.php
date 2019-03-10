@@ -96,7 +96,7 @@ namespace Idno\Files {
             return false;
         }
 
-        public function storeContent($content, $metadata, $options): id {
+        public function storeContent($content, $metadata, $options) {
             $bucket = $this->gridfs_object;
 
             try {
