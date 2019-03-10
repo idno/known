@@ -30,9 +30,9 @@ if (empty($vars['feed_view']) && empty($vars['object']->notime)) {
             <span class="vague"><?php
 
                 $minutes = $vars['object']->getReadingTimeInMinutes();
-                echo $minutes . ' min';
+                echo \Idno\Core\Idno::site()->language()->_('%d min read', [$minutes]);
 
-            ?> read </span>
+            ?></span>
         </p>
     <?php
 
