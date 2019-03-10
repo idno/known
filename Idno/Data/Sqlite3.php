@@ -310,7 +310,7 @@ namespace Idno\Data {
             try {
                 $collection = $this->sanitiseCollection($collection);
 
-                $statement = $this->client->prepare("select {$collection}.* from " . $collection . " {$collection}.`created` desc limit 1");
+                $statement = $this->client->prepare("select {$collection}.* from " . $collection . " order by {$collection}.`created` desc limit 1");
                 if ($statement->execute()) {
                     if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
                         return json_decode($row['contents'], true);
