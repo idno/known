@@ -58,7 +58,7 @@ namespace Idno\Files {
          * @param $options
          * @return id of file
          */
-        public function storeFile($file_path, $metadata, $options)
+        public function storeFile($file_path, $metadata, $options = [])
         {
             if (file_exists($file_path) && $path = \Idno\Core\Idno::site()->config()->uploadpath) {
 
@@ -107,7 +107,7 @@ namespace Idno\Files {
             return false;
         }
 
-        public function storeContent($content, $metadata, $options) {
+        public function storeContent($content, $metadata, $options = []) {
             
             if (!empty($content) && $path = \Idno\Core\Idno::site()->config()->uploadpath) {
 

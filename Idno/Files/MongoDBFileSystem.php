@@ -72,7 +72,7 @@ namespace Idno\Files {
             return false;
         }
 
-        public function storeFile($file_path, $metadata, $options)
+        public function storeFile($file_path, $metadata, $options = [])
         {
 
             $bucket = $this->gridfs_object;
@@ -96,7 +96,7 @@ namespace Idno\Files {
             return false;
         }
 
-        public function storeContent($content, $metadata, $options) {
+        public function storeContent($content, $metadata, $options = []) {
             $bucket = $this->gridfs_object;
 
             try {

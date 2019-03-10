@@ -25,7 +25,7 @@ namespace Idno\Files {
          * @param $options
          * @return id of file
          */
-        abstract function storeFile($file_path, $metadata, $options);
+        abstract function storeFile($file_path, $metadata, $options = []);
         
         /**
          * Store file from contents already loaded.
@@ -34,7 +34,7 @@ namespace Idno\Files {
          * @param $options
          * @return id of file
          */
-        abstract function storeContent($content, $metadata, $options);
+        abstract function storeContent($content, $metadata, $options = []);
 
         /**
          * Get a translated error message for PHP Upload errors.
