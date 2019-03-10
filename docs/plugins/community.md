@@ -62,7 +62,7 @@ listings here do not imply endorsement by the Known project team in any way.
 
 ### Import and Export
 
-* [Flickr Import](https://github.com/mapkyca/KnownFlickrImport) – Import content from your Flickr account, 
+* [Flickr Import](https://github.com/mapkyca/KnownFlickrDumpImport) – Import content from your Flickr account, 
     by [Marcus Povey][]
 * [File Picker](https://github.com/Decentralized–Sharing–Working–Group/idno–file–picker) – pick files from your
     Cozy, ownCloud, or remoteStorage server, by [Decentralized Sharing Community Group][decsharing]
