@@ -35,32 +35,46 @@ namespace Idno\Pages\Admin {
             if (
                 preg_match('/^[a-zA-Z0-9]+$/', $plugin) &&
                 (
-                    file_exists(\Idno\Core\Idno::site()->config()->path . '/IdnoPlugins/' . $plugin) ||
-                    (!empty(\Idno\Core\Idno::site()->config()->external_plugin_path) && file_exists(\Idno\Core\Idno::site()->config()->external_plugin_path . '/IdnoPlugins/' . $plugin)) ||
-                    (!empty($host) && file_exists(\Idno\Core\Idno::site()->config()->path . '/hosts/' . $host . '/IdnoPlugins/' . $plugin))
+                \Idno\Core\Idno::site()->plugins()->exists($plugin)
                 )
             ) {
                 switch ($action) {
                     case 'install':
-                        \Idno\Core\Idno::site()->config->config['plugins'][] = $plugin;
-                        if (!empty(\Idno\Core\Idno::site()->config()->external_plugin_path) && file_exists(\Idno\Core\Idno::site()->config()->external_plugin_path . '/IdnoPlugins/' . $plugin)) {
-                            \Idno\Core\Idno::site()->config->config['directloadplugins'][$plugin] = \Idno\Core\Idno::site()->config()->external_plugin_path . '/IdnoPlugins/' . $plugin;
+                        if (\Idno\Core\Idno::site()->plugins()->enable($plugin)) {
+                            \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_('The plugin was enabled.'));
+
+                            echo json_encode([
+                                'action' => $action,
+                                'status' => true,
+                                'message' => \Idno\Core\Idno::site()->language()->_('The plugin was enabled.')
+                            ]);
+                            exit;
                         }
-                        \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_('The plugin was enabled.'));
+
                         break;
                     case 'uninstall':
-                        if (($key = array_search($plugin, \Idno\Core\Idno::site()->config->config['plugins'])) !== false) {
-                            \Idno\Core\Idno::site()->triggerEvent('plugin/unload/' . $plugin);
-                            unset(\Idno\Core\Idno::site()->config->config['plugins'][$key]);
-                            unset(\Idno\Core\Idno::site()->config->config['directloadplugins'][$key]);
+
+                        if (\Idno\Core\Idno::site()->plugins()->disable($plugin)) {
                             \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_('The plugin was disabled.'));
+
+                            echo json_encode([
+                                'action' => $action,
+                                'status' => true,
+                                'message' => \Idno\Core\Idno::site()->language()->_('The plugin was disabled.')
+                            ]);
+                            exit;
                         }
+
                         break;
                 }
-                \Idno\Core\Idno::site()->config->config['plugins'] = array_unique(\Idno\Core\Idno::site()->config->config['plugins']);
-                \Idno\Core\Idno::site()->config()->save();
+
             }
-            $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/plugins/');
+
+            echo json_encode([
+                'action' => $action,
+                'status' => false,
+            ]);
+            //$this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/plugins/');
         }
 
     }

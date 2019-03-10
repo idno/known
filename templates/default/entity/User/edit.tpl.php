@@ -24,7 +24,6 @@
                             <input type="file" name="avatar" id="photo"
                                    class="form-control"
                                    accept="image/*"
-                                   capture="camera"
                                    onchange="photoPreview(this)"/>
 
                         </span>

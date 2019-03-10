@@ -1,9 +1,12 @@
+[![Build Status](https://travis-ci.org/idno/Known.svg?branch=master)](https://travis-ci.org/idno/Known) 
+[![Backers on Open Collective](https://opencollective.com/known/backers/badge.svg)](#backers) 
+[![Sponsors on Open Collective](https://opencollective.com/known/sponsors/badge.svg)](#sponsors) 
+
 # Known: a social group platform
-[![Backers on Open Collective](https://opencollective.com/known/backers/badge.svg)](#backers)
- [![Sponsors on Open Collective](https://opencollective.com/known/sponsors/badge.svg)](#sponsors) 
+
 ![Known - A social group platform](https://withknown.com/img/home/screens.png)
 
-## Installation [![Build Status](https://travis-ci.org/idno/Known.svg?branch=master)](https://travis-ci.org/idno/Known)
+## Installation 
 
 ### One-click Known sites
 

@@ -76,7 +76,7 @@ namespace IdnoPlugins\OAuth2 {
                         throw new \Exception(\Idno\Core\Idno::site()->language()->_("Access token %s has expired.", [$access_token]));
                     }
                 } else {
-                    throw new \Exception(\Idno\Core\Idno::site()->language()->_("Access token %s does not match any stored token.", [$access_token]));
+                    \Idno\Core\Idno::site()->logging()->debug(\Idno\Core\Idno::site()->language()->_("Access token %s does not match any stored token.", [$access_token]));
                 }
             }
         }
