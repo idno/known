@@ -4,7 +4,24 @@
     "type" : "project",
     "homepage" : "https://withknown.com/",
     "require": {
-	"php": ">=7.0"
+	"php": ">=7.0",
+        
+        "ext-curl": "*",
+        "ext-date": "*",
+        "ext-dom": "*",
+        "ext-gd": "*",
+        "ext-json": "*",
+        "ext-libxml": "*",
+        "ext-mbstring": "*",
+        "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
+        "ext-Reflection": "*",
+        "ext-session": "*",
+        "ext-SimpleXML": "*",
+        "ext-openssl": "*",
+        "ext-gettext": "*"
+        
+        
     },
     "license": "Apache-2.0",
     "readme" : "README.md",
