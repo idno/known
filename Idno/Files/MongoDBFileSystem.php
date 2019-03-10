@@ -96,6 +96,31 @@ namespace Idno\Files {
             return false;
         }
 
+        public function storeContent($content, $metadata, $options): id {
+            $bucket = $this->gridfs_object;
+
+            try {
+
+                if ($source = fopen('php://memory', 'r+')) {
+
+                    fwrite($source, $content);
+                    rewind($source);
+                    
+                    $id = $bucket->uploadFromStream($metadata['filename'], $source, [
+                        'metadata' => $metadata//new \MongoDB\Model\BSONDocument($metadata)
+                    ]);
+
+                    fclose($source);
+
+                    return "$id";
+                }
+            } catch (\Exception $ex) {
+                \Idno\Core\site()->logging()->debug($ex->getMessage());
+            }
+
+            return false;
+        }
+
     }
 
 }
