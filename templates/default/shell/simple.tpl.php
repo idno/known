@@ -57,7 +57,7 @@ if (empty($vars['description'])) {
         <link href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>css/simple.min.css" rel="stylesheet">
         <link href="//fonts.googleapis.com/css?family=Pontano+Sans" rel="stylesheet" type="text/css">
         <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel='stylesheet' type='text/css'>
-        <script src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/jquery/' ?>jquery.min.js"></script>
+        <script src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/components/jquery/jquery.min.js"></script>
         <?php echo $this->draw('shell/simple/head', $vars); ?>
 
         <?php
@@ -66,10 +66,10 @@ if (empty($vars['description'])) {
 
             ?>
 
-                <link href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/css/bootstrap.min.css"
+                <link href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>vendor/twbs/bootstrap/dist/css/bootstrap.min.css"
                       rel="stylesheet">
                 <link rel="stylesheet"
-                      href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>external/font-awesome/css/fontawesome.min.css">
+                      href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>vendor/fortawesome/font-awesome/css/fontawesome.min.css">
                 <style>
                     body {
                         padding-top: 10px; /* 60px to make the container go all the way to the bottom of the topbar */
@@ -86,8 +86,8 @@ if (empty($vars['description'])) {
         ?>
 
         <!-- Syndication -->
-        <link href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>external/bootstrap-toggle/css/bootstrap2-toggle.min.css" rel="stylesheet" />
-        <script src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>external/bootstrap-toggle/js/bootstrap2-toggle.min.js"></script>
+        <link href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>vendor/npm-asset/bootstrap-toggle/css/bootstrap2-toggle.min.css" rel="stylesheet" />
+        <script src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>vendor/npm-asset/bootstrap-toggle/js/bootstrap2-toggle.min.js"></script>
 
     </head>
     <body class="<?php
@@ -113,6 +113,6 @@ if (empty($vars['description'])) {
         <?php echo $this->draw('shell/simple/footer', $vars) ?>
 
         <!-- HTML5 form element support for legacy browsers -->
-        <script src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/h5f/h5f.min.js' ?>"></script>
+        <script src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>vendor/npm-asset/h5f/h5f.min.js"></script>
     </body>
 </html>

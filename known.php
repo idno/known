@@ -2,12 +2,17 @@
 <?php
 
     define('KNOWN_CONSOLE', 'true');
-
+    
+    // Load external libraries
+    if (file_exists(dirname(__FILE__) . '/vendor/autoload.php')) {
+        require_once(dirname(__FILE__) . '/vendor/autoload.php');
+    } else {
+        die('Could not find autoload.php, did you run "composer install" ..?');
+    }
+        
     // Load Symfony
-    require_once((dirname(__FILE__)) . '/external/Symfony/Component/ClassLoader/UniversalClassLoader.php');
     global $known_loader;
     $known_loader = new \Symfony\Component\ClassLoader\UniversalClassLoader();
-    $known_loader->registerNamespace('Symfony\Component', (dirname(__FILE__)) . '/external');
     $known_loader->register();
 
     /**
@@ -29,25 +34,10 @@ function &loader()
     $known_loader->registerNamespace('Idno', dirname(__FILE__));
     $known_loader->registerNamespace('ConsolePlugins', dirname(__FILE__));
 
-    // Implement the PSR-3 logging interface
-    $known_loader->registerNamespace('Psr\Log', dirname(__FILE__) . '/external/log');
-
     // Symfony is used for routing, observer design pattern support, and a bunch of other fun stuff
     $known_loader->registerNamespace('Symfony\Component', dirname(__FILE__) . '/external');
 
-    $known_loader->registerNamespace('webignition\Url', dirname(__FILE__) . '/external/webignition/url/src');
-    $known_loader->registerNamespace('webignition\AbsoluteUrlDeriver', dirname(__FILE__) . '/external/webignition/absolute-url-deriver/src');
-    $known_loader->registerNamespace('webignition\NormalisedUrl', dirname(__FILE__) . '/external/webignition/url/src');
-    $known_loader->registerNamespace('Mf2', dirname(__FILE__) . '/external/mf2');
     $known_loader->registerNamespace('IndieWeb', dirname(__FILE__) . '/external/mention-client-php/src');
-
-
-    // TODO: FIND A WAY TO NOT LOAD THESE FOR CONSOLE
-
-    // Using HTMLPurifier for HTML sanitization
-    include dirname(__FILE__) . '/external/htmlpurifier-lite/library/HTMLPurifier.auto.php';
-    ///////////////////
-
 
     // Create new console application
     global $console;

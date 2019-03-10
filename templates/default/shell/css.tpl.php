@@ -3,12 +3,12 @@
 
 <!-- Syndication -->
 <link
-    href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>external/bootstrap-toggle/css/bootstrap-toggle.min.css"
+    href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/npm-asset/bootstrap-toggle/css/bootstrap-toggle.min.css"
     rel="stylesheet"/>
 
 <!-- Mention styles -->
 <link rel="stylesheet" type="text/css"
-      href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>external/mention/recommended-styles.css">
+      href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>vendor/bower-asset/mention/recommended-styles.css">
 
 <?php
     // Load style assets

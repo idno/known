@@ -13,9 +13,6 @@ namespace Idno\Entities {
          */
         private static function parseHeaders($content)
         {
-
-            require_once \Idno\Core\Idno::site()->config()->path . '/external/php-ogp/ogp/Parser.php';
-
             return \ogp\Parser::parse($content);
         }
 

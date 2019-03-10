@@ -85,8 +85,14 @@
         set_time_limit(120);
     }
 
+    // Load external libraries
+    if (file_exists(dirname(dirname(__FILE__)) . '/vendor/autoload.php')) {
+        require_once(dirname(dirname(__FILE__)) . '/vendor/autoload.php');
+    } else {
+        die('Could not find autoload.php, did you run "composer install" ..?');
+    }
+    
     // We're making heavy use of the Symfony ClassLoader to load our classes
-    require_once(dirname(dirname(__FILE__)) . '/external/Symfony/Component/ClassLoader/UniversalClassLoader.php');
     global $known_loader;
     $known_loader = new \Symfony\Component\ClassLoader\UniversalClassLoader();
 
@@ -121,27 +127,7 @@
 
     // Register our external namespaces (PSR-0 compliant modules that we love, trust and need)
 
-    // Symfony is used for routing, observer design pattern support, and a bunch of other fun stuff
-    $known_loader->registerNamespace('Symfony\Component', dirname(dirname(__FILE__)) . '/external');
-
-    // Implement the PSR-3 logging interface
-    $known_loader->registerNamespace('Psr\Log', dirname(dirname(__FILE__)) . '/external/log');
-
-    // Using Toro for URL routing
-    require_once(dirname(dirname(__FILE__)) . '/external/torophp/src/Toro.php');
-
-    // Using mf2 for microformats parsing, and webignition components to support it
-    $known_loader->registerNamespace('webignition\Url', dirname(dirname(__FILE__)) . '/external/webignition/url/src');
-    $known_loader->registerNamespace('webignition\AbsoluteUrlDeriver', dirname(dirname(__FILE__)) . '/external/webignition/absolute-url-deriver/src');
-    $known_loader->registerNamespace('webignition\NormalisedUrl', dirname(dirname(__FILE__)) . '/external/webignition/url/src');
-    $known_loader->registerNamespace('Mf2', dirname(dirname(__FILE__)) . '/external/mf2');
     $known_loader->registerNamespace('IndieWeb', dirname(dirname(__FILE__)) . '/external/mention-client-php/src');
-
-    // Using Simplepie for RSS and Atom parsing
-    include dirname(dirname(__FILE__)) . '/external/simplepie/autoloader.php';
-
-    // Using HTMLPurifier for HTML sanitization
-    include dirname(dirname(__FILE__)) . '/external/htmlpurifier-lite/library/HTMLPurifier.auto.php';
 
     // Register the autoloader
     $known_loader->register();

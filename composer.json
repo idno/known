@@ -1,11 +1,17 @@
 {
     "name": "idno/known",
     "description": "A social publishing platform.",
+    "version": "0.9.9-a",
     "type" : "project",
     "homepage" : "https://withknown.com/",
+    "repositories": [
+	{
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
     "require": {
-	"php": ">=7.0",
-        
+        "php": ">=7.0",
         "ext-curl": "*",
         "ext-date": "*",
         "ext-dom": "*",
@@ -19,11 +25,39 @@
         "ext-session": "*",
         "ext-SimpleXML": "*",
         "ext-openssl": "*",
-        "ext-gettext": "*"
-        
-        
+        "ext-gettext": "*",
+        "mapkyca/php-ogp": "dev-master",
+        "psr/log": "1.1",
+        "torophp/torophp": "dev-master",
+        "mf2/mf2": "0.4.6",
+        "swiftmailer/swiftmailer": "5.2.1",
+        "webignition/absolute-url-deriver": "1.5.2",
+        "webignition/url": "1.9.8",
+        "fortawesome/font-awesome": "5.7.2",
+        "twbs/bootstrap": "3.3.2",
+        "components/jquery": "3.2.1",
+        "ezyang/htmlpurifier": "4.10",
+        "npm-asset/h5f": "1.1.1",
+        "rmm5t/jquery-timeago": "1.6.4",
+        "tinymce/tinymce": "4.1.7",
+        "symfony/class-loader": "2.3.0",
+        "symfony/event-dispatcher": "2.1.0",
+        "symfony/console": "2.8.0",
+        "symfony/http-foundation": "2.3.0",
+        "simplepie/simplepie": "1.4",
+        "mapkyca/mrclay_autop_known": "dev-master",
+	      "npm-asset/underscore": "1.6.0",
+        "npm-asset/bootstrap-accessibility-plugin": "1.0.6",
+        "npm-asset/bootstrap-toggle": "2.2.0",
+        "npm-asset/exif-js": "2.3.0",
+        "npm-asset/mediaelement": "4.2.6",
+        "bower-asset/tinymce-skin-modern-light-flat": "1.0.0",
+        "npm-asset/vanilla-fitvids": "1.1.0",
+        "bower-asset/mention": "dev-master"
     },
     "license": "Apache-2.0",
+    "prefer-stable": true,
+    "minimum-stability": "dev",
     "readme" : "README.md",
     "keywords" : ["blogging", "publishing", "social", "indieweb", "community"],
     "support": {

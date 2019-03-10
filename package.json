@@ -1,6 +1,6 @@
 {
   "name": "Known",
-  "version": "0.9.9a",
+  "version": "0.9.9-a",
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-csslint": "^2.0.0",

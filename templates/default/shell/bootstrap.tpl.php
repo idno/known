@@ -1,24 +1,24 @@
 <!-- We need jQuery at the top of the page -->
-<script src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() . 'external/jquery/' ?>jquery-3.2.1.min.js"></script>
+<script src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/components/jquery/jquery.min.js"></script>
 
 <!-- Le styles -->
 <link
-    href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/css/bootstrap.min.css"
+    href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/twbs/bootstrap/dist/css/bootstrap.min.css"
     rel="stylesheet"/>
 <link
-    href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/css/bootstrap-theme.min.css"/>
+    href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/twbs/bootstrap/dist/css/bootstrap-theme.min.css"/>
 <script
-    src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/js/bootstrap.min.js"></script>
+    src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
 
 <!-- Accessibility -->
 <link rel="stylesheet"
-      href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() . 'external/paypal-bootstrap-accessibility-plugin/' ?>plugins/css/bootstrap-accessibility_1.0.3.css">
+      href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/npm-asset/bootstrap-accessibility-plugin/plugins/css/bootstrap-accessibility.css">
 <script
-    src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() . 'external/paypal-bootstrap-accessibility-plugin/' ?>plugins/js/bootstrap-accessibility_1.0.3.min.js"></script>
+    src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/npm-asset/bootstrap-accessibility-plugin/plugins/js/bootstrap-accessibility.min.js"></script>
 
 <!-- Fonts -->
 <link rel="stylesheet"
-          href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>external/font-awesome/css/fontawesome-all.min.css">
+          href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/fortawesome/font-awesome/css/all.min.css">
 
 <style>
     body {
@@ -26,8 +26,3 @@
     }
 </style>
 
-<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-<!--[if lt IE 9]>
-<script
-    src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/js/html5shiv.js"></script>
-<![endif]-->

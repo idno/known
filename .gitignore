@@ -21,6 +21,10 @@ test.php
 /Uploads/*
 /configuration/
 
+
+/composer.lock
+/vendor
+
 /.DS_Store
 /*/.DS_Store
 
