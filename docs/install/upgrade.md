@@ -8,7 +8,7 @@ Upgrading Known is designed to be very simple.
 
 That's it!
 
-!!! warning "Github users"
+!!! note "Github users"
     If you're using a direct checkout from Github (rather than using one of the prepared packages), you need to update any dependencies using ```composer update```
 
 If you are upgrading from a significantly older version of Known, or if a config.ini file no longer exists in your
