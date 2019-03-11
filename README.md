@@ -16,13 +16,18 @@ web hosting provider.
 
 ### Installing
 
-Known is under active development and requires PHP 7+ with selected extensions, together with a supported database backend.
+Known is under active development and requires PHP 7+ with selected extensions, together with a supported database backend. Detailed installation instructions: <http://docs.withknown.com/en/latest/install/index.html>
 
-You can opt to check out the bleeding edge code from the git repository: <https://github.com/idno/Known> (note: you'll need to install dependencies via composer) 
-
-Detailed installation instructions: <http://docs.withknown.com/en/latest/install/index.html>
+#### Installing from packages
 
 _Unofficial_ install packages, which are periodically built from the latest code, are available: <https://www.marcus-povey.co.uk/known/>
+
+#### Installing from Github
+
+You can opt to check out the bleeding edge code from the git repository: <https://github.com/idno/Known>
+
+* Check out the repo: ```git clone https://github.com/idno/known.git```
+* Fetch dependencies: ```cd known; composer install```
 
 ### Support us
 
