@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/idno/Known.svg?branch=master)](https://travis-ci.org/idno/Known) 
+[![Build Status](https://travis-ci.org/idno/known.svg?branch=master)](https://travis-ci.org/idno/Known) 
 [![Backers on Open Collective](https://opencollective.com/known/backers/badge.svg)](#backers) 
 [![Sponsors on Open Collective](https://opencollective.com/known/sponsors/badge.svg)](#sponsors) 
 
