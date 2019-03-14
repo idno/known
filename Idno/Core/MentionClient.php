@@ -31,6 +31,7 @@ namespace Idno\Core {
             return [
                 'code'    => $response['response'],
                 'headers' => self::_parse_headers(isset($response['header']) ? $response['header'] : ''),
+                'url'     => $response['effective_url']
             ];
         }
 
@@ -41,6 +42,7 @@ namespace Idno\Core {
                 'code'    => $response['response'],
                 'headers' => self::_parse_headers(isset($response['header']) ? $response['header'] : ''),
                 'body'    => $response['content'],
+                'url'     => $response['effective_url']
             ];
         }
 
