@@ -34,11 +34,6 @@ function &loader()
     $known_loader->registerNamespace('Idno', dirname(__FILE__));
     $known_loader->registerNamespace('ConsolePlugins', dirname(__FILE__));
 
-    // Symfony is used for routing, observer design pattern support, and a bunch of other fun stuff
-    $known_loader->registerNamespace('Symfony\Component', dirname(__FILE__) . '/external');
-
-    $known_loader->registerNamespace('IndieWeb', dirname(__FILE__) . '/external/mention-client-php/src');
-
     // Create new console application
     global $console;
     $console = new Application('Known Console', \Idno\Core\Version::version());

@@ -125,10 +125,6 @@
     // Shims
     include 'shims.php';
 
-    // Register our external namespaces (PSR-0 compliant modules that we love, trust and need)
-
-    $known_loader->registerNamespace('IndieWeb', dirname(dirname(__FILE__)) . '/external/mention-client-php/src');
-
     // Register the autoloader
     $known_loader->register();
 
