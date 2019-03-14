@@ -95,12 +95,16 @@ module.exports = function (grunt) {
 
     const {execSync} = require('child_process');
 
-    execSync('touch ./languages/source/known.pot'); // Make sure it exists, if we're going to remove (for broken builds)
-    execSync('rm ./languages/source/known.pot'); // Remove existing
+    var pot = grunt.config.get('pkg.name').toLowerCase() + '.pot';
+    
+    console.log("Building language file as ./languages/" + pot);
+    
+    execSync('touch ./languages/source/' + pot); // Make sure it exists, if we're going to remove (for broken builds)
+    execSync('rm ./languages/source/' + pot); // Remove existing
 
-    execSync('find ./Idno -type f -regex ".*\.php" | php ./languages/processfile.php >> ./languages/source/known.pot'); // Build from idno core
-    execSync('find ./templates -type f -regex ".*\.php" | php ./languages/processfile.php >> ./languages/source/known.pot'); // Build from templates
-    execSync('echo ./known.php | php ./languages/processfile.php >> ./languages/source/known.pot'); // Build from console
+    execSync('find ./Idno -type f -regex ".*\.php" | php vendor/mapkyca/known-language-tools/buildpot.php >> ./languages/source/' + pot); // Build from idno core
+    execSync('find ./templates -type f -regex ".*\.php" | php vendor/mapkyca/known-language-tools/buildpot.php >> ./languages/source/' + pot); // Build from templates
+    execSync('echo ./known.php | php vendor/mapkyca/known-language-tools/buildpot.php >> ./languages/source/' + pot); // Build from console
 
   });
 
