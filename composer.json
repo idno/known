@@ -64,5 +64,8 @@
       "forum": "https://groups.google.com/forum/#!forum/known-dev",
       "docs": "http://docs.withknown.com",
       "irc": "irc://irc.freenode.net/knownchat"
+    },
+    "require-dev": {
+        "mapkyca/known-phpcs": "dev-master"
     }
 }
