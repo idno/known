@@ -29,6 +29,12 @@ You can opt to check out the bleeding edge code from the git repository: <https:
 * Check out the repo: ```git clone https://github.com/idno/known.git```
 * Fetch dependencies: ```cd known; composer install```
 
+#### Installing with composer
+
+You can install Known directly from composer using: ``` composer create-project idno/known ```
+
+Optionally, you can install the latest bleeding edge code the same way: ``` composer create-project idno/known -s dev ```
+
 ### Support us
 
 **If you find this project useful, and you really want to support us, you can now fund us on [OpenCollective](https://opencollective.com/known).**
