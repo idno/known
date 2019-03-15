@@ -107,7 +107,6 @@ Third party libraries are licensed separately.
   * URL. Source: https://github.com/webignition/url
 * FitVids.js, which is distributed under the WTFPL License. Source: http://fitvidsjs.com/
 * Leaflet.js, which is distributed under the BSD 2-Clause License. Source: http://leafletjs.com/ 
-* H5f HTML5 Form shim, which is distributed under the MIT License. Source: https://github.com/ryanseddon/H5F
 * SwiftMailer, which is distributed under the MIT License. Source: https://github.com/swiftmailer/swiftmailer
 * Antwort, an email template which is distributed under the MIT License. Source: https://github.com/internations/antwort
 * Mention.js, a Bootstrap user at-mention library, which is distributed under the MIT License. Source: https://github.com/jakiestfu/Mention.js
