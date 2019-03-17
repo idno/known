@@ -2008,3 +2008,9 @@ div.unfurled-url .basics .image img {
 .settings-content ul.nav {
     display: none;
 }
+
+.settings-template .nav > .active > a,
+.settings-template .navbar .nav > .active > a {
+    background-color: #e7e7e7;
+    color: #555;
+}
