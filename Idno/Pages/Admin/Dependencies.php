@@ -18,7 +18,7 @@ namespace Idno\Pages\Admin {
             $t        = \Idno\Core\Idno::site()->template();
             $t->body  = $t->draw('admin/dependencies');
             $t->title = \Idno\Core\Idno::site()->language()->_('Dependencies');
-            $t->drawPage();
+            $t->drawPage(true, 'settings-shell');
 
         }
 

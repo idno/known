@@ -19,7 +19,7 @@ namespace Idno\Pages\Admin {
             $t        = \Idno\Core\Idno::site()->template();
             $t->body  = $t->draw('admin/home');
             $t->title = \Idno\Core\Idno::site()->language()->_('Administration');
-            $t->drawPage();
+            $t->drawPage(true, 'settings-shell');
         }
 
         function postContent()

@@ -54,7 +54,7 @@ namespace Idno\Pages\Admin {
                 $t        = \Idno\Core\Idno::site()->template();
                 $t->body  = $t->__(['basics' => $basics])->draw('admin/diagnostics');
                 $t->title = \Idno\Core\Idno::site()->language()->_('Diagnostics');
-                $t->drawPage();
+                $t->drawPage(true, 'settings-shell');
             }
         }
 

@@ -21,7 +21,7 @@ namespace Idno\Pages\Admin {
                 'plugins_loaded' => \Idno\Core\Idno::site()->plugins()->getLoaded(),
             ))->draw('admin/plugins');
             $t->title = \Idno\Core\Idno::site()->language()->_('Plugins');
-            $t->drawPage();
+            $t->drawPage(true, 'settings-shell');
         }
 
         function postContent()
