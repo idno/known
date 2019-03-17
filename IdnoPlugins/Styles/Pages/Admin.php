@@ -27,7 +27,7 @@ namespace IdnoPlugins\Styles\Pages {
             $t->__(array(
                         'body'  => $t->__(array('css' => $css))->draw('styles/admin'),
                         'title' => \Idno\Core\Idno::site()->language()->_('Site Styles')
-            ))->drawPage();
+            ))->drawPage(true, 'settings-shell');
         }
 
         function postContent()
