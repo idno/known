@@ -35,7 +35,7 @@ namespace Idno\Pages\Account {
             $page = Idno::site()->template()->__([
                 'title' => \Idno\Core\Idno::site()->language()->_('Notifications'),
                 'body'  => $body,
-            ])->drawPage();
+            ])->drawPage(false);
 
             // mark all notifications as seen
             foreach ($notifs as $notif) {

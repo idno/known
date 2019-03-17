@@ -21,7 +21,7 @@ namespace Idno\Pages\Admin {
                     'export_filename'       => \Idno\Core\Idno::site()->config()->export_filename,
                     'export_file_id'        => \Idno\Core\Idno::site()->config()->export_file_id
                 ))->draw('admin/export'),
-            ))->drawPage();;
+            ))->drawPage();
 
         }
 
