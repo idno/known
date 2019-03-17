@@ -14,7 +14,7 @@ namespace IdnoPlugins\OAuth2\Pages\Account {
             $t = \Idno\Core\site()->template();
             $t->body = $t->__(array('applications' => $apps))->draw('account/oauth2');
             $t->title = \Idno\Core\Idno::site()->language()->_('Manage OAuth2 Applications');
-            $t->drawPage(true, 'settings-shell');
+            $t->drawPage();
         }
 
         function postContent()

@@ -17,7 +17,7 @@ namespace Idno\Pages\Account\Settings {
             $t        = \Idno\Core\Idno::site()->template();
             $t->body  = $t->draw('account/settings/feedback');
             $t->title = \Idno\Core\Idno::site()->language()->_('Send feedback');
-            $t->drawPage(true, 'settings-shell');
+            $t->drawPage();
         }
 
         function postContent()

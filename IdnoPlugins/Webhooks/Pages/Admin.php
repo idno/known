@@ -14,7 +14,7 @@ namespace IdnoPlugins\Webhooks\Pages
             $this->adminGatekeeper();
             $t = \Idno\Core\Idno::site()->template();
             $body = $t->draw('webhooks/admin/home');
-            $t->__(array('title' => \Idno\Core\Idno::site()->language()->_('Webhooks'), 'body' => $body))->drawPage(true, 'settings-shell');
+            $t->__(array('title' => \Idno\Core\Idno::site()->language()->_('Webhooks'), 'body' => $body))->drawPage();
 
         }
 

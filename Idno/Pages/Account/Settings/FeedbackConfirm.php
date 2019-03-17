@@ -15,7 +15,7 @@ namespace Idno\Pages\Account\Settings {
             $t        = \Idno\Core\Idno::site()->template();
             $t->body  = $t->draw('account/settings/feedback/confirm');
             $t->title = \Idno\Core\Idno::site()->language()->_('Thank you for your feedback!');
-            $t->drawPage(true, 'settings-shell');
+            $t->drawPage();
         }
 
     }

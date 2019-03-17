@@ -17,7 +17,7 @@ namespace Idno\Pages\Admin {
             $t->__(array(
                 'title' => \Idno\Core\Idno::site()->language()->_('Import data'),
                 'body'  => $t->draw('admin/import'),
-            ))->drawPage(true, 'settings-shell');
+            ))->drawPage();
 
         }
 

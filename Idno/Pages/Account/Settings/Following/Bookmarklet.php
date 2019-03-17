@@ -58,7 +58,7 @@ namespace Idno\Pages\Account\Settings\Following {
                         // List user
                         $t->body  = $body;
                         $t->title = \Idno\Core\Idno::site()->language()->_('Found users');
-                        $t->drawPage(true, 'settings-shell');
+                        $t->drawPage();
                     }
                 } else
                     throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("Sorry, there was a problem parsing the page!"));

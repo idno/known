@@ -20,7 +20,7 @@ namespace Idno\Pages\Admin {
                 'theme'         => \Idno\Core\Idno::site()->themes()->get(),
             ))->draw('admin/themes');
             $t->title = \Idno\Core\Idno::site()->language()->_('Themes');
-            $t->drawPage(true, 'settings-shell');
+            $t->drawPage();
         }
 
         function postContent()

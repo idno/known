@@ -16,7 +16,7 @@ class Account extends Page
         $t->__([
             'title' => \Idno\Core\Idno::site()->language()->_('IndiePub Accounts'),
             'body'  => $body,
-        ])->drawPage(true, 'settings-shell');
+        ])->drawPage();
     }
 
 }

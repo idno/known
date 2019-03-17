@@ -18,7 +18,7 @@ namespace Idno\Pages\Account {
             $t        = \Idno\Core\Idno::site()->template();
             $t->body  = $t->draw('account/settings');
             $t->title = \Idno\Core\Idno::site()->language()->_('Account settings');
-            $t->drawPage(true, 'settings-shell');
+            $t->drawPage();
         }
 
         function postContent()

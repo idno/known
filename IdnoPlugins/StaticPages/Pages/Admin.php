@@ -17,7 +17,7 @@ namespace IdnoPlugins\StaticPages\Pages {
             $body        = \Idno\Core\Idno::site()->template()->__(['categories' => $categories, 'pages' => $pages])->draw('staticpages/admin');
             \Idno\Core\Idno::site()->template()->__([
                 'title' => \Idno\Core\Idno::site()->language()->_('Pages'), 'body' => $body
-            ])->drawPage(true, 'settings-shell');
+            ])->drawPage();
 
         }
 

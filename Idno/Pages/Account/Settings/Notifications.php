@@ -18,7 +18,7 @@ namespace Idno\Pages\Account\Settings {
             $t        = \Idno\Core\Idno::site()->template();
             $t->body  = $t->draw('account/settings/notifications');
             $t->title = \Idno\Core\Idno::site()->language()->_('Notification settings');
-            $t->drawPage(true, 'settings-shell');
+            $t->drawPage();
         }
 
         function postContent()

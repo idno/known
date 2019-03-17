@@ -105,6 +105,13 @@ namespace Idno\Core {
          */
         function drawPage($echo = true, $shell = 'shell')
         {
+            // Detect page, and see if we need to use a different shell
+            if (
+                    (strpos(\Idno\Core\Idno::site()->currentPage()->currentUrl(), \Idno\Core\Idno::site()->config()->getDisplayURL() . 'account/')!==false) ||
+                    (strpos(\Idno\Core\Idno::site()->currentPage()->currentUrl(), \Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/')!==false)
+            ) {
+                $shell = 'settings-shell';
+            }
 
             // Get messages and flush session
             $this->messages = \Idno\Core\Idno::site()->session()->getAndFlushMessages();

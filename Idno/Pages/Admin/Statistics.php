@@ -25,7 +25,7 @@ namespace Idno\Pages\Admin {
                 $t = \Idno\Core\Idno::site()->template();
                 $t->body = $t->__(['statistics' => $stats, 'tab' => $this->getInput('tab', $report)])->draw('admin/statistics');
                 $t->title = \Idno\Core\Idno::site()->language()->_('Statistics');
-                $t->drawPage(true, 'settings-shell');
+                $t->drawPage();
             }
         }
 
