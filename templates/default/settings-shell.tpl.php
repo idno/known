@@ -17,7 +17,7 @@
     echo $template->draw('settings-shell/bootstrap');
     echo $template->draw('settings-shell/javascript');
     echo $template->draw('settings-shell/css');
-?>
+    ?>
 
 </head>
 
@@ -57,5 +57,7 @@
 
 
     </div>
+        
+    <?= $template->draw('shell/form-data'); ?>
 </body>
 </html>
