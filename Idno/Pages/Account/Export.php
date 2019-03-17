@@ -20,7 +20,7 @@ namespace Idno\Pages\Account {
                     'title' => \Idno\Core\Idno::site()->language()->_('Export Data'),
                     'body'  => $t->draw('account/export')
                 ]
-            )->drawPage();
+            )->drawPage(true, 'settings-shell');
 
         }
 

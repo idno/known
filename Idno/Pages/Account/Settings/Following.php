@@ -18,7 +18,7 @@ namespace Idno\Pages\Account\Settings {
             $t        = \Idno\Core\Idno::site()->template();
             $t->body  = $t->draw('account/settings/following');
             $t->title = \Idno\Core\Idno::site()->language()->_('Following settings');
-            $t->drawPage();
+            $t->drawPage(true, 'settings-shell');
         }
     }
 

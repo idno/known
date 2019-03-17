@@ -24,7 +24,7 @@ namespace Idno\Pages\Account\Settings {
                 $t        = \Idno\Core\Idno::site()->template();
                 $t->body  = $t->draw('account/settings/tools');
                 $t->title = \Idno\Core\Idno::site()->language()->_('Tools and Apps');
-                $t->drawPage();
+                $t->drawPage(true, 'settings-shell');
             }
         }
 
