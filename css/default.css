@@ -2003,3 +2003,8 @@ div.unfurled-url .basics .image img {
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
 }
+
+/* Shim to hide settings menu in content before it can be removed */
+.settings-content ul.nav {
+    display: none;
+}
