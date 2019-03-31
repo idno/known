@@ -29,13 +29,15 @@
             }
             
             .link-buttons {
-                margin-top: 50px;
-            }
-            .link-buttons a {
+                margin-top: 70px;
                 background-color: #0063dc;
-                color: #fefefe;
+                
                 padding: 10px 40px;
                 font-weight: 600;
+                max-width: 40%;
+            }
+            .link-buttons a {
+                color: #fefefe;
                 text-decoration: none;
             }
             pre {
