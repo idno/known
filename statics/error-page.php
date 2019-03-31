@@ -38,6 +38,12 @@
                 font-weight: 600;
                 text-decoration: none;
             }
+            pre {
+                overflow: auto;
+                margin: 15px;
+                margin-top: 30px;
+                color: #777;
+            }
         </style>
     </head>
     <body>
