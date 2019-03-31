@@ -31,8 +31,8 @@
             
             .link-buttons {
                 margin-top: 70px;
-                background-color: #0063dc;
-                
+                background-color: #357ebd;
+                border-radius: 4px;
                 padding: 10px 40px;
                 font-weight: 600;
                 max-width: 40%;
