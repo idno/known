@@ -26,6 +26,7 @@
                 font-weight: 800;
                 font-size: 150px;
                 color: #ccc;
+                margin-bottom: 50px;
             }
             
             .link-buttons {
