@@ -94,7 +94,15 @@
     if (file_exists(dirname(dirname(__FILE__)) . '/vendor/autoload.php')) {
         require_once(dirname(dirname(__FILE__)) . '/vendor/autoload.php');
     } else {
-        die('Could not find autoload.php, did you run "composer install" ..?');
+        http_response_code(500);
+        
+        $title = 'Installation incomplete';
+        $heading = 'Your Known installation is incomplete!';
+        $body = '<p>It looks like you\'re running Known directly from a GitHub checkout. You need to run "composer install" to fetch other required packages!</p>';
+        $helplink = "<a href=\"http://docs.withknown.com/en/latest/install/instructions/\">Read installation details.</a>";
+        
+        include(dirname(dirname(__FILE__)) . '/statics/error-page.php');
+        exit();
     }
     
     // We're making heavy use of the Symfony ClassLoader to load our classes
