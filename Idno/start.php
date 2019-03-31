@@ -31,9 +31,12 @@
             }
 
             $error_message = "Fatal Error: {$error['file']}:{$error['line']} - \"{$error['message']}\", on page {$server_name}{$request_uri}";
+            $message_text = explode("\n", $error['message'])[0];
 
             $title = $heading = "Oh no! Known experienced a problem!";
-            $body = "<p>Known experienced a problem with this page and couldn't continue. The technical details are as follows:</p>";
+            $body = "<p>Known experienced a problem with this page and couldn't continue.</p>";
+            $body .= "<p><strong>$message_text</strong></p>";
+            $body .= "<p>The technical details are as follows:</p>";
             $body .= "<pre>$error_message</pre>";
 
             if (file_exists(dirname(dirname(__FILE__)) . '/support.inc')) {
