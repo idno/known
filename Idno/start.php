@@ -99,7 +99,7 @@
         $title = 'Installation incomplete';
         $heading = 'Your Known installation is incomplete!';
         $body = '<p>It looks like you\'re running Known directly from a GitHub checkout. You need to run "composer install" to fetch other required packages!</p>';
-        $helplink = "<a href=\"http://docs.withknown.com/en/latest/install/instructions/\">Read installation details.</a>";
+        $helplink = "<a href=\"http://docs.withknown.com/en/latest/install/instructions/\">Read installation instructions.</a>";
         
         include(dirname(dirname(__FILE__)) . '/statics/error-page.php');
         exit();
