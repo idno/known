@@ -866,7 +866,7 @@ namespace Idno\Common {
             if (isset($_SERVER['HTTPS'])) {
                 if ($_SERVER['HTTPS'] == '1')
                     return true;
-                if (strtolower($_SERVER['HTTPS'] == 'on'))
+                if (strtolower($_SERVER['HTTPS']) == 'on')
                     return true;
             } else if (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == '443'))
                 return true;
