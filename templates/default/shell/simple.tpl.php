@@ -69,7 +69,9 @@ if (empty($vars['description'])) {
                 <link href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>vendor/twbs/bootstrap/dist/css/bootstrap.min.css"
                       rel="stylesheet">
                 <link rel="stylesheet"
-                      href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>vendor/fortawesome/font-awesome/css/fontawesome.min.css">
+                      href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>vendor/fortawesome/font-awesome/css/all.min.css">
+                <link rel="stylesheet"
+                      href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>vendor/fortawesome/font-awesome/css/v4-shims.min.css">
                 <style>
                     body {
                         padding-top: 10px; /* 60px to make the container go all the way to the bottom of the topbar */
