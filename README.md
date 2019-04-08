@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/idno/Known.svg?branch=master)](https://travis-ci.org/idno/Known) 
+[![Build Status](https://travis-ci.org/idno/known.svg?branch=master)](https://travis-ci.org/idno/Known) 
 [![Backers on Open Collective](https://opencollective.com/known/backers/badge.svg)](#backers) 
 [![Sponsors on Open Collective](https://opencollective.com/known/sponsors/badge.svg)](#sponsors) 
 
@@ -16,13 +16,24 @@ web hosting provider.
 
 ### Installing
 
-Known is under active development and requires PHP 7+ with selected extensions, together with a supported database backend.
+Known is under active development and requires PHP 7+ with selected extensions, together with a supported database backend. You can find detailed installation instructions here: <http://docs.withknown.com/en/latest/install/index.html>
 
-You can opt to check out the bleeding edge code from the git repository: <https://github.com/idno/Known> (note: you'll need to install dependencies via composer) 
-
-Detailed installation instructions: <http://docs.withknown.com/en/latest/install/index.html>
+#### Installing from packages
 
 _Unofficial_ install packages, which are periodically built from the latest code, are available: <https://www.marcus-povey.co.uk/known/>
+
+#### Installing from Github
+
+You can opt to check out the work-in-progress development code from the git repository: <https://github.com/idno/Known>
+
+* Check out the repo: ```git clone https://github.com/idno/known.git```
+* Fetch dependencies: ```cd known; composer install```
+
+#### Installing with composer
+
+You can install Known directly from composer using: ``` composer create-project idno/known ```
+
+Optionally, you can install the latest bleeding edge code the same way: ``` composer create-project idno/known -s dev ```
 
 ### Support us
 
@@ -107,7 +118,6 @@ Third party libraries are licensed separately.
   * URL. Source: https://github.com/webignition/url
 * FitVids.js, which is distributed under the WTFPL License. Source: http://fitvidsjs.com/
 * Leaflet.js, which is distributed under the BSD 2-Clause License. Source: http://leafletjs.com/ 
-* H5f HTML5 Form shim, which is distributed under the MIT License. Source: https://github.com/ryanseddon/H5F
 * SwiftMailer, which is distributed under the MIT License. Source: https://github.com/swiftmailer/swiftmailer
 * Antwort, an email template which is distributed under the MIT License. Source: https://github.com/internations/antwort
 * Mention.js, a Bootstrap user at-mention library, which is distributed under the MIT License. Source: https://github.com/jakiestfu/Mention.js

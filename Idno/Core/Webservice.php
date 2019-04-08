@@ -206,12 +206,15 @@ namespace Idno\Core {
             self::$lastRequest  = curl_getinfo($curl_handle, CURLINFO_HEADER_OUT);
             self::$lastResponse = $content;
 
+            $effective_url = curl_getinfo($curl_handle, CURLINFO_EFFECTIVE_URL);
+            
             curl_close($curl_handle);
 
             return [
                 'header' => $header,
                 'content' => $content,
                 'response' => $http_status,
+                'effective_url' => $effective_url,
                 'error' => $error,
             ];
         }

@@ -113,8 +113,5 @@ if (empty($vars['description'])) {
     ?>">
         <?php echo $vars['body'] ?>
         <?php echo $this->draw('shell/simple/footer', $vars) ?>
-
-        <!-- HTML5 form element support for legacy browsers -->
-        <script src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>vendor/npm-asset/h5f/h5f.min.js"></script>
     </body>
 </html>
