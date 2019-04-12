@@ -6,6 +6,17 @@ module.exports = function (grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    sass: {
+	dist: {
+	    files: {
+	        'css/known.css': 'css/scss/known.scss',
+		'css/known-simple.css': 'css/scss/known-simple.scss'
+	    },
+	    options: {
+		sourcemap: 'none'
+	    }
+	}
+    },
     uglify: {
       options: {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
@@ -81,6 +92,7 @@ module.exports = function (grunt) {
   });
 
 // Load the plugins
+  grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -105,5 +117,5 @@ module.exports = function (grunt) {
   });
 
 // Default task(s).
-  grunt.registerTask('default', ['uglify', 'cssmin']);
+  grunt.registerTask('default', ['sass', 'cssmin', 'uglify']);
 };
