@@ -54,7 +54,7 @@ if (empty($vars['description'])) {
               href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>content/all?_t=rss"/>
         <link href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>webmention/" rel="http://webmention.org/"/>
         <link href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>webmention/" rel="webmention"/>
-        <link href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>css/simple.min.css" rel="stylesheet">
+        <link href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>css/known-simple.min.css" rel="stylesheet">
         <link href="//fonts.googleapis.com/css?family=Pontano+Sans" rel="stylesheet" type="text/css">
         <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel='stylesheet' type='text/css'>
         <script src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/components/jquery/jquery.min.js"></script>

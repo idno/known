@@ -1,10 +1,8 @@
-/* 
-CSS changes for Boostrap 3 migration 
+/**
+ * Bootstrap 2-3 migration shims.
+ */
 
-IMPORTANT:
- This file isn't loaded directly, for changes to show you must generate a minified
- version by executing the Gruntfile. See: http://docs.withknown.com/en/latest/developers/build/
-*/
+
 .nav-tabs.nav > li > a {
 	color: #777777;
 	font-weight: 300;
@@ -424,10 +422,3 @@ p.user-tbl {
     width: 1.5em;
     text-align: left;
 }
-
-
-
-
-
-
-
