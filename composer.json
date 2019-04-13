@@ -67,6 +67,7 @@
       "irc": "irc://irc.freenode.net/knownchat"
     },
     "require-dev": {
+        "mapkyca/known-phpcs": "dev-master",
         "mapkyca/known-language-tools": "dev-master"
     }
 }
