@@ -38,18 +38,6 @@ namespace Idno\Data {
                 throw new \Idno\Exceptions\ConfigurationException(\Idno\Core\Idno::site()->language()->_("It looks like you don't have the new mongodb driver installed (<a href=\"https://secure.php.net/manual/en/set.mongodb.php\">https://secure.php.net/manual/en/set.mongodb.php</a>)\n\nMake sure you have it installed and configured, e.g. by running \"pecl install mongodb;\""));
             }
 
-            // Add library namespace
-            require_once(dirname(dirname(dirname(__FILE__))) . '/external/mongo-php-library/src/functions.php');
-            spl_autoload_register(function($class) {
-                $class = str_replace('\\', DIRECTORY_SEPARATOR, $class);
-                $class = str_replace('MongoDB/', '', $class);
-
-                $basedir = dirname(dirname(dirname(__FILE__))) . '/external/mongo-php-library/src/';
-                if (file_exists($basedir.$class.'.php')) {
-                    include_once($basedir.$class.'.php');
-                }
-            });
-
             $this->dbstring  = $dbstring;
             $this->dbuser    = $dbuser;
             $this->dbpass    = $dbpass;

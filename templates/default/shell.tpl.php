@@ -54,6 +54,7 @@
     echo $template->draw('shell/footerjavascript');
     echo $template->draw('shell/footer');
 
+    echo $template->draw('shell/form-data'); 
 ?>
 </body>
 </html>
