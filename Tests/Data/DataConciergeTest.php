@@ -15,7 +15,7 @@ namespace Tests\Data {
 
         public static $fts_objects;
 
-        public static function setUpBeforeClass()
+        public static function setUpBeforeClass():void
         {
             if (get_called_class() === 'Tests\Data\DataConciergeTest') {
                 $obj = new \Idno\Entities\GenericDataItem();
@@ -251,7 +251,7 @@ namespace Tests\Data {
             $this->assertEquals(self::$url, $obj->getUrl());
         }
 
-        public static function tearDownAfterClass()
+        public static function tearDownAfterClass():void
         {
             if (self::$object) self::$object->delete();
             if (self::$fts_objects) {

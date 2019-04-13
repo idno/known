@@ -6,6 +6,17 @@ module.exports = function (grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    sass: {
+	dist: {
+	    files: {
+	        'css/known.css': 'css/scss/known.scss',
+		'css/known-simple.css': 'css/scss/known-simple.scss'
+	    },
+	    options: {
+		sourcemap: 'none'
+	    }
+	}
+    },
     uglify: {
       options: {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
@@ -81,6 +92,7 @@ module.exports = function (grunt) {
   });
 
 // Load the plugins
+  grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -95,15 +107,19 @@ module.exports = function (grunt) {
 
     const {execSync} = require('child_process');
 
-    execSync('touch ./languages/source/known.pot'); // Make sure it exists, if we're going to remove (for broken builds)
-    execSync('rm ./languages/source/known.pot'); // Remove existing
+    var pot = grunt.config.get('pkg.name').toLowerCase() + '.pot';
+    
+    console.log("Building language file as ./languages/" + pot);
+    
+    execSync('touch ./languages/source/' + pot); // Make sure it exists, if we're going to remove (for broken builds)
+    execSync('rm ./languages/source/' + pot); // Remove existing
 
-    execSync('find ./Idno -type f -regex ".*\.php" | php ./languages/processfile.php >> ./languages/source/known.pot'); // Build from idno core
-    execSync('find ./templates -type f -regex ".*\.php" | php ./languages/processfile.php >> ./languages/source/known.pot'); // Build from templates
-    execSync('echo ./known.php | php ./languages/processfile.php >> ./languages/source/known.pot'); // Build from console
+    execSync('find ./Idno -type f -regex ".*\.php" | php vendor/mapkyca/known-language-tools/buildpot.php >> ./languages/source/' + pot); // Build from idno core
+    execSync('find ./templates -type f -regex ".*\.php" | php vendor/mapkyca/known-language-tools/buildpot.php >> ./languages/source/' + pot); // Build from templates
+    execSync('echo ./known.php | php vendor/mapkyca/known-language-tools/buildpot.php >> ./languages/source/' + pot); // Build from console
 
   });
 
 // Default task(s).
-  grunt.registerTask('default', ['uglify', 'cssmin']);
+  grunt.registerTask('default', ['sass', 'cssmin', 'uglify']);
 };

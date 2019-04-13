@@ -17,6 +17,7 @@ Core team
 
 * Ben Werdmuller https://werd.io
 * Erin Jo Richey https://erinjorichey.com
+* Marcus Povey https://www.marcus-povey.co.uk
 
 Homepage: https://withknown.com/
 

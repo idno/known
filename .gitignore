@@ -7,6 +7,7 @@ Idno/.idea/.name
 .elasticbeanstalk
 
 node_modules
+.sass-cache
 
 *.iml
 *.bak
@@ -21,6 +22,10 @@ test.php
 /Uploads/*
 /configuration/
 
+/composer.phar
+/composer.lock
+/vendor
+
 /.DS_Store
 /*/.DS_Store
 
@@ -30,6 +35,8 @@ config.ini
 *.json
 tests/_output/*
 *-ori.*
+
+IdnoPlugins.local/*
 
 IdnoPlugins/*
 !IdnoPlugins/APITester/
@@ -65,5 +72,4 @@ error_log
 configbackup.ini
 
 # Allow these previously excluded files
-!/external/fontello/config.json
 !/Uploads/readme.txt

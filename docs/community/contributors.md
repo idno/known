@@ -6,6 +6,7 @@ The following individuals have made major contributions to Known.
 
 * Ben Werdmuller [https://werd.io](https://werd.io)
 * Erin Jo Richey [https://erinjorichey.com/](https://erinjorichey.com/)
+* Marcus Povey [https://www.marcus-povey.co.uk](https://www.marcus-povey.co.uk)
 
 Homepage: [https://withknown.com/](https://withknown.com/)
 

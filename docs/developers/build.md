@@ -14,6 +14,7 @@ To get going, install grunt:
 
 You will then need to install the following helper tasks:
 
+* ```npm install grunt-contrib-sass --save-dev```
 * ```npm install grunt-contrib-uglify --save-dev```
 * ```npm install grunt-contrib-cssmin --save-dev```
 * ```npm install grunt-contrib-jshint --save-dev```

@@ -1,0 +1,42 @@
+
+    
+/** Pagination **/
+.page-admin-users .users-list {
+    margin-bottom: 10px;
+}
+
+.page-admin-users .users-search  .pane {
+    height: 60em;
+}
+
+.users-pagination {
+    clear: both;
+}
+
+.users-pagination li.newer span {
+    display:none;
+}
+.users-pagination li.newer a:after {
+    content: "Previous";
+}
+
+.users-pagination li.older span {
+    display:none;
+}
+.users-pagination li.older a:after {
+    content: "Next"; 
+}
+
+.user-pagination {
+	margin-top: 10px;
+}
+.user-pagination .pager {
+	margin: 0;
+}
+.search-controls {
+	padding-bottom: 15px;
+}
+.search-controls .btn {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}

@@ -8,10 +8,10 @@ if (\Idno\Core\Idno::site()->session()->isLoggedIn()) {
     ?>
         <!-- WYSIWYG editor -->
         <script
-            src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>external/tinymce/js/tinymce/tinymce.min.js"
+            src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>vendor/tinymce/tinymce/tinymce.min.js"
             type="text/javascript"></script>
         <script
-            src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>external/tinymce/js/tinymce/jquery.tinymce.min.js"
+            src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>vendor/tinymce/tinymce/jquery.tinymce.min.js"
             type="text/javascript"></script>
         <?php
 
@@ -20,12 +20,12 @@ if (\Idno\Core\Idno::site()->session()->isLoggedIn()) {
 ?>
 
 <script
-    src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/jquery-timeago/' ?>jquery.timeago.min.js"></script>
-<script src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/underscore/underscore-min.js' ?>"
+    src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>vendor/rmm5t/jquery-timeago/jquery.timeago.js"></script>
+<script src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>vendor/npm-asset/underscore/underscore-min.js"
         type="text/javascript"></script>
-<!--<script src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/mention/bootstrap-typeahead.js' ?>"
+<!--<script src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() . 'vendor/bower-asset/mention/bootstrap-typeahead.js' ?>"
         type="text/javascript"></script>
-<script src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/mention/mention.js' ?>"
+<script src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() . 'vendor/bower-asset/mention/mention.js' ?>"
         type="text/javascript"></script> -->
 
 <?php
@@ -43,9 +43,6 @@ if ((\Idno\Core\Idno::site()->currentPage()) && $scripts = \Idno\Core\Idno::site
     echo "<!-- End asset javascript -->";
 }
 ?>
-
-<!-- HTML5 form element support for legacy browsers -->
-<script src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/h5f/h5f.min.js' ?>"></script>
 
 <script src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>js/<?php echo $this->getModifiedTS('js/templates/default/shell.min.js'); ?>/templates/default/shell.min.js"></script>
 <script src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>js/<?php echo $this->getModifiedTS('js/embeds.min.js'); ?>/embeds.min.js"></script>

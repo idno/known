@@ -18,7 +18,7 @@ namespace Tests\Pages {
             $this->assertNotEmpty($contents);
 
             // Make sure it's actually Known we're talking to
-            $this->assertContains('X-Powered-By: https://withknown.com', $http_response_header);
+            $this->assertNotFalse(strpos(implode(" \r\n", $http_response_header), 'X-Powered-By: https://withknown.com'));
         }
 
         function test404Page()

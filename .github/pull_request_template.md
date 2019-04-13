@@ -11,4 +11,5 @@
 - [ ] My git branch is named in a descriptive way - i.e., yourname-summary-of-issue
 - [ ] I've tested my code in-browser
 - [ ] My code contains descriptive comments
-- [ ] I've added tests where applicable
+- [ ] I've added tests where applicable, and...
+- [ ] I can run the unit tests successfully.

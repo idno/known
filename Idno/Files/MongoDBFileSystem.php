@@ -72,7 +72,7 @@ namespace Idno\Files {
             return false;
         }
 
-        public function storeFile($file_path, $metadata, $options)
+        public function storeFile($file_path, $metadata, $options = [])
         {
 
             $bucket = $this->gridfs_object;
@@ -81,6 +81,31 @@ namespace Idno\Files {
 
                 if ($source = fopen($file_path, 'rb')) {
 
+                    $id = $bucket->uploadFromStream($metadata['filename'], $source, [
+                        'metadata' => $metadata//new \MongoDB\Model\BSONDocument($metadata)
+                    ]);
+
+                    fclose($source);
+
+                    return "$id";
+                }
+            } catch (\Exception $ex) {
+                \Idno\Core\site()->logging()->debug($ex->getMessage());
+            }
+
+            return false;
+        }
+
+        public function storeContent($content, $metadata, $options = []) {
+            $bucket = $this->gridfs_object;
+
+            try {
+
+                if ($source = fopen('php://memory', 'r+')) {
+
+                    fwrite($source, $content);
+                    rewind($source);
+                    
                     $id = $bucket->uploadFromStream($metadata['filename'], $source, [
                         'metadata' => $metadata//new \MongoDB\Model\BSONDocument($metadata)
                     ]);

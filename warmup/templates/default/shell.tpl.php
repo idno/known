@@ -7,7 +7,7 @@
     <head>
         <title><?= htmlspecialchars($vars['title']); ?></title>
         <meta name="robots" content="noindex, nofollow">
-        <link rel="stylesheet" href="../css/simple.min.css">
+        <link rel="stylesheet" href="../css/known-simple.min.css">
     </head>
     <body>
         <?= $vars['body']; ?>

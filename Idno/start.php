@@ -31,16 +31,21 @@
             }
 
             $error_message = "Fatal Error: {$error['file']}:{$error['line']} - \"{$error['message']}\", on page {$server_name}{$request_uri}";
+            $message_text = explode("\n", $error['message'])[0];
 
-            echo "<h1>Oh no! Known experienced a problem!</h1>";
-            echo "<p>Known experienced a problem with this page and couldn't continue. The technical details are as follows:</p>";
-            echo "<pre>$error_message</pre>";
+            $title = $heading = "Oh no! Known experienced a problem!";
+            $body = "<p>Known experienced a problem with this page and couldn't continue.</p>";
+            $body .= "<p><strong>$message_text</strong></p>";
+            $body .= "<p>The technical details are as follows:</p>";
+            $body .= "<pre>$error_message</pre>";
 
             if (file_exists(dirname(dirname(__FILE__)) . '/support.inc')) {
                 include dirname(dirname(__FILE__)) . '/support.inc';
             } else {
-                echo '<p>If you continue to have problems, <a href="https://withknown.com/opensource" target="_blank">open source users have a number of resources available.</a></p>';
+                $helplink = '<a href="https://withknown.com/opensource" target="_blank">Connect to other open source users for help.</a>';
             }
+            
+            include(dirname(dirname(__FILE__)) . '/statics/error-page.php');
 
             $stats = \Idno\Core\Idno::site()->statistics();
             if (!empty($stats)) {
@@ -85,8 +90,22 @@
         set_time_limit(120);
     }
 
+    // Load external libraries
+    if (file_exists(dirname(dirname(__FILE__)) . '/vendor/autoload.php')) {
+        require_once(dirname(dirname(__FILE__)) . '/vendor/autoload.php');
+    } else {
+        http_response_code(500);
+        
+        $title = 'Installation incomplete';
+        $heading = 'Your Known installation is incomplete!';
+        $body = '<p>It looks like you\'re running Known directly from a GitHub checkout. You need to run "composer install" to fetch other required packages!</p>';
+        $helplink = "<a href=\"http://docs.withknown.com/en/latest/install/instructions/\">Read installation instructions.</a>";
+        
+        include(dirname(dirname(__FILE__)) . '/statics/error-page.php');
+        exit();
+    }
+    
     // We're making heavy use of the Symfony ClassLoader to load our classes
-    require_once(dirname(dirname(__FILE__)) . '/external/Symfony/Component/ClassLoader/UniversalClassLoader.php');
     global $known_loader;
     $known_loader = new \Symfony\Component\ClassLoader\UniversalClassLoader();
 
@@ -119,30 +138,6 @@
     // Shims
     include 'shims.php';
 
-    // Register our external namespaces (PSR-0 compliant modules that we love, trust and need)
-
-    // Symfony is used for routing, observer design pattern support, and a bunch of other fun stuff
-    $known_loader->registerNamespace('Symfony\Component', dirname(dirname(__FILE__)) . '/external');
-
-    // Implement the PSR-3 logging interface
-    $known_loader->registerNamespace('Psr\Log', dirname(dirname(__FILE__)) . '/external/log');
-
-    // Using Toro for URL routing
-    require_once(dirname(dirname(__FILE__)) . '/external/torophp/src/Toro.php');
-
-    // Using mf2 for microformats parsing, and webignition components to support it
-    $known_loader->registerNamespace('webignition\Url', dirname(dirname(__FILE__)) . '/external/webignition/url/src');
-    $known_loader->registerNamespace('webignition\AbsoluteUrlDeriver', dirname(dirname(__FILE__)) . '/external/webignition/absolute-url-deriver/src');
-    $known_loader->registerNamespace('webignition\NormalisedUrl', dirname(dirname(__FILE__)) . '/external/webignition/url/src');
-    $known_loader->registerNamespace('Mf2', dirname(dirname(__FILE__)) . '/external/mf2');
-    $known_loader->registerNamespace('IndieWeb', dirname(dirname(__FILE__)) . '/external/mention-client-php/src');
-
-    // Using Simplepie for RSS and Atom parsing
-    include dirname(dirname(__FILE__)) . '/external/simplepie/autoloader.php';
-
-    // Using HTMLPurifier for HTML sanitization
-    include dirname(dirname(__FILE__)) . '/external/htmlpurifier-lite/library/HTMLPurifier.auto.php';
-
     // Register the autoloader
     $known_loader->register();
 
@@ -157,3 +152,4 @@
     $webfinger    = new Idno\Core\Webfinger();
     $webmention   = new Idno\Core\Webmention();
     $pubsubhubbub = new Idno\Core\PubSubHubbub();
+

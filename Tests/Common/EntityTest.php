@@ -9,13 +9,13 @@ use Idno\Core\Webservice;
 class EntityTest extends \Tests\KnownTestCase
 {
 
-    public function setUp()
+    public function setUp():void
     {
         $this->user()->notifications['email'] = 'none';
         $this->user()->save();
     }
 
-    function tearDown()
+    function tearDown():void
     {
         if (isset($this->toDelete)) {
             foreach ($this->toDelete as $entity) {
