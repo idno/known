@@ -40,6 +40,9 @@ namespace Idno\Core {
             // Per-user export
             Idno::site()->addPageHandler('/account/export/?', '\Idno\Pages\Account\Export');
             Idno::site()->addPageHandler('/account/export/rss/?', '\Idno\Pages\Account\Export\RSS');
+            
+            // Override the page shell
+            Idno::site()->template()->addUrlShellOverride('account', 'settings-shell');
 
         }
 

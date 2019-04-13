@@ -1,4 +1,4 @@
-<ul class="nav nav-tabs">
+<ul class="nav">
     <li <?php if (\Idno\Core\Idno::site()->currentPage()->doesPathMatch('/account/settings/')) echo 'class="active"'; ?> role="presentation"><a
             href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>account/settings/"><?php echo \Idno\Core\Idno::site()->language()->_('Settings'); ?></a></li>
     <li <?php if (\Idno\Core\Idno::site()->currentPage()->doesPathMatch('/account/settings/notifications/')) echo 'class="active"'; ?>

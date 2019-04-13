@@ -35,7 +35,7 @@ if (\Idno\Core\Idno::site()->currentPage()->xhr) {
 
     $template_postponed_link_actions .= $form;
 } else {
-    \Idno\Core\Idno::site()->template()->extendTemplateWithContent('shell/footer', $form);
+    \Idno\Core\Idno::site()->template()->extendTemplateWithContent('shell/form-data', $form);
 }
 
     // Prevent scope pollution

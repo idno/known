@@ -1,4 +1,4 @@
-<ul class="nav nav-tabs">
+<ul class="nav">
   <li <?php if (\Idno\Core\Idno::site()->currentPage()->doesPathMatch('/admin/')) echo 'class="active"'; ?> role="presentation"><a href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>admin/"><?php echo \Idno\Core\Idno::site()->language()->_('Site configuration'); ?></a></li>
   <li <?php if (\Idno\Core\Idno::site()->currentPage()->doesPathMatch('/admin/plugins/')) echo 'class="active"'; ?> role="presentation"><a href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>admin/plugins/"><?php echo \Idno\Core\Idno::site()->language()->_('Plugins'); ?></a></li>
   <li <?php if (\Idno\Core\Idno::site()->currentPage()->doesPathMatch('/admin/themes/')) echo 'class="active"'; ?> role="presentation"><a href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>admin/themes/"><?php echo \Idno\Core\Idno::site()->language()->_('Themes'); ?></a></li>
