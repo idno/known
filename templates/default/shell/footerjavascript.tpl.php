@@ -44,5 +44,3 @@ if ((\Idno\Core\Idno::site()->currentPage()) && $scripts = \Idno\Core\Idno::site
 }
 ?>
 
-<script src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>js/<?php echo $this->getModifiedTS('js/templates/default/shell.min.js'); ?>/templates/default/shell.min.js"></script>
-<script src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>js/<?php echo $this->getModifiedTS('js/embeds.min.js'); ?>/embeds.min.js"></script>

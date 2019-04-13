@@ -32,6 +32,9 @@ img {
 .navbar-nav > li > .dropdown-menu, .navbar-right .dropdown-menu {
   margin-top: 5px; }
 
+.navbar-fixed-top .dropdown img {
+  margin-right: 5px; }
+
 .beforecontent {
   margin-bottom: 5em; }
 
@@ -1634,6 +1637,15 @@ div.unfurled-url .basics .image img {
   object-fit: cover;
   width: 100%;
   height: 100%; }
+
+/* Shim to hide settings menu in content before it can be removed */
+.settings-content ul.nav {
+  display: none; }
+
+.settings-template .nav > .active > a,
+.settings-template .navbar .nav > .active > a {
+  background-color: #e7e7e7;
+  color: #555; }
 
 /** Pagination **/
 .page-admin-users .users-list {

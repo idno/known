@@ -19,15 +19,23 @@ module.exports = function (grunt) {
     },
     uglify: {
       options: {
-        banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
       },
-      my_target: {
+      js: {
         files: {
-          'js/default.min.js': 'js/default.js',
-          'js/embeds.min.js': 'js/embeds.js',
-          'js/image.min.js': 'js/image.js',
-          'js/service-worker.min.js': 'js/service-worker.js',
-          'js/templates/default/shell.min.js': 'js/templates/default/shell.js'
+          'js/known.min.js': [
+	      'js/src/classes/Security.js',
+	      'js/src/classes/Logger.js',
+	      'js/src/classes/Notifications.js',
+	      'js/src/lib/Known.js',
+	      'js/src/classes/Unfurl.js',
+	      'js/src/classes/Image.js',
+	      'js/src/lib/Image.js',
+	      'js/src/classes/Template.js',
+	      'js/src/lib/Template.js',
+	  ],
+          'js/service-worker.min.js': [
+	      'js/src/ServiceWorker.js'
+	  ]
         }
       }
     },
