@@ -44,6 +44,4 @@ if ((\Idno\Core\Idno::site()->currentPage()) && $scripts = \Idno\Core\Idno::site
 }
 ?>
 
-<!-- HTML5 form element support for legacy browsers -->
-<script src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>vendor/npm-asset/h5f/h5f.min.js"></script>
 
