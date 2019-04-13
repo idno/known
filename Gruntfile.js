@@ -35,7 +35,7 @@ module.exports = function (grunt) {
 	      'js/src/lib/Template.js',
 	  ],
           'js/service-worker.min.js': [
-	      'js/service-worker.js'
+	      'js/src/ServiceWorker.js'
 	  ]
         }
       }
