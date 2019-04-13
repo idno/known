@@ -37,7 +37,6 @@
         "twbs/bootstrap": "3.3.2",
         "components/jquery": "3.2.1",
         "ezyang/htmlpurifier": "4.10",
-        "npm-asset/h5f": "1.1.1",
         "rmm5t/jquery-timeago": "1.6.4",
         "tinymce/tinymce": "4.1.7",
         "symfony/class-loader": "2.3.0",
@@ -46,14 +45,16 @@
         "symfony/http-foundation": "2.3.0",
         "simplepie/simplepie": "1.4",
         "mapkyca/mrclay_autop_known": "dev-master",
-	      "npm-asset/underscore": "1.6.0",
+        "npm-asset/underscore": "1.6.0",
         "npm-asset/bootstrap-accessibility-plugin": "1.0.6",
         "npm-asset/bootstrap-toggle": "2.2.0",
         "npm-asset/exif-js": "2.3.0",
         "npm-asset/mediaelement": "4.2.6",
         "bower-asset/tinymce-skin-modern-light-flat": "1.0.0",
         "npm-asset/vanilla-fitvids": "1.1.0",
-        "bower-asset/mention": "dev-master"
+        "bower-asset/mention": "dev-master",
+        "mapkyca/known-mongo-php-library": "dev-master,
+        "indieweb/mention-client": "1.2.0"
     },
     "license": "Apache-2.0",
     "prefer-stable": true,
@@ -66,6 +67,7 @@
       "irc": "irc://irc.freenode.net/knownchat"
     },
     "require-dev": {
-        "mapkyca/known-phpcs": "dev-master"
+        "mapkyca/known-phpcs": "dev-master",
+        "mapkyca/known-language-tools": "dev-master"
     }
 }
