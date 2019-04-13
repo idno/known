@@ -53,6 +53,7 @@
         "bower-asset/tinymce-skin-modern-light-flat": "1.0.0",
         "npm-asset/vanilla-fitvids": "1.1.0",
         "bower-asset/mention": "dev-master",
+        "mapkyca/known-mongo-php-library": "dev-master,
         "indieweb/mention-client": "1.2.0"
     },
     "license": "Apache-2.0",
@@ -64,5 +65,9 @@
       "forum": "https://groups.google.com/forum/#!forum/known-dev",
       "docs": "http://docs.withknown.com",
       "irc": "irc://irc.freenode.net/knownchat"
+    },
+    "require-dev": {
+        "mapkyca/known-phpcs": "dev-master",
+        "mapkyca/known-language-tools": "dev-master"
     }
 }

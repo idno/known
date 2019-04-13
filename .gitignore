@@ -22,7 +22,7 @@ test.php
 /Uploads/*
 /configuration/
 
-
+/composer.phar
 /composer.lock
 /vendor
 
@@ -71,5 +71,4 @@ error_log
 configbackup.ini
 
 # Allow these previously excluded files
-!/external/fontello/config.json
 !/Uploads/readme.txt
