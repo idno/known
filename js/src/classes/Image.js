@@ -1,12 +1,3 @@
-/**
- * Image manipulation and exif functions
- * 
- * IMPORTANT:
- * This file isn't loaded directly, for changes to show you must generate a minified
- * version by executing the Gruntfile. See: http://docs.withknown.com/en/latest/developers/build/
- */
-
-"use strict";
 
 var ImageTools = ImageTools || {};
 
@@ -24,13 +15,6 @@ ImageTools.base64ToArrayBuffer = function(base64) {
     }
     return bytes.buffer;
 };
-
-/**
- * Wrapper.
- * @description Use Image.base64ToArrayBuffer
- */
-function base64ToArrayBuffer(base64) { return ImageTools.base64ToArrayBuffer(base64); }
-
 
 /**
  * Transform an img ID based on the passed exif orientation.
@@ -77,8 +61,3 @@ ImageTools.exifRotateImg = function(imgid, exif_orientation, containerdiv) {
      }
 };
 
-/**
- * Wrapper.
- * @description Use Image.exifRotateImg
- */
-function exifRotateImg(imgid, exif_orientation, containerdiv) { ImageTools.exifRotateImg(imgid, exif_orientation, containerdiv); }
