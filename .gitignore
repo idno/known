@@ -21,7 +21,7 @@ test.php
 /Uploads/*
 /configuration/
 
-
+/composer.phar
 /composer.lock
 /vendor
 
