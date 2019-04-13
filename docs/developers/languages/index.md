@@ -15,16 +15,25 @@ translations to your code.
 ### Creating .POT file
 
 The first step, after you've used ```\Idno\Core\Idno::site()->language()->_()``` to write your strings, is to generate a POT template 
-translation file. To do this, in ```/languages/``` there's a helpful script, go into this directory and run the script
+translation file. 
+
+To do this:
+
+* add the repository ``` mapkyca/known-language-tools ``` as a dev dependency in composer:
 
 ```bash
-./makepot.sh /path/to/your/plugin > /path/to/your/plugin/languages/language.pot
+composer require mapkyca/known-language-tools --dev
 ```
+
+* Copy and rename the Sample.Gruntfile.js to your project's directory (where your Main.php is)
+* Create or modify your ```package.json``` to include your plugin's name (usually the namespace/directory of your Main.php
+* Create a ```languages``` directory
+* Execute ``` grunt build-lang ```
 
 This will parse all your plugin's PHP files and extract translatable strings.
 
 !!! note "Note"
-    If you have added a new translation string to Known's core code or templates, you should use the Grunt ```build-lang``` task to update the ```known.pot``` file.
+    If you have added a new translation string to Known's core code or templates, you should use the Grunt ```build-lang``` task in Known's project root to update the ```known.pot``` file.
 
 
 ### Creating your translation
