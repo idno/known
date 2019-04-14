@@ -2248,6 +2248,10 @@ namespace Idno\Common {
          */
         function addAnnotation($subtype, $owner_name, $owner_url, $owner_image, $content, $annotation_url = null, $time = null, $title = '', $extra_fields = [], $send_notification = true)
         {
+            $owner_url = strip_tags(filter_var($owner_url, FILTER_SANITIZE_URL));
+            $owner_image = strip_tags(filter_var($owner_image, FILTER_SANITIZE_URL));
+            $annotation_url = strip_tags(filter_var($annotation_url, FILTER_SANITIZE_URL));
+            
             if (empty($subtype)) return false;
             if (empty($annotation_url)) {
                 $annotation_url = $this->getURL() . '/annotations/' . md5(time() . $content); // Invent a URL for this annotation
