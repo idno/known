@@ -72,7 +72,7 @@ namespace Idno\Data {
                 ]));
             } catch (\MongoConnectionException $e) {
                 http_response_code(500);
-                echo '<p>Unfortunately we couldn\'t connect to the database:</p><p>' . $e->getMessage() . '</p>';
+                $message = '<p>Unfortunately we couldn\'t connect to the database:</p><p>' . $e->getMessage() . '</p>';
                 exit;
             }
 
