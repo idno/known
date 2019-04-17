@@ -41,7 +41,7 @@
         "tinymce/tinymce": "4.1.7",
         "symfony/class-loader": "2.3.0",
         "symfony/event-dispatcher": "2.1.0",
-        "symfony/console": "2.8.0",
+        "symfony/console": "^4.2",
         "symfony/http-foundation": "2.3.0",
         "simplepie/simplepie": "1.4",
         "mapkyca/mrclay_autop_known": "dev-master",

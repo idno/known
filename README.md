@@ -107,7 +107,7 @@ Third party libraries are licensed separately.
   * ClassLoader. Source: https://github.com/symfony/ClassLoader
   * EventDispatcher. Source: https://github.com/symfony/EventDispatcher
   * HttpFoundation. Source: https://github.com/symfony/HttpFoundation
-  * Console. Source: https://github.com/symfony/Console
+  * Console. Source: https://github.com/symfony/console
 * ToroPHP, which is distributed under the MIT License. Source: https://github.com/anandkunal/ToroPHP/
 * Font Awesome, which is distributed under the Open Font License, version 1.1: http://fortawesome.github.io/Font-Awesome/
 * Steve Clay's AutoP, which is distributed under the MIT License. Source: https://code.google.com/p/mrclay/

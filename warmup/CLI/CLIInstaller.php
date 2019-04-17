@@ -1,5 +1,16 @@
 #!/usr/bin/php -q
 <?php
+    // Load external libraries
+    if (file_exists(dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php')) {
+        require_once(dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php');
+    } else {
+        die('Could not find autoload.php, did you run "composer install" ..?');
+    }
+
+    // Load Symfony
+    global $known_loader;
+    $known_loader = new \Symfony\Component\ClassLoader\UniversalClassLoader();
+    $known_loader->register();
 
 /**
  * Load Idno
@@ -8,18 +19,6 @@ spl_autoload_register(function($class) {
     $class = str_replace('\\', DIRECTORY_SEPARATOR, $class);
 
     $basedir = dirname(dirname(dirname(__FILE__))) . '/';
-    if (file_exists($basedir . $class . '.php')) {
-        include_once($basedir . $class . '.php');
-    }
-});
-
-/**
- * Load Symfony
- */
-spl_autoload_register(function($class) {
-    $class = str_replace('\\', DIRECTORY_SEPARATOR, $class);
-
-    $basedir = dirname(dirname(dirname(__FILE__))) . '/external/';
     if (file_exists($basedir . $class . '.php')) {
         include_once($basedir . $class . '.php');
     }
