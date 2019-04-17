@@ -17,8 +17,8 @@ if (!\Idno\Core\Idno::site()->session()->isLoggedOn() && $object instanceof \Idn
             </div>
             <div class="col-md-10 idno-comment-container" id="comment-form-<?= $uuid; ?>">
                 <div class="form-group">
-                    <input type="text" name="name" class="form-control" placeholder="<?php echo \Idno\Core\Idno::site()->language()->_("You probably shouldn't fill this in"); ?>" style="display: none;" >
-                    <input type="url" name="url" class="form-control" placeholder="<?php echo \Idno\Core\Idno::site()->language()->_("You probably shouldn't fill this in"); ?>" style="display: none;" >
+                    <input type="text" name="name" class="form-control" placeholder="<?php echo \Idno\Core\Idno::site()->language()->_("You probably shouldn't fill this in"); ?>">
+                    <input type="url" name="url" class="form-control" placeholder="<?php echo \Idno\Core\Idno::site()->language()->_("You probably shouldn't fill this in"); ?>">
                 </div>
                 <div class="form-group">
                     <input type="text" name="<?=$name_field?>" class="form-control" placeholder="<?php echo \Idno\Core\Idno::site()->language()->_('Your name'); ?>" required>
@@ -36,8 +36,11 @@ if (!\Idno\Core\Idno::site()->session()->isLoggedOn() && $object instanceof \Idn
             </div>
         </div>
         <script>
+            
+            $('#comment-form-<?= $uuid; ?> .form-group:first-of-type').hide();
+                
             $(document).ready(function () {
-
+                
                 setTimeout(function() {
                     $commentForm = $('#comment-form-<?=$uuid; ?>');
                     $commentForm.find('.extrafield').html('<input type="hidden" name="validator" value="<?php echo $object->getUUID()?>">');
