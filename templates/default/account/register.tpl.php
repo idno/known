@@ -50,6 +50,7 @@
                         <input type="hidden" name="code" value="<?php echo htmlspecialchars($vars['code'])?>">
                     </div>
                 </div>
+                <?php echo $this->__(['action' => '/account/register'])->draw('forms/input/captcha'); ?>
                 <?php echo \Idno\Core\Idno::site()->actions()->signForm('/account/register') ?>
 
             </form>
