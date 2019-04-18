@@ -5,3 +5,5 @@
  * This form will be passed the form action.
  */
 
+?>
+<!-- Captcha control -->
