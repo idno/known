@@ -27,6 +27,7 @@ if (!\Idno\Core\Idno::site()->session()->isLoggedOn() && $object instanceof \Idn
                     <input type="url" name="<?=$url_field?>" class="form-control" placeholder="<?php echo \Idno\Core\Idno::site()->language()->_('Your website address'); ?>">
                 </div>
                 <div class="extrafield" style="display:none"></div>
+                <?php echo $this->__(['action' => 'annotation/post'])->draw('forms/input/captcha'); ?>
                 <div class="form-group">
                     <textarea name="body" placeholder="<?php echo \Idno\Core\Idno::site()->language()->_('Add a comment ...'); ?>" class="form-control mentionable"></textarea>
                 </div>
