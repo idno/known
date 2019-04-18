@@ -44,7 +44,7 @@ namespace Themes\Cherwell\Pages {
                                 }
                             }
                             \Idno\Core\Idno::site()->config->config['cherwell']['bg_id'] = $background;
-                            $background = \Idno\Core\Idno::site()->config()->getDisplayURL() . 'file/' . $background;
+                            $background = \Idno\Core\Idno::site()->config()->getStaticURL() . 'file/' . $background;
                             \Idno\Core\Idno::site()->config->config['cherwell']['bg'] = $background;
                         }
                     }

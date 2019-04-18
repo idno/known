@@ -724,21 +724,21 @@ namespace Idno\Core {
 
             // Set our defaults (TODO: Set these cleaner, perhaps through the template system)
             $icons['defaults'] = [
-                'default'     => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k.png',
-                'default_16'  => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k_16.png',
-                'default_32'  => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k_32.png',
-                'default_36'  => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k_36.png',
-                'default_48'  => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k_48.png',
-                'default_64'  => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k_64.png',
-                'default_96'  => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k_96.png',
+                'default'     => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/logo_k.png',
+                'default_16'  => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/logo_k_16.png',
+                'default_32'  => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/logo_k_32.png',
+                'default_36'  => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/logo_k_36.png',
+                'default_48'  => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/logo_k_48.png',
+                'default_64'  => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/logo_k_64.png',
+                'default_96'  => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/logo_k_96.png',
 
                 // Apple logos
-                'default_57'  => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-57x57.png',
-                'default_72'  => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-72x72.png',
-                'default_114' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-114x114.png',
-                'default_144' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/apple-icon-144x144.png',
+                'default_57'  => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/apple-icon-57x57.png',
+                'default_72'  => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/apple-icon-72x72.png',
+                'default_114' => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/apple-icon-114x114.png',
+                'default_144' => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/apple-icon-144x144.png',
 
-                'default_192' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k_192.png',
+                'default_192' => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/logo_k_192.png',
             ];
 
             // If we're on a page, see if that has a specific icon

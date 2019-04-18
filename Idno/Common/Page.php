@@ -1079,7 +1079,7 @@ namespace Idno\Common {
          */
         public function getIcon()
         {
-            $icon = \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k.png';
+            $icon = \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/logo_k.png';
 
             if (\Idno\Core\Idno::site()->config()->user_avatar_favicons) {
                 if ($user = \Idno\Core\Idno::site()->currentPage()->getOwner()) {

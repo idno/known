@@ -1,1 +1,1 @@
-<link href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>Themes/Fauvists/css/default.min.css" rel="stylesheet">
+<link href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>Themes/Fauvists/css/default.min.css" rel="stylesheet">

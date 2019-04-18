@@ -23,7 +23,7 @@ if (!empty($vars['theme'])) {
         }
     } else {
         $vars['theme']['shortname'] = 'default';
-        $src = \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/themes/default.png';
+        $src = \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/themes/default.png';
     }
     if (!empty($src)) {
 

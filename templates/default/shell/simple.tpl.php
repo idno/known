@@ -54,7 +54,7 @@ if (empty($vars['description'])) {
               href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>content/all?_t=rss"/>
         <link href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>webmention/" rel="http://webmention.org/"/>
         <link href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>webmention/" rel="webmention"/>
-        <link href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>css/known-simple.min.css" rel="stylesheet">
+        <link href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>css/known-simple.min.css" rel="stylesheet">
         <link href="//fonts.googleapis.com/css?family=Pontano+Sans" rel="stylesheet" type="text/css">
         <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel='stylesheet' type='text/css'>
         <script src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/components/jquery/jquery.min.js"></script>
@@ -66,19 +66,19 @@ if (empty($vars['description'])) {
 
             ?>
 
-                <link href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>vendor/twbs/bootstrap/dist/css/bootstrap.min.css"
+                <link href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/twbs/bootstrap/dist/css/bootstrap.min.css"
                       rel="stylesheet">
                 <link rel="stylesheet"
-                      href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>vendor/fortawesome/font-awesome/css/all.min.css">
+                      href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/fortawesome/font-awesome/css/all.min.css">
                 <link rel="stylesheet"
-                      href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>vendor/fortawesome/font-awesome/css/v4-shims.min.css">
+                      href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/fortawesome/font-awesome/css/v4-shims.min.css">
                 <style>
                     body {
                         padding-top: 10px; /* 60px to make the container go all the way to the bottom of the topbar */
                     }
                 </style>
                 <link
-                    href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() . 'external/bootstrap/' ?>assets/css/bootstrap-responsive.css"
+                    href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() . 'external/bootstrap/' ?>assets/css/bootstrap-responsive.css"
                     rel="stylesheet">
 
             <?php
@@ -88,8 +88,8 @@ if (empty($vars['description'])) {
         ?>
 
         <!-- Syndication -->
-        <link href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>vendor/npm-asset/bootstrap-toggle/css/bootstrap2-toggle.min.css" rel="stylesheet" />
-        <script src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>vendor/npm-asset/bootstrap-toggle/js/bootstrap2-toggle.min.js"></script>
+        <link href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL()?>vendor/npm-asset/bootstrap-toggle/css/bootstrap2-toggle.min.css" rel="stylesheet" />
+        <script src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL()?>vendor/npm-asset/bootstrap-toggle/js/bootstrap2-toggle.min.js"></script>
 
     </head>
     <body class="<?php

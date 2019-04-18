@@ -232,7 +232,7 @@
             }
 
         ?>
-        <script type="text/javascript" src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>IdnoPlugins/StaticPages/external/html5sortable/html.sortable.min.js"></script>
+        <script type="text/javascript" src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>IdnoPlugins/StaticPages/external/html5sortable/html.sortable.min.js"></script>
         <script type="text/javascript">
             $('.sortable-categories').sortable({
                 items: '[data-value]',

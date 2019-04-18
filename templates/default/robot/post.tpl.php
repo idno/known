@@ -5,7 +5,7 @@
 
             <div class="robot-head" style="width: 100px; height: 130px; float: left">
                 <p style="text-align: center">
-                    <img src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>gfx/robots/1.png"/></a><br/>
+                    <img src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL()?>gfx/robots/1.png"/></a><br/>
                     Aleph
                 </p>
             </div>

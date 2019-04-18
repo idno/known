@@ -9,7 +9,7 @@
 </div>
 <div class="row" style="margin-top: 1em">
     <div class="col-md-1 col-md-offset-3 col-xs-3">
-        <a href="https://withknown.com"><img src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>gfx/logos/logo_k.png" style="width: 70px; border: 0"></a>
+        <a href="https://withknown.com"><img src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL()?>gfx/logos/logo_k.png" style="width: 70px; border: 0"></a>
     </div>
     <div class="col-md-5">
         <p style="font-size: 1.6em"><a href="https://withknown.com/?utm_source=admin&utm_medium=installation"><?php echo \Idno\Core\Idno::site()->language()->_('Known'); ?></a> <?php echo \Idno\Core\Idno::site()->language()->_('is a social publishing platform for groups and individuals.'); ?></p>
