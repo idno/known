@@ -16,6 +16,7 @@
                 <div class="form-group">
                     <input type="password" id="inputPassword" name="password" placeholder="<?php echo \Idno\Core\Idno::site()->language()->_('Password'); ?>" class="form-control">
                 </div>
+                <?php echo $this->__(['action' => '/session/login'])->draw('forms/input/captcha'); ?>
                 <div class="form-group">
                     <button type="submit" class="btn btn-signin"><?php echo \Idno\Core\Idno::site()->language()->_('Sign in'); ?></button>
                     <input type="hidden" name="fwd" value="<?php
