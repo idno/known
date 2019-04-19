@@ -12,7 +12,7 @@ if (!\Idno\Core\Idno::site()->session()->isLoggedOn() && $object instanceof \Idn
         <div class="row annotation-add">
             <div class="col-md-2 owner h-card hidden-sm hidden-xs">
                 <div class="u-url icon-container"><img class="u-photo"
-                                                       src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>gfx/users/default-00.png"/>
+                                                       src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>gfx/users/default-00.png"/>
                 </div>
             </div>
             <div class="col-md-10 idno-comment-container" id="comment-form-<?= $uuid; ?>">

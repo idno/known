@@ -2,7 +2,7 @@
 
 if (!empty($vars['file'])) {
 
-    $fileplot = 'parent.tinymce.activeEditor.windowManager.getParams().oninsert("'.\Idno\Core\Idno::site()->config()->getDisplayURL() . 'file/' . $vars['file']->file['_id'].'");';
+    $fileplot = 'parent.tinymce.activeEditor.windowManager.getParams().oninsert("'.\Idno\Core\Idno::site()->config()->getStaticURL() . 'file/' . $vars['file']->file['_id'].'");';
 
 } else {
 

@@ -15,7 +15,7 @@
 </div>
 <div class="row import">
     <div class="col-md-1 col-md-offset-1">
-        <img src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>gfx/other/known.png" alt="Known" class="img-responsive">
+        <img src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>gfx/other/known.png" alt="Known" class="img-responsive">
     </div>
     <div class="col-md-9">
         <form action="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>admin/import/" method="post" enctype="multipart/form-data">
@@ -55,7 +55,7 @@
 </div>
 <div class="row import">
     <div class="col-md-1 col-md-offset-1">
-        <img src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>gfx/other/wordpress.png" alt="WordPress" class="img-responsive">
+        <img src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>gfx/other/wordpress.png" alt="WordPress" class="img-responsive">
     </div>
     <div class="col-md-9">      
         <form action="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>admin/import/" method="post" enctype="multipart/form-data">
@@ -96,7 +96,7 @@
 </div>
 <div class="row import">
     <div class="col-md-1 col-md-offset-1">
-        <img src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>gfx/other/blogger.png" alt="Blogger" class="img-responsive">
+        <img src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>gfx/other/blogger.png" alt="Blogger" class="img-responsive">
     </div>
     <div class="col-md-9">      
         <form action="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>admin/import/" method="post" enctype="multipart/form-data">

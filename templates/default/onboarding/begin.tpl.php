@@ -2,7 +2,7 @@
 
     <div>
 
-        <div class="h-register"><img src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>gfx/onboarding/logo_black.png"
+        <div class="h-register"><img src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>gfx/onboarding/logo_black.png"
                                      alt="Known" class="img-responsive"></div>
 
         <p class="p-register"><?php echo \Idno\Core\Idno::site()->language()->_('Known is your space for sharing content and discussing ideas.'); ?></p>
@@ -10,15 +10,15 @@
         <div class="container" style="margin-bottom: 1 em; margin-top: 2em">
             <div class="row row-centered">
                 <div class="scoot col-centered col-max">
-                    <img class="img-responsive" src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>gfx/onboarding/kite.png" alt="<?php echo \Idno\Core\Idno::site()->language()->_('Take a picture'); ?>"
+                    <img class="img-responsive" src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>gfx/onboarding/kite.png" alt="<?php echo \Idno\Core\Idno::site()->language()->_('Take a picture'); ?>"
                          width="100%">
                 </div>
                 <div class="scoot col-centered col-max">
-                    <img class="img-responsive" src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>gfx/onboarding/text.png" alt="<?php echo \Idno\Core\Idno::site()->language()->_('Share a message'); ?>"
+                    <img class="img-responsive" src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>gfx/onboarding/text.png" alt="<?php echo \Idno\Core\Idno::site()->language()->_('Share a message'); ?>"
                          width="100%">
                 </div>
                 <div class="scoot col-centered col-max">
-                    <img class="img-responsive" src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>gfx/onboarding/map.png" alt="<?php echo \Idno\Core\Idno::site()->language()->_('Save your location'); ?>"
+                    <img class="img-responsive" src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>gfx/onboarding/map.png" alt="<?php echo \Idno\Core\Idno::site()->language()->_('Save your location'); ?>"
                          width="100%">
                 </div>
             </div>

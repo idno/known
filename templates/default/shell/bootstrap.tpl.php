@@ -20,7 +20,7 @@
 <link rel="stylesheet"
     href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/fortawesome/font-awesome/css/all.min.css">
 <link rel="stylesheet"
-    href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>vendor/fortawesome/font-awesome/css/v4-shims.min.css">
+    href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/fortawesome/font-awesome/css/v4-shims.min.css">
 
 <style>
     body {

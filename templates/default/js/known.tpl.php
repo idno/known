@@ -18,6 +18,7 @@ $known = [
     ],
     'config' => [
         'displayUrl' => \Idno\Core\Idno::site()->config()->getDisplayURL(),
+        'staticUrl' => \Idno\Core\Idno::site()->config()->getStaticURL(),
         'debug' => !empty(\Idno\Core\Idno::site()->config()->debug)
     ],
     'page' => [

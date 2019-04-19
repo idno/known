@@ -40,16 +40,15 @@ namespace Themes\Cherwell {
         {
 
             if (!empty(\Idno\Core\Idno::site()->config()->cherwell['bg_id'])) {
-                return \Idno\Core\Idno::site()->config()->getDisplayURL() . 'file/' . \Idno\Core\Idno::site()->config()->cherwell['bg_id'];
+                return \Idno\Core\Idno::site()->config()->getStaticURL() . 'file/' . \Idno\Core\Idno::site()->config()->cherwell['bg_id'];
             } else {
-                return \Idno\Core\Idno::site()->config()->getDisplayURL() . 'Themes/Cherwell/img/cherwell.jpg';
+                return \Idno\Core\Idno::site()->config()->getStaticURL() . 'Themes/Cherwell/img/cherwell.jpg';
             }
 
         }
         
         function registerTranslations()
         {
-
             \Idno\Core\Idno::site()->language()->register(
                 new \Idno\Core\GetTextTranslation(
                     'cherwell', dirname(__FILE__) . '/languages/'

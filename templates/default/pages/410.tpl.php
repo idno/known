@@ -11,7 +11,7 @@
             </p>            
         </div>
         <div class="col-md-5">
-            <img src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>gfx/robots/aleph_410.png" alt="Robot with a gone sign">
+            <img src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL()?>gfx/robots/aleph_410.png" alt="Robot with a gone sign">
         </div>
         
     </div>

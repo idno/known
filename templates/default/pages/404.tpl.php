@@ -9,7 +9,7 @@
             </p>             
         </div>
         <div class="col-md-5">
-            <img src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>gfx/robots/aleph_404.png" alt="Robot with a missing sign">
+            <img src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL()?>gfx/robots/aleph_404.png" alt="Robot with a missing sign">
         </div>        
     </div>
 </div>

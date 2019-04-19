@@ -99,4 +99,4 @@
 
 <?php echo $this->draw('entity/edit/footer');?>
 
-<script src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>IdnoPlugins/Checkin/checkin.min.js"></script>
+<script src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>IdnoPlugins/Checkin/checkin.min.js"></script>

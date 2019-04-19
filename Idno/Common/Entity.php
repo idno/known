@@ -1007,7 +1007,7 @@ namespace Idno\Common {
                 return $page->getIcon();
             }
 
-            return \Idno\Core\Idno::site()->config()->getDisplayURL() . 'gfx/logos/logo_k.png';
+            return \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/logo_k.png';
         }
 
         /**

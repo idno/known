@@ -23,7 +23,7 @@ if (!\Idno\Core\Idno::site()->session()->isLoggedIn()) {
                     </p>                    
                 </div>
                 <div class="col-md-5">
-                    <img src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>gfx/robots/aleph_403.png" alt="Robot with a stop sign">
+                    <img src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL()?>gfx/robots/aleph_403.png" alt="Robot with a stop sign">
                 </div>                
             </div>
         </div>

@@ -25,7 +25,7 @@ if (!empty($items)) {
         <?php echo \Idno\Core\Idno::site()->language()->_("You don't have any notifications yet. But we love you anyway!"); ?>
         </p>
         <p style="text-align: center">
-            <img src="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>gfx/robots/feedback.png">
+            <img src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL()?>gfx/robots/feedback.png">
         </p>
 
     </div>
