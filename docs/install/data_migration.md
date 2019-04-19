@@ -26,7 +26,7 @@ Make sure you take a copy of your profile picture, background picture, any custo
 
 You should start with a working Known installation on your hosting of choice. I'm running Debian 9, Apache, MariaDB and PHP 7, but available choices are documented elsewhere.
 
-** Use a test user account, not the account you're migrating - very important! **
+*Use a test user account, not the account you're migrating - very important!*
 
 I found it useful to complete the Known setup to the stage where it had created the database and I was able to publish new blog posts with images. Don't worry about making it look like your old site - just make sure that you have an empty working installation of Known that you can use.
 
