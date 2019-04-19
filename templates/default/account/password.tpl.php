@@ -20,6 +20,7 @@
                     <input type="email" id="inputName" placeholder="me@awesome.com" class="form-control" name="email" value="" required>
             </div>
             </div>
+            <?php echo $this->__(['action' => '/account/password'])->draw('forms/input/captcha'); ?>
             <div class="row">
             <div class="form-group col-md-6">
                 <div class="controls">
