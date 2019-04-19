@@ -37,7 +37,7 @@ namespace Idno\Pages\Account {
             if (empty($onboarding)) {
                 $t->body  = $t->__(array('email' => $email, 'code' => $code))->draw('account/register');
                 $t->title = \Idno\Core\Idno::site()->language()->_('Create a new account');
-                $t->drawPage();
+                echo $t->draw('shell');
             } else {
                 $t->body  = $t->__(array(
                     'email'    => $email,
