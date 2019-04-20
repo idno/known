@@ -37,6 +37,7 @@ You will also need to update a whole bunch of stuff in a file from the "Monthly 
 Inside the "Monthly Backup" there's a file called `exported_data.sql` and this will need a very careful search-and-replace.
 
 Here are the steps I followed:
+
 1. Replace all `<subdomain>.withknown.com` entries with `www.<newdomain>.com`
 2. Replace all `http:` with `https:` if you have installed HTTPS on your server
 3. Remove rogue `[` which is the first character in the SQL file
