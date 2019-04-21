@@ -17,7 +17,7 @@
             <a href="https://withknown.com/opensource/?utm_source=admin&utm_medium=installation"><?php echo \Idno\Core\Idno::site()->language()->_('Open source project details'); ?></a>
         </p>
         <p>
-            <?php echo \Idno\Core\Idno::site()->language()->_('Version: %s', [\Idno\Core\Version::version()]); ?>
+            <?php echo \Idno\Core\Idno::site()->language()->_('Version: %s+%s', [\Idno\Core\Version::version(), \Idno\Core\Version::build()]); ?>
         </p>
     </div>
 </div>
