@@ -303,3 +303,16 @@ Template.initContentCreateForm = function(plugin, editUrl) {
 
     });
 };
+
+Template.hideContentCreateForm = function() {
+    Template.isCreateFormVisible = false;
+    if (window.contentPage == true) {
+	$('#contentTypeButtonBar').slideDown(200);
+	$('#contentCreate').slideUp(200);
+    } else {
+	//window.close(); // Will only fire for child windows
+	if (window.history.length > 1) {
+	    window.history.back();
+	}
+    }
+};
