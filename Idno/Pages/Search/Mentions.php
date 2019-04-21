@@ -17,6 +17,11 @@ namespace Idno\Pages\Search {
             $results  = array();
             $username = $this->getInput('username');
             if ($users = User::get(array(), array(), 9999)) { //User::getByHandle($username)) {
+                
+                \Idno\Core\Idno::site()->triggerEvent('search/mentions', [
+                    'username' => $username
+                ], $users);
+
                 foreach ($users as $user) {
                     /* @var \Idno\Entities\User $user */
                     $results[] = array(
@@ -26,6 +31,7 @@ namespace Idno\Pages\Search {
                     );
                 }
             }
+                        
             header('Content-type: text/json');
             echo json_encode($results);
 
