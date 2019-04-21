@@ -1,4 +1,46 @@
 
+/** Known Javascript logging */
+var Logger = Logger || {};
+
+Logger.log = function (message, level) {
+
+    if (typeof level === 'undefined')
+	level = 'INFO';
+
+    switch (level.toUpperCase()) {
+	case "ALERT":
+	case "ERROR":
+	case "EXCEPTION":
+	    level = "ERROR";
+	    console.error(level + ": " + message);
+	    break;
+	
+	case "WARN":
+	case "WARNING": 
+	    level = "WARNING";
+	    console.warn(level + ": " + message);
+	    break;
+	    
+	default: 
+	    level = "INFO";
+	    console.log(level + ": " + message);
+    }
+
+    Security.getCSRFToken(function (token, ts) {
+	$.ajax({
+	    type: "POST",
+	    data: {
+		    level: level,
+		    message: message,
+		    __bTk: token,
+		    __bTs: ts
+		},
+	    url: known.config.displayUrl + 'service/system/log/',
+	});
+    }, known.config.displayUrl + 'service/system/log/');
+
+};
+
 Logger.info = function(message) {
     Logger.log(message, 'INFO');
 };
