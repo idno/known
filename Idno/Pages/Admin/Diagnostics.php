@@ -20,7 +20,7 @@ namespace Idno\Pages\Admin {
             // Create diagnostics report
             if ($this->xhr) {
 
-                $report = "Known Diagnostics: Version " . \Idno\Core\Version::version() . ' (' . \Idno\Core\Version::build() . ") \nDate: " . date('r') . "\n\n";
+                $report = "Known Diagnostics: Version " . \Idno\Core\Version::version() . '+' . \Idno\Core\Version::build() . " \nDate: " . date('r') . "\n\n";
                 $report .= "*** WARNING: This report contains sensitive information. Be careful about how you transmit it, and to whom. ***\n\n";
                 $report .= "Basics:\n-------\n\n";
 
