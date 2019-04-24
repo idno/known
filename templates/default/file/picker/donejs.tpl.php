@@ -2,7 +2,7 @@
 
 if (!empty($vars['file'])) {
 
-    $fileplot = 'parent.tinymce.activeEditor.windowManager.getParams().oninsert("'.\Idno\Core\Idno::site()->config()->getStaticURL() . 'file/' . $vars['file']->file['_id'].'");';
+    $fileplot = 'window.parent.postMessage({mceAction: "customAction", data: {url: "'.\Idno\Core\Idno::site()->config()->getStaticURL() . 'file/' . $vars['file']->file['_id'].'"}}, "*");';
 
 } else {
 
@@ -13,5 +13,5 @@ if (!empty($vars['file'])) {
 ?>
 <script>
     <?php echo $fileplot?>
-    parent.tinymce.activeEditor.windowManager.close();
+    window.parent.postMessage({mceAction: 'close'}, "*");
 </script>
