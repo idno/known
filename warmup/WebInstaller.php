@@ -81,7 +81,7 @@ class WebInstaller extends \Idno\Core\Installer
         if (!WebInstaller::installer()->rewriteWorking()) {
             $messages .= '<p>Rewriting appears to be disabled. Usually this means "AllowOverride None" is set in apache2.conf ';
             $messages .= 'which prevents Known\'s .htaccess from doing its thing. We tried to fetch a URL that should redirect ';
-            $messages .= 'to default.js</p>';
+            $messages .= 'to known.min.js</p>';
             $messages .= '<p>You can usually fix this by setting <code>AllowOverride All</code> in your Apache configuration.</p>';
             $ok = false;
         }
