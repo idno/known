@@ -68,6 +68,7 @@
     },
     "require-dev": {
         "mapkyca/known-phpcs": "dev-master",
-        "mapkyca/known-language-tools": "dev-master"
+        "mapkyca/known-language-tools": "dev-master",
+        "phpunit/phpunit": "^8.1"
     }
 }
