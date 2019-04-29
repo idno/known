@@ -8,9 +8,9 @@ Unit tests will automatically be run when you submit a pull request on GitHub. Y
 
 ## Running unit tests on your local machine
 
-First, ensure [PHPUnit](https://phpunit.de/) is installed. (Installation varies by system and is beyond the scope of this documentation.)
+First, ensure [PHPUnit](https://phpunit.de/) is installed. 
 
-To run all the tests, from the Known root directory simply run ```phpunit```.
+To run all the tests, from the Known root directory simply run ```vendor/phpunit/phpunit/phpunit```, assuming you're running the git checkout and composer.
 
 Some tests require a connection to your local Known instance, so if this is anything other than *http://localhost*, you need to set the ```KNOWN_DOMAIN``` environment variable.
 
