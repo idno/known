@@ -120,7 +120,7 @@ namespace Idno\Core {
          * @param string $message
          * @param array  $context
          */
-        protected function log($level, $message = LOGLEVEL_INFO, array $context = array())
+        public function log($level, $message = LOGLEVEL_INFO, array $context = array())
         {
             // backward compatibility
             if (is_string($level) && is_int($message)) {
