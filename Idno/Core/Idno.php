@@ -753,19 +753,6 @@ namespace Idno\Core {
         }
 
         /**
-         * Retrieve notices (eg notifications that a new version has been released) from Known HQ
-         * @return mixed
-         * @deprecated Use Vendor::getMessages()
-         */
-        function getVendorMessages()
-        {
-            \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: Use Vendor::getMessages()");
-
-            return Vendor::getMessages();
-
-        }
-
-        /**
          * Is this site being run in embedded mode? Hides the navigation bar, maybe more.
          * @return bool
          */
