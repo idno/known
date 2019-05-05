@@ -28,9 +28,9 @@ namespace Idno\Core {
         public function __construct($loglevel_filter = 0, $identifier = null)
         {
             if (!$identifier)
-                $identifier = Idno::site()->config->host;
-            if (isset(Idno::site()->config->loglevel)) {
-                $loglevel_filter = Idno::site()->config->loglevel;
+                $identifier = Idno::site()->config()->host;
+            if (isset(Idno::site()->config()->loglevel)) {
+                $loglevel_filter = Idno::site()->config()->loglevel;
             }
 
             $this->loglevel_filter = $loglevel_filter;

@@ -27,7 +27,7 @@ namespace Themes\Cherwell\Pages {
         {
             $this->adminGatekeeper(); // Admins only
             if ($profile_user = $this->getInput('profile_user')) {
-                \Idno\Core\Idno::site()->config->config['cherwell']['profile_user'] = $profile_user;
+                \Idno\Core\Idno::site()->config()->config['cherwell']['profile_user'] = $profile_user;
             }
             if (!empty($_FILES['background']) && $this->getInput('action') != 'clear') {
                 if (in_array($_FILES['background']['type'], array('image/png', 'image/jpg', 'image/jpeg', 'image/gif'))) {
@@ -43,9 +43,9 @@ namespace Themes\Cherwell\Pages {
                                     }
                                 }
                             }
-                            \Idno\Core\Idno::site()->config->config['cherwell']['bg_id'] = $background;
+                            \Idno\Core\Idno::site()->config()->config['cherwell']['bg_id'] = $background;
                             $background = \Idno\Core\Idno::site()->config()->getStaticURL() . 'file/' . $background;
-                            \Idno\Core\Idno::site()->config->config['cherwell']['bg'] = $background;
+                            \Idno\Core\Idno::site()->config()->config['cherwell']['bg'] = $background;
                         }
                     }
                 }
@@ -60,9 +60,9 @@ namespace Themes\Cherwell\Pages {
                         }
                     }
                 }
-                \Idno\Core\Idno::site()->config->cherwell = [];
+                \Idno\Core\Idno::site()->config()->cherwell = [];
             }
-            \Idno\Core\Idno::site()->config->save();
+            \Idno\Core\Idno::site()->config()->save();
             $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/cherwell/');
         }
 

@@ -43,8 +43,8 @@ namespace IdnoPlugins\Webhooks\Pages
                     }
                 }
             }
-            \Idno\Core\Idno::site()->config->webhook_syndication = $webhook_syndication;
-            \Idno\Core\Idno::site()->config->save();
+            \Idno\Core\Idno::site()->config()->webhook_syndication = $webhook_syndication;
+            \Idno\Core\Idno::site()->config()->save();
             $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/webhooks/');
 
         }

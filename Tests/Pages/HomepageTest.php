@@ -57,7 +57,7 @@ EOD;
          */
         function testWebmentionContentSingleUser()
         {
-            Idno::site()->config->single_user = true;
+            Idno::site()->config()->single_user = true;
             $this->admin(); // make sure there is an admin user
             // uniquify source to make sure we get the notification
             $source = 'http://foo.bar/homepage-mention-single-user-'.md5(time() . rand(0, 9999));
@@ -77,7 +77,7 @@ EOD;
          */
         function testWebmentionContentSingleUserNoSlash()
         {
-            Idno::site()->config->single_user = true;
+            Idno::site()->config()->single_user = true;
             $this->admin(); // make sure there is an admin user
             $source = 'http://foo.bar/homepage-mention-single-user-no-slash-'.md5(time() . rand(0, 9999));
             $target = rtrim(Idno::site()->config()->getDisplayURL(), '/');
@@ -95,7 +95,7 @@ EOD;
          */
         function testWebmentionContentMultiUser()
         {
-            Idno::site()->config->single_user = false;
+            Idno::site()->config()->single_user = false;
             $source = 'http://foo.bar/homepage-mention-multi-user-'.md5(time() . rand(0, 9999));
             $target = Idno::site()->config()->getDisplayURL();
             $notification = $this->doWebmentionContent($source, $target);

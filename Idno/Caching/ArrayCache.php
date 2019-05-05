@@ -23,14 +23,14 @@ namespace Idno\Caching {
 
             if (isset($this->cache[$key])) {
                 if (\Idno\Core\Idno::site()->config()->debug) {
-                    \Idno\Core\Idno::site()->logging->debug("Loading $key");
+                    \Idno\Core\Idno::site()->logging()->debug("Loading $key");
                 }
 
                 return $this->cache[$key];
             }
 
             if (\Idno\Core\Idno::site()->config()->debug) {
-                \Idno\Core\Idno::site()->logging->debug("$key not cached");
+                \Idno\Core\Idno::site()->logging()->debug("$key not cached");
             }
 
             return false;
@@ -44,7 +44,7 @@ namespace Idno\Caching {
         public function store($key, $value)
         {
             if (\Idno\Core\Idno::site()->config()->debug)
-                \Idno\Core\Idno::site()->logging->debug("Caching $key");
+                \Idno\Core\Idno::site()->logging()->debug("Caching $key");
 
             $this->cache[$key] = $value;
 

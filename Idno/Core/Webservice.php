@@ -56,7 +56,7 @@ namespace Idno\Core {
                                 try {
                                     $params[$k] = $v->getCurlParameters();
                                 } catch (\Exception $ex) {
-                                    \Idno\Core\Idno::site()->logging->error("Error sending $verb to $endpoint", ['error' => $ex]);
+                                    \Idno\Core\Idno::site()->logging()->error("Error sending $verb to $endpoint", ['error' => $ex]);
                                 }
                             }
                         }
@@ -197,7 +197,7 @@ namespace Idno\Core {
             $content     = substr($buffer, $header_size);
 
             if ($error = curl_error($curl_handle)) {
-                \Idno\Core\Idno::site()->logging->error('error send Webservice request', ['error' => $error]);
+                \Idno\Core\Idno::site()->logging()->error('error send Webservice request', ['error' => $error]);
             }
 
             // See if we have a HSTS header and store

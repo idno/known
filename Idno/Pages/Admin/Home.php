@@ -45,23 +45,23 @@ namespace Idno\Pages\Admin {
             $single_user          = $this->getInput('single_user') === 'true';
             $permalink_structure  = $this->getInput('permalink_structure');
 
-            if (!empty($title)) \Idno\Core\Idno::site()->config->title = $title;
-            \Idno\Core\Idno::site()->config->homepagetitle = trim($homepagetitle);
-            if (!empty($description)) \Idno\Core\Idno::site()->config->description = $description;
-            if (!empty($url)) \Idno\Core\Idno::site()->config->url = $url;
-            if (!empty($path)) \Idno\Core\Idno::site()->config->path = $path;
-            if (!empty($host)) \Idno\Core\Idno::site()->config->host = $host;
-            \Idno\Core\Idno::site()->config->hub = $hub;
-            if (!empty($items_per_page) && is_int($items_per_page)) \Idno\Core\Idno::site()->config->items_per_page = $items_per_page;
-            \Idno\Core\Idno::site()->config->open_registration    = $open_registration;
-            \Idno\Core\Idno::site()->config->walled_garden        = $walled_garden;
-            \Idno\Core\Idno::site()->config->show_privacy         = $show_privacy;
-            \Idno\Core\Idno::site()->config->indieweb_citation    = $indieweb_citation;
-            \Idno\Core\Idno::site()->config->indieweb_reference   = $indieweb_reference;
-            \Idno\Core\Idno::site()->config->user_avatar_favicons = $user_avatar_favicons;
-            \Idno\Core\Idno::site()->config->wayback_machine      = $wayback_machine;
-            \Idno\Core\Idno::site()->config->single_user          = $single_user;
-            \Idno\Core\Idno::site()->config->permalink_structure  = $permalink_structure;
+            if (!empty($title)) \Idno\Core\Idno::site()->config()->title = $title;
+            \Idno\Core\Idno::site()->config()->homepagetitle = trim($homepagetitle);
+            if (!empty($description)) \Idno\Core\Idno::site()->config()->description = $description;
+            if (!empty($url)) \Idno\Core\Idno::site()->config()->url = $url;
+            if (!empty($path)) \Idno\Core\Idno::site()->config()->path = $path;
+            if (!empty($host)) \Idno\Core\Idno::site()->config()->host = $host;
+            \Idno\Core\Idno::site()->config()->hub = $hub;
+            if (!empty($items_per_page) && is_int($items_per_page)) \Idno\Core\Idno::site()->config()->items_per_page = $items_per_page;
+            \Idno\Core\Idno::site()->config()->open_registration    = $open_registration;
+            \Idno\Core\Idno::site()->config()->walled_garden        = $walled_garden;
+            \Idno\Core\Idno::site()->config()->show_privacy         = $show_privacy;
+            \Idno\Core\Idno::site()->config()->indieweb_citation    = $indieweb_citation;
+            \Idno\Core\Idno::site()->config()->indieweb_reference   = $indieweb_reference;
+            \Idno\Core\Idno::site()->config()->user_avatar_favicons = $user_avatar_favicons;
+            \Idno\Core\Idno::site()->config()->wayback_machine      = $wayback_machine;
+            \Idno\Core\Idno::site()->config()->single_user          = $single_user;
+            \Idno\Core\Idno::site()->config()->permalink_structure  = $permalink_structure;
 
             \Idno\Core\Idno::site()->triggerEvent('admin/home/save');
 

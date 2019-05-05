@@ -53,7 +53,7 @@
             }
 
             if (isset(\Idno\Core\Idno::site()->logging) && \Idno\Core\Idno::site()->logging)
-                \Idno\Core\Idno::site()->logging->error($error_message);
+                \Idno\Core\Idno::site()->logging()->error($error_message);
             else
                 error_log($error_message);
 

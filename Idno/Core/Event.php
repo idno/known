@@ -20,7 +20,7 @@ namespace Idno\Core {
         function __construct($data = array())
         {
             $this->data       = $data;
-            $this->dispatcher = site()->dispatcher;
+            $this->dispatcher = site()->events();
         }
 
         /**

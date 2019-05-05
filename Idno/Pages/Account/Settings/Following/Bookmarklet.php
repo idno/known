@@ -133,7 +133,7 @@ namespace Idno\Pages\Account\Settings\Following {
 
                     // No user found, so create it if it's remote
                     if (!\Idno\Entities\User::isLocalUUID($uuid)) {
-                        \Idno\Core\Idno::site()->logging->debug("Creating new remote user");
+                        \Idno\Core\Idno::site()->logging()->debug("Creating new remote user");
 
                         $new_user = new \Idno\Entities\RemoteUser();
 
@@ -150,19 +150,19 @@ namespace Idno\Pages\Account\Settings\Following {
 
                     }
                 } else
-                    \Idno\Core\Idno::site()->logging->debug("New user found as " . $new_user->uuid);
+                    \Idno\Core\Idno::site()->logging()->debug("New user found as " . $new_user->uuid);
 
                 if ($new_user) {
 
-                    \Idno\Core\Idno::site()->logging->debug("Trying a follow");
+                    \Idno\Core\Idno::site()->logging()->debug("Trying a follow");
 
                     if ($user->addFollowing($new_user)) {
 
-                        \Idno\Core\Idno::site()->logging->debug("User added to following");
+                        \Idno\Core\Idno::site()->logging()->debug("User added to following");
 
                         if ($user->save()) {
 
-                            \Idno\Core\Idno::site()->logging->debug("Following saved");
+                            \Idno\Core\Idno::site()->logging()->debug("Following saved");
 
                             // Ok, we've saved the new user, now, lets subscribe to their feeds
                             if ($feed = \Idno\Core\Idno::site()->reader()->getFeedObject($new_user->getURL())) {
@@ -176,7 +176,7 @@ namespace Idno\Pages\Account\Settings\Following {
 
                         }
                     } else {
-                        \Idno\Core\Idno::site()->logging->debug('Could not follow user for some reason (probably already following)');
+                        \Idno\Core\Idno::site()->logging()->debug('Could not follow user for some reason (probably already following)');
                         \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->esc_('You\'re already following %s', [$this->getInput('name')]));
                     }
                 } else

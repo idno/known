@@ -47,12 +47,12 @@ namespace Idno\Pages\Admin {
             ) {
                 switch ($action) {
                     case 'install':
-                        \Idno\Core\Idno::site()->config->config['theme'] = $theme;
+                        \Idno\Core\Idno::site()->config()->config['theme'] = $theme;
                         Idno::site()->config()->theme                    = $theme;
                         //\Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_('The theme was enabled.'));
                         break;
                     case 'uninstall':
-                        \Idno\Core\Idno::site()->config->config['theme'] = '';
+                        \Idno\Core\Idno::site()->config()->config['theme'] = '';
                         break;
                 }
                 \Idno\Core\Idno::site()->config()->save();

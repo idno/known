@@ -14,7 +14,7 @@ namespace Idno\Pages\Hub\Register {
 
             $this->flushBrowser();
 
-            \Idno\Core\Idno::site()->logging->debug('Site registration message received');
+            \Idno\Core\Idno::site()->logging()->debug('Site registration message received');
 
             $token      = $this->getInput('token');
             $auth_token = $this->getInput('auth_token');

@@ -32,7 +32,7 @@ namespace Idno\Pages\Pubsubhubbub {
             $hub_challenge     = $this->getInput('hub.challenge', $this->getInput('hub_challenge'));
             $hub_lease_seconds = $this->getInput('hub.lease_seconds', $this->getInput('hub_lease_seconds'));
 
-            \Idno\Core\Idno::site()->logging->debug("Pubsub: $hub_mode verification ping ");
+            \Idno\Core\Idno::site()->logging()->debug("Pubsub: $hub_mode verification ping ");
 
             switch ($hub_mode) {
                 case 'subscribe':
@@ -48,7 +48,7 @@ namespace Idno\Pages\Pubsubhubbub {
                         $subscriber->pubsub_pending = serialize($new);
                         $subscriber->save();
 
-                        \Idno\Core\Idno::site()->logging->debug("Pubsub: $hub_challenge");
+                        \Idno\Core\Idno::site()->logging()->debug("Pubsub: $hub_challenge");
                         echo $hub_challenge;
                         exit;
                     }
@@ -60,7 +60,7 @@ namespace Idno\Pages\Pubsubhubbub {
 
         function post()
         {
-            \Idno\Core\Idno::site()->logging->debug("Pubsub: Ping received");
+            \Idno\Core\Idno::site()->logging()->debug("Pubsub: Ping received");
 
             // Since we've overloaded post, we need to parse the arguments
             $arguments = func_get_args();
@@ -80,7 +80,7 @@ namespace Idno\Pages\Pubsubhubbub {
                 $this->goneContent();
             }
 
-            \Idno\Core\Idno::site()->logging->debug("Pubsub: Ping received, pinging out...");
+            \Idno\Core\Idno::site()->logging()->debug("Pubsub: Ping received, pinging out...");
 
             \Idno\Core\Idno::site()->triggerEvent('pubsubhubbub/ping', array(
                 'subscriber'   => $subscriber,
