@@ -489,6 +489,8 @@ namespace Idno\Core {
          */
         function addPageHandler($pattern, $handler, $public = false)
         {
+            \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: \Idno\Core\Idno::site()->routes()->addRoute()");
+            
             return $this->routes()->addRoute($pattern, $handler, $public);
         }
 
@@ -503,6 +505,8 @@ namespace Idno\Core {
          */
         function hijackPageHandler($pattern, $handler, $public = false)
         {
+            \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: \Idno\Core\Idno::site()->routes()->hijackRoute()");
+            
             return $this->routes()->hijackRoute($pattern, $handler, $public);
         }
 
@@ -513,6 +517,8 @@ namespace Idno\Core {
          */
         function addPublicPageHandler($class)
         {
+            \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: \Idno\Core\Idno::site()->routes()->addPublicRoute()");
+            
             return $this->routes()->addPublicRoute($class);
         }
 
@@ -523,6 +529,8 @@ namespace Idno\Core {
          */
         function getPublicPageHandlers()
         {
+            \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: \Idno\Core\Idno::site()->routes()->getPublicRoute()");
+            
             return $this->routes()->getPublicRoute();
         }
 
@@ -534,6 +542,8 @@ namespace Idno\Core {
          */
         function isPageHandlerPublic($class)
         {
+            \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: \Idno\Core\Idno::site()->routes()->isRoutePublic()");
+            
             return $this->routes()->isRoutePublic($class);
         }
 
@@ -547,6 +557,8 @@ namespace Idno\Core {
          */
         function getPageHandler($path_info)
         {
+            \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: \Idno\Core\Idno::site()->routes()->getRoute()");
+            
             return $this->routes()->getRoute($path_info);
         }
 
