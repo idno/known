@@ -48,7 +48,7 @@
                 <input type="hidden" name="action" value="" id="action">
                 <?php
 
-                if (!empty(\Idno\Core\Idno::site()->config->cherwell['bg_id'])) {
+                if (!empty(\Idno\Core\Idno::site()->config()->cherwell['bg_id'])) {
 
                     ?>
                         <input type="button" class="btn" value="Restore default image"
@@ -78,8 +78,8 @@
                         ?>
                                 <option value="<?php echo $user->handle ?>" <?php
 
-                                if (!empty(\Idno\Core\Idno::site()->config->cherwell['profile_user'])) {
-                                    if ($user->handle == \Idno\Core\Idno::site()->config->cherwell['profile_user']) {
+                                if (!empty(\Idno\Core\Idno::site()->config()->cherwell['profile_user'])) {
+                                    if ($user->handle == \Idno\Core\Idno::site()->config()->cherwell['profile_user']) {
                                         echo 'selected';
                                     }
                                 }

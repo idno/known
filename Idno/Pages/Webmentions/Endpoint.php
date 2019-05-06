@@ -79,12 +79,12 @@ namespace Idno\Pages\Webmentions {
                             } else {
                                 $error      = 'no_link_found';
                                 $error_text = 'The source URI does not contain a link to the target URI.';
-                                \Idno\Core\Idno::site()->logging->warning('No link from ' . $source . ' to ' . $target);
+                                \Idno\Core\Idno::site()->logging()->warning('No link from ' . $source . ' to ' . $target);
                             }
                         } else {
                             $error      = 'source_not_found';
                             $error_text = 'The source content for ' . $source . ' could not be obtained.';
-                            \Idno\Core\Idno::site()->logging->warning('No content from '.$source);
+                            \Idno\Core\Idno::site()->logging()->warning('No content from '.$source);
                         }
                     } else {
                         $error      = 'target_not_supported';

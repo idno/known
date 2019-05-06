@@ -24,14 +24,14 @@ namespace Idno\Pages\Admin {
             $this->adminGatekeeper(); // Admins only
 
             $email                                                   = $this->getInput('from_email');
-            \Idno\Core\Idno::site()->config->config['smtp_host']     = $this->getInput('smtp_host');
-            \Idno\Core\Idno::site()->config->config['smtp_username'] = $this->getInput('smtp_username');
-            \Idno\Core\Idno::site()->config->config['smtp_password'] = $this->getInput('smtp_password');
-            \Idno\Core\Idno::site()->config->config['smtp_port']     = (int)$this->getInput('smtp_port');
-            \Idno\Core\Idno::site()->config->config['smtp_secure']   = $this->getInput('smtp_secure');
+            \Idno\Core\Idno::site()->config()->config['smtp_host']     = $this->getInput('smtp_host');
+            \Idno\Core\Idno::site()->config()->config['smtp_username'] = $this->getInput('smtp_username');
+            \Idno\Core\Idno::site()->config()->config['smtp_password'] = $this->getInput('smtp_password');
+            \Idno\Core\Idno::site()->config()->config['smtp_port']     = (int)$this->getInput('smtp_port');
+            \Idno\Core\Idno::site()->config()->config['smtp_secure']   = $this->getInput('smtp_secure');
 
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                \Idno\Core\Idno::site()->config->config['from_email'] = $this->getInput('from_email');
+                \Idno\Core\Idno::site()->config()->config['from_email'] = $this->getInput('from_email');
             }
 
             \Idno\Core\Idno::site()->config()->save();

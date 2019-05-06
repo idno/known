@@ -78,7 +78,7 @@ namespace Idno\Pages\Entity {
                 }
             }
             if (empty($object)) {
-                \Idno\Core\Idno::site()->logging->error("No object was found with ID {$this->arguments[0]}.");
+                \Idno\Core\Idno::site()->logging()->error("No object was found with ID {$this->arguments[0]}.");
 
                 return false;
             }

@@ -5,6 +5,7 @@ Idno/.idea/.name
 
 .vagrant
 .elasticbeanstalk
+.phpunit.result.cache
 
 node_modules
 .sass-cache

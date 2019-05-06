@@ -3,7 +3,7 @@ $plugin = trim($vars['plugin']);
 $version = trim($vars['version']);
 
 $loaded_plugin = \Idno\Core\Idno::site()->plugins()->get($plugin);
-$getstored = \Idno\Core\Idno::site()->plugins->getStored();
+$getstored = \Idno\Core\Idno::site()->plugins()->getStored();
 if(!empty($getstored[$plugin]))
     $details = $getstored[$plugin];
 

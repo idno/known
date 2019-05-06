@@ -83,15 +83,15 @@ namespace Idno\Core {
                             $following->save();
 
                             $return = Webservice::post($following->pubsub_hub, array(
-                                'hub.callback' => Idno::site()->config->url . 'pubsub/callback/' . $user->getID() . '/' . $following->getID(), // Callback, unique to each subscriber
+                                'hub.callback' => Idno::site()->config()->url . 'pubsub/callback/' . $user->getID() . '/' . $following->getID(), // Callback, unique to each subscriber
                                 'hub.mode'     => 'subscribe',
                                 'hub.verify'   => 'async', // Backwards compatibility with v0.3 hubs
                                 'hub.topic'    => $feed, // Subscribe to rss
                             ));
 
-                            Idno::site()->logging->info("Pubsub subscribed", ['response' => $return]);
+                            Idno::site()->logging()->info("Pubsub subscribed", ['response' => $return]);
                         } else
-                            Idno::site()->logging->info("Pubsub: No hubs found");
+                            Idno::site()->logging()->info("Pubsub: No hubs found");
                     }
                 }
             });
@@ -119,13 +119,13 @@ namespace Idno\Core {
                     $user->save();
 
                     $return = Webservice::post($following->pubsub_hub, array(
-                        'hub.callback' => Idno::site()->config->url . 'pubsub/callback/' . $user->getID() . '/' . $following->getID(), // Callback, unique to each subscriber
+                        'hub.callback' => Idno::site()->config()->url . 'pubsub/callback/' . $user->getID() . '/' . $following->getID(), // Callback, unique to each subscriber
                         'hub.mode'     => 'unsubscribe',
                         'hub.verify'   => 'async', // Backwards compatibility with v0.3 hubs
                         'hub.topic'    => $following->pubsub_self
                     ));
 
-                    Idno::site()->logging->info("Pubsub unsubscribed.", ['response' => $return]);
+                    Idno::site()->logging()->info("Pubsub unsubscribed.", ['response' => $return]);
                 }
             });
         }

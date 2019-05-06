@@ -53,11 +53,11 @@ namespace Idno\Core {
                 }
             }
             if (!empty(\Idno\Core\Idno::site()->config()->alwaysplugins)) {
-                if (empty(\Idno\Core\Idno::site()->config->plugins)) \Idno\Core\Idno::site()->config->plugins = [];
-                \Idno\Core\Idno::site()->config->plugins = array_merge(\Idno\Core\Idno::site()->config->plugins, \Idno\Core\Idno::site()->config->alwaysplugins);
+                if (empty(\Idno\Core\Idno::site()->config()->plugins)) \Idno\Core\Idno::site()->config()->plugins = [];
+                \Idno\Core\Idno::site()->config()->plugins = array_merge(\Idno\Core\Idno::site()->config()->plugins, \Idno\Core\Idno::site()->config()->alwaysplugins);
             }
             if (!empty(\Idno\Core\Idno::site()->config()->plugins)) {
-                \Idno\Core\Idno::site()->config->plugins = array_unique(\Idno\Core\Idno::site()->config->plugins);
+                \Idno\Core\Idno::site()->config()->plugins = array_unique(\Idno\Core\Idno::site()->config()->plugins);
                 foreach (\Idno\Core\Idno::site()->config()->plugins as $plugin) {
                     if (!in_array($plugin, \Idno\Core\Idno::site()->config()->antiplugins)) {
                         if (is_subclass_of("IdnoPlugins\\{$plugin}\\Main", 'Idno\\Common\\Plugin')) {
@@ -291,12 +291,12 @@ namespace Idno\Core {
 
             \Idno\Core\Idno::site()->triggerEvent('plugin/load/' . $plugin);
 
-            \Idno\Core\Idno::site()->config->config['plugins'][] = $plugin;
+            \Idno\Core\Idno::site()->config()->config['plugins'][] = $plugin;
             if (!empty(\Idno\Core\Idno::site()->config()->external_plugin_path) && file_exists(\Idno\Core\Idno::site()->config()->external_plugin_path . '/IdnoPlugins/' . $plugin)) {
-                \Idno\Core\Idno::site()->config->config['directloadplugins'][$plugin] = \Idno\Core\Idno::site()->config()->external_plugin_path . '/IdnoPlugins/' . $plugin;
+                \Idno\Core\Idno::site()->config()->config['directloadplugins'][$plugin] = \Idno\Core\Idno::site()->config()->external_plugin_path . '/IdnoPlugins/' . $plugin;
             }
 
-            \Idno\Core\Idno::site()->config->config['plugins'] = array_unique(\Idno\Core\Idno::site()->config->config['plugins']);
+            \Idno\Core\Idno::site()->config()->config['plugins'] = array_unique(\Idno\Core\Idno::site()->config()->config['plugins']);
             \Idno\Core\Idno::site()->config()->save();
 
             return true;
@@ -312,12 +312,12 @@ namespace Idno\Core {
 
             if (!$this->exists($plugin))
                 return false;
-            if (($key = array_search($plugin, \Idno\Core\Idno::site()->config->config['plugins'])) !== false) {
+            if (($key = array_search($plugin, \Idno\Core\Idno::site()->config()->config['plugins'])) !== false) {
                 \Idno\Core\Idno::site()->triggerEvent('plugin/unload/' . $plugin);
-                unset(\Idno\Core\Idno::site()->config->config['plugins'][$key]);
-                unset(\Idno\Core\Idno::site()->config->config['directloadplugins'][$key]);
+                unset(\Idno\Core\Idno::site()->config()->config['plugins'][$key]);
+                unset(\Idno\Core\Idno::site()->config()->config['directloadplugins'][$key]);
 
-                \Idno\Core\Idno::site()->config->config['plugins'] = array_unique(\Idno\Core\Idno::site()->config->config['plugins']);
+                \Idno\Core\Idno::site()->config()->config['plugins'] = array_unique(\Idno\Core\Idno::site()->config()->config['plugins']);
                 \Idno\Core\Idno::site()->config()->save();
 
                 return true;

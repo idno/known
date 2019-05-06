@@ -62,8 +62,8 @@ namespace IdnoPlugins\StaticPages {
                 if (\Idno\Core\Idno::site()->session()->currentUser()->isAdmin()) {
                     $obj = \Idno\Common\Entity::getByID($pageId);
                     if (!empty($obj)) {
-                        \Idno\Core\Idno::site()->config->staticPages['homepage'] = $pageId;
-                        return \Idno\Core\Idno::site()->config->save();
+                        \Idno\Core\Idno::site()->config()->staticPages['homepage'] = $pageId;
+                        return \Idno\Core\Idno::site()->config()->save();
                     }
                 }
             }
@@ -82,8 +82,8 @@ namespace IdnoPlugins\StaticPages {
 
             if (\Idno\Core\Idno::site()->session()->isLoggedIn()) {
                 if (\Idno\Core\Idno::site()->session()->currentUser()->isAdmin()) {
-                    unset(\Idno\Core\Idno::site()->config->staticPages['homepage']);
-                    return \Idno\Core\Idno::site()->config->save();
+                    unset(\Idno\Core\Idno::site()->config()->staticPages['homepage']);
+                    return \Idno\Core\Idno::site()->config()->save();
                 }
             }
 
@@ -97,8 +97,8 @@ namespace IdnoPlugins\StaticPages {
          */
         function getCurrentHomepageId()
         {
-            if (!empty(\Idno\Core\Idno::site()->config->staticPages['homepage'])) {
-                return \Idno\Core\Idno::site()->config->staticPages['homepage'];
+            if (!empty(\Idno\Core\Idno::site()->config()->staticPages['homepage'])) {
+                return \Idno\Core\Idno::site()->config()->staticPages['homepage'];
             }
             return false;
         }
@@ -118,9 +118,9 @@ namespace IdnoPlugins\StaticPages {
                     if (is_array($categories)) {
                         $categories = implode("\n", $categories);
                     }
-                    \Idno\Core\Idno::site()->config->staticPages['categories'] = $categories;
+                    \Idno\Core\Idno::site()->config()->staticPages['categories'] = $categories;
 
-                    return \Idno\Core\Idno::site()->config->save();
+                    return \Idno\Core\Idno::site()->config()->save();
 
                 }
             }

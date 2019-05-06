@@ -33,7 +33,7 @@ if (\Idno\Core\Idno::site()->session()->isLoggedOn()) {
     echo $this->draw('js/mentions');
 }
     // Load javascript assets
-if ((\Idno\Core\Idno::site()->currentPage()) && $scripts = \Idno\Core\Idno::site()->currentPage->getAssets('javascript')) {
+if ((\Idno\Core\Idno::site()->currentPage()) && $scripts = \Idno\Core\Idno::site()->currentPage()->getAssets('javascript')) {
     echo "<!-- Begin asset javascript -->";
     foreach ($scripts as $script) {
         ?>

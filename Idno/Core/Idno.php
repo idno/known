@@ -16,29 +16,29 @@ namespace Idno\Core {
     {
         // Install Idno deprecated functions
         use Deprecated\Idno;
-    
-        public $db;
-        public $filesystem;
-        public $config;
-        public $session;
-        public $template;
-        public $language;
-        public $actions;
-        public $plugins;
-        public $dispatcher;
-        public $queue;
-        public $routes;
-        public $syndication;
+
+        private $db;
+        private $filesystem;
+        private $config;
+        private $session;
+        private $template;
+        private $language;
+        private $actions;
+        private $plugins;
+        private $dispatcher;
+        private $queue;
+        private $routes;
+        private $syndication;
         /* @var \Psr\Log\LoggerInterface $logging */
-        public $logging;
+        private $logging;
         /* @var \Idno\Core\Idno $site */
-        public static $site;
-        public $currentPage;
-        public $known_hub;
-        public $helper_robot;
-        public $reader;
-        public $cache;
-        public $statistics;
+        private static $site;
+        private $currentPage;
+        private $known_hub;
+        private $helper_robot;
+        private $reader;
+        private $cache;
+        private $statistics;
 
         function __construct()
         {
@@ -160,7 +160,7 @@ namespace Idno\Core {
             ) {
                 site()->session()->hub_connect     = time();
                 \Idno\Core\Idno::site()->known_hub = new \Idno\Core\Hub($this->config->known_hub);
-                \Idno\Core\Idno::site()->known_hub->connect();
+                \Idno\Core\Idno::site()->hub()->connect();
             }
 
             User::registerEvents();
@@ -460,6 +460,15 @@ namespace Idno\Core {
         function &reader()
         {
             return $this->reader;
+        }
+        
+        /**
+         * Return the currently registered page routing table.
+         * @return array
+         */
+        function &routing() 
+        {
+            return $this->pagehandlers;
         }
 
         /**
@@ -769,7 +778,7 @@ namespace Idno\Core {
      */
     function &site()
     {
-        return \Idno\Core\Idno::$site;
+        return \Idno\Core\Idno::site();
     }
 
 }

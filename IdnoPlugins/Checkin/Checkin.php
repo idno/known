@@ -8,7 +8,7 @@ namespace IdnoPlugins\Checkin {
 
         function getTitle()
         {
-            return \Idno\Core\Idno::site()->language->_('Checked into %s', [$this->placename]);
+            return \Idno\Core\Idno::site()->language()->_('Checked into %s', [$this->placename]);
         }
 
         function getDescription()

@@ -11,7 +11,7 @@
 
 <?php
     // Load style assets
-if ((\Idno\Core\Idno::site()->currentPage()) && $style = \Idno\Core\Idno::site()->currentPage->getAssets('css')) {
+if ((\Idno\Core\Idno::site()->currentPage()) && $style = \Idno\Core\Idno::site()->currentPage()->getAssets('css')) {
     foreach ($style as $css) {
         ?>
             <link href="<?php echo $css; ?>" rel="stylesheet">
