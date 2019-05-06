@@ -25,8 +25,7 @@ namespace Idno\Core {
         public $plugins;
         public $dispatcher;
         public $queue;
-        public $pagehandlers;
-        public $public_pages;
+        public $routes;
         public $syndication;
         /* @var \Psr\Log\LoggerInterface $logging */
         public $logging;
@@ -50,6 +49,7 @@ namespace Idno\Core {
         function init()
         {
             self::$site       = $this;
+            $this->routes     = new PageHandler();
             $this->dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
             $this->config     = new Config();
             if ($this->config->isDefaultConfig()) {
@@ -328,6 +328,15 @@ namespace Idno\Core {
         {
             return $this->statistics;
         }
+        
+        /**
+         * Return page handlers
+         * @return \Idno\Core\PageHandler
+         */
+        function &routes()
+        {
+            return $this->routes;
+        }
 
         /**
          * Shortcut to trigger an event: supply the event name and
@@ -473,135 +482,72 @@ namespace Idno\Core {
          * Registers a page handler for a given pattern, using Toro
          * page handling syntax
          *
+         * @deprecated
          * @param string $pattern The pattern to match
          * @param string $handler The name of the Page class that will serve this route
          * @param bool $public If set to true, this page is always public, even on non-public sites
          */
-
         function addPageHandler($pattern, $handler, $public = false)
         {
-            if (defined('KNOWN_SUBDIRECTORY')) {
-                if (substr($pattern, 0, 1) != '/') {
-                    $pattern = '/' . $pattern;
-                }
-                $pattern = '/' . KNOWN_SUBDIRECTORY . $pattern;
-            }
-            if (class_exists($handler)) {
-                $this->pagehandlers[$pattern] = $handler;
-                if ($public == true) {
-                    $this->public_pages[] = $handler;
-                }
-            } else {
-                $this->logging()->error("Could not add $pattern. $handler not found");
-            }
+            return $this->routes()->addRoute($pattern, $handler, $public);
         }
 
         /**
          * Registers a page handler for a given pattern, using Toro
          * page handling syntax - and ensures it will be handled first
          *
+         * @deprecated
          * @param string $pattern The pattern to match
          * @param string $handler The name of the Page class that will serve this route
          * @param bool $public If set to true, this page is always public, even on non-public sites
          */
         function hijackPageHandler($pattern, $handler, $public = false)
         {
-            if (class_exists($handler)) {
-                unset($this->pagehandlers[$pattern]);
-                unset($this->public_pages[$pattern]);
-                $this->pagehandlers = array($pattern => $handler) + $this->pagehandlers;
-                if ($public == true) {
-                    $this->public_pages = array($pattern => $handler) + $this->public_pages;
-                }
-            }
+            return $this->routes()->hijackRoute($pattern, $handler, $public);
         }
 
         /**
          * Mark a page handler class as offering public content even on walled garden sites
+         * @deprecated
          * @param $class
          */
         function addPublicPageHandler($class)
         {
-            if (class_exists($class)) {
-                $this->public_pages[] = $class;
-            }
+            return $this->routes()->addPublicRoute($class);
         }
 
         /**
          * Retrieve an array of walled garden page handlers
+         * @deprecated
          * @return array
          */
         function getPublicPageHandlers()
         {
-            if (!empty($this->public_pages)) {
-                return $this->public_pages;
-            }
-
-            return array();
+            return $this->routes()->getPublicRoute();
         }
 
         /**
          * Does the specified page handler class represent a public page, even on walled gardens?
+         * @deprecated
          * @param $class
          * @return bool
          */
         function isPageHandlerPublic($class)
         {
-            if (!empty($class)) {
-                if (in_array($class, $this->getPublicPageHandlers())) {
-                    return true;
-                }
-                if ($class[0] != "\\") {
-                    $class = "\\" . $class;
-                    if (in_array($class, $this->getPublicPageHandlers())) {
-                        return true;
-                    }
-                }
-            }
-
-            return false;
+            return $this->routes()->isRoutePublic($class);
         }
 
         /**
          * Retrieves an instantiated version of the page handler class responsible for
          * a particular page (if any). May also be a whole URL.
          *
+         * @deprecated
          * @param string $path_info The path, including the initial /, or the URL
          * @return bool|\Idno\Common\Page
          */
-
         function getPageHandler($path_info)
         {
-            $path_info = parse_url($path_info, PHP_URL_PATH);
-            if ($q = strpos($path_info, '?')) {
-                $path_info = substr($path_info, 0, $q);
-            }
-            $tokens             = array(
-                ':string' => '([a-zA-Z]+)',
-                ':number' => '([0-9]+)',
-                ':alpha'  => '([a-zA-Z0-9-_]+)'
-            );
-            $discovered_handler = false;
-            $matches            = array();
-            foreach ($this->pagehandlers as $pattern => $handler_name) {
-                $pattern = strtr($pattern, $tokens);
-                if (preg_match('#^/?' . $pattern . '/?$#', $path_info, $matches)) {
-                    $discovered_handler = $handler_name;
-                    $regex_matches      = $matches;
-                    break;
-                }
-            }
-            if (class_exists($discovered_handler)) {
-                $page = new $discovered_handler();
-                if ($page instanceof \Idno\Common\Page) {
-                    unset($matches[0]);
-                    $page->arguments = array_values($matches);
-
-                    return $page;
-                }
-            }
-
-            return false;
+            return $this->routes()->getRoute($path_info);
         }
 
         /**
