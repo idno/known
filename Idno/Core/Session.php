@@ -91,9 +91,9 @@ namespace Idno\Core {
             }
 
             // Session login / logout
-            Idno::site()->addPageHandler('/session/login', '\Idno\Pages\Session\Login', true);
-            Idno::site()->addPageHandler('/session/logout', '\Idno\Pages\Session\Logout');
-            Idno::site()->addPageHandler('/currentUser/?', '\Idno\Pages\Session\CurrentUser');
+            Idno::site()->routes()->addRoute('/session/login', '\Idno\Pages\Session\Login', true);
+            Idno::site()->routes()->addRoute('/session/logout', '\Idno\Pages\Session\Logout');
+            Idno::site()->routes()->addRoute('/currentUser/?', '\Idno\Pages\Session\CurrentUser');
 
             // Update the session on save if we're saving the current user
             \Idno\Core\Idno::site()->addEventHook('save', function (\Idno\Core\Event $event) {

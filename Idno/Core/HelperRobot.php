@@ -11,7 +11,7 @@ namespace Idno\Core {
 
         function registerPages()
         {
-            site()->addPageHandler('/robot/remove/?', 'Idno\Pages\Robot\Remove');
+            site()->routes()->addRoute('/robot/remove/?', 'Idno\Pages\Robot\Remove');
         }
 
         function registerEventHooks()

@@ -28,7 +28,7 @@ namespace Themes\Cherwell {
                 }
             });
 
-            \Idno\Core\Idno::site()->addPageHandler('/admin/cherwell/?', 'Themes\Cherwell\Pages\Admin');
+            \Idno\Core\Idno::site()->routes()->addRoute('/admin/cherwell/?', 'Themes\Cherwell\Pages\Admin');
 
         }
 

@@ -22,28 +22,28 @@ namespace IdnoPlugins\StaticPages {
         function registerPages()
         {
 
-            \Idno\Core\Idno::site()->addPageHandler('/staticpages?/edit/?', 'IdnoPlugins\StaticPages\Pages\Edit');
-            \Idno\Core\Idno::site()->addPageHandler('/staticpages?/edit/([A-Za-z0-9]+)/?', '\IdnoPlugins\StaticPages\Pages\Edit');
-            \Idno\Core\Idno::site()->addPageHandler('/staticpages?/delete/([A-Za-z0-9]+)/?', '\IdnoPlugins\StaticPages\Pages\Delete');
-            \Idno\Core\Idno::site()->addPageHandler('/staticpages?/homepage/set/([A-Za-z0-9]+)/?', 'IdnoPlugins\StaticPages\Pages\SetHomepage');
-            \Idno\Core\Idno::site()->addPageHandler('/staticpages?/homepage/clear/([A-Za-z0-9]+)/?', 'IdnoPlugins\StaticPages\Pages\ClearHomepage');
+            \Idno\Core\Idno::site()->routes()->addRoute('/staticpages?/edit/?', 'IdnoPlugins\StaticPages\Pages\Edit');
+            \Idno\Core\Idno::site()->routes()->addRoute('/staticpages?/edit/([A-Za-z0-9]+)/?', '\IdnoPlugins\StaticPages\Pages\Edit');
+            \Idno\Core\Idno::site()->routes()->addRoute('/staticpages?/delete/([A-Za-z0-9]+)/?', '\IdnoPlugins\StaticPages\Pages\Delete');
+            \Idno\Core\Idno::site()->routes()->addRoute('/staticpages?/homepage/set/([A-Za-z0-9]+)/?', 'IdnoPlugins\StaticPages\Pages\SetHomepage');
+            \Idno\Core\Idno::site()->routes()->addRoute('/staticpages?/homepage/clear/([A-Za-z0-9]+)/?', 'IdnoPlugins\StaticPages\Pages\ClearHomepage');
 
-            \Idno\Core\Idno::site()->addPageHandler('/admin/staticpages/?', 'IdnoPlugins\StaticPages\Pages\Admin');
-            \Idno\Core\Idno::site()->addPageHandler('/admin/staticpages/add/?', 'IdnoPlugins\StaticPages\Pages\Admin\AddCategory');
-            \Idno\Core\Idno::site()->addPageHandler('/admin/staticpages/edit/?', 'IdnoPlugins\StaticPages\Pages\Admin\EditCategory');
-            \Idno\Core\Idno::site()->addPageHandler('/admin/staticpages/delete/?', 'IdnoPlugins\StaticPages\Pages\Admin\DeleteCategory');
-            \Idno\Core\Idno::site()->addPageHandler('/admin/staticpages/categories/?', 'IdnoPlugins\StaticPages\Pages\Admin\Categories');
-            \Idno\Core\Idno::site()->addPageHandler('/admin/staticpages/reorder/?', 'IdnoPlugins\StaticPages\Pages\Admin\ReorderCategory');
-            \Idno\Core\Idno::site()->addPageHandler('/admin/staticpages/reorder/page/?', 'IdnoPlugins\StaticPages\Pages\Admin\ReorderPage');
+            \Idno\Core\Idno::site()->routes()->addRoute('/admin/staticpages/?', 'IdnoPlugins\StaticPages\Pages\Admin');
+            \Idno\Core\Idno::site()->routes()->addRoute('/admin/staticpages/add/?', 'IdnoPlugins\StaticPages\Pages\Admin\AddCategory');
+            \Idno\Core\Idno::site()->routes()->addRoute('/admin/staticpages/edit/?', 'IdnoPlugins\StaticPages\Pages\Admin\EditCategory');
+            \Idno\Core\Idno::site()->routes()->addRoute('/admin/staticpages/delete/?', 'IdnoPlugins\StaticPages\Pages\Admin\DeleteCategory');
+            \Idno\Core\Idno::site()->routes()->addRoute('/admin/staticpages/categories/?', 'IdnoPlugins\StaticPages\Pages\Admin\Categories');
+            \Idno\Core\Idno::site()->routes()->addRoute('/admin/staticpages/reorder/?', 'IdnoPlugins\StaticPages\Pages\Admin\ReorderCategory');
+            \Idno\Core\Idno::site()->routes()->addRoute('/admin/staticpages/reorder/page/?', 'IdnoPlugins\StaticPages\Pages\Admin\ReorderPage');
 
-            \Idno\Core\Idno::site()->addPageHandler('/pages/([A-Za-z0-9\-\_\%]+)/?', 'IdnoPlugins\StaticPages\Pages\View');
+            \Idno\Core\Idno::site()->routes()->addRoute('/pages/([A-Za-z0-9\-\_\%]+)/?', 'IdnoPlugins\StaticPages\Pages\View');
 
             // This makes sure that the homepage is accessible even when it is overridden.
-            \Idno\Core\Idno::site()->addPageHandler('/content/default/?', 'Idno\Pages\Homepage');
+            \Idno\Core\Idno::site()->routes()->addRoute('/content/default/?', 'Idno\Pages\Homepage');
 
             if (!empty($this->getCurrentHomepageId())) {
-                \Idno\Core\Idno::site()->hijackPageHandler('', 'IdnoPlugins\StaticPages\Pages\Homepage');
-                \Idno\Core\Idno::site()->hijackPageHandler('/', 'IdnoPlugins\StaticPages\Pages\Homepage');
+                \Idno\Core\Idno::site()->routes()->hijackRoute('', 'IdnoPlugins\StaticPages\Pages\Homepage');
+                \Idno\Core\Idno::site()->routes()->hijackRoute('/', 'IdnoPlugins\StaticPages\Pages\Homepage');
             }
 
             \Idno\Core\Idno::site()->template()->extendTemplate('admin/menu/items', 'staticpages/admin/menu');

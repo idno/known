@@ -6,9 +6,9 @@ namespace IdnoPlugins\Checkin {
     {
         function registerPages()
         {
-            \Idno\Core\Idno::site()->addPageHandler('/checkin/edit/?', '\IdnoPlugins\Checkin\Pages\Edit');
-            \Idno\Core\Idno::site()->addPageHandler('/checkin/edit/([A-Za-z0-9]+)/?', '\IdnoPlugins\Checkin\Pages\Edit');
-            \Idno\Core\Idno::site()->addPageHandler('/checkin/delete/([A-Za-z0-9]+)/?', '\IdnoPlugins\Checkin\Pages\Delete');
+            \Idno\Core\Idno::site()->routes()->addRoute('/checkin/edit/?', '\IdnoPlugins\Checkin\Pages\Edit');
+            \Idno\Core\Idno::site()->routes()->addRoute('/checkin/edit/([A-Za-z0-9]+)/?', '\IdnoPlugins\Checkin\Pages\Edit');
+            \Idno\Core\Idno::site()->routes()->addRoute('/checkin/delete/([A-Za-z0-9]+)/?', '\IdnoPlugins\Checkin\Pages\Delete');
 
             \Idno\Core\Idno::site()->template()->extendTemplate('shell/head', 'checkin/head');
         }

@@ -16,30 +16,30 @@ namespace Idno\Core {
         {
 
             // Account management
-            Idno::site()->addPageHandler('/account/settings/?', '\Idno\Pages\Account\Settings');
-            Idno::site()->addPageHandler('/account/settings/notifications/?', '\Idno\Pages\Account\Settings\Notifications');
-            Idno::site()->addPageHandler('/account/settings/tools/?', '\Idno\Pages\Account\Settings\Tools');
-            Idno::site()->addPageHandler('/account/settings/following/?', '\Idno\Pages\Account\Settings\Following');
-            Idno::site()->addPageHandler('/account/settings/following/bookmarklet/?', '\Idno\Pages\Account\Settings\Following\Bookmarklet');
+            Idno::site()->routes()->addRoute('/account/settings/?', '\Idno\Pages\Account\Settings');
+            Idno::site()->routes()->addRoute('/account/settings/notifications/?', '\Idno\Pages\Account\Settings\Notifications');
+            Idno::site()->routes()->addRoute('/account/settings/tools/?', '\Idno\Pages\Account\Settings\Tools');
+            Idno::site()->routes()->addRoute('/account/settings/following/?', '\Idno\Pages\Account\Settings\Following');
+            Idno::site()->routes()->addRoute('/account/settings/following/bookmarklet/?', '\Idno\Pages\Account\Settings\Following\Bookmarklet');
 
-            Idno::site()->addPageHandler('/account/notifications/?', '\Idno\Pages\Account\Notifications');
-            Idno::site()->addPageHandler('/service/notifications/new-notifications/?', '\Idno\Pages\Service\Notifications\NewNotifications');
+            Idno::site()->routes()->addRoute('/account/notifications/?', '\Idno\Pages\Account\Notifications');
+            Idno::site()->routes()->addRoute('/service/notifications/new-notifications/?', '\Idno\Pages\Service\Notifications\NewNotifications');
 
             // Basic registration; this is now always present, but the page will reject the user if registration
             // is closed and a valid invitation code hasn't been provided
-            Idno::site()->addPageHandler('/account/register/?', '\Idno\Pages\Account\Register', true);
+            Idno::site()->routes()->addRoute('/account/register/?', '\Idno\Pages\Account\Register', true);
 
             // Password requests
-            Idno::site()->addPagehandler('/account/password/?', '\Idno\Pages\Account\Password', true);
-            Idno::site()->addPagehandler('/account/password/reset/?', '\Idno\Pages\Account\Password\Reset', true);
+            Idno::site()->routes()->addRoute('/account/password/?', '\Idno\Pages\Account\Password', true);
+            Idno::site()->routes()->addRoute('/account/password/reset/?', '\Idno\Pages\Account\Password\Reset', true);
 
             // Known feedback
-            Idno::site()->addPageHandler('/account/settings/feedback/?', '\Idno\Pages\Account\Settings\Feedback');
-            Idno::site()->addPageHandler('/account/settings/feedback/confirm/?', '\Idno\Pages\Account\Settings\FeedbackConfirm');
+            Idno::site()->routes()->addRoute('/account/settings/feedback/?', '\Idno\Pages\Account\Settings\Feedback');
+            Idno::site()->routes()->addRoute('/account/settings/feedback/confirm/?', '\Idno\Pages\Account\Settings\FeedbackConfirm');
 
             // Per-user export
-            Idno::site()->addPageHandler('/account/export/?', '\Idno\Pages\Account\Export');
-            Idno::site()->addPageHandler('/account/export/rss/?', '\Idno\Pages\Account\Export\RSS');
+            Idno::site()->routes()->addRoute('/account/export/?', '\Idno\Pages\Account\Export');
+            Idno::site()->routes()->addRoute('/account/export/rss/?', '\Idno\Pages\Account\Export\RSS');
             
             // Override the page shell
             Idno::site()->template()->addUrlShellOverride('account', 'settings-shell');
