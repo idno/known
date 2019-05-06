@@ -753,19 +753,6 @@ namespace Idno\Core {
         }
 
         /**
-         * Retrieve notices (eg notifications that a new version has been released) from Known HQ
-         * @return mixed
-         * @deprecated Use Vendor::getMessages()
-         */
-        function getVendorMessages()
-        {
-            \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: Use Vendor::getMessages()");
-
-            return Vendor::getMessages();
-
-        }
-
-        /**
          * Is this site being run in embedded mode? Hides the navigation bar, maybe more.
          * @return bool
          */
@@ -786,22 +773,6 @@ namespace Idno\Core {
             }
 
             return false;
-        }
-
-        /**
-         * Detects if this site is being accessed securely or not
-         * @return bool
-         * @deprecated Duplicate of Page::isSSL()
-         */
-        function isSecure()
-        {
-            \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: This is a duplicate of Page::isSSL() and will be removed shortly.");
-            return Page::isSSL();
-
-            //                return
-            //                    (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
-            //                    || (!empty($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443)
-            //                    || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https');
         }
 
         /**
