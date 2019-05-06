@@ -337,7 +337,7 @@ namespace Idno\Core {
 
         function registerPages()
         {
-            \Idno\Core\Idno::site()->addPageHandler('/webmention/?', '\Idno\Pages\Webmentions\Endpoint', true);
+            \Idno\Core\Idno::site()->routes()->addRoute('/webmention/?', '\Idno\Pages\Webmentions\Endpoint', true);
         }
 
         function registerEventHooks()

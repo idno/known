@@ -22,7 +22,7 @@ namespace IdnoPlugins\Webhooks {
         function registerPages()
         {
 
-            \Idno\Core\Idno::site()->addPageHandler('admin/webhooks/?', 'IdnoPlugins\Webhooks\Pages\Admin');
+            \Idno\Core\Idno::site()->routes()->addRoute('admin/webhooks/?', 'IdnoPlugins\Webhooks\Pages\Admin');
 
             \Idno\Core\Idno::site()->template()->extendTemplate('admin/menu/items', 'webhooks/admin/menu');
 

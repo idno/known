@@ -37,8 +37,8 @@ namespace Idno\Core {
         function registerPages()
         {
             // These pages will be called by the hub after registration
-            \Idno\Core\Idno::site()->addPageHandler('/hub/register/site/callback/?', 'Idno\Pages\Hub\Register\Site', true);
-            \Idno\Core\Idno::site()->addPageHandler('/hub/register/user/callback/?', 'Idno\Pages\Hub\Register\User', true);
+            \Idno\Core\Idno::site()->routes()->addRoute('/hub/register/site/callback/?', 'Idno\Pages\Hub\Register\Site', true);
+            \Idno\Core\Idno::site()->routes()->addRoute('/hub/register/user/callback/?', 'Idno\Pages\Hub\Register\User', true);
         }
 
         function registerEventHooks()

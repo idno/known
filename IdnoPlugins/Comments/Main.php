@@ -10,7 +10,7 @@ namespace IdnoPlugins\Comments {
         function RegisterPages()
         {
 
-            \Idno\Core\Idno::site()->addPageHandler('/comments/post/?', '\IdnoPlugins\Comments\Pages\Post', true);
+            \Idno\Core\Idno::site()->routes()->addRoute('/comments/post/?', '\IdnoPlugins\Comments\Pages\Post', true);
             \Idno\Core\Idno::site()->template()->extendTemplate('entity/annotations/comment/main', 'comments/public/form');
         }
 

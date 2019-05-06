@@ -26,7 +26,7 @@ require_once(dirname(__FILE__) . '/Idno/start.php');
 
 // Get page routes
 
-$routes = \Idno\Core\Idno::site()->routing();
+$routes = \Idno\Core\Idno::site()->routes();
 
 // Get subdirectory
 

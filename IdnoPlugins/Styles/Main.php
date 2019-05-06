@@ -6,9 +6,9 @@ namespace IdnoPlugins\Styles {
     {
         function registerPages()
         {
-            \Idno\Core\Idno::site()->addPageHandler('admin/styles/?', 'IdnoPlugins\Styles\Pages\Admin');
-            \Idno\Core\Idno::site()->addPageHandler('styles/site/?', 'IdnoPlugins\Styles\Pages\Styles\Site', true);
-            //\Idno\Core\Idno::site()->addPageHandler('settings/styles/?', 'IdnoPlugins\Styles\Pages\Settings');
+            \Idno\Core\Idno::site()->routes()->addRoute('admin/styles/?', 'IdnoPlugins\Styles\Pages\Admin');
+            \Idno\Core\Idno::site()->routes()->addRoute('styles/site/?', 'IdnoPlugins\Styles\Pages\Styles\Site', true);
+            //\Idno\Core\Idno::site()->routes()->addRoute('settings/styles/?', 'IdnoPlugins\Styles\Pages\Settings');
 
             \Idno\Core\Idno::site()->template()->extendTemplate('admin/menu/items', 'styles/admin/menu');
             //\Idno\Core\Idno::site()->template()->extendTemplate('settings/menu/items', 'styles/settings/menu');

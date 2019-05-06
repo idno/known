@@ -11,9 +11,11 @@ namespace Idno\Core {
 
     use Idno\Common\Page;
     use Idno\Entities\User;
-
+    
     class Idno extends \Idno\Common\Component
     {
+        // Install Idno deprecated functions
+        use Deprecated\Idno;
 
         private $db;
         private $filesystem;
@@ -25,8 +27,7 @@ namespace Idno\Core {
         private $plugins;
         private $dispatcher;
         private $queue;
-        private $pagehandlers;
-        private $private_pages;
+        private $routes;
         private $syndication;
         /* @var \Psr\Log\LoggerInterface $logging */
         private $logging;
@@ -50,6 +51,7 @@ namespace Idno\Core {
         function init()
         {
             self::$site       = $this;
+            $this->routes     = new PageHandler();
             $this->dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
             $this->config     = new Config();
             if ($this->config->isDefaultConfig()) {
@@ -172,81 +174,81 @@ namespace Idno\Core {
             $permalink_route = \Idno\Common\Entity::getPermalinkRoute();
 
             /** Homepage */
-            $this->addPageHandler('/?', '\Idno\Pages\Homepage');
-            $this->addPageHandler('/feed\.xml', '\Idno\Pages\Feed');
-            $this->addPageHandler('/feed/?', '\Idno\Pages\Feed');
-            $this->addPageHandler('/rss\.xml', '\Idno\Pages\Feed');
-            $this->addPageHandler('/content/([A-Za-z\-\/]+)+', '\Idno\Pages\Homepage');
+            $this->routes()->addRoute('/?', '\Idno\Pages\Homepage');
+            $this->routes()->addRoute('/feed\.xml', '\Idno\Pages\Feed');
+            $this->routes()->addRoute('/feed/?', '\Idno\Pages\Feed');
+            $this->routes()->addRoute('/rss\.xml', '\Idno\Pages\Feed');
+            $this->routes()->addRoute('/content/([A-Za-z\-\/]+)+', '\Idno\Pages\Homepage');
 
             /** Individual entities / posting / deletion */
-            $this->addPageHandler('/view/([\%A-Za-z0-9]+)/?', '\Idno\Pages\Entity\View');
-            $this->addPageHandler('/s/([\%A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Shortlink');
-            $this->addPageHandler($permalink_route . '/?', '\Idno\Pages\Entity\View');
-            $this->addPageHandler('/edit/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Edit');
-            $this->addPageHandler('/delete/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Delete');
-            $this->addPageHandler('/withdraw/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Withdraw');
+            $this->routes()->addRoute('/view/([\%A-Za-z0-9]+)/?', '\Idno\Pages\Entity\View');
+            $this->routes()->addRoute('/s/([\%A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Shortlink');
+            $this->routes()->addRoute($permalink_route . '/?', '\Idno\Pages\Entity\View');
+            $this->routes()->addRoute('/edit/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Edit');
+            $this->routes()->addRoute('/delete/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Delete');
+            $this->routes()->addRoute('/withdraw/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Withdraw');
 
-            $this->addPageHandler('/attachment/([A-Za-z0-9]+)/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Attachment\Delete');
+            $this->routes()->addRoute('/attachment/([A-Za-z0-9]+)/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Attachment\Delete');
 
             /** Annotations */
-            $this->addPageHandler('/view/([A-Za-z0-9]+)/annotations/([A-Za-z0-9]+)?', '\Idno\Pages\Annotation\View');
-            $this->addPageHandler($permalink_route . '/annotations/([A-Za-z0-9]+)?', '\Idno\Pages\Annotation\View');
-            $this->addPageHandler($permalink_route . '/annotations/([A-Za-z0-9]+)/delete/?', '\Idno\Pages\Annotation\Delete'); // Delete annotation
-            $this->addPageHandler($permalink_route .'/annotation/delete/?', '\Idno\Pages\Annotation\Delete'); // Delete annotation alternate
-            $this->addPageHandler('/annotation/post/?', '\Idno\Pages\Annotation\Post');
+            $this->routes()->addRoute('/view/([A-Za-z0-9]+)/annotations/([A-Za-z0-9]+)?', '\Idno\Pages\Annotation\View');
+            $this->routes()->addRoute($permalink_route . '/annotations/([A-Za-z0-9]+)?', '\Idno\Pages\Annotation\View');
+            $this->routes()->addRoute($permalink_route . '/annotations/([A-Za-z0-9]+)/delete/?', '\Idno\Pages\Annotation\Delete'); // Delete annotation
+            $this->routes()->addRoute($permalink_route .'/annotation/delete/?', '\Idno\Pages\Annotation\Delete'); // Delete annotation alternate
+            $this->routes()->addRoute('/annotation/post/?', '\Idno\Pages\Annotation\Post');
 
             /** Bookmarklets and sharing */
-            $this->addPageHandler('/share/?', '\Idno\Pages\Entity\Share');
-            $this->addPageHandler('/bookmarklet\.js', '\Idno\Pages\Entity\Bookmarklet', true);
+            $this->routes()->addRoute('/share/?', '\Idno\Pages\Entity\Share');
+            $this->routes()->addRoute('/bookmarklet\.js', '\Idno\Pages\Entity\Bookmarklet', true);
 
             /** Mobile integrations */
-            $this->addPageHandler('/chrome/manifest\.json', '\Idno\Pages\Chrome\Manifest', true);
+            $this->routes()->addRoute('/chrome/manifest\.json', '\Idno\Pages\Chrome\Manifest', true);
 
             /** Service worker */
-            $this->addPageHandler('/service-worker(\.min)?\.js', '\Idno\Pages\Chrome\ServiceWorker', true);
+            $this->routes()->addRoute('/service-worker(\.min)?\.js', '\Idno\Pages\Chrome\ServiceWorker', true);
 
             /** Files */
-            $this->addPageHandler('/file/upload/?', '\Idno\Pages\File\Upload', true);
-            $this->addPageHandler('/file/picker/?', '\Idno\Pages\File\Picker', true);
-            $this->addPageHandler('/filepicker/?', '\Idno\Pages\File\Picker', true);
-            $this->addPageHandler('/file/([A-Za-z0-9]+)(/.*)?', '\Idno\Pages\File\View', true);
+            $this->routes()->addRoute('/file/upload/?', '\Idno\Pages\File\Upload', true);
+            $this->routes()->addRoute('/file/picker/?', '\Idno\Pages\File\Picker', true);
+            $this->routes()->addRoute('/filepicker/?', '\Idno\Pages\File\Picker', true);
+            $this->routes()->addRoute('/file/([A-Za-z0-9]+)(/.*)?', '\Idno\Pages\File\View', true);
 
             /** Users */
-            $this->addPageHandler('/profile/([^\/]+)/?', '\Idno\Pages\User\View');
-            $this->addPageHandler('/profile/([^\/]+)/edit/?', '\Idno\Pages\User\Edit');
-            $this->addPageHandler('/profile/([^\/]+)/([A-Za-z\-\/]+)+', '\Idno\Pages\User\View');
+            $this->routes()->addRoute('/profile/([^\/]+)/?', '\Idno\Pages\User\View');
+            $this->routes()->addRoute('/profile/([^\/]+)/edit/?', '\Idno\Pages\User\Edit');
+            $this->routes()->addRoute('/profile/([^\/]+)/([A-Za-z\-\/]+)+', '\Idno\Pages\User\View');
 
             /** Search */
-            $this->addPageHandler('/search/?', '\Idno\Pages\Search\Forward');
-            $this->addPageHandler('/search/mentions\.json', '\Idno\Pages\Search\Mentions');
-            $this->addPageHandler('/tag/([^\s]+)\/?', '\Idno\Pages\Search\Tags');
-            $this->addPageHandler('/search/users/?', '\Idno\Pages\Search\User');
+            $this->routes()->addRoute('/search/?', '\Idno\Pages\Search\Forward');
+            $this->routes()->addRoute('/search/mentions\.json', '\Idno\Pages\Search\Mentions');
+            $this->routes()->addRoute('/tag/([^\s]+)\/?', '\Idno\Pages\Search\Tags');
+            $this->routes()->addRoute('/search/users/?', '\Idno\Pages\Search\User');
 
             /** robots.txt */
-            $this->addPageHandler('/robots\.txt', '\Idno\Pages\Txt\Robots');
+            $this->routes()->addRoute('/robots\.txt', '\Idno\Pages\Txt\Robots');
 
             /** Autosave / preview */
-            $this->addPageHandler('/autosave/?', '\Idno\Pages\Entity\Autosave');
+            $this->routes()->addRoute('/autosave/?', '\Idno\Pages\Entity\Autosave');
 
             /** Installation / first use */
-            $this->addPageHandler('/begin/?', '\Idno\Pages\Onboarding\Begin', true);
-            $this->addPageHandler('/begin/register/?', '\Idno\Pages\Onboarding\Register', true);
-            $this->addPageHandler('/begin/profile/?', '\Idno\Pages\Onboarding\Profile');
-            $this->addPageHandler('/begin/connect/?', '\Idno\Pages\Onboarding\Connect');
-            $this->addPageHandler('/begin/connect\-forwarder/?', '\Idno\Pages\Onboarding\ConnectForwarder');
-            $this->addPageHandler('/begin/publish/?', '\Idno\Pages\Onboarding\Publish');
+            $this->routes()->addRoute('/begin/?', '\Idno\Pages\Onboarding\Begin', true);
+            $this->routes()->addRoute('/begin/register/?', '\Idno\Pages\Onboarding\Register', true);
+            $this->routes()->addRoute('/begin/profile/?', '\Idno\Pages\Onboarding\Profile');
+            $this->routes()->addRoute('/begin/connect/?', '\Idno\Pages\Onboarding\Connect');
+            $this->routes()->addRoute('/begin/connect\-forwarder/?', '\Idno\Pages\Onboarding\ConnectForwarder');
+            $this->routes()->addRoute('/begin/publish/?', '\Idno\Pages\Onboarding\Publish');
 
             /** Add some services */
-            $this->addPageHandler('/service/db/optimise/?', '\Idno\Pages\Service\Db\Optimise');
-            $this->addPageHandler('/service/vendor/messages/?', '\Idno\Pages\Service\Vendor\Messages');
-            $this->addPageHandler('/service/security/csrftoken/?', '\Idno\Pages\Service\Security\CSRFToken');
-            $this->addPageHandler('/service/web/unfurl/?', '\Idno\Pages\Service\Web\UrlUnfurl');
-            $this->addPageHandler('/service/web/unfurl/remove/([a-zA-Z0-9]+)/?', '\Idno\Pages\Service\Web\RemovePreview');
-            $this->addPageHandler('/service/web/imageproxy/([^\/]+)/?', '\Idno\Pages\Service\Web\ImageProxy');
-            $this->addPageHandler('/service/web/imageproxy/([^\/]+)/([0-9]+)/?', '\Idno\Pages\Service\Web\ImageProxy'); // With scale
-            $this->addPageHandler('/service/web/imageproxy/([^\/]+)/([0-9]+)/([^\/]+)/?', '\Idno\Pages\Service\Web\ImageProxy'); // With scale, with transform
-            $this->addPageHandler('/service/system/log/?', '\Idno\Pages\Service\System\Log');
-            $this->addPageHandler('/service/geo/geocoder/?', '\Idno\Pages\Service\Geo\Geocoder');
+            $this->routes()->addRoute('/service/db/optimise/?', '\Idno\Pages\Service\Db\Optimise');
+            $this->routes()->addRoute('/service/vendor/messages/?', '\Idno\Pages\Service\Vendor\Messages');
+            $this->routes()->addRoute('/service/security/csrftoken/?', '\Idno\Pages\Service\Security\CSRFToken');
+            $this->routes()->addRoute('/service/web/unfurl/?', '\Idno\Pages\Service\Web\UrlUnfurl');
+            $this->routes()->addRoute('/service/web/unfurl/remove/([a-zA-Z0-9]+)/?', '\Idno\Pages\Service\Web\RemovePreview');
+            $this->routes()->addRoute('/service/web/imageproxy/([^\/]+)/?', '\Idno\Pages\Service\Web\ImageProxy');
+            $this->routes()->addRoute('/service/web/imageproxy/([^\/]+)/([0-9]+)/?', '\Idno\Pages\Service\Web\ImageProxy'); // With scale
+            $this->routes()->addRoute('/service/web/imageproxy/([^\/]+)/([0-9]+)/([^\/]+)/?', '\Idno\Pages\Service\Web\ImageProxy'); // With scale, with transform
+            $this->routes()->addRoute('/service/system/log/?', '\Idno\Pages\Service\System\Log');
+            $this->routes()->addRoute('/service/geo/geocoder/?', '\Idno\Pages\Service\Geo\Geocoder');
 
             // These must be loaded last
             $this->plugins = new Plugins();
@@ -327,6 +329,15 @@ namespace Idno\Core {
         function &statistics()
         {
             return $this->statistics;
+        }
+        
+        /**
+         * Return page handlers
+         * @return \Idno\Core\PageHandler
+         */
+        function &routes()
+        {
+            return $this->routes;
         }
 
         /**
@@ -479,141 +490,6 @@ namespace Idno\Core {
         }
 
         /**
-         * Registers a page handler for a given pattern, using Toro
-         * page handling syntax
-         *
-         * @param string $pattern The pattern to match
-         * @param string $handler The name of the Page class that will serve this route
-         * @param bool $public If set to true, this page is always public, even on non-public sites
-         */
-
-        function addPageHandler($pattern, $handler, $public = false)
-        {
-            if (defined('KNOWN_SUBDIRECTORY')) {
-                if (substr($pattern, 0, 1) != '/') {
-                    $pattern = '/' . $pattern;
-                }
-                $pattern = '/' . KNOWN_SUBDIRECTORY . $pattern;
-            }
-            if (class_exists($handler)) {
-                $this->pagehandlers[$pattern] = $handler;
-                if ($public == true) {
-                    $this->public_pages[] = $handler;
-                }
-            } else {
-                $this->logging()->error("Could not add $pattern. $handler not found");
-            }
-        }
-
-        /**
-         * Registers a page handler for a given pattern, using Toro
-         * page handling syntax - and ensures it will be handled first
-         *
-         * @param string $pattern The pattern to match
-         * @param string $handler The name of the Page class that will serve this route
-         * @param bool $public If set to true, this page is always public, even on non-public sites
-         */
-        function hijackPageHandler($pattern, $handler, $public = false)
-        {
-            if (class_exists($handler)) {
-                unset($this->pagehandlers[$pattern]);
-                unset($this->public_pages[$pattern]);
-                $this->pagehandlers = array($pattern => $handler) + $this->pagehandlers;
-                if ($public == true) {
-                    $this->public_pages = array($pattern => $handler) + $this->public_pages;
-                }
-            }
-        }
-
-        /**
-         * Mark a page handler class as offering public content even on walled garden sites
-         * @param $class
-         */
-        function addPublicPageHandler($class)
-        {
-            if (class_exists($class)) {
-                $this->public_pages[] = $class;
-            }
-        }
-
-        /**
-         * Retrieve an array of walled garden page handlers
-         * @return array
-         */
-        function getPublicPageHandlers()
-        {
-            if (!empty($this->public_pages)) {
-                return $this->public_pages;
-            }
-
-            return array();
-        }
-
-        /**
-         * Does the specified page handler class represent a public page, even on walled gardens?
-         * @param $class
-         * @return bool
-         */
-        function isPageHandlerPublic($class)
-        {
-            if (!empty($class)) {
-                if (in_array($class, $this->getPublicPageHandlers())) {
-                    return true;
-                }
-                if ($class[0] != "\\") {
-                    $class = "\\" . $class;
-                    if (in_array($class, $this->getPublicPageHandlers())) {
-                        return true;
-                    }
-                }
-            }
-
-            return false;
-        }
-
-        /**
-         * Retrieves an instantiated version of the page handler class responsible for
-         * a particular page (if any). May also be a whole URL.
-         *
-         * @param string $path_info The path, including the initial /, or the URL
-         * @return bool|\Idno\Common\Page
-         */
-
-        function getPageHandler($path_info)
-        {
-            $path_info = parse_url($path_info, PHP_URL_PATH);
-            if ($q = strpos($path_info, '?')) {
-                $path_info = substr($path_info, 0, $q);
-            }
-            $tokens             = array(
-                ':string' => '([a-zA-Z]+)',
-                ':number' => '([0-9]+)',
-                ':alpha'  => '([a-zA-Z0-9-_]+)'
-            );
-            $discovered_handler = false;
-            $matches            = array();
-            foreach ($this->pagehandlers as $pattern => $handler_name) {
-                $pattern = strtr($pattern, $tokens);
-                if (preg_match('#^/?' . $pattern . '/?$#', $path_info, $matches)) {
-                    $discovered_handler = $handler_name;
-                    $regex_matches      = $matches;
-                    break;
-                }
-            }
-            if (class_exists($discovered_handler)) {
-                $page = new $discovered_handler();
-                if ($page instanceof \Idno\Common\Page) {
-                    unset($matches[0]);
-                    $page->arguments = array_values($matches);
-
-                    return $page;
-                }
-            }
-
-            return false;
-        }
-
-        /**
          * Sets the current page (if any) for access throughout the system
          * @param \Idno\Common\Page $page
          */
@@ -762,19 +638,6 @@ namespace Idno\Core {
         }
 
         /**
-         * Retrieve notices (eg notifications that a new version has been released) from Known HQ
-         * @return mixed
-         * @deprecated Use Vendor::getMessages()
-         */
-        function getVendorMessages()
-        {
-            \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: Use Vendor::getMessages()");
-
-            return Vendor::getMessages();
-
-        }
-
-        /**
          * Is this site being run in embedded mode? Hides the navigation bar, maybe more.
          * @return bool
          */
@@ -795,22 +658,6 @@ namespace Idno\Core {
             }
 
             return false;
-        }
-
-        /**
-         * Detects if this site is being accessed securely or not
-         * @return bool
-         * @deprecated Duplicate of Page::isSSL()
-         */
-        function isSecure()
-        {
-            \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: This is a duplicate of Page::isSSL() and will be removed shortly.");
-            return Page::isSSL();
-
-            //                return
-            //                    (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
-            //                    || (!empty($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443)
-            //                    || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https');
         }
 
         /**

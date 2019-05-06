@@ -28,12 +28,12 @@ namespace IdnoPlugins\IndiePub {
 
         function registerPages()
         {
-            \Idno\Core\Idno::site()->addPageHandler('/indieauth/auth/?', '\IdnoPlugins\IndiePub\Pages\IndieAuth\Auth', true);
-            \Idno\Core\Idno::site()->addPageHandler('/indieauth/approve/?', '\IdnoPlugins\IndiePub\Pages\IndieAuth\Approve', true);
-            \Idno\Core\Idno::site()->addPageHandler('/indieauth/token/?', '\IdnoPlugins\IndiePub\Pages\IndieAuth\Token', true);
-            \Idno\Core\Idno::site()->addPageHandler('/micropub/endpoint/?', '\IdnoPlugins\IndiePub\Pages\MicroPub\Endpoint', true);
-            \Idno\Core\Idno::site()->addPageHandler('/account/indiepub/?', '\IdnoPlugins\IndiePub\Pages\Account');
-            \Idno\Core\Idno::site()->addPageHandler('/account/indiepub/revoke/?', '\IdnoPlugins\IndiePub\Pages\Revoke');
+            \Idno\Core\Idno::site()->routes()->addRoute('/indieauth/auth/?', '\IdnoPlugins\IndiePub\Pages\IndieAuth\Auth', true);
+            \Idno\Core\Idno::site()->routes()->addRoute('/indieauth/approve/?', '\IdnoPlugins\IndiePub\Pages\IndieAuth\Approve', true);
+            \Idno\Core\Idno::site()->routes()->addRoute('/indieauth/token/?', '\IdnoPlugins\IndiePub\Pages\IndieAuth\Token', true);
+            \Idno\Core\Idno::site()->routes()->addRoute('/micropub/endpoint/?', '\IdnoPlugins\IndiePub\Pages\MicroPub\Endpoint', true);
+            \Idno\Core\Idno::site()->routes()->addRoute('/account/indiepub/?', '\IdnoPlugins\IndiePub\Pages\Account');
+            \Idno\Core\Idno::site()->routes()->addRoute('/account/indiepub/revoke/?', '\IdnoPlugins\IndiePub\Pages\Revoke');
 
             \Idno\Core\Idno::site()->template()->extendTemplate('shell/head', 'indiepub/shell/head');
             \Idno\Core\Idno::site()->template()->extendTemplate('account/menu/items', 'account/menu/items/indiepub');

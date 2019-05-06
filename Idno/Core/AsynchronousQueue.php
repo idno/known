@@ -10,8 +10,8 @@ class AsynchronousQueue extends EventQueue
 {
     function registerPages()
     {
-        \Idno\Core\Idno::site()->addPageHandler('/service/queue/list/?', '\Idno\Pages\Service\Queues\Queue');
-        \Idno\Core\Idno::site()->addPageHandler('/service/queue/gc/?', '\Idno\Pages\Service\Queues\GC');
+        \Idno\Core\Idno::site()->routes()->addRoute('/service/queue/list/?', '\Idno\Pages\Service\Queues\Queue');
+        \Idno\Core\Idno::site()->routes()->addRoute('/service/queue/gc/?', '\Idno\Pages\Service\Queues\GC');
     }
 
     function enqueue($queueName, $eventName, array $eventData)

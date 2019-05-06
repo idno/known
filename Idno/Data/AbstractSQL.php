@@ -69,7 +69,6 @@ namespace Idno\Data {
                     return $statement->fetchAll(\PDO::FETCH_OBJ);
                 }
             } catch (\Exception $e) {
-                //\Idno\Core\Idno::site()->logging()->log($e->getMessage());
                 error_log($e->getMessage());
             }
 
