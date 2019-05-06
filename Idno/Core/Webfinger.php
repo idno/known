@@ -18,7 +18,7 @@ namespace Idno\Core {
 
         function registerpages()
         {
-            site()->addPageHandler('/\.well\-known/webfinger/?', '\Idno\Pages\Webfinger\View');
+            site()->routes()->addRoute('/\.well\-known/webfinger/?', '\Idno\Pages\Webfinger\View');
         }
 
     }

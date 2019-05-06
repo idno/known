@@ -85,7 +85,7 @@ appropriately:
 
     namespace \IdnoPlugins\MyPlugin {
         function registerPages() {
-            \Idno\Core\Idno::site()->addPageHandler('/myplugin/custompage/?', '\IdnoPlugins\MyPlugin\Pages\CustomPage');
+            \Idno\Core\Idno::site()->routes()->addRoute('/myplugin/custompage/?', '\IdnoPlugins\MyPlugin\Pages\CustomPage');
         }
     }
 
