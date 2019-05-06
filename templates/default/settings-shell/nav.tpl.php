@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" tabindex="1" href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>account/settings/"><?php echo
+            <a class="navbar-brand" tabindex="1" href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>"><?php echo
                 $this->draw('shell/toolbar/title')
             ?></a>
         </div>
