@@ -22,15 +22,15 @@ Known includes a PHP Codesniffer ruleset.
 
 ## Running style tests on your local machine
 
-First, ensure [PHP Code Sniffer](https://github.com/squizlabs/PHP_CodeSniffer) is installed. (Installation varies by system and is beyond the scope of this documentation.)
+First, make sure you've got the known phpcs package installed. If you using the git checkout, you should have already got this installed via composer, but if not do a ```composer update```.
 
-A special set of Known code style rules is included with Known. To test against these rules, run the following from the Known root directory:
+A special set of Known code style rules is included with this package. To test against these rules, run the following from the Known root directory:
 
-```phpcs --standard=phpcs/known.xml --extensions=php .```
+```vendor/squizlabs/php_codesniffer/bin/phpcs --standard=vendor/mapkyca/known-phpcs/configuration.xml --extensions=php .```
 
 PHP Code Sniffer works with individual folders, also. For example, to test the core `Idno` engine folder, you can run:
 
-```phpcs --standard=phpcs/known.xml --extensions=php Idno```
+```vendor/squizlabs/php_codesniffer/bin/phpcs --standard=vendor/mapkyca/known-phpcs/configuration.xml --extensions=php Idno```
 
 The codebase is in the process of being brought in line with these rules, and will be integrated with our continuous integration testing once this has been completed.
 
