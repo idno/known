@@ -71,7 +71,7 @@ namespace Idno\Core {
          * @param \Idno\Core\Event $event
          */
         function dispatch(string $eventName, Event $event = null) {
-            $this->dispatcher->dispatch($eventName, $event);
+            return $this->dispatcher->dispatch($eventName, $event);
         }
     }
 }

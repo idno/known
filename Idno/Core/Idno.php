@@ -52,7 +52,7 @@ namespace Idno\Core {
         {
             self::$site       = $this;
             $this->routes     = new PageHandler();
-            $this->dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
+            $this->dispatcher = new EventDispatcher();
             $this->config     = new Config();
             if ($this->config->isDefaultConfig()) {
                 header('Location: ./warmup/');
@@ -341,34 +341,6 @@ namespace Idno\Core {
         }
 
         /**
-         * Shortcut to trigger an event: supply the event name and
-         * (optionally) an array of data, and get a variable back.
-         *
-         * @param string $eventName The name of the event to trigger
-         * @param array $data Data to pass to the event
-         * @param mixed $default Default response (if not forwarding)
-         * @return mixed
-         */
-
-        function triggerEvent($eventName, $data = array(), $default = true)
-        {
-            $stats = $this->statistics();
-            if (!empty($stats)) {
-                $stats->increment("event.$eventName");
-            }
-
-            $event = new Event($data);
-            $event->setResponse($default);
-            $event = $this->events()->dispatch($eventName, $event);
-            if (!$event->forward()) {
-                return $event->response();
-            } else {
-                header('Location: ' . $event->forward());
-                exit;
-            }
-        }
-
-        /**
          * Helper function that returns the current configuration object
          * for this site (or a configuration setting value)
          *
@@ -469,24 +441,6 @@ namespace Idno\Core {
         function &routing() 
         {
             return $this->pagehandlers;
-        }
-
-        /**
-         * Tells the system that callable $listener wants to be notified when
-         * event $event is triggered. $priority is an optional integer
-         * that specifies order priority; the higher the number, the earlier
-         * in the chain $listener will be notified.
-         *
-         * @param string $event
-         * @param callable $listener
-         * @param int $priority
-         */
-
-        function addEventHook($event, $listener, $priority = 0)
-        {
-            if (is_callable($listener)) {
-                $this->dispatcher->addListener($event, $listener, $priority);
-            }
         }
 
         /**
