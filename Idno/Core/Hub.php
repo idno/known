@@ -44,7 +44,7 @@ namespace Idno\Core {
         function registerEventHooks()
         {
             // Register user on login
-            \Idno\Core\Idno::site()->addEventHook('login/success', function (\Idno\Core\Event $event) {
+            \Idno\Core\Idno::site()->events()->addListener('login/success', function (\Idno\Core\Event $event) {
                 $eventdata = $event->data();
                 if ($user = $eventdata['user']) {
                     $this->registerUser($user);

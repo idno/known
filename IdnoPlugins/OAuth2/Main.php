@@ -30,7 +30,7 @@ namespace IdnoPlugins\OAuth2 {
         {
 
             // Authenticate!
-            \Idno\Core\site()->addEventHook('user/auth/request', function(\Idno\Core\Event $event) {
+            \Idno\Core\site()->events()->addListener('user/auth/request', function(\Idno\Core\Event $event) {
                 if ($user = \IdnoPlugins\OAuth2\Main::authenticate())
                 $event->setResponse($user);
 
@@ -68,7 +68,7 @@ namespace IdnoPlugins\OAuth2 {
                             return $owner;
 
                         } else {
-                            \Idno\Core\site()->triggerEvent('login/failure', array('user' => $owner));
+                            \Idno\Core\site()->events()->triggerEvent('login/failure', array('user' => $owner));
 
                             throw new \Exception(\Idno\Core\Idno::site()->language()->_("Token user could not be retrieved."));
                         }

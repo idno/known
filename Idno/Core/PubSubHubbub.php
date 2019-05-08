@@ -23,7 +23,7 @@ namespace Idno\Core {
         {
 
             // Hook into the "published" event to inform the PuSH hub when an entity is published
-            Idno::site()->addEventHook('published', function (Event $event) {
+            Idno::site()->events()->addListener('published', function (Event $event) {
                 $eventdata = $event->data();
                 if ($object = $eventdata['object']) {
                     /* @var \Idno\Common\Entity $object */
@@ -33,7 +33,7 @@ namespace Idno\Core {
                 }
             });
 
-            Idno::site()->addEventHook('pubsubhubbub/ping', function (Event $event) {
+            Idno::site()->events()->addListener('pubsubhubbub/ping', function (Event $event) {
                 $eventdata = $event->data();
                 $object    = $eventdata['object'];
                 $result    = Pubsubhubbub::publish($object);
@@ -41,7 +41,7 @@ namespace Idno\Core {
             });
 
             // Add PuSH headers to the top of the page
-            Idno::site()->addEventHook('page/head', function (Event $event) {
+            Idno::site()->events()->addListener('page/head', function (Event $event) {
 
                 if (!empty(site()->config()->hub)) {
                     $eventdata = $event->data();
@@ -52,7 +52,7 @@ namespace Idno\Core {
             });
 
             // When we follow a user, try and subscribe to their hub
-            Idno::site()->addEventHook('follow', function (Event $event) {
+            Idno::site()->events()->addListener('follow', function (Event $event) {
 
                 $eventdata = $event->data();
                 $user      = $eventdata['user'];
@@ -97,7 +97,7 @@ namespace Idno\Core {
             });
 
             // Send unfollow notification to their hub
-            Idno::site()->addEventHook('unfollow', function (Event $event) {
+            Idno::site()->events()->addListener('unfollow', function (Event $event) {
 
                 $eventdata = $event->data();
                 $user      = $eventdata['user'];

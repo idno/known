@@ -100,7 +100,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
             $this->gatekeeper();
             // If we're here, we're authorized
 
-            \Idno\Core\Idno::site()->triggerEvent('indiepub/post/start', ['page' => $this]);
+            \Idno\Core\Idno::site()->events()->triggerEvent('indiepub/post/start', ['page' => $this]);
 
             // are we handling a media endpoint request?
             $action = $this->getInput('action');
@@ -130,7 +130,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
 
             if (!empty($id)) {
                 $local_photo = \Idno\Core\Idno::site()->config()->url . 'file/' . $id;
-                //\Idno\Core\Idno::site()->triggerEvent('indiepub/post/success', ['page' => $this, 'object' => $entity]); // MP: Removing here, since the object hasn't actually been created yet, and this would trigger this multiple times
+                //\Idno\Core\Idno::site()->events()->triggerEvent('indiepub/post/success', ['page' => $this, 'object' => $entity]); // MP: Removing here, since the object hasn't actually been created yet, and this would trigger this multiple times
                 $this->setResponse(201);
                 header('Location: ' . $local_photo);
 
@@ -268,7 +268,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
                     $type      = 'photo'; 
                     $success   = $this->uploadFromUrl('photo', $photo_url);
                     if (!$success) {
-                        \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
+                        \Idno\Core\Idno::site()->events()->triggerEvent('indiepub/post/failure', ['page' => $this]);
                         $this->error(
                             400, 'invalid_request',
                             "Failed uploading photo from $photo_url"
@@ -286,7 +286,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
                     // alias the file because IdnoPlugins/Media/Media.php expects "media"
                     $_FILES['media'] = $_FILES['video'];
                     if (!$success) {
-                        \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
+                        \Idno\Core\Idno::site()->events()->triggerEvent('indiepub/post/failure', ['page' => $this]);
                         $this->setResponse(500);
                         echo "Failed uploading video from $video_url";
                         exit;
@@ -303,7 +303,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
                     // alias the file because IdnoPlugins/Media/Media.php expects "media"
                     $_FILES['media'] = $_FILES['audio'];
                     if (!$success) {
-                        \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
+                        \Idno\Core\Idno::site()->events()->triggerEvent('indiepub/post/failure', ['page' => $this]);
                         $this->setResponse(500);
                         echo "Failed uploading audio from $audio_url";
                         exit;
@@ -438,12 +438,12 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
                         $this->setInput('syndication', $syndication);
                     }
                     if ($entity->saveDataFromInput()) {
-                        \Idno\Core\Idno::site()->triggerEvent('indiepub/post/success', ['page' => $this, 'object' => $entity]);
+                        \Idno\Core\Idno::site()->events()->triggerEvent('indiepub/post/success', ['page' => $this, 'object' => $entity]);
                         $this->setResponse(201);
                         header('Location: ' . $entity->getURL());
                         exit;
                     } else {
-                        \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
+                        \Idno\Core\Idno::site()->events()->triggerEvent('indiepub/post/failure', ['page' => $this]);
                         $this->error(
                             400, 'invalid_request',
                             "Couldn't create {$type}"
@@ -453,7 +453,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
                 }
 
             } else {
-                \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
+                \Idno\Core\Idno::site()->events()->triggerEvent('indiepub/post/failure', ['page' => $this]);
                 $this->error(
                     400, 'invalid_request',
                     "Couldn't find content type {$type}"
@@ -537,26 +537,26 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
         {
             $url = $this->getInput('url');
             if (!filter_var($url, FILTER_VALIDATE_URL)) {
-                \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
+                \Idno\Core\Idno::site()->events()->triggerEvent('indiepub/post/failure', ['page' => $this]);
                 $this->error(400, 'invalid_request', 'URL is invalid');
             }
 
             $entity = \Idno\Common\Entity::getByUUID($url);
             if ($entity === false) {
-                \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this]);
+                \Idno\Core\Idno::site()->events()->triggerEvent('indiepub/post/failure', ['page' => $this]);
                 $this->error(400, 'not_found');
             }
 
             $owner       = $entity->attributes['owner'];
             $currentUser = \Idno\Core\Idno::site()->session()->currentUserUUID();
             if ($owner !== $currentUser) {
-                \Idno\Core\Idno::site()->triggerEvent('indiepub/post/failure', ['page' => $this, 'object' => $entity]);
+                \Idno\Core\Idno::site()->events()->triggerEvent('indiepub/post/failure', ['page' => $this, 'object' => $entity]);
                 $this->error(403, 'forbidden');
             }
 
             $entity->delete();
             $this->setResponse(204);
-            \Idno\Core\Idno::site()->triggerEvent('indiepub/post/success', ['page' => $this, 'object' => $entity]);
+            \Idno\Core\Idno::site()->events()->triggerEvent('indiepub/post/success', ['page' => $this, 'object' => $entity]);
             exit();
         }
 

@@ -625,7 +625,7 @@ namespace Idno\Core {
             if (!empty($this->file_path_host)) {
                 $host = $this->file_path_host;
             }
-            $host = site()->triggerEvent('file/path/host', ['host' => $host], $host);
+            $host = site()->events()->triggerEvent('file/path/host', ['host' => $host], $host);
 
             return $host;
         }

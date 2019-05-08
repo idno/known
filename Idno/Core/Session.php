@@ -96,7 +96,7 @@ namespace Idno\Core {
             Idno::site()->routes()->addRoute('/currentUser/?', '\Idno\Pages\Session\CurrentUser');
 
             // Update the session on save if we're saving the current user
-            \Idno\Core\Idno::site()->addEventHook('save', function (\Idno\Core\Event $event) {
+            \Idno\Core\Idno::site()->events()->addListener('save', function (\Idno\Core\Event $event) {
 
                 $eventdata = $event->data();
                 $object    = $eventdata['object'];
@@ -383,7 +383,7 @@ namespace Idno\Core {
         function logUserOff()
         {
 
-            \Idno\Core\Idno::site()->triggerEvent("user/logoff", array(
+            \Idno\Core\Idno::site()->events()->triggerEvent("user/logoff", array(
                 "user"   => !empty($this->user) ? $this->user : null,
             ));
 
@@ -461,7 +461,7 @@ namespace Idno\Core {
         function tryAuthUser()
         {
             // attempt to delegate auth to a plugin (note: plugin is responsible for calling setIsAPIRequest or not)
-            $return = \Idno\Core\Idno::site()->triggerEvent('user/auth/request', [], false);
+            $return = \Idno\Core\Idno::site()->events()->triggerEvent('user/auth/request', [], false);
 
             // auth standard API requests
             if (!$return && !empty($_SERVER['HTTP_X_KNOWN_USERNAME']) && !empty($_SERVER['HTTP_X_KNOWN_SIGNATURE'])) {
@@ -520,7 +520,7 @@ namespace Idno\Core {
                 }
             }
 
-            $return = \Idno\Core\Idno::site()->triggerEvent($return ? "user/auth/success" : "user/auth/failure", array(
+            $return = \Idno\Core\Idno::site()->events()->triggerEvent($return ? "user/auth/success" : "user/auth/failure", array(
                 "user"   => $return,
                 "is api" => $this->isAPIRequest(),
             ), $return);
@@ -546,12 +546,12 @@ namespace Idno\Core {
             @session_regenerate_id(true);
 
             // user/auth/success event needs to be triggered here
-            $return = \Idno\Core\Idno::site()->triggerEvent($return ? "user/auth/success" : "user/auth/failure", array(
+            $return = \Idno\Core\Idno::site()->events()->triggerEvent($return ? "user/auth/success" : "user/auth/failure", array(
                 "user"   => $return,
                 "is api" => $this->isAPIRequest(),
             ), $return);
 
-            \Idno\Core\Idno::site()->triggerEvent("user/logon", array(
+            \Idno\Core\Idno::site()->events()->triggerEvent("user/logon", array(
                 "user"   => $return,
             ));
 

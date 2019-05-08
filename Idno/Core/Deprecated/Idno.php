@@ -99,12 +99,13 @@ namespace Idno\Core\Deprecated {
          * @param string $eventName The name of the event to trigger
          * @param array $data Data to pass to the event
          * @param mixed $default Default response (if not forwarding)
+         * @deprecated
          * @return mixed
          */
 
         function triggerEvent($eventName, $data = array(), $default = true)
         {
-            \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: \Idno\Core\Idno::site()->events()->addListener()");
+            \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: \Idno\Core\Idno::site()->events()->triggerEvent()");
             
             return \Idno\Core\Idno::site()->events()->triggerEvent($eventName, $data, $default);
         }
@@ -118,6 +119,7 @@ namespace Idno\Core\Deprecated {
          * @param string $event
          * @param callable $listener
          * @param int $priority
+         * @deprecated 
          */
         function addEventHook($event, $listener, $priority = 0)
         {

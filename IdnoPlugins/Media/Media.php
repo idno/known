@@ -42,7 +42,7 @@ namespace IdnoPlugins\Media {
             }
 
             if ($new) {
-                if (!\Idno\Core\Idno::site()->triggerEvent("file/upload", [], true)) {
+                if (!\Idno\Core\Idno::site()->events()->triggerEvent("file/upload", [], true)) {
                     return false;
                 }
             }

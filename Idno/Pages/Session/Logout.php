@@ -18,7 +18,7 @@ namespace Idno\Pages\Session {
 
         function postContent()
         {
-            \Idno\Core\Idno::site()->triggerEvent('logout/success', array('user' => \Idno\Core\Idno::site()->session()->currentUser())); // Trigger an event for auditing
+            \Idno\Core\Idno::site()->events()->triggerEvent('logout/success', array('user' => \Idno\Core\Idno::site()->session()->currentUser())); // Trigger an event for auditing
 
             $result = \Idno\Core\Idno::site()->session()->logUserOff();
             \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("You've signed out. See you soon!"));

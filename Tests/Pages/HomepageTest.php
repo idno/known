@@ -30,7 +30,7 @@ namespace Tests\Pages {
         private function doWebmentionContent($source, $target)
         {
             $notification = false;
-            Idno::site()->addEventHook('notify', function (Event $event) use (&$notification) {
+            Idno::site()->events()->addListener('notify', function (Event $event) use (&$notification) {
                 $eventdata    = $event->data();
                 $notification = $eventdata['notification'];
             });

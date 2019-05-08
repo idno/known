@@ -178,7 +178,7 @@ namespace Idno\Core {
                     $this->message->setFrom($from_email, \Idno\Core\Idno::site()->config()->title);
                 }
 
-                return $mailer->send(\Idno\Core\Idno::site()->triggerEvent('email/send', ['email' => $this], $this->message));
+                return $mailer->send(\Idno\Core\Idno::site()->events()->triggerEvent('email/send', ['email' => $this], $this->message));
 
             } catch (\Exception $e) {
                 // Lets log errors rather than silently drop them

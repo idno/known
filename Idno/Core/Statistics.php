@@ -37,7 +37,7 @@ namespace Idno\Core {
                 $stats['Basic'] = static::basic();
             }
 
-            return \Idno\Core\Idno::site()->triggerEvent('statistics/gather', [
+            return \Idno\Core\Idno::site()->events()->triggerEvent('statistics/gather', [
                 'report' => $report
             ], $stats);
         }

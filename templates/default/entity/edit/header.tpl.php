@@ -16,7 +16,7 @@
                         <?php
 
                             $postTypes = array('note' => 'Share', 'reply' => 'Reply', 'bookmark' => 'Bookmark', 'rsvp' => 'RSVP');
-                            $postTypes = \Idno\Core\Idno::site()->triggerEvent('share/types', ['types' => $postTypes], $postTypes);
+                            $postTypes = \Idno\Core\Idno::site()->events()->triggerEvent('share/types', ['types' => $postTypes], $postTypes);
 
                             foreach($postTypes as $variable => $label) {
 

@@ -20,7 +20,7 @@ namespace Idno\Pages\Webfinger {
                 if (substr($acct, 0, 5) == 'acct:' && strlen($acct) > 8) {
                     $handle = str_replace('@' . \Idno\Core\Idno::site()->config()->host, '', substr($acct, 5));
                     if ($user = \Idno\Entities\User::getByHandle($handle)) {
-                        $links = \Idno\Core\Idno::site()->triggerEvent('webfinger', array('object' => $user));
+                        $links = \Idno\Core\Idno::site()->events()->triggerEvent('webfinger', array('object' => $user));
                     }
                 }
             }

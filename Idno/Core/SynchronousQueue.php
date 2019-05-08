@@ -11,7 +11,7 @@ class SynchronousQueue extends EventQueue
     {
         $id     = md5(microtime(true) . mt_rand() . $eventName);
         try {
-            $result = Idno::site()->triggerEvent($eventName, $eventData);
+            $result = Idno::site()->events()->triggerEvent($eventName, $eventData);
             $this->results[$id] = $result;
         } catch (\Exception $e) {
             \Idno\Core\Idno::site()->logging()->error($e->getMessage());

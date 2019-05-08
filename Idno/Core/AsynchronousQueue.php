@@ -82,7 +82,7 @@ class AsynchronousQueue extends EventQueue
 
             \Idno\Core\Idno::site()->logging()->info("[".date('r')."] Dispatching event " . $event->getID() . ": {$event->event} as $username queued at " . date('r', $event->queuedTs));
 
-            $result = \Idno\Core\Idno::site()->triggerEvent($event->event, unserialize($event->eventData));
+            $result = \Idno\Core\Idno::site()->events()->triggerEvent($event->event, unserialize($event->eventData));
 
             $event->result = serialize($result);
 

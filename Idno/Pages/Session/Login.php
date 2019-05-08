@@ -41,18 +41,18 @@ namespace Idno\Pages\Session {
             if ($user = \Idno\Entities\User::getByHandle($this->getInput('email'))) {
             } else if ($user = \Idno\Entities\User::getByEmail($this->getInput('email'))) {
             } else {
-                \Idno\Core\Idno::site()->triggerEvent('login/failure/nouser', array('method' => 'password', 'credentials' => array('email' => $this->getInput('email'))));
+                \Idno\Core\Idno::site()->events()->triggerEvent('login/failure/nouser', array('method' => 'password', 'credentials' => array('email' => $this->getInput('email'))));
                 $this->setResponse(401);
             }
 
             if ($user instanceof \Idno\Entities\User) {
                 if ($user->checkPassword(trim($this->getInput('password')))) {
-                    \Idno\Core\Idno::site()->triggerEvent('login/success', array('user' => $user)); // Trigger an event for auditing
+                    \Idno\Core\Idno::site()->events()->triggerEvent('login/success', array('user' => $user)); // Trigger an event for auditing
                     \Idno\Core\Idno::site()->session()->logUserOn($user);
                     $this->forward($fwd);
                 } else {
                     \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("Oops! It looks like your password isn't correct. Please try again."));
-                    \Idno\Core\Idno::site()->triggerEvent('login/failure', array('user' => $user));
+                    \Idno\Core\Idno::site()->events()->triggerEvent('login/failure', array('user' => $user));
                     $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login/?fwd=' . \Idno\Core\Webservice::base64UrlEncode($fwd));
                 }
             } else {

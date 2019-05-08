@@ -35,12 +35,12 @@ namespace Idno\Core {
 
         function registerEventHooks()
         {
-            \Idno\Core\Idno::site()->addEventHook('text/filter', function (\Idno\Core\Event $event) {
+            \Idno\Core\Idno::site()->events()->addListener('text/filter', function (\Idno\Core\Event $event) {
                 $text = $event->response();
                 $text = $this->purify($text);
                 $event->setResponse($text);
             });
-            \Idno\Core\Idno::site()->addEventHook('text/filter/basic', function (\Idno\Core\Event $event) {
+            \Idno\Core\Idno::site()->events()->addListener('text/filter/basic', function (\Idno\Core\Event $event) {
                 $text = $event->response();
                 $text = $this->purify($text, true);
                 $event->setResponse($text);

@@ -36,7 +36,7 @@ namespace Idno\Entities {
         {
 
             // Hook to add user data to webfinger
-            \Idno\Core\Idno::site()->addEventHook('webfinger', function (\Idno\Core\Event $event) {
+            \Idno\Core\Idno::site()->events()->addListener('webfinger', function (\Idno\Core\Event $event) {
 
                 $eventdata = $event->data();
                 $user      = $eventdata['object'];
@@ -62,7 +62,7 @@ namespace Idno\Entities {
             });
 
             // Refresh session user whenever it is saved
-            \Idno\Core\Idno::site()->addEventHook('saved', function (\Idno\Core\Event $event) {
+            \Idno\Core\Idno::site()->events()->addListener('saved', function (\Idno\Core\Event $event) {
 
                 $eventdata = $event->data();
                 $user      = $eventdata['object'];
@@ -78,7 +78,7 @@ namespace Idno\Entities {
             });
 
             // Email notifications
-            \Idno\Core\Idno::site()->addEventHook('notify', function (\Idno\Core\Event $event) {
+            \Idno\Core\Idno::site()->events()->addListener('notify', function (\Idno\Core\Event $event) {
 
                 $eventdata    = $event->data();
                 $user         = $eventdata['user'];
@@ -121,7 +121,7 @@ namespace Idno\Entities {
          */
         function getIcon()
         {
-            $response = \Idno\Core\Idno::site()->triggerEvent('icon', array('object' => $this));
+            $response = \Idno\Core\Idno::site()->events()->triggerEvent('icon', array('object' => $this));
             if (!empty($response) && $response !== true) {
                 return $response;
             }
@@ -406,7 +406,7 @@ namespace Idno\Entities {
 
             if ($user_id == $this->getUUID()) return true;
 
-            return \Idno\Core\Idno::site()->triggerEvent('canEdit/user', ['object' => $this, 'user_id' => $user_id], false);
+            return \Idno\Core\Idno::site()->events()->triggerEvent('canEdit/user', ['object' => $this, 'user_id' => $user_id], false);
 
         }
 
@@ -463,7 +463,7 @@ namespace Idno\Entities {
                 $default = true;
             }
 
-            return \Idno\Core\Idno::site()->triggerEvent('user/password/checkstrength', array(
+            return \Idno\Core\Idno::site()->events()->triggerEvent('user/password/checkstrength', array(
                 'password' => $password
             ), $default);
 
@@ -564,7 +564,7 @@ namespace Idno\Entities {
                     $acl->addMember($user->getUUID());
                     $acl->save();
 
-                    \Idno\Core\Idno::site()->triggerEvent('follow', array('user' => $this, 'following' => $user));
+                    \Idno\Core\Idno::site()->events()->triggerEvent('follow', array('user' => $this, 'following' => $user));
 
                     return true;
                 }
@@ -624,7 +624,7 @@ namespace Idno\Entities {
                     $acl->save();
                 }
 
-                \Idno\Core\Idno::site()->triggerEvent('unfollow', array('user' => $this, 'following' => $user));
+                \Idno\Core\Idno::site()->events()->triggerEvent('unfollow', array('user' => $this, 'following' => $user));
 
                 return true;
             }
@@ -691,7 +691,7 @@ namespace Idno\Entities {
                 $return = array_merge($return, $groups);
             }
 
-            return \Idno\Core\Idno::site()->triggerEvent("permission:$permission:entities", ['user' => $this], $return);
+            return \Idno\Core\Idno::site()->events()->triggerEvent("permission:$permission:entities", ['user' => $this], $return);
         }
 
         /**
@@ -739,7 +739,7 @@ namespace Idno\Entities {
                 }
             }
 
-            return \Idno\Core\Idno::site()->triggerEvent("permission:$permission:ids", ['user' => $this], $return);
+            return \Idno\Core\Idno::site()->events()->triggerEvent("permission:$permission:ids", ['user' => $this], $return);
         }
 
         /**
@@ -871,7 +871,7 @@ namespace Idno\Entities {
          */
         public function notify($notification)
         {
-            return \Idno\Core\Idno::site()->triggerEvent('notify', array(
+            return \Idno\Core\Idno::site()->events()->triggerEvent('notify', array(
                 'user'         => $this,
                 'notification' => $notification,
             ));

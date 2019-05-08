@@ -588,7 +588,7 @@ namespace Idno\Core {
             }
 
             // Now, return a list of icons, but pass it through an event hook to override
-            return $this->triggerEvent('site/icons', ['object' => $this], $icons);
+            return $this->events()->triggerEvent('site/icons', ['object' => $this], $icons);
         }
 
         /**

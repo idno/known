@@ -17,7 +17,7 @@ namespace Idno\Core {
         function registerEventHooks()
         {
 
-            \Idno\Core\Idno::site()->addEventHook('saved', function (\Idno\Core\Event $event) {
+            \Idno\Core\Idno::site()->events()->addListener('saved', function (\Idno\Core\Event $event) {
 
                 $eventdata = $event->data();
                 if ($object = $eventdata['object']) {

@@ -18,7 +18,7 @@ namespace Idno\Pages\File {
         {
             if (\Idno\Core\Idno::site()->session()->isLoggedOn()) {
                 if (!empty($_FILES['file']['tmp_name'])) {
-                    if (!\Idno\Core\Idno::site()->triggerEvent("file/upload", [], true)) {
+                    if (!\Idno\Core\Idno::site()->events()->triggerEvent("file/upload", [], true)) {
                         exit;
                     }
                     if ($file = \Idno\Entities\File::createFromFile($_FILES['file']['tmp_name'], $_FILES['file']['name'], $_FILES['file']['type'], true, true)) {
