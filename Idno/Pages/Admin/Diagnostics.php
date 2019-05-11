@@ -82,7 +82,19 @@ namespace Idno\Pages\Admin {
                         'status'  => 'Ok'
                     ];
                 }
-
+            }
+            
+            // Check to see if this is an official package
+            if ($revision = \Idno\Core\Version::get('revision')) {
+                $basics['report']['package'] = [
+                    'status'  => 'Ok'
+                ];
+            } else {
+                $basics['status']             = 'Failure';
+                $basics['report']['package'] = [
+                    'status'  => 'Warning',
+                    'message' => 'You appear to be running directly from a git checkout. While this is fine, you might find a pre-packaged version of Known more stable.'
+                ];
             }
 
             // Check SSL
