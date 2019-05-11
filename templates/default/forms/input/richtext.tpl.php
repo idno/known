@@ -60,8 +60,6 @@ if (!empty($vars['label'])) {
     function makeRichText(container) {
         $(container).tinymce({
             selector: 'textarea',
-            theme: 'modern',
-            skin_url: '<?= \Idno\Core\Idno::site()->config()->getDisplayURL(); ?>vendor/bower-asset/tinymce-skin-modern-light-flat/light/',
             statusbar: false,
             <?php if (!empty($vars['wordcount'])) {
                 ?>statusbar: true, <?php
@@ -72,8 +70,7 @@ if (!empty($vars['label'])) {
             menubar: false,
             height: <?php echo $height?>,
             toolbar: 'styleselect | bold italic | link image | blockquote bullist numlist | alignleft aligncenter alignright | code',
-            plugins: 'code link image autoresize <?php if (!empty($vars['wordcount'])) { echo " wordcount";
-           } ?>',
+            plugins: 'code link image autoresize <?php if (!empty($vars['wordcount'])) { echo " wordcount";} ?>',
             relative_urls : false,
             remove_script_host : false,
             convert_urls : true,
@@ -83,22 +80,25 @@ if (!empty($vars['label'])) {
             file_picker_callback: function (callback, value, meta) {
                 filePickerDialog(callback, value, meta);
             },
+            mobile: {
+                theme: 'silver',
+                toolbar: 'styleselect | bold italic | link image | blockquote bullist numlist | alignleft aligncenter alignright | code',
+                plugins: 'code link image autoresize <?php if (!empty($vars['wordcount'])) { echo " wordcount"; } ?>'
+            }
         });
     }
 
     function filePickerDialog(callback, value, meta) {
-        tinymce.activeEditor.windowManager.open({
+        tinymce.activeEditor.windowManager.openUrl({
             title: 'File Manager',
             //url: '<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>filepicker/?type=' + meta.filetype,
             url: '<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>filepicker/?type=image',
             width: 650,
-            height: 550
-        }, {
-            oninsert: function (url) {
-                callback(url);
+            height: 550,
+            onMessage: function(api, message) {
+                       callback(message.data.url);
             }
         });
-
     }
 </script>
 <?php
