@@ -18,7 +18,7 @@ namespace Idno\Pages\Search {
             $username = $this->getInput('username');
             if ($users = User::get(array(), array(), 9999)) { //User::getByHandle($username)) {
                 
-                \Idno\Core\Idno::site()->triggerEvent('search/mentions', [
+                \Idno\Core\Idno::site()->events()->triggerEvent('search/mentions', [
                     'username' => $username
                 ], $users);
 

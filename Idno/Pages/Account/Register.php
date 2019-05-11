@@ -88,7 +88,7 @@ namespace Idno\Pages\Account {
                     !substr_count($handle, '/') &&
                     $password == $password2 &&
                     \Idno\Entities\User::checkNewPasswordStrength($password) &&
-                    \Idno\Core\Idno::site()->triggerEvent('user/register/validate', [
+                    \Idno\Core\Idno::site()->events()->triggerEvent('user/register/validate', [
                         'name' => $name,
                         'handle' => $handle,
                         'email' => $email,
@@ -118,9 +118,9 @@ namespace Idno\Pages\Account {
                             \Idno\Core\Idno::site()->config()->from_email        = $user->email;
                             \Idno\Core\Idno::site()->config()->save();
                         }
-                        \Idno\Core\Idno::site()->triggerEvent('site/firstadmin', array('user' => $user)); // Event hook for first admin
+                        \Idno\Core\Idno::site()->events()->triggerEvent('site/firstadmin', array('user' => $user)); // Event hook for first admin
                     } else {
-                        \Idno\Core\Idno::site()->triggerEvent('site/newuser', array('user' => $user)); // Event hook for new user
+                        \Idno\Core\Idno::site()->events()->triggerEvent('site/newuser', array('user' => $user)); // Event hook for new user
                     }
                     $user->save();
                     // Now we can remove the invitation

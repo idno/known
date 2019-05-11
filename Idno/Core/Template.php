@@ -323,7 +323,7 @@ namespace Idno\Core {
          */
         function autop($html)
         {
-            $html = site()->triggerEvent('text/format', [], $html);
+            $html = site()->events()->triggerEvent('text/format', [], $html);
             
             $autop = new \mapkyca\autop\MrClayAutoP();
 
@@ -347,7 +347,7 @@ namespace Idno\Core {
          */
         function sanitize_html($html)
         {
-            $html = site()->triggerEvent('text/filter', [], $html);
+            $html = site()->events()->triggerEvent('text/filter', [], $html);
 
             return $html;
         }
@@ -572,7 +572,7 @@ namespace Idno\Core {
                         } else if (strpos($in_reply_to, 'github.com') !== false) {
                             return '<a href="https://github.com/' . urlencode(ltrim($matches[1], '@')) . '" target="_blank">' . $url . '</a>';
                         } else {
-                            return \Idno\Core\Idno::site()->triggerEvent("template/parseusers", [
+                            return \Idno\Core\Idno::site()->events()->triggerEvent("template/parseusers", [
                                 'in_reply_to' => $in_reply_to,
                                 'in_reply_to_domain' => parse_url($in_reply_to, PHP_URL_HOST),
                                 'username' => ltrim($matches[1], '@'),

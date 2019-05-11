@@ -19,7 +19,7 @@ namespace IdnoPlugins\IndiePub {
 
         function registerEventHooks()
         {
-            \Idno\Core\site()->addEventHook('user/auth/request', function (\Idno\Core\Event $event) {
+            \Idno\Core\site()->events()->addListener('user/auth/request', function (\Idno\Core\Event $event) {
                 if ($user = \IdnoPlugins\IndiePub\Main::authenticate()) {
                     $event->setResponse($user);
                 }

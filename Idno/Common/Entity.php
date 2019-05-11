@@ -51,7 +51,7 @@ namespace Idno\Common {
         {
 
             // Attempt to find content by URL
-            \Idno\Core\Idno::site()->addEventHook('object/getbyurl', function (\Idno\Core\Event $event) {
+            \Idno\Core\Idno::site()->events()->addListener('object/getbyurl', function (\Idno\Core\Event $event) {
 
                 $url = $event->data()['url'];
                 $object = $event->response();
@@ -333,7 +333,7 @@ namespace Idno\Common {
             if (!self::isLocalUUID($url))
                 return false;
 
-            $return = \Idno\Core\Idno::site()->triggerEvent('object/getbyurl', [
+            $return = \Idno\Core\Idno::site()->events()->triggerEvent('object/getbyurl', [
                 'url' => $url
             ], false);
 
@@ -536,10 +536,10 @@ namespace Idno\Common {
          */
         function publish()
         {
-            \Idno\Core\Idno::site()->triggerEvent('publish', ['object' => &$this]);
+            \Idno\Core\Idno::site()->events()->triggerEvent('publish', ['object' => &$this]);
             if ($this->save() && ($this->getPublishStatus() == 'published')) {
                 $this->syndicate();
-                \Idno\Core\Idno::site()->triggerEvent('published', ['object' => &$this]);
+                \Idno\Core\Idno::site()->events()->triggerEvent('published', ['object' => &$this]);
 
                 return true;
             }
@@ -590,12 +590,12 @@ namespace Idno\Common {
 
                 // If the user is a regular member of the access group
                 if ($access->isMember($user_id)) {
-                    return \Idno\Core\Idno::site()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
+                    return \Idno\Core\Idno::site()->events()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
                 }
 
                 // If the user is an ADMIN member of the access group
                 if ($access->isMember($user_id, 'admin')) {
-                    return \Idno\Core\Idno::site()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
+                    return \Idno\Core\Idno::site()->events()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
                 }
             }
 
@@ -656,7 +656,7 @@ namespace Idno\Common {
 
             // Save it to the database
 
-            if (\Idno\Core\Idno::site()->triggerEvent('save', array('object' => $this))) { // dispatch('save', $event)->response()) {
+            if (\Idno\Core\Idno::site()->events()->triggerEvent('save', array('object' => $this))) { // dispatch('save', $event)->response()) {
                 $result = \Idno\Core\Idno::site()->db()->saveObject($this);
             } else {
                 $result = false;
@@ -666,9 +666,9 @@ namespace Idno\Common {
                     $this->_id = $result;
                     $this->uuid = $this->getUUID();
                     \Idno\Core\Idno::site()->db()->saveObject($this);
-                    \Idno\Core\Idno::site()->triggerEvent('saved', ['object' => $this]);
+                    \Idno\Core\Idno::site()->events()->triggerEvent('saved', ['object' => $this]);
                 } else {
-                    \Idno\Core\Idno::site()->triggerEvent('updated', ['object' => $this]);
+                    \Idno\Core\Idno::site()->events()->triggerEvent('updated', ['object' => $this]);
                 }
 
                 self::invalidateCache($this->uuid);
@@ -817,7 +817,7 @@ namespace Idno\Common {
          */
         function setSlug($slug, $max_pieces = 10, $max_chars = 255, $slug_extension = '')
         {
-            $plugin_slug = \Idno\Core\Idno::site()->triggerEvent('entity/slug', array('object' => $this));
+            $plugin_slug = \Idno\Core\Idno::site()->events()->triggerEvent('entity/slug', array('object' => $this));
             if (!empty($plugin_slug) && $plugin_slug !== true) {
                 return $plugin_slug;
             }
@@ -967,12 +967,12 @@ namespace Idno\Common {
         {
             $event = new \Idno\Core\Event(array('object' => $this));
             $event->setResponse(true);
-            if (\Idno\Core\Idno::site()->triggerEvent('delete', array('object' => $this))) {
+            if (\Idno\Core\Idno::site()->events()->triggerEvent('delete', array('object' => $this))) {
                 $this->unsyndicate();
 
                 if ($return = \Idno\Core\db()->deleteRecord($this->getID(), $this->collection)) {
                     $this->deleteData();
-                    \Idno\Core\Idno::site()->triggerEvent('deleted', array('object' => $this));
+                    \Idno\Core\Idno::site()->events()->triggerEvent('deleted', array('object' => $this));
 
                     $attachments = $this->getAttachments();
                     if (!empty($attachments)) {
@@ -1476,17 +1476,17 @@ namespace Idno\Common {
 
                     // If the user has been added to write
                     if ($access->isMember($user_id, 'write')) {
-                        return \Idno\Core\Idno::site()->triggerEvent('canEdit', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
+                        return \Idno\Core\Idno::site()->events()->triggerEvent('canEdit', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
                     }
 
                     // If the user is an ADMIN member of the access group
                     if ($access->isMember($user_id, 'admin')) {
-                        return \Idno\Core\Idno::site()->triggerEvent('canEdit', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
+                        return \Idno\Core\Idno::site()->events()->triggerEvent('canEdit', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
                     }
                 }
             }
 
-            return \Idno\Core\Idno::site()->triggerEvent('canEdit', array('object' => $this, 'user_id' => $user_id), false);
+            return \Idno\Core\Idno::site()->events()->triggerEvent('canEdit', array('object' => $this, 'user_id' => $user_id), false);
 
         }
 
@@ -1521,17 +1521,17 @@ namespace Idno\Common {
 
                 // If the user is a regular member of the access group
                 if ($access->isMember($user_id)) {
-                    return \Idno\Core\Idno::site()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
+                    return \Idno\Core\Idno::site()->events()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
                 }
 
                 // If the user is an ADMIN member of the access group
                 if ($access->isMember($user_id, 'admin')) {
-                    return \Idno\Core\Idno::site()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
+                    return \Idno\Core\Idno::site()->events()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id, 'access_group' => $access));
                 }
             }
             //}
 
-            return \Idno\Core\Idno::site()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id), false);
+            return \Idno\Core\Idno::site()->events()->triggerEvent('canRead', array('object' => $this, 'user_id' => $user_id), false);
         }
 
         /**
@@ -2285,7 +2285,7 @@ namespace Idno\Common {
             }
 
             // Ask whether it's ok to save this annotation (allows filtering)
-            if (!\Idno\Core\Idno::site()->triggerEvent('annotation/save', array('annotation' => $annotation, 'object' => $this))) {
+            if (!\Idno\Core\Idno::site()->events()->triggerEvent('annotation/save', array('annotation' => $annotation, 'object' => $this))) {
                 return false; // Something prevented the annotation from being saved.
             }
 
@@ -2300,7 +2300,7 @@ namespace Idno\Common {
             $this->annotations = $annotations;
             $this->save();
 
-            \Idno\Core\Idno::site()->triggerEvent('annotation/add/' . $subtype, array('annotation' => $annotation, 'object' => $this));
+            \Idno\Core\Idno::site()->events()->triggerEvent('annotation/add/' . $subtype, array('annotation' => $annotation, 'object' => $this));
 
             if ($recipients = $this->getAnnotationOwnerUUIDs(true)) {
                 $recipients[] = $this->getOwnerID();

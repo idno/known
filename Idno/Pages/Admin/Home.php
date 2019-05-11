@@ -63,7 +63,7 @@ namespace Idno\Pages\Admin {
             \Idno\Core\Idno::site()->config()->single_user          = $single_user;
             \Idno\Core\Idno::site()->config()->permalink_structure  = $permalink_structure;
 
-            \Idno\Core\Idno::site()->triggerEvent('admin/home/save');
+            \Idno\Core\Idno::site()->events()->triggerEvent('admin/home/save');
 
             \Idno\Core\Idno::site()->config()->save();
             $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'admin/');

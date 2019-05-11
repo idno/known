@@ -76,10 +76,10 @@ namespace IdnoPlugins\Webhooks {
 
             };
 
-                \Idno\Core\Idno::site()->addEventHook('post/note/webhooks', $hook_function);
-                \Idno\Core\Idno::site()->addEventHook('post/article/webhooks', $hook_function);
-                \Idno\Core\Idno::site()->addEventHook('post/bookmark/webhooks', $hook_function);
-                \Idno\Core\Idno::site()->addEventHook('post/event/webhooks', $hook_function);
+                \Idno\Core\Idno::site()->events()->addListener('post/note/webhooks', $hook_function);
+                \Idno\Core\Idno::site()->events()->addListener('post/article/webhooks', $hook_function);
+                \Idno\Core\Idno::site()->events()->addListener('post/bookmark/webhooks', $hook_function);
+                \Idno\Core\Idno::site()->events()->addListener('post/event/webhooks', $hook_function);
 
         }
 

@@ -69,7 +69,7 @@ namespace Idno\Core {
 
             }
 
-            $services = Idno::site()->triggerEvent('syndication/services/get', ['services' => $services], $services);
+            $services = Idno::site()->events()->triggerEvent('syndication/services/get', ['services' => $services], $services);
 
             return array_unique($services);
         }
@@ -106,7 +106,7 @@ namespace Idno\Core {
                 $accounts = $this->accounts;
             }
 
-            $accounts = Idno::site()->triggerEvent('syndication/accounts/get', ['accounts' => $accounts], $accounts);
+            $accounts = Idno::site()->events()->triggerEvent('syndication/accounts/get', ['accounts' => $accounts], $accounts);
 
             return $accounts;
         }

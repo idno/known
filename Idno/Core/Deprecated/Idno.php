@@ -90,5 +90,42 @@ namespace Idno\Core\Deprecated {
             
             return \Idno\Core\Idno::site()->routes()->getRoute($path_info);
         }
+        
+        
+        /**
+         * Shortcut to trigger an event: supply the event name and
+         * (optionally) an array of data, and get a variable back.
+         *
+         * @param string $eventName The name of the event to trigger
+         * @param array $data Data to pass to the event
+         * @param mixed $default Default response (if not forwarding)
+         * @deprecated
+         * @return mixed
+         */
+
+        function triggerEvent($eventName, $data = array(), $default = true)
+        {
+            \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: \Idno\Core\Idno::site()->events()->triggerEvent()");
+            
+            return \Idno\Core\Idno::site()->events()->triggerEvent($eventName, $data, $default);
+        }
+        
+        /**
+         * Tells the system that callable $listener wants to be notified when
+         * event $event is triggered. $priority is an optional integer
+         * that specifies order priority; the higher the number, the earlier
+         * in the chain $listener will be notified.
+         *
+         * @param string $event
+         * @param callable $listener
+         * @param int $priority
+         * @deprecated 
+         */
+        function addEventHook($event, $listener, $priority = 0)
+        {
+            \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: \Idno\Core\Idno::site()->events()->addListener()");
+            
+            return \Idno\Core\Idno::site()->events()->addListener($event, $listener, $priority);
+        }
     }
 }

@@ -82,7 +82,7 @@ namespace Idno\Pages\Pubsubhubbub {
 
             \Idno\Core\Idno::site()->logging()->debug("Pubsub: Ping received, pinging out...");
 
-            \Idno\Core\Idno::site()->triggerEvent('pubsubhubbub/ping', array(
+            \Idno\Core\Idno::site()->events()->triggerEvent('pubsubhubbub/ping', array(
                 'subscriber'   => $subscriber,
                 'subscription' => $subscription,
                 'data'         => trim(file_get_contents("php://input"))

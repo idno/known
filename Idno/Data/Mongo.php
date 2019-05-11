@@ -87,7 +87,7 @@ namespace Idno\Data {
             parent::registerEventHooks();
 
             // Diagnostics
-            \Idno\Core\Idno::site()->addEventHook('diagnostics/basics', function (\Idno\Core\Event $event) {
+            \Idno\Core\Idno::site()->events()->addListener('diagnostics/basics', function (\Idno\Core\Event $event) {
                 $basics = $event->response();
 
                 try {
@@ -109,7 +109,7 @@ namespace Idno\Data {
                 $event->setResponse($basics);
             });
 
-            \Idno\Core\Idno::site()->addEventHook('upgrade', function (\Idno\Core\Event $event) {
+            \Idno\Core\Idno::site()->events()->addListener('upgrade', function (\Idno\Core\Event $event) {
 
                 $new_version = $event->data()['new_version'];
                 $last_update = $event->data()['last_update'];

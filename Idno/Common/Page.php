@@ -79,7 +79,7 @@ namespace Idno\Common {
             \Idno\Core\Idno::site()->embedded();
 
             // Trigger an event when a page is initialised, and currentPage is available
-            \Idno\Core\Idno::site()->triggerEvent('page/ready');
+            \Idno\Core\Idno::site()->events()->triggerEvent('page/ready');
         }
 
         /**
@@ -178,7 +178,7 @@ namespace Idno\Common {
             $arguments = func_get_args();
             if (!empty($arguments)) $this->arguments = $arguments;
 
-            \Idno\Core\Idno::site()->triggerEvent('page/head', array('page_class' => get_called_class(), 'arguments' => $arguments));
+            \Idno\Core\Idno::site()->events()->triggerEvent('page/head', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
             // Triggering GET content to call all the appropriate headers (web server should truncate the head request from body).
             // This is the only way we can generate accurate expires and content length etc, but could be done more efficiently
@@ -268,8 +268,8 @@ namespace Idno\Common {
             $arguments = func_get_args();
             if (!empty($arguments)) $this->arguments = $arguments;
 
-            \Idno\Core\Idno::site()->triggerEvent('page/head', array('page' => $this));
-            \Idno\Core\Idno::site()->triggerEvent('page/get', array('page_class' => get_called_class(), 'arguments' => $arguments));
+            \Idno\Core\Idno::site()->events()->triggerEvent('page/head', array('page' => $this));
+            \Idno\Core\Idno::site()->events()->triggerEvent('page/get', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
             $this->getContent();
 
@@ -346,8 +346,8 @@ namespace Idno\Common {
             $arguments = func_get_args();
             if (!empty($arguments)) $this->arguments = $arguments;
 
-            \Idno\Core\Idno::site()->triggerEvent('page/head', array('page' => $this));
-            \Idno\Core\Idno::site()->triggerEvent('page/post', array('page_class' => get_called_class(), 'arguments' => $arguments));
+            \Idno\Core\Idno::site()->events()->triggerEvent('page/head', array('page' => $this));
+            \Idno\Core\Idno::site()->events()->triggerEvent('page/post', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
             if (\Idno\Core\Idno::site()->session()->isAPIRequest() || \Idno\Core\Idno::site()->actions()->validateToken($this->currentUrl(), false) || \Idno\Core\Idno::site()->actions()->validateToken('', false)) {
                 $this->parseJSONPayload();
@@ -511,8 +511,8 @@ namespace Idno\Common {
             $arguments = func_get_args();
             if (!empty($arguments)) $this->arguments = $arguments;
 
-            \Idno\Core\Idno::site()->triggerEvent('page/head', array('page' => $this));
-            \Idno\Core\Idno::site()->triggerEvent('page/put', array('page_class' => get_called_class(), 'arguments' => $arguments));
+            \Idno\Core\Idno::site()->events()->triggerEvent('page/head', array('page' => $this));
+            \Idno\Core\Idno::site()->events()->triggerEvent('page/put', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
             if (\Idno\Core\Idno::site()->session()->isAPIRequest() || \Idno\Core\Idno::site()->actions()->validateToken($this->currentUrl(), false) || \Idno\Core\Idno::site()->actions()->validateToken('', false)) {
                 $this->parseJSONPayload();
@@ -597,8 +597,8 @@ namespace Idno\Common {
             $arguments = func_get_args();
             if (!empty($arguments)) $this->arguments = $arguments;
 
-            \Idno\Core\Idno::site()->triggerEvent('page/head', array('page' => $this));
-            \Idno\Core\Idno::site()->triggerEvent('page/delete', array('page_class' => get_called_class(), 'arguments' => $arguments));
+            \Idno\Core\Idno::site()->events()->triggerEvent('page/head', array('page' => $this));
+            \Idno\Core\Idno::site()->events()->triggerEvent('page/delete', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
             if (\Idno\Core\Idno::site()->session()->isAPIRequest() || \Idno\Core\Idno::site()->actions()->validateToken($this->currentUrl(), false) || \Idno\Core\Idno::site()->actions()->validateToken('', false)) {
                 $this->parseJSONPayload();
@@ -1089,7 +1089,7 @@ namespace Idno\Common {
                 }
             }
 
-            return \Idno\Core\Idno::site()->triggerEvent('icon', ['object' => $this], $icon);
+            return \Idno\Core\Idno::site()->events()->triggerEvent('icon', ['object' => $this], $icon);
         }
 
         /**

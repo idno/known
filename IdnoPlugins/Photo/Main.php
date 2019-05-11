@@ -24,7 +24,7 @@ namespace IdnoPlugins\Photo {
 
         function registerEventHooks()
         {
-            \Idno\Core\Idno::site()->addEventHook('page/get', function (\Idno\Core\Event $event) {
+            \Idno\Core\Idno::site()->events()->addListener('page/get', function (\Idno\Core\Event $event) {
                 \Idno\Core\Idno::site()->currentPage()->setAsset("exif-js", \Idno\Core\Idno::site()->config()->getStaticURL() . 'vendor/npm-asset/exif-js/exif.js', 'javascript');
             });
         }

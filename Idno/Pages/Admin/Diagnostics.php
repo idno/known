@@ -46,7 +46,7 @@ namespace Idno\Pages\Admin {
                 $report .= "\$_SERVER:\n---------\n" . var_export($_SERVER, true) . "\n\n";
 
                 // Hook so other plugins and subsystems can add their own data to the report.
-                $report = \Idno\Core\Idno::site()->triggerEvent('diagnostics/report', [], $report);
+                $report = \Idno\Core\Idno::site()->events()->triggerEvent('diagnostics/report', [], $report);
 
                 echo $report;
                 exit;
@@ -183,7 +183,7 @@ namespace Idno\Pages\Admin {
                 }
             }
 
-            return \Idno\Core\Idno::site()->triggerEvent('diagnostics/basics', [], $basics);;
+            return \Idno\Core\Idno::site()->events()->triggerEvent('diagnostics/basics', [], $basics);;
         }
 
     }

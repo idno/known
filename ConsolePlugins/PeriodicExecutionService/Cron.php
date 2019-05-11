@@ -36,7 +36,7 @@ namespace ConsolePlugins\PeriodicExecutionService  {
             foreach (self::$events as $period => $interval) {
 
                 // Register repeat handlers
-                \Idno\Core\Idno::site()->addEventHook('cron/' . $period, function (\Idno\Core\Event $event) use ($period) {
+                \Idno\Core\Idno::site()->events()->addListener('cron/' . $period, function (\Idno\Core\Event $event) use ($period) {
 
                     $eventqueue = \Idno\Core\Idno::site()->queue();
 

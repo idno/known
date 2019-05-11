@@ -178,7 +178,7 @@ namespace Idno\Core {
             }
 
             // Allow plugins and other services to extend headers, allowing for plugable authentication methods on calls
-            $new_headers = \Idno\Core\Idno::site()->triggerEvent('webservice:headers', array('headers' => $headers, 'verb' => $verb));
+            $new_headers = \Idno\Core\Idno::site()->events()->triggerEvent('webservice:headers', array('headers' => $headers, 'verb' => $verb));
             if (!empty($new_headers) && (is_array($new_headers))) {
                 if (empty($headers)) $headers = array();
                 $headers = array_merge($headers, $new_headers);
