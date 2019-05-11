@@ -113,9 +113,6 @@ Third party libraries are licensed separately.
 * Steve Clay's AutoP, which is distributed under the MIT License. Source: https://code.google.com/p/mrclay/
 * Aaron Parecki's Webmention Client, which is distributed under the Apache 2.0 license. Source: https://github.com/aaronpk/mention-client
 * Barnaby Walters's Microformats 2 Parser, which is distributed under the MIT License. Source: https://github.com/indieweb/php-mf2
-* Webignition URL libraries, which are distributed under the MIT license.
-  * Absolute URL deriver. Source: https://github.com/webignition/absolute-url-deriver
-  * URL. Source: https://github.com/webignition/url
 * FitVids.js, which is distributed under the WTFPL License. Source: http://fitvidsjs.com/
 * Leaflet.js, which is distributed under the BSD 2-Clause License. Source: http://leafletjs.com/ 
 * SwiftMailer, which is distributed under the MIT License. Source: https://github.com/swiftmailer/swiftmailer

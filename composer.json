@@ -31,8 +31,6 @@
         "torophp/torophp": "dev-master",
         "mf2/mf2": "0.4.6",
         "swiftmailer/swiftmailer": "5.2.1",
-        "webignition/absolute-url-deriver": "1.5.2",
-        "webignition/url": "1.9.8",
         "fortawesome/font-awesome": "5.7.2",
         "twbs/bootstrap": "3.3.2",
         "components/jquery": "3.2.1",
