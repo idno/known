@@ -1,0 +1,59 @@
+
+/* Notifications */
+
+.notification .notification-avatar {
+    float: left;
+    margin-right: 1em;
+    max-width: 64px;
+}
+
+.notification.notification-unread  {
+    color: #333;
+    font-weight: bold;
+}
+
+.notification.notification-read  {
+    color: #666;
+    font-weight: normal;
+}
+
+.notification .panel-heading time {
+    float: right;
+}
+
+.notification .notification-avatar img {
+}
+
+.notification .notification-body {
+    overflow: off;
+    margin-left: 80px;
+}
+
+.notification blockquote {
+    font-size: 1em;
+}
+
+.notification .icon-container {
+    width: 30px;
+    height: 30px;
+}
+
+.notification .idno-content {
+    padding: 0.1em;
+    border-bottom: 1px dotted #ccc;
+    padding-bottom: 15px;
+    padding-top: 10px;
+}
+
+.notification .permalink {
+    width: 100%;
+}
+
+.unread-notification-count {
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #f00;
+    position: relative;
+    top: -0.5em;
+    left: -0.2em;
+}
