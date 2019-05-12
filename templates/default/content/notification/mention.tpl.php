@@ -3,6 +3,6 @@
     echo $t->__([
         'notification' => $notification,
         'interaction' => 'mentioned',
-        'icon' => '<i class="far fa-comment"></i>',
+        'icon' => '<i class="fa fa-comment-o"></i>',
         'verb' => ''
     ])->draw('content/notification/wrapper');

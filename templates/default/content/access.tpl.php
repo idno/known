@@ -33,7 +33,7 @@ if (!empty(\Idno\Core\Idno::site()->config()->show_privacy) || $access != 'PUBLI
                     <ul class="dropdown-menu">
                         <li><a href="#" data-acl="PUBLIC" class="acl-ctrl-option"><i class="fa fa-globe"> </i> <?php echo \Idno\Core\Idno::site()->language()->_('Public')?></a>
                         </li>
-                        <li><a href="#" data-acl="SITE" class="acl-ctrl-option"><i class="fa fa-lock"> </i> <?php echo \Idno\Core\Idno::site()->language()->_('Members only')?></a></li>
+                        <li><a href="#" data-acl="SITE" class="acl-ctrl-option"><i class="fa fa-group"> </i> <?php echo \Idno\Core\Idno::site()->language()->_('Members only')?></a></li>
                         <li><a href="#" data-acl="<?php echo \Idno\Core\Idno::site()->session()->currentUserUUID() ?>"
                                class="acl-ctrl-option"><i class="fa fa-lock"></i> <?php echo \Idno\Core\Idno::site()->language()->_('Private')?></a></li>
                     <?php

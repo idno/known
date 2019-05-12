@@ -48,9 +48,9 @@ if ($like_annotations = $vars['object']->getAnnotations('like')) {
     <span class="annotate-icon">
     <?php
     if (!$has_liked) {
-        $heart = '<i class="far fa-star"></i>';
+        $heart = '<i class="fa fa-star-o"></i>';
     } else {
-        $heart = '<i class="fas fa-star"></i>';
+        $heart = '<i class="fa fa-star"></i>';
     }
     if ($likes == 1) {
         $heart .= ' 1 star';

@@ -1,1 +1,1 @@
-<i class="far fa-share-square"></i>
+<i class="fa fa-share-square-o"></i>
