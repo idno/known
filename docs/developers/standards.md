@@ -40,6 +40,11 @@ switch ($var) {
 ```
 * In general, when in doubt, space it out.
 
+## Variables
+
+* You should try and make use of [type hinting](https://www.php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration) in your function arguments.
+* Since Known now no longer supports PHP < 7, you should also try and make use of return type hinting where appropriate (advanced warning, in future we will turn on strict type checking for this!)
+
 ## Error handling
 
 * Notice errors are errors, please develop your code with ```pedantic_mode = true;``` set in your config.ini
