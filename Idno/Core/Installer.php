@@ -295,9 +295,9 @@ namespace Idno\Core {
          */
         public static function checkPHPVersion()
         {
-            if (version_compare(phpversion(), '7.0') >= 0) {
+            if (version_compare(phpversion(), '7.1') >= 0) {
                 return 'ok';
-            } else if (version_compare(phpversion(), '5.6') >= 0) {
+            } else if (version_compare(phpversion(), '7.0') >= 0) {
                 return 'warn';
             } else {
                 return 'fail';
