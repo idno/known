@@ -15,8 +15,13 @@
  */
 
 // Check PHP version first of all
-if (version_compare(phpversion(), '5.4', '<')) {
-    header('Location: warmup/');
+if (version_compare(phpversion(), '7.0', '<')) {
+    http_response_code(500);
+    $body = "Sorry, this version of PHP is not supported.";
+    $heading = "PHP Version not supported";
+    $helplink = '<a href="http://docs.withknown.com/en/latest/install/requirements/" target="_blank">Read system requirements</a>';
+    
+    require(dirname(__FILE__) . '/statics/error-page.php');
     exit;
 }
 
