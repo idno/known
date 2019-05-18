@@ -17,25 +17,66 @@
             </h4>
 
             <div class="content-form">
-                <label for="body">
-                    <?php echo \Idno\Core\Idno::site()->language()->_('Link Address'); ?></label>
-                <?php
-                $value = "";
-                if (empty($vars['url'])) {
-                    $value = $vars['object']->body;
-                } else {
-                    $value = $vars['url'];
-                }
-                echo $this->__([
-                    'name' => 'body',
-                    'id' => 'body',
-                    'placeholder' => "https://....",
-                    'class' => "form-control bookmark-url",
-                    'value' => $value,
-                    'required' => true
-                ])->draw('forms/input/url');
-                ?>
-                </label>
+                <div class="form-group">
+                    <!-- Simple link -->
+                    <label for="body">
+                        <?php echo \Idno\Core\Idno::site()->language()->_('Link Address'); ?>
+                    </label>
+                    <?php
+                    $value = "";
+                    if (empty($vars['url'])) {
+                        $value = $vars['object']->body;
+                    } else {
+                        $value = $vars['url'];
+                    }
+                    echo $this->__([
+                        'name' => 'body',
+                        'id' => 'body',
+                        'placeholder' => "https://....",
+                        'class' => "form-control bookmark-url",
+                        'value' => $value,
+                        'required' => true
+                    ])->draw('forms/input/url');
+                    ?>
+                </div>
+
+                <div class="form-group">
+                    <div class="checkbox">
+                        <!-- like-of -->
+                        <label for="like-of" class="form-check-label" >
+                            <?php
+                            $checked = (empty($vars['object']->likeof) ? false : true);
+                            echo $this->__([
+                                'name' => 'like-of',
+                                'id' => 'like-of',
+                                'class' => "form-check-input like-of",
+                                'value' => 'like-of',
+                                'checked' => ($checked) ? 'checked' : null,
+                                'type' => 'checkbox'
+                            ])->draw('forms/input/input');
+                            ?>
+                            <?php echo \Idno\Core\Idno::site()->language()->_('Like'); ?>
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <!-- repost-of -->
+                        <label for="repost-of" class="form-check-label">
+                            <?php
+                            $checked = (empty($vars['object']->repostof) ? false : true);
+                            echo $this->__([
+                                'name' => 'repost-of',
+                                'id' => 'repost-of',
+                                'class' => "form-check-input repost-of",
+                                'value' => 'repost-of',
+                                'checked' => ($checked) ? 'checked' : null,
+                                'type' => 'checkbox'
+                            ])->draw('forms/input/input');
+                            ?>
+                            <?php echo \Idno\Core\Idno::site()->language()->_('Repost'); ?>
+                        </label>
+                    </div>
+                </div>
+
                 <?php
 
                 if (empty($vars['url'])) {
@@ -57,17 +98,17 @@
                         <?php echo \Idno\Core\Idno::site()->language()->_('Title'); ?><br/>
                     </label>
                     <?php echo $this->__([
-                            'name' => 'title',
-                            'id' => 'title',
-                            'placeholder' => \Idno\Core\Idno::site()->language()->_('Page name'),
-                            'value' => $vars['object']->pageTitle,
-                            'required' => true,
-                            'class' => 'form-control bookmark-title'])->draw('forms/input/input'); ?>
-                    
+                        'name' => 'title',
+                        'id' => 'title',
+                        'placeholder' => \Idno\Core\Idno::site()->language()->_('Page name'),
+                        'value' => $vars['object']->pageTitle,
+                        'required' => true,
+                        'class' => 'form-control bookmark-title'])->draw('forms/input/input'); ?>
+
                 </div>
 
                 <?php echo $this->draw('content/unfurl'); ?>
-                
+
                 <?php echo $this->__([
                     'name'        => 'description',
                     'value'       => $vars['object']->description,
@@ -80,13 +121,13 @@
             </div>
             <?php echo $this->draw('entity/tags/input'); ?>
             <?php echo $this->drawSyndication('bookmark', $vars['object']->getPosseLinks()); ?>
-            <?php if (empty($vars['object']->_id)) { 
+            <?php if (empty($vars['object']->_id)) {
                 echo $this->__(['name' => 'forward-to', 'value' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'])->draw('forms/input/hidden');
             } ?>
             <?php echo $this->draw('content/extra'); ?>
             <?php echo $this->draw('content/access'); ?>
-            
-    
+
+
             <p class="button-bar">
                 <?php echo \Idno\Core\Idno::site()->actions()->signForm('/like/edit') ?>
                 <input type="button" class="btn btn-cancel" value="<?php echo \Idno\Core\Idno::site()->language()->_('Cancel'); ?>" onclick="hideContentCreateForm();"/>
@@ -96,7 +137,7 @@
         </div>
 
     </div>
-    
+
 </form>
 <?php echo $this->draw('entity/edit/footer'); ?>
 <script language="javascript">
@@ -117,11 +158,11 @@
                         $('.bookmark-title').val(data.value);
                         $('.bookmark-spinner-container').html(" ");
                         $('.bookmark-title-container').show();
-                        
+
                         var unfurl = $('.bookmark-url').closest('form').find('.unfurl');
                         unfurl.attr('data-url', $('.bookmark-url').val());
                         Unfurl.unfurl(unfurl);
-                        
+
                     },
                     error: function () {
                         $('.bookmark-spinner-container').html(" ");
