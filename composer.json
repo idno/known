@@ -26,7 +26,7 @@
         "ext-SimpleXML": "*",
         "ext-openssl": "*",
         "ext-gettext": "*",
-        "mapkyca/php-ogp": "dev-master",
+        "mapkyca/php-ogp": "^1.0",
         "psr/log": "1.1",
         "torophp/torophp": "dev-master",
         "mf2/mf2": "0.4.6",
