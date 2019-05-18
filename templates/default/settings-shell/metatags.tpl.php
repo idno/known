@@ -6,4 +6,4 @@
 <meta name="description" content="<?php echo htmlspecialchars(strip_tags($vars['description'])) ?>">
 <meta name="generator" content="Known https://withknown.com">
 <meta http-equiv="Content-Language" content="<?php echo $vars['lang']; ?>">
-<meta http-equiv="Status" content="<?php echo \Idno\Core\Idno::site()->currentPage()->response;?>"/>
+<meta http-equiv="Status" content="<?php echo \Idno\Core\Idno::site()->currentPage()->response();?>"/>

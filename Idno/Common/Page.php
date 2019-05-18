@@ -24,32 +24,32 @@ namespace Idno\Common {
 
         // Property that defines whether this page may forward to
         // other pages. True by default.
-        public $forward = true;
+        private $forward = true;
 
         // Property intended to store parsed data from JSON magic input
         // variable
-        public $data = array();
+        private $data = [];
 
         // Stores the response code that we'll be sending back. Can be
         // changed with setResponse
-        public $response = 200;
+        private $response = 200;
 
         // Stores arguments given to page handlers, for parsing of regular
         // expression matches
-        public $arguments = array();
+        public $arguments = [];
 
         // Is this the canonical permalink page for an object? Defaults
         // to no, but you can use $this->setPermalink() to change this
-        public $isPermalinkPage = false;
+        private $isPermalinkPage = false;
 
         // Is this an XmlHTTPRequest (AJAX) call?
         public $xhr = false;
 
         // Who owns this page, anyway?
-        public $owner = false;
+        private $owner = false;
 
         // Page assets that can be registered and set by plugins (javascript, css, etc)
-        public $assets = array();
+        private $assets = array();
 
         function init()
         {
@@ -153,6 +153,14 @@ namespace Idno\Common {
             $this->response = $code;
             http_response_code($this->response);
         }
+        
+        /**
+         * Return the current response code for the page.
+         * @return int
+         */
+        function response():int {
+            return $this->response;
+        }
 
         function head_xhr()
         {
@@ -219,6 +227,14 @@ namespace Idno\Common {
         }
 
         /**
+         * Return the arguments sent to the page via regular expression
+         * @return array
+         */
+        function &arguments() : array {
+            return $this->arguments;
+        }
+        
+        /**
          * Provide access to page data
          * @return array
          */
@@ -227,6 +243,14 @@ namespace Idno\Common {
             return $this->data;
         }
 
+        /**
+         * Is this an XHR page or not
+         * @return bool
+         */
+        function xhr(): bool {
+            return $this->xhr;
+        }
+        
         /**
          * To be extended by developers
          */
@@ -1117,7 +1141,7 @@ namespace Idno\Common {
                 $this->owner = $user;
             }
         }
-
+        
         /**
          * Set headers to ensure that the current page is not cached.
          */
