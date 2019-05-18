@@ -129,13 +129,13 @@ namespace Idno\Core {
                 // Save cookie to user specific cookie jar, using some level of obfuscation
                 curl_setopt($curl_handle, CURLOPT_COOKIEJAR, \Idno\Core\Idno::site()->config()->cookie_jar . md5($user->getUUID() . \Idno\Core\Idno::site()->config()->site_secret));
             }
-            
+
             // Set a maximum file size for downloads (ht: https://www.reddit.com/r/PHP/comments/641uud/is_there_any_easy_way_to_limit_curl_via_php_so_it/)
             $sizeLimit = 1024 * 1024 * 10; // Default 10 MB
             if (!empty(\Idno\Core\Idno::site()->config()->webservice_max_download)) {
                 $sizeLimit = \Idno\Core\Idno::site()->config()->webservice_max_download;
             }
-            
+
             curl_setopt($curl_handle, CURLOPT_PROGRESSFUNCTION, function ($curl_handle, $totalBytes, $receivedBytes) use ($sizeLimit) {
                 if ($totalBytes > $sizeLimit) {
                     return 1; // return non-zero value to abort transfer
@@ -207,7 +207,7 @@ namespace Idno\Core {
             self::$lastResponse = $content;
 
             $effective_url = curl_getinfo($curl_handle, CURLINFO_EFFECTIVE_URL);
-            
+
             curl_close($curl_handle);
 
             return [

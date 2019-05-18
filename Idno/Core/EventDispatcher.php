@@ -8,19 +8,21 @@
  */
 
 namespace Idno\Core {
-    
+
     /**
      * Event dispatcher implementation.
      */
-    class EventDispatcher {
-        
+    class EventDispatcher
+    {
+
         /// Event dispatcher (currently symfony)
         private $dispatcher;
-        
-        public function __construct() {
+
+        public function __construct()
+        {
             $this->dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
         }
-        
+
         /**
          * Tells the system that callable $listener wants to be notified when
          * event $event is triggered. $priority is an optional integer
@@ -37,7 +39,7 @@ namespace Idno\Core {
                 $this->dispatcher->addListener($event, $listener, $priority);
             }
         }
-        
+
         /**
          * Shortcut to trigger an event: supply the event name and
          * (optionally) an array of data, and get a variable back.
@@ -64,13 +66,14 @@ namespace Idno\Core {
                 exit;
             }
         }
-        
+
         /**
          * Low level event dispatcher for an already existing Event
          * @param string $eventName
          * @param \Idno\Core\Event $event
          */
-        function dispatch(string $eventName, Event $event = null) {
+        function dispatch(string $eventName, Event $event = null)
+        {
             return $this->dispatcher->dispatch($eventName, $event);
         }
     }

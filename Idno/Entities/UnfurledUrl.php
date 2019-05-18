@@ -51,8 +51,8 @@ namespace Idno\Entities {
 
             $url = trim($url);
             $unfurled = [];
-            
-            if (!filter_var($url, FILTER_VALIDATE_URL)) 
+
+            if (!filter_var($url, FILTER_VALIDATE_URL))
                 return false;
 
             $contents = \Idno\Core\Webservice::file_get_contents($url);

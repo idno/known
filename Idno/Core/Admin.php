@@ -34,7 +34,7 @@ namespace Idno\Core {
             if (!empty(\Idno\Core\Idno::site()->config()->capture_logs) && \Idno\Core\Idno::site()->config()->capture_logs) {
                 site()->routes()->addRoute('/admin/logs/?', '\Idno\Pages\Admin\Logs');
             }
-            
+
             // Override the page shell
             site()->template()->addUrlShellOverride('admin', 'settings-shell');
         }

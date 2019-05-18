@@ -1,12 +1,13 @@
 <?php
 
 namespace Idno\Core\Deprecated {
-    
+
     /**
      * Deprecated functions from Idno
      */
-    trait Idno {
-        
+    trait Idno
+    {
+
         /**
          * Registers a page handler for a given pattern, using Toro
          * page handling syntax
@@ -19,7 +20,7 @@ namespace Idno\Core\Deprecated {
         function addPageHandler($pattern, $handler, $public = false)
         {
             \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: \Idno\Core\Idno::site()->routes()->addRoute()");
-            
+
             return \Idno\Core\Idno::site()->routes()->addRoute($pattern, $handler, $public);
         }
 
@@ -35,7 +36,7 @@ namespace Idno\Core\Deprecated {
         function hijackPageHandler($pattern, $handler, $public = false)
         {
             \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: \Idno\Core\Idno::site()->routes()->hijackRoute()");
-            
+
             return \Idno\Core\Idno::site()->routes()->hijackRoute($pattern, $handler, $public);
         }
 
@@ -47,7 +48,7 @@ namespace Idno\Core\Deprecated {
         function addPublicPageHandler($class)
         {
             \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: \Idno\Core\Idno::site()->routes()->addPublicRoute()");
-            
+
             return \Idno\Core\Idno::site()->routes()->addPublicRoute($class);
         }
 
@@ -59,7 +60,7 @@ namespace Idno\Core\Deprecated {
         function getPublicPageHandlers()
         {
             \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: \Idno\Core\Idno::site()->routes()->getPublicRoute()");
-            
+
             return \Idno\Core\Idno::site()->routes()->getPublicRoute();
         }
 
@@ -72,7 +73,7 @@ namespace Idno\Core\Deprecated {
         function isPageHandlerPublic($class)
         {
             \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: \Idno\Core\Idno::site()->routes()->isRoutePublic()");
-            
+
             return \Idno\Core\Idno::site()->routes()->isRoutePublic($class);
         }
 
@@ -87,11 +88,11 @@ namespace Idno\Core\Deprecated {
         function getPageHandler($path_info)
         {
             \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: \Idno\Core\Idno::site()->routes()->getRoute()");
-            
+
             return \Idno\Core\Idno::site()->routes()->getRoute($path_info);
         }
-        
-        
+
+
         /**
          * Shortcut to trigger an event: supply the event name and
          * (optionally) an array of data, and get a variable back.
@@ -106,10 +107,10 @@ namespace Idno\Core\Deprecated {
         function triggerEvent($eventName, $data = array(), $default = true)
         {
             \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: \Idno\Core\Idno::site()->events()->triggerEvent()");
-            
+
             return \Idno\Core\Idno::site()->events()->triggerEvent($eventName, $data, $default);
         }
-        
+
         /**
          * Tells the system that callable $listener wants to be notified when
          * event $event is triggered. $priority is an optional integer
@@ -119,12 +120,12 @@ namespace Idno\Core\Deprecated {
          * @param string $event
          * @param callable $listener
          * @param int $priority
-         * @deprecated 
+         * @deprecated
          */
         function addEventHook($event, $listener, $priority = 0)
         {
             \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: \Idno\Core\Idno::site()->events()->addListener()");
-            
+
             return \Idno\Core\Idno::site()->events()->addListener($event, $listener, $priority);
         }
     }

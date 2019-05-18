@@ -30,13 +30,13 @@ namespace Idno\Pages\Annotation {
             if (empty($object)) {
                 $this->goneContent();
             }
-            
+
             $permalink = \Idno\Core\Webservice::base64UrlDecode($this->getInput('permalink'));
 
             // Default to constructed permalink if one is not provided.
             if (empty($permalink))
                 $permalink = $object->getURL() . '/annotations/' . $this->arguments[1];
-            
+
             if ($object->canEditAnnotation($permalink)) {
                 if (($object->removeAnnotation($permalink)) && ($object->save())) {
                     //\Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_('The annotation was deleted.'));

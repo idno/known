@@ -108,7 +108,7 @@ namespace Idno\Core {
                 if ($object->getUUID() != $this->user->getUUID()) return;
 
                 if (!empty($_SESSION['user_uuid'])) {
-                    if ($object->getUUID() != $_SESSION['user_uuid']) return;
+                if ($object->getUUID() != $_SESSION['user_uuid']) return;
                 }
 
                 $this->user = $this->refreshSessionUser($object);

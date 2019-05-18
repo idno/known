@@ -12,7 +12,8 @@ namespace Idno\Core {
     /**
      * Routing class.
      */
-    class PageHandler extends \Toro implements \ArrayAccess, \Iterator {
+    class PageHandler extends \Toro implements \ArrayAccess, \Iterator
+    {
 
         private $routes = [];
         private $public_routes = [];
@@ -25,7 +26,8 @@ namespace Idno\Core {
          * @param string $handler The name of the Page class that will serve this route
          * @param bool $public If set to true, this page is always public, even on non-public sites
          */
-        function addRoute($pattern, $handler, $public = false) {
+        function addRoute($pattern, $handler, $public = false)
+        {
             if (defined('KNOWN_SUBDIRECTORY')) {
                 if (substr($pattern, 0, 1) != '/') {
                     $pattern = '/' . $pattern;
@@ -50,7 +52,8 @@ namespace Idno\Core {
          * @param string $handler The name of the Page class that will serve this route
          * @param bool $public If set to true, this page is always public, even on non-public sites
          */
-        function hijackRoute($pattern, $handler, $public = false) {
+        function hijackRoute($pattern, $handler, $public = false)
+        {
             if (class_exists($handler)) {
                 unset($this->routes[$pattern]);
                 unset($this->public_routes[$pattern]);
@@ -65,7 +68,8 @@ namespace Idno\Core {
          * Mark a page handler class as offering public content even on walled garden sites
          * @param $class
          */
-        function addPublicRoute($class) {
+        function addPublicRoute($class)
+        {
             if (class_exists($class)) {
                 $this->public_routes[] = $class;
             }
@@ -75,7 +79,8 @@ namespace Idno\Core {
          * Retrieve an array of walled garden page handlers
          * @return array
          */
-        function getPublicRoute() {
+        function getPublicRoute()
+        {
             if (!empty($this->public_routes)) {
                 return $this->public_routes;
             }
@@ -88,7 +93,8 @@ namespace Idno\Core {
          * @param $class
          * @return bool
          */
-        function isRoutePublic($class) {
+        function isRoutePublic($class)
+        {
             if (!empty($class)) {
                 if (in_array($class, $this->getPublicRoute())) {
                     return true;
@@ -111,7 +117,8 @@ namespace Idno\Core {
          * @param string $path_info The path, including the initial /, or the URL
          * @return bool|\Idno\Common\Page
          */
-        function getRoute($path_info) {
+        function getRoute($path_info)
+        {
             $path_info = parse_url($path_info, PHP_URL_PATH);
             if ($q = strpos($path_info, '?')) {
                 $path_info = substr($path_info, 0, $q);
@@ -152,21 +159,25 @@ namespace Idno\Core {
          * @param string $hookName Name of hook
          * @param callable $callable
          */
-        static function hook($hookName, $callable) {
+        static function hook($hookName, $callable)
+        {
             \ToroHook::add($hookName, $callable);
         }
 
         // ArrayAccess & Iterator interfaces ////////
-        
-        public function offsetExists($offset): bool {
+
+        public function offsetExists($offset): bool
+        {
             return isset($this->routes[$offset]);
         }
 
-        public function offsetGet($offset) {
+        public function offsetGet($offset)
+        {
             return isset($this->routes[$offset]) ? $this->routes[$offset] : null;
         }
 
-        public function offsetSet($offset, $value): void {
+        public function offsetSet($offset, $value): void
+        {
             if (is_null($offset)) {
                 $this->routes[] = $value;
             } else {
@@ -174,32 +185,38 @@ namespace Idno\Core {
             }
         }
 
-        public function offsetUnset($offset): void {
+        public function offsetUnset($offset): void
+        {
             unset($this->routes[$offset]);
         }
 
-        function rewind() {
+        function rewind()
+        {
             return reset($this->routes);
         }
 
-        function current() {
+        function current()
+        {
             return current($this->routes);
         }
 
-        function key() {
+        function key()
+        {
             return key($this->routes);
         }
 
-        function next() {
+        function next()
+        {
             return next($this->routes);
         }
 
-        function valid() {
+        function valid()
+        {
             return key($this->routes) !== null;
         }
 
         //////////////////////////////////////////////
-        
+
     }
 
 }

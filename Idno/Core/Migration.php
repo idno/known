@@ -17,11 +17,11 @@ namespace Idno\Core {
         {
 
             set_time_limit(0);  // Switch off the time limit for PHP
-            
+
             $page = Idno::site()->currentPage();
             if (!empty($page))
                 Idno::site()->currentPage()->setPermalink(true);
-            
+
             // Prepare a unique name for the archive
             $name = md5(time() . rand(0, 9999) . Idno::site()->config()->getURL());
 
@@ -63,7 +63,7 @@ namespace Idno\Core {
             }
 
             // If we've made it here, we've created a temporary directory with the hash name
-            
+
             // Write some details about the export
             file_put_contents($dir . $name . DIRECTORY_SEPARATOR . 'known.json', json_encode([
                 'url' => Idno::site()->config()->getURL(),
@@ -72,10 +72,10 @@ namespace Idno\Core {
                 'version' => \Idno\Core\Version::version(),
                 'build' => \Idno\Core\Version::build(),
             ], JSON_PRETTY_PRINT));
-            
+
             // We now also want to output the current loaded config
             file_put_contents($dir . $name . DIRECTORY_SEPARATOR . 'config.json', json_encode(\Idno\Core\Idno::site()->config(), JSON_PRETTY_PRINT));
-            
+
             // Let's export everything.
             $fields = array();
             $query_parameters = array();
@@ -138,7 +138,7 @@ namespace Idno\Core {
                         }
                         $json_object = json_encode($object, JSON_PRETTY_PRINT);
                         file_put_contents($json_path . $object_name . '.json', $json_object);
-                        
+
                         fwrite($f, $json_object . ',');
 
                         if (is_callable(array($object, 'draw'))) {
@@ -175,11 +175,10 @@ namespace Idno\Core {
             $limit = 10;
             $offset = 0;
             $f = fopen($dir . $name . DIRECTORY_SEPARATOR . 'exported_data.' . $export_ext, 'wb');
-            
+
             if ($export_ext == 'json')
                 fwrite($f, '[');
-            
-            
+
             while ($exported_records = \Idno\Core\Idno::site()->db()->exportRecords('entities', $limit, $offset)) {
 
                 if ($export_ext == 'json')

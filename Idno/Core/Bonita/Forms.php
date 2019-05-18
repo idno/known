@@ -128,13 +128,14 @@ namespace Idno\Core\Bonita {
 
             return $hmac;
         }
-        
+
         /**
          * Obfuscate a form field name.
          * @param type $field
          * @return type
          */
-        public static function obfuscateField($field) {
+        public static function obfuscateField($field)
+        {
             return md5(\Idno\Core\Idno::site()->config()->site_secret . $field);
         }
 

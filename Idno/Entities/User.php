@@ -949,7 +949,7 @@ namespace Idno\Entities {
             if (!empty($this->profile['url'])) {
                 $data['sameAs'] = $this->profile['url'];
             }
-            
+
             return $data;
         }
 
