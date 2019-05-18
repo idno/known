@@ -66,7 +66,7 @@ if ($title == 'Untitled') {
                     <select name="category" class="selectpicker">
                         <option <?php if ($vars['category'] == 'No Category') {
                             echo 'selected';
-                       } ?>><?php echo \Idno\Core\Idno::site()->language()->_('No Category'); ?>
+} ?>><?php echo \Idno\Core\Idno::site()->language()->_('No Category'); ?>
                         </option>
                         <?php
 
@@ -76,7 +76,7 @@ if ($title == 'Untitled') {
                                 ?>
                                     <option <?php if ($category == $vars['category']) {
                                         echo 'selected';
-                                   } ?>><?php echo htmlspecialchars($category) ?></option>
+} ?>><?php echo htmlspecialchars($category) ?></option>
                                 <?php
 
                             }

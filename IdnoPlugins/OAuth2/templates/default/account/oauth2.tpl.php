@@ -80,7 +80,7 @@
                     } else {
                         echo '&nbsp';
                     }
-                        ?>
+                    ?>
                         </small></p>
                     </div>
             

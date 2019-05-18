@@ -52,7 +52,8 @@
 
                 ?>
                 <div class="bookmark-title-container" for="title"
-                     <?php if (empty($vars['object']->pageTitle) && empty($vars['object']->_id) && (empty($vars['url']) && empty($vars['object']->body))) { ?>style="display:none"<?php } ?>>
+                        <?php if (empty($vars['object']->pageTitle) && empty($vars['object']->_id) && (empty($vars['url']) && empty($vars['object']->body))) { ?>style="display:none"<?php
+                        } ?>>
                     <label for="title">
                         <?php echo \Idno\Core\Idno::site()->language()->_('Title'); ?><br/>
                     </label>
@@ -62,7 +63,7 @@
                             'placeholder' => \Idno\Core\Idno::site()->language()->_('Page name'),
                             'value' => $vars['object']->pageTitle,
                             'required' => true,
-                            'class' => 'form-control bookmark-title'])->draw('forms/input/input'); ?>
+                    'class' => 'form-control bookmark-title'])->draw('forms/input/input'); ?>
                     
                 </div>
 
@@ -80,7 +81,7 @@
             </div>
             <?php echo $this->draw('entity/tags/input'); ?>
             <?php echo $this->drawSyndication('bookmark', $vars['object']->getPosseLinks()); ?>
-            <?php if (empty($vars['object']->_id)) { 
+            <?php if (empty($vars['object']->_id)) {
                 echo $this->__(['name' => 'forward-to', 'value' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'])->draw('forms/input/hidden');
             } ?>
             <?php echo $this->draw('content/extra'); ?>

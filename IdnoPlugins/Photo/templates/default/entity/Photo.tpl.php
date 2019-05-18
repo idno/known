@@ -1,27 +1,27 @@
 <?php
 
-    $attachments = $vars['object']->getAttachments();
-    $multiple = false;
-    $num_pics = count($attachments);
-    if ($num_pics > 1)
-        $multiple = true;
-    $photoCount = 0;
+$attachments = $vars['object']->getAttachments();
+$multiple = false;
+$num_pics = count($attachments);
+if ($num_pics > 1)
+    $multiple = true;
+$photoCount = 0;
 
-    $currentPage = \Idno\Core\Idno::site()->currentPage();
-    if (!empty($currentPage) && \Idno\Core\Idno::site()->currentPage()->isPermalink()) {
-        $rel = 'rel="in-reply-to"';
-    } else {
-        $rel = '';
-    }
+$currentPage = \Idno\Core\Idno::site()->currentPage();
+if (!empty($currentPage) && \Idno\Core\Idno::site()->currentPage()->isPermalink()) {
+    $rel = 'rel="in-reply-to"';
+} else {
+    $rel = '';
+}
 
     $tags = "";
-    if (!empty($vars['object']->tags)) {
-        $tags = $this->__(['tags' => $vars['object']->tags])->draw('forms/output/tags');
+if (!empty($vars['object']->tags)) {
+    $tags = $this->__(['tags' => $vars['object']->tags])->draw('forms/output/tags');
 
-    }
-    if (empty($vars['feed_view']) && $vars['object']->getTitle() && $vars['object']->getTitle() != 'Untitled') {
+}
+if (empty($vars['feed_view']) && $vars['object']->getTitle() && $vars['object']->getTitle() != 'Untitled') {
 
-?>
+    ?>
     <h2 class="photo-title p-name"><a
                 href="<?php echo $vars['object']->getDisplayURL(); ?>"><?php echo htmlentities(strip_tags($vars['object']->getTitle()), ENT_QUOTES, 'UTF-8'); ?></a>
     </h2>

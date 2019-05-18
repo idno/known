@@ -35,7 +35,7 @@ namespace IdnoPlugins\Photo {
         {
             return array('type' => 'photo');
         }
-        
+
         /**
          * Retrieve icon
          * @return mixed|string
@@ -120,14 +120,14 @@ namespace IdnoPlugins\Photo {
             // Get photo
             //if ($new) {
                 $files = \Idno\Core\Input::getFiles('photo');
-                
-                if (!isset($files['name'])) {
-                    $files = array_filter($files, function($var) {
-                        return !empty($var['tmp_name']); // Filter non-filled in elements
-                    });
-                } else {
-                    $files = [$files]; // Handle situations where we aren't handling array of photos
-                }
+
+            if (!isset($files['name'])) {
+                $files = array_filter($files, function($var) {
+                    return !empty($var['tmp_name']); // Filter non-filled in elements
+                });
+            } else {
+                $files = [$files]; // Handle situations where we aren't handling array of photos
+            }
 
                 // Replace any existing photos
             //                    if (!empty($files[0]['tmp_name'])) {

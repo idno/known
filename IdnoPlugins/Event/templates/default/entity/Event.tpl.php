@@ -36,7 +36,7 @@ $timeformat = 'l, jS F Y h:i A';
         </p>
         <?php
     }
-?>
+    ?>
     <?php
     if ($endtime && $endtime >= $starttime + 86400) {
         ?>
