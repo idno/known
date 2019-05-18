@@ -31,12 +31,12 @@ namespace Idno\Core {
 
         // Keep track of the HTML purifier
         public $purifier = false;
-        
+
         // Override the shell for specific url roots
         public $url_shell_overrides = [];
 
 
-        /**             
+        /**
          * On construction, detect the template type
          */
         function __construct($template = false)
@@ -51,13 +51,14 @@ namespace Idno\Core {
 
             return parent::__construct($template);
         }
-        
+
         /**
          * Override a page shell based on the page root.
          * @param type $path_root Url base, e.g. 'settings'
          * @param type $shell The shell, e.g. 'settings-shell'
          */
-        public function addUrlShellOverride($path_root, $shell) {
+        public function addUrlShellOverride($path_root, $shell)
+        {
             $this->url_shell_overrides[trim($path_root, ' /')] =  $shell;
         }
 
@@ -120,14 +121,14 @@ namespace Idno\Core {
         {
             // Detect page, and see if we need to use a different shell
             foreach ($this->url_shell_overrides as $url => $page_shell) {
-            
+
                 if (strpos(\Idno\Core\Idno::site()->currentPage()->currentUrl(), \Idno\Core\Idno::site()->config()->getDisplayURL() . $url.'/') === 0)
                 {
                     $shell = $page_shell;
                 }
-                        
+
             }
-            
+
             // Get messages and flush session
             $this->messages = \Idno\Core\Idno::site()->session()->getAndFlushMessages();
 
@@ -324,7 +325,7 @@ namespace Idno\Core {
         function autop($html)
         {
             $html = site()->events()->triggerEvent('text/format', [], $html);
-            
+
             $autop = new \mapkyca\autop\MrClayAutoP();
 
             return $autop->process($html);

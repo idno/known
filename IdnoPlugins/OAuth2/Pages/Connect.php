@@ -21,7 +21,7 @@ namespace IdnoPlugins\OAuth2\Pages {
                 $t->title = 'Authorise connection...';
                 $t->drawPage();
             }
-            else 
+            else
             {
                 throw new \Exception(\Idno\Core\Idno::site()->language()->_("Could not load client associated with %s", [$client_id]));
             }

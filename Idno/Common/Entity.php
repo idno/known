@@ -2253,7 +2253,7 @@ namespace Idno\Common {
             $annotation_url = strip_tags(filter_var($annotation_url, FILTER_SANITIZE_URL));
             $owner_name = strip_tags($owner_name);
             $title = strip_tags($title);
-            
+
             if (empty($subtype)) return false;
             if (empty($annotation_url)) {
                 $annotation_url = $this->getURL() . '/annotations/' . md5(time() . $content); // Invent a URL for this annotation

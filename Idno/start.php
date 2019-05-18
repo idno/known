@@ -44,7 +44,7 @@
             } else {
                 $helplink = '<a href="https://withknown.com/opensource" target="_blank">Connect to other open source users for help.</a>';
             }
-            
+
             include(dirname(dirname(__FILE__)) . '/statics/error-page.php');
 
             $stats = \Idno\Core\Idno::site()->statistics();
@@ -95,16 +95,16 @@
         require_once(dirname(dirname(__FILE__)) . '/vendor/autoload.php');
     } else {
         http_response_code(500);
-        
+
         $title = 'Installation incomplete';
         $heading = 'Your Known installation is incomplete!';
         $body = '<p>It looks like you\'re running Known directly from a GitHub checkout. You need to run "composer install" to fetch other required packages!</p>';
         $helplink = "<a href=\"http://docs.withknown.com/en/latest/install/instructions/\">Read installation instructions.</a>";
-        
+
         include(dirname(dirname(__FILE__)) . '/statics/error-page.php');
         exit();
     }
-    
+
     // We're making heavy use of the Symfony ClassLoader to load our classes
     global $known_loader;
     $known_loader = new \Symfony\Component\ClassLoader\UniversalClassLoader();

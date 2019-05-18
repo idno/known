@@ -153,12 +153,13 @@ namespace Idno\Common {
             $this->response = $code;
             http_response_code($this->response);
         }
-        
+
         /**
          * Return the current response code for the page.
          * @return int
          */
-        function response():int {
+        function response():int
+        {
             return $this->response;
         }
 
@@ -216,7 +217,7 @@ namespace Idno\Common {
                 $body = @file_get_contents('php://input');
                 $body = trim($body);
                 $body = str_replace('[]"', '"', $body); // Fake PHP's array conversion
-                
+
                 if (!empty($body)) {
                     if ($parsed = @json_decode($body, true)) {
                         $this->data = array_merge($parsed, $this->data());
@@ -230,10 +231,11 @@ namespace Idno\Common {
          * Return the arguments sent to the page via regular expression
          * @return array
          */
-        function &arguments() : array {
+        function &arguments() : array
+        {
             return $this->arguments;
         }
-        
+
         /**
          * Provide access to page data
          * @return array
@@ -247,10 +249,11 @@ namespace Idno\Common {
          * Is this an XHR page or not
          * @return bool
          */
-        function xhr(): bool {
+        function xhr(): bool
+        {
             return $this->xhr;
         }
-        
+
         /**
          * To be extended by developers
          */
@@ -1141,7 +1144,7 @@ namespace Idno\Common {
                 $this->owner = $user;
             }
         }
-        
+
         /**
          * Set headers to ensure that the current page is not cached.
          */

@@ -11,7 +11,7 @@ namespace Idno\Core {
 
     use Idno\Common\Page;
     use Idno\Entities\User;
-    
+
     class Idno extends \Idno\Common\Component
     {
         // Install Idno deprecated functions
@@ -90,17 +90,17 @@ namespace Idno\Core {
                     $this->filesystem = new \Idno\Files\LocalFileSystem();
                     break;
                 default:
-                    
+
                     if (empty($this->filesystem)) {
                         if ($fs = $this->db()->getFilesystem()) {
                             $this->filesystem = $fs;
                         }
                     }
-                    
+
                     if (!empty($this->config->filesystem)) {
                         $this->filesystem = $this->componentFactory($this->config->filesystem, "Idno\\Files\\FileSystem", "Idno\\Files\\", "Idno\\Files\\LocalFileSystem");
                     }
-                    
+
                     break;
             }
 
@@ -330,7 +330,7 @@ namespace Idno\Core {
         {
             return $this->statistics;
         }
-        
+
         /**
          * Return page handlers
          * @return \Idno\Core\PageHandler
@@ -433,12 +433,12 @@ namespace Idno\Core {
         {
             return $this->reader;
         }
-        
+
         /**
          * Return the currently registered page routing table.
          * @return array
          */
-        function &routing() 
+        function &routing()
         {
             return $this->pagehandlers;
         }

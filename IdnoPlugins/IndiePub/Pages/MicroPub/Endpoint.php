@@ -88,7 +88,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
         function post()
         {
             \Idno\Core\Idno::site()->template()->setTemplateType('json');
-            
+
             \Idno\Core\Idno::site()->logging()->debug("MicroPub endpoint pinged: " . print_r($_REQUEST, true));
             if(isset($_SERVER['CONTENT_TYPE']) && $_SERVER['CONTENT_TYPE'] == 'application/json') {
                 \Idno\Core\Idno::site()->logging()->debug("JSON Payload: " . print_r(json_decode(file_get_contents('php://input')), true));
@@ -169,12 +169,12 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
                 $video_url   = $this->getJSONInput('video');
                 $audio_url   = $this->getJSONInput('audio');
                 $visibility  = $this->getJSONInput('visibility');
-                
+
                 // Handle visibility
                 if(is_array($visibility) && array_key_exists(0, $visibility)) {
                     $visibility = $visibility[0];
                 }
-                
+
                 // Since Known does not support multiple photos or videos, use the first if more than one was given.
                 if(is_array($photo_url) && array_key_exists(0, $photo_url)) {
                     $photo_url = $photo_url[0];
@@ -265,7 +265,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
                 if (!empty($_FILES['photo'])) {
                     $type = 'photo';
                 } else if ($photo_url) {
-                    $type      = 'photo'; 
+                    $type      = 'photo';
                     $success   = $this->uploadFromUrl('photo', $photo_url);
                     if (!$success) {
                         \Idno\Core\Idno::site()->events()->triggerEvent('indiepub/post/failure', ['page' => $this]);
@@ -328,7 +328,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
             }
 
             if (!empty($_FILES['photo'])) {
-                $id = \Idno\Entities\File::createFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'], $_FILES['photo']['type']); 
+                $id = \Idno\Entities\File::createFromFile($_FILES['photo']['tmp_name'], $_FILES['photo']['name'], $_FILES['photo']['type']);
                 $photo = \Idno\Core\Idno::site()->config()->url . 'file/' . $id;
 
                 if (!empty($photo)) {
@@ -380,8 +380,8 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
             }
 
             // Get an appropriate plugin, given the content type
-            if ($contentType = ContentType::getRegisteredForIndieWebPostType($type)) { 
-                if ($entity = $contentType->createEntity()) { 
+            if ($contentType = ContentType::getRegisteredForIndieWebPostType($type)) {
+                if ($entity = $contentType->createEntity()) {
                     if (is_array($content)) {
                         $content_value = '';
                         if (!empty($content['html'])) {

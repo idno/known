@@ -83,7 +83,7 @@ namespace Idno\Pages\Admin {
                     ];
                 }
             }
-            
+
             // Check to see if this is an official package
             if ($revision = \Idno\Core\Version::get('revision')) {
                 $basics['report']['package'] = [

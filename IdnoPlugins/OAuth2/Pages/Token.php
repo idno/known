@@ -34,14 +34,14 @@ namespace IdnoPlugins\OAuth2\Pages {
                                 throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Required parameter refresh_token is missing!"), 'invalid_request', $state);
                             }
 
-                            if (!($token = \IdnoPlugins\OAuth2\Token::getOne([/*'key' => $client_id, */'refresh_token' => $refresh_token]))) 
+                            if (!($token = \IdnoPlugins\OAuth2\Token::getOne([/*'key' => $client_id, */'refresh_token' => $refresh_token])))
                             {
                                 throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Sorry, that refresh token appears to be invalid!"), 'invalid_grant', $state);
                             }
 
                             // Check state on object
                             if ($token->state) {
-                                if ($token->state != $state) 
+                                if ($token->state != $state)
                                 {
                                     throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Invalid state given"), 'access_denied', $state);
                                 }

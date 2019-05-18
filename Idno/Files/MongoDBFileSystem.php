@@ -96,7 +96,8 @@ namespace Idno\Files {
             return false;
         }
 
-        public function storeContent($content, $metadata, $options = []) {
+        public function storeContent($content, $metadata, $options = [])
+        {
             $bucket = $this->gridfs_object;
 
             try {
@@ -105,7 +106,7 @@ namespace Idno\Files {
 
                     fwrite($source, $content);
                     rewind($source);
-                    
+
                     $id = $bucket->uploadFromStream($metadata['filename'], $source, [
                         'metadata' => $metadata//new \MongoDB\Model\BSONDocument($metadata)
                     ]);

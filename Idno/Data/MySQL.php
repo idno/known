@@ -353,7 +353,7 @@ namespace Idno\Data {
                 }
             } catch (\Exception $e) {
                 if (\Idno\Core\Idno::site()->session() == null)
-                    die($e->getMessage());
+                    throw $e; // Throw exception up if the session isn't set
             }
 
             return false;

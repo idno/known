@@ -293,7 +293,7 @@ namespace Idno\Data {
                 }
             } catch (\Exception $e) {
                 if (\Idno\Core\Idno::site()->session() == null)
-                    die($e->getMessage());
+                    throw $e;
             }
 
             return false;

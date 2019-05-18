@@ -107,8 +107,9 @@ namespace Idno\Files {
             return false;
         }
 
-        public function storeContent($content, $metadata, $options = []) {
-            
+        public function storeContent($content, $metadata, $options = [])
+        {
+
             if (!empty($content) && $path = \Idno\Core\Idno::site()->config()->uploadpath) {
 
                 // Encode metadata for saving
@@ -131,11 +132,11 @@ namespace Idno\Files {
                         }
                     }
 
-                    if (!@file_put_contents($upload_file, $content)) 
+                    if (!@file_put_contents($upload_file, $content))
                     {
                         throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("There was a problem storing the file data."));
                     }
-                    if (!@file_put_contents($data_file, $metadata)) 
+                    if (!@file_put_contents($data_file, $metadata))
                     {
                         throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("There was a problem saving the file's metadata"));
                     }
