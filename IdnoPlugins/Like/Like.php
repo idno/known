@@ -151,7 +151,7 @@ namespace IdnoPlugins\Like {
             if(
                 filter_var($body, FILTER_VALIDATE_URL)
                 || filter_var($bookmarkof, FILTER_VALIDATE_URL)
-                // The `$likeof` and `$repostof` variable types are now booleans
+                // The `$likeof` and `$repostof` variable types are no longer URLs
             ) {
                 if (
                     !empty($body)
@@ -165,10 +165,14 @@ namespace IdnoPlugins\Like {
                     if (!empty($likeof)) {
                         // We're not changing this->body as it is the actual link
                         $this->likeof = $this->body;
+                    } else {
+                        $this->likeof = null;
                     }
                     if (!empty($repostof)) {
                         // We're not changing this->body as it is the actual link
                         $this->repostof = $this->body;
+                    } else {
+                        $this->repostof = null;
                     }
                     $this->description = $description;
                     $this->tags = $tags;
