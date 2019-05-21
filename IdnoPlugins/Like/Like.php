@@ -151,11 +151,16 @@ namespace IdnoPlugins\Like {
             if(
                 filter_var($body, FILTER_VALIDATE_URL)
                 || filter_var($bookmarkof, FILTER_VALIDATE_URL)
-                // The `$likeof` and `$repostof` variable types are no longer URLs
+                || filter_var($likeof, FILTER_VALIDATE_URL)
+                || filter_var($repostof, FILTER_VALIDATE_URL)
+                || ($likeof == 'like-of')
+                || ($repostof == 'repost-of')
             ) {
                 if (
                     !empty($body)
                     || !empty($bookmarkof)
+                    || !empty($likeof)
+                    || !empty($repostof)
                 ) {
                     $this->body = $body;
                     if (!empty($bookmarkof)) {
@@ -163,14 +168,24 @@ namespace IdnoPlugins\Like {
                         $this->bookmarkof = $bookmarkof;
                     }
                     if (!empty($likeof)) {
-                        // We're not changing this->body as it is the actual link
-                        $this->likeof = $this->body;
+                        if(filter_var($likeof, FILTER_VALIDATE_URL)) {
+                           $this->body = $likeof;
+                           $this->likeof = $likeof;
+                        } else {
+                           // We're not changing this->body as it is the actual link
+                           $this->likeof = $this->body;
+                        }
                     } else {
                         $this->likeof = null;
                     }
                     if (!empty($repostof)) {
-                        // We're not changing this->body as it is the actual link
-                        $this->repostof = $this->body;
+                        if(filter_var($repostof, FILTER_VALIDATE_URL)) {
+                           $this->body = $repostof;
+                           $this->repostof = $repostof;
+                        } else {
+                           // We're not changing this->body as it is the actual link
+                           $this->repostof = $this->body;
+                        }
                     } else {
                         $this->repostof = null;
                     }
