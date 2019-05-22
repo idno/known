@@ -20,14 +20,14 @@ namespace Idno\Common {
     {
 
         // Which collection should this be stored in?
-        public $collection = 'entities';
+        private $collection = 'entities';
         static $retrieve_collection = 'entities';
 
         // Optional entity cache
-        static $entity_cache = [];
+        private static $entity_cache = [];
 
         // Store the entity's attributes
-        public $attributes = array(
+        private $attributes = array(
             'access' => 'PUBLIC' // All entites are public by default
         );
 
@@ -134,7 +134,7 @@ namespace Idno\Common {
          * @param array $search List of filter terms (default: none)
          * @return int
          */
-        static function count($search = array())
+        static function count($search = array()): int
         {
             return \Idno\Core\Idno::site()->db()->countObjects(get_called_class(), $search);
         }
@@ -145,7 +145,7 @@ namespace Idno\Common {
          * @param array $search
          * @return int
          */
-        static function countFromAll($search = array())
+        static function countFromAll($search = array()): int
         {
             return static::countFromX('', $search);
         }
@@ -157,7 +157,7 @@ namespace Idno\Common {
          * @param array $search List of filter terms (default: none)
          * @return int
          */
-        static function countFromX($class, $search = array())
+        static function countFromX($class, $search = array()): int
         {
             return \Idno\Core\Idno::site()->db()->countObjects($class, $search);
         }

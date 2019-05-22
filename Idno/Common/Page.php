@@ -147,7 +147,7 @@ namespace Idno\Common {
          *
          * @param int $code
          */
-        function setResponse($code)
+        function setResponse(int $code)
         {
             $code           = (int)$code;
             $this->response = $code;
@@ -240,7 +240,7 @@ namespace Idno\Common {
          * Provide access to page data
          * @return array
          */
-        function &data()
+        function &data() : array
         {
             return $this->data;
         }
@@ -439,7 +439,7 @@ namespace Idno\Common {
          * @param string $location Location to forward to (eg "/foo/bar")
          * @param bool $exit If set to true (which it is by default), execution finishes once the header is sent.
          */
-        function forward($location = '', $exit = true)
+        function forward(string $location = '', bool $exit = true)
         {
             if (empty($location)) {
                 $location = \Idno\Core\Idno::site()->config()->getDisplayURL();
@@ -1079,7 +1079,7 @@ namespace Idno\Common {
          * @param type $class Class of asset (e.g. 'javascript', 'css')
          * @param type $value A URL or other value
          */
-        public function setAsset($name, $value, $class)
+        public function setAsset(string $name, string $value, string $class)
         {
             if (!isset($this->assets) || !is_array($this->assets)) $this->assets = array();
             if (!isset($this->assets[$class]) || !is_array($this->assets)) $this->assets[$class] = array();
@@ -1092,7 +1092,7 @@ namespace Idno\Common {
          * @param type $class
          * @return array
          */
-        public function getAssets($class)
+        public function getAssets(string $class)
         {
             if (isset($this->assets[$class])) {
                 return $this->assets[$class];
@@ -1160,7 +1160,7 @@ namespace Idno\Common {
          * Takes a unix timestamp and outputs it as RFC2616 date.
          * @param int $timestamp Unix timestamp.
          */
-        public function setLastModifiedHeader($timestamp)
+        public function setLastModifiedHeader(int $timestamp)
         {
             header('Last-Modified: ' . \Idno\Core\Time::timestampToRFC2616($timestamp));
         }
