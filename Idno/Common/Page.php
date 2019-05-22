@@ -768,7 +768,7 @@ namespace Idno\Common {
         /**
          * You can't see this.
          */
-        function deniedContent(string $title = '')
+        function deniedContent($title = '')
         {
             $this->setResponse(403);
             http_response_code($this->response);
