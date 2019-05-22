@@ -288,7 +288,7 @@ namespace Idno\Core {
          * Returns the current filesystem
          * @return \Idno\Files\FileSystem
          */
-        function &filesystem() : ?FileSystem
+        function &filesystem() : ? \Idno\Files\FileSystem
         {
             return $this->filesystem;
         }
