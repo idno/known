@@ -260,18 +260,16 @@ namespace Idno\Core {
          * Return the database layer loaded as part of this site
          * @return \Idno\Core\DataConcierge
          */
-
-        function &db()
+        function &db() : ?DataConcierge 
         {
             return $this->db;
         }
 
         /**
          * Return the event dispatcher loaded as part of this site
-         * @return \Symfony\Component\EventDispatcher\EventDispatcher
+         * @return \Idno\Core\EventDispatcher
          */
-
-        function &events()
+        function &events() : ?EventDispatcher
         {
             return $this->dispatcher;
         }
@@ -281,7 +279,7 @@ namespace Idno\Core {
          * asynchronously
          * @return \Idno\Core\EventQueue
          */
-        function &queue()
+        function &queue() : ?EventQueue
         {
             return $this->queue;
         }
@@ -290,7 +288,7 @@ namespace Idno\Core {
          * Returns the current filesystem
          * @return \Idno\Files\FileSystem
          */
-        function &filesystem()
+        function &filesystem() : ?FileSystem
         {
             return $this->filesystem;
         }
@@ -299,16 +297,16 @@ namespace Idno\Core {
          * Returns the current Known hub
          * @return \Idno\Core\Hub
          */
-        function &hub()
+        function &hub() : ?Hub
         {
             return $this->known_hub;
         }
 
         /**
          * Returns the current logging interface
-         * @return \Psr\Log\LoggerInterface
+         * @return \Idno\Core\Logging
          */
-        function &logging()
+        function &logging() : ?Logging
         {
             return $this->logging;
         }
@@ -317,7 +315,7 @@ namespace Idno\Core {
          * Return a persistent cache object.
          * @return \Idno\Caching\PersistentCache
          */
-        function &cache()
+        function &cache() : ?\Idno\Caching\PersistentCache
         {
             return $this->cache;
         }
@@ -326,7 +324,7 @@ namespace Idno\Core {
          * Return a statistics collector
          * @return \Idno\Stats\StatisticsCollector
          */
-        function &statistics()
+        function &statistics() : ?\Idno\Stats\StatisticsCollector
         {
             return $this->statistics;
         }
@@ -335,7 +333,7 @@ namespace Idno\Core {
          * Return page handlers
          * @return \Idno\Core\PageHandler
          */
-        function &routes()
+        function &routes() : ?PageHandler
         {
             return $this->routes;
         }
@@ -346,7 +344,7 @@ namespace Idno\Core {
          *
          * @param The configuration setting value to retrieve (optional)
          *
-         * @return \Idno\Core\Config
+         * @return \Idno\Core\Config|array
          */
         function &config($setting = false)
         {
@@ -360,7 +358,7 @@ namespace Idno\Core {
          * Helper function that returns the current syndication object for this site
          * @return \Idno\Core\Syndication
          */
-        function &syndication()
+        function &syndication() : ?Syndication
         {
             return $this->syndication;
         }
@@ -370,7 +368,7 @@ namespace Idno\Core {
          * @return \Idno\Core\Session
          */
 
-        function &session()
+        function &session() : ?Session
         {
             return $this->session;
         }
@@ -379,7 +377,7 @@ namespace Idno\Core {
          * Return the plugin handler associated with this site
          * @return \Idno\Core\Plugins
          */
-        function &plugins()
+        function &plugins() : ?Plugins
         {
             return $this->plugins;
         }
@@ -388,7 +386,7 @@ namespace Idno\Core {
          * Return the theme handler associated with this site
          * @return \Idno\Core\Themes
          */
-        function &themes()
+        function &themes() : ?Themes
         {
             return $this->themes;
         }
@@ -398,7 +396,7 @@ namespace Idno\Core {
          * @return \Idno\Core\Template
          */
 
-        function &template()
+        function &template() : ?Template
         {
             return $this->template;
         }
@@ -407,7 +405,7 @@ namespace Idno\Core {
          * Return the language handler associated with this site
          * @return \Idno\Core\Language
          */
-        function &language()
+        function &language() : ?Language
         {
             if (empty($this->language)) {
                 $this->language = new Language();
@@ -420,7 +418,7 @@ namespace Idno\Core {
          * Return the action helper associated with this site
          * @return \Idno\Core\Actions
          */
-        function &actions()
+        function &actions() : ?Actions
         {
             return $this->actions;
         }
@@ -429,25 +427,16 @@ namespace Idno\Core {
          * Return the reader associated with this site
          * @return \Idno\Core\Reader
          */
-        function &reader()
+        function &reader() : ?Reader
         {
             return $this->reader;
-        }
-
-        /**
-         * Return the currently registered page routing table.
-         * @return array
-         */
-        function &routing()
-        {
-            return $this->pagehandlers;
         }
 
         /**
          * Sets the current page (if any) for access throughout the system
          * @param \Idno\Common\Page $page
          */
-        function setCurrentPage($page)
+        function setCurrentPage(\Idno\Common\Page $page)
         {
             $this->currentPage = $page;
         }
@@ -557,7 +546,7 @@ namespace Idno\Core {
          *
          * @returns array An associative array of various icons => url
          */
-        function getSiteIcons()
+        function getSiteIcons() : array
         {
             $icons = [];
 
@@ -657,7 +646,7 @@ namespace Idno\Core {
          * Helper method that returns the current site object
          * @return \Idno\Core\Idno $site
          */
-        static function &site()
+        static function &site() : ?Idno
         {
             return self::$site;
         }
@@ -730,7 +719,7 @@ namespace Idno\Core {
      * @deprecated Use \Idno\Core\Idno::site()
      * @return \Idno\Core\Idno $site
      */
-    function &site()
+    function &site() : Idno
     {
         return \Idno\Core\Idno::site();
     }
