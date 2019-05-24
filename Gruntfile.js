@@ -100,9 +100,9 @@ module.exports = function (grunt) {
             tasks:  ['sass', 'cssmin', 'csslint']
         },
         js: {
-            files: 'js/src/**/*.js',
+            files: ['js/src/**/*.js', 'Gruntfile.js'],
             tasks:  ['uglify', 'jshint']
-        }
+        } 
     }
 
   });
@@ -121,7 +121,9 @@ module.exports = function (grunt) {
 // Build language pack
   grunt.registerTask('build-lang', '', function () {
 
+    /*jshint ignore:start*/
     const {execSync} = require('child_process');
+    /*jshint ignore:end*/
 
     var pot = grunt.config.get('pkg.name').toLowerCase() + '.pot';
     
