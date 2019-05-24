@@ -23,9 +23,11 @@ Notifications.poll = function () {
 				    body: body,
 				    data: link
 				});
+                                /*jshint ignore:start*/
 				notification.onclick = function(e) {
 				    window.location.href = link;
 				};
+                                /*jshint ignore:end*/
 			    } catch (e) {
 				// We have to use service worker, as New doesn't work
 				
