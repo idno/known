@@ -19,7 +19,7 @@ namespace Idno\Core\Deprecated {
          */
         function addPageHandler($pattern, $handler, $public = false)
         {
-            \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: \Idno\Core\Idno::site()->routes()->addRoute()");
+            \Idno\Core\Idno::site()->logging()->debug("DEPRECATION WARNING: Use \Idno\Core\Idno::site()->routes()->addRoute()");
 
             return \Idno\Core\Idno::site()->routes()->addRoute($pattern, $handler, $public);
         }
@@ -35,7 +35,7 @@ namespace Idno\Core\Deprecated {
          */
         function hijackPageHandler($pattern, $handler, $public = false)
         {
-            \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: \Idno\Core\Idno::site()->routes()->hijackRoute()");
+            \Idno\Core\Idno::site()->logging()->debug("DEPRECATION WARNING: Use \Idno\Core\Idno::site()->routes()->hijackRoute()");
 
             return \Idno\Core\Idno::site()->routes()->hijackRoute($pattern, $handler, $public);
         }
@@ -47,7 +47,7 @@ namespace Idno\Core\Deprecated {
          */
         function addPublicPageHandler($class)
         {
-            \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: \Idno\Core\Idno::site()->routes()->addPublicRoute()");
+            \Idno\Core\Idno::site()->logging()->debug("DEPRECATION WARNING: Use \Idno\Core\Idno::site()->routes()->addPublicRoute()");
 
             return \Idno\Core\Idno::site()->routes()->addPublicRoute($class);
         }
@@ -59,7 +59,7 @@ namespace Idno\Core\Deprecated {
          */
         function getPublicPageHandlers()
         {
-            \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: \Idno\Core\Idno::site()->routes()->getPublicRoute()");
+            \Idno\Core\Idno::site()->logging()->debug("DEPRECATION WARNING: Use \Idno\Core\Idno::site()->routes()->getPublicRoute()");
 
             return \Idno\Core\Idno::site()->routes()->getPublicRoute();
         }
@@ -72,7 +72,7 @@ namespace Idno\Core\Deprecated {
          */
         function isPageHandlerPublic($class)
         {
-            \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: \Idno\Core\Idno::site()->routes()->isRoutePublic()");
+            \Idno\Core\Idno::site()->logging()->debug("DEPRECATION WARNING: Use \Idno\Core\Idno::site()->routes()->isRoutePublic()");
 
             return \Idno\Core\Idno::site()->routes()->isRoutePublic($class);
         }
@@ -87,7 +87,7 @@ namespace Idno\Core\Deprecated {
          */
         function getPageHandler($path_info)
         {
-            \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: \Idno\Core\Idno::site()->routes()->getRoute()");
+            \Idno\Core\Idno::site()->logging()->debug("DEPRECATION WARNING: Use \Idno\Core\Idno::site()->routes()->getRoute()");
 
             return \Idno\Core\Idno::site()->routes()->getRoute($path_info);
         }
@@ -106,7 +106,7 @@ namespace Idno\Core\Deprecated {
 
         function triggerEvent($eventName, $data = array(), $default = true)
         {
-            \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: \Idno\Core\Idno::site()->events()->triggerEvent()");
+            \Idno\Core\Idno::site()->logging()->debug("DEPRECATION WARNING: Use \Idno\Core\Idno::site()->events()->triggerEvent()");
 
             return \Idno\Core\Idno::site()->events()->triggerEvent($eventName, $data, $default);
         }
@@ -124,7 +124,7 @@ namespace Idno\Core\Deprecated {
          */
         function addEventHook($event, $listener, $priority = 0)
         {
-            \Idno\Core\Idno::site()->logging()->warning("DEPRECATION WARNING: \Idno\Core\Idno::site()->events()->addListener()");
+            \Idno\Core\Idno::site()->logging()->debug("DEPRECATION WARNING: Use \Idno\Core\Idno::site()->events()->addListener()");
 
             return \Idno\Core\Idno::site()->events()->addListener($event, $listener, $priority);
         }
