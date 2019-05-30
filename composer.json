@@ -31,7 +31,7 @@
         "torophp/torophp": "dev-master",
         "mf2/mf2": "0.4.6",
         "swiftmailer/swiftmailer": "5.2.1",
-        "fortawesome/font-awesome": "5.7.2",
+        "forkawesome/fork-awesome": "1.1.7",
         "twbs/bootstrap": "3.3.2",
         "components/jquery": "3.2.1",
         "ezyang/htmlpurifier": "4.10",

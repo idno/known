@@ -43,9 +43,9 @@ if ($like_annotations = $vars['object']->getAnnotations('like')) {
     ?>
     <?php
     if (!$has_liked) {
-        $heart_only = '<i class="far fa-star"></i>';
+        $heart_only = '<i class="fa fa-star-o"></i>';
     } else {
-        $heart_only = '<i class="fas fa-star"></i>';
+        $heart_only = '<i class="fa fa-star"></i>';
     }
     if ($likes == 1) {
         $heart_text = \Idno\Core\Idno::site()->language()->_('1 star');

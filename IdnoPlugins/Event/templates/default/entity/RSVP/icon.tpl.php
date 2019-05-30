@@ -1,1 +1,1 @@
-<i class="far fa-calendar-alt"></i>
+<i class="fa fa-calendar-check-o"></i>

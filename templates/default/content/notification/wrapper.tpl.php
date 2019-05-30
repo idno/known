@@ -43,7 +43,7 @@ if (!empty($post)) {
 
                             ?>
                             <a href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>status/edit?url=<?php echo urlencode($annotation['permalink']) ?>"
-                                   class="edit pull-right"><i class="far fa-comment-dots"> </i> <?php echo $verb ?></a>                
+                                   class="edit pull-right"><i class="fa fa-commenting-o"> </i> <?php echo $verb ?></a>
                                 <?php
 
                         }

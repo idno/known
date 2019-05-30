@@ -1,10 +1,98 @@
 <?php
+# This really should be stored in some global repository...
+$HostToIcon = [
+    "500px.com" => "500px",
+    "amazon.com" => "amazon",
+    "amazon.co.uk" => "amazon",
+    "angel.co" => "angellist",
+    "apple.com" => "apple",
+    "archive.org" => "archive-org",
+    "bandcamp.com" => "bandcamp",
+    "behance.net" => "behance",
+    "bitbucket.org" => "bitbucket",
+    "blogspot.com" => "blogger",
+    "chrome.google.com" => "chrome",
+    "codepen.io" => "codepen",
+    "del.icio.us" => "delicious",
+    "deviantart.com" => "deviantart",
+    "digg.com" => "digg",
+    "discord.com" => "discord",
+    "dribbble.com" => "dribbble",
+    "dropbox.com" => "dropbox",
+    "drupal.org" => "drupal",
+    "eercast.com" => "eercast",
+    "etsy.com" => "etsy",
+    "fb.com" => "facebook",
+    "facebook.com" => "facebook",
+    "flickr.com" => "flickr",
+    "foursquare.com" => "foursquare",
+    "freecodecamp.com" => "freecodecamp",
+    "getgrav.com" => "grav",
+    "github.com" => "github-square",
+    "gitlab.com" => "gitlab",
+    "google.com" => "google",
+    "imdb.com" => "imdb",
+    "instagram.com" => "instagram",
+    "joomla.org" => "joomla",
+    "jsfiddle.net" => "jsfiddle",
+    "keybase.io" => "keybase",
+    "last.fm" => "lastfm",
+    "linkedin.com" => "linkedin",
+    "matrix.org" => "matrix-org",
+    "matrix.to" => "matrix-org",
+    "medium.com" => "medium",
+    "meetup.com" => "meetup",
+    "mixcloud.com" => "mixcloud",
+    "ok.ru" => "odnoklassniki",
+    "news.ycombinator.com" => "hacker-news",
+    "patreon.com" => "patreon",
+    "paypal.com" => "paypal",
+    "paypal.me" => "paypal",
+    "pinterest.com" => "pinterest",
+    "play.google.com" => "android",
+    "plus.google.com" => "google-plus",
+    "pluspora.com" => "diaspora",
+    "producthunt.com" => "product-hunt",
+    "qq.com" => "qq",
+    "quora.com" => "quora",
+    "ravelry.com" => "ravelry",
+    "reddit.com" => "reddit",
+    "renren.com" => "renren",
+    "slideshare.net" => "slideshare",
+    "snapchat.com" => "snapchat",
+    "soundcloud.com" => "soundcloud",
+    "spotify.com" => "spotify",
+    "stackexchange.com" => "stack-exchange",
+    "stackoverflow.com" => "stack-overflow",
+    "steamcommunity.com" => "steam",
+    "steampowered.com" => "steam",
+    "stumbleupon.com" => "stumbleupon",
+    "telegram.org" => "telegram",
+    "tripadvisor.com" => "tripadvisor",
+    "tripadvisor.co.uk" => "tripadvisor",
+    "tumblr.com" => "tumblr",
+    "twitch.tv" => "twitch",
+    "twitter.com" => "twitter",
+    "viadeo.com" => "viadeo",
+    "vimeo.com" => "vimeo-square",
+    "wikipedia.org" => "wikipedia-w",
+    "wordpress.com" => "wordpress",
+    "wordpress.org" => "wordpress",
+    "xing.com" => "xing",
+    "yahoo.com" => "yahoo",
+    "yelp.com" => "yelp",
+    "yelp.co.uk" => "yelp",
+    "youtube.com" => "youtube-play",
+    "zotero.com" => "zotero"
+];
+
+
 if (!empty($vars['user']->profile['url']) && is_array($vars['user']->profile['url'])) {
     foreach($vars['user']->profile['url'] as $url) {
         if (!empty($url)) {
-
             $h_card = 'u-url';
             $url_display = $url;
+            $icon = 'fa fa-link'; // default icon
 
             // Quick shim for Twitter usernames
             if ($url[0] == '@') {
@@ -19,64 +107,48 @@ if (!empty($vars['user']->profile['url']) && is_array($vars['user']->profile['ur
             // Pick appropriate icon
             $host = parse_url($url, PHP_URL_HOST);
             $host = str_replace('www.', '', $host);
-            switch($host) {
 
-                case 'twitter.com':         $icon = 'fab fa-twitter';
-                    break;
-                case 'github.com':          $icon = 'fab fa-github-square';
-                    break;
-                case 'fb.com':
-                case 'facebook.com':        $icon = 'fab fa-facebook';
-                    break;
-                case 'plus.google.com':     $icon = 'fab fa-google-plus';
-                    break;
-                case 'linkedin.com':        $icon = 'fab fa-linkedin';
-                    break;
-                case 'reddit.com':          $icon = 'fab fa-reddit';
-                    break;
-                case 'instagram.com':       $icon = 'fab fa-instagram';
-                    break;
-                case 'pinterest.com':       $icon = 'fab fa-pinterest';
-                    break;
-                case 'soundcloud.com':      $icon = 'fab fa-soundcloud';
-                    break;
-                case 'paypal.me':
-                case 'paypal.com':          $icon = 'fab fa-paypal';
-                    break;
-                case 'flickr.com':          $icon = 'fab fa-flickr';
-                    break;
-                case 'youtube.com':         $icon = 'fab fa-youtube';
-                    break;
-                case 'angel.co':            $icon = 'fab fa-angellist';
-                    break;
-                case 'patreon.com':         $icon = 'fab fa-patreon';
-                    break;
-                default:                    $icon = 'fa fa-link';
-                    break;
-
+            // Check if there is an icon for this hostname
+            if (array_key_exists($host, $HostToIcon)) {
+              $icon = 'fa fa-' . $HostToIcon[$host];
             }
 
+
+            // Map Schemes to Icons.  Keep in sync with fixURL code in Idno/Core/Template.php
             $scheme = parse_url($url, PHP_URL_SCHEME);
             switch ($scheme) {
                 case 'mailto' :
-                    $icon = 'far fa-envelope'; $url_display = str_replace('mailto:', '', $url_display); $h_card = 'u-email';
+                    $icon = 'fa fa-envelope'; $url_display = str_replace('mailto:', '', $url_display); $h_card = 'u-email';
                     break;
                 case 'sms' :
-                    $icon = 'fas fa-mobile-alt'; $url_display = str_replace('sms:', '', $url_display); $h_card = 'p-tel';
+                    $icon = 'fa fa-mobile'; $url_display = str_replace('sms:', '', $url_display); $h_card = 'p-tel';
                     break;
                 case 'sip' :
                 case 'tel' :
-                    $icon = 'fas fa-phone'; $url_display = str_replace('tel:', '', $url_display); $h_card = 'p-tel';
+                    $icon = 'fa fa-phone'; $url_display = str_replace('tel:', '', $url_display); $h_card = 'p-tel';
+                    break;
+                case 'spotify' :
+                    $icon = 'fa fa-spotify'; $url_display = str_replace('spotify:', '', $url_display); $h_card = 'p-skype';
                     break;
                 case 'skype' :
-                    $icon = 'fab fa-skype'; $url_display = str_replace('skype:', '', $url_display); $h_card = 'p-skype';
+                    $icon = 'fa fa-skype'; $url_display = str_replace('skype:', '', $url_display); $h_card = 'p-skype';
                     break;
                 case 'bitcoin':
-                    $icon = 'fab fa-bitcoin'; $url_display = str_replace('bitcoin:', '', $url_display); $h_card = 'p-bitcoin';
+                    $icon = 'fa fa-bitcoin'; $url_display = str_replace('bitcoin:', '', $url_display); $h_card = 'p-bitcoin';
+                    break;
+                case 'ethereum':
+                    $icon = 'fa fa-ethereum'; $url_display = str_replace('ethereum:', '', $url_display); $h_card = 'p-ethereum';
                     break;
                 case 'facetime' :
-                    $icon = 'fas fa-video'; $url_display = str_replace('facetime:', '', $url_display); $h_card = 'p-facetime';
+                    $icon = 'fa fa-video'; $url_display = str_replace('facetime:', '', $url_display); $h_card = 'p-facetime';
                     break;
+                case 'xmpp' :
+                    $icon = 'fa fa-xmpp'; $url_display = str_replace('facetime:', '', $url_display); $h_card = 'p-facetime';
+                    break;
+                case 'ssb' :
+                    $icon = 'fa fa-ssb'; $url_display = str_replace('facetime:', '', $url_display); $h_card = 'p-facetime';
+                    break;
+
             }
 
             ?>
