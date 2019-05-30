@@ -85,9 +85,9 @@ Unfurl.initOembed = function (control) {
 			
 			    oembed.html(txt);
 			} else {
-			    console.log("JSON Format");
+			    console.log("JSON Format oembed");
 			    
-			    oembed.html(data['html']);
+			    oembed.html(data.html);
 			}
 			
 			oembed.closest('.unfurled-url').find('.basics').hide(); // Hide basics, since we have an oembed
@@ -106,7 +106,7 @@ Unfurl.initOembed = function (control) {
 			dataType: format,
 			success: function (data) {
 			
-			    oembed.html(data['html']);
+			    oembed.html(data.html);
 			    oembed.closest('.unfurled-url').find('.basics').hide();
 			},
 			error: function(data) {

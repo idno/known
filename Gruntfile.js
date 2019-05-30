@@ -55,17 +55,13 @@ module.exports = function (grunt) {
         quiet: true,
         ids: false
       },
-      src: ['css/*.css']
+      src: ['css/*.css', '!*.min.css']
     },
     jshint: {
       // define the files to lint
       files: [
-        'Gruntfile.js',
-        'js/default.js',
-        'js/embeds.js',
-        'js/image.js',
-        'js/service-worker.js',
-        'js/templates/default/shell.js'
+            'Gruntfile.js',
+            'js/src/**/*.js'
       ],
 
       // configure JSHint (documented at http://www.jshint.com/docs/)
@@ -93,8 +89,20 @@ module.exports = function (grunt) {
       }
     },
     watch: {
-      files: ['<%= jshint.files %>'],
-      tasks: ['jshint']
+        options: {
+          dateFormat: function(time) {
+            grunt.log.writeln('The watch finished in ' + time + 'ms at ' + (new Date()).toString());
+            grunt.log.writeln('Waiting for more changes...');
+          },
+        },
+        sass: {
+            files: 'css/scss/**/*.scss',
+            tasks:  ['sass', 'cssmin', 'csslint']
+        },
+        js: {
+            files: ['js/src/**/*.js', 'Gruntfile.js'],
+            tasks:  ['uglify', 'jshint']
+        } 
     }
 
   });
@@ -113,7 +121,9 @@ module.exports = function (grunt) {
 // Build language pack
   grunt.registerTask('build-lang', '', function () {
 
+    /*jshint ignore:start*/
     const {execSync} = require('child_process');
+    /*jshint ignore:end*/
 
     var pot = grunt.config.get('pkg.name').toLowerCase() + '.pot';
     
