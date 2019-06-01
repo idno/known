@@ -10,26 +10,26 @@ A Gruntfile is provided which will perform minification of js and css for you, a
 
 To get going, install grunt, and the other developer dependencies:
 
-```npm install --only=dev```
+```npm install```
 
 ### Testing your changes
 
-If you've made JS changes, you can check your code using ```grunt test``` to run linting, etc
+If you've made JS changes, you can check your code using ```npm run grunt -- test``` to run linting, etc
 
 ### Minify your changes
 
-To get your javascript or css changes to be used by Known, you'll need to build minified versions of them. Do this by running the default grunt task by typing ```grunt```
+To get your javascript or css changes to be used by Known, you'll need to build minified versions of them. Do this by running the default grunt task by typing ```npm run grunt```
 
 ## Building SASS/CSS
 
-Known now uses SCSS to define the main style sheets, and as such you will need to build a new minified stylesheet using the same ```grunt``` build task.
+Known now uses SCSS to define the main style sheets, and as such you will need to build a new minified stylesheet using the same ```npm run grunt``` build task.
 
 !!! note "Watching for changes"
-    If you're doing a lot of editing, you're probably going to forget to refresh your changes. Start your development session by running ```grunt watch``` to look for changes in your javascript and SCSS files, and to automatically build your changes!
+    If you're doing a lot of editing, you're probably going to forget to refresh your changes. Start your development session by running ```npm run grunt -- watch``` to look for changes in your javascript and SCSS files, and to automatically build your changes!
 
 ## Building languages
 
-See [Languages](languages/index.md) for more detail, but in short ```grunt build-lang```
+See [Languages](languages/index.md) for more detail, but in short ```npm run grunt -- build-lang```
 
 !!! note "Vagrant"
     As a developer, you may find it helpful to set up a virtual machine to see your code running. A Vagrant configuration for Known can be found on [Github](https://github.com/mapkyca/known-vagrant).

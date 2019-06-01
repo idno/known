@@ -2,12 +2,13 @@
   "name": "Known",
   "version": "0.9.9-a",
   "devDependencies": {
-    "grunt": "^0.4.5",
+    "grunt": "^1.0.4",
+    "grunt-cli": "^1.3.2",
     "grunt-contrib-csslint": "^2.0.0",
-    "grunt-contrib-cssmin": "^2.2.1",
-    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-cssmin": "^3.0.0",
+    "grunt-contrib-jshint": "^2.1.0",
     "grunt-contrib-sass": "^1.0.0",
-    "grunt-contrib-uglify": "^0.5.1",
+    "grunt-contrib-uglify": "^4.0.1",
     "grunt-contrib-watch": "^1.1.0"
   },
   "dependencies": {
@@ -19,6 +20,7 @@
     "url": "https://opencollective.com/known"
   },
   "scripts": {
-    "postinstall": "opencollective-postinstall"
+    "postinstall": "opencollective-postinstall",
+    "grunt": "grunt"
   }
 }
