@@ -1,7 +1,7 @@
 {
     "name": "idno/known",
     "description": "A social publishing platform.",
-    "version": "0.9.11",
+    "version": "0.10.0",
     "type" : "project",
     "homepage" : "https://withknown.com/",
     "repositories": [
