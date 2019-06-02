@@ -26,9 +26,15 @@ namespace Idno\Core {
         
         public function __construct($template = false) {
             
+            // Create cache
+            $cache = \Idno\Core\Idno::site()->config()->getUploadPath() . 'twig/';
+            @mkdir($cache);
+            
             // Set up twig environment
             $this->loader = new FilesystemLoader(\Idno\Core\Bonita\Main::getPaths());
-            $this->twig = new Environment($this->loader);
+            $this->twig = new Environment($this->loader, [
+                'cache' => $cache
+            ]);
             
             // Update with the parent
             return parent::__construct($template);
@@ -44,13 +50,25 @@ namespace Idno\Core {
          */
         function draw($templateName, $returnBlank = true, $replacements = true)
         {
+            $this->loader->setPaths(\Idno\Core\Bonita\Main::getPaths());
+            
+            // Add template types to an array; ensure we revert to default
+            $templateTypes = array($this->getTemplateType());
+            if ($this->fallbackToDefault) {
+                if ($this->getTemplateType() != 'default')
+                    $templateTypes[] = 'default';
+            }
+            
             $result = '';
             if (!empty($this->prepends[$templateName])) {
                 foreach ($this->prepends[$templateName] as $template) {
-                    try {
-                        $result .= $this->twig->render("{$template}.twig", $this->vars);
-                    } catch (\Exception $e) {
-                        // Ignore loading errors here
+                    foreach ($templateTypes as $type) {
+                        try {
+                            $result .= $this->twig->render("templates/{$type}/{$template}.html.twig", $this->vars);
+                            break;
+                        } catch (\Exception $e) {
+                            // Ignore loading errors here
+                        }
                     }
                     
                 }
@@ -58,32 +76,51 @@ namespace Idno\Core {
             $replaced = false;
             foreach(['*', $this->getTemplateType()] as $templateType) {
                 if (!empty($this->replacements[$templateName][$templateType]) && $replacements == true) {
-                    try {
-                        $result .= $this->twig->render("{$this->replacements[$templateName][$templateType]}.twig", $this->vars);
-                    
-                        $replaced = true;
-                    } catch (\Exception $e) {
-                        // Ignore loading errors here
-                    }
-                }
-                if (!empty($this->extensions[$templateName][$templateType])) {
-                    foreach ($this->extensions[$templateName][$templateType] as $template) {
+                    foreach ($templateTypes as $type) {
                         try {
-                            $result .= $this->twig->render("{$template}.twig", $this->vars);
+                            $result .= $this->twig->render("templates/{$type}/{$this->replacements[$templateName][$templateType]}.html.twig", $this->vars);
+
+                            $replaced = true;
+
+                            break;
                         } catch (\Exception $e) {
                             // Ignore loading errors here
                         }
                     }
                 }
+                if (!empty($this->extensions[$templateName][$templateType])) {
+                    foreach ($this->extensions[$templateName][$templateType] as $template) {
+                        foreach ($templateTypes as $type) {
+                            try {
+                                $result .= $this->twig->render("templates/{$type}/{$template}.html.twig", $this->vars);
+
+                                break;
+                            } catch (\Exception $e) {
+                                // Ignore loading errors here
+                            }
+                        }
+                    }
+                }
             }
             if (!$replaced) {
-                try {
-                    $result .= $this->twig->render("{$templateName}.twig", $this->vars);
-                } catch (\Exception $e) {
-                    // Ignore loading errors here
+                foreach ($templateTypes as $type) {
+                    try {
+                        //$result .= $this->twig->render("templates/{$type}/{$templateName}.html.twig", $this->vars);
+                        $result .= $this->twig->render("templates/{$type}/{$templateName}.html.twig", $this->vars);
+                        break;
+                    } catch (\Exception $e) { 
+                        // Ignore loading errors here
+                        
+                    }
                 }
             }
             
+            // We have a twig template, return it
+            if (!empty($result)) { 
+                return $result;
+            }
+                
+            // No twig template, look for a bonita template
             return parent::draw($templateName, $returnBlank, $replacements);
         }
     }
