@@ -12,7 +12,7 @@
         
     // Load Symfony
     global $known_loader;
-    $known_loader = new \Symfony\Component\ClassLoader\UniversalClassLoader();
+    $known_loader = new \Symfony\Component\ClassLoader\ClassLoader();
     $known_loader->register();
 
     /**
@@ -31,8 +31,8 @@ function &loader()
 
 
     // Known core namespaces
-    $known_loader->registerNamespace('Idno', dirname(__FILE__));
-    $known_loader->registerNamespace('ConsolePlugins', dirname(__FILE__));
+    $known_loader->addPrefix('Idno', dirname(__FILE__));
+    $known_loader->addPrefix('ConsolePlugins', dirname(__FILE__));
 
     // Create new console application
     global $console;
