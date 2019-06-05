@@ -40,7 +40,7 @@
         "symfony/class-loader": "3.4.28",
         "symfony/event-dispatcher": "4.3.0",
         "symfony/console": "4.3.0",
-        "symfony/http-foundation": "2.3.0",
+        "symfony/http-foundation": "4.3.0",
         "simplepie/simplepie": "1.5.2",
         "mapkyca/mrclay_autop_known": "dev-master",
         "npm-asset/underscore": "1.6.0",

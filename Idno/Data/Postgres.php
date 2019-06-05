@@ -73,6 +73,7 @@ namespace Idno\Data {
                             2016102601,
                             2016110301,
                             2017032001,
+                            2019060501,
                         ] as $date) {
                             if ($basedate < $date) {
                                 if ($sql = @file_get_contents($schema_dir . $date . '.sql')) {

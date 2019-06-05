@@ -151,14 +151,6 @@ namespace Idno\Data {
         function handleSession()
         {
             return false;
-            //                ini_set('session.gc_probability', 1);
-            //
-            //                $sessionHandler = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\MongoDbSessionHandler(\Idno\Core\Idno::site()->db()->getClient(), [
-            //                    'database'   => 'idnosession',
-            //                    'collection' => 'idnosession'
-            //                ]);
-            //
-            //                session_set_save_handler($sessionHandler, true);
         }
 
         /**

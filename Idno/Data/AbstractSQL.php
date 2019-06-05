@@ -87,6 +87,7 @@ namespace Idno\Data {
                         'db_id_col'   => 'session_id',
                         'db_data_col' => 'session_value',
                         'db_time_col' => 'session_time',
+                        'db_lifetime_col' => 'session_lifetime',
                     )
                 );
 

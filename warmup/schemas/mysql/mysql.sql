@@ -106,8 +106,9 @@ CREATE TABLE IF NOT EXISTS `versions` (
 CREATE TABLE IF NOT EXISTS `session` (
     `session_id` varchar(255) NOT NULL,
     `session_value` text NOT NULL,
+    `session_lifetime` int(11) NOT NULL,
     `session_time` int(11) NOT NULL,
     PRIMARY KEY (`session_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-REPLACE INTO `versions` VALUES('schema', '2017032001');
+REPLACE INTO `versions` VALUES('schema', '2019060501');
