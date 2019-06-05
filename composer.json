@@ -38,7 +38,7 @@
         "rmm5t/jquery-timeago": "1.6.4",
         "tinymce/tinymce": "5.0.5",
         "symfony/class-loader": "3.4.28",
-        "symfony/event-dispatcher": "2.1.0",
+        "symfony/event-dispatcher": "4.3.0",
         "symfony/console": "3.4.22",
         "symfony/http-foundation": "2.3.0",
         "simplepie/simplepie": "1.5.2",
@@ -66,6 +66,7 @@
     },
     "require-dev": {
         "mapkyca/known-phpcs": "^1.0",
-        "mapkyca/known-language-tools": "^1.0"
+        "mapkyca/known-language-tools": "^1.0",
+        "phpunit/phpunit": "^8.1"
     }
 }
