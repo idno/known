@@ -617,7 +617,7 @@ namespace Idno\Core {
 
             if ($last_update < $machine_version) {
 
-                if ($this->triggerEvent('upgrade', [
+                if ($this->events()->triggerEvent('upgrade', [
                     'last_update' => $last_update,
                     'new_version' => $machine_version
                 ])) {
