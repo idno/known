@@ -116,12 +116,12 @@ namespace Idno\Core {
             });
 
             // If this is an API request, we need to destroy the session afterwards. See #1028
-            register_shutdown_function(function () {
+            /*register_shutdown_function(function () {
                 $session = Idno::site()->session();
                 if ($session && $session->isAPIRequest()) {
                     $session->logUserOff();
                 }
-            });
+            });*/
         }
 
         /**
