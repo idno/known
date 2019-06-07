@@ -109,6 +109,6 @@ CREATE TABLE IF NOT EXISTS `session` (
     `session_lifetime` int(11) NOT NULL,
     `session_time` int(11) NOT NULL,
     PRIMARY KEY (`session_id`)
-) COLLATE utf8_bin, ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) COLLATE utf8_bin, ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 REPLACE INTO `versions` VALUES('schema', '2019060501');
