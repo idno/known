@@ -8,6 +8,9 @@
      */
 
 namespace Idno\Data {
+    
+    use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
+    use Symfony\Component\HttpFoundation\Session\Session;
 
     abstract class AbstractSQL extends \Idno\Core\DataConcierge
         implements \Idno\Common\SessionStorageInterface
@@ -80,21 +83,19 @@ namespace Idno\Data {
          */
         function handleSession()
         {
-            if (version_compare(phpversion(), '5.3', '>')) {
-                $sessionHandler = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler($this->client,
-                    array(
-                        'db_table'    => 'session',
-                        'db_id_col'   => 'session_id',
-                        'db_data_col' => 'session_value',
-                        'db_time_col' => 'session_time',
-                        'db_lifetime_col' => 'session_lifetime',
-                    )
-                );
-
-                session_set_save_handler($sessionHandler, true);
-
-                //return true;
-            }
+            session_set_save_handler(
+                    new PdoSessionHandler(
+                        $this->client,
+                        [
+                            'db_table'    => 'session',
+                            'db_id_col'   => 'session_id',
+                            'db_data_col' => 'session_value',
+                            'db_time_col' => 'session_time',
+                            'db_lifetime_col' => 'session_lifetime',
+                            'lock_mode' => PdoSessionHandler::LOCK_ADVISORY
+                        ]
+                    ), true
+            );
         }
 
         /**
