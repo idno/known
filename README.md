@@ -109,7 +109,7 @@ Third party libraries are licensed separately.
   * HttpFoundation. Source: https://github.com/symfony/HttpFoundation
   * Console. Source: https://github.com/symfony/console
 * ToroPHP, which is distributed under the MIT License. Source: https://github.com/anandkunal/ToroPHP/
-* Font Awesome, which is distributed under the Open Font License, version 1.1: http://fortawesome.github.io/Font-Awesome/
+* Fork Awesome, which is distributed under the Open Font License, version 1.1: https://github.com/ForkAwesome/Fork-Awesome
 * Steve Clay's AutoP, which is distributed under the MIT License. Source: https://code.google.com/p/mrclay/
 * Aaron Parecki's Webmention Client, which is distributed under the Apache 2.0 license. Source: https://github.com/aaronpk/mention-client
 * Barnaby Walters's Microformats 2 Parser, which is distributed under the MIT License. Source: https://github.com/indieweb/php-mf2
