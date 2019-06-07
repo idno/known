@@ -107,7 +107,7 @@
 
     // We're making heavy use of the Symfony ClassLoader to load our classes
     global $known_loader;
-    $known_loader = new \Symfony\Component\ClassLoader\UniversalClassLoader();
+    $known_loader = new \Symfony\Component\ClassLoader\ClassLoader();
 
     /**
      * Retrieve the loader
@@ -123,16 +123,16 @@
     // Register our main namespaces (all idno classes adhere to the PSR-0 standard)
 
     // idno trunk classes (i.e., the main framework) are in /idno
-    $known_loader->registerNamespace('Idno', dirname(dirname(__FILE__)));
+    $known_loader->addPrefix('Idno', dirname(dirname(__FILE__)));
     // Host for the purposes of extra paths
     if (!empty($_SERVER['HTTP_HOST'])) {
         $host = strtolower($_SERVER['HTTP_HOST']);
         $host = str_replace('www.', '', $host);
         define('KNOWN_MULTITENANT_HOST', $host);
         // idno plugins are located in /IdnoPlugins and must have their own namespace
-        $known_loader->registerNamespace('IdnoPlugins', array(dirname(dirname(__FILE__)), dirname(dirname(__FILE__)) . '/hosts/' . $host));
+        $known_loader->addPrefix('IdnoPlugins', array(dirname(dirname(__FILE__)), dirname(dirname(__FILE__)) . '/hosts/' . $host));
         // idno themes are located in /Themes and must have their own namespace
-        $known_loader->registerNamespace('Themes', array(dirname(dirname(__FILE__)), dirname(dirname(__FILE__)) . '/hosts/' . $host));
+        $known_loader->addPrefix('Themes', array(dirname(dirname(__FILE__)), dirname(dirname(__FILE__)) . '/hosts/' . $host));
     }
 
     // Shims
