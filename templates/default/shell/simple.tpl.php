@@ -57,7 +57,7 @@ if (empty($vars['description'])) {
         <link href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>css/known-simple.min.css" rel="stylesheet">
         <link href="//fonts.googleapis.com/css?family=Pontano+Sans" rel="stylesheet" type="text/css">
         <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel='stylesheet' type='text/css'>
-        <script src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/components/jquery/jquery.min.js"></script>
+        <script src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/npm-asset/jquery/dist/jquery.min.js"></script>
         <?php echo $this->draw('shell/simple/head', $vars); ?>
 
         <?php
