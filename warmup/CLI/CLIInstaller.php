@@ -1,16 +1,12 @@
 #!/usr/bin/php -q
 <?php
-    // Load external libraries
-    if (file_exists(dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php')) {
-        require_once(dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php');
-    } else {
-        die('Could not find autoload.php, did you run "composer install" ..?');
-    }
 
-    // Load Symfony
-    global $known_loader;
-    $known_loader = new \Symfony\Component\ClassLoader\UniversalClassLoader();
-    $known_loader->register();
+// Load external libraries
+if (file_exists(dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php')) {
+    require_once(dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php');
+} else {
+    die('Could not find autoload.php, did you run "composer install" ..?');
+}
 
 /**
  * Load Idno

@@ -64,6 +64,15 @@
       "docs": "http://docs.withknown.com",
       "irc": "irc://irc.freenode.net/knownchat"
     },
+    "autoload": {
+        "psr-4": {
+            "Idno\\": "Idno/",
+	    "IdnoPlugins\\": ["IdnoPlugins/", "IdnoPlugins.local/"],
+	    "Themes\\": "Themes/",
+	    "ConsolePlugins\\": "ConsolePlugins/",
+	    "Tests\\": "Tests/"
+        }
+    },
     "require-dev": {
         "mapkyca/known-phpcs": "^1.0",
         "mapkyca/known-language-tools": "^1.0"
