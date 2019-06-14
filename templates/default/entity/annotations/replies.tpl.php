@@ -16,7 +16,7 @@ if (!empty($vars['annotations']) && is_array($vars['annotations'])) {
                     </p>
                 </div>
                 <div class="idno-annotation-content col-md-9">
-                    <div class="p-summary e-content"><?php echo $this->autop($this->parseURLs(strip_tags($annotation['content']))); ?></div>
+                    <div class="p-summary e-content"><?php echo $this->autop($this->parseURLs(strip_tags($annotation['content']), 'rel="nofollow"')); ?></div>
                     <p>
                         <small>
                     <span class="p-author h-card">
