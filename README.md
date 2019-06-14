@@ -104,7 +104,6 @@ Third party libraries are licensed separately.
 * Twitter Bootstrap, which is distributed under the Apache 2.0 license. Source: https://github.com/twitter/bootstrap
 * jQuery, which is distributed under the MIT License. Source: https://github.com/jquery/jquery
 * Portions of Symfony, which is distributed under the MIT license.
-  * ClassLoader. Source: https://github.com/symfony/ClassLoader
   * EventDispatcher. Source: https://github.com/symfony/EventDispatcher
   * HttpFoundation. Source: https://github.com/symfony/HttpFoundation
   * Console. Source: https://github.com/symfony/console
