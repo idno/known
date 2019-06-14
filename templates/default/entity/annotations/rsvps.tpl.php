@@ -16,14 +16,14 @@ if (!empty($vars['annotations']) && is_array($vars['annotations'])) {
             <div class="idno-annotation row">
                 <div class="idno-annotation-image col-md-1 hidden-sm">
                     <p>
-                        <a href="<?php echo htmlspecialchars($annotation['owner_url']) ?>" class="icon-container"><img src="<?php echo \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($annotation['owner_image'])?>" /></a>
+                        <a href="<?php echo htmlspecialchars($annotation['owner_url']) ?>" rel="nofollow" class="icon-container"><img src="<?php echo \Idno\Core\Idno::site()->config()->sanitizeAttachmentURL($annotation['owner_image'])?>" /></a>
                     </p>
                 </div>
                 <div class="idno-annotation-content col-md-6">
                     <p>
                         <strong><?php echo strip_tags($annotation['content']); ?></strong>
                     </p>
-                    <p><small><a href="<?php echo htmlspecialchars($permalink) ?>"><?php echo date('M d Y', $annotation['time']);?></a> on <a href="<?php echo htmlspecialchars($permalink) ?>"><?php echo parse_url($permalink, PHP_URL_HOST)?></a></small></p>
+                    <p><small><a href="<?php echo htmlspecialchars($permalink) ?>" rel="nofollow"><?php echo date('M d Y', $annotation['time']);?></a> on <a href="<?php echo htmlspecialchars($permalink) ?>" rel="nofollow"><?php echo parse_url($permalink, PHP_URL_HOST)?></a></small></p>
                 </div>
             </div>
         <?php
