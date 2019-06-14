@@ -25,7 +25,6 @@ namespace Tests\API {
                 'X-KNOWN-SIGNATURE: ' . base64_encode(hash_hmac('sha256', '/photo/edit', $user->getAPIkey(), true)),
             ]);
 
-            print_r($result);
             $content = json_decode($result['content']);
             $response = $result['response'];
 
