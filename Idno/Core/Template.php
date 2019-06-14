@@ -383,7 +383,7 @@ namespace Idno\Core {
                     $result .= " target=\"_blank\" ";
                 }
                 if ($code) {
-                    $result .= ' ' . str_replace("%URL%", $url, addslashes($code));
+                    $result .= ' ' . str_replace("%URL%", $url, $code);
                 }
                 $result .= ">";
                 $result .= preg_replace('/([\/=]+)/', '${1}<wbr />', Template::sampleTextChars($url, 100));
