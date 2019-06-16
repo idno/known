@@ -1,11 +1,11 @@
 {
     "name": "idno/known",
     "description": "A social publishing platform.",
-    "version": "0.12.2",
-    "type" : "project",
-    "homepage" : "https://withknown.com/",
+    "version": "0.12.3",
+    "type": "project",
+    "homepage": "https://withknown.com/",
     "repositories": [
-	{
+        {
             "type": "composer",
             "url": "https://asset-packagist.org"
         }
@@ -57,24 +57,34 @@
     "license": "Apache-2.0",
     "prefer-stable": true,
     "minimum-stability": "dev",
-    "readme" : "README.md",
-    "keywords" : ["blogging", "publishing", "social", "indieweb", "community"],
+    "readme": "README.md",
+    "keywords": [
+        "blogging",
+        "publishing",
+        "social",
+        "indieweb",
+        "community"
+    ],
     "support": {
-      "forum": "https://groups.google.com/forum/#!forum/known-dev",
-      "docs": "http://docs.withknown.com",
-      "irc": "irc://irc.freenode.net/knownchat"
+        "forum": "https://groups.google.com/forum/#!forum/known-dev",
+        "docs": "http://docs.withknown.com",
+        "irc": "irc://irc.freenode.net/knownchat"
     },
     "autoload": {
         "psr-4": {
             "Idno\\": "Idno/",
-	    "IdnoPlugins\\": ["IdnoPlugins/", "IdnoPlugins.local/"],
-	    "Themes\\": "Themes/",
-	    "ConsolePlugins\\": "ConsolePlugins/",
-	    "Tests\\": "Tests/"
+            "IdnoPlugins\\": [
+                "IdnoPlugins/",
+                "IdnoPlugins.local/"
+            ],
+            "Themes\\": "Themes/",
+            "ConsolePlugins\\": "ConsolePlugins/",
+            "Tests\\": "Tests/"
         }
     },
     "require-dev": {
         "mapkyca/known-phpcs": "^1.0",
-        "mapkyca/known-language-tools": "^1.0"
+        "mapkyca/known-language-tools": "^1.0",
+        "mapkyca/known-dev-scripts": "^1.0"
     }
 }
