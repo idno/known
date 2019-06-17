@@ -8,18 +8,6 @@ if (file_exists(dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php')) {
     die('Could not find autoload.php, did you run "composer install" ..?');
 }
 
-/**
- * Load Idno
- */
-spl_autoload_register(function($class) {
-    $class = str_replace('\\', DIRECTORY_SEPARATOR, $class);
-
-    $basedir = dirname(dirname(dirname(__FILE__))) . '/';
-    if (file_exists($basedir . $class . '.php')) {
-        include_once($basedir . $class . '.php');
-    }
-});
-
 class CLIInstaller extends \Idno\Core\Installer
 {
 
