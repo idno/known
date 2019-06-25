@@ -42,6 +42,10 @@ namespace Idno\Common {
         // to no, but you can use $this->setPermalink() to change this
         private $isPermalinkPage = false;
 
+        // If this page is associated with a particular entity, we'll
+        // store it here so we can access it in shell templates etc
+        private $entity = null;
+
         // Is this an XmlHTTPRequest (AJAX) call?
         public $xhr = false;
 
@@ -848,13 +852,39 @@ namespace Idno\Common {
         }
 
         /**
-         * Is this page a permalink for an object? This should be set to 'true'
-         * if it is.
-         * @param bool $status Is this a permalink? Defaults to 'true'
+         * Sets the entity on the page to the specified object
+         * @param object $entity
          */
-        function setPermalink($status = true)
+        function setEntity($entity) {
+            $this->entity = $entity;
+        }
+
+        /**
+         * Returns the entity associated with this page, if it exists
+         * @param $entity
+         * @return object|null
+         */
+        function getEntity($entity) {
+            return $this->entity;
+        }
+
+        /**
+         * Removes any entity associated with this page
+         */
+        function removeEntity() {
+            $this->entity = null;
+        }
+
+        /**
+         * Is this page a permalink for an object? This should be set to 'true'
+         * if it is. Optionally, we can also associate the page with the object here.
+         * @param bool $status Is this a permalink? Defaults to 'true'
+         * @param object $entity Optionally, an entity this page is associated with
+         */
+        function setPermalink(bool $status = true, Entity $entity = null)
         {
             $this->isPermalinkPage = $status;
+            if ($status && $entity) $this->setEntity($entity);
         }
 
         /**

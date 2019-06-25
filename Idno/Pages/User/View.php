@@ -18,7 +18,6 @@ namespace Idno\Pages\User {
     {
 
         // Handle GET requests to the entity
-
         function getContent()
         {
 
@@ -31,7 +30,7 @@ namespace Idno\Pages\User {
 
             // Users own their own profiles
             $this->setOwner($user);
-            $this->setPermalink(); // This is a permalink
+            $this->setPermalink(true, $user); // This is a permalink
 
             if (!empty($this->arguments[1])) { // If we're on the friendly content-specific URL
                 if ($friendly_types = explode('/', $this->arguments[1])) {
