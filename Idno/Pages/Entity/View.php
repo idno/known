@@ -39,7 +39,7 @@ namespace Idno\Pages\Entity {
             }
 
             $this->setOwner($object->getOwner());
-            $this->setPermalink(); // This is a permalink
+            $this->setPermalink(true, $object); // This is a permalink
 
             $this->lastModifiedGatekeeper($object->updated); // 304 if we've not updated the object
 
