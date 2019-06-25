@@ -881,7 +881,7 @@ namespace Idno\Common {
          * @param bool $status Is this a permalink? Defaults to 'true'
          * @param object $entity Optionally, an entity this page is associated with
          */
-        function setPermalink($status = true, $entity = null)
+        function setPermalink(bool $status = true, Entity $entity = null)
         {
             $this->isPermalinkPage = $status;
             if ($status && $entity) $this->setEntity($entity);

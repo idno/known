@@ -18,7 +18,6 @@ namespace Idno\Pages\User {
     {
 
         // Handle GET requests to the entity
-
         function getContent()
         {
 

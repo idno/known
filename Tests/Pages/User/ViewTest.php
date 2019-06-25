@@ -7,7 +7,6 @@ namespace Tests\Pages\User {
 
     class ViewTest extends \Tests\KnownTestCase
     {
-
         function testWebmentionContent()
         {
             $user = $this->user();
@@ -48,8 +47,6 @@ EOD;
             $profile->webmentionContent($source, $target, $sourceResp, $sourceMf2);
             $this->assertFalse($notification);
         }
-
     }
-
 }
 
