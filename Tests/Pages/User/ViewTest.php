@@ -8,16 +8,6 @@ namespace Tests\Pages\User {
     class ViewTest extends \Tests\KnownTestCase
     {
 
-        function testPagePermalink()
-        {
-            $user = $this->user();
-            $page = \Idno\Core\Idno::site()->routes()->getRoute('/profile/' . $user->getHandle());
-
-            $this->assertTrue($page->isPermalink());
-            $this->assertEquals($page->getEntity()->getUUID(), $user->getUUID());
-
-        }
-
         function testWebmentionContent()
         {
             $user = $this->user();
