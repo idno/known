@@ -17,6 +17,7 @@
                 text-align: left;
                 margin: auto;
                 margin-top: 5em;
+                margin-bottom: 5em;
             }
             p {
                 line-height: 1.5em;
