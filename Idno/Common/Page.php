@@ -864,7 +864,7 @@ namespace Idno\Common {
          * @param $entity
          * @return object|null
          */
-        function getEntity($entity) {
+        function getEntity() {
             return $this->entity;
         }
 
