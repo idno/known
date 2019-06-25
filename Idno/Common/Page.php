@@ -861,9 +861,10 @@ namespace Idno\Common {
 
         /**
          * Returns the entity associated with this page, if it exists
-         * @return ?Entity
+         * @return \Idno\Common\Entity|null
          */
-        function getEntity() {
+        function getEntity(): ?Entity
+        {
             return $this->entity;
         }
 
