@@ -1671,9 +1671,15 @@ namespace Idno\Common {
 
             if (!empty($suffix)) $suffix = '/' . $suffix;
 
-            $return = $t->__($params)->draw('entity/' . $this->getClassName() . $suffix, false);
-            if ($return === false) {
-                $return = $t->__($params)->draw('entity/default');
+            $view_name = 'entity/' . $this->getClassName(true) . $suffix;
+
+            $return = Idno::site()->events()->triggerEvent('entity/draw', ['feed_view' => $feed_view, 'view' => $view_name, 'object' => $this], false);
+
+            if (!$return) {
+                $return = $t->__($params)->draw($view_name, false);
+                if ($return === false) {
+                    $return = $t->__($params)->draw('entity/default');
+                }
             }
 
             return $return;
@@ -1689,9 +1695,14 @@ namespace Idno\Common {
         {
             $t = \Idno\Core\Idno::site()->template();
 
-            $return = $t->__(array(
-                'object' => $this
-            ))->draw('entity/' . $this->getFullClassName(true) . '/edit');
+            $view_name = 'entity/' . $this->getClassName(true) . '/edit';
+            $return = Idno::site()->events()->triggerEvent('entity/drawEdit', ['view' => $view_name, 'object' => $this], false);
+
+            if (!$return) {
+                $return = $t->__(array(
+                    'object' => $this
+                ))->draw('entity/' . $this->getFullClassName(true) . '/edit');
+            }
 
             if ($return === false) {
                 $return = $t->__(array(
