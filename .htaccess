@@ -22,6 +22,7 @@
     RewriteRule ^(.*)$ %{ENV:BASE}/index.php?/$1 [L,QSA]
     RewriteRule ^Uploads.* - [F]
 </IfModule>
+RedirectMatch 403 "^/(.git|.github)/.*$"
 <Files  ~ "\.dist$">
   Order allow,deny
   Deny from all
