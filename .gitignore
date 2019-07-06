@@ -25,7 +25,6 @@ test.php
 /configuration/
 
 /composer.phar
-/composer.lock
 /vendor
 
 /.DS_Store
