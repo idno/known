@@ -3,6 +3,8 @@
 
     $title = 'Database error';
     $heading = 'Oh no! We couldn\'t connect to the database.';
+    if (empty($message)) 
+        $message = "";
     $body = "
         <p>
             This probably means that the database settings changed, this Known site hasn't been set up yet, or
