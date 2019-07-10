@@ -42,7 +42,7 @@ namespace IdnoPlugins\OAuth2 {
             $headers = null;
             $serverheaders = \Idno\Common\Page::getallheaders();
             
-            if ($serverheaders['Authorisation'])
+            if ($serverheaders['Authorization'])
                 $headers = trim($serverheaders["Authorization"]);
             else if (isset($serverheaders['HTTP_AUTHORIZATION']))
                 $headers = trim($serverheaders["HTTP_AUTHORIZATION"]);
