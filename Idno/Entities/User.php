@@ -945,6 +945,10 @@ namespace Idno\Entities {
         public function jsonSerialize()
         {
             $data          = parent::jsonSerialize();
+            
+            unset($data['updated']);
+            unset($data['published']);
+            
             $data['image'] = array('url' => $this->getIcon());
             if (!empty($this->profile['url'])) {
                 $data['sameAs'] = $this->profile['url'];
