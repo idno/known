@@ -15,7 +15,7 @@ class WebInstaller extends \Idno\Core\Installer
     {
         \Idno\Core\Bonita\Main::additionalPath(dirname(__FILE__));
         $this->template = new \Idno\Core\Bonita\Templates(); // Use basic template here
-        $this->template()->setTemplateType('default');
+        $this->template->setTemplateType('default');
 
         parent::__construct();
     }
