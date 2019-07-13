@@ -49,11 +49,11 @@ namespace Idno\Pages\Webmentions {
                 }
 
                 // Get the page handler for target
-                if ($page = \Idno\Core\Idno::site()->getPageHandler($route)) {
+                if ($page = \Idno\Core\Idno::site()->routes()->getRoute($route)) {
                     // First of all, make sure the target page isn't the source page. Let's not webmention ourselves!
                     $webmention_ok = true;
                     if (\Idno\Common\Entity::isLocalUUID($source)) {
-                        if ($source_page = \Idno\Core\Idno::site()->getPageHandler($source)) {
+                        if ($source_page = \Idno\Core\Idno::site()->routes()->getRoute($source)) {
                             if ($source_page == $page) {
                                 $webmention_ok = false;
                             }
