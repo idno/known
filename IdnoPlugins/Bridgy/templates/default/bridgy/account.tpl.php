@@ -13,7 +13,7 @@
         <p class="explanation">
             <a href="https://www.brid.gy"><?php echo \Idno\Core\Idno::site()->language()->_('Bridgy'); ?></a> <?php echo \Idno\Core\Idno::site()->language()->_('is a service that pulls social interactions - such as likes and retweets - back to your website.'); ?></p>
 
-        <p class="explanation"><?php echo \Idno\Core\Idno::site()->language()->_('If you send content from Known to Facebook or Twitter, use Bridgy to save comments and interactions from those networks to the original post on your Known site.'); ?></p>
+        <p class="explanation"><?php echo \Idno\Core\Idno::site()->language()->_('If you send content from Known to Twitter, use Bridgy to save comments and interactions from those networks to the original post on your Known site.'); ?></p>
 
         <p class="explanation"><?php echo \Idno\Core\Idno::site()->language()->_('To get started, activate Bridgy for the social network.'); ?></p>
 
@@ -23,7 +23,7 @@
 <div class="row" id="account-area">
 
         <div class="col-md-6 col-md-offset-1">
-        <?php if ($vars['facebook_enabled']) { ?>
+<!--        <?php if ($vars['facebook_enabled']) { ?>
             <form action="https://www.brid.gy/delete/start" method="post">
             <input type="hidden" name="feature" value="listen" />
             <input type="hidden" name="key" value="<?php echo $vars['facebook_key']?>" />
@@ -47,7 +47,7 @@
                 <?php echo \Idno\Core\Idno::site()->language()->_('Bridgy pulls in comments and likes from Facebook.'); ?>
             </p>
         </form>
-        <?php } ?>
+        <?php } ?> -->
 
         <?php if ($vars['twitter_enabled']) { ?>
         <form action="https://www.brid.gy/delete/start" method="post">
