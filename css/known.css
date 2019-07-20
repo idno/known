@@ -1620,7 +1620,7 @@ textarea.form-control {
 div.unfurled-url {
   margin-bottom: 10px; }
   div.unfurled-url .basics {
-    border: #ddd dotted 5px;
+    border: #ddd dotted 1px;
     padding: 15px; }
     div.unfurled-url .basics h2 {
       font-size: 1.4em;
