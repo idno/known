@@ -13,6 +13,7 @@ node_modules
 
 *.iml
 *.bak
+*.log
 test.php
 
 /nbproject/private/nbproject/project.xml
