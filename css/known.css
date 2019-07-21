@@ -1614,27 +1614,25 @@ textarea.form-control {
 .idno-entry div.unfurled-url {
   margin-top: 30px; }
 
+/**
+ Skinning the Unfurled object
+ */
 div.unfurled-url {
   margin-bottom: 10px; }
-
-div.unfurled-url .basics {
-  border: #ddd dotted 1px;
-  padding: 15px; }
-
-div.unfurled-url .basics h2 {
-  font-size: 1.4em;
-  margin-top: 15px; }
-
-div.unfurled-url .basics .byline {
-  text-transform: uppercase; }
-
-div.unfurled-url .basics .image {
-  height: 350px; }
-
-div.unfurled-url .basics .image img {
-  object-fit: cover;
-  width: 100%;
-  height: 100%; }
+  div.unfurled-url .basics {
+    border: #ddd dotted 1px;
+    padding: 15px; }
+    div.unfurled-url .basics h2 {
+      font-size: 1.4em;
+      margin-top: 15px; }
+    div.unfurled-url .basics .byline {
+      text-transform: uppercase; }
+    div.unfurled-url .basics .image {
+      height: 350px; }
+      div.unfurled-url .basics .image img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%; }
 
 /* Shim to hide settings menu in content before it can be removed */
 .settings-content ul.nav {
@@ -1652,33 +1650,26 @@ div.unfurled-url .basics .image img {
 .page-admin-users .users-search .pane {
   height: 60em; }
 
+/** Pagination object */
 .users-pagination {
-  clear: both; }
-
-.users-pagination li.newer span {
-  display: none; }
-
-.users-pagination li.newer a:after {
-  content: "Previous"; }
-
-.users-pagination li.older span {
-  display: none; }
-
-.users-pagination li.older a:after {
-  content: "Next"; }
-
-.user-pagination {
+  clear: both;
   margin-top: 10px; }
-
-.user-pagination .pager {
-  margin: 0; }
+  .users-pagination .pager {
+    margin: 0; }
+  .users-pagination li.newer span {
+    display: none; }
+  .users-pagination li.newer a:after {
+    content: "Previous"; }
+  .users-pagination li.older span {
+    display: none; }
+  .users-pagination li.older a:after {
+    content: "Next"; }
 
 .search-controls {
   padding-bottom: 15px; }
-
-.search-controls .btn {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0; }
+  .search-controls .btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0; }
 
 /**
  * Bootstrap 2-3 migration shims.

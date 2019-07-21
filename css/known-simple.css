@@ -130,7 +130,7 @@ body.page-begin-register {
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
   box-sizing: border-box;
-  border: 3px solid transparent; }
+  border: 3px solid rgba(0, 0, 0, 0); }
 
 .website-input:focus {
   background: #fff;
@@ -373,7 +373,7 @@ textarea:focus {
   width: 100%; }
 
 #button-profile:hover {
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0);
   color: #4c93cb; }
 
 .submit:hover {

@@ -4,30 +4,34 @@
     margin-top: 30px;
 }
 
+/**
+ Skinning the Unfurled object
+ */
 div.unfurled-url {
     margin-bottom: 10px;
-}
-
-div.unfurled-url .basics {
-    border: #ddd dotted 1px;
-    padding: 15px;
-}
-
-div.unfurled-url .basics h2 {
-    font-size: 1.4em;
-    margin-top: 15px;
-}
-
-div.unfurled-url .basics .byline {
-    text-transform: uppercase;
-}
-
-div.unfurled-url .basics .image {
-    height: 350px;
-}
-
-div.unfurled-url .basics .image img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
+    
+    .basics {
+	border: #ddd dotted 1px;
+	padding: 15px;
+	
+	
+	h2 {
+	    font-size: 1.4em;
+	    margin-top: 15px;
+	}
+	
+	.byline {
+	    text-transform: uppercase;
+	}
+	
+	.image {
+	    height: 350px;
+	    
+	    img {
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
+	    }
+	}
+    }
 }
