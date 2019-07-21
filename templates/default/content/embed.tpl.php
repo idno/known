@@ -63,7 +63,7 @@ if (preg_match_all('/https?:\/\/(www\.)?instagram\.com\/p\/([A-Za-z0-9\-\_]+)\/?
 }
 
     // Use unfurling for the rest (first url only)
-if (preg_match_all('/(?<!=)(?<!["\'])((ht|f)tps?:\/\/[^\s<>"\']+)/i', $body, $matches)) {
+if (preg_match_all('/(?<!=)(?<!["\'])((ht|f)tps?:\/\/[^\s<>"\'\)]+)/i', $body, $matches)) {
 
     foreach ($matches[0] as $m) {
         $found = false;
