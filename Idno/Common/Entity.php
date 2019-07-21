@@ -1248,7 +1248,7 @@ namespace Idno\Common {
         {
             if ($body = $this->getBody()) {
                 $body = strip_tags($body);
-                $words = str_word_count($body);
+                $words = count(preg_split('~[^\p{L}\p{N}\']+~u', $body)); // ht cito from https://www.php.net/manual/en/function.str-word-count.php
 
                 return (int)ceil(($words / 200) * 60);
             }
