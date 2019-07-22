@@ -15,9 +15,9 @@
  */
 
 // Check PHP version first of all
-if (version_compare(phpversion(), '7.0', '<')) {
+if (version_compare(phpversion(), '7.1', '<')) {
     http_response_code(500);
-    $body = "Sorry, this version of PHP is not supported.";
+    $body = "Sorry, this version of PHP (".phpversion().") is not supported. This probably means that you should update your server to the latest stable PHP release.";
     $heading = "PHP Version not supported";
     $helplink = '<a href="http://docs.withknown.com/en/latest/install/requirements/" target="_blank">Read system requirements</a>';
     
