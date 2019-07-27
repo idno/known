@@ -14,10 +14,18 @@ namespace Idno\Common {
 
         function __construct()
         {
+            $this->registerLibraries();
             $this->init();
             $this->registerEventHooks();
             $this->registerPages();
             $this->registerTranslations();
+        }
+        
+        /**
+         * Register any autoloaders here.
+         */
+        function registerLibraries() 
+        {
         }
 
         /**

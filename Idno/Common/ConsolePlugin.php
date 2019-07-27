@@ -19,6 +19,7 @@ namespace Idno\Common {
 
             $this->console = application();
 
+            $this->registerLibraries();
             $this->init();
             $this->registerEventHooks();
 
