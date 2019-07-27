@@ -21,6 +21,17 @@ namespace Idno\Common {
 
             return $result;
         }
+        
+        function registerLibraries() {
+            
+            $plugin = new \ReflectionClass(get_called_class());
+
+            $file = $plugin->getFileName();
+            
+            if (file_exists(dirname($file) . '/vendor/autoload.php')) {
+                include_once(dirname($file) . '/vendor/autoload.php');
+            }
+        }
 
         /**
          * Automatically registers content types associated with plugins,
