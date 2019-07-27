@@ -54,6 +54,8 @@ before_script:
 
 services:
   - mongodb
+  - postgresql
+  - mariadb
   
 addons:
   apt:
