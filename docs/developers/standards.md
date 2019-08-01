@@ -6,6 +6,30 @@
 * Lay your code out as beautifully as you can. We're in favor of beautifiers!
 * Legibility over cleverness please!
 
+## Clarity and avoiding fragile code
+
+We like easily readable code, and we also like code that is hard to break.
+
+* Think carefully about using the ternary operator ``` $var == 'foo' ? true : false ```, as they can often result in hard to follow code. 
+  * Nesting these is almost always a bad idea, since PHP's behaviour in this situation is far from obvious. If you find yourself needing to do this, you probably need to think about doing things a different way
+  * Think carefully about using the ternary operator with all but the most trivial string concatenations, as it often leads to fragile and hard to read code if a bracket gets missed. E.g. ``` $foo = 'SELECT * from bar where foo="' . $var == 'foo' ? 'foo' : 'bar' . '" limit 5' ``` will not necessarily do what you think it will, and can be hard to spot. 
+* Always try to use brackets (or similar) in if statements, even if there's only one line of enclosed logic, as not doing so leads to fragile code: So
+
+```
+if ($foo) {
+  echo 'bar';
+}
+```
+is good, but
+
+```
+if ($foo)
+  echo 'bar';
+
+```
+
+is bad.
+
 ## Naming conventions
 
 * Namespaces should be UpperCamelCase, with a matching /UpperCamelCase/ file path
