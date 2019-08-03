@@ -1,7 +1,7 @@
 {
     "name": "idno/known",
     "description": "A social publishing platform.",
-    "version": "0.12.16",
+    "version": "0.12.17",
     "type": "project",
     "homepage": "https://withknown.com/",
     "repositories": [
@@ -51,7 +51,9 @@
         "bower-asset/mention": "dev-master",
         "mapkyca/known-mongo-php-library": "dev-master",
         "indieweb/mention-client": "1.2.0",
-        "twig/twig": "2.11"
+        "twig/twig": "2.11",
+        "composer/installers": "dev-master",
+        "mapkyca/known-oauth2-server": "^0.10.0"
     },
     "license": "Apache-2.0",
     "prefer-stable": true,
