@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "154983b89543b4605cdcc4840a236b10",
+    "content-hash": "af269fcc07bbb594a72d661f1a85ea95",
     "packages": [
         {
             "name": "bower-asset/mention",
@@ -64,6 +64,128 @@
             "description": "jQuery JavaScript Library",
             "homepage": "http://jquery.com",
             "time": "2018-03-04T13:23:48+00:00"
+        },
+        {
+            "name": "composer/installers",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/composer/installers.git",
+                "reference": "3a91638770110d840f0f46a46b6d03fe31a67a19"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/composer/installers/zipball/3a91638770110d840f0f46a46b6d03fe31a67a19",
+                "reference": "3a91638770110d840f0f46a46b6d03fe31a67a19",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0"
+            },
+            "replace": {
+                "roundcube/plugin-installer": "*",
+                "shama/baton": "*"
+            },
+            "require-dev": {
+                "composer/composer": "1.0.*@dev",
+                "phpunit/phpunit": "^4.8.36"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Composer\\Installers\\Plugin",
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Composer\\Installers\\": "src/Composer/Installers"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kyle Robinson Young",
+                    "email": "kyle@dontkry.com",
+                    "homepage": "https://github.com/shama"
+                }
+            ],
+            "description": "A multi-framework Composer library installer",
+            "homepage": "https://composer.github.io/installers/",
+            "keywords": [
+                "Craft",
+                "Dolibarr",
+                "Eliasis",
+                "Hurad",
+                "ImageCMS",
+                "Kanboard",
+                "Lan Management System",
+                "MODX Evo",
+                "Mautic",
+                "Maya",
+                "OXID",
+                "Plentymarkets",
+                "Porto",
+                "RadPHP",
+                "SMF",
+                "Thelia",
+                "Whmcs",
+                "WolfCMS",
+                "agl",
+                "aimeos",
+                "annotatecms",
+                "attogram",
+                "bitrix",
+                "cakephp",
+                "chef",
+                "cockpit",
+                "codeigniter",
+                "concrete5",
+                "croogo",
+                "dokuwiki",
+                "drupal",
+                "eZ Platform",
+                "elgg",
+                "expressionengine",
+                "fuelphp",
+                "grav",
+                "installer",
+                "itop",
+                "joomla",
+                "known",
+                "kohana",
+                "laravel",
+                "lavalite",
+                "lithium",
+                "magento",
+                "majima",
+                "mako",
+                "mediawiki",
+                "modulework",
+                "modx",
+                "moodle",
+                "osclass",
+                "phpbb",
+                "piwik",
+                "ppi",
+                "puppet",
+                "pxcms",
+                "reindex",
+                "roundcube",
+                "shopware",
+                "silverstripe",
+                "sydes",
+                "symfony",
+                "typo3",
+                "wordpress",
+                "yawik",
+                "zend",
+                "zikula"
+            ],
+            "time": "2019-08-01T12:00:05+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -237,6 +359,51 @@
                 "mongo"
             ],
             "time": "2019-03-01T20:47:19+00:00"
+        },
+        {
+            "name": "mapkyca/known-oauth2-server",
+            "version": "0.10.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mapkyca/known-oauth2-server.git",
+                "reference": "596bf52964415e64b8b9567d1d1c793c222ca397"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mapkyca/known-oauth2-server/zipball/596bf52964415e64b8b9567d1d1c793c222ca397",
+                "reference": "596bf52964415e64b8b9567d1d1c793c222ca397",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-plugin",
+            "extra": {
+                "installer-name": "OAuth2"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Marcus Povey",
+                    "email": "marcus@marcus-povey.co.uk"
+                }
+            ],
+            "description": "Provides an OAuth2 authentication server for API calls",
+            "homepage": "https://www.marcus-povey.co.uk",
+            "keywords": [
+                "known",
+                "oauth2",
+                "plugin"
+            ],
+            "time": "2019-08-03T14:25:05+00:00"
         },
         {
             "name": "mapkyca/mrclay_autop_known",
@@ -1892,7 +2059,8 @@
         "torophp/torophp": 20,
         "mapkyca/mrclay_autop_known": 20,
         "bower-asset/mention": 20,
-        "mapkyca/known-mongo-php-library": 20
+        "mapkyca/known-mongo-php-library": 20,
+        "composer/installers": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
