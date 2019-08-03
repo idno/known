@@ -41,13 +41,10 @@ tests/_output/*
 IdnoPlugins.local/*
 
 IdnoPlugins/*
-!IdnoPlugins/APITester/
 !IdnoPlugins/Bridgy/
 !IdnoPlugins/Checkin/
 !IdnoPlugins/Comments/
 !IdnoPlugins/Event/
-!IdnoPlugins/Firefox/
-!IdnoPlugins/FooterJS/
 !IdnoPlugins/IndiePub/
 !IdnoPlugins/Like/
 !IdnoPlugins/Media/
@@ -57,7 +54,6 @@ IdnoPlugins/*
 !IdnoPlugins/Styles/
 !IdnoPlugins/Text/
 !IdnoPlugins/Webhooks/
-!IdnoPlugins/OAuth2/
 
 Themes/*
 !Themes/Black/
