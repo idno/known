@@ -4,7 +4,7 @@
     "type": "known-plugin",
     "version": "0.9.9-a",
     "require": {
-        "composer/installers": "dev-master"
+        "composer/installers": "~1.0"
     },
     "require-dev": {
         "mapkyca/known-language-tools": "^1.0",
