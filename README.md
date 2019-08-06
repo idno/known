@@ -24,7 +24,7 @@ _Unofficial_ install packages, which are periodically built from the latest code
 
 #### Installing from Github
 
-You can opt to check out the work-in-progress development code from the git repository: <https://github.com/idno/Known>
+You can opt to check out the work-in-progress development code from the git repository: <https://github.com/idno/known>
 
 * Check out the repo: ```git clone https://github.com/idno/known.git```
 * Fetch dependencies: ```cd known; composer install```
