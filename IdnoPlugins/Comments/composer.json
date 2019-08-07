@@ -2,7 +2,7 @@
     "name": "idno/comments",
     "description": "Include public comments on your Known site.",
     "type": "known-plugin",
-    "version": "0.9.9-a",
+    "version": "0.9.10",
     "require": {
         "composer/installers": "~1.0"
     },
