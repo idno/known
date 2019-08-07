@@ -2,7 +2,7 @@
     "name": "idno/theme-green",
     "description": "A simple theme with cool colors.",
     "type": "known-theme",
-    "version": "1.0",
+    "version": "1.0.0",
     "require": {
         "composer/installers": "~1.0"
     },
