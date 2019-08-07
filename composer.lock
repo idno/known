@@ -361,16 +361,16 @@
         },
         {
             "name": "mapkyca/known-oauth2-server",
-            "version": "0.10.2",
+            "version": "0.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mapkyca/known-oauth2-server.git",
-                "reference": "fdc88f37bb37e5f7cdfdb084588058801cfffa83"
+                "reference": "ff9d5939ee0cb1e4b8517e41598664dd36a2f969"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mapkyca/known-oauth2-server/zipball/fdc88f37bb37e5f7cdfdb084588058801cfffa83",
-                "reference": "fdc88f37bb37e5f7cdfdb084588058801cfffa83",
+                "url": "https://api.github.com/repos/mapkyca/known-oauth2-server/zipball/ff9d5939ee0cb1e4b8517e41598664dd36a2f969",
+                "reference": "ff9d5939ee0cb1e4b8517e41598664dd36a2f969",
                 "shasum": ""
             },
             "require": {
@@ -402,7 +402,7 @@
                 "oauth2",
                 "plugin"
             ],
-            "time": "2019-08-04T08:31:07+00:00"
+            "time": "2019-08-07T10:46:16+00:00"
         },
         {
             "name": "mapkyca/mrclay_autop_known",
