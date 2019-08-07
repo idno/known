@@ -1,7 +1,7 @@
 {
-  "name": "Text",
-  "version": "0.9.9-a",
-  "devDependencies": {
-    "grunt": "^0.4.5"
-  }
+    "name": "Text",
+    "version": "0.9.10",
+    "devDependencies": {
+        "grunt": "^0.4.5"
+    }
 }
