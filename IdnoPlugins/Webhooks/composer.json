@@ -2,7 +2,7 @@
     "name": "idno/webhooks",
     "description": "Syndicate via Webhooks.",
     "type": "known-plugin",
-    "version": "0.9.9-a",
+    "version": "0.9.10",
     "require": {
         "composer/installers": "~1.0"
     },
