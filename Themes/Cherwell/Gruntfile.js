@@ -10,7 +10,45 @@ module.exports = function (grunt) {
     // Project configuration.
     grunt.initConfig({
 	pkg: grunt.file.readJSON('package.json'),
+        cssmin: {
+            target: {
+                files: [{
+                        expand: true,
+                        cwd: 'css/',
+                        src: ['*.css', '!*.min.css'],
+                        dest: 'css/',
+                        ext: '.min.css'
+                    }]
+            }
+        },
+        csslint: {
+            options: {
+                quiet: true,
+                ids: false
+            },
+            src: ['css/*.css', '!*.min.css']
+        },
+        watch: {
+            options: {
+              dateFormat: function(time) {
+                grunt.log.writeln('The watch finished in ' + time + 'ms at ' + (new Date()).toString());
+                grunt.log.writeln('Waiting for more changes...');
+              },
+            },
+            css: {
+                files: 'css/*.css',
+                tasks:  ['cssmin', 'csslint']
+            }
+        }
     });
+
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-csslint');
+    
+    
+    grunt.registerTask('default', ['cssmin']);
+
 
     // Build your language file
     grunt.registerTask('build-lang', '', function(){
