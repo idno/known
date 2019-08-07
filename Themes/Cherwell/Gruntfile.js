@@ -9,7 +9,18 @@ module.exports = function (grunt) {
     
     // Project configuration.
     grunt.initConfig({
-	pkg: grunt.file.readJSON('package.json'),
+        pkg: grunt.file.readJSON('package.json'),
+
+        sass: {
+            dist: {
+                files: {
+                    'css/default.css': 'css/scss/default.scss'
+                },
+                options: {
+                    sourcemap: 'none'
+                }
+            }
+        },
         cssmin: {
             target: {
                 files: [{
@@ -35,19 +46,20 @@ module.exports = function (grunt) {
                 grunt.log.writeln('Waiting for more changes...');
               },
             },
-            css: {
-                files: 'css/*.css',
-                tasks:  ['cssmin', 'csslint']
+            sass: {
+                files: 'css/scss/**/*.scss',
+                tasks:  ['sass', 'cssmin', 'csslint']
             }
         }
     });
 
+    grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-csslint');
     
     
-    grunt.registerTask('default', ['cssmin']);
+    grunt.registerTask('default', ['sass', 'cssmin']);
 
 
     // Build your language file
