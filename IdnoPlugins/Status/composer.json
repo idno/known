@@ -2,7 +2,7 @@
     "name": "idno/status",
     "description": "Simple status updates for Known.",
     "type": "known-plugin",
-    "version": "0.9.9-a",
+    "version": "0.9.10",
     "require": {
         "composer/installers": "~1.0"
     },
