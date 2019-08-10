@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS session (
     session_time integer NOT NULL,
     PRIMARY KEY (session_id)
 );
-INSERT INTO session (session_id, session_value, session_lifetime, session_time) (SELECT session_id, session_value, 0, session_time FROM session_2016102001);
+INSERT INTO session (session_id, session_value, session_lifetime, session_time) (SELECT session_id, session_value, 0, session_time FROM session_2019060501);
 DROP TABLE session_2019060501;
 
 
