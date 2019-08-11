@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "32a5ca0a581616a1e58c449debc7efd6",
+    "content-hash": "3d9043af14424df16e1254827610a99c",
     "packages": [
         {
             "name": "bower-asset/mention",
@@ -280,6 +280,36 @@
                 "icon"
             ],
             "time": "2019-02-28T15:21:34+00:00"
+        },
+        {
+            "name": "idno/indiepub",
+            "version": "0.9.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/indiepub.git",
+                "reference": "ed247119548b9fe9311731a1b97fb1436aa5ae5c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/indiepub/zipball/ed247119548b9fe9311731a1b97fb1436aa5ae5c",
+                "reference": "ed247119548b9fe9311731a1b97fb1436aa5ae5c",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-plugin",
+            "extra": {
+                "installer-name": "IndiePub"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Support IndieAuth and Micropub for single-user Known sites. Must be used with a single-user theme.",
+            "time": "2019-08-11T15:35:36+00:00"
         },
         {
             "name": "idno/webhooks",
