@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7ac41fcdc476f379bb134371a0166f4f",
+    "content-hash": "334e2033d6bf2b52fa2261ce27c27bfe",
     "packages": [
         {
             "name": "bower-asset/mention",
@@ -310,6 +310,36 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "Receive comments from external services on your Known site.",
             "time": "2019-08-11T15:50:04+00:00"
+        },
+        {
+            "name": "idno/checkin",
+            "version": "0.9.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/checkin.git",
+                "reference": "aa789ea863b155c244aa188b28379fa59ec85e82"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/checkin/zipball/aa789ea863b155c244aa188b28379fa59ec85e82",
+                "reference": "aa789ea863b155c244aa188b28379fa59ec85e82",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-plugin",
+            "extra": {
+                "installer-name": "Checkin"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "An easy way to check into a geographic location.",
+            "time": "2019-08-11T17:19:17+00:00"
         },
         {
             "name": "idno/events",

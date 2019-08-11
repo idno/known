@@ -41,7 +41,6 @@ tests/_output/*
 IdnoPlugins.local/*
 
 IdnoPlugins/*
-!IdnoPlugins/Checkin/
 !IdnoPlugins/Comments/
 !IdnoPlugins/StaticPages/
 
