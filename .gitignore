@@ -41,8 +41,6 @@ tests/_output/*
 IdnoPlugins.local/*
 
 IdnoPlugins/*
-!IdnoPlugins/Comments/
-!IdnoPlugins/StaticPages/
 
 Themes/*
 !Themes/Black/

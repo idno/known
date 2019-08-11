@@ -64,7 +64,8 @@
         "idno/styles": "^0.9.10",
         "idno/status": "^0.9.10",
         "idno/photo": "^0.9.10",
-        "idno/checkin": "^0.9.10"
+        "idno/checkin": "^0.9.10",
+        "idno/staticpages": "^0.9.10"
     },
     "license": "Apache-2.0",
     "prefer-stable": true,
