@@ -57,7 +57,8 @@
         "idno/webhooks": "^0.9.10",
         "idno/indiepub": "^0.9.10",
         "idno/bridgy": "^1.0",
-        "idno/like": "^0.9.10"
+        "idno/like": "^0.9.10",
+        "idno/text": "^0.9.10"
     },
     "license": "Apache-2.0",
     "prefer-stable": true,
