@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6d468d7fa234b9ff2cacf866851b243f",
+    "content-hash": "955b6c25ba816160647c721afa8f278b",
     "packages": [
         {
             "name": "bower-asset/mention",
@@ -730,6 +730,36 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "A simple theme with cool colors.",
             "time": "2019-08-11T19:19:22+00:00"
+        },
+        {
+            "name": "idno/theme-kandinsky",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/theme-kandinsky.git",
+                "reference": "2d706578e0654065acbb2ec993d8ea632c022658"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/theme-kandinsky/zipball/2d706578e0654065acbb2ec993d8ea632c022658",
+                "reference": "2d706578e0654065acbb2ec993d8ea632c022658",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-theme",
+            "extra": {
+                "installer-name": "Kandinsky"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "A simple theme with warm colors.",
+            "time": "2019-08-11T19:24:59+00:00"
         },
         {
             "name": "idno/theme-marketstreet",

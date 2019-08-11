@@ -70,7 +70,8 @@
         "idno/theme-black": "^1.0",
         "idno/theme-cherwell": "^1.0",
         "idno/theme-fauvists": "^1.0",
-        "idno/theme-green": "^1.0"
+        "idno/theme-green": "^1.0",
+        "idno/theme-kandinsky": "^1.0"
     },
     "license": "Apache-2.0",
     "prefer-stable": true,
