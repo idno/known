@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "921870d207409690dee60648e3a80dfd",
+    "content-hash": "c13b9f2e8fd7db67514d38290136f5eb",
     "packages": [
         {
             "name": "bower-asset/mention",
@@ -430,6 +430,36 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "Upload audio or music and turn your site into a podcast.",
             "time": "2019-08-11T16:13:43+00:00"
+        },
+        {
+            "name": "idno/styles",
+            "version": "0.9.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/styles.git",
+                "reference": "fffe83ba497cca6fc1f611efa3996f4066b7db13"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/styles/zipball/fffe83ba497cca6fc1f611efa3996f4066b7db13",
+                "reference": "fffe83ba497cca6fc1f611efa3996f4066b7db13",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-plugin",
+            "extra": {
+                "installer-name": "Styles"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "A custom CSS stylesheet editor to modify the visual style of your site.",
+            "time": "2019-08-11T16:44:44+00:00"
         },
         {
             "name": "idno/text",

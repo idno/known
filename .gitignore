@@ -46,7 +46,6 @@ IdnoPlugins/*
 !IdnoPlugins/Photo/
 !IdnoPlugins/StaticPages/
 !IdnoPlugins/Status/
-!IdnoPlugins/Styles/
 
 Themes/*
 !Themes/Black/
