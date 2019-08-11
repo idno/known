@@ -66,7 +66,9 @@
         "idno/photo": "^0.9.10",
         "idno/checkin": "^0.9.10",
         "idno/staticpages": "^0.9.10",
-        "idno/theme-marketstreet": "dev-master"
+        "idno/theme-marketstreet": "^1.0",
+        "idno/theme-black": "^1.0",
+        "idno/theme-cherwell": "^1.0"
     },
     "license": "Apache-2.0",
     "prefer-stable": true,
