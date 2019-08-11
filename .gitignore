@@ -41,7 +41,6 @@ tests/_output/*
 IdnoPlugins.local/*
 
 IdnoPlugins/*
-!IdnoPlugins/Bridgy/
 !IdnoPlugins/Checkin/
 !IdnoPlugins/Comments/
 !IdnoPlugins/Event/
