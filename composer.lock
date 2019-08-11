@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a65b849dbfcf12c640317cd984c53262",
+    "content-hash": "6d468d7fa234b9ff2cacf866851b243f",
     "packages": [
         {
             "name": "bower-asset/mention",
@@ -700,6 +700,36 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "A colorful theme that works well with multi-user sites.",
             "time": "2019-08-11T19:11:50+00:00"
+        },
+        {
+            "name": "idno/theme-green",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/theme-green.git",
+                "reference": "a2fb06287baeb5eef55defba0020d5e12a98a817"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/theme-green/zipball/a2fb06287baeb5eef55defba0020d5e12a98a817",
+                "reference": "a2fb06287baeb5eef55defba0020d5e12a98a817",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-theme",
+            "extra": {
+                "installer-name": "Green"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "A simple theme with cool colors.",
+            "time": "2019-08-11T19:19:22+00:00"
         },
         {
             "name": "idno/theme-marketstreet",
