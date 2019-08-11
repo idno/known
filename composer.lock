@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "97fd8b6a06783179680c78b18f5ffefb",
+    "content-hash": "6cbc21bb3c9101d3ca25b558da2579f4",
     "packages": [
         {
             "name": "bower-asset/mention",
@@ -340,6 +340,36 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "Support IndieAuth and Micropub for single-user Known sites. Must be used with a single-user theme.",
             "time": "2019-08-11T15:35:36+00:00"
+        },
+        {
+            "name": "idno/like",
+            "version": "0.9.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/like.git",
+                "reference": "fb832d627b5eb089d02534c70e5b53751583deb5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/like/zipball/fb832d627b5eb089d02534c70e5b53751583deb5",
+                "reference": "fb832d627b5eb089d02534c70e5b53751583deb5",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-plugin",
+            "extra": {
+                "installer-name": "Like"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Bookmark a page in Known.",
+            "time": "2019-08-11T15:59:55+00:00"
         },
         {
             "name": "idno/webhooks",

@@ -56,7 +56,8 @@
         "mapkyca/known-oauth2-server": "^0.10.0",
         "idno/webhooks": "^0.9.10",
         "idno/indiepub": "^0.9.10",
-        "idno/bridgy": "^1.0"
+        "idno/bridgy": "^1.0",
+        "idno/like": "^0.9.10"
     },
     "license": "Apache-2.0",
     "prefer-stable": true,
