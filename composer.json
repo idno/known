@@ -1,7 +1,7 @@
 {
     "name": "idno/known",
     "description": "A social publishing platform.",
-    "version": "0.12.22",
+    "version": "0.13.0",
     "type": "project",
     "homepage": "https://withknown.com/",
     "repositories": [
@@ -53,7 +53,26 @@
         "indieweb/mention-client": "1.2.0",
         "twig/twig": "2.11",
         "composer/installers": "dev-master",
-        "mapkyca/known-oauth2-server": "^0.10.0"
+        "mapkyca/known-oauth2-server": "^0.10.0",
+        "idno/webhooks": "^0.9.10",
+        "idno/indiepub": "^0.9.10",
+        "idno/bridgy": "^1.0",
+        "idno/like": "^0.9.10",
+        "idno/text": "^0.9.10",
+        "idno/media": "^0.9.10",
+        "idno/events": "^0.9.10",
+        "idno/styles": "^0.9.10",
+        "idno/status": "^0.9.10",
+        "idno/photo": "^0.9.10",
+        "idno/checkin": "^0.9.10",
+        "idno/staticpages": "^0.9.10",
+        "idno/theme-marketstreet": "^1.0",
+        "idno/theme-black": "^1.0",
+        "idno/theme-cherwell": "^1.0",
+        "idno/theme-fauvists": "^1.0",
+        "idno/theme-green": "^1.0",
+        "idno/theme-kandinsky": "^1.0",
+        "idno/theme-solo": "^1.0"
     },
     "license": "Apache-2.0",
     "prefer-stable": true,
@@ -86,6 +105,7 @@
     "require-dev": {
         "mapkyca/known-phpcs": "^1.0",
         "mapkyca/known-language-tools": "^1.0",
-        "mapkyca/known-dev-scripts": "^1.0"
+        "mapkyca/known-dev-scripts": "^1.0",
+        "idno/apitester": "^0.9.10"
     }
 }

@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2d54cfa52116f051fb1dffbcd8af7dbe",
+    "content-hash": "212348dfd1606bf709e8b21aadb2ffd4",
     "packages": [
         {
             "name": "bower-asset/mention",
@@ -17,7 +17,8 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/jakiestfu/Mention.js/zipball/1b588ef059bfd4c5164393eb686252abbf8c8ebd",
-                "reference": "1b588ef059bfd4c5164393eb686252abbf8c8ebd"
+                "reference": "1b588ef059bfd4c5164393eb686252abbf8c8ebd",
+                "shasum": null
             },
             "type": "bower-asset",
             "time": "2013-08-22T23:12:58+00:00"
@@ -279,6 +280,576 @@
                 "icon"
             ],
             "time": "2019-02-28T15:21:34+00:00"
+        },
+        {
+            "name": "idno/bridgy",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/bridgy.git",
+                "reference": "451faa1ff5c46c606e5e0319d7ce53f6061db4c6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/bridgy/zipball/451faa1ff5c46c606e5e0319d7ce53f6061db4c6",
+                "reference": "451faa1ff5c46c606e5e0319d7ce53f6061db4c6",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-plugin",
+            "extra": {
+                "installer-name": "Bridgy"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Receive comments from external services on your Known site.",
+            "time": "2019-08-11T15:50:04+00:00"
+        },
+        {
+            "name": "idno/checkin",
+            "version": "0.9.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/checkin.git",
+                "reference": "aa789ea863b155c244aa188b28379fa59ec85e82"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/checkin/zipball/aa789ea863b155c244aa188b28379fa59ec85e82",
+                "reference": "aa789ea863b155c244aa188b28379fa59ec85e82",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-plugin",
+            "extra": {
+                "installer-name": "Checkin"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "An easy way to check into a geographic location.",
+            "time": "2019-08-11T17:19:17+00:00"
+        },
+        {
+            "name": "idno/events",
+            "version": "0.9.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/events.git",
+                "reference": "51d48dc711614b2f3e521e25c7ab9a99000e9b77"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/events/zipball/51d48dc711614b2f3e521e25c7ab9a99000e9b77",
+                "reference": "51d48dc711614b2f3e521e25c7ab9a99000e9b77",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-plugin",
+            "extra": {
+                "installer-name": "Event"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "A lightweight way to post or reply to events.",
+            "time": "2019-08-11T16:25:41+00:00"
+        },
+        {
+            "name": "idno/indiepub",
+            "version": "0.9.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/indiepub.git",
+                "reference": "ed247119548b9fe9311731a1b97fb1436aa5ae5c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/indiepub/zipball/ed247119548b9fe9311731a1b97fb1436aa5ae5c",
+                "reference": "ed247119548b9fe9311731a1b97fb1436aa5ae5c",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-plugin",
+            "extra": {
+                "installer-name": "IndiePub"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Support IndieAuth and Micropub for single-user Known sites. Must be used with a single-user theme.",
+            "time": "2019-08-11T15:35:36+00:00"
+        },
+        {
+            "name": "idno/like",
+            "version": "0.9.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/like.git",
+                "reference": "fb832d627b5eb089d02534c70e5b53751583deb5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/like/zipball/fb832d627b5eb089d02534c70e5b53751583deb5",
+                "reference": "fb832d627b5eb089d02534c70e5b53751583deb5",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-plugin",
+            "extra": {
+                "installer-name": "Like"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Bookmark a page in Known.",
+            "time": "2019-08-11T15:59:55+00:00"
+        },
+        {
+            "name": "idno/media",
+            "version": "0.9.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/media.git",
+                "reference": "6d2b96565dce54bb21038967590d0907a61bab47"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/media/zipball/6d2b96565dce54bb21038967590d0907a61bab47",
+                "reference": "6d2b96565dce54bb21038967590d0907a61bab47",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-plugin",
+            "extra": {
+                "installer-name": "Media"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Upload audio or music and turn your site into a podcast.",
+            "time": "2019-08-11T16:13:43+00:00"
+        },
+        {
+            "name": "idno/photo",
+            "version": "0.9.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/photo.git",
+                "reference": "d7df88bf3a28ba155e19fc1b1658b091ba6875d7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/photo/zipball/d7df88bf3a28ba155e19fc1b1658b091ba6875d7",
+                "reference": "d7df88bf3a28ba155e19fc1b1658b091ba6875d7",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-plugin",
+            "extra": {
+                "installer-name": "Photo"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Simple photo uploader for Known.",
+            "time": "2019-08-11T17:00:44+00:00"
+        },
+        {
+            "name": "idno/staticpages",
+            "version": "0.9.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/staticpages.git",
+                "reference": "a473a962eb75d0168dfdb7919349eab0a287482a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/staticpages/zipball/a473a962eb75d0168dfdb7919349eab0a287482a",
+                "reference": "a473a962eb75d0168dfdb7919349eab0a287482a",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-plugin",
+            "extra": {
+                "installer-name": "StaticPages"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Host static pages in Known.",
+            "time": "2019-08-11T17:33:46+00:00"
+        },
+        {
+            "name": "idno/status",
+            "version": "0.9.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/status.git",
+                "reference": "6aa44e21017369ceffc4086929097eaa4fc1ff1b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/status/zipball/6aa44e21017369ceffc4086929097eaa4fc1ff1b",
+                "reference": "6aa44e21017369ceffc4086929097eaa4fc1ff1b",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-plugin",
+            "extra": {
+                "installer-name": "Status"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Simple status updates for Known.",
+            "time": "2019-08-11T16:51:25+00:00"
+        },
+        {
+            "name": "idno/styles",
+            "version": "0.9.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/styles.git",
+                "reference": "fffe83ba497cca6fc1f611efa3996f4066b7db13"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/styles/zipball/fffe83ba497cca6fc1f611efa3996f4066b7db13",
+                "reference": "fffe83ba497cca6fc1f611efa3996f4066b7db13",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-plugin",
+            "extra": {
+                "installer-name": "Styles"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "A custom CSS stylesheet editor to modify the visual style of your site.",
+            "time": "2019-08-11T16:44:44+00:00"
+        },
+        {
+            "name": "idno/text",
+            "version": "0.9.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/text.git",
+                "reference": "693bc99fee262be70260f5e0ae8af233efc0a7a4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/text/zipball/693bc99fee262be70260f5e0ae8af233efc0a7a4",
+                "reference": "693bc99fee262be70260f5e0ae8af233efc0a7a4",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-plugin",
+            "extra": {
+                "installer-name": "Text"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "A lightweight blogging engine.",
+            "time": "2019-08-11T16:07:47+00:00"
+        },
+        {
+            "name": "idno/theme-black",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/theme-black.git",
+                "reference": "5fc6673232918d247aece615e26e6503d3059699"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/theme-black/zipball/5fc6673232918d247aece615e26e6503d3059699",
+                "reference": "5fc6673232918d247aece615e26e6503d3059699",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-theme",
+            "extra": {
+                "installer-name": "Black"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "A simple, minimal, blank-slate theme.",
+            "time": "2019-08-11T18:18:54+00:00"
+        },
+        {
+            "name": "idno/theme-cherwell",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/theme-cherwell.git",
+                "reference": "fcdf91565cbcef17fdca708bbe37b6ee01bc67d2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/theme-cherwell/zipball/fcdf91565cbcef17fdca708bbe37b6ee01bc67d2",
+                "reference": "fcdf91565cbcef17fdca708bbe37b6ee01bc67d2",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-theme",
+            "extra": {
+                "installer-name": "Cherwell"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "A basic theme with a background image.",
+            "time": "2019-08-11T18:27:07+00:00"
+        },
+        {
+            "name": "idno/theme-fauvists",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/theme-fauvists.git",
+                "reference": "8c8aebe8825db8300d0986cf037c4b56c5c2cd2a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/theme-fauvists/zipball/8c8aebe8825db8300d0986cf037c4b56c5c2cd2a",
+                "reference": "8c8aebe8825db8300d0986cf037c4b56c5c2cd2a",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-theme",
+            "extra": {
+                "installer-name": "Fauvists"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "A colorful theme that works well with multi-user sites.",
+            "time": "2019-08-11T19:11:50+00:00"
+        },
+        {
+            "name": "idno/theme-green",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/theme-green.git",
+                "reference": "a2fb06287baeb5eef55defba0020d5e12a98a817"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/theme-green/zipball/a2fb06287baeb5eef55defba0020d5e12a98a817",
+                "reference": "a2fb06287baeb5eef55defba0020d5e12a98a817",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-theme",
+            "extra": {
+                "installer-name": "Green"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "A simple theme with cool colors.",
+            "time": "2019-08-11T19:19:22+00:00"
+        },
+        {
+            "name": "idno/theme-kandinsky",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/theme-kandinsky.git",
+                "reference": "2d706578e0654065acbb2ec993d8ea632c022658"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/theme-kandinsky/zipball/2d706578e0654065acbb2ec993d8ea632c022658",
+                "reference": "2d706578e0654065acbb2ec993d8ea632c022658",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-theme",
+            "extra": {
+                "installer-name": "Kandinsky"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "A simple theme with warm colors.",
+            "time": "2019-08-11T19:24:59+00:00"
+        },
+        {
+            "name": "idno/theme-marketstreet",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/theme-marketstreet.git",
+                "reference": "6257c6ae5d88a2b19ce9caa0aa1904fd21321dac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/theme-marketstreet/zipball/6257c6ae5d88a2b19ce9caa0aa1904fd21321dac",
+                "reference": "6257c6ae5d88a2b19ce9caa0aa1904fd21321dac",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-theme",
+            "extra": {
+                "installer-name": "MarketStreet"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "A modern, white theme for bloggers.",
+            "time": "2019-08-11T18:03:04+00:00"
+        },
+        {
+            "name": "idno/theme-solo",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/theme-solo.git",
+                "reference": "8a53a747c1214e8e1fba0b40fb21d3dd10de4d76"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/theme-solo/zipball/8a53a747c1214e8e1fba0b40fb21d3dd10de4d76",
+                "reference": "8a53a747c1214e8e1fba0b40fb21d3dd10de4d76",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-theme",
+            "extra": {
+                "installer-name": "Solo"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "A simple black and white single-user theme.",
+            "time": "2019-08-11T19:32:22+00:00"
+        },
+        {
+            "name": "idno/webhooks",
+            "version": "0.9.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/webhooks.git",
+                "reference": "d2f151a7c16eee200232469a138a610285619ec5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/webhooks/zipball/d2f151a7c16eee200232469a138a610285619ec5",
+                "reference": "d2f151a7c16eee200232469a138a610285619ec5",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-plugin",
+            "extra": {
+                "installer-name": "Webhooks"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Syndicate via Webhooks.",
+            "time": "2019-08-11T15:28:46+00:00"
         },
         {
             "name": "indieweb/mention-client",
@@ -555,7 +1126,8 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/paypal/bootstrap-accessibility-plugin/zipball/010d9a1f21ae4ae3323acf30508fc26a13dc7fa2",
-                "reference": "010d9a1f21ae4ae3323acf30508fc26a13dc7fa2"
+                "reference": "010d9a1f21ae4ae3323acf30508fc26a13dc7fa2",
+                "shasum": null
             },
             "type": "npm-asset",
             "license": [
@@ -567,7 +1139,9 @@
             "version": "2.2.2",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/bootstrap-toggle/-/bootstrap-toggle-2.2.2.tgz"
+                "url": "https://registry.npmjs.org/bootstrap-toggle/-/bootstrap-toggle-2.2.2.tgz",
+                "reference": null,
+                "shasum": null
             },
             "type": "npm-asset",
             "license": [
@@ -579,7 +1153,9 @@
             "version": "0.1.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/dom-walk/-/dom-walk-0.1.1.tgz"
+                "url": "https://registry.npmjs.org/dom-walk/-/dom-walk-0.1.1.tgz",
+                "reference": null,
+                "shasum": null
             },
             "type": "npm-asset"
         },
@@ -588,7 +1164,9 @@
             "version": "2.3.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/exif-js/-/exif-js-2.3.0.tgz"
+                "url": "https://registry.npmjs.org/exif-js/-/exif-js-2.3.0.tgz",
+                "reference": null,
+                "shasum": null
             },
             "type": "npm-asset",
             "license": [
@@ -600,7 +1178,9 @@
             "version": "4.4.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/global/-/global-4.4.0.tgz"
+                "url": "https://registry.npmjs.org/global/-/global-4.4.0.tgz",
+                "reference": null,
+                "shasum": null
             },
             "require": {
                 "npm-asset/min-document": ">=2.19.0,<3.0.0",
@@ -616,7 +1196,9 @@
             "version": "3.4.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/jquery/-/jquery-3.4.1.tgz"
+                "url": "https://registry.npmjs.org/jquery/-/jquery-3.4.1.tgz",
+                "reference": null,
+                "shasum": null
             },
             "type": "npm-asset",
             "license": [
@@ -628,7 +1210,9 @@
             "version": "4.2.10",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/mediaelement/-/mediaelement-4.2.10.tgz"
+                "url": "https://registry.npmjs.org/mediaelement/-/mediaelement-4.2.10.tgz",
+                "reference": null,
+                "shasum": null
             },
             "require": {
                 "npm-asset/global": ">=4.3.1,<5.0.0"
@@ -643,7 +1227,9 @@
             "version": "2.19.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/min-document/-/min-document-2.19.0.tgz"
+                "url": "https://registry.npmjs.org/min-document/-/min-document-2.19.0.tgz",
+                "reference": null,
+                "shasum": null
             },
             "require": {
                 "npm-asset/dom-walk": ">=0.1.0,<0.2.0"
@@ -655,7 +1241,9 @@
             "version": "0.11.10",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/process/-/process-0.11.10.tgz"
+                "url": "https://registry.npmjs.org/process/-/process-0.11.10.tgz",
+                "reference": null,
+                "shasum": null
             },
             "type": "npm-asset",
             "license": [
@@ -667,7 +1255,9 @@
             "version": "1.9.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/underscore/-/underscore-1.9.1.tgz"
+                "url": "https://registry.npmjs.org/underscore/-/underscore-1.9.1.tgz",
+                "reference": null,
+                "shasum": null
             },
             "type": "npm-asset",
             "license": [
@@ -685,7 +1275,8 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/davatron5000/FitVids.js/zipball/d028a2287a633478005a49fe6d1f3fcbe9f2d955",
-                "reference": "d028a2287a633478005a49fe6d1f3fcbe9f2d955"
+                "reference": "d028a2287a633478005a49fe6d1f3fcbe9f2d955",
+                "shasum": null
             },
             "type": "npm-asset"
         },
@@ -1860,6 +2451,36 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "idno/apitester",
+            "version": "0.9.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/apitester.git",
+                "reference": "8711ce38ae4dd88f0d7ba6bb05850ac88c44526f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/apitester/zipball/8711ce38ae4dd88f0d7ba6bb05850ac88c44526f",
+                "reference": "8711ce38ae4dd88f0d7ba6bb05850ac88c44526f",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-plugin",
+            "extra": {
+                "installer-name": "APITester"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "A simple tool for site administrators to test Known's API.",
+            "time": "2019-08-11T15:03:21+00:00"
+        },
         {
             "name": "mapkyca/known-dev-scripts",
             "version": "1.3.0",

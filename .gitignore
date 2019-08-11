@@ -41,28 +41,8 @@ tests/_output/*
 IdnoPlugins.local/*
 
 IdnoPlugins/*
-!IdnoPlugins/Bridgy/
-!IdnoPlugins/Checkin/
-!IdnoPlugins/Comments/
-!IdnoPlugins/Event/
-!IdnoPlugins/IndiePub/
-!IdnoPlugins/Like/
-!IdnoPlugins/Media/
-!IdnoPlugins/Photo/
-!IdnoPlugins/StaticPages/
-!IdnoPlugins/Status/
-!IdnoPlugins/Styles/
-!IdnoPlugins/Text/
-!IdnoPlugins/Webhooks/
 
 Themes/*
-!Themes/Black/
-!Themes/Cherwell
-!Themes/MarketStreet
-!Themes/Fauvists
-!Themes/Green
-!Themes/Kandinsky
-!Themes/Solo
 !Themes/index.html
 
 error_log
