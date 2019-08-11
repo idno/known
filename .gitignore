@@ -43,7 +43,6 @@ IdnoPlugins.local/*
 IdnoPlugins/*
 !IdnoPlugins/Checkin/
 !IdnoPlugins/Comments/
-!IdnoPlugins/Photo/
 !IdnoPlugins/StaticPages/
 
 Themes/*

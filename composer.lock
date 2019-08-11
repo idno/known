@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4eb8f85e6405a19f91a523d42c0ba90b",
+    "content-hash": "7ac41fcdc476f379bb134371a0166f4f",
     "packages": [
         {
             "name": "bower-asset/mention",
@@ -430,6 +430,36 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "Upload audio or music and turn your site into a podcast.",
             "time": "2019-08-11T16:13:43+00:00"
+        },
+        {
+            "name": "idno/photo",
+            "version": "0.9.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/photo.git",
+                "reference": "d7df88bf3a28ba155e19fc1b1658b091ba6875d7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/photo/zipball/d7df88bf3a28ba155e19fc1b1658b091ba6875d7",
+                "reference": "d7df88bf3a28ba155e19fc1b1658b091ba6875d7",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-plugin",
+            "extra": {
+                "installer-name": "Photo"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Simple photo uploader for Known.",
+            "time": "2019-08-11T17:00:44+00:00"
         },
         {
             "name": "idno/status",
