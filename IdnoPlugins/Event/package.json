@@ -1,7 +1,0 @@
-{
-    "name": "Event",
-    "version": "0.9.10",
-    "devDependencies": {
-        "grunt": "^0.4.5"
-    }
-}
