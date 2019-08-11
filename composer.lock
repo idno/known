@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a42f9b8338f4e5524cf6f1ac5c388f6b",
+    "content-hash": "32a5ca0a581616a1e58c449debc7efd6",
     "packages": [
         {
             "name": "bower-asset/mention",
@@ -280,6 +280,36 @@
                 "icon"
             ],
             "time": "2019-02-28T15:21:34+00:00"
+        },
+        {
+            "name": "idno/webhooks",
+            "version": "0.9.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/webhooks.git",
+                "reference": "d2f151a7c16eee200232469a138a610285619ec5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/webhooks/zipball/d2f151a7c16eee200232469a138a610285619ec5",
+                "reference": "d2f151a7c16eee200232469a138a610285619ec5",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-plugin",
+            "extra": {
+                "installer-name": "Webhooks"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Syndicate via Webhooks.",
+            "time": "2019-08-11T15:28:46+00:00"
         },
         {
             "name": "indieweb/mention-client",
