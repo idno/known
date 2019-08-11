@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a1c09105e70113e4c4645dea603ed039",
+    "content-hash": "70dd01d6739e6ba40ce5e81ddc2c9955",
     "packages": [
         {
             "name": "bower-asset/mention",
@@ -370,6 +370,36 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "Bookmark a page in Known.",
             "time": "2019-08-11T15:59:55+00:00"
+        },
+        {
+            "name": "idno/media",
+            "version": "0.9.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/media.git",
+                "reference": "6d2b96565dce54bb21038967590d0907a61bab47"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/media/zipball/6d2b96565dce54bb21038967590d0907a61bab47",
+                "reference": "6d2b96565dce54bb21038967590d0907a61bab47",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.0",
+                "mapkyca/known-language-tools": "^1.0",
+                "mapkyca/known-phpcs": "^1.0"
+            },
+            "type": "known-plugin",
+            "extra": {
+                "installer-name": "Media"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Upload audio or music and turn your site into a podcast.",
+            "time": "2019-08-11T16:13:43+00:00"
         },
         {
             "name": "idno/text",

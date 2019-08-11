@@ -44,7 +44,6 @@ IdnoPlugins/*
 !IdnoPlugins/Checkin/
 !IdnoPlugins/Comments/
 !IdnoPlugins/Event/
-!IdnoPlugins/Media/
 !IdnoPlugins/Photo/
 !IdnoPlugins/StaticPages/
 !IdnoPlugins/Status/
