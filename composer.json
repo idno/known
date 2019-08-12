@@ -63,7 +63,7 @@
         "idno/events": "^0.9.10",
         "idno/styles": "^0.9.10",
         "idno/status": "^1.0",
-        "idno/photo": "^0.9.10",
+        "idno/photo": "^1.0",
         "idno/checkin": "^0.9.10",
         "idno/staticpages": "^0.9.10",
         "idno/theme-marketstreet": "^1.0",
