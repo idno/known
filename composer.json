@@ -58,7 +58,7 @@
         "idno/indiepub": "^0.9.10",
         "idno/bridgy": "^1.0",
         "idno/like": "^0.9.10",
-        "idno/text": "^0.9.10",
+        "idno/text": "^1.0",
         "idno/media": "^0.9.10",
         "idno/events": "^0.9.10",
         "idno/styles": "^0.9.10",
