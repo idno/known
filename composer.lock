@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "212348dfd1606bf709e8b21aadb2ffd4",
+    "hash": "2cc54e12868294d3fc45d4fe7d25e214",
+    "content-hash": "adfb043df690063973b3eb3f816a4d29",
     "packages": [
         {
             "name": "bower-asset/mention",
@@ -21,7 +22,7 @@
                 "shasum": null
             },
             "type": "bower-asset",
-            "time": "2013-08-22T23:12:58+00:00"
+            "time": "2013-08-22 23:12:58"
         },
         {
             "name": "components/jquery",
@@ -63,20 +64,20 @@
             ],
             "description": "jQuery JavaScript Library",
             "homepage": "http://jquery.com",
-            "time": "2018-03-04T13:23:48+00:00"
+            "time": "2018-03-04 13:23:48"
         },
         {
             "name": "composer/installers",
-            "version": "dev-master",
+            "version": "v1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "331f3d6d653a8acfe9e6a74964f149a65743769c"
+                "reference": "141b272484481432cda342727a427dc1e206bfa0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/331f3d6d653a8acfe9e6a74964f149a65743769c",
-                "reference": "331f3d6d653a8acfe9e6a74964f149a65743769c",
+                "url": "https://api.github.com/repos/composer/installers/zipball/141b272484481432cda342727a427dc1e206bfa0",
+                "reference": "141b272484481432cda342727a427dc1e206bfa0",
                 "shasum": ""
             },
             "require": {
@@ -185,7 +186,7 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2019-08-07T09:13:31+00:00"
+            "time": "2019-08-12 15:00:31"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -232,7 +233,7 @@
             "keywords": [
                 "html"
             ],
-            "time": "2018-02-23T01:58:20+00:00"
+            "time": "2018-02-23 01:58:20"
         },
         {
             "name": "forkawesome/fork-awesome",
@@ -279,7 +280,7 @@
                 "forkawesome",
                 "icon"
             ],
-            "time": "2019-02-28T15:21:34+00:00"
+            "time": "2019-02-28 15:21:34"
         },
         {
             "name": "idno/bridgy",
@@ -309,20 +310,20 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Receive comments from external services on your Known site.",
-            "time": "2019-08-11T15:50:04+00:00"
+            "time": "2019-08-11 15:50:04"
         },
         {
             "name": "idno/checkin",
-            "version": "0.9.11",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/checkin.git",
-                "reference": "aa789ea863b155c244aa188b28379fa59ec85e82"
+                "reference": "b7abf5c69739096e1eaa3312f9c7465fd4dc8c12"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/checkin/zipball/aa789ea863b155c244aa188b28379fa59ec85e82",
-                "reference": "aa789ea863b155c244aa188b28379fa59ec85e82",
+                "url": "https://api.github.com/repos/idno/checkin/zipball/b7abf5c69739096e1eaa3312f9c7465fd4dc8c12",
+                "reference": "b7abf5c69739096e1eaa3312f9c7465fd4dc8c12",
                 "shasum": ""
             },
             "require": {
@@ -339,20 +340,20 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "An easy way to check into a geographic location.",
-            "time": "2019-08-11T17:19:17+00:00"
+            "time": "2019-08-12 20:45:25"
         },
         {
             "name": "idno/events",
-            "version": "0.9.10",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/events.git",
-                "reference": "51d48dc711614b2f3e521e25c7ab9a99000e9b77"
+                "reference": "4b9df1c7719b60920cce287e6253965da513899a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/events/zipball/51d48dc711614b2f3e521e25c7ab9a99000e9b77",
-                "reference": "51d48dc711614b2f3e521e25c7ab9a99000e9b77",
+                "url": "https://api.github.com/repos/idno/events/zipball/4b9df1c7719b60920cce287e6253965da513899a",
+                "reference": "4b9df1c7719b60920cce287e6253965da513899a",
                 "shasum": ""
             },
             "require": {
@@ -369,7 +370,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A lightweight way to post or reply to events.",
-            "time": "2019-08-11T16:25:41+00:00"
+            "time": "2019-08-12 20:43:45"
         },
         {
             "name": "idno/indiepub",
@@ -399,20 +400,20 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Support IndieAuth and Micropub for single-user Known sites. Must be used with a single-user theme.",
-            "time": "2019-08-11T15:35:36+00:00"
+            "time": "2019-08-11 15:35:36"
         },
         {
             "name": "idno/like",
-            "version": "0.9.10",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/like.git",
-                "reference": "fb832d627b5eb089d02534c70e5b53751583deb5"
+                "reference": "abdabecad7bc5cad76f8650114eeb26e34a88576"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/like/zipball/fb832d627b5eb089d02534c70e5b53751583deb5",
-                "reference": "fb832d627b5eb089d02534c70e5b53751583deb5",
+                "url": "https://api.github.com/repos/idno/like/zipball/abdabecad7bc5cad76f8650114eeb26e34a88576",
+                "reference": "abdabecad7bc5cad76f8650114eeb26e34a88576",
                 "shasum": ""
             },
             "require": {
@@ -429,20 +430,20 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Bookmark a page in Known.",
-            "time": "2019-08-11T15:59:55+00:00"
+            "time": "2019-08-12 20:41:01"
         },
         {
             "name": "idno/media",
-            "version": "0.9.10",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/media.git",
-                "reference": "6d2b96565dce54bb21038967590d0907a61bab47"
+                "reference": "af10e5d0b57380faf16afe407ccdb355ef3c21c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/media/zipball/6d2b96565dce54bb21038967590d0907a61bab47",
-                "reference": "6d2b96565dce54bb21038967590d0907a61bab47",
+                "url": "https://api.github.com/repos/idno/media/zipball/af10e5d0b57380faf16afe407ccdb355ef3c21c9",
+                "reference": "af10e5d0b57380faf16afe407ccdb355ef3c21c9",
                 "shasum": ""
             },
             "require": {
@@ -459,20 +460,20 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Upload audio or music and turn your site into a podcast.",
-            "time": "2019-08-11T16:13:43+00:00"
+            "time": "2019-08-12 20:42:30"
         },
         {
             "name": "idno/photo",
-            "version": "0.9.10",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/photo.git",
-                "reference": "d7df88bf3a28ba155e19fc1b1658b091ba6875d7"
+                "reference": "11e4519f34c1555ce928663babdfcb8092a58106"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/photo/zipball/d7df88bf3a28ba155e19fc1b1658b091ba6875d7",
-                "reference": "d7df88bf3a28ba155e19fc1b1658b091ba6875d7",
+                "url": "https://api.github.com/repos/idno/photo/zipball/11e4519f34c1555ce928663babdfcb8092a58106",
+                "reference": "11e4519f34c1555ce928663babdfcb8092a58106",
                 "shasum": ""
             },
             "require": {
@@ -489,20 +490,20 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Simple photo uploader for Known.",
-            "time": "2019-08-11T17:00:44+00:00"
+            "time": "2019-08-12 20:24:19"
         },
         {
             "name": "idno/staticpages",
-            "version": "0.9.10",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/staticpages.git",
-                "reference": "a473a962eb75d0168dfdb7919349eab0a287482a"
+                "reference": "41ef92d91c84e79734a5e3773ad352a0879b8ecd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/staticpages/zipball/a473a962eb75d0168dfdb7919349eab0a287482a",
-                "reference": "a473a962eb75d0168dfdb7919349eab0a287482a",
+                "url": "https://api.github.com/repos/idno/staticpages/zipball/41ef92d91c84e79734a5e3773ad352a0879b8ecd",
+                "reference": "41ef92d91c84e79734a5e3773ad352a0879b8ecd",
                 "shasum": ""
             },
             "require": {
@@ -519,20 +520,20 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Host static pages in Known.",
-            "time": "2019-08-11T17:33:46+00:00"
+            "time": "2019-08-12 20:50:54"
         },
         {
             "name": "idno/status",
-            "version": "0.9.10",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/status.git",
-                "reference": "6aa44e21017369ceffc4086929097eaa4fc1ff1b"
+                "reference": "0e4711381c78eeab3cb342bb5ec476b3193d1dc1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/status/zipball/6aa44e21017369ceffc4086929097eaa4fc1ff1b",
-                "reference": "6aa44e21017369ceffc4086929097eaa4fc1ff1b",
+                "url": "https://api.github.com/repos/idno/status/zipball/0e4711381c78eeab3cb342bb5ec476b3193d1dc1",
+                "reference": "0e4711381c78eeab3cb342bb5ec476b3193d1dc1",
                 "shasum": ""
             },
             "require": {
@@ -549,20 +550,20 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Simple status updates for Known.",
-            "time": "2019-08-11T16:51:25+00:00"
+            "time": "2019-08-12 18:35:12"
         },
         {
             "name": "idno/styles",
-            "version": "0.9.10",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/styles.git",
-                "reference": "fffe83ba497cca6fc1f611efa3996f4066b7db13"
+                "reference": "4e97628031e726b4e4a2b8a131adf900e844056b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/styles/zipball/fffe83ba497cca6fc1f611efa3996f4066b7db13",
-                "reference": "fffe83ba497cca6fc1f611efa3996f4066b7db13",
+                "url": "https://api.github.com/repos/idno/styles/zipball/4e97628031e726b4e4a2b8a131adf900e844056b",
+                "reference": "4e97628031e726b4e4a2b8a131adf900e844056b",
                 "shasum": ""
             },
             "require": {
@@ -579,20 +580,20 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A custom CSS stylesheet editor to modify the visual style of your site.",
-            "time": "2019-08-11T16:44:44+00:00"
+            "time": "2019-08-12 20:52:09"
         },
         {
             "name": "idno/text",
-            "version": "0.9.10",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/text.git",
-                "reference": "693bc99fee262be70260f5e0ae8af233efc0a7a4"
+                "reference": "d1edb95b7f083c2bdc9b887b537d761752d3ac1f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/text/zipball/693bc99fee262be70260f5e0ae8af233efc0a7a4",
-                "reference": "693bc99fee262be70260f5e0ae8af233efc0a7a4",
+                "url": "https://api.github.com/repos/idno/text/zipball/d1edb95b7f083c2bdc9b887b537d761752d3ac1f",
+                "reference": "d1edb95b7f083c2bdc9b887b537d761752d3ac1f",
                 "shasum": ""
             },
             "require": {
@@ -609,7 +610,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A lightweight blogging engine.",
-            "time": "2019-08-11T16:07:47+00:00"
+            "time": "2019-08-12 20:18:06"
         },
         {
             "name": "idno/theme-black",
@@ -639,7 +640,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A simple, minimal, blank-slate theme.",
-            "time": "2019-08-11T18:18:54+00:00"
+            "time": "2019-08-11 18:18:54"
         },
         {
             "name": "idno/theme-cherwell",
@@ -669,7 +670,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A basic theme with a background image.",
-            "time": "2019-08-11T18:27:07+00:00"
+            "time": "2019-08-11 18:27:07"
         },
         {
             "name": "idno/theme-fauvists",
@@ -699,7 +700,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A colorful theme that works well with multi-user sites.",
-            "time": "2019-08-11T19:11:50+00:00"
+            "time": "2019-08-11 19:11:50"
         },
         {
             "name": "idno/theme-green",
@@ -729,7 +730,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A simple theme with cool colors.",
-            "time": "2019-08-11T19:19:22+00:00"
+            "time": "2019-08-11 19:19:22"
         },
         {
             "name": "idno/theme-kandinsky",
@@ -759,7 +760,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A simple theme with warm colors.",
-            "time": "2019-08-11T19:24:59+00:00"
+            "time": "2019-08-11 19:24:59"
         },
         {
             "name": "idno/theme-marketstreet",
@@ -789,7 +790,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A modern, white theme for bloggers.",
-            "time": "2019-08-11T18:03:04+00:00"
+            "time": "2019-08-11 18:03:04"
         },
         {
             "name": "idno/theme-solo",
@@ -819,20 +820,20 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A simple black and white single-user theme.",
-            "time": "2019-08-11T19:32:22+00:00"
+            "time": "2019-08-11 19:32:22"
         },
         {
             "name": "idno/webhooks",
-            "version": "0.9.10",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/webhooks.git",
-                "reference": "d2f151a7c16eee200232469a138a610285619ec5"
+                "reference": "3ee71a95577ed6487d6a3af059d4172257b08656"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/webhooks/zipball/d2f151a7c16eee200232469a138a610285619ec5",
-                "reference": "d2f151a7c16eee200232469a138a610285619ec5",
+                "url": "https://api.github.com/repos/idno/webhooks/zipball/3ee71a95577ed6487d6a3af059d4172257b08656",
+                "reference": "3ee71a95577ed6487d6a3af059d4172257b08656",
                 "shasum": ""
             },
             "require": {
@@ -849,7 +850,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Syndicate via Webhooks.",
-            "time": "2019-08-11T15:28:46+00:00"
+            "time": "2019-08-12 20:54:17"
         },
         {
             "name": "indieweb/mention-client",
@@ -891,7 +892,7 @@
             ],
             "description": "Client library for sending webmention and pingback notifications",
             "homepage": "https://github.com/indieweb/mention-client-php",
-            "time": "2018-10-27T19:41:41+00:00"
+            "time": "2018-10-27 19:41:41"
         },
         {
             "name": "mapkyca/known-mongo-php-library",
@@ -928,7 +929,7 @@
                 "known",
                 "mongo"
             ],
-            "time": "2019-03-01T20:47:19+00:00"
+            "time": "2019-03-01 20:47:19"
         },
         {
             "name": "mapkyca/known-oauth2-server",
@@ -973,7 +974,7 @@
                 "oauth2",
                 "plugin"
             ],
-            "time": "2019-08-07T10:46:16+00:00"
+            "time": "2019-08-07 10:46:16"
         },
         {
             "name": "mapkyca/mrclay_autop_known",
@@ -1016,7 +1017,7 @@
                 "internal",
                 "known"
             ],
-            "time": "2019-02-24T16:16:54+00:00"
+            "time": "2019-02-24 16:16:54"
         },
         {
             "name": "mapkyca/php-ogp",
@@ -1057,7 +1058,7 @@
             "keywords": [
                 "opengraph"
             ],
-            "time": "2019-05-18T10:54:57+00:00"
+            "time": "2019-05-18 10:54:57"
         },
         {
             "name": "mf2/mf2",
@@ -1113,7 +1114,7 @@
                 "parser",
                 "semantic"
             ],
-            "time": "2018-08-24T14:47:04+00:00"
+            "time": "2018-08-24 14:47:04"
         },
         {
             "name": "npm-asset/bootstrap-accessibility-plugin",
@@ -1327,7 +1328,7 @@
                 "container-interop",
                 "psr"
             ],
-            "time": "2017-02-14T16:28:37+00:00"
+            "time": "2017-02-14 16:28:37"
         },
         {
             "name": "psr/log",
@@ -1374,7 +1375,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2018-11-20T15:27:04+00:00"
+            "time": "2018-11-20 15:27:04"
         },
         {
             "name": "rmm5t/jquery-timeago",
@@ -1420,7 +1421,7 @@
                 "microformat",
                 "time"
             ],
-            "time": "2019-04-23T15:55:20+00:00"
+            "time": "2019-04-23 15:55:20"
         },
         {
             "name": "simplepie/simplepie",
@@ -1487,7 +1488,7 @@
                 "feeds",
                 "rss"
             ],
-            "time": "2018-08-02T05:43:58+00:00"
+            "time": "2018-08-02 05:43:58"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -1541,7 +1542,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2014-06-13T11:44:54+00:00"
+            "time": "2014-06-13 11:44:54"
         },
         {
             "name": "symfony/console",
@@ -1616,7 +1617,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2019-05-27T08:16:38+00:00"
+            "time": "2019-05-27 08:16:38"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -1686,7 +1687,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2019-05-28T07:50:59+00:00"
+            "time": "2019-05-28 07:50:59"
         },
         {
             "name": "symfony/event-dispatcher-contracts",
@@ -1744,7 +1745,7 @@
                 "interoperability",
                 "standards"
             ],
-            "time": "2019-06-20T06:46:26+00:00"
+            "time": "2019-06-20 06:46:26"
         },
         {
             "name": "symfony/http-foundation",
@@ -1799,7 +1800,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2019-05-29T18:10:42+00:00"
+            "time": "2019-05-29 18:10:42"
         },
         {
             "name": "symfony/mime",
@@ -1858,7 +1859,7 @@
                 "mime",
                 "mime-type"
             ],
-            "time": "2019-07-19T16:21:19+00:00"
+            "time": "2019-07-19 16:21:19"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -1916,7 +1917,7 @@
                 "polyfill",
                 "portable"
             ],
-            "time": "2019-08-06T08:03:45+00:00"
+            "time": "2019-08-06 08:03:45"
         },
         {
             "name": "symfony/polyfill-intl-idn",
@@ -1978,7 +1979,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2019-08-06T08:03:45+00:00"
+            "time": "2019-08-06 08:03:45"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -2037,7 +2038,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2019-08-06T08:03:45+00:00"
+            "time": "2019-08-06 08:03:45"
         },
         {
             "name": "symfony/polyfill-php72",
@@ -2092,7 +2093,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2019-08-06T08:03:45+00:00"
+            "time": "2019-08-06 08:03:45"
         },
         {
             "name": "symfony/polyfill-php73",
@@ -2150,7 +2151,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2019-08-06T08:03:45+00:00"
+            "time": "2019-08-06 08:03:45"
         },
         {
             "name": "symfony/service-contracts",
@@ -2208,7 +2209,7 @@
                 "interoperability",
                 "standards"
             ],
-            "time": "2019-06-13T11:15:36+00:00"
+            "time": "2019-06-13 11:15:36"
         },
         {
             "name": "tinymce/tinymce",
@@ -2254,7 +2255,7 @@
                 "tinymce",
                 "wysiwyg"
             ],
-            "time": "2019-07-04T06:43:03+00:00"
+            "time": "2019-07-04 06:43:03"
         },
         {
             "name": "torophp/torophp",
@@ -2329,7 +2330,7 @@
                 "php",
                 "router"
             ],
-            "time": "2015-04-15T21:01:31+00:00"
+            "time": "2015-04-15 21:01:31"
         },
         {
             "name": "twbs/bootstrap",
@@ -2380,7 +2381,7 @@
                 "responsive",
                 "web"
             ],
-            "time": "2019-02-13T15:55:38+00:00"
+            "time": "2019-02-13 15:55:38"
         },
         {
             "name": "twig/twig",
@@ -2447,7 +2448,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2019-05-31T06:21:42+00:00"
+            "time": "2019-05-31 06:21:42"
         }
     ],
     "packages-dev": [
@@ -2479,7 +2480,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A simple tool for site administrators to test Known's API.",
-            "time": "2019-08-11T15:03:21+00:00"
+            "time": "2019-08-11 15:03:21"
         },
         {
             "name": "mapkyca/known-dev-scripts",
@@ -2514,7 +2515,7 @@
                 }
             ],
             "description": "Useful Known development scripts",
-            "time": "2019-08-07T10:18:45+00:00"
+            "time": "2019-08-07 10:18:45"
         },
         {
             "name": "mapkyca/known-language-tools",
@@ -2554,7 +2555,7 @@
                 "internationalisation",
                 "known"
             ],
-            "time": "2019-03-15T22:44:01+00:00"
+            "time": "2019-03-15 22:44:01"
         },
         {
             "name": "mapkyca/known-phpcs",
@@ -2599,7 +2600,7 @@
                 "i18n",
                 "known"
             ],
-            "time": "2019-05-18T10:07:20+00:00"
+            "time": "2019-05-18 10:07:20"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -2650,7 +2651,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2019-03-19T03:22:27+00:00"
+            "time": "2019-03-19 03:22:27"
         }
     ],
     "aliases": [],
@@ -2659,8 +2660,7 @@
         "torophp/torophp": 20,
         "mapkyca/mrclay_autop_known": 20,
         "bower-asset/mention": 20,
-        "mapkyca/known-mongo-php-library": 20,
-        "composer/installers": 20
+        "mapkyca/known-mongo-php-library": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
