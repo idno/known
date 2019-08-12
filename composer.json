@@ -61,7 +61,7 @@
         "idno/text": "^1.0",
         "idno/media": "^1.0",
         "idno/events": "^1.0",
-        "idno/styles": "^0.9.10",
+        "idno/styles": "^1.0",
         "idno/status": "^1.0",
         "idno/photo": "^1.0",
         "idno/checkin": "^1.0",
