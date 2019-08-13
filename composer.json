@@ -1,7 +1,7 @@
 {
     "name": "idno/known",
     "description": "A social publishing platform.",
-    "version": "0.13.1",
+    "version": "0.13.2",
     "type": "project",
     "homepage": "https://withknown.com/",
     "repositories": [
@@ -93,10 +93,7 @@
     "autoload": {
         "psr-4": {
             "Idno\\": "Idno/",
-            "IdnoPlugins\\": [
-                "IdnoPlugins/",
-                "IdnoPlugins.local/"
-            ],
+            "IdnoPlugins\\": "IdnoPlugins/",
             "Themes\\": "Themes/",
             "ConsolePlugins\\": "ConsolePlugins/",
             "Tests\\": "Tests/"
