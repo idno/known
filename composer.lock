@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c3900b2c4c2c1282700af324462b2a6a",
+    "content-hash": "199778fb29cdef442154ce85c9c4f2e6",
     "packages": [
         {
             "name": "bower-asset/mention",
@@ -427,6 +427,35 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "Known console event queue management",
             "time": "2019-08-16T14:54:50+00:00"
+        },
+        {
+            "name": "idno/console-statistics",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/console-statistics.git",
+                "reference": "ae22496216e80d2efde9a2ff6db5c2e5238cc1ab"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/console-statistics/zipball/ae22496216e80d2efde9a2ff6db5c2e5238cc1ab",
+                "reference": "ae22496216e80d2efde9a2ff6db5c2e5238cc1ab",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.3",
+                "mapkyca/known-language-tools": "^1.0"
+            },
+            "type": "known-console",
+            "extra": {
+                "installer-name": "Statistics"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Obtain statistics about your Known site from the console",
+            "time": "2019-08-16T15:42:15+00:00"
         },
         {
             "name": "idno/events",
