@@ -1,8 +1,0 @@
-#: ./Main.php:2
-msgid "Gathering statistics for %s"
-msgstr ""
-
-#: ./Main.php:2
-msgid "Retrieve admin statistics from your Known site"
-msgstr ""
-
