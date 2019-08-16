@@ -73,7 +73,8 @@
         "idno/theme-green": "^1.0",
         "idno/theme-kandinsky": "^1.0",
         "idno/theme-solo": "^1.0",
-        "idno/console-queuemanagement": "^1.0"
+        "idno/console-queuemanagement": "^1.0",
+        "idno/console-eventqueueservice": "^1.0"
     },
     "license": "Apache-2.0",
     "prefer-stable": true,
