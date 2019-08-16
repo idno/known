@@ -1,11 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "hash": "2cc54e12868294d3fc45d4fe7d25e214",
-    "content-hash": "adfb043df690063973b3eb3f816a4d29",
+    "content-hash": "3998993f8b9fbde53fb2f871e39fcd22",
     "packages": [
         {
             "name": "bower-asset/mention",
@@ -18,11 +17,10 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/jakiestfu/Mention.js/zipball/1b588ef059bfd4c5164393eb686252abbf8c8ebd",
-                "reference": "1b588ef059bfd4c5164393eb686252abbf8c8ebd",
-                "shasum": null
+                "reference": "1b588ef059bfd4c5164393eb686252abbf8c8ebd"
             },
             "type": "bower-asset",
-            "time": "2013-08-22 23:12:58"
+            "time": "2013-08-22T23:12:58+00:00"
         },
         {
             "name": "components/jquery",
@@ -64,7 +62,7 @@
             ],
             "description": "jQuery JavaScript Library",
             "homepage": "http://jquery.com",
-            "time": "2018-03-04 13:23:48"
+            "time": "2018-03-04T13:23:48+00:00"
         },
         {
             "name": "composer/installers",
@@ -186,7 +184,7 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2019-08-12 15:00:31"
+            "time": "2019-08-12T15:00:31+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -233,7 +231,7 @@
             "keywords": [
                 "html"
             ],
-            "time": "2018-02-23 01:58:20"
+            "time": "2018-02-23T01:58:20+00:00"
         },
         {
             "name": "forkawesome/fork-awesome",
@@ -280,7 +278,7 @@
                 "forkawesome",
                 "icon"
             ],
-            "time": "2019-02-28 15:21:34"
+            "time": "2019-02-28T15:21:34+00:00"
         },
         {
             "name": "idno/bridgy",
@@ -310,7 +308,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Receive comments from external services on your Known site.",
-            "time": "2019-08-11 15:50:04"
+            "time": "2019-08-11T15:50:04+00:00"
         },
         {
             "name": "idno/checkin",
@@ -340,7 +338,36 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "An easy way to check into a geographic location.",
-            "time": "2019-08-12 20:45:25"
+            "time": "2019-08-12T20:45:25+00:00"
+        },
+        {
+            "name": "idno/console-queuemanagement",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/console-queuemanagement.git",
+                "reference": "2783d35d99d56ef631029410aa4a19dde3aa305a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/console-queuemanagement/zipball/2783d35d99d56ef631029410aa4a19dde3aa305a",
+                "reference": "2783d35d99d56ef631029410aa4a19dde3aa305a",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.3",
+                "mapkyca/known-language-tools": "^1.0"
+            },
+            "type": "known-console",
+            "extra": {
+                "installer-name": "QueueManagement"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Known console event queue management",
+            "time": "2019-08-16T14:54:50+00:00"
         },
         {
             "name": "idno/events",
@@ -370,7 +397,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A lightweight way to post or reply to events.",
-            "time": "2019-08-12 20:43:45"
+            "time": "2019-08-12T20:43:45+00:00"
         },
         {
             "name": "idno/indiepub",
@@ -400,7 +427,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Support IndieAuth and Micropub for single-user Known sites. Must be used with a single-user theme.",
-            "time": "2019-08-11 15:35:36"
+            "time": "2019-08-11T15:35:36+00:00"
         },
         {
             "name": "idno/like",
@@ -430,7 +457,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Bookmark a page in Known.",
-            "time": "2019-08-12 20:41:01"
+            "time": "2019-08-12T20:41:01+00:00"
         },
         {
             "name": "idno/media",
@@ -460,7 +487,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Upload audio or music and turn your site into a podcast.",
-            "time": "2019-08-12 20:42:30"
+            "time": "2019-08-12T20:42:30+00:00"
         },
         {
             "name": "idno/photo",
@@ -490,7 +517,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Simple photo uploader for Known.",
-            "time": "2019-08-12 20:24:19"
+            "time": "2019-08-12T20:24:19+00:00"
         },
         {
             "name": "idno/staticpages",
@@ -520,7 +547,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Host static pages in Known.",
-            "time": "2019-08-12 20:50:54"
+            "time": "2019-08-12T20:50:54+00:00"
         },
         {
             "name": "idno/status",
@@ -550,7 +577,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Simple status updates for Known.",
-            "time": "2019-08-12 18:35:12"
+            "time": "2019-08-12T18:35:12+00:00"
         },
         {
             "name": "idno/styles",
@@ -580,7 +607,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A custom CSS stylesheet editor to modify the visual style of your site.",
-            "time": "2019-08-12 20:52:09"
+            "time": "2019-08-12T20:52:09+00:00"
         },
         {
             "name": "idno/text",
@@ -610,7 +637,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A lightweight blogging engine.",
-            "time": "2019-08-12 20:18:06"
+            "time": "2019-08-12T20:18:06+00:00"
         },
         {
             "name": "idno/theme-black",
@@ -640,7 +667,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A simple, minimal, blank-slate theme.",
-            "time": "2019-08-11 18:18:54"
+            "time": "2019-08-11T18:18:54+00:00"
         },
         {
             "name": "idno/theme-cherwell",
@@ -670,7 +697,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A basic theme with a background image.",
-            "time": "2019-08-11 18:27:07"
+            "time": "2019-08-11T18:27:07+00:00"
         },
         {
             "name": "idno/theme-fauvists",
@@ -700,7 +727,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A colorful theme that works well with multi-user sites.",
-            "time": "2019-08-11 19:11:50"
+            "time": "2019-08-11T19:11:50+00:00"
         },
         {
             "name": "idno/theme-green",
@@ -730,7 +757,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A simple theme with cool colors.",
-            "time": "2019-08-11 19:19:22"
+            "time": "2019-08-11T19:19:22+00:00"
         },
         {
             "name": "idno/theme-kandinsky",
@@ -760,7 +787,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A simple theme with warm colors.",
-            "time": "2019-08-11 19:24:59"
+            "time": "2019-08-11T19:24:59+00:00"
         },
         {
             "name": "idno/theme-marketstreet",
@@ -790,7 +817,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A modern, white theme for bloggers.",
-            "time": "2019-08-11 18:03:04"
+            "time": "2019-08-11T18:03:04+00:00"
         },
         {
             "name": "idno/theme-solo",
@@ -820,7 +847,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A simple black and white single-user theme.",
-            "time": "2019-08-11 19:32:22"
+            "time": "2019-08-11T19:32:22+00:00"
         },
         {
             "name": "idno/webhooks",
@@ -850,7 +877,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Syndicate via Webhooks.",
-            "time": "2019-08-12 20:54:17"
+            "time": "2019-08-12T20:54:17+00:00"
         },
         {
             "name": "indieweb/mention-client",
@@ -892,7 +919,7 @@
             ],
             "description": "Client library for sending webmention and pingback notifications",
             "homepage": "https://github.com/indieweb/mention-client-php",
-            "time": "2018-10-27 19:41:41"
+            "time": "2018-10-27T19:41:41+00:00"
         },
         {
             "name": "mapkyca/known-mongo-php-library",
@@ -929,7 +956,7 @@
                 "known",
                 "mongo"
             ],
-            "time": "2019-03-01 20:47:19"
+            "time": "2019-03-01T20:47:19+00:00"
         },
         {
             "name": "mapkyca/known-oauth2-server",
@@ -974,7 +1001,7 @@
                 "oauth2",
                 "plugin"
             ],
-            "time": "2019-08-07 10:46:16"
+            "time": "2019-08-07T10:46:16+00:00"
         },
         {
             "name": "mapkyca/mrclay_autop_known",
@@ -1017,7 +1044,7 @@
                 "internal",
                 "known"
             ],
-            "time": "2019-02-24 16:16:54"
+            "time": "2019-02-24T16:16:54+00:00"
         },
         {
             "name": "mapkyca/php-ogp",
@@ -1058,7 +1085,7 @@
             "keywords": [
                 "opengraph"
             ],
-            "time": "2019-05-18 10:54:57"
+            "time": "2019-05-18T10:54:57+00:00"
         },
         {
             "name": "mf2/mf2",
@@ -1114,7 +1141,7 @@
                 "parser",
                 "semantic"
             ],
-            "time": "2018-08-24 14:47:04"
+            "time": "2018-08-24T14:47:04+00:00"
         },
         {
             "name": "npm-asset/bootstrap-accessibility-plugin",
@@ -1127,8 +1154,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/paypal/bootstrap-accessibility-plugin/zipball/010d9a1f21ae4ae3323acf30508fc26a13dc7fa2",
-                "reference": "010d9a1f21ae4ae3323acf30508fc26a13dc7fa2",
-                "shasum": null
+                "reference": "010d9a1f21ae4ae3323acf30508fc26a13dc7fa2"
             },
             "type": "npm-asset",
             "license": [
@@ -1140,9 +1166,7 @@
             "version": "2.2.2",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/bootstrap-toggle/-/bootstrap-toggle-2.2.2.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/bootstrap-toggle/-/bootstrap-toggle-2.2.2.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -1154,9 +1178,7 @@
             "version": "0.1.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/dom-walk/-/dom-walk-0.1.1.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/dom-walk/-/dom-walk-0.1.1.tgz"
             },
             "type": "npm-asset"
         },
@@ -1165,9 +1187,7 @@
             "version": "2.3.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/exif-js/-/exif-js-2.3.0.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/exif-js/-/exif-js-2.3.0.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -1179,9 +1199,7 @@
             "version": "4.4.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/global/-/global-4.4.0.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/global/-/global-4.4.0.tgz"
             },
             "require": {
                 "npm-asset/min-document": ">=2.19.0,<3.0.0",
@@ -1197,9 +1215,7 @@
             "version": "3.4.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/jquery/-/jquery-3.4.1.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/jquery/-/jquery-3.4.1.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -1211,9 +1227,7 @@
             "version": "4.2.10",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/mediaelement/-/mediaelement-4.2.10.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/mediaelement/-/mediaelement-4.2.10.tgz"
             },
             "require": {
                 "npm-asset/global": ">=4.3.1,<5.0.0"
@@ -1228,9 +1242,7 @@
             "version": "2.19.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/min-document/-/min-document-2.19.0.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/min-document/-/min-document-2.19.0.tgz"
             },
             "require": {
                 "npm-asset/dom-walk": ">=0.1.0,<0.2.0"
@@ -1242,9 +1254,7 @@
             "version": "0.11.10",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/process/-/process-0.11.10.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/process/-/process-0.11.10.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -1256,9 +1266,7 @@
             "version": "1.9.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/underscore/-/underscore-1.9.1.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/underscore/-/underscore-1.9.1.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -1276,8 +1284,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/davatron5000/FitVids.js/zipball/d028a2287a633478005a49fe6d1f3fcbe9f2d955",
-                "reference": "d028a2287a633478005a49fe6d1f3fcbe9f2d955",
-                "shasum": null
+                "reference": "d028a2287a633478005a49fe6d1f3fcbe9f2d955"
             },
             "type": "npm-asset"
         },
@@ -1328,7 +1335,7 @@
                 "container-interop",
                 "psr"
             ],
-            "time": "2017-02-14 16:28:37"
+            "time": "2017-02-14T16:28:37+00:00"
         },
         {
             "name": "psr/log",
@@ -1375,7 +1382,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2018-11-20 15:27:04"
+            "time": "2018-11-20T15:27:04+00:00"
         },
         {
             "name": "rmm5t/jquery-timeago",
@@ -1421,7 +1428,7 @@
                 "microformat",
                 "time"
             ],
-            "time": "2019-04-23 15:55:20"
+            "time": "2019-04-23T15:55:20+00:00"
         },
         {
             "name": "simplepie/simplepie",
@@ -1488,7 +1495,7 @@
                 "feeds",
                 "rss"
             ],
-            "time": "2018-08-02 05:43:58"
+            "time": "2018-08-02T05:43:58+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -1542,7 +1549,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2014-06-13 11:44:54"
+            "time": "2014-06-13T11:44:54+00:00"
         },
         {
             "name": "symfony/console",
@@ -1617,7 +1624,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2019-05-27 08:16:38"
+            "time": "2019-05-27T08:16:38+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -1687,7 +1694,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2019-05-28 07:50:59"
+            "time": "2019-05-28T07:50:59+00:00"
         },
         {
             "name": "symfony/event-dispatcher-contracts",
@@ -1745,7 +1752,7 @@
                 "interoperability",
                 "standards"
             ],
-            "time": "2019-06-20 06:46:26"
+            "time": "2019-06-20T06:46:26+00:00"
         },
         {
             "name": "symfony/http-foundation",
@@ -1800,7 +1807,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2019-05-29 18:10:42"
+            "time": "2019-05-29T18:10:42+00:00"
         },
         {
             "name": "symfony/mime",
@@ -1859,7 +1866,7 @@
                 "mime",
                 "mime-type"
             ],
-            "time": "2019-07-19 16:21:19"
+            "time": "2019-07-19T16:21:19+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -1917,7 +1924,7 @@
                 "polyfill",
                 "portable"
             ],
-            "time": "2019-08-06 08:03:45"
+            "time": "2019-08-06T08:03:45+00:00"
         },
         {
             "name": "symfony/polyfill-intl-idn",
@@ -1979,7 +1986,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2019-08-06 08:03:45"
+            "time": "2019-08-06T08:03:45+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -2038,7 +2045,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2019-08-06 08:03:45"
+            "time": "2019-08-06T08:03:45+00:00"
         },
         {
             "name": "symfony/polyfill-php72",
@@ -2093,7 +2100,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2019-08-06 08:03:45"
+            "time": "2019-08-06T08:03:45+00:00"
         },
         {
             "name": "symfony/polyfill-php73",
@@ -2151,7 +2158,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2019-08-06 08:03:45"
+            "time": "2019-08-06T08:03:45+00:00"
         },
         {
             "name": "symfony/service-contracts",
@@ -2209,7 +2216,7 @@
                 "interoperability",
                 "standards"
             ],
-            "time": "2019-06-13 11:15:36"
+            "time": "2019-06-13T11:15:36+00:00"
         },
         {
             "name": "tinymce/tinymce",
@@ -2255,7 +2262,7 @@
                 "tinymce",
                 "wysiwyg"
             ],
-            "time": "2019-07-04 06:43:03"
+            "time": "2019-07-04T06:43:03+00:00"
         },
         {
             "name": "torophp/torophp",
@@ -2330,7 +2337,7 @@
                 "php",
                 "router"
             ],
-            "time": "2015-04-15 21:01:31"
+            "time": "2015-04-15T21:01:31+00:00"
         },
         {
             "name": "twbs/bootstrap",
@@ -2381,7 +2388,7 @@
                 "responsive",
                 "web"
             ],
-            "time": "2019-02-13 15:55:38"
+            "time": "2019-02-13T15:55:38+00:00"
         },
         {
             "name": "twig/twig",
@@ -2448,7 +2455,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2019-05-31 06:21:42"
+            "time": "2019-05-31T06:21:42+00:00"
         }
     ],
     "packages-dev": [
@@ -2480,7 +2487,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A simple tool for site administrators to test Known's API.",
-            "time": "2019-08-11 15:03:21"
+            "time": "2019-08-11T15:03:21+00:00"
         },
         {
             "name": "mapkyca/known-dev-scripts",
@@ -2515,7 +2522,7 @@
                 }
             ],
             "description": "Useful Known development scripts",
-            "time": "2019-08-07 10:18:45"
+            "time": "2019-08-07T10:18:45+00:00"
         },
         {
             "name": "mapkyca/known-language-tools",
@@ -2555,7 +2562,7 @@
                 "internationalisation",
                 "known"
             ],
-            "time": "2019-03-15 22:44:01"
+            "time": "2019-03-15T22:44:01+00:00"
         },
         {
             "name": "mapkyca/known-phpcs",
@@ -2600,7 +2607,7 @@
                 "i18n",
                 "known"
             ],
-            "time": "2019-05-18 10:07:20"
+            "time": "2019-05-18T10:07:20+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -2651,7 +2658,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2019-03-19 03:22:27"
+            "time": "2019-03-19T03:22:27+00:00"
         }
     ],
     "aliases": [],
