@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "199778fb29cdef442154ce85c9c4f2e6",
+    "content-hash": "bb383a00476468c60f82c93590781ab9",
     "packages": [
         {
             "name": "bower-asset/mention",
@@ -369,6 +369,35 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "Known console event queue processing service",
             "time": "2019-08-16T15:11:45+00:00"
+        },
+        {
+            "name": "idno/console-import",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/console-import.git",
+                "reference": "ac2a1e056b6353028025e72da299b5020b0af05c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/console-import/zipball/ac2a1e056b6353028025e72da299b5020b0af05c",
+                "reference": "ac2a1e056b6353028025e72da299b5020b0af05c",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "mapkyca/known-dev-scripts": "^1.3",
+                "mapkyca/known-language-tools": "^1.0"
+            },
+            "type": "known-console",
+            "extra": {
+                "installer-name": "Import"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Import data into your Known install from the command line",
+            "time": "2019-08-16T15:49:58+00:00"
         },
         {
             "name": "idno/console-periodicexecutionservice",

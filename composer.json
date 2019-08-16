@@ -76,7 +76,8 @@
         "idno/console-queuemanagement": "^1.0",
         "idno/console-eventqueueservice": "^1.0",
         "idno/console-periodicexecutionservice": "^0.9.10",
-        "idno/console-statistics": "^1.0"
+        "idno/console-statistics": "^1.0",
+        "idno/console-import": "^1.0"
     },
     "license": "Apache-2.0",
     "prefer-stable": true,
