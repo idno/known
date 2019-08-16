@@ -1,7 +1,7 @@
 {
     "name": "idno/known",
     "description": "A social publishing platform.",
-    "version": "0.13.2",
+    "version": "0.14.0",
     "type": "project",
     "homepage": "https://withknown.com/",
     "repositories": [
@@ -77,7 +77,8 @@
         "idno/console-eventqueueservice": "^1.0",
         "idno/console-periodicexecutionservice": "^0.9.10",
         "idno/console-statistics": "^1.0",
-        "idno/console-import": "^1.0"
+        "idno/console-import": "^1.0",
+        "idno/console-export": "^1.0"
     },
     "license": "Apache-2.0",
     "prefer-stable": true,
