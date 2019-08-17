@@ -2,56 +2,16 @@
 msgid "No domain specified for cache"
 msgstr ""
 
-#: ./Idno/Common/Plugin.php:76
-msgid "Plugin %s doesn\'t have a version"
+#: ./Idno/Core/Session.php:136
+msgid "Session funnybusiness: "
 msgstr ""
 
-#: ./Idno/Common/Entity.php:692
-msgid "There was a problem syndicating."
+#: ./Idno/Core/Session.php:509
+msgid "Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini"
 msgstr ""
 
-#: ./Idno/Common/Page.php:386
-msgid "Invalid token."
-msgstr ""
-
-#: ./Idno/Common/Page.php:403
-msgid "Something went wrong."
-msgstr ""
-
-#: ./Idno/Common/Page.php:460
-msgid "Attempted to redirect page to a non local URL."
-msgstr ""
-
-#: ./Idno/Common/Page.php:550
-msgid "The page you were on timed out."
-msgstr ""
-
-#: ./Idno/Common/Page.php:564
-msgid "Couldn't say anything about execution, probably something went wrong"
-msgstr ""
-
-#: ./Idno/Core/Service.php:24
-msgid "Missing X-Known-Service-Signature, service call is not possible."
-msgstr ""
-
-#: ./Idno/Core/Service.php:27
-msgid "Sorry, signature doesn\'t match up."
-msgstr ""
-
-#: ./Idno/Core/Service.php:44
-msgid "Missing site secret"
-msgstr ""
-
-#: ./Idno/Core/Service.php:53
-msgid "Url not provided to token generation."
-msgstr ""
-
-#: ./Idno/Core/Service.php:86
-msgid "Response from service endpoint was not json"
-msgstr ""
-
-#: ./Idno/Core/Service.php:98
-msgid "No result from endpoint."
+#: ./Idno/Core/Email.php:16
+msgid "Something went wrong and we couldn't create the email message to send."
 msgstr ""
 
 #: ./Idno/Core/Time.php:89
@@ -78,8 +38,36 @@ msgstr ""
 msgid "behind"
 msgstr ""
 
+#: ./Idno/Core/Webservice.php:431
+msgid "Your version of PHP doesn't support CURLFile."
+msgstr ""
+
 #: ./Idno/Core/TokenProvider.php:32
 msgid "Token was generated using an a cryptographically weak algorithm, this probably means your version of OpenSSL is broken or very old."
+msgstr ""
+
+#: ./Idno/Core/Service.php:24
+msgid "Missing X-Known-Service-Signature, service call is not possible."
+msgstr ""
+
+#: ./Idno/Core/Service.php:27
+msgid "Sorry, signature doesn\'t match up."
+msgstr ""
+
+#: ./Idno/Core/Service.php:44
+msgid "Missing site secret"
+msgstr ""
+
+#: ./Idno/Core/Service.php:53
+msgid "Url not provided to token generation."
+msgstr ""
+
+#: ./Idno/Core/Service.php:86
+msgid "Response from service endpoint was not json"
+msgstr ""
+
+#: ./Idno/Core/Service.php:98
+msgid "No result from endpoint."
 msgstr ""
 
 #: ./Idno/Core/AsynchronousQueue.php:61
@@ -98,92 +86,320 @@ msgstr ""
 msgid "Invalid user (%s) given for runAsContext, aborting"
 msgstr ""
 
-#: ./Idno/Core/Email.php:16
-msgid "Something went wrong and we couldn't create the email message to send."
+#: ./Idno/Stats/Timer.php:39
+msgid "Timer %s has not been started."
 msgstr ""
 
-#: ./Idno/Core/Session.php:136
-msgid "Session funnybusiness: "
+#: ./Idno/Pages/Search/User.php:23
+msgid "Invalid sort type %s"
 msgstr ""
 
-#: ./Idno/Core/Session.php:509
-msgid "Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini"
+#: ./Idno/Pages/Search/User.php:27
+msgid "Invalid sort order %s"
 msgstr ""
 
-#: ./Idno/Core/Webservice.php:431
-msgid "Your version of PHP doesn't support CURLFile."
+#: ./Idno/Pages/Onboarding/Begin.php:23
+msgid "Welcome to Known"
 msgstr ""
 
-#: ./Idno/Data/Mongo.php:38
-msgid "It looks like you don't have the new mongodb driver installed (<a href=\\"https://secure.php.net/manual/en/set.mongodb.php\\">https://secure.php.net/manual/en/set.mongodb.php</a>)\n\nMake sure you have it installed and configured, e.g. by running \\"pecl install mongodb;\\""
+#: ./Idno/Pages/Onboarding/Profile.php:22
+msgid "Create your profile"
 msgstr ""
 
-#: ./Idno/Entities/GenericDataItem.php:43
-msgid "GenericDataItem classes must have a datatype label set."
+#: ./Idno/Pages/Onboarding/Connect.php:25
+msgid "Connect some networks"
 msgstr ""
 
-#: ./Idno/Files/FileSystem.php:63
-msgid "There is no error, the file uploaded with success"
+#: ./Idno/Pages/Following/Home.php:17
+msgid "Following"
 msgstr ""
 
-#: ./Idno/Files/FileSystem.php:64
-msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini"
+#: ./Idno/Pages/Following/Add.php:23
+msgid "We couldn't find a feed at that site."
 msgstr ""
 
-#: ./Idno/Files/FileSystem.php:65
-msgid "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form"
+#: ./Idno/Pages/Following/Confirm.php:50
+msgid "You're following %s!"
 msgstr ""
 
-#: ./Idno/Files/FileSystem.php:66
-msgid "The uploaded file was only partially uploaded"
+#: ./Idno/Pages/Annotation/Delete.php:42
+msgid "The annotation was deleted."
 msgstr ""
 
-#: ./Idno/Files/FileSystem.php:67
-msgid "No file was uploaded"
+#: ./Idno/Pages/Service/Security/CSRFToken.php:16
+msgid "URL missing"
 msgstr ""
 
-#: ./Idno/Files/FileSystem.php:68
-msgid "Missing a temporary folder"
+#: ./Idno/Pages/Service/Web/ImageProxy.php:77
+msgid "There was a problem decoding the url"
 msgstr ""
 
-#: ./Idno/Files/FileSystem.php:69
-msgid "Failed to write file to disk."
+#: ./Idno/Pages/Service/Web/ImageProxy.php:81
+msgid "No url specified"
 msgstr ""
 
-#: ./Idno/Files/FileSystem.php:70
-msgid "A PHP extension stopped the file upload."
+#: ./Idno/Pages/Service/Web/ImageProxy.php:222
+msgid "Could not save temporary file"
 msgstr ""
 
-#: ./Idno/Files/LocalFileSystem.php:86
-msgid "There was a problem storing the file data."
+#: ./Idno/Pages/Service/Web/ImageProxy.php:253
+msgid "Looks like something went wrong, image was zero bytes big!"
 msgstr ""
 
-#: ./Idno/Files/LocalFileSystem.php:89
-msgid "There was a problem saving the file's metadata"
+#: ./Idno/Pages/Service/Web/UrlUnfurl.php:20
+msgid "You need to specify a working URL"
 msgstr ""
 
-#: ./Idno/Files/LocalFileSystem.php:98
-msgid "Something went wrong saving your file."
+#: ./Idno/Pages/Service/Web/UrlUnfurl.php:69
+msgid "Url %s could not be unfurled"
 msgstr ""
 
-#: ./Idno/Files/LocalFileSystem.php:100
-msgid "Check that your upload directory is writeable by the web server and try again."
+#: ./Idno/Pages/Entity/View.php:125
+msgid "%s was deleted."
 msgstr ""
 
-#: ./Idno/Pages/Account/Password/Reset.php:27
-msgid "Reset password"
+#: ./Idno/Pages/Entity/Attachment/Delete.php:21
+msgid "We couldn't find the post."
 msgstr ""
 
-#: ./Idno/Pages/Account/Password/Reset.php:35
-msgid "The password reset code wasn't valid. They expire after three hours, so you might need to try again."
+#: ./Idno/Pages/Entity/Delete.php:45
+msgid "We couldn't find the post to delete."
 msgstr ""
 
-#: ./Idno/Pages/Account/Password/Reset.php:58
-msgid "Your password was reset!"
+#: ./Idno/Pages/Entity/Withdraw.php:48
+msgid "We removed copies on all the syndicated sites."
 msgstr ""
 
-#: ./Idno/Pages/Account/Password/Reset.php:64
-msgid "Sorry, your passwords either don\'t match, or are too weak"
+#: ./Idno/Pages/File/Picker.php:57
+msgid "You can only upload images."
+msgstr ""
+
+#: ./Idno/Pages/Session/Login.php:29
+msgid "Sign in"
+msgstr ""
+
+#: ./Idno/Pages/Session/Login.php:54
+msgid "Oops! It looks like your password isn't correct. Please try again."
+msgstr ""
+
+#: ./Idno/Pages/Session/Login.php:59
+msgid "Oops! We couldn't find your username or email address. Please check you typed it correctly and try again."
+msgstr ""
+
+#: ./Idno/Pages/Session/CurrentUser.php:36
+msgid "The %s profile for %s"
+msgstr ""
+
+#: ./Idno/Pages/Session/Logout.php:24
+msgid "You've signed out. See you soon!"
+msgstr ""
+
+#: ./Idno/Pages/Webmentions/Endpoint.php:19
+msgid "Webmention endpoint"
+msgstr ""
+
+#: ./Idno/Pages/Admin/Import.php:18
+msgid "Import data"
+msgstr ""
+
+#: ./Idno/Pages/Admin/Import.php:33
+msgid "You need to upload an import file to continue."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Import.php:35
+msgid "We couldn't open the file you uploaded. Please try again."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Import.php:37
+msgid "Your import has started. We'll email you when it's done."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Users.php:32
+msgid "User Management"
+msgstr ""
+
+#: ./Idno/Pages/Admin/Users.php:50
+msgid "%s was given administration rights."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Users.php:58
+msgid "%s was stripped of their administration rights."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Users.php:65
+msgid "%s was removed from your site."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Users.php:91
+msgid "%d invitations were sent."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Users.php:93
+msgid "Your invitation was sent."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Users.php:95
+msgid "Something went wrong and we couldn't send emails to your recipients."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Users.php:97
+msgid "No email addresses were found or all the people you invited are already members of this site."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Users.php:105
+msgid "The invitation was removed."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Users.php:119
+msgid "The invitation was resent."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Users.php:128
+msgid "You can't add any more users to your site."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Users.php:141
+msgid "Please make sure your passwords match and aren't empty."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Users.php:143
+msgid "Please enter a username and email address."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Users.php:162
+msgid "Please create a username."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Users.php:165
+msgid "Your username is too long."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Users.php:168
+msgid "Usernames can't contain a slash ('/"
+msgstr ""
+
+#: ./Idno/Pages/Admin/Users.php:171
+msgid "Unfortunately, someone is already using that username. Please choose another."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Users.php:174
+msgid "Hey, it looks like there's already an account with that email address. Did you forget your login?"
+msgstr ""
+
+#: ./Idno/Pages/Admin/Users.php:178
+msgid "That doesn't seem like it's a valid email address."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Users.php:182
+msgid "User %s was created. You may wish to email them to let them know."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Users.php:205
+msgid "%d emails were blocked."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Users.php:207
+msgid "The email address was blocked."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Users.php:209
+msgid "No email addresses were found."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Users.php:230
+msgid "%d emails were unblocked."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Users.php:232
+msgid "The email address was unblocked."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Email.php:17
+msgid "Email"
+msgstr ""
+
+#: ./Idno/Pages/Admin/Homepage.php:25
+msgid "Homepage"
+msgstr ""
+
+#: ./Idno/Pages/Admin/Homepage.php:42
+msgid "The default homepage content types were saved."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Export.php:17
+msgid "Export data"
+msgstr ""
+
+#: ./Idno/Pages/Admin/Home.php:21
+msgid "Administration"
+msgstr ""
+
+#: ./Idno/Pages/Admin/Dependencies.php:20
+msgid "Dependencies"
+msgstr ""
+
+#: ./Idno/Pages/Admin/Themes.php:22
+msgid "Themes"
+msgstr ""
+
+#: ./Idno/Pages/Admin/Themes.php:52
+msgid "The theme was enabled."
+msgstr ""
+
+#: ./Idno/Pages/Admin/About.php:20
+msgid "About Known"
+msgstr ""
+
+#: ./Idno/Pages/Admin/EmailTest.php:26
+msgid "Test email sent to %s"
+msgstr ""
+
+#: ./Idno/Pages/Admin/EmailTest.php:28
+msgid "There was a problem sending a test message to %s."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Logs.php:19
+msgid "Log capture"
+msgstr ""
+
+#: ./Idno/Pages/Admin/Statistics.php:16
+msgid "Something went wrong, either no statistics were returned or it wasn't in the correct format."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Statistics.php:27
+msgid "Statistics"
+msgstr ""
+
+#: ./Idno/Pages/Admin/Plugins.php:23
+msgid "Plugins"
+msgstr ""
+
+#: ./Idno/Pages/Admin/Plugins.php:44
+msgid "The plugin was enabled."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Plugins.php:58
+msgid "The plugin was disabled."
+msgstr ""
+
+#: ./Idno/Pages/Admin/Diagnostics.php:56
+msgid "Diagnostics"
+msgstr ""
+
+#: ./Idno/Pages/User/Edit.php:30
+msgid "Edit profile: %s"
+msgstr ""
+
+#: ./Idno/Pages/Account/Password.php:26
+msgid "Password recovery email sent"
+msgstr ""
+
+#: ./Idno/Pages/Account/Password.php:29
+msgid "Recover password"
+msgstr ""
+
+#: ./Idno/Pages/Account/Password.php:63
+msgid "Oh no! We couldn't find an account associated with that email address."
 msgstr ""
 
 #: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:37
@@ -238,12 +454,8 @@ msgstr ""
 msgid "Thanks! We received your feedback."
 msgstr ""
 
-#: ./Idno/Pages/Account/Settings/FeedbackConfirm.php:17
-msgid "Thank you for your feedback!"
-msgstr ""
-
-#: ./Idno/Pages/Account/Settings/Following.php:20
-msgid "Following settings"
+#: ./Idno/Pages/Account/Settings/Tools.php:26
+msgid "Tools and Apps"
 msgstr ""
 
 #: ./Idno/Pages/Account/Settings/Notifications.php:20
@@ -254,28 +466,60 @@ msgstr ""
 msgid "Your notification preferences were saved."
 msgstr ""
 
-#: ./Idno/Pages/Account/Settings/Tools.php:26
-msgid "Tools and Apps"
+#: ./Idno/Pages/Account/Settings/Following.php:20
+msgid "Following settings"
+msgstr ""
+
+#: ./Idno/Pages/Account/Settings/FeedbackConfirm.php:17
+msgid "Thank you for your feedback!"
 msgstr ""
 
 #: ./Idno/Pages/Account/Export.php:20
 msgid "Export Data"
 msgstr ""
 
+#: ./Idno/Pages/Account/Register.php:27
+msgid "This site is closed to new users."
+msgstr ""
+
+#: ./Idno/Pages/Account/Register.php:31
+msgid "Your invitation doesn't seem to be valid, or has expired."
+msgstr ""
+
+#: ./Idno/Pages/Account/Register.php:39
+msgid "Create a new account"
+msgstr ""
+
+#: ./Idno/Pages/Account/Register.php:140
+msgid "Usernames can only have letters, numbers and underscores."
+msgstr ""
+
+#: ./Idno/Pages/Account/Register.php:152
+msgid "Please check that your passwords match and that your password is at least 7 characters long."
+msgstr ""
+
+#: ./Idno/Pages/Account/Register.php:160
+msgid "You've registered! You're ready to get started. Why not add a post to say hello?"
+msgstr ""
+
+#: ./Idno/Pages/Account/Password/Reset.php:27
+msgid "Reset password"
+msgstr ""
+
+#: ./Idno/Pages/Account/Password/Reset.php:35
+msgid "The password reset code wasn't valid. They expire after three hours, so you might need to try again."
+msgstr ""
+
+#: ./Idno/Pages/Account/Password/Reset.php:58
+msgid "Your password was reset!"
+msgstr ""
+
+#: ./Idno/Pages/Account/Password/Reset.php:64
+msgid "Sorry, your passwords either don\'t match, or are too weak"
+msgstr ""
+
 #: ./Idno/Pages/Account/Notifications.php:36
 msgid "Notifications"
-msgstr ""
-
-#: ./Idno/Pages/Account/Password.php:26
-msgid "Password recovery email sent"
-msgstr ""
-
-#: ./Idno/Pages/Account/Password.php:29
-msgid "Recover password"
-msgstr ""
-
-#: ./Idno/Pages/Account/Password.php:63
-msgid "Oh no! We couldn't find an account associated with that email address."
 msgstr ""
 
 #: ./Idno/Pages/Account/Settings.php:20
@@ -298,936 +542,148 @@ msgstr ""
 msgid "Your details were saved."
 msgstr ""
 
-#: ./Idno/Pages/Account/Register.php:27
-msgid "This site is closed to new users."
+#: ./Idno/Common/Entity.php:692
+msgid "There was a problem syndicating."
 msgstr ""
 
-#: ./Idno/Pages/Account/Register.php:31
-msgid "Your invitation doesn't seem to be valid, or has expired."
+#: ./Idno/Common/Plugin.php:87
+msgid "Plugin %s doesn\'t have a version"
 msgstr ""
 
-#: ./Idno/Pages/Account/Register.php:39
-msgid "Create a new account"
+#: ./Idno/Common/Page.php:390
+msgid "Invalid token."
 msgstr ""
 
-#: ./Idno/Pages/Account/Register.php:80
-msgid "Please enter a username and email address."
+#: ./Idno/Common/Page.php:407
+msgid "Something went wrong."
 msgstr ""
 
-#: ./Idno/Pages/Account/Register.php:134
-msgid "Please create a username."
+#: ./Idno/Common/Page.php:464
+msgid "Attempted to redirect page to a non local URL."
 msgstr ""
 
-#: ./Idno/Pages/Account/Register.php:137
-msgid "Your username is too long."
+#: ./Idno/Common/Page.php:554
+msgid "The page you were on timed out."
 msgstr ""
 
-#: ./Idno/Pages/Account/Register.php:140
-msgid "Usernames can only have letters, numbers and underscores."
+#: ./Idno/Common/Page.php:568
+msgid "Couldn't say anything about execution, probably something went wrong"
 msgstr ""
 
-#: ./Idno/Pages/Account/Register.php:143
-msgid "Usernames can't contain a slash ('/"
+#: ./Idno/Entities/GenericDataItem.php:43
+msgid "GenericDataItem classes must have a datatype label set."
 msgstr ""
 
-#: ./Idno/Pages/Account/Register.php:146
-msgid "Unfortunately, someone is already using that username. Please choose another."
+#: ./Idno/Files/FileSystem.php:63
+msgid "There is no error, the file uploaded with success"
 msgstr ""
 
-#: ./Idno/Pages/Account/Register.php:149
-msgid "Hey, it looks like there's already an account with that email address. Did you forget your login?"
+#: ./Idno/Files/FileSystem.php:64
+msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini"
 msgstr ""
 
-#: ./Idno/Pages/Account/Register.php:152
-msgid "Please check that your passwords match and that your password is at least 7 characters long."
+#: ./Idno/Files/FileSystem.php:65
+msgid "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form"
 msgstr ""
 
-#: ./Idno/Pages/Account/Register.php:156
-msgid "That doesn't seem like it's a valid email address."
+#: ./Idno/Files/FileSystem.php:66
+msgid "The uploaded file was only partially uploaded"
 msgstr ""
 
-#: ./Idno/Pages/Account/Register.php:160
-msgid "You've registered! You're ready to get started. Why not add a post to say hello?"
+#: ./Idno/Files/FileSystem.php:67
+msgid "No file was uploaded"
 msgstr ""
 
-#: ./Idno/Pages/Admin/About.php:20
-msgid "About Known"
+#: ./Idno/Files/FileSystem.php:68
+msgid "Missing a temporary folder"
 msgstr ""
 
-#: ./Idno/Pages/Admin/Dependencies.php:20
-msgid "Dependencies"
+#: ./Idno/Files/FileSystem.php:69
+msgid "Failed to write file to disk."
 msgstr ""
 
-#: ./Idno/Pages/Admin/EmailTest.php:26
-msgid "Test email sent to %s"
+#: ./Idno/Files/FileSystem.php:70
+msgid "A PHP extension stopped the file upload."
 msgstr ""
 
-#: ./Idno/Pages/Admin/EmailTest.php:28
-msgid "There was a problem sending a test message to %s."
+#: ./Idno/Files/LocalFileSystem.php:86
+msgid "There was a problem storing the file data."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Export.php:17
-msgid "Export data"
+#: ./Idno/Files/LocalFileSystem.php:89
+msgid "There was a problem saving the file's metadata"
 msgstr ""
 
-#: ./Idno/Pages/Admin/Import.php:18
-msgid "Import data"
+#: ./Idno/Files/LocalFileSystem.php:98
+msgid "Something went wrong saving your file."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Import.php:33
-msgid "You need to upload an import file to continue."
+#: ./Idno/Files/LocalFileSystem.php:100
+msgid "Check that your upload directory is writeable by the web server and try again."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Import.php:35
-msgid "We couldn't open the file you uploaded. Please try again."
+#: ./Idno/Data/Mongo.php:38
+msgid "It looks like you don't have the new mongodb driver installed (<a href=\\"https://secure.php.net/manual/en/set.mongodb.php\\">https://secure.php.net/manual/en/set.mongodb.php</a>)\n\nMake sure you have it installed and configured, e.g. by running \\"pecl install mongodb;\\""
 msgstr ""
 
-#: ./Idno/Pages/Admin/Import.php:37
-msgid "Your import has started. We'll email you when it's done."
+#: ./templates/default/content/feed/end.tpl.php:13
+msgid "published this"
 msgstr ""
 
-#: ./Idno/Pages/Admin/Logs.php:19
-msgid "Log capture"
+#: ./templates/default/content/feed/end.tpl.php:28
+msgid "star"
 msgstr ""
 
-#: ./Idno/Pages/Admin/Statistics.php:16
-msgid "Something went wrong, either no statistics were returned or it wasn't in the correct format."
+#: ./templates/default/content/feed/end.tpl.php:30
+msgid "stars"
 msgstr ""
 
-#: ./Idno/Pages/Admin/Statistics.php:27
-msgid "Statistics"
+#: ./templates/default/content/feed/end.tpl.php:48
+msgid "comment"
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:32
-msgid "User Management"
+#: ./templates/default/content/feed/end.tpl.php:50
+msgid "comments"
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:50
-msgid "%s was given administration rights."
+#: ./templates/default/content/feed/end.tpl.php:106
+msgid "Also on"
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:58
-msgid "%s was stripped of their administration rights."
+#: ./templates/default/content/annotation/edit.tpl.php:5
+msgid "Delete"
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:65
-msgid "%s was removed from your site."
+#: ./templates/default/content/end.tpl.php:55
+msgid "Star this!"
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:91
-msgid "%d invitations were sent."
+#: ./templates/default/content/unfurl.tpl.php:11
+msgid "Refresh preview"
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:93
-msgid "Your invitation was sent."
+#: ./templates/default/content/unfurl.tpl.php:12
+msgid "Remove preview"
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:95
-msgid "Something went wrong and we couldn't send emails to your recipients."
+#: ./templates/default/content/edit.tpl.php:8
+msgid "Edit"
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:97
-msgid "No email addresses were found or all the people you invited are already members of this site."
+#: ./templates/default/content/edit.tpl.php:9
+msgid "Are you sure you want to permanently delete this entry?"
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:105
-msgid "The invitation was removed."
+#: ./templates/default/content/access.tpl.php:34
+msgid "Public"
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:119
-msgid "The invitation was resent."
+#: ./templates/default/content/access.tpl.php:36
+msgid "Members only"
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:128
-msgid "You can't add any more users to your site."
-msgstr ""
-
-#: ./Idno/Pages/Admin/Users.php:141
-msgid "Please make sure your passwords match and aren't empty."
-msgstr ""
-
-#: ./Idno/Pages/Admin/Users.php:182
-msgid "User %s was created. You may wish to email them to let them know."
-msgstr ""
-
-#: ./Idno/Pages/Admin/Users.php:205
-msgid "%d emails were blocked."
-msgstr ""
-
-#: ./Idno/Pages/Admin/Users.php:207
-msgid "The email address was blocked."
-msgstr ""
-
-#: ./Idno/Pages/Admin/Users.php:209
-msgid "No email addresses were found."
-msgstr ""
-
-#: ./Idno/Pages/Admin/Users.php:230
-msgid "%d emails were unblocked."
-msgstr ""
-
-#: ./Idno/Pages/Admin/Users.php:232
-msgid "The email address was unblocked."
-msgstr ""
-
-#: ./Idno/Pages/Admin/Plugins.php:23
-msgid "Plugins"
-msgstr ""
-
-#: ./Idno/Pages/Admin/Plugins.php:44
-msgid "The plugin was enabled."
-msgstr ""
-
-#: ./Idno/Pages/Admin/Plugins.php:58
-msgid "The plugin was disabled."
-msgstr ""
-
-#: ./Idno/Pages/Admin/Email.php:17
-msgid "Email"
-msgstr ""
-
-#: ./Idno/Pages/Admin/Homepage.php:25
-msgid "Homepage"
-msgstr ""
-
-#: ./Idno/Pages/Admin/Homepage.php:44
-msgid "The default homepage content types were saved."
-msgstr ""
-
-#: ./Idno/Pages/Admin/Themes.php:22
-msgid "Themes"
-msgstr ""
-
-#: ./Idno/Pages/Admin/Themes.php:52
-msgid "The theme was enabled."
-msgstr ""
-
-#: ./Idno/Pages/Admin/Home.php:21
-msgid "Administration"
-msgstr ""
-
-#: ./Idno/Pages/Admin/Diagnostics.php:56
-msgid "Diagnostics"
-msgstr ""
-
-#: ./Idno/Pages/Annotation/Delete.php:42
-msgid "The annotation was deleted."
-msgstr ""
-
-#: ./Idno/Pages/Entity/Attachment/Delete.php:21
-msgid "We couldn't find the post."
-msgstr ""
-
-#: ./Idno/Pages/Entity/Delete.php:45
-msgid "We couldn't find the post to delete."
-msgstr ""
-
-#: ./Idno/Pages/Entity/Delete.php:52
-msgid "%s was deleted."
-msgstr ""
-
-#: ./Idno/Pages/Entity/Withdraw.php:48
-msgid "We removed copies on all the syndicated sites."
-msgstr ""
-
-#: ./Idno/Pages/File/Picker.php:57
-msgid "You can only upload images."
-msgstr ""
-
-#: ./Idno/Pages/Following/Add.php:23
-msgid "We couldn't find a feed at that site."
-msgstr ""
-
-#: ./Idno/Pages/Following/Confirm.php:50
-msgid "You're following %s!"
-msgstr ""
-
-#: ./Idno/Pages/Following/Home.php:17
-msgid "Following"
-msgstr ""
-
-#: ./Idno/Pages/Onboarding/Begin.php:23
-msgid "Welcome to Known"
-msgstr ""
-
-#: ./Idno/Pages/Onboarding/Connect.php:25
-msgid "Connect some networks"
-msgstr ""
-
-#: ./Idno/Pages/Onboarding/Profile.php:22
-msgid "Create your profile"
-msgstr ""
-
-#: ./Idno/Pages/Search/User.php:23
-msgid "Invalid sort type %s"
-msgstr ""
-
-#: ./Idno/Pages/Search/User.php:27
-msgid "Invalid sort order %s"
-msgstr ""
-
-#: ./Idno/Pages/Service/Security/CSRFToken.php:16
-msgid "URL missing"
-msgstr ""
-
-#: ./Idno/Pages/Service/Web/ImageProxy.php:77
-msgid "There was a problem decoding the url"
-msgstr ""
-
-#: ./Idno/Pages/Service/Web/ImageProxy.php:81
-msgid "No url specified"
-msgstr ""
-
-#: ./Idno/Pages/Service/Web/ImageProxy.php:222
-msgid "Could not save temporary file"
-msgstr ""
-
-#: ./Idno/Pages/Service/Web/ImageProxy.php:253
-msgid "Looks like something went wrong, image was zero bytes big!"
-msgstr ""
-
-#: ./Idno/Pages/Service/Web/UrlUnfurl.php:20
-msgid "You need to specify a working URL"
-msgstr ""
-
-#: ./Idno/Pages/Service/Web/UrlUnfurl.php:69
-msgid "Url %s could not be unfurled"
-msgstr ""
-
-#: ./Idno/Pages/Session/CurrentUser.php:36
-msgid "The %s profile for %s"
-msgstr ""
-
-#: ./Idno/Pages/Session/Login.php:29
-msgid "Sign in"
-msgstr ""
-
-#: ./Idno/Pages/Session/Login.php:54
-msgid "Oops! It looks like your password isn't correct. Please try again."
-msgstr ""
-
-#: ./Idno/Pages/Session/Login.php:59
-msgid "Oops! We couldn't find your username or email address. Please check you typed it correctly and try again."
-msgstr ""
-
-#: ./Idno/Pages/Session/Logout.php:24
-msgid "You've signed out. See you soon!"
-msgstr ""
-
-#: ./Idno/Pages/User/Edit.php:30
-msgid "Edit profile: %s"
-msgstr ""
-
-#: ./Idno/Pages/Webmentions/Endpoint.php:19
-msgid "Webmention endpoint"
-msgstr ""
-
-#: ./Idno/Stats/Timer.php:39
-msgid "Timer %s has not been started."
-msgstr ""
-
-#: ./templates/default/account/password/reset.tpl.php:5
-msgid "Reset your password"
-msgstr ""
-
-#: ./templates/default/account/password/reset.tpl.php:7
-msgid "To change your password, enter your new password below:"
-msgstr ""
-
-#: ./templates/default/account/password/reset.tpl.php:16
-msgid "Your email address"
-msgstr ""
-
-#: ./templates/default/account/password/reset.tpl.php:17
-msgid "The address associated with your %s account."
-msgstr ""
-
-#: ./templates/default/account/password/reset.tpl.php:23
-msgid "New password (7 characters or more)"
-msgstr ""
-
-#: ./templates/default/account/password/reset.tpl.php:29
-msgid "Retype password"
-msgstr ""
-
-#: ./templates/default/account/password/reset.tpl.php:30
-msgid "We ask you to enter the password twice to protect against typos."
-msgstr ""
-
-#: ./templates/default/account/password/reset.tpl.php:37
-msgid "Reset password"
-msgstr ""
-
-#: ./templates/default/account/password/sent.tpl.php:5
-msgid "Your password reset email has been sent"
-msgstr ""
-
-#: ./templates/default/account/password/sent.tpl.php:15
-msgid "Check your inbox! You'll find an email containing a special link that will help you reset your password."
-msgstr ""
-
-#: ./templates/default/account/password/sent.tpl.php:18
-msgid "Did you remember your password? That's okay too. You can <a href=\\"%s\\">click here to sign in.</a>"
-msgstr ""
-
-#: ./templates/default/account/settings/feedback/confirm.tpl.php:5
-msgid "Message received!"
-msgstr ""
-
-#: ./templates/default/account/settings/feedback/confirm.tpl.php:9
-msgid "Thanks for sending along your thoughts. We'll read them right away."
-msgstr ""
-
-#: ./templates/default/account/settings/feedback/confirm.tpl.php:22
-msgid "Feedback is a gift.  For more information about Known, <a href=\"https://withknown.com/\">please visit our homepage</a>"
-msgstr ""
-
-#: ./templates/default/account/settings/following/bookmarklet.tpl.php:3
-msgid "Add as friend..."
-msgstr ""
-
-#: ./templates/default/account/settings/following/mf2user.tpl.php:55
-msgid "Name"
-msgstr ""
-
-#: ./templates/default/account/settings/following/mf2user.tpl.php:64
-msgid "Nickname"
-msgstr ""
-
-#: ./templates/default/account/settings/following/mf2user.tpl.php:67
-msgid "Handle (for your reference)"
-msgstr ""
-
-#: ./templates/default/account/settings/following/mf2user.tpl.php:73
-msgid "Email"
-msgstr ""
-
-#: ./templates/default/account/settings/following/mf2user.tpl.php:82
-msgid "Profile URL"
-msgstr ""
-
-#: ./templates/default/account/settings/feedback.tpl.php:5
-msgid "Share your feedback"
-msgstr ""
-
-#: ./templates/default/account/settings/feedback.tpl.php:9
-msgid "Want to share something with the Known team? We'd love to read your thoughts, suggestions, or ideas. We will personally read all of your feedback."
-msgstr ""
-
-#: ./templates/default/account/settings/feedback.tpl.php:21
-msgid "From"
-msgstr ""
-
-#: ./templates/default/account/settings/feedback.tpl.php:29
-msgid "Feedback for the Known team"
-msgstr ""
-
-#: ./templates/default/account/settings/feedback.tpl.php:32
-msgid "Let us know what you think."
-msgstr ""
-
-#: ./templates/default/account/settings/feedback.tpl.php:37
-msgid "Send feedback"
-msgstr ""
-
-#: ./templates/default/account/settings/following.tpl.php:5
-msgid "Following..."
-msgstr ""
-
-#: ./templates/default/account/settings/following.tpl.php:11
-msgid "Manage your subscriptions here. These users can also be given access to private content you produce on your site."
-msgstr ""
-
-#: ./templates/default/account/settings/following.tpl.php:16
-msgid "Use this bookmarklet to make is easy to add new friends."
-msgstr ""
-
-#: ./templates/default/account/settings/notifications.tpl.php:12
-msgid "Email notifications"
-msgstr ""
-
-#: ./templates/default/account/settings/notifications.tpl.php:17
-msgid "Set how you'd like to be notified when someone stars or comments on your content."
-msgstr ""
-
-#: ./templates/default/account/settings/notifications.tpl.php:26
-msgid "Send email notifications"
-msgstr ""
-
-#: ./templates/default/account/settings/notifications.tpl.php:34
-msgid "Whenever someone interacts with my content"
-msgstr ""
-
-#: ./templates/default/account/settings/notifications.tpl.php:44
-msgid "Only when someone comments on my content"
-msgstr ""
-
-#: ./templates/default/account/settings/notifications.tpl.php:54
-msgid "Never"
-msgstr ""
-
-#: ./templates/default/account/settings/notifications.tpl.php:63
-msgid "Ignored Domains"
-msgstr ""
-
-#: ./templates/default/account/settings/notifications.tpl.php:64
-msgid "Do not send notifications for interactions originating from these domains (one domain per line)"
-msgstr ""
-
-#: ./templates/default/account/settings/notifications.tpl.php:75
-msgid "Save settings"
-msgstr ""
-
-#: ./templates/default/account/settings/tools.tpl.php:9
-msgid "Tools and Apps"
-msgstr ""
-
-#: ./templates/default/account/settings/tools.tpl.php:13
-msgid "Bookmarklet"
-msgstr ""
-
-#: ./templates/default/account/settings/tools.tpl.php:22
-msgid "The Known bookmarklet is the best way to save links, reply to posts, and share articles."
-msgstr ""
-
-#: ./templates/default/account/settings/tools.tpl.php:23
-msgid "Just drag the bookmarklet button below into your browser's Bookmark Bar."
-msgstr ""
-
-#: ./templates/default/account/settings/tools.tpl.php:42
-msgid "Don't see a bookmarks bar?"
-msgstr ""
-
-#: ./templates/default/account/settings/tools.tpl.php:45
-msgid "Sometimes web browsers have their bookmarked links bar hidden by default. Here's how to reveal it:"
-msgstr ""
-
-#: ./templates/default/account/settings/tools.tpl.php:47
-msgid "Chrome"
-msgstr ""
-
-#: ./templates/default/account/settings/tools.tpl.php:47
-msgid "Select <em>Always Show Bookmarks Bar</em> from the <em>View</em> menu."
-msgstr ""
-
-#: ./templates/default/account/settings/tools.tpl.php:48
-msgid "Firefox"
-msgstr ""
-
-#: ./templates/default/account/settings/tools.tpl.php:48
-msgid "Select <em>View</em>, then <em>Toolbars</em>, and make sure"
-msgstr ""
-
-#: ./templates/default/account/settings/tools.tpl.php:49
-msgid "Bookmarks Toolbar"
-msgstr ""
-
-#: ./templates/default/account/settings/tools.tpl.php:49
-msgid "is checked."
-msgstr ""
-
-#: ./templates/default/account/settings/tools.tpl.php:50
-msgid "Internet Explorer"
-msgstr ""
-
-#: ./templates/default/account/settings/tools.tpl.php:50
-msgid "Select <em>Tools</em>, then make sure <em>Favorites Bar</em> is checked."
-msgstr ""
-
-#: ./templates/default/account/settings/tools.tpl.php:65
-msgid "Your API key"
-msgstr ""
-
-#: ./templates/default/account/settings/tools.tpl.php:76
-msgid "Revoke"
-msgstr ""
-
-#: ./templates/default/account/settings/tools.tpl.php:76
-msgid "Revoking this key will mean you must update any applications that use this key!"
-msgstr ""
-
-#: ./templates/default/account/export.tpl.php:8
-msgid "Export your data"
-msgstr ""
-
-#: ./templates/default/account/export.tpl.php:19
-msgid "You can download an RSS version of everything you've posted on this site. This file is suitable for importing into content management systems like WordPress, or another Known site."
-msgstr ""
-
-#: ./templates/default/account/export.tpl.php:24
-msgid "Include private posts?"
-msgstr ""
-
-#: ./templates/default/account/export.tpl.php:32
-msgid "Platforms like WordPress may assume that all your posts should be displayed publicly. In order to protect your privacy, you may wish to just download your public posts."
-msgstr ""
-
-#: ./templates/default/account/export.tpl.php:36
-msgid "Download RSS Feed"
-msgstr ""
-
-#: ./templates/default/account/settings.tpl.php:9
-msgid "Account Settings"
-msgstr ""
-
-#: ./templates/default/account/settings.tpl.php:14
-msgid "Change your user account settings here. You may also want to <a href=\"%s\">edit your profile</a>."
-msgstr ""
-
-#: ./templates/default/account/settings.tpl.php:27
-msgid "Your name"
-msgstr ""
-
-#: ./templates/default/account/settings.tpl.php:45
-msgid "Site notifications will be sent here."
-msgstr ""
-
-#: ./templates/default/account/settings.tpl.php:51
-msgid "Your password"
-msgstr ""
-
-#: ./templates/default/account/settings.tpl.php:55
-msgid "Password"
-msgstr ""
-
-#: ./templates/default/account/settings.tpl.php:58
-msgid "Leave this blank if you don't want to change it."
-msgstr ""
-
-#: ./templates/default/account/settings.tpl.php:64
-msgid "Your timezone"
-msgstr ""
-
-#: ./templates/default/account/settings.tpl.php:73
-msgid "Timezone"
-msgstr ""
-
-#: ./templates/default/account/settings.tpl.php:78
-msgid "Specify your timezone."
-msgstr ""
-
-#: ./templates/default/account/settings.tpl.php:83
-msgid "Save updates"
-msgstr ""
-
-#: ./templates/default/account/menu.tpl.php:3
-msgid "Settings"
-msgstr ""
-
-#: ./templates/default/account/menu.tpl.php:11
-msgid "Export Data"
-msgstr ""
-
-#: ./templates/default/account/notifications.tpl.php:4
-msgid "Notifications"
-msgstr ""
-
-#: ./templates/default/account/notifications.tpl.php:6
-msgid "The notifications screen shows you who has interacted with your content."
-msgstr ""
-
-#: ./templates/default/account/notifications.tpl.php:25
-msgid "You don't have any notifications yet. But we love you anyway!"
-msgstr ""
-
-#: ./templates/default/account/login.tpl.php:4
-msgid "Welcome back!"
-msgstr ""
-
-#: ./templates/default/account/login.tpl.php:7
-msgid "Sign in"
-msgstr ""
-
-#: ./templates/default/account/login.tpl.php:14
-msgid "Your email address or username"
-msgstr ""
-
-#: ./templates/default/account/login.tpl.php:36
-msgid "New here? Register for an account."
-msgstr ""
-
-#: ./templates/default/account/login.tpl.php:40
-msgid "Forgot your password?"
-msgstr ""
-
-#: ./templates/default/account/password.tpl.php:9
-msgid "Forgot your password? Don't worry! It happens to the best of us."
-msgstr ""
-
-#: ./templates/default/account/password.tpl.php:10
-msgid "Just enter the email address associated with your %s account below, and we'll send you a top secret link to your email account so that you can create a new password."
-msgstr ""
-
-#: ./templates/default/account/password.tpl.php:27
-msgid "Send password reset email"
-msgstr ""
-
-#: ./templates/default/account/register.tpl.php:5
-msgid "Hello there!"
-msgstr ""
-
-#: ./templates/default/account/register.tpl.php:7
-msgid "Create a new account to get started."
-msgstr ""
-
-#: ./templates/default/account/register.tpl.php:20
-msgid "Choose a handle"
-msgstr ""
-
-#: ./templates/default/account/register.tpl.php:21
-msgid "Handles identify you throughout the site. Something simple is best: for example, <em>janedoe</em>."
-msgstr ""
-
-#: ./templates/default/account/register.tpl.php:23
-msgid "username"
-msgstr ""
-
-#: ./templates/default/account/register.tpl.php:33
-msgid "Create a password"
-msgstr ""
-
-#: ./templates/default/account/register.tpl.php:34
-msgid "At least 7 characters please."
-msgstr ""
-
-#: ./templates/default/account/register.tpl.php:37
-msgid "secret-password"
-msgstr ""
-
-#: ./templates/default/account/register.tpl.php:42
-msgid "Your password again"
-msgstr ""
-
-#: ./templates/default/account/register.tpl.php:49
-msgid "Create Account"
-msgstr ""
-
-#: ./templates/default/admin/dependencies/build.tpl.php:2
-msgid "%s installed"
-msgstr ""
-
-#: ./templates/default/admin/dependencies/plugin.tpl.php:30
-msgid "(v%s required)"
-msgstr ""
-
-#: ./templates/default/admin/export/download.tpl.php:2
-msgid "Download your data"
-msgstr ""
-
-#: ./templates/default/admin/export/download.tpl.php:3
-msgid "Generated"
-msgstr ""
-
-#: ./templates/default/admin/export/download.tpl.php:7
-msgid "You can also regenerate a new copy of your data archive."
-msgstr ""
-
-#: ./templates/default/admin/export/download.tpl.php:11
-msgid "Re-archive your data"
-msgstr ""
-
-#: ./templates/default/admin/export/generate.tpl.php:5
-msgid "Create archive"
-msgstr ""
-
-#: ./templates/default/admin/export/generate.tpl.php:18
-msgid "It may take a while to generate your archive. You can leave this page while it's working. Once the export file is complete, this page will update, and you'll be able to download the archive right here."
-msgstr ""
-
-#: ./templates/default/admin/export/wait.tpl.php:4
-msgid "An archive of your data is being created. Please check again in a few minutes."
-msgstr ""
-
-#: ./templates/default/admin/home/description.tpl.php:2
-msgid "Site configuration"
-msgstr ""
-
-#: ./templates/default/admin/home/description.tpl.php:6
-msgid "On this page you can change the basic settings for your site, like the site name and the number of posts visible on each page."
-msgstr ""
-
-#: ./templates/default/admin/plugins/plugin.tpl.php:35
-msgid "Enabled"
-msgstr ""
-
-#: ./templates/default/admin/plugins/plugin.tpl.php:37
-msgid "Disabled"
-msgstr ""
-
-#: ./templates/default/admin/plugins/plugin.tpl.php:56
-msgid "Known Version"
-msgstr ""
-
-#: ./templates/default/admin/plugins/plugin.tpl.php:67
-msgid "Known Build"
-msgstr ""
-
-#: ./templates/default/admin/plugins/plugin.tpl.php:78
-msgid "PHP Version"
-msgstr ""
-
-#: ./templates/default/admin/plugins/plugin.tpl.php:91
-msgid "Extensions"
-msgstr ""
-
-#: ./templates/default/admin/plugins/plugin.tpl.php:106
-msgid "Plugins"
-msgstr ""
-
-#: ./templates/default/admin/plugins/plugin.tpl.php:134
-msgid "Disable"
-msgstr ""
-
-#: ./templates/default/admin/plugins/plugin.tpl.php:147
-msgid "Enable"
-msgstr ""
-
-#: ./templates/default/admin/themes/theme.tpl.php:41
-msgid "(Selected)"
-msgstr ""
-
-#: ./templates/default/admin/themes/theme.tpl.php:48
-msgid "by"
-msgstr ""
-
-#: ./templates/default/admin/dependencies.tpl.php:4
-msgid "Dependencies"
-msgstr ""
-
-#: ./templates/default/admin/dependencies.tpl.php:8
-msgid "The following are system components that are required for Known to fully run. It's worth checking to make sure that they're all installed. If you need help installing any required packages, ask your web host or system administrator."
-msgstr ""
-
-#: ./templates/default/admin/dependencies.tpl.php:17
-msgid "PHP"
-msgstr ""
-
-#: ./templates/default/admin/dependencies.tpl.php:19
-msgid "Version %s or greater"
-msgstr ""
-
-#: ./templates/default/admin/dependencies.tpl.php:27
-msgid "PHP extensions required"
-msgstr ""
-
-#: ./templates/default/admin/dependencies.tpl.php:28
-msgid "These extend the way PHP works, and are required for functionality like database storage, webmentions, etc. Click an extension name to learn more about it, including installation instructions."
-msgstr ""
-
-#: ./templates/default/admin/diagnostics.tpl.php:4
-msgid "Diagnostics"
-msgstr ""
-
-#: ./templates/default/admin/diagnostics.tpl.php:9
-msgid "This page provides you with information that may help you or others diagnose any problems you may be experiencing with your Known install."
-msgstr ""
-
-#: ./templates/default/admin/diagnostics.tpl.php:45
-msgid "Basic checks on installation discovered no problems."
-msgstr ""
-
-#: ./templates/default/admin/diagnostics.tpl.php:57
-msgid "Generate detailed report"
-msgstr ""
-
-#: ./templates/default/admin/email.tpl.php:5
-msgid "Email settings"
-msgstr ""
-
-#: ./templates/default/admin/email.tpl.php:9
-msgid "Known tries to send email using your server's default email settings. If you'd like it to do something else - for example, if you'd like to send email using an external provider - enter the new SMTP settings below. You can also <a href=\\"%s\\">change your notification settings</a>."
-msgstr ""
-
-#: ./templates/default/admin/email.tpl.php:20
-msgid "Fill in the site email address if you would like your site to send email."
-msgstr ""
-
-#: ./templates/default/admin/email.tpl.php:26
-msgid "Site email address"
-msgstr ""
-
-#: ./templates/default/admin/email.tpl.php:33
-msgid "This is the address that every notification will be sent from."
-msgstr ""
-
-#: ./templates/default/admin/email.tpl.php:40
-msgid "You can often leave the following settings blank. However, you may wish to set them if you're using a third-party service to send email."
-msgstr ""
-
-#: ./templates/default/admin/email.tpl.php:48
-msgid "SMTP host"
-msgstr ""
-
-#: ./templates/default/admin/email.tpl.php:55
-msgid "This is the address of the server that will send email for you."
-msgstr ""
-
-#: ./templates/default/admin/email.tpl.php:62
-msgid "SMTP username"
-msgstr ""
-
-#: ./templates/default/admin/email.tpl.php:69
-msgid "If your mail server needs a username, enter it here."
-msgstr ""
-
-#: ./templates/default/admin/email.tpl.php:76
-msgid "SMTP password"
-msgstr ""
-
-#: ./templates/default/admin/email.tpl.php:84
-msgid "If your mail server needs a password, enter it here."
-msgstr ""
-
-#: ./templates/default/admin/email.tpl.php:91
-msgid "SMTP port"
-msgstr ""
-
-#: ./templates/default/admin/email.tpl.php:107
-msgid "This is normally 25 or 587."
-msgstr ""
-
-#: ./templates/default/admin/email.tpl.php:114
-msgid "Secure connection"
-msgstr ""
-
-#: ./templates/default/admin/email.tpl.php:135
-msgid "Select yes if you use secure logins to your mail server."
-msgstr ""
-
-#: ./templates/default/admin/email.tpl.php:157
-msgid "Send a test message to"
-msgstr ""
-
-#: ./templates/default/admin/email.tpl.php:160
-msgid "To address"
-msgstr ""
-
-#: ./templates/default/admin/email.tpl.php:164
-msgid "Check your email settings by sending a test email."
-msgstr ""
-
-#: ./templates/default/admin/email.tpl.php:170
-msgid "Test settings"
-msgstr ""
-
-#: ./templates/default/admin/export.tpl.php:9
-msgid "Export content"
-msgstr ""
-
-#: ./templates/default/admin/export.tpl.php:17
-msgid "Export your published Known content as an RSS file. You can import this file into Known or WordPress."
-msgstr ""
-
-#: ./templates/default/admin/export.tpl.php:20
-msgid "Generate RSS file"
-msgstr ""
-
-#: ./templates/default/admin/export.tpl.php:33
-msgid "Some platforms may assume that your content should be displayed publicly. To protect your privacy, you may wish to only download your public content."
-msgstr ""
-
-#: ./templates/default/admin/export.tpl.php:37
-msgid "Download file"
+#: ./templates/default/content/access.tpl.php:38
+msgid "Private"
 msgstr ""
 
 #: ./templates/default/admin/home.tpl.php:15
@@ -1342,129 +798,52 @@ msgstr ""
 msgid "Always add a link back to your site when you syndicate to external networks."
 msgstr ""
 
-#: ./templates/default/admin/homepage.tpl.php:6
-msgid "Homepage content"
+#: ./templates/default/admin/home.tpl.php:269
+msgid "Save updates"
 msgstr ""
 
-#: ./templates/default/admin/homepage.tpl.php:11
-msgid "Here you can choose what content visitors see on your site homepage. By default, all published content appears on the main page. If you want to hide some content types from the main page, you can turn them off below."
+#: ./templates/default/admin/export/wait.tpl.php:4
+msgid "An archive of your data is being created. Please check again in a few minutes."
 msgstr ""
 
-#: ./templates/default/admin/homepage.tpl.php:16
-msgid "Turn off content types to hide them from the homepage of your site."
+#: ./templates/default/admin/export/generate.tpl.php:5
+msgid "Create archive"
 msgstr ""
 
-#: ./templates/default/admin/homepage.tpl.php:106
-msgid "Save"
+#: ./templates/default/admin/export/generate.tpl.php:18
+msgid "It may take a while to generate your archive. You can leave this page while it's working. Once the export file is complete, this page will update, and you'll be able to download the archive right here."
 msgstr ""
 
-#: ./templates/default/admin/logs.tpl.php:4
-msgid "Log capture"
+#: ./templates/default/admin/export/download.tpl.php:2
+msgid "Download your data"
 msgstr ""
 
-#: ./templates/default/admin/logs.tpl.php:9
-msgid "This page provides you with captured PHP logs. These contain sensitive information, so be very careful how you disclose the information and to whom."
+#: ./templates/default/admin/export/download.tpl.php:3
+msgid "Generated"
 msgstr ""
 
-#: ./templates/default/admin/logs.tpl.php:19
-msgid "Refresh..."
+#: ./templates/default/admin/export/download.tpl.php:7
+msgid "You can also regenerate a new copy of your data archive."
+msgstr ""
+
+#: ./templates/default/admin/export/download.tpl.php:11
+msgid "Re-archive your data"
+msgstr ""
+
+#: ./templates/default/admin/dependencies/build.tpl.php:2
+msgid "%s installed"
+msgstr ""
+
+#: ./templates/default/admin/dependencies/plugin.tpl.php:30
+msgid "(v%s required)"
+msgstr ""
+
+#: ./templates/default/admin/plugins.tpl.php:5
+msgid "Plugins"
 msgstr ""
 
 #: ./templates/default/admin/plugins.tpl.php:9
 msgid "Plugins allow you to add features to your site. These include new kinds of content, options to syndicate content to different sites, and features to change the way Known behaves. To enable or disable a plugin, just click its enable or disable button."
-msgstr ""
-
-#: ./templates/default/admin/statistics.tpl.php:4
-msgid "Statistics"
-msgstr ""
-
-#: ./templates/default/admin/statistics.tpl.php:9
-msgid "This page provides you with information and statistics about your Known site."
-msgstr ""
-
-#: ./templates/default/admin/themes.tpl.php:4
-msgid "Themes"
-msgstr ""
-
-#: ./templates/default/admin/themes.tpl.php:7
-msgid "Themes allow you to change the way your site looks. The following themes are installed."
-msgstr ""
-
-#: ./templates/default/admin/users.tpl.php:4
-msgid "Users"
-msgstr ""
-
-#: ./templates/default/admin/users.tpl.php:9
-msgid "View the users registered for your site, and invite new users to join."
-msgstr ""
-
-#: ./templates/default/admin/users.tpl.php:17
-msgid "Manage site users"
-msgstr ""
-
-#: ./templates/default/admin/users.tpl.php:20
-msgid "Your site has"
-msgstr ""
-
-#: ./templates/default/admin/users.tpl.php:21
-msgid "users"
-msgstr ""
-
-#: ./templates/default/admin/users.tpl.php:23
-msgid "user"
-msgstr ""
-
-#: ./templates/default/admin/users.tpl.php:45
-msgid "Invite new users"
-msgstr ""
-
-#: ./templates/default/admin/users.tpl.php:48
-msgid "To invite new users to the site, enter one or more email addresses below."
-msgstr ""
-
-#: ./templates/default/admin/users.tpl.php:54
-msgid "Send invite"
-msgstr ""
-
-#: ./templates/default/admin/users.tpl.php:111
-msgid "Invitations"
-msgstr ""
-
-#: ./templates/default/admin/users.tpl.php:130
-msgid "Sent"
-msgstr ""
-
-#: ./templates/default/admin/users.tpl.php:171
-msgid "Block email addresses"
-msgstr ""
-
-#: ./templates/default/admin/users.tpl.php:174
-msgid "By blocking email addresses, you prevent people using those email addresses from registering on
-                        your site. Enter the email addresses you want to block below."
-msgstr ""
-
-#: ./templates/default/admin/users.tpl.php:197
-msgid "Blocked email addresses"
-msgstr ""
-
-#: ./templates/default/admin/menu.tpl.php:6
-msgid "Homepage"
-msgstr ""
-
-#: ./templates/default/admin/menu.tpl.php:9
-msgid "Export"
-msgstr ""
-
-#: ./templates/default/admin/menu.tpl.php:10
-msgid "Import"
-msgstr ""
-
-#: ./templates/default/admin/menu.tpl.php:13
-msgid "Captured Logs"
-msgstr ""
-
-#: ./templates/default/admin/menu.tpl.php:15
-msgid "About"
 msgstr ""
 
 #: ./templates/default/admin/import.tpl.php:9
@@ -1607,64 +986,341 @@ msgstr ""
 msgid "Version: %s+%s"
 msgstr ""
 
-#: ./templates/default/content/annotation/edit.tpl.php:5
-msgid "Delete"
+#: ./templates/default/admin/menu.tpl.php:2
+msgid "Site configuration"
 msgstr ""
 
-#: ./templates/default/content/feed/end.tpl.php:13
-msgid "published this"
+#: ./templates/default/admin/menu.tpl.php:4
+msgid "Themes"
 msgstr ""
 
-#: ./templates/default/content/feed/end.tpl.php:28
-msgid "star"
+#: ./templates/default/admin/menu.tpl.php:6
+msgid "Homepage"
 msgstr ""
 
-#: ./templates/default/content/feed/end.tpl.php:30
-msgid "stars"
+#: ./templates/default/admin/menu.tpl.php:7
+msgid "Email"
 msgstr ""
 
-#: ./templates/default/content/feed/end.tpl.php:48
-msgid "comment"
+#: ./templates/default/admin/menu.tpl.php:8
+msgid "Users"
 msgstr ""
 
-#: ./templates/default/content/feed/end.tpl.php:50
-msgid "comments"
+#: ./templates/default/admin/menu.tpl.php:9
+msgid "Export"
 msgstr ""
 
-#: ./templates/default/content/feed/end.tpl.php:106
-msgid "Also on"
+#: ./templates/default/admin/menu.tpl.php:10
+msgid "Import"
 msgstr ""
 
-#: ./templates/default/content/edit.tpl.php:8
-msgid "Edit"
+#: ./templates/default/admin/menu.tpl.php:11
+msgid "Diagnostics"
 msgstr ""
 
-#: ./templates/default/content/edit.tpl.php:9
-msgid "Are you sure you want to permanently delete this entry?"
+#: ./templates/default/admin/menu.tpl.php:13
+msgid "Captured Logs"
 msgstr ""
 
-#: ./templates/default/content/unfurl.tpl.php:11
-msgid "Refresh preview"
+#: ./templates/default/admin/menu.tpl.php:15
+msgid "About"
 msgstr ""
 
-#: ./templates/default/content/unfurl.tpl.php:12
-msgid "Remove preview"
+#: ./templates/default/admin/dependencies.tpl.php:4
+msgid "Dependencies"
 msgstr ""
 
-#: ./templates/default/content/access.tpl.php:34
-msgid "Public"
+#: ./templates/default/admin/dependencies.tpl.php:8
+msgid "The following are system components that are required for Known to fully run. It's worth checking to make sure that they're all installed. If you need help installing any required packages, ask your web host or system administrator."
 msgstr ""
 
-#: ./templates/default/content/access.tpl.php:36
-msgid "Members only"
+#: ./templates/default/admin/dependencies.tpl.php:17
+msgid "PHP"
 msgstr ""
 
-#: ./templates/default/content/access.tpl.php:38
-msgid "Private"
+#: ./templates/default/admin/dependencies.tpl.php:19
+msgid "Version %s or greater"
 msgstr ""
 
-#: ./templates/default/content/end.tpl.php:55
-msgid "Star this!"
+#: ./templates/default/admin/dependencies.tpl.php:27
+msgid "PHP extensions required"
+msgstr ""
+
+#: ./templates/default/admin/dependencies.tpl.php:28
+msgid "These extend the way PHP works, and are required for functionality like database storage, webmentions, etc. Click an extension name to learn more about it, including installation instructions."
+msgstr ""
+
+#: ./templates/default/admin/themes.tpl.php:7
+msgid "Themes allow you to change the way your site looks. The following themes are installed."
+msgstr ""
+
+#: ./templates/default/admin/users.tpl.php:9
+msgid "View the users registered for your site, and invite new users to join."
+msgstr ""
+
+#: ./templates/default/admin/users.tpl.php:17
+msgid "Manage site users"
+msgstr ""
+
+#: ./templates/default/admin/users.tpl.php:20
+msgid "Your site has"
+msgstr ""
+
+#: ./templates/default/admin/users.tpl.php:21
+msgid "users"
+msgstr ""
+
+#: ./templates/default/admin/users.tpl.php:23
+msgid "user"
+msgstr ""
+
+#: ./templates/default/admin/users.tpl.php:45
+msgid "Invite new users"
+msgstr ""
+
+#: ./templates/default/admin/users.tpl.php:48
+msgid "To invite new users to the site, enter one or more email addresses below."
+msgstr ""
+
+#: ./templates/default/admin/users.tpl.php:54
+msgid "Send invite"
+msgstr ""
+
+#: ./templates/default/admin/users.tpl.php:111
+msgid "Invitations"
+msgstr ""
+
+#: ./templates/default/admin/users.tpl.php:130
+msgid "Sent"
+msgstr ""
+
+#: ./templates/default/admin/users.tpl.php:171
+msgid "Block email addresses"
+msgstr ""
+
+#: ./templates/default/admin/users.tpl.php:174
+msgid "By blocking email addresses, you prevent people using those email addresses from registering on
+                        your site. Enter the email addresses you want to block below."
+msgstr ""
+
+#: ./templates/default/admin/users.tpl.php:197
+msgid "Blocked email addresses"
+msgstr ""
+
+#: ./templates/default/admin/export.tpl.php:9
+msgid "Export content"
+msgstr ""
+
+#: ./templates/default/admin/export.tpl.php:17
+msgid "Export your published Known content as an RSS file. You can import this file into Known or WordPress."
+msgstr ""
+
+#: ./templates/default/admin/export.tpl.php:20
+msgid "Generate RSS file"
+msgstr ""
+
+#: ./templates/default/admin/export.tpl.php:25
+msgid "Include private posts?"
+msgstr ""
+
+#: ./templates/default/admin/export.tpl.php:33
+msgid "Some platforms may assume that your content should be displayed publicly. To protect your privacy, you may wish to only download your public content."
+msgstr ""
+
+#: ./templates/default/admin/export.tpl.php:37
+msgid "Download file"
+msgstr ""
+
+#: ./templates/default/admin/home/description.tpl.php:6
+msgid "On this page you can change the basic settings for your site, like the site name and the number of posts visible on each page."
+msgstr ""
+
+#: ./templates/default/admin/themes/theme.tpl.php:41
+msgid "(Selected)"
+msgstr ""
+
+#: ./templates/default/admin/themes/theme.tpl.php:43
+msgid "Enable"
+msgstr ""
+
+#: ./templates/default/admin/themes/theme.tpl.php:48
+msgid "by"
+msgstr ""
+
+#: ./templates/default/admin/diagnostics.tpl.php:9
+msgid "This page provides you with information that may help you or others diagnose any problems you may be experiencing with your Known install."
+msgstr ""
+
+#: ./templates/default/admin/diagnostics.tpl.php:45
+msgid "Basic checks on installation discovered no problems."
+msgstr ""
+
+#: ./templates/default/admin/diagnostics.tpl.php:57
+msgid "Generate detailed report"
+msgstr ""
+
+#: ./templates/default/admin/email.tpl.php:5
+msgid "Email settings"
+msgstr ""
+
+#: ./templates/default/admin/email.tpl.php:9
+msgid "Known tries to send email using your server's default email settings. If you'd like it to do something else - for example, if you'd like to send email using an external provider - enter the new SMTP settings below. You can also <a href=\\"%s\\">change your notification settings</a>."
+msgstr ""
+
+#: ./templates/default/admin/email.tpl.php:20
+msgid "Fill in the site email address if you would like your site to send email."
+msgstr ""
+
+#: ./templates/default/admin/email.tpl.php:26
+msgid "Site email address"
+msgstr ""
+
+#: ./templates/default/admin/email.tpl.php:33
+msgid "This is the address that every notification will be sent from."
+msgstr ""
+
+#: ./templates/default/admin/email.tpl.php:40
+msgid "You can often leave the following settings blank. However, you may wish to set them if you're using a third-party service to send email."
+msgstr ""
+
+#: ./templates/default/admin/email.tpl.php:48
+msgid "SMTP host"
+msgstr ""
+
+#: ./templates/default/admin/email.tpl.php:55
+msgid "This is the address of the server that will send email for you."
+msgstr ""
+
+#: ./templates/default/admin/email.tpl.php:62
+msgid "SMTP username"
+msgstr ""
+
+#: ./templates/default/admin/email.tpl.php:69
+msgid "If your mail server needs a username, enter it here."
+msgstr ""
+
+#: ./templates/default/admin/email.tpl.php:76
+msgid "SMTP password"
+msgstr ""
+
+#: ./templates/default/admin/email.tpl.php:84
+msgid "If your mail server needs a password, enter it here."
+msgstr ""
+
+#: ./templates/default/admin/email.tpl.php:91
+msgid "SMTP port"
+msgstr ""
+
+#: ./templates/default/admin/email.tpl.php:107
+msgid "This is normally 25 or 587."
+msgstr ""
+
+#: ./templates/default/admin/email.tpl.php:114
+msgid "Secure connection"
+msgstr ""
+
+#: ./templates/default/admin/email.tpl.php:135
+msgid "Select yes if you use secure logins to your mail server."
+msgstr ""
+
+#: ./templates/default/admin/email.tpl.php:142
+msgid "Save settings"
+msgstr ""
+
+#: ./templates/default/admin/email.tpl.php:157
+msgid "Send a test message to"
+msgstr ""
+
+#: ./templates/default/admin/email.tpl.php:160
+msgid "To address"
+msgstr ""
+
+#: ./templates/default/admin/email.tpl.php:164
+msgid "Check your email settings by sending a test email."
+msgstr ""
+
+#: ./templates/default/admin/email.tpl.php:170
+msgid "Test settings"
+msgstr ""
+
+#: ./templates/default/admin/statistics.tpl.php:4
+msgid "Statistics"
+msgstr ""
+
+#: ./templates/default/admin/statistics.tpl.php:9
+msgid "This page provides you with information and statistics about your Known site."
+msgstr ""
+
+#: ./templates/default/admin/homepage.tpl.php:6
+msgid "Homepage content"
+msgstr ""
+
+#: ./templates/default/admin/homepage.tpl.php:11
+msgid "Here you can choose what content visitors see on your site homepage. By default, all published content appears on the main page. If you want to hide some content types from the main page, you can turn them off below."
+msgstr ""
+
+#: ./templates/default/admin/homepage.tpl.php:16
+msgid "Turn off content types to hide them from the homepage of your site."
+msgstr ""
+
+#: ./templates/default/admin/homepage.tpl.php:106
+msgid "Save"
+msgstr ""
+
+#: ./templates/default/admin/logs.tpl.php:4
+msgid "Log capture"
+msgstr ""
+
+#: ./templates/default/admin/logs.tpl.php:9
+msgid "This page provides you with captured PHP logs. These contain sensitive information, so be very careful how you disclose the information and to whom."
+msgstr ""
+
+#: ./templates/default/admin/logs.tpl.php:19
+msgid "Refresh..."
+msgstr ""
+
+#: ./templates/default/admin/plugins/plugin.tpl.php:35
+msgid "Enabled"
+msgstr ""
+
+#: ./templates/default/admin/plugins/plugin.tpl.php:37
+msgid "Disabled"
+msgstr ""
+
+#: ./templates/default/admin/plugins/plugin.tpl.php:56
+msgid "Known Version"
+msgstr ""
+
+#: ./templates/default/admin/plugins/plugin.tpl.php:67
+msgid "Known Build"
+msgstr ""
+
+#: ./templates/default/admin/plugins/plugin.tpl.php:78
+msgid "PHP Version"
+msgstr ""
+
+#: ./templates/default/admin/plugins/plugin.tpl.php:91
+msgid "Extensions"
+msgstr ""
+
+#: ./templates/default/admin/plugins/plugin.tpl.php:134
+msgid "Disable"
+msgstr ""
+
+#: ./templates/default/entity/share.tpl.php:9
+msgid "This content can't be shared right now."
+msgstr ""
+
+#: ./templates/default/entity/search.tpl.php:18
+msgid "Nothing found."
+msgstr ""
+
+#: ./templates/default/entity/User.tpl.php:61
+msgid "A profile helps you describe yourself to other people on the site and on the web. You haven't described yourself yet."
+msgstr ""
+
+#: ./templates/default/entity/User.tpl.php:62
+msgid "Click here to fill in your profile information."
 msgstr ""
 
 #: ./templates/default/entity/User/edit.tpl.php:3
@@ -1677,6 +1333,10 @@ msgstr ""
 
 #: ./templates/default/entity/User/edit.tpl.php:23
 msgid "Select a user picture"
+msgstr ""
+
+#: ./templates/default/entity/User/edit.tpl.php:37
+msgid "Your name"
 msgstr ""
 
 #: ./templates/default/entity/User/edit.tpl.php:49
@@ -1707,20 +1367,12 @@ msgstr ""
 msgid "Save Changes"
 msgstr ""
 
-#: ./templates/default/entity/annotations/comment/main.tpl.php:16
-msgid "Add a comment ..."
-msgstr ""
-
-#: ./templates/default/entity/annotations/comment/main.tpl.php:21
-msgid "Leave Comment"
+#: ./templates/default/entity/annotations/mentions.tpl.php:18
+msgid "Mentioned in"
 msgstr ""
 
 #: ./templates/default/entity/annotations/likes.tpl.php:24
 msgid "liked this post"
-msgstr ""
-
-#: ./templates/default/entity/annotations/mentions.tpl.php:18
-msgid "Mentioned in"
 msgstr ""
 
 #: ./templates/default/entity/annotations/rsvps.tpl.php:38
@@ -1743,20 +1395,76 @@ msgstr ""
 msgid "reshared this post"
 msgstr ""
 
-#: ./templates/default/entity/User.tpl.php:61
-msgid "A profile helps you describe yourself to other people on the site and on the web. You haven't described yourself yet."
+#: ./templates/default/entity/annotations/comment/main.tpl.php:16
+msgid "Add a comment ..."
 msgstr ""
 
-#: ./templates/default/entity/User.tpl.php:62
-msgid "Click here to fill in your profile information."
+#: ./templates/default/entity/annotations/comment/main.tpl.php:21
+msgid "Leave Comment"
 msgstr ""
 
-#: ./templates/default/entity/search.tpl.php:18
-msgid "Nothing found."
+#: ./templates/default/settings-shell/toolbar/logged-in.tpl.php:4
+msgid "Notifications"
 msgstr ""
 
-#: ./templates/default/entity/share.tpl.php:9
-msgid "This content can't be shared right now."
+#: ./templates/default/settings-shell/toolbar/logged-in.tpl.php:13
+msgid "Account Settings"
+msgstr ""
+
+#: ./templates/default/settings-shell/toolbar/logged-in.tpl.php:18
+msgid "Site Configuration"
+msgstr ""
+
+#: ./templates/default/settings-shell/nav.tpl.php:6
+msgid "Toggle navigation"
+msgstr ""
+
+#: ./templates/default/shell/pagination.tpl.php:28
+msgid "Newer"
+msgstr ""
+
+#: ./templates/default/shell/pagination.tpl.php:29
+msgid "Older"
+msgstr ""
+
+#: ./templates/default/shell/toolbar/content/all.tpl.php:4
+msgid "All content"
+msgstr ""
+
+#: ./templates/default/shell/toolbar/content/default.tpl.php:4
+msgid "Default content"
+msgstr ""
+
+#: ./templates/default/shell/toolbar/login.tpl.php:3
+msgid "Sign in"
+msgstr ""
+
+#: ./templates/default/shell/toolbar/content.tpl.php:26
+msgid "Filter content"
+msgstr ""
+
+#: ./templates/default/shell/toolbar/logout.tpl.php:1
+msgid "Sign out"
+msgstr ""
+
+#: ./templates/default/shell/toolbar/logged-in.tpl.php:16
+msgid "Profile"
+msgstr ""
+
+#: ./templates/default/shell/toolbar/logged-in.tpl.php:49
+msgid "Leave feedback"
+msgstr ""
+
+#: ./templates/default/shell/toolbar/logged-in.tpl.php:49
+msgid "Feedback"
+msgstr ""
+
+#: ./templates/default/shell/toolbar/register.tpl.php:1
+msgid "Register"
+msgstr ""
+
+#: ./templates/default/shell/toolbar/main.tpl.php:1
+msgid "Skip to main content"
 msgstr ""
 
 #: ./templates/default/file/picker/image.tpl.php:19
@@ -1771,52 +1479,128 @@ msgstr ""
 msgid "Choose a different image"
 msgstr ""
 
-#: ./templates/default/following/add.tpl.php:3
-msgid "Add the address of a site to follow"
+#: ./templates/default/robot/post.tpl.php:19
+msgid "Power down robots. I can take it from here."
 msgstr ""
 
-#: ./templates/default/following/confirm.tpl.php:7
-msgid "Follow"
+#: ./templates/default/robot/wizard.tpl.php:7
+msgid "Check out my new @withknown site!"
 msgstr ""
 
-#: ./templates/default/following/confirm.tpl.php:12
-msgid "Here's the latest content."
+#: ./templates/default/robot/wizard.tpl.php:13
+msgid "Welcome to your new Known site! I'm Aleph, your very own welcome robot. Let's get started by <a href=\\"#\\" onclick=\\"event.preventDefault(); contentCreateForm('status"
 msgstr ""
 
-#: ./templates/default/following/home.tpl.php:3
-msgid "Following"
+#: ./templates/default/robot/wizard.tpl.php:26
+msgid "Beep! That was a great update. Why not <a href=\\"{{facebookurl}}\\" target=\\"blank\\" onclick=\\"window.open('{{facebookurl}}"
 msgstr ""
 
-#: ./templates/default/following/home.tpl.php:13
-msgid "Follow another site"
+#: ./templates/default/robot/wizard.tpl.php:39
+msgid "Zeep! That was a great update. Why not <a href=\\"{{facebookurl}}\\" target=\\"blank\\" onclick=\\"window.open('{{facebookurl}}"
 msgstr ""
 
-#: ./templates/default/following/home.tpl.php:31
-msgid "You're not following anyone yet."
+#: ./templates/default/robot/wizard.tpl.php:52
+msgid "Beep boop! That was a great update. Why not <a href=\\"{{facebookurl}}\\" target=\\"blank\\" onclick=\\"window.open('{{facebookurl}}"
 msgstr ""
 
-#: ./templates/default/forms/input/longtext.tpl.php:21
-msgid "Share something brilliant..."
+#: ./templates/default/robot/wizard.tpl.php:57
+msgid "Beepity boop! That was a great picture. Did you see that you can also <a href=\\"{{userurl}}/edit\\">update your profile</a>?"
 msgstr ""
 
-#: ./templates/default/forms/input/richtext.tpl.php:49
-msgid "Please complete this field."
+#: ./templates/default/robot/wizard.tpl.php:62
+msgid "Boopity beep! Did you see that you can also <a href=\\"{{userurl}}/edit\\">update your profile</a>?"
 msgstr ""
 
-#: ./templates/default/forms/input/image-file.tpl.php:58
-msgid "Are you sure you want to permanently delete this?"
+#: ./templates/default/robot/wizard.tpl.php:75
+msgid "01011001 01101111 00100000 01111001 01101111 00100000 01111001 01101111 \n\nThat's how you say hello where I come from. I wanted to remind you that you can also <a href=\\"{{baseurl}}admin/themes/\\">change the theme of your site</a>. If you ever have feedback, you can <a href=\\"{{baseurl}}account/settings/feedback/\\">send a message to my human creators</a>."
 msgstr ""
 
-#: ./templates/default/forms/input/image-file.tpl.php:75
-msgid "Choose different photo"
+#: ./templates/default/pages/500.tpl.php:6
+msgid "Something went wrong."
 msgstr ""
 
-#: ./templates/default/forms/input/image-file.tpl.php:78
-msgid "Select a photo"
+#: ./templates/default/pages/500.tpl.php:15
+msgid "<a href=\"#\" onclick=\"window.history.back();\">Click here to try again</a> or <a href=\"%s\">click here to go back to the homepage</a>."
 msgstr ""
 
-#: ./templates/default/forms/input/image-file.tpl.php:83
-msgid "Add photo"
+#: ./templates/default/pages/500.tpl.php:19
+msgid "Click here to see the technical details."
+msgstr ""
+
+#: ./templates/default/pages/500.tpl.php:32
+msgid "Oh no! Something went wrong."
+msgstr ""
+
+#: ./templates/default/pages/404.tpl.php:5
+msgid "Oops! We couldn't find it."
+msgstr ""
+
+#: ./templates/default/pages/404.tpl.php:7
+msgid "Whatever you were looking for, it's not here. It might have been moved, deleted, or it doesn't exist. Or the robots ate it. That's always a possibility too."
+msgstr ""
+
+#: ./templates/default/pages/404.tpl.php:8
+msgid "Maybe you'll find something interesting if you head back to the <a href=\\"%s\\">%s homepage</a>."
+msgstr ""
+
+#: ./templates/default/pages/403.tpl.php:7
+msgid "Click here to log in."
+msgstr ""
+
+#: ./templates/default/pages/403.tpl.php:18
+msgid "Hold on. You don't have access to this content."
+msgstr ""
+
+#: ./templates/default/pages/403.tpl.php:20
+msgid "It's nothing personal. You just don't have the right permissions to see what's here."
+msgstr ""
+
+#: ./templates/default/pages/403.tpl.php:22
+msgid "Find something else to view on the <a href=\"%s\">%s homepage</a>."
+msgstr ""
+
+#: ./templates/default/pages/home/nocontent.tpl.php:10
+msgid "We couldn't find anything that matches your search."
+msgstr ""
+
+#: ./templates/default/pages/410.tpl.php:6
+msgid "Sorry, this content isn't here anymore."
+msgstr ""
+
+#: ./templates/default/pages/410.tpl.php:8
+msgid "You may be wondering where it went, but we can't tell you. It's a secret."
+msgstr ""
+
+#: ./templates/default/pages/410.tpl.php:10
+msgid "Maybe you'd like to head back to the <a href=\\"%s\\">%s homepage</a> instead."
+msgstr ""
+
+#: ./templates/default/forms/usersearch.tpl.php:24
+msgid "Search by name, email address, or username"
+msgstr ""
+
+#: ./templates/default/forms/usersearch.tpl.php:79
+msgid "By creation date"
+msgstr ""
+
+#: ./templates/default/forms/usersearch.tpl.php:80
+msgid "By name"
+msgstr ""
+
+#: ./templates/default/forms/usersearch.tpl.php:89
+msgid "Ascending"
+msgstr ""
+
+#: ./templates/default/forms/usersearch.tpl.php:90
+msgid "Descending"
+msgstr ""
+
+#: ./templates/default/forms/usersearch.tpl.php:102
+msgid "Prev"
+msgstr ""
+
+#: ./templates/default/forms/usersearch.tpl.php:103
+msgid "Next"
 msgstr ""
 
 #: ./templates/default/forms/components/usersearch/user.tpl.php:27
@@ -1825,6 +1609,10 @@ msgstr ""
 
 #: ./templates/default/forms/components/usersearch/user.tpl.php:35
 msgid "Last update posted"
+msgstr ""
+
+#: ./templates/default/forms/components/usersearch/user.tpl.php:45
+msgid "Never"
 msgstr ""
 
 #: ./templates/default/forms/components/usersearch/user.tpl.php:57
@@ -1871,32 +1659,368 @@ msgstr ""
 msgid "Are you sure? This will delete this user and all their content."
 msgstr ""
 
-#: ./templates/default/forms/usersearch.tpl.php:24
-msgid "Search by name, email address, or username"
+#: ./templates/default/forms/input/richtext.tpl.php:21
+msgid "Share something brilliant..."
 msgstr ""
 
-#: ./templates/default/forms/usersearch.tpl.php:79
-msgid "By creation date"
+#: ./templates/default/forms/input/richtext.tpl.php:49
+msgid "Please complete this field."
 msgstr ""
 
-#: ./templates/default/forms/usersearch.tpl.php:80
-msgid "By name"
+#: ./templates/default/forms/input/image-file.tpl.php:58
+msgid "Are you sure you want to permanently delete this?"
 msgstr ""
 
-#: ./templates/default/forms/usersearch.tpl.php:89
-msgid "Ascending"
+#: ./templates/default/forms/input/image-file.tpl.php:75
+msgid "Choose different photo"
 msgstr ""
 
-#: ./templates/default/forms/usersearch.tpl.php:90
-msgid "Descending"
+#: ./templates/default/forms/input/image-file.tpl.php:78
+msgid "Select a photo"
 msgstr ""
 
-#: ./templates/default/forms/usersearch.tpl.php:102
-msgid "Prev"
+#: ./templates/default/forms/input/image-file.tpl.php:83
+msgid "Add photo"
 msgstr ""
 
-#: ./templates/default/forms/usersearch.tpl.php:103
-msgid "Next"
+#: ./templates/default/account/login.tpl.php:4
+msgid "Welcome back!"
+msgstr ""
+
+#: ./templates/default/account/login.tpl.php:14
+msgid "Your email address or username"
+msgstr ""
+
+#: ./templates/default/account/login.tpl.php:17
+msgid "Password"
+msgstr ""
+
+#: ./templates/default/account/login.tpl.php:36
+msgid "New here? Register for an account."
+msgstr ""
+
+#: ./templates/default/account/login.tpl.php:40
+msgid "Forgot your password?"
+msgstr ""
+
+#: ./templates/default/account/settings.tpl.php:14
+msgid "Change your user account settings here. You may also want to <a href=\"%s\">edit your profile</a>."
+msgstr ""
+
+#: ./templates/default/account/settings.tpl.php:39
+msgid "Your email address"
+msgstr ""
+
+#: ./templates/default/account/settings.tpl.php:45
+msgid "Site notifications will be sent here."
+msgstr ""
+
+#: ./templates/default/account/settings.tpl.php:51
+msgid "Your password"
+msgstr ""
+
+#: ./templates/default/account/settings.tpl.php:58
+msgid "Leave this blank if you don't want to change it."
+msgstr ""
+
+#: ./templates/default/account/settings.tpl.php:64
+msgid "Your timezone"
+msgstr ""
+
+#: ./templates/default/account/settings.tpl.php:73
+msgid "Timezone"
+msgstr ""
+
+#: ./templates/default/account/settings.tpl.php:78
+msgid "Specify your timezone."
+msgstr ""
+
+#: ./templates/default/account/menu.tpl.php:3
+msgid "Settings"
+msgstr ""
+
+#: ./templates/default/account/menu.tpl.php:6
+msgid "Email notifications"
+msgstr ""
+
+#: ./templates/default/account/menu.tpl.php:8
+msgid "Tools and Apps"
+msgstr ""
+
+#: ./templates/default/account/menu.tpl.php:11
+msgid "Export Data"
+msgstr ""
+
+#: ./templates/default/account/notifications.tpl.php:6
+msgid "The notifications screen shows you who has interacted with your content."
+msgstr ""
+
+#: ./templates/default/account/notifications.tpl.php:25
+msgid "You don't have any notifications yet. But we love you anyway!"
+msgstr ""
+
+#: ./templates/default/account/settings/tools.tpl.php:13
+msgid "Bookmarklet"
+msgstr ""
+
+#: ./templates/default/account/settings/tools.tpl.php:22
+msgid "The Known bookmarklet is the best way to save links, reply to posts, and share articles."
+msgstr ""
+
+#: ./templates/default/account/settings/tools.tpl.php:23
+msgid "Just drag the bookmarklet button below into your browser's Bookmark Bar."
+msgstr ""
+
+#: ./templates/default/account/settings/tools.tpl.php:42
+msgid "Don't see a bookmarks bar?"
+msgstr ""
+
+#: ./templates/default/account/settings/tools.tpl.php:45
+msgid "Sometimes web browsers have their bookmarked links bar hidden by default. Here's how to reveal it:"
+msgstr ""
+
+#: ./templates/default/account/settings/tools.tpl.php:47
+msgid "Chrome"
+msgstr ""
+
+#: ./templates/default/account/settings/tools.tpl.php:47
+msgid "Select <em>Always Show Bookmarks Bar</em> from the <em>View</em> menu."
+msgstr ""
+
+#: ./templates/default/account/settings/tools.tpl.php:48
+msgid "Firefox"
+msgstr ""
+
+#: ./templates/default/account/settings/tools.tpl.php:48
+msgid "Select <em>View</em>, then <em>Toolbars</em>, and make sure"
+msgstr ""
+
+#: ./templates/default/account/settings/tools.tpl.php:49
+msgid "Bookmarks Toolbar"
+msgstr ""
+
+#: ./templates/default/account/settings/tools.tpl.php:49
+msgid "is checked."
+msgstr ""
+
+#: ./templates/default/account/settings/tools.tpl.php:50
+msgid "Internet Explorer"
+msgstr ""
+
+#: ./templates/default/account/settings/tools.tpl.php:50
+msgid "Select <em>Tools</em>, then make sure <em>Favorites Bar</em> is checked."
+msgstr ""
+
+#: ./templates/default/account/settings/tools.tpl.php:65
+msgid "Your API key"
+msgstr ""
+
+#: ./templates/default/account/settings/tools.tpl.php:76
+msgid "Revoke"
+msgstr ""
+
+#: ./templates/default/account/settings/tools.tpl.php:76
+msgid "Revoking this key will mean you must update any applications that use this key!"
+msgstr ""
+
+#: ./templates/default/account/settings/notifications.tpl.php:17
+msgid "Set how you'd like to be notified when someone stars or comments on your content."
+msgstr ""
+
+#: ./templates/default/account/settings/notifications.tpl.php:26
+msgid "Send email notifications"
+msgstr ""
+
+#: ./templates/default/account/settings/notifications.tpl.php:34
+msgid "Whenever someone interacts with my content"
+msgstr ""
+
+#: ./templates/default/account/settings/notifications.tpl.php:44
+msgid "Only when someone comments on my content"
+msgstr ""
+
+#: ./templates/default/account/settings/notifications.tpl.php:63
+msgid "Ignored Domains"
+msgstr ""
+
+#: ./templates/default/account/settings/notifications.tpl.php:64
+msgid "Do not send notifications for interactions originating from these domains (one domain per line)"
+msgstr ""
+
+#: ./templates/default/account/settings/feedback.tpl.php:5
+msgid "Share your feedback"
+msgstr ""
+
+#: ./templates/default/account/settings/feedback.tpl.php:9
+msgid "Want to share something with the Known team? We'd love to read your thoughts, suggestions, or ideas. We will personally read all of your feedback."
+msgstr ""
+
+#: ./templates/default/account/settings/feedback.tpl.php:21
+msgid "From"
+msgstr ""
+
+#: ./templates/default/account/settings/feedback.tpl.php:29
+msgid "Feedback for the Known team"
+msgstr ""
+
+#: ./templates/default/account/settings/feedback.tpl.php:32
+msgid "Let us know what you think."
+msgstr ""
+
+#: ./templates/default/account/settings/feedback.tpl.php:37
+msgid "Send feedback"
+msgstr ""
+
+#: ./templates/default/account/settings/following.tpl.php:5
+msgid "Following..."
+msgstr ""
+
+#: ./templates/default/account/settings/following.tpl.php:11
+msgid "Manage your subscriptions here. These users can also be given access to private content you produce on your site."
+msgstr ""
+
+#: ./templates/default/account/settings/following.tpl.php:16
+msgid "Use this bookmarklet to make is easy to add new friends."
+msgstr ""
+
+#: ./templates/default/account/settings/feedback/confirm.tpl.php:5
+msgid "Message received!"
+msgstr ""
+
+#: ./templates/default/account/settings/feedback/confirm.tpl.php:9
+msgid "Thanks for sending along your thoughts. We'll read them right away."
+msgstr ""
+
+#: ./templates/default/account/settings/feedback/confirm.tpl.php:22
+msgid "Feedback is a gift.  For more information about Known, <a href=\"https://withknown.com/\">please visit our homepage</a>"
+msgstr ""
+
+#: ./templates/default/account/settings/following/bookmarklet.tpl.php:3
+msgid "Add as friend..."
+msgstr ""
+
+#: ./templates/default/account/settings/following/mf2user.tpl.php:55
+msgid "Name"
+msgstr ""
+
+#: ./templates/default/account/settings/following/mf2user.tpl.php:64
+msgid "Nickname"
+msgstr ""
+
+#: ./templates/default/account/settings/following/mf2user.tpl.php:67
+msgid "Handle (for your reference)"
+msgstr ""
+
+#: ./templates/default/account/settings/following/mf2user.tpl.php:82
+msgid "Profile URL"
+msgstr ""
+
+#: ./templates/default/account/password/reset.tpl.php:5
+msgid "Reset your password"
+msgstr ""
+
+#: ./templates/default/account/password/reset.tpl.php:7
+msgid "To change your password, enter your new password below:"
+msgstr ""
+
+#: ./templates/default/account/password/reset.tpl.php:17
+msgid "The address associated with your %s account."
+msgstr ""
+
+#: ./templates/default/account/password/reset.tpl.php:23
+msgid "New password (7 characters or more)"
+msgstr ""
+
+#: ./templates/default/account/password/reset.tpl.php:29
+msgid "Retype password"
+msgstr ""
+
+#: ./templates/default/account/password/reset.tpl.php:30
+msgid "We ask you to enter the password twice to protect against typos."
+msgstr ""
+
+#: ./templates/default/account/password/reset.tpl.php:37
+msgid "Reset password"
+msgstr ""
+
+#: ./templates/default/account/password/sent.tpl.php:5
+msgid "Your password reset email has been sent"
+msgstr ""
+
+#: ./templates/default/account/password/sent.tpl.php:15
+msgid "Check your inbox! You'll find an email containing a special link that will help you reset your password."
+msgstr ""
+
+#: ./templates/default/account/password/sent.tpl.php:18
+msgid "Did you remember your password? That's okay too. You can <a href=\\"%s\\">click here to sign in.</a>"
+msgstr ""
+
+#: ./templates/default/account/password.tpl.php:9
+msgid "Forgot your password? Don't worry! It happens to the best of us."
+msgstr ""
+
+#: ./templates/default/account/password.tpl.php:10
+msgid "Just enter the email address associated with your %s account below, and we'll send you a top secret link to your email account so that you can create a new password."
+msgstr ""
+
+#: ./templates/default/account/password.tpl.php:27
+msgid "Send password reset email"
+msgstr ""
+
+#: ./templates/default/account/export.tpl.php:8
+msgid "Export your data"
+msgstr ""
+
+#: ./templates/default/account/export.tpl.php:19
+msgid "You can download an RSS version of everything you've posted on this site. This file is suitable for importing into content management systems like WordPress, or another Known site."
+msgstr ""
+
+#: ./templates/default/account/export.tpl.php:32
+msgid "Platforms like WordPress may assume that all your posts should be displayed publicly. In order to protect your privacy, you may wish to just download your public posts."
+msgstr ""
+
+#: ./templates/default/account/export.tpl.php:36
+msgid "Download RSS Feed"
+msgstr ""
+
+#: ./templates/default/account/register.tpl.php:5
+msgid "Hello there!"
+msgstr ""
+
+#: ./templates/default/account/register.tpl.php:7
+msgid "Create a new account to get started."
+msgstr ""
+
+#: ./templates/default/account/register.tpl.php:20
+msgid "Choose a handle"
+msgstr ""
+
+#: ./templates/default/account/register.tpl.php:21
+msgid "Handles identify you throughout the site. Something simple is best: for example, <em>janedoe</em>."
+msgstr ""
+
+#: ./templates/default/account/register.tpl.php:23
+msgid "username"
+msgstr ""
+
+#: ./templates/default/account/register.tpl.php:33
+msgid "Create a password"
+msgstr ""
+
+#: ./templates/default/account/register.tpl.php:34
+msgid "At least 7 characters please."
+msgstr ""
+
+#: ./templates/default/account/register.tpl.php:37
+msgid "secret-password"
+msgstr ""
+
+#: ./templates/default/account/register.tpl.php:42
+msgid "Your password again"
+msgstr ""
+
+#: ./templates/default/account/register.tpl.php:49
+msgid "Create Account"
 msgstr ""
 
 #: ./templates/default/onboarding/connect.tpl.php:3
@@ -1913,6 +2037,38 @@ msgstr ""
 
 #: ./templates/default/onboarding/connect.tpl.php:19
 msgid "Don't worry, you can always connect these later."
+msgstr ""
+
+#: ./templates/default/onboarding/begin.tpl.php:8
+msgid "Known is your space for sharing content and discussing ideas."
+msgstr ""
+
+#: ./templates/default/onboarding/begin.tpl.php:13
+msgid "Take a picture"
+msgstr ""
+
+#: ./templates/default/onboarding/begin.tpl.php:17
+msgid "Share a message"
+msgstr ""
+
+#: ./templates/default/onboarding/begin.tpl.php:21
+msgid "Save your location"
+msgstr ""
+
+#: ./templates/default/onboarding/begin.tpl.php:34
+msgid "Get started"
+msgstr ""
+
+#: ./templates/default/onboarding/begin.tpl.php:42
+msgid "Already have an account? Sign in."
+msgstr ""
+
+#: ./templates/default/onboarding/register.tpl.php:13
+msgid "Choose a username"
+msgstr ""
+
+#: ./templates/default/onboarding/register.tpl.php:26
+msgid "(at least 7 characters please)"
 msgstr ""
 
 #: ./templates/default/onboarding/profile.tpl.php:3
@@ -1947,191 +2103,35 @@ msgstr ""
 msgid "Add another website"
 msgstr ""
 
-#: ./templates/default/onboarding/register.tpl.php:13
-msgid "Choose a username"
+#: ./templates/default/following/home.tpl.php:3
+msgid "Following"
 msgstr ""
 
-#: ./templates/default/onboarding/register.tpl.php:26
-msgid "(at least 7 characters please)"
+#: ./templates/default/following/home.tpl.php:13
+msgid "Follow another site"
 msgstr ""
 
-#: ./templates/default/onboarding/begin.tpl.php:8
-msgid "Known is your space for sharing content and discussing ideas."
+#: ./templates/default/following/home.tpl.php:31
+msgid "You're not following anyone yet."
 msgstr ""
 
-#: ./templates/default/onboarding/begin.tpl.php:13
-msgid "Take a picture"
+#: ./templates/default/following/confirm.tpl.php:7
+msgid "Follow"
 msgstr ""
 
-#: ./templates/default/onboarding/begin.tpl.php:17
-msgid "Share a message"
+#: ./templates/default/following/confirm.tpl.php:12
+msgid "Here's the latest content."
 msgstr ""
 
-#: ./templates/default/onboarding/begin.tpl.php:21
-msgid "Save your location"
+#: ./templates/default/following/add.tpl.php:3
+msgid "Add the address of a site to follow"
 msgstr ""
 
-#: ./templates/default/onboarding/begin.tpl.php:34
-msgid "Get started"
-msgstr ""
-
-#: ./templates/default/onboarding/begin.tpl.php:42
-msgid "Already have an account? Sign in."
-msgstr ""
-
-#: ./templates/default/pages/home/nocontent.tpl.php:10
-msgid "We couldn't find anything that matches your search."
-msgstr ""
-
-#: ./templates/default/pages/500.tpl.php:6
-msgid "Something went wrong."
-msgstr ""
-
-#: ./templates/default/pages/500.tpl.php:15
-msgid "<a href=\"#\" onclick=\"window.history.back();\">Click here to try again</a> or <a href=\"%s\">click here to go back to the homepage</a>."
-msgstr ""
-
-#: ./templates/default/pages/500.tpl.php:19
-msgid "Click here to see the technical details."
-msgstr ""
-
-#: ./templates/default/pages/500.tpl.php:32
-msgid "Oh no! Something went wrong."
-msgstr ""
-
-#: ./templates/default/pages/403.tpl.php:7
-msgid "Click here to log in."
-msgstr ""
-
-#: ./templates/default/pages/403.tpl.php:18
-msgid "Hold on. You don't have access to this content."
-msgstr ""
-
-#: ./templates/default/pages/403.tpl.php:20
-msgid "It's nothing personal. You just don't have the right permissions to see what's here."
-msgstr ""
-
-#: ./templates/default/pages/403.tpl.php:22
-msgid "Find something else to view on the <a href=\"%s\">%s homepage</a>."
-msgstr ""
-
-#: ./templates/default/pages/404.tpl.php:5
-msgid "Oops! We couldn't find it."
-msgstr ""
-
-#: ./templates/default/pages/404.tpl.php:7
-msgid "Whatever you were looking for, it's not here. It might have been moved, deleted, or it doesn't exist. Or the robots ate it. That's always a possibility too."
-msgstr ""
-
-#: ./templates/default/pages/404.tpl.php:8
-msgid "Maybe you'll find something interesting if you head back to the <a href=\\"%s\\">%s homepage</a>."
-msgstr ""
-
-#: ./templates/default/pages/410.tpl.php:6
-msgid "Sorry, this content isn't here anymore."
-msgstr ""
-
-#: ./templates/default/pages/410.tpl.php:8
-msgid "You may be wondering where it went, but we can't tell you. It's a secret."
-msgstr ""
-
-#: ./templates/default/pages/410.tpl.php:10
-msgid "Maybe you'd like to head back to the <a href=\\"%s\\">%s homepage</a> instead."
-msgstr ""
-
-#: ./templates/default/robot/wizard.tpl.php:7
-msgid "Check out my new @withknown site!"
-msgstr ""
-
-#: ./templates/default/robot/wizard.tpl.php:13
-msgid "Welcome to your new Known site! I'm Aleph, your very own welcome robot. Let's get started by <a href=\\"#\\" onclick=\\"event.preventDefault(); contentCreateForm('status"
-msgstr ""
-
-#: ./templates/default/robot/wizard.tpl.php:26
-msgid "Beep! That was a great update. Why not <a href=\\"{{facebookurl}}\\" target=\\"blank\\" onclick=\\"window.open('{{facebookurl}}"
-msgstr ""
-
-#: ./templates/default/robot/wizard.tpl.php:39
-msgid "Zeep! That was a great update. Why not <a href=\\"{{facebookurl}}\\" target=\\"blank\\" onclick=\\"window.open('{{facebookurl}}"
-msgstr ""
-
-#: ./templates/default/robot/wizard.tpl.php:52
-msgid "Beep boop! That was a great update. Why not <a href=\\"{{facebookurl}}\\" target=\\"blank\\" onclick=\\"window.open('{{facebookurl}}"
-msgstr ""
-
-#: ./templates/default/robot/wizard.tpl.php:57
-msgid "Beepity boop! That was a great picture. Did you see that you can also <a href=\\"{{userurl}}/edit\\">update your profile</a>?"
-msgstr ""
-
-#: ./templates/default/robot/wizard.tpl.php:62
-msgid "Boopity beep! Did you see that you can also <a href=\\"{{userurl}}/edit\\">update your profile</a>?"
-msgstr ""
-
-#: ./templates/default/robot/wizard.tpl.php:75
-msgid "01011001 01101111 00100000 01111001 01101111 00100000 01111001 01101111 \n\nThat's how you say hello where I come from. I wanted to remind you that you can also <a href=\\"{{baseurl}}admin/themes/\\">change the theme of your site</a>. If you ever have feedback, you can <a href=\\"{{baseurl}}account/settings/feedback/\\">send a message to my human creators</a>."
-msgstr ""
-
-#: ./templates/default/robot/post.tpl.php:19
-msgid "Power down robots. I can take it from here."
-msgstr ""
-
-#: ./templates/default/shell/toolbar/content/all.tpl.php:4
-msgid "All content"
-msgstr ""
-
-#: ./templates/default/shell/toolbar/content/default.tpl.php:4
-msgid "Default content"
-msgstr ""
-
-#: ./templates/default/shell/toolbar/content.tpl.php:26
-msgid "Filter content"
-msgstr ""
-
-#: ./templates/default/shell/toolbar/logout.tpl.php:1
-msgid "Sign out"
-msgstr ""
-
-#: ./templates/default/shell/toolbar/main.tpl.php:1
-msgid "Skip to main content"
-msgstr ""
-
-#: ./templates/default/shell/toolbar/main.tpl.php:7
-msgid "Toggle navigation"
-msgstr ""
-
-#: ./templates/default/shell/toolbar/register.tpl.php:1
-msgid "Register"
-msgstr ""
-
-#: ./templates/default/shell/toolbar/logged-in.tpl.php:16
-msgid "Profile"
-msgstr ""
-
-#: ./templates/default/shell/toolbar/logged-in.tpl.php:21
-msgid "Site Configuration"
-msgstr ""
-
-#: ./templates/default/shell/toolbar/logged-in.tpl.php:49
-msgid "Leave feedback"
-msgstr ""
-
-#: ./templates/default/shell/toolbar/logged-in.tpl.php:49
-msgid "Feedback"
-msgstr ""
-
-#: ./templates/default/shell/pagination.tpl.php:28
-msgid "Newer"
-msgstr ""
-
-#: ./templates/default/shell/pagination.tpl.php:29
-msgid "Older"
-msgstr ""
-
-#: ./known.php:131
+#: ./known.php:110
 msgid "Returns the current Known version as defined in version.known"
 msgstr ""
 
-#: ./known.php:139
+#: ./known.php:118
 msgid "WARNING: Your build of Known is behind the latest version from Github (%s - %s). If you're having problems, you may want to try updating to the latest version.\nUpdate now: https://github.com/idno/Known\n"
 msgstr ""
 

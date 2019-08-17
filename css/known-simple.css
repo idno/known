@@ -36,7 +36,6 @@ body.page-begin-register {
     left: -25%;
     width: 150%;
     height: 150%; }
-
   #bg img {
     position: absolute;
     top: 0;
@@ -46,9 +45,11 @@ body.page-begin-register {
     margin: auto;
     min-width: 100%;
     min-height: 100%; } }
+
 @media only screen and (min-width: 501px) {
   #bg {
     display: none; } }
+
 #feedback-page {
   text-align: center; }
 
@@ -275,7 +276,6 @@ p {
     margin-left: 0;
     padding-left: 3%;
     padding-right: 3%; }
-
   #form-reg {
     left: 3%;
     margin-right: 3%;
@@ -283,6 +283,7 @@ p {
     margin-left: 0;
     padding-left: 3%;
     padding-right: 3%; } }
+
 #name {
   background-image: none;
   background-color: #ffffff; }
