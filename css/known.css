@@ -293,7 +293,7 @@ img {
 
 .reply-text p {
   /*margin-bottom: 0;
-  padding-bottom: 0;*/
+    padding-bottom: 0;*/
   color: #999;
   font-size: smaller; }
 
@@ -765,9 +765,9 @@ textarea:focus, input[type="url"]:focus {
 @media screen and (max-width: 767px) {
   .navbar-nav .open .dropdown-menu {
     float: left; }
-
   .navbar-fixed-bottom .navbar-collapse, .navbar-fixed-top .navbar-collapse {
     max-height: 100%; } }
+
 .navbar {
   background-color: #fff;
   background-image: none;
@@ -1423,6 +1423,7 @@ tr.items {
     -webkit-transform: scale(0); }
   40% {
     -webkit-transform: scale(1); } }
+
 @keyframes bouncedelay {
   0%, 80%, 100% {
     transform: scale(0);
@@ -1430,6 +1431,7 @@ tr.items {
   40% {
     transform: scale(1);
     -webkit-transform: scale(1); } }
+
 .progress-striped .bar {
   background-color: #4c93cb;
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
@@ -1741,7 +1743,7 @@ div.unfurled-url {
 .navbar-nav > li > .nav > li > a {
   color: #333;
   /* padding-bottom: 15px;
-   padding-top: 15px;*/ }
+    padding-top: 15px;*/ }
 
 .navbar-nav > li > .nav > li > a:hover, .navbar-nav > li > .nav > li > a:focus {
   color: #666; }
@@ -1753,6 +1755,7 @@ div.unfurled-url {
 @media (min-width: 837px) {
   .admin.navbar-form {
     padding-left: 0px; } }
+
 .navbar-form .form-control {
   width: 100%; }
 
@@ -1779,9 +1782,11 @@ div.unfurled-url {
 @media (max-width: 550px) {
   .admin .col-md-2, .admin .col-md-4, .admin .col-md-6 {
     padding-right: 10px; } }
+
 @media (max-width: 1082px) {
   .config-desc {
     padding-top: 0px; } }
+
 select, textarea,
 input[type="text"],
 input[type="password"],
@@ -1962,6 +1967,7 @@ select, input[type="file"] {
     -webkit-transform: scaleY(0.4); }
   20% {
     -webkit-transform: scaleY(1); } }
+
 @keyframes stretchdelay {
   0%, 40%, 100% {
     transform: scaleY(0.4);
@@ -1969,6 +1975,7 @@ select, input[type="file"] {
   20% {
     transform: scaleY(1);
     -webkit-transform: scaleY(1); } }
+
 .label-success {
   background-color: #70997a; }
 
@@ -1982,6 +1989,7 @@ select, input[type="file"] {
 @media (max-width: 1083px) {
   .namebadge-profile {
     text-align: center; } }
+
 .dropdown-menu {
   border-radius: 0px;
   border-top: none; }
