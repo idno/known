@@ -74,7 +74,7 @@ module.exports = function (grunt) {
 	options: {
 	    sourceType: "script"
 	},
-	instruct: {
+	dist: {
 	    files: [
 		{
 		    expand: true,
