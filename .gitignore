@@ -11,6 +11,7 @@ Idno/.idea/.name
 node_modules
 .sass-cache
 
+*.es6
 *.iml
 *.bak
 *.log
