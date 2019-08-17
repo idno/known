@@ -32,12 +32,12 @@ module.exports = function (grunt) {
 	    }
 	}
     },
-    uglify: {
+    concat: {
       options: {
       },
       js: {
         files: {
-          'js/known.min.js': [
+          'js/known.es6': [
 	      'js/src/classes/Security.js',
 	      'js/src/classes/Logger.js',
 	      'js/src/classes/Notifications.js',
@@ -48,11 +48,39 @@ module.exports = function (grunt) {
 	      'js/src/classes/Template.js',
 	      'js/src/lib/Template.js',
 	  ],
-          'js/service-worker.min.js': [
+          'js/service-worker.es6': [
 	      'js/src/ServiceWorker.js'
 	  ]
         }
       }
+    },
+    babel: {
+	options: {
+	    sourceType: "script"
+	},
+	instruct: {
+	    files: [
+		{
+		    expand: true,
+		    cwd: 'js/',
+		    src: ['*.es6'],
+		    dest: 'js/',
+		    ext: '.js'
+		}]
+	},
+    },
+    terser: {
+	options: {
+	},
+	dist: {
+	    files: [{
+		expand: true,
+		cwd: "js/",
+		src: ["*.js", "!*.min.js"],
+		dest: "js",
+		ext: ".min.js"
+	    }]
+	},
     },
     csslint: {
       options: {
@@ -113,7 +141,10 @@ module.exports = function (grunt) {
 
 // Load the plugins
   grunt.loadNpmTasks('grunt-sass');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-babel');
+  grunt.loadNpmTasks('grunt-terser');
+  //grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-csslint');
@@ -142,7 +173,7 @@ module.exports = function (grunt) {
   });
 
 // Default task(s).
-  grunt.registerTask('build-js', ['uglify']);
+  grunt.registerTask('build-js', ['concat', 'babel', 'terser']);
   grunt.registerTask('build-css', ['sass']);
   grunt.registerTask('default', ['build-js', 'build-css', 'build-lang', 'test']);
 };
