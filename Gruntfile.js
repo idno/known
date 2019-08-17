@@ -2,18 +2,33 @@
  * Gruntfile for Known project.
  */
 
+/*jshint ignore:start*/
+const sass = require('node-sass'); // Use Node SASS (wrapper around libsass)
+/*jshint ignore:end*/
+
 module.exports = function (grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     sass: {
-	dist: {
+	options: {
+	    sourcemap: 'none',
+	    implementation: sass,
+	    noCache: true
+	},
+	dev: {
 	    files: {
 	        'css/known.css': 'css/scss/known.scss',
 		'css/known-simple.css': 'css/scss/known-simple.scss'
 	    },
+	},
+	dist: {
+	    files: {
+	        'css/known.min.css': 'css/scss/known.scss',
+		'css/known-simple.min.css': 'css/scss/known-simple.scss'
+	    },
 	    options: {
-		sourcemap: 'none'
+	      outputStyle: 'compressed'
 	    }
 	}
     },
@@ -37,17 +52,6 @@ module.exports = function (grunt) {
 	      'js/src/ServiceWorker.js'
 	  ]
         }
-      }
-    },
-    cssmin: {
-      target: {
-        files: [{
-          expand: true,
-          cwd: 'css/',
-          src: ['*.css', '!*.min.css'],
-          dest: 'css/',
-          ext: '.min.css'
-        }]
       }
     },
     csslint: {
@@ -97,20 +101,19 @@ module.exports = function (grunt) {
         },
         sass: {
             files: 'css/scss/**/*.scss',
-            tasks:  ['sass', 'cssmin', 'csslint']
+            tasks:  ['build-css', 'csslint']
         },
         js: {
             files: ['js/src/**/*.js', 'Gruntfile.js'],
-            tasks:  ['uglify', 'jshint']
+            tasks:  ['build-js', 'jshint']
         } 
     }
 
   });
 
 // Load the plugins
-  grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-csslint');
@@ -139,5 +142,7 @@ module.exports = function (grunt) {
   });
 
 // Default task(s).
-  grunt.registerTask('default', ['sass', 'cssmin', 'uglify']);
+  grunt.registerTask('build-js', ['uglify']);
+  grunt.registerTask('build-css', ['sass']);
+  grunt.registerTask('default', ['build-js', 'build-css', 'build-lang', 'test']);
 };
