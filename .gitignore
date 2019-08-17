@@ -16,6 +16,8 @@ node_modules
 *.bak
 *.log
 test.php
+/js/service-worker.js
+/js/known.js
 
 /nbproject/private/nbproject/project.xml
 /nbproject/project.properties
