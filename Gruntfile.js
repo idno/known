@@ -1,5 +1,21 @@
 /**
  * Gruntfile for Known project.
+ * 
+ * This is a grunt task for building various aspects of Known. You'll only need to 
+ * use this if you're a developer working on the core.
+ * 
+ * Installation
+ * 
+ *  - npm i 
+ * 
+ * Useful tasks:
+ * 
+ *  - grunt - builds everything
+ *  - grunt build-lang - recompiles gettext corpus (make sure you composer install before hand to get the build scripts!)
+ *  - grunt build-css - Compile the SASS
+ *  - grunt build-js - minify javascript and pass it through babel
+ *  - grunt test - lint your js and css
+ *  - grunt watch - look for changes and recompile as needed (useful for development)
  */
 
 /*jshint ignore:start*/
@@ -143,7 +159,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-babel');
   grunt.loadNpmTasks('grunt-terser');
-  //grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
