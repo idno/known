@@ -13,3 +13,7 @@
 
 
 "use strict";
+
+/* Babel ES6 runtime polyfils */
+import "core-js/stable";
+import "regenerator-runtime/runtime";

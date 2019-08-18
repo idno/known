@@ -72,7 +72,7 @@ module.exports = function (grunt) {
     },
     babel: {
 	options: {
-	    sourceType: "script"
+	    sourceType: "module"
 	},
 	dist: {
 	    files: [
