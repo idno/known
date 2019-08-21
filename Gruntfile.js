@@ -134,6 +134,7 @@ module.exports = function (grunt) {
         },
         node: true,
         browser: true,
+	esversion: 6
       }
     },
     watch: {
