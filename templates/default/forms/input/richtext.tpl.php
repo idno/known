@@ -75,7 +75,7 @@ if (!empty($vars['label'])) {
             remove_script_host : false,
             convert_urls : true,
             valid_children : "+body[style]",
-            invalid_elements: 'div,section',
+            invalid_elements: 'section',
             valid_styles : 'font-style,color,text-align,text-decoration,float,display,margin-left,margin-right',
             file_picker_callback: function (callback, value, meta) {
                 filePickerDialog(callback, value, meta);
