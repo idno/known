@@ -81,7 +81,8 @@ module.exports = function (grunt) {
 		    cwd: 'js/',
 		    src: ['*.es6'],
 		    dest: 'js/',
-		    ext: '.js'
+		    ext: '.js',
+		    extDot: 'last'
 		}]
 	},
     },
@@ -94,7 +95,8 @@ module.exports = function (grunt) {
 		cwd: "js/",
 		src: ["*.js", "!*.min.js"],
 		dest: "js",
-		ext: ".min.js"
+		ext: ".min.js",
+		extDot: 'last'
 	    }]
 	},
     },
