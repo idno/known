@@ -13,8 +13,8 @@ namespace Tests\API {
             // Tidy up
             if ($cache = \Idno\Core\Idno::site()->cache())
             {
-                 $cache->delete(parse_url('localhost', PHP_URL_HOST));
-                 $cache->delete(parse_url('mapkyca.com', PHP_URL_HOST));
+                 $cache->delete(parse_url('http://localhost', PHP_URL_HOST));
+                 $cache->delete(parse_url('http://mapkyca.com', PHP_URL_HOST));
             }
 
         }
@@ -42,8 +42,8 @@ namespace Tests\API {
             
             if ($cache = \Idno\Core\Idno::site()->cache())
             {
-                 $cache->delete(parse_url('localhost', PHP_URL_HOST));
-                 $cache->delete(parse_url('mapkyca.com', PHP_URL_HOST));
+                 $cache->delete(parse_url('http://localhost', PHP_URL_HOST));
+                 $cache->delete(parse_url('http://mapkyca.com', PHP_URL_HOST));
             }
         }
 
