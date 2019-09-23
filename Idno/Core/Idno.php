@@ -135,9 +135,6 @@ namespace Idno\Core {
             $cache_default = "Idno\\Caching\\FilesystemCache";
             if (extension_loaded('apc') && ini_get('apc.enabled'))
                 $cache_default = "Idno\\Caching\\APCuCache";
-            elseif (extension_loaded('xcache')) {
-                $cache_default = "Idno\\Caching\\XCache";
-            }
             $this->cache = $this->componentFactory($this->config->cache, "Idno\\Caching\\Cache", "Idno\\Caching\\", $cache_default);
 
             // No URL is a critical error, default base fallback is now a warning (Refs #526)
