@@ -15,6 +15,7 @@ namespace Idno\Core {
             }
 
             $allowedIframes = [
+                'www.youtube-nocookie.com/embed/',
                 'www.youtube.com/embed/',
                 'player.vimeo.com/video/',
                 'embed.radiopublic.com/e',
