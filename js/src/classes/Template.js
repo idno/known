@@ -265,6 +265,7 @@ Template.bindControls = function() {
 	$('#acl-text').html($(this).html());
     });
     $('.syndication-toggle input[type=checkbox]').bootstrapToggle();
+    $('input[data-toggle="toggle"]').bootstrapToggle();
     $('.ignore-this').hide();
 
     Security.activateACLControls();
