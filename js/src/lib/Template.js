@@ -68,4 +68,5 @@ $(document).ready(function(){
     Template.enableRichTextRequired();
     Template.enableImageFallback();
     Template.activateStarToggle();
+    Template.enableTooltips();
 });

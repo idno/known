@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "64acb69e1130e12eece4579a0454ebe3",
+    "content-hash": "8f48cd4a8ad802565acc661a257c0e9c",
     "packages": [
         {
             "name": "bower-asset/mention",
@@ -313,16 +313,16 @@
         },
         {
             "name": "idno/checkin",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/checkin.git",
-                "reference": "b7abf5c69739096e1eaa3312f9c7465fd4dc8c12"
+                "reference": "84bed39c8efaae4851f3756218b80291de51b101"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/checkin/zipball/b7abf5c69739096e1eaa3312f9c7465fd4dc8c12",
-                "reference": "b7abf5c69739096e1eaa3312f9c7465fd4dc8c12",
+                "url": "https://api.github.com/repos/idno/checkin/zipball/84bed39c8efaae4851f3756218b80291de51b101",
+                "reference": "84bed39c8efaae4851f3756218b80291de51b101",
                 "shasum": ""
             },
             "require": {
@@ -339,7 +339,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "An easy way to check into a geographic location.",
-            "time": "2019-08-12T20:45:25+00:00"
+            "time": "2019-09-28T18:59:37+00:00"
         },
         {
             "name": "idno/console-eventqueueservice",
@@ -1766,16 +1766,16 @@
         },
         {
             "name": "symfony/cache",
-            "version": "v4.3.4",
+            "version": "v4.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/cache.git",
-                "reference": "1d8f7fee990c586f275cde1a9fc883d6b1e2d43e"
+                "reference": "f09463d1165396745fef0aae64b7a784c891be9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/cache/zipball/1d8f7fee990c586f275cde1a9fc883d6b1e2d43e",
-                "reference": "1d8f7fee990c586f275cde1a9fc883d6b1e2d43e",
+                "url": "https://api.github.com/repos/symfony/cache/zipball/f09463d1165396745fef0aae64b7a784c891be9f",
+                "reference": "f09463d1165396745fef0aae64b7a784c891be9f",
                 "shasum": ""
             },
             "require": {
@@ -1840,7 +1840,7 @@
                 "caching",
                 "psr6"
             ],
-            "time": "2019-08-26T08:26:39+00:00"
+            "time": "2019-05-27T08:16:38+00:00"
         },
         {
             "name": "symfony/cache-contracts",
