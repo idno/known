@@ -6,7 +6,7 @@
 
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $vars['lang']; ?>">
+<html lang="<?php echo $vars['lang']; ?>"<?php if (!empty($template->getTag())) echo ' class="h-feed"' ?>>
 <head>
 
 <?php
@@ -54,7 +54,7 @@
     echo $template->draw('shell/footerjavascript');
     echo $template->draw('shell/footer');
 
-    echo $template->draw('shell/form-data'); 
+    echo $template->draw('shell/form-data');
 ?>
 </body>
 </html>

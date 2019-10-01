@@ -767,6 +767,22 @@ namespace Idno\Core {
         }
 
         /**
+         * Checks the current URL for `tag/` and passes this down.
+         * @return string
+         */
+        function getTag()
+        {
+            if ($path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+                if ($pos = strpos($path, 'tag/')) {
+                    if ($pos) {
+                        return substr($path, $pos + 4);
+                    }
+                }
+            }
+            return '';
+        }
+
+        /**
          * Retrieves a set of contextual body classes suitable for including in a shell template
          * @return string
          */
@@ -804,6 +820,7 @@ namespace Idno\Core {
          */
         function formatShellVariables($vars)
         {
+
             // Get instance of current page for use further down the page
             if ($vars['currentPage'] = \Idno\Core\Idno::site()->currentPage()) {
                 $vars['pageOwner'] = $vars['currentPage']->getOwner();
@@ -811,6 +828,12 @@ namespace Idno\Core {
 
             if (!empty($currentPage)) {
                 $vars['hidenav'] = \Idno\Core\Idno::site()->embedded();
+            }
+
+            if ($tag = \Idno\Core\Idno::site()->template()->getTag()) {
+                if (!empty($tag)) {
+                    $vars['title'] .= ' #' . $tag;
+                }
             }
 
             $vars['description'] = isset($vars['description']) ? $vars['description'] : '';
