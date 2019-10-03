@@ -784,9 +784,8 @@ namespace Idno\Core {
          * @return bool
          */
         public function isHFeed() {
-            $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
             $classes = \Idno\Core\Idno::site()->template()->getBodyClasses();
-            return ($path == '/' || strpos($classes, "page-content") || strpos($classes, "page-tag"));
+            return (strpos($classes, "homepage") || strpos($classes, "page-content") || strpos($classes, "page-tag"));
         }
 
         /**
@@ -798,6 +797,9 @@ namespace Idno\Core {
             $classes = '';
             $classes .= (str_replace('\\', '_', strtolower(get_class(\Idno\Core\Idno::site()->currentPage()))));
             if ($path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+                if ($path == '/') {
+                    $classes .= ' homepage';
+                }
                 if ($path = explode('/', $path)) {
                     $page_class = '';
                     foreach ($path as $element) {
