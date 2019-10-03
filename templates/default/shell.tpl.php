@@ -6,7 +6,7 @@
 
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $vars['lang']; ?>"<?php if (!empty($template->getTag())) echo ' class="h-feed"' ?>>
+<html lang="<?php echo $vars['lang']; ?>"<?php if ($template->isHFeed()) echo ' class="h-feed"' ?>>
 <head>
 
 <?php

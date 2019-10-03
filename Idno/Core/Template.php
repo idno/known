@@ -758,11 +758,8 @@ namespace Idno\Core {
         public function getModifiedTS($file)
         {
             $file = trim($file, '/ ');
-
             $path = \Idno\Core\Idno::site()->config()->getPath();
-
             $ts = filemtime($path . '/' . $file);
-
             return (int)$ts;
         }
 
@@ -780,6 +777,16 @@ namespace Idno\Core {
                 }
             }
             return '';
+        }
+
+        /**
+         * Should we render as `h-feed`?
+         * @return bool
+         */
+        public function isHFeed() {
+            $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+            $classes = \Idno\Core\Idno::site()->template()->getBodyClasses();
+            return ($path == '/' || strpos($classes, "page-content") || strpos($classes, "page-tag"));
         }
 
         /**
@@ -804,6 +811,7 @@ namespace Idno\Core {
                     }
                 }
             }
+
             if (\Idno\Core\Idno::site()->session()->isLoggedIn()) {
                 $classes .= ' logged-in';
             } else {
