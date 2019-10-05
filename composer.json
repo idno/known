@@ -1,7 +1,7 @@
 {
     "name": "idno/known",
     "description": "A social publishing platform.",
-    "version": "0.14.6",
+    "version": "1.0.0-rc.1",
     "type": "project",
     "homepage": "https://withknown.com/",
     "repositories": [
@@ -35,7 +35,7 @@
         "twbs/bootstrap": "3.4.1",
         "ezyang/htmlpurifier": "4.10",
         "rmm5t/jquery-timeago": "1.6.7",
-        "tinymce/tinymce": "5.0.11",
+        "tinymce/tinymce": "5.0.16",
         "symfony/event-dispatcher": "4.3.0",
         "symfony/console": "4.3.0",
         "symfony/http-foundation": "4.3.0",
