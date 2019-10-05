@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ab8f0d430b87d0948590ab46cd740655",
+    "content-hash": "68513c1719e013007431640cd91b74b2",
     "packages": [
         {
             "name": "bower-asset/mention",
@@ -283,16 +283,16 @@
         },
         {
             "name": "idno/bridgy",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/bridgy.git",
-                "reference": "451faa1ff5c46c606e5e0319d7ce53f6061db4c6"
+                "reference": "d1c37231a7eff0969a1a7adc1480fcd8cb1cc3c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/bridgy/zipball/451faa1ff5c46c606e5e0319d7ce53f6061db4c6",
-                "reference": "451faa1ff5c46c606e5e0319d7ce53f6061db4c6",
+                "url": "https://api.github.com/repos/idno/bridgy/zipball/d1c37231a7eff0969a1a7adc1480fcd8cb1cc3c5",
+                "reference": "d1c37231a7eff0969a1a7adc1480fcd8cb1cc3c5",
                 "shasum": ""
             },
             "require": {
@@ -309,7 +309,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Receive comments from external services on your Known site.",
-            "time": "2019-08-11T15:50:04+00:00"
+            "time": "2019-10-05T09:40:17+00:00"
         },
         {
             "name": "idno/checkin",
