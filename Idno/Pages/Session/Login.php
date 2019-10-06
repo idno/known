@@ -33,7 +33,7 @@ namespace Idno\Pages\Session {
             ];
             
             // If user is logged in and we got this far, this is an api login so lets return a user api token (#2240)
-            if (\Idno\Core\Idno::site()->session()->isLoggedOn() && \Idno\Core\Idno::site()->template()->getTemplateType() != 'default') {
+            if (\Idno\Core\Idno::site()->session()->isLoggedOn() && \Idno\Core\Idno::site()->template()->getTemplateType() != 'default' && $this->isSSL()) {
                 $user = \Idno\Core\Idno::site()->session()->currentUser();
                 $vars['api-token'] = $user->getAPIkey();
             }
