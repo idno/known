@@ -12,7 +12,7 @@ if (!empty($post)) {
 
         <div class="row idno-entry idno-entry-notification-reply notification <?php echo $notification->isRead() ? 'notification-read' : 'notification-unread' ?>">
             <div class="col-md-1 col-md-offset-1 owner h-card visible-md visible-lg">
-            <?php if (isset($owner_image)) { ?>
+            <?php if (!empty($owner_image)) { ?>
                     <p>
                         <a href="<?php echo $owner_url ?>" class="u-url icon-container">
                             <img class="u-photo" src="<?php echo $owner_image ?>"/></a><br/>

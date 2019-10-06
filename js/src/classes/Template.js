@@ -165,6 +165,10 @@ Template.enableRichTextRequired = function () {
     });
 };
 
+Template.enableTooltips = function () {
+  $('[data-toggle="tooltip"]').tooltip();
+};
+
 /**
  * Enable fallback image for broken images.
  */
@@ -271,6 +275,7 @@ Template.bindControls = function() {
     Security.activateACLControls();
     Template.enableFormCandy();
     Template.enableRichTextRequired();
+    Template.enableTooltips();
     
     // Candy: set focus to first entry on a form.
     $('#contentCreate .form-control').first().focus();

@@ -468,6 +468,10 @@ namespace Idno\Core {
 
             // Get the domain
             $domain = parse_url($url, PHP_URL_HOST);
+            
+            if (empty($domain)) {
+                return false;
+            }
 
             $cache = \Idno\Core\Idno::site()->cache();
 
