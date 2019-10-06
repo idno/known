@@ -15,17 +15,30 @@ namespace Idno\Pages\Session {
         function getContent()
         {
 
-            // If we're somehow here but logged in, move to the front page
-            if (\Idno\Core\Idno::site()->session()->isLoggedOn()) {
+            // If we're somehow here but logged in, move to the front page if we're viewing with the regular template
+            if (\Idno\Core\Idno::site()->session()->isLoggedOn() && \Idno\Core\Idno::site()->template()->getTemplateType() == 'default') {
                 $this->forward();
             }
 
             $fwd = \Idno\Core\Webservice::base64UrlDecode($this->getInput('fwd')); // Forward to a new page?
             if ($fwd == \Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login') {
-                $fwd = '';
+                $fwd = \Idno\Core\Idno::site()->config()->getDisplayURL();
+            }
+            if (empty($fwd)) {
+                $fwd = \Idno\Core\Idno::site()->config()->getDisplayURL();
             }
             $t        = \Idno\Core\Idno::site()->template();
-            $t->body  = $t->__(array('fwd' => $fwd))->draw('account/login');
+            $vars = [
+                'fwd' => $fwd
+            ];
+            
+            // If user is logged in and we got this far, this is an api login so lets return a user api token (#2240)
+            if (\Idno\Core\Idno::site()->session()->isLoggedOn() && \Idno\Core\Idno::site()->template()->getTemplateType() != 'default') {
+                $user = \Idno\Core\Idno::site()->session()->currentUser();
+                $vars['api-token'] = $user->getAPIkey();
+            }
+            
+            $t->body  = $t->__($vars)->draw('account/login');
             $t->title = \Idno\Core\Idno::site()->language()->_('Sign in');
             $t->drawPage();
         }
@@ -49,7 +62,7 @@ namespace Idno\Pages\Session {
                 if ($user->checkPassword(trim($this->getInput('password')))) {
                     \Idno\Core\Idno::site()->events()->triggerEvent('login/success', array('user' => $user)); // Trigger an event for auditing
                     \Idno\Core\Idno::site()->session()->logUserOn($user);
-                    $this->forward($fwd);
+                    $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login/?fwd=' . \Idno\Core\Webservice::base64UrlEncode($fwd));
                 } else {
                     \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("Oops! It looks like your password isn't correct. Please try again."));
                     \Idno\Core\Idno::site()->events()->triggerEvent('login/failure', array('user' => $user));
