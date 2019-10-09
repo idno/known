@@ -6,7 +6,7 @@
 
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $vars['lang']; ?>"<?php if ($template->isHFeed()) echo ' class="h-feed"' ?>>
+<html lang="<?php echo $vars['lang']; ?>"<?php echo $vars['html_className']; ?>>
 <head>
 
 <?php

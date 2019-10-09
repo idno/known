@@ -856,6 +856,14 @@ namespace Idno\Core {
                 $vars['lang'] = \Idno\Core\Idno::site()->config()->lang;
             }
 
+            // H-feed vars
+            $vars['html_className'] = '';
+            $vars['title_className'] = '';
+            if (\Idno\Core\Idno::site()->template()->isHFeed()) {
+                $vars['html_className'] = ' class="h-feed"';
+                $vars['title_className'] = ' class="p-name"';
+            }
+
             if (empty($vars['title'])) $vars['title'] = '';
             if (empty($vars['body'])) $vars['body'] = '';
 
