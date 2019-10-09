@@ -769,12 +769,10 @@ namespace Idno\Core {
          */
         function getTag()
         {
-            if ($path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
-                if ($pos = strpos($path, 'tag/')) {
-                    if ($pos) {
-                        return substr($path, $pos + 4);
-                    }
-                }
+            $classes = \Idno\Core\Idno::site()->template()->getBodyClasses();
+            preg_match("/page-tag-([\w_]+)/i", $classes, $matches);
+            if (!empty($matches) && !empty($matches[1])) {
+                return $matches[1];
             }
             return '';
         }
@@ -842,7 +840,7 @@ namespace Idno\Core {
 
             if ($tag = \Idno\Core\Idno::site()->template()->getTag()) {
                 if (!empty($tag)) {
-                    $vars['title'] .= ' #' . $tag;
+                    $vars['title'] = '#' . $tag . ' | ' . $vars['title'];
                 }
             }
 
