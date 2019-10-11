@@ -44,6 +44,7 @@ namespace Idno\Entities {
             if ($this->getOwnerID() == $user_id) return true;
             if ($this->isMember($user_id)) return true;
             if ($this->access == 'PUBLIC') return true;
+            if ($this->access == 'UNLISTED') return true;
 
             return false;
         }

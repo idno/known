@@ -28,8 +28,11 @@ if (!empty($owner)) {
                           datetime="<?php echo date(DATE_ISO8601, $vars['object']->created) ?>"><?php echo strftime('%d %b %Y', $vars['object']->created) ?></time></a>
             <?php
 
-            if ($vars['object']->access != 'PUBLIC') {
-                ?><i class="fa fa-lock"> </i><?php
+            if ($vars['object']->access != 'PUBLIC' && $vars['object']->access != 'UNLISTED') {
+                ?><i class="fa fa-lock" title="<?php echo \Idno\Core\Idno::site()->language()->_('private'); ?>"> </i><?php
+            }
+            if ($vars['object']->access == 'UNLISTED') {
+                ?><i class="fa fa-shield" title="<?php echo \Idno\Core\Idno::site()->language()->_('unlisted'); ?>"> </i><?php
             }
 
             ?>

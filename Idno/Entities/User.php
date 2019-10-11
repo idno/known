@@ -686,7 +686,7 @@ namespace Idno\Entities {
          */
         function getXAccessGroups($permission)
         {
-            $return = array('PUBLIC', 'SITE', $this->getUUID());
+            $return = array('PUBLIC', 'UNLISTED', 'SITE', $this->getUUID());
             if ($groups = \Idno\Core\Idno::site()->db()->getObjects('Idno\\Entities\\AccessGroup', array('members.' . $permission => $this->getUUID()), null, PHP_INT_MAX, 0)) {
                 $return = array_merge($return, $groups);
             }
@@ -726,7 +726,7 @@ namespace Idno\Entities {
          */
         function getXAccessGroupIDs($permission)
         {
-            $return = array('PUBLIC', 'SITE', $this->getUUID());
+            $return = array('PUBLIC', 'UNLISTED', 'SITE', $this->getUUID());
             if ($groups = \Idno\Core\Idno::site()->db()->getRecords(array('uuid' => true),
                 array(
                     'entity_subtype'         => 'Idno\\Entities\\AccessGroup',
@@ -945,10 +945,10 @@ namespace Idno\Entities {
         public function jsonSerialize()
         {
             $data          = parent::jsonSerialize();
-            
+
             unset($data['updated']);
             unset($data['published']);
-            
+
             $data['image'] = array('url' => $this->getIcon());
             if (!empty($this->profile['url'])) {
                 $data['sameAs'] = $this->profile['url'];

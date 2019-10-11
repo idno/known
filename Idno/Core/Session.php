@@ -367,7 +367,7 @@ namespace Idno\Core {
 
         function getReadAccessGroupIDs()
         {
-            $group = array('PUBLIC');
+            $group = array('PUBLIC', 'UNLISTED');
             if ($this->isLoggedOn()) {
                 $group = $this->currentUser()->getReadAccessGroupIDs();
             }
