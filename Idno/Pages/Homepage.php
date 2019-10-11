@@ -83,6 +83,9 @@ namespace Idno\Pages {
             }
 
             $search['publish_status'] = 'published';
+            if (\Idno\Core\Idno::site()->session()->isLoggedIn() == false) {
+                $search['access']['$not'] = 'unlisted';
+            }
 
             $count = \Idno\Common\Entity::countFromX($types, $search);
             $feed  = \Idno\Common\Entity::getFromX($types, $search, array(), \Idno\Core\Idno::site()->config()->items_per_page, $offset);
