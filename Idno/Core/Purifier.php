@@ -20,7 +20,9 @@ namespace Idno\Core {
                 'player.vimeo.com/video/',
                 'embed.radiopublic.com/e',
                 'w.soundcloud.com/player/',
-                'maps.google.com/'
+                'maps.google.com/',
+                'archive.org/embed',
+                'cdn.knightlab.com'
             ];
 
             if (!empty(Idno::site()->config()->allowedIframes) && is_array(Idno::site()->config()->allowedIframes)) {
