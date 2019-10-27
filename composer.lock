@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "712248a1b1b76fe546aab0d2b161d675",
+    "content-hash": "f7a1b292dc5c631b4b1488a0785c7a1d",
     "packages": [
         {
             "name": "bower-asset/mention",
@@ -2634,16 +2634,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "5.0.16",
+            "version": "5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "7a58a0e3bd83fb3692d4e721c56fa6925e337926"
+                "reference": "a4eca7a227e4dd97ed4356f708f0f481ab5164cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/7a58a0e3bd83fb3692d4e721c56fa6925e337926",
-                "reference": "7a58a0e3bd83fb3692d4e721c56fa6925e337926",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/a4eca7a227e4dd97ed4356f708f0f481ab5164cb",
+                "reference": "a4eca7a227e4dd97ed4356f708f0f481ab5164cb",
                 "shasum": ""
             },
             "type": "component",
@@ -2676,7 +2676,7 @@
                 "tinymce",
                 "wysiwyg"
             ],
-            "time": "2019-09-24T03:21:01+00:00"
+            "time": "2019-10-17T06:09:31+00:00"
         },
         {
             "name": "torophp/torophp",
