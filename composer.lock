@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5cf0b21891d77ee0a55754b3f60b1c73",
+    "content-hash": "839634977aa7667216f3c0f49d4ab32a",
     "packages": [
         {
             "name": "bower-asset/mention",
@@ -17,23 +17,24 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/jakiestfu/Mention.js/zipball/1b588ef059bfd4c5164393eb686252abbf8c8ebd",
-                "reference": "1b588ef059bfd4c5164393eb686252abbf8c8ebd"
+                "reference": "1b588ef059bfd4c5164393eb686252abbf8c8ebd",
+                "shasum": null
             },
             "type": "bower-asset",
             "time": "2013-08-22T23:12:58+00:00"
         },
         {
             "name": "components/jquery",
-            "version": "3.3.1",
+            "version": "3.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/components/jquery.git",
-                "reference": "459648cda77875519c5da3ae1dd0ed5d170aa649"
+                "reference": "901828b7968b18319e377dc23d466f28426ee083"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/components/jquery/zipball/459648cda77875519c5da3ae1dd0ed5d170aa649",
-                "reference": "459648cda77875519c5da3ae1dd0ed5d170aa649",
+                "url": "https://api.github.com/repos/components/jquery/zipball/901828b7968b18319e377dc23d466f28426ee083",
+                "reference": "901828b7968b18319e377dc23d466f28426ee083",
                 "shasum": ""
             },
             "type": "component",
@@ -62,7 +63,7 @@
             ],
             "description": "jQuery JavaScript Library",
             "homepage": "http://jquery.com",
-            "time": "2018-03-04T13:23:48+00:00"
+            "time": "2019-10-23T05:15:13+00:00"
         },
         {
             "name": "composer/installers",
@@ -997,16 +998,16 @@
         },
         {
             "name": "idno/webhooks",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/webhooks.git",
-                "reference": "3ee71a95577ed6487d6a3af059d4172257b08656"
+                "reference": "f823a3c6846cbbc89f159e2a231a6602a0a5b17b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/webhooks/zipball/3ee71a95577ed6487d6a3af059d4172257b08656",
-                "reference": "3ee71a95577ed6487d6a3af059d4172257b08656",
+                "url": "https://api.github.com/repos/idno/webhooks/zipball/f823a3c6846cbbc89f159e2a231a6602a0a5b17b",
+                "reference": "f823a3c6846cbbc89f159e2a231a6602a0a5b17b",
                 "shasum": ""
             },
             "require": {
@@ -1023,7 +1024,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Syndicate via Webhooks.",
-            "time": "2019-08-12T20:54:17+00:00"
+            "time": "2019-10-27T09:09:55+00:00"
         },
         {
             "name": "indieweb/mention-client",
@@ -1179,9 +1180,9 @@
             "authors": [
                 {
                     "name": "Marcus Povey",
+                    "role": "Developer",
                     "email": "marcus@marcus-povey.co.uk",
-                    "homepage": "https://www.marcus-povey.co.uk",
-                    "role": "Developer"
+                    "homepage": "https://www.marcus-povey.co.uk"
                 }
             ],
             "description": "Known customisation of MrClay's AutoP, placed here for composer support",
@@ -1300,7 +1301,8 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/paypal/bootstrap-accessibility-plugin/zipball/010d9a1f21ae4ae3323acf30508fc26a13dc7fa2",
-                "reference": "010d9a1f21ae4ae3323acf30508fc26a13dc7fa2"
+                "reference": "010d9a1f21ae4ae3323acf30508fc26a13dc7fa2",
+                "shasum": null
             },
             "type": "npm-asset",
             "license": [
@@ -1312,7 +1314,9 @@
             "version": "2.2.2",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/bootstrap-toggle/-/bootstrap-toggle-2.2.2.tgz"
+                "url": "https://registry.npmjs.org/bootstrap-toggle/-/bootstrap-toggle-2.2.2.tgz",
+                "reference": null,
+                "shasum": null
             },
             "type": "npm-asset",
             "license": [
@@ -1324,7 +1328,9 @@
             "version": "0.1.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/dom-walk/-/dom-walk-0.1.1.tgz"
+                "url": "https://registry.npmjs.org/dom-walk/-/dom-walk-0.1.1.tgz",
+                "reference": null,
+                "shasum": null
             },
             "type": "npm-asset"
         },
@@ -1333,7 +1339,9 @@
             "version": "2.3.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/exif-js/-/exif-js-2.3.0.tgz"
+                "url": "https://registry.npmjs.org/exif-js/-/exif-js-2.3.0.tgz",
+                "reference": null,
+                "shasum": null
             },
             "type": "npm-asset",
             "license": [
@@ -1345,7 +1353,9 @@
             "version": "4.4.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/global/-/global-4.4.0.tgz"
+                "url": "https://registry.npmjs.org/global/-/global-4.4.0.tgz",
+                "reference": null,
+                "shasum": null
             },
             "require": {
                 "npm-asset/min-document": ">=2.19.0,<3.0.0",
@@ -1361,7 +1371,9 @@
             "version": "3.4.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/jquery/-/jquery-3.4.1.tgz"
+                "url": "https://registry.npmjs.org/jquery/-/jquery-3.4.1.tgz",
+                "reference": null,
+                "shasum": null
             },
             "type": "npm-asset",
             "license": [
@@ -1373,7 +1385,9 @@
             "version": "4.2.10",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/mediaelement/-/mediaelement-4.2.10.tgz"
+                "url": "https://registry.npmjs.org/mediaelement/-/mediaelement-4.2.10.tgz",
+                "reference": null,
+                "shasum": null
             },
             "require": {
                 "npm-asset/global": ">=4.3.1,<5.0.0"
@@ -1388,7 +1402,9 @@
             "version": "2.19.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/min-document/-/min-document-2.19.0.tgz"
+                "url": "https://registry.npmjs.org/min-document/-/min-document-2.19.0.tgz",
+                "reference": null,
+                "shasum": null
             },
             "require": {
                 "npm-asset/dom-walk": ">=0.1.0,<0.2.0"
@@ -1400,7 +1416,9 @@
             "version": "0.11.10",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/process/-/process-0.11.10.tgz"
+                "url": "https://registry.npmjs.org/process/-/process-0.11.10.tgz",
+                "reference": null,
+                "shasum": null
             },
             "type": "npm-asset",
             "license": [
@@ -1412,7 +1430,9 @@
             "version": "1.9.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/underscore/-/underscore-1.9.1.tgz"
+                "url": "https://registry.npmjs.org/underscore/-/underscore-1.9.1.tgz",
+                "reference": null,
+                "shasum": null
             },
             "type": "npm-asset",
             "license": [
@@ -1430,7 +1450,8 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/davatron5000/FitVids.js/zipball/d028a2287a633478005a49fe6d1f3fcbe9f2d955",
-                "reference": "d028a2287a633478005a49fe6d1f3fcbe9f2d955"
+                "reference": "d028a2287a633478005a49fe6d1f3fcbe9f2d955",
+                "shasum": null
             },
             "type": "npm-asset"
         },
