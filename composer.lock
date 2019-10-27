@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "839634977aa7667216f3c0f49d4ab32a",
+    "content-hash": "44b80b9dd2310ffe47f2db053292ac44",
     "packages": [
         {
             "name": "bower-asset/mention",
@@ -17,8 +17,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/jakiestfu/Mention.js/zipball/1b588ef059bfd4c5164393eb686252abbf8c8ebd",
-                "reference": "1b588ef059bfd4c5164393eb686252abbf8c8ebd",
-                "shasum": null
+                "reference": "1b588ef059bfd4c5164393eb686252abbf8c8ebd"
             },
             "type": "bower-asset",
             "time": "2013-08-22T23:12:58+00:00"
@@ -1180,9 +1179,9 @@
             "authors": [
                 {
                     "name": "Marcus Povey",
-                    "role": "Developer",
                     "email": "marcus@marcus-povey.co.uk",
-                    "homepage": "https://www.marcus-povey.co.uk"
+                    "homepage": "https://www.marcus-povey.co.uk",
+                    "role": "Developer"
                 }
             ],
             "description": "Known customisation of MrClay's AutoP, placed here for composer support",
@@ -1301,8 +1300,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/paypal/bootstrap-accessibility-plugin/zipball/010d9a1f21ae4ae3323acf30508fc26a13dc7fa2",
-                "reference": "010d9a1f21ae4ae3323acf30508fc26a13dc7fa2",
-                "shasum": null
+                "reference": "010d9a1f21ae4ae3323acf30508fc26a13dc7fa2"
             },
             "type": "npm-asset",
             "license": [
@@ -1314,9 +1312,7 @@
             "version": "2.2.2",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/bootstrap-toggle/-/bootstrap-toggle-2.2.2.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/bootstrap-toggle/-/bootstrap-toggle-2.2.2.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -1328,9 +1324,7 @@
             "version": "0.1.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/dom-walk/-/dom-walk-0.1.1.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/dom-walk/-/dom-walk-0.1.1.tgz"
             },
             "type": "npm-asset"
         },
@@ -1339,9 +1333,7 @@
             "version": "2.3.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/exif-js/-/exif-js-2.3.0.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/exif-js/-/exif-js-2.3.0.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -1353,9 +1345,7 @@
             "version": "4.4.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/global/-/global-4.4.0.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/global/-/global-4.4.0.tgz"
             },
             "require": {
                 "npm-asset/min-document": ">=2.19.0,<3.0.0",
@@ -1371,9 +1361,7 @@
             "version": "3.4.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/jquery/-/jquery-3.4.1.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/jquery/-/jquery-3.4.1.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -1385,9 +1373,7 @@
             "version": "4.2.10",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/mediaelement/-/mediaelement-4.2.10.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/mediaelement/-/mediaelement-4.2.10.tgz"
             },
             "require": {
                 "npm-asset/global": ">=4.3.1,<5.0.0"
@@ -1402,9 +1388,7 @@
             "version": "2.19.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/min-document/-/min-document-2.19.0.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/min-document/-/min-document-2.19.0.tgz"
             },
             "require": {
                 "npm-asset/dom-walk": ">=0.1.0,<0.2.0"
@@ -1416,9 +1400,7 @@
             "version": "0.11.10",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/process/-/process-0.11.10.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/process/-/process-0.11.10.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -1430,9 +1412,7 @@
             "version": "1.9.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/underscore/-/underscore-1.9.1.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/underscore/-/underscore-1.9.1.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -1450,8 +1430,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/davatron5000/FitVids.js/zipball/d028a2287a633478005a49fe6d1f3fcbe9f2d955",
-                "reference": "d028a2287a633478005a49fe6d1f3fcbe9f2d955",
-                "shasum": null
+                "reference": "d028a2287a633478005a49fe6d1f3fcbe9f2d955"
             },
             "type": "npm-asset"
         },
@@ -2629,16 +2608,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "5.0.16",
+            "version": "5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "7a58a0e3bd83fb3692d4e721c56fa6925e337926"
+                "reference": "a4eca7a227e4dd97ed4356f708f0f481ab5164cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/7a58a0e3bd83fb3692d4e721c56fa6925e337926",
-                "reference": "7a58a0e3bd83fb3692d4e721c56fa6925e337926",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/a4eca7a227e4dd97ed4356f708f0f481ab5164cb",
+                "reference": "a4eca7a227e4dd97ed4356f708f0f481ab5164cb",
                 "shasum": ""
             },
             "type": "component",
@@ -2671,7 +2650,7 @@
                 "tinymce",
                 "wysiwyg"
             ],
-            "time": "2019-09-24T03:21:01+00:00"
+            "time": "2019-10-17T06:09:31+00:00"
         },
         {
             "name": "torophp/torophp",
