@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5cf0b21891d77ee0a55754b3f60b1c73",
+    "content-hash": "839634977aa7667216f3c0f49d4ab32a",
     "packages": [
         {
             "name": "bower-asset/mention",
