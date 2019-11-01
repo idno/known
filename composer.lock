@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3c345bdcfee2af6226a7e8d0d738fb9b",
+    "content-hash": "615f3dea1a4a4f9f070e7047b8737107",
     "packages": [
         {
             "name": "bower-asset/mention",
@@ -1371,15 +1371,9 @@
         {
             "name": "npm-asset/mediaelement",
             "version": "4.2.14",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mediaelement/mediaelement.git",
-                "reference": "5bc2965eaa0a0e97127c4444085244fc6d6f9f9f"
-            },
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mediaelement/mediaelement/zipball/5bc2965eaa0a0e97127c4444085244fc6d6f9f9f",
-                "reference": "5bc2965eaa0a0e97127c4444085244fc6d6f9f9f"
+                "type": "tar",
+                "url": "https://registry.npmjs.org/mediaelement/-/mediaelement-4.2.14.tgz"
             },
             "require": {
                 "npm-asset/global": ">=4.3.1,<5.0.0"
@@ -1537,16 +1531,16 @@
         },
         {
             "name": "psr/log",
-            "version": "1.1.1",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "bf73deb2b3b896a9d9c75f3f0d88185d2faa27e2"
+                "reference": "446d54b4cb6bf489fc9d75f55843658e6f25d801"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/bf73deb2b3b896a9d9c75f3f0d88185d2faa27e2",
-                "reference": "bf73deb2b3b896a9d9c75f3f0d88185d2faa27e2",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/446d54b4cb6bf489fc9d75f55843658e6f25d801",
+                "reference": "446d54b4cb6bf489fc9d75f55843658e6f25d801",
                 "shasum": ""
             },
             "require": {
@@ -1580,7 +1574,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2019-10-25T08:06:51+00:00"
+            "time": "2019-11-01T11:05:21+00:00"
         },
         {
             "name": "rmm5t/jquery-timeago",
@@ -3010,12 +3004,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "eb59d9f35a47f567ae15e7179d7c666489cd4b85"
+                "reference": "f8c8349a4b12a26edfa8b21d07d3dbeb6dcedcfa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/eb59d9f35a47f567ae15e7179d7c666489cd4b85",
-                "reference": "eb59d9f35a47f567ae15e7179d7c666489cd4b85",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/f8c8349a4b12a26edfa8b21d07d3dbeb6dcedcfa",
+                "reference": "f8c8349a4b12a26edfa8b21d07d3dbeb6dcedcfa",
                 "shasum": ""
             },
             "conflict": {
@@ -3218,7 +3212,7 @@
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-            "time": "2019-10-09T14:04:58+00:00"
+            "time": "2019-10-29T22:11:03+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
