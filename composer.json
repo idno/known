@@ -49,7 +49,7 @@
         "npm-asset/jquery": "3.4.1",
         "npm-asset/mediaelement": "4.2.14",
         "npm-asset/vanilla-fitvids": "1.2.0",
-        "bower-asset/mention": "dev-master",
+        "idno/mentionjs": "^1.0",
         "mapkyca/known-mongo-php-library": "dev-master",
         "indieweb/mention-client": "1.2.0",
         "twig/twig": "2.12.1",

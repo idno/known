@@ -4,25 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6872afffa3e83f9899051558bc4e0025",
+    "content-hash": "a07f14e6c0c67462005d738872e15b73",
     "packages": [
-        {
-            "name": "bower-asset/mention",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:jakiestfu/Mention.js.git",
-                "reference": "1b588ef059bfd4c5164393eb686252abbf8c8ebd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jakiestfu/Mention.js/zipball/1b588ef059bfd4c5164393eb686252abbf8c8ebd",
-                "reference": "1b588ef059bfd4c5164393eb686252abbf8c8ebd",
-                "shasum": null
-            },
-            "type": "bower-asset",
-            "time": "2013-08-22T23:12:58+00:00"
-        },
         {
             "name": "components/jquery",
             "version": "3.4.1",
@@ -635,6 +618,28 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "Upload audio or music and turn your site into a podcast.",
             "time": "2019-08-12T20:42:30+00:00"
+        },
+        {
+            "name": "idno/mentionjs",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/mentionjs.git",
+                "reference": "9c384f4b7588a03a767ae8ae7f9b8d585c81766b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/mentionjs/zipball/9c384f4b7588a03a767ae8ae7f9b8d585c81766b",
+                "reference": "9c384f4b7588a03a767ae8ae7f9b8d585c81766b",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Known adoption of mention.js abandonware",
+            "time": "2019-11-03T12:49:42+00:00"
         },
         {
             "name": "idno/photo",
@@ -3290,7 +3295,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "bower-asset/mention": 20,
         "mapkyca/known-mongo-php-library": 20,
         "roave/security-advisories": 20
     },
