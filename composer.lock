@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a07f14e6c0c67462005d738872e15b73",
+    "content-hash": "f021d40a8c6e948245cb841f85db9b8a",
     "packages": [
         {
             "name": "components/jquery",
@@ -625,12 +625,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/mentionjs.git",
-                "reference": "9c384f4b7588a03a767ae8ae7f9b8d585c81766b"
+                "reference": "6c51a9f0dfb478d1a3ba01151f34980108b2e8f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/mentionjs/zipball/9c384f4b7588a03a767ae8ae7f9b8d585c81766b",
-                "reference": "9c384f4b7588a03a767ae8ae7f9b8d585c81766b",
+                "url": "https://api.github.com/repos/idno/mentionjs/zipball/6c51a9f0dfb478d1a3ba01151f34980108b2e8f2",
+                "reference": "6c51a9f0dfb478d1a3ba01151f34980108b2e8f2",
                 "shasum": ""
             },
             "type": "library",
@@ -1150,16 +1150,16 @@
         },
         {
             "name": "mapkyca/known-mongo-php-library",
-            "version": "dev-master",
+            "version": "1.0.3+known",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mapkyca/known-mongo-php-library.git",
-                "reference": "34b1ddcf815d2359f087d495000188d668441d78"
+                "reference": "ece2c0b9d532a6dbb27f4fb48dca8084e8e35a8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mapkyca/known-mongo-php-library/zipball/34b1ddcf815d2359f087d495000188d668441d78",
-                "reference": "34b1ddcf815d2359f087d495000188d668441d78",
+                "url": "https://api.github.com/repos/mapkyca/known-mongo-php-library/zipball/ece2c0b9d532a6dbb27f4fb48dca8084e8e35a8f",
+                "reference": "ece2c0b9d532a6dbb27f4fb48dca8084e8e35a8f",
                 "shasum": ""
             },
             "require": {
@@ -1183,7 +1183,7 @@
                 "known",
                 "mongo"
             ],
-            "time": "2019-03-01T20:47:19+00:00"
+            "time": "2019-11-03T19:18:26+00:00"
         },
         {
             "name": "mapkyca/known-oauth2-server",
@@ -3295,7 +3295,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "mapkyca/known-mongo-php-library": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": true,
