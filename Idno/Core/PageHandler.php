@@ -26,7 +26,7 @@ namespace Idno\Core {
          * @param string $handler The name of the Page class that will serve this route
          * @param bool $public If set to true, this page is always public, even on non-public sites
          */
-        function addRoute($pattern, $handler, $public = false)
+        function addRoute(string $pattern, string $handler, bool $public = false)
         {
             if (defined('KNOWN_SUBDIRECTORY')) {
                 if (substr($pattern, 0, 1) != '/') {
@@ -52,7 +52,7 @@ namespace Idno\Core {
          * @param string $handler The name of the Page class that will serve this route
          * @param bool $public If set to true, this page is always public, even on non-public sites
          */
-        function hijackRoute($pattern, $handler, $public = false)
+        function hijackRoute(string $pattern, string $handler, bool $public = false)
         {
             if (class_exists($handler)) {
                 unset($this->routes[$pattern]);
@@ -68,7 +68,7 @@ namespace Idno\Core {
          * Mark a page handler class as offering public content even on walled garden sites
          * @param $class
          */
-        function addPublicRoute($class)
+        function addPublicRoute(string $class)
         {
             if (class_exists($class)) {
                 $this->public_routes[] = $class;
@@ -93,7 +93,7 @@ namespace Idno\Core {
          * @param $class
          * @return bool
          */
-        function isRoutePublic($class)
+        function isRoutePublic(string $class) : bool
         {
             if (!empty($class)) {
                 if (in_array($class, $this->getPublicRoute())) {
@@ -117,7 +117,7 @@ namespace Idno\Core {
          * @param string $path_info The path, including the initial /, or the URL
          * @return bool|\Idno\Common\Page
          */
-        function getRoute($path_info)
+        function getRoute(string $path_info)
         {
             $path_info = parse_url($path_info, PHP_URL_PATH);
             if ($q = strpos($path_info, '?')) {
@@ -159,7 +159,7 @@ namespace Idno\Core {
          * @param string $hookName Name of hook
          * @param callable $callable
          */
-        static function hook($hookName, $callable)
+        static function hook(string $hookName, callable $callable)
         {
             \ToroHook::add($hookName, $callable);
         }
