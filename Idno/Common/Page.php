@@ -25,6 +25,9 @@ namespace Idno\Common {
         // Property that defines whether this page may forward to
         // other pages. True by default.
         private $forward = true;
+        
+        // Where was this page forwarded from
+        private $referrer = '';
 
         // Property intended to store parsed data from JSON magic input
         // variable
@@ -68,6 +71,10 @@ namespace Idno\Common {
                 }
             }
             \Idno\Core\Idno::site()->setCurrentPage($this);
+            
+            // Set referrer, and ensure it's not blank
+            $this->referrer = $_SERVER['HTTP_REFERER']??'';
+            $_SERVER['HTTP_REFERER'] = $_SERVER['HTTP_REFERER']??''; // Ensure that the $_SERVER['HTTP_REFERER'] is never blank
 
             // Default exception handler
             set_exception_handler(function ($exception) {
@@ -434,6 +441,14 @@ namespace Idno\Common {
         function postContent()
         {
             $this->setResponse(501);
+        }
+        
+        /**
+         * Return the referrer, or an empty string
+         * @return string
+         */
+        function referrer() : string {
+            return $this->referrer;
         }
 
         /**
