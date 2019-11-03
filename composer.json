@@ -50,7 +50,7 @@
         "npm-asset/mediaelement": "4.2.14",
         "npm-asset/vanilla-fitvids": "1.2.0",
         "idno/mentionjs": "^1.0",
-        "mapkyca/known-mongo-php-library": "dev-master",
+        "mapkyca/known-mongo-php-library": "1.0.3+known",
         "indieweb/mention-client": "1.2.0",
         "twig/twig": "2.12.1",
         "composer/installers": "~1.7",
