@@ -758,12 +758,32 @@ namespace Idno\Core {
         public function getModifiedTS($file)
         {
             $file = trim($file, '/ ');
-
             $path = \Idno\Core\Idno::site()->config()->getPath();
-
             $ts = filemtime($path . '/' . $file);
-
             return (int)$ts;
+        }
+
+        /**
+         * Checks the current URL for `tag/` and passes this down.
+         * @return string
+         */
+        function getTag()
+        {
+            $classes = \Idno\Core\Idno::site()->template()->getBodyClasses();
+            preg_match("/page-tag-([\w_]+)/i", $classes, $matches);
+            if (!empty($matches) && !empty($matches[1])) {
+                return $matches[1];
+            }
+            return '';
+        }
+
+        /**
+         * Should we render as `h-feed`?
+         * @return bool
+         */
+        public function isHFeed() {
+            $classes = \Idno\Core\Idno::site()->template()->getBodyClasses();
+            return (strpos($classes, "homepage") || strpos($classes, "page-content") || strpos($classes, "page-tag"));
         }
 
         /**
@@ -775,6 +795,9 @@ namespace Idno\Core {
             $classes = '';
             $classes .= (str_replace('\\', '_', strtolower(get_class(\Idno\Core\Idno::site()->currentPage()))));
             if ($path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+                if ($path == '/') {
+                    $classes .= ' homepage';
+                }
                 if ($path = explode('/', $path)) {
                     $page_class = '';
                     foreach ($path as $element) {
@@ -788,6 +811,7 @@ namespace Idno\Core {
                     }
                 }
             }
+
             if (\Idno\Core\Idno::site()->session()->isLoggedIn()) {
                 $classes .= ' logged-in';
             } else {
@@ -804,6 +828,7 @@ namespace Idno\Core {
          */
         function formatShellVariables($vars)
         {
+
             // Get instance of current page for use further down the page
             if ($vars['currentPage'] = \Idno\Core\Idno::site()->currentPage()) {
                 $vars['pageOwner'] = $vars['currentPage']->getOwner();
@@ -811,6 +836,12 @@ namespace Idno\Core {
 
             if (!empty($currentPage)) {
                 $vars['hidenav'] = \Idno\Core\Idno::site()->embedded();
+            }
+
+            if ($tag = \Idno\Core\Idno::site()->template()->getTag()) {
+                if (!empty($tag)) {
+                    $vars['title'] = '#' . $tag . ' | ' . $vars['title'];
+                }
             }
 
             $vars['description'] = isset($vars['description']) ? $vars['description'] : '';
@@ -823,6 +854,14 @@ namespace Idno\Core {
             $vars['lang'] = 'en';
             if (!empty(\Idno\Core\Idno::site()->config()->lang)) {
                 $vars['lang'] = \Idno\Core\Idno::site()->config()->lang;
+            }
+
+            // H-feed vars
+            $vars['html_className'] = '';
+            $vars['title_className'] = '';
+            if (\Idno\Core\Idno::site()->template()->isHFeed()) {
+                $vars['html_className'] = ' class="h-feed"';
+                $vars['title_className'] = ' class="p-name"';
             }
 
             if (empty($vars['title'])) $vars['title'] = '';

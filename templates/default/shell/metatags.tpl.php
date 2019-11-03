@@ -1,6 +1,6 @@
 
 <meta charset="utf-8">
-<title><?php echo htmlspecialchars($vars['title']); ?></title>
+<title<?php echo $vars['title_className'] ?>><?php echo htmlspecialchars($vars['title']); ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="viewport" content="initial-scale=1.0" media="(device-height: 568px)"/>
 <meta name="description" content="<?php echo htmlspecialchars(strip_tags($vars['description'])) ?>">
