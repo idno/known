@@ -1,27 +1,11 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "bc959d51d243b95fd414d322841bb6f4",
+    "content-hash": "a07f14e6c0c67462005d738872e15b73",
     "packages": [
-        {
-            "name": "bower-asset/mention",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:jakiestfu/Mention.js.git",
-                "reference": "1b588ef059bfd4c5164393eb686252abbf8c8ebd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jakiestfu/Mention.js/zipball/1b588ef059bfd4c5164393eb686252abbf8c8ebd",
-                "reference": "1b588ef059bfd4c5164393eb686252abbf8c8ebd"
-            },
-            "type": "bower-asset",
-            "time": "2013-08-22T23:12:58+00:00"
-        },
         {
             "name": "components/jquery",
             "version": "3.4.1",
@@ -636,6 +620,28 @@
             "time": "2019-08-12T20:42:30+00:00"
         },
         {
+            "name": "idno/mentionjs",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/mentionjs.git",
+                "reference": "9c384f4b7588a03a767ae8ae7f9b8d585c81766b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/mentionjs/zipball/9c384f4b7588a03a767ae8ae7f9b8d585c81766b",
+                "reference": "9c384f4b7588a03a767ae8ae7f9b8d585c81766b",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Known adoption of mention.js abandonware",
+            "time": "2019-11-03T12:49:42+00:00"
+        },
+        {
             "name": "idno/photo",
             "version": "1.0.0",
             "source": {
@@ -996,6 +1002,81 @@
             "time": "2019-08-11T19:32:22+00:00"
         },
         {
+            "name": "idno/torophp",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/idno/torophp.git",
+                "reference": "a98c653f37b2c074140c5296ef9740e0d39a176f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/idno/torophp/zipball/a98c653f37b2c074140c5296ef9740e0d39a176f",
+                "reference": "a98c653f37b2c074140c5296ef9740e0d39a176f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/Toro.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kunal Anand",
+                    "email": "kunal.r.anand@gmail.com",
+                    "homepage": "http://kunalanand.com/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Danillo César de O. Melo",
+                    "email": "danillos@gmail.com",
+                    "homepage": "http://www.danillocesar.com.br/",
+                    "role": "Contributor"
+                },
+                {
+                    "name": "Martin Bean",
+                    "email": "martin@martinbean.co.uk",
+                    "homepage": "http://www.martinbean.co.uk",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Robbie Coleman",
+                    "homepage": "http://robbie.robnrob.com",
+                    "role": "Contributor"
+                },
+                {
+                    "name": "John Kurkowski",
+                    "role": "Contributor"
+                },
+                {
+                    "name": "Berker Peksag",
+                    "homepage": "http://berkerpeksag.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Jason Mooberry",
+                    "homepage": "http://jasonmooberry.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Known adoption of Toro, a PHP router for developing RESTful web applications and APIs.",
+            "homepage": "http://github.com/anandkunal/ToroPHP",
+            "keywords": [
+                "framework",
+                "php",
+                "router"
+            ],
+            "time": "2019-11-03T12:27:44+00:00"
+        },
+        {
             "name": "idno/webhooks",
             "version": "1.0.1",
             "source": {
@@ -1179,9 +1260,9 @@
             "authors": [
                 {
                     "name": "Marcus Povey",
+                    "role": "Developer",
                     "email": "marcus@marcus-povey.co.uk",
-                    "homepage": "https://www.marcus-povey.co.uk",
-                    "role": "Developer"
+                    "homepage": "https://www.marcus-povey.co.uk"
                 }
             ],
             "description": "Known customisation of MrClay's AutoP, placed here for composer support",
@@ -1300,7 +1381,8 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/paypal/bootstrap-accessibility-plugin/zipball/010d9a1f21ae4ae3323acf30508fc26a13dc7fa2",
-                "reference": "010d9a1f21ae4ae3323acf30508fc26a13dc7fa2"
+                "reference": "010d9a1f21ae4ae3323acf30508fc26a13dc7fa2",
+                "shasum": null
             },
             "type": "npm-asset",
             "license": [
@@ -1312,7 +1394,9 @@
             "version": "2.2.2",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/bootstrap-toggle/-/bootstrap-toggle-2.2.2.tgz"
+                "url": "https://registry.npmjs.org/bootstrap-toggle/-/bootstrap-toggle-2.2.2.tgz",
+                "reference": null,
+                "shasum": null
             },
             "type": "npm-asset",
             "license": [
@@ -1324,7 +1408,9 @@
             "version": "0.1.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/dom-walk/-/dom-walk-0.1.1.tgz"
+                "url": "https://registry.npmjs.org/dom-walk/-/dom-walk-0.1.1.tgz",
+                "reference": null,
+                "shasum": null
             },
             "type": "npm-asset"
         },
@@ -1333,7 +1419,9 @@
             "version": "2.3.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/exif-js/-/exif-js-2.3.0.tgz"
+                "url": "https://registry.npmjs.org/exif-js/-/exif-js-2.3.0.tgz",
+                "reference": null,
+                "shasum": null
             },
             "type": "npm-asset",
             "license": [
@@ -1345,7 +1433,9 @@
             "version": "4.4.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/global/-/global-4.4.0.tgz"
+                "url": "https://registry.npmjs.org/global/-/global-4.4.0.tgz",
+                "reference": null,
+                "shasum": null
             },
             "require": {
                 "npm-asset/min-document": ">=2.19.0,<3.0.0",
@@ -1361,7 +1451,9 @@
             "version": "3.4.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/jquery/-/jquery-3.4.1.tgz"
+                "url": "https://registry.npmjs.org/jquery/-/jquery-3.4.1.tgz",
+                "reference": null,
+                "shasum": null
             },
             "type": "npm-asset",
             "license": [
@@ -1373,7 +1465,9 @@
             "version": "4.2.14",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/mediaelement/-/mediaelement-4.2.14.tgz"
+                "url": "https://registry.npmjs.org/mediaelement/-/mediaelement-4.2.14.tgz",
+                "reference": null,
+                "shasum": null
             },
             "require": {
                 "npm-asset/global": ">=4.3.1,<5.0.0"
@@ -1388,7 +1482,9 @@
             "version": "2.19.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/min-document/-/min-document-2.19.0.tgz"
+                "url": "https://registry.npmjs.org/min-document/-/min-document-2.19.0.tgz",
+                "reference": null,
+                "shasum": null
             },
             "require": {
                 "npm-asset/dom-walk": ">=0.1.0,<0.2.0"
@@ -1400,7 +1496,9 @@
             "version": "0.11.10",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/process/-/process-0.11.10.tgz"
+                "url": "https://registry.npmjs.org/process/-/process-0.11.10.tgz",
+                "reference": null,
+                "shasum": null
             },
             "type": "npm-asset",
             "license": [
@@ -1412,7 +1510,9 @@
             "version": "1.9.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/underscore/-/underscore-1.9.1.tgz"
+                "url": "https://registry.npmjs.org/underscore/-/underscore-1.9.1.tgz",
+                "reference": null,
+                "shasum": null
             },
             "type": "npm-asset",
             "license": [
@@ -1430,7 +1530,8 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/davatron5000/FitVids.js/zipball/d028a2287a633478005a49fe6d1f3fcbe9f2d955",
-                "reference": "d028a2287a633478005a49fe6d1f3fcbe9f2d955"
+                "reference": "d028a2287a633478005a49fe6d1f3fcbe9f2d955",
+                "shasum": null
             },
             "type": "npm-asset"
         },
@@ -2653,81 +2754,6 @@
             "time": "2019-10-28T06:39:23+00:00"
         },
         {
-            "name": "torophp/torophp",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/anandkunal/ToroPHP.git",
-                "reference": "4e5f5388b2967754cbf57079acccdbac7467160b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/anandkunal/ToroPHP/zipball/4e5f5388b2967754cbf57079acccdbac7467160b",
-                "reference": "4e5f5388b2967754cbf57079acccdbac7467160b",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/Toro.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Martin Bean",
-                    "email": "martin@martinbean.co.uk",
-                    "homepage": "http://www.martinbean.co.uk",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Kunal Anand",
-                    "email": "kunal.r.anand@gmail.com",
-                    "homepage": "http://kunalanand.com/",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Danillo César de O. Melo",
-                    "email": "danillos@gmail.com",
-                    "homepage": "http://www.danillocesar.com.br/",
-                    "role": "Contributor"
-                },
-                {
-                    "name": "Robbie Coleman",
-                    "homepage": "http://robbie.robnrob.com",
-                    "role": "Contributor"
-                },
-                {
-                    "name": "John Kurkowski",
-                    "role": "Contributor"
-                },
-                {
-                    "name": "Berker Peksag",
-                    "homepage": "http://berkerpeksag.com",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Jason Mooberry",
-                    "homepage": "http://jasonmooberry.com/",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Toro is a PHP router for developing RESTful web applications and APIs.",
-            "homepage": "http://github.com/anandkunal/ToroPHP",
-            "keywords": [
-                "framework",
-                "php",
-                "router"
-            ],
-            "time": "2015-04-15T21:01:31+00:00"
-        },
-        {
             "name": "twbs/bootstrap",
             "version": "v3.4.1",
             "source": {
@@ -3269,8 +3295,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "torophp/torophp": 20,
-        "bower-asset/mention": 20,
         "mapkyca/known-mongo-php-library": 20,
         "roave/security-advisories": 20
     },
