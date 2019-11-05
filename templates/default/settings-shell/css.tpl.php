@@ -6,4 +6,4 @@
 
 <!-- Mention styles -->
 <link rel="stylesheet" type="text/css"
-      href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/bower-asset/mention/recommended-styles.css">
+      href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/idno/mentionjs/recommended-styles.css">
