@@ -23,9 +23,9 @@ if (\Idno\Core\Idno::site()->session()->isLoggedIn()) {
     src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/rmm5t/jquery-timeago/jquery.timeago.js"></script>
 <script src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/npm-asset/underscore/underscore-min.js"
         type="text/javascript"></script>
-<!--<script src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() . 'vendor/bower-asset/mention/bootstrap-typeahead.js' ?>"
+<!--<script src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() . 'vendor/idno/mentionjs/bootstrap-typeahead.js' ?>"
         type="text/javascript"></script>
-<script src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() . 'vendor/bower-asset/mention/mention.js' ?>"
+<script src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() . 'vendor/idno/mentionjs/mention.js' ?>"
         type="text/javascript"></script> -->
 
 <?php
