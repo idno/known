@@ -8,10 +8,10 @@
 
 ## Installation 
 
-### One-click Known sites
+### Shared Host on  Known sites
 
-If you want to install on your own web space, we recommend [Reclaim Hosting](https://portal.reclaimhosting.com/aff.php?aff=013),
-which includes one-click Known installation. Known is also known to work on [DreamHost](https://dreamhost.com), a high-quality
+If you want to install on your own web space, we recommend [Reclaim Hosting](https://portal.reclaimhosting.com/aff.php?aff=013), which includes one-click Known installation.The one click installs an outdated version of 0.9.2 and then requires updating following the intructions below.  
+Known is also known to work on [DreamHost](https://dreamhost.com), a high-quality
 web hosting provider.
 
 ### Installing
