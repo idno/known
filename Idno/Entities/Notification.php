@@ -94,6 +94,11 @@ namespace Idno\Entities {
         {
             $this->verb = $verb;
         }
+        
+        function getVerb() 
+        {
+            return $this->verb;
+        }
 
         /**
          * Optionally, an array describing the object of the
