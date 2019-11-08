@@ -98,10 +98,17 @@ namespace Idno\Entities {
                                     'user'         => $user,
                                     'notification' => $notification,
                                 ];
+                                
+                                $t = clone \Idno\Core\Idno::site()->template();
+                                $t->setTemplateType('email');
+                                $shellvars = [];
+                                if ($preheader = $t->__($vars)->draw('content/notification/preheader/'.$notification->getVerb())) {
+                                    $shellvars['preheader'] = $preheader;
+                                }
 
                                 $email = new Email();
                                 $email->setSubject($notification->getMessage());
-                                $email->setHTMLBodyFromTemplate($notification->getMessageTemplate(), $vars);
+                                $email->setHTMLBodyFromTemplate($notification->getMessageTemplate(), $vars, $shellvars);
                                 $email->setTextBodyFromTemplate($notification->getMessageTemplate(), $vars);
                                 $email->addTo($user->email);
                                 $email->send();
