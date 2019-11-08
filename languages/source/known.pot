@@ -550,24 +550,32 @@ msgstr ""
 msgid "Plugin %s doesn\'t have a version"
 msgstr ""
 
-#: ./Idno/Common/Page.php:390
+#: ./Idno/Common/Page.php:397
 msgid "Invalid token."
 msgstr ""
 
-#: ./Idno/Common/Page.php:407
+#: ./Idno/Common/Page.php:414
 msgid "Something went wrong."
 msgstr ""
 
-#: ./Idno/Common/Page.php:464
+#: ./Idno/Common/Page.php:479
 msgid "Attempted to redirect page to a non local URL."
 msgstr ""
 
-#: ./Idno/Common/Page.php:554
+#: ./Idno/Common/Page.php:569
 msgid "The page you were on timed out."
 msgstr ""
 
-#: ./Idno/Common/Page.php:568
+#: ./Idno/Common/Page.php:583
 msgid "Couldn't say anything about execution, probably something went wrong"
+msgstr ""
+
+#: ./Idno/Common/Page.php:741
+msgid "This content isn\'t here."
+msgstr ""
+
+#: ./Idno/Common/Page.php:757
+msgid "This page can\'t be found."
 msgstr ""
 
 #: ./Idno/Entities/GenericDataItem.php:43
