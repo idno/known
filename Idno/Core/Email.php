@@ -87,27 +87,28 @@ namespace Idno\Core {
          * @param array $vars
          * @return mixed
          */
-        function setHTMLBodyFromTemplate($template_name, $vars = array())
+        function setHTMLBodyFromTemplate($template_name, $vars = array(), array $shellVars = [])
         {
             $t = clone \Idno\Core\Idno::site()->template();
             $t->setTemplateType('email');
             $body = $t->__($vars)->draw($template_name);
 
-            return $this->setHTMLBody($body);
+            return $this->setHTMLBody($body, true, $shellVars);
         }
 
         /**
          * Sets the HTML body of the message (optionally setting it inside the email pageshell as defined by the email template)
          * @param $body The formatted HTML body text of the message
          * @param bool $shell Should the message be placed inside the pageshell? Default: true
+         * @param array $shellVars Variables to pass to the page shell template
          * @return mixed
          */
-        function setHTMLBody($body, $shell = true)
+        function setHTMLBody($body, $shell = true, array $shellVars = [])
         {
             if ($shell) {
                 $t = clone \Idno\Core\Idno::site()->template();
                 $t->setTemplateType('email');
-                $message = $t->__(array('body' => $body))->draw('shell');
+                $message = $t->__(array_merge(array('body' => $body), $shellVars))->draw('shell');
             } else {
                 $message = $body;
             }
