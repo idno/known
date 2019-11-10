@@ -738,7 +738,7 @@ namespace Idno\Common {
             header_remove('X-Known-CSRF-Token');
 
             $t = \Idno\Core\Idno::site()->template();
-            $t->__(array('body' => $t->draw('pages/410'), 'title' => 'This content isn\'t here.'))->drawPage();
+            $t->__(array('body' => $t->draw('pages/410'), 'title' => \Idno\Core\Idno::site()->language()->_('This content isn\'t here.')))->drawPage();
             exit;
         }
 
@@ -754,7 +754,7 @@ namespace Idno\Common {
             header_remove('X-Known-CSRF-Token');
 
             $t = \Idno\Core\Idno::site()->template();
-            $t->__(array('body' => $t->draw('pages/404'), 'title' => 'This page can\'t be found.'))->drawPage();
+            $t->__(array('body' => $t->draw('pages/404'), 'title' => \Idno\Core\Idno::site()->language()->_('This page can\'t be found.')))->drawPage();
             exit;
         }
 
