@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fe537602ca51609039fc5231592415af",
+    "content-hash": "3f063b5c0c76bf270ea66f87eb512a4a",
     "packages": [
         {
             "name": "components/jquery",
@@ -1260,9 +1260,9 @@
             "authors": [
                 {
                     "name": "Marcus Povey",
-                    "role": "Developer",
                     "email": "marcus@marcus-povey.co.uk",
-                    "homepage": "https://www.marcus-povey.co.uk"
+                    "homepage": "https://www.marcus-povey.co.uk",
+                    "role": "Developer"
                 }
             ],
             "description": "Known customisation of MrClay's AutoP, placed here for composer support",
@@ -1453,9 +1453,8 @@
             "name": "npm-asset/mediaelement",
             "version": "4.2.14",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mediaelement/mediaelement/zipball/5bc2965eaa0a0e97127c4444085244fc6d6f9f9f",
-                "reference": "5bc2965eaa0a0e97127c4444085244fc6d6f9f9f"
+                "type": "tar",
+                "url": "https://registry.npmjs.org/mediaelement/-/mediaelement-4.2.14.tgz"
             },
             "require": {
                 "npm-asset/global": ">=4.3.1,<5.0.0"
@@ -2038,16 +2037,16 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v4.3.6",
+            "version": "v4.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "6229f58993e5a157f6096fc7145c0717d0be8807"
+                "reference": "0df002fd4f500392eabd243c2947061a50937287"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/6229f58993e5a157f6096fc7145c0717d0be8807",
-                "reference": "6229f58993e5a157f6096fc7145c0717d0be8807",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/0df002fd4f500392eabd243c2947061a50937287",
+                "reference": "0df002fd4f500392eabd243c2947061a50937287",
                 "shasum": ""
             },
             "require": {
@@ -2104,7 +2103,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2019-10-01T16:40:32+00:00"
+            "time": "2019-11-03T09:04:05+00:00"
         },
         {
             "name": "symfony/event-dispatcher-contracts",
@@ -3011,12 +3010,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "f8c8349a4b12a26edfa8b21d07d3dbeb6dcedcfa"
+                "reference": "15eb463aecc9e315b89b744ee0feb0bb1b4c6787"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/f8c8349a4b12a26edfa8b21d07d3dbeb6dcedcfa",
-                "reference": "f8c8349a4b12a26edfa8b21d07d3dbeb6dcedcfa",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/15eb463aecc9e315b89b744ee0feb0bb1b4c6787",
+                "reference": "15eb463aecc9e315b89b744ee0feb0bb1b4c6787",
                 "shasum": ""
             },
             "conflict": {
@@ -3105,7 +3104,7 @@
                 "propel/propel": ">=2-alpha.1,<=2-alpha.7",
                 "propel/propel1": ">=1,<=1.7.1",
                 "pusher/pusher-php-server": "<2.2.1",
-                "robrichards/xmlseclibs": ">=1,<3.0.2",
+                "robrichards/xmlseclibs": ">=1,<3.0.4",
                 "sabre/dav": ">=1.6,<1.6.99|>=1.7,<1.7.11|>=1.8,<1.8.9",
                 "sensiolabs/connect": "<4.2.3",
                 "serluck/phpwhois": "<=4.2.6",
@@ -3219,7 +3218,7 @@
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-            "time": "2019-10-29T22:11:03+00:00"
+            "time": "2019-11-07T10:12:47+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
