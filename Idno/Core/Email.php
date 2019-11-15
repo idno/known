@@ -11,7 +11,7 @@ namespace Idno\Core {
         {
             // Using SwiftMailer to establish a message
             try {
-                $this->message = \Swift_Message::newInstance();
+                $this->message = new \Swift_Message();
             } catch (\Exception $e) {
                 \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("Something went wrong and we couldn't create the email message to send."));
             }
@@ -149,7 +149,7 @@ namespace Idno\Core {
         {
             try {
                 if ($smtp_host = \Idno\Core\Idno::site()->config()->smtp_host) {
-                    $transport = \Swift_SmtpTransport::newInstance($smtp_host);
+                    $transport = new \Swift_SmtpTransport($smtp_host);
                     if ($smtp_username = \Idno\Core\Idno::site()->config()->smtp_username) {
                         $transport->setUsername($smtp_username);
                         if ($smtp_password = \Idno\Core\Idno::site()->config()->smtp_password) {
@@ -157,7 +157,7 @@ namespace Idno\Core {
                         }
                     }
                 } else {
-                    $transport = \Swift_SmtpTransport::newInstance();
+                    $transport = new \Swift_SmtpTransport();
                 }
                 if (!empty(\Idno\Core\Idno::site()->config()->smtp_port)) {
                     $transport->setPort(\Idno\Core\Idno::site()->config()->smtp_port);
@@ -172,7 +172,7 @@ namespace Idno\Core {
                             break;
                     }
                 }
-                $mailer = \Swift_Mailer::newInstance($transport);
+                $mailer = new \Swift_Mailer($transport);
 
                 // Set the "from" address
                 if ($from_email = \Idno\Core\Idno::site()->config()->from_email) {
