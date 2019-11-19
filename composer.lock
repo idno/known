@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4bafb3c8fbe391da7f27290604002797",
+    "content-hash": "f0d530b4232fa28ad5fcb14e67031876",
     "packages": [
         {
             "name": "components/jquery",
@@ -1380,9 +1380,9 @@
             "authors": [
                 {
                     "name": "Marcus Povey",
-                    "role": "Developer",
                     "email": "marcus@marcus-povey.co.uk",
-                    "homepage": "https://www.marcus-povey.co.uk"
+                    "homepage": "https://www.marcus-povey.co.uk",
+                    "role": "Developer"
                 }
             ],
             "description": "Known customisation of MrClay's AutoP, placed here for composer support",
@@ -1573,9 +1573,8 @@
             "name": "npm-asset/mediaelement",
             "version": "4.2.14",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mediaelement/mediaelement/zipball/5bc2965eaa0a0e97127c4444085244fc6d6f9f9f",
-                "reference": "5bc2965eaa0a0e97127c4444085244fc6d6f9f9f"
+                "type": "tar",
+                "url": "https://registry.npmjs.org/mediaelement/-/mediaelement-4.2.14.tgz"
             },
             "require": {
                 "npm-asset/global": ">=4.3.1,<5.0.0"
@@ -2877,16 +2876,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "5.1.1",
+            "version": "5.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "782aa3876f354b8d04fbf1124c4aa440cec9d199"
+                "reference": "7587e9a7d09ea0a2ae16f6628918c1bd18df2baa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/782aa3876f354b8d04fbf1124c4aa440cec9d199",
-                "reference": "782aa3876f354b8d04fbf1124c4aa440cec9d199",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/7587e9a7d09ea0a2ae16f6628918c1bd18df2baa",
+                "reference": "7587e9a7d09ea0a2ae16f6628918c1bd18df2baa",
                 "shasum": ""
             },
             "type": "component",
@@ -2919,7 +2918,7 @@
                 "tinymce",
                 "wysiwyg"
             ],
-            "time": "2019-10-28T06:39:23+00:00"
+            "time": "2019-11-19T04:29:44+00:00"
         },
         {
             "name": "twbs/bootstrap",
@@ -3198,12 +3197,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "261562a9c048aa10932e5e1d596da6c761cf95bb"
+                "reference": "b04afa5560ac7f34fe6a24c620ccb199d61624a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/261562a9c048aa10932e5e1d596da6c761cf95bb",
-                "reference": "261562a9c048aa10932e5e1d596da6c761cf95bb",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/b04afa5560ac7f34fe6a24c620ccb199d61624a0",
+                "reference": "b04afa5560ac7f34fe6a24c620ccb199d61624a0",
                 "shasum": ""
             },
             "conflict": {
@@ -3271,7 +3270,7 @@
                 "league/commonmark": "<0.18.3",
                 "magento/magento1ce": "<1.9.4.3",
                 "magento/magento1ee": ">=1,<1.14.4.3",
-                "magento/product-community-edition": ">=2,<2.2.10|>=2.3,<2.3.3",
+                "magento/product-community-edition": ">=2,<2.2.10|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2",
                 "monolog/monolog": ">=1.8,<1.12",
                 "namshi/jose": "<2.2",
                 "onelogin/php-saml": "<2.10.4",
@@ -3408,7 +3407,7 @@
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-            "time": "2019-11-15T09:15:43+00:00"
+            "time": "2019-11-19T10:33:37+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
