@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f0d530b4232fa28ad5fcb14e67031876",
+    "content-hash": "6da505ca6b8aec12692c9671c6e150f6",
     "packages": [
         {
             "name": "components/jquery",
@@ -2090,27 +2090,28 @@
         },
         {
             "name": "symfony/console",
-            "version": "v4.3.8",
+            "version": "v4.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "831424efae0a1fe6642784bd52aae14ece6538e6"
+                "reference": "35d9077f495c6d184d9930f7a7ecbd1ad13c7ab8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/831424efae0a1fe6642784bd52aae14ece6538e6",
-                "reference": "831424efae0a1fe6642784bd52aae14ece6538e6",
+                "url": "https://api.github.com/repos/symfony/console/zipball/35d9077f495c6d184d9930f7a7ecbd1ad13c7ab8",
+                "reference": "35d9077f495c6d184d9930f7a7ecbd1ad13c7ab8",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1.3",
                 "symfony/polyfill-mbstring": "~1.0",
                 "symfony/polyfill-php73": "^1.8",
-                "symfony/service-contracts": "^1.1"
+                "symfony/service-contracts": "^1.1|^2"
             },
             "conflict": {
                 "symfony/dependency-injection": "<3.4",
-                "symfony/event-dispatcher": "<4.3",
+                "symfony/event-dispatcher": "<4.3|>=5",
+                "symfony/lock": "<4.4",
                 "symfony/process": "<3.3"
             },
             "provide": {
@@ -2118,12 +2119,12 @@
             },
             "require-dev": {
                 "psr/log": "~1.0",
-                "symfony/config": "~3.4|~4.0",
-                "symfony/dependency-injection": "~3.4|~4.0",
+                "symfony/config": "^3.4|^4.0|^5.0",
+                "symfony/dependency-injection": "^3.4|^4.0|^5.0",
                 "symfony/event-dispatcher": "^4.3",
-                "symfony/lock": "~3.4|~4.0",
-                "symfony/process": "~3.4|~4.0",
-                "symfony/var-dumper": "^4.3"
+                "symfony/lock": "^4.4|^5.0",
+                "symfony/process": "^3.4|^4.0|^5.0",
+                "symfony/var-dumper": "^4.3|^5.0"
             },
             "suggest": {
                 "psr/log": "For using the console logger",
@@ -2134,7 +2135,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.3-dev"
+                    "dev-master": "4.4-dev"
                 }
             },
             "autoload": {
@@ -2161,7 +2162,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2019-11-13T07:29:07+00:00"
+            "time": "2019-11-13T07:39:40+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -3197,12 +3198,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "b04afa5560ac7f34fe6a24c620ccb199d61624a0"
+                "reference": "40fb2c205dd261ab6bb42ec29545934f0db7026f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/b04afa5560ac7f34fe6a24c620ccb199d61624a0",
-                "reference": "b04afa5560ac7f34fe6a24c620ccb199d61624a0",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/40fb2c205dd261ab6bb42ec29545934f0db7026f",
+                "reference": "40fb2c205dd261ab6bb42ec29545934f0db7026f",
                 "shasum": ""
             },
             "conflict": {
@@ -3270,7 +3271,7 @@
                 "league/commonmark": "<0.18.3",
                 "magento/magento1ce": "<1.9.4.3",
                 "magento/magento1ee": ">=1,<1.14.4.3",
-                "magento/product-community-edition": ">=2,<2.2.10|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2|>=2.3,<2.3.3,<2.3.2-p2",
+                "magento/product-community-edition": ">=2,<2.2.10|>=2.3,<2.3.2",
                 "monolog/monolog": ">=1.8,<1.12",
                 "namshi/jose": "<2.2",
                 "onelogin/php-saml": "<2.10.4",
@@ -3407,7 +3408,7 @@
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-            "time": "2019-11-19T10:33:37+00:00"
+            "time": "2019-11-19T14:18:57+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
