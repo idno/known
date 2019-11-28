@@ -455,9 +455,8 @@ namespace Idno\Core {
          * Can a specified user (either an explicitly specified user ID
          * or the currently logged-in user if this is left blank) edit
          * this entity?
-         *
-         * In this instance this specifically means "Can a given user create
-         * new content or
+         * 
+         * This essentially means 'can the user edit configuration about the site', generally only admins can do this.
          *
          * @param string $user_id
          * @return true|false
@@ -486,7 +485,7 @@ namespace Idno\Core {
         /**
          * Can a specified user (either an explicitly specified user ID
          * or the currently logged-in user if this is left blank) publish
-         * to the site?
+         * content on the site?
          *
          * @param string $user_id
          * @return true|false
@@ -502,18 +501,26 @@ namespace Idno\Core {
 
             if ($user = \Idno\Entities\User::getByUUID($user_id)) {
 
-                // Remote users can't ever create anything :( - for now
-                if ($user instanceof \Idno\Entities\RemoteUser) {
-                    return false;
-                }
-
-                // But local users can
-                if ($user instanceof \Idno\Entities\User) {
-                    if (empty($user->read_only)) {
-                        return true;
+                // Make site level canWrite extensible
+                return \Idno\Core\Idno::site()->events()->triggerEvent('canWrite/site', [
+                    'object' => $this, 
+                    'user_id' => $user_id,
+                    'user' => $user
+                ], (function () use ($user) {
+                
+                    // Remote users can't ever create anything :( - for now
+                    if ($user instanceof \Idno\Entities\RemoteUser) {
+                        return false;
                     }
-                }
 
+                    // But local users can
+                    if ($user instanceof \Idno\Entities\User) {
+                        if (empty($user->read_only)) {
+                            return true;
+                        }
+                    }
+                    
+                })());
             }
 
             return false;
