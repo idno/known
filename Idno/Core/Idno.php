@@ -472,10 +472,19 @@ namespace Idno\Core {
             }
 
             if ($user = \Idno\Entities\User::getByUUID($user_id)) {
-
-                if ($user->isAdmin()) {
-                    return true;
-                }
+                
+                return \Idno\Core\Idno::site()->events()->triggerEvent('canEdit/site', [
+                    'object' => $this, 
+                    'user_id' => $user_id,
+                    'user' => $user
+                ], (function () use ($user) {
+                    
+                    if ($user->isAdmin()) {
+                        return true;
+                    }
+                    
+                    return false;
+                })());
 
             }
 
