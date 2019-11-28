@@ -520,6 +520,8 @@ namespace Idno\Core {
                         }
                     }
                     
+                    return false;
+                    
                 })());
             }
 
