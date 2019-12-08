@@ -1357,7 +1357,7 @@ namespace Idno\Common {
                 $short = '';
                 while ($id) {
                     $id = ($id - ($r = $id % $base)) / $base;
-                    $short = $alphabet{$r} . $short;
+                    $short = $alphabet[$r] . $short;
                 };
 
                 return $short;
