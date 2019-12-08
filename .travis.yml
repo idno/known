@@ -10,6 +10,10 @@ env:
   - DB=mongo
   - DB=pgsql
   
+matrix:
+   allow_failures:
+     - php: 7.4
+  
 branches:
   only:
     - master
@@ -18,7 +22,6 @@ before_script:
   # Update and install base system
   - sudo apt-get update
   - sudo apt-get install -y --force-yes apache2 libapache2-mod-fastcgi make libxml2-utils curl
-  - sudo phpenmod gd
   - sudo a2enmod headers
   # Enable php-fpm
   - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
