@@ -54,7 +54,7 @@ before_script:
   - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
   - sudo service apache2 restart
   # Ensure composer has installed dependancies
-  - composer install --no-dev
+  - composer install --no-dev --ignore-platform-reqs
 
 services:
   - mongodb
