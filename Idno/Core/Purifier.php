@@ -32,7 +32,7 @@ namespace Idno\Core {
             $config = \HTMLPurifier_Config::createDefault();
             $config->set('Cache.SerializerPath', $upload_dir);
             $config->set('HTML.SafeIframe', true);
-            $config->set('URI.SafeIframeRegexp', '%^https?://('.implode($allowedIframes, '|').')%');
+            $config->set('URI.SafeIframeRegexp', '%^https?://('.implode('|', $allowedIframes).')%');
             $this->purifier = new \HTMLPurifier($config);
         }
 
