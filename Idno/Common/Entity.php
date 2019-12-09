@@ -870,7 +870,7 @@ namespace Idno\Common {
 
         /**
          * Attaches a file reference to this entity
-         * @param \MongoGridFSFile $file_wrapper
+         * @param  $file_wrapper
          */
         function attachFile($file_wrapper)
         {
@@ -1764,6 +1764,7 @@ namespace Idno\Common {
                         $attachment['length'] = 0;
                     }
                     $object['attachments'][] = [
+                        'filename' => $attachment['filename'],
                         'url' => preg_replace('/^(https?:\/\/\/)/u', \Idno\Core\Idno::site()->config()->url, $attachment['url']),
                         'mime-type' => $attachment['mime-type'],
                         'length' => $attachment['length']
