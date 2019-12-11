@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cae7eee3e7c2dbb9cb0feac8a48c60b1",
+    "content-hash": "9ce435c471cce0ede0c886f56949bbde",
     "packages": [
         {
             "name": "components/jquery",
@@ -2881,16 +2881,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "5.1.3",
+            "version": "5.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "9332192a57fae1d717780486eabfd2d661e3b7e8"
+                "reference": "7fcdd149d2e2f6013c78a965b8fab2bbe011de4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/9332192a57fae1d717780486eabfd2d661e3b7e8",
-                "reference": "9332192a57fae1d717780486eabfd2d661e3b7e8",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/7fcdd149d2e2f6013c78a965b8fab2bbe011de4f",
+                "reference": "7fcdd149d2e2f6013c78a965b8fab2bbe011de4f",
                 "shasum": ""
             },
             "type": "component",
@@ -2923,7 +2923,7 @@
                 "tinymce",
                 "wysiwyg"
             ],
-            "time": "2019-12-04T03:23:32+00:00"
+            "time": "2019-12-11T03:56:56+00:00"
         },
         {
             "name": "twbs/bootstrap",
