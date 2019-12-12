@@ -127,3 +127,9 @@ Third party libraries are licensed separately.
 * MongoDB-PHP-Library, which is distributed under the Apache 2 Licence. Source: https://github.com/mongodb/mongo-php-library
 * Exif-js, which is distributed under the MIT Licence. Source: https://github.com/exif-js/exif-js
 * PHP-OGP, distributed under the GPL2 Licence. Source: https://github.com/mapkyca/php-ogp
+
+## Thank you
+
+[<img src="https://user-images.githubusercontent.com/624104/52508260-d0daa180-2ba8-11e9-970c-3ef9596f6b4e.png" alt="BrowserStack Logo" width="120">](https://www.browserstack.com/)
+
+Thanks to [BrowserStack](https://www.browserstack.com/) for providing the infrastructure that allows us to test in real browsers.
