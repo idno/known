@@ -1471,6 +1471,10 @@ msgstr ""
 msgid "Register"
 msgstr ""
 
+#: ./templates/default/shell/toolbar/search.tpl.php:17
+msgid "Search"
+msgstr ""
+
 #: ./templates/default/shell/toolbar/main.tpl.php:1
 msgid "Skip to main content"
 msgstr ""
