@@ -593,10 +593,10 @@ namespace Idno\Data {
                                     } else {
                                         $boolean = '';
                                     }
-                                    $subwhere[]                                  = "match (`search`) against (:nonmdvalue{$non_md_variables} {$boolean})";
+                                    $subwhere[]                                  = "match (srch.`search`) against (:nonmdvalue{$non_md_variables} {$boolean})";
                                     $variables[":nonmdvalue{$non_md_variables}"] = $val;
                                 } else {
-                                    $subwhere[]                                  = "`search` like :nonmdvalue{$non_md_variables}";
+                                    $subwhere[]                                  = "srch.`search` like :nonmdvalue{$non_md_variables}";
                                     $variables[":nonmdvalue{$non_md_variables}"] = '%' . $val . '%';
                                 }
                                 $non_md_variables++;
