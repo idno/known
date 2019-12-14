@@ -65,7 +65,7 @@ namespace Idno\Data {
                     if ($version->label === 'schema') {
                         $basedate          = $newdate = (int)$version->value;
                         $upgrade_sql_files = array();
-                        $schema_dir        = dirname(dirname(dirname(__FILE__))) . '/warmup/schemas/mysql/';
+                        $schema_dir        = dirname(dirname(dirname(__FILE__))) . '/warmup/schemas/postgres/';
                         $client            = $this->client;
 
                         foreach ([
@@ -654,6 +654,10 @@ namespace Idno\Data {
                 /* @var \PDO $client */
                 $statement = $client->prepare("delete from {$collection}");
                 if ($statement->execute()) {
+                    
+                    $statement = $client->prepare("delete from {$collection}_search");
+                    $statement->execute();
+                    
                     if ($statement = $client->prepare("delete from metadata where collection = :collection")) {
                         return $statement->execute([':collection' => $collection]);
                     }
