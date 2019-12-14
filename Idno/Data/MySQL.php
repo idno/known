@@ -742,9 +742,6 @@ namespace Idno\Data {
                 $statement = $client->prepare("delete from {$collection} where _id = :id");
                 if ($statement->execute(array(':id' => $id))) {
                     
-                    $statement = $client->prepare("delete from {$collection}_search where _id = :id");
-                    $statement->execute(array(':id' => $id));
-                    
                     if ($statement = $client->prepare("delete from metadata where _id = :id")) {
                         return $statement->execute(array(':id' => $id));
                     }

@@ -25,7 +25,8 @@ CREATE TABLE IF NOT EXISTS `config_search` (
   `_id` varchar(32) NOT NULL,
   `search` longtext NOT NULL,
   PRIMARY KEY (`_id`),
-  FULLTEXT KEY `search` (`search`)
+  FULLTEXT KEY `search` (`search`),
+  CONSTRAINT `cs_id_id` FOREIGN KEY (`_id`) REFERENCES `config` (`_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -54,7 +55,8 @@ CREATE TABLE IF NOT EXISTS `entities_search` (
   `_id` varchar(32) NOT NULL,
   `search` longtext NOT NULL,
   PRIMARY KEY (`_id`),
-  FULLTEXT KEY `search` (`search`)
+  FULLTEXT KEY `search` (`search`),
+  CONSTRAINT `es_id_id` FOREIGN KEY (`_id`) REFERENCES `entities` (`_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -82,7 +84,8 @@ CREATE TABLE IF NOT EXISTS `reader_search` (
   `_id` varchar(32) NOT NULL,
   `search` longtext NOT NULL,
   PRIMARY KEY (`_id`),
-  FULLTEXT KEY `search` (`search`)
+  FULLTEXT KEY `search` (`search`),
+  CONSTRAINT `rs_id_id` FOREIGN KEY (`_id`) REFERENCES `reader` (`_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
