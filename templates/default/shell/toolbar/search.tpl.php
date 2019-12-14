@@ -14,7 +14,7 @@ if (!empty($vars['content'])) {
 ?>
 <form class="navbar-form navbar-left" action="<?php echo $action?>" method="get" role="search">
     <div class="form-group">
-        <input type="search" class="search-query form-control" name="q" placeholder="Search" tabindex="2" value="<?php
+        <input type="search" class="search-query form-control" name="q" placeholder="<?php echo \Idno\Core\Idno::site()->language()->_('Search'); ?>" tabindex="2" value="<?php
 
         if (!empty($currentPage)) {
             if ($q = $currentPage->getInput('q')) {
