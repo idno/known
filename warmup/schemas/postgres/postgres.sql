@@ -24,7 +24,8 @@ CREATE INDEX c_publish_status ON config (publish_status);
 CREATE TABLE IF NOT EXISTS config_search (
   _id varchar(32) NOT NULL,
   search text NOT NULL,
-  PRIMARY KEY (_id)
+  PRIMARY KEY (_id),
+  FOREIGN KEY (_id) REFERENCES config (_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- --------------------------------------------------------
@@ -53,7 +54,8 @@ CREATE INDEX e_publish_status ON entities (publish_status);
 CREATE TABLE IF NOT EXISTS entities_search (
   _id varchar(32) NOT NULL,
   search text NOT NULL,
-  PRIMARY KEY (_id)
+  PRIMARY KEY (_id),
+  FOREIGN KEY (_id) REFERENCES entities (_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -84,7 +86,8 @@ CREATE INDEX r_publish_status ON reader (publish_status);
 CREATE TABLE IF NOT EXISTS reader_search (
   _id varchar(32) NOT NULL,
   search text NOT NULL,
-  PRIMARY KEY (_id)
+  PRIMARY KEY (_id),
+  FOREIGN KEY (_id) REFERENCES reader (_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 

@@ -658,9 +658,6 @@ namespace Idno\Data {
                 $statement = $client->prepare("delete from {$collection}");
                 if ($statement->execute()) {
                     
-                    $statement = $client->prepare("delete from {$collection}_search");
-                    $statement->execute();
-                    
                     if ($statement = $client->prepare("delete from metadata where collection = :collection")) {
                         return $statement->execute([':collection' => $collection]);
                     }
