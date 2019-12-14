@@ -201,6 +201,9 @@ namespace Idno\Data {
 
                     $statement = $client->prepare("with upsert as (${upsert} returning *)
                                                    ${insert} where not exists (select * from upsert)");
+                                                  
+                    $statement->execute(array(':id' => $array['_id'], ':search' => $search));
+
                     
                                                    
                                                    
