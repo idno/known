@@ -41,7 +41,10 @@
                                     <div class="config-toggle col-md-4">
                                         
                                         <input type="checkbox" data-toggle="toggle" data-onstyle="info" name="default_feed_content[]"
-                                               
+
+                           data-on="<?php echo \Idno\Core\Idno::site()->language()->_('On'); ?>"
+                           data-off="<?php echo \Idno\Core\Idno::site()->language()->_('Off'); ?>"
+
                                                value="<?php echo $content_type->getCategoryTitleSlug() ?>" <?php
 
                                                 if (in_array($content_type->getEntityClass(), $vars['default_content_types'])) {

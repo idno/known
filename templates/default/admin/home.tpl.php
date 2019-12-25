@@ -80,7 +80,9 @@
                     </p>
                 </div>
                 <div class="config-toggle col-md-4">
-                    <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
+                    <input type="checkbox" data-toggle="toggle" data-onstyle="info"
+                           data-on="<?php echo \Idno\Core\Idno::site()->language()->_('Yes'); ?>"
+                           data-off="<?php echo \Idno\Core\Idno::site()->language()->_('No'); ?>"
                            value="true" id="single_user"
                            name="single_user" <?php if (\Idno\Core\Idno::site()->config()->single_user) echo 'checked'; ?>>
                 </div>
@@ -136,7 +138,9 @@
                     <p><label class="control-label" for="open_registration"><strong><?php echo \Idno\Core\Idno::site()->language()->_('Allow registration'); ?></strong></label></p>
                 </div>
                 <div class="config-toggle col-md-4">
-                    <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
+                    <input type="checkbox" data-toggle="toggle" data-onstyle="info"
+                           data-on="<?php echo \Idno\Core\Idno::site()->language()->_('Yes'); ?>"
+                           data-off="<?php echo \Idno\Core\Idno::site()->language()->_('No'); ?>"
                            name="open_registration"
                            value="true" <?php if (\Idno\Core\Idno::site()->config()->open_registration == true) echo 'checked'; ?>>
                 </div>
@@ -157,7 +161,9 @@
                             <p><label class="control-label" for="walled_garden"><strong><?php echo \Idno\Core\Idno::site()->language()->_('Make site private'); ?></strong></label></p>
                         </div>
                         <div class="config-toggle col-md-4">
-                            <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
+                            <input type="checkbox" data-toggle="toggle" data-onstyle="info"
+                           data-on="<?php echo \Idno\Core\Idno::site()->language()->_('Yes'); ?>"
+                           data-off="<?php echo \Idno\Core\Idno::site()->language()->_('No'); ?>"
                                    name="walled_garden" id="walled_garden"
                                    value="true" <?php if (\Idno\Core\Idno::site()->config()->walled_garden == true) echo 'checked'; ?>>
                         </div>
@@ -183,7 +189,9 @@
                             </p>
                         </div>
                         <div class="config-toggle col-md-4">
-                            <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
+                            <input type="checkbox" data-toggle="toggle" data-onstyle="info"
+                           data-on="<?php echo \Idno\Core\Idno::site()->language()->_('Yes'); ?>"
+                           data-off="<?php echo \Idno\Core\Idno::site()->language()->_('No'); ?>"
                                    name="show_privacy" id="show_privacy"
                                    value="true" <?php if (\Idno\Core\Idno::site()->config()->show_privacy == true) echo 'checked'; ?>>
                         </div>
@@ -234,7 +242,9 @@
                     </p>
                 </div>
                 <div class="config-toggle col-md-4">
-                    <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
+                    <input type="checkbox" data-toggle="toggle" data-onstyle="info"
+                           data-on="<?php echo \Idno\Core\Idno::site()->language()->_('Yes'); ?>"
+                           data-off="<?php echo \Idno\Core\Idno::site()->language()->_('No'); ?>"
                            value="true" id="user_avatar_favicons"
                            name="user_avatar_favicons" <?php if (\Idno\Core\Idno::site()->config()->user_avatar_favicons == true) echo 'checked'; ?>>
                 </div>
@@ -250,7 +260,9 @@
                     <p><label class="control-label" for="include_permalinks"><strong><?php echo \Idno\Core\Idno::site()->language()->_('Include permalinks'); ?></strong></label></p>
                 </div>
                 <div class="config-toggle col-md-4">
-                    <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
+                    <input type="checkbox" data-toggle="toggle" data-onstyle="info"
+                           data-on="<?php echo \Idno\Core\Idno::site()->language()->_('Yes'); ?>"
+                           data-off="<?php echo \Idno\Core\Idno::site()->language()->_('No'); ?>"
                            name="indieweb_reference" id="include_permalinks"
                            value="true" <?php if (\Idno\Core\Idno::site()->config()->indieweb_reference == true) echo 'checked'; ?>>
                 </div>
