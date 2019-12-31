@@ -10,9 +10,9 @@ env:
   - DB=mongo
   - DB=pgsql
   
-matrix:
-   allow_failures:
-     - php: 7.4
+#matrix:
+#   allow_failures:
+#     - php: 7.4
   
 branches:
   only:
