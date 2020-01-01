@@ -52,7 +52,7 @@
         "idno/mentionjs": "^1.0",
         "mapkyca/known-mongo-php-library": "1.0.3+known",
         "indieweb/mention-client": "1.2.0",
-        "twig/twig": "3.0.0",
+        "twig/twig": "3.0.1",
         "composer/installers": "~1.7",
         "mapkyca/known-oauth2-server": "^0.10",
         "idno/webhooks": "^1.0",
