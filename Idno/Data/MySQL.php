@@ -74,6 +74,7 @@ namespace Idno\Data {
                             2016110301,
                             2017032001,
                             2019060501,
+                            2019121401,
                         ] as $date) {
                             if ($basedate < $date) {
                                 if ($sql = @file_get_contents($schema_dir . $date . '.sql')) {
@@ -234,11 +235,21 @@ namespace Idno\Data {
             try {
                 $client->beginTransaction();
                 $statement = $client->prepare("insert into {$collection}
-                                                    (`uuid`, `_id`, `entity_subtype`,`owner`, `contents`, `search`, `publish_status`, `created`)
+                                                    (`uuid`, `_id`, `entity_subtype`,`owner`, `contents`, `publish_status`, `created`)
                                                     values
-                                                    (:uuid, :id, :subtype, :owner, :contents, :search, :publish_status, :created)
-                                                    on duplicate key update `uuid` = :uuid, `entity_subtype` = :subtype, `owner` = :owner, `contents` = :contents, `search` = :search, `publish_status` = :publish_status, `created` = :created");
-                if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search, ':publish_status' => $array['publish_status'], ':created' => $array['created']))) {
+                                                    (:uuid, :id, :subtype, :owner, :contents, :publish_status, :created)
+                                                    on duplicate key update `uuid` = :uuid, `entity_subtype` = :subtype, `owner` = :owner, `contents` = :contents, `publish_status` = :publish_status, `created` = :created");
+                if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':publish_status' => $array['publish_status'], ':created' => $array['created']))) {
+                    
+                    // Update FTS
+                    $statement = $client->prepare("insert into {$collection}_search
+                        (`_id`, `search`)
+                        values
+                        (:id, :search)
+                        on duplicate key update `search` = :search");
+                    $statement->execute(array(':id' => $array['_id'], ':search' => $search));
+                    
+                    
                     $retval = $array['_id'];
                     if ($statement = $client->prepare("delete from metadata where _id = :id")) {
                         $statement->execute(array(':id' => $array['_id']));
@@ -386,6 +397,9 @@ namespace Idno\Data {
                 $where            = $this->build_where_from_array($parameters, $variables, $metadata_joins, $non_md_variables, 'and', $collection);
                 for ($i = 1; $i <= $metadata_joins; $i++) {
                     $query .= " left join metadata md{$i} on md{$i}.entity = {$collection}.uuid ";
+                }
+                if (isset($parameters['$search'])) {
+                    $query .= " left join {$collection}_search srch on srch._id = {$collection}._id ";
                 }
                 if (!empty($where)) {
                     $query .= ' where ' . $where . ' ';
@@ -579,10 +593,10 @@ namespace Idno\Data {
                                     } else {
                                         $boolean = '';
                                     }
-                                    $subwhere[]                                  = "match (`search`) against (:nonmdvalue{$non_md_variables} {$boolean})";
+                                    $subwhere[]                                  = "match (srch.`search`) against (:nonmdvalue{$non_md_variables} {$boolean})";
                                     $variables[":nonmdvalue{$non_md_variables}"] = $val;
                                 } else {
-                                    $subwhere[]                                  = "`search` like :nonmdvalue{$non_md_variables}";
+                                    $subwhere[]                                  = "srch.`search` like :nonmdvalue{$non_md_variables}";
                                     $variables[":nonmdvalue{$non_md_variables}"] = '%' . $val . '%';
                                 }
                                 $non_md_variables++;
@@ -687,6 +701,9 @@ namespace Idno\Data {
                 for ($i = 1; $i <= $metadata_joins; $i++) {
                     $query .= " left join metadata md{$i} on md{$i}.entity = {$collection}.uuid ";
                 }
+                if (isset($parameters['$search'])) {
+                    $query .= " left join {$collection}_search srch on srch._id = {$collection}._id ";
+                }
                 if (!empty($where)) {
                     $query .= ' where ' . $where . ' ';
                 }
@@ -724,6 +741,7 @@ namespace Idno\Data {
                 /* @var \PDO $client */
                 $statement = $client->prepare("delete from {$collection} where _id = :id");
                 if ($statement->execute(array(':id' => $id))) {
+                    
                     if ($statement = $client->prepare("delete from metadata where _id = :id")) {
                         return $statement->execute(array(':id' => $id));
                     }
@@ -755,6 +773,10 @@ namespace Idno\Data {
                 /* @var \PDO $client */
                 $statement = $client->prepare("delete from {$collection}");
                 if ($statement->execute()) {
+                    
+                    $statement = $client->prepare("delete from {$collection}_search");
+                    $statement->execute();
+                    
                     if ($statement = $client->prepare("delete from metadata where collection = :collection")) {
                         return $statement->execute([':collection' => $collection]);
                     }

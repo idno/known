@@ -65,7 +65,7 @@ namespace Idno\Data {
                     if ($version->label === 'schema') {
                         $basedate          = $newdate = (int)$version->value;
                         $upgrade_sql_files = array();
-                        $schema_dir        = dirname(dirname(dirname(__FILE__))) . '/warmup/schemas/mysql/';
+                        $schema_dir        = dirname(dirname(dirname(__FILE__))) . '/warmup/schemas/postgres/';
                         $client            = $this->client;
 
                         foreach ([
@@ -74,6 +74,7 @@ namespace Idno\Data {
                             2016110301,
                             2017032001,
                             2019060501,
+                            2019121401,
                         ] as $date) {
                             if ($basedate < $date) {
                                 if ($sql = @file_get_contents($schema_dir . $date . '.sql')) {
@@ -180,15 +181,32 @@ namespace Idno\Data {
                 // Postgres 9.5 will have "on conflict do update"
                 $upsert = "update {$collection}
                                set uuid=:uuid, entity_subtype=:subtype, owner=:owner,
-                               contents=:contents, search=:search, publish_status=:status where _id=:id";
+                               contents=:contents, publish_status=:status where _id=:id";
                 $insert = "insert into {$collection}
-                               (uuid, _id, owner, entity_subtype, contents, search, publish_status)
-                               select :uuid, :id, :owner, :subtype, :contents, :search, :status";
+                               (uuid, _id, owner, entity_subtype, contents, publish_status)
+                               select :uuid, :id, :owner, :subtype, :contents, :status";
 
                 $statement = $client->prepare("with upsert as (${upsert} returning *)
                                                    ${insert} where not exists (select * from upsert)");
 
-                if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':search' => $search, ':status' => $array['publish_status']))) {
+                if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':status' => $array['publish_status']))) {
+                    
+                    // Update FTS
+                    $upsert = "update {$collection}_search
+                               set search=:search 
+                               where _id=:id";
+                    $insert = "insert into {$collection}_search
+                                   (_id, search)
+                                   select :id, :search";
+
+                    $statement = $client->prepare("with upsert as (${upsert} returning *)
+                                                   ${insert} where not exists (select * from upsert)");
+                                                  
+                    $statement->execute(array(':id' => $array['_id'], ':search' => $search));
+
+                    
+                                                   
+                                                   
                     if ($statement = $client->prepare("delete from metadata where _id = :id")) {
                         $statement->execute(array(':id' => $array['_id']));
                     }
@@ -326,6 +344,9 @@ namespace Idno\Data {
                 $where            = $this->build_where_from_array($parameters, $variables, $metadata_joins, $non_md_variables, 'and', $collection);
                 for ($i = 1; $i <= $metadata_joins; $i++) {
                     $query .= " left join metadata md{$i} on md{$i}.entity = {$collection}.uuid ";
+                }
+                if (isset($parameters['$search'])) {
+                    $query .= " left join {$collection}_search srch on srch._id = {$collection}._id ";
                 }
                 if (!empty($where)) {
                     $query .= ' where ' . $where . ' ';
@@ -519,7 +540,7 @@ namespace Idno\Data {
                             //                                    $subwhere[]                                  = "match (search) against (:nonmdvalue{$non_md_variables})";
                             //                                    $variables[":nonmdvalue{$non_md_variables}"] = $val;
                             //                                } else {
-                            $subwhere[]                                  = "search like :nonmdvalue{$non_md_variables}";
+                            $subwhere[]                                  = "srch.search like :nonmdvalue{$non_md_variables}";
                             $variables[":nonmdvalue{$non_md_variables}"] = '%' . $val . '%';
                             //                                }
                             $non_md_variables++;
@@ -564,6 +585,9 @@ namespace Idno\Data {
                 $where            = $this->build_where_from_array($parameters, $variables, $metadata_joins, $non_md_variables, 'and', $collection);
                 for ($i = 0; $i <= $metadata_joins; $i++) {
                     $query .= " left join metadata md{$i} on md{$i}.entity = {$collection}.uuid ";
+                }
+                if (isset($parameters['$search'])) {
+                    $query .= " left join {$collection}_search srch on srch._id = {$collection}._id ";
                 }
                 if (!empty($where)) {
                     $query .= ' where ' . $where . ' ';
@@ -633,6 +657,7 @@ namespace Idno\Data {
                 /* @var \PDO $client */
                 $statement = $client->prepare("delete from {$collection}");
                 if ($statement->execute()) {
+                    
                     if ($statement = $client->prepare("delete from metadata where collection = :collection")) {
                         return $statement->execute([':collection' => $collection]);
                     }
