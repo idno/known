@@ -44,8 +44,8 @@ namespace Idno\Core {
             // Set locale, now we have one.
             putenv("LANG=" . $language);
             putenv("LANGUAGE=" . $language);
-            putenv("LC_ALL=" . $language);
-            setlocale(LC_ALL, $language);
+            putenv("LC_ALL=" . $language . '.UTF-8');
+            setlocale(LC_ALL, $language . '.UTF-8');
 
             parent::__construct();
         }
@@ -194,13 +194,15 @@ namespace Idno\Core {
         {
 
             $length = 2; // Short form
-            if ($full)
-                $length = 5;
-
+            
             $lang = "";
 
             if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+                if ($full)
+                    $length = strpos($_SERVER['HTTP_ACCEPT_LANGUAGE'], ',');
+
                 $lang = preg_replace("/[^a-zA-Z\-_\s]/", "", substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, $length));
+                $lang = str_replace('-', '_', $lang);
             }
 
             // If running as console app, detect via environment

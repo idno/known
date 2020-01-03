@@ -27,7 +27,7 @@
     
     <div class="col-lg-12 col-12">
 
-        <div class="settings-sidebar col-lg-2 col-2">
+        <div class="settings-sidebar col-lg-2 col-md-2 col-sm-2 col-2">
             <?php if (strpos(\Idno\Core\Idno::site()->currentPage()->currentUrl(), \Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/')!==false) {
                 // This is an admin page
                 echo $this->draw('admin/menu'); 
@@ -37,7 +37,7 @@
             }?>
         </div>
         
-        <div class="settings-content col-lg-10 col-10">
+        <div class="settings-content col-lg-10 col-md-10 col-sm-10 col-10">
     
 
             <?php echo $template->draw('settings-shell/messages') ?>
