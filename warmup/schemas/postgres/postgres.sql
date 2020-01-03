@@ -13,7 +13,6 @@ CREATE TABLE IF NOT EXISTS config (
   entity_subtype varchar(64) NOT NULL,
   created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   contents text NOT NULL,
-  search text NOT NULL,
   publish_status varchar(255) NOT NULL DEFAULT 'published',
   PRIMARY KEY (uuid)
 );
@@ -21,6 +20,13 @@ CREATE INDEX c__id ON config (_id);
 CREATE INDEX c_owner ON config (owner);
 CREATE INDEX c_entity_subtype ON config (entity_subtype);
 CREATE INDEX c_publish_status ON config (publish_status);
+
+CREATE TABLE IF NOT EXISTS config_search (
+  _id varchar(32) NOT NULL,
+  search text NOT NULL,
+  PRIMARY KEY (_id),
+  FOREIGN KEY (_id) REFERENCES config (_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
 
 -- --------------------------------------------------------
 
@@ -44,7 +50,14 @@ CREATE INDEX e_owner ON entities (owner, created);
 CREATE INDEX e_entity_subtype ON entities (entity_subtype);
 CREATE INDEX e_publish_status ON entities (publish_status);
 
--- FULL TEXT ?
+
+CREATE TABLE IF NOT EXISTS entities_search (
+  _id varchar(32) NOT NULL,
+  search text NOT NULL,
+  PRIMARY KEY (_id),
+  FOREIGN KEY (_id) REFERENCES entities (_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 
 
 
@@ -61,7 +74,6 @@ CREATE TABLE IF NOT EXISTS reader (
   entity_subtype varchar(64) NOT NULL,
   created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   contents text NOT NULL,
-  search text NOT NULL,
   publish_status varchar(255) NOT NULL DEFAULT 'published',
   PRIMARY KEY (uuid)
 );
@@ -69,6 +81,15 @@ CREATE TABLE IF NOT EXISTS reader (
 CREATE INDEX r_owner ON reader (owner, created);
 CREATE INDEX r_entity_subtype ON reader (entity_subtype);
 CREATE INDEX r_publish_status ON reader (publish_status);
+
+
+CREATE TABLE IF NOT EXISTS reader_search (
+  _id varchar(32) NOT NULL,
+  search text NOT NULL,
+  PRIMARY KEY (_id),
+  FOREIGN KEY (_id) REFERENCES reader (_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 
 -- --------------------------------------------------------
 

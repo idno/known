@@ -13,13 +13,20 @@ CREATE TABLE IF NOT EXISTS `config` (
   `entity_subtype` varchar(64) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `contents` longblob NOT NULL,
-  `search` longtext NOT NULL,
   `publish_status` varchar(255) NOT NULL DEFAULT 'published',
   PRIMARY KEY (`uuid`),
   KEY `owner` (`owner`,`created`),
   KEY `_id` (`_id`),
   KEY `entity_subtype` (`entity_subtype`),
   KEY `publish_status` (`publish_status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `config_search` (
+  `_id` varchar(32) NOT NULL,
+  `search` longtext NOT NULL,
+  PRIMARY KEY (`_id`),
+  FULLTEXT KEY `search` (`search`),
+  CONSTRAINT `cs_id_id` FOREIGN KEY (`_id`) REFERENCES `config` (`_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -35,15 +42,22 @@ CREATE TABLE IF NOT EXISTS `entities` (
   `entity_subtype` varchar(64) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `contents` longblob NOT NULL,
-  `search` longtext NOT NULL,
   `publish_status` varchar(255) NOT NULL DEFAULT 'published',
   PRIMARY KEY (`uuid`),
   UNIQUE KEY `_id` (`_id`),
   KEY `owner` (`owner`,`created`),
   KEY `entity_subtype` (`entity_subtype`),
-  KEY `publish_status` (`publish_status`),
-  FULLTEXT KEY `search` (`search`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  KEY `publish_status` (`publish_status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `entities_search` (
+  `_id` varchar(32) NOT NULL,
+  `search` longtext NOT NULL,
+  PRIMARY KEY (`_id`),
+  FULLTEXT KEY `search` (`search`),
+  CONSTRAINT `es_id_id` FOREIGN KEY (`_id`) REFERENCES `entities` (`_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -58,15 +72,21 @@ CREATE TABLE IF NOT EXISTS `reader` (
   `entity_subtype` varchar(64) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `contents` longblob NOT NULL,
-  `search` longtext NOT NULL,
   `publish_status` varchar(255) NOT NULL DEFAULT 'published',
   PRIMARY KEY (`uuid`),
   UNIQUE KEY `_id` (`_id`),
   KEY `owner` (`owner`,`created`),
   KEY `entity_subtype` (`entity_subtype`),
-  KEY `publish_status` (`publish_status`),
-  FULLTEXT KEY `search` (`search`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  KEY `publish_status` (`publish_status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `reader_search` (
+  `_id` varchar(32) NOT NULL,
+  `search` longtext NOT NULL,
+  PRIMARY KEY (`_id`),
+  FULLTEXT KEY `search` (`search`),
+  CONSTRAINT `rs_id_id` FOREIGN KEY (`_id`) REFERENCES `reader` (`_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
