@@ -1500,7 +1500,7 @@ msgid "Check out my new @withknown site!"
 msgstr ""
 
 #: ./templates/default/robot/wizard.tpl.php:13
-msgid "Welcome to your new Known site! I'm Aleph, your very own welcome robot. Let's get started by <a href=\\"#\\" onclick=\\"event.preventDefault(); contentCreateForm('status"
+msgid "Welcome to your new Known site! I'm Aleph, your very own welcome robot. Let's get started by <a href=\\"#\\" onclick=\\"event.preventDefault(); contentCreateForm('status', '{{baseurl}}status/edit/'); return false;\">adding your first status update</a>!"
 msgstr ""
 
 #: ./templates/default/robot/wizard.tpl.php:26
@@ -1508,7 +1508,7 @@ msgid "Beep! That was a great update. Why not <a href=\\"{{facebookurl}}\\" targ
 msgstr ""
 
 #: ./templates/default/robot/wizard.tpl.php:39
-msgid "Zeep! That was a great update. Why not <a href=\\"{{facebookurl}}\\" target=\\"blank\\" onclick=\\"window.open('{{facebookurl}}"
+msgid "Zeep! That was a great update. Why not <a href=\\"{{facebookurl}}\\" target=\\"blank\\" onclick=\\"window.open('{{facebookurl}}', 'newwindow', 'width=600, height=350'); return false;\">share your new website on Facebook</a> and <a href=\"{{twitterurl}}\">Twitter</a> so your friends know about it?</a>\n\nI bet you've got some great photos. <a href=\"#\" onclick=\"event.preventDefault(); contentCreateForm('photo', '{{baseurl}}photo/edit/'); return false;\">Try posting one</a>!"
 msgstr ""
 
 #: ./templates/default/robot/wizard.tpl.php:52
