@@ -9,7 +9,7 @@
             <?php echo \Idno\Core\Idno::site()->language()->_('Import content'); ?>
         </h1>
         <p class="explanation">
-            <?php echo \Idno\Core\Idno::site()->language()->_('Import your content from other sites into Known. All imported content will be treated at a post, with a title and body content.'); ?>
+            <?php echo \Idno\Core\Idno::site()->language()->_('Import your content from other sites into Known. All imported content will be treated as a post, with a title and body content.'); ?>
         </p>        
     </div>
 </div>
