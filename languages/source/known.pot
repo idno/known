@@ -859,7 +859,7 @@ msgid "Import content"
 msgstr ""
 
 #: ./templates/default/admin/import.tpl.php:12
-msgid "Import your content from other sites into Known. All imported content will be treated at a post, with a title and body content."
+msgid "Import your content from other sites into Known. All imported content will be treated as a post, with a title and body content."
 msgstr ""
 
 #: ./templates/default/admin/import.tpl.php:24
