@@ -1643,6 +1643,18 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
+#: ./templates/default/account/export.tpl.php:29
+msgid "No"
+msgstr ""
+
+#: ./templates/default/admin/homepage.tpl.php:45
+msgid "On"
+msgstr ""
+
+#: ./templates/default/admin/homepage.tpl.php:46
+msgid "Off"
+msgstr ""
+
 #: ./templates/default/forms/components/usersearch/user.tpl.php:71
 msgid "Standard member"
 msgstr ""
