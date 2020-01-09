@@ -6,50 +6,40 @@
     $facebookurl = "https://www.facebook.com/sharer/sharer.php?u=".urlencode(\Idno\Core\Idno::site()->config()->getDisplayURL());
     $twitterurl = "https://twitter.com/intent/tweet?text=".urlencode(\Idno\Core\Idno::site()->language()->_("Check out my new @withknown site!"))."&url=".urlencode(\Idno\Core\Idno::site()->config()->getDisplayURL())."&source=webclient";
 
+    $two_abc = \Idno\Core\Idno::site()->language()->_(" That was a great update. Why not <%s>share your new website on Facebook</a> and <a href=\"%s\">Twitter</a> so your friends know about it?\n\nI bet you've got some great photos.<%s> Try posting one</a>!",
+               [
+                   "a href=\"$facebookurl\" target=\"blank\" onclick=\"window.open('$facebookurl', 'newwindow', 'width=600, height=350'); return false;\"",
+                   $twitterurl,
+                   "a href=\"#\" onclick=\"event.preventDefault(); contentCreateForm('photo', '{{baseurl}}photo/edit/'); return false;\""
+               ]);
+
 switch (\Idno\Core\Idno::site()->session()->currentUser()->robot_state) {
 
     case '1':
         echo $this->__([
-            'body' => str_replace('{{baseurl}}', \Idno\Core\Idno::site()->config()->getDisplayURL(), \Idno\Core\Idno::site()->language()->_("Welcome to your new Known site! I'm Aleph, your very own welcome robot. Let's get started by <a href=\"#\" onclick=\"event.preventDefault(); contentCreateForm('status', '{{baseurl}}status/edit/'); return false;\">adding your first status update</a>!"))
+            'body' => \Idno\Core\Idno::site()->language()->_("Welcome to your new Known site! I'm Aleph, your very own welcome robot. Let's get started by <%s>adding your first status update</a>!", 
+                      [
+                          "a href=\"#\" onclick=\"event.preventDefault(); contentCreateForm('status', '" .
+                          \Idno\Core\Idno::site()->config()->getDisplayURL() . "status/edit/'); return false;\""
+                      ])
         ])->draw('robot/post');
         break;
     case '2a':
+        $prefix = 'Beep!';
         echo $this->__([
-            'body' => str_replace([
-                '{{baseurl}}',
-                '{{facebookurl}}',
-                '{{twitterurl}}'
-            ], [
-                \Idno\Core\Idno::site()->config()->getDisplayURL(),
-                $facebookurl,
-                $twitterurl
-            ], \Idno\Core\Idno::site()->language()->_("Beep! That was a great update. Why not <a href=\"{{facebookurl}}\" target=\"blank\" onclick=\"window.open('{{facebookurl}}', 'newwindow', 'width=600, height=350'); return false;\">share your new website on Facebook</a> and <a href=\"{{twitterurl}}\">Twitter</a> so your friends know about it?\n\nI bet you've got some great photos. <a href=\"#\" onclick=\"event.preventDefault(); contentCreateForm('photo', '{{baseurl}}photo/edit/'); return false;\">Try posting one</a>!"))
+            'body' => $prefix . $two_abc
         ])->draw('robot/post');
         break;
     case '2b':
+        $prefix = 'Zeep!';
         echo $this->__([
-            'body' => str_replace([
-                '{{baseurl}}',
-                '{{facebookurl}}',
-                '{{twitterurl}}'
-            ], [
-                \Idno\Core\Idno::site()->config()->getDisplayURL(),
-                $facebookurl,
-                $twitterurl
-            ], \Idno\Core\Idno::site()->language()->_("Zeep! That was a great update. Why not <a href=\"{{facebookurl}}\" target=\"blank\" onclick=\"window.open('{{facebookurl}}', 'newwindow', 'width=600, height=350'); return false;\">share your new website on Facebook</a> and <a href=\"{{twitterurl}}\">Twitter</a> so your friends know about it?\n\nI bet you've got some great photos. <a href=\"#\" onclick=\"event.preventDefault(); contentCreateForm('photo', '{{baseurl}}photo/edit/'); return false;\">Try posting one</a>!"))
+            'body' => $prefix . $two_abc
         ])->draw('robot/post');
         break;
     case '2c':
+        $prefix = 'Beep boop!';
         echo $this->__([
-            'body' => str_replace([
-                '{{baseurl}}',
-                '{{facebookurl}}',
-                '{{twitterurl}}'
-            ], [
-                \Idno\Core\Idno::site()->config()->getDisplayURL(),
-                $facebookurl,
-                $twitterurl
-            ], \Idno\Core\Idno::site()->language()->_("Beep boop! That was a great update. Why not <a href=\"{{facebookurl}}\" target=\"blank\" onclick=\"window.open('{{facebookurl}}', 'newwindow', 'width=600, height=350'); return false;\">share your new website on Facebook</a> and <a href=\"{{twitterurl}}\">Twitter</a> so your friends know about it?\n\nI bet you've got some great photos. <a href=\"#\" onclick=\"event.preventDefault(); contentCreateForm('photo', '{{baseurl}}photo/edit/'); return false;\">Try posting one</a>!"))
+            'body' => $prefix . $two_abc
         ])->draw('robot/post');
         break;
     case "3a":
