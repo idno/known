@@ -416,16 +416,16 @@
         },
         {
             "name": "idno/checkin",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/checkin.git",
-                "reference": "84bed39c8efaae4851f3756218b80291de51b101"
+                "reference": "730c26879f53b71d0aa2164e62cb78366479ccc7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/checkin/zipball/84bed39c8efaae4851f3756218b80291de51b101",
-                "reference": "84bed39c8efaae4851f3756218b80291de51b101",
+                "url": "https://api.github.com/repos/idno/checkin/zipball/730c26879f53b71d0aa2164e62cb78366479ccc7",
+                "reference": "730c26879f53b71d0aa2164e62cb78366479ccc7",
                 "shasum": ""
             },
             "require": {
@@ -442,7 +442,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "An easy way to check into a geographic location.",
-            "time": "2019-09-28T18:59:37+00:00"
+            "time": "2020-01-10T09:31:56+00:00"
         },
         {
             "name": "idno/console-eventqueueservice",
