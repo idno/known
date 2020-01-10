@@ -6,11 +6,11 @@
     $facebookurl = "https://www.facebook.com/sharer/sharer.php?u=".urlencode(\Idno\Core\Idno::site()->config()->getDisplayURL());
     $twitterurl = "https://twitter.com/intent/tweet?text=".urlencode(\Idno\Core\Idno::site()->language()->_("Check out my new @withknown site!"))."&url=".urlencode(\Idno\Core\Idno::site()->config()->getDisplayURL())."&source=webclient";
 
-    $two_abc = \Idno\Core\Idno::site()->language()->_(" That was a great update. Why not <%s>share your new website on Facebook</a> and <a href=\"%s\">Twitter</a> so your friends know about it?\n\nI bet you've got some great photos.<%s> Try posting one</a>!",
+    $two_abc = \Idno\Core\Idno::site()->language()->_(" That was a great update. Why not <%s>share your new website on Facebook</a> and <a href=\"%s\">Twitter</a> so your friends know about it?\n\nI bet you've got some great photos. <%s>Try posting one</a>!",
                [
                    "a href=\"$facebookurl\" target=\"blank\" onclick=\"window.open('$facebookurl', 'newwindow', 'width=600, height=350'); return false;\"",
                    $twitterurl,
-                   "a href=\"#\" onclick=\"event.preventDefault(); contentCreateForm('photo', '{{baseurl}}photo/edit/'); return false;\""
+                   "a href=\"#\" onclick=\"event.preventDefault(); contentCreateForm('photo', '" . \Idno\Core\Idno::site()->config()->getDisplayURL() . "photo/edit/'); return false;\""
                ]);
 
 switch (\Idno\Core\Idno::site()->session()->currentUser()->robot_state) {
