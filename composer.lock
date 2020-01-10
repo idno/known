@@ -234,27 +234,26 @@
         },
         {
             "name": "egulias/email-validator",
-            "version": "2.1.12",
+            "version": "2.1.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/egulias/EmailValidator.git",
-                "reference": "a6255605af39f2db7f5cb62e672bd8a7bad8d208"
+                "reference": "c4b8d12921999d8a561004371701dbc2e05b5ece"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/a6255605af39f2db7f5cb62e672bd8a7bad8d208",
-                "reference": "a6255605af39f2db7f5cb62e672bd8a7bad8d208",
+                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/c4b8d12921999d8a561004371701dbc2e05b5ece",
+                "reference": "c4b8d12921999d8a561004371701dbc2e05b5ece",
                 "shasum": ""
             },
             "require": {
                 "doctrine/lexer": "^1.0.1",
-                "php": ">= 5.5"
+                "php": ">=5.5"
             },
             "require-dev": {
-                "dominicsayers/isemail": "dev-master",
-                "phpunit/phpunit": "^4.8.35||^5.7||^6.0",
-                "satooshi/php-coveralls": "^1.0.1",
-                "symfony/phpunit-bridge": "^4.4@dev"
+                "dominicsayers/isemail": "^3.0.7",
+                "phpunit/phpunit": "^4.8.36|^7.5.15",
+                "satooshi/php-coveralls": "^1.0.1"
             },
             "suggest": {
                 "ext-intl": "PHP Internationalization Libraries are required to use the SpoofChecking validation"
@@ -288,7 +287,7 @@
                 "validation",
                 "validator"
             ],
-            "time": "2019-12-20T12:49:39+00:00"
+            "time": "2020-01-05T14:11:20+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -416,16 +415,16 @@
         },
         {
             "name": "idno/checkin",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/checkin.git",
-                "reference": "84bed39c8efaae4851f3756218b80291de51b101"
+                "reference": "730c26879f53b71d0aa2164e62cb78366479ccc7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/checkin/zipball/84bed39c8efaae4851f3756218b80291de51b101",
-                "reference": "84bed39c8efaae4851f3756218b80291de51b101",
+                "url": "https://api.github.com/repos/idno/checkin/zipball/730c26879f53b71d0aa2164e62cb78366479ccc7",
+                "reference": "730c26879f53b71d0aa2164e62cb78366479ccc7",
                 "shasum": ""
             },
             "require": {
@@ -442,7 +441,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "An easy way to check into a geographic location.",
-            "time": "2019-09-28T18:59:37+00:00"
+            "time": "2020-01-10T09:31:56+00:00"
         },
         {
             "name": "idno/console-eventqueueservice",
@@ -823,16 +822,16 @@
         },
         {
             "name": "idno/status",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/status.git",
-                "reference": "0e4711381c78eeab3cb342bb5ec476b3193d1dc1"
+                "reference": "84b878a127d721e1b40a23faa18fe7088fe4f582"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/status/zipball/0e4711381c78eeab3cb342bb5ec476b3193d1dc1",
-                "reference": "0e4711381c78eeab3cb342bb5ec476b3193d1dc1",
+                "url": "https://api.github.com/repos/idno/status/zipball/84b878a127d721e1b40a23faa18fe7088fe4f582",
+                "reference": "84b878a127d721e1b40a23faa18fe7088fe4f582",
                 "shasum": ""
             },
             "require": {
@@ -849,7 +848,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Simple status updates for Known.",
-            "time": "2019-08-12T18:35:12+00:00"
+            "time": "2020-01-10T09:33:11+00:00"
         },
         {
             "name": "idno/styles",
