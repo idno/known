@@ -823,16 +823,16 @@
         },
         {
             "name": "idno/status",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/status.git",
-                "reference": "0e4711381c78eeab3cb342bb5ec476b3193d1dc1"
+                "reference": "84b878a127d721e1b40a23faa18fe7088fe4f582"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/status/zipball/0e4711381c78eeab3cb342bb5ec476b3193d1dc1",
-                "reference": "0e4711381c78eeab3cb342bb5ec476b3193d1dc1",
+                "url": "https://api.github.com/repos/idno/status/zipball/84b878a127d721e1b40a23faa18fe7088fe4f582",
+                "reference": "84b878a127d721e1b40a23faa18fe7088fe4f582",
                 "shasum": ""
             },
             "require": {
@@ -849,7 +849,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Simple status updates for Known.",
-            "time": "2019-08-12T18:35:12+00:00"
+            "time": "2020-01-10T09:33:11+00:00"
         },
         {
             "name": "idno/styles",
