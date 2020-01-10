@@ -25,19 +25,19 @@ switch (\Idno\Core\Idno::site()->session()->currentUser()->robot_state) {
         ])->draw('robot/post');
         break;
     case '2a':
-        $prefix = 'Beep!';
+        $prefix = \Idno\Core\Idno::site()->language()->_('Beep!');
         echo $this->__([
             'body' => $prefix . $two_abc
         ])->draw('robot/post');
         break;
     case '2b':
-        $prefix = 'Zeep!';
+        $prefix = \Idno\Core\Idno::site()->language()->_('Zeep!');
         echo $this->__([
             'body' => $prefix . $two_abc
         ])->draw('robot/post');
         break;
     case '2c':
-        $prefix = 'Beep boop!';
+        $prefix = \Idno\Core\Idno::site()->language()->_('Beep boop!');
         echo $this->__([
             'body' => $prefix . $two_abc
         ])->draw('robot/post');
