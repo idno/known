@@ -3107,16 +3107,16 @@
         },
         {
             "name": "mapkyca/known-language-tools",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mapkyca/known-language-tools.git",
-                "reference": "257f2d423a8906c27045e1a32ab2a2e1c22a2fb7"
+                "reference": "a1598353b83d814b41aa96eb3c3dd26e317a6982"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mapkyca/known-language-tools/zipball/257f2d423a8906c27045e1a32ab2a2e1c22a2fb7",
-                "reference": "257f2d423a8906c27045e1a32ab2a2e1c22a2fb7",
+                "url": "https://api.github.com/repos/mapkyca/known-language-tools/zipball/a1598353b83d814b41aa96eb3c3dd26e317a6982",
+                "reference": "a1598353b83d814b41aa96eb3c3dd26e317a6982",
                 "shasum": ""
             },
             "require": {
@@ -3143,7 +3143,7 @@
                 "internationalisation",
                 "known"
             ],
-            "time": "2019-03-15T22:44:01+00:00"
+            "time": "2020-01-11T09:54:37+00:00"
         },
         {
             "name": "mapkyca/known-phpcs",
