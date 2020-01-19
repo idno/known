@@ -36,9 +36,11 @@ ImageTools.exifRotateImg = function(imgid, exif_orientation, containerdiv) {
 
 	case 8:
 	    angle = -90;
-	    
+	    $(imgid).css('transform-box', 'fill-box');
 	    $(imgid).css('transform-origin', '0 0');
 	    $(imgid).css('transform', 'rotate(' + angle + 'deg)');
+	    $(imgid).css('-webkit-transform', 'rotate(' + angle + 'deg)');
+	    $(imgid).css('-ms-transform', 'rotate(' + angle + 'deg)');
 	    $(imgid).css('margin-left', '100%');
 	    //$(containerdiv).css("width",h+"px");
 	    $(containerdiv).css("width",w+"px");
@@ -46,14 +48,20 @@ ImageTools.exifRotateImg = function(imgid, exif_orientation, containerdiv) {
 	    break;
 	case 3:
 	    angle = 180;
+	    $(imgid).css('transform-box', 'fill-box');
 	    $(imgid).css('transform-origin', '0 0');
 	    $(imgid).css('transform', 'rotate(' + angle + 'deg)');
+	    $(imgid).css('-webkit-transform', 'rotate(' + angle + 'deg)');
+	    $(imgid).css('-ms-transform', 'rotate(' + angle + 'deg)');
 	    break;
 	case 6:
 	    angle = 90;
 	    $(imgid).css('transform-origin', '0 0');
+	    $(imgid).css('transform-box', 'fill-box');
 	    $(imgid).css('margin-left', '100%');
 	    $(imgid).css('transform', 'rotate(' + angle + 'deg)');
+	    $(imgid).css('-webkit-transform', 'rotate(' + angle + 'deg)');
+	    $(imgid).css('-ms-transform', 'rotate(' + angle + 'deg)');
 	    //$(containerdiv).css("width",h+"px");
 	    $(containerdiv).css("width",w+"px");
 	    $(containerdiv).css("height",w+"px");
