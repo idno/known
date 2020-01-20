@@ -20,6 +20,14 @@
 
                         ?>
                     </p>
+                    
+                    <p style="margin-top: 2em;">
+                        <center>
+                            <a href="https://opencollective.com/known/contribute" target="_blank" rel="noopener noreferrer">
+                                <img src="https://opencollective.com/known/contribute/button@2x.png?color=blue" width="300">
+                            </a>
+                        </center>
+                    </p>
                 </div>
             </div>
             <br class="clearall">
