@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b81f15f197859d49d5d1ea5c1020a0b5",
+    "content-hash": "f1f16b7500039dd97cb5b41a77a06cdb",
     "packages": [
         {
             "name": "components/jquery",
@@ -2090,16 +2090,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v4.4.2",
+            "version": "v4.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "82437719dab1e6bdd28726af14cb345c2ec816d0"
+                "reference": "e9ee09d087e2c88eaf6e5fc0f5c574f64d100e4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/82437719dab1e6bdd28726af14cb345c2ec816d0",
-                "reference": "82437719dab1e6bdd28726af14cb345c2ec816d0",
+                "url": "https://api.github.com/repos/symfony/console/zipball/e9ee09d087e2c88eaf6e5fc0f5c574f64d100e4f",
+                "reference": "e9ee09d087e2c88eaf6e5fc0f5c574f64d100e4f",
                 "shasum": ""
             },
             "require": {
@@ -2162,7 +2162,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2019-12-17T10:32:23+00:00"
+            "time": "2020-01-10T21:54:01+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
