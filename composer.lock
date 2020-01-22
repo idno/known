@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f1f16b7500039dd97cb5b41a77a06cdb",
+    "content-hash": "3868045372fd2069a9edfe139ef9f38c",
     "packages": [
         {
             "name": "components/jquery",
@@ -1953,16 +1953,16 @@
         },
         {
             "name": "symfony/cache",
-            "version": "v5.0.2",
+            "version": "v5.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/cache.git",
-                "reference": "6e8d978878ae5de705ec9fabbb6011cc18776bc9"
+                "reference": "b503e72c8e2fa55eed9e2d3dd6a166f3eaaabb9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/cache/zipball/6e8d978878ae5de705ec9fabbb6011cc18776bc9",
-                "reference": "6e8d978878ae5de705ec9fabbb6011cc18776bc9",
+                "url": "https://api.github.com/repos/symfony/cache/zipball/b503e72c8e2fa55eed9e2d3dd6a166f3eaaabb9a",
+                "reference": "b503e72c8e2fa55eed9e2d3dd6a166f3eaaabb9a",
                 "shasum": ""
             },
             "require": {
@@ -2028,7 +2028,7 @@
                 "caching",
                 "psr6"
             ],
-            "time": "2019-12-12T13:03:32+00:00"
+            "time": "2020-01-10T21:57:37+00:00"
         },
         {
             "name": "symfony/cache-contracts",
@@ -2820,16 +2820,16 @@
         },
         {
             "name": "symfony/var-exporter",
-            "version": "v5.0.2",
+            "version": "v5.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-exporter.git",
-                "reference": "1b9653e68d5b701bf6d9c91bdd3660078c9f4f28"
+                "reference": "960f9ac0fdbd642461ed29d7717aeb2a94d428b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-exporter/zipball/1b9653e68d5b701bf6d9c91bdd3660078c9f4f28",
-                "reference": "1b9653e68d5b701bf6d9c91bdd3660078c9f4f28",
+                "url": "https://api.github.com/repos/symfony/var-exporter/zipball/960f9ac0fdbd642461ed29d7717aeb2a94d428b9",
+                "reference": "960f9ac0fdbd642461ed29d7717aeb2a94d428b9",
                 "shasum": ""
             },
             "require": {
@@ -2876,7 +2876,7 @@
                 "instantiate",
                 "serialize"
             ],
-            "time": "2019-12-01T08:48:26+00:00"
+            "time": "2020-01-04T14:08:26+00:00"
         },
         {
             "name": "tinymce/tinymce",
