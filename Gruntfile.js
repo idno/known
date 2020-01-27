@@ -184,8 +184,7 @@ module.exports = function (grunt) {
     execSync('touch ./languages/source/' + pot); // Make sure it exists, if we're going to remove (for broken builds)
     execSync('rm ./languages/source/' + pot); // Remove existing
 
-    execSync('find ./Idno -type f -regex ".*\.php" | php vendor/mapkyca/known-language-tools/buildpot.php >> ./languages/source/' + pot); // Build from idno core
-    execSync('find ./templates -type f -regex ".*\.php" | php vendor/mapkyca/known-language-tools/buildpot.php >> ./languages/source/' + pot); // Build from templates
+    execSync('find ./Idno ./templates -type f -regex ".*\.php" | sort | php vendor/mapkyca/known-language-tools/buildpot.php >> ./languages/source/' + pot); // Build from idno core
     execSync('echo ./known.php | php vendor/mapkyca/known-language-tools/buildpot.php >> ./languages/source/' + pot); // Build from console
 
   });
