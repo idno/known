@@ -171,8 +171,7 @@ if (!empty($vars['invitations'])) {
                     <h3><?php echo \Idno\Core\Idno::site()->language()->_('Block email addresses'); ?></h3>
 
                     <p>
-                        <?php echo \Idno\Core\Idno::site()->language()->_('By blocking email addresses, you prevent people using those email addresses from registering on
-                        your site. Enter the email addresses you want to block below.'); ?>
+                        <?php echo \Idno\Core\Idno::site()->language()->_('By blocking email addresses, you prevent people using those email addresses from registering on your site. Enter the email addresses you want to block below.'); ?>
                     </p>
 
                     <textarea name="blocked_emails" class="form-control" placeholder="user@email.com"></textarea>
