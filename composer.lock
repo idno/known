@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a91407aff976b2aa237231b86632d3e0",
+    "content-hash": "8f956ab49d72b688a150b2e4c58d4cbb",
     "packages": [
         {
             "name": "components/jquery",
@@ -2880,16 +2880,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "5.1.5",
+            "version": "5.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "26d9f929904015cc5c269418e0b86c522a8f8846"
+                "reference": "1a55d7d048c62c64c3f43734dfaa4bc0d776a035"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/26d9f929904015cc5c269418e0b86c522a8f8846",
-                "reference": "26d9f929904015cc5c269418e0b86c522a8f8846",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/1a55d7d048c62c64c3f43734dfaa4bc0d776a035",
+                "reference": "1a55d7d048c62c64c3f43734dfaa4bc0d776a035",
                 "shasum": ""
             },
             "type": "component",
@@ -2922,7 +2922,7 @@
                 "tinymce",
                 "wysiwyg"
             ],
-            "time": "2019-12-19T06:21:48+00:00"
+            "time": "2020-01-28T05:08:04+00:00"
         },
         {
             "name": "twbs/bootstrap",
@@ -3196,12 +3196,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "5e2ebc8340c8b7dcdc3f938dcbb9e2b99b72fd8e"
+                "reference": "0be9764a52f59d0882ab51d5b68b03bfb8dd8a5f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/5e2ebc8340c8b7dcdc3f938dcbb9e2b99b72fd8e",
-                "reference": "5e2ebc8340c8b7dcdc3f938dcbb9e2b99b72fd8e",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/0be9764a52f59d0882ab51d5b68b03bfb8dd8a5f",
+                "reference": "0be9764a52f59d0882ab51d5b68b03bfb8dd8a5f",
                 "shasum": ""
             },
             "conflict": {
@@ -3319,7 +3319,8 @@
                 "sylius/admin-bundle": ">=1,<1.0.17|>=1.1,<1.1.9|>=1.2,<1.2.2",
                 "sylius/grid": ">=1,<1.1.19|>=1.2,<1.2.18|>=1.3,<1.3.13|>=1.4,<1.4.5|>=1.5,<1.5.1",
                 "sylius/grid-bundle": ">=1,<1.1.19|>=1.2,<1.2.18|>=1.3,<1.3.13|>=1.4,<1.4.5|>=1.5,<1.5.1",
-                "sylius/sylius": ">=1,<1.1.18|>=1.2,<1.2.17|>=1.3,<1.3.12|>=1.4,<1.4.4",
+                "sylius/resource-bundle": ">=1,<1.3.13|>=1.4,<1.4.6|>=1.5,<1.5|>=1.6,<1.6.3",
+                "sylius/sylius": ">=1,<1.3.12|>=1.4,<1.4.4",
                 "symfony/cache": ">=3.1,<3.4.35|>=4,<4.2.12|>=4.3,<4.3.8",
                 "symfony/dependency-injection": ">=2,<2.0.17|>=2.7,<2.7.51|>=2.8,<2.8.50|>=3,<3.4.26|>=4,<4.1.12|>=4.2,<4.2.7",
                 "symfony/form": ">=2.3,<2.3.35|>=2.4,<2.6.12|>=2.7,<2.7.50|>=2.8,<2.8.49|>=3,<3.4.20|>=4,<4.0.15|>=4.1,<4.1.9|>=4.2,<4.2.1",
@@ -3405,10 +3406,15 @@
                     "name": "Marco Pivetta",
                     "email": "ocramius@gmail.com",
                     "role": "maintainer"
+                },
+                {
+                    "name": "Ilya Tribusean",
+                    "email": "slash3b@gmail.com",
+                    "role": "maintainer"
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-            "time": "2020-01-20T14:23:18+00:00"
+            "time": "2020-01-27T13:37:59+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
