@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cfd24d295dbc2a18a5b4683b94f6f46f",
+    "content-hash": "33261a85e1af5b7b6c2ced67079bf1d7",
     "packages": [
         {
             "name": "components/jquery",
@@ -1953,16 +1953,16 @@
         },
         {
             "name": "symfony/cache",
-            "version": "v5.0.3",
+            "version": "v5.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/cache.git",
-                "reference": "b503e72c8e2fa55eed9e2d3dd6a166f3eaaabb9a"
+                "reference": "4572116c640a6bc9fc0047180fe7f9362e5923fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/cache/zipball/b503e72c8e2fa55eed9e2d3dd6a166f3eaaabb9a",
-                "reference": "b503e72c8e2fa55eed9e2d3dd6a166f3eaaabb9a",
+                "url": "https://api.github.com/repos/symfony/cache/zipball/4572116c640a6bc9fc0047180fe7f9362e5923fc",
+                "reference": "4572116c640a6bc9fc0047180fe7f9362e5923fc",
                 "shasum": ""
             },
             "require": {
@@ -2028,7 +2028,7 @@
                 "caching",
                 "psr6"
             ],
-            "time": "2020-01-10T21:57:37+00:00"
+            "time": "2020-01-31T09:13:47+00:00"
         },
         {
             "name": "symfony/cache-contracts",
@@ -2820,7 +2820,7 @@
         },
         {
             "name": "symfony/var-exporter",
-            "version": "v5.0.3",
+            "version": "v5.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-exporter.git",
