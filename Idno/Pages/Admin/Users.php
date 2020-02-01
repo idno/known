@@ -165,7 +165,7 @@ namespace Idno\Pages\Admin {
                                 \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("Your username is too long."));
                             }
                             if (substr_count($handle, '/')) {
-                                \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("Usernames can't contain a slash ('/') character."));
+                                \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("Usernames can't contain a slash %s character.", ["('/')"]));
                             }
                             if (!empty($handleuser)) {
                                 \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("Unfortunately, someone is already using that username. Please choose another."));
