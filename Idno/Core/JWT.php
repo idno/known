@@ -83,7 +83,7 @@ namespace Idno\Core {
             } 
             
             if ($signatureValid) {
-                throw new \RuntimeException(Idno::site()->language()->_('Identity token is not valid'));
+                throw new \RuntimeException(Idno::site()->language()->_('Identity token is not valid - %s != %s', [$base64UrlSignature, $signatureProvided]));
             } 
             
             return $payload;
