@@ -82,8 +82,8 @@ namespace Idno\Core {
                 throw new \RuntimeException(Idno::site()->language()->_('Identity token expired'));
             } 
             
-            if ($signatureValid) {
-                throw new \RuntimeException(Idno::site()->language()->_('Identity token is not valid - %s != %s', [$base64UrlSignature, $signatureProvided]));
+            if (!$signatureValid) {
+                throw new \RuntimeException(Idno::site()->language()->_('Identity token is not valid'));
             } 
             
             return $payload;
