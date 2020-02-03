@@ -86,7 +86,12 @@ namespace Idno\Core {
                 throw new \RuntimeException(Idno::site()->language()->_('Identity token is not valid'));
             } 
             
-            return json_decode($payload)??null;
+            if ($decoded = json_decode($payload, true)) {
+                return $decoded;
+            }
+            
+            return null;
+                    
         }
     }
     
