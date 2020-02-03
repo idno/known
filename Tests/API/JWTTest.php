@@ -27,7 +27,7 @@ namespace Tests\API {
          */
         public function testJWT($user, $type, $exp) {
             
-            $jwt = new JWT();
+            $jwt = new JWT($user, $exp);
             
             $token = "$jwt";
             $this->assertNotEmpty($token);
