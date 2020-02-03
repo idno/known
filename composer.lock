@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0b29e25b6137a1555ba870296ab44900",
+    "content-hash": "d09b4eb616dc729857b560f385562ed4",
     "packages": [
         {
             "name": "components/jquery",
@@ -2024,16 +2024,16 @@
         },
         {
             "name": "symfony/cache",
-            "version": "v5.0.3",
+            "version": "v5.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/cache.git",
-                "reference": "b503e72c8e2fa55eed9e2d3dd6a166f3eaaabb9a"
+                "reference": "4572116c640a6bc9fc0047180fe7f9362e5923fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/cache/zipball/b503e72c8e2fa55eed9e2d3dd6a166f3eaaabb9a",
-                "reference": "b503e72c8e2fa55eed9e2d3dd6a166f3eaaabb9a",
+                "url": "https://api.github.com/repos/symfony/cache/zipball/4572116c640a6bc9fc0047180fe7f9362e5923fc",
+                "reference": "4572116c640a6bc9fc0047180fe7f9362e5923fc",
                 "shasum": ""
             },
             "require": {
@@ -2099,7 +2099,7 @@
                 "caching",
                 "psr6"
             ],
-            "time": "2020-01-10T21:57:37+00:00"
+            "time": "2020-01-31T09:13:47+00:00"
         },
         {
             "name": "symfony/cache-contracts",
@@ -2161,16 +2161,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v4.4.3",
+            "version": "v4.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "e9ee09d087e2c88eaf6e5fc0f5c574f64d100e4f"
+                "reference": "f512001679f37e6a042b51897ed24a2f05eba656"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/e9ee09d087e2c88eaf6e5fc0f5c574f64d100e4f",
-                "reference": "e9ee09d087e2c88eaf6e5fc0f5c574f64d100e4f",
+                "url": "https://api.github.com/repos/symfony/console/zipball/f512001679f37e6a042b51897ed24a2f05eba656",
+                "reference": "f512001679f37e6a042b51897ed24a2f05eba656",
                 "shasum": ""
             },
             "require": {
@@ -2233,11 +2233,11 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2020-01-10T21:54:01+00:00"
+            "time": "2020-01-25T12:44:29+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v4.4.3",
+            "version": "v4.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
@@ -2365,16 +2365,16 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v5.0.3",
+            "version": "v5.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "5dc0db5026f2b611cb8910a1f465e95eafd84c2e"
+                "reference": "2832d8cffc3a91df550ac42bcdce602f8c08be3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/5dc0db5026f2b611cb8910a1f465e95eafd84c2e",
-                "reference": "5dc0db5026f2b611cb8910a1f465e95eafd84c2e",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/2832d8cffc3a91df550ac42bcdce602f8c08be3e",
+                "reference": "2832d8cffc3a91df550ac42bcdce602f8c08be3e",
                 "shasum": ""
             },
             "require": {
@@ -2416,7 +2416,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2020-01-04T14:08:26+00:00"
+            "time": "2020-01-31T09:13:47+00:00"
         },
         {
             "name": "symfony/mime",
@@ -3085,16 +3085,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "5.1.5",
+            "version": "5.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "26d9f929904015cc5c269418e0b86c522a8f8846"
+                "reference": "1a55d7d048c62c64c3f43734dfaa4bc0d776a035"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/26d9f929904015cc5c269418e0b86c522a8f8846",
-                "reference": "26d9f929904015cc5c269418e0b86c522a8f8846",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/1a55d7d048c62c64c3f43734dfaa4bc0d776a035",
+                "reference": "1a55d7d048c62c64c3f43734dfaa4bc0d776a035",
                 "shasum": ""
             },
             "type": "component",
@@ -3127,7 +3127,7 @@
                 "tinymce",
                 "wysiwyg"
             ],
-            "time": "2019-12-19T06:21:48+00:00"
+            "time": "2020-01-28T05:08:04+00:00"
         },
         {
             "name": "twbs/bootstrap",
