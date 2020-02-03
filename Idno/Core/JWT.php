@@ -71,7 +71,7 @@ namespace Idno\Core {
             // Check signature
             $base64UrlHeader = trim(Webservice::base64UrlEncode($header), ',');
             $base64UrlPayload = trim(Webservice::base64UrlEncode($payload), ',');
-            $signature = hash_hmac('sha256', $base64UrlHeader . "." . $base64UrlPayload, $secret, true);
+            $signature = hash_hmac('sha256', $base64UrlHeader . "." . $base64UrlPayload, Idno::site()->config()->site_secret, true);
             $base64UrlSignature = base64UrlEncode($signature);
 
             // Verify signature
