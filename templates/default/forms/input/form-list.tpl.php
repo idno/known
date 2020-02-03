@@ -7,6 +7,7 @@
 $elements = $vars['form'];
 $labels = $vars['labels'];
 $placeholders = $vars['placeholders'];
+$help = $vars['help'];
 $defaults = $vars['defaults'];
 $required = $vars['required'];
 $values   = $vars['values'];
@@ -20,12 +21,12 @@ $values   = $vars['values'];
         ?>
         
     <div class="row">
-        <div class="col-sm-12 col-md-3">
+        <div class="col-sm-12 col-md-2">
             <label>
                 <?= \Idno\Core\Idno::site()->language()->_($labels[$field]); ?>
             </label> 
         </div>
-        <div class="col-sm-12 col-md-9">
+        <div class="col-sm-12 col-md-6">
             <?php
             $value = (object)$values;
             $settings = [
@@ -41,6 +42,11 @@ $values   = $vars['values'];
             }
             ?>
             <?= $this->__($settings)->draw('forms/input/' . $type); ?>
+        </div>
+        <div class="col-sm-12 col-md-4">
+            <?php if (!empty($help[$field])) { ?>
+            <p class="config-desc"><?= \Idno\Core\Idno::site()->language()->_($help[$field]); ?></p>
+            <?php } ?>
         </div>
     </div>
         
