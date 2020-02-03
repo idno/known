@@ -18,14 +18,16 @@
         </p>
         <h3>
             <?php echo \Idno\Core\Idno::site()->language()->_('Generate RSS file'); ?>
-        </h3>        
+        </h3>
         <form action="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>admin/export/rss" method="post">
             <div class="row">
                 <div class="col-md-3">
                     <p><label class="control-label" for="allposts"><strong><?php echo \Idno\Core\Idno::site()->language()->_('Include private posts?'); ?></strong></label></p>
                 </div>
                 <div class="config-toggle col-md-3">
-                    <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
+                    <input type="checkbox" data-toggle="toggle" data-onstyle="info"
+                           data-on="<?php echo \Idno\Core\Idno::site()->language()->_('Yes'); ?>"
+                           data-off="<?php echo \Idno\Core\Idno::site()->language()->_('No'); ?>"
                            name="allposts" id="allposts"
                            value="1">
                 </div>

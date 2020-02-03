@@ -24,7 +24,9 @@
                     <p><label class="control-label" for="allposts"><strong><?php echo \Idno\Core\Idno::site()->language()->_('Include private posts?'); ?></strong></label></p>
                 </div>
                 <div class="config-toggle col-md-2">
-                    <input type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"
+                    <input type="checkbox" data-toggle="toggle" data-onstyle="info"
+                           data-on="<?php echo \Idno\Core\Idno::site()->language()->_('Yes'); ?>"
+                           data-off="<?php echo \Idno\Core\Idno::site()->language()->_('No'); ?>"
                            name="allposts" id="allposts"
                            value="0">
                 </div>

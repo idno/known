@@ -140,7 +140,7 @@ namespace Idno\Pages\Account {
                         \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("Usernames can only have letters, numbers and underscores."));
                     }
                     if (substr_count($handle, '/')) {
-                        \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("Usernames can't contain a slash ('/') character."));
+                        \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("Usernames can't contain a slash %s character.", ["('/')"]));
                     }
                     if (!empty($handleuser)) {
                         \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("Unfortunately, someone is already using that username. Please choose another."));
@@ -161,7 +161,7 @@ namespace Idno\Pages\Account {
                 \Idno\Core\Idno::site()->session()->logUserOn($user);
                 $this->forward();
             } else {
-                \Idno\Core\Idno::site()->session()->addMessageAtStart("We couldn't register you.");
+                \Idno\Core\Idno::site()->session()->addMessageAtStart(\Idno\Core\Idno::site()->language()->_("We couldn't register you."));
                 $this->forward($_SERVER['HTTP_REFERER']);
             }
 
