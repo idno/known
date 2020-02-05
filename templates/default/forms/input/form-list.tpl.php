@@ -34,7 +34,7 @@ $values   = $vars['values'];
                 'id' => 'form-list-element-' . $field,
                 'value' => $value->$field??$defaults[$field],
             ];
-            if (!empty($required[$field])) {
+            if (in_array($field, $required)) {
                 $settings['required'] = true;
             }
             if (!empty($placeholders[$field])) {
