@@ -58,6 +58,14 @@ msgstr ""
 msgid "Something went wrong and we couldn't create the email message to send."
 msgstr ""
 
+#: ./Idno/Core/JWT.php:82
+msgid "Identity token expired"
+msgstr ""
+
+#: ./Idno/Core/JWT.php:86
+msgid "Identity token is not valid"
+msgstr ""
+
 #: ./Idno/Core/Service.php:24
 msgid "Missing X-Known-Service-Signature, service call is not possible."
 msgstr ""
@@ -128,6 +136,10 @@ msgstr ""
 
 #: ./Idno/Entities/GenericDataItem.php:43
 msgid "GenericDataItem classes must have a datatype label set."
+msgstr ""
+
+#: ./Idno/Entities/Invitation.php:110
+msgid "You've been invited to join %s"
 msgstr ""
 
 #: ./Idno/Files/FileSystem.php:63
@@ -2092,6 +2104,42 @@ msgstr ""
 
 #: ./templates/default/shell/toolbar/search.tpl.php:17
 msgid "Search"
+msgstr ""
+
+#: ./templates/email/account/invite.tpl.php:2
+msgid "Join us!"
+msgstr ""
+
+#: ./templates/email/account/invite.tpl.php:6
+msgid "Hi there! Your friend <strong>%s</strong> has invited you to join <%s>"
+msgstr ""
+
+#: ./templates/email/account/invite.tpl.php:8
+msgid "You can use this space to publish your stories, share things that interest you, and discuss things that matter."
+msgstr ""
+
+#: ./templates/email/account/invite.tpl.php:10
+msgid "Get started with <strong>%s</strong> by setting up your account"
+msgstr ""
+
+#: ./templates/email/account/invite.tpl.php:13
+msgid "Sign up now"
+msgstr ""
+
+#: ./templates/email/account/invite.tpl.php:16
+msgid "If you have any questions at all, please don't hesitate to contact us by sending an email to %s"
+msgstr ""
+
+#: ./templates/email/shell.tpl.php:72
+msgid "Powered by"
+msgstr ""
+
+#: ./templates/email-text/account/invite.tpl.php:14
+msgid "Hi there! Your friend *%s* has invited you to join %s"
+msgstr ""
+
+#: ./templates/email-text/account/invite.tpl.php:20
+msgid "Get started with *%s* by setting up your account"
 msgstr ""
 
 #: ./known.php:110
