@@ -1,8 +1,8 @@
-<?php $joinus = \Idno\Core\Idno::site()->language()->_('Forgot your password?');
+<?php $subject = \Idno\Core\Idno::site()->language()->_('Forgot your password?');
 
-    echo $joinus . "\n";
+    echo $subject . "\n";
 
-    $underline = mb_strlen($joinus);
+    $underline = mb_strlen($subject);
 
     for($u = 0; $u < $underline; $u++) {
         echo '=';
