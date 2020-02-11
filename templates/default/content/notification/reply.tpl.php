@@ -2,8 +2,8 @@
 
     echo $t->__([
         'notification' => $notification,
-        'interaction' => 'replied to',
+        'interaction' => \Idno\Core\Idno::site()->language()->_('replied to'),
         'icon' => '<i class="fa fa-reply"></i>',
-        'verb' => 'Reply'
+        'verb' => \Idno\Core\Idno::site()->language()->_('Reply')
     ])->draw('content/notification/wrapper');
 
