@@ -2130,6 +2130,14 @@ msgstr ""
 msgid "If you have any questions at all, please don't hesitate to contact us by sending an email to %s"
 msgstr ""
 
+#: ./templates/email/account/password.tpl.php:6
+msgid "We heard you forgot your password. Don't worry. It happens to the best of us."
+msgstr ""
+
+#: ./templates/email/account/password.tpl.php:8
+msgid "You can reset your password by clicking the link below (or copy and paste it into your browser)."
+msgstr ""
+
 #: ./templates/email/shell.tpl.php:72
 msgid "Powered by"
 msgstr ""
