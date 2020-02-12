@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "55f856950f330ca1c8d2457cb790f1a8",
+    "content-hash": "5ca4859278edde07cd7d6d918d7a9da5",
     "packages": [
         {
             "name": "components/jquery",
@@ -3184,16 +3184,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v3.0.2",
+            "version": "v3.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "5e6df0763a83dab0b73c1e803342fc0315f63ff5"
+                "reference": "3b88ccd180a6b61ebb517aea3b1a8906762a1dc2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/5e6df0763a83dab0b73c1e803342fc0315f63ff5",
-                "reference": "5e6df0763a83dab0b73c1e803342fc0315f63ff5",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/3b88ccd180a6b61ebb517aea3b1a8906762a1dc2",
+                "reference": "3b88ccd180a6b61ebb517aea3b1a8906762a1dc2",
                 "shasum": ""
             },
             "require": {
@@ -3242,7 +3242,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2020-02-11T06:03:57+00:00"
+            "time": "2020-02-11T15:33:47+00:00"
         }
     ],
     "packages-dev": [
