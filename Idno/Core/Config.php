@@ -331,7 +331,11 @@ namespace Idno\Core {
 
                 // Servername specified, so we can construct things in the normal way.
                 $url = (\Idno\Common\Page::isSSL() ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'];
-                if (!empty($_SERVER['SERVER_PORT'])) {
+                if (!empty($_SERVER['HTTP_X_FORWARDED_PORT'])) {
+                    if ($_SERVER['HTTP_X_FORWARDED_PORT'] != 80 && $_SERVER['HTTP_X_FORWARDED_PORT'] != 443) {
+                        $url .= ':' . $_SERVER['HTTP_X_FORWARDED_PORT'];
+                    }
+                } else if (!empty($_SERVER['SERVER_PORT'])) {
                     if ($_SERVER['SERVER_PORT'] != 80 && $_SERVER['SERVER_PORT'] != 443) {
                         $url .= ':' . $_SERVER['SERVER_PORT'];
                     }
