@@ -18,6 +18,22 @@ $values   = $vars['values'];
     
     <?php 
     foreach ($elements as $field => $type) {
+        
+        $value = (object)$values;
+        $settings = [
+            'name' => $field,
+            'id' => 'form-list-element-' . $field,
+            'value' => $value->$field??$defaults[$field],
+        ];
+        if (in_array($field, $required)) {
+            $settings['required'] = true;
+        }
+        if (!empty($placeholders[$field])) {
+            $settings['placeholder'] = $placeholders[$field];
+        }
+        
+        
+        if ($type != 'hidden') {
         ?>
         
     <div class="row">
@@ -26,21 +42,7 @@ $values   = $vars['values'];
                 <?= \Idno\Core\Idno::site()->language()->_($labels[$field]); ?>
             </label> 
         </div>
-        <div class="col-sm-12 col-md-6">
-            <?php
-            $value = (object)$values;
-            $settings = [
-                'name' => $field,
-                'id' => 'form-list-element-' . $field,
-                'value' => $value->$field??$defaults[$field],
-            ];
-            if (in_array($field, $required)) {
-                $settings['required'] = true;
-            }
-            if (!empty($placeholders[$field])) {
-                $settings['placeholder'] = $placeholders[$field];
-            }
-            ?>
+        <div class="col-sm-12 col-md-6">  
             <?= $this->__($settings)->draw('forms/input/' . $type); ?>
         </div>
         <div class="col-sm-12 col-md-4">
@@ -51,6 +53,9 @@ $values   = $vars['values'];
     </div>
         
         <?php
+        } else {
+            echo $this->__($settings)->draw('forms/input/' . $type);
+        }
     }
     ?>
     
