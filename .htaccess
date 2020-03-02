@@ -97,4 +97,9 @@ AddType video/ogg .ogv
 AddType video/mp4 .mp4
 AddType video/webm .webm
 
+# If you have problems uploading large images try uncommenting these lines
+#
+#   php_value post_max_size 64M
+#   php_value upload_max_filesize 60M
+
 ## END Known Webserver Config (don't remove)
