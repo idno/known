@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "16146b5986510476519f0ab9bd9c2385",
+    "content-hash": "d456f7af189db814a8fb67bd207b78a4",
     "packages": [
         {
             "name": "components/jquery",
@@ -1955,11 +1955,16 @@
         },
         {
             "name": "npm-asset/mediaelement",
-            "version": "4.2.14",
+            "version": "4.2.15",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:mediaelement/mediaelement.git",
+                "reference": "84ceaacd82ac087981e2b0b93a797a242a395e99"
+            },
             "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/mediaelement/-/mediaelement-4.2.14.tgz",
-                "reference": null,
+                "type": "zip",
+                "url": "https://api.github.com/repos/mediaelement/mediaelement/zipball/84ceaacd82ac087981e2b0b93a797a242a395e99",
+                "reference": "84ceaacd82ac087981e2b0b93a797a242a395e99",
                 "shasum": null
             },
             "require": {
@@ -2482,16 +2487,16 @@
         },
         {
             "name": "symfony/cache",
-            "version": "v5.0.4",
+            "version": "v5.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/cache.git",
-                "reference": "4572116c640a6bc9fc0047180fe7f9362e5923fc"
+                "reference": "c6255e419e8592dab7de6e29b014ae9e8926989a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/cache/zipball/4572116c640a6bc9fc0047180fe7f9362e5923fc",
-                "reference": "4572116c640a6bc9fc0047180fe7f9362e5923fc",
+                "url": "https://api.github.com/repos/symfony/cache/zipball/c6255e419e8592dab7de6e29b014ae9e8926989a",
+                "reference": "c6255e419e8592dab7de6e29b014ae9e8926989a",
                 "shasum": ""
             },
             "require": {
@@ -2557,7 +2562,7 @@
                 "caching",
                 "psr6"
             ],
-            "time": "2020-01-31T09:13:47+00:00"
+            "time": "2020-02-24T15:05:31+00:00"
         },
         {
             "name": "symfony/cache-contracts",
@@ -2619,16 +2624,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v4.4.4",
+            "version": "v4.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "f512001679f37e6a042b51897ed24a2f05eba656"
+                "reference": "4fa15ae7be74e53f6ec8c83ed403b97e23b665e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/f512001679f37e6a042b51897ed24a2f05eba656",
-                "reference": "f512001679f37e6a042b51897ed24a2f05eba656",
+                "url": "https://api.github.com/repos/symfony/console/zipball/4fa15ae7be74e53f6ec8c83ed403b97e23b665e9",
+                "reference": "4fa15ae7be74e53f6ec8c83ed403b97e23b665e9",
                 "shasum": ""
             },
             "require": {
@@ -2691,20 +2696,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2020-01-25T12:44:29+00:00"
+            "time": "2020-02-24T13:10:00+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v4.4.4",
+            "version": "v4.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "9e3de195e5bc301704dd6915df55892f6dfc208b"
+                "reference": "4ad8e149799d3128621a3a1f70e92b9897a8930d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/9e3de195e5bc301704dd6915df55892f6dfc208b",
-                "reference": "9e3de195e5bc301704dd6915df55892f6dfc208b",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/4ad8e149799d3128621a3a1f70e92b9897a8930d",
+                "reference": "4ad8e149799d3128621a3a1f70e92b9897a8930d",
                 "shasum": ""
             },
             "require": {
@@ -2761,7 +2766,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2020-01-10T21:54:01+00:00"
+            "time": "2020-02-04T09:32:40+00:00"
         },
         {
             "name": "symfony/event-dispatcher-contracts",
@@ -2823,16 +2828,16 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v5.0.4",
+            "version": "v5.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "2832d8cffc3a91df550ac42bcdce602f8c08be3e"
+                "reference": "6f9c2ba72f4295d7ce6cf9f79dbb18036291d335"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/2832d8cffc3a91df550ac42bcdce602f8c08be3e",
-                "reference": "2832d8cffc3a91df550ac42bcdce602f8c08be3e",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/6f9c2ba72f4295d7ce6cf9f79dbb18036291d335",
+                "reference": "6f9c2ba72f4295d7ce6cf9f79dbb18036291d335",
                 "shasum": ""
             },
             "require": {
@@ -2874,7 +2879,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2020-01-31T09:13:47+00:00"
+            "time": "2020-02-14T07:43:07+00:00"
         },
         {
             "name": "symfony/mime",
@@ -3543,16 +3548,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "5.1.6",
+            "version": "5.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "1a55d7d048c62c64c3f43734dfaa4bc0d776a035"
+                "reference": "3653eec90aba773ebd66183fb867c77af21b2c7c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/1a55d7d048c62c64c3f43734dfaa4bc0d776a035",
-                "reference": "1a55d7d048c62c64c3f43734dfaa4bc0d776a035",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/3653eec90aba773ebd66183fb867c77af21b2c7c",
+                "reference": "3653eec90aba773ebd66183fb867c77af21b2c7c",
                 "shasum": ""
             },
             "type": "component",
@@ -3585,7 +3590,7 @@
                 "tinymce",
                 "wysiwyg"
             ],
-            "time": "2020-01-28T05:08:04+00:00"
+            "time": "2020-02-13T04:02:12+00:00"
         },
         {
             "name": "twbs/bootstrap",

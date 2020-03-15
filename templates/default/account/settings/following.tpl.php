@@ -13,7 +13,7 @@
         </div>
     
     <div class="well">
-        <p><?php echo \Idno\Core\Idno::site()->language()->_('Use this bookmarklet to make is easy to add new friends.'); ?></p>
+        <p><?php echo \Idno\Core\Idno::site()->language()->_('Use this bookmarklet to make it easy to add new friends.'); ?></p>
     
         <?php echo $this->draw('account/settings/following/bookmarklet'); ?>
     </div>
