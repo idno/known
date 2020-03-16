@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d456f7af189db814a8fb67bd207b78a4",
+    "content-hash": "695a0c1d9e42b670ecb47ef17569a703",
     "packages": [
         {
             "name": "components/jquery",
@@ -950,7 +950,7 @@
                 "MIT"
             ],
             "description": "Known adoption of mention.js abandonware",
-            "time": "2019-11-03T12:49:42+00:00"
+            "time": "2019-11-03T12:53:56+00:00"
         },
         {
             "name": "idno/photo",
@@ -1014,16 +1014,16 @@
         },
         {
             "name": "idno/status",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/status.git",
-                "reference": "84b878a127d721e1b40a23faa18fe7088fe4f582"
+                "reference": "ff73439944b39139b31cf6eb6ba61dfe3a9da47c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/status/zipball/84b878a127d721e1b40a23faa18fe7088fe4f582",
-                "reference": "84b878a127d721e1b40a23faa18fe7088fe4f582",
+                "url": "https://api.github.com/repos/idno/status/zipball/ff73439944b39139b31cf6eb6ba61dfe3a9da47c",
+                "reference": "ff73439944b39139b31cf6eb6ba61dfe3a9da47c",
                 "shasum": ""
             },
             "require": {
@@ -1040,7 +1040,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Simple status updates for Known.",
-            "time": "2020-01-10T09:33:11+00:00"
+            "time": "2020-03-16T21:17:20+00:00"
         },
         {
             "name": "idno/styles",
@@ -1874,8 +1874,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/paypal/bootstrap-accessibility-plugin/zipball/010d9a1f21ae4ae3323acf30508fc26a13dc7fa2",
-                "reference": "010d9a1f21ae4ae3323acf30508fc26a13dc7fa2",
-                "shasum": null
+                "reference": "010d9a1f21ae4ae3323acf30508fc26a13dc7fa2"
             },
             "type": "npm-asset",
             "license": [
@@ -1887,9 +1886,7 @@
             "version": "2.2.2",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/bootstrap-toggle/-/bootstrap-toggle-2.2.2.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/bootstrap-toggle/-/bootstrap-toggle-2.2.2.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -1901,9 +1898,7 @@
             "version": "0.1.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/dom-walk/-/dom-walk-0.1.1.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/dom-walk/-/dom-walk-0.1.1.tgz"
             },
             "type": "npm-asset"
         },
@@ -1912,9 +1907,7 @@
             "version": "2.3.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/exif-js/-/exif-js-2.3.0.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/exif-js/-/exif-js-2.3.0.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -1926,9 +1919,7 @@
             "version": "4.4.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/global/-/global-4.4.0.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/global/-/global-4.4.0.tgz"
             },
             "require": {
                 "npm-asset/min-document": ">=2.19.0,<3.0.0",
@@ -1944,9 +1935,7 @@
             "version": "3.4.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/jquery/-/jquery-3.4.1.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/jquery/-/jquery-3.4.1.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -1964,8 +1953,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/mediaelement/mediaelement/zipball/84ceaacd82ac087981e2b0b93a797a242a395e99",
-                "reference": "84ceaacd82ac087981e2b0b93a797a242a395e99",
-                "shasum": null
+                "reference": "84ceaacd82ac087981e2b0b93a797a242a395e99"
             },
             "require": {
                 "npm-asset/global": ">=4.3.1,<5.0.0"
@@ -1980,9 +1968,7 @@
             "version": "2.19.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/min-document/-/min-document-2.19.0.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/min-document/-/min-document-2.19.0.tgz"
             },
             "require": {
                 "npm-asset/dom-walk": ">=0.1.0,<0.2.0"
@@ -1994,9 +1980,7 @@
             "version": "0.11.10",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/process/-/process-0.11.10.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/process/-/process-0.11.10.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -2008,9 +1992,7 @@
             "version": "1.9.2",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/underscore/-/underscore-1.9.2.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/underscore/-/underscore-1.9.2.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -2028,8 +2010,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/davatron5000/FitVids.js/zipball/d028a2287a633478005a49fe6d1f3fcbe9f2d955",
-                "reference": "d028a2287a633478005a49fe6d1f3fcbe9f2d955",
-                "shasum": null
+                "reference": "d028a2287a633478005a49fe6d1f3fcbe9f2d955"
             },
             "type": "npm-asset"
         },
@@ -3864,12 +3845,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "b68e249f4348e45a501e2e6f591e79e61b70453c"
+                "reference": "b81a572cb1acffadea621e55c95af4ba94a91624"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/b68e249f4348e45a501e2e6f591e79e61b70453c",
-                "reference": "b68e249f4348e45a501e2e6f591e79e61b70453c",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/b81a572cb1acffadea621e55c95af4ba94a91624",
+                "reference": "b81a572cb1acffadea621e55c95af4ba94a91624",
                 "shasum": ""
             },
             "conflict": {
@@ -3927,6 +3908,7 @@
                 "firebase/php-jwt": "<2",
                 "fooman/tcpdf": "<6.2.22",
                 "fossar/tcpdf-parser": "<6.2.22",
+                "friendsofsymfony/oauth2-php": "<1.3",
                 "friendsofsymfony/rest-bundle": ">=1.2,<1.2.2",
                 "friendsofsymfony/user-bundle": ">=1.2,<1.3.5",
                 "fuel/core": "<1.8.1",
@@ -3938,6 +3920,7 @@
                 "illuminate/cookie": ">=4,<=4.0.11|>=4.1,<=4.1.31|>=4.2,<=4.2.22|>=5,<=5.0.35|>=5.1,<=5.1.46|>=5.2,<=5.2.45|>=5.3,<=5.3.31|>=5.4,<=5.4.36|>=5.5,<5.5.42|>=5.6,<5.6.30",
                 "illuminate/database": ">=4,<4.0.99|>=4.1,<4.1.29",
                 "illuminate/encryption": ">=4,<=4.0.11|>=4.1,<=4.1.31|>=4.2,<=4.2.22|>=5,<=5.0.35|>=5.1,<=5.1.46|>=5.2,<=5.2.45|>=5.3,<=5.3.31|>=5.4,<=5.4.36|>=5.5,<5.5.40|>=5.6,<5.6.15",
+                "illuminate/view": ">=7,<7.1.2",
                 "ivankristianto/phpwhois": "<=4.3",
                 "james-heinrich/getid3": "<1.9.9",
                 "joomla/session": "<1.3.1",
@@ -3945,7 +3928,7 @@
                 "kazist/phpwhois": "<=4.2.6",
                 "kreait/firebase-php": ">=3.2,<3.8.1",
                 "la-haute-societe/tcpdf": "<6.2.22",
-                "laravel/framework": ">=4,<4.0.99|>=4.1,<=4.1.31|>=4.2,<=4.2.22|>=5,<=5.0.35|>=5.1,<=5.1.46|>=5.2,<=5.2.45|>=5.3,<=5.3.31|>=5.4,<=5.4.36|>=5.5,<5.5.42|>=5.6,<5.6.30",
+                "laravel/framework": ">=4,<4.0.99|>=4.1,<=4.1.31|>=4.2,<=4.2.22|>=5,<=5.0.35|>=5.1,<=5.1.46|>=5.2,<=5.2.45|>=5.3,<=5.3.31|>=5.4,<=5.4.36|>=5.5,<5.5.42|>=5.6,<5.6.30|>=7,<7.1.2",
                 "laravel/socialite": ">=1,<1.0.99|>=2,<2.0.10",
                 "league/commonmark": "<0.18.3",
                 "librenms/librenms": "<1.53",
@@ -4117,7 +4100,7 @@
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-            "time": "2020-03-14T00:01:35+00:00"
+            "time": "2020-03-15T11:13:32+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
