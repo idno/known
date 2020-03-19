@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "695a0c1d9e42b670ecb47ef17569a703",
+    "content-hash": "f59bef1e6570d04501884b583e50e268",
     "packages": [
         {
             "name": "components/jquery",
@@ -1683,9 +1683,9 @@
             "authors": [
                 {
                     "name": "Marcus Povey",
-                    "role": "Developer",
                     "email": "marcus@marcus-povey.co.uk",
-                    "homepage": "https://www.marcus-povey.co.uk"
+                    "homepage": "https://www.marcus-povey.co.uk",
+                    "role": "Developer"
                 }
             ],
             "description": "Known customisation of MrClay's AutoP, placed here for composer support",
@@ -1944,16 +1944,10 @@
         },
         {
             "name": "npm-asset/mediaelement",
-            "version": "4.2.15",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:mediaelement/mediaelement.git",
-                "reference": "84ceaacd82ac087981e2b0b93a797a242a395e99"
-            },
+            "version": "4.2.16",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mediaelement/mediaelement/zipball/84ceaacd82ac087981e2b0b93a797a242a395e99",
-                "reference": "84ceaacd82ac087981e2b0b93a797a242a395e99"
+                "type": "tar",
+                "url": "https://registry.npmjs.org/mediaelement/-/mediaelement-4.2.16.tgz"
             },
             "require": {
                 "npm-asset/global": ">=4.3.1,<5.0.0"
