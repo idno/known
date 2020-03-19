@@ -3,7 +3,7 @@
 
 ## Here's why I did it:
 
-## Checklist:
+## Checklist: (`[x]` to check/tick the boxes)
 
 - [ ] This pull request addresses a single issue
 - [ ] If this code includes interface changes, I've included screenshots in this Pull Request thread
