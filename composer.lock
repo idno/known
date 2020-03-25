@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1afce579adc47284eb29ddc1481b88a8",
+    "content-hash": "ba2dbd9526a76ce64f4441ecb3561362",
     "packages": [
         {
             "name": "components/jquery",
@@ -3524,16 +3524,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "5.2.0",
+            "version": "5.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "3653eec90aba773ebd66183fb867c77af21b2c7c"
+                "reference": "29bd1c22d35ad8a27982fddbe11a84a124c24b40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/3653eec90aba773ebd66183fb867c77af21b2c7c",
-                "reference": "3653eec90aba773ebd66183fb867c77af21b2c7c",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/29bd1c22d35ad8a27982fddbe11a84a124c24b40",
+                "reference": "29bd1c22d35ad8a27982fddbe11a84a124c24b40",
                 "shasum": ""
             },
             "type": "component",
@@ -3566,7 +3566,7 @@
                 "tinymce",
                 "wysiwyg"
             ],
-            "time": "2020-02-13T04:02:12+00:00"
+            "time": "2020-03-25T02:45:35+00:00"
         },
         {
             "name": "twbs/bootstrap",
