@@ -182,6 +182,50 @@ namespace Idno\Core {
                             }
                         }
                     }
+                    if (array_key_exists('KNOWN_DATABASE_URL', $_ENV)) {
+                        $parsed = parse_url($_ENV['KNOWN_DATABASE_URL']);
+                        $this->ini_config['database'] = $parsed['scheme'];
+                        $this->ini_config['dbname'] = basename($parsed['path']);
+                        $this->ini_config['dbuser'] = $parsed['user'];
+                        $this->ini_config['dbpass'] = $parsed['pass'];
+                        $this->ini_config['dbhost'] = $parsed['host'];
+                    }
+
+                    $cloudcube = array_key_exists('CLOUDCUBE_URL', $_ENV);
+                    $aws_s3 = array_key_exists('KNOWN_AWS_S3_BUCKET', $_ENV);
+                    $path = '/Uploads';
+                    $bucket = '';
+
+                    if ($cloudcube) {
+                        $parsed = parse_url($_ENV['CLOUDCUBE_URL']);
+                        $host_parts = explode('.', $parsed['host']);
+                        $bucket = $host_parts[0];
+                        $this->ini_config['aws_key'] = $_ENV['CLOUDCUBE_ACCESS_KEY_ID'];
+                        $this->ini_config['aws_secret'] = $_ENV['CLOUDCUBE_SECRET_ACCESS_KEY'];
+                        $this->ini_config['bucket'] = $bucket;
+                        $this->ini_config['aws_region'] = $bucket == 'cloudcube-eu' ? 'eu-west-1' : 'us-east-1';
+                        $path = $parsed['path'];
+                    } elseif ($aws_s3) {
+                        $bucket = $_ENV['KNOWN_AWS_S3_BUCKET'];
+                        $this->ini_config['aws_key'] = $_ENV['KNOWN_AWS_S3_ACCESS_KEY_ID'];
+                        $this->ini_config['aws_secret'] = $_ENV['KNOWN_AWS_S3_SECRET_ACCESS_KEY'];
+                        $this->ini_config['bucket'] = $bucket;
+                        $this->ini_config['aws_region'] = $_ENV['KNOWN_AWS_S3_REGION'];
+                        $path = str_replace('//', '/', '/'.$_ENV['KNOWN_AWS_S3_PATH_PREFIX']);
+                    }
+
+                    if (($cloudcube || $aws_s3) && (!empty($bucket))) {
+                        $this->ini_config['filesystem'] = 'local';
+                        $this->ini_config['uploadpath'] = "s3://${bucket}${path}";
+                    }
+
+                    if (array_key_exists('KNOWN_AWS_S3_REGION', $_ENV)) {
+                        $this->ini_config['aws_region'] = $_ENV['KNOWN_AWS_S3_REGION'];
+                    }
+
+                    if (array_key_exists('KNOWN_UPLOAD_PATH', $_ENV)) {
+                        $this->ini_config['uploadpath'] = $_ENV['KNOWN_UPLOAD_PATH'];
+                    }
 
                     // Per domain configuration
                     if ($config = @parse_ini_file($path . '/' . $this->host . '.ini', true)) {
