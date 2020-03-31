@@ -1646,6 +1646,30 @@ msgstr ""
 msgid "Also on"
 msgstr ""
 
+#: ./templates/default/content/notification/like.tpl.php:5
+msgid "liked"
+msgstr ""
+
+#: ./templates/default/content/notification/mention.tpl.php:5
+msgid "mentioned"
+msgstr ""
+
+#: ./templates/default/content/notification/reply.tpl.php:5
+msgid "replied to"
+msgstr ""
+
+#: ./templates/default/content/notification/reply.tpl.php:7
+msgid "Reply"
+msgstr ""
+
+#: ./templates/default/content/notification/rsvp.tpl.php:5
+msgid "RSVPed to"
+msgstr ""
+
+#: ./templates/default/content/notification/share.tpl.php:5
+msgid "shared"
+msgstr ""
+
 #: ./templates/default/content/unfurl.tpl.php:11
 msgid "Refresh preview"
 msgstr ""

@@ -1,7 +1,7 @@
 <?php
     $annotation = $notification->getObject();
     $post       = $notification->getTarget();
-    
+
     $owner_image = htmlspecialchars($annotation['owner_image']);
     $owner_url = htmlspecialchars($annotation['owner_url']);
     $content = $annotation['content'];
