@@ -2,8 +2,7 @@
 CREATE TABLE IF NOT EXISTS `entities_search` (
   `_id` varchar(32) NOT NULL,
   `search` longtext NOT NULL,
-  PRIMARY KEY (`_id`),
-  FULLTEXT KEY `search` (`search`)
+  PRIMARY KEY (`_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `entities_search` SELECT `_id`, `search` FROM `entities`;
@@ -19,8 +18,7 @@ ALTER TABLE `entities_search` ADD CONSTRAINT `es_id_id` FOREIGN KEY (`_id`) REFE
 CREATE TABLE IF NOT EXISTS `reader_search` (
   `_id` varchar(32) NOT NULL,
   `search` longtext NOT NULL,
-  PRIMARY KEY (`_id`),
-  FULLTEXT KEY `search` (`search`)
+  PRIMARY KEY (`_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `reader_search` SELECT `_id`, `search` FROM `reader`;
@@ -36,8 +34,7 @@ ALTER TABLE `reader_search` ADD CONSTRAINT `rs_id_id` FOREIGN KEY (`_id`) REFERE
 CREATE TABLE IF NOT EXISTS `config_search` (
   `_id` varchar(32) NOT NULL,
   `search` longtext NOT NULL,
-  PRIMARY KEY (`_id`),
-  FULLTEXT KEY `search` (`search`)
+  PRIMARY KEY (`_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `config_search` SELECT `_id`, `search` FROM `config`;

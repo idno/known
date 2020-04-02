@@ -19,8 +19,7 @@ CREATE TABLE IF NOT EXISTS `reader` (
   PRIMARY KEY (`uuid`),
   UNIQUE KEY `_id` (`_id`),
   KEY `owner` (`owner`,`created`),
-  KEY `entity_subtype` (`entity_subtype`),
-  FULLTEXT KEY `search` (`search`)
+  KEY `entity_subtype` (`entity_subtype`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 UPDATE `versions` SET `value` = '2014100801' WHERE `label` = 'schema';
