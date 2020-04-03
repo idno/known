@@ -189,6 +189,7 @@ namespace Idno\Core {
                         $this->ini_config['dbuser'] = $parsed['user'];
                         $this->ini_config['dbpass'] = $parsed['pass'];
                         $this->ini_config['dbhost'] = $parsed['host'];
+                        $this->ini_config['dbport'] = $parsed['port'];
                     }
 
                     $cloudcube = array_key_exists('CLOUDCUBE_URL', $_ENV);
@@ -202,14 +203,14 @@ namespace Idno\Core {
                         $bucket = $host_parts[0];
                         $this->ini_config['aws_key'] = $_ENV['CLOUDCUBE_ACCESS_KEY_ID'];
                         $this->ini_config['aws_secret'] = $_ENV['CLOUDCUBE_SECRET_ACCESS_KEY'];
-                        $this->ini_config['bucket'] = $bucket;
-                        $this->ini_config['aws_region'] = $bucket == 'cloudcube-eu' ? 'eu-west-1' : 'us-east-1';
+                        $this->ini_config['aws_bucket'] = $bucket;
+                        $this->ini_config['aws_region'] = $bucket == 'cloud-cube-eu' ? 'eu-west-1' : 'us-east-1';
                         $path = $parsed['path'];
                     } elseif ($aws_s3) {
                         $bucket = $_ENV['KNOWN_AWS_S3_BUCKET'];
                         $this->ini_config['aws_key'] = $_ENV['KNOWN_AWS_S3_ACCESS_KEY_ID'];
                         $this->ini_config['aws_secret'] = $_ENV['KNOWN_AWS_S3_SECRET_ACCESS_KEY'];
-                        $this->ini_config['bucket'] = $bucket;
+                        $this->ini_config['aws_bucket'] = $bucket;
                         $this->ini_config['aws_region'] = $_ENV['KNOWN_AWS_S3_REGION'];
                         $path = str_replace('//', '/', '/'.$_ENV['KNOWN_AWS_S3_PATH_PREFIX']);
                     }
