@@ -8,7 +8,7 @@
 
 CREATE TABLE IF NOT EXISTS config (
   uuid varchar(255) NOT NULL,
-  _id varchar(32) NOT NULL,
+  _id varchar(32) NOT NULL UNIQUE,
   owner varchar(255) NOT NULL,
   entity_subtype varchar(64) NOT NULL,
   created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -16,10 +16,10 @@ CREATE TABLE IF NOT EXISTS config (
   publish_status varchar(255) NOT NULL DEFAULT 'published',
   PRIMARY KEY (uuid)
 );
-CREATE INDEX c__id ON config (_id);
-CREATE INDEX c_owner ON config (owner);
-CREATE INDEX c_entity_subtype ON config (entity_subtype);
-CREATE INDEX c_publish_status ON config (publish_status);
+CREATE INDEX CONCURRENTLY IF NOT EXISTS c__id ON config (_id);
+CREATE INDEX CONCURRENTLY IF NOT EXISTS c_owner ON config (owner);
+CREATE INDEX CONCURRENTLY IF NOT EXISTS c_entity_subtype ON config (entity_subtype);
+CREATE INDEX CONCURRENTLY IF NOT EXISTS c_publish_status ON config (publish_status);
 
 CREATE TABLE IF NOT EXISTS config_search (
   _id varchar(32) NOT NULL,
@@ -46,9 +46,9 @@ CREATE TABLE IF NOT EXISTS entities (
   PRIMARY KEY (uuid)
 );
 
-CREATE INDEX e_owner ON entities (owner, created);
-CREATE INDEX e_entity_subtype ON entities (entity_subtype);
-CREATE INDEX e_publish_status ON entities (publish_status);
+CREATE INDEX CONCURRENTLY IF NOT EXISTS e_owner ON entities (owner, created);
+CREATE INDEX CONCURRENTLY IF NOT EXISTS e_entity_subtype ON entities (entity_subtype);
+CREATE INDEX CONCURRENTLY IF NOT EXISTS e_publish_status ON entities (publish_status);
 
 
 CREATE TABLE IF NOT EXISTS entities_search (
@@ -78,9 +78,9 @@ CREATE TABLE IF NOT EXISTS reader (
   PRIMARY KEY (uuid)
 );
 
-CREATE INDEX r_owner ON reader (owner, created);
-CREATE INDEX r_entity_subtype ON reader (entity_subtype);
-CREATE INDEX r_publish_status ON reader (publish_status);
+CREATE INDEX CONCURRENTLY IF NOT EXISTS r_owner ON reader (owner, created);
+CREATE INDEX CONCURRENTLY IF NOT EXISTS r_entity_subtype ON reader (entity_subtype);
+CREATE INDEX CONCURRENTLY IF NOT EXISTS r_publish_status ON reader (publish_status);
 
 
 CREATE TABLE IF NOT EXISTS reader_search (
@@ -106,11 +106,11 @@ CREATE TABLE IF NOT EXISTS metadata (
 );
 
 
-CREATE INDEX m_entity ON metadata (entity,name);
-CREATE INDEX m_value ON metadata (value);
-CREATE INDEX m_name ON metadata (name);
-CREATE INDEX m_collection ON metadata (collection);
-CREATE INDEX m__id ON metadata (_id);
+CREATE INDEX CONCURRENTLY IF NOT EXISTS m_entity ON metadata (entity,name);
+CREATE INDEX CONCURRENTLY IF NOT EXISTS m_value ON metadata (value);
+CREATE INDEX CONCURRENTLY IF NOT EXISTS m_name ON metadata (name);
+CREATE INDEX CONCURRENTLY IF NOT EXISTS m_collection ON metadata (collection);
+CREATE INDEX CONCURRENTLY IF NOT EXISTS m__id ON metadata (_id);
 
 
 -- --------------------------------------------------------
