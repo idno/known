@@ -41,6 +41,14 @@ if ($lang == 'pt_BR' || substr($lang, 0, 2) == 'zh') {
 <script src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() . 'vendor/idno/mentionjs/mention.js' ?>"
         type="text/javascript"></script> -->
 
+
+ 
+<script
+    src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/npm-asset/moment/min/moment-with-locales.min.js"></script>       
+<script
+    src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/npm-asset/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js"></script>
+
+        
 <?php
 if (\Idno\Core\Idno::site()->session()->isLoggedOn()) {
     echo $this->draw('js/mentions');
