@@ -69,4 +69,5 @@ $(document).ready(function(){
     Template.enableImageFallback();
     Template.activateStarToggle();
     Template.enableTooltips();
+    Template.enableDateTimePicker();
 });
