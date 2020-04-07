@@ -42,7 +42,7 @@
         "symfony/cache": "5.0.7",
         "simplepie/simplepie": "1.5.4",
         "mapkyca/mrclay_autop_known": "^1.0",
-        "npm-asset/underscore": "1.9.2",
+        "npm-asset/underscore": "1.10.2",
         "npm-asset/bootstrap-accessibility-plugin": "1.0.7",
         "npm-asset/bootstrap-toggle": "2.2.2",
         "npm-asset/exif-js": "2.3.0",

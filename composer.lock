@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "05695343cb8f453d928d0d880f51000d",
+    "content-hash": "fd1b44a7ff711b1a237d5e53350356e9",
     "packages": [
         {
             "name": "components/jquery",
@@ -2162,10 +2162,10 @@
         },
         {
             "name": "npm-asset/underscore",
-            "version": "1.9.2",
+            "version": "1.10.2",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/underscore/-/underscore-1.9.2.tgz"
+                "url": "https://registry.npmjs.org/underscore/-/underscore-1.10.2.tgz"
             },
             "type": "npm-asset",
             "license": [
