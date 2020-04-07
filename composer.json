@@ -1,7 +1,7 @@
 {
     "name": "idno/known",
     "description": "A social publishing platform.",
-    "version": "1.1.5",
+    "version": "1.1.6",
     "type": "project",
     "homepage": "https://withknown.com/",
     "repositories": [
@@ -82,7 +82,8 @@
         "idno/console-periodicexecutionservice": "^0.9.10",
         "idno/console-statistics": "^1.0",
         "idno/console-import": "^1.0",
-        "idno/console-export": "^1.0"
+        "idno/console-export": "^1.0",
+        "npm-asset/eonasdan-bootstrap-datetimepicker": "^4.17"
     },
     "license": "Apache-2.0",
     "prefer-stable": true,

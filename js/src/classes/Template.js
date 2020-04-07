@@ -166,7 +166,23 @@ Template.enableRichTextRequired = function () {
 };
 
 Template.enableTooltips = function () {
-  $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="tooltip"]').tooltip();
+};
+
+/**
+ * Enable a date time picker where it is not natively supported
+ * @returns {undefined}
+ */
+Template.enableDateTimePicker = function () {
+    if(!Modernizr.inputtypes['datetime-local']) {
+        $('input[type=datetime-local]').each(function() {
+            var id = $(this).attr('id');
+            
+            $(this).attr('data-toggle', 'datetimepicker');
+            $(this).attr('data-target', '#' + id);
+        });
+        $('input[type=datetime-local]').datetimepicker();  
+    } 
 };
 
 /**
@@ -276,6 +292,7 @@ Template.bindControls = function() {
     Template.enableFormCandy();
     Template.enableRichTextRequired();
     Template.enableTooltips();
+    Template.enableDateTimePicker();
     
     // Candy: set focus to first entry on a form.
     $('#contentCreate .form-control').first().focus();

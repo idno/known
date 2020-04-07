@@ -7,3 +7,6 @@
 <!-- Mention styles -->
 <link rel="stylesheet" type="text/css"
       href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/idno/mentionjs/recommended-styles.css">
+
+<link rel="stylesheet" type="text/css"
+      href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/npm-asset/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css">

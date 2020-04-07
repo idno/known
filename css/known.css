@@ -1994,6 +1994,9 @@ select, input[type="file"] {
   border-radius: 0px;
   border-top: none; }
 
+.bootstrap-datetimepicker-widget.dropdown-menu {
+  width: initial !important; }
+
 .user-tbl img {
   width: 40px;
   height: 40px;
