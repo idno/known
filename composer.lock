@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ffd84b43b41972111be1bd68b22c7239",
+    "content-hash": "05695343cb8f453d928d0d880f51000d",
     "packages": [
         {
             "name": "components/jquery",
@@ -1987,10 +1987,10 @@
         },
         {
             "name": "npm-asset/bootstrap",
-            "version": "4.4.1",
+            "version": "3.4.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/bootstrap/-/bootstrap-4.4.1.tgz"
+                "url": "https://registry.npmjs.org/bootstrap/-/bootstrap-3.4.1.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -2035,6 +2035,24 @@
                 "url": "https://registry.npmjs.org/dom-walk/-/dom-walk-0.1.2.tgz"
             },
             "type": "npm-asset"
+        },
+        {
+            "name": "npm-asset/eonasdan-bootstrap-datetimepicker",
+            "version": "4.17.47",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/eonasdan-bootstrap-datetimepicker/-/eonasdan-bootstrap-datetimepicker-4.17.47.tgz"
+            },
+            "require": {
+                "npm-asset/bootstrap": ">=3.3.0,<4.0.0",
+                "npm-asset/jquery": ">=1.8.3,<2.0.0|>=2.0.0,<3.0.0|>=3.0.0,<4.0.0",
+                "npm-asset/moment": ">=2.10.0,<3.0.0",
+                "npm-asset/moment-timezone": ">=0.4.0,<0.5.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
         },
         {
             "name": "npm-asset/exif-js",
@@ -2117,25 +2135,13 @@
         },
         {
             "name": "npm-asset/moment-timezone",
-            "version": "0.5.28",
+            "version": "0.4.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/moment-timezone/-/moment-timezone-0.5.28.tgz"
+                "url": "https://registry.npmjs.org/moment-timezone/-/moment-timezone-0.4.1.tgz"
             },
             "require": {
-                "npm-asset/moment": ">=2.9.0"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/popper.js",
-            "version": "1.16.1",
-            "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/popper.js/-/popper.js-1.16.1.tgz"
+                "npm-asset/moment": ">=2.6.0"
             },
             "type": "npm-asset",
             "license": [
@@ -2148,25 +2154,6 @@
             "dist": {
                 "type": "tar",
                 "url": "https://registry.npmjs.org/process/-/process-0.11.10.tgz"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/tempusdominus-bootstrap-4",
-            "version": "5.1.2",
-            "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/tempusdominus-bootstrap-4/-/tempusdominus-bootstrap-4-5.1.2.tgz"
-            },
-            "require": {
-                "npm-asset/bootstrap": ">=4.1.2",
-                "npm-asset/jquery": ">=3.0.0,<4.0.0",
-                "npm-asset/moment": ">=2.22.2,<3.0.0",
-                "npm-asset/moment-timezone": ">=0.5.11,<0.6.0",
-                "npm-asset/popper.js": ">=1.14.3,<2.0.0"
             },
             "type": "npm-asset",
             "license": [
