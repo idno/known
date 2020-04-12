@@ -194,7 +194,6 @@ namespace Idno\Core {
 
                     $cloudcube = array_key_exists('CLOUDCUBE_URL', $_ENV);
                     $aws_s3 = array_key_exists('KNOWN_AWS_S3_BUCKET', $_ENV);
-                    $path = '/Uploads';
                     $bucket = '';
 
                     if ($cloudcube) {
