@@ -58,11 +58,17 @@ namespace Idno\Pages\Entity {
             //                }
 
             $t = \Idno\Core\Idno::site()->template();
+            
+            $description = $object->getShortDescription();
+            if (empty($description)) {
+                $description = $t->sampleText($object->getDescription());
+            }
+            
             $t->__(array(
 
                 'title'       => $object->getTitle(),
                 'body'        => $t->__(['object' => $object])->draw('entity/wrapper'),
-                'description' => $object->getShortDescription()
+                'description' => $description
 
             ))->drawPage();
         }
