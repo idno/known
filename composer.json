@@ -114,7 +114,8 @@
         "mapkyca/known-language-tools": "^1.0",
         "mapkyca/known-dev-scripts": "^1.0",
         "idno/apitester": "^0.9.10",
-        "roave/security-advisories": "dev-master"
+        "roave/security-advisories": "dev-master",
+        "mapkyca/mapkyca-known-docker": "^1.0"
     },
     "extra": {
         "unused": [
