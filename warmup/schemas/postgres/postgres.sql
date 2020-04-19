@@ -41,7 +41,6 @@ CREATE TABLE IF NOT EXISTS entities (
   entity_subtype varchar(64) NOT NULL,
   created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   contents text NOT NULL,
-  search text NOT NULL,
   publish_status varchar(255) NOT NULL DEFAULT 'published',
   PRIMARY KEY (uuid)
 );
