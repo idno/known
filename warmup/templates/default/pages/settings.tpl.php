@@ -26,16 +26,31 @@
         echo $this->__([
             'messages' => $messages
         ])->draw('pages/elements/messages');
+        
     } else {
 
+        $canary = '<p>Rewriting appears to be disabled. Usually this means "AllowOverride None" is set in apache2.conf ';
+        $canary .= 'which prevents Known\'s .htaccess from doing its thing. We tried to fetch a URL that should redirect ';
+        $canary .= 'to known.min.js</p>';
+        $canary .= '<p>You can usually fix this by setting <code>AllowOverride All</code> in your Apache configuration.</p>';
+        $canary .= '<p>If you think this is an error, you can continue, but you might have problems later on.</p>';
+        
+        echo $this->__([
+            'id' => 'canary',
+            'messages' => $canary,
+            'style' => 'display: none;'
+        ])->draw('pages/elements/messages');
+        
         ?>
-        <p>
-            Great! You have everything you need to get started.
-        </p>
-        <p>
-            On this screen, we'll ask you how we should connect to your database, and where we should save
-            uploaded files like user photos, pictures and audio.
-        </p>
+        <div id="success-block" class="alerts success message-success-block" style="display:none;">
+            <p>
+                Great! You have everything you need to get started.
+            </p>
+            <p>
+                On this screen, we'll ask you how we should connect to your database, and where we should save
+                uploaded files like user photos, pictures and audio.
+            </p>
+        </div>
         <?php
 
     }
@@ -125,5 +140,20 @@
             <input type="submit" class="btn btn-primary btn-lg btn-responsive" value="Onwards!">
         </div>
     </form>
+    <script>
+        var request = new XMLHttpRequest();  
+        request.open('GET', '../js/canary.js', true);
+        request.onreadystatechange = function(){
+            if (request.readyState !== 2){
+                if (request.status !== 200) {  
+                    document.getElementById('canary').style.display = 'block';
+                    document.getElementById('success-block').style.display = 'none';
+                }  
+            } else {
+                document.getElementById('success-block').style.display = 'block';
+            }
+        };
+        request.send();
+    </script>
 
 </div>

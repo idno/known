@@ -20,6 +20,10 @@ class WebInstaller extends \Idno\Core\Installer
         parent::__construct();
     }
 
+    /**
+     * @deprecated This needs to be moved into the front end js to handle proxies etc
+     * @return boolean
+     */
     public function rewriteWorking()
     {
         if (!empty($_SERVER['PHP_SELF'])) {
@@ -78,13 +82,14 @@ class WebInstaller extends \Idno\Core\Installer
         $mysql_name  = \Idno\Core\Input::getInput('mysql_name');
         $upload_path = \Idno\Core\Input::getInput('upload_path', dirname(dirname(__FILE__)) . '/Uploads/');
 
-        if (!WebInstaller::installer()->rewriteWorking()) {
-            $messages .= '<p>Rewriting appears to be disabled. Usually this means "AllowOverride None" is set in apache2.conf ';
-            $messages .= 'which prevents Known\'s .htaccess from doing its thing. We tried to fetch a URL that should redirect ';
-            $messages .= 'to known.min.js</p>';
-            $messages .= '<p>You can usually fix this by setting <code>AllowOverride All</code> in your Apache configuration.</p>';
-            $ok = false;
-        }
+//        if (!WebInstaller::installer()->rewriteWorking()) {
+//            $messages .= '<p>Rewriting appears to be disabled. Usually this means "AllowOverride None" is set in apache2.conf ';
+//            $messages .= 'which prevents Known\'s .htaccess from doing its thing. We tried to fetch a URL that should redirect ';
+//            $messages .= 'to known.min.js</p>';
+//            $messages .= '<p>You can usually fix this by setting <code>AllowOverride All</code> in your Apache configuration.</p>';
+//            $messages .= '<p>If you think this is an error, you can continue, but you might have problems later on.</p>';
+//            $ok = false;
+//        }
 
         if (!empty($mysql_name) && !empty($mysql_host)) {
             try {
