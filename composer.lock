@@ -1127,16 +1127,16 @@
         },
         {
             "name": "idno/text",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/text.git",
-                "reference": "e03a67aaafb622cb9d5207002af3a6c2ad25d91b"
+                "reference": "3ac2ad13d13240b9001f7d3859cb6b2104f52dde"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/text/zipball/e03a67aaafb622cb9d5207002af3a6c2ad25d91b",
-                "reference": "e03a67aaafb622cb9d5207002af3a6c2ad25d91b",
+                "url": "https://api.github.com/repos/idno/text/zipball/3ac2ad13d13240b9001f7d3859cb6b2104f52dde",
+                "reference": "3ac2ad13d13240b9001f7d3859cb6b2104f52dde",
                 "shasum": ""
             },
             "require": {
@@ -1153,7 +1153,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A lightweight blogging engine.",
-            "time": "2020-04-13T14:22:04+00:00"
+            "time": "2020-04-19T12:59:49+00:00"
         },
         {
             "name": "idno/theme-black",
