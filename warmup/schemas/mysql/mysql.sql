@@ -131,4 +131,4 @@ CREATE TABLE IF NOT EXISTS `session` (
     PRIMARY KEY (`session_id`)
 ) COLLATE utf8_bin, ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-REPLACE INTO `versions` VALUES('schema', '2019060501');
+REPLACE INTO `versions` VALUES('schema', '2019121401');
