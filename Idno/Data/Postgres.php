@@ -207,7 +207,7 @@ namespace Idno\Data {
                     
                                                    
                                                    
-                    if ($statement = $client->prepare("delete from metadata where _id = :id")) {
+                    if ($statement = $client->prepare("delete from {$collection}_metadata where _id = :id")) {
                         $statement->execute(array(':id' => $array['_id']));
                     }
                     foreach ($array as $key => $val) {
@@ -229,8 +229,8 @@ namespace Idno\Data {
                             if (empty($value)) {
                                 $value = 0;
                             }
-                            if ($statement = $client->prepare("insert into metadata (collection, entity, _id, name, value) values (:collection, :uuid, :id::text, :name, :value)")) {
-                                $statement->execute(array('collection' => $collection, ':uuid' => $array['uuid'], ':id' => $array['_id'], ':name' => $key, ':value' => $value));
+                            if ($statement = $client->prepare("insert into {$collection}_metadata (_id, name, value) values (:id::text, :name, :value)")) {
+                                $statement->execute(array(':id' => $array['_id'], ':name' => $key, ':value' => $value));
                             }
                         }
                     }
@@ -343,7 +343,7 @@ namespace Idno\Data {
                 $offset           = (int)$offset;
                 $where            = $this->build_where_from_array($parameters, $variables, $metadata_joins, $non_md_variables, 'and', $collection);
                 for ($i = 1; $i <= $metadata_joins; $i++) {
-                    $query .= " left join metadata md{$i} on md{$i}.entity = {$collection}.uuid ";
+                    $query .= " left join {$collection}_metadata md{$i} on md{$i}._id = {$collection}._id ";
                 }
                 if (isset($parameters['$search'])) {
                     $query .= " left join {$collection}_search srch on srch._id = {$collection}._id ";
@@ -418,7 +418,7 @@ namespace Idno\Data {
                             $non_md_variables++;
                         } else {
                             $metadata_joins++;
-                            $subwhere[]                           = "(md{$metadata_joins}.name = :name{$metadata_joins} and md{$metadata_joins}.value = :value{$metadata_joins} and md{$metadata_joins}.collection = '{$collection}')";
+                            $subwhere[]                           = "(md{$metadata_joins}.name = :name{$metadata_joins} and md{$metadata_joins}.value = :value{$metadata_joins} )";
                             $variables[":name{$metadata_joins}"]  = $key;
                             $variables[":value{$metadata_joins}"] = $value;
                         }
@@ -438,7 +438,7 @@ namespace Idno\Data {
                                     $notstring .= ")";
                                 } else {
                                     $metadata_joins++;
-                                    $notstring                           = "(md{$metadata_joins}.name = :name{$metadata_joins} and md{$metadata_joins}.collection = '{$collection}' and md{$metadata_joins}.value not in (";
+                                    $notstring                           = "(md{$metadata_joins}.name = :name{$metadata_joins} and md{$metadata_joins}.value not in (";
                                     $variables[":name{$metadata_joins}"] = $key;
                                     $i                                   = 0;
                                     foreach ($value['$not']['$in'] as $val) {
@@ -459,7 +459,7 @@ namespace Idno\Data {
                                     $non_md_variables++;
                                 } else {
                                     $metadata_joins++;
-                                    $notstring = "(md{$metadata_joins}.`name`    = :name{$metadata_joins} and md{$metadata_joins}.collection = '{$collection}' and md{$metadata_joins}.value != :nonmdvalue{$non_md_variables})";
+                                    $notstring = "(md{$metadata_joins}.`name`    = :name{$metadata_joins} and md{$metadata_joins}.value != :nonmdvalue{$non_md_variables})";
                                     $variables[":name{$metadata_joins}"]         = $key;
                                     $variables[":nonmdvalue{$non_md_variables}"] = $value['$not'];
                                     $non_md_variables++;
@@ -481,7 +481,7 @@ namespace Idno\Data {
                                 $instring .= ")";
                             } else {
                                 $metadata_joins++;
-                                $instring                            = "(md{$metadata_joins}.name = :name{$metadata_joins} and md{$metadata_joins}.collection = '{$collection}' and md{$metadata_joins}.value in (";
+                                $instring                            = "(md{$metadata_joins}.name = :name{$metadata_joins} and md{$metadata_joins}.value in (";
                                 $variables[":name{$metadata_joins}"] = $key;
                                 $i                                   = 0;
                                 foreach ($value['$in'] as $val) {
@@ -508,7 +508,7 @@ namespace Idno\Data {
                                 $non_md_variables++;
                             } else {
                                 $metadata_joins++;
-                                $subwhere[]                           = "(md{$metadata_joins}.name = :name{$metadata_joins} and md{$metadata_joins}.value < :value{$metadata_joins} and md{$metadata_joins}.collection = '{$collection}')";
+                                $subwhere[]                           = "(md{$metadata_joins}.name = :name{$metadata_joins} and md{$metadata_joins}.value < :value{$metadata_joins} )";
                                 $variables[":name{$metadata_joins}"]  = $key;
                                 $variables[":value{$metadata_joins}"] = $val;
                             }
@@ -526,7 +526,7 @@ namespace Idno\Data {
                                 $non_md_variables++;
                             } else {
                                 $metadata_joins++;
-                                $subwhere[]                           = "(md{$metadata_joins}.name = :name{$metadata_joins} and md{$metadata_joins}.value > :value{$metadata_joins} and md{$metadata_joins}.collection = '{$collection}')";
+                                $subwhere[]                           = "(md{$metadata_joins}.name = :name{$metadata_joins} and md{$metadata_joins}.value > :value{$metadata_joins} )";
                                 $variables[":name{$metadata_joins}"]  = $key;
                                 $variables[":value{$metadata_joins}"] = $val;
                             }
@@ -584,7 +584,7 @@ namespace Idno\Data {
                 $non_md_variables = array();
                 $where            = $this->build_where_from_array($parameters, $variables, $metadata_joins, $non_md_variables, 'and', $collection);
                 for ($i = 0; $i <= $metadata_joins; $i++) {
-                    $query .= " left join metadata md{$i} on md{$i}.entity = {$collection}.uuid ";
+                    $query .= " left join {$collection}_metadata md{$i} on md{$i}._id = {$collection}._id ";
                 }
                 if (isset($parameters['$search'])) {
                     $query .= " left join {$collection}_search srch on srch._id = {$collection}._id ";
@@ -625,11 +625,13 @@ namespace Idno\Data {
                 $client = $this->client;
                 /* @var \PDO $client */
                 $statement = $client->prepare("delete from {$collection} where _id = :id");
-                if ($statement->execute(array(':id' => $id))) {
-                    if ($statement = $client->prepare("delete from metadata where _id = :id")) {
-                        return $statement->execute(array(':id' => $id));
-                    }
-                }
+                return $statement->execute(array(':id' => $id));
+                
+//                if ($statement->execute(array(':id' => $id))) {
+//                    if ($statement = $client->prepare("delete from metadata where _id = :id")) {
+//                        return $statement->execute(array(':id' => $id));
+//                    }
+//                }
 
             } catch (\Exception $e) {
 
@@ -656,12 +658,13 @@ namespace Idno\Data {
                 $client = $this->client;
                 /* @var \PDO $client */
                 $statement = $client->prepare("delete from {$collection}");
-                if ($statement->execute()) {
-                    
-                    if ($statement = $client->prepare("delete from metadata where collection = :collection")) {
-                        return $statement->execute([':collection' => $collection]);
-                    }
-                }
+                return $statement->execute();
+//                if ($statement->execute()) {
+//                    
+//                    if ($statement = $client->prepare("delete from metadata where collection = :collection")) {
+//                        return $statement->execute([':collection' => $collection]);
+//                    }
+//                }
             } catch (\Exception $e) {
                 \Idno\Core\Idno::site()->logging()->error($e->getMessage());
                 return false;
