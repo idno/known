@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS config_metadata (
   _id varchar(32) NOT NULL,
   name varchar(64) NOT NULL,
   value text NOT NULL,
-  FOREIGN KEY (_id) REFERENCES entities (_id) ON DELETE CASCADE ON UPDATE CASCADE
+  FOREIGN KEY (_id) REFERENCES config (_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE INDEX CONCURRENTLY IF NOT EXISTS m_value ON config_metadata (value);
