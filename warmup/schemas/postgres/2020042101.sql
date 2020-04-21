@@ -1,8 +1,9 @@
 
 CREATE TABLE IF NOT EXISTS entities_metadata (
-  _id varchar(32) NOT NULL FOREIGN KEY (_id) REFERENCES entities (_id) ON DELETE CASCADE ON UPDATE CASCADE,
+  _id varchar(32) NOT NULL,
   name varchar(64) NOT NULL,
-  value text NOT NULL
+  value text NOT NULL,
+  FOREIGN KEY (_id) REFERENCES entities (_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE INDEX CONCURRENTLY IF NOT EXISTS m_value ON entities_metadata (value);
@@ -14,9 +15,10 @@ INSERT INTO entities_metadata SELECT _id, name, value FROM metadata WHERE collec
 
 
 CREATE TABLE IF NOT EXISTS config_metadata (
-  _id varchar(32) NOT NULL FOREIGN KEY (_id) REFERENCES entities (_id) ON DELETE CASCADE ON UPDATE CASCADE,
+  _id varchar(32) NOT NULL,
   name varchar(64) NOT NULL,
-  value text NOT NULL
+  value text NOT NULL,
+  FOREIGN KEY (_id) REFERENCES entities (_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE INDEX CONCURRENTLY IF NOT EXISTS m_value ON config_metadata (value);
@@ -28,9 +30,10 @@ INSERT INTO config_metadata SELECT _id, name, value FROM metadata WHERE collecti
 
 
 CREATE TABLE IF NOT EXISTS reader_metadata (
-  _id varchar(32) NOT NULL FOREIGN KEY (_id) REFERENCES reader (_id) ON DELETE CASCADE ON UPDATE CASCADE,
+  _id varchar(32) NOT NULL,
   name varchar(64) NOT NULL,
-  value text NOT NULL
+  value text NOT NULL,
+  FOREIGN KEY (_id) REFERENCES reader (_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE INDEX CONCURRENTLY IF NOT EXISTS m_value ON reader_metadata (value);
