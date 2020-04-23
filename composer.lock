@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "73cf00b67f5ac0ad7522687bdfb33cee",
+    "content-hash": "374e8f445a5fa58549ab1860b61a2177",
     "packages": [
         {
             "name": "components/jquery",
@@ -3702,16 +3702,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "5.2.1",
+            "version": "5.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "29bd1c22d35ad8a27982fddbe11a84a124c24b40"
+                "reference": "a9e4928aac63b18db3bc670661f8661133c3c205"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/29bd1c22d35ad8a27982fddbe11a84a124c24b40",
-                "reference": "29bd1c22d35ad8a27982fddbe11a84a124c24b40",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/a9e4928aac63b18db3bc670661f8661133c3c205",
+                "reference": "a9e4928aac63b18db3bc670661f8661133c3c205",
                 "shasum": ""
             },
             "type": "component",
@@ -3744,7 +3744,7 @@
                 "tinymce",
                 "wysiwyg"
             ],
-            "time": "2020-03-25T02:45:35+00:00"
+            "time": "2020-04-23T02:47:51+00:00"
         },
         {
             "name": "twbs/bootstrap",
@@ -4043,12 +4043,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "2bdae3cc8428d637d5c86c8c33d0a3354ce93f7f"
+                "reference": "81541a731da2f245a08666de73169cb5da7ac573"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/2bdae3cc8428d637d5c86c8c33d0a3354ce93f7f",
-                "reference": "2bdae3cc8428d637d5c86c8c33d0a3354ce93f7f",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/81541a731da2f245a08666de73169cb5da7ac573",
+                "reference": "81541a731da2f245a08666de73169cb5da7ac573",
                 "shasum": ""
             },
             "conflict": {
@@ -4184,7 +4184,7 @@
                 "silverstripe/userforms": "<3",
                 "simple-updates/phpwhois": "<=1",
                 "simplesamlphp/saml2": "<1.10.6|>=2,<2.3.8|>=3,<3.1.4",
-                "simplesamlphp/simplesamlphp": "<1.18.4",
+                "simplesamlphp/simplesamlphp": "<1.18.6",
                 "simplesamlphp/simplesamlphp-module-infocard": "<1.0.1",
                 "simplito/elliptic-php": "<1.0.6",
                 "slim/slim": "<2.6",
@@ -4301,7 +4301,7 @@
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-            "time": "2020-04-21T14:24:08+00:00"
+            "time": "2020-04-23T00:01:30+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
