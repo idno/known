@@ -4014,16 +4014,16 @@
         },
         {
             "name": "mapkyca/mapkyca-known-docker",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mapkyca/mapkyca-known-docker.git",
-                "reference": "a31f79ec09a2d67df4a1c53292bf00f2210ff330"
+                "reference": "856032fc7904325f57d5afc7ceb8b4030c97e1e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mapkyca/mapkyca-known-docker/zipball/a31f79ec09a2d67df4a1c53292bf00f2210ff330",
-                "reference": "a31f79ec09a2d67df4a1c53292bf00f2210ff330",
+                "url": "https://api.github.com/repos/mapkyca/mapkyca-known-docker/zipball/856032fc7904325f57d5afc7ceb8b4030c97e1e4",
+                "reference": "856032fc7904325f57d5afc7ceb8b4030c97e1e4",
                 "shasum": ""
             },
             "type": "library",
@@ -4035,7 +4035,7 @@
                 }
             ],
             "description": "Docker container for a Known install in order to quickly get you going",
-            "time": "2020-04-18T09:14:23+00:00"
+            "time": "2020-04-23T16:14:26+00:00"
         },
         {
             "name": "roave/security-advisories",
