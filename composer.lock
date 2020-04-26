@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "374e8f445a5fa58549ab1860b61a2177",
+    "content-hash": "6cce49534abf6059e3ea79f2369c570a",
     "packages": [
         {
             "name": "components/jquery",
@@ -4036,6 +4036,31 @@
             ],
             "description": "Docker container for a Known install in order to quickly get you going",
             "time": "2020-04-23T16:14:26+00:00"
+        },
+        {
+            "name": "mapkyca/mapkyca-known-docker-postgres",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mapkyca/mapkyca-known-docker-postgres.git",
+                "reference": "35062c40bd604416fa8471e02978ed8a1868be6c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mapkyca/mapkyca-known-docker-postgres/zipball/35062c40bd604416fa8471e02978ed8a1868be6c",
+                "reference": "35062c40bd604416fa8471e02978ed8a1868be6c",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Marcus Povey",
+                    "email": "marcus@marcus-povey.co.uk"
+                }
+            ],
+            "description": "Docker container for a Known install in order to quickly get you going... Postgres edition",
+            "time": "2020-04-23T16:12:06+00:00"
         },
         {
             "name": "roave/security-advisories",
