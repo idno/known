@@ -1,4 +1,6 @@
 
+SET FOREIGN_KEY_CHECKS = 0;
+
 CREATE TABLE IF NOT EXISTS `entities_metadata` (
   `_id` varchar(32) NOT NULL,
   `name` varchar(64) NOT NULL,
@@ -40,7 +42,9 @@ INSERT INTO `reader_metadata` SELECT `_id`, `name`, `value` FROM metadata WHERE 
 
 -- Create a backup so we can clear it up later
 CREATE TABLE deprecated_metadata LIKE metadata;
+INSERT INTO deprecated_metadata select * FROM metadata;
 DROP TABLE metadata;
 
+SET FOREIGN_KEY_CHECKS = 1;
 
 REPLACE INTO `versions` VALUES('schema', '2020042101');
