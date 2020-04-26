@@ -29,6 +29,16 @@ CREATE TABLE IF NOT EXISTS `config_search` (
   CONSTRAINT `cs_id_id` FOREIGN KEY (`_id`) REFERENCES `config` (`_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `config_metadata` (
+  `_id` varchar(32) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `value` text NOT NULL,
+  KEY `value` (`value`(255)),
+  KEY `name` (`name`),
+  KEY (`_id`),
+  CONSTRAINT `cm_id_id` FOREIGN KEY (`_id`) REFERENCES `config` (`_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 -- --------------------------------------------------------
 
 --
@@ -57,6 +67,16 @@ CREATE TABLE IF NOT EXISTS `entities_search` (
   PRIMARY KEY (`_id`),
   FULLTEXT KEY `search` (`search`),
   CONSTRAINT `es_id_id` FOREIGN KEY (`_id`) REFERENCES `entities` (`_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `entities_metadata` (
+  `_id` varchar(32) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `value` text NOT NULL,
+  KEY `value` (`value`(255)),
+  KEY `name` (`name`),
+  KEY (`_id`),
+  CONSTRAINT `em_id_id` FOREIGN KEY (`_id`) REFERENCES `entities` (`_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -88,23 +108,14 @@ CREATE TABLE IF NOT EXISTS `reader_search` (
   CONSTRAINT `rs_id_id` FOREIGN KEY (`_id`) REFERENCES `reader` (`_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `metadata`
---
-
-CREATE TABLE IF NOT EXISTS `metadata` (
-  `entity` varchar(255) NOT NULL,
+CREATE TABLE IF NOT EXISTS `reader_metadata` (
   `_id` varchar(32) NOT NULL,
-  `collection` varchar(64) NOT NULL,
   `name` varchar(64) NOT NULL,
   `value` text NOT NULL,
-  KEY `entity` (`entity`,`name`),
   KEY `value` (`value`(255)),
   KEY `name` (`name`),
-  KEY `collection` (`collection`),
-  KEY `_id` (`_id`)
+  KEY (`_id`),
+  CONSTRAINT `rm_id_id` FOREIGN KEY (`_id`) REFERENCES `reader` (`_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -131,4 +142,4 @@ CREATE TABLE IF NOT EXISTS `session` (
     PRIMARY KEY (`session_id`)
 ) COLLATE utf8_bin, ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-REPLACE INTO `versions` VALUES('schema', '2019121401');
+REPLACE INTO `versions` VALUES('schema', '2020042101');
