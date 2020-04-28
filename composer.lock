@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6cce49534abf6059e3ea79f2369c570a",
+    "content-hash": "b8dfcccc4e255f47728a2aa5dd546195",
     "packages": [
         {
             "name": "components/jquery",
@@ -1127,16 +1127,16 @@
         },
         {
             "name": "idno/text",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/text.git",
-                "reference": "d2dd1cf9a376aa50a0b7b1d0c494cf78e9cb064d"
+                "reference": "3a4573ef574f60b31667f579b68e23c94fa8c364"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/text/zipball/d2dd1cf9a376aa50a0b7b1d0c494cf78e9cb064d",
-                "reference": "d2dd1cf9a376aa50a0b7b1d0c494cf78e9cb064d",
+                "url": "https://api.github.com/repos/idno/text/zipball/3a4573ef574f60b31667f579b68e23c94fa8c364",
+                "reference": "3a4573ef574f60b31667f579b68e23c94fa8c364",
                 "shasum": ""
             },
             "require": {
@@ -1153,7 +1153,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A lightweight blogging engine.",
-            "time": "2020-04-21T20:45:09+00:00"
+            "time": "2020-04-28T17:51:07+00:00"
         },
         {
             "name": "idno/theme-black",
@@ -4404,5 +4404,6 @@
         "ext-openssl": "*",
         "ext-gettext": "*"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
