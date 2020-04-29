@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ff58dc338284dd352a666b47071176f8",
+    "content-hash": "9eb7259c4fc31cb72cf145668c8060a6",
     "packages": [
         {
             "name": "components/jquery",
@@ -2778,7 +2778,7 @@
         },
         {
             "name": "symfony/console",
-            "version": "v4.4.7",
+            "version": "v4.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
