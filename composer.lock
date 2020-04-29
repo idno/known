@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b8dfcccc4e255f47728a2aa5dd546195",
+    "content-hash": "ff58dc338284dd352a666b47071176f8",
     "packages": [
         {
             "name": "components/jquery",
@@ -2854,7 +2854,7 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v4.4.7",
+            "version": "v4.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
@@ -4404,6 +4404,5 @@
         "ext-openssl": "*",
         "ext-gettext": "*"
     },
-    "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "platform-dev": []
 }
