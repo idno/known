@@ -18,7 +18,7 @@ namespace Idno\Core {
      * This class extends the Known template to, in addition to supporting the Known php based templates, to support
      * the more standard twig templates.
      */
-    class HybridTwigTemplate extends Template {
+    class HybridTwigTemplate extends DefaultTemplate {
         
         private $twig;
         

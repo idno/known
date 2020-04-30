@@ -116,7 +116,7 @@ namespace Idno\Core {
 
             $this->session      = new Session();
             $this->actions      = new Actions();
-            $this->template     = new HybridTwigTemplate();
+            $this->template     = $this->componentFactory($this->config->template, Template::class, "Idno\\Core\\", HybridTwigTemplate::class);
             $this->language     = new Language();
                 $this->language()->register(new GetTextTranslation()); // Register default gettext translations
             $this->syndication  = new Syndication();
