@@ -90,6 +90,12 @@ namespace Idno\Core {
          * @param $content
          */
         function extendTemplateWithContent($templateName, $content);
+        
+        /**
+         * Sets the current template type
+         * @param string $template The name of the template you wish to use
+         */
+        function setTemplateType($templateType);
 
         /**
          * Sets the template type based on various environmental factors
