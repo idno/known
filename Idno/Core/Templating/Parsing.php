@@ -38,7 +38,7 @@ namespace Idno\Core\Templating {
                     $result .= ' ' . str_replace("%URL%", $url, $code);
                 }
                 $result .= ">";
-                $result .= preg_replace('/([\/=]+)/', '${1}<wbr />', \Idno\Core\Template::sampleTextChars($url, 100));
+                $result .= preg_replace('/([\/=]+)/', '${1}<wbr />', static::sampleTextChars($url, 100));
                 $result .= "</a>$punc";
 
                 return $result;
