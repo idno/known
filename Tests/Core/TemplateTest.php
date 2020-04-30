@@ -2,7 +2,7 @@
 
 namespace Tests\Core {
 
-    use Idno\Core\Template;
+    use Idno\Core\DefaultTemplate;
 
     class TemplateTest extends \Tests\KnownTestCase
     {
@@ -31,7 +31,7 @@ namespace Tests\Core {
         function testParseURLs($expected, $text)
         {
             // adapted test cases from brevity (Known requires the http(s) prefix)
-            $t = new Template();
+            $t = new DefaultTemplate();
 
             $this->assertEquals($expected, $t->parseURLs($text));
             
@@ -41,7 +41,7 @@ namespace Tests\Core {
         function testDataAttributes()
         {
 
-            $t = new Template();
+            $t = new DefaultTemplate();
             $t->addDataToObjectType('testobject', 'foo', 'bar');
             $t->addDataToObjectType('testobject', 'foo2', '"What?!"');
             $t->addDataToObjectType('testobject2', 'foo3', '!');
