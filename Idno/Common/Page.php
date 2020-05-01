@@ -444,6 +444,25 @@ namespace Idno\Common {
         }
         
         /**
+         * Default handling of OPTIONS (mostly to handle CORS)
+         */
+        function options() {
+            
+            header('Access-Control-Allow-Methods: ' . implode(', ', [
+                'GET',
+                'POST',
+                'HEAD',
+                'OPTIONS',
+                'PUT',
+                'DELETE'
+            ]) );
+            
+            header('Access-Control-Max-Age: 86400');
+            
+            http_response_code(204);
+        }
+        
+        /**
          * Return the referrer, or an empty string
          * @return string
          */
