@@ -2,6 +2,8 @@
 
     header('Content-type: application/x-javascript; charset=UTF-8');
     header("Access-Control-Allow-Origin: *");
+    header('Access-Control-Allow-Credentials: true');
+    header("Access-Control-Allow-Headers: Authorization");
 
     unset($vars['body']);
 
