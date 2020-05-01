@@ -2,6 +2,9 @@
 
     header('Content-type: application/json');
     header("Access-Control-Allow-Origin: *");
+    header('Access-Control-Allow-Credentials: true');
+    header("Access-Control-Allow-Headers: Authorization");
+    
     unset($vars['body']);
 
 if (!empty($vars['exception'])) {
