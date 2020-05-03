@@ -1618,16 +1618,16 @@
         },
         {
             "name": "mapkyca/known-oauth-client",
-            "version": "1.0.10",
+            "version": "1.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mapkyca/known-oauth2-client.git",
-                "reference": "452664865f14c2b78311ebb83fe151e3e88f1795"
+                "reference": "728f4fde1025193a41dd4ad547b5b6b0516ea1a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mapkyca/known-oauth2-client/zipball/452664865f14c2b78311ebb83fe151e3e88f1795",
-                "reference": "452664865f14c2b78311ebb83fe151e3e88f1795",
+                "url": "https://api.github.com/repos/mapkyca/known-oauth2-client/zipball/728f4fde1025193a41dd4ad547b5b6b0516ea1a1",
+                "reference": "728f4fde1025193a41dd4ad547b5b6b0516ea1a1",
                 "shasum": ""
             },
             "require": {
@@ -1660,23 +1660,24 @@
                 "known",
                 "plugin"
             ],
-            "time": "2020-03-27T17:00:20+00:00"
+            "time": "2020-05-03T13:55:35+00:00"
         },
         {
             "name": "mapkyca/known-oauth2-server",
-            "version": "1.0.0",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mapkyca/known-oauth2-server.git",
-                "reference": "1f894a2fdf08e84885157deb974762c1bcd4ae6e"
+                "reference": "d1657277ca6a1b91f90d6456e621836ef8600c4b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mapkyca/known-oauth2-server/zipball/1f894a2fdf08e84885157deb974762c1bcd4ae6e",
-                "reference": "1f894a2fdf08e84885157deb974762c1bcd4ae6e",
+                "url": "https://api.github.com/repos/mapkyca/known-oauth2-server/zipball/d1657277ca6a1b91f90d6456e621836ef8600c4b",
+                "reference": "d1657277ca6a1b91f90d6456e621836ef8600c4b",
                 "shasum": ""
             },
             "require": {
+                "firebase/php-jwt": "^5.2",
                 "php": ">=7.1"
             },
             "require-dev": {
@@ -1705,7 +1706,7 @@
                 "oauth2",
                 "plugin"
             ],
-            "time": "2020-02-03T11:42:37+00:00"
+            "time": "2020-05-03T13:54:22+00:00"
         },
         {
             "name": "mapkyca/mrclay_autop_known",
@@ -1983,6 +1984,16 @@
                 "date",
                 "datetime",
                 "time"
+            ],
+            "funding": [
+                {
+                    "url": "https://opencollective.com/Carbon",
+                    "type": "open_collective"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/nesbot/carbon",
+                    "type": "tidelift"
+                }
             ],
             "time": "2020-04-20T15:05:43+00:00"
         },
@@ -2717,6 +2728,20 @@
                 "caching",
                 "psr6"
             ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-04-28T17:58:55+00:00"
         },
         {
@@ -2851,6 +2876,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-03-30T11:41:10+00:00"
         },
         {
@@ -2921,6 +2960,20 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-03-27T16:54:36+00:00"
         },
         {
@@ -3034,6 +3087,20 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-04-18T20:50:06+00:00"
         },
         {
@@ -3095,6 +3162,20 @@
             "keywords": [
                 "mime",
                 "mime-type"
+            ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
             ],
             "time": "2020-04-17T03:29:44+00:00"
         },
@@ -3582,6 +3663,20 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-04-12T16:45:47+00:00"
         },
         {
@@ -3698,6 +3793,20 @@
                 "hydrate",
                 "instantiate",
                 "serialize"
+            ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
             ],
             "time": "2020-04-15T15:59:10+00:00"
         },
@@ -4405,5 +4514,6 @@
         "ext-openssl": "*",
         "ext-gettext": "*"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
