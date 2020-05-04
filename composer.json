@@ -122,5 +122,11 @@
         "unused": [
             "masterminds/html5"
         ]
-    }
+    },
+    "funding": [
+        {
+            "type": "opencollective",
+            "url": "https://opencollective.com/known"
+        }
+    ]
 }
