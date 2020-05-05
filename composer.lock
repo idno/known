@@ -1618,16 +1618,16 @@
         },
         {
             "name": "mapkyca/known-oauth-client",
-            "version": "1.0.13",
+            "version": "1.0.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mapkyca/known-oauth2-client.git",
-                "reference": "6c38a7479ab24c185cc52a618c1c44ce953862bf"
+                "reference": "5692c071c5281d4674b5fab258165d5d102b8fb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mapkyca/known-oauth2-client/zipball/6c38a7479ab24c185cc52a618c1c44ce953862bf",
-                "reference": "6c38a7479ab24c185cc52a618c1c44ce953862bf",
+                "url": "https://api.github.com/repos/mapkyca/known-oauth2-client/zipball/5692c071c5281d4674b5fab258165d5d102b8fb5",
+                "reference": "5692c071c5281d4674b5fab258165d5d102b8fb5",
                 "shasum": ""
             },
             "require": {
@@ -1660,20 +1660,20 @@
                 "known",
                 "plugin"
             ],
-            "time": "2020-05-04T20:31:37+00:00"
+            "time": "2020-05-05T15:59:37+00:00"
         },
         {
             "name": "mapkyca/known-oauth2-server",
-            "version": "1.1.5",
+            "version": "1.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mapkyca/known-oauth2-server.git",
-                "reference": "75843df78fd323e51398e415452ae54a31b32130"
+                "reference": "cacdd90f530a9b98d207cb472809d54e2ca5084f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mapkyca/known-oauth2-server/zipball/75843df78fd323e51398e415452ae54a31b32130",
-                "reference": "75843df78fd323e51398e415452ae54a31b32130",
+                "url": "https://api.github.com/repos/mapkyca/known-oauth2-server/zipball/cacdd90f530a9b98d207cb472809d54e2ca5084f",
+                "reference": "cacdd90f530a9b98d207cb472809d54e2ca5084f",
                 "shasum": ""
             },
             "require": {
@@ -1706,7 +1706,7 @@
                 "oauth2",
                 "plugin"
             ],
-            "time": "2020-05-05T05:52:03+00:00"
+            "time": "2020-05-05T16:00:30+00:00"
         },
         {
             "name": "mapkyca/mrclay_autop_known",
