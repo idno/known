@@ -9,9 +9,11 @@
 
 namespace Idno\Entities {
 
-    class RemoteUser extends \Idno\Entities\User
+    class RemoteUser extends \Idno\Entities\User implements Mutable
     {
 
+        use Mutate;
+        
         public function save($add_to_feed = false, $feed_verb = 'post')
         {
             // TODO: use a remote API to save to external sources if we have permission to
