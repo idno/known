@@ -22,6 +22,8 @@ class MutateTest extends \Tests\KnownTestCase
         $this->assertNotEmpty(\Idno\Entities\RemoteUser::getByID($id));
         $user = \Idno\Entities\User::getByID($id);
         
+        $this->assertTrue($user instanceof \Idno\Entities\User);
+        
         $this->assertNotEmpty($user);
                 
         foreach ([
