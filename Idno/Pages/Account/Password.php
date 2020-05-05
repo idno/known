@@ -29,7 +29,7 @@ namespace Idno\Pages\Account {
                 $t->title = \Idno\Core\Idno::site()->language()->_('Recover password');
             }
 
-            $t->drawPage();
+            echo $t->draw('shell');
 
         }
 
