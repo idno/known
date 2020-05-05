@@ -17,7 +17,14 @@ namespace Idno\Pages\Session {
 
             // If we're somehow here but logged in, move to the front page if we're viewing with the regular template
             if (\Idno\Core\Idno::site()->session()->isLoggedOn() && \Idno\Core\Idno::site()->template()->getTemplateType() == 'default') {
-                $this->forward();
+                
+                $fwd = $this->getInput('fwd'); // Forward to a new page?
+                if (empty($fwd)) {
+                    $fwd = \Idno\Core\Idno::site()->config()->getDisplayURL();
+                } else {
+                    $fwd = \Idno\Core\Webservice::base64UrlDecode($this->getInput('fwd'));
+                }
+                $this->forward($fwd);
             }
 
             $fwd = \Idno\Core\Webservice::base64UrlDecode($this->getInput('fwd')); // Forward to a new page?

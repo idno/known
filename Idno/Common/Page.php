@@ -1136,6 +1136,29 @@ namespace Idno\Common {
 
             return $headers;
         }
+        
+        /**
+         * Retrieve bearer token passed to this page, if any.
+         * @return string|null
+         */
+        public static function getBearerToken(): ?string {
+            
+            $headers = null;
+            $serverheaders = \Idno\Common\Page::getallheaders();
+            
+            if (isset($serverheaders['Authorization']))
+                $headers = trim($serverheaders["Authorization"]);
+            else if (isset($serverheaders['HTTP_AUTHORIZATION']))
+                $headers = trim($serverheaders["HTTP_AUTHORIZATION"]);
+            
+            if (!empty($headers)) {
+                if (preg_match('/Bearer\s(\S+)/', $headers, $matches)) {
+                    return trim($matches[1], '\'"');
+                }
+            }
+                
+            return null;
+        }
 
         /**
          * Set or add a file asset.
