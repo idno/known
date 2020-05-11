@@ -208,6 +208,7 @@ namespace Idno\Core {
             $this->routes()->addRoute('/service-worker(\.min)?\.js', '\Idno\Pages\Chrome\ServiceWorker', true);
 
             /** Files */
+            $this->routes()->addRoute('/file/mint/?', \Idno\Pages\File\Mint::class);
             $this->routes()->addRoute('/file/upload/?', '\Idno\Pages\File\Upload', true);
             $this->routes()->addRoute('/file/picker/?', '\Idno\Pages\File\Picker', true);
             $this->routes()->addRoute('/filepicker/?', '\Idno\Pages\File\Picker', true);
