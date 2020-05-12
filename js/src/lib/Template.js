@@ -19,7 +19,7 @@ function autoSave(context, elements, selectors) {
 
 /** Configure timeago and adjust videos in content */
 function annotateContent() {
-    $(".h-entry").fitVids();
+    $(".h-entry").fitVids({ customSelector: "iframe[src^='https://www.bitchute.com']"});
     $("time.dt-published").timeago();
 }
 

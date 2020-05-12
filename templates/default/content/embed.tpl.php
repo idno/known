@@ -13,6 +13,12 @@ if (preg_match_all('/https?:\/\/([^\s]+\.[^\s\.]+\.(png|jpg|jpeg|gif))/i', $body
         $urls[] = $m;
     }
 }
+if (preg_match_all('/bitchute\.com\/video\/([a-z0-9\-\_]+)/i', $body, $matches)) {
+    foreach ($matches[1] as $m) {
+        $embedded .= '<div><iframe width="600" height="420" scrolling="no" frameborder="0" style="border: none;" src="https://www.bitchute.com/embed/' . $m . '/"></iframe></div>';
+        $urls[] = $m;
+    }
+}
 if (preg_match_all('/(youtube\.com|youtu\.be)\/watch\?v=([a-z0-9\-\_]+)/i', $body, $matches)) {
     foreach ($matches[2] as $m) {
         $embedded .= '<div><iframe class="youtube-player auto-link figure" width="600" height="420" style="border:0" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen" webkitallowfullscreen="webkitallowfullscreen" src="//www.youtube-nocookie.com/embed/' . $m . '" loading="lazy"></iframe></div>';
