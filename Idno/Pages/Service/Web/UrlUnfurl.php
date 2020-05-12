@@ -50,7 +50,7 @@ namespace Idno\Pages\Service\Web {
             $object = \Idno\Entities\UnfurledUrl::getBySourceURL($url);
             if (!$forcenew && !empty($object)) {
                 $unfurled = $object->data;
-                $template = new \Idno\Core\Template();
+                $template = new \Idno\Core\DefaultTemplate();
                 $template->setTemplateType('default');
                 $unfurled['id'] = $object->getID();
                 $unfurled['rendered'] = $template->__(['object' => $object])->draw('entity/UnfurledUrl');
@@ -72,7 +72,7 @@ namespace Idno\Pages\Service\Web {
 
             // Pre-render (for javascript)
             $unfurled = $object->data;
-            $template = new \Idno\Core\Template();
+            $template = new \Idno\Core\DefaultTemplate();
             $template->setTemplateType('default');
             $unfurled['id'] = $object->getID();
             $unfurled['rendered'] = $template->__(['object' => $object])->draw('entity/UnfurledUrl');
