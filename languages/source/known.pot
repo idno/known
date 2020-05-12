@@ -14,23 +14,23 @@ msgstr ""
 msgid "Something went wrong."
 msgstr ""
 
-#: ./Idno/Common/Page.php:479
+#: ./Idno/Common/Page.php:498
 msgid "Attempted to redirect page to a non local URL."
 msgstr ""
 
-#: ./Idno/Common/Page.php:569
+#: ./Idno/Common/Page.php:588
 msgid "The page you were on timed out."
 msgstr ""
 
-#: ./Idno/Common/Page.php:583
+#: ./Idno/Common/Page.php:602
 msgid "Couldn't say anything about execution, probably something went wrong"
 msgstr ""
 
-#: ./Idno/Common/Page.php:741
+#: ./Idno/Common/Page.php:760
 msgid "This content isn't here."
 msgstr ""
 
-#: ./Idno/Common/Page.php:757
+#: ./Idno/Common/Page.php:776
 msgid "This page can't be found."
 msgstr ""
 
@@ -56,14 +56,6 @@ msgstr ""
 
 #: ./Idno/Core/Email.php:16
 msgid "Something went wrong and we couldn't create the email message to send."
-msgstr ""
-
-#: ./Idno/Core/JWT.php:82
-msgid "Identity token expired"
-msgstr ""
-
-#: ./Idno/Core/JWT.php:86
-msgid "Identity token is not valid"
 msgstr ""
 
 #: ./Idno/Core/Service.php:24
@@ -554,6 +546,22 @@ msgstr ""
 msgid "We removed copies on all the syndicated sites."
 msgstr ""
 
+#: ./Idno/Pages/File/Mint.php:24
+msgid "\"name\" (name of file) field needs to be supplied"
+msgstr ""
+
+#: ./Idno/Pages/File/Mint.php:28
+msgid "\"type\" (mime type) field needs to be supplied"
+msgstr ""
+
+#: ./Idno/Pages/File/Mint.php:32
+msgid "\"size\" (size in bytes) field needs to be supplied"
+msgstr ""
+
+#: ./Idno/Pages/File/Mint.php:46
+msgid "There was a problem getting an upload URL for the newly minted file"
+msgstr ""
+
 #: ./Idno/Pages/File/Picker.php:57
 msgid "You can only upload images."
 msgstr ""
@@ -622,15 +630,15 @@ msgstr ""
 msgid "The %s profile for %s"
 msgstr ""
 
-#: ./Idno/Pages/Session/Login.php:42
+#: ./Idno/Pages/Session/Login.php:49
 msgid "Sign in"
 msgstr ""
 
-#: ./Idno/Pages/Session/Login.php:67
+#: ./Idno/Pages/Session/Login.php:74
 msgid "Oops! It looks like your password isn't correct. Please try again."
 msgstr ""
 
-#: ./Idno/Pages/Session/Login.php:72
+#: ./Idno/Pages/Session/Login.php:79
 msgid "Oops! We couldn't find your username or email address. Please check you typed it correctly and try again."
 msgstr ""
 
