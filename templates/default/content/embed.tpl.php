@@ -13,9 +13,15 @@ if (preg_match_all('/https?:\/\/([^\s]+\.[^\s\.]+\.(png|jpg|jpeg|gif))/i', $body
         $urls[] = $m;
     }
 }
+if (preg_match_all('/archive\.org\/embed\/([a-z0-9\-\_]+)/i', $body, $matches)) {
+    foreach ($matches[1] as $m) {
+        $embedded .= '<div><iframe src="https://archive.org/embed/'. $m . '" width="640" height="480" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen></iframe></div>';
+        $urls[] = $m;
+    }
+}
 if (preg_match_all('/bitchute\.com\/video\/([a-z0-9\-\_]+)/i', $body, $matches)) {
     foreach ($matches[1] as $m) {
-        $embedded .= '<div><iframe width="600" height="420" scrolling="no" frameborder="0" style="border: none;" src="https://www.bitchute.com/embed/' . $m . '/"></iframe></div>';
+        $embedded .= '<div><iframe width="600" height="420" scrolling="no" frameborder="0" style="border: none;" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen" webkitallowfullscreen="webkitallowfullscreen" src="https://www.bitchute.com/embed/' . $m . '/"></iframe></div>';
         $urls[] = $m;
     }
 }
