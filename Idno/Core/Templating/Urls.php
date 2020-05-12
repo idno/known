@@ -3,7 +3,7 @@
 
 namespace Idno\Core\Templating {
     
-    use Idno\Core\Idno;
+    use Idno\Core\{ Idno, Webservice };
     
     trait Urls {
         
