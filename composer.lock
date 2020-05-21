@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7396d74262f75e09f3e67c2f5b86692c",
+    "content-hash": "df0d7a154a61fdd5fbfdfd53923aada9",
     "packages": [
         {
             "name": "components/jquery",
@@ -3498,16 +3498,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "5.2.2",
+            "version": "5.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "a9e4928aac63b18db3bc670661f8661133c3c205"
+                "reference": "5831401fd1681524b32992f6c485ef180ea84d2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/a9e4928aac63b18db3bc670661f8661133c3c205",
-                "reference": "a9e4928aac63b18db3bc670661f8661133c3c205",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/5831401fd1681524b32992f6c485ef180ea84d2f",
+                "reference": "5831401fd1681524b32992f6c485ef180ea84d2f",
                 "shasum": ""
             },
             "type": "component",
@@ -3516,13 +3516,15 @@
                     "scripts": [
                         "tinymce.js",
                         "plugins/*/plugin.js",
-                        "themes/*/theme.js"
+                        "themes/*/theme.js",
+                        "themes/*/icons.js"
                     ],
                     "files": [
                         "tinymce.min.js",
                         "plugins/*/plugin.min.js",
                         "themes/*/theme.min.js",
-                        "skins/**"
+                        "skins/**",
+                        "icons/*/icons.min.js"
                     ]
                 }
             },
@@ -3540,7 +3542,7 @@
                 "tinymce",
                 "wysiwyg"
             ],
-            "time": "2020-04-23T02:47:51+00:00"
+            "time": "2020-05-21T03:33:49+00:00"
         },
         {
             "name": "twbs/bootstrap",
