@@ -441,16 +441,16 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "6.5.3",
+            "version": "6.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "aab4ebd862aa7d04f01a4b51849d657db56d882e"
+                "reference": "a4a1b6930528a8f7ee03518e6442ec7a44155d9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/aab4ebd862aa7d04f01a4b51849d657db56d882e",
-                "reference": "aab4ebd862aa7d04f01a4b51849d657db56d882e",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/a4a1b6930528a8f7ee03518e6442ec7a44155d9d",
+                "reference": "a4a1b6930528a8f7ee03518e6442ec7a44155d9d",
                 "shasum": ""
             },
             "require": {
@@ -458,7 +458,7 @@
                 "guzzlehttp/promises": "^1.0",
                 "guzzlehttp/psr7": "^1.6.1",
                 "php": ">=5.5",
-                "symfony/polyfill-intl-idn": "^1.11"
+                "symfony/polyfill-intl-idn": "1.17.0"
             },
             "require-dev": {
                 "ext-curl": "*",
@@ -504,7 +504,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2020-04-18T10:38:46+00:00"
+            "time": "2020-05-25T19:35:05+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -1618,16 +1618,16 @@
         },
         {
             "name": "mapkyca/known-oauth-client",
-            "version": "1.0.15",
+            "version": "1.0.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mapkyca/known-oauth2-client.git",
-                "reference": "36ba837a8c25511b28849af683283c7404565ff5"
+                "reference": "7567257efd76992b7399b08a3583b32037d288b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mapkyca/known-oauth2-client/zipball/36ba837a8c25511b28849af683283c7404565ff5",
-                "reference": "36ba837a8c25511b28849af683283c7404565ff5",
+                "url": "https://api.github.com/repos/mapkyca/known-oauth2-client/zipball/7567257efd76992b7399b08a3583b32037d288b2",
+                "reference": "7567257efd76992b7399b08a3583b32037d288b2",
                 "shasum": ""
             },
             "require": {
@@ -1660,7 +1660,7 @@
                 "known",
                 "plugin"
             ],
-            "time": "2020-05-19T08:57:15+00:00"
+            "time": "2020-05-30T15:51:37+00:00"
         },
         {
             "name": "mapkyca/known-oauth2-server",
