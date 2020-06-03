@@ -2,6 +2,8 @@
 
 namespace Idno\Core\Templating {
     
+    use Idno\Entities\User;
+    
     trait Parsing {
         
         
