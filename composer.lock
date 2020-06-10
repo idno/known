@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "778b50855f2b95aa95c5d3f6cece39f3",
+    "content-hash": "6496126f2b9c2c31105601aa7290535d",
     "packages": [
         {
             "name": "components/jquery",
@@ -3553,16 +3553,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "5.3.1",
+            "version": "5.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "680aa992f10f6ca37a700d5cfacf18beac86911b"
+                "reference": "d61fb3a8f356c3e333e0108ac539c32aeadadfb3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/680aa992f10f6ca37a700d5cfacf18beac86911b",
-                "reference": "680aa992f10f6ca37a700d5cfacf18beac86911b",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/d61fb3a8f356c3e333e0108ac539c32aeadadfb3",
+                "reference": "d61fb3a8f356c3e333e0108ac539c32aeadadfb3",
                 "shasum": ""
             },
             "type": "component",
@@ -3597,7 +3597,7 @@
                 "tinymce",
                 "wysiwyg"
             ],
-            "time": "2020-05-27T04:42:29+00:00"
+            "time": "2020-06-10T04:52:49+00:00"
         },
         {
             "name": "twbs/bootstrap",
@@ -4743,12 +4743,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "55922f51129488c246a776ff944463605d447da0"
+                "reference": "4f42b10e06af1f60cfb98f1960b8c9d49417feb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/55922f51129488c246a776ff944463605d447da0",
-                "reference": "55922f51129488c246a776ff944463605d447da0",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/4f42b10e06af1f60cfb98f1960b8c9d49417feb5",
+                "reference": "4f42b10e06af1f60cfb98f1960b8c9d49417feb5",
                 "shasum": ""
             },
             "conflict": {
@@ -4763,7 +4763,7 @@
                 "bagisto/bagisto": "<0.1.5",
                 "barrelstrength/sprout-base-email": "<1.2.7",
                 "barrelstrength/sprout-forms": "<3.9",
-                "bolt/bolt": "<3.6.10",
+                "bolt/bolt": "<3.7.1",
                 "brightlocal/phpwhois": "<=4.2.5",
                 "buddypress/buddypress": "<5.1.2",
                 "bugsnag/bugsnag-laravel": ">=2,<2.0.2",
@@ -4802,8 +4802,9 @@
                 "ezsystems/ezplatform": ">=1.7,<1.7.9.1|>=1.13,<1.13.5.1|>=2.5,<2.5.4",
                 "ezsystems/ezplatform-admin-ui": ">=1.3,<1.3.5|>=1.4,<1.4.6",
                 "ezsystems/ezplatform-admin-ui-assets": ">=4,<4.2",
+                "ezsystems/ezplatform-kernel": ">=1,<1.0.2.1",
                 "ezsystems/ezplatform-user": ">=1,<1.0.1",
-                "ezsystems/ezpublish-kernel": ">=5.3,<5.3.12.1|>=5.4,<5.4.14.1|>=6,<6.7.9.1|>=6.8,<6.13.6.2|>=7,<7.2.4.1|>=7.3,<7.3.2.1|>=7.5,<7.5.6.2",
+                "ezsystems/ezpublish-kernel": ">=5.3,<5.3.12.1|>=5.4,<5.4.14.2|>=6,<6.7.9.1|>=6.8,<6.13.6.3|>=7,<7.2.4.1|>=7.3,<7.3.2.1|>=7.5,<7.5.7.1",
                 "ezsystems/ezpublish-legacy": ">=5.3,<5.3.12.6|>=5.4,<5.4.14.1|>=2011,<2017.12.7.2|>=2018.6,<2018.6.1.4|>=2018.9,<2018.9.1.3|>=2019.3,<2019.3.4.2",
                 "ezsystems/repository-forms": ">=2.3,<2.3.2.1",
                 "ezyang/htmlpurifier": "<4.1.1",
@@ -4841,6 +4842,7 @@
                 "monolog/monolog": ">=1.8,<1.12",
                 "namshi/jose": "<2.2",
                 "nzo/url-encryptor-bundle": ">=4,<4.3.2|>=5,<5.0.1",
+                "october/october": ">=1.0.319,<1.0.466",
                 "onelogin/php-saml": "<2.10.4",
                 "oneup/uploader-bundle": "<1.9.3|>=2,<2.1.5",
                 "openid/php-openid": "<2.3",
@@ -4867,6 +4869,7 @@
                 "propel/propel": ">=2-alpha.1,<=2-alpha.7",
                 "propel/propel1": ">=1,<=1.7.1",
                 "pusher/pusher-php-server": "<2.2.1",
+                "rainlab/debugbar-plugin": "<3.1",
                 "robrichards/xmlseclibs": "<3.0.4",
                 "sabre/dav": ">=1.6,<1.6.99|>=1.7,<1.7.11|>=1.8,<1.8.9",
                 "scheb/two-factor-bundle": ">=0,<3.26|>=4,<4.11",
@@ -5005,7 +5008,7 @@
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-            "time": "2020-05-28T00:01:39+00:00"
+            "time": "2020-06-10T00:01:14+00:00"
         },
         {
             "name": "sebastian/code-unit",
