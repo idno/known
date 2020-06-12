@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7bac043433c338e75285c26667a07e79",
+    "content-hash": "9e788f628c4fa86e53fc062d297d4d5c",
     "packages": [
         {
             "name": "components/jquery",
@@ -2960,7 +2960,7 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v5.1.0",
+            "version": "v5.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
