@@ -39,7 +39,7 @@
         "symfony/event-dispatcher": "4.4.10",
         "symfony/console": "4.4.10",
         "symfony/http-foundation": "5.1.0",
-        "symfony/cache": "5.1.0",
+        "symfony/cache": "5.1.1",
         "simplepie/simplepie": "1.5.5",
         "mapkyca/mrclay_autop_known": "^1.0",
         "npm-asset/underscore": "1.10.2",
