@@ -587,7 +587,7 @@ namespace Idno\Core {
             fclose($f);
 
             // Build the empty export template
-            $rss_theme = new Template();
+            $rss_theme = new DefaultTemplate();
             $rss_theme->setTemplateType('rss');
 
             file_put_contents($rss_path . 'template.rss.fragment', $rss_theme->__(array(
