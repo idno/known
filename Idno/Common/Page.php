@@ -394,6 +394,7 @@ namespace Idno\Common {
 
                 $this->debugLogToken();
 
+                \Idno\Core\Idno::site()->logging()->error(\Idno\Core\Idno::site()->language()->_('Invalid token.'));
                 \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_('Invalid token.'));
             }
 
