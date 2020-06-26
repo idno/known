@@ -394,7 +394,7 @@ namespace Idno\Common {
 
                 $this->debugLogToken();
 
-                throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Invalid token.'));
+                \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_('Invalid token.'));
             }
 
             if (\Idno\Core\Idno::site()->session()->isAPIRequest()) {
