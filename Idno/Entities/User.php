@@ -452,6 +452,9 @@ namespace Idno\Entities {
          */
         function checkPassword($password)
         {
+            if (empty(trim($password))) {
+                return false;
+            }
             return \password_verify($password, $this->password);
         }
 
