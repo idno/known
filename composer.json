@@ -33,7 +33,7 @@
         "swiftmailer/swiftmailer": "6.2.3",
         "forkawesome/fork-awesome": "1.1.7",
         "twbs/bootstrap": "3.4.1",
-        "ezyang/htmlpurifier": "4.12.0",
+        "ezyang/htmlpurifier": "4.13.0",
         "rmm5t/jquery-timeago": "1.6.7",
         "tinymce/tinymce": "5.3.2",
         "symfony/event-dispatcher": "4.4.10",
