@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f19ff25defb206f12540d06f9d08c9c5",
+    "content-hash": "4241717480bf526236eb2f9c1f5aaeee",
     "packages": [
         {
             "name": "components/jquery",
@@ -3814,16 +3814,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "5.4.0",
+            "version": "5.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "aa17e50a1302fdb601a56e99b7b59f7abe5ff2a6"
+                "reference": "940fdcfa7aa2ade09a1ec916dadeee01baa7787a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/aa17e50a1302fdb601a56e99b7b59f7abe5ff2a6",
-                "reference": "aa17e50a1302fdb601a56e99b7b59f7abe5ff2a6",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/940fdcfa7aa2ade09a1ec916dadeee01baa7787a",
+                "reference": "940fdcfa7aa2ade09a1ec916dadeee01baa7787a",
                 "shasum": ""
             },
             "type": "component",
@@ -3858,7 +3858,7 @@
                 "tinymce",
                 "wysiwyg"
             ],
-            "time": "2020-06-30T05:22:55+00:00"
+            "time": "2020-07-08T04:08:07+00:00"
         },
         {
             "name": "twbs/bootstrap",
@@ -5089,12 +5089,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "57353ec1a34527a2dbbd3c0fb9418ffc008c6f60"
+                "reference": "239e50ae0e1906d32b32ed58bc7d15c81bfc06f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/57353ec1a34527a2dbbd3c0fb9418ffc008c6f60",
-                "reference": "57353ec1a34527a2dbbd3c0fb9418ffc008c6f60",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/239e50ae0e1906d32b32ed58bc7d15c81bfc06f0",
+                "reference": "239e50ae0e1906d32b32ed58bc7d15c81bfc06f0",
                 "shasum": ""
             },
             "conflict": {
@@ -5163,6 +5163,7 @@
                 "friendsofsymfony/user-bundle": ">=1.2,<1.3.5",
                 "fuel/core": "<1.8.1",
                 "getgrav/grav": "<1.7-beta.8",
+                "gos/web-socket-bundle": "<1.10.4|>=2,<2.6.1|>=3,<3.3",
                 "gree/jose": "<=2.2",
                 "gregwar/rst": "<1.0.3",
                 "guzzlehttp/guzzle": ">=4-rc.2,<4.2.4|>=5,<5.3.1|>=6,<6.2.1",
@@ -5367,7 +5368,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-07-03T16:50:03+00:00"
+            "time": "2020-07-06T15:00:46+00:00"
         },
         {
             "name": "sebastian/code-unit",
