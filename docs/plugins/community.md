@@ -53,6 +53,8 @@ listings here do not imply endorsement by the Known project team in any way.
     by [Marcus Povey][]
 * [Akismet](https://github.com/mapkyca/KnownAkismet) – Wordpress Akismet spam filtering support for comments and webmentions, 
     by [Marcus Povey][]
+* [Matomo](https://codeberg.org/argovaerts/KnownMatomo) – Add Matomo Analytics to your site,
+    by [Arne Govaerts][]
 
 
 ### Browser Integration and Apps
@@ -111,6 +113,7 @@ listings here do not imply endorsement by the Known project team in any way.
 [Björn Stierand]: https://bjoern.stierand.org/
 [Christian Weiske]: https://cweiske.de/
 [Daniel Goldsmith]: https://ascraeus.org/
+[Arne Govaerts]: https://q4.re
 
 ## Submissions
 
