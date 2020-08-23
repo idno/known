@@ -1720,7 +1720,8 @@ namespace Idno\Common {
         public function jsonSerialize()
         {
             $object = array(
-                'id' => $this->getUUID(),
+                'id' => "" . $this->getID(),
+                'uuid' => $this->getUUID(),
                 'content' => strip_tags($this->getDescription()),
                 'formattedContent'
                 => \Idno\Core\Idno::site()->template()->autop($this->getDescription()),
