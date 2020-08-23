@@ -37,8 +37,7 @@ curl -s \
 ## Authenticated requests
 
 Almost all requests that you make will require some sort of access credentials, and so must be signed. 
-The default method for doing this is through HTTP header variables (although there are third party implementations 
-that support alternative mechanisms, e.g. [OAuth2](https://github.com/mapkyca/KnownOAuth2)).
+The default method for doing this is through HTTP header variables, however Known also includes a built in [OAuth2 server](https://github.com/mapkyca/KnownOAuth2)).
 
 The headers are:
 
@@ -126,3 +125,7 @@ curl -s \
 ```
 
 On success, you will be given a JSON blob containing the url of the newly created object, otherwise you'll receive a non-200 HTTP error code and some error messages.
+
+### Postman Collection
+
+As an API developer, you might find the following [postman collection](https://github.com/mapkyca/known-postman) useful.
