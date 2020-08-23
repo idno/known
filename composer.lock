@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "643ebf64d6a3b8d5b46a3639db39b89d",
+    "content-hash": "609972e294710dd0b29b3332d56b832f",
     "packages": [
         {
             "name": "components/jquery",
@@ -1098,16 +1098,16 @@
         },
         {
             "name": "idno/status",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/status.git",
-                "reference": "ff73439944b39139b31cf6eb6ba61dfe3a9da47c"
+                "reference": "2ebe03b6aeb9a9a5289abe41a2470f253f12776a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/status/zipball/ff73439944b39139b31cf6eb6ba61dfe3a9da47c",
-                "reference": "ff73439944b39139b31cf6eb6ba61dfe3a9da47c",
+                "url": "https://api.github.com/repos/idno/status/zipball/2ebe03b6aeb9a9a5289abe41a2470f253f12776a",
+                "reference": "2ebe03b6aeb9a9a5289abe41a2470f253f12776a",
                 "shasum": ""
             },
             "require": {
@@ -1124,7 +1124,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Simple status updates for Known.",
-            "time": "2020-03-16T21:17:20+00:00"
+            "time": "2020-08-23T10:31:42+00:00"
         },
         {
             "name": "idno/styles",
@@ -1701,16 +1701,16 @@
         },
         {
             "name": "mapkyca/known-oauth2-server",
-            "version": "1.1.8",
+            "version": "1.1.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mapkyca/known-oauth2-server.git",
-                "reference": "98e272a3bfe18ad0d27030085a0913592a8a6bb9"
+                "reference": "d227912c15f6110decbb5b3fb3ab022fad78735f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mapkyca/known-oauth2-server/zipball/98e272a3bfe18ad0d27030085a0913592a8a6bb9",
-                "reference": "98e272a3bfe18ad0d27030085a0913592a8a6bb9",
+                "url": "https://api.github.com/repos/mapkyca/known-oauth2-server/zipball/d227912c15f6110decbb5b3fb3ab022fad78735f",
+                "reference": "d227912c15f6110decbb5b3fb3ab022fad78735f",
                 "shasum": ""
             },
             "require": {
@@ -1749,7 +1749,7 @@
                     "type": "paypal"
                 }
             ],
-            "time": "2020-06-19T09:50:04+00:00"
+            "time": "2020-08-22T11:30:49+00:00"
         },
         {
             "name": "mapkyca/mrclay_autop_known",
