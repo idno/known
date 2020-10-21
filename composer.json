@@ -52,7 +52,7 @@
         "idno/mentionjs": "^1.0",
         "mapkyca/known-mongo-php-library": "1.0.3+known",
         "indieweb/mention-client": "1.2.0",
-        "twig/twig": "3.0.5",
+        "twig/twig": "3.1.0",
         "masterminds/html5": "^2.7",
         "npm-asset/eonasdan-bootstrap-datetimepicker": "^4.17",
         "composer/installers": "~1.7",
