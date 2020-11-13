@@ -1,7 +1,7 @@
 {
     "name": "idno/known",
     "description": "A social publishing platform.",
-    "version": "1.2.5",
+    "version": "1.2.6",
     "type": "project",
     "homepage": "https://withknown.com/",
     "repositories": [
@@ -114,8 +114,7 @@
         "mapkyca/known-dev-scripts": "^1.0",
         "idno/apitester": "^0.9.10",
         "roave/security-advisories": "dev-master",
-        "mapkyca/mapkyca-known-docker": "^1.0",
-        "mapkyca/mapkyca-known-docker-postgres": "^1.0"
+        "mapkyca/mapkyca-known-docker": "^1.0"
     },
     "extra": {
         "unused": [
