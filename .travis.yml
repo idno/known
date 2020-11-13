@@ -8,7 +8,6 @@ php:
 env:
   - DB=mysql
   - DB=mongo
-  - DB=pgsql
   
 #matrix:
 #   allow_failures:
