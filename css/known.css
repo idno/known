@@ -1623,18 +1623,31 @@ div.unfurled-url {
   margin-bottom: 10px; }
   div.unfurled-url .basics {
     border: #ddd dotted 1px;
-    padding: 15px; }
+    padding: 1rem;
+    height: 17rem;
+    overflow: hidden; }
     div.unfurled-url .basics h2 {
       font-size: 1.4em;
-      margin-top: 15px; }
+      margin-top: 1rem;
+      padding-left: 0.5rem; }
     div.unfurled-url .basics .byline {
       text-transform: uppercase; }
     div.unfurled-url .basics .image {
-      height: 350px; }
+      height: 15rem;
+      width: 15rem;
+      float: left;
+      margin-right: 1rem; }
       div.unfurled-url .basics .image img {
         object-fit: cover;
         width: 100%;
         height: 100%; }
+    div.unfurled-url .basics .text {
+      margin-left: 1rem; }
+    div.unfurled-url .basics blockquote {
+      border-left: none;
+      height: 8rem;
+      overflow: hidden;
+      padding-left: 0; }
 
 /* Shim to hide settings menu in content before it can be removed */
 .settings-content ul.nav {
