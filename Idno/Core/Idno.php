@@ -80,9 +80,6 @@ namespace Idno\Core {
                     }
                     $this->db = new \Idno\Data\MySQL();
                     break;
-                case 'postgres':
-                    $this->db = new \Idno\Data\Postgres();
-                    break;
                 default:
                     $this->db = $this->componentFactory($this->config->database, "Idno\\Core\\DataConcierge", "Idno\\Data\\", "Idno\\Data\\MySQL");
                     break;
