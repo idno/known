@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `site` (
     `contents` longblob NOT NULL,
 
     PRIMARY KEY (`_id`),
-    KEY `domain` (`domain`),
+    UNIQUE KEY `domain` (`domain`),
     KEY `created` (`created`)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
