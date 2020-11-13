@@ -9,6 +9,10 @@
 
 namespace Idno\Data {
 
+    /**
+     * Postgres support.
+     * @deprecated Postgres support is being moved out of core and into community support.
+     */
     class Postgres extends AbstractSQL
     {
 
