@@ -10,27 +10,27 @@ msgstr ""
 msgid "Invalid token."
 msgstr ""
 
-#: ./Idno/Common/Page.php:414
+#: ./Idno/Common/Page.php:415
 msgid "Something went wrong."
 msgstr ""
 
-#: ./Idno/Common/Page.php:498
+#: ./Idno/Common/Page.php:499
 msgid "Attempted to redirect page to a non local URL."
 msgstr ""
 
-#: ./Idno/Common/Page.php:588
+#: ./Idno/Common/Page.php:589
 msgid "The page you were on timed out."
 msgstr ""
 
-#: ./Idno/Common/Page.php:602
+#: ./Idno/Common/Page.php:603
 msgid "Couldn't say anything about execution, probably something went wrong"
 msgstr ""
 
-#: ./Idno/Common/Page.php:760
+#: ./Idno/Common/Page.php:761
 msgid "This content isn't here."
 msgstr ""
 
-#: ./Idno/Common/Page.php:776
+#: ./Idno/Common/Page.php:777
 msgid "This page can't be found."
 msgstr ""
 
@@ -132,6 +132,10 @@ msgstr ""
 
 #: ./Idno/Entities/Invitation.php:110
 msgid "You've been invited to join %s"
+msgstr ""
+
+#: ./Idno/Entities/Mutate.php:20
+msgid "%s is not a parent or child of %s"
 msgstr ""
 
 #: ./Idno/Files/FileSystem.php:63
