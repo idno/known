@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS `site_metadata` (
 CREATE TABLE IF NOT EXISTS `config` (
   `uuid` varchar(255) NOT NULL,
   `_id` varchar(32) NOT NULL,
+  `siteid` varchar(36),
   `owner` varchar(255) NOT NULL,
   `entity_subtype` varchar(64) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -42,7 +43,8 @@ CREATE TABLE IF NOT EXISTS `config` (
   KEY `owner` (`owner`,`created`),
   KEY `_id` (`_id`),
   KEY `entity_subtype` (`entity_subtype`),
-  KEY `publish_status` (`publish_status`)
+  KEY `publish_status` (`publish_status`),
+  KEY `siteid` (`siteid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `config_search` (
@@ -72,6 +74,7 @@ CREATE TABLE IF NOT EXISTS `config_metadata` (
 CREATE TABLE IF NOT EXISTS `entities` (
   `uuid` varchar(255) NOT NULL,
   `_id` varchar(32) NOT NULL,
+  `siteid` varchar(36),
   `owner` varchar(255) NOT NULL,
   `entity_subtype` varchar(64) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -81,7 +84,8 @@ CREATE TABLE IF NOT EXISTS `entities` (
   UNIQUE KEY `_id` (`_id`),
   KEY `owner` (`owner`,`created`),
   KEY `entity_subtype` (`entity_subtype`),
-  KEY `publish_status` (`publish_status`)
+  KEY `publish_status` (`publish_status`),
+  KEY `siteid` (`siteid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -112,6 +116,7 @@ CREATE TABLE IF NOT EXISTS `entities_metadata` (
 CREATE TABLE IF NOT EXISTS `reader` (
   `uuid` varchar(255) NOT NULL,
   `_id` varchar(32) NOT NULL,
+  `siteid` varchar(36),
   `owner` varchar(255) NOT NULL,
   `entity_subtype` varchar(64) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -121,7 +126,8 @@ CREATE TABLE IF NOT EXISTS `reader` (
   UNIQUE KEY `_id` (`_id`),
   KEY `owner` (`owner`,`created`),
   KEY `entity_subtype` (`entity_subtype`),
-  KEY `publish_status` (`publish_status`)
+  KEY `publish_status` (`publish_status`),
+  KEY `siteid` (`siteid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `reader_search` (

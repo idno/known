@@ -30,5 +30,13 @@ CREATE TABLE IF NOT EXISTS `site_metadata` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+ALTER TABLE `config` ADD COLUMN `siteid` varchar(36) AFTER `_id`;
+ALTER TABLE `entities` ADD COLUMN `siteid` varchar(36) AFTER `_id`;
+ALTER TABLE `reader` ADD COLUMN `siteid` varchar(36) AFTER `_id`;
+
+ALTER TABLE `config` ADD KEY `siteid` (`siteid`);
+ALTER TABLE `entities` ADD KEY `siteid` (`siteid`);
+ALTER TABLE `reader` ADD KEY `siteid` (`siteid`);
+
 
 REPLACE INTO `versions` VALUES('schema', '2020111301');
