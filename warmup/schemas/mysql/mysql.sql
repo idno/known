@@ -7,17 +7,31 @@
 --
 
 CREATE TABLE IF NOT EXISTS `site` (
+    `uuid` varchar(255) NOT NULL,
     `_id` varchar(36) NOT NULL,
-    `domain` varchar(255) NOT NULL,
+    `siteid` varchar(36),
+    `owner` varchar(255) NOT NULL,
+    `entity_subtype` varchar(64) NOT NULL,
     `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `contents` longblob NOT NULL,
+    `publish_status` varchar(255) NOT NULL DEFAULT 'published',
 
-    PRIMARY KEY (`_id`),
-    UNIQUE KEY `domain` (`domain`),
-    KEY `created` (`created`)
+    PRIMARY KEY (`uuid`),
+    KEY `owner` (`owner`,`created`),
+    KEY `_id` (`_id`),
+    KEY `entity_subtype` (`entity_subtype`),
+    KEY `publish_status` (`publish_status`),
+    KEY `siteid` (`siteid`)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `site_search` (
+  `_id` varchar(36) NOT NULL,
+  `search` longtext NOT NULL,
+  PRIMARY KEY (`_id`),
+  FULLTEXT KEY `search` (`search`),
+  CONSTRAINT `cs_id_id` FOREIGN KEY (`_id`) REFERENCES `config` (`_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `site_metadata` (
   `_id` varchar(36) NOT NULL,
@@ -32,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `site_metadata` (
 
 CREATE TABLE IF NOT EXISTS `config` (
   `uuid` varchar(255) NOT NULL,
-  `_id` varchar(32) NOT NULL,
+  `_id` varchar(36) NOT NULL,
   `siteid` varchar(36),
   `owner` varchar(255) NOT NULL,
   `entity_subtype` varchar(64) NOT NULL,
@@ -48,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `config` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `config_search` (
-  `_id` varchar(32) NOT NULL,
+  `_id` varchar(36) NOT NULL,
   `search` longtext NOT NULL,
   PRIMARY KEY (`_id`),
   FULLTEXT KEY `search` (`search`),
@@ -56,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `config_search` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `config_metadata` (
-  `_id` varchar(32) NOT NULL,
+  `_id` varchar(36) NOT NULL,
   `name` varchar(64) NOT NULL,
   `value` text NOT NULL,
   KEY `value` (`value`(255)),
@@ -73,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `config_metadata` (
 
 CREATE TABLE IF NOT EXISTS `entities` (
   `uuid` varchar(255) NOT NULL,
-  `_id` varchar(32) NOT NULL,
+  `_id` varchar(36) NOT NULL,
   `siteid` varchar(36),
   `owner` varchar(255) NOT NULL,
   `entity_subtype` varchar(64) NOT NULL,
@@ -90,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `entities` (
 
 
 CREATE TABLE IF NOT EXISTS `entities_search` (
-  `_id` varchar(32) NOT NULL,
+  `_id` varchar(36) NOT NULL,
   `search` longtext NOT NULL,
   PRIMARY KEY (`_id`),
   FULLTEXT KEY `search` (`search`),
@@ -98,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `entities_search` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `entities_metadata` (
-  `_id` varchar(32) NOT NULL,
+  `_id` varchar(36) NOT NULL,
   `name` varchar(64) NOT NULL,
   `value` text NOT NULL,
   KEY `value` (`value`(255)),
@@ -115,7 +129,7 @@ CREATE TABLE IF NOT EXISTS `entities_metadata` (
 
 CREATE TABLE IF NOT EXISTS `reader` (
   `uuid` varchar(255) NOT NULL,
-  `_id` varchar(32) NOT NULL,
+  `_id` varchar(36) NOT NULL,
   `siteid` varchar(36),
   `owner` varchar(255) NOT NULL,
   `entity_subtype` varchar(64) NOT NULL,
@@ -131,7 +145,7 @@ CREATE TABLE IF NOT EXISTS `reader` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `reader_search` (
-  `_id` varchar(32) NOT NULL,
+  `_id` varchar(36) NOT NULL,
   `search` longtext NOT NULL,
   PRIMARY KEY (`_id`),
   FULLTEXT KEY `search` (`search`),
@@ -139,7 +153,7 @@ CREATE TABLE IF NOT EXISTS `reader_search` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `reader_metadata` (
-  `_id` varchar(32) NOT NULL,
+  `_id` varchar(36) NOT NULL,
   `name` varchar(64) NOT NULL,
   `value` text NOT NULL,
   KEY `value` (`value`(255)),
