@@ -304,6 +304,14 @@ namespace Idno\Data {
         }
 
         /**
+         * Generate an ID. Not used in Mongo
+         */
+        public function generateID() : string 
+        {
+            throw new \RuntimeException('generateID() should not be used for Mongo');
+        }
+
+        /**
          * Retrieves a record from the database by ID
          *
          * @param string $id
