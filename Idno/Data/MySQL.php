@@ -77,6 +77,7 @@ namespace Idno\Data {
                             2019121401,
                             2020042101,
                             2020111301,
+                            2020112901,
                         ] as $date) {
                             if ($basedate < $date) {
                                 try { 
