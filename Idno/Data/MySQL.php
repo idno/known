@@ -735,7 +735,7 @@ namespace Idno\Data {
                     }
                 }
 
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 \Idno\Core\Idno::site()->logging()->error($e->getMessage());
 
                 return false;
