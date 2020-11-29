@@ -180,6 +180,9 @@ namespace Idno\Data {
             if (empty($array['_id'])) {
                 $array['_id'] = $this->generateID(); 
             }
+            if (empty($array['siteid'])) {
+                $array['siteid'] = Idno::site()->site_details()->uuid();
+            }
             if (empty($array['uuid'])) {
                 $array['uuid'] = \Idno\Core\Idno::site()->config()->getURL() . 'view/' . $array['_id'];
             }

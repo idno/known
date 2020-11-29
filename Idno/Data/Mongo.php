@@ -12,7 +12,9 @@
 
 namespace Idno\Data {
 
-    /**
+use Idno\Core\Idno;
+
+/**
      * Mongo DB support.
      * @deprecated MongoDB support is being phased out, please use MySQL.
      */
@@ -169,6 +171,13 @@ namespace Idno\Data {
             $array = $this->sanitizeFields($array);
 
             if (empty($array['_id'])) {
+
+                // Save site
+                if (empty($array['siteid'])) {
+                    $array['siteid'] = Idno::site()->site_details()->uuid();
+                }
+
+                // Store
                 if ($result = $collection_obj->insertOne($array, array('w' => 1))) {
 
                     if ($result->isAcknowledged() && ($result->getInsertedCount() > 0)){
