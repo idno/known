@@ -177,7 +177,7 @@ namespace Idno\Core {
          */
         function generateID() : string 
         {
-            return md5(mt_rand() . microtime(true)); //return Uuid::uuid4();
+            return Uuid::uuid4();
         }
 
         /**
