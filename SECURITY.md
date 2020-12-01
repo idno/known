@@ -11,4 +11,4 @@ The following versions are being supported by security updates:
 
 ## Reporting a Vulnerability
 
-To report a vulnerability, please send an email to abuse@known.co with details about the abuse. You should receive a response within 5 business days.
+To report a vulnerability, please send an email to security@withknown.com with details about the abuse. You should receive a response within 5 business days.
