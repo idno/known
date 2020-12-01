@@ -39,6 +39,7 @@ namespace Idno\Core {
         private $reader;
         private $cache;
         private $statistics;
+        private $site_details;
 
         function __construct()
         {
@@ -113,6 +114,7 @@ namespace Idno\Core {
 
             $this->session      = new Session();
             $this->actions      = new Actions();
+            $this->site_details = $this->site_details();
             $this->template     = $this->componentFactory($this->config->template, Template::class, "Idno\\Core\\", HybridTwigTemplate::class);
             $this->language     = new Language();
                 $this->language()->register(new GetTextTranslation()); // Register default gettext translations
@@ -428,6 +430,33 @@ namespace Idno\Core {
         function &reader() : ?Reader
         {
             return $this->reader;
+        }
+
+        /**
+         * Return the site object for the current site, creating a new entry if one doesn't exist.
+         */
+        function &site_details() : ? Site 
+        {
+            if (empty($this->site_details)) {
+
+                $domain = $this->config()->host;
+
+                $this->site_details = Site::getOne([ 'domain' => $domain ]);
+                
+                if (empty($this->site_details)) {
+
+                    $this->site_details = new Site();
+                    $this->site_details->domain = $domain;
+                    $this->site_details->save();
+
+                    if (empty($this->site_details)) {
+                        throw new \RuntimeException($this->language()->_('Site entity for "%s" could not be created', [$domain]));
+                    }
+                }
+
+            }
+
+            return $this->site_details;
         }
 
         /**

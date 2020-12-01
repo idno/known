@@ -248,6 +248,8 @@ namespace Idno\Data {
             $search = strtolower($search);
             $search = Idno::site()->language()->uncurlQuotes($search);
 
+            $site = Idno::site()->site_details()->uuid(); 
+
             $client = $this->client;
             /* @var \PDO $client */
 
@@ -256,11 +258,11 @@ namespace Idno\Data {
             try {
                 $client->beginTransaction();
                 $statement = $client->prepare("insert into {$collection}
-                                                    (`uuid`, `_id`, `entity_subtype`,`owner`, `contents`, `publish_status`, `created`)
+                                                    (`uuid`, `_id`, `siteid`, `entity_subtype`,`owner`, `contents`, `publish_status`, `created`)
                                                     values
-                                                    (:uuid, :id, :subtype, :owner, :contents, :publish_status, :created)
+                                                    (:uuid, :id, :siteid, :subtype, :owner, :contents, :publish_status, :created)
                                                     on duplicate key update `uuid` = :uuid, `entity_subtype` = :subtype, `owner` = :owner, `contents` = :contents, `publish_status` = :publish_status, `created` = :created");
-                if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':publish_status' => $array['publish_status'], ':created' => $array['created']))) {
+                if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':siteid' => $site, ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':publish_status' => $array['publish_status'], ':created' => $array['created']))) {
                     
                     // Update FTS
                     $statement = $client->prepare("insert into {$collection}_search
@@ -305,7 +307,7 @@ namespace Idno\Data {
                     }
                 }
                 $client->commit();
-            } catch (\Exception $e) {
+            } catch (\Exception $e) { 
                 \Idno\Core\Idno::site()->logging()->error($e->getMessage());
                 $client->rollback();
             }
