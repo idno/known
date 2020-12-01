@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `site_search` (
   `search` longtext NOT NULL,
   PRIMARY KEY (`_id`),
   FULLTEXT KEY `search` (`search`),
-  CONSTRAINT `cs_id_id` FOREIGN KEY (`_id`) REFERENCES `config` (`_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `ss_id_id` FOREIGN KEY (`_id`) REFERENCES `site` (`_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `site_metadata` (
