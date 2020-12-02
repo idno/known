@@ -1,6 +1,5 @@
 language: php
 php:
- - 7.2
  - 7.3
  - 7.4
 
@@ -9,9 +8,10 @@ env:
   - DB=mysql
   - DB=mongo
   
-#matrix:
-#   allow_failures:
-#     - php: 7.4
+matrix:
+   allow_failures:
+     - php: 7.2
+     - php: 8.0
   
 branches:
   only:
