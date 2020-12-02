@@ -76,6 +76,9 @@ namespace Idno\Data {
                             2019060501,
                             2019121401,
                             2020042101,
+                            2020111301,
+                            2020112901,
+                            2020120201,
                         ] as $date) {
                             if ($basedate < $date) {
                                 try { 
@@ -176,7 +179,10 @@ namespace Idno\Data {
             $collection = $this->sanitiseCollection($collection);
 
             if (empty($array['_id'])) {
-                $array['_id'] = md5(mt_rand() . microtime(true));
+                $array['_id'] = $this->generateID(); 
+            }
+            if (empty($array['siteid']) && !empty(Idno::site()->site_details())) {
+                $array['siteid'] = Idno::site()->site_details()->uuid();
             }
             if (empty($array['uuid'])) {
                 $array['uuid'] = \Idno\Core\Idno::site()->config()->getURL() . 'view/' . $array['_id'];
@@ -251,11 +257,11 @@ namespace Idno\Data {
             try {
                 $client->beginTransaction();
                 $statement = $client->prepare("insert into {$collection}
-                                                    (`uuid`, `_id`, `entity_subtype`,`owner`, `contents`, `publish_status`, `created`)
+                                                    (`uuid`, `_id`, `siteid`, `entity_subtype`,`owner`, `contents`, `publish_status`, `created`)
                                                     values
-                                                    (:uuid, :id, :subtype, :owner, :contents, :publish_status, :created)
+                                                    (:uuid, :id, :siteid, :subtype, :owner, :contents, :publish_status, :created)
                                                     on duplicate key update `uuid` = :uuid, `entity_subtype` = :subtype, `owner` = :owner, `contents` = :contents, `publish_status` = :publish_status, `created` = :created");
-                if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':publish_status' => $array['publish_status'], ':created' => $array['created']))) {
+                if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':siteid' => $array['siteid'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':publish_status' => $array['publish_status'], ':created' => $array['created']))) {
                     
                     // Update FTS
                     $statement = $client->prepare("insert into {$collection}_search
@@ -300,7 +306,7 @@ namespace Idno\Data {
                     }
                 }
                 $client->commit();
-            } catch (\Exception $e) {
+            } catch (\Exception $e) { 
                 \Idno\Core\Idno::site()->logging()->error($e->getMessage());
                 $client->rollback();
             }
@@ -733,7 +739,7 @@ namespace Idno\Data {
                     }
                 }
 
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 \Idno\Core\Idno::site()->logging()->error($e->getMessage());
 
                 return false;

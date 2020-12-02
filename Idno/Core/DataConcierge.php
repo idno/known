@@ -12,6 +12,8 @@
 
 namespace Idno\Core {
 
+    use Ramsey\Uuid\Uuid; 
+
     abstract class DataConcierge extends \Idno\Common\Component
     {
 
@@ -169,6 +171,14 @@ namespace Idno\Core {
          * @return \MongoId
          */
         abstract function processID($id);
+
+        /**
+         * Return an ID
+         */
+        function generateID() : string 
+        {
+            return Uuid::uuid4();
+        }
 
         /**
          * Retrieves a record from the database by ID
