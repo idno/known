@@ -37,7 +37,7 @@ namespace Idno\Core {
             $this->identifier = $identifier;
 
             // Set log to handle PHP errors
-            set_error_handler(function ($errno, $errstr, $errfile, $errline, $errcontext) {
+            set_error_handler(function ($errno, $errstr, $errfile, $errline, $errcontext = []) {
 
                 if (!(error_reporting() & $errno)) {
                     // This error code is not included in error_reporting
