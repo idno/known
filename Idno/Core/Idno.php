@@ -441,19 +441,21 @@ namespace Idno\Core {
 
                 $domain = $this->config()->host;
 
-                $this->site_details = Site::getOne([ 'domain' => $domain ]);
-                
-                if (empty($this->site_details)) {
+                if (!empty($domain) && !empty($this->session())) {
 
-                    $this->site_details = new Site();
-                    $this->site_details->domain = $domain;
-                    $this->site_details->save();
-
+                    $this->site_details = Site::getOne([ 'domain' => $domain ]);
+                    
                     if (empty($this->site_details)) {
-                        throw new \RuntimeException($this->language()->_('Site entity for "%s" could not be created', [$domain]));
+
+                        $this->site_details = new Site();
+                        $this->site_details->domain = $domain;
+                        $this->site_details->save();
+
+                        if (empty($this->site_details)) {
+                            throw new \RuntimeException($this->language()->_('Site entity for "%s" could not be created', [$domain]));
+                        }
                     }
                 }
-
             }
 
             return $this->site_details;

@@ -173,7 +173,7 @@ use Idno\Core\Idno;
             if (empty($array['_id'])) {
 
                 // Save site
-                if (empty($array['siteid'])) {
+                if (empty($array['siteid']) && !empty(Idno::site()->site_details())) {
                     $array['siteid'] = Idno::site()->site_details()->uuid();
                 }
 

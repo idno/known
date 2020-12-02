@@ -181,7 +181,7 @@ namespace Idno\Data {
             if (empty($array['_id'])) {
                 $array['_id'] = $this->generateID(); 
             }
-            if (empty($array['siteid'])) {
+            if (empty($array['siteid']) && !empty(Idno::site()->site_details())) {
                 $array['siteid'] = Idno::site()->site_details()->uuid();
             }
             if (empty($array['uuid'])) {
@@ -249,8 +249,6 @@ namespace Idno\Data {
             $search = strtolower($search);
             $search = Idno::site()->language()->uncurlQuotes($search);
 
-            $site = Idno::site()->site_details()->uuid(); 
-
             $client = $this->client;
             /* @var \PDO $client */
 
@@ -263,7 +261,7 @@ namespace Idno\Data {
                                                     values
                                                     (:uuid, :id, :siteid, :subtype, :owner, :contents, :publish_status, :created)
                                                     on duplicate key update `uuid` = :uuid, `entity_subtype` = :subtype, `owner` = :owner, `contents` = :contents, `publish_status` = :publish_status, `created` = :created");
-                if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':siteid' => $site, ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':publish_status' => $array['publish_status'], ':created' => $array['created']))) {
+                if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':siteid' => $array['siteid'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':publish_status' => $array['publish_status'], ':created' => $array['created']))) {
                     
                     // Update FTS
                     $statement = $client->prepare("insert into {$collection}_search
