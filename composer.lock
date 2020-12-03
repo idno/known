@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "83d0f9b5b4e14bc0988e2709785df881",
+    "content-hash": "3156ee5ef6e76519da4a74f6241e763f",
     "packages": [
         {
             "name": "brick/math",
@@ -224,6 +224,16 @@
                 "yawik",
                 "zend",
                 "zikula"
+            ],
+            "funding": [
+                {
+                    "url": "https://packagist.com",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/composer/composer",
+                    "type": "tidelift"
+                }
             ],
             "time": "2020-04-07T06:57:05+00:00"
         },
@@ -4594,16 +4604,16 @@
         },
         {
             "name": "mapkyca/mapkyca-known-docker",
-            "version": "1.0.4",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mapkyca/mapkyca-known-docker.git",
-                "reference": "e5effee00f49d4d50ae8c0564bc890f5b5216ec4"
+                "reference": "19f1694456f00ebb786809f0670955a3252d38ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mapkyca/mapkyca-known-docker/zipball/e5effee00f49d4d50ae8c0564bc890f5b5216ec4",
-                "reference": "e5effee00f49d4d50ae8c0564bc890f5b5216ec4",
+                "url": "https://api.github.com/repos/mapkyca/mapkyca-known-docker/zipball/19f1694456f00ebb786809f0670955a3252d38ff",
+                "reference": "19f1694456f00ebb786809f0670955a3252d38ff",
                 "shasum": ""
             },
             "require": {
@@ -4618,7 +4628,7 @@
                 }
             ],
             "description": "Docker container for a Known install in order to quickly get you going",
-            "time": "2020-05-05T11:55:05+00:00"
+            "time": "2020-12-02T15:29:15+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -5441,12 +5451,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "6aaf24c946b1f2689b85f0b3a62d30534d9aa1e4"
+                "reference": "676668eda60bb8a32bd2a4efcb12c96d6e1c4bc6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/6aaf24c946b1f2689b85f0b3a62d30534d9aa1e4",
-                "reference": "6aaf24c946b1f2689b85f0b3a62d30534d9aa1e4",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/676668eda60bb8a32bd2a4efcb12c96d6e1c4bc6",
+                "reference": "676668eda60bb8a32bd2a4efcb12c96d6e1c4bc6",
                 "shasum": ""
             },
             "conflict": {
@@ -5476,7 +5486,7 @@
                 "composer/composer": "<=1-alpha.11",
                 "contao-components/mediaelement": ">=2.14.2,<2.21.1",
                 "contao/core": ">=2,<3.5.39",
-                "contao/core-bundle": "= 4.10.0|>=4,<4.4.52|>=4.5,<4.9.6",
+                "contao/core-bundle": ">=4,<4.4.52|>=4.5,<4.9.6|= 4.10.0",
                 "contao/listing-bundle": ">=4,<4.4.8",
                 "datadog/dd-trace": ">=0.30,<0.30.2",
                 "david-garcia/phpwhois": "<=4.3.1",
@@ -5748,7 +5758,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-12-01T13:02:08+00:00"
+            "time": "2020-12-02T06:02:50+00:00"
         },
         {
             "name": "sebastian/cli-parser",
