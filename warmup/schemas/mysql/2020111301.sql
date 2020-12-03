@@ -37,6 +37,15 @@ CREATE TABLE IF NOT EXISTS `site_metadata` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+CREATE TABLE IF NOT EXISTS `site_search` (
+  `_id` varchar(36) NOT NULL,
+  `search` longtext NOT NULL,
+  PRIMARY KEY (`_id`),
+  FULLTEXT KEY `search` (`search`),
+  CONSTRAINT `ss_id_id` FOREIGN KEY (`_id`) REFERENCES `site` (`_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 ALTER TABLE `config` ADD COLUMN `siteid` varchar(36) AFTER `_id`;
 ALTER TABLE `entities` ADD COLUMN `siteid` varchar(36) AFTER `_id`;
 ALTER TABLE `reader` ADD COLUMN `siteid` varchar(36) AFTER `_id`;
