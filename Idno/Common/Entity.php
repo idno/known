@@ -111,6 +111,7 @@ namespace Idno\Common {
          * happens to be a URI for it).
          *
          * @return type
+         * @deprecated Use Entity::getID() if you want a canonical ID of an entity
          */
 
         function getUUID()
