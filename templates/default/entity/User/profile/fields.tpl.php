@@ -1,6 +1,6 @@
 <?php
-# This really should be stored in some global repository...
-$HostToIcon = [
+
+$host_to_icon = [
     "500px.com" => "500px",
     "amazon.com" => "amazon",
     "amazon.co.uk" => "amazon",
@@ -86,9 +86,8 @@ $HostToIcon = [
     "zotero.com" => "zotero"
 ];
 
-
 if (!empty($vars['user']->profile['url']) && is_array($vars['user']->profile['url'])) {
-    foreach($vars['user']->profile['url'] as $url) {
+    foreach ($vars['user']->profile['url'] as $url) {
         if (!empty($url)) {
             $h_card = 'u-url';
             $url_display = $url;
@@ -96,7 +95,7 @@ if (!empty($vars['user']->profile['url']) && is_array($vars['user']->profile['ur
 
             // Quick shim for Twitter usernames
             if ($url[0] == '@') {
-                if (preg_match("/\@[a-z0-9_]+/i", $url)) {
+                if (preg_match("/@[a-z0-9_]+/i", $url)) {
                     $url = str_replace('@', '', $url);
                     $url = 'https://twitter.com/' . $url;
                 }
@@ -105,56 +104,92 @@ if (!empty($vars['user']->profile['url']) && is_array($vars['user']->profile['ur
             $url = $this->fixURL($url);
 
             // Pick appropriate icon
-            $host = parse_url($url, PHP_URL_HOST);
+            $host = strtolower(parse_url($url, PHP_URL_HOST));
             $host = str_replace('www.', '', $host);
 
             // Check if there is an icon for this hostname
-            if (array_key_exists($host, $HostToIcon)) {
-              $icon = 'fa fa-' . $HostToIcon[$host];
+            foreach($host_to_icon as $host_value => $host_icon) {
+                if (strpos($host, $host_value) > -1) $icon = 'fa fa-' . $host_icon;
             }
-
 
             // Map Schemes to Icons.  Keep in sync with fixURL code in Idno/Core/Template.php
             $scheme = parse_url($url, PHP_URL_SCHEME);
             switch ($scheme) {
                 case 'mailto' :
-                    $icon = 'fa fa-envelope'; $url_display = str_replace('mailto:', '', $url_display); $h_card = 'u-email';
+                    $icon = 'fa fa-envelope';
+                    $url_display = str_replace('mailto:', '', $url_display);
+                    $h_card = 'u-email';
                     break;
                 case 'sms' :
-                    $icon = 'fa fa-mobile'; $url_display = str_replace('sms:', '', $url_display); $h_card = 'p-tel';
+                    $icon = 'fa fa-mobile';
+                    $url_display = str_replace('sms:', '', $url_display);
+                    $h_card = 'p-tel';
                     break;
                 case 'sip' :
                 case 'tel' :
-                    $icon = 'fa fa-phone'; $url_display = str_replace('tel:', '', $url_display); $h_card = 'p-tel';
+                    $icon = 'fa fa-phone';
+                    $url_display = str_replace('tel:', '', $url_display);
+                    $h_card = 'p-tel';
                     break;
                 case 'spotify' :
-                    $icon = 'fa fa-spotify'; $url_display = str_replace('spotify:', '', $url_display); $h_card = 'p-skype';
+                    $icon = 'fa fa-spotify';
+                    $url_display = str_replace('spotify:', '', $url_display);
+                    $h_card = 'p-skype';
                     break;
                 case 'skype' :
-                    $icon = 'fa fa-skype'; $url_display = str_replace('skype:', '', $url_display); $h_card = 'p-skype';
+                    $icon = 'fa fa-skype';
+                    $url_display = str_replace('skype:', '', $url_display);
+                    $h_card = 'p-skype';
                     break;
                 case 'bitcoin':
-                    $icon = 'fa fa-bitcoin'; $url_display = str_replace('bitcoin:', '', $url_display); $h_card = 'p-bitcoin';
+                    $icon = 'fa fa-bitcoin';
+                    $url_display = str_replace('bitcoin:', '', $url_display);
+                    $h_card = 'p-bitcoin';
                     break;
                 case 'ethereum':
-                    $icon = 'fa fa-ethereum'; $url_display = str_replace('ethereum:', '', $url_display); $h_card = 'p-ethereum';
+                    $icon = 'fa fa-ethereum';
+                    $url_display = str_replace('ethereum:', '', $url_display);
+                    $h_card = 'p-ethereum';
                     break;
                 case 'facetime' :
-                    $icon = 'fa fa-video'; $url_display = str_replace('facetime:', '', $url_display); $h_card = 'p-facetime';
+                    $icon = 'fa fa-video';
+                    $url_display = str_replace('facetime:', '', $url_display);
+                    $h_card = 'p-facetime';
                     break;
                 case 'xmpp' :
-                    $icon = 'fa fa-xmpp'; $url_display = str_replace('facetime:', '', $url_display); $h_card = 'p-facetime';
+                    $icon = 'fa fa-xmpp';
+                    $url_display = str_replace('facetime:', '', $url_display);
+                    $h_card = 'p-facetime';
                     break;
                 case 'ssb' :
-                    $icon = 'fa fa-ssb'; $url_display = str_replace('facetime:', '', $url_display); $h_card = 'p-facetime';
+                    $icon = 'fa fa-ssb';
+                    $url_display = str_replace('facetime:', '', $url_display);
+                    $h_card = 'p-facetime';
                     break;
+            }
 
+            // Remove http / https schemas and any trailing slash
+            $url_display = rtrim(str_replace('https://', '', str_replace('http://', '', strip_tags($url_display))),'/');
+
+            switch ($host) {
+                case 'angellist.com':
+                case 'instagram.com':
+                case 'facebook.com':
+                case 'flickr.com':
+                case 'github.com':
+                case 'linkedin.com':
+                case 'strava.com':
+                case 'twitter.com':
+                case 'venmo.com':
+                    $url_display = substr(strrchr($url_display, '/'),1);
+                    break;
             }
 
             ?>
-        <p class="url-container">
-            <i class="<?php echo $icon?>"></i> <a href="<?php echo htmlspecialchars($url)?>" rel="me" class="<?php echo $h_card; ?>"><?php echo str_replace('http://', '', str_replace('https://', '', strip_tags($url_display)))?></a>
-        </p>
+            <p class="url-container">
+                <i class="<?php echo $icon ?>"></i> <a href="<?php echo htmlspecialchars($url) ?>" rel="me"
+                                                       class="<?php echo $h_card; ?>"><?php echo $url_display; ?></a>
+            </p>
             <?php
         }
     }
