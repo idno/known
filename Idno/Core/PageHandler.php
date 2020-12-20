@@ -18,6 +18,16 @@ namespace Idno\Core {
         private $routes = [];
         private $public_routes = [];
 
+        function routeTokens()
+        {
+            return array(
+                ':string' => '([a-zA-Z]+)',
+                ':number' => '([0-9]+)',
+                ':alpha'  => '([a-zA-Z0-9-_]+)',
+                ':id'     => '([A-Za-z0-9\-]+)'
+            );
+        }
+
         /**
          * Registers a page handler for a given pattern, using Toro
          * page handling syntax
@@ -34,6 +44,7 @@ namespace Idno\Core {
                 }
                 $pattern = '/' . KNOWN_SUBDIRECTORY . $pattern;
             }
+            $pattern = strtr($pattern, $this->routeTokens());
             if (class_exists($handler)) {
                 $this->routes[$pattern] = $handler;
                 if ($public == true) {
@@ -54,6 +65,7 @@ namespace Idno\Core {
          */
         function hijackRoute(string $pattern, string $handler, bool $public = false)
         {
+            $pattern = strtr($pattern, $this->routeTokens());
             if (class_exists($handler)) {
                 unset($this->routes[$pattern]);
                 unset($this->public_routes[$pattern]);
@@ -123,15 +135,10 @@ namespace Idno\Core {
             if ($q = strpos($path_info, '?')) {
                 $path_info = substr($path_info, 0, $q);
             }
-            $tokens = array(
-                ':string' => '([a-zA-Z]+)',
-                ':number' => '([0-9]+)',
-                ':alpha' => '([a-zA-Z0-9-_]+)'
-            );
             $discovered_handler = false;
             $matches = array();
             foreach ($this->routes as $pattern => $handler_name) {
-                $pattern = strtr($pattern, $tokens);
+                $pattern = strtr($pattern, $this->routeTokens());
                 if (preg_match('#^/?' . $pattern . '/?$#', $path_info, $matches)) {
                     $discovered_handler = $handler_name;
                     $regex_matches = $matches;

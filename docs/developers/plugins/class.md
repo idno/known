@@ -33,8 +33,8 @@ in the \IdnoPlugins\Status\Main class).
 
     function registerPages() {
         \Idno\Core\Idno::site()->routes()->addRoute('/status/edit/?', '\IdnoPlugins\Status\Pages\Edit');
-        \Idno\Core\Idno::site()->routes()->addRoute('/status/edit/([A-Za-z0-9]+)/?', '\IdnoPlugins\Status\Pages\Edit');
-        \Idno\Core\Idno::site()->routes()->addRoute('/status/delete/([A-Za-z0-9]+)/?', '\IdnoPlugins\Status\Pages\Delete');
+        \Idno\Core\Idno::site()->routes()->addRoute('/status/edit/:id/?', '\IdnoPlugins\Status\Pages\Edit');
+        \Idno\Core\Idno::site()->routes()->addRoute('/status/delete/:id/?', '\IdnoPlugins\Status\Pages\Delete');
     }
 
 This is also where plugins should [extend templates](../templating/extending.md). For example, this is how the

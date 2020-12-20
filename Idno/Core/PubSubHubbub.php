@@ -133,7 +133,7 @@ namespace Idno\Core {
         function registerPages()
         {
             // Create an endpoint for subscription pings
-            Idno::site()->routes()->addRoute('/pubsub/callback/([A-Za-z0-9]+)/([A-Za-z0-9]+)/?', '\Idno\Pages\Pubsubhubbub\Callback');
+            Idno::site()->routes()->addRoute('/pubsub/callback/:id/:id/?', '\Idno\Pages\Pubsubhubbub\Callback');
 
         }
 

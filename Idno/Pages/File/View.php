@@ -16,7 +16,6 @@ namespace Idno\Pages\File {
 
         function getContent()
         {
-
             if (!empty($this->arguments[0])) {
                 $object = \Idno\Entities\File::getByID($this->arguments[0]);
             }

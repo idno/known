@@ -58,12 +58,12 @@ namespace Idno\Pages\Entity {
             //                }
 
             $t = \Idno\Core\Idno::site()->template();
-            
+
             $description = $object->getShortDescription();
             if (empty($description)) {
                 $description = $t->sampleText($object->getDescription());
             }
-            
+
             $t->__(array(
 
                 'title'       => $object->getTitle(),

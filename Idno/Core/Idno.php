@@ -180,19 +180,19 @@ namespace Idno\Core {
             $this->routes()->addRoute('/content/([A-Za-z\-\/]+)+', '\Idno\Pages\Homepage');
 
             /** Individual entities / posting / deletion */
-            $this->routes()->addRoute('/view/([\%A-Za-z0-9]+)/?', '\Idno\Pages\Entity\View');
-            $this->routes()->addRoute('/s/([\%A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Shortlink');
+            $this->routes()->addRoute('/view/:id/?', '\Idno\Pages\Entity\View');
+            $this->routes()->addRoute('/s/:id/?', '\Idno\Pages\Entity\Shortlink');
             $this->routes()->addRoute($permalink_route . '/?', '\Idno\Pages\Entity\View');
-            $this->routes()->addRoute('/edit/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Edit');
-            $this->routes()->addRoute('/delete/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Delete');
-            $this->routes()->addRoute('/withdraw/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Withdraw');
+            $this->routes()->addRoute('/edit/:id/?', '\Idno\Pages\Entity\Edit');
+            $this->routes()->addRoute('/delete/:id/?', '\Idno\Pages\Entity\Delete');
+            $this->routes()->addRoute('/withdraw/:id/?', '\Idno\Pages\Entity\Withdraw');
 
-            $this->routes()->addRoute('/attachment/([A-Za-z0-9]+)/([A-Za-z0-9]+)/?', '\Idno\Pages\Entity\Attachment\Delete');
+            $this->routes()->addRoute('/attachment/:id/:id/?', '\Idno\Pages\Entity\Attachment\Delete');
 
             /** Annotations */
-            $this->routes()->addRoute('/view/([A-Za-z0-9]+)/annotations/([A-Za-z0-9]+)?', '\Idno\Pages\Annotation\View');
-            $this->routes()->addRoute($permalink_route . '/annotations/([A-Za-z0-9]+)?', '\Idno\Pages\Annotation\View');
-            $this->routes()->addRoute($permalink_route . '/annotations/([A-Za-z0-9]+)/delete/?', '\Idno\Pages\Annotation\Delete'); // Delete annotation
+            $this->routes()->addRoute('/view/:id/annotations/:id?', '\Idno\Pages\Annotation\View');
+            $this->routes()->addRoute($permalink_route . '/annotations/:id?', '\Idno\Pages\Annotation\View');
+            $this->routes()->addRoute($permalink_route . '/annotations/:id/delete/?', '\Idno\Pages\Annotation\Delete'); // Delete annotation
             $this->routes()->addRoute($permalink_route .'/annotation/delete/?', '\Idno\Pages\Annotation\Delete'); // Delete annotation alternate
             $this->routes()->addRoute('/annotation/post/?', '\Idno\Pages\Annotation\Post');
 
@@ -211,7 +211,7 @@ namespace Idno\Core {
             $this->routes()->addRoute('/file/upload/?', '\Idno\Pages\File\Upload', true);
             $this->routes()->addRoute('/file/picker/?', '\Idno\Pages\File\Picker', true);
             $this->routes()->addRoute('/filepicker/?', '\Idno\Pages\File\Picker', true);
-            $this->routes()->addRoute('/file/([A-Za-z0-9]+)(/.*)?', '\Idno\Pages\File\View', true);
+            $this->routes()->addRoute('/file/(:id)(/.*)?', '\Idno\Pages\File\View', true);
 
             /** Users */
             $this->routes()->addRoute('/profile/([^\/]+)/?', '\Idno\Pages\User\View');
@@ -243,7 +243,7 @@ namespace Idno\Core {
             $this->routes()->addRoute('/service/vendor/messages/?', '\Idno\Pages\Service\Vendor\Messages');
             $this->routes()->addRoute('/service/security/csrftoken/?', '\Idno\Pages\Service\Security\CSRFToken');
             $this->routes()->addRoute('/service/web/unfurl/?', '\Idno\Pages\Service\Web\UrlUnfurl');
-            $this->routes()->addRoute('/service/web/unfurl/remove/([a-zA-Z0-9]+)/?', '\Idno\Pages\Service\Web\RemovePreview');
+            $this->routes()->addRoute('/service/web/unfurl/remove/:id/?', '\Idno\Pages\Service\Web\RemovePreview');
             $this->routes()->addRoute('/service/web/imageproxy/([^\/]+)/?', '\Idno\Pages\Service\Web\ImageProxy');
             $this->routes()->addRoute('/service/web/imageproxy/([^\/]+)/([0-9]+)/?', '\Idno\Pages\Service\Web\ImageProxy'); // With scale
             $this->routes()->addRoute('/service/web/imageproxy/([^\/]+)/([0-9]+)/([^\/]+)/?', '\Idno\Pages\Service\Web\ImageProxy'); // With scale, with transform
@@ -260,7 +260,7 @@ namespace Idno\Core {
          * Return the database layer loaded as part of this site
          * @return \Idno\Core\DataConcierge
          */
-        function &db() : ?DataConcierge 
+        function &db() : ?DataConcierge
         {
             return $this->db;
         }
@@ -435,7 +435,7 @@ namespace Idno\Core {
         /**
          * Return the site object for the current site, creating a new entry if one doesn't exist.
          */
-        function &site_details() : ? Site 
+        function &site_details() : ? Site
         {
             if (empty($this->site_details)) {
 
@@ -444,7 +444,7 @@ namespace Idno\Core {
                 if (!empty($domain) && !empty($this->session())) {
 
                     $this->site_details = Site::getOne([ 'domain' => $domain ]);
-                    
+
                     if (empty($this->site_details)) {
 
                         $this->site_details = new Site();
@@ -487,7 +487,7 @@ namespace Idno\Core {
          * Can a specified user (either an explicitly specified user ID
          * or the currently logged-in user if this is left blank) edit
          * this entity?
-         * 
+         *
          * This essentially means 'can the user edit configuration about the site', generally only admins can do this.
          *
          * @param string $user_id
@@ -504,17 +504,17 @@ namespace Idno\Core {
             }
 
             if ($user = \Idno\Entities\User::getByUUID($user_id)) {
-                
+
                 return \Idno\Core\Idno::site()->events()->triggerEvent('canEdit/site', [
-                    'object' => $this, 
+                    'object' => $this,
                     'user_id' => $user_id,
                     'user' => $user
                 ], (function () use ($user) {
-                    
+
                     if ($user->isAdmin()) {
                         return true;
                     }
-                    
+
                     return false;
                 })());
 
@@ -544,11 +544,11 @@ namespace Idno\Core {
 
                 // Make site level canWrite extensible
                 return \Idno\Core\Idno::site()->events()->triggerEvent('canWrite/site', [
-                    'object' => $this, 
+                    'object' => $this,
                     'user_id' => $user_id,
                     'user' => $user
                 ], (function () use ($user) {
-                
+
                     // Remote users can't ever create anything :( - for now
                     if ($user instanceof \Idno\Entities\RemoteUser) {
                         return false;
@@ -560,9 +560,9 @@ namespace Idno\Core {
                             return true;
                         }
                     }
-                    
+
                     return false;
-                    
+
                 })());
             }
 
