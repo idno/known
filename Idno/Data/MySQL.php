@@ -81,10 +81,9 @@ namespace Idno\Data {
                             2020120301,
                         ] as $date) {
                             if ($basedate < $date) {
-                                try { 
-                                    
+                                try {
                                     $client->beginTransaction();
-                                    
+
                                     if ($sql = @file_get_contents($schema_dir . $date . '.sql')) {
 
                                         error_log("Applying schema updates from {$schema_dir}{$date}.sql");
@@ -99,13 +98,12 @@ namespace Idno\Data {
                                         }
                                     }
                                     $newdate = $date;
-                                    
+
                                     $client->commit();
-                                
+
                                 } catch (\Exception $e) {
                                     error_log($e->getMessage());
-                                    
-                                    $client->rollback();
+                                    if ($client->inTransaction()) $client->rollback();
                                 }
                             }
                         }
@@ -179,7 +177,7 @@ namespace Idno\Data {
             $collection = $this->sanitiseCollection($collection);
 
             if (empty($array['_id'])) {
-                $array['_id'] = $this->generateID(); 
+                $array['_id'] = $this->generateID();
             }
             if (empty($array['siteid']) && !empty(Idno::site()->site_details())) {
                 $array['siteid'] = Idno::site()->site_details()->uuid();
@@ -262,7 +260,7 @@ namespace Idno\Data {
                                                     (:uuid, :id, :siteid, :subtype, :owner, :contents, :publish_status, :created)
                                                     on duplicate key update `uuid` = :uuid, `entity_subtype` = :subtype, `owner` = :owner, `contents` = :contents, `publish_status` = :publish_status, `created` = :created");
                 if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':siteid' => $array['siteid'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':publish_status' => $array['publish_status'], ':created' => $array['created']))) {
-                    
+
                     // Update FTS
                     $statement = $client->prepare("insert into {$collection}_search
                         (`_id`, `search`)
@@ -270,8 +268,8 @@ namespace Idno\Data {
                         (:id, :search)
                         on duplicate key update `search` = :search");
                     $statement->execute(array(':id' => $array['_id'], ':search' => $search));
-                    
-                    
+
+
                     $retval = $array['_id'];
                     if ($statement = $client->prepare("delete from {$collection}_metadata where _id = :id")) {
                         $statement->execute(array(':id' => $array['_id']));
@@ -306,7 +304,7 @@ namespace Idno\Data {
                     }
                 }
                 $client->commit();
-            } catch (\Exception $e) { 
+            } catch (\Exception $e) {
                 \Idno\Core\Idno::site()->logging()->error($e->getMessage());
                 $client->rollback();
             }
@@ -763,10 +761,10 @@ namespace Idno\Data {
                 /* @var \PDO $client */
                 $statement = $client->prepare("delete from {$collection} where _id = :id");
                 return $statement->execute(array(':id' => $id));
-                
+
                 // Don't need to explicitly delete metadata now due to cascade
 //                if ($statement->execute(array(':id' => $id))) {
-//                    
+//
 //                    if ($statement = $client->prepare("delete from metadata where _id = :id")) {
 //                        return $statement->execute(array(':id' => $id));
 //                    }
@@ -798,12 +796,12 @@ namespace Idno\Data {
                 /* @var \PDO $client */
                 $statement = $client->prepare("delete from {$collection}");
                 return $statement->execute();
-                
+
 //                if ($statement->execute()) {
-//                    
+//
 //                    $statement = $client->prepare("delete from {$collection}_search");
 //                    $statement->execute();
-//                    
+//
 //                    if ($statement = $client->prepare("delete from metadata where collection = :collection")) {
 //                        return $statement->execute([':collection' => $collection]);
 //                    }
