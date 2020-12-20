@@ -15,7 +15,8 @@ jobs:
   
 branches:
   only:
-    - master
+    - dev
+    - stable
 
 before_script:
   # Update and install base system
