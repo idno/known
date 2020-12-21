@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bad85905631ceda99d4182f216304d87",
+    "content-hash": "b682e86277a7199358aa6c7b09a4c8db",
     "packages": [
         {
             "name": "brick/math",
@@ -3145,16 +3145,16 @@
         },
         {
             "name": "symfony/cache",
-            "version": "v5.2.0",
+            "version": "v5.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/cache.git",
-                "reference": "c15fd2b3dcf2bd7d5ee3265874870d6cc694306b"
+                "reference": "5e61d63b1ef4fb4852994038267ad45e12f3ec52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/cache/zipball/c15fd2b3dcf2bd7d5ee3265874870d6cc694306b",
-                "reference": "c15fd2b3dcf2bd7d5ee3265874870d6cc694306b",
+                "url": "https://api.github.com/repos/symfony/cache/zipball/5e61d63b1ef4fb4852994038267ad45e12f3ec52",
+                "reference": "5e61d63b1ef4fb4852994038267ad45e12f3ec52",
                 "shasum": ""
             },
             "require": {
@@ -3220,7 +3220,7 @@
                 "psr6"
             ],
             "support": {
-                "source": "https://github.com/symfony/cache/tree/v5.2.0"
+                "source": "https://github.com/symfony/cache/tree/v5.2.1"
             },
             "funding": [
                 {
@@ -3236,7 +3236,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-11-21T09:39:55+00:00"
+            "time": "2020-12-10T19:16:15+00:00"
         },
         {
             "name": "symfony/cache-contracts",
