@@ -1,6 +1,6 @@
 ---
 name: Point of View
-about: Describe a Known user and their needs
+about: Describe a Known user to help us build a solution for their needs. (It could be you, or someone else.)
 
 ---
 
