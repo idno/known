@@ -50,10 +50,6 @@
                 "brick",
                 "math"
             ],
-            "support": {
-                "issues": "https://github.com/brick/math/issues",
-                "source": "https://github.com/brick/math/tree/master"
-            },
             "funding": [
                 {
                     "url": "https://tidelift.com/funding/github/packagist/brick/math",
@@ -102,27 +98,20 @@
             ],
             "description": "jQuery JavaScript Library",
             "homepage": "http://jquery.com",
-            "support": {
-                "forum": "http://forum.jquery.com",
-                "irc": "irc://irc.freenode.org/jquery",
-                "issues": "https://github.com/jquery/jquery/issues",
-                "source": "https://github.com/jquery/jquery",
-                "wiki": "http://docs.jquery.com/"
-            },
             "time": "2020-05-05T13:21:02+00:00"
         },
         {
             "name": "composer/installers",
-            "version": "v1.9.0",
+            "version": "v1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "b93bcf0fa1fccb0b7d176b0967d969691cd74cca"
+                "reference": "1a0357fccad9d1cc1ea0c9a05b8847fbccccb78d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/b93bcf0fa1fccb0b7d176b0967d969691cd74cca",
-                "reference": "b93bcf0fa1fccb0b7d176b0967d969691cd74cca",
+                "url": "https://api.github.com/repos/composer/installers/zipball/1a0357fccad9d1cc1ea0c9a05b8847fbccccb78d",
+                "reference": "1a0357fccad9d1cc1ea0c9a05b8847fbccccb78d",
                 "shasum": ""
             },
             "require": {
@@ -133,17 +122,18 @@
                 "shama/baton": "*"
             },
             "require-dev": {
-                "composer/composer": "1.6.* || 2.0.*@dev",
-                "composer/semver": "1.0.* || 2.0.*@dev",
-                "phpunit/phpunit": "^4.8.36",
-                "sebastian/comparator": "^1.2.4",
+                "composer/composer": "1.6.* || ^2.0",
+                "composer/semver": "^1 || ^3",
+                "phpstan/phpstan": "^0.12.55",
+                "phpstan/phpstan-phpunit": "^0.12.16",
+                "symfony/phpunit-bridge": "^4.2 || ^5",
                 "symfony/process": "^2.3"
             },
             "type": "composer-plugin",
             "extra": {
                 "class": "Composer\\Installers\\Plugin",
                 "branch-alias": {
-                    "dev-master": "1.0-dev"
+                    "dev-main": "1.x-dev"
                 }
             },
             "autoload": {
@@ -181,6 +171,7 @@
                 "Porto",
                 "RadPHP",
                 "SMF",
+                "Starbug",
                 "Thelia",
                 "Whmcs",
                 "WolfCMS",
@@ -221,6 +212,7 @@
                 "phpbb",
                 "piwik",
                 "ppi",
+                "processwire",
                 "puppet",
                 "pxcms",
                 "reindex",
@@ -236,21 +228,21 @@
                 "zend",
                 "zikula"
             ],
-            "support": {
-                "issues": "https://github.com/composer/installers/issues",
-                "source": "https://github.com/composer/installers/tree/v1.9.0"
-            },
             "funding": [
                 {
                     "url": "https://packagist.com",
                     "type": "custom"
                 },
                 {
+                    "url": "https://github.com/composer",
+                    "type": "github"
+                },
+                {
                     "url": "https://tidelift.com/funding/github/packagist/composer/composer",
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-04-07T06:57:05+00:00"
+            "time": "2021-01-14T11:07:16+00:00"
         },
         {
             "name": "doctrine/lexer",
@@ -312,10 +304,6 @@
                 "parser",
                 "php"
             ],
-            "support": {
-                "issues": "https://github.com/doctrine/lexer/issues",
-                "source": "https://github.com/doctrine/lexer/tree/1.2.1"
-            },
             "funding": [
                 {
                     "url": "https://www.doctrine-project.org/sponsorship.html",
@@ -388,10 +376,6 @@
                 "validation",
                 "validator"
             ],
-            "support": {
-                "issues": "https://github.com/egulias/EmailValidator/issues",
-                "source": "https://github.com/egulias/EmailValidator/tree/2.1.25"
-            },
             "funding": [
                 {
                     "url": "https://github.com/egulias",
@@ -448,10 +432,6 @@
             "keywords": [
                 "html"
             ],
-            "support": {
-                "issues": "https://github.com/ezyang/htmlpurifier/issues",
-                "source": "https://github.com/ezyang/htmlpurifier/tree/master"
-            },
             "time": "2020-06-29T00:56:53+00:00"
         },
         {
@@ -502,10 +482,6 @@
                 "jwt",
                 "php"
             ],
-            "support": {
-                "issues": "https://github.com/firebase/php-jwt/issues",
-                "source": "https://github.com/firebase/php-jwt/tree/master"
-            },
             "time": "2020-03-25T18:49:23+00:00"
         },
         {
@@ -553,10 +529,6 @@
                 "forkawesome",
                 "icon"
             ],
-            "support": {
-                "issues": "https://github.com/ForkAwesome/Fork-Awesome/issues",
-                "source": "https://github.com/ForkAwesome/Fork-Awesome/tree/1.1.7"
-            },
             "time": "2019-02-28T15:21:34+00:00"
         },
         {
@@ -637,10 +609,6 @@
                 "rest",
                 "web service"
             ],
-            "support": {
-                "issues": "https://github.com/guzzle/guzzle/issues",
-                "source": "https://github.com/guzzle/guzzle/tree/7.2.0"
-            },
             "funding": [
                 {
                     "url": "https://github.com/GrahamCampbell",
@@ -710,10 +678,6 @@
             "keywords": [
                 "promise"
             ],
-            "support": {
-                "issues": "https://github.com/guzzle/promises/issues",
-                "source": "https://github.com/guzzle/promises/tree/1.4.0"
-            },
             "time": "2020-09-30T07:37:28+00:00"
         },
         {
@@ -785,10 +749,6 @@
                 "uri",
                 "url"
             ],
-            "support": {
-                "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/1.7.0"
-            },
             "time": "2020-09-30T07:37:11+00:00"
         },
         {
@@ -819,10 +779,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Receive comments from external services on your Known site.",
-            "support": {
-                "issues": "https://github.com/idno/bridgy/issues",
-                "source": "https://github.com/idno/bridgy/tree/master"
-            },
             "time": "2019-10-05T09:40:17+00:00"
         },
         {
@@ -853,10 +809,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "An easy way to check into a geographic location.",
-            "support": {
-                "issues": "https://github.com/idno/checkin/issues",
-                "source": "https://github.com/idno/checkin/tree/1.1.2"
-            },
             "time": "2020-12-20T00:31:01+00:00"
         },
         {
@@ -887,10 +839,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Known console event queue processing service",
-            "support": {
-                "issues": "https://github.com/idno/console-eventqueueservice/issues",
-                "source": "https://github.com/idno/console-eventqueueservice/tree/v1.0.0"
-            },
             "time": "2019-08-16T15:11:45+00:00"
         },
         {
@@ -920,10 +868,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Export your Known site from the command line",
-            "support": {
-                "issues": "https://github.com/idno/console-export/issues",
-                "source": "https://github.com/idno/console-export/tree/v1.0.0"
-            },
             "time": "2019-08-16T15:59:24+00:00"
         },
         {
@@ -953,10 +897,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Import data into your Known install from the command line",
-            "support": {
-                "issues": "https://github.com/idno/console-import/issues",
-                "source": "https://github.com/idno/console-import/tree/v1.0.0"
-            },
             "time": "2019-08-16T15:49:58+00:00"
         },
         {
@@ -986,10 +926,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Known console CRON service",
-            "support": {
-                "issues": "https://github.com/idno/console-periodicexecutionservice/issues",
-                "source": "https://github.com/idno/console-periodicexecutionservice/tree/v0.9.10"
-            },
             "time": "2019-08-16T15:26:49+00:00"
         },
         {
@@ -1019,10 +955,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Known console event queue management",
-            "support": {
-                "issues": "https://github.com/idno/console-queuemanagement/issues",
-                "source": "https://github.com/idno/console-queuemanagement/tree/master"
-            },
             "time": "2019-08-16T14:54:50+00:00"
         },
         {
@@ -1052,10 +984,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Obtain statistics about your Known site from the console",
-            "support": {
-                "issues": "https://github.com/idno/console-statistics/issues",
-                "source": "https://github.com/idno/console-statistics/tree/master"
-            },
             "time": "2019-08-16T15:42:15+00:00"
         },
         {
@@ -1086,10 +1014,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A lightweight way to post or reply to events.",
-            "support": {
-                "issues": "https://github.com/idno/events/issues",
-                "source": "https://github.com/idno/events/tree/1.0.1"
-            },
             "time": "2020-12-20T00:29:49+00:00"
         },
         {
@@ -1120,10 +1044,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Support IndieAuth and Micropub for single-user Known sites. Must be used with a single-user theme.",
-            "support": {
-                "issues": "https://github.com/idno/indiepub/issues",
-                "source": "https://github.com/idno/indiepub/tree/v0.9.10"
-            },
             "time": "2019-08-11T15:35:36+00:00"
         },
         {
@@ -1154,10 +1074,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Bookmark a page in Known.",
-            "support": {
-                "issues": "https://github.com/idno/like/issues",
-                "source": "https://github.com/idno/like/tree/1.0.1"
-            },
             "time": "2020-12-20T00:34:49+00:00"
         },
         {
@@ -1188,10 +1104,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Upload audio or music and turn your site into a podcast.",
-            "support": {
-                "issues": "https://github.com/idno/media/issues",
-                "source": "https://github.com/idno/media/tree/1.0.1"
-            },
             "time": "2020-12-20T00:32:47+00:00"
         },
         {
@@ -1214,9 +1126,6 @@
                 "MIT"
             ],
             "description": "Known adoption of mention.js abandonware",
-            "support": {
-                "source": "https://github.com/idno/mentionjs/tree/1.0.0"
-            },
             "time": "2019-11-03T12:53:56+00:00"
         },
         {
@@ -1247,10 +1156,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Simple photo uploader for Known.",
-            "support": {
-                "issues": "https://github.com/idno/photo/issues",
-                "source": "https://github.com/idno/photo/tree/1.0.2"
-            },
             "time": "2020-12-20T00:27:07+00:00"
         },
         {
@@ -1281,10 +1186,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Host static pages in Known.",
-            "support": {
-                "issues": "https://github.com/idno/staticpages/issues",
-                "source": "https://github.com/idno/staticpages/tree/1.0.1"
-            },
             "time": "2020-12-20T00:37:11+00:00"
         },
         {
@@ -1315,10 +1216,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Simple status updates for Known.",
-            "support": {
-                "issues": "https://github.com/idno/status/issues",
-                "source": "https://github.com/idno/status/tree/1.0.4.1"
-            },
             "time": "2020-12-20T00:52:36+00:00"
         },
         {
@@ -1349,10 +1246,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A custom CSS stylesheet editor to modify the visual style of your site.",
-            "support": {
-                "issues": "https://github.com/idno/styles/issues",
-                "source": "https://github.com/idno/styles/tree/v1.0.0"
-            },
             "time": "2019-08-12T20:52:09+00:00"
         },
         {
@@ -1383,10 +1276,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A lightweight blogging engine.",
-            "support": {
-                "issues": "https://github.com/idno/text/issues",
-                "source": "https://github.com/idno/text/tree/1.0.5"
-            },
             "time": "2020-12-04T09:45:07+00:00"
         },
         {
@@ -1417,10 +1306,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A simple, minimal, blank-slate theme.",
-            "support": {
-                "issues": "https://github.com/idno/theme-black/issues",
-                "source": "https://github.com/idno/theme-black/tree/v1.0.0"
-            },
             "time": "2019-08-11T18:18:54+00:00"
         },
         {
@@ -1451,10 +1336,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A basic theme with a background image.",
-            "support": {
-                "issues": "https://github.com/idno/theme-cherwell/issues",
-                "source": "https://github.com/idno/theme-cherwell/tree/v1.0.0"
-            },
             "time": "2019-08-11T18:27:07+00:00"
         },
         {
@@ -1485,10 +1366,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A colorful theme that works well with multi-user sites.",
-            "support": {
-                "issues": "https://github.com/idno/theme-fauvists/issues",
-                "source": "https://github.com/idno/theme-fauvists/tree/v1.0.0"
-            },
             "time": "2019-08-11T19:11:50+00:00"
         },
         {
@@ -1519,10 +1396,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A simple theme with cool colors.",
-            "support": {
-                "issues": "https://github.com/idno/theme-green/issues",
-                "source": "https://github.com/idno/theme-green/tree/v1.0.0"
-            },
             "time": "2019-08-11T19:19:22+00:00"
         },
         {
@@ -1553,10 +1426,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A simple theme with warm colors.",
-            "support": {
-                "issues": "https://github.com/idno/theme-kandinsky/issues",
-                "source": "https://github.com/idno/theme-kandinsky/tree/v1.0.0"
-            },
             "time": "2019-08-11T19:24:59+00:00"
         },
         {
@@ -1587,10 +1456,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A modern, white theme for bloggers.",
-            "support": {
-                "issues": "https://github.com/idno/theme-marketstreet/issues",
-                "source": "https://github.com/idno/theme-marketstreet/tree/master"
-            },
             "time": "2019-08-11T18:03:04+00:00"
         },
         {
@@ -1621,10 +1486,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A simple black and white single-user theme.",
-            "support": {
-                "issues": "https://github.com/idno/theme-solo/issues",
-                "source": "https://github.com/idno/theme-solo/tree/v1.0.0"
-            },
             "time": "2019-08-11T19:32:22+00:00"
         },
         {
@@ -1700,9 +1561,6 @@
                 "php",
                 "router"
             ],
-            "support": {
-                "source": "https://github.com/idno/torophp/tree/3.0.0"
-            },
             "time": "2019-11-03T12:27:44+00:00"
         },
         {
@@ -1733,10 +1591,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Syndicate via Webhooks.",
-            "support": {
-                "issues": "https://github.com/idno/webhooks/issues",
-                "source": "https://github.com/idno/webhooks/tree/master"
-            },
             "time": "2019-10-27T09:09:55+00:00"
         },
         {
@@ -1779,10 +1633,6 @@
             ],
             "description": "Client library for sending webmention and pingback notifications",
             "homepage": "https://github.com/indieweb/mention-client-php",
-            "support": {
-                "issues": "https://github.com/indieweb/mention-client-php/issues",
-                "source": "https://github.com/indieweb/mention-client-php/tree/master"
-            },
             "time": "2018-10-27T19:41:41+00:00"
         },
         {
@@ -1849,10 +1699,6 @@
                 "oauth2",
                 "single sign on"
             ],
-            "support": {
-                "issues": "https://github.com/thephpleague/oauth2-client/issues",
-                "source": "https://github.com/thephpleague/oauth2-client/tree/2.6.0"
-            },
             "time": "2020-10-28T02:03:40+00:00"
         },
         {
@@ -1890,10 +1736,6 @@
                 "known",
                 "mongo"
             ],
-            "support": {
-                "issues": "https://github.com/mapkyca/known-mongo-php-library/issues",
-                "source": "https://github.com/mapkyca/known-mongo-php-library/tree/1.0.3+known"
-            },
             "time": "2019-11-03T19:18:26+00:00"
         },
         {
@@ -1940,10 +1782,6 @@
                 "known",
                 "plugin"
             ],
-            "support": {
-                "issues": "https://github.com/mapkyca/known-oauth2-client/issues",
-                "source": "https://github.com/mapkyca/known-oauth2-client/tree/master"
-            },
             "funding": [
                 {
                     "url": "https://www.paypal.me/mapkyca",
@@ -1996,10 +1834,6 @@
                 "oauth2",
                 "plugin"
             ],
-            "support": {
-                "issues": "https://github.com/mapkyca/known-oauth2-server/issues",
-                "source": "https://github.com/mapkyca/known-oauth2-server/tree/1.2.0"
-            },
             "funding": [
                 {
                     "url": "https://www.paypal.me/mapkyca",
@@ -2049,10 +1883,6 @@
                 "internal",
                 "known"
             ],
-            "support": {
-                "issues": "https://github.com/mapkyca/mrclay_autop_known/issues",
-                "source": "https://github.com/mapkyca/mrclay_autop_known/tree/v1.0.0"
-            },
             "time": "2019-02-24T16:16:54+00:00"
         },
         {
@@ -2094,10 +1924,6 @@
             "keywords": [
                 "opengraph"
             ],
-            "support": {
-                "issues": "https://github.com/mapkyca/php-ogp/issues",
-                "source": "https://github.com/mapkyca/php-ogp/tree/master"
-            },
             "time": "2019-05-18T10:54:57+00:00"
         },
         {
@@ -2163,10 +1989,6 @@
                 "serializer",
                 "xml"
             ],
-            "support": {
-                "issues": "https://github.com/Masterminds/html5-php/issues",
-                "source": "https://github.com/Masterminds/html5-php/tree/2.7.4"
-            },
             "time": "2020-10-01T13:52:52+00:00"
         },
         {
@@ -2223,10 +2045,6 @@
                 "parser",
                 "semantic"
             ],
-            "support": {
-                "issues": "https://github.com/microformats/php-mf2/issues",
-                "source": "https://github.com/microformats/php-mf2/tree/master"
-            },
             "time": "2018-08-24T14:47:04+00:00"
         },
         {
@@ -2474,11 +2292,6 @@
                 "pseudorandom",
                 "random"
             ],
-            "support": {
-                "email": "info@paragonie.com",
-                "issues": "https://github.com/paragonie/random_compat/issues",
-                "source": "https://github.com/paragonie/random_compat"
-            },
             "time": "2020-10-15T08:29:30+00:00"
         },
         {
@@ -2525,9 +2338,6 @@
                 "psr",
                 "psr-6"
             ],
-            "support": {
-                "source": "https://github.com/php-fig/cache/tree/master"
-            },
             "time": "2016-08-06T20:24:11+00:00"
         },
         {
@@ -2577,10 +2387,6 @@
                 "container-interop",
                 "psr"
             ],
-            "support": {
-                "issues": "https://github.com/php-fig/container/issues",
-                "source": "https://github.com/php-fig/container/tree/master"
-            },
             "time": "2017-02-14T16:28:37+00:00"
         },
         {
@@ -2630,9 +2436,6 @@
                 "psr",
                 "psr-18"
             ],
-            "support": {
-                "source": "https://github.com/php-fig/http-client/tree/master"
-            },
             "time": "2020-06-29T06:28:15+00:00"
         },
         {
@@ -2683,9 +2486,6 @@
                 "request",
                 "response"
             ],
-            "support": {
-                "source": "https://github.com/php-fig/http-message/tree/master"
-            },
             "time": "2016-08-06T14:39:51+00:00"
         },
         {
@@ -2733,9 +2533,6 @@
                 "psr",
                 "psr-3"
             ],
-            "support": {
-                "source": "https://github.com/php-fig/log/tree/1.1.3"
-            },
             "time": "2020-03-23T09:12:05+00:00"
         },
         {
@@ -2776,10 +2573,6 @@
                 }
             ],
             "description": "A polyfill for getallheaders.",
-            "support": {
-                "issues": "https://github.com/ralouphie/getallheaders/issues",
-                "source": "https://github.com/ralouphie/getallheaders/tree/develop"
-            },
             "time": "2019-03-08T08:55:37+00:00"
         },
         {
@@ -2843,10 +2636,6 @@
                 "queue",
                 "set"
             ],
-            "support": {
-                "issues": "https://github.com/ramsey/collection/issues",
-                "source": "https://github.com/ramsey/collection/tree/1.1.1"
-            },
             "funding": [
                 {
                     "url": "https://github.com/ramsey",
@@ -2934,11 +2723,6 @@
                 "identifier",
                 "uuid"
             ],
-            "support": {
-                "issues": "https://github.com/ramsey/uuid/issues",
-                "rss": "https://github.com/ramsey/uuid/releases.atom",
-                "source": "https://github.com/ramsey/uuid"
-            },
             "funding": [
                 {
                     "url": "https://github.com/ramsey",
@@ -2991,10 +2775,6 @@
                 "microformat",
                 "time"
             ],
-            "support": {
-                "issues": "https://github.com/rmm5t/jquery-timeago/issues",
-                "source": "https://github.com/rmm5t/jquery-timeago/tree/v1.6.7"
-            },
             "time": "2019-04-23T15:55:20+00:00"
         },
         {
@@ -3062,10 +2842,6 @@
                 "feeds",
                 "rss"
             ],
-            "support": {
-                "issues": "https://github.com/simplepie/simplepie/issues",
-                "source": "https://github.com/simplepie/simplepie/tree/1.5.6"
-            },
             "time": "2020-10-14T07:17:22+00:00"
         },
         {
@@ -3127,10 +2903,6 @@
                 "mail",
                 "mailer"
             ],
-            "support": {
-                "issues": "https://github.com/swiftmailer/swiftmailer/issues",
-                "source": "https://github.com/swiftmailer/swiftmailer/tree/v6.2.5"
-            },
             "funding": [
                 {
                     "url": "https://github.com/fabpot",
@@ -3219,9 +2991,6 @@
                 "caching",
                 "psr6"
             ],
-            "support": {
-                "source": "https://github.com/symfony/cache/tree/v5.2.1"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3298,9 +3067,6 @@
                 "interoperability",
                 "standards"
             ],
-            "support": {
-                "source": "https://github.com/symfony/cache-contracts/tree/v2.2.0"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3387,9 +3153,6 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/console/tree/v4.4.18"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3454,9 +3217,6 @@
             ],
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/deprecation-contracts/tree/master"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3537,9 +3297,6 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/event-dispatcher/tree/v4.4.18"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3616,9 +3373,6 @@
                 "interoperability",
                 "standards"
             ],
-            "support": {
-                "source": "https://github.com/symfony/event-dispatcher-contracts/tree/v1.1.9"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3689,9 +3443,6 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/http-foundation/tree/v5.2.1"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3768,9 +3519,6 @@
                 "polyfill",
                 "portable"
             ],
-            "support": {
-                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.20.0"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3848,9 +3596,6 @@
                 "portable",
                 "shim"
             ],
-            "support": {
-                "source": "https://github.com/symfony/polyfill-iconv/tree/v1.22.0"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3935,9 +3680,6 @@
                 "portable",
                 "shim"
             ],
-            "support": {
-                "source": "https://github.com/symfony/polyfill-intl-idn/tree/v1.22.0"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4019,9 +3761,6 @@
                 "portable",
                 "shim"
             ],
-            "support": {
-                "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.22.0"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4099,9 +3838,6 @@
                 "portable",
                 "shim"
             ],
-            "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.22.0"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4175,9 +3911,6 @@
                 "portable",
                 "shim"
             ],
-            "support": {
-                "source": "https://github.com/symfony/polyfill-php72/tree/v1.22.0"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4254,9 +3987,6 @@
                 "portable",
                 "shim"
             ],
-            "support": {
-                "source": "https://github.com/symfony/polyfill-php73/tree/v1.20.0"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4337,9 +4067,6 @@
                 "portable",
                 "shim"
             ],
-            "support": {
-                "source": "https://github.com/symfony/polyfill-php80/tree/v1.20.0"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4416,9 +4143,6 @@
                 "interoperability",
                 "standards"
             ],
-            "support": {
-                "source": "https://github.com/symfony/service-contracts/tree/master"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4489,9 +4213,6 @@
                 "instantiate",
                 "serialize"
             ],
-            "support": {
-                "source": "https://github.com/symfony/var-exporter/tree/v5.2.1"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4554,9 +4275,6 @@
                 "tinymce",
                 "wysiwyg"
             ],
-            "support": {
-                "source": "https://github.com/tinymce/tinymce-dist/tree/5.6.2"
-            },
             "time": "2020-12-08T07:23:49+00:00"
         },
         {
@@ -4608,10 +4326,6 @@
                 "responsive",
                 "web"
             ],
-            "support": {
-                "issues": "https://github.com/twbs/bootstrap/issues",
-                "source": "https://github.com/twbs/bootstrap/tree/v3.4.1"
-            },
             "time": "2019-02-13T15:55:38+00:00"
         },
         {
@@ -4674,10 +4388,6 @@
             "keywords": [
                 "templating"
             ],
-            "support": {
-                "issues": "https://github.com/twigphp/Twig/issues",
-                "source": "https://github.com/twigphp/Twig/tree/v3.2.1"
-            },
             "funding": [
                 {
                     "url": "https://github.com/fabpot",
@@ -4741,10 +4451,6 @@
                 "constructor",
                 "instantiate"
             ],
-            "support": {
-                "issues": "https://github.com/doctrine/instantiator/issues",
-                "source": "https://github.com/doctrine/instantiator/tree/1.4.0"
-            },
             "funding": [
                 {
                     "url": "https://www.doctrine-project.org/sponsorship.html",
@@ -4789,10 +4495,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A simple tool for site administrators to test Known's API.",
-            "support": {
-                "issues": "https://github.com/idno/apitester/issues",
-                "source": "https://github.com/idno/apitester/tree/v0.9.10"
-            },
             "time": "2019-08-11T15:03:21+00:00"
         },
         {
@@ -4829,10 +4531,6 @@
                 }
             ],
             "description": "Useful Known development scripts",
-            "support": {
-                "issues": "https://github.com/mapkyca/known-dev-scripts/issues",
-                "source": "https://github.com/mapkyca/known-dev-scripts/tree/master"
-            },
             "time": "2019-08-19T21:51:59+00:00"
         },
         {
@@ -4873,10 +4571,6 @@
                 "internationalisation",
                 "known"
             ],
-            "support": {
-                "issues": "https://github.com/mapkyca/known-language-tools/issues",
-                "source": "https://github.com/mapkyca/known-language-tools/tree/master"
-            },
             "time": "2020-01-11T09:54:37+00:00"
         },
         {
@@ -4922,10 +4616,6 @@
                 "i18n",
                 "known"
             ],
-            "support": {
-                "issues": "https://github.com/mapkyca/known-phpcs/issues",
-                "source": "https://github.com/mapkyca/known-phpcs/tree/v1.0.2"
-            },
             "time": "2019-05-18T10:07:20+00:00"
         },
         {
@@ -4954,10 +4644,6 @@
                 }
             ],
             "description": "Docker container for a Known install in order to quickly get you going",
-            "support": {
-                "issues": "https://github.com/mapkyca/mapkyca-known-docker/issues",
-                "source": "https://github.com/mapkyca/mapkyca-known-docker/tree/1.1.0"
-            },
             "time": "2020-12-02T15:29:15+00:00"
         },
         {
@@ -5006,10 +4692,6 @@
                 "object",
                 "object graph"
             ],
-            "support": {
-                "issues": "https://github.com/myclabs/DeepCopy/issues",
-                "source": "https://github.com/myclabs/DeepCopy/tree/1.10.2"
-            },
             "funding": [
                 {
                     "url": "https://tidelift.com/funding/github/packagist/myclabs/deep-copy",
@@ -5068,10 +4750,6 @@
                 "parser",
                 "php"
             ],
-            "support": {
-                "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v4.10.4"
-            },
             "time": "2020-12-20T10:01:03+00:00"
         },
         {
@@ -5128,10 +4806,6 @@
                 }
             ],
             "description": "Component for reading phar.io manifest information from a PHP Archive (PHAR)",
-            "support": {
-                "issues": "https://github.com/phar-io/manifest/issues",
-                "source": "https://github.com/phar-io/manifest/tree/master"
-            },
             "time": "2020-06-27T14:33:11+00:00"
         },
         {
@@ -5179,10 +4853,6 @@
                 }
             ],
             "description": "Library for handling version information and constraints",
-            "support": {
-                "issues": "https://github.com/phar-io/version/issues",
-                "source": "https://github.com/phar-io/version/tree/3.0.4"
-            },
             "time": "2020-12-13T23:18:30+00:00"
         },
         {
@@ -5232,10 +4902,6 @@
                 "reflection",
                 "static analysis"
             ],
-            "support": {
-                "issues": "https://github.com/phpDocumentor/ReflectionCommon/issues",
-                "source": "https://github.com/phpDocumentor/ReflectionCommon/tree/2.x"
-            },
             "time": "2020-06-27T09:03:43+00:00"
         },
         {
@@ -5288,10 +4954,6 @@
                 }
             ],
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
-            "support": {
-                "issues": "https://github.com/phpDocumentor/ReflectionDocBlock/issues",
-                "source": "https://github.com/phpDocumentor/ReflectionDocBlock/tree/master"
-            },
             "time": "2020-09-03T19:13:55+00:00"
         },
         {
@@ -5337,10 +4999,6 @@
                 }
             ],
             "description": "A PSR-5 based resolver of Class names, Types and Structural Element Names",
-            "support": {
-                "issues": "https://github.com/phpDocumentor/TypeResolver/issues",
-                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.4.0"
-            },
             "time": "2020-09-17T18:55:26+00:00"
         },
         {
@@ -5404,10 +5062,6 @@
                 "spy",
                 "stub"
             ],
-            "support": {
-                "issues": "https://github.com/phpspec/prophecy/issues",
-                "source": "https://github.com/phpspec/prophecy/tree/1.12.2"
-            },
             "time": "2020-12-19T10:15:11+00:00"
         },
         {
@@ -5475,10 +5129,6 @@
                 "testing",
                 "xunit"
             ],
-            "support": {
-                "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.5"
-            },
             "funding": [
                 {
                     "url": "https://github.com/sebastianbergmann",
@@ -5535,10 +5185,6 @@
                 "filesystem",
                 "iterator"
             ],
-            "support": {
-                "issues": "https://github.com/sebastianbergmann/php-file-iterator/issues",
-                "source": "https://github.com/sebastianbergmann/php-file-iterator/tree/3.0.5"
-            },
             "funding": [
                 {
                     "url": "https://github.com/sebastianbergmann",
@@ -5598,10 +5244,6 @@
             "keywords": [
                 "process"
             ],
-            "support": {
-                "issues": "https://github.com/sebastianbergmann/php-invoker/issues",
-                "source": "https://github.com/sebastianbergmann/php-invoker/tree/3.1.1"
-            },
             "funding": [
                 {
                     "url": "https://github.com/sebastianbergmann",
@@ -5657,10 +5299,6 @@
             "keywords": [
                 "template"
             ],
-            "support": {
-                "issues": "https://github.com/sebastianbergmann/php-text-template/issues",
-                "source": "https://github.com/sebastianbergmann/php-text-template/tree/2.0.4"
-            },
             "funding": [
                 {
                     "url": "https://github.com/sebastianbergmann",
@@ -5716,10 +5354,6 @@
             "keywords": [
                 "timer"
             ],
-            "support": {
-                "issues": "https://github.com/sebastianbergmann/php-timer/issues",
-                "source": "https://github.com/sebastianbergmann/php-timer/tree/5.0.3"
-            },
             "funding": [
                 {
                     "url": "https://github.com/sebastianbergmann",
@@ -5815,10 +5449,6 @@
                 "testing",
                 "xunit"
             ],
-            "support": {
-                "issues": "https://github.com/sebastianbergmann/phpunit/issues",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.0"
-            },
             "funding": [
                 {
                     "url": "https://phpunit.de/donate.html",
@@ -5837,12 +5467,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "a2c04f857299a7119e96448249a9dd5954e099c1"
+                "reference": "0f7a0af0970ff222b7c4212e2417580e0e05b257"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/a2c04f857299a7119e96448249a9dd5954e099c1",
-                "reference": "a2c04f857299a7119e96448249a9dd5954e099c1",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/0f7a0af0970ff222b7c4212e2417580e0e05b257",
+                "reference": "0f7a0af0970ff222b7c4212e2417580e0e05b257",
                 "shasum": ""
             },
             "conflict": {
@@ -5935,7 +5565,7 @@
                 "kitodo/presentation": "<3.1.2",
                 "kreait/firebase-php": ">=3.2,<3.8.1",
                 "la-haute-societe/tcpdf": "<6.2.22",
-                "laravel/framework": ">=4,<4.0.99|>=4.1,<=4.1.99999|>=4.2,<=4.2.99999|>=5,<=5.0.99999|>=5.1,<=5.1.99999|>=5.2,<=5.2.99999|>=5.3,<=5.3.99999|>=5.4,<=5.4.99999|>=5.5,<=5.5.49|>=5.6,<=5.6.99999|>=5.7,<=5.7.99999|>=5.8,<=5.8.99999|>=6,<6.18.34|>=7,<7.23.2",
+                "laravel/framework": ">=4,<4.0.99|>=4.1,<=4.1.99999|>=4.2,<=4.2.99999|>=5,<=5.0.99999|>=5.1,<=5.1.99999|>=5.2,<=5.2.99999|>=5.3,<=5.3.99999|>=5.4,<=5.4.99999|>=5.5,<=5.5.49|>=5.6,<=5.6.99999|>=5.7,<=5.7.99999|>=5.8,<=5.8.99999|>=6,<6.20.11|>=7,<7.30.2|>=8,<8.22.1",
                 "laravel/socialite": ">=1,<1.0.99|>=2,<2.0.10",
                 "league/commonmark": "<0.18.3",
                 "librenms/librenms": "<1.53",
@@ -6136,10 +5766,6 @@
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-            "support": {
-                "issues": "https://github.com/Roave/SecurityAdvisories/issues",
-                "source": "https://github.com/Roave/SecurityAdvisories/tree/latest"
-            },
             "funding": [
                 {
                     "url": "https://github.com/Ocramius",
@@ -6150,7 +5776,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-12-31T19:24:22+00:00"
+            "time": "2021-01-14T09:32:54+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -6196,10 +5822,6 @@
             ],
             "description": "Library for parsing CLI options",
             "homepage": "https://github.com/sebastianbergmann/cli-parser",
-            "support": {
-                "issues": "https://github.com/sebastianbergmann/cli-parser/issues",
-                "source": "https://github.com/sebastianbergmann/cli-parser/tree/1.0.1"
-            },
             "funding": [
                 {
                     "url": "https://github.com/sebastianbergmann",
@@ -6252,10 +5874,6 @@
             ],
             "description": "Collection of value objects that represent the PHP code units",
             "homepage": "https://github.com/sebastianbergmann/code-unit",
-            "support": {
-                "issues": "https://github.com/sebastianbergmann/code-unit/issues",
-                "source": "https://github.com/sebastianbergmann/code-unit/tree/1.0.8"
-            },
             "funding": [
                 {
                     "url": "https://github.com/sebastianbergmann",
@@ -6307,10 +5925,6 @@
             ],
             "description": "Looks up which function or method a line of code belongs to",
             "homepage": "https://github.com/sebastianbergmann/code-unit-reverse-lookup/",
-            "support": {
-                "issues": "https://github.com/sebastianbergmann/code-unit-reverse-lookup/issues",
-                "source": "https://github.com/sebastianbergmann/code-unit-reverse-lookup/tree/2.0.3"
-            },
             "funding": [
                 {
                     "url": "https://github.com/sebastianbergmann",
@@ -6381,10 +5995,6 @@
                 "compare",
                 "equality"
             ],
-            "support": {
-                "issues": "https://github.com/sebastianbergmann/comparator/issues",
-                "source": "https://github.com/sebastianbergmann/comparator/tree/4.0.6"
-            },
             "funding": [
                 {
                     "url": "https://github.com/sebastianbergmann",
@@ -6438,10 +6048,6 @@
             ],
             "description": "Library for calculating the complexity of PHP code units",
             "homepage": "https://github.com/sebastianbergmann/complexity",
-            "support": {
-                "issues": "https://github.com/sebastianbergmann/complexity/issues",
-                "source": "https://github.com/sebastianbergmann/complexity/tree/2.0.2"
-            },
             "funding": [
                 {
                     "url": "https://github.com/sebastianbergmann",
@@ -6504,10 +6110,6 @@
                 "unidiff",
                 "unified diff"
             ],
-            "support": {
-                "issues": "https://github.com/sebastianbergmann/diff/issues",
-                "source": "https://github.com/sebastianbergmann/diff/tree/4.0.4"
-            },
             "funding": [
                 {
                     "url": "https://github.com/sebastianbergmann",
@@ -6567,10 +6169,6 @@
                 "environment",
                 "hhvm"
             ],
-            "support": {
-                "issues": "https://github.com/sebastianbergmann/environment/issues",
-                "source": "https://github.com/sebastianbergmann/environment/tree/5.1.3"
-            },
             "funding": [
                 {
                     "url": "https://github.com/sebastianbergmann",
@@ -6644,10 +6242,6 @@
                 "export",
                 "exporter"
             ],
-            "support": {
-                "issues": "https://github.com/sebastianbergmann/exporter/issues",
-                "source": "https://github.com/sebastianbergmann/exporter/tree/4.0.3"
-            },
             "funding": [
                 {
                     "url": "https://github.com/sebastianbergmann",
@@ -6708,10 +6302,6 @@
             "keywords": [
                 "global state"
             ],
-            "support": {
-                "issues": "https://github.com/sebastianbergmann/global-state/issues",
-                "source": "https://github.com/sebastianbergmann/global-state/tree/5.0.2"
-            },
             "funding": [
                 {
                     "url": "https://github.com/sebastianbergmann",
@@ -6765,10 +6355,6 @@
             ],
             "description": "Library for counting the lines of code in PHP source code",
             "homepage": "https://github.com/sebastianbergmann/lines-of-code",
-            "support": {
-                "issues": "https://github.com/sebastianbergmann/lines-of-code/issues",
-                "source": "https://github.com/sebastianbergmann/lines-of-code/tree/1.0.3"
-            },
             "funding": [
                 {
                     "url": "https://github.com/sebastianbergmann",
@@ -6822,10 +6408,6 @@
             ],
             "description": "Traverses array structures and object graphs to enumerate all referenced objects",
             "homepage": "https://github.com/sebastianbergmann/object-enumerator/",
-            "support": {
-                "issues": "https://github.com/sebastianbergmann/object-enumerator/issues",
-                "source": "https://github.com/sebastianbergmann/object-enumerator/tree/4.0.4"
-            },
             "funding": [
                 {
                     "url": "https://github.com/sebastianbergmann",
@@ -6877,10 +6459,6 @@
             ],
             "description": "Allows reflection of object attributes, including inherited and non-public ones",
             "homepage": "https://github.com/sebastianbergmann/object-reflector/",
-            "support": {
-                "issues": "https://github.com/sebastianbergmann/object-reflector/issues",
-                "source": "https://github.com/sebastianbergmann/object-reflector/tree/2.0.4"
-            },
             "funding": [
                 {
                     "url": "https://github.com/sebastianbergmann",
@@ -6940,10 +6518,6 @@
             ],
             "description": "Provides functionality to recursively process PHP variables",
             "homepage": "http://www.github.com/sebastianbergmann/recursion-context",
-            "support": {
-                "issues": "https://github.com/sebastianbergmann/recursion-context/issues",
-                "source": "https://github.com/sebastianbergmann/recursion-context/tree/4.0.4"
-            },
             "funding": [
                 {
                     "url": "https://github.com/sebastianbergmann",
@@ -6995,10 +6569,6 @@
             ],
             "description": "Provides a list of PHP built-in functions that operate on resources",
             "homepage": "https://www.github.com/sebastianbergmann/resource-operations",
-            "support": {
-                "issues": "https://github.com/sebastianbergmann/resource-operations/issues",
-                "source": "https://github.com/sebastianbergmann/resource-operations/tree/3.0.3"
-            },
             "funding": [
                 {
                     "url": "https://github.com/sebastianbergmann",
@@ -7051,10 +6621,6 @@
             ],
             "description": "Collection of value objects that represent the types of the PHP type system",
             "homepage": "https://github.com/sebastianbergmann/type",
-            "support": {
-                "issues": "https://github.com/sebastianbergmann/type/issues",
-                "source": "https://github.com/sebastianbergmann/type/tree/2.3.1"
-            },
             "funding": [
                 {
                     "url": "https://github.com/sebastianbergmann",
@@ -7104,10 +6670,6 @@
             ],
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",
             "homepage": "https://github.com/sebastianbergmann/version",
-            "support": {
-                "issues": "https://github.com/sebastianbergmann/version/issues",
-                "source": "https://github.com/sebastianbergmann/version/tree/3.0.2"
-            },
             "funding": [
                 {
                     "url": "https://github.com/sebastianbergmann",
@@ -7165,11 +6727,6 @@
                 "phpcs",
                 "standards"
             ],
-            "support": {
-                "issues": "https://github.com/squizlabs/PHP_CodeSniffer/issues",
-                "source": "https://github.com/squizlabs/PHP_CodeSniffer",
-                "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
-            },
             "time": "2019-03-19T03:22:27+00:00"
         },
         {
@@ -7210,10 +6767,6 @@
                 }
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
-            "support": {
-                "issues": "https://github.com/theseer/tokenizer/issues",
-                "source": "https://github.com/theseer/tokenizer/tree/master"
-            },
             "funding": [
                 {
                     "url": "https://github.com/theseer",
@@ -7269,10 +6822,6 @@
                 "check",
                 "validate"
             ],
-            "support": {
-                "issues": "https://github.com/webmozart/assert/issues",
-                "source": "https://github.com/webmozart/assert/tree/master"
-            },
             "time": "2020-07-08T17:02:28+00:00"
         }
     ],
@@ -7301,5 +6850,5 @@
         "ext-gettext": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "1.1.0"
 }
