@@ -1999,18 +1999,21 @@ namespace Idno\Common {
             $result = [];
             foreach ($arr as $value) {
                 if (is_string($value)) {
+                    if ($filter_urls) {
+                        $value = explode('?', $value)[0];
+                        $value = explode('#', $value)[0];
+                    }
                     $result[] = $value;
                 } else if (is_array($value) && !empty($value['properties']) && !empty($value['properties']['url'])) {
                     foreach ($value['properties']['url'] as $url) {
                         if ($filter_urls) {
-                            $url = explode($url, '?')[0];
-                            $url = explode($url, '#')[0];
+                            $url = explode('?', $url)[0];
+                            $url = explode('#', $url)[0];
                         }
                         $result[] = $url;
                     }
                 }
             }
-
             return $result;
         }
 
