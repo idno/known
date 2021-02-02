@@ -1990,10 +1990,11 @@ namespace Idno\Common {
          * Many properties in mf2 can have either a simple string value or a complex
          * object value, "u-in-reply-to h-cite" is a common example. This function
          * takes a possibly mixed array, and returns an array of only strings.
-         *
+         * @param $arr An array of URL strings
+         * @param bool $filter_urls If true (default), will remove URL parameters and anchors
          * @return array
          */
-        static function getStringURLs($arr)
+        static function getStringURLs($arr, $filter_urls = true)
         {
             $result = [];
             foreach ($arr as $value) {
@@ -2001,6 +2002,10 @@ namespace Idno\Common {
                     $result[] = $value;
                 } else if (is_array($value) && !empty($value['properties']) && !empty($value['properties']['url'])) {
                     foreach ($value['properties']['url'] as $url) {
+                        if ($filter_urls) {
+                            $url = explode($url, '?')[0];
+                            $url = explode($url, '#')[0];
+                        }
                         $result[] = $url;
                     }
                 }
