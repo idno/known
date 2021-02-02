@@ -1296,16 +1296,16 @@
         },
         {
             "name": "idno/status",
-            "version": "1.0.4.1",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/status.git",
-                "reference": "b7da855c096a2a6ff87cbdcc8a40c84800cfca7f"
+                "reference": "9ef70f8a60f24f3a4e38ff34cde98fc05040fb0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/status/zipball/b7da855c096a2a6ff87cbdcc8a40c84800cfca7f",
-                "reference": "b7da855c096a2a6ff87cbdcc8a40c84800cfca7f",
+                "url": "https://api.github.com/repos/idno/status/zipball/9ef70f8a60f24f3a4e38ff34cde98fc05040fb0b",
+                "reference": "9ef70f8a60f24f3a4e38ff34cde98fc05040fb0b",
                 "shasum": ""
             },
             "require": {
@@ -1324,9 +1324,9 @@
             "description": "Simple status updates for Known.",
             "support": {
                 "issues": "https://github.com/idno/status/issues",
-                "source": "https://github.com/idno/status/tree/1.0.4.1"
+                "source": "https://github.com/idno/status/tree/1.0.5"
             },
-            "time": "2020-12-20T00:52:36+00:00"
+            "time": "2021-02-02T06:55:10+00:00"
         },
         {
             "name": "idno/styles",
