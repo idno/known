@@ -628,7 +628,7 @@ namespace Idno\Core {
 
         /**
          * If the current user isn't logged in and this isn't a public site, and this hasn't been defined as an
-         * always-public page, forward to the login page!
+         * always-public page, forward to the login page.
          */
         function publicGatekeeper()
         {
@@ -636,13 +636,8 @@ namespace Idno\Core {
             if (!\Idno\Core\Idno::site()->config()->isPublicSite()) {
                 if (!\Idno\Core\Idno::site()->session()->isLoggedOn()) {
                     $class = get_class(Idno::site()->currentPage());
-                    if (!\Idno\Core\Idno::site()->isPageHandlerPublic($class)) {
-                        //                            \Idno\Core\Idno::site()->currentPage()->setResponse(403);
-                        //                            if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
-                        //                                \Idno\Core\Idno::site()->currentPage()->forward(Idno::site()->config()->getURL() . 'session/login/?fwd=' . urlencode($_SERVER['REQUEST_URI']));
-                        //                            } else {
+                    if (!\Idno\Core\Idno::site()->routes()->isRoutePublic($class)) {
                         \Idno\Core\Idno::site()->currentPage()->deniedContent();
-                        //                            }
                     }
                 }
             }
