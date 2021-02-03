@@ -439,6 +439,26 @@ namespace Idno\Core {
         }
 
         /**
+         * Wrapper function to encode a value for use in web services.
+         * This way if we change the algorithm, there's no need to change the whole codebase.
+         * @param $string
+         * @return string
+         */
+        static function encodeValue($string) {
+            return self::base64UrlEncode($string);
+        }
+
+        /**
+         * Wrapper function to decode a value for use in web services.
+         * This way if we change the algorithm, there's no need to change the whole codebase.
+         * @param $string
+         * @return string
+         */
+        static function decodeValue($string) {
+            return self::base64UrlDecode($string);
+        }
+
+        /**
          * Utility method to produce URL safe base64 encoding.
          * @param type $string
          * @return string
@@ -468,7 +488,7 @@ namespace Idno\Core {
 
             // Get the domain
             $domain = parse_url($url, PHP_URL_HOST);
-            
+
             if (empty($domain)) {
                 return false;
             }

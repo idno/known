@@ -25,7 +25,7 @@ namespace Idno\Common {
         // Property that defines whether this page may forward to
         // other pages. True by default.
         private $forward = true;
-        
+
         // Where was this page forwarded from
         private $referrer = '';
 
@@ -71,7 +71,7 @@ namespace Idno\Common {
                 }
             }
             \Idno\Core\Idno::site()->setCurrentPage($this);
-            
+
             // Set referrer, and ensure it's not blank
             $this->referrer = $_SERVER['HTTP_REFERER']??'';
             $_SERVER['HTTP_REFERER'] = $_SERVER['HTTP_REFERER']??''; // Ensure that the $_SERVER['HTTP_REFERER'] is never blank
@@ -443,12 +443,12 @@ namespace Idno\Common {
         {
             $this->setResponse(501);
         }
-        
+
         /**
          * Default handling of OPTIONS (mostly to handle CORS)
          */
         function options() {
-            
+
             header('Access-Control-Allow-Methods: ' . implode(', ', [
                 'GET',
                 'POST',
@@ -457,12 +457,12 @@ namespace Idno\Common {
                 'PUT',
                 'DELETE'
             ]) );
-            
+
             header('Access-Control-Max-Age: 86400');
-            
+
             http_response_code(204);
         }
-        
+
         /**
          * Return the referrer, or an empty string
          * @return string
@@ -544,6 +544,15 @@ namespace Idno\Common {
                     exit;
                 }
             }
+        }
+
+        /**
+         * Forwards to login page with optional forward param
+         * @param string $fwd
+         */
+        function forwardToLogin($fwd = '')
+        {
+            $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login/?fwd=' . \Idno\Core\Webservice::encodeValue($fwd));
         }
 
         /**
@@ -1137,27 +1146,27 @@ namespace Idno\Common {
 
             return $headers;
         }
-        
+
         /**
          * Retrieve bearer token passed to this page, if any.
          * @return string|null
          */
         public static function getBearerToken(): ?string {
-            
+
             $headers = null;
             $serverheaders = \Idno\Common\Page::getallheaders();
-            
+
             if (isset($serverheaders['Authorization']))
                 $headers = trim($serverheaders["Authorization"]);
             else if (isset($serverheaders['HTTP_AUTHORIZATION']))
                 $headers = trim($serverheaders["HTTP_AUTHORIZATION"]);
-            
+
             if (!empty($headers)) {
                 if (preg_match('/Bearer\s(\S+)/', $headers, $matches)) {
                     return trim($matches[1], '\'"');
                 }
             }
-                
+
             return null;
         }
 
