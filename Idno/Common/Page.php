@@ -549,10 +549,15 @@ namespace Idno\Common {
         /**
          * Forwards to login page with optional forward param
          * @param string $fwd
+         * @param bool $string If set to true, will return a string instead of forwarding
          */
-        function forwardToLogin($fwd = '')
+        function forwardToLogin($fwd = '', $string = false)
         {
-            $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login/?fwd=' . \Idno\Core\Webservice::encodeValue($fwd));
+            $url = \Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login/?fwd=' . \Idno\Core\Webservice::encodeValue($fwd);
+            if ($string) {
+                return $url;
+            }
+            $this->forward($url);
         }
 
         /**
