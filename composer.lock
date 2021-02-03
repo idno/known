@@ -1101,16 +1101,16 @@
         },
         {
             "name": "idno/indiepub",
-            "version": "0.9.12",
+            "version": "0.9.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/indiepub.git",
-                "reference": "77f645d49ab64fc2c2455ed8da8f05234c97bb40"
+                "reference": "e91af637c067ff0ba54bfbe700147345fe417040"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/indiepub/zipball/77f645d49ab64fc2c2455ed8da8f05234c97bb40",
-                "reference": "77f645d49ab64fc2c2455ed8da8f05234c97bb40",
+                "url": "https://api.github.com/repos/idno/indiepub/zipball/e91af637c067ff0ba54bfbe700147345fe417040",
+                "reference": "e91af637c067ff0ba54bfbe700147345fe417040",
                 "shasum": ""
             },
             "require": {
@@ -1129,9 +1129,9 @@
             "description": "Support IndieAuth and Micropub for single-user Known sites. Must be used with a single-user theme.",
             "support": {
                 "issues": "https://github.com/idno/indiepub/issues",
-                "source": "https://github.com/idno/indiepub/tree/0.9.12"
+                "source": "https://github.com/idno/indiepub/tree/0.9.13"
             },
-            "time": "2021-01-30T23:38:46+00:00"
+            "time": "2021-02-03T06:27:27+00:00"
         },
         {
             "name": "idno/like",
