@@ -29,7 +29,7 @@ namespace Tests\API {
             $content = json_decode($result['content']);
             $response = $result['response'];
 
-            $this->assertEmpty($result['error'], 'The result should not contain an error property.');
+            $this->assertEmpty($result['error'], 'The result\'s error property should be empty.');
             $this->assertNotEmpty($content, 'Retrieved content should not be empty. Have you set the KNOWN_DOMAIN environment variable? Endpoint: ' . $endpoint);
             $this->assertNotEmpty($content->location, 'Response should contain the location of the post.');
             $this->assertEquals($response, 200,  'The response should have returned a 200 HTTP response.');
