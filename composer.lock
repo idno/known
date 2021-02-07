@@ -4941,16 +4941,16 @@
         },
         {
             "name": "mapkyca/mapkyca-known-docker",
-            "version": "1.1.1",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mapkyca/mapkyca-known-docker.git",
-                "reference": "9bf0700721eea655e7b490e2338cbbe72562a879"
+                "reference": "88373100a16106dfeae0bbe38a465d8cac36f80d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mapkyca/mapkyca-known-docker/zipball/9bf0700721eea655e7b490e2338cbbe72562a879",
-                "reference": "9bf0700721eea655e7b490e2338cbbe72562a879",
+                "url": "https://api.github.com/repos/mapkyca/mapkyca-known-docker/zipball/88373100a16106dfeae0bbe38a465d8cac36f80d",
+                "reference": "88373100a16106dfeae0bbe38a465d8cac36f80d",
                 "shasum": ""
             },
             "require": {
@@ -4967,9 +4967,9 @@
             "description": "Docker container for a Known install in order to quickly get you going",
             "support": {
                 "issues": "https://github.com/mapkyca/mapkyca-known-docker/issues",
-                "source": "https://github.com/mapkyca/mapkyca-known-docker/tree/1.1.1"
+                "source": "https://github.com/mapkyca/mapkyca-known-docker/tree/1.1.2"
             },
-            "time": "2021-02-07T07:59:59+00:00"
+            "time": "2021-02-07T08:13:35+00:00"
         },
         {
             "name": "myclabs/deep-copy",
