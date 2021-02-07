@@ -61,7 +61,7 @@ namespace Tests {
                 $secret = "secret";
 
                 $result = hash($algo, $secret);
-                $this->assertTrue(!empty($result), $algo . ' should return a hashed result.');
+                $this->assertNotEmpty($result, $algo . ' should return a hashed result.');
             }
         }
 

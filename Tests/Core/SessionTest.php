@@ -30,7 +30,7 @@ namespace Tests\Core {
             //Verify logoff
             \Idno\Core\Idno::site()->session()->logUserOff();
 
-            $this->assertTrue(empty($_SESSION['user_uuid']), 'Once we log off, the user UUID should be missing from the session.');
+            $this->assertEmpty($_SESSION['user_uuid'], 'Once we log off, the user UUID should be missing from the session.');
             $this->assertFalse(is_object(\Idno\Core\Idno::site()->session()->currentUser()), 'After logging off, site()->session()->currentuser() should not return an object.');
         }
 

@@ -129,7 +129,7 @@ namespace Tests\Data {
         {
 
             $null = \Idno\Entities\GenericDataItem::get(['variable1' => 'not']);
-            $this->assertTrue(empty($null));
+            $this->assertEmpty($null,);
 
             $objs = \Idno\Entities\GenericDataItem::get(['variable1' => 'test']);
             $this->assertTrue(is_array($objs), 'Should have returned an array of objects.');
@@ -140,7 +140,7 @@ namespace Tests\Data {
         {
 
             $null = \Idno\Entities\GenericDataItem::get(['variable1' => 'test', 'variable2' => 'not']);
-            $this->assertTrue(empty($null), 'We should not have retrieved any entities.');
+            $this->assertEmpty($null, 'We should not have retrieved any entities.');
 
             $objs = \Idno\Entities\GenericDataItem::get(['variable1' => 'test', 'variable2' => 'test again']);
             $this->assertTrue(is_array($objs), 'We should have retrieved entities.');
@@ -157,7 +157,7 @@ namespace Tests\Data {
 
             $count = \Idno\Entities\GenericDataItem::countFromX('Idno\Entities\GenericDataItem', $search);
             $this->assertTrue(is_int($count), 'A count of entities should be an integer.');
-            $this->assertTrue($count == 1, '1 entity should match our query.');
+            $this->assertEquals($count, 1,  '1 entity should match our query.');
         }
 
         public function testGetByRangeNoResults()
@@ -169,7 +169,7 @@ namespace Tests\Data {
 
             $count = \Idno\Entities\GenericDataItem::countFromX('Idno\Entities\GenericDataItem', $search);
             $this->assertTrue(is_int($count), 'A count of entities should be an integer.');
-            $this->assertTrue($count == 0, 'No entities should match our query.');
+            $this->assertEquals($count, 0,  'No entities should match our query.');
         }
 
         public function testSearchShort()

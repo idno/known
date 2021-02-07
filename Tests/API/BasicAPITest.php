@@ -24,9 +24,9 @@ namespace Tests\API {
             $content = json_decode($result['content']);
             $response = $result['response'];
 
-            $this->assertTrue(empty($result['error']), 'The result should not contain an error property.');
-            $this->assertTrue(!empty($content), 'Retrieved content should not be empty. Have you set the KNOWN_DOMAIN environment variable? Endpoint: ' . $endpoint);
-            $this->assertTrue($response == 200, 'The response should have returned a 200 HTTP response.');
+            $this->assertEmpty($result['error'], 'The result should not contain an error property.');
+            $this->assertNotEmpty($content, 'Retrieved content should not be empty. Have you set the KNOWN_DOMAIN environment variable? Endpoint: ' . $endpoint);
+            $this->assertEquals($response, 200,  'The response should have returned a 200 HTTP response.');
 
         }
 
@@ -50,10 +50,10 @@ namespace Tests\API {
             $content = json_decode($result['content']);
             $response = $result['response'];
 
-            $this->assertTrue(empty($result['error']), 'The result should not contain an error property.');
-            $this->assertTrue(!empty($content), 'Retrieved content should not be empty. Have you set the KNOWN_DOMAIN environment variable? Endpoint: ' . $endpoint);
-            $this->assertTrue(!empty($content->location), 'Response should contain the location of the post.');
-            $this->assertTrue($response == 200, 'The response should have returned a 200 HTTP response.');
+            $this->assertEmpty($result['error'], 'The result should not contain an error property.');
+            $this->assertNotEmpty($content, 'Retrieved content should not be empty. Have you set the KNOWN_DOMAIN environment variable? Endpoint: ' . $endpoint);
+            $this->assertNotEmpty($content->location, 'Response should contain the location of the post.');
+            $this->assertEquals($response, 200,  'The response should have returned a 200 HTTP response.');
 
         }
     }

@@ -21,7 +21,7 @@ namespace Tests\Pages {
                 }
             }
 
-            $this->assertTrue(empty($output), 'Loading the feed should return the feed contents. If this is failing, you may need to set KNOWN_DOMAIN.');
+            $this->assertEmpty($output, 'Loading the feed should return the feed contents. If this is failing, you may need to set KNOWN_DOMAIN.');
         }
 
     }

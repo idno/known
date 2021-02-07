@@ -61,13 +61,13 @@ namespace Tests\Data {
 
             // Check that B can't access object
             $tmp = \Idno\Entities\GenericDataItem::getByUUID($obj->getUUID());
-            $this->assertTrue(empty($tmp), 'User A should not be able to access an object with an access group they are not a part of.');
+            $this->assertEmpty($tmp, 'User A should not be able to access an object with an access group they are not a part of.');
 
             // Check that A can
             $b = $this->swapUser($a);
             $tmp = \Idno\Entities\GenericDataItem::getByUUID($obj->getUUID());
             var_export($tmp);
-            $this->assertTrue(!empty($tmp), 'User B should be able to access an object with an access group they are a part of.');
+            $this->assertNotEmpty($tmp, 'User B should be able to access an object with an access group they are a part of.');
 
             // Check Admin can always read
             $admin = $this->admin();
@@ -78,7 +78,7 @@ namespace Tests\Data {
 
             // Test objects in this UUID
             $objs = \Idno\Entities\AccessGroup::getByAccessGroup(self::$acl->getUUID());
-            $this->assertTrue(count($objs) == 1, 'Exactly 1 entity with the specified UUID should have been retrieved.');
+            $this->assertEquals(count($objs), 1,  'Exactly 1 entity with the specified UUID should have been retrieved.');
 
             $obj->delete();
 
@@ -101,13 +101,13 @@ namespace Tests\Data {
 
             // Check that B can't access object
             $tmp = \Idno\Entities\GenericDataItem::getByUUID($obj->getUUID());
-            $this->assertTrue(empty($tmp), 'User B should not be able to access the specified object because they do not have access.');
+            $this->assertEmpty($tmp, 'User B should not be able to access the specified object because they do not have access.');
 
             // Check that A can
             $b = $this->swapUser($a);
             $tmp = \Idno\Entities\GenericDataItem::getByUUID($obj->getUUID());
             var_export($tmp);
-            $this->assertTrue(!empty($tmp), 'User A should be able to access the specified object because they have access.');
+            $this->assertNotEmpty($tmp, 'User A should be able to access the specified object because they have access.');
 
             // Check Admin can always read
             $admin = $this->admin();
