@@ -27,7 +27,7 @@ namespace Tests\API {
 
             $content = json_decode($result['content']);
             $response = $result['response'];
-
+            
             $this->assertTrue(empty($result['error']));
             $this->assertTrue(!empty($content));
             $this->assertTrue(!empty($content->location));

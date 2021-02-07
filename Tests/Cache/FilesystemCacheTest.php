@@ -8,11 +8,13 @@ class FilesystemCacheTest extends \Tests\KnownTestCase
         
         $cache = new \Idno\Caching\FilesystemCache();
         
-        $this->assertEmpty($cache->load('test'));
+        $name = 'test-' . substr(md5(rand()), 0, 10);
+
+        $this->assertEmpty($cache->load($name));
         
-        $this->assertTrue($cache->store('test', 12345));
+        $this->assertTrue($cache->store($name, 12345));
         
-        $this->assertEquals($cache->load('test'), 12345);
+        $this->assertEquals($cache->load($name), 12345);
     }
     
 }
