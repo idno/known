@@ -15,12 +15,12 @@ if (file_exists(dirname(dirname(__FILE__)) . '/.env')) {
 define('KNOWN_UNIT_TEST', true);
 
 // Set some environment: Use export KNOWN_DOMAIN / KNOWN_PORT to override from the command line
-$domain = $_SERVER['KNOWN_DOMAIN']; //getenv('KNOWN_DOMAIN');
+$domain = 'localhost';
+if (isset($_SERVER['KNOWN_DOMAIN'])) $domain = $_SERVER['KNOWN_DOMAIN'];
 
 if (!$domain && isset($_SERVER['SERVER_NAME']))
     $domain = $_SERVER['SERVER_NAME'];
-if (!$domain)
-    $domain = 'localhost';
+
 $_SERVER['SERVER_NAME'] = $domain;
 
 $port = getenv('KNOWN_PORT');
