@@ -20,7 +20,7 @@ namespace Tests\Core {
 EOD;
 
             $result = Webmention::addSyndicatedReplyTargets('http://foo.bar/post', [], ['response' => 200, 'content' => $doc]);
-            $this->assertEquals(['https://twitter.com/foobar/12345', 'https://www.facebook.com/foobar/posts/12345'], $result);
+            $this->assertEquals(['https://twitter.com/foobar/12345', 'https://www.facebook.com/foobar/posts/12345'], $result, 'Syndicated reply targets should be correctly extracted from post body u-syndication mf2.');
 
             // test rel-syndication
             $doc = <<<EOD
@@ -37,7 +37,7 @@ EOD;
 EOD;
 
             $result = Webmention::addSyndicatedReplyTargets('http://foo.bar/post', [], ['response' => 200, 'content' => $doc]);
-            $this->assertEquals(['https://twitter.com/foobar/12345', 'https://www.facebook.com/foobar/posts/12345'], $result);
+            $this->assertEquals(['https://twitter.com/foobar/12345', 'https://www.facebook.com/foobar/posts/12345'], $result, 'Syndicated reply targets should be correctly extracted from post body rel-syndication mf2.');
         }
 
     }

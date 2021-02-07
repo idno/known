@@ -31,14 +31,14 @@ namespace Tests\Core {
             $this->assertEquals('/:year/:slug', \Idno\Core\Idno::site()->config()->getPermalinkStructure());
             $this->assertEquals("$base$year/$slug", $entity->getURL());
             $contents = file_get_contents($entity->getURL());
-            $this->assertNotFalse(strpos($contents, 'hamstring baseball duckbill firecracker'));
+            $this->assertNotFalse(strpos($contents, 'hamstring baseball duckbill firecracker'), 'The specified string should have been found in the entity body. If this is failing, KNOWN_DOMAIN may not be set.');
 
             // /year/month/slug
             \Idno\Core\Idno::site()->config()->permalink_structure = '/:year/:month/:slug';
             \Idno\Core\Idno::site()->config()->save();
             $this->assertEquals("$base$year/$month/$slug", $entity->getURL());
             $contents = file_get_contents($entity->getURL());
-            $this->assertNotFalse(strpos($contents, 'hamstring baseball duckbill firecracker'));
+            $this->assertNotFalse(strpos($contents, 'hamstring baseball duckbill firecracker'), 'The specified string should have been found in the entity body. If this is failing, KNOWN_DOMAIN may not be set.');
 
             $entity->delete();
         }

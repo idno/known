@@ -35,17 +35,17 @@ EOD;
             $profile = Idno::site()->getPageHandler('/profile/' . $user->getHandle());
             $profile->webmentionContent($source, $target, $sourceResp, $sourceMf2);
 
-            $this->assertTrue($notification !== false);
-            $this->assertEquals('http://karenpage.dummy/', $notification['actor']);
+            $this->assertTrue($notification !== false, 'A notification should have been set.');
+            $this->assertEquals('http://karenpage.dummy/', $notification['actor'], 'The actor on the notification should be the source URL.');
 
-            $this->assertEquals('You were mentioned by Karen Page on karenpage.dummy', $notification['message']);
-            $this->assertEquals('Karen Page', $notification['object']['owner_name']);
-            $this->assertEquals('http://karenpage.dummy/', $notification['object']['owner_url']);
+            $this->assertEquals('You were mentioned by Karen Page on karenpage.dummy', $notification['message'], 'The notification message should be set appropriately.');
+            $this->assertEquals('Karen Page', $notification['object']['owner_name'], 'The notification owner name should be set appropriately.');
+            $this->assertEquals('http://karenpage.dummy/', $notification['object']['owner_url'], 'The notification owner URL should be set appropriately.');
 
             // make sure second webmention for the same source does not create another notification
             $notification = false;
             $profile->webmentionContent($source, $target, $sourceResp, $sourceMf2);
-            $this->assertFalse($notification);
+            $this->assertFalse($notification, 'A second webmention from the same source should not create a second notification.');
         }
     }
 }

@@ -2,6 +2,10 @@
 
 namespace Tests {
 
+    /**
+     * @TODO This isn't a unit test and I'm not sure we need this file.
+     */
+
     class EnvironmentTest extends KnownTestCase
     {
 
@@ -10,7 +14,7 @@ namespace Tests {
          */
         function testPHPVersion()
         {
-            $this->assertTrue(version_compare(phpversion(), '5.4', '>='));
+            $this->assertTrue(version_compare(phpversion(), '5.4', '>='), 'PHP should be at least version 5.4.');
         }
 
         /**

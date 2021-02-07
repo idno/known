@@ -9,13 +9,13 @@ use Idno\Core\Webservice;
 class EntityTest extends \Tests\KnownTestCase
 {
 
-    public function setUp():void
+    public function setUp(): void
     {
         $this->user()->notifications['email'] = 'none';
         $this->user()->save();
     }
 
-    function tearDown():void
+    function tearDown(): void
     {
         if (isset($this->toDelete)) {
             foreach ($this->toDelete as $entity) {
@@ -23,9 +23,10 @@ class EntityTest extends \Tests\KnownTestCase
             }
         }
     }
-    
-    public function slugProvider() {
-        
+
+    public function slugProvider()
+    {
+
         return [
             'simple title' => ['Test a Simple Title', 'test-a-simple-title', 10, 255],
             'long title' => [
@@ -40,39 +41,51 @@ class EntityTest extends \Tests\KnownTestCase
             'russian few chars' => ['Да, я ж давеча в Спортмастере был', '%D0%B4%D0%B0-%D1%8F', 10, 24],
             'collapsed spaces' => ['Make Sure    <b>Spaces</b> are  Collapsed and Tags  Are  <i>Stripped</i>', 'make-sure-spaces-are-collapsed-and-tags-are-stripped', 10, 255],
         ];
-        
+
     }
 
-    /**
-     * @dataProvider slugProvider
-     * @param type $title
-     * @param type $expected
-     * @param type $pieces
-     * @param type $chars
-     */
-    public function testPrepareSlug($title, $expected, $pieces, $chars)
+    public function webmentionEntityProvider()
     {
-        $entity = new GenericDataItem(); $entity->setDatatype('data-slug-test');
-        
-        $this->assertEquals($expected, $entity->prepareSlug($title, $pieces, $chars));
-        
+        $entity = new GenericDataItem();
+        $entity->setDatatype('data-slug-test');
+        $entity->setOwner($this->user());
+        $entity->title = "This will be the target of our webmention";
+        $entity->publish();
+        return $entity;
+    }
+
+    public function testPrepareSlug()
+    {
+        $entity = new GenericDataItem();
+        $entity->setDatatype('data-slug-test');
+
+        $unique = md5(time() . rand(0, 9999));
+        $title = "IndieWebCamp Nürnberg $unique is live!";
+        $expected = "indiewebcamp-n%C3%BCrnberg-$unique-is-live";
+
+        $this->assertEquals($expected, $entity->prepareSlug($title), 'Slug should have matched.');
+        $this->assertEquals("indiewebcamp-n%C3%BCrnberg-$unique", $entity->prepareSlug($title, 3), "Slug should have matched indiewebcamp-n%C3%BCrnberg-$unique.");
+        $this->assertEquals("indie", $entity->prepareSlug($title, 3, 5), 'Slug should have matched indie.');
+        $this->assertEquals("indie-hello", $entity->prepareSlug($title, 3, 5, 'hello'), 'Slug should have matched indie-hello.');
     }
 
     function testSetSlugResilient()
     {
         $unique = md5(time() . rand(0, 9999));
-        $title  = "IndieWebCamp Nürnberg $unique is live!";
-        $slug   = "indiewebcamp-n%C3%BCrnberg-$unique-is-live";
+        $title = "IndieWebCamp Nürnberg $unique is live!";
+        $slug = "indiewebcamp-n%C3%BCrnberg-$unique-is-live";
 
-        $entity = new GenericDataItem();  $entity->setDatatype('data-slug-test');
+        $entity = new GenericDataItem();
+        $entity->setDatatype('data-slug-test');
         $entity->setSlugResilient($title);
-        $this->assertEquals($slug, $entity->getSlug());
+        $this->assertEquals($slug, $entity->getSlug(), 'Slug should have matched '. $slug . '.');
         $entity->save();
         $this->toDelete[] = $entity;
 
-        $entity = new GenericDataItem();  $entity->setDatatype('data-slug-test');
+        $entity = new GenericDataItem();
+        $entity->setDatatype('data-slug-test');
         $entity->setSlugResilient($title);
-        $this->assertEquals($slug . '-1', $entity->getSlug());
+        $this->assertEquals($slug . '-1', $entity->getSlug(), 'Because there was a slug collision, slug should have matched ' . $slug . '-1.');
         $entity->save();
         $this->toDelete[] = $entity;
     }
@@ -82,7 +95,8 @@ class EntityTest extends \Tests\KnownTestCase
      */
     function testAddWebmentions_SimpleReply()
     {
-        $entity = new GenericDataItem();  $entity->setDatatype('data-slug-test');
+        $entity = new GenericDataItem();
+        $entity->setDatatype('data-slug-test');
         $entity->setOwner($this->user());
         $entity->title = "This will be the target of our webmention";
         $entity->publish();
@@ -105,28 +119,24 @@ EOD;
         $sourceMf2 = (new \Mf2\Parser($sourceContent, $source))->parse();
         $entity->addWebmentions($source, $target, $sourceResp, $sourceMf2);
 
-        $this->assertArrayHasKey('reply', $entity->getAllAnnotations());
-        $this->assertCount(1, $entity->getAllAnnotations()['reply']);
+        $this->assertArrayHasKey('reply', $entity->getAllAnnotations(), 'Annotations should have included a reply affter a webmention.');
+        $this->assertCount(1, $entity->getAllAnnotations()['reply'], 'There should have been exactly one reply.');
 
         $anno = array_values($entity->getAllAnnotations()['reply'])[0];
 
-        $this->assertArrayHasKey('owner_name', $anno);
-        $this->assertEquals('Jane Example', $anno['owner_name']);
-        $this->assertArrayHasKey('permalink', $anno);
-        $this->assertEquals($source, $anno['permalink']);
+        $this->assertArrayHasKey('owner_name', $anno, 'The owner name should have been set.');
+        $this->assertEquals('Jane Example', $anno['owner_name'], 'The owner name should have been set to Jane Example.');
+        $this->assertArrayHasKey('permalink', $anno, 'The permalink should have been set.');
+        $this->assertEquals($source, $anno['permalink'], 'The permalink should have been set to ' . $source . '.');
     }
 
     /**
-     * Test some other annotation types
+     * Test webmention likes
      */
-    function testAddWebmentions_OtherTypes()
+    function testAddWebmentionLikes()
     {
-        $entity = new GenericDataItem(); $entity->setDatatype('data-slug-test');
-        $entity->setOwner($this->user());
-        $entity->title = "This will be the target of our webmention";
-        $entity->publish();
+        $entity = $this->webmentionEntityProvider();
         $this->toDelete[] = $entity;
-
         $target = $entity->getURL();
 
         $sources = [
@@ -144,21 +154,7 @@ EOD;
 </body>
 </html>
 EOD
-            ,'http://gary.example/this-is-a-mention' => <<<EOD
-<!DOCTYPE html>
-<html>
-<body>
-<div class="h-entry">
-  <p class="p-name">
-    I just want to mention this post <a href="$target">on example.com</a>
-  </p>
-  <a class="p-author h-card" href="http://gary.example/">Gary Example</a>
-  <a class="u-url" href="http://gary.example/this-is-a-mention"></a>
-</div>
-</body>
-</html>
-EOD
-            ,'http://chelsea.example/chelsea-liked-a-post' => <<<EOD
+            , 'http://chelsea.example/chelsea-liked-a-post' => <<<EOD
 <!DOCTYPE html>
 <html>
 <body class="h-entry">
@@ -176,32 +172,54 @@ EOD
             $entity->addWebmentions($source, $target, ['response' => 200, 'content' => $sourceContent], $sourceMf2);
         }
 
-        $this->assertArrayHasKey('like', $entity->getAllAnnotations());
-        $this->assertCount(2, $entity->getAllAnnotations()['like']);
-
+        $this->assertArrayHasKey('like', $entity->getAllAnnotations(), 'A like should have been set after a webmention.');
+        $this->assertCount(2, $entity->getAllAnnotations()['like'], 'There should have been exactly two likes.');
         $anno = array_values($entity->getAllAnnotations()['like'])[0];
-
-        $this->assertArrayHasKey('owner_name', $anno);
-        $this->assertEquals('Joe Example', $anno['owner_name']);
-        $this->assertArrayHasKey('permalink', $anno);
-        $this->assertEquals('http://joe.example/this-is-a-like', $anno['permalink']);
+        $this->assertArrayHasKey('owner_name', $anno, 'The owner name should have been set.');
+        $this->assertEquals('Joe Example', $anno['owner_name'], 'The owner name should have been set to Joe Example.');
+        $this->assertArrayHasKey('permalink', $anno, 'The permalink should have been set.');
+        $this->assertEquals('http://joe.example/this-is-a-like', $anno['permalink'], 'The permalink should have been set to http://joe.example/this-is-a-like.');
 
         $anno = array_values($entity->getAllAnnotations()['like'])[1];
 
-        $this->assertArrayHasKey('owner_name', $anno);
-        $this->assertEquals('Chelsea Example', $anno['owner_name']);
-        $this->assertArrayHasKey('permalink', $anno);
-        $this->assertEquals('http://chelsea.example/chelsea-liked-a-post', $anno['permalink']);
+        $this->assertArrayHasKey('owner_name', $anno, 'The owner name should have been set.');
+        $this->assertEquals('Chelsea Example', $anno['owner_name'], 'The owner name should have been set to Chelsea Example.');
+        $this->assertArrayHasKey('permalink', $anno, 'The permalink should have been set.');
+        $this->assertEquals('http://chelsea.example/chelsea-liked-a-post', $anno['permalink'], 'The permalink should have been set to http://chelsea.example/chelsea-liked-a-post.');
+    }
 
-        $this->assertArrayHasKey('mention', $entity->getAllAnnotations());
+    function testMentionWebmention()
+    {
+        $entity = $this->webmentionEntityProvider();
+        $this->toDelete[] = $entity;
+        $target = $entity->getURL();
+
+        $webmention_source = 'http://gary.example/this-is-a-mention';
+        $webmention_body = <<<EOD
+<!DOCTYPE html>
+<html>
+<body>
+<div class="h-entry">
+  <p class="p-name">
+    I just want to mention this post <a href="$target">on example.com</a>
+  </p>
+  <a class="p-author h-card" href="http://gary.example/">Gary Example</a>
+  <a class="u-url" href="http://gary.example/this-is-a-mention"></a>
+</div>
+</body>
+</html>
+EOD;
+
+        $sourceMf2 = (new \Mf2\Parser($webmention_body, $webmention_source))->parse();
+        $entity->addWebmentions($webmention_source, $target, ['response' => 200, 'content' => $webmention_body], $sourceMf2);
 
         $anno = array_values($entity->getAllAnnotations()['mention'])[0];
 
-        $this->assertArrayHasKey('owner_name', $anno);
-        $this->assertEquals('Gary Example', $anno['owner_name']);
-        $this->assertArrayHasKey('permalink', $anno);
-        $this->assertEquals('http://gary.example/this-is-a-mention', $anno['permalink']);
-
+        $this->assertArrayHasKey('mention', $entity->getAllAnnotations(), 'A mention should have been set after a webmention.');
+        $this->assertArrayHasKey('owner_name', $anno, 'The owner name should have been set.');
+        $this->assertEquals('Gary Example', $anno['owner_name'], 'The owner name should have been set to Gary Example.');
+        $this->assertArrayHasKey('permalink', $anno, 'The permalink should have been set.');
+        $this->assertEquals('http://gary.example/this-is-a-mention', $anno['permalink'], 'The permalink should have been set to http://gary.example/this-is-a-mention.');
     }
 
 
@@ -209,9 +227,10 @@ EOD
      * When we get a webmention where the source is a feed, make
      * sure we handle it gracefully.
      */
-    function testAddWebmentions_RemoteFeed()
+    function testAddWebmentionsToRemoteFeed()
     {
-        $entity = new GenericDataItem(); $entity->setDatatype('data-slug-test');
+        $entity = new GenericDataItem();
+        $entity->setDatatype('data-slug-test');
         $entity->setOwner($this->user());
         $entity->title = "This post will be the webmention target";
         $entity->publish();
@@ -247,7 +266,7 @@ EOD;
         $sourceMf2 = (new \Mf2\Parser($sourceContent, $source))->parse();
         $entity->addWebmentions($source, $target, $sourceResp, $sourceMf2);
 
-        $this->assertEmpty($entity->getAllAnnotations());
+        $this->assertEmpty($entity->getAllAnnotations(), 'Annotations should have been empty after sending a webmention to a feed.');
     }
 
     /**
@@ -255,10 +274,11 @@ EOD;
      * own* feed. It looks valid because it includes a link, but it's
      * not really.
      */
-    function testAddWebmentions_LocalFeed()
+    function testAddWebmentionsToLocalFeed()
     {
-        for ($i = 0 ; $i < 5 ; $i++) {
-            $entity = new GenericDataItem(); $entity->setDatatype('data-slug-test');
+        for ($i = 0; $i < 5; $i++) {
+            $entity = new GenericDataItem();
+            $entity->setDatatype('data-slug-test');
             $entity->setOwner($this->user());
             $entity->title = "This post will be the webmention target";
             $entity->publish();
@@ -278,7 +298,7 @@ EOD;
         $sourceMf2 = (new \Mf2\Parser($sourceContent, $source))->parse();
         $entity->addWebmentions($source, $target, $sourceResp, $sourceMf2);
 
-        $this->assertEmpty($entity->getAllAnnotations());
+        $this->assertEmpty($entity->getAllAnnotations(), 'Annotations should have been empty after sending a webmention to a local feed.');
     }
 
 

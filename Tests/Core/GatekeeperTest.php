@@ -13,8 +13,8 @@ namespace Tests\Core {
             $result = \Idno\Core\Webservice::get(\Idno\Core\Idno::site()->config()->url . 'account/settings/', [], []);
 
             $response = $result['response'];
-            $this->assertTrue(empty($result['error']));
-            $this->assertTrue($response == 403);
+            $this->assertTrue(empty($result['error']), 'The result should not contain an error property.');
+            $this->assertTrue($response == 403, 'The response should have returned a 403 HTTP response.');
 
             $user = \Tests\KnownTestCase::user();
             $this->assertTrue(is_object(\Idno\Core\Idno::site()->session()->logUserOn($user)));
@@ -26,8 +26,8 @@ namespace Tests\Core {
             ]);
 
             $response = $result['response'];
-            $this->assertTrue(empty($result['error']));
-            $this->assertTrue($response == 200);
+            $this->assertTrue(empty($result['error']), 'The result should not contain an error property.');
+            $this->assertTrue($response == 200, 'The response should have returned a 200 HTTP response.');
 
             \Idno\Core\Idno::site()->session()->logUserOff();
         }
@@ -37,8 +37,8 @@ namespace Tests\Core {
             $result = \Idno\Core\Webservice::get(\Idno\Core\Idno::site()->config()->url . 'admin/', [], []);
 
             $response = $result['response'];
-            $this->assertTrue(empty($result['error']));
-            $this->assertTrue($response == 403);
+            $this->assertTrue(empty($result['error']), 'The result should not contain an error property.');
+            $this->assertTrue($response == 403, 'The response should have returned a 403 HTTP response.');
 
             $user = \Tests\KnownTestCase::user();
             $this->assertTrue(is_object(\Idno\Core\Idno::site()->session()->logUserOn($user)));
@@ -52,8 +52,8 @@ namespace Tests\Core {
             ]);
 
             $response = $result['response'];
-            $this->assertTrue(empty($result['error']));
-            $this->assertTrue($response == 403);
+            $this->assertTrue(empty($result['error']), 'The result should not contain an error property.');
+            $this->assertTrue($response == 403, 'The response should have returned a 403 HTTP response.');
 
             // Try admin
             $user = \Tests\KnownTestCase::admin();
@@ -66,8 +66,8 @@ namespace Tests\Core {
             ]);
 
             $response = $result['response'];
-            $this->assertTrue(empty($result['error']));
-            $this->assertTrue($response == 403); // Admins can't be admins, so we expect a 403
+            $this->assertTrue(empty($result['error']), 'The result should not contain an error property.');
+            $this->assertTrue($response == 403, 'The response should have returned a 403 HTTP response.');
 
             \Idno\Core\Idno::site()->session()->logUserOff();
         }

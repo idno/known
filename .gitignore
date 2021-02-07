@@ -4,6 +4,8 @@
 Idno/.idea/.name
 .scannerwork
 
+.env
+
 .vagrant
 .elasticbeanstalk
 .phpunit.result.cache

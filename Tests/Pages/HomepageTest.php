@@ -12,19 +12,20 @@ namespace Tests\Pages {
         function testHomepageLoads()
         {
             // Get the rendered homepage
-            $contents = file_get_contents(\Idno\Core\Idno::site()->config()->url);
+            $contents = file_get_contents(\Idno\Core\Idno::site()->config()->getDisplayURL());
 
             // Make sure it's not empty
-            $this->assertNotEmpty($contents);
+            $this->assertNotEmpty($contents, 'The homepage load should not be empty. If this is failing, you may need to set KNOWN_DOMAIN.');
 
             // Make sure it's actually Known we're talking to
-            $this->assertNotFalse(strpos(implode(" \r\n", $http_response_header), 'X-Powered-By: https://withknown.com'));
+            // $this->assertNotFalse(strpos(implode(" \r\n", $http_response_header), 'X-Powered-By: https://withknown.com'), 'The homepage should identify as a Known site.');
+            // NOTE: removing this test as some plugins may intentionally remove the Known powered by header
         }
 
         function test404Page()
         {
             $result = Webservice::get(Idno::site()->config()->getURL() . 'this-resource-does-not-exist');
-            $this->assertEquals(404, $result['response']);
+            $this->assertEquals(404, $result['response'], 'Loading a nonexistent resource should result in a 404 error.');
         }
 
         private function doWebmentionContent($source, $target)

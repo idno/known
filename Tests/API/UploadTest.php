@@ -4,18 +4,19 @@
 namespace Tests\API {
 
     /**
-     * Test file uploads (as this often gets broken)
+     * Test photo uploads
      */
     class UploadTest extends \Tests\KnownTestCase
     {
 
         private static $file = 'photo.jpg';
 
-        public function testUpload()
+        public function testPhotoUpload()
         {
             $user = \Tests\KnownTestCase::user();
+            $endpoint = \Idno\Core\Idno::site()->config()->url . 'photo/edit';
 
-            $result = \Idno\Core\Webservice::post(\Idno\Core\Idno::site()->config()->url . 'photo/edit', [
+            $result = \Idno\Core\Webservice::post($endpoint, [
                 'title' => 'A Photo upload',
                 'body' => "Uploading a pretty picture via the api",
                 'photo' => \Idno\Core\WebserviceFile::createFromCurlString("@" . dirname(__FILE__) . "/" . self::$file . ";filename=Photo.jpg;type=image/jpeg")
@@ -27,11 +28,11 @@ namespace Tests\API {
 
             $content = json_decode($result['content']);
             $response = $result['response'];
-            
-            $this->assertTrue(empty($result['error']));
-            $this->assertTrue(!empty($content));
-            $this->assertTrue(!empty($content->location));
-            $this->assertTrue($response == 200);
+
+            $this->assertTrue(empty($result['error']), 'The result should not contain an error property.');
+            $this->assertTrue(!empty($content), 'Retrieved content should not be empty. Have you set the KNOWN_DOMAIN environment variable? Endpoint: ' . $endpoint);
+            $this->assertTrue(!empty($content->location), 'Response should contain the location of the post.');
+            $this->assertTrue($response == 200, 'The response should have returned a 200 HTTP response.');
         }
     }
 }
