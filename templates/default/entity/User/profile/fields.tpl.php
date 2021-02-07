@@ -1,4 +1,3 @@
-XX
 <?php
 
 # Sourced from:
