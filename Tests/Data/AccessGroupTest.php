@@ -61,24 +61,24 @@ namespace Tests\Data {
 
             // Check that B can't access object
             $tmp = \Idno\Entities\GenericDataItem::getByUUID($obj->getUUID());
-            $this->assertTrue(empty($tmp));
+            $this->assertEmpty($tmp, 'User A should not be able to access an object with an access group they are not a part of.');
 
             // Check that A can
             $b = $this->swapUser($a);
             $tmp = \Idno\Entities\GenericDataItem::getByUUID($obj->getUUID());
             var_export($tmp);
-            $this->assertTrue(!empty($tmp));
+            $this->assertNotEmpty($tmp, 'User B should be able to access an object with an access group they are a part of.');
 
             // Check Admin can always read
             $admin = $this->admin();
             $this->swapUser($admin);
 
             $tmp = \Idno\Entities\GenericDataItem::getByUUID($obj->getUUID());
-            $this->assertFalse(empty($tmp));
+            $this->assertFalse(empty($tmp), 'Admins should always be able to read data.');
 
             // Test objects in this UUID
             $objs = \Idno\Entities\AccessGroup::getByAccessGroup(self::$acl->getUUID());
-            $this->assertTrue(count($objs) == 1);
+            $this->assertEquals(count($objs), 1,  'Exactly 1 entity with the specified UUID should have been retrieved.');
 
             $obj->delete();
 
@@ -101,20 +101,20 @@ namespace Tests\Data {
 
             // Check that B can't access object
             $tmp = \Idno\Entities\GenericDataItem::getByUUID($obj->getUUID());
-            $this->assertTrue(empty($tmp));
+            $this->assertEmpty($tmp, 'User B should not be able to access the specified object because they do not have access.');
 
             // Check that A can
             $b = $this->swapUser($a);
             $tmp = \Idno\Entities\GenericDataItem::getByUUID($obj->getUUID());
             var_export($tmp);
-            $this->assertTrue(!empty($tmp));
+            $this->assertNotEmpty($tmp, 'User A should be able to access the specified object because they have access.');
 
             // Check Admin can always read
             $admin = $this->admin();
             $this->swapUser($admin);
 
             $tmp = \Idno\Entities\GenericDataItem::getByUUID($obj->getUUID());
-            $this->assertFalse(empty($tmp));
+            $this->assertFalse(empty($tmp), 'Admins should always be able to see objects.');
 
             $obj->delete();
 
@@ -145,7 +145,7 @@ namespace Tests\Data {
             $id2 = $obj2->save();
 
             // Make sure they don't have the same URL
-            $this->assertFalse($obj->getUrl() == $obj2->getUrl());
+            $this->assertFalse($obj->getUrl() == $obj2->getUrl(), 'Even when we cannot see an object, duplicate slugs should not be possible.');
 
             $admin = $this->admin();
             $this->swapUser($admin);
@@ -164,10 +164,10 @@ namespace Tests\Data {
             $db = \Idno\Core\Idno::site()->db();
 
             $old = $db->setIgnoreAccess(true);
-            $this->assertTrue($db->getIgnoreAccess());
+            $this->assertTrue($db->getIgnoreAccess(), 'When setting ignore access to true, getIgnoreAccess should return true.');
 
             $old = $db->setIgnoreAccess($old);
-            $this->assertFalse($db->getIgnoreAccess());
+            $this->assertFalse($db->getIgnoreAccess(), 'When setting ignore access to false, getIgnoreAccess should return false.');
 
         }
 

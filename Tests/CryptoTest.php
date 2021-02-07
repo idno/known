@@ -13,7 +13,7 @@ namespace Tests {
          */
         public function testOpenSSLExists()
         {
-            $this->assertTrue(function_exists('openssl_random_pseudo_bytes'));
+            $this->assertTrue(function_exists('openssl_random_pseudo_bytes'), 'openssl_random_pseudo_bytes must exist. OpenSSL may not be installed.');
         }
 
         /**
@@ -23,7 +23,7 @@ namespace Tests {
         {
             $bytes = openssl_random_pseudo_bytes(32, $cstrong);
 
-            $this->assertTrue($cstrong);
+            $this->assertTrue($cstrong, 'OpenSSL should return a series of random bytes.');
         }
 
         /**
@@ -31,7 +31,7 @@ namespace Tests {
          */
         public function testRandomEntropy()
         {
-            $this->assertTrue(getrandmax() > 32767);
+            $this->assertTrue(getrandmax() > 32767, 'We need to be able to generate more than a 32-bit random number.');
         }
 
         /**
@@ -39,9 +39,8 @@ namespace Tests {
          */
         public function testSiteSecret()
         {
-            $this->assertTrue((strlen(\Idno\Core\Idno::site()->config()->site_secret)>=64));
+            $this->assertTrue((strlen(\Idno\Core\Idno::site()->config()->site_secret)>=64), 'The site secret should have been generated and reasonably strong.');
         }
-
 
         /**
          * Bonita now requires sha256
@@ -49,7 +48,7 @@ namespace Tests {
         public function testAssertSha256()
         {
 
-            $this->assertTrue(in_array('sha256', hash_algos()));
+            $this->assertTrue(in_array('sha256', hash_algos()), 'We need sha256 to be supported.');
         }
 
         /**
@@ -62,7 +61,7 @@ namespace Tests {
                 $secret = "secret";
 
                 $result = hash($algo, $secret);
-                $this->assertTrue(!empty($result));
+                $this->assertNotEmpty($result, $algo . ' should return a hashed result.');
             }
         }
 

@@ -83,7 +83,8 @@
         "idno/console-periodicexecutionservice": "^0.9.10",
         "idno/console-statistics": "^1.0",
         "idno/console-import": "^1.0",
-        "idno/console-export": "^1.0"
+        "idno/console-export": "^1.0",
+        "vlucas/phpdotenv": "^5.3"
     },
     "license": "Apache-2.0",
     "prefer-stable": true,
