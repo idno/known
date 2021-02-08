@@ -74,7 +74,7 @@ namespace Tests\Data {
             $this->swapUser($admin);
 
             $tmp = \Idno\Entities\GenericDataItem::getByUUID($obj->getUUID());
-            $this->assertFalse(empty($tmp), 'Admins should always be able to read data.');
+            $this->assertNotEmpty($tmp, 'Admins should always be able to read data.');
 
             // Test objects in this UUID
             $objs = \Idno\Entities\AccessGroup::getByAccessGroup(self::$acl->getUUID());
@@ -114,7 +114,7 @@ namespace Tests\Data {
             $this->swapUser($admin);
 
             $tmp = \Idno\Entities\GenericDataItem::getByUUID($obj->getUUID());
-            $this->assertFalse(empty($tmp), 'Admins should always be able to see objects.');
+            $this->assertNotEmpty($tmp, 'Admins should always be able to see objects.');
 
             $obj->delete();
 

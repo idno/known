@@ -31,7 +31,7 @@ namespace Tests {
          */
         public function testRandomEntropy()
         {
-            $this->assertTrue(getrandmax() > 32767, 'We need to be able to generate more than a 32-bit random number.');
+            $this->assertGreaterThan(32767, getrandmax(), 'We need to be able to generate more than a 32-bit random number.');
         }
 
         /**
@@ -48,7 +48,7 @@ namespace Tests {
         public function testAssertSha256()
         {
 
-            $this->assertTrue(in_array('sha256', hash_algos()), 'We need sha256 to be supported.');
+            $this->assertContains('sha256', hash_algos(), 'We need sha256 to be supported.');
         }
 
         /**

@@ -44,7 +44,7 @@ namespace Tests\Data {
             if (is_callable([\Idno\Core\Idno::site()->db(), 'getVersions'])) {
                 $versions = \Idno\Core\Idno::site()->db()->getVersions();
 
-                $this->assertTrue(is_array($versions), 'When versions are callable, getVersions should return all version data.');
+                $this->assertIsArray($versions, 'When versions are callable, getVersions should return all version data.');
             }
         }
 
@@ -54,9 +54,9 @@ namespace Tests\Data {
         public function testCreateObject()
         {
             // Verify
-            $this->assertFalse(empty(self::$id));
-            $this->assertTrue(is_string(self::$uuid));
-            $this->assertTrue(is_string(self::$url));
+            $this->assertNotEmpty(self::$id);
+            $this->assertIsString(self::$uuid);
+            $this->assertIsString(self::$url);
 
             $this->validateObject(self::$object);
         }
@@ -92,10 +92,10 @@ namespace Tests\Data {
         {
             $arr = \Idno\Core\Idno::site()->db()->getAnyRecord();
 
-            $this->assertFalse(empty($arr));
-            $this->assertTrue(is_array($arr));
+            $this->assertNotEmpty($arr);
+            $this->assertIsArray($arr);
             $obj = \Idno\Core\Idno::site()->db()->rowToEntity($arr);
-            $this->assertTrue(is_object($obj));
+            $this->assertIsObject($obj);
         }
 
         /**
@@ -132,7 +132,7 @@ namespace Tests\Data {
             $this->assertEmpty($null,);
 
             $objs = \Idno\Entities\GenericDataItem::get(['variable1' => 'test']);
-            $this->assertTrue(is_array($objs), 'Should have returned an array of objects.');
+            $this->assertIsArray($objs, 'Should have returned an array of objects.');
             $this->validateObject($objs[0]);
         }
 
@@ -143,7 +143,7 @@ namespace Tests\Data {
             $this->assertEmpty($null, 'We should not have retrieved any entities.');
 
             $objs = \Idno\Entities\GenericDataItem::get(['variable1' => 'test', 'variable2' => 'test again']);
-            $this->assertTrue(is_array($objs), 'We should have retrieved entities.');
+            $this->assertIsArray($objs, 'We should have retrieved entities.');
             $this->validateObject($objs[0]);
         }
 
@@ -156,7 +156,7 @@ namespace Tests\Data {
             $search['rangeVariable']['$gt'] = 'a';
 
             $count = \Idno\Entities\GenericDataItem::countFromX('Idno\Entities\GenericDataItem', $search);
-            $this->assertTrue(is_int($count), 'A count of entities should be an integer.');
+            $this->assertIsInt($count, 'A count of entities should be an integer.');
             $this->assertEquals($count, 1,  '1 entity should match our query.');
         }
 
@@ -168,7 +168,7 @@ namespace Tests\Data {
             $search['rangeVariable']['$gt'] = 'c';
 
             $count = \Idno\Entities\GenericDataItem::countFromX('Idno\Entities\GenericDataItem', $search);
-            $this->assertTrue(is_int($count), 'A count of entities should be an integer.');
+            $this->assertIsInt($count, 'A count of entities should be an integer.');
             $this->assertEquals($count, 0,  'No entities should match our query.');
         }
 
@@ -179,12 +179,12 @@ namespace Tests\Data {
             $search = \Idno\Core\Idno::site()->db()->createSearchArray("sear");
 
             $count = \Idno\Entities\GenericDataItem::countFromX('Idno\Entities\GenericDataItem', $search);
-            $this->assertTrue(is_int($count));
-            $this->assertTrue($count > 0);
+            $this->assertIsInt($count);
+            $this->assertGreaterThan(0, $count);
 
             $feed = \Idno\Entities\GenericDataItem::getFromX('Idno\Entities\GenericDataItem', $search);
-            $this->assertTrue(is_array($feed), 'A feed should be an array.');
-            $this->assertTrue(($feed[0] instanceof \Idno\Entities\GenericDataItem), 'Items in the feed should be of type GenericDataItem.');
+            $this->assertIsArray($feed, 'A feed should be an array.');
+            $this->assertInstanceOf('\Idno\Entities\GenericDataItem', $feed[0], 'Items in the feed should be of type GenericDataItem.');
         }
 
         public function testSearchLong()
@@ -212,12 +212,12 @@ namespace Tests\Data {
             $search = \Idno\Core\Idno::site()->db()->createSearchArray("language");
 
             $count = \Idno\Entities\GenericDataItem::countFromX('Idno\Entities\GenericDataItem', $search);
-            $this->assertTrue(is_int($count), 'A count of entities should be an integer.');
-            $this->assertTrue($count > 0, 'We should have matched a non-zero number of entities.');
+            $this->assertIsInt($count, 'A count of entities should be an integer.');
+            $this->assertGreaterThan(0, $count, 'We should have matched a non-zero number of entities.');
 
             $feed = \Idno\Entities\GenericDataItem::getFromX('Idno\Entities\GenericDataItem', $search);
-            $this->assertTrue(is_array($feed), 'A feed should be an array.');
-            $this->assertTrue(($feed[0] instanceof \Idno\Entities\GenericDataItem), 'The first item in the feed should be a GenericDataItem.');
+            $this->assertIsArray($feed, 'A feed should be an array.');
+            $this->assertInstanceOf('\Idno\Entities\GenericDataItem', $feed[0], 'The first item in the feed should be a GenericDataItem.');
 
             // Clean up
             if (static::$fts_objects) {
@@ -231,8 +231,8 @@ namespace Tests\Data {
         {
             $cnt = \Idno\Entities\GenericDataItem::count(['variable1' => 'test']);
 
-            $this->assertTrue(is_int($cnt), 'A count of entities should be an array.');
-            $this->assertTrue($cnt > 0, 'We should have matched a non-zero number of entities.');
+            $this->assertIsInt($cnt, 'A count of entities should be an array.');
+            $this->assertGreaterThan(0, $cnt, 'We should have matched a non-zero number of entities.');
         }
 
         /**
@@ -243,7 +243,7 @@ namespace Tests\Data {
 
             var_export($obj);
             var_export(self::$uuid);
-            $this->assertTrue($obj instanceof \Idno\Entities\GenericDataItem);
+            $this->assertInstanceOf('\Idno\Entities\GenericDataItem', $obj);
 
             $this->assertEquals("" . self::$object->getID(), "" . $obj->getID(), 'The object should have a matching ID.');
             $this->assertEquals("" . self::$id, "" . $obj->getID(), 'The object should have a matching ID.');

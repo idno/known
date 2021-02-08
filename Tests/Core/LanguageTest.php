@@ -45,9 +45,9 @@ namespace Tests\Core {
             echo "\nFrench: " . $french->_('Hello!');
 
             $txt = $english->_('Hello!');
-            $this->assertFalse(empty($txt), 'A translation for "Hello!" should have been found in the English language.');
+            $this->assertNotEmpty($txt, 'A translation for "Hello!" should have been found in the English language.');
             $txt2 = $french->_('Hello!');
-            $this->assertFalse(empty($txt2), 'A translation for "Hello!" should have been found in the French language.');
+            $this->assertNotEmpty($txt2, 'A translation for "Hello!" should have been found in the French language.');
             $this->assertFalse($french->_('Hello!') == $english->_('Hello!'), 'The English translation should not have been the same as the French translation of "Hello!".');
         }
 

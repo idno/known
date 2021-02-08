@@ -17,7 +17,7 @@ namespace Tests\Core {
             $this->assertEquals($response, 403,  'The response should have returned a 403 HTTP response.');
 
             $user = \Tests\KnownTestCase::user();
-            $this->assertTrue(is_object(\Idno\Core\Idno::site()->session()->logUserOn($user)));
+            $this->assertIsObject(\Idno\Core\Idno::site()->session()->logUserOn($user));
 
             $result = \Idno\Core\Webservice::get(\Idno\Core\Idno::site()->config()->url . 'account/settings/', [], [
                 'X-KNOWN-USERNAME: ' . $user->handle,
@@ -41,7 +41,7 @@ namespace Tests\Core {
             $this->assertEquals($response, 403,  'The response should have returned a 403 HTTP response.');
 
             $user = \Tests\KnownTestCase::user();
-            $this->assertTrue(is_object(\Idno\Core\Idno::site()->session()->logUserOn($user)));
+            $this->assertIsObject(\Idno\Core\Idno::site()->session()->logUserOn($user));
 
             // Try normal user
             \Idno\Core\Idno::site()->session()->logUserOff();
@@ -57,7 +57,7 @@ namespace Tests\Core {
 
             // Try admin
             $user = \Tests\KnownTestCase::admin();
-            $this->assertTrue(is_object(\Idno\Core\Idno::site()->session()->logUserOn($user)));
+            $this->assertIsObject(\Idno\Core\Idno::site()->session()->logUserOn($user));
 
             $result = \Idno\Core\Webservice::get(\Idno\Core\Idno::site()->config()->url . 'admin/', [], [
                 'X-KNOWN-USERNAME: ' . $user->handle,
